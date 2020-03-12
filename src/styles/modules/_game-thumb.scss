@@ -1,0 +1,223 @@
+.wlc-game-catalog-wrapper {
+
+    > .wlc-wrp {
+        height: 100%;
+
+        > .wlc-game-thumb {
+            height: 100%;
+            //width: 100%;
+        }
+    }
+}
+
+.wlc-game-thumb {
+    background: getMapValue($wlcGameThumb, 'background');
+    border-radius: getMapValue($wlcGameThumb, 'borderRadius');
+    overflow: hidden;
+    box-shadow: getMapValue($wlcGameThumb, 'shadow');
+    display: flex;
+    flex-direction: column;
+
+    .wlc-wrp > & {
+        margin: 0 getMapValue($wlcGameThumb, 'spaceBetween');
+    }
+}
+
+.wlc-game-thumb__image {
+    cursor: pointer;
+    position: relative;
+    width: 100%;
+
+    .wlc-image-placeholder {
+        position: relative;
+        padding-top: 75%;
+    }
+
+    .wlc-game-thumb-image {
+        width: 100%;
+        height: 100%;
+        border: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+}
+
+.wlc-game-thumb__footer {
+    padding: 10px;
+    //height: getMapValue($wlcGameThumb, 'heightBottom');
+    flex-wrap: nowrap;
+    box-sizing: border-box;
+
+
+    @include max900 {
+        padding: {
+            top: 12px;
+            bottom: 12px;
+        }
+    }
+
+    .wlc-game-thumb__align-content {
+        width: 100%;
+    }
+}
+
+.wlc-game-thumb__align-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+$wlcThumbTitleWidth: 60%;
+
+.wlc-game-thumb-title {
+    display: flex;
+    width: $wlcThumbTitleWidth;
+    flex-basis: $wlcThumbTitleWidth;
+    align-items: center;
+    flex-direction: column;
+    flex-grow: 1;
+
+    .wlc-mobile & {
+        justify-content: center;
+    }
+}
+
+.wlc-game-thumb-title__name,
+.wlc-game-thumb-title__name a {
+    white-space: normal;
+    font-size: getMapValue($wlcGameThumb, 'nameSize');
+    overflow: hidden;
+    font-weight: getMapValue($wlcGameThumb, 'nameWeight');
+    color: getMapValue($wlcGameThumb, 'nameColor');
+    max-height: getMapValue($wlcGameThumb, 'nameSize') * 2 * 1.25;
+    text-overflow: ellipsis;
+
+    @include max900 {
+        font-size: getMapValue($wlcGameThumb, 'nameSize') * 0.7;
+        //white-space: normal;
+        text-align: center;
+        font-weight: 400;
+        display: block;
+        max-height: getMapValue($wlcGameThumb, 'nameSize') * 0.7 * 2.55;
+        //line-height: getMapValue($wlcGameThumb, 'nameSize') * .7;
+        margin-bottom: 0;
+    }
+}
+
+.wlc-game-thumb-title__alias {
+    color: getMapValue($wlcGameThumb, 'categoryColor');
+    font-size: getMapValue($wlcGameThumb, 'categorySize');
+    font-weight: getMapValue($wlcGameThumb, 'categoryWeight');
+    margin-top: 0.5rem;
+    font-style: italic;
+
+    @include max900 {
+        font-size: getMapValue($wlcGameThumb, 'categorySize') * 0.7;
+        text-align: center;
+    }
+}
+
+.wlc-game-thumb-title__merchant {
+    color: getMapValue($wlcGameThumb, 'categoryColor');
+    font-size: getMapValue($wlcGameThumb, 'categorySize');
+    font-weight: getMapValue($wlcGameThumb, 'categoryWeight');
+    margin-top: 0.5rem;
+    font-style: italic;
+}
+
+.wlc-game-thumb-buttons {
+    display: flex;
+    align-items: flex-end;
+    margin-top: 1.5rem;
+    flex-grow: 0;
+
+    @include max900 {
+        display: none !important;
+    }
+
+    .wlc-wrp {
+        margin-bottom: 8px;
+    }
+
+    a {
+        display: block;
+    }
+}
+
+.wlc-btn_demo {
+
+    .wlc-game-category_livecasino & {
+        display: none;
+    }
+}
+
+
+@if (getMapValue($wlcGameThumb, 'btnStyle') == vertical) {
+
+    .wlc-game-thumb__footer {
+        flex-direction: column;
+        flex-grow: 1;
+    }
+
+    .wlc-game-thumb__align-content {
+        flex-grow: 1;
+    }
+
+    .wlc-game-thumb-title,
+    .wlc-game-thumb-buttons {
+        width: 100%;
+        flex-basis: auto;
+    }
+
+    .wlc-game-thumb-buttons {
+        display: flex;
+
+        .wlc-wrp {
+            margin-bottom: 0;
+            margin-right: 8px;
+
+            .wlc-btn {
+                padding: 0.2rem 1.5rem;
+            }
+        }
+    }
+}
+
+.wlc-game-thumb__labels-wrapper {
+    display: flex;
+    background: rgba(0, 0, 0, 0.7);
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    span {
+        margin: 5px;
+    }
+}
+
+.wlc-game-thumb_blink {
+    border: 1px solid #fffb00;
+
+    .wlc-game-thumb__labels-wrapper {
+        background-color: #fffb00;
+        color: #000;
+    }
+}
+
+
+.wlc-game-play-sidebar {
+
+    .wlc-game-thumb {
+
+        .wlc-game-thumb__footer {
+
+            .wlc-game-thumb-title {
+
+                .wlc-game-thumb-title__name {
+                    height: 24px;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,107 @@
+.wlc-game-thumb-slider {
+    margin-bottom: getMapValue($wlcHomeGameSlider, 'homeMarginBottom');
+
+    .wlc-game-thumb {
+
+        .wlc-mobile & {
+            width: 100%;
+            height: auto !important;
+        }
+
+        //width: calc(100% / #{getMapValue($wlcGamesPerLine, '1420')} - 30px);
+        //@each $value, $count in $wlcGamesPerLine {
+        //    @warn $count;
+        //    @include max-screen(getScreen('#{$value}')) {
+        //        width: calc(100% - 30px);
+        //    }
+        //}
+    }
+
+    .swiper-slide {
+        height: auto !important;
+
+        .wlc-mobile & {
+            display: flex;
+
+            .wlc-wrp {
+                width: 100%;
+                height: auto;
+                display: flex;
+            }
+        }
+    }
+
+    .wlc-slider-init {
+
+        .wlc-game-thumb {
+            //width: 100%;
+        }
+    }
+}
+
+.wlc-game-thumb-slider-content {
+    margin: 0 getMapValue($wlcGameThumb, 'spaceBetween') * -1;
+    max-width: initial;
+
+    .swiper-container {
+        padding-bottom: getMapValue($wlcGameThumb, 'paddingBottomRow');
+    }
+
+    .swiper-pagination-bullets {
+        bottom: getMapValue($wlcHomeGameSlider, 'homeBulletsBottom');
+    }
+
+    .swiper-pagination-progressbar {
+        top: initial;
+        width: inherit;
+        height: 4px;
+        bottom: 2.4rem;
+        left: getElementStyle('basePadding');
+        right: getElementStyle('basePadding');
+        border-radius: getMapValue($wlcBannersSlider, 'bulletSize') / 2;
+        overflow: hidden;
+        border: 1px solid transparentize(getBaseColor('primary'), 0.5);
+
+        span {
+            border-radius: getMapValue($wlcBannersSlider, 'bulletSize') / 2;
+            background: getBaseColor('primary');
+        }
+    }
+}
+
+.wlc-game-thumb-slider-header {
+    @extend %flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.wlc-game-thumb-slider-header__see-all {
+
+    @include max560 {
+        flex-grow: 0;
+
+        a {
+
+            > span:first-child {
+                display: none;
+            }
+        }
+    }
+
+    a {
+        color: getElementColor('text');
+        font-size: getFontSize('large');
+        white-space: nowrap;
+
+        &:hover {
+            color: getBaseColor('highlightMain');
+        }
+    }
+
+    svg {
+        display: inline-block;
+        pointer-events: all;
+        stroke: getElementColor('text');
+    }
+}

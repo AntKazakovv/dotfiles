@@ -1,0 +1,121 @@
+.wlc-animated-icon_arrow-to-arrow {
+    $wlcLineWidth: 2px;
+    $wlcIconWidth: 25px;
+    width: $wlcIconWidth;
+    height: 18px;
+    margin-left: 10px;
+
+    .wlc-animated-icon__line {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: $wlcIconWidth / 2;
+        height: $wlcLineWidth;
+        border-radius: $wlcLineWidth / 2;
+        transform-origin: center center;
+        transition: all 0.4s;
+    }
+
+    .wlc-animated-icon__line_1 {
+        width: $wlcIconWidth;
+        transform-origin: right center;
+        transform: translate3d(0%, 390%, 0) rotateZ(18deg) scaleX(1.05);
+
+        @include wlc-icon-hovered {
+            transform: translate3d(90%, 425%, 0) rotateZ(45deg) scaleX(1);
+            width: $wlcIconWidth / 2;
+        }
+    }
+
+    .wlc-animated-icon__line_2 {
+        width: $wlcIconWidth;
+        transform-origin: right center;
+        transform: translate3d(0%, 390%, 0) rotateZ(-18deg) scaleX(1.05);
+
+        @include wlc-icon-hovered {
+            transform: translate3d(90%, 375%, 0) rotateZ(-45deg) scaleX(1);
+            width: $wlcIconWidth / 2;
+        }
+    }
+
+    .wlc-animated-icon__line_3 {
+        transform-origin: left center;
+        transform: translate3d(5%, -15%, 0) rotateZ(48deg) scaleX(0.9);
+
+        .wlc-game-thumb-slider-header__see-all a:hover & {
+            transform: translate3d(0, 400%, 0) rotateZ(0deg) scaleX(1);
+        }
+
+        @include wlc-icon-hovered {
+            transform: translate3d(0, 400%, 0) rotateZ(0deg) scaleX(1);
+        }
+    }
+
+    .wlc-animated-icon__line_4 {
+        transform-origin: left center;
+        transform: translate3d(5%, 795%, 0) rotateZ(-48deg) scaleX(0.9);
+
+        @include wlc-icon-hovered {
+            transform: translate3d(80%, 400%, 0) rotateZ(0deg) scaleX(1);
+        }
+    }
+
+    .wlc-arrow {
+        background-color: transparent;
+
+        * {
+            stroke-linecap: round;
+            stroke-width: 2px;
+            @extend %transition;
+        }
+
+        .wlc-arrow-top__small {
+
+            &--hover {
+                opacity: 0;
+            }
+        }
+
+        .wlc-arrow-bottom__small {
+
+            &--hover {
+                opacity: 0;
+            }
+        }
+    }
+}
+
+.wlc-game-thumb-slider-header__see-all {
+
+    a:hover {
+
+        .wlc-arrow {
+            background-color: transparent;
+            stroke: getBaseColor('highlightMain');
+
+            .wlc-arrow-top {
+                transform: translate(-2px, 7px) rotate(-17.5deg);
+            }
+
+            .wlc-arrow-top__small {
+                opacity: 0;
+
+                &--hover {
+                    opacity: 1;
+                }
+            }
+
+            .wlc-arrow-bottom {
+                transform: translate(3px, -6.5px) rotate(18.5deg);
+            }
+
+            .wlc-arrow-bottom__small {
+                opacity: 0;
+
+                &--hover {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+}

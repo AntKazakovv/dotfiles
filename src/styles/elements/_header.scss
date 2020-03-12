@@ -1,0 +1,213 @@
+.wlc-header-main {
+    min-height: getMapValue($wlcHeaderMain, 'height');
+    position: relative;
+    z-index: 11;
+    justify-content: space-between;
+
+    @if (getMapValue($wlcHeaderMain, 'buttonsStyle') == clean) {
+
+        .wlc-btn {
+            background: none !important;
+            border: none !important;
+            box-shadow: none;
+            padding: {
+                left:  0;
+                right: 0;
+            }
+        }
+    }
+
+    > .col {
+        display: flex;
+        align-items: center;
+        padding: {
+            top: 8px;
+            bottom: 8px;
+        }
+    }
+
+    @include max900 {
+        display: flex;
+        justify-content: center;
+    }
+
+    &.wlc-overheight {
+        justify-content: center;
+    }
+}
+
+.wlc-header-main__block {
+    justify-content: flex-end;
+}
+
+.wlc-header-logo {
+    flex-grow: 0;
+
+    @include max900 {
+        justify-content: center;
+    }
+
+    img {
+        max-width: initial;
+        @include max480 {
+            max-width: 300px;
+        }
+        @include max360 {
+            max-width: 270px;
+        }
+    }
+}
+
+.wlc-header-left {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    justify-content: space-between;
+
+    @include max900 {
+        display: block !important;
+    }
+}
+
+.wlc-header-right {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-grow: initial;
+
+    @include max900 {
+        display: none !important;
+    }
+
+    .wlc-header-logo + & {
+        flex-grow: 1;
+    }
+
+    .wlc-header-main.wlc-overheight & {
+        justify-content: center;
+    }
+}
+
+.wlc-logo-wrp {
+    display: flex;
+    align-items: center;
+    max-width: 100%;
+}
+
+.wlc-logo__image {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    max-width: 100%;
+
+    .browser-firefox & {
+        flex-grow: 1;
+    }
+}
+
+.wlc-header-main__container {
+    @extend %flex;
+    align-items: center;
+    height: 100%;
+    flex-wrap: wrap;
+
+    @include max1200 {
+        justify-content: space-between;
+    }
+
+    @include max560 {
+        //flex-direction: column;
+    }
+
+    > .wlc-flex {
+        align-items: center;
+    }
+
+    .wlc-logo {
+        flex-grow: 1;
+
+        .wlc-application_auth & {
+            flex-grow: 0;
+        }
+    }
+
+    .wlc-login-buttons {
+        display: flex;
+
+        @include max1200 {
+            flex-wrap: wrap;
+        }
+    }
+
+    .wlc-login-button,
+    .wlc-login-button .wlc-wrapper {
+        @extend %flex;
+        align-items: center;
+        justify-content: space-between;
+
+        @include max900 {
+            flex-basis: 100%;
+            padding-bottom: 5px;
+        }
+    }
+
+    .wlc-btn_login {
+        margin: 0 2rem;
+
+        @include max720 {
+            margin: 0;
+        }
+    }
+
+    .wlc-user-stat {
+        flex-grow: 1;
+    }
+}
+
+$wlcStatUserNameScale: (
+    5: 100%,
+    10: 100%,
+    15: 100%,
+    20: 90%,
+    25: 80%,
+    30: 65%,
+    35: 60%,
+    40: 55%,
+    45: 50%,
+    50: 45%
+);
+
+$wlcStatUserEmailScale: (
+    5: 100%,
+    10: 100%,
+    15: 100%,
+    20: 100%,
+    25: 100%,
+    30: 100%,
+    35: 80%,
+    40: 70%,
+    45: 60%,
+    50: 50%
+);
+
+.wlc-user-stat__block-mini {
+    @each $step, $scale in $wlcStatUserNameScale {
+
+        .wlc-string-length__#{$step} {
+            font-size: $scale;
+        }
+    }
+}
+
+@include max560 {
+
+    .wlc-modal_password-recovery_step2 {
+        @each $step, $scale in $wlcStatUserEmailScale {
+
+            .wlc-string-length__#{$step} {
+                font-size: $scale;
+            }
+        }
+    }
+}

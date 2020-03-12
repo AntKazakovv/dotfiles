@@ -1,0 +1,55 @@
+.wlc-modal-partial-profile {
+
+    .modal-dialog {
+        max-width: 600px !important;
+    }
+
+    .wlc-modal__body {
+        padding: 30px 40px 40px;
+        padding-bottom: 0;
+    }
+
+    .wlc-modal__footer {
+        padding-top: 10px;
+    }
+
+    .wlc-profile-edit-block {
+        margin-bottom: 0;
+    }
+
+    .form-control-errors {
+        line-height: 1.1;
+    }
+
+    .wlc-profile-edit-delimeter {
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+
+    .wlc-profile-edit-fields {
+
+        &.two-cols {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+
+            .wlc-profile-edit-fields__item {
+                flex-basis: 48%;
+                width: 48%;
+
+                @include max560 {
+                    flex-basis: 100%;
+                    width: 100%;
+                }
+            }
+
+            &.full-last {
+
+                .wlc-profile-edit-fields__item:last-child {
+                    flex-basis: 100%;
+                    width: 100%;
+                }
+            }
+        }
+    }
+}

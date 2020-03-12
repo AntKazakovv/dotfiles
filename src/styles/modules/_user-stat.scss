@@ -1,0 +1,121 @@
+.wlc-user-stat {
+    color: getElementColor('text');
+    justify-content: flex-end;
+    flex-wrap: nowrap;
+    align-items: center;
+
+    @include max900 {
+        display: none;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .wlc-title {
+
+        @include max560 {
+            display: none;
+        }
+    }
+}
+
+.wlc-user-stat__block {
+    border-right: 1px solid getElementColor('border');
+    padding: 0 20px;
+    display: flex;
+    align-items: flex-end;
+    //max-width: 270px;
+
+    .browser-microsoftedge & {
+        flex-basis: content;
+    }
+
+    .browser-internetexplorer & {
+        display: block;
+        flex-basis: auto;
+    }
+
+    @include max1420 {
+        padding: 0 10px;
+        font-size: 2.2rem;
+    }
+
+    @include max900 {
+        justify-content: center;
+    }
+
+    &:last-child {
+        border-right: none;
+    }
+}
+
+.wlc-user-stat__block-left {
+    @include max560 {
+        max-width: 40%;
+    }
+}
+
+.wlc-user-stat__block-right {
+    white-space: nowrap;
+
+    @include max560 {
+        max-width: 60%;
+    }
+}
+
+.wlc-user-stat__block-middle {
+
+    @include max640 {
+        display: none;
+    }
+
+    .wlc-user-stat-items__item {
+
+        span {
+            //margin-left: 1rem;
+        }
+    }
+}
+
+.wlc-user-stat-items {
+    max-width: 100%;
+    height: 100%;
+}
+
+.wlc-user-stat-items__item {
+    @extend %flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.7rem;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 100%;
+
+    @include max1420 {
+        margin-bottom: 0.7rem;
+    }
+
+    .wlc-btn {
+        margin-right: 15px;
+
+        &:last-child {
+            margin-right: 0;
+        }
+
+        @include max560 {
+            @include wlcBtnSize(getMapValue($wlcBtnSizes, 'small'));
+            padding: 0;
+        }
+
+        @include max360 {
+            font-size: getFontSize('xsmall');
+        }
+    }
+
+    span {
+        max-width: 300px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+}
+
+

@@ -1,0 +1,273 @@
+.wlc-user-stat__block-dropdown {
+    position: relative;
+
+    .wlc-user-stat__block-deposit {
+        display: flex;
+
+        .wlc-user-stat__button {
+            position: relative;
+            display: flex;
+            align-items: center;
+            color: getMapValue($wlcUserStatDropdown, 'depositBtnColor');
+            font: {
+                size: getMapValue($wlcUserStatDropdown, 'depositBtnSize');
+                weight: getMapValue($wlcUserStatDropdown, 'depositBtnWeight');
+            };
+            border: getMapValue($wlcUserStatDropdown, 'depositBtnBorder');
+            border-radius: getMapValue($wlcUserStatDropdown, 'depositBtnBorderRadius');
+            @extend %transition;
+
+            &:hover {
+                cursor: pointer;
+
+                .wlc-user-stat__button-text {
+                    background: getMapValue($wlcUserStatDropdown, 'depositBtnBgHover');
+                }
+
+                .wlc-user-stat__button-info {
+                    z-index: 10;
+                    opacity: 1;
+                    visibility: visible;
+                    transform: translate(-50%, 0);
+                }
+            }
+        }
+
+        .wlc-user-stat__button-text {
+            padding: getMapValue($wlcUserStatDropdown, 'depositBtnPadding');
+            background: getMapValue($wlcUserStatDropdown, 'depositBtnBg');
+            border-radius: getMapValue($wlcUserStatDropdown, 'depositBtnBorderRadius');
+            @extend %transition;
+        }
+
+        .wlc-user-stat__button-amount {
+            padding: getMapValue($wlcUserStatDropdown, 'depositBtnPadding');
+            display: flex;
+            align-items: center;
+        }
+
+        .wlc-user-stat__button-info {
+            position: absolute;
+            top: calc(100% + 20px);
+            left: 50%;
+            background-color: getMapValue($wlcUserStatDropdown, 'depositBtnInfoBg');
+            border: getMapValue($wlcUserStatDropdown, 'depositBtnInfoBorder');
+            border-radius: getMapValue($wlcUserStatDropdown, 'depositBtnInfoBorderRadius');
+            opacity: 0;
+            visibility: hidden;
+            transform: translate(-50%, 30px);
+            @extend %transition;
+
+            &:before {
+                content: '';
+                position: absolute;
+                top: -10px;
+                left: 50%;
+                width: 0;
+                height: 0;
+                border-left: 10px solid transparent;
+                border-right: 10px solid transparent;
+                border-bottom: 10px solid getMapValue($wlcUserStatDropdown, 'depositBtnInfoArrow');
+                transform: translateX(-50%);
+            }
+
+            .wlc-all-balances-block__item {
+                padding: 5px 10px;
+                display: flex;
+                align-items: center;
+
+                > * {
+                    white-space: nowrap;
+                }
+            }
+
+            .wlc-all-balances-block__label {
+                flex-grow: 1;
+                padding-right: 10px;
+                text-align: left;
+            }
+        }
+    }
+
+    .dropdown {
+        position: relative;
+
+        &.open {
+
+            .wlc-user-stat__block-username {
+
+                button {
+                    border-color: getMapValue($wlcUserStatDropdown, 'usernameBorderActive');
+
+                    .wlc-arrow {
+
+                        svg {
+                            transform: rotate(-180deg);
+                        }
+                    }
+                }
+            }
+
+            .wlc-user-stat__block-menu {
+                transform: rotateX(0deg);
+            }
+        }
+    }
+}
+
+.wlc-user-stat__block-row {
+    display: flex;
+    align-items: center;
+}
+
+.wlc-user-stat__block-username {
+    margin: getMapValue($wlcUserStatDropdown, 'usernameMargin');
+
+    button {
+        padding: getMapValue($wlcUserStatDropdown, 'usernamePadding');
+        display: flex;
+        align-items: center;
+        color: getMapValue($wlcUserStatDropdown, 'usernameColor');
+        font: {
+            size: getMapValue($wlcUserStatDropdown, 'usernameSize');
+            weight: getMapValue($wlcUserStatDropdown, 'usernameWeight');
+        };
+        background: getMapValue($wlcUserStatDropdown, 'usernameBg');
+        border: getMapValue($wlcUserStatDropdown, 'usernameBorder');
+        border-radius: getMapValue($wlcUserStatDropdown, 'usernameBorderRadius');
+        @extend %transition;
+
+        span {
+            display: block;
+
+            &:not(.wlc-arrow) {
+                display: block;
+                max-width: 150px;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+            }
+        }
+
+        .wlc-arrow {
+            margin-left: 10px;
+            width: 12px;
+            height: 7px;
+
+            svg {
+                display: block;
+                width: 100%;
+                height: 100%;
+                fill: getMapValue($wlcUserStatDropdown, 'usernameArrowColor');
+                transition: transform 0.2s linear;
+            }
+        }
+    }
+}
+
+.wlc-user-stat__block-menu {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    min-width: getMapValue($wlcUserStatDropdown, 'menuMinWidth');
+    text-align: left;
+    background-color: getMapValue($wlcUserStatDropdown, 'menuBackground');
+    border: getMapValue($wlcUserStatDropdown, 'menuBorder');
+    border-radius: getMapValue($wlcUserStatDropdown, 'menuBorderRadius');
+    overflow: hidden;
+    transform: rotateX(-90deg);
+    transform-origin: top;
+    transition: transform 0.2s linear;
+}
+
+.wlc-user-stat__menu-greeting {
+    padding: getMapValue($wlcUserStatDropdown, 'menuGreetingPadding');
+    max-width: (getMapValue($wlcUserStatDropdown, 'menuMinWidth') - 10);
+    color: getMapValue($wlcUserStatDropdown, 'menuGreetingColor');
+    font: {
+        size: getMapValue($wlcUserStatDropdown, 'menuGreetingSize');
+        weight: getMapValue($wlcUserStatDropdown, 'menuGreetingWeight');
+        style: getMapValue($wlcUserStatDropdown, 'menuGreetingStyle');
+    };
+    border-bottom: getMapValue($wlcUserStatDropdown, 'menuGreetingBorder');
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.wlc-user-stat__menu-loyalty {
+    margin: getMapValue($wlcUserStatDropdown, 'menuLoyaltyMargin');
+    padding: getMapValue($wlcUserStatDropdown, 'menuLoyaltyPadding');
+    background-color: getMapValue($wlcUserStatDropdown, 'menuLoyaltyBackground');
+    border: getMapValue($wlcUserStatDropdown, 'menuLoyaltyBorder');
+    border-radius: getMapValue($wlcUserStatDropdown, 'menuLoyaltyBorderRadius');
+
+    .wlc-user-stat__menu-item {
+        padding: getMapValue($wlcUserStatDropdown, 'menuLoyaltyItemPadding');
+        color: getMapValue($wlcUserStatDropdown, 'menuItemColor');
+        font: {
+            size: getMapValue($wlcUserStatDropdown, 'menuItemSize');
+            weight: getMapValue($wlcUserStatDropdown, 'menuItemWeight');
+            style: getMapValue($wlcUserStatDropdown, 'menuItemStyle');
+        };
+        border: 0;
+    }
+}
+
+.wlc-user-stat__menu-item {
+    border-bottom: getMapValue($wlcUserStatDropdown, 'menuItemBorder');
+
+    &:last-child {
+        border-bottom: 0;
+    }
+
+    a {
+        padding: getMapValue($wlcUserStatDropdown, 'menuItemPadding');
+        display: flex;
+        align-items: center;
+        color: getMapValue($wlcUserStatDropdown, 'menuItemColor');
+        font: {
+            size: getMapValue($wlcUserStatDropdown, 'menuItemSize');
+            weight: getMapValue($wlcUserStatDropdown, 'menuItemWeight');
+            style: getMapValue($wlcUserStatDropdown, 'menuItemStyle');
+        };
+        @extend %transition;
+
+        &:hover {
+            color: fade-out(getMapValue($wlcUserStatDropdown, 'menuItemColor'), 0.3);
+            background-color: getMapValue($wlcUserStatDropdown, 'menuItemHover');
+        }
+    }
+
+    &.wlc-logout-link {
+
+        a {
+            color: getMapValue($wlcUserStatDropdown, 'menuItemLogoutColor');
+
+            .wlc-icon-logout {
+                margin: 0 5px 0 0;
+                display: block;
+                line-height: 16px;
+
+                svg {
+                    display: block;
+                    width: 16px;
+                    height: 16px;
+                    fill: getMapValue($wlcUserStatDropdown, 'menuItemLogoutColor');
+                    @extend %transition;
+                }
+            }
+
+            &:hover {
+                color: fade-in(getMapValue($wlcUserStatDropdown, 'menuItemLogoutColor'), 0.2);
+
+                .wlc-icon-logout {
+
+                    svg {
+                        fill: fade-in(getMapValue($wlcUserStatDropdown, 'menuItemLogoutColor'), 0.2);
+                    }
+                }
+            }
+        }
+    }
+}

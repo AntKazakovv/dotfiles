@@ -1,0 +1,32 @@
+.wlc-form-element__back {
+    @extend %link;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    span {
+        font-size: getFontSize('medium');
+    }
+
+    svg {
+        display: inline-block;
+        transform: rotateY(180deg);
+        transform-origin: center;
+        fill: getElementColor('link');
+        margin-right: 10px;
+    }
+}
+
+.wlc-form-block__phone {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.wlc-form-block__number {
+    width: 69%;
+}
+
+.wlc-form-block__code {
+    width: 29%;
+}

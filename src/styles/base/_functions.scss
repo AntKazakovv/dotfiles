@@ -1,0 +1,78 @@
+@function getMapValue($mapName, $varName) {
+    @if (map-has-key($mapName, $varName)) {
+        @if (type-of(map-get($mapName, $varName)) == map and map-has-key(map-get($mapName, $varName), 'value')) {
+            @return map-get(map-get($mapName, $varName), 'value');
+        } @else {
+            @return map-get($mapName, $varName);
+        }
+    } @else {
+        @return '';
+    }
+}
+
+@function mapMerge($oldMap, $newMap) {
+    @each $key, $value in $newMap {
+        $oldMap: map-merge($oldMap, ($key:('value': $value)));
+    }
+    @return $oldMap;
+}
+
+@function getBaseColor($name) {
+    @return getMapValue($wlcBaseColors, $name);
+}
+
+@function getElementColor($name) {
+    @return getMapValue($wlcElementsColors, $name);
+}
+
+@function getElementStyle($name) {
+    @return getMapValue($wlcElementsStyles, $name);
+}
+
+@function getPath($name) {
+    @return getMapValue($wlcPath, $name);
+}
+
+@function wlcDebug($msg, $color) {
+    $debug: (
+        'content': $msg
+    );
+    @return 1;
+}
+
+@function getFontSize($name) {
+    @return getMapValue($wlcFontSize, $name);
+}
+
+@function getScreen($name) {
+    @return getMapValue($wlcScreen, $name);
+}
+
+@function getContainerWidth($name) {
+    @return getMapValue($wlcContainerWidth, $name);
+}
+
+@function ratio($name) {
+    @if getMapValue($wlcScreenRatio, $name) > 0 {
+        @return getMapValue($wlcScreenRatio, $name);
+    } @else {
+        @warn 'Error if Ratio function';
+        @return 1;
+    }
+}
+
+@function mapget($mapName, $varName) {
+    @return getMapValue($mapName, $varName);
+}
+
+@function wlctransparentize($color, $amount) {
+    @return transparentize($color, $amount);
+}
+
+@function wlclighten($color, $amount) {
+    @return lighten($color, $amount);
+}
+
+@function wlcdarken($color, $amount) {
+    @return darken($color, $amount);
+}

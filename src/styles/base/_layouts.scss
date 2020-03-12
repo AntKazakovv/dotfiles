@@ -1,0 +1,156 @@
+body {
+    //overflow: hidden;
+    background: getElementStyle('bodyBackground');
+
+    @if getElementStyle('bodyBackgroundColor') != inherit {
+        background-color: getElementStyle('bodyBackgroundColor');
+    }
+
+    &.wlc-mobile-menu-active,
+    &.modal-open.wlc-mobile {
+        overflow: hidden;
+        position: fixed;
+        max-width: 100vw;
+    }
+}
+
+div.wlc-application {
+    //overflow: auto;
+    //display: flex;
+    //flex-direction: column;
+}
+
+.wlc-row {
+    @include clearfix;
+    padding: 0;
+    display: block;
+}
+
+@mixin container {
+    width: getContainerWidth('1420') - (getElementStyle('basePadding') * 2);
+    max-width: getContainerWidth('1420') - (getElementStyle('basePadding') * 2);
+    margin: 0 auto;
+    padding: 0 getElementStyle('basePadding');
+    box-sizing: border-box;
+
+    .wlc-main-content-section & {
+        //padding: 0;
+    }
+
+    @include max1420 {
+        width: getContainerWidth('1366') - (getElementStyle('basePadding') * 2);
+        max-width: getContainerWidth('1366') - (getElementStyle('basePadding') * 2);
+    }
+
+    @include max1366 {
+        width: getContainerWidth('1200') - (getElementStyle('basePadding') * 2);
+        max-width: getContainerWidth('1200') - (getElementStyle('basePadding') * 2);
+    }
+
+    @include max1200 {
+        width: getContainerWidth('1024') - (getElementStyle('basePadding') * 2);
+        max-width: getContainerWidth('1024') - (getElementStyle('basePadding') * 2);
+    }
+
+    @include max1024 {
+        width: getContainerWidth('900') - (getElementStyle('basePadding') * 2);
+        max-width: getContainerWidth('900') - (getElementStyle('basePadding') * 2);
+    }
+
+    @include max900 {
+        width: getContainerWidth('768') - (getElementStyle('basePadding') * 2);
+        max-width: getContainerWidth('768') - (getElementStyle('basePadding') * 2);
+    }
+
+    @include max768 {
+        width: getContainerWidth('720') - (getElementStyle('basePadding') * 2);
+        max-width: getContainerWidth('720') - (getElementStyle('basePadding') * 2);
+    }
+
+    @include max720 {
+        width: getContainerWidth('640') - (getElementStyle('basePadding') * 2);
+        max-width: getContainerWidth('640') - (getElementStyle('basePadding') * 2);
+    }
+
+    @include max640 {
+        width: getContainerWidth('560') - (getElementStyle('basePadding') * 2);
+        max-width: getContainerWidth('560') - (getElementStyle('basePadding') * 2);
+    }
+
+    @include max560 {
+        width: getContainerWidth('480') - (getElementStyle('basePadding') * 2);
+        max-width: getContainerWidth('480') - (getElementStyle('basePadding') * 2);
+    }
+
+    @include max480 {
+
+        .wlc-main-content-section &,
+        .container-fluid > & {
+            padding: 0;
+        }
+
+        width: 100%;
+        max-width: 100%;
+    }
+}
+
+%container {
+    @include container;
+}
+
+.wlc-container,
+.container {
+    @extend %container;
+    color: getElementColor('text');
+}
+
+section {
+    position: relative;
+
+    &.wlc-top-promo-content {
+        z-index: 10;
+    }
+}
+
+.wlc-home-catalog {
+    padding-top: 2rem;
+
+    @include max560 {
+        padding-top: 1rem;
+    }
+}
+
+.wlc-header {
+    font-size: getFontSize('xxxlarge');
+    //flex-grow: 0;
+    text-align: center;
+    background: getMapValue($wlcHeaderMain, 'background');
+}
+
+.wlc-content {
+    min-width: 0;
+    flex-grow: 1;
+}
+
+.grow-0 {
+    flex-grow: 0;
+}
+
+.grow-1 {
+    flex-grow: 1;
+}
+
+.wlc-scroll-block {
+    overflow: auto;
+}
+
+.wlc-application,
+.wlc-application__container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.wlc-body__container .wlc-main-loader {
+    display: block;
+}
