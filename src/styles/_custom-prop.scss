@@ -1,0 +1,15 @@
+.wlc-custom-property__wlc-language-selector {
+    background-image: url("#{getMapValue($wlcLanguageSelector, 'style')}");
+}
+
+.wlc-custom-property__wlc-last-wins-wrapper {
+    background-image: url("#{getMapValue($wlcTopPromoLastWins, 'style')}");
+}
+
+.wlc-custom-property__wlc-signup-form {
+    background-image: url("#{getMapValue($wlcSignup, 'theme')}");
+}
+
+.wlc-custom-property__wlc-game-thumb {
+    background-image: url("#{getMapValue($wlcGameThumb, 'style')}");
+}

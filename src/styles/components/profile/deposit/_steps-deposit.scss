@@ -1,0 +1,283 @@
+/*
+ * ─────────────────────────────────────────────
+ * Step deposit main page
+ * ─────────────────────────────────────────────
+ */
+.wlc-steps-deposit-grid,
+.wlc-steps-withdraw-grid {
+    display: flex;
+    flex-direction: column;
+}
+
+.wlc-steps-deposit-content,
+.wlc-steps-withdraw-content {
+    display: flex;
+}
+
+.wlc-steps-deposit-content__steps,
+.wlc-steps-withdraw-content__steps {
+    display: flex;
+    flex-grow: 1;
+    padding: mapget($wlcProfileDeposit, 'stepBlockPadding');
+    background: mapget($wlcProfileDeposit, 'stepBlockBg');
+    border: mapget($wlcProfileDeposit, 'stepBlockBorder');
+    border-radius: mapget($wlcProfileDeposit, 'stepBlockBorderRadius');
+}
+
+.wlc-steps-deposit-content__bonus {
+    padding: mapget($wlcProfileDeposit, 'bonusBlockPadding');
+    background: mapget($wlcProfileDeposit, 'bonusBlockBg');
+    border: mapget($wlcProfileDeposit, 'bonusBlockBorder');
+    border-radius: mapget($wlcProfileDeposit, 'bonusBlockBorderRadius');
+}
+
+.wlc-step-deposit-bonus-empty {
+    display: flex;
+    flex-direction: column;
+}
+
+.wlc-step-deposit-bonus-empty__image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 0;
+
+    svg {
+
+        path {
+            fill: none;
+            stroke: mapget($wlcElementsColors, 'border');
+        }
+    }
+}
+
+.wlc-step-deposit-block,
+.wlc-step-withdraw-block {
+    display: flex;
+    flex-grow: 1;
+    width: 200px;
+    flex-direction: column;
+
+    &.wlc-step-deposit-block_systems,
+    &.wlc-step-deposit-block_amount,
+    &.wlc-step-withdraw-block_systems,
+    &.wlc-step-withdraw-block_amount {
+        width: 100%;
+    }
+}
+
+.wlc-step-deposit-block_empty-bonus {
+    justify-content: center;
+}
+
+.wlc-step-deposit-block_bonus {
+    display: flex;
+    flex-direction: column;
+}
+
+.wlc-step-deposit-block-step-name,
+.wlc-step-withdraw-block-step-name {
+    color: mapget($wlcProfileDeposit, 'stepBlockNameColor');
+    font: {
+        size: mapget($wlcProfileDeposit, 'stepBlockNameSize');
+        weight: mapget($wlcProfileDeposit, 'stepBlockNameWeight');
+    };
+    text-align: mapget($wlcProfileDeposit, 'stepBlockNameAlign');
+}
+
+.wlc-step-deposit-block-title,
+.wlc-step-withdraw-block-title {
+    color: mapget($wlcProfileDeposit, 'stepBlockTitleColor');
+    font: {
+        size: mapget($wlcProfileDeposit, 'stepBlockTitleSize');
+        weight: mapget($wlcProfileDeposit, 'stepBlockTitleWeight');
+    };
+    text-align: mapget($wlcProfileDeposit, 'stepBlockTitleAlign');
+}
+
+/*
+ * ─────────────────────────────────────────────
+ * Step deposit modal bonus
+ * ─────────────────────────────────────────────
+ */
+
+.wlc-modal-step-deposit-bonuses {
+
+    .wlc-modal__body {
+        padding: 0;
+        margin: 0;
+    }
+}
+
+.wlc-modal-step-bonuses-list {
+    border-top: mapget($wlcProfileDeposit, 'bonusesListBorder');
+    border-bottom: mapget($wlcProfileDeposit, 'bonusesListBorder');
+}
+
+.wlc-modal-step-bonuses-item {
+    display: flex;
+    padding: 10px 15px;
+    border-bottom: mapget($wlcProfileDeposit, 'bonusesListItemBorder');
+    cursor: default;
+    background: mapget($wlcProfileDeposit, 'bonusesListItemBg');
+
+    &:hover {
+        background: lighten(mapget($wlcProfileDeposit, 'bonusesListItemBg'), 10);
+    }
+}
+
+.wlc-modal-step-bonuses-item__image {
+    width: 80px;
+    height: 80px;
+    flex-grow: 0;
+}
+
+.wlc-modal-step-bonuses-item__description {
+    padding: mapget($wlcProfileDeposit, 'bonusesListItemDescPadding');
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-grow: 1;
+
+    h2 {
+        font-size: mapget($wlcProfileDeposit, 'bonusesListItemDescTitleSize');
+    }
+
+    p {
+        text-align: left;
+        font-size: mapget($wlcProfileDeposit, 'bonusesListItemDescTextSize');
+    }
+}
+
+.wlc-modal-step-bonuses-item__actions {
+    flex-grow: 0;
+}
+
+.wlc-modal-step-systems-list {
+    display: block;
+}
+
+/*
+ * ─────────────────────────────────────────────
+ * Step deposit main systems
+ * ─────────────────────────────────────────────
+ */
+.wlc-modal-step-systems-item {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 15px;
+    border-top: mapget($wlcProfileDeposit, 'stepListItemBorder');
+
+    &:last-child {
+        border-bottom: mapget($wlcProfileDeposit, 'stepListItemBorder');
+    }
+
+    background: mapget($wlcProfileDeposit, 'stepListItemBg');
+
+    &:hover,
+    &.wlc-active {
+        background: lighten(mapget($wlcProfileDeposit, 'stepListItemBg'), 10);
+    }
+
+    &.wlc-noactive {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+}
+
+.wlc-modal-step-systems-item__image {
+    width: calc(100% - 100px);
+}
+
+.wlc-modal-step-systems-item__actions {
+    width: 100px;
+}
+
+.wlc-modal-step-systems-item__additional {
+    width: 100%;
+    display: flex;
+    margin: 0 -15px;
+    flex-grow: 1;
+}
+
+.wlc-modal-step-deposit-systems-additional {
+
+    .wlc-modal-step-systems-item__additional {
+        display: block;
+        margin: 0;
+
+        .wlc-profile-payment-fields-item {
+            width: 100%;
+        }
+    }
+}
+
+.wlc-modal__body {
+
+    .wlc-modal-step-deposit-systems & {
+        padding: 0;
+    }
+}
+
+.wlc-profile-payment-fields-item {
+    width: 50%;
+    padding: 0 15px;
+}
+
+.wlc-input {
+
+    .wlc-profile-payment-fields-item & {
+        min-width: 100%;
+    }
+}
+
+.wlc-label {
+
+    .wlc-profile-payment-fields-item & {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+.wlc-payment-address-block {
+    position: relative;
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+
+    .wlc-btn_link {
+
+        margin-left: 1rem;
+
+        svg {
+            width: 24px;
+            height: 24px;
+            stroke: transparent;
+            fill: getMapValue($wlcBaseColors, 'highlightMain');
+
+            &:hover {
+                stroke: transparent;
+            }
+        }
+    }
+}
+
+.wlc-copied-tooltip {
+    position: absolute;
+    top: 100%;
+    font-size: 1.2rem;
+    padding: 0.5rem;
+    background-color: #000;
+    color: #fff;
+    opacity: 0;
+    transition: all 0.5s ease-in-out;
+    border-radius: 0.2rem;
+}
+
+.copied {
+
+    & + .wlc-copied-tooltip {
+        opacity: 1;
+    }
+}

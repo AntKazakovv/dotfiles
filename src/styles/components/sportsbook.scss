@@ -1,0 +1,26 @@
+.wlc-section_sportsbook {
+    position: relative;
+}
+
+#sb_container {
+
+    .browser-safari & {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    iframe {
+        position: relative;
+        min-height: 90vh;
+    }
+
+    .wlc-mobile & {
+
+        iframe {
+            min-height: 75vh;
+        }
+    }
+}

@@ -1,0 +1,83 @@
+// Variables
+$blockSmallWidth: 24%;
+$blockBigWidth: 50%;    // Use flex-basis: [50% for grid 2-4-2] and [100% for grid 2-2-2-2]
+$itemWidth: 48%;        // Use flex-basis: [48% for grid 2-4-2] and [24% for grid 2-2-2-2]
+
+// Grid
+.wlc-widgets__grid-wrap {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 50px;
+
+    @include max1024 {
+        flex-wrap: wrap;
+    }
+}
+
+// Widget header
+.wlc-widgets__grid-header {
+    font-size: 3rem;
+    color: #ffffff;
+    font-weight: bold;
+    text-align: center;
+    margin: 20px 0;
+}
+
+// Small block of widgets
+.wlc-widgets__grid-coll-small {
+    flex-basis: $blockSmallWidth;
+
+    .wlc-widgets__item {
+        height: 535px;
+        overflow: hidden;
+
+        @include max1200 {
+            height: 316px;
+        }
+
+        @include max1024 {
+            margin: 0 5px;    //For grid 2-4-2
+            //margin: 10px 5px; //For grid 1-1-1-1
+        }
+        @include max640 {
+            height: 100px;
+            margin: 0 0 10px 0;
+        }
+    }
+
+    @include max1024 {
+        order: 1;
+        flex-basis: 49%;
+    }
+
+    @include max640 {
+        order: 1;
+        flex-basis: 100%;
+
+        .wlc-widgets__bg_users {
+            height: 220px;
+        }
+    }
+}
+
+//Big block of widgets
+.wlc-widgets__grid-coll-big {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    flex-basis: $blockBigWidth;
+    margin: 0 10px;
+
+    @include max1024 {
+        margin: 0;
+        flex-basis: 100%;
+    }
+
+    .wlc-widgets__grid-cell {
+        flex-basis: $itemWidth;
+
+        @include max640 {
+            flex-basis: 100%;
+        }
+    }
+}

@@ -1,0 +1,158 @@
+.wlc-login-signup {
+    margin-bottom: 20px;
+    font-size: getFontSize('large');
+    text-align: right;
+
+    a {
+        color: getElementColor('link');
+    }
+}
+
+.wlc-login-wrapper {
+
+    .wlc-form_login {
+        @extend %flex;
+        flex-flow: wrap;
+    }
+
+    .wlc-form-separator {
+        flex-direction: column;
+    }
+
+    .wlc-form-separator__line {
+
+        &:before {
+            top: 0;
+            bottom: 0;
+            right: inherit;
+            left: 50%;
+            border-bottom: none;
+            border-left: 1px solid getElementColor('border');
+        }
+    }
+
+    .wlc-form-separator_top {
+        display: none;
+
+        & + div {
+            flex-basis: 45%;
+        }
+    }
+
+    .wlc-form-separator_bottom {
+        flex-basis: 10%;
+
+        .wlc-form-separator__text {
+            display: none;
+        }
+    }
+
+    .wlc-social {
+        flex-basis: 45%;
+
+        .wlc-social-button {
+            flex-basis: 48%;
+        }
+
+        .wlc-social-button__text {
+            font-size: getFontSize('medium');
+        }
+    }
+
+    .wlc-form-content {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .wlc-form-bottom {
+        text-align: center;
+        padding: {
+            top: 3rem;
+            bottom: 7rem;
+        };
+
+        .wlc-btn {
+            @include wlcBtnSize(getMapValue($wlcBtnSizes, 'xlarge'));
+        }
+    }
+
+    .wlc-form-block__restore {
+        margin-top: 0.7rem;
+        font-size: getFontSize('large');
+    }
+}
+
+.wlc-modal_login {
+
+    .wlc-modal-header {
+        color: getMapValue($wlcModal, 'textColor');
+        position: absolute;
+        z-index: 2;
+        top: 1.2rem;
+        left: 15px;
+        width: auto;
+        font-size: getFontSize('medium');
+        font-weight: normal;
+
+        span {
+            display: block;
+
+            @include max560 {
+                display: inline-block;
+            }
+        }
+
+        a {
+            color: getElementColor('link');
+            display: inline-block;
+        }
+
+        @include max900 {
+            top: 0.6rem;
+        }
+        @include max560 {
+            position: initial;
+            margin-bottom: 15px;
+        }
+    }
+
+    .wlc-form-content {
+        display: block;
+    }
+
+    .wlc-social {
+
+        .wlc-social-button {
+
+            .wlc-social-button__text {
+                font-size: getFontSize('small');
+            }
+        }
+    }
+
+    .wlc-form-separator__text {
+        color: getMapValue($wlcModal, 'textColor');
+    }
+
+    .wlc-form-separator__line {
+
+        &:before {
+            border-color: getMapValue($wlcModal, 'textColor');
+        }
+    }
+
+    .wlc-label {
+        color: getMapValue($wlcModal, 'textColor');
+    }
+}
+
+.wlc-modal_pay-for-free {
+
+    .wlc-separator {
+        margin-bottom: 3rem;
+    }
+
+    .wlc-form_login {
+        margin-top: 2rem;
+    }
+}

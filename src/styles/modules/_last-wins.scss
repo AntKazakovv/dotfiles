@@ -1,0 +1,412 @@
+.wlc-last-wins-wrapper {
+    min-height: getMapValue($wlcTopPromoLastWins, 'height');
+    background: getMapValue($wlcTopPromoLastWins, 'background');
+    margin: getMapValue($wlcTopPromoLastWins, 'margin');
+
+    @include max560 {
+        display: none;
+    }
+}
+
+.wlc-last-wins {
+    @extend %flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.wlc-last-wins,
+.wlc-last-wins__title,
+.wlc-last-wins__content {
+    min-height: getMapValue($wlcTopPromoLastWins, 'height');
+    @extend %flex;
+    align-items: center;
+
+    @include max1024 {
+        min-height: auto;
+        padding-top: 1rem;
+    }
+}
+
+.wlc-last-wins-wrapper_vertical {
+
+    .wlc-last-wins {
+        display: block;
+    }
+
+    .wlc-last-wins__title {
+        min-height: auto;
+        display: block;
+        width: 100%;
+    }
+
+    .wlc-last-wins__content {
+        display: block;
+        width: 100%;
+    }
+}
+
+.wlc-last-wins__title {
+    margin-right: 15px;
+
+    @include max1024 {
+        display: none;
+    }
+}
+
+.wlc-last-wins-wrapper_horizontal {
+
+    .wlc-last-wins {
+        @extend %container;
+    }
+}
+
+.wlc-last-wins__content {
+    position: relative;
+    @include wlc-flex-auto-this;
+
+    @include max1024 {
+        width: 100%;
+    }
+
+    @if (getMapValue($wlcTopPromoLastWins, 'background') != 'none') {
+
+        &:before,
+        &:after {
+            display: block;
+            content: '';
+            position: absolute;
+            height: 100%;
+            width: 50px;
+            top: 0;
+            background: #000;
+            z-index: 2;
+        }
+
+        &:before {
+            left: 0;
+            background: linear-gradient(to right, getMapValue($wlcTopPromoLastWins, 'background'), transparentize(getMapValue($wlcTopPromoLastWins, 'background'), 1));
+        }
+
+        &:after {
+            right: 0;
+            background: linear-gradient(to left, getMapValue($wlcTopPromoLastWins, 'background'), transparentize(getMapValue($wlcTopPromoLastWins, 'background'), 1));
+        }
+    }
+}
+
+.wlc-last-wins-list-item__icon {
+
+    a {
+        display: block;
+    }
+
+    .activity-reel-single__image {
+        display: block;
+    }
+}
+
+@if (getMapValue($wlcTopPromoLastWins, 'background') != 'none') {
+
+    .wlc-last-wins-wrapper_vertical {
+
+        .wlc-last-wins__content {
+
+            &:before {
+                left: 0;
+                top: 0;
+                height: 50px;
+                width: 100%;
+                background: linear-gradient(to bottom, getMapValue($wlcTopPromoLastWins, 'background'), transparentize(getMapValue($wlcTopPromoLastWins, 'background'), 1));
+            }
+
+            &:after {
+                left: 0;
+                top: auto;
+                bottom: 0;
+                height: 50px;
+                width: 100%;
+                background: linear-gradient(to top, getMapValue($wlcTopPromoLastWins, 'background'), transparentize(getMapValue($wlcTopPromoLastWins, 'background'), 1));
+            }
+        }
+    }
+}
+
+.wlc-last-wins-list {
+    @extend %flex;
+    width: 100%;
+}
+
+.wlc-last-wins_line {
+
+    .wlc-last-wins-list-item {
+        color: getMapValue($wlcTopPromoLastWins, 'itemColor');
+        font-size: getMapValue($wlcTopPromoLastWins, 'itemSize');
+        //padding-left: 25px;
+        @extend %flex;
+        align-items: center;
+        justify-content: center;
+
+        @include max900 {
+            flex-basis: 100%;
+        }
+
+        @include max1420 {
+            font-size: getMapValue($wlcTopPromoLastWins, 'itemSize') * ratio('1420');
+        }
+
+        @include max1200 {
+            font-size: getMapValue($wlcTopPromoLastWins, 'itemSize') * ratio('1200');
+        }
+
+        @include max1024 {
+            font-size: getMapValue($wlcTopPromoLastWins, 'itemSize') * ratio('1024');
+        }
+
+        .wlc-last-wins-list-item__icon {
+            display: none;
+        }
+
+        .wlc-last-wins-list-item__flag {
+            margin: 5px;
+        }
+    }
+
+    .wlc-last-wins-list-item__country {
+        margin-left: 1rem;
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+    }
+
+    .wlc-last-wins__title {
+        color: getMapValue($wlcTopPromoLastWins, 'titleColor');
+        font-size: getMapValue($wlcTopPromoLastWins, 'titleSize');
+        white-space: nowrap;
+        font-weight: getMapValue($wlcTopPromoLastWins, 'titleWeight');
+        padding-right: 20px;
+        text-transform: getMapValue($wlcTopPromoLastWins, 'titleTransform');
+
+        @include max1024 {
+            padding-right: 0;
+        }
+
+        .wlc-sidebar__block & {
+            white-space: normal;
+        }
+    }
+
+    .wlc-last-wins-list-item__name {
+        margin-right: 1rem;
+        color: getMapValue($wlcTopPromoLastWins, 'nameColor');
+    }
+
+    .wlc-last-wins-list-item__separator {
+        color: getMapValue($wlcTopPromoLastWins, 'separatorColor');
+    }
+
+    .flag-icon-background {
+
+        .wlc-last-wins & {
+            //width: auto;
+            max-height: 18px;
+        }
+    }
+}
+
+.wlc-sidebar {
+
+    .wlc-last-wins-wrapper {
+        @extend %wlc-sidebar__block;
+    }
+
+    .swiper-container {
+        height: getMapValue($wlcTopPromoLastWins, 'height');
+    }
+
+    .swiper-wrapper {
+        flex-direction: column;
+    }
+}
+
+.wlc-last-wins_blocks {
+
+    .wlc-last-wins-list-item {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        //height: getMapValue($wlcTopPromoLastWins, 'height') - 30px;
+        padding: 15px 0;
+        color: getMapValue($wlcTopPromoLastWins, 'itemColor');
+        font-size: getMapValue($wlcTopPromoLastWins, 'itemSize');
+
+        @include max1420 {
+            font-size: getMapValue($wlcTopPromoLastWins, 'itemSize') * ratio('1420');
+        }
+
+        @include max1366 {
+            font-size: getMapValue($wlcTopPromoLastWins, 'itemSize') * ratio('1366');
+        }
+
+        @include max1200 {
+            font-size: getMapValue($wlcTopPromoLastWins, 'itemSize') * ratio('1200');
+        }
+
+        @include max1024 {
+            font-size: getMapValue($wlcTopPromoLastWins, 'itemSize') * ratio('1024');
+        }
+
+        @include max900 {
+            font-size: getMapValue($wlcTopPromoLastWins, 'itemSize') * ratio('900');
+        }
+
+        @include max768 {
+            font-size: getMapValue($wlcTopPromoLastWins, 'itemSize') * ratio('768');
+        }
+
+        @include max720 {
+            font-size: getMapValue($wlcTopPromoLastWins, 'itemSize') * ratio('720');
+        }
+
+        @include max640 {
+            font-size: getMapValue($wlcTopPromoLastWins, 'itemSize') * ratio('640');
+        }
+
+        > div {
+            display: flex;
+            align-items: center;
+            flex-grow: 0;
+        }
+    }
+
+    .wlc-last-wins__title {
+
+        @include max1024 {
+            display: none !important;
+        }
+    }
+
+    .wlc-last-wins-list-item__amount {
+        $fontSize: getMapValue($wlcTopPromoLastWins, 'itemSize') * 1.65;
+        margin-right: 1rem;
+        padding-right: 15px !important;
+        font-size: $fontSize;
+        position: relative;
+        color: getMapValue($wlcTopPromoLastWins, 'amountColor');
+        display: flex;
+        align-items: flex-end !important;
+
+        svg {
+            fill: getMapValue($wlcTopPromoLastWins, 'amountColor');
+        }
+
+        @include max1420 {
+            font-size: $fontSize * ratio('1420');
+        }
+
+        @include max1366 {
+            font-size: $fontSize * ratio('1366');
+        }
+
+        @include max1200 {
+            font-size: $fontSize * ratio('1200');
+        }
+
+        @include max1024 {
+            font-size: $fontSize * ratio('1024');
+        }
+
+        @include max900 {
+            font-size: $fontSize * ratio('900');
+        }
+
+        @include max768 {
+            font-size: $fontSize * ratio('768');
+        }
+
+        @include max720 {
+            font-size: $fontSize * ratio('720');
+        }
+
+        @include max640 {
+            font-size: $fontSize * ratio('640');
+        }
+
+        .wlc-amount {
+            font-weight: 600;
+        }
+
+        .wlc-currency,
+        .wlc-amount_decimal {
+            font-size: getMapValue($wlcTopPromoLastWins, 'itemSize');
+            position: relative;
+            bottom: 0.5rem;
+
+            @include max1420 {
+                font-size: getMapValue($wlcTopPromoLastWins, 'itemSize') ratio('1420');
+            }
+
+            @include max1366 {
+                font-size: getMapValue($wlcTopPromoLastWins, 'itemSize') ratio('1366');
+            }
+
+            @include max1200 {
+                font-size: getMapValue($wlcTopPromoLastWins, 'itemSize') ratio('1200');
+            }
+
+            @include max1024 {
+                font-size: getMapValue($wlcTopPromoLastWins, 'itemSize') ratio('1024');
+            }
+        }
+
+        .wlc-currency {
+            margin-left: 5px;
+        }
+    }
+
+    .wlc-last-wins-name-block {
+        display: block !important;
+    }
+
+    .wlc-last-wins-list-item__game {
+        color: getMapValue($wlcTopPromoLastWins, 'gameColor');
+        font-style: italic;
+        font-size: 80%;
+        overflow: hidden;
+        max-width: 160px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    .wlc-last-wins-list-item-username {
+        display: inline-block;
+        overflow: hidden;
+        max-width: 140px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    .wlc-last-wins-list-item__country {
+        padding-right: 30px !important;
+        position: relative;
+        display: none;
+
+        .wlc-last-wins-list-item__country-name {
+            display: none;
+        }
+    }
+
+    .wlc-last-wins-list-item__flag {
+        margin-left: 15px;
+        width: 20px;
+        max-height: 15px;
+        //display: none;
+    }
+
+    .wlc-inline-bitcoin {
+        margin-right: 5px;
+
+        .wlc-inline-bitcoin__svg {
+            width: 80%;
+        }
+    }
+}

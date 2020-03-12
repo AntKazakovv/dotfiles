@@ -1,0 +1,59 @@
+.notifier__link {
+    display: block;
+    position: relative;
+}
+
+.notifier__icon {
+    width: 27px;
+    height: 27px;
+    display: block;
+
+    svg {
+        fill: getMapValue($wlcFreespinsNotifier, 'colorIcon');
+    }
+}
+
+.notifier__number {
+    width: 13px;
+    height: 13px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: getMapValue($wlcFreespinsNotifier, 'colorNumberBg');
+    position: absolute;
+    right: -6%;
+    top: 25%;
+    color: getMapValue($wlcFreespinsNotifier, 'colorNumberText');
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 50%;
+}
+
+.wlc-modal_freerounds {
+
+    .wlc-catalog-grid {
+        grid-template-columns: repeat(2, 1fr [item]);
+    }
+}
+
+.wlc-modal__freerounds-title {
+    display: block;
+    text-align: right;
+    font-size: 1.2rem;
+    margin-top: 30px;
+    margin-bottom: 5px;
+}
+
+
+.wlc-modal__freerounds-ends {
+    display: block;
+    text-align: right;
+    font-size: 1.2rem;
+    margin: 3px 0;
+
+    span {
+        margin-right: 5px;
+    }
+}
+
+

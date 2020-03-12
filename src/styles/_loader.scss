@@ -1,0 +1,44 @@
+.wlc-main-loader {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: getMapValue($wlcMainLoader, 'background');
+    z-index: 999;
+    opacity: 1;
+    transition: opacity 0.4s;
+
+    .wlc-main-loader-logo {
+        margin-top: 40vh;
+        margin-bottom: 20px;
+        text-align: center;
+
+        img {
+            max-width: 60%;
+            max-height: 130px;
+        }
+    }
+
+    .wlc-main-loader-progress {
+        position: absolute;
+        width: 40%;
+        height: 20px;
+        border-radius: 10px;
+        left: 50%;
+        background-color: lighten(getMapValue($wlcMainLoader, 'color'), 20%);
+        margin-left: -20%;
+
+        .wlc-main-loader-progress__inner {
+            position: absolute;
+            width: 0;
+            height: 100%;
+            border-radius: 10px;
+            background: getMapValue($wlcMainLoader, 'color');
+        }
+    }
+}
+
+.wlc-main-loader_hidden {
+    opacity: 0;
+}

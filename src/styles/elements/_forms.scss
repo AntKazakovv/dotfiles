@@ -1,0 +1,539 @@
+.wlc-input,
+.wlc-area {
+    resize: none;
+    display: block;
+    width: 100%;
+    height: getMapValue($wlcForms, 'inputHeight');
+    font-size: getMapValue($wlcForms, 'inputFontSize');
+    font-weight: getMapValue($wlcForms, 'inputFontWeight');
+    font-style: getMapValue($wlcForms, 'inputFontStyle');
+    color: getMapValue($wlcForms, 'inputTextColor');
+    border: getMapValue($wlcForms, 'inputBorder');
+    border-radius: getMapValue($wlcForms, 'inputBorderRadius');
+    background: getMapValue($wlcForms, 'inputBackground');
+    box-shadow: getMapValue($wlcForms, 'inputBoxShadow');
+    outline: 0;
+    padding: 0 20px;
+    margin: 0;
+    font-family: inherit;
+
+    @if (getMapValue($wlcForms, 'inputBoxTransition') == true) {
+        @extend %transition;
+    }
+
+    @include max1420 {
+        height: getMapValue($wlcForms, 'inputHeight') * ratio('1420');
+    }
+
+    @include max1200 {
+        height: getMapValue($wlcForms, 'inputHeight') * ratio('1200');
+        font-size: getFontSize('medium');
+    }
+
+    @include max900 {
+        height: getMapValue($wlcForms, 'inputHeight') * ratio('900');
+    }
+
+    @include max560 {
+        font-size: getFontSize('default');
+    }
+
+    &:disabled {
+        color: getMapValue($wlcForms, 'inputDisabledColor');
+        background: getMapValue($wlcForms, 'inputDisabledBackground');
+        border: getMapValue($wlcForms, 'inputDisabledBorder');
+        cursor: not-allowed;
+        opacity: 1;
+    }
+
+    &:focus {
+        border: getMapValue($wlcForms, 'inputBorderFocus');
+        box-shadow: getMapValue($wlcForms, 'inputShadowFocus');
+    }
+
+    &.wlc-input_error {
+        color: getMapValue($wlcForms, 'inputErrorTextColor');
+        border-color: getMapValue($wlcForms, 'inputErrorBorderColor');
+        background-color: getMapValue($wlcForms, 'inputErrorBackground');
+    }
+}
+
+.wlc-input.wlc-in-pending {
+    transition: none;
+    background-image: url('/static/images/ajax-loader.gif') !important;
+    background-repeat: no-repeat !important;
+    background-position: right 10px center !important;
+}
+
+.wlc-password-info {
+    font-size: 10px;
+    color: #999;
+    line-height: 8px;
+    display: block;
+    padding-top: 2px;
+}
+
+.wlc-select {
+    @extend .wlc-input;
+    padding: 0 15px;
+    appearance: none;
+    background: {
+        image: getMapValue($wlcForms, 'selectBackgroundImage');
+        size: 11px;
+        position: calc(100% - 7px) center;
+        repeat: no-repeat;
+    }
+
+    &:-moz-focusring {
+        color: transparent;
+        text-shadow: 0 0 0 getMapValue($wlcForms, 'inputTextColor');
+    }
+
+    &::-moz-focus-inner,
+    &:focus {
+        outline: 0 !important;
+    }
+
+    @include max360 {
+        padding: 0 5px;
+    }
+
+    option[value*='?'] {
+        display: none;
+    }
+}
+
+.wlc-label {
+    $labelBlock: &;
+
+    display: block;
+    font-size: getMapValue($wlcForms, 'labelFontSize');
+    font-weight: getMapValue($wlcForms, 'labelFontWeight');
+    //TODO Make something relative
+    //line-height:   21px;
+    color: getMapValue($wlcForms, 'labelTextColor');
+    margin: getMapValue($wlcForms, 'labelMargin');
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+
+    @include max1200 {
+        margin-bottom: 1.3rem * ratio('1200');
+    }
+
+    @include max768 {
+        font-size: getFontSize('default');
+    }
+
+    @include max720 {
+        margin-bottom: 1.3rem * ratio('720');
+    }
+
+    span {
+        font-size: getMapValue($wlcForms, 'labelFontSize');
+
+        @include max1200 {
+            font-size: getFontSize('default');
+        }
+    }
+
+    &--input,
+    &--select {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+
+    &--radio {
+        display: flex;
+        align-items: center;
+
+        .wlc-radio {
+            @include visual-hide();
+
+            &:checked {
+
+                & + #{$labelBlock}__radio-block {
+
+                    &:after {
+                        opacity: 1;
+                        visibility: visible;
+                    }
+                }
+            }
+        }
+    }
+
+    &__radio-block {
+        position: relative;
+        margin: getMapValue($wlcForms, 'radioMargin');
+        display: block;
+        width: getMapValue($wlcForms, 'radioWidth');
+        height: getMapValue($wlcForms, 'radioHeight');
+        background: getMapValue($wlcForms, 'radioBackground');
+        border: getMapValue($wlcForms, 'radioBorder');
+        border-radius: getMapValue($wlcForms, 'radioBorderRadius');
+
+        &:after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            display: block;
+            width: (getMapValue($wlcForms, 'radioWidth') / 2);
+            height: (getMapValue($wlcForms, 'radioHeight') / 2);
+            background-color: getBaseColor('lightGrey');
+            border-radius: getMapValue($wlcForms, 'radioBorderRadius');
+            transform: translate(-50%, -50%);
+            transition: opacity 0.3s;
+            opacity: 0;
+            visibility: hidden;
+        }
+    }
+
+    &--checkbox {
+        display: flex;
+        align-items: center;
+
+        .wlc-checkbox {
+            @include visual-hide();
+
+            &:checked {
+
+                & + #{$labelBlock}__checkbox-block {
+
+                    &:after {
+                        opacity: 1;
+                        visibility: visible;
+                    }
+                }
+            }
+        }
+    }
+
+    &__checkbox-block {
+        position: relative;
+        margin: getMapValue($wlcForms, 'checkboxMargin');
+        display: block;
+        width: getMapValue($wlcForms, 'checkboxWidth');
+        height: getMapValue($wlcForms, 'checkboxHeight');
+        background: getMapValue($wlcForms, 'checkboxBackground');
+        border: getMapValue($wlcForms, 'checkboxBorder');
+        border-radius: getMapValue($wlcForms, 'checkboxBorderRadius');
+
+        &:after {
+            content: '';
+            position: absolute;
+            margin: getMapValue($wlcForms, 'checkboxCheckedMargin');
+            width: getMapValue($wlcForms, 'checkboxCheckedWidth');
+            height: getMapValue($wlcForms, 'checkboxCheckedHeight');
+            border-bottom: getMapValue($wlcForms, 'checkboxCheckedBorder');
+            border-left: getMapValue($wlcForms, 'checkboxCheckedBorder');
+            transform: rotate(-45deg);
+            transition: opacity 0.3s;
+            opacity: 0;
+            visibility: hidden;
+        }
+    }
+}
+
+.form-control-errors {
+    width: 100%;
+    color: getMapValue($wlcForms, 'errorTextColor');
+    font-size: getFontSize('small');
+
+    @include max720 {
+        text-align: center;
+    }
+}
+
+.form-control-errors__error {
+    margin: 8px 0;
+}
+
+.wlc-area {
+    min-height: 255px;
+    resize: vertical;
+    padding: {
+        top: 1rem;
+        bottom: 1rem;
+    }
+}
+
+.wlc-form-separator {
+    @extend %flex;
+    margin: 15px 0;
+    justify-content: center;
+    color: getElementColor('text');
+}
+
+.wlc-form-separator__text {
+    padding: 0 15px;
+}
+
+.wlc-form-separator__line {
+    flex-grow: 1;
+    position: relative;
+
+    &:before {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        border-bottom: 1px solid getElementColor('border');
+    }
+}
+
+.wlc-password-with-eye {
+    position: relative;
+
+    svg {
+        cursor: pointer;
+        width: 40px;
+        height: getMapValue($wlcForms, 'inputHeight');
+        fill: getMapValue($wlcForms, 'eyeColor');
+        position: absolute;
+        right: 10px;
+        top: 0;
+
+        @include max1420 {
+            height: getMapValue($wlcForms, 'inputHeight') * ratio('1420');
+        }
+
+        @include max1200 {
+            height: getMapValue($wlcForms, 'inputHeight') * ratio('1200');
+        }
+
+        @include max900 {
+            height: getMapValue($wlcForms, 'inputHeight') * ratio('900');
+        }
+    }
+
+    &.type-text {
+
+        svg {
+            fill: lighten(getMapValue($wlcForms, 'eyeColor'), 30%);
+        }
+    }
+
+    .wlc-input {
+        padding-right: 60px;
+    }
+}
+
+.wlc-form-block {
+    margin-bottom: 3rem;
+
+    @include max1420 {
+        margin-bottom: 3rem * ratio('1420');
+    }
+
+    @include max1366 {
+        margin-bottom: 3rem * ratio('1366');
+    }
+}
+
+.wlc-form-block__restore {
+    font-size: getFontSize('large');
+    display: flex;
+    justify-content: space-between;
+    flex: 1 1 100%;
+    margin-bottom: 3rem;
+
+    @include max360 {
+        flex-direction: column;
+    }
+
+    a {
+        color: getElementColor('link');
+
+        @include max360 {
+
+            &:first-child {
+
+                margin-bottom: 10px;
+            }
+        }
+    }
+}
+
+.wlc-form-checkbox__input {
+    display: none;
+}
+
+.wlc-form-checkbox__label,
+.wlc-filter-list__item .wlc-checkbox,
+.wlc-static-filter-list__item .wlc-checkbox {
+
+    span {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 0.9rem;
+        width: 2rem;
+        height: 2rem;
+        background: transparent;
+        border: 2px solid getMapValue($wlcForms, 'checkboxColor');
+        border-radius: 2px;
+        cursor: pointer;
+    }
+
+    &.checked span {
+        border-color: getMapValue($wlcForms, 'checkboxColorActiveBrdr');
+        background: getMapValue($wlcForms, 'checkboxColorActiveBckg');
+
+        &:before {
+            content: '';
+            position: relative;
+            top: 0.5rem;
+            left: -0.25rem;
+            border-right: 2px solid transparent;
+            border-bottom: 2px solid transparent;
+            transform: rotate(45deg);
+            transform-origin: 0 100%;
+            animation: checkbox-check 0.125s 0.25s cubic-bezier(0.4, 0, 0.23, 1) forwards;
+        }
+    }
+}
+
+.wlc-static-filter-list__item {
+
+    &.checked {
+
+        .wlc-checkbox {
+
+            span {
+                border-color: getMapValue($wlcForms, 'checkboxColorActiveBrdr');
+                background: getMapValue($wlcForms, 'checkboxColorActiveBckg');
+
+                &:before {
+                    content: '';
+                    position: relative;
+                    top: 0.5rem;
+                    left: -0.25rem;
+                    border-right: 2px solid transparent;
+                    border-bottom: 2px solid transparent;
+                    transform: rotate(45deg);
+                    transform-origin: 0 100%;
+                    animation: checkbox-check 0.125s 0.25s cubic-bezier(0.4, 0, 0.23, 1) forwards;
+                }
+            }
+        }
+    }
+}
+
+.wlc-form-checkbox * {
+    transition: background 0.3s ease-out;
+}
+
+.wlc-form-checkbox .wlc-form-checkbox__input + label:hover > span {
+    background: #{wlctransparentize(getMapValue($wlcForms, 'checkboxColorActiveBckg'), 0.8)};
+}
+
+.wlc-form-checkbox .wlc-form-checkbox__input:checked + label > span {
+    border-color: getMapValue($wlcForms, 'checkboxColorActiveBrdr');
+    background: getMapValue($wlcForms, 'checkboxColorActiveBckg');
+
+    &:before {
+        content: '';
+        position: relative;
+        top: 0.5rem;
+        left: -0.25rem;
+        border-right: 2px solid transparent;
+        border-bottom: 2px solid transparent;
+        transform: rotate(45deg);
+        transform-origin: 0 100%;
+        animation: checkbox-check 0.125s 0.25s cubic-bezier(0.4, 0, 0.23, 1) forwards;
+    }
+}
+
+.wlc-form-checkbox__label {
+
+    span {
+        border-color: getMapValue($wlcForms, 'checkboxColorActiveBrdr');
+    }
+}
+
+@keyframes checkbox-check {
+
+    0% {
+        width: 0;
+        height: 0;
+        border-color: getMapValue($wlcSearchModule, 'resultBackground');
+        transform: translate3d(0, 0, 0) rotate(45deg);
+    }
+
+    33% {
+        width: 0.5rem;
+        height: 0;
+        transform: translate3d(0, 0, 0) rotate(45deg);
+    }
+
+    100% {
+        width: 0.5rem;
+        height: 1rem;
+        border-color: getMapValue($wlcSearchModule, 'resultBackground');
+        transform: translate3d(0, -0.5em, 0) rotate(45deg);
+    }
+}
+
+.wlc-signup-button {
+    margin: 3rem 0 4rem;
+    text-align: center;
+}
+
+.wlc-form-block_submit {
+    text-align: center;
+}
+
+.wlc-form {
+
+    .no-gutters {
+
+        .col {
+            padding-right: 1rem;
+
+            &:last-child {
+                padding-right: 0;
+            }
+        }
+    }
+}
+
+.wlc-ellipsis {
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+/* For Firefox */
+.browser-firefox {
+
+    input[type='number'] {
+        appearance: textfield;
+    }
+}
+
+/* Webkit browsers like Safari and Chrome */
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+    appearance: none;
+    margin: 0;
+}
+
+.wlc-input-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    input {
+        flex-grow: 1;
+    }
+
+    .wlc-input-group__append {
+        padding: {
+            left: 1rem;
+            right: 1rem;
+        }
+    }
+}

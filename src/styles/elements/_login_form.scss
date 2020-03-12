@@ -1,0 +1,133 @@
+.wlc-login-top {
+    @extend %flex;
+    flex-direction: column;
+    margin: {
+        top: 5rem;
+        bottom: 3rem;
+    }
+    position: relative;
+}
+
+.wlc-login-top__title {
+    @include wlcFontSize('xxxlarge');
+    flex-grow: 1;
+    text-align: center;
+}
+
+.wlc-login-top__signup {
+    @include wlcFontSize('xlarge');
+    color: getElementColor('text');
+    text-align: right;
+
+    a {
+        color: getElementColor('link');
+        margin-left: 1rem;
+    }
+}
+
+$wlcSeparatorWidth: 10%;
+
+.wlc-login-form {
+    @extend %flex;
+    flex-wrap: wrap;
+}
+
+.wlc-login-socials {
+    @extend %flex;
+    flex-grow: 1;
+    flex-basis: (100% - $wlcSeparatorWidth) / 2;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.wlc-login-socials-button {
+    @extend %flex;
+    width: 48px;
+    flex-basis: 48%;
+    align-items: center;
+    height: 80px;
+    margin-bottom: 10px;
+    background: #ffffff;
+    box-shadow: getElementStyle('buttonShadow');
+    border-radius: getElementStyle('borderRadius');
+    padding: 0 20px;
+    @include wlcFontSize('large');
+    font-weight: bold;
+    border: {
+        width: 3px;
+        style: solid;
+        color: #ffffff;
+    }
+    cursor: pointer;
+
+    &:hover {
+        border-color: getBaseColor('highlightMain');
+    }
+
+    svg {
+        margin-right: 10px;
+    }
+
+    //@each $name, $value in $wlcSocialsColors {
+    //    &.wlc-color_#{$name} {
+    //
+    //        svg {
+    //            fill: $value;
+    //        }
+    //    }
+    //}
+}
+
+.wlc-login-socials-button__text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.wlc-login-separator {
+    flex-basis: $wlcSeparatorWidth;
+    position: relative;
+
+    &:before {
+        display: block;
+        content: '';
+        position: absolute;
+        width: 1px;
+        height: 100%;
+        left: 50%;
+        margin-left: -0.5px;
+        background: getElementColor('border');
+        top: 0;
+    }
+}
+
+.wlc-login-default-form {
+    @extend %flex;
+    flex-grow: 1;
+    flex-basis: (100% - $wlcSeparatorWidth) / 2;
+    flex-direction: column;
+}
+
+.wlc-login-block_email {
+    margin-bottom: 2.5rem;
+}
+
+.wlc-login-block__restore {
+    display: inline-block;
+    padding-top: 10px;
+    @include wlcFontSize('medium');
+    color: getElementColor('link');
+}
+
+
+.wlc-login-wrapper {
+
+    .wlc-login-button {
+        flex-grow: 2;
+        flex-basis: 100%;
+        text-align: center;
+        margin: {
+            top: 7rem;
+            bottom: 15rem;
+        }
+    }
+}

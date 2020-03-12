@@ -1,0 +1,43 @@
+.wlc-bonuses {
+    @include baseItemsBlock(0 -15px);
+
+    .wlc-bonuses-item {
+        @include itemInBlock(0 0 33.3333%);
+    }
+}
+
+.wlc-bonuses-item {
+    @include baseItem(0 0 40px, 0 20px);
+}
+
+.wlc-bonuses-item-image {
+    @include itemImage;
+}
+
+.wlc-bonuses-item-image_inner {
+    @include itemImageInner;
+}
+
+.wlc-bonuses-item-description {
+    @include itemDescription(12px);
+}
+
+.wlc-bonuses-item-description__name {
+    @include itemDescriptionName(700, 60px);
+}
+
+.wlc-bonuses-item-description-params {
+    color: getMapValue($wlcBonusThumb, 'descriptionColor');
+    font-size: getFontSize('medium');
+    line-height: getFontSize('large');
+}
+
+.wlc-bonuses-item-description-params-item {
+    color: getMapValue($wlcBonusThumb, 'descriptionColor');
+    font-size: getFontSize('medium');
+    line-height: getFontSize('large');
+}
+
+.wlc-bonuses-item-description-btns {
+    @include itemDescriptionBtns;
+}

@@ -1,0 +1,273 @@
+@import 'media-queries';
+
+@mixin clearfix() {
+
+    &:before,
+    &:after {
+        content: ' '; // 1
+        display: table; // 2
+    }
+
+    &:after {
+        clear: both;
+    }
+}
+
+@mixin max360 {
+    @include max-screen(getScreen('360')) {
+        @content;
+    }
+}
+
+@mixin max480 {
+    @include max-screen(getScreen('480')) {
+        @content;
+    }
+}
+
+@mixin max560 {
+    @include max-screen(getScreen('560')) {
+        @content;
+    }
+}
+
+@mixin max640 {
+    @include max-screen(getScreen('640')) {
+        @content;
+    }
+}
+
+@mixin max720 {
+    @include max-screen(getScreen('720')) {
+        @content;
+    }
+}
+
+@mixin max768 {
+    @include max-screen(getScreen('768')) {
+        @content;
+    }
+}
+
+@mixin max900 {
+    @include max-screen(getScreen('900')) {
+        @content;
+    }
+}
+
+@mixin max1024 {
+    @include max-screen(getScreen('1024')) {
+        @content;
+    }
+}
+
+@mixin max1200 {
+    @include max-screen(getScreen('1200')) {
+        @content;
+    }
+}
+
+@mixin max1366 {
+    @include max-screen(getScreen('1366')) {
+        @content;
+    }
+}
+
+@mixin max1420 {
+    @include max-screen(getScreen('1420')) {
+        @content;
+    }
+}
+
+@mixin max1920 {
+    @include max-screen(getScreen('1920')) {
+        @content;
+    }
+}
+
+@mixin min360 {
+    @include min-screen(getScreen('320')) {
+        @content;
+    }
+}
+
+@mixin min480 {
+    @include min-screen(getScreen('480')) {
+        @content;
+    }
+}
+
+@mixin min560 {
+    @include min-screen(getScreen('560')) {
+        @content;
+    }
+}
+
+@mixin min640 {
+    @include min-screen(getScreen('640')) {
+        @content;
+    }
+}
+
+@mixin min720 {
+    @include min-screen(getScreen('720')) {
+        @content;
+    }
+}
+
+@mixin min768 {
+    @include min-screen(getScreen('768')) {
+        @content;
+    }
+}
+
+@mixin min900 {
+    @include min-screen(getScreen('900')) {
+        @content;
+    }
+}
+
+@mixin min1024 {
+    @include min-screen(getScreen('1024')) {
+        @content;
+    }
+}
+
+@mixin min1200 {
+    @include min-screen(getScreen('1200')) {
+        @content;
+    }
+}
+
+@mixin min1366 {
+    @include min-screen(getScreen('1366')) {
+        @content;
+    }
+}
+
+@mixin min1420 {
+    @include min-screen(getScreen('1420')) {
+        @content;
+    }
+}
+
+@mixin min1920 {
+    @include min-screen(getScreen('1920')) {
+        @content;
+    }
+}
+
+@mixin padding_side($pad: 15px) {
+    padding-right: $pad;
+    padding-left: $pad;
+}
+
+@mixin profile_menu {
+    width: 300px;
+    padding: 51px 0 0;
+
+    ul {
+        display: block;
+        margin: 0 0 31px;
+
+        li {
+            display: block;
+            margin-bottom: 10px;
+
+            &:first-child {
+                font-weight: 700;
+                font-size: 35px;
+                color: #f2592a;
+                padding: 0 0 9px;
+                margin-bottom: 0;
+            }
+
+            a {
+                font-size: 28px;
+                line-height: inherit;
+                color: #ae926c;
+
+                transition: border-color 300ms ease-out;
+                border-bottom: 1px solid;
+                border-color: transparent;
+
+                &:hover {
+                    border-color: #ae926c;
+                }
+
+                &.active {
+                    color: #f2592a;
+                    background: url('../images/sb_active.png') no-repeat 1px 15px;
+                    padding: 0 0 0 27px;
+                }
+            }
+        }
+    }
+
+    p {
+        color: #cfc0a4;
+        font-size: 23px;
+    }
+}
+
+@mixin transition($attr: all, $function: linear) {
+    transition: $attr getMapValue($wlcBase, 'transitionTime') $function;
+}
+
+@mixin wlcColor($name) {
+    @if map-has-key($wlcBaseColors, $name) {
+        color: getMapValue($wlcBaseColors, $name);
+    }
+}
+
+@mixin wlc-link-color($name) {
+    @if map-has-key($wlcBaseColors, $name) {
+        color: getMapValue($wlcBaseColors, $name);
+
+        &:hover {
+            color: lighten(getMapValue($wlcBaseColors, $name), 0);
+        }
+    }
+}
+
+@mixin wlc-flex-auto-this {
+    width: 0;
+    flex-grow: 1;
+}
+
+@mixin wlcFontSize($name) {
+    font-size: getFontSize($name);
+}
+
+@mixin landscape {
+
+    @media screen and (orientation: landscape) {
+        @content;
+    }
+}
+
+@mixin portrait {
+
+    @media screen and (orientation: portrait) {
+        @content;
+    }
+}
+
+@mixin browser($browserName) {
+    @if $browserName == ucbrowser {
+
+        .browser-ucbrowser & {
+            @content;
+        }
+    }
+}
+
+@mixin visual-hide {
+    position: absolute !important;
+    clip: rect(1px, 1px, 1px, 1px);
+    padding: 0 !important;
+    border: 0 !important;
+    height: 1px !important;
+    width: 1px !important;
+    overflow: hidden;
+}

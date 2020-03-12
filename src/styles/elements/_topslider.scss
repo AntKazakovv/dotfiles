@@ -1,0 +1,206 @@
+section.wlc-banners {
+    margin-top: getMapValue($wlcBannersSlider, 'marginTop');
+    margin-bottom: getMapValue($wlcBannersSlider, 'marginBottom');
+    background: getMapValue($wlcBannersSlider, 'background');
+    @if (getMapValue($wlcBannersSlider, 'backgroundSize') != none) {
+        background-size: getMapValue($wlcBannersSlider, 'backgroundSize');
+    }
+
+    @include max1420 {
+        margin-top: getMapValue($wlcBannersSlider, 'marginTop') * ratio('1420');
+        margin-bottom: getMapValue($wlcBannersSlider, 'marginBottom') * ratio('1420');
+    }
+
+    @include max1366 {
+        margin-top: getMapValue($wlcBannersSlider, 'marginTop') * ratio('1366');
+        margin-bottom: getMapValue($wlcBannersSlider, 'marginBottom') * ratio('1366');
+    }
+
+    @include max1200 {
+        margin-top: getMapValue($wlcBannersSlider, 'marginTop') * ratio('1200');
+        margin-bottom: getMapValue($wlcBannersSlider, 'marginBottom') * ratio('1200');
+    }
+
+    @include max1024 {
+        margin-top: getMapValue($wlcBannersSlider, 'marginTop') * ratio('1024');
+        margin-bottom: getMapValue($wlcBannersSlider, 'marginBottom') * ratio('1024');
+    }
+
+    @include max900 {
+        margin-top: getMapValue($wlcBannersSlider, 'marginTop') * ratio('900');
+        margin-bottom: getMapValue($wlcBannersSlider, 'marginBottom') * ratio('900');
+    }
+
+    .wlc-swiper-container {
+        height: getMapValue($wlcBannersSlider, 'height');
+
+        @include max1420 {
+            height: getMapValue($wlcBannersSlider, 'height') * ratio('1420');
+        }
+
+        @include max1366 {
+            height: getMapValue($wlcBannersSlider, 'height') * ratio('1366');
+        }
+
+        @include max1200 {
+            height: getMapValue($wlcBannersSlider, 'height') * ratio('1200');
+        }
+
+        @include max1024 {
+            height: getMapValue($wlcBannersSlider, 'height') * ratio('1024');
+        }
+
+        @include max900 {
+            height: getMapValue($wlcBannersSlider, 'height') * ratio('900');
+        }
+
+        @include max768 {
+            height: getMapValue($wlcBannersSlider, 'height') * ratio('768');
+        }
+
+        @include max720 {
+            height: getMapValue($wlcBannersSlider, 'height') * ratio('720');
+        }
+
+        @include max640 {
+            height: getMapValue($wlcBannersSlider, 'height') * ratio('640');
+        }
+
+        @include max560 {
+            height: getMapValue($wlcBannersSlider, 'height') * ratio('560');
+        }
+
+        @include max480 {
+            height: getMapValue($wlcBannersSlider, 'height') * ratio('480');
+        }
+
+        @include max360 {
+            height: getMapValue($wlcBannersSlider, 'height') * ratio('360');
+        }
+    }
+
+    .wlc-swiper-slide {
+        background: {
+            size: cover;
+            position: 50% 50%;
+        }
+
+        .wlc-row,
+        .wlc-container {
+            height: 100%;
+        }
+
+        .wlc-container {
+            @extend %flex;
+            flex-direction: column;
+            justify-content: center;
+            font-size: getFontSize('xxlarge');
+            color: getElementColor('text');
+
+            .wlc-swiper-slide__title {
+                font-size: 120%;
+                font-weight: 400;
+            }
+
+            .wlc-swiper-slide__action {
+                margin-top: 3rem;
+            }
+        }
+    }
+
+    &.wlc-banners-catalog {
+        background: getMapValue($wlcBannersSlider, 'catalogBackground');
+        @if (getMapValue($wlcBannersSlider, 'catalogBackgroundSize') != none) {
+            background-size: getMapValue($wlcBannersSlider, 'catalogBackgroundSize');
+        }
+
+        .wlc-swiper-container {
+            height: getMapValue($wlcBannersSlider, 'catalogHeight');
+
+            @include max1420 {
+                height: getMapValue($wlcBannersSlider, 'catalogHeight') * ratio('1420');
+            }
+
+            @include max1366 {
+                height: getMapValue($wlcBannersSlider, 'catalogHeight') * ratio('1366');
+            }
+
+            @include max1200 {
+                height: getMapValue($wlcBannersSlider, 'catalogHeight') * ratio('1200');
+            }
+
+            @include max1024 {
+                height: getMapValue($wlcBannersSlider, 'catalogHeight') * ratio('1024');
+            }
+
+            @include max900 {
+                height: getMapValue($wlcBannersSlider, 'catalogHeight') * ratio('900');
+            }
+
+            @include max768 {
+                height: getMapValue($wlcBannersSlider, 'catalogHeight') * ratio('768');
+            }
+
+            @include max720 {
+                height: getMapValue($wlcBannersSlider, 'catalogHeight') * ratio('720');
+            }
+
+            @include max640 {
+                height: getMapValue($wlcBannersSlider, 'catalogHeight') * ratio('640');
+            }
+
+            @include max560 {
+                height: getMapValue($wlcBannersSlider, 'catalogHeight') * ratio('560');
+            }
+
+            @include max480 {
+                height: getMapValue($wlcBannersSlider, 'catalogHeight') * ratio('480');
+            }
+
+            @include max360 {
+                height: getMapValue($wlcBannersSlider, 'catalogHeight') * ratio('360');
+            }
+        }
+    }
+}
+
+.swiper-slide {
+    height: unset;
+
+    > .wlc-wrp {
+        height: 100%;
+    }
+
+    .wlc-game-thumb {
+        height: 100%;
+    }
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+
+    @include max640 {
+        display: none;
+    }
+}
+
+.swiper-pagination-bullet {
+    $s: 0 0 2px getMapValue($wlcBannersSlider, 'bulletFlow');
+    box-shadow: $s, $s, $s, $s;
+
+    @include max768 {
+        $size: 12px;
+        width: $size !important;
+        height: $size !important;
+    }
+}
+
+.swiper-pagination-bullets {
+
+    .swiper-container-horizontal > & {
+
+        @include max768 {
+            bottom: 0 !important;
+        }
+    }
+}

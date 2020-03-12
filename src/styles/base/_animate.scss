@@ -1,0 +1,279 @@
+@import 'keyframes';
+
+[class*='wlc-animated'] {
+    animation-duration: 1s;
+    animation-fill-mode: both;
+
+    &.wlc-animated-infinite {
+        animation-iteration-count: infinite;
+    }
+
+    &.wlc-animated-delay-faster {
+        animation-delay: 0.5s;
+    }
+
+    &.wlc-animated-delay-fast {
+        animation-delay: 0.8s;
+    }
+
+    @for $i from 1 through 5 {
+
+        &.wlc-animated-delay-#{$i}s {
+            animation-delay: #{$i}s;
+        }
+    }
+}
+
+.wlc-collapse-block {
+    height: 0;
+    transition-property: height;
+    transition-duration: 0.4s;
+    overflow: hidden;
+}
+
+.wlc-collapse-content {
+    display: none;
+
+    &.is-open {
+        display: flex;
+    }
+}
+
+.wlc-animated__fade-in {
+    @extend %wlc-fade-in;
+}
+
+.wlc-animated__fade-in-left {
+    @extend %wlc-fade-in-left;
+}
+
+.wlc-animated__fade-in-right {
+    @extend %wlc-fade-in-right;
+}
+
+.wlc-animated__fade-in-up {
+    @extend %wlc-fade-in-up;
+}
+
+.wlc-animated__fade-in-down {
+    @extend %wlc-fade-in-down;
+}
+
+.wlc-animated__bounce-in {
+    animation-duration: 0.75s;
+    @extend %wlc-bounce-in;
+}
+
+.wlc-animated__bounce-in-left {
+    animation-duration: 0.75s;
+    @extend %wlc-bounce-in-left;
+}
+
+.wlc-animated__bounce-in-right {
+    animation-duration: 0.75s;
+    @extend %wlc-bounce-in-right;
+}
+
+.wlc-animated__bounce-in-up {
+    animation-duration: 0.75s;
+    @extend %wlc-bounce-in-up;
+}
+
+.wlc-animated__bounce-in-down {
+    animation-duration: 0.75s;
+    @extend %wlc-bounce-in-down;
+}
+
+.wlc-animated__slide-in-left {
+    @extend %wlc-slide-in-left;
+}
+
+.wlc-animated__slide-in-right {
+    @extend %wlc-slide-in-right;
+}
+
+.wlc-animated__slide-in-up {
+    @extend %wlc-slide-in-up;
+}
+
+.wlc-animated__slide-in-down {
+    @extend %wlc-slide-in-down;
+}
+
+.wlc-animated__flip-in-x {
+    @extend %wlc-flip-in-x;
+}
+
+.wlc-animated__flip-in-y {
+    @extend %wlc-flip-in-y;
+}
+
+.wlc-animated__pulse {
+    @extend %wlc-pulse;
+}
+
+.wlc-animated__zoom-in {
+    @extend %wlc-zoom-in;
+}
+
+.swiper-slide-active {
+
+    .wlc-animated-swiper__fade-in {
+        @extend %wlc-fade-in;
+    }
+
+    .wlc-animated-swiper__fade-in-left {
+        @extend %wlc-fade-in-left;
+    }
+
+    .wlc-animated-swiper__fade-in-right {
+        @extend %wlc-fade-in-right;
+    }
+
+    .wlc-animated-swiper__fade-in-up {
+        @extend %wlc-fade-in-up;
+    }
+
+    .wlc-animated-swiper__fade-in-down {
+        @extend %wlc-fade-in-down;
+    }
+
+    .wlc-animated-swiper__bounce-in {
+        animation-duration: 0.75s;
+        @extend %wlc-bounce-in;
+    }
+
+    .wlc-animated-swiper__bounce-in-left {
+        animation-duration: 0.75s;
+        @extend %wlc-bounce-in-left;
+    }
+
+    .wlc-animated-swiper__bounce-in-right {
+        animation-duration: 0.75s;
+        @extend %wlc-bounce-in-right;
+    }
+
+    .wlc-animated-swiper__bounce-in-up {
+        animation-duration: 0.75s;
+        @extend %wlc-bounce-in-up;
+    }
+
+    .wlc-animated-swiper__bounce-in-down {
+        animation-duration: 0.75s;
+        @extend %wlc-bounce-in-down;
+    }
+
+    .wlc-animated-swiper__slide-in-left {
+        @extend %wlc-slide-in-left;
+    }
+
+    .wlc-animated-swiper__slide-in-right {
+        @extend %wlc-slide-in-right;
+    }
+
+    .wlc-animated-swiper__slide-in-up {
+        @extend %wlc-slide-in-up;
+    }
+
+    .wlc-animated-swiper__slide-in-down {
+        @extend %wlc-slide-in-down;
+    }
+
+    .wlc-animated-swiper__flip-in-x {
+        @extend %wlc-flip-in-x;
+    }
+
+    .wlc-animated-swiper__flip-in-y {
+        @extend %wlc-flip-in-y;
+    }
+
+    .wlc-animated-swiper__pulse {
+        @extend %wlc-pulse;
+    }
+
+    .wlc-animated-swiper__zoom-in {
+        @extend %wlc-zoom-in;
+    }
+}
+
+%wlc-fade-in {
+    animation-name: wlcFadeIn;
+}
+
+%wlc-fade-in-left {
+    animation-name: wlcFadeInLeft;
+}
+
+%wlc-fade-in-right {
+    animation-name: wlcFadeInRight;
+}
+
+%wlc-fade-in-up {
+    animation-name: wlcFadeInUp;
+}
+
+%wlc-fade-in-down {
+    animation-name: wlcFadeInDown;
+}
+
+%wlc-bounce-in {
+    animation-name: wlcBounceIn;
+}
+
+%wlc-bounce-in-left {
+    animation-name: wlcBounceInLeft;
+}
+
+%wlc-bounce-in-right {
+    animation-name: wlcBounceInRight;
+}
+
+%wlc-bounce-in-up {
+    animation-name: wlcBounceInUp;
+}
+
+%wlc-bounce-in-down {
+    animation-name: wlcBounceInDown;
+}
+
+%wlc-slide-in-left {
+    animation-name: wlcSlideInLeft;
+}
+
+%wlc-slide-in-right {
+    animation-name: wlcSlideInRight;
+}
+
+%wlc-slide-in-up {
+    animation-name: wlcSlideInUp;
+}
+
+%wlc-slide-in-down {
+    animation-name: wlcSlideInDown;
+}
+
+%wlc-flip-in-x {
+    backface-visibility: visible !important;
+    animation-name: wlcFlipInX;
+}
+
+%wlc-flip-in-y {
+    backface-visibility: visible !important;
+    animation-name: wlcFlipInY;
+}
+
+%wlc-pulse {
+    animation-name: wlcPulse;
+}
+
+%wlc-zoom-in {
+    animation-name: wlcZoomIn;
+}
+
+@media (prefers-reduced-motion) {
+
+    [class*='wlc-animated'] {
+        animation: unset !important;
+        transition: none !important;
+    }
+}

@@ -1,0 +1,52 @@
+.wlc-hamburger-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: getMapValue($wlcHamburger, 'width');
+    min-width: getMapValue($wlcHamburger, 'width');
+    height: getMapValue($wlcHamburger, 'height');
+    cursor: pointer;
+
+    span {
+        position: relative;
+
+        &,
+        &:before,
+        &:after {
+            display: block;
+            width: getMapValue($wlcHamburger, 'lineWidth');
+            height: getMapValue($wlcHamburger, 'lineHeight');
+            background-color: getMapValue($wlcHamburger, 'color');
+            border-radius: getMapValue($wlcHamburger, 'borderRadius');
+            @extend %transition;
+        }
+
+        &:before,
+        &:after {
+            content: '';
+            position: absolute;
+        }
+
+        &:before {
+            top: -10px;
+        }
+
+        &:after {
+            bottom: -10px;
+        }
+
+        .wlc-open-menu_left & {
+            background-color: transparent;
+
+            &:before {
+                top: 0;
+                transform: rotate(45deg);
+            }
+
+            &:after {
+                bottom: 0;
+                transform: rotate(-45deg);
+            }
+        }
+    }
+}

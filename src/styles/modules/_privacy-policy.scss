@@ -1,0 +1,50 @@
+.wlc-agree-with-privacy-policy {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 10px;
+    background-color: #e9edf0;
+    border-top: 1px solid #d1d5dc;
+    text-align: center;
+    z-index: 999;
+    font-size: 1.2rem;
+    display: flex;
+    justify-content: center;
+
+    @include max720 {
+        flex-direction: column;
+    }
+}
+
+.wlc-agree-with-privacy-policy__text {
+    max-width: 690px;
+    color: #666;
+    margin-left: 10px;
+    text-align: left;
+    align-self: center;
+
+    & a {
+        color: #1d67a4;
+    }
+
+    @include max720 {
+        margin-bottom: 10px;
+    }
+}
+
+.wlc-agree-with-privacy-policy__btn {
+    padding: 0 10px;
+    color: #fff;
+    white-space: nowrap;
+    font-size: 14px;
+    border-radius: 4px;
+    height: 42px;
+    line-height: 42px;
+    transition: all 0.2s ease-out;
+    width: 120px;
+    align-self: center;
+
+    @include max720 {
+        width: 120px;
+    }
+}
