@@ -4,6 +4,14 @@
   "newProjectRoot": "projects",
   "projects": {
     "wlcengine": {
+      "i18n": {
+        "locales": {
+          "es": {
+            "translation": "translate/messages.es.xlf",
+            "baseHref": ""
+          }
+        }
+      },
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -22,7 +30,7 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
-            "aot": false,
+            "aot": true,
             "assets": [
               "src/favicon.ico",
               "src/assets"
@@ -46,12 +54,14 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ],
+            "localize": [
+              "es"
+            ],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -67,9 +77,6 @@
                   "maximumError": "10kb"
                 }
               ],
-              "i18nFile": "translate/messages.es.xlf",
-              "i18nFormat": "xlf",
-              "i18nLocale": "es",
               "i18nMissingTranslation": "error"
             },
             "production": {
@@ -84,7 +91,6 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
