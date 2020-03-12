@@ -12,7 +12,7 @@
 
     @if getMapValue($wlcSearchModule, 'resultPosition') == right {
         right: 0;
-    } @elseif getMapValue($wlcSearchModule, 'resultPosition') == left {
+    } @else if getMapValue($wlcSearchModule, 'resultPosition') == left {
         left: 0;
     } @else {
         left: 50%;
