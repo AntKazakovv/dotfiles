@@ -6,6 +6,7 @@
 // ==========================================================================
 
 @media print {
+
     *,
     *:before,
     *:after {
@@ -21,18 +22,18 @@
     }
 
     a[href]:after {
-        content: " (" attr(href) ")";
+        content: ' (' attr(href) ')';
     }
 
     abbr[title]:after {
-        content: " (" attr(title) ")";
+        content: ' (' attr(title) ')';
     }
 
     // Don't show links that are fragment identifiers,
     // or use the `javascript:` pseudo protocol
-    a[href^="#"]:after,
-    a[href^="javascript:"]:after {
-        content: "";
+    a[href^='#']:after,
+    a[href^='javascript:']:after {
+        content: '';
     }
 
     pre,
@@ -72,12 +73,15 @@
     .navbar {
         display: none;
     }
+
     .btn,
     .dropup > .btn {
+
         > .caret {
             border-top-color: #000 !important;
         }
     }
+
     .label {
         border: 1px solid #000;
     }
@@ -90,7 +94,9 @@
             background-color: #fff !important;
         }
     }
+
     .table-bordered {
+
         th,
         td {
             border: 1px solid #ddd !important;

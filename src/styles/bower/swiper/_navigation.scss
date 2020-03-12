@@ -12,7 +12,9 @@
 }
 
 /* Common Styles */
-.swiper-pagination-fraction, .swiper-pagination-custom, .swiper-container-horizontal > .swiper-pagination-bullets {
+.swiper-pagination-fraction,
+.swiper-pagination-custom,
+.swiper-container-horizontal > .swiper-pagination-bullets {
     bottom: 10px;
     left: 0;
     width: 100%;
@@ -33,9 +35,6 @@
         margin: 0;
         padding: 0;
         box-shadow: none;
-        -moz-appearance: none;
-        -ms-appearance: none;
-        -webkit-appearance: none;
         appearance: none;
     }
 
@@ -50,7 +49,6 @@
 
 .swiper-pagination-bullet-active {
     opacity: 1;
-    background: #007aff;
     border-color: getMapValue($wlcBannersSlider, 'bulletActiveBorderColor');
     background: getMapValue($wlcBannersSlider, 'bulletActiveColor');
 
@@ -68,7 +66,7 @@
     > .swiper-pagination-bullets {
         right: 10px;
         top: 50%;
-        transform: translate3d(0px, -50%, 0);
+        transform: translate3d(0, -50%, 0);
 
         .swiper-pagination-bullet {
             margin: 5px 0;
@@ -78,7 +76,9 @@
 }
 
 .swiper-container-horizontal {
+
     > .swiper-pagination-bullets {
+
         .swiper-pagination-bullet {
             margin: 0 5px;
         }
@@ -135,9 +135,7 @@
     }
 }
 
-//-------------------------//
 /* Arrows */
-
 .wlc-swiper-container__button a {
     width: 100px;
     height: 100px;
@@ -150,10 +148,10 @@
     height: 100%;
 }
 
-.wlc-swiper-container__button a::before,
-.wlc-swiper-container__button a::after,
-.wlc-swiper-container__button .icon-wrap::before,
-.wlc-swiper-container__button .icon-wrap::after {
+.wlc-swiper-container__button a:before,
+.wlc-swiper-container__button a:after,
+.wlc-swiper-container__button .icon-wrap:before,
+.wlc-swiper-container__button .icon-wrap:after {
     position: absolute;
     left: 0;
     width: 2px;
@@ -161,101 +159,84 @@
     background: getBaseColor('highlightThird');
     opacity: 0.6;
     content: '';
-    -webkit-transition: -webkit-transform 0.3s;
     transition: transform 0.3s;
-    -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
 }
 
 .swiper-button-next {
 
-    &.wlc-swiper-container__button a::before,
-    &.wlc-swiper-container__button a::after,
-    &.wlc-swiper-container__button .icon-wrap::before,
-    &.wlc-swiper-container__button .icon-wrap::after{
+    &.wlc-swiper-container__button a:before,
+    &.wlc-swiper-container__button a:after,
+    &.wlc-swiper-container__button .icon-wrap:before,
+    &.wlc-swiper-container__button .icon-wrap:after {
         left: 100%;
     }
 }
 
-.wlc-swiper-container__button .icon-wrap::before,
-.wlc-swiper-container__button .icon-wrap::after {
+.wlc-swiper-container__button .icon-wrap:before,
+.wlc-swiper-container__button .icon-wrap:after {
     z-index: 100;
     height: 0;
     background: lighten(getBaseColor('highlightThird'), 25%);
     opacity: 1;
-    -webkit-transition: height 0.3s, -webkit-transform 0.3s;
     transition: height 0.3s, transform 0.3s;
 }
 
-.wlc-swiper-container__button a::before,
-.wlc-swiper-container__button .icon-wrap::before {
+.wlc-swiper-container__button a:before,
+.wlc-swiper-container__button .icon-wrap:before {
     top: 50%;
-    -webkit-transform: translateX(-50%) rotate(-155deg);
     transform: translateX(-50%) rotate(-155deg);
-    -webkit-transform-origin: 50% 0%;
     transform-origin: 50% 0%;
 }
 
-.wlc-swiper-container__button-next a::before,
-.wlc-swiper-container__button-next a .icon-wrap::before {
-    -webkit-transform: translateX(-50%) rotate(155deg);
+.wlc-swiper-container__button-next a:before,
+.wlc-swiper-container__button-next a .icon-wrap:before {
     transform: translateX(-50%) rotate(155deg);
-    -webkit-transform-origin: 50% 0%;
     transform-origin: 50% 0%;
 }
 
-.wlc-swiper-container__button a::after,
-.wlc-swiper-container__button .icon-wrap::after {
+.wlc-swiper-container__button a:after,
+.wlc-swiper-container__button .icon-wrap:after {
     top: 50%;
-    -webkit-transform: translateX(-50%) rotate(-25deg);
     transform: translateX(-50%) rotate(-25deg);
-    -webkit-transform-origin: 0 0;
     transform-origin: 0 0;
 }
 
-.wlc-swiper-container__button-next a::after,
-.wlc-swiper-container__button-next a .icon-wrap::after {
-    -webkit-transform: translateX(-50%) rotate(25deg);
+.wlc-swiper-container__button-next a:after,
+.wlc-swiper-container__button-next a .icon-wrap:after {
     transform: translateX(-50%) rotate(25deg);
-    -webkit-transform-origin: 100% 0%;
     transform-origin: 100% 0%;
 }
 
-.wlc-swiper-container__button a:hover .icon-wrap::before,
-.wlc-swiper-container__button a:hover .icon-wrap::after {
+.wlc-swiper-container__button a:hover .icon-wrap:before,
+.wlc-swiper-container__button a:hover .icon-wrap:after {
     height: 50%;
 }
 
-.wlc-swiper-container__button a:hover::before,
-.wlc-swiper-container__button a:hover .icon-wrap::before {
-    -webkit-transform: translateX(-50%) rotate(-145deg);
+.wlc-swiper-container__button a:hover:before,
+.wlc-swiper-container__button a:hover .icon-wrap:before {
     transform: translateX(-50%) rotate(-145deg);
 }
 
-.wlc-swiper-container__button-next a:hover::before,
-.wlc-swiper-container__button-next a:hover .icon-wrap::before {
-    -webkit-transform: translateX(-50%) rotate(145deg);
+.wlc-swiper-container__button-next a:hover:before,
+.wlc-swiper-container__button-next a:hover .icon-wrap:before {
     transform: translateX(-50%) rotate(145deg);
 }
 
-.wlc-swiper-container__button a:hover::after,
-.wlc-swiper-container__button a:hover .icon-wrap::after {
-    -webkit-transform: translateX(-50%) rotate(-35deg);
+.wlc-swiper-container__button a:hover:after,
+.wlc-swiper-container__button a:hover .icon-wrap:after {
     transform: translateX(-50%) rotate(-35deg);
 }
 
-.wlc-swiper-container__button-next a:hover::after,
-.wlc-swiper-container__button-next a:hover .icon-wrap::after {
-    -webkit-transform: translateX(-50%) rotate(35deg);
+.wlc-swiper-container__button-next a:hover:after,
+.wlc-swiper-container__button-next a:hover .icon-wrap:after {
     transform: translateX(-50%) rotate(35deg);
 }
 
-.swiper-button-prev, .swiper-button-next{
+.swiper-button-prev,
+.swiper-button-next {
     width: 40px;
     height: 150px;
     margin-top: -75px;
-}
-
-.swiper-button-prev, .swiper-button-next {
     background: transparent;
 }
