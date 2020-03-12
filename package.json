@@ -8,12 +8,13 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "pre-commit": "npm run stylelint && npm run build",
     "build-locale:en": "ng build --prod --i18n-locale en --i18n-format xlf --i18n-file translate/messages.en.xlf --output-path=dist/en --baseHref /en/",
     "build-locale:es": "ng build --prod --i18n-locale es --i18n-format xlf --i18n-file translate/messages.es.xlf --output-path=dist/es --baseHref /es/",
     "build-locale:hi": "ng build --prod --i18n-locale hi --i18n-format xlf --i18n-file translate/messages.hi.xlf --output-path=dist/hi --baseHref /hi/",
     "build-locale": "npm run build-locale:en && npm run build-locale:es && npm run build-locale:hi",
-    "stylelint": "stylelint './src/**/*.scss' --syntax scss --config .stylelintrc"
+    "stylelint": "stylelint './src/**/*.scss' --syntax scss --config .stylelintrc",
+    "pre-commit": "npm run stylelint && npm run build",
+    "postinstall": "./githooks/add-symlinks.sh"
   },
   "private": true,
   "dependencies": {
