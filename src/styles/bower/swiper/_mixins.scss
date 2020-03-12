@@ -1,7 +1,8 @@
 @mixin preserve3d() {
     transform-style: preserve-3d;
 }
+
 @mixin encoded-svg-background($svg) {
     $url: '#{$svg}';
-    background-image: url("data:image/svg+xml;charset=utf-8,#{$url}");
+    background-image: url('data:image/svg+xml;charset=utf-8,#{$url}');
 }
