@@ -1,0 +1,84 @@
+.wlc-promo-menu {
+    background: getMapValue($wlcTopPromoMenu, 'background');
+    @if getMapValue($wlcTopPromoMenu, 'borderTop') != none {
+        border-top: 1px solid getMapValue($wlcTopPromoMenu, 'borderTop');
+    }
+    @if getMapValue($wlcTopPromoMenu, 'borderBottom') != none {
+        border-bottom: 1px solid getMapValue($wlcTopPromoMenu, 'borderBottom');
+    }
+    margin: {
+        left: -($grid-gutter-width / 2);
+        right: -($grid-gutter-width / 2);
+    }
+
+    @include max720 {
+        display: none;
+    }
+}
+
+.wlc-promo-menu-item {
+    align-items: center;
+    height: 100%;
+    padding: {
+        top: getMapValue($wlcTopPromoMenu, 'paddingTop');
+        bottom: getMapValue($wlcTopPromoMenu, 'paddingBottom');
+    }
+
+    a {
+        border: getMapValue($wlcTopPromoMenu, 'blockBorder');
+        border-radius: getMapValue($wlcTopPromoMenu, 'borderRadius');
+        display: flex;
+        align-items: center;
+        width: 100%;
+        height: getMapValue($wlcTopPromoMenu, 'blockHeight');
+        color: getMapValue($wlcTopPromoMenu, 'textColor');
+        font-size: getMapValue($wlcTopPromoMenu, 'fontSize');
+        justify-content: getMapValue($wlcTopPromoMenu, 'textAlign');
+        padding: 10px;
+        font-weight: getMapValue($wlcTopPromoMenu, 'fontWeight');
+        box-shadow: getMapValue($wlcTopPromoMenu, 'blockShadow');
+        text-transform: getMapValue($wlcTopPromoMenu, 'textTransform');
+        position: relative;
+        top: 0;
+        transition: all 150ms ease-out;
+
+        @include max1420 {
+            height: getMapValue($wlcTopPromoMenu, 'blockHeight') * ratio('1420');
+            font-size: getMapValue($wlcTopPromoMenu, 'fontSize') * ratio('1420');
+        }
+
+        @include max1366 {
+            height: getMapValue($wlcTopPromoMenu, 'blockHeight') * ratio('1366');
+            font-size: getMapValue($wlcTopPromoMenu, 'fontSize') * ratio('1366');
+        }
+
+        @include max900 {
+            height: getMapValue($wlcTopPromoMenu, 'blockHeight') * ratio('900');
+            //font-size: getMapValue($wlcTopPromoMenu, 'fontSize') * ratio('900');
+        }
+
+        &:hover {
+            top: -2px;
+        }
+    }
+
+    &.wlc-promo-menu-item_livecasino a {
+        background: #{getMapValue($wlcTopPromoMenu, 'imageLiveCasino')};
+        background-size: getMapValue($wlcTopPromoMenu, 'imageSizeLive');
+    }
+
+    &.wlc-promo-menu-item_tablegames a {
+        background: #{getMapValue($wlcTopPromoMenu, 'imageTableGames')};
+        background-size: getMapValue($wlcTopPromoMenu, 'imageSizeTable');
+    }
+
+    &.wlc-promo-menu-item_sportsbook a {
+        background: #{getMapValue($wlcTopPromoMenu, 'imageSportsBook')};
+        background-size: getMapValue($wlcTopPromoMenu, 'imageSizeSportsBook');
+    }
+
+    &.wlc-promo-menu-item_slots a {
+        background: #{getMapValue($wlcTopPromoMenu, 'imageSlots')};
+        background-size: getMapValue($wlcTopPromoMenu, 'imageSizeSlots');
+    }
+}

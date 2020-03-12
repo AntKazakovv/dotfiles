@@ -1,0 +1,22 @@
+.wlc-merchants-list {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+
+    .wlc-svg-block {
+        @extend %flex;
+        padding-right: 20px;
+        justify-content: center;
+        align-items: center;
+        flex-grow: 1;
+        flex-basis: 16%;
+        max-width: 16%;
+    }
+
+    .wlc-footer-main & {
+
+        svg {
+            fill: getMapValue($wlcFooter, 'merchantColor');
+        }
+    }
+}

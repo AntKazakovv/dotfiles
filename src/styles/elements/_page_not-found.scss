@@ -1,0 +1,185 @@
+.wlc-error-picture {
+    background: getMapValue($wlcErrorPage, 'errorImage');
+    background-size: contain;
+    max-width: 400px;
+    width: 100%;
+    padding-bottom: 125%;
+    margin: 0 50px;
+    display: flex;
+
+    @include max1420 {
+        max-width: 350px;
+    }
+    @include max1024 {
+        max-width: 300px;
+    }
+    @include max720 {
+        margin: 0;
+    }
+}
+
+.wlc-error-box {
+    padding-top: 8rem;
+    background-size: contain;
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+
+    &__left-column {
+        width: 50%;
+        order: 1;
+
+        @include max720 {
+            margin: 0 auto;
+            order: 2;
+        }
+    }
+
+    &__right-column {
+        @include profile_menu;
+        padding: 20px 50px 0 50px;
+        width: 50%;
+        order: 2;
+
+        .wlc-logo__image {
+            max-width: 262px;
+            margin: 15px 0 0;
+            clear: both;
+            display: block;
+        }
+
+        ul {
+            margin: 51px 0 31px 0;
+        }
+
+        .wlc-btn {
+            clear: both;
+        }
+
+        @include max900 {
+            padding: 20px 45px 0 45px;
+        }
+
+        @include max720 {
+            margin: 0 auto;
+            padding: 20px 50px 0 50px;
+            order: 2;
+        }
+    }
+
+    &__center {
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+        padding-bottom: 70px;
+
+        .wlc-error-picture {
+            margin: 0 auto;
+            max-width: getMapValue($wlcErrorPage, 'centerImageWidth');
+            padding-bottom: getMapValue($wlcErrorPage, 'centerImagePadding');
+        }
+
+        button {
+            width: 300px;
+            margin: 0 auto;
+            text-transform: uppercase;
+            font-weight: bold;
+
+            @include max560 {
+                width: 220px;
+            }
+        }
+    }
+
+    @include max720 {
+        padding-top: 4rem;
+    }
+}
+
+.wlc-error {
+    height: 100vh;
+    background: getMapValue($wlcErrorPage, 'background');
+    display: flex;
+    flex-direction: column;
+
+    .wlc-container {
+        flex-grow: 1;
+    }
+
+    @include max720 {
+        min-height: 1000px;
+    }
+}
+
+.wlc-error-footer {
+    width: 100%;
+    flex-grow: 0;
+
+    .wlc-footer-disclaimer-text {
+        color: getMapValue($wlcFooter, 'textColor');
+        text-align: center;
+    }
+}
+
+.wlc-big-text {
+    font-size: getFontSize('verybigfont');
+    font-weight: bold;
+    color: getMapValue($wlcErrorPage, 'textColor');
+    margin: 45px 0;
+    text-transform: uppercase;
+    opacity: getMapValue($wlcErrorPage, 'textOpacity');
+    text-align: center;
+    width: 100%;
+    display: inline-block;
+
+    @include max1420 {
+        font-size: getFontSize('xxxlarge');
+    }
+
+    @include max1200 {
+        font-size: getFontSize('xlarge');
+    }
+
+    @include max900 {
+        font-size: getFontSize('medium');
+    }
+}
+
+.wlc-error__404 {
+    font-size: 50px;
+    text-align: center;
+    color: darken(getMapValue($wlcErrorPage, 'btnColor'), 10%);
+    font-weight: bold;
+    text-transform: uppercase;
+    opacity: 0.8;
+}
+
+//.wlc-btn_error {
+//    background: getMapValue($wlcErrorPage, 'btnColor');
+//    &:hover {
+//        background: darken(getMapValue($wlcErrorPage, 'btnColor'), 20%);
+//    }
+//}
+
+@if (getMapValue($wlcErrorPage, 'showImage') == true) {
+
+    .wlc-error-picture {
+        display: block;
+    }
+
+    .wlc-error__404 {
+        display: none;
+    }
+}
+
+@if (getMapValue($wlcErrorPage, 'showImage') == false) {
+
+    .wlc-error-picture {
+        display: none;
+    }
+
+    .wlc-error__404 {
+        display: block;
+    }
+}

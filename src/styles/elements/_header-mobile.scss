@@ -1,0 +1,69 @@
+.wlc-header-mobile {
+    z-index: 11;
+    position: sticky;
+    top: -1px;
+    background-color: getMapValue($wlcHeaderMobile, 'background');
+
+    .wlc-logo-wrp {
+        width: 100%;
+    }
+
+    .wlc-logo__image {
+        width: 100%;
+        justify-content: center;
+        height: getMapValue($wlcHeaderMobile, 'height') - 15;
+
+        img {
+            display: block;
+            max-height: getMapValue($wlcHeaderMobile, 'height') - 15;
+        }
+    }
+}
+
+.wlc-header-mobile-row {
+    min-height: getMapValue($wlcHeaderMobile, 'height');
+}
+
+.wlc-header-mobile-left {
+    flex-grow: unset;
+    display: flex;
+    justify-content: getMapValue($wlcHeaderMobile, 'leftHorizontalAlign');
+    align-items: getMapValue($wlcHeaderMobile, 'leftVerticalAlign');
+}
+
+.wlc-header-mobile-middle {
+    display: flex;
+    justify-content: getMapValue($wlcHeaderMobile, 'middleHorizontalAlign');
+    align-items: getMapValue($wlcHeaderMobile, 'middleVerticalAlign');
+}
+
+.wlc-header-mobile-right {
+    flex-grow: unset;
+    display: flex;
+    justify-content: getMapValue($wlcHeaderMobile, 'rightHorizontalAlign');
+    align-items: getMapValue($wlcHeaderMobile, 'rightVerticalAlign');
+}
+
+.wlc-header-mobile-buttons {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    .wlc-btn {
+        margin-right: 0;
+        min-width: auto;
+
+        &.wlc-btn_login {
+            color: #000;
+        }
+
+        &.wlc-btn_signup {
+            color: #fff;
+            background-color: getBaseColor('highlightSecond');
+
+            &:hover {
+                background-color: wlcdarken(getBaseColor('highlightSecond'), 10%);
+            }
+        }
+    }
+}

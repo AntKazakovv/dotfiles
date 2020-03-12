@@ -1,0 +1,178 @@
+.wlc-filter {
+    display: inline-block;
+}
+
+.wlc-filter_merchants {
+    position: relative;
+    cursor: default;
+}
+
+.wlc-filter-title {
+    font-size: getFontSize('medium');
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    .wlc-filter-icon {
+        max-height: getFontSize('medium');
+    }
+
+    .wlc-filter-title__text {
+
+        @include max640 {
+            display: none;
+        }
+    }
+
+    span {
+        margin-left: 15px;
+
+        .wlc-mobile & {
+            margin-left: 0;
+        }
+    }
+
+    &:hover {
+
+        .wlc-icon-list-animated {
+
+            * {
+                background-color: getMapValue($wlcAnimatedIcons, 'colorHovered');
+            }
+        }
+    }
+
+    .wlc-icon-list-animated {
+
+        * {
+            background-color: getMapValue($wlcAnimatedIcons, 'color');
+        }
+    }
+}
+
+.wlc-filter-list {
+    position: absolute;
+    border: getMapValue($wlcSearchModule, 'resultBorder');
+    border-radius: getMapValue($wlcSearchModule, 'borderRadius');
+    color: getMapValue($wlcSearchModule, 'resultTextColor');
+    background: getMapValue($wlcSearchModule, 'resultBackground');
+    visibility: hidden;
+    opacity: 0;
+    right: 0;
+    transition: opacity 0.4s;
+    overflow: hidden;
+    z-index: 1;
+    min-width: 300px;
+
+    .wlc-item_hovered & {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    .icon-close {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 8px;
+
+        svg {
+            width: 20px;
+            height: 20px;
+
+            * {
+                stroke: getElementColor('link');
+            }
+        }
+    }
+}
+
+.wlc-filter-list__item {
+    padding: 5px 20px 5px 10px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    transition: color 0.3s ease-out;
+
+    &:hover {
+        color: #{wlclighten(getMapValue($wlcSearchModule, 'resultTextColor'), 30%)};
+    }
+
+    &:hover span {
+        background: #{wlctransparentize(getMapValue($wlcSearchModule, 'resHovBckg'), 0.8)};
+    }
+
+    .wlc-checkbox {
+        display: flex;
+        align-items: center;
+    }
+}
+
+.wlc-filter-list__item.active {
+    color: #fff;
+}
+
+.wlc-search-and-filter {
+    @extend %flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-grow: 0;
+
+    .wlc-search-field {
+        min-width: 200px;
+    }
+}
+
+.wlc-search-and-filter__filter {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    max-width: 250px;
+
+    @include max480 {
+        display: none;
+    }
+}
+
+.wlc-games-filter {
+    margin: 3rem 0;
+
+    .wlc-games-filter-title {
+
+        h2 {
+            text-align: center;
+            width: 100%;
+            margin-bottom: 2rem;
+        }
+    }
+
+    .wlc-filter {
+        width: 100%;
+        justify-content: center;
+        display: none;
+
+        .wlc-static-filter {
+
+            .wlc-static-filter-list {
+                display: flex;
+                flex-wrap: wrap;
+
+                &__item {
+                    margin-right: 2rem;
+                    display: flex;
+                    align-items: center;
+                }
+            }
+        }
+
+        .wlc-filter-text {
+            margin-right: 2rem;
+            font-weight: bold;
+        }
+
+        &.active {
+            display: flex;
+        }
+    }
+}

@@ -1,0 +1,398 @@
+/*bootstrap modal*/
+@keyframes modal-remove {
+
+    from {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+
+    to {
+        opacity: 0;
+        transform: translate(0, -25%);
+    }
+}
+
+@keyframes modal-add {
+
+    from {
+        opacity: 0;
+        transform: translate(0, -25%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+}
+
+.modal-open {
+    overflow: hidden;
+
+    .modal {
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: none;
+    overflow: hidden;
+    -webkit-overflow-scrolling: touch;
+    outline: 0;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    opacity: 0;
+
+    &.in {
+        opacity: 1;
+    }
+
+    &.in-remove {
+        animation-name: modal-remove;
+        animation-duration: 0.3s;
+    }
+
+    &.in-add {
+        animation-name: modal-add;
+        animation-duration: 0.3s;
+    }
+}
+
+.modal-dialog {
+    @extend %container;
+    max-width: 100%;
+    position: absolute;
+    left: 50%;
+    top: 50px;
+    transform: translate(-50%, 0);
+
+    animation: {
+        //name: in-animation;
+        //duration: 0.4s;
+    };
+
+    @include max560 {
+        top: 0;
+        margin-top: 0;
+        margin-bottom: 0;
+        padding-left: 0;
+        padding-right: 0;
+        width: 100vw !important;
+        max-width: 100% !important;
+        min-height: 100vh;
+    }
+}
+
+.modal-content {
+    position: relative;
+    border-radius: getMapValue($wlcModal, 'borderRadius');
+    outline: 0;
+    background: getMapValue($wlcModal, 'background');
+    background-clip: padding-box;
+    box-shadow: getMapValue($wlcModal, 'shadow');
+    border: getMapValue($wlcModal, 'border');
+    color: getMapValue($wlcModal, 'textColor');
+    width: 100%;
+    //min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+    .wlc-modal_error & {
+        border-radius: getMapValue($wlcModalError, 'borderRadius');
+        background: getMapValue($wlcModalError, 'background');
+        box-shadow: getMapValue($wlcModalError, 'shadow');
+        border: getMapValue($wlcModalError, 'border');
+        color: getMapValue($wlcModalError, 'textColor');
+    }
+
+    a {
+
+        &:not(.wlc-btn) {
+            color: getMapValue($wlcModal, 'linkColor') !important;
+        }
+
+        .wlc-modal_error & {
+            color: getMapValue($wlcModalError, 'linkColor') !important;
+        }
+    }
+
+    @include max560 {
+        min-height: 100vh;
+        border-radius: 0;
+        border: none;
+    }
+}
+
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1040;
+    background: getMapValue($wlcModal, 'backDrop');
+    overflow: hidden;
+
+    .wlc-modal_error & {
+        background: getMapValue($wlcModalError, 'backDrop');
+    }
+}
+
+.modal-header {
+    position: getMapValue($wlcModal, 'headerPosition');
+    z-index: 1;
+    top: 0;
+    background: getMapValue($wlcModal, 'headerBackground');
+    display: flex;
+    border-bottom: getMapValue($wlcModal, 'headerBorder');
+
+    @include browser('ucbrowser') {
+        position: relative;
+    }
+}
+
+.modal-header__title {
+    width: 100%;
+}
+
+.wlc-modal__header {
+    width: 100%;
+    position: relative;
+    padding: getMapValue($wlcModal, 'headerPadding');
+    text-align: center;
+    min-height: getMapValue($wlcModal, 'minHeaderHeight');
+    background: getMapValue($wlcModal, 'headerBackground');
+
+    .wlc-modal_error & {
+        padding: getMapValue($wlcModalError, 'padding');
+        border-bottom: getMapValue($wlcModalError, 'headerBorder');
+        background: getMapValue($wlcModalError, 'headerBackground');
+    }
+}
+
+.wlc-modal-back {
+    position: absolute;
+    top: 33%;
+    left: 1.3rem;
+    width: 3rem;
+    height: 3rem;
+    z-index: 2;
+    color: getMapValue($wlcModal, 'backColor');
+    font-size: getMapValue($wlcModal, 'backSize');
+    font-weight: getMapValue($wlcModal, 'backWeight');
+    cursor: pointer;
+
+    .wlc-modal-back__text {
+        white-space: nowrap;
+    }
+
+    svg {
+        fill: transparent;
+        stroke: getMapValue($wlcModal, 'backColor');
+        margin-right: 5px;
+
+        polygon {
+            transition: all 0.4s;
+        }
+    }
+
+    &:hover {
+
+        svg {
+
+            polygon {
+                fill: getMapValue($wlcModal, 'backColor');
+            }
+        }
+    }
+}
+
+.wlc-modal-title {
+    color: getMapValue($wlcModal, 'titleColor');
+    font-size: getMapValue($wlcModal, 'titleSize');
+    margin: 0 2rem;
+    text-align: center;
+
+    @include max900 {
+        font-size: getMapValue($wlcModal, 'titleSize') * ratio('900');
+    }
+
+    @include max768 {
+        font-size: getMapValue($wlcModal, 'titleSize') * ratio('768');
+    }
+
+    span {
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+
+    .wlc-modal_message & {
+        font-size: getFontSize('xlarge');
+        font-weight: 500;
+        color: getMapValue($wlcModal, 'titleColor');
+    }
+
+    .wlc-modal_error & {
+        color: getMapValue($wlcModalError, 'titleColor');
+    }
+}
+
+.wlc-modal-close {
+    position: absolute;
+    top: 25%;
+    right: 1.5rem;
+    width: 3rem;
+    height: 3rem;
+    cursor: pointer;
+    z-index: 2;
+
+    .wlc-svg-icon,
+    svg {
+        width: 100%;
+        height: 100%;
+        stroke-width: 2px;
+    }
+
+    svg {
+        stroke: getMapValue($wlcModal, 'closeColor');
+        fill: none;
+
+        .wlc-modal_error & {
+            stroke: getMapValue($wlcModalError, 'closeColor');
+        }
+    }
+
+    &:hover {
+
+        svg {
+            stroke: getMapValue($wlcModal, 'closeColorHover');
+
+            .wlc-modal_error & {
+                stroke: getMapValue($wlcModalError, 'closeColorHover');
+            }
+        }
+    }
+}
+
+.wlc-modal__body {
+    padding: getMapValue($wlcModal, 'padding');
+    color: getMapValue($wlcModal, 'textColor');
+
+    @include max480 {
+        padding-right: 1.5rem;
+        padding-left: 1.5rem;
+    }
+
+    .wlc-modal_error & {
+        padding: getMapValue($wlcModalError, 'padding');
+        color: getMapValue($wlcModalError, 'textColor');
+    }
+
+    label,
+    p {
+        color: getMapValue($wlcModal, 'textColor');
+        text-align: center;
+
+        .wlc-modal_error & {
+            color: getMapValue($wlcModalError, 'textColor');
+        }
+    }
+
+    p {
+        font-size: getFontSize('medium');
+        text-align: left;
+        hyphens: auto;
+
+        .wlc-modal_message & {
+            text-align: center;
+        }
+    }
+}
+
+.wlc-modal__loader {
+    text-align: center;
+
+    svg {
+        fill: getBaseColor('textColor');
+    }
+}
+
+.wlc-modal__body_scroll {
+    height: 75vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 0;
+
+    &--content {
+        padding: 15px;
+    }
+}
+
+.wlc-modal__footer {
+    padding: getMapValue($wlcModal, 'padding');
+    text-align: center;
+
+    .wlc-modal_error & {
+        padding: getMapValue($wlcModalError, 'padding');
+    }
+}
+
+.wlc-message-error {
+
+    p {
+        text-align: center;
+        font-size: getFontSize('xxlarge');
+        line-height: 8rem;
+    }
+
+    p:first-child {
+        font-size: getFontSize('xxxlarge');
+        padding-top: 3rem;
+    }
+}
+
+@each $name, $value in getMapValue($wlcModal, 'sizes') {
+
+    .modal-#{$name} {
+        max-width: $value !important;
+    }
+}
+
+.wlc-content-row {
+    width: 100%;
+}
+
+.wlc-modal-preplay__login-button,
+.wlc-modal-preplay-description {
+    margin: getMapValue($wlcElementsStyles, 'basePadding');
+}
+
+.modal + .modal {
+
+    .modal-content {
+        border: getMapValue($wlcModal, 'secondWindowBorder');
+    }
+}
+
+.modal-dialog.modal-default {
+
+    .wlc-modal-sign-up & {
+        max-width: getScreen('900') - (getElementStyle('basePadding') * 2);
+    }
+}
+
+.modal-open__error {
+
+    .wlc-modal-error {
+        z-index: 2000 !important;
+    }
+}

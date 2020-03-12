@@ -1,0 +1,93 @@
+@mixin baseItemsBlock($margin) {
+    @extend %flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    margin: $margin;
+}
+
+@mixin baseItem($margin, $padding) {
+    margin: $margin;
+    padding: $padding;
+}
+
+@mixin itemInBlock($flex) {
+    flex: $flex;
+
+    @include max1024 {
+        flex: 0 0 50%;
+    }
+
+    @include max900 {
+        flex: 0 0 33.3333%;
+    }
+
+    @include max640 {
+        flex: 0 0 50%;
+    }
+
+    @include max360 {
+        flex: 1 0 100%;
+    }
+}
+
+@mixin itemImage {
+    width: 100%;
+    overflow: hidden;
+    border-radius: getMapValue($wlcBonusThumb, 'baseBorderRadius');
+    background: {
+        position: center center;
+        repeat: no-repeat;
+        size: contain;
+    }
+    margin: 0 auto;
+    transform: scale(1);
+
+    &:hover {
+        transform: scale(1.02);
+    }
+}
+
+@mixin itemImageInner {
+    padding-bottom: 100% / getMapValue($wlcBonusThumb, 'aspectRatio');
+    cursor: pointer;
+}
+
+@mixin itemDescription($margin) {
+    margin-top: $margin;
+    text-align: center;
+}
+
+@mixin itemDescriptionName($fontWeight, $minHeight) {
+    font-size: getFontSize('medium');
+    font-weight: $fontWeight;
+    color: getMapValue($wlcBonusThumb, 'titleColor');
+    line-height: getFontSize('medium');
+    word-wrap: break-word;
+    word-break: break-all;
+    min-height: $minHeight;
+
+    @include max900 {
+        font-size: getFontSize('medium') * ratio('900');
+    }
+
+    @include max720 {
+        font-size: getFontSize('medium') * ratio('720');
+    }
+}
+
+@mixin itemDescriptionBtns() {
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .wlc-btn {
+        margin-bottom: 10px;
+        text-transform: getMapValue($wlcBonusThumb, 'textTransformForBtn');
+    }
+
+    .wlc-btn_link {
+        margin-top: 5px;
+    }
+}

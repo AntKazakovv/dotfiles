@@ -1,0 +1,166 @@
+.wlc-datepicker {
+
+    .uib-datepicker-popup.dropdown-menu {
+        display: block;
+        padding: 6px;
+    }
+
+    .uib-button-bar {
+        padding: 10px 9px 2px;
+    }
+
+    .uib-position-measure {
+        display: block !important;
+        visibility: hidden !important;
+        position: absolute !important;
+        top: -9999px !important;
+        left: -9999px !important;
+    }
+
+    .uib-position-scrollbar-measure {
+        position: absolute !important;
+        top: -9999px !important;
+        width: 50px !important;
+        height: 50px !important;
+        overflow: scroll !important;
+    }
+
+    .uib-position-body-scrollbar-measure {
+        overflow: scroll !important;
+    }
+
+    .uib-datepicker .uib-title {
+        width: 100%;
+    }
+
+    .uib-day button,
+    .uib-month button,
+    .uib-year button {
+        min-width: 100%;
+    }
+
+    .uib-left,
+    .uib-right {
+        width: 100%;
+    }
+
+    .text-info {
+        color: inherit !important;
+    }
+
+    .sr-only {
+        display: none;
+    }
+
+    .glyphicon-chevron-right {
+        position: relative;
+        margin-top: -4px;
+        display: inline-block;
+        vertical-align: middle;
+        width: 8px;
+        height: 8px;
+        line-height: 1;
+
+        &:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -2px;
+            width: 8px;
+            height: 8px;
+            border-right: 2px solid getMapValue($wlcDatepicker, 'calendarNextPrevColor');
+            border-bottom: 2px solid getMapValue($wlcDatepicker, 'calendarNextPrevColor');
+            transform: rotate(-45deg);
+        }
+    }
+
+    .glyphicon-chevron-left {
+        position: relative;
+        margin-top: -4px;
+        display: inline-block;
+        vertical-align: middle;
+        width: 8px;
+        height: 8px;
+        line-height: 1;
+
+        &:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 2px;
+            width: 8px;
+            height: 8px;
+            border-top: 2px solid getMapValue($wlcDatepicker, 'calendarNextPrevColor');
+            border-left: 2px solid getMapValue($wlcDatepicker, 'calendarNextPrevColor');
+            transform: rotate(-45deg);
+        }
+    }
+
+    //.pull-right {
+    //    float: right !important;
+    //}
+
+    .dropdown-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        z-index: 1000;
+        display: none;
+        //float: left;
+        min-width: getMapValue($wlcDatepicker, 'minWidth');
+        padding: getMapValue($wlcDatepicker, 'padding');
+        margin: getMapValue($wlcDatepicker, 'margin');
+        font-size: getMapValue($wlcDatepicker, 'fontSize');
+        text-align: left;
+        list-style: none;
+        background-color: getMapValue($wlcDatepicker, 'background');
+        background-clip: padding-box;
+        border: 1px solid getMapValue($wlcDatepicker, 'border');
+        border-radius: getMapValue($wlcDatepicker, 'borderRadius');
+
+        table {
+
+            td,
+            th {
+                padding: getMapValue($wlcDatepicker, 'tableCellPadding');
+            }
+        }
+    }
+
+    .btn {
+        display: inline-block;
+        vertical-align: middle;
+        padding: getMapValue($wlcDatepicker, 'calendarBtnPadding');
+        color: getMapValue($wlcDatepicker, 'calendarBtnColor');
+        font-size: getMapValue($wlcDatepicker, 'calendarBtnFontSize');
+        font-weight: getMapValue($wlcDatepicker, 'calendarBtnFontWeight');
+        text-align: center;
+        background-color: getMapValue($wlcDatepicker, 'calendarBtnBg');
+        border: 1px solid getMapValue($wlcDatepicker, 'calendarBtnBorder');
+        border-radius: getMapValue($wlcDatepicker, 'calendarBtnBorderRadius');
+        white-space: nowrap;
+        touch-action: manipulation;
+        cursor: pointer;
+        user-select: none;
+
+        &:hover {
+            background-color: getMapValue($wlcDatepicker, 'calendarBtnBgHover');
+        }
+
+        &.active {
+            color: getMapValue($wlcDatepicker, 'calendarBtnColorActive');
+            background-color: getMapValue($wlcDatepicker, 'calendarBtnBgActive');
+            border-color: getMapValue($wlcDatepicker, 'calendarBtnBorderActive');
+        }
+
+        &[disabled] {
+            color: getMapValue($wlcDatepicker, 'calendarBtnColorDisable') !important;
+            background-color: getMapValue($wlcDatepicker, 'calendarBtnBgDisabled') !important;
+            cursor: not-allowed;
+
+            &.text-muted {
+                color: getMapValue($wlcDatepicker, 'calendarBtnColorDisable') !important;
+            }
+        }
+    }
+}
