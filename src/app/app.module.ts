@@ -1,3 +1,5 @@
+import { MatSliderModule } from '@angular/material/slider';
+
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -22,7 +24,8 @@ import { PushControlComponent } from './modules/messages/components/push-control
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatSliderModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
