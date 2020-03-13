@@ -1,33 +1,27 @@
-import { MatSliderModule } from '@angular/material/slider';
-
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-// import { FilterPipe } from './modules/base/pipes/filter/filter.pipe';
-import { PhoneVerifyComponent } from './modules/sms/components/phone-verify/phone-verify.component';
-import { ListComponent } from './modules/messages/components/list/list.component';
-import { ItemComponent } from './modules/messages/components/item/item.component';
-import { NotifyComponent } from './modules/messages/components/notify/notify.component';
-import { PushControlComponent } from './modules/messages/components/push-control/push-control.component';
 
-import {WlcBaseModule} from './modules/base/base.module';
+import { MatSliderModule } from '@angular/material/slider';
+
+import { WlcBaseModule } from './modules/base/base.module';
+import { WlcCoreModule } from './modules/core/core.module';
+import { WlcMessagesModule } from './modules/messages/messages.module';
+import { WlcSeoModule } from './modules/seo/seo.module';
+import { WlcSmsModule } from './modules/sms/sms.module';
+
+import {AppComponent } from './app.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    PhoneVerifyComponent,
-    ListComponent,
-    ItemComponent,
-    NotifyComponent,
-    PushControlComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     MatSliderModule,
-    WlcBaseModule
+    WlcBaseModule,
+    WlcCoreModule
   ],
   providers: [],
   bootstrap: [AppComponent]
