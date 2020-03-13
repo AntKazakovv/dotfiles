@@ -5,17 +5,19 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { FilterPipe } from './modules/base/pipes/filter/filter.pipe';
+// import { FilterPipe } from './modules/base/pipes/filter/filter.pipe';
 import { PhoneVerifyComponent } from './modules/sms/components/phone-verify/phone-verify.component';
 import { ListComponent } from './modules/messages/components/list/list.component';
 import { ItemComponent } from './modules/messages/components/item/item.component';
 import { NotifyComponent } from './modules/messages/components/notify/notify.component';
 import { PushControlComponent } from './modules/messages/components/push-control/push-control.component';
 
+import {BaseModule} from './modules/base/base.module';
+
 @NgModule({
   declarations: [
     AppComponent,
-    FilterPipe,
+    // FilterPipe,
     PhoneVerifyComponent,
     ListComponent,
     ItemComponent,
@@ -26,6 +28,7 @@ import { PushControlComponent } from './modules/messages/components/push-control
     BrowserModule,
     AppRoutingModule,
     MatSliderModule,
+    BaseModule
   ],
   providers: [],
   bootstrap: [AppComponent]
