@@ -5,7 +5,6 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-// import { FilterPipe } from './modules/base/pipes/filter/filter.pipe';
 import { PhoneVerifyComponent } from './modules/sms/components/phone-verify/phone-verify.component';
 import { ListComponent } from './modules/messages/components/list/list.component';
 import { ItemComponent } from './modules/messages/components/item/item.component';
