@@ -12,12 +12,11 @@ import { ItemComponent } from './modules/messages/components/item/item.component
 import { NotifyComponent } from './modules/messages/components/notify/notify.component';
 import { PushControlComponent } from './modules/messages/components/push-control/push-control.component';
 
-import {BaseModule} from './modules/base/base.module';
+import {WlcBaseModule} from './modules/base/base.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    // FilterPipe,
     PhoneVerifyComponent,
     ListComponent,
     ItemComponent,
@@ -28,7 +27,7 @@ import {BaseModule} from './modules/base/base.module';
     BrowserModule,
     AppRoutingModule,
     MatSliderModule,
-    BaseModule
+    WlcBaseModule
   ],
   providers: [],
   bootstrap: [AppComponent]

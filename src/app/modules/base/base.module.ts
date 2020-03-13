@@ -10,5 +10,5 @@ import {FilterPipe} from './pipes/filter/filter.pipe';
         CommonModule
     ]
 })
-export class BaseModule {
+export class WlcBaseModule {
 }
