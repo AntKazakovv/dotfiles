@@ -4,11 +4,13 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { MatSliderModule } from '@angular/material/slider';
 
-import { WlcBaseModule } from './modules/base/base.module';
-import { WlcCoreModule } from './modules/core/core.module';
-import { WlcMessagesModule } from './modules/messages/messages.module';
-import { WlcSeoModule } from './modules/seo/seo.module';
-import { WlcSmsModule } from './modules/sms/sms.module';
+import {
+  WlcBaseModule,
+  WlcCoreModule,
+  WlcMessagesModule,
+  WlcSeoModule,
+  WlcSmsModule
+} from './modules';
 
 import {AppComponent } from './app.component';
 
@@ -21,7 +23,10 @@ import {AppComponent } from './app.component';
     AppRoutingModule,
     MatSliderModule,
     WlcBaseModule,
-    WlcCoreModule
+    WlcCoreModule,
+    WlcMessagesModule,
+    WlcSeoModule,
+    WlcSmsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
