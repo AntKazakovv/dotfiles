@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { MatSliderModule } from '@angular/material/slider';
 
 import {
-  WlcBaseModule,
   WlcCoreModule,
   WlcMessagesModule,
   WlcSeoModule,
@@ -22,7 +21,6 @@ import {AppComponent } from './app.component';
     BrowserModule,
     AppRoutingModule,
     MatSliderModule,
-    WlcBaseModule,
     WlcCoreModule,
     WlcMessagesModule,
     WlcSeoModule,

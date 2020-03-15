@@ -1,15 +1,16 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
-import {WlcConfigModule} from './config/config.module';
-import {WlcDataModule} from './data/data.module';
-import {WlcEventModule} from './event/event.module';
-import {WlcFormsModule} from './forms/forms.module';
-import {WlcLayoutsModule} from './layouts/layouts.module';
-import {WlcLocaleModule} from './locale/locale.module';
-import {WlcLogModule} from './log/log.module';
-import {WlcModalModule} from "./modal/modal.module";
-import {WlcSwiperModule} from "./swiper/swiper.module";
+import {WlcConfigModule} from './config';
+import {WlcDataModule} from './data';
+import {WlcEventModule} from './event';
+import {WlcFormsModule} from './forms';
+import {WlcLayoutsModule} from './layouts';
+import {WlcLocaleModule} from './locale';
+import {WlcLogModule} from './log';
+import {WlcModalModule} from "./modal";
+import {WlcSwiperModule} from "./swiper";
+import {WlcBaseModule} from "./base";
 
 @NgModule({
     declarations: [
@@ -17,12 +18,14 @@ import {WlcSwiperModule} from "./swiper/swiper.module";
     ],
     imports: [
         CommonModule,
+        WlcBaseModule,
         WlcConfigModule,
         WlcDataModule,
         WlcEventModule,
         WlcFormsModule,
         WlcLayoutsModule,
         WlcLocaleModule,
+        WlcLogModule,
         WlcModalModule,
         WlcSwiperModule
     ]
