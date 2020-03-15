@@ -1,22 +1,3 @@
-<h1 i18n>Localization Demo in Angular using i18n</h1>
-<h3 i18n="@@myName"> Hello, My name is Ankit</h3>
-<p>This text will remain same in all languages</p>
-<hr/>
-
-<ng-container *ngFor="let language of languageList">
-    <a href="/{{language.code}}/">
-        <button class="button">{{language.label}}</button>
-    </a>
-</ng-container>
-
-
-<div>
-    <div>Test angular2 material</div>
-    <mat-slider min="1" max="100" step="1" value="1"></mat-slider>
-</div>
-
-
-
 <!-- Toolbar -->
 <div class="toolbar" role="banner">
     <img
@@ -49,6 +30,26 @@
         </svg>
 
     </a>
+</div>
+
+<div>
+    <div>Home page</div>
+
+    <h1 i18n>Localization Demo in Angular using i18n</h1>
+    <h3 i18n="@@myName"> Hello, My name is Ankit</h3>
+    <p>This text will remain same in all languages</p>
+    <hr/>
+
+    <ng-container *ngFor="let language of languageList">
+        <a>
+            <button class="button" [uiSref]="'app.home'" [uiParams]="{locale: language.code, reload: true}">{{language.label}}</button>
+        </a>
+    </ng-container>
+
+    <div>
+        <div>Po translations</div>
+        <div>{{'Test po translations' | translate}}</div>
+    </div>
 </div>
 
 <div class="content" role="main">
@@ -343,3 +344,4 @@
 <!-- * * * * * * * * * * End of Placeholder * * * * * * * * * * * -->
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 
+<!--<router-outlet></router-outlet>-->

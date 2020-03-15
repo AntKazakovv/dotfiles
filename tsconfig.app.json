@@ -5,7 +5,12 @@
     "types": [
       "node",
       "jasmine"
-    ]
+    ],
+    "paths": {
+      "modules/*": [
+        "src/app/modules/*"
+      ]
+    }
   },
   "files": [
     "src/main.ts",
