@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-push-control',
+  selector: 'wlc-push-control',
   templateUrl: './push-control.component.html',
   styleUrls: ['./push-control.component.scss']
 })

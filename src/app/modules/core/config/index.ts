@@ -10,6 +10,9 @@ import {ConfigService} from './services/config/config.service';
     providers: [
         ConfigService
     ],
+    exports: [
+
+    ],
     imports: [
         CommonModule
     ]

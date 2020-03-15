@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-notify',
+  selector: 'wlc-notify',
   templateUrl: './notify.component.html',
   styleUrls: ['./notify.component.scss']
 })

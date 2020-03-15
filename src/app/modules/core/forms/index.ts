@@ -10,6 +10,9 @@ import {ValidatorService} from './services/validator/validator.service';
     providers: [
         ValidatorService
     ],
+    exports: [
+
+    ],
     imports: [
         CommonModule
     ]

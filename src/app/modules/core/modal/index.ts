@@ -10,6 +10,9 @@ import {ModalService} from './services/modal/modal.service';
     providers: [
         ModalService
     ],
+    exports: [
+
+    ],
     imports: [
         CommonModule
     ]

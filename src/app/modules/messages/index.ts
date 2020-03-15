@@ -11,10 +11,18 @@ import {PushControlComponent} from './components/push-control/push-control.compo
 @NgModule({
     declarations: [
         ItemComponent,
-
+        ListComponent,
+        NotifyComponent,
+        PushControlComponent
     ],
     providers: [
         MessagesService
+    ],
+    exports: [
+        ItemComponent,
+        ListComponent,
+        NotifyComponent,
+        PushControlComponent
     ],
     imports: [
         CommonModule

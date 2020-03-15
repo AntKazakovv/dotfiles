@@ -10,6 +10,9 @@ import {EventService} from './services/event/event.service';
     providers: [
         EventService
     ],
+    exports: [
+
+    ],
     imports: [
         CommonModule
     ]
