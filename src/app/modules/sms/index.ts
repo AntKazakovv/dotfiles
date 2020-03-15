@@ -1,5 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
+import {WlcCoreModule} from "../core";
 
 import {SmsService} from './services/sms/sms.service';
 
@@ -12,8 +13,12 @@ import {PhoneVerifyComponent} from './components/phone-verify/phone-verify.compo
     providers: [
         SmsService
     ],
+    exports: [
+        PhoneVerifyComponent
+    ],
     imports: [
-        CommonModule
+        CommonModule,
+        WlcCoreModule
     ]
 })
 export class WlcSmsModule {

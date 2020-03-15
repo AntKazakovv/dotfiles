@@ -12,6 +12,9 @@ import {LogService} from './services/log/log.service';
         ErrorService,
         LogService
     ],
+    exports: [
+
+    ],
     imports: [
         CommonModule
     ]

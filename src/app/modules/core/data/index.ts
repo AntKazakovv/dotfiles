@@ -12,6 +12,9 @@ import {ConnectorService} from './services/connector/connector.service';
         DataService,
         ConnectorService
     ],
+    exports: [
+
+    ],
     imports: [
         CommonModule
     ]

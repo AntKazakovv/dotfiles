@@ -6,6 +6,9 @@ import {FilterPipe} from './pipes/filter/filter.pipe';
     declarations: [
         FilterPipe
     ],
+    exports: [
+
+    ],
     imports: [
         CommonModule
     ]

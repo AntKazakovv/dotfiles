@@ -10,6 +10,9 @@ import {SwiperService} from './services/swiper/swiper.service';
     providers: [
         SwiperService
     ],
+    exports: [
+
+    ],
     imports: [
         CommonModule
     ]

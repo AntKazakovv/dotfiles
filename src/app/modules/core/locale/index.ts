@@ -10,6 +10,9 @@ import {LanguageService} from './services/language/language.service';
     providers: [
         LanguageService
     ],
+    exports: [
+
+    ],
     imports: [
         CommonModule
     ]

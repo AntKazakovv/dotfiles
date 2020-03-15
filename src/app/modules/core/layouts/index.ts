@@ -10,6 +10,9 @@ import {LayoutsService} from './services/layouts/layouts.service';
     providers: [
         LayoutsService
     ],
+    exports: [
+
+    ],
     imports: [
         CommonModule
     ]

@@ -1,5 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
+import {WlcCoreModule} from "../core";
 
 import {SeoService} from './services/seo/seo.service';
 
@@ -10,8 +11,12 @@ import {SeoService} from './services/seo/seo.service';
     providers: [
         SeoService
     ],
+    exports: [
+
+    ],
     imports: [
-        CommonModule
+        CommonModule,
+        WlcCoreModule
     ]
 })
 export class WlcSeoModule {
