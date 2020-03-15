@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { AppRoutingModule } from './app-routing.module';
 
 import { MatSliderModule } from '@angular/material/slider';
 
@@ -19,7 +18,6 @@ import {AppComponent } from './app.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     MatSliderModule,
     WlcCoreModule,
     WlcMessagesModule,
