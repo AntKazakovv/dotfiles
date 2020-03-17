@@ -14,55 +14,36 @@ class TestComponent {
     text: string;
 }
 
-@Pipe({
-    name: 'filter'
-})
-export class FilterPipeMock implements PipeTransform {
-
-    transform(value: any, ...args: any[]): any {
-        return value;
-    }
-}
-
-// TestBed.configureTestingModule({
-//     declarations: [
-//         TestComponent, FilterPipeMock
-//     ],
-//     providers: [
-//         // FilterPipe
-//     ]
-// });
-
 describe('FilterPipe', () => {
 
-  beforeEach(() => {
-      TestBed.configureTestingModule({
-          declarations: [
-              TestComponent,
-              FilterPipeMock
-          ],
-          imports: [
-              CommonModule
-          ]
-      });
-  });
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            declarations: [
+                TestComponent,
+                FilterPipe
+            ],
+            imports: [
+                CommonModule
+            ]
+        });
+    });
 
-  beforeEach(async(() => {
-      TestBed.compileComponents();
-  }));
+    beforeEach(async(() => {
+        TestBed.compileComponents();
+    }));
 
-  it('create an instance', () => {
-      const pipe = new FilterPipeMock();
-      expect(pipe).toBeTruthy();
-  });
+    it('create an instance', () => {
+        const pipe = new FilterPipe();
+        expect(pipe).toBeTruthy();
+    });
 
-  it('test filter', async(() => {
-      const fixture: ComponentFixture<TestComponent> = TestBed.createComponent(TestComponent);
-      fixture.componentInstance.text = 'foo';
-      fixture.detectChanges();
+    it('test filter', async(() => {
+        const fixture: ComponentFixture<TestComponent> = TestBed.createComponent(TestComponent);
+        fixture.componentInstance.text = 'foo';
+        fixture.detectChanges();
 
-      const el: HTMLElement = fixture.debugElement.nativeElement;
-      expect(el.querySelector('p').textContent).toBe('foo');
-  }));
+        const el: HTMLElement = fixture.debugElement.nativeElement;
+        expect(el.querySelector('p').textContent).toBe('foo');
+    }));
 
 });
