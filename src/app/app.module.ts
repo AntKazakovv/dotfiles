@@ -1,7 +1,11 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {UIRouterModule} from '@uirouter/angular';
 
-import { MatSliderModule } from '@angular/material/slider';
+import {APP_STATES} from 'config/states';
+
+import {MatSliderModule} from '@angular/material/slider';
 
 import {
   WlcCoreModule,
@@ -10,19 +14,21 @@ import {
   WlcSmsModule
 } from './modules';
 
-import {AppComponent } from './app.component';
+import {AppComponent} from './app.component';
 
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     MatSliderModule,
     WlcCoreModule,
     WlcMessagesModule,
     WlcSeoModule,
-    WlcSmsModule
+    WlcSmsModule,
+    UIRouterModule.forRoot({states: APP_STATES})
   ],
   providers: [],
   bootstrap: [AppComponent]
