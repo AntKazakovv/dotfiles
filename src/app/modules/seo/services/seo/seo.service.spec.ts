@@ -3,7 +3,11 @@ import { TestBed } from '@angular/core/testing';
 import { SeoService } from './seo.service';
 
 describe('SeoService', () => {
-  beforeEach(() => TestBed.configureTestingModule({}));
+  beforeEach(() => TestBed.configureTestingModule({
+      providers: [
+          SeoService
+      ]
+  }));
 
   it('should be created', () => {
     const service: SeoService = TestBed.get(SeoService);

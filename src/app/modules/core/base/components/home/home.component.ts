@@ -1,5 +1,5 @@
 import {Component, LOCALE_ID, Inject, ViewEncapsulation} from '@angular/core';
-import {DataService} from 'modules/core/data/services/data/data.service';
+//import {DataService} from 'modules/core/data/services/data/data.service';
 import {TranslateService} from '@ngx-translate/core';
 
 @Component({
@@ -19,7 +19,7 @@ export class HomeComponent {
 
     constructor(
         @Inject(LOCALE_ID) protected localeId: string,
-        private DataService: DataService,
+        //private DataService: DataService,
         translate: TranslateService
     ) {
         // console.log(DataService.testRequest());

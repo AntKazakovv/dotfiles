@@ -13,7 +13,6 @@ import {ConnectorService} from './services/connector/connector.service';
         ConnectorService
     ],
     exports: [
-
     ],
     imports: [
         CommonModule

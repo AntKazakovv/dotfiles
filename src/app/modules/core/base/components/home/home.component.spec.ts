@@ -1,6 +1,9 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { HomeComponent } from './home.component';
+import { TranslateModule, TranslateService, TranslateLoader, TranslateFakeLoader } from '@ngx-translate/core';
+import {MatSliderModule} from '@angular/material/slider';
+
+import {HomeComponent} from './home.component';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -8,7 +11,18 @@ describe('HomeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HomeComponent ]
+        declarations: [
+            HomeComponent
+        ],
+        providers: [
+            TranslateService
+        ],
+        imports: [
+            TranslateModule.forRoot({
+                loader: { provide: TranslateLoader, useClass: TranslateFakeLoader }
+            }),
+            MatSliderModule
+        ]
     })
     .compileComponents();
   }));

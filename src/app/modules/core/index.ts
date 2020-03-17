@@ -8,9 +8,9 @@ import {WlcFormsModule} from './forms';
 import {WlcLayoutsModule} from './layouts';
 import {WlcLocaleModule} from './locale';
 import {WlcLogModule} from './log';
-import {WlcModalModule} from "./modal";
-import {WlcSwiperModule} from "./swiper";
-import {WlcBaseModule} from "./base";
+import {WlcModalModule} from './modal';
+import {WlcSwiperModule} from './swiper';
+import {WlcBaseModule} from './base';
 
 @NgModule({
     declarations: [
@@ -28,6 +28,9 @@ import {WlcBaseModule} from "./base";
         WlcLogModule,
         WlcModalModule,
         WlcSwiperModule
+    ],
+    exports: [
+
     ]
 })
 export class WlcCoreModule {

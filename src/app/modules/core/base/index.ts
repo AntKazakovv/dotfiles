@@ -1,8 +1,8 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {UIRouterModule} from "@uirouter/angular";
+import {UIRouterModule} from '@uirouter/angular';
 import {FilterPipe} from './pipes/filter/filter.pipe';
-import {HomeComponent} from "./components/home/home.component";
+import {HomeComponent} from './components/home/home.component';
 
 @NgModule({
     declarations: [
@@ -11,7 +11,7 @@ import {HomeComponent} from "./components/home/home.component";
     ],
     exports: [
         FilterPipe,
-        //HomeComponent
+        // HomeComponent
     ],
     imports: [
         CommonModule,
