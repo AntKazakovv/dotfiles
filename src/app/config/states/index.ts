@@ -1,5 +1,5 @@
 import {Ng2StateDeclaration} from '@uirouter/angular';
-import {AppComponent} from 'src/app/app.component';
+import {AppComponent} from '../../app.component';
 import {StateHelper} from 'helpers';
 
 import {homeState} from './home.state';
