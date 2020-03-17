@@ -1,16 +1,21 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
+import {UIRouterModule} from "@uirouter/angular";
 import {FilterPipe} from './pipes/filter/filter.pipe';
+import {HomeComponent} from "./components/home/home.component";
 
 @NgModule({
     declarations: [
-        FilterPipe
+        FilterPipe,
+        HomeComponent
     ],
     exports: [
-
+        FilterPipe,
+        //HomeComponent
     ],
     imports: [
-        CommonModule
+        CommonModule,
+        UIRouterModule
     ]
 })
 export class WlcBaseModule {

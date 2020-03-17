@@ -9,6 +9,15 @@
     "paths": {
       "modules/*": [
         "src/app/modules/*"
+      ],
+      "helpers": [
+        "src/app/helpers/index.ts"
+      ],
+      "helpers/*": [
+        "src/app/helpers/*"
+      ],
+      "config/*": [
+        "src/app/config/*"
       ]
     }
   },
