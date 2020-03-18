@@ -1,5 +1,5 @@
 import {Ng2StateDeclaration} from '@uirouter/angular';
-import {AppComponent} from '../../app.component';
+import {AppLayoutComponent} from 'modules/pages/layouts/app-layout/app-layout.component';
 import {StateHelper} from 'helpers';
 
 import {homeState} from './home.state';
@@ -8,7 +8,7 @@ export const appState: Ng2StateDeclaration = {
     name: 'app',
     url: '/:locale',
     redirectTo: 'app.home',
-    component: AppComponent,
+    component: AppLayoutComponent,
     onEnter: StateHelper.onEnterFunc,
 };
 

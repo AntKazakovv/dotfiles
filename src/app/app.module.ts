@@ -15,10 +15,12 @@ import {
 } from './modules';
 
 import {AppComponent} from './app.component';
+import {AppLayoutComponent} from './modules/pages/layouts/app-layout/app-layout.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    AppLayoutComponent
   ],
   imports: [
     CommonModule,
