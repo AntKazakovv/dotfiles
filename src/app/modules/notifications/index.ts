@@ -12,5 +12,5 @@ import {CommonModule} from '@angular/common';
 
     ]
 })
-export class WlcPagesModule {
+export class WlcNotificationsModule {
 }

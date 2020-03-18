@@ -11,6 +11,7 @@ import {WlcLogModule} from './log';
 import {WlcModalModule} from './modal';
 import {WlcSwiperModule} from './swiper';
 import {WlcBaseModule} from './base';
+import {WlcAnalyticsModule} from './analytics';
 
 @NgModule({
     declarations: [
@@ -27,7 +28,8 @@ import {WlcBaseModule} from './base';
         WlcLocaleModule,
         WlcLogModule,
         WlcModalModule,
-        WlcSwiperModule
+        WlcSwiperModule,
+        WlcAnalyticsModule
     ],
     exports: [
 
