@@ -6,4 +6,3 @@ export const homeState: Ng2StateDeclaration = {
     url: '',
     component: HomeComponent,
 };
-

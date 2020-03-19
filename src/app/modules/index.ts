@@ -3,4 +3,4 @@ export * from './messages';
 export * from './seo';
 export * from './sms';
 
-export {AppComponent} from "../app.component";
+export {AppComponent} from '../app.component';

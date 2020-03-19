@@ -14,15 +14,19 @@ import {
   WlcSmsModule
 } from './modules';
 
-import {AppComponent} from './app.component';
+import {AppComponent} from './modules/core/base/components/app/app.component';
 import {AppLayoutComponent} from './modules/pages/layouts/app-layout/app-layout.component';
+import {LogoComponent} from './modules/core/base/components/logo/logo.component';
+import {APP_CONFIG} from 'tokens';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AppLayoutComponent
+    AppLayoutComponent,
+    LogoComponent
   ],
   imports: [
+    UIRouterModule.forRoot({states: APP_STATES}),
     CommonModule,
     BrowserModule,
     MatSliderModule,
@@ -30,9 +34,13 @@ import {AppLayoutComponent} from './modules/pages/layouts/app-layout/app-layout.
     WlcMessagesModule,
     WlcSeoModule,
     WlcSmsModule,
-    UIRouterModule.forRoot({states: APP_STATES})
   ],
-  providers: [],
+  providers: [
+      {
+          provide: APP_CONFIG,
+          useValue: {}
+      }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -18,6 +18,9 @@
       ],
       "config/*": [
         "src/app/config/*"
+      ],
+      "tokens": [
+        "src/app/tokens/index.ts"
       ]
     }
   },
