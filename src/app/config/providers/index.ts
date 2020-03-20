@@ -40,7 +40,8 @@ export const appProviders = (config: IAppProvidersConfig): Provider[] => [
                     return srcValue;
                 }
             };
-            return _mergeWith(SITECONFIG_DEFAULT, _mergeWith(SITECONFIG_BOOTSTRAP, _get(config.siteconfig, {}), customizer), customizer);
+            const appConfig = _mergeWith(SITECONFIG_BOOTSTRAP, _get(config.siteconfig, {} as any), customizer);
+            return _mergeWith(SITECONFIG_DEFAULT, appConfig, customizer);
         }
     }
 ];
