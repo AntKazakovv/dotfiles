@@ -54,9 +54,9 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ],
-            "localize": [
-              "es"
-            ],
+              "localize": [
+                "es"
+              ],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -175,5 +175,8 @@
       }
     }
   },
-  "defaultProject": "wlcengine"
+  "defaultProject": "wlcengine",
+  "cli": {
+    "analytics": false
+  }
 }
