@@ -1,6 +1,12 @@
 {
   "name": "wlcengine",
+  "author": "egamings",
   "version": "0.0.0",
+  "description": "Wlc engine",
+  "repository": {
+    "type": "git",
+    "url": "git@vcsxa.egamings.com:wlc/wlc-engine.git"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -64,5 +70,8 @@
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
     "typescript": "<=3.8.0"
+  },
+  "engines": {
+    "node": ">=12.0.0"
   }
 }
