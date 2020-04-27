@@ -3,180 +3,48 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "wlcengine": {
-      "i18n": {
-        "locales": {
-          "es": {
-            "translation": "translate/messages.es.xlf",
-            "baseHref": ""
-          }
-        }
-      },
-      "projectType": "application",
-      "schematics": {
-        "@schematics/angular:component": {
-          "style": "scss"
-        }
-      },
-      "root": "",
-      "sourceRoot": "src",
-      "prefix": "app",
+    "wlc-engine": {
+      "projectType": "library",
+      "root": "projects/wlc-engine",
+      "sourceRoot": "projects/wlc-engine/src",
+      "prefix": "wlc",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "outputPath": "dist/wlcengine",
-            "index": "src/index.html",
-            "main": "src/main.ts",
-            "polyfills": "src/polyfills.ts",
-            "tsConfig": "tsconfig.app.json",
-            "aot": true,
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-              {
-                "input": "src/styles/_theme.scss"
-              },
-              {
-                "input": "src/styles.scss"
-              }
-            ],
-            "scripts": []
+            "tsConfig": "projects/wlc-engine/tsconfig.lib.json",
+            "project": "projects/wlc-engine/ng-package.json"
           },
           "configurations": {
-            "es": {
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                }
-              ],
-              "localize": [
-                "es"
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "extractCss": true,
-              "namedChunks": false,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
-                  "maximumError": "10kb"
-                }
-              ],
-              "i18nMissingTranslation": "error"
-            },
             "production": {
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                }
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "extractCss": true,
-              "namedChunks": false,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
-                  "maximumError": "10kb"
-                }
-              ]
+              "tsConfig": "projects/wlc-engine/tsconfig.lib.prod.json"
             }
-          }
-        },
-        "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "browserTarget": "wlcengine:build"
-          },
-          "configurations": {
-            "es": {
-              "browserTarget": "wlcengine:build:es"
-            },
-            "production": {
-              "browserTarget": "wlcengine:build:production"
-            }
-          }
-        },
-        "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "browserTarget": "wlcengine:build"
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "src/test.ts",
-            "polyfills": "src/polyfills.ts",
-            "tsConfig": "tsconfig.spec.json",
-            "karmaConfig": "karma.conf.js",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-              "src/styles.scss"
-            ],
-            "scripts": []
+            "main": "projects/wlc-engine/src/test.ts",
+            "tsConfig": "projects/wlc-engine/tsconfig.spec.json",
+            "karmaConfig": "projects/wlc-engine/karma.conf.js"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "tsconfig.app.json",
-              "tsconfig.spec.json",
-              "e2e/tsconfig.json"
+              "projects/wlc-engine/tsconfig.lib.json",
+              "projects/wlc-engine/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"
             ]
           }
-        },
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "wlcengine:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "wlcengine:serve:production"
-            }
-          }
         }
       }
-    }
-  },
-  "defaultProject": "wlcengine",
+    }},
   "cli": {
     "analytics": false
-  }
+  },
+  "defaultProject": "wlc-engine"
 }

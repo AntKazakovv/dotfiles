@@ -1,93 +1,14 @@
 {
   "extends": "tslint:recommended",
+  "rulesDirectory": [
+    "codelyzer"
+  ],
   "rules": {
-    "triple-equals": false,
-    "no-eval": false,
-    "array-type": [
-      true,
-      "array"
-    ],
-    "member-ordering": [
-      true,
-      {
-        "order": [
-          "public-static-field",
-          "protected-static-field",
-          "private-static-field",
-          "public-instance-field",
-          "protected-instance-field",
-          "private-instance-field",
-          "public-constructor",
-          "protected-constructor",
-          "private-constructor",
-          "public-static-method",
-          "protected-static-method",
-          "private-static-method",
-          "public-instance-method",
-          "protected-instance-method",
-          "private-instance-method"
-        ]
-      }
-    ],
-    "no-consecutive-blank-lines": [
-      true,
-      1
-    ],
-    "no-console": [
-      true,
-      "log",
-      "debug",
-      "info",
-      "time",
-      "timeEnd",
-      "trace"
-    ],
-    "no-string-literal": false,
-    "no-unused-vars": false,
-    "no-require-imports": true,
-    "no-duplicate-imports": false,
-    "object-literal-sort-keys": false,
-    "object-literal-shorthand": false,
-    "one-variable-per-declaration": false,
-    "ordered-imports": false,
-    "trailing-comma": false,
-    "quotemark": [
-      true,
-      "single"
-    ],
-    "no-unused-expression": [
-      true,
-      "allow-new"
-    ],
-    "no-empty": false,
-    "eofline": true,
-    "no-shadowed-variable": [
-      false, {
-        "class": true,
-        "enum": true,
-        "function": true,
-        "namespace": true
-      }
-    ],
+    "array-type": false,
     "arrow-parens": false,
     "deprecation": {
       "severity": "warning"
     },
-    "component-class-suffix": true,
-    "contextual-lifecycle": true,
-    "directive-class-suffix": true,
-    "directive-selector": [
-      true,
-      "attribute",
-      "app",
-      "camelCase"
-    ],
-    "component-selector": [
-      true,
-      "element",
-      "app",
-      "kebab-case"
-    ],
     "import-blacklist": [
       true,
       "rxjs/Rx"
@@ -99,6 +20,27 @@
       140
     ],
     "member-access": false,
+    "member-ordering": [
+      true,
+      {
+        "order": [
+          "static-field",
+          "instance-field",
+          "static-method",
+          "instance-method"
+        ]
+      }
+    ],
+    "no-consecutive-blank-lines": false,
+    "no-console": [
+      true,
+      "debug",
+      "info",
+      "time",
+      "timeEnd",
+      "trace"
+    ],
+    "no-empty": false,
     "no-inferrable-types": [
       true,
       "ignore-params"
@@ -111,6 +53,16 @@
       true,
       "as-needed"
     ],
+    "object-literal-sort-keys": false,
+    "ordered-imports": false,
+    "quotemark": [
+      true,
+      "single"
+    ],
+    "trailing-comma": false,
+    "component-class-suffix": true,
+    "contextual-lifecycle": true,
+    "directive-class-suffix": true,
     "no-conflicting-lifecycle": true,
     "no-host-metadata-property": true,
     "no-input-rename": true,
@@ -123,8 +75,5 @@
     "template-no-negated-async": true,
     "use-lifecycle-interface": true,
     "use-pipe-transform-interface": true
-  },
-  "rulesDirectory": [
-    "codelyzer"
-  ]
+  }
 }

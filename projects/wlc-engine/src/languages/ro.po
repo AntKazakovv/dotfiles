@@ -1,0 +1,3882 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ro\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.2.4\n"
+
+#: modules/profile/components/wlc-exchange-cash/wlc-exchange-cash.html:31
+msgid "# on Cupon"
+msgstr ""
+
+#: dialogs/password-restore.html:16
+msgid "A password reset link will be sent to your e-mail address shortly."
+msgstr ""
+"În scurt timp va fi trimis un link de resetare a parolei la adresa dvs. de e-"
+"mail."
+
+#: dialogs/password-restore-step2.html:12
+msgid "A reset link has been sent to the following e-mail address:"
+msgstr "Un link de resetare a fost trimis la următoarea adresă de e-mail:"
+
+#: controllers/finanses.controller.ts:329
+msgid ""
+"A withdrawal request has already been created. Please wait until it is "
+"completed and then you can try again."
+msgstr ""
+"S-a creat deja o solicitare de retragere. Așteptați până când este "
+"finalizată și apoi puteți încerca din nou."
+
+#: modules/user-stat-block.html:23
+msgid "ADD"
+msgstr "ADAUGĂ"
+
+#: modules/footer-info.html:51 modules/footer-info.html:55
+msgid "About Us"
+msgstr "Despre noi"
+
+#: config/wlc-form-errors.ts:28
+msgid "Account with this e-mail isn't exist"
+msgstr "Contul cu acest e-mail nu există"
+
+#: modules/loyalty/components/bonuses-slider/bonuses-slider-item.html:45
+msgid "Acivate"
+msgstr ""
+
+#: modules/loyalty/components/tournaments-slider/tournaments-slider-item.html:60
+#: modules/loyalty/components/tournaments-slider/tournaments-slider-item.html:68
+#, fuzzy
+msgid "Activate"
+msgstr "Activ"
+
+#: config/wlc-profile-menu-default.js:56 directives/wlc-profile-menu.html:46
+msgid "Active"
+msgstr "Activ"
+
+#: config/state/profile/profile-bonuses.js:51
+msgid "Active bonuses"
+msgstr "Bonusuri active"
+
+#: components/profile-tournaments-active.html:2
+#: config/wlc-profile-menu-default.js:98
+msgid "Active tournaments"
+msgstr "Turnee active"
+
+#: modules/profile/components/wlc-exchange-cash/wlc-exchange-cash.html:14
+msgid "Acumulated RP"
+msgstr ""
+
+#: components/profile/deposit/steps/amount/steps-deposit-amount-block.html:97
+#: directives/wlc-deposit.html:205
+#: modules/finances/components/payment-systems-info/payment-systems-info.component.html:57
+msgid "Add deposit"
+msgstr "Adăugați depunere"
+
+#: modules/profile/components/bank-info/bank-info.component.ts:194
+#, fuzzy
+msgid "Additional Banking Information"
+msgstr "Informații bancare"
+
+#: classes/services/payment-system.model.ts:152
+#: modules/profile/config/profile-forms.config.ts:193
+#: partials/form-elements/address.html:10 partials/form-elements/address.html:2
+msgid "Address"
+msgstr "Adresa"
+
+#: modules/profile/controllers/messages.controller.ts:56
+msgid "Administration"
+msgstr "Unelte de administrare"
+
+#: modules/footer-info.html:69
+msgid "Affiliate Program"
+msgstr "Program de afiliere"
+
+#: modules/footer-info.html:43
+msgid "Affiliates"
+msgstr "Afilieri"
+
+#: components/profile-store-main.html:13 modules/big-merchant-filter.html:20
+#: modules/profile/components/profile-transactions/profile-transactions-filter.html:6
+#: modules/profile/components/wlc-dashboard-bonuses/wlc-dashboard-bonuses-filter.html:7
+msgid "All"
+msgstr "Tot"
+
+#: dialogs/profile-verification/profile-verification-payment.html:12
+msgid "All four corners of the Credit Card are visible on the scan or a photo."
+msgstr ""
+"Toate cele patru colțuri ale cardului de credit sunt vizibile pe scanare sau "
+"pe o fotografie."
+
+#: dialogs/profile-verification/profile-verification-address.html:15
+#: dialogs/profile-verification/profile-verification-id.html:13
+msgid "All four corners of the document are visible on the scan or a photo."
+msgstr ""
+"Toate cele patru colțuri ale documentului sunt vizibile pe scanare sau pe o "
+"fotografie."
+
+#: config/wlc-game-categories-default.js:167 modules/game-catalog-menu.html:22
+msgid "All games"
+msgstr "Toate jocurile"
+
+#: components/profile-gamblings-bets.html:31
+#: modules/base/components/sorted-items/templates/merchants-in-category/dropdown-merchants.html:15
+#: modules/base/components/sorted-items/templates/merchants-in-category/dropdown-merchants.html:33
+#: modules/base/components/sorted-items/templates/merchants-in-category/show-merchants.html:7
+#: modules/filter-merchants.html:18 modules/filter-merchants.html:34
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-filter.html:23
+msgid "All providers"
+msgstr "Toți furnizorii"
+
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-filter.html:37
+#, fuzzy
+msgid "All results"
+msgstr "Rezultatele pariului:"
+
+#: modules/footer-copyright.html:5
+msgid "All rights reserved."
+msgstr "Toate drepturile rezervate"
+
+#: controllers/steps.controller.ts:177
+msgid "All set and done!"
+msgstr "Toate setate și gata!"
+
+#: partials/form-elements/login-unique.html:13
+#: partials/form-elements/login.html:13
+msgid "Allowable login length"
+msgstr "Lungimea de conectare admisă"
+
+#: classes/services/loyalty-bonuses.class.ts:693
+msgid "Allowed"
+msgstr "Permise"
+
+#: sections/user-signup.html:6
+msgid "Already a member?"
+msgstr "Sunteți deja înregistrat?"
+
+#: dialogs/user-signup.html:17 dialogs/user-signup.html:40
+#: modules/user-signup.html:26
+msgid "Already have an account"
+msgstr "Ai deja un cont"
+
+#: directives/wlc-merchants-in-category.directive.ts:110
+msgid "AmaticDirect"
+msgstr "AmaticDirect"
+
+#: controllers/user/user-profile.ts:89
+msgid "American"
+msgstr "Americană"
+
+#: components/profile-gamblings-bets.html:104
+#: components/profile-gamblings-bets.html:75
+#: components/profile/deposit/steps/amount/steps-deposit-amount-block.html:35
+#: components/profile/withdraw/steps/amount/steps-withdraw-amount-block.html:34
+#: modules/profile/components/profile-transactions/profile-transactions-list.html:12
+#: modules/profile/components/profile-transactions/profile-transactions-list.html:48
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-list.html:23
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-list.html:6
+msgid "Amount"
+msgstr "Suma"
+
+#: modules/games-play-desktop.html:109
+msgid "Apply now"
+msgstr "Aplică acum"
+
+#: controllers/user/user-abstract.ts:139
+#: modules/profile/classes/profile-abstract.class.ts:140
+msgid "April"
+msgstr ""
+
+#: dialogs/tournaments/tournament-unsubscribe.html:16
+msgid "Are you sure you want to unsubscribe?"
+msgstr "Sigur doriți să vă dezabonați?"
+
+#: classes/services/loyalty-bonuses.class.ts:348
+#: classes/services/loyalty-bonuses.class.ts:385 dialogs/user-logout.html:9
+#: modules/profile/controllers/messages.controller.ts:101
+msgid "Are you sure?"
+msgstr "Sunteți sigur?"
+
+#: controllers/user/user-abstract.ts:143
+#: modules/profile/classes/profile-abstract.class.ts:144
+msgid "August"
+msgstr ""
+
+#: modules/double-coin-banner.html:2
+msgid "Available bonuses"
+msgstr "Bonusuri disponibile"
+
+#: components/profile-main-level.html:9
+msgid "Available levels"
+msgstr "Niveluri disponibile"
+
+#: components/profile-verification-main.html:49
+#: dialogs/profile-verification/profile-verification-address.html:42
+#: dialogs/profile-verification/profile-verification-default.html:35
+#: dialogs/profile-verification/profile-verification-id.html:41
+#: dialogs/profile-verification/profile-verification-payment.html:42
+msgid "Awaiting validation"
+msgstr "Se așteaptă validarea"
+
+#: components/game-catalog.html:133 components/game-catalog.html:192
+#: components/game-catalog.html:327 components/game-catalog.html:396
+#: directives/wlc-catalog-box.html:30
+msgid "Back"
+msgstr "Înapoi"
+
+#: components/pages-content.html:52
+msgid "Back to articles"
+msgstr "Înapoi la articole"
+
+#: dialogs/password-restore.html:55
+msgid "Back to login"
+msgstr "Înapoi la autentificare"
+
+#: components/profile-bonuses-history.html:11
+#: components/profile-bonuses-history.html:41
+#: components/profile-store-main.html:4
+#: components/profile/deposit/default-deposit.html:5
+#: components/profile/withdraw/default-withdraw.html:5
+#: modules/game-play-info.html:6 modules/games-play-desktop.html:48
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:38
+#: modules/loyalty/components/store-list/store-list.component.html:5
+#: modules/user-info.html:15 modules/user-stat-block.html:8
+msgid "Balance"
+msgstr "Sold"
+
+#: modules/user-stat-block-min.html:41
+msgid "Balance:"
+msgstr "Sold:"
+
+#: classes/services/payment-system.model.ts:157
+#: modules/profile/config/profile-forms.config.ts:257
+#: modules/profile/config/profile-forms.config.ts:274
+#: partials/form-elements/bank-name-text.html:11
+#: partials/form-elements/bank-name-text.html:2
+#: partials/form-elements/bank-name.html:2
+msgid "Bank name"
+msgstr "Nume bancă"
+
+#: config/forms/profile.form.ts:163
+#: modules/profile/components/bank-info/bank-info.config.ts:6
+msgid "Banking Information"
+msgstr "Informații bancare"
+
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history.controller.ts:73
+msgid "Bet"
+msgstr ""
+
+#: components/profile-gamblings-bets.html:55
+msgid "Bet results:"
+msgstr "Rezultatele pariului:"
+
+#: components/profile-gamblings-bets.html:74
+#: components/profile-gamblings-bets.html:94
+msgid "Bet time"
+msgstr "Ora pariului"
+
+#: components/profile-gamblings-bets.html:2 components/profile-gamblings.js:156
+#: config/wlc-profile-menu-default.js:152 directives/wlc-profile-menu.html:122
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history.html:3
+#: modules/user-stat-block-dropdown.html:104
+msgid "Bets history"
+msgstr "Istoricul pariurilor"
+
+#: modules/promo/components/biggest-wins/biggest-wins.html:12
+#: modules/statistics/biggest-wins.html:4
+msgid "Biggest wins"
+msgstr "Câștigurile cele mai mari"
+
+#: dialogs/required-fields.html:46 partials/form-elements/birthdate.html:2
+msgid "Birthdate"
+msgstr "Data nasterii"
+
+#: modules/base/components/wlc-smart-userinfo/wlc-smart-userinfo.component.html:14
+#, fuzzy
+msgid "Bonus Balance"
+msgstr "Sold"
+
+#: modules/base/components/wlc-smart-userinfo/wlc-smart-userinfo.component.html:4
+#, fuzzy
+msgid "Bonus Points"
+msgstr "Puncte bonusuri"
+
+#: config/wlc-main-menu-mobile-default.js:128
+msgid "Bonus System"
+msgstr "Sistem bonus"
+
+#: dialogs/bonuses/subscribe-deposit-bonus.html:4
+msgid "Bonus activation"
+msgstr "Activare bonus"
+
+#: modules/profile/components/wlc-dashboard-bonuses/wlc-dashboard-bonuses-content.html:2
+#, fuzzy
+msgid "Bonus in progress"
+msgstr "Câștiguri Bonus"
+
+#: components/profile-bonuses-history.html:10
+#: components/profile-bonuses-history.html:35
+msgid "Bonus name"
+msgstr "Numele bonusului"
+
+#: modules/bonus-wins.html:2
+msgid "Bonus wins"
+msgstr "Câștiguri Bonus"
+
+#: components/profile/deposit/default-deposit.html:24
+#: components/profile/withdraw/default-withdraw.html:22
+#: partials/user-all-balances-block.html:7
+msgid "Bonus:"
+msgstr "Bonus:"
+
+#: components/profile-bonuse-system.html:1
+#: config/state/profile/profile-bonuses.js:78
+#: config/wlc-profile-menu-default.js:80
+msgid "Bonuse system"
+msgstr "Sistem bonus"
+
+#: components/profile-menu.html:9 config/state/profile/profile-bonuses.js:29
+#: config/state/profile/profile-bonuses.js:40
+#: config/wlc-profile-menu-default.js:44 directives/wlc-profile-menu.html:23
+#: modules/user-stat-block-dropdown.html:68
+msgid "Bonuses"
+msgstr "Bonusuri"
+
+#: config/state/profile/profile-bonuses.js:59
+msgid "Bonuses history"
+msgstr "Istoric bonusuri"
+
+#: directives/wlc-bonuses-exchanger.html:15
+#: directives/wlc-bonuses-exchanger.html:3
+msgid "Bonuses points"
+msgstr "Puncte bonusuri"
+
+#: classes/services/payment-system.model.ts:162
+#: modules/profile/config/profile-forms.config.ts:224
+#: partials/form-elements/branch-code.html:10
+#: partials/form-elements/branch-code.html:2
+msgid "Branch code"
+msgstr "Codul filialei"
+
+#: directives/wlc-store-item.html:13 modules/double-coin-banner.html:6
+#: modules/loyalty/components/store-list/modal/store-description.modal.html:13
+#: modules/loyalty/components/store-list/store-list.item.html:32
+#: modules/loyalty/components/store-list/store-list.item.html:72
+msgid "Buy now"
+msgstr "Cumpără acum"
+
+#: dialogs/regcomplete-modal.html:6
+msgid "By claiming the first deposit bonus"
+msgstr ""
+
+#: components/profile-bonuses-active.html:37
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:114
+msgid "CANCEL_BONUS"
+msgstr "Anulează"
+
+#: modules/loyalty/components/bonuses-slider/bonuses-slider-item.html:72
+#: modules/profile/components/profile-transactions/profile-transactions-list.html:84
+#: partials/profile-bonuses.html:26
+msgid "Cancel"
+msgstr "Anulează"
+
+#: classes/services/loyalty-bonuses.class.ts:889
+msgid "Cancel bonus failed"
+msgstr "Anularea bonusului a eșuat"
+
+#: components/profile-bonuses-history.html:81
+#: components/profile-tournaments-history.html:51
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:72
+#: modules/profile/controllers/wlc-dashboard-bonuses.controller.ts:96
+msgid "Canceled"
+msgstr "Anulat"
+
+#: modules/profile/components/profile-transactions/profile-transactions.component.ts:99
+msgid "Canceled by user"
+msgstr "Anulat de utilizator"
+
+#: components/profile-menu.html:19 config/wlc-profile-menu-default.js:116
+#: directives/wlc-profile-menu.html:73
+msgid "Cash"
+msgstr "Numerar"
+
+#: modules/profile/components/wlc-exchange-cash/wlc-exchange-cash.html:43
+msgid "Cash amount to be exchanged"
+msgstr ""
+
+#: directives/wlc-deposit.html:1
+msgid "Cash transactions disabled"
+msgstr "Tranzacțiile în numerar sunt dezactivate"
+
+#: config/wlc-main-menu-default.js:75 config/wlc-main-menu-mobile-default.js:68
+#: modules/error-page-box-two-column.html:10
+msgid "Casino"
+msgstr "Cazinou"
+
+#: modules/game-categories.html:2 modules/news-categories.html:3
+#: modules/pages-list.html:3
+msgid "Categories"
+msgstr "Categorii"
+
+#: partials/form-elements/phone-number.html:47
+msgid "Change"
+msgstr "Schimbă"
+
+#: controllers/user/user-profile.ts:365
+msgid "Change e-mail"
+msgstr "Ref email"
+
+#: config/forms/change-password.form.ts:36 dialogs/password-change.html:3
+msgid "Change password"
+msgstr "Schimbare parolă"
+
+#: modules/login-signup/register-steps/partial/promocode.html:14
+msgid "Change promo code"
+msgstr "Schimbați codul promoțional"
+
+#: dialogs/promo-code.html:36
+msgid "Check"
+msgstr "Verifică"
+
+#: modules/login-signup/register-steps/partial/error-form.html:3
+msgid "Check the correctness of filling out the form fields."
+msgstr ""
+"Eroare la completarea formularului. Verificați corectitudinea completării "
+"câmpurilor de formular."
+
+#: modules/game-catalog-menu.html:8
+msgid "Cherries"
+msgstr "Cireșe"
+
+#: modules/loyalty/components/choose-bonus/choose-bonus.html:42
+#: modules/loyalty/components/choose-bonus/choose-bonus.html:55
+msgid "Choose"
+msgstr "Alege altul"
+
+#: modules/login-signup/register-steps/bonuses.html:4
+#: partials/signup-form.html:12 partials/signup-form/signup-form.html:17
+msgid "Choose Your Welcome Bonus"
+msgstr "Alegeți bonusul dvs. de bun venit"
+
+#: modules/loyalty/components/choose-bonus/choose-bonus.html:18
+msgid "Choose a Bonus"
+msgstr "Alegeți bonusul dvs. de bun venit"
+
+#: components/profile/deposit/steps/bonus/steps-deposit-bonus-actions.html:8
+msgid "Choose another"
+msgstr "Alege altul"
+
+#: components/profile/withdraw/default-withdraw.html:45
+#: directives/wlc-deposit.html:21 directives/wlc-deposit.html:47
+msgid "Choose payment option"
+msgstr "Alegeți opțiunea de plată"
+
+#: classes/services/payment-system.model.ts:147
+#: modules/profile/config/profile-forms.config.ts:178
+#: partials/form-elements/city.html:10 partials/form-elements/city.html:2
+msgid "City"
+msgstr "Oraș"
+
+#: components/profile-bonuses-active.html:22
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:22
+msgid "Cleared"
+msgstr "Șters"
+
+#: components/profile/deposit/steps/modal/modal-step-deposit-bonuses.html:35
+#: components/profile/deposit/steps/modal/modal-step-deposit-systems.html:43
+#: dialogs/bonuses/subscribe-deposit-bonus.html:24 dialogs/content-page.html:20
+#: dialogs/error.html:12 dialogs/password-restore-step2.html:19
+#: dialogs/sms-verification/sms-verification.html:73
+#: dialogs/tooltip-modal.html:9 dialogs/tournaments/tournament-info.html:55
+#: dialogs/tournaments/tournament-insufficient-funds.html:6
+#: dialogs/tournaments/tournament-insufficient-points.html:5
+#: modules/error/components/error-modal/error-modal.html:9
+#: modules/loyalty/components/store-list/modal/store-description.modal.html:17
+#: modules/profile/components/wlc-messages/wlc-messages-content.html:10
+msgid "Close"
+msgstr "Închide"
+
+#: components/profile-tournaments-main.html:63
+#: modules/loyalty/components/tournaments-list/tournaments-list.item.html:68
+#: modules/loyalty/components/tournaments-slider/tournaments-slider-item.html:82
+msgid "Closed"
+msgstr "Închis"
+
+#: modules/login-signup/register-steps/partial/verify-sms-code-input.html:2
+#: modules/profile/config/profile-forms.config.ts:386
+#: partials/form-elements/alternative-phone.html:3
+#: partials/form-elements/mobile-phone.html:3
+#: partials/form-elements/phone-code.html:2
+msgid "Code"
+msgstr "Cod"
+
+#: modules/loyalty/components/wlc-loyalty-levels/wlc-loyalty-levels.component.html:10
+#: modules/profile/components/wlc-dashboard-loyalty/wlc-dashboard-loyalty.html:21
+msgid "Coefficient"
+msgstr "Coeficient"
+
+#: modules/grids/grid-2-4-2.html:2
+msgid "CoinBar Right Now"
+msgstr "CoinBar chiar acum"
+
+#: modules/profile/components/profile-transactions/profile-transactions.component.ts:108
+msgid "Complete"
+msgstr "Complet"
+
+#: dialogs/user-social-complete.html:4
+msgid "Complete Registration"
+msgstr "Înregistrare completă"
+
+#: modules/profile/components/profile-transactions/profile-transactions.component.ts:98
+msgid "Complete failed"
+msgstr "Completarea a eșuat"
+
+#: modules/login-signup/register-steps/partial/verify-sms-code-input.html:22
+#: modules/login-signup/register-steps/partial/verify-two-button.html:3
+#: modules/profile/components/wlc-exchange-cash/wlc-exchange-cash.html:48
+msgid "Confirm"
+msgstr "Confirmă"
+
+#: dialogs/user-social-complete.html:29
+#: modules/profile/config/profile-forms.config.ts:376
+#: partials/form-elements/password-confirm.html:12
+#: partials/form-elements/password-confirm.html:2
+msgid "Confirm password"
+msgstr "Confirmă parola"
+
+#: dialogs/confirmation.html:5
+msgid "Confirmation"
+msgstr "Confirmare"
+
+#: modules/profile/components/profile-transactions/profile-transactions.component.ts:105
+msgid "Confirmed"
+msgstr "Confirmat"
+
+#: components/profile-main-social.html:9
+msgid "Connect"
+msgstr "Conectează"
+
+#: modules/social-link.html:3
+msgid "Connected social accounts"
+msgstr "Conturi sociale conectate"
+
+#: modules/footer-info.html:62
+msgid "Contact Us"
+msgstr "Contactează-ne"
+
+#: partials/contacts.html:2
+msgid "Contact details"
+msgstr "Detalii de contact"
+
+#: config/state/contacts.ts:31 config/wlc-main-menu-default.js:151
+#: config/wlc-main-menu-mobile-default.js:98 controllers/contacts.ts:74
+#: modules/base/components/contact-form/contact-form.component.ts:122
+#: modules/base/components/contact-form/contact-form.component.ts:129
+msgid "Contacts"
+msgstr "Contacte"
+
+#: dialogs/bonuses/subscribe-deposit-bonus.html:19
+#: modules/login-signup/register-steps/partial/done-button.html:2
+#: modules/login-signup/register-steps/partial/setup-button.html:4
+#: modules/login-signup/register-steps/partial/verify-one-button.html:5
+#: modules/login-signup/register-steps/partial/verify-two-button.html:4
+msgid "Continue"
+msgstr "Continuă"
+
+#: dialogs/regcomplete-modal.html:25
+msgid "Continue to site"
+msgstr "Continuă"
+
+#: dialogs/messagePayment.html:16
+msgid "Copied"
+msgstr "Copiată"
+
+#: services/error.service.ts:278
+msgid "Could not find a state associated with url"
+msgstr "Nu s-a putut găsi o stare asociată cu adresa URL"
+
+#: classes/services/payment-system.model.ts:137 dialogs/required-fields.html:29
+#: modules/profile/config/profile-forms.config.ts:163
+#: partials/form-elements/country.html:2
+msgid "Country"
+msgstr "Țara"
+
+#: modules/profile/components/profile-transactions/profile-transactions-list.html:80
+msgid "Credit"
+msgstr "Credit"
+
+#: components/user-social-register.html:28 dialogs/user-social-complete.html:42
+#: modules/register-form.html:40 partials/form-elements/currency-select.html:2
+#: partials/form-elements/currency.html:2 partials/signup-form.html:136
+msgid "Currency"
+msgstr "Moneda"
+
+#: modules/profile/components/wlc-exchange-cash/wlc-exchange-cash.html:7
+msgid "Current Level"
+msgstr "Nivel actual"
+
+#: components/profile-main-level.html:4
+msgid "Current level"
+msgstr "Nivel actual"
+
+#: modules/profile/config/profile-forms.config.ts:341
+#: partials/form-elements/password-current.html:13
+#: partials/form-elements/password-current.html:2
+msgid "Current password"
+msgstr "Parola curentă"
+
+#: components/profile-main-level.html:20
+msgid "Current points"
+msgstr "Puncte actuale"
+
+#: modules/tournaments/tournament-leaders.html:5
+msgid "Current tournament"
+msgstr "Turneul curent"
+
+#: components/profile-tournaments-main.html:2
+#: config/wlc-profile-menu-default.js:92
+msgid "Current tournaments"
+msgstr "Turnee curente"
+
+#: modules/base/components/country-accepts/country-accepts-content.html:11
+msgid "Customer support language"
+msgstr "Limba de asistență pentru clienți"
+
+#: config/state/profile/profile-dashboard.ts:26
+#: config/wlc-profile-menu-default.js:219
+#: modules/game-play/game-play-header.html:30
+msgid "Dashboard"
+msgstr ""
+
+#: modules/profile/components/wlc-messages/wlc-messages-list.html:12
+#: modules/profile/components/wlc-messages/wlc-messages-list.html:42
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-list.html:19
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-list.html:5
+msgid "Date"
+msgstr "Data"
+
+#: classes/services/payment-system.model.ts:121
+msgid "Date of birth"
+msgstr "Data naşterii"
+
+#: controllers/user/user-abstract.ts:129
+#: modules/profile/classes/profile-abstract.class.ts:130
+#: modules/profile/config/profile-forms.config.ts:112
+msgid "Day"
+msgstr "Ziua"
+
+#: config/wlc-modal-config.js:137
+msgid ""
+"Dear Client, Due to technical reasons the project temporarily suspends its "
+"operation, therefore deposits and game play is no longer possible. We kindly "
+"ask you to request a withdrawal in the next 2 weeks. If you have any "
+"questions, please contact us"
+msgstr ""
+"Stimate client, Din motive tehnice, proiectul își suspendă temporar "
+"funcționarea, prin urmare depunerile și jocul nu mai sunt posibile. Vă rugăm "
+"să solicitați o retragere în următoarele 2 săptămâni. Dacă aveți întrebări, "
+"vă rugăm să ne contactați"
+
+#: constants/check-on-run-game.js:154
+msgid ""
+"Dear Client, this game has no demo mode, you will redirect to normal mode."
+msgstr ""
+"Stimate client, acest joc nu are modul demo, vă veți redirecționa la modul "
+"normal."
+
+#: modules/profile/components/profile-transactions/profile-transactions-list.html:81
+msgid "Debit"
+msgstr "Debit"
+
+#: controllers/user/user-abstract.ts:147
+#: modules/profile/classes/profile-abstract.class.ts:148
+msgid "December"
+msgstr ""
+
+#: controllers/user/user-profile.ts:88
+msgid "Decimal"
+msgstr "Zecimal"
+
+#: dialogs/profile-verification/profile-verification-id.html:56
+#: modules/profile/components/wlc-messages/wlc-messages-content.html:11
+msgid "Delete"
+msgstr "Șterge"
+
+#: components/game-catalog.html:124 components/game-catalog.html:216
+#: components/game-catalog.html:286 components/game-catalog.html:318
+#: components/game-catalog.html:387 components/game-catalog.html:62
+#: components/game-catalog.html:92 directives/wlc-catalog-box.html:23
+#: modules/game-thumb.html:54 modules/search.html:37
+msgid "Demo"
+msgstr "Demo"
+
+#: components/profile-menu.html:23
+#: components/profile/deposit/default-deposit.html:2
+#: components/profile/deposit/steps/steps-deposit-header.html:2
+#: config/wlc-main-menu-mobile-default.js:140
+#: config/wlc-profile-menu-default.js:122 dialogs/deposit.html:3
+#: dialogs/fast-deposit.html:3 directives/wlc-profile-menu.html:85
+#: modules/finances/components/profile-wallet/profile-wallet.html:34
+#: modules/game-play-info.html:15 modules/games-play-desktop.html:57
+#: modules/profile/components/profile-transactions/profile-transactions.component.ts:90
+#: modules/user-info.html:25 modules/user-stat-block-dropdown.html:15
+#: modules/user-stat-block-dropdown.html:86 modules/user-stat-block-min.html:61
+msgid "Deposit"
+msgstr "Depunere"
+
+#: dialogs/regcomplete-modal.html:23
+msgid "Deposit and Claim"
+msgstr "Depunerea"
+
+#: dialogs/user-payment-success.html:10
+msgid "Deposit completed successfully"
+msgstr "Depunerea a fost finalizată cu succes"
+
+#: modules/profile/components/limits/limits.component.html:18
+#, fuzzy
+msgid "Deposit limits"
+msgstr "Depunerea"
+
+#: config/wlc-modal-config.js:201
+msgid "Deposit more money to play this game."
+msgstr "Depuneți mai mulți bani pentru a juca acest joc."
+
+#: modules/footer-copyright.html:8
+msgid "Developed by"
+msgstr "Dezvoltat de"
+
+#: dialogs/sms-verification/sms-verification.html:59
+#: modules/login-signup/register-steps/partial/resend-sms-btn.html:1
+msgid "Didnt receive a code?"
+msgstr "Nu ați primit un cod?"
+
+#: components/profile-main-social.html:7
+msgid "Disconnect"
+msgstr "Deconectează-te"
+
+#: partials/user-login.html:6
+msgid "Don't have an account?"
+msgstr "Nu aveți un cont?"
+
+#: dialogs/profile-verification/profile-verification-address.html:64
+#: dialogs/profile-verification/profile-verification-default.html:64
+#: dialogs/profile-verification/profile-verification-id.html:75
+#: dialogs/profile-verification/profile-verification-payment.html:64
+#: modules/login-signup/register-steps/partial/done-button.html:5
+#: modules/login-signup/register-steps/partial/setup-button.html:7
+msgid "Done"
+msgstr "Finalizat"
+
+#: modules/double-coin-banner.html:4
+msgid "Double goldbar coin"
+msgstr "Monedă dublă cu bara de aur"
+
+#: components/profile-verification-main.html:61
+msgid "Download"
+msgstr "Descarcă"
+
+#: components/user-social-register.html:23 dialogs/password-restore.html:19
+#: dialogs/password-restore.html:32 dialogs/user-social-complete.html:17
+#: modules/base/components/contact-form/elements/sender-email.html:2
+#: modules/login-form.html:11 modules/login-form.html:16
+#: modules/profile/config/profile-forms.config.ts:46
+#: modules/register-form.html:26 modules/user-info.html:5
+#: partials/contacts.html:21 partials/form-elements/email-login.html:6
+#: partials/form-elements/email-unique.html:2
+#: partials/form-elements/email-unique.html:7
+#: partials/form-elements/email.html:2 partials/form-elements/email.html:7
+#: partials/signup-form.html:116 partials/signup-form.html:118
+#: partials/signup-form.html:123
+msgid "E-mail"
+msgstr "E-mail"
+
+#: config/wlc-form-errors.ts:29
+msgid "E-mail is not unique"
+msgstr "Adresa de e-mail nu este unică"
+
+#: directives/wlc-merchants-in-category.directive.ts:109
+msgid "EGTInteractive"
+msgstr "EGTInteractive"
+
+#: components/profile-main/profile-main.html:1
+#: components/profile/withdraw/default-withdraw.html:74
+#: components/profile/withdraw/default-withdraw.html:80
+#: config/wlc-profile-menu-default.js:38 dialogs/profile-check-error.html:12
+#: directives/wlc-deposit.html:62 directives/wlc-deposit.html:68
+#: directives/wlc-profile-menu.html:16 modules/user-stat-block-dropdown.html:62
+msgid "Edit profile"
+msgstr "Editați profil"
+
+#: components/profile-tournaments-history.html:14
+msgid "End"
+msgstr "Sfârșit"
+
+#: components/profile-gamblings-bets.html:16
+#: modules/profile/components/profile-transactions/profile-transactions-filter.html:21
+#: modules/profile/components/wlc-dashboard-bonuses/wlc-dashboard-bonuses-filter.html:22
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-filter.html:10
+msgid "End date"
+msgstr "Dată sfârșit"
+
+#: components/profile-bonuses-history.html:16
+#: components/profile-bonuses-history.html:71
+#: components/profile-tournaments-history.html:53
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:63
+msgid "Ended"
+msgstr "Încheiat"
+
+#: components/profile-tournaments-history.html:52
+msgid "Ending"
+msgstr "Ora de terminare"
+
+#: directives/wlc-time.directive.ts:90
+msgid "Ends"
+msgstr "Se termină"
+
+#: directives/wlc-countdown.js:64
+msgid "Ends in"
+msgstr "Se încheie în"
+
+#: components/profile/withdraw/default-withdraw.html:89
+#: components/profile/withdraw/default-withdraw.html:97
+#: directives/wlc-deposit.html:106
+msgid "Enter amount"
+msgstr "Introduceți suma"
+
+#: components/profile-bonuses-promo.html:10
+#: components/profile-bonuses-promo.html:21
+#: modules/loyalty/components/bonuses-list/bonuses-list.component.html:30
+#: modules/loyalty/components/bonuses-list/bonuses-list.component.html:41
+msgid "Enter code"
+msgstr "Cod promoțional"
+
+#: dialogs/sms-verification/sms-verification.html:3
+#, fuzzy
+msgid "Enter code here"
+msgstr "Cod promoțional"
+
+#: components/profile/deposit/steps/amount/steps-deposit-amount-block.html:5
+msgid "Enter deposit amount."
+msgstr "Introduceți suma pentru depunere."
+
+#: components/profile/withdraw/steps/amount/steps-withdraw-amount-block.html:5
+msgid "Enter withdraw amount."
+msgstr "Introduceți suma de retragere."
+
+#: controllers/steps.controller.ts:172
+#, fuzzy
+msgid "Enter your phone"
+msgstr "Introduceți suma"
+
+#: directives/wlc-deposit.html:82
+msgid "Enter your wallet address below and then click \"Add deposit\""
+msgstr ""
+"Introduceți adresa de portofel de mai jos, apoi faceți clic pe „Adăugați "
+"depozitul”"
+
+#: dialogs/tournaments/tournament-subscribe.html:26
+msgid "Entry fee"
+msgstr "Taxă participare"
+
+#: classes/services/loyalty-bonuses.class.ts:238
+#: modules/profile/components/profile-transactions/profile-transactions.component.ts:102
+msgid "Error"
+msgstr "Eroare"
+
+#: modules/error-page-box.html:4
+msgid "Error 404"
+msgstr "Eroare 404"
+
+#: modules/login-signup/register-steps/partial/error-form.html:2
+msgid "Error filling form."
+msgstr ""
+
+#: partials/signup-form/signup-form-content.html:39
+msgid ""
+"Error filling form. Check the correctness of filling out the form fields."
+msgstr ""
+"Eroare la completarea formularului. Verificați corectitudinea completării "
+"câmpurilor de formular."
+
+#: modules/promo/components/welcome-promo-modal/welcome-promo-modal.controller.ts:95
+msgid "Error loading content"
+msgstr ""
+
+#: config/app.js:236
+msgid "Error occured during account final registration"
+msgstr "A apărut o eroare în timpul înregistrării finale a contului"
+
+#: controllers/finanses.controller.ts:678
+msgid "Error occured during deposit process."
+msgstr "A apărut o eroare în timpul procesului de depunere."
+
+#: controllers/user/user.controller.ts:232
+msgid "Error occured during login process"
+msgstr "A apărut o eroare în timpul procesului de autentificare"
+
+#: components/user-restore-complete.js:25
+#: components/user-restore-complete.js:45 config/app.js:184
+msgid "Error occured during password recovery"
+msgstr "A apărut o eroare în timpul recuperării parolei"
+
+#: controllers/user/user-register.ts:320 controllers/user/user-register.ts:574
+msgid "Error occured during registration"
+msgstr "A apărut o eroare în timpul înregistrării"
+
+#: config/app.js:267
+msgid "Error occured during unsibscribe"
+msgstr "A apărut o eroare în timpul dezabonării"
+
+#: components/profile-verification.component.ts:173
+msgid "Error occured during upload"
+msgstr "A apărut o eroare în timpul încărcării"
+
+#: controllers/finanses.controller.ts:679
+msgid "Error occured during withdraw process."
+msgstr "A apărut o eroare în timpul procesului de retragere."
+
+#: controllers/user/sms-verify.controller.ts:109
+#: controllers/user/sms-verify.controller.ts:226
+msgid "Error occurred while sending code for SMS Verification"
+msgstr "A apărut o eroare la trimiterea codului pentru verificarea prin SMS"
+
+#: config/app.js:90
+msgid "Error page"
+msgstr "Pagina de eroare"
+
+#: components/profile-gamblings.js:125
+#: components/profile-verification.component.ts:112
+#: dialogs/profile-check-error.html:3
+#: modules/static-content/controllers/wlc-static.controller.ts:162
+#: services/error.service.ts:235 services/error.service.ts:240
+#: services/error.service.ts:244 services/error.service.ts:259
+msgid "Error!"
+msgstr "Eroare!"
+
+#: directives/wlc-bonuses-exchanger.html:20
+msgid "Exchange"
+msgstr "Schimbă"
+
+#: modules/profile/components/wlc-exchange-cash/wlc-exchange-cash.component.ts:77
+#: modules/profile/components/wlc-exchange-cash/wlc-exchange-cash.component.ts:86
+#, fuzzy
+msgid "Exchange not available"
+msgstr "Rata de schimb"
+
+#: components/profile-main-level.html:32
+msgid "Exchange rage"
+msgstr "Rata de schimb"
+
+#: modules/profile/components/wlc-dashboard-loyalty/wlc-dashboard-loyalty.html:30
+#: modules/profile/components/wlc-exchange-cash/wlc-exchange-cash.component.ts:135
+msgid "Exchange to cash"
+msgstr "Rata de schimb"
+
+#: components/profile-bonuses-history.html:13
+#: components/profile-bonuses-history.html:53
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:48
+#: modules/loyalty/components/wlc-loyalty-levels/wlc-loyalty-levels.component.html:9
+msgid "Experience"
+msgstr "Experiență"
+
+#: modules/game-play-info.html:24 modules/games-play-desktop.html:65
+msgid "Experience level"
+msgstr "Nivel de experiență"
+
+#: components/profile-main-level.html:24
+msgid "Experience points"
+msgstr "Puncte de experiență"
+
+#: components/profile-bonuses-history.html:80
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:71
+#: modules/profile/controllers/wlc-dashboard-bonuses.controller.ts:95
+msgid "Expired"
+msgstr "Expirat"
+
+#: components/profile-bonuses-active.html:17
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:17
+msgid "Expires"
+msgstr "Expiră"
+
+#: config/wlc-main-menu-mobile-default.js:158 modules/footer-info.html:82
+msgid "FAQ"
+msgstr "Întrebari Frecvente"
+
+#: modules/social-list.html:6 partials/signup-form.html:58
+#: partials/signup-form/signup-form-socials.html:6
+msgid "Facebook"
+msgstr "Facebook"
+
+#: components/profile-verification-main.html:50
+#: dialogs/profile-verification/profile-verification-address.html:43
+#: dialogs/profile-verification/profile-verification-default.html:37
+#: dialogs/profile-verification/profile-verification-id.html:42
+#: dialogs/profile-verification/profile-verification-payment.html:43
+msgid "Failed validation"
+msgstr "Validarea eșuată"
+
+#: config/wlc-main-menu-mobile-default.js:122 modules/footer-info.html:35
+msgid "Fair Play"
+msgstr "Joc corect"
+
+#: modules/game-catalog-menu.html:14
+msgid "Favourites"
+msgstr "Favorite"
+
+#: controllers/user/user-abstract.ts:137
+#: modules/profile/classes/profile-abstract.class.ts:138
+msgid "February"
+msgstr ""
+
+#: modules/finances/components/payment-systems-info/payment-systems-info.component.html:12
+#: modules/finances/components/payment-systems-info/payment-systems-info.component.html:25
+#: modules/finances/components/payment-systems/payment-systems.html:7
+msgid "Fee"
+msgstr "Taxa"
+
+#: controllers/user/user-register.ts:139
+msgid "Female"
+msgstr ""
+
+#: components/profile-verification-main.html:42
+#: dialogs/profile-verification/profile-verification-address.html:26
+#: dialogs/profile-verification/profile-verification-default.html:19
+#: dialogs/profile-verification/profile-verification-id.html:25
+#: dialogs/profile-verification/profile-verification-payment.html:26
+msgid "File"
+msgstr "Fişier"
+
+#: dialogs/profile-verification/profile-verification-id.html:59
+msgid "File is deleting"
+msgstr "Fișierul se șterge"
+
+#: components/profile-verification-main.html:27
+msgid "File is loading"
+msgstr "Fișierul se încarcă"
+
+#: components/profile-verification.component.ts:180
+msgid "File size should not exceed"
+msgstr "Dimensiunea fișierului nu trebuie să depășească"
+
+#: components/profile/deposit/steps/amount/steps-deposit-amount-block.html:19
+#: components/profile/deposit/steps/amount/steps-deposit-amount-block.html:24
+#: components/profile/withdraw/steps/amount/steps-withdraw-amount-block.html:17
+#: components/profile/withdraw/steps/amount/steps-withdraw-amount-block.html:22
+msgid "Fill profile"
+msgstr "Editați profil"
+
+#: dialogs/profile-partial-update.html:8 dialogs/required-fields.html:4
+msgid "Fill required fields"
+msgstr "Completați câmpurile obligatorii"
+
+#: modules/game-catalog-menu.html:31
+msgid "Filter"
+msgstr "Filtru"
+
+#: modules/profile/components/profile-transactions/profile-transactions.component.ts:107
+msgid "Finalize failed"
+msgstr "Finalizarea a eșuat"
+
+#: classes/services/payment-system.model.ts:110
+#: modules/profile/config/profile-forms.config.ts:20
+#: partials/form-elements/first-name.html:11
+#: partials/form-elements/first-name.html:2
+msgid "First name"
+msgstr "Prenume"
+
+#: modules/login-form.html:48
+#: modules/profile/components/login-signup-dropdown/login-form.html:21
+#: partials/login-form.html:28
+msgid "Forgot password?"
+msgstr "Aţi uitat parola?"
+
+#: components/game-catalog.html:133 components/game-catalog.html:192
+#: components/game-catalog.html:327 components/game-catalog.html:396
+#: directives/wlc-catalog-box.html:30
+msgid "Forward"
+msgstr "Înainte"
+
+#: controllers/user/user-profile.ts:87
+msgid "Fractional"
+msgstr "Fracționar"
+
+#: components/profile-bonuses-history.html:14
+#: components/profile-bonuses-history.html:59
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:53
+msgid "Freerounds"
+msgstr "Freerounds"
+
+#: directives/wlc-freerounds.directive.ts:85
+#: directives/wlc-freerounds.directive.ts:92
+#: modules/base/components/wlc-smart-userinfo/wlc-smart-userinfo.component.html:8
+msgid "Freespins"
+msgstr "Învârtiri Gratuite"
+
+#: modules/finances/components/payment-systems/payment-systems.html:35
+#: modules/profile/components/wlc-messages/wlc-messages-list.html:10
+#: modules/profile/components/wlc-messages/wlc-messages-list.html:28
+msgid "From"
+msgstr "De la"
+
+#: classes/services/loyalty-bonuses.class.ts:673
+msgid "Full lock"
+msgstr "Blocare completă"
+
+#: config/wlc-profile-menu-default.js:146 directives/wlc-profile-menu.html:110
+msgid "Gamblings"
+msgstr "Pariuri"
+
+#: components/profile-gamblings-bets.html:121
+#: components/profile-gamblings-bets.html:77
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-list.html:31
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-list.html:7
+msgid "Game"
+msgstr "Joc"
+
+#: config/wlc-main-menu-mobile-default.js:50
+msgid "Game Categories"
+msgstr "Categorii de jocuri"
+
+#: directives/wlc-catalog-tree.html:3
+msgid "Game categories"
+msgstr "Categorii de jocuri"
+
+#: constants/check-on-run-game.js:153
+msgid "Game has no demo!"
+msgstr "Jocul nu are demo!"
+
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-filter.html:48
+#, fuzzy
+msgid "Game name"
+msgstr "Nume bancă"
+
+#: modules/game-day.html:2
+msgid "Game of the day"
+msgstr "Jocul zilei"
+
+#: modules/big-merchant-filter.html:6
+msgid "Game providers filter"
+msgstr "Filtrează furnizorii de jocuri"
+
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-filter.html:31
+#, fuzzy
+msgid "Game result"
+msgstr "Regulile jocurilor"
+
+#: modules/search.html:10
+msgid "Game search"
+msgstr "Căutare joc"
+
+#: modules/big-merchant-filter.html:3
+msgid "Games filter"
+msgstr "Filtru jocuri"
+
+#: modules/footer-info.html:21
+msgid "Games rules"
+msgstr "Regulile jocurilor"
+
+#: modules/register-form.html:101
+#: partials/form-elements/checkbox-games-rules.html:21
+#: partials/signup-form.html:207
+msgid "Games_rules"
+msgstr "regulile jocurilor"
+
+#: classes/services/payment-system.model.ts:127
+#: modules/profile/config/profile-forms.config.ts:69
+#: modules/profile/config/profile-forms.config.ts:73
+#: modules/profile/config/profile-forms.config.ts:89
+msgid "Gender"
+msgstr "Genul"
+
+#: modules/profile/controllers/wlc-dashboard-bonuses.controller.ts:84
+msgid "General"
+msgstr ""
+
+#: modules/login-signup/register-steps/partial/verify-one-button.html:4
+#: partials/form-elements/phone-number.html:29
+msgid "Get code"
+msgstr "Obțineți codul"
+
+#: components/profile-gamblings-bets.html:60
+msgid "Get earlier results..."
+msgstr "Obțineți rezultate anterioare ..."
+
+#: partials/form-elements/gift-bundle-id.html:2
+#: partials/form-elements/gift-bundle-id.html:7
+msgid "Gift Bundle ID"
+msgstr ""
+
+#: dialogs/user-signup.html:30 dialogs/user-signup.html:35
+#: modules/user-signup.html:20
+msgid "Go back"
+msgstr "Înapoi"
+
+#: modules/error-page-box.html:6
+msgid "Go home"
+msgstr "Du-te la prima acasă"
+
+#: components/game-catalog.html:199 components/game-catalog.html:269
+#: components/game-catalog.html:75
+msgid "Go to"
+msgstr "Mergi la"
+
+#: modules/profile/components/wlc-dashboard-loyalty/wlc-dashboard-loyalty.html:33
+msgid "Go to Store"
+msgstr "Mergi la"
+
+#: modules/error-page-box-two-column.html:4
+msgid "Go to main page"
+msgstr "Accesați pagina principală"
+
+#: components/game-catalog.html:44
+msgid "Go to popular games"
+msgstr "Accesați jocurile populare"
+
+#: modules/social-list.html:31 partials/signup-form.html:90
+#: partials/signup-form/signup-form-socials.html:38
+msgid "Google+"
+msgstr "Google+"
+
+#: dialogs/bonus-description.html:16
+#: dialogs/tournaments/tournament-description.html:6
+msgid "Got it"
+msgstr "Am înțeles"
+
+#: dialogs/user-social-complete.html:52 modules/register-form.html:52
+#: partials/form-elements/promocode.html:2 partials/signup-form.html:151
+msgid "Got promo code?"
+msgstr "Aveți cod promoțional?"
+
+#: modules/login-signup/register-steps/partial/promocode.html:4
+msgid "Have a promo code?"
+msgstr "Aveți un cod promoțional?"
+
+#: modules/user-stat-block-dropdown.html:43
+msgid "Hi"
+msgstr "Salut"
+
+#: config/wlc-profile-menu-default.js:68 directives/wlc-profile-menu.html:56
+msgid "History"
+msgstr "Istoric"
+
+#: config/app.js:66 config/components/home-controller.config.ts:44
+msgid "Home"
+msgstr "Prima Pagină"
+
+#: config/wlc-main-menu-default.js:37
+msgid "Home page"
+msgstr "Pagina principală"
+
+#: modules/agreements/privacy-policy.html:11
+msgid "I agree"
+msgstr "Sunt de acord"
+
+#: modules/register-form.html:77 modules/register-form.html:99
+#: partials/form-elements/checkbox-games-rules.html:16
+#: partials/form-elements/checkbox-terms-cond.html:15
+#: partials/signup-form.html:177 partials/signup-form.html:202
+msgid "I agree with"
+msgstr "Sunt de acord cu"
+
+#: modules/login-signup/register-steps/partial/terms.html:11
+msgid "I confirm I am over 18 and accept the following:"
+msgstr "Confirm că am peste 18 ani și accept următoarele:"
+
+#: modules/register-form.html:117
+#: partials/form-elements/checkbox-confirm-age.html:12
+#: partials/signup-form.html:224
+msgid "I confirm that I'm 18 years or older"
+msgstr "Confirm că am 18 ani sau mai mult"
+
+#: components/profile/deposit/steps/bonus/steps-deposit-bonus-block-modal.html:8
+#: components/profile/deposit/steps/modal/modal-step-deposit-bonuses.html:10
+msgid "I don`t want a bonuse."
+msgstr "Nu vreau un bonus."
+
+#: components/profile/deposit/steps/amount/steps-deposit-amount-block.html:82
+#: directives/wlc-deposit.html:194
+msgid "I have read and agree with the payment agents"
+msgstr "Am citit și sunt de acord cu modalitățile de plată"
+
+#: partials/form-elements/get-notifications.html:11
+msgid ""
+"I would like to receive information about promotions, marketings materials "
+"and personalised content"
+msgstr ""
+"Aș dori să primesc informații despre promoții, materiale de marketing și "
+"conținut personalizat"
+
+#: partials/form-elements/get-notifications-sms.html:12
+msgid ""
+"I would like to receive information about promotions, marketings materials "
+"and personalised content for SMS"
+msgstr ""
+"Aș dori să primesc informații despre promoții, materiale de marketing și "
+"conținut personalizat prin SMS"
+
+#: classes/services/payment-system.model.ts:132
+#: modules/profile/config/profile-forms.config.ts:306
+#: partials/form-elements/id-number.html:10
+#: partials/form-elements/id-number.html:2
+msgid "ID number"
+msgstr "numar de identificare"
+
+#: modules/user-stat-block-min.html:34
+msgid "ID:"
+msgstr "ID:"
+
+#: classes/services/payment-system.model.ts:172
+#: modules/profile/config/profile-forms.config.ts:241
+#: partials/form-elements/iban-number.html:11
+#: partials/form-elements/iban-number.html:2
+msgid "Iban number"
+msgstr "numar IBAN"
+
+#: dialogs/password-restore-step2.html:14
+msgid ""
+"If you are unable to find the e-mail in your Inbox, make sure to check the "
+"\"Junk\" folders. Then continue the instructions in the e-mail."
+msgstr ""
+"Dacă nu puteți găsi e-mailul în Inbox, asigurați-vă că verificați dosarele "
+"„Junk”. Apoi continuați instrucțiunile din e-mail."
+
+#: dialogs/profile-verification/profile-verification-payment.html:14
+msgid ""
+"If you are using wallets like Neteller or Skrill. Provide a print screen, of "
+"the wallet while being signed in. Your email has to be visible in the image."
+msgstr ""
+"Dacă utilizați portofele precum Neteller sau Skrill. Furnizați un ecran de "
+"imprimare, cu portofelul în timpul conectării. E-mailul dvs. trebuie să fie "
+"vizibil în imagine."
+
+#: modules/profile/components/limits/limits.component.html:37
+msgid ""
+"If you feel as though you are no longer enjoying playing with us, or that "
+"you are ending up frustrated, anxious or even depressed then it sounds like "
+"it may be time to take a break from playing and assess if your current level "
+"of play is right for you."
+msgstr ""
+
+#: components/user-restore.html:7
+msgid ""
+"If you forgot your password and would like to reset it or would like to "
+"change<br>your password for security reasons, please enter your email and "
+"click \"Restore\"."
+msgstr ""
+"Dacă ați uitat parola și doriți să resetați sau doriți să schimbați <br> "
+"parola din motive de securitate, vă rugăm să introduceți e-mailul dvs. și "
+"dați clic pe „Restaurare”"
+
+#: modules/profile/controllers/wlc-dashboard-bonuses.controller.ts:94
+msgid "In Progress"
+msgstr ""
+
+#: modules/profile/components/profile-transactions/profile-transactions.component.ts:106
+msgid "In payment queue"
+msgstr "Plată în așteptare"
+
+#: dialogs/sms-verification/sms-verification.html:7
+#, fuzzy
+msgid "Incorrect code"
+msgstr "Obțineți codul"
+
+#: config/wlc-main-menu-mobile-default.js:92
+#: dialogs/tournaments/tournament-info.html:4
+msgid "Info"
+msgstr "Info"
+
+#: config/wlc-modal-config.js:200
+msgid "Insufficient balance!"
+msgstr "Sold insuficient!"
+
+#: dialogs/tournaments/tournament-insufficient-funds.html:3
+msgid "Insufficient funds"
+msgstr "Fonduri insuficiente"
+
+#: dialogs/tournaments/tournament-insufficient-points.html:3
+msgid "Insufficient points"
+msgstr "Puncte insuficiente"
+
+#: config/wlc-form-errors.ts:30 config/wlc-form-errors.ts:31
+#: config/wlc-form-errors.ts:32 config/wlc-form-errors.ts:33
+msgid "Invalid value"
+msgstr "Valoare invalidă"
+
+#: config/state/profile/profile-bonuses.js:89
+#: config/wlc-profile-menu-default.js:62
+msgid "Inventory"
+msgstr "Inventar"
+
+#: components/game-catalog.html:259 components/game-catalog.html:34
+#: components/game-catalog.html:361 config/wlc-main-menu-default.js:135
+#: modules/catalog/jackpots-grid.html:2
+msgid "Jackpots"
+msgstr "Jackpoturi"
+
+#: controllers/user/user-abstract.ts:136
+#: modules/profile/classes/profile-abstract.class.ts:137
+msgid "January"
+msgstr ""
+
+#: components/profile-tournaments-main.html:37
+#: modules/loyalty/components/tournaments-list/tournaments-list.item.html:54
+msgid "Join now"
+msgstr "Participă acum"
+
+#: controllers/user/user-abstract.ts:142
+#: modules/profile/classes/profile-abstract.class.ts:143
+msgid "July"
+msgstr ""
+
+#: controllers/user/user-abstract.ts:141
+#: modules/profile/classes/profile-abstract.class.ts:142
+msgid "June"
+msgstr ""
+
+#: modules/promo/components/last-jackpots/last-jackpots.html:8
+#, fuzzy
+msgid "Last Jackpots"
+msgstr "Jackpoturi"
+
+#: classes/services/payment-system.model.ts:115
+#: modules/profile/config/profile-forms.config.ts:33
+#: partials/form-elements/last-name.html:2
+#: partials/form-elements/last-name.html:8
+msgid "Last name"
+msgstr "Nume"
+
+#: config/wlc-game-categories-default.js:146
+#: config/wlc-main-menu-mobile-default.js:44 modules/mobile-menu-column.html:3
+msgid "Last played"
+msgstr "Ultimul jucat"
+
+#: modules/last-pages.html:2
+msgid "Latest news"
+msgstr "Cele mai recente știri"
+
+#: components/profile-tournaments-main.html:54
+#: modules/games-play-desktop.html:115
+#: modules/loyalty/components/tournaments-list/tournaments-list.item.html:61
+#: modules/loyalty/components/tournaments-slider/tournaments-slider-item.html:75
+msgid "Leave"
+msgstr "Iesi"
+
+#: modules/footer-info.html:3
+msgid "Legal"
+msgstr "Legal"
+
+#: dialogs/tournaments/tournament-subscribe.html:63
+msgid "Let's play!"
+msgstr "Joacă acum!"
+
+#: dialogs/tournaments/tournament-subscribe.html:36
+msgid "Let's play?"
+msgstr "Joci acum?"
+
+#: modules/loyalty/components/current-level/current-level.html:7
+#: modules/loyalty/components/wlc-loyalty-levels/wlc-loyalty-levels.component.html:7
+#: modules/user-stat-block-dropdown.html:51 modules/user-stat-block.html:38
+#: partials/loyalty-progress-bar.html:7
+msgid "Level"
+msgstr "Nivel"
+
+#: modules/loyalty/components/wlc-loyalty-levels/wlc-loyalty-levels.component.html:8
+msgid "Level name"
+msgstr "Numele nivelului"
+
+#: modules/finances/components/payment-systems-info/payment-systems-info.component.html:14
+#, fuzzy
+msgid "Limit per transaction"
+msgstr "Tranzacții"
+
+#: components/game-catalog.html:141 components/profile-limits.html:2
+#: components/profile/deposit/steps/paymentSystems/steps-deposit-system-desc.html:3
+#: components/profile/withdraw/steps/paymentSystems/steps-withdraw-system-desc.html:3
+#: config/state/profile/profile-limits.config.ts:34
+#: config/wlc-profile-menu-default.js:195
+#: modules/finances/components/payment-systems-info/payment-systems-info.component.html:33
+#: modules/finances/components/payment-systems/payment-systems.html:9
+#: modules/profile/components/limits/limits.component.html:3
+msgid "Limits"
+msgstr "Limite"
+
+#: modules/profile/components/limits/limits.component.html:20
+msgid "Limits your ability to deposit more funds to your gaming balance."
+msgstr ""
+
+#: modules/profile/components/limits/limits.component.html:26
+msgid "Limits your access to your account for 7, 30, 60, 90, 180, or 365 days."
+msgstr ""
+
+#: config/wlc-main-menu-default.js:186
+#: config/wlc-main-menu-mobile-default.js:190
+msgid "Live Betting"
+msgstr "Pariuri live"
+
+#: config/wlc-main-menu-default.js:53 config/wlc-main-menu-mobile-default.js:56
+#: modules/error-page-box-two-column.html:8
+msgid "Live Casino"
+msgstr "Casino Live"
+
+#: modules/base/components/country-accepts/country-accepts-content.html:14
+msgid "Live chat language"
+msgstr "Limba chat live"
+
+#: directives/games/load-more-games.directive.html:9
+#: modules/search-and-filter-results.html:30
+msgid "Load more games"
+msgstr "Încarcă mai multe jocuri"
+
+#: sections/games-play-mobile.html:6
+msgid "Loading..."
+msgstr "Se încarcă..."
+
+#: config/forms/profile.form.ts:110
+msgid "Location"
+msgstr "Locație"
+
+#: dialogs/play-for-free.html:9
+msgid "Log in to play for real"
+msgstr "Conectați-vă pentru a juca pe bani reali"
+
+#: dialogs/game.html:37 dialogs/user-login-signup.html:10
+#: dialogs/user-login-signup.html:20 dialogs/user-signup.html:21
+#: dialogs/user-signup.html:43 modules/header/login-button-mobile.html:11
+#: modules/header/profile-button-mobile.html:9 modules/login-button.html:2
+#: modules/login-form.html:30
+#: modules/profile/components/login-signup-dropdown/login-form.html:15
+#: modules/user-signup.html:29 partials/login-form.html:37
+#: partials/user-login.html:4 sections/user-signup.html:7
+msgid "Login"
+msgstr "Autentificare"
+
+#: controllers/user/user.controller.ts:236
+msgid "Login error"
+msgstr "Eroare de conectare"
+
+#: dialogs/game.html:33
+msgid "Login to play for real"
+msgstr "Autentificați-vă pentru a juca pe bani reali"
+
+#: modules/login-signup/register-steps/partial/setup-social.html:4
+#: partials/login-form.html:9 partials/signup-form.html:50
+#: partials/signup-form/signup-form-content.html:10
+msgid "Login with social"
+msgstr "Autentificare cu platforme sociale"
+
+#: config/wlc-main-menu-default.js:45
+msgid "Logo"
+msgstr "Logo"
+
+#: config/wlc-profile-menu-default.js:164 dialogs/user-logout.html:6
+#: directives/wlc-profile-menu.html:131
+#: modules/user-stat-block-dropdown.html:112 modules/user-stat-block.html:60
+msgid "Logout"
+msgstr "Deconectare"
+
+#: config/wlc-game-categories-default.js:179
+msgid "Lottery"
+msgstr "Loterie"
+
+#: components/profile-bonuses-history.html:12
+#: components/profile-bonuses-history.html:47
+#: config/wlc-profile-menu-default.js:207
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:43
+msgid "Loyalty"
+msgstr "Loialitate"
+
+#: config/state/profile/profile-loyalty.js:24
+msgid "Loyalty level"
+msgstr "Nivel de fidelitate"
+
+#: components/profile/loyalty/profile-loyalty-level.html:2
+msgid "Loyalty level progress"
+msgstr "Progresul nivelului de fidelitate"
+
+#: modules/loyalty/components/wlc-loyalty-levels/wlc-loyalty-levels.component.html:3
+msgid "Loyalty levels"
+msgstr "Niveluri de fidelitate"
+
+#: modules/social-list.html:21 partials/signup-form.html:77
+#: partials/signup-form/signup-form-socials.html:25
+msgid "Mail.ru"
+msgstr "Mail.ru"
+
+#: config/forms/profile.form.ts:48
+msgid "Main info"
+msgstr "Informații principale"
+
+#: dialogs/tournaments/tournament-insufficient-funds.html:5
+msgid "Make deposit"
+msgstr "Efectuați o depunere"
+
+#: controllers/user/user-register.ts:138
+msgid "Male"
+msgstr ""
+
+#: controllers/user/user-abstract.ts:138
+#: modules/profile/classes/profile-abstract.class.ts:139
+#, fuzzy
+msgid "March"
+msgstr "Caută"
+
+#: config/wlc-profile-menu-default.js:225
+msgid "Market"
+msgstr ""
+
+#: modules/sportsbook/components/betradar-widget/v2/partials/daily-match.html:3
+#, fuzzy
+msgid "Match of the day"
+msgstr "Jocul zilei"
+
+#: controllers/user/user-abstract.ts:140
+#: modules/profile/classes/profile-abstract.class.ts:141
+#, fuzzy
+msgid "May"
+msgstr "Ziua"
+
+#: components/profile-gamblings-bets.html:112
+#: components/profile-gamblings-bets.html:25
+#: components/profile-gamblings-bets.html:76
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-filter.html:17
+msgid "Merchant"
+msgstr "Comerciant"
+
+#: modules/profile/components/profile-transactions/profile-transactions.component.ts:109
+msgid "Merchant complete"
+msgstr "Comercian complet"
+
+#: components/game-catalog.html:21 components/game-catalog.html:246
+#: components/game-catalog.html:348
+msgid "Merchants"
+msgstr "Comercianţi"
+
+#: modules/base/components/contact-form/elements/sender-message.html:2
+msgid "Message"
+msgstr "Mesaj"
+
+#: modules/base/components/contact-form/contact-form.component.ts:130
+msgid "Message sent failed."
+msgstr "Mesajul nu s-a trimis."
+
+#: controllers/contacts.ts:94
+#: modules/base/components/contact-form/contact-form.component.ts:124
+msgid "Message successfully sent."
+msgstr "Mesajul a fost trimis cu succes."
+
+#: config/state/profile/profile-messages.config.ts:34
+#: config/wlc-profile-menu-default.js:158
+#: modules/profile/components/wlc-messages/wlc-messages-list.html:1
+msgid "Messages"
+msgstr "Mesaje"
+
+#: modules/finances/components/payment-systems/payment-systems.html:5
+#: modules/profile/components/profile-transactions/profile-transactions-list.html:18
+#: modules/profile/components/profile-transactions/profile-transactions-list.html:71
+msgid "Method"
+msgstr "Metodă"
+
+#: directives/deposit-withdraw/wlc-step-deposit-withdraw.directive.ts:268
+msgid "Minimum / maximum deposit requirement changed due to a selected bonus:"
+msgstr ""
+"Cerința de depozit minimă / maximă modificată datorită bonusului selectat:"
+
+#: modules/profile/components/wlc-exchange-cash/wlc-exchange-cash.html:24
+msgid "Minimum RP"
+msgstr ""
+
+#: classes/services/payment-system.model.ts:177
+#: partials/form-elements/mobile-phone.html:18
+#: partials/form-elements/phone-number.html:2
+msgid "Mobile phone"
+msgstr "Telefon mobil"
+
+#: components/profile-notifications.html:29
+#: modules/profile/components/notification/sms-verification.html:13
+#, fuzzy
+msgid "Mobile phone number verified"
+msgstr "Schimbarea parolei profilului a eșuat"
+
+#: controllers/user/user-abstract.ts:151
+#: modules/profile/classes/profile-abstract.class.ts:152
+#: modules/profile/config/profile-forms.config.ts:130
+msgid "Month"
+msgstr "Lună"
+
+#: directives/wlc-dropdown-list.html:4
+msgid "More"
+msgstr "Mai mult"
+
+#: components/profile-tournaments-main.html:46
+#: components/profile/deposit/steps/bonus/steps-deposit-bonus-actions.html:5
+#: components/profile/deposit/steps/modal/modal-step-deposit-bonuses.html:22
+#: components/profile/deposit/steps/modal/modal-step-deposit-systems.html:17
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:80
+#: modules/loyalty/components/store-list/store-list.item.html:18
+#: modules/loyalty/components/store-list/store-list.item.html:58
+#: modules/loyalty/components/tournaments-list/tournaments-list.item.html:39
+#: modules/loyalty/components/tournaments-slider/tournaments-slider-item.html:90
+msgid "More info"
+msgstr "Mai multe informații"
+
+#: modules/base/components/sorted-items/templates/merchants-in-category/dropdown-merchants.html:12
+#: modules/filter-merchants.html:15
+msgid "Multiple select"
+msgstr "Selectare multiplă"
+
+#: components/profile-menu.html:2 directives/wlc-profile-menu.html:4
+msgid "My Account"
+msgstr "Contul Meu"
+
+#: config/wlc-main-menu-mobile-default.js:152
+#: config/wlc-profile-menu-default.js:32
+msgid "My account"
+msgstr "Contul meu"
+
+#: components/profile-bonuses-active.html:1
+msgid "My active bonuses"
+msgstr "Bonusurile mele active"
+
+#: components/profile-bonuses-history.html:1
+msgid "My bonus history"
+msgstr "Istoricul bonusului meu"
+
+#: modules/mobile-menu-column.html:16
+msgid "My favorite"
+msgstr "Favoritul meu"
+
+#: config/wlc-game-categories-default.js:137
+#: config/wlc-main-menu-mobile-default.js:38 partials/game-catalog.html:16
+msgid "My favourites"
+msgstr "Favoritele mele"
+
+#: components/profile-store-orders.html:2
+msgid "My orders history"
+msgstr "Istoricul comenzilor mele"
+
+#: modules/user-stat-block.html:55
+msgid "My profile"
+msgstr "Profilul meu"
+
+#: components/profile-tournaments-history.html:9
+msgid "Name"
+msgstr "Nume"
+
+#: modules/profile/components/profile-transactions/profile-transactions.component.ts:103
+msgid "New"
+msgstr "Nou"
+
+#: modules/profile/config/profile-forms.config.ts:359
+#: partials/form-elements/password-new.html:13
+#: partials/form-elements/password-new.html:3
+msgid "New password"
+msgstr "Parolă nouă"
+
+#: config/wlc-main-menu-default.js:143
+#: config/wlc-main-menu-mobile-default.js:182
+msgid "News"
+msgstr "Noutăți"
+
+#: bower/dirPagination.tpl.html:10
+msgid "Next"
+msgstr "Urmatorul"
+
+#: components/profile-main-level.html:28
+msgid "Next level points"
+msgstr "Puncte de nivel următor"
+
+#: controllers/user/user-profile.ts:95 dialogs/confirmation.html:24
+#: dialogs/user-logout.html:16
+#: modules/profile/components/main-info/main-info.component.ts:93
+msgid "No"
+msgstr "Nu"
+
+#: modules/base/components/wlc-smart-userinfo/wlc-smart-userinfo.component.html:26
+#: modules/base/components/wlc-smart-userinfo/wlc-smart-userinfo.component.html:32
+#, fuzzy
+msgid "No Active Bonus"
+msgstr "Bonusuri active"
+
+#: components/profile-referrals.html:58 components/profile-store-main.html:36
+#: components/profile-tournaments-active.html:6
+#: modules/loyalty/components/store-list/store-list.component.html:24
+#: modules/loyalty/components/store-list/store-list.component.html:45
+msgid "No active items available"
+msgstr "Nu există articole active disponibile"
+
+#: modules/loyalty/controllers/loyalty-tournaments.controller.ts:218
+msgid "No available wins"
+msgstr "Nu există câștiguri valabile"
+
+#: components/profile-gamblings-bets.html:47
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history.html:13
+msgid "No bets history"
+msgstr "Niciun istoric al pariurilor"
+
+#: components/profile-bonuses-inventory.html:35
+#: components/profile-bonuses-list.html:14
+#: modules/loyalty/components/bonuses-list/bonuses-list.component.html:19
+#: modules/loyalty/components/bonuses-slider/bonuses-slider.component.html:15
+#: modules/profile/components/wlc-dashboard-bonuses/wlc-dashboard-bonuses-content.html:12
+msgid "No bonus found"
+msgstr "Nu a fost găsit niciun bonus"
+
+#: components/profile-bonuses-history.html:94
+msgid "No bonus history"
+msgstr "Niciun istoric de bonusuri"
+
+#: modules/login-signup/register-steps/partial/setup-bonus.html:3
+#: partials/signup-form.html:44 partials/signup-form/signup-form-content.html:5
+msgid "No bonus is selected."
+msgstr "Nu este selectat niciun bonus."
+
+#: modules/loyalty/components/choose-bonus/choose-bonus.html:21
+msgid "No bonuses available"
+msgstr "Nu există articole istorice disponibile"
+
+#: modules/loyalty/components/store-list/store-list.component.html:49
+#, fuzzy
+msgid "No categories available"
+msgstr "Nu există articole active disponibile"
+
+#: components/profile-tournaments-history.html:67
+msgid "No history items available"
+msgstr "Nu există articole istorice disponibile"
+
+#: components/pages-content.html:10
+msgid "No information"
+msgstr "Fara informatii"
+
+#: modules/loyalty/components/wlc-loyalty-levels/wlc-loyalty-levels.component.html:21
+msgid "No level data"
+msgstr "Fără date de nivel"
+
+#: classes/services/loyalty-bonuses.class.ts:676
+msgid "No lock"
+msgstr "Fără blocare"
+
+#: modules/profile/components/wlc-messages/wlc-messages-list.html:58
+msgid "No messages"
+msgstr "Nici un mesaj"
+
+#: components/pages-content.html:9
+#: modules/static-content/components/static-blog/static-blog-content.html:8
+msgid "No news"
+msgstr "Nici o știre"
+
+#: components/profile-store-orders.html:31
+msgid ""
+"No orders history items\n"
+"            available"
+msgstr ""
+"Nu există articole din istoricul comenzilor\n"
+"            disponibil"
+
+#: components/profile-tournaments-main.html:76
+#: modules/loyalty/components/tournaments-list/tournaments-list.component.html:20
+#: modules/loyalty/components/tournaments-slider/tournaments-slider.component.html:21
+msgid "No tournaments at the moment"
+msgstr "Nu există turnee în acest moment"
+
+#: modules/profile/components/profile-transactions/profile-transactions.component.html:14
+msgid "No transaction history"
+msgstr "Fără istoric de tranzacție"
+
+#: components/profile-bonuses-promo.html:26
+#: modules/loyalty/components/bonuses-list/bonuses-list.component.html:46
+msgid "No voucher found"
+msgstr "Nu a fost găsit niciun voucher"
+
+#: modules/loyalty/components/choose-bonus/choose-bonus.html:24
+msgid "Not choose any Bonus"
+msgstr "Bonusul ales"
+
+#: modules/loyalty/components/choose-bonus/choose-bonus.html:41
+msgid "Not choosing any Bonus"
+msgstr ""
+
+#: controllers/user/user-profile.ts:103 controllers/user/user-profile.ts:80
+#: controllers/user/user-profile.ts:86 controllers/user/user-profile.ts:93
+#: controllers/user/user-profile.ts:99
+#: modules/profile/components/main-info/main-info.component.ts:107
+#: modules/profile/components/main-info/main-info.component.ts:91
+#: modules/profile/components/main-info/main-info.component.ts:97
+msgid "Not selected"
+msgstr "Neselectat"
+
+#: components/profile-store-orders.html:14
+#: components/profile-verification-main.html:56
+#: modules/profile/components/profile-transactions/profile-transactions-list.html:64
+msgid "Note"
+msgstr "Notă"
+
+#: components/profile-notifications.html:1
+#: config/state/profile/profile-notifications.config.ts:35
+#: config/wlc-profile-menu-default.js:183
+#: modules/profile/components/notification/notification.config.ts:6
+msgid "Notifications"
+msgstr "Notificări"
+
+#: modules/profile/config/profile-forms.config.ts:494
+#, fuzzy
+msgid "Notifications via email"
+msgstr "Notificări"
+
+#: modules/profile/config/profile-forms.config.ts:510
+#, fuzzy
+msgid "Notifications via sms"
+msgstr "Notificări"
+
+#: controllers/user/user-abstract.ts:146
+#: modules/profile/classes/profile-abstract.class.ts:147
+#, fuzzy
+msgid "November"
+msgstr "Număr de telefon"
+
+#: dialogs/user-message.html:10 dialogs/user-payment-success.html:24
+msgid "OK"
+msgstr "OK"
+
+#: dialogs/tournaments/tournament-subscribe.html:58
+msgid "OK!"
+msgstr "OK!"
+
+#: dialogs/play-for-free.html:12
+msgid "OR"
+msgstr "SAU"
+
+#: controllers/user/user-abstract.ts:145
+#: modules/profile/classes/profile-abstract.class.ts:146
+msgid "October"
+msgstr ""
+
+#: partials/form-elements/odds.html:2
+msgid "Odds style"
+msgstr "Stilul cotelor"
+
+#: modules/social-list.html:16 partials/signup-form.html:71
+#: partials/signup-form/signup-form-socials.html:19
+msgid "Odnoklassniki"
+msgstr "odnoklassniki"
+
+#: components/profile-bonuses-inventory.html:1
+#: components/profile-bonuses-list.html:1 config/wlc-profile-menu-default.js:50
+#: directives/wlc-profile-menu.html:36
+msgid "Offers"
+msgstr "Oferte"
+
+#: config/wlc-profile-menu-default.js:201
+msgid "Open bets"
+msgstr "Pariuri deschise"
+
+#: modules/store-menu.html:24
+msgid "Orders"
+msgstr "Comenzi"
+
+#: modules/profile/config/profile-forms.config.ts:322
+#: partials/form-elements/pep.html:2
+msgid "PEP"
+msgstr "PEP"
+
+#: modules/error-page-box.html:5 services/error.service.ts:279
+msgid "Page not found"
+msgstr "Pagina nu a fost găsită"
+
+#: config/forms/profile.form.ts:139
+msgid "Passport details"
+msgstr "Detalii despre pașaport"
+
+#: components/profile-password.html:1
+#: components/profile/deposit/steps/modal/modal-step-deposit-profile-password.html:2
+#: components/profile/deposit/steps/modal/modal-step-deposit-profile-password.html:9
+#: config/forms/profile.form.ts:192
+#: config/state/profile/profile-password.config.ts:35
+#: config/wlc-profile-menu-default.js:177 dialogs/user-social-complete.html:24
+#: modules/profile/components/password-change/password-change.config.ts:6
+#: partials/form-elements/password-registration.html:11
+#: partials/form-elements/password-registration.html:2
+#: partials/form-elements/password.html:13
+#: partials/form-elements/password.html:3
+msgid "Password"
+msgstr "Parola"
+
+#: config/app.js:175
+msgid "Password create"
+msgstr "Creare parolă"
+
+#: directives/wlc-password.ts:106
+msgid "Password must be at least 6 characters"
+msgstr "Parola trebuie sa aibă cel puțin 6 caractere"
+
+#: directives/wlc-password.ts:109
+msgid "Password must be at least 6 characters and contain letter and digit"
+msgstr ""
+"Parola trebuie să aibă cel puțin 6 caractere și să conțină litere și cifre"
+
+#: directives/wlc-password.ts:118
+msgid ""
+"Password must be at least 6 characters and contain small and large letter, "
+"digit and special symbol"
+msgstr ""
+"Parola trebuie să aibă cel puțin 6 caractere și să conțină litere mici și "
+"mari, cifră și simbol special"
+
+#: services/validator/password.rules.ts:18
+msgid ""
+"Password must contain latin letters in upper and lower case, numbers and "
+"special symbols"
+msgstr ""
+"Parola trebuie să aibă cel puțin 6 caractere și să conțină litere mici și "
+"mari, cifră și simbol special"
+
+#: dialogs/password-restore-step2.html:9
+msgid "Password reset"
+msgstr "Resetare Parolă"
+
+#: components/user-restore-complete.js:20
+#: components/user-restore-complete.js:37 dialogs/password-restore.html:12
+msgid "Password restore"
+msgstr "Restaurare parolă"
+
+#: controllers/user/user-profile.ts:279 dialogs/user-social-complete.html:35
+#: modules/profile/components/password-change/password-change.component.ts:79
+msgid "Passwords should match"
+msgstr "Parolele trebuie să corespundă"
+
+#: modules/profile/components/limits/limits.component.html:24
+#, fuzzy
+msgid "Pause account"
+msgstr "Contul meu"
+
+#: controllers/finanses.controller.ts:619
+msgid "Payment"
+msgstr "Plată"
+
+#: modules/footer-info.html:75
+msgid "Payment Methods"
+msgstr "Metode de plată"
+
+#: config/wlc-main-menu-mobile-default.js:134
+#: modules/finances/components/payment-systems-info/payment-systems-info.component.html:10
+msgid "Payment System"
+msgstr "Sistem de Plată"
+
+#: directives/wlc-deposit.html:78
+msgid "Payment information"
+msgstr "Informații despre plată"
+
+#: components/profile/deposit/steps/amount/steps-deposit-amount-block.html:13
+#: components/profile/withdraw/default-withdraw.html:67
+#: components/profile/withdraw/steps/amount/steps-withdraw-amount-block.html:11
+#: directives/wlc-deposit.html:55
+msgid ""
+"Payment method isn't available. Please fill in the following profile fields"
+msgstr ""
+"Metoda de plată nu este disponibilă. Vă rugăm să completați următoarele "
+"câmpuri de profil"
+
+#: config/state/profile/profile-payments.config.ts:34
+#: config/wlc-profile-menu-default.js:189
+msgid "Payments"
+msgstr "Plăți"
+
+#: modules/base/components/wlc-smart-userinfo/wlc-smart-userinfo.component.html:29
+#, fuzzy
+msgid "Period Of Wagering"
+msgstr "Pariere"
+
+#: modules/profile/components/limits/limits.component.html:31
+#, fuzzy
+msgid "Permanently denies you access to your account."
+msgstr "au fost depuse cu succes în contul dvs."
+
+#: partials/contacts.html:7 partials/form-elements/alternative-phone.html:21
+msgid "Phone"
+msgstr "Număr de telefon"
+
+#: partials/form-elements/alternative-phone.html:11
+msgid "Phone code"
+msgstr "Cod telefonic"
+
+#: services/validator/phone.rules.ts:100
+#, fuzzy
+msgid "Phone code is empty"
+msgstr "Cod telefonic"
+
+#: modules/profile/config/profile-forms.config.ts:408
+#: modules/profile/config/profile-forms.config.ts:425
+#: partials/form-elements/alternative-phone.html:27
+#: partials/form-elements/mobile-phone.html:24
+#: partials/form-elements/phone-number.html:11
+msgid "Phone number"
+msgstr "Număr de telefon"
+
+#: components/profile-tournaments-history.html:10
+msgid "Place"
+msgstr "Locație"
+
+#: components/game-catalog.html:10 components/game-catalog.html:121
+#: components/game-catalog.html:158 components/game-catalog.html:183
+#: components/game-catalog.html:213 components/game-catalog.html:237
+#: components/game-catalog.html:283 components/game-catalog.html:315
+#: components/game-catalog.html:339 components/game-catalog.html:384
+#: components/game-catalog.html:59 components/game-catalog.html:89
+#: directives/wlc-catalog-box.html:20 modules/game-thumb.html:45
+#: modules/search.html:34
+msgid "Play"
+msgstr "Joacă"
+
+#: dialogs/game.html:43 dialogs/play-for-free.html:13
+msgid "Play for free"
+msgstr "Joacă gratuit"
+
+#: dialogs/game.html:25 modules/game-play/game-play-header.html:25
+msgid "Play for real"
+msgstr "Joacă pe bani reali"
+
+#: config/wlc-modal-config.js:136
+msgid "Play for real is disabled"
+msgstr "Joacă pe bani reali este dezactivat"
+
+#: constants/check-on-run-game.js:64
+#, fuzzy
+msgid "Play for real is disabled in your country"
+msgstr "Joacă pe bani reali este dezactivat"
+
+#: dialogs/tournaments/tournament-insufficient-points.html:4
+msgid "Play more to get more loyalty points!"
+msgstr "Joacă mai mult pentru a obține mai multe puncte de loialitate!"
+
+#: modules/loyalty/components/tournaments-slider/tournaments-slider-item.html:34
+#: modules/tournaments/tournament-last-wins.html:7
+#: modules/tournaments/tournament-leaders.html:12
+#: modules/tournaments/tournament-winners.html:16
+msgid "Player"
+msgstr "Jucător"
+
+#: modules/profile/components/limits/limits.component.html:8
+msgid "Playing at"
+msgstr ""
+
+#: directives/wlc-merchants-in-category.directive.ts:108
+msgid "PlaysonDirect"
+msgstr "PlaysonDirect"
+
+#: controllers/user/user-register.ts:308
+msgid "Please complete registration using link in e-mail"
+msgstr "Vă rugăm să completați înregistrarea folosind linkul din e-mail"
+
+#: modules/register-form.html:132 partials/signup-form.html:242
+#: partials/signup-form/signup-form.html:47
+msgid "Please complete registration using link in e-mail."
+msgstr "Vă rugăm să completați înregistrarea folosind linkul din e-mail."
+
+#: components/profile/deposit/steps/amount/steps-deposit-amount-block.html:8
+msgid "Please confirm."
+msgstr "Vă rugăm să confirmați."
+
+#: dialogs/bonuses/subscribe-deposit-bonus.html:10
+msgid "Please continue to the deposit page."
+msgstr "Vă rugăm să continuați la pagina de depunere."
+
+#: dialogs/password-restore.html:16
+msgid "Please enter e-mail that was used to create an account at"
+msgstr ""
+"Vă rugăm să introduceți e-mail care a fost utilizat pentru a crea contul"
+
+#: components/profile/withdraw/default-withdraw.html:43
+#: directives/wlc-deposit.html:18
+msgid ""
+"Please fill in country field in profile to get all payment methods available"
+msgstr ""
+"Vă rugăm să completați câmpul de țară din profil pentru a obține toate "
+"metodele de plată disponibile"
+
+#: dialogs/profile-check-error.html:8
+msgid ""
+"Please fill in profile to make deposits and withdrawals and to play games"
+msgstr ""
+"Vă rugăm să completați profilul pentru a face depuneri și retrageri și "
+"pentru a te juca"
+
+#: components/user-register-success.html:3
+msgid "Please follow instruction link to finalize registration process"
+msgstr ""
+"Vă rugăm să urmați link-ul cu instrucțiuni pentru a finaliza procesul de "
+"înregistrare"
+
+#: modules/register-form.html:133 partials/signup-form.html:243
+#: partials/signup-form/signup-form.html:48
+msgid "Please login using e-mail and password."
+msgstr "Vă rugăm să vă autentificați utilizând e-mail și parolă."
+
+#: components/profile/deposit/steps/modal/modal-step-deposit-systems-additional.html:7
+msgid ""
+"Please make sure that the credentials are correct, as you will not be able "
+"to make changes to this information in the future."
+msgstr ""
+"Vă rugăm să vă asigurați că datele de acreditare sunt corecte, deoarece nu "
+"veți putea să faceți modificări la aceste informații în viitor."
+
+#: directives/wlc-deposit.html:92
+msgid "Please note, that minimum deposit amount for this method is"
+msgstr ""
+
+#: dialogs/user-restore-complete.html:28
+msgid "Please, use both numbers and latin letters"
+msgstr "Vă rugăm, utilizați atât numerele, cât și litere latine"
+
+#: components/profile-tournaments-history.html:11
+#: components/profile-tournaments-history.html:27
+#: modules/games-play-desktop.html:179
+#: modules/loyalty/components/tournaments-slider/tournaments-slider-item.html:35
+#: modules/user-stat-block-dropdown.html:48 modules/user-stat-block.html:35
+msgid "Points"
+msgstr "Puncte"
+
+#: partials/form-elements/pep.html:3
+msgid "Politically exposed person (PEP)"
+msgstr "Persoană expusă din punct de vedere politic (PEP)"
+
+#: modules/sportsbook/components/betradar-widget/v2/partials/popular-events.html:4
+#, fuzzy
+msgid "Popular events"
+msgstr "Jocuri populare"
+
+#: components/game-catalog.html:43
+msgid "Popular games"
+msgstr "Jocuri populare"
+
+#: dialogs/tournaments/tournament-info.html:31
+#: modules/tournaments/tournament-leaders.html:11
+#: modules/tournaments/tournament-winners.html:13
+msgid "Position"
+msgstr "Poziție"
+
+#: classes/services/payment-system.model.ts:142
+#: modules/profile/config/profile-forms.config.ts:208
+msgid "Postal code"
+msgstr "Cod poștal"
+
+#: bower/dirPagination.tpl.html:2
+msgid "Previous"
+msgstr "Anterior"
+
+#: components/profile-store-orders.html:11 directives/wlc-store-item.html:7
+#: modules/loyalty/components/store-list/store-list.item.html:14
+#: modules/loyalty/components/store-list/store-list.item.html:54
+msgid "Price"
+msgstr "Preț"
+
+#: config/wlc-main-menu-mobile-default.js:110
+#: modules/agreements/privacy-policy.html:8 modules/footer-info.html:13
+msgid "Privacy Policy"
+msgstr "Politica de Confidențialitate"
+
+#: modules/login-signup/register-steps/partial/terms.html:31
+msgid "Privacy policy"
+msgstr "Politica de confidențialitate"
+
+#: dialogs/tournaments/tournament-info.html:36
+#: modules/games-play-desktop.html:135
+#: modules/tournaments/tournament-leaders.html:13
+#: modules/tournaments/tournament-winners.html:19
+msgid "Prize"
+msgstr "Premiu"
+
+#: modules/login-signup/register-steps/bonuses.html:27
+#: partials/signup-form.html:34 partials/signup-form/signup-form.html:37
+msgid "Proceed without welcome bonus"
+msgstr "Continuați fără bonusul de bun venit"
+
+#: components/profile-verification-main.html:28
+#: modules/finances/components/payment-systems/payment-systems.html:8
+msgid "Processing"
+msgstr "În curs de procesare"
+
+#: modules/finances/components/payment-systems-info/payment-systems-info.component.html:13
+#, fuzzy
+msgid "Processing Time"
+msgstr "În curs de procesare"
+
+#: components/profile-store-orders.html:10
+msgid "Product name"
+msgstr "Nume produs"
+
+#: controllers/profile-store.js:23
+#: modules/loyalty/components/store-list/store-list.component.ts:122
+msgid "Product purchase"
+msgstr "Achiziționarea produsului"
+
+#: controllers/profile-store.js:35
+#: modules/loyalty/components/store-list/store-list.component.ts:141
+msgid "Product purchase failed"
+msgstr "Achiziția produsului a eșuat"
+
+#: controllers/profile-store.js:28
+#: modules/loyalty/components/store-list/store-list.component.ts:130
+#: modules/profile/components/wlc-exchange-cash/wlc-exchange-cash.component.ts:136
+msgid "Product succesfuly purchased"
+msgstr "Produs achiziționat cu succes"
+
+#: components/profile-menu.html:6 components/profile.js:26
+#: directives/profile-menu/wlc-profile-menu-mobile.html:4
+#: modules/profile/components/main-info/main-info.config.ts:6
+#: modules/profile/components/main-info/main-info.config.ts:65
+msgid "Profile"
+msgstr "Profil"
+
+#: controllers/user/user-profile.ts:372
+msgid "Profile email change failed"
+msgstr "Schimbarea parolei profilului a eșuat"
+
+#: controllers/user/user-profile.ts:351
+msgid "Profile email changed"
+msgstr "Parola de profil a fost schimbată"
+
+#: config/state/profile/profile-main.config.ts:87
+msgid "Profile level"
+msgstr "Nivelul profilului"
+
+#: config/state/profile/profile-main.config.ts:98
+msgid "Profile main"
+msgstr "Profil principal"
+
+#: controllers/user/user-profile.ts:297
+#: modules/profile/components/password-change/password-change.component.ts:97
+msgid "Profile password change failed"
+msgstr "Schimbarea parolei profilului a eșuat"
+
+#: controllers/user/user-profile.ts:293
+#: modules/profile/components/password-change/password-change.component.ts:93
+msgid "Profile password changed"
+msgstr "Parola de profil a fost schimbată"
+
+#: controllers/user/user-profile.ts:408
+msgid "Profile phone change failed"
+msgstr "Schimbarea parolei profilului a eșuat"
+
+#: controllers/user/user-profile.ts:404
+msgid "Profile phone changed"
+msgstr "Parola de profil a fost schimbată"
+
+#: controllers/finanses.controller.ts:402 controllers/user/user-profile.ts:245
+msgid "Profile save failed"
+msgstr "Salvarea profilului a eșuat"
+
+#: controllers/user/user-profile.ts:234
+#: modules/profile/classes/profile-abstract.class.ts:77
+#: modules/profile/components/notification/notification.component.ts:152
+msgid "Profile saved"
+msgstr "Profil salvat"
+
+#: controllers/user/user-profile.ts:119
+#: modules/profile/components/bank-info/bank-info.component.ts:86
+#: modules/profile/components/main-info/main-info.component.ts:114
+#: modules/profile/components/password-change/password-change.component.ts:55
+msgid "Profile update"
+msgstr "Actualizarea profilului"
+
+#: components/profile-referrals.html:41
+msgid "Profit RS"
+msgstr "Profit RS"
+
+#: components/user-social-register.html:39
+#: controllers/user/user-register.ts:452 controllers/user/user-register.ts:460
+#: dialogs/promo-code.html:20 dialogs/promo-code.html:29
+#: modules/register-form.html:56 partials/form-elements/promocode.html:8
+#: partials/signup-form.html:157
+msgid "Promo code"
+msgstr "Cod promoțional"
+
+#: config/wlc-main-menu-default.js:168 config/wlc-main-menu-default.js:176
+#: config/wlc-main-menu-mobile-default.js:175
+msgid "Promotions"
+msgstr "Promoții"
+
+#: dialogs/profile-verification/profile-verification-address.html:4
+#: dialogs/profile-verification/profile-verification-default.html:4
+msgid "Prove your address"
+msgstr "Dovedește-ți adresa"
+
+#: dialogs/profile-verification/profile-verification-id.html:4
+msgid "Prove your identity"
+msgstr "Dovedește-ți identitatea"
+
+#: dialogs/profile-verification/profile-verification-payment.html:4
+msgid "Prove your payment account"
+msgstr "Dovedește-ți contul de plată"
+
+#: dialogs/profile-verification/profile-verification-address.html:10
+msgid ""
+"Provide a scan or a photo, of a paper document sent to the address "
+"associated with your account; this can be either a bank statement, phone or "
+"utility bill."
+msgstr ""
+"Furnizați o scanare sau o fotografie a unui document de hârtie trimis la "
+"adresa asociată contului dvs.; aceasta poate fi fie un extras bancar, "
+"telefon sau factură de utilitare."
+
+#: dialogs/profile-verification/profile-verification-payment.html:11
+msgid "Provide scans or photos of both sides of the Credit Card."
+msgstr ""
+"Oferiți scanări sau fotografii ale ambelor părți ale cardului de credit."
+
+#: dialogs/profile-verification/profile-verification-id.html:11
+msgid "Provide scans or photos of both sides of the document."
+msgstr "Oferiți scanări sau fotografii ale ambelor părți ale documentului."
+
+#: dialogs/profile-verification/profile-verification-id.html:10
+msgid ""
+"Provide scans or photos, of either passport, drivers license or government "
+"issued ID-card."
+msgstr ""
+"Oferiți scanări sau fotografii, fie cu pașaport, permis de conducere sau "
+"carte de identitate emise de guvern."
+
+#: dialogs/profile-verification/profile-verification-payment.html:10
+msgid "Provide scans or photos, of the Credit Card."
+msgstr "Oferiți scanări sau fotografii ale cardului de credit."
+
+#: components/profile/deposit/steps/paymentSystems/steps-deposit-system-desc.html:13
+#: components/profile/withdraw/steps/paymentSystems/steps-withdraw-system-desc.html:13
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-list.html:35
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-list.html:8
+msgid "Provider"
+msgstr "Prestator"
+
+#: components/profile-store-orders.html:12
+msgid "Purchase date"
+msgstr "Data cumpărării"
+
+#: modules/profile/controllers/wlc-dashboard-bonuses.controller.ts:98
+msgid "Purchased"
+msgstr "Data cumpărării"
+
+#: components/profile-tournaments-history.html:50
+msgid "Qualified"
+msgstr "Calificat"
+
+#: modules/profile/components/wlc-dashboard-loyalty/wlc-dashboard-loyalty.html:12
+#: modules/profile/components/wlc-exchange-cash/wlc-exchange-cash.html:16
+msgid "RP"
+msgstr ""
+
+#: components/pages-content.html:33
+msgid "Read more"
+msgstr "Citeşte mai mult"
+
+#: modules/profile/components/verification/verification.component.html:4
+msgid "Read more about Account verification"
+msgstr ""
+
+#: modules/profile/components/limits/limits.component.html:39
+msgid "Read more about responsible gaming."
+msgstr ""
+
+#: directives/wlc-bonus.html:19 directives/wlc-store-item.html:17
+msgid "Read the terms"
+msgstr "Citiți termenii"
+
+#: components/profile/deposit/default-deposit.html:15
+#: components/profile/withdraw/default-withdraw.html:13
+#: partials/user-all-balances-block.html:2
+msgid "Real balance:"
+msgstr "Soldul real:"
+
+#: components/profile-referrals.html:18 components/profile-referrals.html:35
+msgid "Ref email"
+msgstr "Ref email"
+
+#: partials/form-elements/referal-id.html:2
+#: partials/form-elements/referal-id.html:8
+#, fuzzy
+msgid "Referral code"
+msgstr "Recomandări"
+
+#: components/profile-referrals.html:2
+#: config/state/profile/profile-referrals.config.ts:27
+#: config/wlc-profile-menu-default.js:213
+msgid "Referrals"
+msgstr "Recomandări"
+
+#: components/user-register.html:2 components/user-register.js:33
+#: controllers/steps.controller.ts:157 dialogs/password-restore.html:57
+#: dialogs/user-social-complete.html:56
+#: directives/main-menu/wlc-main-menu-mobile.html:25
+#: modules/finances/components/payment-systems-info/payment-systems-info.component.html:63
+#: modules/header/login-button-mobile.html:16 modules/login-button.html:8
+#: modules/login-form.html:36
+#: modules/profile/components/login-signup-dropdown/login-signup-dropdown.component.html:10
+#: modules/register-form.html:122 partials/signup-form.html:228
+#: partials/signup-form/signup-form-content.html:43 partials/user-login.html:7
+msgid "Register"
+msgstr "Înregistrare"
+
+#: components/user-register.js:44 components/user-register.js:60
+msgid "Register success"
+msgstr "Înregistrare cu succes"
+
+#: dialogs/social-networks/user-social-register.html:3
+#: dialogs/user-login-signup.html:11 dialogs/user-login-signup.html:25
+#: dialogs/user-social-complete.html:3 partials/login-form.html:27
+#: sections/user-signup.html:4
+msgid "Registration"
+msgstr "Înregistrare"
+
+#: dialogs/tournaments/tournament-subscribe.html:40
+msgid "Registration will be open once the tournament starts"
+msgstr "Înscrierea va fi deschisă odată ce începe turneului"
+
+#: modules/profile/components/profile-transactions/profile-transactions.component.ts:100
+#: modules/profile/components/profile-transactions/profile-transactions.component.ts:101
+msgid "Rejected"
+msgstr "Respins"
+
+#: components/profile-bonuses-active.html:27
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:27
+msgid "Remaining"
+msgstr "Rămase"
+
+#: components/profile-bonuses-inventory.html:26
+msgid "Remove"
+msgstr "Elimină"
+
+#: modules/profile/components/limits/limits.component.html:44
+#: modules/profile/components/limits/limits.component.html:48
+msgid "Request limits"
+msgstr ""
+
+#: dialogs/user-social-complete.html:34
+msgid "Required field"
+msgstr "Câmp obligatoriu"
+
+#: dialogs/sms-verification/sms-verification.html:61
+#: modules/login-signup/register-steps/partial/resend-sms-btn.html:3
+#: partials/form-elements/phone-number.html:38
+msgid "Resend"
+msgstr "Retrimite"
+
+#: partials/form-elements/phone-number.html:39
+msgid "Resend after"
+msgstr "Retrimite în"
+
+#: dialogs/sms-verification/sms-verification.html:60
+#: modules/login-signup/register-steps/partial/resend-sms-btn.html:2
+msgid "Resend in"
+msgstr "Retrimite în"
+
+#: config/wlc-main-menu-mobile-default.js:116 modules/footer-info.html:28
+msgid "Responsible Game"
+msgstr "Joc responsabil"
+
+#: dialogs/user-restore-complete.html:29
+msgid "Restore"
+msgstr "Restaurare"
+
+#: components/user-restore.html:2
+msgid "Restore password"
+msgstr "Restaurați parola"
+
+#: classes/services/loyalty-bonuses.class.ts:694
+msgid "Restricted"
+msgstr "Restricționat"
+
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-list.html:39
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-list.html:9
+#, fuzzy
+msgid "Result"
+msgstr "Rezultate"
+
+#: config/wlc-main-menu-default.js:197
+msgid "Results"
+msgstr "Rezultate"
+
+#: components/profile-referrals.html:20
+msgid "Revenue to withdraw"
+msgstr "Venituri pentru retragere"
+
+#: modules/profile/components/wlc-dashboard-loyalty/wlc-dashboard-loyalty.html:3
+msgid "Rolling Point"
+msgstr ""
+
+#: modules/profile/components/wlc-exchange-cash/wlc-exchange-cash.html:4
+msgid "Rolling Point exchange to cash"
+msgstr ""
+
+#: modules/games-play-desktop.html:121
+msgid "Rules"
+msgstr "Reguli"
+
+#: classes/services/payment-system.model.ts:167
+#: modules/profile/config/profile-forms.config.ts:290
+#: partials/form-elements/swift.html:10 partials/form-elements/swift.html:2
+msgid "SWIFT"
+msgstr "SWIFT"
+
+#: components/profile/deposit/steps/modal/modal-step-deposit-systems-additional.html:38
+#: dialogs/profile-partial-update.html:43
+#: modules/profile/config/profile-forms.config.ts:437
+msgid "Save"
+msgstr "Salvează"
+
+#: modules/game-catalog-menu.html:48
+#: modules/profile/components/profile-transactions/profile-transactions-filter.html:28
+#: modules/profile/components/wlc-dashboard-bonuses/wlc-dashboard-bonuses-filter.html:29
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-filter.html:55
+msgid "Search"
+msgstr "Caută"
+
+#: modules/filter-search.html:7 modules/game-catalog-menu.html:54
+msgid "Search for games"
+msgstr "Căutați jocuri"
+
+#: modules/search-and-filter-results.html:10
+msgid "Search result"
+msgstr "Rezultatul căutării"
+
+#: modules/game-slider/home-game-sliders.html:14
+#: modules/game-thumb-slider.html:13
+#: modules/games/components/game-thumb-slider/game-thumb-slider.html:12
+#: modules/games/components/games-catalog/games-catalog.component.html:16
+msgid "See all"
+msgstr "Vezi toate"
+
+#: modules/sportsbook/components/betradar-widget/v2/partials/daily-match.html:35
+msgid "See match online"
+msgstr ""
+
+#: components/profile/deposit/steps/bonus/steps-deposit-bonus-block-modal.html:2
+#: components/profile/deposit/steps/modal/modal-step-deposit-bonuses.html:3
+msgid "Select a bonus"
+msgstr "Selectați un bonus"
+
+#: components/profile/deposit/steps/paymentSystems/steps-deposit-system-block.html:5
+msgid "Select a payment method"
+msgstr "Selectați o metodă de plată"
+
+#: components/profile/withdraw/steps/paymentSystems/steps-withdraw-system-block.html:5
+msgid "Select a withdraw method"
+msgstr "Selectați o metodă de retragere"
+
+#: modules/base/components/sorted-items/templates/merchants-in-category/dropdown-merchants.html:17
+#, fuzzy
+msgid "Select providers"
+msgstr "Toți furnizorii"
+
+#: components/profile-tournaments-history.html:49
+msgid "Selected"
+msgstr "Selectat"
+
+#: modules/profile/components/limits/limits.component.html:29
+msgid "Self exclusion"
+msgstr ""
+
+#: modules/base/components/contact-form/elements/sender-submit.html:10
+#: modules/base/components/contact-form/elements/sender-submit.html:8
+#, fuzzy
+msgid "Send message"
+msgstr "Nici un mesaj"
+
+#: controllers/user/user-abstract.ts:144
+#: modules/profile/classes/profile-abstract.class.ts:145
+msgid "September"
+msgstr ""
+
+#: controllers/steps.controller.ts:162
+msgid "Set up your account"
+msgstr "Configurează-ți contul"
+
+#: dialogs/required-fields.html:85 partials/form-elements/gender.html:1
+msgid "Sex"
+msgstr "Sex"
+
+#: components/profile/deposit/steps/paymentSystems/steps-deposit-system-empty.html:3
+#: components/profile/withdraw/steps/paymentSystems/steps-withdraw-system-empty.html:3
+msgid "Show all methods"
+msgstr "Afișați toate metodele"
+
+#: modules/static-content/components/inline-text/inline-text.component.html:21
+#, fuzzy
+msgid "Show less"
+msgstr "Afișați toate metodele"
+
+#: modules/loyalty/components/bonuses-slider/bonuses-slider-item.html:80
+#: modules/static-content/components/inline-text/inline-text.component.html:22
+msgid "Show more"
+msgstr ""
+
+#: modules/base/components/country-accepts/country-accepts-content.html:25
+msgid "Show more payment methods:"
+msgstr "Afișați mai multe metode de plată:"
+
+#: components/user-social-register.html:45
+msgid "Sign Up"
+msgstr "Înregistrare"
+
+#: modules/profile/components/login-signup-dropdown/login-signup-dropdown.component.html:4
+#, fuzzy
+msgid "Sign in"
+msgstr "Înregistrare"
+
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:88
+#: modules/loyalty/components/store-list/store-list.item.html:25
+#: modules/loyalty/components/store-list/store-list.item.html:65
+#: modules/loyalty/components/tournaments-list/tournaments-list.item.html:47
+#, fuzzy
+msgid "Sign up"
+msgstr "Înregistrare"
+
+#: partials/contacts.html:33
+msgid "Skype"
+msgstr "Skype"
+
+#: config/wlc-main-menu-default.js:64 config/wlc-main-menu-default.js:86
+#: config/wlc-main-menu-mobile-default.js:62
+msgid "Slots"
+msgstr "Sloturi"
+
+#: controllers/user/sms-verify.controller.ts:61
+msgid "Sms"
+msgstr ""
+
+#: components/user-social-register.html:6 components/user-social-register.js:96
+msgid "Social registration"
+msgstr "Înregistrare cu platforme sociale"
+
+#: components/user-social-register.js:97
+msgid "Social registration failed"
+msgstr "Înregistrarea cu platforme sociale nu a reușit"
+
+#: services/error.service.ts:309
+msgid "Something went wrong. Please try again later."
+msgstr "Ceva nu a funcționat. Te rugăm să încerci din nou mai târziu."
+
+#: components/games-play.ts:370 components/games-play.ts:648
+#: components/profile-gamblings.js:125
+#: components/profile-verification.component.ts:182
+#: controllers/referrals.controller.ts:87
+#: directives/wlc-copy-to-clipboard.directive.ts:64
+#: modules/static-content/controllers/wlc-static.controller.ts:161
+msgid "Something wrong. Please try later."
+msgstr "Ceva greșit. Te rugăm să încerci din nou mai târziu."
+
+#: modules/catalog/jackpots-grid.html:20
+#: modules/search-and-filter-results.html:20 partials/game-catalog.html:37
+msgid "Sorry"
+msgstr "Ne pare rău"
+
+#: constants/check-on-run-game.js:68
+#, fuzzy
+msgid "Sorry, gambling is not possible"
+msgstr "Ne pare rău, înregistrarea este dezactivată."
+
+#: controllers/user/user-register.ts:629
+msgid "Sorry, invalid country."
+msgstr "Ne pare rău, țara nevalidă."
+
+#: dialogs/tournaments/tournament-subscribe.html:44
+msgid "Sorry, not today. Bet more to earn betcoins and join this tournament!"
+msgstr ""
+"Scuze, nu azi. Pariați mai mult pentru a câștiga pariuri și participați la "
+"acest turneu!"
+
+#: dialogs/tournaments/tournament-subscribe.html:48
+msgid "Sorry, not today. Deposit more money and join this tournament!"
+msgstr "Scuze, nu azi. Depuneți mai mulți bani și participați la acest turneu!"
+
+#: config/modal/login-signup.js:39 controllers/user/user-register.ts:640
+#: partials/signup-form/signup-form-content.html:35
+msgid "Sorry, registration is disabled."
+msgstr "Ne pare rău, înregistrarea este dezactivată."
+
+#: partials/message-error.html:3
+msgid "Sorry, something went wrong!"
+msgstr "Scuze, ceva a mers greșit!"
+
+#: modules/mobile-menu-column.html:25
+msgid "Sorry, you have no favorite game at the moment."
+msgstr "Ne pare rău, momentan nu ai nici un joc preferat."
+
+#: modules/mobile-menu-column.html:12
+msgid "Sorry, you haven't played any games yet."
+msgstr "Ne pare rău, nu ai jucat încă niciun joc."
+
+#: modules/profile/controllers/wlc-dashboard-bonuses.controller.ts:85
+msgid "Sport"
+msgstr "Pariuri Sportive"
+
+#: config/wlc-game-categories-default.js:122
+#: config/wlc-main-menu-default.js:160
+#: config/wlc-main-menu-mobile-default.js:168
+msgid "SportsBook"
+msgstr "Pariuri Sportive"
+
+#: modules/sportsbook/components/betslip-float-panel/betslip-float-panel.component.html:29
+msgid "SportsbookBetslip"
+msgstr "Betslip"
+
+#: modules/sportsbook/components/betslip-float-panel/betslip-float-panel.component.html:38
+msgid "SportsbookHistory"
+msgstr "History"
+
+#: modules/sportsbook/components/betslip-float-panel/betslip-float-panel.component.html:16
+msgid "SportsbookHome"
+msgstr "Home"
+
+#: modules/sportsbook/components/betslip-float-panel/betslip-float-panel.component.html:47
+msgid "SportsbookLive"
+msgstr "Live"
+
+#: modules/sportsbook/components/betslip-float-panel/betslip-float-panel.component.html:7
+msgid "SportsbookMenu"
+msgstr "Menu"
+
+#: components/profile-tournaments-history.html:13
+msgid "Start"
+msgstr "Start"
+
+#: partials/ladesk-chat-form.html:46
+msgid "Start chat"
+msgstr "Începe conversația"
+
+#: components/profile-gamblings-bets.html:7
+#: modules/profile/components/profile-transactions/profile-transactions-filter.html:15
+#: modules/profile/components/wlc-dashboard-bonuses/wlc-dashboard-bonuses-filter.html:16
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-filter.html:4
+msgid "Start date"
+msgstr "Data începerii"
+
+#: dialogs/regcomplete-modal.html:3
+msgid "Start your journey now"
+msgstr "Începeți călătoria acum"
+
+#: directives/wlc-time.directive.ts:89
+msgid "Starts"
+msgstr "Începe"
+
+#: directives/wlc-countdown.js:64
+msgid "Starts in"
+msgstr "Începe în"
+
+#: components/profile-bonuses-history.html:17
+#: components/profile-bonuses-history.html:77
+#: components/profile-store-orders.html:15
+#: components/profile-tournaments-history.html:15
+#: components/profile-verification-main.html:47
+#: dialogs/profile-verification/profile-verification-address.html:29
+#: dialogs/profile-verification/profile-verification-default.html:22
+#: dialogs/profile-verification/profile-verification-id.html:28
+#: dialogs/profile-verification/profile-verification-payment.html:29
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:68
+#: modules/profile/components/profile-transactions/profile-transactions-list.html:15
+#: modules/profile/components/profile-transactions/profile-transactions-list.html:59
+#: modules/profile/components/wlc-dashboard-bonuses/wlc-dashboard-bonuses-list.html:16
+msgid "Status"
+msgstr "Stare"
+
+#: modules/profile/components/wlc-dashboard-bonuses/wlc-dashboard-bonuses-content.html:5
+msgid "Status of Bonus"
+msgstr ""
+
+#: components/profile/deposit/steps/amount/steps-deposit-amount-block.html:3
+#: components/profile/deposit/steps/paymentSystems/steps-deposit-system-block.html:3
+#: components/profile/withdraw/steps/amount/steps-withdraw-amount-block.html:3
+#: components/profile/withdraw/steps/paymentSystems/steps-withdraw-system-block.html:3
+#: dialogs/password-restore-step2.html:7 dialogs/password-restore.html:5
+#: dialogs/user-signup.html:7 modules/user-signup.html:5
+msgid "Step"
+msgstr "Etapă"
+
+#: components/profile-menu.html:15 components/profile-store-main.html:3
+#: config/state/profile/profile-store.js:42
+#: config/wlc-profile-menu-default.js:110
+#: modules/profile/controllers/wlc-dashboard-bonuses.controller.ts:86
+#: modules/store-menu.html:15 modules/store-menu.html:3
+#: modules/user-stat-block-dropdown.html:80
+msgid "Store"
+msgstr "Magazin"
+
+#: config/state/profile/profile-store.js:53
+msgid "Store orders"
+msgstr "Comenzile magazinului"
+
+#: modules/base/components/contact-form/elements/sender-subject.html:2
+#: modules/profile/components/wlc-messages/wlc-messages-list.html:11
+#: modules/profile/components/wlc-messages/wlc-messages-list.html:35
+msgid "Subject"
+msgstr "Subiect"
+
+#: dialogs/tournaments/tournament-subscribe.html:5
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:95
+#: modules/loyalty/components/bonuses-slider/bonuses-slider-item.html:53
+#: partials/profile-bonuses.html:10
+msgid "Subscribe"
+msgstr "Abonare"
+
+#: dialogs/sms-verification/sms-verification.html:4
+#: dialogs/user-payment-success.html:6
+msgid "Success"
+msgstr "Succes"
+
+#: modules/tournaments/tournament-last-wins.html:2
+msgid "TOP winners"
+msgstr "TOP câștigători"
+
+#: config/wlc-main-menu-default.js:105
+#: config/wlc-main-menu-mobile-default.js:74
+#: modules/error-page-box-two-column.html:12
+msgid "Table Games"
+msgstr "Jocuri de masă"
+
+#: components/profile-bonuses-inventory.html:20
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:101
+#: modules/loyalty/components/bonuses-slider/bonuses-slider-item.html:59
+msgid "Take"
+msgstr "Ia"
+
+#: config/wlc-main-menu-mobile-default.js:104 modules/footer-info.html:7
+msgid "Terms and Conditions"
+msgstr "Termeni și condiții"
+
+#: modules/login-signup/register-steps/partial/terms.html:24
+msgid "Terms and conditions"
+msgstr "Termeni și condiții"
+
+#: modules/register-form.html:79
+#: partials/form-elements/checkbox-terms-cond.html:20
+#: partials/signup-form.html:182
+msgid "Terms_and_Conditions"
+msgstr "Termeni și condiții"
+
+#: dialogs/profile-verification/profile-verification-payment.html:13
+msgid "The Credit Card is valid."
+msgstr "Cardul de credit este valabil."
+
+#: modules/login-signup/register-steps/partial/setup-bonus.html:2
+#: partials/signup-form.html:43 partials/signup-form/signup-form-content.html:4
+msgid "The chosen bonus"
+msgstr "Bonusul ales"
+
+#: controllers/user/sms-verify.controller.ts:147
+#: controllers/user/sms-verify.controller.ts:178
+#: dialogs/sms-verification/sms-verification.html:24
+msgid "The code you entered is incorrect"
+msgstr ""
+
+#: directives/wlc-deposit.html:170
+msgid "The deposit transfer will be sent to"
+msgstr "Transferul de depozit va fi trimis la"
+
+#: dialogs/profile-verification/profile-verification-address.html:13
+msgid "The document is not older than 3 months."
+msgstr "Documentul nu este mai vechi de 3 luni."
+
+#: dialogs/profile-verification/profile-verification-id.html:14
+msgid "The document is valid."
+msgstr "Documentul este valabil."
+
+#: dialogs/profile-verification/profile-verification-address.html:12
+msgid "The document shows your full name, address, and the send date."
+msgstr "Documentul arată numele complet, adresa și data de trimitere."
+
+#: dialogs/profile-verification/profile-verification-address.html:11
+msgid ""
+"The document was received via postal mail. Printed out online documents are "
+"not accepted."
+msgstr ""
+"Documentul a fost primit prin poștă. Documentele tipărite online nu sunt "
+"acceptate."
+
+#: components/games-play.ts:324
+msgid "The game does not exist or the game settings are incorrect"
+msgstr "Jocul nu există sau setările jocului sunt incorecte"
+
+#: dialogs/profile-verification/profile-verification-address.html:14
+#: dialogs/profile-verification/profile-verification-id.html:12
+#: dialogs/profile-verification/profile-verification-payment.html:15
+msgid "The image quality is good and in color."
+msgstr "Calitatea imaginii este bună și în culori."
+
+#: modules/search-and-filter-results.html:22 partials/game-catalog.html:39
+msgid "There’s nothing in your favorites yet"
+msgstr "Încă nu există nimic în favorite"
+
+#: directives/wlc-deposit.html:88
+msgid "This is your private depositing address."
+msgstr ""
+
+#: dialogs/tournaments/tournament-insufficient-funds.html:4
+#: dialogs/tournaments/tournament-insufficient-points.html:4
+msgid "This tournament requires"
+msgstr "Acest turneu necesită"
+
+#: modules/games-play-desktop.html:100
+msgid "Till the end"
+msgstr "Până la sfârșit"
+
+#: modules/finances/components/payment-systems-info/payment-systems-info.component.html:29
+#, fuzzy
+msgid "Time"
+msgstr "Timp rămas"
+
+#: dialogs/free-rounds-games-modal.html:12
+msgid "Time left"
+msgstr "Timp rămas"
+
+#: modules/loyalty/components/bonuses-slider/bonuses-slider-item.html:20
+#: modules/loyalty/components/tournaments-slider/tournaments-slider-item.html:21
+msgid "Time works"
+msgstr ""
+
+#: dialogs/messagePayment.html:9
+msgid "To make a deposit you need to replenish a wallet for a specified amount"
+msgstr ""
+
+#: partials/form-elements/phone-number.html:61
+msgid "To resend a verification code, solve the captcha"
+msgstr ""
+
+#: partials/form-elements/phone-number.html:56
+msgid "To send a verification code, solve the captcha"
+msgstr ""
+
+#: modules/tournaments/tournament-leaders.html:6
+msgid "Top 5 leaders"
+msgstr "Top 5 lideri"
+
+#: modules/tournaments/tournament-winners.html:8
+msgid "Top winners"
+msgstr "Top câștigători"
+
+#: components/profile-referrals.html:47
+msgid "Total Profit RS"
+msgstr "Profitul total RS"
+
+#: modules/profile/components/wlc-exchange-cash/wlc-exchange-cash.html:37
+msgid "Total RP"
+msgstr "Total fonduri"
+
+#: modules/base/components/wlc-smart-userinfo/wlc-smart-userinfo.component.html:21
+#, fuzzy
+msgid "Total Wagering"
+msgstr "Pariere"
+
+#: components/profile/withdraw/steps/steps-withdraw-top.html:13
+msgid "Total balance"
+msgstr "Sold total"
+
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-amounts.html:4
+#, fuzzy
+msgid "Total bet amount"
+msgstr "Introduceți suma"
+
+#: modules/profile/components/profile-transactions/profile-transactions-amounts.html:4
+#, fuzzy
+msgid "Total deposit"
+msgstr "Efectuați o depunere"
+
+#: components/profile-tournaments-main.html:21
+#: modules/loyalty/components/tournaments-list/tournaments-list.item.html:17
+msgid "Total funds"
+msgstr "Total fonduri"
+
+#: modules/games/components/total-jackpot/total-jackpot.html:2
+msgid "Total jackpot"
+msgstr "Jackpot total"
+
+#: components/profile-referrals.html:19
+msgid "Total revenue"
+msgstr "Veniturile totale"
+
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-amounts.html:13
+#, fuzzy
+msgid "Total win amount"
+msgstr "Jackpot total"
+
+#: modules/profile/components/profile-transactions/profile-transactions-amounts.html:16
+#, fuzzy
+msgid "Total withdrawal"
+msgstr "Retragere"
+
+#: modules/games-play-desktop.html:89
+msgid "Tournament"
+msgstr "Turneu"
+
+#: dialogs/tournaments/tournament-unsubscribe.html:13
+msgid ""
+"Tournament fee will not be returned to your account. Are you sure you want "
+"to unsubscribe?"
+msgstr ""
+"Taxa turneului nu va fi returnată în cont. Sigur doriți să vă dezabonați?"
+
+#: components/profile-menu.html:12 config/wlc-profile-menu-default.js:86
+#: modules/user-stat-block-dropdown.html:74
+msgid "Tournaments"
+msgstr "Turnee"
+
+#: components/profile-tournaments-history.html:2
+#: config/wlc-profile-menu-default.js:104
+msgid "Tournaments history"
+msgstr "Istoricul turneelor"
+
+#: config/wlc-profile-menu-default.js:140 directives/wlc-profile-menu.html:103
+#: modules/profile/components/profile-transactions/profile-transactions.component.html:2
+#: modules/user-stat-block-dropdown.html:98
+msgid "Transaction history"
+msgstr "Istoricul tranzacției"
+
+#: modules/profile/components/profile-transactions/profile-transactions-list.html:41
+#: modules/profile/components/profile-transactions/profile-transactions-list.html:9
+msgid "Transaction time"
+msgstr "Timpul tranzacției"
+
+#: components/profile-menu.html:29
+msgid "Transactions"
+msgstr "Tranzacții"
+
+#: config/state/profile/profile-transactions.config.ts:27
+msgid "Transactions history"
+msgstr "Istoricul tranzacțiilor"
+
+#: modules/finances/components/profile-wallet/profile-wallet.html:20
+msgid "Transfer sum"
+msgstr "Suma de transfer"
+
+#: dialogs/password-restore-step2.html:30
+msgid "Try again"
+msgstr "Încearcă din nou"
+
+#: modules/social-list.html:11 partials/signup-form.html:64
+#: partials/signup-form/signup-form-socials.html:12
+msgid "Twitter"
+msgstr "Twitter"
+
+#: modules/profile/components/profile-transactions/profile-transactions-list.html:21
+#: modules/profile/components/profile-transactions/profile-transactions-list.html:79
+#: modules/profile/components/wlc-dashboard-bonuses/wlc-dashboard-bonuses-filter.html:3
+msgid "Type"
+msgstr "Tip"
+
+#: directives/deposit-withdraw/wlc-step-deposit-withdraw.directive.ts:378
+msgid "Unable to choose"
+msgstr "Imposibil de ales"
+
+#: classes/services/loyalty-bonuses.class.ts:273
+msgid "Unable to subscribe"
+msgstr "Nu se poate abona"
+
+#: services/favorite-games.service.ts:41
+msgid "Unauthenticated"
+msgstr ""
+
+#: config/app.js:532
+msgid ""
+"Unfortunately your payment didn't go through. An e-mail with detailed "
+"information has been sent to your e-mail address. If you have any questions, "
+"please don't hesitate to contact us."
+msgstr ""
+"Din păcate, plata dvs. nu a trecut. Un e-mail cu informații detaliate a fost "
+"trimis la adresa dvs. de e-mail. Dacă aveți întrebări, nu ezitați să ne "
+"contactați."
+
+#: components/profile-verification-main.html:52
+#: dialogs/profile-verification/profile-verification-address.html:45
+#: dialogs/profile-verification/profile-verification-default.html:41
+#: dialogs/profile-verification/profile-verification-id.html:44
+#: dialogs/profile-verification/profile-verification-payment.html:45
+#: modules/profile/components/profile-transactions/profile-transactions.component.ts:110
+msgid "Unknown"
+msgstr "Necunoscut"
+
+#: controllers/user/user-register.ts:453 controllers/user/user-register.ts:459
+msgid "Unknown promo code"
+msgstr "Cod promoțional necunoscut"
+
+#: dialogs/tournaments/tournament-unsubscribe.html:23
+#: dialogs/tournaments/tournament-unsubscribe.html:4
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:108
+#: modules/loyalty/components/bonuses-slider/bonuses-slider-item.html:66
+#: partials/profile-bonuses.html:18
+msgid "Unsubscribe"
+msgstr "Dezabonare"
+
+#: config/app.js:250
+msgid "Unsubscribe complete"
+msgstr "Dezabonare completă"
+
+#: config/app.js:261
+msgid "Unsubscribe not completed"
+msgstr "Dezabonarea nu a fost finalizată"
+
+#: modules/base/components/wlc-smart-userinfo/wlc-smart-userinfo.component.html:30
+msgid "Until"
+msgstr ""
+
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history.html:19
+#, fuzzy
+msgid "Update"
+msgstr "Actualizat"
+
+#: components/profile-store-orders.html:13
+msgid "Update date"
+msgstr "Data actualizării"
+
+#: modules/profile/components/profile-transactions/profile-transactions.component.ts:104
+msgid "Updated"
+msgstr "Actualizat"
+
+#: components/profile-verification-main.html:26
+#: dialogs/profile-verification/profile-verification-address.html:61
+#: dialogs/profile-verification/profile-verification-default.html:60
+#: dialogs/profile-verification/profile-verification-id.html:72
+#: dialogs/profile-verification/profile-verification-payment.html:61
+msgid "Upload"
+msgstr "Încarcă"
+
+#: components/profile/deposit/steps/bonus/steps-deposit-bonus-empty.html:6
+msgid "Use bonus"
+msgstr "Utilizați bonus"
+
+#: modules/login-signup/register-steps/bonuses.html:15
+#: partials/signup-form.html:22 partials/signup-form/signup-form.html:25
+msgid "Use this bonus"
+msgstr "Utilizați acest bonus"
+
+#: modules/games-play-desktop.html:178
+msgid "User"
+msgstr "Utilizator"
+
+#: modules/profile/config/profile-forms.config.ts:58
+#: modules/register-form.html:17 partials/form-elements/login-unique.html:10
+#: partials/form-elements/login-unique.html:2
+#: partials/form-elements/login.html:2 partials/form-elements/login.html:9
+#: partials/signup-form.html:102 partials/signup-form.html:108
+msgid "User login"
+msgstr "Autentificare utilizator"
+
+#: components/user-register-success.html:2 config/app.js:230
+#: config/modal/login-signup.js:37 controllers/user/user-register.ts:157
+#: controllers/user/user-register.ts:303 controllers/user/user-register.ts:619
+#: controllers/user/user-register.ts:630 controllers/user/user-register.ts:641
+msgid "User registration"
+msgstr "Înregistrare utilizator"
+
+#: partials/form-elements/email-login.html:2
+msgid "Username or E-mail"
+msgstr "Nume de utilizator sau e-mail"
+
+#: components/profile-verification-main.html:51
+#: dialogs/profile-verification/profile-verification-address.html:44
+#: dialogs/profile-verification/profile-verification-default.html:39
+#: dialogs/profile-verification/profile-verification-id.html:43
+#: dialogs/profile-verification/profile-verification-payment.html:44
+msgid "Validated"
+msgstr "Validat"
+
+#: components/profile-verification-main.html:2
+#: config/state/profile/profile-verification.config.ts:48
+#: config/wlc-profile-menu-default.js:171
+#: modules/profile/components/verification/verification.component.html:2
+msgid "Verification"
+msgstr "Verificare"
+
+#: dialogs/sms-verification/sms-verification.html:51
+msgid "Verify"
+msgstr ""
+
+#: modules/login-signup/register-steps/partial/verify-sms-code-input.html:9
+msgid "Verify sms code"
+msgstr ""
+
+#: controllers/steps.controller.ts:167
+msgid "Verify your account"
+msgstr "Verificati-va contul"
+
+#: components/profile-notifications.html:28
+#: modules/profile/components/notification/sms-verification.html:11
+#, fuzzy
+msgid "Verify your phone number"
+msgstr "Verificati-va contul"
+
+#: config/wlc-main-menu-default.js:124
+#: config/wlc-main-menu-mobile-default.js:86
+msgid "Video Poker"
+msgstr "Video Poker"
+
+#: config/wlc-main-menu-default.js:113
+#: config/wlc-main-menu-mobile-default.js:80
+msgid "Virtual Games"
+msgstr "Jocuri virtuale"
+
+#: modules/social-list.html:26 partials/signup-form.html:83
+#: partials/signup-form/signup-form-socials.html:31
+msgid "Vkontakte"
+msgstr "Vkontakte"
+
+#: components/profile-bonuses-promo.html:1
+#: config/state/profile/profile-bonuses.js:70
+#: config/wlc-profile-menu-default.js:74 directives/wlc-profile-menu.html:66
+msgid "Voucher"
+msgstr "Voucher"
+
+#: components/profile-bonuses-history.html:82
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:73
+#: modules/profile/controllers/wlc-dashboard-bonuses.controller.ts:97
+msgid "Wagered"
+msgstr "Pariate"
+
+#: components/profile-bonuses-history.html:15
+#: components/profile-bonuses-history.html:65
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:58
+msgid "Wagering"
+msgstr "Pariere"
+
+#: config/wlc-profile-menu-default.js:134
+#: modules/finances/components/profile-wallet/profile-wallet.html:1
+#: modules/finances/config/profile-wallet.config.ts:27
+msgid "Wallet"
+msgstr "Portofel"
+
+#: modules/finances/components/profile-wallet/profile-wallet.html:13
+msgid "Wallet balance"
+msgstr "Soldul portofelului"
+
+#: modules/catalog/jackpots-grid.html:21
+#: modules/search-and-filter-results.html:21 partials/game-catalog.html:38
+msgid "We could not find anything"
+msgstr "Nu am putut găsi nimic"
+
+#: config/forms/signup.form.ts:254
+#: dialogs/sms-verification/sms-verification.html:20
+msgid "We have sent an SMS with the code to the following number:"
+msgstr "Am trimis un SMS cu codul la următorul număr:"
+
+#: controllers/user/user-profile.ts:352
+msgid "We have sent you an email with an URL to continue change email"
+msgstr ""
+
+#: modules/agreements/privacy-policy.html:4
+msgid ""
+"We, as per requirements of the General Data Protection Regulation (GDPR), "
+"would like to ask\n"
+"                you to look through the new version of the Privacy Policy "
+"and give your consent to continue\n"
+"                using the Services of this Website. By clicking \"I agree\" "
+"I confirm than I have read amended."
+msgstr ""
+"Noi, conform cerințelor Regulamentului general privind protecția datelor "
+"(GDPR), am dori să solicităm\n"
+"                Voi consultați noua versiune a Politicii de "
+"confidențialitate și vă dați consimțământul pentru a continua\n"
+"                folosind Serviciile acestui Website. Dând clic pe „Sunt de "
+"acord” confirm mai mult decât am citit modificat."
+
+#: modules/user-login.html:5
+msgid "Welcome"
+msgstr "Bine ați venit"
+
+#: modules/tournaments/tournament-banner.html:4
+msgid "Wheel of fortune11"
+msgstr "Wheel of fortune11"
+
+#: components/profile-tournaments-history.html:12
+#: modules/loyalty/components/tournament-progress/tournament-progress-content.html:8
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history.controller.ts:72
+#: modules/tournaments/tournament-last-wins.html:8
+msgid "Win"
+msgstr "Câştigă"
+
+#: modules/double-coin-banner.html:5
+msgid "Win more with Doudle GoldBar Coin"
+msgstr "Câștigă mai mult cu Doudle GoldBar Coin"
+
+#: modules/win-per-one.html:2
+msgid "Win per one bet"
+msgstr "Câștigă pe un pariu"
+
+#: components/game-catalog.html:147
+msgid "Winners"
+msgstr "Câştigători"
+
+#: classes/services/loyalty-bonuses.class.ts:670
+msgid "Winnings"
+msgstr "Câştiguri"
+
+#: classes/services/loyalty-bonuses.class.ts:667
+msgid "Winnings + Deposit"
+msgstr "Câștiguri + Depunere"
+
+#: dialogs/tournaments/tournament-info.html:24
+msgid "Winnings Spread"
+msgstr "Câștigurile răspândite"
+
+#: components/profile-menu.html:26
+#: components/profile/withdraw/steps/steps-withdraw-header.html:2
+#: controllers/finanses.controller.ts:653 dialogs/withdraw.html:16
+#: dialogs/withdraw.html:3
+#: modules/finances/components/payment-systems-info/payment-systems-info.component.html:59
+#: modules/finances/components/profile-wallet/profile-wallet.html:38
+msgid "Withdraw"
+msgstr "Retragere"
+
+#: controllers/finanses.controller.ts:655
+msgid "Withdraw request has been successfully sent!"
+msgstr "Solicitare de retragere a fost trimisă cu succes!"
+
+#: controllers/finanses.controller.ts:650
+msgid "Withdraw sum"
+msgstr "Retrageți suma"
+
+#: components/profile/withdraw/steps/amount/steps-withdraw-amount-block.html:48
+msgid "Withdraw_button"
+msgstr "Butonul_de_Retragere"
+
+#: components/profile/withdraw/steps/steps-withdraw-top.html:3
+msgid "Withdrawable"
+msgstr "De Retras"
+
+#: components/profile/withdraw/default-withdraw.html:2
+#: config/wlc-main-menu-mobile-default.js:146
+#: config/wlc-profile-menu-default.js:128 directives/wlc-profile-menu.html:94
+#: modules/profile/components/profile-transactions/profile-transactions.component.ts:91
+#: modules/user-stat-block-dropdown.html:92
+msgid "Withdrawal"
+msgstr "Retragere"
+
+#: controllers/finanses.controller.ts:569
+msgid "Withdrawal is unavailable at the moment."
+msgstr "Retragerea nu este disponibilă în acest moment."
+
+#: modules/won-today.html:2
+msgid "Won today"
+msgstr "Câștigat astăzi"
+
+#: controllers/user/user-profile.ts:214
+#: modules/profile/components/main-info/main-info.component.ts:208
+msgid "Wrong First or Last Name, check profile!"
+msgstr "Nume sau prenumele greșite, verificați profilul!"
+
+#: controllers/user/user-abstract.ts:162
+#: modules/profile/classes/profile-abstract.class.ts:163
+#: modules/profile/config/profile-forms.config.ts:147
+msgid "Year"
+msgstr "An"
+
+#: classes/services/loyalty-bonuses.class.ts:349
+#: classes/services/loyalty-bonuses.class.ts:386
+#: controllers/user/user-profile.ts:94 dialogs/user-logout.html:12
+#: modules/profile/components/main-info/main-info.component.ts:92
+#: modules/profile/controllers/messages.controller.ts:102
+msgid "Yes"
+msgstr "Da"
+
+#: modules/games-play-desktop.html:196
+msgid "You"
+msgstr "Tu"
+
+#: controllers/user/user-profile.ts:202 controllers/user/user-register.ts:618
+#: modules/profile/components/main-info/main-info.component.ts:197
+msgid "You are not 18 years old!"
+msgstr "Nu ai 18 ani!"
+
+#: dialogs/tournaments/tournament-subscribe.html:6
+msgid "You can`t subscribe"
+msgstr "Nu vă puteți abona"
+
+#: components/profile-verification.component.ts:113
+msgid "You cannot upload more documents of this type"
+msgstr "Nu puteți încărca mai multe documente de acest tip"
+
+#: classes/services/loyalty-bonuses.class.ts:281
+#: directives/deposit-withdraw/wlc-step-deposit-withdraw.directive.ts:385
+msgid ""
+"You currently have an active bonus, which does not allow stacking. You have "
+"to wager active bonus first or cancel it, in order to claim a new bonus."
+msgstr ""
+"În prezent, aveți un bonus activ, care nu permite stivuirea. Mai întâi "
+"trebuie să pariați bonus activ sau să îl anulați, pentru a solicita un nou "
+"bonus."
+
+#: classes/services/loyalty-bonuses.class.ts:288
+#: directives/deposit-withdraw/wlc-step-deposit-withdraw.directive.ts:391
+msgid ""
+"You currently have an active bonus. A bonus, which you try to claim, does "
+"not allow stacking. You have to wager active bonus first or cancel it, in "
+"order to claim this bonus."
+msgstr ""
+"În prezent, aveți un bonus activ. Un bonus pe care încercați să îl "
+"revendicați nu permite stivuirea. Mai întâi trebuie să pariați bonus activ "
+"sau să îl anulați, pentru a solicita acest bonus."
+
+#: dialogs/tournaments/tournament-subscribe.html:16
+msgid "You have"
+msgstr "Aveti"
+
+#: controllers/finanses.controller.ts:567
+msgid "You have an active bonus"
+msgstr "Ai un bonus activ"
+
+#: config/app.js:255
+msgid ""
+"You have been successfully unsubscribed from receiving email notifications"
+msgstr "Ați fost dezabonat cu succes de la primirea notificărilor prin e-mail"
+
+#: dialogs/bonuses/subscribe-deposit-bonus.html:9
+msgid ""
+"You have claimed the bonus. In order to activate it, you have to make a "
+"deposit."
+msgstr ""
+"Ați solicitat bonusul. Pentru a-l activa, trebuie să efectuați o depunere."
+
+#: components/profile-bonuses-active.html:51
+msgid "You have no active bonuses!"
+msgstr "Nu aveți bonusuri active!"
+
+#: directives/wlc-freerounds.directive.ts:93
+msgid "You have no available freespins"
+msgstr "Nu aveți rotiri gratuite disponibile"
+
+#: controllers/user/user-register.ts:284
+msgid "You have not verified your phone number"
+msgstr ""
+
+#: dialogs/required-fields.html:10
+msgid "You have to fill the required fields in your profile to play our casino"
+msgstr ""
+"Trebuie să completați câmpurile obligatorii din profilul dvs. pentru a juca "
+"cazinoul nostru"
+
+#: controllers/user/user-register.ts:330 controllers/user/user-register.ts:348
+msgid ""
+"You must agree with Terms and Conditions as well as confirm that you are at "
+"least 18 years old"
+msgstr ""
+"Trebuie să fiți de acord cu Termenii și condițiile, precum și să confirmați "
+"că aveți cel puțin 18 ani"
+
+#: controllers/user/user-register.ts:305 modules/register-form.html:131
+#: partials/signup-form.html:241 partials/signup-form/signup-form.html:46
+msgid "Your account has been registered."
+msgstr "Contul dvs. a fost înregistrat."
+
+#: modules/base/components/country-accepts/country-accepts-content.html:4
+msgid "Your country is"
+msgstr "Țara ta este"
+
+#: partials/ladesk-chat-form.html:34
+msgid "Your e-mail"
+msgstr "E-mailul dvs"
+
+#: modules/base/components/contact-form/elements/sender-name.html:2
+#: partials/ladesk-chat-form.html:19
+msgid "Your name"
+msgstr "Numele Dvs."
+
+#: dialogs/sms-verification/sms-verification.html:69
+#, fuzzy
+msgid "Your number has been verified"
+msgstr "Contul dvs. a fost înregistrat."
+
+#: modules/loyalty/components/tournament-progress/tournament-progress-content.html:17
+msgid "Your place"
+msgstr "Locația"
+
+#: modules/login-signup/register-steps/partial/promocode.html:9
+msgid "Your promo code"
+msgstr "Codul dvs. promoțional"
+
+#: components/profile-referrals.html:8
+msgid "Your referral link:"
+msgstr "Linkul dvs. de referral:"
+
+#: partials/form-elements/postal-code.html:10
+#: partials/form-elements/postal-code.html:2
+msgid "ZIP/Postal code"
+msgstr "Cod poștal"
+
+#: components/profile/deposit/steps/modal/modal-step-deposit-systems-additional.html:4
+msgid "account details"
+msgstr "detaliile contului"
+
+#: modules/loyalty/components/tournament-progress/tournament-progress-content.html:13
+msgid "at first place, prize pool"
+msgstr "în primul rând, fond de premii"
+
+#: dialogs/store-description.html:13
+msgid "buy now"
+msgstr "Cumpără acum"
+
+#: dialogs/free-rounds-games-modal.html:12
+#: modules/loyalty/components/tournament-progress/tournament-progress-content.html:22
+msgid "d"
+msgstr "d"
+
+#: modules/loyalty/components/tournaments-list/tournaments-list.item.html:33
+msgid "days"
+msgstr ""
+
+#: components/profile-cash.js:44
+msgid "deposit"
+msgstr "depunere"
+
+#: dialogs/tournaments/tournament-insufficient-funds.html:4
+msgid "fee"
+msgstr "taxă"
+
+#: components/game-catalog.html:199 components/game-catalog.html:269
+#: components/game-catalog.html:75
+msgid "games"
+msgstr "jocuri"
+
+#: controllers/user/user-profile.ts:82
+#: modules/profile/components/main-info/main-info.component.ts:99
+msgid "gender_female_char"
+msgstr "F"
+
+#: controllers/user/user-profile.ts:81
+#: modules/profile/components/main-info/main-info.component.ts:98
+msgid "gender_male_char"
+msgstr "M"
+
+#: dialogs/message.html:12 dialogs/messagePayment.html:39
+#: partials/signup-form.html:249 partials/signup-form/signup-form.html:53
+msgid "got it"
+msgstr "am înțeles"
+
+#: dialogs/free-rounds-games-modal.html:12
+#: modules/loyalty/components/tournament-progress/tournament-progress-content.html:23
+msgid "h"
+msgstr "h"
+
+#: modules/loyalty/components/tournament-progress/tournament-progress-content.html:25
+msgid "left"
+msgstr "stânga"
+
+#: dialogs/tournaments/tournament-insufficient-points.html:4
+msgid "loyalty points as fee"
+msgstr "puncte de loialitate drept onorariu"
+
+#: dialogs/free-rounds-games-modal.html:12
+#: modules/loyalty/components/tournament-progress/tournament-progress-content.html:24
+msgid "m"
+msgstr "m"
+
+#: directives/wlc-deposit.html:93
+msgid "maximum one is"
+msgstr ""
+
+#: directives/wlc-bonuses-exchanger.html:17
+msgid "mm to try"
+msgstr "mm pentru a încerca"
+
+#: components/profile-bonuses-active.html:30
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:30
+#: modules/loyalty/components/bonuses-slider/bonuses-slider-item.html:27
+msgid "of"
+msgstr "din"
+
+#: dialogs/game.html:41
+msgid "or"
+msgstr "sau"
+
+#: modules/login-form.html:12
+msgid "or login"
+msgstr "sau autentificare"
+
+#: partials/login-form.html:15 partials/signup-form.html:95
+msgid "or with E-mail"
+msgstr "sau cu E-mail"
+
+#: modules/login-signup/register-steps/partial/setup-social.html:10
+#: partials/signup-form/signup-form-content.html:18
+msgid "or with e-mail"
+msgstr "sau cu e-mail"
+
+#: dialogs/tournaments/tournament-subscribe.html:21
+#: dialogs/tournaments/tournament-subscribe.html:31
+#: modules/loyalty/components/current-level/current-level.html:14
+#: modules/loyalty/components/current-level/current-level.html:16
+#: modules/loyalty/components/store-list/store-list.component.html:5
+#: modules/loyalty/components/store-list/store-list.item.html:14
+#: modules/loyalty/components/store-list/store-list.item.html:54
+#: modules/loyalty/components/tournament-progress/tournament-progress-content.html:18
+#: partials/loyalty-progress-bar.html:15
+msgid "points"
+msgstr "puncte"
+
+#: dialogs/promo-code.html:13
+msgid "promo_code_dialog"
+msgstr "Cod promoțional"
+
+#: directives/wlc-promo-steps.js:39
+msgid "promo_step_1_content"
+msgstr "Înregistrare rapidă si ușoară"
+
+#: directives/wlc-promo-steps.js:37
+msgid "promo_step_1_title"
+msgstr "Înregistreaza-te azi"
+
+#: directives/wlc-promo-steps.js:49
+msgid "promo_step_2_content"
+msgstr "100% extra bonus prima depunere"
+
+#: directives/wlc-promo-steps.js:47
+msgid "promo_step_2_title"
+msgstr "Primește un Bonus gratuit"
+
+#: directives/wlc-promo-steps.js:59
+msgid "promo_step_3_content"
+msgstr "Nu necesită descărcare"
+
+#: directives/wlc-promo-steps.js:57
+msgid "promo_step_3_title"
+msgstr "Începe să joci"
+
+#: config/forms/signup.form.ts:141
+msgid "register_final_text_message"
+msgstr "register_final_text_message"
+
+#: modules/loyalty/components/bonuses-slider/bonuses-slider-item.html:29
+#, fuzzy
+msgid "remaning"
+msgstr "Rămase"
+
+#: dialogs/password-restore.html:47
+msgid "restore"
+msgstr "restabilire"
+
+#: components/profile/deposit/steps/amount/steps-deposit-amount-block.html:84
+#: directives/wlc-deposit.html:196
+msgid "restrictions"
+msgstr "restricţii"
+
+#: dialogs/required-fields.html:116 partials/form-elements/btn-save.html:8
+msgid "save"
+msgstr "salvează"
+
+#: modules/profile/components/limits/limits.component.html:10
+msgid ""
+"should be a positive experience, something that is relaxing and "
+"entertaining. While being a wrapped up in the excitement however, it might "
+"sometimes be hard to draw the line and know when to stop playing. If you "
+"would like to set up limits for your playing activity, please contact us. "
+"The following limits are avaiable:"
+msgstr ""
+
+#: components/profile-bonuses-promo.html:31
+#: modules/loyalty/components/bonuses-list/bonuses-list.component.html:51
+msgid "submit"
+msgstr "trimite"
+
+#: components/profile/deposit/steps/amount/steps-deposit-amount-block.html:98
+#: components/profile/withdraw/default-withdraw.html:160
+#: components/profile/withdraw/steps/amount/steps-withdraw-amount-block.html:49
+#: dialogs/password-restore.html:48 dialogs/profile-partial-update.html:44
+#: dialogs/required-fields.html:117 directives/wlc-deposit.html:206
+#: modules/profile/components/login-signup-dropdown/login-form.html:16
+#: partials/form-elements/btn-save.html:9 partials/login-form.html:38
+msgid "submiting..."
+msgstr "se trimite ..."
+
+#: modules/finances/components/payment-systems/payment-systems.html:39
+#: modules/loyalty/components/current-level/current-level.html:15
+#: partials/loyalty-progress-bar.html:16
+msgid "to"
+msgstr "către"
+
+#: dialogs/user-payment-success.html:18
+msgid "were successfully deposited in your account."
+msgstr "au fost depuse cu succes în contul dvs."
+
+#: components/profile-cash.js:60
+#: components/profile/withdraw/default-withdraw.html:159
+msgid "withdraw"
+msgstr "retrage"
+
+#: modules/last-wins.html:6
+#: modules/promo/components/last-wins/last-wins.html:11
+msgid "wlc-last-wins__title"
+msgstr "Câștigători recenți"
+
+#: modules/promo-menu.html:5
+msgid "wlc_promo-menu_Live_casino"
+msgstr "Casino Live"
+
+#: modules/promo-menu.html:16
+msgid "wlc_promo-menu_Slots"
+msgstr "Casino"
+
+#: modules/promo-menu.html:13
+msgid "wlc_promo-menu_Sportsbook"
+msgstr "Pariuri Sportive"
+
+#: modules/promo-menu.html:9
+msgid "wlc_promo-menu_Table_games"
+msgstr "Jocuri de masă"
+
+#~ msgid "CANCEL_WITHDRAWAL"
+#~ msgstr "Anulează"
+
+#~ msgid "Jackpot amount"
+#~ msgstr "Suma jackpotului"
+
+#~ msgid "Transaction type"
+#~ msgstr "Tipul tranzacției"
+
+#~ msgid "Check your profile data!"
+#~ msgstr "Verificați datele profilului dvs.!"
+
+#~ msgid "Deposit failed"
+#~ msgstr "Depunerea nu a reușit"
+
+#~ msgid "Edit account details"
+#~ msgstr "Editați detaliile contului"
+
+#~ msgid "Fail"
+#~ msgstr "Nereușit"
+
+#~ msgid "SportsbookProfile"
+#~ msgstr "Profile"
+
+#~ msgid "Withdrawal failed"
+#~ msgstr "Retragerea a eșuat"
+
+#~ msgid "Your message have been sent successfully"
+#~ msgstr "Mesajul dvs. a fost trimis cu succes"
+
+#~ msgid "Error occured during code validation"
+#~ msgstr "A apărut o eroare în timpul validării codului"
+
+#~ msgid "Profile registration"
+#~ msgstr "Înregistrarea profilului"
+
+#~ msgid "Send any amount of coins to:"
+#~ msgstr "Trimiteți orice sumă de monede către:"
+
+#~ msgid ""
+#~ "This is your private depositing address. Any transaction you make to this "
+#~ "address will show up in your balance after several transaction "
+#~ "confirmations."
+#~ msgstr ""
+#~ "Aceasta este adresa dvs. de depozitare privată. Orice tranzacție pe care "
+#~ "o faceți la această adresă va apărea în soldul dvs. după mai multe "
+#~ "confirmări ale tranzacției."
+
+#~ msgid "To deposit funds you must send a desirable amount of funds to wallet"
+#~ msgstr ""
+#~ "Pentru a depune fonduri, trebuie să trimiteți suma dorită în portofelul "
+#~ "dvs."
+
+#, fuzzy
+#~ msgid ""
+#~ "Error filling form.<br>\n"
+#~ "    Check the correctness of filling out the form fields."
+#~ msgstr ""
+#~ "Eroare la completarea formularului. <br> Verificați corectitudinea "
+#~ "completării câmpurilor din formular."

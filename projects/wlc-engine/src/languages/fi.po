@@ -1,0 +1,3781 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: Yuri Tcherepanov <jurij.cherepanov@egamings.com>\n"
+"Language-Team: none\n"
+"Language: fi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 2.3\n"
+
+#: modules/profile/components/wlc-exchange-cash/wlc-exchange-cash.html:31
+msgid "# on Cupon"
+msgstr "Kuponkinumero"
+
+#: dialogs/password-restore.html:16
+msgid "A password reset link will be sent to your e-mail address shortly."
+msgstr ""
+"Salasanan resetointi-ohje lähetetään sinulle välittömästi sähköpostitse."
+
+#: dialogs/password-restore-step2.html:12
+msgid "A reset link has been sent to the following e-mail address:"
+msgstr "Salasanan resetointi-ohje lähetettiin sähköpostiin:"
+
+#: controllers/finanses.controller.ts:329
+msgid ""
+"A withdrawal request has already been created. Please wait until it is "
+"completed and then you can try again."
+msgstr ""
+"Kotiutumispyyntö on jo lähetetty. Ole hyvä ja odota kunnes pyyntö on  "
+"loppuun asti käsitelty ja kokeile uudelleen."
+
+#: modules/user-stat-block.html:23
+msgid "ADD"
+msgstr "Lisä"
+
+#: modules/footer-info.html:51 modules/footer-info.html:55
+msgid "About Us"
+msgstr "Tietoa meistä"
+
+#: config/wlc-form-errors.ts:28
+msgid "Account with this e-mail isn't exist"
+msgstr "Tiliä ei löytynyt tällä sähköpostiosoitteella"
+
+#: modules/loyalty/components/bonuses-slider/bonuses-slider-item.html:45
+msgid "Acivate"
+msgstr "Aktivoi"
+
+#: modules/loyalty/components/tournaments-slider/tournaments-slider-item.html:60
+#: modules/loyalty/components/tournaments-slider/tournaments-slider-item.html:68
+#, fuzzy
+msgid "Activate"
+msgstr "Aktivoi"
+
+#: config/wlc-profile-menu-default.js:56 directives/wlc-profile-menu.html:46
+msgid "Active"
+msgstr "Aktiivinen"
+
+#: config/state/profile/profile-bonuses.js:51
+msgid "Active bonuses"
+msgstr "Aktiivinen bonus"
+
+#: components/profile-tournaments-active.html:2
+#: config/wlc-profile-menu-default.js:98
+msgid "Active tournaments"
+msgstr "Aktiivinen turnaus"
+
+#: modules/profile/components/wlc-exchange-cash/wlc-exchange-cash.html:14
+msgid "Acumulated RP"
+msgstr "Kertynyt RP"
+
+#: components/profile/deposit/steps/amount/steps-deposit-amount-block.html:97
+#: directives/wlc-deposit.html:205
+#: modules/finances/components/payment-systems-info/payment-systems-info.component.html:57
+msgid "Add deposit"
+msgstr "Lisä talletus"
+
+#: modules/profile/components/bank-info/bank-info.component.ts:194
+msgid "Additional Banking Information"
+msgstr "Pankin lisätiedot"
+
+#: classes/services/payment-system.model.ts:152
+#: modules/profile/config/profile-forms.config.ts:193
+#: partials/form-elements/address.html:10 partials/form-elements/address.html:2
+msgid "Address"
+msgstr "Osoite"
+
+#: modules/profile/controllers/messages.controller.ts:56
+msgid "Administration"
+msgstr "Hallinto"
+
+#: modules/footer-info.html:69
+msgid "Affiliate Program"
+msgstr "Kumppanuusohjelma"
+
+#: modules/footer-info.html:43
+msgid "Affiliates"
+msgstr "Kumppanit"
+
+#: components/profile-store-main.html:13 modules/big-merchant-filter.html:20
+#: modules/profile/components/profile-transactions/profile-transactions-filter.html:6
+#: modules/profile/components/wlc-dashboard-bonuses/wlc-dashboard-bonuses-filter.html:7
+msgid "All"
+msgstr "Kaikki"
+
+#: dialogs/profile-verification/profile-verification-payment.html:12
+msgid "All four corners of the Credit Card are visible on the scan or a photo."
+msgstr "Kaikki luottokortin neljä kulmaa ovat näkyvissä "
+
+#: dialogs/profile-verification/profile-verification-address.html:15
+#: dialogs/profile-verification/profile-verification-id.html:13
+msgid "All four corners of the document are visible on the scan or a photo."
+msgstr "Kaikki henkilöllisyystodistuksen neljä kulmaa ovat näkyvissä "
+
+#: config/wlc-game-categories-default.js:167 modules/game-catalog-menu.html:22
+msgid "All games"
+msgstr "Kaikki pelit"
+
+#: components/profile-gamblings-bets.html:31
+#: modules/base/components/sorted-items/templates/merchants-in-category/dropdown-merchants.html:15
+#: modules/base/components/sorted-items/templates/merchants-in-category/dropdown-merchants.html:33
+#: modules/base/components/sorted-items/templates/merchants-in-category/show-merchants.html:7
+#: modules/filter-merchants.html:18 modules/filter-merchants.html:34
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-filter.html:23
+msgid "All providers"
+msgstr "Kaikki tarjoajat"
+
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-filter.html:37
+msgid "All results"
+msgstr "Kaikki tulokset"
+
+#: modules/footer-copyright.html:5
+msgid "All rights reserved."
+msgstr "Kaikki oikeudet pidätetään."
+
+#: controllers/steps.controller.ts:177
+msgid "All set and done!"
+msgstr "Kaikki asettettu ja valmis!"
+
+#: partials/form-elements/login-unique.html:13
+#: partials/form-elements/login.html:13
+msgid "Allowable login length"
+msgstr "Loginin sallittu pituus"
+
+#: classes/services/loyalty-bonuses.class.ts:693
+msgid "Allowed"
+msgstr "Sallittu"
+
+#: sections/user-signup.html:6
+msgid "Already a member?"
+msgstr "Joko olet jäsen?"
+
+#: dialogs/user-signup.html:17 dialogs/user-signup.html:40
+#: modules/user-signup.html:26
+msgid "Already have an account"
+msgstr "On jo tili"
+
+#: directives/wlc-merchants-in-category.directive.ts:110
+msgid "AmaticDirect"
+msgstr "AmaticDirect"
+
+#: controllers/user/user-profile.ts:89
+msgid "American"
+msgstr "amerikkalainen"
+
+#: components/profile-gamblings-bets.html:104
+#: components/profile-gamblings-bets.html:75
+#: components/profile/deposit/steps/amount/steps-deposit-amount-block.html:35
+#: components/profile/withdraw/steps/amount/steps-withdraw-amount-block.html:34
+#: modules/profile/components/profile-transactions/profile-transactions-list.html:12
+#: modules/profile/components/profile-transactions/profile-transactions-list.html:48
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-list.html:23
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-list.html:6
+msgid "Amount"
+msgstr "Määrä"
+
+#: modules/games-play-desktop.html:109
+msgid "Apply now"
+msgstr "Hae nyt"
+
+#: controllers/user/user-abstract.ts:139
+#: modules/profile/classes/profile-abstract.class.ts:140
+msgid "April"
+msgstr "Huhtikuu"
+
+#: dialogs/tournaments/tournament-unsubscribe.html:16
+msgid "Are you sure you want to unsubscribe?"
+msgstr "Haluatko varmasti peruuttaa tilauksen?"
+
+#: classes/services/loyalty-bonuses.class.ts:348
+#: classes/services/loyalty-bonuses.class.ts:385 dialogs/user-logout.html:9
+#: modules/profile/controllers/messages.controller.ts:101
+msgid "Are you sure?"
+msgstr "Oletko varma?"
+
+#: controllers/user/user-abstract.ts:143
+#: modules/profile/classes/profile-abstract.class.ts:144
+msgid "August"
+msgstr "Elokuu"
+
+#: modules/double-coin-banner.html:2
+msgid "Available bonuses"
+msgstr "Käytettävissä olevat bonukset"
+
+#: components/profile-main-level.html:9
+msgid "Available levels"
+msgstr "Käytettävissä olevat tasot"
+
+#: components/profile-verification-main.html:49
+#: dialogs/profile-verification/profile-verification-address.html:42
+#: dialogs/profile-verification/profile-verification-default.html:35
+#: dialogs/profile-verification/profile-verification-id.html:41
+#: dialogs/profile-verification/profile-verification-payment.html:42
+msgid "Awaiting validation"
+msgstr "Odotetaan vahvistusta"
+
+#: components/game-catalog.html:133 components/game-catalog.html:192
+#: components/game-catalog.html:327 components/game-catalog.html:396
+#: directives/wlc-catalog-box.html:30
+msgid "Back"
+msgstr "Takaisin"
+
+#: components/pages-content.html:52
+msgid "Back to articles"
+msgstr "Takaisin artikkeleihin"
+
+#: dialogs/password-restore.html:55
+msgid "Back to login"
+msgstr "Takaisin sisäänkirjautumissivulle"
+
+#: components/profile-bonuses-history.html:11
+#: components/profile-bonuses-history.html:41
+#: components/profile-store-main.html:4
+#: components/profile/deposit/default-deposit.html:5
+#: components/profile/withdraw/default-withdraw.html:5
+#: modules/game-play-info.html:6 modules/games-play-desktop.html:48
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:38
+#: modules/loyalty/components/store-list/store-list.component.html:5
+#: modules/user-info.html:15 modules/user-stat-block.html:8
+msgid "Balance"
+msgstr "Saldo"
+
+#: modules/user-stat-block-min.html:41
+msgid "Balance:"
+msgstr "Saldo:"
+
+#: classes/services/payment-system.model.ts:157
+#: modules/profile/config/profile-forms.config.ts:257
+#: modules/profile/config/profile-forms.config.ts:274
+#: partials/form-elements/bank-name-text.html:11
+#: partials/form-elements/bank-name-text.html:2
+#: partials/form-elements/bank-name.html:2
+msgid "Bank name"
+msgstr "Pankin nimi"
+
+#: config/forms/profile.form.ts:163
+#: modules/profile/components/bank-info/bank-info.config.ts:6
+msgid "Banking Information"
+msgstr "Pankin tiedot"
+
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history.controller.ts:73
+msgid "Bet"
+msgstr "Veto"
+
+#: components/profile-gamblings-bets.html:55
+msgid "Bet results:"
+msgstr "Vedotulokset:"
+
+#: components/profile-gamblings-bets.html:74
+#: components/profile-gamblings-bets.html:94
+msgid "Bet time"
+msgstr "Vedon aika"
+
+#: components/profile-gamblings-bets.html:2 components/profile-gamblings.js:156
+#: config/wlc-profile-menu-default.js:152 directives/wlc-profile-menu.html:122
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history.html:3
+#: modules/user-stat-block-dropdown.html:104
+msgid "Bets history"
+msgstr "Vedonlyöntihistoria"
+
+#: modules/promo/components/biggest-wins/biggest-wins.html:12
+#: modules/statistics/biggest-wins.html:4
+msgid "Biggest wins"
+msgstr "Isoimmat voitot"
+
+#: dialogs/required-fields.html:46 partials/form-elements/birthdate.html:2
+msgid "Birthdate"
+msgstr "Syntymäaika"
+
+#: modules/base/components/wlc-smart-userinfo/wlc-smart-userinfo.component.html:14
+#, fuzzy
+msgid "Bonus Balance"
+msgstr "Saldo"
+
+#: modules/base/components/wlc-smart-userinfo/wlc-smart-userinfo.component.html:4
+#, fuzzy
+msgid "Bonus Points"
+msgstr "Bonuspisteet"
+
+#: config/wlc-main-menu-mobile-default.js:128
+msgid "Bonus System"
+msgstr "Bonusjärjestelmä"
+
+#: dialogs/bonuses/subscribe-deposit-bonus.html:4
+msgid "Bonus activation"
+msgstr "Bonuksen aktivointi"
+
+#: modules/profile/components/wlc-dashboard-bonuses/wlc-dashboard-bonuses-content.html:2
+msgid "Bonus in progress"
+msgstr "Bonus käynnissä"
+
+#: components/profile-bonuses-history.html:10
+#: components/profile-bonuses-history.html:35
+msgid "Bonus name"
+msgstr "Bonuksen nimi"
+
+#: modules/bonus-wins.html:2
+msgid "Bonus wins"
+msgstr "Bonusvoitot"
+
+#: components/profile/deposit/default-deposit.html:24
+#: components/profile/withdraw/default-withdraw.html:22
+#: partials/user-all-balances-block.html:7
+msgid "Bonus:"
+msgstr "Bonus:"
+
+#: components/profile-bonuse-system.html:1
+#: config/state/profile/profile-bonuses.js:78
+#: config/wlc-profile-menu-default.js:80
+msgid "Bonuse system"
+msgstr "Bonusjärjestelmä"
+
+#: components/profile-menu.html:9 config/state/profile/profile-bonuses.js:29
+#: config/state/profile/profile-bonuses.js:40
+#: config/wlc-profile-menu-default.js:44 directives/wlc-profile-menu.html:23
+#: modules/user-stat-block-dropdown.html:68
+msgid "Bonuses"
+msgstr "Bonukset"
+
+#: config/state/profile/profile-bonuses.js:59
+msgid "Bonuses history"
+msgstr "Bonushistoria"
+
+#: directives/wlc-bonuses-exchanger.html:15
+#: directives/wlc-bonuses-exchanger.html:3
+msgid "Bonuses points"
+msgstr "Bonuspisteet"
+
+#: classes/services/payment-system.model.ts:162
+#: modules/profile/config/profile-forms.config.ts:224
+#: partials/form-elements/branch-code.html:10
+#: partials/form-elements/branch-code.html:2
+msgid "Branch code"
+msgstr "Sivukoodi"
+
+#: directives/wlc-store-item.html:13 modules/double-coin-banner.html:6
+#: modules/loyalty/components/store-list/modal/store-description.modal.html:13
+#: modules/loyalty/components/store-list/store-list.item.html:32
+#: modules/loyalty/components/store-list/store-list.item.html:72
+msgid "Buy now"
+msgstr "Osta nyt"
+
+#: dialogs/regcomplete-modal.html:6
+msgid "By claiming the first deposit bonus"
+msgstr "Hyväksymällä ensimmäisen talletuksen bonuksen"
+
+#: components/profile-bonuses-active.html:37
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:114
+msgid "CANCEL_BONUS"
+msgstr "KESKEYTÄ_BONUS"
+
+#: modules/loyalty/components/bonuses-slider/bonuses-slider-item.html:72
+#: modules/profile/components/profile-transactions/profile-transactions-list.html:84
+#: partials/profile-bonuses.html:26
+msgid "Cancel"
+msgstr "Keskeytä"
+
+#: classes/services/loyalty-bonuses.class.ts:889
+msgid "Cancel bonus failed"
+msgstr "Bonuksen keskeyttäminen epäonnistui"
+
+#: components/profile-bonuses-history.html:81
+#: components/profile-tournaments-history.html:51
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:72
+#: modules/profile/controllers/wlc-dashboard-bonuses.controller.ts:96
+msgid "Canceled"
+msgstr "Keskeytetty"
+
+#: modules/profile/components/profile-transactions/profile-transactions.component.ts:99
+msgid "Canceled by user"
+msgstr "Keskeytetty käyttäjän puolesta"
+
+#: components/profile-menu.html:19 config/wlc-profile-menu-default.js:116
+#: directives/wlc-profile-menu.html:73
+msgid "Cash"
+msgstr "Käteinen"
+
+#: modules/profile/components/wlc-exchange-cash/wlc-exchange-cash.html:43
+msgid "Cash amount to be exchanged"
+msgstr "Vaihdettava käteismäärä"
+
+#: directives/wlc-deposit.html:1
+msgid "Cash transactions disabled"
+msgstr "Käteismaksutapahtumat poistettu käytöstä"
+
+#: config/wlc-main-menu-default.js:75 config/wlc-main-menu-mobile-default.js:68
+#: modules/error-page-box-two-column.html:10
+msgid "Casino"
+msgstr "Kasino"
+
+#: modules/game-categories.html:2 modules/news-categories.html:3
+#: modules/pages-list.html:3
+msgid "Categories"
+msgstr "Kategoriat"
+
+#: partials/form-elements/phone-number.html:47
+msgid "Change"
+msgstr "Vaihda"
+
+#: controllers/user/user-profile.ts:365
+msgid "Change e-mail"
+msgstr "Vaihda sähköposti"
+
+#: config/forms/change-password.form.ts:36 dialogs/password-change.html:3
+msgid "Change password"
+msgstr "Vaihda salasana"
+
+#: modules/login-signup/register-steps/partial/promocode.html:14
+msgid "Change promo code"
+msgstr "Vaihda promokoodi"
+
+#: dialogs/promo-code.html:36
+msgid "Check"
+msgstr "Varmista"
+
+#: modules/login-signup/register-steps/partial/error-form.html:3
+msgid "Check the correctness of filling out the form fields."
+msgstr "Varmista, että kentät ovat täytetty oikein "
+
+#: modules/game-catalog-menu.html:8
+msgid "Cherries"
+msgstr "Kirsikkat"
+
+#: modules/loyalty/components/choose-bonus/choose-bonus.html:42
+#: modules/loyalty/components/choose-bonus/choose-bonus.html:55
+msgid "Choose"
+msgstr "Valitse"
+
+#: modules/login-signup/register-steps/bonuses.html:4
+#: partials/signup-form.html:12 partials/signup-form/signup-form.html:17
+msgid "Choose Your Welcome Bonus"
+msgstr "Valitse tuliaisbonus"
+
+#: modules/loyalty/components/choose-bonus/choose-bonus.html:18
+msgid "Choose a Bonus"
+msgstr "Valitse bonus"
+
+#: components/profile/deposit/steps/bonus/steps-deposit-bonus-actions.html:8
+msgid "Choose another"
+msgstr "Valitse toinen"
+
+#: components/profile/withdraw/default-withdraw.html:45
+#: directives/wlc-deposit.html:21 directives/wlc-deposit.html:47
+msgid "Choose payment option"
+msgstr "Valitse maksutapa"
+
+#: classes/services/payment-system.model.ts:147
+#: modules/profile/config/profile-forms.config.ts:178
+#: partials/form-elements/city.html:10 partials/form-elements/city.html:2
+msgid "City"
+msgstr "Kaupunki"
+
+#: components/profile-bonuses-active.html:22
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:22
+msgid "Cleared"
+msgstr "Tyhjennetty"
+
+#: components/profile/deposit/steps/modal/modal-step-deposit-bonuses.html:35
+#: components/profile/deposit/steps/modal/modal-step-deposit-systems.html:43
+#: dialogs/bonuses/subscribe-deposit-bonus.html:24 dialogs/content-page.html:20
+#: dialogs/error.html:12 dialogs/password-restore-step2.html:19
+#: dialogs/sms-verification/sms-verification.html:73
+#: dialogs/tooltip-modal.html:9 dialogs/tournaments/tournament-info.html:55
+#: dialogs/tournaments/tournament-insufficient-funds.html:6
+#: dialogs/tournaments/tournament-insufficient-points.html:5
+#: modules/error/components/error-modal/error-modal.html:9
+#: modules/loyalty/components/store-list/modal/store-description.modal.html:17
+#: modules/profile/components/wlc-messages/wlc-messages-content.html:10
+msgid "Close"
+msgstr "Close"
+
+#: components/profile-tournaments-main.html:63
+#: modules/loyalty/components/tournaments-list/tournaments-list.item.html:68
+#: modules/loyalty/components/tournaments-slider/tournaments-slider-item.html:82
+msgid "Closed"
+msgstr "Suljettu"
+
+#: modules/login-signup/register-steps/partial/verify-sms-code-input.html:2
+#: modules/profile/config/profile-forms.config.ts:386
+#: partials/form-elements/alternative-phone.html:3
+#: partials/form-elements/mobile-phone.html:3
+#: partials/form-elements/phone-code.html:2
+msgid "Code"
+msgstr "Koodi"
+
+#: modules/loyalty/components/wlc-loyalty-levels/wlc-loyalty-levels.component.html:10
+#: modules/profile/components/wlc-dashboard-loyalty/wlc-dashboard-loyalty.html:21
+msgid "Coefficient"
+msgstr "Kerroin"
+
+#: modules/grids/grid-2-4-2.html:2
+msgid "CoinBar Right Now"
+msgstr "CoinBar nyt"
+
+#: modules/profile/components/profile-transactions/profile-transactions.component.ts:108
+msgid "Complete"
+msgstr "Suorita"
+
+#: dialogs/user-social-complete.html:4
+msgid "Complete Registration"
+msgstr "Suorita rekisteröinti"
+
+#: modules/profile/components/profile-transactions/profile-transactions.component.ts:98
+msgid "Complete failed"
+msgstr "Suoritus epäonnistui"
+
+#: modules/login-signup/register-steps/partial/verify-sms-code-input.html:22
+#: modules/login-signup/register-steps/partial/verify-two-button.html:3
+#: modules/profile/components/wlc-exchange-cash/wlc-exchange-cash.html:48
+msgid "Confirm"
+msgstr "Vahvista salasana"
+
+#: dialogs/user-social-complete.html:29
+#: modules/profile/config/profile-forms.config.ts:376
+#: partials/form-elements/password-confirm.html:12
+#: partials/form-elements/password-confirm.html:2
+msgid "Confirm password"
+msgstr "Vahvista salasana"
+
+#: dialogs/confirmation.html:5
+msgid "Confirmation"
+msgstr "Vahvistus"
+
+#: modules/profile/components/profile-transactions/profile-transactions.component.ts:105
+msgid "Confirmed"
+msgstr "Vahvistettu"
+
+#: components/profile-main-social.html:9
+msgid "Connect"
+msgstr "Yhdistä"
+
+#: modules/social-link.html:3
+msgid "Connected social accounts"
+msgstr "Yhdistetyt sosiaalimediatilit"
+
+#: modules/footer-info.html:62
+msgid "Contact Us"
+msgstr "Ota yhteyttä"
+
+#: partials/contacts.html:2
+msgid "Contact details"
+msgstr "Yhteystiedot"
+
+#: config/state/contacts.ts:31 config/wlc-main-menu-default.js:151
+#: config/wlc-main-menu-mobile-default.js:98 controllers/contacts.ts:74
+#: modules/base/components/contact-form/contact-form.component.ts:122
+#: modules/base/components/contact-form/contact-form.component.ts:129
+msgid "Contacts"
+msgstr "Yhteystiedot"
+
+#: dialogs/bonuses/subscribe-deposit-bonus.html:19
+#: modules/login-signup/register-steps/partial/done-button.html:2
+#: modules/login-signup/register-steps/partial/setup-button.html:4
+#: modules/login-signup/register-steps/partial/verify-one-button.html:5
+#: modules/login-signup/register-steps/partial/verify-two-button.html:4
+msgid "Continue"
+msgstr "Jatkaa"
+
+#: dialogs/regcomplete-modal.html:25
+msgid "Continue to site"
+msgstr "Jatkaa sivulle"
+
+#: dialogs/messagePayment.html:16
+msgid "Copied"
+msgstr ""
+"Jatkaa sivulle\n"
+"Kopioitu"
+
+#: services/error.service.ts:278
+msgid "Could not find a state associated with url"
+msgstr "URL-osoitteeseen liittyvää tilaa ei löytynyt"
+
+#: classes/services/payment-system.model.ts:137 dialogs/required-fields.html:29
+#: modules/profile/config/profile-forms.config.ts:163
+#: partials/form-elements/country.html:2
+msgid "Country"
+msgstr "Maa"
+
+#: modules/profile/components/profile-transactions/profile-transactions-list.html:80
+msgid "Credit"
+msgstr "Luotto"
+
+#: components/user-social-register.html:28 dialogs/user-social-complete.html:42
+#: modules/register-form.html:40 partials/form-elements/currency-select.html:2
+#: partials/form-elements/currency.html:2 partials/signup-form.html:136
+msgid "Currency"
+msgstr "Valuutta"
+
+#: modules/profile/components/wlc-exchange-cash/wlc-exchange-cash.html:7
+msgid "Current Level"
+msgstr "Nykyinen Taso"
+
+#: components/profile-main-level.html:4
+msgid "Current level"
+msgstr "Nykyinen taso"
+
+#: modules/profile/config/profile-forms.config.ts:341
+#: partials/form-elements/password-current.html:13
+#: partials/form-elements/password-current.html:2
+msgid "Current password"
+msgstr "Nykyinen salasana"
+
+#: components/profile-main-level.html:20
+msgid "Current points"
+msgstr "Nykyiset pisteet"
+
+#: modules/tournaments/tournament-leaders.html:5
+msgid "Current tournament"
+msgstr "Nykyinen turnaus"
+
+#: components/profile-tournaments-main.html:2
+#: config/wlc-profile-menu-default.js:92
+msgid "Current tournaments"
+msgstr "Nykyiset turnaukset"
+
+#: modules/base/components/country-accepts/country-accepts-content.html:11
+msgid "Customer support language"
+msgstr "Asiakaspalvelun kieli"
+
+#: config/state/profile/profile-dashboard.ts:26
+#: config/wlc-profile-menu-default.js:219
+#: modules/game-play/game-play-header.html:30
+msgid "Dashboard"
+msgstr "Hallintapaneeli"
+
+#: modules/profile/components/wlc-messages/wlc-messages-list.html:12
+#: modules/profile/components/wlc-messages/wlc-messages-list.html:42
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-list.html:19
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-list.html:5
+msgid "Date"
+msgstr "Päivämäärä"
+
+#: classes/services/payment-system.model.ts:121
+msgid "Date of birth"
+msgstr "Syntymäaika"
+
+#: controllers/user/user-abstract.ts:129
+#: modules/profile/classes/profile-abstract.class.ts:130
+#: modules/profile/config/profile-forms.config.ts:112
+msgid "Day"
+msgstr "Päivä"
+
+#: config/wlc-modal-config.js:137
+msgid ""
+"Dear Client, Due to technical reasons the project temporarily suspends its "
+"operation, therefore deposits and game play is no longer possible. We kindly "
+"ask you to request a withdrawal in the next 2 weeks. If you have any "
+"questions, please contact us"
+msgstr ""
+"Arvoisa asiakas, teknisistä syistä johtuen projekti päättyy väliaikaisesti "
+"ja talletukset ja pelaaminen ei ole enää mahdollista. Olkaa hyvää ja tehkää "
+"kotiutukset seuraavan kahden viikon aikana. Jos teillä on kysyttävää, olkaa "
+"meihin yhteydessä."
+
+#: constants/check-on-run-game.js:154
+msgid ""
+"Dear Client, this game has no demo mode, you will redirect to normal mode."
+msgstr ""
+"Arvoisa asiakas, tällä pelillä ei ole esittely-tilaa, sinut siirrettään "
+"normaalitilaan."
+
+#: modules/profile/components/profile-transactions/profile-transactions-list.html:81
+msgid "Debit"
+msgstr "Debet"
+
+#: controllers/user/user-abstract.ts:147
+#: modules/profile/classes/profile-abstract.class.ts:148
+msgid "December"
+msgstr "Joulukuu"
+
+#: controllers/user/user-profile.ts:88
+msgid "Decimal"
+msgstr "Desimaali"
+
+#: dialogs/profile-verification/profile-verification-id.html:56
+#: modules/profile/components/wlc-messages/wlc-messages-content.html:11
+msgid "Delete"
+msgstr "Poista"
+
+#: components/game-catalog.html:124 components/game-catalog.html:216
+#: components/game-catalog.html:286 components/game-catalog.html:318
+#: components/game-catalog.html:387 components/game-catalog.html:62
+#: components/game-catalog.html:92 directives/wlc-catalog-box.html:23
+#: modules/game-thumb.html:54 modules/search.html:37
+msgid "Demo"
+msgstr "Esittely"
+
+#: components/profile-menu.html:23
+#: components/profile/deposit/default-deposit.html:2
+#: components/profile/deposit/steps/steps-deposit-header.html:2
+#: config/wlc-main-menu-mobile-default.js:140
+#: config/wlc-profile-menu-default.js:122 dialogs/deposit.html:3
+#: dialogs/fast-deposit.html:3 directives/wlc-profile-menu.html:85
+#: modules/finances/components/profile-wallet/profile-wallet.html:34
+#: modules/game-play-info.html:15 modules/games-play-desktop.html:57
+#: modules/profile/components/profile-transactions/profile-transactions.component.ts:90
+#: modules/user-info.html:25 modules/user-stat-block-dropdown.html:15
+#: modules/user-stat-block-dropdown.html:86 modules/user-stat-block-min.html:61
+msgid "Deposit"
+msgstr "Talletus"
+
+#: dialogs/regcomplete-modal.html:23
+msgid "Deposit and Claim"
+msgstr "Talleta ja vaadi"
+
+#: dialogs/user-payment-success.html:10
+msgid "Deposit completed successfully"
+msgstr "Talletus onnistuneesti suoritettu"
+
+#: modules/profile/components/limits/limits.component.html:18
+msgid "Deposit limits"
+msgstr "Talletusrajat"
+
+#: config/wlc-modal-config.js:201
+msgid "Deposit more money to play this game."
+msgstr "Lisätalletus tarvitaan pelaamiseksi"
+
+#: modules/footer-copyright.html:8
+msgid "Developed by"
+msgstr "Kehittäjä"
+
+#: dialogs/sms-verification/sms-verification.html:59
+#: modules/login-signup/register-steps/partial/resend-sms-btn.html:1
+msgid "Didnt receive a code?"
+msgstr "Etkö saannut koodia?"
+
+#: components/profile-main-social.html:7
+msgid "Disconnect"
+msgstr "Katkaise yhteys"
+
+#: partials/user-login.html:6
+msgid "Don't have an account?"
+msgstr "Sinulla ei ole tiliä?"
+
+#: dialogs/profile-verification/profile-verification-address.html:64
+#: dialogs/profile-verification/profile-verification-default.html:64
+#: dialogs/profile-verification/profile-verification-id.html:75
+#: dialogs/profile-verification/profile-verification-payment.html:64
+#: modules/login-signup/register-steps/partial/done-button.html:5
+#: modules/login-signup/register-steps/partial/setup-button.html:7
+msgid "Done"
+msgstr "Tehty"
+
+#: modules/double-coin-banner.html:4
+msgid "Double goldbar coin"
+msgstr "Tupla kultapalkki kolikko"
+
+#: components/profile-verification-main.html:61
+msgid "Download"
+msgstr "Lataa"
+
+#: components/user-social-register.html:23 dialogs/password-restore.html:19
+#: dialogs/password-restore.html:32 dialogs/user-social-complete.html:17
+#: modules/base/components/contact-form/elements/sender-email.html:2
+#: modules/login-form.html:11 modules/login-form.html:16
+#: modules/profile/config/profile-forms.config.ts:46
+#: modules/register-form.html:26 modules/user-info.html:5
+#: partials/contacts.html:21 partials/form-elements/email-login.html:6
+#: partials/form-elements/email-unique.html:2
+#: partials/form-elements/email-unique.html:7
+#: partials/form-elements/email.html:2 partials/form-elements/email.html:7
+#: partials/signup-form.html:116 partials/signup-form.html:118
+#: partials/signup-form.html:123
+msgid "E-mail"
+msgstr "Sähköposti"
+
+#: config/wlc-form-errors.ts:29
+msgid "E-mail is not unique"
+msgstr "Sähköpostin pitää olla ainutlaatuinen"
+
+#: directives/wlc-merchants-in-category.directive.ts:109
+msgid "EGTInteractive"
+msgstr "EGTInteractive"
+
+#: components/profile-main/profile-main.html:1
+#: components/profile/withdraw/default-withdraw.html:74
+#: components/profile/withdraw/default-withdraw.html:80
+#: config/wlc-profile-menu-default.js:38 dialogs/profile-check-error.html:12
+#: directives/wlc-deposit.html:62 directives/wlc-deposit.html:68
+#: directives/wlc-profile-menu.html:16 modules/user-stat-block-dropdown.html:62
+msgid "Edit profile"
+msgstr "Muokkaa profiilia"
+
+#: components/profile-tournaments-history.html:14
+msgid "End"
+msgstr "Loppu"
+
+#: components/profile-gamblings-bets.html:16
+#: modules/profile/components/profile-transactions/profile-transactions-filter.html:21
+#: modules/profile/components/wlc-dashboard-bonuses/wlc-dashboard-bonuses-filter.html:22
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-filter.html:10
+msgid "End date"
+msgstr "Päättymispäivä"
+
+#: components/profile-bonuses-history.html:16
+#: components/profile-bonuses-history.html:71
+#: components/profile-tournaments-history.html:53
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:63
+msgid "Ended"
+msgstr "Päättyi"
+
+#: components/profile-tournaments-history.html:52
+msgid "Ending"
+msgstr "Loppu"
+
+#: directives/wlc-time.directive.ts:90
+msgid "Ends"
+msgstr "Päättyy"
+
+#: directives/wlc-countdown.js:64
+msgid "Ends in"
+msgstr "Päättyy"
+
+#: components/profile/withdraw/default-withdraw.html:89
+#: components/profile/withdraw/default-withdraw.html:97
+#: directives/wlc-deposit.html:106
+msgid "Enter amount"
+msgstr "Lisää summa"
+
+#: components/profile-bonuses-promo.html:10
+#: components/profile-bonuses-promo.html:21
+#: modules/loyalty/components/bonuses-list/bonuses-list.component.html:30
+#: modules/loyalty/components/bonuses-list/bonuses-list.component.html:41
+msgid "Enter code"
+msgstr "Lisää koodi"
+
+#: dialogs/sms-verification/sms-verification.html:3
+msgid "Enter code here"
+msgstr "Lisää koodi tähän"
+
+#: components/profile/deposit/steps/amount/steps-deposit-amount-block.html:5
+msgid "Enter deposit amount."
+msgstr "Lisää talletuksen summa"
+
+#: components/profile/withdraw/steps/amount/steps-withdraw-amount-block.html:5
+msgid "Enter withdraw amount."
+msgstr "Lisää kotiutuksen summa."
+
+#: controllers/steps.controller.ts:172
+msgid "Enter your phone"
+msgstr "Lisää puhelinnumero"
+
+#: directives/wlc-deposit.html:82
+msgid "Enter your wallet address below and then click \"Add deposit\""
+msgstr "Lisää lompakkon osoite kenttään ja paina \"Lisä talletus\""
+
+#: dialogs/tournaments/tournament-subscribe.html:26
+msgid "Entry fee"
+msgstr "Sisäänpääsymaksu"
+
+#: classes/services/loyalty-bonuses.class.ts:238
+#: modules/profile/components/profile-transactions/profile-transactions.component.ts:102
+msgid "Error"
+msgstr "Virheilmoitus"
+
+#: modules/error-page-box.html:4
+msgid "Error 404"
+msgstr "Virheilmoitus 404"
+
+#: modules/login-signup/register-steps/partial/error-form.html:2
+msgid "Error filling form."
+msgstr "Virhe lomakkeen täyttämisessä."
+
+#: partials/signup-form/signup-form-content.html:39
+msgid ""
+"Error filling form. Check the correctness of filling out the form fields."
+msgstr ""
+"Virhe lomakkeen täyttämisessä. Tarkistathan että kentät ovat täytetty oikein."
+
+#: modules/promo/components/welcome-promo-modal/welcome-promo-modal.controller.ts:95
+msgid "Error loading content"
+msgstr "Virhe ladattaessa sisältöä"
+
+#: config/app.js:236
+msgid "Error occured during account final registration"
+msgstr "Virhe tilin rekisteröinnissä"
+
+#: controllers/finanses.controller.ts:678
+msgid "Error occured during deposit process."
+msgstr "Virhe talletuksessa"
+
+#: controllers/user/user.controller.ts:232
+msgid "Error occured during login process"
+msgstr "Virhe kirjautumisessa"
+
+#: components/user-restore-complete.js:25
+#: components/user-restore-complete.js:45 config/app.js:184
+msgid "Error occured during password recovery"
+msgstr "Virhe salasanan vaihdossa"
+
+#: controllers/user/user-register.ts:320 controllers/user/user-register.ts:574
+msgid "Error occured during registration"
+msgstr "Virhe rekisteröinnissä"
+
+#: config/app.js:267
+msgid "Error occured during unsibscribe"
+msgstr "Virhe tilauksen peruutuksessa"
+
+#: components/profile-verification.component.ts:173
+msgid "Error occured during upload"
+msgstr "Virhe tiedoston lähetyksessä"
+
+#: controllers/finanses.controller.ts:679
+msgid "Error occured during withdraw process."
+msgstr "Virhe kotiutuksessa"
+
+#: controllers/user/sms-verify.controller.ts:109
+#: controllers/user/sms-verify.controller.ts:226
+msgid "Error occurred while sending code for SMS Verification"
+msgstr "Virhe lähetäessä tekstarivahvistusta"
+
+#: config/app.js:90
+msgid "Error page"
+msgstr "Virhesivu"
+
+#: components/profile-gamblings.js:125
+#: components/profile-verification.component.ts:112
+#: dialogs/profile-check-error.html:3
+#: modules/static-content/controllers/wlc-static.controller.ts:162
+#: services/error.service.ts:235 services/error.service.ts:240
+#: services/error.service.ts:244 services/error.service.ts:259
+msgid "Error!"
+msgstr "Virhe!"
+
+#: directives/wlc-bonuses-exchanger.html:20
+msgid "Exchange"
+msgstr "Vaihto"
+
+#: modules/profile/components/wlc-exchange-cash/wlc-exchange-cash.component.ts:77
+#: modules/profile/components/wlc-exchange-cash/wlc-exchange-cash.component.ts:86
+msgid "Exchange not available"
+msgstr "Vaihto ei ole saatavilla"
+
+#: components/profile-main-level.html:32
+msgid "Exchange rage"
+msgstr "Vaihtokurssi"
+
+#: modules/profile/components/wlc-dashboard-loyalty/wlc-dashboard-loyalty.html:30
+#: modules/profile/components/wlc-exchange-cash/wlc-exchange-cash.component.ts:135
+msgid "Exchange to cash"
+msgstr "Vaihto rahaan"
+
+#: components/profile-bonuses-history.html:13
+#: components/profile-bonuses-history.html:53
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:48
+#: modules/loyalty/components/wlc-loyalty-levels/wlc-loyalty-levels.component.html:9
+msgid "Experience"
+msgstr "Kokemus"
+
+#: modules/game-play-info.html:24 modules/games-play-desktop.html:65
+msgid "Experience level"
+msgstr "Kokemustaso"
+
+#: components/profile-main-level.html:24
+msgid "Experience points"
+msgstr "Kokemuspisteet"
+
+#: components/profile-bonuses-history.html:80
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:71
+#: modules/profile/controllers/wlc-dashboard-bonuses.controller.ts:95
+msgid "Expired"
+msgstr "Vanhentunut"
+
+#: components/profile-bonuses-active.html:17
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:17
+msgid "Expires"
+msgstr "Vanhenee"
+
+#: config/wlc-main-menu-mobile-default.js:158 modules/footer-info.html:82
+msgid "FAQ"
+msgstr "UKK"
+
+#: modules/social-list.html:6 partials/signup-form.html:58
+#: partials/signup-form/signup-form-socials.html:6
+msgid "Facebook"
+msgstr "Facebook"
+
+#: components/profile-verification-main.html:50
+#: dialogs/profile-verification/profile-verification-address.html:43
+#: dialogs/profile-verification/profile-verification-default.html:37
+#: dialogs/profile-verification/profile-verification-id.html:42
+#: dialogs/profile-verification/profile-verification-payment.html:43
+msgid "Failed validation"
+msgstr "Vahvistus epäonnistui"
+
+#: config/wlc-main-menu-mobile-default.js:122 modules/footer-info.html:35
+msgid "Fair Play"
+msgstr "Reilu peli"
+
+#: modules/game-catalog-menu.html:14
+msgid "Favourites"
+msgstr "Suosikit"
+
+#: controllers/user/user-abstract.ts:137
+#: modules/profile/classes/profile-abstract.class.ts:138
+msgid "February"
+msgstr "Helmikuu"
+
+#: modules/finances/components/payment-systems-info/payment-systems-info.component.html:12
+#: modules/finances/components/payment-systems-info/payment-systems-info.component.html:25
+#: modules/finances/components/payment-systems/payment-systems.html:7
+msgid "Fee"
+msgstr "Maksu"
+
+#: controllers/user/user-register.ts:139
+msgid "Female"
+msgstr "Nainen"
+
+#: components/profile-verification-main.html:42
+#: dialogs/profile-verification/profile-verification-address.html:26
+#: dialogs/profile-verification/profile-verification-default.html:19
+#: dialogs/profile-verification/profile-verification-id.html:25
+#: dialogs/profile-verification/profile-verification-payment.html:26
+msgid "File"
+msgstr "Tiedosto"
+
+#: dialogs/profile-verification/profile-verification-id.html:59
+msgid "File is deleting"
+msgstr "Tiedostoa poistetaan"
+
+#: components/profile-verification-main.html:27
+msgid "File is loading"
+msgstr "Tiedostoa ladataan"
+
+#: components/profile-verification.component.ts:180
+msgid "File size should not exceed"
+msgstr "Tiedosto ei pitäisi olla isompi kuin"
+
+#: components/profile/deposit/steps/amount/steps-deposit-amount-block.html:19
+#: components/profile/deposit/steps/amount/steps-deposit-amount-block.html:24
+#: components/profile/withdraw/steps/amount/steps-withdraw-amount-block.html:17
+#: components/profile/withdraw/steps/amount/steps-withdraw-amount-block.html:22
+msgid "Fill profile"
+msgstr "Täytä profiili"
+
+#: dialogs/profile-partial-update.html:8 dialogs/required-fields.html:4
+msgid "Fill required fields"
+msgstr "Täytä pakolliset kentät"
+
+#: modules/game-catalog-menu.html:31
+msgid "Filter"
+msgstr "Suodatin"
+
+#: modules/profile/components/profile-transactions/profile-transactions.component.ts:107
+msgid "Finalize failed"
+msgstr "Viimeistely epäonnistui"
+
+#: classes/services/payment-system.model.ts:110
+#: modules/profile/config/profile-forms.config.ts:20
+#: partials/form-elements/first-name.html:11
+#: partials/form-elements/first-name.html:2
+msgid "First name"
+msgstr "Etunimi"
+
+#: modules/login-form.html:48
+#: modules/profile/components/login-signup-dropdown/login-form.html:21
+#: partials/login-form.html:28
+msgid "Forgot password?"
+msgstr "Unohditko salasanan?"
+
+#: components/game-catalog.html:133 components/game-catalog.html:192
+#: components/game-catalog.html:327 components/game-catalog.html:396
+#: directives/wlc-catalog-box.html:30
+msgid "Forward"
+msgstr "Eteenpäin"
+
+#: controllers/user/user-profile.ts:87
+msgid "Fractional"
+msgstr "Fractional"
+
+#: components/profile-bonuses-history.html:14
+#: components/profile-bonuses-history.html:59
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:53
+msgid "Freerounds"
+msgstr "Freerounds"
+
+#: directives/wlc-freerounds.directive.ts:85
+#: directives/wlc-freerounds.directive.ts:92
+#: modules/base/components/wlc-smart-userinfo/wlc-smart-userinfo.component.html:8
+msgid "Freespins"
+msgstr "Freespins"
+
+#: modules/finances/components/payment-systems/payment-systems.html:35
+#: modules/profile/components/wlc-messages/wlc-messages-list.html:10
+#: modules/profile/components/wlc-messages/wlc-messages-list.html:28
+msgid "From"
+msgstr "Alkaen"
+
+#: classes/services/loyalty-bonuses.class.ts:673
+msgid "Full lock"
+msgstr "Täysi lukko"
+
+#: config/wlc-profile-menu-default.js:146 directives/wlc-profile-menu.html:110
+msgid "Gamblings"
+msgstr "Uhkapelit"
+
+#: components/profile-gamblings-bets.html:121
+#: components/profile-gamblings-bets.html:77
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-list.html:31
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-list.html:7
+msgid "Game"
+msgstr "Peli"
+
+#: config/wlc-main-menu-mobile-default.js:50
+msgid "Game Categories"
+msgstr "Pelikategoriat"
+
+#: directives/wlc-catalog-tree.html:3
+msgid "Game categories"
+msgstr "Pelikategoriat"
+
+#: constants/check-on-run-game.js:153
+msgid "Game has no demo!"
+msgstr "Pelillä ei ole esittelytilaa"
+
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-filter.html:48
+msgid "Game name"
+msgstr "Pelin nimi"
+
+#: modules/game-day.html:2
+msgid "Game of the day"
+msgstr "Päivän peli"
+
+#: modules/big-merchant-filter.html:6
+msgid "Game providers filter"
+msgstr "Pelitarjoajien filtteri"
+
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-filter.html:31
+msgid "Game result"
+msgstr "Pelin tulos"
+
+#: modules/search.html:10
+msgid "Game search"
+msgstr "Pelin etsintä"
+
+#: modules/big-merchant-filter.html:3
+msgid "Games filter"
+msgstr "Pelin filtteri"
+
+#: modules/footer-info.html:21
+msgid "Games rules"
+msgstr "Pelin säännöt"
+
+#: modules/register-form.html:101
+#: partials/form-elements/checkbox-games-rules.html:21
+#: partials/signup-form.html:207
+msgid "Games_rules"
+msgstr "Pelin_säännöt"
+
+#: classes/services/payment-system.model.ts:127
+#: modules/profile/config/profile-forms.config.ts:69
+#: modules/profile/config/profile-forms.config.ts:73
+#: modules/profile/config/profile-forms.config.ts:89
+msgid "Gender"
+msgstr "Suku"
+
+#: modules/profile/controllers/wlc-dashboard-bonuses.controller.ts:84
+msgid "General"
+msgstr "Yleinen"
+
+#: modules/login-signup/register-steps/partial/verify-one-button.html:4
+#: partials/form-elements/phone-number.html:29
+msgid "Get code"
+msgstr "Hanki koodi"
+
+#: components/profile-gamblings-bets.html:60
+msgid "Get earlier results..."
+msgstr "Hanki aikasempia tuloksia..."
+
+#: partials/form-elements/gift-bundle-id.html:2
+#: partials/form-elements/gift-bundle-id.html:7
+msgid "Gift Bundle ID"
+msgstr "Lahjapaketin tunnus"
+
+#: dialogs/user-signup.html:30 dialogs/user-signup.html:35
+#: modules/user-signup.html:20
+msgid "Go back"
+msgstr "Mene takaisiin"
+
+#: modules/error-page-box.html:6
+msgid "Go home"
+msgstr "Mene kotiin"
+
+#: components/game-catalog.html:199 components/game-catalog.html:269
+#: components/game-catalog.html:75
+msgid "Go to"
+msgstr "Siirry "
+
+#: modules/profile/components/wlc-dashboard-loyalty/wlc-dashboard-loyalty.html:33
+msgid "Go to Store"
+msgstr "Mene kauppaan"
+
+#: modules/error-page-box-two-column.html:4
+msgid "Go to main page"
+msgstr "Siirry pääsivulle"
+
+#: components/game-catalog.html:44
+msgid "Go to popular games"
+msgstr "Siirry suosittuihin peleihin"
+
+#: modules/social-list.html:31 partials/signup-form.html:90
+#: partials/signup-form/signup-form-socials.html:38
+msgid "Google+"
+msgstr "Google+"
+
+#: dialogs/bonus-description.html:16
+#: dialogs/tournaments/tournament-description.html:6
+msgid "Got it"
+msgstr "Sain sen"
+
+#: dialogs/user-social-complete.html:52 modules/register-form.html:52
+#: partials/form-elements/promocode.html:2 partials/signup-form.html:151
+msgid "Got promo code?"
+msgstr "Onko sinulla tarjouskoodi?"
+
+#: modules/login-signup/register-steps/partial/promocode.html:4
+msgid "Have a promo code?"
+msgstr "Onko sinulla tarjouskoodi?"
+
+#: modules/user-stat-block-dropdown.html:43
+msgid "Hi"
+msgstr "Hei"
+
+#: config/wlc-profile-menu-default.js:68 directives/wlc-profile-menu.html:56
+msgid "History"
+msgstr "Historia"
+
+#: config/app.js:66 config/components/home-controller.config.ts:44
+msgid "Home"
+msgstr "Koti"
+
+#: config/wlc-main-menu-default.js:37
+msgid "Home page"
+msgstr "Kotisivu (Pääsivu)"
+
+#: modules/agreements/privacy-policy.html:11
+msgid "I agree"
+msgstr "Hyväksyn"
+
+#: modules/register-form.html:77 modules/register-form.html:99
+#: partials/form-elements/checkbox-games-rules.html:16
+#: partials/form-elements/checkbox-terms-cond.html:15
+#: partials/signup-form.html:177 partials/signup-form.html:202
+msgid "I agree with"
+msgstr "Hyväksyn"
+
+#: modules/login-signup/register-steps/partial/terms.html:11
+msgid "I confirm I am over 18 and accept the following:"
+msgstr "Vakuutan, että olen yli 18-vuotias ja hyväksyn seuraavant:"
+
+#: modules/register-form.html:117
+#: partials/form-elements/checkbox-confirm-age.html:12
+#: partials/signup-form.html:224
+msgid "I confirm that I'm 18 years or older"
+msgstr "Vakuutan, että olen 18-vuotias tai vanhempi"
+
+#: components/profile/deposit/steps/bonus/steps-deposit-bonus-block-modal.html:8
+#: components/profile/deposit/steps/modal/modal-step-deposit-bonuses.html:10
+msgid "I don`t want a bonuse."
+msgstr "En halua bonusta"
+
+#: components/profile/deposit/steps/amount/steps-deposit-amount-block.html:82
+#: directives/wlc-deposit.html:194
+msgid "I have read and agree with the payment agents"
+msgstr "Olen lukenut ja samaa mieltä maksuasiamiesten kanssa"
+
+#: partials/form-elements/get-notifications.html:11
+msgid ""
+"I would like to receive information about promotions, marketings materials "
+"and personalised content"
+msgstr ""
+"Haluaisin saada tietoa kampanjoista, markkinointimateriaaleista ja "
+"henkilökohtaisesta sisällöstä"
+
+#: partials/form-elements/get-notifications-sms.html:12
+msgid ""
+"I would like to receive information about promotions, marketings materials "
+"and personalised content for SMS"
+msgstr ""
+"Haluaisin saada tietoa kampanjoista, markkinointimateriaaleista ja "
+"henkilökohtaisesta sisällöstä tekstiviestitse"
+
+#: classes/services/payment-system.model.ts:132
+#: modules/profile/config/profile-forms.config.ts:306
+#: partials/form-elements/id-number.html:10
+#: partials/form-elements/id-number.html:2
+msgid "ID number"
+msgstr "ID numero"
+
+#: modules/user-stat-block-min.html:34
+msgid "ID:"
+msgstr "ID:"
+
+#: classes/services/payment-system.model.ts:172
+#: modules/profile/config/profile-forms.config.ts:241
+#: partials/form-elements/iban-number.html:11
+#: partials/form-elements/iban-number.html:2
+msgid "Iban number"
+msgstr "IBAN numero"
+
+#: dialogs/password-restore-step2.html:14
+msgid ""
+"If you are unable to find the e-mail in your Inbox, make sure to check the "
+"\"Junk\" folders. Then continue the instructions in the e-mail."
+msgstr ""
+"Jos et löydä sähköpostia postilaatikostasi, tarkista Roskakori-kansiot. "
+"Jatka sitten sähköpostin ohjeita."
+
+#: dialogs/profile-verification/profile-verification-payment.html:14
+msgid ""
+"If you are using wallets like Neteller or Skrill. Provide a print screen, of "
+"the wallet while being signed in. Your email has to be visible in the image."
+msgstr ""
+"Jos käytät Neteller tai Skrill lompakkoja, annathan lompakosta "
+"kuvakaappauksen. Sinun täytyy olla sisäänkirjautunut ja sähköpostisi täytyy "
+"olla näkyvissä."
+
+#: modules/profile/components/limits/limits.component.html:37
+msgid ""
+"If you feel as though you are no longer enjoying playing with us, or that "
+"you are ending up frustrated, anxious or even depressed then it sounds like "
+"it may be time to take a break from playing and assess if your current level "
+"of play is right for you."
+msgstr ""
+"Jos tuntuu, että et enää nauti pelaamisesta, olet turhautunut tai jopa "
+"masentunut, kuulostaa siltä, että voisit pitää pelistä tauon ja arvioita, "
+"onko nykyinen pelitaso hyvä sinulle."
+
+#: components/user-restore.html:7
+msgid ""
+"If you forgot your password and would like to reset it or would like to "
+"change<br>your password for security reasons, please enter your email and "
+"click \"Restore\"."
+msgstr ""
+"Jos unohdit salasanasi ja haluat vaihtaa sen tai haluat vaihtaa salasanasi "
+"turvallisuussyistä, kirjoita sähköpostiosoitteesi ja napsauta \"Palauta\"."
+
+#: modules/profile/controllers/wlc-dashboard-bonuses.controller.ts:94
+msgid "In Progress"
+msgstr "Käynnissä"
+
+#: modules/profile/components/profile-transactions/profile-transactions.component.ts:106
+msgid "In payment queue"
+msgstr "Maksujonossa"
+
+#: dialogs/sms-verification/sms-verification.html:7
+msgid "Incorrect code"
+msgstr "Väärä koodi"
+
+#: config/wlc-main-menu-mobile-default.js:92
+#: dialogs/tournaments/tournament-info.html:4
+msgid "Info"
+msgstr "Tieto"
+
+#: config/wlc-modal-config.js:200
+msgid "Insufficient balance!"
+msgstr "Ei tarpeeksi saldoa"
+
+#: dialogs/tournaments/tournament-insufficient-funds.html:3
+msgid "Insufficient funds"
+msgstr "Ei tarpeeksi varoja"
+
+#: dialogs/tournaments/tournament-insufficient-points.html:3
+msgid "Insufficient points"
+msgstr "Ei tarpeeksi pisteitä"
+
+#: config/wlc-form-errors.ts:30 config/wlc-form-errors.ts:31
+#: config/wlc-form-errors.ts:32 config/wlc-form-errors.ts:33
+msgid "Invalid value"
+msgstr "Väärä arvo"
+
+#: config/state/profile/profile-bonuses.js:89
+#: config/wlc-profile-menu-default.js:62
+msgid "Inventory"
+msgstr "Luettelo"
+
+#: components/game-catalog.html:259 components/game-catalog.html:34
+#: components/game-catalog.html:361 config/wlc-main-menu-default.js:135
+#: modules/catalog/jackpots-grid.html:2
+msgid "Jackpots"
+msgstr "Jackpotit"
+
+#: controllers/user/user-abstract.ts:136
+#: modules/profile/classes/profile-abstract.class.ts:137
+msgid "January"
+msgstr "Tammikuu"
+
+#: components/profile-tournaments-main.html:37
+#: modules/loyalty/components/tournaments-list/tournaments-list.item.html:54
+msgid "Join now"
+msgstr "Liity nyt"
+
+#: controllers/user/user-abstract.ts:142
+#: modules/profile/classes/profile-abstract.class.ts:143
+msgid "July"
+msgstr "Heinäkuu"
+
+#: controllers/user/user-abstract.ts:141
+#: modules/profile/classes/profile-abstract.class.ts:142
+msgid "June"
+msgstr "Kesäkuu"
+
+#: modules/promo/components/last-jackpots/last-jackpots.html:8
+msgid "Last Jackpots"
+msgstr "Viimeiset Jackpotit"
+
+#: classes/services/payment-system.model.ts:115
+#: modules/profile/config/profile-forms.config.ts:33
+#: partials/form-elements/last-name.html:2
+#: partials/form-elements/last-name.html:8
+msgid "Last name"
+msgstr "Sukunimi"
+
+#: config/wlc-game-categories-default.js:146
+#: config/wlc-main-menu-mobile-default.js:44 modules/mobile-menu-column.html:3
+msgid "Last played"
+msgstr "Viimeksi pelattu"
+
+#: modules/last-pages.html:2
+msgid "Latest news"
+msgstr "Viimeisimmät uutiset"
+
+#: components/profile-tournaments-main.html:54
+#: modules/games-play-desktop.html:115
+#: modules/loyalty/components/tournaments-list/tournaments-list.item.html:61
+#: modules/loyalty/components/tournaments-slider/tournaments-slider-item.html:75
+msgid "Leave"
+msgstr "Poistu"
+
+#: modules/footer-info.html:3
+msgid "Legal"
+msgstr "Laillinen"
+
+#: dialogs/tournaments/tournament-subscribe.html:63
+msgid "Let's play!"
+msgstr "Pelataan!"
+
+#: dialogs/tournaments/tournament-subscribe.html:36
+msgid "Let's play?"
+msgstr "Pelataanko?"
+
+#: modules/loyalty/components/current-level/current-level.html:7
+#: modules/loyalty/components/wlc-loyalty-levels/wlc-loyalty-levels.component.html:7
+#: modules/user-stat-block-dropdown.html:51 modules/user-stat-block.html:38
+#: partials/loyalty-progress-bar.html:7
+msgid "Level"
+msgstr "Taso"
+
+#: modules/loyalty/components/wlc-loyalty-levels/wlc-loyalty-levels.component.html:8
+msgid "Level name"
+msgstr "Tason nimi"
+
+#: modules/finances/components/payment-systems-info/payment-systems-info.component.html:14
+msgid "Limit per transaction"
+msgstr "Raja tapahtumaa kohden"
+
+#: components/game-catalog.html:141 components/profile-limits.html:2
+#: components/profile/deposit/steps/paymentSystems/steps-deposit-system-desc.html:3
+#: components/profile/withdraw/steps/paymentSystems/steps-withdraw-system-desc.html:3
+#: config/state/profile/profile-limits.config.ts:34
+#: config/wlc-profile-menu-default.js:195
+#: modules/finances/components/payment-systems-info/payment-systems-info.component.html:33
+#: modules/finances/components/payment-systems/payment-systems.html:9
+#: modules/profile/components/limits/limits.component.html:3
+msgid "Limits"
+msgstr "Rajat"
+
+#: modules/profile/components/limits/limits.component.html:20
+msgid "Limits your ability to deposit more funds to your gaming balance."
+msgstr "Rajoittaa mahdollisuuksia tallettaa enemmän varoja pelisaldoosi."
+
+#: modules/profile/components/limits/limits.component.html:26
+msgid "Limits your access to your account for 7, 30, 60, 90, 180, or 365 days."
+msgstr "Rajoittaa tilisi käyttöoikeutta 7, 30, 60, 90, 180 tai 365 päiväksi."
+
+#: config/wlc-main-menu-default.js:186
+#: config/wlc-main-menu-mobile-default.js:190
+msgid "Live Betting"
+msgstr "Live-vedonlyönti"
+
+#: config/wlc-main-menu-default.js:53 config/wlc-main-menu-mobile-default.js:56
+#: modules/error-page-box-two-column.html:8
+msgid "Live Casino"
+msgstr "Elävä kasino (Live kasino)"
+
+#: modules/base/components/country-accepts/country-accepts-content.html:14
+msgid "Live chat language"
+msgstr "Keskustelun kieli"
+
+#: directives/games/load-more-games.directive.html:9
+#: modules/search-and-filter-results.html:30
+msgid "Load more games"
+msgstr "Lataa lisää peleja"
+
+#: sections/games-play-mobile.html:6
+msgid "Loading..."
+msgstr "Ladataan..."
+
+#: config/forms/profile.form.ts:110
+msgid "Location"
+msgstr "Sijainti"
+
+#: dialogs/play-for-free.html:9
+msgid "Log in to play for real"
+msgstr "Kirjaudu sisään pelataksesi oikealla rahalla"
+
+#: dialogs/game.html:37 dialogs/user-login-signup.html:10
+#: dialogs/user-login-signup.html:20 dialogs/user-signup.html:21
+#: dialogs/user-signup.html:43 modules/header/login-button-mobile.html:11
+#: modules/header/profile-button-mobile.html:9 modules/login-button.html:2
+#: modules/login-form.html:30
+#: modules/profile/components/login-signup-dropdown/login-form.html:15
+#: modules/user-signup.html:29 partials/login-form.html:37
+#: partials/user-login.html:4 sections/user-signup.html:7
+msgid "Login"
+msgstr "Kirjaudu"
+
+#: controllers/user/user.controller.ts:236
+msgid "Login error"
+msgstr "Kirjautumisvirhe"
+
+#: dialogs/game.html:33
+msgid "Login to play for real"
+msgstr "Kirjaudu sisään pelataksesi oikealla rahalla"
+
+#: modules/login-signup/register-steps/partial/setup-social.html:4
+#: partials/login-form.html:9 partials/signup-form.html:50
+#: partials/signup-form/signup-form-content.html:10
+msgid "Login with social"
+msgstr "Kirjaudu sisään sosiaalimediatilillä"
+
+#: config/wlc-main-menu-default.js:45
+msgid "Logo"
+msgstr "Logo"
+
+#: config/wlc-profile-menu-default.js:164 dialogs/user-logout.html:6
+#: directives/wlc-profile-menu.html:131
+#: modules/user-stat-block-dropdown.html:112 modules/user-stat-block.html:60
+msgid "Logout"
+msgstr "Kirjaudu ulos"
+
+#: config/wlc-game-categories-default.js:179
+msgid "Lottery"
+msgstr "Arpajaiset"
+
+#: components/profile-bonuses-history.html:12
+#: components/profile-bonuses-history.html:47
+#: config/wlc-profile-menu-default.js:207
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:43
+msgid "Loyalty"
+msgstr "Lojaalisuus"
+
+#: config/state/profile/profile-loyalty.js:24
+msgid "Loyalty level"
+msgstr "Lojaalisuustaso"
+
+#: components/profile/loyalty/profile-loyalty-level.html:2
+msgid "Loyalty level progress"
+msgstr "Lojaalisuustason edistys"
+
+#: modules/loyalty/components/wlc-loyalty-levels/wlc-loyalty-levels.component.html:3
+msgid "Loyalty levels"
+msgstr "Lojaalisuustasot"
+
+#: modules/social-list.html:21 partials/signup-form.html:77
+#: partials/signup-form/signup-form-socials.html:25
+msgid "Mail.ru"
+msgstr "Mail.ru"
+
+#: config/forms/profile.form.ts:48
+msgid "Main info"
+msgstr "Tärkeimmät tiedot"
+
+#: dialogs/tournaments/tournament-insufficient-funds.html:5
+msgid "Make deposit"
+msgstr "Tee talletus"
+
+#: controllers/user/user-register.ts:138
+msgid "Male"
+msgstr "Mies"
+
+#: controllers/user/user-abstract.ts:138
+#: modules/profile/classes/profile-abstract.class.ts:139
+msgid "March"
+msgstr "Maaliskuu"
+
+#: config/wlc-profile-menu-default.js:225
+msgid "Market"
+msgstr "Tori"
+
+#: modules/sportsbook/components/betradar-widget/v2/partials/daily-match.html:3
+msgid "Match of the day"
+msgstr "Päivän ottelu"
+
+#: controllers/user/user-abstract.ts:140
+#: modules/profile/classes/profile-abstract.class.ts:141
+msgid "May"
+msgstr "Toukokuu"
+
+#: components/profile-gamblings-bets.html:112
+#: components/profile-gamblings-bets.html:25
+#: components/profile-gamblings-bets.html:76
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-filter.html:17
+msgid "Merchant"
+msgstr "Kauppias"
+
+#: modules/profile/components/profile-transactions/profile-transactions.component.ts:109
+msgid "Merchant complete"
+msgstr ""
+
+#: components/game-catalog.html:21 components/game-catalog.html:246
+#: components/game-catalog.html:348
+msgid "Merchants"
+msgstr "Kauppiaat"
+
+#: modules/base/components/contact-form/elements/sender-message.html:2
+msgid "Message"
+msgstr "Viesti"
+
+#: modules/base/components/contact-form/contact-form.component.ts:130
+msgid "Message sent failed."
+msgstr "Viestin lähetys epäonnistuu."
+
+#: controllers/contacts.ts:94
+#: modules/base/components/contact-form/contact-form.component.ts:124
+msgid "Message successfully sent."
+msgstr "Viesti lähetetty onnistuneesti."
+
+#: config/state/profile/profile-messages.config.ts:34
+#: config/wlc-profile-menu-default.js:158
+#: modules/profile/components/wlc-messages/wlc-messages-list.html:1
+msgid "Messages"
+msgstr "Viestit"
+
+#: modules/finances/components/payment-systems/payment-systems.html:5
+#: modules/profile/components/profile-transactions/profile-transactions-list.html:18
+#: modules/profile/components/profile-transactions/profile-transactions-list.html:71
+msgid "Method"
+msgstr "Menettelytapa"
+
+#: directives/deposit-withdraw/wlc-step-deposit-withdraw.directive.ts:268
+msgid "Minimum / maximum deposit requirement changed due to a selected bonus:"
+msgstr ""
+"Vähimmäismäärän / enimmäismäärän talletusvaatimus muuttui valitun bonuksen "
+"takia:"
+
+#: modules/profile/components/wlc-exchange-cash/wlc-exchange-cash.html:24
+msgid "Minimum RP"
+msgstr "RP vähimmäismäärä"
+
+#: classes/services/payment-system.model.ts:177
+#: partials/form-elements/mobile-phone.html:18
+#: partials/form-elements/phone-number.html:2
+msgid "Mobile phone"
+msgstr "Matkapuhelin"
+
+#: components/profile-notifications.html:29
+#: modules/profile/components/notification/sms-verification.html:13
+msgid "Mobile phone number verified"
+msgstr "Puhelinnumero vahvistettu"
+
+#: controllers/user/user-abstract.ts:151
+#: modules/profile/classes/profile-abstract.class.ts:152
+#: modules/profile/config/profile-forms.config.ts:130
+msgid "Month"
+msgstr "Kuu"
+
+#: directives/wlc-dropdown-list.html:4
+msgid "More"
+msgstr "Enemmän"
+
+#: components/profile-tournaments-main.html:46
+#: components/profile/deposit/steps/bonus/steps-deposit-bonus-actions.html:5
+#: components/profile/deposit/steps/modal/modal-step-deposit-bonuses.html:22
+#: components/profile/deposit/steps/modal/modal-step-deposit-systems.html:17
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:80
+#: modules/loyalty/components/store-list/store-list.item.html:18
+#: modules/loyalty/components/store-list/store-list.item.html:58
+#: modules/loyalty/components/tournaments-list/tournaments-list.item.html:39
+#: modules/loyalty/components/tournaments-slider/tournaments-slider-item.html:90
+msgid "More info"
+msgstr "Lisätietoa"
+
+#: modules/base/components/sorted-items/templates/merchants-in-category/dropdown-merchants.html:12
+#: modules/filter-merchants.html:15
+msgid "Multiple select"
+msgstr "Useita valintoja"
+
+#: components/profile-menu.html:2 directives/wlc-profile-menu.html:4
+msgid "My Account"
+msgstr "Minun Tili"
+
+#: config/wlc-main-menu-mobile-default.js:152
+#: config/wlc-profile-menu-default.js:32
+msgid "My account"
+msgstr "Minun tili"
+
+#: components/profile-bonuses-active.html:1
+msgid "My active bonuses"
+msgstr "Minun aktiiviset bonukset"
+
+#: components/profile-bonuses-history.html:1
+msgid "My bonus history"
+msgstr "Minun bonushistoria"
+
+#: modules/mobile-menu-column.html:16
+msgid "My favorite"
+msgstr "Suosikkini"
+
+#: config/wlc-game-categories-default.js:137
+#: config/wlc-main-menu-mobile-default.js:38 partials/game-catalog.html:16
+msgid "My favourites"
+msgstr "Minun suosikit"
+
+#: components/profile-store-orders.html:2
+msgid "My orders history"
+msgstr "Tilaushistoria"
+
+#: modules/user-stat-block.html:55
+msgid "My profile"
+msgstr "Minun profiili"
+
+#: components/profile-tournaments-history.html:9
+msgid "Name"
+msgstr "Nimi"
+
+#: modules/profile/components/profile-transactions/profile-transactions.component.ts:103
+msgid "New"
+msgstr "Uusi"
+
+#: modules/profile/config/profile-forms.config.ts:359
+#: partials/form-elements/password-new.html:13
+#: partials/form-elements/password-new.html:3
+msgid "New password"
+msgstr "Uusi salasana"
+
+#: config/wlc-main-menu-default.js:143
+#: config/wlc-main-menu-mobile-default.js:182
+msgid "News"
+msgstr "Uutiset"
+
+#: bower/dirPagination.tpl.html:10
+msgid "Next"
+msgstr "Seuraava"
+
+#: components/profile-main-level.html:28
+msgid "Next level points"
+msgstr "Seuraavan tason pisteet"
+
+#: controllers/user/user-profile.ts:95 dialogs/confirmation.html:24
+#: dialogs/user-logout.html:16
+#: modules/profile/components/main-info/main-info.component.ts:93
+msgid "No"
+msgstr "Ei"
+
+#: modules/base/components/wlc-smart-userinfo/wlc-smart-userinfo.component.html:26
+#: modules/base/components/wlc-smart-userinfo/wlc-smart-userinfo.component.html:32
+#, fuzzy
+msgid "No Active Bonus"
+msgstr "Aktiivinen bonus"
+
+#: components/profile-referrals.html:58 components/profile-store-main.html:36
+#: components/profile-tournaments-active.html:6
+#: modules/loyalty/components/store-list/store-list.component.html:24
+#: modules/loyalty/components/store-list/store-list.component.html:45
+msgid "No active items available"
+msgstr "Ei aktiivisia kohteita saatavilla"
+
+#: modules/loyalty/controllers/loyalty-tournaments.controller.ts:218
+msgid "No available wins"
+msgstr "Ei saatavissa olevia voittoja"
+
+#: components/profile-gamblings-bets.html:47
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history.html:13
+msgid "No bets history"
+msgstr "Vedohistoria on tyhjä"
+
+#: components/profile-bonuses-inventory.html:35
+#: components/profile-bonuses-list.html:14
+#: modules/loyalty/components/bonuses-list/bonuses-list.component.html:19
+#: modules/loyalty/components/bonuses-slider/bonuses-slider.component.html:15
+#: modules/profile/components/wlc-dashboard-bonuses/wlc-dashboard-bonuses-content.html:12
+msgid "No bonus found"
+msgstr "Bonuksia ei löytynyt"
+
+#: components/profile-bonuses-history.html:94
+msgid "No bonus history"
+msgstr "Bonushistoria on tyhjä"
+
+#: modules/login-signup/register-steps/partial/setup-bonus.html:3
+#: partials/signup-form.html:44 partials/signup-form/signup-form-content.html:5
+msgid "No bonus is selected."
+msgstr "Bonusta ei ole valittu."
+
+#: modules/loyalty/components/choose-bonus/choose-bonus.html:21
+msgid "No bonuses available"
+msgstr "Bonukset ei ole saatavilla"
+
+#: modules/loyalty/components/store-list/store-list.component.html:49
+msgid "No categories available"
+msgstr "Kategoriat ei ole saatavilla"
+
+#: components/profile-tournaments-history.html:67
+msgid "No history items available"
+msgstr "Historiakohteita ei ole saatavilla"
+
+#: components/pages-content.html:10
+msgid "No information"
+msgstr "Ei tietoja"
+
+#: modules/loyalty/components/wlc-loyalty-levels/wlc-loyalty-levels.component.html:21
+msgid "No level data"
+msgstr "Ei tasotietoja"
+
+#: classes/services/loyalty-bonuses.class.ts:676
+msgid "No lock"
+msgstr "Ei lukkoa"
+
+#: modules/profile/components/wlc-messages/wlc-messages-list.html:58
+msgid "No messages"
+msgstr "Ei viestejä"
+
+#: components/pages-content.html:9
+#: modules/static-content/components/static-blog/static-blog-content.html:8
+msgid "No news"
+msgstr "Ei uutisia"
+
+#: components/profile-store-orders.html:31
+msgid ""
+"No orders history items\n"
+"            available"
+msgstr "Ei tilaushistoriakohteita"
+
+#: components/profile-tournaments-main.html:76
+#: modules/loyalty/components/tournaments-list/tournaments-list.component.html:20
+#: modules/loyalty/components/tournaments-slider/tournaments-slider.component.html:21
+msgid "No tournaments at the moment"
+msgstr "Ei turnauksia tällä hetkellä"
+
+#: modules/profile/components/profile-transactions/profile-transactions.component.html:14
+msgid "No transaction history"
+msgstr "Ei tapahtumahistoriaa"
+
+#: components/profile-bonuses-promo.html:26
+#: modules/loyalty/components/bonuses-list/bonuses-list.component.html:46
+msgid "No voucher found"
+msgstr "Kuponkia ei löytynyt"
+
+#: modules/loyalty/components/choose-bonus/choose-bonus.html:24
+msgid "Not choose any Bonus"
+msgstr ""
+
+#: modules/loyalty/components/choose-bonus/choose-bonus.html:41
+msgid "Not choosing any Bonus"
+msgstr "Ei valita mitään bonusta"
+
+#: controllers/user/user-profile.ts:103 controllers/user/user-profile.ts:80
+#: controllers/user/user-profile.ts:86 controllers/user/user-profile.ts:93
+#: controllers/user/user-profile.ts:99
+#: modules/profile/components/main-info/main-info.component.ts:107
+#: modules/profile/components/main-info/main-info.component.ts:91
+#: modules/profile/components/main-info/main-info.component.ts:97
+msgid "Not selected"
+msgstr "Ei ole valittu"
+
+#: components/profile-store-orders.html:14
+#: components/profile-verification-main.html:56
+#: modules/profile/components/profile-transactions/profile-transactions-list.html:64
+msgid "Note"
+msgstr "Muistiinpano"
+
+#: components/profile-notifications.html:1
+#: config/state/profile/profile-notifications.config.ts:35
+#: config/wlc-profile-menu-default.js:183
+#: modules/profile/components/notification/notification.config.ts:6
+msgid "Notifications"
+msgstr "Ilmoitukset"
+
+#: modules/profile/config/profile-forms.config.ts:494
+msgid "Notifications via email"
+msgstr "Ilmoitukset sähköpostitse"
+
+#: modules/profile/config/profile-forms.config.ts:510
+msgid "Notifications via sms"
+msgstr "Ilmoitukset viestitse"
+
+#: controllers/user/user-abstract.ts:146
+#: modules/profile/classes/profile-abstract.class.ts:147
+msgid "November"
+msgstr "Marraskuu"
+
+#: dialogs/user-message.html:10 dialogs/user-payment-success.html:24
+msgid "OK"
+msgstr "OK"
+
+#: dialogs/tournaments/tournament-subscribe.html:58
+msgid "OK!"
+msgstr "OK!"
+
+#: dialogs/play-for-free.html:12
+msgid "OR"
+msgstr "TAI"
+
+#: controllers/user/user-abstract.ts:145
+#: modules/profile/classes/profile-abstract.class.ts:146
+msgid "October"
+msgstr "Lokakuu"
+
+#: partials/form-elements/odds.html:2
+msgid "Odds style"
+msgstr ""
+
+#: modules/social-list.html:16 partials/signup-form.html:71
+#: partials/signup-form/signup-form-socials.html:19
+msgid "Odnoklassniki"
+msgstr ""
+
+#: components/profile-bonuses-inventory.html:1
+#: components/profile-bonuses-list.html:1 config/wlc-profile-menu-default.js:50
+#: directives/wlc-profile-menu.html:36
+msgid "Offers"
+msgstr "Tarjoukset"
+
+#: config/wlc-profile-menu-default.js:201
+msgid "Open bets"
+msgstr "Avoimet vedot"
+
+#: modules/store-menu.html:24
+msgid "Orders"
+msgstr "Tilaukset"
+
+#: modules/profile/config/profile-forms.config.ts:322
+#: partials/form-elements/pep.html:2
+msgid "PEP"
+msgstr "PEP"
+
+#: modules/error-page-box.html:5 services/error.service.ts:279
+msgid "Page not found"
+msgstr "Sivua ei löytnyt"
+
+#: config/forms/profile.form.ts:139
+msgid "Passport details"
+msgstr "Salasanan yksityiskohdat"
+
+#: components/profile-password.html:1
+#: components/profile/deposit/steps/modal/modal-step-deposit-profile-password.html:2
+#: components/profile/deposit/steps/modal/modal-step-deposit-profile-password.html:9
+#: config/forms/profile.form.ts:192
+#: config/state/profile/profile-password.config.ts:35
+#: config/wlc-profile-menu-default.js:177 dialogs/user-social-complete.html:24
+#: modules/profile/components/password-change/password-change.config.ts:6
+#: partials/form-elements/password-registration.html:11
+#: partials/form-elements/password-registration.html:2
+#: partials/form-elements/password.html:13
+#: partials/form-elements/password.html:3
+msgid "Password"
+msgstr "Salasana"
+
+#: config/app.js:175
+msgid "Password create"
+msgstr "Luo salasana"
+
+#: directives/wlc-password.ts:106
+msgid "Password must be at least 6 characters"
+msgstr "Salasanan pitää olla vähintään 6 merkkiä"
+
+#: directives/wlc-password.ts:109
+msgid "Password must be at least 6 characters and contain letter and digit"
+msgstr ""
+"Salasanan pitää olla vähintään 6 merkkiä ja sisältää kirjaimen ja numeron"
+
+#: directives/wlc-password.ts:118
+msgid ""
+"Password must be at least 6 characters and contain small and large letter, "
+"digit and special symbol"
+msgstr ""
+"Salasanan pitää olla vähintään 6 merkkiä ja sisältää vähintään ison "
+"kirjaimen, pienen kirjaimen, numeron ja erikoismerkin"
+
+#: services/validator/password.rules.ts:18
+msgid ""
+"Password must contain latin letters in upper and lower case, numbers and "
+"special symbols"
+msgstr ""
+"Salasanan pitää sisältää ison ja pienen kirjamen, numeron ja erikoismerkin"
+
+#: dialogs/password-restore-step2.html:9
+msgid "Password reset"
+msgstr "Salasanan resetointi"
+
+#: components/user-restore-complete.js:20
+#: components/user-restore-complete.js:37 dialogs/password-restore.html:12
+msgid "Password restore"
+msgstr "Salasanan palautus"
+
+#: controllers/user/user-profile.ts:279 dialogs/user-social-complete.html:35
+#: modules/profile/components/password-change/password-change.component.ts:79
+msgid "Passwords should match"
+msgstr "Salasanojen pitäisi täsmätä"
+
+#: modules/profile/components/limits/limits.component.html:24
+msgid "Pause account"
+msgstr "Keskeytä tili"
+
+#: controllers/finanses.controller.ts:619
+msgid "Payment"
+msgstr "Maksu"
+
+#: modules/footer-info.html:75
+msgid "Payment Methods"
+msgstr "Maksutavat"
+
+#: config/wlc-main-menu-mobile-default.js:134
+#: modules/finances/components/payment-systems-info/payment-systems-info.component.html:10
+msgid "Payment System"
+msgstr "Maksujärjestelmä"
+
+#: directives/wlc-deposit.html:78
+msgid "Payment information"
+msgstr "Maksutiedot"
+
+#: components/profile/deposit/steps/amount/steps-deposit-amount-block.html:13
+#: components/profile/withdraw/default-withdraw.html:67
+#: components/profile/withdraw/steps/amount/steps-withdraw-amount-block.html:11
+#: directives/wlc-deposit.html:55
+msgid ""
+"Payment method isn't available. Please fill in the following profile fields"
+msgstr "Maksutapa ei ole saatavilla. Täytä seuraavat kentät profiilissasi"
+
+#: config/state/profile/profile-payments.config.ts:34
+#: config/wlc-profile-menu-default.js:189
+msgid "Payments"
+msgstr "Maksut"
+
+#: modules/base/components/wlc-smart-userinfo/wlc-smart-userinfo.component.html:29
+#, fuzzy
+msgid "Period Of Wagering"
+msgstr "Panostaminen"
+
+#: modules/profile/components/limits/limits.component.html:31
+msgid "Permanently denies you access to your account."
+msgstr "Pysyvästi estää tilille kirjautumisen"
+
+#: partials/contacts.html:7 partials/form-elements/alternative-phone.html:21
+msgid "Phone"
+msgstr "Puhelin"
+
+#: partials/form-elements/alternative-phone.html:11
+msgid "Phone code"
+msgstr "Maatunnus"
+
+#: services/validator/phone.rules.ts:100
+#, fuzzy
+msgid "Phone code is empty"
+msgstr "Maatunnus"
+
+#: modules/profile/config/profile-forms.config.ts:408
+#: modules/profile/config/profile-forms.config.ts:425
+#: partials/form-elements/alternative-phone.html:27
+#: partials/form-elements/mobile-phone.html:24
+#: partials/form-elements/phone-number.html:11
+msgid "Phone number"
+msgstr "Puhelinnumero"
+
+#: components/profile-tournaments-history.html:10
+msgid "Place"
+msgstr "Paikka"
+
+#: components/game-catalog.html:10 components/game-catalog.html:121
+#: components/game-catalog.html:158 components/game-catalog.html:183
+#: components/game-catalog.html:213 components/game-catalog.html:237
+#: components/game-catalog.html:283 components/game-catalog.html:315
+#: components/game-catalog.html:339 components/game-catalog.html:384
+#: components/game-catalog.html:59 components/game-catalog.html:89
+#: directives/wlc-catalog-box.html:20 modules/game-thumb.html:45
+#: modules/search.html:34
+msgid "Play"
+msgstr "Pela"
+
+#: dialogs/game.html:43 dialogs/play-for-free.html:13
+msgid "Play for free"
+msgstr "Pelaa ilmaiseksi"
+
+#: dialogs/game.html:25 modules/game-play/game-play-header.html:25
+msgid "Play for real"
+msgstr "Pelaa oikealla rahalla"
+
+#: config/wlc-modal-config.js:136
+msgid "Play for real is disabled"
+msgstr "Rahalla pelaaminen estetty"
+
+#: constants/check-on-run-game.js:64
+msgid "Play for real is disabled in your country"
+msgstr "Maassasi rahalla pelaaminen estetty"
+
+#: dialogs/tournaments/tournament-insufficient-points.html:4
+msgid "Play more to get more loyalty points!"
+msgstr "Pelaa enemmän saadaksesi lisää lojaalisuuspisteitä!"
+
+#: modules/loyalty/components/tournaments-slider/tournaments-slider-item.html:34
+#: modules/tournaments/tournament-last-wins.html:7
+#: modules/tournaments/tournament-leaders.html:12
+#: modules/tournaments/tournament-winners.html:16
+msgid "Player"
+msgstr "Pelaaja"
+
+#: modules/profile/components/limits/limits.component.html:8
+msgid "Playing at"
+msgstr "Pelaa"
+
+#: directives/wlc-merchants-in-category.directive.ts:108
+msgid "PlaysonDirect"
+msgstr "PlaysonDirect"
+
+#: controllers/user/user-register.ts:308
+msgid "Please complete registration using link in e-mail"
+msgstr "Lopeta rekisteröinti käytämällä linkkia sähköpostissasi"
+
+#: modules/register-form.html:132 partials/signup-form.html:242
+#: partials/signup-form/signup-form.html:47
+msgid "Please complete registration using link in e-mail."
+msgstr "Lopeta rekisteröinti käytämällä linkkia sähköpostissasi."
+
+#: components/profile/deposit/steps/amount/steps-deposit-amount-block.html:8
+msgid "Please confirm."
+msgstr "Vahvista"
+
+#: dialogs/bonuses/subscribe-deposit-bonus.html:10
+msgid "Please continue to the deposit page."
+msgstr "Jatkaa talletussivulle"
+
+#: dialogs/password-restore.html:16
+msgid "Please enter e-mail that was used to create an account at"
+msgstr "Kirjoita sähköpostiosoite, jota käytetiin tilin rekisteröinnissä"
+
+#: components/profile/withdraw/default-withdraw.html:43
+#: directives/wlc-deposit.html:18
+msgid ""
+"Please fill in country field in profile to get all payment methods available"
+msgstr ""
+"Saadakseen kaikki maksutavat näkyville, täytä profiilissasi \"Maa\" kenttä "
+
+#: dialogs/profile-check-error.html:8
+msgid ""
+"Please fill in profile to make deposits and withdrawals and to play games"
+msgstr "Täytä profiili jotta pystyt tekemään talletuksia ja kotiutuksia"
+
+#: components/user-register-success.html:3
+msgid "Please follow instruction link to finalize registration process"
+msgstr "Seuraa ohjelinkkia jotta tilisi luodaan"
+
+#: modules/register-form.html:133 partials/signup-form.html:243
+#: partials/signup-form/signup-form.html:48
+msgid "Please login using e-mail and password."
+msgstr "Kirjaudu sisään käyttämällä sähköpostia ja salasanaa."
+
+#: components/profile/deposit/steps/modal/modal-step-deposit-systems-additional.html:7
+msgid ""
+"Please make sure that the credentials are correct, as you will not be able "
+"to make changes to this information in the future."
+msgstr ""
+"Tarkista, että tunnukset ovat oikeita, et pysty muuttamaan tunnuksia sen "
+"jälkeen."
+
+#: directives/wlc-deposit.html:92
+msgid "Please note, that minimum deposit amount for this method is"
+msgstr "Huomaa, että tämän maksutavan pienin talletusmäärä on"
+
+#: dialogs/user-restore-complete.html:28
+msgid "Please, use both numbers and latin letters"
+msgstr "Ole hyvä ja käytä numeroita ja latinalaisia kirjaimia"
+
+#: components/profile-tournaments-history.html:11
+#: components/profile-tournaments-history.html:27
+#: modules/games-play-desktop.html:179
+#: modules/loyalty/components/tournaments-slider/tournaments-slider-item.html:35
+#: modules/user-stat-block-dropdown.html:48 modules/user-stat-block.html:35
+msgid "Points"
+msgstr "Pisteet"
+
+#: partials/form-elements/pep.html:3
+msgid "Politically exposed person (PEP)"
+msgstr "Poliittisesti vaikutusvaltainen henkilö"
+
+#: modules/sportsbook/components/betradar-widget/v2/partials/popular-events.html:4
+msgid "Popular events"
+msgstr "Suosittut tapahtumat"
+
+#: components/game-catalog.html:43
+msgid "Popular games"
+msgstr "Suosittut pelit"
+
+#: dialogs/tournaments/tournament-info.html:31
+#: modules/tournaments/tournament-leaders.html:11
+#: modules/tournaments/tournament-winners.html:13
+msgid "Position"
+msgstr "Sijainti"
+
+#: classes/services/payment-system.model.ts:142
+#: modules/profile/config/profile-forms.config.ts:208
+msgid "Postal code"
+msgstr "Postinumero"
+
+#: bower/dirPagination.tpl.html:2
+msgid "Previous"
+msgstr "Edellinen"
+
+#: components/profile-store-orders.html:11 directives/wlc-store-item.html:7
+#: modules/loyalty/components/store-list/store-list.item.html:14
+#: modules/loyalty/components/store-list/store-list.item.html:54
+msgid "Price"
+msgstr "Hinta"
+
+#: config/wlc-main-menu-mobile-default.js:110
+#: modules/agreements/privacy-policy.html:8 modules/footer-info.html:13
+msgid "Privacy Policy"
+msgstr "Tietosuojakäytäntö"
+
+#: modules/login-signup/register-steps/partial/terms.html:31
+msgid "Privacy policy"
+msgstr "Tietosuojakäytäntö"
+
+#: dialogs/tournaments/tournament-info.html:36
+#: modules/games-play-desktop.html:135
+#: modules/tournaments/tournament-leaders.html:13
+#: modules/tournaments/tournament-winners.html:19
+msgid "Prize"
+msgstr "Palkinto"
+
+#: modules/login-signup/register-steps/bonuses.html:27
+#: partials/signup-form.html:34 partials/signup-form/signup-form.html:37
+msgid "Proceed without welcome bonus"
+msgstr "Jatkaa ilman tervetuliaisbonusta"
+
+#: components/profile-verification-main.html:28
+#: modules/finances/components/payment-systems/payment-systems.html:8
+msgid "Processing"
+msgstr "Käsittely"
+
+#: modules/finances/components/payment-systems-info/payment-systems-info.component.html:13
+msgid "Processing Time"
+msgstr "Käsittelyaika"
+
+#: components/profile-store-orders.html:10
+msgid "Product name"
+msgstr "Tuotteen nimi"
+
+#: controllers/profile-store.js:23
+#: modules/loyalty/components/store-list/store-list.component.ts:122
+msgid "Product purchase"
+msgstr "Tuotteen osto"
+
+#: controllers/profile-store.js:35
+#: modules/loyalty/components/store-list/store-list.component.ts:141
+msgid "Product purchase failed"
+msgstr "Tuotteen osto epäonnistui"
+
+#: controllers/profile-store.js:28
+#: modules/loyalty/components/store-list/store-list.component.ts:130
+#: modules/profile/components/wlc-exchange-cash/wlc-exchange-cash.component.ts:136
+msgid "Product succesfuly purchased"
+msgstr "Tuoteen osto onnistui"
+
+#: components/profile-menu.html:6 components/profile.js:26
+#: directives/profile-menu/wlc-profile-menu-mobile.html:4
+#: modules/profile/components/main-info/main-info.config.ts:6
+#: modules/profile/components/main-info/main-info.config.ts:65
+msgid "Profile"
+msgstr "Käyttäjätili"
+
+#: controllers/user/user-profile.ts:372
+msgid "Profile email change failed"
+msgstr "Käyttäjätilin sähköpostin vaihto epäonnistui"
+
+#: controllers/user/user-profile.ts:351
+msgid "Profile email changed"
+msgstr "Käyttäjätilin sähköpostin vaihto onnistui"
+
+#: config/state/profile/profile-main.config.ts:87
+msgid "Profile level"
+msgstr "Käyttäjätilin taso"
+
+#: config/state/profile/profile-main.config.ts:98
+msgid "Profile main"
+msgstr ""
+
+#: controllers/user/user-profile.ts:297
+#: modules/profile/components/password-change/password-change.component.ts:97
+msgid "Profile password change failed"
+msgstr "Käyttäjätilin salasanan vaihto epäonnistui"
+
+#: controllers/user/user-profile.ts:293
+#: modules/profile/components/password-change/password-change.component.ts:93
+msgid "Profile password changed"
+msgstr "Käyttäjätilin salasanan vaihto onnistui"
+
+#: controllers/user/user-profile.ts:408
+msgid "Profile phone change failed"
+msgstr "Käyttäjätilin puhelinnumeron vaihto epäonnistui"
+
+#: controllers/user/user-profile.ts:404
+msgid "Profile phone changed"
+msgstr "Käyttäjätilin puhelinnumeron vaihto onnistui"
+
+#: controllers/finanses.controller.ts:402 controllers/user/user-profile.ts:245
+msgid "Profile save failed"
+msgstr "Käyttäjätilitietojen tallentaminen epäonnistui"
+
+#: controllers/user/user-profile.ts:234
+#: modules/profile/classes/profile-abstract.class.ts:77
+#: modules/profile/components/notification/notification.component.ts:152
+msgid "Profile saved"
+msgstr "Käyttäjätilitiedot tallennettu"
+
+#: controllers/user/user-profile.ts:119
+#: modules/profile/components/bank-info/bank-info.component.ts:86
+#: modules/profile/components/main-info/main-info.component.ts:114
+#: modules/profile/components/password-change/password-change.component.ts:55
+msgid "Profile update"
+msgstr "Käyttäjätilitietojen päivitys"
+
+#: components/profile-referrals.html:41
+msgid "Profit RS"
+msgstr "RS Voitto"
+
+#: components/user-social-register.html:39
+#: controllers/user/user-register.ts:452 controllers/user/user-register.ts:460
+#: dialogs/promo-code.html:20 dialogs/promo-code.html:29
+#: modules/register-form.html:56 partials/form-elements/promocode.html:8
+#: partials/signup-form.html:157
+msgid "Promo code"
+msgstr "Kampanjakoodi"
+
+#: config/wlc-main-menu-default.js:168 config/wlc-main-menu-default.js:176
+#: config/wlc-main-menu-mobile-default.js:175
+msgid "Promotions"
+msgstr "Kampanjat"
+
+#: dialogs/profile-verification/profile-verification-address.html:4
+#: dialogs/profile-verification/profile-verification-default.html:4
+msgid "Prove your address"
+msgstr "Todista osoitteesi"
+
+#: dialogs/profile-verification/profile-verification-id.html:4
+msgid "Prove your identity"
+msgstr "Todista henkilöllisyys"
+
+#: dialogs/profile-verification/profile-verification-payment.html:4
+msgid "Prove your payment account"
+msgstr "Todista maksutapasi"
+
+#: dialogs/profile-verification/profile-verification-address.html:10
+msgid ""
+"Provide a scan or a photo, of a paper document sent to the address "
+"associated with your account; this can be either a bank statement, phone or "
+"utility bill."
+msgstr ""
+"Lähetä skannaus tai valokuva paperiasiakirjasta, mikä on lähetetty sinun "
+"osoitteeseen; tämä voi olla pankin tiliote, puhelinlasku tai joku muu lasku."
+
+#: dialogs/profile-verification/profile-verification-payment.html:11
+msgid "Provide scans or photos of both sides of the Credit Card."
+msgstr ""
+"Lähetä skannaus tai valokuva luottokortin sekä etupuolesta että "
+"kääntöpuolesta."
+
+#: dialogs/profile-verification/profile-verification-id.html:11
+msgid "Provide scans or photos of both sides of the document."
+msgstr ""
+"Lähetä skannaus tai valokuva henkilötodistuksen sekä etupuolesta että "
+"kääntöpuolesta."
+
+#: dialogs/profile-verification/profile-verification-id.html:10
+msgid ""
+"Provide scans or photos, of either passport, drivers license or government "
+"issued ID-card."
+msgstr "Lähetä skannaus tai valokuva passista, ajokortista tai id-kortista"
+
+#: dialogs/profile-verification/profile-verification-payment.html:10
+msgid "Provide scans or photos, of the Credit Card."
+msgstr "Lähetä skannaus tai valokuva luotokortista."
+
+#: components/profile/deposit/steps/paymentSystems/steps-deposit-system-desc.html:13
+#: components/profile/withdraw/steps/paymentSystems/steps-withdraw-system-desc.html:13
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-list.html:35
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-list.html:8
+msgid "Provider"
+msgstr "Tarjoaja"
+
+#: components/profile-store-orders.html:12
+msgid "Purchase date"
+msgstr "Ostopäivä"
+
+#: modules/profile/controllers/wlc-dashboard-bonuses.controller.ts:98
+msgid "Purchased"
+msgstr "Ostettu"
+
+#: components/profile-tournaments-history.html:50
+msgid "Qualified"
+msgstr "Pätevä"
+
+#: modules/profile/components/wlc-dashboard-loyalty/wlc-dashboard-loyalty.html:12
+#: modules/profile/components/wlc-exchange-cash/wlc-exchange-cash.html:16
+msgid "RP"
+msgstr "RP"
+
+#: components/pages-content.html:33
+msgid "Read more"
+msgstr "Lue lisää"
+
+#: modules/profile/components/verification/verification.component.html:4
+msgid "Read more about Account verification"
+msgstr "Lue lisää tilin vahvistuksesta"
+
+#: modules/profile/components/limits/limits.component.html:39
+msgid "Read more about responsible gaming."
+msgstr "Lue lisää vastuullisesta pelaamisesta."
+
+#: directives/wlc-bonus.html:19 directives/wlc-store-item.html:17
+msgid "Read the terms"
+msgstr "Lue käyttöehdot"
+
+#: components/profile/deposit/default-deposit.html:15
+#: components/profile/withdraw/default-withdraw.html:13
+#: partials/user-all-balances-block.html:2
+msgid "Real balance:"
+msgstr "Todellinen saldo:"
+
+#: components/profile-referrals.html:18 components/profile-referrals.html:35
+msgid "Ref email"
+msgstr "Viitaussähköposti"
+
+#: partials/form-elements/referal-id.html:2
+#: partials/form-elements/referal-id.html:8
+msgid "Referral code"
+msgstr "Viittauskoodi"
+
+#: components/profile-referrals.html:2
+#: config/state/profile/profile-referrals.config.ts:27
+#: config/wlc-profile-menu-default.js:213
+msgid "Referrals"
+msgstr "Viittaukset"
+
+#: components/user-register.html:2 components/user-register.js:33
+#: controllers/steps.controller.ts:157 dialogs/password-restore.html:57
+#: dialogs/user-social-complete.html:56
+#: directives/main-menu/wlc-main-menu-mobile.html:25
+#: modules/finances/components/payment-systems-info/payment-systems-info.component.html:63
+#: modules/header/login-button-mobile.html:16 modules/login-button.html:8
+#: modules/login-form.html:36
+#: modules/profile/components/login-signup-dropdown/login-signup-dropdown.component.html:10
+#: modules/register-form.html:122 partials/signup-form.html:228
+#: partials/signup-form/signup-form-content.html:43 partials/user-login.html:7
+msgid "Register"
+msgstr "Rekisteröidy"
+
+#: components/user-register.js:44 components/user-register.js:60
+msgid "Register success"
+msgstr "Rekisteröinti onnistui"
+
+#: dialogs/social-networks/user-social-register.html:3
+#: dialogs/user-login-signup.html:11 dialogs/user-login-signup.html:25
+#: dialogs/user-social-complete.html:3 partials/login-form.html:27
+#: sections/user-signup.html:4
+msgid "Registration"
+msgstr "Rekisteröinti"
+
+#: dialogs/tournaments/tournament-subscribe.html:40
+msgid "Registration will be open once the tournament starts"
+msgstr "Rekisteröinti avataan heti kun turnaus alkaa"
+
+#: modules/profile/components/profile-transactions/profile-transactions.component.ts:100
+#: modules/profile/components/profile-transactions/profile-transactions.component.ts:101
+msgid "Rejected"
+msgstr "Hylätty"
+
+#: components/profile-bonuses-active.html:27
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:27
+msgid "Remaining"
+msgstr "Jäljellä oleva"
+
+#: components/profile-bonuses-inventory.html:26
+msgid "Remove"
+msgstr "Poista"
+
+#: modules/profile/components/limits/limits.component.html:44
+#: modules/profile/components/limits/limits.component.html:48
+msgid "Request limits"
+msgstr "Pyydä rajoituksia"
+
+#: dialogs/user-social-complete.html:34
+msgid "Required field"
+msgstr "Pakollinen kenttä"
+
+#: dialogs/sms-verification/sms-verification.html:61
+#: modules/login-signup/register-steps/partial/resend-sms-btn.html:3
+#: partials/form-elements/phone-number.html:38
+msgid "Resend"
+msgstr "Uudelleenlähetä"
+
+#: partials/form-elements/phone-number.html:39
+#, fuzzy
+msgid "Resend after"
+msgstr "Uudelleenlähetä *** jälkeen"
+
+#: dialogs/sms-verification/sms-verification.html:60
+#: modules/login-signup/register-steps/partial/resend-sms-btn.html:2
+#, fuzzy
+msgid "Resend in"
+msgstr "Uudelleenlähetä *"
+
+#: config/wlc-main-menu-mobile-default.js:116 modules/footer-info.html:28
+msgid "Responsible Game"
+msgstr "Vastuullinen peli"
+
+#: dialogs/user-restore-complete.html:29
+msgid "Restore"
+msgstr "Palauta"
+
+#: components/user-restore.html:2
+msgid "Restore password"
+msgstr "Palauta salasana"
+
+#: classes/services/loyalty-bonuses.class.ts:694
+msgid "Restricted"
+msgstr "Rajoitettu"
+
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-list.html:39
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-list.html:9
+msgid "Result"
+msgstr "Tulos"
+
+#: config/wlc-main-menu-default.js:197
+msgid "Results"
+msgstr "Tulokset"
+
+#: components/profile-referrals.html:20
+msgid "Revenue to withdraw"
+msgstr "Tuoton kotiutus"
+
+#: modules/profile/components/wlc-dashboard-loyalty/wlc-dashboard-loyalty.html:3
+msgid "Rolling Point"
+msgstr "Rolling Point"
+
+#: modules/profile/components/wlc-exchange-cash/wlc-exchange-cash.html:4
+msgid "Rolling Point exchange to cash"
+msgstr "Rolling Pointin vaihto rahaan"
+
+#: modules/games-play-desktop.html:121
+msgid "Rules"
+msgstr "Säännöt"
+
+#: classes/services/payment-system.model.ts:167
+#: modules/profile/config/profile-forms.config.ts:290
+#: partials/form-elements/swift.html:10 partials/form-elements/swift.html:2
+msgid "SWIFT"
+msgstr "SWIFT"
+
+#: components/profile/deposit/steps/modal/modal-step-deposit-systems-additional.html:38
+#: dialogs/profile-partial-update.html:43
+#: modules/profile/config/profile-forms.config.ts:437
+msgid "Save"
+msgstr "Tallenna"
+
+#: modules/game-catalog-menu.html:48
+#: modules/profile/components/profile-transactions/profile-transactions-filter.html:28
+#: modules/profile/components/wlc-dashboard-bonuses/wlc-dashboard-bonuses-filter.html:29
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-filter.html:55
+msgid "Search"
+msgstr "Hae"
+
+#: modules/filter-search.html:7 modules/game-catalog-menu.html:54
+msgid "Search for games"
+msgstr "Hae pelejä"
+
+#: modules/search-and-filter-results.html:10
+msgid "Search result"
+msgstr "Hakutulokset"
+
+#: modules/game-slider/home-game-sliders.html:14
+#: modules/game-thumb-slider.html:13
+#: modules/games/components/game-thumb-slider/game-thumb-slider.html:12
+#: modules/games/components/games-catalog/games-catalog.component.html:16
+msgid "See all"
+msgstr "Katso kaikki"
+
+#: modules/sportsbook/components/betradar-widget/v2/partials/daily-match.html:35
+msgid "See match online"
+msgstr "Katso ottelu onlinessa"
+
+#: components/profile/deposit/steps/bonus/steps-deposit-bonus-block-modal.html:2
+#: components/profile/deposit/steps/modal/modal-step-deposit-bonuses.html:3
+msgid "Select a bonus"
+msgstr "Valitse bonus"
+
+#: components/profile/deposit/steps/paymentSystems/steps-deposit-system-block.html:5
+msgid "Select a payment method"
+msgstr "Valitse maksutapa"
+
+#: components/profile/withdraw/steps/paymentSystems/steps-withdraw-system-block.html:5
+msgid "Select a withdraw method"
+msgstr "Valitse kotiutumistapa"
+
+#: modules/base/components/sorted-items/templates/merchants-in-category/dropdown-merchants.html:17
+msgid "Select providers"
+msgstr "Valitse palveluntarjoajat"
+
+#: components/profile-tournaments-history.html:49
+msgid "Selected"
+msgstr "Valittu"
+
+#: modules/profile/components/limits/limits.component.html:29
+msgid "Self exclusion"
+msgstr ""
+
+#: modules/base/components/contact-form/elements/sender-submit.html:10
+#: modules/base/components/contact-form/elements/sender-submit.html:8
+msgid "Send message"
+msgstr "Lähetä viesti"
+
+#: controllers/user/user-abstract.ts:144
+#: modules/profile/classes/profile-abstract.class.ts:145
+msgid "September"
+msgstr "Syyskuu"
+
+#: controllers/steps.controller.ts:162
+msgid "Set up your account"
+msgstr "Perustaa tili"
+
+#: dialogs/required-fields.html:85 partials/form-elements/gender.html:1
+msgid "Sex"
+msgstr "Suku"
+
+#: components/profile/deposit/steps/paymentSystems/steps-deposit-system-empty.html:3
+#: components/profile/withdraw/steps/paymentSystems/steps-withdraw-system-empty.html:3
+msgid "Show all methods"
+msgstr "Näytä kaikkia tapoja"
+
+#: modules/static-content/components/inline-text/inline-text.component.html:21
+#, fuzzy
+msgid "Show less"
+msgstr "Näytä lisää"
+
+#: modules/loyalty/components/bonuses-slider/bonuses-slider-item.html:80
+#: modules/static-content/components/inline-text/inline-text.component.html:22
+msgid "Show more"
+msgstr "Näytä lisää"
+
+#: modules/base/components/country-accepts/country-accepts-content.html:25
+msgid "Show more payment methods:"
+msgstr "Näytä lisää maksutapoja:"
+
+#: components/user-social-register.html:45
+msgid "Sign Up"
+msgstr "Luo tilo"
+
+#: modules/profile/components/login-signup-dropdown/login-signup-dropdown.component.html:4
+#, fuzzy
+msgid "Sign in"
+msgstr "Luo tilo"
+
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:88
+#: modules/loyalty/components/store-list/store-list.item.html:25
+#: modules/loyalty/components/store-list/store-list.item.html:65
+#: modules/loyalty/components/tournaments-list/tournaments-list.item.html:47
+msgid "Sign up"
+msgstr "Luo tilo"
+
+#: partials/contacts.html:33
+msgid "Skype"
+msgstr "Skype"
+
+#: config/wlc-main-menu-default.js:64 config/wlc-main-menu-default.js:86
+#: config/wlc-main-menu-mobile-default.js:62
+msgid "Slots"
+msgstr "Slots"
+
+#: controllers/user/sms-verify.controller.ts:61
+msgid "Sms"
+msgstr "Tekstiviesti"
+
+#: components/user-social-register.html:6 components/user-social-register.js:96
+msgid "Social registration"
+msgstr "Sosiaali rekisteröinti"
+
+#: components/user-social-register.js:97
+msgid "Social registration failed"
+msgstr "Sosiaali rekisteröinti epäonnistui"
+
+#: services/error.service.ts:309
+msgid "Something went wrong. Please try again later."
+msgstr "Jotain meni väärin, kokeile uudelleen myöhemmin."
+
+#: components/games-play.ts:370 components/games-play.ts:648
+#: components/profile-gamblings.js:125
+#: components/profile-verification.component.ts:182
+#: controllers/referrals.controller.ts:87
+#: directives/wlc-copy-to-clipboard.directive.ts:64
+#: modules/static-content/controllers/wlc-static.controller.ts:161
+msgid "Something wrong. Please try later."
+msgstr "Jotain meni väärin, kokeile uudelleen myöhemmin."
+
+#: modules/catalog/jackpots-grid.html:20
+#: modules/search-and-filter-results.html:20 partials/game-catalog.html:37
+msgid "Sorry"
+msgstr "Anteeksi"
+
+#: constants/check-on-run-game.js:68
+#, fuzzy
+msgid "Sorry, gambling is not possible"
+msgstr "Anteeksi, rekisteröinti on poistettu käytöstä."
+
+#: controllers/user/user-register.ts:629
+msgid "Sorry, invalid country."
+msgstr "Anteeksi, virheellinen maa"
+
+#: dialogs/tournaments/tournament-subscribe.html:44
+msgid "Sorry, not today. Bet more to earn betcoins and join this tournament!"
+msgstr ""
+"Anteeksi, mutta tänään se ei ole mahdollista. Tienaa enemmän Betcoineja ja "
+"osallistu turnauksessa!"
+
+#: dialogs/tournaments/tournament-subscribe.html:48
+msgid "Sorry, not today. Deposit more money and join this tournament!"
+msgstr ""
+"Anteeksi, mutta tänään se ei ole mahdollista. Talleta enemmän rahaa ja "
+"osallistu turnauksessa!"
+
+#: config/modal/login-signup.js:39 controllers/user/user-register.ts:640
+#: partials/signup-form/signup-form-content.html:35
+msgid "Sorry, registration is disabled."
+msgstr "Anteeksi, rekisteröinti on poistettu käytöstä."
+
+#: partials/message-error.html:3
+msgid "Sorry, something went wrong!"
+msgstr "Anteeksi, jotain meni väärin!"
+
+#: modules/mobile-menu-column.html:25
+msgid "Sorry, you have no favorite game at the moment."
+msgstr "Anteeksi, sinulla ei ole lempipelia"
+
+#: modules/mobile-menu-column.html:12
+msgid "Sorry, you haven't played any games yet."
+msgstr "Anteeksi, sä et ole pelannut vielä yhtään peliä "
+
+#: modules/profile/controllers/wlc-dashboard-bonuses.controller.ts:85
+msgid "Sport"
+msgstr "Urheilu"
+
+#: config/wlc-game-categories-default.js:122
+#: config/wlc-main-menu-default.js:160
+#: config/wlc-main-menu-mobile-default.js:168
+msgid "SportsBook"
+msgstr "SportsBook"
+
+#: modules/sportsbook/components/betslip-float-panel/betslip-float-panel.component.html:29
+msgid "SportsbookBetslip"
+msgstr "Betslip"
+
+#: modules/sportsbook/components/betslip-float-panel/betslip-float-panel.component.html:38
+msgid "SportsbookHistory"
+msgstr "Historia"
+
+#: modules/sportsbook/components/betslip-float-panel/betslip-float-panel.component.html:16
+msgid "SportsbookHome"
+msgstr "Pääsivu"
+
+#: modules/sportsbook/components/betslip-float-panel/betslip-float-panel.component.html:47
+msgid "SportsbookLive"
+msgstr "Live"
+
+#: modules/sportsbook/components/betslip-float-panel/betslip-float-panel.component.html:7
+msgid "SportsbookMenu"
+msgstr "Menu"
+
+#: components/profile-tournaments-history.html:13
+msgid "Start"
+msgstr "Aloita"
+
+#: partials/ladesk-chat-form.html:46
+msgid "Start chat"
+msgstr "Aloita keskustelu"
+
+#: components/profile-gamblings-bets.html:7
+#: modules/profile/components/profile-transactions/profile-transactions-filter.html:15
+#: modules/profile/components/wlc-dashboard-bonuses/wlc-dashboard-bonuses-filter.html:16
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-filter.html:4
+msgid "Start date"
+msgstr "Aloituspäivä"
+
+#: dialogs/regcomplete-modal.html:3
+msgid "Start your journey now"
+msgstr "Aloita matkasi nyt"
+
+#: directives/wlc-time.directive.ts:89
+msgid "Starts"
+msgstr "Alkaa"
+
+#: directives/wlc-countdown.js:64
+msgid "Starts in"
+msgstr "Alkaa"
+
+#: components/profile-bonuses-history.html:17
+#: components/profile-bonuses-history.html:77
+#: components/profile-store-orders.html:15
+#: components/profile-tournaments-history.html:15
+#: components/profile-verification-main.html:47
+#: dialogs/profile-verification/profile-verification-address.html:29
+#: dialogs/profile-verification/profile-verification-default.html:22
+#: dialogs/profile-verification/profile-verification-id.html:28
+#: dialogs/profile-verification/profile-verification-payment.html:29
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:68
+#: modules/profile/components/profile-transactions/profile-transactions-list.html:15
+#: modules/profile/components/profile-transactions/profile-transactions-list.html:59
+#: modules/profile/components/wlc-dashboard-bonuses/wlc-dashboard-bonuses-list.html:16
+msgid "Status"
+msgstr "Tilanne"
+
+#: modules/profile/components/wlc-dashboard-bonuses/wlc-dashboard-bonuses-content.html:5
+msgid "Status of Bonus"
+msgstr "Bonuksen tilanne"
+
+#: components/profile/deposit/steps/amount/steps-deposit-amount-block.html:3
+#: components/profile/deposit/steps/paymentSystems/steps-deposit-system-block.html:3
+#: components/profile/withdraw/steps/amount/steps-withdraw-amount-block.html:3
+#: components/profile/withdraw/steps/paymentSystems/steps-withdraw-system-block.html:3
+#: dialogs/password-restore-step2.html:7 dialogs/password-restore.html:5
+#: dialogs/user-signup.html:7 modules/user-signup.html:5
+msgid "Step"
+msgstr "askel"
+
+#: components/profile-menu.html:15 components/profile-store-main.html:3
+#: config/state/profile/profile-store.js:42
+#: config/wlc-profile-menu-default.js:110
+#: modules/profile/controllers/wlc-dashboard-bonuses.controller.ts:86
+#: modules/store-menu.html:15 modules/store-menu.html:3
+#: modules/user-stat-block-dropdown.html:80
+msgid "Store"
+msgstr "Kauppa"
+
+#: config/state/profile/profile-store.js:53
+msgid "Store orders"
+msgstr "Tilaukset"
+
+#: modules/base/components/contact-form/elements/sender-subject.html:2
+#: modules/profile/components/wlc-messages/wlc-messages-list.html:11
+#: modules/profile/components/wlc-messages/wlc-messages-list.html:35
+msgid "Subject"
+msgstr "Aihe"
+
+#: dialogs/tournaments/tournament-subscribe.html:5
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:95
+#: modules/loyalty/components/bonuses-slider/bonuses-slider-item.html:53
+#: partials/profile-bonuses.html:10
+msgid "Subscribe"
+msgstr "Tila uutiskirje"
+
+#: dialogs/sms-verification/sms-verification.html:4
+#: dialogs/user-payment-success.html:6
+msgid "Success"
+msgstr "Menestys"
+
+#: modules/tournaments/tournament-last-wins.html:2
+msgid "TOP winners"
+msgstr "TOP voittajat"
+
+#: config/wlc-main-menu-default.js:105
+#: config/wlc-main-menu-mobile-default.js:74
+#: modules/error-page-box-two-column.html:12
+msgid "Table Games"
+msgstr "Lautapelit"
+
+#: components/profile-bonuses-inventory.html:20
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:101
+#: modules/loyalty/components/bonuses-slider/bonuses-slider-item.html:59
+msgid "Take"
+msgstr "ota"
+
+#: config/wlc-main-menu-mobile-default.js:104 modules/footer-info.html:7
+msgid "Terms and Conditions"
+msgstr "Käyttöehdot"
+
+#: modules/login-signup/register-steps/partial/terms.html:24
+msgid "Terms and conditions"
+msgstr "Käyttöehdot"
+
+#: modules/register-form.html:79
+#: partials/form-elements/checkbox-terms-cond.html:20
+#: partials/signup-form.html:182
+msgid "Terms_and_Conditions"
+msgstr "Käyttöehdot"
+
+#: dialogs/profile-verification/profile-verification-payment.html:13
+msgid "The Credit Card is valid."
+msgstr "Luottokortti on voimassa"
+
+#: modules/login-signup/register-steps/partial/setup-bonus.html:2
+#: partials/signup-form.html:43 partials/signup-form/signup-form-content.html:4
+msgid "The chosen bonus"
+msgstr "Valittu bonus"
+
+#: controllers/user/sms-verify.controller.ts:147
+#: controllers/user/sms-verify.controller.ts:178
+#: dialogs/sms-verification/sms-verification.html:24
+msgid "The code you entered is incorrect"
+msgstr "Koodi ei ole oikein"
+
+#: directives/wlc-deposit.html:170
+msgid "The deposit transfer will be sent to"
+msgstr "Talletus lähetetään"
+
+#: dialogs/profile-verification/profile-verification-address.html:13
+msgid "The document is not older than 3 months."
+msgstr "Asiakirja ei ole vanhempi kuin 3 kuukautta"
+
+#: dialogs/profile-verification/profile-verification-id.html:14
+msgid "The document is valid."
+msgstr "Asiakirja on voimassa"
+
+#: dialogs/profile-verification/profile-verification-address.html:12
+msgid "The document shows your full name, address, and the send date."
+msgstr "Asiakirja näyttää nimeä, osoitetta ja lähetyspäivää."
+
+#: dialogs/profile-verification/profile-verification-address.html:11
+msgid ""
+"The document was received via postal mail. Printed out online documents are "
+"not accepted."
+msgstr ""
+"Asiakirja vastaanotetiin postitse. Tulostettuja online-asiakirjoja ei "
+"hyväksytä"
+
+#: components/games-play.ts:324
+msgid "The game does not exist or the game settings are incorrect"
+msgstr "Pelia ei ole saatavilla tai pelin asetukset ovat vääriä"
+
+#: dialogs/profile-verification/profile-verification-address.html:14
+#: dialogs/profile-verification/profile-verification-id.html:12
+#: dialogs/profile-verification/profile-verification-payment.html:15
+msgid "The image quality is good and in color."
+msgstr "Kuvan laatu on hyvä"
+
+#: modules/search-and-filter-results.html:22 partials/game-catalog.html:39
+msgid "There’s nothing in your favorites yet"
+msgstr "Et ole laittanut mitään suosikkeihin"
+
+#: directives/wlc-deposit.html:88
+msgid "This is your private depositing address."
+msgstr "Tämä on henkilökohtainen talletusosoite"
+
+#: dialogs/tournaments/tournament-insufficient-funds.html:4
+#: dialogs/tournaments/tournament-insufficient-points.html:4
+msgid "This tournament requires"
+msgstr "Tämä turnaus vaatii"
+
+#: modules/games-play-desktop.html:100
+msgid "Till the end"
+msgstr "Loppuun asti"
+
+#: modules/finances/components/payment-systems-info/payment-systems-info.component.html:29
+msgid "Time"
+msgstr "Aika"
+
+#: dialogs/free-rounds-games-modal.html:12
+msgid "Time left"
+msgstr "Aikaa jäljellä"
+
+#: modules/loyalty/components/bonuses-slider/bonuses-slider-item.html:20
+#: modules/loyalty/components/tournaments-slider/tournaments-slider-item.html:21
+msgid "Time works"
+msgstr "Aika toimii"
+
+#: dialogs/messagePayment.html:9
+msgid "To make a deposit you need to replenish a wallet for a specified amount"
+msgstr "Talletaaksesi sinun on täydennettävä lompakko tietyllä summalla"
+
+#: partials/form-elements/phone-number.html:61
+msgid "To resend a verification code, solve the captcha"
+msgstr "Jos haluat lähettää vahvistuskoodin uudelleen, ratkaise captcha"
+
+#: partials/form-elements/phone-number.html:56
+msgid "To send a verification code, solve the captcha"
+msgstr "Jos haluat lähettää vahvistuskoodin, ratkaise captcha"
+
+#: modules/tournaments/tournament-leaders.html:6
+msgid "Top 5 leaders"
+msgstr "Top 5 pelaajaa"
+
+#: modules/tournaments/tournament-winners.html:8
+msgid "Top winners"
+msgstr "TOP voittajat"
+
+#: components/profile-referrals.html:47
+msgid "Total Profit RS"
+msgstr "Kokonaisvoitto RS"
+
+#: modules/profile/components/wlc-exchange-cash/wlc-exchange-cash.html:37
+msgid "Total RP"
+msgstr "RP yhteensä"
+
+#: modules/base/components/wlc-smart-userinfo/wlc-smart-userinfo.component.html:21
+#, fuzzy
+msgid "Total Wagering"
+msgstr "Panostaminen"
+
+#: components/profile/withdraw/steps/steps-withdraw-top.html:13
+msgid "Total balance"
+msgstr "Kokonaissaldo"
+
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-amounts.html:4
+msgid "Total bet amount"
+msgstr "Vedon saldo yhteensä"
+
+#: modules/profile/components/profile-transactions/profile-transactions-amounts.html:4
+msgid "Total deposit"
+msgstr "Talletukset yhteensä"
+
+#: components/profile-tournaments-main.html:21
+#: modules/loyalty/components/tournaments-list/tournaments-list.item.html:17
+msgid "Total funds"
+msgstr "Varat yhteensä"
+
+#: modules/games/components/total-jackpot/total-jackpot.html:2
+msgid "Total jackpot"
+msgstr "Jackpot yhteensä"
+
+#: components/profile-referrals.html:19
+msgid "Total revenue"
+msgstr "Tuotot yhteensä"
+
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-amounts.html:13
+msgid "Total win amount"
+msgstr "Voitot yhteensä"
+
+#: modules/profile/components/profile-transactions/profile-transactions-amounts.html:16
+msgid "Total withdrawal"
+msgstr "Kotiutumiset yhteensä"
+
+#: modules/games-play-desktop.html:89
+msgid "Tournament"
+msgstr "Turnaus"
+
+#: dialogs/tournaments/tournament-unsubscribe.html:13
+msgid ""
+"Tournament fee will not be returned to your account. Are you sure you want "
+"to unsubscribe?"
+msgstr ""
+"Turnausmaksua ei palauteta tilillesi. Haluatko varmasti peruuttaa tilauksen?"
+
+#: components/profile-menu.html:12 config/wlc-profile-menu-default.js:86
+#: modules/user-stat-block-dropdown.html:74
+msgid "Tournaments"
+msgstr "Turnaukset"
+
+#: components/profile-tournaments-history.html:2
+#: config/wlc-profile-menu-default.js:104
+msgid "Tournaments history"
+msgstr "Turnauksien historia"
+
+#: config/wlc-profile-menu-default.js:140 directives/wlc-profile-menu.html:103
+#: modules/profile/components/profile-transactions/profile-transactions.component.html:2
+#: modules/user-stat-block-dropdown.html:98
+msgid "Transaction history"
+msgstr "Tapahtumahistoria"
+
+#: modules/profile/components/profile-transactions/profile-transactions-list.html:41
+#: modules/profile/components/profile-transactions/profile-transactions-list.html:9
+msgid "Transaction time"
+msgstr "Tapahtuman aika"
+
+#: components/profile-menu.html:29
+msgid "Transactions"
+msgstr "Tapahtumat"
+
+#: config/state/profile/profile-transactions.config.ts:27
+msgid "Transactions history"
+msgstr "Tapahtumien historia"
+
+#: modules/finances/components/profile-wallet/profile-wallet.html:20
+msgid "Transfer sum"
+msgstr "Siirron summa"
+
+#: dialogs/password-restore-step2.html:30
+msgid "Try again"
+msgstr "Kokeile uudelleen"
+
+#: modules/social-list.html:11 partials/signup-form.html:64
+#: partials/signup-form/signup-form-socials.html:12
+msgid "Twitter"
+msgstr "Twitter"
+
+#: modules/profile/components/profile-transactions/profile-transactions-list.html:21
+#: modules/profile/components/profile-transactions/profile-transactions-list.html:79
+#: modules/profile/components/wlc-dashboard-bonuses/wlc-dashboard-bonuses-filter.html:3
+msgid "Type"
+msgstr "Tyyppi"
+
+#: directives/deposit-withdraw/wlc-step-deposit-withdraw.directive.ts:378
+msgid "Unable to choose"
+msgstr "Ei voi valita"
+
+#: classes/services/loyalty-bonuses.class.ts:273
+msgid "Unable to subscribe"
+msgstr "Ei voi tilata "
+
+#: services/favorite-games.service.ts:41
+msgid "Unauthenticated"
+msgstr "Todentamaton"
+
+#: config/app.js:532
+msgid ""
+"Unfortunately your payment didn't go through. An e-mail with detailed "
+"information has been sent to your e-mail address. If you have any questions, "
+"please don't hesitate to contact us."
+msgstr ""
+"Valitettavasti maksua ei hyväksytty. Olet saannut tietoa siitä "
+"sähköpostitse. Jos sinulla on kysyttävää, ota meihin yhteyttä."
+
+#: components/profile-verification-main.html:52
+#: dialogs/profile-verification/profile-verification-address.html:45
+#: dialogs/profile-verification/profile-verification-default.html:41
+#: dialogs/profile-verification/profile-verification-id.html:44
+#: dialogs/profile-verification/profile-verification-payment.html:45
+#: modules/profile/components/profile-transactions/profile-transactions.component.ts:110
+msgid "Unknown"
+msgstr "Tuntematon"
+
+#: controllers/user/user-register.ts:453 controllers/user/user-register.ts:459
+msgid "Unknown promo code"
+msgstr "Tuntematon kampanjakoodi"
+
+#: dialogs/tournaments/tournament-unsubscribe.html:23
+#: dialogs/tournaments/tournament-unsubscribe.html:4
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:108
+#: modules/loyalty/components/bonuses-slider/bonuses-slider-item.html:66
+#: partials/profile-bonuses.html:18
+msgid "Unsubscribe"
+msgstr "Peruuta tilaus"
+
+#: config/app.js:250
+msgid "Unsubscribe complete"
+msgstr "Tilaus peruutettu"
+
+#: config/app.js:261
+msgid "Unsubscribe not completed"
+msgstr "Tilauksen peruuttaminen on kesken"
+
+#: modules/base/components/wlc-smart-userinfo/wlc-smart-userinfo.component.html:30
+msgid "Until"
+msgstr ""
+
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history.html:19
+msgid "Update"
+msgstr "Päivitä"
+
+#: components/profile-store-orders.html:13
+msgid "Update date"
+msgstr "Päivitä päivä"
+
+#: modules/profile/components/profile-transactions/profile-transactions.component.ts:104
+msgid "Updated"
+msgstr "Päivitetty"
+
+#: components/profile-verification-main.html:26
+#: dialogs/profile-verification/profile-verification-address.html:61
+#: dialogs/profile-verification/profile-verification-default.html:60
+#: dialogs/profile-verification/profile-verification-id.html:72
+#: dialogs/profile-verification/profile-verification-payment.html:61
+msgid "Upload"
+msgstr "Lataa"
+
+#: components/profile/deposit/steps/bonus/steps-deposit-bonus-empty.html:6
+msgid "Use bonus"
+msgstr "Käytä bonusta"
+
+#: modules/login-signup/register-steps/bonuses.html:15
+#: partials/signup-form.html:22 partials/signup-form/signup-form.html:25
+msgid "Use this bonus"
+msgstr "Käytä tätä bonusta"
+
+#: modules/games-play-desktop.html:178
+msgid "User"
+msgstr "Käyttäjä"
+
+#: modules/profile/config/profile-forms.config.ts:58
+#: modules/register-form.html:17 partials/form-elements/login-unique.html:10
+#: partials/form-elements/login-unique.html:2
+#: partials/form-elements/login.html:2 partials/form-elements/login.html:9
+#: partials/signup-form.html:102 partials/signup-form.html:108
+msgid "User login"
+msgstr "Käyttäjätunnus"
+
+#: components/user-register-success.html:2 config/app.js:230
+#: config/modal/login-signup.js:37 controllers/user/user-register.ts:157
+#: controllers/user/user-register.ts:303 controllers/user/user-register.ts:619
+#: controllers/user/user-register.ts:630 controllers/user/user-register.ts:641
+msgid "User registration"
+msgstr "Käyttäjän rekisteröinti"
+
+#: partials/form-elements/email-login.html:2
+msgid "Username or E-mail"
+msgstr "Käyttäjätunnus tai sähköposti"
+
+#: components/profile-verification-main.html:51
+#: dialogs/profile-verification/profile-verification-address.html:44
+#: dialogs/profile-verification/profile-verification-default.html:39
+#: dialogs/profile-verification/profile-verification-id.html:43
+#: dialogs/profile-verification/profile-verification-payment.html:44
+msgid "Validated"
+msgstr "Vahvistettu"
+
+#: components/profile-verification-main.html:2
+#: config/state/profile/profile-verification.config.ts:48
+#: config/wlc-profile-menu-default.js:171
+#: modules/profile/components/verification/verification.component.html:2
+msgid "Verification"
+msgstr "Vahvistus epäonnistui"
+
+#: dialogs/sms-verification/sms-verification.html:51
+msgid "Verify"
+msgstr "Vahvista"
+
+#: modules/login-signup/register-steps/partial/verify-sms-code-input.html:9
+msgid "Verify sms code"
+msgstr "Vahvista tekstiviestin koodi"
+
+#: controllers/steps.controller.ts:167
+msgid "Verify your account"
+msgstr "Vahvista tilisi"
+
+#: components/profile-notifications.html:28
+#: modules/profile/components/notification/sms-verification.html:11
+msgid "Verify your phone number"
+msgstr "Vahvista numerosi"
+
+#: config/wlc-main-menu-default.js:124
+#: config/wlc-main-menu-mobile-default.js:86
+msgid "Video Poker"
+msgstr "Videopokeri"
+
+#: config/wlc-main-menu-default.js:113
+#: config/wlc-main-menu-mobile-default.js:80
+msgid "Virtual Games"
+msgstr "Virtuaalipelit"
+
+#: modules/social-list.html:26 partials/signup-form.html:83
+#: partials/signup-form/signup-form-socials.html:31
+msgid "Vkontakte"
+msgstr "Vkontakte"
+
+#: components/profile-bonuses-promo.html:1
+#: config/state/profile/profile-bonuses.js:70
+#: config/wlc-profile-menu-default.js:74 directives/wlc-profile-menu.html:66
+msgid "Voucher"
+msgstr "Kuponki"
+
+#: components/profile-bonuses-history.html:82
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:73
+#: modules/profile/controllers/wlc-dashboard-bonuses.controller.ts:97
+msgid "Wagered"
+msgstr "Panostettu"
+
+#: components/profile-bonuses-history.html:15
+#: components/profile-bonuses-history.html:65
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:58
+msgid "Wagering"
+msgstr "Panostaminen"
+
+#: config/wlc-profile-menu-default.js:134
+#: modules/finances/components/profile-wallet/profile-wallet.html:1
+#: modules/finances/config/profile-wallet.config.ts:27
+msgid "Wallet"
+msgstr "Lompakko"
+
+#: modules/finances/components/profile-wallet/profile-wallet.html:13
+msgid "Wallet balance"
+msgstr "Lompakkon saldo"
+
+#: modules/catalog/jackpots-grid.html:21
+#: modules/search-and-filter-results.html:21 partials/game-catalog.html:38
+msgid "We could not find anything"
+msgstr "Emme löytäneet mitään"
+
+#: config/forms/signup.form.ts:254
+#: dialogs/sms-verification/sms-verification.html:20
+msgid "We have sent an SMS with the code to the following number:"
+msgstr "Olemme lähettäneet tekstiviestin seuraavaan numeroon:"
+
+#: controllers/user/user-profile.ts:352
+msgid "We have sent you an email with an URL to continue change email"
+msgstr "Olemme lähettäneet linkin sähköpostin vaihtoon sinun sähköpostiin"
+
+#: modules/agreements/privacy-policy.html:4
+msgid ""
+"We, as per requirements of the General Data Protection Regulation (GDPR), "
+"would like to ask\n"
+"                you to look through the new version of the Privacy Policy "
+"and give your consent to continue\n"
+"                using the Services of this Website. By clicking \"I agree\" "
+"I confirm than I have read amended."
+msgstr ""
+"Pyydämme sinua Tietosuoja-asetuksen (GDPR) takia\n"
+"tarkistamaan meidän uusi tietosuoja-asetus ja hyväksy\n"
+"jatkaamaksi meidän nettipalveluiden käyttöä. Painaamalla \"Hyväksyn\" "
+"vahvistat, että olet lukennut ja hyväksyt asetuksen."
+
+#: modules/user-login.html:5
+msgid "Welcome"
+msgstr "Tervetuloa"
+
+#: modules/tournaments/tournament-banner.html:4
+msgid "Wheel of fortune11"
+msgstr "Onnenpyörä11"
+
+#: components/profile-tournaments-history.html:12
+#: modules/loyalty/components/tournament-progress/tournament-progress-content.html:8
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history.controller.ts:72
+#: modules/tournaments/tournament-last-wins.html:8
+msgid "Win"
+msgstr "Voita"
+
+#: modules/double-coin-banner.html:5
+msgid "Win more with Doudle GoldBar Coin"
+msgstr "Voita enemmän Tupla Kultapalkki-Kolikolla"
+
+#: modules/win-per-one.html:2
+msgid "Win per one bet"
+msgstr "Voitto per veto"
+
+#: components/game-catalog.html:147
+msgid "Winners"
+msgstr "Voittajat"
+
+#: classes/services/loyalty-bonuses.class.ts:670
+msgid "Winnings"
+msgstr "Voitot"
+
+#: classes/services/loyalty-bonuses.class.ts:667
+msgid "Winnings + Deposit"
+msgstr "Voitot + talletus"
+
+#: dialogs/tournaments/tournament-info.html:24
+msgid "Winnings Spread"
+msgstr ""
+
+#: components/profile-menu.html:26
+#: components/profile/withdraw/steps/steps-withdraw-header.html:2
+#: controllers/finanses.controller.ts:653 dialogs/withdraw.html:16
+#: dialogs/withdraw.html:3
+#: modules/finances/components/payment-systems-info/payment-systems-info.component.html:59
+#: modules/finances/components/profile-wallet/profile-wallet.html:38
+msgid "Withdraw"
+msgstr "Kotiuta"
+
+#: controllers/finanses.controller.ts:655
+msgid "Withdraw request has been successfully sent!"
+msgstr "Kotiutuspyyntö lähetetty"
+
+#: controllers/finanses.controller.ts:650
+msgid "Withdraw sum"
+msgstr "Kotiuta summa"
+
+#: components/profile/withdraw/steps/amount/steps-withdraw-amount-block.html:48
+msgid "Withdraw_button"
+msgstr "Kotiuta"
+
+#: components/profile/withdraw/steps/steps-withdraw-top.html:3
+msgid "Withdrawable"
+msgstr "Kotiuduttava"
+
+#: components/profile/withdraw/default-withdraw.html:2
+#: config/wlc-main-menu-mobile-default.js:146
+#: config/wlc-profile-menu-default.js:128 directives/wlc-profile-menu.html:94
+#: modules/profile/components/profile-transactions/profile-transactions.component.ts:91
+#: modules/user-stat-block-dropdown.html:92
+msgid "Withdrawal"
+msgstr "Kotiutus"
+
+#: controllers/finanses.controller.ts:569
+msgid "Withdrawal is unavailable at the moment."
+msgstr "Kotiutus ei ole hetkellä saatavilla"
+
+#: modules/won-today.html:2
+msgid "Won today"
+msgstr "Voitot tänään"
+
+#: controllers/user/user-profile.ts:214
+#: modules/profile/components/main-info/main-info.component.ts:208
+msgid "Wrong First or Last Name, check profile!"
+msgstr "Väärä etunimi tai sukunimi, tarkista profiilia!"
+
+#: controllers/user/user-abstract.ts:162
+#: modules/profile/classes/profile-abstract.class.ts:163
+#: modules/profile/config/profile-forms.config.ts:147
+msgid "Year"
+msgstr "Vuosi"
+
+#: classes/services/loyalty-bonuses.class.ts:349
+#: classes/services/loyalty-bonuses.class.ts:386
+#: controllers/user/user-profile.ts:94 dialogs/user-logout.html:12
+#: modules/profile/components/main-info/main-info.component.ts:92
+#: modules/profile/controllers/messages.controller.ts:102
+msgid "Yes"
+msgstr "Kyllä"
+
+#: modules/games-play-desktop.html:196
+msgid "You"
+msgstr "Sinä"
+
+#: controllers/user/user-profile.ts:202 controllers/user/user-register.ts:618
+#: modules/profile/components/main-info/main-info.component.ts:197
+msgid "You are not 18 years old!"
+msgstr "Et ole täysi-ikäinen!"
+
+#: dialogs/tournaments/tournament-subscribe.html:6
+msgid "You can`t subscribe"
+msgstr "Et voi tilata"
+
+#: components/profile-verification.component.ts:113
+msgid "You cannot upload more documents of this type"
+msgstr "Et voi ladata lisää tämän tyyppisiä asiakirjoja"
+
+#: classes/services/loyalty-bonuses.class.ts:281
+#: directives/deposit-withdraw/wlc-step-deposit-withdraw.directive.ts:385
+msgid ""
+"You currently have an active bonus, which does not allow stacking. You have "
+"to wager active bonus first or cancel it, in order to claim a new bonus."
+msgstr ""
+"Sinulla on jo aktiivinen bonus, vain yksi voi olla kerralla aktiivinen. Jos "
+"haluat vaihtaa bonuksen, sinun täytyy ensin käyttää aktiivinen bonus tai "
+"perua se."
+
+#: classes/services/loyalty-bonuses.class.ts:288
+#: directives/deposit-withdraw/wlc-step-deposit-withdraw.directive.ts:391
+msgid ""
+"You currently have an active bonus. A bonus, which you try to claim, does "
+"not allow stacking. You have to wager active bonus first or cancel it, in "
+"order to claim this bonus."
+msgstr ""
+"Sinulla on jo aktiivinen bonus, vain yksi voi olla kerralla aktiivinen. Jos "
+"haluat vaihtaa bonuksen, sinun täytyy ensin käyttää aktiivinen bonus tai "
+"perua se."
+
+#: dialogs/tournaments/tournament-subscribe.html:16
+msgid "You have"
+msgstr "Sinulla on"
+
+#: controllers/finanses.controller.ts:567
+msgid "You have an active bonus"
+msgstr "Sinulla on aktiivinen bonus"
+
+#: config/app.js:255
+msgid ""
+"You have been successfully unsubscribed from receiving email notifications"
+msgstr "Tilaus peruutettu"
+
+#: dialogs/bonuses/subscribe-deposit-bonus.html:9
+msgid ""
+"You have claimed the bonus. In order to activate it, you have to make a "
+"deposit."
+msgstr "Olet hyväksynyt bonuksen. Jos haluat aktivoida sen, tee ensin talletus"
+
+#: components/profile-bonuses-active.html:51
+msgid "You have no active bonuses!"
+msgstr "Sinulla ei ole aktiivisia bonuksia!"
+
+#: directives/wlc-freerounds.directive.ts:93
+msgid "You have no available freespins"
+msgstr "Sinulla ei ole ilmaisia Freespinneja"
+
+#: controllers/user/user-register.ts:284
+msgid "You have not verified your phone number"
+msgstr "Et ole vahvistanut puhelinnumeroa"
+
+#: dialogs/required-fields.html:10
+msgid "You have to fill the required fields in your profile to play our casino"
+msgstr "Täytä pakolliset kentät pelataksesi"
+
+#: controllers/user/user-register.ts:330 controllers/user/user-register.ts:348
+msgid ""
+"You must agree with Terms and Conditions as well as confirm that you are at "
+"least 18 years old"
+msgstr ""
+"Sinun on hyväksyttävä käyttöehdot ja vahvistettava, että olet vähintään 18-"
+"vuotias"
+
+#: controllers/user/user-register.ts:305 modules/register-form.html:131
+#: partials/signup-form.html:241 partials/signup-form/signup-form.html:46
+msgid "Your account has been registered."
+msgstr "Tili on luotu"
+
+#: modules/base/components/country-accepts/country-accepts-content.html:4
+msgid "Your country is"
+msgstr "Maa"
+
+#: partials/ladesk-chat-form.html:34
+msgid "Your e-mail"
+msgstr "Sähköpostiosoite"
+
+#: modules/base/components/contact-form/elements/sender-name.html:2
+#: partials/ladesk-chat-form.html:19
+msgid "Your name"
+msgstr "Nimi"
+
+#: dialogs/sms-verification/sms-verification.html:69
+msgid "Your number has been verified"
+msgstr "Numero on vahvistettu"
+
+#: modules/loyalty/components/tournament-progress/tournament-progress-content.html:17
+msgid "Your place"
+msgstr "Paikka"
+
+#: modules/login-signup/register-steps/partial/promocode.html:9
+msgid "Your promo code"
+msgstr "Sinun kampanjakoodi"
+
+#: components/profile-referrals.html:8
+msgid "Your referral link:"
+msgstr "Viittauslinkki:"
+
+#: partials/form-elements/postal-code.html:10
+#: partials/form-elements/postal-code.html:2
+msgid "ZIP/Postal code"
+msgstr "Postinumero"
+
+#: components/profile/deposit/steps/modal/modal-step-deposit-systems-additional.html:4
+msgid "account details"
+msgstr "tilintiedot"
+
+#: modules/loyalty/components/tournament-progress/tournament-progress-content.html:13
+msgid "at first place, prize pool"
+msgstr "ensimmäisellä sijalla, voittopotti"
+
+#: dialogs/store-description.html:13
+msgid "buy now"
+msgstr "osta nyt"
+
+#: dialogs/free-rounds-games-modal.html:12
+#: modules/loyalty/components/tournament-progress/tournament-progress-content.html:22
+msgid "d"
+msgstr "d"
+
+#: modules/loyalty/components/tournaments-list/tournaments-list.item.html:33
+msgid "days"
+msgstr "päivät"
+
+#: components/profile-cash.js:44
+msgid "deposit"
+msgstr "talletus"
+
+#: dialogs/tournaments/tournament-insufficient-funds.html:4
+msgid "fee"
+msgstr "maksu"
+
+#: components/game-catalog.html:199 components/game-catalog.html:269
+#: components/game-catalog.html:75
+msgid "games"
+msgstr "pelit"
+
+#: controllers/user/user-profile.ts:82
+#: modules/profile/components/main-info/main-info.component.ts:99
+msgid "gender_female_char"
+msgstr "Nainen"
+
+#: controllers/user/user-profile.ts:81
+#: modules/profile/components/main-info/main-info.component.ts:98
+msgid "gender_male_char"
+msgstr "Mies"
+
+#: dialogs/message.html:12 dialogs/messagePayment.html:39
+#: partials/signup-form.html:249 partials/signup-form/signup-form.html:53
+msgid "got it"
+msgstr "sain sen"
+
+#: dialogs/free-rounds-games-modal.html:12
+#: modules/loyalty/components/tournament-progress/tournament-progress-content.html:23
+msgid "h"
+msgstr "h"
+
+#: modules/loyalty/components/tournament-progress/tournament-progress-content.html:25
+msgid "left"
+msgstr "jäljellä"
+
+#: dialogs/tournaments/tournament-insufficient-points.html:4
+msgid "loyalty points as fee"
+msgstr "lojaalisuuspisteet maksuna"
+
+#: dialogs/free-rounds-games-modal.html:12
+#: modules/loyalty/components/tournament-progress/tournament-progress-content.html:24
+msgid "m"
+msgstr "m"
+
+#: directives/wlc-deposit.html:93
+msgid "maximum one is"
+msgstr "enintään"
+
+#: directives/wlc-bonuses-exchanger.html:17
+msgid "mm to try"
+msgstr ""
+
+#: components/profile-bonuses-active.html:30
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:30
+#: modules/loyalty/components/bonuses-slider/bonuses-slider-item.html:27
+msgid "of"
+msgstr ""
+
+#: dialogs/game.html:41
+msgid "or"
+msgstr "tai"
+
+#: modules/login-form.html:12
+msgid "or login"
+msgstr "tai kirjaudu"
+
+#: partials/login-form.html:15 partials/signup-form.html:95
+msgid "or with E-mail"
+msgstr "tai Sähköpostitse"
+
+#: modules/login-signup/register-steps/partial/setup-social.html:10
+#: partials/signup-form/signup-form-content.html:18
+msgid "or with e-mail"
+msgstr "tai sähköpostitse"
+
+#: dialogs/tournaments/tournament-subscribe.html:21
+#: dialogs/tournaments/tournament-subscribe.html:31
+#: modules/loyalty/components/current-level/current-level.html:14
+#: modules/loyalty/components/current-level/current-level.html:16
+#: modules/loyalty/components/store-list/store-list.component.html:5
+#: modules/loyalty/components/store-list/store-list.item.html:14
+#: modules/loyalty/components/store-list/store-list.item.html:54
+#: modules/loyalty/components/tournament-progress/tournament-progress-content.html:18
+#: partials/loyalty-progress-bar.html:15
+msgid "points"
+msgstr "pisteet"
+
+#: dialogs/promo-code.html:13
+msgid "promo_code_dialog"
+msgstr "Kampanjakoodi"
+
+#: directives/wlc-promo-steps.js:39
+msgid "promo_step_1_content"
+msgstr "Helppo ja nopea rekisteröinti"
+
+#: directives/wlc-promo-steps.js:37
+msgid "promo_step_1_title"
+msgstr "Liity tänään"
+
+#: directives/wlc-promo-steps.js:49
+msgid "promo_step_2_content"
+msgstr "100% bonusta ensimmäisellä talletuksella"
+
+#: directives/wlc-promo-steps.js:47
+msgid "promo_step_2_title"
+msgstr "Ilmainen bonus tänään"
+
+#: directives/wlc-promo-steps.js:59
+msgid "promo_step_3_content"
+msgstr "Ei tarvita latausta"
+
+#: directives/wlc-promo-steps.js:57
+msgid "promo_step_3_title"
+msgstr "Aloita pelaaminen"
+
+#: config/forms/signup.form.ts:141
+msgid "register_final_text_message"
+msgstr "rekisteröinti_viimeinen_tekstiviesti"
+
+#: modules/loyalty/components/bonuses-slider/bonuses-slider-item.html:29
+msgid "remaning"
+msgstr "Jatka panostamista"
+
+#: dialogs/password-restore.html:47
+msgid "restore"
+msgstr "palauta"
+
+#: components/profile/deposit/steps/amount/steps-deposit-amount-block.html:84
+#: directives/wlc-deposit.html:196
+msgid "restrictions"
+msgstr "rajoitukset"
+
+#: dialogs/required-fields.html:116 partials/form-elements/btn-save.html:8
+msgid "save"
+msgstr "tallenna"
+
+#: modules/profile/components/limits/limits.component.html:10
+msgid ""
+"should be a positive experience, something that is relaxing and "
+"entertaining. While being a wrapped up in the excitement however, it might "
+"sometimes be hard to draw the line and know when to stop playing. If you "
+"would like to set up limits for your playing activity, please contact us. "
+"The following limits are avaiable:"
+msgstr ""
+"pitäisi olla positiivinen kokemus, mikä rauhoittaa ja viihdyttää. Kun olet "
+"keskittynyt peliin, voi joskus olla vaikea tietää milloin pitäisi lopettaa "
+"pelaaminen. Jos haluat rajoittaa pelaamista, voit määritellä rajat ottamalla "
+"meihin yhteyttä. Seuraavat rajoitukset ovat saatavilla:"
+
+#: components/profile-bonuses-promo.html:31
+#: modules/loyalty/components/bonuses-list/bonuses-list.component.html:51
+msgid "submit"
+msgstr ""
+
+#: components/profile/deposit/steps/amount/steps-deposit-amount-block.html:98
+#: components/profile/withdraw/default-withdraw.html:160
+#: components/profile/withdraw/steps/amount/steps-withdraw-amount-block.html:49
+#: dialogs/password-restore.html:48 dialogs/profile-partial-update.html:44
+#: dialogs/required-fields.html:117 directives/wlc-deposit.html:206
+#: modules/profile/components/login-signup-dropdown/login-form.html:16
+#: partials/form-elements/btn-save.html:9 partials/login-form.html:38
+msgid "submiting..."
+msgstr ""
+
+#: modules/finances/components/payment-systems/payment-systems.html:39
+#: modules/loyalty/components/current-level/current-level.html:15
+#: partials/loyalty-progress-bar.html:16
+msgid "to"
+msgstr ""
+
+#: dialogs/user-payment-success.html:18
+msgid "were successfully deposited in your account."
+msgstr "talletus suorittettu"
+
+#: components/profile-cash.js:60
+#: components/profile/withdraw/default-withdraw.html:159
+msgid "withdraw"
+msgstr "kotiudu"
+
+#: modules/last-wins.html:6
+#: modules/promo/components/last-wins/last-wins.html:11
+msgid "wlc-last-wins__title"
+msgstr "Viimeiset voittajat"
+
+#: modules/promo-menu.html:5
+msgid "wlc_promo-menu_Live_casino"
+msgstr "Live kasino"
+
+#: modules/promo-menu.html:16
+msgid "wlc_promo-menu_Slots"
+msgstr "Slots"
+
+#: modules/promo-menu.html:13
+msgid "wlc_promo-menu_Sportsbook"
+msgstr "SportsBook"
+
+#: modules/promo-menu.html:9
+msgid "wlc_promo-menu_Table_games"
+msgstr "lautapelit"
+
+#~ msgid "CANCEL_WITHDRAWAL"
+#~ msgstr "KESKEYTÄ_KOTIUTUS"
+
+#~ msgid "Jackpot amount"
+#~ msgstr "Jackpot-summa"
+
+#~ msgid "Transaction type"
+#~ msgstr "Tapahtuman tyyppi"
+
+#~ msgid "SportsbookProfile"
+#~ msgstr "Profile"

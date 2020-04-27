@@ -1,14 +1,12 @@
 #!/bin/bash
 
-PROJECT_NAME=$(jq .name < bower.json)
-stable_branch=${1:-master}
+PROJECT_NAME=$(jq .name < ./projects/wlc-engine/package.json)
+stable_branch=$(git branch | awk '/^\* master/ { print $2 }')
 
-if echo $stable_branch | egrep '^(master|AngularTheme_[0-9]+_[0-9]+)$' | read; then
-    :
-else
-    echo "Stable branch must be 'master' or '${PROJECT_NAME}_M_N'"
+if ! [ -n "$stable_branch" ]; then
+    echo "Stable branch must be '$stable_branch'"
     exit -1
-fi 
+fi
 
 echo "Making sure up-to-date $stable_branch branch is used"
 git_remote=$(git remote | head -n 1)
@@ -19,8 +17,31 @@ else
     exit -1
 fi
 
-prevver=$(jq .version < package.json | sed -e 's/"//g')
-nextver="$(echo $prevver | cut -f1 -d.).$(echo $prevver | cut -f2 -d.).$(( $(echo $prevver | cut -f3 -d.) + 1 ))"
+prevver=$(jq .version < ./projects/wlc-engine/package.json | sed -e 's/"//g')
+
+if [ ! -z "$1" ];then
+
+    if [[ $1 == 'major' ]]; then
+        read -p "Sure you want to change the major version? (yes/no): " CONT
+
+        if test "$CONT" != "yes"; then
+            exit -1
+        fi
+        nextver="$(( $(echo $prevver | cut -f1 -d.) + 1 )).0.0"
+    fi
+
+    if [[ $1 == 'minor' ]]; then
+        read -p "Sure you want to change the minor version? (yes/no): " CONT
+
+        if test "$CONT" != "yes"; then
+            exit -1
+        fi
+        nextver="$(echo $prevver | cut -f1 -d.).$(( $(echo $prevver | cut -f2 -d.) + 1 )).0"
+    fi
+else
+    nextver="$(echo $prevver | cut -f1 -d.).$(echo $prevver | cut -f2 -d.).$(( $(echo $prevver | cut -f3 -d.) + 1 ))"
+fi
+
 ver=${2:-$nextver}
 tag="$ver"
 
@@ -35,11 +56,12 @@ if test "$CONT" != "yes"; then
     exit -1
 fi
 
-sed -i -e "s/\"version\": \"${prevver}\"/\"version\": \"${ver}\"/g" bower.json
-sed -i -e "s/\"version\": \"${prevver}\"/\"version\": \"${ver}\"/g" package.json
-sed -i -e "s/\"version\": \"${prevver}\"/\"version\": \"${ver}\"/g" package-lock.json
-git add bower.json
+sed -i -e "s/\"version\": \"${prevver}\"/\"version\": \"${ver}\"/g" ./projects/wlc-engine/package.json
+sed -i -e "s/\"version\": \"${prevver}\"/\"version\": \"${ver}\"/g" ./package.json
+
 git add package.json
+git add projects/wlc-engine/package.json
+
 git commit -m "Updated for release ${PROJECT_NAME} $ver" && \
     git tag -a -m "Release ${PROJECT_NAME} $ver" $tag && \
     git push $git_remote HEAD:$stable_branch $tag && \
