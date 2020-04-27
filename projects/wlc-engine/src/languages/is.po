@@ -1,0 +1,3684 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Language: is\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: modules/profile/components/wlc-exchange-cash/wlc-exchange-cash.html:31
+msgid "# on Cupon"
+msgstr ""
+
+#: dialogs/password-restore.html:16
+msgid "A password reset link will be sent to your e-mail address shortly."
+msgstr ""
+
+#: dialogs/password-restore-step2.html:12
+msgid "A reset link has been sent to the following e-mail address:"
+msgstr ""
+
+#: controllers/finanses.controller.ts:329
+msgid ""
+"A withdrawal request has already been created. Please wait until it is "
+"completed and then you can try again."
+msgstr ""
+
+#: modules/user-stat-block.html:23
+msgid "ADD"
+msgstr ""
+
+#: modules/footer-info.html:51 modules/footer-info.html:55
+msgid "About Us"
+msgstr ""
+
+#: config/wlc-form-errors.ts:28
+msgid "Account with this e-mail isn't exist"
+msgstr ""
+
+#: modules/loyalty/components/bonuses-slider/bonuses-slider-item.html:45
+msgid "Acivate"
+msgstr ""
+
+#: modules/loyalty/components/tournaments-slider/tournaments-slider-item.html:60
+#: modules/loyalty/components/tournaments-slider/tournaments-slider-item.html:68
+msgid "Activate"
+msgstr ""
+
+#: config/wlc-profile-menu-default.js:56 directives/wlc-profile-menu.html:46
+msgid "Active"
+msgstr ""
+
+#: config/state/profile/profile-bonuses.js:51
+msgid "Active bonuses"
+msgstr ""
+
+#: components/profile-tournaments-active.html:2
+#: config/wlc-profile-menu-default.js:98
+msgid "Active tournaments"
+msgstr ""
+
+#: modules/profile/components/wlc-exchange-cash/wlc-exchange-cash.html:14
+msgid "Acumulated RP"
+msgstr ""
+
+#: components/profile/deposit/steps/amount/steps-deposit-amount-block.html:97
+#: directives/wlc-deposit.html:205
+#: modules/finances/components/payment-systems-info/payment-systems-info.component.html:57
+msgid "Add deposit"
+msgstr ""
+
+#: modules/profile/components/bank-info/bank-info.component.ts:194
+msgid "Additional Banking Information"
+msgstr ""
+
+#: classes/services/payment-system.model.ts:152
+#: modules/profile/config/profile-forms.config.ts:193
+#: partials/form-elements/address.html:10 partials/form-elements/address.html:2
+msgid "Address"
+msgstr ""
+
+#: modules/profile/controllers/messages.controller.ts:56
+msgid "Administration"
+msgstr ""
+
+#: modules/footer-info.html:69
+msgid "Affiliate Program"
+msgstr ""
+
+#: modules/footer-info.html:43
+msgid "Affiliates"
+msgstr ""
+
+#: components/profile-store-main.html:13 modules/big-merchant-filter.html:20
+#: modules/profile/components/profile-transactions/profile-transactions-filter.html:6
+#: modules/profile/components/wlc-dashboard-bonuses/wlc-dashboard-bonuses-filter.html:7
+msgid "All"
+msgstr ""
+
+#: dialogs/profile-verification/profile-verification-payment.html:12
+msgid "All four corners of the Credit Card are visible on the scan or a photo."
+msgstr ""
+
+#: dialogs/profile-verification/profile-verification-address.html:15
+#: dialogs/profile-verification/profile-verification-id.html:13
+msgid "All four corners of the document are visible on the scan or a photo."
+msgstr ""
+
+#: config/wlc-game-categories-default.js:167 modules/game-catalog-menu.html:22
+msgid "All games"
+msgstr ""
+
+#: components/profile-gamblings-bets.html:31
+#: modules/base/components/sorted-items/templates/merchants-in-category/dropdown-merchants.html:15
+#: modules/base/components/sorted-items/templates/merchants-in-category/dropdown-merchants.html:33
+#: modules/base/components/sorted-items/templates/merchants-in-category/show-merchants.html:7
+#: modules/filter-merchants.html:18 modules/filter-merchants.html:34
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-filter.html:23
+msgid "All providers"
+msgstr ""
+
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-filter.html:37
+msgid "All results"
+msgstr ""
+
+#: modules/footer-copyright.html:5
+msgid "All rights reserved."
+msgstr ""
+
+#: controllers/steps.controller.ts:177
+msgid "All set and done!"
+msgstr ""
+
+#: partials/form-elements/login-unique.html:13
+#: partials/form-elements/login.html:13
+msgid "Allowable login length"
+msgstr ""
+
+#: classes/services/loyalty-bonuses.class.ts:693
+msgid "Allowed"
+msgstr ""
+
+#: sections/user-signup.html:6
+msgid "Already a member?"
+msgstr ""
+
+#: dialogs/user-signup.html:17 dialogs/user-signup.html:40
+#: modules/user-signup.html:26
+msgid "Already have an account"
+msgstr ""
+
+#: directives/wlc-merchants-in-category.directive.ts:110
+msgid "AmaticDirect"
+msgstr ""
+
+#: controllers/user/user-profile.ts:89
+msgid "American"
+msgstr ""
+
+#: components/profile-gamblings-bets.html:104
+#: components/profile-gamblings-bets.html:75
+#: components/profile/deposit/steps/amount/steps-deposit-amount-block.html:35
+#: components/profile/withdraw/steps/amount/steps-withdraw-amount-block.html:34
+#: modules/profile/components/profile-transactions/profile-transactions-list.html:12
+#: modules/profile/components/profile-transactions/profile-transactions-list.html:48
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-list.html:23
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-list.html:6
+msgid "Amount"
+msgstr ""
+
+#: modules/games-play-desktop.html:109
+msgid "Apply now"
+msgstr ""
+
+#: controllers/user/user-abstract.ts:139
+#: modules/profile/classes/profile-abstract.class.ts:140
+msgid "April"
+msgstr ""
+
+#: dialogs/tournaments/tournament-unsubscribe.html:16
+msgid "Are you sure you want to unsubscribe?"
+msgstr ""
+
+#: classes/services/loyalty-bonuses.class.ts:348
+#: classes/services/loyalty-bonuses.class.ts:385 dialogs/user-logout.html:9
+#: modules/profile/controllers/messages.controller.ts:101
+msgid "Are you sure?"
+msgstr ""
+
+#: controllers/user/user-abstract.ts:143
+#: modules/profile/classes/profile-abstract.class.ts:144
+msgid "August"
+msgstr ""
+
+#: modules/double-coin-banner.html:2
+msgid "Available bonuses"
+msgstr ""
+
+#: components/profile-main-level.html:9
+msgid "Available levels"
+msgstr ""
+
+#: components/profile-verification-main.html:49
+#: dialogs/profile-verification/profile-verification-address.html:42
+#: dialogs/profile-verification/profile-verification-default.html:35
+#: dialogs/profile-verification/profile-verification-id.html:41
+#: dialogs/profile-verification/profile-verification-payment.html:42
+msgid "Awaiting validation"
+msgstr ""
+
+#: components/game-catalog.html:133 components/game-catalog.html:192
+#: components/game-catalog.html:327 components/game-catalog.html:396
+#: directives/wlc-catalog-box.html:30
+msgid "Back"
+msgstr ""
+
+#: components/pages-content.html:52
+msgid "Back to articles"
+msgstr ""
+
+#: dialogs/password-restore.html:55
+msgid "Back to login"
+msgstr ""
+
+#: components/profile-bonuses-history.html:11
+#: components/profile-bonuses-history.html:41
+#: components/profile-store-main.html:4
+#: components/profile/deposit/default-deposit.html:5
+#: components/profile/withdraw/default-withdraw.html:5
+#: modules/game-play-info.html:6 modules/games-play-desktop.html:48
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:38
+#: modules/loyalty/components/store-list/store-list.component.html:5
+#: modules/user-info.html:15 modules/user-stat-block.html:8
+msgid "Balance"
+msgstr ""
+
+#: modules/user-stat-block-min.html:41
+msgid "Balance:"
+msgstr ""
+
+#: classes/services/payment-system.model.ts:157
+#: modules/profile/config/profile-forms.config.ts:257
+#: modules/profile/config/profile-forms.config.ts:274
+#: partials/form-elements/bank-name-text.html:11
+#: partials/form-elements/bank-name-text.html:2
+#: partials/form-elements/bank-name.html:2
+msgid "Bank name"
+msgstr ""
+
+#: config/forms/profile.form.ts:163
+#: modules/profile/components/bank-info/bank-info.config.ts:6
+msgid "Banking Information"
+msgstr ""
+
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history.controller.ts:73
+msgid "Bet"
+msgstr ""
+
+#: components/profile-gamblings-bets.html:55
+msgid "Bet results:"
+msgstr ""
+
+#: components/profile-gamblings-bets.html:74
+#: components/profile-gamblings-bets.html:94
+msgid "Bet time"
+msgstr ""
+
+#: components/profile-gamblings-bets.html:2 components/profile-gamblings.js:156
+#: config/wlc-profile-menu-default.js:152 directives/wlc-profile-menu.html:122
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history.html:3
+#: modules/user-stat-block-dropdown.html:104
+msgid "Bets history"
+msgstr ""
+
+#: modules/promo/components/biggest-wins/biggest-wins.html:12
+#: modules/statistics/biggest-wins.html:4
+msgid "Biggest wins"
+msgstr ""
+
+#: dialogs/required-fields.html:46 partials/form-elements/birthdate.html:2
+msgid "Birthdate"
+msgstr ""
+
+#: modules/base/components/wlc-smart-userinfo/wlc-smart-userinfo.component.html:14
+msgid "Bonus Balance"
+msgstr ""
+
+#: modules/base/components/wlc-smart-userinfo/wlc-smart-userinfo.component.html:4
+msgid "Bonus Points"
+msgstr ""
+
+#: config/wlc-main-menu-mobile-default.js:128
+msgid "Bonus System"
+msgstr ""
+
+#: dialogs/bonuses/subscribe-deposit-bonus.html:4
+msgid "Bonus activation"
+msgstr ""
+
+#: modules/profile/components/wlc-dashboard-bonuses/wlc-dashboard-bonuses-content.html:2
+msgid "Bonus in progress"
+msgstr ""
+
+#: components/profile-bonuses-history.html:10
+#: components/profile-bonuses-history.html:35
+msgid "Bonus name"
+msgstr ""
+
+#: modules/bonus-wins.html:2
+msgid "Bonus wins"
+msgstr ""
+
+#: components/profile/deposit/default-deposit.html:24
+#: components/profile/withdraw/default-withdraw.html:22
+#: partials/user-all-balances-block.html:7
+msgid "Bonus:"
+msgstr ""
+
+#: components/profile-bonuse-system.html:1
+#: config/state/profile/profile-bonuses.js:78
+#: config/wlc-profile-menu-default.js:80
+msgid "Bonuse system"
+msgstr ""
+
+#: components/profile-menu.html:9 config/state/profile/profile-bonuses.js:29
+#: config/state/profile/profile-bonuses.js:40
+#: config/wlc-profile-menu-default.js:44 directives/wlc-profile-menu.html:23
+#: modules/user-stat-block-dropdown.html:68
+msgid "Bonuses"
+msgstr ""
+
+#: config/state/profile/profile-bonuses.js:59
+msgid "Bonuses history"
+msgstr ""
+
+#: directives/wlc-bonuses-exchanger.html:15
+#: directives/wlc-bonuses-exchanger.html:3
+msgid "Bonuses points"
+msgstr ""
+
+#: classes/services/payment-system.model.ts:162
+#: modules/profile/config/profile-forms.config.ts:224
+#: partials/form-elements/branch-code.html:10
+#: partials/form-elements/branch-code.html:2
+msgid "Branch code"
+msgstr ""
+
+#: directives/wlc-store-item.html:13 modules/double-coin-banner.html:6
+#: modules/loyalty/components/store-list/modal/store-description.modal.html:13
+#: modules/loyalty/components/store-list/store-list.item.html:32
+#: modules/loyalty/components/store-list/store-list.item.html:72
+msgid "Buy now"
+msgstr ""
+
+#: dialogs/regcomplete-modal.html:6
+msgid "By claiming the first deposit bonus"
+msgstr ""
+
+#: components/profile-bonuses-active.html:37
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:114
+msgid "CANCEL_BONUS"
+msgstr ""
+
+#: modules/loyalty/components/bonuses-slider/bonuses-slider-item.html:72
+#: modules/profile/components/profile-transactions/profile-transactions-list.html:84
+#: partials/profile-bonuses.html:26
+msgid "Cancel"
+msgstr ""
+
+#: classes/services/loyalty-bonuses.class.ts:889
+msgid "Cancel bonus failed"
+msgstr ""
+
+#: components/profile-bonuses-history.html:81
+#: components/profile-tournaments-history.html:51
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:72
+#: modules/profile/controllers/wlc-dashboard-bonuses.controller.ts:96
+msgid "Canceled"
+msgstr ""
+
+#: modules/profile/components/profile-transactions/profile-transactions.component.ts:99
+msgid "Canceled by user"
+msgstr ""
+
+#: components/profile-menu.html:19 config/wlc-profile-menu-default.js:116
+#: directives/wlc-profile-menu.html:73
+msgid "Cash"
+msgstr ""
+
+#: modules/profile/components/wlc-exchange-cash/wlc-exchange-cash.html:43
+msgid "Cash amount to be exchanged"
+msgstr ""
+
+#: directives/wlc-deposit.html:1
+msgid "Cash transactions disabled"
+msgstr ""
+
+#: config/wlc-main-menu-default.js:75 config/wlc-main-menu-mobile-default.js:68
+#: modules/error-page-box-two-column.html:10
+msgid "Casino"
+msgstr ""
+
+#: modules/game-categories.html:2 modules/news-categories.html:3
+#: modules/pages-list.html:3
+msgid "Categories"
+msgstr ""
+
+#: partials/form-elements/phone-number.html:47
+msgid "Change"
+msgstr ""
+
+#: controllers/user/user-profile.ts:365
+msgid "Change e-mail"
+msgstr ""
+
+#: config/forms/change-password.form.ts:36 dialogs/password-change.html:3
+msgid "Change password"
+msgstr ""
+
+#: modules/login-signup/register-steps/partial/promocode.html:14
+msgid "Change promo code"
+msgstr ""
+
+#: dialogs/promo-code.html:36
+msgid "Check"
+msgstr ""
+
+#: modules/login-signup/register-steps/partial/error-form.html:3
+msgid "Check the correctness of filling out the form fields."
+msgstr ""
+
+#: modules/game-catalog-menu.html:8
+msgid "Cherries"
+msgstr ""
+
+#: modules/loyalty/components/choose-bonus/choose-bonus.html:42
+#: modules/loyalty/components/choose-bonus/choose-bonus.html:55
+msgid "Choose"
+msgstr ""
+
+#: modules/login-signup/register-steps/bonuses.html:4
+#: partials/signup-form.html:12 partials/signup-form/signup-form.html:17
+msgid "Choose Your Welcome Bonus"
+msgstr ""
+
+#: modules/loyalty/components/choose-bonus/choose-bonus.html:18
+msgid "Choose a Bonus"
+msgstr ""
+
+#: components/profile/deposit/steps/bonus/steps-deposit-bonus-actions.html:8
+msgid "Choose another"
+msgstr ""
+
+#: components/profile/withdraw/default-withdraw.html:45
+#: directives/wlc-deposit.html:21 directives/wlc-deposit.html:47
+msgid "Choose payment option"
+msgstr ""
+
+#: classes/services/payment-system.model.ts:147
+#: modules/profile/config/profile-forms.config.ts:178
+#: partials/form-elements/city.html:10 partials/form-elements/city.html:2
+msgid "City"
+msgstr ""
+
+#: components/profile-bonuses-active.html:22
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:22
+msgid "Cleared"
+msgstr ""
+
+#: components/profile/deposit/steps/modal/modal-step-deposit-bonuses.html:35
+#: components/profile/deposit/steps/modal/modal-step-deposit-systems.html:43
+#: dialogs/bonuses/subscribe-deposit-bonus.html:24 dialogs/content-page.html:20
+#: dialogs/error.html:12 dialogs/password-restore-step2.html:19
+#: dialogs/sms-verification/sms-verification.html:73
+#: dialogs/tooltip-modal.html:9 dialogs/tournaments/tournament-info.html:55
+#: dialogs/tournaments/tournament-insufficient-funds.html:6
+#: dialogs/tournaments/tournament-insufficient-points.html:5
+#: modules/error/components/error-modal/error-modal.html:9
+#: modules/loyalty/components/store-list/modal/store-description.modal.html:17
+#: modules/profile/components/wlc-messages/wlc-messages-content.html:10
+msgid "Close"
+msgstr ""
+
+#: components/profile-tournaments-main.html:63
+#: modules/loyalty/components/tournaments-list/tournaments-list.item.html:68
+#: modules/loyalty/components/tournaments-slider/tournaments-slider-item.html:82
+msgid "Closed"
+msgstr ""
+
+#: modules/login-signup/register-steps/partial/verify-sms-code-input.html:2
+#: modules/profile/config/profile-forms.config.ts:386
+#: partials/form-elements/alternative-phone.html:3
+#: partials/form-elements/mobile-phone.html:3
+#: partials/form-elements/phone-code.html:2
+msgid "Code"
+msgstr ""
+
+#: modules/loyalty/components/wlc-loyalty-levels/wlc-loyalty-levels.component.html:10
+#: modules/profile/components/wlc-dashboard-loyalty/wlc-dashboard-loyalty.html:21
+msgid "Coefficient"
+msgstr ""
+
+#: modules/grids/grid-2-4-2.html:2
+msgid "CoinBar Right Now"
+msgstr ""
+
+#: modules/profile/components/profile-transactions/profile-transactions.component.ts:108
+msgid "Complete"
+msgstr ""
+
+#: dialogs/user-social-complete.html:4
+msgid "Complete Registration"
+msgstr ""
+
+#: modules/profile/components/profile-transactions/profile-transactions.component.ts:98
+msgid "Complete failed"
+msgstr ""
+
+#: modules/login-signup/register-steps/partial/verify-sms-code-input.html:22
+#: modules/login-signup/register-steps/partial/verify-two-button.html:3
+#: modules/profile/components/wlc-exchange-cash/wlc-exchange-cash.html:48
+msgid "Confirm"
+msgstr ""
+
+#: dialogs/user-social-complete.html:29
+#: modules/profile/config/profile-forms.config.ts:376
+#: partials/form-elements/password-confirm.html:12
+#: partials/form-elements/password-confirm.html:2
+msgid "Confirm password"
+msgstr ""
+
+#: dialogs/confirmation.html:5
+msgid "Confirmation"
+msgstr ""
+
+#: modules/profile/components/profile-transactions/profile-transactions.component.ts:105
+msgid "Confirmed"
+msgstr ""
+
+#: components/profile-main-social.html:9
+msgid "Connect"
+msgstr ""
+
+#: modules/social-link.html:3
+msgid "Connected social accounts"
+msgstr ""
+
+#: modules/footer-info.html:62
+msgid "Contact Us"
+msgstr ""
+
+#: partials/contacts.html:2
+msgid "Contact details"
+msgstr ""
+
+#: config/state/contacts.ts:31 config/wlc-main-menu-default.js:151
+#: config/wlc-main-menu-mobile-default.js:98 controllers/contacts.ts:74
+#: modules/base/components/contact-form/contact-form.component.ts:122
+#: modules/base/components/contact-form/contact-form.component.ts:129
+msgid "Contacts"
+msgstr ""
+
+#: dialogs/bonuses/subscribe-deposit-bonus.html:19
+#: modules/login-signup/register-steps/partial/done-button.html:2
+#: modules/login-signup/register-steps/partial/setup-button.html:4
+#: modules/login-signup/register-steps/partial/verify-one-button.html:5
+#: modules/login-signup/register-steps/partial/verify-two-button.html:4
+msgid "Continue"
+msgstr ""
+
+#: dialogs/regcomplete-modal.html:25
+msgid "Continue to site"
+msgstr ""
+
+#: dialogs/messagePayment.html:16
+msgid "Copied"
+msgstr ""
+
+#: services/error.service.ts:278
+msgid "Could not find a state associated with url"
+msgstr ""
+
+#: classes/services/payment-system.model.ts:137 dialogs/required-fields.html:29
+#: modules/profile/config/profile-forms.config.ts:163
+#: partials/form-elements/country.html:2
+msgid "Country"
+msgstr ""
+
+#: modules/profile/components/profile-transactions/profile-transactions-list.html:80
+msgid "Credit"
+msgstr ""
+
+#: components/user-social-register.html:28 dialogs/user-social-complete.html:42
+#: modules/register-form.html:40 partials/form-elements/currency-select.html:2
+#: partials/form-elements/currency.html:2 partials/signup-form.html:136
+msgid "Currency"
+msgstr ""
+
+#: modules/profile/components/wlc-exchange-cash/wlc-exchange-cash.html:7
+msgid "Current Level"
+msgstr ""
+
+#: components/profile-main-level.html:4
+msgid "Current level"
+msgstr ""
+
+#: modules/profile/config/profile-forms.config.ts:341
+#: partials/form-elements/password-current.html:13
+#: partials/form-elements/password-current.html:2
+msgid "Current password"
+msgstr ""
+
+#: components/profile-main-level.html:20
+msgid "Current points"
+msgstr ""
+
+#: modules/tournaments/tournament-leaders.html:5
+msgid "Current tournament"
+msgstr ""
+
+#: components/profile-tournaments-main.html:2
+#: config/wlc-profile-menu-default.js:92
+msgid "Current tournaments"
+msgstr ""
+
+#: modules/base/components/country-accepts/country-accepts-content.html:11
+msgid "Customer support language"
+msgstr ""
+
+#: config/state/profile/profile-dashboard.ts:26
+#: config/wlc-profile-menu-default.js:219
+#: modules/game-play/game-play-header.html:30
+msgid "Dashboard"
+msgstr ""
+
+#: modules/profile/components/wlc-messages/wlc-messages-list.html:12
+#: modules/profile/components/wlc-messages/wlc-messages-list.html:42
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-list.html:19
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-list.html:5
+msgid "Date"
+msgstr ""
+
+#: classes/services/payment-system.model.ts:121
+msgid "Date of birth"
+msgstr ""
+
+#: controllers/user/user-abstract.ts:129
+#: modules/profile/classes/profile-abstract.class.ts:130
+#: modules/profile/config/profile-forms.config.ts:112
+msgid "Day"
+msgstr ""
+
+#: config/wlc-modal-config.js:137
+msgid ""
+"Dear Client, Due to technical reasons the project temporarily suspends its "
+"operation, therefore deposits and game play is no longer possible. We kindly "
+"ask you to request a withdrawal in the next 2 weeks. If you have any "
+"questions, please contact us"
+msgstr ""
+
+#: constants/check-on-run-game.js:154
+msgid ""
+"Dear Client, this game has no demo mode, you will redirect to normal mode."
+msgstr ""
+
+#: modules/profile/components/profile-transactions/profile-transactions-list.html:81
+msgid "Debit"
+msgstr ""
+
+#: controllers/user/user-abstract.ts:147
+#: modules/profile/classes/profile-abstract.class.ts:148
+msgid "December"
+msgstr ""
+
+#: controllers/user/user-profile.ts:88
+msgid "Decimal"
+msgstr ""
+
+#: dialogs/profile-verification/profile-verification-id.html:56
+#: modules/profile/components/wlc-messages/wlc-messages-content.html:11
+msgid "Delete"
+msgstr ""
+
+#: components/game-catalog.html:124 components/game-catalog.html:216
+#: components/game-catalog.html:286 components/game-catalog.html:318
+#: components/game-catalog.html:387 components/game-catalog.html:62
+#: components/game-catalog.html:92 directives/wlc-catalog-box.html:23
+#: modules/game-thumb.html:54 modules/search.html:37
+msgid "Demo"
+msgstr ""
+
+#: components/profile-menu.html:23
+#: components/profile/deposit/default-deposit.html:2
+#: components/profile/deposit/steps/steps-deposit-header.html:2
+#: config/wlc-main-menu-mobile-default.js:140
+#: config/wlc-profile-menu-default.js:122 dialogs/deposit.html:3
+#: dialogs/fast-deposit.html:3 directives/wlc-profile-menu.html:85
+#: modules/finances/components/profile-wallet/profile-wallet.html:34
+#: modules/game-play-info.html:15 modules/games-play-desktop.html:57
+#: modules/profile/components/profile-transactions/profile-transactions.component.ts:90
+#: modules/user-info.html:25 modules/user-stat-block-dropdown.html:15
+#: modules/user-stat-block-dropdown.html:86 modules/user-stat-block-min.html:61
+msgid "Deposit"
+msgstr ""
+
+#: dialogs/regcomplete-modal.html:23
+msgid "Deposit and Claim"
+msgstr ""
+
+#: dialogs/user-payment-success.html:10
+msgid "Deposit completed successfully"
+msgstr ""
+
+#: modules/profile/components/limits/limits.component.html:18
+msgid "Deposit limits"
+msgstr ""
+
+#: config/wlc-modal-config.js:201
+msgid "Deposit more money to play this game."
+msgstr ""
+
+#: modules/footer-copyright.html:8
+msgid "Developed by"
+msgstr ""
+
+#: dialogs/sms-verification/sms-verification.html:59
+#: modules/login-signup/register-steps/partial/resend-sms-btn.html:1
+msgid "Didnt receive a code?"
+msgstr ""
+
+#: components/profile-main-social.html:7
+msgid "Disconnect"
+msgstr ""
+
+#: partials/user-login.html:6
+msgid "Don't have an account?"
+msgstr ""
+
+#: dialogs/profile-verification/profile-verification-address.html:64
+#: dialogs/profile-verification/profile-verification-default.html:64
+#: dialogs/profile-verification/profile-verification-id.html:75
+#: dialogs/profile-verification/profile-verification-payment.html:64
+#: modules/login-signup/register-steps/partial/done-button.html:5
+#: modules/login-signup/register-steps/partial/setup-button.html:7
+msgid "Done"
+msgstr ""
+
+#: modules/double-coin-banner.html:4
+msgid "Double goldbar coin"
+msgstr ""
+
+#: components/profile-verification-main.html:61
+msgid "Download"
+msgstr ""
+
+#: components/user-social-register.html:23 dialogs/password-restore.html:19
+#: dialogs/password-restore.html:32 dialogs/user-social-complete.html:17
+#: modules/base/components/contact-form/elements/sender-email.html:2
+#: modules/login-form.html:11 modules/login-form.html:16
+#: modules/profile/config/profile-forms.config.ts:46
+#: modules/register-form.html:26 modules/user-info.html:5
+#: partials/contacts.html:21 partials/form-elements/email-login.html:6
+#: partials/form-elements/email-unique.html:2
+#: partials/form-elements/email-unique.html:7
+#: partials/form-elements/email.html:2 partials/form-elements/email.html:7
+#: partials/signup-form.html:116 partials/signup-form.html:118
+#: partials/signup-form.html:123
+msgid "E-mail"
+msgstr ""
+
+#: config/wlc-form-errors.ts:29
+msgid "E-mail is not unique"
+msgstr ""
+
+#: directives/wlc-merchants-in-category.directive.ts:109
+msgid "EGTInteractive"
+msgstr ""
+
+#: components/profile-main/profile-main.html:1
+#: components/profile/withdraw/default-withdraw.html:74
+#: components/profile/withdraw/default-withdraw.html:80
+#: config/wlc-profile-menu-default.js:38 dialogs/profile-check-error.html:12
+#: directives/wlc-deposit.html:62 directives/wlc-deposit.html:68
+#: directives/wlc-profile-menu.html:16 modules/user-stat-block-dropdown.html:62
+msgid "Edit profile"
+msgstr ""
+
+#: components/profile-tournaments-history.html:14
+msgid "End"
+msgstr ""
+
+#: components/profile-gamblings-bets.html:16
+#: modules/profile/components/profile-transactions/profile-transactions-filter.html:21
+#: modules/profile/components/wlc-dashboard-bonuses/wlc-dashboard-bonuses-filter.html:22
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-filter.html:10
+msgid "End date"
+msgstr ""
+
+#: components/profile-bonuses-history.html:16
+#: components/profile-bonuses-history.html:71
+#: components/profile-tournaments-history.html:53
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:63
+msgid "Ended"
+msgstr ""
+
+#: components/profile-tournaments-history.html:52
+msgid "Ending"
+msgstr ""
+
+#: directives/wlc-time.directive.ts:90
+msgid "Ends"
+msgstr ""
+
+#: directives/wlc-countdown.js:64
+msgid "Ends in"
+msgstr ""
+
+#: components/profile/withdraw/default-withdraw.html:89
+#: components/profile/withdraw/default-withdraw.html:97
+#: directives/wlc-deposit.html:106
+msgid "Enter amount"
+msgstr ""
+
+#: components/profile-bonuses-promo.html:10
+#: components/profile-bonuses-promo.html:21
+#: modules/loyalty/components/bonuses-list/bonuses-list.component.html:30
+#: modules/loyalty/components/bonuses-list/bonuses-list.component.html:41
+msgid "Enter code"
+msgstr ""
+
+#: dialogs/sms-verification/sms-verification.html:3
+msgid "Enter code here"
+msgstr ""
+
+#: components/profile/deposit/steps/amount/steps-deposit-amount-block.html:5
+msgid "Enter deposit amount."
+msgstr ""
+
+#: components/profile/withdraw/steps/amount/steps-withdraw-amount-block.html:5
+msgid "Enter withdraw amount."
+msgstr ""
+
+#: controllers/steps.controller.ts:172
+msgid "Enter your phone"
+msgstr ""
+
+#: directives/wlc-deposit.html:82
+msgid "Enter your wallet address below and then click \"Add deposit\""
+msgstr ""
+
+#: dialogs/tournaments/tournament-subscribe.html:26
+msgid "Entry fee"
+msgstr ""
+
+#: classes/services/loyalty-bonuses.class.ts:238
+#: modules/profile/components/profile-transactions/profile-transactions.component.ts:102
+msgid "Error"
+msgstr ""
+
+#: modules/error-page-box.html:4
+msgid "Error 404"
+msgstr ""
+
+#: modules/login-signup/register-steps/partial/error-form.html:2
+msgid "Error filling form."
+msgstr ""
+
+#: partials/signup-form/signup-form-content.html:39
+msgid ""
+"Error filling form. Check the correctness of filling out the form fields."
+msgstr ""
+
+#: modules/promo/components/welcome-promo-modal/welcome-promo-modal.controller.ts:95
+msgid "Error loading content"
+msgstr ""
+
+#: config/app.js:236
+msgid "Error occured during account final registration"
+msgstr ""
+
+#: controllers/finanses.controller.ts:678
+msgid "Error occured during deposit process."
+msgstr ""
+
+#: controllers/user/user.controller.ts:232
+msgid "Error occured during login process"
+msgstr ""
+
+#: components/user-restore-complete.js:25
+#: components/user-restore-complete.js:45 config/app.js:184
+msgid "Error occured during password recovery"
+msgstr ""
+
+#: controllers/user/user-register.ts:320 controllers/user/user-register.ts:574
+msgid "Error occured during registration"
+msgstr ""
+
+#: config/app.js:267
+msgid "Error occured during unsibscribe"
+msgstr ""
+
+#: components/profile-verification.component.ts:173
+msgid "Error occured during upload"
+msgstr ""
+
+#: controllers/finanses.controller.ts:679
+msgid "Error occured during withdraw process."
+msgstr ""
+
+#: controllers/user/sms-verify.controller.ts:109
+#: controllers/user/sms-verify.controller.ts:226
+msgid "Error occurred while sending code for SMS Verification"
+msgstr ""
+
+#: config/app.js:90
+msgid "Error page"
+msgstr ""
+
+#: components/profile-gamblings.js:125
+#: components/profile-verification.component.ts:112
+#: dialogs/profile-check-error.html:3
+#: modules/static-content/controllers/wlc-static.controller.ts:162
+#: services/error.service.ts:235 services/error.service.ts:240
+#: services/error.service.ts:244 services/error.service.ts:259
+msgid "Error!"
+msgstr ""
+
+#: directives/wlc-bonuses-exchanger.html:20
+msgid "Exchange"
+msgstr ""
+
+#: modules/profile/components/wlc-exchange-cash/wlc-exchange-cash.component.ts:77
+#: modules/profile/components/wlc-exchange-cash/wlc-exchange-cash.component.ts:86
+msgid "Exchange not available"
+msgstr ""
+
+#: components/profile-main-level.html:32
+msgid "Exchange rage"
+msgstr ""
+
+#: modules/profile/components/wlc-dashboard-loyalty/wlc-dashboard-loyalty.html:30
+#: modules/profile/components/wlc-exchange-cash/wlc-exchange-cash.component.ts:135
+msgid "Exchange to cash"
+msgstr ""
+
+#: components/profile-bonuses-history.html:13
+#: components/profile-bonuses-history.html:53
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:48
+#: modules/loyalty/components/wlc-loyalty-levels/wlc-loyalty-levels.component.html:9
+msgid "Experience"
+msgstr ""
+
+#: modules/game-play-info.html:24 modules/games-play-desktop.html:65
+msgid "Experience level"
+msgstr ""
+
+#: components/profile-main-level.html:24
+msgid "Experience points"
+msgstr ""
+
+#: components/profile-bonuses-history.html:80
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:71
+#: modules/profile/controllers/wlc-dashboard-bonuses.controller.ts:95
+msgid "Expired"
+msgstr ""
+
+#: components/profile-bonuses-active.html:17
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:17
+msgid "Expires"
+msgstr ""
+
+#: config/wlc-main-menu-mobile-default.js:158 modules/footer-info.html:82
+msgid "FAQ"
+msgstr ""
+
+#: modules/social-list.html:6 partials/signup-form.html:58
+#: partials/signup-form/signup-form-socials.html:6
+msgid "Facebook"
+msgstr ""
+
+#: components/profile-verification-main.html:50
+#: dialogs/profile-verification/profile-verification-address.html:43
+#: dialogs/profile-verification/profile-verification-default.html:37
+#: dialogs/profile-verification/profile-verification-id.html:42
+#: dialogs/profile-verification/profile-verification-payment.html:43
+msgid "Failed validation"
+msgstr ""
+
+#: config/wlc-main-menu-mobile-default.js:122 modules/footer-info.html:35
+msgid "Fair Play"
+msgstr ""
+
+#: modules/game-catalog-menu.html:14
+msgid "Favourites"
+msgstr ""
+
+#: controllers/user/user-abstract.ts:137
+#: modules/profile/classes/profile-abstract.class.ts:138
+msgid "February"
+msgstr ""
+
+#: modules/finances/components/payment-systems-info/payment-systems-info.component.html:12
+#: modules/finances/components/payment-systems-info/payment-systems-info.component.html:25
+#: modules/finances/components/payment-systems/payment-systems.html:7
+msgid "Fee"
+msgstr ""
+
+#: controllers/user/user-register.ts:139
+msgid "Female"
+msgstr ""
+
+#: components/profile-verification-main.html:42
+#: dialogs/profile-verification/profile-verification-address.html:26
+#: dialogs/profile-verification/profile-verification-default.html:19
+#: dialogs/profile-verification/profile-verification-id.html:25
+#: dialogs/profile-verification/profile-verification-payment.html:26
+msgid "File"
+msgstr ""
+
+#: dialogs/profile-verification/profile-verification-id.html:59
+msgid "File is deleting"
+msgstr ""
+
+#: components/profile-verification-main.html:27
+msgid "File is loading"
+msgstr ""
+
+#: components/profile-verification.component.ts:180
+msgid "File size should not exceed"
+msgstr ""
+
+#: components/profile/deposit/steps/amount/steps-deposit-amount-block.html:19
+#: components/profile/deposit/steps/amount/steps-deposit-amount-block.html:24
+#: components/profile/withdraw/steps/amount/steps-withdraw-amount-block.html:17
+#: components/profile/withdraw/steps/amount/steps-withdraw-amount-block.html:22
+msgid "Fill profile"
+msgstr ""
+
+#: dialogs/profile-partial-update.html:8 dialogs/required-fields.html:4
+msgid "Fill required fields"
+msgstr ""
+
+#: modules/game-catalog-menu.html:31
+msgid "Filter"
+msgstr ""
+
+#: modules/profile/components/profile-transactions/profile-transactions.component.ts:107
+msgid "Finalize failed"
+msgstr ""
+
+#: classes/services/payment-system.model.ts:110
+#: modules/profile/config/profile-forms.config.ts:20
+#: partials/form-elements/first-name.html:11
+#: partials/form-elements/first-name.html:2
+msgid "First name"
+msgstr ""
+
+#: modules/login-form.html:48
+#: modules/profile/components/login-signup-dropdown/login-form.html:21
+#: partials/login-form.html:28
+msgid "Forgot password?"
+msgstr ""
+
+#: components/game-catalog.html:133 components/game-catalog.html:192
+#: components/game-catalog.html:327 components/game-catalog.html:396
+#: directives/wlc-catalog-box.html:30
+msgid "Forward"
+msgstr ""
+
+#: controllers/user/user-profile.ts:87
+msgid "Fractional"
+msgstr ""
+
+#: components/profile-bonuses-history.html:14
+#: components/profile-bonuses-history.html:59
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:53
+msgid "Freerounds"
+msgstr ""
+
+#: directives/wlc-freerounds.directive.ts:85
+#: directives/wlc-freerounds.directive.ts:92
+#: modules/base/components/wlc-smart-userinfo/wlc-smart-userinfo.component.html:8
+msgid "Freespins"
+msgstr ""
+
+#: modules/finances/components/payment-systems/payment-systems.html:35
+#: modules/profile/components/wlc-messages/wlc-messages-list.html:10
+#: modules/profile/components/wlc-messages/wlc-messages-list.html:28
+msgid "From"
+msgstr ""
+
+#: classes/services/loyalty-bonuses.class.ts:673
+msgid "Full lock"
+msgstr ""
+
+#: config/wlc-profile-menu-default.js:146 directives/wlc-profile-menu.html:110
+msgid "Gamblings"
+msgstr ""
+
+#: components/profile-gamblings-bets.html:121
+#: components/profile-gamblings-bets.html:77
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-list.html:31
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-list.html:7
+msgid "Game"
+msgstr ""
+
+#: config/wlc-main-menu-mobile-default.js:50
+msgid "Game Categories"
+msgstr ""
+
+#: directives/wlc-catalog-tree.html:3
+msgid "Game categories"
+msgstr ""
+
+#: constants/check-on-run-game.js:153
+msgid "Game has no demo!"
+msgstr ""
+
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-filter.html:48
+msgid "Game name"
+msgstr ""
+
+#: modules/game-day.html:2
+msgid "Game of the day"
+msgstr ""
+
+#: modules/big-merchant-filter.html:6
+msgid "Game providers filter"
+msgstr ""
+
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-filter.html:31
+msgid "Game result"
+msgstr ""
+
+#: modules/search.html:10
+msgid "Game search"
+msgstr ""
+
+#: modules/big-merchant-filter.html:3
+msgid "Games filter"
+msgstr ""
+
+#: modules/footer-info.html:21
+msgid "Games rules"
+msgstr ""
+
+#: modules/register-form.html:101
+#: partials/form-elements/checkbox-games-rules.html:21
+#: partials/signup-form.html:207
+msgid "Games_rules"
+msgstr ""
+
+#: classes/services/payment-system.model.ts:127
+#: modules/profile/config/profile-forms.config.ts:69
+#: modules/profile/config/profile-forms.config.ts:73
+#: modules/profile/config/profile-forms.config.ts:89
+msgid "Gender"
+msgstr ""
+
+#: modules/profile/controllers/wlc-dashboard-bonuses.controller.ts:84
+msgid "General"
+msgstr ""
+
+#: modules/login-signup/register-steps/partial/verify-one-button.html:4
+#: partials/form-elements/phone-number.html:29
+msgid "Get code"
+msgstr ""
+
+#: components/profile-gamblings-bets.html:60
+msgid "Get earlier results..."
+msgstr ""
+
+#: partials/form-elements/gift-bundle-id.html:2
+#: partials/form-elements/gift-bundle-id.html:7
+msgid "Gift Bundle ID"
+msgstr ""
+
+#: dialogs/user-signup.html:30 dialogs/user-signup.html:35
+#: modules/user-signup.html:20
+msgid "Go back"
+msgstr ""
+
+#: modules/error-page-box.html:6
+msgid "Go home"
+msgstr ""
+
+#: components/game-catalog.html:199 components/game-catalog.html:269
+#: components/game-catalog.html:75
+msgid "Go to"
+msgstr ""
+
+#: modules/profile/components/wlc-dashboard-loyalty/wlc-dashboard-loyalty.html:33
+msgid "Go to Store"
+msgstr ""
+
+#: modules/error-page-box-two-column.html:4
+msgid "Go to main page"
+msgstr ""
+
+#: components/game-catalog.html:44
+msgid "Go to popular games"
+msgstr ""
+
+#: modules/social-list.html:31 partials/signup-form.html:90
+#: partials/signup-form/signup-form-socials.html:38
+msgid "Google+"
+msgstr ""
+
+#: dialogs/bonus-description.html:16
+#: dialogs/tournaments/tournament-description.html:6
+msgid "Got it"
+msgstr ""
+
+#: dialogs/user-social-complete.html:52 modules/register-form.html:52
+#: partials/form-elements/promocode.html:2 partials/signup-form.html:151
+msgid "Got promo code?"
+msgstr ""
+
+#: modules/login-signup/register-steps/partial/promocode.html:4
+msgid "Have a promo code?"
+msgstr ""
+
+#: modules/user-stat-block-dropdown.html:43
+msgid "Hi"
+msgstr ""
+
+#: config/wlc-profile-menu-default.js:68 directives/wlc-profile-menu.html:56
+msgid "History"
+msgstr ""
+
+#: config/app.js:66 config/components/home-controller.config.ts:44
+msgid "Home"
+msgstr ""
+
+#: config/wlc-main-menu-default.js:37
+msgid "Home page"
+msgstr ""
+
+#: modules/agreements/privacy-policy.html:11
+msgid "I agree"
+msgstr ""
+
+#: modules/register-form.html:77 modules/register-form.html:99
+#: partials/form-elements/checkbox-games-rules.html:16
+#: partials/form-elements/checkbox-terms-cond.html:15
+#: partials/signup-form.html:177 partials/signup-form.html:202
+msgid "I agree with"
+msgstr ""
+
+#: modules/login-signup/register-steps/partial/terms.html:11
+msgid "I confirm I am over 18 and accept the following:"
+msgstr ""
+
+#: modules/register-form.html:117
+#: partials/form-elements/checkbox-confirm-age.html:12
+#: partials/signup-form.html:224
+msgid "I confirm that I'm 18 years or older"
+msgstr ""
+
+#: components/profile/deposit/steps/bonus/steps-deposit-bonus-block-modal.html:8
+#: components/profile/deposit/steps/modal/modal-step-deposit-bonuses.html:10
+msgid "I don`t want a bonuse."
+msgstr ""
+
+#: components/profile/deposit/steps/amount/steps-deposit-amount-block.html:82
+#: directives/wlc-deposit.html:194
+msgid "I have read and agree with the payment agents"
+msgstr ""
+
+#: partials/form-elements/get-notifications.html:11
+msgid ""
+"I would like to receive information about promotions, marketings materials "
+"and personalised content"
+msgstr ""
+
+#: partials/form-elements/get-notifications-sms.html:12
+msgid ""
+"I would like to receive information about promotions, marketings materials "
+"and personalised content for SMS"
+msgstr ""
+
+#: classes/services/payment-system.model.ts:132
+#: modules/profile/config/profile-forms.config.ts:306
+#: partials/form-elements/id-number.html:10
+#: partials/form-elements/id-number.html:2
+msgid "ID number"
+msgstr ""
+
+#: modules/user-stat-block-min.html:34
+msgid "ID:"
+msgstr ""
+
+#: classes/services/payment-system.model.ts:172
+#: modules/profile/config/profile-forms.config.ts:241
+#: partials/form-elements/iban-number.html:11
+#: partials/form-elements/iban-number.html:2
+msgid "Iban number"
+msgstr ""
+
+#: dialogs/password-restore-step2.html:14
+msgid ""
+"If you are unable to find the e-mail in your Inbox, make sure to check the "
+"\"Junk\" folders. Then continue the instructions in the e-mail."
+msgstr ""
+
+#: dialogs/profile-verification/profile-verification-payment.html:14
+msgid ""
+"If you are using wallets like Neteller or Skrill. Provide a print screen, of "
+"the wallet while being signed in. Your email has to be visible in the image."
+msgstr ""
+
+#: modules/profile/components/limits/limits.component.html:37
+msgid ""
+"If you feel as though you are no longer enjoying playing with us, or that "
+"you are ending up frustrated, anxious or even depressed then it sounds like "
+"it may be time to take a break from playing and assess if your current level "
+"of play is right for you."
+msgstr ""
+
+#: components/user-restore.html:7
+msgid ""
+"If you forgot your password and would like to reset it or would like to "
+"change<br>your password for security reasons, please enter your email and "
+"click \"Restore\"."
+msgstr ""
+
+#: modules/profile/controllers/wlc-dashboard-bonuses.controller.ts:94
+msgid "In Progress"
+msgstr ""
+
+#: modules/profile/components/profile-transactions/profile-transactions.component.ts:106
+msgid "In payment queue"
+msgstr ""
+
+#: dialogs/sms-verification/sms-verification.html:7
+msgid "Incorrect code"
+msgstr ""
+
+#: config/wlc-main-menu-mobile-default.js:92
+#: dialogs/tournaments/tournament-info.html:4
+msgid "Info"
+msgstr ""
+
+#: config/wlc-modal-config.js:200
+msgid "Insufficient balance!"
+msgstr ""
+
+#: dialogs/tournaments/tournament-insufficient-funds.html:3
+msgid "Insufficient funds"
+msgstr ""
+
+#: dialogs/tournaments/tournament-insufficient-points.html:3
+msgid "Insufficient points"
+msgstr ""
+
+#: config/wlc-form-errors.ts:30 config/wlc-form-errors.ts:31
+#: config/wlc-form-errors.ts:32 config/wlc-form-errors.ts:33
+msgid "Invalid value"
+msgstr ""
+
+#: config/state/profile/profile-bonuses.js:89
+#: config/wlc-profile-menu-default.js:62
+msgid "Inventory"
+msgstr ""
+
+#: components/game-catalog.html:259 components/game-catalog.html:34
+#: components/game-catalog.html:361 config/wlc-main-menu-default.js:135
+#: modules/catalog/jackpots-grid.html:2
+msgid "Jackpots"
+msgstr ""
+
+#: controllers/user/user-abstract.ts:136
+#: modules/profile/classes/profile-abstract.class.ts:137
+msgid "January"
+msgstr ""
+
+#: components/profile-tournaments-main.html:37
+#: modules/loyalty/components/tournaments-list/tournaments-list.item.html:54
+msgid "Join now"
+msgstr ""
+
+#: controllers/user/user-abstract.ts:142
+#: modules/profile/classes/profile-abstract.class.ts:143
+msgid "July"
+msgstr ""
+
+#: controllers/user/user-abstract.ts:141
+#: modules/profile/classes/profile-abstract.class.ts:142
+msgid "June"
+msgstr ""
+
+#: modules/promo/components/last-jackpots/last-jackpots.html:8
+msgid "Last Jackpots"
+msgstr ""
+
+#: classes/services/payment-system.model.ts:115
+#: modules/profile/config/profile-forms.config.ts:33
+#: partials/form-elements/last-name.html:2
+#: partials/form-elements/last-name.html:8
+msgid "Last name"
+msgstr ""
+
+#: config/wlc-game-categories-default.js:146
+#: config/wlc-main-menu-mobile-default.js:44 modules/mobile-menu-column.html:3
+msgid "Last played"
+msgstr ""
+
+#: modules/last-pages.html:2
+msgid "Latest news"
+msgstr ""
+
+#: components/profile-tournaments-main.html:54
+#: modules/games-play-desktop.html:115
+#: modules/loyalty/components/tournaments-list/tournaments-list.item.html:61
+#: modules/loyalty/components/tournaments-slider/tournaments-slider-item.html:75
+msgid "Leave"
+msgstr ""
+
+#: modules/footer-info.html:3
+msgid "Legal"
+msgstr ""
+
+#: dialogs/tournaments/tournament-subscribe.html:63
+msgid "Let's play!"
+msgstr ""
+
+#: dialogs/tournaments/tournament-subscribe.html:36
+msgid "Let's play?"
+msgstr ""
+
+#: modules/loyalty/components/current-level/current-level.html:7
+#: modules/loyalty/components/wlc-loyalty-levels/wlc-loyalty-levels.component.html:7
+#: modules/user-stat-block-dropdown.html:51 modules/user-stat-block.html:38
+#: partials/loyalty-progress-bar.html:7
+msgid "Level"
+msgstr ""
+
+#: modules/loyalty/components/wlc-loyalty-levels/wlc-loyalty-levels.component.html:8
+msgid "Level name"
+msgstr ""
+
+#: modules/finances/components/payment-systems-info/payment-systems-info.component.html:14
+msgid "Limit per transaction"
+msgstr ""
+
+#: components/game-catalog.html:141 components/profile-limits.html:2
+#: components/profile/deposit/steps/paymentSystems/steps-deposit-system-desc.html:3
+#: components/profile/withdraw/steps/paymentSystems/steps-withdraw-system-desc.html:3
+#: config/state/profile/profile-limits.config.ts:34
+#: config/wlc-profile-menu-default.js:195
+#: modules/finances/components/payment-systems-info/payment-systems-info.component.html:33
+#: modules/finances/components/payment-systems/payment-systems.html:9
+#: modules/profile/components/limits/limits.component.html:3
+msgid "Limits"
+msgstr ""
+
+#: modules/profile/components/limits/limits.component.html:20
+msgid "Limits your ability to deposit more funds to your gaming balance."
+msgstr ""
+
+#: modules/profile/components/limits/limits.component.html:26
+msgid "Limits your access to your account for 7, 30, 60, 90, 180, or 365 days."
+msgstr ""
+
+#: config/wlc-main-menu-default.js:186
+#: config/wlc-main-menu-mobile-default.js:190
+msgid "Live Betting"
+msgstr ""
+
+#: config/wlc-main-menu-default.js:53 config/wlc-main-menu-mobile-default.js:56
+#: modules/error-page-box-two-column.html:8
+msgid "Live Casino"
+msgstr ""
+
+#: modules/base/components/country-accepts/country-accepts-content.html:14
+msgid "Live chat language"
+msgstr ""
+
+#: directives/games/load-more-games.directive.html:9
+#: modules/search-and-filter-results.html:30
+msgid "Load more games"
+msgstr ""
+
+#: sections/games-play-mobile.html:6
+msgid "Loading..."
+msgstr ""
+
+#: config/forms/profile.form.ts:110
+msgid "Location"
+msgstr ""
+
+#: dialogs/play-for-free.html:9
+msgid "Log in to play for real"
+msgstr ""
+
+#: dialogs/game.html:37 dialogs/user-login-signup.html:10
+#: dialogs/user-login-signup.html:20 dialogs/user-signup.html:21
+#: dialogs/user-signup.html:43 modules/header/login-button-mobile.html:11
+#: modules/header/profile-button-mobile.html:9 modules/login-button.html:2
+#: modules/login-form.html:30
+#: modules/profile/components/login-signup-dropdown/login-form.html:15
+#: modules/user-signup.html:29 partials/login-form.html:37
+#: partials/user-login.html:4 sections/user-signup.html:7
+msgid "Login"
+msgstr ""
+
+#: controllers/user/user.controller.ts:236
+msgid "Login error"
+msgstr ""
+
+#: dialogs/game.html:33
+msgid "Login to play for real"
+msgstr ""
+
+#: modules/login-signup/register-steps/partial/setup-social.html:4
+#: partials/login-form.html:9 partials/signup-form.html:50
+#: partials/signup-form/signup-form-content.html:10
+msgid "Login with social"
+msgstr ""
+
+#: config/wlc-main-menu-default.js:45
+msgid "Logo"
+msgstr ""
+
+#: config/wlc-profile-menu-default.js:164 dialogs/user-logout.html:6
+#: directives/wlc-profile-menu.html:131
+#: modules/user-stat-block-dropdown.html:112 modules/user-stat-block.html:60
+msgid "Logout"
+msgstr ""
+
+#: config/wlc-game-categories-default.js:179
+msgid "Lottery"
+msgstr ""
+
+#: components/profile-bonuses-history.html:12
+#: components/profile-bonuses-history.html:47
+#: config/wlc-profile-menu-default.js:207
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:43
+msgid "Loyalty"
+msgstr ""
+
+#: config/state/profile/profile-loyalty.js:24
+msgid "Loyalty level"
+msgstr ""
+
+#: components/profile/loyalty/profile-loyalty-level.html:2
+msgid "Loyalty level progress"
+msgstr ""
+
+#: modules/loyalty/components/wlc-loyalty-levels/wlc-loyalty-levels.component.html:3
+msgid "Loyalty levels"
+msgstr ""
+
+#: modules/social-list.html:21 partials/signup-form.html:77
+#: partials/signup-form/signup-form-socials.html:25
+msgid "Mail.ru"
+msgstr ""
+
+#: config/forms/profile.form.ts:48
+msgid "Main info"
+msgstr ""
+
+#: dialogs/tournaments/tournament-insufficient-funds.html:5
+msgid "Make deposit"
+msgstr ""
+
+#: controllers/user/user-register.ts:138
+msgid "Male"
+msgstr ""
+
+#: controllers/user/user-abstract.ts:138
+#: modules/profile/classes/profile-abstract.class.ts:139
+msgid "March"
+msgstr ""
+
+#: config/wlc-profile-menu-default.js:225
+msgid "Market"
+msgstr ""
+
+#: modules/sportsbook/components/betradar-widget/v2/partials/daily-match.html:3
+msgid "Match of the day"
+msgstr ""
+
+#: controllers/user/user-abstract.ts:140
+#: modules/profile/classes/profile-abstract.class.ts:141
+msgid "May"
+msgstr ""
+
+#: components/profile-gamblings-bets.html:112
+#: components/profile-gamblings-bets.html:25
+#: components/profile-gamblings-bets.html:76
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-filter.html:17
+msgid "Merchant"
+msgstr ""
+
+#: modules/profile/components/profile-transactions/profile-transactions.component.ts:109
+msgid "Merchant complete"
+msgstr ""
+
+#: components/game-catalog.html:21 components/game-catalog.html:246
+#: components/game-catalog.html:348
+msgid "Merchants"
+msgstr ""
+
+#: modules/base/components/contact-form/elements/sender-message.html:2
+msgid "Message"
+msgstr ""
+
+#: modules/base/components/contact-form/contact-form.component.ts:130
+msgid "Message sent failed."
+msgstr ""
+
+#: controllers/contacts.ts:94
+#: modules/base/components/contact-form/contact-form.component.ts:124
+msgid "Message successfully sent."
+msgstr ""
+
+#: config/state/profile/profile-messages.config.ts:34
+#: config/wlc-profile-menu-default.js:158
+#: modules/profile/components/wlc-messages/wlc-messages-list.html:1
+msgid "Messages"
+msgstr ""
+
+#: modules/finances/components/payment-systems/payment-systems.html:5
+#: modules/profile/components/profile-transactions/profile-transactions-list.html:18
+#: modules/profile/components/profile-transactions/profile-transactions-list.html:71
+msgid "Method"
+msgstr ""
+
+#: directives/deposit-withdraw/wlc-step-deposit-withdraw.directive.ts:268
+msgid "Minimum / maximum deposit requirement changed due to a selected bonus:"
+msgstr ""
+
+#: modules/profile/components/wlc-exchange-cash/wlc-exchange-cash.html:24
+msgid "Minimum RP"
+msgstr ""
+
+#: classes/services/payment-system.model.ts:177
+#: partials/form-elements/mobile-phone.html:18
+#: partials/form-elements/phone-number.html:2
+msgid "Mobile phone"
+msgstr ""
+
+#: components/profile-notifications.html:29
+#: modules/profile/components/notification/sms-verification.html:13
+msgid "Mobile phone number verified"
+msgstr ""
+
+#: controllers/user/user-abstract.ts:151
+#: modules/profile/classes/profile-abstract.class.ts:152
+#: modules/profile/config/profile-forms.config.ts:130
+msgid "Month"
+msgstr ""
+
+#: directives/wlc-dropdown-list.html:4
+msgid "More"
+msgstr ""
+
+#: components/profile-tournaments-main.html:46
+#: components/profile/deposit/steps/bonus/steps-deposit-bonus-actions.html:5
+#: components/profile/deposit/steps/modal/modal-step-deposit-bonuses.html:22
+#: components/profile/deposit/steps/modal/modal-step-deposit-systems.html:17
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:80
+#: modules/loyalty/components/store-list/store-list.item.html:18
+#: modules/loyalty/components/store-list/store-list.item.html:58
+#: modules/loyalty/components/tournaments-list/tournaments-list.item.html:39
+#: modules/loyalty/components/tournaments-slider/tournaments-slider-item.html:90
+msgid "More info"
+msgstr ""
+
+#: modules/base/components/sorted-items/templates/merchants-in-category/dropdown-merchants.html:12
+#: modules/filter-merchants.html:15
+msgid "Multiple select"
+msgstr ""
+
+#: components/profile-menu.html:2 directives/wlc-profile-menu.html:4
+msgid "My Account"
+msgstr ""
+
+#: config/wlc-main-menu-mobile-default.js:152
+#: config/wlc-profile-menu-default.js:32
+msgid "My account"
+msgstr ""
+
+#: components/profile-bonuses-active.html:1
+msgid "My active bonuses"
+msgstr ""
+
+#: components/profile-bonuses-history.html:1
+msgid "My bonus history"
+msgstr ""
+
+#: modules/mobile-menu-column.html:16
+msgid "My favorite"
+msgstr ""
+
+#: config/wlc-game-categories-default.js:137
+#: config/wlc-main-menu-mobile-default.js:38 partials/game-catalog.html:16
+msgid "My favourites"
+msgstr ""
+
+#: components/profile-store-orders.html:2
+msgid "My orders history"
+msgstr ""
+
+#: modules/user-stat-block.html:55
+msgid "My profile"
+msgstr ""
+
+#: components/profile-tournaments-history.html:9
+msgid "Name"
+msgstr ""
+
+#: modules/profile/components/profile-transactions/profile-transactions.component.ts:103
+msgid "New"
+msgstr ""
+
+#: modules/profile/config/profile-forms.config.ts:359
+#: partials/form-elements/password-new.html:13
+#: partials/form-elements/password-new.html:3
+msgid "New password"
+msgstr ""
+
+#: config/wlc-main-menu-default.js:143
+#: config/wlc-main-menu-mobile-default.js:182
+msgid "News"
+msgstr ""
+
+#: bower/dirPagination.tpl.html:10
+msgid "Next"
+msgstr ""
+
+#: components/profile-main-level.html:28
+msgid "Next level points"
+msgstr ""
+
+#: controllers/user/user-profile.ts:95 dialogs/confirmation.html:24
+#: dialogs/user-logout.html:16
+#: modules/profile/components/main-info/main-info.component.ts:93
+msgid "No"
+msgstr ""
+
+#: modules/base/components/wlc-smart-userinfo/wlc-smart-userinfo.component.html:26
+#: modules/base/components/wlc-smart-userinfo/wlc-smart-userinfo.component.html:32
+msgid "No Active Bonus"
+msgstr ""
+
+#: components/profile-referrals.html:58 components/profile-store-main.html:36
+#: components/profile-tournaments-active.html:6
+#: modules/loyalty/components/store-list/store-list.component.html:24
+#: modules/loyalty/components/store-list/store-list.component.html:45
+msgid "No active items available"
+msgstr ""
+
+#: modules/loyalty/controllers/loyalty-tournaments.controller.ts:218
+msgid "No available wins"
+msgstr ""
+
+#: components/profile-gamblings-bets.html:47
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history.html:13
+msgid "No bets history"
+msgstr ""
+
+#: components/profile-bonuses-inventory.html:35
+#: components/profile-bonuses-list.html:14
+#: modules/loyalty/components/bonuses-list/bonuses-list.component.html:19
+#: modules/loyalty/components/bonuses-slider/bonuses-slider.component.html:15
+#: modules/profile/components/wlc-dashboard-bonuses/wlc-dashboard-bonuses-content.html:12
+msgid "No bonus found"
+msgstr ""
+
+#: components/profile-bonuses-history.html:94
+msgid "No bonus history"
+msgstr ""
+
+#: modules/login-signup/register-steps/partial/setup-bonus.html:3
+#: partials/signup-form.html:44 partials/signup-form/signup-form-content.html:5
+msgid "No bonus is selected."
+msgstr ""
+
+#: modules/loyalty/components/choose-bonus/choose-bonus.html:21
+msgid "No bonuses available"
+msgstr ""
+
+#: modules/loyalty/components/store-list/store-list.component.html:49
+msgid "No categories available"
+msgstr ""
+
+#: components/profile-tournaments-history.html:67
+msgid "No history items available"
+msgstr ""
+
+#: components/pages-content.html:10
+msgid "No information"
+msgstr ""
+
+#: modules/loyalty/components/wlc-loyalty-levels/wlc-loyalty-levels.component.html:21
+msgid "No level data"
+msgstr ""
+
+#: classes/services/loyalty-bonuses.class.ts:676
+msgid "No lock"
+msgstr ""
+
+#: modules/profile/components/wlc-messages/wlc-messages-list.html:58
+msgid "No messages"
+msgstr ""
+
+#: components/pages-content.html:9
+#: modules/static-content/components/static-blog/static-blog-content.html:8
+msgid "No news"
+msgstr ""
+
+#: components/profile-store-orders.html:31
+msgid ""
+"No orders history items\n"
+"            available"
+msgstr ""
+
+#: components/profile-tournaments-main.html:76
+#: modules/loyalty/components/tournaments-list/tournaments-list.component.html:20
+#: modules/loyalty/components/tournaments-slider/tournaments-slider.component.html:21
+msgid "No tournaments at the moment"
+msgstr ""
+
+#: modules/profile/components/profile-transactions/profile-transactions.component.html:14
+msgid "No transaction history"
+msgstr ""
+
+#: components/profile-bonuses-promo.html:26
+#: modules/loyalty/components/bonuses-list/bonuses-list.component.html:46
+msgid "No voucher found"
+msgstr ""
+
+#: modules/loyalty/components/choose-bonus/choose-bonus.html:24
+msgid "Not choose any Bonus"
+msgstr ""
+
+#: modules/loyalty/components/choose-bonus/choose-bonus.html:41
+msgid "Not choosing any Bonus"
+msgstr ""
+
+#: controllers/user/user-profile.ts:103 controllers/user/user-profile.ts:80
+#: controllers/user/user-profile.ts:86 controllers/user/user-profile.ts:93
+#: controllers/user/user-profile.ts:99
+#: modules/profile/components/main-info/main-info.component.ts:107
+#: modules/profile/components/main-info/main-info.component.ts:91
+#: modules/profile/components/main-info/main-info.component.ts:97
+msgid "Not selected"
+msgstr ""
+
+#: components/profile-store-orders.html:14
+#: components/profile-verification-main.html:56
+#: modules/profile/components/profile-transactions/profile-transactions-list.html:64
+msgid "Note"
+msgstr ""
+
+#: components/profile-notifications.html:1
+#: config/state/profile/profile-notifications.config.ts:35
+#: config/wlc-profile-menu-default.js:183
+#: modules/profile/components/notification/notification.config.ts:6
+msgid "Notifications"
+msgstr ""
+
+#: modules/profile/config/profile-forms.config.ts:494
+msgid "Notifications via email"
+msgstr ""
+
+#: modules/profile/config/profile-forms.config.ts:510
+msgid "Notifications via sms"
+msgstr ""
+
+#: controllers/user/user-abstract.ts:146
+#: modules/profile/classes/profile-abstract.class.ts:147
+msgid "November"
+msgstr ""
+
+#: dialogs/user-message.html:10 dialogs/user-payment-success.html:24
+msgid "OK"
+msgstr ""
+
+#: dialogs/tournaments/tournament-subscribe.html:58
+msgid "OK!"
+msgstr ""
+
+#: dialogs/play-for-free.html:12
+msgid "OR"
+msgstr ""
+
+#: controllers/user/user-abstract.ts:145
+#: modules/profile/classes/profile-abstract.class.ts:146
+msgid "October"
+msgstr ""
+
+#: partials/form-elements/odds.html:2
+msgid "Odds style"
+msgstr ""
+
+#: modules/social-list.html:16 partials/signup-form.html:71
+#: partials/signup-form/signup-form-socials.html:19
+msgid "Odnoklassniki"
+msgstr ""
+
+#: components/profile-bonuses-inventory.html:1
+#: components/profile-bonuses-list.html:1 config/wlc-profile-menu-default.js:50
+#: directives/wlc-profile-menu.html:36
+msgid "Offers"
+msgstr ""
+
+#: config/wlc-profile-menu-default.js:201
+msgid "Open bets"
+msgstr ""
+
+#: modules/store-menu.html:24
+msgid "Orders"
+msgstr ""
+
+#: modules/profile/config/profile-forms.config.ts:322
+#: partials/form-elements/pep.html:2
+msgid "PEP"
+msgstr ""
+
+#: modules/error-page-box.html:5 services/error.service.ts:279
+msgid "Page not found"
+msgstr ""
+
+#: config/forms/profile.form.ts:139
+msgid "Passport details"
+msgstr ""
+
+#: components/profile-password.html:1
+#: components/profile/deposit/steps/modal/modal-step-deposit-profile-password.html:2
+#: components/profile/deposit/steps/modal/modal-step-deposit-profile-password.html:9
+#: config/forms/profile.form.ts:192
+#: config/state/profile/profile-password.config.ts:35
+#: config/wlc-profile-menu-default.js:177 dialogs/user-social-complete.html:24
+#: modules/profile/components/password-change/password-change.config.ts:6
+#: partials/form-elements/password-registration.html:11
+#: partials/form-elements/password-registration.html:2
+#: partials/form-elements/password.html:13
+#: partials/form-elements/password.html:3
+msgid "Password"
+msgstr ""
+
+#: config/app.js:175
+msgid "Password create"
+msgstr ""
+
+#: directives/wlc-password.ts:106
+msgid "Password must be at least 6 characters"
+msgstr ""
+
+#: directives/wlc-password.ts:109
+msgid "Password must be at least 6 characters and contain letter and digit"
+msgstr ""
+
+#: directives/wlc-password.ts:118
+msgid ""
+"Password must be at least 6 characters and contain small and large letter, "
+"digit and special symbol"
+msgstr ""
+
+#: services/validator/password.rules.ts:18
+msgid ""
+"Password must contain latin letters in upper and lower case, numbers and "
+"special symbols"
+msgstr ""
+
+#: dialogs/password-restore-step2.html:9
+msgid "Password reset"
+msgstr ""
+
+#: components/user-restore-complete.js:20
+#: components/user-restore-complete.js:37 dialogs/password-restore.html:12
+msgid "Password restore"
+msgstr ""
+
+#: controllers/user/user-profile.ts:279 dialogs/user-social-complete.html:35
+#: modules/profile/components/password-change/password-change.component.ts:79
+msgid "Passwords should match"
+msgstr ""
+
+#: modules/profile/components/limits/limits.component.html:24
+msgid "Pause account"
+msgstr ""
+
+#: controllers/finanses.controller.ts:619
+msgid "Payment"
+msgstr ""
+
+#: modules/footer-info.html:75
+msgid "Payment Methods"
+msgstr ""
+
+#: config/wlc-main-menu-mobile-default.js:134
+#: modules/finances/components/payment-systems-info/payment-systems-info.component.html:10
+msgid "Payment System"
+msgstr ""
+
+#: directives/wlc-deposit.html:78
+msgid "Payment information"
+msgstr ""
+
+#: components/profile/deposit/steps/amount/steps-deposit-amount-block.html:13
+#: components/profile/withdraw/default-withdraw.html:67
+#: components/profile/withdraw/steps/amount/steps-withdraw-amount-block.html:11
+#: directives/wlc-deposit.html:55
+msgid ""
+"Payment method isn't available. Please fill in the following profile fields"
+msgstr ""
+
+#: config/state/profile/profile-payments.config.ts:34
+#: config/wlc-profile-menu-default.js:189
+msgid "Payments"
+msgstr ""
+
+#: modules/base/components/wlc-smart-userinfo/wlc-smart-userinfo.component.html:29
+msgid "Period Of Wagering"
+msgstr ""
+
+#: modules/profile/components/limits/limits.component.html:31
+msgid "Permanently denies you access to your account."
+msgstr ""
+
+#: partials/contacts.html:7 partials/form-elements/alternative-phone.html:21
+msgid "Phone"
+msgstr ""
+
+#: partials/form-elements/alternative-phone.html:11
+msgid "Phone code"
+msgstr ""
+
+#: services/validator/phone.rules.ts:100
+msgid "Phone code is empty"
+msgstr ""
+
+#: modules/profile/config/profile-forms.config.ts:408
+#: modules/profile/config/profile-forms.config.ts:425
+#: partials/form-elements/alternative-phone.html:27
+#: partials/form-elements/mobile-phone.html:24
+#: partials/form-elements/phone-number.html:11
+msgid "Phone number"
+msgstr ""
+
+#: components/profile-tournaments-history.html:10
+msgid "Place"
+msgstr ""
+
+#: components/game-catalog.html:10 components/game-catalog.html:121
+#: components/game-catalog.html:158 components/game-catalog.html:183
+#: components/game-catalog.html:213 components/game-catalog.html:237
+#: components/game-catalog.html:283 components/game-catalog.html:315
+#: components/game-catalog.html:339 components/game-catalog.html:384
+#: components/game-catalog.html:59 components/game-catalog.html:89
+#: directives/wlc-catalog-box.html:20 modules/game-thumb.html:45
+#: modules/search.html:34
+msgid "Play"
+msgstr ""
+
+#: dialogs/game.html:43 dialogs/play-for-free.html:13
+msgid "Play for free"
+msgstr ""
+
+#: dialogs/game.html:25 modules/game-play/game-play-header.html:25
+msgid "Play for real"
+msgstr ""
+
+#: config/wlc-modal-config.js:136
+msgid "Play for real is disabled"
+msgstr ""
+
+#: constants/check-on-run-game.js:64
+msgid "Play for real is disabled in your country"
+msgstr ""
+
+#: dialogs/tournaments/tournament-insufficient-points.html:4
+msgid "Play more to get more loyalty points!"
+msgstr ""
+
+#: modules/loyalty/components/tournaments-slider/tournaments-slider-item.html:34
+#: modules/tournaments/tournament-last-wins.html:7
+#: modules/tournaments/tournament-leaders.html:12
+#: modules/tournaments/tournament-winners.html:16
+msgid "Player"
+msgstr ""
+
+#: modules/profile/components/limits/limits.component.html:8
+msgid "Playing at"
+msgstr ""
+
+#: directives/wlc-merchants-in-category.directive.ts:108
+msgid "PlaysonDirect"
+msgstr ""
+
+#: controllers/user/user-register.ts:308
+msgid "Please complete registration using link in e-mail"
+msgstr ""
+
+#: modules/register-form.html:132 partials/signup-form.html:242
+#: partials/signup-form/signup-form.html:47
+msgid "Please complete registration using link in e-mail."
+msgstr ""
+
+#: components/profile/deposit/steps/amount/steps-deposit-amount-block.html:8
+msgid "Please confirm."
+msgstr ""
+
+#: dialogs/bonuses/subscribe-deposit-bonus.html:10
+msgid "Please continue to the deposit page."
+msgstr ""
+
+#: dialogs/password-restore.html:16
+msgid "Please enter e-mail that was used to create an account at"
+msgstr ""
+
+#: components/profile/withdraw/default-withdraw.html:43
+#: directives/wlc-deposit.html:18
+msgid ""
+"Please fill in country field in profile to get all payment methods available"
+msgstr ""
+
+#: dialogs/profile-check-error.html:8
+msgid ""
+"Please fill in profile to make deposits and withdrawals and to play games"
+msgstr ""
+
+#: components/user-register-success.html:3
+msgid "Please follow instruction link to finalize registration process"
+msgstr ""
+
+#: modules/register-form.html:133 partials/signup-form.html:243
+#: partials/signup-form/signup-form.html:48
+msgid "Please login using e-mail and password."
+msgstr ""
+
+#: components/profile/deposit/steps/modal/modal-step-deposit-systems-additional.html:7
+msgid ""
+"Please make sure that the credentials are correct, as you will not be able "
+"to make changes to this information in the future."
+msgstr ""
+
+#: directives/wlc-deposit.html:92
+msgid "Please note, that minimum deposit amount for this method is"
+msgstr ""
+
+#: dialogs/user-restore-complete.html:28
+msgid "Please, use both numbers and latin letters"
+msgstr ""
+
+#: components/profile-tournaments-history.html:11
+#: components/profile-tournaments-history.html:27
+#: modules/games-play-desktop.html:179
+#: modules/loyalty/components/tournaments-slider/tournaments-slider-item.html:35
+#: modules/user-stat-block-dropdown.html:48 modules/user-stat-block.html:35
+msgid "Points"
+msgstr ""
+
+#: partials/form-elements/pep.html:3
+msgid "Politically exposed person (PEP)"
+msgstr ""
+
+#: modules/sportsbook/components/betradar-widget/v2/partials/popular-events.html:4
+msgid "Popular events"
+msgstr ""
+
+#: components/game-catalog.html:43
+msgid "Popular games"
+msgstr ""
+
+#: dialogs/tournaments/tournament-info.html:31
+#: modules/tournaments/tournament-leaders.html:11
+#: modules/tournaments/tournament-winners.html:13
+msgid "Position"
+msgstr ""
+
+#: classes/services/payment-system.model.ts:142
+#: modules/profile/config/profile-forms.config.ts:208
+msgid "Postal code"
+msgstr ""
+
+#: bower/dirPagination.tpl.html:2
+msgid "Previous"
+msgstr ""
+
+#: components/profile-store-orders.html:11 directives/wlc-store-item.html:7
+#: modules/loyalty/components/store-list/store-list.item.html:14
+#: modules/loyalty/components/store-list/store-list.item.html:54
+msgid "Price"
+msgstr ""
+
+#: config/wlc-main-menu-mobile-default.js:110
+#: modules/agreements/privacy-policy.html:8 modules/footer-info.html:13
+msgid "Privacy Policy"
+msgstr ""
+
+#: modules/login-signup/register-steps/partial/terms.html:31
+msgid "Privacy policy"
+msgstr ""
+
+#: dialogs/tournaments/tournament-info.html:36
+#: modules/games-play-desktop.html:135
+#: modules/tournaments/tournament-leaders.html:13
+#: modules/tournaments/tournament-winners.html:19
+msgid "Prize"
+msgstr ""
+
+#: modules/login-signup/register-steps/bonuses.html:27
+#: partials/signup-form.html:34 partials/signup-form/signup-form.html:37
+msgid "Proceed without welcome bonus"
+msgstr ""
+
+#: components/profile-verification-main.html:28
+#: modules/finances/components/payment-systems/payment-systems.html:8
+msgid "Processing"
+msgstr ""
+
+#: modules/finances/components/payment-systems-info/payment-systems-info.component.html:13
+msgid "Processing Time"
+msgstr ""
+
+#: components/profile-store-orders.html:10
+msgid "Product name"
+msgstr ""
+
+#: controllers/profile-store.js:23
+#: modules/loyalty/components/store-list/store-list.component.ts:122
+msgid "Product purchase"
+msgstr ""
+
+#: controllers/profile-store.js:35
+#: modules/loyalty/components/store-list/store-list.component.ts:141
+msgid "Product purchase failed"
+msgstr ""
+
+#: controllers/profile-store.js:28
+#: modules/loyalty/components/store-list/store-list.component.ts:130
+#: modules/profile/components/wlc-exchange-cash/wlc-exchange-cash.component.ts:136
+msgid "Product succesfuly purchased"
+msgstr ""
+
+#: components/profile-menu.html:6 components/profile.js:26
+#: directives/profile-menu/wlc-profile-menu-mobile.html:4
+#: modules/profile/components/main-info/main-info.config.ts:6
+#: modules/profile/components/main-info/main-info.config.ts:65
+msgid "Profile"
+msgstr ""
+
+#: controllers/user/user-profile.ts:372
+msgid "Profile email change failed"
+msgstr ""
+
+#: controllers/user/user-profile.ts:351
+msgid "Profile email changed"
+msgstr ""
+
+#: config/state/profile/profile-main.config.ts:87
+msgid "Profile level"
+msgstr ""
+
+#: config/state/profile/profile-main.config.ts:98
+msgid "Profile main"
+msgstr ""
+
+#: controllers/user/user-profile.ts:297
+#: modules/profile/components/password-change/password-change.component.ts:97
+msgid "Profile password change failed"
+msgstr ""
+
+#: controllers/user/user-profile.ts:293
+#: modules/profile/components/password-change/password-change.component.ts:93
+msgid "Profile password changed"
+msgstr ""
+
+#: controllers/user/user-profile.ts:408
+msgid "Profile phone change failed"
+msgstr ""
+
+#: controllers/user/user-profile.ts:404
+msgid "Profile phone changed"
+msgstr ""
+
+#: controllers/finanses.controller.ts:402 controllers/user/user-profile.ts:245
+msgid "Profile save failed"
+msgstr ""
+
+#: controllers/user/user-profile.ts:234
+#: modules/profile/classes/profile-abstract.class.ts:77
+#: modules/profile/components/notification/notification.component.ts:152
+msgid "Profile saved"
+msgstr ""
+
+#: controllers/user/user-profile.ts:119
+#: modules/profile/components/bank-info/bank-info.component.ts:86
+#: modules/profile/components/main-info/main-info.component.ts:114
+#: modules/profile/components/password-change/password-change.component.ts:55
+msgid "Profile update"
+msgstr ""
+
+#: components/profile-referrals.html:41
+msgid "Profit RS"
+msgstr ""
+
+#: components/user-social-register.html:39
+#: controllers/user/user-register.ts:452 controllers/user/user-register.ts:460
+#: dialogs/promo-code.html:20 dialogs/promo-code.html:29
+#: modules/register-form.html:56 partials/form-elements/promocode.html:8
+#: partials/signup-form.html:157
+msgid "Promo code"
+msgstr ""
+
+#: config/wlc-main-menu-default.js:168 config/wlc-main-menu-default.js:176
+#: config/wlc-main-menu-mobile-default.js:175
+msgid "Promotions"
+msgstr ""
+
+#: dialogs/profile-verification/profile-verification-address.html:4
+#: dialogs/profile-verification/profile-verification-default.html:4
+msgid "Prove your address"
+msgstr ""
+
+#: dialogs/profile-verification/profile-verification-id.html:4
+msgid "Prove your identity"
+msgstr ""
+
+#: dialogs/profile-verification/profile-verification-payment.html:4
+msgid "Prove your payment account"
+msgstr ""
+
+#: dialogs/profile-verification/profile-verification-address.html:10
+msgid ""
+"Provide a scan or a photo, of a paper document sent to the address "
+"associated with your account; this can be either a bank statement, phone or "
+"utility bill."
+msgstr ""
+
+#: dialogs/profile-verification/profile-verification-payment.html:11
+msgid "Provide scans or photos of both sides of the Credit Card."
+msgstr ""
+
+#: dialogs/profile-verification/profile-verification-id.html:11
+msgid "Provide scans or photos of both sides of the document."
+msgstr ""
+
+#: dialogs/profile-verification/profile-verification-id.html:10
+msgid ""
+"Provide scans or photos, of either passport, drivers license or government "
+"issued ID-card."
+msgstr ""
+
+#: dialogs/profile-verification/profile-verification-payment.html:10
+msgid "Provide scans or photos, of the Credit Card."
+msgstr ""
+
+#: components/profile/deposit/steps/paymentSystems/steps-deposit-system-desc.html:13
+#: components/profile/withdraw/steps/paymentSystems/steps-withdraw-system-desc.html:13
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-list.html:35
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-list.html:8
+msgid "Provider"
+msgstr ""
+
+#: components/profile-store-orders.html:12
+msgid "Purchase date"
+msgstr ""
+
+#: modules/profile/controllers/wlc-dashboard-bonuses.controller.ts:98
+msgid "Purchased"
+msgstr ""
+
+#: components/profile-tournaments-history.html:50
+msgid "Qualified"
+msgstr ""
+
+#: modules/profile/components/wlc-dashboard-loyalty/wlc-dashboard-loyalty.html:12
+#: modules/profile/components/wlc-exchange-cash/wlc-exchange-cash.html:16
+msgid "RP"
+msgstr ""
+
+#: components/pages-content.html:33
+msgid "Read more"
+msgstr ""
+
+#: modules/profile/components/verification/verification.component.html:4
+msgid "Read more about Account verification"
+msgstr ""
+
+#: modules/profile/components/limits/limits.component.html:39
+msgid "Read more about responsible gaming."
+msgstr ""
+
+#: directives/wlc-bonus.html:19 directives/wlc-store-item.html:17
+msgid "Read the terms"
+msgstr ""
+
+#: components/profile/deposit/default-deposit.html:15
+#: components/profile/withdraw/default-withdraw.html:13
+#: partials/user-all-balances-block.html:2
+msgid "Real balance:"
+msgstr ""
+
+#: components/profile-referrals.html:18 components/profile-referrals.html:35
+msgid "Ref email"
+msgstr ""
+
+#: partials/form-elements/referal-id.html:2
+#: partials/form-elements/referal-id.html:8
+msgid "Referral code"
+msgstr ""
+
+#: components/profile-referrals.html:2
+#: config/state/profile/profile-referrals.config.ts:27
+#: config/wlc-profile-menu-default.js:213
+msgid "Referrals"
+msgstr ""
+
+#: components/user-register.html:2 components/user-register.js:33
+#: controllers/steps.controller.ts:157 dialogs/password-restore.html:57
+#: dialogs/user-social-complete.html:56
+#: directives/main-menu/wlc-main-menu-mobile.html:25
+#: modules/finances/components/payment-systems-info/payment-systems-info.component.html:63
+#: modules/header/login-button-mobile.html:16 modules/login-button.html:8
+#: modules/login-form.html:36
+#: modules/profile/components/login-signup-dropdown/login-signup-dropdown.component.html:10
+#: modules/register-form.html:122 partials/signup-form.html:228
+#: partials/signup-form/signup-form-content.html:43 partials/user-login.html:7
+msgid "Register"
+msgstr ""
+
+#: components/user-register.js:44 components/user-register.js:60
+msgid "Register success"
+msgstr ""
+
+#: dialogs/social-networks/user-social-register.html:3
+#: dialogs/user-login-signup.html:11 dialogs/user-login-signup.html:25
+#: dialogs/user-social-complete.html:3 partials/login-form.html:27
+#: sections/user-signup.html:4
+msgid "Registration"
+msgstr ""
+
+#: dialogs/tournaments/tournament-subscribe.html:40
+msgid "Registration will be open once the tournament starts"
+msgstr ""
+
+#: modules/profile/components/profile-transactions/profile-transactions.component.ts:100
+#: modules/profile/components/profile-transactions/profile-transactions.component.ts:101
+msgid "Rejected"
+msgstr ""
+
+#: components/profile-bonuses-active.html:27
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:27
+msgid "Remaining"
+msgstr ""
+
+#: components/profile-bonuses-inventory.html:26
+msgid "Remove"
+msgstr ""
+
+#: modules/profile/components/limits/limits.component.html:44
+#: modules/profile/components/limits/limits.component.html:48
+msgid "Request limits"
+msgstr ""
+
+#: dialogs/user-social-complete.html:34
+msgid "Required field"
+msgstr ""
+
+#: dialogs/sms-verification/sms-verification.html:61
+#: modules/login-signup/register-steps/partial/resend-sms-btn.html:3
+#: partials/form-elements/phone-number.html:38
+msgid "Resend"
+msgstr ""
+
+#: partials/form-elements/phone-number.html:39
+msgid "Resend after"
+msgstr ""
+
+#: dialogs/sms-verification/sms-verification.html:60
+#: modules/login-signup/register-steps/partial/resend-sms-btn.html:2
+msgid "Resend in"
+msgstr ""
+
+#: config/wlc-main-menu-mobile-default.js:116 modules/footer-info.html:28
+msgid "Responsible Game"
+msgstr ""
+
+#: dialogs/user-restore-complete.html:29
+msgid "Restore"
+msgstr ""
+
+#: components/user-restore.html:2
+msgid "Restore password"
+msgstr ""
+
+#: classes/services/loyalty-bonuses.class.ts:694
+msgid "Restricted"
+msgstr ""
+
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-list.html:39
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-list.html:9
+msgid "Result"
+msgstr ""
+
+#: config/wlc-main-menu-default.js:197
+msgid "Results"
+msgstr ""
+
+#: components/profile-referrals.html:20
+msgid "Revenue to withdraw"
+msgstr ""
+
+#: modules/profile/components/wlc-dashboard-loyalty/wlc-dashboard-loyalty.html:3
+msgid "Rolling Point"
+msgstr ""
+
+#: modules/profile/components/wlc-exchange-cash/wlc-exchange-cash.html:4
+msgid "Rolling Point exchange to cash"
+msgstr ""
+
+#: modules/games-play-desktop.html:121
+msgid "Rules"
+msgstr ""
+
+#: classes/services/payment-system.model.ts:167
+#: modules/profile/config/profile-forms.config.ts:290
+#: partials/form-elements/swift.html:10 partials/form-elements/swift.html:2
+msgid "SWIFT"
+msgstr ""
+
+#: components/profile/deposit/steps/modal/modal-step-deposit-systems-additional.html:38
+#: dialogs/profile-partial-update.html:43
+#: modules/profile/config/profile-forms.config.ts:437
+msgid "Save"
+msgstr ""
+
+#: modules/game-catalog-menu.html:48
+#: modules/profile/components/profile-transactions/profile-transactions-filter.html:28
+#: modules/profile/components/wlc-dashboard-bonuses/wlc-dashboard-bonuses-filter.html:29
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-filter.html:55
+msgid "Search"
+msgstr ""
+
+#: modules/filter-search.html:7 modules/game-catalog-menu.html:54
+msgid "Search for games"
+msgstr ""
+
+#: modules/search-and-filter-results.html:10
+msgid "Search result"
+msgstr ""
+
+#: modules/game-slider/home-game-sliders.html:14
+#: modules/game-thumb-slider.html:13
+#: modules/games/components/game-thumb-slider/game-thumb-slider.html:12
+#: modules/games/components/games-catalog/games-catalog.component.html:16
+msgid "See all"
+msgstr ""
+
+#: modules/sportsbook/components/betradar-widget/v2/partials/daily-match.html:35
+msgid "See match online"
+msgstr ""
+
+#: components/profile/deposit/steps/bonus/steps-deposit-bonus-block-modal.html:2
+#: components/profile/deposit/steps/modal/modal-step-deposit-bonuses.html:3
+msgid "Select a bonus"
+msgstr ""
+
+#: components/profile/deposit/steps/paymentSystems/steps-deposit-system-block.html:5
+msgid "Select a payment method"
+msgstr ""
+
+#: components/profile/withdraw/steps/paymentSystems/steps-withdraw-system-block.html:5
+msgid "Select a withdraw method"
+msgstr ""
+
+#: modules/base/components/sorted-items/templates/merchants-in-category/dropdown-merchants.html:17
+msgid "Select providers"
+msgstr ""
+
+#: components/profile-tournaments-history.html:49
+msgid "Selected"
+msgstr ""
+
+#: modules/profile/components/limits/limits.component.html:29
+msgid "Self exclusion"
+msgstr ""
+
+#: modules/base/components/contact-form/elements/sender-submit.html:10
+#: modules/base/components/contact-form/elements/sender-submit.html:8
+msgid "Send message"
+msgstr ""
+
+#: controllers/user/user-abstract.ts:144
+#: modules/profile/classes/profile-abstract.class.ts:145
+msgid "September"
+msgstr ""
+
+#: controllers/steps.controller.ts:162
+msgid "Set up your account"
+msgstr ""
+
+#: dialogs/required-fields.html:85 partials/form-elements/gender.html:1
+msgid "Sex"
+msgstr ""
+
+#: components/profile/deposit/steps/paymentSystems/steps-deposit-system-empty.html:3
+#: components/profile/withdraw/steps/paymentSystems/steps-withdraw-system-empty.html:3
+msgid "Show all methods"
+msgstr ""
+
+#: modules/static-content/components/inline-text/inline-text.component.html:21
+msgid "Show less"
+msgstr ""
+
+#: modules/loyalty/components/bonuses-slider/bonuses-slider-item.html:80
+#: modules/static-content/components/inline-text/inline-text.component.html:22
+msgid "Show more"
+msgstr ""
+
+#: modules/base/components/country-accepts/country-accepts-content.html:25
+msgid "Show more payment methods:"
+msgstr ""
+
+#: components/user-social-register.html:45
+msgid "Sign Up"
+msgstr ""
+
+#: modules/profile/components/login-signup-dropdown/login-signup-dropdown.component.html:4
+msgid "Sign in"
+msgstr ""
+
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:88
+#: modules/loyalty/components/store-list/store-list.item.html:25
+#: modules/loyalty/components/store-list/store-list.item.html:65
+#: modules/loyalty/components/tournaments-list/tournaments-list.item.html:47
+msgid "Sign up"
+msgstr ""
+
+#: partials/contacts.html:33
+msgid "Skype"
+msgstr ""
+
+#: config/wlc-main-menu-default.js:64 config/wlc-main-menu-default.js:86
+#: config/wlc-main-menu-mobile-default.js:62
+msgid "Slots"
+msgstr ""
+
+#: controllers/user/sms-verify.controller.ts:61
+msgid "Sms"
+msgstr ""
+
+#: components/user-social-register.html:6 components/user-social-register.js:96
+msgid "Social registration"
+msgstr ""
+
+#: components/user-social-register.js:97
+msgid "Social registration failed"
+msgstr ""
+
+#: services/error.service.ts:309
+msgid "Something went wrong. Please try again later."
+msgstr ""
+
+#: components/games-play.ts:370 components/games-play.ts:648
+#: components/profile-gamblings.js:125
+#: components/profile-verification.component.ts:182
+#: controllers/referrals.controller.ts:87
+#: directives/wlc-copy-to-clipboard.directive.ts:64
+#: modules/static-content/controllers/wlc-static.controller.ts:161
+msgid "Something wrong. Please try later."
+msgstr ""
+
+#: modules/catalog/jackpots-grid.html:20
+#: modules/search-and-filter-results.html:20 partials/game-catalog.html:37
+msgid "Sorry"
+msgstr ""
+
+#: constants/check-on-run-game.js:68
+msgid "Sorry, gambling is not possible"
+msgstr ""
+
+#: controllers/user/user-register.ts:629
+msgid "Sorry, invalid country."
+msgstr ""
+
+#: dialogs/tournaments/tournament-subscribe.html:44
+msgid "Sorry, not today. Bet more to earn betcoins and join this tournament!"
+msgstr ""
+
+#: dialogs/tournaments/tournament-subscribe.html:48
+msgid "Sorry, not today. Deposit more money and join this tournament!"
+msgstr ""
+
+#: config/modal/login-signup.js:39 controllers/user/user-register.ts:640
+#: partials/signup-form/signup-form-content.html:35
+msgid "Sorry, registration is disabled."
+msgstr ""
+
+#: partials/message-error.html:3
+msgid "Sorry, something went wrong!"
+msgstr ""
+
+#: modules/mobile-menu-column.html:25
+msgid "Sorry, you have no favorite game at the moment."
+msgstr ""
+
+#: modules/mobile-menu-column.html:12
+msgid "Sorry, you haven't played any games yet."
+msgstr ""
+
+#: modules/profile/controllers/wlc-dashboard-bonuses.controller.ts:85
+msgid "Sport"
+msgstr ""
+
+#: config/wlc-game-categories-default.js:122
+#: config/wlc-main-menu-default.js:160
+#: config/wlc-main-menu-mobile-default.js:168
+msgid "SportsBook"
+msgstr ""
+
+#: modules/sportsbook/components/betslip-float-panel/betslip-float-panel.component.html:29
+msgid "SportsbookBetslip"
+msgstr ""
+
+#: modules/sportsbook/components/betslip-float-panel/betslip-float-panel.component.html:38
+msgid "SportsbookHistory"
+msgstr ""
+
+#: modules/sportsbook/components/betslip-float-panel/betslip-float-panel.component.html:16
+msgid "SportsbookHome"
+msgstr ""
+
+#: modules/sportsbook/components/betslip-float-panel/betslip-float-panel.component.html:47
+msgid "SportsbookLive"
+msgstr ""
+
+#: modules/sportsbook/components/betslip-float-panel/betslip-float-panel.component.html:7
+msgid "SportsbookMenu"
+msgstr ""
+
+#: components/profile-tournaments-history.html:13
+msgid "Start"
+msgstr ""
+
+#: partials/ladesk-chat-form.html:46
+msgid "Start chat"
+msgstr ""
+
+#: components/profile-gamblings-bets.html:7
+#: modules/profile/components/profile-transactions/profile-transactions-filter.html:15
+#: modules/profile/components/wlc-dashboard-bonuses/wlc-dashboard-bonuses-filter.html:16
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-filter.html:4
+msgid "Start date"
+msgstr ""
+
+#: dialogs/regcomplete-modal.html:3
+msgid "Start your journey now"
+msgstr ""
+
+#: directives/wlc-time.directive.ts:89
+msgid "Starts"
+msgstr ""
+
+#: directives/wlc-countdown.js:64
+msgid "Starts in"
+msgstr ""
+
+#: components/profile-bonuses-history.html:17
+#: components/profile-bonuses-history.html:77
+#: components/profile-store-orders.html:15
+#: components/profile-tournaments-history.html:15
+#: components/profile-verification-main.html:47
+#: dialogs/profile-verification/profile-verification-address.html:29
+#: dialogs/profile-verification/profile-verification-default.html:22
+#: dialogs/profile-verification/profile-verification-id.html:28
+#: dialogs/profile-verification/profile-verification-payment.html:29
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:68
+#: modules/profile/components/profile-transactions/profile-transactions-list.html:15
+#: modules/profile/components/profile-transactions/profile-transactions-list.html:59
+#: modules/profile/components/wlc-dashboard-bonuses/wlc-dashboard-bonuses-list.html:16
+msgid "Status"
+msgstr ""
+
+#: modules/profile/components/wlc-dashboard-bonuses/wlc-dashboard-bonuses-content.html:5
+msgid "Status of Bonus"
+msgstr ""
+
+#: components/profile/deposit/steps/amount/steps-deposit-amount-block.html:3
+#: components/profile/deposit/steps/paymentSystems/steps-deposit-system-block.html:3
+#: components/profile/withdraw/steps/amount/steps-withdraw-amount-block.html:3
+#: components/profile/withdraw/steps/paymentSystems/steps-withdraw-system-block.html:3
+#: dialogs/password-restore-step2.html:7 dialogs/password-restore.html:5
+#: dialogs/user-signup.html:7 modules/user-signup.html:5
+msgid "Step"
+msgstr ""
+
+#: components/profile-menu.html:15 components/profile-store-main.html:3
+#: config/state/profile/profile-store.js:42
+#: config/wlc-profile-menu-default.js:110
+#: modules/profile/controllers/wlc-dashboard-bonuses.controller.ts:86
+#: modules/store-menu.html:15 modules/store-menu.html:3
+#: modules/user-stat-block-dropdown.html:80
+msgid "Store"
+msgstr ""
+
+#: config/state/profile/profile-store.js:53
+msgid "Store orders"
+msgstr ""
+
+#: modules/base/components/contact-form/elements/sender-subject.html:2
+#: modules/profile/components/wlc-messages/wlc-messages-list.html:11
+#: modules/profile/components/wlc-messages/wlc-messages-list.html:35
+msgid "Subject"
+msgstr ""
+
+#: dialogs/tournaments/tournament-subscribe.html:5
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:95
+#: modules/loyalty/components/bonuses-slider/bonuses-slider-item.html:53
+#: partials/profile-bonuses.html:10
+msgid "Subscribe"
+msgstr ""
+
+#: dialogs/sms-verification/sms-verification.html:4
+#: dialogs/user-payment-success.html:6
+msgid "Success"
+msgstr ""
+
+#: modules/tournaments/tournament-last-wins.html:2
+msgid "TOP winners"
+msgstr ""
+
+#: config/wlc-main-menu-default.js:105
+#: config/wlc-main-menu-mobile-default.js:74
+#: modules/error-page-box-two-column.html:12
+msgid "Table Games"
+msgstr ""
+
+#: components/profile-bonuses-inventory.html:20
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:101
+#: modules/loyalty/components/bonuses-slider/bonuses-slider-item.html:59
+msgid "Take"
+msgstr ""
+
+#: config/wlc-main-menu-mobile-default.js:104 modules/footer-info.html:7
+msgid "Terms and Conditions"
+msgstr ""
+
+#: modules/login-signup/register-steps/partial/terms.html:24
+msgid "Terms and conditions"
+msgstr ""
+
+#: modules/register-form.html:79
+#: partials/form-elements/checkbox-terms-cond.html:20
+#: partials/signup-form.html:182
+msgid "Terms_and_Conditions"
+msgstr ""
+
+#: dialogs/profile-verification/profile-verification-payment.html:13
+msgid "The Credit Card is valid."
+msgstr ""
+
+#: modules/login-signup/register-steps/partial/setup-bonus.html:2
+#: partials/signup-form.html:43 partials/signup-form/signup-form-content.html:4
+msgid "The chosen bonus"
+msgstr ""
+
+#: controllers/user/sms-verify.controller.ts:147
+#: controllers/user/sms-verify.controller.ts:178
+#: dialogs/sms-verification/sms-verification.html:24
+msgid "The code you entered is incorrect"
+msgstr ""
+
+#: directives/wlc-deposit.html:170
+msgid "The deposit transfer will be sent to"
+msgstr ""
+
+#: dialogs/profile-verification/profile-verification-address.html:13
+msgid "The document is not older than 3 months."
+msgstr ""
+
+#: dialogs/profile-verification/profile-verification-id.html:14
+msgid "The document is valid."
+msgstr ""
+
+#: dialogs/profile-verification/profile-verification-address.html:12
+msgid "The document shows your full name, address, and the send date."
+msgstr ""
+
+#: dialogs/profile-verification/profile-verification-address.html:11
+msgid ""
+"The document was received via postal mail. Printed out online documents are "
+"not accepted."
+msgstr ""
+
+#: components/games-play.ts:324
+msgid "The game does not exist or the game settings are incorrect"
+msgstr ""
+
+#: dialogs/profile-verification/profile-verification-address.html:14
+#: dialogs/profile-verification/profile-verification-id.html:12
+#: dialogs/profile-verification/profile-verification-payment.html:15
+msgid "The image quality is good and in color."
+msgstr ""
+
+#: modules/search-and-filter-results.html:22 partials/game-catalog.html:39
+msgid "There’s nothing in your favorites yet"
+msgstr ""
+
+#: directives/wlc-deposit.html:88
+msgid "This is your private depositing address."
+msgstr ""
+
+#: dialogs/tournaments/tournament-insufficient-funds.html:4
+#: dialogs/tournaments/tournament-insufficient-points.html:4
+msgid "This tournament requires"
+msgstr ""
+
+#: modules/games-play-desktop.html:100
+msgid "Till the end"
+msgstr ""
+
+#: modules/finances/components/payment-systems-info/payment-systems-info.component.html:29
+msgid "Time"
+msgstr ""
+
+#: dialogs/free-rounds-games-modal.html:12
+msgid "Time left"
+msgstr ""
+
+#: modules/loyalty/components/bonuses-slider/bonuses-slider-item.html:20
+#: modules/loyalty/components/tournaments-slider/tournaments-slider-item.html:21
+msgid "Time works"
+msgstr ""
+
+#: dialogs/messagePayment.html:9
+msgid "To make a deposit you need to replenish a wallet for a specified amount"
+msgstr ""
+
+#: partials/form-elements/phone-number.html:61
+msgid "To resend a verification code, solve the captcha"
+msgstr ""
+
+#: partials/form-elements/phone-number.html:56
+msgid "To send a verification code, solve the captcha"
+msgstr ""
+
+#: modules/tournaments/tournament-leaders.html:6
+msgid "Top 5 leaders"
+msgstr ""
+
+#: modules/tournaments/tournament-winners.html:8
+msgid "Top winners"
+msgstr ""
+
+#: components/profile-referrals.html:47
+msgid "Total Profit RS"
+msgstr ""
+
+#: modules/profile/components/wlc-exchange-cash/wlc-exchange-cash.html:37
+msgid "Total RP"
+msgstr ""
+
+#: modules/base/components/wlc-smart-userinfo/wlc-smart-userinfo.component.html:21
+msgid "Total Wagering"
+msgstr ""
+
+#: components/profile/withdraw/steps/steps-withdraw-top.html:13
+msgid "Total balance"
+msgstr ""
+
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-amounts.html:4
+msgid "Total bet amount"
+msgstr ""
+
+#: modules/profile/components/profile-transactions/profile-transactions-amounts.html:4
+msgid "Total deposit"
+msgstr ""
+
+#: components/profile-tournaments-main.html:21
+#: modules/loyalty/components/tournaments-list/tournaments-list.item.html:17
+msgid "Total funds"
+msgstr ""
+
+#: modules/games/components/total-jackpot/total-jackpot.html:2
+msgid "Total jackpot"
+msgstr ""
+
+#: components/profile-referrals.html:19
+msgid "Total revenue"
+msgstr ""
+
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-amounts.html:13
+msgid "Total win amount"
+msgstr ""
+
+#: modules/profile/components/profile-transactions/profile-transactions-amounts.html:16
+msgid "Total withdrawal"
+msgstr ""
+
+#: modules/games-play-desktop.html:89
+msgid "Tournament"
+msgstr ""
+
+#: dialogs/tournaments/tournament-unsubscribe.html:13
+msgid ""
+"Tournament fee will not be returned to your account. Are you sure you want "
+"to unsubscribe?"
+msgstr ""
+
+#: components/profile-menu.html:12 config/wlc-profile-menu-default.js:86
+#: modules/user-stat-block-dropdown.html:74
+msgid "Tournaments"
+msgstr ""
+
+#: components/profile-tournaments-history.html:2
+#: config/wlc-profile-menu-default.js:104
+msgid "Tournaments history"
+msgstr ""
+
+#: config/wlc-profile-menu-default.js:140 directives/wlc-profile-menu.html:103
+#: modules/profile/components/profile-transactions/profile-transactions.component.html:2
+#: modules/user-stat-block-dropdown.html:98
+msgid "Transaction history"
+msgstr ""
+
+#: modules/profile/components/profile-transactions/profile-transactions-list.html:41
+#: modules/profile/components/profile-transactions/profile-transactions-list.html:9
+msgid "Transaction time"
+msgstr ""
+
+#: components/profile-menu.html:29
+msgid "Transactions"
+msgstr ""
+
+#: config/state/profile/profile-transactions.config.ts:27
+msgid "Transactions history"
+msgstr ""
+
+#: modules/finances/components/profile-wallet/profile-wallet.html:20
+msgid "Transfer sum"
+msgstr "Flutningsfjárhæð"
+
+#: dialogs/password-restore-step2.html:30
+msgid "Try again"
+msgstr ""
+
+#: modules/social-list.html:11 partials/signup-form.html:64
+#: partials/signup-form/signup-form-socials.html:12
+msgid "Twitter"
+msgstr ""
+
+#: modules/profile/components/profile-transactions/profile-transactions-list.html:21
+#: modules/profile/components/profile-transactions/profile-transactions-list.html:79
+#: modules/profile/components/wlc-dashboard-bonuses/wlc-dashboard-bonuses-filter.html:3
+msgid "Type"
+msgstr ""
+
+#: directives/deposit-withdraw/wlc-step-deposit-withdraw.directive.ts:378
+msgid "Unable to choose"
+msgstr ""
+
+#: classes/services/loyalty-bonuses.class.ts:273
+msgid "Unable to subscribe"
+msgstr ""
+
+#: services/favorite-games.service.ts:41
+msgid "Unauthenticated"
+msgstr ""
+
+#: config/app.js:532
+msgid ""
+"Unfortunately your payment didn't go through. An e-mail with detailed "
+"information has been sent to your e-mail address. If you have any questions, "
+"please don't hesitate to contact us."
+msgstr ""
+
+#: components/profile-verification-main.html:52
+#: dialogs/profile-verification/profile-verification-address.html:45
+#: dialogs/profile-verification/profile-verification-default.html:41
+#: dialogs/profile-verification/profile-verification-id.html:44
+#: dialogs/profile-verification/profile-verification-payment.html:45
+#: modules/profile/components/profile-transactions/profile-transactions.component.ts:110
+msgid "Unknown"
+msgstr ""
+
+#: controllers/user/user-register.ts:453 controllers/user/user-register.ts:459
+msgid "Unknown promo code"
+msgstr ""
+
+#: dialogs/tournaments/tournament-unsubscribe.html:23
+#: dialogs/tournaments/tournament-unsubscribe.html:4
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:108
+#: modules/loyalty/components/bonuses-slider/bonuses-slider-item.html:66
+#: partials/profile-bonuses.html:18
+msgid "Unsubscribe"
+msgstr ""
+
+#: config/app.js:250
+msgid "Unsubscribe complete"
+msgstr ""
+
+#: config/app.js:261
+msgid "Unsubscribe not completed"
+msgstr ""
+
+#: modules/base/components/wlc-smart-userinfo/wlc-smart-userinfo.component.html:30
+msgid "Until"
+msgstr ""
+
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history.html:19
+msgid "Update"
+msgstr ""
+
+#: components/profile-store-orders.html:13
+msgid "Update date"
+msgstr ""
+
+#: modules/profile/components/profile-transactions/profile-transactions.component.ts:104
+msgid "Updated"
+msgstr ""
+
+#: components/profile-verification-main.html:26
+#: dialogs/profile-verification/profile-verification-address.html:61
+#: dialogs/profile-verification/profile-verification-default.html:60
+#: dialogs/profile-verification/profile-verification-id.html:72
+#: dialogs/profile-verification/profile-verification-payment.html:61
+msgid "Upload"
+msgstr ""
+
+#: components/profile/deposit/steps/bonus/steps-deposit-bonus-empty.html:6
+msgid "Use bonus"
+msgstr ""
+
+#: modules/login-signup/register-steps/bonuses.html:15
+#: partials/signup-form.html:22 partials/signup-form/signup-form.html:25
+msgid "Use this bonus"
+msgstr ""
+
+#: modules/games-play-desktop.html:178
+msgid "User"
+msgstr ""
+
+#: modules/profile/config/profile-forms.config.ts:58
+#: modules/register-form.html:17 partials/form-elements/login-unique.html:10
+#: partials/form-elements/login-unique.html:2
+#: partials/form-elements/login.html:2 partials/form-elements/login.html:9
+#: partials/signup-form.html:102 partials/signup-form.html:108
+msgid "User login"
+msgstr ""
+
+#: components/user-register-success.html:2 config/app.js:230
+#: config/modal/login-signup.js:37 controllers/user/user-register.ts:157
+#: controllers/user/user-register.ts:303 controllers/user/user-register.ts:619
+#: controllers/user/user-register.ts:630 controllers/user/user-register.ts:641
+msgid "User registration"
+msgstr ""
+
+#: partials/form-elements/email-login.html:2
+msgid "Username or E-mail"
+msgstr ""
+
+#: components/profile-verification-main.html:51
+#: dialogs/profile-verification/profile-verification-address.html:44
+#: dialogs/profile-verification/profile-verification-default.html:39
+#: dialogs/profile-verification/profile-verification-id.html:43
+#: dialogs/profile-verification/profile-verification-payment.html:44
+msgid "Validated"
+msgstr ""
+
+#: components/profile-verification-main.html:2
+#: config/state/profile/profile-verification.config.ts:48
+#: config/wlc-profile-menu-default.js:171
+#: modules/profile/components/verification/verification.component.html:2
+msgid "Verification"
+msgstr ""
+
+#: dialogs/sms-verification/sms-verification.html:51
+msgid "Verify"
+msgstr ""
+
+#: modules/login-signup/register-steps/partial/verify-sms-code-input.html:9
+msgid "Verify sms code"
+msgstr ""
+
+#: controllers/steps.controller.ts:167
+msgid "Verify your account"
+msgstr ""
+
+#: components/profile-notifications.html:28
+#: modules/profile/components/notification/sms-verification.html:11
+msgid "Verify your phone number"
+msgstr ""
+
+#: config/wlc-main-menu-default.js:124
+#: config/wlc-main-menu-mobile-default.js:86
+msgid "Video Poker"
+msgstr ""
+
+#: config/wlc-main-menu-default.js:113
+#: config/wlc-main-menu-mobile-default.js:80
+msgid "Virtual Games"
+msgstr ""
+
+#: modules/social-list.html:26 partials/signup-form.html:83
+#: partials/signup-form/signup-form-socials.html:31
+msgid "Vkontakte"
+msgstr ""
+
+#: components/profile-bonuses-promo.html:1
+#: config/state/profile/profile-bonuses.js:70
+#: config/wlc-profile-menu-default.js:74 directives/wlc-profile-menu.html:66
+msgid "Voucher"
+msgstr ""
+
+#: components/profile-bonuses-history.html:82
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:73
+#: modules/profile/controllers/wlc-dashboard-bonuses.controller.ts:97
+msgid "Wagered"
+msgstr ""
+
+#: components/profile-bonuses-history.html:15
+#: components/profile-bonuses-history.html:65
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:58
+msgid "Wagering"
+msgstr ""
+
+#: config/wlc-profile-menu-default.js:134
+#: modules/finances/components/profile-wallet/profile-wallet.html:1
+#: modules/finances/config/profile-wallet.config.ts:27
+msgid "Wallet"
+msgstr "Veski"
+
+#: modules/finances/components/profile-wallet/profile-wallet.html:13
+msgid "Wallet balance"
+msgstr "Veski jafnvægi"
+
+#: modules/catalog/jackpots-grid.html:21
+#: modules/search-and-filter-results.html:21 partials/game-catalog.html:38
+msgid "We could not find anything"
+msgstr ""
+
+#: config/forms/signup.form.ts:254
+#: dialogs/sms-verification/sms-verification.html:20
+msgid "We have sent an SMS with the code to the following number:"
+msgstr ""
+
+#: controllers/user/user-profile.ts:352
+msgid "We have sent you an email with an URL to continue change email"
+msgstr ""
+
+#: modules/agreements/privacy-policy.html:4
+msgid ""
+"We, as per requirements of the General Data Protection Regulation (GDPR), "
+"would like to ask\n"
+"                you to look through the new version of the Privacy Policy "
+"and give your consent to continue\n"
+"                using the Services of this Website. By clicking \"I agree\" "
+"I confirm than I have read amended."
+msgstr ""
+
+#: modules/user-login.html:5
+msgid "Welcome"
+msgstr ""
+
+#: modules/tournaments/tournament-banner.html:4
+msgid "Wheel of fortune11"
+msgstr ""
+
+#: components/profile-tournaments-history.html:12
+#: modules/loyalty/components/tournament-progress/tournament-progress-content.html:8
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history.controller.ts:72
+#: modules/tournaments/tournament-last-wins.html:8
+msgid "Win"
+msgstr ""
+
+#: modules/double-coin-banner.html:5
+msgid "Win more with Doudle GoldBar Coin"
+msgstr ""
+
+#: modules/win-per-one.html:2
+msgid "Win per one bet"
+msgstr ""
+
+#: components/game-catalog.html:147
+msgid "Winners"
+msgstr ""
+
+#: classes/services/loyalty-bonuses.class.ts:670
+msgid "Winnings"
+msgstr ""
+
+#: classes/services/loyalty-bonuses.class.ts:667
+msgid "Winnings + Deposit"
+msgstr ""
+
+#: dialogs/tournaments/tournament-info.html:24
+msgid "Winnings Spread"
+msgstr ""
+
+#: components/profile-menu.html:26
+#: components/profile/withdraw/steps/steps-withdraw-header.html:2
+#: controllers/finanses.controller.ts:653 dialogs/withdraw.html:16
+#: dialogs/withdraw.html:3
+#: modules/finances/components/payment-systems-info/payment-systems-info.component.html:59
+#: modules/finances/components/profile-wallet/profile-wallet.html:38
+msgid "Withdraw"
+msgstr ""
+
+#: controllers/finanses.controller.ts:655
+msgid "Withdraw request has been successfully sent!"
+msgstr ""
+
+#: controllers/finanses.controller.ts:650
+msgid "Withdraw sum"
+msgstr ""
+
+#: components/profile/withdraw/steps/amount/steps-withdraw-amount-block.html:48
+msgid "Withdraw_button"
+msgstr ""
+
+#: components/profile/withdraw/steps/steps-withdraw-top.html:3
+msgid "Withdrawable"
+msgstr ""
+
+#: components/profile/withdraw/default-withdraw.html:2
+#: config/wlc-main-menu-mobile-default.js:146
+#: config/wlc-profile-menu-default.js:128 directives/wlc-profile-menu.html:94
+#: modules/profile/components/profile-transactions/profile-transactions.component.ts:91
+#: modules/user-stat-block-dropdown.html:92
+msgid "Withdrawal"
+msgstr ""
+
+#: controllers/finanses.controller.ts:569
+msgid "Withdrawal is unavailable at the moment."
+msgstr ""
+
+#: modules/won-today.html:2
+msgid "Won today"
+msgstr ""
+
+#: controllers/user/user-profile.ts:214
+#: modules/profile/components/main-info/main-info.component.ts:208
+msgid "Wrong First or Last Name, check profile!"
+msgstr ""
+
+#: controllers/user/user-abstract.ts:162
+#: modules/profile/classes/profile-abstract.class.ts:163
+#: modules/profile/config/profile-forms.config.ts:147
+msgid "Year"
+msgstr ""
+
+#: classes/services/loyalty-bonuses.class.ts:349
+#: classes/services/loyalty-bonuses.class.ts:386
+#: controllers/user/user-profile.ts:94 dialogs/user-logout.html:12
+#: modules/profile/components/main-info/main-info.component.ts:92
+#: modules/profile/controllers/messages.controller.ts:102
+msgid "Yes"
+msgstr ""
+
+#: modules/games-play-desktop.html:196
+msgid "You"
+msgstr ""
+
+#: controllers/user/user-profile.ts:202 controllers/user/user-register.ts:618
+#: modules/profile/components/main-info/main-info.component.ts:197
+msgid "You are not 18 years old!"
+msgstr ""
+
+#: dialogs/tournaments/tournament-subscribe.html:6
+msgid "You can`t subscribe"
+msgstr ""
+
+#: components/profile-verification.component.ts:113
+msgid "You cannot upload more documents of this type"
+msgstr ""
+
+#: classes/services/loyalty-bonuses.class.ts:281
+#: directives/deposit-withdraw/wlc-step-deposit-withdraw.directive.ts:385
+msgid ""
+"You currently have an active bonus, which does not allow stacking. You have "
+"to wager active bonus first or cancel it, in order to claim a new bonus."
+msgstr ""
+
+#: classes/services/loyalty-bonuses.class.ts:288
+#: directives/deposit-withdraw/wlc-step-deposit-withdraw.directive.ts:391
+msgid ""
+"You currently have an active bonus. A bonus, which you try to claim, does "
+"not allow stacking. You have to wager active bonus first or cancel it, in "
+"order to claim this bonus."
+msgstr ""
+
+#: dialogs/tournaments/tournament-subscribe.html:16
+msgid "You have"
+msgstr ""
+
+#: controllers/finanses.controller.ts:567
+msgid "You have an active bonus"
+msgstr ""
+
+#: config/app.js:255
+msgid ""
+"You have been successfully unsubscribed from receiving email notifications"
+msgstr ""
+
+#: dialogs/bonuses/subscribe-deposit-bonus.html:9
+msgid ""
+"You have claimed the bonus. In order to activate it, you have to make a "
+"deposit."
+msgstr ""
+
+#: components/profile-bonuses-active.html:51
+msgid "You have no active bonuses!"
+msgstr ""
+
+#: directives/wlc-freerounds.directive.ts:93
+msgid "You have no available freespins"
+msgstr ""
+
+#: controllers/user/user-register.ts:284
+msgid "You have not verified your phone number"
+msgstr ""
+
+#: dialogs/required-fields.html:10
+msgid "You have to fill the required fields in your profile to play our casino"
+msgstr ""
+
+#: controllers/user/user-register.ts:330 controllers/user/user-register.ts:348
+msgid ""
+"You must agree with Terms and Conditions as well as confirm that you are at "
+"least 18 years old"
+msgstr ""
+
+#: controllers/user/user-register.ts:305 modules/register-form.html:131
+#: partials/signup-form.html:241 partials/signup-form/signup-form.html:46
+msgid "Your account has been registered."
+msgstr ""
+
+#: modules/base/components/country-accepts/country-accepts-content.html:4
+msgid "Your country is"
+msgstr ""
+
+#: partials/ladesk-chat-form.html:34
+msgid "Your e-mail"
+msgstr ""
+
+#: modules/base/components/contact-form/elements/sender-name.html:2
+#: partials/ladesk-chat-form.html:19
+msgid "Your name"
+msgstr ""
+
+#: dialogs/sms-verification/sms-verification.html:69
+msgid "Your number has been verified"
+msgstr ""
+
+#: modules/loyalty/components/tournament-progress/tournament-progress-content.html:17
+msgid "Your place"
+msgstr ""
+
+#: modules/login-signup/register-steps/partial/promocode.html:9
+msgid "Your promo code"
+msgstr ""
+
+#: components/profile-referrals.html:8
+msgid "Your referral link:"
+msgstr ""
+
+#: partials/form-elements/postal-code.html:10
+#: partials/form-elements/postal-code.html:2
+msgid "ZIP/Postal code"
+msgstr ""
+
+#: components/profile/deposit/steps/modal/modal-step-deposit-systems-additional.html:4
+msgid "account details"
+msgstr ""
+
+#: modules/loyalty/components/tournament-progress/tournament-progress-content.html:13
+msgid "at first place, prize pool"
+msgstr ""
+
+#: dialogs/store-description.html:13
+msgid "buy now"
+msgstr ""
+
+#: dialogs/free-rounds-games-modal.html:12
+#: modules/loyalty/components/tournament-progress/tournament-progress-content.html:22
+msgid "d"
+msgstr ""
+
+#: modules/loyalty/components/tournaments-list/tournaments-list.item.html:33
+msgid "days"
+msgstr ""
+
+#: components/profile-cash.js:44
+msgid "deposit"
+msgstr ""
+
+#: dialogs/tournaments/tournament-insufficient-funds.html:4
+msgid "fee"
+msgstr ""
+
+#: components/game-catalog.html:199 components/game-catalog.html:269
+#: components/game-catalog.html:75
+msgid "games"
+msgstr ""
+
+#: controllers/user/user-profile.ts:82
+#: modules/profile/components/main-info/main-info.component.ts:99
+msgid "gender_female_char"
+msgstr ""
+
+#: controllers/user/user-profile.ts:81
+#: modules/profile/components/main-info/main-info.component.ts:98
+msgid "gender_male_char"
+msgstr ""
+
+#: dialogs/message.html:12 dialogs/messagePayment.html:39
+#: partials/signup-form.html:249 partials/signup-form/signup-form.html:53
+msgid "got it"
+msgstr ""
+
+#: dialogs/free-rounds-games-modal.html:12
+#: modules/loyalty/components/tournament-progress/tournament-progress-content.html:23
+msgid "h"
+msgstr ""
+
+#: modules/loyalty/components/tournament-progress/tournament-progress-content.html:25
+msgid "left"
+msgstr ""
+
+#: dialogs/tournaments/tournament-insufficient-points.html:4
+msgid "loyalty points as fee"
+msgstr ""
+
+#: dialogs/free-rounds-games-modal.html:12
+#: modules/loyalty/components/tournament-progress/tournament-progress-content.html:24
+msgid "m"
+msgstr ""
+
+#: directives/wlc-deposit.html:93
+msgid "maximum one is"
+msgstr ""
+
+#: directives/wlc-bonuses-exchanger.html:17
+msgid "mm to try"
+msgstr ""
+
+#: components/profile-bonuses-active.html:30
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:30
+#: modules/loyalty/components/bonuses-slider/bonuses-slider-item.html:27
+msgid "of"
+msgstr ""
+
+#: dialogs/game.html:41
+msgid "or"
+msgstr ""
+
+#: modules/login-form.html:12
+msgid "or login"
+msgstr ""
+
+#: partials/login-form.html:15 partials/signup-form.html:95
+msgid "or with E-mail"
+msgstr ""
+
+#: modules/login-signup/register-steps/partial/setup-social.html:10
+#: partials/signup-form/signup-form-content.html:18
+msgid "or with e-mail"
+msgstr ""
+
+#: dialogs/tournaments/tournament-subscribe.html:21
+#: dialogs/tournaments/tournament-subscribe.html:31
+#: modules/loyalty/components/current-level/current-level.html:14
+#: modules/loyalty/components/current-level/current-level.html:16
+#: modules/loyalty/components/store-list/store-list.component.html:5
+#: modules/loyalty/components/store-list/store-list.item.html:14
+#: modules/loyalty/components/store-list/store-list.item.html:54
+#: modules/loyalty/components/tournament-progress/tournament-progress-content.html:18
+#: partials/loyalty-progress-bar.html:15
+msgid "points"
+msgstr ""
+
+#: dialogs/promo-code.html:13
+msgid "promo_code_dialog"
+msgstr ""
+
+#: directives/wlc-promo-steps.js:39
+msgid "promo_step_1_content"
+msgstr ""
+
+#: directives/wlc-promo-steps.js:37
+msgid "promo_step_1_title"
+msgstr ""
+
+#: directives/wlc-promo-steps.js:49
+msgid "promo_step_2_content"
+msgstr ""
+
+#: directives/wlc-promo-steps.js:47
+msgid "promo_step_2_title"
+msgstr ""
+
+#: directives/wlc-promo-steps.js:59
+msgid "promo_step_3_content"
+msgstr ""
+
+#: directives/wlc-promo-steps.js:57
+msgid "promo_step_3_title"
+msgstr ""
+
+#: config/forms/signup.form.ts:141
+msgid "register_final_text_message"
+msgstr ""
+
+#: modules/loyalty/components/bonuses-slider/bonuses-slider-item.html:29
+msgid "remaning"
+msgstr ""
+
+#: dialogs/password-restore.html:47
+msgid "restore"
+msgstr ""
+
+#: components/profile/deposit/steps/amount/steps-deposit-amount-block.html:84
+#: directives/wlc-deposit.html:196
+msgid "restrictions"
+msgstr ""
+
+#: dialogs/required-fields.html:116 partials/form-elements/btn-save.html:8
+msgid "save"
+msgstr ""
+
+#: modules/profile/components/limits/limits.component.html:10
+msgid ""
+"should be a positive experience, something that is relaxing and "
+"entertaining. While being a wrapped up in the excitement however, it might "
+"sometimes be hard to draw the line and know when to stop playing. If you "
+"would like to set up limits for your playing activity, please contact us. "
+"The following limits are avaiable:"
+msgstr ""
+
+#: components/profile-bonuses-promo.html:31
+#: modules/loyalty/components/bonuses-list/bonuses-list.component.html:51
+msgid "submit"
+msgstr ""
+
+#: components/profile/deposit/steps/amount/steps-deposit-amount-block.html:98
+#: components/profile/withdraw/default-withdraw.html:160
+#: components/profile/withdraw/steps/amount/steps-withdraw-amount-block.html:49
+#: dialogs/password-restore.html:48 dialogs/profile-partial-update.html:44
+#: dialogs/required-fields.html:117 directives/wlc-deposit.html:206
+#: modules/profile/components/login-signup-dropdown/login-form.html:16
+#: partials/form-elements/btn-save.html:9 partials/login-form.html:38
+msgid "submiting..."
+msgstr ""
+
+#: modules/finances/components/payment-systems/payment-systems.html:39
+#: modules/loyalty/components/current-level/current-level.html:15
+#: partials/loyalty-progress-bar.html:16
+msgid "to"
+msgstr ""
+
+#: dialogs/user-payment-success.html:18
+msgid "were successfully deposited in your account."
+msgstr ""
+
+#: components/profile-cash.js:60
+#: components/profile/withdraw/default-withdraw.html:159
+msgid "withdraw"
+msgstr ""
+
+#: modules/last-wins.html:6
+#: modules/promo/components/last-wins/last-wins.html:11
+msgid "wlc-last-wins__title"
+msgstr ""
+
+#: modules/promo-menu.html:5
+msgid "wlc_promo-menu_Live_casino"
+msgstr ""
+
+#: modules/promo-menu.html:16
+msgid "wlc_promo-menu_Slots"
+msgstr ""
+
+#: modules/promo-menu.html:13
+msgid "wlc_promo-menu_Sportsbook"
+msgstr ""
+
+#: modules/promo-menu.html:9
+msgid "wlc_promo-menu_Table_games"
+msgstr ""

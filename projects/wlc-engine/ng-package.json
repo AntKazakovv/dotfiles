@@ -1,0 +1,24 @@
+{
+  "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
+  "dest": "../../dist/wlc-engine",
+  "assets": [
+    "./src/languages/*.po",
+    "./src/locales.json"
+  ],
+  "lib": {
+    "entryFile": "src/public-api.ts",
+    "umdModuleIds": {
+      "@ngx-translate/core": "@ngx-translate/core",
+      "@ngx-translate/http-loader": "@ngx-translate/http-loader",
+      "@uirouter/core": "@uirouter/core",
+      "@uirouter/angular": "@uirouter/angular"
+    }
+  },
+  "whitelistedNonPeerDependencies": [
+    "@ngx-translate/core",
+    "@ngx-translate/http-loader",
+    "@uirouter/angular",
+    "@uirouter/core",
+    "@uirouter/rx"
+  ]
+}

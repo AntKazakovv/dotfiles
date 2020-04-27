@@ -1,0 +1,3808 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Language: sl\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: modules/profile/components/wlc-exchange-cash/wlc-exchange-cash.html:31
+msgid "# on Cupon"
+msgstr "# na bon"
+
+#: dialogs/password-restore.html:16
+msgid "A password reset link will be sent to your e-mail address shortly."
+msgstr "Povezava za ponastavitev gesla bo kmalu poslana na vaš e-naslov."
+
+#: dialogs/password-restore-step2.html:12
+msgid "A reset link has been sent to the following e-mail address:"
+msgstr "Povezava za ponastavitev je bila poslana na naslednji e-poštni naslov:"
+
+#: controllers/finanses.controller.ts:329
+msgid ""
+"A withdrawal request has already been created. Please wait until it is "
+"completed and then you can try again."
+msgstr ""
+"Zahteva za umik je že bila ustvarjena. Počakajte, da poteče, nato pa lahko "
+"poskusite znova."
+
+#: modules/user-stat-block.html:23
+msgid "ADD"
+msgstr "DODAJ"
+
+#: modules/footer-info.html:51 modules/footer-info.html:55
+msgid "About Us"
+msgstr "O nas"
+
+#: config/wlc-form-errors.ts:28
+msgid "Account with this e-mail isn't exist"
+msgstr "Račun s to e-pošto ne obstaja"
+
+#: modules/loyalty/components/bonuses-slider/bonuses-slider-item.html:45
+msgid "Acivate"
+msgstr ""
+
+#: modules/loyalty/components/tournaments-slider/tournaments-slider-item.html:60
+#: modules/loyalty/components/tournaments-slider/tournaments-slider-item.html:68
+#, fuzzy
+msgid "Activate"
+msgstr "Aktivno"
+
+#: config/wlc-profile-menu-default.js:56 directives/wlc-profile-menu.html:46
+msgid "Active"
+msgstr "Aktivno"
+
+#: config/state/profile/profile-bonuses.js:51
+msgid "Active bonuses"
+msgstr "Aktivni bonusi"
+
+#: components/profile-tournaments-active.html:2
+#: config/wlc-profile-menu-default.js:98
+msgid "Active tournaments"
+msgstr "Aktivni turnirji"
+
+#: modules/profile/components/wlc-exchange-cash/wlc-exchange-cash.html:14
+msgid "Acumulated RP"
+msgstr "Dosežene točke ugleda RP"
+
+#: components/profile/deposit/steps/amount/steps-deposit-amount-block.html:97
+#: directives/wlc-deposit.html:205
+#: modules/finances/components/payment-systems-info/payment-systems-info.component.html:57
+msgid "Add deposit"
+msgstr "Naložite znesek"
+
+#: modules/profile/components/bank-info/bank-info.component.ts:194
+#, fuzzy
+msgid "Additional Banking Information"
+msgstr "Informacije o banki"
+
+#: classes/services/payment-system.model.ts:152
+#: modules/profile/config/profile-forms.config.ts:193
+#: partials/form-elements/address.html:10 partials/form-elements/address.html:2
+msgid "Address"
+msgstr "Naslov"
+
+#: modules/profile/controllers/messages.controller.ts:56
+msgid "Administration"
+msgstr "Administracija"
+
+#: modules/footer-info.html:69
+msgid "Affiliate Program"
+msgstr "Partnerski program"
+
+#: modules/footer-info.html:43
+msgid "Affiliates"
+msgstr "Partnerji"
+
+#: components/profile-store-main.html:13 modules/big-merchant-filter.html:20
+#: modules/profile/components/profile-transactions/profile-transactions-filter.html:6
+#: modules/profile/components/wlc-dashboard-bonuses/wlc-dashboard-bonuses-filter.html:7
+msgid "All"
+msgstr "Vse"
+
+#: dialogs/profile-verification/profile-verification-payment.html:12
+msgid "All four corners of the Credit Card are visible on the scan or a photo."
+msgstr "Na skenu ali fotografiji so vidni vsi štirje koti kreditne kartice."
+
+#: dialogs/profile-verification/profile-verification-address.html:15
+#: dialogs/profile-verification/profile-verification-id.html:13
+msgid "All four corners of the document are visible on the scan or a photo."
+msgstr "Na skenu ali fotografiji so vidni vsi štirje koti dokumenta."
+
+#: config/wlc-game-categories-default.js:167 modules/game-catalog-menu.html:22
+msgid "All games"
+msgstr "Vse igre"
+
+#: components/profile-gamblings-bets.html:31
+#: modules/base/components/sorted-items/templates/merchants-in-category/dropdown-merchants.html:15
+#: modules/base/components/sorted-items/templates/merchants-in-category/dropdown-merchants.html:33
+#: modules/base/components/sorted-items/templates/merchants-in-category/show-merchants.html:7
+#: modules/filter-merchants.html:18 modules/filter-merchants.html:34
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-filter.html:23
+msgid "All providers"
+msgstr "Vsi ponudniki"
+
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-filter.html:37
+msgid "All results"
+msgstr "Vsi rezultati"
+
+#: modules/footer-copyright.html:5
+msgid "All rights reserved."
+msgstr "Vse pravice pridržane."
+
+#: controllers/steps.controller.ts:177
+msgid "All set and done!"
+msgstr "Vse je pripravljeno!"
+
+#: partials/form-elements/login-unique.html:13
+#: partials/form-elements/login.html:13
+msgid "Allowable login length"
+msgstr "Dovoljena dolžina uporabniškega imena"
+
+#: classes/services/loyalty-bonuses.class.ts:693
+msgid "Allowed"
+msgstr "Dovoljeno"
+
+#: sections/user-signup.html:6
+msgid "Already a member?"
+msgstr "Ste že član?"
+
+#: dialogs/user-signup.html:17 dialogs/user-signup.html:40
+#: modules/user-signup.html:26
+msgid "Already have an account"
+msgstr "Račun že imam"
+
+#: directives/wlc-merchants-in-category.directive.ts:110
+msgid "AmaticDirect"
+msgstr "AmaticDirect"
+
+#: controllers/user/user-profile.ts:89
+msgid "American"
+msgstr "Ameriški"
+
+#: components/profile-gamblings-bets.html:104
+#: components/profile-gamblings-bets.html:75
+#: components/profile/deposit/steps/amount/steps-deposit-amount-block.html:35
+#: components/profile/withdraw/steps/amount/steps-withdraw-amount-block.html:34
+#: modules/profile/components/profile-transactions/profile-transactions-list.html:12
+#: modules/profile/components/profile-transactions/profile-transactions-list.html:48
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-list.html:23
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-list.html:6
+msgid "Amount"
+msgstr "Znesek"
+
+#: modules/games-play-desktop.html:109
+msgid "Apply now"
+msgstr "Uporabi zdaj"
+
+#: controllers/user/user-abstract.ts:139
+#: modules/profile/classes/profile-abstract.class.ts:140
+msgid "April"
+msgstr ""
+
+#: dialogs/tournaments/tournament-unsubscribe.html:16
+msgid "Are you sure you want to unsubscribe?"
+msgstr "Ali ste prepričani, da se želite odjaviti?"
+
+#: classes/services/loyalty-bonuses.class.ts:348
+#: classes/services/loyalty-bonuses.class.ts:385 dialogs/user-logout.html:9
+#: modules/profile/controllers/messages.controller.ts:101
+msgid "Are you sure?"
+msgstr "Ali ste prepričani?"
+
+#: controllers/user/user-abstract.ts:143
+#: modules/profile/classes/profile-abstract.class.ts:144
+msgid "August"
+msgstr ""
+
+#: modules/double-coin-banner.html:2
+msgid "Available bonuses"
+msgstr "Razpoložljivi bonusi"
+
+#: components/profile-main-level.html:9
+msgid "Available levels"
+msgstr "Razpoložljivi nivoji"
+
+#: components/profile-verification-main.html:49
+#: dialogs/profile-verification/profile-verification-address.html:42
+#: dialogs/profile-verification/profile-verification-default.html:35
+#: dialogs/profile-verification/profile-verification-id.html:41
+#: dialogs/profile-verification/profile-verification-payment.html:42
+msgid "Awaiting validation"
+msgstr "Čakamo na potrditev"
+
+#: components/game-catalog.html:133 components/game-catalog.html:192
+#: components/game-catalog.html:327 components/game-catalog.html:396
+#: directives/wlc-catalog-box.html:30
+msgid "Back"
+msgstr "Nazaj"
+
+#: components/pages-content.html:52
+msgid "Back to articles"
+msgstr "Nazaj na članke"
+
+#: dialogs/password-restore.html:55
+msgid "Back to login"
+msgstr "Nazaj na vpis"
+
+#: components/profile-bonuses-history.html:11
+#: components/profile-bonuses-history.html:41
+#: components/profile-store-main.html:4
+#: components/profile/deposit/default-deposit.html:5
+#: components/profile/withdraw/default-withdraw.html:5
+#: modules/game-play-info.html:6 modules/games-play-desktop.html:48
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:38
+#: modules/loyalty/components/store-list/store-list.component.html:5
+#: modules/user-info.html:15 modules/user-stat-block.html:8
+msgid "Balance"
+msgstr "Stanje"
+
+#: modules/user-stat-block-min.html:41
+msgid "Balance:"
+msgstr "Stanje:"
+
+#: classes/services/payment-system.model.ts:157
+#: modules/profile/config/profile-forms.config.ts:257
+#: modules/profile/config/profile-forms.config.ts:274
+#: partials/form-elements/bank-name-text.html:11
+#: partials/form-elements/bank-name-text.html:2
+#: partials/form-elements/bank-name.html:2
+msgid "Bank name"
+msgstr "Ime banke"
+
+#: config/forms/profile.form.ts:163
+#: modules/profile/components/bank-info/bank-info.config.ts:6
+msgid "Banking Information"
+msgstr "Informacije o banki"
+
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history.controller.ts:73
+msgid "Bet"
+msgstr "Stava"
+
+#: components/profile-gamblings-bets.html:55
+msgid "Bet results:"
+msgstr "Rezultati stave:"
+
+#: components/profile-gamblings-bets.html:74
+#: components/profile-gamblings-bets.html:94
+msgid "Bet time"
+msgstr "Čas stave"
+
+#: components/profile-gamblings-bets.html:2 components/profile-gamblings.js:156
+#: config/wlc-profile-menu-default.js:152 directives/wlc-profile-menu.html:122
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history.html:3
+#: modules/user-stat-block-dropdown.html:104
+msgid "Bets history"
+msgstr "Zgodovina stav"
+
+#: modules/promo/components/biggest-wins/biggest-wins.html:12
+#: modules/statistics/biggest-wins.html:4
+msgid "Biggest wins"
+msgstr "Največji dobitki"
+
+#: dialogs/required-fields.html:46 partials/form-elements/birthdate.html:2
+msgid "Birthdate"
+msgstr "Datum rojstva"
+
+#: modules/base/components/wlc-smart-userinfo/wlc-smart-userinfo.component.html:14
+#, fuzzy
+msgid "Bonus Balance"
+msgstr "Stanje"
+
+#: modules/base/components/wlc-smart-userinfo/wlc-smart-userinfo.component.html:4
+#, fuzzy
+msgid "Bonus Points"
+msgstr "Bonusne točke"
+
+#: config/wlc-main-menu-mobile-default.js:128
+msgid "Bonus System"
+msgstr "Sistem bonusov"
+
+#: dialogs/bonuses/subscribe-deposit-bonus.html:4
+msgid "Bonus activation"
+msgstr "Aktivacija bonusa"
+
+#: modules/profile/components/wlc-dashboard-bonuses/wlc-dashboard-bonuses-content.html:2
+msgid "Bonus in progress"
+msgstr ""
+
+#: components/profile-bonuses-history.html:10
+#: components/profile-bonuses-history.html:35
+msgid "Bonus name"
+msgstr "Ime bonusa"
+
+#: modules/bonus-wins.html:2
+msgid "Bonus wins"
+msgstr "Dobitki bonusa"
+
+#: components/profile/deposit/default-deposit.html:24
+#: components/profile/withdraw/default-withdraw.html:22
+#: partials/user-all-balances-block.html:7
+msgid "Bonus:"
+msgstr "Bonus:"
+
+#: components/profile-bonuse-system.html:1
+#: config/state/profile/profile-bonuses.js:78
+#: config/wlc-profile-menu-default.js:80
+msgid "Bonuse system"
+msgstr "Sistem bonusov"
+
+#: components/profile-menu.html:9 config/state/profile/profile-bonuses.js:29
+#: config/state/profile/profile-bonuses.js:40
+#: config/wlc-profile-menu-default.js:44 directives/wlc-profile-menu.html:23
+#: modules/user-stat-block-dropdown.html:68
+msgid "Bonuses"
+msgstr "Bonusi"
+
+#: config/state/profile/profile-bonuses.js:59
+msgid "Bonuses history"
+msgstr "Zgodovina bonusov"
+
+#: directives/wlc-bonuses-exchanger.html:15
+#: directives/wlc-bonuses-exchanger.html:3
+msgid "Bonuses points"
+msgstr "Bonusne točke"
+
+#: classes/services/payment-system.model.ts:162
+#: modules/profile/config/profile-forms.config.ts:224
+#: partials/form-elements/branch-code.html:10
+#: partials/form-elements/branch-code.html:2
+msgid "Branch code"
+msgstr "Koda podružnice"
+
+#: directives/wlc-store-item.html:13 modules/double-coin-banner.html:6
+#: modules/loyalty/components/store-list/modal/store-description.modal.html:13
+#: modules/loyalty/components/store-list/store-list.item.html:32
+#: modules/loyalty/components/store-list/store-list.item.html:72
+msgid "Buy now"
+msgstr "Kupi zdaj"
+
+#: dialogs/regcomplete-modal.html:6
+msgid "By claiming the first deposit bonus"
+msgstr "Z uveljavljanjem bonusa za prvi depozit"
+
+#: components/profile-bonuses-active.html:37
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:114
+msgid "CANCEL_BONUS"
+msgstr "Prekliči"
+
+#: modules/loyalty/components/bonuses-slider/bonuses-slider-item.html:72
+#: modules/profile/components/profile-transactions/profile-transactions-list.html:84
+#: partials/profile-bonuses.html:26
+msgid "Cancel"
+msgstr "Prekliči"
+
+#: classes/services/loyalty-bonuses.class.ts:889
+msgid "Cancel bonus failed"
+msgstr "Preklic bonusa ni uspel"
+
+#: components/profile-bonuses-history.html:81
+#: components/profile-tournaments-history.html:51
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:72
+#: modules/profile/controllers/wlc-dashboard-bonuses.controller.ts:96
+msgid "Canceled"
+msgstr "Preklicano"
+
+#: modules/profile/components/profile-transactions/profile-transactions.component.ts:99
+msgid "Canceled by user"
+msgstr "Preklical uporabnik"
+
+#: components/profile-menu.html:19 config/wlc-profile-menu-default.js:116
+#: directives/wlc-profile-menu.html:73
+msgid "Cash"
+msgstr "Gotovina"
+
+#: modules/profile/components/wlc-exchange-cash/wlc-exchange-cash.html:43
+msgid "Cash amount to be exchanged"
+msgstr "Denarni znesek, ki ga je treba zamenjati"
+
+#: directives/wlc-deposit.html:1
+msgid "Cash transactions disabled"
+msgstr "Denarne transakcije so onemogočene"
+
+#: config/wlc-main-menu-default.js:75 config/wlc-main-menu-mobile-default.js:68
+#: modules/error-page-box-two-column.html:10
+msgid "Casino"
+msgstr "Casino"
+
+#: modules/game-categories.html:2 modules/news-categories.html:3
+#: modules/pages-list.html:3
+msgid "Categories"
+msgstr "Kategorije"
+
+#: partials/form-elements/phone-number.html:47
+msgid "Change"
+msgstr "Spremeni"
+
+#: controllers/user/user-profile.ts:365
+msgid "Change e-mail"
+msgstr "Spremenite e-pošto"
+
+#: config/forms/change-password.form.ts:36 dialogs/password-change.html:3
+msgid "Change password"
+msgstr "Spremenite geslo"
+
+#: modules/login-signup/register-steps/partial/promocode.html:14
+msgid "Change promo code"
+msgstr "Spremenite promocijsko kodo"
+
+#: dialogs/promo-code.html:36
+msgid "Check"
+msgstr "Preveri"
+
+#: modules/login-signup/register-steps/partial/error-form.html:3
+msgid "Check the correctness of filling out the form fields."
+msgstr "Preverite pravilnost izpolnjenih polj obrazca."
+
+#: modules/game-catalog-menu.html:8
+msgid "Cherries"
+msgstr "Češnje"
+
+#: modules/loyalty/components/choose-bonus/choose-bonus.html:42
+#: modules/loyalty/components/choose-bonus/choose-bonus.html:55
+msgid "Choose"
+msgstr "Izberite"
+
+#: modules/login-signup/register-steps/bonuses.html:4
+#: partials/signup-form.html:12 partials/signup-form/signup-form.html:17
+msgid "Choose Your Welcome Bonus"
+msgstr "Izberite svoj bonus za dobrodošlico"
+
+#: modules/loyalty/components/choose-bonus/choose-bonus.html:18
+msgid "Choose a Bonus"
+msgstr "Izberite bonus"
+
+#: components/profile/deposit/steps/bonus/steps-deposit-bonus-actions.html:8
+msgid "Choose another"
+msgstr "Izberite še enega"
+
+#: components/profile/withdraw/default-withdraw.html:45
+#: directives/wlc-deposit.html:21 directives/wlc-deposit.html:47
+msgid "Choose payment option"
+msgstr "Izberite možnost plačila"
+
+#: classes/services/payment-system.model.ts:147
+#: modules/profile/config/profile-forms.config.ts:178
+#: partials/form-elements/city.html:10 partials/form-elements/city.html:2
+msgid "City"
+msgstr "Mesto"
+
+#: components/profile-bonuses-active.html:22
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:22
+msgid "Cleared"
+msgstr "Izbrisano"
+
+#: components/profile/deposit/steps/modal/modal-step-deposit-bonuses.html:35
+#: components/profile/deposit/steps/modal/modal-step-deposit-systems.html:43
+#: dialogs/bonuses/subscribe-deposit-bonus.html:24 dialogs/content-page.html:20
+#: dialogs/error.html:12 dialogs/password-restore-step2.html:19
+#: dialogs/sms-verification/sms-verification.html:73
+#: dialogs/tooltip-modal.html:9 dialogs/tournaments/tournament-info.html:55
+#: dialogs/tournaments/tournament-insufficient-funds.html:6
+#: dialogs/tournaments/tournament-insufficient-points.html:5
+#: modules/error/components/error-modal/error-modal.html:9
+#: modules/loyalty/components/store-list/modal/store-description.modal.html:17
+#: modules/profile/components/wlc-messages/wlc-messages-content.html:10
+msgid "Close"
+msgstr "Zapri"
+
+#: components/profile-tournaments-main.html:63
+#: modules/loyalty/components/tournaments-list/tournaments-list.item.html:68
+#: modules/loyalty/components/tournaments-slider/tournaments-slider-item.html:82
+msgid "Closed"
+msgstr "Zaprto"
+
+#: modules/login-signup/register-steps/partial/verify-sms-code-input.html:2
+#: modules/profile/config/profile-forms.config.ts:386
+#: partials/form-elements/alternative-phone.html:3
+#: partials/form-elements/mobile-phone.html:3
+#: partials/form-elements/phone-code.html:2
+msgid "Code"
+msgstr "Koda"
+
+#: modules/loyalty/components/wlc-loyalty-levels/wlc-loyalty-levels.component.html:10
+#: modules/profile/components/wlc-dashboard-loyalty/wlc-dashboard-loyalty.html:21
+msgid "Coefficient"
+msgstr "Koeficient"
+
+#: modules/grids/grid-2-4-2.html:2
+msgid "CoinBar Right Now"
+msgstr "Coinbar zdaj"
+
+#: modules/profile/components/profile-transactions/profile-transactions.component.ts:108
+msgid "Complete"
+msgstr "Izpolnite"
+
+#: dialogs/user-social-complete.html:4
+msgid "Complete Registration"
+msgstr "Izpolnite registracijo"
+
+#: modules/profile/components/profile-transactions/profile-transactions.component.ts:98
+msgid "Complete failed"
+msgstr "Izpolnjevanje ni uspešno"
+
+#: modules/login-signup/register-steps/partial/verify-sms-code-input.html:22
+#: modules/login-signup/register-steps/partial/verify-two-button.html:3
+#: modules/profile/components/wlc-exchange-cash/wlc-exchange-cash.html:48
+msgid "Confirm"
+msgstr "Potrdite"
+
+#: dialogs/user-social-complete.html:29
+#: modules/profile/config/profile-forms.config.ts:376
+#: partials/form-elements/password-confirm.html:12
+#: partials/form-elements/password-confirm.html:2
+msgid "Confirm password"
+msgstr "Potrdite geslo"
+
+#: dialogs/confirmation.html:5
+msgid "Confirmation"
+msgstr "Potrdilo"
+
+#: modules/profile/components/profile-transactions/profile-transactions.component.ts:105
+msgid "Confirmed"
+msgstr "Potrjeno"
+
+#: components/profile-main-social.html:9
+msgid "Connect"
+msgstr "Povežite"
+
+#: modules/social-link.html:3
+msgid "Connected social accounts"
+msgstr "Povežite račune z družabnih omrežij"
+
+#: modules/footer-info.html:62
+msgid "Contact Us"
+msgstr "Stopite v stik z nami"
+
+#: partials/contacts.html:2
+msgid "Contact details"
+msgstr "Kontaktni podatki"
+
+#: config/state/contacts.ts:31 config/wlc-main-menu-default.js:151
+#: config/wlc-main-menu-mobile-default.js:98 controllers/contacts.ts:74
+#: modules/base/components/contact-form/contact-form.component.ts:122
+#: modules/base/components/contact-form/contact-form.component.ts:129
+msgid "Contacts"
+msgstr "Stiki"
+
+#: dialogs/bonuses/subscribe-deposit-bonus.html:19
+#: modules/login-signup/register-steps/partial/done-button.html:2
+#: modules/login-signup/register-steps/partial/setup-button.html:4
+#: modules/login-signup/register-steps/partial/verify-one-button.html:5
+#: modules/login-signup/register-steps/partial/verify-two-button.html:4
+msgid "Continue"
+msgstr "Nadaljuj"
+
+#: dialogs/regcomplete-modal.html:25
+msgid "Continue to site"
+msgstr "Pojdite na stran"
+
+#: dialogs/messagePayment.html:16
+msgid "Copied"
+msgstr "Kopirano"
+
+#: services/error.service.ts:278
+msgid "Could not find a state associated with url"
+msgstr "Ne najdem države, povezane s tem URL-jem"
+
+#: classes/services/payment-system.model.ts:137 dialogs/required-fields.html:29
+#: modules/profile/config/profile-forms.config.ts:163
+#: partials/form-elements/country.html:2
+msgid "Country"
+msgstr "Država"
+
+#: modules/profile/components/profile-transactions/profile-transactions-list.html:80
+msgid "Credit"
+msgstr "Kredit"
+
+#: components/user-social-register.html:28 dialogs/user-social-complete.html:42
+#: modules/register-form.html:40 partials/form-elements/currency-select.html:2
+#: partials/form-elements/currency.html:2 partials/signup-form.html:136
+msgid "Currency"
+msgstr "Valuta"
+
+#: modules/profile/components/wlc-exchange-cash/wlc-exchange-cash.html:7
+msgid "Current Level"
+msgstr "Trenutni nivo"
+
+#: components/profile-main-level.html:4
+msgid "Current level"
+msgstr "Trenutni nivo"
+
+#: modules/profile/config/profile-forms.config.ts:341
+#: partials/form-elements/password-current.html:13
+#: partials/form-elements/password-current.html:2
+msgid "Current password"
+msgstr "Trenutno geslo"
+
+#: components/profile-main-level.html:20
+msgid "Current points"
+msgstr "Trenutne točke"
+
+#: modules/tournaments/tournament-leaders.html:5
+msgid "Current tournament"
+msgstr "Trenutni turnir"
+
+#: components/profile-tournaments-main.html:2
+#: config/wlc-profile-menu-default.js:92
+msgid "Current tournaments"
+msgstr "Trenutni turnirji"
+
+#: modules/base/components/country-accepts/country-accepts-content.html:11
+msgid "Customer support language"
+msgstr "Jezik za podporo strankam"
+
+#: config/state/profile/profile-dashboard.ts:26
+#: config/wlc-profile-menu-default.js:219
+#: modules/game-play/game-play-header.html:30
+msgid "Dashboard"
+msgstr "Nadzorna plošča"
+
+#: modules/profile/components/wlc-messages/wlc-messages-list.html:12
+#: modules/profile/components/wlc-messages/wlc-messages-list.html:42
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-list.html:19
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-list.html:5
+msgid "Date"
+msgstr "Datum"
+
+#: classes/services/payment-system.model.ts:121
+msgid "Date of birth"
+msgstr "Datum rojstva"
+
+#: controllers/user/user-abstract.ts:129
+#: modules/profile/classes/profile-abstract.class.ts:130
+#: modules/profile/config/profile-forms.config.ts:112
+msgid "Day"
+msgstr "Dan"
+
+#: config/wlc-modal-config.js:137
+msgid ""
+"Dear Client, Due to technical reasons the project temporarily suspends its "
+"operation, therefore deposits and game play is no longer possible. We kindly "
+"ask you to request a withdrawal in the next 2 weeks. If you have any "
+"questions, please contact us"
+msgstr ""
+"Draga stranka, zaradi tehničnih razlogov je projekt začasno ustavljen, zato "
+"depoziti in igranje niso več mogoči. Vljudno vas prosimo, da v naslednjih 2 "
+"tednih zahtevate dvig sredstev. Če imate kakršna koli vprašanja, nas "
+"kontaktirajte"
+
+#: constants/check-on-run-game.js:154
+msgid ""
+"Dear Client, this game has no demo mode, you will redirect to normal mode."
+msgstr ""
+"Draga stranka, ta igra ni na voljo v demo načinu, preusmerjeni boste na "
+"običajen način."
+
+#: modules/profile/components/profile-transactions/profile-transactions-list.html:81
+msgid "Debit"
+msgstr "Bremenitev"
+
+#: controllers/user/user-abstract.ts:147
+#: modules/profile/classes/profile-abstract.class.ts:148
+msgid "December"
+msgstr ""
+
+#: controllers/user/user-profile.ts:88
+msgid "Decimal"
+msgstr "Decimalka"
+
+#: dialogs/profile-verification/profile-verification-id.html:56
+#: modules/profile/components/wlc-messages/wlc-messages-content.html:11
+msgid "Delete"
+msgstr "Izbriši"
+
+#: components/game-catalog.html:124 components/game-catalog.html:216
+#: components/game-catalog.html:286 components/game-catalog.html:318
+#: components/game-catalog.html:387 components/game-catalog.html:62
+#: components/game-catalog.html:92 directives/wlc-catalog-box.html:23
+#: modules/game-thumb.html:54 modules/search.html:37
+msgid "Demo"
+msgstr "Demo"
+
+#: components/profile-menu.html:23
+#: components/profile/deposit/default-deposit.html:2
+#: components/profile/deposit/steps/steps-deposit-header.html:2
+#: config/wlc-main-menu-mobile-default.js:140
+#: config/wlc-profile-menu-default.js:122 dialogs/deposit.html:3
+#: dialogs/fast-deposit.html:3 directives/wlc-profile-menu.html:85
+#: modules/finances/components/profile-wallet/profile-wallet.html:34
+#: modules/game-play-info.html:15 modules/games-play-desktop.html:57
+#: modules/profile/components/profile-transactions/profile-transactions.component.ts:90
+#: modules/user-info.html:25 modules/user-stat-block-dropdown.html:15
+#: modules/user-stat-block-dropdown.html:86 modules/user-stat-block-min.html:61
+msgid "Deposit"
+msgstr "Polog"
+
+#: dialogs/regcomplete-modal.html:23
+msgid "Deposit and Claim"
+msgstr "Polog in zahtevek"
+
+#: dialogs/user-payment-success.html:10
+msgid "Deposit completed successfully"
+msgstr "Polog uspešno izveden"
+
+#: modules/profile/components/limits/limits.component.html:18
+#, fuzzy
+msgid "Deposit limits"
+msgstr "Polog in zahtevek"
+
+#: config/wlc-modal-config.js:201
+msgid "Deposit more money to play this game."
+msgstr "Za igranje te igre naložite več denarja."
+
+#: modules/footer-copyright.html:8
+msgid "Developed by"
+msgstr "Razvijalec"
+
+#: dialogs/sms-verification/sms-verification.html:59
+#: modules/login-signup/register-steps/partial/resend-sms-btn.html:1
+msgid "Didnt receive a code?"
+msgstr "Ali niste prejeli kode?"
+
+#: components/profile-main-social.html:7
+msgid "Disconnect"
+msgstr "Prekini povezavo"
+
+#: partials/user-login.html:6
+msgid "Don't have an account?"
+msgstr "Nimate računa?"
+
+#: dialogs/profile-verification/profile-verification-address.html:64
+#: dialogs/profile-verification/profile-verification-default.html:64
+#: dialogs/profile-verification/profile-verification-id.html:75
+#: dialogs/profile-verification/profile-verification-payment.html:64
+#: modules/login-signup/register-steps/partial/done-button.html:5
+#: modules/login-signup/register-steps/partial/setup-button.html:7
+msgid "Done"
+msgstr "Opravljeno"
+
+#: modules/double-coin-banner.html:4
+msgid "Double goldbar coin"
+msgstr "Dvojni zlatnik"
+
+#: components/profile-verification-main.html:61
+msgid "Download"
+msgstr "Prenos"
+
+#: components/user-social-register.html:23 dialogs/password-restore.html:19
+#: dialogs/password-restore.html:32 dialogs/user-social-complete.html:17
+#: modules/base/components/contact-form/elements/sender-email.html:2
+#: modules/login-form.html:11 modules/login-form.html:16
+#: modules/profile/config/profile-forms.config.ts:46
+#: modules/register-form.html:26 modules/user-info.html:5
+#: partials/contacts.html:21 partials/form-elements/email-login.html:6
+#: partials/form-elements/email-unique.html:2
+#: partials/form-elements/email-unique.html:7
+#: partials/form-elements/email.html:2 partials/form-elements/email.html:7
+#: partials/signup-form.html:116 partials/signup-form.html:118
+#: partials/signup-form.html:123
+msgid "E-mail"
+msgstr "E-pošta"
+
+#: config/wlc-form-errors.ts:29
+msgid "E-mail is not unique"
+msgstr "E-pošta ni edinstvena"
+
+#: directives/wlc-merchants-in-category.directive.ts:109
+msgid "EGTInteractive"
+msgstr "EGTInteractive"
+
+#: components/profile-main/profile-main.html:1
+#: components/profile/withdraw/default-withdraw.html:74
+#: components/profile/withdraw/default-withdraw.html:80
+#: config/wlc-profile-menu-default.js:38 dialogs/profile-check-error.html:12
+#: directives/wlc-deposit.html:62 directives/wlc-deposit.html:68
+#: directives/wlc-profile-menu.html:16 modules/user-stat-block-dropdown.html:62
+msgid "Edit profile"
+msgstr "Uredi profil"
+
+#: components/profile-tournaments-history.html:14
+msgid "End"
+msgstr "Konec"
+
+#: components/profile-gamblings-bets.html:16
+#: modules/profile/components/profile-transactions/profile-transactions-filter.html:21
+#: modules/profile/components/wlc-dashboard-bonuses/wlc-dashboard-bonuses-filter.html:22
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-filter.html:10
+msgid "End date"
+msgstr "Končni datum"
+
+#: components/profile-bonuses-history.html:16
+#: components/profile-bonuses-history.html:71
+#: components/profile-tournaments-history.html:53
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:63
+msgid "Ended"
+msgstr "Končano"
+
+#: components/profile-tournaments-history.html:52
+msgid "Ending"
+msgstr "Konec"
+
+#: directives/wlc-time.directive.ts:90
+msgid "Ends"
+msgstr "Konča se"
+
+#: directives/wlc-countdown.js:64
+msgid "Ends in"
+msgstr "Konča se čez"
+
+#: components/profile/withdraw/default-withdraw.html:89
+#: components/profile/withdraw/default-withdraw.html:97
+#: directives/wlc-deposit.html:106
+msgid "Enter amount"
+msgstr "Vnesite znesek"
+
+#: components/profile-bonuses-promo.html:10
+#: components/profile-bonuses-promo.html:21
+#: modules/loyalty/components/bonuses-list/bonuses-list.component.html:30
+#: modules/loyalty/components/bonuses-list/bonuses-list.component.html:41
+msgid "Enter code"
+msgstr "Vnesite kodo"
+
+#: dialogs/sms-verification/sms-verification.html:3
+msgid "Enter code here"
+msgstr "Vnesite kodo tukaj"
+
+#: components/profile/deposit/steps/amount/steps-deposit-amount-block.html:5
+msgid "Enter deposit amount."
+msgstr "Vnesite znesek pologa."
+
+#: components/profile/withdraw/steps/amount/steps-withdraw-amount-block.html:5
+msgid "Enter withdraw amount."
+msgstr "Vnesite znesek dviga."
+
+#: controllers/steps.controller.ts:172
+msgid "Enter your phone"
+msgstr "Vnesite svoj telefon"
+
+#: directives/wlc-deposit.html:82
+msgid "Enter your wallet address below and then click \"Add deposit\""
+msgstr "Spodaj vnesite naslov svoje denarnice in kliknite \"Dodaj polog\""
+
+#: dialogs/tournaments/tournament-subscribe.html:26
+msgid "Entry fee"
+msgstr "Vstopnina"
+
+#: classes/services/loyalty-bonuses.class.ts:238
+#: modules/profile/components/profile-transactions/profile-transactions.component.ts:102
+msgid "Error"
+msgstr "Napaka"
+
+#: modules/error-page-box.html:4
+msgid "Error 404"
+msgstr "Napaka 404"
+
+#: modules/login-signup/register-steps/partial/error-form.html:2
+msgid "Error filling form."
+msgstr "Napaka pri izpolnjevanju obrazca."
+
+#: partials/signup-form/signup-form-content.html:39
+msgid ""
+"Error filling form. Check the correctness of filling out the form fields."
+msgstr ""
+"Napaka pri izpolnjevanju obrazca. Preverite pravilnost izpolnjenih polj "
+"obrazca."
+
+#: modules/promo/components/welcome-promo-modal/welcome-promo-modal.controller.ts:95
+msgid "Error loading content"
+msgstr ""
+
+#: config/app.js:236
+msgid "Error occured during account final registration"
+msgstr "Pri končni registraciji računa je prišlo do napake"
+
+#: controllers/finanses.controller.ts:678
+msgid "Error occured during deposit process."
+msgstr "Med postopkom pologa je prišlo do napake."
+
+#: controllers/user/user.controller.ts:232
+msgid "Error occured during login process"
+msgstr "Med postopkom prijave je prišlo do napake"
+
+#: components/user-restore-complete.js:25
+#: components/user-restore-complete.js:45 config/app.js:184
+msgid "Error occured during password recovery"
+msgstr "Med obnovitvijo gesla je prišlo do napake"
+
+#: controllers/user/user-register.ts:320 controllers/user/user-register.ts:574
+msgid "Error occured during registration"
+msgstr "Med registracijo je prišlo do napake"
+
+#: config/app.js:267
+msgid "Error occured during unsibscribe"
+msgstr "Med preklicem naročila je prišlo do napakes"
+
+#: components/profile-verification.component.ts:173
+msgid "Error occured during upload"
+msgstr "Med prenosom je prišlo do napake"
+
+#: controllers/finanses.controller.ts:679
+msgid "Error occured during withdraw process."
+msgstr "Med dvigom je prišlo do napake."
+
+#: controllers/user/sms-verify.controller.ts:109
+#: controllers/user/sms-verify.controller.ts:226
+msgid "Error occurred while sending code for SMS Verification"
+msgstr "Pri pošiljanju kode za preverjanje z SMS je prišlo do napake"
+
+#: config/app.js:90
+msgid "Error page"
+msgstr "Stran z napako"
+
+#: components/profile-gamblings.js:125
+#: components/profile-verification.component.ts:112
+#: dialogs/profile-check-error.html:3
+#: modules/static-content/controllers/wlc-static.controller.ts:162
+#: services/error.service.ts:235 services/error.service.ts:240
+#: services/error.service.ts:244 services/error.service.ts:259
+msgid "Error!"
+msgstr "Napaka!"
+
+#: directives/wlc-bonuses-exchanger.html:20
+msgid "Exchange"
+msgstr "Menjava"
+
+#: modules/profile/components/wlc-exchange-cash/wlc-exchange-cash.component.ts:77
+#: modules/profile/components/wlc-exchange-cash/wlc-exchange-cash.component.ts:86
+msgid "Exchange not available"
+msgstr ""
+
+#: components/profile-main-level.html:32
+msgid "Exchange rage"
+msgstr "Menjalni tečaj"
+
+#: modules/profile/components/wlc-dashboard-loyalty/wlc-dashboard-loyalty.html:30
+#: modules/profile/components/wlc-exchange-cash/wlc-exchange-cash.component.ts:135
+msgid "Exchange to cash"
+msgstr "Menjava v gotovino"
+
+#: components/profile-bonuses-history.html:13
+#: components/profile-bonuses-history.html:53
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:48
+#: modules/loyalty/components/wlc-loyalty-levels/wlc-loyalty-levels.component.html:9
+msgid "Experience"
+msgstr "Izkušnje"
+
+#: modules/game-play-info.html:24 modules/games-play-desktop.html:65
+msgid "Experience level"
+msgstr "Stopnja izkušenosti"
+
+#: components/profile-main-level.html:24
+msgid "Experience points"
+msgstr "Točke izkušenosti"
+
+#: components/profile-bonuses-history.html:80
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:71
+#: modules/profile/controllers/wlc-dashboard-bonuses.controller.ts:95
+msgid "Expired"
+msgstr "Poteklo"
+
+#: components/profile-bonuses-active.html:17
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:17
+msgid "Expires"
+msgstr "Poteče"
+
+#: config/wlc-main-menu-mobile-default.js:158 modules/footer-info.html:82
+msgid "FAQ"
+msgstr "Pogosta vprašanja"
+
+#: modules/social-list.html:6 partials/signup-form.html:58
+#: partials/signup-form/signup-form-socials.html:6
+msgid "Facebook"
+msgstr "Facebook"
+
+#: components/profile-verification-main.html:50
+#: dialogs/profile-verification/profile-verification-address.html:43
+#: dialogs/profile-verification/profile-verification-default.html:37
+#: dialogs/profile-verification/profile-verification-id.html:42
+#: dialogs/profile-verification/profile-verification-payment.html:43
+msgid "Failed validation"
+msgstr "Preverjanje ni uspelo"
+
+#: config/wlc-main-menu-mobile-default.js:122 modules/footer-info.html:35
+msgid "Fair Play"
+msgstr "Poštena igra"
+
+#: modules/game-catalog-menu.html:14
+msgid "Favourites"
+msgstr "Priljubljene"
+
+#: controllers/user/user-abstract.ts:137
+#: modules/profile/classes/profile-abstract.class.ts:138
+msgid "February"
+msgstr ""
+
+#: modules/finances/components/payment-systems-info/payment-systems-info.component.html:12
+#: modules/finances/components/payment-systems-info/payment-systems-info.component.html:25
+#: modules/finances/components/payment-systems/payment-systems.html:7
+msgid "Fee"
+msgstr "Kotizacija"
+
+#: controllers/user/user-register.ts:139
+msgid "Female"
+msgstr ""
+
+#: components/profile-verification-main.html:42
+#: dialogs/profile-verification/profile-verification-address.html:26
+#: dialogs/profile-verification/profile-verification-default.html:19
+#: dialogs/profile-verification/profile-verification-id.html:25
+#: dialogs/profile-verification/profile-verification-payment.html:26
+msgid "File"
+msgstr "Datoteka"
+
+#: dialogs/profile-verification/profile-verification-id.html:59
+msgid "File is deleting"
+msgstr "Datoteka v brisanju"
+
+#: components/profile-verification-main.html:27
+msgid "File is loading"
+msgstr "Datoteka se nalaga"
+
+#: components/profile-verification.component.ts:180
+msgid "File size should not exceed"
+msgstr "Velikost datoteke ne sme presegati"
+
+#: components/profile/deposit/steps/amount/steps-deposit-amount-block.html:19
+#: components/profile/deposit/steps/amount/steps-deposit-amount-block.html:24
+#: components/profile/withdraw/steps/amount/steps-withdraw-amount-block.html:17
+#: components/profile/withdraw/steps/amount/steps-withdraw-amount-block.html:22
+msgid "Fill profile"
+msgstr "Uredi profil"
+
+#: dialogs/profile-partial-update.html:8 dialogs/required-fields.html:4
+msgid "Fill required fields"
+msgstr "Izpolnite zahtevana polja"
+
+#: modules/game-catalog-menu.html:31
+msgid "Filter"
+msgstr "Filter"
+
+#: modules/profile/components/profile-transactions/profile-transactions.component.ts:107
+msgid "Finalize failed"
+msgstr "Dokončanje ni uspelo"
+
+#: classes/services/payment-system.model.ts:110
+#: modules/profile/config/profile-forms.config.ts:20
+#: partials/form-elements/first-name.html:11
+#: partials/form-elements/first-name.html:2
+msgid "First name"
+msgstr "Ime"
+
+#: modules/login-form.html:48
+#: modules/profile/components/login-signup-dropdown/login-form.html:21
+#: partials/login-form.html:28
+msgid "Forgot password?"
+msgstr "Ste pozabili geslo?"
+
+#: components/game-catalog.html:133 components/game-catalog.html:192
+#: components/game-catalog.html:327 components/game-catalog.html:396
+#: directives/wlc-catalog-box.html:30
+msgid "Forward"
+msgstr "Naprej"
+
+#: controllers/user/user-profile.ts:87
+msgid "Fractional"
+msgstr "Delno"
+
+#: components/profile-bonuses-history.html:14
+#: components/profile-bonuses-history.html:59
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:53
+msgid "Freerounds"
+msgstr "Brezplačni krogi"
+
+#: directives/wlc-freerounds.directive.ts:85
+#: directives/wlc-freerounds.directive.ts:92
+#: modules/base/components/wlc-smart-userinfo/wlc-smart-userinfo.component.html:8
+msgid "Freespins"
+msgstr "Brezplačno igranje"
+
+#: modules/finances/components/payment-systems/payment-systems.html:35
+#: modules/profile/components/wlc-messages/wlc-messages-list.html:10
+#: modules/profile/components/wlc-messages/wlc-messages-list.html:28
+msgid "From"
+msgstr "Od"
+
+#: classes/services/loyalty-bonuses.class.ts:673
+msgid "Full lock"
+msgstr "Popolno zaklepanje"
+
+#: config/wlc-profile-menu-default.js:146 directives/wlc-profile-menu.html:110
+msgid "Gamblings"
+msgstr "Igre na srečo"
+
+#: components/profile-gamblings-bets.html:121
+#: components/profile-gamblings-bets.html:77
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-list.html:31
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-list.html:7
+msgid "Game"
+msgstr "Igra"
+
+#: config/wlc-main-menu-mobile-default.js:50
+msgid "Game Categories"
+msgstr "Kategorije iger"
+
+#: directives/wlc-catalog-tree.html:3
+msgid "Game categories"
+msgstr ""
+
+#: constants/check-on-run-game.js:153
+msgid "Game has no demo!"
+msgstr "Igra nima demo različice"
+
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-filter.html:48
+msgid "Game name"
+msgstr "Ime igre"
+
+#: modules/game-day.html:2
+msgid "Game of the day"
+msgstr "Igra dneva"
+
+#: modules/big-merchant-filter.html:6
+msgid "Game providers filter"
+msgstr "Filter ponudnikov iger"
+
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-filter.html:31
+msgid "Game result"
+msgstr "Rezultat igre"
+
+#: modules/search.html:10
+msgid "Game search"
+msgstr "Iskanje igre"
+
+#: modules/big-merchant-filter.html:3
+msgid "Games filter"
+msgstr "Filter iger"
+
+#: modules/footer-info.html:21
+msgid "Games rules"
+msgstr "Pravila iger"
+
+#: modules/register-form.html:101
+#: partials/form-elements/checkbox-games-rules.html:21
+#: partials/signup-form.html:207
+msgid "Games_rules"
+msgstr "Pravila_igre"
+
+#: classes/services/payment-system.model.ts:127
+#: modules/profile/config/profile-forms.config.ts:69
+#: modules/profile/config/profile-forms.config.ts:73
+#: modules/profile/config/profile-forms.config.ts:89
+msgid "Gender"
+msgstr "Spol"
+
+#: modules/profile/controllers/wlc-dashboard-bonuses.controller.ts:84
+msgid "General"
+msgstr "Splošno"
+
+#: modules/login-signup/register-steps/partial/verify-one-button.html:4
+#: partials/form-elements/phone-number.html:29
+msgid "Get code"
+msgstr "Pridobite kodo"
+
+#: components/profile-gamblings-bets.html:60
+msgid "Get earlier results..."
+msgstr "Pridobite prejšnje rezultate..."
+
+#: partials/form-elements/gift-bundle-id.html:2
+#: partials/form-elements/gift-bundle-id.html:7
+msgid "Gift Bundle ID"
+msgstr "ID darilnega svežnja"
+
+#: dialogs/user-signup.html:30 dialogs/user-signup.html:35
+#: modules/user-signup.html:20
+msgid "Go back"
+msgstr "Nazaj"
+
+#: modules/error-page-box.html:6
+msgid "Go home"
+msgstr "Pokdite domov"
+
+#: components/game-catalog.html:199 components/game-catalog.html:269
+#: components/game-catalog.html:75
+msgid "Go to"
+msgstr "Pojdite na"
+
+#: modules/profile/components/wlc-dashboard-loyalty/wlc-dashboard-loyalty.html:33
+msgid "Go to Store"
+msgstr "Pojdite v trgovino"
+
+#: modules/error-page-box-two-column.html:4
+msgid "Go to main page"
+msgstr "Pojdite na glavno stran"
+
+#: components/game-catalog.html:44
+msgid "Go to popular games"
+msgstr "Pojdite na priljubljene igre"
+
+#: modules/social-list.html:31 partials/signup-form.html:90
+#: partials/signup-form/signup-form-socials.html:38
+msgid "Google+"
+msgstr ""
+
+#: dialogs/bonus-description.html:16
+#: dialogs/tournaments/tournament-description.html:6
+msgid "Got it"
+msgstr "Razumem"
+
+#: dialogs/user-social-complete.html:52 modules/register-form.html:52
+#: partials/form-elements/promocode.html:2 partials/signup-form.html:151
+msgid "Got promo code?"
+msgstr "Ali imate promocijsko kodo?"
+
+#: modules/login-signup/register-steps/partial/promocode.html:4
+msgid "Have a promo code?"
+msgstr "Imate promocijsko kodo?"
+
+#: modules/user-stat-block-dropdown.html:43
+msgid "Hi"
+msgstr "Pozdravljeni"
+
+#: config/wlc-profile-menu-default.js:68 directives/wlc-profile-menu.html:56
+msgid "History"
+msgstr "Zgodovina"
+
+#: config/app.js:66 config/components/home-controller.config.ts:44
+msgid "Home"
+msgstr "Domov"
+
+#: config/wlc-main-menu-default.js:37
+msgid "Home page"
+msgstr "Domača stran"
+
+#: modules/agreements/privacy-policy.html:11
+msgid "I agree"
+msgstr "Strinjam se"
+
+#: modules/register-form.html:77 modules/register-form.html:99
+#: partials/form-elements/checkbox-games-rules.html:16
+#: partials/form-elements/checkbox-terms-cond.html:15
+#: partials/signup-form.html:177 partials/signup-form.html:202
+msgid "I agree with"
+msgstr "Strinjam se z"
+
+#: modules/login-signup/register-steps/partial/terms.html:11
+msgid "I confirm I am over 18 and accept the following:"
+msgstr "Potrjujem, da imam več kot 18 let in sprejemam naslednje:"
+
+#: modules/register-form.html:117
+#: partials/form-elements/checkbox-confirm-age.html:12
+#: partials/signup-form.html:224
+msgid "I confirm that I'm 18 years or older"
+msgstr "Potrjujem, da imam 18 let ali več"
+
+#: components/profile/deposit/steps/bonus/steps-deposit-bonus-block-modal.html:8
+#: components/profile/deposit/steps/modal/modal-step-deposit-bonuses.html:10
+msgid "I don`t want a bonuse."
+msgstr "Ne želim bonusa."
+
+#: components/profile/deposit/steps/amount/steps-deposit-amount-block.html:82
+#: directives/wlc-deposit.html:194
+msgid "I have read and agree with the payment agents"
+msgstr "Prebral/a sem in se strinjam s plačilnimi zastopniki"
+
+#: partials/form-elements/get-notifications.html:11
+msgid ""
+"I would like to receive information about promotions, marketings materials "
+"and personalised content"
+msgstr ""
+"Želim prejemati informacije o promocijah, marketinških materialih in "
+"prilagojeni vsebini"
+
+#: partials/form-elements/get-notifications-sms.html:12
+msgid ""
+"I would like to receive information about promotions, marketings materials "
+"and personalised content for SMS"
+msgstr ""
+"Želim prejemati informacije o promocijah, marketinških materialih in "
+"prilagojeni vsebini za SMS"
+
+#: classes/services/payment-system.model.ts:132
+#: modules/profile/config/profile-forms.config.ts:306
+#: partials/form-elements/id-number.html:10
+#: partials/form-elements/id-number.html:2
+msgid "ID number"
+msgstr "Identifikacijska številka"
+
+#: modules/user-stat-block-min.html:34
+msgid "ID:"
+msgstr "Identifikacijska:"
+
+#: classes/services/payment-system.model.ts:172
+#: modules/profile/config/profile-forms.config.ts:241
+#: partials/form-elements/iban-number.html:11
+#: partials/form-elements/iban-number.html:2
+msgid "Iban number"
+msgstr "Številka Iban"
+
+#: dialogs/password-restore-step2.html:14
+msgid ""
+"If you are unable to find the e-mail in your Inbox, make sure to check the "
+"\"Junk\" folders. Then continue the instructions in the e-mail."
+msgstr ""
+"Če e-pošte ne najdete v mapi Prejeto, preverite mapo \"Neželena\" pošta. "
+"Nato nadaljujte po navodilih v e-pošti."
+
+#: dialogs/profile-verification/profile-verification-payment.html:14
+msgid ""
+"If you are using wallets like Neteller or Skrill. Provide a print screen, of "
+"the wallet while being signed in. Your email has to be visible in the image."
+msgstr ""
+"Če uporabljate denarnici, kot sta Neteller ali Skrill. Predložite posnetek "
+"zaslona denarnice, ko ste v njej vpisani. Vaš e-poštni naslov mora biti "
+"razviden na sliki."
+
+#: modules/profile/components/limits/limits.component.html:37
+msgid ""
+"If you feel as though you are no longer enjoying playing with us, or that "
+"you are ending up frustrated, anxious or even depressed then it sounds like "
+"it may be time to take a break from playing and assess if your current level "
+"of play is right for you."
+msgstr ""
+
+#: components/user-restore.html:7
+msgid ""
+"If you forgot your password and would like to reset it or would like to "
+"change<br>your password for security reasons, please enter your email and "
+"click \"Restore\"."
+msgstr ""
+"Če ste pozabili geslo in ga želite ponastaviti ali želite spremeniti svoje "
+"geslo iz varnostnih razlogov, vnesite svoj e-poštni naslov in kliknite "
+"\"Obnovi\"."
+
+#: modules/profile/controllers/wlc-dashboard-bonuses.controller.ts:94
+msgid "In Progress"
+msgstr "V delu"
+
+#: modules/profile/components/profile-transactions/profile-transactions.component.ts:106
+msgid "In payment queue"
+msgstr "V čakalni vrsti plačil"
+
+#: dialogs/sms-verification/sms-verification.html:7
+msgid "Incorrect code"
+msgstr "Nepravilna koda"
+
+#: config/wlc-main-menu-mobile-default.js:92
+#: dialogs/tournaments/tournament-info.html:4
+msgid "Info"
+msgstr "Informacije"
+
+#: config/wlc-modal-config.js:200
+msgid "Insufficient balance!"
+msgstr "Nezadostno stanje!"
+
+#: dialogs/tournaments/tournament-insufficient-funds.html:3
+msgid "Insufficient funds"
+msgstr "Nezadostna sredstva"
+
+#: dialogs/tournaments/tournament-insufficient-points.html:3
+msgid "Insufficient points"
+msgstr "Nezadostne točke"
+
+#: config/wlc-form-errors.ts:30 config/wlc-form-errors.ts:31
+#: config/wlc-form-errors.ts:32 config/wlc-form-errors.ts:33
+msgid "Invalid value"
+msgstr "Neveljavna vrednost"
+
+#: config/state/profile/profile-bonuses.js:89
+#: config/wlc-profile-menu-default.js:62
+msgid "Inventory"
+msgstr "Evidenca"
+
+#: components/game-catalog.html:259 components/game-catalog.html:34
+#: components/game-catalog.html:361 config/wlc-main-menu-default.js:135
+#: modules/catalog/jackpots-grid.html:2
+msgid "Jackpots"
+msgstr "Jackpoti"
+
+#: controllers/user/user-abstract.ts:136
+#: modules/profile/classes/profile-abstract.class.ts:137
+msgid "January"
+msgstr ""
+
+#: components/profile-tournaments-main.html:37
+#: modules/loyalty/components/tournaments-list/tournaments-list.item.html:54
+msgid "Join now"
+msgstr "Pridružite se zdaj"
+
+#: controllers/user/user-abstract.ts:142
+#: modules/profile/classes/profile-abstract.class.ts:143
+msgid "July"
+msgstr ""
+
+#: controllers/user/user-abstract.ts:141
+#: modules/profile/classes/profile-abstract.class.ts:142
+msgid "June"
+msgstr ""
+
+#: modules/promo/components/last-jackpots/last-jackpots.html:8
+#, fuzzy
+msgid "Last Jackpots"
+msgstr "Jackpoti"
+
+#: classes/services/payment-system.model.ts:115
+#: modules/profile/config/profile-forms.config.ts:33
+#: partials/form-elements/last-name.html:2
+#: partials/form-elements/last-name.html:8
+msgid "Last name"
+msgstr "Priimek"
+
+#: config/wlc-game-categories-default.js:146
+#: config/wlc-main-menu-mobile-default.js:44 modules/mobile-menu-column.html:3
+msgid "Last played"
+msgstr "Zadnje plačilo"
+
+#: modules/last-pages.html:2
+msgid "Latest news"
+msgstr "Najnovejše novice"
+
+#: components/profile-tournaments-main.html:54
+#: modules/games-play-desktop.html:115
+#: modules/loyalty/components/tournaments-list/tournaments-list.item.html:61
+#: modules/loyalty/components/tournaments-slider/tournaments-slider-item.html:75
+msgid "Leave"
+msgstr "Zapusti"
+
+#: modules/footer-info.html:3
+msgid "Legal"
+msgstr "Legalno"
+
+#: dialogs/tournaments/tournament-subscribe.html:63
+msgid "Let's play!"
+msgstr "Igrajmo!"
+
+#: dialogs/tournaments/tournament-subscribe.html:36
+msgid "Let's play?"
+msgstr "Želite igrati?"
+
+#: modules/loyalty/components/current-level/current-level.html:7
+#: modules/loyalty/components/wlc-loyalty-levels/wlc-loyalty-levels.component.html:7
+#: modules/user-stat-block-dropdown.html:51 modules/user-stat-block.html:38
+#: partials/loyalty-progress-bar.html:7
+msgid "Level"
+msgstr "Nivo"
+
+#: modules/loyalty/components/wlc-loyalty-levels/wlc-loyalty-levels.component.html:8
+msgid "Level name"
+msgstr "Ime nivoja"
+
+#: modules/finances/components/payment-systems-info/payment-systems-info.component.html:14
+#, fuzzy
+msgid "Limit per transaction"
+msgstr "Transakcije"
+
+#: components/game-catalog.html:141 components/profile-limits.html:2
+#: components/profile/deposit/steps/paymentSystems/steps-deposit-system-desc.html:3
+#: components/profile/withdraw/steps/paymentSystems/steps-withdraw-system-desc.html:3
+#: config/state/profile/profile-limits.config.ts:34
+#: config/wlc-profile-menu-default.js:195
+#: modules/finances/components/payment-systems-info/payment-systems-info.component.html:33
+#: modules/finances/components/payment-systems/payment-systems.html:9
+#: modules/profile/components/limits/limits.component.html:3
+msgid "Limits"
+msgstr "Omejitve"
+
+#: modules/profile/components/limits/limits.component.html:20
+msgid "Limits your ability to deposit more funds to your gaming balance."
+msgstr ""
+
+#: modules/profile/components/limits/limits.component.html:26
+msgid "Limits your access to your account for 7, 30, 60, 90, 180, or 365 days."
+msgstr ""
+
+#: config/wlc-main-menu-default.js:186
+#: config/wlc-main-menu-mobile-default.js:190
+msgid "Live Betting"
+msgstr "Stave v živo"
+
+#: config/wlc-main-menu-default.js:53 config/wlc-main-menu-mobile-default.js:56
+#: modules/error-page-box-two-column.html:8
+msgid "Live Casino"
+msgstr "Casino v živo"
+
+#: modules/base/components/country-accepts/country-accepts-content.html:14
+msgid "Live chat language"
+msgstr "Jezik klepeta v živo"
+
+#: directives/games/load-more-games.directive.html:9
+#: modules/search-and-filter-results.html:30
+msgid "Load more games"
+msgstr "Naloži več ige"
+
+#: sections/games-play-mobile.html:6
+msgid "Loading..."
+msgstr "Nalaganje..."
+
+#: config/forms/profile.form.ts:110
+msgid "Location"
+msgstr "Lokacija"
+
+#: dialogs/play-for-free.html:9
+msgid "Log in to play for real"
+msgstr "Vpišite se in igrajte zares"
+
+#: dialogs/game.html:37 dialogs/user-login-signup.html:10
+#: dialogs/user-login-signup.html:20 dialogs/user-signup.html:21
+#: dialogs/user-signup.html:43 modules/header/login-button-mobile.html:11
+#: modules/header/profile-button-mobile.html:9 modules/login-button.html:2
+#: modules/login-form.html:30
+#: modules/profile/components/login-signup-dropdown/login-form.html:15
+#: modules/user-signup.html:29 partials/login-form.html:37
+#: partials/user-login.html:4 sections/user-signup.html:7
+msgid "Login"
+msgstr "Uporabniško ime"
+
+#: controllers/user/user.controller.ts:236
+msgid "Login error"
+msgstr "Napaka pri vpisu"
+
+#: dialogs/game.html:33
+msgid "Login to play for real"
+msgstr "Vpišite se in igrajte zares"
+
+#: modules/login-signup/register-steps/partial/setup-social.html:4
+#: partials/login-form.html:9 partials/signup-form.html:50
+#: partials/signup-form/signup-form-content.html:10
+msgid "Login with social"
+msgstr "Vpišite se z družabnim računom"
+
+#: config/wlc-main-menu-default.js:45
+msgid "Logo"
+msgstr "Logotip"
+
+#: config/wlc-profile-menu-default.js:164 dialogs/user-logout.html:6
+#: directives/wlc-profile-menu.html:131
+#: modules/user-stat-block-dropdown.html:112 modules/user-stat-block.html:60
+msgid "Logout"
+msgstr "Odjava"
+
+#: config/wlc-game-categories-default.js:179
+msgid "Lottery"
+msgstr "Loterija"
+
+#: components/profile-bonuses-history.html:12
+#: components/profile-bonuses-history.html:47
+#: config/wlc-profile-menu-default.js:207
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:43
+msgid "Loyalty"
+msgstr "Zvestoba"
+
+#: config/state/profile/profile-loyalty.js:24
+msgid "Loyalty level"
+msgstr "Raven zvestobe"
+
+#: components/profile/loyalty/profile-loyalty-level.html:2
+msgid "Loyalty level progress"
+msgstr "Napredek ravni zvestobe"
+
+#: modules/loyalty/components/wlc-loyalty-levels/wlc-loyalty-levels.component.html:3
+msgid "Loyalty levels"
+msgstr "Ravni zvestobe"
+
+#: modules/social-list.html:21 partials/signup-form.html:77
+#: partials/signup-form/signup-form-socials.html:25
+msgid "Mail.ru"
+msgstr ""
+
+#: config/forms/profile.form.ts:48
+msgid "Main info"
+msgstr "Glavne informacije"
+
+#: dialogs/tournaments/tournament-insufficient-funds.html:5
+msgid "Make deposit"
+msgstr "Naredite polog"
+
+#: controllers/user/user-register.ts:138
+msgid "Male"
+msgstr ""
+
+#: controllers/user/user-abstract.ts:138
+#: modules/profile/classes/profile-abstract.class.ts:139
+msgid "March"
+msgstr ""
+
+#: config/wlc-profile-menu-default.js:225
+msgid "Market"
+msgstr ""
+
+#: modules/sportsbook/components/betradar-widget/v2/partials/daily-match.html:3
+#, fuzzy
+msgid "Match of the day"
+msgstr "Igra dneva"
+
+#: controllers/user/user-abstract.ts:140
+#: modules/profile/classes/profile-abstract.class.ts:141
+msgid "May"
+msgstr ""
+
+#: components/profile-gamblings-bets.html:112
+#: components/profile-gamblings-bets.html:25
+#: components/profile-gamblings-bets.html:76
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-filter.html:17
+msgid "Merchant"
+msgstr "Trgovec"
+
+#: modules/profile/components/profile-transactions/profile-transactions.component.ts:109
+msgid "Merchant complete"
+msgstr "Trgovec dokončan"
+
+#: components/game-catalog.html:21 components/game-catalog.html:246
+#: components/game-catalog.html:348
+msgid "Merchants"
+msgstr "Trgovci"
+
+#: modules/base/components/contact-form/elements/sender-message.html:2
+msgid "Message"
+msgstr "Sporočilo"
+
+#: modules/base/components/contact-form/contact-form.component.ts:130
+msgid "Message sent failed."
+msgstr "Sporočilo ni poslano."
+
+#: controllers/contacts.ts:94
+#: modules/base/components/contact-form/contact-form.component.ts:124
+msgid "Message successfully sent."
+msgstr "Sporočilo poslano."
+
+#: config/state/profile/profile-messages.config.ts:34
+#: config/wlc-profile-menu-default.js:158
+#: modules/profile/components/wlc-messages/wlc-messages-list.html:1
+msgid "Messages"
+msgstr "Sporočila"
+
+#: modules/finances/components/payment-systems/payment-systems.html:5
+#: modules/profile/components/profile-transactions/profile-transactions-list.html:18
+#: modules/profile/components/profile-transactions/profile-transactions-list.html:71
+msgid "Method"
+msgstr "Metoda"
+
+#: directives/deposit-withdraw/wlc-step-deposit-withdraw.directive.ts:268
+msgid "Minimum / maximum deposit requirement changed due to a selected bonus:"
+msgstr ""
+"Zahteva glede najmanjšega / največjega pologa spremenjena zaradi izbranega "
+"bonusa:"
+
+#: modules/profile/components/wlc-exchange-cash/wlc-exchange-cash.html:24
+msgid "Minimum RP"
+msgstr "Najmanjši RP"
+
+#: classes/services/payment-system.model.ts:177
+#: partials/form-elements/mobile-phone.html:18
+#: partials/form-elements/phone-number.html:2
+msgid "Mobile phone"
+msgstr "Mobilni telefon"
+
+#: components/profile-notifications.html:29
+#: modules/profile/components/notification/sms-verification.html:13
+msgid "Mobile phone number verified"
+msgstr "Številka mobilnega telefona preverjena"
+
+#: controllers/user/user-abstract.ts:151
+#: modules/profile/classes/profile-abstract.class.ts:152
+#: modules/profile/config/profile-forms.config.ts:130
+msgid "Month"
+msgstr "Mesec"
+
+#: directives/wlc-dropdown-list.html:4
+msgid "More"
+msgstr "Več"
+
+#: components/profile-tournaments-main.html:46
+#: components/profile/deposit/steps/bonus/steps-deposit-bonus-actions.html:5
+#: components/profile/deposit/steps/modal/modal-step-deposit-bonuses.html:22
+#: components/profile/deposit/steps/modal/modal-step-deposit-systems.html:17
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:80
+#: modules/loyalty/components/store-list/store-list.item.html:18
+#: modules/loyalty/components/store-list/store-list.item.html:58
+#: modules/loyalty/components/tournaments-list/tournaments-list.item.html:39
+#: modules/loyalty/components/tournaments-slider/tournaments-slider-item.html:90
+msgid "More info"
+msgstr "Več informacij"
+
+#: modules/base/components/sorted-items/templates/merchants-in-category/dropdown-merchants.html:12
+#: modules/filter-merchants.html:15
+msgid "Multiple select"
+msgstr "Izbira več možnosti"
+
+#: components/profile-menu.html:2 directives/wlc-profile-menu.html:4
+msgid "My Account"
+msgstr "Moj račun"
+
+#: config/wlc-main-menu-mobile-default.js:152
+#: config/wlc-profile-menu-default.js:32
+msgid "My account"
+msgstr "Moj račun"
+
+#: components/profile-bonuses-active.html:1
+msgid "My active bonuses"
+msgstr "Moji aktivni bonusi"
+
+#: components/profile-bonuses-history.html:1
+msgid "My bonus history"
+msgstr "Moja zgodovina bonusov"
+
+#: modules/mobile-menu-column.html:16
+msgid "My favorite"
+msgstr "Najbolj priljubljeno"
+
+#: config/wlc-game-categories-default.js:137
+#: config/wlc-main-menu-mobile-default.js:38 partials/game-catalog.html:16
+msgid "My favourites"
+msgstr "Moji priljubljeni"
+
+#: components/profile-store-orders.html:2
+msgid "My orders history"
+msgstr "Zgodovina mojih naročil"
+
+#: modules/user-stat-block.html:55
+msgid "My profile"
+msgstr "Moj profil"
+
+#: components/profile-tournaments-history.html:9
+msgid "Name"
+msgstr "Ime"
+
+#: modules/profile/components/profile-transactions/profile-transactions.component.ts:103
+msgid "New"
+msgstr "Novo"
+
+#: modules/profile/config/profile-forms.config.ts:359
+#: partials/form-elements/password-new.html:13
+#: partials/form-elements/password-new.html:3
+msgid "New password"
+msgstr "Novo geslo"
+
+#: config/wlc-main-menu-default.js:143
+#: config/wlc-main-menu-mobile-default.js:182
+msgid "News"
+msgstr "Novice"
+
+#: bower/dirPagination.tpl.html:10
+msgid "Next"
+msgstr "Naprej"
+
+#: components/profile-main-level.html:28
+msgid "Next level points"
+msgstr "Točke naslednjega nivoja"
+
+#: controllers/user/user-profile.ts:95 dialogs/confirmation.html:24
+#: dialogs/user-logout.html:16
+#: modules/profile/components/main-info/main-info.component.ts:93
+msgid "No"
+msgstr "Ne"
+
+#: modules/base/components/wlc-smart-userinfo/wlc-smart-userinfo.component.html:26
+#: modules/base/components/wlc-smart-userinfo/wlc-smart-userinfo.component.html:32
+#, fuzzy
+msgid "No Active Bonus"
+msgstr "Aktivni bonusi"
+
+#: components/profile-referrals.html:58 components/profile-store-main.html:36
+#: components/profile-tournaments-active.html:6
+#: modules/loyalty/components/store-list/store-list.component.html:24
+#: modules/loyalty/components/store-list/store-list.component.html:45
+msgid "No active items available"
+msgstr "Ni aktivnih elementov"
+
+#: modules/loyalty/controllers/loyalty-tournaments.controller.ts:218
+msgid "No available wins"
+msgstr "Ni razpoložljivih dobitkov"
+
+#: components/profile-gamblings-bets.html:47
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history.html:13
+msgid "No bets history"
+msgstr "Ni zgodovine stav"
+
+#: components/profile-bonuses-inventory.html:35
+#: components/profile-bonuses-list.html:14
+#: modules/loyalty/components/bonuses-list/bonuses-list.component.html:19
+#: modules/loyalty/components/bonuses-slider/bonuses-slider.component.html:15
+#: modules/profile/components/wlc-dashboard-bonuses/wlc-dashboard-bonuses-content.html:12
+msgid "No bonus found"
+msgstr "Ni najdenih bonusov"
+
+#: components/profile-bonuses-history.html:94
+msgid "No bonus history"
+msgstr "Ni zgodovine bonusov"
+
+#: modules/login-signup/register-steps/partial/setup-bonus.html:3
+#: partials/signup-form.html:44 partials/signup-form/signup-form-content.html:5
+msgid "No bonus is selected."
+msgstr "Noben bonus ni izbran."
+
+#: modules/loyalty/components/choose-bonus/choose-bonus.html:21
+msgid "No bonuses available"
+msgstr "Bonusov ni na razpolago"
+
+#: modules/loyalty/components/store-list/store-list.component.html:49
+#, fuzzy
+msgid "No categories available"
+msgstr "Ni aktivnih elementov"
+
+#: components/profile-tournaments-history.html:67
+msgid "No history items available"
+msgstr "Ni zgodovinskih postavk"
+
+#: components/pages-content.html:10
+msgid "No information"
+msgstr "Ni informacij"
+
+#: modules/loyalty/components/wlc-loyalty-levels/wlc-loyalty-levels.component.html:21
+msgid "No level data"
+msgstr "Ni podatkov o nivoju"
+
+#: classes/services/loyalty-bonuses.class.ts:676
+msgid "No lock"
+msgstr "Ni zaklepanja"
+
+#: modules/profile/components/wlc-messages/wlc-messages-list.html:58
+msgid "No messages"
+msgstr "Ni sporočil"
+
+#: components/pages-content.html:9
+#: modules/static-content/components/static-blog/static-blog-content.html:8
+msgid "No news"
+msgstr "Ni novic"
+
+#: components/profile-store-orders.html:31
+msgid ""
+"No orders history items\n"
+"            available"
+msgstr "Ni elementov iz zgodovine naročil"
+
+#: components/profile-tournaments-main.html:76
+#: modules/loyalty/components/tournaments-list/tournaments-list.component.html:20
+#: modules/loyalty/components/tournaments-slider/tournaments-slider.component.html:21
+msgid "No tournaments at the moment"
+msgstr "Trenutno ni turnirjev"
+
+#: modules/profile/components/profile-transactions/profile-transactions.component.html:14
+msgid "No transaction history"
+msgstr "Ni zgodovine transakcij"
+
+#: components/profile-bonuses-promo.html:26
+#: modules/loyalty/components/bonuses-list/bonuses-list.component.html:46
+msgid "No voucher found"
+msgstr "Nobenega bona ni bilo mogoče najti"
+
+#: modules/loyalty/components/choose-bonus/choose-bonus.html:24
+msgid "Not choose any Bonus"
+msgstr "Ne izberi nobenega bonusa"
+
+#: modules/loyalty/components/choose-bonus/choose-bonus.html:41
+msgid "Not choosing any Bonus"
+msgstr "Ne izbiram nobenega bonusa"
+
+#: controllers/user/user-profile.ts:103 controllers/user/user-profile.ts:80
+#: controllers/user/user-profile.ts:86 controllers/user/user-profile.ts:93
+#: controllers/user/user-profile.ts:99
+#: modules/profile/components/main-info/main-info.component.ts:107
+#: modules/profile/components/main-info/main-info.component.ts:91
+#: modules/profile/components/main-info/main-info.component.ts:97
+msgid "Not selected"
+msgstr "Ni izbrano"
+
+#: components/profile-store-orders.html:14
+#: components/profile-verification-main.html:56
+#: modules/profile/components/profile-transactions/profile-transactions-list.html:64
+msgid "Note"
+msgstr "Opomba"
+
+#: components/profile-notifications.html:1
+#: config/state/profile/profile-notifications.config.ts:35
+#: config/wlc-profile-menu-default.js:183
+#: modules/profile/components/notification/notification.config.ts:6
+msgid "Notifications"
+msgstr "Obvestila"
+
+#: modules/profile/config/profile-forms.config.ts:494
+#, fuzzy
+msgid "Notifications via email"
+msgstr "Obvestila"
+
+#: modules/profile/config/profile-forms.config.ts:510
+#, fuzzy
+msgid "Notifications via sms"
+msgstr "Obvestila"
+
+#: controllers/user/user-abstract.ts:146
+#: modules/profile/classes/profile-abstract.class.ts:147
+msgid "November"
+msgstr ""
+
+#: dialogs/user-message.html:10 dialogs/user-payment-success.html:24
+msgid "OK"
+msgstr "V redu"
+
+#: dialogs/tournaments/tournament-subscribe.html:58
+msgid "OK!"
+msgstr "V redu!"
+
+#: dialogs/play-for-free.html:12
+msgid "OR"
+msgstr "ALI"
+
+#: controllers/user/user-abstract.ts:145
+#: modules/profile/classes/profile-abstract.class.ts:146
+msgid "October"
+msgstr ""
+
+#: partials/form-elements/odds.html:2
+msgid "Odds style"
+msgstr "Slog verjetnosti"
+
+#: modules/social-list.html:16 partials/signup-form.html:71
+#: partials/signup-form/signup-form-socials.html:19
+msgid "Odnoklassniki"
+msgstr ""
+
+#: components/profile-bonuses-inventory.html:1
+#: components/profile-bonuses-list.html:1 config/wlc-profile-menu-default.js:50
+#: directives/wlc-profile-menu.html:36
+msgid "Offers"
+msgstr "Ponudbe"
+
+#: config/wlc-profile-menu-default.js:201
+msgid "Open bets"
+msgstr "Odprte stave"
+
+#: modules/store-menu.html:24
+msgid "Orders"
+msgstr "Naročila"
+
+#: modules/profile/config/profile-forms.config.ts:322
+#: partials/form-elements/pep.html:2
+msgid "PEP"
+msgstr "PEP"
+
+#: modules/error-page-box.html:5 services/error.service.ts:279
+msgid "Page not found"
+msgstr "Stran ni najdena"
+
+#: config/forms/profile.form.ts:139
+msgid "Passport details"
+msgstr "Podatki o potnem listu"
+
+#: components/profile-password.html:1
+#: components/profile/deposit/steps/modal/modal-step-deposit-profile-password.html:2
+#: components/profile/deposit/steps/modal/modal-step-deposit-profile-password.html:9
+#: config/forms/profile.form.ts:192
+#: config/state/profile/profile-password.config.ts:35
+#: config/wlc-profile-menu-default.js:177 dialogs/user-social-complete.html:24
+#: modules/profile/components/password-change/password-change.config.ts:6
+#: partials/form-elements/password-registration.html:11
+#: partials/form-elements/password-registration.html:2
+#: partials/form-elements/password.html:13
+#: partials/form-elements/password.html:3
+msgid "Password"
+msgstr "Geslo"
+
+#: config/app.js:175
+msgid "Password create"
+msgstr "Ustvari geslo"
+
+#: directives/wlc-password.ts:106
+msgid "Password must be at least 6 characters"
+msgstr "Geslo mora imeti vsaj 6 znakov"
+
+#: directives/wlc-password.ts:109
+msgid "Password must be at least 6 characters and contain letter and digit"
+msgstr "Geslo mora imeti vsaj 6 znakov in mora vsebovati črko in številko"
+
+#: directives/wlc-password.ts:118
+msgid ""
+"Password must be at least 6 characters and contain small and large letter, "
+"digit and special symbol"
+msgstr ""
+"Geslo mora imeti vsaj 6 znakov in mora vsebovati majhno in veliko črko, "
+"številko in poseben simbol"
+
+#: services/validator/password.rules.ts:18
+msgid ""
+"Password must contain latin letters in upper and lower case, numbers and "
+"special symbols"
+msgstr ""
+"Geslo mora vsebovati velike in male latinične črke, številke in posebne "
+"simbole"
+
+#: dialogs/password-restore-step2.html:9
+msgid "Password reset"
+msgstr "Ponastavite geslo"
+
+#: components/user-restore-complete.js:20
+#: components/user-restore-complete.js:37 dialogs/password-restore.html:12
+msgid "Password restore"
+msgstr "Obnovite geslo"
+
+#: controllers/user/user-profile.ts:279 dialogs/user-social-complete.html:35
+#: modules/profile/components/password-change/password-change.component.ts:79
+msgid "Passwords should match"
+msgstr "Gesli se morata ujemati"
+
+#: modules/profile/components/limits/limits.component.html:24
+#, fuzzy
+msgid "Pause account"
+msgstr "Moj račun"
+
+#: controllers/finanses.controller.ts:619
+msgid "Payment"
+msgstr "Plačilo"
+
+#: modules/footer-info.html:75
+msgid "Payment Methods"
+msgstr "Načini plačila"
+
+#: config/wlc-main-menu-mobile-default.js:134
+#: modules/finances/components/payment-systems-info/payment-systems-info.component.html:10
+msgid "Payment System"
+msgstr "Sistem plačil"
+
+#: directives/wlc-deposit.html:78
+msgid "Payment information"
+msgstr "Informacije o plačilu"
+
+#: components/profile/deposit/steps/amount/steps-deposit-amount-block.html:13
+#: components/profile/withdraw/default-withdraw.html:67
+#: components/profile/withdraw/steps/amount/steps-withdraw-amount-block.html:11
+#: directives/wlc-deposit.html:55
+msgid ""
+"Payment method isn't available. Please fill in the following profile fields"
+msgstr "Način plačila ni na voljo. Izpolnite naslednja polja v profilu"
+
+#: config/state/profile/profile-payments.config.ts:34
+#: config/wlc-profile-menu-default.js:189
+msgid "Payments"
+msgstr "Plačila"
+
+#: modules/base/components/wlc-smart-userinfo/wlc-smart-userinfo.component.html:29
+#, fuzzy
+msgid "Period Of Wagering"
+msgstr "Stave"
+
+#: modules/profile/components/limits/limits.component.html:31
+#, fuzzy
+msgid "Permanently denies you access to your account."
+msgstr "so bila uspešno nakazana na vaš račun."
+
+#: partials/contacts.html:7 partials/form-elements/alternative-phone.html:21
+msgid "Phone"
+msgstr "Telefon"
+
+#: partials/form-elements/alternative-phone.html:11
+msgid "Phone code"
+msgstr "Telefonska koda"
+
+#: services/validator/phone.rules.ts:100
+#, fuzzy
+msgid "Phone code is empty"
+msgstr "Telefonska koda"
+
+#: modules/profile/config/profile-forms.config.ts:408
+#: modules/profile/config/profile-forms.config.ts:425
+#: partials/form-elements/alternative-phone.html:27
+#: partials/form-elements/mobile-phone.html:24
+#: partials/form-elements/phone-number.html:11
+msgid "Phone number"
+msgstr "Telefonska številka"
+
+#: components/profile-tournaments-history.html:10
+msgid "Place"
+msgstr "Kraj"
+
+#: components/game-catalog.html:10 components/game-catalog.html:121
+#: components/game-catalog.html:158 components/game-catalog.html:183
+#: components/game-catalog.html:213 components/game-catalog.html:237
+#: components/game-catalog.html:283 components/game-catalog.html:315
+#: components/game-catalog.html:339 components/game-catalog.html:384
+#: components/game-catalog.html:59 components/game-catalog.html:89
+#: directives/wlc-catalog-box.html:20 modules/game-thumb.html:45
+#: modules/search.html:34
+msgid "Play"
+msgstr "Igraj"
+
+#: dialogs/game.html:43 dialogs/play-for-free.html:13
+msgid "Play for free"
+msgstr "Igraj zastonj"
+
+#: dialogs/game.html:25 modules/game-play/game-play-header.html:25
+msgid "Play for real"
+msgstr "Igraj zares"
+
+#: config/wlc-modal-config.js:136
+msgid "Play for real is disabled"
+msgstr "Pravo igranje je onemogočeno"
+
+#: constants/check-on-run-game.js:64
+msgid "Play for real is disabled in your country"
+msgstr "Igrajte več in pridobite več točk zvestobe!"
+
+#: dialogs/tournaments/tournament-insufficient-points.html:4
+msgid "Play more to get more loyalty points!"
+msgstr ""
+
+#: modules/loyalty/components/tournaments-slider/tournaments-slider-item.html:34
+#: modules/tournaments/tournament-last-wins.html:7
+#: modules/tournaments/tournament-leaders.html:12
+#: modules/tournaments/tournament-winners.html:16
+msgid "Player"
+msgstr "Igralec"
+
+#: modules/profile/components/limits/limits.component.html:8
+msgid "Playing at"
+msgstr ""
+
+#: directives/wlc-merchants-in-category.directive.ts:108
+msgid "PlaysonDirect"
+msgstr "PlaysonDirect"
+
+#: controllers/user/user-register.ts:308
+msgid "Please complete registration using link in e-mail"
+msgstr "Prosimo, dokončajte registracijo s povezavo v e-pošti"
+
+#: modules/register-form.html:132 partials/signup-form.html:242
+#: partials/signup-form/signup-form.html:47
+msgid "Please complete registration using link in e-mail."
+msgstr "Prosimo, dokončajte registracijo s povezavo v e-pošti."
+
+#: components/profile/deposit/steps/amount/steps-deposit-amount-block.html:8
+msgid "Please confirm."
+msgstr "Prosimo, potrdite."
+
+#: dialogs/bonuses/subscribe-deposit-bonus.html:10
+msgid "Please continue to the deposit page."
+msgstr "Prosimo, nadaljujte na stran za polog."
+
+#: dialogs/password-restore.html:16
+msgid "Please enter e-mail that was used to create an account at"
+msgstr "Vnesite e-pošto, ki je bila uporabljena za ustvarjanje računa na"
+
+#: components/profile/withdraw/default-withdraw.html:43
+#: directives/wlc-deposit.html:18
+msgid ""
+"Please fill in country field in profile to get all payment methods available"
+msgstr ""
+"Prosimo, da izpolnite polje za državo v profilu, da boste imeli na voljo vse "
+"načine plačila"
+
+#: dialogs/profile-check-error.html:8
+msgid ""
+"Please fill in profile to make deposits and withdrawals and to play games"
+msgstr ""
+"Prosimo, da izpolnite profil, da boste lahko opravljali pologe in dvige ter "
+"igrali igre"
+
+#: components/user-register-success.html:3
+msgid "Please follow instruction link to finalize registration process"
+msgstr "Prosimo, sledite navodilom za zaključek postopka registracije"
+
+#: modules/register-form.html:133 partials/signup-form.html:243
+#: partials/signup-form/signup-form.html:48
+msgid "Please login using e-mail and password."
+msgstr "Prijavite se z e-pošto in geslom."
+
+#: components/profile/deposit/steps/modal/modal-step-deposit-systems-additional.html:7
+msgid ""
+"Please make sure that the credentials are correct, as you will not be able "
+"to make changes to this information in the future."
+msgstr ""
+"Prepričajte se, da so poverilnice pravilne, saj teh podatkov v prihodnosti "
+"ne boste mogli spreminjati."
+
+#: directives/wlc-deposit.html:92
+msgid "Please note, that minimum deposit amount for this method is"
+msgstr "Upoštevajte, da je za to metodo najmanjši znesek pologa"
+
+#: dialogs/user-restore-complete.html:28
+msgid "Please, use both numbers and latin letters"
+msgstr "Prosimo, uporabite tako številke kot latinične črke"
+
+#: components/profile-tournaments-history.html:11
+#: components/profile-tournaments-history.html:27
+#: modules/games-play-desktop.html:179
+#: modules/loyalty/components/tournaments-slider/tournaments-slider-item.html:35
+#: modules/user-stat-block-dropdown.html:48 modules/user-stat-block.html:35
+msgid "Points"
+msgstr "Točke"
+
+#: partials/form-elements/pep.html:3
+msgid "Politically exposed person (PEP)"
+msgstr "Politično izpostavljena oseba (PEP)"
+
+#: modules/sportsbook/components/betradar-widget/v2/partials/popular-events.html:4
+#, fuzzy
+msgid "Popular events"
+msgstr "Priljubljene igre"
+
+#: components/game-catalog.html:43
+msgid "Popular games"
+msgstr "Priljubljene igre"
+
+#: dialogs/tournaments/tournament-info.html:31
+#: modules/tournaments/tournament-leaders.html:11
+#: modules/tournaments/tournament-winners.html:13
+msgid "Position"
+msgstr "Položaj"
+
+#: classes/services/payment-system.model.ts:142
+#: modules/profile/config/profile-forms.config.ts:208
+msgid "Postal code"
+msgstr "Poštna številka"
+
+#: bower/dirPagination.tpl.html:2
+msgid "Previous"
+msgstr "Prejšnji"
+
+#: components/profile-store-orders.html:11 directives/wlc-store-item.html:7
+#: modules/loyalty/components/store-list/store-list.item.html:14
+#: modules/loyalty/components/store-list/store-list.item.html:54
+msgid "Price"
+msgstr "Cena"
+
+#: config/wlc-main-menu-mobile-default.js:110
+#: modules/agreements/privacy-policy.html:8 modules/footer-info.html:13
+msgid "Privacy Policy"
+msgstr "Politika zasebnosti"
+
+#: modules/login-signup/register-steps/partial/terms.html:31
+msgid "Privacy policy"
+msgstr "Politika zasebnosti"
+
+#: dialogs/tournaments/tournament-info.html:36
+#: modules/games-play-desktop.html:135
+#: modules/tournaments/tournament-leaders.html:13
+#: modules/tournaments/tournament-winners.html:19
+msgid "Prize"
+msgstr "Nagrada"
+
+#: modules/login-signup/register-steps/bonuses.html:27
+#: partials/signup-form.html:34 partials/signup-form/signup-form.html:37
+msgid "Proceed without welcome bonus"
+msgstr "Nadaljujte brez bonusa za dobrodošlico"
+
+#: components/profile-verification-main.html:28
+#: modules/finances/components/payment-systems/payment-systems.html:8
+msgid "Processing"
+msgstr "Obdelava"
+
+#: modules/finances/components/payment-systems-info/payment-systems-info.component.html:13
+#, fuzzy
+msgid "Processing Time"
+msgstr "Obdelava"
+
+#: components/profile-store-orders.html:10
+msgid "Product name"
+msgstr "Ime izdelka"
+
+#: controllers/profile-store.js:23
+#: modules/loyalty/components/store-list/store-list.component.ts:122
+msgid "Product purchase"
+msgstr "Nakup izdelka"
+
+#: controllers/profile-store.js:35
+#: modules/loyalty/components/store-list/store-list.component.ts:141
+msgid "Product purchase failed"
+msgstr "Nakup izdelka ni uspel"
+
+#: controllers/profile-store.js:28
+#: modules/loyalty/components/store-list/store-list.component.ts:130
+#: modules/profile/components/wlc-exchange-cash/wlc-exchange-cash.component.ts:136
+msgid "Product succesfuly purchased"
+msgstr "Nakup izdelka uspešen"
+
+#: components/profile-menu.html:6 components/profile.js:26
+#: directives/profile-menu/wlc-profile-menu-mobile.html:4
+#: modules/profile/components/main-info/main-info.config.ts:6
+#: modules/profile/components/main-info/main-info.config.ts:65
+msgid "Profile"
+msgstr "Profil"
+
+#: controllers/user/user-profile.ts:372
+msgid "Profile email change failed"
+msgstr "Sprememba e-pošte profila ni uspela"
+
+#: controllers/user/user-profile.ts:351
+msgid "Profile email changed"
+msgstr "E-pošta profila spremenjena"
+
+#: config/state/profile/profile-main.config.ts:87
+msgid "Profile level"
+msgstr "Raven profila"
+
+#: config/state/profile/profile-main.config.ts:98
+msgid "Profile main"
+msgstr "Profil glavni"
+
+#: controllers/user/user-profile.ts:297
+#: modules/profile/components/password-change/password-change.component.ts:97
+msgid "Profile password change failed"
+msgstr "Sprememba gesla profila ni uspela"
+
+#: controllers/user/user-profile.ts:293
+#: modules/profile/components/password-change/password-change.component.ts:93
+msgid "Profile password changed"
+msgstr "Geslo profila spremenjeno"
+
+#: controllers/user/user-profile.ts:408
+msgid "Profile phone change failed"
+msgstr "Sprememba telefona profila ni uspela"
+
+#: controllers/user/user-profile.ts:404
+msgid "Profile phone changed"
+msgstr "Telefon profila spremenjen"
+
+#: controllers/finanses.controller.ts:402 controllers/user/user-profile.ts:245
+msgid "Profile save failed"
+msgstr "Shranjevanje profila ni uspelo"
+
+#: controllers/user/user-profile.ts:234
+#: modules/profile/classes/profile-abstract.class.ts:77
+#: modules/profile/components/notification/notification.component.ts:152
+msgid "Profile saved"
+msgstr "Profil shranjen"
+
+#: controllers/user/user-profile.ts:119
+#: modules/profile/components/bank-info/bank-info.component.ts:86
+#: modules/profile/components/main-info/main-info.component.ts:114
+#: modules/profile/components/password-change/password-change.component.ts:55
+msgid "Profile update"
+msgstr "Posodobitev profila"
+
+#: components/profile-referrals.html:41
+msgid "Profit RS"
+msgstr "Dobiček RS"
+
+#: components/user-social-register.html:39
+#: controllers/user/user-register.ts:452 controllers/user/user-register.ts:460
+#: dialogs/promo-code.html:20 dialogs/promo-code.html:29
+#: modules/register-form.html:56 partials/form-elements/promocode.html:8
+#: partials/signup-form.html:157
+msgid "Promo code"
+msgstr "Promocijska koda"
+
+#: config/wlc-main-menu-default.js:168 config/wlc-main-menu-default.js:176
+#: config/wlc-main-menu-mobile-default.js:175
+msgid "Promotions"
+msgstr "Promocije"
+
+#: dialogs/profile-verification/profile-verification-address.html:4
+#: dialogs/profile-verification/profile-verification-default.html:4
+msgid "Prove your address"
+msgstr "Dokažite svoj naslov"
+
+#: dialogs/profile-verification/profile-verification-id.html:4
+msgid "Prove your identity"
+msgstr "Dokažite svojo identiteto"
+
+#: dialogs/profile-verification/profile-verification-payment.html:4
+msgid "Prove your payment account"
+msgstr "Dokažite svoj plačilni račun"
+
+#: dialogs/profile-verification/profile-verification-address.html:10
+msgid ""
+"Provide a scan or a photo, of a paper document sent to the address "
+"associated with your account; this can be either a bank statement, phone or "
+"utility bill."
+msgstr ""
+"Predložite sken ali fotografijo papirnatega dokumenta, poslanega na naslov, "
+"povezan z vašim računom; to je lahko izpisek banke, telefonski račun ali "
+"račun za komunalne storitve."
+
+#: dialogs/profile-verification/profile-verification-payment.html:11
+msgid "Provide scans or photos of both sides of the Credit Card."
+msgstr "Posredujte skene ali fotografije obeh strani kreditne kartice."
+
+#: dialogs/profile-verification/profile-verification-id.html:11
+msgid "Provide scans or photos of both sides of the document."
+msgstr "Posredujte skene ali fotografije obeh strani dokumenta."
+
+#: dialogs/profile-verification/profile-verification-id.html:10
+msgid ""
+"Provide scans or photos, of either passport, drivers license or government "
+"issued ID-card."
+msgstr ""
+"Posredujte skene ali fotografije potnega lista, vozniškega dovoljenja ali "
+"osebne izkaznice, ki jih je izdal vladni organ."
+
+#: dialogs/profile-verification/profile-verification-payment.html:10
+msgid "Provide scans or photos, of the Credit Card."
+msgstr "Posredujte skene ali fotografije kreditne kartice."
+
+#: components/profile/deposit/steps/paymentSystems/steps-deposit-system-desc.html:13
+#: components/profile/withdraw/steps/paymentSystems/steps-withdraw-system-desc.html:13
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-list.html:35
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-list.html:8
+msgid "Provider"
+msgstr "Ponudnik"
+
+#: components/profile-store-orders.html:12
+msgid "Purchase date"
+msgstr "Datum nakupa"
+
+#: modules/profile/controllers/wlc-dashboard-bonuses.controller.ts:98
+msgid "Purchased"
+msgstr "Kupljeno"
+
+#: components/profile-tournaments-history.html:50
+msgid "Qualified"
+msgstr "Kvalificirano"
+
+#: modules/profile/components/wlc-dashboard-loyalty/wlc-dashboard-loyalty.html:12
+#: modules/profile/components/wlc-exchange-cash/wlc-exchange-cash.html:16
+msgid "RP"
+msgstr "RP"
+
+#: components/pages-content.html:33
+msgid "Read more"
+msgstr "Preberite več"
+
+#: modules/profile/components/verification/verification.component.html:4
+msgid "Read more about Account verification"
+msgstr ""
+
+#: modules/profile/components/limits/limits.component.html:39
+msgid "Read more about responsible gaming."
+msgstr ""
+
+#: directives/wlc-bonus.html:19 directives/wlc-store-item.html:17
+msgid "Read the terms"
+msgstr "Preberite pogoje"
+
+#: components/profile/deposit/default-deposit.html:15
+#: components/profile/withdraw/default-withdraw.html:13
+#: partials/user-all-balances-block.html:2
+msgid "Real balance:"
+msgstr "Realno stanje:"
+
+#: components/profile-referrals.html:18 components/profile-referrals.html:35
+msgid "Ref email"
+msgstr "Ref e-pošta"
+
+#: partials/form-elements/referal-id.html:2
+#: partials/form-elements/referal-id.html:8
+msgid "Referral code"
+msgstr ""
+
+#: components/profile-referrals.html:2
+#: config/state/profile/profile-referrals.config.ts:27
+#: config/wlc-profile-menu-default.js:213
+msgid "Referrals"
+msgstr "Napotki"
+
+#: components/user-register.html:2 components/user-register.js:33
+#: controllers/steps.controller.ts:157 dialogs/password-restore.html:57
+#: dialogs/user-social-complete.html:56
+#: directives/main-menu/wlc-main-menu-mobile.html:25
+#: modules/finances/components/payment-systems-info/payment-systems-info.component.html:63
+#: modules/header/login-button-mobile.html:16 modules/login-button.html:8
+#: modules/login-form.html:36
+#: modules/profile/components/login-signup-dropdown/login-signup-dropdown.component.html:10
+#: modules/register-form.html:122 partials/signup-form.html:228
+#: partials/signup-form/signup-form-content.html:43 partials/user-login.html:7
+msgid "Register"
+msgstr "Registrirajte se"
+
+#: components/user-register.js:44 components/user-register.js:60
+msgid "Register success"
+msgstr "Uspešna registracija"
+
+#: dialogs/social-networks/user-social-register.html:3
+#: dialogs/user-login-signup.html:11 dialogs/user-login-signup.html:25
+#: dialogs/user-social-complete.html:3 partials/login-form.html:27
+#: sections/user-signup.html:4
+msgid "Registration"
+msgstr "Registracija"
+
+#: dialogs/tournaments/tournament-subscribe.html:40
+msgid "Registration will be open once the tournament starts"
+msgstr "Registracija bo mogoča, ko se turnir začne"
+
+#: modules/profile/components/profile-transactions/profile-transactions.component.ts:100
+#: modules/profile/components/profile-transactions/profile-transactions.component.ts:101
+msgid "Rejected"
+msgstr "Zavrnjeno"
+
+#: components/profile-bonuses-active.html:27
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:27
+msgid "Remaining"
+msgstr "Preostalo stava"
+
+#: components/profile-bonuses-inventory.html:26
+msgid "Remove"
+msgstr "Odstrani"
+
+#: modules/profile/components/limits/limits.component.html:44
+#: modules/profile/components/limits/limits.component.html:48
+msgid "Request limits"
+msgstr ""
+
+#: dialogs/user-social-complete.html:34
+msgid "Required field"
+msgstr "Obvezno polje"
+
+#: dialogs/sms-verification/sms-verification.html:61
+#: modules/login-signup/register-steps/partial/resend-sms-btn.html:3
+#: partials/form-elements/phone-number.html:38
+msgid "Resend"
+msgstr "Pošlji ponovno"
+
+#: partials/form-elements/phone-number.html:39
+msgid "Resend after"
+msgstr "Pošlji ponovno kasneje"
+
+#: dialogs/sms-verification/sms-verification.html:60
+#: modules/login-signup/register-steps/partial/resend-sms-btn.html:2
+msgid "Resend in"
+msgstr "Pošlji ponovno čez"
+
+#: config/wlc-main-menu-mobile-default.js:116 modules/footer-info.html:28
+msgid "Responsible Game"
+msgstr "Odgovorna igra"
+
+#: dialogs/user-restore-complete.html:29
+msgid "Restore"
+msgstr "Obnovi"
+
+#: components/user-restore.html:2
+msgid "Restore password"
+msgstr "Obnovite geslo"
+
+#: classes/services/loyalty-bonuses.class.ts:694
+msgid "Restricted"
+msgstr "Omejen"
+
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-list.html:39
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-list.html:9
+msgid "Result"
+msgstr "Rezultatы"
+
+#: config/wlc-main-menu-default.js:197
+msgid "Results"
+msgstr "Rezultati"
+
+#: components/profile-referrals.html:20
+msgid "Revenue to withdraw"
+msgstr "Prihodki za dvig"
+
+#: modules/profile/components/wlc-dashboard-loyalty/wlc-dashboard-loyalty.html:3
+msgid "Rolling Point"
+msgstr "Rolling Point"
+
+#: modules/profile/components/wlc-exchange-cash/wlc-exchange-cash.html:4
+msgid "Rolling Point exchange to cash"
+msgstr "Rolling Point menjava v gotovino"
+
+#: modules/games-play-desktop.html:121
+msgid "Rules"
+msgstr "Pravila"
+
+#: classes/services/payment-system.model.ts:167
+#: modules/profile/config/profile-forms.config.ts:290
+#: partials/form-elements/swift.html:10 partials/form-elements/swift.html:2
+msgid "SWIFT"
+msgstr "SWIFT"
+
+#: components/profile/deposit/steps/modal/modal-step-deposit-systems-additional.html:38
+#: dialogs/profile-partial-update.html:43
+#: modules/profile/config/profile-forms.config.ts:437
+msgid "Save"
+msgstr "Shrani"
+
+#: modules/game-catalog-menu.html:48
+#: modules/profile/components/profile-transactions/profile-transactions-filter.html:28
+#: modules/profile/components/wlc-dashboard-bonuses/wlc-dashboard-bonuses-filter.html:29
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-filter.html:55
+msgid "Search"
+msgstr "Išči"
+
+#: modules/filter-search.html:7 modules/game-catalog-menu.html:54
+msgid "Search for games"
+msgstr "Išči igreы"
+
+#: modules/search-and-filter-results.html:10
+msgid "Search result"
+msgstr "Rezultat iskanja"
+
+#: modules/game-slider/home-game-sliders.html:14
+#: modules/game-thumb-slider.html:13
+#: modules/games/components/game-thumb-slider/game-thumb-slider.html:12
+#: modules/games/components/games-catalog/games-catalog.component.html:16
+msgid "See all"
+msgstr "Glej vse"
+
+#: modules/sportsbook/components/betradar-widget/v2/partials/daily-match.html:35
+msgid "See match online"
+msgstr ""
+
+#: components/profile/deposit/steps/bonus/steps-deposit-bonus-block-modal.html:2
+#: components/profile/deposit/steps/modal/modal-step-deposit-bonuses.html:3
+msgid "Select a bonus"
+msgstr "Izberite bonus"
+
+#: components/profile/deposit/steps/paymentSystems/steps-deposit-system-block.html:5
+msgid "Select a payment method"
+msgstr "Izberite način plačila"
+
+#: components/profile/withdraw/steps/paymentSystems/steps-withdraw-system-block.html:5
+msgid "Select a withdraw method"
+msgstr "Izberite način dviga"
+
+#: modules/base/components/sorted-items/templates/merchants-in-category/dropdown-merchants.html:17
+msgid "Select providers"
+msgstr "Izbrano"
+
+#: components/profile-tournaments-history.html:49
+msgid "Selected"
+msgstr "Upoštevajte, da je za to metodo najmanjši znesek pologa"
+
+#: modules/profile/components/limits/limits.component.html:29
+msgid "Self exclusion"
+msgstr ""
+
+#: modules/base/components/contact-form/elements/sender-submit.html:10
+#: modules/base/components/contact-form/elements/sender-submit.html:8
+msgid "Send message"
+msgstr "Pošlji sporočilo"
+
+#: controllers/user/user-abstract.ts:144
+#: modules/profile/classes/profile-abstract.class.ts:145
+msgid "September"
+msgstr ""
+
+#: controllers/steps.controller.ts:162
+msgid "Set up your account"
+msgstr "Nastavite svoj račun"
+
+#: dialogs/required-fields.html:85 partials/form-elements/gender.html:1
+msgid "Sex"
+msgstr "Spol"
+
+#: components/profile/deposit/steps/paymentSystems/steps-deposit-system-empty.html:3
+#: components/profile/withdraw/steps/paymentSystems/steps-withdraw-system-empty.html:3
+msgid "Show all methods"
+msgstr "Pokaži vse načine"
+
+#: modules/static-content/components/inline-text/inline-text.component.html:21
+#, fuzzy
+msgid "Show less"
+msgstr "Pokaži vse načine"
+
+#: modules/loyalty/components/bonuses-slider/bonuses-slider-item.html:80
+#: modules/static-content/components/inline-text/inline-text.component.html:22
+msgid "Show more"
+msgstr ""
+
+#: modules/base/components/country-accepts/country-accepts-content.html:25
+msgid "Show more payment methods:"
+msgstr "Pokaži več načinov plačila:"
+
+#: components/user-social-register.html:45
+msgid "Sign Up"
+msgstr "Prijavite se"
+
+#: modules/profile/components/login-signup-dropdown/login-signup-dropdown.component.html:4
+#, fuzzy
+msgid "Sign in"
+msgstr "Prijavite se"
+
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:88
+#: modules/loyalty/components/store-list/store-list.item.html:25
+#: modules/loyalty/components/store-list/store-list.item.html:65
+#: modules/loyalty/components/tournaments-list/tournaments-list.item.html:47
+#, fuzzy
+msgid "Sign up"
+msgstr "Prijavite se"
+
+#: partials/contacts.html:33
+msgid "Skype"
+msgstr ""
+
+#: config/wlc-main-menu-default.js:64 config/wlc-main-menu-default.js:86
+#: config/wlc-main-menu-mobile-default.js:62
+msgid "Slots"
+msgstr "Igralni avtomati"
+
+#: controllers/user/sms-verify.controller.ts:61
+msgid "Sms"
+msgstr "SMS"
+
+#: components/user-social-register.html:6 components/user-social-register.js:96
+msgid "Social registration"
+msgstr "Registracija z družabnim omrežjem"
+
+#: components/user-social-register.js:97
+msgid "Social registration failed"
+msgstr "Registracija z družabnim omrežjem ni uspela"
+
+#: services/error.service.ts:309
+msgid "Something went wrong. Please try again later."
+msgstr "Nekaj ​​je šlo narobe. Prosimo, poskusite spet kasneje."
+
+#: components/games-play.ts:370 components/games-play.ts:648
+#: components/profile-gamblings.js:125
+#: components/profile-verification.component.ts:182
+#: controllers/referrals.controller.ts:87
+#: directives/wlc-copy-to-clipboard.directive.ts:64
+#: modules/static-content/controllers/wlc-static.controller.ts:161
+msgid "Something wrong. Please try later."
+msgstr "Nekaj ​​je šlo narobe. Prosimo, poskusite kasneje."
+
+#: modules/catalog/jackpots-grid.html:20
+#: modules/search-and-filter-results.html:20 partials/game-catalog.html:37
+msgid "Sorry"
+msgstr "Oprostite"
+
+#: constants/check-on-run-game.js:68
+#, fuzzy
+msgid "Sorry, gambling is not possible"
+msgstr "Žal je registracija onemogočena"
+
+#: controllers/user/user-register.ts:629
+msgid "Sorry, invalid country."
+msgstr "Oprostite, neveljavna država"
+
+#: dialogs/tournaments/tournament-subscribe.html:44
+msgid "Sorry, not today. Bet more to earn betcoins and join this tournament!"
+msgstr ""
+"Žal ne danes. Stavite več, da zaslužite betcoine in se pridružite temu "
+"turnirju!"
+
+#: dialogs/tournaments/tournament-subscribe.html:48
+msgid "Sorry, not today. Deposit more money and join this tournament!"
+msgstr "Žal ne danes. Položite več denarja in se pridružite temu turnirju!"
+
+#: config/modal/login-signup.js:39 controllers/user/user-register.ts:640
+#: partials/signup-form/signup-form-content.html:35
+msgid "Sorry, registration is disabled."
+msgstr "Žal je registracija onemogočena"
+
+#: partials/message-error.html:3
+msgid "Sorry, something went wrong!"
+msgstr "Žal je nekaj šlo narobe!"
+
+#: modules/mobile-menu-column.html:25
+msgid "Sorry, you have no favorite game at the moment."
+msgstr "Nimate še nobene priljubljene igre."
+
+#: modules/mobile-menu-column.html:12
+msgid "Sorry, you haven't played any games yet."
+msgstr "Igrali še niste nobene igre."
+
+#: modules/profile/controllers/wlc-dashboard-bonuses.controller.ts:85
+msgid "Sport"
+msgstr "Šport"
+
+#: config/wlc-game-categories-default.js:122
+#: config/wlc-main-menu-default.js:160
+#: config/wlc-main-menu-mobile-default.js:168
+msgid "SportsBook"
+msgstr "SportsBook"
+
+#: modules/sportsbook/components/betslip-float-panel/betslip-float-panel.component.html:29
+msgid "SportsbookBetslip"
+msgstr "Betslip"
+
+#: modules/sportsbook/components/betslip-float-panel/betslip-float-panel.component.html:38
+msgid "SportsbookHistory"
+msgstr "Zgodovina"
+
+#: modules/sportsbook/components/betslip-float-panel/betslip-float-panel.component.html:16
+msgid "SportsbookHome"
+msgstr "Domačastran"
+
+#: modules/sportsbook/components/betslip-float-panel/betslip-float-panel.component.html:47
+msgid "SportsbookLive"
+msgstr "Vživo"
+
+#: modules/sportsbook/components/betslip-float-panel/betslip-float-panel.component.html:7
+msgid "SportsbookMenu"
+msgstr "Meni"
+
+#: components/profile-tournaments-history.html:13
+msgid "Start"
+msgstr "Začnite"
+
+#: partials/ladesk-chat-form.html:46
+msgid "Start chat"
+msgstr "Začnite klepet"
+
+#: components/profile-gamblings-bets.html:7
+#: modules/profile/components/profile-transactions/profile-transactions-filter.html:15
+#: modules/profile/components/wlc-dashboard-bonuses/wlc-dashboard-bonuses-filter.html:16
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-filter.html:4
+msgid "Start date"
+msgstr "Datum začetka"
+
+#: dialogs/regcomplete-modal.html:3
+msgid "Start your journey now"
+msgstr "Začnite svoje potovanje"
+
+#: directives/wlc-time.directive.ts:89
+msgid "Starts"
+msgstr "Začne se"
+
+#: directives/wlc-countdown.js:64
+msgid "Starts in"
+msgstr "Začne se čez"
+
+#: components/profile-bonuses-history.html:17
+#: components/profile-bonuses-history.html:77
+#: components/profile-store-orders.html:15
+#: components/profile-tournaments-history.html:15
+#: components/profile-verification-main.html:47
+#: dialogs/profile-verification/profile-verification-address.html:29
+#: dialogs/profile-verification/profile-verification-default.html:22
+#: dialogs/profile-verification/profile-verification-id.html:28
+#: dialogs/profile-verification/profile-verification-payment.html:29
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:68
+#: modules/profile/components/profile-transactions/profile-transactions-list.html:15
+#: modules/profile/components/profile-transactions/profile-transactions-list.html:59
+#: modules/profile/components/wlc-dashboard-bonuses/wlc-dashboard-bonuses-list.html:16
+msgid "Status"
+msgstr "Status"
+
+#: modules/profile/components/wlc-dashboard-bonuses/wlc-dashboard-bonuses-content.html:5
+msgid "Status of Bonus"
+msgstr "Status bonusa"
+
+#: components/profile/deposit/steps/amount/steps-deposit-amount-block.html:3
+#: components/profile/deposit/steps/paymentSystems/steps-deposit-system-block.html:3
+#: components/profile/withdraw/steps/amount/steps-withdraw-amount-block.html:3
+#: components/profile/withdraw/steps/paymentSystems/steps-withdraw-system-block.html:3
+#: dialogs/password-restore-step2.html:7 dialogs/password-restore.html:5
+#: dialogs/user-signup.html:7 modules/user-signup.html:5
+msgid "Step"
+msgstr "Korak"
+
+#: components/profile-menu.html:15 components/profile-store-main.html:3
+#: config/state/profile/profile-store.js:42
+#: config/wlc-profile-menu-default.js:110
+#: modules/profile/controllers/wlc-dashboard-bonuses.controller.ts:86
+#: modules/store-menu.html:15 modules/store-menu.html:3
+#: modules/user-stat-block-dropdown.html:80
+msgid "Store"
+msgstr "Trgovinas"
+
+#: config/state/profile/profile-store.js:53
+msgid "Store orders"
+msgstr "Naročila iz trgovine"
+
+#: modules/base/components/contact-form/elements/sender-subject.html:2
+#: modules/profile/components/wlc-messages/wlc-messages-list.html:11
+#: modules/profile/components/wlc-messages/wlc-messages-list.html:35
+msgid "Subject"
+msgstr "Zadeva"
+
+#: dialogs/tournaments/tournament-subscribe.html:5
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:95
+#: modules/loyalty/components/bonuses-slider/bonuses-slider-item.html:53
+#: partials/profile-bonuses.html:10
+msgid "Subscribe"
+msgstr "Naročite se"
+
+#: dialogs/sms-verification/sms-verification.html:4
+#: dialogs/user-payment-success.html:6
+msgid "Success"
+msgstr "Uspeh"
+
+#: modules/tournaments/tournament-last-wins.html:2
+msgid "TOP winners"
+msgstr "TOP zmagovalci"
+
+#: config/wlc-main-menu-default.js:105
+#: config/wlc-main-menu-mobile-default.js:74
+#: modules/error-page-box-two-column.html:12
+msgid "Table Games"
+msgstr "Namizne igre"
+
+#: components/profile-bonuses-inventory.html:20
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:101
+#: modules/loyalty/components/bonuses-slider/bonuses-slider-item.html:59
+msgid "Take"
+msgstr "Vzemi"
+
+#: config/wlc-main-menu-mobile-default.js:104 modules/footer-info.html:7
+msgid "Terms and Conditions"
+msgstr "Pogoji"
+
+#: modules/login-signup/register-steps/partial/terms.html:24
+msgid "Terms and conditions"
+msgstr "Pogoji"
+
+#: modules/register-form.html:79
+#: partials/form-elements/checkbox-terms-cond.html:20
+#: partials/signup-form.html:182
+msgid "Terms_and_Conditions"
+msgstr "Pogoji"
+
+#: dialogs/profile-verification/profile-verification-payment.html:13
+msgid "The Credit Card is valid."
+msgstr "Kreditna kartica je veljavna."
+
+#: modules/login-signup/register-steps/partial/setup-bonus.html:2
+#: partials/signup-form.html:43 partials/signup-form/signup-form-content.html:4
+msgid "The chosen bonus"
+msgstr "Izbrani bonus"
+
+#: controllers/user/sms-verify.controller.ts:147
+#: controllers/user/sms-verify.controller.ts:178
+#: dialogs/sms-verification/sms-verification.html:24
+msgid "The code you entered is incorrect"
+msgstr "Koda, ki ste jo vnesli, ni pravilna"
+
+#: directives/wlc-deposit.html:170
+msgid "The deposit transfer will be sent to"
+msgstr "Prenos nakazila bo poslan na"
+
+#: dialogs/profile-verification/profile-verification-address.html:13
+msgid "The document is not older than 3 months."
+msgstr "Dokument ni starejši od 3 mesecev."
+
+#: dialogs/profile-verification/profile-verification-id.html:14
+msgid "The document is valid."
+msgstr "Dokument je veljaven."
+
+#: dialogs/profile-verification/profile-verification-address.html:12
+msgid "The document shows your full name, address, and the send date."
+msgstr "Dokument prikazuje vaše polno ime, naslov in datum pošiljanja."
+
+#: dialogs/profile-verification/profile-verification-address.html:11
+msgid ""
+"The document was received via postal mail. Printed out online documents are "
+"not accepted."
+msgstr ""
+"Dokument je bil prejet po pošti. Natisnjeni spletni dokumenti niso "
+"sprejemljivi."
+
+#: components/games-play.ts:324
+msgid "The game does not exist or the game settings are incorrect"
+msgstr "Igra ne obstaja ali pa so nastavitve igre napačne"
+
+#: dialogs/profile-verification/profile-verification-address.html:14
+#: dialogs/profile-verification/profile-verification-id.html:12
+#: dialogs/profile-verification/profile-verification-payment.html:15
+msgid "The image quality is good and in color."
+msgstr "Kakovost slike je dobra in barvna."
+
+#: modules/search-and-filter-results.html:22 partials/game-catalog.html:39
+msgid "There’s nothing in your favorites yet"
+msgstr "Ničesar še ni med priljubljenimi"
+
+#: directives/wlc-deposit.html:88
+msgid "This is your private depositing address."
+msgstr "To je vaš zasebni naslov za nalaganje sredstev."
+
+#: dialogs/tournaments/tournament-insufficient-funds.html:4
+#: dialogs/tournaments/tournament-insufficient-points.html:4
+msgid "This tournament requires"
+msgstr "Ta turnir zahteva"
+
+#: modules/games-play-desktop.html:100
+msgid "Till the end"
+msgstr "Do konca"
+
+#: modules/finances/components/payment-systems-info/payment-systems-info.component.html:29
+#, fuzzy
+msgid "Time"
+msgstr "Preostali čas"
+
+#: dialogs/free-rounds-games-modal.html:12
+msgid "Time left"
+msgstr "Preostali čas"
+
+#: modules/loyalty/components/bonuses-slider/bonuses-slider-item.html:20
+#: modules/loyalty/components/tournaments-slider/tournaments-slider-item.html:21
+msgid "Time works"
+msgstr ""
+
+#: dialogs/messagePayment.html:9
+msgid "To make a deposit you need to replenish a wallet for a specified amount"
+msgstr "Za polog morate denarnico napolniti za določen znesek"
+
+#: partials/form-elements/phone-number.html:61
+msgid "To resend a verification code, solve the captcha"
+msgstr "Za pošiljanje kode za preverjanje vnesite captcha"
+
+#: partials/form-elements/phone-number.html:56
+msgid "To send a verification code, solve the captcha"
+msgstr "Za pošiljanje kode za preverjanje vnesite captcha"
+
+#: modules/tournaments/tournament-leaders.html:6
+msgid "Top 5 leaders"
+msgstr "Prvih 5 vodilnih"
+
+#: modules/tournaments/tournament-winners.html:8
+msgid "Top winners"
+msgstr "Top zmagovalci"
+
+#: components/profile-referrals.html:47
+msgid "Total Profit RS"
+msgstr "Skupni dobiček RS"
+
+#: modules/profile/components/wlc-exchange-cash/wlc-exchange-cash.html:37
+msgid "Total RP"
+msgstr "Skupaj RP"
+
+#: modules/base/components/wlc-smart-userinfo/wlc-smart-userinfo.component.html:21
+#, fuzzy
+msgid "Total Wagering"
+msgstr "Stave"
+
+#: components/profile/withdraw/steps/steps-withdraw-top.html:13
+msgid "Total balance"
+msgstr "Skupno stanje"
+
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-amounts.html:4
+msgid "Total bet amount"
+msgstr "Skupni znesek stave"
+
+#: modules/profile/components/profile-transactions/profile-transactions-amounts.html:4
+msgid "Total deposit"
+msgstr "Skupni polog"
+
+#: components/profile-tournaments-main.html:21
+#: modules/loyalty/components/tournaments-list/tournaments-list.item.html:17
+msgid "Total funds"
+msgstr "Skupna sredstva"
+
+#: modules/games/components/total-jackpot/total-jackpot.html:2
+msgid "Total jackpot"
+msgstr "Skupni jackpot"
+
+#: components/profile-referrals.html:19
+msgid "Total revenue"
+msgstr "Skupni prihodek"
+
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history-amounts.html:13
+msgid "Total win amount"
+msgstr "Skupni znesek dobitka"
+
+#: modules/profile/components/profile-transactions/profile-transactions-amounts.html:16
+msgid "Total withdrawal"
+msgstr "Skupni dvig"
+
+#: modules/games-play-desktop.html:89
+msgid "Tournament"
+msgstr "Turnir"
+
+#: dialogs/tournaments/tournament-unsubscribe.html:13
+msgid ""
+"Tournament fee will not be returned to your account. Are you sure you want "
+"to unsubscribe?"
+msgstr ""
+"Kotizacija za turnir ne bo vrnjena na vaš račun. Ali ste prepričani, da se "
+"želite odjaviti?"
+
+#: components/profile-menu.html:12 config/wlc-profile-menu-default.js:86
+#: modules/user-stat-block-dropdown.html:74
+msgid "Tournaments"
+msgstr "Turnirji"
+
+#: components/profile-tournaments-history.html:2
+#: config/wlc-profile-menu-default.js:104
+msgid "Tournaments history"
+msgstr "godovina turnirjev"
+
+#: config/wlc-profile-menu-default.js:140 directives/wlc-profile-menu.html:103
+#: modules/profile/components/profile-transactions/profile-transactions.component.html:2
+#: modules/user-stat-block-dropdown.html:98
+msgid "Transaction history"
+msgstr "Zgodovina transakcij"
+
+#: modules/profile/components/profile-transactions/profile-transactions-list.html:41
+#: modules/profile/components/profile-transactions/profile-transactions-list.html:9
+msgid "Transaction time"
+msgstr "Čas transakcije"
+
+#: components/profile-menu.html:29
+msgid "Transactions"
+msgstr "Transakcije"
+
+#: config/state/profile/profile-transactions.config.ts:27
+msgid "Transactions history"
+msgstr "Zgodovina transakcij"
+
+#: modules/finances/components/profile-wallet/profile-wallet.html:20
+msgid "Transfer sum"
+msgstr "Prenesi znesek"
+
+#: dialogs/password-restore-step2.html:30
+msgid "Try again"
+msgstr "Poskusi znovas"
+
+#: modules/social-list.html:11 partials/signup-form.html:64
+#: partials/signup-form/signup-form-socials.html:12
+msgid "Twitter"
+msgstr ""
+
+#: modules/profile/components/profile-transactions/profile-transactions-list.html:21
+#: modules/profile/components/profile-transactions/profile-transactions-list.html:79
+#: modules/profile/components/wlc-dashboard-bonuses/wlc-dashboard-bonuses-filter.html:3
+msgid "Type"
+msgstr "Vrsta"
+
+#: directives/deposit-withdraw/wlc-step-deposit-withdraw.directive.ts:378
+msgid "Unable to choose"
+msgstr "Izbira ni mogoča"
+
+#: classes/services/loyalty-bonuses.class.ts:273
+msgid "Unable to subscribe"
+msgstr "Ni se mogoče naročiti"
+
+#: services/favorite-games.service.ts:41
+msgid "Unauthenticated"
+msgstr ""
+
+#: config/app.js:532
+msgid ""
+"Unfortunately your payment didn't go through. An e-mail with detailed "
+"information has been sent to your e-mail address. If you have any questions, "
+"please don't hesitate to contact us."
+msgstr ""
+"Žal vaše plačilo ni bilo izvedeno. Na vaš e-poštni naslov je bilo poslano "
+"sporočilo s podrobnimi informacijami. Če imate kakršna koli vprašanja, se "
+"obrnite na nas."
+
+#: components/profile-verification-main.html:52
+#: dialogs/profile-verification/profile-verification-address.html:45
+#: dialogs/profile-verification/profile-verification-default.html:41
+#: dialogs/profile-verification/profile-verification-id.html:44
+#: dialogs/profile-verification/profile-verification-payment.html:45
+#: modules/profile/components/profile-transactions/profile-transactions.component.ts:110
+msgid "Unknown"
+msgstr "Neznano"
+
+#: controllers/user/user-register.ts:453 controllers/user/user-register.ts:459
+msgid "Unknown promo code"
+msgstr "Neznana promocijska koda"
+
+#: dialogs/tournaments/tournament-unsubscribe.html:23
+#: dialogs/tournaments/tournament-unsubscribe.html:4
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:108
+#: modules/loyalty/components/bonuses-slider/bonuses-slider-item.html:66
+#: partials/profile-bonuses.html:18
+msgid "Unsubscribe"
+msgstr "Odjavite se"
+
+#: config/app.js:250
+msgid "Unsubscribe complete"
+msgstr "Odjava dokončana"
+
+#: config/app.js:261
+msgid "Unsubscribe not completed"
+msgstr "Odjava ni dokončana"
+
+#: modules/base/components/wlc-smart-userinfo/wlc-smart-userinfo.component.html:30
+msgid "Until"
+msgstr ""
+
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history.html:19
+msgid "Update"
+msgstr "Posodobi"
+
+#: components/profile-store-orders.html:13
+msgid "Update date"
+msgstr "Datum posodobitve"
+
+#: modules/profile/components/profile-transactions/profile-transactions.component.ts:104
+msgid "Updated"
+msgstr "Posodobljenoы"
+
+#: components/profile-verification-main.html:26
+#: dialogs/profile-verification/profile-verification-address.html:61
+#: dialogs/profile-verification/profile-verification-default.html:60
+#: dialogs/profile-verification/profile-verification-id.html:72
+#: dialogs/profile-verification/profile-verification-payment.html:61
+msgid "Upload"
+msgstr "Naloži"
+
+#: components/profile/deposit/steps/bonus/steps-deposit-bonus-empty.html:6
+msgid "Use bonus"
+msgstr "Uporabi bonus"
+
+#: modules/login-signup/register-steps/bonuses.html:15
+#: partials/signup-form.html:22 partials/signup-form/signup-form.html:25
+msgid "Use this bonus"
+msgstr "Uporabi ta bonusы"
+
+#: modules/games-play-desktop.html:178
+msgid "User"
+msgstr "Uporabnik"
+
+#: modules/profile/config/profile-forms.config.ts:58
+#: modules/register-form.html:17 partials/form-elements/login-unique.html:10
+#: partials/form-elements/login-unique.html:2
+#: partials/form-elements/login.html:2 partials/form-elements/login.html:9
+#: partials/signup-form.html:102 partials/signup-form.html:108
+msgid "User login"
+msgstr "Prijava uporabnika"
+
+#: components/user-register-success.html:2 config/app.js:230
+#: config/modal/login-signup.js:37 controllers/user/user-register.ts:157
+#: controllers/user/user-register.ts:303 controllers/user/user-register.ts:619
+#: controllers/user/user-register.ts:630 controllers/user/user-register.ts:641
+msgid "User registration"
+msgstr "Registrirajte se"
+
+#: partials/form-elements/email-login.html:2
+msgid "Username or E-mail"
+msgstr "Uporabniško ime ali e-pošta"
+
+#: components/profile-verification-main.html:51
+#: dialogs/profile-verification/profile-verification-address.html:44
+#: dialogs/profile-verification/profile-verification-default.html:39
+#: dialogs/profile-verification/profile-verification-id.html:43
+#: dialogs/profile-verification/profile-verification-payment.html:44
+msgid "Validated"
+msgstr "Potrjeno"
+
+#: components/profile-verification-main.html:2
+#: config/state/profile/profile-verification.config.ts:48
+#: config/wlc-profile-menu-default.js:171
+#: modules/profile/components/verification/verification.component.html:2
+msgid "Verification"
+msgstr "Preverjanje"
+
+#: dialogs/sms-verification/sms-verification.html:51
+msgid "Verify"
+msgstr "Preveri"
+
+#: modules/login-signup/register-steps/partial/verify-sms-code-input.html:9
+msgid "Verify sms code"
+msgstr "Preveri SMS kodo"
+
+#: controllers/steps.controller.ts:167
+msgid "Verify your account"
+msgstr "Preverite svoj račun"
+
+#: components/profile-notifications.html:28
+#: modules/profile/components/notification/sms-verification.html:11
+msgid "Verify your phone number"
+msgstr "Preverite svojo telefonsko številko"
+
+#: config/wlc-main-menu-default.js:124
+#: config/wlc-main-menu-mobile-default.js:86
+msgid "Video Poker"
+msgstr "Video Poker"
+
+#: config/wlc-main-menu-default.js:113
+#: config/wlc-main-menu-mobile-default.js:80
+msgid "Virtual Games"
+msgstr "Virtualne igre"
+
+#: modules/social-list.html:26 partials/signup-form.html:83
+#: partials/signup-form/signup-form-socials.html:31
+msgid "Vkontakte"
+msgstr ""
+
+#: components/profile-bonuses-promo.html:1
+#: config/state/profile/profile-bonuses.js:70
+#: config/wlc-profile-menu-default.js:74 directives/wlc-profile-menu.html:66
+msgid "Voucher"
+msgstr "Bon"
+
+#: components/profile-bonuses-history.html:82
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:73
+#: modules/profile/controllers/wlc-dashboard-bonuses.controller.ts:97
+msgid "Wagered"
+msgstr "Vplačano"
+
+#: components/profile-bonuses-history.html:15
+#: components/profile-bonuses-history.html:65
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:58
+msgid "Wagering"
+msgstr "Stave"
+
+#: config/wlc-profile-menu-default.js:134
+#: modules/finances/components/profile-wallet/profile-wallet.html:1
+#: modules/finances/config/profile-wallet.config.ts:27
+msgid "Wallet"
+msgstr "Denarnica"
+
+#: modules/finances/components/profile-wallet/profile-wallet.html:13
+msgid "Wallet balance"
+msgstr "Stanje denarnice"
+
+#: modules/catalog/jackpots-grid.html:21
+#: modules/search-and-filter-results.html:21 partials/game-catalog.html:38
+msgid "We could not find anything"
+msgstr "Ničesar nismo mogli najti"
+
+#: config/forms/signup.form.ts:254
+#: dialogs/sms-verification/sms-verification.html:20
+msgid "We have sent an SMS with the code to the following number:"
+msgstr "SMS s kodo smo poslali na naslednjo številko:"
+
+#: controllers/user/user-profile.ts:352
+msgid "We have sent you an email with an URL to continue change email"
+msgstr ""
+"Poslali smo vam e-poštno sporočilo z URL-jem, kjer lahko nadaljujete s "
+"spremembo e-pošte"
+
+#: modules/agreements/privacy-policy.html:4
+msgid ""
+"We, as per requirements of the General Data Protection Regulation (GDPR), "
+"would like to ask\n"
+"                you to look through the new version of the Privacy Policy "
+"and give your consent to continue\n"
+"                using the Services of this Website. By clicking \"I agree\" "
+"I confirm than I have read amended."
+msgstr ""
+"Glede na zahteve Splošne uredbe o varstvu podatkov (GDPR) vas prosimo, da si "
+"ogledate novo različico Pravilnika o zasebnosti in podate svoje soglasje za "
+"nadaljevanje uporabe storitev tega spletnega mesta. S klikom na \"Strinjam se"
+"\" potrjujem, da sem prebral/a spremembe."
+
+#: modules/user-login.html:5
+msgid "Welcome"
+msgstr "Dobrodošli"
+
+#: modules/tournaments/tournament-banner.html:4
+msgid "Wheel of fortune11"
+msgstr "Kolo sreče11"
+
+#: components/profile-tournaments-history.html:12
+#: modules/loyalty/components/tournament-progress/tournament-progress-content.html:8
+#: modules/profile/components/wlc-profile-bet-history/wlc-profile-bet-history.controller.ts:72
+#: modules/tournaments/tournament-last-wins.html:8
+msgid "Win"
+msgstr "Dobitek"
+
+#: modules/double-coin-banner.html:5
+msgid "Win more with Doudle GoldBar Coin"
+msgstr "Priigrajte več z Doudle GoldBar Coin"
+
+#: modules/win-per-one.html:2
+msgid "Win per one bet"
+msgstr "Dobitek na eno stavo"
+
+#: components/game-catalog.html:147
+msgid "Winners"
+msgstr "Zmagovalci"
+
+#: classes/services/loyalty-bonuses.class.ts:670
+msgid "Winnings"
+msgstr "Dobitek"
+
+#: classes/services/loyalty-bonuses.class.ts:667
+msgid "Winnings + Deposit"
+msgstr "Dobitek + Polog"
+
+#: dialogs/tournaments/tournament-info.html:24
+msgid "Winnings Spread"
+msgstr "Zmagovalni niz"
+
+#: components/profile-menu.html:26
+#: components/profile/withdraw/steps/steps-withdraw-header.html:2
+#: controllers/finanses.controller.ts:653 dialogs/withdraw.html:16
+#: dialogs/withdraw.html:3
+#: modules/finances/components/payment-systems-info/payment-systems-info.component.html:59
+#: modules/finances/components/profile-wallet/profile-wallet.html:38
+msgid "Withdraw"
+msgstr "Dvig sredstev"
+
+#: controllers/finanses.controller.ts:655
+msgid "Withdraw request has been successfully sent!"
+msgstr "Zahteva za dvig sredstev je bila uspešno poslana!"
+
+#: controllers/finanses.controller.ts:650
+msgid "Withdraw sum"
+msgstr "Znesek dviga"
+
+#: components/profile/withdraw/steps/amount/steps-withdraw-amount-block.html:48
+msgid "Withdraw_button"
+msgstr "Gumb_za_dvig"
+
+#: components/profile/withdraw/steps/steps-withdraw-top.html:3
+msgid "Withdrawable"
+msgstr "Na voljo za dvig"
+
+#: components/profile/withdraw/default-withdraw.html:2
+#: config/wlc-main-menu-mobile-default.js:146
+#: config/wlc-profile-menu-default.js:128 directives/wlc-profile-menu.html:94
+#: modules/profile/components/profile-transactions/profile-transactions.component.ts:91
+#: modules/user-stat-block-dropdown.html:92
+msgid "Withdrawal"
+msgstr "Dvig sredstevы"
+
+#: controllers/finanses.controller.ts:569
+msgid "Withdrawal is unavailable at the moment."
+msgstr "Trenutno dvig ni možen."
+
+#: modules/won-today.html:2
+msgid "Won today"
+msgstr "Današnji dobitki"
+
+#: controllers/user/user-profile.ts:214
+#: modules/profile/components/main-info/main-info.component.ts:208
+msgid "Wrong First or Last Name, check profile!"
+msgstr "Napačno ime ali priimek, preverite profil!"
+
+#: controllers/user/user-abstract.ts:162
+#: modules/profile/classes/profile-abstract.class.ts:163
+#: modules/profile/config/profile-forms.config.ts:147
+msgid "Year"
+msgstr "Letoы"
+
+#: classes/services/loyalty-bonuses.class.ts:349
+#: classes/services/loyalty-bonuses.class.ts:386
+#: controllers/user/user-profile.ts:94 dialogs/user-logout.html:12
+#: modules/profile/components/main-info/main-info.component.ts:92
+#: modules/profile/controllers/messages.controller.ts:102
+msgid "Yes"
+msgstr "Da"
+
+#: modules/games-play-desktop.html:196
+msgid "You"
+msgstr "Vi"
+
+#: controllers/user/user-profile.ts:202 controllers/user/user-register.ts:618
+#: modules/profile/components/main-info/main-info.component.ts:197
+msgid "You are not 18 years old!"
+msgstr "Niste še stari 18 let!"
+
+#: dialogs/tournaments/tournament-subscribe.html:6
+msgid "You can`t subscribe"
+msgstr "Ne morete se naročiti"
+
+#: components/profile-verification.component.ts:113
+msgid "You cannot upload more documents of this type"
+msgstr "Ne morete naložiti več takšnih dokumentov"
+
+#: classes/services/loyalty-bonuses.class.ts:281
+#: directives/deposit-withdraw/wlc-step-deposit-withdraw.directive.ts:385
+msgid ""
+"You currently have an active bonus, which does not allow stacking. You have "
+"to wager active bonus first or cancel it, in order to claim a new bonus."
+msgstr ""
+"Trenutno imate aktivni bonus, ki ne omogoča skladanja. Najprej morate "
+"založiti aktivni bonus ali ga preklicati, če želite uveljaviti nov bonus."
+
+#: classes/services/loyalty-bonuses.class.ts:288
+#: directives/deposit-withdraw/wlc-step-deposit-withdraw.directive.ts:391
+msgid ""
+"You currently have an active bonus. A bonus, which you try to claim, does "
+"not allow stacking. You have to wager active bonus first or cancel it, in "
+"order to claim this bonus."
+msgstr ""
+"Trenutno imate aktivni bonus. Bonus, ki ga zahtevate, ne omogoča skladanja. "
+"Najprej morate založiti aktivni bonus ali ga preklicati, če želite "
+"uveljaviti ta bonus."
+
+#: dialogs/tournaments/tournament-subscribe.html:16
+msgid "You have"
+msgstr "Imateы"
+
+#: controllers/finanses.controller.ts:567
+msgid "You have an active bonus"
+msgstr "Imate aktiven bonus"
+
+#: config/app.js:255
+msgid ""
+"You have been successfully unsubscribed from receiving email notifications"
+msgstr "Uspešno ste se odjavili od prejemanja e-poštnih obvestil"
+
+#: dialogs/bonuses/subscribe-deposit-bonus.html:9
+msgid ""
+"You have claimed the bonus. In order to activate it, you have to make a "
+"deposit."
+msgstr "Zahtevali ste bonus. Če ga želite aktivirati, morate nakazati polog."
+
+#: components/profile-bonuses-active.html:51
+msgid "You have no active bonuses!"
+msgstr "Nimate aktivnih bonusov!"
+
+#: directives/wlc-freerounds.directive.ts:93
+msgid "You have no available freespins"
+msgstr "Nimate možnosti brezplačnega igranja"
+
+#: controllers/user/user-register.ts:284
+msgid "You have not verified your phone number"
+msgstr "Niste potrdili svoje telefonske številke"
+
+#: dialogs/required-fields.html:10
+msgid "You have to fill the required fields in your profile to play our casino"
+msgstr ""
+"Za igranje v naši igralnici morate izpolniti obvezna polja v svojem profilu"
+
+#: controllers/user/user-register.ts:330 controllers/user/user-register.ts:348
+msgid ""
+"You must agree with Terms and Conditions as well as confirm that you are at "
+"least 18 years old"
+msgstr "Strinjati se morate s Pogoji ter potrditi, da ste stari najmanj 18 let"
+
+#: controllers/user/user-register.ts:305 modules/register-form.html:131
+#: partials/signup-form.html:241 partials/signup-form/signup-form.html:46
+msgid "Your account has been registered."
+msgstr "Vaš račun je registriran."
+
+#: modules/base/components/country-accepts/country-accepts-content.html:4
+msgid "Your country is"
+msgstr "Vaša država je"
+
+#: partials/ladesk-chat-form.html:34
+msgid "Your e-mail"
+msgstr "Vaša e-pošta"
+
+#: modules/base/components/contact-form/elements/sender-name.html:2
+#: partials/ladesk-chat-form.html:19
+msgid "Your name"
+msgstr "Vaše ime"
+
+#: dialogs/sms-verification/sms-verification.html:69
+msgid "Your number has been verified"
+msgstr "Vaša številka je bila preverjena"
+
+#: modules/loyalty/components/tournament-progress/tournament-progress-content.html:17
+msgid "Your place"
+msgstr "Vaš kraj"
+
+#: modules/login-signup/register-steps/partial/promocode.html:9
+msgid "Your promo code"
+msgstr "Vaša promocijska koda"
+
+#: components/profile-referrals.html:8
+msgid "Your referral link:"
+msgstr "Vaša referenčna povezava"
+
+#: partials/form-elements/postal-code.html:10
+#: partials/form-elements/postal-code.html:2
+msgid "ZIP/Postal code"
+msgstr "Poštna številka"
+
+#: components/profile/deposit/steps/modal/modal-step-deposit-systems-additional.html:4
+msgid "account details"
+msgstr "Podatki računa"
+
+#: modules/loyalty/components/tournament-progress/tournament-progress-content.html:13
+msgid "at first place, prize pool"
+msgstr "na prvem mestu, nagradni sklad"
+
+#: dialogs/store-description.html:13
+msgid "buy now"
+msgstr "kupi zdaj"
+
+#: dialogs/free-rounds-games-modal.html:12
+#: modules/loyalty/components/tournament-progress/tournament-progress-content.html:22
+msgid "d"
+msgstr "d"
+
+#: modules/loyalty/components/tournaments-list/tournaments-list.item.html:33
+msgid "days"
+msgstr ""
+
+#: components/profile-cash.js:44
+msgid "deposit"
+msgstr "polog"
+
+#: dialogs/tournaments/tournament-insufficient-funds.html:4
+msgid "fee"
+msgstr "fee"
+
+#: components/game-catalog.html:199 components/game-catalog.html:269
+#: components/game-catalog.html:75
+msgid "games"
+msgstr "igre"
+
+#: controllers/user/user-profile.ts:82
+#: modules/profile/components/main-info/main-info.component.ts:99
+msgid "gender_female_char"
+msgstr "F"
+
+#: controllers/user/user-profile.ts:81
+#: modules/profile/components/main-info/main-info.component.ts:98
+msgid "gender_male_char"
+msgstr "M"
+
+#: dialogs/message.html:12 dialogs/messagePayment.html:39
+#: partials/signup-form.html:249 partials/signup-form/signup-form.html:53
+msgid "got it"
+msgstr "razumem"
+
+#: dialogs/free-rounds-games-modal.html:12
+#: modules/loyalty/components/tournament-progress/tournament-progress-content.html:23
+msgid "h"
+msgstr "h"
+
+#: modules/loyalty/components/tournament-progress/tournament-progress-content.html:25
+msgid "left"
+msgstr "levo"
+
+#: dialogs/tournaments/tournament-insufficient-points.html:4
+msgid "loyalty points as fee"
+msgstr "točke zvestobe kot kotizacija"
+
+#: dialogs/free-rounds-games-modal.html:12
+#: modules/loyalty/components/tournament-progress/tournament-progress-content.html:24
+msgid "m"
+msgstr "m"
+
+#: directives/wlc-deposit.html:93
+msgid "maximum one is"
+msgstr "največji je"
+
+#: directives/wlc-bonuses-exchanger.html:17
+msgid "mm to try"
+msgstr "mm za poskus"
+
+#: components/profile-bonuses-active.html:30
+#: modules/loyalty/components/bonuses-list/bonuses-list.item.html:30
+#: modules/loyalty/components/bonuses-slider/bonuses-slider-item.html:27
+msgid "of"
+msgstr "od"
+
+#: dialogs/game.html:41
+msgid "or"
+msgstr "ali"
+
+#: modules/login-form.html:12
+msgid "or login"
+msgstr "ali prijava"
+
+#: partials/login-form.html:15 partials/signup-form.html:95
+msgid "or with E-mail"
+msgstr "ali z e-pošto"
+
+#: modules/login-signup/register-steps/partial/setup-social.html:10
+#: partials/signup-form/signup-form-content.html:18
+msgid "or with e-mail"
+msgstr "ali z e-pošto"
+
+#: dialogs/tournaments/tournament-subscribe.html:21
+#: dialogs/tournaments/tournament-subscribe.html:31
+#: modules/loyalty/components/current-level/current-level.html:14
+#: modules/loyalty/components/current-level/current-level.html:16
+#: modules/loyalty/components/store-list/store-list.component.html:5
+#: modules/loyalty/components/store-list/store-list.item.html:14
+#: modules/loyalty/components/store-list/store-list.item.html:54
+#: modules/loyalty/components/tournament-progress/tournament-progress-content.html:18
+#: partials/loyalty-progress-bar.html:15
+msgid "points"
+msgstr "točke"
+
+#: dialogs/promo-code.html:13
+msgid "promo_code_dialog"
+msgstr "Promocijska koda"
+
+#: directives/wlc-promo-steps.js:39
+msgid "promo_step_1_content"
+msgstr "Hitra in enostavna registracija"
+
+#: directives/wlc-promo-steps.js:37
+msgid "promo_step_1_title"
+msgstr "Pridružite se nam danes"
+
+#: directives/wlc-promo-steps.js:49
+msgid "promo_step_2_content"
+msgstr "100% dodatni bonus za prvi depozit"
+
+#: directives/wlc-promo-steps.js:47
+msgid "promo_step_2_title"
+msgstr "Pridobite brezplačni bonus"
+
+#: directives/wlc-promo-steps.js:59
+msgid "promo_step_3_content"
+msgstr "Prenos ni potreben"
+
+#: directives/wlc-promo-steps.js:57
+msgid "promo_step_3_title"
+msgstr "Začnite igrati"
+
+#: config/forms/signup.form.ts:141
+msgid "register_final_text_message"
+msgstr ""
+
+#: modules/loyalty/components/bonuses-slider/bonuses-slider-item.html:29
+#, fuzzy
+msgid "remaning"
+msgstr "Preostalo stava"
+
+#: dialogs/password-restore.html:47
+msgid "restore"
+msgstr "obnovi"
+
+#: components/profile/deposit/steps/amount/steps-deposit-amount-block.html:84
+#: directives/wlc-deposit.html:196
+msgid "restrictions"
+msgstr "omejitve"
+
+#: dialogs/required-fields.html:116 partials/form-elements/btn-save.html:8
+msgid "save"
+msgstr "shrani"
+
+#: modules/profile/components/limits/limits.component.html:10
+msgid ""
+"should be a positive experience, something that is relaxing and "
+"entertaining. While being a wrapped up in the excitement however, it might "
+"sometimes be hard to draw the line and know when to stop playing. If you "
+"would like to set up limits for your playing activity, please contact us. "
+"The following limits are avaiable:"
+msgstr ""
+
+#: components/profile-bonuses-promo.html:31
+#: modules/loyalty/components/bonuses-list/bonuses-list.component.html:51
+msgid "submit"
+msgstr "predloži"
+
+#: components/profile/deposit/steps/amount/steps-deposit-amount-block.html:98
+#: components/profile/withdraw/default-withdraw.html:160
+#: components/profile/withdraw/steps/amount/steps-withdraw-amount-block.html:49
+#: dialogs/password-restore.html:48 dialogs/profile-partial-update.html:44
+#: dialogs/required-fields.html:117 directives/wlc-deposit.html:206
+#: modules/profile/components/login-signup-dropdown/login-form.html:16
+#: partials/form-elements/btn-save.html:9 partials/login-form.html:38
+msgid "submiting..."
+msgstr "oddajanje..."
+
+#: modules/finances/components/payment-systems/payment-systems.html:39
+#: modules/loyalty/components/current-level/current-level.html:15
+#: partials/loyalty-progress-bar.html:16
+msgid "to"
+msgstr "za"
+
+#: dialogs/user-payment-success.html:18
+msgid "were successfully deposited in your account."
+msgstr "so bila uspešno nakazana na vaš račun."
+
+#: components/profile-cash.js:60
+#: components/profile/withdraw/default-withdraw.html:159
+msgid "withdraw"
+msgstr "dvig sredstev"
+
+#: modules/last-wins.html:6
+#: modules/promo/components/last-wins/last-wins.html:11
+msgid "wlc-last-wins__title"
+msgstr "Zadnji zmagovalci"
+
+#: modules/promo-menu.html:5
+msgid "wlc_promo-menu_Live_casino"
+msgstr "Casino v živo"
+
+#: modules/promo-menu.html:16
+msgid "wlc_promo-menu_Slots"
+msgstr "Igralni avtomati"
+
+#: modules/promo-menu.html:13
+msgid "wlc_promo-menu_Sportsbook"
+msgstr ""
+
+#: modules/promo-menu.html:9
+msgid "wlc_promo-menu_Table_games"
+msgstr "Sportsbook"
+
+#~ msgid "CANCEL_WITHDRAWAL"
+#~ msgstr "Prekliči"
+
+#~ msgid "Jackpot amount"
+#~ msgstr "Znesek Jackpota"
+
+#~ msgid "Transaction type"
+#~ msgstr "Vrsta transakcije"
+
+#~ msgid "Check your profile data!"
+#~ msgstr "Preverite svoje podatke v profilu!"
+
+#~ msgid "Deposit failed"
+#~ msgstr "Polog ni uspel"
+
+#~ msgid "Edit account details"
+#~ msgstr "Uredi podatke računa"
+
+#~ msgid "Fail"
+#~ msgstr "Neuspeh"
+
+#~ msgid "SportsbookProfile"
+#~ msgstr "Profil"
+
+#~ msgid "Withdrawal failed"
+#~ msgstr "Dvig ni uspel"
+
+#~ msgid "Your message have been sent successfully"
+#~ msgstr "Vaše sporočilo je bilo uspešno poslano"
+
+#~ msgid "Error occured during code validation"
+#~ msgstr "Med preverjanjem kode je prišlo do napake"
+
+#~ msgid "Profile registration"
+#~ msgstr "Registracija profila"
+
+#~ msgid "The entered passwords do not match"
+#~ msgstr "Vneseni gesli se ne ujemata"
