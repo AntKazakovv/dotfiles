@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "dev": "npm run update-locale && ng build --project wlc-engine --watch",
-    "dist": "npm run update-locale && ng build --project wlc-engine --prod && cd dist/wlc-engine && npm publish",
+    "dist": "npm run update-locale && ng build --project wlc-engine --prod",
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
