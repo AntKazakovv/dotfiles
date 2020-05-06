@@ -1,0 +1,3 @@
+[submodule "wlc-engine/src/languages"]
+	path = wlc-engine/src/languages
+	url = git@vcsxa.egamings.com:wlc/wlc-engine-translate.git
