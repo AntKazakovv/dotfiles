@@ -14,16 +14,11 @@
     "lib": [
       "es2018",
       "dom"
-    ],
-    "paths": {
-      "wlc-engine": [
-        "dist/wlc-engine/wlc-engine",
-        "dist/wlc-engine"
-      ]
-    }
+    ]
   },
   "angularCompilerOptions": {
+    "enableIvy": true,
     "fullTemplateTypeCheck": true,
-    "strictInjectionParameters": true
+    "strictInjectionParameters": false
   }
 }

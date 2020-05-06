@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PROJECT_NAME=$(jq .name < ./projects/wlc-engine/package.json)
+PROJECT_NAME=$(jq .name < ./package.json)
 stable_branch=$(git branch | awk '/^\* master/ { print $2 }')
 
 if ! [ -n "$stable_branch" ]; then
@@ -17,7 +17,7 @@ else
     exit -1
 fi
 
-prevver=$(jq .version < ./projects/wlc-engine/package.json | sed -e 's/"//g')
+prevver=$(jq .version < ./package.json | sed -e 's/"//g')
 
 if [ ! -z "$1" ];then
 
@@ -56,11 +56,9 @@ if test "$CONT" != "yes"; then
     exit -1
 fi
 
-sed -i -e "s/\"version\": \"${prevver}\"/\"version\": \"${ver}\"/g" ./projects/wlc-engine/package.json
 sed -i -e "s/\"version\": \"${prevver}\"/\"version\": \"${ver}\"/g" ./package.json
 
 git add package.json
-git add projects/wlc-engine/package.json
 
 git commit -m "Updated for release ${PROJECT_NAME} $ver" && \
     git tag -a -m "Release ${PROJECT_NAME} $ver" $tag && \
