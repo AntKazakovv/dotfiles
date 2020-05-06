@@ -26,7 +26,8 @@ export class MissingTranslationService implements MissingTranslationHandler {
   }
 }
 
-import {HomeModule} from './base/home/home.module';
+// import {HomeModule} from './base/home/home.module';
+import {CoreModule} from './core/core.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -50,8 +51,8 @@ import {HomeModule} from './base/home/home.module';
         useClass: MissingTranslationService,
       },
     }),
-
-    HomeModule,
+    CoreModule,
+    // HomeModule,
   ],
   bootstrap: [UIView]
 })

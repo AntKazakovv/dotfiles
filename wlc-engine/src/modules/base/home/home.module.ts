@@ -4,6 +4,7 @@ import {HomeComponent} from './home.component';
 
 import {LogoComponent} from '../logo/logo.component';
 import {LanguageSelectorComponent} from '../language-selector/language-selector.component';
+import {UIRouterModule} from '@uirouter/angular';
 
 import {
   TranslateModule,
@@ -14,6 +15,12 @@ import {
   imports: [
     CommonModule,
     TranslateModule,
+    UIRouterModule.forChild({states: [
+      {
+        name: 'app.home',
+        component: HomeComponent,
+      }
+    ]})
   ],
   exports: [
     TranslateModule,

@@ -4,6 +4,7 @@ import {TranslateService} from '@ngx-translate/core';
 import {StateService} from '@uirouter/core';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
+import {DataService} from '../../core/services';
 
 @Component({
   selector: 'wlc-app',
@@ -15,7 +16,7 @@ export class AppComponent implements OnInit, OnDestroy {
   private $destroy = new Subject<null>();
 
   constructor(
-    private http: HttpClient,
+    private data: DataService,
     private translate: TranslateService,
     private stateService: StateService,
   ) {
@@ -30,6 +31,15 @@ export class AppComponent implements OnInit, OnDestroy {
         {locale: v.lang}
       );
     });
+
+    // this.data.request({
+    //   name: 'bootstrap',
+    //   system: 'main',
+    //   type: 'GET',
+    //   url: '/api/v1/bootstrap',
+    // }).subscribe((data) => {
+    //   console.log(data);
+    // });
   }
 
   ngOnDestroy(): void {
