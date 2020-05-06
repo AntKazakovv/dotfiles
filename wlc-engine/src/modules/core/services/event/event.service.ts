@@ -2,15 +2,15 @@ import {Injectable} from '@angular/core';
 import {Subject, Observable, pipe, UnaryFunction, Subscription, PartialObserver} from 'rxjs';
 import {filter} from 'rxjs/internal/operators/filter';
 import {map} from 'rxjs/internal/operators/map';
+import {takeUntil} from 'rxjs/internal/operators';
 
 import {
     get as _get,
     assign as _assign,
     isArray as _isArray,
 } from 'lodash';
-import {takeUntil} from 'rxjs/internal/operators';
 
-type EventType = 'event' | 'error' | 'system';
+export type EventType = 'event' | 'error' | 'system';
 
 export interface IFilterParams {
     name: string;
@@ -19,7 +19,7 @@ export interface IFilterParams {
     status?: string;
 }
 
-type FilterType = Partial<IFilterParams> | Partial<IFilterParams>[];
+export type FilterType = Partial<IFilterParams> | Partial<IFilterParams>[];
 
 export interface IEvent extends IFilterParams {
     data?: any;
@@ -52,8 +52,12 @@ export class EventService {
         );
     }
 
-    public subscribe(filter: FilterType, subscriber: (data: any) => void | PartialObserver<any>, until?: Observable<any>): Subscription {
-        return this.filter(filter, until)
+    public subscribe(
+        eventFilter: FilterType,
+        subscriber: (data: any) => void | PartialObserver<any>,
+        until?: Observable<any>
+    ): Subscription {
+        return this.filter(eventFilter, until)
             .pipe(
                 map((event: IEvent): any => _get(event, 'data')),
             )
@@ -62,8 +66,8 @@ export class EventService {
 
     private filterEvents(params: Partial<IFilterParams>[]): UnaryFunction<Observable<IEvent>, Observable<IEvent>> {
         return pipe(filter((event: IEvent) => {
-            return params.reduce((result, filter) => {
-                return result || this.filterEvent(filter, event);
+            return params.reduce((result, eventFilter) => {
+                return result || this.filterEvent(eventFilter, event);
             }, false);
         }));
     }

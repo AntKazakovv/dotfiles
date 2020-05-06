@@ -1,9 +1,8 @@
-import {Inject, Injectable, LOCALE_ID} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {map, tap} from 'rxjs/internal/operators';
 import {Observable, Subject, of} from 'rxjs';
-import {APP_ENVIRONMENT, IAppEnv} from 'tokens';
-import {LanguageService} from '../../../locale/services/language/language.service';
+import {TranslateService} from '@ngx-translate/core';
 
 import {
     isString as _isString,
@@ -20,9 +19,9 @@ export interface IData {
     data?: any;
 }
 
-type RestMethodType = 'GET' | 'POST' | 'PATCH' | 'PUT' | 'DELETE';
+export type RestMethodType = 'GET' | 'POST' | 'PATCH' | 'PUT' | 'DELETE';
 
-type RequestParamsType = HttpParams | {[key: string]: string | string[]};
+export type RequestParamsType = HttpParams | {[key: string]: string | string[]};
 
 export interface IRequestMethod {
     name: string;
@@ -44,10 +43,11 @@ export class DataService {
     private socket: WebSocket;
     private apiList: {[key: string]: IRequestMethod} = {};
 
+    private socketUrl = '';
+
     constructor(
         private http: HttpClient,
-        private language: LanguageService,
-        @Inject(APP_ENVIRONMENT) protected env: IAppEnv,
+        private translate: TranslateService,
     ) {
         this.init();
     }
@@ -82,7 +82,7 @@ export class DataService {
     }
 
     protected init(): void {
-        if (this.env.socket) {
+        if (this.socketUrl) {
             this.socketConnect();
         }
     }
@@ -90,13 +90,13 @@ export class DataService {
     protected request$(method: IRequestMethod, params?: RequestParamsType): Observable<IData> {
         const requestParams = _assign(
             {
-                lang: _get(this.language.getCurrentLanguage(), 'code', 'en'),
+                lang: this.translate.currentLang || 'en'
             },
             method.params,
             method.type === 'GET' ? params : {}
         );
         const requestBody = method.type !== 'GET' ? JSON.stringify(params) || '' : undefined;
-        const url = _get(this.env, 'site', '') + '/' + method.url;
+        const url = method.url;
         return this.http.request(method.type, url,
             {
                 params: requestParams,
@@ -118,7 +118,7 @@ export class DataService {
                                 status: 'success',
                                 name: method.name,
                                 system: method.system,
-                                data: data,
+                                data,
                             };
                     }
                 }),
@@ -132,7 +132,7 @@ export class DataService {
     }
 
     private socketConnect(): void {
-        this.socket = new WebSocket(this.env.socket);
+        this.socket = new WebSocket(this.socketUrl);
         this.socket.onopen = () => {
             this.setSocketHandlers();
         };
