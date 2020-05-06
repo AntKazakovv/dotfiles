@@ -11,5 +11,7 @@ cp tsconfig.json ./dist/wlc-engine
 cp package.json ./dist/wlc-engine
 cp tslint.json ./dist/wlc-engine
 
+sed -i -e "s/\"private\": true/\"private\": false/g" ./dist/wlc-engine/package.json
+
 # cd ./dist/wlc-engine
 # npm pack
