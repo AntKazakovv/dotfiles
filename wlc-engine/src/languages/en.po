@@ -1,0 +1,2 @@
+msgid "Error occured during login process"
+msgstr ""

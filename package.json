@@ -1,16 +1,16 @@
 {
-  "name": "wlc-engine",
+  "name": "@egamings/wlc-engine",
   "version": "0.0.3",
   "scripts": {
     "ng": "ng",
-    "dev": "npm run update-locale && ng build --project wlc-engine --watch",
-    "dist": "npm run update-locale && ng build --project wlc-engine --prod",
     "start": "ng serve",
     "build": "ng build",
+    "dist": "npm run update-locale && ng build --project wlc-engine --prod && ./wlc-engine/utils/copy_build.sh",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "update-locale": "ngx-translate-extract -i ./projects/wlc-engine/src/lib/**/*.{ts,tsx,html} -o ./projects/wlc-engine/src/languages/messages.pot --sort --format pot && node ./utils/pot2po.js && rm -rf ./projects/wlc-engine/src/languages/messages.pot"
+    "update-locale": "ngx-translate-extract -i ./wlc-engine/src/**/*.{ts,tsx,html} -o ./wlc-engine/src/languages/messages.pot --sort --format pot && node ./wlc-engine/utils/pot2po.js && rm -rf ./wlc-engine/src/languages/messages.pot",
+    "postinstall": "./wlc-engine/utils/postinstall.sh"
   },
   "private": true,
   "dependencies": {
@@ -22,22 +22,22 @@
     "@angular/platform-browser": "~9.0.6",
     "@angular/platform-browser-dynamic": "~9.0.6",
     "@angular/router": "~9.0.6",
-    "@biesbjerg/ngx-translate-extract": "^6.0.4",
     "@ngx-translate/core": "^12.1.2",
     "@ngx-translate/http-loader": "^4.0.0",
     "@uirouter/angular": "^6.0.1",
     "@uirouter/core": "^6.0.4",
     "@uirouter/rx": "^0.6.5",
+    "lodash": "^4.17.15",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.900.7",
-    "@angular-devkit/build-ng-packagr": "~0.900.7",
     "@angular/cli": "~9.0.6",
     "@angular/compiler-cli": "~9.0.6",
     "@angular/language-service": "~9.0.6",
+    "@biesbjerg/ngx-translate-extract": "^6.0.4",
     "@types/node": "^12.11.1",
     "@types/jasmine": "~3.5.0",
     "@types/jasminewd2": "~2.0.3",
@@ -49,7 +49,6 @@
     "karma-coverage-istanbul-reporter": "~2.1.0",
     "karma-jasmine": "~2.0.1",
     "karma-jasmine-html-reporter": "^1.4.2",
-    "ng-packagr": "^9.0.0",
     "protractor": "~5.4.3",
     "ts-node": "~8.3.0",
     "tslint": "~5.18.0",
