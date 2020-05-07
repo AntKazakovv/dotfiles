@@ -25,6 +25,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    console.log('app');
     this.translate.onLangChange.pipe(takeUntil(this.$destroy)).subscribe((v) => {
       this.stateService.go(
         this.stateService.current.name,

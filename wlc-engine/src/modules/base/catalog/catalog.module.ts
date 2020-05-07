@@ -2,32 +2,35 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {UIRouterModule} from '@uirouter/angular';
 
-import {HomeComponent} from './home.component';
+import {CatalogComponent} from './catalog.component';
 import {BaseModule} from '../base.module';
 
 import {
   TranslateModule,
 } from '@ngx-translate/core';
 
+export const catalogRouterParams = {states: [
+  {
+    name: 'app.catalog',
+    url: '/catalog',
+    views: {
+      content: {
+        component: CatalogComponent,
+      }
+    }
+  }
+]};
+
 @NgModule({
-  declarations: [HomeComponent],
+  declarations: [CatalogComponent],
   imports: [
     CommonModule,
     TranslateModule,
-    UIRouterModule.forChild({states: [
-      {
-        name: 'app.home',
-        views: {
-          content: {
-            component: HomeComponent
-          }
-        }
-      }
-    ]}),
+    UIRouterModule.forChild(catalogRouterParams),
     BaseModule,
   ],
   exports: [
     TranslateModule,
   ]
 })
-export class HomeModule {}
+export class CatalogModule {}

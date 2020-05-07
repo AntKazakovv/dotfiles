@@ -16,7 +16,14 @@ const homeState: Ng2StateDeclaration = {
     loadChildren: () => import('../modules/base/home/home.module').then(m => m.HomeModule)
 };
 
+const catalogState: Ng2StateDeclaration = {
+    name: 'app.catalog.**',
+    url: '/catalog',
+    loadChildren: () => import('../modules/base/catalog/catalog.module').then(m => m.CatalogModule)
+};
+
 export const APP_STATES: Ng2StateDeclaration[] = [
     appState,
     homeState,
+    catalogState,
 ];
