@@ -1,7 +1,7 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {TranslateService} from '@ngx-translate/core';
-import {StateService} from '@uirouter/core';
+import {UIRouter, StateService} from '@uirouter/core';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {DataService} from '../../core/services';
@@ -17,15 +17,17 @@ export class AppComponent implements OnInit, OnDestroy {
 
   constructor(
     private data: DataService,
+    private router: UIRouter,
     private translate: TranslateService,
     private stateService: StateService,
   ) {
+    const currentLang = router.stateService.params?.locale || 'en';
     translate.addLangs(['en', 'ru']);
-    translate.setDefaultLang('en');
+    translate.setDefaultLang(currentLang);
+    translate.use(currentLang);
   }
 
   ngOnInit(): void {
-    console.log('app');
     this.translate.onLangChange.pipe(takeUntil(this.$destroy)).subscribe((v) => {
       this.stateService.go(
         this.stateService.current.name,
@@ -33,7 +35,7 @@ export class AppComponent implements OnInit, OnDestroy {
       );
     });
 
-    // this.data.request({
+   // this.data.request({
     //   name: 'bootstrap',
     //   system: 'main',
     //   type: 'GET',
