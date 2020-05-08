@@ -4,7 +4,8 @@ import {ServerModule, ServerTransferStateModule} from '@angular/platform-server'
 import {AppModule} from './app.module';
 import {UIView} from '@uirouter/angular';
 
-import {serverTranslateFactory, MissingTranslationService} from '../config/translate.loader';
+import {MissingTranslationService} from '../config/translate.loader';
+import {serverTranslateFactory} from '../config/server-translate.loader';
 
 import {
   TranslateModule,
