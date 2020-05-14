@@ -6,3 +6,9 @@ if [ -d ../wlc-engine ]; then
     fi
     ln -s ../wlc-engine/wlc-engine ./wlc-engine
 fi
+
+if [ -f roots/template/angular.html ]; then
+    rm -rf roots/template/angular.html
+fi
+
+ln -s ../static/dist/index.html roots/template/angular.html

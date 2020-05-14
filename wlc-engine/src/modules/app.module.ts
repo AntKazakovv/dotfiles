@@ -18,6 +18,15 @@ import {HttpLoaderFactory, MissingTranslationService} from '../config/translate.
 
 import {CoreModule} from './core/core.module';
 import {BaseModule} from './base/base.module';
+import {ServiceWorkerModule} from '@angular/service-worker';
+import {environment} from '../environments/environment';
+import {Subject} from 'rxjs';
+
+// export const registrationStrategy = () => {
+//   const test = new Subject();
+//   test.next();
+//   return test;
+// };
 
 @NgModule({
   declarations: [AppComponent],
@@ -43,6 +52,7 @@ import {BaseModule} from './base/base.module';
       },
     }),
     CoreModule,
+    ServiceWorkerModule.register('/static/dist/ngsw-worker.js', {enabled: environment.production}), // environment.production
   ],
   exports: [
     CoreModule,
