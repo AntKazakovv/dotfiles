@@ -23,7 +23,6 @@ const config: IPreloadConfig[] = [
 
 const wlcPreload: IPreloadResult = {};
 
-
 (window as any).wlcPreload = wlcPreload;
 config.forEach((request) => {
     const req = new Promise((resolve, reject) => {
