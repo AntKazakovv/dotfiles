@@ -5,6 +5,8 @@ import {AppComponent} from './base/app/app.component';
 import {APP_STATES} from '../config/app.states';
 import {routerConfigFn} from '../config/router.config';
 import {UIRouterModule, UIView} from '@uirouter/angular';
+import {APP_INITIALIZER} from '@angular/core';
+
 
 import {HttpClientModule, HttpClient} from '@angular/common/http';
 
@@ -21,12 +23,17 @@ import {BaseModule} from './base/base.module';
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {environment} from '../environments/environment';
 import {Subject} from 'rxjs';
+import {ConfigService} from './core/services';
 
 // export const registrationStrategy = () => {
 //   const test = new Subject();
 //   test.next();
 //   return test;
 // };
+
+export function loadConfig(config: ConfigService) {
+  return config.load();
+}
 
 @NgModule({
   declarations: [AppComponent],
@@ -53,6 +60,18 @@ import {Subject} from 'rxjs';
     }),
     CoreModule,
     ServiceWorkerModule.register('/static/dist/ngsw-worker.js', {enabled: environment.production}), // environment.production
+  ],
+  providers: [
+    ConfigService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: (config: ConfigService) => () => {
+        return config.load();
+      },
+      deps: [ConfigService],
+      multi: true
+    }
+
   ],
   exports: [
     CoreModule,

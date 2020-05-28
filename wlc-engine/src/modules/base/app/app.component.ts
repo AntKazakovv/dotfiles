@@ -4,7 +4,7 @@ import {TranslateService} from '@ngx-translate/core';
 import {UIRouter, StateService} from '@uirouter/core';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
-import {DataService} from '../../core/services';
+import {DataService, ConfigService} from '../../core/services';
 
 @Component({
   selector: 'wlc-app',
@@ -13,6 +13,7 @@ import {DataService} from '../../core/services';
 })
 export class AppComponent implements OnInit, OnDestroy {
 
+  public sections: string[] = [];
   private $destroy = new Subject<null>();
 
   constructor(
@@ -20,9 +21,10 @@ export class AppComponent implements OnInit, OnDestroy {
     private router: UIRouter,
     private translate: TranslateService,
     private stateService: StateService,
+    private configService: ConfigService,
   ) {
     const currentLang = router.stateService.params?.locale || 'en';
-    translate.addLangs(['en', 'ru']);
+    translate.addLangs(configService.get('languages').map((lang) => lang.code));
     translate.setDefaultLang(currentLang);
     translate.use(currentLang);
   }
@@ -35,14 +37,7 @@ export class AppComponent implements OnInit, OnDestroy {
       );
     });
 
-   // this.data.request({
-    //   name: 'bootstrap',
-    //   system: 'main',
-    //   type: 'GET',
-    //   url: '/api/v1/bootstrap',
-    // }).subscribe((data) => {
-    //   console.log(data);
-    // });
+    this.sections = this.configService.get('siteconfig').sections;
   }
 
   ngOnDestroy(): void {
