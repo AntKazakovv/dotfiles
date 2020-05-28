@@ -2,6 +2,7 @@ import {Ng2StateDeclaration} from '@uirouter/angular';
 import {StateHelper} from './state.helper';
 
 import {AppComponent} from '../modules/base/app/app.component';
+import {ConfigService} from '../modules/core/services';
 
 const appState: Ng2StateDeclaration = {
     name: 'app',
@@ -9,6 +10,16 @@ const appState: Ng2StateDeclaration = {
     redirectTo: 'app.home',
     onEnter: StateHelper.onStateEnter,
     component: AppComponent,
+    resolve: [
+        {
+            token: 'lang',
+            deps: [ConfigService],
+            resolveFn: async (config: ConfigService) => {
+                await config.ready;
+                return config.get('language');
+            }
+        }
+    ]
 };
 
 const homeState: Ng2StateDeclaration = {

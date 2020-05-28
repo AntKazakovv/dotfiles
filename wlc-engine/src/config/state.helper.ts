@@ -5,7 +5,7 @@ export class StateHelper {
         const params = trans.params();
         if (!params.locale) {
             trans.abort();
-            trans.router.stateService.go('app.home', {locale: 'en'});
+            trans.router.stateService.go('app.home', {locale: trans.injector().get('lang') || 'en'});
         }
     }
 }

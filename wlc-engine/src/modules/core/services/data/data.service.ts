@@ -30,6 +30,7 @@ export interface IRequestMethod {
     type: RestMethodType;
     cache?: number;
     params?: RequestParamsType;
+    mapFunc?: (data: any) => any;
 }
 
 @Injectable()
@@ -124,9 +125,15 @@ export class DataService {
                 }),
                 tap((data: IData) => {
                     this.flow$.next(data);
-                    if (method.type === 'GET' && method.cache > 0) {
+                    if (method.type === 'GET' && method.cache > 0 && data.status === 'success') {
                         // save to cache
                     }
+                }),
+                map((data: any) => {
+                    if (data.status === 'success' && typeof method.mapFunc === 'function') {
+                        data.data = method.mapFunc(data.data);
+                    }
+                    return data;
                 })
             );
     }
