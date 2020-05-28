@@ -19,10 +19,10 @@ const config: IPreloadConfig[] = [
         url: '/api/v1/games',
         flag: 'games'
     },
-
 ];
 
 const wlcPreload: IPreloadResult = {};
+
 
 (window as any).wlcPreload = wlcPreload;
 config.forEach((request) => {
