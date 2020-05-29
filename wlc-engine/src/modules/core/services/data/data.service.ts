@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
-import {map, tap} from 'rxjs/internal/operators';
-import {Observable, Subject, of} from 'rxjs';
+import {map, tap, switchMap} from 'rxjs/internal/operators';
+import {Observable, Subject, of, from} from 'rxjs';
 import {TranslateService} from '@ngx-translate/core';
 
 import {
@@ -30,7 +30,8 @@ export interface IRequestMethod {
     type: RestMethodType;
     cache?: number;
     params?: RequestParamsType;
-    mapFunc?: (data: any) => any;
+    preload?: string;
+    mapFunc?: (data: IData) => any;
 }
 
 @Injectable()
@@ -98,44 +99,50 @@ export class DataService {
         );
         const requestBody = method.type !== 'GET' ? JSON.stringify(params) || '' : undefined;
         const url = method.url;
-        return this.http.request(method.type, url,
-            {
-                params: requestParams,
-                body: requestBody,
-                withCredentials: true,
-            })
-            .pipe(
-                map((data: any) => {
-                    if (_get(data, 'status') && (_get(data, 'data') || _get(data, 'errors'))) {
-                        return data as IData;
-                    } else {
-                        return (data as any).errors ?
-                            {
-                                status: 'error',
-                                name: method.name,
-                                system: method.system,
-                                errors: data.errors as string[],
-                            } : {
-                                status: 'success',
-                                name: method.name,
-                                system: method.system,
-                                data,
-                            };
-                    }
-                }),
-                tap((data: IData) => {
-                    this.flow$.next(data);
-                    if (method.type === 'GET' && method.cache > 0 && data.status === 'success') {
-                        // save to cache
-                    }
-                }),
-                map((data: any) => {
-                    if (data.status === 'success' && typeof method.mapFunc === 'function') {
-                        data.data = method.mapFunc(data.data);
-                    }
+
+        return (
+            (method.preload
+                && method.type === 'GET'
+                && (window as any).wlcPreload?.hasOwnProperty(method.preload)) ?
+                from((window as any).wlcPreload[method.preload].request as Promise<IData>) :
+                this.http.request<IData>(method.type, url,
+                    {
+                        params: requestParams,
+                        body: requestBody,
+                        withCredentials: true,
+                    })
+        ).pipe(
+            map((data: IData) => {
+                if (_get(data, 'status') && (_get(data, 'data') || _get(data, 'errors'))) {
                     return data;
-                })
-            );
+                } else {
+                    return data.errors ?
+                        {
+                            status: 'error',
+                            name: method.name,
+                            system: method.system,
+                            errors: data.errors as string[],
+                        } : {
+                            status: 'success',
+                            name: method.name,
+                            system: method.system,
+                            data,
+                        };
+                }
+            }),
+            tap((data: IData) => {
+                this.flow$.next(data);
+                if (method.type === 'GET' && method.cache > 0 && data.status === 'success') {
+                    // save to cache
+                }
+            }),
+            map((data: any) => {
+                if (data.status === 'success' && typeof method.mapFunc === 'function') {
+                    data.data = method.mapFunc(data.data);
+                }
+                return data;
+            })
+        );
     }
 
     private socketConnect(): void {

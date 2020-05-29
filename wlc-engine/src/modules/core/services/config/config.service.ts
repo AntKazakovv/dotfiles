@@ -18,21 +18,15 @@ export class ConfigService {
   ) {
   }
 
-  public async load(): Promise<AppConfigModel> {
-
-    if ((window as any).wlcPreload?.bootstrap) {
-      const response: IData = await (window as any).wlcPreload.bootstrap.request;
-      return this.prepareData(response);
-    } else {
-      return this.data.request({
-        name: 'botostrap',
-        system: 'config',
-        url: '/api/v1/bootstrap',
-        type: 'GET',
-      }).pipe(map((response) => {
-        return this.prepareData(response);
-      })).toPromise();
-    }
+  public async load(): Promise<any> {
+    return this.data.request({
+      name: 'botostrap',
+      system: 'config',
+      url: '/api/v1/bootstrap',
+      type: 'GET',
+      preload: 'bootstrap',
+      mapFunc: (res) => this.prepareData(res),
+    }).toPromise();
   }
 
   public get(key: string) {
@@ -40,11 +34,8 @@ export class ConfigService {
   }
 
   protected prepareData(response: IData): AppConfigModel {
-    if (response.status === 'success') {
-      this.$data = new AppConfigModel(response.data);
-      this.$resolve();
-      return this.$data;
-    }
-    return;
+    this.$data = new AppConfigModel(response);
+    this.$resolve();
+    return this.$data;
   }
 }
