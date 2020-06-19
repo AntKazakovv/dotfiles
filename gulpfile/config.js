@@ -8,6 +8,7 @@ module.exports = function config(root) {
             nodeModules: `${root}/node_modules`,
             engine: `${root}/node_modules/@egamings/wlc-engine`,
             engineLink: `${root}/wlc-engine`,
+            inline: `${root}/wlc-engine/inline`,
             engineDev: `${root}/../wlc-engine`,
             src: root + '/src',
             temp: root + '/temp',
