@@ -11,25 +11,25 @@
         }
       },
       "root": "wlc-engine",
-      "sourceRoot": "wlc-engine/src",
+      "sourceRoot": "src",
       "prefix": "wlc",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/wlc-engine/dist",
-            "index": "wlc-engine/src/index.html",
-            "main": "wlc-engine/src/main.ts",
-            "polyfills": "wlc-engine/src/polyfills.ts",
-            "tsConfig": "wlc-engine/tsconfig.app.json",
+            "outputPath": "dist/",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.engine.json",
             "aot": true,
             "preserveSymlinks": true,
             "assets": [
-              "wlc-engine/src/favicon.ico",
-              "wlc-engine/src/assets"
+              "src/favicon.ico",
+              "src/assets"
             ],
             "styles": [
-              "wlc-engine/src/styles.scss"
+              "src/styles.scss"
             ],
             "scripts": []
           },
@@ -37,8 +37,8 @@
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "wlc-engine/src/environments/environment.ts",
-                  "with": "wlc-engine/src/environments/environment.prod.ts"
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
