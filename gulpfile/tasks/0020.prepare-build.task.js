@@ -40,8 +40,10 @@ module.exports = function buildTask() {
     const makeWlcEngineSymlink = () => {
         try {
             fs.lstatSync(this.params.paths.engineLink);
+            fs.unlinkSync(this.params.paths.engineLink);
         } catch {
-            fs.symlinkSync('./node_modules/@egamings/wlc-engine/src', this.params.paths.engineLink);
+            //
         };
+        fs.symlinkSync('./node_modules/@egamings/wlc-engine/src', this.params.paths.engineLink);
     }
 }
