@@ -15,6 +15,9 @@ module.exports = function watchTask() {
     };
 
     const distWatcher = (cb) => {
+
+        console.log(series('watch:inline')());
+
         const watcher = watch(
             watchList,
             {

@@ -41,12 +41,16 @@ module.exports = function buildTask() {
         'prepare:dev',
         parallel(
             'watch',
-            'build:dev'
-        )
+            'build:dev',
+        ),
     ));
 
     task('build', series(
         'build:prepare',
-        'build:prod'
+        'build:prod',
+        parallel(
+            'build:inline',
+            'build:sw-fix'
+        )
     ));
 }
