@@ -20,7 +20,8 @@ module.exports = function config(root) {
             languages: root + '/src/languages',
             languagesDist: root + '/roots/static/languages',
             localLanguagesDist: root + '/src/static',
-            indexFile: `${root}/roots/template/angular.html`
+            indexFile: `${root}/roots/template/angular.html`,
+            srcIndexFile: `${root}/src/index.html`,
         },
         tmpFileName: root + '/temp/tmp_XXXXXXXXX',
         translationDirs: {
