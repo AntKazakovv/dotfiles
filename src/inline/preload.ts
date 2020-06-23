@@ -4,10 +4,7 @@ interface IPreloadConfig {
 }
 
 interface IPreloadResult {
-    [key: string]: {
-        request: Promise<any>,
-        result: any,
-    };
+    [key: string]: Promise<unknown>;
 }
 
 const config: IPreloadConfig[] = [
@@ -27,12 +24,8 @@ const wlcPreload: IPreloadResult = {};
 config.forEach((request) => {
     const req = new Promise((resolve, reject) => {
         fetch(request.url).then((res) => res.json()).then((result) => {
-            wlcPreload[request.flag].result = result;
             resolve(result);
         });
     });
-    wlcPreload[request.flag] = {
-        request: req,
-        result: null,
-    };
+    wlcPreload[request.flag] = req;
 });

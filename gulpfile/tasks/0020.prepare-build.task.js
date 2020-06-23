@@ -7,6 +7,7 @@ module.exports = function buildTask() {
         makeTempDirectory();
         makeIndexHtmlSymlink();
         makeWlcEngineSymlink();
+        makeSrcIndexHtmlSymlink();
 
         cb();
     });
@@ -25,7 +26,7 @@ module.exports = function buildTask() {
         }
     }
 
-    // Create symlink to the index.html file
+    // Create symlink to the index.html file in the dist directory
     const makeIndexHtmlSymlink = () => {
         try {
             fs.lstatSync(this.params.paths.indexFile);
@@ -36,6 +37,18 @@ module.exports = function buildTask() {
         }
     }
 
+    // Create symlink to the index.html file in the src directory
+    const makeSrcIndexHtmlSymlink = () => {
+        if (fs.existsSync(this.params.paths.srcIndexFile)) {
+            return;
+        }
+        try {
+            fs.lstatSync(this.params.paths.srcIndexFile);
+        } catch {
+            fs.symlinkSync('../wlc-engine/index.html', this.params.paths.srcIndexFile);
+        }
+    }
+
     // Create symlink to the wlc-engine directory
     const makeWlcEngineSymlink = () => {
         try {
@@ -43,7 +56,7 @@ module.exports = function buildTask() {
             fs.unlinkSync(this.params.paths.engineLink);
         } catch {
             //
-        };
+        }
         fs.symlinkSync('./node_modules/@egamings/wlc-engine/src', this.params.paths.engineLink);
     }
 }
