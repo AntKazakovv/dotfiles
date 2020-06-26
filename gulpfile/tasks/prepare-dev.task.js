@@ -1,7 +1,7 @@
 const {task} = require('gulp'),
     fs = require('fs');
 
-module.exports = function buildTask() {
+function buildTask() {
     task('prepare:dev', (cb) => {
         this.dev = true;
 
@@ -18,3 +18,6 @@ module.exports = function buildTask() {
         cb();
     });
 }
+
+buildTask.order = 30;
+module.exports = buildTask;

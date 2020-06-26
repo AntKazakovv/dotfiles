@@ -1,6 +1,6 @@
 const {task, series, parallel} = require('gulp');
 
-module.exports = function buildTask() {
+function buildTask() {
     task('build:prepare', series(
         parallel(
             'clean:temp',
@@ -11,6 +11,18 @@ module.exports = function buildTask() {
             'messages'
         ),
     ));
+
+    task('engineBuild:prepare', series(
+        parallel(
+            'clean:temp',
+            'clean:dist',
+        ),
+        'enginePrepare:build',
+        parallel(
+            'engineMessages'
+        ),
+    ));
+
 
     task('build:dev', async (cb) => {
         process.on('SIGINT', () => {
@@ -36,6 +48,18 @@ module.exports = function buildTask() {
         cb();
     });
 
+    task('engineBuild:prod', async (cb) => {
+        process.on('SIGINT', () => {
+            cb && cb();
+            process.exit();
+        });
+        await this.execShell('npm run build', false, {
+            killOthers: ['success', 'failure'],
+            raw: true
+        });
+        cb();
+    });
+
     task('dev', series(
         'build:prepare',
         'prepare:dev',
@@ -53,4 +77,14 @@ module.exports = function buildTask() {
             'build:sw-fix'
         )
     ));
+
+    task('engineBuild', series(
+        'scssLint',
+        'eslint',
+        // 'test',
+        'engineBuild:prepare',
+        'engineBuild:prod'
+    ));
 }
+buildTask.order = 100;
+module.exports = buildTask
