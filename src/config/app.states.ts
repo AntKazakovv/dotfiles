@@ -1,8 +1,23 @@
 import {Ng2StateDeclaration} from '@uirouter/angular';
 import {StateHelper} from './state.helper';
 
-import {AppComponent} from '../modules/base/app/app.component';
-import {ConfigService} from '../modules/core/services';
+import {AppComponent} from 'wlc-engine/modules/base/app/app.component';
+import {ConfigService} from 'wlc-engine/modules/core/services';
+import {LayoutComponent} from 'wlc-engine/modules/core/components/layout/layout.component';
+
+
+import {
+    map as _map,
+} from 'lodash';
+
+const states = {
+    'app.home': {
+        url: '',
+    },
+    'app.catalog': {
+        url: '/catalog',
+    }
+};
 
 const appState: Ng2StateDeclaration = {
     name: 'app',
@@ -22,19 +37,13 @@ const appState: Ng2StateDeclaration = {
     ]
 };
 
-const homeState: Ng2StateDeclaration = {
-    name: 'app.home.**',
-    loadChildren: () => import('../modules/base/home/home.module').then(m => m.HomeModule)
-};
-
-const catalogState: Ng2StateDeclaration = {
-    name: 'app.catalog.**',
-    url: '/catalog',
-    loadChildren: () => import('../modules/base/catalog/catalog.module').then(m => m.CatalogModule)
-};
-
 export const APP_STATES: Ng2StateDeclaration[] = [
     appState,
-    homeState,
-    catalogState,
+    ..._map(states, (state, key) => {
+        return {
+            name: key,
+            component: LayoutComponent,
+            ...state
+        };
+    }),
 ];

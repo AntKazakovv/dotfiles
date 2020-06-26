@@ -1,7 +1,7 @@
 const {task, series} = require('gulp');
 
 function defaultTask() {
-    task('default', series('build'));
+    task('default', series('dist'));
 }
 
 module.exports = defaultTask;
