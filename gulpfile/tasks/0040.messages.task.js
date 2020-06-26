@@ -12,7 +12,7 @@ module.exports = function messagesTask() {
     task('message:temp_front_po', (cb) => {  // Done
         const commands = _.keys(this.params.locales).map(locale => {
             const poFilePath = this.params.paths.src + `/languages/frontend/${locale}.po`,
-                enginePoFilePath = this.params.paths.theme + `/src/languages/${locale}.po`;
+                enginePoFilePath = this.params.paths.engineLink + `/languages/${locale}.po`;
 
             return `msgcat --force-po --lang=${locale} ` +
                 `${(fs.existsSync(poFilePath)) ? `--use-first ${poFilePath}` : ''} ` +

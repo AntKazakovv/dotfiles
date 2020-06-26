@@ -4,6 +4,11 @@ import {CommonModule} from '@angular/common';
 import {LogoComponent} from './logo/logo.component';
 import {LanguageSelectorComponent} from './language-selector/language-selector.component';
 
+export const components = {
+    logo: LogoComponent,
+    'language-selector': LanguageSelectorComponent,
+};
+
 @NgModule({
     declarations: [
         LogoComponent,

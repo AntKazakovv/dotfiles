@@ -45,7 +45,7 @@ module.exports = function buildTask() {
         ),
     ));
 
-    task('build', series(
+    task('dist', series(
         'build:prepare',
         'build:prod',
         parallel(
