@@ -1,8 +1,11 @@
 const gulpConfig = {};
 
 
-module.exports = function config(root) {
+module.exports = function config(root, bundleType) {
+    const isEngineBundle = bundleType === 'engine';
+
     return {
+        isEngineBundle,
         paths: {
             root: root,
             nodeModules: `${root}/node_modules`,
@@ -14,7 +17,7 @@ module.exports = function config(root) {
             temp: root + '/temp',
             static: root + '/roots/static',
             vendor: root + '/vendor',
-            dist: root + '/roots/static/dist',
+            dist: root + (isEngineBundle ? '/dist' : '/roots/static/dist'),
             locale: root + '/roots/locale',
             localejs: root + '/roots/static/po',
             languages: root + '/src/languages',

@@ -7,7 +7,6 @@ module.exports = function buildTask() {
         makeTempDirectory();
         makeIndexHtmlSymlink();
         makeWlcEngineSymlink();
-        makeSrcIndexHtmlSymlink();
 
         cb();
     });
@@ -59,4 +58,24 @@ module.exports = function buildTask() {
         }
         fs.symlinkSync('./node_modules/@egamings/wlc-engine/src', this.params.paths.engineLink);
     }
+
+    task('prepare:build', (cb) => {
+        makeDistDirectory();
+        makeTempDirectory();
+        makeIndexHtmlSymlink();
+        makeWlcEngineSymlink();
+        makeSrcIndexHtmlSymlink();
+
+        cb();
+    });
+
+    task('enginePrepare:build', (cb) => {
+        makeDistDirectory();
+        makeTempDirectory();
+
+        cb();
+    });
 }
+
+preBuildTask.order = 10;
+module.exports = preBuildTask;

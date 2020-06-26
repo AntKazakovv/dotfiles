@@ -1,7 +1,8 @@
-const {watch, series, task} = require('gulp'),
-    liveReload = require('gulp-livereload');
+const {watch, series, task} = require('gulp');
+const liveReload = require('gulp-livereload');
 
-module.exports = function watchTask() {
+function watchTask() {
+
     const watchList = [
         `${this.params.paths.dist}/*`,
     ];
@@ -35,6 +36,9 @@ module.exports = function watchTask() {
     });
 
     task('watch', (cb) => {
+        if(this.params.isEngineBundle) {
+            return
+        }
 
         this.execShell(
             'LRPID=$(fuser -vn tcp 35729 | awk \'{print $1}\'); if [ $LRPID ]; then kill -9 $LRPID; fi',
@@ -49,3 +53,6 @@ module.exports = function watchTask() {
 
     });
 }
+
+watchTask.order = 60;
+module.exports = watchTask;

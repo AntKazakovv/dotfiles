@@ -1,15 +1,19 @@
 const {task} = require('gulp');
 
-module.exports = function postBuildTask() {
-    task('build:sw-fix', async (cb) => {
+function testsTask() {
+    task('test', async (cb) => {
         process.on('SIGINT', () => {
             cb && cb();
             process.exit();
         });
-        await this.execShell('npm run sw-fix', false, {
+
+        await this.execShell('npm run test', false, {
             killOthers: ['success', 'failure'],
-            raw: true
+            raw: true,
         });
         cb();
-    });
-};
+    })
+}
+
+testsTask.order = 6;
+module.exports = testsTask;

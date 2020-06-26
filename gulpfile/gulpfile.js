@@ -11,18 +11,21 @@ const
 
 class gulpTask {
 
-    constructor(rootDir) {
-        this.params = config(rootDir);
+    constructor(rootDir, bundleType = 'project') {
+        this.params = config(rootDir, bundleType);
         process.setMaxListeners(0);
-
         this.registerTasks();
     }
 
     registerTasks() {
-        glob.sync(`${__dirname}/tasks/*.js`).forEach((file) => {
-            const task = require(path.resolve(file));
+        glob
+          .sync(`${__dirname}/tasks/*.js`)
+          .map((file) => require(path.resolve(file)))
+          .sort((a, b) => a.order - b.order)
+          .forEach((task) => {
+            console.log(task);
             task.apply(this);
-        });
+          });
     }
 
     deleteFolderRecursive(path) {
@@ -57,7 +60,6 @@ class gulpTask {
             });
             options.outputStream = writable;
         }
-
         return concurrently([...messages], options);
     }
 
