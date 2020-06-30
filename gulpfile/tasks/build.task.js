@@ -8,7 +8,7 @@ function buildTask() {
         ),
         'prepare:build',
         parallel(
-            'messages'
+            //'messages'
         ),
     ));
 
