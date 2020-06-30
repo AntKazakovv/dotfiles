@@ -1,7 +1,7 @@
-import {ILayoutsConfig} from 'wlc-engine/interfaces';
+import {ILayoutsConfig} from './layouts.interface';
 
 export const layouts: ILayoutsConfig = {
-    app: {
+    'app': {
         sections: {
             header: {
                 components: [

@@ -1,25 +1,29 @@
 import {Injectable} from '@angular/core';
 import {DataService, IData} from '../data/data.service';
 import {AppConfigModel} from './app-config.model';
-import {layouts} from 'wlc-engine/config/layout.config';
-import {get} from 'lodash';
+import * as wlcConfig from 'wlc-engine/../config/frontend/99.index';
+
+import {
+    merge as _merge,
+    assign as _assign
+} from 'lodash';
 
 @Injectable()
 export class ConfigService {
 
-    public ready: Promise<void> = new Promise((resolve) => {
+    public ready: Promise<void> = new Promise((resolve: () => void): void => {
         this.$resolve = resolve;
     });
 
-    private $data: AppConfigModel;
-    private $resolve: any;
+    public appConfig: AppConfigModel;
+    private $resolve: () => void;
 
     constructor(
         private data: DataService
     ) {
     }
 
-    public async load(): Promise<any> {
+    public load(): Promise<IData> {
         return this.data.request({
             name: 'botostrap',
             system: 'config',
@@ -30,18 +34,15 @@ export class ConfigService {
         }).toPromise();
     }
 
-    public get(key: string) {
-        return get(this.$data, key);
-    }
-
     protected prepareData(response: IData): AppConfigModel {
-        this.$data = new AppConfigModel(response);
+        this.appConfig = new AppConfigModel(response);
         this.addSiteConfig();
         this.$resolve();
-        return this.$data;
+        return this.appConfig;
     }
 
     protected addSiteConfig(): void {
-        this.$data.siteconfig.layouts = layouts;
+        _assign(this.appConfig, wlcConfig);
+        console.log(this.appConfig);
     }
 }

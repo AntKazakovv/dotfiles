@@ -11,6 +11,5 @@ export class MainMenuComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        console.log(this.params);
     }
 }

@@ -1,24 +1,19 @@
 import {Injectable} from '@angular/core';
-import {
-    ILayoutsConfig,
-    ILayoutStateConfig,
-    ILayoutSectionConfig,
-    ILayoutComponent,
-} from 'wlc-engine/interfaces';
-import {ConfigService} from 'wlc-engine/modules/core/services/config/config.service';
 
 import {
     cloneDeep as _cloneDeep,
+    each as _each,
     extend as _extend,
-    mergeWith as _mergeWith,
-    isArray as _isArray,
     get as _get,
+    isArray as _isArray,
+    isString as _isString,
+    keys as _keys,
+    mergeWith as _mergeWith,
     reduce as _reduce,
     union as _union,
-    isString as _isString,
-    each as _each,
-    keys as _keys,
 } from 'lodash';
+import {ILayoutComponent, ILayoutsConfig, ILayoutSectionConfig, ILayoutStateConfig,} from 'wlc-engine/interfaces';
+import {ConfigService} from 'wlc-engine/modules/core/services/config/config.service';
 
 @Injectable({
     providedIn: 'root'
@@ -27,20 +22,19 @@ export class LayoutService {
 
     private layouts: ILayoutsConfig;
 
-    private components: {[key: string]: {
-        [key: string]: unknown
-    }} = {};
+    private components: {
+        [key: string]: {
+            [key: string]: unknown
+        }
+    } = {};
 
     constructor(
         private config: ConfigService,
     ) {
-        config.ready.then(() => {
-            this.layouts = this.config.get('siteconfig.layouts');
-        });
+        this.layouts = this.config.appConfig.siteconfig.layouts;
     }
 
     public async getLayoutConfig(state: string): Promise<ILayoutStateConfig> {
-        await this.config.ready;
         if (this.layouts.hasOwnProperty(state)) {
             if (this.layouts[state].extends) {
                 return _cloneDeep(_extend(
@@ -59,7 +53,7 @@ export class LayoutService {
     }
 
     public async getAllSection(): Promise<string[]> {
-        await this.config.ready;
+        // await this.config.ready;
         return _reduce(this.layouts, (res, state) => {
             return _union(res, _keys(state.sections));
         }, []);

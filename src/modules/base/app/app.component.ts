@@ -6,7 +6,7 @@ import {takeUntil} from 'rxjs/operators';
 import {ConfigService, LayoutService} from '../../core/services';
 
 @Component({
-    selector: 'wlc-app',
+    selector: 'app-component',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css']
 })
@@ -23,7 +23,7 @@ export class AppComponent implements OnInit, OnDestroy {
         private layoutService: LayoutService,
     ) {
         const currentLang = router.stateService.params?.locale || 'en';
-        translate.addLangs(configService.get('languages').map((lang) => lang.code));
+        translate.addLangs(configService.appConfig.languages.map((lang) => lang.code));
         translate.setDefaultLang(currentLang);
         translate.use(currentLang);
     }
