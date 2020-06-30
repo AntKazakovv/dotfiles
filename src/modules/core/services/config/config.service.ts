@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {DataService, IData} from '../data/data.service';
 import {AppConfigModel} from './app-config.model';
-import * as wlcConfig from 'wlc-engine/../config/frontend/99.index';
+import * as wlcConfig from 'wlc-config/99.index';
 
 import {
     merge as _merge,

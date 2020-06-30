@@ -4,6 +4,9 @@
         "paths": {
             "wlc-engine/*": [
                 "./wlc-engine/*"
+            ],
+            "wlc-config/*": [
+                "./config/frontend/*"
             ]
         }
     },
