@@ -1,7 +1,7 @@
 const {task} = require('gulp'),
     fs = require('fs');
 
-function cleanTask() {
+module.exports = function cleanTask() {
     task('clean:temp', (cb) => {
         this.deleteFolderRecursive(this.params.paths.temp);
         fs.mkdirSync(this.params.paths.temp);
@@ -14,6 +14,3 @@ function cleanTask() {
         cb();
     });
 }
-
-cleanTask.order = 10;
-module.exports = cleanTask;

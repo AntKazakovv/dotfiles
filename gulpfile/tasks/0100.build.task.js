@@ -1,6 +1,6 @@
 const {task, series, parallel} = require('gulp');
 
-function buildTask() {
+module.exports = function buildTask() {
     task('build:prepare', series(
         parallel(
             'clean:temp',
@@ -86,5 +86,3 @@ function buildTask() {
         'engineBuild:prod'
     ));
 }
-buildTask.order = 100;
-module.exports = buildTask

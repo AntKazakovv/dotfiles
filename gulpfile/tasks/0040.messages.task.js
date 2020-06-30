@@ -8,7 +8,7 @@ const {task, src, dest, series} = require('gulp'),
     tmp = require('tmp')
 ;
 
-function messagesTask() {
+module.exports = function messagesTask() {
     task('message:temp_front_po', (cb) => {  // Done
         const commands = _.keys(this.params.locales).map(locale => {
             const poFilePath = this.params.paths.src + `/languages/frontend/${locale}.po`,
@@ -228,6 +228,3 @@ function messagesTask() {
         'clean:temp',
     ));
 }
-
-messagesTask.order = 40;
-module.exports = messagesTask;

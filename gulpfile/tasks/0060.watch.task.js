@@ -1,7 +1,7 @@
 const {watch, series, task} = require('gulp');
 const liveReload = require('gulp-livereload');
 
-function watchTask() {
+module.exports = function watchTask() {
 
     const watchList = [
         `${this.params.paths.dist}/*`,
@@ -53,6 +53,3 @@ function watchTask() {
 
     });
 }
-
-watchTask.order = 60;
-module.exports = watchTask;

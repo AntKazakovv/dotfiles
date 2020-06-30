@@ -1,19 +1,15 @@
 const {task} = require('gulp');
 
-function eslintTask() {
-    task('eslint', async (cb) => {
+module.exports = function postBuildTask() {
+    task('build:sw-fix', async (cb) => {
         process.on('SIGINT', () => {
             cb && cb();
             process.exit();
         });
-
-        await this.execShell('npm run lint', false, {
+        await this.execShell('npm run sw-fix', false, {
             killOthers: ['success', 'failure'],
-            raw: true,
+            raw: true
         });
         cb();
-    })
+    });
 }
-
-eslintTask.order = 5;
-module.exports = eslintTask;

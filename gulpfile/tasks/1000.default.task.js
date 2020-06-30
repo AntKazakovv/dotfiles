@@ -1,6 +1,6 @@
 const {task, series} = require('gulp');
 
-function defaultTask() {
+module.exports = function defaultTask() {
     if(this.params.isEngineBundle) {
         task('default', series('engineBuild'));
     } else {
@@ -8,6 +8,3 @@ function defaultTask() {
     }
 
 }
-
-defaultTask.order = 1000;
-module.exports = defaultTask;

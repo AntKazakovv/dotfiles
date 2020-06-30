@@ -5,7 +5,7 @@ const combine = require('stream-combiner2').obj;
 const through2 = require('through2').obj;
 const fs = require('fs');
 
-function stylelintTask() {
+module.exports = function stylelintTask() {
   task('scssLint', () => {
 
     let stylelintResults = {};
@@ -45,6 +45,3 @@ function stylelintTask() {
       ))
   });
 }
-
-stylelintTask.order = 1
-module.exports = stylelintTask

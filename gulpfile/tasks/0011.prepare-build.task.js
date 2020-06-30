@@ -1,7 +1,7 @@
 const {task} = require('gulp'),
     fs = require('fs');
 
-function preBuildTask() {
+module.exports = function preBuildTask() {
     task('prepare:build', (cb) => {
         makeDistDirectory();
         makeTempDirectory();
@@ -76,6 +76,3 @@ function preBuildTask() {
         cb();
     });
 }
-
-preBuildTask.order = 10;
-module.exports = preBuildTask;

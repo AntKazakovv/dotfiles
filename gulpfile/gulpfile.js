@@ -21,9 +21,7 @@ class gulpTask {
         glob
           .sync(`${__dirname}/tasks/*.js`)
           .map((file) => require(path.resolve(file)))
-          .sort((a, b) => a.order - b.order)
           .forEach((task) => {
-            console.log(task);
             task.apply(this);
           });
     }

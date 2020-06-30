@@ -28,7 +28,7 @@ const config = {
     }
 };
 
-function inlineTask() {
+module.exports = function inlineTask() {
     task('build:inline', (cb) => {
         return src(`${this.params.paths.inline}/*.ts`)
             .pipe(webpack(config))
@@ -46,6 +46,3 @@ function inlineTask() {
         cb();
     });
 }
-
-inlineTask.order = 50;
-module.exports = inlineTask;
