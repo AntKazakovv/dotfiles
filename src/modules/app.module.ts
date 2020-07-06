@@ -12,7 +12,7 @@ import {routerConfigFn} from '../config/router.config';
 
 import {HttpLoaderFactory, MissingTranslationService} from '../config/translate.loader';
 import {environment} from '../environments/environment';
-import {AppComponent} from './base/app/app.component';
+import {AppComponent} from '../app/app.component';
 
 import {CoreModule} from './core/core.module';
 import {ConfigService} from './core/services';

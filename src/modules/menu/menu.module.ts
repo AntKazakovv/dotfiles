@@ -5,7 +5,7 @@ import {UIRouterModule} from '@uirouter/angular';
 import {TranslateModule} from '@ngx-translate/core';
 
 export const components = {
-    mainMenu: MainMenuComponent,
+    'eng-main-menu': MainMenuComponent,
 };
 
 @NgModule({

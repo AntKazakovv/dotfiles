@@ -29,9 +29,9 @@ export class LayoutService {
     } = {};
 
     constructor(
-        private config: ConfigService,
+        private configService: ConfigService,
     ) {
-        this.layouts = this.config.appConfig.siteconfig.layouts;
+        this.layouts = _get(this.configService, 'appConfig.$layouts');
     }
 
     public async getLayoutConfig(state: string): Promise<ILayoutStateConfig> {

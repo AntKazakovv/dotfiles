@@ -5,7 +5,7 @@ import {LogoComponent} from './logo/logo.component';
 import {LanguageSelectorComponent} from './language-selector/language-selector.component';
 
 export const components = {
-    'logo': LogoComponent,
+    'eng-logo': LogoComponent,
     'wlc-language-selector': LanguageSelectorComponent,
 };
 

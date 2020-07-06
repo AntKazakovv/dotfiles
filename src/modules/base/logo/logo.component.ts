@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'wlc-logo',
+  selector: '[eng-logo]',
   templateUrl: './logo.component.html',
   styleUrls: ['./logo.component.css']
 })

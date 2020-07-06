@@ -3,10 +3,10 @@ import {TranslateService} from '@ngx-translate/core';
 import {UIRouter, StateService} from '@uirouter/core';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
-import {ConfigService, LayoutService} from '../../core/services';
+import {ConfigService, LayoutService} from '../modules/core/services';
 
 @Component({
-    selector: 'app-component',
+    selector: '[app-component]',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css']
 })

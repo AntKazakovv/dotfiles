@@ -5,7 +5,7 @@ import {ILayoutStateConfig, ILayoutComponent} from 'wlc-engine/interfaces';
 import {TransitionService} from '@uirouter/core';
 
 @Component({
-    selector: 'wlc-layout',
+    selector: '[eng-layout]',
     templateUrl: './layout.component.html',
     styleUrls: ['./layout.component.scss']
 })

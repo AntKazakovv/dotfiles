@@ -7,9 +7,9 @@ module.exports = function buildTask() {
             'clean:dist',
         ),
         'prepare:build',
-        // parallel(
-        //     'messages'
-        // ),
+        parallel(
+            'messages'
+        ),
     ));
 
     task('engineBuild:prepare', series(

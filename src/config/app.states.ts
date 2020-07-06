@@ -1,7 +1,7 @@
 import {Ng2StateDeclaration} from '@uirouter/angular';
 import {StateHelper} from './state.helper';
 
-import {AppComponent} from 'wlc-engine/modules/base/app/app.component';
+import {AppComponent} from 'wlc-engine/app/app.component';
 import {ConfigService} from 'wlc-engine/modules/core/services';
 import {LayoutComponent} from 'wlc-engine/modules/core/components/layout/layout.component';
 

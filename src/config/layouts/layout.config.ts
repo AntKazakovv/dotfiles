@@ -1,10 +1,13 @@
 import {ILayoutsConfig} from './layouts.interface';
 
-export const layouts: ILayoutsConfig = {
+export const $layouts: ILayoutsConfig = {
     'app': {
         sections: {
             header: {
                 components: [
+                    {
+                        name: 'base.logo'
+                    },
                     {
                         name: 'base.language-selector'
                     },
@@ -29,20 +32,17 @@ export const layouts: ILayoutsConfig = {
             header: {
                 components: [
                     {
-                        name: 'base.logo'
+                        name: 'base.eng-logo'
                     },
                     {
-                        name: 'menu.mainMenu',
-                        params: {
-                            test: true,
-                        }
+                        name: 'base.language-selector'
                     }
-                ],
+                ]
             },
-            footer: {
+            content: {
                 components: [
                     {
-                        name: 'menu.mainMenu'
+                        name: 'menu.eng-main-menu'
                     }
                 ]
             }
@@ -51,23 +51,10 @@ export const layouts: ILayoutsConfig = {
     'app.catalog': {
         extends: 'app.home',
         sections: {
-            header: {
-                components: [
-                    {
-                        name: 'menu.mainMenu'
-                    },
-                    {
-                        name: 'base.language-selector'
-                    },
-                    {
-                        name: 'base.logo'
-                    },
-                ],
-            },
             content: {
                 components: [
                     {
-                        name: 'menu.mainMenu'
+                        name: 'menu.eng-main-menu'
                     }
                 ]
             },
