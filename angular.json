@@ -12,7 +12,7 @@
             },
             "root": "wlc-engine",
             "sourceRoot": "src",
-            "prefix": "wlc",
+            "prefix": "eng",
             "architect": {
                 "build": {
                     "builder": "@angular-devkit/build-angular:browser",
