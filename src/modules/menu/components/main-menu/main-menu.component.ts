@@ -1,7 +1,7 @@
 import {Component, OnInit, Input, Inject} from '@angular/core';
 
 @Component({
-    selector: '[eng-main-menu]',
+    selector: '[wlc-main-menu]',
     templateUrl: './main-menu.component.html',
     styleUrls: ['./main-menu.component.scss']
 })

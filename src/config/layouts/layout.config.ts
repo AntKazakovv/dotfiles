@@ -42,7 +42,7 @@ export const $layouts: ILayoutsConfig = {
             content: {
                 components: [
                     {
-                        name: 'menu.eng-main-menu'
+                        name: 'menu.wlc-main-menu'
                     }
                 ]
             }
