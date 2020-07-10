@@ -2,11 +2,11 @@ import {Injectable} from '@angular/core';
 import {DataService, IData} from '../data/data.service';
 import {AppConfigModel} from './app-config.model';
 import * as appConfig from 'wlc-config/index';
-import * as engConfig from 'wlc-engine/config/default.config';
+import * as wlcConfig from 'wlc-engine/config/default.config';
+import {GlobalHelper} from 'wlc-engine/helpers/global.helper';
 
 import {
-    merge as _merge,
-    assign as _assign
+    mergeWith as _mergeWith,
 } from 'lodash';
 
 @Injectable()
@@ -26,7 +26,7 @@ export class ConfigService {
 
     public load(): Promise<IData> {
         return this.data.request({
-            name: 'botostrap',
+            name: 'bootstrap',
             system: 'config',
             url: '/api/v1/bootstrap',
             type: 'GET',
@@ -43,6 +43,8 @@ export class ConfigService {
     }
 
     protected addSiteConfig(): void {
-        _merge(this.appConfig, engConfig, appConfig);
+        _mergeWith(this.appConfig, wlcConfig, (target, source) => (source.replaceConfig) ? source : undefined);
+        _mergeWith(this.appConfig, appConfig, (target, source) => (source.replaceConfig) ? source : undefined);
+        GlobalHelper.deepFreeze(this.appConfig);
     }
 }

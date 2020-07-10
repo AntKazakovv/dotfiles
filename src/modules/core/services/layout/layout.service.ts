@@ -12,7 +12,7 @@ import {
     reduce as _reduce,
     union as _union,
 } from 'lodash';
-import {ILayoutComponent, ILayoutsConfig, ILayoutSectionConfig, ILayoutStateConfig,} from 'wlc-engine/interfaces';
+import {ILayoutComponent, ILayoutsConfig, ILayoutSectionConfig, ILayoutStateConfig} from 'wlc-engine/interfaces';
 import {ConfigService} from 'wlc-engine/modules/core/services/config/config.service';
 
 @Injectable({
@@ -20,7 +20,7 @@ import {ConfigService} from 'wlc-engine/modules/core/services/config/config.serv
 })
 export class LayoutService {
 
-    private layouts: ILayoutsConfig;
+    private readonly layouts: ILayoutsConfig;
 
     private components: {
         [key: string]: {
@@ -34,17 +34,17 @@ export class LayoutService {
         this.layouts = _get(this.configService, 'appConfig.$layouts');
     }
 
-    public async getLayoutConfig(state: string): Promise<ILayoutStateConfig> {
+    public getLayoutConfig(state: string): ILayoutStateConfig {
         if (this.layouts.hasOwnProperty(state)) {
             if (this.layouts[state].extends) {
-                return _cloneDeep(_extend(
-                    this.layouts[state],
+                return _extend(
+                    _cloneDeep(this.layouts[state]),
                     _mergeWith(
                         this.getLayoutConfig(this.layouts[state].extends),
                         this.layouts[state],
                         (target, source) => {
                             return _isArray(target) ? source : undefined;
-                        })));
+                        }));
             }
             return _cloneDeep(this.layouts[state]);
         } else {
@@ -52,7 +52,7 @@ export class LayoutService {
         }
     }
 
-    public async getAllSection(): Promise<string[]> {
+    public getAllSection(): string[] {
         // await this.config.ready;
         return _reduce(this.layouts, (res, state) => {
             return _union(res, _keys(state.sections));
@@ -60,7 +60,7 @@ export class LayoutService {
     }
 
     public async getLayout(state: string): Promise<ILayoutStateConfig> {
-        const res: ILayoutStateConfig = await this.getLayoutConfig(state);
+        const res: ILayoutStateConfig = this.getLayoutConfig(state);
 
         const modules = _reduce(res.sections, (sRes: string[], section: ILayoutSectionConfig) =>
             _union(sRes, section.components?.reduce((cRes: string[], component: (ILayoutComponent | string)) => {

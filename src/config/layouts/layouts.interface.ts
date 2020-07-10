@@ -1,10 +1,11 @@
 import {Injector} from '@angular/core';
+import {IDefaultConfig} from 'wlc-engine/interfaces/config.interface';
 
 export interface ILayoutsConfig {
     [key: string]: ILayoutStateConfig;
 }
 
-export interface ILayoutStateConfig {
+export interface ILayoutStateConfig extends IDefaultConfig {
     extends?: string;
     sections?: ILayoutSectionsConfig;
 }

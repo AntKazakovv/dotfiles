@@ -3,7 +3,7 @@ const {task, src, dest, series} = require('gulp'),
     _ = require('lodash'),
     stream = require('stream'),
     gettext = require('gulp-angular-gettext'),
-    jeditor = require("gulp-json-editor"),
+    jeditor = require('gulp-json-editor'),
     rename = require('gulp-rename'),
     tmp = require('tmp')
 ;
@@ -101,8 +101,7 @@ module.exports = function messagesTask() {
     });
 
     task('message:tpl_to_pot', async (cb) => {  //Done
-        const tmpFile = tmp.fileSync({template: this.params.tmpFileName});
-
+        const tmpFile = tmp.fileSync(this.params.tmpFileOptions);
         const commands =
                 _.map(this.params.translationDirs.templates, templateDir => {
                     return `echo 'tpl to POT -> ${templateDir}'\n` +
@@ -118,8 +117,7 @@ module.exports = function messagesTask() {
     });
 
     task('message:php_to_pot', async (cb) => {  //Done
-        const tmpFile = tmp.fileSync({template: this.params.tmpFileName});
-
+        const tmpFile = tmp.fileSync(this.params.tmpFileOptions);
         let commands =
                 _.map(this.params.translationDirs.code, codeDir => {
                     return `echo 'php to POT -> ${this.params.paths.root}/${codeDir}'\n` +

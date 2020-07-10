@@ -15,7 +15,15 @@
         "lib": [
             "es2018",
             "dom"
-        ]
+        ],
+        "paths": {
+            "wlc-engine/*": [
+                "./src/*"
+            ],
+            "wlc-config/*": [
+                "./config/frontend/*"
+            ]
+        }
     },
     "exclude": [
         "node_modules"
