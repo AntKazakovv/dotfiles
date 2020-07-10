@@ -32,7 +32,7 @@ export const $layouts: ILayoutsConfig = {
             header: {
                 components: [
                     {
-                        name: 'base.eng-logo'
+                        name: 'base.wlc-logo'
                     },
                     {
                         name: 'base.language-selector'
@@ -42,7 +42,10 @@ export const $layouts: ILayoutsConfig = {
             content: {
                 components: [
                     {
-                        name: 'menu.wlc-main-menu'
+                        name: 'menu.wlc-menu',
+                        params: {
+                            type: 'main-menu'
+                        }
                     }
                 ]
             }

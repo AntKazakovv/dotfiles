@@ -26,7 +26,10 @@ module.exports = function config(root, bundleType) {
             indexFile: `${root}/roots/template/angular.html`,
             srcIndexFile: `${root}/src/index.html`,
         },
-        tmpFileName: root + '/temp/tmp_XXXXXXXXX',
+        tmpFileOptions: {
+            tmpdir: root + '/temp',
+            template: 'tmp_XXXXXXXXX'
+        },
         translationDirs: {
             templates: [
                 'roots/template'

@@ -1,14 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import {
+    Component,
+    OnInit,
+    HostBinding,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef
+} from '@angular/core';
 
 @Component({
-  selector: '[eng-logo]',
-  templateUrl: './logo.component.html',
-  styleUrls: ['./logo.component.css']
+    selector: '[wlc-logo]',
+    templateUrl: './logo.component.html',
+    styleUrls: ['./logo.component.css'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LogoComponent implements OnInit {
+    @HostBinding('class') hostClass = 'wlc-logo';
 
-  constructor() { }
+    constructor(
+        private cdr: ChangeDetectorRef,
+    ) {
+    }
 
-  ngOnInit(): void {
-  }
+    ngOnInit(): void {
+    }
 }

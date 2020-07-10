@@ -1,9 +1,0 @@
-@import "wlc.components";
-@import "main-menu.mixin";
-
-
-@if (mixin_exists(appMainMenuComponent)) {
-    @include appMainMenuComponent;
-} @else {
-    @include wlcMainMenuComponent;
-}

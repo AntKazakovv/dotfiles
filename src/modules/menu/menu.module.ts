@@ -1,20 +1,22 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {MainMenuComponent} from './components/main-menu/main-menu.component';
+import {MenuComponent} from './components/menu/menu.component';
 import {UIRouterModule} from '@uirouter/angular';
 import {TranslateModule} from '@ngx-translate/core';
+import {CoreModule} from 'wlc-engine/modules/core/core.module';
 
 export const components = {
-    'wlc-main-menu': MainMenuComponent,
+    'wlc-menu': MenuComponent,
 };
 
 @NgModule({
-    declarations: [MainMenuComponent],
+    declarations: [MenuComponent],
     id: 'MenuModule',
     imports: [
         CommonModule,
         TranslateModule,
         UIRouterModule,
+        CoreModule,
     ]
 })
 export class MenuModule {

@@ -5,7 +5,7 @@ import {APP_INITIALIZER, NgModule} from '@angular/core';
 import {BrowserModule, BrowserTransferStateModule} from '@angular/platform-browser';
 import {ServiceWorkerModule} from '@angular/service-worker';
 
-import {MissingTranslationHandler, TranslateLoader, TranslateModule,} from '@ngx-translate/core';
+import {MissingTranslationHandler, TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {UIRouterModule, UIView} from '@uirouter/angular';
 import {APP_STATES} from '../config/app.states';
 import {routerConfigFn} from '../config/router.config';
@@ -25,7 +25,7 @@ export function loadConfig(config: ConfigService) {
     declarations: [AppComponent],
     imports: [
         CommonModule,
-        BrowserModule.withServerTransition({appId: 'wlc-server-app'}),
+        BrowserModule.withServerTransition({appId: 'wlc-app'}),
         BrowserTransferStateModule,
         HttpClientModule,
         UIRouterModule.forRoot({
