@@ -1,0 +1,11 @@
+@mixin wlcMainMenu {
+
+    :host-context(.wlc-main-menu) {
+        display: flex;
+        align-items: center;
+        width: 100%;
+    }
+
+    .wlc-main-menu {
+    }
+}

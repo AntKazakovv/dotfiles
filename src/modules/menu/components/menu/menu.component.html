@@ -1,32 +1,30 @@
 <ng-template #sref let-item="item">
-    <div class="menu__item menu__item--sref">
+    <div class="{{$class}}__item {{$class}}__item--sref">
         <a uiSref="{{item.state}}" [uiParams]="item.stateParams" [uiOptions]="item.stateOptions">{{item.name}}</a>
     </div>
 </ng-template>
 
 <ng-template #anchor let-item="item">
-    <div class="menu__item menu__item--anchor">
+    <div class="{{$class}}__item {{$class}}__item--anchor">
         <a href="#{{item?.params?.anchor?.name}}">{{item?.name}}</a>
     </div>
 </ng-template>
 
 <ng-template #modal let-item="item">
-    <div class="menu__item menu__item--modal">
+    <div class="{{$class}}__item {{$class}}__item--modal">
         <a href="">{{item.name}}</a>
     </div>
 </ng-template>
 
-<div class="menu">
-    <ng-container *ngFor="let item of items" [ngSwitch]="item.type">
+<ng-container *ngFor="let item of items" [ngSwitch]="item.type">
 
-        <ng-container *ngSwitchCase="'anchor'" [ngTemplateOutlet]="anchor" [ngTemplateOutletContext]="{item: item}">
-        </ng-container>
-
-        <ng-container *ngSwitchCase="'sref'" [ngTemplateOutlet]="sref" [ngTemplateOutletContext]="{item: item}">
-        </ng-container>
-
-        <ng-container *ngSwitchCase="'modal'" [ngTemplateOutlet]="modal" [ngTemplateOutletContext]="{item: item}">
-        </ng-container>
-
+    <ng-container *ngSwitchCase="'anchor'" [ngTemplateOutlet]="anchor" [ngTemplateOutletContext]="{item: item}">
     </ng-container>
-</div>
+
+    <ng-container *ngSwitchCase="'sref'" [ngTemplateOutlet]="sref" [ngTemplateOutletContext]="{item: item}">
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'modal'" [ngTemplateOutlet]="modal" [ngTemplateOutletContext]="{item: item}">
+    </ng-container>
+
+</ng-container>

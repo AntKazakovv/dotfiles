@@ -15,11 +15,11 @@ import {ConfigService, LayoutService} from '../modules/core/services';
 @Component({
     selector: '[app-component]',
     templateUrl: './app.component.html',
-    styleUrls: ['./app.component.css'],
+    styleUrls: ['./app.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent implements OnInit, OnDestroy {
-    @HostBinding('class') hostClass = 'wlc-app';
+    @HostBinding('class') hostClass = 'wlc-sections';
 
     public sections: string[] = [];
     private $destroy = new Subject<null>();
