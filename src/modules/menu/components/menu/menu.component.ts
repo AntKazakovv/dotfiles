@@ -1,6 +1,7 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Inject, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnInit} from '@angular/core';
 import {MenuHelper} from 'wlc-engine/modules/menu/helpers/menu.helper';
 import {IMenuItem, IMenuParams} from 'wlc-engine/modules/menu/interfaces/menu.interface';
+import {AbstractComponent} from 'wlc-engine/classes/abstract.component';
 
 // import {GlobalHelper} from 'wlc-engine/helpers/global.helper';
 
@@ -14,13 +15,14 @@ import {IMenuItem, IMenuParams} from 'wlc-engine/modules/menu/interfaces/menu.in
     styleUrls: ['./styles/menu.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MenuComponent implements OnInit {
+export class MenuComponent extends AbstractComponent implements OnInit {
     public items: IMenuItem[];
 
     constructor(
         @Inject('params') protected params: IMenuParams,
         private cdr: ChangeDetectorRef,
     ) {
+        super(params);
     }
 
     public ngOnInit(): void {

@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, Input, OnInit} from '@angular/core';
 import {StateService, TransitionService} from '@uirouter/core';
-import {ILayoutComponent, ILayoutStateConfig} from 'wlc-engine/interfaces';
+import {ILayoutComponent, ILayoutStateConfig, ILayoutSectionConfig} from 'wlc-engine/interfaces';
 import {LayoutService} from 'wlc-engine/modules/core/services';
 
 @Component({
@@ -11,9 +11,11 @@ import {LayoutService} from 'wlc-engine/modules/core/services';
 })
 export class LayoutComponent implements OnInit {
 
-    @Input() section: string;
+    @Input() protected sectionName: string;
 
     public components: ILayoutComponent[] = [];
+    public section: ILayoutSectionConfig;
+
     private currentConfig: ILayoutStateConfig;
 
     constructor(
@@ -50,7 +52,8 @@ export class LayoutComponent implements OnInit {
 
     private async setComponents(state: string): Promise<void> {
         this.currentConfig = await this.layoutService.getLayout(state);
-        this.components = this.currentConfig.sections[this.section]?.components as ILayoutComponent[] || [];
+        this.section = this.currentConfig.sections[this.sectionName];
+        this.components = this.section?.components as ILayoutComponent[] || [];
         this.cdr.detectChanges();
     }
 }

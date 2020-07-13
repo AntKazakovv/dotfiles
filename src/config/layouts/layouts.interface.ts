@@ -15,6 +15,7 @@ export interface ILayoutSectionsConfig {
 }
 
 export interface ILayoutSectionConfig {
+    container?: string | boolean;
     components?: (ILayoutComponent | string)[];
 }
 

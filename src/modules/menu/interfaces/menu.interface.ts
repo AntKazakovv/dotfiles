@@ -1,3 +1,5 @@
+import {IComponentParams} from 'wlc-engine/interfaces/config.interface';
+
 type MenuItemType = string | IMenuItem;
 type MenuType = 'main' | 'categories' | 'profile' | 'footer:tc' | 'footer:about';
 type ItemType = 'sref' | 'anchor' | 'modal';
@@ -35,7 +37,7 @@ interface IMenuItem {
     params?: IMenuItemParams;
 }
 
-interface IMenuParams {
+interface IMenuParams extends IComponentParams {
     items?: MenuItemType[];
     type?: MenuType;
 }

@@ -34,6 +34,7 @@ dependencies:
   '@uirouter/angular': 6.0.3_190c014ac49e68485f29db5d8dbfd9bb
   '@uirouter/core': 6.0.5
   '@uirouter/rx': 0.6.5_@uirouter+core@6.0.5+rxjs@6.5.5
+  bootstrap: 5.0.0-alpha1
   clean-webpack-plugin: 3.0.0
   codelyzer: 5.2.2_cd2c7cdfd2d62f2f6b4b89ed84722665
   concurrently: 5.2.0
@@ -2876,6 +2877,12 @@ packages:
     dev: false
     resolution:
       integrity: sha1-aN/1++YMUes3cl6p4+0xDcwed24=
+  /bootstrap/5.0.0-alpha1:
+    dev: false
+    peerDependencies:
+      popper.js: ^1.16.0
+    resolution:
+      integrity: sha512-iwKneP2pLXl8lN0YpnOuOARiNPTzmh/4cw+Un86u4OqrMLuQpyMC7nO07hvivvcg0B/ektJPjuPnS1s+YmRK9A==
   /boxen/4.2.0:
     dependencies:
       ansi-align: 3.0.0
@@ -13908,6 +13915,7 @@ specifiers:
   '@uirouter/angular': ^6.0.3
   '@uirouter/core': ^6.0.5
   '@uirouter/rx': ^0.6.5
+  bootstrap: ^5.0.0-alpha1
   clean-webpack-plugin: ^3.0.0
   codelyzer: ^5.2.2
   concurrently: ^5.2.0
