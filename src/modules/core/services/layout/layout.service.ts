@@ -116,6 +116,11 @@ export class LayoutService {
                     this.components.menu = m.components;
                     return m.MenuModule;
                 });
+            case 'static':
+                return import('wlc-engine/modules/static/static.module').then(m => {
+                    this.components.static = m.components;
+                    return m.StaticModule;
+                });
         }
     }
 }
