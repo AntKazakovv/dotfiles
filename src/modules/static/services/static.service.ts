@@ -1,9 +1,13 @@
-import {HttpClient, HttpRequest} from '@angular/common/http';
+import {HttpClient, HttpParams, HttpRequest, HttpResponse} from '@angular/common/http';
 import {Injectable} from '@angular/core';
+import {TranslateService} from '@ngx-translate/core';
 
-import {filter as _filter, find as _find, includes as _includes, union as _union,} from 'lodash';
+import {filter as _filter, find as _find, includes as _includes, merge as _merge, union as _union, get as _get} from 'lodash';
+
 import {IIndexingString} from 'wlc-engine/interfaces';
 import {ConfigService} from 'wlc-engine/modules/core';
+import {IStaticRequestParams} from 'wlc-engine/modules/static';
+import {TextDataModel, WlcTextData, WpTextData} from 'wlc-engine/modules/static';
 
 @Injectable({
     providedIn: 'root'
@@ -29,50 +33,71 @@ export class StaticService {
     constructor(
         protected configService: ConfigService,
         private httpClient: HttpClient,
+        protected translateService: TranslateService
     ) {
         this.configReady = this.setConfig();
     }
 
-    public async getStaticData(params: any): Promise<any> {
+    public async getStaticData(params: IStaticRequestParams): Promise<TextDataModel> {
+        if (!params.slug) {
+            return Promise.reject();
+        }
 
-        // if (!slug) {
-        //     return Promise.reject();
-        // }
+        await this.configReady;
+        const lang = params.lang || this.translateService.currentLang.split('-').shift();
 
-        // await this.configReady;
-        //
-        // lang = lang || this.LanguageService.getCurrentLanguage().code.split('-').shift();
-        //
-        // const slugPages = this.getSlugPages(isPageType),
-        //     wpLink: string = this.getWPLink(slug, slugPages, isPageType),
-        //     restURL: string = `${this.apiUrl}/${wpLink}`;
-        //
-        // const params = _merge({slug, lang}, this.params);
-        //
-        // const cacheKey = restURL + JSON.stringify(params);
-        //
-        // return new Promise(async (resolve, reject) => {
-        //     if (useCache && this.SessionCacheService.get(cacheKey)) {
-        //         resolve(new CacheTextData({data: this.SessionCacheService.get(cacheKey)}));
-        //     } else {
-        //         try {
-        //             const result = await this.$http.get(restURL, {params});
-        //             const data = this.prepareTextData(result);
-        //
-        //             if (!data) {
-        //                 reject(new Error('No content data'));
-        //                 return;
-        //             }
-        //
-        //             if (useCache) {
-        //                 this.SessionCacheService.set(cacheKey, data, {maxAge: this.cacheMaxAge});
-        //             }
-        //             resolve(data);
-        //         } catch (error) {
-        //             reject(error);
-        //         }
-        //     }
-        // });
+        const restURL = `${this.apiUrl}/${this.getWPLink(params)}`,
+            cacheKey = restURL + JSON.stringify(params);
+
+        return new Promise(async (resolve, reject) => {
+            //     if (useCache && this.SessionCacheService.get(cacheKey)) {
+            //         resolve(new CacheTextData({data: this.SessionCacheService.get(cacheKey)}));
+            //     } else {
+            try {
+                const httpRequestParams = new HttpRequest('GET', restURL, {
+                    params: new HttpParams({
+                        fromObject: _merge({slug: params.slug, lang}, this.params)
+                    })
+                });
+                this.httpClient.request(httpRequestParams).toPromise().then((response: HttpResponse<any>) => {
+                    const data = this.prepareTextData(response.body);
+                    if (!data) {
+                        reject(new Error('No content data'));
+                        return;
+                    }
+                    // if (useCache) {
+                    //     this.SessionCacheService.set(cacheKey, data, {maxAge: this.cacheMaxAge});
+                    // }
+                    resolve(data);
+                });
+            } catch (error) {
+                reject(error);
+            }
+            //     }
+        });
+    }
+
+    public getPost(slug: string): Promise<TextDataModel> {
+        return this.getStaticData({
+            type: 'post',
+            slug,
+        });
+    }
+
+    public getPage() {
+
+    }
+
+    protected getSlugPages(isPage: boolean): string[] {
+        if (isPage) {
+            return [];
+        }
+        return this.configService.appConfig.$static?.pagesOnly;
+    }
+
+    protected getWPLink(params: IStaticRequestParams): string {
+        const postfix = this.useWpPlugin ? '' : 's';
+        return params.type + postfix;
     }
 
     protected async setConfig(): Promise<boolean> {
@@ -119,6 +144,23 @@ export class StaticService {
                 context: 'view',
                 _embed: '1',
             };
+    }
+
+    protected prepareTextData(result: any): TextDataModel {
+        let res: TextDataModel;
+
+        if (this.useWpPlugin) {
+            if (_get(result, 'data.code')) {
+                return;
+            }
+            res = new WlcTextData({data: result.data}, this.configService);
+        } else {
+            if (!_get(result, '[0]')) {
+                return;
+            }
+            res = new WpTextData(result[0], this.configService);
+        }
+        return res;
     }
 
 }

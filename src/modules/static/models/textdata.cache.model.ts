@@ -1,7 +1,5 @@
-import {modelDecorator} from 'src/core/decorators/model-decorator';
-import {TextDataModel, modelInject, IIndexAny} from './textdata.model';
-
 import {get as _get, isBoolean as _isBoolean} from 'lodash';
+import {IIndexAny, TextDataModel} from './textdata.model';
 
 export interface ICacheWpResponce {
     id: number;
@@ -13,9 +11,6 @@ export interface ICacheWpResponce {
     extFields?: IIndexAny;
 }
 
-@modelDecorator({
-    inject: modelInject,
-})
 export class CacheTextData extends TextDataModel {
 
     protected prepareData(data: ICacheWpResponce): void {
@@ -30,10 +25,6 @@ export class CacheTextData extends TextDataModel {
 
         this.title = this.getTitle();
 
-        if (this.$scope && this.$compile) {
-            this.compileHtml(this.$scope);
-        } else {
-            this.html = this.getHtml();
-        }
+        this.html = this.getHtml();
     }
 }

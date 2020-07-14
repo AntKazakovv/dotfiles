@@ -1,37 +1,26 @@
-import {modelDecorator} from 'src/core/decorators/model-decorator';
-import {TextDataModel, modelInject, IIndexAny} from './textdata.model';
+import {TextDataModel} from './textdata.model';
+import {IIndexingAny} from 'wlc-engine/interfaces';
 
 import {get as _get, each as _each} from 'lodash';
 
-@modelDecorator({
-    inject: modelInject,
-})
 export class WpTextData extends TextDataModel {
     protected prepareData(data: any): void {
-        this.id = _get(data, '0.id');
-        this.slug = _get(data, '0.slug');
-        this.date = new Date(_get(data, '0.date'));
-
-        this.titleRaw = _get(data, '0.title.rendered', '');
-        this.htmlRaw = _get(data, '0.content.rendered', '');
-
+        this.id = _get(data, 'id');
+        this.slug = _get(data, 'slug');
+        this.date = new Date(_get(data, 'date'));
+        this.titleRaw = _get(data, 'title.rendered', '');
+        this.htmlRaw = _get(data, 'content.rendered', '');
         this.title = this.getTitle();
-
-        if (this.$scope && this.$compile) {
-            this.compileHtml(this.$scope);
-        } else {
-            this.html = this.getHtml();
-        }
-
-        this.image = _get(data, `0._embedded['wp:featuredmedia']['0'].source_url`, '');
+        this.html = this.getHtml();
+        this.image = _get(data, `_embedded['wp:featuredmedia']['0'].source_url`, '');
         this.extFields = this.getExtFields(data);
     }
 
-    protected getExtFields(data: any): IIndexAny {
-        const res: IIndexAny = {};
-        const fields = _get(this.appConfig, 'siteconfig.wordpress.additionalFields');
+    protected getExtFields(data: any): IIndexingAny {
+        const res: IIndexingAny = {};
+        const fields = this.configService.appConfig.$static?.additionalFields;
         _each(fields, (field) => {
-            res[field] = _get(data, `0.${field}`);
+            res[field] = _get(data, field);
         });
         return res;
     }

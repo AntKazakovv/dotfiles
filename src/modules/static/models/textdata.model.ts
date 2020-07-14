@@ -1,3 +1,5 @@
+import {ConfigService} from 'wlc-engine/modules/core';
+
 import {
     get as _get,
     each as _each
@@ -16,7 +18,9 @@ export abstract class TextDataModel {
     public date: Date;
     public slug: string;
     public htmlRaw: string;
+    public html: string;
     public titleRaw: string;
+    public title: string;
     public image: string;
     public introText: string;
     public extFields?: IIndexAny;
@@ -26,9 +30,10 @@ export abstract class TextDataModel {
     protected cacheFields: string[] = ['id', 'date', 'slug', 'titleRaw', 'htmlRaw', 'image', 'extFields'];
 
     constructor(
-        dataObject: ITextObject,
+        protected dataObject: ITextObject,
+        protected configService: ConfigService
     ) {
-        this.prepareData(dataObject.data);
+        this.prepareData(dataObject);
         this.introText = this.getIntroText();
     }
 
