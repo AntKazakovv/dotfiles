@@ -1,20 +1,39 @@
+import {HttpClient, HttpRequest} from '@angular/common/http';
 import {Injectable} from '@angular/core';
+
+import {filter as _filter, find as _find, includes as _includes, union as _union,} from 'lodash';
+import {IIndexingString} from 'wlc-engine/interfaces';
 import {ConfigService} from 'wlc-engine/modules/core';
-import {HttpClient, HttpParams} from '@angular/common/http';
 
 @Injectable({
     providedIn: 'root'
 })
 export class StaticService {
 
+    protected cacheMaxAge = 10 * 60 * 1000;
+    protected apiUrl: string;
+    protected useWpPlugin: boolean;
+    protected wpPluginList: string[] = [];
+    protected configReady: Promise<boolean>;
+    protected params: any = {};
+
+    protected fieldsList: string[] = [
+        'id',
+        'date',
+        'slug',
+        'title',
+        'content',
+        'image',
+    ];
+
     constructor(
         protected configService: ConfigService,
         private httpClient: HttpClient,
     ) {
+        this.configReady = this.setConfig();
     }
 
     public async getStaticData(params: any): Promise<any> {
-        this.checkPlugin();
 
         // if (!slug) {
         //     return Promise.reject();
@@ -56,25 +75,50 @@ export class StaticService {
         // });
     }
 
-    protected async checkPlugin(plugin?: string): Promise<boolean> {
-        if (!this.configService.appConfig.$static?.wpPlugins?.wlcApi) {
-            return false;
-        }
-
+    protected async setConfig(): Promise<boolean> {
         try {
-            const result = await this.httpClient.request<string>('get', '/content/wp-json/wp-wlc-api/v1/active-plugins/');
-            console.log(result);
-            // this.wpPluginList = result.data;
-            // if (plugin) {
-            //     const rx = new RegExp(`^${plugin}\/`);
-            //     return !!_find(result.data, (item) => rx.test(item));
-            // }
-            // this.useWpPlugin = true;
-            return true;
-        } catch (error) {
-            return false;
+            this.useWpPlugin = await this.checkPlugin('wlc-api');
+        } catch {
+            this.useWpPlugin = false;
         }
+        this.apiUrl = this.useWpPlugin ? '/content/wp-json/wp-wlc-api/v1' : '/content//wp-json/wp/v2';
+        this.params = this.getParams();
+        return Promise.resolve(true);
     }
 
+    protected async checkPlugin(plugin?: string): Promise<boolean> {
+        if (this.configService.appConfig.$static?.wpPlugins?.wlcApi === false) {
+            return false;
+        }
+
+        return new Promise((resolve, reject) => {
+            const request = new HttpRequest('GET', '/content/wp-json/wp-wlc-api/v1/active-plugins/');
+            this.httpClient.request<HttpRequest<string>>(request).toPromise().then((response: any) => {
+                if (plugin) {
+                    const rx = new RegExp(`^${plugin}\/`);
+                    if (!!_find(response.data, (item) => rx.test(item))) {
+                        resolve(true);
+                    } else {
+                        reject(false);
+                    }
+                }
+            }, () => {
+                reject(false);
+            });
+        });
+    }
+
+    protected getParams(): IIndexingString {
+        const fields = this.configService.appConfig.$static?.additionalFields;
+        return (this.useWpPlugin)
+            ? {
+                fields: _filter(fields, (item) => !_includes(this.fieldsList, item)).join(','),
+            }
+            : {
+                _fields: _union(fields, this.fieldsList, ['_embedded', '_links']).join(','),
+                context: 'view',
+                _embed: '1',
+            };
+    }
 
 }

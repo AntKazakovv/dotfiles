@@ -1,16 +1,17 @@
-import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {UIRouterModule} from '@uirouter/angular';
+import {NgModule} from '@angular/core';
 import {TranslateModule} from '@ngx-translate/core';
+import {UIRouterModule} from '@uirouter/angular';
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
+import {PostComponent} from './components/post/post.component';
 
 export const components = {
-    // 'wlc-menu': MenuComponent,
+    'wlc-post': PostComponent,
 };
 
 @NgModule({
     declarations: [
-
+        PostComponent
     ],
     id: 'StaticModule',
     imports: [
@@ -18,6 +19,9 @@ export const components = {
         TranslateModule,
         UIRouterModule,
         CoreModule,
+    ],
+    exports: [
+        PostComponent
     ]
 })
 export class StaticModule {
