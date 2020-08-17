@@ -28,6 +28,7 @@ dependencies:
   '@types/jasminewd2': 2.0.8
   '@types/jsdom': 16.2.3
   '@types/lodash': 4.14.157
+  '@types/moment': 2.13.0
   '@types/node': 12.12.50
   '@typescript-eslint/eslint-plugin': 2.31.0_95f7afc0f009aabf6aebd474127b4249
   '@typescript-eslint/parser': 2.31.0_eslint@6.8.0+typescript@3.9.6
@@ -58,6 +59,7 @@ dependencies:
   karma-jasmine: 2.0.1_karma@4.3.0
   karma-jasmine-html-reporter: 1.5.4_c5bb5e10f522134b6a43f346c3e29712
   lodash: 4.17.19
+  moment: 2.27.0
   parse5: 6.0.0
   protractor: 5.4.4
   reset-css: 5.0.1
@@ -1686,6 +1688,13 @@ packages:
     dev: false
     resolution:
       integrity: sha512-tHq6qdbT9U1IRSGf14CL0pUlULksvY9OZ+5eEgl1N7t+OA3tGvNpxJCzuKQlsNgCVwbAs670L1vcVQi8j9HjnA==
+  /@types/moment/2.13.0:
+    dependencies:
+      moment: 2.27.0
+    deprecated: 'This is a stub types definition for Moment (https://github.com/moment/moment). Moment provides its own type definitions, so you don''t need @types/moment installed!'
+    dev: false
+    resolution:
+      integrity: sha1-YE69GJvDvDShVIaJQE5hoqSqyJY=
   /@types/node/12.12.50:
     dev: false
     resolution:
@@ -8594,6 +8603,10 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw==
+  /moment/2.27.0:
+    dev: false
+    resolution:
+      integrity: sha512-al0MUK7cpIcglMv3YF13qSgdAIqxHTO7brRtaz3DlSULbqfazqkc5kEjNrLDOM7fsjshoFIihnU8snrP7zUvhQ==
   /move-concurrently/1.0.1:
     dependencies:
       aproba: 1.2.0
@@ -13889,6 +13902,7 @@ specifiers:
   '@types/jasminewd2': ~2.0.8
   '@types/jsdom': ^16.2.3
   '@types/lodash': ^4.14.157
+  '@types/moment': ^2.13.0
   '@types/node': ^12.12.50
   '@typescript-eslint/eslint-plugin': 2.31.0
   '@typescript-eslint/parser': 2.31.0
@@ -13919,6 +13933,7 @@ specifiers:
   karma-jasmine: ~2.0.1
   karma-jasmine-html-reporter: ^1.5.4
   lodash: ^4.17.19
+  moment: ^2.27.0
   parse5: ^6.0.0
   protractor: ~5.4.4
   reset-css: ^5.0.1

@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnInit, HostBinding} from '@angular/core';
 import {MenuHelper} from 'wlc-engine/modules/menu/helpers/menu.helper';
 import {IMenuItem, IMenuParams} from 'wlc-engine/modules/menu/interfaces/menu.interface';
 import {AbstractComponent} from 'wlc-engine/classes/abstract.component';
@@ -17,6 +17,7 @@ import {AbstractComponent} from 'wlc-engine/classes/abstract.component';
 })
 export class MenuComponent extends AbstractComponent implements OnInit {
     public items: IMenuItem[];
+    @HostBinding('class') hostClass = 'wlc-main-menu';
 
     constructor(
         @Inject('params') protected params: IMenuParams,
