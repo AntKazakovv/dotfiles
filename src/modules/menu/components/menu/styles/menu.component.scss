@@ -1,6 +1,6 @@
 @use './mixins/default.mixin' as default;
 @use './mixins/main-menu.mixin' as mainMenu;
-@import "wlc-engine/wlc-styles/wlc.components";
+// @import "wlc-engine/wlc-styles/wlc.components";
 
 @if (mixin_exists(appMenuComponent)) {
     @include appMenuComponent;
