@@ -13,7 +13,8 @@
     },
     "files": [
         "src/main.ts",
-        "src/polyfills.ts"
+        "src/polyfills.ts",
+        "src/typings.d.ts"
     ],
     "include": [
         "wlc-engine/**/*.d.ts"

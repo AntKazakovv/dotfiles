@@ -22,7 +22,7 @@
                         "main": "src/main.ts",
                         "polyfills": "src/polyfills.ts",
                         "tsConfig": "tsconfig.engine.json",
-                        "aot": true,
+                        "aot": false,
                         "preserveSymlinks": true,
                         "assets": [
                             "src/favicon.ico",
@@ -31,7 +31,9 @@
                         "styles": [
                             "src/styles.scss"
                         ],
-                        "scripts": []
+                        "scripts": [
+                            "src/gettext.js"
+                        ]
                     },
                     "configurations": {
                         "production": {
@@ -48,7 +50,8 @@
                             "namedChunks": false,
                             "extractLicenses": true,
                             "vendorChunk": false,
-                            "buildOptimizer": true,
+                            "aot": false,
+                            "buildOptimizer": false,
                             "budgets": [
                                 {
                                     "type": "initial",
@@ -95,7 +98,9 @@
                         "styles": [
                             "src/styles.scss"
                         ],
-                        "scripts": []
+                        "scripts": [
+                            "./src/gettext.js"
+                        ]
                     }
                 },
                 "lint": {
