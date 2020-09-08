@@ -37,15 +37,14 @@ export class LayoutComponent implements OnInit {
     public getInjector(component: ILayoutComponent): Injector {
         if (!component.injector) {
             component.injector = Injector.create({
-                    providers: [
-                        {
-                            provide: 'params',
-                            useValue: component.params || {}
-                        }
-                    ],
-                    parent: this.injector
-                }
-            );
+                providers: [
+                    {
+                        provide: 'params',
+                        useValue: component.params || {}
+                    }
+                ],
+                parent: this.injector
+            });
         }
         return component.injector;
     }

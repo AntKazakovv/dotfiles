@@ -5,6 +5,7 @@ import {LogoComponent} from './components/logo/logo.component';
 import {LanguageSelectorComponent} from './components/language-selector/language-selector.component';
 import {IconComponent} from './components/icon/icon.component';
 import {DynamicHtmlComponent} from './components/dynamic-html/dynamic-html.component';
+import {UIRouterModule} from '@uirouter/angular';
 
 export const components = {
     'wlc-logo': LogoComponent,
@@ -22,6 +23,7 @@ export const components = {
     ],
     imports: [
         CommonModule,
+        UIRouterModule,
     ],
     exports: [
         LogoComponent,
