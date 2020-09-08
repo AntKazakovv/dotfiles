@@ -6,13 +6,10 @@ export const $layouts: ILayoutsConfig = {
             header: {
                 components: [
                     {
-                        name: 'base.logo'
+                        name: 'base.wlc-logo',
                     },
                     {
                         name: 'base.language-selector'
-                    },
-                    {
-                        name: 'base.logo'
                     },
                 ]
             },
@@ -20,7 +17,7 @@ export const $layouts: ILayoutsConfig = {
             footer: {
                 components: [
                     {
-                        name: 'base.logo'
+                        name: 'base.wlc-logo'
                     },
                 ]
             }
@@ -32,7 +29,7 @@ export const $layouts: ILayoutsConfig = {
             header: {
                 components: [
                     {
-                        name: 'base.wlc-logo'
+                        name: 'base.wlc-logo',
                     },
                     {
                         name: 'base.language-selector'

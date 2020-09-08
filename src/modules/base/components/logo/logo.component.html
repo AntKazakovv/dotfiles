@@ -1,1 +1,10 @@
-<div wlc-icon [iconName]="'default-logo'"></div>
+<div class="{{hostClass}}-wrp" data-wlc-element="block_logo">
+    <a [uiSref]="params.link"
+       [uiOptions]="params.uiOptions"
+       class="{{hostClass}}__image">
+        <span *ngIf="!customLogo">
+            <img src="/static/images/logo.svg">
+        </span>
+        <span *ngIf="customLogo" [innerHTML]="customLogo" ></span>
+    </a>
+</div>
