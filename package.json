@@ -11,8 +11,7 @@
     "e2e": "ng e2e",
     "update-locale": "ngx-translate-extract -i ./wlc-engine/src/**/*.{ts,tsx,html} -o ./wlc-engine/src/languages/messages.pot --sort --format pot && node ./wlc-engine/utils/pot2po.js && rm -rf ./wlc-engine/src/languages/messages.pot",
     "gulp": "gulp",
-    "update": "ng update @angular/cli @angular/core --force",
-    "postinstall": "ngcc"
+    "update": "ng update @angular/cli @angular/core --force"
   },
   "private": true,
   "dependencies": {
