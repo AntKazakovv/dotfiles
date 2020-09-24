@@ -1,8 +1,8 @@
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {LayoutComponent} from './components/layout/layout.component';
-import {NgTemplateNameDirective} from 'wlc-engine/modules/core/directives/template-name/template-name.directive';
-import {ConfigService, DataService, EventService} from './services';
+import {NgTemplateNameDirective} from './directives/template-name/template-name.directive';
+import {ConfigService, DataService, EventService, FilesService} from './services';
 import {BaseModule} from 'wlc-engine/modules/base/base.module';
 
 @NgModule({
@@ -14,6 +14,7 @@ import {BaseModule} from 'wlc-engine/modules/base/base.module';
         DataService,
         EventService,
         ConfigService,
+        FilesService,
     ],
     declarations: [
         LayoutComponent,

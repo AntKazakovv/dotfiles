@@ -1,1 +1,2 @@
-export {ConfigService} from 'wlc-engine/modules/core/services/config/config.service';
+export {ConfigService} from './services/config/config.service';
+export {FilesService} from './services/files/files.service';

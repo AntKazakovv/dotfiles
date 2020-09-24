@@ -5,18 +5,18 @@ dependencies:
   '@angular-eslint/eslint-plugin-template': 0.2.0-beta.1_332c5434c344171c2d57f1ff8b14e9c7
   '@angular-eslint/schematics': 0.2.0-beta.1
   '@angular-eslint/template-parser': 0.2.0-beta.1_3a0161fcaeb1b9a7dd7bd05cf14f24e9
-  '@angular/animations': 10.0.3_@angular+core@10.0.3
+  '@angular/animations': 10.1.0_@angular+core@10.0.3
   '@angular/cli': 10.0.2
   '@angular/common': 10.0.3_@angular+core@10.0.3+rxjs@6.5.5
   '@angular/compiler': 10.0.3
   '@angular/compiler-cli': 10.0.3_28e8ee43fea9017a0f40213984d10a67
   '@angular/core': 10.0.3_rxjs@6.5.5+zone.js@0.10.3
-  '@angular/forms': 10.0.3_65f0fac2a51569c5c640742e462127ae
+  '@angular/forms': 10.0.3_71b944a1df1f99f2d5f5e0b22af27b8b
   '@angular/language-service': 10.0.3
-  '@angular/platform-browser': 10.0.3_e1fb0e08e4b5572a910a1ecefa1bcfe8
-  '@angular/platform-browser-dynamic': 10.0.3_3b53b5cc08c1e6b0c84f11a5d82a94fa
-  '@angular/platform-server': 10.0.3_f5db3b628978e5a1c0017e47b811990e
-  '@angular/router': 10.0.3_65f0fac2a51569c5c640742e462127ae
+  '@angular/platform-browser': 10.1.1_0a58dbd45b8862a4460bda5c3c482a38
+  '@angular/platform-browser-dynamic': 10.0.3_4065178211f271e279ddce62e4e4f5ff
+  '@angular/platform-server': 10.0.3_e2b9dc641b5eb27ed69da74e97f1b4b8
+  '@angular/router': 10.0.3_71b944a1df1f99f2d5f5e0b22af27b8b
   '@angular/service-worker': 10.0.3_bf93777b0b30f2227fedea938318910c
   '@biesbjerg/ngx-translate-extract': 6.1.0_28e8ee43fea9017a0f40213984d10a67
   '@nguniversal/builders': 9.1.1_typescript@3.9.6
@@ -309,15 +309,15 @@ packages:
       typescript: '*'
     resolution:
       integrity: sha512-F3lS893ZaJrGhlpcSVIS0B5wAGgFGryfk/7nzxjFzpbi75uRX6qDohX3zXKSAzyL+WkoZrLy6D3T6M+PRKI/eA==
-  /@angular/animations/10.0.3_@angular+core@10.0.3:
+  /@angular/animations/10.1.0_@angular+core@10.0.3:
     dependencies:
       '@angular/core': 10.0.3_rxjs@6.5.5+zone.js@0.10.3
       tslib: 2.0.0
     dev: false
     peerDependencies:
-      '@angular/core': 10.0.3
+      '@angular/core': 10.1.0
     resolution:
-      integrity: sha512-s7hob0TmSRqsgEWdB0EYsKY8eF8iD6Sj44XntecAhEc/IxVQGIIZiNwGvW43Lb8iEdbvdF+GJfgxu5I8ZWMX3Q==
+      integrity: sha512-0S2UKHDwIw/ZEISDrzhDhn4eVTNwjJW+msOYSaIm6ASRArtSVrwBz1ckD92HhurnnkHVwgTQsnU7yDYKfheaow==
   /@angular/cli/10.0.2:
     dependencies:
       '@angular-devkit/architect': 0.1000.2
@@ -403,11 +403,11 @@ packages:
       zone.js: ~0.10.3
     resolution:
       integrity: sha512-EfWAz5StlPYo2ZtvVzeoNlGrFAXRncwGd/CExbLFOZx4HcDXVkATw5d4vnKHmmKacDqnbuvMD2M0Tl0EJi5q4g==
-  /@angular/forms/10.0.3_65f0fac2a51569c5c640742e462127ae:
+  /@angular/forms/10.0.3_71b944a1df1f99f2d5f5e0b22af27b8b:
     dependencies:
       '@angular/common': 10.0.3_@angular+core@10.0.3+rxjs@6.5.5
       '@angular/core': 10.0.3_rxjs@6.5.5+zone.js@0.10.3
-      '@angular/platform-browser': 10.0.3_e1fb0e08e4b5572a910a1ecefa1bcfe8
+      '@angular/platform-browser': 10.1.1_0a58dbd45b8862a4460bda5c3c482a38
       rxjs: 6.5.5
       tslib: 2.0.0
     dev: false
@@ -422,12 +422,12 @@ packages:
     dev: false
     resolution:
       integrity: sha512-xT5utLyPpcicVIYkM2cngVloxIyYLQZ+rnH4nqjq4QGbboezPC2MBsVpivRGFN7p8xHtNysGeOZc8O8FuWthhg==
-  /@angular/platform-browser-dynamic/10.0.3_3b53b5cc08c1e6b0c84f11a5d82a94fa:
+  /@angular/platform-browser-dynamic/10.0.3_4065178211f271e279ddce62e4e4f5ff:
     dependencies:
       '@angular/common': 10.0.3_@angular+core@10.0.3+rxjs@6.5.5
       '@angular/compiler': 10.0.3
       '@angular/core': 10.0.3_rxjs@6.5.5+zone.js@0.10.3
-      '@angular/platform-browser': 10.0.3_e1fb0e08e4b5572a910a1ecefa1bcfe8
+      '@angular/platform-browser': 10.1.1_0a58dbd45b8862a4460bda5c3c482a38
       tslib: 2.0.0
     dev: false
     peerDependencies:
@@ -437,30 +437,30 @@ packages:
       '@angular/platform-browser': 10.0.3
     resolution:
       integrity: sha512-ASZWymDVCgmDe0XE1djGKrfJnUR65PdfoZ51CQ7xSVJTnXp6kCAXzFeG2IyqU+O7IXvQRgvb4GOA4Y6GScNVKw==
-  /@angular/platform-browser/10.0.3_e1fb0e08e4b5572a910a1ecefa1bcfe8:
+  /@angular/platform-browser/10.1.1_0a58dbd45b8862a4460bda5c3c482a38:
     dependencies:
-      '@angular/animations': 10.0.3_@angular+core@10.0.3
+      '@angular/animations': 10.1.0_@angular+core@10.0.3
       '@angular/common': 10.0.3_@angular+core@10.0.3+rxjs@6.5.5
       '@angular/core': 10.0.3_rxjs@6.5.5+zone.js@0.10.3
       tslib: 2.0.0
     dev: false
     peerDependencies:
-      '@angular/animations': 10.0.3
-      '@angular/common': 10.0.3
-      '@angular/core': 10.0.3
+      '@angular/animations': 10.1.1
+      '@angular/common': 10.1.1
+      '@angular/core': 10.1.1
     peerDependenciesMeta:
       '@angular/animations':
         optional: true
     resolution:
-      integrity: sha512-f6JsFMunJNn7fPtwwWbZsXZ/JFA5RlwbyHKKkLAPMLLJwabOcSh/bUpPWKoRMHpUxr53PGEX4XY6QNPJXrUaag==
-  /@angular/platform-server/10.0.3_f5db3b628978e5a1c0017e47b811990e:
+      integrity: sha512-rbI4fu6HRj7b+6MB8HWOdaYmV3CSjOyyrVqWAcNuXfNwZk/KE/OHvLSvQf7dMKnatJARa9bMrZdSQZqPuig1hA==
+  /@angular/platform-server/10.0.3_e2b9dc641b5eb27ed69da74e97f1b4b8:
     dependencies:
-      '@angular/animations': 10.0.3_@angular+core@10.0.3
+      '@angular/animations': 10.1.0_@angular+core@10.0.3
       '@angular/common': 10.0.3_@angular+core@10.0.3+rxjs@6.5.5
       '@angular/compiler': 10.0.3
       '@angular/core': 10.0.3_rxjs@6.5.5+zone.js@0.10.3
-      '@angular/platform-browser': 10.0.3_e1fb0e08e4b5572a910a1ecefa1bcfe8
-      '@angular/platform-browser-dynamic': 10.0.3_3b53b5cc08c1e6b0c84f11a5d82a94fa
+      '@angular/platform-browser': 10.1.1_0a58dbd45b8862a4460bda5c3c482a38
+      '@angular/platform-browser-dynamic': 10.0.3_4065178211f271e279ddce62e4e4f5ff
       domino: 2.1.5
       tslib: 2.0.0
       xhr2: 0.2.0
@@ -476,11 +476,11 @@ packages:
       '@angular/platform-browser-dynamic': 10.0.3
     resolution:
       integrity: sha512-fEbQT9k1IYrAzqOM+au/SAW5cGJE6isHCa6MuU+5+R1ZlUOuZmnMAfI7E0CwBLKbjWu65iFHzTdtAcw1qjQ9sA==
-  /@angular/router/10.0.3_65f0fac2a51569c5c640742e462127ae:
+  /@angular/router/10.0.3_71b944a1df1f99f2d5f5e0b22af27b8b:
     dependencies:
       '@angular/common': 10.0.3_@angular+core@10.0.3+rxjs@6.5.5
       '@angular/core': 10.0.3_rxjs@6.5.5+zone.js@0.10.3
-      '@angular/platform-browser': 10.0.3_e1fb0e08e4b5572a910a1ecefa1bcfe8
+      '@angular/platform-browser': 10.1.1_0a58dbd45b8862a4460bda5c3c482a38
       rxjs: 6.5.5
       tslib: 2.0.0
     dev: false
@@ -1479,7 +1479,7 @@ packages:
     dependencies:
       '@angular/common': 10.0.3_@angular+core@10.0.3+rxjs@6.5.5
       '@angular/core': 10.0.3_rxjs@6.5.5+zone.js@0.10.3
-      '@angular/platform-server': 10.0.3_f5db3b628978e5a1c0017e47b811990e
+      '@angular/platform-server': 10.0.3_e2b9dc641b5eb27ed69da74e97f1b4b8
       '@nguniversal/common': 9.1.1_81a96973b8d79f8a1a8947e46fc938cd
       express: 4.17.1
       tslib: 1.13.0
@@ -13858,7 +13858,7 @@ specifiers:
   '@angular-eslint/eslint-plugin-template': 0.2.0-beta.1
   '@angular-eslint/schematics': 0.2.0-beta.1
   '@angular-eslint/template-parser': 0.2.0-beta.1
-  '@angular/animations': ~10.0.3
+  '@angular/animations': 10.1.0
   '@angular/cli': ~10.0.2
   '@angular/common': ~10.0.3
   '@angular/compiler': ~10.0.3
@@ -13866,7 +13866,7 @@ specifiers:
   '@angular/core': ~10.0.3
   '@angular/forms': ~10.0.3
   '@angular/language-service': ~10.0.3
-  '@angular/platform-browser': ~10.0.3
+  '@angular/platform-browser': ~10.1.0
   '@angular/platform-browser-dynamic': ~10.0.3
   '@angular/platform-server': ~10.0.3
   '@angular/router': ~10.0.3
