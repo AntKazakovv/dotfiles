@@ -1,18 +1,18 @@
 <ng-template #sref let-item="item">
     <div class="{{$class}}__item {{$class}}__item--sref">
-        <a uiSref="{{item.state}}" [uiParams]="item.stateParams" [uiOptions]="item.stateOptions">{{item.name}}</a>
+        <a uiSref="{{item.state}}" [uiParams]="item.stateParams" [uiOptions]="item.stateOptions">{{item.name | translate}}</a>
     </div>
 </ng-template>
 
 <ng-template #anchor let-item="item">
     <div class="{{$class}}__item {{$class}}__item--anchor">
-        <a href="#{{item?.params?.anchor?.name}}">{{item?.name}}</a>
+        <a href="#{{item?.params?.anchor?.name}}">{{item?.name | translate}}</a>
     </div>
 </ng-template>
 
 <ng-template #modal let-item="item">
     <div class="{{$class}}__item {{$class}}__item--modal">
-        <a href="">{{item.name}}</a>
+        <a href="">{{item.name | translate}}</a>
     </div>
 </ng-template>
 

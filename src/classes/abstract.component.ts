@@ -1,4 +1,4 @@
-import {HostBinding, Inject} from '@angular/core';
+import {HostBinding} from '@angular/core';
 import {IComponentParams} from 'wlc-engine/interfaces/config.interface';
 
 export class AbstractComponent {

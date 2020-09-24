@@ -1,4 +1,12 @@
 import {Injectable} from '@angular/core';
+import {
+    ILayoutComponent,
+    ILayoutsConfig,
+    ILayoutSectionConfig,
+    ILayoutStateConfig,
+    ILayoutModifyItem,
+} from 'wlc-engine/interfaces/layouts.interface';
+import {ConfigService} from 'wlc-engine/modules/core/services/config/config.service';
 
 import {
     cloneDeep as _cloneDeep,
@@ -7,13 +15,16 @@ import {
     get as _get,
     isArray as _isArray,
     isString as _isString,
+    isNumber as _isNumber,
     keys as _keys,
     mergeWith as _mergeWith,
     reduce as _reduce,
     union as _union,
+    concat as _concat,
+    findIndex as _findIndex,
+    includes as _includes,
+    toSafeInteger as _toSafeInteger,
 } from 'lodash';
-import {ILayoutComponent, ILayoutsConfig, ILayoutSectionConfig, ILayoutStateConfig} from 'wlc-engine/interfaces';
-import {ConfigService} from 'wlc-engine/modules/core/services/config/config.service';
 
 @Injectable({
     providedIn: 'root'
@@ -27,6 +38,8 @@ export class LayoutService {
             [key: string]: unknown
         }
     } = {};
+
+    private positionRegexp = /^(after|before)?\s?([^#]+)?#?(\d*)?/;
 
     constructor(
         private configService: ConfigService,
@@ -53,7 +66,6 @@ export class LayoutService {
     }
 
     public getAllSection(): string[] {
-        // await this.config.ready;
         return _reduce(this.layouts, (res, state) => {
             return _union(res, _keys(state.sections));
         }, []);
@@ -61,6 +73,32 @@ export class LayoutService {
 
     public async getLayout(state: string): Promise<ILayoutStateConfig> {
         const res: ILayoutStateConfig = this.getLayoutConfig(state);
+
+        _each(res.sections, (section) => {
+            if (section.modify) {
+                _each(section.modify, (item) => {
+                    if (_isString(item.component)) {
+                        item.component = {
+                            name: item.component,
+                        };
+                    }
+                    const position = this.getPosition(section, item);
+                    switch (item.type) {
+                        case 'insert':
+                            section.components.splice(position, 0, item.component);
+                        break;
+
+                        case 'replace':
+                            section.components[position] = item.component;
+                        break;
+
+                        case 'delete':
+                            section.components.splice(position, 1);
+                        break;
+                    }
+                });
+            }
+        });
 
         const modules = _reduce(res.sections, (sRes: string[], section: ILayoutSectionConfig) =>
             _union(sRes, section.components?.reduce((cRes: string[], component: (ILayoutComponent | string)) => {
@@ -87,6 +125,56 @@ export class LayoutService {
         });
 
         return res;
+    }
+
+    private getPosition(section: ILayoutSectionConfig, item: ILayoutModifyItem): number {
+        if (_isNumber(item.position)) {
+            return (item.position > 0) ? item.position - 1 : 0;
+        } else {
+            const positionParams = {
+                shift: 0,
+                index: 1,
+                name: '',
+            };
+
+            const positionObject = this.positionRegexp.exec(item.position);
+
+            if (!positionObject?.length) {
+                return section.components.length;
+            }
+
+            let indexElem = 1;
+
+            if (!positionObject[1] || _includes(['before', 'after'], positionObject[1])) {
+                positionParams.shift = positionObject[1] === 'before' ? 0 : 1;
+                indexElem = 2;
+            }
+            positionParams.name = positionObject[indexElem];
+
+            if (positionObject.length > indexElem) {
+                positionParams.index = _toSafeInteger(positionObject[indexElem + 1]) || 1;
+            }
+
+            let position = _findIndex(section.components, (component) => {
+                const componentName = _isString(component) ? component : component.name;
+                if (componentName === positionParams.name) {
+                    if (positionParams.index === 1) {
+                        return true;
+                    } else {
+                        positionParams.index--;
+                    }
+                }
+                return false;
+            });
+
+            if (position === -1) {
+                position = section.components.length;
+            } else {
+                position += positionParams.shift;
+            }
+
+            return (position < section.components.length) ? position : section.components.length;
+        }
     }
 
     private async importModules(modules: string[]): Promise<void> {
