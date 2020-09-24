@@ -2,9 +2,6 @@
     <a [uiSref]="params.link"
        [uiOptions]="params.uiOptions"
        class="{{hostClass}}__image">
-        <span *ngIf="!customLogo">
-            <img src="/static/images/logo.svg">
-        </span>
-        <span *ngIf="customLogo" [innerHTML]="customLogo" ></span>
+        <span [innerHTML]="logoHtml"></span>
     </a>
 </div>

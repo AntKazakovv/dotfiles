@@ -8,6 +8,9 @@
             ],
             "wlc-config/*": [
                 "./wlc-src/config/frontend/*"
+            ],
+            "wlc-svg/*": [
+                "./wlc-src/svg/*"
             ]
         }
     },
