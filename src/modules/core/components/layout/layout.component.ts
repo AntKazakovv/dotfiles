@@ -1,7 +1,8 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, Input, OnInit} from '@angular/core';
-import {StateService, TransitionService} from '@uirouter/core';
-import {ILayoutComponent, ILayoutStateConfig, ILayoutSectionConfig} from 'wlc-engine/interfaces';
+import {TransitionService, UIRouterGlobals} from '@uirouter/core';
+import {ILayoutComponent, ILayoutStateConfig, ILayoutSectionConfig} from 'wlc-engine/interfaces/layouts.interface';
 import {LayoutService} from 'wlc-engine/modules/core/services';
+
 
 @Component({
     selector: '[wlc-layout]',
@@ -20,15 +21,15 @@ export class LayoutComponent implements OnInit {
 
     constructor(
         private layoutService: LayoutService,
-        private stateService: StateService,
         private transition: TransitionService,
         private injector: Injector,
         private cdr: ChangeDetectorRef,
+        private uiRouter: UIRouterGlobals
     ) {
     }
 
     async ngOnInit(): Promise<void> {
-        await this.setComponents(this.stateService.$current.name);
+        await this.setComponents(this.uiRouter.current.name);
         this.transition.onEnter({}, async (transition) => {
             await this.setComponents(transition.to().name);
         });

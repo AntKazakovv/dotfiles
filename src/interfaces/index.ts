@@ -1,2 +1,2 @@
-export * from './layout';
+export * from './layouts.interface';
 export * from './global.interface';

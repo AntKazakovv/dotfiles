@@ -17,7 +17,7 @@ import {AbstractComponent} from 'wlc-engine/classes/abstract.component';
 })
 export class MenuComponent extends AbstractComponent implements OnInit {
     public items: IMenuItem[];
-    @HostBinding('class') hostClass = 'wlc-main-menu';
+    @HostBinding('$class') hostClass = 'wlc-main-menu';
 
     constructor(
         @Inject('params') protected params: IMenuParams,

@@ -6,11 +6,10 @@
     </ng-container>
 </ng-template>
 
-<ng-container *ngIf="section?.container">
+<div *ngIf="section?.container">
     <div class="container">
-        <ng-container [ngTemplateOutlet]="items"></ng-container>
+        <div [ngTemplateOutlet]="items"></div>
     </div>
-</ng-container>
-<div wlc-demo-test></div>
+</div>
 
-<ng-container *ngIf="!section?.container" [ngTemplateOutlet]="items"></ng-container>
+<div *ngIf="!section?.container" [ngTemplateOutlet]="items"></div>
