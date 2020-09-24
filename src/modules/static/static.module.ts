@@ -5,13 +5,17 @@ import {UIRouterModule} from '@uirouter/angular';
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
 import {PostComponent} from './components/post/post.component';
 
+import {demoTestComponent} from './components/demo-test/demo-test.component';
+
 export const components = {
     'wlc-post': PostComponent,
+    'wlc-demo-test': demoTestComponent,
 };
 
 @NgModule({
     declarations: [
-        PostComponent
+        PostComponent,
+        demoTestComponent,
     ],
     id: 'StaticModule',
     imports: [
@@ -21,7 +25,8 @@ export const components = {
         CoreModule,
     ],
     exports: [
-        PostComponent
+        PostComponent,
+        demoTestComponent,
     ]
 })
 export class StaticModule {
