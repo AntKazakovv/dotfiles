@@ -5,7 +5,7 @@ export class PostModel {
     public readonly slug: string;
     public readonly categories: number[];
     public readonly content: string;
-    public readonly date: moment.Moment;
+    public readonly date: DateTime;
     public readonly title: string;
     public readonly image: string;
     public readonly description: string;
