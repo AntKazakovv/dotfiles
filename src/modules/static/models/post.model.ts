@@ -1,4 +1,4 @@
-import moment from 'moment';
+import {DateTime} from 'luxon';
 import {IAcf, IPostResponse} from 'wlc-engine/modules/static/interfaces/static.interface';
 
 export class PostModel {
@@ -15,7 +15,7 @@ export class PostModel {
         this.slug = post.slug;
         this.categories = post.categories;
         this.content = post.content?.rendered;
-        this.date = moment(post.date);
+        this.date = DateTime.fromISO(post.date);
         this.title = post.title?.rendered;
         this.image = post.image;
         this.description = post.excerpt?.rendered;
