@@ -7,7 +7,7 @@ interface IWindow extends Window {
     WLC_ENV?: string;
     WLC_VERSION?: string;
     wlcSentryConfig?: any;
-    Sentry?: any;
+    Sentry?: Sentry;
     testSessionHash?: string;
     sendSentryError?: (code?: string, group?: string, message?: string, level?: string, data?: any) => void;
 }
@@ -26,8 +26,6 @@ class SentryStart {
     private readonly sessionHash: string;
 
     constructor() {
-        console.log('try start sentry 2', Sentry);
-
         if (this.autotest) {
             this.window.testSessionHash = this.sessionHash = this.generateHash();
         } else {
