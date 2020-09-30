@@ -1,11 +1,7 @@
-
-import {IIndexingString} from 'src/interfaces/global.interface';
 import * as Sentry from "@sentry/angular";
 import {Event, Severity, Scope} from "@sentry/angular"
 
-// interface IIndexingString {
-//     [key: string]: string;
-// }
+import {IIndexingString} from 'src/interfaces/global.interface';
 
 interface IWindow extends Window {
     WLC_ENV?: string;
