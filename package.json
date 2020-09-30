@@ -1,6 +1,6 @@
 {
   "name": "@egamings/wlc-engine",
-  "version": "0.0.37",
+  "version": "0.0.38",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -52,6 +52,7 @@
     "@uirouter/angular": "^6.0.3",
     "@uirouter/core": "^6.0.5",
     "@uirouter/rx": "^0.6.5",
+    "@sentry/angular": "^5.24.2",
     "bootstrap": "^5.0.0-alpha1",
     "clean-webpack-plugin": "^3.0.0",
     "codelyzer": "^5.2.2",

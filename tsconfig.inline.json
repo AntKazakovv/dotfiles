@@ -1,5 +1,6 @@
 {
     "compilerOptions": {
+        "baseUrl": ".",
         "outDir": "./roots/static/dist/",
         "alwaysStrict": true,
         "experimentalDecorators": true,
@@ -21,6 +22,8 @@
         "es2015"
     ],
     "include": [
-        "./src/inline/**/*"
+        "./src/inline/**/*",
+        "./src/interfaces/global.interface.ts",
+        "./node_modules/@sentry/**/*"
     ]
 }
