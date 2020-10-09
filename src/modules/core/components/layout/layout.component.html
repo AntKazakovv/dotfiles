@@ -8,8 +8,8 @@
 
 <div *ngIf="section?.container">
     <div class="container">
-        <div [ngTemplateOutlet]="items"></div>
+        <ng-container [ngTemplateOutlet]="items"></ng-container>
     </div>
 </div>
 
-<div *ngIf="!section?.container" [ngTemplateOutlet]="items"></div>
+<ng-container *ngIf="!section?.container" [ngTemplateOutlet]="items"></ng-container>

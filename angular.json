@@ -33,7 +33,12 @@
                         ],
                         "scripts": [
                             "src/gettext.js"
-                        ]
+                        ],
+                        "stylePreprocessorOptions": {
+                            "includePaths": [
+                                "src"
+                            ]
+                        }
                     },
                     "configurations": {
                         "production": {

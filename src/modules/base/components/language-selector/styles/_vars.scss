@@ -1,0 +1,19 @@
+@use 'engine-styles/functions' as ef;
+
+$flagSize: 30px !default;
+
+$transitionTime: 0.3s !default;
+
+$currentGap: ef.get('gap', 'less') !default;
+$currentPadding: ef.get('padding', 'small') !default;
+$currentBorderRadius: ef.get('gap', 'less') !default;
+$currentBorder: 1px solid ef.get('color', 'divider') !default;
+$currentBackground: ef.get('color', 'backgroundAccent') !default;
+$currentArrowColor: ef.get('color', 'backgroundAccentHover') !default;
+
+$dropdownGap: ef.get('gap', 'less') !default;
+$dropdownPadding: ef.get('padding', 'less') !default;
+$dropdownBackgroundColor: ef.get('color', 'backgroundAccent') !default;
+$dropdownBorderRadius: ef.get('radius', 'less') !default;
+$dropdownArrowSize: ef.get('padding', 'less') !default;
+$dropdownItemHover: ef.get('color', 'backgroundAccentHover') !default;
