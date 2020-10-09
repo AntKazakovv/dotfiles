@@ -26,6 +26,11 @@
 //     apiBaseUrl: string;
 // }
 
+export interface ILanguage {
+    code: string;
+    label: string;
+}
+
 export class AppConfigModel {
     $base: any;
     $layouts: any;
@@ -41,7 +46,7 @@ export class AppConfigModel {
     games: any;
     ignoreProvidersForGameCatalog: boolean;
     language: string;
-    languages: any[];
+    languages: ILanguage[];
     loggedIn: string;
     menu: any[];
     mobile: boolean;

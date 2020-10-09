@@ -1,17 +1,6 @@
 {
     "extends": "./tsconfig.json",
     "compilerOptions": {
-        "paths": {
-            "wlc-engine/*": [
-                "./wlc-engine/*"
-            ],
-            "wlc-config/*": [
-                "./config/frontend/*"
-            ],
-            "wlc-svg/*": [
-                "./src/svg/*"
-            ]
-        }
     },
     "files": [
         "src/main.ts",

@@ -1,9 +1,8 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnInit, HostBinding} from '@angular/core';
 import {MenuHelper} from 'wlc-engine/modules/menu/helpers/menu.helper';
-import {IMenuItem, IMenuParams} from 'wlc-engine/modules/menu/interfaces/menu.interface';
+import {IMenuItem, IMenuParams} from 'wlc-engine/modules/menu/components/menu/menu.interface';
 import {AbstractComponent} from 'wlc-engine/classes/abstract.component';
-
-// import {GlobalHelper} from 'wlc-engine/helpers/global.helper';
+import {defaultParams} from './menu.params';
 
 @Component({
     selector: '[wlc-menu]',
@@ -17,13 +16,12 @@ import {AbstractComponent} from 'wlc-engine/classes/abstract.component';
 })
 export class MenuComponent extends AbstractComponent implements OnInit {
     public items: IMenuItem[];
-    @HostBinding('$class') hostClass = 'wlc-main-menu';
 
     constructor(
         @Inject('params') protected params: IMenuParams,
-        private cdr: ChangeDetectorRef,
+        protected cdr: ChangeDetectorRef,
     ) {
-        super(params);
+        super({params, defaultParams});
     }
 
     public ngOnInit(): void {

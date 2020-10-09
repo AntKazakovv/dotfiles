@@ -2,7 +2,7 @@ import {
     MenuItemType,
     IMenuItem,
     IHelperGetItemsParams
-} from 'wlc-engine/modules/menu/interfaces/menu.interface';
+} from 'wlc-engine/modules/menu/components/menu/menu.interface';
 import {
     wlcDefaultMenuItems,
     wlcMenuItemsGlobal

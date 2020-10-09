@@ -1,0 +1,120 @@
+@use './vars' as v;
+@use './mixins' as m;
+
+.wlc-language-selector {
+
+    &:host {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        width: fit-content;
+    }
+
+    &__current {
+        display: grid;
+        grid-auto-columns: auto;
+        grid-auto-flow: column;
+        align-items: center;
+        grid-gap: v.$currentGap;
+        cursor: default;
+
+        .wlc-language-selector--bordered:host & {
+            border: v.$currentBorder;
+            padding: v.$currentPadding;
+            border-radius: v.$currentBorderRadius;
+            background-color: v.$currentBackground;
+        }
+    }
+
+    &__arrow {
+
+        ::ng-deep {
+
+            svg {
+                transition: all v.$transitionTime;
+
+                path {
+                    fill: v.$currentArrowColor;
+                }
+
+                .wlc-language-selector--opened:host & {
+                    transform: rotateZ(180deg);
+                }
+            }
+        }
+    }
+
+    &__dropdown {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        padding-top: v.$dropdownArrowSize;
+        visibility: hidden;
+
+        .wlc-language-selector--opened:host & {
+            visibility: visible;
+        }
+    }
+
+    &__list {
+        border-radius: v.$dropdownBorderRadius;
+        background: v.$dropdownBackgroundColor;
+        position: relative;
+        transform: translateY(v.$dropdownArrowSize);
+        transition: all v.$transitionTime;
+        opacity: 0;
+
+        .wlc-language-selector--opened:host & {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        &:before {
+            display: block;
+            content: '';
+            position: absolute;
+            top: v.$dropdownArrowSize * -1;
+            left: v.$dropdownArrowSize;
+            width: 0;
+            height: 0;
+            border-top: 0;
+            border-left: v.$dropdownArrowSize solid transparent;
+            border-right: v.$dropdownArrowSize solid transparent;
+            border-bottom: v.$dropdownArrowSize solid v.$dropdownBackgroundColor;
+        }
+    }
+
+    &__link {
+        justify-content: flex-start;
+        padding: v.$dropdownPadding;
+        display: grid;
+        grid-auto-columns: auto;
+        grid-auto-flow: column;
+        align-items: center;
+        grid-gap: v.$dropdownGap;
+        transition: all v.$transitionTime;
+
+        &:hover {
+            background-color: v.$dropdownItemHover;
+
+            .wlc-language-selector__item:first-child:hover & {
+                border-radius: v.$dropdownBorderRadius v.$dropdownBorderRadius 0 0;
+            }
+
+            .wlc-language-selector__item:last-child:hover & {
+                border-radius: 0 0 v.$dropdownBorderRadius v.$dropdownBorderRadius;
+            }
+        }
+    }
+
+    &__lang {
+
+        .wlc-language-selector__current & {
+            text-transform: uppercase;
+        }
+    }
+
+    &__flag {
+        @include m.flag;
+    }
+}

@@ -1,8 +1,32 @@
-<div>
-    <button class="item" [ngClass]="{'active': lang === translate.currentLang}" (click)="changeLanguage(lang)"
-        *ngFor="let lang of translate.getLangs()">
-        {{lang}}
-    </button>
+<div class="{{$class}}__current">
+    <div *ngIf="!$params.currentLang?.hideFlag" class="{{$class}}__flag">
+        <img src="{{getFlagUrl(currentLanguage.code)}}"
+             alt="{{currentLanguage.label}}"
+             (error)="onImageError(currentLanguage.code)">
+    </div>
+    <div *ngIf="!$params.currentLang?.hideLang" class="{{$class}}__lang">
+        {{translate.currentLang | translate}}
+    </div>
+    <div *ngIf="!$params.currentLang?.hideArrow" class="{{$class}}__arrow" wlc-icon [iconName]="'arrow'"></div>
+</div>
+<div class="{{$class}}__dropdown">
+    <div class="{{$class}}__list">
+        <div *ngFor="let lang of availableLanguages"
+             class="{{$class}}__item {{$class}}__item--{{lang.label}}">
 
-    {{translate.currentLang}}
+            <a href="/{{lang}}"
+               class="{{$class}}__link"
+               (click)="changeLanguage(lang.code, $event)">
+
+                <span *ngIf="!$params.dropdown?.hideFlag" class="{{$class}}__flag">
+                    <img src="{{getFlagUrl(lang.code)}}"
+                         alt="{{lang.label}}"
+                         (error)="onImageError(lang.code)">
+                </span>
+
+                <span *ngIf="!$params.dropdown?.hideLang" class="{{$class}}__lang">{{lang.label}}</span>
+
+            </a>
+        </div>
+    </div>
 </div>
