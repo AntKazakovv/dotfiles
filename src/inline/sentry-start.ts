@@ -1,5 +1,6 @@
 import * as Sentry from "@sentry/angular";
 import {Event, Severity, Scope} from "@sentry/angular"
+import {Cookie} from "ng2-cookies";
 
 import {IIndexingString} from 'src/interfaces/global.interface';
 
@@ -7,7 +8,7 @@ interface IWindow extends Window {
     WLC_ENV?: string;
     WLC_VERSION?: string;
     wlcSentryConfig?: any;
-    Sentry?: Sentry;
+    Sentry?: any;
     testSessionHash?: string;
     sendSentryError?: (code?: string, group?: string, message?: string, level?: string, data?: any) => void;
 }
@@ -22,7 +23,7 @@ class SentryStart {
         dev: 'https://850fc7b0547d49db8d67c363bfdd844a@sentry.egamings.com/67',
         autotest: 'https://537009cd82f64045828047b669fb8929@sentry.egamings.com/70'
     };
-    private autotest: boolean = this.getCookie('runautotest') === '7698155c459ee95063a26a7121b2b7916fa36004cbcfe787043d27692b249971';
+    private autotest: boolean = Cookie.get('runautotest') === '7698155c459ee95063a26a7121b2b7916fa36004cbcfe787043d27692b249971';
     private readonly sessionHash: string;
 
     constructor() {
@@ -74,8 +75,6 @@ class SentryStart {
     }
 
     public initSentry(): boolean {
-        //window['TESTS'] = Sentry.init;
-
         if (this.window.Sentry && (this.window.WLC_ENV !== 'dev' || this.getCookie('allowSentry')) || this.autotest) {
             console.log(Sentry);
             Sentry.init({
