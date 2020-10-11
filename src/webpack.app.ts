@@ -1,23 +1,12 @@
 import * as webpack from 'webpack';
-import * as path from 'path';
 import * as fs from 'fs';
 import * as WlcWpPlugin from './wlc-wp-plugin.js';
 
-function findCustomFile(filePath: string): string {
-    const customFilePath = filePath.replace('/wlc-engine/', '/custom/');
-
-    try {
-        if (fs.existsSync(customFilePath)) {
-            return customFilePath;
-        }
-    } catch (err) {
-        return null;
-    }
-    return null;
-}
+import {
+    includes as _includes
+} from 'lodash';
 
 export default (config, options, targetOptions) => {
-
 
     // config.module.rules.push({
     //     test: /\.html$/,
@@ -29,20 +18,14 @@ export default (config, options, targetOptions) => {
     //     ]
     // });
 
-    // config.plugins.push(new WlcWpPlugin());
-    config.plugins.push(new webpack.NormalModuleReplacementPlugin(/\.html$/, (resource) => {
-        if (resource.resource) {
-            const customFilePath = findCustomFile(resource.resource);
-            if (customFilePath) {
-                console.dir(customFilePath);
-                // console.dir(resource);
-                resource.request = customFilePath;
+    config.plugins.push(new webpack.NormalModuleReplacementPlugin(/\.(html|ts|scss)$/, (resource) => {
+        if (resource.resource && _includes(resource.resource, '/wlc-engine/modules/')) {
+            const customFile: string = resource.resource.replace('/wlc-engine/', '/custom/');
+            if (fs.existsSync(customFile)) {
+                resource.resource = customFile;
             }
-
         }
-
     }));
-    // console.dir(options);
     return config;
 };
 
