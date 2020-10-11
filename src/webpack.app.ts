@@ -22,7 +22,24 @@ export default (config, options, targetOptions) => {
     // });
 
     config.plugins.push(new webpack.NormalModuleReplacementPlugin(/\.(html|ts|scss)$/, (resource) => {
-        if (resource.resource && _includes(resource.resource, '/wlc-engine/modules/')) {
+        if (!resource.resource) {
+            return;
+        }
+
+        const excludeFiles = [
+            'index',
+            'module',
+            'interface'
+        ];
+
+        const fileName = path.basename(resource.resource);
+        for (let substr of excludeFiles) {
+            if (_includes(fileName, substr)) {
+                return;
+            }
+        }
+
+        if (_includes(resource.resource, '/wlc-engine/modules/')) {
             const customFile: string = resource.resource.replace('/wlc-engine/', '/custom/');
             const customFileDir: string = path.dirname(customFile);
             const customTmpFile: string = customFileDir + '/~' + path.basename(customFile);
