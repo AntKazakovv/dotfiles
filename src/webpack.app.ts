@@ -1,6 +1,9 @@
 import * as webpack from 'webpack';
 import * as fs from 'fs';
+import * as path from 'path';
 import * as WlcWpPlugin from './wlc-wp-plugin.js';
+import * as createFile from 'create-file';
+import * as createDir from 'make-dir';
 
 import {
     includes as _includes
@@ -21,8 +24,14 @@ export default (config, options, targetOptions) => {
     config.plugins.push(new webpack.NormalModuleReplacementPlugin(/\.(html|ts|scss)$/, (resource) => {
         if (resource.resource && _includes(resource.resource, '/wlc-engine/modules/')) {
             const customFile: string = resource.resource.replace('/wlc-engine/', '/custom/');
+            const customFileDir: string = path.dirname(customFile);
+            const customTmpFile: string = customFileDir + '/~' + path.basename(customFile);
+
             if (fs.existsSync(customFile)) {
                 resource.resource = customFile;
+            } else {
+                createDir.sync(customFileDir);
+                fs.copyFileSync(resource.resource, customTmpFile);
             }
         }
     }));
