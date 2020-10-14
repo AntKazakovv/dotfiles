@@ -39,8 +39,8 @@ export default (config) => {
         const customTplPath: string = originTplPath.replace('/wlc-engine/', '/custom/');
         const customComponentDir: string = path.dirname(customTplPath);
         const tplName: string = path.basename(customTplPath);
-        const tsName: string = tplName.replace(/\.html$/i, '.ts');
-        const originTsPath: string = originTplPath.replace(/\.html$/i, '.ts');
+        const tsName: string = tplName.replace('.html', '.ts');
+        const originTsPath: string = originTplPath.replace('.html', '.ts');
 
         if (fs.existsSync(customTplPath)) {
             resource.resource = customTplPath;
