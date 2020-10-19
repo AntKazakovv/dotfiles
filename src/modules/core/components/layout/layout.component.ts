@@ -1,14 +1,14 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, Input, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import {TransitionService, UIRouterGlobals} from '@uirouter/core';
 import {ILayoutComponent, ILayoutStateConfig, ILayoutSectionConfig} from 'wlc-engine/interfaces/layouts.interface';
 import {LayoutService} from 'wlc-engine/modules/core/services';
 
-
 @Component({
     selector: '[wlc-layout]',
     templateUrl: './layout.component.html',
-    styleUrls: ['./layout.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    styleUrls: ['./styles/layout.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    encapsulation: ViewEncapsulation.None
 })
 export class LayoutComponent implements OnInit {
 
@@ -20,11 +20,11 @@ export class LayoutComponent implements OnInit {
     private currentConfig: ILayoutStateConfig;
 
     constructor(
-        private layoutService: LayoutService,
-        private transition: TransitionService,
-        private injector: Injector,
-        private cdr: ChangeDetectorRef,
-        private uiRouter: UIRouterGlobals
+        protected layoutService: LayoutService,
+        protected transition: TransitionService,
+        protected injector: Injector,
+        protected cdr: ChangeDetectorRef,
+        protected uiRouter: UIRouterGlobals
     ) {
     }
 
@@ -54,6 +54,6 @@ export class LayoutComponent implements OnInit {
         this.currentConfig = await this.layoutService.getLayout(state);
         this.section = this.currentConfig.sections[this.sectionName];
         this.components = this.section?.components as ILayoutComponent[] || [];
-        this.cdr.detectChanges();
+        this.cdr.markForCheck();
     }
 }

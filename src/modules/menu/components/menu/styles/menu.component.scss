@@ -1,10 +1,23 @@
-@use './mixins/default.mixin' as default;
-@use './mixins/main-menu.mixin' as mainMenu;
-// @import "wlc-engine/wlc-styles/wlc.components";
+@use './vars' as v;
 
-@if (mixin_exists(appMenuComponent)) {
-    @include appMenuComponent;
-} @else {
-    @include default.wlcDefaultMenuMixin;
-    @include mainMenu.wlcMainMenu;
+.wlc-main-menu {
+
+    &:host {
+
+        &--v1 {
+            display: grid;
+            grid-auto-columns: auto;
+            grid-auto-flow: column;
+            grid-gap: v.$gap;
+            text-transform: v.$textTransform;
+            width: v.$width;
+        }
+    }
+
+    &__link {
+        text-decoration: v.$textDecoration;
+        color: v.$textColor;
+        font-weight: v.$fontWeight;
+        font-size: v.$fontSize;
+    }
 }

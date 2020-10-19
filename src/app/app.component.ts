@@ -1,16 +1,14 @@
-import {
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    OnInit,
-    OnDestroy,
-    HostBinding
-} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding, OnDestroy, OnInit} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
-import {UIRouter, StateService} from '@uirouter/core';
-import {Subject} from 'rxjs';
+import {StateService, UIRouter} from '@uirouter/core';
 import {takeUntil} from 'rxjs/operators';
+import {AbstractComponent} from 'wlc-engine/classes/abstract.component';
+import {SectionModel} from 'wlc-engine/modules/core/models/section.model';
 import {ConfigService, LayoutService} from '../modules/core/services';
+
+const defaultParams = {
+    class: 'wlc-sections'
+};
 
 @Component({
     selector: '[app-component]',
@@ -18,20 +16,20 @@ import {ConfigService, LayoutService} from '../modules/core/services';
     styleUrls: ['./app.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AppComponent implements OnInit, OnDestroy {
-    @HostBinding('class') hostClass = 'wlc-sections';
+export class AppComponent extends AbstractComponent implements OnInit, OnDestroy {
+    public hostClass = defaultParams.class;
 
-    public sections: string[] = [];
-    private $destroy = new Subject<null>();
+    public sections: SectionModel[] = [];
 
     constructor(
-        router: UIRouter,
-        configService: ConfigService,
-        private translate: TranslateService,
-        private stateService: StateService,
-        private layoutService: LayoutService,
-        private cdr: ChangeDetectorRef,
+        public router: UIRouter,
+        public configService: ConfigService,
+        protected translate: TranslateService,
+        protected stateService: StateService,
+        protected layoutService: LayoutService,
+        protected cdr: ChangeDetectorRef,
     ) {
+        super({params: {}, defaultParams});
         const currentLang = router.stateService.params?.locale || 'en';
         translate.addLangs(configService.appConfig.languages.map((lang) => lang.code));
         translate.setDefaultLang(currentLang);
@@ -47,15 +45,6 @@ export class AppComponent implements OnInit, OnDestroy {
         });
 
         this.sections = this.layoutService.getAllSection();
-        this.cdr.detectChanges();
-    }
-
-    public ngOnDestroy(): void {
-        this.$destroy.next();
-        this.$destroy.complete();
-    }
-
-    public getSectionClass(sectionName: string): string {
-        return '';
+        this.cdr.markForCheck();
     }
 }

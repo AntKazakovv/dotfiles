@@ -1,4 +1,4 @@
-import {ThemeType} from "wlc-engine/modules/base/components/language-selector/language-selector.params";
+import {ThemeType} from 'wlc-engine/modules/base/components/language-selector/language-selector.params';
 
 export interface IDefaultConfig {
     replaceConfig?: boolean;
