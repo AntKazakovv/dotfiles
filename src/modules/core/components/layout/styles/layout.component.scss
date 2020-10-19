@@ -1,0 +1,8 @@
+@use 'engine-styles/functions' as ef;
+@import './affiliates';
+@import './header';
+
+body {
+    background-color: ef.get('color', 'background');
+    color: ef.get('color', 'text');
+}

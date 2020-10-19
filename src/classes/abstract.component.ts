@@ -7,6 +7,7 @@ import {
     merge as _merge,
     union as _union,
     forEach as _forEach,
+    findIndex as _findIndex,
 } from 'lodash';
 import {Subject} from 'rxjs';
 
@@ -48,6 +49,13 @@ export class AbstractComponent implements OnDestroy {
     }
 
     protected prepareHostClass(): void {
+        const result = _findIndex(this.modifiers, (mod: string): boolean => {
+            const pattern = new RegExp(/^v\d+$/);
+            return pattern.test(mod);
+        });
+        if (result === -1) {
+            this.modifiers = _union(this.modifiers, ['v1']);
+        }
         const preparedModifiers = _map(this.modifiers, (mod: string): string => `${this.$class}--${mod}`);
         this.$hostClass = [this.$class, ...preparedModifiers].join(' ');
         this.cdr?.markForCheck();

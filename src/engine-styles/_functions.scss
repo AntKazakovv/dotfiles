@@ -2,7 +2,7 @@
 
 @function get($map, $name) {
     @if ($map == 'color') {
-        @return map-get(ev.$colors, $name);
+        @return map-get(ev.$color, $name);
     } @else if($map == 'padding') {
         @return map-get(ev.$padding, $name);
     } @else if($map == 'gap') {

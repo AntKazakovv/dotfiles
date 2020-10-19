@@ -7,6 +7,7 @@ import {
     ILayoutModifyItem,
 } from 'wlc-engine/interfaces/layouts.interface';
 import {ConfigService} from 'wlc-engine/modules/core/services/config/config.service';
+import {SectionModel, ISectionData} from 'wlc-engine/modules/core/models/section.model';
 
 import {
     cloneDeep as _cloneDeep,
@@ -16,14 +17,14 @@ import {
     isArray as _isArray,
     isString as _isString,
     isNumber as _isNumber,
-    keys as _keys,
     mergeWith as _mergeWith,
     reduce as _reduce,
     union as _union,
-    concat as _concat,
+    map as _map,
     findIndex as _findIndex,
     includes as _includes,
     toSafeInteger as _toSafeInteger,
+    set as _set,
 } from 'lodash';
 
 @Injectable({
@@ -50,14 +51,14 @@ export class LayoutService {
     public getLayoutConfig(state: string): ILayoutStateConfig {
         if (this.layouts.hasOwnProperty(state)) {
             if (this.layouts[state].extends) {
-                return _extend(
+                return _cloneDeep(_extend(
                     _cloneDeep(this.layouts[state]),
                     _mergeWith(
                         this.getLayoutConfig(this.layouts[state].extends),
                         this.layouts[state],
                         (target, source) => {
                             return _isArray(target) ? source : undefined;
-                        }));
+                        })));
             }
             return _cloneDeep(this.layouts[state]);
         } else {
@@ -65,9 +66,14 @@ export class LayoutService {
         }
     }
 
-    public getAllSection(): string[] {
+    public getAllSection(): SectionModel[] {
         return _reduce(this.layouts, (res, state) => {
-            return _union(res, _keys(state.sections));
+            return _union(res, _map(
+                state.sections,
+                (section: any, name: string): SectionModel => {
+                    return new SectionModel(<ISectionData>{section, name});
+                })
+            );
         }, []);
     }
 
@@ -108,7 +114,6 @@ export class LayoutService {
                 }
                 return cRes;
             }, [])), []);
-
         await this.importModules(modules);
 
         _each(res.sections, (section) => {

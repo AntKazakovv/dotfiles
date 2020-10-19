@@ -5,6 +5,7 @@ import {get as _get, each as _each} from 'lodash';
 
 export class WpTextData extends TextDataModel {
     protected prepareData(data: any): void {
+        console.log(data);
         this.id = _get(data, 'id');
         this.slug = _get(data, 'slug');
         this.date = new Date(_get(data, 'date'));
