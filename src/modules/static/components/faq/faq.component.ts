@@ -40,7 +40,7 @@ export class FaqComponent extends AbstractComponent implements OnInit {
         protected staticService: StaticService,
         protected cdr: ChangeDetectorRef,
     ) {
-        super(params);
+        super({params, defaultParams: {}});
     }
 
     async ngOnInit(): Promise<void> {
