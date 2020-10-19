@@ -9,8 +9,10 @@ module.exports = {
             'error',
             {type: 'class', prefix: 'wlc', style: 'kebab-case'},
         ],
+        '@typescript-eslint/no-inferrable-types': 'off',
         'semi': ['error'],
         'quote-props': 'off',
+        'comma-dangle': ['error', 'always-multiline'],
     },
     overrides: [
         {

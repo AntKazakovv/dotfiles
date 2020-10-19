@@ -2,15 +2,26 @@ import {HttpClient, HttpParams, HttpRequest, HttpResponse} from '@angular/common
 import {Injectable} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 
-import {filter as _filter, find as _find, includes as _includes, merge as _merge, union as _union, get as _get} from 'lodash';
-
 import {IIndexingString} from 'wlc-engine/interfaces';
 import {ConfigService} from 'wlc-engine/modules/core';
-import {IStaticRequestParams} from 'wlc-engine/modules/static';
-import {TextDataModel, WlcTextData, WpTextData} from 'wlc-engine/modules/static';
+import {IPostResponse, IStaticRequestParams} from 'wlc-engine/modules/static';
+import {
+    TextDataModel,
+    WlcTextData,
+    WpTextData,
+} from 'wlc-engine/modules/static';
+
+import {
+    filter as _filter,
+    find as _find,
+    includes as _includes,
+    merge as _merge,
+    union as _union,
+    get as _get,
+} from 'lodash';
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: 'root',
 })
 export class StaticService {
 
@@ -33,7 +44,7 @@ export class StaticService {
     constructor(
         protected configService: ConfigService,
         private httpClient: HttpClient,
-        protected translateService: TranslateService
+        protected translateService: TranslateService,
     ) {
         this.configReady = this.setConfig();
     }
@@ -46,35 +57,31 @@ export class StaticService {
         await this.configReady;
         const lang = params.lang || this.translateService.currentLang.split('-').shift();
 
-        const restURL = `${this.apiUrl}/${this.getWPLink(params)}`,
-            cacheKey = restURL + JSON.stringify(params);
+        const restURL = `${this.apiUrl}/${this.getWPLink(params)}`;
+        const cacheKey = restURL + JSON.stringify(params);
 
-        return new Promise(async (resolve, reject) => {
-            //     if (useCache && this.SessionCacheService.get(cacheKey)) {
-            //         resolve(new CacheTextData({data: this.SessionCacheService.get(cacheKey)}));
-            //     } else {
-            try {
-                const httpRequestParams = new HttpRequest('GET', restURL, {
-                    params: new HttpParams({
-                        fromObject: _merge({slug: params.slug, lang}, this.params)
-                    })
-                });
-                this.httpClient.request(httpRequestParams).toPromise().then((response: HttpResponse<any>) => {
-                    const data = this.prepareTextData(response.body);
-                    if (!data) {
-                        reject(new Error('No content data'));
-                        return;
-                    }
-                    // if (useCache) {
-                    //     this.SessionCacheService.set(cacheKey, data, {maxAge: this.cacheMaxAge});
-                    // }
-                    resolve(data);
-                });
-            } catch (error) {
-                reject(error);
-            }
-            //     }
+        //     if (useCache && this.SessionCacheService.get(cacheKey)) {
+        //         resolve(new CacheTextData({data: this.SessionCacheService.get(cacheKey)}));
+        //     } else {
+        //     }
+
+        const httpRequestParams = new HttpRequest('GET', restURL, {
+            params: new HttpParams({
+                fromObject: _merge({slug: params.slug, lang}, this.params),
+            }),
         });
+
+        return this.httpClient.request(httpRequestParams).toPromise()
+            .then((response: HttpResponse<IPostResponse>) => {
+                const data = this.prepareTextData(response.body);
+                if (!data) {
+                    throw new Error('No content data');
+                }
+                // if (useCache) {
+                //     this.SessionCacheService.set(cacheKey, data, {maxAge: this.cacheMaxAge});
+                // }
+                return data;
+            });
     }
 
     public getPost(slug: string): Promise<TextDataModel> {
@@ -116,21 +123,14 @@ export class StaticService {
             return false;
         }
 
-        return new Promise((resolve, reject) => {
-            const request = new HttpRequest('GET', '/content/wp-json/wp-wlc-api/v1/active-plugins/');
-            this.httpClient.request<HttpRequest<string>>(request).toPromise().then((response: any) => {
+        const request = new HttpRequest('GET', '/content/wp-json/wp-wlc-api/v1/active-plugins/');
+        return this.httpClient.request<HttpRequest<string>>(request).toPromise()
+            .then((response: any) => {
                 if (plugin) {
                     const rx = new RegExp(`^${plugin}\/`);
-                    if (!!_find(response.data, (item) => rx.test(item))) {
-                        resolve(true);
-                    } else {
-                        reject(false);
-                    }
+                    return !!_find(response.data, (item) => rx.test(item));
                 }
-            }, () => {
-                reject(false);
             });
-        });
     }
 
     protected getParams(): IIndexingString {
