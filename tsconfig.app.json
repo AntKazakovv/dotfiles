@@ -7,6 +7,10 @@
         "src/polyfills.ts"
     ],
     "include": [
-        "wlc-engine/**/*.d.ts"
+        "wlc-engine/**/*.d.ts",
+        "custom/**/*"
+    ],
+    "exclude": [
+        "custom/**/~*.ts"
     ]
 }
