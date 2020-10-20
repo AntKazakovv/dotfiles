@@ -7,7 +7,6 @@
     "build": "ng build",
     "docs": "npm run build:docs -- --serve",
     "build:docs": "compodoc -p ./tsconfig.docs.json -d docs",
-    "hel": "npm run build:docs",
     "dist": "git submodule update --init && ng build --project wlc-engine --prod && npm run build:docs",
     "test": "ng test",
     "lint": "ng lint",
