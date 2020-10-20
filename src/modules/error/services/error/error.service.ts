@@ -262,6 +262,93 @@ export class ErrorService {
         this.log(logObj);
     }
 
+
+    /**
+     *  @TODO after creating of Modals
+     *
+     * Show error modal
+     *
+     * @param {string[] | string | IErrorMessage | errorCode: string} errorData ErrorData
+     * @param {string} title title
+     * @param {string} toState toState
+     * @param {any} stateParams stateParams
+     * @param {string} tag tag
+     * @param {string} type type
+     * @returns {IModalInstanceService} IModalInstanceService
+     *
+     * @description
+     *
+     * show modal with error
+     *
+     * @example
+     * <pre>
+     *  errorService.showModal('0.1.1');
+     *  errorService.showModal('Error Message', 'Error Title', 'app.home', {});
+     *  errorService.showModal({
+     *      title: 'Error Title',
+     *      textData: 'Error Message',
+     *      tag: 'modal_error_tag',
+     *      type: 'error'
+     *  });
+     * </pre>
+     */
+    // public showModal(
+    //     errorData?: string[] | string | IErrorMessage,
+    //     title?: string,
+    //     toState?: string,
+    //     stateParams?: any,
+    //     tag?: string,
+    //     type?: string
+    // ): IModalInstanceService {
+    //     const $scope: IModalScope = this.$rootScope.$new();
+    //
+    //     $scope.tag = tag || 'modal_error';
+    //     $scope.type = type || 'error';
+    //
+    //     if (_isString(errorData)) {
+    //
+    //         if (errorTypes[errorData]) {
+    //             $scope.title = errorTypes[errorData].name || title || this.gettextCatalog.getString('Error!');
+    //             $scope.errors = [errorTypes[errorData].description];
+    //             $scope.tag = _toLower(errorTypes[errorData].type) || 'modal_error';
+    //             $scope.type = errorTypes[errorData].level || 'modal_error';
+    //         } else {
+    //             $scope.title = title || this.gettextCatalog.getString('Error!');
+    //             $scope.errors = this.prepareErrorData(errorData);
+    //         }
+    //     } else if (_isArray(errorData)) {
+    //         $scope.title = title || this.gettextCatalog.getString('Error!');
+    //         $scope.errors = this.prepareErrorData(errorData);
+    //     } else {
+    //         toState = _get(errorData, 'toState');
+    //         stateParams = _get(errorData, 'stateParams');
+    //
+    //         if (_get(errorData, 'errorCode') && errorTypes[errorData.errorCode]) {
+    //             $scope.title = errorTypes[errorData.errorCode].name;
+    //             $scope.errors = [errorTypes[errorData.errorCode].description];
+    //
+    //             $scope.tag = _toLower(_get(errorTypes[errorData.errorCode], 'tag',
+    //                 `modal_error_${errorData.errorCode}`.replace('.', '-')));
+    //             $scope.type = _get(errorTypes[errorData.errorCode], 'type', 'error');
+    //         }
+    //
+    //         $scope.title = _get(errorData, 'title', $scope.title) || this.gettextCatalog.getString('Error!');
+    //         $scope.errors = this.prepareErrorData(_get(errorData, 'textData', $scope.errors));
+    //         $scope.tag = _toLower(_get(errorData, 'tag', $scope.tag)) || 'modal_error';
+    //         $scope.type = _toLower(_get(errorData, 'type', $scope.type)) || 'error';
+    //     }
+    //
+    //     const options = _extend({scope: $scope}, this.wlcModalRegistryProvider.get('errorModal'));
+    //     const modal: IModalInstanceService = this.ModalService.showDialog(options) as IModalInstanceService;
+    //
+    //     modal.result.finally(() => {
+    //         if (toState) {
+    //             this.$state.go(toState, stateParams);
+    //         }
+    //     });
+    //     return modal;
+    // }
+
     /**
      * Prepare log info
      *
@@ -298,7 +385,7 @@ export class ErrorService {
             const tags: IIndexing<string> = _extend(logObj.tags || {},
                 (logObj.code) ? {code: logObj.code} : {},
                 (logObj.logger) ? {logger: logObj.logger} : {});
-            const extData: any = _extend(_isObject(logObj.data) ? logObj.data : {data: logObj.data});
+            const extData: IIndexing<any> = _extend(_isObject(logObj.data) ? logObj.data : {data: logObj.data});
             this.sentryLog(tags, extData, logObj.name, logObj.level);
         }
     }
@@ -334,12 +421,12 @@ export class ErrorService {
      * @param {string} level Log level
      */
     protected sentryLog(
-        tags: any,
-        extData: any,
+        tags: IIndexing<string>,
+        extData: IIndexing<any>,
         name: string,
         level: string,
     ): void {
-        this.Sentry.withScope((scope: any) => {
+        this.Sentry.withScope((scope) => {
             scope.setTags(tags);
             scope.setExtras(extData);
             scope.setUser({
