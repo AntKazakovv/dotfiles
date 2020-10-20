@@ -1,13 +1,30 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpParams} from '@angular/common/http';
-import {map, tap, switchMap} from 'rxjs/internal/operators';
-import {Observable, Subject, of, from} from 'rxjs';
+import {HttpClient, HttpParams, HttpErrorResponse} from '@angular/common/http';
+import {
+    Observable,
+    Subject,
+    of,
+    from,
+    interval,
+    BehaviorSubject,
+    Subscription,
+    PartialObserver,
+    throwError,
+} from 'rxjs';
+import {
+    map,
+    tap,
+    filter,
+    catchError,
+} from 'rxjs/internal/operators';
 import {TranslateService} from '@ngx-translate/core';
+import {LogService} from 'wlc-engine/modules/core/services';
 
 import {
     isString as _isString,
     get as _get,
     assign as _assign,
+    isFunction as _isFunction,
 } from 'lodash';
 
 export interface IData {
@@ -24,51 +41,108 @@ export type RestMethodType = 'GET' | 'POST' | 'PATCH' | 'PUT' | 'DELETE';
 export type RequestParamsType = HttpParams | {[key: string]: string | string[]};
 
 export interface IRequestMethod {
+    /** name of method */
     name: string;
+    /** system of method */
     system: string;
-    url: string;
+    /** api url */
+    url?: string;
+    /** full api url */
+    fullUrl?: string;
+    /** type of http request */
     type: RestMethodType;
+    /** cache time in ms */
     cache?: number;
+    /** request parametrs */
     params?: RequestParamsType;
+    /** period of automatical request */
+    period?: number;
+    /** preload name from inline preload script */
     preload?: string;
-    mapFunc?: (data: IData) => any;
+    /** method that transform request data */
+    mapFunc?: (data: IData) => unknown;
+}
+
+interface IRegistredMethod extends IRequestMethod {
+    flow?: Observable<IData>;
+    subject?: BehaviorSubject<IData>;
+    intervalSubcribe?: Subscription;
 }
 
 @Injectable()
 export class DataService {
 
+    /** Observable flow of all api data */
     public get flow(): Observable<IData> {
         return this.flow$.asObservable();
     }
 
     private flow$: Subject<IData> = new Subject<IData>();
     private socket: WebSocket;
-    private apiList: {[key: string]: IRequestMethod} = {};
+    private apiList: {[key: string]: IRegistredMethod} = {};
+
+    private urlPrefix = '/api/v1';
 
     private socketUrl = '';
 
     constructor(
         private http: HttpClient,
         private translate: TranslateService,
+        private logService: LogService,
     ) {
         this.init();
     }
 
+    /**
+     * Register api method
+     *
+     * @param method {IRequestMethod} method object to register in service
+     *
+     * @return {boolean} result of method registration
+     */
     public registerMethod(method: IRequestMethod): boolean {
         const name = `${method.system}/${method.name}`;
         if (_get(this.apiList, name)) {
             return false;
         }
-        this.apiList[name] = method;
+
+        if (!method.url && !method.fullUrl) {
+            throw new Error(`registerMethod: url or fullUrl are nessesery on ${name}`);
+        }
+
+        const registedMethod: IRegistredMethod = _assign({}, method);
+        registedMethod.subject = new BehaviorSubject<IData>(null);
+        registedMethod.flow = registedMethod.subject.asObservable();
+        if (registedMethod.period) {
+            registedMethod.intervalSubcribe = interval(registedMethod.period).pipe(
+                filter(() => {
+                    return this.apiList[name].subject.observers.length > 0;
+                })
+            ).pipe(
+                tap(() => {
+                    this.request$(this.apiList[name]).toPromise();
+                })
+            ).subscribe();
+        }
+
+        this.apiList[name] = registedMethod;
         return true;
     }
 
-    public request(request: string | IRequestMethod, params?: RequestParamsType): Observable<IData> {
+    /**
+     * Make single request to api
+     *
+     * @param request {string | IRequestMethod} name registred api method (system/name) or request method object
+     * @param params {RequestParamsType} params of request
+     *
+     * @return {Promise} result of api request
+     */
+    public request(request: string | IRequestMethod, params?: RequestParamsType): Promise<IData> {
         if (_isString(request)) {
             if (this.apiList[request]) {
-                return this.request$(this.apiList[request], params);
+                return this.request$(this.apiList[request], params).toPromise();
             } else {
-                return of({
+                return Promise.reject({
                     system: 'data',
                     name: request,
                     status: 'error',
@@ -79,8 +153,45 @@ export class DataService {
                 });
             }
         } else {
-            return this.request$(request, params);
+            return this.request$(request, params).toPromise();
         }
+    }
+
+    /**
+     * Subscribe to API method with observer
+     *
+     * @param requestName {string} name of registred method (system/name)
+     * @param observer {(value: IData) => void | PartialObserver} observer to subscribe
+     *
+     * @return {Subscription} An Subscription to registred api method with observer
+     */
+    public subscribe(requestName: string, observer: ((value: IData) => void) | PartialObserver<IData>): Subscription {
+
+        // may be need to auto register method?
+        if (!_get(this.apiList, requestName)) {
+            return;
+        }
+
+        return this.apiList[requestName].flow.subscribe(
+            _isFunction(observer)
+                ? {next: (response: IData) => {observer(response)}}
+                : observer
+        );
+    }
+
+    /**
+     * Get Observable of api method
+     *
+     * @param requestName {string} name of registred method (system/name)
+     *
+     * @return {Observable} An Observable of registred api method
+     */
+    public getMethodSubscribe(requestName: string): Observable<IData> {
+
+        if (!_get(this.apiList, requestName)) {
+            return;
+        }
+        return this.apiList[requestName].flow;
     }
 
     protected init(): void {
@@ -89,7 +200,12 @@ export class DataService {
         }
     }
 
-    protected request$(method: IRequestMethod, params?: RequestParamsType): Observable<IData> {
+    protected request$(method: IRegistredMethod, params?: RequestParamsType): Observable<IData> {
+
+        if (!method.url && !method.fullUrl) {
+            throw new Error(`request$: url or fullUrl are nessesery on ${method.system}/${method.name}`);
+        }
+
         const requestParams = _assign(
             {
                 lang: this.translate.currentLang || 'en'
@@ -98,25 +214,36 @@ export class DataService {
             method.type === 'GET' ? params : {}
         );
         const requestBody = method.type !== 'GET' ? JSON.stringify(params) || '' : undefined;
-        const url = method.url;
+        const url = method.fullUrl || this.urlPrefix + method.url;
 
         return (
             (method.preload
                 && method.type === 'GET'
                 && (window as any).wlcPreload?.hasOwnProperty(method.preload)) ?
                 from((window as any).wlcPreload[method.preload] as Promise<IData>) :
-                this.http.request<IData>(method.type, url,
+                this.http.request<IData>(
+                    method.type,
+                    url,
                     {
                         params: requestParams,
                         body: requestBody,
                         withCredentials: true,
+                    }
+                )
+                .pipe(
+                    catchError((error: HttpErrorResponse) => {
+                        this.logService.sendLog(error.error || error);
+                        return throwError(error.error || error);
                     })
+                )
         ).pipe(
-            map((data: IData) => {
+            map((data: IData): IData => {
+                let responseData: IData;
+
                 if (_get(data, 'status') && (_get(data, 'data') || _get(data, 'errors'))) {
-                    return data;
+                    responseData = data;
                 } else {
-                    return data.errors ?
+                    responseData = data.errors ?
                         {
                             status: 'error',
                             name: method.name,
@@ -129,9 +256,17 @@ export class DataService {
                             data,
                         };
                 }
+
+                if (responseData.errors) {
+                    this.logService.sendLog(responseData.errors);
+                    throwError(responseData.errors)
+                }
+
+                return responseData;
             }),
             tap((data: IData) => {
                 this.flow$.next(data);
+                method.subject?.next(data);
                 if (method.type === 'GET' && method.cache > 0 && data.status === 'success') {
                     // save to cache
                 }
