@@ -15,6 +15,7 @@ import {AbstractComponent} from 'wlc-engine/classes/abstract.component';
 import {StaticService} from 'wlc-engine/modules/static';
 import {IPostComponentParams} from 'wlc-engine/modules/static/components/post/post.interface';
 import {TextDataModel} from 'wlc-engine/modules/static';
+import {defaultParams} from './post.params';
 
 @Component({
     selector: '[wlc-post]',
@@ -35,9 +36,9 @@ export class PostComponent extends AbstractComponent implements OnInit, AfterVie
         @Inject('params') protected params: IPostComponentParams,
         protected viewRef: ViewContainerRef,
         protected domSanitizer: DomSanitizer,
-        private cdr: ChangeDetectorRef,
+        protected cdr: ChangeDetectorRef,
     ) {
-        super(params);
+        super({params, defaultParams});
     }
 
     async ngOnInit(): Promise<void> {
@@ -46,8 +47,9 @@ export class PostComponent extends AbstractComponent implements OnInit, AfterVie
             // const html = this.domSanitizer.bypassSecurityTrustHtml(data.html);
             this.html = data.html;
             this.isReady = true;
-            this.cdr.detectChanges();
+            this.cdr.markForCheck();
         } catch (e) {
+            console.log(e);
         }
         // this.wrp.remove();
         // this.viewRef.remove();

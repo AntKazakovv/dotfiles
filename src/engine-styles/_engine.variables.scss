@@ -1,0 +1,39 @@
+$color: (
+    'accent': #FFCC00,
+    'warn': #b71313,
+    'text': #e2e2e2,
+    'text-hint': #b8b8b8,
+    'link': #ADADAD,
+    'linkAccent': #000,
+    'textAccent': #000,
+    'divider': #b1b1b1,
+    'disabled': #ADADAD,
+    'background': #000,
+    'backgroundHover': #dedede,
+    'backgroundAccent': #c1c1c1,
+    'backgroundAccentHover': #a2a2a2
+);
+
+$padding: (
+    'small': 5px,
+    'less': 10px,
+    'main': 15px,
+    'biger': 20px,
+    'big': 30px
+);
+
+$gap: (
+    'small': 5px,
+    'less': 10px,
+    'main': 15px,
+    'biger': 20px,
+    'big': 30px
+);
+
+$radius: (
+    'small': 3px,
+    'less': 5px,
+    'main': 10px,
+    'biger': 15px,
+    'big': 20px
+);

@@ -1,0 +1,15 @@
+<ul class="wlc-static-faq">
+    <li class="wlc-static-faq__item"
+        [ngClass]="{expanded: faqItem.expand}"
+        *ngFor="let faqItem of faqData">
+        <div class="wlc-static-faq__item-header"
+             (click)="expandToggle(faqItem)">
+            <p class="wlc-static-faq__item-title">{{faqItem.title}}</p>
+            <span class="wlc-static-faq__item-toggle-icon"></span>
+        </div>
+        <p class="wlc-static-faq__item-content"
+           [hidden]="!faqItem.expand">
+            {{faqItem.content}}
+        </p>
+    </li>
+</ul>

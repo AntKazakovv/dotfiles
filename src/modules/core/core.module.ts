@@ -4,11 +4,13 @@ import {LayoutComponent} from './components/layout/layout.component';
 import {NgTemplateNameDirective} from './directives/template-name/template-name.directive';
 import {ConfigService, DataService, EventService, FilesService} from './services';
 import {BaseModule} from 'wlc-engine/modules/base/base.module';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
     imports: [
         CommonModule,
         BaseModule,
+        BrowserAnimationsModule,
     ],
     providers: [
         DataService,
@@ -24,6 +26,7 @@ import {BaseModule} from 'wlc-engine/modules/base/base.module';
         LayoutComponent,
         NgTemplateNameDirective,
         BaseModule,
+        BrowserAnimationsModule,
     ]
 })
 export class CoreModule {

@@ -1,4 +1,4 @@
-import {IMenuItemsGlobal} from 'wlc-engine/modules/menu/interfaces/menu.interface';
+import {IMenuItemsGlobal} from 'wlc-engine/modules/menu/components/menu/menu.interface';
 
 export const wlcAffiliatesMenuItemsGlobal: IMenuItemsGlobal = {
     'affiliates-menu:why-us': {

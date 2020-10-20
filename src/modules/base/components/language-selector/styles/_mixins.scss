@@ -1,0 +1,21 @@
+@use './vars' as v;
+
+@mixin flag {
+    width: v.$flagSize;
+    height: v.$flagSize;
+    border-radius: 50%;
+    overflow: hidden;
+
+    img {
+        width: v.$flagSize;
+        height: v.$flagSize;
+    }
+}
+
+@mixin autoGrid {
+    display: grid;
+    grid-auto-columns: auto;
+    grid-auto-flow: column;
+    align-items: center;
+    grid-gap: 10px;
+}

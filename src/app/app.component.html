@@ -1,1 +1,5 @@
-<div *ngFor="let section of sections" wlc-layout [sectionName]="section" class="wlc-sections__{{section}}"></div>
+<div *ngFor="let section of sections"
+     wlc-layout
+     [sectionName]="section.name"
+     [ngClass]="section.classList(hostClass)"
+></div>

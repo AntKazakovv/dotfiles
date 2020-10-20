@@ -1,0 +1,13 @@
+@use './engine.variables' as ev;
+
+@function get($map, $name) {
+    @if ($map == 'color') {
+        @return map-get(ev.$color, $name);
+    } @else if($map == 'padding') {
+        @return map-get(ev.$padding, $name);
+    } @else if($map == 'gap') {
+        @return map-get(ev.$gap, $name);
+    } @else if($map == 'radius') {
+        @return map-get(ev.$radius, $name);
+    }
+}

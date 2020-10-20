@@ -5,6 +5,8 @@ import * as appConfig from 'wlc-config/index';
 import * as wlcConfig from 'wlc-engine/config/default.config';
 import {GlobalHelper} from 'wlc-engine/helpers/global.helper';
 
+export * from './app-config.model';
+
 import {
     mergeWith as _mergeWith,
 } from 'lodash';

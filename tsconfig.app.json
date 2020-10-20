@@ -1,23 +1,16 @@
 {
     "extends": "./tsconfig.json",
     "compilerOptions": {
-        "paths": {
-            "wlc-engine/*": [
-                "./wlc-engine/*"
-            ],
-            "wlc-config/*": [
-                "./config/frontend/*"
-            ],
-            "wlc-svg/*": [
-                "./src/svg/*"
-            ]
-        }
     },
     "files": [
         "src/main.ts",
         "src/polyfills.ts"
     ],
     "include": [
-        "wlc-engine/**/*.d.ts"
+        "wlc-engine/**/*.d.ts",
+        "custom/**/*"
+    ],
+    "exclude": [
+        "custom/**/~*.ts"
     ]
 }

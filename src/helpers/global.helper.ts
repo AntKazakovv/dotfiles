@@ -30,7 +30,7 @@ export class GlobalHelper {
     }
 
     public static getTemplateByName(templatesList: QueryList<NgTemplateNameDirective>, name: string) {
-        console.log(templatesList);
+        // console.log(templatesList);
         // const dir = templatesList.find((template: NgTemplateNameDirective) => template.name === name);
         // return dir ? dir.template : null;
     }

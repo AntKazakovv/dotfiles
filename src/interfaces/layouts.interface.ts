@@ -18,6 +18,7 @@ export interface ILayoutSectionConfig {
     container?: string | boolean;
     components?: (ILayoutComponent | string)[];
     modify?: ILayoutModifyItem[];
+    modifiers?: string[];
 }
 
 // export interface ILayoutModify {

@@ -1,4 +1,4 @@
-import {IMenuItemsGlobal} from 'wlc-engine/modules/menu/interfaces/menu.interface';
+import {IMenuItemsGlobal} from 'wlc-engine/modules/menu/components/menu/menu.interface';
 import {wlcMainMenuItemsGlobal} from './main-menu.items.config';
 import {wlcAffiliatesMenuItemsGlobal} from './affiliates-menu.items.config';
 
