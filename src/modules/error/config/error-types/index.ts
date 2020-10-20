@@ -4,16 +4,16 @@ import {
     assign as _assign,
 } from 'lodash';
 
-import * as group0 from './0.group';
-import * as group1 from './1.group';
-import * as group2 from './2.group';
-import * as group3 from './3.group';
-import * as group4 from './4.group';
-import * as group5 from './5.group';
-import * as group6 from './6.group';
-import * as group7 from './7.group';
-import * as group8 from './8.group';
-import * as group9 from './9.group';
+import * as group0 from './0.common';
+import * as group1 from './1.auth';
+import * as group2 from './2.validation';
+import * as group3 from './3.games';
+import * as group4 from './4.license';
+import * as group5 from './5.wordpress';
+import * as group6 from './6.page-not-found';
+import * as group7 from './7.chat';
+import * as group8 from './8.verify-identity';
+import * as group9 from './9.verification';
 
 type ErrorGroup = 'Common' | 'Sign Up' | 'Bonus' | '404 not found' | 'AutoTest' | 'Load' | 'Livechat' | 'Hellosoda';
 type LogMethods = 'Flog' | 'Sentry' | 'Both';

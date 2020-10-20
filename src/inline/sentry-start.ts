@@ -5,13 +5,18 @@ import {Event, Severity, Scope} from "@sentry/angular"
 import {Cookie} from "ng2-cookies";
 import {IIndexing} from 'src/interfaces/global.interface';
 
+interface ISentryConfig {
+    isInstall: boolean;
+    project?: string;
+}
+
 interface IWindow extends Window {
     WLC_ENV?: string;
     WLC_VERSION?: string;
-    wlcSentryConfig?: any;
-    Sentry?: any;
+    wlcSentryConfig?: ISentryConfig;
+    Sentry?: Sentry;
     testSessionHash?: string;
-    sendSentryError?: (code?: string, group?: string, message?: string, level?: string, data?: any) => void;
+    sendSentryError?: (code?: string, group?: string, message?: string, level?: string, data?: IIndexing<any>) => void;
 }
 
 class SentryStart {
