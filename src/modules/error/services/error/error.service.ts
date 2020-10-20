@@ -5,7 +5,7 @@ import {TranslateService} from '@ngx-translate/core';
 import {StateService, UIRouter} from '@uirouter/core';
 import {Location} from '@angular/common';
 import {ConfigService} from 'wlc-engine/modules/core';
-import {IIndexingString} from 'wlc-engine/interfaces';
+import {IIndexing} from 'wlc-engine/interfaces';
 import {errorTypes} from 'wlc-engine/modules/error/config/error-types';
 
 import {
@@ -19,6 +19,7 @@ import {
     isArray as _isArray,
     forEach as _forEach,
     isObject as _isObject,
+    isString as _isString,
     extend as _extend,
 } from 'lodash';
 
@@ -97,6 +98,13 @@ export class ErrorService {
 
     }
 
+    /**
+     * Set duration waiter
+     *
+     * @param {ILogObj} error Error info
+     * @param {number} threshold Thresold before send log
+     * @returns {IDurationWaiter} Waiter
+     */
     public durationWaiter(error: ILogObj, threshold: number = 30): IDurationWaiter {
         const init = () => {
             threshold = _get(errorTypes[error.code], 'threshold', threshold);
@@ -143,6 +151,13 @@ export class ErrorService {
         return init();
     }
 
+    /**
+     * Set waiter, wich will send log after timeout
+     *
+     * @param {ILogObj} error Error info
+     * @param {number} timeout Timeout in milliseconds
+     * @returns {() => void} Handler to prevent send log
+     */
     public waiter(error: ILogObj, timeout: number = 3000): () => void {
         const start = () => {
             let res = () => {
@@ -161,6 +176,12 @@ export class ErrorService {
         return start();
     }
 
+    /**
+     * Wait for element
+     *
+     * @param {IWaitElementParams} params Params for wait
+     * @returns {() => void} Handler to prevent send log
+     */
     public waitForElement(params: IWaitElementParams): () => void {
         const timeoutHandler = setTimeout(() => {
             const element = document.querySelector(params.selector);
@@ -186,12 +207,18 @@ export class ErrorService {
         return stopTimeout;
     }
 
+    /**
+     * Cause the situation 'Page not found'
+     *
+     * @param {IErrorPageNotFound} data
+     * @param {string} errorCode
+     */
     public pageNotFound(data: IErrorPageNotFound, errorCode = '6.0.0'): void {
         const params = _extend({
             message: gettext('Could not find a state associated with url') + ` "${this.location.path}"`,
             title: gettext('Page not found')
         }, data);
-        const errorData = {
+        const errorData: ILogObj = {
             code: errorCode,
             data: _extend({
                 caller: 'unknown',
@@ -208,6 +235,11 @@ export class ErrorService {
         this.stateService.go('app.error', params);
     }
 
+    /**
+     * Log error
+     *
+     * @param {ILogObj} logObj Log info
+     */
     public logError(logObj: ILogObj): void {
         logObj.level = logObj.level || 'error';
         logObj.logger = 'javascript';
@@ -230,6 +262,11 @@ export class ErrorService {
         this.log(logObj);
     }
 
+    /**
+     * Prepare log info
+     *
+     * @param {ILogObj} logObj Log info
+     */
     protected log(logObj: ILogObj): void {
         _set(logObj, 'data.mobile', this.configService.appConfig.mobile);
 
@@ -257,8 +294,8 @@ export class ErrorService {
                 this.Flog.log(code, data).finally();
             }
         }
-        if (_get(window, 'wlcSentryConfig.isInstall') === true) {
-            const tags: IIndexingString = _extend(logObj.tags || {},
+        if (_get(window, 'wlcSentryConfig.isInstall')) {
+            const tags: IIndexing<string> = _extend(logObj.tags || {},
                 (logObj.code) ? {code: logObj.code} : {},
                 (logObj.logger) ? {logger: logObj.logger} : {});
             const extData: any = _extend(_isObject(logObj.data) ? logObj.data : {data: logObj.data});
@@ -266,15 +303,21 @@ export class ErrorService {
         }
     }
 
+    /**
+     * Prepare error data
+     *
+     * @param {string[] | string} errorData
+     * @returns {string[]}
+     */
     protected prepareErrorData(errorData: string[] | string): string[] {
         const result: string[] = [];
         if (_isArray(errorData)) {
             _forEach(errorData, (value: string): void => {
-                if (typeof value === 'string') {
+                if (_isString(value)) {
                     result.push(value);
                 }
             });
-        } else if (errorData && typeof errorData === 'string') {
+        } else if (_isString(errorData)) {
             result.push(errorData);
         } else {
             result.push(this.translateService.instant(gettext('Something went wrong. Please try again later.')));
@@ -282,6 +325,14 @@ export class ErrorService {
         return result.map((message) => message.replace(/<[^>]+>/g, ''));
     }
 
+    /**
+     * Send sentry log
+     *
+     * @param {any} tags Tags
+     * @param {any} extData Additional data
+     * @param {string} name Log name
+     * @param {string} level Log level
+     */
     protected sentryLog(
         tags: any,
         extData: any,

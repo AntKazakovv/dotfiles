@@ -1,3 +1,5 @@
+'use strict';
+
 import * as Sentry from "@sentry/angular";
 import {Event, Severity, Scope} from "@sentry/angular"
 import {Cookie} from "ng2-cookies";
@@ -38,17 +40,29 @@ class SentryStart {
         }
     }
 
+    /**
+     * Generate hash
+     *
+     * @param {boolean} save Save to session storage
+     * @returns {string} Hash string
+     */
     private generateHash(save?: boolean): string {
-        const hash = window.crypto.getRandomValues(
-            new Uint32Array(2)).reduce((res, item) => res + item.toString(16),
-            ''
-        );
+        const hash = window.crypto.getRandomValues(new Uint32Array(2)).reduce((res, item) => res + item.toString(16), '');
         if (save) {
             sessionStorage.setItem(this.sessionKey, hash);
         }
         return hash;
     }
 
+    /**
+     * Send sentry error
+     *
+     * @param {string} code Error code
+     * @param {string} group Error group
+     * @param {string} message Error message
+     * @param {string} level Error level
+     * @param {any} data Error data
+     */
     private sendSentryError(code: string, group: string, message: string, level: string, data: any): void {
         Sentry.withScope((scope: Scope): void => {
             scope.setTags({
@@ -64,6 +78,11 @@ class SentryStart {
         });
     }
 
+    /**
+     * Init sentry
+     *
+     * @returns {boolean} Was inited or not
+     */
     private initSentry(): boolean {
         this.window.Sentry = Sentry;
         if ((this.window.WLC_ENV !== 'dev' || Cookie.get('allowSentry')) || this.autotest) {
@@ -98,6 +117,9 @@ class SentryStart {
         return false;
     }
 
+    /**
+     * Save sentry config
+     */
     private setConfig(): void {
         this.window.wlcSentryConfig = this.window.wlcSentryConfig || {};
         this.window.wlcSentryConfig.isInstall = true;
