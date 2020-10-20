@@ -50,20 +50,18 @@ class SentryStart {
     }
 
     private sendSentryError(code: string, group: string, message: string, level: string, data: any): void {
-        if (this.window?.Sentry) {
-            Sentry.withScope((scope: Scope): void => {
-                scope.setTags({
-                    code: code,
-                    group: group || 'Common',
-                });
-                if (data) {
-                    scope.setExtras(data);
-                }
-                Sentry.captureMessage(
-                    message, Severity.fromString(level || 'warning')
-                );
+        Sentry.withScope((scope: Scope): void => {
+            scope.setTags({
+                code: code,
+                group: group || 'Common',
             });
-        }
+            if (data) {
+                scope.setExtras(data);
+            }
+            Sentry.captureMessage(
+                message, Severity.fromString(level || 'warning')
+            );
+        });
     }
 
     private initSentry(): boolean {
