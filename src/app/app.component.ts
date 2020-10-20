@@ -44,6 +44,11 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
             );
         });
 
+        console.log('init');
+
+        // @ts-ignore
+        router.stateService
+
         this.sections = this.layoutService.getAllSection();
         this.cdr.markForCheck();
     }

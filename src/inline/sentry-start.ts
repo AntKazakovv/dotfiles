@@ -75,8 +75,8 @@ class SentryStart {
     }
 
     public initSentry(): boolean {
-        if (this.window.Sentry && (this.window.WLC_ENV !== 'dev' || this.getCookie('allowSentry')) || this.autotest) {
-            console.log(Sentry);
+        this.window.Sentry = Sentry;
+        if ((this.window.WLC_ENV !== 'dev' || this.getCookie('allowSentry')) || this.autotest) {
             Sentry.init({
                 dsn: this.autotest ? this.dsn.autotest : this.prod ? this.dsn.prod : this.dsn.dev,
                 release: '' + this.window.WLC_VERSION,
