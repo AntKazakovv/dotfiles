@@ -15,4 +15,4 @@ export const errorTypes: IErrorTypes = {
         level: 'error',
         group: 'Livechat'
     },
-}
+};

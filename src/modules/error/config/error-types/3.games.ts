@@ -166,4 +166,4 @@ export const errorTypes: IErrorTypes = {
         level: 'log',
         method: 'Flog'
     },
-}
+};

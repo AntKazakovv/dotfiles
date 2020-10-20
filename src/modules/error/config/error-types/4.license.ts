@@ -21,4 +21,4 @@ export const errorTypes: IErrorTypes = {
         name: 'License Validation Link (apgHtml & location.host)',
         type: 'License_validation_link'
     },
-}
+};

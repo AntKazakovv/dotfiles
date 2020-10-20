@@ -178,6 +178,7 @@ export const errorTypes: IErrorTypes = {
         level: 'fatal',
         method: 'Both'
     },
+    // @TODO Create 4.payments.ts when will use in code
     '1.4.1': {
         description: 'Timeout when get bonuses on deposit/withdraw',
         name: 'Get bonuses timeout',
@@ -360,6 +361,6 @@ export const errorTypes: IErrorTypes = {
         type: 'Empty_payment_markup',
         level: 'warning',
     },
-}
+};
 
 

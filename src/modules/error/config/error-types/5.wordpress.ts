@@ -65,4 +65,4 @@ export const errorTypes: IErrorTypes = {
         type: 'Empty_External_Data_WP',
         level: 'warning'
     },
-}
+};

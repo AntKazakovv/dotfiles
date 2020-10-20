@@ -8,4 +8,4 @@ export const errorTypes: IErrorTypes = {
         level: 'error',
         group: '404 not found'
     },
-}
+};
