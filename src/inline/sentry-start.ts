@@ -39,7 +39,7 @@ class SentryStart {
         }
     }
 
-    public generateHash(save?: boolean): string {
+    private generateHash(save?: boolean): string {
         const hash = window.crypto.getRandomValues(
             new Uint32Array(2)).reduce((res, item) => res + item.toString(16),
             ''
@@ -50,14 +50,14 @@ class SentryStart {
         return hash;
     }
 
-    public getCookie(name: string): any {
+    private getCookie(name: string): any {
         const matches = document.cookie.match(new RegExp(
             '(?:^|; )' + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + '=([^;]*)'
         ));
         return matches ? decodeURIComponent(matches[1]) : undefined;
     }
 
-    public sendSentryError(code: string, group: string, message: string, level: string, data: any): void {
+    private sendSentryError(code: string, group: string, message: string, level: string, data: any): void {
         if (this.window?.Sentry) {
             Sentry.withScope((scope: Scope): void => {
                 scope.setTags({
@@ -74,7 +74,7 @@ class SentryStart {
         }
     }
 
-    public initSentry(): boolean {
+    private initSentry(): boolean {
         this.window.Sentry = Sentry;
         if ((this.window.WLC_ENV !== 'dev' || this.getCookie('allowSentry')) || this.autotest) {
             Sentry.init({
@@ -108,7 +108,7 @@ class SentryStart {
         return false;
     }
 
-    public setConfig(): void {
+    private setConfig(): void {
         this.window.wlcSentryConfig = this.window.wlcSentryConfig || {};
         this.window.wlcSentryConfig.isInstall = true;
     }
