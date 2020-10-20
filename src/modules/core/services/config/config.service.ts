@@ -30,11 +30,11 @@ export class ConfigService {
         return this.data.request({
             name: 'bootstrap',
             system: 'config',
-            url: '/api/v1/bootstrap',
+            url: '/bootstrap',
             type: 'GET',
             preload: 'bootstrap',
             mapFunc: (res) => this.prepareData(res),
-        }).toPromise();
+        });
     }
 
     protected prepareData(response: IData): AppConfigModel {
