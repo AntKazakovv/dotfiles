@@ -1,13 +1,11 @@
-import * as webpack from 'webpack';
-import * as fs from 'fs';
-import * as path from 'path';
-import * as createDir from 'make-dir';
+const webpack = require('webpack');
+const fs = require('fs');
+const path = require('path');
+const createDir = require('make-dir');
 
-import {
-    includes as _includes,
-} from 'lodash';
+const _includes = require('lodash/includes');
 
-export default (config) => {
+module.exports = (config) => {
 
     config.plugins.push(new webpack.NormalModuleReplacementPlugin(/\.scss$/i, (resource) => {
         const originStylePath = resource.resource;
@@ -16,9 +14,9 @@ export default (config) => {
             return;
         }
 
-        const customStylePath: string = originStylePath.replace('/wlc-engine/', '/custom/');
-        const customStyleDir: string = path.dirname(customStylePath);
-        const styleName: string = path.basename(customStylePath);
+        const customStylePath = originStylePath.replace('/wlc-engine/', '/custom/');
+        const customStyleDir = path.dirname(customStylePath);
+        const styleName = path.basename(customStylePath);
 
 
         if (fs.existsSync(customStylePath)) {
@@ -36,11 +34,11 @@ export default (config) => {
             return;
         }
 
-        const customTplPath: string = originTplPath.replace('/wlc-engine/', '/custom/');
-        const customComponentDir: string = path.dirname(customTplPath);
-        const tplName: string = path.basename(customTplPath);
-        const tsName: string = tplName.replace('.html', '.ts');
-        const originTsPath: string = originTplPath.replace('.html', '.ts');
+        const customTplPath = originTplPath.replace('/wlc-engine/', '/custom/');
+        const customComponentDir = path.dirname(customTplPath);
+        const tplName = path.basename(customTplPath);
+        const tsName = tplName.replace('.html', '.ts');
+        const originTsPath = originTplPath.replace('.html', '.ts');
 
         if (fs.existsSync(customTplPath)) {
             resource.resource = customTplPath;
