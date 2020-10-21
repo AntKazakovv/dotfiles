@@ -14,7 +14,7 @@ interface IWindow extends Window {
     WLC_ENV?: string;
     WLC_VERSION?: string;
     wlcSentryConfig?: ISentryConfig;
-    Sentry?: Sentry;
+    Sentry?: any;
     testSessionHash?: string;
     sendSentryError?: (code?: string, group?: string, message?: string, level?: string, data?: IIndexing<any>) => void;
 }
@@ -99,7 +99,7 @@ class SentryStart {
                     /https?:\/\/((www)\.)?1x2nwh\.com/
                 ],
                 beforeSend: (event: Event): Event => {
-                    const project = this.window.wlcSentryConfig.project || 'unknown';
+                    const project = this.window.wlcSentryConfig?.project || 'unknown';
                     event.tags = event.tags || {};
                     event.tags.project = project;
                     event.tags.sessionHash = this.sessionHash;
@@ -126,7 +126,7 @@ class SentryStart {
      * Save sentry config
      */
     private setConfig(): void {
-        this.window.wlcSentryConfig = this.window.wlcSentryConfig || {};
+        this.window.wlcSentryConfig = this.window.wlcSentryConfig || {isInstall: false};
         this.window.wlcSentryConfig.isInstall = true;
     }
 }
