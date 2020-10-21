@@ -1,11 +1,13 @@
 {
   "name": "@egamings/wlc-engine",
-  "version": "0.0.42",
+  "version": "0.0.44",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "dist": "git submodule update --init && ng build --project wlc-engine --prod",
+    "docs": "npm run build:docs -- --serve",
+    "build:docs": "compodoc -p ./tsconfig.docs.json -d docs",
+    "dist": "git submodule update --init && ng build --project wlc-engine --prod && npm run build:docs",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
@@ -96,5 +98,8 @@
     "typescript": "~3.9.6",
     "webpack-stream": "^5.2.1",
     "zone.js": "~0.10.3"
+  },
+  "devDependencies": {
+    "@compodoc/compodoc": "^1.1.11"
   }
 }
