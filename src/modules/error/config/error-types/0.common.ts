@@ -6,7 +6,7 @@ export const errorTypes: IErrorTypes = {
         name: 'Site started',
         type: 'start_time',
         level: 'log',
-        method: 'Flog'
+        method: 'Flog',
     },
     '0.0.1': {
         description: 'Site loading time exceeded',
@@ -69,27 +69,27 @@ export const errorTypes: IErrorTypes = {
         name: 'Site compile',
         type: 'site_compile',
         level: 'log',
-        method: 'Flog'
+        method: 'Flog',
     },
     '0.0.10': {
         description: 'User left the site before compilation',
         name: 'User left the site',
         type: 'site_compile',
         level: 'log',
-        method: 'Flog'
+        method: 'Flog',
     },
     '0.0.11': {
         description: 'Forbidden file successfully downloaded',
         name: 'Forbidden started',
         type: 'start_time',
         level: 'log',
-        method: 'Flog'
+        method: 'Flog',
     },
     '0.1.1': {
         description: 'No bonuses from fundist',
         name: 'No bonuses',
         type: 'No_bonuses',
-        level: 'warning'
+        level: 'warning',
     },
     '0.1.2': {
         description: 'Bonuses request error',
@@ -128,27 +128,27 @@ export const errorTypes: IErrorTypes = {
         name: 'Affiliate unique success',
         type: 'Affiliate',
         level: 'log',
-        method: 'Flog'
+        method: 'Flog',
     },
     '0.2.1': {
         description: 'Affiliate unique send error',
         name: 'Affiliate unique error',
         type: 'Affiliate',
         level: 'log',
-        method: 'Flog'
+        method: 'Flog',
     },
     '0.2.2': {
         description: 'Affiliate unique send request',
         name: 'Affiliate unique request',
         type: 'Affiliate',
         level: 'log',
-        method: 'Flog'
+        method: 'Flog',
     },
     '0.2.3': {
         description: 'Affiliate cookies exists',
         name: 'Affiliate cookies exists',
         type: 'Affiliate',
         level: 'log',
-        method: 'Flog'
+        method: 'Flog',
     },
-}
+};

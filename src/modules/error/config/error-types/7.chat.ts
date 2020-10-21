@@ -6,13 +6,13 @@ export const errorTypes: IErrorTypes = {
         name: 'Livechat not found',
         type: 'Livechat_not_found',
         level: 'error',
-        group: 'Livechat'
+        group: 'Livechat',
     },
     '7.0.1': {
         description: 'Livechat code not found',
         name: 'Livechat code not found',
         type: 'Livechat_code_not_found',
         level: 'error',
-        group: 'Livechat'
+        group: 'Livechat',
     },
 };

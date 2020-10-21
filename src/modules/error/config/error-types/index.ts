@@ -15,7 +15,7 @@ import * as group7 from './7.chat';
 import * as group8 from './8.verify-identity';
 import * as group9 from './9.verification';
 
-type ErrorGroup = 'Common' | 'Sign Up' | 'Bonus' | '404 not found' | 'AutoTest' | 'Load' | 'Livechat' | 'Hellosoda';
+type ErrorGroupType = 'Common' | 'Sign Up' | 'Bonus' | '404 not found' | 'AutoTest' | 'Load' | 'Livechat' | 'Hellosoda';
 type LogMethods = 'Flog' | 'Sentry' | 'Both';
 
 export interface IErrorType {
@@ -26,7 +26,7 @@ export interface IErrorType {
     createTicket?: boolean;
     level?: string;
     project?: string;
-    group?: ErrorGroup;
+    group?: ErrorGroupType;
     threshold?: number;
 }
 

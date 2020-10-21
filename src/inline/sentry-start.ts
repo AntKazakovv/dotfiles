@@ -1,8 +1,8 @@
 'use strict';
 
-import * as Sentry from "@sentry/angular";
-import {Event, Severity, Scope} from "@sentry/angular"
-import {Cookie} from "ng2-cookies";
+import * as Sentry from '@sentry/angular';
+import {Event, Severity, Scope} from '@sentry/angular';
+import {Cookie} from 'ng2-cookies';
 import {IIndexing} from 'src/interfaces/global.interface';
 
 interface ISentryConfig {

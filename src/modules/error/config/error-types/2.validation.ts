@@ -4,11 +4,11 @@ export const errorTypes: IErrorTypes = {
     '2.1.0': {
         description: 'Error on validation',
         name: 'Validation Error',
-        type: 'Validation_Error'
+        type: 'Validation_Error',
     },
     '2.1.1': {
         description: 'Timeout on validation',
         name: 'Validation Timeout',
-        type: 'Validation_Timeout'
+        type: 'Validation_Timeout',
     },
 };

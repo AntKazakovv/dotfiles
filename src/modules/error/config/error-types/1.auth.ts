@@ -149,40 +149,40 @@ export const errorTypes: IErrorTypes = {
     '1.2.0': {
         description: 'User login error',
         name: 'Login Error',
-        type: 'Login_Error'
+        type: 'Login_Error',
     },
     '1.2.1': {
         description: 'User login error: modal opened timeout',
         name: 'Login opened timeout',
-        type: 'Modal_opened_timeout'
+        type: 'Modal_opened_timeout',
     },
     '1.2.2': {
         description: 'User login timeout',
         name: 'Login timeout',
-        type: 'Login_timeout'
+        type: 'Login_timeout',
     },
     '1.3.1': {
         description: 'Captcha load timeout',
         name: 'Captcha timeout',
-        type: 'Captcha_timeout'
+        type: 'Captcha_timeout',
     },
     '1.3.2': {
         description: 'Captcha error',
         name: 'Captcha error',
-        type: 'Captcha_error'
+        type: 'Captcha_error',
     },
     '1.3.3': {
         description: 'Get UserInfo error',
         name: 'Get UserInfo error',
         type: 'get_user_info',
         level: 'fatal',
-        method: 'Both'
+        method: 'Both',
     },
     // @TODO Create 4.payments.ts when will use in code
     '1.4.1': {
         description: 'Timeout when get bonuses on deposit/withdraw',
         name: 'Get bonuses timeout',
-        type: 'bonuses_timeout'
+        type: 'bonuses_timeout',
     },
     '1.4.2': {
         description: 'Error when getting bonuses on deposit/withdraw',
@@ -193,22 +193,22 @@ export const errorTypes: IErrorTypes = {
         description: 'No bonuses from fundist on deposit/withdraw',
         name: 'No bonuses on deposit/withdraw',
         type: 'No_bonuses',
-        level: 'warning'
+        level: 'warning',
     },
     '1.4.4': {
         description: 'Timeout when get bonus info on deposit/withdraw',
         name: 'Get bonus info timeout',
-        type: 'bonus_info_timeout'
+        type: 'bonus_info_timeout',
     },
     '1.4.5': {
         description: 'Error when getting bonusinfo on deposit/withdraw',
         name: 'Get bonus info error',
-        type: 'bonus_info_error'
+        type: 'bonus_info_error',
     },
     '1.4.6': {
         description: 'Timeout getting payment systems',
         name: 'Timeout payment system',
-        type: 'Timeout_payment_system'
+        type: 'Timeout_payment_system',
     },
     '1.4.7': {
         description: 'Error getting payment systems',
@@ -225,7 +225,7 @@ export const errorTypes: IErrorTypes = {
     '1.4.9': {
         description: 'Timeout when update profile on deposit/withdraw',
         name: 'Timeout update profile',
-        type: 'Timeout_update_profile'
+        type: 'Timeout_update_profile',
     },
     '1.4.10': {
         description: 'Error when update profile on deposit/withdraw',
@@ -236,17 +236,17 @@ export const errorTypes: IErrorTypes = {
     '1.4.11': {
         description: 'User do noting and go away',
         name: 'User has left the page',
-        type: 'User_has_left'
+        type: 'User_has_left',
     },
     '1.4.12': {
         description: 'Timeout when dialog load on deposit/withdraw',
         name: 'Timeout dialog load',
-        type: 'Timeout_dialog_load'
+        type: 'Timeout_dialog_load',
     },
     '1.4.13': {
         description: 'Timeout on deposit',
         name: 'Timeout deposit',
-        type: 'Timeout_deposit'
+        type: 'Timeout_deposit',
     },
     '1.4.14': {
         description: 'Error on deposit',
@@ -257,12 +257,12 @@ export const errorTypes: IErrorTypes = {
     '1.4.15': {
         description: 'Timeout on withdraw',
         name: 'Timeout withdraw',
-        type: 'Timeout_withdraw'
+        type: 'Timeout_withdraw',
     },
     '1.4.16': {
         description: 'Error on withdraw',
         name: 'Error withdraw',
-        type: 'Error_withdraw'
+        type: 'Error_withdraw',
     },
     '1.4.17': {
         description: 'Payment fail',
@@ -273,57 +273,57 @@ export const errorTypes: IErrorTypes = {
     '1.4.18': {
         description: 'Payment image not load',
         name: 'Error load payment image',
-        type: 'Error_load_payment_image'
+        type: 'Error_load_payment_image',
     },
     '1.4.19': {
         description: 'Timeout when get transaction list',
         name: 'Get transactions timeout',
-        type: 'transactions_timeout'
+        type: 'transactions_timeout',
     },
     '1.4.20': {
         description: 'Error when get transaction list',
         name: 'Get transactions error',
-        type: 'transactions_error'
+        type: 'transactions_error',
     },
     '1.4.21': {
         description: 'Bonus unsubscribe timeout on deposit/withdraw',
         name: 'Bonus unsubscribe timeout',
-        type: 'Bonus_unsubscribe_timeout'
+        type: 'Bonus_unsubscribe_timeout',
     },
     '1.4.22': {
         description: 'Bonus unsubscribe error on deposit/withdraw',
         name: 'Bonus unsubscribe error',
-        type: 'Bonus_unsubscribe_error'
+        type: 'Bonus_unsubscribe_error',
     },
     '1.4.23': {
         description: 'Bonus subscribe timeout on deposit/withdraw',
         name: 'Bonus subscribe timeout',
-        type: 'Bonus_subscribe_timeout'
+        type: 'Bonus_subscribe_timeout',
     },
     '1.4.24': {
         description: 'Bonus subscribe error on deposit/withdraw',
         name: 'Bonus subscribe error',
-        type: 'Bonus_subscribe_error'
+        type: 'Bonus_subscribe_error',
     },
     '1.4.25': {
         description: 'Update user profile timeout subscribe timeout on check profile in deposit/withdraw',
         name: 'Update user profile timeout',
-        type: 'Update_user_profile_timeout'
+        type: 'Update_user_profile_timeout',
     },
     '1.4.26': {
         description: 'Update user profile timeout subscribe error on check profile in deposit/withdraw',
         name: 'Update user profile error',
-        type: 'Update_user_profile_error'
+        type: 'Update_user_profile_error',
     },
     '1.4.27': {
         description: 'getWithdrawQueries timeout in deposit/withdraw',
         name: 'getWithdrawQueries timeout',
-        type: 'getWithdrawQueries_timeout'
+        type: 'getWithdrawQueries_timeout',
     },
     '1.4.28': {
         description: 'getWithdrawQueries error in deposit/withdraw',
         name: 'getWithdrawQueries error',
-        type: 'getWithdrawQueries_error'
+        type: 'getWithdrawQueries_error',
     },
     '1.4.29': {
         description: 'Error in deposit limits',

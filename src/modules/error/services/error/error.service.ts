@@ -91,11 +91,6 @@ export class ErrorService {
         private router: UIRouter,
         private location: Location,
     ) {
-        this.init();
-    }
-
-    protected init(): void {
-
     }
 
     /**
@@ -409,7 +404,7 @@ export class ErrorService {
         } else {
             result.push(this.translateService.instant(gettext('Something went wrong. Please try again later.')));
         }
-        return result.map((message) => message.replace(/<[^>]+>/g, ''));
+        return _map(result, (message) => message.replace(/<[^>]+>/g, ''));
     }
 
     /**

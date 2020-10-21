@@ -6,6 +6,6 @@ export const errorTypes: IErrorTypes = {
         name: '404 error',
         type: '404_error',
         level: 'error',
-        group: '404 not found'
+        group: '404 not found',
     },
 };
