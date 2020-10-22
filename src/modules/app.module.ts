@@ -18,6 +18,7 @@ import {CoreModule} from './core/core.module';
 import {ErrorModule} from './error/error.module';
 
 import {ConfigService} from './core/services';
+import {PromoModule} from 'wlc-engine/modules/promo/promo.module';
 
 export function loadConfig(config: ConfigService) {
     return config.load();
@@ -48,6 +49,7 @@ export function loadConfig(config: ConfigService) {
         }),
         CoreModule,
         ErrorModule,
+        PromoModule,
         ServiceWorkerModule.register('/static/dist/ngsw-worker.js', {enabled: environment.production}), // environment.production
     ],
     providers: [
@@ -56,21 +58,21 @@ export function loadConfig(config: ConfigService) {
             provide: APP_INITIALIZER,
             useFactory: (config: ConfigService) => () => config.load(),
             deps: [ConfigService],
-            multi: true
+            multi: true,
         },
         {
             provide: ErrorHandler,
             useValue: window['Sentry'].createErrorHandler({
                 logErrors: true
             })
-        }
+        },
     ],
     exports: [
         CoreModule,
         TranslateModule,
         UIRouterModule,
     ],
-    bootstrap: [UIView]
+    bootstrap: [UIView],
 })
 export class AppModule {
 }
