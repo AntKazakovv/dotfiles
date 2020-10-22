@@ -10,13 +10,21 @@ interface ISentryConfig {
     project?: string;
 }
 
+interface ISentryError {
+    code: string;
+    group: string,
+    message: string,
+    level: string,
+    data?: IIndexing<any>
+}
+
 interface IWindow extends Window {
     WLC_ENV?: string;
     WLC_VERSION?: string;
     wlcSentryConfig?: ISentryConfig;
     Sentry?: any;
     testSessionHash?: string;
-    sendSentryError?: (code?: string, group?: string, message?: string, level?: string, data?: IIndexing<any>) => void;
+    sendSentryError?: (error: ISentryError) => void;
 }
 
 class SentryStart {
@@ -62,23 +70,19 @@ class SentryStart {
     /**
      * Send sentry error
      *
-     * @param {string} code Error code
-     * @param {string} group Error group
-     * @param {string} message Error message
-     * @param {string} level Error level
-     * @param {any} data Error data
+     * @param {ISentryError} error Error info
      */
-    private sendSentryError(code: string, group: string, message: string, level: string, data: any): void {
+    private sendSentryError(error: ISentryError): void {
         Sentry.withScope((scope: Scope): void => {
             scope.setTags({
-                code: code,
-                group: group || 'Common',
+                code: error.code,
+                group: error.group || 'Common',
             });
-            if (data) {
-                scope.setExtras(data);
+            if (error.data) {
+                scope.setExtras(error.data);
             }
             Sentry.captureMessage(
-                message, Severity.fromString(level || 'warning')
+                error.message, Severity.fromString(error.level || 'warning')
             );
         });
     }

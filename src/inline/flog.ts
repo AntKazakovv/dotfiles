@@ -21,9 +21,7 @@ interface IData extends IIndexing<any> {
 }
 
 interface IFP2Options {
-    excludes?: {
-        [key: string]: boolean;
-    }
+    excludes?: IIndexing<boolean>;
 }
 
 type voidFunction = () => void;
