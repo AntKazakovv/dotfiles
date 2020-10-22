@@ -12,10 +12,10 @@ interface ISentryConfig {
 
 interface ISentryError {
     code: string;
-    group: string,
-    message: string,
-    level: string,
-    data?: IIndexing<any>
+    group: string;
+    message: string;
+    level: string;
+    data?: IIndexing<any>;
 }
 
 interface IWindow extends Window {
