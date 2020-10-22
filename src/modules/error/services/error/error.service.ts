@@ -189,7 +189,7 @@ export class ErrorService {
             }
         }, params.timeout || 5000);
 
-        const destroyListener =this.router.transitionService.onStart({}, (transition) => {
+        const destroyListener = this.router.transitionService.onStart({}, (transition) => {
             stopTimeout();
         });
 

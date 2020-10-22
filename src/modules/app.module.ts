@@ -15,6 +15,8 @@ import {environment} from '../environments/environment';
 import {AppComponent} from '../app/app.component';
 
 import {CoreModule} from './core/core.module';
+import {ErrorModule} from './error/error.module';
+
 import {ConfigService} from './core/services';
 
 export function loadConfig(config: ConfigService) {
@@ -45,6 +47,7 @@ export function loadConfig(config: ConfigService) {
             },
         }),
         CoreModule,
+        ErrorModule,
         ServiceWorkerModule.register('/static/dist/ngsw-worker.js', {enabled: environment.production}), // environment.production
     ],
     providers: [
