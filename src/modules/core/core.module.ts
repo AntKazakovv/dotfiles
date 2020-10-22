@@ -11,6 +11,7 @@ import {
 } from './services';
 import {BaseModule} from 'wlc-engine/modules/base/base.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {BannersService} from 'wlc-engine/modules/promo/services';
 
 @NgModule({
     imports: [
@@ -24,6 +25,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
         ConfigService,
         FilesService,
         LogService,
+        BannersService,
     ],
     declarations: [
         LayoutComponent,
@@ -34,7 +36,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
         NgTemplateNameDirective,
         BaseModule,
         BrowserAnimationsModule,
-    ]
+    ],
 })
 export class CoreModule {
 }
