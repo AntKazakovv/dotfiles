@@ -32,7 +32,7 @@ export class LanguageSelectorComponent
         @Inject('params') protected params: ILSParams,
         protected cdr: ChangeDetectorRef,
         protected configService: ConfigService,
-        protected elementRef: ElementRef
+        protected elementRef: ElementRef,
     ) {
         super({params, defaultParams});
     }
