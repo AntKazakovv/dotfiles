@@ -2,11 +2,6 @@
 
 import {IIndexing} from 'src/interfaces/global.interface';
 
-interface IRequestInit extends RequestInit {
-    signal: any;
-}
-declare function fetch(input: RequestInfo, init?: IRequestInit): Promise<Response>;
-
 interface IWindow extends Window {
     WLC_ENV?: string;
     WLC_VERSION?: string;

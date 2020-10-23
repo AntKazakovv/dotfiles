@@ -22,7 +22,7 @@ interface IWindow extends Window {
     WLC_ENV?: string;
     WLC_VERSION?: string;
     wlcSentryConfig?: ISentryConfig;
-    Sentry?: any;
+    Sentry?: unknown;
     testSessionHash?: string;
     sendSentryError?: (error: ISentryError) => void;
 }
