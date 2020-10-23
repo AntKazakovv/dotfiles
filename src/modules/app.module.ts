@@ -18,6 +18,9 @@ import {CoreModule} from './core/core.module';
 import {ConfigService} from './core/services';
 import {PromoModule} from 'wlc-engine/modules/promo/promo.module';
 
+import {Location} from '@angular/common';
+import {IIndexingString} from 'wlc-engine/interfaces';
+
 export function loadConfig(config: ConfigService) {
     return config.load();
 }
@@ -66,4 +69,23 @@ export function loadConfig(config: ConfigService) {
     bootstrap: [UIView],
 })
 export class AppModule {
+
+    public initialPath: IIndexingString;
+
+    constructor(
+        location: Location,
+    ) {
+        this.parseInitPath(location.path());
+    }
+
+    protected parseInitPath(path: string): void {
+        if (path.includes('message')) {
+            this.initialPath = {};
+            const values: string[] = path.split('?')[1].split('&');
+            for(const value of values) {
+                const parts: string[] = value.split('=');
+                this.initialPath[parts[0]] = parts[1];
+            }
+        }
+    }
 }
