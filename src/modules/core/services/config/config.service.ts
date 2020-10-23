@@ -22,7 +22,7 @@ export class ConfigService {
     private $resolve: () => void;
 
     constructor(
-        private data: DataService
+        private data: DataService,
     ) {
     }
 

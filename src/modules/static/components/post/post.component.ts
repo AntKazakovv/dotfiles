@@ -7,7 +7,7 @@ import {
     ViewContainerRef,
     ViewChild,
     ChangeDetectionStrategy,
-    ChangeDetectorRef
+    ChangeDetectorRef,
 } from '@angular/core';
 import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
 
@@ -21,7 +21,7 @@ import {defaultParams} from './post.params';
     selector: '[wlc-post]',
     templateUrl: './post.component.html',
     styleUrls: ['./post.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PostComponent extends AbstractComponent implements OnInit, AfterViewInit {
     @ViewChild('wrp', {read: ViewContainerRef, static: true}) wrp: ViewContainerRef;

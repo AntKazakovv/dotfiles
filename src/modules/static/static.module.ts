@@ -31,7 +31,7 @@ export const components = {
         PostComponent,
         demoTestComponent,
         FaqComponent,
-    ]
+    ],
 })
 export class StaticModule {
 }
