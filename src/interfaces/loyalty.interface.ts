@@ -25,7 +25,7 @@ export interface ILoyalty {
     TotalPoints: string;
 }
 
-export interface IFreeround {
+export interface IFreeRound {
     IDMerchant: string;
     Count: string;
     Games: string;
