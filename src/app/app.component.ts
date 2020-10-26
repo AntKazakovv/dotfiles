@@ -7,14 +7,14 @@ import {SectionModel} from 'wlc-engine/modules/core/models/section.model';
 import {ConfigService, LayoutService} from '../modules/core/services';
 
 const defaultParams = {
-    class: 'wlc-sections'
+    class: 'wlc-sections',
 };
 
 @Component({
     selector: '[app-component]',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent extends AbstractComponent implements OnInit, OnDestroy {
     public hostClass = defaultParams.class;
@@ -40,7 +40,7 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
         this.translate.onLangChange.pipe(takeUntil(this.$destroy)).subscribe((v) => {
             this.stateService.go(
                 this.stateService.current.name,
-                {locale: v.lang}
+                {locale: v.lang},
             );
         });
 

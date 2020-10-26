@@ -1,5 +1,9 @@
 module.exports = {
+    root: true,
     extends: ['plugin:@angular-eslint/recommended'],
+    plugins: [
+        '@typescript-eslint',
+    ],
     rules: {
         '@angular-eslint/directive-selector': [
             'error',
@@ -10,9 +14,10 @@ module.exports = {
             {type: 'class', prefix: 'wlc', style: 'kebab-case'},
         ],
         '@typescript-eslint/no-inferrable-types': 'off',
-        'semi': ['error'],
+        'semi': ['error', 'always'],
         'quote-props': 'off',
         'comma-dangle': ['error', 'always-multiline'],
+        'indent': ['error', 4],
     },
     overrides: [
         {
@@ -22,16 +27,13 @@ module.exports = {
                 ecmaVersion: '2020',
                 sourceType: 'module',
             },
-            plugins: ['@angular-eslint/template'],
+            plugins: [
+                '@angular-eslint/template',
+            ],
             processor: '@angular-eslint/template/extract-inline-html',
-            rules: {
-                'indent': ['error', 4],
-            },
         },
         {
             files: ['*.component.html'],
-            parser: '@angular-eslint/template-parser',
-            plugins: ['@angular-eslint/template'],
             rules: {
                 '@angular-eslint/template/banana-in-a-box': 'error',
                 '@angular-eslint/template/cyclomatic-complexity': 'error',
