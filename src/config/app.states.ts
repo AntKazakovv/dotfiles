@@ -16,6 +16,9 @@ const states = {
     },
     'app.catalog': {
         url: '/catalog',
+    },
+    'app.catalog.popular': {
+        url: '/catalog/popular',
     }
 };
 

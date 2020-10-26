@@ -209,6 +209,11 @@ export class LayoutService {
                     this.components.menu = m.components;
                     return m.MenuModule;
                 });
+            case 'games':
+                return import('wlc-engine/modules/games/games.module').then(m => {
+                    this.components.games = m.components;
+                    return m.GamesModule;
+                });
             case 'static':
                 return import('wlc-engine/modules/static/static.module').then(m => {
                     this.components.static = m.components;

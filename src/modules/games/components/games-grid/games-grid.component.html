@@ -1,0 +1,30 @@
+<div class="{{$class}}__content">
+    <div class="{{$class}}__header">
+        <h2>{{title | translate}}</h2>
+        <a *ngIf="$params?.showAllLink.use" uiSref="{{$params?.showAllLink?.link}}" class="{{$class}}__link">{{'Show all' | translate}}</a>
+    </div>
+    <div *ngIf="games?.length; else: noGames" class="{{$class}}__list" (resized)="onResize($event)">
+        <div class="{{$class}}__item" *ngFor="let game of games | slice: 0:gamesCount">
+            <!-- TODO: add gameThumb component -->
+            <div class="wlc-games-thumb">
+                <img [src]="game.Image" loading="lazy" alt="">
+                <div class="wlc-games-thumb__placeholder">no image</div>
+            </div>
+        </div>
+        <ng-container *ngIf="$params?.usePlaceholders">
+            <div class="{{$class}}__item"
+                *ngFor="let item of placeHolders">
+                <div class="{{$class}}__placeholder" [ngStyle]="placeHolderStyles">
+                    <!-- TODO: add loader -->
+                    <span *ngIf="$params.moreBtn.lazy && !lazyReady">Loading...</span>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+    <div class="{{$class}}__more" *ngIf="games?.length && !hideShowMoreBtn && !$params?.moreBtn?.hide">
+        <button *ngIf="!useLazy" (click)="loadMore()">{{'Load more games' | translate}}</button>
+    </div>
+    <ng-template #noGames>
+        <p class="{{$class}}__nocontent">{{'No games avaible' | translate}}</p>
+    </ng-template>
+</div>

@@ -13,6 +13,7 @@ import {
 
 @Injectable()
 export class ConfigService {
+    static instance: ConfigService;
 
     public ready: Promise<void> = new Promise((resolve: () => void): void => {
         this.$resolve = resolve;
@@ -24,6 +25,7 @@ export class ConfigService {
     constructor(
         private data: DataService,
     ) {
+        ConfigService.instance = this;
     }
 
     public load(): Promise<IData> {
