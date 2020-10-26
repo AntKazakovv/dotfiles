@@ -33,3 +33,7 @@
     </ng-container>
 
 </ng-container>
+
+<ng-container *ngIf="useLanguageSelector">
+    <div wlc-language-selector [inlineParams]="LanguageSelectorParams"></div>
+</ng-container>

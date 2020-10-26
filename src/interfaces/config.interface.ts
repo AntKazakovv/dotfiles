@@ -1,5 +1,3 @@
-import {ThemeType} from 'wlc-engine/modules/base/components/language-selector/language-selector.params';
-
 export interface IDefaultConfig {
     replaceConfig?: boolean;
 }
@@ -8,8 +6,9 @@ export interface ISvgIcons {
     [key: string]: string;
 }
 
-export interface IComponentParams {
+export interface IComponentParams<T, R> {
     class?: string;
     modifiers?: string[];
-    theme?: string;
+    theme?: 'theme-default' | T;
+    type?: R;
 }

@@ -29,7 +29,7 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
         protected layoutService: LayoutService,
         protected cdr: ChangeDetectorRef,
     ) {
-        super({params: {}, defaultParams});
+        super({injectParams: {}, defaultParams});
         const currentLang = router.stateService.params?.locale || 'en';
         translate.addLangs(configService.appConfig.languages.map((lang) => lang.code));
         translate.setDefaultLang(currentLang);

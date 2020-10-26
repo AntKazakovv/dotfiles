@@ -12,7 +12,7 @@ const
 class gulpTask {
 
     constructor(rootDir, bundleType = 'project') {
-        this.params = config(rootDir, bundleType);
+        this.injectParams = config(rootDir, bundleType);
         process.setMaxListeners(0);
         this.registerTasks();
     }

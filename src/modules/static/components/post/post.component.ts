@@ -33,12 +33,12 @@ export class PostComponent extends AbstractComponent implements OnInit, AfterVie
 
     constructor(
         protected staticService: StaticService,
-        @Inject('params') protected params: IPostComponentParams,
+        @Inject('injectParams') protected params: IPostComponentParams,
         protected viewRef: ViewContainerRef,
         protected domSanitizer: DomSanitizer,
         protected cdr: ChangeDetectorRef,
     ) {
-        super({params, defaultParams});
+        super({injectParams: params, defaultParams});
     }
 
     async ngOnInit(): Promise<void> {

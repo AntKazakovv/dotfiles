@@ -3,7 +3,7 @@
 .wlc-sections__affiliates-menu {
 
     &--v1,
-    &--v2 {
+    &--rounded {
 
         &.wlc-sections__affiliates-menu--fluid,
         > .container {
@@ -11,8 +11,11 @@
                 top: v.$affMenuPadding;
                 bottom: v.$affMenuPadding;
             }
-            display: flex;
+            display: grid;
+            grid-auto-columns: auto;
+            grid-auto-flow: column;
             justify-content: center;
+            align-items: center;
         }
     }
 
@@ -20,7 +23,7 @@
         background-color: v.$affMenuBackground;
     }
 
-    &--v2 {
+    &--rounded {
         background-color: transparent;
 
         &.wlc-sections__affiliates-menu--fluid,

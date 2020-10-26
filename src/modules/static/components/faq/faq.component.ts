@@ -35,14 +35,15 @@ export class FaqComponent extends AbstractComponent implements OnInit {
     protected showErrors: boolean;
 
     constructor(
-        @Inject('params') protected params: IFaqComponentParams,
+        @Inject('injectParams') protected params: IFaqComponentParams,
         protected staticService: StaticService,
         protected cdr: ChangeDetectorRef,
     ) {
-        super({params, defaultParams: {}});
+        super({injectParams: params, defaultParams: {}});
     }
 
     async ngOnInit(): Promise<void> {
+        super.ngOnInit();
         this.showErrors = _isUndefined(this.params.showErrors) ? true : this.params.showErrors;
         try {
             const data: TextDataModel = await this.getRawData();
