@@ -9,7 +9,7 @@ import {
     filter as _filter,
     find as _find,
     includes as _includes,
-    extend as _extend
+    extend as _extend,
 } from 'lodash';
 import {ICategory} from '../../interfaces/games.interfaces';
 import {UIRouter} from '@uirouter/core';
@@ -17,7 +17,7 @@ import {UIRouter} from '@uirouter/core';
 @Component({
     selector: '[wlc-games-grid]',
     templateUrl: './games-grid.component.html',
-    styleUrls: ['./games-grid.component.scss']
+    styleUrls: ['./games-grid.component.scss'],
 })
 export class GamesGridComponent extends AbstractComponent implements OnInit, AfterViewInit {
     public $params: IGGParams;
@@ -39,15 +39,16 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, Aft
     constructor(
         public router: UIRouter,
         protected gamesCatalogService: GamesCatalogService,
-        @Inject('params') protected params: IGGParams,
+        @Inject('injectParams') protected injectParams: IGGParams,
         protected elementRef: ElementRef,
-        protected cdr: ChangeDetectorRef
+        protected cdr: ChangeDetectorRef,
     ) {
-        super({params, defaultParams});
+        super({injectParams, defaultParams});
     }
 
     public async ngOnInit(): Promise<void> {
-        this.$params = _extend({}, defaultParams, this.params); // TODO delete costil params not working
+        super.ngOnInit();
+        this.$params = _extend({}, defaultParams, this.injectParams); // TODO delete costil params not working
         this.games = await this.getGames();
         this.title = this.$params?.title || this.categoryTitle; // TODO: get title also from state
         this.useLazy = this.$params?.moreBtn?.lazy || false;

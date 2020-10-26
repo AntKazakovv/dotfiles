@@ -6,9 +6,12 @@ export interface ISvgIcons {
     [key: string]: string;
 }
 
-export interface IComponentParams<T, R> {
+export type Custom = 'custom';
+
+export interface IComponentParams<T, R, M> {
     class?: string;
-    modifiers?: string[];
-    theme?: 'theme-default' | T;
+    theme?: 'default' | T;
     type?: R;
+    themeMod?: 'default' | M;
+    customMod?: string | string[];
 }

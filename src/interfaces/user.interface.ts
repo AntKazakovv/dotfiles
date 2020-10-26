@@ -1,7 +1,7 @@
 import {
     IIndexingString,
     ILoyalty,
-    IFreeround,
+    IFreeRound,
 } from './index';
 
 export interface IUserInfo {
@@ -19,7 +19,7 @@ export interface IUserInfo {
     pincode: string;
     status: number;
     socketsData: string;
-    freerounds: IFreeround[];
+    freerounds: IFreeRound[];
 }
 
 export interface IUserProfile {

@@ -9,5 +9,7 @@
         @return map-get(ev.$gap, $name);
     } @else if($map == 'radius') {
         @return map-get(ev.$radius, $name);
+    } @else if($map == 'size') {
+        @return map-get(ev.$size, $name);
     }
 }

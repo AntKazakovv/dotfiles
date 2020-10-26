@@ -8,7 +8,6 @@ import {DynamicHtmlComponent} from './components/dynamic-html/dynamic-html.compo
 import {ButtonComponent} from './components/button/button.component';
 import {UIRouterModule} from '@uirouter/angular';
 import {TranslateModule} from '@ngx-translate/core';
-import {UserModule} from '../user/user.module';
 
 export const components = {
     'wlc-logo': LogoComponent,
@@ -30,7 +29,6 @@ export const components = {
         CommonModule,
         UIRouterModule,
         TranslateModule,
-        UserModule,
     ],
     exports: [
         LogoComponent,

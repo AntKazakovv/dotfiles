@@ -1,29 +1,29 @@
-import {IComponentParams} from 'wlc-engine/classes/abstract.component';
+import {IComponentParams, Custom} from 'wlc-engine/classes/abstract.component';
 
-export type ButtonTheme = 'default' | 'secondary' | 'accent' | 'warn' | 'danger' | 'link' | 'text';
-export type ButtonSize = 'size-large' | 'size-default' | 'size-small';
-export type ButtonIndex = number | string | null;
-export type AutoModifiersType = ButtonTheme | ButtonSize | 'loading';
-export type ManualModifiersType = string;
-export type ModifiersType = AutoModifiersType | ManualModifiersType | null;
+export type Type = 'default' | 'resolved' | 'rejected' | 'pending' | 'disabled' | Custom;
+export type Theme = 'default' | 'skew' | 'rounding' | 'circled' | Custom;
+export type Size = 'default' | 'small' | 'big' | Custom;
+export type ThemeMod = 'default' | 'secondary' | Custom;
+export type Index = number | string | null;
+export type AutoModifiers = Theme | Size | ThemeMod | 'loading';
+export type CustomMod = string;
+export type Modifiers = AutoModifiers | CustomMod | null;
 
-export interface IBParams extends IComponentParams<ButtonTheme, string> {
-    modifiers?: ModifiersType[];
-    theme?: ButtonTheme;
+export interface IBParams extends IComponentParams<Theme, Type, ThemeMod> {
+    modifiers?: Modifiers[];
     common?: {
-        size?: ButtonSize;
+        themeMod?: ThemeMod;
+        size?: Size;
         icon?: string;
-        loading?: boolean;
-        disabled?: boolean;
-        index?: ButtonIndex;
+        index?: Index;
         text?: string;
-        additionalModifiers?: ManualModifiersType;
+        customModifiers?: CustomMod;
     };
 }
 
 export const defaultParams: IBParams = {
     class: 'wlc-btn',
     common: {
-        size: 'size-default',
+        size: 'default',
     },
 };

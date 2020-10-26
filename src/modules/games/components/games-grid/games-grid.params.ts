@@ -1,6 +1,6 @@
 import {IComponentParams} from 'wlc-engine/classes/abstract.component';
 
-export interface IGGParams extends IComponentParams {
+export interface IGGParams extends IComponentParams<string, string, string> {
     gamesRows: number;
     filter?: {
         category: string;
@@ -24,11 +24,11 @@ export const defaultParams: IGGParams = {
     gamesRows: 4,
     usePlaceholders: true,
     showAllLink: {
-        use: false
+        use: false,
     },
     moreBtn: {
         hide: false,
         lazy: false,
-        lazyTimeout: 1000
-    }
+        lazyTimeout: 1000,
+    },
 };

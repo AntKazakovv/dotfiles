@@ -1,0 +1,13 @@
+@use './vars' as v;
+
+@mixin sizeSmall {
+    height: v.$sizeSmall;
+}
+
+@mixin sizeDefault {
+    height: v.$sizeDefault;
+}
+
+@mixin sizeBig {
+    height: v.$sizeBig;
+}
