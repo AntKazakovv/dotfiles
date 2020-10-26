@@ -6,7 +6,7 @@ export type AutoModifiersType = BlockType;
 export type ManualModifiersType = string;
 export type ModifiersType = AutoModifiersType | ManualModifiersType | null;
 
-export interface IParams extends IComponentParams<BlockTheme, BlockType> {
+export interface IParams extends IComponentParams<BlockTheme, BlockType, string> {
     modifiers?: ModifiersType[];
     type?: BlockType;
     common?: {

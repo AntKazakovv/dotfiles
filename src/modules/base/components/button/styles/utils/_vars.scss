@@ -1,0 +1,5 @@
+@use 'engine-styles/functions' as ef;
+
+$sizeSmall: ef.get('size', 'buttonSmall') !default;
+$sizeDefault: ef.get('size', 'buttonDefault') !default;
+$sizeBig: ef.get('size', 'buttonBig') !default;

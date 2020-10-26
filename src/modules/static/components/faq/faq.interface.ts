@@ -1,6 +1,6 @@
 import {IComponentParams} from 'wlc-engine/interfaces/config.interface';
 
-export interface IFaqComponentParams extends IComponentParams<string, string> {
+export interface IFaqComponentParams extends IComponentParams<string, string, string> {
     slug: string;
     collapseAll: boolean;
     showErrors?: boolean;

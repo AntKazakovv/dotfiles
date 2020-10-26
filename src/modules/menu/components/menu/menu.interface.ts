@@ -39,7 +39,7 @@ interface IMenuItem {
     params?: IMenuItemParams;
 }
 
-interface IMenuParams extends IComponentParams<MenuTheme, MenuType> {
+interface IMenuParams extends IComponentParams<MenuTheme, MenuType, string> {
     common?: {
         languageSelector?: ILSParams
     },

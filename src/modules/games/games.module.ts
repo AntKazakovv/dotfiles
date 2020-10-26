@@ -20,14 +20,14 @@ export const components = {
         CommonModule,
         UIRouterModule,
         TranslateModule,
-        AngularResizedEventModule
+        AngularResizedEventModule,
     ],
     providers: [
-        GamesCatalogService
+        GamesCatalogService,
     ],
     exports: [
         GamesGridComponent,
-    ]
+    ],
 })
 export class GamesModule {
 }

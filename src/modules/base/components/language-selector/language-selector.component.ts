@@ -42,7 +42,6 @@ export class LanguageSelectorComponent
 
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
-        console.log(this.$params);
         this.availableLanguages = this.translate
             .getLangs()
             .filter(

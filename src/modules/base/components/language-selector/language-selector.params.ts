@@ -7,7 +7,7 @@ export type AutoModifiersType = ComponentTheme | ModeType | 'grid' | 'scrollable
 export type ManualModifiersType = '';
 export type ModifiersType = AutoModifiersType & ManualModifiersType & string;
 
-export interface ILSParams extends IComponentParams<ComponentTheme, ComponentType> {
+export interface ILSParams extends IComponentParams<ComponentTheme, ComponentType, string> {
     modifiers?: ModifiersType[];
     type?: ComponentType;
     theme?: ComponentTheme;

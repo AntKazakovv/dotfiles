@@ -2,7 +2,7 @@ import {IComponentParams} from 'wlc-engine/classes/abstract.component';
 
 export type ModifiersType = string;
 
-export interface ISPParams extends IComponentParams<string, string> {
+export interface ISPParams extends IComponentParams<string, string, string> {
     modifiers?: ModifiersType[];
     common?: {
     };
