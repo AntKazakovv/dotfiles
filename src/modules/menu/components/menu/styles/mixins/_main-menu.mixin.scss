@@ -1,0 +1,7 @@
+@use '../vars' as v;
+
+@mixin roundedMenu {
+    padding: v.$padding v.$padding * 2;
+    background-color: v.$backgroundColor;
+    border-radius: 100vh;
+}

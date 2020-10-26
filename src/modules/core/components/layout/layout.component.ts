@@ -8,7 +8,7 @@ import {LayoutService} from 'wlc-engine/modules/core/services';
     templateUrl: './layout.component.html',
     styleUrls: ['./styles/layout.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
 })
 export class LayoutComponent implements OnInit {
 
@@ -24,7 +24,7 @@ export class LayoutComponent implements OnInit {
         protected transition: TransitionService,
         protected injector: Injector,
         protected cdr: ChangeDetectorRef,
-        protected uiRouter: UIRouterGlobals
+        protected uiRouter: UIRouterGlobals,
     ) {
     }
 
@@ -40,11 +40,11 @@ export class LayoutComponent implements OnInit {
             component.injector = Injector.create({
                 providers: [
                     {
-                        provide: 'params',
-                        useValue: component.params || {}
-                    }
+                        provide: 'injectParams',
+                        useValue: component.params || {},
+                    },
                 ],
-                parent: this.injector
+                parent: this.injector,
             });
         }
         return component.injector;

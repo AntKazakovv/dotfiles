@@ -6,6 +6,7 @@ import {
     HostListener,
     Inject,
     OnInit,
+    Input,
 } from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 
@@ -27,17 +28,21 @@ export class LanguageSelectorComponent
     public availableLanguages: ILanguage[];
     public currentLanguage: ILanguage;
 
+    @Input() protected inlineParams: ILSParams;
+
     constructor(
         public translate: TranslateService,
-        @Inject('params') protected params: ILSParams,
+        @Inject('injectParams') protected params: ILSParams,
         protected cdr: ChangeDetectorRef,
         protected configService: ConfigService,
         protected elementRef: ElementRef,
     ) {
-        super({params, defaultParams});
+        super({injectParams: params, defaultParams});
     }
 
     public ngOnInit(): void {
+        super.ngOnInit(this.inlineParams);
+        console.log(this.$params);
         this.availableLanguages = this.translate
             .getLangs()
             .filter(
@@ -47,7 +52,7 @@ export class LanguageSelectorComponent
                 (lang: string): ILanguage =>
                     _find(this.configService.appConfig.languages, {
                         code: lang,
-                    })
+                    }),
             );
         this.currentLanguage = _find(this.configService.appConfig.languages, {
             code: this.translate.currentLang,
@@ -92,10 +97,6 @@ export class LanguageSelectorComponent
 
         if (this.$params.common.scrollable) {
             modifiers.push('scrollable');
-        }
-
-        if (this.$params.theme) {
-            modifiers.push(this.$params.theme);
         }
 
         this.addModifiers(modifiers);

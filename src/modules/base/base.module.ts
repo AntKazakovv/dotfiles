@@ -7,8 +7,7 @@ import {IconComponent} from './components/icon/icon.component';
 import {DynamicHtmlComponent} from './components/dynamic-html/dynamic-html.component';
 import {ButtonComponent} from './components/button/button.component';
 import {UIRouterModule} from '@uirouter/angular';
-import {MissingTranslationHandler, TranslateLoader, TranslateModule} from '@ngx-translate/core';
-import {UserModule} from '../user/user.module';
+import {TranslateModule} from '@ngx-translate/core';
 
 export const components = {
     'wlc-logo': LogoComponent,
@@ -30,7 +29,6 @@ export const components = {
         CommonModule,
         UIRouterModule,
         TranslateModule,
-        UserModule,
     ],
     exports: [
         LogoComponent,
@@ -38,7 +36,7 @@ export const components = {
         IconComponent,
         DynamicHtmlComponent,
         ButtonComponent,
-    ]
+    ],
 })
 export class BaseModule {
 }

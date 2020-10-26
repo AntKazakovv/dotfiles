@@ -28,7 +28,7 @@ import {
 } from 'lodash';
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: 'root',
 })
 export class LayoutService {
 
@@ -72,7 +72,7 @@ export class LayoutService {
                 state.sections,
                 (section: any, name: string): SectionModel => {
                     return new SectionModel(<ISectionData>{section, name});
-                })
+                }),
             );
         }, []);
     }
@@ -188,12 +188,12 @@ export class LayoutService {
                 async (module) =>
                     this.components.hasOwnProperty(module)
                         ? Promise.resolve()
-                        : this.importModule(module)
-            )
+                        : this.importModule(module),
+            ),
         );
     }
 
-    private getComponent(name: string): unknown {
+    public getComponent(name: string): unknown {
         return _get(this.components, name);
     }
 
@@ -218,6 +218,11 @@ export class LayoutService {
                 return import('wlc-engine/modules/static/static.module').then(m => {
                     this.components.static = m.components;
                     return m.StaticModule;
+                });
+            case 'user':
+                return import('wlc-engine/modules/user/user.module').then(m => {
+                    this.components.user = m.components;
+                    return m.UserModule;
                 });
         }
     }

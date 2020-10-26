@@ -1,16 +1,18 @@
 @use './vars' as v;
+@use './mixins/default.mixin'as dm;
+@use './mixins/main-menu.mixin' as mmm;
 
-.wlc-main-menu {
+.wlc-menu {
 
     &:host {
 
-        &--v1 {
-            display: grid;
-            grid-auto-columns: auto;
-            grid-auto-flow: column;
-            grid-gap: v.$gap;
-            text-transform: v.$textTransform;
-            width: v.$width;
+        &--theme-default {
+            @include dm.horizontalMenu;
+        }
+
+        &--theme-rounded {
+            @include dm.horizontalMenu;
+            @include mmm.roundedMenu;
         }
     }
 

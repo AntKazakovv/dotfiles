@@ -1,16 +1,16 @@
 import {
     AfterContentInit,
     AfterViewInit,
-    ChangeDetectionStrategy,
+    ChangeDetectionStrategy, ChangeDetectorRef,
     Component,
     ContentChild,
-    ElementRef,
+    ElementRef, Inject,
     Input,
     OnChanges,
     OnDestroy,
     Renderer2,
     SimpleChanges,
-    ViewEncapsulation,
+    OnInit,
 } from '@angular/core';
 import {Subject} from 'rxjs';
 import {
@@ -19,122 +19,134 @@ import {
     takeUntil,
 } from 'rxjs/operators';
 import {IconComponent} from '../icon/icon.component';
+import {AbstractComponent, IMixedParams} from 'wlc-engine/classes/abstract.component';
+import * as BParams from './button.params';
+
 
 import {
-    forEach as _forEach,
+    merge as _merge,
+    isString as _isString,
+    union as _union,
 } from 'lodash';
 
-export type NzButtonType = 'default' | 'primary' | 'accent' | 'warn' | 'danger' | 'link' | 'text' | null;
-export type NzButtonSize = 'large' | 'default' | 'small';
-
 @Component({
-    selector: `button[wlc-button], a[wlc-button]`,
+    selector: 'button[wlc-button]',
     templateUrl: './button.component.html',
     styleUrls: ['./button.component.scss'],
-    preserveWhitespaces: false,
+    preserveWhitespaces: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None,
-    host: {
-        '[class.wlc-btn]': `true`,
-        '[class.wlc-btn-primary]': `wlcBtnType === 'primary'`,
-        '[class.wlc-btn-accent]': `wlcBtnType === 'accent'`,
-        '[class.wlc-btn-warn]': `wlcBtnType === 'warn'`,
-        '[class.wlc-btn-link]': `wlcBtnType === 'link'`,
-        '[class.wlc-btn-text]': `wlcBtnType === 'text'`,
-        '[class.wlc-btn-lg]': `wlcBtnSize === 'large'`,
-        '[class.wlc-btn-sm]': `wlcBtnSize === 'small'`,
-        '[class.wlc-btn-dangerous]': `wlcBtnDanger`,
-        '[class.wlc-btn-loading]': `wlcBtnLoading`,
-        '[attr.tabindex]': 'disabled ? -1 : (tabIndex === null ? null : tabIndex)',
-        '[attr.disabled]': 'disabled || null',
-        '(click)': 'clickAnimation($event)'
-    }
 })
-export class ButtonComponent implements OnChanges, OnDestroy, AfterContentInit, AfterViewInit {
+export class ButtonComponent extends AbstractComponent implements OnInit, OnChanges, OnDestroy, AfterContentInit, AfterViewInit {
 
-    @ContentChild(IconComponent, { read: ElementRef }) IconComponentElement!: ElementRef;
-    @Input() wlcBtnIcon: boolean = false;
-    @Input() wlcBtnLoading: boolean = false;
-    @Input() disabled: boolean = false;
-    @Input() tabIndex: number | string | null = null;
-    @Input() wlcBtnType: NzButtonType = null;
-    @Input() wlcBtnSize: NzButtonSize = 'default';
+    @ContentChild(IconComponent, {read: ElementRef}) IconComponentElement!: ElementRef;
+    @Input() protected disabled: boolean;
+    @Input() protected icon: string;
+    @Input() protected index: BParams.ButtonIndex;
+    @Input() protected loading: boolean;
+    @Input() protected additionalModifiers: BParams.ManualModifiersType
+    @Input() protected size: BParams.ButtonSize;
+    @Input() public text: string;
+    @Input() protected type: BParams.ButtonTheme;
 
-    protected destroy$ = new Subject<void>();
-    protected loading$ = new Subject<boolean>();
+    public $params: BParams.IBParams;
+
+    protected $loading = new Subject<boolean>();
 
     constructor(
         protected elementRef: ElementRef,
         protected renderer: Renderer2,
-    ) {}
+        @Inject('injectParams') protected params: BParams.IBParams,
+        protected cdr: ChangeDetectorRef,
+    ) {
+        super(<IMixedParams<BParams.IBParams>>{injectParams: params, defaultParams: BParams.defaultParams});
+    }
+
+    ngOnInit(): void {
+        super.ngOnInit();
+        this.prepareParams();
+        this.prepareModifiers();
+    }
 
     ngOnChanges(changes: SimpleChanges): void {
         const {wlcBtnLoading} = changes;
 
         if (wlcBtnLoading) {
-            this.loading$.next(this.wlcBtnLoading);
+            this.$loading.next(this.loading);
         }
     }
 
     ngAfterContentInit(): void {
-        this.loading$
-            .pipe(
-                startWith(this.wlcBtnLoading),
-                filter(() => !!this.IconComponentElement),
-                takeUntil(this.destroy$)
-            )
-            .subscribe((loading: boolean) => {
-                const nativeElement = this.IconComponentElement.nativeElement;
-                if (loading) {
-                    this.renderer.setStyle(nativeElement, 'display', 'none')
-                } else {
-                    this.renderer.removeStyle(nativeElement, 'display')
-                }
-            })
+        // this.loading$
+        //     .pipe(
+        //         startWith(this.loading),
+        //         filter(() => !!this.IconComponentElement),
+        //         takeUntil(this.$destroy),
+        //     )
+        //     .subscribe((loading: boolean) => {
+        //         const nativeElement = this.IconComponentElement.nativeElement;
+        //         if (loading) {
+        //             this.renderer.setStyle(nativeElement, 'display', 'none')
+        //         } else {
+        //             this.renderer.removeStyle(nativeElement, 'display')
+        //         }
+        //     });
     }
 
-    ngAfterViewInit(): void {
-        this.assertIconOnly(this.elementRef.nativeElement, this.renderer);
-        this.insertSpan(this.elementRef.nativeElement.childNodes, this.renderer);
+    public ngAfterViewInit(): void {
+        // this.assertIconOnly(this.elementRef.nativeElement, this.renderer);
     }
 
-    ngOnDestroy(): void {
-        this.destroy$.next();
-        this.destroy$.complete();
-    }
-
-    protected clickAnimation(event: Event): void {
-        if (this.disabled) {
-            event.preventDefault();
-            event.stopImmediatePropagation();
-        } else {
-            this.elementRef.nativeElement.classList.add('wlc-btn-click');
-            setTimeout(() => {
-                this.elementRef.nativeElement.classList.remove('wlc-btn-click');
-            }, 700)
+    protected prepareParams(): void {
+        const importParams: BParams.IBParams = {
+            common: {},
+        };
+        if (this.type) {
+            importParams.type = this.type;
         }
+        if (this.size) {
+            importParams.common.size = this.size;
+        }
+        if (this.icon) {
+            importParams.common.icon = this.icon;
+        }
+        if (this.loading === true || this.loading === false) {
+            importParams.common.loading = this.loading;
+        }
+        if (this.disabled === true || this.disabled === false) {
+            importParams.common.disabled = this.disabled;
+        }
+        if (this.index !== undefined) {
+            importParams.common.index = this.index;
+        }
+        if (this.text !== undefined) {
+            importParams.common.text = this.text;
+        }
+        if (this.additionalModifiers) {
+            importParams.common.additionalModifiers = this.additionalModifiers;
+        }
+        this.$params = _merge(this.$params, importParams);
     }
 
-    protected insertSpan(nodes: NodeList, renderer: Renderer2): void {
-        _forEach(nodes, (node: HTMLElement) => {
-            if (node.nodeName === '#text') {
-                const span = renderer.createElement('span');
-                span.classList.add('wlc-btn__text');
-                const parent = renderer.parentNode(node);
-                renderer.insertBefore(parent, span, node);
-                renderer.appendChild(span, node);
-            }
-        })
+    protected prepareModifiers(): void {
+        let modifiers: BParams.ModifiersType[] = [];
+        modifiers.push(this.$params.common.size);
+        if (this.$params.common.loading) {
+            modifiers.push('loading');
+        }
+        if (this.$params.common.additionalModifiers) {
+            modifiers = _union(modifiers, this.$params.common.additionalModifiers.split(' '));
+        }
+        this.addModifiers(modifiers);
     }
 
     protected assertIconOnly(element: HTMLButtonElement, renderer: Renderer2): void {
-        const listOfNode = Array.from(element.childNodes);
-        const iconCount = listOfNode.filter(node => node.nodeName === 'I').length;
-        const noText = listOfNode.every(node => node.nodeName !== '#text');
-        const noSpan = listOfNode.every(node => node.nodeName !== 'SPAN');
-        const isIconOnly = noSpan && noText && iconCount >= 1;
-        if (isIconOnly) {
-            renderer.addClass(element, 'wlc-btn-icon-only');
-        }
+        // const listOfNode = Array.from(element.childNodes);
+        // const iconCount = listOfNode.filter(node => node.nodeName === 'I').length;
+        // const noText = listOfNode.every(node => node.nodeName !== '#text');
+        // const noSpan = listOfNode.every(node => node.nodeName !== 'SPAN');
+        // const isIconOnly = noSpan && noText && iconCount >= 1;
+        // if (isIconOnly) {
+        //     renderer.addClass(element, 'wlc-btn-icon-only');
+        // }
     }
 }
