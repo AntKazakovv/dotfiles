@@ -1,0 +1,1 @@
+export {GamesCatalogService} from './services/games-catalog.service';

@@ -4,6 +4,7 @@ import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {APP_INITIALIZER, NgModule} from '@angular/core';
 import {BrowserModule, BrowserTransferStateModule} from '@angular/platform-browser';
 import {ServiceWorkerModule} from '@angular/service-worker';
+import {AngularResizedEventModule} from 'angular-resize-event';
 
 import {MissingTranslationHandler, TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {UIRouterModule, UIView} from '@uirouter/angular';
@@ -26,11 +27,14 @@ export function loadConfig(config: ConfigService) {
 }
 
 @NgModule({
-    declarations: [AppComponent],
+    declarations: [
+        AppComponent,
+    ],
     imports: [
         CommonModule,
         BrowserModule.withServerTransition({appId: 'wlc-app'}),
         BrowserTransferStateModule,
+        AngularResizedEventModule,
         HttpClientModule,
         UIRouterModule.forRoot({
             states: APP_STATES,
