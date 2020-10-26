@@ -2,10 +2,22 @@ const webpack = require('webpack');
 const fs = require('fs');
 const path = require('path');
 const createDir = require('make-dir');
+const ESLintPlugin = require('eslint-webpack-plugin');
+const eslintConfig = require('../../.eslintrc.js');
 
 const _includes = require('lodash/includes');
 
 module.exports = (config) => {
+
+    config.plugins.push(new ESLintPlugin({
+        baseConfig: eslintConfig,
+        files: [
+            'src/**/*.{ts,js}',
+            'config/frontend/**/*.{ts,js}',
+            'wlc-engine/**/*.{ts,js}',
+        ],
+        lintDirtyModulesOnly: true,
+    }));
 
     config.plugins.push(new webpack.NormalModuleReplacementPlugin(/\.scss$/i, (resource) => {
         const originStylePath = resource.resource;
