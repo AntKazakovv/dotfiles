@@ -1,15 +1,18 @@
-export class AbstractUserModel<T> {
+export abstract class AbstractUserModel<T> {
 
     public dataReady: boolean = false;
 
-    protected data: T;
+    protected objectData: T;
 
-    public setData(data: T = null): void {
+    public set data(data: T) {
         if (data) {
             this.dataReady = true;
         } else {
             this.dataReady = false;
         }
-        this.data = data;
+        this.objectData = data;
+        this.checkData();
     }
+
+    protected checkData(): void {};
 }

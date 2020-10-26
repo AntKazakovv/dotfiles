@@ -5,6 +5,8 @@ import {
 } from './index';
 
 export interface IUserInfo {
+    LockExpiresAt?: string;
+    affiliateID?: string;
     availableWithdraw: number;
     balance: number;
     category: string;
@@ -16,6 +18,7 @@ export interface IUserInfo {
     loyalty: ILoyalty;
     pincode: string;
     status: number;
+    socketsData: string;
     freerounds: IFreeround[];
 }
 

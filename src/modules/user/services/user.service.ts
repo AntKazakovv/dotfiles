@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
-import {IUserInfo, IUserProfile} from 'wlc-engine/interfaces';
+import {IIndexingString, IUserInfo, IUserProfile} from 'wlc-engine/interfaces';
 import {AppModule} from 'wlc-engine/modules/app.module';
 import {DataService, EventService} from 'wlc-engine/modules/core/services';
 import {TranslateService} from '@ngx-translate/core';
 import {UserInfo} from 'wlc-engine/modules/user/models/info.model';
-import {IData} from 'wlc-engine/modules/core/services/data/data.service';
+import {IRequestMethod, RestMethodType} from 'wlc-engine/modules/core/services/data/data.service';
 
 import {
     get as _get,
@@ -20,13 +20,13 @@ export class UserService {
 
     public isAuthenticated: boolean = false;
 
-    protected user: UserInfo;
+    protected info: UserInfo;
     protected profile: UserProfile;
-    protected userInfoHendler: any;
+    protected userInfoHandler: any;
 
     public get userInfo(): UserInfo {
-        if (this.user.dataReady) {
-            return this.user;
+        if (this.info.dataReady) {
+            return this.info;
         } else {
             return null;
         }
@@ -46,7 +46,8 @@ export class UserService {
         public translate: TranslateService,
         protected app: AppModule,
     ) {
-        this.user = new UserInfo(translate);
+        this.info = new UserInfo(translate, eventService);
+        this.profile = new UserProfile();
         if(app.initialPath?.message) {
             switch (app.initialPath.message) {
                 case 'SET_NEW_PASSWORD':
@@ -70,211 +71,215 @@ export class UserService {
                 //     break;
             }
         }
-    }
 
-    public async login(login: string, password: string): Promise<void> {
-        try {
-            await this.dataService.request({
-                name: 'userLogin',
-                system: 'user',
-                url: '/auth',
-                type: 'PUT',
-            }, {login, password});
+        this.eventService.subscribe({
+            name: 'USER_INFO',
+        }, (info: IUserInfo) => {
+            this.info.data = info;
+        });
+
+        this.eventService.subscribe({
+            name: 'USER_PROFILE',
+        }, (profile: IUserProfile) => {
+            this.profile.data = profile;
+        });
+
+        this.eventService.subscribe({
+            name: 'LOGIN',
+        }, () => {
             this.isAuthenticated = true;
-            this.eventService.emit({
-                name: 'LOGIN'
-            });
-            this.setUserInfo();
-        } catch (error) {
-            this.eventService.emit({
-                name: 'LOGIN_ERROR',
-                data: error
-            });
-        }
-    }
+            this.fetchUserInfo();
+            this.startUserInfoFetcher();
+            this.fetchUserProfile();
+        });
 
-    public async logout(): Promise<void> {
-        try {
-            await this.dataService.request({
-                name: 'userLogout',
-                system: 'user',
-                url: '/auth',
-                type: 'DELETE'
-            });
+        this.eventService.subscribe({
+            name: 'LOGOUT',
+        }, () => {
             this.isAuthenticated = false;
-            this.userInfoHendler.unsubscribe();
-            this.eventService.emit({
-                name: 'LOGOUT'
-            });
-        } catch (error) {
-            this.eventService.emit({
-                name: 'LOGOUT_ERROR',
-                data: error
-            });
-            //TODO modal
-        }
+            this.stopUserInfoFetcher();
+        });
+
+        this.eventService.subscribe({
+            name: 'USER_STATUS_DISABLE',
+        }, () => {
+            this.logout();
+        });
     }
 
-    public async fetchUserInfo(): Promise<void> {
+    public login(login: string, password: string): void {
+        const params = {login, password};
+        this.request('user/userLogin', 'LOGIN', 'LOGIN_ERROR', params);
     }
 
-    public async createUserProfile(userProfile: IUserProfile): Promise<void> {
-        try {
-            await this.dataService.request({
-                name: 'createProfile',
-                system: 'user',
-                url: '/profiles',
-                type: 'POST',
-            }, userProfile as any);
-            this.eventService.emit({
-                name: 'PROFILE_CREATE'
-            });
-            //TODO modal
-        } catch (error) {
-            this.eventService.emit({
-                name: 'PROFILE_CREATE_ERROR',
-                data: error
-            });
-            //TODO modal
-        }
+    public logout(): void {
+        this.request('user/userLogout', 'LOGOUT', 'LOGOUT_ERROR');
     }
 
-    public async registrationComplete(code: string): Promise<void> {
-        try {
-            await this.dataService.request({
-                name: 'createProfile',
-                system: 'user',
-                url: '/profiles',
-                type: 'PATCH',
-            }, {code});
-            this.eventService.emit({
-                name: 'REGISTER'
-            });
-            //TODO modal
-        } catch (error) {
-            this.eventService.emit({
-                name: 'REGISTER_ERROR',
-                data: error
-            });
-            //TODO modal
-        }
+    public createUserProfile(userProfile: IUserProfile): void {
+        this.request('user/createProfile', 'PROFILE_CREATE', 'PROFILE_CREATE_ERROR', userProfile as any);
     }
 
-    public async updateProfile(profile: IUserProfile, updatePartial: boolean = false) {
+    public registrationComplete(code: string): void {
+        this.request('user/registrationComplete', 'REGISTER', 'REGISTER_ERROR', {code});
+    }
+
+    public updateProfile(profile: IUserProfile, updatePartial: boolean = false): void {
         //TODO update
     }
 
-    //*************************************************************************************************** */
+    public sendPasswordRestore(email: string, reCaptchaToken?: string): void {
+        const params: {email: string, reCaptchaToken?: string} = {
+            email: email,
+        };
 
+        if (reCaptchaToken) {
+            params.reCaptchaToken = reCaptchaToken;
+        }
 
-
-
-    public sendPasswordRestore(email: string, reCaptchaToken?: string) {
+        this.request('user/passwordRestore', 'PROFILE_RESTORE', 'PROFILE_RESTORE_ERROR', params);
     }
 
-    public restoreNewPassword(newPassword: string, repeatPassword: string, code: string) {
+    public restoreNewPassword(newPassword: string, repeatPassword: string, code: string): void {
+        const params = {newPassword, repeatPassword, code};
+        this.request('user/restoreNewPassword', 'PROFILE_PASSWORD', 'PROFILE_PASSWORD_ERROR', params);
     }
 
-    public getUserCurrency(filterAlias?: boolean) {
+    public validateRestoreCode(code: string = ''): void {
+        const params = {action: 'checkRestoreCode', code};
+        this.request('user/validateRestoreCode', 'VALIDATE_RESTORE_CODE', 'VALIDATE_RESTORE_CODE_ERROR', params);
     }
 
-    public getUserLevels() {
+    public setNewPassword(password: string, newPassword: string): void {
+        const params = {password, newPassword};
+        this.request('user/newPassword', 'NEW_PASSWORD', 'NEW_PASSWORD_ERROR', params);
     }
 
-    public validateRestoreCode(code: string = '') {
+    public changePhone(phoneCode: string, phoneNumber: string): void {
+        const params = {phoneCode, phoneNumber};
+        this.request('user/updatePhone', 'UPDATE_PHONE', 'UPDATE_PHONE_ERROR', params);
     }
 
-    public setNewPassword(password: string, newPassword: string) {
+    public phoneUnique(phone: string, code: string): void {
+        const params = {phone, code};
+        this.request('user/phoneUnique', 'PHONE_UNIQUE', 'PHONE_UNIQUE_ERROR', params);
     }
 
-    public changePhone(fields: {phoneCode: string; phoneNumber: string;}) {
+    public changeEmail(email: string, currentPassword?: string, code?: string): void {
+        const params: {email: string; currentPassword?: string; code?: string} = {email};
+
+        if (currentPassword) {
+            params.currentPassword = currentPassword;
+        }
+
+        if (code) {
+            params.code = code;
+        }
+
+        this.request('user/updateEmail', 'UPDATE_EMAIL', 'UPDATE_EMAIL_ERROR', params);
     }
 
-    public changeEmail(fields: {email: string; currentPassword?: string; code?: string}) {
+    public emailUnique(email: string): void {
+        this.request('user/emailUnique', 'EMAIL_UNIQUE', 'EMAIL_UNIQUE_ERROR', {email});
     }
 
-    public emailUnique(email: string) {
+    public loginUnique(login: string): void {
+        this.request('user/loginUnique', 'LOGIN_UNIQUE', 'LOGIN_UNIQUE_ERROR', {login});
     }
 
-    public phoneUnique(phone: string, code: string) {
+    public updateLogin(login: string): void {
+        this.request('user/updateLogin', 'LOGIN_UPDATE', 'LOGIN_UPDATE_ERROR', {login});
     }
 
-    public loginUnique(login: string) {
+    public updateLanguage(): void{
+        this.request('user/updateLanguage', 'LANGUAGE_UPDATE', 'LANGUAGE_UPDATE_ERROR');
     }
 
-    public updateLanguage() {
+    public disableProfile(): void {
+        this.request('user/disableProfile', 'DISABLE_PROFILE', 'DISABLE_PROFILE_ERROR');
     }
 
-    public async fetchUserProfile() {
+    public fetchUserProfile(): void {
+        this.request('user/userProfile', 'USER_PROFILE', 'USER_PROFILE_ERROR');
     }
 
-    public stopUserInfoFetcher(): void {
+    protected fetchUserInfo(): void {
+        this.request('user/userInfo', 'USER_INFO', 'USER_INFO_ERROR');
     }
 
-    public startUserInfoFetcher(): void {
-    }
-
-    public disableProfile() {
-    }
-
-
-    //*************************************************************************************************** */
-
-    protected async setUserInfo(): Promise<void> {
-        this.dataService.registerMethod({
-            name: 'userInfo',
-            system: 'user',
-            url: '/userInfo',
-            type: 'GET',
-            period: 10000,
+    protected startUserInfoFetcher(): void {
+        this.userInfoHandler = this.dataService.subscribe('user/userInfo', (userInfo) => {
+            try {
+                this.eventService.emit({
+                    name: 'USER_INFO',
+                    data: userInfo
+                });
+            } catch (error) {
+                this.eventService.emit({
+                    name: 'USER_INFO_ERROR',
+                    data: error
+                });
+            }
         });
+    }
 
-        try{
-            this.checkUser((await this.dataService.request('user/userInfo')).data as IUserInfo);
-        } catch(error) {
+    protected stopUserInfoFetcher(): void {
+        this.userInfoHandler.unsubscribe();
+    }
+
+    protected async request(
+        name: string,
+        event: string,
+        eventError: string,
+        params: IIndexingString = {}
+    ): Promise<void> {
+        try {
+            const data = (await this.dataService.request(name, params)).data;
             this.eventService.emit({
-                name: 'USER_INFO_ERROR',
+                name: event,
+                data: data
+            });
+        } catch (error) {
+            this.eventService.emit({
+                name: eventError,
                 data: error
             });
         }
-
-        this.userInfoHendler = this.dataService.subscribe('user/userInfo', (userInfo) => {
-            this.checkUser(userInfo.data as IUserInfo);
-        });
     }
 
-    protected checkUser(userInfo: IUserInfo): void {
-        if (userInfo.status) {
-            this.user.setData(userInfo);
-            this.eventService.emit({
-                name: 'USER_INFO',
-                data: userInfo
-            });
-        } else {
-            this.user.setData(null);
-            this.logout();
+    protected regMethod(
+        name: string,
+        url: string,
+        type: RestMethodType,
+        period?: number,
+    ): void {
+        const params: IRequestMethod = {name, system: 'user', url, type};
+
+        if(period) {
+            params.period = period;
         }
+
+        this.dataService.registerMethod(params);
     }
 
-    protected async setUserProfile(): Promise<void> {
-        try{
-            this.profile.setData((await this.dataService.request({
-                name: 'userProfile',
-                system: 'user',
-                url: '/profiles',
-                type: 'GET',
-            })).data as IUserProfile);
-            this.eventService.emit({
-                name: 'USER_PROFILE',
-                data: this.userProfile
-            });
-        } catch(error) {
-            this.eventService.emit({
-                name: 'USER_PROFILE_ERROR',
-                data: error
-            });
-        }
+    protected resterMethods(): void {
+        this.regMethod('userLogin', '/auth', 'PUT');
+        this.regMethod('userLogout', '/auth', 'DELETE');
+        this.regMethod('createProfile', '/profiles', 'POST');
+        this.regMethod('registrationComplete', '/profiles', 'PATCH');
+        this.regMethod('passwordRestore', '/userPassword', 'POST');
+        this.regMethod('restoreNewPassword', '/userPassword', 'PUT');
+        this.regMethod('validateRestoreCode', '/userPassword', 'GET');
+        this.regMethod('newPassword', '/userPassword', 'GET');
+        this.regMethod('updatePhone', '/profiles/phone', 'POST');
+        this.regMethod('phoneUnique', '/profiles/phone', 'PUT');
+        this.regMethod('updateEmail', '/profiles/email', 'POST');
+        this.regMethod('emailUnique', '/profiles/email', 'PUT');
+        this.regMethod('loginUnique', '/profiles/login', 'PUT');
+        this.regMethod('updateLogin', '/profiles/login', 'POST');
+        this.regMethod('updateLanguage', '/profiles/language', 'PATCH');
+        this.regMethod('disableProfile', '/profiles/disable', 'PUT');
+        this.regMethod('userProfile', '/profiles', 'GET');
+        this.regMethod('userInfo', '/userInfo', 'GET', 10000);
     }
-
-
 }
