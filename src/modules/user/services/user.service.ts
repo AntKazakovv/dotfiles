@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {IIndexingString, IUserInfo, IUserProfile} from 'wlc-engine/interfaces';
+import {IIndexing, IUserInfo, IUserProfile} from 'wlc-engine/interfaces';
 import {AppModule} from 'wlc-engine/modules/app.module';
 import {DataService, EventService} from 'wlc-engine/modules/core/services';
 import {TranslateService} from '@ngx-translate/core';
@@ -231,7 +231,7 @@ export class UserService {
         name: string,
         event: string,
         eventError: string,
-        params: IIndexingString = {}
+        params: IIndexing<string> = {}
     ): Promise<void> {
         try {
             const data = (await this.dataService.request(name, params)).data;

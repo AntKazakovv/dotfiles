@@ -1,5 +1,5 @@
-import {IIndexingString, IIndexingBoolean} from 'wlc-engine/interfaces/index';
-import {IMerchantsMapping, IRestrictions} from "wlc-engine/modules/games/interfaces/games.interfaces";
+import {IIndexing} from 'wlc-engine/interfaces/index';
+import {IMerchantsMapping, IRestrictions} from 'wlc-engine/modules/games/interfaces/games.interfaces';
 
 import {
     concat as _concat,
@@ -13,16 +13,16 @@ import {
 
 export class Game {
     CategoryID: string[];
-    CategoryTitle: IIndexingString[];
+    CategoryTitle: IIndexing<string>[];
     Description: string[];
     Image: string;
     LaunchCode: string;
     MerchantID: string;
     SubMerchantID?: string;
     MobileUrl: string;
-    Name: IIndexingString;
+    Name: IIndexing<string>;
     Sort: string;
-    SortPerCategory: IIndexingBoolean;
+    SortPerCategory: IIndexing<boolean>;
     Url: string;
     hasDemo: number;
     isFavourite?: boolean;
@@ -79,9 +79,9 @@ export class Game {
 
     /**
      *
-     * @param {IIndexingString} categoryIdToNameMapping
+     * @param {IIndexing<string>} categoryIdToNameMapping
      */
-    public setSortedCategoryFields(categoryIdToNameMapping: IIndexingString): void {
+    public setSortedCategoryFields(categoryIdToNameMapping: IIndexing<string>): void {
         if (this.SortPerCategory) {
             _each(this.SortPerCategory, (value, key) => {
                 if (value) {

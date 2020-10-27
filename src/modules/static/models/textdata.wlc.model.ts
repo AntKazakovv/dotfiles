@@ -1,6 +1,6 @@
 import {log} from "util";
 import {TextDataModel} from './textdata.model';
-import {IIndexingAny} from 'wlc-engine/interfaces';
+import {IIndexing} from 'wlc-engine/interfaces';
 import {get as _get, isBoolean as _isBoolean} from 'lodash';
 
 export interface IWlcWpResponce {
@@ -10,7 +10,7 @@ export interface IWlcWpResponce {
     title: string;
     content: string;
     image: string | boolean;
-    extFields?: IIndexingAny;
+    extFields?: IIndexing<any>;
 }
 
 export class WlcTextData extends TextDataModel {

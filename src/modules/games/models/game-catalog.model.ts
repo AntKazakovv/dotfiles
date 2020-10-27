@@ -1,8 +1,4 @@
-import {
-    IIndexing,
-    IIndexingBoolean,
-    IIndexingString,
-} from 'wlc-engine/interfaces';
+import {IIndexing} from 'wlc-engine/interfaces';
 
 import {
     IAvailableCategories,
@@ -182,9 +178,9 @@ export class GameCatalog {
     /**
      *
      * @param {string} categoryId
-     * @returns {IIndexingString}
+     * @returns {IIndexing<string>}
      */
-    public getCategoryTitleById(categoryId: string): IIndexingString {
+    public getCategoryTitleById(categoryId: string): IIndexing<string> {
         return _get(this.categoriesMapping, `categoryIdToTitleMapping[${categoryId}]`, {});
     }
 
@@ -202,7 +198,7 @@ export class GameCatalog {
         category: string,
         subcategory?: string,
         language?: string
-    ): string | IIndexingString {
+    ): string | IIndexing<string> {
         /*  if (type === 'merchant') {
               if (typeof subcategory !== 'undefined' && !!subcategory) {
                   if (this.hasOwnProperty('byCategory') &&
@@ -247,7 +243,7 @@ export class GameCatalog {
         return this.merchantsMapping?.merchantIdToAliasMapping[merchantId];
     }
 
-    public getGameCategoryList(): { [key: string]: IIndexingString; } {
+    public getGameCategoryList(): { [key: string]: IIndexing<string>; } {
         return this.categoriesMapping?.categoryNameToTitleMapping;
     }
 
@@ -418,7 +414,7 @@ export class GameCatalog {
         /**
          * MERCHANTS
          */
-        const merchantMap: IIndexingString = _get(ConfigService.instance.appConfig, 'siteconfig.merchantNameAliasesMap', {});
+        const merchantMap: IIndexing<string> = _get(ConfigService.instance.appConfig, 'siteconfig.merchantNameAliasesMap', {});
         const mapMerchants = GamesHelper.mapMerchants(response.merchants, merchantMap);
         this.merchantsMapping = mapMerchants.merchantsMapping;
         this.merchants = mapMerchants.merchantsArray;

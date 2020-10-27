@@ -20,7 +20,7 @@ import {ConfigService} from './core/services';
 import {PromoModule} from 'wlc-engine/modules/promo/promo.module';
 
 import {Location} from '@angular/common';
-import {IIndexingString} from 'wlc-engine/interfaces';
+import {IIndexing} from 'wlc-engine/interfaces';
 
 export function loadConfig(config: ConfigService) {
     return config.load();
@@ -74,7 +74,7 @@ export function loadConfig(config: ConfigService) {
 })
 export class AppModule {
 
-    public initialPath: IIndexingString;
+    public initialPath: IIndexing<string>;
 
     constructor(
         location: Location,

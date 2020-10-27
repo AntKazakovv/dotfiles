@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {IIndexingString} from 'wlc-engine/interfaces/index';
+import {IIndexing} from 'wlc-engine/interfaces/index';
 import {ConfigService} from 'wlc-engine/modules/core/services/config/config.service';
 import {DataService, IData} from 'wlc-engine/modules/core/services/data/data.service';
 import {GameCatalog} from 'wlc-engine/modules/games/models/game-catalog.model';

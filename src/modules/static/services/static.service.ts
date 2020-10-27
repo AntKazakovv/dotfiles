@@ -3,7 +3,7 @@ import {Injectable} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {DomSanitizer} from '@angular/platform-browser';
 
-import {IIndexingString} from 'wlc-engine/interfaces';
+import {IIndexing} from 'wlc-engine/interfaces';
 import {ConfigService} from 'wlc-engine/modules/core';
 import {
     ICategoryStaticText,
@@ -362,7 +362,7 @@ export class StaticService {
             });
     }
 
-    protected getParams(): IIndexingString {
+    protected getParams(): IIndexing<string> {
         const fields = this.configService.appConfig.$static?.additionalFields;
         return (this.useWpPlugin)
             ? {
