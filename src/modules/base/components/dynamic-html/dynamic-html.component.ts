@@ -1,15 +1,14 @@
 import {
-    Component,
     AfterViewInit,
-    Input,
     Compiler,
-    Injector,
-    NgModuleRef,
-    ViewContainerRef,
+    Component,
     ComponentRef,
+    Injector,
+    Input,
     NgModule,
+    NgModuleRef,
     OnDestroy,
-    ViewChild,
+    ViewContainerRef,
 } from '@angular/core';
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
 
@@ -26,7 +25,7 @@ export class DynamicHtmlComponent implements AfterViewInit, OnDestroy {
         private compiler: Compiler,
         private injector: Injector,
         private moduleRef: NgModuleRef<any>,
-        public viewRef: ViewContainerRef
+        public viewRef: ViewContainerRef,
     ) {
     }
 
@@ -38,7 +37,7 @@ export class DynamicHtmlComponent implements AfterViewInit, OnDestroy {
 
         const dynamicComponent = Component({
             template,
-            selector: '[wlc-dynamic]'
+            selector: '[wlc-dynamic]',
         })(class {
             ngOnInit() {
             }
@@ -57,6 +56,7 @@ export class DynamicHtmlComponent implements AfterViewInit, OnDestroy {
                 this.componentReference.instance.name = 'my-dynamic-component';
                 this.viewRef.clear();
                 this.viewRef.insert(this.componentReference.hostView);
+                this.componentReference.changeDetectorRef.markForCheck();
             });
     }
 

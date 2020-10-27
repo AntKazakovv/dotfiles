@@ -19,6 +19,7 @@ export interface ILayoutSectionConfig {
     components?: (ILayoutComponent | string)[];
     modify?: ILayoutModifyItem[];
     modifiers?: string[];
+    theme?: string;
 }
 
 // export interface ILayoutModify {

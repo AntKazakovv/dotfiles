@@ -4,5 +4,10 @@ $footerPadding: ef.get('padding', 'less');
 $footerBackground: ef.get('color', 'background');
 $footerGap: ef.get('gap', 'main');
 
+$affHeaderGap: ef.get('gap', 'main') !default;
+
+$affMainMenuBackground: ef.get('color', 'accent') !default;
+$affMainMenuPadding: ef.get('gap', 'main') !default;
+
 $affMenuBackground: ef.get('color', 'accent') !default;
 $affMenuPadding: ef.get('gap', 'biger') !default;

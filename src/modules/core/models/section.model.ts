@@ -12,6 +12,7 @@ export class SectionModel implements ILayoutSectionConfig {
     public readonly components: (ILayoutComponent | string)[];
     public readonly modify: ILayoutModifyItem[];
     public readonly modifiers: string[];
+    public readonly theme: string;
 
     protected preparedModifiers: string[] = [];
 
@@ -38,13 +39,10 @@ export class SectionModel implements ILayoutSectionConfig {
             this.preparedModifiers = _union(this.preparedModifiers, ['fluid']);
         }
 
-        const result = _findIndex(this.modifiers, (mod: string): boolean => {
-            const pattern = new RegExp(/^v\d+$/);
-            return pattern.test(mod);
-        });
-        if (result === -1) {
-            this.preparedModifiers = _union(this.preparedModifiers, ['v1']);
-        }
+        this.preparedModifiers = _union(
+            this.preparedModifiers,
+            (this.theme) ? [`theme-${this.theme}`] : ['theme-default'],
+        );
 
         this.preparedModifiers = _union(this.preparedModifiers, this.modifiers);
     }

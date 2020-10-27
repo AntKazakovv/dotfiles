@@ -6,7 +6,7 @@
 
     &:host {
         position: relative;
-        display: grid;
+        display: inline-grid;
         grid-auto-columns: auto;
         grid-auto-flow: column;
         align-items: center;
