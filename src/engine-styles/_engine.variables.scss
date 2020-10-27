@@ -1,5 +1,14 @@
-$color: (
-    'accent': #FFCC00,
+@import 'app.variables';
+
+$customColor: () !default;
+$customPadding: () !default;
+$customGap: () !default;
+$customRadius: () !default;
+$customSize: () !default;
+
+$color: map-merge((
+    'accent': #777777,
+    'accent2': #474747,
     'warn': #b71313,
     'text': #e2e2e2,
     'text-hint': #b8b8b8,
@@ -12,34 +21,35 @@ $color: (
     'backgroundHover': #dedede,
     'backgroundAccent': #c1c1c1,
     'backgroundAccentHover': #a2a2a2
-);
+), $customColor);
 
-$padding: (
+$padding: map-merge((
     'small': 5px,
     'less': 10px,
     'main': 15px,
     'biger': 20px,
     'big': 30px
-);
+), $customPadding);
 
-$gap: (
+$gap: map-merge((
     'small': 5px,
     'less': 10px,
     'main': 15px,
     'biger': 20px,
     'big': 30px
-);
+), $customGap);
 
-$radius: (
+$radius: map-merge((
     'small': 3px,
     'less': 5px,
     'main': 10px,
     'biger': 15px,
     'big': 20px
-);
+), $customRadius);
 
-$size: (
+$size: map-merge((
+    'font': 18px,
     'buttonSmall': 35px,
     'buttonDefault': 40px,
     'buttonBig': 50px
-);
+), $customSize);

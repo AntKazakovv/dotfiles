@@ -1,0 +1,29 @@
+@use '../../utils/vars' as v;
+@use '../../utils/mixins' as m;
+
+.wlc-sections__header {
+
+    &--theme {
+
+        &-affiliate-2 .container {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            grid-template-areas: 'logo buttons' 'menu menu';
+            grid-gap: v.$affHeaderGap;
+
+            .wlc-logo {
+                grid-area: logo;
+            }
+
+            .wlc-login-signup {
+                grid-area: buttons;
+            }
+
+            .wlc-menu {
+                grid-area: menu;
+                width: 100%;
+                @include m.roundedBlock(v.$affMainMenuPadding, v.$affMainMenuBackground);
+            }
+        }
+    }
+}

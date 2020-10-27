@@ -1,31 +1,30 @@
 import {Injectable} from '@angular/core';
-import {
-    ILayoutComponent,
-    ILayoutsConfig,
-    ILayoutSectionConfig,
-    ILayoutStateConfig,
-    ILayoutModifyItem,
-} from 'wlc-engine/interfaces/layouts.interface';
-import {ConfigService} from 'wlc-engine/modules/core/services/config/config.service';
-import {SectionModel, ISectionData} from 'wlc-engine/modules/core/models/section.model';
 
 import {
     cloneDeep as _cloneDeep,
     each as _each,
     extend as _extend,
+    findIndex as _findIndex,
     get as _get,
+    includes as _includes,
     isArray as _isArray,
-    isString as _isString,
     isNumber as _isNumber,
+    isString as _isString,
+    map as _map,
     mergeWith as _mergeWith,
     reduce as _reduce,
-    union as _union,
-    map as _map,
-    findIndex as _findIndex,
-    includes as _includes,
     toSafeInteger as _toSafeInteger,
-    set as _set,
+    union as _union,
 } from 'lodash';
+import {
+    ILayoutComponent,
+    ILayoutModifyItem,
+    ILayoutsConfig,
+    ILayoutSectionConfig,
+    ILayoutStateConfig,
+} from 'wlc-engine/interfaces/layouts.interface';
+import {ISectionData, SectionModel} from 'wlc-engine/modules/core/models/section.model';
+import {ConfigService} from 'wlc-engine/modules/core/services/config/config.service';
 
 @Injectable({
     providedIn: 'root',
@@ -92,15 +91,15 @@ export class LayoutService {
                     switch (item.type) {
                         case 'insert':
                             section.components.splice(position, 0, item.component);
-                        break;
+                            break;
 
                         case 'replace':
                             section.components[position] = item.component;
-                        break;
+                            break;
 
                         case 'delete':
                             section.components.splice(position, 1);
-                        break;
+                            break;
                     }
                 });
             }
