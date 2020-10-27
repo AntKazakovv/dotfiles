@@ -1,12 +1,10 @@
-import {IIndexing, IIndexingBoolean, IIndexingString} from 'wlc-engine/interfaces';
+import {IIndexing} from 'wlc-engine/interfaces';
 
 import {
     ICategoriesMapping,
     ICategory,
     ICountriesRestriction,
     ICountriesRestrictions,
-    IIndexingCategories,
-    IIndexingMerchants,
     IMerchant,
     IMerchantsMapping, IRestrictions,
 } from 'wlc-engine/modules/games/interfaces/games.interfaces';
@@ -20,11 +18,11 @@ import {
 export class GamesHelper {
     /**
      *
-     * @param {IIndexingMerchants} merchants
-     * @param {IIndexingString} merchantMap
+     * @param {IIndexing<IMerchant>} merchants
+     * @param {IIndexing<string>} merchantMap
      * @returns {{merchantsMapping: IMerchantsMapping; merchantsArray: IMerchant[]}}
      */
-    public static mapMerchants(merchants: IIndexingMerchants, merchantMap: IIndexingString):
+    public static mapMerchants(merchants: IIndexing<IMerchant>, merchantMap: IIndexing<string>):
         { merchantsMapping: IMerchantsMapping, merchantsArray: IMerchant[] } {
         if (!merchants) {
             return;

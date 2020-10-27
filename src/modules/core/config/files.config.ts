@@ -1,6 +1,6 @@
-import {IIndexingString} from 'wlc-engine/interfaces';
+import {IIndexing} from 'wlc-engine/interfaces';
 
-export const files: IIndexingString = {
+export const files: IIndexing<string> = {
     'defaultLogo': 'default-logo.svg',
     'defaultFooterLogo': 'default-logo.svg',
 };

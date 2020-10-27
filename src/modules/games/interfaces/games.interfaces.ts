@@ -1,4 +1,4 @@
-import {IIndexingString, IIndexingBoolean, IIndexing} from 'wlc-engine/interfaces/index';
+import {IIndexing} from 'wlc-engine/interfaces/index';
 import {Game} from 'wlc-engine/modules/games/models/game.model';
 
 /**
@@ -37,7 +37,7 @@ export type IByMerchant = {
 
 export type IByMerchantItem = {
     games: Game[];
-    categories: IIndexingBoolean;
+    categories: IIndexing<boolean>;
 }
 
 export type IByCategory = {
@@ -45,9 +45,9 @@ export type IByCategory = {
 }
 
 export type IByCategoryItem = {
-    title: IIndexingString;
+    title: IIndexing<string>;
     games: Game[];
-    merchants: IIndexingBoolean;
+    merchants: IIndexing<boolean>;
 }
 
 export type IMerchantCurrency = {
@@ -61,9 +61,9 @@ export type IMerchantCurrency = {
 
 export type ICategory = {
     ID: string;
-    Name: IIndexingString;
+    Name: IIndexing<string>;
     Tags: string[];
-    Trans: IIndexingString;
+    Trans: IIndexing<string>;
     menuId: string;
     Slug: string;
     en?: string;
@@ -81,23 +81,23 @@ export type IGames = {
 }
 
 export type IMerchantsMapping = {
-    merchantIdToNameMapping: IIndexingString;
-    merchantIdToAliasMapping: IIndexingString;
-    merchantNameToIdMapping: IIndexingString;
-    merchantNameToTitleMapping: IIndexingString;
+    merchantIdToNameMapping: IIndexing<string>;
+    merchantIdToAliasMapping: IIndexing<string>;
+    merchantNameToIdMapping: IIndexing<string>
+    merchantNameToTitleMapping: IIndexing<string>
 }
 
 export type IRestrictions = {
-    restrictedByID: { [key: string]: IIndexingBoolean; };
-    restrictedByDefault: { [key: string]: IIndexingBoolean; };
+    restrictedByID: { [key: string]: IIndexing<boolean>; };
+    restrictedByDefault: { [key: string]: IIndexing<boolean>; };
 }
 
 export type ICategoriesMapping = {
     categoryById: IIndexing<ICategory>;
-    categoryIdToNameMapping: IIndexingString;
-    categoryNameToIdMapping: IIndexingString;
-    categoryIdToTitleMapping: { [key: string]: IIndexingString; };
-    categoryNameToTitleMapping: { [key: string]: IIndexingString; };
+    categoryIdToNameMapping: IIndexing<string>;
+    categoryNameToIdMapping: IIndexing<string>;
+    categoryIdToTitleMapping: { [key: string]: IIndexing<string>; };
+    categoryNameToTitleMapping: { [key: string]: IIndexing<string>; };
 }
 
 /**
@@ -113,7 +113,7 @@ export interface IAvailableMerchants extends IAvailableItem {
 }
 
 export interface IAvailableCategories extends IAvailableItem {
-    title: IIndexingString;
+    title: IIndexing<string>;
     sort: number;
 }
 
@@ -124,12 +124,4 @@ export interface ISupportedItem {
 
 export interface ICatalogTreeItem extends ISupportedItem {
     subcategories: ISupportedItem[];
-}
-
-export interface IIndexingMerchants {
-    [key: string]: IMerchant;
-}
-
-export interface IIndexingCategories {
-    [key: string]: ICategory;
 }

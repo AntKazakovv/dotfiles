@@ -1,5 +1,5 @@
 import {TextDataModel} from './textdata.model';
-import {IIndexingAny} from 'wlc-engine/interfaces';
+import {IIndexing} from 'wlc-engine/interfaces';
 
 import {get as _get, each as _each} from 'lodash';
 
@@ -16,8 +16,8 @@ export class WpTextData extends TextDataModel {
         this.extFields = this.getExtFields(data);
     }
 
-    protected getExtFields(data: any): IIndexingAny {
-        const res: IIndexingAny = {};
+    protected getExtFields(data: any): IIndexing<any> {
+        const res: IIndexing<any> = {};
         const fields = this.configService.appConfig.$static?.additionalFields;
         _each(fields, (field) => {
             res[field] = _get(data, field);

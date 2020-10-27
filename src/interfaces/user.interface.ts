@@ -1,5 +1,5 @@
 import {
-    IIndexingString,
+    IIndexing,
     ILoyalty,
     IFreeRound,
 } from './index';
@@ -75,5 +75,5 @@ export interface IExtProfilePaymentSystems {
 }
 
 export interface IExtPaymentSystem {
-    additionalParams?: IIndexingString;
+    additionalParams?: IIndexing<string>;
 }
