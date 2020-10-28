@@ -9,7 +9,7 @@ import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
 } from '@angular/core';
-import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
+import {DomSanitizer} from '@angular/platform-browser';
 
 import {AbstractComponent} from 'wlc-engine/classes/abstract.component';
 import {StaticService} from 'wlc-engine/modules/static';
@@ -27,8 +27,7 @@ export class PostComponent extends AbstractComponent implements OnInit, AfterVie
     @ViewChild('wrp', {read: ViewContainerRef, static: true}) wrp: ViewContainerRef;
     @Input() protected slug: string;
     public data: TextDataModel;
-
-    public html: SafeHtml;
+    public html: string;
     public isReady: boolean;
 
     constructor(
@@ -42,22 +41,20 @@ export class PostComponent extends AbstractComponent implements OnInit, AfterVie
     }
 
     async ngOnInit(): Promise<void> {
+        super.ngOnInit();
+
         try {
             const data: TextDataModel = await this.staticService.getPost(this.slug || this.params.slug);
-            // const html = this.domSanitizer.bypassSecurityTrustHtml(data.html);
-            this.html = data.html;
-            this.isReady = true;
+            this.html = this.domSanitizer.bypassSecurityTrustHtml(data.html)?.['changingThisBreaksApplicationSecurity'];
             this.cdr.markForCheck();
         } catch (e) {
             console.log(e);
+        } finally {
+            this.isReady = true;
         }
-        // this.wrp.remove();
-        // this.viewRef.remove();
     }
 
     ngAfterViewInit() {
-        // this.wrp.remove();
-        // this.viewRef.remove();
+        this.viewRef.remove();
     }
-
 }
