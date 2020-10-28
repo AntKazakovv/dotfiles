@@ -1,30 +1,35 @@
 import {Injectable} from '@angular/core';
+import {
+    ILayoutComponent,
+    ILayoutsConfig,
+    ILayoutSectionConfig,
+    ILayoutStateConfig,
+    ILayoutModifyItem,
+} from 'wlc-engine/interfaces/layouts.interface';
+import {ConfigService} from 'wlc-engine/modules/core/services/config/config.service';
+import {SectionModel, ISectionData} from 'wlc-engine/modules/core/models/section.model';
+import {StateParams} from '@uirouter/core';
 
 import {
     cloneDeep as _cloneDeep,
     each as _each,
     extend as _extend,
-    findIndex as _findIndex,
     get as _get,
-    includes as _includes,
     isArray as _isArray,
-    isNumber as _isNumber,
     isString as _isString,
-    map as _map,
+    isNumber as _isNumber,
     mergeWith as _mergeWith,
     reduce as _reduce,
-    toSafeInteger as _toSafeInteger,
     union as _union,
+    map as _map,
+    filter as _filter,
+    findIndex as _findIndex,
+    includes as _includes,
+    toSafeInteger as _toSafeInteger,
+    set as _set,
+    isObject as _isObject,
+    isUndefined as _isUndefined,
 } from 'lodash';
-import {
-    ILayoutComponent,
-    ILayoutModifyItem,
-    ILayoutsConfig,
-    ILayoutSectionConfig,
-    ILayoutStateConfig,
-} from 'wlc-engine/interfaces/layouts.interface';
-import {ISectionData, SectionModel} from 'wlc-engine/modules/core/models/section.model';
-import {ConfigService} from 'wlc-engine/modules/core/services/config/config.service';
 
 @Injectable({
     providedIn: 'root',
@@ -47,13 +52,32 @@ export class LayoutService {
         this.layouts = _get(this.configService, 'appConfig.$layouts');
     }
 
-    public getLayoutConfig(state: string): ILayoutStateConfig {
+    public getLayoutConfig(state: string, params?: StateParams): ILayoutStateConfig {
+
         if (this.layouts.hasOwnProperty(state)) {
-            if (this.layouts[state].extends) {
+
+            if (params.category && this.layouts[state]?.subcategories?.[params.category]) {
+                const subCategory = state += `.${params.category}`;
+
+                if (this.layouts[state].subcategories[subCategory]?.extends) {
+                    return _cloneDeep(_extend(
+                        _cloneDeep(this.layouts[state].subcategories[subCategory]),
+                        _mergeWith(
+                            this.getLayoutConfig(this.layouts[state].subcategories[subCategory].extends),
+                            this.layouts[state].subcategories[subCategory],
+                            (target, source) => {
+                                return _isArray(target) ? source : undefined;
+                            })));
+                }
+
+                return _cloneDeep(this.layouts[state].subcategories[subCategory]);
+            }
+
+            if (this.layouts[state]?.extends) {
                 return _cloneDeep(_extend(
                     _cloneDeep(this.layouts[state]),
                     _mergeWith(
-                        this.getLayoutConfig(this.layouts[state].extends),
+                        this.getLayoutConfig(this.layouts[state].extends, params),
                         this.layouts[state],
                         (target, source) => {
                             return _isArray(target) ? source : undefined;
@@ -65,19 +89,14 @@ export class LayoutService {
         }
     }
 
-    public getAllSection(): SectionModel[] {
-        return _reduce(this.layouts, (res, state) => {
-            return _union(res, _map(
-                state.sections,
-                (section: any, name: string): SectionModel => {
-                    return new SectionModel(<ISectionData>{section, name});
-                }),
-            );
-        }, []);
+    public getAllSection(state: string, params?: StateParams): SectionModel[] {
+        return _map(this.getLayoutConfig(state, params).sections, (section, name) => {
+            return new SectionModel(<ISectionData>{section, name});
+        });
     }
 
-    public async getLayout(state: string): Promise<ILayoutStateConfig> {
-        const res: ILayoutStateConfig = this.getLayoutConfig(state);
+    public async getLayout(state: string, params?: StateParams): Promise<ILayoutStateConfig> {
+        const res: ILayoutStateConfig = this.getLayoutConfig(state, params);
 
         _each(res.sections, (section) => {
             if (section.modify) {
@@ -89,17 +108,17 @@ export class LayoutService {
                     }
                     const position = this.getPosition(section, item);
                     switch (item.type) {
-                        case 'insert':
-                            section.components.splice(position, 0, item.component);
-                            break;
+                    case 'insert':
+                        section.components.splice(position, 0, item.component);
+                        break;
 
-                        case 'replace':
-                            section.components[position] = item.component;
-                            break;
+                    case 'replace':
+                        section.components[position] = item.component;
+                        break;
 
-                        case 'delete':
-                            section.components.splice(position, 1);
-                            break;
+                    case 'delete':
+                        section.components.splice(position, 1);
+                        break;
                     }
                 });
             }
@@ -124,6 +143,16 @@ export class LayoutService {
                     };
                 } else {
                     component.componentClass = this.getComponent(component.name);
+                }
+
+                if (component.exclude?.length) {
+                    section.components = _filter(section.components, (component: ILayoutComponent) => {
+                        return !_includes(component.exclude, state);
+                    });
+                } else if (component.include?.length) {
+                    section.components = _filter(section.components, (component: ILayoutComponent) => {
+                        return _includes(component.include, state);
+                    });
                 }
             });
         });
@@ -198,31 +227,31 @@ export class LayoutService {
 
     private async importModule(name: string): Promise<any> {
         switch (name) {
-            case 'base':
-                return import('wlc-engine/modules/base/base.module').then(m => {
-                    this.components.base = m.components;
-                    return m.BaseModule;
-                });
-            case 'menu':
-                return import('wlc-engine/modules/menu/menu.module').then(m => {
-                    this.components.menu = m.components;
-                    return m.MenuModule;
-                });
-            case 'games':
-                return import('wlc-engine/modules/games/games.module').then(m => {
-                    this.components.games = m.components;
-                    return m.GamesModule;
-                });
-            case 'static':
-                return import('wlc-engine/modules/static/static.module').then(m => {
-                    this.components.static = m.components;
-                    return m.StaticModule;
-                });
-            case 'user':
-                return import('wlc-engine/modules/user/user.module').then(m => {
-                    this.components.user = m.components;
-                    return m.UserModule;
-                });
+        case 'base':
+            return import('wlc-engine/modules/base/base.module').then(m => {
+                this.components.base = m.components;
+                return m.BaseModule;
+            });
+        case 'menu':
+            return import('wlc-engine/modules/menu/menu.module').then(m => {
+                this.components.menu = m.components;
+                return m.MenuModule;
+            });
+        case 'games':
+            return import('wlc-engine/modules/games/games.module').then(m => {
+                this.components.games = m.components;
+                return m.GamesModule;
+            });
+        case 'static':
+            return import('wlc-engine/modules/static/static.module').then(m => {
+                this.components.static = m.components;
+                return m.StaticModule;
+            });
+        case 'user':
+            return import('wlc-engine/modules/user/user.module').then(m => {
+                this.components.user = m.components;
+                return m.UserModule;
+            });
         }
     }
 }

@@ -15,11 +15,11 @@ const states = {
         url: '',
     },
     'app.catalog': {
-        url: '/catalog',
+        url: '/catalog/:category',
+        params: {
+            category: 'test',
+        },
     },
-    'app.catalog.popular': {
-        url: '/catalog/popular',
-    }
 };
 
 const appState: Ng2StateDeclaration = {
@@ -35,9 +35,9 @@ const appState: Ng2StateDeclaration = {
             resolveFn: async (config: ConfigService) => {
                 await config.ready;
                 return config.appConfig.language;
-            }
-        }
-    ]
+            },
+        },
+    ],
 };
 
 export const APP_STATES: Ng2StateDeclaration[] = [
@@ -46,7 +46,7 @@ export const APP_STATES: Ng2StateDeclaration[] = [
         return {
             name: key,
             component: LayoutComponent,
-            ...state
+            ...state,
         };
     }),
 ];

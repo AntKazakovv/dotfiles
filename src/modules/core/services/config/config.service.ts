@@ -47,8 +47,8 @@ export class ConfigService {
     }
 
     protected addSiteConfig(): void {
-        _mergeWith(this.appConfig, wlcConfig, (target, source) => (source.replaceConfig) ? source : undefined);
-        _mergeWith(this.appConfig, appConfig, (target, source) => (source.replaceConfig) ? source : undefined);
+        _mergeWith(this.appConfig, wlcConfig, (target, source) => (source?.replaceConfig) ? source : undefined);
+        _mergeWith(this.appConfig, appConfig, (target, source) => (source?.replaceConfig) ? source : undefined);
         GlobalHelper.deepFreeze(this.appConfig);
     }
 }
