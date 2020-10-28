@@ -1,13 +1,23 @@
-import {assign as _assign, map as _map, reduce as _reduce, findIndex as _findIndex, union as _union} from 'lodash';
 import {ILayoutComponent, ILayoutModifyItem, ILayoutSectionConfig} from 'wlc-engine/interfaces';
+
+import {
+    assign as _assign,
+    map as _map,
+    reduce as _reduce,
+    findIndex as _findIndex,
+    union as _union,
+    isUndefined as _isUndefined,
+} from 'lodash';
 
 export interface ISectionData {
     section: ILayoutSectionConfig;
     name: string;
+    order: number;
 }
 
 export class SectionModel implements ILayoutSectionConfig {
     public readonly name: string;
+    public readonly order: number;
     public readonly container: string | boolean;
     public readonly components: (ILayoutComponent | string)[];
     public readonly modify: ILayoutModifyItem[];
@@ -19,6 +29,7 @@ export class SectionModel implements ILayoutSectionConfig {
     constructor(sectionData: ISectionData) {
         _assign(this, sectionData.section);
         this.name = sectionData.name;
+        this.order = _isUndefined(this.order) ? 1 : this.order;
         this.prepareModifiers();
     }
 
@@ -29,7 +40,7 @@ export class SectionModel implements ILayoutSectionConfig {
     public classList(hostClass: string): string {
         const cssModifiers = _map(
             this.preparedModifiers,
-            (mod: string): string => `${hostClass}__${this.name}--${mod}`
+            (mod: string): string => `${hostClass}__${this.name}--${mod}`,
         );
         return [`${hostClass}__${this.name}`, ...cssModifiers].join(' ');
     }

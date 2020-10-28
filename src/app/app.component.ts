@@ -1,10 +1,14 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding, OnDestroy, OnInit} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
-import {StateService, UIRouter} from '@uirouter/core';
+import {StateService, UIRouter, UIRouterGlobals} from '@uirouter/core';
 import {takeUntil} from 'rxjs/operators';
 import {AbstractComponent} from 'wlc-engine/classes/abstract.component';
 import {SectionModel} from 'wlc-engine/modules/core/models/section.model';
 import {ConfigService, LayoutService} from '../modules/core/services';
+
+import {
+    sortBy as _sortBy,
+} from 'lodash';
 
 const defaultParams = {
     class: 'wlc-sections',
@@ -27,6 +31,7 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
         protected translate: TranslateService,
         protected stateService: StateService,
         protected layoutService: LayoutService,
+        protected uiRouter: UIRouterGlobals,
         protected cdr: ChangeDetectorRef,
     ) {
         super({injectParams: {}, defaultParams});
@@ -37,6 +42,7 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
     }
 
     public ngOnInit(): void {
+
         this.translate.onLangChange.pipe(takeUntil(this.$destroy)).subscribe((v) => {
             this.stateService.go(
                 this.stateService.current.name,
@@ -44,7 +50,8 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
             );
         });
 
-        this.sections = this.layoutService.getAllSection();
+        this.sections = _sortBy(this.layoutService
+            .getAllSection(this.uiRouter.current.name, this.uiRouter.params), 'order');
         this.cdr.markForCheck();
     }
 }

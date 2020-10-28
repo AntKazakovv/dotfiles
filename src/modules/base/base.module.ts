@@ -8,8 +8,13 @@ import {DynamicHtmlComponent} from './components/dynamic-html/dynamic-html.compo
 import {ButtonComponent} from './components/button/button.component';
 import {IconListComponent} from './components/icon-list/icon-list.component';
 import {UIRouterModule} from '@uirouter/angular';
-import {TranslateModule} from '@ngx-translate/core';
 import {DisclaimerComponent} from './components/disclaimer/disclaimer.component';
+import {
+    MissingTranslationHandler,
+    TranslateLoader,
+    TranslateModule,
+} from '@ngx-translate/core';
+import {UserModule} from '../user/user.module';
 
 export const components = {
     'wlc-logo': LogoComponent,

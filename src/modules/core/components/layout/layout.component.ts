@@ -1,7 +1,43 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, Input, OnInit, ViewEncapsulation} from '@angular/core';
-import {TransitionService, UIRouterGlobals} from '@uirouter/core';
-import {ILayoutComponent, ILayoutStateConfig, ILayoutSectionConfig} from 'wlc-engine/interfaces/layouts.interface';
-import {LayoutService} from 'wlc-engine/modules/core/services';
+import {
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    Injector,
+    Input,
+    OnInit,
+    OnDestroy,
+    ViewEncapsulation,
+} from '@angular/core';
+import {
+    StateParams,
+    TransitionService,
+    UIRouterGlobals,
+} from '@uirouter/core';
+import {
+    ILayoutComponent,
+    ILayoutStateConfig,
+    ILayoutSectionConfig,
+} from 'wlc-engine/interfaces/layouts.interface';
+import {
+    ConfigService,
+    EventService,
+    LayoutService,
+} from 'wlc-engine/modules/core/services';
+import {
+    fromEvent,
+    Subject,
+} from 'rxjs';
+import {
+    takeUntil,
+} from 'rxjs/operators';
+
+import {
+    each as _each,
+    reduce as _reduce,
+    filter as _filter,
+    isObject as _isObject,
+    isUndefined as _isUndefined,
+} from 'lodash';
 
 @Component({
     selector: '[wlc-layout]',
@@ -10,7 +46,7 @@ import {LayoutService} from 'wlc-engine/modules/core/services';
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
 })
-export class LayoutComponent implements OnInit {
+export class LayoutComponent implements OnInit, OnDestroy {
 
     @Input() protected sectionName: string;
 
@@ -18,18 +54,26 @@ export class LayoutComponent implements OnInit {
     public section: ILayoutSectionConfig;
 
     private currentConfig: ILayoutStateConfig;
+    private allComponents$: ILayoutComponent[] = [];
+    private $destroy: Subject<void> = new Subject();
+
+    private userService = {
+        isAuthenticated: true,
+    };
 
     constructor(
-        protected layoutService: LayoutService,
-        protected transition: TransitionService,
-        protected injector: Injector,
-        protected cdr: ChangeDetectorRef,
-        protected uiRouter: UIRouterGlobals,
+        private layoutService: LayoutService,
+        private transition: TransitionService,
+        private injector: Injector,
+        private cdr: ChangeDetectorRef,
+        private uiRouter: UIRouterGlobals,
+        private configService: ConfigService,
+        private eventService: EventService,
     ) {
     }
 
     async ngOnInit(): Promise<void> {
-        await this.setComponents(this.uiRouter.current.name);
+        await this.setComponents(this.uiRouter.current.name, this.uiRouter.params);
         this.transition.onEnter({}, async (transition) => {
             await this.setComponents(transition.to().name);
         });
@@ -50,10 +94,85 @@ export class LayoutComponent implements OnInit {
         return component.injector;
     }
 
-    private async setComponents(state: string): Promise<void> {
-        this.currentConfig = await this.layoutService.getLayout(state);
+    public ngOnDestroy() {
+        this.$destroy.next();
+        this.$destroy.complete();
+    }
+
+    private async setComponents(state: string, params?: StateParams): Promise<void> {
+        this.currentConfig = await this.layoutService.getLayout(state, params);
         this.section = this.currentConfig.sections[this.sectionName];
-        this.components = this.section?.components as ILayoutComponent[] || [];
+        this.allComponents$ = this.section?.components as ILayoutComponent[] || [];
+        this.setWatcher();
+        this.components = this.filterComponents();
         this.cdr.markForCheck();
+    }
+
+    private filterComponents(): ILayoutComponent[] {
+        return _filter(this.allComponents$, (component) => {
+
+            let result = true;
+            if (_isObject(component)) {
+                if (!_isUndefined(component.display?.mobile)
+                    && component.display?.mobile !== this.configService.appConfig.mobile
+                ) {
+                    result = false;
+                }
+
+                if (result && (component.display?.after || component.display?.before)) {
+                    if (component.display.after > component.display.before) {
+                        result = result && (window.innerWidth >= component.display.after || window.innerWidth <= component.display.before);
+                    } else {
+                        result = result && (window.innerWidth >= component.display.after && window.innerWidth <= component.display.before);
+                    }
+                }
+
+                if (result && !_isUndefined(component.display?.auth)) {
+                    result = result && component.display.auth === this.userService.isAuthenticated;
+                }
+            }
+            return result;
+        });
+    }
+
+    private setWatcher(): void {
+        const resize = _reduce(this.allComponents$, (res, component): boolean => {
+            return res || (!!component.display?.after || !!component.display?.before);
+        }, false);
+
+        if (resize) {
+            _each(this.allComponents$, (component, key) => {
+                if (_isUndefined(component.display.before)) {
+                    this.allComponents$[key].display.before = Number.MAX_SAFE_INTEGER;
+                }
+
+                if (_isUndefined(component.display.after)) {
+                    this.allComponents$[key].display.after = 0;
+                }
+            });
+
+            fromEvent(window, 'resize').pipe(takeUntil(this.$destroy)).subscribe({
+                next: () => {
+                    this.components = this.filterComponents();
+                    this.cdr.markForCheck();
+                },
+            });
+        }
+
+        const auth = _reduce(this.allComponents$, (res, component): boolean => {
+            return res || !_isUndefined(component.display?.auth);
+        }, false);
+
+        if (auth) {
+            this.eventService.filter(
+                [{name: 'LOGIN'}, {name: 'LOGOUT'}],
+                this.$destroy)
+                .subscribe({
+                    next: () => {
+                        this.components = this.filterComponents();
+                        this.cdr.markForCheck();
+                    },
+                });
+        }
     }
 }
