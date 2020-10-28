@@ -6,6 +6,7 @@ import {LanguageSelectorComponent} from './components/language-selector/language
 import {IconComponent} from './components/icon/icon.component';
 import {DynamicHtmlComponent} from './components/dynamic-html/dynamic-html.component';
 import {ButtonComponent} from './components/button/button.component';
+import {IconListComponent} from './components/icon-list/icon-list.component';
 import {UIRouterModule} from '@uirouter/angular';
 import {TranslateModule} from '@ngx-translate/core';
 import {DisclaimerComponent} from './components/disclaimer/disclaimer.component';
@@ -16,6 +17,7 @@ export const components = {
     'wlc-icon': IconComponent,
     'wlc-dynamic-html': DynamicHtmlComponent,
     'wlc-button': ButtonComponent,
+    'wlc-icon-list': IconListComponent,
     'wlc-disclaimer': DisclaimerComponent,
 };
 
@@ -26,6 +28,7 @@ export const components = {
         IconComponent,
         DynamicHtmlComponent,
         ButtonComponent,
+        IconListComponent,
         DisclaimerComponent,
     ],
     imports: [
@@ -39,6 +42,7 @@ export const components = {
         IconComponent,
         DynamicHtmlComponent,
         ButtonComponent,
+        IconListComponent,
     ],
 })
 export class BaseModule {

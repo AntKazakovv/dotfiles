@@ -1,0 +1,450 @@
+import {IComponentParams} from 'wlc-engine/interfaces/config.interface';
+import {IIconParams} from 'wlc-engine/modules/base/models/icon-list-item.model';
+
+export type ListType = 'merchants' | 'payments' | 'custom';
+export type ListTheme = 'default' | 'svg';
+
+export interface IParams extends IComponentParams<ListTheme, ListType, string> {
+    items?: IIconParams[];
+};
+
+export const defaultParams: IParams = {
+    class: 'wlc-icon-list',
+};
+
+
+// TODO delete after service
+export const MERCHANTS = [{
+    "ID": "919",
+    "Name": "Spadegaming",
+    "IDParent": null,
+    "Alias": "Spadegaming",
+    "Image": "/gstatic/merchants/spadegaming.jpg",
+    "menuId": "spadegaming"
+}, {
+    "ID": "921",
+    "Name": "Spinmatic",
+    "IDParent": null,
+    "Alias": "Spinmatic",
+    "Image": "/gstatic/merchants/spinmatic.jpg",
+    "menuId": "spinmatic"
+}, {
+    "ID": "922",
+    "Name": "PinnacleSW",
+    "IDParent": null,
+    "Alias": "PinnacleSW",
+    "Image": "/gstatic/merchants/pinnaclesw.jpg",
+    "menuId": "pinnaclesw"
+}, {
+    "ID": "926",
+    "Name": "Igrosoft",
+    "IDParent": null,
+    "Alias": "Igrosoft",
+    "Image": "/gstatic/merchants/igrosoft.jpg",
+    "menuId": "igrosoft"
+}, {
+    "ID": "934",
+    "Name": "LiveGames",
+    "IDParent": null,
+    "Alias": "LiveGames",
+    "Image": "/gstatic/merchants/livegames.jpg",
+    "menuId": "livegames"
+}, {
+    "ID": "941",
+    "Name": "Wazdan",
+    "IDParent": null,
+    "Alias": "Wazdan",
+    "Image": "/gstatic/merchants/wazdan.jpg",
+    "menuId": "wazdan"
+}, {
+    "ID": "942",
+    "Name": "XProGaming",
+    "IDParent": null,
+    "Alias": "XProGaming",
+    "Image": "/gstatic/merchants/xprogaming.jpg",
+    "menuId": "xprogaming"
+}, {
+    "ID": "944",
+    "Name": "PlaynGo",
+    "IDParent": null,
+    "Alias": "PlaynGo",
+    "Image": "/gstatic/merchants/playngo.jpg",
+    "menuId": "playngo"
+}, {
+    "ID": "945",
+    "Name": "VivoGaming",
+    "IDParent": null,
+    "Alias": "VivoGaming",
+    "Image": "/gstatic/merchants/vivogaming.jpg",
+    "menuId": "vivogaming"
+}, {
+    "ID": "946",
+    "Name": "WACS",
+    "IDParent": null,
+    "Alias": "WACS",
+    "Image": "/gstatic/merchants/wacs.jpg",
+    "menuId": "wacs"
+}, {
+    "ID": "948",
+    "Name": "Edict",
+    "IDParent": null,
+    "Alias": "Edict",
+    "Image": "/gstatic/merchants/edict.jpg",
+    "menuId": "edict"
+}, {
+    "ID": "949",
+    "Name": "Platipus",
+    "IDParent": null,
+    "Alias": "Platipus",
+    "Image": "/gstatic/merchants/platipus.jpg",
+    "menuId": "platipus"
+}, {
+    "ID": "951",
+    "Name": "Spinola",
+    "IDParent": null,
+    "Alias": "Spinola",
+    "Image": "/gstatic/merchants/spinola.jpg",
+    "menuId": "spinola"
+}, {
+    "ID": "953",
+    "Name": "Yggdrasil",
+    "IDParent": null,
+    "Alias": "Yggdrasil",
+    "Image": "/gstatic/merchants/yggdrasil.jpg",
+    "menuId": "yggdrasil"
+}, {
+    "ID": "957",
+    "Name": "Spigo",
+    "IDParent": null,
+    "Alias": "Spigo",
+    "Image": "/gstatic/merchants/spigo.jpg",
+    "menuId": "spigo"
+}, {
+    "ID": "958",
+    "Name": "BetRadar",
+    "IDParent": null,
+    "Alias": "BetRadar",
+    "Image": "/gstatic/merchants/betradar.jpg",
+    "menuId": "betradar"
+}, {
+    "ID": "959",
+    "Name": "Spinomenal",
+    "IDParent": null,
+    "Alias": "Spinomenal",
+    "Image": "/gstatic/merchants/spinomenal.jpg",
+    "menuId": "spinomenal"
+}, {
+    "ID": "960",
+    "Name": "PragmaticPlay",
+    "IDParent": null,
+    "Alias": "PragmaticPlay",
+    "Image": "/gstatic/merchants/pragmaticplay.jpg",
+    "menuId": "pragmaticplay"
+}, {
+    "ID": "965",
+    "Name": "Enterra",
+    "IDParent": null,
+    "Alias": "Enterra",
+    "Image": "/gstatic/merchants/enterra.jpg",
+    "menuId": "enterra"
+}, {
+    "ID": "966",
+    "Name": "AsiaLiveTech",
+    "IDParent": null,
+    "Alias": "AsiaLiveTech",
+    "Image": "/gstatic/merchants/asialivetech.jpg",
+    "menuId": "asialivetech"
+}, {
+    "ID": "971",
+    "Name": "AuthenticGaming",
+    "IDParent": null,
+    "Alias": "AuthenticGaming",
+    "Image": "/gstatic/merchants/authenticgaming.jpg",
+    "menuId": "authenticgaming"
+}, {
+    "ID": "972",
+    "Name": "Digitain",
+    "IDParent": null,
+    "Alias": "Digitain",
+    "Image": "/gstatic/merchants/digitain.jpg",
+    "menuId": "digitain"
+}, {
+    "ID": "974",
+    "Name": "Kiron",
+    "IDParent": null,
+    "Alias": "Kiron",
+    "Image": "/gstatic/merchants/kiron.jpg",
+    "menuId": "kiron"
+}, {
+    "ID": "975",
+    "Name": "AmaticDirect",
+    "IDParent": null,
+    "Alias": "AmaticDirect",
+    "Image": "/gstatic/merchants/amaticdirect.jpg",
+    "menuId": "amaticdirect"
+}, {
+    "ID": "977",
+    "Name": "BoomingGames",
+    "IDParent": null,
+    "Alias": "BoomingGames",
+    "Image": "/gstatic/merchants/boominggames.jpg",
+    "menuId": "boominggames"
+}, {
+    "ID": "978",
+    "Name": "PariPlay",
+    "IDParent": null,
+    "Alias": "PariPlay",
+    "Image": "/gstatic/merchants/pariplay.jpg",
+    "menuId": "pariplay"
+}, {
+    "ID": "979",
+    "Name": "WorldMatch",
+    "IDParent": null,
+    "Alias": "WorldMatch",
+    "Image": "/gstatic/merchants/worldmatch.jpg",
+    "menuId": "worldmatch"
+}, {
+    "ID": "980",
+    "Name": "LuckyStreak",
+    "IDParent": null,
+    "Alias": "LuckyStreak",
+    "Image": "/gstatic/merchants/luckystreak.jpg",
+    "menuId": "luckystreak"
+}, {
+    "ID": "982",
+    "Name": "GGNetwork",
+    "IDParent": null,
+    "Alias": "GGNetwork",
+    "Image": "/gstatic/merchants/ggnetwork.jpg",
+    "menuId": "ggnetwork"
+}, {
+    "ID": "983",
+    "Name": "Ezugi",
+    "IDParent": null,
+    "Alias": "Ezugi",
+    "Image": "/gstatic/merchants/ezugi.jpg",
+    "menuId": "ezugi"
+}, {
+    "ID": "984",
+    "Name": "Playson",
+    "IDParent": null,
+    "Alias": "Playson",
+    "Image": "/gstatic/merchants/playson.jpg",
+    "menuId": "playson"
+}, {
+    "ID": "985",
+    "Name": "GoldenRace",
+    "IDParent": null,
+    "Alias": "GoldenRace",
+    "Image": "/gstatic/merchants/goldenrace.jpg",
+    "menuId": "goldenrace"
+}, {
+    "ID": "987",
+    "Name": "TomHorn",
+    "IDParent": null,
+    "Alias": "TomHorn",
+    "Image": "/gstatic/merchants/tomhorn.jpg",
+    "menuId": "tomhorn"
+}, {
+    "ID": "990",
+    "Name": "BetGames",
+    "IDParent": null,
+    "Alias": "BetGames",
+    "Image": "/gstatic/merchants/betgames.jpg",
+    "menuId": "betgames"
+}, {
+    "ID": "992",
+    "Name": "NetEnt",
+    "IDParent": null,
+    "Alias": "NetEnt",
+    "Image": "/gstatic/merchants/netent.jpg",
+    "menuId": "netent"
+}, {
+    "ID": "998",
+    "Name": "EvoSW",
+    "IDParent": null,
+    "Alias": "Evolution",
+    "Image": "/gstatic/merchants/evosw.jpg",
+    "menuId": "evosw"
+}, {
+    "ID": "999",
+    "Name": "Evo",
+    "IDParent": null,
+    "Alias": "Evolution",
+    "Image": "/gstatic/merchants/evo.jpg",
+    "menuId": "evo"
+}];
+
+// TODO delete after service
+export interface IPayment {
+    alias: string;
+    image: string;
+    id: string;
+    image_withdraw: string;
+    name: string;
+    name_withdraw: string;
+    [key: string]: any;
+};
+export const PAYMENTS = [{
+    "id": "22",
+    "name": "Neteller",
+    "name_withdraw": "Neteller",
+    "description": "",
+    "description_withdraw": "",
+    "additional": "firstName%5Blabel%5D=Firstname&firstName%5Bshowfor%5D=deposit&lastName%5Blabel%5D=Lastname&lastName%5Bshowfor%5D=deposit&net_account%5Blabel%5D=Acount+ID&net_account%5Bskipsaving%5D=1&net_account%5Bshowfor%5D=deposit&secure_id%5Blabel%5D=Secure+ID&secure_id%5Bskipsaving%5D=1&secure_id%5Bshowfor%5D=deposit",
+    "showfor": "All",
+    "image": "https:\/\/static.egamings.com\/paysystems\/neteller.png",
+    "image_withdraw": "https:\/\/static.egamings.com\/paysystems\/neteller.png",
+    "alias": "neteller",
+    "required": [],
+    "disable_amount": false,
+    "message": "",
+    "allowiframe": 0,
+    "appearance": "replace",
+    "lastAccounts": [],
+    "hostedFields": [],
+    "additionalParams": {
+        "firstName": {
+            "label": "Firstname",
+            "showfor": "deposit"
+        },
+        "lastName": {
+            "label": "Lastname",
+            "showfor": "deposit"
+        },
+        "net_account": {
+            "label": "Acount ID",
+            "skipsaving": "1",
+            "showfor": "deposit"
+        },
+        "secure_id": {
+            "label": "Secure ID",
+            "skipsaving": "1",
+            "showfor": "deposit"
+        }
+    }
+}, {
+    "id": "62",
+    "name": "PayCryptos Bitcoin",
+    "name_withdraw": "PayCryptos Bitcoin",
+    "description": "",
+    "description_withdraw": "",
+    "additional": "withdraw_account%5Blabel%5D=Withdraw+Address&withdraw_account%5Bshowfor%5D=deposit",
+    "showfor": "All",
+    "image": "https:\/\/static.egamings.com\/paysystems\/cryptspay.png",
+    "image_withdraw": "https:\/\/static.egamings.com\/paysystems\/cryptspay.png",
+    "alias": "paycryptos_bitcoin",
+    "required": [],
+    "disable_amount": false,
+    "message": "",
+    "allowiframe": 0,
+    "appearance": "replace",
+    "lastAccounts": [],
+    "hostedFields": [],
+    "additionalParams": {
+        "withdraw_account": {
+            "label": "Withdraw Address",
+            "showfor": "deposit"
+        }
+    }
+}, {
+    "id": "63",
+    "name": "PayCryptos Ethereum",
+    "name_withdraw": "PayCryptos Ethereum",
+    "description": "",
+    "description_withdraw": "",
+    "additional": "withdraw_account%5Blabel%5D=Withdraw+Address&withdraw_account%5Bshowfor%5D=deposit",
+    "showfor": "All",
+    "image": "https:\/\/static.egamings.com\/paysystems\/cryptspay.png",
+    "image_withdraw": "https:\/\/static.egamings.com\/paysystems\/cryptspay.png",
+    "alias": "paycryptos_ethereum",
+    "required": [],
+    "disable_amount": false,
+    "message": "",
+    "allowiframe": 0,
+    "appearance": "replace",
+    "lastAccounts": [],
+    "hostedFields": [],
+    "additionalParams": {
+        "withdraw_account": {
+            "label": "Withdraw Address",
+            "showfor": "deposit"
+        }
+    }
+}, {
+    "id": "19",
+    "name": "Skrill",
+    "name_withdraw": "Skrill",
+    "description": "",
+    "description_withdraw": "",
+    "additional": "",
+    "showfor": "All",
+    "image": "https:\/\/static.egamings.com\/paysystems\/moneybookers.png",
+    "image_withdraw": "https:\/\/static.egamings.com\/paysystems\/moneybookers.png",
+    "alias": "skrill",
+    "required": [],
+    "disable_amount": false,
+    "message": "",
+    "allowiframe": 0,
+    "appearance": "replace",
+    "lastAccounts": [],
+    "hostedFields": [],
+    "additionalParams": []
+}, {
+    "id": "29",
+    "name": "Visa\/Mastercard",
+    "name_withdraw": "Visa\/Mastercard",
+    "description": "",
+    "description_withdraw": "",
+    "additional": "",
+    "showfor": "All",
+    "image": "https:\/\/static.egamings.com\/paysystems\/airpay.png",
+    "image_withdraw": "https:\/\/static.egamings.com\/paysystems\/airpay.png",
+    "alias": "visa_mastercard",
+    "required": [],
+    "disable_amount": false,
+    "message": "",
+    "allowiframe": 0,
+    "appearance": "replace",
+    "lastAccounts": [],
+    "hostedFields": [],
+    "additionalParams": []
+}, {
+    "id": "8",
+    "name": "Webmoney",
+    "name_withdraw": "Webmoney",
+    "description": "",
+    "description_withdraw": "",
+    "additional": "",
+    "showfor": "All",
+    "image": "https:\/\/static.egamings.com\/paysystems\/wm.png",
+    "image_withdraw": "https:\/\/static.egamings.com\/paysystems\/wm.png",
+    "alias": "webmoney",
+    "required": [],
+    "disable_amount": false,
+    "message": "",
+    "allowiframe": 0,
+    "appearance": "replace",
+    "lastAccounts": [],
+    "hostedFields": [],
+    "additionalParams": []
+}, {
+    "id": "31",
+    "name": "Wirecard",
+    "name_withdraw": "Wirecard",
+    "description": "",
+    "description_withdraw": "",
+    "additional": "",
+    "showfor": "All",
+    "image": "https:\/\/static.egamings.com\/paysystems\/wirecard.png",
+    "image_withdraw": "https:\/\/static.egamings.com\/paysystems\/wirecard.png",
+    "alias": "wirecard",
+    "required": [],
+    "disable_amount": false,
+    "message": "",
+    "allowiframe": 0,
+    "appearance": "replace",
+    "lastAccounts": [],
+    "hostedFields": [],
+    "additionalParams": []
+}];
