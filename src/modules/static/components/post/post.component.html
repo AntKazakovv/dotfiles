@@ -1,3 +1,9 @@
-<div *ngIf="isReady">
+<div *ngIf="isReady; else preloader">
     <div wlc-dynamic-html [html]="html" #wrp></div>
 </div>
+<ng-template #preloader>
+    <div class="{{$class}}-loading">
+        <p class="{{$class}}-ring"></p>
+        <p>Loading...</p>
+    </div>
+</ng-template>

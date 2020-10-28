@@ -22,10 +22,10 @@ export class DynamicHtmlComponent implements AfterViewInit, OnDestroy {
     private componentReference: ComponentRef<any>;
 
     constructor(
+        public viewRef: ViewContainerRef,
         private compiler: Compiler,
         private injector: Injector,
         private moduleRef: NgModuleRef<any>,
-        public viewRef: ViewContainerRef,
     ) {
     }
 
@@ -34,7 +34,6 @@ export class DynamicHtmlComponent implements AfterViewInit, OnDestroy {
     }
 
     private createComponentFromRaw(template: string) {
-
         const dynamicComponent = Component({
             template,
             selector: '[wlc-dynamic]',
