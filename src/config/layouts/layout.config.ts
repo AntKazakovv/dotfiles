@@ -31,24 +31,26 @@ export const $layouts: ILayoutsConfig = {
     'app': {
         sections: {
             header: {
+                order: 0,
                 components: [
                     {
                         name: 'base.wlc-logo',
                     },
                     {
-                        name: 'base.language-selector'
+                        name: 'base.language-selector',
                     },
-                ]
+                ],
             },
             content: {},
             footer: {
+                order: 1000,
                 components: [
                     {
-                        name: 'base.wlc-logo'
+                        name: 'base.wlc-logo',
                     },
-                ]
-            }
-        }
+                ],
+            },
+        },
     },
     'app.home': {
         extends: 'app',
@@ -59,21 +61,21 @@ export const $layouts: ILayoutsConfig = {
                         name: 'base.wlc-logo',
                     },
                     {
-                        name: 'base.language-selector'
-                    }
-                ]
+                        name: 'base.language-selector',
+                    },
+                ],
             },
             content: {
                 components: [
                     {
                         name: 'menu.wlc-menu',
                         params: {
-                            type: 'main-menu'
-                        }
-                    }
-                ]
-            }
-        }
+                            type: 'main-menu',
+                        },
+                    },
+                ],
+            },
+        },
     },
     'app.catalog': {
         extends: 'app.home',
@@ -81,12 +83,11 @@ export const $layouts: ILayoutsConfig = {
             content: {
                 components: [
                     {
-                        name: 'menu.eng-main-menu'
-                    }
-                ]
+                        name: 'menu.eng-main-menu',
+                    },
+                ],
             },
-
-        }
-    }
+        },
+    },
 };
 
