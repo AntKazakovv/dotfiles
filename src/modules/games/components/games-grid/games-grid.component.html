@@ -22,7 +22,7 @@
         </ng-container>
     </div>
     <div class="{{$class}}__more" *ngIf="games?.length && !hideShowMoreBtn && !$params?.moreBtn?.hide">
-        <button *ngIf="!useLazy" (click)="loadMore()">{{'Load more games' | translate}}</button>
+        <button wlc-button [text]="'Load more games' | translate" [themeMod]="'secondary'" *ngIf="!useLazy" (click)="loadMore()"></button>
     </div>
     <ng-template #noGames>
         <p class="{{$class}}__nocontent">{{'No games avaible' | translate}}</p>

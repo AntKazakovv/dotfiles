@@ -1,41 +1,49 @@
+@use './vars' as v;
+
 .wlc-games-grid {
 
-    &:host {
-        position: relative;
-    }
-
     &__content {
-        margin-top: 30px;
-        margin-bottom: 30px;
+        padding: v.$contentPadding 0;
     }
 
     &__header {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        color: v.$headerColor;
+    }
+
+    &__link {
+        color: v.$allLinkColor;
     }
 
     &__list {
         display: grid;
-        grid-row-gap: 15px;
-        grid-column-gap: 15px;
-        margin-bottom: 30px;
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        grid-row-gap: v.$currentGap;
+        grid-column-gap: v.$currentGap;
+        margin-bottom: v.$listMargin;
+        grid-template-columns: repeat(auto-fill, minmax(v.$itemMinWidth, 1fr));
 
-        @media (max-width: 993px) {
-            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        @media (max-width: 993px) { // TODO add satndard mobile media
+            grid-template-columns: repeat(auto-fill, minmax(v.$itemMinWidthMobile, 1fr));
         }
+    }
+
+    &__more {
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     &__placeholder {
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: #ccc;
-
-        span { // todo to delete
-            color: #000;
-        }
+        border-radius: v.$placeholderBorderRadius;
+        background: v.$placeholderBackground;
+        background-repeat: no-repeat;
+        background-size: cover;
+        color: v.$placeholderTextColor;
     }
 
     &__item {
@@ -43,6 +51,7 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
+
         // TODO to delete
         .wlc-games-thumb {
             width: 100%;
@@ -50,6 +59,8 @@
             min-width: 200px;
             height: auto;
             background-color: #444444;
+            border-radius: v.$placeholderBorderRadius;
+            overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;

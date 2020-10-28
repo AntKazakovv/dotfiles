@@ -17,7 +17,7 @@ import {UIRouter} from '@uirouter/core';
 @Component({
     selector: '[wlc-games-grid]',
     templateUrl: './games-grid.component.html',
-    styleUrls: ['./games-grid.component.scss'],
+    styleUrls: ['./styles/games-grid.component.scss'],
 })
 export class GamesGridComponent extends AbstractComponent implements OnInit, AfterViewInit {
     public $params: IGGParams;
@@ -152,8 +152,8 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, Aft
         if (imgSize) {
             this.placeHolderStyles = {
                 width: imgSize.width + 'px',
-                height: imgSize.height + 'px'
-            }
+                height: imgSize.height + 'px',
+            };
         }
     }
 
@@ -171,7 +171,7 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, Aft
                 return item?.Slug === this.$params.filter.category;
             });
             if (!categories || !category) {
-                return
+                return;
             }
             const currentLang = this.router.stateService.params?.locale || 'en';
             this.categoryTitle = category.Name[currentLang];
