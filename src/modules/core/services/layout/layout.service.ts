@@ -247,6 +247,11 @@ export class LayoutService {
                 this.components.static = m.components;
                 return m.StaticModule;
             });
+        case 'promo':
+            return import('wlc-engine/modules/promo/promo.module').then(m => {
+                this.components.promo = m.components;
+                return m.PromoModule;
+            });
         case 'user':
             return import('wlc-engine/modules/user/user.module').then(m => {
                 this.components.user = m.components;
