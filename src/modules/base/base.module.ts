@@ -8,6 +8,7 @@ import {DynamicHtmlComponent} from './components/dynamic-html/dynamic-html.compo
 import {ButtonComponent} from './components/button/button.component';
 import {UIRouterModule} from '@uirouter/angular';
 import {TranslateModule} from '@ngx-translate/core';
+import {DisclaimerComponent} from './components/disclaimer/disclaimer.component';
 
 export const components = {
     'wlc-logo': LogoComponent,
@@ -15,6 +16,7 @@ export const components = {
     'wlc-icon': IconComponent,
     'wlc-dynamic-html': DynamicHtmlComponent,
     'wlc-button': ButtonComponent,
+    'wlc-disclaimer': DisclaimerComponent,
 };
 
 @NgModule({
@@ -24,6 +26,7 @@ export const components = {
         IconComponent,
         DynamicHtmlComponent,
         ButtonComponent,
+        DisclaimerComponent,
     ],
     imports: [
         CommonModule,
