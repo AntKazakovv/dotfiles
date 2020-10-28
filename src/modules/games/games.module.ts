@@ -6,6 +6,7 @@ import {AngularResizedEventModule} from 'angular-resize-event';
 import {GamesCatalogService} from './services/games-catalog.service';
 
 import {GamesGridComponent} from './components/games-grid/games-grid.component';
+import {CoreModule} from '../core/core.module';
 
 export const components = {
     'wlc-games-grid': GamesGridComponent,
@@ -18,6 +19,7 @@ export const components = {
     id: 'GamesModule',
     imports: [
         CommonModule,
+        CoreModule,
         UIRouterModule,
         TranslateModule,
         AngularResizedEventModule,

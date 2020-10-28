@@ -1,0 +1,15 @@
+@use 'engine-styles/functions' as ef;
+
+$headerColor: ef.get('color', 'accent') !default;
+$allLinkColor: ef.get('color', 'link') !default;
+
+$currentGap: ef.get('gap', 'main') !default;
+$contentPadding: ef.get('padding', 'big') !default;
+$listMargin: ef.get('padding', 'big') !default;
+
+$itemMinWidth: 200px; // TODO add game thumb min width param
+$itemMinWidthMobile: 140px; // TODO add game thumb mobile min width param
+
+$placeholderBackground: ef.get('color', 'backgroundAccent') !default;
+$placeholderBorderRadius: ef.get('radius', 'less') !default;
+$placeholderTextColor: ef.get('color', 'textAccent') !default;
