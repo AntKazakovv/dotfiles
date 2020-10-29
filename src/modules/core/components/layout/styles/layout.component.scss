@@ -1,12 +1,14 @@
 @use 'engine-styles/functions' as ef;
 
-@import './themes/affiliates/header';
-@import './themes/affiliates/menu';
-
-@import './themes/header';
-
 body {
     background-color: ef.get('color', 'background');
     color: ef.get('color', 'text');
     font-size: ef.get('size', 'font');
 }
+
+@import './themes/affiliates/header';
+@import './themes/affiliates/menu';
+
+@import './themes/header';
+
+@import './themes/footer/theme-1';

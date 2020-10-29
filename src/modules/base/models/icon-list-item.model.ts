@@ -7,7 +7,7 @@ import {
 } from 'lodash';
 
 export interface IIconParams {
-    class?: string;
+    modifier?: string;
     svgName?: string;
     svgPrefix?: string;
     iconUrl?: string;
@@ -26,7 +26,7 @@ interface IPostfix {
 }
 
 export class IconModel {
-    readonly class: string;
+    readonly modifier: string;
     readonly sref: string;
     readonly href: string;
     readonly target: string;
@@ -38,7 +38,7 @@ export class IconModel {
         protected filesService: FilesService,
         protected sanitizer: DomSanitizer,
     ) {
-        this.class = icon.class;
+        this.modifier = icon.modifier;
         this.sref = icon.sref;
         this.href = icon.href;
         this.alt = icon.alt;

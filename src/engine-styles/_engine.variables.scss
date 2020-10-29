@@ -33,10 +33,10 @@ $padding: map-merge((
 
 $gap: map-merge((
     'small': 5px,
-    'less': 10px,
-    'main': 15px,
-    'biger': 20px,
-    'big': 30px
+    'less': 15px,
+    'main': 30px,
+    'biger': 40px,
+    'big': 60px
 ), $customGap);
 
 $radius: map-merge((

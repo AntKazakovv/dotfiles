@@ -14,7 +14,7 @@ import {
 } from 'wlc-engine/modules/games/interfaces/games.interfaces';
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: 'root',
 })
 
 export class GamesCatalogService {
@@ -64,7 +64,7 @@ export class GamesCatalogService {
 
         const data = await this.load();
         this.gameCatalog = new GameCatalog(data.data);
-        console.warn(this.gameCatalog);
+        this.$resolve();
 
         // TODO подписка на login/logout
     }
@@ -120,7 +120,6 @@ export class GamesCatalogService {
     }
 
     protected prepareData(response: any): GameCatalog {
-        this.$resolve();
         return response;
     }
 

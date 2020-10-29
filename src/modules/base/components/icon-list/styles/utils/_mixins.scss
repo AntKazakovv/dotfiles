@@ -1,0 +1,28 @@
+@use '../utils/vars' as v;
+
+@mixin merchantsAndPaymentsList($gap: v.$merchantsGap) {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(70px, 10%));
+    align-items: center;
+    justify-content: center;
+    justify-self: center;
+    width: 100%;
+    grid-gap: $gap;
+
+    .wlc-icon-list {
+
+        &__item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        &__image {
+            width: 100%;
+            height: auto;
+            max-width: v.$merchantMaxWidth;
+            max-height: v.$merchantMaxHeight;
+            object-fit: contain;
+        }
+    }
+}

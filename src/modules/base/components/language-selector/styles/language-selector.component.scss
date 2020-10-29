@@ -8,6 +8,11 @@
         display: flex;
         flex-direction: column;
         width: fit-content;
+        height: v.$flagSize;
+
+        &--bordered {
+            height: v.$flagSize + v.$currentPadding * 2;
+        }
     }
 
     &__current {

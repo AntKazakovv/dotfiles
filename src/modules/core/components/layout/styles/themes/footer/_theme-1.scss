@@ -1,0 +1,36 @@
+@use '../../utils/vars' as v;
+
+.wlc-sections__footer--theme {
+
+    &-1 {
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-areas:
+                'merchants merchants merchants merchants'
+                'payments payments payments payments'
+                'logo links disclaimer language';
+        }
+
+        .wlc-icon-list {
+
+            &--type-merchants {
+                grid-area: merchants;
+            }
+
+            &--type-payments {
+                grid-area: payments;
+            }
+        }
+
+
+        .wlc-disclaimer {
+            grid-area: disclaimer;
+        }
+
+        .wlc-language-selector {
+            grid-area: language;
+        }
+    }
+}

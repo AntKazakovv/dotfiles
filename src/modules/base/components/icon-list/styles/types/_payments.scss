@@ -1,0 +1,6 @@
+@use '../utils/vars' as v;
+@use '../utils/mixins' as m;
+
+.wlc-icon-list--type-payments:host {
+    @include m.merchantsAndPaymentsList;
+}
