@@ -8,6 +8,8 @@ import {DynamicHtmlComponent} from './components/dynamic-html/dynamic-html.compo
 import {ButtonComponent} from './components/button/button.component';
 import {IconListComponent} from './components/icon-list/icon-list.component';
 import {UIRouterModule} from '@uirouter/angular';
+import {WlcModalComponent} from './components/modal/modal.component';
+import {ModalService} from './services/modal/modal.service';
 import {DisclaimerComponent} from './components/disclaimer/disclaimer.component';
 import {
     MissingTranslationHandler,
@@ -22,6 +24,7 @@ export const components = {
     'wlc-icon': IconComponent,
     'wlc-dynamic-html': DynamicHtmlComponent,
     'wlc-button': ButtonComponent,
+    'wlc-modal': WlcModalComponent,
     'wlc-icon-list': IconListComponent,
     'wlc-disclaimer': DisclaimerComponent,
 };
@@ -33,6 +36,7 @@ export const components = {
         IconComponent,
         DynamicHtmlComponent,
         ButtonComponent,
+        WlcModalComponent,
         IconListComponent,
         DisclaimerComponent,
     ],
@@ -47,8 +51,12 @@ export const components = {
         IconComponent,
         DynamicHtmlComponent,
         ButtonComponent,
+        WlcModalComponent,
         IconListComponent,
     ],
+    providers: [
+        ModalService,
+    ]
 })
 export class BaseModule {
 }
