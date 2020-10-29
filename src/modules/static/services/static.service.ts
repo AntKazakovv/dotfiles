@@ -7,16 +7,14 @@ import {IIndexing} from 'wlc-engine/interfaces';
 import {ConfigService} from 'wlc-engine/modules/core';
 import {
     ICategoryStaticText,
-    IParamsStaticText,
+    IStaticParams,
     IPostResponse,
     IRequestUrlStaticText,
-    ISearchStaticText,
-    IStaticRequestParams,
-    ITagStaticText,
     StaticTextType,
     TextDataModel,
     WlcTextData,
     WpTextData,
+    TextDataType,
 } from 'wlc-engine/modules/static';
 
 import {
@@ -25,7 +23,6 @@ import {
     includes as _includes,
     merge as _merge,
     union as _union,
-    camelCase as _camelCase,
     extend as _extend,
     isArray as _isArray,
     map as _map,
@@ -62,91 +59,49 @@ export class StaticService {
         this.configReady = this.setConfig();
     }
 
-    public async getStaticText(slug: string): Promise<TextDataModel> {
-        const searchPath: ISearchStaticText[] = [];
-        const lang: string = this.translateService.currentLang;
-
-        if (!this.useWpPlugin && this.configService.appConfig.siteconfig?.splittedStaticTexts?.[_camelCase(slug)]) {
-            const defaultLanguage: string = this.configService.appConfig.siteconfig?.splittedStaticTexts?.defaultLanguage || 'en';
-
-            searchPath.push({slug: `${slug}_${lang}`, lang: lang});
-            searchPath.push({slug: `${slug}_${lang}`, lang: defaultLanguage});
-            searchPath.push({slug: `${slug}_${defaultLanguage}`, lang: defaultLanguage});
-        } else {
-            searchPath.push({slug, lang});
-        }
-
-        let result: TextDataModel;
-
-        for (const path of searchPath) {
-            try {
-                result = await this.getStaticData({
-                    type: 'post',
-                    slug: path.slug,
-                    lang: path.lang,
-                });
-
-                if (!_includes(result?.htmlRaw, 'Empty page')
-                    && !_includes(result?.htmlRaw, 'qtranxs-available-languages-message')) {
-                    break;
-                }
-            } catch (error) {
-                result = null;
-            }
-        }
-
-        if (!result || _includes(result?.htmlRaw, 'Empty page')) {
-            return;
-        }
-
-        return result;
-    }
-
     public getPost(slug: string): Promise<TextDataModel> {
-        return this.getStaticData({
-            type: 'post',
-            slug,
-        });
+        return this.getStaticData('post',{slug});
     }
 
-    public getTags(params: IParamsStaticText): Promise<ITagStaticText[]> {
-        return this.getData<ITagStaticText>('tag', params);
+    public getPage(slug: string): Promise<TextDataModel> {
+        // TODO: check it
+        return this.getStaticData('page',{slug});
     }
 
-    public getPosts(params: IParamsStaticText): Promise<IPostResponse[]> {
-        return this.getData<IPostResponse>('post', params);
+    public getTag(slug: string): Promise<TextDataModel> {
+        // TODO: check it
+        return this.getStaticData('tag',{slug});
     }
 
-    public getPostData(slug: string, params: IParamsStaticText = {}): Promise<IPostResponse[]> {
-        return this.getData<IPostResponse>('post', _extend({
-            slug,
-        }, params));
-    }
-
-    public async getPostsListByCategory(
-        category: string | string[],
-        params: IParamsStaticText,
+    public async getPostsListByCategorySlug(
+        categorySlug: string | string[],
+        params: IStaticParams = {},
         all = true,
-    ): Promise<IPostResponse[]> {
+    ): Promise<TextDataModel[]> {
         try {
-            if (all && !_isArray(category)) {
-                const categories: ICategoryStaticText[] = await this.getSubCategories(category);
-                const parentCatId: number = await this.getCategoryIdBySlug(category);
+            if (all && !_isArray(categorySlug)) {
+                const categories: ICategoryStaticText[] = await this.getSubCategories(categorySlug);
+                const parentCatId: number = await this.getCategoryIdBySlug(categorySlug);
                 const catsId = _map(categories, (item) => +item.id);
 
                 catsId.push(parentCatId);
-                return await this.getList(catsId, params);
-            } else if (_isArray(category)) {
-                const currentCategoryId: number = await this.getCategoryIdBySlug(category);
-                return await this.getList([+currentCategoryId], params);
+                return await this.getPostList(catsId, params);
+            } else if (_isArray(categorySlug)) {
+                const currentCategoryId: number = await this.getCategoryIdBySlug(categorySlug);
+                return await this.getPostList([+currentCategoryId], params);
             }
         } catch (error) {
-            return Promise.reject(error);
+            return error;
         }
     }
 
-    public async getCategories(params: IParamsStaticText = {}): Promise<ICategoryStaticText[]> {
-        return await this.getData<ICategoryStaticText>('categories', params);
+    public async getCategories(): Promise<ICategoryStaticText[]> {
+        try {
+            const response = await this.requestData<ICategoryStaticText[]>('category');
+            return response?.body;
+        } catch (e) {
+            // this.errorService.logError({code: '5.0.3'});
+        }
     }
 
     public async getSubCategories(slug: string | string[]): Promise<ICategoryStaticText[]> {
@@ -223,17 +178,19 @@ export class StaticService {
         }
     }
 
-    protected async getStaticData(params: IStaticRequestParams): Promise<TextDataModel> {
+    protected async getStaticData(type: StaticTextType, params: IStaticParams): Promise<TextDataModel> {
         if (!params.slug) {
-            return Promise.reject();
+            return Promise.reject('Must be slug');
         }
         await this.configReady;
 
         try {
-            const response = await this.requestData<IPostResponse>(params);
+            const response = await this.requestData<IPostResponse>(type, params);
+            // TODO: check if not exist in current lang and load in English
+
             const data: TextDataModel = this.prepareTextData(response.body);
             if (!data) {
-                throw new Error('No content data');
+                return Promise.reject('No content data');
             }
 
             return data;
@@ -242,56 +199,35 @@ export class StaticService {
         }
     }
 
-    protected async getData<T>(type: StaticTextType, params: IParamsStaticText): Promise<T[]> {
-        const reqParams: IStaticRequestParams = _merge(params, {
-            _embed: 1,
-            callback: '_jsonp',
-        });
-
-        try {
-            const response = await this.requestData<IPostResponse>(reqParams);
-            const data: TextDataModel = this.prepareTextData(response.body);
-
-            if (!_isArray(data)) {
-                // this.errorService.logError({code: '5.0.3'});
-                return Promise.reject();
-            }
-
-            return _map(data, (item) => {
-                if (item.title) {
-                    item.title.rendered = this.cleanText(item.title.rendered);
-                }
-
-                if (item.content) {
-                    item.content.rendered = this.cleanText(item.content.rendered);
-                }
-
-                if (item._embedded?.['wp:featuredmedia']) {
-                    for (const media of item._embedded['wp:featuredmedia']) {
-                        if (media.media_type === 'image' && media.source_url) {
-                            let imgPath: string = media.source_url;
-
-                            const sourceUrl =
-                                _includes(media.source_url, 'wlc_') ||
-                                _includes(media.source_url, 'tk_');
-
-                            if (sourceUrl) {
-                                const qaHost: string = `https://qa-${location.hostname.split('-')[1]}`;
-                                imgPath = qaHost + media.source_url.split(location.origin)[1];
-                            }
-
-                            item.image = imgPath;
-                            break;
-                        }
-                    }
-                }
-
-                return item;
-            });
-        } catch (error) {
-            // this.errorService.logError({code: '5.0.2', data: error});
-            return Promise.reject(error);
+    protected normalizeContent(item: IPostResponse): IPostResponse {
+        if (item.title) {
+            item.title.rendered = this.cleanText(item.title.rendered);
         }
+
+        if (item.content) {
+            item.content.rendered = this.cleanText(item.content.rendered);
+        }
+
+        if (item._embedded?.['wp:featuredmedia']) {
+            for (const media of item._embedded['wp:featuredmedia']) {
+                if (media.media_type === 'image' && media.source_url) {
+                    let imgPath: string = media.source_url;
+
+                    const sourceUrl =
+                        _includes(media.source_url, 'wlc_') ||
+                        _includes(media.source_url, 'tk_');
+
+                    if (sourceUrl) {
+                        const qaHost: string = `https://qa-${location.hostname.split('-')[1]}`;
+                        imgPath = qaHost + media.source_url.split(location.origin)[1];
+                    }
+
+                    item.image = imgPath;
+                    break;
+                }
+            }
+        }
+        return item;
     }
 
     protected cleanText(text: string): string {
@@ -302,16 +238,24 @@ export class StaticService {
         );
     }
 
-    protected async requestData<T>(params: IStaticRequestParams): Promise<HttpResponse<T>> {
-        const url = this.getWPLink(params);
+    protected async requestData<T>(type: StaticTextType, params: IStaticParams = {}): Promise<HttpResponse<T>> {
+        const url = this.getWPLink(type);
         const lang = params.lang || this.translateService.currentLang;
 
-        const httpRequestParams = new HttpRequest('GET', url, {
-            params: new HttpParams({
-                fromObject: _merge({slug: params.slug, lang}, this.params),
+        let httpParams = new HttpParams({
+            fromObject: _merge({}, this.params, params, {
+                slug: params.slug,
+                lang,
             }),
         });
 
+        if(!httpParams.get('slug')) {
+            httpParams = httpParams.delete('slug');
+        }
+
+        const httpRequestParams = new HttpRequest('GET', url, {
+            params: httpParams,
+        });
         return await this.httpClient.request(httpRequestParams).toPromise() as HttpResponse<T>;
     }
 
@@ -322,7 +266,7 @@ export class StaticService {
         return this.configService.appConfig.$static?.pagesOnly;
     }
 
-    protected getWPLink(requestParams: IStaticRequestParams): string {
+    protected getWPLink(type: StaticTextType): string {
         const requestUrls: IRequestUrlStaticText = {
             category: '/content//wp-json/wp/v2/' + 'categories',
             tag: '/content//wp-json/wp/v2/' + 'tags',
@@ -330,9 +274,8 @@ export class StaticService {
             page: this.apiUrl + (this.useWpPlugin ? 'page' : 'pages'),
         };
 
-        return (this.sanitizer
-            .bypassSecurityTrustUrl(requestUrls[requestParams.type]) as any)
-            .changingThisBreaksApplicationSecurity;
+        return this.sanitizer
+            .bypassSecurityTrustUrl(requestUrls[type])?.['changingThisBreaksApplicationSecurity'];
     }
 
     protected async setConfig(): Promise<boolean> {
@@ -375,31 +318,42 @@ export class StaticService {
             };
     }
 
-    protected prepareTextData(result: any): TextDataModel {
+    protected prepareTextData(response: TextDataType): TextDataModel {
         let res: TextDataModel;
 
         if (this.useWpPlugin) {
-            if (result?.data?.code) {
+            if (response?.['data']?.code) {
                 return;
             }
-            res = new WlcTextData({data: result.data}, this.configService);
+            res = new WlcTextData({data: this.normalizeContent(response?.['data'])}, this.configService);
         } else {
-            if (!result?.[0]) {
+            if (!response?.[0]) {
                 return;
             }
-            res = new WpTextData(result[0], this.configService);
+            res = new WpTextData(this.normalizeContent(response[0]), this.configService);
         }
         return res;
     }
 
-    protected async getList(categories: number[], params: IParamsStaticText): Promise<IPostResponse[]> {
+    protected async getPostList(categories: number[], params: IStaticParams = {}): Promise<TextDataModel[]> {
         const categoryIds: string = _join(categories, ',');
         try {
-            return await this.getPosts(_extend(params || {}, {categories: categoryIds}));
+            const response = await this.requestData<IPostResponse[]>( 'post', _extend(params, {
+                categories: categoryIds,
+            }));
+
+            return _map(response.body, (item) => {
+                item = this.normalizeContent(item);
+
+                if (this.useWpPlugin) {
+                    return new WlcTextData({data: item}, this.configService);
+                } else {
+                    return new WpTextData(item, this.configService);
+                }
+            });
         } catch (error) {
             // this.errorService.logError({code: '5.0.6', data: error});
             return Promise.reject(error);
         }
     }
-
 }

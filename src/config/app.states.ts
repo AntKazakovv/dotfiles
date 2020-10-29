@@ -20,6 +20,9 @@ const states = {
             category: 'test',
         },
     },
+    'app.pages': {
+        url: '/pages/:slug',
+    },
 };
 
 const appState: Ng2StateDeclaration = {

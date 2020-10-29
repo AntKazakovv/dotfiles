@@ -1,0 +1,10 @@
+<ul [class]="$class + '__list'">
+    <li [class]="$class + '__item'"
+        *ngFor="let menuItem of menuItems">
+        <a uiSref="app.pages"
+           [uiParams]="{slug: menuItem.slug}"
+           [class]="$class + '__link'">
+            <span>{{menuItem.title}}</span>
+        </a>
+    </li>
+</ul>
