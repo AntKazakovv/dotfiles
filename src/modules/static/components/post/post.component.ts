@@ -10,11 +10,11 @@ import {
     ChangeDetectorRef,
 } from '@angular/core';
 import {DomSanitizer} from '@angular/platform-browser';
+import {UIRouterGlobals} from '@uirouter/core';
 
 import {AbstractComponent} from 'wlc-engine/classes/abstract.component';
-import {StaticService} from 'wlc-engine/modules/static';
-import {IPostComponentParams} from 'wlc-engine/modules/static/components/post/post.interface';
-import {TextDataModel} from 'wlc-engine/modules/static';
+import {StaticService, TextDataModel} from 'wlc-engine/modules/static';
+import {IPostComponentParams} from './post.interface';
 import {defaultParams} from './post.params';
 
 @Component({
@@ -28,14 +28,15 @@ export class PostComponent extends AbstractComponent implements OnInit, AfterVie
     @Input() protected slug: string;
     public data: TextDataModel;
     public html: string;
-    public isReady: boolean;
+    public isReady: boolean = false;
 
     constructor(
-        protected staticService: StaticService,
         @Inject('injectParams') protected params: IPostComponentParams,
+        protected staticService: StaticService,
         protected viewRef: ViewContainerRef,
         protected domSanitizer: DomSanitizer,
         protected cdr: ChangeDetectorRef,
+        protected uiRouter: UIRouterGlobals,
     ) {
         super({injectParams: params, defaultParams});
     }
@@ -44,13 +45,15 @@ export class PostComponent extends AbstractComponent implements OnInit, AfterVie
         super.ngOnInit();
 
         try {
-            const data: TextDataModel = await this.staticService.getPost(this.slug || this.params.slug);
+            const slug = this.slug || this.params.slug || this.uiRouter.params.slug;
+
+            const data: TextDataModel = await this.staticService.getPost(slug);
             this.html = this.domSanitizer.bypassSecurityTrustHtml(data.html)?.['changingThisBreaksApplicationSecurity'];
-            this.cdr.markForCheck();
         } catch (e) {
             console.log(e);
         } finally {
             this.isReady = true;
+            this.cdr.markForCheck();
         }
     }
 

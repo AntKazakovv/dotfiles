@@ -44,6 +44,7 @@ export class FaqComponent extends AbstractComponent implements OnInit {
 
     async ngOnInit(): Promise<void> {
         super.ngOnInit();
+
         this.showErrors = _isUndefined(this.params.showErrors) ? true : this.params.showErrors;
         try {
             const data: TextDataModel = await this.getRawData();
@@ -67,7 +68,7 @@ export class FaqComponent extends AbstractComponent implements OnInit {
     }
 
     protected async getRawData(): Promise<TextDataModel> {
-        return await this.staticService.getStaticText(this.slug || this.params.slug || this.defaultSlug);
+        return await this.staticService.getPost(this.slug || this.params.slug || this.defaultSlug);
     }
 
     protected parseTableData(htmlRow: string): IFaqData[] {

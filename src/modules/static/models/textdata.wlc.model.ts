@@ -1,9 +1,8 @@
-import {log} from "util";
 import {TextDataModel} from './textdata.model';
 import {IIndexing} from 'wlc-engine/interfaces';
 import {get as _get, isBoolean as _isBoolean} from 'lodash';
 
-export interface IWlcWpResponce {
+export interface IWlcWpResponse {
     id: number;
     date: string;
     slug: string;
@@ -15,7 +14,7 @@ export interface IWlcWpResponce {
 
 export class WlcTextData extends TextDataModel {
 
-    protected prepareData(data: IWlcWpResponce): void {
+    protected prepareData(data: IWlcWpResponse): void {
         this.id = data.id;
         this.slug = data.slug;
         this.date = new Date(data.date);
