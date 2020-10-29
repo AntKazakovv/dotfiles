@@ -23,6 +23,7 @@ import {
     EventService,
     LayoutService,
 } from 'wlc-engine/modules/core/services';
+import {IIndexing} from 'wlc-engine/interfaces';
 import {
     fromEvent,
     Subject,
@@ -73,9 +74,11 @@ export class LayoutComponent implements OnInit, OnDestroy {
     }
 
     async ngOnInit(): Promise<void> {
-        await this.setComponents(this.uiRouter.current.name, this.uiRouter.params);
+        if (!this.uiRouter?.transition?.isActive()) {
+            await this.setComponents(this.uiRouter.current.name, this.uiRouter.params);
+        }
         this.transition.onEnter({}, async (transition) => {
-            await this.setComponents(transition.to().name);
+            await this.setComponents(this.uiRouter.transition?.targetState().name(), this.uiRouter.transition?.targetState().params());
         });
     }
 
@@ -99,7 +102,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
         this.$destroy.complete();
     }
 
-    private async setComponents(state: string, params?: StateParams): Promise<void> {
+    private async setComponents(state: string, params?: IIndexing<any>): Promise<void> {
         this.currentConfig = await this.layoutService.getLayout(state, params);
         this.section = this.currentConfig.sections[this.sectionName];
         this.allComponents$ = this.section?.components as ILayoutComponent[] || [];
