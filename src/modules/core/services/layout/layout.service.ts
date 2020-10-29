@@ -8,7 +8,7 @@ import {
 } from 'wlc-engine/interfaces/layouts.interface';
 import {ConfigService} from 'wlc-engine/modules/core/services/config/config.service';
 import {SectionModel, ISectionData} from 'wlc-engine/modules/core/models/section.model';
-import {StateParams} from '@uirouter/core';
+import {IIndexing} from 'wlc-engine/interfaces';
 
 import {
     cloneDeep as _cloneDeep,
@@ -52,27 +52,8 @@ export class LayoutService {
         this.layouts = _get(this.configService, 'appConfig.$layouts');
     }
 
-    public getLayoutConfig(state: string, params?: StateParams): ILayoutStateConfig {
-
-        if (this.layouts.hasOwnProperty(state)) {
-
-            if (params.category && this.layouts[state]?.subcategories?.[params.category]) {
-                const subCategory = state += `.${params.category}`;
-
-                if (this.layouts[state].subcategories[subCategory]?.extends) {
-                    return _cloneDeep(_extend(
-                        _cloneDeep(this.layouts[state].subcategories[subCategory]),
-                        _mergeWith(
-                            this.getLayoutConfig(this.layouts[state].subcategories[subCategory].extends),
-                            this.layouts[state].subcategories[subCategory],
-                            (target, source) => {
-                                return _isArray(target) ? source : undefined;
-                            })));
-                }
-
-                return _cloneDeep(this.layouts[state].subcategories[subCategory]);
-            }
-
+    public getLayoutConfig(state: string, params?: IIndexing<any>): ILayoutStateConfig {
+        const mergeExtendsLayout = () => {
             if (this.layouts[state]?.extends) {
                 return _cloneDeep(_extend(
                     _cloneDeep(this.layouts[state]),
@@ -83,19 +64,44 @@ export class LayoutService {
                             return _isArray(target) ? source : undefined;
                         })));
             }
+
             return _cloneDeep(this.layouts[state]);
+        };
+
+        if (this.layouts.hasOwnProperty(state)) {
+            if ((params?.category || params?.slug)) {
+                if (this.layouts[state]?.subcategories?.[params?.category || params?.slug]) {
+                    const subCategory = state += `.${params?.category || params?.slug}`;
+
+                    if (this.layouts[state].subcategories[subCategory]?.extends) {
+                        return _cloneDeep(_extend(
+                            _cloneDeep(this.layouts[state].subcategories[subCategory]),
+                            _mergeWith(
+                                this.getLayoutConfig(this.layouts[state].subcategories[subCategory].extends),
+                                this.layouts[state].subcategories[subCategory],
+                                (target, source) => {
+                                    return _isArray(target) ? source : undefined;
+                                })));
+                    }
+
+                    return _cloneDeep(this.layouts[state].subcategories[subCategory]);
+                } else {
+                    return mergeExtendsLayout();
+                }
+            }
+            return mergeExtendsLayout();
         } else {
             return _cloneDeep(this.layouts.app) || {};
         }
     }
 
-    public getAllSection(state: string, params?: StateParams): SectionModel[] {
+    public getAllSection(state: string, params?: IIndexing<any>): SectionModel[] {
         return _map(this.getLayoutConfig(state, params).sections, (section, name) => {
             return new SectionModel(<ISectionData>{section, name});
         });
     }
 
-    public async getLayout(state: string, params?: StateParams): Promise<ILayoutStateConfig> {
+    public async getLayout(state: string, params?: IIndexing<any>): Promise<ILayoutStateConfig> {
         const res: ILayoutStateConfig = this.getLayoutConfig(state, params);
 
         _each(res.sections, (section) => {
@@ -160,6 +166,10 @@ export class LayoutService {
         return res;
     }
 
+    public getComponent(name: string): unknown {
+        return _get(this.components, name);
+    }
+
     private getPosition(section: ILayoutSectionConfig, item: ILayoutModifyItem): number {
         if (_isNumber(item.position)) {
             return (item.position > 0) ? item.position - 1 : 0;
@@ -219,10 +229,6 @@ export class LayoutService {
                         : this.importModule(module),
             ),
         );
-    }
-
-    public getComponent(name: string): unknown {
-        return _get(this.components, name);
     }
 
     private async importModule(name: string): Promise<any> {

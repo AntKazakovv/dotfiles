@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding, OnDestroy, OnInit} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
-import {StateService, UIRouter, UIRouterGlobals} from '@uirouter/core';
+import {StateService, TransitionService, UIRouter, UIRouterGlobals} from '@uirouter/core';
 import {takeUntil} from 'rxjs/operators';
 import {AbstractComponent} from 'wlc-engine/classes/abstract.component';
 import {SectionModel} from 'wlc-engine/modules/core/models/section.model';
@@ -33,6 +33,7 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
         protected layoutService: LayoutService,
         protected uiRouter: UIRouterGlobals,
         protected cdr: ChangeDetectorRef,
+        private transition: TransitionService,
     ) {
         super({injectParams: {}, defaultParams});
         const currentLang = router.stateService.params?.locale || 'en';
@@ -52,6 +53,12 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
 
         this.sections = _sortBy(this.layoutService
             .getAllSection(this.uiRouter.current.name, this.uiRouter.params), 'order');
+
+        this.transition.onEnter({}, async (transition) => {
+            this.sections = _sortBy(this.layoutService
+                .getAllSection(this.uiRouter.transition?.targetState().name(),
+                    this.uiRouter.transition?.targetState().params()), 'order');
+        });
         this.cdr.markForCheck();
     }
 }
