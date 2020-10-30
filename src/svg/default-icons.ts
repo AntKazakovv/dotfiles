@@ -5,4 +5,7 @@ export const DefaultSvgIcons: ISvgIcons = {
     'poweroff': require('!raw-loader!./icons/poweroff.svg').default,
     'loading': require('!raw-loader!./icons/loading.svg').default,
     'arrow': require('!raw-loader!./icons/arrow.svg').default,
+    'eye': require('!raw-loader!./icons/eye.svg').default,
+    'tick': require('!raw-loader!./icons/tick.svg').default,
+    'close': require('!raw-loader!./icons/close.svg').default,
 };

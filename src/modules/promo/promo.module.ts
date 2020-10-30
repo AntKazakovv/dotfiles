@@ -2,7 +2,7 @@ import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {BannersService} from './services';
 import {BaseModule} from 'wlc-engine/modules/base/base.module';
-import {SwiperModule} from 'ngx-swiper-wrapper';
+// import {SwiperModule} from 'ngx-swiper-wrapper';
 import {BannerComponent} from 'wlc-engine/modules/promo/components/banner/banner.component';
 import {SliderComponent} from 'wlc-engine/modules/promo/components/slider/slider.component';
 
@@ -19,7 +19,7 @@ export const components = {
     imports: [
         CommonModule,
         BaseModule,
-        SwiperModule,
+        // SwiperModule,
     ],
     providers: [
         BannersService,

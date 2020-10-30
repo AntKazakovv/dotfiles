@@ -8,6 +8,7 @@ import {DynamicHtmlComponent} from './components/dynamic-html/dynamic-html.compo
 import {ButtonComponent} from './components/button/button.component';
 import {IconListComponent} from './components/icon-list/icon-list.component';
 import {UIRouterModule} from '@uirouter/angular';
+import {PasswordVisibilityDirective} from './directives/password-visibility.directive';
 import {WlcModalComponent} from './components/modal/modal.component';
 import {ModalService} from './services/modal/modal.service';
 import {DisclaimerComponent} from './components/disclaimer/disclaimer.component';
@@ -17,6 +18,8 @@ import {
     TranslateModule,
 } from '@ngx-translate/core';
 import {UserModule} from '../user/user.module';
+import {CloseComponent} from './components/close/close.component';
+import { BonusComponent } from './components/bonus/bonus.component';
 
 export const components = {
     'wlc-logo': LogoComponent,
@@ -36,9 +39,12 @@ export const components = {
         IconComponent,
         DynamicHtmlComponent,
         ButtonComponent,
+        PasswordVisibilityDirective,
         WlcModalComponent,
         IconListComponent,
         DisclaimerComponent,
+        CloseComponent,
+        BonusComponent,
     ],
     imports: [
         CommonModule,
@@ -53,10 +59,13 @@ export const components = {
         ButtonComponent,
         WlcModalComponent,
         IconListComponent,
+        PasswordVisibilityDirective,
+        CloseComponent,
+        BonusComponent,
     ],
     providers: [
         ModalService,
-    ]
+    ],
 })
 export class BaseModule {
 }
