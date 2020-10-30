@@ -3,6 +3,9 @@ import {IIndexing} from 'wlc-engine/interfaces';
 export const files: IIndexing<string> = {
     'defaultLogo': 'default-logo.svg',
     'defaultFooterLogo': 'default-logo.svg',
+    'eye': 'eye.svg',
+    'tick': 'tick.svg',
+    'close': 'close.svg',
 
     /* merchants */
     'amatic': 'merchants/amatic.svg',

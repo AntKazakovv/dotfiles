@@ -48,24 +48,24 @@ export class UserService {
     ) {
         this.info = new UserInfo(translate, eventService);
         this.profile = new UserProfile();
-        if(app.initialPath?.message) {
+        if (app.initialPath?.message) {
             switch (app.initialPath.message) {
-                case 'SET_NEW_PASSWORD':
-                    //TODO
-                    break;
-                case 'COMPLETE_REGISTRATION':
-                    if (app.initialPath.code) {
-                        this.registrationComplete(app.initialPath.code);
-                    } else {
-                        //TODO modal
-                    }
-                    break;
-                case 'EMAIL_UNSUBSCRIBE':
-                    //TODO
-                    break;
-                case 'FINALIZE_SOCIAL_CONNECT':
-                    //TODO
-                    break;
+            case 'SET_NEW_PASSWORD':
+                //TODO
+                break;
+            case 'COMPLETE_REGISTRATION':
+                if (app.initialPath.code) {
+                    this.registrationComplete(app.initialPath.code);
+                } else {
+                    //TODO modal
+                }
+                break;
+            case 'EMAIL_UNSUBSCRIBE':
+                //TODO
+                break;
+            case 'FINALIZE_SOCIAL_CONNECT':
+                //TODO
+                break;
                 // case 'FINALIZE_SOCIAL_REGISTRATION':
                 //     UserSocialRegisterService.init();
                 //     break;
@@ -129,7 +129,7 @@ export class UserService {
     }
 
     public sendPasswordRestore(email: string, reCaptchaToken?: string): void {
-        const params: {email: string, reCaptchaToken?: string} = {
+        const params: { email: string, reCaptchaToken?: string } = {
             email: email,
         };
 
@@ -166,7 +166,7 @@ export class UserService {
     }
 
     public changeEmail(email: string, currentPassword?: string, code?: string): void {
-        const params: {email: string; currentPassword?: string; code?: string} = {email};
+        const params: { email: string; currentPassword?: string; code?: string } = {email};
 
         if (currentPassword) {
             params.currentPassword = currentPassword;
@@ -191,7 +191,7 @@ export class UserService {
         this.request('user/updateLogin', 'LOGIN_UPDATE', 'LOGIN_UPDATE_ERROR', {login});
     }
 
-    public updateLanguage(): void{
+    public updateLanguage(): void {
         this.request('user/updateLanguage', 'LANGUAGE_UPDATE', 'LANGUAGE_UPDATE_ERROR');
     }
 
@@ -212,12 +212,12 @@ export class UserService {
             try {
                 this.eventService.emit({
                     name: 'USER_INFO',
-                    data: userInfo
+                    data: userInfo,
                 });
             } catch (error) {
                 this.eventService.emit({
                     name: 'USER_INFO_ERROR',
-                    data: error
+                    data: error,
                 });
             }
         });
@@ -231,18 +231,18 @@ export class UserService {
         name: string,
         event: string,
         eventError: string,
-        params: IIndexing<string> = {}
+        params: IIndexing<string> = {},
     ): Promise<void> {
         try {
             const data = (await this.dataService.request(name, params)).data;
             this.eventService.emit({
                 name: event,
-                data: data
+                data: data,
             });
         } catch (error) {
             this.eventService.emit({
                 name: eventError,
-                data: error
+                data: error,
             });
         }
     }
@@ -255,7 +255,7 @@ export class UserService {
     ): void {
         const params: IRequestMethod = {name, system: 'user', url, type};
 
-        if(period) {
+        if (period) {
             params.period = period;
         }
 

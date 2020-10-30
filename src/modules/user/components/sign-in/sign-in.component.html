@@ -1,0 +1,87 @@
+<form class="wlc-form" [formGroup]="signInForm" (ngSubmit)="submitHandler()">
+    <div class="wlc-form__head">
+        <h2 class="wlc-form__title">Login</h2>
+        <h3 class="wlc-form__subtitle">Welcome back!</h3>
+    </div>
+    <div class="wlc-form__body">
+        <div class="row form--row">
+            <div class="col">
+                <div class="wlc-form__group">
+                    <label for="login-email" class="wlc-label">Email <sup>*</sup></label>
+                    <input
+                        id="login-email"
+                        type="text"
+                        name="email"
+                        placeholder="E-mail"
+                        formControlName="email"
+                        class="wlc-input"/>
+                    <div
+                        *ngIf="checkField('email')"
+                        class="error-messages">
+                        <p
+                            *ngIf="signInForm.get('email').errors.required"
+                            class="error">Обязательное поле</p>
+                        <p
+                            *ngIf="signInForm.get('email').errors.email"
+                            class="error">Введите корректный email</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row form--row">
+            <div class="col">
+                <div class="wlc-form__group">
+                    <label for="login-password" class="wlc-label">Password <sup>*</sup></label>
+                    <div class="field-container" wlc-password-visibility>
+                        <input
+                            id="login-password"
+                            type="password"
+                            name="password"
+                            placeholder="Password"
+                            formControlName="password"
+                            class="wlc-input wlc-input--right-shift"/>
+                        <span
+                            class="field-icon field-icon--eye field-icon--to-right"
+                            wlc-icon [iconName]="'eye'"
+                        >
+                        </span>
+                    </div>
+                    <div
+                        *ngIf="checkField('password')"
+                        class="error-messages">
+                        <p
+                            *ngIf="signInForm.get('password').errors.required"
+                            class="error">Обязательное поле</p>
+                        <p
+                            *ngIf="signInForm.get('password').errors.minlength"
+                            class="error">
+                            Пароль должен содержать
+                            минимум {{signInForm.get('password').errors.minlength.requiredLength}}
+                            введенно символов {{signInForm.get('password').errors.minlength.actualLength}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row form--row">
+            <div class="col">
+                <p class="forgot-password">
+                    <a href="" class="forgot-password__link">Forgot your password?</a>
+                </p>
+            </div>
+        </div>
+        <div class="button-wrap justify-content-center">
+            <button
+                wlc-button
+                type="submit"
+                [text]="'Login'"
+                [disabled]="signInForm.invalid"
+            ></button>
+        </div>
+    </div>
+    <div class="wlc-form__footer">
+        <div wlc-have-account
+             [linkText]="'Register now'">
+        </div>
+    </div>
+</form>
