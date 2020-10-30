@@ -1,5 +1,17 @@
 @use '../utils/vars' as v;
+@use '../utils/mixins' as m;
 @use 'engine-styles/functions' as ef;
 
-@mixin defaultTheme {
+.wlc-btn--theme-default {
+
+    &:host {
+        @include m.button-base;
+
+        border-radius: 2px;
+        border: unset;
+
+        &:hover {
+            background-color: v.$buttonColorHover;
+        }
+    }
 }

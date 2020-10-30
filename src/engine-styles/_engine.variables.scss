@@ -49,9 +49,6 @@ $radius: map-merge((
 
 $size: map-merge((
     'font': 18px,
-    'buttonSmall': 35px,
-    'buttonDefault': 40px,
-    'buttonBig': 50px
 ), $customSize);
 
 $grid-breakpoints: (
