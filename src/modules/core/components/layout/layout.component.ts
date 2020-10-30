@@ -38,6 +38,7 @@ import {
     filter as _filter,
     isObject as _isObject,
     isUndefined as _isUndefined,
+    assign as _assign,
 } from 'lodash';
 
 @Component({
@@ -145,12 +146,12 @@ export class LayoutComponent implements OnInit, OnDestroy {
 
         if (resize) {
             _each(this.allComponents$, (component, key) => {
-                if (_isUndefined(component.display.before)) {
-                    this.allComponents$[key].display.before = Number.MAX_SAFE_INTEGER;
+                if (_isUndefined(component.display?.before)) {
+                    _assign(this.allComponents$[key].display, {before: Number.MAX_SAFE_INTEGER});
                 }
 
-                if (_isUndefined(component.display.after)) {
-                    this.allComponents$[key].display.after = 0;
+                if (_isUndefined(component.display?.after)) {
+                    _assign(this.allComponents$[key].display, {after: 0});
                 }
             });
 
