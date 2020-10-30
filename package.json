@@ -100,5 +100,8 @@
         "typescript": "~3.9.6",
         "webpack-stream": "^5.2.1",
         "zone.js": "~0.10.3"
+    },
+    "devDependencies": {
+        "@compodoc/compodoc": "^1.1.11"
     }
 }

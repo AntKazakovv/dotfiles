@@ -36,7 +36,8 @@
                         ],
                         "stylePreprocessorOptions": {
                             "includePaths": [
-                                "src"
+                                "src",
+                                "src/engine-styles/dummy"
                             ]
                         }
                     },
