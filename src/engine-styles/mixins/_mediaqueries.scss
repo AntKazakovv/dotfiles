@@ -1,0 +1,47 @@
+@use '../functions' as ef;
+@use '../engine.variables' as ev;
+@use '~bootstrap/scss/mixins/breakpoints' as bbp;
+
+@mixin min($name) {
+    $min: bbp.breakpoint-min($name, ev.$grid-breakpoints);
+    @if $min {
+
+        @media (min-width: $min) {
+            @content;
+        }
+    } @else {
+        @content;
+    }
+}
+
+@mixin max($name) {
+    $max: bbp.breakpoint-min($name, ev.$grid-breakpoints);
+    @if $max {
+
+        @media (max-width: $max) {
+            @content;
+        }
+    } @else {
+        @content;
+    }
+}
+
+@mixin between($lower, $upper) {
+    $min: bbp.breakpoint-min($lower, ev.$grid-breakpoints);
+    $max: bbp.breakpoint-max($upper, ev.$grid-breakpoints);
+
+    @if $min != null and $max != null {
+
+        @media (min-width: $min) and (max-width: $max) {
+            @content;
+        }
+    } @else if $max == null {
+        @include min($lower, ev.$grid-breakpoints) {
+            @content;
+        }
+    } @else if $min == null {
+        @include max($upper, ev.$grid-breakpoints) {
+            @content;
+        }
+    }
+}

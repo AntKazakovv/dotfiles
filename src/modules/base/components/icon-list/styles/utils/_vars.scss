@@ -3,4 +3,5 @@
 $merchantMinWidth: 70px;
 $merchantMaxWidth: 140px;
 $merchantMaxHeight: 50px;
-$merchantsGap: ef.get('gap', 'main');
+$merchantsGapDesktop: ef.get('gap', 'main');
+$merchantsGapMobile: ef.get('gap', 'less');
