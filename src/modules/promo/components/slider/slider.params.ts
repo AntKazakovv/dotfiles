@@ -1,4 +1,4 @@
-// import {SwiperConfigInterface} from 'ngx-swiper-wrapper';
+import {SwiperConfigInterface} from 'ngx-swiper-wrapper';
 import {IComponentParams} from 'wlc-engine/interfaces/config.interface';
 
 export type ComponentTheme = 'default';
@@ -11,7 +11,7 @@ export interface ISlides {
 
 export interface ISliderParams extends IComponentParams<ComponentTheme, ComponentType, string> {
     slides?: ISlides[];
-    // swiper?: SwiperConfigInterface;
+    swiper?: SwiperConfigInterface;
     class?: string;
 }
 
