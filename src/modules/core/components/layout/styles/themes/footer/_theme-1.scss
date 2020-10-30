@@ -1,3 +1,4 @@
+@use 'engine-styles/mixins/mediaqueries' as mq;
 @use '../../utils/vars' as v;
 
 .wlc-sections__footer--theme {
@@ -14,6 +15,19 @@
                 'logo links disclaimer language';
             padding-top: v.$footerPadding;
             grid-gap: v.$footerGap;
+
+            @include mq.max(1366) {
+                grid-template-columns: 130px 310px 1fr 130px;
+            }
+
+            @include mq.max(1200) {
+                grid-template-columns: repeat(3, 1fr);
+                grid-template-areas:
+                    'merchants merchants merchants'
+                    'payments payments payments'
+                    'logo links language'
+                    'disclaimer disclaimer disclaimer';
+            }
         }
 
         .wlc-icon-list {
@@ -35,6 +49,11 @@
 
         .wlc-disclaimer {
             grid-area: disclaimer;
+            font-size: 70%;
+
+            @include mq.max(1200) {
+                font-size: 60%;
+            }
         }
 
         .wlc-language-selector {
