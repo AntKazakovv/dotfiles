@@ -2,7 +2,10 @@
 
 $footerPadding: ef.get('padding', 'less');
 $footerBackground: ef.get('color', 'background');
+$footerAccentBackground: ef.get('color', 'backgroundAccent');
 $footerGap: ef.get('gap', 'main');
+$footerPadding: ef.get('padding', 'main');
+$footerRadius: ef.get('radius', 'main');
 
 $affHeaderGap: ef.get('gap', 'main') !default;
 

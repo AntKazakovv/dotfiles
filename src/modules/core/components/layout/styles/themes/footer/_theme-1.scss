@@ -3,14 +3,17 @@
 .wlc-sections__footer--theme {
 
     &-1 {
+        background-color: v.$footerBackground;
 
         .container {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: 130px 350px 1fr 130px;
             grid-template-areas:
                 'merchants merchants merchants merchants'
                 'payments payments payments payments'
                 'logo links disclaimer language';
+            padding-top: v.$footerPadding;
+            grid-gap: v.$footerGap;
         }
 
         .wlc-icon-list {
@@ -21,6 +24,11 @@
 
             &--type-payments {
                 grid-area: payments;
+                grid-template-columns: auto !important;
+                justify-self: center;
+                padding: v.$footerPadding;
+                background-color: v.$footerAccentBackground;
+                border-radius: v.$footerRadius;
             }
         }
 

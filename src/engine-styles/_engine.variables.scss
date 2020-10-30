@@ -25,25 +25,28 @@ $color: map-merge((
 
 $padding: map-merge((
     'small': 5px,
-    'less': 10px,
-    'main': 15px,
-    'biger': 20px,
-    'big': 30px
+    'smaller': 10px,
+    'less': 20px,
+    'main': 40px,
+    'biger': 50px,
+    'big': 60px
 ), $customPadding);
 
 $gap: map-merge((
     'small': 5px,
-    'less': 15px,
-    'main': 30px,
-    'biger': 40px,
+    'smaller': 10px,
+    'less': 20px,
+    'main': 40px,
+    'biger': 50px,
     'big': 60px
 ), $customGap);
 
 $radius: map-merge((
-    'small': 3px,
-    'less': 5px,
-    'main': 10px,
-    'biger': 15px,
+    'smaller': 2px,
+    'small': 4px,
+    'less': 6px,
+    'main': 8px,
+    'biger': 10px,
     'big': 20px
 ), $customRadius);
 
