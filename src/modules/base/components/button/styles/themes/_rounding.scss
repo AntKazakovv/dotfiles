@@ -1,0 +1,26 @@
+@use '../utils/vars' as v;
+@use '../utils/mixins' as m;
+@use 'engine-styles/functions' as ef;
+
+.wlc-btn--theme-rounding {
+
+    &:host {
+        @include m.button-base;
+
+        border-radius: v.$buttonRadius;
+        border: v.$buttonBorder;
+
+        &:hover {
+            box-shadow: v.$buttonShadow;
+        }
+
+        &.wlc-btn--theme-mod-secondary {
+            @include m.button-transparency;
+
+            &:hover {
+                box-shadow: unset;
+                background-color: v.$buttonColorHover;
+            }
+        }
+    }
+}
