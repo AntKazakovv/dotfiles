@@ -1,0 +1,37 @@
+@use 'engine-styles/mixins/mediaqueries' as mq;
+@use '../utils/vars' as v;
+
+.wlc-icon-list--type-merchants:host {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    align-items: center;
+    justify-content: center;
+    justify-self: center;
+    width: 100%;
+    grid-gap: v.$merchantsGapDesktop;
+
+    @include mq.max(768) {
+        grid-gap: v.$merchantsGapMobile;
+    }
+
+    @include mq.max(480) {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .wlc-icon-list {
+
+        &__item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        &__image {
+            width: 100%;
+            height: auto;
+            max-width: v.$merchantMaxWidth;
+            max-height: v.$merchantMaxHeight;
+            object-fit: contain;
+        }
+    }
+}

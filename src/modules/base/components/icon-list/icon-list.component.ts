@@ -3,7 +3,7 @@ import {
     OnInit,
     ChangeDetectionStrategy,
     Inject,
-    Input,
+    Input, ChangeDetectorRef,
 } from '@angular/core';
 import {DomSanitizer} from '@angular/platform-browser';
 
@@ -20,11 +20,11 @@ import {LogService} from 'wlc-engine/modules/core/services';
 import {
     IParams,
     defaultParams,
-    MERCHANTS,
     PAYMENTS,
     IPayment,
 } from './icon-list.params';
-import {IMerchant} from './../../../games/interfaces/games.interfaces';
+import {IMerchant} from 'wlc-engine/modules/games/interfaces/games.interfaces';
+import {GamesCatalogService} from 'wlc-engine/modules/games/services/games-catalog.service';
 
 import {
     map as _map,
@@ -34,7 +34,7 @@ import {
 @Component({
     selector: '[wlc-icon-list]',
     templateUrl: './icon-list.component.html',
-    styleUrls: ['./icon-list.component.scss'],
+    styleUrls: ['./styles/icon-list.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class IconListComponent extends AbstractComponent implements OnInit {
@@ -44,23 +44,22 @@ export class IconListComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams: IParams;
 
     constructor(
-        @Inject('injectParams') protected params: IParams,
+        @Inject('injectParams') protected injectParams: IParams,
         protected filesService: FilesService,
         protected sanitizer: DomSanitizer,
         protected logService: LogService,
+        protected gamesCatalogService: GamesCatalogService,
+        protected cdr: ChangeDetectorRef,
     ){
-        super(<IMixedParams<IParams>>{
-            injectParams: params,
-            defaultParams: defaultParams,
-        });
+        super(<IMixedParams<IParams>>{injectParams,defaultParams});
     }
 
-    ngOnInit(): void {
+    public async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
 
         switch (this.$params.type) {
             case ('merchants'):
-                this.setMerchantsLst();
+                await this.setMerchantsLst();
                 break;
             case ('payments'):
                 this.setPaymentsLst();
@@ -73,18 +72,24 @@ export class IconListComponent extends AbstractComponent implements OnInit {
         }
     }
 
-    protected setMerchantsLst(): void {
-        const merchants: IMerchant[] = _sortedUniqBy(MERCHANTS, (item: IMerchant) => item.Alias);
+    protected async setMerchantsLst(): Promise<void> {
+        await this.gamesCatalogService.ready;
+        const merchants: IMerchant[] = _sortedUniqBy(this.gamesCatalogService.getMerchants(), (item: IMerchant) => item.Alias);
 
         this.items = _map<IMerchant, IconModel>(merchants, (item: IMerchant): IconModel => {
+            const image = this.$params.common.iconsColor === 'default'
+                ? item.Image
+                : `/gstatic/merchants/${this.$params.common.iconsColor}/${item.Alias.toLowerCase()}.png`;
+
             const itemParams: IIconParams = {
                 svgName: this.$params.theme === 'svg' ? item.Alias.toLowerCase() : undefined,
-                iconUrl: this.$params.theme === 'svg' ? undefined : item.Image,
+                iconUrl: this.$params.theme === 'svg' ? undefined : image,
                 alt: item.Name,
-                class: item.Alias.toLowerCase(),
+                modifier: this.getItemModifier(item.Alias.toLowerCase()),
             };
             return new IconModel(itemParams, this.filesService, this.sanitizer);
         });
+        this.cdr.markForCheck();
     }
 
     protected setPaymentsLst(): void {
@@ -95,7 +100,7 @@ export class IconListComponent extends AbstractComponent implements OnInit {
                 svgName: this.$params.theme === 'svg' ? item.alias.toLowerCase() : undefined,
                 iconUrl: this.$params.theme === 'svg' ? undefined : item.image,
                 alt: item.name,
-                class: item.alias.toLowerCase(),
+                modifier: this.getItemModifier(item.alias.toLowerCase()),
             };
             return new IconModel(itemParams, this.filesService, this.sanitizer);
         });
@@ -113,5 +118,9 @@ export class IconListComponent extends AbstractComponent implements OnInit {
         this.items = _map<IIconParams, IconModel>(items, (item: IIconParams): IconModel => {
             return new IconModel(item, this.filesService, this.sanitizer);
         });
+    }
+
+    protected getItemModifier(mod: string): string {
+        return mod ? `${this.$class}__item--${mod.replace(' ', '-')}` : '';
     }
 }

@@ -5,6 +5,8 @@
 
 @import './themes/header';
 
+@import './themes/footer/theme-1';
+
 body {
     background-color: ef.get('color', 'background');
     color: ef.get('color', 'text');

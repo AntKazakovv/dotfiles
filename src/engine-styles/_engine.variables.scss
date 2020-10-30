@@ -33,10 +33,10 @@ $padding: map-merge((
 
 $gap: map-merge((
     'small': 5px,
-    'less': 10px,
-    'main': 15px,
-    'biger': 20px,
-    'big': 30px
+    'less': 15px,
+    'main': 30px,
+    'biger': 40px,
+    'big': 60px
 ), $customGap);
 
 $radius: map-merge((
@@ -53,3 +53,42 @@ $size: map-merge((
     'buttonDefault': 40px,
     'buttonBig': 50px
 ), $customSize);
+
+$grid-breakpoints: (
+    320: 0,
+    375: 375px,
+    480: 480px,
+    560: 530px,
+    640: 640px,
+    720: 720px,
+    768: 768px,
+    900: 900px,
+    1024: 1024px,
+    1200: 1200px,
+    1366: 1366px,
+    1420: 1420px,
+    1630: 1630px
+);
+// scss-docs-end grid-breakpoints
+
+
+// Grid containers
+//
+// Define the maximum width of `.container` for different screen sizes.
+
+// scss-docs-start container-max-widths
+$container-max-widths: (
+    320: 290px,
+    375: 345px,
+    480: 450px,
+    560: 530px,
+    640: 610px,
+    720: 690px,
+    768: 738px,
+    900: 870px,
+    1024: 994px,
+    1200: 1170px,
+    1366: 1336px,
+    1420: 1390px,
+    1630: 1600px
+);
