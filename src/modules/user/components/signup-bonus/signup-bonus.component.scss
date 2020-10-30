@@ -61,11 +61,24 @@
     }
 
     &__aside {
+        position: relative;
         flex: 0 0 430px;
 
         padding: 30px 40px;
 
         background: linear-gradient(180deg, #cbcbcb 0%, #dcbebe 100%);
+
+        &:before {
+            content: '';
+            position: absolute;
+            bottom: -145px;
+            top: 0;
+            left: 0;
+            right: 0;
+
+            opacity: 0.3;
+            background: url('../../../../svg/decors/bonus-decor.svg') center bottom no-repeat;
+        }
 
 
         &.bonus-1 {
