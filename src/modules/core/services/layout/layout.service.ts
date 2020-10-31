@@ -263,6 +263,11 @@ export class LayoutService {
                 this.components.user = m.components;
                 return m.UserModule;
             });
+        case 'finances':
+            return import('wlc-engine/modules/finances/finances.module').then(m => {
+                this.components.user = m.components;
+                return m.FinancesModule;
+            });
         }
     }
 }

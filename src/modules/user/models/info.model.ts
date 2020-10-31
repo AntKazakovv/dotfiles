@@ -1,6 +1,6 @@
 import {IFreeRound, ILoyalty, IUserInfo} from 'wlc-engine/interfaces';
 import {TranslateService} from '@ngx-translate/core';
-import {AbstractUserModel} from 'wlc-engine/modules/user/models/abstarct.model';
+import {AbstractModel} from 'wlc-engine/modules/core/models/abstarct.model';
 import {EventService} from 'wlc-engine/modules/core/services';
 
 import {
@@ -9,7 +9,7 @@ import {
     toString as _toString,
 } from 'lodash';
 
-export class UserInfo extends AbstractUserModel<IUserInfo>  {
+export class UserInfo extends AbstractModel<IUserInfo>  {
 
     constructor(
         protected translate: TranslateService,
@@ -115,7 +115,7 @@ export class UserInfo extends AbstractUserModel<IUserInfo>  {
     protected checkData(): void {
         if (!this.data.status) {
             this.eventService.emit({
-                name: 'USER_STATUS_DISABLE'
+                name: 'USER_STATUS_DISABLE',
             });
         }
     }
