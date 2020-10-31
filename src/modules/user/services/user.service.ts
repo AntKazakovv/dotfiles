@@ -46,6 +46,7 @@ export class UserService {
         public translate: TranslateService,
         protected app: AppModule,
     ) {
+        this.registerMethods();
         this.info = new UserInfo(translate, eventService);
         this.profile = new UserProfile();
         if (app.initialPath?.message) {
@@ -227,18 +228,19 @@ export class UserService {
         this.userInfoHandler.unsubscribe();
     }
 
-    protected async request(
+    protected async request<T>(
         name: string,
         event: string,
         eventError: string,
         params: IIndexing<string> = {},
-    ): Promise<void> {
+    ): Promise<T> {
         try {
-            const data = (await this.dataService.request(name, params)).data;
+            const data: T = (await this.dataService.request(name, params)).data as T;
             this.eventService.emit({
                 name: event,
                 data: data,
             });
+            return data;
         } catch (error) {
             this.eventService.emit({
                 name: eventError,
@@ -262,7 +264,7 @@ export class UserService {
         this.dataService.registerMethod(params);
     }
 
-    protected resterMethods(): void {
+    protected registerMethods(): void {
         this.regMethod('userLogin', '/auth', 'PUT');
         this.regMethod('userLogout', '/auth', 'DELETE');
         this.regMethod('createProfile', '/profiles', 'POST');

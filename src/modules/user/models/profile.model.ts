@@ -1,5 +1,5 @@
 import {IExtProfile, IUserProfile} from 'wlc-engine/interfaces';
-import {AbstractUserModel} from 'wlc-engine/modules/user/models/abstarct.model';
+import {AbstractModel} from 'wlc-engine/modules/core/models/abstarct.model';
 
 import {
     get as _get,
@@ -7,7 +7,7 @@ import {
     toString as _toString,
 } from 'lodash';
 
-export class UserProfile extends AbstractUserModel<IUserProfile> {
+export class UserProfile extends AbstractModel<IUserProfile> {
 
     constructor() {
         super();
@@ -66,7 +66,7 @@ export class UserProfile extends AbstractUserModel<IUserProfile> {
     }
 
     public get extProfile(): IExtProfile {
-        return this.data.extProfile;
+        return this.data.extProfile || {};
     }
 
     public get firstName(): string {
