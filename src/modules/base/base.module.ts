@@ -51,8 +51,6 @@ export const components = {
         UIRouterModule,
         TranslateModule,
     ],
-    providers: [
-    ],
     exports: [
         LogoComponent,
         LanguageSelectorComponent,
