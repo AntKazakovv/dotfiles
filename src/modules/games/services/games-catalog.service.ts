@@ -1,39 +1,35 @@
 import {Injectable} from '@angular/core';
-import {IIndexing} from 'wlc-engine/interfaces/index';
 import {ConfigService} from 'wlc-engine/modules/core/services/config/config.service';
 import {DataService, IData} from 'wlc-engine/modules/core/services/data/data.service';
-import {GameCatalog} from 'wlc-engine/modules/games/models/game-catalog.model';
+import {GamesCatalog} from 'wlc-engine/modules/games/models/games-catalog.model';
 import {Game} from 'wlc-engine/modules/games/models/game.model';
-
+​
 import {
     ICategory,
     IMerchant,
-    IAvailableCategories,
-    IAvailableMerchants,
-    ISupportedItem,
 } from 'wlc-engine/modules/games/interfaces/games.interfaces';
-
+​
 @Injectable({
     providedIn: 'root',
 })
-
+​
 export class GamesCatalogService {
-
+​
     constructor(
         protected configService: ConfigService,
         protected data: DataService,
     ) {
         this.init();
     }
-
+​
     public ready: Promise<void> = new Promise((resolve: () => void): void => {
         this.$resolve = resolve;
     });
-
-    protected gameCatalog: GameCatalog;
-
+​
+    protected gamesCatalog: GamesCatalog;
+​
     private $resolve: () => void;
-
+​
     public async init(): Promise<void> {
         // TODO cache
         // this.gamesCatalogCache = this.CacheFactory.get('gamesCatalogCache');
@@ -58,17 +54,16 @@ export class GamesCatalogService {
         //         }
         //     });
         // }
-
+    ​
         // TODO check config and types
         const queryParams = this.configService.appConfig.siteconfig?.gamesCatalog?.slim ? {slim: true} : {};
-
+​
         const data = await this.load();
-        this.gameCatalog = new GameCatalog(data.data);
+        this.gamesCatalog = new GamesCatalog(data.data);
         this.$resolve();
-
         // TODO подписка на login/logout
     }
-
+​
     public load(): Promise<IData> {
         return this.data.request({
             name: 'games',
@@ -79,33 +74,32 @@ export class GamesCatalogService {
             mapFunc: (res) => this.prepareData(res),
         });
     }
-
+​
     public getCategories(): ICategory[] {
-        return this.gameCatalog.getCategories();
+        return this.gamesCatalog.getCategories();
     }
-
+​
     public getMerchants(): IMerchant[] {
-        return this.gameCatalog.getMerchants();
+        return this.gamesCatalog.getMerchants();
     }
-
+​
     public getGameList(): Game[] {
-        console.warn('this.gameCatalog', this.gameCatalog);
-        return this.gameCatalog.getGameList();
+        return this.gamesCatalog.getGameList();
     }
-
+​
     public getLastGameList(): Promise<any> {
         return this.queryLastGames();
     }
-
+​
     // public getGameById(id: string): Game {
-    //     return this.gameCatalog.getGameById(id);
+    //     return this.gamesCatalog.getGameById(id);
     // }
-
+​
     public getGame(merchantId: string, launchCode: string): Game {
-        return this.gameCatalog.getGame(merchantId, launchCode);
+        return this.gamesCatalog.getGame(merchantId, launchCode);
     }
-
-
+​
+​
     protected queryLastGames(): Promise<any> {
         return new Promise((resolve, reject) => {
             /*this.$restLastGames.query({lastGames: 1},
@@ -118,10 +112,10 @@ export class GamesCatalogService {
             resolve('');
         });
     }
-
-    protected prepareData(response: any): GameCatalog {
+​
+    protected prepareData(response: any): GamesCatalog {
         return response;
     }
-
-
+​
+​
 }
