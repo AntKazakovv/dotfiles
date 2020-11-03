@@ -80,24 +80,24 @@ export type IGames = {
     merchantsCurrencies: IMerchantCurrency[];
 }
 
-export type IMerchantsMapping = {
+export type IMapping = {
     merchantIdToNameMapping: IIndexing<string>;
     merchantIdToAliasMapping: IIndexing<string>;
-    merchantNameToIdMapping: IIndexing<string>
-    merchantNameToTitleMapping: IIndexing<string>
-}
+    merchantNameToIdMapping: IIndexing<string>;
+    merchantNameToTitleMapping: IIndexing<string>;
+    byMerchant: IByMerchant;
 
-export type IRestrictions = {
-    restrictedByID: { [key: string]: IIndexing<boolean>; };
-    restrictedByDefault: { [key: string]: IIndexing<boolean>; };
-}
-
-export type ICategoriesMapping = {
     categoryById: IIndexing<ICategory>;
     categoryIdToNameMapping: IIndexing<string>;
     categoryNameToIdMapping: IIndexing<string>;
     categoryIdToTitleMapping: { [key: string]: IIndexing<string>; };
     categoryNameToTitleMapping: { [key: string]: IIndexing<string>; };
+    byCategory: IByCategory;
+}
+
+export type IRestrictions = {
+    restrictedByID: { [key: string]: IIndexing<boolean>; };
+    restrictedByDefault: { [key: string]: IIndexing<boolean>; };
 }
 
 /**
@@ -124,4 +124,12 @@ export interface ISupportedItem {
 
 export interface ICatalogTreeItem extends ISupportedItem {
     subcategories: ISupportedItem[];
+}
+
+export interface IIndexingMerchants {
+    [key: string]: IMerchant;
+}
+
+export interface IIndexingCategories {
+    [key: string]: ICategory;
 }
