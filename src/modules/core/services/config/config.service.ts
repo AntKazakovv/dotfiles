@@ -13,6 +13,7 @@ import {
 
 @Injectable()
 export class ConfigService {
+    static instance: ConfigService;
 
     public ready: Promise<void> = new Promise((resolve: () => void): void => {
         this.$resolve = resolve;
@@ -22,8 +23,9 @@ export class ConfigService {
     private $resolve: () => void;
 
     constructor(
-        private data: DataService
+        private data: DataService,
     ) {
+        ConfigService.instance = this;
     }
 
     public load(): Promise<IData> {
@@ -45,8 +47,8 @@ export class ConfigService {
     }
 
     protected addSiteConfig(): void {
-        _mergeWith(this.appConfig, wlcConfig, (target, source) => (source.replaceConfig) ? source : undefined);
-        _mergeWith(this.appConfig, appConfig, (target, source) => (source.replaceConfig) ? source : undefined);
+        _mergeWith(this.appConfig, wlcConfig, (target, source) => (source?.replaceConfig) ? source : undefined);
+        _mergeWith(this.appConfig, appConfig, (target, source) => (source?.replaceConfig) ? source : undefined);
         GlobalHelper.deepFreeze(this.appConfig);
     }
 }

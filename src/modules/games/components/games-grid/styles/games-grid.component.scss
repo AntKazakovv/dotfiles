@@ -1,0 +1,93 @@
+@use './vars' as v;
+
+.wlc-games-grid {
+
+    &__content {
+        padding: v.$contentPadding 0;
+    }
+
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: v.$headerColor;
+    }
+
+    &__link {
+        color: v.$allLinkColor;
+    }
+
+    &__list {
+        display: grid;
+        grid-row-gap: v.$currentGap;
+        grid-column-gap: v.$currentGap;
+        margin-bottom: v.$listMargin;
+        grid-template-columns: repeat(auto-fill, minmax(v.$itemMinWidth, 1fr));
+
+        @media (max-width: 993px) { // TODO add satndard mobile media
+            grid-template-columns: repeat(auto-fill, minmax(v.$itemMinWidthMobile, 1fr));
+        }
+    }
+
+    &__more {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &__placeholder {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: v.$placeholderBorderRadius;
+        background: v.$placeholderBackground;
+        background-repeat: no-repeat;
+        background-size: cover;
+        color: v.$placeholderTextColor;
+    }
+
+    &__item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        // TODO to delete
+        .wlc-games-thumb {
+            width: 100%;
+            max-width: 350px;
+            min-width: 200px;
+            height: auto;
+            background-color: #444444;
+            border-radius: v.$placeholderBorderRadius;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+
+
+            @media (max-width: 993px) {
+                min-width: 140px;
+            }
+
+            &__placeholder {
+                position: absolute;
+                z-index: 1;
+            }
+
+            &:after {
+                display: block;
+                content: '';
+                width: 0;
+                padding-bottom: 75%;
+            }
+
+            img {
+                width: 100%;
+                position: relative;
+                z-index: 2;
+            }
+        }
+    }
+}

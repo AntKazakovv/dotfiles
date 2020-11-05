@@ -1,17 +1,11 @@
 import {ConfigService} from 'wlc-engine/modules/core';
+import {TextDataType} from 'wlc-engine/modules/static';
 
 import {
     get as _get,
-    each as _each
+    each as _each,
 } from 'lodash';
-
-export interface ITextObject {
-    data: any;
-}
-
-export interface IIndexAny {
-    [key: string]: any;
-}
+import {IIndexing} from 'wlc-engine/interfaces';
 
 export abstract class TextDataModel {
     public id: number;
@@ -23,22 +17,22 @@ export abstract class TextDataModel {
     public title: string;
     public image: string;
     public introText: string;
-    public extFields?: IIndexAny;
+    public extFields?: IIndexing<any>;
 
     protected pattern = /^\((.*)\)\s/;
 
     protected cacheFields: string[] = ['id', 'date', 'slug', 'titleRaw', 'htmlRaw', 'image', 'extFields'];
 
     constructor(
-        protected dataObject: ITextObject,
-        protected configService: ConfigService
+        protected dataObject: TextDataType,
+        protected configService: ConfigService,
     ) {
         this.prepareData(dataObject);
         this.introText = this.getIntroText();
     }
 
-    public toJSON(): IIndexAny {
-        const res: IIndexAny = {};
+    public toJSON(): IIndexing<any> {
+        const res: IIndexing<any> = {};
         _each(this.cacheFields, (field) => {
             res[field] = _get(this, field);
         });

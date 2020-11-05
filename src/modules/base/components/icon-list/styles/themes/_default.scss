@@ -1,0 +1,14 @@
+.wlc-icon-list--theme-default:host {
+
+    .wlc-icon-list__wrp {
+
+        &__wrp {
+            display: block;
+        }
+    }
+
+    img {
+        width: 100%;
+        height: auto;
+    }
+}

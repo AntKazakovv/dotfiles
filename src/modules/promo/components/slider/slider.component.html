@@ -1,0 +1,5 @@
+<swiper [config]="$params.swiper">
+    <ng-container *ngFor="let slide of slides" [ngSwitch]="slide.component">
+        <div banner *ngSwitchCase="'banner'" [inlineParams]="slide.params"></div>
+    </ng-container>
+</swiper>

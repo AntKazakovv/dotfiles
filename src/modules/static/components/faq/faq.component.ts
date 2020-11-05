@@ -8,12 +8,11 @@ import {
 } from '@angular/core';
 
 import {AbstractComponent} from 'wlc-engine/classes/abstract.component';
-import {StaticService} from 'wlc-engine/modules/static';
+import {StaticService, TextDataModel} from 'wlc-engine/modules/static';
 import {
     IFaqComponentParams,
     IFaqData,
 } from './faq.interface';
-import {TextDataModel} from 'wlc-engine/modules/static';
 
 import {
     map as _map,
@@ -36,16 +35,17 @@ export class FaqComponent extends AbstractComponent implements OnInit {
     protected showErrors: boolean;
 
     constructor(
-        @Inject('params') protected params: IFaqComponentParams,
+        @Inject('injectParams') protected params: IFaqComponentParams,
         protected staticService: StaticService,
         protected cdr: ChangeDetectorRef,
     ) {
-        super({params, defaultParams: {}});
+        super({injectParams: params, defaultParams: {}});
     }
 
     async ngOnInit(): Promise<void> {
-        this.showErrors = _isUndefined(this.params.showErrors) ? true : this.params.showErrors;
+        super.ngOnInit();
 
+        this.showErrors = _isUndefined(this.params.showErrors) ? true : this.params.showErrors;
         try {
             const data: TextDataModel = await this.getRawData();
             this.faqData = this.parseTableData(data?.html);
@@ -84,10 +84,10 @@ export class FaqComponent extends AbstractComponent implements OnInit {
         }
 
         return _map(items, (tr: Element) => {
-            const x = tr.querySelectorAll('td');
+            const tdElems: NodeList = tr.querySelectorAll('td');
             return {
-                title: _get(x, '[0].innerHTML'),
-                content: _get(x, '[1].innerHTML'),
+                title: _get(tdElems, '[0].innerHTML'),
+                content: _get(tdElems, '[1].innerHTML'),
                 expand: false,
             };
         });

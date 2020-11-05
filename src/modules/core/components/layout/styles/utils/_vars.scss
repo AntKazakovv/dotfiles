@@ -1,0 +1,16 @@
+@use 'engine-styles/functions' as ef;
+
+$footerPadding: ef.get('padding', 'less');
+$footerBackground: ef.get('color', 'background');
+$footerAccentBackground: ef.get('color', 'backgroundAccent');
+$footerGap: ef.get('gap', 'main');
+$footerPadding: ef.get('padding', 'main');
+$footerRadius: ef.get('radius', 'main');
+
+$affHeaderGap: ef.get('gap', 'main') !default;
+
+$affMainMenuBackground: ef.get('color', 'accent') !default;
+$affMainMenuPadding: ef.get('gap', 'main') !default;
+
+$affMenuBackground: ef.get('color', 'accent') !default;
+$affMenuPadding: ef.get('gap', 'biger') !default;

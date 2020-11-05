@@ -2,8 +2,37 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>WlcSite</title>
+    <title>OrientalBet</title>
     <base href="/">
+    <style>
+        body {
+            padding: 0;
+        }
+
+        .wlc-app__preload {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: #56255D;
+        }
+
+        .wlc-app__preload-img {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 300px;
+        }
+
+        .wlc-app__preload-img img {
+            display: block;
+            width: 100%;
+        }
+    </style>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="manifest" href="/static/dist/manifest.webmanifest">
@@ -18,7 +47,13 @@
     </script>
 </head>
 <body>
-<div ui-view class="wlc-app">Loading...</div>
+<div ui-view class="wlc-app">
+    <div class="wlc-app__preload">
+        <div class="wlc-app__preload-img">
+            <img src="/static/images/logo.svg">
+        </div>
+    </div>
+</div>
 <noscript>Please enable JavaScript to continue using this application.</noscript>
 
 {% if 'static/dist/inline.js' is ondisk %}

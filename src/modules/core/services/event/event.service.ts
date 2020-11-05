@@ -21,51 +21,51 @@ export interface IFilterParams {
 
 export type FilterType = Partial<IFilterParams> | Partial<IFilterParams>[];
 
-export interface IEvent extends IFilterParams {
-    data?: any;
+export interface IEvent<T> extends IFilterParams {
+    data?: T;
 }
 
 @Injectable()
 export class EventService {
 
-    public get flow(): Observable<IEvent> {
+    public get flow(): Observable<IEvent<unknown>> {
         return this.flow$.asObservable();
     }
 
-    private flow$: Subject<IEvent> = new Subject<IEvent>();
+    private flow$: Subject<IEvent<unknown>> = new Subject<IEvent<unknown>>();
 
     constructor() {
     }
 
-    public emit(event: IEvent): void {
+    public emit(event: IEvent<unknown>): void {
         this.flow$.next(
-            _assign({type: 'event'}, event)
+            _assign({type: 'event'}, event),
         );
     }
 
-    public filter(params: FilterType, until?: Observable<any>): Observable<IEvent> {
+    public filter<T>(params: FilterType, until?: Observable<any>): Observable<IEvent<T>> {
         return this.flow.pipe(
             (until) ? takeUntil(until) : pipe(),
-            this.filterEvents(
-                _isArray(params) ? params : [params]
+            this.filterEvents<T>(
+                _isArray(params) ? params : [params],
             ),
         );
     }
 
-    public subscribe(
+    public subscribe<T>(
         eventFilter: FilterType,
-        subscriber: (data: any) => void | PartialObserver<any>,
-        until?: Observable<any>
+        subscriber: (data: T) => void | PartialObserver<T>,
+        until?: Observable<any>,
     ): Subscription {
         return this.filter(eventFilter, until)
             .pipe(
-                map((event: IEvent): any => _get(event, 'data')),
+                map((event: IEvent<T>): T => _get(event, 'data')),
             )
             .subscribe(subscriber);
     }
 
-    private filterEvents(params: Partial<IFilterParams>[]): UnaryFunction<Observable<IEvent>, Observable<IEvent>> {
-        return pipe(filter((event: IEvent) => {
+    private filterEvents<T>(params: Partial<IFilterParams>[]): UnaryFunction<Observable<IEvent<T>>, Observable<IEvent<T>>> {
+        return pipe(filter((event: IEvent<T>) => {
             return params.reduce((result, eventFilter) => {
                 return result || this.filterEvent(eventFilter, event);
             }, false);

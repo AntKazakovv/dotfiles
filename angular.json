@@ -36,7 +36,8 @@
                         ],
                         "stylePreprocessorOptions": {
                             "includePaths": [
-                                "src"
+                                "src",
+                                "src/engine-styles/dummy"
                             ]
                         }
                     },
@@ -112,12 +113,8 @@
                     "builder": "@angular-eslint/builder:lint",
                     "options": {
                         "eslintConfig": ".eslintrc.js",
-                        "tsConfig": [
-                            "./tsconfig.engine.json",
-                            "./tsconfig.spec.json"
-                        ],
-                        "exclude": [
-                            "**/node_modules/**"
+                        "lintFilePatterns": [
+                            "src/**/*.ts"
                         ]
                     }
                 },

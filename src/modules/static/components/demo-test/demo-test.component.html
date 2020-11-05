@@ -1,27 +1,29 @@
 <h1>Buttons</h1>
-<div style="width: 1000px; padding: 100px; display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: auto; grid-gap: 10px;">
+<div style="width: 1000px; padding: 10px; display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: auto; grid-gap: 10px;">
+    <div>
+        <button (click)="openModal()">Open baseInfo modal</button>
+        <button (click)="openModalFaq()">Open modal with faq Component</button>
+    </div>
+
     <div class="div">
         <button wlc-button><i wlc-icon iconName="poweroff"></i> Logout</button>
     </div>
     <div class="div">
         <button wlc-button title="icon only"><i wlc-icon iconName="poweroff"></i></button>
     </div>
-    <div class="div">
+    <!-- <div class="div">
         <button wlc-button [wlcBtnLoading]="true">Loading</button>
-    </div>
-    <div class="div">
+    </div> -->
+    <!-- <div class="div">
         <button wlc-button (click)="load()" [wlcBtnLoading]="isLoading">Press me</button>
-    </div>
-    <div class="div">
+    </div> -->
+    <!-- <div class="div">
         <button wlc-button (click)="load2()" [wlcBtnLoading]="isLoading2"><i wlc-icon iconName="poweroff"></i> Press me</button>
-    </div>
+    </div> -->
     <div class="div">
         <button wlc-button [disabled]="true">disabled</button>
     </div>
     <div class="div">
         <button wlc-button>Default btn</button>
-    </div>
-    <div class="div">
-        <a wlc-button href="#">Default a</a>
     </div>
 </div>

@@ -1,39 +1,94 @@
-$color: (
-    'accent': #FFCC00,
+@import 'app.variables';
+
+$customColor: () !default;
+$customPadding: () !default;
+$customGap: () !default;
+$customRadius: () !default;
+$customSize: () !default;
+
+$color: map-merge((
+    'accent': #777777,
+    'accent2': #474747,
     'warn': #b71313,
     'text': #e2e2e2,
     'text-hint': #b8b8b8,
-    'link': #ADADAD,
+    'link': #adadad,
     'linkAccent': #000,
     'textAccent': #000,
     'divider': #b1b1b1,
-    'disabled': #ADADAD,
+    'disabled': #adadad,
     'background': #000,
     'backgroundHover': #dedede,
     'backgroundAccent': #c1c1c1,
     'backgroundAccentHover': #a2a2a2
-);
+), $customColor);
 
-$padding: (
+$padding: map-merge((
     'small': 5px,
-    'less': 10px,
-    'main': 15px,
-    'biger': 20px,
-    'big': 30px
-);
+    'smaller': 10px,
+    'less': 20px,
+    'main': 40px,
+    'biger': 50px,
+    'big': 60px
+), $customPadding);
 
-$gap: (
+$gap: map-merge((
     'small': 5px,
-    'less': 10px,
-    'main': 15px,
-    'biger': 20px,
-    'big': 30px
-);
+    'smaller': 10px,
+    'less': 20px,
+    'main': 40px,
+    'biger': 50px,
+    'big': 60px
+), $customGap);
 
-$radius: (
-    'small': 3px,
-    'less': 5px,
-    'main': 10px,
-    'biger': 15px,
+$radius: map-merge((
+    'smaller': 2px,
+    'small': 4px,
+    'less': 6px,
+    'main': 8px,
+    'biger': 10px,
     'big': 20px
+), $customRadius);
+
+$size: map-merge((
+    'font': 18px,
+), $customSize);
+
+$grid-breakpoints: (
+    320: 0,
+    375: 375px,
+    480: 480px,
+    560: 530px,
+    640: 640px,
+    720: 720px,
+    768: 768px,
+    900: 900px,
+    1024: 1024px,
+    1200: 1200px,
+    1366: 1366px,
+    1420: 1420px,
+    1630: 1630px
+);
+// scss-docs-end grid-breakpoints
+
+
+// Grid containers
+//
+// Define the maximum width of `.container` for different screen sizes.
+
+// scss-docs-start container-max-widths
+$container-max-widths: (
+    320: 290px,
+    375: 345px,
+    480: 450px,
+    560: 530px,
+    640: 610px,
+    720: 690px,
+    768: 738px,
+    900: 870px,
+    1024: 994px,
+    1200: 1170px,
+    1366: 1336px,
+    1420: 1390px,
+    1630: 1600px
 );

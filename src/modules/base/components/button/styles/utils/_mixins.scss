@@ -1,0 +1,25 @@
+@use './vars' as v;
+
+@mixin button-base {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    grid-column-gap: 15px;
+    align-items: center;
+
+    min-width: v.$buttonWidth;
+    height: v.$buttonHeightDefault;
+    background-color: v.$buttonColor;
+
+    color: v.$buttonFontColor;
+    font-size: v.$buttonFontSize;
+
+    padding: v.$buttonPadding;
+
+    .wlc-btn__text {
+        grid-column: 2;
+    }
+}
+
+@mixin button-transparency {
+    background-color: transparent;
+}

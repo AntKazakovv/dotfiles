@@ -1,0 +1,11 @@
+@use '../vars' as v;
+
+@mixin horizontalMenu {
+    display: grid;
+    grid-auto-columns: auto;
+    grid-auto-flow: column;
+    grid-gap: v.$gap;
+    text-transform: v.$textTransform;
+    width: v.$width;
+    align-items: center;
+}

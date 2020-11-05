@@ -1,0 +1,17 @@
+@use 'engine-styles/functions' as ef;
+
+$buttonWidth: 140px;
+$buttonHeightSmall: 35px;
+$buttonHeightDefault: 40px;
+$buttonHeightLarge: 50px;
+
+$buttonFontSize: 16px;
+$buttonFontColor: #ffffff;
+
+$buttonColor: rgba(46, 213, 115, 1);
+$buttonColorHover:  rgba(46, 213, 115, 0.3);
+$buttonShadow: 0 10px 10px rgba(46, 213, 115, 0.3);
+
+$buttonRadius: 50px;
+$buttonBorder: 2px solid #2ed573;
+$buttonPadding: 5px 15px;

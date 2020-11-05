@@ -1,14 +1,16 @@
 import {IComponentParams} from 'wlc-engine/classes/abstract.component';
 
-export type ModeType = 'click' | 'hover';
-export type ThemeType = null | 'bordered';
-export type AutoModifiersType = ThemeType | ModeType | 'grid-3' | 'grid-4' | 'grid-5' | 'scrollable';
+export type ModeType = 'default' | 'hover';
+export type ComponentTheme = 'default' | 'bordered';
+export type ComponentType = 'default' | 'slide';
+export type AutoModifiersType = ComponentTheme | ModeType | 'grid' | 'scrollable';
 export type ManualModifiersType = '';
 export type ModifiersType = AutoModifiersType & ManualModifiersType & string;
 
-export interface ILSParams extends IComponentParams {
+export interface ILSParams extends IComponentParams<ComponentTheme, ComponentType, string> {
     modifiers?: ModifiersType[];
-    theme?: ThemeType;
+    type?: ComponentType;
+    theme?: ComponentTheme;
     common?: {
         flags?: {
             path?: string;
@@ -33,7 +35,6 @@ export interface ILSParams extends IComponentParams {
 
 export const defaultParams: ILSParams = {
     class: 'wlc-language-selector',
-    theme: null,
     common: {
         flags: {
             path: '/gstatic/wlc/flags/1x1/',
@@ -42,6 +43,5 @@ export const defaultParams: ILSParams = {
                 en: 'gb',
             },
         },
-        mode: 'click',
     },
 };

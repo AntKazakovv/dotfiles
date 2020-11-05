@@ -7,3 +7,5 @@ $textColor: ef.get('color', 'linkAccent') !default;
 $textDecoration: none !default;
 $fontWeight: 700 !default;
 $fontSize: 100% !default;
+$padding: ef.get('gap', 'main') !default;
+$backgroundColor: ef.get('color', 'accent') !default;

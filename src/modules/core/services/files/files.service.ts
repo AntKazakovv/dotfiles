@@ -3,7 +3,7 @@ import {files as defaultFiles} from '../../config/files.config';
 import {getFileBody} from 'wlc-svg/index';
 import {getEngineFileBody} from 'wlc-engine/svg';
 import {ConfigService} from 'wlc-engine/modules/core';
-import {IIndexingString} from 'wlc-engine/interfaces';
+import {IIndexing} from 'wlc-engine/interfaces';
 
 import {
     get as _get,
@@ -75,7 +75,7 @@ export class FilesService {
         this.rowFileList = this.mergeFileLists(wlcFiles, engineFiles);
     }
 
-    protected transformToFileMeta(list: IIndexingString, source: SourceFileType = 'wlc'): IFileMeta[] {
+    protected transformToFileMeta(list: IIndexing<string>, source: SourceFileType = 'wlc'): IFileMeta[] {
         return _map(list, (file, name) => ({name, file, source}));
     }
 

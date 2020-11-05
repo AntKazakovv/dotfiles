@@ -7,6 +7,7 @@ export interface ILayoutsConfig {
 
 export interface ILayoutStateConfig extends IDefaultConfig {
     extends?: string;
+    subcategories?: ILayoutsConfig;
     sections?: ILayoutSectionsConfig;
 }
 
@@ -19,13 +20,9 @@ export interface ILayoutSectionConfig {
     components?: (ILayoutComponent | string)[];
     modify?: ILayoutModifyItem[];
     modifiers?: string[];
+    theme?: string;
+    order?: number;
 }
-
-// export interface ILayoutModify {
-//     insert?: ILayoutModifyItem[];
-//     replace?: ILayoutModifyItem[];
-//     delete?: unknown;
-// }
 
 export interface ILayoutModifyItem {
     type: 'insert' | 'replace' | 'delete';
@@ -33,20 +30,29 @@ export interface ILayoutModifyItem {
     component?: ILayoutComponent;
 }
 
-
 export interface ILayoutComponent {
     name: string;
     componentClass?: unknown;
     injector?: Injector;
     params?: unknown;
-    show?: IComponentShowConfig;
+    /** component display parameters
+     * @param after {number} display component after this window width
+     * @param before {number} display component before this window width
+     * @param mobile {boolean} display component only on mobile when true, on desktop when false
+     * @param auth {boolean} display component only auth user when true, anon user when false
+    */
+    display?: IComponentDisplayConfig;
     exclude?: string[];
     include?: string[];
 }
 
-export interface IComponentShowConfig {
+export interface IComponentDisplayConfig {
+    /** display component after this window width */
     after?: number;
+    /** display component before this window width */
     before?: number;
+    /** display component only on mobile when true, on desktop when false */
     mobile?: boolean;
+    /** display component only auth user when true, anon user when false */
     auth?: boolean;
 }

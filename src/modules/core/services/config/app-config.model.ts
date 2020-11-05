@@ -6,7 +6,7 @@
 //     countryLangs: string[];
 //     countryRestricted: boolean;
 //     env: string;
-//     footerText: IIndexingString;
+//     footerText: IIndexing<string>;
 //     games: IGames;
 //     ignoreProvidersForGameCatalog: boolean;
 //     language: string;

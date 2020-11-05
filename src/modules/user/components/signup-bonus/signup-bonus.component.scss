@@ -1,0 +1,315 @@
+.wlc-signup-bonus {
+    $signupBonus: &;
+
+    &__container {
+        display: flex;
+
+        border-radius: 15px;
+        overflow: hidden;
+    }
+
+    &__title,
+    &__subtitle {
+        font-weight: 400;
+        line-height: 1.2;
+        text-align: center;
+        color: #292929;
+
+        margin: 0;
+    }
+
+    &__title {
+        font-size: 24px;
+        font-weight: 700;
+
+        margin-bottom: 15px;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    &__subtitle {
+        font-size: 12px;
+    }
+
+    &__main,
+    &__aside {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__main {
+        flex: 0 0 705px;
+        justify-content: space-between;
+
+        padding: 30px 40px;
+
+        background: #fcfbfe;
+
+        .button-wrap {
+            margin-top: 55px;
+
+            &:first-child {
+                margin-top: 0;
+            }
+        }
+
+        #{$signupBonus}__body {
+            margin: 55px 0 35px;
+        }
+    }
+
+    &__aside {
+        position: relative;
+        flex: 0 0 430px;
+
+        padding: 30px 40px;
+
+        background: linear-gradient(180deg, #cbcbcb 0%, #dcbebe 100%);
+
+        &:before {
+            content: '';
+            position: absolute;
+            bottom: -145px;
+            top: 0;
+            left: 0;
+            right: 0;
+
+            opacity: 0.3;
+            background: url('../../../../svg/decors/bonus-decor.svg') center bottom no-repeat;
+        }
+
+
+        &.bonus-1 {
+            background: linear-gradient(180deg, #f4a689 0%, #f36b87 100%);
+        }
+
+        &.bonus-2 {
+            background: linear-gradient(180deg, #50ec9f 0%, #1ebb2d 100%);
+        }
+
+        &.bonus-3 {
+            background: linear-gradient(180deg, #6bbaf3 0%, #806eef 100%);
+        }
+
+        &.empty {
+            background: linear-gradient(180deg, #cbcbcb 0%, #686868 100%);
+        }
+
+        #{$signupBonus}__head {
+            padding: 0 40px;
+            margin: 0 -40px;
+
+            #{$signupBonus}__subtitle {
+                color: #fff;
+            }
+        }
+
+        #{$signupBonus}__body {
+            margin: 70px 0 35px;
+        }
+
+        .wlc-close {
+            position: absolute;
+            top: -10px;
+            right: 20px;
+        }
+    }
+
+    &__head,
+    &__body,
+    &__footer {
+        position: relative;
+    }
+
+    &__footer {
+        margin-top: auto;
+    }
+
+    &__image-wrap {
+        position: relative;
+
+        width: 205px;
+        height: 205px;
+
+        margin: 0 auto 40px;
+
+        border-radius: 50%;
+
+        box-shadow: 0 1px 14px 0 rgba(#000, 0.15);
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    &__image {
+        width: 205px;
+        height: 205px;
+    }
+
+    &__info {
+        position: absolute;
+        top: 0;
+        right: 0;
+
+        display: inline-block;
+        width: 25px;
+        height: 25px;
+
+        font-size: 18px;
+        font-weight: 700;
+        text-align: center;
+        color: #434353;
+
+        background: rgba(#fff, 0.8);
+
+        border-radius: 50%;
+
+        cursor: pointer;
+
+        transition: background 0.2s linear;
+
+        &:hover {
+            background: rgba(#fff, 0.5);
+        }
+    }
+
+    &__description,
+    &__text {
+        font-weight: 400;
+        text-align: center;
+        line-height: 1.2;
+        color: #fff;
+
+        margin-bottom: 0;
+    }
+
+    &__description {
+        font-size: 36px;
+        font-weight: 900;
+
+        margin-bottom: 25px;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    &__text {
+        font-size: 16px;
+        line-height: 1.5;
+    }
+
+    &__without {
+        text-align: center;
+
+        a {
+            font-size: 26px;
+            text-decoration: none;
+        }
+    }
+}
+
+
+//Вынести в отдельный компонент бонусов
+
+.wlc-bonus-grid {
+    $bonusGrid: &;
+
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(144px, 144px));
+    grid-gap: 15px;
+
+    &__item {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        width: 144px;
+        height: 144px;
+
+        border: solid 3px transparent;
+        border-radius: 50%;
+
+        transition: border-color 0.2s linear, box-shadow 0.2s linear;
+
+        &:hover {
+            box-shadow: 0 1px 14px 0 rgba(#000, 0.15);
+        }
+
+        &--bonus-1 {
+
+            &:hover {
+                border-color: #f12e74;
+            }
+
+            &.chosen {
+                border-color: #f12e74;
+
+                #{$bonusGrid}__tick {
+                    background: #f12e74;
+                }
+            }
+        }
+
+        &--bonus-2 {
+
+            &:hover {
+                border-color: #2dbf3a;
+            }
+
+            &.chosen {
+                border-color: #2dbf3a;
+
+                #{$bonusGrid}__tick {
+                    background: #2dbf3a;
+                }
+            }
+        }
+
+        &--bonus-3 {
+
+            &:hover {
+                border-color: #7f74ef;
+            }
+
+            &.chosen {
+                border-color: #7f74ef;
+
+                #{$bonusGrid}__tick {
+                    background: #7f74ef;
+                }
+            }
+        }
+
+        &.chosen {
+            box-shadow: 0 1px 14px 0 rgba(#000, 0.15);
+
+            #{$bonusGrid}__tick {
+                display: flex;
+            }
+        }
+    }
+
+    &__tick {
+        display: none;
+        justify-content: center;
+        align-items: center;
+
+        position: absolute;
+        top: 10px;
+        right: 8px;
+
+        width: 25px;
+        height: 25px;
+
+        border-radius: 50%;
+
+        background: #cbcbcb;
+
+        line-height: 0;
+    }
+}

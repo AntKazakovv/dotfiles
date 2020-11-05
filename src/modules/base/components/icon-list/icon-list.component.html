@@ -1,0 +1,47 @@
+<div *ngFor="let item of items"
+     class="{{$class}}__item {{item.modifier}}"
+     [ngSwitch]="item.template">
+
+    <a class="{{$class}}__wrp" *ngSwitchCase="'sref'"
+       [uiSref]="item.sref"
+       [attr.target]="item.target"
+       [attr.title]="item.title">
+        <ng-container
+                [ngTemplateOutlet]="!!item.svg ? itemTemplateSvg : itemTemplateImg">
+        </ng-container>
+    </a>
+
+    <a class="{{$class}}__wrp" *ngSwitchCase="'href'"
+       [attr.href]="item.href"
+       [attr.target]="item.target"
+       [attr.title]="item.title">
+        <ng-container
+                [ngTemplateOutlet]="!!item.svg ? itemTemplateSvg : itemTemplateImg">
+        </ng-container>
+    </a>
+
+    <span class="{{$class}}__wrp" *ngSwitchDefault
+          [attr.href]="item.href"
+          [attr.title]="item.title"
+          [ngSwitch]="!!item.svg">
+                <ng-container
+                        [ngTemplateOutlet]="!!item.svg ? itemTemplateSvg : itemTemplateImg">
+                </ng-container>
+            </span>
+
+    <ng-template #itemTemplateImg>
+        <img class="{{$class}}__image"
+             [attr.src]="item.image"
+             [attr.alt]="item.alt"
+             [attr.srcset]="item.image2x">
+        <img class="{{$class}}__image {{$class}}__image--hovered"
+             *ngIf="item.imageHover"
+             [attr.src]="item.imageHover"
+             [attr.alt]="item.alt"
+             [attr.srcset]="item.imageHover2x">
+    </ng-template>
+
+    <ng-template #itemTemplateSvg>
+        <span class="{{$class}}__svg" [innerHtml]="item.svg"></span>
+    </ng-template>
+</div>

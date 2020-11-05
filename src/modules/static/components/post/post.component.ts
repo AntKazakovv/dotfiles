@@ -7,57 +7,57 @@ import {
     ViewContainerRef,
     ViewChild,
     ChangeDetectionStrategy,
-    ChangeDetectorRef
+    ChangeDetectorRef,
 } from '@angular/core';
-import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
+import {DomSanitizer} from '@angular/platform-browser';
+import {UIRouterGlobals} from '@uirouter/core';
 
 import {AbstractComponent} from 'wlc-engine/classes/abstract.component';
-import {StaticService} from 'wlc-engine/modules/static';
-import {IPostComponentParams} from 'wlc-engine/modules/static/components/post/post.interface';
-import {TextDataModel} from 'wlc-engine/modules/static';
+import {StaticService, TextDataModel} from 'wlc-engine/modules/static';
+import {IPostComponentParams} from './post.interface';
 import {defaultParams} from './post.params';
 
 @Component({
     selector: '[wlc-post]',
     templateUrl: './post.component.html',
     styleUrls: ['./post.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PostComponent extends AbstractComponent implements OnInit, AfterViewInit {
     @ViewChild('wrp', {read: ViewContainerRef, static: true}) wrp: ViewContainerRef;
     @Input() protected slug: string;
     public data: TextDataModel;
-
-    public html: SafeHtml;
-    public isReady: boolean;
+    public html: string;
+    public isReady: boolean = false;
 
     constructor(
+        @Inject('injectParams') protected params: IPostComponentParams,
         protected staticService: StaticService,
-        @Inject('params') protected params: IPostComponentParams,
         protected viewRef: ViewContainerRef,
         protected domSanitizer: DomSanitizer,
         protected cdr: ChangeDetectorRef,
+        protected uiRouter: UIRouterGlobals,
     ) {
-        super({params, defaultParams});
+        super({injectParams: params, defaultParams});
     }
 
     async ngOnInit(): Promise<void> {
+        super.ngOnInit();
+
         try {
-            const data: TextDataModel = await this.staticService.getPost(this.slug || this.params.slug);
-            // const html = this.domSanitizer.bypassSecurityTrustHtml(data.html);
-            this.html = data.html;
-            this.isReady = true;
-            this.cdr.markForCheck();
+            const slug = this.slug || this.params.slug || this.uiRouter.params.slug;
+
+            const data: TextDataModel = await this.staticService.getPost(slug);
+            this.html = this.domSanitizer.bypassSecurityTrustHtml(data.html)?.['changingThisBreaksApplicationSecurity'];
         } catch (e) {
             console.log(e);
+        } finally {
+            this.isReady = true;
+            this.cdr.markForCheck();
         }
-        // this.wrp.remove();
-        // this.viewRef.remove();
     }
 
     ngAfterViewInit() {
-        // this.wrp.remove();
-        // this.viewRef.remove();
+        this.viewRef.remove();
     }
-
 }

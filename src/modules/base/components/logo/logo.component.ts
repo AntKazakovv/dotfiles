@@ -51,7 +51,7 @@ export class LogoComponent implements OnInit {
     };
 
     constructor(
-        @Inject('params') protected componentParams: IParams,
+        @Inject('injectParams') protected componentParams: IParams,
         protected configService: ConfigService,
         protected filesService: FilesService,
         protected sanitizer: DomSanitizer,

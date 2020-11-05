@@ -1,0 +1,47 @@
+<div class="wlc-modal__dialog modal-dialog"
+    [class]="dialogClasses">
+    <div class="wlc-modal__header"
+        [class.wlc-modal__header--headless]="!$params.config.modalTitle">
+        <h5 class="wlc-modal__title"
+            *ngIf="$params.config.modalTitle">
+            {{$params.config.modalTitle | translate}}
+        </h5>
+        <button type="button"
+            class="wlc-modal__close"
+            data-dismiss="modal"
+            aria-label="Close"
+            title="Close">
+            x
+        </button>
+    </div>
+
+    <div class="wlc-modal__body">
+        <ng-container *ngTemplateOutlet="$params.config.component ? component : message"></ng-container>
+    </div>
+
+    <div class="wlc-modal__footer">
+        <button type="button"
+            *ngIf="$params.config.showConfirmBtn"
+            class=""
+            (click)="confirm()">
+            {{$params.config.confirmBtnText || 'Confirm' | translate}}
+        </button>
+        <button type="button"
+            class=""
+            data-dismiss="modal">
+            {{$params.config.closeBtnText || 'Close' | translate}}
+        </button>
+    </div>
+</div>
+
+<ng-template #component>
+    <ng-container
+        [ngComponentOutlet]="$params.config.component"
+        [ngComponentOutletInjector]="inject"
+    ></ng-container>
+</ng-template>
+
+<ng-template #message>
+    <div class="modal-message" [innerHTML]="$params.config.modalMessage"></div>
+</ng-template>
+

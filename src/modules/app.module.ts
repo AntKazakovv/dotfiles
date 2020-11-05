@@ -4,6 +4,7 @@ import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {APP_INITIALIZER, NgModule, ErrorHandler} from '@angular/core';
 import {BrowserModule, BrowserTransferStateModule} from '@angular/platform-browser';
 import {ServiceWorkerModule} from '@angular/service-worker';
+import {AngularResizedEventModule} from 'angular-resize-event';
 
 import {MissingTranslationHandler, TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {UIRouterModule, UIView} from '@uirouter/angular';
@@ -20,16 +21,22 @@ import {ErrorModule} from './error/error.module';
 import {ConfigService} from './core/services';
 import {PromoModule} from 'wlc-engine/modules/promo/promo.module';
 
+import {Location} from '@angular/common';
+import {IIndexing} from 'wlc-engine/interfaces';
+
 export function loadConfig(config: ConfigService) {
     return config.load();
 }
 
 @NgModule({
-    declarations: [AppComponent],
+    declarations: [
+        AppComponent,
+    ],
     imports: [
         CommonModule,
         BrowserModule.withServerTransition({appId: 'wlc-app'}),
         BrowserTransferStateModule,
+        AngularResizedEventModule,
         HttpClientModule,
         UIRouterModule.forRoot({
             states: APP_STATES,
@@ -75,4 +82,23 @@ export function loadConfig(config: ConfigService) {
     bootstrap: [UIView],
 })
 export class AppModule {
+
+    public initialPath: IIndexing<string>;
+
+    constructor(
+        location: Location,
+    ) {
+        this.parseInitPath(location.path());
+    }
+
+    protected parseInitPath(path: string): void {
+        if (path.includes('message')) {
+            this.initialPath = {};
+            const values: string[] = path.split('?')[1].split('&');
+            for(const value of values) {
+                const parts: string[] = value.split('=');
+                this.initialPath[parts[0]] = parts[1];
+            }
+        }
+    }
 }

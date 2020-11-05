@@ -1,0 +1,18 @@
+@use './utils/mixins' as m;
+
+.wlc-btn {
+
+    &:host {
+        appearance: none;
+        outline: none;
+        box-sizing: border-box;
+        background: none;
+
+        overflow: hidden;
+        transition: all .4s;
+        cursor: pointer;
+    }
+}
+
+@import './themes/default';
+@import './themes/rounding';
