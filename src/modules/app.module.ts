@@ -16,7 +16,6 @@ import {environment} from '../environments/environment';
 import {AppComponent} from '../app/app.component';
 
 import {CoreModule} from './core/core.module';
-import {LogModule} from './log/log.module';
 
 import {ConfigService} from './core/services';
 import {PromoModule} from 'wlc-engine/modules/promo/promo.module';
@@ -55,7 +54,6 @@ export function loadConfig(config: ConfigService) {
             },
         }),
         CoreModule,
-        LogModule,
         PromoModule,
         ServiceWorkerModule.register('/static/dist/ngsw-worker.js', {enabled: environment.production}), // environment.production
     ],
