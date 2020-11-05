@@ -70,8 +70,8 @@ export function loadConfig(config: ConfigService) {
         {
             provide: ErrorHandler,
             useValue: window['Sentry'].createErrorHandler({
-                logErrors: true
-            })
+                logErrors: true,
+            }),
         },
     ],
     exports: [

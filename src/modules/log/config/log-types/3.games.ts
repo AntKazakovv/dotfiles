@@ -150,7 +150,7 @@ export const errorTypes: ILogTypes = {
         type: 'Games_checkOnRun_duration',
         level: 'log',
         method: 'Flog',
-        threshold: 2
+        threshold: 2,
     },
     '3.0.28': {
         description: 'User did not wait for the end of the game checks before run',

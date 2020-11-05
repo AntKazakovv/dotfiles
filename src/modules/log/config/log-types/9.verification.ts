@@ -6,5 +6,5 @@ export const errorTypes: ILogTypes = {
         name: 'No document type name',
         type: 'No_document_type_name',
         level: 'warning',
-    }
+    },
 };
