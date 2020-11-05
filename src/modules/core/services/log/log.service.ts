@@ -7,7 +7,6 @@ import {Location} from '@angular/common';
 import {ConfigService} from 'wlc-engine/modules/core';
 import {IIndexing} from 'wlc-engine/interfaces';
 import {errorTypes} from 'wlc-engine/modules/core/config/log-types';
-import {UserService} from 'wlc-engine/modules/user/services/user.service';
 
 import {
     get as _get,
@@ -89,7 +88,6 @@ export class LogService {
         private configService: ConfigService,
         private translateService: TranslateService,
         private stateService: StateService,
-        private userService: UserService,
         private router: UIRouter,
         private location: Location,
     ) {

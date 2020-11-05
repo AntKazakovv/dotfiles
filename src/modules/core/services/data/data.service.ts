@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, Injector} from '@angular/core';
 import {HttpClient, HttpParams, HttpErrorResponse} from '@angular/common/http';
 import {
     Observable,
@@ -84,12 +84,16 @@ export class DataService {
     private urlPrefix = '/api/v1';
 
     private socketUrl = '';
+    private logService: LogService;
 
     constructor(
+        private injector: Injector,
         private http: HttpClient,
         private translate: TranslateService,
-        private logService: LogService,
     ) {
+        setTimeout(() => {
+            this.logService = injector.get(LogService);
+        }, 0);
         this.init();
     }
 
