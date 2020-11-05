@@ -187,7 +187,7 @@ export const errorTypes: ILogTypes = {
     '1.4.2': {
         description: 'Error when getting bonuses on deposit/withdraw',
         name: 'Get bonuses error',
-        type: 'bonuses_error'
+        type: 'bonuses_error',
     },
     '1.4.3': {
         description: 'No bonuses from fundist on deposit/withdraw',
