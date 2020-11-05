@@ -32,10 +32,10 @@ export interface IErrorType {
     threshold?: number;
 }
 
-export interface IErrorTypes extends IIndexing<IErrorType> {
+export interface ILogTypes extends IIndexing<IErrorType> {
 }
 
-export const errorTypes: IErrorTypes = _assign(
+export const errorTypes: ILogTypes = _assign(
     {},
     commonErrors,
     authErrors,

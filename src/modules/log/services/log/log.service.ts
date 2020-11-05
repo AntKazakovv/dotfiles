@@ -6,7 +6,8 @@ import {StateService, UIRouter} from '@uirouter/core';
 import {Location} from '@angular/common';
 import {ConfigService} from 'wlc-engine/modules/core';
 import {IIndexing} from 'wlc-engine/interfaces';
-import {errorTypes} from 'wlc-engine/modules/error/config/error-types';
+import {errorTypes} from 'wlc-engine/modules/log/config/log-types';
+import {UserService} from 'wlc-engine/modules/user/services/user.service';
 
 import {
     get as _get,
@@ -80,7 +81,7 @@ interface IDurationWaiter {
 }
 
 @Injectable()
-export class ErrorService {
+export class LogService {
     private Sentry = window['Sentry'];
     private Flog = _get(window, 'WlcFlog', {});
 
@@ -88,6 +89,7 @@ export class ErrorService {
         private configService: ConfigService,
         private translateService: TranslateService,
         private stateService: StateService,
+        private userService: UserService,
         private router: UIRouter,
         private location: Location,
     ) {
@@ -117,7 +119,7 @@ export class ErrorService {
                 },
                 resolve: () => {
                     resolveFunc(error);
-                }
+                },
             };
 
             new Promise((resolve, reject) => {
@@ -128,7 +130,7 @@ export class ErrorService {
                     error.data = {};
                 }
                 error.data.duration = (Date.now() - startTime) / 1000;
-                this.logError(error);
+                this.log(error);
             }, () => {
                 clearInterval(timeoutHandler);
                 window.removeEventListener('onbeforeunload', waiter.resolve);
@@ -163,7 +165,7 @@ export class ErrorService {
                     reject(error);
                 }, timeout);
             }).then(null, (result) => {
-                this.logError(result);
+                this.log(result);
             });
             window.addEventListener('onbeforeunload', res);
             return res;
@@ -181,10 +183,10 @@ export class ErrorService {
         const timeoutHandler = setTimeout(() => {
             const element = document.querySelector(params.selector);
             if (!element) {
-                this.logError(params.logObj);
+                this.log(params.logObj);
             } else {
                 if (params.minHeight && element.getBoundingClientRect().height <= params.minHeight) {
-                    this.logError(params.logObj);
+                    this.log(params.logObj);
                 }
             }
         }, params.timeout || 5000);
@@ -211,22 +213,22 @@ export class ErrorService {
     public pageNotFound(data: IErrorPageNotFound, errorCode = '6.0.0'): void {
         const params = _extend({
             message: gettext('Could not find a state associated with url') + ` "${this.location.path}"`,
-            title: gettext('Page not found')
+            title: gettext('Page not found'),
         }, data);
         const errorData: ILogObj = {
             code: errorCode,
             data: _extend({
                 caller: 'unknown',
                 errorType: 'common',
-                requestUrl: this.location.path
+                requestUrl: this.location.path,
             }, data),
             name: errorTypes[errorCode].name,
             tags: {
                 type: errorTypes[errorCode].type,
-                group: errorTypes[errorCode].group
+                group: errorTypes[errorCode].group,
             },
         };
-        this.logError(errorData);
+        this.log(errorData);
         this.stateService.go('app.error', params);
     }
 
@@ -235,7 +237,7 @@ export class ErrorService {
      *
      * @param {ILogObj} logObj Log info
      */
-    public logError(logObj: ILogObj): void {
+    public log(logObj: ILogObj): void {
         logObj.level = logObj.level || 'error';
         logObj.logger = 'javascript';
 
@@ -244,7 +246,7 @@ export class ErrorService {
             logObj.level = errorTypes[logObj.code].level || logObj.level;
             logObj.tags = {
                 type: errorTypes[logObj.code].type,
-                group: errorTypes[logObj.code].group || 'default'
+                group: errorTypes[logObj.code].group || 'default',
             };
             if (errorTypes[logObj.code].createTicket) {
                 logObj.tags.createTicket = true;
@@ -254,7 +256,7 @@ export class ErrorService {
         if (!logObj.data) {
             logObj.data = {};
         }
-        this.log(logObj);
+        this.sendLog(logObj);
     }
 
 
@@ -345,11 +347,11 @@ export class ErrorService {
     // }
 
     /**
-     * Prepare log info
+     * Prepare log info and send
      *
      * @param {ILogObj} logObj Log info
      */
-    protected log(logObj: ILogObj): void {
+    protected sendLog(logObj: ILogObj): void {
         _set(logObj, 'data.mobile', this.configService.appConfig.mobile);
 
         if (this.Flog.enabled) {
@@ -360,7 +362,7 @@ export class ErrorService {
                 const codeName = _get(errorTypes, [code, 'name'], 'unknown error');
                 const data = {
                     error: codeName,
-                    data: _get(logObj, 'data', {})
+                    data: _get(logObj, 'data', {}),
                 };
                 switch (_get(codeData, 'level', 'log')) {
                     case 'log':
