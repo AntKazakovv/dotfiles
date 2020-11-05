@@ -1,6 +1,6 @@
-import {IErrorTypes} from 'wlc-engine/modules/error/config/error-types';
+import {ILogTypes} from 'wlc-engine/modules/log/config/log-types';
 
-export const errorTypes: IErrorTypes = {
+export const errorTypes: ILogTypes = {
     '7.0.0': {
         description: 'Livechat not found',
         name: 'Livechat not found',

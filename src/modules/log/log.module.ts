@@ -1,7 +1,7 @@
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {BaseModule} from 'wlc-engine/modules/base/base.module';
-import {ErrorService} from './services';
+import {LogService} from './services';
 
 @NgModule({
     imports: [
@@ -9,8 +9,8 @@ import {ErrorService} from './services';
         BaseModule,
     ],
     providers: [
-        ErrorService,
+        LogService,
     ],
 })
-export class ErrorModule {
+export class LogModule {
 }

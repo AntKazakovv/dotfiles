@@ -1,6 +1,6 @@
-import {IErrorTypes} from 'wlc-engine/modules/error/config/error-types';
+import {ILogTypes} from 'wlc-engine/modules/log/config/log-types';
 
-export const errorTypes: IErrorTypes = {
+export const errorTypes: ILogTypes = {
     '0.0.0': {
         description: 'Index file successfully downloaded',
         name: 'Site started',

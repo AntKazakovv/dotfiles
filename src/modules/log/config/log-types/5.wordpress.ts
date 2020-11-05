@@ -1,6 +1,6 @@
-import {IErrorTypes} from 'wlc-engine/modules/error/config/error-types';
+import {ILogTypes} from 'wlc-engine/modules/log/config/log-types';
 
-export const errorTypes: IErrorTypes = {
+export const errorTypes: ILogTypes = {
     '5.0.0': {
         description: 'Post by slug is not found',
         name: 'Post by slug is not found',

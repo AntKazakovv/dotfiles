@@ -1,6 +1,6 @@
-import {IErrorTypes} from 'wlc-engine/modules/error/config/error-types';
+import {ILogTypes} from 'wlc-engine/modules/log/config/log-types';
 
-export const errorTypes: IErrorTypes = {
+export const errorTypes: ILogTypes = {
     '3.0.0': {
         description: 'Error when get games catalog',
         name: 'Games catalog error',
