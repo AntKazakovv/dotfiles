@@ -1,11 +1,14 @@
 @use 'engine-styles/functions' as ef;
 
-$footerPadding: ef.get('padding', 'less');
+$footerPadding: ef.get('padding', 'main');
 $footerBackground: ef.get('color', 'background');
 $footerAccentBackground: ef.get('color', 'backgroundAccent');
 $footerGap: ef.get('gap', 'main');
+$footerGapMobile: ef.get('gap', 'less');
 $footerPadding: ef.get('padding', 'main');
 $footerRadius: ef.get('radius', 'main');
+
+$footerPaymentsPadding: ef.get('padding', 'less');
 
 $affHeaderGap: ef.get('gap', 'main') !default;
 

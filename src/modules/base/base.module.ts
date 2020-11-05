@@ -20,6 +20,7 @@ import {
 import {UserModule} from '../user/user.module';
 import {CloseComponent} from './components/close/close.component';
 import { BonusComponent } from './components/bonus/bonus.component';
+import { LoaderComponent } from './components/loader/loader.component';
 
 export const components = {
     'wlc-logo': LogoComponent,
@@ -30,6 +31,7 @@ export const components = {
     'wlc-modal': WlcModalComponent,
     'wlc-icon-list': IconListComponent,
     'wlc-disclaimer': DisclaimerComponent,
+    'wlc-loader': LoaderComponent,
 };
 
 @NgModule({
@@ -45,6 +47,7 @@ export const components = {
         DisclaimerComponent,
         CloseComponent,
         BonusComponent,
+        LoaderComponent,
     ],
     imports: [
         CommonModule,
@@ -62,6 +65,7 @@ export const components = {
         PasswordVisibilityDirective,
         CloseComponent,
         BonusComponent,
+        LoaderComponent,
     ],
     providers: [
         ModalService,

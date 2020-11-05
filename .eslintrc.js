@@ -17,7 +17,7 @@ module.exports = {
         'semi': ['error', 'always'],
         'quote-props': 'off',
         'comma-dangle': ['error', 'always-multiline'],
-        'indent': ['error', 4],
+        'indent': ['error', 4, {'SwitchCase': 1}],
     },
     overrides: [
         {

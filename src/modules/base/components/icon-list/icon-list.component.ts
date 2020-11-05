@@ -17,19 +17,20 @@ import {
 } from 'wlc-engine/modules/base/models/icon-list-item.model';
 import {FilesService} from 'wlc-engine/modules/core';
 import {LogService} from 'wlc-engine/modules/core/services';
-import {
-    IParams,
-    defaultParams,
-    PAYMENTS,
-    IPayment,
-} from './icon-list.params';
+import * as Params from './icon-list.params';
 import {IMerchant} from 'wlc-engine/modules/games/interfaces/games.interfaces';
 import {GamesCatalogService} from 'wlc-engine/modules/games/services/games-catalog.service';
+import {
+    ConfigService,
+} from 'wlc-engine/modules/core';
 
 import {
     map as _map,
     sortedUniqBy as _sortedUniqBy,
+    get as _get,
 } from 'lodash';
+
+export * from './icon-list.params';
 
 @Component({
     selector: '[wlc-icon-list]',
@@ -39,19 +40,20 @@ import {
 })
 export class IconListComponent extends AbstractComponent implements OnInit {
     public items: IconModel[];
-    public $params: IParams;
+    public $params: Params.IIconListComponentParams;
 
-    @Input() protected inlineParams: IParams;
+    @Input() protected inlineParams: Params.IIconListComponentParams;
 
     constructor(
-        @Inject('injectParams') protected injectParams: IParams,
+        @Inject('injectParams') protected injectParams: Params.IIconListComponentParams,
         protected filesService: FilesService,
         protected sanitizer: DomSanitizer,
         protected logService: LogService,
         protected gamesCatalogService: GamesCatalogService,
         protected cdr: ChangeDetectorRef,
+        protected configService: ConfigService,
     ){
-        super(<IMixedParams<IParams>>{injectParams,defaultParams});
+        super(<IMixedParams<Params.IIconListComponentParams>>{injectParams, defaultParams: Params.defaultParams});
     }
 
     public async ngOnInit(): Promise<void> {
@@ -93,14 +95,15 @@ export class IconListComponent extends AbstractComponent implements OnInit {
     }
 
     protected setPaymentsLst(): void {
-        const payments: IPayment[] = _sortedUniqBy(PAYMENTS, (item: IPayment) => item.alias);
+        const payments: Params.IPayment[] = _get(this.configService, 'appConfig.siteconfig.payment_systems', []);
+        this.items = _map<Params.IPayment, IconModel>(payments, (item: Params.IPayment): IconModel => {
+            const image = `/gstatic/paysystems/V2/${this.$params.common.iconsColor}/${item.Name.toLowerCase()}.png`;
 
-        this.items = _map<IPayment, IconModel>(payments, (item: IPayment): IconModel => {
             const itemParams: IIconParams = {
-                svgName: this.$params.theme === 'svg' ? item.alias.toLowerCase() : undefined,
-                iconUrl: this.$params.theme === 'svg' ? undefined : item.image,
-                alt: item.name,
-                modifier: this.getItemModifier(item.alias.toLowerCase()),
+                svgName: this.$params.theme === 'svg' ? item.Name.toLowerCase() : undefined,
+                iconUrl: this.$params.theme === 'svg' ? undefined : image,
+                alt: item.Name,
+                modifier: this.getItemModifier(item.Name.toLowerCase()),
             };
             return new IconModel(itemParams, this.filesService, this.sanitizer);
         });

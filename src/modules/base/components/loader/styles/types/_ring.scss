@@ -1,0 +1,38 @@
+@use '../utils/vars' as v;
+
+@keyframes loader-animation {
+
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.wlc-loader--type-ring:host {
+
+    .wlc-loader {
+
+        &__element {
+            display: inline-block;
+            width: v.$size;
+            height: v.$size;
+
+            &:after {
+                content: '';
+                display: block;
+                width: 100%;
+                height: 100%;
+                border-radius: 50%;
+                border: {
+                    color: v.$color transparent v.$color transparent;
+                    width: v.$width;
+                    style: solid;
+                }
+                animation: loader-animation v.$speed linear infinite;
+            }
+        }
+    }
+}
