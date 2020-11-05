@@ -3,25 +3,34 @@ import {defaultParams, IPostMenuComponentParams} from './post-menu.params';
 import {AbstractComponent} from 'wlc-engine/classes/abstract.component';
 import {StaticService, TextDataModel} from 'wlc-engine/modules/static';
 
+import {
+    get as _get,
+} from 'lodash';
+
+export * from './post-menu.params';
+
 @Component({
     selector: '[wlc-post-menu]',
     templateUrl: './post-menu.component.html',
-    styleUrls: ['./post-menu.component.scss'],
+    styleUrls: ['./styles/post-menu.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PostMenuComponent extends AbstractComponent implements OnInit {
     public isReady: boolean = false;
     public menuItems: TextDataModel[];
+    public title: string;
+
+    public $params: IPostMenuComponentParams;
 
     constructor(
         protected staticService: StaticService,
-        @Inject('injectParams') protected params: IPostMenuComponentParams,
+        @Inject('injectParams') protected injectParams: IPostMenuComponentParams,
         protected cdr: ChangeDetectorRef,
     ) {
-        super({injectParams: params, defaultParams});
+        super({injectParams, defaultParams});
     }
 
-    async ngOnInit(): Promise<void> {
+    public async ngOnInit(): Promise<void> {
         super.ngOnInit();
 
         try {
@@ -31,11 +40,15 @@ export class PostMenuComponent extends AbstractComponent implements OnInit {
         }
 
         this.isReady = true;
+        this.prepareParams();
         this.cdr.markForCheck();
     }
 
     protected async fetchPosts(): Promise<void> {
-        this.menuItems = await this.staticService.getPostsListByCategorySlug(this.params.categorySlug);
+        this.menuItems = await this.staticService.getPostsListByCategorySlug(this.$params.common.categorySlug);
     }
 
+    protected prepareParams(): void {
+        this.title = _get(this.$params, 'common.title');
+    }
 }

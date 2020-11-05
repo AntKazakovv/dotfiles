@@ -1,10 +1,15 @@
-<ul [class]="$class + '__list'">
-    <li [class]="$class + '__item'"
-        *ngFor="let menuItem of menuItems">
-        <a uiSref="app.pages"
-           [uiParams]="{slug: menuItem.slug}"
-           [class]="$class + '__link'">
-            <span>{{menuItem.title}}</span>
-        </a>
-    </li>
-</ul>
+<div *ngIf="isReady; else preloader" class="{{$class}}__wrp">
+    <div class="{{$class}}__title" *ngIf="title">{{title | translate}}</div>
+    <div class="{{$class}}__items">
+        <div class="{{$class}}__item" *ngFor="let menuItem of menuItems">
+            <a uiSref="app.pages"
+               [uiParams]="{slug: menuItem.slug}"
+               class="{{$class}}__link">
+                <span>{{menuItem.title | translate}}</span>
+            </a>
+        </div>
+    </div>
+</div>
+<ng-template #preloader>
+    <div wlc-loader></div>
+</ng-template>

@@ -1,0 +1,27 @@
+@use '../utils/vars' as v;
+
+.wlc-post-menu--theme-default:host {
+
+    .wlc-post-menu {
+
+        &__title {
+            font-size: v.$titleSize;
+            font-weight: v.$titleWeight;
+            text-align: v.$titleAlign;
+            color: v.$titleColor;
+            padding: v.$titlePadding;
+        }
+
+        &__items {
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-gap: v.$linksGap;
+        }
+
+        &__link {
+            color: v.$linkColor;
+            font-size: v.$linkSize;
+            text-decoration: v.$linkDecoration;
+        }
+    }
+}

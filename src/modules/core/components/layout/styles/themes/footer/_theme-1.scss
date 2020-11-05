@@ -5,32 +5,59 @@
 
     &-1 {
         background-color: v.$footerBackground;
+        padding-top: v.$footerPadding;
+        padding-bottom: v.$footerPadding;
 
         .container {
             display: grid;
-            grid-template-columns: 130px 350px 1fr 130px;
+            grid-template-columns: 130px 200px 120px 1fr 130px;
             grid-template-areas:
-                'merchants merchants merchants merchants'
-                'payments payments payments payments'
-                'logo links disclaimer language';
+                'merchants merchants merchants merchants merchants'
+                'payments payments payments payments payments'
+                'logo info about-us disclaimer language';
             padding-top: v.$footerPadding;
             grid-gap: v.$footerGap;
 
             @include mq.max(1366) {
-                grid-template-columns: 130px 310px 1fr 130px;
+                grid-template-columns: 130px 180px 120px 1fr 130px;
             }
 
             @include mq.max(1200) {
+                grid-template-columns: repeat(4, 1fr);
+                grid-template-areas:
+                    'merchants merchants merchants merchants'
+                    'payments payments payments payments'
+                    'logo info about-us language'
+                    'disclaimer disclaimer disclaimer disclaimer';
+            }
+
+            @include mq.max(1024) {
+                grid-gap: v.$footerGapMobile;
+            }
+
+            @include mq.max(720) {
                 grid-template-columns: repeat(3, 1fr);
                 grid-template-areas:
                     'merchants merchants merchants'
                     'payments payments payments'
-                    'logo links language'
+                    'info about-us language'
                     'disclaimer disclaimer disclaimer';
+            }
+
+            @include mq.max(480) {
+                grid-template-columns: 1fr;
+                grid-template-areas:
+                    'merchants'
+                    'payments'
+                    'info'
+                    'about-us'
+                    'language'
+                    'disclaimer';
             }
         }
 
         .wlc-icon-list {
+            width: fit-content;
 
             &--type-merchants {
                 grid-area: merchants;
@@ -40,12 +67,22 @@
                 grid-area: payments;
                 grid-template-columns: auto !important;
                 justify-self: center;
-                padding: v.$footerPadding;
+                padding: v.$footerPaymentsPadding;
                 background-color: v.$footerAccentBackground;
                 border-radius: v.$footerRadius;
             }
         }
 
+        .wlc-post-menu {
+
+            &--theme-mod-footer-info {
+                grid-area: info;
+            }
+
+            &--theme-mod-footer-about {
+                grid-area: about-us;
+            }
+        }
 
         .wlc-disclaimer {
             grid-area: disclaimer;
