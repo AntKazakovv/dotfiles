@@ -258,7 +258,12 @@ export class DataService {
                 }
 
                 if (responseData.errors) {
-                    this.logService.sendLog(responseData.errors);
+                    this.logService.sendLog({
+                        code: '0.0.12',
+                        data: {
+                            errors: responseData.errors
+                        }
+                    });
                     throwError(responseData.errors)
                 }
 

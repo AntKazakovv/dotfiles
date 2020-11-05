@@ -82,7 +82,12 @@ export class ModalService {
             if (MODALS_LIST[config]) {
                 modalConfig = _assignIn({}, DEFAULT_MODAL_CONFIG, MODALS_LIST[config].config);
             } else {
-                this.logService.sendLog(`Modal window with "${config}" id does not exist in MODALS_LIST.`);
+                this.logService.sendLog({
+                    code: '0.3.0',
+                    data: {
+                        modalConfig: config,
+                    },
+                });
                 return;
             }
         } else {
@@ -90,7 +95,12 @@ export class ModalService {
         }
 
         if (!modalConfig.id) {
-            this.logService.sendLog('Config object must have "id" parametr.');
+            this.logService.sendLog({
+                code: '0.3.1',
+                data: {
+                    modalConfig: modalConfig,
+                },
+            });
             return;
         }
 
@@ -107,7 +117,12 @@ export class ModalService {
         const modal: IActiveModal = _find(this.activeModals, (item: IActiveModal) => item.id === id);
 
         if (!modal) {
-            this.logService.sendLog(`Modal window with id "${id}" doesn't exist.`);
+            this.logService.sendLog({
+                code: '0.3.0',
+                data: {
+                    modalId: id,
+                },
+            });
             return;
         }
 
@@ -129,7 +144,7 @@ export class ModalService {
     protected initListeners(): void {
         this.eventService.subscribe(
             {name: this.events.MODAL_HIDDEN},
-            (id: string) => this.remove(id)
+            (id: string) => this.remove(id),
         );
     }
 
@@ -141,7 +156,12 @@ export class ModalService {
         const modal: IActiveModal = _find(this.activeModals, (item: IActiveModal) => item.id === id);
 
         if (!modal) {
-            this.logService.sendLog(`Modal window with id "${id}" doesn't exist.`);
+            this.logService.sendLog({
+                code: '0.3.0',
+                data: {
+                    modalId: id,
+                },
+            });
             return;
         }
 
@@ -166,8 +186,8 @@ export class ModalService {
                 {
                     provide: 'injectParams',
                     useValue: {...this.modalParams, config: config},
-                }
-            ]
+                },
+            ],
         });
         let windowCmptRef = windowFactory.create(injector);
         this.appRef.attachView(windowCmptRef.hostView);

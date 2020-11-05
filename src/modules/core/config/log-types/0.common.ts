@@ -1,4 +1,4 @@
-import {ILogTypes} from 'wlc-engine/modules/log/config/log-types';
+import {ILogTypes} from 'wlc-engine/modules/core/config/log-types';
 
 export const errorTypes: ILogTypes = {
     '0.0.0': {
@@ -85,6 +85,15 @@ export const errorTypes: ILogTypes = {
         level: 'log',
         method: 'Flog',
     },
+    '0.0.12': {
+        description: 'Request errors',
+        name: 'Request errors',
+        type: 'request_errors',
+        level: 'log',
+        method: 'Both',
+        group: 'Common',
+    },
+
     '0.1.1': {
         description: 'No bonuses from fundist',
         name: 'No bonuses',
@@ -151,4 +160,19 @@ export const errorTypes: ILogTypes = {
         level: 'log',
         method: 'Flog',
     },
+
+    '0.3.0': {
+        description: 'Modal window doesn\'t exist.',
+        name: 'Modal window does\'t exist',
+        type: 'modal_window',
+        level: 'error',
+        group: 'Common',
+    },
+    '0.3.1': {
+        description: 'Modal config must have "id" parameter',
+        name: 'Modal id is not found',
+        type: 'modal_window',
+        level: 'error',
+        group: 'Common',
+    }
 };

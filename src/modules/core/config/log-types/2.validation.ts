@@ -1,4 +1,4 @@
-import {ILogTypes} from 'wlc-engine/modules/log/config/log-types';
+import {ILogTypes} from 'wlc-engine/modules/core/config/log-types';
 
 export const errorTypes: ILogTypes = {
     '2.1.0': {
