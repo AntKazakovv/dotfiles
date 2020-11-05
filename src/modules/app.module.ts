@@ -1,7 +1,7 @@
 import {CommonModule} from '@angular/common';
 
 import {HttpClient, HttpClientModule} from '@angular/common/http';
-import {APP_INITIALIZER, NgModule} from '@angular/core';
+import {APP_INITIALIZER, NgModule, ErrorHandler} from '@angular/core';
 import {BrowserModule, BrowserTransferStateModule} from '@angular/platform-browser';
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {AngularResizedEventModule} from 'angular-resize-event';
@@ -16,6 +16,8 @@ import {environment} from '../environments/environment';
 import {AppComponent} from '../app/app.component';
 
 import {CoreModule} from './core/core.module';
+import {ErrorModule} from './error/error.module';
+
 import {ConfigService} from './core/services';
 import {PromoModule} from 'wlc-engine/modules/promo/promo.module';
 
@@ -53,6 +55,7 @@ export function loadConfig(config: ConfigService) {
             },
         }),
         CoreModule,
+        ErrorModule,
         PromoModule,
         ServiceWorkerModule.register('/static/dist/ngsw-worker.js', {enabled: environment.production}), // environment.production
     ],
@@ -63,6 +66,12 @@ export function loadConfig(config: ConfigService) {
             useFactory: (config: ConfigService) => () => config.load(),
             deps: [ConfigService],
             multi: true,
+        },
+        {
+            provide: ErrorHandler,
+            useValue: window['Sentry'].createErrorHandler({
+                logErrors: true
+            })
         },
     ],
     exports: [

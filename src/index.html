@@ -37,6 +37,14 @@
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="manifest" href="/static/dist/manifest.webmanifest">
     <meta name="theme-color" content="#1976d2">
+
+    <script type="text/javascript">
+        {% if env == 'dev' or env == 'qa' or env == 'test' %}
+        window.WLC_ENV = '{{env}}';
+        {% elseif GET['eg-debug'] == 1 and env != 'prod' %}
+        window.WLC_ENV = 'dev';
+        {% endif %}
+    </script>
 </head>
 <body>
 <div ui-view class="wlc-app">
@@ -47,10 +55,11 @@
     </div>
 </div>
 <noscript>Please enable JavaScript to continue using this application.</noscript>
+
 {% if 'static/dist/inline.js' is ondisk %}
-    <script type="text/javascript">
-        {% include 'dist/inline.js' %}
-    </script>
+    <script src="/static/dist/inline.js"></script>
 {% endif %}
+
+
 </body>
 </html>
