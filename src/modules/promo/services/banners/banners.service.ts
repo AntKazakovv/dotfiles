@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {ConfigService} from 'wlc-engine/modules/core/services/config/config.service';
 import {EventService} from 'wlc-engine/modules/core/services';
 import {BannerModel} from 'wlc-engine/modules/promo/models/banner.model';
+import {UserService} from 'wlc-engine/modules/user/services/user.service';
 
 import {
     filter as _filter,
@@ -22,14 +23,10 @@ export interface IBannersFilter {
 export class BannersService {
     protected banners: BannerModel[] = [];
 
-    // TODO: replace with UserService
-    protected UserService = {
-        isAuthenticated: true,
-    }
-
     constructor(
         protected eventService: EventService,
         protected configService: ConfigService,
+        protected userService: UserService,
     ) {
         this.prepareBanners();
 
@@ -52,7 +49,7 @@ export class BannersService {
             }
 
             if (!visibility?.length) {
-                visibility = ['anyone', this.UserService.isAuthenticated ? 'authenticated' : 'anonymous'];
+                visibility = ['anyone', this.userService.isAuthenticated ? 'authenticated' : 'anonymous'];
             }
 
             banners = _filter(banners, (banner): boolean => {

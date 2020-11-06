@@ -7,6 +7,20 @@ import {defaultParams, IBannerParams} from 'wlc-engine/modules/promo/components/
     templateUrl: './banner.component.html',
     styleUrls: ['./banner.component.scss'],
 })
+
+/**
+ * Displaying banners, takes BannerModel as a parameter.
+ *
+ * @example
+ *
+ * {
+ *     name: 'promo.wlc-banner',
+ *     params: {
+ *         html: "<p>Test test test</p>"
+ *     },
+ * }
+ *
+ */
 export class BannerComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams: IBannerParams;
 
