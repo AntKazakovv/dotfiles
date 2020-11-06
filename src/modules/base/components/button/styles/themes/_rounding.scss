@@ -7,11 +7,10 @@
     &:host {
         @include m.button-base;
 
-        border-radius: v.$buttonRadius;
-        border: v.$buttonBorder;
+        border-radius: v.$radius;
 
         &:hover {
-            box-shadow: v.$buttonShadow;
+            box-shadow: v.$shadow;
         }
 
         &.wlc-btn--theme-mod-secondary {
@@ -19,7 +18,7 @@
 
             &:hover {
                 box-shadow: unset;
-                background-color: v.$buttonColorHover;
+                background: v.$backgroundHover;
             }
         }
     }

@@ -3,17 +3,20 @@
 @mixin button-base {
     display: grid;
     grid-template-columns: auto 1fr auto;
-    grid-column-gap: 15px;
+    grid-column-gap: v.$gap;
     align-items: center;
 
-    min-width: v.$buttonWidth;
-    height: v.$buttonHeightDefault;
-    background-color: v.$buttonColor;
+    min-width: v.$minWidth;
+    height: v.$heightDefault;
+    background: v.$background;
 
-    color: v.$buttonFontColor;
-    font-size: v.$buttonFontSize;
+    color: v.$fontColor;
+    font-size: v.$fontSize;
 
-    padding: v.$buttonPadding;
+    padding: v.$padding;
+
+    //border:
+    border: v.$borderDefault;
 
     .wlc-btn__text {
         grid-column: 2;
@@ -22,4 +25,9 @@
 
 @mixin button-transparency {
     background-color: transparent;
+    border: v.$borderSecondary;
+
+    &:hover {
+        background: transparentize(v.$backgroundHover, 0.7);
+    }
 }
