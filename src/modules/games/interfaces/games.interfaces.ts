@@ -1,5 +1,5 @@
 import {IIndexing} from 'wlc-engine/interfaces/index';
-import {Game} from 'wlc-engine/modules/games/models/game.model';
+import {Game, AbstractGame} from 'wlc-engine/modules/games/models/game.model';
 
 /**
  * TYPES
@@ -52,7 +52,7 @@ export type IByCategoryItem = {
 
 export type IMerchantCurrency = {
     Currencies: string[];
-    DefaultCurrency: boolean;
+    DefaultCurrency: string;
     ID: string;
     IDMerchant: string;
     IsDefault: string;
@@ -76,7 +76,7 @@ export type ICategory = {
 export type IGames = {
     categories: ICategory[];
     countriesRestrictions: ICountriesRestrictions;
-    games: Game[];
+    games: AbstractGame[];
     merchants: IMerchants;
     merchantsCurrencies: IMerchantCurrency[];
 }

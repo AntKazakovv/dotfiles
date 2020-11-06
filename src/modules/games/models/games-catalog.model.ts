@@ -26,7 +26,7 @@ import {
     isArray as _isArray,
     sortBy as _sortBy,
     toNumber as _toNumber,
-    each as _each,
+    forEach as _forEach,
     get as _get,
 } from 'lodash';
 
@@ -68,7 +68,7 @@ export class GamesCatalog {
 
         let gameList: Game[] = _concat([], this.games);
 
-        if (includeCategories?.length) {
+        if (includeCategories.length) {
             let categoryId = null;
             const includeCategoryIds: string[] = [];
             const includeCategoryIdsAnd = {};
@@ -82,7 +82,7 @@ export class GamesCatalog {
                     categoryNameAnd = true;
                 }
 
-                categoryId = GamesHelper.mapping.categoryNameToIdMapping[categoryName];
+                categoryId = GamesHelper.getCategoryIdByName(categoryName);
 
                 if (!categoryId) {
                     continue;
@@ -105,17 +105,16 @@ export class GamesCatalog {
             });
         }
 
-        if (excludeCategories?.length) {
-            let exclCategoryId: string = null;
+        if (excludeCategories.length) {
+            let exclCategoryId: string;
             const exclCategoryIds: string[] = [];
 
-            for (const exclCategory of excludeCategories) {
-                exclCategoryId = GamesHelper.mapping.categoryNameToIdMapping[exclCategory];
-                if (!exclCategoryId) {
-                    continue;
+            _forEach(excludeCategories, (exclCategory: string) => {
+                exclCategoryId = GamesHelper.getCategoryIdByName(exclCategory);
+                if (exclCategoryId) {
+                    exclCategoryIds.push(exclCategoryId);
                 }
-                exclCategoryIds.push(exclCategoryId);
-            }
+            });
 
             gameList = gameList.filter((item: Game): boolean => {
                 let rv = true;
@@ -126,14 +125,14 @@ export class GamesCatalog {
             });
         }
 
-        if (includeMerchants?.length) {
+        if (includeMerchants.length) {
             gameList = gameList.filter((item: Game) => {
                 return includeMerchants.indexOf(item.MerchantID) !== -1
                     || includeMerchants.indexOf(item.SubMerchantID) !== -1;
             });
         }
 
-        if (excludeMerchants?.length) {
+        if (excludeMerchants.length) {
             gameList = gameList.filter((item: Game) => {
                 return excludeMerchants.indexOf(item.MerchantID) === -1 ||
                 item.SubMerchantID && item.SubMerchantID != '0' ?

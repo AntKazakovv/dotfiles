@@ -190,6 +190,14 @@ export class GamesHelper {
 
     /**
      *
+     * @param {string} categoryName
+     */
+    public static getCategoryIdByName(categoryName: string): string {
+        return _get(this.mapping, 'categoryNameToIdMapping[${categoryName}]', '');
+    }
+
+    /**
+     *
      * @param {string} categoryId
      * @returns {string}
      */
@@ -212,6 +220,11 @@ export class GamesHelper {
      * @returns {ICategory}
      */
     public static getCategoryById(categoryId: string): ICategory {
+        return _get(this.mapping, `categoryById[${categoryId}]`);
+    }
+
+    public static getCategoryByMenuId(categoryId: string): ICategory {
+        console.warn('this.mapping', this.mapping);
         return _get(this.mapping, `categoryById[${categoryId}]`);
     }
 
