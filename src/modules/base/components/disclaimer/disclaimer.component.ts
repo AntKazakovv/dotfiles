@@ -32,7 +32,7 @@ export class DisclaimerComponent extends AbstractComponent implements OnInit {
     }
 
     public getDisclaimer() {
-        const lang = this.configService.appConfig.language || 'en';
-        this.disclaimer = this.configService.appConfig.footerText[lang];
+        const lang = this.configService.get<string>('appConfig.language') || 'en';
+        this.disclaimer = this.configService.get<string>(`appConfig.footerText[${lang}]`);
     }
 }

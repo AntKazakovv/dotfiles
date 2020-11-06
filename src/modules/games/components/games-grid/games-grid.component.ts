@@ -13,6 +13,7 @@ import {
 } from 'lodash';
 import {ICategory} from '../../interfaces/games.interfaces';
 import {UIRouter} from '@uirouter/core';
+import {ConfigService} from 'wlc-engine/modules/core';
 
 @Component({
     selector: '[wlc-games-grid]',
@@ -42,8 +43,9 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, Aft
         @Inject('injectParams') protected injectParams: IGGParams,
         protected elementRef: ElementRef,
         protected cdr: ChangeDetectorRef,
+        protected ConfigService: ConfigService,
     ) {
-        super({injectParams, defaultParams});
+        super({injectParams, defaultParams}, ConfigService);
     }
 
     public async ngOnInit(): Promise<void> {

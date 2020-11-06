@@ -350,7 +350,7 @@ export class LogService {
      * @param {ILogObj} logObj Log info
      */
     protected log(logObj: ILogObj): void {
-        _set(logObj, 'data.mobile', this.configService.appConfig.mobile);
+        _set(logObj, 'data.mobile', this.configService.get<boolean>('appConfig.mobile'));
 
         if (this.Flog.enabled) {
             const code = _get(logObj, 'code', '0');
@@ -428,7 +428,7 @@ export class LogService {
                 // @TODO After creating of UserService
                 id: -1,
                 //id: this.UserService.isAuthenticated() ? this.UserService.userProfile.idUser || 0 : '-1',
-                country: this.configService.appConfig.siteconfig.country,
+                country: this.configService.get<string>('appConfig.siteconfig.country'),
             });
             this.Sentry.captureMessage(name, this.Sentry.Severity.fromString(level || 'info'));
         });

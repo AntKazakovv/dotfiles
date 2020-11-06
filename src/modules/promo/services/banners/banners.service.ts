@@ -48,7 +48,7 @@ export class BannersService {
             let {position, platform, visibility} = filter;
 
             if (!platform?.length) {
-                platform = ['any', this.configService.appConfig.mobile ? 'mobile' : 'desktop'];
+                platform = ['any', this.configService.get<boolean>('appConfig.mobile') ? 'mobile' : 'desktop'];
             }
 
             if (!visibility?.length) {
@@ -74,7 +74,8 @@ export class BannersService {
     }
 
     protected prepareBanners(): void {
-        const banners = this.configService.appConfig.banners[this.configService.appConfig.language];
+        const banners = this.configService.get<any>(`appConfig.banners[${this.configService
+            .get<string>('appConfig.language')}]`);
         this.banners = banners.map((banner: BannerModel): BannerModel => new BannerModel(banner));
         this.banners = this.filterByGeo(this.banners, '-');
         this.banners = this.filterByGeo(this.banners, '+');
@@ -84,8 +85,8 @@ export class BannersService {
         return _filter(banners, (banner: BannerModel) => {
             const bannerGeo = _filter(banner.geo, (item) => _startsWith(item, prefix));
             const lastFlag = prefix === '-'
-                ? !(bannerGeo.indexOf(prefix + this.configService.appConfig.country) !== -1)
-                : bannerGeo.indexOf(prefix + this.configService.appConfig.country) !== -1;
+                ? !(bannerGeo.indexOf(prefix + this.configService.get<string>('appConfig.country')) !== -1)
+                : bannerGeo.indexOf(prefix + this.configService.get<string>('appConfig.country')) !== -1;
 
             return !bannerGeo.length
                 || bannerGeo.length

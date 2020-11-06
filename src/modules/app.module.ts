@@ -23,6 +23,8 @@ import {PromoModule} from 'wlc-engine/modules/promo/promo.module';
 import {Location} from '@angular/common';
 import {IIndexing} from 'wlc-engine/interfaces';
 
+import {WebStorageModule} from 'ngx-store';
+
 export function loadConfig(config: ConfigService) {
     return config.load();
 }
@@ -55,6 +57,7 @@ export function loadConfig(config: ConfigService) {
         }),
         CoreModule,
         PromoModule,
+        WebStorageModule,
         ServiceWorkerModule.register('/static/dist/ngsw-worker.js', {enabled: environment.production}), // environment.production
     ],
     providers: [
@@ -93,7 +96,7 @@ export class AppModule {
         if (path.includes('message')) {
             this.initialPath = {};
             const values: string[] = path.split('?')[1].split('&');
-            for(const value of values) {
+            for (const value of values) {
                 const parts: string[] = value.split('=');
                 this.initialPath[parts[0]] = parts[1];
             }

@@ -5,6 +5,7 @@ import {takeUntil} from 'rxjs/operators';
 import {AbstractComponent} from 'wlc-engine/classes/abstract.component';
 import {SectionModel} from 'wlc-engine/modules/core/models/section.model';
 import {ConfigService, LayoutService} from '../modules/core/services';
+import {ILanguage} from 'wlc-engine/modules/core';
 
 import {
     sortBy as _sortBy,
@@ -35,9 +36,9 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
         protected cdr: ChangeDetectorRef,
         private transition: TransitionService,
     ) {
-        super({injectParams: {}, defaultParams});
+        super({injectParams: {}, defaultParams}, configService);
         const currentLang = router.stateService.params?.locale || 'en';
-        translate.addLangs(configService.appConfig.languages.map((lang) => lang.code));
+        translate.addLangs(this.configService.get<ILanguage[]>('appConfig.languages').map((lang) => lang.code));
         translate.setDefaultLang(currentLang);
         translate.use(currentLang);
     }

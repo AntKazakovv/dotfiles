@@ -47,9 +47,9 @@ export class LayoutService {
     private positionRegexp = /^(after|before)?\s?([^#]+)?#?(\d*)?/;
 
     constructor(
-        private configService: ConfigService,
+        protected ConfigService: ConfigService,
     ) {
-        this.layouts = _get(this.configService, 'appConfig.$layouts');
+        this.layouts = this.ConfigService.get<ILayoutsConfig>('$layouts');
     }
 
     public getLayoutConfig(state: string, params?: IIndexing<any>): ILayoutStateConfig {

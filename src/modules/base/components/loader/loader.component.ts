@@ -6,6 +6,7 @@ import {
 
 import {AbstractComponent} from 'wlc-engine/classes/abstract.component';
 import * as Params from './loader.params';
+import {ConfigService} from 'wlc-engine/modules/core';
 
 @Component({
     selector: '[wlc-loader]',

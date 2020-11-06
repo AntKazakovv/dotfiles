@@ -16,6 +16,7 @@ import {AbstractComponent} from 'wlc-engine/classes/abstract.component';
 import {StaticService, TextDataModel} from 'wlc-engine/modules/static';
 import {IPostComponentParams} from './post.interface';
 import {defaultParams} from './post.params';
+import {ConfigService} from 'wlc-engine/modules/core';
 
 @Component({
     selector: '[wlc-post]',
@@ -37,6 +38,7 @@ export class PostComponent extends AbstractComponent implements OnInit, AfterVie
         protected domSanitizer: DomSanitizer,
         protected cdr: ChangeDetectorRef,
         protected uiRouter: UIRouterGlobals,
+        protected ConfigService: ConfigService,
     ) {
         super({injectParams: params, defaultParams});
     }

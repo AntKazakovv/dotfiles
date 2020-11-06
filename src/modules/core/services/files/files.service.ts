@@ -35,7 +35,7 @@ export class FilesService {
     // protected base64Files: any[] = []; // soon
 
     constructor(
-        protected configService: ConfigService
+        protected configService: ConfigService,
     ) {
         this.init();
     }
@@ -69,7 +69,8 @@ export class FilesService {
     }
 
     protected init(): void {
-        const wlcFiles: IFileMeta[] = this.transformToFileMeta(_get(this.configService, 'appConfig.$files', {}));
+        const wlcFiles: IFileMeta[] = this.transformToFileMeta(
+            this.configService.get<IIndexing<string>>('appConfig.$files') || {});
         const engineFiles: IFileMeta[] = this.transformToFileMeta(defaultFiles, 'engine');
 
         this.rowFileList = this.mergeFileLists(wlcFiles, engineFiles);
