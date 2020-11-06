@@ -52,9 +52,9 @@ export class StaticService {
 
     constructor(
         protected configService: ConfigService,
-        private httpClient: HttpClient,
         protected translateService: TranslateService,
         protected sanitizer: DomSanitizer,
+        private httpClient: HttpClient,
     ) {
         this.configReady = this.setConfig();
     }
@@ -263,7 +263,7 @@ export class StaticService {
         if (isPage) {
             return [];
         }
-        return this.configService.appConfig.$static?.pagesOnly;
+        return this.configService.get<string[]>('appConfig.$static.pagesOnly');
     }
 
     protected getWPLink(type: StaticTextType): string {
@@ -291,7 +291,7 @@ export class StaticService {
     }
 
     protected async checkPlugin(plugin?: string): Promise<boolean> {
-        if (this.configService.appConfig.$static?.wpPlugins?.wlcApi === false) {
+        if (this.configService.get<boolean>('appConfig.$static.wpPlugins.wlcApi') === false) {
             return false;
         }
 
@@ -306,7 +306,7 @@ export class StaticService {
     }
 
     protected getParams(): IIndexing<string> {
-        const fields = this.configService.appConfig.$static?.additionalFields;
+        const fields = this.configService.get<any>('appConfig.$static.additionalFields');
         return (this.useWpPlugin)
             ? {
                 fields: _filter(fields, (item) => !_includes(this.fieldsList, item)).join(','),

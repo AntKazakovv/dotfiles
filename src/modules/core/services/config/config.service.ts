@@ -4,30 +4,66 @@ import {AppConfigModel} from './app-config.model';
 import * as appConfig from 'wlc-config/index';
 import * as wlcConfig from 'wlc-engine/config/default.config';
 import {GlobalHelper} from 'wlc-engine/helpers/global.helper';
+import {
+    CookiesStorageService,
+    LocalStorageService,
+    SessionStorageService,
+} from 'ngx-store';
+import {
+    IGlobalConfig,
+    IGetParams,
+    ISetParams,
+    IStorageType,
+} from './config.interface';
 
 export * from './app-config.model';
+export * from './config.interface';
+
+export enum storageType {
+    'localStorage' = 'localStorageService',
+    'sessionStorage' = 'sessionStorageService',
+    'cookiesStorage' = 'cookiesStorageService',
+}
 
 import {
     mergeWith as _mergeWith,
+    cloneDeep as _cloneDeep,
+    get as _get,
+    set as _set,
+    forEach as _forEach,
+    find as _find,
+    isObject as _isObject,
+    includes as _includes,
 } from 'lodash';
+
+/**
+ * Examples of getter and setter:
+ * SET: this.config.set({name: 'url', value: 'google.com'});
+ * GET: this.config.get<boolean>('appConfig.mobile');
+ */
 
 @Injectable()
 export class ConfigService {
-    static instance: ConfigService;
 
     public ready: Promise<void> = new Promise((resolve: () => void): void => {
         this.$resolve = resolve;
     });
 
-    public appConfig: AppConfigModel;
+    private appConfig: AppConfigModel;
     private $resolve: () => void;
+    private global: Partial<IGlobalConfig> = {};
 
     constructor(
         private data: DataService,
+        private localStorageService: LocalStorageService,
+        private sessionStorageService: SessionStorageService,
+        private cookiesStorageService: CookiesStorageService,
     ) {
-        ConfigService.instance = this;
     }
 
+    /**
+     * Load main appConfig on start app in AppModule;
+     */
     public load(): Promise<IData> {
         return this.data.request({
             name: 'bootstrap',
@@ -39,16 +75,54 @@ export class ConfigService {
         });
     }
 
+    /**
+     * Getter with generic type, accepts as arg getParams object or string with path of global config.
+     */
+    public get<T>(getParams: string | IGetParams): T {
+
+        if (_isObject(getParams)) {
+            if (getParams.storageType) {
+                return _get(this, storageType[getParams.storageType]).get(getParams.name);
+            } else {
+                return _cloneDeep(_get(this.global, getParams.name));
+            }
+        }
+
+        return _cloneDeep(_get(this.global, getParams as string));
+    }
+
+    public set(setParams: ISetParams): void {
+        if (setParams.storageType || setParams.storageClear) {
+            if (storageType[setParams.storageClear]) {
+                _get(this, storageType[setParams.storageClear]).remove(setParams.name);
+            } else if (storageType[setParams.storageType]) {
+                _get(this, storageType[setParams.storageType]).set(setParams.name, setParams.value);
+            }
+        }
+
+        if (setParams.replace) {
+            _set(this.global, setParams.name, setParams.value);
+        } else {
+            _get(this.global, setParams.name) ?
+                _mergeWith(_get(this.global, setParams.name), setParams.value) :
+                _set(this.global, setParams.name, setParams.value);
+        }
+
+        if (setParams.freeze) {
+            Object.freeze(_get(this.global, setParams.name));
+        }
+    }
+
     protected prepareData(response: IData): AppConfigModel {
-        this.appConfig = new AppConfigModel(response);
+        this.global.appConfig = new AppConfigModel(response);
         this.addSiteConfig();
         this.$resolve();
         return this.appConfig;
     }
 
     protected addSiteConfig(): void {
-        _mergeWith(this.appConfig, wlcConfig, (target, source) => (source?.replaceConfig) ? source : undefined);
-        _mergeWith(this.appConfig, appConfig, (target, source) => (source?.replaceConfig) ? source : undefined);
-        GlobalHelper.deepFreeze(this.appConfig);
+        _mergeWith(this.global, wlcConfig, (target, source) => (source.replaceConfig) ? source : undefined);
+        _mergeWith(this.global, appConfig, (target, source) => (source.replaceConfig) ? source : undefined);
+        GlobalHelper.deepFreeze(this.global.appConfig);
     }
 }

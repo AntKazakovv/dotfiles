@@ -2,14 +2,12 @@ import {IIndexing} from 'wlc-engine/interfaces/index';
 import {IMapping, IRestrictions} from 'wlc-engine/modules/games/interfaces/games.interfaces';
 import {GamesHelper} from 'wlc-engine/modules/games/games.helpers';
 
-​
 import {
     isObject as _isObject,
     each as _each,
     get as _get,
 } from 'lodash';
 
-​
 export class Game {
     public ID: string;
     CategoryID: string[];
@@ -36,13 +34,11 @@ export class Game {
     protected Branded: number;
     protected IDCountryRestriction: string;
     protected SuperBranded?: number;
-​
 
     constructor(data: Game) {
         Object.assign(this, data);
     }
 
-​
 
     /**
      *
@@ -52,11 +48,11 @@ export class Game {
      */
     public gameRestricted(restrictions: IRestrictions, countries: string[]): boolean {
         if (this.isRestricted) return true;
-​
+
         const restrictedCountries = this.IDCountryRestriction
             ? restrictions.restrictedByID[this.IDCountryRestriction]
             : restrictions.restrictedByDefault[this.MerchantID];
-​
+
         if (_isObject(restrictedCountries)) {
             _each(countries, (country: string) => {
                 if (restrictedCountries[country]) {
@@ -64,7 +60,7 @@ export class Game {
                 }
             });
         }
-​
+
         return this.isRestricted;
     }
 
@@ -91,11 +87,5 @@ export class Game {
         }
     }
 
-​
-​
-​
-​
-​
-​
-​
+
 }

@@ -37,7 +37,7 @@ const appState: Ng2StateDeclaration = {
             deps: [ConfigService],
             resolveFn: async (config: ConfigService) => {
                 await config.ready;
-                return config.appConfig.language;
+                return config.get<string>('appConfig.language');
             },
         },
     ],

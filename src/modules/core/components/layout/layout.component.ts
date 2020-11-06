@@ -64,12 +64,12 @@ export class LayoutComponent implements OnInit, OnDestroy {
     };
 
     constructor(
+        protected ConfigService: ConfigService,
         private layoutService: LayoutService,
         private transition: TransitionService,
         private injector: Injector,
         private cdr: ChangeDetectorRef,
         private uiRouter: UIRouterGlobals,
-        private configService: ConfigService,
         private eventService: EventService,
     ) {
     }
@@ -118,7 +118,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
             let result = true;
             if (_isObject(component)) {
                 if (!_isUndefined(component.display?.mobile)
-                    && component.display?.mobile !== this.configService.appConfig.mobile
+                    && component.display?.mobile !== this.ConfigService.get<boolean>('appConfig.mobile')
                 ) {
                     result = false;
                 }

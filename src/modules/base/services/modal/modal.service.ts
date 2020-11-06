@@ -47,7 +47,7 @@ export class ModalService {
     };
 
     protected activeModals: IActiveModal[] = [];
-    protected modalParams: IModalOptions = this.configService.appConfig.siteconfig.modalParams || {};
+    protected modalParams: IModalOptions = this.configService.get('appConfig.siteconfig.modalParams') || {};
 
     constructor(
         protected appRef: ApplicationRef,

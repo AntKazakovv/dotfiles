@@ -1,4 +1,10 @@
 import {ChangeDetectorRef, HostBinding, OnDestroy, OnInit} from '@angular/core';
+import {Subject} from 'rxjs';
+import {IComponentParams} from 'wlc-engine/interfaces/config.interface';
+
+export {IComponentParams, Custom} from 'wlc-engine/interfaces/config.interface';
+import {ConfigService} from 'wlc-engine/modules/core';
+import {IIndexing} from 'wlc-engine/interfaces';
 import {
     filter as _filter,
     get as _get,
@@ -12,16 +18,18 @@ import {
     has as _has,
     split as _split,
 } from 'lodash';
-import {Subject} from 'rxjs';
 
-import {IComponentParams} from 'wlc-engine/interfaces/config.interface';
-
-export {IComponentParams, Custom} from 'wlc-engine/interfaces/config.interface';
+interface IAbstractConfig {
+    moduleName?: string;
+    componentName?: string;
+}
 
 export interface IMixedParams<T extends IComponentParams<unknown, unknown, unknown>> {
     defaultParams: T;
     injectParams: T;
     inlineParams?: T;
+    moduleName?: string;
+    componentName?: string;
 }
 
 export class AbstractComponent implements OnDestroy, OnInit {
@@ -35,14 +43,17 @@ export class AbstractComponent implements OnDestroy, OnInit {
 
     constructor(
         private mixedParams: IMixedParams<unknown>,
+        protected ConfigService?: ConfigService,
     ) {
     }
 
     public ngOnInit(inlineParams?: IComponentParams<unknown, unknown, unknown>): void {
-        this.$params = _merge(
-            _cloneDeep(this.mixedParams.defaultParams),
-            !inlineParams ? this.mixedParams.injectParams : {},
-            inlineParams,
+        const abstractConfig: IAbstractConfig = _cloneDeep(this.mixedParams.defaultParams);
+        this.$params = _merge(abstractConfig, this.ConfigService?.get<IIndexing<unknown>>(
+            `$modules.${abstractConfig?.moduleName}.components.${abstractConfig?.componentName}`,
+        ),
+        !inlineParams ? this.mixedParams.injectParams : {},
+        inlineParams,
         );
         if (_get(this, 'type')) {
             this.$params.type = _get(this, 'type');

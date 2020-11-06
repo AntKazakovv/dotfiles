@@ -9,6 +9,8 @@ export interface ISvgIcons {
 export type Custom = 'custom';
 
 export interface IComponentParams<T, R, M> {
+    moduleName?: string;
+    componentName?: string;
     class?: string;
     theme?: 'default' | T;
     type?: R;
