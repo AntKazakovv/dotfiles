@@ -30,7 +30,6 @@ import {
     get as _get,
 } from 'lodash';
 
-
 export class GamesCatalog {
     loaded: boolean;
 

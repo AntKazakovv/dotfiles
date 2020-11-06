@@ -1,20 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {WlcModalComponent} from 'wlc-engine/modules/base/components/modal';
 
-import { ModalComponent } from './modal.component';
-
-describe('ModalComponent', () => {
-  let component: ModalComponent;
-  let fixture: ComponentFixture<ModalComponent>;
+describe('WlcModalComponent', () => {
+  let component: WlcModalComponent;
+  let fixture: ComponentFixture<WlcModalComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ModalComponent ]
+      declarations: [ WlcModalComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ModalComponent);
+    fixture = TestBed.createComponent(WlcModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

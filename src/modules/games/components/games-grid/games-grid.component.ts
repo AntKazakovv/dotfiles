@@ -3,7 +3,7 @@ import {AbstractComponent} from 'wlc-engine/classes/abstract.component';
 import {defaultParams, IGGParams} from './games-grid.params';
 import {ResizedEvent} from 'angular-resize-event';
 import {Game} from 'wlc-engine/modules/games/models/game.model';
-import {GamesCatalogService} from 'wlc-engine/modules/games';
+import {CategoriesService, GamesCatalogService} from 'wlc-engine/modules/games';
 
 import {
     filter as _filter,
@@ -43,6 +43,7 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, Aft
         @Inject('injectParams') protected injectParams: IGGParams,
         protected elementRef: ElementRef,
         protected cdr: ChangeDetectorRef,
+        protected categoriesService: CategoriesService,
         protected ConfigService: ConfigService,
     ) {
         super({injectParams, defaultParams}, ConfigService);

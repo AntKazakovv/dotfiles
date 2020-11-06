@@ -1,8 +1,8 @@
-import { TemplateNameDirective } from './template-name.directive';
+import {NgTemplateNameDirective} from './template-name.directive';
 
-describe('TemplateNameDirective', () => {
+describe('NgTemplateNameDirective', () => {
   it('should create an instance', () => {
-    const directive = new TemplateNameDirective();
+    const directive = new NgTemplateNameDirective();
     expect(directive).toBeTruthy();
   });
 });
