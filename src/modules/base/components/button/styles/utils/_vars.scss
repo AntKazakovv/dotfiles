@@ -1,17 +1,38 @@
 @use 'engine-styles/functions' as ef;
 
-$buttonWidth: 140px;
-$buttonHeightSmall: 35px;
-$buttonHeightDefault: 40px;
-$buttonHeightLarge: 50px;
+// Size
+$minWidth: 100px;
+$heightSmall: 35px;
+$heightDefault: 40px;
+$heightLarge: 50px;
 
-$buttonFontSize: 16px;
-$buttonFontColor: #ffffff;
+// Font
+$fontSize: ef.get('font', 'size');
+$fontColor: ef.get('color', 'text');
 
-$buttonColor: rgba(46, 213, 115, 1);
-$buttonColorHover:  rgba(46, 213, 115, 0.3);
-$buttonShadow: 0 10px 10px rgba(46, 213, 115, 0.3);
+// Background
+$background: ef.get('color', 'accent');
+$backgroundHover:  darken(ef.get('color', 'accent'), 10%);
+$backgroundResolve: ef.get('color', 'success');
+$backgroundResolveHover:  darken(ef.get('color', 'success'), 10%);
+$backgroundReject: ef.get('color', 'error');
+$backgroundRejectHover:  darken(ef.get('color', 'error'), 10%);
+$backgroundDisabled: ef.get('color', 'disabled');
+$backgroundDisabledHover:  darken(ef.get('color', 'disabled'), 10%);
 
-$buttonRadius: 50px;
-$buttonBorder: 2px solid #2ed573;
-$buttonPadding: 5px 15px;
+// Shadow
+$shadow: 0 10px 10px ef.get('color', 'accent2');
+
+// Radius
+$radius: 50px;
+
+//Border
+$borderDefault: 1px solid transparent;
+$borderSecondary: 1px solid ef.get('color', 'accent');
+
+//Padding
+$padding: ef.get('size', 'small') ef.get('size', 'less');
+$gap: ef.get('gap', 'smaller');
+
+// Animation
+$time: ef.get('time', 'main');

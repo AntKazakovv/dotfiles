@@ -5,25 +5,29 @@ $customPadding: () !default;
 $customGap: () !default;
 $customRadius: () !default;
 $customSize: () !default;
+$customButton: () !default;
+$customTime: () !default;
 
 $color: map-merge((
     'accent': #777777,
     'accent2': #474747,
-    'warn': #b71313,
+    'warn': #eee480,
+    'error': #ea5555,
+    'success': #65cb6a,
+    'disabled': #adadad,
     'text': #e2e2e2,
+    'textAccent': #000,
     'text-hint': #b8b8b8,
     'link': #adadad,
     'linkAccent': #000,
-    'textAccent': #000,
     'divider': #b1b1b1,
-    'disabled': #adadad,
     'background': #000,
     'backgroundHover': #dedede,
     'backgroundAccent': #c1c1c1,
     'backgroundAccentHover': #a2a2a2
 ), $customColor);
 
-$padding: map-merge((
+$size: map-merge((
     'small': 5px,
     'smaller': 10px,
     'less': 20px,
@@ -33,12 +37,12 @@ $padding: map-merge((
 ), $customPadding);
 
 $gap: map-merge((
-    'small': 5px,
-    'smaller': 10px,
-    'less': 20px,
-    'main': 40px,
-    'biger': 50px,
-    'big': 60px
+    'small': map-get($size, 'small'),
+    'smaller': map-get($size, 'smaller'),
+    'less': map-get($size, 'less'),
+    'main': map-get($size, 'main'),
+    'biger': map-get($size, 'biger'),
+    'big': map-get($size, 'big')
 ), $customGap);
 
 $radius: map-merge((
@@ -50,9 +54,15 @@ $radius: map-merge((
     'big': 20px
 ), $customRadius);
 
-$size: map-merge((
-    'font': 18px,
+$font: map-merge((
+    'size': 18px,
 ), $customSize);
+
+$time: map-merge((
+    'less': 0.2s,
+    'main': 0.3s,
+    'long': 0.5s,
+), $customTime);
 
 $grid-breakpoints: (
     320: 0,
@@ -69,14 +79,7 @@ $grid-breakpoints: (
     1420: 1420px,
     1630: 1630px
 );
-// scss-docs-end grid-breakpoints
 
-
-// Grid containers
-//
-// Define the maximum width of `.container` for different screen sizes.
-
-// scss-docs-start container-max-widths
 $container-max-widths: (
     320: 290px,
     375: 345px,

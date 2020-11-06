@@ -10,5 +10,5 @@
 body {
     background-color: ef.get('color', 'background');
     color: ef.get('color', 'text');
-    font-size: ef.get('size', 'font');
+    font-size: ef.get('font', 'size');
 }

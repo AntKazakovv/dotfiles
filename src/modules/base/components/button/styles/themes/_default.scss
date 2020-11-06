@@ -1,6 +1,5 @@
 @use '../utils/vars' as v;
 @use '../utils/mixins' as m;
-@use 'engine-styles/functions' as ef;
 
 .wlc-btn--theme-default {
 
@@ -11,7 +10,11 @@
         border: unset;
 
         &:hover {
-            background-color: v.$buttonColorHover;
+            background: v.$backgroundHover;
+        }
+
+        &.wlc-btn--theme-mod-secondary {
+            @include m.button-transparency;
         }
     }
 }

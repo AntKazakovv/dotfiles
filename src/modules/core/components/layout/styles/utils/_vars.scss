@@ -1,15 +1,18 @@
 @use 'engine-styles/functions' as ef;
 
-$footerPadding: ef.get('padding', 'main');
-$footerBackground: ef.get('color', 'background');
-$footerAccentBackground: ef.get('color', 'backgroundAccent');
-$footerGap: ef.get('gap', 'main');
-$footerGapMobile: ef.get('gap', 'less');
-$footerPadding: ef.get('padding', 'main');
-$footerRadius: ef.get('radius', 'main');
+// Header
 
-$footerPaymentsPadding: ef.get('padding', 'less');
+// Footer
+$footerPadding: ef.get('size', 'main') !default;
+$footerBackground: ef.get('color', 'background') !default;
+$footerAccentBackground: ef.get('color', 'backgroundAccent') !default;
+$footerGap: ef.get('gap', 'main') !default;
+$footerGapMobile: ef.get('gap', 'less') !default;
+$footerPadding: ef.get('size', 'main') !default;
+$footerRadius: ef.get('radius', 'main') !default;
+$footerPaymentsPadding: ef.get('size', 'less') !default;
 
+// Affiliate
 $affHeaderGap: ef.get('gap', 'main') !default;
 
 $affMainMenuBackground: ef.get('color', 'accent') !default;
