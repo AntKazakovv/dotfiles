@@ -37,7 +37,7 @@ export class LanguageSelectorComponent
         protected configService: ConfigService,
         protected elementRef: ElementRef,
     ) {
-        super({injectParams: params, defaultParams});
+        super({injectParams: params, defaultParams}, configService);
     }
 
     public ngOnInit(): void {
@@ -49,11 +49,11 @@ export class LanguageSelectorComponent
             )
             .map(
                 (lang: string): ILanguage =>
-                    _find(this.configService.appConfig.languages, {
+                    _find(this.configService.get<ILanguage[]>('appConfig.languages'), {
                         code: lang,
                     }),
             );
-        this.currentLanguage = _find(this.configService.appConfig.languages, {
+        this.currentLanguage = _find(this.configService.get<ILanguage[]>('appConfig.languages'), {
             code: this.translate.currentLang,
         });
         this.prepareParams();

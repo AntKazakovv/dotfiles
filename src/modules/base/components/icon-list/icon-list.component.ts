@@ -53,7 +53,9 @@ export class IconListComponent extends AbstractComponent implements OnInit {
         protected cdr: ChangeDetectorRef,
         protected configService: ConfigService,
     ){
-        super(<IMixedParams<Params.IIconListComponentParams>>{injectParams, defaultParams: Params.defaultParams});
+        super(
+            <IMixedParams<Params.IIconListComponentParams>>
+                {injectParams, defaultParams: Params.defaultParams});
     }
 
     public async ngOnInit(): Promise<void> {
@@ -95,7 +97,7 @@ export class IconListComponent extends AbstractComponent implements OnInit {
     }
 
     protected setPaymentsLst(): void {
-        const payments: Params.IPayment[] = _get(this.configService, 'appConfig.siteconfig.payment_systems', []);
+        const payments: Params.IPayment[] = this.configService.get('appConfig.siteconfig.payment_systems') || [];
         this.items = _map<Params.IPayment, IconModel>(payments, (item: Params.IPayment): IconModel => {
             const image = `/gstatic/paysystems/V2/${this.$params.common.iconsColor}/${item.Name.toLowerCase()}.png`;
 

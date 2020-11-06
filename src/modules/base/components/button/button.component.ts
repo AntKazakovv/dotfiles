@@ -21,13 +21,14 @@ import {
 import {IconComponent} from '../icon/icon.component';
 import {AbstractComponent, IMixedParams} from 'wlc-engine/classes/abstract.component';
 import * as BParams from './button.params';
-
+import {ConfigService} from 'wlc-engine/modules/core';
 
 import {
     merge as _merge,
     isString as _isString,
     union as _union,
 } from 'lodash';
+
 
 @Component({
     selector: 'button[wlc-button]',
@@ -52,11 +53,13 @@ export class ButtonComponent extends AbstractComponent implements OnInit, OnChan
     protected $loading = new Subject<boolean>();
 
     constructor(
-        protected elementRef: ElementRef,
         @Inject('injectParams') protected params: BParams.IBParams,
+        protected elementRef: ElementRef,
         protected cdr: ChangeDetectorRef,
+        protected ConfigService: ConfigService,
     ) {
-        super(<IMixedParams<BParams.IBParams>>{injectParams: params, defaultParams: BParams.defaultParams});
+        super(
+            <IMixedParams<BParams.IBParams>>{injectParams: params, defaultParams: BParams.defaultParams}, ConfigService);
     }
 
     ngOnInit(): void {

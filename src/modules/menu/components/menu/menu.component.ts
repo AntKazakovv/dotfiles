@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, Injector, OnInit} from '@angular/core';
-import {log} from "util";
+import {log} from 'util';
 import {AbstractComponent} from 'wlc-engine/classes/abstract.component';
 import {IMenuItem, IMenuParams} from 'wlc-engine/modules/menu/components/menu/menu.interface';
 import {MenuHelper} from 'wlc-engine/modules/menu/helpers/menu.helper';

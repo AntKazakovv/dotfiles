@@ -22,6 +22,7 @@ import {
     AbstractComponent,
     IMixedParams,
 } from 'wlc-engine/classes/abstract.component';
+import {ConfigService} from 'wlc-engine/modules/core';
 
 import {
     isString as _isString,
@@ -58,12 +59,13 @@ export class WlcModalComponent extends AbstractComponent implements OnInit, Afte
         @Inject('injectParams') protected params: IModalOptions,
         protected eventService: EventService,
         protected injector: Injector,
+        protected ConfigService: ConfigService,
         private hostElement: ElementRef,
     ) {
         super(<IMixedParams<IModalOptions>>{
             injectParams: params,
-            defaultParams: defaultParams
-        });
+            defaultParams: defaultParams,
+        }, ConfigService);
     }
 
     public ngOnInit(): void {

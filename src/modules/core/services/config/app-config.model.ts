@@ -32,9 +32,6 @@ export interface ILanguage {
 }
 
 export class AppConfigModel {
-    $base: any;
-    $layouts: any;
-    $static: any;
     banners: any;
     contacts: any;
     country: string;

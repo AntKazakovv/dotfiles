@@ -43,7 +43,10 @@ export class GamesCatalog {
     protected supportedCategories: ISupportedItem[];
     protected supportedMerchants: ISupportedItem[];
 
-    constructor(data: IGames) {
+    constructor(
+        data: IGames,
+        protected ConfigService: ConfigService,
+    ) {
         // TODO удалить после добавления подписок в сервис
         Object.assign(this, data);
         this.processFetchedGamesCatalog(data);
@@ -394,8 +397,8 @@ export class GamesCatalog {
         /***********************************************************************************************************
          * MERCHANTS
          **********************************************************************************************************/
-        const merchantMap: IIndexing<string> = _get(ConfigService.instance.appConfig,
-            'siteconfig.merchantNameAliasesMap', {});
+        const merchantMap: IIndexing<string> = this.ConfigService
+            .get<IIndexing<string>>('appConfig.siteconfig.merchantNameAliasesMap') || {};
         const mapMerchants = GamesHelper.mapMerchants(response.merchants, merchantMap);
         this.merchants = mapMerchants.merchantsArray;
 
@@ -409,13 +412,14 @@ export class GamesCatalog {
          * COUNTRIES RESTRICTIONS
          **********************************************************************************************************/
         // TODO а как надо по дефолту то????
-        const enableCountryRestriction: boolean = _get(ConfigService.instance.appConfig, 'games.enableRestricted', true);
-        const authUserAppConfigCountry = _get(ConfigService.instance.appConfig, 'user.country', null);
+        const enableCountryRestriction: boolean = this.ConfigService.
+            get<boolean>('appConfig.games.enableRestricted') || true;
+        const authUserAppConfigCountry = this.ConfigService.get<string>('appConfig.user.country') || null;
         // TODO надо дописать, когда будет UserService
         const authUserCountry = authUserAppConfigCountry;
         // const authUserCountry = this.UserService.isAuthenticated() ?
         //     this.UserService.userProfile.countryCode || authUserAppConfigCountry : authUserAppConfigCountry;
-        const country: string = ConfigService.instance.appConfig.country || 'unknown';
+        const country: string =  this.ConfigService.get<string>('appConfig.country') || 'unknown';
         const restrictCountries: string[] = [country];
 
         if (authUserCountry) {

@@ -22,6 +22,8 @@ export interface IBParams extends IComponentParams<Theme, Type, ThemeMod> {
 }
 
 export const defaultParams: IBParams = {
+    moduleName: 'base',
+    componentName: 'wlc-button',
     class: 'wlc-btn',
     common: {
         size: 'default',
