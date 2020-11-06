@@ -10,19 +10,19 @@ import {
 
 export class Game {
     public ID: string;
+    public Image: string;
+    public hasDemo: number;
+    public Url: string;
+    public Name: IIndexing<string>;
     CategoryID: string[];
     CategoryTitle?: IIndexing<string>[];
     Description: string[];
-    Image: string;
     LaunchCode: string;
     MerchantID: string;
     SubMerchantID?: string;
     MobileUrl: string;
-    Name: IIndexing<string>;
     Sort: string;
     SortPerCategory?: IIndexing<number>;
-    Url: string;
-    hasDemo: number;
     isFavourite?: boolean;
     merchantAlias?: string;
     merchantName?: string;
@@ -38,7 +38,6 @@ export class Game {
     constructor(data: Game) {
         Object.assign(this, data);
     }
-
 
     /**
      *

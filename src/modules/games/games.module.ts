@@ -4,6 +4,7 @@ import {UIRouterModule} from '@uirouter/angular';
 import {TranslateModule} from '@ngx-translate/core';
 import {AngularResizedEventModule} from 'angular-resize-event';
 import {GamesCatalogService} from './services/games-catalog.service';
+import {CategoriesService} from 'wlc-engine/modules/games';
 
 import {GamesGridComponent} from './components/games-grid/games-grid.component';
 import {CoreModule} from '../core/core.module';
@@ -26,6 +27,7 @@ export const components = {
     ],
     providers: [
         GamesCatalogService,
+        CategoriesService,
     ],
     exports: [
         GamesGridComponent,

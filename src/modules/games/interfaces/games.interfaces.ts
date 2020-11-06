@@ -70,6 +70,7 @@ export type ICategory = {
     CSort: string;
     CSubSort: string;
     MappingName?: string;
+    visibility?: boolean;
 }
 
 export type IGames = {
