@@ -8,6 +8,16 @@ import {AbstractComponent} from 'wlc-engine/classes/abstract.component';
 import {ConfigService} from 'wlc-engine/modules/core';
 import {defaultParams, IDisclaimerParams} from './disclaimer.params';
 
+/**
+ * Outputs disclaimer text
+ *
+ * @example
+ *
+ * {
+ *     name: 'promo.wlc-disclaimer',
+ * }
+ *
+ */
 @Component({
     selector: '[wlc-disclaimer]',
     templateUrl: './disclaimer.component.html',

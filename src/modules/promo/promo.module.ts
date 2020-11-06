@@ -5,6 +5,7 @@ import {BaseModule} from 'wlc-engine/modules/base/base.module';
 import {SwiperModule} from 'ngx-swiper-wrapper';
 import {BannerComponent} from 'wlc-engine/modules/promo/components/banner/banner.component';
 import {SliderComponent} from 'wlc-engine/modules/promo/components/slider/slider.component';
+import {UserModule} from 'wlc-engine/modules/user/user.module';
 
 export const components = {
     'wlc-slider': SliderComponent,
@@ -20,12 +21,14 @@ export const components = {
         CommonModule,
         BaseModule,
         SwiperModule,
+        UserModule,
     ],
     providers: [
         BannersService,
     ],
     exports: [
         SliderComponent,
+        BannerComponent,
     ],
 })
 export class PromoModule {}
