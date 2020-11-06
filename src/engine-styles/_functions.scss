@@ -5,8 +5,6 @@
         @return map-get(ev.$color, $name);
     } @else if($map == 'size') {
         @return map-get(ev.$size, $name);
-    } @else if($map == 'gap') {
-        @return map-get(ev.$gap, $name);
     } @else if($map == 'radius') {
         @return map-get(ev.$radius, $name);
     } @else if($map == 'font') {

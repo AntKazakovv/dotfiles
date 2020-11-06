@@ -11,8 +11,8 @@ $fontSize: ef.get('font', 'size');
 $fontColor: ef.get('color', 'text');
 
 // Background
-$background: ef.get('color', 'accent');
-$backgroundHover:  darken(ef.get('color', 'accent'), 10%);
+$background: ef.get('color', 'main');
+$backgroundHover:  darken(ef.get('color', 'main'), 10%);
 $backgroundResolve: ef.get('color', 'success');
 $backgroundResolveHover:  darken(ef.get('color', 'success'), 10%);
 $backgroundReject: ef.get('color', 'error');
@@ -21,18 +21,18 @@ $backgroundDisabled: ef.get('color', 'disabled');
 $backgroundDisabledHover:  darken(ef.get('color', 'disabled'), 10%);
 
 // Shadow
-$shadow: 0 10px 10px ef.get('color', 'accent2');
+$shadow: 0 10px 10px ef.get('color', 'secondary');
 
 // Radius
 $radius: 50px;
 
 //Border
 $borderDefault: 1px solid transparent;
-$borderSecondary: 1px solid ef.get('color', 'accent');
+$borderSecondary: 1px solid ef.get('color', 'main');
 
 //Padding
 $padding: ef.get('size', 'small') ef.get('size', 'less');
-$gap: ef.get('gap', 'smaller');
+$gap: ef.get('size', 'smaller');
 
 // Animation
 $time: ef.get('time', 'main');
