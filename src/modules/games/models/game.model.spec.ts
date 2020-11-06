@@ -1,30 +1,25 @@
-import {Game} from './game.model';
+import {AbstractGame, Game} from './game.model';
+import {gamesMockData} from '../mocks/games';
+import {GamesHelper} from "wlc-engine/modules/games/games.helpers";
 
 describe('Game', () => {
+    const data: AbstractGame = gamesMockData.games[0];
+    let game: Game;
+
     it('should create an instance', () => {
-        /*const data: Game = {
-            "ID": "319200",
-            "Image": "/gstatic/games/evosw/232/monopoly.jpg",
-            "Url": "998/monopoly:Monopoly00000001",
-            "Name": {
-                "en": "Monopoly LIVE",
-                "ru": "Монополия LIVE"
-            },
-            "Description": [],
-            "MobileUrl": "998/monopoly:Monopoly00000001:nez3yaoobwxaepvq",
-            "Branded": 0,
-            "hasDemo": 0,
-            "CategoryID": [
-                "37",
-                "33"
-            ],
-            "MerchantID": "998",
-            "AR": "16:9",
-            "IDCountryRestriction": "23",
-            "Sort": "319200",
-            "LaunchCode": "monopoly--Monopoly00000001",
-            "isRestricted": false
-        };
-        expect(new Game(data)).toBeTruthy();*/
+        expect(new Game(data)).toBeTruthy();
+    });
+
+    it('should get restriction', () => {
+        const data: AbstractGame = gamesMockData.games[0];
+        const game = new Game(data);
+        const restrictions = GamesHelper.createRestrictions(gamesMockData.countriesRestrictions);
+        expect(game.gameRestricted(restrictions, ['rus'])).toEqual(false);
+    });
+
+    it('should get merchant name', () => {
+        const data: AbstractGame = gamesMockData.games[0];
+        const game = new Game(data);
+        expect(game.getMerchantName()).toEqual('AmaticDirect');
     });
 });

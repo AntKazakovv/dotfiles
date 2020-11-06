@@ -8,34 +8,51 @@ import {
     get as _get,
 } from 'lodash';
 
-export class Game {
+export abstract class AbstractGame {
     public ID: string;
     public Image: string;
     public hasDemo: number;
     public Url: string;
     public Name: IIndexing<string>;
-    CategoryID: string[];
-    CategoryTitle?: IIndexing<string>[];
-    Description: string[];
-    LaunchCode: string;
-    MerchantID: string;
-    SubMerchantID?: string;
-    MobileUrl: string;
-    Sort: string;
-    SortPerCategory?: IIndexing<number>;
-    isFavourite?: boolean;
-    merchantAlias?: string;
-    merchantName?: string;
-    Freeround?: string;
-    toggleFavourite?: any;
-    isCurrencyDisabled?: boolean;
-    protected isRestricted: boolean;
-    protected AR: string;
-    protected Branded: number;
-    protected IDCountryRestriction: string;
-    protected SuperBranded?: number;
+    public CategoryID: string[];
+    public Description: IIndexing<string> | string[];
+    public LaunchCode: string;
+    public MerchantID: string;
+    public SubMerchantID: string;
+    public Sort: string;
+    public SortPerCategory: IIndexing<number>;
+    public MobileUrl: string;
+    public MobileAndroidUrl?: string;
+    public MobileWindowsUrl?: string;
+    public SuperBranded: number;
+    public Branded: number;
+    public AR: string;
+    public IDCountryRestriction: string;
+    public PageCode: string;
+    public MobilePageCode: string;
+    public MobileAndroidPageCode: string;
+    public MobileWindowsPageCode: string;
+    public ExternalCode: string;
+    public MobileExternalCode: string;
+    public ImageFullPath: string;
+    public WorkingHours: string;
+    public IsVirtual: string;
+    public TableID: string;
+    public isRestricted: boolean;
+    public Freeround?: string;
 
-    constructor(data: Game) {
+}
+
+export class Game extends AbstractGame {
+    protected isFavourite?: boolean;
+    protected merchantAlias?: string;
+    protected merchantName?: string;
+    protected toggleFavourite?: any;
+    protected isCurrencyDisabled?: boolean;
+    protected CategoryTitle?: IIndexing<string>[];
+
+    constructor(data: AbstractGame) {
+        super();
         Object.assign(this, data);
     }
 
@@ -85,6 +102,4 @@ export class Game {
             });
         }
     }
-
-
 }
