@@ -2,10 +2,10 @@
 
 $width: fit-content;
 $textTransform: uppercase !default;
-$gap: ef.get('gap', 'big') !default;
-$textColor: ef.get('color', 'linkAccent') !default;
+$gap: ef.get('size', 'big') !default;
+$textColor: ef.get('color', 'linkSecondary') !default;
 $textDecoration: none !default;
 $fontWeight: 700 !default;
 $fontSize: 100% !default;
-$padding: ef.get('gap', 'main') !default;
-$backgroundColor: ef.get('color', 'accent') !default;
+$padding: ef.get('size', 'main') !default;
+$backgroundColor: ef.get('color', 'main') !default;

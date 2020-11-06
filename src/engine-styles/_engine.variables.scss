@@ -1,7 +1,6 @@
 @import 'app.variables';
 
 $customColor: () !default;
-$customPadding: () !default;
 $customGap: () !default;
 $customRadius: () !default;
 $customSize: () !default;
@@ -9,22 +8,26 @@ $customButton: () !default;
 $customTime: () !default;
 
 $color: map-merge((
-    'accent': #777777,
-    'accent2': #474747,
+    // Main colors
+    'main': #777777,
+    'secondary': #474747,
+    'background': #000,
+    'backgroundSecondary': #474747,
     'warn': #eee480,
     'error': #ea5555,
     'success': #65cb6a,
     'disabled': #adadad,
+
+    // Text colors
     'text': #e2e2e2,
-    'textAccent': #000,
-    'text-hint': #b8b8b8,
+    'textSecondary': #474747,
+
+    //Link colors
     'link': #adadad,
-    'linkAccent': #000,
-    'divider': #b1b1b1,
-    'background': #000,
-    'backgroundHover': #dedede,
-    'backgroundAccent': #c1c1c1,
-    'backgroundAccentHover': #a2a2a2
+    'linkSecondary': #474747,
+
+    //Divider colors
+    'divider': #adadad
 ), $customColor);
 
 $size: map-merge((
@@ -34,16 +37,7 @@ $size: map-merge((
     'main': 40px,
     'biger': 50px,
     'big': 60px
-), $customPadding);
-
-$gap: map-merge((
-    'small': map-get($size, 'small'),
-    'smaller': map-get($size, 'smaller'),
-    'less': map-get($size, 'less'),
-    'main': map-get($size, 'main'),
-    'biger': map-get($size, 'biger'),
-    'big': map-get($size, 'big')
-), $customGap);
+), $customSize);
 
 $radius: map-merge((
     'smaller': 2px,
