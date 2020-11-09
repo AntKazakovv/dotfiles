@@ -18,7 +18,7 @@ export class WpTextData extends TextDataModel {
 
     protected getExtFields(data: any): IIndexing<any> {
         const res: IIndexing<any> = {};
-        const fields = this.configService.get<IIndexing<any>>('appConfig.$static.additionalFields');
+        const fields = this.configService.get<IIndexing<string>>('appConfig.$static.additionalFields');
         _each(fields, (field) => {
             res[field] = _get(data, field);
         });
