@@ -32,7 +32,7 @@ export interface ILayoutModifyItem {
 
 export interface ILayoutComponent {
     name: string;
-    componentClass?: unknown;
+    componentClass?: string;
     injector?: Injector;
     params?: unknown;
     /** component display parameters
