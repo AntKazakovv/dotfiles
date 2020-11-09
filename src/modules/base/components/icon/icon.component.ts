@@ -3,14 +3,14 @@ import {DefaultSvgIcons} from 'wlc-engine/svg/default-icons';
 import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
 
 import {
-    get as _get
+    get as _get,
 } from 'lodash';
 
 @Component({
     selector: '[wlc-icon]',
     templateUrl: './icon.component.html',
     styleUrls: ['./icon.component.scss'],
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
 })
 export class IconComponent implements OnInit {
 
@@ -19,7 +19,7 @@ export class IconComponent implements OnInit {
     public iconHtml: SafeHtml;
 
     constructor(
-        protected sanitizer: DomSanitizer
+        protected sanitizer: DomSanitizer,
     ) {
     }
 

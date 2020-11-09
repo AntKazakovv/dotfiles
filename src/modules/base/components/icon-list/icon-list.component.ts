@@ -27,10 +27,9 @@ import {
 import {
     map as _map,
     sortedUniqBy as _sortedUniqBy,
-    get as _get,
 } from 'lodash';
 
-export * from './icon-list.params';
+export {IIconListComponentParams} from './icon-list.params';
 
 @Component({
     selector: '[wlc-icon-list]',

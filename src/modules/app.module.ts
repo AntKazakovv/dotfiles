@@ -68,12 +68,12 @@ export function loadConfig(config: ConfigService) {
             deps: [ConfigService],
             multi: true,
         },
-        {
-            provide: ErrorHandler,
-            useValue: window['Sentry'].createErrorHandler({
-                logErrors: true,
-            }),
-        },
+        // {
+        //     provide: ErrorHandler,
+        //     useValue: window['Sentry'].createErrorHandler({
+        //         logErrors: true,
+        //     }),
+        // },
     ],
     exports: [
         CoreModule,

@@ -1,15 +1,15 @@
-import {IComponentParams, Custom} from 'wlc-engine/classes/abstract.component';
+import {IComponentParams, CustomType} from 'wlc-engine/classes/abstract.component';
 
-export type Type = 'default' | 'resolved' | 'rejected' | 'pending' | 'disabled' | Custom;
-export type Theme = 'default' | 'skew' | 'rounding' | 'circled' | Custom;
-export type Size = 'default' | 'small' | 'big' | Custom;
-export type ThemeMod = 'default' | 'secondary' | Custom;
+export type Type = 'default' | 'resolved' | 'rejected' | 'pending' | 'disabled' | CustomType;
+export type Theme = 'default' | 'skew' | 'rounding' | 'circled' | CustomType;
+export type Size = 'default' | 'small' | 'big' | CustomType;
+export type ThemeMod = 'default' | 'secondary' | CustomType;
 export type Index = number | string | null;
 export type AutoModifiers = Theme | Size | ThemeMod | 'loading';
 export type CustomMod = string;
 export type Modifiers = AutoModifiers | CustomMod | null;
 
-export interface IBParams extends IComponentParams<Theme, Type, ThemeMod> {
+export interface IButtonParams extends IComponentParams<Theme, Type, ThemeMod> {
     modifiers?: Modifiers[];
     common?: {
         themeMod?: ThemeMod;
@@ -21,7 +21,7 @@ export interface IBParams extends IComponentParams<Theme, Type, ThemeMod> {
     };
 }
 
-export const defaultParams: IBParams = {
+export const defaultParams: IButtonParams = {
     moduleName: 'base',
     componentName: 'wlc-button',
     class: 'wlc-btn',

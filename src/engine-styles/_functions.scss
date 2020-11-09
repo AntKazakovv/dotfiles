@@ -13,5 +13,7 @@
         @return map-get(ev.$grid-breakpoints, $name);
     } @else if($map == 'time') {
         @return map-get(ev.$time, $name);
+    } @else if($map == 'custom') {
+        @return map-get(ev.$customVars, $name);
     }
 }

@@ -1,15 +1,16 @@
-@use './vars' as v;
+@use './utils/vars' as v;
 
-.wlc-login-signup {
+.wlc-login-signup:host {
 
-    &:host {
+    &--type-default {
+        display: grid;
+        grid-auto-columns: auto;
+        grid-auto-flow: column;
+        grid-gap: v.$gap;
+        align-items: center;
+    }
 
-        &--type-default {
-            display: grid;
-            grid-auto-columns: auto;
-            grid-auto-flow: column;
-            grid-gap: v.$gap;
-            align-items: center;
-        }
+    .wlc-btn {
+        width: max-content;
     }
 }

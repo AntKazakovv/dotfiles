@@ -1,5 +1,4 @@
 import {IComponentParams} from 'wlc-engine/interfaces/config.interface';
-import {ILSParams} from 'wlc-engine/modules/base/components/language-selector/language-selector.params';
 
 type MenuItemType = string | IMenuItem;
 type MenuType = 'main' | 'categories' | 'profile' | 'footer:tc' | 'footer:about';
@@ -40,9 +39,7 @@ interface IMenuItem {
 }
 
 interface IMenuParams extends IComponentParams<MenuTheme, MenuType, string> {
-    common?: {
-        languageSelector?: ILSParams
-    },
+    common?: {},
     items?: MenuItemType[];
 }
 

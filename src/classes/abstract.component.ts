@@ -2,7 +2,7 @@ import {ChangeDetectorRef, HostBinding, OnDestroy, OnInit} from '@angular/core';
 import {Subject} from 'rxjs';
 import {IComponentParams} from 'wlc-engine/interfaces/config.interface';
 
-export {IComponentParams, Custom} from 'wlc-engine/interfaces/config.interface';
+export {IComponentParams, CustomType} from 'wlc-engine/interfaces/config.interface';
 import {ConfigService} from 'wlc-engine/modules/core';
 import {IIndexing} from 'wlc-engine/interfaces';
 import {

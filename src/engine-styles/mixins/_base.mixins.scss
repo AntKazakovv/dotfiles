@@ -1,0 +1,8 @@
+@use 'sass:selector';
+
+@mixin theme-mod($class, $theme, $mod) {
+
+    @at-root #{selector.replace(&, '.#{$class}--theme-#{$theme}', '.#{$class}--theme-mod-#{$mod}')} {
+        @content;
+    }
+}

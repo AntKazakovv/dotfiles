@@ -41,12 +41,4 @@ export class MenuComponent extends AbstractComponent implements OnInit {
         );
         this.cdr.markForCheck();
     }
-
-    public get useLanguageSelector(): boolean {
-        return this.hasParam('common.languageSelector');
-    }
-
-    public get LanguageSelectorParams(): any {
-        return _get(this.$params, 'common.languageSelector.params', {});
-    }
 }
