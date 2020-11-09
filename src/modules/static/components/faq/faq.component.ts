@@ -7,12 +7,14 @@ import {
     ChangeDetectorRef,
 } from '@angular/core';
 
+
 import {AbstractComponent} from 'wlc-engine/classes/abstract.component';
 import {StaticService, TextDataModel} from 'wlc-engine/modules/static';
-import {
-    IFaqComponentParams,
-    IFaqData,
-} from './faq.interface';
+import {HeightToggleAnimation} from 'wlc-engine/modules/core/animations/height-toggle.animation';
+
+import * as Params from './faq.params';
+
+export {IFaqComponentParams} from './faq.params';
 
 import {
     map as _map,
@@ -24,28 +26,29 @@ import {
 @Component({
     selector: '[wlc-faq]',
     templateUrl: './faq.component.html',
-    styleUrls: ['./faq.component.scss'],
+    styleUrls: ['./styles/faq.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    animations: HeightToggleAnimation,
 })
 export class FaqComponent extends AbstractComponent implements OnInit {
-    public faqData: IFaqData[];
+    public faqData: Params.IFaqData[];
+    public $params: Params.IFaqComponentParams;
 
     @Input() protected slug: string;
-    protected defaultSlug: string = 'partners-faq';
     protected showErrors: boolean;
 
     constructor(
-        @Inject('injectParams') protected params: IFaqComponentParams,
+        @Inject('injectParams') protected injectParams: Params.IFaqComponentParams,
         protected staticService: StaticService,
         protected cdr: ChangeDetectorRef,
     ) {
-        super({injectParams: params, defaultParams: {}});
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     async ngOnInit(): Promise<void> {
         super.ngOnInit();
 
-        this.showErrors = _isUndefined(this.params.showErrors) ? true : this.params.showErrors;
+        this.showErrors = _isUndefined(this.$params.common?.showErrors) ? true : this.$params.common?.showErrors;
         try {
             const data: TextDataModel = await this.getRawData();
             this.faqData = this.parseTableData(data?.html);
@@ -57,8 +60,8 @@ export class FaqComponent extends AbstractComponent implements OnInit {
         }
     }
 
-    public expandToggle(item: IFaqData): void {
-        if(this.params.collapseAll) {
+    public expandToggle(item: Params.IFaqData): void {
+        if(this.$params.common?.collapseAll) {
             const prevState = item.expand;
             this.foldAll();
             item.expand = !prevState;
@@ -68,10 +71,10 @@ export class FaqComponent extends AbstractComponent implements OnInit {
     }
 
     protected async getRawData(): Promise<TextDataModel> {
-        return await this.staticService.getPost(this.slug || this.params.slug || this.defaultSlug);
+        return await this.staticService.getPost(this.slug || this.$params.slug);
     }
 
-    protected parseTableData(htmlRow: string): IFaqData[] {
+    protected parseTableData(htmlRow: string): Params.IFaqData[] {
         const parser: DOMParser = new DOMParser();
         const doc: Document = parser.parseFromString(htmlRow, 'text/html');
         const items: NodeList = doc.querySelectorAll('tr');
@@ -94,7 +97,7 @@ export class FaqComponent extends AbstractComponent implements OnInit {
     }
 
     protected foldAll(): void {
-        _forEach(this.faqData, (item: IFaqData) => {
+        _forEach(this.faqData, (item: Params.IFaqData) => {
             item.expand = false;
         });
     }

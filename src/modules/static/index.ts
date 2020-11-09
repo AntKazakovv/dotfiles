@@ -4,3 +4,4 @@ export {PostModel} from 'wlc-engine/modules/static/models/index';
 export * from 'wlc-engine/modules/static/models';
 
 export * from 'wlc-engine/modules/static/components/post-menu/post-menu.component';
+export * from 'wlc-engine/modules/static/components/faq/faq.component';

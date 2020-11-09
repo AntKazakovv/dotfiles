@@ -1,0 +1,112 @@
+@import '../utils/vars';
+
+.wlc-faq--theme-default:host {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: $itemsGapSize;
+
+    .wlc-faq {
+
+        &__header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: $headerFontSize;
+            font-weight: $headerFontWeight;
+            color: $headerFontColor;
+            padding: $headerPadding;
+        }
+
+        &__item {
+            background: $itemBackground;
+            overflow: hidden;
+            border-radius: $itemBorderRadius;
+            transition: all $time;
+
+            &:hover,
+            &.expanded {
+                background: $itemBackgroundActive;
+
+                .wlc-faq__title-text {
+                    color: $titleIconColorActive;
+                }
+
+                .wlc-faq__title-icon ::ng-deep svg * {
+                    fill: $titleIconColorActive;
+                }
+            }
+
+            &.expanded {
+
+                .wlc-faq__title-icon {
+                    transform: rotateZ(180deg);
+                }
+            }
+        }
+
+        &__title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: $titleMinHeight;
+            padding: $paddingSize;
+            cursor: default;
+
+            &-text {
+                flex-grow: 1;
+                font-size: $titleFontSize;
+                font-weight: $titleFontWeight;
+                color: $titleColor;
+                transition: all $time;
+                padding-right: $paddingSize;
+            }
+
+            &-icon {
+                flex-grow: 0;
+                width: $titleIconSize;
+                height: $titleIconSize;
+                min-width: $titleIconSize;
+                transition: all $time;
+
+                ::ng-deep {
+
+                    .wlc-icon {
+                        width: 100%;
+                        height: 100%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+
+                        svg {
+                            width: 100%;
+                            height: auto;
+
+                            * {
+                                transition: all $time;
+                                fill: $titleColor;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        &__content {
+            padding: {
+                left: $paddingSize;
+                right: $paddingSize;
+            };
+
+            &-wrp {
+                font-size: $contentFontSize;
+                font-weight: $contentFontWeight;
+                color: $contentFontColor;
+                border-top: 1px solid $contentFontColor;
+                padding: {
+                    top: $paddingSize;
+                    bottom: $paddingSize;
+                };
+            }
+        }
+    }
+}

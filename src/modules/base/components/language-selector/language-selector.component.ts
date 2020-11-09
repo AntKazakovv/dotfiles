@@ -9,35 +9,52 @@ import {
     Input,
 } from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
+import {trigger, state, style, transition, animate} from '@angular/animations';
 
 import {find as _find} from 'lodash';
 import {AbstractComponent} from 'wlc-engine/classes/abstract.component';
 import {ConfigService, ILanguage} from 'wlc-engine/modules/core';
-import {defaultParams, ILSParams, AutoModifiersType, ModeType} from './language-selector.params';
+import * as Params from './language-selector.params';
 
 @Component({
     selector: '[wlc-language-selector]',
     templateUrl: './language-selector.component.html',
     styleUrls: ['./styles/language-selector.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    animations: [
+        trigger('toggle', [
+            state('opened', style({
+                opacity: 1,
+                visibility: 'visible',
+            })),
+            state('closed', style({
+                opacity: 0,
+                visibility: 'hidden',
+            })),
+            transition('* => *', [
+                animate('0.3s'),
+            ]),
+        ]),
+    ],
 })
 export class LanguageSelectorComponent
     extends AbstractComponent
     implements OnInit {
-    public $params: ILSParams;
+    public $params: Params.ILSParams;
     public availableLanguages: ILanguage[];
     public currentLanguage: ILanguage;
+    public isOpened: boolean;
 
-    @Input() protected inlineParams: ILSParams;
+    @Input() protected inlineParams: Params.ILSParams;
 
     constructor(
         public translate: TranslateService,
-        @Inject('injectParams') protected params: ILSParams,
+        @Inject('injectParams') protected injectParams: Params.ILSParams,
         protected cdr: ChangeDetectorRef,
         protected configService: ConfigService,
         protected elementRef: ElementRef,
     ) {
-        super({injectParams: params, defaultParams}, configService);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public ngOnInit(): void {
@@ -45,7 +62,7 @@ export class LanguageSelectorComponent
         this.availableLanguages = this.translate
             .getLangs()
             .filter(
-                (lang: string): boolean => lang !== this.translate.currentLang
+                (lang: string): boolean => lang !== this.translate.currentLang,
             )
             .map(
                 (lang: string): ILanguage =>
@@ -56,7 +73,6 @@ export class LanguageSelectorComponent
         this.currentLanguage = _find(this.configService.get<ILanguage[]>('appConfig.languages'), {
             code: this.translate.currentLang,
         });
-        this.prepareParams();
     }
 
     public changeLanguage(lang: string, event: MouseEvent): void {
@@ -81,23 +97,7 @@ export class LanguageSelectorComponent
         // TODO add something for error logging.
     }
 
-    @HostListener('document:click', ['$event'])
-    protected clickHandler(event) {
-        if (this.elementRef.nativeElement.contains(event.target)) {
-            this.toggleModifiers('opened');
-        } else {
-            this.removeModifiers('opened');
-        }
-    }
-
-    protected prepareParams(): void {
-        const modifiers: AutoModifiersType[] = [];
-        modifiers.push(this.$params.common.mode);
-
-        if (this.$params.common.scrollable) {
-            modifiers.push('scrollable');
-        }
-
-        this.addModifiers(modifiers);
+    public toggle(): void {
+        this.isOpened = !this.isOpened;
     }
 }

@@ -1,0 +1,21 @@
+@use 'engine-styles/functions' as ef;
+
+// Current
+$currentGap: ef.get('size', 'smallest') !default;
+$currentPadding: ef.get('size', 'smallest') !default;
+$currentBorderRadius: ef.get('size', 'smaller') !default;
+$currentBorder: 1px solid ef.get('color', 'divider') !default;
+$currentBackground: ef.get('color', 'backgroundSecondary') !default;
+$currentArrowColor: ef.get('color', 'text') !default;
+$currentColor: ef.get('color', 'text') !default;
+$currentFlagSize: ef.get('size', 'less');
+$currentHeight: $currentFlagSize;
+
+// Dropdown
+$dropdownGap: ef.get('size', 'small') !default;
+$dropdownPadding: ef.get('size', 'small') !default;
+$dropdownBackgroundColor: ef.get('color', 'backgroundSecondary') !default;
+$dropdownBorderRadius: ef.get('radius', 'less') !default;
+$dropdownArrowSize: ef.get('size', 'small') !default;
+$dropdownItemHover: darken(ef.get('color', 'backgroundSecondary'), 5%) !default;
+$dropdownFlagSize: ef.get('size', 'less');

@@ -6,6 +6,9 @@ $customRadius: () !default;
 $customSize: () !default;
 $customButton: () !default;
 $customTime: () !default;
+$customFont: () !default;
+
+$customVars: () !default;
 
 $color: map-merge((
     // Main colors
@@ -31,9 +34,10 @@ $color: map-merge((
 ), $customColor);
 
 $size: map-merge((
-    'small': 5px,
-    'smaller': 10px,
-    'less': 20px,
+    'smallest': 5px,
+    'small': 10px,
+    'smaller': 20px,
+    'less': 30px,
     'main': 40px,
     'biger': 50px,
     'big': 60px
@@ -49,8 +53,15 @@ $radius: map-merge((
 ), $customRadius);
 
 $font: map-merge((
-    'size': 18px,
-), $customSize);
+    'base': 18px,
+    'small': 0.6rem,
+    'less': 0.8rem,
+    'main': 1rem,
+    'biger': 1.6rem,
+    'big': 2.4rem,
+    'huge': 3.2rem,
+    'monster': 4rem,
+), $customFont);
 
 $time: map-merge((
     'less': 0.2s,

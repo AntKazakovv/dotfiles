@@ -1,15 +1,23 @@
-<ul class="wlc-static-faq">
-    <li class="wlc-static-faq__item"
-        [ngClass]="{expanded: faqItem.expand}"
-        *ngFor="let faqItem of faqData">
-        <div class="wlc-static-faq__item-header"
-             (click)="expandToggle(faqItem)">
-            <p class="wlc-static-faq__item-title">{{faqItem.title}}</p>
-            <span class="wlc-static-faq__item-toggle-icon"></span>
+<ng-container *ngIf="faqData; else preloader">
+    <div class="{{$class}}__header" *ngIf="$params.common.title">{{$params.common.title | translate}}</div>
+    <div class="{{$class}}__item"
+         *ngFor="let item of faqData"
+         [ngClass]="{expanded: item.expand}"
+    >
+        <div class="{{$class}}__title"
+             (click)="expandToggle(item)">
+            <div class="{{$class}}__title-text">{{item.title}}</div>
+            <div class="{{$class}}__title-icon" wlc-icon [iconName]="'thin-arrow'"></div>
         </div>
-        <p class="wlc-static-faq__item-content"
-           [hidden]="!faqItem.expand">
-            {{faqItem.content}}
-        </p>
-    </li>
-</ul>
+        <div class="{{$class}}__content"
+             [@toggle]="item.expand ? 'opened' : 'closed'">
+            <div class="{{$class}}__content-wrp">
+                {{item.content}}
+            </div>
+        </div>
+    </div>
+</ng-container>
+
+<ng-template #preloader>
+    <div wlc-loader></div>
+</ng-template>

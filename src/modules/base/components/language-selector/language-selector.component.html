@@ -1,30 +1,34 @@
-<div class="{{$class}}__current">
-    <div *ngIf="!$params.currentLang?.hideFlag" class="{{$class}}__flag">
+<div class="{{$class}}__current"
+     (click)="toggle()"
+>
+    <div *ngIf="!$params.currentLang?.hideFlag" class="{{$class}}__current-flag">
         <img src="{{getFlagUrl(currentLanguage.code)}}"
              alt="{{currentLanguage.label}}"
              (error)="onImageError(currentLanguage.code)">
     </div>
-    <div *ngIf="!$params.currentLang?.hideLang" class="{{$class}}__lang">
+    <div *ngIf="!$params.currentLang?.hideLang" class="{{$class}}__current-lang">
         {{translate.currentLang | translate}}
     </div>
-    <div *ngIf="!$params.currentLang?.hideArrow" class="{{$class}}__arrow" wlc-icon [iconName]="'arrow'"></div>
+    <div *ngIf="!$params.currentLang?.hideArrow" class="{{$class}}__current-arrow" wlc-icon [iconName]="'arrow'"></div>
 </div>
-<div class="{{$class}}__dropdown">
+<div class="{{$class}}__dropdown"
+     [@toggle]="isOpened ? 'opened' : 'closed'"
+>
     <div class="{{$class}}__list">
         <div *ngFor="let lang of availableLanguages"
-             class="{{$class}}__item {{$class}}__item--{{lang.label}}">
+             class="{{$class}}__item {{$class}}__item--{{lang.code}}">
 
-            <a href="/{{lang}}"
+            <a href="/{{lang.code}}"
                class="{{$class}}__link"
                (click)="changeLanguage(lang.code, $event)">
 
-                <span *ngIf="!$params.dropdown?.hideFlag" class="{{$class}}__flag">
+                <span *ngIf="!$params.dropdown?.hideFlag" class="{{$class}}__link-flag">
                     <img src="{{getFlagUrl(lang.code)}}"
                          alt="{{lang.label}}"
                          (error)="onImageError(lang.code)">
                 </span>
 
-                <span *ngIf="!$params.dropdown?.hideLang" class="{{$class}}__lang">{{lang.label}}</span>
+                <span *ngIf="!$params.dropdown?.hideLang" class="{{$class}}__link-lang">{{lang.label}}</span>
 
             </a>
         </div>

@@ -7,8 +7,11 @@ $heightDefault: 40px;
 $heightLarge: 50px;
 
 // Font
-$fontSize: ef.get('font', 'size');
+$fontSize: ef.get('font', 'main');
 $fontColor: ef.get('color', 'text');
+
+// Transform
+$textTransform: uppercase;
 
 // Background
 $background: ef.get('color', 'main');
@@ -27,12 +30,12 @@ $shadow: 0 10px 10px ef.get('color', 'secondary');
 $radius: 50px;
 
 //Border
-$borderDefault: 1px solid transparent;
-$borderSecondary: 1px solid ef.get('color', 'main');
+$borderDefault: 2px solid transparent;
+$borderSecondary: 2px solid ef.get('color', 'main');
 
 //Padding
-$padding: ef.get('size', 'small') ef.get('size', 'less');
-$gap: ef.get('size', 'smaller');
+$padding: ef.get('size', 'smallest') ef.get('size', 'smaller');
+$gap: ef.get('size', 'small');
 
 // Animation
 $time: ef.get('time', 'main');

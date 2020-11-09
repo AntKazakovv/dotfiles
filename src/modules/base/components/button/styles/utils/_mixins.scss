@@ -20,11 +20,12 @@
 
     .wlc-btn__text {
         grid-column: 2;
+        text-transform: v.$textTransform;
     }
 }
 
 @mixin button-transparency {
-    background-color: transparent;
+    background: transparent;
     border: v.$borderSecondary;
 
     &:hover {

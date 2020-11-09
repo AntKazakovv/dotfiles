@@ -1,0 +1,28 @@
+//@use './vars' as v;
+@use 'engine-styles/mixins/base.mixins' as em;
+
+@mixin flag($width, $height, $borderRadius) {
+    width: $height;
+    height: $height;
+    border-radius: $borderRadius;
+    overflow: hidden;
+
+    img {
+        width: $height;
+        height: $height;
+    }
+}
+
+@mixin autoGrid {
+    display: grid;
+    grid-auto-columns: auto;
+    grid-auto-flow: column;
+    align-items: center;
+    grid-gap: 10px;
+}
+
+@mixin mod($theme, $mod) {
+    @include em.theme-mod('wlc-language-selector', $theme, $mod) {
+        @content;
+    }
+}

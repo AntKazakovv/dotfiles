@@ -1,0 +1,121 @@
+@use 'sass:selector';
+
+@use '../utils/mixins' as m;
+@import '../utils/vars';
+
+.wlc-language-selector--theme-default:host {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    height: $currentHeight;
+
+    .wlc-language-selector {
+
+        &__current {
+            display: grid;
+            grid-auto-columns: auto;
+            grid-auto-flow: column;
+            align-items: center;
+            grid-gap: $currentGap;
+            cursor: default;
+
+            &-flag {
+                @include m.flag($currentFlagSize, $currentFlagSize, 50%);
+            }
+
+            &-lang {
+                color: $currentColor;
+            }
+
+            &-arrow {
+
+                ::ng-deep svg {
+
+                    path {
+                        fill: $currentArrowColor;
+                    }
+                }
+            }
+        }
+
+        &__dropdown {
+            position: absolute;
+
+            @include m.mod('default', 'bottom-left') {
+                top: 100%;
+                right: 0;
+                padding-top: $dropdownArrowSize;
+            }
+
+            @include m.mod('default', 'top-left') {
+                bottom: 100%;
+                right: 0;
+                padding-bottom: $dropdownArrowSize;
+            }
+        }
+
+        &__list {
+            border-radius: $dropdownBorderRadius;
+            background: $dropdownBackgroundColor;
+            position: relative;
+
+            @include m.mod('default', 'bottom-left') {
+                transform: translateY($dropdownArrowSize);
+            }
+
+            @include m.mod('default', 'top-left') {
+                transform: translateY($dropdownArrowSize*-1);
+            }
+
+            &:before {
+                display: block;
+                content: '';
+                position: absolute;
+                width: 0;
+                height: 0;
+                border-left: $dropdownArrowSize solid transparent;
+                border-right: $dropdownArrowSize solid transparent;
+
+                @include m.mod('default', 'bottom-left') {
+                    right: $dropdownArrowSize;
+                    top: $dropdownArrowSize * -1;
+                    border-top: 0;
+                    border-bottom: $dropdownArrowSize solid $dropdownBackgroundColor;
+                }
+
+                @include m.mod('default', 'top-left') {
+                    right: $dropdownArrowSize;
+                    bottom: $dropdownArrowSize * -1;
+                    border-bottom: 0;
+                    border-top: $dropdownArrowSize solid $dropdownBackgroundColor;
+                }
+            }
+        }
+
+        &__link {
+            justify-content: flex-start;
+            padding: $dropdownPadding;
+            display: grid;
+            grid-auto-columns: auto;
+            grid-auto-flow: column;
+            align-items: center;
+            grid-gap: $dropdownGap;
+
+            &:hover {
+                background-color: $dropdownItemHover;
+            }
+
+            &-lang {
+
+                .wlc-language-selector__current & {
+                    text-transform: uppercase;
+                }
+            }
+
+            &-flag {
+                @include m.flag($dropdownFlagSize, $dropdownFlagSize, 50%);
+            }
+        }
+    }
+}

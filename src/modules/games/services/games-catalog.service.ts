@@ -115,7 +115,6 @@ export class GamesCatalogService {
     }
 
     protected prepareData(response: any): GamesCatalog {
-        this.$resolve();
         return response;
     }
 

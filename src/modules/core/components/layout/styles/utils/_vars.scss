@@ -3,20 +3,11 @@
 // Header
 
 // Footer
-$footerPadding: ef.get('size', 'main') !default;
+$footerPadding: ef.get('size', 'smaller') !default;
 $footerBackground: ef.get('color', 'background') !default;
 $footerAccentBackground: ef.get('color', 'backgroundSecondary') !default;
 $footerGap: ef.get('size', 'main') !default;
-$footerGapMobile: ef.get('size', 'less') !default;
+$footerGapMobile: ef.get('size', 'smaller') !default;
 $footerPadding: ef.get('size', 'main') !default;
 $footerRadius: ef.get('radius', 'main') !default;
-$footerPaymentsPadding: ef.get('size', 'less') !default;
-
-// Affiliate
-$affHeaderGap: ef.get('size', 'main') !default;
-
-$affMainMenuBackground: ef.get('color', 'main') !default;
-$affMainMenuPadding: ef.get('size', 'main') !default;
-
-$affMenuBackground: ef.get('color', 'main') !default;
-$affMenuPadding: ef.get('size', 'biger') !default;
+$footerPaymentsPadding: ef.get('size', 'smaller') !default;

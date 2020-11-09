@@ -1,0 +1,36 @@
+@use 'engine-styles/functions' as ef;
+
+// Sizes
+$paddingSize: ef.get('size', 'small') !default;
+$contentMinHeight: ef.get('size', 'big') !default;
+$itemsGapSize: ef.get('size', 'small') !default;
+
+// Header
+$headerFontSize: ef.get('font', 'biger') !default;
+$headerFontWeight: bold !default;
+$headerFontColor: ef.get('color', 'text') !default;
+$headerPadding: 0 0 ef.get('size', 'smaller') 0 !default;
+
+// Title
+$titleFontSize: ef.get('font', 'main') !default;
+$titleFontWeight: bold !default;
+$titleColor: ef.get('color', 'text') !default;
+$titleColorActive: ef.get('color', 'textSecondary') !default;
+$titleIconSize: ef.get('size', 'smaller') !default;
+$titleIconColor: ef.get('color', 'text') !default;
+$titleIconColorActive: ef.get('color', 'textSecondary') !default;
+$titleMinHeight: ef.get('size', 'biger') !default;
+
+// Content
+$contentFontSize: ef.get('font', 'main') !default;
+$contentFontColor: ef.get('color', 'textSecondary') !default;
+$contentFontWeight: normal !default;
+$contentPadding: ef.get('size', 'small') !default;
+
+// Item
+$itemBackground: ef.get('color', 'secondary') !default;
+$itemBackgroundActive: ef.get('color', 'main') !default;
+$itemBorderRadius: ef.get('radius', 'small') !default;
+
+// Animation
+$time: ef.get('time', 'main') !default;

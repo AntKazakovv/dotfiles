@@ -29,6 +29,7 @@ import {
     union as _union,
 } from 'lodash';
 
+export {IButtonParams} from './button.params';
 
 @Component({
     selector: 'button[wlc-button]',
@@ -49,17 +50,17 @@ export class ButtonComponent extends AbstractComponent implements OnInit, OnChan
     @Input() protected icon: string;
     @Input() protected index: BParams.Index;
 
-    public $params: BParams.IBParams;
+    public $params: BParams.IButtonParams;
     protected $loading = new Subject<boolean>();
 
     constructor(
-        @Inject('injectParams') protected params: BParams.IBParams,
+        @Inject('injectParams') protected params: BParams.IButtonParams,
         protected elementRef: ElementRef,
         protected cdr: ChangeDetectorRef,
         protected ConfigService: ConfigService,
     ) {
         super(
-            <IMixedParams<BParams.IBParams>>{injectParams: params, defaultParams: BParams.defaultParams}, ConfigService);
+            <IMixedParams<BParams.IButtonParams>>{injectParams: params, defaultParams: BParams.defaultParams}, ConfigService);
     }
 
     ngOnInit(): void {
@@ -76,8 +77,8 @@ export class ButtonComponent extends AbstractComponent implements OnInit, OnChan
     public ngAfterViewInit(): void {
     }
 
-    protected prepareParams(): BParams.IBParams {
-        const inlineParams: BParams.IBParams = {
+    protected prepareParams(): BParams.IButtonParams {
+        const inlineParams: BParams.IButtonParams = {
             common: {},
         };
         if (this.size) {
