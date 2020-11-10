@@ -22,7 +22,7 @@
 }
 
 @mixin mod($theme, $mod) {
-    @include em.theme-mod('wlc-language-selector', $theme, $mod) {
+    @include em.themeMod('wlc-language-selector', $theme, $mod) {
         @content;
     }
 }

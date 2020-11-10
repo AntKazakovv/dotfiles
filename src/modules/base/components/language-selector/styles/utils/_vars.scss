@@ -19,3 +19,4 @@ $dropdownBorderRadius: ef.get('radius', 'less') !default;
 $dropdownArrowSize: ef.get('size', 'small') !default;
 $dropdownItemHover: darken(ef.get('color', 'backgroundSecondary'), 5%) !default;
 $dropdownFlagSize: ef.get('size', 'less');
+$dropdownLinkColor: ef.get('color', 'text') !default;

@@ -1,5 +1,4 @@
-@use './utils/mixins' as m;
-@use './utils/vars' as v;
+@import './utils/vars';
 
 .wlc-btn {
 
@@ -10,7 +9,7 @@
         background: none;
 
         overflow: hidden;
-        transition: all v.$time;
+        transition: all $time;
         cursor: pointer;
     }
 }

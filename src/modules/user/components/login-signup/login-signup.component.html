@@ -1,2 +1,11 @@
-<button wlc-button [text]="'Login' | translate" [themeMod]="'secondary'"></button>
-<button wlc-button [text]="'Sign up' | translate"></button>
+<button
+        wlc-button
+        [text]="loginText || 'Login' | translate"
+        [themeMod]="'secondary'"
+        (click)="action('login')">
+</button>
+<button
+        wlc-button
+        [text]="signupText || 'Sign up' | translate"
+        (click)="action('signup')">
+</button>

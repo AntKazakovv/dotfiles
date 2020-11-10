@@ -16,6 +16,8 @@ import {AbstractComponent} from 'wlc-engine/classes/abstract.component';
 import {ConfigService, ILanguage} from 'wlc-engine/modules/core';
 import * as Params from './language-selector.params';
 
+export {ILanguageSelectorCParams} from './language-selector.params';
+
 @Component({
     selector: '[wlc-language-selector]',
     templateUrl: './language-selector.component.html',
@@ -40,16 +42,16 @@ import * as Params from './language-selector.params';
 export class LanguageSelectorComponent
     extends AbstractComponent
     implements OnInit {
-    public $params: Params.ILSParams;
+    public $params: Params.ILanguageSelectorCParams;
     public availableLanguages: ILanguage[];
     public currentLanguage: ILanguage;
     public isOpened: boolean;
 
-    @Input() protected inlineParams: Params.ILSParams;
+    @Input() protected inlineParams: Params.ILanguageSelectorCParams;
 
     constructor(
         public translate: TranslateService,
-        @Inject('injectParams') protected injectParams: Params.ILSParams,
+        @Inject('injectParams') protected injectParams: Params.ILanguageSelectorCParams,
         protected cdr: ChangeDetectorRef,
         protected configService: ConfigService,
         protected elementRef: ElementRef,

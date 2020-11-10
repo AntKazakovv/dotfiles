@@ -1,16 +1,1 @@
-@use './utils/vars' as v;
-
-.wlc-login-signup:host {
-
-    &--type-default {
-        display: grid;
-        grid-auto-columns: auto;
-        grid-auto-flow: column;
-        grid-gap: v.$gap;
-        align-items: center;
-    }
-
-    .wlc-btn {
-        width: max-content;
-    }
-}
+@import './themes/default';
