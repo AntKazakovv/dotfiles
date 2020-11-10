@@ -78,7 +78,7 @@ export class LogoComponent implements OnInit {
     protected getLogoImageHtml(): string {
         const customLogoName = _get(this.params, 'image.name');
         const customLogoUrl = _get(this.params, 'image.url');
-        const customMainLogoName = this.configService.get<any>({name: '$base.customLogoName'});
+        const customMainLogoName = this.configService.get<string>({name: '$base.customLogoName'});
 
         if (customLogoUrl) {
             return `<img src="${customLogoUrl}">`;

@@ -84,14 +84,14 @@ export class ConfigService {
             if (getParams.storageType) {
                 return _get(this, storageType[getParams.storageType]).get(getParams.name);
             } else {
-                return _cloneDeep(_get(this.global, getParams.name));
+                return _get(this.global, getParams.name);
             }
         }
 
-        return _cloneDeep(_get(this.global, getParams as string));
+        return _get(this.global, getParams as string);
     }
 
-    public set(setParams: ISetParams): void {
+    public set<T>(setParams: ISetParams<T>): void {
         if (setParams.storageType || setParams.storageClear) {
             if (storageType[setParams.storageClear]) {
                 _get(this, storageType[setParams.storageClear]).remove(setParams.name);
