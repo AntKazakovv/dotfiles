@@ -1,25 +1,2 @@
-@use './vars' as v;
-@use './mixins/default.mixin'as dm;
-@use './mixins/main-menu.mixin' as mmm;
+@import './themes/default';
 
-.wlc-menu {
-
-    &:host {
-
-        &--theme-default {
-            @include dm.horizontalMenu;
-        }
-
-        &--theme-rounded {
-            @include dm.horizontalMenu;
-            @include mmm.roundedMenu;
-        }
-    }
-
-    &__link {
-        text-decoration: v.$textDecoration;
-        color: v.$textColor;
-        font-weight: v.$fontWeight;
-        font-size: v.$fontSize;
-    }
-}

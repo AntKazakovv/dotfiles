@@ -1,21 +1,24 @@
-import {IComponentParams} from 'wlc-engine/classes/abstract.component';
+import {IComponentParams, CustomType} from 'wlc-engine/classes/abstract.component';
 
-export type BlockType = 'type-default';
-export type BlockTheme = 'default' | string;
-export type AutoModifiersType = BlockType;
-export type ManualModifiersType = string;
-export type ModifiersType = AutoModifiersType | ManualModifiersType | null;
+export type ComponentType = 'default' | CustomType;
+export type ThemeType = 'default' | CustomType;
+export type ThemeModType = 'default' | CustomType;
 
-export interface IParams extends IComponentParams<BlockTheme, BlockType, string> {
-    modifiers?: ModifiersType[];
-    type?: BlockType;
-    common?: {
-        additionalModifiers?: ManualModifiersType;
-    };
+export type IActionNameType = 'login' | 'signup';
+export type IActionType = 'login' | 'signup' | 'url' | 'modal';
+export type ITargetType = 'blank' | 'self';
+export type IButtonParams = {
+    action?: IActionType;
+    title?: string;
+    url?: string;
+    target?: ITargetType;
+};
+
+export interface ILoginSignupCParams extends IComponentParams<ThemeType, ComponentType, ThemeModType> {
+    login?: IButtonParams;
+    signup?: IButtonParams;
 }
 
-export const defaultParams: IParams = {
+export const defaultParams: ILoginSignupCParams = {
     class: 'wlc-login-signup',
-    common: {
-    },
 };

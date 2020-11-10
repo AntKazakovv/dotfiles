@@ -55,7 +55,8 @@ $radius: map-merge((
 $font: map-merge((
     'base': 18px,
     'small': 0.6rem,
-    'less': 0.8rem,
+    'smaller': 0.8rem,
+    'less': 0.9rem,
     'main': 1rem,
     'biger': 1.6rem,
     'big': 2.4rem,
@@ -73,7 +74,7 @@ $grid-breakpoints: (
     320: 0,
     375: 375px,
     480: 480px,
-    560: 530px,
+    560: 560px,
     640: 640px,
     720: 720px,
     768: 768px,

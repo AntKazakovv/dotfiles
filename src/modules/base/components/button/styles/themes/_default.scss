@@ -1,20 +1,20 @@
-@use '../utils/vars' as v;
-@use '../utils/mixins' as m;
+@import '../utils/mixins';
+@import '../utils/vars';
 
 .wlc-btn--theme-default {
 
     &:host {
-        @include m.button-base;
+        @include buttonBase;
 
         border-radius: 2px;
         border: unset;
 
         &:hover {
-            background: v.$backgroundHover;
+            background: $backgroundHover;
         }
 
         &.wlc-btn--theme-mod-secondary {
-            @include m.button-transparency;
+            @include buttonTransparency;
         }
     }
 }

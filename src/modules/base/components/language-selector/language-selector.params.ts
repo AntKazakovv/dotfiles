@@ -5,7 +5,7 @@ export type ThemeType = 'default';
 export type ThemeModType = 'bottom-left' | 'bottom-right' | 'top-left' | 'top-right';
 export type ComponentType = 'click' | 'hover';
 
-export interface ILSParams extends IComponentParams<ThemeType, ComponentType, ThemeModType> {
+export interface ILanguageSelectorCParams extends IComponentParams<ThemeType, ComponentType, ThemeModType> {
     common?: {
         flags?: {
             path?: string;
@@ -27,7 +27,7 @@ export interface ILSParams extends IComponentParams<ThemeType, ComponentType, Th
     };
 }
 
-export const defaultParams: ILSParams = {
+export const defaultParams: ILanguageSelectorCParams = {
     class: 'wlc-language-selector',
     themeMod: 'bottom-left',
     type: 'click',
