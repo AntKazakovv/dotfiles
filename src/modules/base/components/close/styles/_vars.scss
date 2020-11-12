@@ -1,0 +1,7 @@
+@use 'engine-styles/functions' as ef;
+
+$transition: color ef.get('time', 'main') linear;
+
+$iconSize: 34px;
+$iconColor: ef.get('color', 'textSecondary');
+$iconColorHover: ef.get('color', 'text');

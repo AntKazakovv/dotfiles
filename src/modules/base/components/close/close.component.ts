@@ -3,7 +3,7 @@ import {Component, HostBinding, OnInit, Output, EventEmitter} from '@angular/cor
 @Component({
     selector: '[wlc-close]',
     templateUrl: './close.component.html',
-    styleUrls: ['./close.component.scss'],
+    styleUrls: ['./styles/close.component.scss'],
 })
 export class CloseComponent implements OnInit {
     @HostBinding('class') protected class = 'wlc-close';

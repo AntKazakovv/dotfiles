@@ -1,0 +1,23 @@
+@import './vars';
+
+:host {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: $iconSize;
+    height: $iconSize;
+
+    line-height: 0;
+
+    cursor: pointer;
+    user-select: none;
+
+    color: $iconColor;
+    transition: $transition;
+
+    &:hover {
+        color: $iconColorHover;
+    }
+
+}

@@ -13,3 +13,5 @@ $itemMinWidthMobile: 140px; // TODO add game thumb mobile min width param
 $placeholderBackground: ef.get('color', 'backgroundSecondary') !default;
 $placeholderBorderRadius: ef.get('radius', 'less') !default;
 $placeholderTextColor: ef.get('color', 'textSecondary') !default;
+
+$resultMarginBottom: ef.get('size', 'main');

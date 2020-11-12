@@ -1,3 +1,4 @@
+import {SearchComponent} from 'wlc-engine/modules/games/components/search/search.component';
 import {
     IModalConfig,
     IModalList,
@@ -26,6 +27,16 @@ export const MODALS_LIST: IModalList = {
             modalMessage: `Hello! I'm base modal window!`,
             closeBtnText: 'Bye!',
             size: 'sm'
+        }
+    },
+    search: {
+        config: {
+            id: 'search',
+            modifier: 'search',
+            modalTitle: 'Search games',
+            component: SearchComponent,
+            size: 'lg',
+            backdrop: 'static',
         }
     }
 };

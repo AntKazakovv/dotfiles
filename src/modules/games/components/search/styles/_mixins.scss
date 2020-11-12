@@ -1,0 +1,9 @@
+@use 'engine-styles/functions' as ef;
+
+@mixin list-grid($array) {
+    @each $size, $columns in $array {
+        @media(min-width: ef.get('breakpoint', $size)) {
+            grid-template-columns: repeat($columns, minmax(0, 1fr));
+        }
+    }
+}

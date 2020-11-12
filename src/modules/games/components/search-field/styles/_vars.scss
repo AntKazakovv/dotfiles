@@ -1,0 +1,19 @@
+@use 'engine-styles/functions' as ef;
+
+$color: ef.get('color', 'text');
+$bgColor: ef.get('color', 'backgroundSecondary');
+
+$clearButtonSize: 12px;
+$clearButtonColor: ef.get('color', 'text');
+$searchIconSize: 18px;
+$searchIconColor: ef.get('color', 'main');
+$searchIconRight: 16px;
+$spaceBetweenIcons: 14px;
+
+$borderRadius: 4px;
+$border: 2px solid ef.get('color', 'secondary');
+$borderColorActive: ef.get('color', 'main');
+$inputVerticalPadding: 8px;
+$inputLeftPadding: 20px;
+$inputFontSize: ef.get('font', 'size');
+$transition: ef.get('time', 'main') linear;
