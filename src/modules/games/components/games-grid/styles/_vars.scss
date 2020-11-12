@@ -3,12 +3,14 @@
 $headerColor: ef.get('color', 'main') !default;
 $allLinkColor: ef.get('color', 'link') !default;
 
-$currentGap: ef.get('size', 'main') !default;
+//$currentGap: ef.get('size', 'main') !default;
+$currentGap: 25px;
 $contentPadding: ef.get('size', 'big') !default;
 $listMargin: ef.get('size', 'big') !default;
 
-$itemMinWidth: 200px; // TODO add game thumb min width param
+$itemMinWidth: 255px; // TODO add game thumb min width param
 $itemMinWidthMobile: 140px; // TODO add game thumb mobile min width param
+$itemHeight: 150px;
 
 $placeholderBackground: ef.get('color', 'backgroundSecondary') !default;
 $placeholderBorderRadius: ef.get('radius', 'less') !default;

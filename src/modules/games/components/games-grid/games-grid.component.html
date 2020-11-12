@@ -19,10 +19,7 @@
 
         <div class="{{$class}}__item" *ngFor="let game of filteredGames | slice: 0:gamesCount">
             <!-- TODO: add gameThumb component -->
-            <div class="wlc-games-thumb" (click)="startGame(game); $event.stopPropagation();">
-                <img [src]="game.Image" loading="lazy" alt="">
-                <div class="wlc-games-thumb__placeholder">no image</div>
-            </div>
+            <div wlc-game-thumb [game]="game"></div>
         </div>
         <ng-container *ngIf="$params?.usePlaceholders">
             <div class="{{$class}}__item"
@@ -41,6 +38,4 @@
     <ng-template #noGames>
         <p class="{{$class}}__nocontent">{{'No games avaible' | translate}}</p>
     </ng-template>
-    <button wlc-button [text]="'Button'" [theme]="'rounding'"></button>
-    <button wlc-button [text]="'Button secondary'" [theme]="'rounding'" [themeMod]="'secondary'"></button>
 </div>
