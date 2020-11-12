@@ -54,21 +54,16 @@ export class LayoutComponent implements OnInit, OnDestroy {
 
     public components: ILayoutComponent[] = [];
     public section: ILayoutSectionConfig;
-
+    protected allComponents$: ILayoutComponent[] = [];
     private currentConfig: ILayoutStateConfig;
-    private allComponents$: ILayoutComponent[] = [];
     private $destroy: Subject<void> = new Subject();
-
-    private userService = {
-        isAuthenticated: true,
-    };
 
     constructor(
         protected ConfigService: ConfigService,
-        private layoutService: LayoutService,
+        protected layoutService: LayoutService,
+        protected cdr: ChangeDetectorRef,
         private transition: TransitionService,
         private injector: Injector,
-        private cdr: ChangeDetectorRef,
         private uiRouter: UIRouterGlobals,
         private eventService: EventService,
     ) {
@@ -112,7 +107,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
         this.cdr.markForCheck();
     }
 
-    private filterComponents(): ILayoutComponent[] {
+    protected filterComponents(): ILayoutComponent[] {
         return _filter(this.allComponents$, (component) => {
 
             let result = true;
@@ -132,14 +127,15 @@ export class LayoutComponent implements OnInit, OnDestroy {
                 }
 
                 if (result && !_isUndefined(component.display?.auth)) {
-                    result = result && component.display.auth === this.userService.isAuthenticated;
+                    result = result &&
+                    component.display.auth === this.ConfigService.get<boolean>('$user.isAuthenticated');
                 }
             }
             return result;
         });
     }
 
-    private setWatcher(): void {
+    protected setWatcher(): void {
         const resize = _reduce(this.allComponents$, (res, component): boolean => {
             return res || (!!component.display?.after || !!component.display?.before);
         }, false);

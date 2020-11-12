@@ -12,6 +12,7 @@ import {
 import {BaseModule} from 'wlc-engine/modules/base/base.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {BannersService} from 'wlc-engine/modules/promo/services';
+import {WrapperComponent} from 'wlc-engine/modules/core/components/wrapper/wrapper.component';
 
 @NgModule({
     imports: [
@@ -30,12 +31,14 @@ import {BannersService} from 'wlc-engine/modules/promo/services';
     declarations: [
         LayoutComponent,
         NgTemplateNameDirective,
+        WrapperComponent,
     ],
     exports: [
         LayoutComponent,
         NgTemplateNameDirective,
         BaseModule,
         BrowserAnimationsModule,
+        WrapperComponent,
     ],
 })
 export class CoreModule {
