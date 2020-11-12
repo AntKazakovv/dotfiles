@@ -48,7 +48,7 @@ export class AbstractComponent implements OnDestroy, OnInit {
     }
 
     public ngOnInit(inlineParams?: IComponentParams<unknown, unknown, unknown>): void {
-        const abstractConfig: IAbstractConfig = this.mixedParams.defaultParams;
+        const abstractConfig: IAbstractConfig = _cloneDeep(this.mixedParams.defaultParams);
         this.$params = _merge(abstractConfig, this.ConfigService?.get<IIndexing<unknown>>(
             `$modules.${abstractConfig?.moduleName}.components.${abstractConfig?.componentName}`,
         ),
