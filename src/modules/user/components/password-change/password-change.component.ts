@@ -1,6 +1,7 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {CustomValidator} from 'wlc-engine/modules/user/helper/custom-validator';
+import {UserService} from 'wlc-engine/modules/user/services/user.service';
 
 @Component({
     selector: '[wlc-password-change]',
@@ -12,7 +13,9 @@ export class PasswordChangeComponent implements OnInit {
 
     public passwordChangeForm: FormGroup;
 
-    constructor() {
+    constructor(
+        protected userService: UserService,
+    ) {
     }
 
     ngOnInit(): void {
@@ -20,9 +23,8 @@ export class PasswordChangeComponent implements OnInit {
     }
 
     public submitHandler(): void {
-        const formData = {...this.passwordChangeForm.value};
-
-        console.log(formData);
+        const {password, newPassword} = this.passwordChangeForm.value;
+        this.userService.setNewPassword(password, newPassword);
     };
 
     public checkField(fieldName: string): boolean {
@@ -43,8 +45,8 @@ export class PasswordChangeComponent implements OnInit {
                 ]),
             confirmPassword: new FormControl('',
                 [
-                    Validators.required,
                     Validators.minLength(6),
+                    Validators.required,
                 ]),
         }, {validators: CustomValidator.matchPasswords});
     }

@@ -17,7 +17,6 @@ import {
     TranslateLoader,
     TranslateModule,
 } from '@ngx-translate/core';
-import {UserModule} from '../user/user.module';
 import {CloseComponent} from './components/close/close.component';
 import {BonusComponent} from './components/bonus/bonus.component';
 import {LoaderComponent} from './components/loader/loader.component';

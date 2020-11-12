@@ -5,22 +5,24 @@ import {DataService, EventService} from 'wlc-engine/modules/core/services';
 import {TranslateService} from '@ngx-translate/core';
 import {UserInfo} from 'wlc-engine/modules/user/models/info.model';
 import {IRequestMethod, RestMethodType} from 'wlc-engine/modules/core/services/data/data.service';
+import {UserProfile} from '../models/profile.model';
 import {ConfigService} from 'wlc-engine/modules/core';
 
 import {
     get as _get,
     reduce as _reduce,
     toString as _toString,
+    forEach as _forEach,
 } from 'lodash';
-import {UserProfile} from '../models/profile.model';
+
 
 //данные для входа 'maksim.shahov@softgamings.com', 'Test123!'
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: 'root',
 })
 export class UserService {
-
+    static instance: UserService;
     public isAuthenticated: boolean = false;
 
     protected info: UserInfo;
@@ -48,9 +50,12 @@ export class UserService {
         protected dataService: DataService,
         protected eventService: EventService,
         protected app: AppModule,
-        protected сonfigService: ConfigService,
+        protected configService: ConfigService,
     ) {
-        this.сonfigService.set({name: '$user.isAuthenticated', value: false});
+        // TODO: удалить, временное решение для костумного валидатора
+        UserService.instance = this;
+
+        this.configService.set({name: '$user.isAuthenticated', value: false});
         this.registerMethods();
         this.info = new UserInfo(translate, eventService);
         this.profile = new UserProfile();
@@ -94,7 +99,7 @@ export class UserService {
             name: 'LOGIN',
         }, () => {
             this.isAuthenticated = true;
-            this.сonfigService.set({name: '$user.isAuthenticated', value: true});
+            this.configService.set({name: '$user.isAuthenticated', value: true});
             this.fetchUserInfo();
             this.startUserInfoFetcher();
             this.fetchUserProfile();
@@ -104,7 +109,7 @@ export class UserService {
             name: 'LOGOUT',
         }, () => {
             this.isAuthenticated = false;
-            this.сonfigService.set({name: '$user.isAuthenticated', value: false});
+            this.configService.set({name: '$user.isAuthenticated', value: false});
             this.stopUserInfoFetcher();
         });
 
@@ -113,6 +118,23 @@ export class UserService {
         }, () => {
             this.logout();
         });
+    }
+
+    public async registration(formData): Promise<void> {
+        const response: any = await this.request('user/userRegistration', 'REGISTRATION', 'REGISTRATION_ERROR', formData);
+        if (response.result) {
+            this.setProfileData(formData);
+            await this.createUserProfile(this.profile.data);
+            if (this.isFastRegistration) {
+                // fastRegistration
+            } else {
+                // registrationComplete
+            }
+        } else {
+            _forEach(response.errors, (error) => {
+                console.error(error);
+            });
+        }
     }
 
     public login(login: string, password: string): void {
@@ -187,8 +209,8 @@ export class UserService {
         this.request('user/updateEmail', 'UPDATE_EMAIL', 'UPDATE_EMAIL_ERROR', params);
     }
 
-    public emailUnique(email: string): void {
-        this.request('user/emailUnique', 'EMAIL_UNIQUE', 'EMAIL_UNIQUE_ERROR', {email});
+    public emailUnique(email: string): Promise<any> {
+        return this.request('user/emailUnique', 'EMAIL_UNIQUE', 'EMAIL_UNIQUE_ERROR', {email});
     }
 
     public loginUnique(login: string): void {
@@ -272,6 +294,7 @@ export class UserService {
     }
 
     protected registerMethods(): void {
+        this.regMethod('userRegistration', '/validate/user-register', 'POST');
         this.regMethod('userLogin', '/auth', 'PUT');
         this.regMethod('userLogout', '/auth', 'DELETE');
         this.regMethod('createProfile', '/profiles', 'POST');
@@ -279,7 +302,7 @@ export class UserService {
         this.regMethod('passwordRestore', '/userPassword', 'POST');
         this.regMethod('restoreNewPassword', '/userPassword', 'PUT');
         this.regMethod('validateRestoreCode', '/userPassword', 'GET');
-        this.regMethod('newPassword', '/userPassword', 'GET');
+        this.regMethod('newPassword', '/userPassword', 'PATCH');
         this.regMethod('updatePhone', '/profiles/phone', 'POST');
         this.regMethod('phoneUnique', '/profiles/phone', 'PUT');
         this.regMethod('updateEmail', '/profiles/email', 'POST');
@@ -290,5 +313,16 @@ export class UserService {
         this.regMethod('disableProfile', '/profiles/disable', 'PUT');
         this.regMethod('userProfile', '/profiles', 'GET');
         this.regMethod('userInfo', '/userInfo', 'GET', 10000);
+    }
+
+    protected setProfileData(formData): void {
+        this.profile.data.email = formData.data.email;
+        this.profile.data.password = formData.data.password;
+        this.profile.data.passwordRepeat = formData.data.password;
+        this.profile.data.currency = formData.data.currency;
+    }
+
+    protected get isFastRegistration(): number {
+        return this.configService.get<number>('appConfig.siteconfig.fastRegistration');
     }
 }

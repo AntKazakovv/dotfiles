@@ -1,5 +1,6 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {UserService} from 'wlc-engine/modules/user/services/user.service';
 
 @Component({
     selector: '[wlc-password-restore]',
@@ -11,7 +12,9 @@ export class PasswordRestoreComponent implements OnInit {
 
     public passwordRestoreForm: FormGroup;
 
-    constructor() {
+    constructor(
+        protected userService: UserService,
+    ) {
     }
 
     ngOnInit(): void {
@@ -19,9 +22,7 @@ export class PasswordRestoreComponent implements OnInit {
     }
 
     public submitHandler(): void {
-        const formData = {...this.passwordRestoreForm.value};
-
-        console.log(formData);
+        this.userService.sendPasswordRestore({...this.passwordRestoreForm.value});
     };
 
     public checkField(fieldName: string): boolean {
