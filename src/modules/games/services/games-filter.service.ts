@@ -126,10 +126,8 @@ export class GamesFilterService {
         this.filterQuery[filterName] = query;
         this.eventService.emit({
             name: GamesFilterServiceEvents.FILTER_SEARCH,
-            data: {
-                filterName,
-                query,
-            },
+            from: filterName,
+            data: query,
         });
     }
 

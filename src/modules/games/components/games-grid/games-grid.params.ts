@@ -1,6 +1,7 @@
 import {IComponentParams} from 'wlc-engine/classes/abstract.component';
 
-export interface IGGParams extends IComponentParams<string, string, string> {
+export type GGType = 'default' | 'search';
+export interface IGamesGridCParams extends IComponentParams<string, GGType, string> {
     gamesRows: number;
     filter?: {
         category: string;
@@ -17,9 +18,11 @@ export interface IGGParams extends IComponentParams<string, string, string> {
         lazy?: boolean;
         lazyTimeout?: number;
     };
+    hideOnEmptySearch?: boolean;
+    searchFilterName?: string; // search param searchFrom must has the same name
 }
 
-export const defaultParams: IGGParams = {
+export const defaultParams: IGamesGridCParams = {
     class: 'wlc-games-grid',
     gamesRows: 4,
     usePlaceholders: true,

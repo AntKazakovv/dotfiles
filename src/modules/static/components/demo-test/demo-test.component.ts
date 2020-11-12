@@ -54,4 +54,8 @@ export class demoTestComponent {
         this.ModalService.showModal(modalParams);
     }
 
+    openModalSearch(): void {
+        this.ModalService.showModal('search');
+    }
+
 }

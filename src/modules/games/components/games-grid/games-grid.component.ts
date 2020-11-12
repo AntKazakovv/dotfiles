@@ -1,28 +1,58 @@
-import {Component, OnInit, Inject, ElementRef, AfterViewInit, HostListener, ChangeDetectorRef} from '@angular/core';
+import {
+    Component,
+    OnInit,
+    Inject,
+    ElementRef,
+    AfterViewInit,
+    ChangeDetectorRef,
+    ChangeDetectionStrategy,
+    Renderer2,
+    Input,
+} from '@angular/core';
+import {TranslateService} from '@ngx-translate/core';
+import {UIRouter} from '@uirouter/core';
+import {fromEvent} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
+
+import {EventService} from 'wlc-engine/modules/core/services';
 import {AbstractComponent} from 'wlc-engine/classes/abstract.component';
-import {defaultParams, IGGParams} from './games-grid.params';
+import {
+    defaultParams,
+    IGamesGridCParams,
+} from './games-grid.params';
 import {ResizedEvent} from 'angular-resize-event';
 import {Game} from 'wlc-engine/modules/games/models/game.model';
-import {CategoriesService, GamesCatalogService} from 'wlc-engine/modules/games';
+import {
+    ConfigService,
+    ILanguage,
+} from 'wlc-engine/modules/core';
+import {ICategory} from '../../interfaces/games.interfaces';
+import {
+    CategoriesService,
+    GamesCatalogService,
+} from 'wlc-engine/modules/games';
+import {GamesFilterServiceEvents} from 'wlc-engine/modules/games';
 
 import {
     filter as _filter,
     find as _find,
     includes as _includes,
     extend as _extend,
+    get as _get,
+    isUndefined as _isUndefined,
 } from 'lodash';
-import {ICategory} from '../../interfaces/games.interfaces';
-import {UIRouter} from '@uirouter/core';
-import {ConfigService} from 'wlc-engine/modules/core';
 
 @Component({
     selector: '[wlc-games-grid]',
     templateUrl: './games-grid.component.html',
     styleUrls: ['./styles/games-grid.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class GamesGridComponent extends AbstractComponent implements OnInit, AfterViewInit {
-    public $params: IGGParams;
-    public games: Game[];
+export class GamesGridComponent extends AbstractComponent
+    implements OnInit, AfterViewInit {
+
+    public $params: IGamesGridCParams;
+    public filteredGames: Game[]; // TODO temporary: until gameService will be able to back category
     public title: string;
     public gamesCount: number;
     public placeHolders: number[];
@@ -30,34 +60,57 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, Aft
     public hideShowMoreBtn: boolean = false;
     public useLazy: boolean;
     public lazyReady: boolean = true;
+    public searchQuery: string = '';
+    public hideSearchBlock: boolean = false;
+    public currentLanguage: ILanguage;
 
+    protected games: Game[];
     protected lazyTimeout: number;
-    protected paginate: number ;
+    protected paginate: number;
     protected placeHoldersCount: number;
     protected prevPlaceHoldersCount: number;
     protected categoryTitle: string;
 
+    @Input() protected inlineParams: IGamesGridCParams;
+
     constructor(
         public router: UIRouter,
         protected gamesCatalogService: GamesCatalogService,
-        @Inject('injectParams') protected injectParams: IGGParams,
+        @Inject('injectParams') protected injectParams: IGamesGridCParams,
         protected elementRef: ElementRef,
         protected cdr: ChangeDetectorRef,
+        protected eventService: EventService,
+        protected translate: TranslateService,
+        protected configService: ConfigService,
+        protected renderer: Renderer2,
         protected categoriesService: CategoriesService,
-        protected ConfigService: ConfigService,
     ) {
-        super({injectParams, defaultParams}, ConfigService);
+        super({injectParams, defaultParams}, configService);
     }
 
     public async ngOnInit(): Promise<void> {
-        super.ngOnInit();
-        this.$params = _extend({}, defaultParams, this.injectParams); // TODO delete costil params not working
+        super.ngOnInit(this.inlineParams);
+        this.$params = _extend({}, defaultParams, this.injectParams, this.inlineParams); // TODO delete costil params not working
         this.games = await this.getGames();
+        this.filteredGames = this.games;
+        this.hideSearchBlock = this.$params?.hideOnEmptySearch;
         this.title = this.$params?.title || this.categoryTitle; // TODO: get title also from state
         this.useLazy = this.$params?.moreBtn?.lazy || false;
         this.lazyTimeout = this.$params?.moreBtn?.lazyTimeout || 1000;
         this.placeHolders = Array(6).fill(1);
         this.cdr.detectChanges();
+
+        this.currentLanguage = _find(this.configService.get<ILanguage[]>('appConfig.languages'), {
+            code: this.translate.currentLang,
+        });
+
+        if (this.$params?.type === 'search') {
+            this.initSearchListener();
+        }
+
+        if (this.useLazy) {
+            this.initScrollListener();
+        }
     }
 
     public ngAfterViewInit(): void {
@@ -95,15 +148,15 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, Aft
     // TODO: to delete this test
     public changeGames(): void {
         this.games = this.games.slice(0, 12);
-        this.hideShowMoreBtn = false;
+        this.moreButtonChangeState(false);
         this.checkGamesLength();
         this.setPlaceHolders();
     }
 
-    @HostListener('window:scroll') onScroll(e: Event): void {
-        if (this.useLazy) {
-            this.tryLoadingGames();
-        }
+    protected initScrollListener(): void {
+        fromEvent(window, 'scroll')
+            .pipe(takeUntil(this.$destroy))
+            .subscribe((event: Event) => this.tryLoadingGames());
     }
 
     protected tryLoadingGames(): void {
@@ -121,7 +174,7 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, Aft
     }
 
     protected setGridParams(el: any, width: number): void {
-        this.hideShowMoreBtn = false;
+        this.moreButtonChangeState(false);
         const itemElement = el.querySelector('.' + this.$class + '__item')?.firstChild;
         const itemWidth = itemElement?.getBoundingClientRect().width;
         this.prevPlaceHoldersCount = Math.floor(width / itemWidth);
@@ -135,7 +188,7 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, Aft
 
     protected checkGamesLength(): void {
         if (this.games?.length && this.gamesCount >= this.games?.length) {
-            this.hideShowMoreBtn = true;
+            this.moreButtonChangeState(true);
             this.gamesCount = this.games.length;
             if (this.gamesCount % this.prevPlaceHoldersCount) {
                 this.placeHoldersCount = this.prevPlaceHoldersCount - this.gamesCount % this.prevPlaceHoldersCount;
@@ -185,6 +238,48 @@ export class GamesGridComponent extends AbstractComponent implements OnInit, Aft
         }
 
         return games;
+    }
+
+    protected initSearchListener(): void {
+        this.eventService.subscribe({
+            name: GamesFilterServiceEvents.FILTER_SEARCH,
+            from: this.$params.searchFilterName || 'page',
+        }, (data: string) => this.changeSearch(data),
+        this.$destroy);
+    }
+
+    protected changeSearch(search: string): void {
+        this.searchQuery = search;
+        if (this.searchQuery) {
+            this.hideSearchBlock = false;
+            this.filteredGames = _filter(this.games, (game: Game) => {
+                const name = _get(game.Name, this.currentLanguage.code)
+                            || _get(game.Name, 'en', '');
+
+                return name.toLowerCase().indexOf(this.searchQuery) !== -1;
+            });
+        } else {
+            this.hideSearchBlock = this.$params?.hideOnEmptySearch;
+        }
+
+        this.gamesCount = this.paginate;
+        this.moreButtonChangeState();
+
+        this.cdr.markForCheck();
+    }
+
+    protected moreButtonChangeState(state?: boolean): void {
+        if (this.$params.moreBtn?.hide) {
+            this.hideShowMoreBtn = true;
+            return;
+        }
+
+        if (!_isUndefined(state)) {
+            this.hideShowMoreBtn = state;
+            return;
+        }
+
+        this.hideShowMoreBtn = this.filteredGames?.length < this.paginate;
     }
 
 }

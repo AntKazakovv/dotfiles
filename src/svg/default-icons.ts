@@ -9,4 +9,6 @@ export const DefaultSvgIcons: ISvgIcons = {
     'eye': require('!raw-loader!./icons/eye.svg').default,
     'tick': require('!raw-loader!./icons/tick.svg').default,
     'close': require('!raw-loader!./icons/close.svg').default,
+    'search': require('!raw-loader!./icons/search.svg').default,
+    'filter': require('!raw-loader!./icons/filter.svg').default,
 };

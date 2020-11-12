@@ -2,6 +2,13 @@
     overflow: hidden;
 }
 
+
+// TODO remove after modal sizes styles
+.wlc-modal__dialog.wlc-modal__dialog--lg {
+    max-width: 800px;
+}
+// end
+
 .wlc-modal {
     position: fixed;
     top: 0;

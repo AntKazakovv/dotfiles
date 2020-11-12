@@ -1,31 +1,35 @@
-@use './vars' as v;
+@import './vars';
 
 .wlc-games-grid {
 
     &__content {
-        padding: v.$contentPadding 0;
+        padding: $contentPadding 0;
     }
 
     &__header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        color: v.$headerColor;
+        color: $headerColor;
+    }
+
+    &__result {
+        margin-bottom: $resultMarginBottom;
     }
 
     &__link {
-        color: v.$allLinkColor;
+        color: $allLinkColor;
     }
 
     &__list {
         display: grid;
-        grid-row-gap: v.$currentGap;
-        grid-column-gap: v.$currentGap;
-        margin-bottom: v.$listMargin;
-        grid-template-columns: repeat(auto-fill, minmax(v.$itemMinWidth, 1fr));
+        grid-row-gap: $currentGap;
+        grid-column-gap: $currentGap;
+        margin-bottom: $listMargin;
+        grid-template-columns: repeat(auto-fill, minmax($itemMinWidth, 1fr));
 
         @media (max-width: 993px) { // TODO add satndard mobile media
-            grid-template-columns: repeat(auto-fill, minmax(v.$itemMinWidthMobile, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax($itemMinWidthMobile, 1fr));
         }
     }
 
@@ -39,11 +43,11 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        border-radius: v.$placeholderBorderRadius;
-        background: v.$placeholderBackground;
+        border-radius: $placeholderBorderRadius;
+        background: $placeholderBackground;
         background-repeat: no-repeat;
         background-size: cover;
-        color: v.$placeholderTextColor;
+        color: $placeholderTextColor;
     }
 
     &__item {
@@ -59,7 +63,7 @@
             min-width: 200px;
             height: auto;
             background-color: #444444;
-            border-radius: v.$placeholderBorderRadius;
+            border-radius: $placeholderBorderRadius;
             overflow: hidden;
             display: flex;
             justify-content: center;

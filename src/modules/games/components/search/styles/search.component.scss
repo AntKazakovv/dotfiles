@@ -1,0 +1,202 @@
+@use './vars' as v;
+@use './mixins' as m;
+
+$btnArrowDelta: v.$btnArrowSize * 1.4142 - v.$btnArrowSize;
+$btnPaddingRight: v.$btnArrowRightMargin + v.$btnArrowLeftMargin + $btnArrowDelta + v.$btnArrowSize;
+
+:host {
+    .wlc-search {
+
+        &__header {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: v.$headerMarginBottom;
+        }
+
+        &__col {
+
+            &--search {
+                flex: 1 1 auto;
+                min-width: 254px;
+                margin-right: 15px;
+            }
+
+            &--merchants {
+                flex: 0 0 auto;
+                margin-right: 15px;
+            }
+
+            &--categories {
+                flex: 0 0 auto;
+            }
+
+            &--panel {
+                flex: 1 1 100%;
+                margin-top: 20px;
+            }
+        }
+
+        &__btn {
+            position: relative;
+            height: 100%;
+            padding: v.$btnPaddingVertical $btnPaddingRight v.$btnPaddingVertical v.$btnPaddingLeft;
+            appearance: none;
+            background-color: v.$btnBackground;
+            border-radius: v.$btnBorderRadius;
+            border: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: v.$btnFontSize;
+            color: v.$btnTextColor;
+            transition: v.$btnTransition linear;
+
+            &:focus {
+                outline: none;
+            }
+
+            &:hover {
+                background: v.$btnBackgroundHover;
+            }
+
+            &:after {
+                content: '';
+                display: block;
+                position: absolute;
+                right: v.$btnArrowRightMargin + $btnArrowDelta / 2;
+                top: 50%;
+                width: v.$btnArrowSize;
+                height: v.$btnArrowSize;
+                margin-top: -(v.$btnArrowSize * 0.75);
+                border-top: v.$btnArrowWidth solid v.$btnArrowColor;
+                border-left: v.$btnArrowWidth solid v.$btnArrowColor;
+                transform: rotate(225deg);
+                transition: v.$btnTransition linear;
+            }
+
+            .icon {
+                color: v.$btnIconColor;
+                margin-right: v.$btnIconRightMargin;
+
+                ::ng-deep {
+                    svg {
+                        width: v.$btnIconSize;
+                        height: v.$btnIconSize;
+                    }
+                }
+            }
+
+            .counter {
+                display: inline-block;
+                font-size: v.$btnCounterFontSize;
+                margin-left: v.$btnCounterMarginLeft;
+                background: v.$btnCounterBackground;
+                line-height: 1.2;
+                padding-right: 0.2em;
+                padding-left: 0.2em;
+                border-radius: v.$btnCounterBorderRadius;
+                color: v.$btnCounterColor;
+            }
+
+            &.active {
+                background: v.$btnBackgroundActive;
+                color: v.$btnColorActive;
+
+                &:after {
+                    margin-top: -(v.$btnArrowSize * 0.25);
+                    transform: rotate(45deg);
+                    border-color: v.$btnArrowColorActive;
+                }
+
+                .icon {
+                    color: v.$btnIconColorActive;
+                }
+            }
+        }
+
+        &__list {
+            list-style-type: none;
+            padding: 0;
+            display: grid;
+            gap: v.$listGap;
+            @if v.$listGrid {
+                @include m.list-grid(v.$listGrid);
+            } @else {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        &__list-item {
+            //
+        }
+
+        &__list-btn {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            white-space: nowrap;
+            width: 100%;
+            text-align: left;
+            padding: v.$listBtnPadding;
+            border: v.$listBtnBorder;
+            background: v.$listBtnBackground;
+            border-radius: v.$listBtnRadius;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            font-size: v.$listBtnFontSize;
+            color: v.$listBtnColor;
+            transition: v.$listBtnTransition linear;
+
+            &:focus {
+                outline: none;
+            }
+
+            &:hover {
+                background: v.$listBtnBackgroundHover;
+            }
+
+            &.active {
+
+                .wlc-search__list-icon {
+                    background: v.$listBtnBackgroundActive;
+                    border: 2px solid v.$listBtnColorActive;
+
+                    &:before {
+                        visibility: visible;
+                    }
+                }
+            }
+        }
+
+        &__list-icon {
+            position: relative;
+            display: block;
+            flex: 0 0 1.2em;
+            width: 1.2em;
+            height: 1.2em;
+            border-radius: v.$listBtnIconRadius;
+            background: v.$listBtnIconBackground;
+            border: v.$listBtnIconBorder;
+            margin-left: 0.8em;
+            transition: v.$listBtnTransition linear;
+
+            &:before {
+                content: '';
+                display: block;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 5px;
+                height: 8px;
+                border-right: v.$listBtnIconWidth solid v.$listBtnColorActive;
+                border-bottom: v.$listBtnIconWidth solid v.$listBtnColorActive;
+                transform: translate(-60%, -60%) rotate(45deg);
+                visibility: hidden;
+            }
+        }
+
+        &__games {
+            //
+        }
+    }
+}

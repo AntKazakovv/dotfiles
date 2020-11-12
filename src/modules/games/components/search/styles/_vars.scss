@@ -1,0 +1,53 @@
+@use 'engine-styles/functions' as ef;
+
+$headerMarginBottom: -40px;
+
+$btnBackground: ef.get('color', 'secondary');
+$btnBorderRadius: ef.get('radius', 'small');
+$btnFontSize: ef.get('font', 'size');
+$btnTextColor: ef.get('color', 'text');
+$btnPaddingVertical: 8px;
+$btnPaddingLeft: 10px;
+$btnArrowColor: ef.get('color', 'text');
+$btnArrowWidth: 2px;
+$btnArrowSize: 8px;
+$btnArrowRightMargin: $btnPaddingLeft;
+$btnArrowLeftMargin: 8px;
+$btnTransition: ef.get('time', 'main');
+$btnIconSize: 18px;
+$btnIconColor: inherit;
+$btnIconRightMargin: $btnPaddingLeft;
+
+$btnBackgroundHover: ef.get('color', 'main');
+$btnBackgroundActive: $btnBackgroundHover;
+$btnColorActive: $btnTextColor;
+$btnArrowColorActive: $btnTextColor;
+$btnIconColorActive: inherit;
+
+$btnCounterFontSize: 14px;
+$btnCounterMarginLeft: 6px;
+$btnCounterBackground: ef.get('color', 'success');
+$btnCounterBorderRadius: ef.get('radius', 'main');
+$btnCounterColor: ef.get('color', 'textSecondary');
+
+$listGap: 10px;
+$listGrid: ( // min width
+    320: 2,
+    900: 3,
+);
+
+$listBtnBackground: ef.get('color', 'backgroundSecondary');
+$listBtnBorder: 2px solid ef.get('color', 'secondary');
+$listBtnColor: ef.get('color', 'text');
+$listBtnPadding: 5px 10px;
+$listBtnRadius: $btnBorderRadius;
+$listBtnFontSize: $btnFontSize;
+$listBtnTransition: $btnTransition;
+$listBtnIconBackground: $listBtnColor;
+$listBtnIconBorder: 2px solid ef.get('color', 'main');
+$listBtnIconRadius: ef.get('radius', 'small');
+$listBtnIconWidth: 2px;
+
+$listBtnBackgroundActive: $listBtnIconBackground;
+$listBtnColorActive: ef.get('color', 'success');
+$listBtnBackgroundHover: ef.get('color', 'secondary');

@@ -129,7 +129,7 @@ export interface IModalConfig extends IModalBsOptions {
 /**
  * Available string types of modals (`id`)
  */
-export type IModalName = 'baseInfo' | 'faq';
+export type IModalName = 'baseInfo' | 'faq' | 'search';
 
 /**
  * List of default modals. `id` must be equal with `content.id`

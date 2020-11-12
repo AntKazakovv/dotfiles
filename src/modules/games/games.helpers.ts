@@ -143,7 +143,7 @@ export class GamesHelper {
                     id: game.MerchantID,
                     value: categoryName,
                     title: categoryTitle,
-                    sort: _toNumber(category.CSort || 0),
+                    sort: _toNumber(category?.CSort || 0),
                 });
             }
 
