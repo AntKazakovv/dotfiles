@@ -22,7 +22,7 @@ import {
     defaultGamesGridParams,
 } from './search.params';
 import {ConfigService} from 'wlc-engine/modules/core/services';
-import {GamesCatalogService} from 'wlc-engine/modules/games/services/games-catalog.service';
+import {GamesCatalogService} from 'wlc-engine/modules/games/services';
 import {
     ICategory,
     IMerchant,

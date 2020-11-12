@@ -63,6 +63,7 @@ export class ModalService {
 
     /**
      * Get active modal instance by id
+     *
      * @param id identifier of modal window
      * @returns modal instance
      */
@@ -72,6 +73,7 @@ export class ModalService {
 
     /**
      * Show modal with params.
+     *
      * @param config if string, search by id on MODALS_LIST.
      * @returns Reference on component
      */
@@ -105,11 +107,24 @@ export class ModalService {
         }
 
         return this.open(modalConfig);
+    }
 
+    /**
+     * Show error modal with params.
+     *
+     * @param config if string, search by id on MODALS_LIST.
+     * @returns Reference on component
+     */
+    public showError(config: Partial<IModalConfig>): ComponentRef<WlcModalComponent> {
+        return this.showModal(_assignIn({
+            id: 'Error',
+            modalTitle: gettext('Error'),
+        }, config));
     }
 
     /**
      * Close modal by Id
+     *
      * @param id modal identifier
      * @returns void
      */
@@ -150,6 +165,7 @@ export class ModalService {
 
     /**
      * Remode modal instance from DOM by id
+     *
      * @param id modal identifier
      */
     protected remove(id: string): void {
@@ -172,6 +188,7 @@ export class ModalService {
 
     /**
      * Create modal instance and render component
+     *
      * @param config modal window configuration
      * @returns Reference on component
      */

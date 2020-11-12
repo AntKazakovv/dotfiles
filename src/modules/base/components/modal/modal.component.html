@@ -42,6 +42,8 @@
 </ng-template>
 
 <ng-template #message>
-    <div class="modal-message" [innerHTML]="$params.config.modalMessage"></div>
+    <div class="modal-message" *ngFor="let msg of $params.config.modalMessage">
+        {{msg | translate}}
+    </div>
 </ng-template>
 

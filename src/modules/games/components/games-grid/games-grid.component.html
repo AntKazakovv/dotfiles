@@ -19,7 +19,7 @@
 
         <div class="{{$class}}__item" *ngFor="let game of filteredGames | slice: 0:gamesCount">
             <!-- TODO: add gameThumb component -->
-            <div class="wlc-games-thumb">
+            <div class="wlc-games-thumb" (click)="startGame(game); $event.stopPropagation();">
                 <img [src]="game.Image" loading="lazy" alt="">
                 <div class="wlc-games-thumb__placeholder">no image</div>
             </div>

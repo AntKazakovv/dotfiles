@@ -19,6 +19,7 @@ import {CoreModule} from './core/core.module';
 
 import {ConfigService} from './core/services';
 import {PromoModule} from 'wlc-engine/modules/promo/promo.module';
+import {GamesModule} from 'wlc-engine/modules/games/games.module';
 
 import {Location} from '@angular/common';
 import {IIndexing} from 'wlc-engine/interfaces';
@@ -58,6 +59,7 @@ export function loadConfig(config: ConfigService) {
         }),
         CoreModule,
         PromoModule,
+        GamesModule,
         WebStorageModule,
         ServiceWorkerModule.register('/static/dist/ngsw-worker.js', {enabled: environment.production}), // environment.production
     ],

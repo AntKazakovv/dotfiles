@@ -1,4 +1,4 @@
-export {GamesCatalogService} from './services/games-catalog.service';
+export {GamesCatalogService} from './services';
 export {CategoriesService} from './services/categories.service';
 export {
     GamesFilterService,

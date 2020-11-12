@@ -10,7 +10,9 @@ import {
     ViewEncapsulation,
     HostListener,
     OnDestroy,
+    ComponentRef,
 } from '@angular/core';
+import {RawParams} from '@uirouter/core';
 import {DomSanitizer} from '@angular/platform-browser';
 import {ResizedEvent} from 'angular-resize-event';
 import {UIRouter} from '@uirouter/core';
@@ -20,11 +22,22 @@ import {GamesCatalogService} from 'wlc-engine/modules/games';
 import {ConfigService} from 'wlc-engine/modules/core';
 import {defaultParams,IGWParams} from './game-wrapper.params';
 import {IGameParams, ILaunchInfo} from '../../interfaces/games.interfaces';
-import {UserService} from '../../../user/services/user.service';
+import {UserService} from 'wlc-engine/modules/user/services/user.service';
 import {LogService} from 'wlc-engine/modules/core/services';
+import {ModalService} from 'wlc-engine/modules/base/services';
+import {WlcModalComponent} from 'wlc-engine/modules/base/components/modal';
+
+interface IError {
+    msg: string | string;
+    state?: string;
+    stateParams?: RawParams;
+}
 
 import {
+    filter as _filter,
+    find as _find,
     includes as _includes,
+    extend as _extend,
     isObject as _isObject,
     isString as _isString,
     toNumber as _toNumber,
@@ -54,10 +67,8 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
 
     protected gameParams: IGameParams;
     protected launchInfo: ILaunchInfo;
-
     protected gameScriptTimeout: number;
     protected destroyed: boolean = false;
-
     protected containerObserver: MutationObserver;
     protected iframeObserver: MutationObserver;
     protected iframe: HTMLElement;
@@ -69,6 +80,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         protected gamesCatalogService: GamesCatalogService,
         protected userService: UserService,
         protected configService: ConfigService,
+        protected modalService: ModalService,
         protected logService: LogService,
         @Inject('injectParams') protected injectParams: IGWParams,
         protected elementRef: ElementRef,
@@ -96,7 +108,10 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
             this.initStartResizeParams();
         } else {
             // TODO:  this.LocalCacheService.remove('lastGameParams');
-            // TODO:  setError()
+            this.logService.sendLog({code: '3.0.4', data: {gameParams: this.gameParams}});
+            this.setError({
+                msg: gettext('The game does not exist or the game settings are incorrect')
+            });
         }
     }
 
@@ -282,7 +297,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
             merchantId: this.$params.gameParams?.merchantId || this.router.stateService.params?.merchantId || '', // TODO: get from state
             launchCode: this.$params.gameParams?.launchCode || this.router.stateService.params?.launchCode || '', // TODO: get from state
             lang: this.locale,
-            demo: this.router.stateService.params?.demo ? 1 : 0, // TODO: get from state
+            demo: this.$params.gameParams?.demo || this.router.stateService.params?.demo ? '1' : '0', // TODO: get from state
             gameId: this.$params.gameParams?.gameId || this.router.stateService.params?.gameId || 'none', // TODO: get from state
         };
     }
@@ -324,27 +339,15 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         }
     }
 
+    /**
+     * Get launch params
+     *
+     * @returns {Promise<void>}
+     */
     protected async getLaunchParams(): Promise<void> {
+        const waiter = this.logService.waiter({code: '3.0.3'});
         try {
-            //  TODO: const launchInfo: ILaunchInfo = await this.GamesService.getLaunchParams(this.gameParams);
-
-            // PARAMS FOR CONFIG:
-            // launchCode: 'hottestfruits40'
-            // merchantId: '975'
-            // TODO to remove mock data
-            const launchInfo: ILaunchInfo = {
-                config: {AuthToken: 'freeplay', AR: '16:9'},
-                gameHtml: `<div id="egamings_container">
-<iframe scrolling="no" src="https://cdn02.cdn.amatic.com/gmsl/amanet/game.html?game=
-hottestfruits40&amp;hash=freeplay&amp;language=en&amp;currency=EUR&amp;config=1352&amp;
-isFreeplay=true" width="100%" height="100%" frameBorder="0" marginheight="0" marginwidth="0" allowfullscreen>
-</iframe>
-</div>`,
-                gameScript: '',
-                merchant: 'amaticdirect',
-                merchantId: '975',
-                mobilePlatform: false,
-            };
+            const launchInfo: ILaunchInfo = await this.gamesCatalogService.getLaunchParams(this.gameParams);
             if (this.checkLaunch(launchInfo)) {
                 // this.launchInfo.gameScript = await this.getGameScript(this.launchInfo.gameScript);
                 if (this.configService.get<boolean>('appConfig.mobile')) {
@@ -355,8 +358,13 @@ isFreeplay=true" width="100%" height="100%" frameBorder="0" marginheight="0" mar
             } else {
                 // error
             }
-        } catch(e) {
-            // TODO set error
+        } catch(err) {
+            this.logService.sendLog({code: '3.0.2', data: {error: err, gameparam: this.gameParams}});
+            this.setError({
+                msg: err.errors
+            });
+        } finally {
+            waiter();
         }
     }
 
@@ -369,6 +377,24 @@ isFreeplay=true" width="100%" height="100%" frameBorder="0" marginheight="0" mar
             !_includes(data.gameHtml, 'FAKESID');
 
         return this.configService.get<boolean>('appConfig.mobile') || checkDesktop;
+    }
+
+    /**
+     * Set error
+     *
+     * @param {string | string[]} msgs
+     * @param {string} title
+     * @returns {ComponentRef<WlcModalComponent>}
+     */
+    protected setError(error: IError): ComponentRef<WlcModalComponent> {
+        return this.modalService.showError({
+            modalMessage: error.msg || gettext('Something wrong. Please try later.'),
+            onModalHidden: () => {
+                if (error.state) {
+                    this.router.stateService.go(error.state, error.stateParams || {});
+                }
+            },
+        })
     }
 
 }

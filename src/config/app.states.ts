@@ -4,25 +4,24 @@ import {StateHelper} from './state.helper';
 import {AppComponent} from 'wlc-engine/app/app.component';
 import {ConfigService} from 'wlc-engine/modules/core/services';
 import {LayoutComponent} from 'wlc-engine/modules/core/components/layout/layout.component';
-
+import {
+    homeState,
+    catalogState,
+    gamePlayState,
+    pagesState,
+} from './states';
 
 import {
     map as _map,
+    values as _values,
+    assign as _assign,
 } from 'lodash';
 
 const states = {
-    'app.home': {
-        url: '',
-    },
-    'app.catalog': {
-        url: '/catalog/:category',
-        params: {
-            category: 'test',
-        },
-    },
-    'app.pages': {
-        url: '/pages/:slug',
-    },
+    'app.home': homeState,
+    'app.catalog': catalogState,
+    'app.gameplay': gamePlayState,
+    'app.pages': pagesState,
 };
 
 const appState: Ng2StateDeclaration = {

@@ -19,7 +19,7 @@ import {FilesService} from 'wlc-engine/modules/core';
 import {LogService} from 'wlc-engine/modules/core/services';
 import * as Params from './icon-list.params';
 import {IMerchant} from 'wlc-engine/modules/games/interfaces/games.interfaces';
-import {GamesCatalogService} from 'wlc-engine/modules/games/services/games-catalog.service';
+import {GamesCatalogService} from 'wlc-engine/modules/games/services';
 import {
     ConfigService,
 } from 'wlc-engine/modules/core';
