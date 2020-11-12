@@ -7,6 +7,7 @@ import {GamesCatalogService} from './services';
 import {FormsModule} from '@angular/forms';
 import {CategoriesService} from 'wlc-engine/modules/games';
 import {GamesGridComponent} from './components/games-grid/games-grid.component';
+import {GameThumbComponent} from './components/game-thumb/game-thumb.component';
 import {GameWrapperComponent} from './components/game-wrapper/game-wrapper.component';
 import {BaseModule} from '../base/base.module';
 import {CoreModule} from '../core/core.module';
@@ -15,6 +16,7 @@ import {SearchComponent} from './components/search/search.component';
 
 export const components = {
     'wlc-games-grid': GamesGridComponent,
+    'wlc-game-thumb': GameThumbComponent,
     'wlc-game-wrapper': GameWrapperComponent,
     'wlc-search-field': SearchFieldComponent,
 };
@@ -22,6 +24,7 @@ export const components = {
 @NgModule({
     declarations: [
         GamesGridComponent,
+        GameThumbComponent,
         GameWrapperComponent,
         SearchFieldComponent,
         SearchComponent,

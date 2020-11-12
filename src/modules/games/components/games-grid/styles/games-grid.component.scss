@@ -1,3 +1,4 @@
+@use 'engine-styles/mixins/mediaqueries' as mq;
 @import './vars';
 
 .wlc-games-grid {
@@ -23,13 +24,13 @@
 
     &__list {
         display: grid;
-        grid-row-gap: $currentGap;
-        grid-column-gap: $currentGap;
+        grid-gap: $currentGap;
         margin-bottom: $listMargin;
         grid-template-columns: repeat(auto-fill, minmax($itemMinWidth, 1fr));
 
-        @media (max-width: 993px) { // TODO add satndard mobile media
-            grid-template-columns: repeat(auto-fill, minmax($itemMinWidthMobile, 1fr));
+        @include mq.max(640) {
+            grid-template-columns: repeat(2, 1fr);
+            grid-gap: 15px;
         }
     }
 
@@ -48,51 +49,5 @@
         background-repeat: no-repeat;
         background-size: cover;
         color: $placeholderTextColor;
-    }
-
-    &__item {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-
-        // TODO to delete
-        .wlc-games-thumb {
-            width: 100%;
-            max-width: 350px;
-            min-width: 200px;
-            height: auto;
-            background-color: #444444;
-            border-radius: $placeholderBorderRadius;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-
-
-            @media (max-width: 993px) {
-                min-width: 140px;
-            }
-
-            &__placeholder {
-                position: absolute;
-                z-index: 1;
-            }
-
-            &:after {
-                display: block;
-                content: '';
-                width: 0;
-                padding-bottom: 75%;
-            }
-
-            img {
-                width: 100%;
-                position: relative;
-                z-index: 2;
-            }
-        }
     }
 }
