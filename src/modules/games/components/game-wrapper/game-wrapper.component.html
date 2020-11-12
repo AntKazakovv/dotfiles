@@ -1,0 +1,21 @@
+<div class="{{$class}}__content" (resized)="onResize($event)">
+    <div class="{{$class}}__header" #header>
+        <h2>{{game?.Name[locale] || game?.Name['en'] || ''}}</h2>
+        <div class="{{$class}}__btns">
+            <div *ngIf="userService.isAuthenticated" class="icon-btn icon-btn--favourite" [class.active]="isFavourite" wlc-icon iconName="favourite" (click)="onFavourite($event)"></div>
+            <div class="icon-btn" wlc-icon iconName="fullscreen" (click)="onFullscreen($event)"></div>
+            <div class="icon-btn" wlc-icon iconName="close" (click)="onClose($event)"></div>
+        </div>
+    </div>
+    <div class="{{$class}}__game-area" #wrp>
+        <div wlc-dynamic-html [html]="gameHtml" *ngIf="isReady; else preloader"></div>
+        <ng-template #preloader>
+            <!-- TODO: add base component with preloader -->
+            <div class="{{$class}}__loading">
+                <p class="{{$class}}__ring"></p>
+                <p>Loading...</p>
+            </div>
+        </ng-template>
+    </div>
+    <div class="{{$class}}__footer" #footer></div>
+</div>

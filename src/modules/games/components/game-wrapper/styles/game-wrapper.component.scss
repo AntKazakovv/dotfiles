@@ -1,0 +1,77 @@
+@import './vars';
+
+.wlc-game-wrapper {
+
+    display: block;
+
+    &__content {
+        width: 100%;
+        margin: $contentPaddings 0;
+    }
+
+    &__header,
+    &__footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-left: auto;
+        margin-right: auto;
+
+        h2 {
+            max-width: 50%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+
+    &__header {
+        padding: $headerPaddings 0;
+        background: $headerBg;
+    }
+
+    &__btns {
+        display: flex;
+
+        .icon-btn {
+            margin-left: $iconsGap;
+            opacity: 0.8;
+            cursor: pointer;
+
+            svg {
+                width: $iconsSize;
+                height: $iconsSize;
+                fill: none;
+                stroke: $iconsColor;
+                stroke-width: 2px;
+            }
+
+            &:hover {
+                opacity: 1;
+            }
+
+            &--favourite {
+
+                &.active {
+
+                    svg {
+                        fill: $iconsColor;
+                    }
+                }
+            }
+        }
+    }
+
+    &__game-area {
+        margin-left: auto;
+        margin-right: auto;
+
+        div[wlc-dynamic] {
+            height: 100%;
+
+            div {
+                height: 100%;
+            }
+        }
+    }
+}

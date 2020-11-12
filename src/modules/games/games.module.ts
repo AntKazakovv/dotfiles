@@ -6,14 +6,16 @@ import {AngularResizedEventModule} from 'angular-resize-event';
 import {GamesCatalogService} from './services/games-catalog.service';
 import {FormsModule} from '@angular/forms';
 import {CategoriesService} from 'wlc-engine/modules/games';
-
 import {GamesGridComponent} from './components/games-grid/games-grid.component';
+import {GameWrapperComponent} from './components/game-wrapper/game-wrapper.component';
+import {BaseModule} from '../base/base.module';
 import {CoreModule} from '../core/core.module';
 import {SearchFieldComponent} from './components/search-field/search-field.component';
 import {SearchComponent} from './components/search/search.component';
 
 export const components = {
     'wlc-games-grid': GamesGridComponent,
+    'wlc-game-wrapper': GameWrapperComponent,
     'wlc-search-field': SearchFieldComponent,
 };
 
@@ -22,10 +24,12 @@ export const components = {
         GamesGridComponent,
         SearchFieldComponent,
         SearchComponent,
+        GameWrapperComponent,
     ],
     id: 'GamesModule',
     imports: [
         CommonModule,
+        BaseModule,
         CoreModule,
         UIRouterModule,
         TranslateModule,
@@ -38,6 +42,7 @@ export const components = {
     ],
     exports: [
         GamesGridComponent,
+        GameWrapperComponent,
         SearchFieldComponent,
         SearchComponent,
     ],

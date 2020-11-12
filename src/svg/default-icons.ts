@@ -6,9 +6,11 @@ export const DefaultSvgIcons: ISvgIcons = {
     'loading': require('!raw-loader!./icons/loading.svg').default,
     'arrow': require('!raw-loader!./icons/arrow.svg').default,
     'thin-arrow': require('!raw-loader!./icons/thin-arrow.svg').default,
+    'fullscreen': require('!raw-loader!./icons/fullscreen.svg').default,
+    'close': require('!raw-loader!./icons/close.svg').default,
+    'favourite': require('!raw-loader!./icons/favourite.svg').default,
     'eye': require('!raw-loader!./icons/eye.svg').default,
     'tick': require('!raw-loader!./icons/tick.svg').default,
-    'close': require('!raw-loader!./icons/close.svg').default,
     'search': require('!raw-loader!./icons/search.svg').default,
     'filter': require('!raw-loader!./icons/filter.svg').default,
 };
