@@ -159,6 +159,12 @@ export class GamesGridComponent extends AbstractComponent
             .subscribe((event: Event) => this.tryLoadingGames());
     }
 
+    public startGame(game: Game, demo: boolean): void {
+        this.gamesCatalogService.startGame(game, {
+            demo: demo
+        });
+    }
+
     protected tryLoadingGames(): void {
         const currentPosition = window.scrollY + window.window.innerHeight;
         const elemBottom = (

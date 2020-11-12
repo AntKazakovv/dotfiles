@@ -1,23 +1,27 @@
 import {Injectable} from '@angular/core';
+import {UIRouter} from '@uirouter/core';
 import {ConfigService} from 'wlc-engine/modules/core/services/config/config.service';
-import {DataService, IData} from 'wlc-engine/modules/core/services/data/data.service';
+import {DataService, IData, IRequestMethod, RequestParamsType, RestMethodType} from 'wlc-engine/modules/core/services/data/data.service';
 import {GamesCatalog} from 'wlc-engine/modules/games/models/games-catalog.model';
 import {Game} from 'wlc-engine/modules/games/models/game.model';
 
 import {
     ICategory,
     IMerchant,
+    IStartGameOptions,
+    ILaunchInfo,
+    IGameParams,
 } from 'wlc-engine/modules/games/interfaces/games.interfaces';
 
 @Injectable({
     providedIn: 'root',
 })
-
 export class GamesCatalogService {
 
     constructor(
         protected configService: ConfigService,
-        protected data: DataService,
+        protected router: UIRouter,
+        protected dataService: DataService,
     ) {
         this.init();
     }
@@ -31,6 +35,8 @@ export class GamesCatalogService {
     private $resolve: () => void;
 
     public async init(): Promise<void> {
+        this.registerMethods();
+
         // TODO cache
         // this.gamesCatalogCache = this.CacheFactory.get('gamesCatalogCache');
         // if (!this.gamesCatalogCache) {
@@ -66,7 +72,7 @@ export class GamesCatalogService {
     }
 
     public load(): Promise<IData> {
-        return this.data.request({
+        return this.dataService.request({
             name: 'games',
             system: 'games',
             url: '/games',
@@ -74,6 +80,16 @@ export class GamesCatalogService {
             preload: 'games',
             mapFunc: (res) => this.prepareData(res),
         });
+    }
+
+    /**
+     * Get game launch params
+     *
+     * @param {IGameParams} options
+     * @returns {Promise<ILaunchInfo>}
+     */
+    public async getLaunchParams(options: IGameParams): Promise<ILaunchInfo> {
+        return (await this.dataService.request('games/gameLaunchParams', options)).data as ILaunchInfo;
     }
 
     public getCategories(): ICategory[] {
@@ -100,6 +116,19 @@ export class GamesCatalogService {
         return this.gamesCatalog.getGame(merchantId, launchCode);
     }
 
+    /**
+     * Open game
+     *
+     * @param {Game} game
+     * @param {IStartGameOptions} options
+     */
+    public startGame(game: Game, options: IStartGameOptions): void {
+        this.router.stateService.go('app.gameplay', {
+            merchantId: game.MerchantID,
+            launchCode: game.LaunchCode,
+            demo: options.demo,
+        });
+    }
 
     protected queryLastGames(): Promise<any> {
         return new Promise((resolve, reject) => {
@@ -118,5 +147,21 @@ export class GamesCatalogService {
         return response;
     }
 
+    protected regMethod(
+        name: string,
+        url: string,
+        type: RestMethodType,
+        period?: number,
+    ): void {
+        const params: IRequestMethod = {name, system: 'games', url, type};
+        if (period) {
+            params.period = period;
+        }
+        this.dataService.registerMethod(params);
+    }
+
+    protected registerMethods(): void {
+        this.regMethod('gameLaunchParams', '/games', 'GET');
+    }
 
 }

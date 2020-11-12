@@ -13,6 +13,7 @@ export interface IGlobalConfig {
     $base: IBaseModuleParams,
     $static: unknown,
     $files: IIndexing<string>,
+    $games: unknown,
 }
 
 export interface IGetParams {

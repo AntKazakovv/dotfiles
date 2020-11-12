@@ -56,9 +56,9 @@ export interface IModalConfig extends IModalBsOptions {
      */
     componentParams?: unknown;
     /**
-     * String or html
+     * String or array of strings
      */
-    modalMessage?: string | HTMLElement;
+    modalMessage?: string | string[];
     /**
      * Text of close button. `Close` by default
      */

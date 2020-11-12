@@ -101,4 +101,8 @@ export class Game extends AbstractGame {
             });
         }
     }
+
+    public openGame(): void {
+
+    }
 }

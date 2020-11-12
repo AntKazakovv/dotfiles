@@ -89,5 +89,18 @@ export const $layouts: ILayoutsConfig = {
             },
         },
     },
+    'app.gameplay': {
+        extends: 'app',
+        sections: {
+            content: {
+                components: [
+                    {
+                        name: 'games.wlc-game-wrapper'
+                    }
+                ],
+                order: 2
+            }
+        },
+    },
 };
 

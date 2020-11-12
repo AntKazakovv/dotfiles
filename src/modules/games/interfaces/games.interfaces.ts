@@ -130,14 +130,16 @@ export interface ICatalogTreeItem extends ISupportedItem {
 export interface IGameParams {
     merchantId: string;
     launchCode: string;
-    demo: number;
+    demo: string;
     gameId: string;
     lang?: string;
+    [key: string]: string;
 }
 
 export interface ICustomGameParams {
     merchantId?: string;
     launchCode?: string;
+    demo?: boolean;
     gameId?: string;
     hideTitle?: boolean;
     autoresize?: boolean;
@@ -163,4 +165,15 @@ export interface IIndexingMerchants {
 
 export interface IIndexingCategories {
     [key: string]: ICategory;
+}
+
+export interface IStartGameOptions {
+    demo: boolean;
+}
+
+export interface ILaunchParamsOptions {
+    launchCode: string;
+    merchantId: string;
+    demo: boolean;
+    lang: string;
 }
