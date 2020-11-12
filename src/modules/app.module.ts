@@ -24,6 +24,7 @@ import {Location} from '@angular/common';
 import {IIndexing} from 'wlc-engine/interfaces';
 
 import {WebStorageModule} from 'ngx-store';
+import * as Sentry from '@sentry/angular';
 
 export function loadConfig(config: ConfigService) {
     return config.load();
@@ -70,6 +71,9 @@ export function loadConfig(config: ConfigService) {
         },
         {
             provide: ErrorHandler,
+            useValue: Sentry.createErrorHandler({
+                logErrors: true,
+            }),
         },
     ],
     exports: [

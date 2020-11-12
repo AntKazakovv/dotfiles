@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { LogService } from './log.service';
+import { SentryService } from './sentry.service';
 
-describe('LogService', () => {
-    let service: LogService;
+describe('SentryService', () => {
+    let service: SentryService;
 
     beforeEach(() => {
         TestBed.configureTestingModule({});
-        service = TestBed.inject(LogService);
+        service = TestBed.inject(SentryService);
     });
 
     it('should be created', () => {

@@ -8,6 +8,7 @@ import {
     EventService,
     FilesService,
     LogService,
+    SentryService,
 } from './services';
 import {BaseModule} from 'wlc-engine/modules/base/base.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -26,6 +27,7 @@ import {WrapperComponent} from 'wlc-engine/modules/core/components/wrapper/wrapp
         ConfigService,
         FilesService,
         LogService,
+        SentryService,
         BannersService,
     ],
     declarations: [
