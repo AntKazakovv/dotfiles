@@ -98,6 +98,7 @@ export class ConfigService {
             } else if (storageType[setParams.storageType]) {
                 _get(this, storageType[setParams.storageType]).set(setParams.name, setParams.value);
             }
+            return;
         }
 
         if (setParams.replace) {

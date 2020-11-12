@@ -35,7 +35,7 @@ export interface ILogType {
 export interface ILogTypes extends IIndexing<ILogType> {
 }
 
-export const errorTypes: ILogTypes = _assign(
+export const logTypes: ILogTypes = _assign(
     {},
     commonLogs,
     authLogs,
