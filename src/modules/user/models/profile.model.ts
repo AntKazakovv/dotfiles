@@ -11,6 +11,7 @@ export class UserProfile extends AbstractModel<IUserProfile> {
 
     constructor() {
         super();
+        this.init();
     }
 
     public get address(): string {
@@ -149,8 +150,8 @@ export class UserProfile extends AbstractModel<IUserProfile> {
         return this.data.newPassword;
     }
 
-    public get newPasswordRepeat(): string {
-        return this.data.newPasswordRepeat;
+    public get passwordRepeat(): string {
+        return this.data.passwordRepeat;
     }
 
     public get password(): string {
@@ -159,5 +160,48 @@ export class UserProfile extends AbstractModel<IUserProfile> {
 
     public get oddsStyle(): string {
         return this.data.oddsStyle;
+    }
+
+    protected init(): void {
+        this.data = {
+            address: '',
+            bankName: '',
+            bankNameText: '',
+            birthDay: '',
+            birthMonth: '',
+            birthYear: '',
+            branchCode: '',
+            city: '',
+            countryCode: '',
+            currency: '',
+            currentPassword: '',
+            email: '',
+            emailVerified: '',
+            extProfile: {},
+            firstName: '',
+            gender: '',
+            ibanNumber: '',
+            idNumber: '',
+            idUser: '',
+            lastName: '',
+            login: '',
+            newEmail: '',
+            phoneAltCode: '',
+            phoneAltNumber: '',
+            phoneCode: '',
+            phoneNumber: '',
+            phoneVerified: '',
+            postalCode: '',
+            registrationBonus: '',
+            swift: '',
+            VerificationJobID: '',
+            VerificationSessionID: '',
+            birthDate: '',
+            newPassword: '',
+            newPasswordRepeat: '',
+            passwordRepeat: '',
+            password: '',
+            oddsStyle: '',
+        };
     }
 }

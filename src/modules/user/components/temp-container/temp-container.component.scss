@@ -123,8 +123,8 @@
 
     // вынести стили в отдельный компонент инпутов, селектов и т.п.
 
-    .wlc-input,
-    .wlc-select {
+    .wlc-select,
+    .wlc-input {
         position: relative;
         display: block;
         width: 100%;

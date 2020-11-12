@@ -77,9 +77,10 @@
                         class="wlc-select wlc-select--right-shift"
                     >
                         <option
-                            *ngFor="let currensy of currencies"
-                            [ngValue]="currensy.alias"
-                        >{{currensy.name}}</option>
+                            *ngFor="let currency of currencies"
+                            [ngValue]="currency.Alias"
+                        >{{currency.Name}}
+                        </option>
                     </select>
                     <span
                         class="field-icon field-icon--arrow field-icon--to-right"
@@ -117,8 +118,8 @@
                         <input
                             id="agree-with-terms"
                             type="checkbox"
-                            name="agreeWithTerms"
-                            formControlName="agreeWithTerms"
+                            name="agreedWithTermsAndConditions"
+                            formControlName="agreedWithTermsAndConditions"
                             class="wlc-checkbox"/>
                         <label for="agree-with-terms" class="wlc-label wlc-label--control"></label>
                         <p class="wlc-form-text">
@@ -126,17 +127,31 @@
                             <a href="#" class="wlc-form__link">Terms and Conditions</a>
                         </p>
                     </div>
+                    <div
+                        *ngIf="checkControlField('agreedWithTermsAndConditions')"
+                        class="error-messages">
+                        <p
+                            *ngIf="signUpForm.get('agreedWithTermsAndConditions').errors.required"
+                            class="error">Обязательное поле</p>
+                    </div>
                 </div>
                 <div class="wlc-form__group">
                     <div class="wlc-form-control">
                         <input
                             id="age-confirmed"
                             type="checkbox"
-                            name="agreeWithTerms"
+                            name="ageConfirmed"
                             formControlName="ageConfirmed"
                             class="wlc-checkbox"/>
                         <label for="age-confirmed" class="wlc-label wlc-label--control"></label>
                         <p class="wlc-form-text">I confirm that I'm 18 years or older</p>
+                    </div>
+                    <div
+                        *ngIf="checkControlField('ageConfirmed')"
+                        class="error-messages">
+                        <p
+                            *ngIf="signUpForm.get('ageConfirmed').errors.required"
+                            class="error">Обязательное поле</p>
                     </div>
                 </div>
             </div>
@@ -146,7 +161,7 @@
                 wlc-button
                 type="submit"
                 [text]="'Register'"
-                [disabled]="signUpForm.invalid"
+                [disabled]="signUpForm.invalid || signUpForm.pending"
             ></button>
         </div>
     </div>

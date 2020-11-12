@@ -22,5 +22,8 @@ export abstract class AbstractModel<T> {
         this.checkData();
     }
 
-    protected checkData(): void {};
+    protected checkData(): void {
+    };
 }
+
+

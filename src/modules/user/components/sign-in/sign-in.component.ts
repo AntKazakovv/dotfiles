@@ -1,5 +1,6 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
 import {FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
+import {UserService} from 'wlc-engine/modules/user/services/user.service';
 
 @Component({
     selector: '[wlc-sign-in]',
@@ -11,7 +12,9 @@ export class SignInComponent implements OnInit {
 
     public signInForm: FormGroup;
 
-    constructor() {
+    constructor(
+        protected userService: UserService,
+    ) {
     }
 
     ngOnInit(): void {
@@ -20,8 +23,7 @@ export class SignInComponent implements OnInit {
 
     public submitHandler(): void {
         const formData = {...this.signInForm.value};
-
-        console.log(formData);
+        this.userService.login(formData.email, formData.password);
     };
 
     public checkField(fieldName: string): boolean {

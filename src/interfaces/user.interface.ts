@@ -58,6 +58,7 @@ export interface IUserProfile {
     birthDate?: string;
     newPassword?: string;
     newPasswordRepeat?: string;
+    passwordRepeat?: string;
     password?: string;
     oddsStyle?: string;
 }
