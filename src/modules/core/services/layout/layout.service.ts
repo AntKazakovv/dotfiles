@@ -9,6 +9,7 @@ import {
 import {ConfigService} from 'wlc-engine/modules/core/services/config/config.service';
 import {SectionModel, ISectionData} from 'wlc-engine/modules/core/models/section.model';
 import {IIndexing} from 'wlc-engine/interfaces';
+import {WrapperComponent} from 'wlc-engine/modules/core';
 
 import {
     cloneDeep as _cloneDeep,
@@ -41,7 +42,11 @@ export class LayoutService {
         [key: string]: {
             [key: string]: unknown
         }
-    } = {};
+    } = {
+        core: {
+            'wlc-wrapper': WrapperComponent,
+        },
+    };
     private positionRegexp = /^(after|before)?\s?([^#]+)?#?(\d*)?/;
 
     constructor(
@@ -49,7 +54,6 @@ export class LayoutService {
     ) {
         this.layouts = this.ConfigService.get<ILayoutsConfig>('$layouts');
     }
-
 
     public getLayoutConfig(state: string, params?: IIndexing<any>): ILayoutStateConfig {
         const mergeExtendsLayout = () => {
@@ -174,6 +178,17 @@ export class LayoutService {
         return _get(this.components, name);
     }
 
+    public async loadComponent(name: string): Promise<unknown> {
+
+        const [module] = name.split('.');
+
+        if (!_get(this.components, module)) {
+            await this.importModules([module]);
+        }
+
+        return _get(this.components, name);
+    }
+
     private getPosition(section: ILayoutSectionConfig, item: ILayoutModifyItem): number {
         if (_isNumber(item.position)) {
             return (item.position > 0) ? item.position - 1 : 0;
@@ -269,7 +284,7 @@ export class LayoutService {
                 });
             case 'finances':
                 return import('wlc-engine/modules/finances/finances.module').then(m => {
-                    this.components.user = m.components;
+                    this.components.finances = m.components;
                     return m.FinancesModule;
                 });
         }

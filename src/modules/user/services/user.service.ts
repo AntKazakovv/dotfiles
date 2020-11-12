@@ -5,6 +5,7 @@ import {DataService, EventService} from 'wlc-engine/modules/core/services';
 import {TranslateService} from '@ngx-translate/core';
 import {UserInfo} from 'wlc-engine/modules/user/models/info.model';
 import {IRequestMethod, RestMethodType} from 'wlc-engine/modules/core/services/data/data.service';
+import {ConfigService} from 'wlc-engine/modules/core';
 
 import {
     get as _get,
@@ -41,32 +42,34 @@ export class UserService {
     }
 
     constructor(
+        public translate: TranslateService,
         protected dataService: DataService,
         protected eventService: EventService,
-        public translate: TranslateService,
         protected app: AppModule,
+        protected сonfigService: ConfigService,
     ) {
+        this.сonfigService.set({name: '$user.isAuthenticated', value: false});
         this.registerMethods();
         this.info = new UserInfo(translate, eventService);
         this.profile = new UserProfile();
         if (app.initialPath?.message) {
             switch (app.initialPath.message) {
-            case 'SET_NEW_PASSWORD':
+                case 'SET_NEW_PASSWORD':
                 //TODO
-                break;
-            case 'COMPLETE_REGISTRATION':
-                if (app.initialPath.code) {
-                    this.registrationComplete(app.initialPath.code);
-                } else {
+                    break;
+                case 'COMPLETE_REGISTRATION':
+                    if (app.initialPath.code) {
+                        this.registrationComplete(app.initialPath.code);
+                    } else {
                     //TODO modal
-                }
-                break;
-            case 'EMAIL_UNSUBSCRIBE':
+                    }
+                    break;
+                case 'EMAIL_UNSUBSCRIBE':
                 //TODO
-                break;
-            case 'FINALIZE_SOCIAL_CONNECT':
+                    break;
+                case 'FINALIZE_SOCIAL_CONNECT':
                 //TODO
-                break;
+                    break;
                 // case 'FINALIZE_SOCIAL_REGISTRATION':
                 //     UserSocialRegisterService.init();
                 //     break;
@@ -89,6 +92,7 @@ export class UserService {
             name: 'LOGIN',
         }, () => {
             this.isAuthenticated = true;
+            this.сonfigService.set({name: '$user.isAuthenticated', value: true});
             this.fetchUserInfo();
             this.startUserInfoFetcher();
             this.fetchUserProfile();
@@ -98,6 +102,7 @@ export class UserService {
             name: 'LOGOUT',
         }, () => {
             this.isAuthenticated = false;
+            this.сonfigService.set({name: '$user.isAuthenticated', value: false});
             this.stopUserInfoFetcher();
         });
 

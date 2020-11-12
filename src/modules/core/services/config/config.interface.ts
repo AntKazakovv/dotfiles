@@ -17,7 +17,6 @@ export interface IGlobalConfig {
 
 export interface IGetParams {
     name: string;
-    config?: string;
     storageType?: IStorageType;
 }
 
