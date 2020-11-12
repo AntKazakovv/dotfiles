@@ -263,7 +263,7 @@ export class StaticService {
         if (isPage) {
             return [];
         }
-        return this.configService.get<string[]>('appConfig.$static.pagesOnly');
+        return this.configService.get<string[]>('$static.pagesOnly');
     }
 
     protected getWPLink(type: StaticTextType): string {
@@ -291,7 +291,7 @@ export class StaticService {
     }
 
     protected async checkPlugin(plugin?: string): Promise<boolean> {
-        if (this.configService.get<boolean>('appConfig.$static.wpPlugins.wlcApi') === false) {
+        if (this.configService.get<boolean>('$static.wpPlugins.wlcApi') === false) {
             return false;
         }
 
@@ -306,7 +306,7 @@ export class StaticService {
     }
 
     protected getParams(): IIndexing<string> {
-        const fields = this.configService.get<any>('appConfig.$static.additionalFields');
+        const fields = this.configService.get<any>('$static.additionalFields');
         return (this.useWpPlugin)
             ? {
                 fields: _filter(fields, (item) => !_includes(this.fieldsList, item)).join(','),

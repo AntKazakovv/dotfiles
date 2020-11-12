@@ -13,8 +13,7 @@ import {
     merge as _merge,
     union as _union,
     forEach as _forEach,
-    findIndex as _findIndex,
-    cloneDeep as _cloneDeep,
+    clone as _clone,
     has as _has,
     split as _split,
 } from 'lodash';
@@ -48,7 +47,7 @@ export class AbstractComponent implements OnDestroy, OnInit {
     }
 
     public ngOnInit(inlineParams?: IComponentParams<unknown, unknown, unknown>): void {
-        const abstractConfig: IAbstractConfig = _cloneDeep(this.mixedParams.defaultParams);
+        const abstractConfig: IAbstractConfig = _clone(this.mixedParams.defaultParams);
         this.$params = _merge(abstractConfig, this.ConfigService?.get<IIndexing<unknown>>(
             `$modules.${abstractConfig?.moduleName}.components.${abstractConfig?.componentName}`,
         ),
