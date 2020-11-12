@@ -70,7 +70,7 @@ export class FilesService {
 
     protected init(): void {
         const wlcFiles: IFileMeta[] = this.transformToFileMeta(
-            this.configService.get<IIndexing<string>>('appConfig.$files') || {});
+            this.configService.get<IIndexing<string>>('$files') || {});
         const engineFiles: IFileMeta[] = this.transformToFileMeta(defaultFiles, 'engine');
 
         this.rowFileList = this.mergeFileLists(wlcFiles, engineFiles);
