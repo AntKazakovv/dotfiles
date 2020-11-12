@@ -16,7 +16,9 @@ import {UserProfile} from '../models/profile.model';
 
 //данные для входа 'maksim.shahov@softgamings.com', 'Test123!'
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class UserService {
 
     public isAuthenticated: boolean = false;

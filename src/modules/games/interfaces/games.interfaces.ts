@@ -127,6 +127,36 @@ export interface ICatalogTreeItem extends ISupportedItem {
     subcategories: ISupportedItem[];
 }
 
+export interface IGameParams {
+    merchantId: string;
+    launchCode: string;
+    demo: number;
+    gameId: string;
+    lang?: string;
+}
+
+export interface ICustomGameParams {
+    merchantId?: string;
+    launchCode?: string;
+    gameId?: string;
+    hideTitle?: boolean;
+    autoresize?: boolean;
+    sportsbookPage?: string;
+    lang?: string;
+}
+
+export interface ILaunchInfo {
+    config: {
+        AR: string,
+        AuthToken?: string
+    };
+    gameHtml: string;
+    gameScript: string;
+    merchant: string;
+    merchantId: string;
+    mobilePlatform: boolean;
+}
+
 export interface IIndexingMerchants {
     [key: string]: IMerchant;
 }

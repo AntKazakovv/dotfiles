@@ -40,7 +40,6 @@ export abstract class AbstractGame {
     public TableID: string;
     public isRestricted: boolean;
     public Freeround?: string;
-
 }
 
 export class Game extends AbstractGame {
