@@ -1,5 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
+import {SwiperModule} from 'ngx-swiper-wrapper';
+import {AngularResizedEventModule} from 'angular-resize-event';
 
 import {LogoComponent} from './components/logo/logo.component';
 import {LanguageSelectorComponent} from './components/language-selector/language-selector.component';
@@ -20,6 +22,7 @@ import {
 import {CloseComponent} from './components/close/close.component';
 import {BonusComponent} from './components/bonus/bonus.component';
 import {LoaderComponent} from './components/loader/loader.component';
+import {ScrollbarComponent} from './components/scrollbar/scrollbar.component';
 
 export const components = {
     'wlc-logo': LogoComponent,
@@ -47,11 +50,14 @@ export const components = {
         CloseComponent,
         BonusComponent,
         LoaderComponent,
+        ScrollbarComponent,
     ],
     imports: [
         CommonModule,
         UIRouterModule,
         TranslateModule,
+        SwiperModule,
+        AngularResizedEventModule,
     ],
     exports: [
         LogoComponent,
@@ -65,6 +71,7 @@ export const components = {
         CloseComponent,
         BonusComponent,
         LoaderComponent,
+        ScrollbarComponent,
     ],
     providers: [
         ModalService,

@@ -9,6 +9,7 @@ import {ILanguage} from 'wlc-engine/modules/core';
 
 import {
     sortBy as _sortBy,
+    filter as _filter,
 } from 'lodash';
 
 const defaultParams = {
@@ -25,6 +26,7 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
     public hostClass = defaultParams.class;
 
     public sections: SectionModel[] = [];
+    public panels: SectionModel[] = [];
 
     constructor(
         public router: UIRouter,
@@ -52,12 +54,15 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
             );
         });
 
+        this.panels = _sortBy(this.layoutService
+            .getAllSection('panels', this.uiRouter.current.name, this.uiRouter.params), 'order');
+
         this.sections = _sortBy(this.layoutService
-            .getAllSection(this.uiRouter.current.name, this.uiRouter.params), 'order');
+            .getAllSection('pages', this.uiRouter.current.name, this.uiRouter.params), 'order');
 
         this.transition.onEnter({}, async (transition) => {
             this.sections = _sortBy(this.layoutService
-                .getAllSection(this.uiRouter.transition?.targetState().name(),
+                .getAllSection('pages', this.uiRouter.transition?.targetState().name(),
                     this.uiRouter.transition?.targetState().params()), 'order');
         });
         this.cdr.markForCheck();

@@ -1,0 +1,9 @@
+<div class="{{$class}}__container swiper-container" [swiper]="swiperOptions">
+    <div class="{{$class}}__wrapper swiper-wrapper">
+        <div class="{{$class}}__slide swiper-slide"
+            (resized)="contentResizeHandler()">
+            <ng-content></ng-content>
+        </div>
+    </div>
+    <div class="{{$class}}__scrollbar swiper-scrollbar"></div>
+</div>

@@ -1,0 +1,19 @@
+<div class="{{$class}}__header">
+    <div class="{{$class}}__title">
+        {{title | translate}}
+    </div>
+    <button class="{{$class}}__close"
+        [attr.title]="'Close' | translate"
+        [attr.aria-label]="'Close' | translate"
+        type="button"
+        (click)="closePanel()"
+        wlc-icon
+        [iconName]="'close'"
+    ></button>
+</div>
+
+<div class="{{$class}}__content" wlc-scrollbar>
+    <div class="{{$class}}__inner">
+        <ng-content></ng-content>
+    </div>
+</div>

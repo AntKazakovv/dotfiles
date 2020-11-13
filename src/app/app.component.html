@@ -1,5 +1,8 @@
+<div wlc-float-panels [sections]="panels"></div>
+
 <div *ngFor="let section of sections"
      wlc-layout
      [sectionName]="section.name"
+     [layouts]="'pages'"
      [ngClass]="section.classList(hostClass)"
 ></div>

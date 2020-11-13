@@ -1,0 +1,12 @@
+@use 'engine-styles/functions' as ef;
+
+$zindex: 30;
+
+$scrollbarSize: ef.get('size', 'smallest');
+$scrollbarStretchSize: 98%;
+$scrollbarPadding: 3px;
+$scrollbarBackground: rgba($color: ef.get('color', 'text'), $alpha: 0.1);
+$scrollbarBorderRadius: ef.get('radius', 'main');
+
+$draggerBackground: rgba($color: ef.get('color', 'text'), $alpha: 0.5);
+$draggerBorderRadius: $scrollbarBorderRadius;

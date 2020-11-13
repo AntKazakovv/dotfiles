@@ -5,6 +5,7 @@ import {
     ILayoutSectionConfig,
     ILayoutStateConfig,
     ILayoutModifyItem,
+    IPanelsConfig,
 } from 'wlc-engine/interfaces/layouts.interface';
 import {ConfigService} from 'wlc-engine/modules/core/services/config/config.service';
 import {SectionModel, ISectionData} from 'wlc-engine/modules/core/models/section.model';
@@ -32,12 +33,23 @@ import {
     isUndefined as _isUndefined,
 } from 'lodash';
 
+export type LayoutsType = 'pages' | 'panels';
+
+interface ILayouts {
+    pages: ILayoutsConfig;
+    panels: IPanelsConfig;
+}
+
 @Injectable({
     providedIn: 'root',
 })
 export class LayoutService {
 
-    private readonly layouts: ILayoutsConfig;
+    private readonly layouts: ILayouts = {
+        pages: {},
+        panels: {},
+    };
+
     private components: {
         [key: string]: {
             [key: string]: unknown
@@ -52,38 +64,40 @@ export class LayoutService {
     constructor(
         protected ConfigService: ConfigService,
     ) {
-        this.layouts = this.ConfigService.get<ILayoutsConfig>('$layouts');
+        this.layouts.pages = this.ConfigService.get<ILayoutsConfig>('$layouts');
+        this.layouts.panels = this.ConfigService.get<IPanelsConfig>('$panelsLayouts');
     }
 
-    public getLayoutConfig(state: string, params?: IIndexing<any>): ILayoutStateConfig {
+    public getLayoutConfig(type: LayoutsType, state: string, params?: IIndexing<any>): ILayoutStateConfig {
+
         const mergeExtendsLayout = () => {
-            if (this.layouts[state]?.extends) {
+            if (this.layouts[type][state]?.extends) {
                 return _cloneDeep(_extend(
-                    _cloneDeep(this.layouts[state]),
+                    _cloneDeep(this.layouts[type][state]),
                     _mergeWith(
-                        this.getLayoutConfig(this.layouts[state].extends, params),
-                        this.layouts[state],
+                        this.getLayoutConfig(type, this.layouts[type][state].extends, params),
+                        this.layouts[type][state],
                         (target, source) => {
                             return _isArray(target) ? source : undefined;
                         })));
             }
 
-            return _cloneDeep(this.layouts[state]);
+            return _cloneDeep(this.layouts[type][state]);
         };
 
-        if (this.layouts.hasOwnProperty(state)) {
+        if (this.layouts[type].hasOwnProperty(state)) {
             const paramsPath: string = params?.category || params?.slug;
 
             if (paramsPath) {
                 const subCategoryPath = `${state}.${paramsPath}`;
-                const subCategories = this.layouts[state]?.subcategories;
+                const subCategories = this.layouts[type][state]?.subcategories;
 
                 if (subCategories?.[subCategoryPath]) {
                     if (subCategories[subCategoryPath]?.extends) {
                         return _cloneDeep(_extend(
                             _cloneDeep(subCategories[subCategoryPath]),
                             _mergeWith(
-                                this.getLayoutConfig(subCategories[subCategoryPath].extends),
+                                this.getLayoutConfig(type, subCategories[subCategoryPath].extends),
                                 subCategories[subCategoryPath],
                                 (target, source) => {
                                     return _isArray(target) ? source : undefined;
@@ -96,21 +110,21 @@ export class LayoutService {
             }
             return mergeExtendsLayout();
         } else {
-            return _cloneDeep(this.layouts.app) || {};
+            return _cloneDeep(this.layouts[type].app) || {};
         }
     }
 
     /**
     Return all sections of current state
      */
-    public getAllSection(state: string, params?: IIndexing<any>): SectionModel[] {
-        return _map(this.getLayoutConfig(state, params)?.sections, (section, name) => {
+    public getAllSection(type: LayoutsType, state: string, params?: IIndexing<any>): SectionModel[] {
+        return _map(this.getLayoutConfig(type, state, params)?.sections, (section, name) => {
             return new SectionModel(<ISectionData>{section, name});
         });
     }
 
-    public async getLayout(state: string, params?: IIndexing<any>): Promise<ILayoutStateConfig> {
-        const res: ILayoutStateConfig = this.getLayoutConfig(state, params);
+    public async getLayout(type: LayoutsType, state: string, params?: IIndexing<any>): Promise<ILayoutStateConfig> {
+        const res: ILayoutStateConfig = this.getLayoutConfig(type, state, params);
 
         _each(res?.sections, (section) => {
             if (section.modify) {
