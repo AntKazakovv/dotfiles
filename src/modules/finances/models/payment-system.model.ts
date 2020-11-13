@@ -1,4 +1,4 @@
-import {AbstractModel} from 'wlc-engine/modules/core/models/abstarct.model';
+import {AbstractModel} from 'wlc-engine/modules/core/models/abstract.model';
 import {UserService} from 'wlc-engine/modules/user/services/user.service';
 
 import {

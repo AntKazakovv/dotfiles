@@ -17,8 +17,18 @@
 <!--            </span>-->
         </div>
         <div class="wlc-game-thumb__buttons">
-            <button wlc-button [text]="'Play'" [theme]="'rounding'"></button>
-            <button wlc-button [text]="'Demo'" [theme]="'rounding'" [themeMod]="'secondary'"></button>
+            <button wlc-button
+                    [text]="'Play'"
+                    [theme]="'rounding'"
+                    (click)="startGame(game, false, $event)"
+            ></button>
+            <button
+                wlc-button
+                [text]="'Demo'"
+                [theme]="'rounding'"
+                [themeMod]="'secondary'"
+                (click)="startGame(game, true, $event)"
+            ></button>
         </div>
     </div>
 </div>

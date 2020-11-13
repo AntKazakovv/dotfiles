@@ -1,4 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
+import {ModalService} from 'wlc-engine/modules/base/services';
 
 import {
     get as _get,
@@ -19,6 +20,7 @@ export class LoginSignupComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ILoginSignupCParams,
+        protected ModalService: ModalService,
     ) {
         super({injectParams, defaultParams: Params.defaultParams});
     }
@@ -36,13 +38,24 @@ export class LoginSignupComponent extends AbstractComponent implements OnInit {
     }
 
     public action(actionButton: Params.IActionNameType): void {
-        if (this.$params.login?.action === 'url') {
-            const url = _get(this.$params, `${actionButton}.url`);
-            if (!url) return;
-            if (_get(this.$params, `${actionButton}.target`) === 'blank') {
-                window.open(url);
-            } else {
-                location.href = url;
+        switch (this.$params?.[actionButton]?.action) {
+            case 'url': {
+                const url = _get(this.$params, `${actionButton}.url`);
+                if (!url) return;
+                if (_get(this.$params, `${actionButton}.target`) === 'blank') {
+                    window.open(url);
+                } else {
+                    location.href = url;
+                }
+                break;
+            }
+            case 'login': {
+                this.ModalService.showModal('login');
+                break;
+            }
+            case 'signup': {
+                this.ModalService.showModal('signup');
+                break;
             }
         }
     }

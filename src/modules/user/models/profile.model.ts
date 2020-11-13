@@ -1,5 +1,5 @@
 import {IExtProfile, IUserProfile} from 'wlc-engine/interfaces';
-import {AbstractModel} from 'wlc-engine/modules/core/models/abstarct.model';
+import {AbstractModel} from 'wlc-engine/modules/core/models/abstract.model';
 
 import {
     get as _get,

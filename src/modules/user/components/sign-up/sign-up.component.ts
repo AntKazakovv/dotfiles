@@ -3,6 +3,9 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {CustomValidator} from 'wlc-engine/modules/user/helper/custom-validator';
 import {UserService} from 'wlc-engine/modules/user/services/user.service';
 import {ConfigService} from 'wlc-engine/modules/core/services';
+import {
+    ModalService,
+} from 'wlc-engine/modules/base/services';
 
 import {
     keys as _keys,
@@ -33,6 +36,7 @@ export class SignUpComponent implements OnInit {
     constructor(
         protected userService: UserService,
         protected configService: ConfigService,
+        protected ModalService: ModalService,
     ) {}
 
     public ngOnInit(): void {
@@ -46,6 +50,9 @@ export class SignUpComponent implements OnInit {
 
     public async submitHandler(): Promise<void> {
         this.userService.registration(this.formDataPreparation());
+
+        //TODO DELETE AFTER ENGINE RELEASE 13.11.2020
+        this.ModalService.closeModal('signup');
     };
 
     public checkField(fieldName: string): boolean {
