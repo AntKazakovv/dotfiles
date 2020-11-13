@@ -23,6 +23,7 @@ import {CloseComponent} from './components/close/close.component';
 import {BonusComponent} from './components/bonus/bonus.component';
 import {LoaderComponent} from './components/loader/loader.component';
 import {ScrollbarComponent} from './components/scrollbar/scrollbar.component';
+import {LicenseComponent} from './components/license/license.component';
 
 export const components = {
     'wlc-logo': LogoComponent,
@@ -34,6 +35,7 @@ export const components = {
     'wlc-icon-list': IconListComponent,
     'wlc-disclaimer': DisclaimerComponent,
     'wlc-loader': LoaderComponent,
+    'wlc-license': LicenseComponent,
 };
 
 @NgModule({
@@ -51,6 +53,7 @@ export const components = {
         BonusComponent,
         LoaderComponent,
         ScrollbarComponent,
+        LicenseComponent,
     ],
     imports: [
         CommonModule,
@@ -72,9 +75,11 @@ export const components = {
         BonusComponent,
         LoaderComponent,
         ScrollbarComponent,
+        LicenseComponent,
     ],
     providers: [
         ModalService,
+        LicenseComponent,
     ],
 })
 export class BaseModule {

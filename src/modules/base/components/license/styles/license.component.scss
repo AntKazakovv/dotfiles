@@ -1,0 +1,26 @@
+@import './vars';
+
+.wlc-license {
+    display: grid;
+    grid-template-columns: 1fr;
+    width: fit-content;
+    gap: $gap;
+
+    &__apg-seal {
+        width: $apgSealWidth;
+    }
+
+    &__age-restrictions {
+        width: 37px;
+        margin: 0 auto;
+        display: block;
+
+        svg {
+            width: 100%;
+
+            path {
+                fill: $iconColor;
+            }
+        }
+    }
+}

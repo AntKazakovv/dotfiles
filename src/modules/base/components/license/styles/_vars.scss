@@ -1,0 +1,6 @@
+@use 'engine-styles/functions' as ef;
+
+$gap: ef.get('size', 'smaller') !default;
+$iconColor: ef.get('color', 'main') !default;
+$apgSealWidth: 45px !default;
+$ageRestrictionsWidth: 37px !default;
