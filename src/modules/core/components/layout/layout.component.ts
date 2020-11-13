@@ -31,6 +31,8 @@ import {
 import {
     takeUntil,
 } from 'rxjs/operators';
+import { LayoutsType } from 'wlc-engine/modules/core/services/layout/layout.service';
+
 
 import {
     each as _each,
@@ -51,6 +53,7 @@ import {
 export class LayoutComponent implements OnInit, OnDestroy {
 
     @Input() protected sectionName: string;
+    @Input() protected layouts: LayoutsType;
 
     public components: ILayoutComponent[] = [];
     public section: ILayoutSectionConfig;
@@ -99,7 +102,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
     }
 
     private async setComponents(state: string, params?: IIndexing<any>): Promise<void> {
-        this.currentConfig = await this.layoutService.getLayout(state, params);
+        this.currentConfig = await this.layoutService.getLayout(this.layouts, state, params);
         this.section = this.currentConfig.sections[this.sectionName];
         this.allComponents$ = this.section?.components as ILayoutComponent[] || [];
         this.setWatcher();

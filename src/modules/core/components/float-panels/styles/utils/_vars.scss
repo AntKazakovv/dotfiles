@@ -1,0 +1,6 @@
+@use 'engine-styles/functions' as ef;
+
+$transition: ef.get('time', 'main') linear;
+$zindex: 1030;
+
+$backdropBackground: rgba($color: #000000, $alpha: 0.6);

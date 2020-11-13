@@ -1,1 +1,2 @@
-export {$layouts as $layouts} from './layouts/layout.config';
+export * from './layouts/layout.config';
+export * from './layouts/panels-layouts.config';

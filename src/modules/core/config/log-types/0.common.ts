@@ -174,5 +174,20 @@ export const errorTypes: ILogTypes = {
         type: 'modal_window',
         level: 'error',
         group: 'Common',
-    }
+    },
+
+    '0.4.0': {
+        description: 'Panel doesn\'t exist',
+        name: 'Panel doesn\'t exist',
+        type: 'burger_panel',
+        level: 'error',
+        group: 'Common',
+    },
+    '0.4.1': {
+        description: 'Panel type is invalid',
+        name: 'Panel type is invalid',
+        type: 'burger_panel',
+        level: 'error',
+        group: 'Common',
+    },
 };

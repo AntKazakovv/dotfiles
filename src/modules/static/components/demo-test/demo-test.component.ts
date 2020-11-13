@@ -1,4 +1,5 @@
 import {Component, ChangeDetectorRef} from '@angular/core';
+import {EventService} from 'wlc-engine/modules/core/services';
 
 import {
     ModalService,
@@ -18,6 +19,7 @@ export class demoTestComponent {
 
     constructor(
         protected changeDetector: ChangeDetectorRef,
+        protected eventService: EventService,
         protected ModalService: ModalService,
     ) {}
 
@@ -27,7 +29,7 @@ export class demoTestComponent {
         setTimeout(() => {
             this.isLoading = false;
             this.changeDetector.detectChanges();
-        }, 3000)
+        }, 3000);
     }
 
     load2(): void {
@@ -36,7 +38,20 @@ export class demoTestComponent {
         setTimeout(() => {
             this.isLoading2 = false;
             this.changeDetector.detectChanges();
-        }, 3000)
+        }, 3000);
+    }
+
+    openLeftPanel(): void {
+        this.eventService.emit({
+            name: 'PANEL_OPEN',
+            data: 'left',
+        });
+    }
+    openRightPanel(): void {
+        this.eventService.emit({
+            name: 'PANEL_OPEN',
+            data: 'right'
+        });
     }
 
     openModal(): void {

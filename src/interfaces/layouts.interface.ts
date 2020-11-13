@@ -5,14 +5,27 @@ export interface ILayoutsConfig {
     [key: string]: ILayoutStateConfig;
 }
 
+export interface IPanelsConfig {
+    [key: string]: IPanelsStateConfig;
+}
+
 export interface ILayoutStateConfig extends IDefaultConfig {
     extends?: string;
     subcategories?: ILayoutsConfig;
     sections?: ILayoutSectionsConfig;
 }
 
+export interface IPanelsStateConfig extends ILayoutStateConfig {
+    sections?: IPanelsSectionsConfig;
+    subcategories?: IPanelsConfig;
+}
+
 export interface ILayoutSectionsConfig {
     [key: string]: ILayoutSectionConfig;
+}
+
+export interface IPanelsSectionsConfig {
+    [key: string]: IPanelSectionConfig;
 }
 
 export interface ILayoutSectionConfig {
@@ -22,6 +35,11 @@ export interface ILayoutSectionConfig {
     modifiers?: string[];
     theme?: string;
     order?: number;
+}
+
+export interface IPanelSectionConfig extends ILayoutSectionConfig {
+    hide?: boolean;
+    container?: string;
 }
 
 export interface ILayoutModifyItem {
