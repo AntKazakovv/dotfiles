@@ -1,17 +1,18 @@
 <div class="wlc-modal__dialog modal-dialog"
-    [class]="dialogClasses">
+     [class]="dialogClasses">
     <div class="wlc-modal__header"
-        [class.wlc-modal__header--headless]="!$params.config.modalTitle">
+         [class.wlc-modal__header--headless]="!$params.config.modalTitle">
         <h5 class="wlc-modal__title"
             *ngIf="$params.config.modalTitle">
             {{$params.config.modalTitle | translate}}
         </h5>
         <button type="button"
-            class="wlc-modal__close"
-            data-dismiss="modal"
-            aria-label="Close"
-            title="Close">
-            x
+                wlc-icon
+                iconName="close"
+                class="wlc-modal__close"
+                data-dismiss="modal"
+                aria-label="Close"
+                title="Close">
         </button>
     </div>
 
@@ -21,15 +22,15 @@
 
     <div class="wlc-modal__footer">
         <button type="button"
-            *ngIf="$params.config.showConfirmBtn"
-            class=""
-            (click)="confirm()">
-            {{$params.config.confirmBtnText || 'Confirm' | translate}}
+                wlc-button
+                text="{{$params.config.confirmBtnText || 'Confirm' | translate}}"
+                *ngIf="$params.config.showConfirmBtn"
+                (click)="confirm()">
         </button>
         <button type="button"
-            class=""
-            data-dismiss="modal">
-            {{$params.config.closeBtnText || 'Close' | translate}}
+                wlc-button
+                text="{{$params.config.closeBtnText || 'Close' | translate}}"
+                data-dismiss="modal">
         </button>
     </div>
 </div>

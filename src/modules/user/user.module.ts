@@ -15,11 +15,13 @@ import {DataService} from 'wlc-engine/modules/core/services';
 // Components
 import {LoginSignupComponent} from './components/login-signup/login-signup.component';
 import {SignupBonusComponent} from './components/signup-bonus/signup-bonus.component';
+import {TempLogoutComponent} from './components/temp-logout/temp-logout.component';
 
 
 export const components = {
     'wlc-temp-container': TempContainerComponent,
     'wlc-login-signup': LoginSignupComponent,
+    'wlc-temp-logout': TempLogoutComponent,
 };
 
 @NgModule({
@@ -32,6 +34,7 @@ export const components = {
         HaveAccountComponent,
         LoginSignupComponent,
         SignupBonusComponent,
+        TempLogoutComponent,
     ],
     imports: [
         CommonModule,
@@ -52,6 +55,7 @@ export const components = {
         PasswordChangeComponent,
         HaveAccountComponent,
         LoginSignupComponent,
+        TempLogoutComponent,
     ],
 })
 export class UserModule {

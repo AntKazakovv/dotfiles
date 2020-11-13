@@ -20,7 +20,7 @@ import {AbstractComponent} from 'wlc-engine/classes/abstract.component';
 import {Game} from 'wlc-engine/modules/games/models/game.model';
 import {GamesCatalogService} from 'wlc-engine/modules/games';
 import {ConfigService} from 'wlc-engine/modules/core';
-import {defaultParams,IGWParams} from './game-wrapper.params';
+import {defaultParams, IGWParams} from './game-wrapper.params';
 import {IGameParams, ILaunchInfo} from '../../interfaces/games.interfaces';
 import {UserService} from 'wlc-engine/modules/user/services/user.service';
 import {LogService} from 'wlc-engine/modules/core/services';
@@ -110,7 +110,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
             // TODO:  this.LocalCacheService.remove('lastGameParams');
             this.logService.sendLog({code: '3.0.4', data: {gameParams: this.gameParams}});
             this.setError({
-                msg: gettext('The game does not exist or the game settings are incorrect')
+                msg: gettext('The game does not exist or the game settings are incorrect'),
             });
         }
     }
@@ -150,13 +150,13 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
     }
 
     public ngOnDestroy(): void {
-        this.containerObserver.disconnect();
+        this.containerObserver?.disconnect();
         if (this.iframeObserver) {
-            this.iframeObserver.disconnect();
+            this.iframeObserver?.disconnect();
         }
     }
 
-    protected initStartResizeParams():void {
+    protected initStartResizeParams(): void {
         this.aspectRatio = this.game.AR || 'auto';
         this.aspectRatioCoefficient = this.getAspectRatioCoefficient();
         this.checkIframe();
@@ -196,7 +196,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
 
     protected setGameWindowSize(width?: number): void {
         const el = this.wrp?.element?.nativeElement;
-        const maxHeight:number = this.getMaxHeight();
+        const maxHeight: number = this.getMaxHeight();
         if (!width) {
             width = this.wrp?.element?.nativeElement.parentElement.getBoundingClientRect().width;
         }
@@ -358,10 +358,10 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
             } else {
                 // error
             }
-        } catch(err) {
+        } catch (err) {
             this.logService.sendLog({code: '3.0.2', data: {error: err, gameparam: this.gameParams}});
             this.setError({
-                msg: err.errors
+                msg: err.errors,
             });
         } finally {
             waiter();
@@ -394,7 +394,6 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
                     this.router.stateService.go(error.state, error.stateParams || {});
                 }
             },
-        })
+        });
     }
-
 }

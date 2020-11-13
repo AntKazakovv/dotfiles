@@ -1,6 +1,9 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
 import {FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
 import {UserService} from 'wlc-engine/modules/user/services/user.service';
+import {
+    ModalService,
+} from 'wlc-engine/modules/base/services';
 
 @Component({
     selector: '[wlc-sign-in]',
@@ -14,6 +17,7 @@ export class SignInComponent implements OnInit {
 
     constructor(
         protected userService: UserService,
+        protected ModalService: ModalService,
     ) {
     }
 
@@ -24,6 +28,9 @@ export class SignInComponent implements OnInit {
     public submitHandler(): void {
         const formData = {...this.signInForm.value};
         this.userService.login(formData.email, formData.password);
+
+        //TODO DELETE AFTER ENGINE RELEASE 13.11.2020
+        this.ModalService.closeModal('login');
     };
 
     public checkField(fieldName: string): boolean {

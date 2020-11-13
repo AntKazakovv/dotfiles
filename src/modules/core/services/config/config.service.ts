@@ -116,6 +116,7 @@ export class ConfigService {
 
     protected prepareData(response: IData): AppConfigModel {
         this.global.appConfig = new AppConfigModel(response);
+        this.set<boolean>({name: '$user.isAuthenticated', value: this.global.appConfig.loggedIn === '1'});
         this.addSiteConfig();
         this.$resolve();
         return this.appConfig;

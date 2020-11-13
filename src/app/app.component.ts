@@ -60,7 +60,7 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
         this.sections = _sortBy(this.layoutService
             .getAllSection('pages', this.uiRouter.current.name, this.uiRouter.params), 'order');
 
-        this.transition.onEnter({}, async (transition) => {
+        this.transition.onSuccess({}, async (transition) => {
             this.sections = _sortBy(this.layoutService
                 .getAllSection('pages', this.uiRouter.transition?.targetState().name(),
                     this.uiRouter.transition?.targetState().params()), 'order');

@@ -28,9 +28,6 @@ import {
     findIndex as _findIndex,
     includes as _includes,
     toSafeInteger as _toSafeInteger,
-    set as _set,
-    isObject as _isObject,
-    isUndefined as _isUndefined,
 } from 'lodash';
 
 export type LayoutsType = 'pages' | 'panels';

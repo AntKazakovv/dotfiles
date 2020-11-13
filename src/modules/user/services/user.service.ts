@@ -7,14 +7,11 @@ import {UserInfo} from 'wlc-engine/modules/user/models/info.model';
 import {IRequestMethod, RestMethodType} from 'wlc-engine/modules/core/services/data/data.service';
 import {UserProfile} from '../models/profile.model';
 import {ConfigService} from 'wlc-engine/modules/core';
+import {Subscription} from 'rxjs';
 
 import {
-    get as _get,
-    reduce as _reduce,
-    toString as _toString,
     forEach as _forEach,
 } from 'lodash';
-
 
 //данные для входа 'maksim.shahov@softgamings.com', 'Test123!'
 
@@ -27,7 +24,7 @@ export class UserService {
 
     protected info: UserInfo;
     protected profile: UserProfile;
-    protected userInfoHandler: any;
+    protected userInfoHandler: Subscription;
 
     public get userInfo(): UserInfo {
         if (this.info.dataReady) {
@@ -103,6 +100,8 @@ export class UserService {
             this.fetchUserInfo();
             this.startUserInfoFetcher();
             this.fetchUserProfile();
+            //TODO delete after 13.11.2020
+            window.location.reload();
         });
 
         this.eventService.subscribe({
@@ -111,6 +110,8 @@ export class UserService {
             this.isAuthenticated = false;
             this.configService.set({name: '$user.isAuthenticated', value: false});
             this.stopUserInfoFetcher();
+            //TODO delete after 13.11.2020
+            window.location.reload();
         });
 
         this.eventService.subscribe({
@@ -254,7 +255,7 @@ export class UserService {
     }
 
     protected stopUserInfoFetcher(): void {
-        this.userInfoHandler.unsubscribe();
+        this.userInfoHandler?.unsubscribe();
     }
 
     protected async request<T>(

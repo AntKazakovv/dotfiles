@@ -8,9 +8,9 @@ export const wlcMainMenuItemsGlobal: IMenuItemsGlobal = {
         params: {
             state: {
                 name: 'app.home',
-                params: {}
-            }
-        }
+                params: {},
+            },
+        },
     },
     'main-menu:casino': {
         name: gettext('Casino'),
@@ -18,10 +18,10 @@ export const wlcMainMenuItemsGlobal: IMenuItemsGlobal = {
         class: 'casino',
         params: {
             state: {
-                name: 'app.catalog.casino',
-                params: {category: ''}
-            }
-        }
+                name: 'app.catalog',
+                params: {category: ''},
+            },
+        },
     },
     'main-menu:live': {
         name: gettext('Live Casino'),
@@ -30,9 +30,9 @@ export const wlcMainMenuItemsGlobal: IMenuItemsGlobal = {
         params: {
             state: {
                 name: 'app.catalog.live',
-                params: {category: ''}
-            }
-        }
+                params: {category: ''},
+            },
+        },
     },
     'main-menu:promotions': {
         name: gettext('Promotions'),
@@ -41,9 +41,9 @@ export const wlcMainMenuItemsGlobal: IMenuItemsGlobal = {
         params: {
             state: {
                 name: 'app.promotions',
-                params: {}
-            }
-        }
+                params: {},
+            },
+        },
     },
     'main-menu:contacts': {
         name: gettext('Contacts'),
@@ -52,8 +52,8 @@ export const wlcMainMenuItemsGlobal: IMenuItemsGlobal = {
         params: {
             state: {
                 name: 'app.contacts',
-                params: {}
-            }
-        }
-    }
+                params: {},
+            },
+        },
+    },
 };

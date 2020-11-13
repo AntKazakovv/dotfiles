@@ -1,6 +1,6 @@
 import {IFreeRound, ILoyalty, IUserInfo} from 'wlc-engine/interfaces';
 import {TranslateService} from '@ngx-translate/core';
-import {AbstractModel} from 'wlc-engine/modules/core/models/abstarct.model';
+import {AbstractModel} from 'wlc-engine/modules/core/models/abstract.model';
 import {EventService} from 'wlc-engine/modules/core/services';
 
 import {
@@ -9,13 +9,13 @@ import {
     toString as _toString,
 } from 'lodash';
 
-export class UserInfo extends AbstractModel<IUserInfo>  {
+export class UserInfo extends AbstractModel<IUserInfo> {
 
     constructor(
         protected translate: TranslateService,
         protected eventService: EventService,
-        ) {
-            super();
+    ) {
+        super();
     }
 
     public get lockExpiresAt(): string {
@@ -85,7 +85,7 @@ export class UserInfo extends AbstractModel<IUserInfo>  {
         }, 0);
     }
 
-    public get realBalance():number {
+    public get realBalance(): number {
         return this.balance - this.bonusBalance;
     }
 
@@ -113,10 +113,11 @@ export class UserInfo extends AbstractModel<IUserInfo>  {
     }
 
     protected checkData(): void {
-        if (!this.data.status) {
+        //TODO AFTER RELEASE 13.11.2020
+        /*if (!this.data?.status) {
             this.eventService.emit({
                 name: 'USER_STATUS_DISABLE',
             });
-        }
+        }*/
     }
 }
