@@ -65,7 +65,7 @@
 
             &--type-payments {
                 grid-area: payments;
-                grid-template-columns: auto !important;
+                grid-template-columns: auto;
                 justify-self: center;
                 padding: v.$footerPaymentsPadding;
                 background-color: v.$footerAccentBackground;

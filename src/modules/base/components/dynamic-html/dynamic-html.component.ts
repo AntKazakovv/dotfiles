@@ -38,6 +38,7 @@ export class DynamicHtmlComponent implements AfterViewInit, OnDestroy {
             template,
             selector: '[wlc-dynamic]',
         })(class {
+            public  window = window;
             ngOnInit() {
             }
         });

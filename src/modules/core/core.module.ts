@@ -15,6 +15,7 @@ import {
     FilesService,
     LogService,
     SentryService,
+    ActionService,
 } from './services';
 import {BaseModule} from 'wlc-engine/modules/base/base.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -39,6 +40,7 @@ import {WrapperComponent} from 'wlc-engine/modules/core/components/wrapper/wrapp
         FilesService,
         LogService,
         SentryService,
+        ActionService,
         BannersService,
         {
             provide: HAMMER_GESTURE_CONFIG,

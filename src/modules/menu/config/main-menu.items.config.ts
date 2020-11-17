@@ -1,6 +1,6 @@
-import {IMenuItemsGlobal} from 'wlc-engine/modules/menu/components/menu/menu.interface';
+import * as Params from 'wlc-engine/modules/menu/components/menu/menu.params';
 
-export const wlcMainMenuItemsGlobal: IMenuItemsGlobal = {
+export const wlcMainMenuItemsGlobal: Params.IMenuItemsGlobal = {
     'main-menu:home': {
         name: gettext('Home page'),
         type: 'sref',

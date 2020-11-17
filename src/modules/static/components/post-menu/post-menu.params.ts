@@ -5,11 +5,18 @@ export type Theme = 'default' | 'footer';
 export type ThemeMod = 'default' | 'footer-info' | 'footer-about';
 export type Type = 'default';
 
+export interface IBasePath {
+    url: string;
+    addLanguage?: boolean;
+    page?: string;
+}
+
 export interface IPostMenuComponentParams extends IComponentParams<Theme, Type, ThemeMod> {
     modifiers?: ModifiersType[];
     common?: {
         categorySlug?: string;
         title?: string;
+        basePath?: IBasePath;
     };
 }
 
