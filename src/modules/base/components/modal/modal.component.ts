@@ -88,6 +88,10 @@ export class WlcModalComponent extends AbstractComponent implements OnInit, Afte
         this.modalDirect.hide();
     }
 
+    public setTitle(title: string): void {
+        this.$params.config.modalTitle = title;
+    }
+
     protected applyConfig(): void {
         const {config} = this.$params;
         _assign(this.bsOptions, {
@@ -119,14 +123,19 @@ export class WlcModalComponent extends AbstractComponent implements OnInit, Afte
         }
 
         if (config.component) {
+
+            const params = {
+                setTitle: this.setTitle.bind(this),
+            }
+
             this.inject = Injector.create({
                 providers: [
                     {
                         provide: 'injectParams',
-                        useValue: config.componentParams || {},
-                    }
+                        useValue: _assign({}, params, config.componentParams || {}),
+                    },
                 ],
-                parent: this.injector
+                parent: this.injector,
             });
         }
     }

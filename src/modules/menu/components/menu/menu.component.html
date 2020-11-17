@@ -7,17 +7,36 @@
     </div>
 </ng-template>
 
+<ng-template #href let-item="item">
+    <div class="{{$class}}__item {{$class}}__item--href">
+        <a class="{{$class}}__link"
+           [target]="item.params.target || '_self'"
+           [href]="item.params.href"
+        >{{item.name | translate}}</a>
+    </div>
+</ng-template>
+
 <ng-template #anchor let-item="item">
     <div class="{{$class}}__item {{$class}}__item--anchor">
         <a class="{{$class}}__link"
-           href="#{{item?.params?.anchor?.name}}">{{item?.name | translate}}</a>
+           href="#{{item.params.anchor?.name}}"
+        >{{item?.name | translate}}</a>
+    </div>
+</ng-template>
+
+<ng-template #scroll let-item="item">
+    <div class="{{$class}}__item {{$class}}__item--anchor">
+        <a class="{{$class}}__link"
+           (click)="scrollTo(item.params.scroll)"
+        >{{item?.name | translate}}</a>
     </div>
 </ng-template>
 
 <ng-template #modal let-item="item">
     <div class="{{$class}}__item {{$class}}__item--modal">
         <a class="{{$class}}__link"
-           href="">{{item.name | translate}}</a>
+            (click)="openModal(item)"
+            >{{item.name | translate}}</a>
     </div>
 </ng-template>
 
@@ -30,6 +49,12 @@
     </ng-container>
 
     <ng-container *ngSwitchCase="'modal'" [ngTemplateOutlet]="modal" [ngTemplateOutletContext]="{item: item}">
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'href'" [ngTemplateOutlet]="href" [ngTemplateOutletContext]="{item: item}">
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'scroll'" [ngTemplateOutlet]="scroll" [ngTemplateOutletContext]="{item: item}">
     </ng-container>
 
 </ng-container>

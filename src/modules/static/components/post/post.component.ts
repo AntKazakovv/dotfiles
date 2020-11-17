@@ -18,6 +18,13 @@ import {IPostComponentParams} from './post.interface';
 import {defaultParams} from './post.params';
 import {ConfigService} from 'wlc-engine/modules/core';
 
+import {
+    isFunction as _isFunction,
+} from 'lodash';
+
+
+export * from './post.interface';
+
 @Component({
     selector: '[wlc-post]',
     templateUrl: './post.component.html',
@@ -51,6 +58,11 @@ export class PostComponent extends AbstractComponent implements OnInit, AfterVie
 
             const data: TextDataModel = await this.staticService.getPost(slug);
             this.html = this.domSanitizer.bypassSecurityTrustHtml(data.html)?.['changingThisBreaksApplicationSecurity'];
+
+            if (_isFunction(this.params.setTitle)) {
+                this.params.setTitle(data.title);
+            }
+
         } catch (e) {
             console.log(e);
         } finally {

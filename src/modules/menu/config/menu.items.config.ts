@@ -1,4 +1,4 @@
-import {IMenuItemsGlobal} from 'wlc-engine/modules/menu/components/menu/menu.interface';
+import * as Params from 'wlc-engine/modules/menu/components/menu/menu.params';
 import {wlcMainMenuItemsGlobal} from './main-menu.items.config';
 import {wlcAffiliatesMenuItemsGlobal} from './affiliates-menu.items.config';
 
@@ -22,7 +22,7 @@ export const wlcDefaultMenuItems = {
     'footer-menu:about-us': [],
 };
 
-export const wlcMenuItemsGlobal: IMenuItemsGlobal = {
+export const wlcMenuItemsGlobal: Params.IMenuItemsGlobal = {
     ...wlcMainMenuItemsGlobal,
-    ...wlcAffiliatesMenuItemsGlobal
+    ...wlcAffiliatesMenuItemsGlobal,
 };
