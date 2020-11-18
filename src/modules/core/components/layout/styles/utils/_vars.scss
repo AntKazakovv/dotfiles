@@ -3,11 +3,35 @@
 // Header
 
 // Footer
-$footerPadding: ef.get('size', 'smaller') !default;
 $footerBackground: ef.get('color', 'background') !default;
 $footerAccentBackground: ef.get('color', 'backgroundSecondary') !default;
-$footerGap: ef.get('size', 'main') !default;
 $footerGapMobile: ef.get('size', 'smaller') !default;
+$footerGapTablet: ef.get('size', 'less') !default;
+$footerGapDesktop: ef.get('size', 'main') !default;
 $footerPadding: ef.get('size', 'main') !default;
 $footerRadius: ef.get('radius', 'main') !default;
-$footerPaymentsPadding: ef.get('size', 'smaller') !default;
+
+$footerMerchantsGapMobile: ef.get('size', 'smaller') !default;
+$footerMerchantsGapTablet: ef.get('size', 'smallest') ef.get('size', 'smaller') !default;
+$footerMerchantsGapDesktop: ef.get('size', 'less') ef.get('size', 'smaller') !default;
+$footerMerchantsMaxHeight: ef.get('size', 'biger') !default;
+
+$footerPaymentsIconsOpacity: 0.5 !default;
+$footerPaymentsGapMobile: ef.get('size', 'less') !default;
+$footerPaymentsGapTablet: ef.get('size', 'less') !default;
+$footerPaymentsGapDesktop: ef.get('size', 'less') !default;
+$footerPaymentsPaddingMobile: ef.get('size', 'smaller') !default;
+$footerPaymentsPaddingTablet: ef.get('size', 'small') !default;
+$footerPaymentsPaddingDesktop: ef.get('size', 'smaller') !default;
+$footerPaymentsIconWidth: 120px !default;
+$footerPaymentsMaxHeightMobile: ef.get('size', 'main') !default;
+$footerPaymentsMaxHeightTablet: ef.get('size', 'less') !default;
+$footerPaymentsMaxHeightDesktop: ef.get('size', 'biger') !default;
+
+$footerMenuTitleSizeMobile: ef.get('font', 'big');
+$footerMenuTitleSizeTablet: ef.get('font', 'biger');
+$footerMenuTitleSizeDesktop: ef.get('font', 'biger');
+
+$footerDisclaimerTextSizeMobile: ef.get('font', 'small');
+$footerDisclaimerTextSizeTablet: ef.get('font', 'smaller');
+$footerDisclaimerTextSizeDesktop: ef.get('font', 'smaller');

@@ -3,9 +3,7 @@
 $color: ef.get('color', 'text') !default;
 
 $titleColor: ef.get('color', 'text') !default;
-$titleSize: 110% !default;
 $titleWeight: bold !default;
-$titleAlign: left !default;
 $titlePadding: 0 0 ef.get('size', 'small') 0 !default;
 
 $linksGap: ef.get('size', 'small') !default;
