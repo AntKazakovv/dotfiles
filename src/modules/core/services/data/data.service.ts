@@ -18,7 +18,7 @@ import {
     catchError,
 } from 'rxjs/internal/operators';
 import {TranslateService} from '@ngx-translate/core';
-import {LogService} from 'wlc-engine/modules/core/services';
+import {EventService, LogService} from 'wlc-engine/modules/core/services';
 
 import {
     isString as _isString,
@@ -53,17 +53,22 @@ export interface IRequestMethod {
     type: RestMethodType;
     /** cache time in ms */
     cache?: number;
-    /** request parametrs */
+    /** request parameters */
     params?: RequestParamsType;
-    /** period of automatical request */
+    /** period of automatically request */
     period?: number;
     /** preload name from inline preload script */
     preload?: string;
     /** method that transform request data */
     mapFunc?: (data: IData) => unknown;
+    /** event for data request*/
+    events?: {
+        success?: string;
+        fail?: string;
+    }
 }
 
-interface IRegistredMethod extends IRequestMethod {
+interface IRegisteredMethod extends IRequestMethod {
     flow?: Observable<IData>;
     subject?: BehaviorSubject<IData>;
     intervalSubcribe?: Subscription;
@@ -79,7 +84,7 @@ export class DataService {
 
     private flow$: Subject<IData> = new Subject<IData>();
     private socket: WebSocket;
-    private apiList: {[key: string]: IRegistredMethod} = {};
+    private apiList: {[key: string]: IRegisteredMethod} = {};
 
     private urlPrefix = '/api/v1';
 
@@ -90,6 +95,7 @@ export class DataService {
         private injector: Injector,
         private http: HttpClient,
         private translate: TranslateService,
+        private eventService: EventService,
     ) {
         setTimeout(() => {
             this.logService = injector.get(LogService);
@@ -111,40 +117,40 @@ export class DataService {
         }
 
         if (!method.url && !method.fullUrl) {
-            throw new Error(`registerMethod: url or fullUrl are nessesery on ${name}`);
+            throw new Error(`registerMethod: url or fullUrl are necessary on ${name}`);
         }
 
-        const registedMethod: IRegistredMethod = _assign({}, method);
-        registedMethod.subject = new BehaviorSubject<IData>(null);
-        registedMethod.flow = registedMethod.subject.asObservable();
-        if (registedMethod.period) {
-            registedMethod.intervalSubcribe = interval(registedMethod.period).pipe(
+        const registerMethod: IRegisteredMethod = _assign({}, method);
+        registerMethod.subject = new BehaviorSubject<IData>(null);
+        registerMethod.flow = registerMethod.subject.asObservable();
+        if (registerMethod.period) {
+            registerMethod.intervalSubcribe = interval(registerMethod.period).pipe(
                 filter(() => {
                     return this.apiList[name].subject.observers.length > 0;
-                })
+                }),
             ).pipe(
                 tap(() => {
                     this.request$(this.apiList[name]).toPromise();
-                })
+                }),
             ).subscribe();
         }
 
-        this.apiList[name] = registedMethod;
+        this.apiList[name] = registerMethod;
         return true;
     }
 
     /**
      * Make single request to api
      *
-     * @param request {string | IRequestMethod} name registred api method (system/name) or request method object
+     * @param request {string | IRequestMethod} name registered api method (system/name) or request method object
      * @param params {RequestParamsType} params of request
      *
      * @return {Promise} result of api request
      */
-    public request(request: string | IRequestMethod, params?: RequestParamsType): Promise<IData> {
+    public request<T>(request: string | IRequestMethod, params?: RequestParamsType): Promise<IData | T> {
         if (_isString(request)) {
             if (this.apiList[request]) {
-                return this.request$(this.apiList[request], params).toPromise();
+                return this.request$<T>(this.apiList[request], params).toPromise();
             } else {
                 return Promise.reject({
                     system: 'data',
@@ -153,21 +159,21 @@ export class DataService {
                     code: '0.1.3',
                     errors: [
                         `Non configured request method ${request}`,
-                    ]
+                    ],
                 });
             }
         } else {
-            return this.request$(request, params).toPromise();
+            return this.request$<T>(request, params).toPromise();
         }
     }
 
     /**
      * Subscribe to API method with observer
      *
-     * @param requestName {string} name of registred method (system/name)
+     * @param requestName {string} name of registered method (system/name)
      * @param observer {(value: IData) => void | PartialObserver} observer to subscribe
      *
-     * @return {Subscription} An Subscription to registred api method with observer
+     * @return {Subscription} An Subscription to registered api method with observer
      */
     public subscribe(requestName: string, observer: ((value: IData) => void) | PartialObserver<IData>): Subscription {
 
@@ -178,17 +184,16 @@ export class DataService {
 
         return this.apiList[requestName].flow.subscribe(
             _isFunction(observer)
-                ? {next: (response: IData) => {observer(response)}}
-                : observer
-        );
+                ? {next: (response: IData) => {observer(response);}}
+                : observer);
     }
 
     /**
      * Get Observable of api method
      *
-     * @param requestName {string} name of registred method (system/name)
+     * @param requestName {string} name of registered method (system/name)
      *
-     * @return {Observable} An Observable of registred api method
+     * @return {Observable} An Observable of registered api method
      */
     public getMethodSubscribe(requestName: string): Observable<IData> {
 
@@ -204,18 +209,18 @@ export class DataService {
         }
     }
 
-    protected request$(method: IRegistredMethod, params?: RequestParamsType): Observable<IData> {
+    protected request$<T>(method: IRegisteredMethod, params?: RequestParamsType): Observable<IData | T> {
 
         if (!method.url && !method.fullUrl) {
-            throw new Error(`request$: url or fullUrl are nessesery on ${method.system}/${method.name}`);
+            throw new Error(`request$: url or fullUrl are necessary on ${method.system}/${method.name}`);
         }
 
         const requestParams = _assign(
             {
-                lang: this.translate.currentLang || 'en'
+                lang: this.translate.currentLang || 'en',
             },
             method.params,
-            method.type === 'GET' ? params : {}
+            method.type === 'GET' ? params : {},
         );
         const requestBody = method.type !== 'GET' ? JSON.stringify(params) || '' : undefined;
         const url = method.fullUrl || this.urlPrefix + method.url;
@@ -232,14 +237,20 @@ export class DataService {
                         params: requestParams,
                         body: requestBody,
                         withCredentials: true,
-                    }
+                    },
                 )
-                .pipe(
-                    catchError((error: HttpErrorResponse) => {
-                        this.logService.sendLog(error.error || error);
-                        return throwError(error.error || error);
-                    })
-                )
+                    .pipe(
+                        catchError((error: HttpErrorResponse) => {
+                            this.logService.sendLog(error.error || error);
+                            if (method.events?.fail) {
+                                this.eventService.emit({
+                                    name: method.events.fail,
+                                    data: error.error || error,
+                                });
+                            }
+                            return throwError(error.error || error);
+                        }),
+                    )
         ).pipe(
             map((data: IData): IData => {
                 let responseData: IData;
@@ -265,10 +276,16 @@ export class DataService {
                     this.logService.sendLog({
                         code: '0.0.12',
                         data: {
-                            errors: responseData.errors
-                        }
+                            errors: responseData.errors,
+                        },
                     });
-                    throwError(responseData.errors)
+                    if (method.events?.fail) {
+                        this.eventService.emit({
+                            name: method.events.fail,
+                            data: responseData.errors,
+                        });
+                    }
+                    throwError(responseData.errors);
                 }
 
                 return responseData;
@@ -284,8 +301,15 @@ export class DataService {
                 if (data.status === 'success' && typeof method.mapFunc === 'function') {
                     data.data = method.mapFunc(data.data);
                 }
+
+                if (method.events?.success) {
+                    this.eventService.emit({
+                        name: method.events.success,
+                        data,
+                    });
+                }
                 return data;
-            })
+            }),
         );
     }
 

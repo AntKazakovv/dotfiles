@@ -59,20 +59,20 @@ export class UserService {
         if (app.initialPath?.message) {
             switch (app.initialPath.message) {
                 case 'SET_NEW_PASSWORD':
-                //TODO
+                    //TODO
                     break;
                 case 'COMPLETE_REGISTRATION':
                     if (app.initialPath.code) {
                         this.registrationComplete(app.initialPath.code);
                     } else {
-                    //TODO modal
+                        //TODO modal
                     }
                     break;
                 case 'EMAIL_UNSUBSCRIBE':
-                //TODO
+                    //TODO
                     break;
                 case 'FINALIZE_SOCIAL_CONNECT':
-                //TODO
+                    //TODO
                     break;
                 // case 'FINALIZE_SOCIAL_REGISTRATION':
                 //     UserSocialRegisterService.init();
@@ -100,8 +100,6 @@ export class UserService {
             this.fetchUserInfo();
             this.startUserInfoFetcher();
             this.fetchUserProfile();
-            //TODO delete after 13.11.2020
-            window.location.reload();
         });
 
         this.eventService.subscribe({
@@ -110,8 +108,6 @@ export class UserService {
             this.isAuthenticated = false;
             this.configService.set({name: '$user.isAuthenticated', value: false});
             this.stopUserInfoFetcher();
-            //TODO delete after 13.11.2020
-            window.location.reload();
         });
 
         this.eventService.subscribe({
@@ -122,7 +118,7 @@ export class UserService {
     }
 
     public async registration(formData): Promise<void> {
-        const response: any = await this.request('user/userRegistration', 'REGISTRATION', 'REGISTRATION_ERROR', formData);
+        const response: any = await this.dataService.request('user/userRegistration', formData);
         if (response.result) {
             this.setProfileData(formData);
             await this.createUserProfile(this.profile.data);
@@ -140,19 +136,19 @@ export class UserService {
 
     public login(login: string, password: string): void {
         const params = {login, password};
-        this.request('user/userLogin', 'LOGIN', 'LOGIN_ERROR', params);
+        this.dataService.request('user/userLogin', params);
     }
 
     public logout(): void {
-        this.request('user/userLogout', 'LOGOUT', 'LOGOUT_ERROR');
+        this.dataService.request('user/userLogout');
     }
 
     public createUserProfile(userProfile: IUserProfile): void {
-        this.request('user/createProfile', 'PROFILE_CREATE', 'PROFILE_CREATE_ERROR', userProfile as any);
+        this.dataService.request('user/createProfile', userProfile as any);
     }
 
     public registrationComplete(code: string): void {
-        this.request('user/registrationComplete', 'REGISTER', 'REGISTER_ERROR', {code});
+        this.dataService.request('user/registrationComplete', {code});
     }
 
     public updateProfile(profile: IUserProfile, updatePartial: boolean = false): void {
@@ -168,32 +164,32 @@ export class UserService {
             params.reCaptchaToken = reCaptchaToken;
         }
 
-        this.request('user/passwordRestore', 'PROFILE_RESTORE', 'PROFILE_RESTORE_ERROR', params);
+        this.dataService.request('user/passwordRestore', params);
     }
 
     public restoreNewPassword(newPassword: string, repeatPassword: string, code: string): void {
         const params = {newPassword, repeatPassword, code};
-        this.request('user/restoreNewPassword', 'PROFILE_PASSWORD', 'PROFILE_PASSWORD_ERROR', params);
+        this.dataService.request('user/restoreNewPassword', params);
     }
 
     public validateRestoreCode(code: string = ''): void {
         const params = {action: 'checkRestoreCode', code};
-        this.request('user/validateRestoreCode', 'VALIDATE_RESTORE_CODE', 'VALIDATE_RESTORE_CODE_ERROR', params);
+        this.dataService.request('user/validateRestoreCode', params);
     }
 
     public setNewPassword(password: string, newPassword: string): void {
         const params = {password, newPassword};
-        this.request('user/newPassword', 'NEW_PASSWORD', 'NEW_PASSWORD_ERROR', params);
+        this.dataService.request('user/newPassword', params);
     }
 
     public changePhone(phoneCode: string, phoneNumber: string): void {
         const params = {phoneCode, phoneNumber};
-        this.request('user/updatePhone', 'UPDATE_PHONE', 'UPDATE_PHONE_ERROR', params);
+        this.dataService.request('user/updatePhone', params);
     }
 
     public phoneUnique(phone: string, code: string): void {
         const params = {phone, code};
-        this.request('user/phoneUnique', 'PHONE_UNIQUE', 'PHONE_UNIQUE_ERROR', params);
+        this.dataService.request('user/phoneUnique', params);
     }
 
     public changeEmail(email: string, currentPassword?: string, code?: string): void {
@@ -207,35 +203,35 @@ export class UserService {
             params.code = code;
         }
 
-        this.request('user/updateEmail', 'UPDATE_EMAIL', 'UPDATE_EMAIL_ERROR', params);
+        this.dataService.request('user/updateEmail', params);
     }
 
     public emailUnique(email: string): Promise<any> {
-        return this.request('user/emailUnique', 'EMAIL_UNIQUE', 'EMAIL_UNIQUE_ERROR', {email});
+        return this.dataService.request('user/emailUnique', {email});
     }
 
     public loginUnique(login: string): void {
-        this.request('user/loginUnique', 'LOGIN_UNIQUE', 'LOGIN_UNIQUE_ERROR', {login});
+        this.dataService.request('user/loginUnique', {login});
     }
 
     public updateLogin(login: string): void {
-        this.request('user/updateLogin', 'LOGIN_UPDATE', 'LOGIN_UPDATE_ERROR', {login});
+        this.dataService.request('user/updateLogin', {login});
     }
 
     public updateLanguage(): void {
-        this.request('user/updateLanguage', 'LANGUAGE_UPDATE', 'LANGUAGE_UPDATE_ERROR');
+        this.dataService.request('user/updateLanguage');
     }
 
     public disableProfile(): void {
-        this.request('user/disableProfile', 'DISABLE_PROFILE', 'DISABLE_PROFILE_ERROR');
+        this.dataService.request('user/disableProfile');
     }
 
     public fetchUserProfile(): void {
-        this.request('user/userProfile', 'USER_PROFILE', 'USER_PROFILE_ERROR');
+        this.dataService.request('user/userProfile');
     }
 
     protected fetchUserInfo(): void {
-        this.request('user/userInfo', 'USER_INFO', 'USER_INFO_ERROR');
+        this.dataService.request('user/userInfo');
     }
 
     protected startUserInfoFetcher(): void {
@@ -258,62 +254,216 @@ export class UserService {
         this.userInfoHandler?.unsubscribe();
     }
 
-    protected async request<T>(
-        name: string,
-        event: string,
-        eventError: string,
-        params: IIndexing<string> = {},
-    ): Promise<T> {
-        try {
-            const data: T = (await this.dataService.request(name, params)).data as T;
-            this.eventService.emit({
-                name: event,
-                data: data,
-            });
-            return data;
-        } catch (error) {
-            this.eventService.emit({
-                name: eventError,
-                data: error,
-            });
-        }
-    }
-
-    protected regMethod(
-        name: string,
-        url: string,
-        type: RestMethodType,
-        period?: number,
-    ): void {
-        const params: IRequestMethod = {name, system: 'user', url, type};
-
-        if (period) {
-            params.period = period;
-        }
-
-        this.dataService.registerMethod(params);
-    }
-
     protected registerMethods(): void {
-        this.regMethod('userRegistration', '/validate/user-register', 'POST');
-        this.regMethod('userLogin', '/auth', 'PUT');
-        this.regMethod('userLogout', '/auth', 'DELETE');
-        this.regMethod('createProfile', '/profiles', 'POST');
-        this.regMethod('registrationComplete', '/profiles', 'PATCH');
-        this.regMethod('passwordRestore', '/userPassword', 'POST');
-        this.regMethod('restoreNewPassword', '/userPassword', 'PUT');
-        this.regMethod('validateRestoreCode', '/userPassword', 'GET');
-        this.regMethod('newPassword', '/userPassword', 'PATCH');
-        this.regMethod('updatePhone', '/profiles/phone', 'POST');
-        this.regMethod('phoneUnique', '/profiles/phone', 'PUT');
-        this.regMethod('updateEmail', '/profiles/email', 'POST');
-        this.regMethod('emailUnique', '/profiles/email', 'PUT');
-        this.regMethod('loginUnique', '/profiles/login', 'PUT');
-        this.regMethod('updateLogin', '/profiles/login', 'POST');
-        this.regMethod('updateLanguage', '/profiles/language', 'PATCH');
-        this.regMethod('disableProfile', '/profiles/disable', 'PUT');
-        this.regMethod('userProfile', '/profiles', 'GET');
-        this.regMethod('userInfo', '/userInfo', 'GET', 10000);
+        this.dataService.registerMethod({
+            name: 'userRegistration',
+            url: '/validate/user-register',
+            type: 'POST',
+            system: 'user',
+            events: {
+                success: 'REGISTRATION',
+                fail: 'REGISTRATION_ERROR',
+            },
+        });
+
+        this.dataService.registerMethod({
+            name: 'userLogin',
+            system: 'user',
+            url: '/auth',
+            type: 'PUT',
+            events: {
+                success: 'LOGIN',
+                fail: 'LOGIN_ERROR',
+            },
+        });
+
+        this.dataService.registerMethod({
+            name: 'userLogout',
+            system: 'user',
+            url: '/auth',
+            type: 'DELETE',
+            events: {
+                success: 'LOGOUT',
+                fail: 'LOGOUT_ERROR',
+            },
+        });
+
+        this.dataService.registerMethod({
+            name: 'createProfile',
+            system: 'user',
+            url: '/profiles',
+            type: 'POST',
+            events: {
+                success: 'PROFILE_CREATE',
+                fail: 'PROFILE_CREATE_ERROR',
+            },
+        });
+
+        this.dataService.registerMethod({
+            name: 'registrationComplete',
+            system: 'user',
+            url: '/profiles',
+            type: 'PATCH',
+            events: {
+                success: 'REGISTER',
+                fail: 'REGISTER_ERROR',
+            },
+        });
+
+        this.dataService.registerMethod({
+            name: 'passwordRestore',
+            system: 'user',
+            url: '/userPassword',
+            type: 'POST',
+            events: {
+                success: 'PROFILE_RESTORE',
+                fail: 'PROFILE_RESTORE_ERROR',
+            },
+        });
+
+        this.dataService.registerMethod({
+            name: 'restoreNewPassword',
+            system: 'user',
+            url: '/userPassword',
+            type: 'PUT',
+            events: {
+                success: 'PROFILE_PASSWORD',
+                fail: 'PROFILE_PASSWORD_ERROR',
+            },
+        });
+
+        this.dataService.registerMethod({
+            name: 'validateRestoreCode',
+            system: 'user',
+            url: '/userPassword',
+            type: 'GET',
+            events: {
+                success: 'VALIDATE_RESTORE_CODE',
+                fail: 'VALIDATE_RESTORE_CODE_ERROR',
+            },
+        });
+
+        this.dataService.registerMethod({
+            name: 'newPassword',
+            system: 'user',
+            url: '/userPassword',
+            type: 'PATCH',
+            events: {
+                success: 'NEW_PASSWORD',
+                fail: 'NEW_PASSWORD_ERROR',
+            },
+        });
+
+        this.dataService.registerMethod({
+            name: 'updatePhone',
+            system: 'user',
+            url: '/profiles/phone',
+            type: 'POST',
+            events: {
+                success: 'UPDATE_PHONE',
+                fail: 'UPDATE_PHONE_ERROR',
+            },
+        });
+
+        this.dataService.registerMethod({
+            name: 'phoneUnique',
+            system: 'user',
+            url: '/profiles/phone',
+            type: 'PUT',
+            events: {
+                success: 'PHONE_UNIQUE',
+                fail: 'PHONE_UNIQUE_ERROR',
+            },
+        });
+
+        this.dataService.registerMethod({
+            name: 'updateEmail',
+            system: 'user',
+            url: '/profiles/email',
+            type: 'POST',
+            events: {
+                success: 'UPDATE_EMAIL',
+                fail: 'UPDATE_EMAIL_ERROR',
+            },
+        });
+
+        this.dataService.registerMethod({
+            name: 'emailUnique',
+            system: 'user',
+            url: '/profiles/email',
+            type: 'PUT',
+            events: {
+                success: 'EMAIL_UNIQUE',
+                fail: 'EMAIL_UNIQUE_ERROR',
+            },
+        });
+
+        this.dataService.registerMethod({
+            name: 'loginUnique',
+            system: 'user',
+            url: '/profiles/login',
+            type: 'PUT',
+            events: {
+                success: 'LOGIN_UNIQUE',
+                fail: 'LOGIN_UNIQUE_ERROR',
+            },
+        });
+
+        this.dataService.registerMethod({
+            name: 'updateLogin',
+            system: 'user',
+            url: '/profiles/login',
+            type: 'POST',
+            events: {
+                success: 'LOGIN_UPDATE',
+                fail: 'LOGIN_UPDATE_ERROR',
+            },
+        });
+
+        this.dataService.registerMethod({
+            name: 'updateLanguage',
+            system: 'user',
+            url: '/profiles/language',
+            type: 'PATCH',
+            events: {
+                success: 'LANGUAGE_UPDATE',
+                fail: 'LANGUAGE_UPDATE_ERROR',
+            },
+        });
+
+        this.dataService.registerMethod({
+            name: 'disableProfile',
+            system: 'user',
+            url: '/profiles/disable',
+            type: 'PUT',
+            events: {
+                success: 'DISABLE_PROFILE',
+                fail: 'DISABLE_PROFILE_ERROR',
+            },
+        });
+
+        this.dataService.registerMethod({
+            name: 'userProfile',
+            system: 'user',
+            url: '/profiles',
+            type: 'GET',
+            events: {
+                success: 'PROFILE_CREATE',
+                fail: 'PROFILE_CREATE_ERROR',
+            },
+        });
+
+        this.dataService.registerMethod({
+            name: 'userInfo',
+            system: 'user',
+            url: '/userInfo',
+            type: 'GET',
+            period: 10000,
+            events: {
+                success: 'USER_INFO',
+                fail: 'USER_INFO_ERROR',
+            },
+        });
     }
 
     protected setProfileData(formData): void {

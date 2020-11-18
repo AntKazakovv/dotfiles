@@ -89,7 +89,7 @@ export class GamesCatalogService {
      * @returns {Promise<ILaunchInfo>}
      */
     public async getLaunchParams(options: IGameParams): Promise<ILaunchInfo> {
-        return (await this.dataService.request('games/gameLaunchParams', options)).data as ILaunchInfo;
+        return await this.dataService.request<ILaunchInfo>('games/gameLaunchParams', options) as ILaunchInfo;
     }
 
     public getCategories(): ICategory[] {
@@ -147,21 +147,12 @@ export class GamesCatalogService {
         return response;
     }
 
-    protected regMethod(
-        name: string,
-        url: string,
-        type: RestMethodType,
-        period?: number,
-    ): void {
-        const params: IRequestMethod = {name, system: 'games', url, type};
-        if (period) {
-            params.period = period;
-        }
-        this.dataService.registerMethod(params);
-    }
-
     protected registerMethods(): void {
-        this.regMethod('gameLaunchParams', '/games', 'GET');
+        this.dataService.registerMethod({
+            name: 'gameLaunchParams',
+            url: '/games',
+            type: 'GET',
+            system: 'games',
+        });
     }
-
 }

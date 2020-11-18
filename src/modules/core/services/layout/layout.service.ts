@@ -112,7 +112,7 @@ export class LayoutService {
     }
 
     /**
-    Return all sections of current state
+     Return all sections of current state
      */
     public getAllSection(type: LayoutsType, state: string, params?: IIndexing<any>): SectionModel[] {
         return _map(this.getLayoutConfig(type, state, params)?.sections, (section, name) => {
@@ -297,6 +297,11 @@ export class LayoutService {
                 return import('wlc-engine/modules/finances/finances.module').then(m => {
                     this.components.finances = m.components;
                     return m.FinancesModule;
+                });
+            case 'bonuses':
+                return import('wlc-engine/modules/bonuses/bonuses.module').then(m => {
+                    this.components.bonuses = m.components;
+                    return m.BonusesModule;
                 });
         }
     }
