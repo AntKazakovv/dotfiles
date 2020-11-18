@@ -1,6 +1,9 @@
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
-import {BannersService} from './services';
+import {
+    BannersService,
+    WinnersService,
+} from './services';
 import {BaseModule} from 'wlc-engine/modules/base/base.module';
 import {SwiperModule} from 'ngx-swiper-wrapper';
 import {BannerComponent} from 'wlc-engine/modules/promo/components/banner/banner.component';
@@ -25,6 +28,7 @@ export const components = {
     ],
     providers: [
         BannersService,
+        WinnersService,
     ],
     exports: [
         SliderComponent,

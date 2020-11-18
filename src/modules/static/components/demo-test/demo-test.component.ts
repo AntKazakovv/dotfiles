@@ -1,4 +1,4 @@
-import {Component, ChangeDetectorRef} from '@angular/core';
+import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
 import {EventService} from 'wlc-engine/modules/core/services';
 
 import {
@@ -6,13 +6,14 @@ import {
     IModalParams,
 } from 'wlc-engine/modules/base/services';
 import {FaqComponent} from './../faq/faq.component';
+import {IWinnerData, WinnersService} from 'wlc-engine/modules/promo/services';
 
 @Component({
     selector: 'wlc-demo-test',
     templateUrl: './demo-test.component.html',
     styleUrls: ['./demo-test.component.scss']
 })
-export class demoTestComponent {
+export class demoTestComponent implements OnInit {
 
     public isLoading: boolean = false;
     public isLoading2: boolean = false;
@@ -21,7 +22,14 @@ export class demoTestComponent {
         protected changeDetector: ChangeDetectorRef,
         protected eventService: EventService,
         protected ModalService: ModalService,
+        protected winnersService: WinnersService,
     ) {}
+
+    ngOnInit(): void {
+        this.winnersService.latestWins.subscribe(() => {
+            console.log(this.winnersService.latestWinsData);
+        });
+    }
 
     load(): void {
         this.isLoading = true;
