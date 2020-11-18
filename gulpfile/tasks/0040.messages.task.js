@@ -23,7 +23,7 @@ module.exports = function messagesTask() {
         const writable = new stream.Writable({
             write: function (chunk, encoding, next) {
                 next();
-            }
+            },
         });
 
         this.execShell(commands, true).then(() => cb());
@@ -32,7 +32,7 @@ module.exports = function messagesTask() {
     task('message:po_to_json', () => {  // Done
         return src(`${this.params.paths.temp}/frontend_*.po`)
             .pipe(gettext.compile({
-                format: 'json'
+                format: 'json',
             }))
             .pipe(jeditor((json) => {
                 const locale = _.keys(json)[0];
@@ -41,7 +41,7 @@ module.exports = function messagesTask() {
             .pipe(rename(path => {
                 path.basename = path.basename.replace('frontend_', '');
             }))
-            .pipe(dest(`${this.params.paths.languagesDist}`))
+            .pipe(dest(`${this.params.paths.languagesDist}`));
     });
 
     task('message:temp_back_po', (cb) => {
@@ -102,17 +102,20 @@ module.exports = function messagesTask() {
 
     task('message:tpl_to_pot', async (cb) => {  //Done
         const tmpFile = tmp.fileSync(this.params.tmpFileOptions);
-        const commands =
-                _.map(this.params.translationDirs.templates, templateDir => {
-                    return `echo 'tpl to POT -> ${templateDir}'\n` +
-                        `find ${this.params.paths.root}/${templateDir} -type f -name '*.tpl' -print >> ${tmpFile.name}\n`;
-                }),
-            extractCommand = `TMPDIR=${this.params.paths.temp} ${this.params.paths.root}/vendor/bin/tpl-gettext-extractor --sort-output --no-location ` +
+        const commands = _.map(this.params.translationDirs.templates, templateDir => {
+            return `echo 'tpl to POT -> ${templateDir}'\n` +
+                `find ${this.params.paths.root}/${templateDir} -type f -name '*.tpl' -print >> ${tmpFile.name}\n`;
+        });
+
+        const extractCommand = `TMPDIR=${this.params.paths.temp} ${this.params.paths.root}/vendor/bin/tpl-gettext-extractor --sort-output --no-location ` +
                 `--force-po -o ${this.params.paths.temp}/messages_tpl.pot --keyword="trans" --keyword="transchoice" --keyword="_" --keyword="gettext"` +
                 ` --files \`cat ${tmpFile.name}\`\n`;
 
         await this.execShell(commands, true);
         await this.execShell(extractCommand, true);
+
+        // fix date update
+        await this.execShell(`sed -i 's/"POT-Creation-Date.*/"POT-Creation-Date: 1970-01-01 00:00+0000\\\\n"/' ${this.params.paths.temp}/messages_tpl.pot`, true);
         cb();
     });
 
@@ -139,7 +142,7 @@ module.exports = function messagesTask() {
         const commands = [
             msgCatCommand,
             `sed --in-place ${this.params.paths.temp}/custom_backend.pot --expression=s/CHARSET/UTF-8/\n`,
-            `sed --in-place ${this.params.paths.temp}/custom_backend.pot --expression=s/fuzzy//\n`
+            `sed --in-place ${this.params.paths.temp}/custom_backend.pot --expression=s/fuzzy//\n`,
         ];
 
         await this.execShellSync(commands, true);
@@ -179,7 +182,7 @@ module.exports = function messagesTask() {
         return src([
             this.params.paths.src + '/**/*.ts',
             this.params.paths.src + '/**/*.js',
-            this.params.paths.src + '/**/*.html'
+            this.params.paths.src + '/**/*.html',
         ])
             .pipe(gettext.extract('front.pot', {}))
             .pipe(dest(this.params.paths.temp));
@@ -214,7 +217,7 @@ module.exports = function messagesTask() {
         'message:front_pot_to_po',
         'message:temp_front_po',
         'message:po_to_json',
-        'clean:temp'
+        'clean:temp',
     ));
 
     task('engineMessages', series(
@@ -225,4 +228,4 @@ module.exports = function messagesTask() {
         'message:po_to_json',
         'clean:temp',
     ));
-}
+};
