@@ -58,8 +58,8 @@ $font: map-merge((
     'smaller': 0.8rem,
     'less': 0.9rem,
     'main': 1rem,
-    'biger': 1.6rem,
-    'big': 2.4rem,
+    'biger': 1.4rem,
+    'big': 2rem,
     'huge': 3.2rem,
     'monster': 4rem,
 ), $customFont);
@@ -101,3 +101,5 @@ $container-max-widths: (
     1420: 1390px,
     1630: 1600px
 );
+
+$container-padding-x: 0;
