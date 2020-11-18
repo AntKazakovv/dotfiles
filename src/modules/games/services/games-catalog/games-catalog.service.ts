@@ -116,6 +116,10 @@ export class GamesCatalogService {
         return this.gamesCatalog.getGame(merchantId, launchCode);
     }
 
+    public getGameById(id: string): Game {
+        return this.gamesCatalog.getGameById(id);
+    }
+
     /**
      * Open game
      *

@@ -9,17 +9,20 @@ import {
     RequestParamsType,
     RestMethodType,
 } from 'wlc-engine/modules/core/services/data/data.service';
+import {WinnerModel} from 'wlc-engine/modules/promo/models/winner.model';
+import {GamesCatalogService} from 'wlc-engine/modules/games';
 
 import {
     merge as _merge,
     differenceWith as _differenceWith,
     isEqual as _isEqual,
+    map as _map,
 } from 'lodash';
 
 /**
- * Parrams for http request
- * @param period time interval for request in milliseconds. `30000` by default
- * @param params request params `RequestParamsType`
+ * Params for request
+ * @param period - time interval for request in milliseconds. `30000` by default
+ * @param params - http request params `RequestParamsType`
  */
 export interface IWinnersParams {
     period?: number;
@@ -83,24 +86,25 @@ export class WinnersService {
         private dataService: DataService,
         private configService: ConfigService,
         private eventService: EventService,
+        private gameCatalogService: GamesCatalogService,
     ) {
         this.init();
     }
 
     /**
      * Accessor for getting last response
-     * @returns {IWinnerData[]} last success response of latest winners
+     * @returns {WinnerModel[]} last success response of latest winners
      */
-    public get latestWinsData(): IWinnerData[] {
-        return this.latest;
+    public get latestWinsData(): WinnerModel[] {
+        return this.getData(this.latest);
     }
 
     /**
      * Accessor for getting last response
-     * @returns {IWinnerData[]} last success response if latest winners
+     * @returns {WinnerModel[]} last success response if latest winners
      */
-    public get biggestWinsData(): IWinnerData[] {
-        return this.biggest;
+    public get biggestWinsData(): WinnerModel[] {
+        return this.getData(this.biggest);
     }
 
     /**
@@ -158,6 +162,14 @@ export class WinnersService {
             return !!diff.length;
         }
         return true;
+    }
+
+    /**
+     * Handles data to models
+     * @param data - winners array
+     */
+    protected getData(data: IWinnerData[]): WinnerModel[] {
+        return _map(data, (item: IWinnerData) => new WinnerModel(item, this.gameCatalogService));
     }
 
     /**
