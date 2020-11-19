@@ -24,6 +24,7 @@ import {BonusComponent} from './components/bonus/bonus.component';
 import {LoaderComponent} from './components/loader/loader.component';
 import {ScrollbarComponent} from './components/scrollbar/scrollbar.component';
 import {LicenseComponent} from './components/license/license.component';
+import {ContactsService} from 'wlc-engine/modules/base/services/contacts/contacts.service';
 
 export const components = {
     'wlc-logo': LogoComponent,
@@ -79,7 +80,7 @@ export const components = {
     ],
     providers: [
         ModalService,
-        LicenseComponent,
+        ContactsService,
     ],
 })
 export class BaseModule {
