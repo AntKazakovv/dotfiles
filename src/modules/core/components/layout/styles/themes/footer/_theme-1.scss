@@ -1,28 +1,49 @@
 @use 'engine-styles/mixins/mediaqueries' as mq;
-@use '../../utils/vars' as v;
+@import '../../utils/vars';
 
 .wlc-sections__footer--theme {
 
     &-1 {
-        background-color: v.$footerBackground;
-        padding-top: v.$footerPadding;
-        padding-bottom: v.$footerPadding;
+        background-color: $footerBackground;
+        padding-top: $footerGapMobile;
+        padding-bottom: $footerGapMobile;
+        margin-top: $footerGapMobile;
+
+        @include mq.min(560) {
+            padding-top: $footerGapTablet;
+            padding-bottom: $footerGapTablet;
+            margin-top: $footerGapTablet;
+        }
+
+        @include mq.min(1024) {
+            padding-top: $footerGapDesktop;
+            padding-bottom: $footerGapDesktop;
+            margin-top: $footerGapDesktop;
+        }
 
         .container {
             display: grid;
-            grid-template-columns: 130px 200px 120px 1fr 130px;
+            grid-template-columns: 1fr;
             grid-template-areas:
-                'merchants merchants merchants merchants merchants'
-                'payments payments payments payments payments'
-                'logo info about-us disclaimer language';
-            padding-top: v.$footerPadding;
-            grid-gap: v.$footerGap;
+                'merchants'
+                'payments'
+                'info'
+                'about-us'
+                'language'
+                'disclaimer';
+            grid-gap: $footerGapMobile;
 
-            @include mq.max(1366) {
-                grid-template-columns: 130px 180px 120px 1fr 130px;
+            @include mq.min(560) {
+                grid-template-columns: repeat(3, 1fr);
+                grid-template-areas:
+                    'merchants merchants merchants'
+                    'payments payments payments'
+                    'info about-us language'
+                    'disclaimer disclaimer disclaimer';
+                grid-gap: $footerGapTablet;
             }
 
-            @include mq.max(1200) {
+            @include mq.min(720) {
                 grid-template-columns: repeat(4, 1fr);
                 grid-template-areas:
                     'merchants merchants merchants merchants'
@@ -31,28 +52,20 @@
                     'disclaimer disclaimer disclaimer disclaimer';
             }
 
-            @include mq.max(1024) {
-                grid-gap: v.$footerGapMobile;
+            @include mq.min(1024) {
+                grid-gap: $footerGapDesktop;
             }
 
-            @include mq.max(720) {
-                grid-template-columns: repeat(3, 1fr);
+            @include mq.min(1200) {
+                grid-template-columns: 130px 200px 120px 1fr 130px;
                 grid-template-areas:
-                    'merchants merchants merchants'
-                    'payments payments payments'
-                    'info about-us language'
-                    'disclaimer disclaimer disclaimer';
+                    'merchants merchants merchants merchants merchants'
+                    'payments payments payments payments payments'
+                    'logo info about-us disclaimer language';
             }
 
-            @include mq.max(480) {
-                grid-template-columns: 1fr;
-                grid-template-areas:
-                    'merchants'
-                    'payments'
-                    'info'
-                    'about-us'
-                    'language'
-                    'disclaimer';
+            @include mq.min(1366) {
+                grid-template-columns: 130px 200px 120px 1fr 130px;
             }
         }
 
@@ -61,19 +74,105 @@
 
             &--type-merchants {
                 grid-area: merchants;
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                align-items: center;
+                justify-content: center;
+                justify-self: center;
+                width: 100%;
+                grid-gap: $footerMerchantsGapMobile;
+
+                @include mq.min(560) {
+                    grid-template-columns: repeat(10, 1fr);
+                    grid-gap: $footerMerchantsGapTablet;
+                }
+
+                @include mq.min(1024) {
+                    grid-gap: $footerMerchantsGapDesktop;
+                }
+            }
+
+            .wlc-icon-list__item {
+
+                & img {
+                    max-height: $footerMerchantsMaxHeight;
+                    max-width: 100%;
+                    object-fit: contain;
+                }
             }
 
             &--type-payments {
                 grid-area: payments;
-                grid-template-columns: auto !important;
+                display: grid;
+                grid-auto-columns: auto;
+                grid-auto-flow: column;
+                grid-gap: $footerPaymentsGapMobile;
                 justify-self: center;
-                padding: v.$footerPaymentsPadding;
-                background-color: v.$footerAccentBackground;
-                border-radius: v.$footerRadius;
+                align-items: center;
+                padding: $footerPaymentsPaddingMobile;
+                background-color: $footerAccentBackground;
+                border-radius: $footerRadius;
+                overflow-y: auto;
+                width: 100%;
+                max-width: calc(100vw - 30px);
+
+                @include mq.min(560) {
+                    padding: $footerPaymentsPaddingTablet;
+                }
+
+                @include mq.min(900) {
+                    padding: $footerPaymentsPaddingDesktop;
+                }
+
+                @include mq.min(1024) {
+                    overflow: hidden;
+                }
+
+                .wlc-icon-list__item {
+                    width: $footerPaymentsIconWidth;
+
+                    & img {
+                        max-height: $footerPaymentsMaxHeightMobile;
+                        max-width: 100%;
+                        object-fit: contain;
+                        opacity: $footerPaymentsIconsOpacity;
+
+                        @include mq.min(560) {
+                            max-height: $footerPaymentsMaxHeightTablet;
+                        }
+
+                        @include mq.min(1024) {
+                            max-height: $footerPaymentsMaxHeightDesktop;
+                        }
+                    }
+                }
             }
         }
 
         .wlc-post-menu {
+            display: flex;
+            justify-content: center;
+
+            @include mq.min(560) {
+                justify-content: flex-start;
+            }
+
+            &__item,
+            &__title {
+                text-align: center;
+
+                @include mq.min(560) {
+                    text-align: left;
+                }
+            }
+
+            &__title {
+                font-size: $footerMenuTitleSizeMobile;
+
+                @include mq.min(560) {
+                    font-size: $footerMenuTitleSizeTablet;
+                }
+            }
 
             &--theme-mod-footer-info {
                 grid-area: info;
@@ -86,15 +185,29 @@
 
         .wlc-disclaimer {
             grid-area: disclaimer;
-            font-size: 70%;
+            font-size: $footerDisclaimerTextSizeMobile;
+            text-align: center;
 
-            @include mq.max(1200) {
-                font-size: 60%;
+            @include mq.min(560) {
+                font-size: $footerDisclaimerTextSizeTablet;
+            }
+
+            @include mq.min(1024) {
+                font-size: $footerDisclaimerTextSizeDesktop;
+            }
+
+            @include mq.min(1200) {
+                text-align: left;
             }
         }
 
         .wlc-language-selector {
             grid-area: language;
+            justify-self: center;
+
+            @include mq.min(560) {
+                justify-self: end;
+            }
         }
     }
 }

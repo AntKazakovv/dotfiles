@@ -1,35 +1,29 @@
-import {IMenuItemsGlobal} from 'wlc-engine/modules/menu/components/menu/menu.interface';
+import * as Params from 'wlc-engine/modules/menu/components/menu/menu.params';
 
-export const wlcAffiliatesMenuItemsGlobal: IMenuItemsGlobal = {
+export const wlcAffiliatesMenuItemsGlobal: Params.IMenuItemsGlobal = {
     'affiliates-menu:why-us': {
         name: gettext('Why Us'),
-        type: 'anchor',
+        type: 'scroll',
         class: 'why-us',
         params: {
-            anchor: {
-                name: 'why-us'
-            }
-        }
+            scroll: '.description-block',
+        },
     },
     'affiliates-menu:commission': {
         name: gettext('Commission'),
-        type: 'anchor',
+        type: 'scroll',
         class: 'commission',
         params: {
-            anchor: {
-                name: 'commission'
-            }
-        }
+            scroll: '.commission-block',
+        },
     },
     'affiliates-menu:faq': {
         name: gettext('FAQ'),
-        type: 'anchor',
+        type: 'scroll',
         class: 'faq',
         params: {
-            anchor: {
-                name: 'faq'
-            }
-        }
+            scroll: '.wlc-sections__content-faq',
+        },
     },
     'affiliates-menu:tc': {
         name: gettext('T&C'),
@@ -37,11 +31,11 @@ export const wlcAffiliatesMenuItemsGlobal: IMenuItemsGlobal = {
         class: 'tc',
         params: {
             modal: {
-                name: 'static-text',
+                name: 'static.wlc-post',
                 params: {
-                    slug: 'terms_and_conditions'
-                }
-            }
-        }
-    }
+                    slug: 'terms_and_conditions',
+                },
+            },
+        },
+    },
 };

@@ -5,9 +5,7 @@
     .wlc-post-menu {
 
         &__title {
-            font-size: v.$titleSize;
             font-weight: v.$titleWeight;
-            text-align: v.$titleAlign;
             color: v.$titleColor;
             padding: v.$titlePadding;
         }

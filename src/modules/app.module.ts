@@ -58,8 +58,6 @@ export function loadConfig(config: ConfigService) {
             },
         }),
         CoreModule,
-        PromoModule,
-        GamesModule,
         WebStorageModule,
         ServiceWorkerModule.register('/static/dist/ngsw-worker.js', {enabled: environment.production}), // environment.production
     ],

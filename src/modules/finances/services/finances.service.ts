@@ -76,13 +76,8 @@ export class FinancesService {
     }
 
     public async fetchPaymentSystems(): Promise<PaymentSystem[]> {
-        this.systems = await this.request<PaymentSystem[]>(
-            'finances/paymentSystems',
-            'PAYMENT_SYSTEMS',
-            'PAYMENT_SYSTEMS_ERROR',
-            null,
-            this.createPaymentSystems,
-        );
+        this.systems = await this.dataService.request('finances/paymentSystems')
+            .then((data: IPaymentSystem[]) => this.createPaymentSystems(data));
         return this.paymentSystems;
     }
 
@@ -111,33 +106,6 @@ export class FinancesService {
         return paymentSystems;
     }
 
-    protected async request<T>(
-        name: string,
-        event: string,
-        eventError: string,
-        params: IIndexing<string> = {},
-        callback?: (data?: unknown) => T,
-    ): Promise<T> {
-        try {
-            const data = (await this.dataService.request(name, params)).data;
-            this.eventService.emit({
-                name: event,
-                data: data,
-            });
-
-            if (callback) {
-                return callback(data);
-            }
-
-            return data;
-        } catch (error) {
-            this.eventService.emit({
-                name: eventError,
-                data: error,
-            });
-        }
-    }
-
     protected regMethod(
         name: string,
         url: string,
@@ -148,10 +116,39 @@ export class FinancesService {
     }
 
     protected registerMethods(): void {
-        this.regMethod('paymentSystems', '/paymentSystems', 'GET');
-        this.regMethod('bets', '/bets', 'GET');
-        this.regMethod('transactions', '/transactions', 'GET');
-        this.regMethod('deposits', '/deposits', 'POST');
-        this.regMethod('withdrawals', '/withdrawals', 'POST');
+        this.dataService.registerMethod({
+            name: 'paymentSystems',
+            system: 'finances',
+            url: '/paymentSystems',
+            type: 'GET',
+            events: {
+                success: 'PAYMENT_SYSTEMS',
+                fail: 'PAYMENT_SYSTEMS_ERROR',
+            },
+        });
+        this.dataService.registerMethod({
+            name: 'bets',
+            system: 'finances',
+            url: '/bets',
+            type: 'GET',
+        });
+        this.dataService.registerMethod({
+            name: 'transactions',
+            system: 'finances',
+            url: '/transactions',
+            type: 'GET',
+        });
+        this.dataService.registerMethod({
+            name: 'deposits',
+            system: 'finances',
+            url: '/deposits',
+            type: 'POST',
+        });
+        this.dataService.registerMethod({
+            name: 'withdrawals',
+            system: 'finances',
+            url: '/withdrawals',
+            type: 'POST',
+        });
     }
 }

@@ -1,12 +1,28 @@
+<ng-template #sref let-item="item">
+    <a uiSref="app.pages"
+        [uiParams]="{slug: item.slug}"
+        class="{{$class}}__link">
+        <span>{{item.title | translate}}</span>
+    </a>
+</ng-template>
+
+<ng-template #href let-item="item">
+    <a href="{{basePath + item.slug}}"
+        class="{{$class}}__link">
+        <span>{{item.title | translate}}</span>
+    </a>
+</ng-template>
+
+
 <div *ngIf="isReady; else preloader" class="{{$class}}__wrp">
     <div class="{{$class}}__title" *ngIf="title">{{title | translate}}</div>
     <div class="{{$class}}__items">
-        <div class="{{$class}}__item" *ngFor="let menuItem of menuItems">
-            <a uiSref="app.pages"
-               [uiParams]="{slug: menuItem.slug}"
-               class="{{$class}}__link">
-                <span>{{menuItem.title | translate}}</span>
-            </a>
+        <div class="{{$class}}__item" *ngFor="let menuItem of menuItems" [ngSwitch]="type">
+            <ng-container *ngSwitchCase="'sref'" [ngTemplateOutlet]="sref" [ngTemplateOutletContext]="{item: menuItem}">
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'href'" [ngTemplateOutlet]="href" [ngTemplateOutletContext]="{item: menuItem}">
+            </ng-container>
         </div>
     </div>
 </div>

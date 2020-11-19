@@ -8,6 +8,10 @@ export type IconsColor = 'default' | 'white' | 'black' | 'gray' | 'colored';
 export interface IIconListComponentParams extends IComponentParams<ListTheme, ListType, string> {
     common?: {
         iconsColor?: IconsColor;
+        payment?: {
+            include?: string[],
+            exclude?: string[],
+        }
     }
     items?: IIconParams[];
 }

@@ -27,6 +27,9 @@ import {
 import {
     map as _map,
     sortedUniqBy as _sortedUniqBy,
+    find as _find,
+    filter as _filter,
+    includes as _includes,
 } from 'lodash';
 
 export {IIconListComponentParams} from './icon-list.params';
@@ -96,7 +99,31 @@ export class IconListComponent extends AbstractComponent implements OnInit {
     }
 
     protected setPaymentsLst(): void {
-        const payments: Params.IPayment[] = this.configService.get('appConfig.siteconfig.payment_systems') || [];
+        let payments: Params.IPayment[] = this.configService.get('appConfig.siteconfig.payment_systems') || [];
+
+        if (this.$params.common.payment?.exclude?.length) {
+
+            if (this.$params.common.payment.exclude[0] === 'all') {
+                payments = [];
+            } else {
+                payments = _filter(payments, (item) => {
+                    return !_includes(this.$params.common.payment.exclude, item.Name.toLocaleLowerCase());
+                });
+            }
+        }
+
+        if (this.$params.common.payment?.include?.length) {
+            this.$params.common.payment.include.forEach((item) => {
+                if (!_find(payments, (i) => i.Name.toLocaleLowerCase() === item)) {
+                    payments.push({
+                        Name: item,
+                        Alias: {},
+                        Init: '',
+                    });
+                }
+            });
+        }
+
         this.items = _map<Params.IPayment, IconModel>(payments, (item: Params.IPayment): IconModel => {
             const image = `/gstatic/paysystems/V2/${this.$params.common.iconsColor}/${item.Name.toLowerCase()}.png`;
 

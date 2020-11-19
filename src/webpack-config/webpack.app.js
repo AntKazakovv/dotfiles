@@ -1,71 +1,38 @@
-const webpack = require('webpack');
-const fs = require('fs');
-const path = require('path');
-const createDir = require('make-dir');
 const ESLintPlugin = require('eslint-webpack-plugin');
+const StylelintPlugin = require('stylelint-webpack-plugin');
 const eslintConfig = require('../../.eslintrc.js');
+const stylelintConfig = require('../../stylelint.config.js');
+const WlcTemplateReplacePlugins = require('./wlcTemplateReplacePlugins');
+const WlcStructureInfoPlugin = require('./wlcStructureInfoPlugin');
 
-const _includes = require('lodash/includes');
-
-module.exports = (config) => {
+module.exports = (config, schema, env) => {
+    const isDev = env.configuration === 'dev';
 
     config.plugins.push(new ESLintPlugin({
-        baseConfig: eslintConfig,
+        config: eslintConfig,
         files: [
             'src/**/*.{ts,js}',
             'config/frontend/**/*.{ts,js}',
             'wlc-engine/**/*.{ts,js}',
         ],
         lintDirtyModulesOnly: true,
+        failOnError: false,
     }));
 
-    config.plugins.push(new webpack.NormalModuleReplacementPlugin(/\.scss$/i, (resource) => {
-        const originStylePath = resource.resource;
-
-        if (!originStylePath || !_includes(originStylePath, '/wlc-engine/modules/') || /^_/.test(originStylePath)) {
-            return;
-        }
-
-        const customStylePath = originStylePath.replace('/wlc-engine/', '/custom/');
-        const customStyleDir = path.dirname(customStylePath);
-        const styleName = path.basename(customStylePath);
-
-
-        if (fs.existsSync(customStylePath)) {
-            resource.resource = customStylePath;
-        } else {
-            createDir.sync(customStyleDir);
-            fs.writeFileSync(customStyleDir + '/~' + styleName, '');
-        }
+    config.plugins.push(new StylelintPlugin({
+        config: stylelintConfig,
+        lintDirtyModulesOnly: true,
+        cache: true,
+        failOnError: false,
     }));
 
-    config.plugins.push(new webpack.NormalModuleReplacementPlugin(/\.html$/i, (resource) => {
-        const originTplPath = resource.resource;
+    config.plugins.push(WlcTemplateReplacePlugins.styles);
 
-        if (!originTplPath || !_includes(originTplPath, '/wlc-engine/modules/')) {
-            return;
-        }
+    config.plugins.push(WlcTemplateReplacePlugins.templates);
 
-        const customTplPath = originTplPath.replace('/wlc-engine/', '/custom/');
-        const customComponentDir = path.dirname(customTplPath);
-        const tplName = path.basename(customTplPath);
-        const tsName = tplName.replace('.html', '.ts');
-        const originTsPath = originTplPath.replace('.html', '.ts');
-
-        if (fs.existsSync(customTplPath)) {
-            resource.resource = customTplPath;
-        } else {
-            createDir.sync(customComponentDir);
-            fs.copyFileSync(originTplPath, customComponentDir + '/~' + tplName);
-        }
-
-        // Just for IDE support
-        try {
-            fs.copyFileSync(originTsPath, customComponentDir + '/~readonly_' + tsName);
-        } catch (e) {
-            console.error('Cannot create readonly ts file for ' + tplName);
-        }
-    }));
+    if(isDev) {
+        config.plugins.push(new WlcStructureInfoPlugin());
+    }
 
     return config;
 };
