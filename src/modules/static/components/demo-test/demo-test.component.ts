@@ -6,7 +6,7 @@ import {
     IModalParams,
 } from 'wlc-engine/modules/base/services';
 import {FaqComponent} from './../faq/faq.component';
-import {IWinnerData, WinnersService} from 'wlc-engine/modules/promo/services';
+import {WinnersService} from 'wlc-engine/modules/promo/services';
 
 @Component({
     selector: 'wlc-demo-test',
@@ -27,7 +27,7 @@ export class demoTestComponent implements OnInit {
 
     ngOnInit(): void {
         this.winnersService.latestWins.subscribe(() => {
-            console.log(this.winnersService.latestWinsData);
+            console.log('winners', this.winnersService.latestWinsData);
         });
     }
 

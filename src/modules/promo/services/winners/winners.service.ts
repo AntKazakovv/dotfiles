@@ -2,7 +2,12 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {tap} from 'rxjs/operators';
 import {filter} from 'rxjs/internal/operators/filter';
-import {ConfigService, DataService, EventService} from 'wlc-engine/modules/core/services';
+
+import {
+    ConfigService,
+    DataService,
+    EventService,
+} from 'wlc-engine/modules/core/services';
 import {
     IData,
     IRequestMethod,
@@ -11,6 +16,7 @@ import {
 } from 'wlc-engine/modules/core/services/data/data.service';
 import {WinnerModel} from 'wlc-engine/modules/promo/models/winner.model';
 import {GamesCatalogService} from 'wlc-engine/modules/games';
+import {IWinnerData} from 'wlc-engine/interfaces';
 
 import {
     merge as _merge,
@@ -29,18 +35,6 @@ export interface IWinnersParams {
     params?: RequestParamsType;
 };
 
-export interface IWinnerData {
-    Amount: number;
-    AmountEUR: number;
-    Currency: string;
-    CountryIso2: string;
-    CountryIso3: string;
-    Date: string;
-    GameID: number;
-    ID: string;
-    Name: string;
-};
-
 export enum WinnersServiceEvents {
     /** Fiers after success filtered request of latest winners */
     LATEST_WINS_GET = 'LATEST_WINNERS_GET',
@@ -54,7 +48,7 @@ const defaultParams: {[key: string]: IWinnersParams} = {
         params: {
             limit: '20',
             min: '1',
-            slim: '1', // required
+            slim: '1', //! required
         },
     },
     biggestWins: {
@@ -62,7 +56,7 @@ const defaultParams: {[key: string]: IWinnersParams} = {
         params: {
             limit: '20',
             min: '1',
-            slim: '1', // required
+            slim: '1', //! required
         },
     },
 };
@@ -157,7 +151,7 @@ export class WinnersService {
      * @param lastResponse - last response
      */
     protected filterResponse(response: IData, lastResponse: IWinnerData[]): boolean {
-        if(response) {
+        if (response) {
             const diff = _differenceWith(response.data, lastResponse, _isEqual);
             return !!diff.length;
         }
@@ -169,7 +163,11 @@ export class WinnersService {
      * @param data - winners array
      */
     protected getData(data: IWinnerData[]): WinnerModel[] {
-        return _map(data, (item: IWinnerData) => new WinnerModel(item, this.gameCatalogService));
+        return _map(data, (item: IWinnerData) => {
+            const winner = new WinnerModel(this.gameCatalogService);
+            winner.data = item;
+            return winner;
+        });
     }
 
     /**

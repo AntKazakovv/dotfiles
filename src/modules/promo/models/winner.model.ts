@@ -1,37 +1,57 @@
 import {GamesCatalogService} from 'wlc-engine/modules/games';
-import {IWinnerData} from 'wlc-engine/modules/promo/services';
+import {IWinnerData} from 'wlc-engine/interfaces';
 import {Game} from 'wlc-engine/modules/games/models/game.model';
+import {AbstractModel} from 'wlc-engine/modules/core/models/abstract.model';
 
 import {
-    get as _get,
     toString as _toString,
 } from 'lodash';
 
-export class WinnerModel {
-    readonly gameId: string;
-    readonly amountEur: number;
-    readonly amount: number;
-    readonly date: Date;
-    readonly currency: string;
-    readonly countryIso2: string;
-    readonly countryIso3: string;
-    readonly id: string;
+export class WinnerModel extends AbstractModel<IWinnerData> {
 
     constructor(
-        public data: IWinnerData,
         protected gamesCatalogService: GamesCatalogService,
     ) {
-        this.gameId = _toString(data.GameID);
-        this.id = _toString(data.ID);
-        this.amountEur = data.AmountEUR;
-        this.amount = data.Amount;
-        this.currency = data.Currency;
-        this.countryIso2 = data.CountryIso2;
-        this.countryIso3 = data.CountryIso3;
-        this.date = new Date(data.Date);
+        super();
+    }
+
+    public get id(): string {
+        return _toString(this.data.ID);
+    }
+
+    public get amount(): number {
+        return this.data.Amount;
+    }
+
+    public get amountEur(): number {
+        return this.data.AmountEUR;
+    }
+
+    public get currency(): string {
+        return this.data.Currency;
+    }
+
+    public get countryIso2(): string {
+        return this.data.CountryIso2;
+    }
+
+    public get countryIso3(): string {
+        return this.data.CountryIso3;
+    }
+
+    public get date(): Date {
+        return new Date(this.data.Date);
+    }
+
+    public get gameId(): string {
+        return _toString(this.data.GameID);
     }
 
     public get game(): Game {
         return this.gamesCatalogService.getGameById(this.gameId);
+    }
+
+    protected checkData(): void {
+        // TODO or not TODO...
     }
 }
