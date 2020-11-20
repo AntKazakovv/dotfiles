@@ -16,7 +16,8 @@ export class WinnerModel extends AbstractModel<IWinnerData> {
     }
 
     public get id(): string {
-        return _toString(this.data.ID);
+        // no ID on biggest wins. May be this parametr doesn't need here
+        return _toString(this.data.ID) || this.data.Date.replace(/[\D]/g, '');
     }
 
     public get amount(): number {
@@ -41,6 +42,10 @@ export class WinnerModel extends AbstractModel<IWinnerData> {
 
     public get date(): Date {
         return new Date(this.data.Date);
+    }
+
+    public get name(): string {
+        return this.data.Name;
     }
 
     public get gameId(): string {

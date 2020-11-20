@@ -1,6 +1,12 @@
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
-import {tap} from 'rxjs/operators';
+import {
+    Observable,
+    Subject,
+} from 'rxjs';
+import {
+    tap,
+    takeUntil,
+} from 'rxjs/operators';
 import {filter} from 'rxjs/internal/operators/filter';
 
 import {
@@ -17,6 +23,9 @@ import {
 import {WinnerModel} from 'wlc-engine/modules/promo/models/winner.model';
 import {GamesCatalogService} from 'wlc-engine/modules/games';
 import {IWinnerData} from 'wlc-engine/interfaces';
+
+// TODO remove later
+import {lastWinsData, lastWinsData2} from './../../mocks/last-wins';
 
 import {
     merge as _merge,
@@ -36,10 +45,12 @@ export interface IWinnersParams {
 };
 
 export enum WinnersServiceEvents {
-    /** Fiers after success filtered request of latest winners */
     LATEST_WINS_GET = 'LATEST_WINNERS_GET',
-    /** Fiers after success filtered request of biggest winners */
+    LATEST_WINS_SUCCESS = 'LATEST_WINNERS_SUCCESS',
+    LATEST_WINS_EERROR = 'LATEST_WINNERS_EERROR',
     BIGGEST_WINS_GET = 'BIGGEST_WINS_GET',
+    BIGGEST_WINS_SUCCESS = 'BIGGEST_WINS_SUCCESS',
+    BIGGEST_WINS_ERROR = 'BIGGEST_WINS_ERROR',
 };
 
 const defaultParams: {[key: string]: IWinnersParams} = {
@@ -67,14 +78,14 @@ const defaultParams: {[key: string]: IWinnersParams} = {
 export class WinnersService {
 
     /** `Observable` object for getting latest winners */
-    public latestWins: Observable<IData>;
+    protected $latestWins: Observable<IData>;
     /** `Observable` object for getting biggest winners */
-    public biggestWins: Observable<IData>;
+    protected $biggestWins: Observable<IData>;
 
     /** `latest` last success saved response of latest winners */
-    protected latest: IWinnerData[] = [];
+    protected latest: IWinnerData[];
     /** `biggest` last success saved response of biggest winners */
-    protected biggest: IWinnerData[] = [];
+    protected biggest: IWinnerData[];
 
     constructor(
         private dataService: DataService,
@@ -87,18 +98,62 @@ export class WinnersService {
 
     /**
      * Accessor for getting last response
-     * @returns {WinnerModel[]} last success response of latest winners
+     * @returns last success response of latest winners
      */
-    public get latestWinsData(): WinnerModel[] {
+    public get latestWins(): WinnerModel[] {
         return this.getData(this.latest);
     }
 
     /**
      * Accessor for getting last response
-     * @returns {WinnerModel[]} last success response if latest winners
+     * @returns last success response if latest winners
      */
-    public get biggestWinsData(): WinnerModel[] {
+    public get biggestWins(): WinnerModel[] {
         return this.getData(this.biggest);
+    }
+
+    /**
+     * Subscription for latest winners
+     * @param until - subject which ends the subscription
+     * @param callback - get winners model array
+     * @example
+     * this.winnersService.getLatestWins(
+     *     this.$destroy,
+     *     (winners: WinnerModel[]) => {
+     *     // do something...
+     * });
+     */
+    public subscribeLatestWins(
+        until: Subject<unknown>,
+        callback: (winners: WinnerModel[]) => void,
+    ): void {
+        this.fetchLatestWinners();
+
+        this.$latestWins
+            .pipe(takeUntil(until))
+            .subscribe(() => callback(this.latestWins));
+    }
+
+    /**
+     * Subscription for biggest winners
+     * @param until - subject which ends the subscription
+     * @param callback - get winners model array
+     * @example
+     * this.winnersService.getBiggestWins(
+     *     this.$destroy,
+     *     (winners: WinnerModel[]) => {
+     *     // do something...
+     * });
+     */
+    public subscribeBiggestWins(
+        until: Subject<unknown>,
+        callback: (winners: WinnerModel[]) => void,
+    ): void {
+        this.fetchBiggestWins();
+
+        this.$biggestWins
+            .pipe(takeUntil(until))
+            .subscribe(() => callback(this.biggestWins));
     }
 
     /**
@@ -113,14 +168,14 @@ export class WinnersService {
      * Creates observable objects
      */
     protected initObservers(): void {
-        this.latestWins = this.dataService
+        this.$latestWins = this.dataService
             .getMethodSubscribe('winners/latestWins')
             .pipe(
                 filter((response: IData) => this.filterResponse(response, this.latest)),
                 tap((response: IData) => this.tapResponse(response, 'latest', WinnersServiceEvents.LATEST_WINS_GET)),
             );
 
-        this.biggestWins = this.dataService
+        this.$biggestWins = this.dataService
             .getMethodSubscribe('winners/biggestWins')
             .pipe(
                 filter((response: IData) => this.filterResponse(response, this.biggest)),
@@ -136,10 +191,14 @@ export class WinnersService {
      */
     protected tapResponse(response: IData, lastResponseName: string, event: string): IData {
         if (response) {
+            // for test, imitation of changing data
+            // const data = Math.random() > 0.5 ? lastWinsData : lastWinsData2;
+            // this[lastResponseName] = data as IWinnerData[];
+
             this[lastResponseName] = response.data as IWinnerData[];
             this.eventService.emit({
                 name: event,
-                data: response.data as IWinnerData[],
+                data: this.getData(this[lastResponseName]),
             });
         }
         return response;
@@ -151,7 +210,7 @@ export class WinnersService {
      * @param lastResponse - last response
      */
     protected filterResponse(response: IData, lastResponse: IWinnerData[]): boolean {
-        if (response) {
+        if (response && response.data?.length) {
             const diff = _differenceWith(response.data, lastResponse, _isEqual);
             return !!diff.length;
         }
@@ -167,7 +226,21 @@ export class WinnersService {
             const winner = new WinnerModel(this.gameCatalogService);
             winner.data = item;
             return winner;
-        });
+        }).filter((item: WinnerModel) => item.game);
+    }
+
+    protected fetchLatestWinners(): void {
+        this.dataService.request('winners/latestWins')
+            .then((response: IData) => this.tapResponse(
+                response, 'latest', WinnersServiceEvents.LATEST_WINS_GET,
+                ));
+    }
+
+    protected fetchBiggestWins(): void {
+        this.dataService.request('winners/biggestWins')
+            .then((response: IData) => this.tapResponse(
+                response, 'biggest', WinnersServiceEvents.BIGGEST_WINS_GET,
+                ));
     }
 
     /**
@@ -180,9 +253,16 @@ export class WinnersService {
         name: string,
         url: string,
         type: RestMethodType,
+        events: {success: string, fail: string},
     ): void {
-        const configParams = this.prepareParams(name);
-        const methodParams: IRequestMethod = {name, system: 'winners', url, type, ...configParams};
+        const methodParams: IRequestMethod = {
+            system: 'winners',
+            name,
+            url,
+            type,
+            events,
+            ...this.prepareParams(name),
+        };
 
         this.dataService.registerMethod(methodParams);
     }
@@ -191,8 +271,15 @@ export class WinnersService {
      * Registers request methods
      */
     protected registerMethods(): void {
-        this.regMethod('latestWins', '/wins', 'GET');
-        this.regMethod('biggestWins', '/stats/topWins', 'GET');
+        this.regMethod('latestWins', '/wins', 'GET', {
+            success: WinnersServiceEvents.LATEST_WINS_SUCCESS,
+            fail: WinnersServiceEvents.LATEST_WINS_EERROR,
+        });
+
+        this.regMethod('biggestWins', '/stats/topWins', 'GET', {
+            success: WinnersServiceEvents.LATEST_WINS_SUCCESS,
+            fail: WinnersServiceEvents.BIGGEST_WINS_ERROR,
+        });
     }
 
     /**

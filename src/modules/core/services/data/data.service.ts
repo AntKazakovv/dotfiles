@@ -5,7 +5,7 @@ import {
     Subject,
     of,
     from,
-    timer,
+    interval,
     BehaviorSubject,
     Subscription,
     PartialObserver,
@@ -124,7 +124,7 @@ export class DataService {
         registerMethod.subject = new BehaviorSubject<IData>(null);
         registerMethod.flow = registerMethod.subject.asObservable();
         if (registerMethod.period) {
-            registerMethod.intervalSubcribe = timer(0, registerMethod.period).pipe(
+            registerMethod.intervalSubcribe = interval(registerMethod.period).pipe(
                 filter(() => {
                     return this.apiList[name].subject.observers.length > 0;
                 }),
