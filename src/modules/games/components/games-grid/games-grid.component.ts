@@ -41,6 +41,8 @@ import {
     get as _get,
     isUndefined as _isUndefined,
 } from 'lodash';
+import {gamesEvents, IGames} from 'wlc-engine/modules/games/interfaces/games.interfaces';
+import {GamesCatalog} from 'wlc-engine/modules/games/models/games-catalog.model';
 
 @Component({
     selector: '[wlc-games-grid]',
@@ -214,38 +216,42 @@ export class GamesGridComponent extends AbstractComponent
     }
 
     protected async getGames(): Promise<Game[]> {
-        // TODO это временно запихнуто
-        await this.gamesCatalogService.load();
-        let games: Game[] = this.gamesCatalogService.getGameList();
+        return new Promise<Game[]>((resolve, reject) => {
+            this.eventService.subscribe({
+                name: gamesEvents.FETCH_GAME_CATALOG_SUCCEEDED,
+            }, () => {
+                let games: Game[] = this.gamesCatalogService.getGameList();
 
-        if (this.$params?.byState) {
-            console.log('getgames by state', this.$params.byState);
-        } else if (this.$params?.filter) {
-            // TODO: move to games service
-            const categories = this.gamesCatalogService.getCategories();
-            const category = _find(categories, (item: ICategory) => {
-                return item?.Slug === this.$params.filter.category;
+                if (this.$params?.byState) {
+                    console.log('getgames by state', this.$params.byState);
+                } else if (this.$params?.filter) {
+                    // TODO: move to games service
+                    const categories = this.gamesCatalogService.getCategories();
+                    const category = _find(categories, (item: ICategory) => {
+                        return item?.Slug === this.$params.filter.category;
+                    });
+                    if (!categories || !category) {
+                        return;
+                    }
+                    const currentLang = this.router.stateService.params?.locale || 'en';
+                    this.categoryTitle = category.Name[currentLang];
+
+                    games = _filter(games, (item: Game) => {
+                        return _includes(item.categoryID, category.ID);
+                    });
+                }
+
+                resolve(games);
             });
-            if (!categories || !category) {
-                return;
-            }
-            const currentLang = this.router.stateService.params?.locale || 'en';
-            this.categoryTitle = category.Name[currentLang];
-
-            games = _filter(games, (item: Game) => {
-                return _includes(item.CategoryID, category.ID);
-            });
-        }
-
-        return games;
+        });
     }
 
     protected initSearchListener(): void {
         this.eventService.subscribe({
-            name: GamesFilterServiceEvents.FILTER_SEARCH,
-            from: this.$params.searchFilterName || 'page',
-        }, (data: string) => this.changeSearch(data),
-        this.$destroy);
+                name: GamesFilterServiceEvents.FILTER_SEARCH,
+                from: this.$params.searchFilterName || 'page',
+            }, (data: string) => this.changeSearch(data),
+            this.$destroy);
     }
 
     protected changeSearch(search: string): void {
@@ -253,8 +259,8 @@ export class GamesGridComponent extends AbstractComponent
         if (this.searchQuery) {
             this.hideSearchBlock = false;
             this.filteredGames = _filter(this.games, (game: Game) => {
-                const name = _get(game.Name, this.currentLanguage.code)
-                            || _get(game.Name, 'en', '');
+                const name = _get(game.name, this.currentLanguage.code)
+                    || _get(game.name, 'en', '');
 
                 return name.toLowerCase().indexOf(this.searchQuery) !== -1;
             });

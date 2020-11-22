@@ -13,12 +13,14 @@ import {
     ICatalogTreeItem,
     IGames,
     IMapping,
-    IRestrictions,
+    IRestrictions, IJackpot, gamesEvents,
 } from 'wlc-engine/modules/games/interfaces/games.interfaces';
 
 import {GamesHelper} from 'wlc-engine/modules/games/games.helpers';
 import {ConfigService} from 'wlc-engine/modules/core/services/config/config.service';
 import {Game} from 'wlc-engine/modules/games/models/game.model';
+import {UIRouter} from '@uirouter/core';
+import {EventService} from 'wlc-engine/modules/core/services';
 
 import {
     concat as _concat,
@@ -31,8 +33,6 @@ import {
 } from 'lodash';
 
 export class GamesCatalog {
-    loaded: boolean;
-
     protected games: Game[];
     protected categories: ICategory[];
     protected merchants: IMerchant[];
@@ -45,9 +45,9 @@ export class GamesCatalog {
     constructor(
         data: IGames,
         protected ConfigService: ConfigService,
+        protected eventService: EventService,
+        protected router: UIRouter,
     ) {
-        // TODO удалить после добавления подписок в сервис
-        Object.assign(this, data);
         this.processFetchedGamesCatalog(data);
     }
 
@@ -94,23 +94,24 @@ export class GamesCatalog {
 
             gameList = gameList.filter((item: Game) => {
                 let rv: boolean = false;
-                for (const catId in includeCategoryIds) {
-                    if (!includeCategoryIdsAnd[includeCategoryIds[catId]]) {
-                        rv = rv || (item.CategoryID?.indexOf(includeCategoryIds[catId]) !== -1);
+
+                _forEach(includeCategoryIds, (cat: string) => {
+                    if (!includeCategoryIdsAnd[cat]) {
+                        rv = rv || (item.categoryID?.includes(cat));
                     } else {
-                        rv = rv && (item.CategoryID?.indexOf(includeCategoryIds[catId]) !== -1);
+                        rv = rv && (item.categoryID?.includes(cat));
                     }
-                }
+
+                });
                 return rv;
             });
         }
 
         if (excludeCategories.length) {
-            let exclCategoryId: string;
             const exclCategoryIds: string[] = [];
 
             _forEach(excludeCategories, (exclCategory: string) => {
-                exclCategoryId = GamesHelper.getCategoryIdByName(exclCategory);
+                const exclCategoryId = GamesHelper.getCategoryIdByName(exclCategory);
                 if (exclCategoryId) {
                     exclCategoryIds.push(exclCategoryId);
                 }
@@ -119,7 +120,7 @@ export class GamesCatalog {
             gameList = gameList.filter((item: Game): boolean => {
                 let rv = true;
                 for (const exclCategoryId of exclCategoryIds) {
-                    rv = rv && (item.CategoryID?.indexOf(exclCategoryId) === -1);
+                    rv = rv && (!item.categoryID?.includes(exclCategoryId));
                 }
                 return rv;
             });
@@ -127,16 +128,15 @@ export class GamesCatalog {
 
         if (includeMerchants.length) {
             gameList = gameList.filter((item: Game) => {
-                return includeMerchants.indexOf(item.MerchantID) !== -1
-                    || includeMerchants.indexOf(item.SubMerchantID) !== -1;
+                return includeMerchants.includes(item.merchantID)
+                    || includeMerchants.includes(item.subMerchantID);
             });
         }
 
         if (excludeMerchants.length) {
             gameList = gameList.filter((item: Game) => {
-                return excludeMerchants.indexOf(item.MerchantID) === -1 ||
-                item.SubMerchantID && item.SubMerchantID != '0' ?
-                    excludeMerchants.indexOf(item.SubMerchantID) === -1 : false;
+                return !excludeMerchants.includes(item.merchantID)
+                    && !excludeMerchants.includes(item.subMerchantID);
             });
         }
 
@@ -220,12 +220,12 @@ export class GamesCatalog {
 
     /**
      *
-     * @param {string} merchantId
+     * @param {string} merchantID
      * @param {string} launchCode
      * @returns {Game}
      */
-    public getGame(merchantId: string, launchCode: string): Game {
-        return _find(this.games, {MerchantID: merchantId, LaunchCode: launchCode});
+    public getGame(merchantID: string, launchCode: string): Game {
+        return _find(this.games, {merchantID, launchCode});
     }
 
     /**
@@ -244,7 +244,7 @@ export class GamesCatalog {
      * @returns {string}
      */
     public getGameName(merchantId: string, launchCode: string): string {
-        return this.getGame(merchantId, launchCode)?.Name?.en || '';
+        return this.getGame(merchantId, launchCode)?.name?.en || '';
     }
 
     public getCatalogTree(type: string, name: string): ICatalogTreeItem[] {
@@ -267,6 +267,24 @@ export class GamesCatalog {
         }
 
         return tree;
+    }
+
+    /**
+     *
+     * @param {IJackpot[]} jackpots
+     */
+    public loadJackpots(jackpots: IJackpot[]): void {
+        const categoryId = GamesHelper.getCategoryIdByName('jackpot');
+
+        _forEach(jackpots, jackpot => {
+            const game: Game = this.getGame(jackpot.MerchantID, jackpot.LaunchCode);
+            if (game) {
+                game.jackpot = jackpot.amount;
+                if (!game.categoryID.includes(categoryId)) {
+                    game.categoryID.push(categoryId);
+                }
+            }
+        })
     }
 
     // TODO не понятно, надо оно или нет
@@ -409,15 +427,14 @@ export class GamesCatalog {
         /***********************************************************************************************************
          * COUNTRIES RESTRICTIONS
          **********************************************************************************************************/
-        // TODO а как надо по дефолту то????
-        const enableCountryRestriction: boolean = this.ConfigService.
-            get<boolean>('appConfig.games.enableRestricted') || true;
+            // TODO а как надо по дефолту то????
+        const enableCountryRestriction: boolean = this.ConfigService.get<boolean>('appConfig.games.enableRestricted') || true;
         const authUserAppConfigCountry = this.ConfigService.get<string>('appConfig.user.country') || null;
         // TODO надо дописать, когда будет UserService
         const authUserCountry = authUserAppConfigCountry;
         // const authUserCountry = this.UserService.isAuthenticated() ?
         //     this.UserService.userProfile.countryCode || authUserAppConfigCountry : authUserAppConfigCountry;
-        const country: string =  this.ConfigService.get<string>('appConfig.country') || 'unknown';
+        const country: string = this.ConfigService.get<string>('appConfig.country') || 'unknown';
         const restrictCountries: string[] = [country];
 
         if (authUserCountry) {
@@ -432,9 +449,9 @@ export class GamesCatalog {
         const resultGames: Game[] = [];
 
         for (const item of response.games) {
-            const game = new Game(item);
+            const game = new Game(item, this.router);
 
-            if (!_isArray(game.CategoryID)) {
+            if (!_isArray(game.categoryID)) {
                 continue;
             }
 
@@ -453,7 +470,7 @@ export class GamesCatalog {
         }
 
         this.games = _sortBy(resultGames, (item: Game) => {
-            return _toNumber(item.Sort);
+            return _toNumber(item.sort);
         });
     }
 

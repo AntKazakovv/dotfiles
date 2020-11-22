@@ -1,5 +1,5 @@
 import {IIndexing} from 'wlc-engine/interfaces/index';
-import {Game, AbstractGame} from 'wlc-engine/modules/games/models/game.model';
+import {Game} from 'wlc-engine/modules/games/models/game.model';
 
 /**
  * TYPES
@@ -76,7 +76,7 @@ export type ICategory = {
 export type IGames = {
     categories: ICategory[];
     countriesRestrictions: ICountriesRestrictions;
-    games: AbstractGame[];
+    games: IGame[];
     merchants: IMerchants;
     merchantsCurrencies: IMerchantCurrency[];
 }
@@ -99,6 +99,17 @@ export type IMapping = {
 export type IRestrictions = {
     restrictedByID: { [key: string]: IIndexing<boolean>; };
     restrictedByDefault: { [key: string]: IIndexing<boolean>; };
+}
+
+export type IJackpot = {
+    id: string;
+    game: string;
+    image: string;
+    MerchantID: string;
+    MerchantName: string;
+    LaunchCode: string;
+    amount: number;
+    currency: string;
 }
 
 /**
@@ -133,6 +144,7 @@ export interface IGameParams {
     demo: string;
     gameId: string;
     lang?: string;
+
     [key: string]: string;
 }
 
@@ -177,3 +189,57 @@ export interface ILaunchParamsOptions {
     demo: boolean;
     lang: string;
 }
+
+export interface IGame {
+    ID: string;
+    Image: string;
+    hasDemo: number;
+    Url: string;
+    Name: IIndexing<string>;
+    CategoryID: string[];
+    Description: IIndexing<string> | string[];
+    LaunchCode: string;
+    MerchantID: string;
+    SubMerchantID: string;
+    Sort: string;
+    SortPerCategory: IIndexing<number>;
+    MobileUrl: string;
+    MobileAndroidUrl?: string;
+    MobileWindowsUrl?: string;
+    SuperBranded: number;
+    Branded: number;
+    AR: string;
+    IDCountryRestriction: string;
+    PageCode: string;
+    MobilePageCode: string;
+    MobileAndroidPageCode: string;
+    MobileWindowsPageCode: string;
+    ExternalCode: string;
+    MobileExternalCode: string;
+    ImageFullPath: string;
+    WorkingHours: string;
+    IsVirtual: string;
+    TableID: string;
+    isRestricted: boolean;
+    Freeround?: string;
+}
+
+/**
+ * CONSTANTS
+ */
+export const gamesEvents: IIndexing<string> = {
+    FETCH_GAME_CATALOG: 'FETCH_GAME_CATALOG',
+    FETCH_GAME_CATALOG_STARTED: 'FETCH_GAME_CATALOG_STARTED',
+    FETCH_GAME_CATALOG_FAILED: 'FETCH_GAME_CATALOG_FAILED',
+    FETCH_GAME_CATALOG_SUCCEEDED: 'FETCH_GAME_CATALOG_SUCCEEDED',
+    FETCH_LAST_GAME_CATALOG_FAILED: 'FETCH_LAST_GAME_CATALOG_FAILED',
+    FETCH_LAST_GAME_CATALOG_SUCCEEDED: 'FETCH_LAST_GAME_CATALOG_SUCCEEDED',
+    FETCH_JACKPOTS: 'FETCH_JACKPOTS',
+    FETCH_JACKPOTS_STARTED: 'FETCH_JACKPOTS_STARTED',
+    FETCH_JACKPOTS_FAILED: 'FETCH_JACKPOTS_FAILED',
+    FETCH_JACKPOTS_SUCCEEDED: 'FETCH_JACKPOTS_SUCCEEDED',
+    FETCH_LAST_WINS: 'FETCH_LAST_WINS',
+    FETCH_LAST_WINS_STARTED: 'FETCH_LAST_WINS_STARTED',
+    FETCH_LAST_WINS_FAILED: 'FETCH_LAST_WINS_FAILED',
+    FETCH_LAST_WINS_SUCCEEDED: 'FETCH_LAST_WINS_SUCCEEDED'
+};
