@@ -96,7 +96,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         this.locale = this.$params.gameParams?.lang || this.router.stateService.params?.locale || 'en';
         this.gameParams = this.getGameParams();
         // TODO это временно запихнуто
-        await this.gamesCatalogService.load();
+        // await this.gamesCatalogService.load();
 
         this.game = this.gamesCatalogService.getGame(this.gameParams.merchantId, this.gameParams.launchCode); // TODO || getGameById
         if (this.game) {

@@ -106,8 +106,8 @@ export class GamesHelper {
         const merchantName: string = game.getMerchantName();
         const merchants: string[] = [merchantName];
 
-        if (_toNumber(game.SubMerchantID)) {
-            const subMerchantName = this.getMerchantNameById(game.SubMerchantID);
+        if (_toNumber(game.subMerchantID)) {
+            const subMerchantName = this.getMerchantNameById(game.subMerchantID);
             if (subMerchantName && merchantName !== subMerchantName) {
                 merchants.push(subMerchantName);
             }
@@ -120,7 +120,7 @@ export class GamesHelper {
                     categories: {},
                 };
                 availableMerchants.push({
-                    id: game.MerchantID,
+                    id: game.merchantID,
                     value: merch,
                     title: this.mapping.merchantNameToTitleMapping[merch],
                 });
@@ -128,7 +128,7 @@ export class GamesHelper {
             this.mapping.byMerchant[merch].games.push(game);
         });
 
-        _each(game.CategoryID, (categoryId: string) => {
+        _each(game.categoryID, (categoryId: string) => {
             const category: ICategory = this.getCategoryById(categoryId);
             const categoryName: string = this.getCategoryNameById(categoryId);
             const categoryTitle = this.getCategoryTitleById(categoryId);
@@ -140,7 +140,7 @@ export class GamesHelper {
                     merchants: {},
                 };
                 availableCategories.push({
-                    id: game.MerchantID,
+                    id: game.merchantID,
                     value: categoryName,
                     title: categoryTitle,
                     sort: _toNumber(category?.CSort || 0),
@@ -193,7 +193,7 @@ export class GamesHelper {
      * @param {string} categoryName
      */
     public static getCategoryIdByName(categoryName: string): string {
-        return _get(this.mapping, 'categoryNameToIdMapping[${categoryName}]', '');
+        return _get(this.mapping, `categoryNameToIdMapping[${categoryName}]`, '');
     }
 
     /**
@@ -224,7 +224,6 @@ export class GamesHelper {
     }
 
     public static getCategoryByMenuId(categoryId: string): ICategory {
-        console.warn('this.mapping', this.mapping);
         return _get(this.mapping, `categoryById[${categoryId}]`);
     }
 
