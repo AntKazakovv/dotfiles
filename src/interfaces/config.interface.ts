@@ -11,6 +11,7 @@ export type CustomType = 'custom';
 export interface IComponentParams<T, R, M> {
     moduleName?: string;
     componentName?: string;
+    wlcElement?: string;
     class?: string;
     theme?: 'default' | T;
     type?: R;

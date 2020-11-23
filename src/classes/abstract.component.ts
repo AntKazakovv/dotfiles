@@ -34,6 +34,7 @@ export interface IMixedParams<T extends IComponentParams<unknown, unknown, unkno
 
 export class AbstractComponent implements OnDestroy, OnInit {
     @HostBinding('class') protected $hostClass: string;
+    @HostBinding('attr.data-wlc-element') protected $hostWlcElement: string;
     public $class: string;
     public $params: unknown & IComponentParams<unknown, unknown, unknown>;
 
@@ -72,6 +73,7 @@ export class AbstractComponent implements OnDestroy, OnInit {
             this.modifiers = (_isArray(this.$params.customMod)) ? this.$params.customMod : _split(this.$params.customMod, ' ');
         }
         this.prepareHostClass();
+        this.setWlcElementOnHost();
     }
 
     public ngOnDestroy() {
@@ -90,6 +92,11 @@ export class AbstractComponent implements OnDestroy, OnInit {
         const preparedModifiers = _map(this.modifiers, (mod: string): string => `${this.$class}--${mod}`);
         this.$hostClass = [this.$class, ...preparedModifiers].join(' ');
         this.cdr?.markForCheck();
+    }
+
+    protected setWlcElementOnHost(): void {
+        this.$hostWlcElement = this.$params.wlcElement
+            || (this.$params.class || this.$params.componentName);
     }
 
     protected addModifiers(mods: string[] | string): void {
