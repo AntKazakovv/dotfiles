@@ -404,8 +404,8 @@ class StartGameHandler {
             if (
                 gamesBlackList[game.ID] ||
                 _keys(gamesWhiteList).length && !gamesWhiteList[game.ID] && !_keys(gamesBlackList).length ||
-                _intersection(categoriesBlackList, game.CategoryID).length ||
-                categoriesWhiteList.length && !_intersection(categoriesWhiteList, game.CategoryID).length
+                _intersection(categoriesBlackList, game.categoryID).length ||
+                categoriesWhiteList.length && !_intersection(categoriesWhiteList, game.categoryID).length
                 && !categoriesBlackList.length
             ) {
                 gameRestricted = true;

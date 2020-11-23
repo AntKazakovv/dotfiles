@@ -1,5 +1,6 @@
+import {UIRouter} from '@uirouter/core';
 import {IIndexing} from 'wlc-engine/interfaces/index';
-import {IMapping, IRestrictions} from 'wlc-engine/modules/games/interfaces/games.interfaces';
+import {IGame, IRestrictions, IStartGameOptions} from 'wlc-engine/modules/games/interfaces/games.interfaces';
 import {GamesHelper} from 'wlc-engine/modules/games/games.helpers';
 
 import {
@@ -8,51 +9,69 @@ import {
     get as _get,
 } from 'lodash';
 
-export abstract class AbstractGame {
+export class Game {
     public ID: string;
-    public Image: string;
     public hasDemo: number;
-    public Url: string;
-    public Name: IIndexing<string>;
-    public CategoryID: string[];
-    public Description: IIndexing<string> | string[];
-    public LaunchCode: string;
-    public MerchantID: string;
-    public SubMerchantID: string;
-    public Sort: string;
-    public SortPerCategory: IIndexing<number>;
-    public MobileUrl: string;
-    public MobileAndroidUrl?: string;
-    public MobileWindowsUrl?: string;
-    public SuperBranded: number;
-    public Branded: number;
+    public name: IIndexing<string>;
+    public categoryID: string[];
+    public description: IIndexing<string> | string[];
+    public launchCode: string;
+    public merchantID: string;
+    public subMerchantID: string;
+    public sort: string;
     public AR: string;
-    public IDCountryRestriction: string;
-    public PageCode: string;
-    public MobilePageCode: string;
-    public MobileAndroidPageCode: string;
-    public MobileWindowsPageCode: string;
-    public ExternalCode: string;
-    public MobileExternalCode: string;
-    public ImageFullPath: string;
-    public WorkingHours: string;
-    public IsVirtual: string;
-    public TableID: string;
-    public isRestricted: boolean;
-    public Freeround?: string;
-}
 
-export class Game extends AbstractGame {
-    protected isFavourite?: boolean;
+    protected url: string;
+    protected image: string;
+    protected sortPerCategory: IIndexing<number>;
+    protected isRestricted: boolean;
+    protected IDCountryRestriction: string;
+    protected freeround?: string;
+
+    // что-то не нужное
+    // protected MobileUrl: string;
+    // protected MobileAndroidUrl?: string;
+    // protected MobileWindowsUrl?: string;
+    // protected SuperBranded: number;
+    // protected Branded: number;
+    // protected PageCode: string;
+    // protected MobilePageCode: string;
+    // protected MobileAndroidPageCode: string;
+    // protected MobileWindowsPageCode: string;
+    // protected ExternalCode: string;
+    // protected MobileExternalCode: string;
+    // protected ImageFullPath: string;
+    // protected WorkingHours: string;
+    // protected IsVirtual: string;
+    // protected TableID: string;
+
+    public jackpot?: number;
+    public isFavourite?: boolean;
     protected merchantAlias?: string;
     protected merchantName?: string;
     protected toggleFavourite?: any;
     protected isCurrencyDisabled?: boolean;
     protected CategoryTitle?: IIndexing<string>[];
 
-    constructor(data: AbstractGame) {
-        super();
-        Object.assign(this, data);
+    constructor(
+        data: IGame,
+        protected router: UIRouter,
+    ) {
+        // Object.assign(this, data);
+        this.ID = data.ID;
+        this.hasDemo = data.hasDemo;
+        this.name = data.Name;
+        this.categoryID = data.CategoryID;
+        this.description = data.Description;
+        this.launchCode = data.LaunchCode;
+        this.merchantID = data.MerchantID;
+        this.subMerchantID = data.SubMerchantID;
+        this.sort = data.Sort;
+        this.url = data.Url;
+        this.image = data.Image;
+        this.sortPerCategory = data.SortPerCategory;
+        this.isRestricted = data.isRestricted;
+        this.freeround = data.Freeround;
     }
 
     /**
@@ -66,7 +85,7 @@ export class Game extends AbstractGame {
 
         const restrictedCountries = this.IDCountryRestriction
             ? restrictions.restrictedByID[this.IDCountryRestriction]
-            : restrictions.restrictedByDefault[this.MerchantID];
+            : restrictions.restrictedByDefault[this.merchantID];
 
         if (_isObject(restrictedCountries)) {
             _each(countries, (country: string) => {
@@ -84,16 +103,16 @@ export class Game extends AbstractGame {
      * @returns {string}
      */
     public getMerchantName(): string {
-        return GamesHelper.getMerchantNameById(this.MerchantID)
-            || GamesHelper.getMerchantNameById(this.SubMerchantID);
+        return GamesHelper.getMerchantNameById(this.merchantID)
+            || GamesHelper.getMerchantNameById(this.subMerchantID);
     }
 
     /**
      *
      */
     public setSortedCategoryFields(): void {
-        if (this.SortPerCategory) {
-            _each(this.SortPerCategory, (value, key) => {
+        if (this.sortPerCategory) {
+            _each(this.sortPerCategory, (value, key) => {
                 if (value) {
                     const name = GamesHelper.mapping.categoryIdToNameMapping[key];
                     this[name + 'Sorted'] = value;
@@ -102,7 +121,15 @@ export class Game extends AbstractGame {
         }
     }
 
-    public openGame(): void {
-
+    /**
+     *
+     * @param {IStartGameOptions} options
+     */
+    public launch(options: IStartGameOptions): void {
+        this.router.stateService.go('app.gameplay', {
+            merchantId: this.merchantID,
+            launchCode: this.launchCode,
+            demo: options.demo,
+        });
     }
 }

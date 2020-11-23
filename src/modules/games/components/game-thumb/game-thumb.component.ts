@@ -25,7 +25,7 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
     }
 
     public startGame(game: Game, demo: boolean, $event: Event): void {
-        this.gamesCatalogService.startGame(game, {
+        game.launch({
             demo: demo,
         });
         $event.stopPropagation();
