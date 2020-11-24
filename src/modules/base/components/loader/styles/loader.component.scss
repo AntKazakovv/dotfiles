@@ -1,4 +1,6 @@
 @import './types/ring';
+@import './utils/vars';
+
 
 .wlc-loader {
 
@@ -6,5 +8,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        height: $size;
+        width: $size;
     }
 }

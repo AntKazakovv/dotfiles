@@ -6,7 +6,6 @@ import {
 
 import {AbstractComponent} from 'wlc-engine/classes/abstract.component';
 import * as Params from './loader.params';
-import {ConfigService} from 'wlc-engine/modules/core';
 
 @Component({
     selector: '[wlc-loader]',
@@ -14,10 +13,10 @@ import {ConfigService} from 'wlc-engine/modules/core';
     styleUrls: ['./styles/loader.component.scss'],
 })
 export class LoaderComponent extends AbstractComponent implements OnInit {
-    public $params: Params.ILoaderComponentParams;
+    public $params: Params.ILoaderCParams;
 
     constructor(
-        @Inject('injectParams') protected injectParams: Params.ILoaderComponentParams,
+        @Inject('injectParams') protected injectParams: Params.ILoaderCParams,
     ) {
         super({injectParams, defaultParams: Params.defaultParams});
     }

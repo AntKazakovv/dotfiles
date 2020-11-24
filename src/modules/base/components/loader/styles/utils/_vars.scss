@@ -1,6 +1,6 @@
 @use 'engine-styles/functions' as ef;
 
-$color: ef.get('color', 'text');
-$width: 6px;
-$speed: 1.2s;
-$size: 80px;
+$color: ef.get('color', 'main');
+$width: 7px;
+$duration: 3s;
+$size: 170px;

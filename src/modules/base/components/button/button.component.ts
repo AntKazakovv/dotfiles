@@ -8,26 +8,27 @@ import {
     Input,
     OnChanges,
     OnDestroy,
-    Renderer2,
     SimpleChanges,
     OnInit,
 } from '@angular/core';
-import {Subject} from 'rxjs';
-import {
-    filter,
-    startWith,
-    takeUntil,
-} from 'rxjs/operators';
+import {Subject, Observable, fromEvent} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 import {IconComponent} from '../icon/icon.component';
 import {AbstractComponent, IMixedParams} from 'wlc-engine/classes/abstract.component';
 import * as BParams from './button.params';
-import {ConfigService} from 'wlc-engine/modules/core';
+import {
+    ConfigService,
+    EventService,
+} from 'wlc-engine/modules/core/services';
 
 import {
-    merge as _merge,
-    isString as _isString,
+    forEach as _forEach,
     union as _union,
+    keys as _keys,
+    isUndefined as _isUndefined,
+    get as _get,
 } from 'lodash';
+
 
 export {IButtonParams} from './button.params';
 
@@ -38,7 +39,11 @@ export {IButtonParams} from './button.params';
     preserveWhitespaces: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ButtonComponent extends AbstractComponent implements OnInit, OnChanges, OnDestroy, AfterContentInit, AfterViewInit {
+export class ButtonComponent extends AbstractComponent implements OnInit,
+    OnChanges,
+    OnDestroy,
+    AfterContentInit,
+    AfterViewInit {
 
     @ContentChild(IconComponent, {read: ElementRef}) IconComponentElement!: ElementRef;
     @Input() public text: string;
@@ -58,9 +63,13 @@ export class ButtonComponent extends AbstractComponent implements OnInit, OnChan
         protected elementRef: ElementRef,
         protected cdr: ChangeDetectorRef,
         protected ConfigService: ConfigService,
+        private eventService: EventService,
     ) {
         super(
-            <IMixedParams<BParams.IButtonParams>>{injectParams: params, defaultParams: BParams.defaultParams}, ConfigService);
+            <IMixedParams<BParams.IButtonParams>>{
+                injectParams: params,
+                defaultParams: BParams.defaultParams,
+            }, ConfigService);
     }
 
     ngOnInit(): void {
@@ -75,25 +84,28 @@ export class ButtonComponent extends AbstractComponent implements OnInit, OnChan
     }
 
     public ngAfterViewInit(): void {
+        if (this.$params?.common?.event) {
+            fromEvent(this.elementRef.nativeElement, 'click')
+                .pipe(takeUntil(this.$destroy))
+                .subscribe(() => {
+                    this.eventService.emit(this.$params?.common?.event);
+                });
+        }
     }
 
     protected prepareParams(): BParams.IButtonParams {
+        const inputProperties: string[] = ['text', 'size', 'icon', 'index', 'event'];
         const inlineParams: BParams.IButtonParams = {
             common: {},
         };
-        if (this.size) {
-            inlineParams.common.size = this.size;
-        }
-        if (this.icon) {
-            inlineParams.common.icon = this.icon;
-        }
-        if (this.index !== undefined) {
-            inlineParams.common.index = this.index;
-        }
-        if (this.text !== undefined) {
-            inlineParams.common.text = this.text;
-        }
-        return inlineParams;
+
+        _forEach(inputProperties, key => {
+            if (!_isUndefined(_get(this, key))) {
+                inlineParams.common[key] = _get(this, key);
+            }
+        });
+
+        return _keys(inlineParams.common).length ? inlineParams : null;
     }
 
     protected prepareModifiers(): void {

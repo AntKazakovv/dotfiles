@@ -30,7 +30,7 @@ import {
     isString as _isString,
     find as _find,
     remove as _remove,
-    forEach  as _forEach,
+    forEach as _forEach,
 } from 'lodash';
 
 export type IModalParams = IModalConfig | IModalName;
@@ -160,6 +160,20 @@ export class ModalService {
         this.eventService.subscribe(
             {name: this.events.MODAL_HIDDEN},
             (id: string) => this.remove(id),
+        );
+
+        this.eventService.subscribe(
+            {name: 'SHOW_MODAL'},
+            (modalName: string) => {
+                this.showModal(modalName);
+            },
+        );
+
+        this.eventService.subscribe(
+            {name: 'CLOSE_MODAL'},
+            (modalName: string) => {
+                this.closeModal(modalName);
+            },
         );
     }
 
