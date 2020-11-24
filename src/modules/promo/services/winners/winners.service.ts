@@ -123,10 +123,11 @@ export class WinnersService {
      *     // do something...
      * });
      */
-    public subscribeLatestWins(
+    public async subscribeLatestWins(
         until: Subject<unknown>,
         callback: (winners: WinnerModel[]) => void,
-    ): void {
+    ): Promise<void> {
+        await this.gameCatalogService.ready;
         this.fetchLatestWinners();
 
         this.$latestWins
@@ -145,10 +146,11 @@ export class WinnersService {
      *     // do something...
      * });
      */
-    public subscribeBiggestWins(
+    public async subscribeBiggestWins(
         until: Subject<unknown>,
         callback: (winners: WinnerModel[]) => void,
-    ): void {
+    ): Promise<void> {
+        await this.gameCatalogService.ready;
         this.fetchBiggestWins();
 
         this.$biggestWins
