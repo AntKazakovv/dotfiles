@@ -1,13 +1,12 @@
-@import '../utils/mixins';
+@use 'engine-styles/functions' as ef;
 @import '../utils/vars';
+@import '../utils/mixins';
 
 .wlc-btn--theme-default {
 
     &:host {
         @include buttonBase;
-
         border-radius: 2px;
-        border: unset;
 
         &:hover {
             background: $backgroundHover;

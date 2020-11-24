@@ -18,6 +18,7 @@ $textTransform: uppercase !default;
 
 // Background
 $background: ef.get('color', 'main') !default;
+$backgroundSecondary: ef.get('color', 'secondary') !default;
 $backgroundHover:  darken(ef.get('color', 'main'), 10%) !default;
 $backgroundResolve: ef.get('color', 'success') !default;
 $backgroundResolveHover:  darken(ef.get('color', 'success'), 10%) !default;

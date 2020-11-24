@@ -8,15 +8,13 @@
 
     min-width: $minWidth;
     height: $heightDefault;
+    border: $borderDefault;
     background: $background;
 
     color: $fontColor;
     font-size: $fontSize;
 
     padding: $padding;
-
-    //border:
-    border: $borderDefault;
 
     .wlc-btn__text {
         grid-column: 2;

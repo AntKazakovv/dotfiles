@@ -1,0 +1,28 @@
+@use 'engine-styles/functions' as ef;
+@import '../utils/vars';
+@import '../utils/mixins';
+
+.wlc-btn--theme-circled {
+
+    &:host {
+        @include buttonBase;
+        width: $minWidth;
+        height: $minWidth;
+        grid-column-gap: unset;
+        border-radius: 50%;
+        border: $borderSecondary;
+        background: transparentize($background, 0.3);
+
+        &:hover {
+            background: $backgroundHover;
+        }
+
+        &.wlc-btn--theme-mod-secondary {
+            @include buttonTransparency;
+
+            &:hover {
+                background: transparentize($backgroundHover, 0.5);
+            }
+        }
+    }
+}

@@ -2,6 +2,7 @@ import {Component, Inject, Input, OnInit} from '@angular/core';
 import {AbstractComponent} from 'wlc-engine/classes/abstract.component';
 import {Game} from 'wlc-engine/modules/games/models/game.model';
 import {GamesCatalogService} from 'wlc-engine/modules/games';
+
 // import {IGTParams} from 'wlc-engine/modules/games/components/game-thumb/game-thumb.params';
 
 @Component({
