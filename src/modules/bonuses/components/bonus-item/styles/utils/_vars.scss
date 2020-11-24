@@ -1,0 +1,44 @@
+@use 'engine-styles/functions' as ef;
+
+// // Size
+// $minWidth: 100px !default;
+// $heightSmall: 35px !default;
+// $heightDefault: 40px !default;
+// $heightLarge: 50px !default;
+
+// // Font
+// $fontSize: ef.get('font', 'main') !default;
+// $fontColor: ef.get('color', 'text') !default;
+// $fontColorActive: ef.get('color', 'text') !default;
+// $fontColorSecondary: ef.get('color', 'main') !default;
+// $fontColorActiveSecondary: ef.get('color', 'text') !default;
+
+// // Transform
+// $textTransform: uppercase !default;
+
+// // Background
+// $background: ef.get('color', 'main') !default;
+// $backgroundHover:  darken(ef.get('color', 'main'), 10%) !default;
+// $backgroundResolve: ef.get('color', 'success') !default;
+// $backgroundResolveHover:  darken(ef.get('color', 'success'), 10%) !default;
+// $backgroundReject: ef.get('color', 'error') !default;
+// $backgroundRejectHover:  darken(ef.get('color', 'error'), 10%) !default;
+// $backgroundDisabled: ef.get('color', 'disabled') !default;
+// $backgroundDisabledHover:  darken(ef.get('color', 'disabled'), 10%) !default;
+
+// // Shadow
+// $shadow: 0 10px 10px ef.get('color', 'secondary') !default;
+
+// // Radius
+// $radius: 50px !default;
+
+// //Border
+// $borderDefault: 2px solid transparent !default;
+// $borderSecondary: 2px solid ef.get('color', 'main') !default;
+
+// //Padding
+// $padding: ef.get('size', 'smallest') ef.get('size', 'smaller') !default;
+// $gap: ef.get('size', 'small') !default;
+
+// // Animation
+// $time: ef.get('time', 'main') !default;
