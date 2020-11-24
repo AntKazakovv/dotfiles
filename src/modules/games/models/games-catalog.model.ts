@@ -214,7 +214,7 @@ export class GamesCatalog {
      * @param {string} id
      * @returns {Game}
      */
-    public getGameById(id: string): Game {
+    public getGameById(id: number): Game {
         return _find(this.games, {ID: id});
     }
 

@@ -166,7 +166,7 @@ export class GamesCatalogService {
     }
 
 
-    public async addRemoveFavorites(ID: string): Promise<void> {
+    public async addRemoveFavorites(ID: number): Promise<void> {
         if (!this.userService.isAuthenticated) { return; }
 
         await this.dataService.request({
@@ -233,7 +233,7 @@ export class GamesCatalogService {
         return this.gamesCatalog.getGame(merchantId, launchCode);
     }
 
-    public getGameById(id: string): Game {
+    public getGameById(id: number): Game {
         return this.gamesCatalog.getGameById(id);
     }
 

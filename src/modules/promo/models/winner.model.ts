@@ -48,8 +48,8 @@ export class WinnerModel extends AbstractModel<IWinnerData> {
         return this.data.Name;
     }
 
-    public get gameId(): string {
-        return _toString(this.data.GameID);
+    public get gameId(): number {
+        return this.data.GameID;
     }
 
     public get game(): Game {

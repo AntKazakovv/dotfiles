@@ -7,10 +7,11 @@ import {
     isObject as _isObject,
     each as _each,
     get as _get,
+    toNumber as _toNumber,
 } from 'lodash';
 
 export class Game {
-    public ID: string;
+    public ID: number;
     public hasDemo: number;
     public name: IIndexing<string>;
     public categoryID: string[];
@@ -58,7 +59,7 @@ export class Game {
         protected router: UIRouter,
     ) {
         // Object.assign(this, data);
-        this.ID = data.ID;
+        this.ID = _toNumber(data.ID);
         this.hasDemo = data.hasDemo;
         this.name = data.Name;
         this.categoryID = data.CategoryID;
