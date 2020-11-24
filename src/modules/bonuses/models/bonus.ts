@@ -1,6 +1,6 @@
 import {formatDate} from '@angular/common';
 import {AbstractModel} from 'wlc-engine/modules/core/models/abstract.model';
-import {IBonus, IBonusConditions} from '../interfaces/bonuses.interface';
+import {IBonus, IBonusConditions, IBonusImageType} from '../interfaces/bonuses.interface';
 import {IIndexing} from 'wlc-engine/interfaces/global.interface';
 import {ConfigService} from 'wlc-engine/modules/core/services';
 
@@ -15,7 +15,6 @@ import {
 
 export class Bonus extends AbstractModel<IBonus> {
     protected userCurrency: string;
-    protected isAuth: boolean;
 
     constructor(
         data: IBonus,
@@ -23,8 +22,7 @@ export class Bonus extends AbstractModel<IBonus> {
     ) {
         super();
         this.data = this.modifyData(data);
-        this.userCurrency = 'EUR' // TODO get user currency
-        this.isAuth = this.ConfigService.get<boolean>('$user.isAuthenticated');
+        this.userCurrency = this.ConfigService.get<string>('appConfig.user.currency') || 'EUR';
     }
 
     // default
@@ -432,6 +430,33 @@ export class Bonus extends AbstractModel<IBonus> {
         return '';
     }
 
+    public get viewTarget(): string {
+        const resultsTarget = this.results[this.target];
+        if(!resultsTarget) {
+            return 'default';
+        }
+
+        if (resultsTarget?.Type === 'relative') {
+            return 'relative';
+        } else {
+            return this.target;
+        }
+    }
+
+    public getImageByType(type: IBonusImageType = 'default'): string {
+        switch (type) {
+            case 'reg':
+                return this.imageReg;
+            case 'store':
+                return this.imageStore;
+            case 'promo':
+                return this.imagePromo;
+            case 'other':
+                return this.imageOther;
+        }
+        return this.image;
+    }
+
     public getProgress(rounded?: boolean): number {
         let progress: number;
 
@@ -446,7 +471,7 @@ export class Bonus extends AbstractModel<IBonus> {
 
     public expirationTime(format: string = 'L LT'): string {
         // TODO add moment (window as any).moment.utc(this.data.Expire).local().format(format);
-        return formatDate(this.data.Expire, format, 'en-US');
+        return formatDate(this.data.Expire, 'M/d/yy, h:mm a', 'en-US');
     }
 
     public getInventory(): void {
@@ -454,14 +479,18 @@ export class Bonus extends AbstractModel<IBonus> {
     }
 
     public join(): void {
+        this.data.Selected = 1;
         // TODO
     }
 
     public leave(): void {
+        this.data.Active = 0;
+        this.data.Selected = 0;
         // TODO
     }
 
     public unsubscribe(): void {
+        this.data.Selected = 0;
         //TODO
     }
 

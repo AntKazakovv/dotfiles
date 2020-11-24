@@ -1,4 +1,5 @@
 import {IIndexing} from 'wlc-engine/interfaces/global.interface';
+import {type} from 'os';
 
 export interface IBonus {
     Active: number;
@@ -105,3 +106,5 @@ export interface IBonusConditionsGames {
     Leagues: any;
     MarketsBL: any;
 }
+
+export type IBonusImageType = 'default' | 'reg' | 'deposit' | 'promo' | 'store' | 'other' | 'deposit';

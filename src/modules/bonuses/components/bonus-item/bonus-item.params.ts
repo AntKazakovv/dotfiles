@@ -1,6 +1,9 @@
-import {IComponentParams, CustomType} from 'wlc-engine/classes/abstract.component';
+import {
+    IComponentParams,
+    CustomType,
+} from 'wlc-engine/classes/abstract.component';
 
-export type Type = 'money' | 'freerounds' | 'percent' | 'experience' | CustomType;
+export type Type = 'default' | 'reg' | 'deposit' | 'promo' | 'store' | CustomType;
 export type Theme = 'default' | CustomType;
 export type ThemeMod = 'default' | CustomType;
 export type AutoModifiers = Theme | ThemeMod;
@@ -12,6 +15,13 @@ export interface IBonusItemParams extends IComponentParams<Theme, Type, ThemeMod
     common?: {
         themeMod?: ThemeMod;
         customModifiers?: CustomMod;
+        type?: Type;
+        imageByType?: boolean;
+        useIconBonusImage?: boolean;
+        showAdditionalImage?: boolean;
+        showBonusTag?: boolean;
+        hideDescription?: boolean;
+        iconMoreBtn?: boolean;
     };
 }
 
@@ -20,5 +30,11 @@ export const defaultParams: IBonusItemParams = {
     componentName: 'wlc-bonus-item',
     class: 'wlc-bonus-item',
     common: {
+        imageByType: false,
+        useIconBonusImage: false,
+        showAdditionalImage: false,
+        showBonusTag: true,
+        hideDescription: false,
+        iconMoreBtn: true,
     },
 };

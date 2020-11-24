@@ -11,16 +11,16 @@ import {
     AbstractComponent,
     IMixedParams,
 } from 'wlc-engine/classes/abstract.component';
-import * as BListParams from './bonuses-list.params';
 import {ConfigService} from 'wlc-engine/modules/core';
+import {Bonus} from '../../models/bonus';
+import {LoyaltyBonusesService} from '../../services/loyalty-bonuses.service';
+import * as BListParams from './bonuses-list.params';
 
 import {
     merge as _merge,
     isString as _isString,
     union as _union,
 } from 'lodash';
-import {Bonus} from '../../models/bonus';
-import {LoyaltyBonusesService} from '../../services/loyalty-bonuses.service';
 
 export {IBonusesListParams} from './bonuses-list.params';
 
@@ -51,10 +51,12 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
             <IMixedParams<BListParams.IBonusesListParams>>{injectParams: params, defaultParams: BListParams.defaultParams}, ConfigService);
     }
 
-    public ngOnInit(): void {
+    public async ngOnInit(): Promise<void> {
         super.ngOnInit();
         this.prepareModifiers();
+        await this.loyaltyBonusesService.loadBonuses();
         this.bonuses = this.loyaltyBonusesService.allBonuses;
+        // console.log(this.bonuses);
         this.cdr.detectChanges();
     }
 

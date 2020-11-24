@@ -1,3 +1,105 @@
-<div class="{{$class}}__content">
-    {{bonus | json}}
+<div class="{{$class}}__content"
+    [class.active]="bonus.isActive"
+    [class.subscribed]="bonus.isSubscribed"
+    [class.invetoried]="bonus.inventoried"
+    [class.choosen]="isChoose">
+    <div class="{{$class}}__image-block">
+        <div class="{{$class}}__tag" *ngIf="$params.common?.showBonusTag">{{getBonusTag() | translate}}</div>
+        <div class="{{$class}}__image" *ngIf="!$params.common?.useIconBonusImage">
+            <img class="wlc-bonus-image" *ngIf="$params.common?.imageByType" [src]="bonus.getImageByType($params.common?.type)" loading="lazy">
+            <img class="wlc-bonus-image" *ngIf="!$params.common?.imageByType" [src]="bonus.image" loading="lazy">
+            <img class="wlc-bonus-image-other" *ngIf="$params.common?.showAdditionalImage" [src]="bonus.imageOther" loading="lazy">
+        </div>
+        <div class="{{$class}}__bonus-icon" *ngIf="$params.common?.useIconBonusImage">
+            <div class="icon-sign" [ngSwitch]="bonus.viewTarget">
+                <span *ngSwitchCase="'relative'">%</span>
+                <!-- TODO: add icons -->
+                <span *ngSwitchCase="'balance'">{{currency}}</span>
+                <span *ngSwitchCase="'freerounds'">FS</span>
+                <span *ngSwitchCase="'loyalty'">LP</span>
+                <span *ngSwitchCase="'experience'">Exp</span>
+            </div>
+            <div class="icon-text">{{bonus.value}}</div>
+        </div>
+    </div>
+    <div class="{{$class}}__info-block">
+        <h4 class="{{$class}}__name">{{bonus.name}}</h4>
+        <p class="{{$class}}__description" *ngIf="!$params.common?.hideDescription">
+            {{bonus.description | slice:0:100}}
+            <span *ngIf="bonus.description?.length > 100">...</span>
+        </p>
+        <button type="button"
+                wlc-button
+                text="{{'More info' | translate}}"
+                *ngIf="!$params.common?.iconMoreBtn"
+                (click)="openDescription(bonus.id)">
+        </button>
+    </div>
+    <div class="{{$class}}__more-icon" *ngIf="$params.common?.iconMoreBtn">
+        <button
+            type="button"
+            wlc-icon
+            iconName="info"
+            (click)="openDescription(bonus.id)">
+        </button>
+    </div>
+    <div class="{{$class}}__active-block" *ngIf="bonus.isActive">
+        <div class="{{$class}}__timer">
+            <!-- TODO: add timer component -->
+            {{bonus.expirationTime()}}
+        </div>
+        <div class="{{$class}}__progress">
+            <div class="{{$class}}__remaning">
+                <!-- TODO: add wlc-currency component -->
+                <span>{{currency}}</span> {{bonus.wageringLeft}}
+                {{'of'| translate}}
+                <span>{{currency}}</span> {{bonus.wageringTotal}}
+                {{'remaning' | translate}}
+            </div>
+            <div class="{{$class}}__progressbar">
+                <div class="{{$class}}__progress-inner"
+                    [ngStyle]="{width: (bonus.getProgress() || 0)+'%'}"
+                ></div>
+            </div>
+            <div class="{{$class}}__progress-text">
+                {{bonus.getProgress()}}% {{'Cleared' | translate}}
+            </div>
+        </div>
+    </div>
+    <div class="{{$class}}__btns" *ngIf="isAuth && (!$params.common?.type || $params.common?.type === 'default')">
+        <button type="button"
+                wlc-button
+                text="{{'Subscribe' | translate}}"
+                *ngIf="bonus.canSubscribe && !bonus.inventoried"
+                (click)="bonus.join()">
+        </button>
+        <button type="button"
+                wlc-button
+                text="{{'Take' | translate}}"
+                *ngIf="bonus.inventoried"
+                (click)="bonus.join()">
+        </button>
+        <button type="button"
+                wlc-button
+                text="{{'Unsubscribe' | translate}}"
+                themeMod="secondary"
+                *ngIf="bonus.isSubscribed || bonus.inventoried"
+                (click)="bonus.unsubscribe()">
+        </button>
+        <button type="button"
+                wlc-button
+                text="{{'Cancel' | translate}}"
+                themeMod="secondary"
+                *ngIf="bonus.isActive"
+                (click)="bonus.leave()">
+        </button>
+    </div>
+    <div class="{{$class}}__btns" *ngIf="$params.common?.type === 'reg' || $params.common?.type === 'deposit'">
+        <button type="button"
+                wlc-button
+                text="{{'Choose' | translate}}"
+                [disabled]="isChoose"
+                (click)="chooseBonus(bonus, $params.common?.type)">
+        </button>
+    </div>
 </div>

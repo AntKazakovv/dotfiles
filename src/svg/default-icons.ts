@@ -14,4 +14,5 @@ export const DefaultSvgIcons: ISvgIcons = {
     'search': require('!raw-loader!./icons/search.svg').default,
     'filter': require('!raw-loader!./icons/filter.svg').default,
     'age-restrictions': require('!raw-loader!./icons/age-restrictions.svg').default,
+    'info': require('!raw-loader!./icons/info.svg').default,
 };
