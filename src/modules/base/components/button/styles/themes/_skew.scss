@@ -1,0 +1,30 @@
+@use 'engine-styles/functions' as ef;
+@import '../utils/vars';
+@import '../utils/mixins';
+
+.wlc-btn--theme-skew {
+
+    &:host {
+        @include buttonBase;
+        transform: skew(-20deg, 0);
+        border-image-source: linear-gradient(to right, $backgroundSecondary, $background);
+        border-image-slice: 1;
+        border-image-width: 6px;
+        background-image: linear-gradient(to right, $background, $backgroundSecondary);
+
+        &:hover {
+            background: transparent;
+        }
+
+        &.wlc-btn--theme-mod-secondary {
+            border-image-width: 0;
+            background-image: unset;
+
+            &:hover {
+                border-image-width: 6px;
+                border-image-source: linear-gradient(to right, $backgroundSecondary, $background);
+                background-image: linear-gradient(to right, $background, $backgroundSecondary);
+            }
+        }
+    }
+}

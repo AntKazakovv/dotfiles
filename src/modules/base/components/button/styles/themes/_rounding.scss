@@ -1,5 +1,4 @@
 @use 'engine-styles/functions' as ef;
-
 @import '../utils/vars';
 @import '../utils/mixins';
 
@@ -7,7 +6,6 @@
 
     &:host {
         @include buttonBase;
-
         border-radius: $radius;
 
         &:hover {
