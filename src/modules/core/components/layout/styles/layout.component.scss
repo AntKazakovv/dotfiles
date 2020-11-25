@@ -1,5 +1,11 @@
+@use 'engine-styles/functions' as ef;
 @import './themes/footer/theme-1';
 
 html {
     scroll-behavior: smooth;
+}
+
+body {
+    background-color: ef.get('color', 'background');
+    color: ef.get('color', 'text');
 }

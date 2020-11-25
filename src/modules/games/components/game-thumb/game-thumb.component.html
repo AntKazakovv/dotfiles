@@ -14,14 +14,15 @@
         <div class="wlc-game-thumb__buttons">
             <button wlc-button
                     [text]="'Play'"
-                    [theme]="'circled'"
+                    [theme]="gameThumbSettings?.buttons?.theme"
+                    [themeMod]="gameThumbSettings?.buttons?.themeMode"
                     (click)="startGame(game, false, $event)"
             ></button>
             <button
                 wlc-button
                 [text]="'Demo'"
-                [theme]="'circled'"
-                [themeMod]="'secondary'"
+                [theme]="gameThumbSettings?.buttons?.theme"
+                [themeMod]="gameThumbSettings?.buttons?.demoThemeMode"
                 (click)="startGame(game, true, $event)"
             ></button>
         </div>
