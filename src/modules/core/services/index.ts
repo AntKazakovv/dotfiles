@@ -6,3 +6,6 @@ export {FilesService} from './files/files.service';
 export {LogService} from './log/log.service';
 export {SentryService} from './sentry/sentry.service';
 export {ActionService} from './action/action.service';
+export {ModalService} from './modal/modal.service';
+export {ContactsService} from './contacts/contacts.service';
+export {ValidationService} from './validation/validation.service';

@@ -1,0 +1,24 @@
+@use 'engine-styles/functions' as ef;
+@import '../utils/vars';
+@import '../utils/mixins';
+
+.wlc-btn--theme-rounding {
+
+    &:host {
+        @include buttonBase;
+        border-radius: $radius;
+
+        &:hover {
+            box-shadow: $shadow;
+        }
+
+        &.wlc-btn--theme-mod-secondary {
+            @include buttonTransparency;
+
+            &:hover {
+                box-shadow: unset;
+                background: $backgroundHover;
+            }
+        }
+    }
+}

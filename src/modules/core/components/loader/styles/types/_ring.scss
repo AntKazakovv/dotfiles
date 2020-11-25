@@ -1,0 +1,56 @@
+@import '../utils/vars';
+
+.wlc-loader--type-ring:host {
+
+    .wlc-loader {
+
+        &__element {
+            position: relative;
+            height: $size;
+            width: $size;
+            border-radius: 50%;
+
+            &:after,
+            &:before {
+                position: absolute;
+                content: '';
+                top: 50%;
+                left: 50%;
+                opacity: 0;
+                transform: translate(-50%, -50%);
+                border: $width solid $color;
+                border-radius: 50%;
+            }
+
+            &:before {
+                animation: loader $duration infinite;
+            }
+
+            &:after {
+                animation: loader $duration $duration / 2 infinite;
+            }
+        }
+    }
+}
+
+@keyframes loader {
+
+    0% {
+        opacity: 0;
+        width: 0;
+        height: 0;
+        border-width: 0;
+    }
+
+    20% {
+        opacity: 1;
+        border-width: $width;
+    }
+
+    100% {
+        opacity: 0;
+        width: 100%;
+        height: 100%;
+        border-width: $width + 2;
+    }
+}

@@ -1,0 +1,15 @@
+@import './types/ring';
+@import './utils/vars';
+
+
+.wlc-loader {
+
+    &:host {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: $size;
+        width: $size;
+        margin: $margin;
+    }
+}

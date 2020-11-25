@@ -24,8 +24,8 @@ import {defaultParams, IGWParams} from './game-wrapper.params';
 import {IGameParams, ILaunchInfo} from '../../interfaces/games.interfaces';
 import {UserService} from 'wlc-engine/modules/user/services/user.service';
 import {LogService} from 'wlc-engine/modules/core/services';
-import {ModalService} from 'wlc-engine/modules/base/services';
-import {WlcModalComponent} from 'wlc-engine/modules/base/components/modal';
+import {ModalService} from 'wlc-engine/modules/core/services';
+import {WlcModalComponent} from 'wlc-engine/modules/core/components/modal';
 
 interface IError {
     msg: string | string;

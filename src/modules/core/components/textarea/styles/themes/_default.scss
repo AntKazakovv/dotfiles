@@ -1,0 +1,163 @@
+@import '../utils/vars';
+
+@keyframes spin {
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.wlc-textarea--theme-mod-default:host {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: $maxWidth;
+
+    .wlc-textarea__label {
+        font-weight: $labelFontWeight;
+        font-size: $labelFontSize;
+        color: $labelColor;
+    }
+
+    .wlc-textarea__textarea {
+        width: $textareaWidth;
+        max-width: $textareaMaxWidth;
+        position: relative;
+
+        .wlc-textarea-status {
+
+            .wlc-textarea-status__icon {
+                position: absolute;
+                top: 20px;
+                right: 15px;
+                transform: translateY(-50%);
+                width: $iconWidth;
+                height: $iconHeight;
+                border-radius: 50%;
+
+                &:before {
+                    content: '';
+                    position: absolute;
+                }
+            }
+
+            .wlc-textarea-status__errors {
+                position: absolute;
+                background: $errorsBgColor;
+                top: 35px;
+                right: 0;
+                width: fit-content;
+                min-width: $errorsMinWidth;
+                max-width: $errorsMaxWidth;
+                opacity: 0;
+                visibility: hidden;
+                color: $errorsColor;
+                border-radius: $errorsBorderRadius;
+                font-size: $errorsFontSize;
+                padding: $errorsPadding;
+                z-index: 10;
+
+                &:before {
+                    content: '';
+                    border: 8px solid transparent;
+                    border-bottom-color: $errorsBgColor;
+                    position: absolute;
+                    top: -15px;
+                    right: 13px;
+                }
+            }
+        }
+
+        textarea {
+            width: 100%;
+            border: $textareaBorder;
+            border-radius: $textareaBorderRadius;
+            padding: $textareaPadding;
+            resize: vertical;
+            min-height: $textareaMinHeight;
+
+            &:focus {
+                outline: none;
+                border-color: $textareaBorderFocusColor;
+            }
+
+
+            &.ng-touched {
+
+                &.ng-valid + .wlc-textarea-status {
+
+                    .wlc-textarea-status__icon {
+                        background: $successColor;
+
+                        &:before {
+                            width: 4px;
+                            height: 6px;
+                            top: calc(50% - 1px);
+                            left: 50%;
+                            transform: translate(-50%, -50%) rotate(45deg);
+                            border-bottom: 1px solid $successIconColor;
+                            border-right: 1px solid $successIconColor;
+                        }
+                    }
+                }
+
+                &.ng-pending + .wlc-textarea-status {
+
+                    .wlc-textarea-status__icon {
+
+                        &:before {
+                            top: 0;
+                            left: 0;
+                            width: 100%;
+                            height: 100%;
+                            animation: spin 1s infinite linear;
+                            border: 2px solid $pendingIconColor;
+                            border-left-color: transparent;
+                            border-radius: 50%;
+                        }
+                    }
+                }
+
+                &.ng-invalid {
+                    border-color: $errorColor;
+
+                    & + .wlc-textarea-status {
+
+                        .wlc-textarea-status__icon {
+                            background: $errorColor;
+                            transform: translateY(-50%) rotate(45deg);
+
+                            &:before {
+                                top: 50%;
+                                left: 50%;
+                                transform: translate(-50%, -50%);
+                                background: $errorIconColor;
+                                width: 2px;
+                                height: 7px;
+                            }
+
+                            &:after {
+                                content: '';
+                                position: absolute;
+                                top: 50%;
+                                left: 50%;
+                                transform: translate(-50%, -50%);
+                                background: $errorIconColor;
+                                width: 7px;
+                                height: 2px;
+                            }
+                        }
+
+                        &:hover {
+
+                            .wlc-textarea-status__errors {
+                                opacity: 1;
+                                visibility: visible;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

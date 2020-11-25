@@ -7,9 +7,6 @@ module.exports = function buildTask() {
             'clean:dist',
         ),
         'prepare:build',
-        parallel(
-            'messages'
-        ),
     ));
 
     task('engineBuild:prepare', series(
@@ -19,7 +16,7 @@ module.exports = function buildTask() {
         ),
         'enginePrepare:build',
         parallel(
-            'engineMessages'
+            'engineMessages',
         ),
     ));
 
@@ -31,7 +28,7 @@ module.exports = function buildTask() {
         });
         await this.execShell('npm run build:dev', false, {
             killOthers: ['success', 'failure'],
-            raw: true
+            raw: true,
         });
         cb();
     });
@@ -43,7 +40,7 @@ module.exports = function buildTask() {
         });
         await this.execShell('npm run build:prod', false, {
             killOthers: ['success', 'failure'],
-            raw: true
+            raw: true,
         });
         cb();
     });
@@ -55,7 +52,7 @@ module.exports = function buildTask() {
         });
         await this.execShell('npm run build', false, {
             killOthers: ['success', 'failure'],
-            raw: true
+            raw: true,
         });
         cb();
     });
@@ -63,6 +60,7 @@ module.exports = function buildTask() {
     task('dev', series(
         'build:prepare',
         'prepare:dev',
+        'messages',
         parallel(
             'watch',
             'build:dev',
@@ -72,10 +70,11 @@ module.exports = function buildTask() {
     task('dist', series(
         'build:prepare',
         'build:prod',
+        'messages',
         parallel(
             'build:inline',
-            'build:sw-fix'
-        )
+            'build:sw-fix',
+        ),
     ));
 
     task('engineBuild', series(
@@ -83,6 +82,6 @@ module.exports = function buildTask() {
         'eslint',
         // 'test',
         'engineBuild:prepare',
-        'engineBuild:prod'
+        'engineBuild:prod',
     ));
 }
