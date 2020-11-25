@@ -38,26 +38,25 @@ export class LoginSignupComponent extends AbstractComponent implements OnInit {
     }
 
     public action(actionButton: Params.IActionNameType): void {
-        this.ModalService.showModal('login');
-        // switch (this.$params?.[actionButton]?.action) {
-        //     case 'url': {
-        //         const url = _get(this.$params, `${actionButton}.url`);
-        //         if (!url) return;
-        //         if (_get(this.$params, `${actionButton}.target`) === 'blank') {
-        //             window.open(url);
-        //         } else {
-        //             location.href = url;
-        //         }
-        //         break;
-        //     }
-        //     case 'login': {
-        //         this.ModalService.showModal('login');
-        //         break;
-        //     }
-        //     case 'signup': {
-        //         this.ModalService.showModal('signup');
-        //         break;
-        //     }
-        // }
+        switch (this.$params?.[actionButton]?.action) {
+            case 'url': {
+                const url = _get(this.$params, `${actionButton}.url`);
+                if (!url) return;
+                if (_get(this.$params, `${actionButton}.target`) === 'blank') {
+                    window.open(url);
+                } else {
+                    location.href = url;
+                }
+                break;
+            }
+            case 'login': {
+                this.ModalService.showModal('login');
+                break;
+            }
+            case 'signup': {
+                this.ModalService.showModal('signup');
+                break;
+            }
+        }
     }
 }
