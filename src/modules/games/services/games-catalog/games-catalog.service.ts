@@ -83,6 +83,7 @@ export class GamesCatalogService {
         }, (games: IGames) => {
             this.gamesCatalog = new GamesCatalog(games, this.configService, this.eventService, this.router);
             this.loadJackpots();
+            this.$resolve();
         });
 
         this.eventService.subscribe({

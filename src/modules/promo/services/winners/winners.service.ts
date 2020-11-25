@@ -127,8 +127,9 @@ export class WinnersService {
         until: Subject<unknown>,
         callback: (winners: WinnerModel[]) => void,
     ): Promise<void> {
-        await this.gameCatalogService.ready;
-        this.fetchLatestWinners();
+        if (!this.latest) {
+            await this.fetchWinners('latestWins');
+        }
 
         this.$latestWins
             .pipe(takeUntil(until))
@@ -150,8 +151,9 @@ export class WinnersService {
         until: Subject<unknown>,
         callback: (winners: WinnerModel[]) => void,
     ): Promise<void> {
-        await this.gameCatalogService.ready;
-        this.fetchBiggestWins();
+        if (!this.biggest) {
+            await this.fetchWinners('biggestWins');
+        }
 
         this.$biggestWins
             .pipe(takeUntil(until))
@@ -192,6 +194,7 @@ export class WinnersService {
      * @param event - name of event
      */
     protected tapResponse(response: IData, lastResponseName: string, event: string): IData {
+        console.log(response);
         if (response) {
             // for test, imitation of changing data
             // const data = Math.random() > 0.5 ? lastWinsData : lastWinsData2;
@@ -231,18 +234,9 @@ export class WinnersService {
         }).filter((item: WinnerModel) => item.game);
     }
 
-    protected fetchLatestWinners(): void {
-        this.dataService.request('winners/latestWins')
-            .then((response: IData) => this.tapResponse(
-                response, 'latest', WinnersServiceEvents.LATEST_WINS_GET,
-                ));
-    }
-
-    protected fetchBiggestWins(): void {
-        this.dataService.request('winners/biggestWins')
-            .then((response: IData) => this.tapResponse(
-                response, 'biggest', WinnersServiceEvents.BIGGEST_WINS_GET,
-                ));
+    protected async fetchWinners(request: string): Promise<void> {
+        await this.gameCatalogService.ready;
+        await this.dataService.request('winners/' + request);
     }
 
     /**
