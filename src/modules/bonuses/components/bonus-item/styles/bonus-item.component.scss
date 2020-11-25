@@ -1,17 +1,330 @@
 @import './utils/vars';
 
-// .wlc-btn {
+.wlc-bonus-item {
 
-//     &:host {
-//         appearance: none;
-//         outline: none;
-//         box-sizing: border-box;
-//         background: none;
+    &__content {
+        display: grid;
+        position: relative;
+        background-color: $background;
+        height: $height;
+        min-width: $minWidth;
+        max-width: $maxWidth;
+        border-radius: $radius;
+        overflow: hidden;
 
-//         overflow: hidden;
-//         transition: all $time;
-//         cursor: pointer;
-//     }
-// }
+        &:hover {
+            background-color: $backgroundHover;
+
+            .wlc-bonus-item--view-experience & {
+                background-color: $backgroundExperienceHover;
+            }
+
+            .wlc-bonus-item--view-loyalty  & {
+                background-color: $backgroundLoyaltyHover;
+            }
+
+            .wlc-bonus-item--view-balance & {
+                background-color: $backgroundBalanceHover;
+            }
+
+            .wlc-bonus-item--view-freerounds & {
+                background-color: $backgroundFreeroundsHover;
+            }
+
+            .wlc-bonus-item--view-relative & {
+                background-color: $backgroundRelativeHover;
+            }
+        }
+
+        .wlc-bonus-item--view-experience & {
+            background-color: $backgroundExperience;
+        }
+
+        .wlc-bonus-item--view-loyalty  & {
+            background-color: $backgroundLoyalty;
+        }
+
+        .wlc-bonus-item--view-balance & {
+            background-color: $backgroundBalance;
+        }
+
+        .wlc-bonus-item--view-freerounds & {
+            background-color: $backgroundFreerounds;
+        }
+
+        .wlc-bonus-item--view-relative & {
+            background-color: $backgroundRelative;
+        }
+    }
+
+    &__image-block {
+        position: relative;
+    }
+
+    &__image {
+        width: 100%;
+        height: $imageHeight;
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-color: $imageBg;
+
+        .active & {
+            display: none;
+        }
+    }
+
+    &__bonus-icon {
+        width: $bonusIconSize;
+        height: $bonusIconSize;
+        background-color: $bonusIconBg;
+        background-image: $bonusIconBgImage;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center center;
+        border-radius: 50%;
+        margin: $bonusIconMargin;
+        position: relative;
+
+        .icon-sign {
+            font-size: $bonusIconFontSize;
+            font-weight: bold;
+            color: $bonusIconColor;
+            position: absolute;
+            left: 20%;
+            top: 20%;
+        }
+
+        .icon-text {
+            width: $bonusIconValueBlockSize;
+            height: $bonusIconValueBlockSize;
+            border-radius: 50%;
+            background-color: $bonusIconValueBg;
+            color: $bonusIconValueFontColor;
+            font-size: $bonusIconValueFontSize;
+            position: absolute;
+            right: 20%;
+            bottom: 20%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+        }
+
+        .active & {
+            display: none;
+        }
+
+        .wlc-bonus-item--view-experience & {
+            background-color: $bonusIconBgExperience;
+            background-image: $bonusIconBgExperienceImage;
+        }
+
+        .wlc-bonus-item--view-loyalty  & {
+            background-color: $bonusIconBgLoyalty;
+            background-image: $bonusIconBgLoyaltyImage;
+        }
+
+        .wlc-bonus-item--view-balance & {
+            background-color: $bonusIconBgBalance;
+            background-image: $bonusIconBgBalanceImage;
+        }
+
+        .wlc-bonus-item--view-freerounds & {
+            background-color: $bonusIconBgFreerounds;
+            background-image: $bonusIconBgFreeroundsImage;
+        }
+
+        .wlc-bonus-item--view-relative & {
+            background-color: $bonusIconBgRelative;
+            background-image: $bonusIconBgRelativeImage;
+        }
+    }
+
+    &__tag {
+        position: absolute;
+        padding: $tagPadding;
+        background-color: $tagBg;
+        border-radius: $tagRadius;
+        color: $tagFontColor;
+        font-size: $tagFontSize;
+        line-height: 2;
+        left: 50%;
+        transform: translateX(-50%);
+        top: $tagPositionTop;
+    }
+
+    &__bottom {
+
+        &:hover {
+
+            .wlc-bonus-item__btns {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            .wlc-bonus-item__description {
+                opacity: 0;
+            }
+        }
+
+        .active & {
+
+            &:hover {
+
+                .wlc-bonus-item__description {
+                    opacity: 1;
+                }
+            }
+        }
+
+        .nochoosebtn &,
+        .noauth & {
+
+            &:hover {
+
+                .wlc-bonus-item__description {
+                    opacity: 1;
+                }
+            }
+        }
+
+        .choosebtn.noauth & {
+
+            &:hover {
+
+                .wlc-bonus-item__description {
+                    opacity: 0;
+                }
+            }
+        }
+    }
+
+    &__info-block {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: $infoPadding;
+        overflow: hidden;
+    }
+
+    &__name {
+        font-size: $nameFontSize;
+        color: $nameFontColor;
+        text-align: center;
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        .active & {
+            margin-bottom: 0;
+        }
+    }
+
+    &__description {
+        font-size: $descriptionFontSize;
+        color: $descriptionFontColor;
+        text-align: center;
+        transition: opacity $time ease-in-out;
+
+        .active & {
+            display: none;
+        }
+    }
+
+    &__active-block {
+        display: grid;
+        grid-gap: $activeBlockPadding;
+        padding: $activeBlockPadding;
+        margin: $activeBlockMargin;
+        max-width: $activeBlockMaxWidth;
+        border-radius: $activeBlockRadius;
+        text-align: center;
+        font-size: $activeBlockFontSize;
+        color: $activeBlockFontColor;
+
+        .secondary-text {
+            color: $activeBlockFontSecondaryColor;
+            font-size: $activeBlockFontSecondarySize;
+        }
+    }
+
+    &__timer {
+        background-color: $activeBlockTimerBg;
+        border-radius: $activeBlockTimerRadius;
+        padding: $activeBlockTimerPadding;
+        margin: $activeBlockTimerMargin;
+    }
+
+    &__progress {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: $activeBlockProgressBg;
+        border-radius: $activeBlockProgressRadius;
+        padding: $activeBlockProgressPadding;
+        margin: $activeBlockProgressMargin;
+    }
+
+    &__remaning {
+        font-weight: bold;
+    }
+
+    &__progressbar {
+        width: 100%;
+        height: $progressBarSize;
+        border-radius: $progressBarRadius;
+        background-color: $progressBarBg;
+        overflow: hidden;
+        margin: $progressBarMargin;
+    }
+
+    &__progress-inner {
+        width: 100%;
+        height: 100%;
+        background-color: $progressBarColor;
+    }
+
+    &__more-icon {
+        position: absolute;
+        left: $moreIconPosLeft;
+        right: $moreIconPosRight;
+        top: $moreIconPosTop;
+        bottom: $moreIconPosBottom;
+        opacity: 0.4;
+
+        &:hover {
+            opacity: 1;
+        }
+
+        .icon-btn {
+            cursor: pointer;
+            width: $moreIconSize;
+            height: $moreIconSize;
+
+            svg {
+                width: 100%;
+                fill: $moreIconColor;
+            }
+        }
+    }
+
+    &__btns {
+        width: 100%;
+        position: absolute;
+        bottom: 10%;
+        display: flex;
+        justify-content: center;
+        transform: translateY(400%);
+        transition: all $time ease-in-out;
+        opacity: 0;
+
+        button {
+            margin: $btnMargin;
+        }
+    }
+}
 
 @import './themes/default';

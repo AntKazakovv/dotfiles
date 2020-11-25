@@ -1,44 +1,126 @@
 @use 'engine-styles/functions' as ef;
 
 // // Size
-// $minWidth: 100px !default;
-// $heightSmall: 35px !default;
-// $heightDefault: 40px !default;
-// $heightLarge: 50px !default;
+$minWidth: 320px !default;
+$maxWidth: 320px !default;
+$height: 370px !default;
+
+$imageHeight: 220px !default;
+
+$bonusIconSize: 170px !default;
+$bonusIconValueBlockSize: 40px !default;
+
+$activeBlockMaxWidth: 80% !default;
+
+$progressBarSize: 5px !default;
+
+$moreIconSize: 24px !default;
+
+$moreIconColor: ef.get('color', 'text') !default;
 
 // // Font
-// $fontSize: ef.get('font', 'main') !default;
-// $fontColor: ef.get('color', 'text') !default;
-// $fontColorActive: ef.get('color', 'text') !default;
-// $fontColorSecondary: ef.get('color', 'main') !default;
-// $fontColorActiveSecondary: ef.get('color', 'text') !default;
+$bonusIconFontSize: ef.get('font', 'big') !default;
+$bonusIconColor:rgba(0, 0, 0, 0.3) !default;
+$bonusIconValueFontSize: ef.get('font', 'less') !default;
+$bonusIconValueFontColor: #000000 !default;
 
-// // Transform
-// $textTransform: uppercase !default;
+$tagFontColor: #000 !default;
+$tagFontSize: ef.get('font', 'small') !default;
 
-// // Background
-// $background: ef.get('color', 'main') !default;
-// $backgroundHover:  darken(ef.get('color', 'main'), 10%) !default;
-// $backgroundResolve: ef.get('color', 'success') !default;
-// $backgroundResolveHover:  darken(ef.get('color', 'success'), 10%) !default;
-// $backgroundReject: ef.get('color', 'error') !default;
-// $backgroundRejectHover:  darken(ef.get('color', 'error'), 10%) !default;
-// $backgroundDisabled: ef.get('color', 'disabled') !default;
-// $backgroundDisabledHover:  darken(ef.get('color', 'disabled'), 10%) !default;
+$nameFontColor: ef.get('color', 'text') !default;
+$nameFontSize: ef.get('font', 'biger') !default;
 
-// // Shadow
-// $shadow: 0 10px 10px ef.get('color', 'secondary') !default;
+$descriptionFontColor: ef.get('color', 'text') !default;
+$descriptionFontSize: ef.get('font', 'less') !default;
+
+$activeBlockFontColor: ef.get('color', 'text') !default;
+$activeBlockFontSize: ef.get('font', 'less') !default;
+
+$activeBlockFontSecondaryColor: ef.get('color', 'text') !default;
+$activeBlockFontSecondarySize: ef.get('font', 'less') !default;
+
+// // Backgrounds
+$background: ef.get('color', 'backgroundSecondary') !default;
+$backgroundHover:  ef.get('color', 'backgroundSecondary') !default;
+
+$backgroundExperience: ef.get('color', 'backgroundSecondary') !default;
+$backgroundExperienceHover:  ef.get('color', 'backgroundSecondary') !default;
+
+$backgroundLoyalty: ef.get('color', 'backgroundSecondary') !default;
+$backgroundLoyaltyHover:  ef.get('color', 'backgroundSecondary') !default;
+
+$backgroundBalance: ef.get('color', 'backgroundSecondary') !default;
+$backgroundBalanceHover:  ef.get('color', 'backgroundSecondary') !default;
+
+$backgroundFreerounds: ef.get('color', 'backgroundSecondary') !default;
+$backgroundFreeroundsHover:  ef.get('color', 'backgroundSecondary') !default;
+
+$backgroundRelative: ef.get('color', 'backgroundSecondary') !default;
+$backgroundRelativeHover:  ef.get('color', 'backgroundSecondary') !default;
+
+$imageBg: rgba(0, 0, 0, 0.3) !default;
+
+$bonusIconBg: transparent !default;
+$bonusIconBgImage: none !default;
+
+$bonusIconBgExperience: transparent !default;
+$bonusIconBgExperienceImage: none !default;
+
+$bonusIconBgLoyalty: transparent !default;
+$bonusIconBgLoyaltyImage: none !default;
+
+$bonusIconBgBalance: transparent !default;
+$bonusIconBgBalanceImage: none !default;
+
+$bonusIconBgFreerounds: transparent !default;
+$bonusIconBgFreeroundsImage: none !default;
+
+$bonusIconBgRelative: transparent !default;
+$bonusIconBgRelativeImage: none !default;
+
+$bonusIconValueBg: #fff !default;
+
+$tagBg: #fff !default;
+
+$activeBlockTimerBg: ef.get('color', 'background') !default;
+$activeBlockProgressBg: ef.get('color', 'background') !default;
+
+$progressBarBg: ef.get('color', 'backgroundSecondary') !default;
+$progressBarColor: ef.get('color', 'text') !default;
 
 // // Radius
-// $radius: 50px !default;
+$radius: ef.get('radius', 'biger') !default;
+$tagRadius: ef.get('radius', 'biger') !default;
 
-// //Border
-// $borderDefault: 2px solid transparent !default;
-// $borderSecondary: 2px solid ef.get('color', 'main') !default;
+$activeBlockRadius: 0 !default;
+$activeBlockTimerRadius: ef.get('radius', 'biger') !default;
+$activeBlockProgressRadius: ef.get('radius', 'biger') !default;
 
-// //Padding
-// $padding: ef.get('size', 'smallest') ef.get('size', 'smaller') !default;
-// $gap: ef.get('size', 'small') !default;
+$progressBarRadius: 5px !default;
 
-// // Animation
-// $time: ef.get('time', 'main') !default;
+//Padding
+$bonusIconMargin: 50px auto 0 auto !default;
+$tagPadding: 0 ef.get('size', 'small') !default;
+$infoPadding: 0 ef.get('size', 'small') !default;
+
+$activeBlockPadding: ef.get('size', 'small') !default;
+$activeBlockMargin: 0 auto !default;
+$activeBlockTimerPadding: ef.get('size', 'small') !default;
+$activeBlockTimerMargin: 0 !default;
+$activeBlockProgressPadding: ef.get('size', 'small') !default;
+$activeBlockProgressMargin: 0 !default;
+
+$progressBarMargin: ef.get('size', 'smallest') 0 !default;
+
+$btnMargin: 0 ef.get('size', 'smallest') !default;
+
+//Position
+$tagPositionTop: ef.get('size', 'smaller') !default;
+
+$moreIconPosLeft: auto !default;
+$moreIconPosRight: ef.get('size', 'small') !default;
+$moreIconPosTop: ef.get('size', 'small') !default;
+$moreIconPosBottom: auto !default;
+
+// Animation
+$time: ef.get('time', 'main') !default;

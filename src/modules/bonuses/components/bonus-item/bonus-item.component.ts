@@ -6,6 +6,7 @@ import {
     Input,
     OnDestroy,
     OnInit,
+    ViewEncapsulation,
 } from '@angular/core';
 import {
     AbstractComponent,
@@ -40,6 +41,7 @@ interface IBonusItemComponentEvents {
     styleUrls: ['./styles/bonus-item.component.scss'],
     preserveWhitespaces: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
+    encapsulation: ViewEncapsulation.None,
 })
 export class BonusItemComponent extends AbstractComponent implements OnInit, OnDestroy {
 

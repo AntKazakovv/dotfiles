@@ -21,7 +21,10 @@ export interface IBonusItemParams extends IComponentParams<Theme, Type, ThemeMod
         showAdditionalImage?: boolean;
         showBonusTag?: boolean;
         hideDescription?: boolean;
+        hideChooseBtn?: boolean;
         iconMoreBtn?: boolean;
+        maxNameLength?: number;
+        maxDescrLength?: number;
     };
 }
 
@@ -36,5 +39,8 @@ export const defaultParams: IBonusItemParams = {
         showBonusTag: true,
         hideDescription: false,
         iconMoreBtn: true,
+        hideChooseBtn: false,
+        maxNameLength: 23,
+        maxDescrLength: 80,
     },
 };
