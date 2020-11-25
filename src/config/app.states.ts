@@ -9,6 +9,7 @@ import {
     catalogState,
     gamePlayState,
     pagesState,
+    contactsState,
 } from './states';
 
 import {
@@ -22,6 +23,7 @@ const states = {
     'app.catalog': catalogState,
     'app.gameplay': gamePlayState,
     'app.pages': pagesState,
+    'app.contacts': contactsState,
 };
 
 const appState: Ng2StateDeclaration = {

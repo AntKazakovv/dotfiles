@@ -1,0 +1,27 @@
+<ng-container  [ngSwitch]="$params.checkboxType">
+    <label class="{{$class}}" *ngSwitchCase="'terms'">
+        <input
+            type="checkbox"
+            name="{{$params.name}}"
+            [formControl]="control"
+            [(ngModel)]="control.value"
+            class="{{$class}}__checkbox"/>
+        <p class="{{$class}}__text">
+            {{'I agree with' | translate}}
+            <a uiSref="app.contacts({slug: 'terms-and-conditions'})" class="{{$class}}__link">{{'Terms and Conditions' | translate}}</a>
+        </p>
+    </label>
+
+    <label class="{{$class}}" *ngSwitchCase="'age'">
+        <input
+            type="checkbox"
+            name="{{$params.name}}"
+            [formControl]="control"
+            [(ngModel)]="control.value"
+            class="{{$class}}__checkbox"/>
+        <p class="{{$class}}__text">
+            {{"I confirm that I'm 18 years or older" | translate}}
+        </p>
+    </label>
+</ng-container>
+

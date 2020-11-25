@@ -10,20 +10,14 @@ import {MissingTranslationHandler, TranslateLoader, TranslateModule} from '@ngx-
 import {UIRouterModule, UIView} from '@uirouter/angular';
 import {APP_STATES} from '../config/app.states';
 import {routerConfigFn} from '../config/router.config';
-
 import {HttpLoaderFactory, MissingTranslationService} from '../config/translate.loader';
+
 import {environment} from '../environments/environment';
 import {AppComponent} from '../app/app.component';
-
 import {CoreModule} from './core/core.module';
-
 import {ConfigService} from './core/services';
-import {PromoModule} from 'wlc-engine/modules/promo/promo.module';
-import {GamesModule} from 'wlc-engine/modules/games/games.module';
-
 import {Location} from '@angular/common';
 import {IIndexing} from 'wlc-engine/interfaces';
-
 import {WebStorageModule} from 'ngx-store';
 import * as Sentry from '@sentry/angular';
 

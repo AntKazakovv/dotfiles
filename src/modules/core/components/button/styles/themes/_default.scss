@@ -1,0 +1,19 @@
+@use 'engine-styles/functions' as ef;
+@import '../utils/vars';
+@import '../utils/mixins';
+
+.wlc-btn--theme-default {
+
+    &:host {
+        @include buttonBase;
+        border-radius: 2px;
+
+        &:hover {
+            background: $backgroundHover;
+        }
+
+        &.wlc-btn--theme-mod-secondary {
+            @include buttonTransparency;
+        }
+    }
+}

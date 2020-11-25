@@ -10,22 +10,17 @@
                 </svg>
             </span>
             <span class="wlc-game-thumb__name">{{game.name.en}}</span>
-<!--            <span class="wlc-game-thumb__icon">-->
-<!--                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">-->
-<!--                  <path d="M511.3 197.3a15 15 0 00-12.1-10.3l-158.8-23-71-143.8a15 15 0 00-26.8 0l-71 143.8-158.8 23a15 15 0 00-8.3 25.6l114.9 112-27.1 158a15 15 0 0021.7 15.9l142-74.7 142 74.7a15 15 0 0021.7-15.8l-27-158.1 114.8-112c4-4 5.5-10 3.8-15.3z"/>-->
-<!--                </svg>-->
-<!--            </span>-->
         </div>
         <div class="wlc-game-thumb__buttons">
             <button wlc-button
                     [text]="'Play'"
-                    [theme]="'rounding'"
+                    [theme]="'circled'"
                     (click)="startGame(game, false, $event)"
             ></button>
             <button
                 wlc-button
                 [text]="'Demo'"
-                [theme]="'rounding'"
+                [theme]="'circled'"
                 [themeMod]="'secondary'"
                 (click)="startGame(game, true, $event)"
             ></button>

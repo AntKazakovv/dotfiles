@@ -1,6 +1,6 @@
 import {TransitionService, UIRouterGlobals} from '@uirouter/core';
 import {ILayoutComponent} from 'wlc-engine/interfaces';
-import {LayoutComponent} from 'wlc-engine/modules/core/';
+import {LayoutComponent} from 'wlc-engine/modules/core/components/layout/layout.component';
 import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,

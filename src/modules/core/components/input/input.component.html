@@ -1,0 +1,19 @@
+<label for="{{$params.name}}"
+       class="{{$class}}__label"
+>{{$params.common.placeholder | translate}}</label>
+<div class="{{$class}}__input">
+    <input type="{{$params.common.type}}"
+           id="{{$params.name}}"
+           placeholder="{{$params.common.placeholder | translate}}"
+           [(ngModel)]="control.value"
+           [formControl]="control"
+    >
+    <div class="{{$class}}-status">
+        <div class="{{$class}}-status__icon"></div>
+        <div class="{{$class}}-status__errors">
+            <div *ngFor="let item of control.errors | keyvalue">
+                {{'validator-' + item.key | translate}}
+            </div>
+        </div>
+    </div>
+</div>

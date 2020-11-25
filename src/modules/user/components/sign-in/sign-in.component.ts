@@ -3,7 +3,7 @@ import {FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
 import {UserService} from 'wlc-engine/modules/user/services/user.service';
 import {
     ModalService,
-} from 'wlc-engine/modules/base/services';
+} from 'wlc-engine/modules/core/services';
 
 @Component({
     selector: '[wlc-sign-in]',

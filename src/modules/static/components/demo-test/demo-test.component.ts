@@ -3,8 +3,7 @@ import {EventService} from 'wlc-engine/modules/core/services';
 
 import {
     ModalService,
-    IModalParams,
-} from 'wlc-engine/modules/base/services';
+} from 'wlc-engine/modules/core/services';
 import {FaqComponent} from './../faq/faq.component';
 import {WinnersService} from 'wlc-engine/modules/promo/services';
 import {WinnerModel} from 'wlc-engine/modules/promo/models/winner.model';
@@ -13,7 +12,7 @@ import {Subject} from 'rxjs';
 @Component({
     selector: 'wlc-demo-test',
     templateUrl: './demo-test.component.html',
-    styleUrls: ['./demo-test.component.scss']
+    styleUrls: ['./demo-test.component.scss'],
 })
 export class demoTestComponent implements OnInit, OnDestroy {
 
@@ -73,7 +72,7 @@ export class demoTestComponent implements OnInit, OnDestroy {
     openRightPanel(): void {
         this.eventService.emit({
             name: 'PANEL_OPEN',
-            data: 'right'
+            data: 'right',
         });
     }
 
@@ -82,11 +81,11 @@ export class demoTestComponent implements OnInit, OnDestroy {
     }
 
     openModalFaq(): void {
-        const modalParams: IModalParams = {
+        const modalParams = {
             id: 'faq',
             modalTitle: 'FAQ',
             component: FaqComponent,
-            onModalShow: () => {console.log('foo');}
+            onModalShow: () => {console.log('foo');},
         };
 
         this.ModalService.showModal(modalParams);
