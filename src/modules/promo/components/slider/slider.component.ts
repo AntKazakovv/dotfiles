@@ -3,7 +3,7 @@ import {AbstractComponent} from 'wlc-engine/classes/abstract.component';
 import {BannersService} from 'wlc-engine/modules/promo/services';
 import {BannerModel} from 'wlc-engine/modules/promo/models/banner.model';
 import {IBannersFilter} from 'wlc-engine/modules/promo/services/banners/banners.service';
-import {ISliderParams, defaultParams} from 'wlc-engine/modules/promo/components/slider/slider.params';
+import * as Params from 'wlc-engine/modules/promo/components/slider/slider.params';
 
 interface ISlide {
     component: 'banner';
@@ -46,18 +46,18 @@ interface ISlide {
     styleUrls: ['./slider.component.scss'],
 })
 export class SliderComponent extends AbstractComponent implements OnInit {
-    @Input() protected inlineParams: ISliderParams;
-    public $params: ISliderParams;
+    @Input() protected inlineParams: Params.ISliderCParams;
+    public $params: Params.ISliderCParams;
     /**
      * A set of slides displayed in a template.
      */
     public slides: ISlide[] = [];
 
     constructor(
-        @Inject('injectParams') protected injectParams: ISliderParams,
+        @Inject('injectParams') protected injectParams: Params.ISliderCParams,
         protected bannersService: BannersService,
     ) {
-        super({injectParams, defaultParams});
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public ngOnInit(): void {

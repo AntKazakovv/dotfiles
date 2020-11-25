@@ -34,10 +34,10 @@ export const $layouts: ILayoutsConfig = {
                 order: 0,
                 components: [
                     {
-                        name: 'base.wlc-logo',
+                        name: 'core.wlc-logo',
                     },
                     {
-                        name: 'base.language-selector',
+                        name: 'core.wlc-language-selector',
                     },
                 ],
             },
@@ -46,7 +46,7 @@ export const $layouts: ILayoutsConfig = {
                 order: 1000,
                 components: [
                     {
-                        name: 'base.wlc-logo',
+                        name: 'core.wlc-logo',
                     },
                 ],
             },
@@ -54,40 +54,9 @@ export const $layouts: ILayoutsConfig = {
     },
     'app.home': {
         extends: 'app',
-        sections: {
-            header: {
-                components: [
-                    {
-                        name: 'base.wlc-logo',
-                    },
-                    {
-                        name: 'base.language-selector',
-                    },
-                ],
-            },
-            content: {
-                components: [
-                    {
-                        name: 'menu.wlc-menu',
-                        params: {
-                            type: 'main-menu',
-                        },
-                    },
-                ],
-            },
-        },
     },
     'app.catalog': {
         extends: 'app.home',
-        sections: {
-            content: {
-                components: [
-                    {
-                        name: 'menu.eng-main-menu',
-                    },
-                ],
-            },
-        },
     },
     'app.gameplay': {
         extends: 'app',
@@ -95,11 +64,11 @@ export const $layouts: ILayoutsConfig = {
             content: {
                 components: [
                     {
-                        name: 'games.wlc-game-wrapper'
-                    }
+                        name: 'games.wlc-game-wrapper',
+                    },
                 ],
-                order: 2
-            }
+                order: 2,
+            },
         },
     },
 };

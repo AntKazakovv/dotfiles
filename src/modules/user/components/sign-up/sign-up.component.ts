@@ -5,20 +5,13 @@ import {UserService} from 'wlc-engine/modules/user/services/user.service';
 import {ConfigService} from 'wlc-engine/modules/core/services';
 import {
     ModalService,
-} from 'wlc-engine/modules/base/services';
+} from 'wlc-engine/modules/core/services';
+import {ICurrency} from 'wlc-engine/modules/finances/interfaces';
 
 import {
     keys as _keys,
     map as _map,
 } from 'lodash';
-
-interface ICurrency {
-    Name: string,
-    Alias: string,
-    ID?: string | number,
-    ExRate?: string,
-    registration?: boolean,
-}
 
 @Component({
     selector: '[wlc-sign-up]',

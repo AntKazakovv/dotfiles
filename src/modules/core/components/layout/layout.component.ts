@@ -9,7 +9,6 @@ import {
     ViewEncapsulation,
 } from '@angular/core';
 import {
-    StateParams,
     TransitionService,
     UIRouterGlobals,
 } from '@uirouter/core';
@@ -31,7 +30,7 @@ import {
 import {
     takeUntil,
 } from 'rxjs/operators';
-import { LayoutsType } from 'wlc-engine/modules/core/services/layout/layout.service';
+import {LayoutsType} from 'wlc-engine/modules/core/services/layout/layout.service';
 
 
 import {
@@ -55,9 +54,9 @@ export class LayoutComponent implements OnInit, OnDestroy {
     @Input() protected sectionName: string;
     @Input() protected layouts: LayoutsType;
 
+    protected allComponents$: ILayoutComponent[] = [];
     public components: ILayoutComponent[] = [];
     public section: ILayoutSectionConfig;
-    protected allComponents$: ILayoutComponent[] = [];
     private currentConfig: ILayoutStateConfig;
     private $destroy: Subject<void> = new Subject();
 
@@ -66,7 +65,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
         protected layoutService: LayoutService,
         protected cdr: ChangeDetectorRef,
         private transition: TransitionService,
-        private injector: Injector,
+        protected injector: Injector,
         private uiRouter: UIRouterGlobals,
         private eventService: EventService,
     ) {
@@ -131,7 +130,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
 
                 if (result && !_isUndefined(component.display?.auth)) {
                     result = result &&
-                    component.display.auth === this.ConfigService.get<boolean>('$user.isAuthenticated');
+                        component.display.auth === this.ConfigService.get<boolean>('$user.isAuthenticated');
                 }
             }
             return result;

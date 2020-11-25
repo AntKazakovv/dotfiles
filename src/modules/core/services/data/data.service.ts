@@ -38,7 +38,7 @@ export interface IData {
 
 export type RestMethodType = 'GET' | 'POST' | 'PATCH' | 'PUT' | 'DELETE';
 
-export type RequestParamsType = HttpParams | {[key: string]: string | string[]};
+export type RequestParamsType = HttpParams | { [key: string]: string | string[] | any };
 
 export interface IRequestMethod {
     /** name of method */

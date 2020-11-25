@@ -10,7 +10,6 @@ import {
 import {ConfigService} from 'wlc-engine/modules/core/services/config/config.service';
 import {SectionModel, ISectionData} from 'wlc-engine/modules/core/models/section.model';
 import {IIndexing} from 'wlc-engine/interfaces';
-import {WrapperComponent} from 'wlc-engine/modules/core';
 
 import {
     cloneDeep as _cloneDeep,
@@ -51,11 +50,7 @@ export class LayoutService {
         [key: string]: {
             [key: string]: unknown
         }
-    } = {
-        core: {
-            'wlc-wrapper': WrapperComponent,
-        },
-    };
+    } = {};
     private positionRegexp = /^(after|before)?\s?([^#]+)?#?(\d*)?/;
 
     constructor(
@@ -263,10 +258,10 @@ export class LayoutService {
 
     private async importModule(name: string): Promise<any> {
         switch (name) {
-            case 'base':
-                return import('wlc-engine/modules/base/base.module').then(m => {
-                    this.components.base = m.components;
-                    return m.BaseModule;
+            case 'core':
+                return import('wlc-engine/modules/core/core.module').then(m => {
+                    this.components.core = m.components;
+                    return m.CoreModule;
                 });
             case 'menu':
                 return import('wlc-engine/modules/menu/menu.module').then(m => {

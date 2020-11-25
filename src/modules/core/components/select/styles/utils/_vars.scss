@@ -1,0 +1,43 @@
+@use 'engine-styles/functions' as ef;
+
+$errorColor: #f12e74 !default;
+$successColor: #27bb37 !default;
+
+$maxWidth: 765px !default;
+
+$labelFontWeight: bold !default;
+$labelColor: #231f20 !default;
+$labelFontSize: 16px !default;
+
+$selectWidth: 70% !default;
+$selectMaxWidth: 450px !default;
+$selectColor: ef.get('color', text) !default;
+$selectBorder: 2px solid rgba(0, 0, 0, 0.04) !default;
+$selectBorderRadius: 10px !default;
+$selectBorderFocusColor: rgba(0, 0, 0, 0.2) !default;
+$selectBackground: transparent !default;
+$selectTextAlign: left !default;
+$selectPadding: 5px 35px 5px 20px !default;
+$selectArrowColor: #f12e74 !default;
+
+$dropdownMaxHeight: 300px !default;
+$dropdownBg: #fff !default;
+
+$dropdownItemPadding: $selectPadding !default;
+$dropdownItemBg: #fff !default;
+$dropdownBorder: 2px solid rgba(0, 0, 0, 0.04) !default;
+$dropdownBorderRadius: 10px !default;
+
+$iconWidth: 12px !default;
+$iconHeight: 12px !default;
+$successIconColor: #fff !default;
+$errorIconColor: #fff !default;
+$pendingIconColor: rgba(0, 0, 0, 0.5) !default;
+
+$errorsBgColor: #ffebf2 !default;
+$errorsColor: #231f20 !default;
+$errorsMinWidth: 300px !default;
+$errorsMaxWidth: 100% !default;
+$errorsBorderRadius: 10px !default;
+$errorsFontSize: 14px !default;
+$errorsPadding: 10px;

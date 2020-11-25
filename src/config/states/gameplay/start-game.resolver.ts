@@ -8,9 +8,9 @@ import {LogService} from 'wlc-engine/modules/core/services';
 import {GamesCatalogService} from 'wlc-engine/modules/games/services';
 import {Deferred} from 'wlc-engine/classes';
 import {Game} from 'wlc-engine/modules/games/models/game.model';
-import {ModalService} from 'wlc-engine/modules/base/services';
+import {ModalService} from 'wlc-engine/modules/core/services';
 import {UserService} from 'wlc-engine/modules/user/services/user.service';
-import {IModalConfig} from 'wlc-engine/modules/base/components/modal';
+import {IModalConfig} from 'wlc-engine/modules/core/components/modal';
 
 import {
     includes as _includes,

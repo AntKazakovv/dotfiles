@@ -1,0 +1,189 @@
+@use 'engine-styles/functions' as ef;
+@import '../utils/vars';
+
+.wlc-select--theme-mod-default:host {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: $maxWidth;
+
+    .wlc-select__label {
+        font-weight: $labelFontWeight;
+        font-size: $labelFontSize;
+        color: $labelColor;
+    }
+
+    .wlc-select__group {
+        position: relative;
+        width: $selectWidth;
+        max-width: $selectMaxWidth;
+
+        .wlc-select-status {
+
+            .wlc-select-status__icon {
+                position: absolute;
+                top: 50%;
+                right: 15px;
+                transform: translateY(-50%);
+                width: $iconWidth;
+                height: $iconHeight;
+                border-radius: 50%;
+
+                &:before {
+                    content: '';
+                    position: absolute;
+                }
+            }
+
+            .wlc-select-status__arrow {
+                position: absolute;
+                right: 15px;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+
+            .wlc-select-status__errors {
+                position: absolute;
+                background: $errorsBgColor;
+                top: calc(100% - 5px);
+                right: 0;
+                width: fit-content;
+                min-width: $errorsMinWidth;
+                max-width: $errorsMaxWidth;
+                opacity: 0;
+                visibility: hidden;
+                color: $errorsColor;
+                border-radius: $errorsBorderRadius;
+                font-size: $errorsFontSize;
+                padding: $errorsPadding;
+                z-index: 10;
+
+                &:before {
+                    content: '';
+                    border: 8px solid transparent;
+                    border-bottom-color: $errorsBgColor;
+                    position: absolute;
+                    top: -15px;
+                    right: 13px;
+                }
+            }
+        }
+
+        button {
+            width: 100%;
+            border: $selectBorder;
+            border-radius: $selectBorderRadius;
+            padding: $selectPadding;
+            overflow: visible;
+            text-overflow: ellipsis;
+            background: $selectBackground;
+            text-align: $selectTextAlign;
+            color: $selectColor;
+
+            &:focus {
+                outline: none;
+                border-color: $selectBorderFocusColor;
+            }
+
+            &.ng-touched {
+
+                &.ng-valid + .wlc-select-status {
+
+                    .wlc-select-status__icon {
+                        background: $successColor;
+
+                        &:before {
+                            width: 4px;
+                            height: 6px;
+                            top: calc(50% - 1px);
+                            left: 50%;
+                            transform: translate(-50%, -50%) rotate(45deg);
+                            border-bottom: 1px solid $successIconColor;
+                            border-right: 1px solid $successIconColor;
+                        }
+                    }
+                }
+
+                &.ng-invalid {
+                    border-color: $errorColor;
+
+                    & + .wlc-select-status {
+
+                        .wlc-select-status__icon {
+                            background: $errorColor;
+                            transform: translateY(-50%) rotate(45deg);
+
+                            &:before {
+                                top: 50%;
+                                left: 50%;
+                                transform: translate(-50%, -50%);
+                                background: $errorIconColor;
+                                width: 2px;
+                                height: 7px;
+                            }
+
+                            &:after {
+                                content: '';
+                                position: absolute;
+                                top: 50%;
+                                left: 50%;
+                                transform: translate(-50%, -50%);
+                                background: $errorIconColor;
+                                width: 7px;
+                                height: 2px;
+                            }
+                        }
+
+                        &:hover {
+
+                            .wlc-select-status__errors {
+                                opacity: 1;
+                                visibility: visible;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .wlc-select__dropdown {
+        z-index: 15;
+        position: absolute;
+        top: calc(100% + 5px);
+        left: 0;
+        max-height: $dropdownMaxHeight;
+        width: 100%;
+        padding: 0;
+        border: $dropdownBorder;
+        border-radius: $dropdownBorderRadius;
+        background: $dropdownBg;
+        overflow: scroll hidden;
+        list-style: none;
+
+        &-item {
+            display: block;
+            width: 100%;
+            padding: $dropdownItemPadding;
+            background: $dropdownItemBg;
+            cursor: pointer;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+
+            &:hover {
+                background: darken($dropdownItemBg, 20);
+                //TODO global transition mixin
+                transition: 0.3s ease-in-out background;
+            }
+        }
+    }
+
+    .wlc-select-status__arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 0;
+        fill: $selectArrowColor;
+    }
+}

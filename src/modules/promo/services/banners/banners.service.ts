@@ -19,7 +19,9 @@ export interface IBannersFilter {
     visibility?: IVisibility[];
 }
 
-@Injectable()
+@Injectable({
+    providedIn: 'root',
+})
 export class BannersService {
     protected banners: BannerModel[] = [];
 

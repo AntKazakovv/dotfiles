@@ -1,0 +1,18 @@
+.wlc-icon {
+    display: inline-block;
+
+    svg {
+        fill: inherit;
+    }
+}
+
+.wlc-icon-spin {
+    animation: loadingCircle 1s linear infinite;
+}
+
+@keyframes loadingCircle {
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

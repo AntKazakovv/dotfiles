@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {ModalService} from 'wlc-engine/modules/base/services';
+import {ModalService} from 'wlc-engine/modules/core/services';
 
 import {
     get as _get,
