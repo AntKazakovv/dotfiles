@@ -2,7 +2,6 @@ import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 import {SignUpComponent} from './components/sign-up/sign-up.component';
-import {BaseModule} from '../base/base.module';
 import {TempContainerComponent} from './components/temp-container/temp-container.component';
 import {SignInComponent} from './components/sign-in/sign-in.component';
 import {PasswordRestoreComponent} from './components/password-restore/password-restore.component';
@@ -40,7 +39,6 @@ export const components = {
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        BaseModule,
         TranslateModule,
         CoreModule,
     ],

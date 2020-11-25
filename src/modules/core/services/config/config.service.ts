@@ -59,6 +59,7 @@ export class ConfigService {
         private sessionStorageService: SessionStorageService,
         private cookiesStorageService: CookiesStorageService,
     ) {
+        this.getCountries();
     }
 
     /**
@@ -126,5 +127,14 @@ export class ConfigService {
         _mergeWith(this.global, wlcConfig, (target, source) => (source.replaceConfig) ? source : undefined);
         _mergeWith(this.global, appConfig, (target, source) => (source.replaceConfig) ? source : undefined);
         GlobalHelper.deepFreeze(this.global.appConfig);
+    }
+
+    private getCountries(): void {
+        this.data.request({
+            name: 'countries',
+            url: '/countries',
+            system: 'user',
+            type: 'GET',
+        }).then((data: IData) => this.set({name: 'countries', value: data.data.countries}));
     }
 }

@@ -3,8 +3,7 @@ import {EventService} from 'wlc-engine/modules/core/services';
 
 import {
     ModalService,
-    IModalParams,
-} from 'wlc-engine/modules/base/services';
+} from 'wlc-engine/modules/core/services';
 import {FaqComponent} from './../faq/faq.component';
 
 @Component({
@@ -59,7 +58,7 @@ export class demoTestComponent {
     }
 
     openModalFaq(): void {
-        const modalParams: IModalParams = {
+        const modalParams = {
             id: 'faq',
             modalTitle: 'FAQ',
             component: FaqComponent,

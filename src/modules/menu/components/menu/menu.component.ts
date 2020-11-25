@@ -7,7 +7,7 @@ import {
 } from 'wlc-engine/modules/core/services';
 import {
     ModalService,
-} from 'wlc-engine/modules/base/services';
+} from 'wlc-engine/modules/core/services';
 
 import * as Params from './menu.params';
 

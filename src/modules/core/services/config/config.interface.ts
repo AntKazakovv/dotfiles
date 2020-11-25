@@ -1,6 +1,5 @@
 import {IIndexing, ILayoutsConfig} from 'wlc-engine/interfaces';
 import {AppConfigModel} from 'wlc-engine/modules/core';
-import {IBaseModuleParams} from 'wlc-engine/interfaces';
 
 /**
  * Types of storage to get or set data
@@ -10,7 +9,6 @@ export type IStorageType = 'localStorage' | 'sessionStorage' | 'cookiesStorage';
 export interface IGlobalConfig {
     appConfig: AppConfigModel,
     $layouts: ILayoutsConfig,
-    $base: IBaseModuleParams,
     $static: unknown,
     $files: IIndexing<string>,
     $games: unknown,

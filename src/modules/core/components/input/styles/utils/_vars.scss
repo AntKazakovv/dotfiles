@@ -1,0 +1,30 @@
+
+$errorColor: #f12e74 !default;
+$successColor: #27bb37 !default;
+
+$maxWidth: 765px !default;
+
+$labelFontWeight: bold !default;
+$labelColor: #231f20 !default;
+$labelFontSize: 16px !default;
+
+$inputWidth: 70% !default;
+$inputMaxWidth: 450px !default;
+$inputBorder: 2px solid rgba(0, 0, 0, 0.04) !default;
+$inputBorderFocusColor: rgba(0, 0, 0, 0.2) !default;
+$inputBorderRadius: 10px !default;
+$inputPadding: 5px 35px 5px 20px !default;
+
+$iconWidth: 12px !default;
+$iconHeight: 12px !default;
+$successIconColor: #fff !default;
+$errorIconColor: #fff !default;
+$pendingIconColor: rgba(0, 0, 0, 0.5) !default;
+
+$errorsBgColor: #ffebf2 !default;
+$errorsColor: #231f20 !default;
+$errorsMinWidth: 300px !default;
+$errorsMaxWidth: 100% !default;
+$errorsBorderRadius: 10px !default;
+$errorsFontSize: 14px !default;
+$errorsPadding: 10px !default;

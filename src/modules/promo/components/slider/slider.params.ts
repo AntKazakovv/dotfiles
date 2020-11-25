@@ -20,7 +20,7 @@ export interface ISlides {
     params: IBannerSlide;
 }
 
-export interface ISliderParams extends IComponentParams<ComponentTheme, ComponentType, string> {
+export interface ISliderCParams extends IComponentParams<ComponentTheme, ComponentType, string> {
     /**
      * Accepts a set of slide-generating components.
      */
@@ -36,6 +36,6 @@ export interface ISliderParams extends IComponentParams<ComponentTheme, Componen
     class?: string;
 }
 
-export const defaultParams: ISliderParams = {
+export const defaultParams: ISliderCParams = {
     class: 'wlc-slider',
 };
