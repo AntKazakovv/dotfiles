@@ -107,4 +107,4 @@ export interface IBonusConditionsGames {
     MarketsBL: any;
 }
 
-export type IBonusImageType = 'default' | 'reg' | 'deposit' | 'promo' | 'store' | 'other' | 'deposit';
+export type IBonusImageType = 'default' | 'reg' | 'deposit' | 'promo' | 'store' | 'other';

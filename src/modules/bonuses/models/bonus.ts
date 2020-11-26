@@ -1,8 +1,12 @@
 import {formatDate} from '@angular/common';
 import {AbstractModel} from 'wlc-engine/modules/core/models/abstract.model';
-import {IBonus, IBonusConditions, IBonusImageType} from '../interfaces/bonuses.interface';
 import {IIndexing} from 'wlc-engine/interfaces/global.interface';
 import {ConfigService} from 'wlc-engine/modules/core/services';
+import {
+    IBonus,
+    IBonusConditions,
+    IBonusImageType,
+} from '../interfaces/bonuses.interface';
 
 import {
     toNumber as _toNumber,

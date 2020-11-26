@@ -13,8 +13,10 @@ import {
     IMixedParams,
 } from 'wlc-engine/classes/abstract.component';
 import {ConfigService} from 'wlc-engine/modules/core';
-import {ModalService} from 'wlc-engine/modules/core/services';
-import {EventService} from 'wlc-engine/modules/core/services';
+import {
+    ModalService,
+    EventService,
+} from 'wlc-engine/modules/core/services';
 import {Bonus} from '../../models/bonus';
 import * as BIParams from './bonus-item.params';
 
