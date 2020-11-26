@@ -1,19 +1,39 @@
-<label for="{{$params.name}}"
-       class="{{$class}}__label"
->{{$params.common.placeholder | translate}}</label>
-<div class="{{$class}}__input">
+<ng-template #default>
+    <label for="{{$params.name}}"
+           class="{{$class}}__label"
+    >{{$params.common.placeholder | translate}}</label>
+    <div class="{{$class}}__input">
+        <input type="{{$params.common.type}}"
+               id="{{$params.name}}"
+               placeholder="{{$params.common.placeholder | translate}}"
+               [formControl]="control"
+        >
+        <div class="{{$class}}-status"
+             wlc-form-control
+             [control]="control"
+        ></div>
+    </div>
+</ng-template>
+
+<ng-template #placeholderShown>
     <input type="{{$params.common.type}}"
            id="{{$params.name}}"
-           placeholder="{{$params.common.placeholder | translate}}"
-           [(ngModel)]="control.value"
+           placeholder="{{$params.exampleValue || $params.common?.placeholder | translate}}"
            [formControl]="control"
+           class="{{$class}}__input"
     >
-    <div class="{{$class}}-status">
-        <div class="{{$class}}-status__icon"></div>
-        <div class="{{$class}}-status__errors">
-            <div *ngFor="let item of control.errors | keyvalue">
-                {{'validator-' + item.key | translate}}
-            </div>
-        </div>
-    </div>
-</div>
+    <label for="{{$params.name}}"
+           class="{{$class}}__label"
+    >{{$params.common?.placeholder | translate}}</label>
+    <div class="{{$class}}-status"
+         [className]="$class"
+         wlc-form-control
+         [control]="control"
+    ></div>
+</ng-template>
+
+
+<ng-container [ngSwitch]="$params.theme">
+    <ng-container [ngTemplateOutlet]="placeholderShown" *ngSwitchCase="'placeholder-shown'"></ng-container>
+    <ng-container [ngTemplateOutlet]="default" *ngSwitchDefault></ng-container>
+</ng-container>

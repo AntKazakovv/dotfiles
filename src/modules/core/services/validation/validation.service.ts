@@ -52,8 +52,8 @@ export class ValidationService {
     constructor(
         private dataService: DataService,
     ) {
-        this.setRule<IIndexing<boolean>>(matchingFields);
-        this.setRule<IIndexing<boolean>>(email);
+        this.setRule<IIndexing<boolean>>('matchingFields', matchingFields);
+        this.setRule<IIndexing<boolean>>('email', email);
     }
 
     public emailUnique(
@@ -92,8 +92,8 @@ export class ValidationService {
         return this.validatorList[validator];
     }
 
-    private setRule<T>(rule: any, async: boolean = false) {
-        this.validatorList[rule.name] = {
+    private setRule<T>(name: string, rule: any, async: boolean = false) {
+        this.validatorList[name] = {
             validator: rule.bind(this),
             async,
         };

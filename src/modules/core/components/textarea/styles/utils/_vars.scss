@@ -1,31 +1,52 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'errorColor': #f12e74,
+    'successColor': #27bb37,
 
-$errorColor: #f12e74 !default;
-$successColor: #27bb37 !default;
+    'maxWidth': 765px,
 
-$maxWidth: 765px !default;
+    'labelFontWeight': bold,
+    'labelColor': #231f20,
+    'labelFontSize': 16px,
 
-$labelFontWeight: bold !default;
-$labelColor: #231f20 !default;
-$labelFontSize: 16px !default;
+    'textareaWidth': 70%,
+    'textareaMaxWidth': 450px,
+    'textareaBorder': 2px solid rgba(0, 0, 0, 0.04),
+    'textareaBorderFocusColor': rgba(0, 0, 0, 0.2),
+    'textareaBorderRadius': 10px,
+    'textareaPadding': 5px 35px 5px 20px,
+    'textareaMinHeight': 220px,
 
-$textareaWidth: 70% !default;
-$textareaMaxWidth: 450px !default;
-$textareaBorder: 2px solid rgba(0, 0, 0, 0.04) !default;
-$textareaBorderFocusColor: rgba(0, 0, 0, 0.2) !default;
-$textareaBorderRadius: 10px !default;
-$textareaPadding: 5px 35px 5px 20px !default;
-$textareaMinHeight: 220px !default;
+    'iconWidth': 12px,
+    'iconHeight': 12px,
+    'successIconColor': #fff,
+    'errorIconColor': #fff,
+    'pendingIconColor': rgba(0, 0, 0, 0.5),
 
-$iconWidth: 12px !default;
-$iconHeight: 12px !default;
-$successIconColor: #fff !default;
-$errorIconColor: #fff !default;
-$pendingIconColor: rgba(0, 0, 0, 0.5) !default;
+    'errorsBgColor': #ffebf2,
+    'errorsColor': #231f20,
+    'errorsMinWidth': 300px,
+    'errorsMaxWidth': 100%,
+    'errorsBorderRadius': 10px,
+    'errorsFontSize': 14px,
+    'errorsPadding': 10px,
+), $customThemeDefault);
 
-$errorsBgColor: #ffebf2 !default;
-$errorsColor: #231f20 !default;
-$errorsMinWidth: 300px !default;
-$errorsMaxWidth: 100% !default;
-$errorsBorderRadius: 10px !default;
-$errorsFontSize: 14px !default;
-$errorsPadding: 10px !default;
+$customThemePlaceholderShown: () !default;
+$themePlaceholderShown: map-merge((
+    'transition': 0.2s,
+    'margin': 25px 0 0 0,
+
+    'textareaFontSize': 16px,
+    'textareaBorder': 2px solid rgba(0, 0, 0, 0.04),
+    'textareaBorderFocusColor': rgba(0, 0, 0, 0.2),
+    'textareaBorderRadius': 10px,
+    'textareaPadding': 10px 35px 10px 20px,
+    'textareaMinHeight': 250px,
+
+    'placeholderFontSize': 14px,
+    'placeholderPadding': 0 20px,
+    'placeholderShift': -44px,
+
+    'labelLineHeight': 1.3,
+), $customThemePlaceholderShown);

@@ -1,0 +1,160 @@
+@import '../utils/vars';
+
+.form-control {
+    $selector: &;
+    $touch: '.ng-touched';
+
+    #{$touch}.ng-valid ~ & {
+
+        #{$selector}__icon {
+            background: $successColor;
+
+            &:before {
+                width: 4px;
+                height: 6px;
+                top: calc(50% - 1px);
+                left: 50%;
+                transform: translate(-50%, -50%) rotate(45deg);
+                border-bottom: 1px solid $successIconColor;
+                border-right: 1px solid $successIconColor;
+            }
+        }
+    }
+
+    #{$touch}.ng-pending ~ & {
+
+        #{$selector}__icon {
+
+            &:before {
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                animation: spin 1s infinite linear;
+                border: 2px solid $pendingIconColor;
+                border-left-color: transparent;
+                border-radius: 50%;
+            }
+        }
+    }
+
+    #{$touch}.ng-invalid ~ & {
+        border-color: $errorColor;
+
+        #{$selector}__icon {
+            background: $errorColor;
+            transform: translateY(-50%) rotate(45deg);
+
+            &:before {
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: $errorIconColor;
+                width: 2px;
+                height: 7px;
+            }
+
+            &:after {
+                content: '';
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: $errorIconColor;
+                width: 7px;
+                height: 2px;
+            }
+        }
+
+        &:hover {
+
+            #{$selector}__errors {
+                opacity: 1;
+                visibility: visible;
+            }
+        }
+    }
+
+    &__icon {
+        position: absolute;
+        top: 50%;
+        right: 15px;
+        transform: translateY(-50%);
+        width: $iconWidth;
+        height: $iconHeight;
+        border-radius: 50%;
+
+        .wlc-textarea & {
+            position: absolute;
+            top: 20px;
+            right: 15px;
+            transform: translateY(-50%);
+            width: $iconWidth;
+            height: $iconHeight;
+            border-radius: 50%;
+
+            &:before {
+                content: '';
+                position: absolute;
+            }
+        }
+
+        &:before {
+            content: '';
+            position: absolute;
+        }
+    }
+
+    &__errors {
+        position: absolute;
+        background: $errorsBgColor;
+        top: calc(100% - 5px);
+        right: 0;
+        width: fit-content;
+        min-width: $errorsMinWidth;
+        max-width: $errorsMaxWidth;
+        opacity: 0;
+        visibility: hidden;
+        color: $errorsColor;
+        border-radius: $errorsBorderRadius;
+        font-size: $errorsFontSize;
+        padding: $errorsPadding;
+        z-index: 10;
+        margin-left: 20px;
+
+        .wlc-textarea & {
+            position: absolute;
+            background: $errorsBgColor;
+            top: 35px;
+            right: 0;
+            width: fit-content;
+            min-width: $errorsMinWidth;
+            max-width: $errorsMaxWidth;
+            opacity: 0;
+            visibility: hidden;
+            color: $errorsColor;
+            border-radius: $errorsBorderRadius;
+            font-size: $errorsFontSize;
+            padding: $errorsPadding;
+            z-index: 10;
+
+            &:before {
+                content: '';
+                border: 8px solid transparent;
+                border-bottom-color: $errorsBgColor;
+                position: absolute;
+                top: -15px;
+                right: 13px;
+            }
+        }
+
+        &:before {
+            content: '';
+            border: 8px solid transparent;
+            border-bottom-color: $errorsBgColor;
+            position: absolute;
+            top: -15px;
+            right: 13px;
+        }
+    }
+}

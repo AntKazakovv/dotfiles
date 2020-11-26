@@ -1,0 +1,11 @@
+@use 'engine-styles/functions' as ef;
+
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'gridColumns': 300px 1fr,
+    'padding': 15px,
+
+    'menuBorder': 1px solid ef.get('color', 'link'),
+    'contentBorder': 1px solid ef.get('color', 'link'),
+    'contentPadding': 30px,
+), $customThemeDefault);

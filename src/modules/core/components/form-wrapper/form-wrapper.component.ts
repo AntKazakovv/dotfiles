@@ -6,6 +6,7 @@ import {
     Injector,
     Input,
     OnInit,
+    ViewEncapsulation,
 } from '@angular/core';
 import {AsyncValidatorFn, FormControl, FormGroup, ValidatorFn} from '@angular/forms';
 import {TransitionService, UIRouterGlobals} from '@uirouter/core';
@@ -56,11 +57,13 @@ export interface IFormWrapperCParams extends IWrapperCParams {
     selector: '[wlc-form-wrapper]',
     templateUrl: './form-wrapper.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
+    encapsulation: ViewEncapsulation.None,
 })
 export class FormWrapperComponent extends WrapperComponent implements OnInit {
-    @Input() public ngSubmit: unknown;
+    @Input() public ngSubmit: () => unknown;
     @Input() private config: IFormWrapperCParams;
 
+    public $params: IFormWrapperCParams;
     public form: FormGroup;
     private controls: IControls = {};
     private globalValidators = {
@@ -106,16 +109,25 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit {
         return super.getInjector(component);
     }
 
+    protected prepareParams(): void {
+        this.$params = _merge(this.config, this.params);
+    }
+
     private initForm() {
 
-        _forEach(this.params.components, component => {
+        _forEach(this.$params.components, component => {
             const validators: ValidatorFn[] = [];
             const asyncValidators: AsyncValidatorFn[] = [];
 
-            _forEach(component.params.validators, validator => {
+            _forEach(component.params.validators, (validator) => {
                 const validationRule = this.getValidator(validator);
 
-                if (validationRule.async) {
+                if (!validationRule) {
+                    console.error('Validator not found: ', validator);
+                    return;
+                }
+
+                if (validationRule?.async) {
                     asyncValidators.push(validationRule.validator);
                 } else {
                     validators.push(validationRule.validator);
@@ -129,10 +141,15 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit {
             );
         });
 
-        _forEach(this.params.validators, validator => {
+        _forEach(this.$params.validators, validator => {
             const validationRule = this.getValidator(validator);
 
-            if (validationRule.async) {
+            if (!validationRule) {
+                console.error('Validator not found: ', validator);
+                return;
+            }
+
+            if (validationRule?.async) {
                 this.globalValidators.asyncValidators.push(validationRule.validator);
             } else {
                 this.globalValidators.validators.push(validationRule.validator);
@@ -150,9 +167,5 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit {
         }
         return this.validationService
             .getValidator(validatorSettings);
-    }
-
-    private prepareParams(): void {
-        this.params = _merge(this.config, this.params);
     }
 }

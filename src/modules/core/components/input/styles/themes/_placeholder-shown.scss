@@ -1,0 +1,65 @@
+@use 'sass:map';
+@import '../utils/vars';
+
+.wlc-input--theme-placeholder-shown:host {
+    position: relative;
+    display: flex;
+    flex-flow: column-reverse nowrap;
+    margin: map.get($themePlaceholderShown, 'margin');
+
+    .wlc-input__label,
+    .wlc-input__input {
+        transition: map.get($themePlaceholderShown, 'transition');
+        line-height: 1;
+    }
+
+    .wlc-input__input {
+        font-size: map.get($themePlaceholderShown, 'inputFontSize');
+        border: map.get($themePlaceholderShown, 'inputBorder');
+        border-radius: map.get($themePlaceholderShown, 'inputBorderRadius');
+        padding: map.get($themePlaceholderShown, 'inputPadding');
+        text-overflow: ellipsis;
+        overflow: visible;
+
+        &::placeholder {
+            opacity: 0;
+        }
+
+        &:focus {
+            outline: 0;
+            border-color: map.get($themePlaceholderShown, 'inputBorderFocusColor');
+
+            &::placeholder {
+                opacity: 1;
+            }
+        }
+
+        &:placeholder-shown + .wlc-input__label {
+            cursor: text;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            transform-origin: left bottom;
+            transform: translateY(-50%);
+        }
+
+        &:not(:placeholder-shown),
+        &:focus {
+
+            & + .wlc-input__label {
+                transform: translateY(map.get($themePlaceholderShown, 'placeholderShift'));
+                font-size: map.get($themePlaceholderShown, 'placeholderFontSize');
+                padding: map.get($themePlaceholderShown, 'placeholderPadding');
+                cursor: pointer;
+            }
+        }
+    }
+
+    .wlc-input__label {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        font-size: map.get($themePlaceholderShown, 'inputFontSize');
+        padding: map.get($themePlaceholderShown, 'inputPadding');
+    }
+}

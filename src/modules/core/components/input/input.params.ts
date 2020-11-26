@@ -10,6 +10,7 @@ export interface IInputCParams extends IComponentParams<ComponentTheme, Componen
     control?: FormControl;
     name?: string;
     value?: string;
+    exampleValue?: string;
     common: {
         placeholder?: string;
         type?: string;

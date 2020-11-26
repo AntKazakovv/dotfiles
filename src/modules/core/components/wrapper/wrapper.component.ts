@@ -8,7 +8,9 @@ import {
     HostBinding,
     Inject,
     Injector,
+    Input,
     OnInit,
+    ViewEncapsulation,
 } from '@angular/core';
 import {
     ConfigService,
@@ -16,8 +18,12 @@ import {
     LayoutService,
 } from 'wlc-engine/modules/core/services';
 
+import {
+    merge as _merge,
+} from 'lodash';
+
 export interface IWrapperCParams {
-    components: ILayoutComponent[];
+    components?: ILayoutComponent[];
     class?: string;
 }
 
@@ -25,9 +31,12 @@ export interface IWrapperCParams {
     selector: '[wlc-wrapper]',
     templateUrl: './wrapper.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
+    encapsulation: ViewEncapsulation.None,
 })
 export class WrapperComponent extends LayoutComponent implements OnInit {
     @HostBinding('class') protected $hostClass: string;
+    @Input() protected inlineParams: IWrapperCParams;
+    protected $params: IWrapperCParams;
 
     constructor(
         ConfigService: ConfigService,
@@ -52,13 +61,18 @@ export class WrapperComponent extends LayoutComponent implements OnInit {
     }
 
     public async ngOnInit(): Promise<void> {
+        this.prepareParams();
         await this.initComponents();
     }
 
-    private async initComponents(): Promise<void> {
-        this.$hostClass = this.params?.class;
+    protected prepareParams(): void {
+        this.$params = _merge(this.inlineParams, this.params);
+    }
 
-        for (const el of this.params?.components) {
+    private async initComponents(): Promise<void> {
+        this.$hostClass = this.$params?.class;
+
+        for (const el of this.$params?.components) {
             this.allComponents$.push({
                 ...el,
                 componentClass: await this.layoutService.loadComponent(el.name),
