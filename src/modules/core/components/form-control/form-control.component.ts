@@ -12,7 +12,6 @@ import {FormControl} from '@angular/forms';
 import {takeUntil} from 'rxjs/operators';
 import {Subject} from 'rxjs';
 
-
 @Component({
     selector: '[wlc-form-control]',
     templateUrl: './form-control.component.html',

@@ -22,7 +22,6 @@ import {
     IGames,
     gamesEvents,
 } from 'wlc-engine/modules/games/interfaces/games.interfaces';
-import {error} from "selenium-webdriver";
 
 @Injectable({
     providedIn: 'root',

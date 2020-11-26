@@ -71,5 +71,28 @@ export const $layouts: ILayoutsConfig = {
             },
         },
     },
+    'app.profile': {
+        sections: {
+            'profile': {
+                container: true,
+                components: [
+                    {
+                        name: 'core.wlc-profile-form',
+                    },
+                ],
+            },
+        },
+    },
+    'app.contacts': {
+        extends: 'app',
+        sections: {
+            'info-page': {
+                container: true,
+                components: [
+                    {name: 'core.wlc-info-page'},
+                ],
+            },
+        },
+    },
 };
 

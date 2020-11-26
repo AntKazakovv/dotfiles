@@ -17,7 +17,7 @@ function potToPo() {
                 `${poFilePath} ${pot} \n`);
             localeCmds.push(`sed -i 's/#~ //g' ${poFilePath}\n`);
         } else {
-            localeCmds.push(`msgcat --force-po --lang=${locale} ${this.pot} > ${poFilePath}\n`);
+            localeCmds.push(`msgcat --force-po --lang=${locale} ${pot} > ${poFilePath}\n`);
         }
         return localeCmds;
     }).reduce((acc, cmds) => {
