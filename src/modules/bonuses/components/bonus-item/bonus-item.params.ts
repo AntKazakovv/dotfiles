@@ -40,7 +40,7 @@ export const defaultParams: IBonusItemParams = {
         hideDescription: false,
         iconMoreBtn: true,
         hideChooseBtn: false,
-        maxNameLength: 23,
+        maxNameLength: 22,
         maxDescrLength: 80,
     },
 };

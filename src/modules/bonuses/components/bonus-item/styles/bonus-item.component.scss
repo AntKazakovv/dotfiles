@@ -63,11 +63,16 @@
 
     &__image {
         width: 100%;
-        height: $imageHeight;
         background-size: cover;
         background-position: center center;
         background-repeat: no-repeat;
         background-color: $imageBg;
+        padding-bottom: $relativeImageHeight;
+        position: relative;
+
+        .wlc-bonus-image-other {
+            position: absolute;
+        }
 
         .active & {
             display: none;

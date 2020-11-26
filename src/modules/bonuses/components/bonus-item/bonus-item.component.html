@@ -2,7 +2,7 @@
     [class.active]="bonus.isActive"
     [class.subscribed]="bonus.isSubscribed"
     [class.invetoried]="bonus.inventoried"
-    [class.choosen]="isChoose"
+    [class.chosen]="isChoose"
     [class.noauth]="!isAuth"
     [class.nochoosebtn]="$params.common?.hideChooseBtn && ($params.common?.type === 'reg' || $params.common?.type === 'deposit')"
     [class.choosebtn]="!$params.common?.hideChooseBtn && ($params.common?.type === 'reg' || $params.common?.type === 'deposit')">
@@ -32,6 +32,7 @@
         <div class="{{$class}}__info-block">
             <h4 class="{{$class}}__name">
                 {{bonus.name | slice:0:$params.common?.maxNameLength}}
+                <span *ngIf="bonus.description?.length > $params.common?.maxNameLength">...</span>
             </h4>
             <p class="{{$class}}__description" *ngIf="!$params.common?.hideDescription">
                 {{bonus.description | slice:0:$params.common?.maxDescrLength}}
@@ -71,26 +72,26 @@
         <div class="{{$class}}__btns" *ngIf="isAuth && (!$params.common?.type || $params.common?.type === 'default')">
             <button type="button"
                     wlc-button
-                    text="{{'Subscribe' | translate}}"
+                    text="Subscribe"
                     *ngIf="bonus.canSubscribe && !bonus.inventoried"
                     (click)="bonus.join()">
             </button>
             <button type="button"
                     wlc-button
-                    text="{{'Take' | translate}}"
+                    text="Take"
                     *ngIf="bonus.inventoried"
                     (click)="bonus.join()">
             </button>
             <button type="button"
                     wlc-button
-                    text="{{'Unsubscribe' | translate}}"
+                    text="Unsubscribe"
                     themeMod="secondary"
                     *ngIf="bonus.isSubscribed || bonus.inventoried"
                     (click)="bonus.unsubscribe()">
             </button>
             <button type="button"
                     wlc-button
-                    text="{{'Cancel' | translate}}"
+                    text="Cancel"
                     themeMod="secondary"
                     *ngIf="bonus.isActive"
                     (click)="bonus.leave()">
@@ -99,7 +100,7 @@
         <div class="{{$class}}__btns" *ngIf="!$params.common?.hideChooseBtn && ($params.common?.type === 'reg' || $params.common?.type === 'deposit')">
             <button type="button"
                     wlc-button
-                    text="{{'Choose' | translate}}"
+                    text="Choose"
                     [disabled]="isChoose"
                     (click)="chooseBonus(bonus, $params.common?.type)">
             </button>

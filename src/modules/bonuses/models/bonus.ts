@@ -16,6 +16,7 @@ import {
     floor as _floor,
     each as _each,
 } from 'lodash';
+import {LoyaltyBonusesService} from '../services/loyalty-bonuses.service';
 
 export class Bonus extends AbstractModel<IBonus> {
     protected userCurrency: string;
@@ -23,6 +24,7 @@ export class Bonus extends AbstractModel<IBonus> {
     constructor(
         data: IBonus,
         protected ConfigService: ConfigService,
+        protected loyaltyBonusesService: LoyaltyBonusesService,
     ) {
         super();
         this.data = this.modifyData(data);
@@ -482,20 +484,16 @@ export class Bonus extends AbstractModel<IBonus> {
         // TODO
     }
 
-    public join(): void {
-        this.data.Selected = 1;
-        // TODO
+    public async join(): Promise<void> {
+        await this.loyaltyBonusesService.subscribeBonus(this);
     }
 
-    public leave(): void {
-        this.data.Active = 0;
-        this.data.Selected = 0;
-        // TODO
+    public async leave(): Promise<void> {
+        await this.loyaltyBonusesService.cancelBonus(this);
     }
 
-    public unsubscribe(): void {
-        this.data.Selected = 0;
-        //TODO
+    public async unsubscribe(): Promise<void> {
+        await this.loyaltyBonusesService.unsubscribeBonus(this);
     }
 
     protected modifyData(bonus: IBonus): IBonus {

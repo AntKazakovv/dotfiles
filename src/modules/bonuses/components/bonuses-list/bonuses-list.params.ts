@@ -22,6 +22,4 @@ export const defaultParams: IBonusesListParams = {
     moduleName: 'bonuses',
     componentName: 'wlc-bonuses-list',
     class: 'wlc-bonuses-list',
-    common: {
-    },
 };

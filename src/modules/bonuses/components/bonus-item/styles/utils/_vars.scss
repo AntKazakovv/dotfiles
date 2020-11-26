@@ -1,11 +1,11 @@
 @use 'engine-styles/functions' as ef;
 
 // // Size
-$minWidth: 320px !default;
+$minWidth: 300px !default;
 $maxWidth: 320px !default;
 $height: 370px !default;
 
-$imageHeight: 220px !default;
+$relativeImageHeight: 70% !default;
 
 $bonusIconSize: 170px !default;
 $bonusIconValueBlockSize: 40px !default;
