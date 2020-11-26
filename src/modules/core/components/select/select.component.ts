@@ -86,6 +86,7 @@ export class SelectComponent extends AbstractComponent implements OnInit {
 
     public toggleDropdown(): void {
         this.isOpened = !this.isOpened;
+        this.cdr.markForCheck();
     }
 
     public closeDropdown(): void {

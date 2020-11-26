@@ -50,6 +50,8 @@ import {LayoutComponent} from './components/layout/layout.component';
 import {TextareaComponent} from './components/textarea/textarea.component';
 import {SelectComponent} from './components/select/select.component';
 import {CheckboxComponent} from './components/checkbox/checkbox/checkbox.component';
+import {FormControlComponent} from './components/form-control/form-control.component';
+import {InfoPageComponent} from './components/info-page/info-page.component';
 // -- COMPONENTS IMPORTS END  --;
 
 //  -- DIRECTIVES IMPORTS STARTS--;
@@ -80,6 +82,8 @@ export const components = {
     'wlc-textarea': TextareaComponent,
     'wlc-select': SelectComponent,
     'wlc-checkbox': CheckboxComponent,
+    'wlc-info-page': InfoPageComponent,
+    'wlc-form-control': FormControlComponent,
 };
 
 @NgModule({
@@ -135,6 +139,8 @@ export const components = {
         TextareaComponent,
         ClickOutsideDirective,
         CheckboxComponent,
+        InfoPageComponent,
+        FormControlComponent,
     ],
     exports: [
         LayoutComponent,
@@ -162,6 +168,8 @@ export const components = {
         SelectComponent,
         ClickOutsideDirective,
         CheckboxComponent,
+        InfoPageComponent,
+        FormControlComponent,
     ],
 })
 export class CoreModule {

@@ -11,3 +11,9 @@ $linksGap: ef.get('size', 'small') !default;
 $linkColor: ef.get('color', 'text') !default;
 $linkSize: 100% !default;
 $linkDecoration: none !default;
+
+// theme contacts
+$textColor: ef.get('color', 'link') !default;
+$fontWeight: 700 !default;
+$fontSize: ef.get('font', 'main') !default;
+$padding: 20px 25px;
