@@ -52,6 +52,7 @@ import {SelectComponent} from './components/select/select.component';
 import {CheckboxComponent} from './components/checkbox/checkbox/checkbox.component';
 import {FormControlComponent} from './components/form-control/form-control.component';
 import {InfoPageComponent} from './components/info-page/info-page.component';
+import {ProfileFormComponent} from 'wlc-engine/modules/core/components/profile-form/profile-form.component';
 // -- COMPONENTS IMPORTS END  --;
 
 //  -- DIRECTIVES IMPORTS STARTS--;
@@ -84,6 +85,7 @@ export const components = {
     'wlc-checkbox': CheckboxComponent,
     'wlc-info-page': InfoPageComponent,
     'wlc-form-control': FormControlComponent,
+    'wlc-profile-form': ProfileFormComponent,
 };
 
 @NgModule({
@@ -141,6 +143,7 @@ export const components = {
         CheckboxComponent,
         InfoPageComponent,
         FormControlComponent,
+        ProfileFormComponent,
     ],
     exports: [
         LayoutComponent,
@@ -170,6 +173,7 @@ export const components = {
         CheckboxComponent,
         InfoPageComponent,
         FormControlComponent,
+        ProfileFormComponent,
     ],
 })
 export class CoreModule {
