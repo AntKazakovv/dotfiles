@@ -31,9 +31,13 @@ export const defaultParams: IInfoPageCParams = {
                             {
                                 name: 'Contact Us',
                                 type: 'sref',
-                                state: 'app.contacts',
-                                stateParams: {
-                                    slug: 'feedback',
+                                params: {
+                                    state: {
+                                        name: 'app.contacts',
+                                        params: {
+                                            slug: 'feedback',
+                                        },
+                                    },
                                 },
                             },
                         ],

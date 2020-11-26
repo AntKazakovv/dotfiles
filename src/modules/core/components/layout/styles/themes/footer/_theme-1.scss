@@ -209,5 +209,22 @@
                 justify-self: end;
             }
         }
+
+        .wlc-logo {
+            max-width: 120px;
+        }
+
+        .wlc-about-us {
+
+            .wlc-license {
+                margin: $footerGapDesktop / 2 0 0;
+            }
+        }
+
+        .wlc-license {
+            display: flex;
+            flex-direction: row-reverse;
+            margin: $footerGapDesktop / 2 auto 0;
+        }
     }
 }

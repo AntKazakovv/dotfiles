@@ -191,7 +191,7 @@ module.exports = function messagesTask() {
     task('message:front_pot_to_po', async (cb) => {  // Done
 
         let commands = _.keys(this.params.locales).map(locale => {
-            const poFilePath = this.params.paths.src + `/languages/frontend/${locale}.po`;
+            const poFilePath = this.params.paths.src + `/languages/${this.params.isEngineBundle ? '' : 'frontend/'}${locale}.po`;
             if (fs.existsSync(poFilePath)) {
                 return `msgmerge --force-po --no-fuzzy-matching --update --backup=off --lang=${locale} ` +
                     `${poFilePath} ${this.params.paths.temp}/front.pot \n` +
@@ -225,7 +225,6 @@ module.exports = function messagesTask() {
         'message:front_to_pot',
         'message:front_pot_to_po',
         'message:temp_front_po',
-        'message:po_to_json',
         'clean:temp',
     ));
 };

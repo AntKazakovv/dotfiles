@@ -1,17 +1,17 @@
 <ng-template #sref let-item="item">
     <div class="{{$class}}__item {{$class}}__item--sref">
         <a class="{{$class}}__link"
-           uiSref="{{item.state}}"
-           [uiParams]="item.stateParams"
-           [uiOptions]="item.stateOptions">{{item.name | translate}}</a>
+           [uiSref]="item.params?.state?.name"
+           [uiParams]="item.params?.state?.params"
+           [uiOptions]="item.params?.state?.options">{{item.name | translate}}</a>
     </div>
 </ng-template>
 
 <ng-template #href let-item="item">
     <div class="{{$class}}__item {{$class}}__item--href">
         <a class="{{$class}}__link"
-           [target]="item.params.target || '_self'"
-           [href]="item.params.href"
+           [target]="item?.params?.target || '_self'"
+           [href]="item?.params?.href"
         >{{item.name | translate}}</a>
     </div>
 </ng-template>
