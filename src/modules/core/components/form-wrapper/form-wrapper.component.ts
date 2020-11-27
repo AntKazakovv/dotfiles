@@ -158,7 +158,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit {
 
             this.controls[component.params.name] = new FormControl(
                 {
-                    value: _get(this.formData.value, component.params.name) || component.params.value || '',
+                    value: _get(this.formData?.value, component.params.name) || component.params.value || '',
                     disabled: component.params.disabled,
                 },
                 validators,
