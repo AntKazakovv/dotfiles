@@ -1,4 +1,4 @@
-<form class="wlc-form" [formGroup]="form" (ngSubmit)="ngSubmit(form)">
+<form class="wlc-form" [formGroup]="form" (ngSubmit)="submit(form)">
     <ng-container *ngFor="let component of components"
                     [ngComponentOutlet]="component.componentClass"
                     [ngComponentOutletInjector]="getInjector(component)"

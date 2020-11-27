@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {ConfigService} from 'wlc-engine/modules/core/services/config/config.service';
 import {EventService} from 'wlc-engine/modules/core/services';
 import {BannerModel} from 'wlc-engine/modules/promo/models/banner.model';
-import {UserService} from 'wlc-engine/modules/user/services/user.service';
+import {UserService} from 'wlc-engine/modules/user/services';
 
 import {
     filter as _filter,

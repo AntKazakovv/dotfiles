@@ -1,6 +1,6 @@
 import {FormControl, FormGroup} from '@angular/forms';
 import {IIndexing} from 'wlc-engine/interfaces';
-import {UserService} from 'wlc-engine/modules/user/services/user.service';
+import {UserService} from 'wlc-engine/modules/user/services';
 import {Observable, from, timer, of} from 'rxjs';
 import {debounceTime, delay, switchMap, tap, map, catchError} from 'rxjs/operators';
 

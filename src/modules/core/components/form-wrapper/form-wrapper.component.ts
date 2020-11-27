@@ -26,12 +26,17 @@ import {IInputCParams} from 'wlc-engine/modules/core/components/input/input.para
 import {ITextareaCParams} from 'wlc-engine/modules/core/components/textarea/textarea.params';
 import {ISelectParams} from 'wlc-engine/modules/core/components/select/select.params';
 import {IButtonParams} from 'wlc-engine/modules/core/components/button/button.params';
+import {IIndexing} from 'wlc-engine/interfaces/global.interface';
+import {BehaviorSubject} from 'rxjs';
 
 import {
     assign as _assign,
     merge as _merge,
     isObject as _isObject,
-    forEach as _forEach,
+    each as _each,
+    get as _get,
+    includes as _includes,
+    isUndefined as _isUndefined,
 } from 'lodash';
 
 export interface IControls {
@@ -45,7 +50,7 @@ export interface IGlobalValidators {
 
 export interface IFormComponent {
     name: string;
-    params:  IInputCParams | ITextareaCParams | ISelectParams | IButtonParams | any;
+    params: IInputCParams | ITextareaCParams | ISelectParams | IButtonParams | any;
 }
 
 export interface IFormWrapperCParams extends IWrapperCParams {
@@ -60,8 +65,9 @@ export interface IFormWrapperCParams extends IWrapperCParams {
     encapsulation: ViewEncapsulation.None,
 })
 export class FormWrapperComponent extends WrapperComponent implements OnInit {
-    @Input() public ngSubmit: () => unknown;
+    @Input() public ngSubmit: (form: FormGroup) => Promise<boolean>;
     @Input() private config: IFormWrapperCParams;
+    @Input() private formData: BehaviorSubject<IIndexing<any>>;
 
     public $params: IFormWrapperCParams;
     public form: FormGroup;
@@ -71,10 +77,12 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit {
         asyncValidators: [],
     };
 
+    private locked: string[] = [];
+
     constructor(
         ConfigService: ConfigService,
         layoutService: LayoutService,
-        cdr: ChangeDetectorRef,
+        protected cdr: ChangeDetectorRef,
         transition: TransitionService,
         injector: Injector,
         uiRouter: UIRouterGlobals,
@@ -109,17 +117,31 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit {
         return super.getInjector(component);
     }
 
+    public async submit(): Promise<void> {
+        if (this.form.valid) {
+            if (await this.ngSubmit(this.form)) {
+                this.form.markAsPristine();
+                this.form.markAsUntouched();
+            }
+        } else {
+            _each(this.form.controls, (control) => {
+                control.markAsTouched();
+            });
+            this.cdr.markForCheck();
+        }
+    }
+
     protected prepareParams(): void {
         this.$params = _merge(this.config, this.params);
     }
 
     private initForm() {
 
-        _forEach(this.$params.components, component => {
+        _each(this.$params.components, component => {
             const validators: ValidatorFn[] = [];
             const asyncValidators: AsyncValidatorFn[] = [];
 
-            _forEach(component.params.validators, (validator) => {
+            _each(component.params.validators, (validator) => {
                 const validationRule = this.getValidator(validator);
 
                 if (!validationRule) {
@@ -135,13 +157,20 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit {
             });
 
             this.controls[component.params.name] = new FormControl(
-                component.params.value || '',
+                {
+                    value: _get(this.formData.value, component.params.name) || component.params.value || '',
+                    disabled: component.params.disabled,
+                },
                 validators,
                 asyncValidators,
             );
+
+            if (component.params.locked) {
+                this.locked.push(component.params.name);
+            }
         });
 
-        _forEach(this.$params.validators, validator => {
+        _each(this.$params.validators, validator => {
             const validationRule = this.getValidator(validator);
 
             if (!validationRule) {
@@ -157,6 +186,17 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit {
         });
 
         this.form = new FormGroup(this.controls, this.globalValidators);
+
+        this.formData?.subscribe((data) => {
+            _each(this.form.controls, (control, key) => {
+                const value = _get(data, key);
+                control.setValue(value);
+                if (_includes(this.locked, key) && value) {
+                    control.disable();
+                }
+            });
+        });
+
     }
 
     private getValidator(validatorSettings: string | IValidatorSettings): IValidatorListItem {

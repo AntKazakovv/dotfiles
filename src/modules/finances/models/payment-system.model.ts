@@ -1,5 +1,5 @@
 import {AbstractModel} from 'wlc-engine/modules/core/models/abstract.model';
-import {UserService} from 'wlc-engine/modules/user/services/user.service';
+import {UserService} from 'wlc-engine/modules/user/services';
 
 import {
     get as _get,
