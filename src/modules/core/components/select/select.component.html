@@ -20,7 +20,7 @@
         <span class="{{$class}}-status__arrow" wlc-icon iconName="arrow"></span>
     </div>
 
-    <ul class="{{$class}}__dropdown" *ngIf="isOpened && $params?.items.length">
+    <ul class="{{$class}}__dropdown" *ngIf="isOpened">
         <li class="{{$class}}__dropdown-item"
             *ngFor="let item of $params.items"
             (click)="selectOption(item)"

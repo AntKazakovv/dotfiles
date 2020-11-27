@@ -41,12 +41,11 @@ export class WrapperComponent extends LayoutComponent implements OnInit {
     constructor(
         ConfigService: ConfigService,
         layoutService: LayoutService,
-        cdr: ChangeDetectorRef,
+        protected cdr: ChangeDetectorRef,
         transition: TransitionService,
         injector: Injector,
         uiRouter: UIRouterGlobals,
         eventService: EventService,
-
         @Inject('injectParams') protected params: IWrapperCParams,
     ) {
         super(

@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {UserService} from 'wlc-engine/modules/user/services/user.service';
+import {UserService} from 'wlc-engine/modules/user/services';
 import {ConfigService} from 'wlc-engine/modules/core/services';
 
 @Component({

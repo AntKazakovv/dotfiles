@@ -10,7 +10,7 @@ import {
 import {GamesCatalog} from 'wlc-engine/modules/games/models/games-catalog.model';
 import {Game} from 'wlc-engine/modules/games/models/game.model';
 import {EventService} from 'wlc-engine/modules/core/services';
-import {UserService} from 'wlc-engine/modules/user/services/user.service';
+import {UserService} from 'wlc-engine/modules/user/services';
 
 import {
     ICategory,

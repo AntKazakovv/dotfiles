@@ -10,7 +10,7 @@ export const defaultParams: IProfileFormCParams = {
     class: 'wlc-feedback-form',
 };
 
-export const feedbackConfig: IFormWrapperCParams = {
+export const profileForm: IFormWrapperCParams = {
     class: 'wlc-form-wrapper',
     components: [
         {
@@ -19,6 +19,7 @@ export const feedbackConfig: IFormWrapperCParams = {
                 common: {
                     placeholder: 'Email',
                 },
+                locked: true,
                 name: 'email',
                 validators: ['required', 'email'],
                 exampleValue: 'dasha.kot@egamings.com',
@@ -52,6 +53,7 @@ export const feedbackConfig: IFormWrapperCParams = {
                 common: {
                     placeholder: 'Gender',
                 },
+                locked: true,
                 name: 'gender',
                 validators: ['required'],
                 options: 'genders',
@@ -63,7 +65,8 @@ export const feedbackConfig: IFormWrapperCParams = {
                 common: {
                     placeholder: 'Country',
                 },
-                name: 'countries',
+                locked: true,
+                name: 'countryCode',
                 validators: ['required'],
                 options: 'countries',
             },
@@ -75,7 +78,7 @@ export const feedbackConfig: IFormWrapperCParams = {
                     placeholder: 'City',
                 },
                 name: 'city',
-                validators: ['required'],
+                validators: [],
             },
         },
         {
@@ -85,7 +88,7 @@ export const feedbackConfig: IFormWrapperCParams = {
                     placeholder: 'Address',
                 },
                 name: 'address',
-                validators: ['required'],
+                validators: [],
             },
         },
         {
@@ -95,7 +98,7 @@ export const feedbackConfig: IFormWrapperCParams = {
                     placeholder: 'Postal code',
                 },
                 name: 'postalCode',
-                validators: ['required'],
+                validators: [],
             },
         },
         {
@@ -105,6 +108,17 @@ export const feedbackConfig: IFormWrapperCParams = {
                     placeholder: 'PEP',
                 },
                 name: 'pep',
+                validators: [],
+            },
+        },
+        {
+            name: 'core.wlc-input',
+            params: {
+                common: {
+                    placeholder: 'Password',
+                    type: 'password',
+                },
+                name: 'currentPassword',
                 validators: ['required'],
             },
         },

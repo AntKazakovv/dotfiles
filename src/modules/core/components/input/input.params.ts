@@ -6,15 +6,17 @@ export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;
 
 export interface IInputCParams extends IComponentParams<ComponentTheme, ComponentType, string> {
-    validators?: ValidatorType[];
-    control?: FormControl;
     name?: string;
     value?: string;
-    exampleValue?: string;
     common: {
         placeholder?: string;
         type?: string;
     }
+    validators?: ValidatorType[];
+    control?: FormControl;
+    exampleValue?: string;
+    disabled?: boolean;
+    locked?: boolean;
 }
 
 export const defaultParams: IInputCParams = {

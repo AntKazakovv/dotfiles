@@ -22,7 +22,7 @@ import {GamesCatalogService} from 'wlc-engine/modules/games';
 import {ConfigService} from 'wlc-engine/modules/core';
 import {defaultParams, IGWParams} from './game-wrapper.params';
 import {IGameParams, ILaunchInfo} from '../../interfaces/games.interfaces';
-import {UserService} from 'wlc-engine/modules/user/services/user.service';
+import {UserService} from 'wlc-engine/modules/user/services';
 import {LogService} from 'wlc-engine/modules/core/services';
 import {ModalService} from 'wlc-engine/modules/core/services';
 import {WlcModalComponent} from 'wlc-engine/modules/core/components/modal';

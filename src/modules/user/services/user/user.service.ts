@@ -4,14 +4,16 @@ import {AppModule} from 'wlc-engine/modules/app.module';
 import {DataService, EventService} from 'wlc-engine/modules/core/services';
 import {TranslateService} from '@ngx-translate/core';
 import {UserInfo} from 'wlc-engine/modules/user/models/info.model';
-import {IRequestMethod, RestMethodType} from 'wlc-engine/modules/core/services/data/data.service';
-import {UserProfile} from '../models/profile.model';
+import {UserProfile} from '../../models/profile.model';
 import {ConfigService} from 'wlc-engine/modules/core';
-import {Subscription} from 'rxjs';
+import {Subscription, BehaviorSubject} from 'rxjs';
+import {IData} from 'wlc-engine/modules/core/services/data/data.service';
 
 import {
-    forEach as _forEach,
+    each as _each,
+    assign as _assign,
 } from 'lodash';
+
 
 //данные для входа 'maksim.shahov@softgamings.com', 'Test123!'
 
@@ -42,6 +44,8 @@ export class UserService {
         }
     }
 
+    public userProfile$: BehaviorSubject<UserProfile> = new BehaviorSubject(null);
+
     constructor(
         public translate: TranslateService,
         protected dataService: DataService,
@@ -52,7 +56,9 @@ export class UserService {
         // TODO: удалить, временное решение для костумного валидатора
         UserService.instance = this;
 
-        this.configService.set({name: '$user.isAuthenticated', value: false});
+        // this.configService.set({name: '$user.isAuthenticated', value: false});
+        this.isAuthenticated = this.configService.get('$user.isAuthenticated');
+
         this.registerMethods();
         this.info = new UserInfo(translate, eventService);
         this.profile = new UserProfile();
@@ -86,10 +92,17 @@ export class UserService {
             this.info.data = info;
         });
 
-        this.eventService.subscribe({
-            name: 'USER_PROFILE',
-        }, (profile: IUserProfile) => {
-            this.profile.data = profile;
+        this.eventService.subscribe([
+            {name: 'USER_PROFILE'},
+        ], (profile: IData) => {
+            this.profile.data = profile.data;
+            this.userProfile$.next(this.profile);
+        });
+
+        this.eventService.subscribe([
+            {name: 'PROFILE_UPDATE'},
+        ], () => {
+            this.userProfile$.next(this.profile);
         });
 
         this.eventService.subscribe({
@@ -115,6 +128,10 @@ export class UserService {
         }, () => {
             this.logout();
         });
+
+        if (this.isAuthenticated) {
+            this.fetchUserProfile();
+        }
     }
 
     public async registration(formData): Promise<void> {
@@ -128,7 +145,7 @@ export class UserService {
                 // registrationComplete
             }
         } else {
-            _forEach(response.errors, (error) => {
+            _each(response.errors, (error) => {
                 console.error(error);
             });
         }
@@ -151,12 +168,34 @@ export class UserService {
         this.dataService.request('user/registrationComplete', {code});
     }
 
-    public updateProfile(profile: IUserProfile, updatePartial: boolean = false): void {
-        //TODO update
+    public async updateProfile(profile: IUserProfile, updatePartial: boolean = false): Promise<true | IIndexing<any>> {
+
+        try {
+            const response: any = await this.dataService.request({
+                name: 'updateProfile',
+                system: 'user',
+                url: '/profiles',
+                type: updatePartial ? 'PATCH' : 'PUT',
+                events: {
+                    success: 'PROFILE_UPDATE',
+                    fail: 'PROFILE_UPDATE_ERROR',
+                },
+            }, updatePartial ? profile : _assign({}, this.profile.data, profile));
+
+            if (response.data?.result) {
+                _assign(this.profile.data, profile);
+                return true;
+            } else {
+                return response;
+            }
+
+        } catch (error) {
+            return error;
+        }
     }
 
     public sendPasswordRestore(email: string, reCaptchaToken?: string): void {
-        const params: { email: string, reCaptchaToken?: string } = {
+        const params: {email: string, reCaptchaToken?: string} = {
             email: email,
         };
 
@@ -193,7 +232,7 @@ export class UserService {
     }
 
     public changeEmail(email: string, currentPassword?: string, code?: string): void {
-        const params: { email: string; currentPassword?: string; code?: string } = {email};
+        const params: {email: string; currentPassword?: string; code?: string} = {email};
 
         if (currentPassword) {
             params.currentPassword = currentPassword;
@@ -448,8 +487,8 @@ export class UserService {
             url: '/profiles',
             type: 'GET',
             events: {
-                success: 'PROFILE_CREATE',
-                fail: 'PROFILE_CREATE_ERROR',
+                success: 'USER_PROFILE',
+                fail: 'USER_PROFILE_ERROR',
             },
         });
 
@@ -471,6 +510,7 @@ export class UserService {
         this.profile.data.password = formData.data.password;
         this.profile.data.passwordRepeat = formData.data.password;
         this.profile.data.currency = formData.data.currency;
+        this.userProfile$.next(this.profile);
     }
 
     protected get isFastRegistration(): number {

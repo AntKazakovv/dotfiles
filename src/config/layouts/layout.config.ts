@@ -77,7 +77,7 @@ export const $layouts: ILayoutsConfig = {
                 container: true,
                 components: [
                     {
-                        name: 'core.wlc-profile-form',
+                        name: 'user.wlc-profile-form',
                     },
                 ],
             },
