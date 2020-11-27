@@ -1,4 +1,6 @@
-@use './utils/vars' as v;
+@use 'engine-styles/functions' as ef;
+@use 'engine-styles/mixins/mediaqueries' as mq;
+@import './utils/vars';
 
 .wlc-game-thumb {
     display: grid;
@@ -7,6 +9,9 @@
 
     justify-content: center;
     align-items: center;
+
+    border-radius: 4px;
+    overflow: hidden;
 
     &:hover {
 
@@ -40,9 +45,13 @@
 
         z-index: 1;
 
-        opacity: 1;
-        visibility: visible;
+        opacity: 0;
+        visibility: hidden;
         transition: all 0.5s;
+
+        @include mq.max(900) {
+            grid-template-rows: 1fr;
+        }
     }
 
     &__head {
@@ -52,6 +61,10 @@
         grid-gap: 15px;
         justify-content: center;
         overflow-y: hidden;
+
+        @include mq.max(900) {
+            grid-template-rows: 1fr;
+        }
     }
 
     &__name {
@@ -60,6 +73,10 @@
 
         text-align: center;
         line-height: 22px;
+
+        @include mq.max(900) {
+            align-items: center;
+        }
     }
 
     &__icon {
@@ -81,12 +98,20 @@
                 transition: all 0.5s;
             }
         }
+
+        @include mq.max(900) {
+            display: none;
+        }
     }
 
     &__buttons {
         display: flex;
         justify-content: space-evenly;
         align-items: center;
+
+        @include mq.max(900) {
+            display: none;
+        }
 
         button {
 
