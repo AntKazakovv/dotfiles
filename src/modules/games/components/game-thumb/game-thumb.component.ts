@@ -4,6 +4,7 @@ import {Game} from 'wlc-engine/modules/games/models/game.model';
 import {GamesCatalogService} from 'wlc-engine/modules/games';
 import {ConfigService} from 'wlc-engine/modules/core';
 import {IIndexing} from 'wlc-engine/interfaces/global.interface';
+import * as Params from './game-thumb.params';
 
 import {
     merge as _merge,
@@ -27,7 +28,7 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
         protected gamesCatalogService: GamesCatalogService,
         private configService: ConfigService,
     ) {
-        super({injectParams, defaultParams: {}});
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public ngOnInit(): void {
