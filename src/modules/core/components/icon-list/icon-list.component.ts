@@ -15,10 +15,9 @@ import {
     IconModel,
     IIconParams,
 } from 'wlc-engine/modules/core/models/icon-list-item.model';
-import {FilesService} from 'wlc-engine/modules/core';
-import {LogService} from 'wlc-engine/modules/core/services';
+import {EventService, LogService, FilesService} from 'wlc-engine/modules/core/services';
 import * as Params from './icon-list.params';
-import {IMerchant} from 'wlc-engine/modules/games/interfaces/games.interfaces';
+import {gamesEvents, IGames, IMerchant} from 'wlc-engine/modules/games/interfaces/games.interfaces';
 import {GamesCatalogService} from 'wlc-engine/modules/games/services';
 import {
     ConfigService,
@@ -31,8 +30,6 @@ import {
     filter as _filter,
     includes as _includes,
 } from 'lodash';
-
-export {IIconListComponentParams} from './icon-list.params';
 
 @Component({
     selector: '[wlc-icon-list]',
@@ -54,7 +51,8 @@ export class IconListComponent extends AbstractComponent implements OnInit {
         protected gamesCatalogService: GamesCatalogService,
         protected cdr: ChangeDetectorRef,
         protected configService: ConfigService,
-    ){
+        protected eventService: EventService,
+    ) {
         super(
             <IMixedParams<Params.IIconListComponentParams>>
                 {injectParams, defaultParams: Params.defaultParams});
@@ -79,23 +77,26 @@ export class IconListComponent extends AbstractComponent implements OnInit {
     }
 
     protected async setMerchantsLst(): Promise<void> {
-        await this.gamesCatalogService.ready;
-        const merchants: IMerchant[] = _sortedUniqBy(this.gamesCatalogService.getMerchants(), (item: IMerchant) => item.Alias);
+        this.eventService.subscribe({
+            name: gamesEvents.FETCH_GAME_CATALOG_SUCCEEDED,
+        }, () => {
+            const merchants: IMerchant[] = _sortedUniqBy(this.gamesCatalogService.getMerchants(),
+                (item: IMerchant) => item.Alias);
+            this.items = _map<IMerchant, IconModel>(merchants, (item: IMerchant): IconModel => {
+                const image = this.$params.common.iconsColor === 'default'
+                    ? item.Image
+                    : `/gstatic/merchants/${this.$params.common.iconsColor}/${item.Alias.toLowerCase()}.png`;
 
-        this.items = _map<IMerchant, IconModel>(merchants, (item: IMerchant): IconModel => {
-            const image = this.$params.common.iconsColor === 'default'
-                ? item.Image
-                : `/gstatic/merchants/${this.$params.common.iconsColor}/${item.Alias.toLowerCase()}.png`;
-
-            const itemParams: IIconParams = {
-                svgName: this.$params.theme === 'svg' ? item.Alias.toLowerCase() : undefined,
-                iconUrl: this.$params.theme === 'svg' ? undefined : image,
-                alt: item.Name,
-                modifier: this.getItemModifier(item.Alias.toLowerCase()),
-            };
-            return new IconModel(itemParams, this.filesService, this.sanitizer);
+                const itemParams: IIconParams = {
+                    svgName: this.$params.theme === 'svg' ? item.Alias.toLowerCase() : undefined,
+                    iconUrl: this.$params.theme === 'svg' ? undefined : image,
+                    alt: item.Name,
+                    modifier: this.getItemModifier(item.Alias.toLowerCase()),
+                };
+                return new IconModel(itemParams, this.filesService, this.sanitizer);
+            });
+            this.cdr.markForCheck();
         });
-        this.cdr.markForCheck();
     }
 
     protected setPaymentsLst(): void {

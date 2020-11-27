@@ -3,6 +3,7 @@
     "compilerOptions": {
         "baseUrl": "./",
         "outDir": "roots/static/dist",
+        "resolveJsonModule": true,
         "sourceMap": true,
         "declaration": false,
         "downlevelIteration": true,

@@ -7,7 +7,7 @@ import {SignInComponent} from './components/sign-in/sign-in.component';
 import {PasswordRestoreComponent} from './components/password-restore/password-restore.component';
 import {PasswordChangeComponent} from './components/password-change/password-change.component';
 import {HaveAccountComponent} from './components/have-account/have-account.component';
-import {UserService} from './services/user.service';
+import {UserService} from './services';
 import {TranslateModule} from '@ngx-translate/core';
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
 import {DataService} from 'wlc-engine/modules/core/services';
@@ -15,12 +15,14 @@ import {DataService} from 'wlc-engine/modules/core/services';
 import {LoginSignupComponent} from './components/login-signup/login-signup.component';
 import {SignupBonusComponent} from './components/signup-bonus/signup-bonus.component';
 import {TempLogoutComponent} from './components/temp-logout/temp-logout.component';
+import {ProfileFormComponent} from './components/profile-form/profile-form.component';
 
 
 export const components = {
     'wlc-temp-container': TempContainerComponent,
     'wlc-login-signup': LoginSignupComponent,
     'wlc-temp-logout': TempLogoutComponent,
+    'wlc-profile-form': ProfileFormComponent,
 };
 
 @NgModule({
@@ -34,6 +36,7 @@ export const components = {
         LoginSignupComponent,
         SignupBonusComponent,
         TempLogoutComponent,
+        ProfileFormComponent,
     ],
     imports: [
         CommonModule,
@@ -54,6 +57,7 @@ export const components = {
         HaveAccountComponent,
         LoginSignupComponent,
         TempLogoutComponent,
+        ProfileFormComponent,
     ],
 })
 export class UserModule {

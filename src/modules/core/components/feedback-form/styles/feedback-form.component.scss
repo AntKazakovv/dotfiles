@@ -1,1 +1,14 @@
 @import './vars';
+
+.wlc-feedback-form--theme-default:host {
+    max-width: 720px;
+    margin: 0 auto;
+
+    &::ng-deep {
+
+        .wlc-input,
+        .wlc-textarea {
+            margin-bottom: 25px;
+        }
+    }
+}

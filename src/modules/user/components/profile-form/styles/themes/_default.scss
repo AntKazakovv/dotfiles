@@ -1,0 +1,12 @@
+@import '../utils/vars';
+
+.wlc-feedback-form--theme-default:host {
+
+    ::ng-deep {
+
+        .wlc-input,
+        .wlc-select {
+            margin: $itemMargin;
+        }
+    }
+}

@@ -4,7 +4,7 @@ import {IRequestMethod, RestMethodType} from 'wlc-engine/modules/core/services/d
 import {DataService, EventService} from 'wlc-engine/modules/core/services';
 import {PaymentSystem, IPaymentSystem, FilterType} from 'wlc-engine/modules/finances/models/payment-system.model';
 import {IIndexing} from 'wlc-engine/interfaces';
-import {UserService} from 'wlc-engine/modules/user/services/user.service';
+import {UserService} from 'wlc-engine/modules/user/services';
 
 import {
     find as _find,

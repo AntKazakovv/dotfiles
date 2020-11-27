@@ -1,0 +1,68 @@
+@use 'sass:map';
+@import '../utils/vars';
+
+.wlc-textarea--theme-placeholder-shown:host {
+    position: relative;
+    display: flex;
+    flex-flow: column-reverse nowrap;
+    margin: map.get($themePlaceholderShown, 'margin');
+
+    .wlc-textarea__label,
+    .wlc-textarea__textarea {
+        transition: map.get($themePlaceholderShown, 'transition');
+        line-height: 1;
+    }
+
+    .wlc-textarea__textarea {
+        font-size: map.get($themePlaceholderShown, 'textareaFontSize');
+        border: map.get($themePlaceholderShown, 'textareaBorder');
+        border-radius: map.get($themePlaceholderShown, 'textareaBorderRadius');
+        padding: map.get($themePlaceholderShown, 'textareaPadding');
+        text-overflow: ellipsis;
+        overflow: visible;
+        min-height: map.get($themePlaceholderShown, 'textareaMinHeight');
+
+        &::placeholder {
+            opacity: 0;
+        }
+
+        &:focus {
+            outline: 0;
+            border-color: map.get($themePlaceholderShown, 'textareaBorderFocusColor');
+
+            &::placeholder {
+                opacity: 1;
+            }
+        }
+
+        &:placeholder-shown + .wlc-textarea__label {
+            cursor: text;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            transform-origin: left bottom;
+            transform: translateY(-50%);
+        }
+
+        &:not(:placeholder-shown),
+        &:focus {
+
+            & + .wlc-textarea__label {
+                transform: translateY(map.get($themePlaceholderShown, 'placeholderShift'));
+                font-size: map.get($themePlaceholderShown, 'placeholderFontSize');
+                padding: map.get($themePlaceholderShown, 'placeholderPadding');
+                cursor: pointer;
+            }
+        }
+    }
+
+    .wlc-textarea__label {
+        position: absolute;
+        top: 0;
+        left: 0;
+        font-size: map.get($themePlaceholderShown, 'textareaFontSize');
+        padding: map.get($themePlaceholderShown, 'textareaPadding');
+        margin: map.get($themePlaceholderShown, 'margin');
+        line-height: map.get($themePlaceholderShown, 'labelLineHeight');
+    }
+}

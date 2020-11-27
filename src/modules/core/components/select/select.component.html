@@ -8,20 +8,19 @@
             name="{{$params.name}}"
             ngDefaultControl
             (click)="toggleDropdown()"
-            [(ngModel)]="control.value"
             [formControl]="control"
     >{{selectedItem || $params.common.placeholder | translate}}
     </button>
-    <div class="{{$class}}-status">
+    <div class="{{$class}}-status form-control"
+         wlc-form-control
+         [className]="$class"
+         [control]="control"
+    ></div>
+    <div class="{{$class}}-status" *ngIf="control.untouched">
         <span class="{{$class}}-status__arrow" wlc-icon iconName="arrow"></span>
-        <div class="{{$class}}-status__icon"></div>
-        <div class="{{$class}}-status__errors">
-            <div *ngFor="let item of control.errors | keyvalue">
-                {{'validator-' + item.key | translate}}
-            </div>
-        </div>
     </div>
-    <ul class="{{$class}}__dropdown" *ngIf="isOpened && $params?.items.length">
+
+    <ul class="{{$class}}__dropdown" *ngIf="isOpened">
         <li class="{{$class}}__dropdown-item"
             *ngFor="let item of $params.items"
             (click)="selectOption(item)"

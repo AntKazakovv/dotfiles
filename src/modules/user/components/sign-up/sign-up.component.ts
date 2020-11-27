@@ -1,7 +1,7 @@
 import {Component, HostBinding, OnInit, Inject} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {CustomValidator} from 'wlc-engine/modules/user/helper/custom-validator';
-import {UserService} from 'wlc-engine/modules/user/services/user.service';
+import {UserService} from 'wlc-engine/modules/user/services';
 import {ConfigService} from 'wlc-engine/modules/core/services';
 import {
     ModalService,

@@ -71,7 +71,7 @@ export interface IRequestMethod {
 interface IRegisteredMethod extends IRequestMethod {
     flow?: Observable<IData>;
     subject?: BehaviorSubject<IData>;
-    intervalSubcribe?: Subscription;
+    intervalSubscribe?: Subscription;
 }
 
 @Injectable()
@@ -124,7 +124,7 @@ export class DataService {
         registerMethod.subject = new BehaviorSubject<IData>(null);
         registerMethod.flow = registerMethod.subject.asObservable();
         if (registerMethod.period) {
-            registerMethod.intervalSubcribe = interval(registerMethod.period).pipe(
+            registerMethod.intervalSubscribe = interval(registerMethod.period).pipe(
                 filter(() => {
                     return this.apiList[name].subject.observers.length > 0;
                 }),

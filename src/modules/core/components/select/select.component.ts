@@ -10,14 +10,17 @@ import {FormControl} from '@angular/forms';
 import {AbstractComponent} from 'wlc-engine/classes/abstract.component';
 import {ConfigService, EventService} from 'wlc-engine/modules/core/services';
 import {IIndexing} from 'wlc-engine/interfaces';
-import * as Params from 'wlc-engine/modules/core/components/select/select.params';
 import {ICurrency} from 'wlc-engine/modules/finances/interfaces';
+import {BehaviorSubject} from 'rxjs';
+import {takeUntil, first} from 'rxjs/operators';
+
+import * as Params from './select.params';
 
 import {
     map as _map,
     filter as _filter,
+    find as _find,
 } from 'lodash';
-
 
 /**
  * Component select
@@ -36,15 +39,22 @@ import {
     selector: '[wlc-select]',
     templateUrl: './select.component.html',
     styleUrls: ['./styles/select.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SelectComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams: Params.ISelectParams;
     public $params: Params.ISelectParams;
     public control: FormControl;
     public isOpened: boolean;
-    public selectedItem: string | number;
-    private constantValues: IIndexing<Params.ISelectOptions | Params.ISelectOptions[]> = {};
+    public get selectedItem() {
+        const selected = _find(this.$params.items as Params.ISelectOptions[],
+            (item) => {
+                return item.value === this.control.value;
+            },
+        );
+        return selected?.title;
+    };
+
+    private constantValues: IIndexing<BehaviorSubject<Params.ISelectOptions[]>> = {};
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ISelectParams,
@@ -62,7 +72,7 @@ export class SelectComponent extends AbstractComponent implements OnInit {
         this.constantValues = {
             currencies: this.prepareCurrency(),
             countries: this.configService.get('countries'),
-            genders: [
+            genders: new BehaviorSubject([
                 {
                     value: '',
                     title: 'Not selected',
@@ -75,26 +85,28 @@ export class SelectComponent extends AbstractComponent implements OnInit {
                     value: 'm',
                     title: 'Male',
                 },
-            ],
+            ]),
         };
 
         //TODO custom fields
         if (this.$params?.options) {
-            this.$params.items = this.constantValues[this.$params.options];
+            this.constantValues[this.$params.options].pipe(takeUntil(this.$destroy)).subscribe((value) => {
+                this.$params.items = value || [];
+            });
         }
     }
 
     public toggleDropdown(): void {
         this.isOpened = !this.isOpened;
+        this.cdr.markForCheck();
     }
 
     public closeDropdown(): void {
         this.isOpened = false;
     }
 
-    public selectOption(item: IIndexing<any>): void {
+    public selectOption(item: Params.ISelectOptions): void {
         this.control.setValue(item.value);
-        this.selectedItem = gettext(item.title);
         this.toggleDropdown();
         this.cdr.markForCheck();
 
@@ -104,13 +116,17 @@ export class SelectComponent extends AbstractComponent implements OnInit {
         });
     }
 
-    private prepareCurrency(): any {
+    private prepareCurrency(): BehaviorSubject<Params.ISelectOptions[]> {
         const modifyCurrencies = this.configService.get<IIndexing<ICurrency>>('appConfig.siteconfig.currencies');
 
-        return _map(_filter(modifyCurrencies, (el: ICurrency) => {
-            return !el.registration;
-        }), (el) => {
-            return {title: el.Name, value: el.Alias};
-        });
+        return new BehaviorSubject(
+            _map(
+                _filter(modifyCurrencies, (el: ICurrency) => {
+                    return !el.registration;
+                }), (el) => {
+                    return {title: el.Name, value: el.Alias};
+                }),
+        );
+
     }
 }

@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {DataService, IData} from 'wlc-engine/modules/core/services/data/data.service';
-import {IIndexing} from 'wlc-engine/interfaces/global.interface';
 import {Bonus} from '../models/bonus';
 import {IBonus} from '../interfaces/bonuses.interface';
 import {ConfigService, EventService} from 'wlc-engine/modules/core/services';

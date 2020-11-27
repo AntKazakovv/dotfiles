@@ -9,7 +9,7 @@ import {GamesCatalogService} from 'wlc-engine/modules/games/services';
 import {Deferred} from 'wlc-engine/classes';
 import {Game} from 'wlc-engine/modules/games/models/game.model';
 import {ModalService} from 'wlc-engine/modules/core/services';
-import {UserService} from 'wlc-engine/modules/user/services/user.service';
+import {UserService} from 'wlc-engine/modules/user/services';
 import {IModalConfig} from 'wlc-engine/modules/core/components/modal';
 
 import {

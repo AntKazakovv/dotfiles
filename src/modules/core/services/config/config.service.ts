@@ -9,6 +9,7 @@ import {
     LocalStorageService,
     SessionStorageService,
 } from 'ngx-store';
+import {BehaviorSubject} from 'rxjs';
 import {
     IGlobalConfig,
     IGetParams,
@@ -119,6 +120,12 @@ export class ConfigService {
         this.global.appConfig = new AppConfigModel(response);
         this.set<boolean>({name: '$user.isAuthenticated', value: this.global.appConfig.loggedIn === '1'});
         this.addSiteConfig();
+
+        this.set<any>({
+            name: 'countries',
+            value: new BehaviorSubject({}),
+        });
+
         this.$resolve();
         return this.appConfig;
     }
@@ -135,6 +142,8 @@ export class ConfigService {
             url: '/countries',
             system: 'user',
             type: 'GET',
-        }).then((data: IData) => this.set({name: 'countries', value: data.data.countries}));
+        }).then((data: IData) => {
+            this.get<BehaviorSubject<any>>('countries').next(data.data.countries);
+        });
     }
 }

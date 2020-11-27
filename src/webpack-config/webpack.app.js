@@ -1,15 +1,14 @@
 const ESLintPlugin = require('eslint-webpack-plugin');
 const StylelintPlugin = require('stylelint-webpack-plugin');
-const eslintConfig = require('../../.eslintrc.js');
-const stylelintConfig = require('../../stylelint.config.js');
 const WlcTemplateReplacePlugins = require('./wlcTemplateReplacePlugins');
 const WlcStructureInfoPlugin = require('./wlcStructureInfoPlugin');
+const WlcStaticImagePlugin = require('./wlcStaticImagePlugin');
+const WlcWatchExtFilesPlugin = require('./wlcWatchExtFilesPlugin');
 
 module.exports = (config, schema, env) => {
     const isDev = env.configuration === 'dev';
 
     config.plugins.push(new ESLintPlugin({
-        config: eslintConfig,
         files: [
             'src/**/*.{ts,js}',
             'config/frontend/**/*.{ts,js}',
@@ -20,10 +19,13 @@ module.exports = (config, schema, env) => {
     }));
 
     config.plugins.push(new StylelintPlugin({
-        config: stylelintConfig,
         lintDirtyModulesOnly: true,
         cache: true,
         failOnError: false,
+    }));
+
+    config.plugins.push(new WlcStaticImagePlugin({
+        outputFile: 'src/staticImagesList',
     }));
 
     config.plugins.push(WlcTemplateReplacePlugins.styles);
@@ -32,8 +34,11 @@ module.exports = (config, schema, env) => {
 
     if(isDev) {
         config.plugins.push(new WlcStructureInfoPlugin());
+        config.plugins.push(new WlcWatchExtFilesPlugin([
+            'roots/static/images',
+            'src/custom',
+        ]));
     }
 
     return config;
 };
-
