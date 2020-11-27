@@ -1,95 +1,175 @@
 import {Injectable} from '@angular/core';
-import {files as defaultFiles} from '../../config/files.config';
-import {getFileBody} from 'wlc-svg/index';
+import {localFiles} from '../../config/files.config';
+import {getFileBody} from 'wlc-src/svg';
+import imagesList from 'wlc-src/staticImagesList.json';
 import {getEngineFileBody} from 'wlc-engine/svg';
-import {ConfigService} from 'wlc-engine/modules/core';
+import {ConfigService} from 'wlc-engine/modules/core/services';
 import {IIndexing} from 'wlc-engine/interfaces';
+import {HttpClient, HttpResponse} from '@angular/common/http';
 
 import {
-    get as _get,
     find as _find,
     findIndex as _findIndex,
     map as _map,
     reduce as _reduce,
-    concat as _concat,
+    unionBy as _unionBy,
+    flatten as _flatten,
+    includes as _includes,
 } from 'lodash';
 
-type SourceFileType = 'wlc' | 'engine';
+type LocationFileType =
+    'local-wlc'
+    | 'local-engine'
+    | 'gstatic'
+    | 'static';
 
-interface ISvgFile {
-    name: string;
-    source?: string;
-    htmlString?: string;
-}
+type FileTypeType = 'svg' | 'bin';
 
 interface IFileMeta {
     name: string;
-    file: string;
-    source: SourceFileType;
+    type: FileTypeType,
+    path?: string;
+    location: LocationFileType;
+}
+
+export interface IFile {
+    key: string;
+    location?: LocationFileType;
+    htmlString?: string;
+    url?: string;
 }
 
 @Injectable()
 export class FilesService {
     protected rowFileList: IFileMeta[] = [];
-    protected svgFiles: ISvgFile[] = [];
-    // protected base64Files: any[] = []; // soon
+    protected stashedFiles: IFile[] = [];
 
     constructor(
         protected configService: ConfigService,
+        private httpClient: HttpClient,
     ) {
         this.init();
     }
 
-    public getSvgFile(key: string): ISvgFile {
-        const file: ISvgFile = _find(this.svgFiles, (item) => item.name === key);
+    public async getFileByUrl(url: string): Promise<IFile> {
+        const fileUrl = this.normalizeFileUrl(url);
+
+        let file: IFile = _find(this.stashedFiles, (item) => item.key === fileUrl);
 
         if (file) {
             return file;
         }
 
-        const emptyFile: ISvgFile = {name: key};
-        const fileMeta: IFileMeta = _find(this.rowFileList, ({name}) => name === key);
+        const location: LocationFileType = _includes(imagesList, fileUrl)
+            ? 'static'
+            : 'gstatic';
+        const fullUrl = this.getStaticFileUrl(location, fileUrl);
 
-        if (!_get(fileMeta, 'name')) {
-            return emptyFile;
+        file = this.getFileType(fileUrl) === 'bin'
+            ? {
+                key: fileUrl,
+                location,
+                url: fullUrl,
+            } : {
+                key: fileUrl,
+                location,
+                url: fullUrl,
+                htmlString: await this.fetchStaticFile(fullUrl),
+            };
+
+        this.stashFile(file);
+        return file;
+    }
+
+    public getSvgByName(key: string): IFile {
+        const fileMeta: IFileMeta = _find(this.rowFileList, (item) => item.name === key);
+
+        if (!fileMeta) {
+            return {key};
         }
 
         try {
-            const fileBody = fileMeta.source === 'wlc'
-                ? getFileBody(fileMeta.file)
-                : getEngineFileBody(fileMeta.file);
+            const htmlString = fileMeta.location === 'local-wlc'
+                ? getFileBody(fileMeta.path)
+                : getEngineFileBody(fileMeta.path);
 
-            return {
-                name: key,
-                htmlString: fileBody,
+            const svg: IFile = {
+                key,
+                location: fileMeta.location,
+                htmlString,
             };
+
+            this.stashFile(svg);
+            return svg;
+
         } catch (e) {
-            return emptyFile;
+            return {key};
+        }
+    }
+
+    protected normalizeFileUrl(fileUrl: string): string {
+        return fileUrl[0] === '/' ? fileUrl : '/' + fileUrl;
+    }
+
+    protected getStaticFileUrl(location: LocationFileType, fileName: string): string {
+        if (location === 'gstatic') {
+            return `/gstatic${fileName}`;
+        } else {
+            return `/static/images${fileName}`;
         }
     }
 
     protected init(): void {
-        const wlcFiles: IFileMeta[] = this.transformToFileMeta(
-            this.configService.get<IIndexing<string>>('$files') || {});
-        const engineFiles: IFileMeta[] = this.transformToFileMeta(defaultFiles, 'engine');
+        const wlcFiles = this.configService.get<IIndexing<string>>('$localFiles');
 
-        this.rowFileList = this.mergeFileLists(wlcFiles, engineFiles);
+        this.rowFileList = this.mergeFileLists([
+            this.transformToFileMeta(wlcFiles, 'local-wlc'),
+            this.transformToFileMeta(localFiles, 'local-engine'),
+        ]);
     }
 
-    protected transformToFileMeta(list: IIndexing<string>, source: SourceFileType = 'wlc'): IFileMeta[] {
-        return _map(list, (file, name) => ({name, file, source}));
+    protected stashFile(file: IFile): void {
+        this.stashedFiles = _unionBy(this.stashedFiles, [file], 'name');
     }
 
-    protected mergeFileLists(wlcFiles: IFileMeta[], engineFiles: IFileMeta[]): IFileMeta[] {
-        return _reduce(_concat(wlcFiles, engineFiles), (acc, item) => {
+    protected async fetchStaticFile(url: string): Promise<string> {
+        try {
+            const res: HttpResponse<string> = await this.httpClient.request('GET', url, {
+                headers: {
+                    'Cache-Control': 'public, max-age=31536000',
+                },
+                observe: 'response',
+                responseType: 'text',
+            }).toPromise();
+
+            return res.body;
+        } catch (e) {
+            return undefined;
+        }
+    }
+
+    protected transformToFileMeta(list: IIndexing<string>, location: LocationFileType): IFileMeta[] {
+        return _map(list, (path, name) => ({
+            name,
+            path,
+            location,
+            type: this.getFileType(path),
+        }));
+    }
+
+    protected mergeFileLists(lists: IFileMeta[][]): IFileMeta[] {
+        return _reduce(_flatten(lists), (acc, item) => {
             const index = _findIndex(acc, ({name}) => name === item.name);
             if (index < 0) {
                 acc.push(item);
-            } else if (item.source === 'wlc'){
+            } else if (_includes(item.location, 'wlc')) {
                 acc[index] = item;
             }
             return acc;
         }, []);
     }
 
+    protected getFileType(fileName: string): FileTypeType {
+        return /\.svg$/i.test(fileName) ? 'svg' : 'bin';
+    }
 }

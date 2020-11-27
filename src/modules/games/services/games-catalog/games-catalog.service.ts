@@ -88,6 +88,7 @@ export class GamesCatalogService {
             name: gamesEvents.FETCH_JACKPOTS_SUCCEEDED,
         }, (jackpots: IJackpot[]) => {
             this.gamesCatalog.loadJackpots(jackpots as IJackpot[]);
+            this.$resolve();
         });
 
         // TODO подписка на login/logout
