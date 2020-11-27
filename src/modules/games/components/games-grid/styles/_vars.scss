@@ -8,8 +8,9 @@ $currentGap: 25px;
 $contentPadding: ef.get('size', 'big') !default;
 $listMargin: ef.get('size', 'big') !default;
 
-$itemMinWidth: 255px; // TODO add game thumb min width param
-$itemMinWidthMobile: 140px; // TODO add game thumb mobile min width param
+$itemMinWidth: 255px;
+$itemMinWidthTablet: 225px;
+$itemMinWidthMobile: 180px;
 $itemHeight: 150px;
 
 $placeholderBackground: ef.get('color', 'backgroundSecondary') !default;
