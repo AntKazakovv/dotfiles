@@ -15,4 +15,5 @@ export const localFiles: IIndexing<string> = {
     'search': 'icons/search.svg',
     'filter': 'icons/filter.svg',
     'age-restrictions': 'icons/age-restrictions.svg',
+    'info': '/icons/info.svg',
 };

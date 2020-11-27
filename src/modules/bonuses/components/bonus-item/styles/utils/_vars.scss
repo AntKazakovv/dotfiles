@@ -1,0 +1,126 @@
+@use 'engine-styles/functions' as ef;
+
+// // Size
+$minWidth: 300px !default;
+$maxWidth: 320px !default;
+$height: 370px !default;
+
+$relativeImageHeight: 70% !default;
+
+$bonusIconSize: 170px !default;
+$bonusIconValueBlockSize: 40px !default;
+
+$activeBlockMaxWidth: 80% !default;
+
+$progressBarSize: 5px !default;
+
+$moreIconSize: 24px !default;
+
+$moreIconColor: ef.get('color', 'text') !default;
+
+// // Font
+$bonusIconFontSize: ef.get('font', 'big') !default;
+$bonusIconColor:rgba(0, 0, 0, 0.3) !default;
+$bonusIconValueFontSize: ef.get('font', 'less') !default;
+$bonusIconValueFontColor: #000000 !default;
+
+$tagFontColor: #000 !default;
+$tagFontSize: ef.get('font', 'small') !default;
+
+$nameFontColor: ef.get('color', 'text') !default;
+$nameFontSize: ef.get('font', 'biger') !default;
+
+$descriptionFontColor: ef.get('color', 'text') !default;
+$descriptionFontSize: ef.get('font', 'less') !default;
+
+$activeBlockFontColor: ef.get('color', 'text') !default;
+$activeBlockFontSize: ef.get('font', 'less') !default;
+
+$activeBlockFontSecondaryColor: ef.get('color', 'text') !default;
+$activeBlockFontSecondarySize: ef.get('font', 'less') !default;
+
+// // Backgrounds
+$background: ef.get('color', 'backgroundSecondary') !default;
+$backgroundHover:  ef.get('color', 'backgroundSecondary') !default;
+
+$backgroundExperience: ef.get('color', 'backgroundSecondary') !default;
+$backgroundExperienceHover:  ef.get('color', 'backgroundSecondary') !default;
+
+$backgroundLoyalty: ef.get('color', 'backgroundSecondary') !default;
+$backgroundLoyaltyHover:  ef.get('color', 'backgroundSecondary') !default;
+
+$backgroundBalance: ef.get('color', 'backgroundSecondary') !default;
+$backgroundBalanceHover:  ef.get('color', 'backgroundSecondary') !default;
+
+$backgroundFreerounds: ef.get('color', 'backgroundSecondary') !default;
+$backgroundFreeroundsHover:  ef.get('color', 'backgroundSecondary') !default;
+
+$backgroundRelative: ef.get('color', 'backgroundSecondary') !default;
+$backgroundRelativeHover:  ef.get('color', 'backgroundSecondary') !default;
+
+$imageBg: rgba(0, 0, 0, 0.3) !default;
+
+$bonusIconBg: transparent !default;
+$bonusIconBgImage: none !default;
+
+$bonusIconBgExperience: transparent !default;
+$bonusIconBgExperienceImage: none !default;
+
+$bonusIconBgLoyalty: transparent !default;
+$bonusIconBgLoyaltyImage: none !default;
+
+$bonusIconBgBalance: transparent !default;
+$bonusIconBgBalanceImage: none !default;
+
+$bonusIconBgFreerounds: transparent !default;
+$bonusIconBgFreeroundsImage: none !default;
+
+$bonusIconBgRelative: transparent !default;
+$bonusIconBgRelativeImage: none !default;
+
+$bonusIconValueBg: #fff !default;
+
+$tagBg: #fff !default;
+
+$activeBlockTimerBg: ef.get('color', 'background') !default;
+$activeBlockProgressBg: ef.get('color', 'background') !default;
+
+$progressBarBg: ef.get('color', 'backgroundSecondary') !default;
+$progressBarColor: ef.get('color', 'text') !default;
+
+// // Radius
+$radius: ef.get('radius', 'biger') !default;
+$tagRadius: ef.get('radius', 'biger') !default;
+
+$activeBlockRadius: 0 !default;
+$activeBlockTimerRadius: ef.get('radius', 'biger') !default;
+$activeBlockProgressRadius: ef.get('radius', 'biger') !default;
+
+$progressBarRadius: 5px !default;
+
+//Padding
+$bonusIconMargin: 50px auto 0 auto !default;
+$tagPadding: 0 ef.get('size', 'small') !default;
+$infoPadding: 0 ef.get('size', 'small') !default;
+
+$activeBlockPadding: ef.get('size', 'small') !default;
+$activeBlockMargin: 0 auto !default;
+$activeBlockTimerPadding: ef.get('size', 'small') !default;
+$activeBlockTimerMargin: 0 !default;
+$activeBlockProgressPadding: ef.get('size', 'small') !default;
+$activeBlockProgressMargin: 0 !default;
+
+$progressBarMargin: ef.get('size', 'smallest') 0 !default;
+
+$btnMargin: 0 ef.get('size', 'smallest') !default;
+
+//Position
+$tagPositionTop: ef.get('size', 'smaller') !default;
+
+$moreIconPosLeft: auto !default;
+$moreIconPosRight: ef.get('size', 'small') !default;
+$moreIconPosTop: ef.get('size', 'small') !default;
+$moreIconPosBottom: auto !default;
+
+// Animation
+$time: ef.get('time', 'main') !default;
