@@ -18,7 +18,7 @@ export interface ISelectParams extends IComponentParams<ComponentTheme, Componen
     locked?: boolean;
 
     options?: string;
-    items?: BehaviorSubject<ISelectOptions[]>;
+    items?: ISelectOptions[];
 }
 
 export interface ISelectOptions {

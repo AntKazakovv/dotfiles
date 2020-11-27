@@ -46,7 +46,7 @@ export class SelectComponent extends AbstractComponent implements OnInit {
     public control: FormControl;
     public isOpened: boolean;
     public get selectedItem() {
-        const selected = _find(this.$params.items as Params.ISelectOptions[],
+        const selected = _find(this.$params.items,
             (item) => {
                 return item.value === this.control.value;
             },
