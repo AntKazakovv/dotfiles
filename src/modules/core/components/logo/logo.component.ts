@@ -1,93 +1,55 @@
 import {
     Component,
     OnInit,
-    HostBinding,
     ChangeDetectionStrategy,
     Inject,
 } from '@angular/core';
-import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
-import {TransitionOptions} from '@uirouter/core';
-import {ConfigService, FilesService} from 'wlc-engine/modules/core';
-
-import {
-    get as _get,
-    extend as _extend,
-    keys as _keys,
-} from 'lodash';
-
-interface IParams {
-    link: string;
-    uiOptions?: TransitionOptions;
-    disableLink?: boolean;
-    customLogo?: string;
-    image?: {
-        name?: string;
-        url?: string;
-    };
-}
+import * as Params from './logo.params';
+import {ConfigService} from 'wlc-engine/modules/core/services';
+import {AbstractComponent} from 'wlc-engine/classes/abstract.component';
 
 @Component({
     selector: '[wlc-logo]',
     templateUrl: './logo.component.html',
-    styleUrls: ['./logo.component.scss'],
+    styleUrls: ['./styles/logo.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LogoComponent implements OnInit {
-    @HostBinding('class') hostClass = 'wlc-logo';
-
-    public params: IParams;
-    public logoHtml: SafeHtml;
-
-    protected defaultConfig: IParams = {
-        link: 'app.home',
-        uiOptions: {
-            reload: true,
-            inherit: true,
-        },
-        disableLink: false,
-        image: {
-            name: 'defaultLogo',
-        },
-    };
+export class LogoComponent extends AbstractComponent implements OnInit {
+    public $params: Params.IParams;
+    public logoImageSource: string;
 
     constructor(
-        @Inject('injectParams') protected componentParams: IParams,
+        @Inject('injectParams') protected componentParams: Params.IParams,
         protected configService: ConfigService,
-        protected filesService: FilesService,
-        protected sanitizer: DomSanitizer,
     ) {
+        super({
+            injectParams: componentParams,
+            defaultParams: Params.defaultParams,
+        });
     }
 
     public ngOnInit(): void {
-        this.params = _extend({}, this.defaultConfig, this.componentParams);
-        this.params.image = _keys(this.componentParams.image).length
-            ? this.componentParams.image
-            : this.defaultConfig.image;
+        super.ngOnInit();
 
-        if (this.params.disableLink) {
-            this.params.link = '.';
-            this.params.uiOptions.reload = false;
+        if (this.$params.disableLink) {
+            this.$params.link = '.';
+            this.$params.uiOptions.reload = false;
         }
 
-        const htmlString = this.getLogoImageHtml();
-        if (htmlString) {
-            this.logoHtml = this.sanitizer.bypassSecurityTrustHtml(htmlString);
-        }
+        this.logoImageSource = this.getLogoImageSource();
     }
 
-    protected getLogoImageHtml(): string {
-        const customLogoName = _get(this.params, 'image.name');
-        const customLogoUrl = _get(this.params, 'image.url');
-        const customMainLogoName = this.configService.get<string>({name: '$base.customLogoName'});
+    protected getLogoImageSource(): string {
+        const customLogoName = this.$params.image.name;
+        const customLogoUrl = this.$params.image.url;
+        const customMainConfigLogoName = this.configService.get<string>({name: '$base.customLogoName'});
 
         if (customLogoUrl) {
-            return `<img src="${customLogoUrl}">`;
+            return customLogoUrl;
         } else if (customLogoName) {
-            return this.filesService.getSvgFile(customLogoName).htmlString;
-        } else if (customMainLogoName) {
-            return this.filesService.getSvgFile(customMainLogoName).htmlString;
-        } else {
-            return this.filesService.getSvgFile(this.params.image.name).htmlString;
+            return customLogoName;
+        } else if (customMainConfigLogoName) {
+            return customMainConfigLogoName;
         }
     }
 }

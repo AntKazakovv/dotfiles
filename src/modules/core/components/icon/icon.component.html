@@ -1,1 +1,7 @@
-<span class="wlc-icon" [innerHTML]="iconHtml"></span>
+<span class="{{$class}}-content"
+      *ngIf="imageHtml"
+      [innerHTML]="imageHtml"></span>
+
+<img class="{{$class}}-content"
+     *ngIf="imagePath"
+     [src]="imagePath">

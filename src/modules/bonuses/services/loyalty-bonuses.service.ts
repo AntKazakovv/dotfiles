@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {DataService, IData} from 'wlc-engine/modules/core/services/data/data.service';
-import {IIndexing} from 'wlc-engine/interfaces/global.interface';
 import {Bonus} from '../models/bonus';
 import {IBonus} from '../interfaces/bonuses.interface';
 import {ConfigService, EventService} from 'wlc-engine/modules/core/services';
@@ -9,7 +8,6 @@ import {
     filter as _filter,
     includes as _includes,
 } from 'lodash';
-import {log} from 'util';
 
 @Injectable({
     providedIn: 'root',
@@ -65,7 +63,6 @@ export class LoyaltyBonusesService {
     public async loadBonuses(): Promise<void> {
         this.bonuses = await this.dataService.request('bonuses/bonuses')
             .then((data: IData) => this.modifyBonuses(data.data));
-        console.log(this.bonuses);
     }
 
     public async getBonusesByCode(code: string): Promise<Bonus[]> {

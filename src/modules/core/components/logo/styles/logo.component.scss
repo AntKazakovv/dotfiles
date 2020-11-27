@@ -1,9 +1,5 @@
 :host {
-
-    img {
-        max-width: 100px;
-        max-height: 100px;
-    }
+    display: inline-block;
 }
 
 .wlc-logo__image::ng-deep {

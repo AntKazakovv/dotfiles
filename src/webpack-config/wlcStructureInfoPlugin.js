@@ -1,21 +1,36 @@
 const fs = require('fs');
 const path = require('path');
-const projName = 'Project';
+const _isEqual = require('lodash/isEqual');
+const _cloneDeep = require('lodash/cloneDeep');
 
 module.exports = class WlcStructureInfoPlugin {
-    emoji = true;
+    dirTree = {};
+
+    opts = {
+        emoji: true,
+        sourcePath: './src/custom',
+        outputFile: 'CustomStructure.md',
+    }
+
+    constructor(opts = {}) {
+        Object.assign(this.opts, opts);
+    }
 
     apply(compiler) {
         compiler.hooks.done.tap('WlcStructureInfoPlugin', () => {
-            console.time('CustomStructure.md created');
-            const mdTree = this.getMdTree(path.resolve('./src/custom'));
-            const mainOutData = `# Custom structure of ${projName} \n ${mdTree}`;
+            const mdTree = this.getMdTree(path.resolve(this.opts.sourcePath));
 
-            fs.writeFile('CustomStructure.md', mainOutData, (err) => {
+            if (!mdTree) {
+                return;
+            }
+
+            const mainOutData = `# Custom structure of project \n ${mdTree}`;
+
+            fs.writeFile(this.opts.outputFile, mainOutData, (err) => {
                 if(err) {
                     console.log(err);
                 }
-                console.timeEnd('CustomStructure.md created');
+                console.log(`${this.opts.outputFile} created`);
             });
         });
     }
@@ -48,11 +63,17 @@ module.exports = class WlcStructureInfoPlugin {
                 }
             });
         };
+        const updDirTree = this.getDirTree(dirPath);
 
-        const dirTree = this.getDirTree(dirPath);
-        this.removeEmptyDir(dirTree);
+        if(_isEqual(this.dirTree, updDirTree)) {
+            return null;
+        }
 
-        parseTree(dirTree);
+        this.dirTree = _cloneDeep(updDirTree);
+
+        this.removeEmptyDir(updDirTree);
+
+        parseTree(updDirTree);
         output += closeTags;
 
         return output;
@@ -103,7 +124,7 @@ module.exports = class WlcStructureInfoPlugin {
     }
 
     directoryName(name) {
-        return `- ${(this.emoji ? '📂 ' : '') + name}`;
+        return `- ${(this.opts.emoji ? '📂 ' : '') + name}`;
     };
 
     fileName(name) {

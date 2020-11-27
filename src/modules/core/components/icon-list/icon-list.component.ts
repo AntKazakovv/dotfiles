@@ -15,10 +15,9 @@ import {
     IconModel,
     IIconParams,
 } from 'wlc-engine/modules/core/models/icon-list-item.model';
-import {FilesService} from 'wlc-engine/modules/core';
-import {EventService, LogService} from 'wlc-engine/modules/core/services';
+import {EventService, LogService, FilesService} from 'wlc-engine/modules/core/services';
 import * as Params from './icon-list.params';
-import {gamesEvents, IMerchant} from 'wlc-engine/modules/games/interfaces/games.interfaces';
+import {gamesEvents, IGames, IMerchant} from 'wlc-engine/modules/games/interfaces/games.interfaces';
 import {GamesCatalogService} from 'wlc-engine/modules/games/services';
 import {
     ConfigService,

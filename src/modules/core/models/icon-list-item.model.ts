@@ -1,10 +1,5 @@
 import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
-
 import {FilesService} from 'wlc-engine/modules/core';
-
-import {
-    assign as _assign,
-} from 'lodash';
 
 export interface IIconParams {
     modifier?: string;
@@ -49,7 +44,7 @@ export class IconModel {
     public get svg(): SafeHtml {
         if (this.icon.svgName) {
             const icon = this.icon.svgPrefix ? this.icon.svgPrefix + this.icon.svgName : this.icon.svgName;
-            const svg = this.filesService.getSvgFile(icon).htmlString;
+            const svg = this.filesService.getSvgByName(icon).htmlString;
             if (svg) {
                 return this.sanitizer.bypassSecurityTrustHtml(svg);
             }
