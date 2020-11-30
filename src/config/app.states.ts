@@ -10,6 +10,7 @@ import {
     gamePlayState,
     pagesState,
     contactsState,
+    profileState,
 } from './states';
 
 import {
@@ -24,6 +25,7 @@ const states = {
     'app.gameplay': gamePlayState,
     'app.pages': pagesState,
     'app.contacts': contactsState,
+    'app.profile': profileState,
 };
 
 const appState: Ng2StateDeclaration = {

@@ -1,0 +1,20 @@
+@use 'engine-styles/functions' as ef;
+
+$headerColor: ef.get('color', 'main') !default;
+$allLinkColor: ef.get('color', 'link') !default;
+
+//$currentGap: ef.get('size', 'main') !default;
+$currentGap: 20px;
+$contentPadding: ef.get('size', 'big') !default;
+$listMargin: ef.get('size', 'big') !default;
+
+$itemMinWidth: 255px;
+$itemMinWidthTablet: 225px;
+$itemMinWidthMobile: 180px;
+$itemHeight: 150px;
+
+$placeholderBackground: ef.get('color', 'backgroundSecondary') !default;
+$placeholderBorderRadius: ef.get('radius', 'less') !default;
+$placeholderTextColor: ef.get('color', 'textSecondary') !default;
+
+$resultMarginBottom: ef.get('size', 'main');

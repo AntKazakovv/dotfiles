@@ -1,5 +1,4 @@
 import {IComponentParams, CustomType} from 'wlc-engine/classes/abstract.component';
-import {IIndexing} from 'wlc-engine/interfaces';
 
 export type Type = 'default' | 'resolved' | 'rejected' | 'pending' | 'disabled' | CustomType;
 export type Theme = 'default' | 'skew' | 'rounding' | 'circled' | CustomType;
@@ -27,7 +26,7 @@ export interface IButtonParams extends IComponentParams<Theme, Type, ThemeMod> {
 }
 
 export const defaultParams: IButtonParams = {
-    moduleName: 'base',
+    moduleName: 'core',
     componentName: 'wlc-button',
     class: 'wlc-btn',
     common: {

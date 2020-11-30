@@ -11,33 +11,39 @@ export const defaultParams: IFeedbackFormCParams = {
 };
 
 export const feedbackConfig: IFormWrapperCParams = {
+    class: 'wlc-form-wrapper',
     components: [
         {
             name: 'core.wlc-input',
             params: {
+                theme: 'placeholder-shown',
                 common: {
-                    placeholder: 'Your name',
+                    placeholder: 'Your name *',
                 },
                 name: 'senderName',
                 validators: ['required'],
+                exampleValue: 'Example: Ivan',
             },
         },
         {
             name: 'core.wlc-input',
             params: {
+                theme: 'placeholder-shown',
                 common: {
-                    placeholder: 'Email',
+                    placeholder: 'Email *',
                     type: 'email',
                 },
                 name: 'senderEmail',
                 validators: ['required', 'email'],
+                exampleValue: 'example@mail.com',
             },
         },
         {
             name: 'core.wlc-input',
             params: {
+                theme: 'placeholder-shown',
                 common: {
-                    placeholder: 'Subject',
+                    placeholder: 'Subject *',
                 },
                 name: 'subject',
                 validators: ['required'],
@@ -46,7 +52,10 @@ export const feedbackConfig: IFormWrapperCParams = {
         {
             name: 'core.wlc-textarea',
             params: {
-                placeholder: 'Message',
+                theme: 'placeholder-shown',
+                common: {
+                    placeholder: 'Message *',
+                },
                 name: 'message',
                 validators: ['required'],
             },

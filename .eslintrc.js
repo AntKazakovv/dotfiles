@@ -11,7 +11,7 @@ module.exports = {
         ],
         '@angular-eslint/component-selector': [
             'error',
-            {type: 'class', prefix: 'wlc', style: 'kebab-case'},
+            {type: 'attribute', prefix: 'wlc', style: 'kebab-case'},
         ],
         '@typescript-eslint/no-inferrable-types': 'off',
         'semi': ['error', 'always'],

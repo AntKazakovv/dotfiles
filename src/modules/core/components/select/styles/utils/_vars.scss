@@ -15,7 +15,7 @@ $selectColor: ef.get('color', text) !default;
 $selectBorder: 2px solid rgba(0, 0, 0, 0.04) !default;
 $selectBorderRadius: 10px !default;
 $selectBorderFocusColor: rgba(0, 0, 0, 0.2) !default;
-$selectBackground: transparent !default;
+$selectBackground: #fff !default;
 $selectTextAlign: left !default;
 $selectPadding: 5px 35px 5px 20px !default;
 $selectArrowColor: #f12e74 !default;

@@ -12,3 +12,4 @@ $textColorHover: darken(ef.get('color', 'linkSecondary'), 5%) !default;
 $textDecoration: none !default;
 $fontWeight: 700 !default;
 $fontSize: ef.get('font', 'main') !default;
+$padding: 20px 25px;

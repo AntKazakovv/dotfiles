@@ -29,8 +29,10 @@ export const wlcMainMenuItemsGlobal: Params.IMenuItemsGlobal = {
         class: 'live',
         params: {
             state: {
-                name: 'app.catalog.live',
-                params: {category: ''},
+                name: 'app.catalog',
+                params: {
+                    category: 'live',
+                },
             },
         },
     },
@@ -52,7 +54,9 @@ export const wlcMainMenuItemsGlobal: Params.IMenuItemsGlobal = {
         params: {
             state: {
                 name: 'app.contacts',
-                params: {},
+                params: {
+                    slug: 'feedback',
+                },
             },
         },
     },

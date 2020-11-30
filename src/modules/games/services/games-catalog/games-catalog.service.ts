@@ -10,7 +10,7 @@ import {
 import {GamesCatalog} from 'wlc-engine/modules/games/models/games-catalog.model';
 import {Game} from 'wlc-engine/modules/games/models/game.model';
 import {EventService} from 'wlc-engine/modules/core/services';
-import {UserService} from 'wlc-engine/modules/user/services/user.service';
+import {UserService} from 'wlc-engine/modules/user/services';
 
 import {
     ICategory,
@@ -22,7 +22,6 @@ import {
     IGames,
     gamesEvents,
 } from 'wlc-engine/modules/games/interfaces/games.interfaces';
-import {error} from "selenium-webdriver";
 
 @Injectable({
     providedIn: 'root',
@@ -90,6 +89,7 @@ export class GamesCatalogService {
             name: gamesEvents.FETCH_JACKPOTS_SUCCEEDED,
         }, (jackpots: IJackpot[]) => {
             this.gamesCatalog.loadJackpots(jackpots as IJackpot[]);
+            this.$resolve();
         });
 
         // TODO подписка на login/logout

@@ -1,4 +1,7 @@
-@use './utils/vars' as v;
+@use 'engine-styles/functions' as ef;
+@use 'engine-styles/mixins/mediaqueries' as mq;
+@import './utils/vars';
+@import './utils/mixins';
 
 .wlc-game-thumb {
     display: grid;
@@ -8,19 +11,21 @@
     justify-content: center;
     align-items: center;
 
+    border-radius: 4px;
+    overflow: hidden;
+
     &:hover {
 
         .wlc-game-thumb__desc {
             opacity: 1;
             visibility: visible;
-            transition: all 0.5s;
+            transition: $transition;
         }
     }
 
     &__img {
         grid-area: 1 / 1 / 2 / 2;
-        background-color: #cccccc;
-        transition: all 0.4s;
+        transition: $transition;
 
         img {
             width: 100%;
@@ -33,16 +38,20 @@
         grid-template-rows: 45% 45%;
         grid-gap: 15px;
         grid-area: 1 / 1 / 2 / 2;
-        background-color: rgba(221, 221, 221, 0.8);
+        background-color: $thumbHoverBg;
 
         height: 100%;
         padding: 20px;
 
         z-index: 1;
 
-        opacity: 1;
-        visibility: visible;
-        transition: all 0.5s;
+        opacity: 0;
+        visibility: hidden;
+        transition: $transition;
+
+        @include mq.max(900) {
+            grid-template-rows: 1fr;
+        }
     }
 
     &__head {
@@ -52,14 +61,27 @@
         grid-gap: 15px;
         justify-content: center;
         overflow-y: hidden;
+
+        @include mq.max(900) {
+            grid-template-rows: 1fr;
+        }
     }
 
     &__name {
         display: flex;
         justify-content: center;
 
-        text-align: center;
+        color: $thumbNameColor;
+        font: {
+            size: $thumbNameSize;
+            weight: $thumbNameWeight;
+        }
+        text-align: $thumbNamePosition;
         line-height: 22px;
+
+        @include mq.max(900) {
+            align-items: center;
+        }
     }
 
     &__icon {
@@ -67,19 +89,30 @@
         height: 20px;
 
         display: flex;
-        justify-self: flex-end;
+        justify-self: $favoritePosition;
 
         svg {
             width: inherit;
             height: inherit;
 
-            fill: #aaaaaa;
-            transition: all 0.5s;
+            fill: $favoriteBg;
+            transition: $transition;
 
             &:hover {
-                fill: #333333;
-                transition: all 0.5s;
+                fill: $favoriteHoverBg;
+                transition: $transition;
             }
+        }
+
+        &.active {
+
+            svg {
+                fill: $favoriteActiveBg;
+            }
+        }
+
+        @include mq.max(900) {
+            display: none;
         }
     }
 
@@ -88,11 +121,21 @@
         justify-content: space-evenly;
         align-items: center;
 
+        @include mq.max(900) {
+            display: none;
+        }
+
         button {
 
             &:first-child {
                 margin-right: 10px;
             }
+        }
+
+        @include verticalBtn;
+
+        @include mq.max(900) {
+            display: none;
         }
     }
 }

@@ -1,0 +1,33 @@
+@import '../utils/vars';
+
+@keyframes pulse {
+
+    0% {
+        opacity: 0.3;
+    }
+
+    50% {
+        opacity: 0.1;
+    }
+
+    100% {
+        opacity: 0.3;
+    }
+}
+
+.wlc-total-jackpot--theme-default:host {
+    display: flex;
+    font-size: $fontSize;
+    color: $color;
+
+    .wlc-total-jackpot__title {
+        margin-right: $gap;
+    }
+
+    .wlc-total-jackpot__counter {
+
+        &.loading {
+            animation: pulse 2s infinite;
+        }
+    }
+}

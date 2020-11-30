@@ -1,0 +1,11 @@
+:host {
+    display: inline-block;
+}
+
+.wlc-logo__image::ng-deep {
+
+    img {
+        display: block;
+        width: 100%;
+    }
+}

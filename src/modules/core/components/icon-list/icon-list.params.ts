@@ -11,7 +11,7 @@ export interface IIconListComponentParams extends IComponentParams<ListTheme, Li
         payment?: {
             include?: string[],
             exclude?: string[],
-        }
+        },
     }
     items?: IIconParams[];
 }

@@ -7,7 +7,7 @@
        [attr.target]="item.target"
        [attr.title]="item.title">
         <ng-container
-                [ngTemplateOutlet]="!!item.svg ? itemTemplateSvg : itemTemplateImg">
+            [ngTemplateOutlet]="!!item.svg ? itemTemplateSvg : itemTemplateImg">
         </ng-container>
     </a>
 
@@ -16,7 +16,7 @@
        [attr.target]="item.target"
        [attr.title]="item.title">
         <ng-container
-                [ngTemplateOutlet]="!!item.svg ? itemTemplateSvg : itemTemplateImg">
+            [ngTemplateOutlet]="!!item.svg ? itemTemplateSvg : itemTemplateImg">
         </ng-container>
     </a>
 
@@ -24,10 +24,10 @@
           [attr.href]="item.href"
           [attr.title]="item.title"
           [ngSwitch]="!!item.svg">
-                <ng-container
-                        [ngTemplateOutlet]="!!item.svg ? itemTemplateSvg : itemTemplateImg">
-                </ng-container>
-            </span>
+        <ng-container
+            [ngTemplateOutlet]="!!item.svg ? itemTemplateSvg : itemTemplateImg">
+        </ng-container>
+    </span>
 
     <ng-template #itemTemplateImg>
         <img class="{{$class}}__image"

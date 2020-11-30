@@ -1,8 +1,12 @@
 import {formatDate} from '@angular/common';
 import {AbstractModel} from 'wlc-engine/modules/core/models/abstract.model';
-import {IBonus, IBonusConditions} from '../interfaces/bonuses.interface';
 import {IIndexing} from 'wlc-engine/interfaces/global.interface';
 import {ConfigService} from 'wlc-engine/modules/core/services';
+import {
+    IBonus,
+    IBonusConditions,
+    IBonusImageType,
+} from '../interfaces/bonuses.interface';
 
 import {
     toNumber as _toNumber,
@@ -12,19 +16,19 @@ import {
     floor as _floor,
     each as _each,
 } from 'lodash';
+import {LoyaltyBonusesService} from '../services/loyalty-bonuses.service';
 
 export class Bonus extends AbstractModel<IBonus> {
     protected userCurrency: string;
-    protected isAuth: boolean;
 
     constructor(
         data: IBonus,
         protected ConfigService: ConfigService,
+        protected loyaltyBonusesService: LoyaltyBonusesService,
     ) {
         super();
         this.data = this.modifyData(data);
-        this.userCurrency = 'EUR' // TODO get user currency
-        this.isAuth = this.ConfigService.get<boolean>('$user.isAuthenticated');
+        this.userCurrency = this.ConfigService.get<string>('appConfig.user.currency') || 'EUR';
     }
 
     // default
@@ -432,6 +436,33 @@ export class Bonus extends AbstractModel<IBonus> {
         return '';
     }
 
+    public get viewTarget(): string {
+        const resultsTarget = this.results[this.target];
+        if(!resultsTarget) {
+            return 'default';
+        }
+
+        if (resultsTarget?.Type === 'relative') {
+            return 'relative';
+        } else {
+            return this.target;
+        }
+    }
+
+    public getImageByType(type: IBonusImageType = 'default'): string {
+        switch (type) {
+            case 'reg':
+                return this.imageReg;
+            case 'store':
+                return this.imageStore;
+            case 'promo':
+                return this.imagePromo;
+            case 'other':
+                return this.imageOther;
+        }
+        return this.image;
+    }
+
     public getProgress(rounded?: boolean): number {
         let progress: number;
 
@@ -446,23 +477,23 @@ export class Bonus extends AbstractModel<IBonus> {
 
     public expirationTime(format: string = 'L LT'): string {
         // TODO add moment (window as any).moment.utc(this.data.Expire).local().format(format);
-        return formatDate(this.data.Expire, format, 'en-US');
+        return formatDate(this.data.Expire, 'M/d/yy, h:mm a', 'en-US');
     }
 
     public getInventory(): void {
         // TODO
     }
 
-    public join(): void {
-        // TODO
+    public async join(): Promise<void> {
+        await this.loyaltyBonusesService.subscribeBonus(this);
     }
 
-    public leave(): void {
-        // TODO
+    public async leave(): Promise<void> {
+        await this.loyaltyBonusesService.cancelBonus(this);
     }
 
-    public unsubscribe(): void {
-        //TODO
+    public async unsubscribe(): Promise<void> {
+        await this.loyaltyBonusesService.unsubscribeBonus(this);
     }
 
     protected modifyData(bonus: IBonus): IBonus {

@@ -12,12 +12,15 @@ import {GameWrapperComponent} from './components/game-wrapper/game-wrapper.compo
 import {CoreModule} from '../core/core.module';
 import {SearchFieldComponent} from './components/search-field/search-field.component';
 import {SearchComponent} from './components/search/search.component';
+import {TotalJackpotComponent} from 'wlc-engine/modules/games/components/total-jackpot/total-jackpot.component';
+import {CountUpModule} from 'ngx-countup';
 
 export const components = {
     'wlc-games-grid': GamesGridComponent,
     'wlc-game-thumb': GameThumbComponent,
     'wlc-game-wrapper': GameWrapperComponent,
     'wlc-search-field': SearchFieldComponent,
+    'wlc-total-jackpot': TotalJackpotComponent,
 };
 
 @NgModule({
@@ -27,6 +30,7 @@ export const components = {
         GameWrapperComponent,
         SearchFieldComponent,
         SearchComponent,
+        TotalJackpotComponent,
     ],
     id: 'GamesModule',
     imports: [
@@ -36,6 +40,7 @@ export const components = {
         TranslateModule,
         AngularResizedEventModule,
         FormsModule,
+        CountUpModule,
     ],
     providers: [
         GamesCatalogService,
@@ -46,6 +51,7 @@ export const components = {
         GameWrapperComponent,
         SearchFieldComponent,
         SearchComponent,
+        TotalJackpotComponent,
     ],
 })
 export class GamesModule {

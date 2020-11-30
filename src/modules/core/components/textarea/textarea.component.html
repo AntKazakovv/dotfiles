@@ -1,19 +1,39 @@
-<label for="{{$params.name}}"
-       class="{{$class}}__label"
->{{$params.placeholder | translate}}</label>
-<div class="{{$class}}__textarea">
-    <textarea name="{{$params.name}}"
-              id="{{$params.name}}"
-              placeholder="{{$params.placeholder}}"
-              [(ngModel)]="control.value"
-              [formControl]="control"
-    ></textarea>
-    <div class="{{$class}}-status">
-        <div class="{{$class}}-status__icon"></div>
-        <div class="{{$class}}-status__errors">
-            <div *ngFor="let item of control.errors | keyvalue">
-                {{'validator-' + item.key | translate}}
-            </div>
-        </div>
+<ng-template #default>
+    <label for="{{$params.name}}"
+           class="{{$class}}__label"
+    >{{$params.placeholder | translate}}</label>
+    <div class="{{$class}}__textarea">
+        <textarea name="{{$params.name}}"
+                  id="{{$params.name}}"
+                  placeholder="{{$params.placeholder}}"
+                  [formControl]="control"
+        ></textarea>
+        <div class="{{$class}}-status form-control"
+             wlc-form-control
+             [className]="$class"
+             [control]="control"
+        ></div>
     </div>
-</div>
+</ng-template>
+
+<ng-template #placeholderShown>
+    <textarea id="{{$params.name}}"
+              placeholder="{{$params.exampleValue || $params.common?.placeholder | translate}}"
+              [formControl]="control"
+              class="{{$class}}__textarea"
+    ></textarea>
+    <label for="{{$params.name}}"
+           class="{{$class}}__label"
+    >{{$params.common?.placeholder | translate}}</label>
+    <div class="{{$class}}-status"
+         wlc-form-control
+         [className]="$class"
+         [control]="control"
+    ></div>
+</ng-template>
+
+
+<ng-container [ngSwitch]="$params.theme">
+    <ng-container [ngTemplateOutlet]="placeholderShown" *ngSwitchCase="'placeholder-shown'"></ng-container>
+    <ng-container [ngTemplateOutlet]="default" *ngSwitchDefault></ng-container>
+</ng-container>

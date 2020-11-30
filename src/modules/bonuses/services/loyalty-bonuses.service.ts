@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {DataService, IData} from 'wlc-engine/modules/core/services/data/data.service';
-import {IIndexing} from 'wlc-engine/interfaces/global.interface';
 import {Bonus} from '../models/bonus';
 import {IBonus} from '../interfaces/bonuses.interface';
 import {ConfigService, EventService} from 'wlc-engine/modules/core/services';
@@ -8,14 +7,14 @@ import {ConfigService, EventService} from 'wlc-engine/modules/core/services';
 import {
     filter as _filter,
     includes as _includes,
+    extend as _extend,
 } from 'lodash';
-import {log} from 'util';
 
 @Injectable({
     providedIn: 'root',
 })
 export class LoyaltyBonusesService {
-    protected bonuses: Bonus[] = [];
+    public bonuses: Bonus[] = [];
 
     constructor(
         protected dataService: DataService,
@@ -49,7 +48,7 @@ export class LoyaltyBonusesService {
     }
 
     public get regBonuses(): Bonus[] {
-        const regEvents = ['deposit', 'deposit first', 'deposit repeated', 'deposit sum', 'signup'];
+        const regEvents = ['deposit', 'deposit first', 'deposit repeated', 'deposit sum', 'registration'];
         return _filter(this.mainBonuses, (item: Bonus) => {
             return _includes(regEvents, item.event) && item.canSubscribe;
         });
@@ -65,7 +64,6 @@ export class LoyaltyBonusesService {
     public async loadBonuses(): Promise<void> {
         this.bonuses = await this.dataService.request('bonuses/bonuses')
             .then((data: IData) => this.modifyBonuses(data.data));
-        console.log(this.bonuses);
     }
 
     public async getBonusesByCode(code: string): Promise<Bonus[]> {
@@ -76,12 +74,81 @@ export class LoyaltyBonusesService {
         return null;
     }
 
+    public async subscribeBonus(bonus: Bonus): Promise<void> {
+        bonus.data.PromoCode = bonus.data.PromoCode || '';
+        const params = {ID: bonus.id, PromoCode: bonus.promoCode, Selected: 1};
+
+        await this.dataService.request({
+            name: 'bonusSubscribe',
+            system: 'bonuses',
+            url: `/bonuses/${bonus.id}`,
+            type: 'POST',
+        }, params).then((response: IData) => {
+            _extend(bonus.data, response.data);
+            this.eventService.emit({
+                name: 'BONUS_SUBSCRIBE_SUCCEEDED',
+                data: bonus,
+            });
+        }).catch((error) => {
+            this.eventService.emit({
+                name: 'BONUS_SUBSCRIBE_FAILED',
+                data: error,
+            });
+            // TODO: showModal
+        });
+    }
+
+    public async unsubscribeBonus(bonus: Bonus): Promise<void> {
+        const params = {ID: bonus.id, Selected: 0};
+
+        await this.dataService.request({
+            name: 'bonusSubscribe',
+            system: 'bonuses',
+            url: `/bonuses/${bonus.id}`,
+            type: 'POST',
+        }, params).then((response: IData) => {
+            _extend(bonus.data, response.data);
+            this.eventService.emit({
+                name: 'BONUS_UNSUBSCRIBE_SUCCEEDED',
+                data: bonus,
+            });
+        }).catch((error) => {
+            this.eventService.emit({
+                name: 'BONUS_UNSUBSCRIBE_FAILED',
+                data: error,
+            });
+            // TODO: showModal
+        });
+    }
+
+    public async cancelBonus(bonus: Bonus): Promise<void> {
+        await this.dataService.request({
+            name: 'bonusSubscribe',
+            system: 'bonuses',
+            url: `/bonuses/${bonus.id}`,
+            type: 'DELETE',
+        }).then((response: IData) => {
+            _extend(bonus.data, response.data);
+            bonus.data.Status = 0;
+            this.eventService.emit({
+                name: 'BONUS_CANCEL_SUCCEEDED',
+                data: bonus,
+            });
+        }).catch((error) => {
+            this.eventService.emit({
+                name: 'BONUS_CANCEL_FAILED',
+                data: error,
+            });
+            // TODO: showModal
+        });
+    }
+
     protected modifyBonuses(data: IBonus[]): Bonus[] {
         const queryBonuses: Bonus[] = [];
 
         if (data?.length) {
             for (const bonusData of data) {
-                const bonus: Bonus = new Bonus(bonusData, this.configService);
+                const bonus: Bonus = new Bonus(bonusData, this.configService, this);
                 queryBonuses.push(bonus);
             }
         }
@@ -102,5 +169,4 @@ export class LoyaltyBonusesService {
             },
         });
     }
-
 }

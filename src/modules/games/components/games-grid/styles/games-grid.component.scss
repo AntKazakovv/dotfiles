@@ -1,5 +1,5 @@
 @use 'engine-styles/mixins/mediaqueries' as mq;
-@import './vars';
+@import './utils/vars';
 
 .wlc-games-grid {
 
@@ -11,6 +11,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+
         color: $headerColor;
     }
 
@@ -25,12 +26,19 @@
     &__list {
         display: grid;
         grid-gap: $currentGap;
-        margin-bottom: $listMargin;
         grid-template-columns: repeat(auto-fill, minmax($itemMinWidth, 1fr));
+        margin-bottom: $listMargin;
 
-        @include mq.max(640) {
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            grid-gap: 15px;
+        @include mq.max(900) {
+            grid-template-columns: repeat(auto-fill, minmax($itemMinWidthTablet, 1fr));
+        }
+
+        @include mq.max(768) {
+            grid-template-columns: repeat(auto-fill, minmax($itemMinWidthMobile, 1fr));
+        }
+
+        @include mq.max(480) {
+            grid-template-columns: repeat(2, 1fr);
         }
     }
 
@@ -44,10 +52,14 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        border-radius: $placeholderBorderRadius;
-        background: $placeholderBackground;
-        background-repeat: no-repeat;
-        background-size: cover;
+
         color: $placeholderTextColor;
+
+        border-radius: $placeholderBorderRadius;
+        background: {
+            image: $placeholderBackground;
+            repeat: no-repeat;
+            size: cover;
+        }
     }
 }
