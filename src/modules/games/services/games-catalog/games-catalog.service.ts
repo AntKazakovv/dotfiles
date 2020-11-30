@@ -20,8 +20,9 @@ import {
     IGameParams,
     IJackpot,
     IGames,
-    gamesEvents,
+    gamesEvents, IFavourite,
 } from 'wlc-engine/modules/games/interfaces/games.interfaces';
+import {IGamesFilterData} from "wlc-engine/modules/games/interfaces/filters.interfaces";
 
 @Injectable({
     providedIn: 'root',
@@ -29,10 +30,10 @@ import {
 export class GamesCatalogService {
 
     constructor(
-        protected configService: ConfigService,
-        protected router: UIRouter,
+        public configService: ConfigService,
+        public router: UIRouter,
+        public eventService: EventService,
         protected dataService: DataService,
-        protected eventService: EventService,
         protected userService: UserService,
     ) {
         this.init();
@@ -42,9 +43,8 @@ export class GamesCatalogService {
         this.$resolve = resolve;
     });
 
+    public favourites: string[] = [];
     protected gamesCatalog: GamesCatalog;
-    protected gamesHandler: Subscription;
-    protected jackpotsHandler: Subscription;
 
     private $resolve: () => void;
 
@@ -79,19 +79,33 @@ export class GamesCatalogService {
 
         this.eventService.subscribe({
             name: gamesEvents.FETCH_GAME_CATALOG_SUCCEEDED,
-        }, (games: IGames) => {
-            this.gamesCatalog = new GamesCatalog(games, this.configService, this.eventService, this.router);
+        }, (data: IData) => {
+            this.gamesCatalog = new GamesCatalog(data.data, this);
             this.loadJackpots();
+            this.loadFavourites();
         });
 
         this.eventService.subscribe({
             name: gamesEvents.FETCH_JACKPOTS_SUCCEEDED,
-        }, (jackpots: IJackpot[]) => {
-            this.gamesCatalog.loadJackpots(jackpots as IJackpot[]);
-            this.$resolve();
+        }, (data: IData) => {
+            this.gamesCatalog.loadJackpots(data.data);
         });
 
-        // TODO подписка на login/logout
+        this.eventService.subscribe({
+            name: gamesEvents.FETCH_FAVOURITES_SUCCEEDED,
+        }, (data: IData) => {
+            this.gamesCatalog?.loadFavourites(data.data);
+            this.favourites = data.data.map((fav: IFavourite) => fav.game_id);
+        });
+
+        // хз, надо ли заново грузить
+        this.eventService.subscribe([
+            // TODO перейти на константы
+            {name: 'LOGIN',},
+            {name: 'LOGOUT',},
+        ], () => {
+            this.loadGames();
+        });
     }
 
     /**
@@ -101,20 +115,6 @@ export class GamesCatalogService {
     public async loadGames(): Promise<void> {
         const request = 'games/games';
         await this.dataService.request(request);
-
-        this.gamesHandler = this.dataService.subscribe(request, (games: IData) => {
-            try {
-                this.eventService.emit({
-                    name: gamesEvents.FETCH_GAME_CATALOG_SUCCEEDED,
-                    data: games.data,
-                });
-            } catch (error) {
-                this.eventService.emit({
-                    name: gamesEvents.FETCH_GAME_CATALOG_FAILED,
-                    data: error,
-                });
-            }
-        });
     }
 
     /**
@@ -122,24 +122,9 @@ export class GamesCatalogService {
      * @returns {Promise<void>}
      */
     public async loadLastGames(): Promise<void> {
-        const request = 'games/lastGames';
-        await this.dataService.request(request);
-
-        const gamesLastHandler: Subscription = this.dataService.subscribe(request, (games: IData) => {
-            try {
-                this.eventService.emit({
-                    name: gamesEvents.FETCH_LAST_GAME_CATALOG_SUCCEEDED,
-                    data: games.data,
-                });
-            } catch (error) {
-                this.eventService.emit({
-                    name: gamesEvents.FETCH_LAST_GAME_CATALOG_FAILED,
-                    data: error,
-                });
-            }
-        });
-
-        gamesLastHandler.unsubscribe();
+        if (this.configService.get('$user.isAuthenticated')) {
+            await this.dataService.request('games/lastGames');
+        }
     }
 
     /**
@@ -147,41 +132,46 @@ export class GamesCatalogService {
      * @returns {Promise<void>}
      */
     public async loadJackpots(): Promise<void> {
-        const request = 'games/jackpots';
-        this.dataService.request(request);
-
-        this.jackpotsHandler = this.dataService.subscribe(request, (jackpots: IData) => {
-            try {
-                this.eventService.emit({
-                    name: gamesEvents.FETCH_JACKPOTS_SUCCEEDED,
-                    data: jackpots.data,
-                });
-            } catch (error) {
-                this.eventService.emit({
-                    name: gamesEvents.FETCH_JACKPOTS_FAILED,
-                    data: error,
-                });
-            }
-        });
+        this.dataService.request('games/jackpots');
     }
 
+    /**
+     *
+     * @returns {Promise<void>}
+     */
+    public async loadFavourites(): Promise<void> {
+        if (this.configService.get('$user.isAuthenticated')) {
+            this.dataService.request('games/favorites');
+        }
+    }
 
-    public async addRemoveFavorites(ID: string): Promise<void> {
-        if (!this.userService.isAuthenticated) { return; }
+    /**
+     *
+     * @param {string} ID
+     * @returns {Promise<boolean>}
+     */
+    public async toggleFavourites(ID: string): Promise<boolean> {
+        if (!this.configService.get('$user.isAuthenticated')) {
+            throw new Error('is not authenticated');
+        }
 
-        await this.dataService.request({
+        let response: IData = await this.dataService.request({
             name: 'addFavourite',
             system: 'games',
             url: `/favorites/${ID}`,
             type: 'POST',
-        }).then((response: IData) => {
-            const game: Game = this.gamesCatalog.getGameById(ID);
-            if (game) {
-                game.isFavourite = !!response.data.favorite;
-            }
-        }).catch((error) => {
-            // TODO обработка ошибок
         });
+        const game: Game = this.gamesCatalog.getGameById(ID);
+        if (game) {
+            game.isFavourite = !!response.data.favorite;
+            if (game.isFavourite) {
+                this.favourites.push(game.ID)
+            }
+            else {
+                this.favourites = this.favourites.filter((item) => item !== game.ID);
+            }
+        }
+        return !!response.data.favorite;
     }
 
     /**
@@ -202,6 +192,14 @@ export class GamesCatalogService {
         return this.gamesCatalog.getMerchants();
     }
 
+    public getAvailableCategories(): ICategory[] {
+        return this.gamesCatalog.getAvailableCategories();
+    }
+
+    public getAvailableMerchants(): IMerchant[] {
+        return this.gamesCatalog.getAvailableMerchants();
+    }
+
     /**
      *
      * @param {string[]} includeCategories
@@ -210,20 +208,9 @@ export class GamesCatalogService {
      * @param {string[]} excludeMerchants
      * @returns {Game[]}
      */
-    public getGameList(
-        includeCategories: string[] = [],
-        includeMerchants: string[] = [],
-        excludeCategories: string[] = [],
-        excludeMerchants: string[] = [],
-    ): Game[] {
-        return this.gamesCatalog.getGameList(
-            includeCategories,
-            includeMerchants,
-            excludeCategories,
-            excludeMerchants,
-        );
+    public getGameList(filter?: IGamesFilterData): Game[] {
+        return this.gamesCatalog?.getGameList(filter);
     }
-
 
     // public getGameById(id: string): Game {
     //     return this.gameCatalog.getGameById(id);
@@ -254,6 +241,10 @@ export class GamesCatalogService {
             type: 'GET',
             params: queryGamesParams,
             system: 'games',
+            events: {
+                success: gamesEvents.FETCH_GAME_CATALOG_SUCCEEDED,
+                fail: gamesEvents.FETCH_GAME_CATALOG_FAILED,
+            },
         });
 
         this.dataService.registerMethod({
@@ -262,6 +253,10 @@ export class GamesCatalogService {
             type: 'GET',
             params: {lastGames: '1'},
             system: 'games',
+            events: {
+                success: gamesEvents.FETCH_LAST_GAME_CATALOG_SUCCEEDED,
+                fail: gamesEvents.FETCH_LAST_GAME_CATALOG_FAILED,
+            },
         });
 
         this.dataService.registerMethod({
@@ -276,6 +271,21 @@ export class GamesCatalogService {
             system: 'games',
             url: '/jackpots',
             type: 'GET',
+            events: {
+                success: gamesEvents.FETCH_JACKPOTS_SUCCEEDED,
+                fail: gamesEvents.FETCH_JACKPOTS_FAILED,
+            },
+        });
+
+        this.dataService.registerMethod({
+            name: 'favorites',
+            system: 'games',
+            url: '/favorites',
+            type: 'GET',
+            events: {
+                success: gamesEvents.FETCH_FAVOURITES_SUCCEEDED,
+                fail: gamesEvents.FETCH_FAVOURITES_FAILED,
+            },
         });
     }
 }

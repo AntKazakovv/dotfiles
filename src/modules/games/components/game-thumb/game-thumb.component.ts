@@ -1,4 +1,4 @@
-import {Component, Inject, Input, OnInit} from '@angular/core';
+import {Component, Inject, Input, OnInit, ChangeDetectorRef} from '@angular/core';
 import {AbstractComponent} from 'wlc-engine/classes/abstract.component';
 import {Game} from 'wlc-engine/modules/games/models/game.model';
 import {GamesCatalogService} from 'wlc-engine/modules/games';
@@ -26,6 +26,7 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
     constructor(
         @Inject('injectParams') protected injectParams: any,
         protected gamesCatalogService: GamesCatalogService,
+        private ref: ChangeDetectorRef,
         private configService: ConfigService,
     ) {
         super({injectParams, defaultParams: Params.defaultParams});
@@ -46,5 +47,14 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
             demo: demo,
         });
         $event.stopPropagation();
+    }
+
+    public async toggleFavourites(game: Game): Promise<void> {
+        try {
+            game.isFavourite = await this.gamesCatalogService.toggleFavourites(game.ID);
+            this.ref.detectChanges();
+        } catch (error) {
+            // TODO обработка ошибок
+        }
     }
 }

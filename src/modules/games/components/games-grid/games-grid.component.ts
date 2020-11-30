@@ -43,6 +43,7 @@ import {
 } from 'lodash';
 import {gamesEvents, IGames} from 'wlc-engine/modules/games/interfaces/games.interfaces';
 import {GamesCatalog} from 'wlc-engine/modules/games/models/games-catalog.model';
+import {IGamesFilterData} from "wlc-engine/modules/games/interfaces/filters.interfaces";
 
 @Component({
     selector: '[wlc-games-grid]',
@@ -72,6 +73,7 @@ export class GamesGridComponent extends AbstractComponent
     protected placeHoldersCount: number;
     protected prevPlaceHoldersCount: number;
     protected categoryTitle: string;
+    protected filterName: string;
 
     @Input() protected inlineParams: IGamesGridCParams;
 
@@ -101,6 +103,7 @@ export class GamesGridComponent extends AbstractComponent
         this.lazyTimeout = this.$params?.moreBtn?.lazyTimeout || 1000;
         this.placeHolders = Array(6).fill(1);
         this.cdr.detectChanges();
+        this.filterName = this.$params.searchFilterName || 'page';
 
         this.currentLanguage = _find(this.configService.get<ILanguage[]>('appConfig.languages'), {
             code: this.translate.currentLang,
@@ -109,6 +112,8 @@ export class GamesGridComponent extends AbstractComponent
         if (this.$params?.type === 'search') {
             this.initSearchListener();
         }
+
+        this.initFilterListener();
 
         if (this.useLazy) {
             this.initScrollListener();
@@ -217,10 +222,14 @@ export class GamesGridComponent extends AbstractComponent
 
     protected async getGames(): Promise<Game[]> {
         return new Promise<Game[]>((resolve, reject) => {
+            let games: Game[] = this.gamesCatalogService.getGameList();
+            if (games) {
+                resolve(games);
+            }
             this.eventService.subscribe({
                 name: gamesEvents.FETCH_GAME_CATALOG_SUCCEEDED,
             }, () => {
-                let games: Game[] = this.gamesCatalogService.getGameList();
+                games = this.gamesCatalogService.getGameList();
 
                 if (this.$params?.byState) {
                     console.log('getgames by state', this.$params.byState);
@@ -249,21 +258,31 @@ export class GamesGridComponent extends AbstractComponent
     protected initSearchListener(): void {
         this.eventService.subscribe({
                 name: GamesFilterServiceEvents.FILTER_SEARCH,
-                from: this.$params.searchFilterName || 'page',
-            }, (data: string) => this.changeSearch(data),
-            this.$destroy);
+                from: this.filterName,
+            }, (filter: IGamesFilterData) => {
+                this.changeFilter(filter);
+                this.changeSearch(filter.searchQuery);
+            }, this.$destroy
+        );
+    }
+
+    protected initFilterListener(): void {
+        this.eventService.subscribe({
+            name: GamesFilterServiceEvents.FILTER_CHANGED,
+            from: this.filterName,
+        }, (filter: IGamesFilterData) => {
+            this.changeFilter(filter);
+        }, this.$destroy);
+    }
+
+    protected changeFilter(filter: IGamesFilterData): void {
+        this.filteredGames = this.gamesCatalogService.getGameList(filter);
     }
 
     protected changeSearch(search: string): void {
         this.searchQuery = search;
         if (this.searchQuery) {
             this.hideSearchBlock = false;
-            this.filteredGames = _filter(this.games, (game: Game) => {
-                const name = _get(game.name, this.currentLanguage.code)
-                    || _get(game.name, 'en', '');
-
-                return name.toLowerCase().indexOf(this.searchQuery) !== -1;
-            });
         } else {
             this.hideSearchBlock = this.$params?.hideOnEmptySearch;
         }

@@ -13,14 +13,6 @@ export interface ISearchParams extends IComponentParams<string, string, string> 
     gamesGridParams?: IGamesGridCParamsPartial;
 };
 
-export interface IFilterParams {
-    categories: number[]; // TODO maybe this will change after gameService ends
-    merchants: number[]; // TODO maybe this will change after gameService ends
-    favourites: boolean;
-    latest: boolean;
-    search: string;
-};
-
 export type PanelType = 'merchants' | 'categories';
 
 export const defaultParams: ISearchParams = {
