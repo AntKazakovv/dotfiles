@@ -22,6 +22,7 @@ import {Subject} from 'rxjs';
 export class FormControlComponent implements OnInit, OnDestroy {
     @Input() control: FormControl;
     @Input() className: string;
+    @Input() fieldName: string;
     @HostBinding('class') protected $hostClass: string = 'form-control';
     private ngUnsubscribe = new Subject();
 

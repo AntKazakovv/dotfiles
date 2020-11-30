@@ -20,6 +20,6 @@ export const defaultParams: IParams = {
     },
     disableLink: false,
     image: {
-        url: 'wlc/icons/default-logo.svg',
+        name: 'defaultLogo',
     },
 };

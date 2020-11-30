@@ -10,7 +10,9 @@
         >
         <div class="{{$class}}-status"
              wlc-form-control
+             [className]="$class"
              [control]="control"
+             [fieldName]="$params.name.toLowerCase()"
         ></div>
     </div>
 </ng-template>
@@ -18,17 +20,18 @@
 <ng-template #placeholderShown>
     <input type="{{$params.common.type}}"
            id="{{$params.name}}"
-           placeholder="{{$params.exampleValue || $params.common?.placeholder | translate}}"
+           placeholder="{{$params.exampleValue || $params.common.placeholder | translate}}"
            [formControl]="control"
            class="{{$class}}__input"
     >
     <label for="{{$params.name}}"
            class="{{$class}}__label"
-    >{{$params.common?.placeholder | translate}}</label>
+    >{{$params.common.placeholder | translate}}</label>
     <div class="{{$class}}-status"
-         [className]="$class"
          wlc-form-control
+         [className]="$class"
          [control]="control"
+         [fieldName]="$params.name.toLowerCase()"
     ></div>
 </ng-template>
 
