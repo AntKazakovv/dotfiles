@@ -4,7 +4,8 @@ import {IFormWrapperCParams} from 'wlc-engine/modules/core/components/form-wrapp
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;
 
-export interface IProfileFormCParams extends IComponentParams<ComponentTheme, ComponentType, string> {}
+export interface IProfileFormCParams extends IComponentParams<ComponentTheme, ComponentType, string> {
+}
 
 export const defaultParams: IProfileFormCParams = {
     class: 'wlc-feedback-form',
@@ -32,7 +33,16 @@ export const profileForm: IFormWrapperCParams = {
                     placeholder: 'First name',
                 },
                 name: 'firstName',
-                validators: ['required'],
+                validators: ['required',
+                    {
+                        name: 'minLength',
+                        options: 2,
+                    },
+                    {
+                        name: 'regExp',
+                        options: new RegExp('[A-Za-z]'),
+                    },
+                ],
                 exampleValue: 'Ivan',
             },
         },

@@ -1,4 +1,11 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, Injector, OnInit} from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    Inject,
+    Injector,
+    OnInit,
+} from '@angular/core';
 import {AbstractComponent} from 'wlc-engine/classes/abstract.component';
 import {MenuHelper} from 'wlc-engine/modules/menu/helpers/menu.helper';
 import {

@@ -56,26 +56,25 @@ export class ValidationService {
         this.setRule<IIndexing<boolean>>('email', email);
     }
 
-    public emailUnique(
-        ctrl: AbstractControl): Promise<IIndexing<boolean>> {
-        return this.dataService.request<IIndexing<string>>('user/emailUnique', {email: ctrl.value}).then(value => {
-            return value.data.result ? null : {
-                'email-not-unique': true,
-            };
-        });
+    public emailUnique(ctrl: AbstractControl): Promise<IIndexing<boolean>> {
+        return this.dataService.request<IIndexing<string>>('user/emailUnique', {email: ctrl.value})
+            .then(value => {
+                return value.data.result ? null : {
+                    'email-not-unique': true,
+                };
+            });
     }
 
-    public loginUnique(
-        ctrl: AbstractControl): Promise<IIndexing<boolean>> {
-        return this.dataService.request<IIndexing<string>>('user/loginUnique', {login: ctrl.value}).then(value => {
-            return value.data.result ? null : {
-                'login-not-unique': true,
-            };
-        });
+    public loginUnique(ctrl: AbstractControl): Promise<IIndexing<boolean>> {
+        return this.dataService.request<IIndexing<string>>('user/loginUnique', {login: ctrl.value})
+            .then(value => {
+                return value.data.result ? null : {
+                    'login-not-unique': true,
+                };
+            });
     }
 
-    public passwordRule(
-        ctrl: AbstractControl): Promise<IIndexing<boolean>> {
+    public passwordRule(ctrl: AbstractControl): Promise<IIndexing<boolean>> {
         return this.dataService.request<IIndexing<string>>({
             name: 'passwordValidation',
             system: 'user',
@@ -92,7 +91,7 @@ export class ValidationService {
         return this.validatorList[validator];
     }
 
-    private setRule<T>(name: string, rule: any, async: boolean = false) {
+    private setRule<T>(name: string, rule: any, async: boolean = false): void {
         this.validatorList[name] = {
             validator: rule.bind(this),
             async,

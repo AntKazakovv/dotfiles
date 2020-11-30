@@ -7,7 +7,7 @@ export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;
 
 export interface ISelectParams extends IComponentParams<ComponentTheme, ComponentType, string> {
-    name?: string;
+    name: string;
     value?: string;
     common?: {
         placeholder?: string;
@@ -26,6 +26,6 @@ export interface ISelectOptions {
     title: string;
 }
 
-export const defaultParams: ISelectParams = {
+export const defaultParams: Partial<ISelectParams> = {
     class: 'wlc-select',
 };

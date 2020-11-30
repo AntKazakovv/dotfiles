@@ -6,7 +6,7 @@ export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;
 
 export interface IInputCParams extends IComponentParams<ComponentTheme, ComponentType, string> {
-    name?: string;
+    name: string;
     value?: string;
     common: {
         placeholder?: string;
@@ -19,7 +19,7 @@ export interface IInputCParams extends IComponentParams<ComponentTheme, Componen
     locked?: boolean;
 }
 
-export const defaultParams: IInputCParams = {
+export const defaultParams: Partial<IInputCParams> = {
     class: 'wlc-input',
     common: {
         type: 'text',
