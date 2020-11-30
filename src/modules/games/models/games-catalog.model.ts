@@ -3,8 +3,6 @@ import {
 } from 'wlc-engine/interfaces';
 
 import {
-    IAvailableCategories,
-    IAvailableMerchants,
     IByCategory,
     IByMerchant,
     IMerchant,
@@ -13,7 +11,7 @@ import {
     ICatalogTreeItem,
     IGames,
     IMapping,
-    IRestrictions, IJackpot, gamesEvents,
+    IRestrictions, IJackpot, gamesEvents, IFavourite,
 } from 'wlc-engine/modules/games/interfaces/games.interfaces';
 
 import {GamesHelper} from 'wlc-engine/modules/games/games.helpers';
@@ -21,6 +19,9 @@ import {ConfigService} from 'wlc-engine/modules/core/services/config/config.serv
 import {Game} from 'wlc-engine/modules/games/models/game.model';
 import {UIRouter} from '@uirouter/core';
 import {EventService} from 'wlc-engine/modules/core/services';
+import {GamesCatalogService} from 'wlc-engine/modules/games';
+import {IGamesFilterData} from 'wlc-engine/modules/games/interfaces/filters.interfaces';
+import {ILanguage} from "wlc-engine/modules/core";
 
 import {
     concat as _concat,
@@ -33,21 +34,35 @@ import {
 } from 'lodash';
 
 export class GamesCatalog {
+    public currentLanguage: ILanguage;
+
     protected games: Game[];
     protected categories: ICategory[];
     protected merchants: IMerchant[];
     protected restrictions: IRestrictions;
-    protected availableCategories: IAvailableCategories[];
-    protected availableMerchants: IAvailableMerchants[];
+    protected availableCategories: ICategory[];
+    protected availableMerchants: IMerchant[];
     protected supportedCategories: ISupportedItem[];
     protected supportedMerchants: ISupportedItem[];
 
+    protected configService: ConfigService;
+    protected eventService: EventService;
+    protected router: UIRouter;
+
     constructor(
         data: IGames,
-        protected ConfigService: ConfigService,
-        protected eventService: EventService,
-        protected router: UIRouter,
+        protected gamesCatalogService: GamesCatalogService,
     ) {
+        // TODO
+        this.currentLanguage = {
+            code: 'en',
+            label: ''
+        };
+
+        this.configService = this.gamesCatalogService.configService;
+        this.eventService = this.gamesCatalogService.eventService;
+        this.router = this.gamesCatalogService.router;
+
         this.processFetchedGamesCatalog(data);
     }
 
@@ -59,12 +74,12 @@ export class GamesCatalog {
      * @param {string[]} excludeMerchants
      * @returns {Game[]}
      */
-    public getGameList(
-        includeCategories: string[] = [],
-        includeMerchants: string[] = [],
-        excludeCategories: string[] = [],
-        excludeMerchants: string[] = [],
-    ): Game[] {
+    public getGameList(filter?: IGamesFilterData): Game[] {
+        const includeCategories = filter?.categories || [];
+        const excludeCategories = filter?.excludeCategories || [];
+        const includeMerchants = filter?.merchants || [];
+        const excludeMerchants = filter?.excludeMerchants || [];
+        const searchQuery = filter?.searchQuery || '';
 
         let gameList: Game[] = _concat([], this.games);
 
@@ -140,6 +155,15 @@ export class GamesCatalog {
             });
         }
 
+        if (searchQuery) {
+            gameList = gameList.filter((game: Game) => {
+                const name = _get(game.name, this.currentLanguage.code)
+                    || _get(game.name, 'en', '');
+
+                return name.toLowerCase().indexOf(searchQuery) !== -1;
+            });
+        }
+
         return gameList;
     }
 
@@ -153,21 +177,29 @@ export class GamesCatalog {
 
     /**
      *
+     * @returns {ICategory[]}
+     */
+    public getAvailableCategories(): ICategory[] {
+        return this.availableCategories;
+    }
+
+    /**
+     *
      * @returns {IMerchant[]}
      */
     public getMerchants(): IMerchant[] {
         return this.merchants;
     }
 
-    // TODO часть функций надо сделать protected
-    public getAvailableCategories(): IAvailableCategories[] {
-        return this.availableCategories;
-    }
-
-    public getAvailableMerchants(): IAvailableMerchants[] {
+    /**
+     *
+     * @returns {IMerchant[]}
+     */
+    public getAvailableMerchants(): IMerchant[] {
         return this.availableMerchants;
     }
 
+    // TODO часть функций надо сделать protected
     public getCategoryByName(categoryName: string): ICategory {
         return _find(this.categories, ['menuId', categoryName]);
     }
@@ -283,6 +315,19 @@ export class GamesCatalog {
                 if (!game.categoryID.includes(categoryId)) {
                     game.categoryID.push(categoryId);
                 }
+            }
+        })
+    }
+
+    /**
+     *
+     * @param {IFavourite[]} favourites
+     */
+    public loadFavourites(favourites: IFavourite[]): void {
+        _forEach(favourites, favourite => {
+            const game: Game = this.getGameById(favourite.game_id);
+            if (game) {
+                game.isFavourite = true;
             }
         })
     }
@@ -413,7 +458,7 @@ export class GamesCatalog {
         /***********************************************************************************************************
          * MERCHANTS
          **********************************************************************************************************/
-        const merchantMap: IIndexing<string> = this.ConfigService
+        const merchantMap: IIndexing<string> = this.configService
             .get<IIndexing<string>>('appConfig.siteconfig.merchantNameAliasesMap') || {};
         const mapMerchants = GamesHelper.mapMerchants(response.merchants, merchantMap);
         this.merchants = mapMerchants.merchantsArray;
@@ -428,13 +473,13 @@ export class GamesCatalog {
          * COUNTRIES RESTRICTIONS
          **********************************************************************************************************/
             // TODO а как надо по дефолту то????
-        const enableCountryRestriction: boolean = this.ConfigService.get<boolean>('appConfig.games.enableRestricted') || true;
-        const authUserAppConfigCountry = this.ConfigService.get<string>('appConfig.user.country') || null;
+        const enableCountryRestriction: boolean = this.configService.get<boolean>('appConfig.games.enableRestricted') || true;
+        const authUserAppConfigCountry = this.configService.get<string>('appConfig.user.country') || null;
         // TODO надо дописать, когда будет UserService
         const authUserCountry = authUserAppConfigCountry;
         // const authUserCountry = this.UserService.isAuthenticated() ?
         //     this.UserService.userProfile.countryCode || authUserAppConfigCountry : authUserAppConfigCountry;
-        const country: string = this.ConfigService.get<string>('appConfig.country') || 'unknown';
+        const country: string = this.configService.get<string>('appConfig.country') || 'unknown';
         const restrictCountries: string[] = [country];
 
         if (authUserCountry) {
@@ -464,6 +509,7 @@ export class GamesCatalog {
                 continue;
             }
 
+            game.isFavourite = this.gamesCatalogService.favourites.includes(game.ID);
             game.setSortedCategoryFields();
             GamesHelper.fillGamesByCategoriesMerchants(game, this.availableCategories, this.availableMerchants);
             resultGames.push(game);

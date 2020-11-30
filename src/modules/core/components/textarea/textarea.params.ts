@@ -7,13 +7,13 @@ export type ComponentType = 'default' | CustomType;
 
 
 export interface ITextareaCParams extends IComponentParams<ComponentTheme, ComponentType, string> {
-    name?: string;
+    name: string;
     value?: string;
     placeholder?: string;
     validators?: ValidatorType[];
     control?: FormControl;
 }
 
-export const defaultParams: ITextareaCParams = {
+export const defaultParams: Partial<ITextareaCParams> = {
     class: 'wlc-textarea',
 };

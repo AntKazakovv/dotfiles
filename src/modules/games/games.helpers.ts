@@ -2,7 +2,6 @@ import {IIndexing} from 'wlc-engine/interfaces';
 import {Game} from 'wlc-engine/modules/games/models/game.model';
 
 import {
-    IAvailableCategories,
     IByCategory,
     IByMerchant,
     IMapping,
@@ -12,7 +11,7 @@ import {
     IIndexingCategories,
     IIndexingMerchants,
     IMerchant,
-    IRestrictions, IAvailableMerchants,
+    IRestrictions,
 } from 'wlc-engine/modules/games/interfaces/games.interfaces';
 
 import {
@@ -30,6 +29,7 @@ export class GamesHelper {
     public static mapping: IMapping = {
         merchantIdToNameMapping: {},
         merchantIdToAliasMapping: {},
+        merchantNameToObjectMapping: {},
         merchantNameToIdMapping: {},
         merchantNameToTitleMapping: {},
         byMerchant: {},
@@ -62,6 +62,7 @@ export class GamesHelper {
             }
             this.mapping.merchantIdToNameMapping[merchantId] = merchant.menuId;
             this.mapping.merchantIdToAliasMapping[merchantId] = merchant.Alias || merchant.Name;
+            this.mapping.merchantNameToObjectMapping[merchant.menuId] = merchant;
             this.mapping.merchantNameToIdMapping[merchant.menuId] = merchantId;
             this.mapping.merchantNameToTitleMapping[merchant.menuId] = merchant.Name;
             merchantsArray.push(merchant);
@@ -97,12 +98,12 @@ export class GamesHelper {
     /**
      *
      * @param {Game} game
-     * @param {IAvailableCategories[]} availableCategories
-     * @param {IAvailableMerchants[]} availableMerchants
+     * @param {ICategory[]} availableCategories
+     * @param {IMerchant[]} availableMerchants
      */
     public static fillGamesByCategoriesMerchants(game: Game,
-        availableCategories: IAvailableCategories[],
-        availableMerchants: IAvailableMerchants[]): void {
+                                                 availableCategories: ICategory[],
+                                                 availableMerchants: IMerchant[]): void {
         const merchantName: string = game.getMerchantName();
         const merchants: string[] = [merchantName];
 
@@ -119,11 +120,7 @@ export class GamesHelper {
                     games: [],
                     categories: {},
                 };
-                availableMerchants.push({
-                    id: game.merchantID,
-                    value: merch,
-                    title: this.mapping.merchantNameToTitleMapping[merch],
-                });
+                availableMerchants.push(GamesHelper.getMerchantByName(merch));
             }
             this.mapping.byMerchant[merch].games.push(game);
         });
@@ -139,12 +136,7 @@ export class GamesHelper {
                     games: [],
                     merchants: {},
                 };
-                availableCategories.push({
-                    id: game.merchantID,
-                    value: categoryName,
-                    title: categoryTitle,
-                    sort: _toNumber(category?.CSort || 0),
-                });
+                availableCategories.push(category);
             }
 
             this.mapping.byCategory[categoryName].games.push(game);
@@ -169,6 +161,15 @@ export class GamesHelper {
      */
     public static getMerchantNameById(merchantId: string): string {
         return _get(this.mapping, `merchantIdToNameMapping[${merchantId}]`, '');
+    }
+
+    /**
+     *
+     * @param {string} merchantName
+     * @returns {IMerchant}
+     */
+    public static getMerchantByName(merchantId: string): IMerchant {
+        return _get(this.mapping, `merchantNameToObjectMapping[${merchantId}]`, '');
     }
 
     /**

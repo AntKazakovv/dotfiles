@@ -6,15 +6,15 @@
             type="button"
             id="{{$params.name}}"
             name="{{$params.name}}"
-            ngDefaultControl
             (click)="toggleDropdown()"
             [formControl]="control"
     >{{selectedItem || $params.common.placeholder | translate}}
     </button>
-    <div class="{{$class}}-status form-control"
+    <div class="{{$class}}-status"
          wlc-form-control
          [className]="$class"
          [control]="control"
+         [fieldName]="$params.name.toLowerCase()"
     ></div>
     <div class="{{$class}}-status" *ngIf="control.untouched">
         <span class="{{$class}}-status__arrow" wlc-icon iconName="arrow"></span>

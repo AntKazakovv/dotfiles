@@ -1,5 +1,7 @@
 @use 'engine-styles/functions' as ef;
 
+$bgColor: #fff;
+
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'gridColumns': 300px 1fr,

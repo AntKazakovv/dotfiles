@@ -25,7 +25,6 @@ const defaultParams = {
 })
 export class AppComponent extends AbstractComponent implements OnInit, OnDestroy {
     public hostClass = defaultParams.class;
-
     public sections: SectionModel[] = [];
     public panels: SectionModel[] = [];
 
@@ -72,5 +71,9 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
                     this.uiRouter.transition?.targetState().params()), 'order');
         });
         this.cdr.markForCheck();
+    }
+
+    @HostBinding('class') get class() {
+        return `wlc-app-content ${this.uiRouter.$current?.name?.replace('.', '-')}-state`;
     }
 }

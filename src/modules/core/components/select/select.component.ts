@@ -1,5 +1,4 @@
 import {
-    ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
     Inject,
@@ -12,7 +11,7 @@ import {ConfigService, EventService} from 'wlc-engine/modules/core/services';
 import {IIndexing} from 'wlc-engine/interfaces';
 import {ICurrency} from 'wlc-engine/modules/finances/interfaces';
 import {BehaviorSubject} from 'rxjs';
-import {takeUntil, first} from 'rxjs/operators';
+import {takeUntil} from 'rxjs/operators';
 
 import * as Params from './select.params';
 

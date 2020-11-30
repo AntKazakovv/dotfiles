@@ -84,6 +84,7 @@ export type IGames = {
 export type IMapping = {
     merchantIdToNameMapping: IIndexing<string>;
     merchantIdToAliasMapping: IIndexing<string>;
+    merchantNameToObjectMapping: IIndexing<IMerchant>,
     merchantNameToIdMapping: IIndexing<string>;
     merchantNameToTitleMapping: IIndexing<string>;
     byMerchant: IByMerchant;
@@ -112,21 +113,16 @@ export type IJackpot = {
     currency: string;
 }
 
+export type IFavourite = {
+    game_id: number;
+}
+
 /**
  * INTERFACES
  */
 export interface IAvailableItem {
     id: string;
     value: string;
-}
-
-export interface IAvailableMerchants extends IAvailableItem {
-    title: string;
-}
-
-export interface IAvailableCategories extends IAvailableItem {
-    title: IIndexing<string>;
-    sort: number;
 }
 
 export interface ISupportedItem {
@@ -241,5 +237,7 @@ export const gamesEvents: IIndexing<string> = {
     FETCH_LAST_WINS: 'FETCH_LAST_WINS',
     FETCH_LAST_WINS_STARTED: 'FETCH_LAST_WINS_STARTED',
     FETCH_LAST_WINS_FAILED: 'FETCH_LAST_WINS_FAILED',
-    FETCH_LAST_WINS_SUCCEEDED: 'FETCH_LAST_WINS_SUCCEEDED'
+    FETCH_LAST_WINS_SUCCEEDED: 'FETCH_LAST_WINS_SUCCEEDED',
+    FETCH_FAVOURITES_SUCCEEDED: 'FETCH_FAVOURITES_SUCCEEDED',
+    FETCH_FAVOURITES_FAILED: 'FETCH_FAVOURITES_FAILED'
 };

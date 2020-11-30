@@ -74,6 +74,10 @@ export class ConfigService {
             type: 'GET',
             preload: 'bootstrap',
             mapFunc: (res) => this.prepareData(res),
+            events: {
+                success: 'LOAD_BOOTSTRAP_SUCCESS',
+                fail: 'LOAD_BOOTSTRAP_FAIL',
+            },
         });
     }
 
@@ -116,7 +120,7 @@ export class ConfigService {
         }
     }
 
-    protected prepareData(response: IData): AppConfigModel {
+    protected prepareData(response: unknown): AppConfigModel {
         this.global.appConfig = new AppConfigModel(response);
         this.set<boolean>({name: '$user.isAuthenticated', value: this.global.appConfig.loggedIn === '1'});
         this.addSiteConfig();
