@@ -1,0 +1,7 @@
+
+<div class="{{$class}}__title">{{$params.title | translate}}</div>
+<div class="{{$class}}__counter"
+     [countUp]="amount"
+     [reanimateOnClick]="false"
+     [ngClass]="{'loading': !amount}"
+>999,999,999</div>
