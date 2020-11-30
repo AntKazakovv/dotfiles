@@ -3,7 +3,7 @@
 
         <div class="wlc-search__col wlc-search__col--search"
             wlc-search-field
-            [inlineParams]="{searchFrom: 'modal'}"
+            [inlineParams]="{searchFrom: gamesGridParams.searchFilterName}"
         ></div>
 
         <div class="wlc-search__col wlc-search__col--merchants">
@@ -73,7 +73,7 @@
                 <li class="wlc-search__list-item"
                     *ngFor="let category of categories">
                     <button class="wlc-search__list-btn"
-                        [class.active]="isActive('categories', category.ID)"
+                        [class.active]="isActive('categories', category.menuId)"
                         (click)="chooseCategory(category)">
                         {{category.Name[currentLanguage] || category.Name['en'] || category.Name}}
                         <span class="wlc-search__list-icon"></span>

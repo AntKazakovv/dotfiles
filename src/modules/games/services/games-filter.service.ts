@@ -18,7 +18,6 @@ export const GamesFilterServiceEvents: IGamesFilterServiceEvents = {
     FILTER_CHANGED: 'FILTER_CHANGED',
     FILTER_SEARCH: 'FILTER_SEARCH',
     FILTER_SORT: 'FILTER_SORT',
-    FILTER_MERCHANT: 'FILTER_MERCHANT',
 };
 
 @Injectable({
@@ -28,7 +27,6 @@ export class GamesFilterService {
 
     protected filterCache: any;
     protected filters: IIndexingFilter = {};
-    protected filterQuery: IIndexing<string> = {};
     protected filterInitValues: IGamesFilterData = {
         categories: [],
         merchants: [],
@@ -79,10 +77,8 @@ export class GamesFilterService {
 
         this.eventService.emit({
             name: GamesFilterServiceEvents.FILTER_CHANGED,
-            data: {
-                filterName,
-                resultFilter,
-            },
+            from: filterName,
+            data: resultFilter,
         });
 
         return resultFilter;
@@ -123,11 +119,15 @@ export class GamesFilterService {
      * @param {string} query
      */
     public search(filterName: string, query: string): void {
-        this.filterQuery[filterName] = query;
+        if (!this.filters[filterName]) {
+            return;
+        }
+        this.filters[filterName].searchQuery = query;
+
         this.eventService.emit({
             name: GamesFilterServiceEvents.FILTER_SEARCH,
             from: filterName,
-            data: query,
+            data: this.filters[filterName],
         });
     }
 
@@ -137,8 +137,8 @@ export class GamesFilterService {
      * @returns {string}
      */
     public getSearchQuery(filterName: string): string {
-        if (_get(this.filterQuery, filterName)) {
-            return this.filterQuery[filterName];
+        if (_get(this.filters[filterName], 'searchQuery')) {
+            return this.filters[filterName].searchQuery;
         }
         return '';
     }
@@ -151,10 +151,8 @@ export class GamesFilterService {
     public sort(filterName: string, sortField: string) {
         this.eventService.emit({
             name: GamesFilterServiceEvents.FILTER_SORT,
-            data: {
-                filterName,
-                sortField,
-            },
+            from: filterName,
+            data: sortField,
         });
     }
 

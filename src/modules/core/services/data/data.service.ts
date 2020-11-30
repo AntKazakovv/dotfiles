@@ -60,7 +60,7 @@ export interface IRequestMethod {
     /** preload name from inline preload script */
     preload?: string;
     /** method that transform request data */
-    mapFunc?: (data: IData) => unknown;
+    mapFunc?: (data: unknown) => unknown;
     /** event for data request*/
     events?: {
         success?: string;
