@@ -6,6 +6,7 @@ import {
 import {
     tap,
     takeUntil,
+    map,
 } from 'rxjs/operators';
 import {filter} from 'rxjs/internal/operators/filter';
 
@@ -16,13 +17,10 @@ import {
 } from 'wlc-engine/modules/core/services';
 import {
     IData,
-    IRequestMethod,
     RequestParamsType,
-    RestMethodType,
 } from 'wlc-engine/modules/core/services/data/data.service';
 import {WinnerModel} from 'wlc-engine/modules/promo/models/winner.model';
 import {GamesCatalogService} from 'wlc-engine/modules/games';
-import {IWinnerData} from 'wlc-engine/interfaces';
 
 // TODO remove later
 import {lastWinsData, lastWinsData2} from './../../mocks/last-wins';
@@ -53,6 +51,19 @@ export enum WinnersServiceEvents {
     BIGGEST_WINS_ERROR = 'BIGGEST_WINS_ERROR',
 };
 
+export interface IWinnerData {
+    Amount: number;
+    AmountEUR: number;
+    Currency: string;
+    CountryIso2: string;
+    CountryIso3: string;
+    Date: string;
+    GameID: number;
+    ID: string;
+    Name: string;
+};
+
+
 const defaultParams: {[key: string]: IWinnersParams} = {
     latestWins: {
         period: 30000,
@@ -78,9 +89,9 @@ const defaultParams: {[key: string]: IWinnersParams} = {
 export class WinnersService {
 
     /** `Observable` object for getting latest winners */
-    protected $latestWins: Observable<IData>;
+    protected $latestWins: Observable<WinnerModel[]>;
     /** `Observable` object for getting biggest winners */
-    protected $biggestWins: Observable<IData>;
+    protected $biggestWins: Observable<WinnerModel[]>;
 
     /** `latest` last success saved response of latest winners */
     protected latest: IWinnerData[];
@@ -129,11 +140,13 @@ export class WinnersService {
     ): Promise<void> {
         if (!this.latest) {
             await this.fetchWinners('latestWins');
+        } else {
+            callback(this.latestWins);
         }
 
         this.$latestWins
             .pipe(takeUntil(until))
-            .subscribe(() => callback(this.latestWins));
+            .subscribe(callback);
     }
 
     /**
@@ -153,11 +166,13 @@ export class WinnersService {
     ): Promise<void> {
         if (!this.biggest) {
             await this.fetchWinners('biggestWins');
+        } else {
+            callback(this.biggestWins);
         }
 
         this.$biggestWins
             .pipe(takeUntil(until))
-            .subscribe(() => callback(this.biggestWins));
+            .subscribe(callback);
     }
 
     /**
@@ -176,14 +191,14 @@ export class WinnersService {
             .getMethodSubscribe('winners/latestWins')
             .pipe(
                 filter((response: IData) => this.filterResponse(response, this.latest)),
-                tap((response: IData) => this.tapResponse(response, 'latest', WinnersServiceEvents.LATEST_WINS_GET)),
+                map((response: IData) => this.mapResponse(response, 'latest', WinnersServiceEvents.LATEST_WINS_GET)),
             );
 
         this.$biggestWins = this.dataService
             .getMethodSubscribe('winners/biggestWins')
             .pipe(
                 filter((response: IData) => this.filterResponse(response, this.biggest)),
-                tap((response: IData) => this.tapResponse(response, 'biggest', WinnersServiceEvents.BIGGEST_WINS_GET)),
+                map((response: IData) => this.mapResponse(response, 'biggest', WinnersServiceEvents.BIGGEST_WINS_GET)),
             );
     }
 
@@ -193,8 +208,7 @@ export class WinnersService {
      * @param lastResponseName - name of variable
      * @param event - name of event
      */
-    protected tapResponse(response: IData, lastResponseName: string, event: string): IData {
-        console.log(response);
+    protected mapResponse(response: IData, lastResponseName: string, event: string): WinnerModel[] {
         if (response) {
             // for test, imitation of changing data
             // const data = Math.random() > 0.5 ? lastWinsData : lastWinsData2;
@@ -205,8 +219,11 @@ export class WinnersService {
                 name: event,
                 data: this.getData(this[lastResponseName]),
             });
+
+            return this.getData(this[lastResponseName]);
         }
-        return response;
+
+        return [];
     }
 
     /**
@@ -215,7 +232,7 @@ export class WinnersService {
      * @param lastResponse - last response
      */
     protected filterResponse(response: IData, lastResponse: IWinnerData[]): boolean {
-        if (response && response.data?.length) {
+        if (response?.data?.length) {
             const diff = _differenceWith(response.data, lastResponse, _isEqual);
             return !!diff.length;
         }
@@ -240,51 +257,42 @@ export class WinnersService {
     }
 
     /**
-     * Creates single request method
-     * @param name - name of request
-     * @param url - api url
-     * @param type - type of http request
-     */
-    protected regMethod(
-        name: string,
-        url: string,
-        type: RestMethodType,
-        events: {success: string, fail: string},
-    ): void {
-        const methodParams: IRequestMethod = {
-            system: 'winners',
-            name,
-            url,
-            type,
-            events,
-            ...this.prepareParams(name),
-        };
-
-        this.dataService.registerMethod(methodParams);
-    }
-
-    /**
      * Registers request methods
      */
     protected registerMethods(): void {
-        this.regMethod('latestWins', '/wins', 'GET', {
-            success: WinnersServiceEvents.LATEST_WINS_SUCCESS,
-            fail: WinnersServiceEvents.LATEST_WINS_EERROR,
+
+        this.dataService.registerMethod({
+            system: 'winners',
+            name: 'latestWins',
+            url: '/wins',
+            type: 'GET',
+            events: {
+                success: WinnersServiceEvents.LATEST_WINS_SUCCESS,
+                fail: WinnersServiceEvents.LATEST_WINS_EERROR,
+            },
+            ...this.prepareParams('latestWins'),
         });
 
-        this.regMethod('biggestWins', '/stats/topWins', 'GET', {
-            success: WinnersServiceEvents.LATEST_WINS_SUCCESS,
-            fail: WinnersServiceEvents.BIGGEST_WINS_ERROR,
+        this.dataService.registerMethod({
+            system: 'winners',
+            name: 'biggestWins',
+            url: '/stats/topWins',
+            type: 'GET',
+            events: {
+                success: WinnersServiceEvents.LATEST_WINS_SUCCESS,
+                fail: WinnersServiceEvents.LATEST_WINS_EERROR,
+            },
+            ...this.prepareParams('biggestWins'),
         });
     }
 
     /**
      * Prepares request params according to configuration
-     * @param name - name of params by path `appConfig.$base.statistic`
+     * @param name - name of params by path `appConfig.$promo.winners`
      */
     protected prepareParams(name: string): IWinnersParams {
         const configParams: IWinnersParams = this.configService
-            .get<IWinnersParams>(`appConfig.$base.statistic.${name}`) || {};
+            .get<IWinnersParams>(`appConfig.$promo.winners.${name}`) || {};
 
         return _merge({}, defaultParams[name], configParams);
     }

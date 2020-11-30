@@ -1,5 +1,7 @@
+import {DateTime} from 'luxon';
+
 import {GamesCatalogService} from 'wlc-engine/modules/games';
-import {IWinnerData} from 'wlc-engine/interfaces';
+import {IWinnerData} from 'wlc-engine/modules/promo/services';
 import {Game} from 'wlc-engine/modules/games/models/game.model';
 import {AbstractModel} from 'wlc-engine/modules/core/models/abstract.model';
 
@@ -16,7 +18,6 @@ export class WinnerModel extends AbstractModel<IWinnerData> {
     }
 
     public get id(): string {
-        // no ID on biggest wins. May be this parametr doesn't need here
         return _toString(this.data.ID) || this.data.Date.replace(/[\D]/g, '');
     }
 
@@ -40,8 +41,8 @@ export class WinnerModel extends AbstractModel<IWinnerData> {
         return this.data.CountryIso3;
     }
 
-    public get date(): Date {
-        return new Date(this.data.Date);
+    public get date(): DateTime {
+        return DateTime.fromISO(this.data.Date);
     }
 
     public get name(): string {

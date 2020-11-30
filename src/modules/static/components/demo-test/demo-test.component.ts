@@ -10,7 +10,7 @@ import {WinnerModel} from 'wlc-engine/modules/promo/models/winner.model';
 import {Subject} from 'rxjs';
 
 @Component({
-    selector: 'wlc-demo-test',
+    selector: '[wlc-demo-test]',
     templateUrl: './demo-test.component.html',
     styleUrls: ['./demo-test.component.scss'],
 })
@@ -34,10 +34,10 @@ export class demoTestComponent implements OnInit, OnDestroy {
         this.winnersService.subscribeLatestWins(
             this.$destroy,
             (winners: WinnerModel[]) => {
-            this.winners = winners;
-            console.log('demo-test', this.winners);
-            this.changeDetector.markForCheck();
-        });
+                this.winners = winners;
+                console.log('demo-test', this.winners);
+                this.changeDetector.markForCheck();
+            });
     }
 
     ngOnDestroy(): void {
