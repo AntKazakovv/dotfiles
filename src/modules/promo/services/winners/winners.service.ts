@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {
+    BehaviorSubject,
     Observable,
     Subject,
 } from 'rxjs';
@@ -7,6 +8,12 @@ import {
     tap,
     takeUntil,
     map,
+    repeatWhen,
+    first,
+    pairwise,
+    switchMap,
+    flatMap,
+    takeWhile,
 } from 'rxjs/operators';
 import {filter} from 'rxjs/internal/operators/filter';
 
@@ -88,15 +95,11 @@ const defaultParams: {[key: string]: IWinnersParams} = {
 })
 export class WinnersService {
 
-    /** `Observable` object for getting latest winners */
-    protected $latestWins: Observable<WinnerModel[]>;
-    /** `Observable` object for getting biggest winners */
-    protected $biggestWins: Observable<WinnerModel[]>;
+    public latestWins$: BehaviorSubject<WinnerModel[]> = new BehaviorSubject(undefined);
+    protected biggestWins$: BehaviorSubject<WinnerModel[]> = new BehaviorSubject(undefined);
 
-    /** `latest` last success saved response of latest winners */
-    protected latest: IWinnerData[];
-    /** `biggest` last success saved response of biggest winners */
-    protected biggest: IWinnerData[];
+    protected latestStream$: Observable<WinnerModel[]>;
+    protected biggestStream$: Observable<WinnerModel[]>;
 
     constructor(
         private dataService: DataService,
@@ -112,67 +115,33 @@ export class WinnersService {
      * @returns last success response of latest winners
      */
     public get latestWins(): WinnerModel[] {
-        return this.getData(this.latest);
+        return this.latestWins$.getValue();
     }
 
     /**
      * Accessor for getting last response
-     * @returns last success response if latest winners
+     * @returns last success response if biggest winners
      */
     public get biggestWins(): WinnerModel[] {
-        return this.getData(this.biggest);
+        return this.biggestWins$.getValue();
     }
 
     /**
-     * Subscription for latest winners
-     * @param until - subject which ends the subscription
-     * @param callback - get winners model array
-     * @example
-     * this.winnersService.getLatestWins(
-     *     this.$destroy,
-     *     (winners: WinnerModel[]) => {
-     *     // do something...
-     * });
+     * Accessor for observable subject `latestWins$`
+     * @returns {Observable<WinnerModel[]>} observable subject
      */
-    public async subscribeLatestWins(
-        until: Subject<unknown>,
-        callback: (winners: WinnerModel[]) => void,
-    ): Promise<void> {
-        if (!this.latest) {
-            await this.fetchWinners('latestWins');
-        } else {
-            callback(this.latestWins);
-        }
-
-        this.$latestWins
-            .pipe(takeUntil(until))
-            .subscribe(callback);
+    public get latestWinsObserver(): Observable<WinnerModel[]> {
+        this.runLatestSream();
+        return this.latestWins$.asObservable();
     }
 
     /**
-     * Subscription for biggest winners
-     * @param until - subject which ends the subscription
-     * @param callback - get winners model array
-     * @example
-     * this.winnersService.getBiggestWins(
-     *     this.$destroy,
-     *     (winners: WinnerModel[]) => {
-     *     // do something...
-     * });
+     * Accessor for observable subject `biggestWins$`
+     * @returns {Observable<WinnerModel[]>} observable subject
      */
-    public async subscribeBiggestWins(
-        until: Subject<unknown>,
-        callback: (winners: WinnerModel[]) => void,
-    ): Promise<void> {
-        if (!this.biggest) {
-            await this.fetchWinners('biggestWins');
-        } else {
-            callback(this.biggestWins);
-        }
-
-        this.$biggestWins
-            .pipe(takeUntil(until))
-            .subscribe(callback);
+    public get biggestWinsObserver(): Observable<WinnerModel[]> {
+        this.runBiggestSream();
+        return this.biggestWins$.asObservable();
     }
 
     /**
@@ -184,56 +153,98 @@ export class WinnersService {
     }
 
     /**
-     * Creates observable objects
+     * Creates streams
      */
     protected initObservers(): void {
-        this.$latestWins = this.dataService
-            .getMethodSubscribe('winners/latestWins')
-            .pipe(
-                filter((response: IData) => this.filterResponse(response, this.latest)),
-                map((response: IData) => this.mapResponse(response, 'latest', WinnersServiceEvents.LATEST_WINS_GET)),
-            );
-
-        this.$biggestWins = this.dataService
+        this.biggestStream$ = this.dataService
             .getMethodSubscribe('winners/biggestWins')
             .pipe(
-                filter((response: IData) => this.filterResponse(response, this.biggest)),
-                map((response: IData) => this.mapResponse(response, 'biggest', WinnersServiceEvents.BIGGEST_WINS_GET)),
+                takeWhile(() => !!this.biggestWins$.observers?.length),
+                pairwise(),
+                filter(([prev, current]: IData[]) => this.filterResponse(prev, current)),
+                map(([prev, current]: IData[]) => this.mapResponse(current, WinnersServiceEvents.BIGGEST_WINS_GET)),
+            );
+
+
+        this.latestStream$ = this.dataService
+            .getMethodSubscribe('winners/latestWins')
+            .pipe(
+                takeWhile(() => !!this.latestWins$.observers?.length),
+                pairwise(),
+                filter(([prev, current]: IData[]) => this.filterResponse(prev, current)),
+                map(([prev, current]: IData[]) => this.mapResponse(current, WinnersServiceEvents.LATEST_WINS_GET)),
             );
     }
 
     /**
+     * Subscribe on stream if no subscribers, send first request if no data
+     */
+    protected runLatestSream(): void {
+        if (!this.latestWins$.observers?.length) {
+            this.latestWins$.pipe(first()).subscribe(() => {
+                this.latestStream$.subscribe((data) => this.latestWins$.next(data));
+            });
+        }
+
+        if (!this.latestWins$.getValue()) {
+            this.latestWins$.pipe(first()).subscribe(() => {
+                this.fetchWinners('latestWins');
+                this.latestWins$.next([]);
+            });
+        }
+    }
+
+    /**
+     * Subscribe on stream if no subscribers, send first request if no data
+     */
+    protected runBiggestSream(): void {
+        if (!this.biggestWins$.observers?.length) {
+            this.biggestWins$.pipe(first()).subscribe(() => {
+                this.biggestStream$.subscribe((data) => this.biggestWins$.next(data));
+            });
+        }
+
+        if (!this.biggestWins$.getValue()) {
+            this.biggestWins$.pipe(first()).subscribe(() => {
+                this.fetchWinners('biggestWins');
+                this.biggestWins$.next([]);
+            });
+        }
+    }
+
+
+    /**
      * Handles response
      * @param response - response to be processed
-     * @param lastResponseName - name of variable
      * @param event - name of event
      */
-    protected mapResponse(response: IData, lastResponseName: string, event: string): WinnerModel[] {
+    protected mapResponse(response: IData, event: string): WinnerModel[] {
         if (response) {
             // for test, imitation of changing data
-            // const data = Math.random() > 0.5 ? lastWinsData : lastWinsData2;
-            // this[lastResponseName] = data as IWinnerData[];
+            // const dataMock = Math.random() > 0.5 ? lastWinsData : lastWinsData2;
+            // const data = this.getData(dataMock as IWinnerData[]);
 
-            this[lastResponseName] = response.data as IWinnerData[];
+            const data = this.getData(response.data as IWinnerData[]);
+
             this.eventService.emit({
                 name: event,
-                data: this.getData(this[lastResponseName]),
+                data: data,
             });
 
-            return this.getData(this[lastResponseName]);
+            return data;
         }
 
         return [];
     }
 
     /**
-     * Compares current and last responses. If they are different, returns `true`
-     * @param response - response to be compared
-     * @param lastResponse - last response
+     * Compares current and previous responses. If they are different or empty, returns `true`
+     * @param prev - previous response
+     * @param current - current response
      */
-    protected filterResponse(response: IData, lastResponse: IWinnerData[]): boolean {
-        if (response?.data?.length) {
-            const diff = _differenceWith(response.data, lastResponse, _isEqual);
+    protected filterResponse(prev: IData, current: IData): boolean {
+        if (current?.data?.length) {
+            const diff = _differenceWith(prev?.data, current.data, _isEqual);
             return !!diff.length;
         }
         return true;

@@ -1,4 +1,5 @@
-import { Component, ChangeDetectorRef, OnInit, OnDestroy } from '@angular/core';
+import { takeUntil } from 'rxjs/operators';
+import { Component, ChangeDetectorRef, OnInit, OnDestroy, Input, Inject } from '@angular/core';
 import {EventService} from 'wlc-engine/modules/core/services';
 
 import {
@@ -23,21 +24,25 @@ export class demoTestComponent implements OnInit, OnDestroy {
 
     public $destroy: Subject<void> = new Subject<void>();
 
+
     constructor(
+        @Inject('injectParams') protected params: any,
         protected changeDetector: ChangeDetectorRef,
         protected eventService: EventService,
         protected ModalService: ModalService,
         protected winnersService: WinnersService,
     ) {}
 
-    ngOnInit(): void {
-        this.winnersService.subscribeLatestWins(
-            this.$destroy,
-            (winners: WinnerModel[]) => {
-                this.winners = winners;
-                console.log('demo-test', this.winners);
-                this.changeDetector.markForCheck();
+    async ngOnInit(): Promise<void> {
+
+        // if (this.params.number) {
+        this.winnersService.latestWinsObserver
+            .pipe(takeUntil(this.$destroy))
+            .subscribe((data) => {
+                console.log('blah', data);
             });
+        // }
+
     }
 
     ngOnDestroy(): void {
@@ -93,6 +98,16 @@ export class demoTestComponent implements OnInit, OnDestroy {
 
     openModalSearch(): void {
         this.ModalService.showModal('search');
+    }
+
+    openModalDemoTest(): void {
+        this.ModalService.showModal({
+            id: 'demo-test',
+            component: demoTestComponent,
+            componentParams: {
+                number: 1,
+            },
+        });
     }
 
 }
