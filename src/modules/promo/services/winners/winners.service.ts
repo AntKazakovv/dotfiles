@@ -2,17 +2,11 @@ import {Injectable} from '@angular/core';
 import {
     BehaviorSubject,
     Observable,
-    Subject,
 } from 'rxjs';
 import {
-    tap,
-    takeUntil,
     map,
-    repeatWhen,
     first,
     pairwise,
-    switchMap,
-    flatMap,
     takeWhile,
 } from 'rxjs/operators';
 import {filter} from 'rxjs/internal/operators/filter';
