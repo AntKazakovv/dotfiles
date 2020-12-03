@@ -9,6 +9,7 @@ import {
 } from 'wlc-engine/modules/core/services/data/data.service';
 import {GamesCatalog} from 'wlc-engine/modules/games/models/games-catalog.model';
 import {Game} from 'wlc-engine/modules/games/models/game.model';
+import {CategoryModel} from 'wlc-engine/modules/games/models/category.model';
 import {EventService} from 'wlc-engine/modules/core/services';
 import {UserService} from 'wlc-engine/modules/user/services';
 
@@ -22,7 +23,15 @@ import {
     IGames,
     gamesEvents, IFavourite,
 } from 'wlc-engine/modules/games/interfaces/games.interfaces';
-import {IGamesFilterData} from "wlc-engine/modules/games/interfaces/filters.interfaces";
+import {IGamesFilterData} from 'wlc-engine/modules/games/interfaces/filters.interfaces';
+
+import {
+    find as _find,
+    filter as _filter,
+    includes as _includes,
+    startsWith as _startsWith,
+} from 'lodash';
+import {Dictionary} from 'express-serve-static-core';
 
 @Injectable({
     providedIn: 'root',
@@ -101,8 +110,8 @@ export class GamesCatalogService {
         // хз, надо ли заново грузить
         this.eventService.subscribe([
             // TODO перейти на константы
-            {name: 'LOGIN',},
-            {name: 'LOGOUT',},
+            {name: 'LOGIN'},
+            {name: 'LOGOUT'},
         ], () => {
             this.loadGames();
         });
@@ -165,7 +174,7 @@ export class GamesCatalogService {
         if (game) {
             game.isFavourite = !!response.data.favorite;
             if (game.isFavourite) {
-                this.favourites.push(game.ID)
+                this.favourites.push(game.ID);
             }
             else {
                 this.favourites = this.favourites.filter((item) => item !== game.ID);
@@ -184,7 +193,93 @@ export class GamesCatalogService {
         return await this.dataService.request<ILaunchInfo>('games/gameLaunchParams', options) as ILaunchInfo;
     }
 
-    public getCategories(): ICategory[] {
+    /**
+     * Get available categories
+     *
+     * @returns {CategoryModel[]}
+     */
+    public getCategories(): CategoryModel[] {
+        return this.gamesCatalog.getAvailableCategories();
+    }
+
+    /**
+     * Get parent category by state
+     *
+     * @returns {CategoryModel}
+     */
+    public getParentCategoryByState(): CategoryModel {
+        if (this.catalogOpened()) {
+            const categorySlug: string = this.router.stateService.params.category;
+            return this.getCategoryBySlug(categorySlug);
+        }
+    }
+
+    /**
+     * Get child category by state
+     *
+     * @returns {CategoryModel}
+     */
+    public getChildCategoryByState(): CategoryModel {
+        if (this.catalogOpened()) {
+            const categorySlug: string = this.router.stateService.params.childCategory;
+            return this.getCategoryBySlug(categorySlug);
+        }
+    }
+
+    /**
+     * Get available category by slug
+     *
+     * @param {string} slug
+     * @returns {CategoryModel[]}
+     */
+    public getCategoryBySlug(slug: string): CategoryModel {
+        return _find(this.gamesCatalog.getAvailableCategories(), (category: CategoryModel) => {
+            return category.slug == slug;
+        });
+    }
+
+    /**
+     * Get available categories by tag
+     *
+     * @param {string} tag
+     * @returns {CategoryModel[]}
+     */
+    public getCategoriesByTag(tag: string): CategoryModel[] {
+        return _filter(this.gamesCatalog.getAvailableCategories(), (category: CategoryModel) => {
+            return _includes(category.tags, tag);
+        });
+    }
+
+    /**
+     * Get available categories by id of parent category
+     *
+     * @param {string} tag
+     * @returns {CategoryModel[]}
+     */
+    public getCategoriesByParentId(id: string): CategoryModel[] {
+        return _filter(this.gamesCatalog.getCategories(), (category: CategoryModel) => {
+            return category.parentId == id;
+        });
+    }
+
+    /**
+     * Get categories by menu
+     *
+     * @param {string} menu
+     * @returns {CategoryModel[]}
+     */
+    public getCategoriesByMenu(menu: string): CategoryModel[] {
+        return _filter(this.gamesCatalog.getAvailableCategories(), (category: CategoryModel) => {
+            return category.menu == menu;
+        });
+    }
+
+    /**
+     * Get all categories (includes without games)
+     *
+     * @returns {CategoryModel[]}
+     */
+    public getAllCategories(): CategoryModel[] {
         return this.gamesCatalog.getCategories();
     }
 
@@ -192,7 +287,7 @@ export class GamesCatalogService {
         return this.gamesCatalog.getMerchants();
     }
 
-    public getAvailableCategories(): ICategory[] {
+    public getAvailableCategories(): CategoryModel[] {
         return this.gamesCatalog.getAvailableCategories();
     }
 
@@ -218,6 +313,38 @@ export class GamesCatalogService {
 
     public getGame(merchantId: string, launchCode: string): Game {
         return this.gamesCatalog.getGame(merchantId, launchCode);
+    }
+
+    /**
+     * Get games by categories
+     *
+     * @param {CategoryModel} categories Game categories
+     * @returns {Game[]} Filtered games list
+     */
+    public getGamesByCategories(categories: CategoryModel[]): Game[] {
+        const categoryIds = categories.map((category: CategoryModel) => {
+            return category.id;
+        });
+
+        const games = _filter(this.getGameList(), (game: Game) => {
+            for (const categoryId of categoryIds) {
+                if (!_includes(game.categoryID, categoryId)) {
+                    return false;
+                }
+            }
+            return true;
+        });
+        return games;
+
+    }
+
+    /**
+     * Check opened catalog or not
+     *
+     * @returns {boolean}
+     */
+    public catalogOpened(): boolean {
+        return _startsWith(this.router.stateService.current.name,'app.catalog');
     }
 
     /**

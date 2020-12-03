@@ -11,6 +11,9 @@ import {
     isObject as _isObject,
     map as _map,
 } from 'lodash';
+import {IHelperGetItemsForCategories} from 'wlc-engine/modules/menu/components/menu/menu.params';
+import {CategoryModel} from 'wlc-engine/modules/games/models/category.model';
+import {IMenuItemParams} from 'wlc-engine/modules/menu/components/menu/menu.params';
 
 export class MenuHelper {
 
@@ -28,5 +31,38 @@ export class MenuHelper {
             }
         });
         return resultList;
+    }
+
+    public static getItemsForCategories(params: Params.IHelperGetItemsForCategories): Params.IMenuItem[] {
+        return _map(params.categories, (category: CategoryModel) => {
+
+            let itemParams: IMenuItemParams = {
+                state: {
+                    name: 'app.catalog',
+                    params: {
+                        category: category.slug,
+                    },
+                },
+            };
+
+            if (params.openChildCatalog) {
+                itemParams = {
+                    state: {
+                        name: 'app.catalog.child',
+                        params: {
+                            childCategory: category.slug,
+                        },
+                    },
+                }
+            }
+
+            return {
+                name: category.title[params.lang],
+                type: 'sref',
+                icon: category.icon,
+                class: category.slug,
+                params: itemParams
+            };
+        });
     }
 }

@@ -39,7 +39,9 @@ import {
 
 /**
  * Examples of getter and setter:
- * SET: this.config.set({name: 'url', value: 'google.com'});
+ * SET: this.config.set({name: 'url', value: 'google.com'}
+
+);
  * GET: this.config.get<boolean>('appConfig.mobile');
  */
 

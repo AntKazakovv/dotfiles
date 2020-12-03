@@ -1,0 +1,20 @@
+@import '../utils/vars';
+
+.wlc-category-menu--theme-default:host {
+    display: grid;
+    grid-auto-columns: auto;
+    grid-auto-flow: column;
+    grid-gap: $gapSize;
+    width: $width;
+    align-items: center;
+
+    .wlc-menu {
+
+        &__link {
+
+            //&:hover {
+            //
+            //}
+        }
+    }
+}

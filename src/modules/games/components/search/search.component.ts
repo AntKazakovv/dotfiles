@@ -30,6 +30,7 @@ import {EventService} from 'wlc-engine/modules/core/services/event/event.service
 import {ILanguage} from 'wlc-engine/modules/core';
 import {TranslateService} from '@ngx-translate/core';
 import {IGamesGridCParams} from 'wlc-engine/modules/games/components/games-grid/games-grid.params';
+import {CategoryModel} from 'wlc-engine/modules/games/models/category.model';
 import {GamesFilterService, GamesFilterServiceEvents} from 'wlc-engine/modules/games/services/games-filter.service';
 import {IGamesFilterData} from 'wlc-engine/modules/games/interfaces/filters.interfaces';
 
@@ -59,7 +60,7 @@ import {
 })
 export class SearchComponent extends AbstractComponent implements OnInit, OnDestroy {
     public $params: ISearchParams;
-    public categories: ICategory[];
+    public categories: CategoryModel[];
     public merchants: IMerchant[];
 
     public openPanel: PanelType;
@@ -117,7 +118,7 @@ export class SearchComponent extends AbstractComponent implements OnInit, OnDest
     }
 
     // Interface only, Filter doesn't work, yet
-    public chooseCategory(category?: ICategory): void {
+    public chooseCategory(category?: CategoryModel): void {
         if (!category) {
             this.filters.categories = [];
             return;

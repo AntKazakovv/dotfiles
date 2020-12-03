@@ -4,6 +4,7 @@ import {EventService} from 'wlc-engine/modules/core/services';
 import {ICategory} from 'wlc-engine/modules/games/interfaces/games.interfaces';
 import {UserService} from 'wlc-engine/modules/user/services';
 import {GamesCatalogService, GamesFilterService} from 'wlc-engine/modules/games';
+import {CategoryModel} from 'wlc-engine/modules/games/models/category.model';
 
 import {
     ICategoryMenuItem,
@@ -22,6 +23,9 @@ import {
     includes as _includes,
 } from 'lodash';
 
+/**
+ * @deprecated
+ */
 @Injectable({
     providedIn: 'root',
 })
@@ -46,12 +50,12 @@ export class CategoriesService {
      * @returns {ICategoryMenuItem[]}
      */
     public getCategories(): ICategoryMenuItem[] {
-        const categories: ICategory[] = this.gamesCatalog.getCategories();
+        const categories: CategoryModel[] = this.gamesCatalog.getCategories();
         const categoryItems: ICategoryMenuItem[] = [];
-        _forEach(categories, (category: ICategory) => {
-            const cat: ICategoryMenuItem = {...{}, ...category};
+        _forEach(categories, (category: CategoryModel) => {
+            const cat: ICategoryMenuItem = {...{}, ...category} as any;
             cat.filters = {
-                categories: [category.menuId || category.Slug],
+                categories: [category.slug],
             };
             categoryItems.push(cat);
         });

@@ -17,11 +17,13 @@ import {
 import {GamesHelper} from 'wlc-engine/modules/games/games.helpers';
 import {ConfigService} from 'wlc-engine/modules/core/services/config/config.service';
 import {Game} from 'wlc-engine/modules/games/models/game.model';
+import {CategoryModel} from 'wlc-engine/modules/games/models/category.model';
 import {UIRouter} from '@uirouter/core';
 import {EventService} from 'wlc-engine/modules/core/services';
 import {GamesCatalogService} from 'wlc-engine/modules/games';
 import {IGamesFilterData} from 'wlc-engine/modules/games/interfaces/filters.interfaces';
-import {ILanguage} from "wlc-engine/modules/core";
+import {ILanguage} from 'wlc-engine/modules/core';
+import {GlobalHelper} from 'wlc-engine/helpers/global.helper';
 
 import {
     concat as _concat,
@@ -37,10 +39,10 @@ export class GamesCatalog {
     public currentLanguage: ILanguage;
 
     protected games: Game[];
-    protected categories: ICategory[];
+    protected categories: CategoryModel[];
     protected merchants: IMerchant[];
     protected restrictions: IRestrictions;
-    protected availableCategories: ICategory[];
+    protected availableCategories: CategoryModel[];
     protected availableMerchants: IMerchant[];
     protected supportedCategories: ISupportedItem[];
     protected supportedMerchants: ISupportedItem[];
@@ -56,7 +58,7 @@ export class GamesCatalog {
         // TODO
         this.currentLanguage = {
             code: 'en',
-            label: ''
+            label: '',
         };
 
         this.configService = this.gamesCatalogService.configService;
@@ -169,18 +171,10 @@ export class GamesCatalog {
 
     /**
      *
-     * @returns {ICategory[]}
+     * @returns {CategoryModel[]}
      */
-    public getCategories(): ICategory[] {
+    public getCategories(): CategoryModel[] {
         return this.categories;
-    }
-
-    /**
-     *
-     * @returns {ICategory[]}
-     */
-    public getAvailableCategories(): ICategory[] {
-        return this.availableCategories;
     }
 
     /**
@@ -199,8 +193,15 @@ export class GamesCatalog {
         return this.availableMerchants;
     }
 
-    // TODO часть функций надо сделать protected
-    public getCategoryByName(categoryName: string): ICategory {
+    /**
+     *
+     * @returns {CategoryModel[]}
+     */
+    public getAvailableCategories(): CategoryModel[] {
+        return this.availableCategories;
+    }
+
+    public getCategoryByName(categoryName: string): CategoryModel {
         return _find(this.categories, ['menuId', categoryName]);
     }
 
@@ -316,7 +317,7 @@ export class GamesCatalog {
                     game.categoryID.push(categoryId);
                 }
             }
-        })
+        });
     }
 
     /**
@@ -329,7 +330,7 @@ export class GamesCatalog {
             if (game) {
                 game.isFavourite = true;
             }
-        })
+        });
     }
 
     // TODO не понятно, надо оно или нет
@@ -467,12 +468,12 @@ export class GamesCatalog {
          * CATEGORIES
          **********************************************************************************************************/
         const mapCategories = GamesHelper.mapCategories(response.categories);
-        this.categories = mapCategories.categoriesArray;
+        this.categories = GlobalHelper.sortByNumber<CategoryModel>(mapCategories.categoriesArray, 'sort', true);
 
         /***********************************************************************************************************
          * COUNTRIES RESTRICTIONS
          **********************************************************************************************************/
-            // TODO а как надо по дефолту то????
+        // TODO а как надо по дефолту то????
         const enableCountryRestriction: boolean = this.configService.get<boolean>('appConfig.games.enableRestricted') || true;
         const authUserAppConfigCountry = this.configService.get<string>('appConfig.user.country') || null;
         // TODO надо дописать, когда будет UserService
@@ -512,6 +513,7 @@ export class GamesCatalog {
             game.isFavourite = this.gamesCatalogService.favourites.includes(game.ID);
             game.setSortedCategoryFields();
             GamesHelper.fillGamesByCategoriesMerchants(game, this.availableCategories, this.availableMerchants);
+            this.availableCategories = GlobalHelper.sortByNumber<CategoryModel>(this.availableCategories, 'sort', true);
             resultGames.push(game);
         }
 
@@ -519,6 +521,5 @@ export class GamesCatalog {
             return _toNumber(item.sort);
         });
     }
-
 
 }

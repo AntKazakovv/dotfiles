@@ -1,5 +1,6 @@
 import {IIndexing} from 'wlc-engine/interfaces/index';
 import {Game} from 'wlc-engine/modules/games/models/game.model';
+import {CategoryModel} from 'wlc-engine/modules/games/models/category.model';
 
 /**
  * TYPES
@@ -61,6 +62,7 @@ export type IMerchantCurrency = {
 
 export type ICategory = {
     ID: string;
+    ParentID?: string;
     Name: IIndexing<string>;
     Tags: string[];
     Trans: IIndexing<string>;
@@ -89,7 +91,8 @@ export type IMapping = {
     merchantNameToTitleMapping: IIndexing<string>;
     byMerchant: IByMerchant;
 
-    categoryById: IIndexing<ICategory>;
+    categoryById: IIndexing<CategoryModel>;
+    categoryByName: IIndexing<CategoryModel>
     categoryIdToNameMapping: IIndexing<string>;
     categoryNameToIdMapping: IIndexing<string>;
     categoryIdToTitleMapping: { [key: string]: IIndexing<string>; };
