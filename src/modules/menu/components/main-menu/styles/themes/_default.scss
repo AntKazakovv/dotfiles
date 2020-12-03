@@ -1,0 +1,25 @@
+@import '../utils/vars';
+
+.wlc-main-menu--theme-default:host {
+    display: grid;
+    grid-auto-columns: auto;
+    grid-auto-flow: column;
+    grid-gap: $gapSize;
+    width: $width;
+    align-items: center;
+
+    .wlc-menu {
+
+        &__link {
+            text-decoration: $textDecoration;
+            color: $textColor;
+            font-weight: $fontWeight;
+            font-size: $fontSize;
+            cursor: pointer;
+
+            &:hover {
+                color: $textColorHover;
+            }
+        }
+    }
+}

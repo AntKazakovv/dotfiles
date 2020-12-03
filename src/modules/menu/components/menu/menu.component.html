@@ -1,9 +1,12 @@
 <ng-template #sref let-item="item">
     <div class="{{$class}}__item {{$class}}__item--sref">
+        <span class="{{$class}}__icon" *ngIf="item.icon" wlc-icon [iconName]="item.icon">
+        </span>
         <a class="{{$class}}__link"
            [uiSref]="item.params?.state?.name"
            [uiParams]="item.params?.state?.params"
-           [uiOptions]="item.params?.state?.options">{{item.name | translate}}</a>
+           [uiOptions]="item.params?.state?.options"
+           uiSrefActive="active">{{item.name | translate}}</a>
     </div>
 </ng-template>
 
@@ -18,6 +21,8 @@
 
 <ng-template #anchor let-item="item">
     <div class="{{$class}}__item {{$class}}__item--anchor">
+        <span class="{{$class}}__icon" *ngIf="item.icon" wlc-icon [iconName]="item.icon">
+        </span>
         <a class="{{$class}}__link"
            href="#{{item.params.anchor?.name}}"
         >{{item?.name | translate}}</a>
@@ -33,7 +38,9 @@
 </ng-template>
 
 <ng-template #modal let-item="item">
-    <div class="{{$class}}__item {{$class}}__item--modal">
+    <div class="{{$class}}__item {{$class}}__item--modal" (click)="showModal(item?.params?.modal?.name)">
+        <span class="{{$class}}__icon" *ngIf="item.icon" wlc-icon [iconName]="item.icon">
+        </span>
         <a class="{{$class}}__link"
             (click)="openModal(item)"
             >{{item.name | translate}}</a>

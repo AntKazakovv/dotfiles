@@ -1,6 +1,11 @@
 import {TemplateRef, QueryList} from '@angular/core';
 import {NgTemplateNameDirective} from 'wlc-engine/modules/core/directives/template-name/template-name.directive';
 
+import {
+    get as _get,
+    size as _size,
+} from 'lodash';
+
 export class GlobalHelper {
 
     public static gettext<T>(content: T): T {
@@ -33,5 +38,26 @@ export class GlobalHelper {
         // console.log(templatesList);
         // const dir = templatesList.find((template: NgTemplateNameDirective) => template.name === name);
         // return dir ? dir.template : null;
+    }
+
+    /**
+     * @ngdoc method
+     * @name sortByNumber
+     * @methodOf angular-wlc-theme-classes.class:Helper
+     * @param {T[]} items Items for sort.
+     * @param {string} attr Property of item with number value.
+     * @param {boolean} orderByAsc Sort ascending.
+     * @returns {T[]} Sorted items
+     * @description
+     *
+     * Sort items by number value of their some property
+     */
+    public static sortByNumber<T>(items: T[], attr: string, orderByAsc = true): T[] {
+        if (!_size(items) || !attr) {
+            return items;
+        }
+        return items.sort((a: T, b: T): number => {
+            return orderByAsc ? _get(a, attr, 0) - _get(b, attr, 0) : _get(b, attr, 0) - _get(a, attr, 0);
+        });
     }
 }

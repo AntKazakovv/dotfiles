@@ -1,0 +1,6 @@
+@use 'engine-styles/functions' as ef;
+
+// Sizes
+$width: fit-content !default;
+$gapSize: ef.get('size', 'less') !default;
+$paddingSize: ef.get('size', 'smaller') !default;

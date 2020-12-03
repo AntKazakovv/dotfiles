@@ -1,5 +1,6 @@
 import {IIndexing} from 'wlc-engine/interfaces';
 import {Game} from 'wlc-engine/modules/games/models/game.model';
+import {CategoryModel} from 'wlc-engine/modules/games/models/category.model';
 
 import {
     IByCategory,
@@ -34,6 +35,7 @@ export class GamesHelper {
         merchantNameToTitleMapping: {},
         byMerchant: {},
         categoryById: {},
+        categoryByName: {},
         categoryNameToIdMapping: {},
         categoryNameToTitleMapping: {},
         categoryIdToNameMapping: {},
@@ -73,24 +75,23 @@ export class GamesHelper {
     /**
      *
      * @param categories
-     * @returns {{mapping: IMapping, categoriesArray: ICategory[]}}
+     * @returns {{mapping: IMapping, categoriesArray: CategoryModel[]}}
      */
-    public static mapCategories(categories: ICategory[]): { categoriesArray: ICategory[] } {
+    public static mapCategories(categories: ICategory[]): { categoriesArray: CategoryModel[] } {
         if (!categories) {
             return;
         }
-        const categoriesArray: ICategory[] = [];
-        _each(categories, (category: ICategory) => {
-            const categoryId = category.ID;
-            const categoryName = category.Slug || category.menuId;
-            const categoryTitle = category.Trans;
-            category.MappingName = categoryName;
+        const categoriesArray: CategoryModel[] = [];
+        _each(categories, (item: ICategory) => {
+            const category = new CategoryModel(item);
             categoriesArray.push(category);
-            this.mapping.categoryById[categoryId] = category;
-            this.mapping.categoryNameToIdMapping[categoryName] = categoryId;
-            this.mapping.categoryNameToTitleMapping[categoryName] = categoryTitle;
-            this.mapping.categoryIdToNameMapping[categoryId] = categoryName;
-            this.mapping.categoryIdToTitleMapping[categoryId] = categoryTitle;
+
+            this.mapping.categoryById[category.id] = category;
+            this.mapping.categoryByName[category.name] = category;
+            this.mapping.categoryNameToIdMapping[category.name] = category.id;
+            this.mapping.categoryNameToTitleMapping[category.name] = category.title;
+            this.mapping.categoryIdToNameMapping[category.id] = category.name;
+            this.mapping.categoryIdToTitleMapping[category.id] = category.title;
         });
         return {categoriesArray};
     }
@@ -98,12 +99,14 @@ export class GamesHelper {
     /**
      *
      * @param {Game} game
-     * @param {ICategory[]} availableCategories
+     * @param {CategoryModel[]} availableCategories
      * @param {IMerchant[]} availableMerchants
      */
-    public static fillGamesByCategoriesMerchants(game: Game,
-                                                 availableCategories: ICategory[],
-                                                 availableMerchants: IMerchant[]): void {
+    public static fillGamesByCategoriesMerchants(
+        game: Game,
+        availableCategories: CategoryModel[],
+        availableMerchants: IMerchant[]): void
+    {
         const merchantName: string = game.getMerchantName();
         const merchants: string[] = [merchantName];
 
@@ -126,7 +129,7 @@ export class GamesHelper {
         });
 
         _each(game.categoryID, (categoryId: string) => {
-            const category: ICategory = this.getCategoryById(categoryId);
+            const category: CategoryModel = this.getCategoryById(categoryId);
             const categoryName: string = this.getCategoryNameById(categoryId);
             const categoryTitle = this.getCategoryTitleById(categoryId);
 
@@ -218,13 +221,18 @@ export class GamesHelper {
     /**
      *
      * @param {string} categoryId
-     * @returns {ICategory}
+     * @returns {CategoryModel}
      */
-    public static getCategoryById(categoryId: string): ICategory {
+    public static getCategoryById(categoryId: string): CategoryModel {
         return _get(this.mapping, `categoryById[${categoryId}]`);
     }
 
-    public static getCategoryByMenuId(categoryId: string): ICategory {
+    /**
+     *
+     * @param {string} categoryId
+     * @returns {CategoryModel}
+     */
+    public static getCategoryByMenuId(categoryId: string): CategoryModel {
         return _get(this.mapping, `categoryById[${categoryId}]`);
     }
 

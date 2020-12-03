@@ -55,9 +55,6 @@ export const $layouts: ILayoutsConfig = {
     'app.home': {
         extends: 'app',
     },
-    'app.catalog': {
-        extends: 'app.home',
-    },
     'app.gameplay': {
         extends: 'app',
         sections: {
@@ -94,5 +91,16 @@ export const $layouts: ILayoutsConfig = {
             },
         },
     },
+    'app.catalog': {
+        extends: 'app',
+        sections: {
+            content: {
+                components: [
+
+                ],
+                order: 2
+            }
+        }
+    }
 };
 

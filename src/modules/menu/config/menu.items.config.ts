@@ -6,7 +6,7 @@ export const wlcDefaultMenuItems = {
     'main-menu': [
         'main-menu:home',
         'main-menu:casino',
-        'main-menu:live',
+        // 'main-menu:live',
         'main-menu:promotions',
         'main-menu:contacts',
     ],
@@ -16,7 +16,6 @@ export const wlcDefaultMenuItems = {
         'affiliates-menu:faq',
         'affiliates-menu:tc',
     ],
-    'categories-menu': [],
     'profile-menu': [],
     'footer-menu:tc': [],
     'footer-menu:about-us': [],

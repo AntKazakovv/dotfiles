@@ -7,6 +7,7 @@ import {LayoutComponent} from 'wlc-engine/modules/core/components/layout/layout.
 import {
     homeState,
     catalogState,
+    catalogChildState,
     gamePlayState,
     pagesState,
     contactsState,
@@ -22,6 +23,7 @@ import {
 const states = {
     'app.home': homeState,
     'app.catalog': catalogState,
+    'app.catalog.child': catalogChildState,
     'app.gameplay': gamePlayState,
     'app.pages': pagesState,
     'app.contacts': contactsState,

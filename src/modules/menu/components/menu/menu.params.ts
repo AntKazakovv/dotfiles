@@ -1,12 +1,13 @@
 import {IComponentParams} from 'wlc-engine/interfaces/config.interface';
+import {CategoryModel} from 'wlc-engine/modules/games/models/category.model';
 
-type MenuItemType = string | IMenuItem;
-type MenuType = 'main-menu' | 'categories' | 'profile' | 'footer:tc' | 'footer:about';
-type ItemType = 'sref' | 'anchor' | 'modal' | 'href' | 'scroll';
-type IMenuTarget = '_blank' | '_self' | '_parent' | '_top';
+export type MenuItemType = string | IMenuItem;
+export type MenuType = 'main-menu' | 'category-menu' | 'profile' | 'footer:tc' | 'footer:about';
+export type ItemType = 'sref' | 'anchor' | 'modal' | 'href' | 'scroll';
+export type IMenuTarget = '_blank' | '_self' | '_parent' | '_top';
 export type MenuTheme = string;
 
-interface IMenuItemParamsState {
+export interface IMenuItemParamsState {
     name: string;
     params?: {
         [key: string]: any;
@@ -16,16 +17,16 @@ interface IMenuItemParamsState {
     };
 }
 
-interface IMenuItemParamsAnchor {
+export interface IMenuItemParamsAnchor {
     name: string;
 }
 
-interface IMenuItemParamsModal {
+export interface IMenuItemParamsModal {
     name: string;
     params?: any;
 }
 
-interface IMenuItemParams {
+export interface IMenuItemParams {
     state?: IMenuItemParamsState;
     anchor?: IMenuItemParamsAnchor;
     scroll?: string;
@@ -34,7 +35,7 @@ interface IMenuItemParams {
     target?: IMenuTarget;
 }
 
-interface IMenuItem {
+export interface IMenuItem {
     name: string;
     type: ItemType;
     icon?: string;
@@ -42,32 +43,25 @@ interface IMenuItem {
     params?: IMenuItemParams;
 }
 
-interface IMenuCParams extends IComponentParams<MenuTheme, MenuType, string> {
+export interface IMenuCParams extends IComponentParams<MenuTheme, MenuType, string> {
     common?: {},
     items?: MenuItemType[];
 }
 
-interface IMenuItemsGlobal {
+export interface IMenuItemsGlobal {
     [key: string]: IMenuItem;
 }
 
-interface IHelperGetItemsParams {
+export interface IHelperGetItemsParams {
     items?: MenuItemType[];
     type?: MenuType;
 }
 
-export {
-    MenuItemType,
-    MenuType,
-    ItemType,
-    IMenuItemParamsState,
-    IMenuItemParams,
-    IMenuItem,
-    IMenuCParams,
-    IMenuItemsGlobal,
-    IHelperGetItemsParams,
-    IMenuItemParamsModal,
-};
+export interface IHelperGetItemsForCategories {
+    openChildCatalog?: boolean;
+    categories: CategoryModel[];
+    lang: string;
+}
 
 export const defaultParams: IMenuCParams = {
     class: 'wlc-menu',

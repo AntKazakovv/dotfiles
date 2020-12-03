@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, HostBinding, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectorRef, HostBinding, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
 import {Subject} from 'rxjs';
 import {IComponentParams} from 'wlc-engine/interfaces/config.interface';
 
@@ -32,7 +32,7 @@ export interface IMixedParams<T extends IComponentParams<unknown, unknown, unkno
     componentName?: string;
 }
 
-export class AbstractComponent implements OnDestroy, OnInit {
+export class AbstractComponent implements OnDestroy, OnInit, OnChanges {
     @HostBinding('class') protected $hostClass: string;
     @HostBinding('attr.data-wlc-element') protected $hostWlcElement: string;
     public $class: string;
@@ -74,6 +74,14 @@ export class AbstractComponent implements OnDestroy, OnInit {
         }
         this.prepareHostClass();
         this.setWlcElementOnHost();
+    }
+
+    public ngOnChanges(changes: SimpleChanges): void {
+        //console.log(changes);
+
+        if (_get(changes, 'inlineParams') && _get(this, 'inlineParams')) {
+            this.$params = _merge(this.$params, _get(this, 'inlineParams'));
+        }
     }
 
     public ngOnDestroy() {

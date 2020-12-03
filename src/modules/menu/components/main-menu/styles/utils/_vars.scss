@@ -1,0 +1,15 @@
+@use 'engine-styles/functions' as ef;
+
+// Sizes
+$width: fit-content !default;
+$gapSize: ef.get('size', 'less') !default;
+$paddingSize: ef.get('size', 'smaller') !default;
+
+// Links
+$textTransform: uppercase !default;
+$textColor: ef.get('color', 'link') !default;
+$textColorHover: darken(ef.get('color', 'linkSecondary'), 5%) !default;
+$textDecoration: none !default;
+$fontWeight: 400 !default;
+$fontSize: ef.get('font', 'main') !default;
+$padding: 20px 25px;
