@@ -52,6 +52,7 @@ import {SelectComponent} from './components/select/select.component';
 import {CheckboxComponent} from './components/checkbox/checkbox/checkbox.component';
 import {FormControlComponent} from './components/form-control/form-control.component';
 import {InfoPageComponent} from './components/info-page/info-page.component';
+import {TableComponent} from './components/table/table.component';
 import {CopyrightComponent} from './components/copyright/copyright.component';
 // -- COMPONENTS IMPORTS END  --;
 
@@ -63,6 +64,7 @@ import {ClickOutsideDirective} from './directives/click-outside.directive';
 
 //  -- CONFIGS IMPORTS STARTS--;
 import {HammerConfig} from 'wlc-engine/config/hammer.config';
+import { DummyComponent } from './components/dummy/dummy.component';
 //  -- CONFIGS IMPORTS STARTS--;
 
 export const components = {
@@ -85,6 +87,8 @@ export const components = {
     'wlc-checkbox': CheckboxComponent,
     'wlc-info-page': InfoPageComponent,
     'wlc-form-control': FormControlComponent,
+    'wlc-table': TableComponent,
+    'wlc-dummy-amount': DummyComponent,
     'wlc-copyright': CopyrightComponent,
 };
 
@@ -143,6 +147,8 @@ export const components = {
         CheckboxComponent,
         InfoPageComponent,
         FormControlComponent,
+        TableComponent,
+        DummyComponent,
         CopyrightComponent,
     ],
     exports: [
@@ -173,6 +179,8 @@ export const components = {
         CheckboxComponent,
         InfoPageComponent,
         FormControlComponent,
+        TableComponent,
+        DummyComponent,
         CopyrightComponent,
     ],
 })

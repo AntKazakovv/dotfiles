@@ -10,7 +10,7 @@ export type ValidatorType = string | IValidatorSettings;
 
 export interface IValidatorSettings {
     name: string;
-    options: any[] | number;
+    options: any | number;
 }
 
 export interface IValidatorListItem {

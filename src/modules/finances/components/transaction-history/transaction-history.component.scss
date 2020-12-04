@@ -1,0 +1,14 @@
+.wlc-transaction-history {
+
+    &-filter {
+        display: flex;
+
+        .wlc-btn {
+            margin-right: 10px;
+
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+    }
+}

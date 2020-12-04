@@ -1,0 +1,19 @@
+:host {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+
+    &:hover {
+
+        .cancel-btn {
+            display: block;
+        }
+    }
+}
+
+.cancel-btn {
+    display: none;
+    position: absolute;
+    z-index: 10;
+}

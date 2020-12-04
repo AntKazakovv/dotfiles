@@ -148,8 +148,8 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
     protected cardFields: boolean;
 
     constructor(data: IPaymentSystem, protected user: UserService) {
-            super();
-            this.data = data;
+        super();
+        this.data = data;
     }
 
     public get appearance(): string {

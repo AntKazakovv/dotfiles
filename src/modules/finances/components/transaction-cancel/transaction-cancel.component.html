@@ -1,0 +1,8 @@
+<span class="type">{{$params.transaction.type}}</span>
+<button 
+    wlc-button
+    class="cancel-btn"
+    *ngIf="$params.transaction.allowCancelation"
+    text="Cancel"
+    (click)="cancel()">
+</button>

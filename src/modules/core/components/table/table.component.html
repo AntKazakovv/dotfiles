@@ -1,0 +1,30 @@
+<div class="{{$class}}" *ngIf='ready'>
+
+    <div class="{{$class}}__row {{$class}}__head">
+        <span *ngFor="let col of head" class="{{$class}}__cell {{$class}}__cell_{{col.key}}">
+            {{col.title | translate}}
+        </span>
+    </div>
+
+    <div *ngFor="let item of rows; index as $index" class="{{$class}}__row"
+        [ngClass]="[$class + '__row-' + (($index%2) ? 'even' : 'odd'), item.opened ? 'wlc-show':'']">
+        <div class="{{$class}}__cell {{$class}}__cell_{{col.key}}"
+            *ngFor="let col of head; let $first = first"
+            (click)="$first ? item.togleRow() : null"
+            [ngClass]="[$first ? $class + '__cell_first' : '', (col.disableHideClass || $first) ? '' : 'wlc-cell-hide']">
+
+            <ng-container [ngSwitch]="col.type">
+                <span class="{{$class}}-mobile-label">{{col.title | translate}}:</span>
+                <ng-container *ngSwitchCase="'component'" [ngComponentOutlet]="col.componentClass"
+                    [ngComponentOutletInjector]="getComponentInjector(item, col)">
+                </ng-container>
+
+                <ng-container *ngSwitchDefault>
+                    {{item.getValue(col, $index) | translate}}
+                </ng-container>
+            </ng-container>
+        </div>
+    </div>
+
+    <div *ngIf="!rows.length">{{$params.noItemsText | translate}}</div>
+</div>

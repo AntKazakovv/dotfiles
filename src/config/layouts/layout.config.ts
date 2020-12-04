@@ -80,6 +80,30 @@ export const $layouts: ILayoutsConfig = {
             },
         },
     },
+    'app.profile.deposit': {
+        sections: {
+            'profile': {
+                container: true,
+                components: [
+                    {
+                        name: 'finances.wlc-deposit',
+                    },
+                ],
+            },
+        },
+    },
+    'app.profile.transaction': {
+        sections: {
+            'profile': {
+                container: true,
+                components: [
+                    {
+                        name: 'finances.wlc-transaction-history',
+                    },
+                ],
+            },
+        },
+    },
     'app.contacts': {
         extends: 'app',
         sections: {

@@ -131,6 +131,8 @@ export class UserService {
 
         if (this.isAuthenticated) {
             this.fetchUserProfile();
+            this.fetchUserInfo();
+            this.startUserInfoFetcher();
         }
     }
 
