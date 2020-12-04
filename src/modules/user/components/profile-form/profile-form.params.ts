@@ -8,7 +8,7 @@ export interface IProfileFormCParams extends IComponentParams<ComponentTheme, Co
 }
 
 export const defaultParams: IProfileFormCParams = {
-    class: 'wlc-feedback-form',
+    class: 'wlc-profile-form',
 };
 
 export const profileForm: IFormWrapperCParams = {
