@@ -1,0 +1,12 @@
+<div *ngIf="ready; else preloader" class="{{$class}}">
+    <div *ngFor="let system of systems" class="item" [ngClass]="{'active': system.id === currentSystem?.id}">
+        <div (click)='selectPayment(system)'>
+            <div class="image" [ngStyle]="{'background-image': 'url(' + system.image + ')'}"></div>
+            <span class="title">{{system.name}}</span>
+        </div>
+    </div>
+</div>
+
+<ng-template #preloader>
+    <div wlc-loader></div>
+</ng-template>

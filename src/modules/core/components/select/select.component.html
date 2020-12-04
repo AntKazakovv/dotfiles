@@ -8,6 +8,7 @@
             name="{{$params.name}}"
             (click)="toggleDropdown()"
             [formControl]="control"
+            ngDefaultControl
     >{{selectedItem || $params.common.placeholder | translate}}
     </button>
     <div class="{{$class}}-status"

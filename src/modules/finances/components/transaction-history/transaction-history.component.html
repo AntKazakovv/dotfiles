@@ -1,0 +1,21 @@
+<div class="{{$class}}-filter">
+
+    <div wlc-input [inlineParams]='startDateInput'></div>
+    <div wlc-input [inlineParams]='endDateInput'></div>
+
+    <div wlc-select [inlineParams]='filterSelect' *ngIf="$params.filterType==='select'; else buttons"></div>
+</div>
+
+<div *ngIf="ready; else preloader" class="{{$class}}">
+    <div wlc-table [inlineParams]='tableData'></div>
+</div>
+
+<ng-template #buttons>
+    <button wlc-button (click)="setFilter('all')" text="All"></button>
+    <button wlc-button (click)="setFilter('deposit')" text="Deposit"></button>
+    <button wlc-button (click)="setFilter('withdraw')" text="Withdraw"></button>
+</ng-template>
+
+<ng-template #preloader>
+    <div wlc-loader></div>
+</ng-template>

@@ -1,21 +1,23 @@
 import {Injectable} from '@angular/core';
-//import {IIndexingtring} from 'wlc-engine/interfaces';
-import {IRequestMethod, RestMethodType} from 'wlc-engine/modules/core/services/data/data.service';
+import {IData, IRequestMethod, RestMethodType} from 'wlc-engine/modules/core/services/data/data.service';
 import {DataService, EventService} from 'wlc-engine/modules/core/services';
 import {PaymentSystem, IPaymentSystem, FilterType} from 'wlc-engine/modules/finances/models/payment-system.model';
-import {IIndexing} from 'wlc-engine/interfaces';
+import {Transaction, ITransaction, ITransactionRequestParams} from 'wlc-engine/modules/finances/models/transaction-history.model';
 import {UserService} from 'wlc-engine/modules/user/services';
+import {BehaviorSubject} from 'rxjs';
 
 import {
     find as _find,
 } from 'lodash';
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class FinancesService {
+
+    public paymentSystems$: BehaviorSubject<PaymentSystem[]> = new BehaviorSubject(undefined);
 
     protected systems: PaymentSystem[] = [];
     protected depositType: FilterType[] = ['deposit', 'Deposits', 'all', 'All'];
-    protected withdrawType: FilterType[] = ['withdraw', 'Withdraws', 'all', 'All']
+    protected withdrawType: FilterType[] = ['withdraw', 'Withdraws', 'all', 'All'];
 
     constructor(
         protected dataService: DataService,
@@ -32,16 +34,26 @@ export class FinancesService {
 
     public getSystemById(systemId: number): PaymentSystem {
 
-        if(this.systems.length) {
+        if (this.systems.length) {
             return _find(this.systems, {'id': systemId});
         }
 
         return null;
     }
 
-    public deposit(systemId: number, amount: number, additionalFields: object): Promise<any> {
-        return null;
+    public async deposit(systemId: number, amount: number, additionalFields: object): Promise<any> {
 
+
+        try {
+            const res = await this.dataService.request('finances/deposits', {
+                systemId,
+                amount,
+                additional: {},
+            });
+            return res;
+        } catch (error) {
+            return Promise.reject(error);
+        }
     }
 
     public withdraw(systemId: number, amount: number, additionalFields: object): Promise<any> {
@@ -59,25 +71,21 @@ export class FinancesService {
 
     }
 
-    public cancelWithdrawal(id: number): Promise<any> {
-        return null;
-
+    public async cancelWithdrawal(id: number): Promise<any> {
+        return await this.dataService.request<IData>('finances/cancelWithdrawal', {id});
     }
 
-    /* public getTransactionList(params: any): Promise<ITransaction[]> {
-        return null;
-
-    } */
+    public async getTransactionList(params: ITransactionRequestParams = {}): Promise<Transaction[]> {
+        return (await this.dataService.request<IData>('finances/transactions', params)).data as Transaction[];
+    }
 
     public getBetsList(params: any): Promise<any> {
         return null;
-
-
     }
 
     public async fetchPaymentSystems(): Promise<PaymentSystem[]> {
-        this.systems = await this.dataService.request('finances/paymentSystems')
-            .then((data: IPaymentSystem[]) => this.createPaymentSystems(data));
+        this.systems = (await this.dataService.request<IData>('finances/paymentSystems')).data as PaymentSystem[];
+        this.paymentSystems$.next(this.paymentSystems);
         return this.paymentSystems;
     }
 
@@ -86,18 +94,36 @@ export class FinancesService {
 
     } */
 
+    /**
+     * get systems list with filter by type
+     *
+     * @param filterType {FilterType} - type of payment system
+     *
+     * @return {PaymentSystem[]} list of filtred payment systems
+     */
     public filterSystems(filterType: FilterType = 'all'): PaymentSystem[] {
-        return this.systems.filter((system: PaymentSystem) => {
-            return (this.depositType.includes(system.showFor) && this.depositType.includes(filterType))
-                || (this.withdrawType.includes(system.showFor) && this.withdrawType.includes(filterType));
-        });
+        return this.systems.filter((system: PaymentSystem) => this.filterSystemsPipe(system, filterType));
+    }
+
+    /**
+     * check payment system to type
+     * 
+     * @param system {PaymentSystem} - payment system object
+     * @param filterType {FilterType} - type of payment system
+     *
+     * @return {boolean} result of check
+     */
+
+    public filterSystemsPipe(system: PaymentSystem, filterType: FilterType = 'all'): boolean {
+        return (this.depositType.includes(system.showFor) && this.depositType.includes(filterType))
+            || (this.withdrawType.includes(system.showFor) && this.withdrawType.includes(filterType));
     }
 
     protected createPaymentSystems(data: IPaymentSystem[]): PaymentSystem[] {
         const paymentSystems: PaymentSystem[] = [];
 
         if (data.length) {
-            for(const paymentData of data) {
+            for (const paymentData of data) {
                 const system: PaymentSystem = new PaymentSystem(paymentData, this.userService);
                 paymentSystems.push(system);
             }
@@ -106,13 +132,9 @@ export class FinancesService {
         return paymentSystems;
     }
 
-    protected regMethod(
-        name: string,
-        url: string,
-        type: RestMethodType,
-    ): void {
-        const params: IRequestMethod = {name, system: 'finances', url, type};
-        this.dataService.registerMethod(params);
+
+    protected createTransaction(data: ITransaction[]): Transaction[] {
+        return data.map((item) => new Transaction(item));
     }
 
     protected registerMethods(): void {
@@ -125,6 +147,7 @@ export class FinancesService {
                 success: 'PAYMENT_SYSTEMS',
                 fail: 'PAYMENT_SYSTEMS_ERROR',
             },
+            mapFunc: this.createPaymentSystems.bind(this),
         });
         this.dataService.registerMethod({
             name: 'bets',
@@ -137,6 +160,7 @@ export class FinancesService {
             system: 'finances',
             url: '/transactions',
             type: 'GET',
+            mapFunc: this.createTransaction.bind(this),
         });
         this.dataService.registerMethod({
             name: 'deposits',
@@ -149,6 +173,13 @@ export class FinancesService {
             system: 'finances',
             url: '/withdrawals',
             type: 'POST',
+        });
+
+        this.dataService.registerMethod({
+            name: 'cancelWithdrawal',
+            system: 'finances',
+            url: '/withdrawals',
+            type: 'DELETE',
         });
     }
 }

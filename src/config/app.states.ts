@@ -11,7 +11,7 @@ import {
     gamePlayState,
     pagesState,
     contactsState,
-    profileState,
+    profile,
 } from './states';
 
 import {
@@ -27,7 +27,10 @@ const states = {
     'app.gameplay': gamePlayState,
     'app.pages': pagesState,
     'app.contacts': contactsState,
-    'app.profile': profileState,
+    'app.profile': profile.main,
+    'app.profile.deposit': profile.deposit,
+    'app.profile.withdraw': profile.withdraw,
+    'app.profile.transaction': profile.transaction,
 };
 
 const appState: Ng2StateDeclaration = {
