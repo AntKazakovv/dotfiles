@@ -1,0 +1,21 @@
+@import '../utils/vars';
+
+.wlc-copyright--theme-default:host {
+
+    .wlc-copyright__text {
+        font-size: $fontSize;
+        text-align: $textAlign;
+        color: $textColor;
+
+        a {
+            text-decoration: $linkTextDecoration;
+            color: $linkColor;
+            transition: 0.5s ease-in;
+
+            &:hover,
+            &:focus-visible {
+                color: $linkHoverColor;
+            }
+        }
+    }
+}

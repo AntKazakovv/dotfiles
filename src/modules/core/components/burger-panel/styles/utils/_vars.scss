@@ -1,19 +1,19 @@
 @use 'engine-styles/functions' as ef;
 
-$transition: ef.get('time', 'main') linear;
+$transition: ef.get('time', 'main') linear !default;
 
-$panelWidth: 290px;
-$panelBackground: ef.get('color', 'backgroundSecondary');
-$panelTextColor: ef.get('color', 'text');
-$panelTextSize: ef.get('font', 'size');
+$panelWidth: 290px !default;
+$panelBackground: ef.get('color', 'backgroundSecondary') !default;
+$panelTextColor: ef.get('color', 'text') !default;
+$panelTextSize: ef.get('font', 'size') !default;
 
-$panelHeaderBackground: transparent;
-$panelHeaderPadding: ef.get('size', 'small');
-$panelHeaderBorderBottom: 1px solid ef.get('color', 'text');
-$panelHeaderFontSize: $panelTextSize;
-$panelHeaderColor: $panelTextColor;
+$panelHeaderBackground: transparent !default;
+$panelHeaderPadding: ef.get('size', 'small') !default;
+$panelHeaderBorderBottom: 1px solid ef.get('color', 'text') !default;
+$panelHeaderFontSize: $panelTextSize !default;
+$panelHeaderColor: $panelTextColor !default;
 
-$panelContentBackground: transparent;
-$panelContentPadding: ef.get('size', 'small');
+$panelContentBackground: transparent !default;
+$panelContentPadding: ef.get('size', 'small') !default;
 
-$closeIconColor: $panelTextColor;
+$closeIconColor: $panelTextColor !default;

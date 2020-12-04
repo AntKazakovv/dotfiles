@@ -1,19 +1,19 @@
 @use 'engine-styles/functions' as ef;
 
-$color: ef.get('color', 'text');
-$bgColor: ef.get('color', 'backgroundSecondary');
+$color: ef.get('color', 'text') !default;
+$bgColor: ef.get('color', 'backgroundSecondary') !default;
 
-$clearButtonSize: 12px;
-$clearButtonColor: ef.get('color', 'text');
-$searchIconSize: 18px;
-$searchIconColor: ef.get('color', 'main');
-$searchIconRight: 16px;
-$spaceBetweenIcons: 14px;
+$clearButtonSize: 12px !default;
+$clearButtonColor: ef.get('color', 'text') !default;
+$searchIconSize: 18px !default;
+$searchIconColor: ef.get('color', 'main') !default;
+$searchIconRight: 16px !default;
+$spaceBetweenIcons: 14px !default;
 
-$borderRadius: 4px;
-$border: 2px solid ef.get('color', 'secondary');
-$borderColorActive: ef.get('color', 'main');
-$inputVerticalPadding: 8px;
-$inputLeftPadding: 20px;
-$inputFontSize: ef.get('font', 'size');
-$transition: ef.get('time', 'main') linear;
+$borderRadius: 4px !default;
+$border: 2px solid ef.get('color', 'secondary') !default;
+$borderColorActive: ef.get('color', 'main') !default;
+$inputVerticalPadding: 8px !default;
+$inputLeftPadding: 20px !default;
+$inputFontSize: ef.get('font', 'size') !default;
+$transition: ef.get('time', 'main') linear !default;

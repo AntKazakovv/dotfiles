@@ -119,4 +119,24 @@
             }
         }
     }
+
+    &.wlc-language-selector--theme-mod-long {
+        width: 100%;
+        max-width: $maxWidthModLong;
+        padding: $currentPaddingModLong;
+        border-radius: $currentBorderRadius;
+        border: $currentBorderModLong;
+        height: auto;
+
+        .wlc-language-selector__current {
+            grid-template-columns: auto 1fr auto;
+        }
+
+        .wlc-language-selector__dropdown {
+            position: absolute;
+            width: 100%;
+            top: calc(100% + 5px);
+            left: 0;
+        }
+    }
 }

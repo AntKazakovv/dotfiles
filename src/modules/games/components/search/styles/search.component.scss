@@ -1,16 +1,17 @@
-@use './vars' as v;
 @use './mixins' as m;
+@import './vars';
 
-$btnArrowDelta: v.$btnArrowSize * 1.4142 - v.$btnArrowSize;
-$btnPaddingRight: v.$btnArrowRightMargin + v.$btnArrowLeftMargin + $btnArrowDelta + v.$btnArrowSize;
+$btnArrowDelta: $btnArrowSize * 1.4142 - $btnArrowSize;
+$btnPaddingRight: $btnArrowRightMargin + $btnArrowLeftMargin + $btnArrowDelta + $btnArrowSize;
 
 :host {
+
     .wlc-search {
 
         &__header {
             display: flex;
             flex-wrap: wrap;
-            margin-bottom: v.$headerMarginBottom;
+            margin-bottom: $headerMarginBottom;
         }
 
         &__col {
@@ -39,77 +40,78 @@ $btnPaddingRight: v.$btnArrowRightMargin + v.$btnArrowLeftMargin + $btnArrowDelt
         &__btn {
             position: relative;
             height: 100%;
-            padding: v.$btnPaddingVertical $btnPaddingRight v.$btnPaddingVertical v.$btnPaddingLeft;
+            padding: $btnPaddingVertical $btnPaddingRight $btnPaddingVertical $btnPaddingLeft;
             appearance: none;
-            background-color: v.$btnBackground;
-            border-radius: v.$btnBorderRadius;
+            background-color: $btnBackground;
+            border-radius: $btnBorderRadius;
             border: none;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: v.$btnFontSize;
-            color: v.$btnTextColor;
-            transition: v.$btnTransition linear;
+            font-size: $btnFontSize;
+            color: $btnTextColor;
+            transition: $btnTransition linear;
 
             &:focus {
                 outline: none;
             }
 
             &:hover {
-                background: v.$btnBackgroundHover;
+                background: $btnBackgroundHover;
             }
 
             &:after {
                 content: '';
                 display: block;
                 position: absolute;
-                right: v.$btnArrowRightMargin + $btnArrowDelta / 2;
+                right: $btnArrowRightMargin + $btnArrowDelta / 2;
                 top: 50%;
-                width: v.$btnArrowSize;
-                height: v.$btnArrowSize;
-                margin-top: -(v.$btnArrowSize * 0.75);
-                border-top: v.$btnArrowWidth solid v.$btnArrowColor;
-                border-left: v.$btnArrowWidth solid v.$btnArrowColor;
+                width: $btnArrowSize;
+                height: $btnArrowSize;
+                margin-top: -($btnArrowSize * 0.75);
+                border-top: $btnArrowWidth solid $btnArrowColor;
+                border-left: $btnArrowWidth solid $btnArrowColor;
                 transform: rotate(225deg);
-                transition: v.$btnTransition linear;
+                transition: $btnTransition linear;
             }
 
             .icon {
-                color: v.$btnIconColor;
-                margin-right: v.$btnIconRightMargin;
+                color: $btnIconColor;
+                margin-right: $btnIconRightMargin;
 
                 ::ng-deep {
+
                     svg {
-                        width: v.$btnIconSize;
-                        height: v.$btnIconSize;
+                        width: $btnIconSize;
+                        height: $btnIconSize;
                     }
                 }
             }
 
             .counter {
                 display: inline-block;
-                font-size: v.$btnCounterFontSize;
-                margin-left: v.$btnCounterMarginLeft;
-                background: v.$btnCounterBackground;
+                font-size: $btnCounterFontSize;
+                margin-left: $btnCounterMarginLeft;
+                background: $btnCounterBackground;
                 line-height: 1.2;
                 padding-right: 0.2em;
                 padding-left: 0.2em;
-                border-radius: v.$btnCounterBorderRadius;
-                color: v.$btnCounterColor;
+                border-radius: $btnCounterBorderRadius;
+                color: $btnCounterColor;
             }
 
             &.active {
-                background: v.$btnBackgroundActive;
-                color: v.$btnColorActive;
+                background: $btnBackgroundActive;
+                color: $btnColorActive;
 
                 &:after {
-                    margin-top: -(v.$btnArrowSize * 0.25);
+                    margin-top: -($btnArrowSize * 0.25);
                     transform: rotate(45deg);
-                    border-color: v.$btnArrowColorActive;
+                    border-color: $btnArrowColorActive;
                 }
 
                 .icon {
-                    color: v.$btnIconColorActive;
+                    color: $btnIconColorActive;
                 }
             }
         }
@@ -118,9 +120,9 @@ $btnPaddingRight: v.$btnArrowRightMargin + v.$btnArrowLeftMargin + $btnArrowDelt
             list-style-type: none;
             padding: 0;
             display: grid;
-            gap: v.$listGap;
-            @if v.$listGrid {
-                @include m.list-grid(v.$listGrid);
+            gap: $listGap;
+            @if $listGrid {
+                @include m.list-grid($listGrid);
             } @else {
                 grid-template-columns: repeat(2, minmax(0, 1fr));
             }
@@ -134,32 +136,31 @@ $btnPaddingRight: v.$btnArrowRightMargin + v.$btnArrowLeftMargin + $btnArrowDelt
             display: flex;
             align-items: center;
             justify-content: space-between;
-            white-space: nowrap;
             width: 100%;
             text-align: left;
-            padding: v.$listBtnPadding;
-            border: v.$listBtnBorder;
-            background: v.$listBtnBackground;
-            border-radius: v.$listBtnRadius;
+            padding: $listBtnPadding;
+            border: $listBtnBorder;
+            background: $listBtnBackground;
+            border-radius: $listBtnRadius;
             white-space: nowrap;
             text-overflow: ellipsis;
-            font-size: v.$listBtnFontSize;
-            color: v.$listBtnColor;
-            transition: v.$listBtnTransition linear;
+            font-size: $listBtnFontSize;
+            color: $listBtnColor;
+            transition: $listBtnTransition linear;
 
             &:focus {
                 outline: none;
             }
 
             &:hover {
-                background: v.$listBtnBackgroundHover;
+                background: $listBtnBackgroundHover;
             }
 
             &.active {
 
                 .wlc-search__list-icon {
-                    background: v.$listBtnBackgroundActive;
-                    border: 2px solid v.$listBtnColorActive;
+                    background: $listBtnBackgroundActive;
+                    border: 2px solid $listBtnColorActive;
 
                     &:before {
                         visibility: visible;
@@ -174,11 +175,11 @@ $btnPaddingRight: v.$btnArrowRightMargin + v.$btnArrowLeftMargin + $btnArrowDelt
             flex: 0 0 1.2em;
             width: 1.2em;
             height: 1.2em;
-            border-radius: v.$listBtnIconRadius;
-            background: v.$listBtnIconBackground;
-            border: v.$listBtnIconBorder;
+            border-radius: $listBtnIconRadius;
+            background: $listBtnIconBackground;
+            border: $listBtnIconBorder;
             margin-left: 0.8em;
-            transition: v.$listBtnTransition linear;
+            transition: $listBtnTransition linear;
 
             &:before {
                 content: '';
@@ -188,8 +189,8 @@ $btnPaddingRight: v.$btnArrowRightMargin + v.$btnArrowLeftMargin + $btnArrowDelt
                 left: 50%;
                 width: 5px;
                 height: 8px;
-                border-right: v.$listBtnIconWidth solid v.$listBtnColorActive;
-                border-bottom: v.$listBtnIconWidth solid v.$listBtnColorActive;
+                border-right: $listBtnIconWidth solid $listBtnColorActive;
+                border-bottom: $listBtnIconWidth solid $listBtnColorActive;
                 transform: translate(-60%, -60%) rotate(45deg);
                 visibility: hidden;
             }
