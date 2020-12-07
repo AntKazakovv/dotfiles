@@ -15,11 +15,11 @@ import {AbstractComponent} from 'wlc-engine/classes/abstract.component';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LogoComponent extends AbstractComponent implements OnInit {
-    public $params: Params.IParams;
+    public $params: Params.ILogoCParams;
     public logoImageSource: string;
 
     constructor(
-        @Inject('injectParams') protected componentParams: Params.IParams,
+        @Inject('injectParams') protected componentParams: Params.ILogoCParams,
         protected configService: ConfigService,
     ) {
         super({
