@@ -89,7 +89,7 @@ const defaultParams: {[key: string]: IWinnersParams} = {
 })
 export class WinnersService {
 
-    public latestWins$: BehaviorSubject<WinnerModel[]> = new BehaviorSubject(undefined);
+    protected latestWins$: BehaviorSubject<WinnerModel[]> = new BehaviorSubject(undefined);
     protected biggestWins$: BehaviorSubject<WinnerModel[]> = new BehaviorSubject(undefined);
 
     protected latestStream$: Observable<WinnerModel[]>;
@@ -182,8 +182,8 @@ export class WinnersService {
 
         if (!this.latestWins$.getValue()) {
             this.latestWins$.pipe(first()).subscribe(() => {
-                this.fetchWinners('latestWins');
                 this.latestWins$.next([]);
+                this.fetchWinners('latestWins');
             });
         }
     }
@@ -200,8 +200,8 @@ export class WinnersService {
 
         if (!this.biggestWins$.getValue()) {
             this.biggestWins$.pipe(first()).subscribe(() => {
-                this.fetchWinners('biggestWins');
                 this.biggestWins$.next([]);
+                this.fetchWinners('biggestWins');
             });
         }
     }
