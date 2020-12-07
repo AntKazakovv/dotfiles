@@ -1,2 +1,2 @@
 export * from './services/config/config.service';
-export {FilesService} from './services/files/files.service';
+export * from './services/files/files.service';

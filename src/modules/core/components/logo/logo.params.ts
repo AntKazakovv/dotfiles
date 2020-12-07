@@ -1,7 +1,7 @@
 import {TransitionOptions} from '@uirouter/core';
 import {IComponentParams} from 'wlc-engine/interfaces/config.interface';
 
-export interface IParams extends IComponentParams<string, string, string> {
+export interface ILogoCParams extends IComponentParams<string, string, string> {
     link: string;
     uiOptions?: TransitionOptions;
     disableLink?: boolean;
@@ -11,7 +11,7 @@ export interface IParams extends IComponentParams<string, string, string> {
     };
 }
 
-export const defaultParams: IParams = {
+export const defaultParams: ILogoCParams = {
     class: 'wlc-logo',
     link: 'app.home',
     uiOptions: {

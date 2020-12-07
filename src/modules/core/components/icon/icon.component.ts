@@ -1,7 +1,6 @@
 import {Component, OnInit, Input, ViewEncapsulation, ChangeDetectorRef} from '@angular/core';
 import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
-import {FilesService} from 'wlc-engine/modules/core';
-import {IFile} from 'wlc-engine/modules/core/services/files/files.service';
+import {FilesService, IFile} from 'wlc-engine/modules/core';
 import {AbstractComponent} from 'wlc-engine/classes';
 import * as Params from './icon.params';
 
