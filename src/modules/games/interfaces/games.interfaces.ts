@@ -117,7 +117,7 @@ export type IJackpot = {
 }
 
 export type IFavourite = {
-    game_id: string;
+    game_id: number;
 }
 
 /**

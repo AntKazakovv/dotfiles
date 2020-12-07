@@ -52,7 +52,7 @@ export class GamesCatalogService {
         this.$resolve = resolve;
     });
 
-    public favourites: string[] = [];
+    public favourites: number[] = [];
     protected gamesCatalog: GamesCatalog;
 
     private $resolve: () => void;
@@ -90,6 +90,7 @@ export class GamesCatalogService {
             name: gamesEvents.FETCH_GAME_CATALOG_SUCCEEDED,
         }, (data: IData) => {
             this.gamesCatalog = new GamesCatalog(data.data, this);
+            this.$resolve();
             this.loadJackpots();
             this.loadFavourites();
         });
@@ -159,7 +160,7 @@ export class GamesCatalogService {
      * @param {string} ID
      * @returns {Promise<boolean>}
      */
-    public async toggleFavourites(ID: string): Promise<boolean> {
+    public async toggleFavourites(ID: number): Promise<boolean> {
         if (!this.configService.get('$user.isAuthenticated')) {
             throw new Error('is not authenticated');
         }
@@ -313,6 +314,10 @@ export class GamesCatalogService {
 
     public getGame(merchantId: string, launchCode: string): Game {
         return this.gamesCatalog.getGame(merchantId, launchCode);
+    }
+
+    public getGameById(id: number): Game {
+        return this.gamesCatalog.getGameById(id);
     }
 
     /**
