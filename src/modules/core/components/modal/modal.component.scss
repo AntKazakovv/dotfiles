@@ -18,9 +18,10 @@
     height: 100%;
     outline: 0;
     overflow: hidden;
-    display: none;
+    visibility: hidden;
 
     .modal-open & {
+        visibility: visible;
         overflow-x: hidden;
         overflow-y: auto;
     }

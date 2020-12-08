@@ -1,4 +1,3 @@
-import {Modal} from 'bootstrap';
 import {
     Component,
     OnInit,
@@ -10,7 +9,13 @@ import {
     Inject,
     HostListener,
     Input,
+    ViewChild,
 } from '@angular/core';
+import {
+    BsModalRef,
+    BsModalService,
+    ModalDirective,
+} from 'ngx-bootstrap/modal';
 
 import {
     IModalOptions,
@@ -25,9 +30,7 @@ import {
 import {ConfigService} from 'wlc-engine/modules/core';
 
 import {
-    isString as _isString,
     assign as _assign,
-    assignIn as _assignIn,
 } from 'lodash';
 
 @Component({
@@ -35,32 +38,25 @@ import {
     templateUrl: './modal.component.html',
     styleUrls: ['./modal.component.scss'],
     encapsulation: ViewEncapsulation.None,
-    host: {
-        '[class.wlc-modal]': 'true',
-        'role': 'dialog',
-        'tabindex': '-1',
-        '[attr.aria-modal]': 'true',
-        '[attr.aria-hidden]': 'true',
-        '[class.fade]': '$params.config.animation',
-        '[attr.id]': '$params.config.id',
-    },
 })
-export class WlcModalComponent extends AbstractComponent implements OnInit, AfterViewInit, OnDestroy {
+export class WlcModalComponent extends AbstractComponent
+    implements OnInit, AfterViewInit, OnDestroy {
+    @ViewChild('modal') public modalRef: BsModalRef;
+    @ViewChild(ModalDirective) modalDirect: ModalDirective;
+
     public $params: IModalOptions;
     public dialogClasses: string[] = [];
-    public modalDirect: Modal;
     public inject: Injector;
+    public bsOptions: IModalBsOptions = {};
 
     @Input() protected inlineParams: IModalOptions;
-
-    protected bsOptions: IModalBsOptions = {};
 
     constructor(
         @Inject('injectParams') protected params: IModalOptions,
         protected eventService: EventService,
         protected injector: Injector,
         protected ConfigService: ConfigService,
-        private hostElement: ElementRef,
+        protected modalService: BsModalService,
     ) {
         super(<IMixedParams<IModalOptions>>{
             injectParams: params,
@@ -74,9 +70,9 @@ export class WlcModalComponent extends AbstractComponent implements OnInit, Afte
     }
 
     public ngAfterViewInit(): void {
-        this.modalDirect = new Modal(this.hostElement.nativeElement, this.bsOptions);
         this.modalDirect.show();
     }
+
 
     public confirm(): void {
         const {config} = this.$params;
@@ -85,7 +81,7 @@ export class WlcModalComponent extends AbstractComponent implements OnInit, Afte
             config.onConfirm();
         }
 
-        this.modalDirect.hide();
+        this.modalRef.hide();
     }
 
     public setTitle(title: string): void {
@@ -126,7 +122,7 @@ export class WlcModalComponent extends AbstractComponent implements OnInit, Afte
 
             const params = {
                 setTitle: this.setTitle.bind(this),
-            }
+            };
 
             this.inject = Injector.create({
                 providers: [

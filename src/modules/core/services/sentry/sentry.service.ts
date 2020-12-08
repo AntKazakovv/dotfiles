@@ -36,9 +36,9 @@ export class SentryService {
     private dsn: IIndexing<string> = {
         prod: 'https://4005578ccdcd422580f551621158d92d@sentry.egamings.com/68',
         dev: 'https://850fc7b0547d49db8d67c363bfdd844a@sentry.egamings.com/67',
-        autotest: 'https://537009cd82f64045828047b669fb8929@sentry.egamings.com/70'
+        autotest: 'https://537009cd82f64045828047b669fb8929@sentry.egamings.com/70',
     };
-    private autotest: boolean;
+    private readonly autotest: boolean;
     private readonly sessionHash: string;
 
     constructor(
@@ -50,7 +50,7 @@ export class SentryService {
         } else {
             const hashFromStorage: string = this.configService.get<string>({
                 name: this.sessionKey,
-                storageType: 'sessionStorage'
+                storageType: 'sessionStorage',
             });
             this.sessionHash = hashFromStorage || this.generateHash(true);
         }
@@ -74,7 +74,7 @@ export class SentryService {
                 scope.setUser(msg.userInfo);
             }
             Sentry.captureMessage(
-                msg.message, Severity.fromString(msg.level || 'info')
+                msg.message, Severity.fromString(msg.level || 'info'),
             );
         });
     }
@@ -91,7 +91,7 @@ export class SentryService {
             this.configService.set({
                 name: this.sessionKey,
                 value: hash,
-                storageType: 'sessionStorage'
+                storageType: 'sessionStorage',
             });
         }
         return hash;
@@ -109,7 +109,7 @@ export class SentryService {
                 release: '' + this.window.WLC_VERSION,
                 environment: this.window.WLC_ENV || 'prod',
                 blacklistUrls: [
-                    /https?:\/\/((www)\.)?1x2nwh\.com/
+                    /https?:\/\/((www)\.)?1x2nwh\.com/,
                 ],
                 beforeSend: (event: Event): Event => {
                     const project = this.window.wlcSentryConfig?.project || 'unknown';
@@ -118,7 +118,7 @@ export class SentryService {
                     event.tags.sessionHash = this.sessionHash;
                     event.message = `[${project}] ${event.message}`;
                     return event;
-                }
+                },
             });
 
             if (this.autotest) {

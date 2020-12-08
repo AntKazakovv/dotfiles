@@ -28,7 +28,7 @@ import {ModalService} from 'wlc-engine/modules/core/services';
 import {WlcModalComponent} from 'wlc-engine/modules/core/components/modal';
 
 interface IError {
-    msg: string | string;
+    msg: string;
     state?: string;
     stateParams?: RawParams;
 }
@@ -73,12 +73,12 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
     protected iframeObserver: MutationObserver;
     protected iframe: HTMLElement;
 
-    protected isIframeHeght: boolean = false;
+    protected isIframeHeight: boolean = false;
 
     constructor(
         public router: UIRouter,
+        public userService: UserService,
         protected gamesCatalogService: GamesCatalogService,
-        protected userService: UserService,
         protected configService: ConfigService,
         protected modalService: ModalService,
         protected logService: LogService,
@@ -169,7 +169,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
                 this.iframe = iframe;
                 const iframeAttrHeight = this.iframe.getAttribute('height');
                 if (iframeAttrHeight && iframeAttrHeight !== '100%') {
-                    this.isIframeHeght = true;
+                    this.isIframeHeight = true;
                     this.setIframeObserver();
                 }
                 this.containerObserver.disconnect();
@@ -222,7 +222,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
             this.renderer.setStyle(this.footer.nativeElement, 'maxWidth', '100%');
         }
 
-        if (this.isIframeHeght) {
+        if (this.isIframeHeight) {
             this.renderer.setStyle(el, 'height', _toNumber(this.iframe.getAttribute('height')));
         }
     }

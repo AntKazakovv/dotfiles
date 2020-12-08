@@ -21,6 +21,8 @@ import {defaultParams, IBannerParams} from 'wlc-engine/modules/promo/components/
     styleUrls: ['./banner.component.scss'],
 })
 export class BannerComponent extends AbstractComponent implements OnInit {
+    public $params: IBannerParams;
+
     @Input() protected inlineParams: IBannerParams;
 
     constructor(

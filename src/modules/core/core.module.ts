@@ -10,6 +10,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {UIRouterModule} from '@uirouter/angular';
 import {SwiperModule} from 'ngx-swiper-wrapper';
 import {AngularResizedEventModule} from 'angular-resize-event';
+import {ModalModule} from 'ngx-bootstrap/modal';
 // -- MODULES IMPORTS END --;
 
 // -- SERVICES IMPORTS START --;
@@ -64,7 +65,7 @@ import {ClickOutsideDirective} from './directives/click-outside.directive';
 
 //  -- CONFIGS IMPORTS STARTS--;
 import {HammerConfig} from 'wlc-engine/config/hammer.config';
-import { DummyComponent } from './components/dummy/dummy.component';
+import {DummyComponent} from './components/dummy/dummy.component';
 //  -- CONFIGS IMPORTS STARTS--;
 
 export const components = {
@@ -103,6 +104,7 @@ export const components = {
         SwiperModule,
         ReactiveFormsModule,
         AngularResizedEventModule,
+        ModalModule,
     ],
     providers: [
         DataService,
