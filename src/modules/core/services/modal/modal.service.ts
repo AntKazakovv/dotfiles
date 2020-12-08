@@ -141,7 +141,7 @@ export class ModalService {
             return;
         }
 
-        modal.ref.instance.modalDirect.hide();
+        // modal.ref.instance.modalDirect.hide();
     }
 
     /**

@@ -1,37 +1,38 @@
-<div class="wlc-modal__dialog modal-dialog"
-     [class]="dialogClasses">
-    <div class="wlc-modal__header"
-         [class.wlc-modal__header--headless]="!$params.config.modalTitle">
-        <h5 class="wlc-modal__title"
-            *ngIf="$params.config.modalTitle">
-            {{$params.config.modalTitle | translate}}
-        </h5>
-        <button type="button"
-                wlc-icon
-                iconName="close"
+<div bsModal [config]="bsOptions" tabindex="-1" role="dialog" #modal="bs-modal">
+    <div class="wlc-modal__dialog modal-dialog"
+        [class]="dialogClasses">
+        <div class="wlc-modal__header"
+            [class.wlc-modal__header--headless]="!$params.config.modalTitle">
+            <h5 class="wlc-modal__title"
+                *ngIf="$params.config.modalTitle">
+                {{$params.config.modalTitle | translate}}
+            </h5>
+            <button type="button"
                 class="wlc-modal__close"
-                data-dismiss="modal"
+                (click)="modal.hide()"
                 aria-label="Close"
                 title="Close">
-        </button>
-    </div>
+                x
+            </button>
+        </div>
 
-    <div class="wlc-modal__body">
-        <ng-container *ngTemplateOutlet="$params.config.component ? component : message"></ng-container>
-    </div>
+        <div class="wlc-modal__body">
+            <ng-container *ngTemplateOutlet="$params.config.component ? component : message"></ng-container>
+        </div>
 
-    <div class="wlc-modal__footer">
-        <button type="button"
-                wlc-button
-                text="{{$params.config.confirmBtnText || 'Confirm' | translate}}"
+        <div class="wlc-modal__footer">
+            <button type="button"
                 *ngIf="$params.config.showConfirmBtn"
+                class=""
                 (click)="confirm()">
-        </button>
-        <button type="button"
-                wlc-button
-                text="{{$params.config.closeBtnText || 'Close' | translate}}"
-                data-dismiss="modal">
-        </button>
+                {{$params.config.confirmBtnText || 'Confirm' | translate}}
+            </button>
+            <button type="button"
+                class=""
+                (click)="modal.hide()">
+                {{$params.config.closeBtnText || 'Close' | translate}}
+            </button>
+        </div>
     </div>
 </div>
 

@@ -1,6 +1,6 @@
 <div class="{{$class}}__content" (resized)="onResize($event)">
     <div class="{{$class}}__header" #header>
-        <h2>{{game?.Name[locale] || game?.Name['en'] || ''}}</h2>
+        <h2>{{game?.name[locale] || game?.name['en'] || ''}}</h2>
         <div class="{{$class}}__btns">
             <div *ngIf="userService.isAuthenticated" class="icon-btn icon-btn--favourite" [class.active]="isFavourite" wlc-icon iconName="favourite" (click)="onFavourite($event)"></div>
             <div class="icon-btn" wlc-icon iconName="fullscreen" (click)="onFullscreen($event)"></div>

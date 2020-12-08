@@ -1,5 +1,5 @@
 import {UIRouter} from '@uirouter/core';
-import {IIndexing} from 'wlc-engine/interfaces/index';
+import {IIndexing} from 'wlc-engine/interfaces';
 import {IGame, IRestrictions, IStartGameOptions} from 'wlc-engine/modules/games/interfaces/games.interfaces';
 import {GamesHelper} from 'wlc-engine/modules/games/games.helpers';
 
@@ -21,9 +21,9 @@ export class Game {
     public subMerchantID: string;
     public sort: string;
     public AR: string;
+    public image: string;
 
     protected url: string;
-    protected image: string;
     protected sortPerCategory: IIndexing<number>;
     protected isRestricted: boolean;
     protected IDCountryRestriction: string;

@@ -32,7 +32,7 @@ import {panelsEvents} from './../float-panels/float-panels.params';
 enum Directions {
     left = 2,
     right = 4,
-};
+}
 
 @Component({
     selector: '[wlc-burger-panel]',

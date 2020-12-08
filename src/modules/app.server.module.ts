@@ -8,28 +8,29 @@ import {MissingTranslationService} from '../config/translate.loader';
 import {serverTranslateFactory} from '../config/server-translate.loader';
 
 import {
-  TranslateModule,
-  TranslateLoader,
-  MissingTranslationHandler,
+    TranslateModule,
+    TranslateLoader,
+    MissingTranslationHandler,
 } from '@ngx-translate/core';
 
 @NgModule({
-  imports: [
-    AppModule,
-    ServerModule,
-    ServerTransferStateModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: serverTranslateFactory,
-        deps: []
-      },
-      missingTranslationHandler: {
-        provide: MissingTranslationHandler,
-        useClass: MissingTranslationService,
-      },
-    }),
-  ],
-  bootstrap: [UIView],
+    imports: [
+        AppModule,
+        ServerModule,
+        ServerTransferStateModule,
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: serverTranslateFactory,
+                deps: [],
+            },
+            missingTranslationHandler: {
+                provide: MissingTranslationHandler,
+                useClass: MissingTranslationService,
+            },
+        }),
+    ],
+    bootstrap: [UIView],
 })
-export class AppServerModule {}
+export class AppServerModule {
+}

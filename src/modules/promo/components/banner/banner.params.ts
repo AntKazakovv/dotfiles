@@ -7,6 +7,7 @@ export type ComponentType = 'default';
 export interface IBannerParams extends IComponentParams<ComponentTheme, ComponentType, string> {
     params?: BannerModel[];
     class?: string;
+    html?: string;
 }
 
 export const defaultParams: IBannerParams = {

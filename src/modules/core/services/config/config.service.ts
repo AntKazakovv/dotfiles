@@ -5,16 +5,14 @@ import * as appConfig from 'wlc-config/index';
 import * as wlcConfig from 'wlc-engine/config/default.config';
 import {GlobalHelper} from 'wlc-engine/helpers/global.helper';
 import {
-    CookiesStorageService,
     LocalStorageService,
     SessionStorageService,
-} from 'ngx-store';
+} from 'ngx-webstorage';
 import {BehaviorSubject} from 'rxjs';
 import {
     IGlobalConfig,
     IGetParams,
     ISetParams,
-    IStorageType,
 } from './config.interface';
 
 export * from './app-config.model';
@@ -22,19 +20,14 @@ export * from './config.interface';
 
 export enum storageType {
     'localStorage' = 'localStorageService',
-    'sessionStorage' = 'sessionStorageService',
-    'cookiesStorage' = 'cookiesStorageService',
+    'sessionStorage' = 'sessionStorageService'
 }
 
 import {
     mergeWith as _mergeWith,
-    cloneDeep as _cloneDeep,
     get as _get,
     set as _set,
-    forEach as _forEach,
-    find as _find,
     isObject as _isObject,
-    includes as _includes,
 } from 'lodash';
 
 /**
@@ -60,7 +53,6 @@ export class ConfigService {
         private data: DataService,
         private localStorageService: LocalStorageService,
         private sessionStorageService: SessionStorageService,
-        private cookiesStorageService: CookiesStorageService,
     ) {
         this.getCountries();
     }
@@ -90,7 +82,7 @@ export class ConfigService {
 
         if (_isObject(getParams)) {
             if (getParams.storageType) {
-                return _get(this, storageType[getParams.storageType]).get(getParams.name);
+                return _get(this, storageType[getParams.storageType])?.strategy.get(getParams.name);
             } else {
                 return _get(this.global, getParams.name);
             }

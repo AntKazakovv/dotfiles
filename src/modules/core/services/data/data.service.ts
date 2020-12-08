@@ -228,8 +228,8 @@ export class DataService {
         return (
             (method.preload
                 && method.type === 'GET'
-                && (window as any).wlcPreload?.hasOwnProperty(method.preload)) ?
-                from((window as any).wlcPreload[method.preload] as Promise<IData>) :
+                && (globalThis as any)?.wlcPreload?.hasOwnProperty(method.preload)) ?
+                from((globalThis as any)?.wlcPreload[method.preload] as Promise<IData>) :
                 this.http.request<IData>(
                     method.type,
                     url,

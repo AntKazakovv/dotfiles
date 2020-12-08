@@ -18,8 +18,9 @@ import {CoreModule} from './core/core.module';
 import {ConfigService} from './core/services';
 import {Location} from '@angular/common';
 import {IIndexing} from 'wlc-engine/interfaces';
-import {WebStorageModule} from 'ngx-store';
+import {NgxWebstorageModule} from 'ngx-webstorage';
 import * as Sentry from '@sentry/angular';
+import {ModalModule} from 'ngx-bootstrap/modal';
 
 export function loadConfig(config: ConfigService) {
     return config.load();
@@ -52,8 +53,9 @@ export function loadConfig(config: ConfigService) {
             },
         }),
         CoreModule,
-        WebStorageModule,
+        NgxWebstorageModule.forRoot(),
         ServiceWorkerModule.register('/static/dist/ngsw-worker.js', {enabled: environment.production}), // environment.production
+        ModalModule.forRoot(),
     ],
     providers: [
         ConfigService,

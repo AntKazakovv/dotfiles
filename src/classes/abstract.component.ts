@@ -32,6 +32,11 @@ export interface IMixedParams<T extends IComponentParams<unknown, unknown, unkno
     componentName?: string;
 }
 
+function EmptyDecorator(c) {
+    return null;
+}
+
+@EmptyDecorator
 export class AbstractComponent implements OnDestroy, OnInit, OnChanges {
     @HostBinding('class') protected $hostClass: string;
     @HostBinding('attr.data-wlc-element') protected $hostWlcElement: string;
