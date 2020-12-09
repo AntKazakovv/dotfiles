@@ -1,2 +1,1 @@
-export const dummy = {};
-
+export {$base} from './01.base.config';

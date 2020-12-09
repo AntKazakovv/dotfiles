@@ -4,7 +4,7 @@ import {
 } from 'wlc-engine/modules/core/system/classes/abstract.component';
 
 import {IFormWrapperCParams} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
-import {$base} from 'wlc-config/01.base.config';
+import {$base} from 'wlc-config/index';
 
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;
