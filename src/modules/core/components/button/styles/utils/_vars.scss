@@ -1,5 +1,7 @@
 @use 'engine-scss/functions' as ef;
 
+$scaleParam: 0.9 !default;
+
 // Size
 $minWidth: 100px !default;
 $heightSmall: 35px !default;

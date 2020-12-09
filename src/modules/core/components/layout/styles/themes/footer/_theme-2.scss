@@ -1,0 +1,261 @@
+@import '../../utils/vars';
+
+.wlc-sections__footer--theme-2 {
+    padding-bottom: $footerPaddingBottom;
+    background-color: $footerBackground;
+
+    @include mq.min(900) {
+        padding-bottom: 0;
+    }
+
+    .container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .footer-menu {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        padding: $footerMenuMobilePadding;
+        margin: $footerMenuMobileMargin;
+        max-width: $footerMenuMobileMaxWidth;
+        background: $footerMenuMobileBg;
+        border-radius: $footerMenuMobileRadius;
+
+        @include mq.min(560) {
+            max-width: $footerMenuMobileMaxWidth * 0.85;
+        }
+
+        @include mq.min(900) {
+            flex-direction: row;
+            order: -1;
+            margin: $footerGapTablet 0 0;
+            max-width: initial;
+        }
+
+        .wlc-post-menu[wlc-post-menu] {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: 100%;
+
+            @include mq.min(900) {
+                margin: 0 $footerMenuDesktopGap * 0.7 0 0;
+                width: auto;
+            }
+
+            @include mq.min(1200) {
+                margin: 0 $footerMenuDesktopGap 0 0;
+            }
+
+            &:first-child {
+                margin-bottom: 20px;
+
+                @include mq.min(900) {
+                    margin-bottom: 0;
+                }
+            }
+
+            .wlc-post-menu {
+
+                &__title {
+                    font: {
+                        size: $footerMenuTitleSizeMobile;
+                        weight: $footerMenuTitleWeight;
+                    }
+                    text-transform: $footerMenuTitleTransform;
+                    color: $footerMenuTitleColor;
+                    text-align: $footerMenuTitleAlign;
+
+                    @include mq.min(900) {
+                        display: none;
+                    }
+                }
+
+                &__items {
+                    grid-gap: $footerMenuGap;
+                    font-size: $footerMenuItemSize;
+
+                    @include mq.min(900) {
+                        grid-auto-flow: column;
+                        grid-gap: $footerMenuDesktopGap * 0.7;
+                    }
+
+                    @include mq.min(1200) {
+                        grid-gap: $footerMenuDesktopGap;
+                    }
+                }
+
+                &__item {
+                    text-align: $footerMenuItemAlign;
+
+                    @include mq.min(900) {
+                        white-space: nowrap;
+                    }
+                }
+
+                &__link {
+                    color: $footerMenuItemColor;
+
+                    @include mq.min(900) {
+                        font-size: 80%;
+                    }
+
+                    @include mq.min(1200) {
+                        font-size: 100%;
+                    }
+                }
+            }
+        }
+    }
+
+    .footer-bottom {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        @include mq.min(900) {
+            display: grid;
+            grid-template-areas: $footerGridArea;
+            grid-template-columns: $footerGridColumn;
+            grid-column-gap: $footerMenuGap;
+            margin: $footerMenuGap 0;
+            order: 2;
+        }
+
+        .wlc-logo {
+            grid-area: logo;
+        }
+
+        .wlc-license[wlc-license] {
+            grid-area: license;
+            margin: $footerGapMobile auto;
+            max-width: $footerMenuMobileMaxWidth;
+
+            @include mq.min(560) {
+                max-width: $footerMenuMobileMaxWidth * 0.85;
+            }
+
+            @include mq.min(900) {
+                max-width: initial;
+            }
+        }
+
+        .wlc-disclaimer[wlc-disclaimer] {
+            grid-area: disclaimer;
+            margin: $footerGapMobile auto;
+            max-width: $footerMenuMobileMaxWidth;
+
+            @include mq.min(560) {
+                max-width: $footerMenuMobileMaxWidth * 0.85;
+            }
+
+            @include mq.min(900) {
+                max-width: initial;
+                margin: $footerGapTablet auto;
+            }
+        }
+
+        .wlc-copyright[wlc-copyright] {
+            grid-area: copyright;
+
+            > .wlc-copyright__text {
+
+                @include mq.min(900) {
+                    text-align: left;
+                }
+
+                > span {
+                    display: block;
+
+                    @include mq.min(900) {
+                        display: inline-block;
+                    }
+                }
+            }
+        }
+    }
+
+    .wlc-icon-list {
+        display: grid;
+        grid: {
+            template-columns: repeat(4, 1fr);
+            gap: $footerGapMobile;
+        }
+        justify-content: center;
+        padding: $footerMenuMobilePadding;
+
+        @include mq.min(560) {
+            grid-template-columns: repeat(5, 1fr);
+        }
+
+        @include mq.min(900) {
+            grid-template-columns: repeat(7, 1fr);
+            order: 1;
+            padding: 0;
+        }
+
+        @include mq.min(1200) {
+            grid-template-columns: repeat(10, 1fr);
+            order: 1;
+        }
+
+        > .wlc-icon-list__item {
+            max-width: $footerMerchantsMaxWidthMobile;
+            margin: 0 auto;
+        }
+    }
+
+    .wlc-icon-list--theme-payments {
+        display: flex;
+        align-items: center;
+        overflow-x: auto;
+        padding: $footerPaymentsPadding;
+
+        @include mq.min(640) {
+            justify-content: center;
+            order: 0;
+        }
+
+        @include mq.min(900) {
+            order: 0;
+            overflow-x: initial;
+            margin: $footerGapTablet auto;
+            padding: 0;
+            flex-wrap: wrap;
+        }
+
+        .wlc-icon-list__image {
+            display: block;
+            max-width: $footerPaymentsMaxWidthMobile;
+            max-height: $footerPaymentsMaxHeightMobile;
+            margin: 0 $footerPaymentsGapMobile;
+            filter: brightness(0.8);
+
+            @include mq.min(900) {
+                max-height: $footerPaymentsMaxHeightMobile * 1.2;
+                margin: 0 $footerPaymentsGapTablet 5px;
+            }
+        }
+    }
+
+    .wlc-language-selector {
+        margin-top: $footerLanguageMarginTop;
+
+        @include mq.min(900) {
+            margin-top: 0;
+        }
+
+        .wlc-language-selector__current {
+
+            &-arrow,
+            &-lang {
+                display: none;
+            }
+        }
+    }
+}

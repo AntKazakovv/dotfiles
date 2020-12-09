@@ -3,6 +3,4 @@
 $fontSize: ef.get('font', 'small') !default;
 $textAlign: center !default;
 $textColor: ef.get('color', 'textSecondary') !default;
-$linkColor: ef.get('color', 'main') !default;
-$linkHoverColor: darken(ef.get('color', 'main'), 20%) !default;
-$linkTextDecoration: none !default;
+$lineHeight: 15px !default;

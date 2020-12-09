@@ -1,6 +1,10 @@
 @import 'engine.variables';
 
 @import '~bootstrap/scss/bootstrap-reboot';
+@import 'app.styles';
 @import '~bootstrap/scss/bootstrap-grid';
 
-@import 'app.styles';
+body {
+    //scale body when device width < 375px
+    min-width: 375px;
+}

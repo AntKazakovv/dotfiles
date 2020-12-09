@@ -83,11 +83,11 @@ $grid-breakpoints: (
     1200: 1200px,
     1366: 1366px,
     1420: 1420px,
-    1630: 1630px
+    1630: 1630px,
 );
 
 $container-max-widths: (
-    320: 290px,
+    320: 340px,
     375: 345px,
     480: 450px,
     560: 530px,
@@ -103,3 +103,4 @@ $container-max-widths: (
 );
 
 $container-padding-x: 0;
+

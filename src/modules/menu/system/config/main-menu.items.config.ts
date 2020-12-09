@@ -23,15 +23,15 @@ export const wlcMainMenuItemsGlobal: Params.IMenuItemsGlobal = {
             },
         },
     },
-    'main-menu:live': {
-        name: gettext('Live Casino'),
+    'main-menu:tablegames': {
+        name: gettext('Table games'),
         type: 'sref',
-        class: 'live',
+        class: 'table',
         params: {
             state: {
                 name: 'app.catalog',
                 params: {
-                    category: 'live',
+                    category: 'table',
                 },
             },
         },

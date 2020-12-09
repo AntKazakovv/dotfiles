@@ -18,7 +18,7 @@ export * from './post-menu.params';
 })
 export class PostMenuComponent extends AbstractComponent implements OnInit {
     public isReady: boolean = false;
-    public menuItems: TextDataModel[];
+    public menuItems: TextDataModel[] = [];
     public title: string;
     public type = 'sref';
     public basePath: string;
@@ -40,7 +40,7 @@ export class PostMenuComponent extends AbstractComponent implements OnInit {
         try {
             await this.fetchPosts();
         } catch (e) {
-            console.log(e);
+            console.error(e);
         }
 
         this.isReady = true;

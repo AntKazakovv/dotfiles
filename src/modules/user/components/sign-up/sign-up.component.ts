@@ -1,6 +1,5 @@
 import {Component, HostBinding, OnInit, Inject} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {CustomValidator} from 'wlc-engine/modules/user/system/helper/custom-validator';
 import {UserService} from 'wlc-engine/modules/user/system/services';
 import {ConfigService} from 'wlc-engine/modules/core/system/services';
 import {
@@ -58,27 +57,6 @@ export class SignUpComponent implements OnInit {
     }
 
     protected formInitialization(): void {
-        this.signUpForm = new FormGroup({
-            email: new FormControl('',
-                [
-                    Validators.required,
-                    Validators.email,
-                ], [CustomValidator.uniqEmail]),
-            password: new FormControl('',
-                [
-                    Validators.required,
-                    Validators.minLength(6),
-                ]),
-            promo: new FormControl('',
-                [
-                    Validators.minLength(8),
-                ]),
-            currency: new FormControl(this.currencies[0].Name),
-            agreedWithTermsAndConditions: new FormControl(false,
-                [Validators.requiredTrue]),
-            ageConfirmed: new FormControl(false,
-                [Validators.requiredTrue]),
-        });
     }
 
     protected formDataPreparation(): object {

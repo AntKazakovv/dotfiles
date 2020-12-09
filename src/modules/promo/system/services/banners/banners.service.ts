@@ -75,7 +75,7 @@ export class BannersService {
     protected prepareBanners(): void {
         const banners = this.configService.get<any>(`appConfig.banners[${this.configService
             .get<string>('appConfig.language')}]`);
-        this.banners = banners.map((banner: BannerModel): BannerModel => new BannerModel(banner));
+        this.banners = banners?.map((banner: BannerModel): BannerModel => new BannerModel(banner));
         this.banners = this.filterByGeo(this.banners, '-');
         this.banners = this.filterByGeo(this.banners, '+');
     }

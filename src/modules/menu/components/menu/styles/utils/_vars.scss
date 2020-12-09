@@ -2,7 +2,7 @@
 
 // Sizes
 $width: fit-content !default;
-$gapSize: ef.get('size', 'less') !default;
+$gapSize: ef.get('size', 'smaller') !default;
 $paddingSize: ef.get('size', 'smaller') !default;
 
 // Links
@@ -10,6 +10,15 @@ $textTransform: uppercase !default;
 $textColor: ef.get('color', 'link') !default;
 $textColorHover: darken(ef.get('color', 'linkSecondary'), 5%) !default;
 $textDecoration: none !default;
-$fontWeight: 400 !default;
-$fontSize: ef.get('font', 'main') !default;
-$padding: 20px 25px;
+$fontWeight: 300 !default;
+$fontSize: ef.get('font', 'small') !default;
+$padding: 20px 25px !default;
+$fontWeightActive: 500 !default;
+$letterSpacing: 1px !default;
+
+//THEME MODS
+
+// - UNDERLINE
+$underlineHeight: 4px !default;
+$underlineColor: ef.get('color', 'main') !default;
+$underlineOffset: -15px !default;

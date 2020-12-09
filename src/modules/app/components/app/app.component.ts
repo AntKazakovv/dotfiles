@@ -1,4 +1,12 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding, OnDestroy, OnInit} from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    HostBinding,
+    OnDestroy,
+    OnInit,
+    HostListener,
+} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {StateService, TransitionService, UIRouter, UIRouterGlobals} from '@uirouter/core';
 import {takeUntil} from 'rxjs/operators';
@@ -12,12 +20,13 @@ import {
     sortBy as _sortBy,
 } from 'lodash';
 
+
 const defaultParams = {
     class: 'wlc-sections',
 };
 
 @Component({
-    selector: '[app-component]',
+    selector: '[wlc-app-component]',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -64,11 +73,12 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
         this.sections = _sortBy(this.layoutService
             .getAllSection('pages', this.uiRouter.current.name, this.uiRouter.params), 'order');
 
-        this.transition.onSuccess({}, async (transition) => {
+        this.transition.onSuccess({}, (transition) => {
             this.sections = _sortBy(this.layoutService
                 .getAllSection('pages', this.uiRouter.transition?.targetState().name(),
                     this.uiRouter.transition?.targetState().params()), 'order');
         });
+
         this.cdr.markForCheck();
     }
 

@@ -1,1 +1,3 @@
-@use './vars' as v;
+@use 'engine-scss/mixins/mediaqueries' as mq;
+
+@import './themes/default';

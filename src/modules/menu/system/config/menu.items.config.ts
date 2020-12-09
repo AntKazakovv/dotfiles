@@ -7,8 +7,7 @@ export const wlcDefaultMenuItems = {
     'main-menu': [
         'main-menu:home',
         'main-menu:casino',
-        // 'main-menu:live',
-        'main-menu:promotions',
+        'main-menu:tablegames',
         'main-menu:contacts',
     ],
     'affiliates-menu': [

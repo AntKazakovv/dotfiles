@@ -1,3 +1,5 @@
+@use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/mixins/mediaqueries' as mq;
 @import '../utils/vars';
 
 .wlc-menu--theme-default:host {
@@ -8,6 +10,18 @@
     width: $width;
     align-items: center;
 
+    @include mq.min(1024) {
+        grid-gap: $gapSize * 1.1;
+    }
+
+    @include mq.min(1200) {
+        grid-gap: $gapSize * 1.25;
+    }
+
+    @include mq.min(1420) {
+        grid-gap: $gapSize * 1.5;
+    }
+
     .wlc-menu {
 
         &__link {
@@ -17,8 +31,54 @@
             font-size: $fontSize;
             cursor: pointer;
 
+            @include mq.min(1024) {
+                font-size: $fontSize * 1.25;
+            }
+
+            @include mq.min(1420) {
+                font-size: $fontSize * 1.5;
+            }
+
             &:hover {
                 color: $textColorHover;
+            }
+
+            &.active {
+                color: $textColorHover;
+                font-weight: $fontWeightActive;
+            }
+        }
+    }
+}
+
+.wlc-menu--theme-mod-underline:host {
+
+    .wlc-menu {
+
+        &__link {
+            position: relative;
+
+            &:before {
+                content: '';
+                position: absolute;
+                bottom: $underlineOffset;
+                left: 0;
+                display: block;
+                width: 100%;
+                height: 0;
+                background-color: $underlineColor;
+                opacity: 0;
+                pointer-events: none;
+            }
+
+            &:hover,
+            &.active {
+
+                &:before {
+                    height: $underlineHeight;
+                    opacity: 100%;
+                    @include bm.transition();
+                }
             }
         }
     }
