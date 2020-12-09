@@ -6,13 +6,13 @@ const {task, src, dest, series} = require('gulp'),
     jeditor = require('gulp-json-editor'),
     rename = require('gulp-rename'),
     tmp = require('tmp')
-;
+    ;
 
 module.exports = function messagesTask() {
     task('message:temp_front_po', (cb) => {  // Done
         const commands = _.keys(this.params.locales).map(locale => {
             const poFilePath = this.params.paths.src + `/languages/frontend/${locale}.po`,
-                enginePoFilePath = this.params.paths.engineLink + `/languages/${locale}.po`;
+                enginePoFilePath = this.params.paths.engineLink + `/system/languages/${locale}.po`;
 
             return `msgcat --force-po --lang=${locale} ` +
                 `${(fs.existsSync(poFilePath)) ? `--use-first ${poFilePath}` : ''} ` +
@@ -50,7 +50,8 @@ module.exports = function messagesTask() {
                 const poFilePath = this.params.paths.src + `/languages/backend/messages/${locale.code}.po`,
                     loyaltyPoFilePath = this.params.paths.src + `/languages/backend/loyalty/${locale.code}.po`,
                     vendorPoFilePath = this.params.paths.vendor + `/egamings/wlc_core/root/locale/${locale.locale}/LC_MESSAGES/messages.po`,
-                    vendorLoyaltyPoFilePath = this.params.paths.vendor + `/egamings/wlc_core/root/locale/${locale.locale}/LC_MESSAGES/loyalty.po`;
+                    vendorLoyaltyPoFilePath = this.params.paths.vendor
+                        + `/egamings/wlc_core/root/locale/${locale.locale}/LC_MESSAGES/loyalty.po`;
 
                 return `msgcat --force-po --lang=${locale.code} ` +
                     `${(fs.existsSync(poFilePath)) ? `--use-first ${poFilePath} ` : ''} ` +
@@ -102,30 +103,35 @@ module.exports = function messagesTask() {
 
     task('message:tpl_to_pot', async (cb) => {  //Done
         const tmpFile = tmp.fileSync(this.params.tmpFileOptions);
-        const commands = _.map(this.params.translationDirs.templates, templateDir => {
+        const commands = _.map(this.params.translationDirs.templates, (templateDir) => {
             return `echo 'tpl to POT -> ${templateDir}'\n` +
                 `find ${this.params.paths.root}/${templateDir} -type f -name '*.tpl' -print >> ${tmpFile.name}\n`;
         });
 
-        const extractCommand = `TMPDIR=${this.params.paths.temp} ${this.params.paths.root}/vendor/bin/tpl-gettext-extractor --sort-output --no-location ` +
-                `--force-po -o ${this.params.paths.temp}/messages_tpl.pot --keyword="trans" --keyword="transchoice" --keyword="_" --keyword="gettext"` +
-                ` --files \`cat ${tmpFile.name}\`\n`;
+        const extractCommand = `TMPDIR=${this.params.paths.temp} ${this.params.paths.root}`
+            + '/vendor/bin/tpl-gettext-extractor --sort-output --no-location '
+            + `--force-po -o ${this.params.paths.temp}/messages_tpl.pot`
+            + ' --keyword="trans" --keyword="transchoice" --keyword="_" --keyword="gettext"' +
+            ` --files \`cat ${tmpFile.name}\`\n`;
 
         await this.execShell(commands, true);
         await this.execShell(extractCommand, true);
 
         // fix date update
-        await this.execShell(`sed -i 's/"POT-Creation-Date.*/"POT-Creation-Date: 1970-01-01 00:00+0000\\\\n"/' ${this.params.paths.temp}/messages_tpl.pot`, true);
+        await this.execShell(
+            `sed -i 's/"POT-Creation-Date.*/"POT-Creation-Date: 1970-01-01 00:00+0000\\\\n"/' ${this.params.paths.temp}/messages_tpl.pot`,
+            true,
+        );
         cb();
     });
 
     task('message:php_to_pot', async (cb) => {  //Done
         const tmpFile = tmp.fileSync(this.params.tmpFileOptions);
         let commands =
-                _.map(this.params.translationDirs.code, codeDir => {
-                    return `echo 'php to POT -> ${this.params.paths.root}/${codeDir}'\n` +
-                        `find ${this.params.paths.root}/${codeDir} -type f -name '*.php' -print >> ${tmpFile.name}\n`;
-                }),
+            _.map(this.params.translationDirs.code, codeDir => {
+                return `echo 'php to POT -> ${this.params.paths.root}/${codeDir}'\n` +
+                    `find ${this.params.paths.root}/${codeDir} -type f -name '*.php' -print >> ${tmpFile.name}\n`;
+            }),
             getTextCommand = `xgettext -L PHP --force-po -f ${tmpFile.name} -o ${this.params.paths.temp}/messages_php.pot\n`;
 
         await this.execShell(commands, true);
@@ -191,7 +197,9 @@ module.exports = function messagesTask() {
     task('message:front_pot_to_po', async (cb) => {  // Done
 
         let commands = _.keys(this.params.locales).map(locale => {
-            const poFilePath = this.params.paths.src + `/languages/${this.params.isEngineBundle ? '' : 'frontend/'}${locale}.po`;
+            const poFilePath = this.params.paths.src
+                + `${this.params.isEngineBundle ? '/system' : ''}`
+                + `/languages/${this.params.isEngineBundle ? '' : 'frontend/'}${locale}.po`;
             if (fs.existsSync(poFilePath)) {
                 return `msgmerge --force-po --no-fuzzy-matching --update --backup=off --lang=${locale} ` +
                     `${poFilePath} ${this.params.paths.temp}/front.pot \n` +
