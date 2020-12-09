@@ -1,4 +1,4 @@
-@use 'engine-styles/functions' as ef;
+@use 'engine-scss/functions' as ef;
 
 $color: ef.get('color', 'text') !default;
 $bgColor: ef.get('color', 'backgroundSecondary') !default;

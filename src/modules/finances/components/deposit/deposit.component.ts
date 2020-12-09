@@ -1,9 +1,9 @@
 import {Component, OnInit, Inject} from '@angular/core';
 
-import {AbstractComponent, IMixedParams} from 'wlc-engine/classes/abstract.component';
-import {ConfigService, EventService, ModalService} from 'wlc-engine/modules/core/services';
-import {PaymentSystem} from 'wlc-engine/modules/finances/models/payment-system.model';
-import {FinancesService} from 'wlc-engine/modules/finances/services';
+import {AbstractComponent, IMixedParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {ConfigService, EventService, ModalService} from 'wlc-engine/modules/core/system/services';
+import {PaymentSystem} from 'wlc-engine/modules/finances/system/models/payment-system.model';
+import {FinancesService} from 'wlc-engine/modules/finances/system/services';
 
 import {IPaymentListParams} from './../payment-list/payment-list.params';
 import {FormGroup} from '@angular/forms';

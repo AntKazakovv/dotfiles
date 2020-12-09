@@ -1,4 +1,4 @@
-import {IComponentParams} from 'wlc-engine/interfaces/config.interface';
+import {IComponentParams} from 'wlc-engine/modules/core/system/interfaces/config.interface';
 
 
 export const defaultParams: IComponentParams<string, string, string> = {

@@ -1,6 +1,6 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {UserService} from 'wlc-engine/modules/user/services';
+import {UserService} from 'wlc-engine/modules/user/system/services';
 
 @Component({
     selector: '[wlc-password-restore]',

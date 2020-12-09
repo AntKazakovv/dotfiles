@@ -2,7 +2,7 @@ import {SwiperConfigInterface} from 'ngx-swiper-wrapper';
 import {
     CustomType,
     IComponentParams,
-} from 'wlc-engine/classes/abstract.component';
+} from 'wlc-engine/modules/core/system/classes/abstract.component';
 
 export type ScrollbarTheme = 'default' | CustomType;
 

@@ -6,9 +6,9 @@ import {
     ChangeDetectorRef,
 } from '@angular/core';
 import {FormGroup} from '@angular/forms';
-import {AbstractComponent} from 'wlc-engine/classes/abstract.component';
-import {ModalService} from 'wlc-engine/modules/core/services';
-import {UserService} from 'wlc-engine/modules/user/services';
+import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {ModalService} from 'wlc-engine/modules/core/system/services';
+import {UserService} from 'wlc-engine/modules/user/system/services';
 import * as Params from './profile-form.params';
 
 import {

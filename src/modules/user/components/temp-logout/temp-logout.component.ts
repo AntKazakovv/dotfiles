@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
-import {UserService} from 'wlc-engine/modules/user/services';
-import {ConfigService} from 'wlc-engine/modules/core/services';
+import {UserService} from 'wlc-engine/modules/user/system/services';
+import {ConfigService} from 'wlc-engine/modules/core/system/services';
 
 @Component({
     selector: '[wlc-temp-logout]',

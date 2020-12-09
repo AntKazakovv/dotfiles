@@ -1,9 +1,9 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
 import {FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
-import {UserService} from 'wlc-engine/modules/user/services';
+import {UserService} from 'wlc-engine/modules/user/system/services';
 import {
     ModalService,
-} from 'wlc-engine/modules/core/services';
+} from 'wlc-engine/modules/core/system/services';
 
 @Component({
     selector: '[wlc-sign-in]',

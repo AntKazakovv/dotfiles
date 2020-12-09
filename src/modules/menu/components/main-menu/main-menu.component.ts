@@ -12,16 +12,16 @@ import * as Params from 'wlc-engine/modules/menu/components/main-menu/main-menu.
 import {
     AbstractComponent,
     IMixedParams,
-} from 'wlc-engine/classes/abstract.component';
+} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {
     LayoutService,
     EventService,
-} from 'wlc-engine/modules/core/services';
-import {gamesEvents} from 'wlc-engine/modules/games/interfaces/games.interfaces';
-import {GamesCatalogService} from 'wlc-engine/modules/games/services';
-import {CategoryModel} from 'wlc-engine/modules/games/models/category.model';
+} from 'wlc-engine/modules/core/system/services';
+import {gamesEvents} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
+import {GamesCatalogService} from 'wlc-engine/modules/games/system/services';
+import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.model';
 import {IMenuItem} from 'wlc-engine/modules/menu/components/menu/menu.params';
-import {MenuHelper} from 'wlc-engine/modules/menu/helpers/menu.helper';
+import {MenuHelper} from 'wlc-engine/modules/menu/system/helpers/menu.helper';
 import {TranslateService} from '@ngx-translate/core';
 import {MenuItemType} from 'wlc-engine/modules/menu/components/menu/menu.params';
 

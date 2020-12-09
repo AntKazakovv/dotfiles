@@ -8,9 +8,9 @@ import {
 } from '@angular/core';
 
 
-import {AbstractComponent} from 'wlc-engine/classes/abstract.component';
+import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {StaticService, TextDataModel} from 'wlc-engine/modules/static';
-import {HeightToggleAnimation} from 'wlc-engine/modules/core/animations/height-toggle.animation';
+import {HeightToggleAnimation} from 'wlc-engine/modules/core/system/animations/height-toggle.animation';
 
 import * as Params from './faq.params';
 

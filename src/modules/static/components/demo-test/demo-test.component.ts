@@ -1,13 +1,13 @@
 import { takeUntil } from 'rxjs/operators';
 import { Component, ChangeDetectorRef, OnInit, OnDestroy, Input, Inject } from '@angular/core';
-import {EventService} from 'wlc-engine/modules/core/services';
+import {EventService} from 'wlc-engine/modules/core/system/services';
 
 import {
     ModalService,
-} from 'wlc-engine/modules/core/services';
+} from 'wlc-engine/modules/core/system/services';
 import {FaqComponent} from './../faq/faq.component';
-import {WinnersService} from 'wlc-engine/modules/promo/services';
-import {WinnerModel} from 'wlc-engine/modules/promo/models/winner.model';
+import {WinnersService} from 'wlc-engine/modules/promo/system/services';
+import {WinnerModel} from 'wlc-engine/modules/promo/system/models/winner.model';
 import {Subject} from 'rxjs';
 
 @Component({

@@ -16,15 +16,15 @@ import {RawParams} from '@uirouter/core';
 import {DomSanitizer} from '@angular/platform-browser';
 import {ResizedEvent} from 'angular-resize-event';
 import {UIRouter} from '@uirouter/core';
-import {AbstractComponent} from 'wlc-engine/classes/abstract.component';
-import {Game} from 'wlc-engine/modules/games/models/game.model';
+import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {Game} from 'wlc-engine/modules/games/system/models/game.model';
 import {GamesCatalogService} from 'wlc-engine/modules/games';
 import {ConfigService} from 'wlc-engine/modules/core';
 import {defaultParams, IGWParams} from './game-wrapper.params';
-import {IGameParams, ILaunchInfo} from '../../interfaces/games.interfaces';
-import {UserService} from 'wlc-engine/modules/user/services';
-import {LogService} from 'wlc-engine/modules/core/services';
-import {ModalService} from 'wlc-engine/modules/core/services';
+import {IGameParams, ILaunchInfo} from '../../system/interfaces/games.interfaces';
+import {UserService} from 'wlc-engine/modules/user/system/services';
+import {LogService} from 'wlc-engine/modules/core/system/services';
+import {ModalService} from 'wlc-engine/modules/core/system/services';
 import {WlcModalComponent} from 'wlc-engine/modules/core/components/modal';
 
 interface IError {

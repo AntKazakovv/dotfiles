@@ -1,5 +1,5 @@
 import {TransitionService, UIRouterGlobals} from '@uirouter/core';
-import {ILayoutComponent} from 'wlc-engine/interfaces';
+import {ILayoutComponent} from 'wlc-engine/modules/core/system/interfaces';
 import {LayoutComponent} from 'wlc-engine/modules/core/components/layout/layout.component';
 import {
     ChangeDetectionStrategy,
@@ -16,7 +16,7 @@ import {
     ConfigService,
     EventService,
     LayoutService,
-} from 'wlc-engine/modules/core/services';
+} from 'wlc-engine/modules/core/system/services';
 
 import {
     merge as _merge,

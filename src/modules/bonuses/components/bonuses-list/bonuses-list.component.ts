@@ -10,11 +10,11 @@ import {
 import {
     AbstractComponent,
     IMixedParams,
-} from 'wlc-engine/classes/abstract.component';
+} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ConfigService} from 'wlc-engine/modules/core';
-import {EventService} from 'wlc-engine/modules/core/services';
-import {Bonus} from '../../models/bonus';
-import {LoyaltyBonusesService} from '../../services/loyalty-bonuses.service';
+import {EventService} from 'wlc-engine/modules/core/system/services';
+import {Bonus} from '../../system/models/bonus';
+import {LoyaltyBonusesService} from '../../system/services/loyalty-bonuses.service';
 import * as Params from './bonuses-list.params';
 
 import {

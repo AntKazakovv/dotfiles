@@ -1,6 +1,6 @@
 @use 'sass:map';
-@use 'engine-styles/mixins/mediaqueries' as mq;
-@use 'engine-styles/functions' as ef;
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/functions' as ef;
 @import '../utils/vars';
 
 .wlc-info-page--theme-default:host {

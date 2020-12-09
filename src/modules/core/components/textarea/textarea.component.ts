@@ -5,7 +5,7 @@ import {
     Input,
 } from '@angular/core';
 import {FormControl} from '@angular/forms';
-import {AbstractComponent} from 'wlc-engine/classes/abstract.component';
+import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import * as Params from 'wlc-engine/modules/core/components/textarea/textarea.params';
 import {ConfigService} from 'wlc-engine/modules/core';
 

@@ -11,8 +11,8 @@ import {
     SwiperDirective,
 } from 'ngx-swiper-wrapper';
 
-import {ConfigService} from 'wlc-engine/modules/core/services';
-import {AbstractComponent} from 'wlc-engine/classes/abstract.component';
+import {ConfigService} from 'wlc-engine/modules/core/system/services';
+import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import * as Params from './scrollbar.params';
 
 @Component({

@@ -1,4 +1,4 @@
-@use 'engine-styles/functions' as ef;
+@use 'engine-scss/functions' as ef;
 
 // Footer
 $footerBackground: ef.get('color', 'background') !default;

@@ -1,5 +1,5 @@
-import {IComponentParams} from 'wlc-engine/interfaces/config.interface';
-import {CategoryModel} from 'wlc-engine/modules/games/models/category.model';
+import {IComponentParams} from 'wlc-engine/modules/core/system/interfaces/config.interface';
+import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.model';
 
 export type MenuItemType = string | IMenuItem;
 export type MenuType = 'main-menu' | 'category-menu' | 'profile' | 'footer:tc' | 'footer:about';

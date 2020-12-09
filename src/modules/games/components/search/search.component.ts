@@ -13,26 +13,26 @@ import {
     transition,
 } from '@angular/animations';
 
-import {AbstractComponent} from 'wlc-engine/classes/abstract.component';
+import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {
     ISearchParams,
     PanelType,
     defaultParams,
     defaultGamesGridParams,
 } from './search.params';
-import {ConfigService} from 'wlc-engine/modules/core/services';
-import {GamesCatalogService} from 'wlc-engine/modules/games/services';
+import {ConfigService} from 'wlc-engine/modules/core/system/services';
+import {GamesCatalogService} from 'wlc-engine/modules/games/system/services';
 import {
     ICategory,
     IMerchant,
-} from 'wlc-engine/modules/games/interfaces/games.interfaces';
-import {EventService} from 'wlc-engine/modules/core/services/event/event.service';
+} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
+import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {ILanguage} from 'wlc-engine/modules/core';
 import {TranslateService} from '@ngx-translate/core';
 import {IGamesGridCParams} from 'wlc-engine/modules/games/components/games-grid/games-grid.params';
-import {CategoryModel} from 'wlc-engine/modules/games/models/category.model';
-import {GamesFilterService, GamesFilterServiceEvents} from 'wlc-engine/modules/games/services/games-filter.service';
-import {IGamesFilterData} from 'wlc-engine/modules/games/interfaces/filters.interfaces';
+import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.model';
+import {GamesFilterService, GamesFilterServiceEvents} from 'wlc-engine/modules/games/system/services/games-filter.service';
+import {IGamesFilterData} from 'wlc-engine/modules/games/system/interfaces/filters.interfaces';
 
 import {
     filter as _filter,

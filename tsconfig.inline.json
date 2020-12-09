@@ -22,8 +22,8 @@
         "es2015"
     ],
     "include": [
-        "./src/inline/**/*",
-        "./src/interfaces/global.interface.ts",
+        "./src/system/inline/**/*",
+        "./src/modules/core/system/interfaces/global.interface.ts",
         "./node_modules/@sentry/**/*"
     ]
 }

@@ -5,10 +5,10 @@ import {
     Input,
     ChangeDetectorRef,
 } from '@angular/core';
-import {AbstractComponent} from 'wlc-engine/classes/abstract.component';
-import {DataService} from 'wlc-engine/modules/core/services';
-import {IData} from 'wlc-engine/modules/core/services/data/data.service';
-import {IJackpot} from 'wlc-engine/modules/games/interfaces/games.interfaces';
+import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {DataService} from 'wlc-engine/modules/core/system/services';
+import {IData} from 'wlc-engine/modules/core/system/services/data/data.service';
+import {IJackpot} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
 import * as Params from './total-jackpot.params';
 
 /**

@@ -14,15 +14,15 @@ import {UIRouter} from '@uirouter/core';
 import {fromEvent} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
-import {EventService} from 'wlc-engine/modules/core/services';
-import {AbstractComponent} from 'wlc-engine/classes/abstract.component';
+import {EventService} from 'wlc-engine/modules/core/system/services';
+import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {
     defaultParams,
     IGamesGridCParams,
 } from './games-grid.params';
 import {ResizedEvent} from 'angular-resize-event';
-import {Game} from 'wlc-engine/modules/games/models/game.model';
-import {CategoryModel} from 'wlc-engine/modules/games/models/category.model';
+import {Game} from 'wlc-engine/modules/games/system/models/game.model';
+import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.model';
 import {
     ConfigService,
     ILanguage,
@@ -41,9 +41,9 @@ import {
     get as _get,
     isUndefined as _isUndefined,
 } from 'lodash';
-import {gamesEvents, IGames} from 'wlc-engine/modules/games/interfaces/games.interfaces';
-import {GamesCatalog} from 'wlc-engine/modules/games/models/games-catalog.model';
-import {IGamesFilterData} from 'wlc-engine/modules/games/interfaces/filters.interfaces';
+import {gamesEvents, IGames} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
+import {GamesCatalog} from 'wlc-engine/modules/games/system/models/games-catalog.model';
+import {IGamesFilterData} from 'wlc-engine/modules/games/system/interfaces/filters.interfaces';
 
 @Component({
     selector: '[wlc-games-grid]',

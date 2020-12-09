@@ -12,7 +12,7 @@ import {
 import {DomSanitizer} from '@angular/platform-browser';
 import {UIRouterGlobals} from '@uirouter/core';
 
-import {AbstractComponent} from 'wlc-engine/classes/abstract.component';
+import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {StaticService, TextDataModel} from 'wlc-engine/modules/static';
 import {IPostComponentParams} from './post.interface';
 import {defaultParams} from './post.params';

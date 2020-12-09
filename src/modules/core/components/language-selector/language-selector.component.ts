@@ -12,7 +12,7 @@ import {TranslateService} from '@ngx-translate/core';
 import {trigger, state, style, transition, animate} from '@angular/animations';
 
 import {find as _find} from 'lodash';
-import {AbstractComponent} from 'wlc-engine/classes/abstract.component';
+import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ConfigService, ILanguage} from 'wlc-engine/modules/core';
 import * as Params from './language-selector.params';
 

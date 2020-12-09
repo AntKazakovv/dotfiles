@@ -1,4 +1,4 @@
-import {IComponentParams, CustomType} from 'wlc-engine/classes/abstract.component';
+import {IComponentParams, CustomType} from 'wlc-engine/modules/core/system/classes/abstract.component';
 
 export type Type = 'default' | 'resolved' | 'rejected' | 'pending' | 'disabled' | CustomType;
 export type Theme = 'default' | 'skew' | 'rounding' | 'circled' | CustomType;

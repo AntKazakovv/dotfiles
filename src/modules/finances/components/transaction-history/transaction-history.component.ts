@@ -1,7 +1,7 @@
 import {Component, OnInit, ChangeDetectorRef, Inject} from '@angular/core';
-import {AbstractComponent, IMixedParams} from 'wlc-engine/classes/abstract.component';
-import {FinancesService} from 'wlc-engine/modules/finances/services';
-import {Transaction} from 'wlc-engine/modules/finances/models/transaction-history.model';
+import {AbstractComponent, IMixedParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {FinancesService} from 'wlc-engine/modules/finances/system/services';
+import {Transaction} from 'wlc-engine/modules/finances/system/models/transaction-history.model';
 import {ISelectParams} from 'wlc-engine/modules/core/components/select/select.params';
 import {IInputCParams} from 'wlc-engine/modules/core/components/input/input.params';
 import {ITableParams} from 'wlc-engine/modules/core/components/table/table.params';

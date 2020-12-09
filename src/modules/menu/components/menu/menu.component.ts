@@ -9,15 +9,15 @@ import {
     Injector, Input,
     OnInit, SimpleChanges,
 } from '@angular/core';
-import {AbstractComponent, IMixedParams} from 'wlc-engine/classes/abstract.component';
-import {MenuHelper} from 'wlc-engine/modules/menu/helpers/menu.helper';
+import {AbstractComponent, IMixedParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {MenuHelper} from 'wlc-engine/modules/menu/system/helpers/menu.helper';
 import {
     LayoutService,
     ActionService, EventService,
-} from 'wlc-engine/modules/core/services';
+} from 'wlc-engine/modules/core/system/services';
 import {
     ModalService,
-} from 'wlc-engine/modules/core/services';
+} from 'wlc-engine/modules/core/system/services';
 
 @Component({
     selector: '[wlc-menu]',
