@@ -20,7 +20,7 @@ export class Game {
     public merchantID: string;
     public subMerchantID: string;
     public sort: string;
-    public AR: string;
+    public aspectRatio: string;
     public image: string;
 
     protected url: string;
@@ -60,6 +60,7 @@ export class Game {
     ) {
         // Object.assign(this, data);
         this.ID = _toNumber(data.ID);
+        this.aspectRatio = data.AR;
         this.hasDemo = data.hasDemo;
         this.name = data.Name;
         this.categoryID = data.CategoryID;
