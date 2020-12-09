@@ -1,4 +1,11 @@
-import {ChangeDetectorRef, HostBinding, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
+import {
+    ChangeDetectorRef,
+    HostBinding,
+    OnDestroy,
+    OnInit,
+    OnChanges,
+    SimpleChanges,
+} from '@angular/core';
 import {Subject} from 'rxjs';
 import {IComponentParams} from 'wlc-engine/modules/core/system/interfaces/config.interface';
 
@@ -82,8 +89,6 @@ export class AbstractComponent implements OnDestroy, OnInit, OnChanges {
     }
 
     public ngOnChanges(changes: SimpleChanges): void {
-        //console.log(changes);
-
         if (_get(changes, 'inlineParams') && _get(this, 'inlineParams')) {
             this.$params = _merge(this.$params, _get(this, 'inlineParams'));
         }

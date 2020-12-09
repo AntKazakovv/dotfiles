@@ -1,13 +1,20 @@
 import {IComponentParams} from 'wlc-engine/modules/core/system/interfaces/config.interface';
 import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.model';
 
-export type MenuItemType = string | IMenuItem;
-export type MenuType = 'main-menu' | 'category-menu' | 'profile' | 'footer:tc' | 'footer:about';
-export type ItemType = 'sref' | 'anchor' | 'modal' | 'href' | 'scroll';
+export interface MenuConfigItemsGroup {
+    parent: string;
+    items: string[];
+}
+export type MenuConfigItem = MenuConfigItemsGroup | string
+export type MenuItemObjectType = IMenuItem | IMenuItemsGroup;
+export type MenuItemType = string | IMenuItem | IMenuItemsGroup;
+export type MenuType = 'main-menu' | 'category-menu' | 'profile-menu' | 'mobile-menu' | 'footer:tc' | 'footer:about';
+export type ItemType = 'sref' | 'anchor' | 'modal' | 'href' | 'scroll' | 'title' | 'dropdown';
 export type IMenuTarget = '_blank' | '_self' | '_parent' | '_top';
 export type MenuTheme = string;
 
 export interface IMenuItemParamsState {
+    parent?: string;
     name: string;
     params?: {
         [key: string]: any;
@@ -43,6 +50,12 @@ export interface IMenuItem {
     params?: IMenuItemParams;
 }
 
+export interface IMenuItemsGroup {
+    parent: IMenuItem,
+    items: IMenuItem[],
+    opened?: boolean;
+}
+
 export interface IMenuCParams extends IComponentParams<MenuTheme, MenuType, string> {
     common?: {},
     items?: MenuItemType[];
@@ -64,5 +77,7 @@ export interface IHelperGetItemsForCategories {
 }
 
 export const defaultParams: IMenuCParams = {
+    moduleName: 'menu',
+    componentName: 'wlc-menu',
     class: 'wlc-menu',
 };

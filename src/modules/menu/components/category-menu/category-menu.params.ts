@@ -1,6 +1,6 @@
 import {IComponentParams, CustomType} from 'wlc-engine/modules/core/system/classes/abstract.component';
 
-export type Type = 'default' | CustomType;
+export type Type = 'default' | 'dropdown' | CustomType;
 export type Theme = 'default' | CustomType;
 export type ThemeMod = 'default' | CustomType;
 export type AutoModifiers = Theme | ThemeMod;
@@ -15,7 +15,7 @@ export interface ICategoryMenuCParams extends IComponentParams<Theme, Type, Them
 }
 
 export const defaultParams: ICategoryMenuCParams = {
-    moduleName: 'category-menu',
+    moduleName: 'menu',
     componentName: 'wlc-category-menu',
     class: 'wlc-category-menu',
 };
