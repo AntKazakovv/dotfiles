@@ -12,7 +12,7 @@ import {Game} from 'wlc-engine/modules/games/system/models/game.model';
 import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.model';
 import {EventService} from 'wlc-engine/modules/core/system/services';
 import {UserService} from 'wlc-engine/modules/user/system/services';
-
+import {IGamesFilterData} from 'wlc-engine/modules/games/system/interfaces/filters.interfaces';
 import {
     ICategory,
     IMerchant,
@@ -21,9 +21,9 @@ import {
     IGameParams,
     IJackpot,
     IGames,
-    gamesEvents, IFavourite,
+    gamesEvents,
+    IFavourite,
 } from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
-import {IGamesFilterData} from 'wlc-engine/modules/games/system/interfaces/filters.interfaces';
 
 import {
     find as _find,
@@ -31,12 +31,20 @@ import {
     includes as _includes,
     startsWith as _startsWith,
 } from 'lodash';
-import {Dictionary} from 'express-serve-static-core';
 
 @Injectable({
     providedIn: 'root',
 })
 export class GamesCatalogService {
+
+    public ready: Promise<void> = new Promise((resolve: () => void): void => {
+        this.$resolve = resolve;
+    });
+    public favourites: number[] = [];
+
+    protected gamesCatalog: GamesCatalog;
+
+    private $resolve: () => void;
 
     constructor(
         public configService: ConfigService,
@@ -47,15 +55,6 @@ export class GamesCatalogService {
     ) {
         this.init();
     }
-
-    public ready: Promise<void> = new Promise((resolve: () => void): void => {
-        this.$resolve = resolve;
-    });
-
-    public favourites: number[] = [];
-    protected gamesCatalog: GamesCatalog;
-
-    private $resolve: () => void;
 
     public async init(): Promise<void> {
         this.registerMethods();
@@ -191,7 +190,8 @@ export class GamesCatalogService {
      * @returns {Promise<ILaunchInfo>}
      */
     public async getLaunchParams(options: IGameParams): Promise<ILaunchInfo> {
-        return await this.dataService.request<ILaunchInfo>('games/gameLaunchParams', options) as ILaunchInfo;
+        const data: IData = await this.dataService.request('games/gameLaunchParams', options);
+        return data.data;
     }
 
     /**
