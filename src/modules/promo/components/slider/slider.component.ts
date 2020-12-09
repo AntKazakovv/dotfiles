@@ -41,7 +41,7 @@ interface ISlide {
  *
  */
 @Component({
-    selector: '[slider]',
+    selector: '[wlc-slider]',
     templateUrl: './slider.component.html',
     styleUrls: ['./slider.component.scss'],
 })

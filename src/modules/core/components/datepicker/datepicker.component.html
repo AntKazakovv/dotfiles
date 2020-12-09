@@ -1,0 +1,24 @@
+<ng-template #default>
+    <label for="{{$params.name}}" class="{{$class}}__label">{{$params.label | translate}}</label>
+    <div class="container">
+        <input class="{{$class}}__input"
+               #dp="angular-mydatepicker"
+               #mask
+               angular-mydatepicker
+               name="{{$params.name}}"
+               [options]="$params.datepickerOptions"
+               [formControl]="control"
+               [wlc-input-mask]="$params.maskOptions"
+               (dateChanged)="onDateChanged()"
+        />
+        <span wlc-icon
+              class="{{$class}}__icon"
+              [iconName]="'calendar'"
+              (click)="dp.toggleCalendar()"
+        ></span>
+    </div>
+</ng-template>
+
+<ng-container [ngSwitch]="$params.theme">
+    <ng-container [ngTemplateOutlet]="default" *ngSwitchDefault></ng-container>
+</ng-container>
