@@ -1,6 +1,6 @@
 import {SwiperConfigInterface} from 'ngx-swiper-wrapper';
-import {IComponentParams} from 'wlc-engine/interfaces/config.interface';
-import {IBannersFilter} from 'wlc-engine/modules/promo/services/banners/banners.service';
+import {IComponentParams} from 'wlc-engine/modules/core/system/interfaces/config.interface';
+import {IBannersFilter} from 'wlc-engine/modules/promo/system/services/banners/banners.service';
 
 export type ComponentTheme = 'default';
 export type ComponentType = 'default';

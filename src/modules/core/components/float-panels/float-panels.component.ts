@@ -10,9 +10,9 @@ import {
     ConfigService,
     EventService,
     LogService,
-} from 'wlc-engine/modules/core/services';
-import {AbstractComponent} from 'wlc-engine/classes/abstract.component';
-import {SectionModel} from 'wlc-engine/modules/core/models/section.model';
+} from 'wlc-engine/modules/core/system/services';
+import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {SectionModel} from 'wlc-engine/modules/core/system/models/section.model';
 import * as Params from './float-panels.params';
 import {IBurgerPanelCParams} from './../burger-panel/burger-panel.params';
 

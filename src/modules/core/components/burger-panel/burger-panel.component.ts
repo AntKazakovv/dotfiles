@@ -23,9 +23,9 @@ import {
     EventService,
     ConfigService,
     LogService,
-} from 'wlc-engine/modules/core/services';
-import {AbstractComponent} from 'wlc-engine/classes/abstract.component';
-import {HammerConfig} from 'wlc-engine/config/hammer.config';
+} from 'wlc-engine/modules/core/system/services';
+import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {HammerConfig} from 'wlc-engine/modules/core/system/config/hammer.config';
 import * as Params from './burger-panel.params';
 import {panelsEvents} from './../float-panels/float-panels.params';
 

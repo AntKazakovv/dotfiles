@@ -9,14 +9,14 @@ import {
 import {UIRouter} from '@uirouter/core';
 import {TranslateService} from '@ngx-translate/core';
 
-import {AbstractComponent, IMixedParams} from 'wlc-engine/classes/abstract.component';
-import {GamesCatalogService} from 'wlc-engine/modules/games/services';
-import {EventService} from 'wlc-engine/modules/core/services';
+import {AbstractComponent, IMixedParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {GamesCatalogService} from 'wlc-engine/modules/games/system/services';
+import {EventService} from 'wlc-engine/modules/core/system/services';
 import * as MenuParams from 'wlc-engine/modules/menu/components/menu/menu.params';
-import {CategoryModel} from 'wlc-engine/modules/games/models/category.model';
+import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.model';
 import * as Params from 'wlc-engine/modules/menu/components/category-menu/category-menu.params';
-import {gamesEvents} from 'wlc-engine/modules/games/interfaces/games.interfaces';
-import {MenuHelper} from 'wlc-engine/modules/menu/helpers/menu.helper';
+import {gamesEvents} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
+import {MenuHelper} from 'wlc-engine/modules/menu/system/helpers/menu.helper';
 
 import {
     clone as _clone,

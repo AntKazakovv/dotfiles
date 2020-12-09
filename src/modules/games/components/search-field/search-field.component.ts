@@ -7,11 +7,11 @@ import {
     ChangeDetectionStrategy,
 } from '@angular/core';
 
-import {AbstractComponent} from 'wlc-engine/classes/abstract.component';
+import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {
     ConfigService,
     EventService,
-} from 'wlc-engine/modules/core/services';
+} from 'wlc-engine/modules/core/system/services';
 import {GamesFilterService} from 'wlc-engine/modules/games';
 import {
     ISearchFieldCParams,

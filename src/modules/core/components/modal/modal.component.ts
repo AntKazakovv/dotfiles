@@ -22,11 +22,11 @@ import {
     IModalBsOptions,
     defaultParams,
 } from './index';
-import {EventService} from 'wlc-engine/modules/core/services';
+import {EventService} from 'wlc-engine/modules/core/system/services';
 import {
     AbstractComponent,
     IMixedParams,
-} from 'wlc-engine/classes/abstract.component';
+} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ConfigService} from 'wlc-engine/modules/core';
 
 import {

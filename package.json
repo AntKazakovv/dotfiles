@@ -11,7 +11,7 @@
         "test": "ng test",
         "lint": "ng lint",
         "e2e": "ng e2e",
-        "update-locale": "ngx-translate-extract -i ./src/**/*.{ts,tsx,html} -o ./src/languages/messages.pot --sort --format pot && node ./utils/pot2po.js",
+        "update-locale": "ngx-translate-extract -i ./src/**/*.{ts,tsx,html} -o src/system/languages/messages.pot --sort --format pot && node ./utils/pot2po.js",
         "gulp": "gulp",
         "update": "ng update @angular/cli @angular/core --force",
         "fullup": "rm -rf node_modules package-lock.json && npm install"

@@ -1,8 +1,8 @@
 import {Component, Inject, Input, OnInit} from '@angular/core';
-import {AbstractComponent} from 'wlc-engine/classes/abstract.component';
-import {BannersService} from 'wlc-engine/modules/promo/services';
-import {BannerModel} from 'wlc-engine/modules/promo/models/banner.model';
-import {IBannersFilter} from 'wlc-engine/modules/promo/services/banners/banners.service';
+import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {BannersService} from 'wlc-engine/modules/promo/system/services';
+import {BannerModel} from 'wlc-engine/modules/promo/system/models/banner.model';
+import {IBannersFilter} from 'wlc-engine/modules/promo/system/services/banners/banners.service';
 import * as Params from 'wlc-engine/modules/promo/components/slider/slider.params';
 
 interface ISlide {

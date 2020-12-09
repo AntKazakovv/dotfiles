@@ -16,13 +16,13 @@ import {
     ILayoutComponent,
     ILayoutStateConfig,
     ILayoutSectionConfig,
-} from 'wlc-engine/interfaces/layouts.interface';
+} from 'wlc-engine/modules/core/system/interfaces/layouts.interface';
 import {
     ConfigService,
     EventService,
     LayoutService,
-} from 'wlc-engine/modules/core/services';
-import {IIndexing} from 'wlc-engine/interfaces';
+} from 'wlc-engine/modules/core/system/services';
+import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 import {
     fromEvent,
     Subject,
@@ -30,7 +30,7 @@ import {
 import {
     takeUntil,
 } from 'rxjs/operators';
-import {LayoutsType} from 'wlc-engine/modules/core/services/layout/layout.service';
+import {LayoutsType} from 'wlc-engine/modules/core/system/services/layout/layout.service';
 
 
 import {

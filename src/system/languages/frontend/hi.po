@@ -1,0 +1,20 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Language: hi\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: modules/base/home/home.component.html:6
+msgid "Catalog"
+msgstr ""
+
+#: modules/base/catalog/catalog.component.html:6
+#: modules/base/home/home.component.html:8
+msgid "Home"
+msgstr ""
+
+#: modules/base/catalog/catalog.component.html:4
+#: modules/base/home/home.component.html:4
+msgid "Three two onew"
+msgstr ""

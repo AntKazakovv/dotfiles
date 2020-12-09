@@ -7,10 +7,10 @@ import {SignInComponent} from './components/sign-in/sign-in.component';
 import {PasswordRestoreComponent} from './components/password-restore/password-restore.component';
 import {PasswordChangeComponent} from './components/password-change/password-change.component';
 import {HaveAccountComponent} from './components/have-account/have-account.component';
-import {UserService} from './services';
+import {UserService} from './system/services';
 import {TranslateModule} from '@ngx-translate/core';
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
-import {DataService} from 'wlc-engine/modules/core/services';
+import {DataService} from 'wlc-engine/modules/core/system/services';
 // Components
 import {LoginSignupComponent} from './components/login-signup/login-signup.component';
 import {SignupBonusComponent} from './components/signup-bonus/signup-bonus.component';

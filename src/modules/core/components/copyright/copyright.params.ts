@@ -1,4 +1,4 @@
-import {IComponentParams} from 'wlc-engine/classes/abstract.component';
+import {IComponentParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
 
 export type ModeType = 'default';
 export type ComponentTheme = 'default';

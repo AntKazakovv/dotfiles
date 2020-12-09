@@ -16,17 +16,17 @@ import {
     EventService,
     LayoutService,
     ValidationService,
-} from 'wlc-engine/modules/core/services';
+} from 'wlc-engine/modules/core/system/services';
 import {
     IValidatorListItem,
     IValidatorSettings,
     ValidatorType,
-} from 'wlc-engine/modules/core/services/validation/validation.service';
+} from 'wlc-engine/modules/core/system/services/validation/validation.service';
 import {IInputCParams} from 'wlc-engine/modules/core/components/input/input.params';
 import {ITextareaCParams} from 'wlc-engine/modules/core/components/textarea/textarea.params';
 import {ISelectParams} from 'wlc-engine/modules/core/components/select/select.params';
 import {IButtonParams} from 'wlc-engine/modules/core/components/button/button.params';
-import {IIndexing} from 'wlc-engine/interfaces/global.interface';
+import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
 import {BehaviorSubject} from 'rxjs';
 
 import {

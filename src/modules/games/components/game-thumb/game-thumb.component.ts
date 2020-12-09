@@ -1,9 +1,9 @@
 import {Component, Inject, Input, OnInit, ChangeDetectorRef} from '@angular/core';
-import {AbstractComponent} from 'wlc-engine/classes/abstract.component';
-import {Game} from 'wlc-engine/modules/games/models/game.model';
+import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {Game} from 'wlc-engine/modules/games/system/models/game.model';
 import {GamesCatalogService} from 'wlc-engine/modules/games';
 import {ConfigService} from 'wlc-engine/modules/core';
-import {IIndexing} from 'wlc-engine/interfaces/global.interface';
+import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
 import * as Params from './game-thumb.params';
 
 import {

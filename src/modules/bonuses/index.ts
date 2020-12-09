@@ -1,1 +1,1 @@
-export {LoyaltyBonusesService} from './services/loyalty-bonuses.service';
+export {LoyaltyBonusesService} from './system/services/loyalty-bonuses.service';

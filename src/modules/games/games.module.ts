@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {UIRouterModule} from '@uirouter/angular';
 import {TranslateModule} from '@ngx-translate/core';
 import {AngularResizedEventModule} from 'angular-resize-event';
-import {GamesCatalogService} from './services';
+import {GamesCatalogService} from './system/services';
 import {FormsModule} from '@angular/forms';
 import {CategoriesService} from 'wlc-engine/modules/games';
 import {GamesGridComponent} from './components/games-grid/games-grid.component';

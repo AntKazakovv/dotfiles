@@ -7,7 +7,7 @@ import {
     AfterViewInit,
     ElementRef,
 } from '@angular/core';
-import {AbstractComponent} from 'wlc-engine/classes/abstract.component';
+import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ConfigService} from 'wlc-engine/modules/core';
 import * as LParams from './license.params';
 export {IApgSealCParams} from './license.params';

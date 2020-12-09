@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {FinancesService} from './services/finances/finances.service';
+import {FinancesService} from './system/services/finances/finances.service';
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
 import {TranslateModule} from '@ngx-translate/core';
 import {DepositComponent} from './components/deposit/deposit.component';

@@ -7,8 +7,8 @@ import {
     ChangeDetectionStrategy,
     Injector,
 } from '@angular/core';
-import {AbstractComponent, IMixedParams} from 'wlc-engine/classes/abstract.component';
-import {LayoutService} from 'wlc-engine/modules/core/services';
+import {AbstractComponent, IMixedParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {LayoutService} from 'wlc-engine/modules/core/system/services';
 import {BehaviorSubject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {TableRowModel} from './table-row.model';

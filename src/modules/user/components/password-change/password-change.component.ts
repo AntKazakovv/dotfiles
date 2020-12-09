@@ -1,7 +1,7 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {CustomValidator} from 'wlc-engine/modules/user/helper/custom-validator';
-import {UserService} from 'wlc-engine/modules/user/services';
+import {CustomValidator} from 'wlc-engine/modules/user/system/helper/custom-validator';
+import {UserService} from 'wlc-engine/modules/user/system/services';
 
 @Component({
     selector: '[wlc-password-change]',

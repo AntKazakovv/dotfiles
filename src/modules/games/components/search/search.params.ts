@@ -1,4 +1,4 @@
-import {IComponentParams} from 'wlc-engine/interfaces/config.interface';
+import {IComponentParams} from 'wlc-engine/modules/core/system/interfaces/config.interface';
 import {IGamesGridCParams} from 'wlc-engine/modules/games/components/games-grid/games-grid.params';
 
 export interface IGamesGridCParamsPartial extends IGamesGridCParams {

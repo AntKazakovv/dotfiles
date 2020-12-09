@@ -5,7 +5,7 @@ import {
     Input,
 } from '@angular/core';
 import {UIRouterGlobals} from '@uirouter/core';
-import {AbstractComponent} from 'wlc-engine/classes/abstract.component';
+import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import * as Params from './info-page.params';
 
 /**

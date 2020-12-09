@@ -14,12 +14,12 @@ import {
 import {Subject, Observable, fromEvent} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {IconComponent} from '../icon/icon.component';
-import {AbstractComponent, IMixedParams} from 'wlc-engine/classes/abstract.component';
+import {AbstractComponent, IMixedParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import * as BParams from './button.params';
 import {
     ConfigService,
     EventService,
-} from 'wlc-engine/modules/core/services';
+} from 'wlc-engine/modules/core/system/services';
 
 import {
     forEach as _forEach,

@@ -1,4 +1,4 @@
-import {CustomType, IComponentParams} from 'wlc-engine/classes/abstract.component';
+import {CustomType, IComponentParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {IFormWrapperCParams} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
 
 export type ComponentTheme = 'default' | CustomType;

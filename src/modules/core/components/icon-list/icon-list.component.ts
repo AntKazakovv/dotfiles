@@ -10,15 +10,15 @@ import {DomSanitizer} from '@angular/platform-browser';
 import {
     AbstractComponent,
     IMixedParams,
-} from 'wlc-engine/classes/abstract.component';
+} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {
     IconModel,
     IIconParams,
-} from 'wlc-engine/modules/core/models/icon-list-item.model';
-import {EventService, LogService, FilesService} from 'wlc-engine/modules/core/services';
+} from 'wlc-engine/modules/core/system/models/icon-list-item.model';
+import {EventService, LogService, FilesService} from 'wlc-engine/modules/core/system/services';
 import * as Params from './icon-list.params';
-import {gamesEvents, IGames, IMerchant} from 'wlc-engine/modules/games/interfaces/games.interfaces';
-import {GamesCatalogService} from 'wlc-engine/modules/games/services';
+import {gamesEvents, IGames, IMerchant} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
+import {GamesCatalogService} from 'wlc-engine/modules/games/system/services';
 import {
     ConfigService,
 } from 'wlc-engine/modules/core';

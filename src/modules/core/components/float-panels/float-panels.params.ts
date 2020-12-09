@@ -1,6 +1,6 @@
-import {IComponentParams} from 'wlc-engine/interfaces/config.interface';
+import {IComponentParams} from 'wlc-engine/modules/core/system/interfaces/config.interface';
 import {IBurgerPanelCParams} from './../burger-panel/burger-panel.params';
-import {IIndexing} from 'wlc-engine/interfaces/index';
+import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/index';
 
 export interface IFloatPanelsComponentParams extends IComponentParams <string, string, string> {
     /** Params for each panel by name */

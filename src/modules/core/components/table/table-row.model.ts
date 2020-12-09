@@ -1,5 +1,5 @@
 import {Injector} from '@angular/core';
-import {IIndexing} from 'wlc-engine/interfaces';
+import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 import * as Params from './table.params';
 import {DateTime} from 'luxon';
 

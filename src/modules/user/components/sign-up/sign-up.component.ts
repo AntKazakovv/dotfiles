@@ -1,12 +1,12 @@
 import {Component, HostBinding, OnInit, Inject} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {CustomValidator} from 'wlc-engine/modules/user/helper/custom-validator';
-import {UserService} from 'wlc-engine/modules/user/services';
-import {ConfigService} from 'wlc-engine/modules/core/services';
+import {CustomValidator} from 'wlc-engine/modules/user/system/helper/custom-validator';
+import {UserService} from 'wlc-engine/modules/user/system/services';
+import {ConfigService} from 'wlc-engine/modules/core/system/services';
 import {
     ModalService,
-} from 'wlc-engine/modules/core/services';
-import {ICurrency} from 'wlc-engine/modules/finances/interfaces';
+} from 'wlc-engine/modules/core/system/services';
+import {ICurrency} from 'wlc-engine/modules/finances/system/interfaces';
 
 import {
     keys as _keys,

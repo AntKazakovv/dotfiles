@@ -1,5 +1,5 @@
-import {IComponentParams} from 'wlc-engine/classes/abstract.component';
-import {ICustomGameParams} from '../../interfaces/games.interfaces';
+import {IComponentParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {ICustomGameParams} from '../../system/interfaces/games.interfaces';
 
 export interface IGWParams extends IComponentParams<string, string, string> {
     updateOnWindowResize?: boolean;

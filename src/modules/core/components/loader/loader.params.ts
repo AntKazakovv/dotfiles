@@ -1,4 +1,4 @@
-import {IComponentParams} from 'wlc-engine/interfaces/config.interface';
+import {IComponentParams} from 'wlc-engine/modules/core/system/interfaces/config.interface';
 
 export type ModifiersType = string;
 export type Theme = 'default' | 'footer';

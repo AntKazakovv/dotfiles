@@ -1,5 +1,5 @@
-import {IComponentParams} from 'wlc-engine/interfaces/config.interface';
-import {IIconParams} from 'wlc-engine/modules/core/models/icon-list-item.model';
+import {IComponentParams} from 'wlc-engine/modules/core/system/interfaces/config.interface';
+import {IIconParams} from 'wlc-engine/modules/core/system/models/icon-list-item.model';
 
 export type ListType = 'merchants' | 'payments' | 'custom';
 export type ListTheme = 'default' | 'svg';

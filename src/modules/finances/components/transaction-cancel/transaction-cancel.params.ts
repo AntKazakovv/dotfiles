@@ -1,5 +1,5 @@
-import {IComponentParams, CustomType} from 'wlc-engine/classes/abstract.component';
-import {Transaction} from 'wlc-engine/modules/finances/models/transaction-history.model';
+import {IComponentParams, CustomType} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {Transaction} from 'wlc-engine/modules/finances/system/models/transaction-history.model';
 
 export type Theme = 'default' | CustomType;
 export type Type = 'default' | CustomType;

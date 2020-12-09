@@ -2,7 +2,7 @@ import {Component, Inject, Input, OnInit} from '@angular/core';
 import * as Params from './checkbox.params';
 import {FormControl} from '@angular/forms';
 import {ConfigService} from 'wlc-engine/modules/core';
-import {AbstractComponent} from 'wlc-engine/classes';
+import {AbstractComponent} from 'wlc-engine/modules/core/system/classes';
 
 @Component({
     selector: '[wlc-checkbox]',

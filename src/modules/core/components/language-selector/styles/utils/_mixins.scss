@@ -1,5 +1,5 @@
 //@use './vars' as v;
-@use 'engine-styles/mixins/base.mixins' as em;
+@use 'engine-scss/mixins/base.mixins' as em;
 
 @mixin flag($width, $height, $borderRadius) {
     width: $height;

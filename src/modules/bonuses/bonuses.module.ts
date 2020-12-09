@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {LoyaltyBonusesService} from './services/loyalty-bonuses.service';
+import {LoyaltyBonusesService} from './system/services/loyalty-bonuses.service';
 import {CoreModule} from '../core/core.module';
 import {BonusItemComponent} from './components/bonus-item/bonus-item.component';
 import {BonusesListComponent} from './components/bonuses-list/bonuses-list.component';

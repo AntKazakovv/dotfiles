@@ -1,7 +1,7 @@
 import {
     IComponentParams,
     CustomType,
-} from 'wlc-engine/classes/abstract.component';
+} from 'wlc-engine/modules/core/system/classes/abstract.component';
 
 export type Type = 'default' | CustomType;
 export type Theme = 'default' | CustomType;

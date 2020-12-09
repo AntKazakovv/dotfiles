@@ -6,10 +6,10 @@ import {
     OnInit,
 } from '@angular/core';
 import {FormControl} from '@angular/forms';
-import {AbstractComponent} from 'wlc-engine/classes/abstract.component';
-import {ConfigService, EventService} from 'wlc-engine/modules/core/services';
-import {IIndexing} from 'wlc-engine/interfaces';
-import {ICurrency} from 'wlc-engine/modules/finances/interfaces';
+import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {ConfigService, EventService} from 'wlc-engine/modules/core/system/services';
+import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
+import {ICurrency} from 'wlc-engine/modules/finances/system/interfaces';
 import {BehaviorSubject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 

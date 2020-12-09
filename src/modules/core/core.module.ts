@@ -1,6 +1,7 @@
 // -- MODULES IMPORTS START --;
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
+
 import {
     HAMMER_GESTURE_CONFIG,
     HammerModule,
@@ -24,7 +25,7 @@ import {
     ActionService,
     ModalService,
     ContactsService,
-} from './services';
+} from './system/services';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 // -- SERVICES IMPORTS END  --;
 
@@ -64,7 +65,7 @@ import {ClickOutsideDirective} from './directives/click-outside.directive';
 //  -- DIRECTIVES IMPORTS END  --;
 
 //  -- CONFIGS IMPORTS STARTS--;
-import {HammerConfig} from 'wlc-engine/config/hammer.config';
+import {HammerConfig} from 'wlc-engine/modules/core/system/config/hammer.config';
 import {DummyComponent} from './components/dummy/dummy.component';
 //  -- CONFIGS IMPORTS STARTS--;
 

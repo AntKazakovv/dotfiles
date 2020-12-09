@@ -1,7 +1,7 @@
 import {Component, OnInit, ChangeDetectorRef, Inject} from '@angular/core';
-import {AbstractComponent, IMixedParams} from 'wlc-engine/classes/abstract.component';
-import {ModalService} from 'wlc-engine/modules/core/services';
-import {FinancesService} from 'wlc-engine/modules/finances/services/finances/finances.service';
+import {AbstractComponent, IMixedParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {ModalService} from 'wlc-engine/modules/core/system/services';
+import {FinancesService} from 'wlc-engine/modules/finances/system/services/finances/finances.service';
 import * as Params from './transaction-cancel.params';
 
 @Component({

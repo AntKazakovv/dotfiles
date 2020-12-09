@@ -3,7 +3,7 @@ import {NgModule} from '@angular/core';
 import {
     BannersService,
     WinnersService,
-} from './services';
+} from './system/services';
 import {SwiperModule} from 'ngx-swiper-wrapper';
 import {BannerComponent} from 'wlc-engine/modules/promo/components/banner/banner.component';
 import {SliderComponent} from 'wlc-engine/modules/promo/components/slider/slider.component';

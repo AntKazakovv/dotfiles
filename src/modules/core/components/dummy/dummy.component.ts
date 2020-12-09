@@ -1,5 +1,5 @@
 import {Component, OnInit, ChangeDetectorRef, Inject, Input} from '@angular/core';
-import {AbstractComponent, IMixedParams} from 'wlc-engine/classes/abstract.component';
+import {AbstractComponent, IMixedParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
 
 
 @Component({

@@ -1,6 +1,6 @@
-export {GamesCatalogService} from './services';
-export {CategoriesService} from './services/categories.service';
+export {GamesCatalogService} from './system/services';
+export {CategoriesService} from './system/services/categories.service';
 export {
     GamesFilterService,
     GamesFilterServiceEvents,
-} from './services/games-filter.service'
+} from './system/services/games-filter.service'

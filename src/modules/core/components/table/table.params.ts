@@ -1,4 +1,4 @@
-import {IComponentParams, CustomType} from 'wlc-engine/classes/abstract.component';
+import {IComponentParams, CustomType} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {BehaviorSubject} from 'rxjs';
 
 export type Theme = 'default' | CustomType;

@@ -1,5 +1,5 @@
-import {IComponentParams} from 'wlc-engine/interfaces/config.interface';
-import {BannerModel} from 'wlc-engine/modules/promo/models/banner.model';
+import {IComponentParams} from 'wlc-engine/modules/core/system/interfaces/config.interface';
+import {BannerModel} from 'wlc-engine/modules/promo/system/models/banner.model';
 
 export type ComponentTheme = 'default';
 export type ComponentType = 'default';
