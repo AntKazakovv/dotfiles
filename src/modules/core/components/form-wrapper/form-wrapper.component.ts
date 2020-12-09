@@ -37,6 +37,7 @@ import {
     get as _get,
     includes as _includes,
     isUndefined as _isUndefined,
+    clone as _clone,
 } from 'lodash';
 
 export interface IControls {
@@ -135,9 +136,12 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit {
         this.$params = _merge(this.config, this.params);
     }
 
-    private initForm() {
+    private initForm(): void {
 
         _each(this.$params.components, component => {
+
+            // if (!component.params?.name) { return; }
+
             const validators: ValidatorFn[] = [];
             const asyncValidators: AsyncValidatorFn[] = [];
 
@@ -201,7 +205,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit {
 
     private getValidator(validatorSettings: string | IValidatorSettings): IValidatorListItem {
         if (_isObject(validatorSettings)) {
-            const changeValidator = this.validationService.getValidator(validatorSettings.name);
+            const changeValidator = _clone(this.validationService.getValidator(validatorSettings.name));
             changeValidator.validator = changeValidator.validator(validatorSettings.options);
             return changeValidator;
         }

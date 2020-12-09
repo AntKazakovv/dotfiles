@@ -58,11 +58,11 @@ import {InfoPageComponent} from './components/info-page/info-page.component';
 import {TableComponent} from './components/table/table.component';
 import {CopyrightComponent} from './components/copyright/copyright.component';
 import {DatepickerComponent} from './components/datepicker/datepicker.component';
+import {TextBlockComponent} from './components/text-block/text-block.component';
 // -- COMPONENTS IMPORTS END  --;
 
 //  -- DIRECTIVES IMPORTS STARTS--;
 import {NgTemplateNameDirective} from './directives/template-name/template-name.directive';
-import {PasswordVisibilityDirective} from './directives/password-visibility.directive';
 import {ClickOutsideDirective} from './directives/click-outside.directive';
 import {InputMaskDirective} from './directives/input-mask.directive';
 //  -- DIRECTIVES IMPORTS END  --;
@@ -96,6 +96,7 @@ export const components = {
     'wlc-dummy-amount': DummyComponent,
     'wlc-copyright': CopyrightComponent,
     'wlc-datepicker': DatepickerComponent,
+    'wlc-text-block': TextBlockComponent,
 };
 
 @NgModule({
@@ -137,7 +138,6 @@ export const components = {
         IconComponent,
         DynamicHtmlComponent,
         ButtonComponent,
-        PasswordVisibilityDirective,
         WlcModalComponent,
         IconListComponent,
         DisclaimerComponent,
@@ -160,6 +160,7 @@ export const components = {
         CopyrightComponent,
         DatepickerComponent,
         InputMaskDirective,
+        TextBlockComponent,
     ],
     exports: [
         LayoutComponent,
@@ -175,7 +176,6 @@ export const components = {
         IconComponent,
         DynamicHtmlComponent,
         ButtonComponent,
-        PasswordVisibilityDirective,
         WlcModalComponent,
         IconListComponent,
         DisclaimerComponent,
@@ -194,6 +194,7 @@ export const components = {
         CopyrightComponent,
         DatepickerComponent,
         InputMaskDirective,
+        TextBlockComponent,
     ],
 })
 export class CoreModule {

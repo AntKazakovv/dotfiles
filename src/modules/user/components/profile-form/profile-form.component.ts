@@ -22,7 +22,7 @@ import {
  * @example
  *
  * {
- *     name: 'core.wlc-profile-form',
+ *     name: 'user.wlc-profile-form',
  * }
  *
  */

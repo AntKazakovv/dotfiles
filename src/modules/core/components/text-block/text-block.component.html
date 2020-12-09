@@ -1,0 +1,19 @@
+<div
+    *ngIf="$params.common.textBlockTitle || $params.common.textBlockSubtitle"
+    class="wlc-text-block__head">
+    <h2
+        *ngIf="$params.common.textBlockTitle"
+        class="wlc-text-block__title">
+        {{$params.common.textBlockTitle | translate}}
+    </h2>
+    <h3
+        *ngIf="$params.common.textBlockSubtitle"
+        class="wlc-text-block__subtitle">
+        {{$params.common.textBlockSubtitle | translate}}
+    </h3>
+</div>
+<p
+    *ngIf="$params.common.textBlockText"
+    class="wlc-text-block__text">
+    {{$params.common.textBlockText | translate}}
+</p>

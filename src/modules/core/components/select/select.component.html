@@ -13,6 +13,7 @@
     </button>
     <div class="{{$class}}-status"
          wlc-form-control
+         *ngIf="$params.name"
          [className]="$class"
          [control]="control"
          [fieldName]="$params.name.toLowerCase()"

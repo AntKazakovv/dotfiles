@@ -1,6 +1,8 @@
 import {SearchComponent} from 'wlc-engine/modules/games/components/search/search.component';
-import {SignInComponent} from 'wlc-engine/modules/user/components/sign-in/sign-in.component';
+import {SignInFormComponent} from 'wlc-engine/modules/user/components/sign-in-form/sign-in-form.component';
 import {SignUpComponent} from 'wlc-engine/modules/user/components/sign-up/sign-up.component';
+import {ChangePasswordFormComponent} from 'wlc-engine/modules/user/components/change-password-form/change-password-form.component'
+import {RestorePasswordFormComponent} from 'wlc-engine/modules/user/components/restore-password-form/restore-password-form.component'
 import {
     IModalConfig,
     IModalList,
@@ -47,7 +49,7 @@ export const MODALS_LIST: IModalList = {
             id: 'login',
             modifier: 'login',
             modalTitle: 'Login',
-            component: SignInComponent,
+            component: SignInFormComponent,
             size: 'md',
             backdrop: 'static',
         },
@@ -58,6 +60,26 @@ export const MODALS_LIST: IModalList = {
             modifier: 'signup',
             modalTitle: 'Signup',
             component: SignUpComponent,
+            size: 'md',
+            backdrop: 'static',
+        },
+    },
+    changePassword: {
+        config: {
+            id: 'change-password',
+            modifier: 'change-password',
+            modalTitle: 'Change password',
+            component: ChangePasswordFormComponent,
+            size: 'md',
+            backdrop: 'static',
+        },
+    },
+    restorePassword: {
+        config: {
+            id: 'restore-password',
+            modifier: 'restore-password',
+            modalTitle: 'Password restore',
+            component: RestorePasswordFormComponent,
             size: 'md',
             backdrop: 'static',
         },

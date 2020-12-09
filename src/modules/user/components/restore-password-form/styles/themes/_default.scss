@@ -1,0 +1,17 @@
+@import '../utils/vars';
+
+.wlc-restore-password-form--theme-default:host {
+    max-width: $formMaxWidth;
+    margin: $formMargin;
+
+    &::ng-deep {
+
+        .wlc-input {
+            margin: $fieldMargin;
+        }
+
+        .wlc-btn {
+            margin: $btnMargin;
+        }
+    }
+}

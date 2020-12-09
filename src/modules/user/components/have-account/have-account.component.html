@@ -1,9 +1,15 @@
-<h3 class="wlc-have-account__title">Do you have an account?</h3>
+<h3 class="wlc-have-account__title">
+    {{$params.common.titleText | translate}}
+</h3>
 <p class="wlc-have-account__text">
-    <a
-        href=""
+    <button
         class="wlc-have-account__link font-weight-bold"
-    >{{linkText}}
-        <span class="icon-arrow" wlc-icon [iconName]="'arrow'"></span>
-    </a>
+        (click)="showModal($params.common.modalName)"
+    >
+        {{$params.common.linkText | translate}}
+        <span
+            class="icon-arrow"
+            wlc-icon [iconName]="'arrow'"
+        ></span>
+    </button>
 </p>

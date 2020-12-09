@@ -1,6 +1,6 @@
 <div class="{{className}}__icon form-control__icon"></div>
 <ul class="{{className}}__errors form-control__errors">
-    <li *ngFor="let item of control.errors | keyvalue">
-        {{'validator-' + fieldName + '-' + item.key | translate}}
+    <li *ngFor="let error of control.errors | keyvalue">
+        {{'validator-' + fieldName + '-' + error.key | translate}}
     </li>
 </ul>

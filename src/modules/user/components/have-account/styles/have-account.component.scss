@@ -1,0 +1,52 @@
+
+.wlc-have-account {
+
+    &__title {
+        font-size: 12px;
+        font-weight: 400;
+        text-align: center;
+        color: #292929;
+
+        margin-bottom: 15px;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    &__text {
+        text-align: center;
+
+        margin: 0;
+    }
+
+    &__link {
+        outline: none;
+        border: none;
+
+        display: inline-flex;
+        align-items: center;
+
+        color: #f12e74;
+        background: none;
+        text-decoration: none;
+
+        &:hover {
+            color: #f12e74;
+            text-decoration: underline;
+        }
+
+        .icon-arrow {
+            margin-left: 4px;
+
+            ::ng-deep {
+
+                svg {
+                    transform: rotateZ(-90deg);
+
+                    fill: #f12e74;
+                }
+            }
+        }
+    }
+}
