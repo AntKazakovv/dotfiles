@@ -32,18 +32,16 @@ import {
     GamesCatalogService,
 } from 'wlc-engine/modules/games';
 import {GamesFilterServiceEvents} from 'wlc-engine/modules/games';
+import {gamesEvents} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
+import {IGamesFilterData} from 'wlc-engine/modules/games/system/interfaces/filters.interfaces';
 
 import {
     filter as _filter,
     find as _find,
     includes as _includes,
     extend as _extend,
-    get as _get,
     isUndefined as _isUndefined,
 } from 'lodash';
-import {gamesEvents, IGames} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
-import {GamesCatalog} from 'wlc-engine/modules/games/system/models/games-catalog.model';
-import {IGamesFilterData} from 'wlc-engine/modules/games/system/interfaces/filters.interfaces';
 
 @Component({
     selector: '[wlc-games-grid]',
@@ -57,7 +55,7 @@ export class GamesGridComponent extends AbstractComponent
     public $params: IGamesGridCParams;
     public filteredGames: Game[]; // TODO temporary: until gameService will be able to back category
     public title: string;
-    public gamesCount: number = 1;
+    public gamesCount: number = this.configService.get<number>('$games.components.wlc-games-grid.defaultCount') || 12;
     public placeHolders: number[];
     public placeHolderStyles: object = {};
     public hideShowMoreBtn: boolean = false;

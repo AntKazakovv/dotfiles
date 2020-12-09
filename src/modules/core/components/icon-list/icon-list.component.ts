@@ -64,12 +64,15 @@ export class IconListComponent extends AbstractComponent implements OnInit {
         switch (this.$params.type) {
             case ('merchants'):
                 await this.setMerchantsLst();
+                this.cdr.markForCheck();
                 break;
             case ('payments'):
                 this.setPaymentsLst();
+                this.cdr.markForCheck();
                 break;
             case ('custom'):
                 this.setCustomLst();
+                this.cdr.markForCheck();
                 break;
             default:
                 console.error('[wlc-icon-list] component requires "type" param');

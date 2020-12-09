@@ -54,9 +54,9 @@ export class LayoutComponent implements OnInit, OnDestroy {
     @Input() protected sectionName: string;
     @Input() protected layouts: LayoutsType;
 
-    protected allComponents$: ILayoutComponent[] = [];
     public components: ILayoutComponent[] = [];
     public section: ILayoutSectionConfig;
+    protected allComponents$: ILayoutComponent[] = [];
     private currentConfig: ILayoutStateConfig;
     private $destroy: Subject<void> = new Subject();
 

@@ -1,0 +1,85 @@
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/engine.variables' as ev;
+@import '../../utils/vars';
+
+.wlc-sections__header--theme {
+
+    &-1 {
+        z-index: 10;
+        position: relative;
+        display: grid;
+        grid: {
+            template-columns: $headerGripColumnsMobile;
+            gap: $headerGapColumns;
+        };
+        align-items: center;
+        padding: 0 15px;
+        min-height: $headerMinHeight;
+        background: $headerBackground;
+
+        @include mq.min(1024) {
+            grid-template-columns: $headerGripColumns;
+            grid-gap: $headerGapColumns * 1.25;
+            max-width: 1920px;
+            width: 100%;
+            padding: 0;
+            min-height: $headerMinHeight * 1.5;
+            margin: 0 auto;
+        }
+
+        @include mq.min(1420) {
+            grid-gap: $headerGapColumns * 1.5;
+        }
+
+        .wlc-logo {
+
+            &__image,
+            svg {
+                width: 100%;
+            }
+        }
+
+        .wlc-login-signup {
+            justify-content: flex-end;
+
+            .wlc-btn {
+
+                @include mq.max(1200) {
+                    padding: $headerLoginBtnTabletPadding;
+                }
+            }
+        }
+
+        .wlc-btn {
+
+            &-burger {
+                width: $headerBurgerBtnWidth;
+                text-align: left;
+
+                @include mq.min(1024) {
+                    margin-left: $headerGapColumns;
+                    text-align: center;
+                }
+            }
+
+            &-search {
+                width: $headerSearchBtnWidth;
+                text-align: right;
+
+                @include mq.min(1024) {
+                    margin-right: $headerGapColumns;
+                    text-align: center;
+                }
+            }
+
+            &-login {
+                text-align: right;
+            }
+
+            svg {
+                fill: $headerSvgBtn;
+            }
+        }
+    }
+}

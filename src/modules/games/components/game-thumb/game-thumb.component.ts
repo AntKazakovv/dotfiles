@@ -7,7 +7,6 @@ import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interf
 import * as Params from './game-thumb.params';
 
 import {
-    merge as _merge,
     assign as _assign,
 } from 'lodash';
 
@@ -17,14 +16,16 @@ import {
     styleUrls: ['./styles/game-thumb.component.scss'],
 })
 export class GameThumbComponent extends AbstractComponent implements OnInit {
+
+    @Input() public game: Game;
+    @Input() protected inlineParams: Params.IGameThumbCParams;
     public gameThumbSettings: IIndexing<IIndexing<string> | string> = {
         buttons: {},
     };
-    @Input() public game: Game;
-    @Input() protected inlineParams: any;
+    public isAuth: boolean;
 
     constructor(
-        @Inject('injectParams') protected injectParams: any,
+        @Inject('injectParams') protected injectParams: Params.IGameThumbCParams,
         protected gamesCatalogService: GamesCatalogService,
         private ref: ChangeDetectorRef,
         private configService: ConfigService,
@@ -40,6 +41,8 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
         if (buttonParams) {
             _assign(this.gameThumbSettings.buttons, buttonParams);
         }
+
+        this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
     }
 
     public startGame(game: Game, demo: boolean, $event: Event): void {

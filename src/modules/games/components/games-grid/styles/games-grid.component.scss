@@ -40,6 +40,10 @@
         @include mq.max(480) {
             grid-template-columns: repeat(2, 1fr);
         }
+
+        @include mq.min(1024) {
+            grid-gap: $currentGap*2;
+        }
     }
 
     &__more {

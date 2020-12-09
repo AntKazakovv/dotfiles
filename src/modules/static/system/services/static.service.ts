@@ -60,17 +60,17 @@ export class StaticService {
     }
 
     public getPost(slug: string): Promise<TextDataModel> {
-        return this.getStaticData('post',{slug});
+        return this.getStaticData('post', {slug});
     }
 
     public getPage(slug: string): Promise<TextDataModel> {
         // TODO: check it
-        return this.getStaticData('page',{slug});
+        return this.getStaticData('page', {slug});
     }
 
     public getTag(slug: string): Promise<TextDataModel> {
         // TODO: check it
-        return this.getStaticData('tag',{slug});
+        return this.getStaticData('tag', {slug});
     }
 
     public async getPostsListByCategorySlug(
@@ -91,7 +91,7 @@ export class StaticService {
                 return await this.getPostList([+currentCategoryId], params);
             }
         } catch (error) {
-            return error;
+            return Promise.reject(error);
         }
     }
 
@@ -249,7 +249,7 @@ export class StaticService {
             }),
         });
 
-        if(!httpParams.get('slug')) {
+        if (!httpParams.get('slug')) {
             httpParams = httpParams.delete('slug');
         }
 
@@ -338,7 +338,7 @@ export class StaticService {
     protected async getPostList(categories: number[], params: IStaticParams = {}): Promise<TextDataModel[]> {
         const categoryIds: string = _join(categories, ',');
         try {
-            const response = await this.requestData<IPostResponse[]>( 'post', _extend(params, {
+            const response = await this.requestData<IPostResponse[]>('post', _extend(params, {
                 categories: categoryIds,
             }));
 

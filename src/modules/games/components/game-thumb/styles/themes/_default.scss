@@ -1,0 +1,160 @@
+.wlc-game-thumb--theme-default:host {
+    height: 100%;
+
+    .wlc-game-thumb {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+
+        border-radius: $thumbBorderRadius;
+        overflow: hidden;
+
+        &:hover {
+
+            .wlc-game-thumb__desc {
+                opacity: 1;
+                visibility: visible;
+                transition: $transition;
+            }
+        }
+
+        &__img {
+            grid-area: 1 / 1 / 2 / 2;
+            transition: $transition;
+
+            img {
+                width: 100%;
+                height: 100%;
+            }
+        }
+
+        &__desc {
+            display: grid;
+            grid-template-rows: 45% 45%;
+            grid-gap: 15px;
+            grid-area: 1 / 1 / 2 / 2;
+            background: $thumbHoverBg;
+
+            height: 100%;
+            padding: $thumbPadding;
+
+            z-index: 1;
+
+            opacity: 0;
+            visibility: hidden;
+            transition: $transition;
+
+            @include mq.max(900) {
+                grid-template-rows: 1fr;
+            }
+        }
+
+        &__head {
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: auto 1fr;
+            grid-gap: 15px;
+            justify-content: center;
+
+            @include mq.max(900) {
+                grid-template-rows: 1fr;
+            }
+        }
+
+        &__name {
+            display: flex;
+            justify-content: center;
+
+            color: $thumbNameColor;
+            font: {
+                size: $thumbNameSize;
+                weight: $thumbNameWeight;
+            }
+            text-align: $thumbNamePosition;
+            line-height: 22px;
+
+            @include mq.max(900) {
+                align-items: center;
+            }
+        }
+
+        &__icon {
+            display: flex;
+            justify-self: $favoritePosition;
+            width: $favoriteBackSize;
+            height: $favoriteBackSize;
+            border-radius: $favoriteBackRadius;
+            background-color: $favoriteBackBg;
+            box-shadow: $favoriteBoxShadow;
+
+            &.wlc-icon::ng-deep {
+
+                .wlc-icon-content {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 100%;
+                    height: 100%;
+                }
+
+                svg,
+                path {
+                    width: $favoriteSize;
+                    height: $favoriteSize;
+
+                    fill: $favoriteBg;
+                    transition: $transition;
+                }
+
+                &:hover {
+                    cursor: pointer;
+
+                    svg,
+                    path {
+                        fill: $favoriteHoverBg;
+                        transition: $transition;
+                    }
+                }
+
+                &.active {
+
+                    svg {
+                        fill: $favoriteActiveBg;
+                    }
+                }
+            }
+
+            @include mq.max(900) {
+                display: none;
+            }
+        }
+
+        &__buttons {
+            display: flex;
+            justify-content: $btnJustifyContent;
+            align-items: $btnAlignItems;
+
+            @include mq.max(900) {
+                display: none;
+            }
+
+            button {
+
+                &:first-child {
+                    margin-right: 10px;
+                }
+            }
+
+            @include verticalBtn;
+
+            @include mq.max(900) {
+                display: none;
+            }
+        }
+    }
+}
+
+

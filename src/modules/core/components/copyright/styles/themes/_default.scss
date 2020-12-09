@@ -7,6 +7,10 @@
         text-align: $textAlign;
         color: $textColor;
 
+        @include mq.min(900) {
+            font-size: $fontSize * 1.2;
+        }
+
         a {
             text-decoration: $linkTextDecoration;
             color: $linkColor;

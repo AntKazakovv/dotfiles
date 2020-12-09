@@ -14,15 +14,11 @@ import {
     assign as _assign,
 } from 'lodash';
 
-
-//данные для входа 'maksim.shahov@softgamings.com', 'Test123!'
-
 @Injectable({
     providedIn: 'root',
 })
 export class UserService {
-    static instance: UserService;
-    public isAuthenticated: boolean = false;
+    public isAuthenticated: boolean;
 
     protected info: UserInfo;
     protected profile: UserProfile;
@@ -53,10 +49,6 @@ export class UserService {
         protected app: AppModule,
         protected configService: ConfigService,
     ) {
-        // TODO: удалить, временное решение для костумного валидатора
-        UserService.instance = this;
-
-        // this.configService.set({name: '$user.isAuthenticated', value: false});
         this.isAuthenticated = this.configService.get('$user.isAuthenticated');
 
         this.registerMethods();

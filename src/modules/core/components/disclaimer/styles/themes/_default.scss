@@ -1,0 +1,16 @@
+@import '../utils/vars';
+
+.wlc-disclaimer--theme-default:host {
+
+    .wlc-disclaimer__text {
+        font-size: $fontSize;
+        text-align: $textAlign;
+        color: $textColor;
+        line-height: $lineHeight;
+
+        @include mq.min(900) {
+            font-size: $fontSize * 1.2;
+            text-align: left;
+        }
+    }
+}

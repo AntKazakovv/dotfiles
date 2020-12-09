@@ -1,7 +1,22 @@
 @use 'engine-scss/functions' as ef;
 
+// Header
+$headerBurgerBtnWidth: 30px !default;
+$headerSearchBtnWidth: 30px !default;
+$headerGapColumns: ef.get('size', 'smaller') !default;
+$headerGripColumns: ($headerBurgerBtnWidth + $headerGapColumns) 0.4fr 2fr 1fr ($headerSearchBtnWidth + $headerGapColumns) !default;
+$headerGripColumnsMobile: 0.5fr 2fr 0.5fr !default;
+$headerMinHeight: 70px !default;
+$headerBackground: transparent !default;
+$headerSvgBtn: #fff !default;
+
+$headerLoginBtnTabletPadding: 5px 10px !default;
+
 // Footer
 $footerBackground: ef.get('color', 'background') !default;
+$footerPaddingBottom: 15px !default;
+$footerGridArea: 'logo license disclaimer' 'logo license copyright' !default;
+$footerGridColumn: auto auto 1fr !default;
 $footerAccentBackground: ef.get('color', 'backgroundSecondary') !default;
 $footerGapMobile: ef.get('size', 'smaller') !default;
 $footerGapTablet: ef.get('size', 'less') !default;
@@ -13,10 +28,14 @@ $footerMerchantsGapMobile: ef.get('size', 'smaller') !default;
 $footerMerchantsGapTablet: ef.get('size', 'smallest') ef.get('size', 'smaller') !default;
 $footerMerchantsGapDesktop: ef.get('size', 'less') ef.get('size', 'smaller') !default;
 $footerMerchantsMaxHeight: ef.get('size', 'biger') !default;
+$footerMerchantsMaxWidthMobile: 80% !default;
 
+$footerPaymentsBg: #282b30 !default;
+$footerPaymentsBorderRadius: 10px !default;
+$footerPaymentsJustify: space-evenly !default;
 $footerPaymentsIconsOpacity: 0.5 !default;
-$footerPaymentsGapMobile: ef.get('size', 'less') !default;
-$footerPaymentsGapTablet: ef.get('size', 'less') !default;
+$footerPaymentsGapMobile: ef.get('size', 'small') !default;
+$footerPaymentsGapTablet: ef.get('size', 'smaller') !default;
 $footerPaymentsGapDesktop: ef.get('size', 'less') !default;
 $footerPaymentsPaddingMobile: ef.get('size', 'smaller') !default;
 $footerPaymentsPaddingTablet: ef.get('size', 'small') !default;
@@ -25,11 +44,29 @@ $footerPaymentsIconWidth: 120px !default;
 $footerPaymentsMaxHeightMobile: ef.get('size', 'less') !default;
 $footerPaymentsMaxHeightTablet: ef.get('size', 'less') !default;
 $footerPaymentsMaxHeightDesktop: ef.get('size', 'biger') !default;
+$footerPaymentsMaxWidthMobile: 90px !default;
+$footerPaymentsPadding: 10px 0 !default;
 
-$footerMenuTitleSizeMobile: ef.get('font', 'big');
-$footerMenuTitleSizeTablet: ef.get('font', 'biger');
-$footerMenuTitleSizeDesktop: ef.get('font', 'biger');
+$footerMenuMobileBg: #282b30 !default;
+$footerMenuMobileMaxWidth: 90% !default;
+$footerMenuMobileMargin: $footerGapMobile auto 0 !default;
+$footerMenuMobileRadius: 10px !default;
+$footerMenuMobilePadding: 15px 25px !default;
+$footerMenuItemAlign: center !default;
+$footerMenuItemColor: ef.get('color', 'main') !default;
+$footerMenuItemSize: ef.get('font', 'main') !default;
+$footerMenuGap: ef.get('size', 'smaller') !default;
+$footerMenuDesktopGap: ef.get('size', 'biger') !default;
+$footerMenuTitleColor: ef.get('color', 'main') !default;
+$footerMenuTitleAlign: center !default;
+$footerMenuTitleWeight: bold !default;
+$footerMenuTitleTransform: uppercase !default;
+$footerMenuTitleSizeMobile: ef.get('font', 'biger') !default;
+$footerMenuTitleSizeTablet: ef.get('font', 'biger') !default;
+$footerMenuTitleSizeDesktop: ef.get('font', 'biger') !default;
 
-$footerDisclaimerTextSizeMobile: ef.get('font', 'small');
-$footerDisclaimerTextSizeTablet: ef.get('font', 'smaller');
-$footerDisclaimerTextSizeDesktop: ef.get('font', 'smaller');
+$footerDisclaimerTextSizeMobile: ef.get('font', 'small') !default;
+$footerDisclaimerTextSizeTablet: ef.get('font', 'smaller') !default;
+$footerDisclaimerTextSizeDesktop: ef.get('font', 'smaller') !default;
+
+$footerLanguageMarginTop: 20px !default;

@@ -3,10 +3,12 @@
 .wlc-btn {
 
     &:host {
+        padding: 0;
         appearance: none;
         outline: none;
         box-sizing: border-box;
         background: none;
+        border: none;
 
         overflow: hidden;
         transition: all $time;
@@ -18,4 +20,3 @@
 @import './themes/rounding';
 @import './themes/circled';
 @import './themes/skew';
-@import './themes/cleared';

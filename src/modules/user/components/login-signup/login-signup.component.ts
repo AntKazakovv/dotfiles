@@ -62,10 +62,6 @@ export class LoginSignupComponent extends AbstractComponent implements OnInit {
                 this.ModalService.showModal('signup');
                 break;
             }
-            case 'changePassword': {
-                this.ModalService.showModal('changePassword');
-                break;
-            }
         }
     }
 }

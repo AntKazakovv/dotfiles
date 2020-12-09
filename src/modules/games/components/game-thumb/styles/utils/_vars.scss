@@ -1,18 +1,28 @@
 @use 'engine-scss/functions' as ef;
 
-//$transition: color ef.get('time', 'main') linear;
-$transition: 0.5s;
+$transition: 0.5s !default;
+$thumbBorderRadius: ef.get('radius', 'biger') !default;
 
-$thumbHoverBg: rgba(221, 221, 221, 0.8);
+$thumbPadding: 8px !default;
+$thumbHoverBgColor: #833f00 !default;
+$thumbHoverBg: linear-gradient(180deg, rgba(35, 36, 38, 0.7) 40%, $thumbHoverBgColor 90.25%), !default;
 
-$favoritePosition: flex-end; //none (left), flex-end(right);
-$favoriteBg: #aaaaaa;
-$favoriteHoverBg: #f12e74;
-$favoriteActiveBg: #f12e74;
+$favoritePosition: left !default; //none (left), flex-end(right);
+$favoriteBg: #aaa !default;
+$favoriteHoverBg: #87cf3f !default;
+$favoriteActiveBg: #87cf3f !default;
+$favoriteSize: 25px !default;
+$favoriteBackBg: #555459 !default;
+$favoriteBackSize: 40px !default;
+$favoriteBackRadius: ef.get('radius', 'small') !default;
+$favoriteBoxShadow: 0 4px 15px rgba(0, 190, 225, 0.5) !default;
 
-$thumbNameColor: #f12e74;
-$thumbNameSize: 22px;
-$thumbNameWeight: 700;
-$thumbNamePosition: center;
+$thumbNameColor: #fff !default;
+$thumbNameSize: 16px !default;
+$thumbNameWeight: bold !default;
+$thumbNamePosition: center !default;
 
-$thumbBtnPosition: horizontal; //horizontal (default), vertical
+$btnJustifyContent: space-between !default;
+$btnAlignItems: flex-end !default;
+
+$thumbBtnPosition: horizontal !default; //horizontal (default), vertical

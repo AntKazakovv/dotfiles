@@ -95,8 +95,9 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         super.ngOnInit();
         this.locale = this.$params.gameParams?.lang || this.router.stateService.params?.locale || 'en';
         this.gameParams = this.getGameParams();
+        // TODO это временно запихнуто
+        // await this.gamesCatalogService.load();
 
-        await this.gamesCatalogService.ready;
         this.game = this.gamesCatalogService.getGame(this.gameParams.merchantId, this.gameParams.launchCode); // TODO || getGameById
         if (this.game) {
             // TODO: this.LocalCacheService.set('lastGameParams', this.gameParams);
@@ -156,7 +157,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
     }
 
     protected initStartResizeParams(): void {
-        this.aspectRatio = this.game.aspectRatio || 'auto';
+        this.aspectRatio = this.game.AR || 'auto';
         this.aspectRatioCoefficient = this.getAspectRatioCoefficient();
         this.checkIframe();
     }
