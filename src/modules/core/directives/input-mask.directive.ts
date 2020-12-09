@@ -1,6 +1,6 @@
 import {Directive, ElementRef, AfterViewInit, Input, HostBinding} from '@angular/core';
 import IMask from 'imask';
-import {IIndexing} from 'wlc-engine/interfaces';
+import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 
 import {
     assign as _assign,

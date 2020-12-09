@@ -1,8 +1,8 @@
 import {FormControl} from '@angular/forms';
 import {IAngularMyDpOptions} from 'angular-mydatepicker';
 import {DateTime} from 'luxon';
-import {CustomType, IComponentParams} from 'wlc-engine/classes/abstract.component';
 import {IMaskOptions} from 'wlc-engine/modules/core/directives/input-mask.directive';
+import {CustomType, IComponentParams} from 'wlc-engine/modules/core/system/classes';
 
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;

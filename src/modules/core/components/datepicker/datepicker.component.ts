@@ -6,10 +6,10 @@ import {
     ViewChild,
     ElementRef,
 } from '@angular/core';
-import {AbstractComponent} from 'wlc-engine/classes/abstract.component';
-import * as Params from './datepicker.params';
-import {ConfigService} from 'wlc-engine/modules/core';
 import {FormControl} from '@angular/forms';
+import {ConfigService} from 'wlc-engine/modules/core';
+import {AbstractComponent} from 'wlc-engine/modules/core/system/classes';
+import * as Params from './datepicker.params';
 
 /**
  * Component datepicker
