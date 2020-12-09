@@ -1,5 +1,5 @@
 @use 'engine-scss/functions' as ef;
 
 $fontSize: ef.get('size', 'less') !default;
-$color: ef.get('color', 'textSecondary') !default !default;
+$color: ef.get('color', 'textSecondary') !default;
 $gap: 15px !default;

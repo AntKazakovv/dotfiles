@@ -5,7 +5,7 @@ import {
     Input,
     ChangeDetectorRef,
 } from '@angular/core';
-import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {AbstractComponent} from 'wlc-engine/modules/core/system/classes';
 import {DataService} from 'wlc-engine/modules/core/system/services';
 import {IData} from 'wlc-engine/modules/core/system/services/data/data.service';
 import {IJackpot} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
@@ -17,7 +17,7 @@ import * as Params from './total-jackpot.params';
  * @example
  *
  * {
- *     name: 'game.wlc-total-jackpot',
+ *     name: 'games.wlc-total-jackpot',
  * }
  *
  */
@@ -66,7 +66,9 @@ export class TotalJackpotComponent extends AbstractComponent implements OnInit {
     }
 
     private calcAmount(data: IJackpot[]): void {
-        this.amount = Math.round(data.reduce((a: number, c: IJackpot) => a + c.amount, 0));
+        this.amount = Math.round(data.reduce((accumulator: number, currentValue: IJackpot) => (
+            accumulator + currentValue.amount
+        ), 0));
         this.cdr.markForCheck();
     }
 }
