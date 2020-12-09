@@ -22,14 +22,24 @@ export const depositForm: IFormWrapperCParams = {
             name: 'core.wlc-input',
             params: {
                 common: {
-                    placeholder: 'Amount',
+                    placeholder: gettext('Amount') + ' *',
                 },
                 locked: true,
                 name: 'amount',
-                validators: ['required', {
-                    name: 'regExp',
-                    options: new RegExp('^[0-9]+$'),
-                }],
+                validators: [
+                    'required',
+                    {
+                        name: 'regExp',
+                        options: new RegExp('^[0-9]+$'),
+                    }],
+            },
+        },
+        {
+            name: 'core.wlc-checkbox',
+            params: {
+                name: 'paymentRules',
+                checkboxType: 'payment-rules',
+                validators: ['required'],
             },
         },
         {
@@ -37,7 +47,7 @@ export const depositForm: IFormWrapperCParams = {
             params: {
                 name: 'submit',
                 common: {
-                    text: 'Deposit',
+                    text: 'Add deposit',
                 },
             },
         },

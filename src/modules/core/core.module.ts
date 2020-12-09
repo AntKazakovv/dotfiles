@@ -51,7 +51,7 @@ import {LoaderComponent} from './components/loader/loader.component';
 import {LayoutComponent} from './components/layout/layout.component';
 import {TextareaComponent} from './components/textarea/textarea.component';
 import {SelectComponent} from './components/select/select.component';
-import {CheckboxComponent} from './components/checkbox/checkbox/checkbox.component';
+import {CheckboxComponent} from './components/checkbox/checkbox.component';
 import {FormControlComponent} from './components/form-control/form-control.component';
 import {InfoPageComponent} from './components/info-page/info-page.component';
 import {TableComponent} from './components/table/table.component';

@@ -135,13 +135,13 @@ export class ConfigService {
     }
 
     private async getCountries(): Promise<void> {
-        await this.$resolve;
         this.data.request({
             name: 'countries',
             url: '/countries',
             system: 'user',
             type: 'GET',
-        }).then((data: IData) => {
+        }).then(async (data: IData) => {
+            await this.ready;
             this.get<BehaviorSubject<any>>('countries').next(data.data.countries);
         });
     }
