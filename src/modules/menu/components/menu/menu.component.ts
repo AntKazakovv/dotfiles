@@ -1,23 +1,24 @@
-import {defaultParams} from './menu.params';
-import * as Params from 'wlc-engine/modules/menu/components/menu/menu.params';
-
 import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
     Inject,
-    Injector, Input,
-    OnInit, SimpleChanges,
+    Injector,
+    Input,
+    OnInit,
+    SimpleChanges,
 } from '@angular/core';
+import {StateService} from '@uirouter/core';
+
 import {AbstractComponent, IMixedParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {MenuHelper} from 'wlc-engine/modules/menu/system/helpers/menu.helper';
 import {
     LayoutService,
-    ActionService, EventService,
-} from 'wlc-engine/modules/core/system/services';
-import {
+    ActionService,
+    EventService,
     ModalService,
 } from 'wlc-engine/modules/core/system/services';
+import * as Params from 'wlc-engine/modules/menu/components/menu/menu.params';
 
 @Component({
     selector: '[wlc-menu]',
@@ -26,7 +27,7 @@ import {
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MenuComponent extends AbstractComponent implements OnInit {
-    public items: Params.IMenuItem[];
+    public items: Params.MenuItemObjectType[];
     public $params: Params.IMenuCParams;
 
     @Input() protected inlineParams: Params.IMenuCParams;
@@ -38,6 +39,7 @@ export class MenuComponent extends AbstractComponent implements OnInit {
         protected layoutService: LayoutService,
         protected actionService: ActionService,
         protected modalService: ModalService,
+        protected stateSerivce: StateService,
     ) {
         super(
             <IMixedParams<Params.IMenuCParams>>{
@@ -45,6 +47,14 @@ export class MenuComponent extends AbstractComponent implements OnInit {
                 defaultParams: Params.defaultParams,
             },
         );
+    }
+
+    public isActive(state: string): boolean {
+        return this.stateSerivce.includes(state);
+    }
+
+    public toggleDropdown(item: Params.IMenuItemsGroup): void {
+        item.opened = !item.opened;
     }
 
     public ngOnChanges(changes: SimpleChanges): void {

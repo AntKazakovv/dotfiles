@@ -4,7 +4,10 @@ import {
     Component,
     Inject,
     Injector,
-    OnInit
+    Input,
+    OnInit,
+    SimpleChanges,
+    OnChanges,
 } from '@angular/core';
 import {UIRouter} from '@uirouter/core';
 import {TranslateService} from '@ngx-translate/core';
@@ -28,17 +31,21 @@ import {
     styleUrls: ['./styles/category-menu.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CategoryMenuComponent extends AbstractComponent implements OnInit {
+export class CategoryMenuComponent extends AbstractComponent implements OnInit, OnChanges {
 
+    public $params: Params.ICategoryMenuCParams;
     public items: MenuParams.IMenuItem[];
     public menuParams: MenuParams.IMenuCParams = {
         type: 'category-menu',
         items: [],
     };
 
+    @Input() public inlineParams: Params.ICategoryMenuCParams;
+
     protected categories: CategoryModel[];
     protected parentCategory: CategoryModel;
     protected usedStandartCategories: boolean = false;
+    protected onInitEnded: boolean = false;
 
     constructor(
         @Inject('injectParams') protected params: Params.ICategoryMenuCParams,
@@ -58,68 +65,120 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        super.ngOnInit();
+        super.ngOnInit(this.inlineParams);
+        this.init();
+        this.onInitEnded = true;
+    }
 
-        if (this.gamesCatalogService.getGameList()) {
-            this.initMenu();
-        } else {
-            this.eventService.subscribe({
-                name: gamesEvents.FETCH_GAME_CATALOG_SUCCEEDED,
-            }, () => {
-                this.initMenu();
-            });
+    public ngOnChanges(changes: SimpleChanges): void {
+        super.ngOnChanges(changes);
+        if (this.onInitEnded) {
+            this.init();
         }
     }
 
+    /**
+     * Init component
+     *
+     * @returns {Promise<void>}
+     */
+    protected async init(): Promise<void> {
+        await this.gamesCatalogService.ready;
+        this.initMenu();
+    }
+
+    /**
+     * Init menu
+     */
     protected initMenu(): void {
-        if (this.gamesCatalogService.catalogOpened()) {
-            this.parentCategory = this.gamesCatalogService.getParentCategoryByState();
-            this.categories = this.gamesCatalogService.getCategoriesByParentId(this.parentCategory.id);
-            if (!this.categories.length) {
+        if (this.$params.type == 'dropdown') {
+            this.initAsDropdown();
+        } else {
+            if (this.gamesCatalogService.catalogOpened()) {
+                this.parentCategory = this.gamesCatalogService.getParentCategoryByState();
+                this.categories = this.gamesCatalogService.getCategoriesByParentId(this.parentCategory.id);
+                if (!this.categories.length) {
+                    this.setStandartCategories();
+                }
+            } else {
                 this.setStandartCategories();
             }
-        } else {
-            this.setStandartCategories();
+
+            const menuItems = MenuHelper.getItemsForCategories({
+                categories: this.categories,
+                openChildCatalog: !this.usedStandartCategories && this.gamesCatalogService.catalogOpened(),
+                lang: this.translate.currentLang,
+            });
+            this.menuParams.items = menuItems.concat(this.menuParams.items as MenuParams.IMenuItem[]);
+
+            if (!this.usedStandartCategories) {
+                this.menuParams.items.unshift(this.getAllGamesBtn());
+            }
+
         }
-
-        const menuItems = MenuHelper.getItemsForCategories({
-            categories: this.categories,
-            openChildCatalog: !this.usedStandartCategories && this.gamesCatalogService.catalogOpened(),
-            lang: this.translate.currentLang,
-        });
-        this.menuParams.items = menuItems.concat(this.menuParams.items as MenuParams.IMenuItem[]);
-
-        if (!this.usedStandartCategories) {
-            this.menuParams.items.unshift(this.getAllGamesBtn());
-        }
-
         this.menuParams = _clone(this.menuParams);
         this.cdr.markForCheck();
     }
 
+    /**
+     * Set standart categories
+     */
     protected setStandartCategories(): void {
         this.usedStandartCategories = true;
-        const itemByMenu: CategoryModel[] = this.gamesCatalogService.getCategoriesByMenu('category-menu');
-        this.categories = itemByMenu ? itemByMenu : this.gamesCatalogService.getCategoriesByMenu('');
+        this.categories = this.getStandartCategories();
     }
 
-    protected getAllGamesBtn(): MenuParams.IMenuItem {
-        if (this.parentCategory) {
-            return {
-                name: this.translate.instant(gettext('All games')),
-                type: 'sref',
-                icon: 'allgames',
-                class: 'allgames',
-                params: {
-                    state: {
-                        name: 'app.catalog',
-                        params: {
-                            category: this.parentCategory.slug,
-                        },
+    /**
+     * Get standart categories (which is not childs categpries and not for main menu)
+     *
+     * @returns {CategoryModel[]}
+     */
+    protected getStandartCategories(): CategoryModel[] {
+        const itemByMenu: CategoryModel[] = this.gamesCatalogService.getCategoriesByMenu('category-menu');
+        return itemByMenu ? itemByMenu : this.gamesCatalogService.getCategoriesByMenu('');
+    }
+
+    /**
+     * Get btn 'All games'
+     *
+     * @param {boolean} withoutParams Without params settings
+     * @returns {IMenuItem}
+     */
+    protected getAllGamesBtn(withoutParams: boolean = false): MenuParams.IMenuItem {
+        const item: MenuParams.IMenuItem = {
+            name: this.translate.instant(gettext('All games')),
+            type: 'sref',
+            icon: 'allgames',
+            class: 'allgames',
+            params: {
+                state: {
+                    name: 'app.catalog',
+                    params: {
+                        category: this.parentCategory ? this.parentCategory.slug : '',
                     },
-                }
-            };
+                },
+            },
+        };
+        if (withoutParams) {
+            delete item.params;
         }
+        return item;
+    }
+
+    /**
+     * Init as dropdown menu
+     */
+    protected initAsDropdown(): void {
+        const menuItems = MenuHelper.getItemsForCategories({
+            categories: this.getStandartCategories(),
+            openChildCatalog: false,
+            lang: this.translate.currentLang,
+        });
+        const itemsGroup: MenuParams.IMenuItemsGroup = {
+            parent: this.getAllGamesBtn(true),
+            items: menuItems,
+        };
+        this.menuParams.items = [itemsGroup];
     }
 
 }

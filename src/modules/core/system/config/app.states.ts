@@ -4,15 +4,7 @@ import {StateHelper} from './state.helper';
 import {AppComponent} from 'wlc-engine/modules/app/components/app/app.component';
 import {ConfigService} from 'wlc-engine/modules/core/system/services';
 import {LayoutComponent} from 'wlc-engine/modules/core/components/layout/layout.component';
-import {
-    homeState,
-    catalogState,
-    catalogChildState,
-    gamePlayState,
-    pagesState,
-    contactsState,
-    profile,
-} from './states';
+import * as States from './states';
 
 import {
     map as _map,
@@ -21,16 +13,46 @@ import {
 } from 'lodash';
 
 const states = {
-    'app.home': homeState,
-    'app.catalog': catalogState,
-    'app.catalog.child': catalogChildState,
-    'app.gameplay': gamePlayState,
-    'app.pages': pagesState,
-    'app.contacts': contactsState,
-    'app.profile': profile.main,
-    'app.profile.deposit': profile.deposit,
-    'app.profile.withdraw': profile.withdraw,
-    'app.profile.transaction': profile.transaction,
+    'app.home': States.homeState,
+    'app.catalog': States.catalogState,
+    'app.catalog.child': States.catalogChildState,
+    'app.gameplay': States.gamePlayState,
+    'app.pages': States.pagesState,
+    'app.contacts': States.contactsState,
+    'app.profile': States.profileState,
+    'app.profile.main': States.profileMainState,
+    'app.profile.main.info': States.profileMainInfoState,
+    'app.profile.social': States.profileState,
+    'app.profile.loyalty-bonuses': States.profileBonusesState,
+    'app.profile.loyalty-bonuses.main': States.profileBonusesMainState,
+    'app.profile.loyalty-bonuses.active': States.profileBonusesActiveState,
+    'app.profile.loyalty-bonuses.inventory': States.profileBonusesInventoryState,
+    'app.profile.loyalty-bonuses.history': States.profileBonusesHistoryState,
+    'app.profile.loyalty-bonuses.promo': States.profileBonusesPromoState,
+    'app.profile.loyalty-bonuses.system': States.profileBonusesSystemState,
+    'app.profile.loyalty-tournaments': States.profileTournamentsState,
+    'app.profile.loyalty-tournaments.main': States.profileTournamentsMainState,
+    'app.profile.loyalty-tournaments.active': States.profileTournamentsActiveState,
+    'app.profile.loyalty-tournaments.history': States.profileTournamentsHistoryState,
+    'app.profile.loyalty-store': States.profileStoreState,
+    'app.profile.loyalty-store.main': States.profileStoreMain,
+    'app.profile.loyalty-store.orders': States.profileStoreOrders,
+    'app.profile.cash': States.profileCashState,
+    'app.profile.cash.deposit': States.profileCashDepositState,
+    'app.profile.cash.withdraw': States.profileCashWithdrawState,
+    'app.profile.cash.wallet': States.profileCashWalletState,
+    'app.profile.cash.transactions': States.profileCashTransactionsState,
+    'app.profile.gamblings': States.profileGamblingsState,
+    'app.profile.gamblings.bets': States.profileGamblingsBetsState,
+    'app.profile.messages': States.profileMessagesState,
+    'app.profile.verification': States.profileVerificationState,
+    'app.profile.password': States.profilePasswordState,
+    'app.profile.notifications': States.profileNotificationsState,
+    'app.profile.payments': States.profilePaymentsState,
+    'app.profile.limits': States.profileLimitsState,
+    'app.profile.loyalty-level': States.profileLoyaltyLevelState,
+    'app.profile.referrals': States.profileReferralsState,
+    'app.profile.dashboard': States.profileDashboardState,
 };
 
 const appState: Ng2StateDeclaration = {

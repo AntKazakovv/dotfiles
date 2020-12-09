@@ -57,7 +57,7 @@ export class GamesGridComponent extends AbstractComponent
     public $params: IGamesGridCParams;
     public filteredGames: Game[]; // TODO temporary: until gameService will be able to back category
     public title: string;
-    public gamesCount: number;
+    public gamesCount: number = 1;
     public placeHolders: number[];
     public placeHolderStyles: object = {};
     public hideShowMoreBtn: boolean = false;
@@ -191,6 +191,12 @@ export class GamesGridComponent extends AbstractComponent
         }
     }
 
+    /**
+     * Set grid params
+     *
+     * @param el - Container with thumbnails
+     * @param {number} width With of container
+     */
     protected setGridParams(el: any, width: number): void {
         this.moreButtonChangeState(false);
         const itemElement = el.querySelector('.' + this.$class + '__item')?.firstChild;
@@ -201,6 +207,7 @@ export class GamesGridComponent extends AbstractComponent
             this.placeHoldersCount = this.prevPlaceHoldersCount;
             this.gamesCount = this.paginate;
             this.checkGamesLength();
+            this.cdr.markForCheck();
         }
     }
 

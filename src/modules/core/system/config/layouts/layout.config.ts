@@ -69,8 +69,32 @@ export const $layouts: ILayoutsConfig = {
         },
     },
     'app.profile': {
+        extends: 'app',
         sections: {
-            'profile': {
+            profile: {
+                container: true,
+                components: [
+                    {
+                        name: 'menu.wlc-profile-menu',
+                        params: {
+                        },
+                    },
+                    {
+                        name: 'menu.wlc-profile-menu',
+                        params: {
+                            type: 'submenu',
+                        },
+                    },
+                ],
+            },
+            content: {
+            },
+        },
+    },
+    'app.profile.main.info': {
+        extends: 'app.profile',
+        sections: {
+            content: {
                 container: true,
                 components: [
                     {
@@ -80,9 +104,110 @@ export const $layouts: ILayoutsConfig = {
             },
         },
     },
-    'app.profile.deposit': {
+    'app.profile.social': {
+        extends: 'app.profile',
         sections: {
-            'profile': {
+            content: {
+                container: true,
+                components: [
+                ],
+            },
+        },
+    },
+    'app.profile.loyalty-bonuses.main': {
+        extends: 'app.profile',
+        sections: {
+            content: {
+                container: true,
+                components: [
+                ],
+            },
+        },
+    },
+    'app.profile.loyalty-bonuses.active': {
+        extends: 'app.profile',
+        sections: {
+            content: {
+                container: true,
+                components: [
+                ],
+            },
+        },
+    },
+    'app.profile.loyalty-bonuses.inventory': {
+        extends: 'app.profile',
+        sections: {
+            content: {
+                container: true,
+                components: [
+                ],
+            },
+        },
+    },
+    'app.profile.loyalty-bonuses.history': {
+        extends: 'app.profile',
+        sections: {
+            content: {
+                container: true,
+                components: [
+                ],
+            },
+        },
+    },
+    'app.profile.loyalty-bonuses.promo': {
+        extends: 'app.profile',
+        sections: {
+            content: {
+                container: true,
+                components: [
+                ],
+            },
+        },
+    },
+    'app.profile.loyalty-bonuses.system': {
+        extends: 'app.profile',
+        sections: {
+            content: {
+                container: true,
+                components: [
+                ],
+            },
+        },
+    },
+    'app.profile.loyalty-tournaments.main': {
+        extends: 'app.profile',
+        sections: {
+            content: {
+                container: true,
+                components: [
+                ],
+            },
+        },
+    },
+    'app.profile.loyalty-tournaments.active': {
+        extends: 'app.profile',
+        sections: {
+            content: {
+                container: true,
+                components: [
+                ],
+            },
+        },
+    },
+    'app.profile.loyalty-tournaments.history': {
+        extends: 'app.profile',
+        sections: {
+            content: {
+                container: true,
+                components: [
+                ],
+            },
+        },
+    },
+    'app.profile.cash.deposit': {
+        extends: 'app.profile',
+        sections: {
+            content: {
                 container: true,
                 components: [
                     {
@@ -92,9 +217,30 @@ export const $layouts: ILayoutsConfig = {
             },
         },
     },
-    'app.profile.transaction': {
+    'app.profile.cash.withdraw': {
+        extends: 'app.profile',
         sections: {
-            'profile': {
+            content: {
+                container: true,
+                components: [
+                ],
+            },
+        },
+    },
+    'app.profile.cash.wallet': {
+        extends: 'app.profile',
+        sections: {
+            content: {
+                container: true,
+                components: [
+                ],
+            },
+        },
+    },
+    'app.profile.cash.transactions': {
+        extends: 'app.profile',
+        sections: {
+            content: {
                 container: true,
                 components: [
                     {
@@ -104,8 +250,128 @@ export const $layouts: ILayoutsConfig = {
             },
         },
     },
+    'app.profile.gamblings.bets': {
+        extends: 'app.profile',
+        sections: {
+            content: {
+                container: true,
+                components: [
+                ],
+            },
+        },
+    },
+    'app.profile.loyalty-store.main': {
+        extends: 'app.profile',
+        sections: {
+            content: {
+                container: true,
+                components: [
+                ],
+            },
+        },
+    },
+    'app.profile.loyalty-store.orders': {
+        extends: 'app.profile',
+        sections: {
+            content: {
+                container: true,
+                components: [
+                ],
+            },
+        },
+    },
+    'app.profile.messages': {
+        extends: 'app.profile',
+        sections: {
+            content: {
+                container: true,
+                components: [
+                ],
+            },
+        },
+    },
+    'app.profile.verification': {
+        extends: 'app.profile',
+        sections: {
+            content: {
+                container: true,
+                components: [
+                ],
+            },
+        },
+    },
+    'app.profile.password': {
+        extends: 'app.profile',
+        sections: {
+            content: {
+                container: true,
+                components: [
+                ],
+            },
+        },
+    },
+    'app.profile.notifications': {
+        extends: 'app.profile',
+        sections: {
+            content: {
+                container: true,
+                components: [
+                ],
+            },
+        },
+    },
+    'app.profile.payments': {
+        extends: 'app.profile',
+        sections: {
+            content: {
+                container: true,
+                components: [
+                ],
+            },
+        },
+    },
+    'app.profile.limits': {
+        extends: 'app.profile',
+        sections: {
+            content: {
+                container: true,
+                components: [
+                ],
+            },
+        },
+    },
+    'app.profile.loyalty-level': {
+        extends: 'app.profile',
+        sections: {
+            content: {
+                container: true,
+                components: [
+                ],
+            },
+        },
+    },
+    'app.profile.referrals': {
+        extends: 'app.profile',
+        sections: {
+            content: {
+                container: true,
+                components: [
+                ],
+            },
+        },
+    },
+    'app.profile.dashboard': {
+        extends: 'app.profile',
+        sections: {
+            content: {
+                container: true,
+                components: [
+                ],
+            },
+        },
+    },
     'app.contacts': {
-        extends: 'app',
+        extends: 'app.profile',
         sections: {
             'info-page': {
                 container: true,
@@ -116,15 +382,14 @@ export const $layouts: ILayoutsConfig = {
         },
     },
     'app.catalog': {
-        extends: 'app',
+        extends: 'app.profile',
         sections: {
             content: {
                 components: [
 
                 ],
-                order: 2
-            }
-        }
-    }
+                order: 2,
+            },
+        },
+    },
 };
-

@@ -513,9 +513,10 @@ export class GamesCatalog {
             game.isFavourite = this.gamesCatalogService.favourites.includes(game.ID);
             game.setSortedCategoryFields();
             GamesHelper.fillGamesByCategoriesMerchants(game, this.availableCategories, this.availableMerchants);
-            this.availableCategories = GlobalHelper.sortByNumber<CategoryModel>(this.availableCategories, 'sort', true);
             resultGames.push(game);
         }
+
+        this.availableCategories = GlobalHelper.sortByNumber<CategoryModel>(this.availableCategories, 'sort', true);
 
         this.games = _sortBy(resultGames, (item: Game) => {
             return _toNumber(item.sort);

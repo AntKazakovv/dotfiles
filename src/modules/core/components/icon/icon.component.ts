@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, ViewEncapsulation, ChangeDetectorRef} from '@angular/core';
+import {Component, OnInit, Input, ViewEncapsulation, ChangeDetectorRef, ElementRef} from '@angular/core';
 import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
 import {FilesService, IFile} from 'wlc-engine/modules/core';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes';
@@ -19,6 +19,7 @@ export class IconComponent extends AbstractComponent implements OnInit {
     constructor(
         protected sanitizer: DomSanitizer,
         protected fileService: FilesService,
+        protected elRef: ElementRef,
         protected cdr: ChangeDetectorRef,
     ) {
         super({
@@ -45,8 +46,9 @@ export class IconComponent extends AbstractComponent implements OnInit {
             this.imagePath = file.url;
         } else if (file.htmlString) {
             this.imageHtml = this.sanitizer.bypassSecurityTrustHtml(file.htmlString);
+        } else {
+            this.elRef.nativeElement.remove();
         }
-
         this.cdr.markForCheck();
     }
 }
