@@ -47,3 +47,40 @@ $themePlaceholderShown: map-merge((
     'placeholderPadding': 0 20px,
     'placeholderShift': -40px,
 ), $customThemePlaceholderShown);
+
+
+$customThemeVertical: () !default;
+$themeVertical: map-merge((
+    'maxWidth': 100%,
+
+    'labelMargin': 0 0 7px 7px,
+    'labelFontSize': 10px,
+    'labelFontWeight': 500,
+    'labelLineHeight': 1,
+    'labelColor': #f12e74,
+
+    'inputWidth': 100%,
+    'inputHeight': 40px,
+    'inputPadding': 5px 13px,
+    'inputPaddingModify': 0 80px 0 0,
+    'inputFontSize': 12px,
+    'inputFontWeight': 400,
+    'inputLineHeight': 1,
+    'inputBackground': #ffffff,
+    'inputColor': #000000,
+    'inputBorder': solid 2px #f2f2f2,
+    'inputBorderRadius': 10px,
+
+    'iconEyeTop': 50%,
+    'iconEyeRight': 5px,
+    'iconEyeTransform': translateY(-50%),
+
+    'controlIconRight': 50px,
+    'controlErrorRight': 35px,
+
+    'fieldIconSize': 30px,
+    'fieldIconLineHeight': 0,
+    'fieldIconSvgFillHover': #292929,
+    'fieldIconSvgFillActive': #ff0000,
+
+), $customThemeVertical);

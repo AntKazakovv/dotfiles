@@ -30,12 +30,17 @@ export class LoginSignupComponent extends AbstractComponent implements OnInit {
     }
 
     public get signupText(): string {
-        return _get(this.$params, 'login.signup');
+        return _get(this.$params, 'signup.title');
+    }
+
+    public get changePasswordText(): string {
+        return _get(this.$params, 'changePassword.title');
     }
 
     public ngOnInit(): void {
         super.ngOnInit();
     }
+
 
     public action(actionButton: Params.IActionNameType): void {
         switch (this.$params?.[actionButton]?.action) {
@@ -55,6 +60,10 @@ export class LoginSignupComponent extends AbstractComponent implements OnInit {
             }
             case 'signup': {
                 this.ModalService.showModal('signup');
+                break;
+            }
+            case 'changePassword': {
+                this.ModalService.showModal('changePassword');
                 break;
             }
         }

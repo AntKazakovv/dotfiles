@@ -1,0 +1,33 @@
+@import '../utils/vars';
+
+.wlc-text-block {
+
+    &__head {
+        margin: $headMargin;
+    }
+
+    &__title,
+    &__subtitle {
+        text-align: center;
+        color: $titleColor;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    &__title {
+        font-size: $titleFontSize;
+        font-weight: $titleFontWeight;
+
+        margin: $titleMargin;
+    }
+
+    &__subtitle {
+        font-size: $subtitleFontSize;
+        font-weight: $subtitleFontWeight;
+        line-height: $subtitleLineHeight;
+
+        margin-bottom: $subtitleMargin;
+    }
+}

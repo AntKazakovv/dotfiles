@@ -2,10 +2,6 @@ import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 import {SignUpComponent} from './components/sign-up/sign-up.component';
-import {TempContainerComponent} from './components/temp-container/temp-container.component';
-import {SignInComponent} from './components/sign-in/sign-in.component';
-import {PasswordRestoreComponent} from './components/password-restore/password-restore.component';
-import {PasswordChangeComponent} from './components/password-change/password-change.component';
 import {HaveAccountComponent} from './components/have-account/have-account.component';
 import {UserService} from './system/services';
 import {TranslateModule} from '@ngx-translate/core';
@@ -16,27 +12,35 @@ import {LoginSignupComponent} from './components/login-signup/login-signup.compo
 import {SignupBonusComponent} from './components/signup-bonus/signup-bonus.component';
 import {TempLogoutComponent} from './components/temp-logout/temp-logout.component';
 import {ProfileFormComponent} from './components/profile-form/profile-form.component';
+import {SignInFormComponent} from './components/sign-in-form/sign-in-form.component';
+import {PseudoLinkComponent} from './components/pseudo-link/pseudo-link.component';
+import {ChangePasswordFormComponent} from './components/change-password-form/change-password-form.component';
+import {RestorePasswordFormComponent} from './components/restore-password-form/restore-password-form.component';
 
 
 export const components = {
-    'wlc-temp-container': TempContainerComponent,
     'wlc-login-signup': LoginSignupComponent,
     'wlc-temp-logout': TempLogoutComponent,
     'wlc-profile-form': ProfileFormComponent,
+    'wlc-sign-in-form': SignInFormComponent,
+    'wlc-have-account': HaveAccountComponent,
+    'wlc-pseudo-link': PseudoLinkComponent,
+    'wlc-change-password-form': ChangePasswordFormComponent,
+    'wlc-restore-password-form': RestorePasswordFormComponent,
 };
 
 @NgModule({
     declarations: [
-        TempContainerComponent,
         SignUpComponent,
-        SignInComponent,
-        PasswordRestoreComponent,
-        PasswordChangeComponent,
         HaveAccountComponent,
         LoginSignupComponent,
         SignupBonusComponent,
         TempLogoutComponent,
         ProfileFormComponent,
+        SignInFormComponent,
+        PseudoLinkComponent,
+        ChangePasswordFormComponent,
+        RestorePasswordFormComponent,
     ],
     imports: [
         CommonModule,
@@ -51,13 +55,13 @@ export const components = {
     ],
     exports: [
         SignUpComponent,
-        SignInComponent,
-        PasswordRestoreComponent,
-        PasswordChangeComponent,
         HaveAccountComponent,
         LoginSignupComponent,
         TempLogoutComponent,
         ProfileFormComponent,
+        SignInFormComponent,
+        ChangePasswordFormComponent,
+        RestorePasswordFormComponent,
     ],
 })
 export class UserModule {

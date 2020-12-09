@@ -18,7 +18,7 @@ export const feedbackConfig: IFormWrapperCParams = {
             params: {
                 theme: 'placeholder-shown',
                 common: {
-                    placeholder: 'Your name *',
+                    placeholder: gettext('Your name *'),
                 },
                 name: 'senderName',
                 validators: ['required'],
@@ -30,7 +30,7 @@ export const feedbackConfig: IFormWrapperCParams = {
             params: {
                 theme: 'placeholder-shown',
                 common: {
-                    placeholder: 'Email *',
+                    placeholder: gettext('Email *'),
                     type: 'email',
                 },
                 name: 'senderEmail',
@@ -43,7 +43,7 @@ export const feedbackConfig: IFormWrapperCParams = {
             params: {
                 theme: 'placeholder-shown',
                 common: {
-                    placeholder: 'Subject *',
+                    placeholder: gettext('Subject *'),
                 },
                 name: 'subject',
                 validators: ['required'],
@@ -54,7 +54,7 @@ export const feedbackConfig: IFormWrapperCParams = {
             params: {
                 theme: 'placeholder-shown',
                 common: {
-                    placeholder: 'Message *',
+                    placeholder: gettext('Message *'),
                 },
                 name: 'message',
                 validators: ['required'],
@@ -65,7 +65,7 @@ export const feedbackConfig: IFormWrapperCParams = {
             params: {
                 name: 'submit',
                 common: {
-                    text: 'Send',
+                    text: gettext('Send'),
                 },
             },
         },

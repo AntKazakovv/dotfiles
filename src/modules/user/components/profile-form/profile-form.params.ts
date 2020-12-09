@@ -18,7 +18,7 @@ export const profileForm: IFormWrapperCParams = {
             name: 'core.wlc-input',
             params: {
                 common: {
-                    placeholder: 'Email',
+                    placeholder: gettext('Email'),
                 },
                 locked: true,
                 name: 'email',
@@ -30,7 +30,7 @@ export const profileForm: IFormWrapperCParams = {
             name: 'core.wlc-input',
             params: {
                 common: {
-                    placeholder: 'First name',
+                    placeholder: gettext('First name'),
                 },
                 name: 'firstName',
                 validators: ['required',
@@ -50,7 +50,7 @@ export const profileForm: IFormWrapperCParams = {
             name: 'core.wlc-input',
             params: {
                 common: {
-                    placeholder: 'Last name',
+                    placeholder: gettext('Last name'),
                 },
                 name: 'lastName',
                 validators: ['required'],
@@ -73,7 +73,7 @@ export const profileForm: IFormWrapperCParams = {
             name: 'core.wlc-select',
             params: {
                 common: {
-                    placeholder: 'Country',
+                    placeholder: gettext('Country'),
                 },
                 locked: true,
                 name: 'countryCode',
@@ -85,7 +85,7 @@ export const profileForm: IFormWrapperCParams = {
             name: 'core.wlc-input',
             params: {
                 common: {
-                    placeholder: 'City',
+                    placeholder: gettext('City'),
                 },
                 name: 'city',
                 validators: [],
@@ -95,7 +95,7 @@ export const profileForm: IFormWrapperCParams = {
             name: 'core.wlc-input',
             params: {
                 common: {
-                    placeholder: 'Address',
+                    placeholder: gettext('Address'),
                 },
                 name: 'address',
                 validators: [],
@@ -105,7 +105,7 @@ export const profileForm: IFormWrapperCParams = {
             name: 'core.wlc-input',
             params: {
                 common: {
-                    placeholder: 'Postal code',
+                    placeholder: gettext('Postal code'),
                 },
                 name: 'postalCode',
                 validators: [],
@@ -115,7 +115,7 @@ export const profileForm: IFormWrapperCParams = {
             name: 'core.wlc-input',
             params: {
                 common: {
-                    placeholder: 'PEP',
+                    placeholder: gettext('PEP'),
                 },
                 name: 'pep',
                 validators: [],
@@ -125,7 +125,7 @@ export const profileForm: IFormWrapperCParams = {
             name: 'core.wlc-input',
             params: {
                 common: {
-                    placeholder: 'Password',
+                    placeholder: gettext('Password'),
                     type: 'password',
                 },
                 name: 'currentPassword',
@@ -137,7 +137,7 @@ export const profileForm: IFormWrapperCParams = {
             params: {
                 name: 'submit',
                 common: {
-                    text: 'Save changes',
+                    text: gettext('Save changes'),
                 },
             },
         },
