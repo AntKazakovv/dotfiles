@@ -1,0 +1,59 @@
+@import '../utils/vars';
+
+.wlc-datepicker--theme-default:host {
+    position: relative;
+    max-width: $maxWidth;
+
+    .container {
+        position: relative;
+    }
+
+    .wlc-datepicker__label {
+        font-weight: $labelFontWeight;
+        font-size: $labelFontSize;
+        color: $labelColor;
+        padding: $labelPadding;
+    }
+
+    .wlc-datepicker__input {
+        width: 100%;
+        padding: $inputPadding;
+        border-radius: $inputBorderRadius;
+        border: $inputBorder;
+        color: $inputColor;
+        transition: $transition;
+
+        &.blank-mask {
+            color: $inputPlaceholderColor;
+        }
+
+        &:focus {
+            outline: none;
+            border: $inputFocusBorder;
+        }
+    }
+
+    .wlc-datepicker__icon {
+        position: absolute;
+        top: 50%;
+        right: $iconRight;
+        transform: translateY(-50%);
+        width: $iconWidth;
+        height: $iconHeight;
+        cursor: pointer;
+
+        &::ng-deep {
+
+            span,
+            svg {
+                width: 100%;
+                height: 100%;
+                display: block;
+            }
+
+            svg {
+                fill: $iconFill;
+            }
+        }
+    }
+}

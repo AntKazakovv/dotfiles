@@ -1,0 +1,21 @@
+@use 'engine-styles/functions' as ef;
+
+$maxWidth: 140px !default;
+$transition: 0.5s ease-in !default;
+
+$labelFontSize: 10px !default;
+$labelFontWeight: 500 !default;
+$labelColor:  ef.get('color', 'main') !default;
+$labelPadding: 0 0 0 10px !default;
+
+$inputColor: #000 !default;
+$inputPlaceholderColor: #cbcbcb !default;
+$inputPadding: 9px 12px !default;
+$inputBorderRadius: 10px !default;
+$inputBorder: 2px solid #f2f2f2 !default;
+$inputFocusBorder: 2px solid darken(#f2f2f2, 10%) !default;
+
+$iconRight: 10px !default;
+$iconWidth: 15px !default;
+$iconHeight: 15px !default;
+$iconFill: #cbcbcb !default;

@@ -12,6 +12,7 @@ import {UIRouterModule} from '@uirouter/angular';
 import {SwiperModule} from 'ngx-swiper-wrapper';
 import {AngularResizedEventModule} from 'angular-resize-event';
 import {ModalModule} from 'ngx-bootstrap/modal';
+import {AngularMyDatePickerModule} from 'angular-mydatepicker';
 // -- MODULES IMPORTS END --;
 
 // -- SERVICES IMPORTS START --;
@@ -56,12 +57,14 @@ import {FormControlComponent} from './components/form-control/form-control.compo
 import {InfoPageComponent} from './components/info-page/info-page.component';
 import {TableComponent} from './components/table/table.component';
 import {CopyrightComponent} from './components/copyright/copyright.component';
+import {DatepickerComponent} from './components/datepicker/datepicker.component';
 // -- COMPONENTS IMPORTS END  --;
 
 //  -- DIRECTIVES IMPORTS STARTS--;
 import {NgTemplateNameDirective} from './directives/template-name/template-name.directive';
 import {PasswordVisibilityDirective} from './directives/password-visibility.directive';
 import {ClickOutsideDirective} from './directives/click-outside.directive';
+import {InputMaskDirective} from './directives/input-mask.directive';
 //  -- DIRECTIVES IMPORTS END  --;
 
 //  -- CONFIGS IMPORTS STARTS--;
@@ -92,6 +95,7 @@ export const components = {
     'wlc-table': TableComponent,
     'wlc-dummy-amount': DummyComponent,
     'wlc-copyright': CopyrightComponent,
+    'wlc-datepicker': DatepickerComponent,
 };
 
 @NgModule({
@@ -106,6 +110,7 @@ export const components = {
         ReactiveFormsModule,
         AngularResizedEventModule,
         ModalModule,
+        AngularMyDatePickerModule,
     ],
     providers: [
         DataService,
@@ -153,6 +158,8 @@ export const components = {
         TableComponent,
         DummyComponent,
         CopyrightComponent,
+        DatepickerComponent,
+        InputMaskDirective,
     ],
     exports: [
         LayoutComponent,
@@ -185,6 +192,8 @@ export const components = {
         TableComponent,
         DummyComponent,
         CopyrightComponent,
+        DatepickerComponent,
+        InputMaskDirective,
     ],
 })
 export class CoreModule {
