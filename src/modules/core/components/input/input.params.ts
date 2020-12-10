@@ -2,7 +2,7 @@ import {FormControl} from '@angular/forms';
 import {CustomType, IComponentParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ValidatorType} from 'wlc-engine/modules/core/system/services/validation/validation.service';
 
-export type ComponentTheme = 'default' | CustomType;
+export type ComponentTheme = 'default'| 'placeholder-shown' | 'vertical' | CustomType;
 export type ComponentType = 'default' | CustomType;
 export type Theme = 'default' | CustomType;
 export type AutoModifiers = Theme | 'default';

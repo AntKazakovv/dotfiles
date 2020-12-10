@@ -72,6 +72,10 @@ export interface IModalConfig extends IModalBsOptions {
      */
     confirmBtnText?: string;
     /**
+     * if false then hide modal footer
+     */
+    showFooter?: boolean;
+    /**
      * Action by click on confirm button. Modal closes after it.
      */
     onConfirm?: () => unknown;

@@ -20,7 +20,7 @@
             <ng-container *ngTemplateOutlet="$params.config.component ? component : message"></ng-container>
         </div>
 
-        <div class="wlc-modal__footer">
+        <div class="wlc-modal__footer" *ngIf='$params.config.showFooter'>
             <button type="button"
                 *ngIf="$params.config.showConfirmBtn"
                 class=""

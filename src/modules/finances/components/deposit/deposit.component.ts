@@ -1,6 +1,6 @@
 import {Component, OnInit, Inject} from '@angular/core';
 
-import {AbstractComponent, IMixedParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {AbstractComponent, IMixedParams} from 'wlc-engine/modules/core';
 import {ConfigService, EventService, ModalService} from 'wlc-engine/modules/core/system/services';
 import {PaymentSystem} from 'wlc-engine/modules/finances/system/models/payment-system.model';
 import {FinancesService} from 'wlc-engine/modules/finances/system/services';
@@ -129,7 +129,6 @@ export class DepositComponent extends AbstractComponent implements OnInit {
     }
 
     protected showDepositResponse(params: string, type: string): void {
-        console.log('showDepositResponse', params, type);
         // const messageData {
         //     messageType: 'success',
         //     messageTitle: this.gettext('Payment'),
@@ -178,7 +177,6 @@ export class DepositComponent extends AbstractComponent implements OnInit {
     }
 
     protected addField(name: string, value: any): HTMLInputElement {
-        console.log(name, value);
         const input: HTMLInputElement = document.createElement('input');
         input.type = 'text';
         input.name = name;

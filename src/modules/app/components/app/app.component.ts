@@ -82,6 +82,10 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
         this.cdr.markForCheck();
     }
 
+    public trackBySectionName(number: number, section: SectionModel): string {
+        return section.name;
+    }
+
     @HostBinding('class') get class() {
         return `wlc-app-content ${this.uiRouter.$current?.name?.replace('.', '-')}-state`;
     }

@@ -223,6 +223,9 @@ export const $layouts: ILayoutsConfig = {
             content: {
                 container: true,
                 components: [
+                    {
+                        name: 'wlc-withdraw',
+                    },
                 ],
             },
         },

@@ -38,7 +38,6 @@ export class PaymentListComponent extends AbstractComponent implements OnInit {
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.financesService.paymentSystems$.pipe(
-            tap((systems) => console.log(systems)),
             filter((systems) => !!systems),
             map(
                 (systems) =>
@@ -47,7 +46,6 @@ export class PaymentListComponent extends AbstractComponent implements OnInit {
                     ),
             ),
         ).subscribe((systems) => {
-            console.log('ss', systems);
             this.ready = true;
             this.systems = systems;
             this.cdr.markForCheck();

@@ -1,8 +1,8 @@
 import {SearchComponent} from 'wlc-engine/modules/games/components/search/search.component';
 import {SignInFormComponent} from 'wlc-engine/modules/user/components/sign-in-form/sign-in-form.component';
 import {SignUpComponent} from 'wlc-engine/modules/user/components/sign-up/sign-up.component';
-import {ChangePasswordFormComponent} from 'wlc-engine/modules/user/components/change-password-form/change-password-form.component'
-import {RestorePasswordFormComponent} from 'wlc-engine/modules/user/components/restore-password-form/restore-password-form.component'
+import {ChangePasswordFormComponent} from 'wlc-engine/modules/user/components/change-password-form/change-password-form.component';
+import {RestorePasswordFormComponent} from 'wlc-engine/modules/user/components/restore-password-form/restore-password-form.component';
 import {
     IModalConfig,
     IModalList,
@@ -20,6 +20,7 @@ export const DEFAULT_MODAL_CONFIG: Partial<IModalConfig> = {
     focus: true,
     animation: true,
     dismissAll: true,
+    showFooter: true,
 };
 
 export const MODALS_LIST: IModalList = {
@@ -52,6 +53,7 @@ export const MODALS_LIST: IModalList = {
             component: SignInFormComponent,
             size: 'md',
             backdrop: 'static',
+            showFooter: false,
         },
     },
     signup: {
@@ -62,6 +64,7 @@ export const MODALS_LIST: IModalList = {
             component: SignUpComponent,
             size: 'md',
             backdrop: 'static',
+            showFooter: false,
         },
     },
     changePassword: {

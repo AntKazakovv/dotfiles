@@ -6,8 +6,9 @@ import {TranslateModule} from '@ngx-translate/core';
 import {DepositComponent} from './components/deposit/deposit.component';
 import {PaymentListComponent} from './components/payment-list/payment-list.component';
 import {TransactionHistoryComponent} from './components/transaction-history/transaction-history.component';
-import { TransactionStatusComponent } from './components/transaction-status/transaction-status.component';
-import { TransactionCancelComponent } from './components/transaction-cancel/transaction-cancel.component';
+import {TransactionStatusComponent} from './components/transaction-status/transaction-status.component';
+import {TransactionCancelComponent} from './components/transaction-cancel/transaction-cancel.component';
+import {WithdrawComponent} from './components/withdraw/withdraw.component';
 
 export const components = {
     'wlc-deposit': DepositComponent,
@@ -27,6 +28,7 @@ export const components = {
         TransactionHistoryComponent,
         TransactionStatusComponent,
         TransactionCancelComponent,
+        WithdrawComponent,
     ],
     providers: [
         FinancesService,
