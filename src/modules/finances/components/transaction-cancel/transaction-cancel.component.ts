@@ -33,8 +33,6 @@ export class TransactionCancelComponent extends AbstractComponent implements OnI
 
     public async cancel(): Promise<void> {
 
-        console.log('cccc');
-
         if (this.$params.transaction.cancelProgress) {
             return;
         }

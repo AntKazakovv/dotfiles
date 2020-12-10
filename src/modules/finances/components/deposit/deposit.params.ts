@@ -1,9 +1,15 @@
-import {IComponentParams, CustomType} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {
+    IComponentParams,
+    CustomType,
+    IInputCParams,
+    IFormWrapperCParams,
+    ICheckboxCParams,
+    IButtonParams,
+} from 'wlc-engine/modules/core';
 
 export type Theme = 'default' | CustomType;
 export type Type = 'default' | CustomType;
 export type ThemeMod = 'default' | CustomType;
-import {IFormWrapperCParams} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
 
 export interface IDepositParams extends IComponentParams<Theme, Type, ThemeMod> {
     common?: {
@@ -20,10 +26,12 @@ export const depositForm: IFormWrapperCParams = {
     components: [
         {
             name: 'core.wlc-input',
-            params: {
+            params: <IInputCParams>{
                 common: {
                     placeholder: gettext('Amount') + ' *',
                 },
+                exampleValue: gettext('Amount'),
+                theme: 'vertical',
                 locked: true,
                 name: 'amount',
                 validators: [
@@ -36,7 +44,7 @@ export const depositForm: IFormWrapperCParams = {
         },
         {
             name: 'core.wlc-checkbox',
-            params: {
+            params: <ICheckboxCParams>{
                 name: 'paymentRules',
                 checkboxType: 'payment-rules',
                 validators: ['required'],
@@ -44,7 +52,7 @@ export const depositForm: IFormWrapperCParams = {
         },
         {
             name: 'core.wlc-button',
-            params: {
+            params: <IButtonParams>{
                 name: 'submit',
                 common: {
                     text: 'Add deposit',

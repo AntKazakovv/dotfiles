@@ -4,3 +4,4 @@ export * from './user.interface';
 export * from './promo.interface';
 export * from './layouts.interface';
 export * from './fundist.interface';
+export * from './config.interface';

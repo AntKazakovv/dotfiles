@@ -3,7 +3,12 @@ import {
     IComponentParams,
 } from 'wlc-engine/modules/core/system/classes/abstract.component';
 
-import {IFormWrapperCParams} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
+import {
+    IFormWrapperCParams,
+    IInputCParams,
+    IButtonParams,
+    ITextBlockCParams,
+} from 'wlc-engine/modules/core';
 
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;
@@ -28,7 +33,7 @@ export const signInFormConfig: IFormWrapperCParams = {
     components: [
         {
             name: 'core.wlc-text-block',
-            params: {
+            params: <ITextBlockCParams>{
                 common: {
                     textBlockTitle: gettext('Login'),
                     textBlockSubtitle: gettext('Welcome back!'),
@@ -37,7 +42,7 @@ export const signInFormConfig: IFormWrapperCParams = {
         },
         {
             name: 'core.wlc-input',
-            params: {
+            params: <IInputCParams>{
                 theme: 'vertical',
                 common: {
                     placeholder: gettext('Email *'),
@@ -49,7 +54,7 @@ export const signInFormConfig: IFormWrapperCParams = {
         },
         {
             name: 'core.wlc-input',
-            params: {
+            params: <IInputCParams>{
                 theme: 'vertical',
                 common: {
                     placeholder: gettext('Password *'),
@@ -72,7 +77,7 @@ export const signInFormConfig: IFormWrapperCParams = {
         },
         {
             name: 'core.wlc-button',
-            params: {
+            params: <IButtonParams>{
                 name: 'submit',
                 theme: 'default',
                 common: {

@@ -4,11 +4,12 @@ import {FormControl} from '@angular/forms';
 
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;
+export type CheckboxType ='terms' | 'age' | 'payment-rules';
 
 export interface ICheckboxCParams extends IComponentParams<ComponentTheme, ComponentType, string> {
     name?: string;
     value?: string;
-    checkboxType: 'terms' | 'age';
+    checkboxType: CheckboxType;
     validators?: ValidatorType[];
     control?: FormControl;
 }

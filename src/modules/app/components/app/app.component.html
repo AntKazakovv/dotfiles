@@ -1,6 +1,6 @@
 <div wlc-float-panels [sections]="panels"></div>
 
-<div *ngFor="let section of sections"
+<div *ngFor="let section of sections; trackBy: trackBySectionName"
      wlc-layout
      [sectionName]="section.name"
      [layouts]="'pages'"

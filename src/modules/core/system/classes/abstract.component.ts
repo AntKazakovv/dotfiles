@@ -9,7 +9,6 @@ import {
 import {Subject} from 'rxjs';
 import {IComponentParams} from 'wlc-engine/modules/core/system/interfaces/config.interface';
 
-export {IComponentParams, CustomType} from 'wlc-engine/modules/core/system/interfaces/config.interface';
 import {ConfigService} from 'wlc-engine/modules/core';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 import {
@@ -25,6 +24,8 @@ import {
     has as _has,
     split as _split,
 } from 'lodash';
+
+export {IComponentParams, CustomType} from 'wlc-engine/modules/core/system/interfaces/config.interface';
 
 interface IAbstractConfig {
     moduleName?: string;

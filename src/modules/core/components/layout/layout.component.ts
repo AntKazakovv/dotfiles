@@ -100,7 +100,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
         this.$destroy.complete();
     }
 
-    private async setComponents(state: string, params?: IIndexing<any>): Promise<void> {
+    protected async setComponents(state: string, params?: IIndexing<any>): Promise<void> {
         this.currentConfig = await this.layoutService.getLayout(this.layouts, state, params);
         this.section = this.currentConfig.sections[this.sectionName];
         this.allComponents$ = this.section?.components as ILayoutComponent[] || [];
@@ -171,8 +171,10 @@ export class LayoutComponent implements OnInit, OnDestroy {
                 this.$destroy)
                 .subscribe({
                     next: () => {
-                        this.components = this.filterComponents();
-                        this.cdr.markForCheck();
+                        setTimeout(() => {
+                            this.components = this.filterComponents();
+                            this.cdr.markForCheck();
+                        }, 0);
                     },
                 });
         }
