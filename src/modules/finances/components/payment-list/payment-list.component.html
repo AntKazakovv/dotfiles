@@ -2,7 +2,7 @@
     <div *ngFor="let system of systems" class="item" [ngClass]="{'active': system.id === currentSystem?.id}">
         <div (click)='selectPayment(system)'>
             <div class="image" [ngStyle]="{'background-image': 'url(' + system.image + ')'}"></div>
-            <span class="title">{{system.name}}</span>
+            <!-- <span class="title">{{system.name}}</span> -->
         </div>
     </div>
 </div>

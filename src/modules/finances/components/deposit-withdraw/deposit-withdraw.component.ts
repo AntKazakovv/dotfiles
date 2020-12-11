@@ -8,44 +8,54 @@ import {FinancesService} from 'wlc-engine/modules/finances/system/services';
 import {IPaymentListParams} from './../payment-list/payment-list.params';
 import {FormGroup} from '@angular/forms';
 
-import * as Params from './deposit.params';
+import * as Params from './deposit-withdraw.params';
 
 @Component({
-    selector: '[wlc-deposit]',
-    templateUrl: './deposit.component.html',
-    styleUrls: ['./deposit.component.scss'],
+    selector: '[wlc-deposit-withdraw]',
+    templateUrl: './deposit-withdraw.component.html',
+    styleUrls: ['./deposit-withdraw.component.scss'],
 })
-export class DepositComponent extends AbstractComponent implements OnInit {
+export class DepositWithdrawComponent extends AbstractComponent implements OnInit {
 
-    public $params: Params.IDepositParams;
+    public $params: Params.IDepositWithdrawParams;
     public currentSystem: PaymentSystem;
-    public formConfig = Params.depositForm;
+    public depositFrom = Params.depositForm;
+    public withdrawFrom = Params.withdrawFrom;
+    public title: string = gettext('Deposit');
 
     public listConfig: IPaymentListParams = {
-        paymentType: 'withdraw',
+        paymentType: 'deposit',
     };
 
     constructor(
-        @Inject('injectParams') protected params: Params.IDepositParams,
+        @Inject('injectParams') protected params: Params.IDepositWithdrawParams,
         protected configService: ConfigService,
         protected financesService: FinancesService,
         protected eventService: EventService,
         protected modalService: ModalService,
     ) {
         super(
-            <IMixedParams<Params.IDepositParams>>{
+            <IMixedParams<Params.IDepositWithdrawParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
             }, configService);
     }
 
     public ngOnInit(): void {
+        super.ngOnInit();
         this.eventService.subscribe({
             name: 'select_system',
             from: 'finances',
         }, (system: PaymentSystem) => {
             this.currentSystem = system;
         }, this.$destroy);
+
+        if (this.$params.mode === 'withdraw') {
+            this.title = gettext('Withdrawal');
+            this.listConfig.paymentType = 'withdraw';
+        }
+
+
     }
 
     public async deposit(form: FormGroup): Promise<void> {
@@ -99,6 +109,10 @@ export class DepositComponent extends AbstractComponent implements OnInit {
                 size: 'sm',
             });
         }
+    }
+
+    public async withdraw(form: FormGroup): Promise<void> {
+
     }
 
     /**

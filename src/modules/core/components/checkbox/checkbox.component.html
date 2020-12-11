@@ -22,5 +22,17 @@
             {{"I confirm that I'm 18 years or older" | translate}}
         </p>
     </label>
-</ng-container>
 
+    <label class="{{$class}}" *ngSwitchCase="'payment-rules'">
+        <input
+            type="checkbox"
+            name="{{$params.name}}"
+            [formControl]="control"
+            [(ngModel)]="control.value"
+            class="{{$class}}__checkbox"/>
+        <span class="{{$class}}__text">
+            {{"I have read and agree with the payment" | translate}}
+            <a uiSref="app.contacts({slug: 'terms-and-conditions', '#': 'item-8'})" class="{{$class}}__link">{{'systems restrictions' | translate}} *</a>
+        </span>
+    </label>
+</ng-container>

@@ -1,0 +1,19 @@
+<div class="{{$class}}-title" *ngIf="$params.mode === 'deposit'">{{'Deposit' | translate}}</div>
+<div class="{{$class}}-title" *ngIf="$params.mode === 'withdraw'">{{'Withdrawal' | translate}}</div>
+
+<div class="{{$class}}-subtitle">1. {{'Choose payment option' | translate}}</div>
+
+<div wlc-payment-list
+    [inlineParams]='listConfig'
+    [currentSystem]='currentSystem'>
+</div>
+
+<div class="{{$class}}-subtitle">2. {{'Payment information' | translate}}</div>
+
+<div *ngIf="$params?.mode === 'deposit'"
+    wlc-form-wrapper [config]="depositFrom" [ngSubmit]="deposit.bind(this)">
+</div>
+
+<div *ngIf="$params?.mode === 'withdraw'"
+    wlc-form-wrapper [config]="withdrawFrom" [ngSubmit]="withdraw.bind(this)">
+</div>
