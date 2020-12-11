@@ -1,0 +1,137 @@
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/base.mixins' as em;
+@import '../utils/vars';
+
+.wlc-table--theme-default:host {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: $rowGapMobile;
+    font-size: $fontSizeMobile;
+
+    @include mq.min(768) {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    @include mq.min(1024) {
+        font-size: $fontSizeDesktop;
+        display: table;
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .wlc-table {
+
+        &__row {
+            position: relative;
+            display: grid;
+            grid-template-columns: 1fr;
+            border: $rowBorderMobile;
+            border-radius: $rowBorderRadiusSizeMobile;
+            height: fit-content;
+
+            @include mq.min(1024) {
+                display: table-row;
+                border: $rowBorderDesktop;
+            }
+
+            &--head {
+                display: none;
+
+                @include mq.min(1024) {
+                    display: table-row;
+                    font-size: $fontSizeTitleDesktop;
+                    font-weight: $fontWeightTitleDesktop;
+                    background: $rowTitleBackgroundDesktop;
+                }
+            }
+
+            &--odd {
+
+                @include mq.min(1024) {
+                    background: $rowOddBackgroundDesktop;
+                }
+            }
+
+            &--even {
+
+                @include mq.min(1024) {
+                    background: $rowEvenBackgroundDesktop;
+                }
+            }
+        }
+
+        &__cell {
+            flex-grow: 1;
+            flex-basis: 100%;
+            display: grid;
+            justify-content: space-between;
+            grid-auto-columns: auto;
+            grid-auto-flow: column;
+            grid-gap: $cellGapMobile;
+            padding: $paddingMobile;
+
+            @include mq.min(1024) {
+                display: table-cell;
+                border: $cellBorderDesktop;
+                text-align: $textAlignDesktop;
+
+                &:first-child {
+                    border-radius: $rowBorderRadiusSizeDesktop 0 0 $rowBorderRadiusSizeDesktop;
+                }
+
+                &:last-child {
+                    border-radius: 0 $rowBorderRadiusSizeDesktop $rowBorderRadiusSizeDesktop 0;
+                }
+            }
+
+            ::ng-deep p {
+                margin: 0;
+            }
+
+            &--first {
+                grid-template-columns: auto 1fr auto;
+                font-size: $fontSizeTitleMobile;
+                font-weight: bold;
+                background: $rowTitleBackgroundMobile;
+                border-bottom: $rowTitleBorderBottomMobile;
+                border-radius: $rowBorderRadiusSizeMobile $rowBorderRadiusSizeMobile 0 0;
+
+                @include mq.min(1024) {
+                    background: transparent;
+                    border-bottom: none;
+                    font-weight: initial;
+                    border-radius: initial;
+                }
+            }
+
+            &-label,
+            &-arrow {
+                justify-self: start;
+
+                @include mq.min(1024) {
+                    display: none;
+                }
+            }
+
+            &-content {
+                justify-self: end;
+                text-align: end;
+
+                @include mq.min(1024) {
+                    text-align: $textAlignDesktop;
+                    justify-self: $textAlignDesktop;
+                }
+
+                @include em.betweenClass('.wlc-table__cell--first') {
+                    justify-self: start;
+                    text-align: start;
+
+                    @include mq.min(1024) {
+                        text-align: $textAlignDesktop;
+                        justify-self: $textAlignDesktop;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -7,18 +7,20 @@ import {
     ChangeDetectionStrategy,
     Injector,
 } from '@angular/core';
+
+
 import {AbstractComponent, IMixedParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {HeightToggleAnimation} from 'wlc-engine/modules/core/system/animations/height-toggle.animation';
 import {LayoutService} from 'wlc-engine/modules/core/system/services';
+import {ActionService, ConfigService, DeviceModel, IDeviceConfig, IDeviceType} from 'wlc-engine/modules/core';
 import {BehaviorSubject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {takeUntil, filter} from 'rxjs/operators';
 import {TableRowModel} from './table-row.model';
 import * as Params from './table.params';
 
 import {
-    get as _get,
     each as _each,
     filter as _filter,
-    find as _find,
     isObject as _isObject,
     uniq as _uniq,
     sortBy as _sortBy,
@@ -27,8 +29,9 @@ import {
 @Component({
     selector: '[wlc-table]',
     templateUrl: './table.component.html',
-    styleUrls: ['./table.component.scss'],
+    styleUrls: ['./styles/table.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    animations: HeightToggleAnimation,
 })
 export class TableComponent extends AbstractComponent implements OnInit {
 
@@ -38,12 +41,15 @@ export class TableComponent extends AbstractComponent implements OnInit {
     public rows: TableRowModel[] = [];
     public head: Params.ITableCol[] = [];
     public ready = false;
+    public deviceType: IDeviceType;
 
     constructor(
         @Inject('injectParams') protected params: Params.ITableParams,
         protected layoutService: LayoutService,
         protected cdr: ChangeDetectorRef,
         protected injector: Injector,
+        protected configService: ConfigService,
+        private actionService: ActionService,
     ) {
         super(
             <IMixedParams<Params.ITableParams>>{
@@ -91,6 +97,8 @@ export class TableComponent extends AbstractComponent implements OnInit {
             this.ready = true;
             this.cdr.markForCheck();
         }
+
+        this.subscribeDeviceChange();
     }
 
     public getComponentInjector(item: TableRowModel, col: Params.ITableCol): Injector {
@@ -109,18 +117,32 @@ export class TableComponent extends AbstractComponent implements OnInit {
         return item.paramsInjector[col.key];
     }
 
+    public animationStatus(col: Params.ITableCol, item: TableRowModel, first: boolean): string {
+        return (col.disableHideClass || first) || item.opened || this.deviceType === 'desktop' ? 'opened' : 'closed';
+    }
+
     private createTableRow(rows: unknown[]): TableRowModel[] {
         return rows.map((row) => new TableRowModel(row, this.$params));
     }
 
     private prepareHead(): void {
-        this.head = _sortBy(this.$params.head.map((item) => {
+        this.head = _sortBy(this.$params.head.map((item: Params.ITableCol) => {
             if (item.type === 'amount') {
                 item.type = 'component';
                 item.component = 'core.wlc-dummy-amount';
-            };
+            }
             item.order = item.order || Number.MAX_SAFE_INTEGER;
             return item;
         }), 'order');
+    }
+
+    protected subscribeDeviceChange(): void {
+        this.actionService.deviceType()
+            .pipe(takeUntil(this.$destroy))
+            .subscribe((type: IDeviceType) => {
+                this.deviceType = type;
+                this.cdr.markForCheck();
+                console.log(this.deviceType);
+            });
     }
 }

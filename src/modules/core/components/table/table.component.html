@@ -1,30 +1,36 @@
-<div class="{{$class}}" *ngIf='ready'>
+<ng-container *ngIf='ready'>
 
-    <div class="{{$class}}__row {{$class}}__head">
-        <span *ngFor="let col of head" class="{{$class}}__cell {{$class}}__cell_{{col.key}}">
+    <div class="{{$class}}__row {{$class}}__row--head">
+        <span *ngFor="let col of head" class="{{$class}}__cell {{$class}}__cell--{{col.key}}">
             {{col.title | translate}}
         </span>
     </div>
 
     <div *ngFor="let item of rows; index as $index" class="{{$class}}__row"
-        [ngClass]="[$class + '__row-' + (($index%2) ? 'even' : 'odd'), item.opened ? 'wlc-show':'']">
-        <div class="{{$class}}__cell {{$class}}__cell_{{col.key}}"
-            *ngFor="let col of head; let $first = first"
-            (click)="$first ? item.togleRow() : null"
-            [ngClass]="[$first ? $class + '__cell_first' : '', (col.disableHideClass || $first) ? '' : 'wlc-cell-hide']">
-
+         [ngClass]="[$class + '__row--' + (($index%2) ? 'even' : 'odd'), item.opened ? 'wlc-show':'']">
+        <div class="{{$class}}__cell {{$class}}__cell--{{col.key}}"
+             *ngFor="let col of head; let $first = first"
+             (click)="$first ? item.togleRow() : null"
+             [ngClass]="[$first ? $class + '__cell--first' : '', (col.disableHideClass || $first) ? '' : 'wlc-cell-hide']"
+             [@toggle]="animationStatus(col, item, $first)"
+        >
             <ng-container [ngSwitch]="col.type">
-                <span class="{{$class}}-mobile-label">{{col.title | translate}}:</span>
-                <ng-container *ngSwitchCase="'component'" [ngComponentOutlet]="col.componentClass"
-                    [ngComponentOutletInjector]="getComponentInjector(item, col)">
-                </ng-container>
+                <div class="{{$class}}__cell-label">{{col.title | translate}}:</div>
 
-                <ng-container *ngSwitchDefault>
+                <div class="{{$class}}__cell-content" *ngSwitchCase="'component'">
+                    <ng-container [ngComponentOutlet]="col.componentClass"
+                                  [ngComponentOutletInjector]="getComponentInjector(item, col)">
+                    </ng-container>
+                </div>
+
+                <div class="{{$class}}__cell-content" *ngSwitchDefault>
                     {{item.getValue(col, $index) | translate}}
-                </ng-container>
+                </div>
             </ng-container>
+
+            <div *ngIf="$first" class="{{$class}}__cell-arrow" wlc-icon [iconName]="'arrow'"></div>
         </div>
     </div>
 
     <div *ngIf="!rows.length">{{$params.noItemsText | translate}}</div>
-</div>
+</ng-container>

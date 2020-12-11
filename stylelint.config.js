@@ -256,6 +256,7 @@ module.exports = {
                 'elseif',
                 'extend',
                 'warn',
+                'debug',
                 'each',
                 'for',
                 'use',

@@ -1,8 +1,19 @@
 @use 'sass:selector';
+@use 'sass:string';
 
 @mixin themeMod($class, $theme, $mod) {
 
     @at-root #{selector.replace(&, '.#{$class}--theme-#{$theme}', '.#{$class}--theme-mod-#{$mod}')} {
+        @content;
+    }
+}
+
+@mixin betweenClass($class: '') {
+    $stringSelector: string.unquote('#{&}');
+    $index: string.index($stringSelector, ' ');
+    $newSelector: string.insert($stringSelector, ' #{$class}', $index);
+
+    @at-root #{selector.parse($newSelector)} {
         @content;
     }
 }

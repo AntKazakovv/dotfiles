@@ -1,0 +1,38 @@
+@use 'engine-scss/functions' as ef;
+
+// MOBILE
+// Table
+$rowGapMobile: ef.get('size', 'smaller');
+$borderColorMobile: ef.get('color', 'divider');
+$fontSizeMobile: ef.get('font', 'main');
+
+// Row
+$fontSizeTitleMobile: ef.get('font', 'main');
+$rowBorderMobile: 1px solid $borderColorMobile;
+$rowTitleBorderBottomMobile: 1px solid $borderColorMobile;
+$rowTitleBackgroundMobile: ef.get('color', 'backgroundSecondary');
+$rowEvenBackgroundMobile: transparent;
+$rowBorderRadiusSizeMobile: ef.get('radius', 'smaller');
+
+// Cell
+$paddingMobile: ef.get('size', 'small');
+$cellGapMobile: ef.get('size', 'smallest');
+
+
+// DESKTOP
+// Table
+$borderColorDesktop: ef.get('color', 'divider');
+$fontSizeDesktop: ef.get('font', 'main');
+
+// Row
+$rowBorderDesktop: none;
+$fontSizeTitleDesktop: ef.get('font', 'biger');
+$fontWeightTitleDesktop: 600;
+$rowTitleBackgroundDesktop: transparent;
+$rowEvenBackgroundDesktop: $rowEvenBackgroundMobile;
+$rowOddBackgroundDesktop: ef.get('color', 'backgroundSecondary');
+$rowBorderRadiusSizeDesktop: ef.get('radius', 'smaller');
+
+// Cell
+$cellBorderDesktop: none;
+$textAlignDesktop: center; // start, end, center

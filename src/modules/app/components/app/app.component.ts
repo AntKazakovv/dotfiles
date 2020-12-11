@@ -18,11 +18,13 @@ import {Title} from '@angular/platform-browser';
 
 import {
     sortBy as _sortBy,
+    get as _get,
 } from 'lodash';
 
 
 const defaultParams = {
     class: 'wlc-sections',
+    hostClass: 'wlc-app-content',
 };
 
 @Component({
@@ -73,20 +75,19 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
         this.sections = _sortBy(this.layoutService
             .getAllSection('pages', this.uiRouter.current.name, this.uiRouter.params), 'order');
 
-        this.transition.onSuccess({}, (transition) => {
+        this.transition.onSuccess({}, async (transition) => {
+            this.setHostClass();
             this.sections = _sortBy(this.layoutService
                 .getAllSection('pages', this.uiRouter.transition?.targetState().name(),
                     this.uiRouter.transition?.targetState().params()), 'order');
         });
-
+        this.setHostClass();
         this.cdr.markForCheck();
     }
 
-    public trackBySectionName(number: number, section: SectionModel): string {
-        return section.name;
-    }
-
-    @HostBinding('class') get class() {
-        return `wlc-app-content ${this.uiRouter.$current?.name?.replace('.', '-')}-state`;
+    private setHostClass(): void {
+        const hostClass = [defaultParams.hostClass];
+        hostClass.push(`${_get(this.uiRouter, '$current.name', '').replace(/\./g, '-')}-state`);
+        this.$hostClass = hostClass.join(' ');
     }
 }
