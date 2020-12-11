@@ -1,38 +1,46 @@
 @use 'engine-scss/functions' as ef;
 
+// GLOBAL
+$animationTime: ef.get('time', 'main') !default;
+$textColor: ef.get('color', 'text') !default;
+$openIconColor: ef.get('color', 'text') !default;
+$openIconColorOpened: ef.get('color', 'textSecondary') !default;
+
 // MOBILE
 // Table
-$rowGapMobile: ef.get('size', 'smaller');
-$borderColorMobile: ef.get('color', 'divider');
-$fontSizeMobile: ef.get('font', 'main');
+$rowGapMobile: ef.get('size', 'smaller') !default;
+$borderColorMobile: ef.get('color', 'divider') !default;
+$fontSizeMobile: ef.get('font', 'main') !default;
 
 // Row
-$fontSizeTitleMobile: ef.get('font', 'main');
-$rowBorderMobile: 1px solid $borderColorMobile;
-$rowTitleBorderBottomMobile: 1px solid $borderColorMobile;
-$rowTitleBackgroundMobile: ef.get('color', 'backgroundSecondary');
-$rowEvenBackgroundMobile: transparent;
-$rowBorderRadiusSizeMobile: ef.get('radius', 'smaller');
+$fontSizeTitleMobile: ef.get('font', 'main') !default;
+$rowBorderMobile: 1px solid $borderColorMobile !default;
+$rowBorderOpenedMobile: $rowBorderMobile !default;
+$rowTitleBorderBottomMobile: 1px solid $borderColorMobile !default;
+$rowTitleBorderBottomOpenedMobile: $rowTitleBorderBottomMobile !default;
+$rowTitleBackgroundMobile: ef.get('color', 'backgroundSecondary') !default;
+$rowBackgroundMobile: transparent !default;
+$rowBorderRadiusSizeMobile: ef.get('radius', 'smaller') !default;
 
 // Cell
-$paddingMobile: ef.get('size', 'small');
-$cellGapMobile: ef.get('size', 'smallest');
+$paddingMobile: ef.get('size', 'small') !default;
+$cellGapMobile: ef.get('size', 'smallest') !default;
 
 
 // DESKTOP
 // Table
-$borderColorDesktop: ef.get('color', 'divider');
-$fontSizeDesktop: ef.get('font', 'main');
+$borderColorDesktop: ef.get('color', 'divider') !default;
+$fontSizeDesktop: ef.get('font', 'main') !default;
 
 // Row
-$rowBorderDesktop: none;
-$fontSizeTitleDesktop: ef.get('font', 'biger');
-$fontWeightTitleDesktop: 600;
-$rowTitleBackgroundDesktop: transparent;
-$rowEvenBackgroundDesktop: $rowEvenBackgroundMobile;
-$rowOddBackgroundDesktop: ef.get('color', 'backgroundSecondary');
-$rowBorderRadiusSizeDesktop: ef.get('radius', 'smaller');
+$rowBorderDesktop: none !default;
+$fontSizeTitleDesktop: ef.get('font', 'biger') !default;
+$fontWeightTitleDesktop: 600 !default;
+$rowTitleBackgroundDesktop: transparent !default;
+$rowEvenBackgroundDesktop: $rowBackgroundMobile !default;
+$rowOddBackgroundDesktop: ef.get('color', 'backgroundSecondary') !default;
+$rowBorderRadiusSizeDesktop: ef.get('radius', 'smaller') !default;
 
 // Cell
-$cellBorderDesktop: none;
-$textAlignDesktop: center; // start, end, center
+$cellBorderDesktop: none !default;
+$textAlignDesktop: center !default; // start, end, center

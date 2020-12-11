@@ -28,10 +28,16 @@
             border: $rowBorderMobile;
             border-radius: $rowBorderRadiusSizeMobile;
             height: fit-content;
+            background: $rowBackgroundMobile;
+            transition: all $animationTime;
 
             @include mq.min(1024) {
                 display: table-row;
                 border: $rowBorderDesktop;
+            }
+
+            &.wlc-show {
+                border: $rowBorderOpenedMobile;
             }
 
             &--head {
@@ -69,6 +75,7 @@
             grid-auto-flow: column;
             grid-gap: $cellGapMobile;
             padding: $paddingMobile;
+            color: $textColor;
 
             @include mq.min(1024) {
                 display: table-cell;
@@ -95,6 +102,11 @@
                 background: $rowTitleBackgroundMobile;
                 border-bottom: $rowTitleBorderBottomMobile;
                 border-radius: $rowBorderRadiusSizeMobile $rowBorderRadiusSizeMobile 0 0;
+                transition: all $animationTime;
+
+                @include em.betweenClass('.wlc-show') {
+                    border-bottom: $rowTitleBorderBottomOpenedMobile;
+                }
 
                 @include mq.min(1024) {
                     background: transparent;
@@ -110,6 +122,25 @@
 
                 @include mq.min(1024) {
                     display: none;
+                }
+            }
+
+            &-arrow {
+
+                ::ng-deep svg {
+                    transition: all $animationTime;
+
+                    @include em.betweenClass('.wlc-show') {
+                        transform: rotateZ(180deg);
+                    }
+
+                    * {
+                        fill: $openIconColor;
+
+                        @include em.betweenClass('.wlc-show') {
+                            fill: $openIconColorOpened;
+                        }
+                    }
                 }
             }
 
