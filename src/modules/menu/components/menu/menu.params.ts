@@ -15,6 +15,7 @@ export type MenuTheme = string;
 
 export interface IMenuItemParamsState {
     parent?: string;
+    activeEq?: boolean;
     name: string;
     params?: {
         [key: string]: any;

@@ -64,7 +64,7 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
     }
 
     ngOnInit(): void {
-        super.ngOnInit(this.inlineParams);
+        super.ngOnInit(this.inlineParams);;
         this.init();
         this.onInitEnded = true;
     }
@@ -152,8 +152,12 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
             params: {
                 state: {
                     name: 'app.catalog',
+                    activeEq: true,
                     params: {
                         category: this.parentCategory ? this.parentCategory.slug : '',
+                    },
+                    options: {
+                        reload: true,
                     },
                 },
             },

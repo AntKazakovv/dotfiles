@@ -75,7 +75,7 @@
                     <button class="wlc-search__list-btn"
                         [class.active]="isActive('categories', category.menuId)"
                         (click)="chooseCategory(category)">
-                        {{category.Name[currentLanguage] || category.Name['en'] || category.Name}}
+                        {{category.title[currentLanguage] || category.title['en']}}
                         <span class="wlc-search__list-icon"></span>
                     </button>
                 </li>

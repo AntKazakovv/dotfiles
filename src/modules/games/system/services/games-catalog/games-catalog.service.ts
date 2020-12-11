@@ -30,6 +30,7 @@ import {
     filter as _filter,
     includes as _includes,
     startsWith as _startsWith,
+    isString as _isString,
 } from 'lodash';
 import {Dictionary} from 'express-serve-static-core';
 
@@ -195,12 +196,14 @@ export class GamesCatalogService {
     }
 
     /**
-     * Get available categories
+     * Get available categories (which has games and menu key)
      *
      * @returns {CategoryModel[]}
      */
     public getCategories(): CategoryModel[] {
-        return this.gamesCatalog.getAvailableCategories();
+        return _filter(this.gamesCatalog.getAvailableCategories(), (item: CategoryModel) => {
+            return !!item.menu;
+        });
     }
 
     /**
@@ -234,7 +237,7 @@ export class GamesCatalogService {
      * @returns {CategoryModel[]}
      */
     public getCategoryBySlug(slug: string): CategoryModel {
-        return _find(this.gamesCatalog.getAvailableCategories(), (category: CategoryModel) => {
+        return _find(this.gamesCatalog.getCategories(), (category: CategoryModel) => {
             return category.slug == slug;
         });
     }
@@ -246,7 +249,7 @@ export class GamesCatalogService {
      * @returns {CategoryModel[]}
      */
     public getCategoriesByTag(tag: string): CategoryModel[] {
-        return _filter(this.gamesCatalog.getAvailableCategories(), (category: CategoryModel) => {
+        return _filter(this.gamesCatalog.getCategories(), (category: CategoryModel) => {
             return _includes(category.tags, tag);
         });
     }
@@ -266,12 +269,15 @@ export class GamesCatalogService {
     /**
      * Get categories by menu
      *
-     * @param {string} menu
+     * @param {string | string[]} menu
      * @returns {CategoryModel[]}
      */
-    public getCategoriesByMenu(menu: string): CategoryModel[] {
-        return _filter(this.gamesCatalog.getAvailableCategories(), (category: CategoryModel) => {
-            return category.menu == menu;
+    public getCategoriesByMenu(menu: string | string[]): CategoryModel[] {
+        if (_isString(menu)) {
+            menu = [menu];
+        }
+        return _filter(this.gamesCatalog.getCategories(), (category: CategoryModel) => {
+            return _includes(menu, category.menu);
         });
     }
 
@@ -333,14 +339,13 @@ export class GamesCatalogService {
 
         const games = _filter(this.getGameList(), (game: Game) => {
             for (const categoryId of categoryIds) {
-                if (!_includes(game.categoryID, categoryId)) {
-                    return false;
+                if (_includes(game.categoryID, categoryId)) {
+                    return true;
                 }
             }
-            return true;
+            return false;
         });
         return games;
-
     }
 
     /**
