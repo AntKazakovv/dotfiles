@@ -1,4 +1,5 @@
 import {Component, OnInit, Inject} from '@angular/core';
+import {CurrencyPipe} from '@angular/common';
 
 import {AbstractComponent, IMixedParams} from 'wlc-engine/modules/core';
 import {ConfigService, EventService, ModalService} from 'wlc-engine/modules/core/system/services';
@@ -9,6 +10,11 @@ import {IPaymentListParams} from './../payment-list/payment-list.params';
 import {FormGroup} from '@angular/forms';
 
 import * as Params from './deposit-withdraw.params';
+
+import {
+    isString as _isString,
+    isEqual as _isEqual,
+} from 'lodash';
 
 @Component({
     selector: '[wlc-deposit-withdraw]',
@@ -22,10 +28,14 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
     public depositFrom = Params.depositForm;
     public withdrawFrom = Params.withdrawFrom;
     public title: string = gettext('Deposit');
+    public requiredFields: Object = {};
+    public requiredFieldsKeys: string[] = [];
 
     public listConfig: IPaymentListParams = {
         paymentType: 'deposit',
     };
+
+    protected inProgress: boolean = false;
 
     constructor(
         @Inject('injectParams') protected params: Params.IDepositWithdrawParams,
@@ -48,6 +58,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
             from: 'finances',
         }, (system: PaymentSystem) => {
             this.currentSystem = system;
+            this.checkUserProfileForPayment();
         }, this.$destroy);
 
         if (this.$params.mode === 'withdraw') {
@@ -59,10 +70,22 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
     }
 
     public async deposit(form: FormGroup): Promise<void> {
-
-        if (!this.currentSystem) {
+        if (this.inProgress) {
             return;
         }
+
+        if (!this.currentSystem) {
+            this.modalService.showModal({
+                id: 'deposit-error',
+                modifier: 'error',
+                modalTitle: gettext('Error'),
+                modalMessage: [gettext('You must select payment method')],
+                size: 'sm',
+            });
+            return;
+        }
+
+        this.inProgress = true;
 
         try {
             const response = await this.financesService.deposit(
@@ -100,7 +123,6 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
             document.body.appendChild(formSubmit);
             formSubmit.submit();
         } catch (error) {
-
             this.modalService.showModal({
                 id: 'deposit-error',
                 modifier: 'error',
@@ -108,11 +130,84 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
                 modalMessage: error.errors?.length ? error.errors : gettext('Something went wrong. Please try again later.'),
                 size: 'sm',
             });
+        } finally {
+            this.inProgress = false;
         }
     }
 
     public async withdraw(form: FormGroup): Promise<void> {
+        if (this.inProgress) {
+            return;
+        }
 
+        if (!this.currentSystem) {
+            this.modalService.showModal({
+                id: 'deposit-error',
+                modifier: 'error',
+                modalTitle: gettext('Error'),
+                modalMessage: [gettext('You must select payment method')],
+                size: 'sm',
+            });
+            return;
+        }
+
+        this.inProgress = true;
+
+        try {
+            const response = await this.financesService.withdraw(
+                this.currentSystem.id,
+                form.value.amount,
+                {},
+            );
+
+            if (response[0] === 'redirect') {
+                window.location.replace(response[1]);
+                return;
+            }
+
+            this.modalService.showModal({
+                id: 'withdraw-reponse',
+                modalTitle: gettext('Withdraw'),
+                modifier: 'info',
+                modalMessage: [
+                    gettext('Withdraw request has been successfully sent!'),
+                    gettext('Withdraw sum') + ' ' + new CurrencyPipe('en-US', 'EUR').transform(form.value.amount),
+                ],
+            });
+
+            form.controls['amount'].setValue('');
+            form.controls['amount'].markAsUntouched();
+            this.currentSystem = null;
+
+        } catch (error) {
+            this.modalService.showModal({
+                id: 'withdraw-error',
+                modifier: 'error',
+                modalTitle: gettext('Error'),
+                modalMessage: error.errors?.length
+                    ? error.errors.filter((i: unknown) => _isString(i))
+                    : gettext('Something went wrong. Please try again later.'),
+                size: 'sm',
+            });
+        } finally {
+            this.inProgress = false;
+        }
+    }
+
+    public checkUserProfileForPayment(): boolean {
+        if (!this.currentSystem) {
+            return true;
+        }
+        const checkedRequiredFields = this.currentSystem.checkRequiredFields();
+        if (!_isEqual(this.requiredFields, checkedRequiredFields)) {
+            this.requiredFields = checkedRequiredFields;
+        }
+
+        this.requiredFieldsKeys = Object.keys(this.requiredFields);
+
+        console.log(this.requiredFields);
+
+        return !Object.keys(this.requiredFields).length;
     }
 
     /**

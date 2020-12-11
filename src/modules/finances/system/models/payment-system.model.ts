@@ -257,8 +257,10 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
     }
 
     public checkRequiredFields(): object {
+        console.log('xx',Object.getOwnPropertyDescriptor(this.user.userProfile.__proto__, 'currency11'));
         return _pickBy(fieldTemplatesNames, (value, key) => {
-            return _includes(this.required, value.dbName) && _has(this.user.userProfile, key)
+
+            return _includes(this.required, value.dbName) && Object.getOwnPropertyDescriptor((this.user.userProfile as any).__proto__, key)
                 && !_get(this.user.userProfile, [key, 'length'], false);
         });
     }

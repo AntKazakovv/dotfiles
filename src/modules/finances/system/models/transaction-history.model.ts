@@ -4,6 +4,9 @@ import {DateTime} from 'luxon';
 import {
     find as _find,
     toNumber as _toNumber,
+    isString as _isString,
+    isUndefined as _isUndefined,
+    cloneDeep as _cloneDeep,
 } from 'lodash';
 
 export interface ITransaction {
@@ -62,7 +65,7 @@ export class Transaction extends AbstractModel<ITransactionEx> {
     constructor(data: ITransaction) {
         super();
         this.data = data;
-        this.setStatus();
+        this.setStatus(this.data.Status);
         this.data.type = this.amount < 0 ? 'Debit' : 'Credit';
     }
 
@@ -114,10 +117,13 @@ export class Transaction extends AbstractModel<ITransactionEx> {
         return this.data.AllowCancelation === '1' && this.amount < 0;
     }
 
-    public setStatus(status?: number): void {
-        if (typeof status !== undefined) {
+    public setStatus(status?: number | string): void {
+        if (_isUndefined(status)) {
             this.data.Status = status;
+        } else if (_isString(status)) {
+            this.data.Status = _toNumber(status);
         }
+
         this.data.extendStatus =
             _find(transactionsStatuses, (status) => status.value === this.statusCode) || unknownStatus;
     }
