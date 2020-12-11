@@ -99,6 +99,9 @@ export class SearchComponent extends AbstractComponent implements OnInit, OnDest
         this.gamesGridParams = _assignIn(
             {},
             defaultGamesGridParams,
+            {
+                showTitle: false,
+            },
             this.$params.gamesGridParams,
         );
 

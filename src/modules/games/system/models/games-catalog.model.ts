@@ -33,6 +33,8 @@ import {
     toNumber as _toNumber,
     forEach as _forEach,
     get as _get,
+    includes as _includes,
+    filter as _filter,
 } from 'lodash';
 
 export class GamesCatalog {
@@ -86,42 +88,8 @@ export class GamesCatalog {
         let gameList: Game[] = _concat([], this.games);
 
         if (includeCategories.length) {
-            let categoryId = null;
-            const includeCategoryIds: string[] = [];
-            const includeCategoryIdsAnd = {};
-
-            for (const includeCategory of includeCategories) {
-                let categoryNameAnd = false;
-                let categoryName = includeCategory;
-
-                if (categoryName[0] === '+') {
-                    categoryName = categoryName.substr(1);
-                    categoryNameAnd = true;
-                }
-
-                categoryId = GamesHelper.getCategoryIdByName(categoryName);
-
-                if (!categoryId) {
-                    continue;
-                }
-
-                includeCategoryIdsAnd[categoryId] = categoryNameAnd;
-                includeCategoryIds.push(categoryId);
-            }
-
-            gameList = gameList.filter((item: Game) => {
-                let rv: boolean = false;
-
-                _forEach(includeCategoryIds, (cat: string) => {
-                    if (!includeCategoryIdsAnd[cat]) {
-                        rv = rv || (item.categoryID?.includes(cat));
-                    } else {
-                        rv = rv && (item.categoryID?.includes(cat));
-                    }
-
-                });
-                return rv;
-            });
+            const categories: CategoryModel[] = this.getCategoriesByMenuIds(includeCategories);
+            gameList = this.getGamesByCategories(categories);
         }
 
         if (excludeCategories.length) {
@@ -175,6 +143,18 @@ export class GamesCatalog {
      */
     public getCategories(): CategoryModel[] {
         return this.categories;
+    }
+
+    /**
+     * Get categories by menu ids
+     *
+     * @param {string[]} menuIds
+     * @returns {CategoryModel[]}
+     */
+    public getCategoriesByMenuIds(menuIds: string[]): CategoryModel[] {
+        return _filter(this.getCategories(), (category: CategoryModel) => {
+            return _includes(menuIds, category.menuId);
+        });
     }
 
     /**
@@ -259,6 +239,28 @@ export class GamesCatalog {
      */
     public getGame(merchantID: string, launchCode: string): Game {
         return _find(this.games, {merchantID, launchCode});
+    }
+
+    /**
+     * Get games by categories
+     *
+     * @param {CategoryModel} categories Game categories
+     * @returns {Game[]} Filtered games list
+     */
+    public getGamesByCategories(categories: CategoryModel[]): Game[] {
+        const categoryIds = categories.map((category: CategoryModel) => {
+            return category.id;
+        });
+
+        const games = _filter(this.getGameList(), (game: Game) => {
+            for (const categoryId of categoryIds) {
+                if (_includes(game.categoryID, categoryId)) {
+                    return true;
+                }
+            }
+            return false;
+        });
+        return games;
     }
 
     /**

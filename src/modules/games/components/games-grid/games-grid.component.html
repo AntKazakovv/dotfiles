@@ -1,6 +1,6 @@
 <div class="{{$class}}__content" [hidden]="hideSearchBlock">
-    <div class="{{$class}}__header" *ngIf="title || $params.showAllLink?.use">
-        <h2 *ngIf="title">{{title | translate}}</h2>
+    <div class="{{$class}}__header" *ngIf="$params.showTitle || $params.showAllLink?.use">
+        <h2 *ngIf="$params.showTitle">{{title | translate}}</h2>
         <a *ngIf="$params.showAllLink?.use"
             uiSref="{{$params.showAllLink?.link}}"
             class="{{$class}}__link">
