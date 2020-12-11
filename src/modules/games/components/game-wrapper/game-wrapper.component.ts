@@ -157,7 +157,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
     }
 
     protected initStartResizeParams(): void {
-        this.aspectRatio = this.game.AR || 'auto';
+        this.aspectRatio = this.game.aspectRatio || 'auto';
         this.aspectRatioCoefficient = this.getAspectRatioCoefficient();
         this.checkIframe();
     }

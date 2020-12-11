@@ -32,12 +32,20 @@ import {
     startsWith as _startsWith,
     isString as _isString,
 } from 'lodash';
-import {Dictionary} from 'express-serve-static-core';
 
 @Injectable({
     providedIn: 'root',
 })
 export class GamesCatalogService {
+
+    public ready: Promise<void> = new Promise((resolve: () => void): void => {
+        this.$resolve = resolve;
+    });
+    public favourites: number[] = [];
+
+    protected gamesCatalog: GamesCatalog;
+
+    private $resolve: () => void;
 
     constructor(
         public configService: ConfigService,
@@ -48,15 +56,6 @@ export class GamesCatalogService {
     ) {
         this.init();
     }
-
-    public ready: Promise<void> = new Promise((resolve: () => void): void => {
-        this.$resolve = resolve;
-    });
-
-    public favourites: number[] = [];
-    protected gamesCatalog: GamesCatalog;
-
-    private $resolve: () => void;
 
     public async init(): Promise<void> {
         this.registerMethods();
@@ -192,7 +191,8 @@ export class GamesCatalogService {
      * @returns {Promise<ILaunchInfo>}
      */
     public async getLaunchParams(options: IGameParams): Promise<ILaunchInfo> {
-        return await this.dataService.request<ILaunchInfo>('games/gameLaunchParams', options) as ILaunchInfo;
+        const data: IData = await this.dataService.request('games/gameLaunchParams', options);
+        return data.data;
     }
 
     /**
