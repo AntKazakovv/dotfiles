@@ -416,7 +416,6 @@ export const $layouts: ILayoutsConfig = {
         },
     },
     'app.catalog.child': {
-        replaceConfig: true,
         extends: 'app.catalog',
     },
 };

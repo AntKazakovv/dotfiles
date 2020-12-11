@@ -271,6 +271,9 @@ export class GamesGridComponent extends AbstractComponent
                 categories.push(this.childCategory);
             } else if (this.parentCategory) {
                 categories = this.gamesCatalogService.getCategoriesByParentId(this.parentCategory.id);
+                if (!categories.length) {
+                    categories.push(this.parentCategory);
+                }
             }
             games = this.gamesCatalogService.getGamesByCategories(categories);
         } else if (this.$params?.filter) {
