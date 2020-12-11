@@ -8,7 +8,13 @@
         justify-content: center;
         align-items: center;
         height: 100%;
-
+        background: {
+            color: darken(ef.get('color', 'background'), 1.5);
+            image: url('/static/images/logo.svg');
+            position: center;
+            size: 80%;
+            repeat: no-repeat;
+        }
         border-radius: $thumbBorderRadius;
         overflow: hidden;
 

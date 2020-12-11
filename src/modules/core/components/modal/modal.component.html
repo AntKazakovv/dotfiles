@@ -1,17 +1,17 @@
 <div bsModal [config]="bsOptions" tabindex="-1" role="dialog" #modal="bs-modal">
     <div class="wlc-modal__dialog modal-dialog"
-        [class]="dialogClasses">
+         [class]="dialogClasses">
         <div class="wlc-modal__header"
-            [class.wlc-modal__header--headless]="!$params.config.modalTitle">
+             [class.wlc-modal__header--headless]="!$params.config.modalTitle">
             <h5 class="wlc-modal__title"
                 *ngIf="$params.config.modalTitle">
                 {{$params.config.modalTitle | translate}}
             </h5>
             <button type="button"
-                class="wlc-modal__close"
-                (click)="modal.hide()"
-                aria-label="Close"
-                title="Close">
+                    class="wlc-modal__close"
+                    (click)="modal.hide()"
+                    aria-label="Close"
+                    title="Close">
                 x
             </button>
         </div>
@@ -22,15 +22,15 @@
 
         <div class="wlc-modal__footer" *ngIf='$params.config.showFooter'>
             <button type="button"
-                *ngIf="$params.config.showConfirmBtn"
-                class=""
-                (click)="confirm()">
-                {{$params.config.confirmBtnText || 'Confirm' | translate}}
+                    wlc-button
+                    *ngIf="$params.config.showConfirmBtn"
+                    [text]="$params.config.confirmBtnText || 'Confirm'"
+                    (click)="confirm()">
             </button>
             <button type="button"
-                class=""
-                (click)="modal.hide()">
-                {{$params.config.closeBtnText || 'Close' | translate}}
+                    wlc-button
+                    [text]="$params.config.closeBtnText || 'Close'"
+                    (click)="modal.hide()">
             </button>
         </div>
     </div>

@@ -4,7 +4,7 @@
 $headerBurgerBtnWidth: 30px !default;
 $headerSearchBtnWidth: 30px !default;
 $headerGapColumns: ef.get('size', 'smaller') !default;
-$headerGripColumns: ($headerBurgerBtnWidth + $headerGapColumns) 0.4fr 2fr 1fr ($headerSearchBtnWidth + $headerGapColumns) !default;
+$headerGripColumns: ($headerBurgerBtnWidth + $headerGapColumns) 0.4fr 1.5fr 1fr ($headerSearchBtnWidth + $headerGapColumns) !default;
 $headerGripColumnsMobile: 0.5fr 2fr 0.5fr !default;
 $headerMinHeight: 70px !default;
 $headerBackground: transparent !default;
@@ -70,3 +70,4 @@ $footerDisclaimerTextSizeTablet: ef.get('font', 'smaller') !default;
 $footerDisclaimerTextSizeDesktop: ef.get('font', 'smaller') !default;
 
 $footerLanguageMarginTop: 20px !default;
+

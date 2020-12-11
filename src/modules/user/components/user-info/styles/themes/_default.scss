@@ -1,0 +1,74 @@
+.wlc-user-info--theme-default:host {
+    color: $userInfoColor;
+
+    .wlc-user-info {
+        display: flex;
+        align-items: center;
+
+        &-short {
+            margin: $userInfoShortMargin;
+            flex-shrink: 0;
+        }
+
+        &-dropdown {
+            position: relative;
+
+            &__btn {
+                display: flex;
+                align-items: center;
+                flex-shrink: 0;
+                padding: $userInfoDropdownBtnPadding;
+                border: $userInfoDropdownBtnBorder;
+                border-radius: $userInfoDropdownBtnBorderRadius;
+                cursor: pointer;
+
+                .user::ng-deep {
+                    width: $userInfoDropdownBtnIconSize;
+                    height: $userInfoDropdownBtnIconSize;
+                }
+
+                .arrow::ng-deep {
+                    margin: $userInfoDropdownArrowMargin;
+
+                    svg {
+                        fill: $userInfoDropdownArrowFill;
+                    }
+                }
+            }
+
+            &__content {
+                z-index: 10;
+                position: absolute;
+                top: $userInfoDropdownTop;
+                right: $userInfoDropdownRight;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                min-width: $userInfoDropdownMinWidth;
+                padding: $userInfoDropdownPadding;
+                background: $userInfoDropdownBg;
+                border-radius: $userInfoDropdownBorderRadius;
+
+                ::ng-deep {
+
+                    .wlc-user-stats {
+                        width: 100%;
+                        margin-bottom: $userInfoGap;
+                    }
+                }
+            }
+        }
+    }
+
+    .wlc-btn-deposit {
+        padding: $userInfoDepositBtnPaddingMobile;
+        margin: $userInfoDepositBtnMarginMobile;
+        min-width: auto;
+
+        @include mq.min(1200) {
+            padding: $userInfoDepositBtnPaddingDesktop;
+            margin: $userInfoDepositBtnMarginDesktop;
+        }
+    }
+}

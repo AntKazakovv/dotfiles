@@ -20,6 +20,7 @@ export interface IProfileMenuCParams extends IComponentParams<Theme, Type, Theme
     modifiers?: Modifiers[];
     common?: {
         themeMod?: ThemeMod;
+        useArrow?: boolean;
     };
 }
 

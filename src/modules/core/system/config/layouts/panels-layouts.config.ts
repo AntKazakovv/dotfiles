@@ -6,19 +6,23 @@ export const $panelsLayouts: IPanelsConfig = {
             left: {
                 components: [
                     {
-                        name: 'menu.wlc-menu',
+                        name: 'menu.wlc-category-menu',
                         params: {
-                            type: 'affiliates-menu',
+                            type: 'dropdown',
                         },
                     },
-                ],
-            },
-            right: {
-                components: [
                     {
-                        name: 'menu.wlc-menu',
+                        name: 'user.wlc-login-signup',
+                        display: {
+                            auth: false,
+                        },
                         params: {
-                            type: 'affiliates-menu',
+                            login: {
+                                action: 'login',
+                            },
+                            signup: {
+                                action: 'signup',
+                            },
                         },
                     },
                 ],

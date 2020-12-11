@@ -16,17 +16,22 @@ import {SignInFormComponent} from './components/sign-in-form/sign-in-form.compon
 import {PseudoLinkComponent} from './components/pseudo-link/pseudo-link.component';
 import {ChangePasswordFormComponent} from './components/change-password-form/change-password-form.component';
 import {RestorePasswordFormComponent} from './components/restore-password-form/restore-password-form.component';
+import {UserInfoComponent} from './components/user-info/user-info.component';
+import {UserStatsComponent} from './components/user-stats/user-stats.component';
+import {LogoutComponent} from './components/logout/logout.component';
 
 
 export const components = {
     'wlc-login-signup': LoginSignupComponent,
-    'wlc-temp-logout': TempLogoutComponent,
     'wlc-profile-form': ProfileFormComponent,
     'wlc-sign-in-form': SignInFormComponent,
     'wlc-have-account': HaveAccountComponent,
     'wlc-pseudo-link': PseudoLinkComponent,
     'wlc-change-password-form': ChangePasswordFormComponent,
     'wlc-restore-password-form': RestorePasswordFormComponent,
+    'wlc-user-info': UserInfoComponent,
+    'wlc-user-stats': UserStatsComponent,
+    'wlc-logout': LogoutComponent,
 };
 
 @NgModule({
@@ -41,6 +46,8 @@ export const components = {
         PseudoLinkComponent,
         ChangePasswordFormComponent,
         RestorePasswordFormComponent,
+        UserInfoComponent,
+        UserStatsComponent,
     ],
     imports: [
         CommonModule,
@@ -62,6 +69,8 @@ export const components = {
         SignInFormComponent,
         ChangePasswordFormComponent,
         RestorePasswordFormComponent,
+        UserInfoComponent,
+        UserStatsComponent,
     ],
 })
 export class UserModule {

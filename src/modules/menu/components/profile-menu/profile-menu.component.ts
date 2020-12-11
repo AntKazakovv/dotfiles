@@ -5,7 +5,6 @@ import {
     OnInit,
     Inject,
 } from '@angular/core';
-import {StateService} from '@uirouter/core';
 
 import {AbstractComponent, IMixedParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ConfigService} from 'wlc-engine/modules/core';
@@ -14,9 +13,7 @@ import * as MenuParams from 'wlc-engine/modules/menu/components/menu/menu.params
 import * as Params from './profile-menu.params';
 
 import {
-    forEach as _forEach,
     clone as _clone,
-    find as _find,
 } from 'lodash';
 
 @Component({
@@ -33,7 +30,6 @@ export class ProfileMenuComponent extends AbstractComponent implements OnInit {
         @Inject('injectParams') protected injectParams: Params.IProfileMenuCParams,
         protected cdr: ChangeDetectorRef,
         protected configService: ConfigService,
-        protected stateSerivce: StateService,
         protected profileMenuService: ProfileMenuService,
     ) {
         super(
@@ -50,6 +46,11 @@ export class ProfileMenuComponent extends AbstractComponent implements OnInit {
 
         this.menuParams = {
             type: 'profile-menu',
+            theme: this.$params.theme,
+            themeMod: this.$params.themeMod,
+            common: {
+                useArrow: this.$params.common?.useArrow,
+            },
         };
         switch (this.$params.type) {
             case 'tabs':
@@ -62,6 +63,7 @@ export class ProfileMenuComponent extends AbstractComponent implements OnInit {
                 this.menuParams.items = this.profileMenuService.getDropdownMenu();
                 break;
         }
+
         this.menuParams = _clone(this.menuParams);
         this.cdr.markForCheck();
     }

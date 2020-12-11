@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {UIRouterModule} from '@uirouter/angular';
 import {TranslateModule} from '@ngx-translate/core';
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
-import {ProfileMenuComponent} from 'wlc-engine/modules/menu/components/profile-menu/profile-menu.component';
+import {ProfileMenuComponent} from './components/profile-menu/profile-menu.component';
 import {MenuComponent} from './components/menu/menu.component';
 import {MainMenuComponent} from './components/main-menu/main-menu.component';
 import {CategoryMenuComponent} from './components/category-menu/category-menu.component';

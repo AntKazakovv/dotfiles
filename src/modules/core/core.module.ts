@@ -67,6 +67,10 @@ import {ClickOutsideDirective} from './directives/click-outside.directive';
 import {InputMaskDirective} from './directives/input-mask.directive';
 //  -- DIRECTIVES IMPORTS END  --;
 
+//  -- PIPES IMPORTS STARTS--;
+import {TruncatePipe} from './pipes/truncate.pipe';
+//  -- PIPES IMPORTS END  --;
+
 //  -- CONFIGS IMPORTS STARTS--;
 import {HammerConfig} from 'wlc-engine/modules/core/system/config/hammer.config';
 import {DummyComponent} from './components/dummy/dummy.component';
@@ -161,6 +165,7 @@ export const components = {
         DatepickerComponent,
         InputMaskDirective,
         TextBlockComponent,
+        TruncatePipe,
     ],
     exports: [
         LayoutComponent,
@@ -195,6 +200,7 @@ export const components = {
         DatepickerComponent,
         InputMaskDirective,
         TextBlockComponent,
+        TruncatePipe,
     ],
 })
 export class CoreModule {

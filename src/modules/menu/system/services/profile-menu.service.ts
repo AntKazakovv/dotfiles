@@ -81,30 +81,25 @@ export class ProfileMenuService {
      * @returns {IMenuItem[]}
      */
     public getSubMenu(): IMenuItem[] {
-        const stateParts: string[] = this.stateSerivce.current.name.split('.');
-        stateParts.pop();
-        const state = stateParts.join('.');
-
+        const state = this.stateSerivce.current.name;
         if (this.subMenu[state]) {
             return this.subMenu[state];
         }
 
-        const parentItems: string[] = [];
-        _forEach(Config.wlcProfileMenuItemsGlobal, (item: MenuParams.IMenuItem, itemAlias: string) => {
-            if (item.type == 'title' && item.params?.state?.parent == state) {
-                parentItems.push(itemAlias);
-            }
-        });
-
         const parentInMenuConfig: MenuParams.MenuConfigItemsGroup = _find(this.profileMenuConfig, (item: MenuParams.MenuConfigItem) => {
             if (!_isString(item)) {
-                return _includes(parentItems, item.parent);
+                for (const subitemAlias of item.items) {
+                    const subitem = Config.wlcProfileMenuItemsGlobal[subitemAlias];
+                    if (subitem && subitem.params?.state?.name == state) {
+                        return true;
+                    }
+                }
             }
             return false;
         }) as MenuParams.MenuConfigItemsGroup;
 
         let items: MenuParams.IMenuItem[] = [];
-        if (parentItems.length && parentInMenuConfig) {
+        if (parentInMenuConfig) {
             items = _map(parentInMenuConfig.items, (itemAlias: string) => {
                 const menuItem: MenuParams.IMenuItem = Config.wlcProfileMenuItemsGlobal[itemAlias];
                 return menuItem;
