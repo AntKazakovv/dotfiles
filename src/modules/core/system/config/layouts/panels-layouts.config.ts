@@ -6,12 +6,6 @@ export const $panelsLayouts: IPanelsConfig = {
             left: {
                 components: [
                     {
-                        name: 'menu.wlc-category-menu',
-                        params: {
-                            type: 'dropdown',
-                        },
-                    },
-                    {
                         name: 'user.wlc-login-signup',
                         display: {
                             auth: false,
@@ -23,6 +17,19 @@ export const $panelsLayouts: IPanelsConfig = {
                             signup: {
                                 action: 'signup',
                             },
+                        },
+                    },
+                    {
+                        name: 'user.wlc-user-stats',
+                        display: {
+                            auth: true,
+                        },
+                    },
+                    {
+                        name: 'menu.wlc-mobile-menu',
+                        params: {
+                            type: 'dropdown',
+                            themeMod: 'vertical',
                         },
                     },
                 ],

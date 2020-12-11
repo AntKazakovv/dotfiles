@@ -45,6 +45,7 @@
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
+                box-shadow: $userInfoDropdownBoxShadow;
                 min-width: $userInfoDropdownMinWidth;
                 padding: $userInfoDropdownPadding;
                 background: $userInfoDropdownBg;

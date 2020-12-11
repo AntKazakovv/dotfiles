@@ -42,11 +42,18 @@ import {IMenuItemsGroup} from 'wlc-engine/modules/menu/components/menu/menu.para
             state('opened', style({
                 height: '*',
                 opacity: 1,
+                margin: '*',
+                'pointer-events': 'initial',
             })),
             state('closed', style({
                 height: '0px',
                 opacity: 0,
+                margin: 0,
+                'pointer-events': 'none',
             })),
+            transition('void => *', [
+                animate(0),
+            ]),
             transition('* => *', [
                 animate('0.1s'),
             ]),

@@ -45,12 +45,10 @@ export const MODALS_LIST: IModalList = {
             backdrop: 'static',
         },
     },
-    //TODO refactor after engine release 13.11.2020
     login: {
         config: {
             id: 'login',
             modifier: 'login',
-            modalTitle: 'Login',
             component: SignInFormComponent,
             size: 'md',
             backdrop: 'static',

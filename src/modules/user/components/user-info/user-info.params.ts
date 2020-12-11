@@ -17,14 +17,6 @@ export const defaultParams: IUserInfoCParams = {
         components: [
             {
                 name: 'user.wlc-user-stats',
-                params: {
-                    fields: [
-                        'balance',
-                        'bonusBalance',
-                        'points',
-                        'level',
-                    ],
-                },
             },
             {
                 name: 'menu.wlc-profile-menu',

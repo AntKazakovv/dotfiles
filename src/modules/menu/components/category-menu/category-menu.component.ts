@@ -22,6 +22,7 @@ import {MenuHelper} from 'wlc-engine/modules/menu/system/helpers/menu.helper';
 
 import {
     clone as _clone,
+    assign as _assign,
 } from 'lodash';
 
 @Component({
@@ -64,7 +65,11 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
     }
 
     ngOnInit(): void {
-        super.ngOnInit(this.inlineParams);;
+        super.ngOnInit(this.inlineParams);
+        _assign(this.menuParams, {
+            theme: this.$params.theme,
+            themeMod: this.$params.themeMod,
+        });
         this.init();
         this.onInitEnded = true;
     }

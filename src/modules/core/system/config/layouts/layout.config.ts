@@ -394,7 +394,7 @@ export const $layouts: ILayoutsConfig = {
         },
     },
     'app.contacts': {
-        extends: 'app.profile',
+        extends: 'app',
         sections: {
             'info-page': {
                 container: true,

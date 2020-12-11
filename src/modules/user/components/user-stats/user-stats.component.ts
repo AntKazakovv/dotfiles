@@ -28,8 +28,8 @@ export interface IUserStatsItem {
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserStatsComponent extends AbstractComponent implements OnInit, OnDestroy {
-    @Input() protected inlineParams: any;
     @Input() public type: string = 'default';
+    @Input() protected inlineParams: Params.IUserStatsCParams;
     public $params: any;
     public userStats: IUserInfo;
     public shownUserStats: IIndexing<IUserStatsItem>;
@@ -58,8 +58,6 @@ export class UserStatsComponent extends AbstractComponent implements OnInit, OnD
             this.fillUserStatsFields();
             this.cdr.markForCheck();
         });
-        this.fillUserStatsFields();
-        this.cdr.markForCheck();
     }
 
     ngOnDestroy() {

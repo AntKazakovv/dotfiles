@@ -72,18 +72,6 @@ export const wlcMainMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
             },
         },
     },
-    'main-menu:promotions': {
-        name: gettext('Promotions'),
-        type: 'sref',
-        class: 'promotions',
-        params: {
-            state: {
-                name: 'app.promotions',
-                params: {
-                },
-            },
-        },
-    },
     'main-menu:tournaments': {
         name: gettext('Tournaments'),
         type: 'sref',

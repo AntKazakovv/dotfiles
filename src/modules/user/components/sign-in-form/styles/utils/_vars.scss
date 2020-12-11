@@ -1,4 +1,9 @@
+@use 'engine-scss/functions' as ef;
+
 $formMaxWidth: 285px !default;
 $formMargin: auto !default;
 $fieldMargin: 0 0 20px 0 !default;
 $btnMargin: 0 auto 30px auto !default;
+
+$modalBg: ef.get('color', 'background') !default;
+$modalBorderRadius: 15px !default;

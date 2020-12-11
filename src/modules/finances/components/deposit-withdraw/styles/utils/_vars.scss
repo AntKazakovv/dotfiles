@@ -1,0 +1,28 @@
+@use 'engine-scss/functions' as ef;
+
+$transition: 0.5s !default;
+$thumbBorderRadius: ef.get('radius', 'biger') !default;
+
+$thumbPadding: 8px !default;
+$thumbHoverBgColor: #833f00 !default;
+$thumbHoverBg: linear-gradient(180deg, rgba(35, 36, 38, 0.7) 40%, $thumbHoverBgColor 90.25%), !default;
+
+$favoritePosition: left !default; //none (left), flex-end(right);
+$favoriteBg: #aaa !default;
+$favoriteHoverBg: #87cf3f !default;
+$favoriteActiveBg: #87cf3f !default;
+$favoriteSize: 25px !default;
+$favoriteBackBg: #555459 !default;
+$favoriteBackSize: 40px !default;
+$favoriteBackRadius: ef.get('radius', 'small') !default;
+$favoriteBoxShadow: 0 4px 15px rgba(0, 190, 225, 0.5) !default;
+
+$thumbNameColor: #fff !default;
+$thumbNameSize: 16px !default;
+$thumbNameWeight: bold !default;
+$thumbNamePosition: center !default;
+
+$btnJustifyContent: space-between !default;
+$btnAlignItems: flex-end !default;
+
+$thumbBtnPosition: horizontal !default; //horizontal (default), vertical

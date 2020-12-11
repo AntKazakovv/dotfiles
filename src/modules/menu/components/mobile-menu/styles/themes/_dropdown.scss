@@ -1,0 +1,100 @@
+.wlc-mobile-menu--type-dropdown:host {
+
+    &.wlc-mobile-menu--theme-mod-vertical {
+        width: 100%;
+
+        .wlc-menu,
+        .wlc-mobile-menu {
+            display: grid;
+            grid-auto-flow: initial;
+            grid: {
+                template-columns: 1fr;
+                gap: $menuGag;
+            }
+            width: 100%;
+
+            ::ng-deep {
+
+                .wlc-category-menu {
+
+                    &,
+                    .wlc-menu {
+                        width: 100%;
+                    }
+                }
+
+                .wlc-menu__item {
+
+                    &.active {
+
+                        > .wlc-menu__link {
+                            color: $activeTabLinkColor;
+                            background: $activeTabLinkBg;
+                            @include bm.transition();
+
+                            .wlc-icon {
+                                fill: $activeTabLinkColor;
+                                transform: rotate(180deg);
+                                @include bm.transition();
+                            }
+                        }
+                    }
+
+                    &--dropdown {
+
+                        > .wlc-menu__link {
+
+                            .wlc-icon {
+                                transform: rotate(0);
+                            }
+                        }
+                    }
+                }
+
+                .wlc-menu__link {
+                    z-index: 2;
+                    display: flex;
+                    justify-content: space-between;
+                    padding: $linkPadding;
+                    width: 100%;
+                    font: {
+                        size: $linkSize;
+                        weight: $linkWeight;
+                    }
+                    color: $linkColor;
+                    cursor: pointer;
+                    text-decoration: none;
+                    background: $linkBg;
+                    border-radius: $linkBorderRadius;
+
+                    &:hover,
+                    &.active {
+                        background: $activeLinkBg;
+                        @include bm.transition(background);
+                    }
+
+                    .wlc-icon {
+                        transform: rotate(-90deg);
+                        fill: $linkFill;
+                        @include bm.transition();
+                    }
+                }
+
+                .wlc-menu__submenu {
+                    margin-top: $menuGag;
+                    border-radius: $linkBorderRadius;
+                    background: $submenuBg;
+
+                    .wlc-menu__link {
+                        background: transparent;
+
+                        &.active {
+                            background: $activeLinkBg;
+                            @include bm.transition(background);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
