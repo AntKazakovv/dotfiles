@@ -2,10 +2,12 @@ import {Component, OnInit, ChangeDetectorRef, Inject} from '@angular/core';
 import {AbstractComponent, IMixedParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {FinancesService} from 'wlc-engine/modules/finances/system/services';
 import {Transaction} from 'wlc-engine/modules/finances/system/models/transaction-history.model';
-import {ISelectParams} from 'wlc-engine/modules/core/components/select/select.params';
-import {IInputCParams} from 'wlc-engine/modules/core/components/input/input.params';
-import {ITableParams} from 'wlc-engine/modules/core/components/table/table.params';
-
+import {
+    ISelectParams,
+    IInputCParams,
+    ITableCParams,
+} from 'wlc-engine/modules/core';
+import {EventService} from 'wlc-engine/modules/core';
 import * as Params from './transaction-history.params';
 import {FormControl} from '@angular/forms';
 import {BehaviorSubject} from 'rxjs';
@@ -15,6 +17,7 @@ import {DateTime} from 'luxon';
 import {
     filter as _filter,
 } from 'lodash';
+
 
 
 @Component({
@@ -79,7 +82,7 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
     protected startDate: DateTime;
     protected endDate: DateTime;
 
-    public tableData: ITableParams = {
+    public tableData: ITableCParams = {
         noItemsText: gettext('No transaction history'),
         head: Params.transactionTableHeadConfig,
         rows: this.transaction,
@@ -91,6 +94,7 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
         @Inject('injectParams') protected params: Params.ITransactionHistoryParams,
         protected cdr: ChangeDetectorRef,
         protected financesService: FinancesService,
+        protected eventService: EventService,
     ) {
         super(
             <IMixedParams<Params.ITransactionHistoryParams>>{
@@ -106,7 +110,6 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
 
         this.transaction.next(this.filterTransaction());
 
-
         this.filterSelect.control.valueChanges.pipe(takeUntil(this.$destroy)).subscribe((value) => {
             this.filterType = value;
             this.transaction.next(this.filterTransaction());
@@ -121,6 +124,16 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
             this.endDate = DateTime.fromFormat(value + ' 23:59:59', 'dd-MM-yyyy HH:mm:ss');
             this.transaction.next(this.filterTransaction());
         });
+
+        this.eventService.filter(
+            {name: 'TRANSACTION_CANCEL'},
+            this.$destroy)
+            .subscribe({
+                next: async () => {
+                    this.allTransactions = await this.financesService.getTransactionList();
+                    this.transaction.next(this.filterTransaction());
+                },
+            });
 
         this.ready = true;
         this.cdr.markForCheck();

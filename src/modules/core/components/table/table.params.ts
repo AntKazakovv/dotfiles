@@ -11,12 +11,12 @@ export interface ITableCommonParams {
     noItemsText?: string;
 }
 
-export interface ITableParams extends IComponentParams<Theme, Type, ThemeMod>, ITableCommonParams {
+export interface ITableCParams extends IComponentParams<Theme, Type, ThemeMod>, ITableCommonParams {
     head?: ITableCol[],
     rows?: unknown[] | BehaviorSubject<unknown[]>,
 }
 
-export const defaultParams: ITableParams = {
+export const defaultParams: ITableCParams = {
     class: 'wlc-table',
     noItemsText: gettext('No items available'),
 };

@@ -39,7 +39,7 @@ export class demoTestComponent implements OnInit, OnDestroy {
         this.winnersService.latestWinsObserver
             .pipe(takeUntil(this.$destroy))
             .subscribe((data) => {
-                console.log('blah', data);
+                // console.log('blah', data);
             });
         // }
 

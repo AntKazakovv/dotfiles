@@ -42,13 +42,11 @@ export class FinancesService {
     }
 
     public async deposit(systemId: number, amount: number, additionalFields: object): Promise<any> {
-
-
         try {
             const res = await this.dataService.request('finances/deposits', {
                 systemId,
                 amount,
-                additional: {},
+                additional: additionalFields,
             });
             return res;
         } catch (error) {
@@ -56,9 +54,17 @@ export class FinancesService {
         }
     }
 
-    public withdraw(systemId: number, amount: number, additionalFields: object): Promise<any> {
-        return null;
-
+    public async withdraw(systemId: number, amount: number, additionalFields: object): Promise<any> {
+        try {
+            const res = await this.dataService.request('finances/withdrawals', {
+                systemId,
+                amount,
+                additional: additionalFields,
+            });
+            return res;
+        } catch (error) {
+            return Promise.reject(error);
+        }
     }
 
     public getWithdrawQueries(): Promise<any> {
@@ -71,8 +77,17 @@ export class FinancesService {
 
     }
 
-    public async cancelWithdrawal(id: number): Promise<any> {
-        return await this.dataService.request<IData>('finances/cancelWithdrawal', {id});
+    public async cancelWithdrawal(id: number): Promise<IData> {
+        return await this.dataService.request<IData>({
+            name: 'cancelWithdrawal',
+            system: 'finances',
+            url: '/withdrawals',
+            type: 'DELETE',
+            params: {id},
+            events: {
+                success: 'TRANSACTION_CANCEL',
+            },
+        });
     }
 
     public async getTransactionList(params: ITransactionRequestParams = {}): Promise<Transaction[]> {

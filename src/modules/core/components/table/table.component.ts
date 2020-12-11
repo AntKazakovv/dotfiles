@@ -35,16 +35,16 @@ import {
 })
 export class TableComponent extends AbstractComponent implements OnInit {
 
-    @Input() protected inlineParams: Params.ITableParams;
+    @Input() protected inlineParams: Params.ITableCParams;
 
-    public $params: Params.ITableParams;
+    public $params: Params.ITableCParams;
     public rows: TableRowModel[] = [];
     public head: Params.ITableCol[] = [];
     public ready = false;
     public deviceType: IDeviceType;
 
     constructor(
-        @Inject('injectParams') protected params: Params.ITableParams,
+        @Inject('injectParams') protected params: Params.ITableCParams,
         protected layoutService: LayoutService,
         protected cdr: ChangeDetectorRef,
         protected injector: Injector,
@@ -52,7 +52,7 @@ export class TableComponent extends AbstractComponent implements OnInit {
         private actionService: ActionService,
     ) {
         super(
-            <IMixedParams<Params.ITableParams>>{
+            <IMixedParams<Params.ITableCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
             });
@@ -142,7 +142,6 @@ export class TableComponent extends AbstractComponent implements OnInit {
             .subscribe((type: IDeviceType) => {
                 this.deviceType = type;
                 this.cdr.markForCheck();
-                console.log(this.deviceType);
             });
     }
 }

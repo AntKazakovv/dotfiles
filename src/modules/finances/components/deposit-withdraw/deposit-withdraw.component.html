@@ -10,6 +10,15 @@
 
 <div class="{{$class}}-subtitle">2. {{'Payment information' | translate}}</div>
 
+<div class="required-fields-error" *ngIf="!checkUserProfileForPayment()">
+    <p>{{'Payment method isn\'t available. Please fill in the following profile fields' | translate}}:</p>
+    <ul>
+        <li *ngFor="let item of requiredFieldsKeys">
+            - {{requiredFields[item].label | translate}}
+        </li>
+    </ul>
+</div>
+
 <div *ngIf="$params?.mode === 'deposit'"
     wlc-form-wrapper [config]="depositFrom" [ngSubmit]="deposit.bind(this)">
 </div>

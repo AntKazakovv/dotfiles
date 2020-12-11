@@ -21,6 +21,7 @@ import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 import {NgxWebstorageModule} from 'ngx-webstorage';
 import * as Sentry from '@sentry/angular';
 import {ModalModule} from 'ngx-bootstrap/modal';
+import {ActionService} from 'wlc-engine/modules/core/system/services';
 
 export function loadConfig(config: ConfigService) {
     return config.load();
@@ -85,6 +86,7 @@ export class AppModule {
 
     constructor(
         location: Location,
+        protected actionService: ActionService,
     ) {
         this.parseInitPath(location.path());
     }
@@ -97,6 +99,7 @@ export class AppModule {
                 const parts: string[] = value.split('=');
                 this.initialPath[parts[0]] = parts[1];
             }
+            this.actionService.processMessages(this.initialPath);
         }
     }
 }
