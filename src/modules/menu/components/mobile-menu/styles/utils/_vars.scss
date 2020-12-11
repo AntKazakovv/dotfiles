@@ -1,2 +1,18 @@
 @use 'engine-scss/functions' as ef;
 
+//dropdown variables
+$menuGag: 5px !default;
+
+$activeTabLinkColor: #000 !default;
+$activeTabLinkBg: #fff000 !default;
+
+$linkPadding: 8px 12px !default;
+$linkSize: 14px !default;
+$linkWeight: normal !default;
+$linkColor: #fff !default;
+$linkBg: #6d6d70 !default;
+$activeLinkBg: darken($linkBg, 20) !default;
+$linkFill: $linkColor !default;
+$linkBorderRadius: 10px !default;
+
+$submenuBg: #000 !default;

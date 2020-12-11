@@ -7,12 +7,13 @@
                 *ngIf="$params.config.modalTitle">
                 {{$params.config.modalTitle | translate}}
             </h5>
-            <button type="button"
+            <button wlc-button
                     class="wlc-modal__close"
+                    theme="none"
+                    icon="close"
                     (click)="modal.hide()"
                     aria-label="Close"
                     title="Close">
-                x
             </button>
         </div>
 

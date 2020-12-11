@@ -16,6 +16,7 @@ export interface IDepositWithdrawParams extends IComponentParams<Theme, Type, Th
 
 export const defaultParams: IDepositWithdrawParams = {
     mode: 'deposit',
+    class: 'wlc-cash',
 };
 
 export {depositForm, withdrawFrom} from 'wlc-engine/modules/finances/system/config';

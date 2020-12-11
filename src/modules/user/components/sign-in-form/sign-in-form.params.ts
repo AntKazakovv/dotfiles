@@ -79,7 +79,6 @@ export const signInFormConfig: IFormWrapperCParams = {
             name: 'core.wlc-button',
             params: <IButtonParams>{
                 name: 'submit',
-                theme: 'default',
                 common: {
                     text: gettext('Login'),
                     type: 'submit',

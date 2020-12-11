@@ -1,0 +1,21 @@
+//todo in layout component
+
+.wlc-burger-panel--theme-default:host {
+
+    ::ng-deep {
+
+        .wlc-login-signup {
+            justify-content: center;
+            grid-auto-flow: initial;
+            margin: 40px 0;
+
+            .wlc-btn {
+                min-width: 100%;
+            }
+        }
+
+        .wlc-user-stats {
+            margin-bottom: 15px;
+        }
+    }
+}

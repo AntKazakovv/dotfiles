@@ -1,0 +1,17 @@
+@import './vars';
+
+@mixin verticalBtn {
+
+    @if ($thumbBtnPosition == vertical) {
+
+        flex-direction: column;
+
+        button {
+
+            &:first-child {
+                margin-right: unset;
+                margin-bottom: 10px;
+            }
+        }
+    }
+}

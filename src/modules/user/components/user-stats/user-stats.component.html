@@ -4,12 +4,12 @@
         <div class="{{$class}}-balance {{$class}}-balance--short">
             <div class="{{$class}}-balance__item {{$class}}-balance__real">
                 <span class="name">{{'Real balance' | translate}}</span>
-                <span class="value">{{userStats?.balance}}</span>
+                <span class="value">{{userStats?.balance  | number: '.2'}}</span>
             </div>
 
             <div class="{{$class}}-balance__item {{$class}}-balance__bonus">
                 <span class="name">{{'Bonus balance' | translate}}</span>
-                <span class="value">{{userStats?.loyalty?.Balance}}</span>
+                <span class="value">{{userStats?.loyalty?.Balance | number: '.2'}}</span>
             </div>
         </div>
     </ng-template>

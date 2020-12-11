@@ -13,7 +13,7 @@ import * as Params from './deposit-withdraw.params';
 @Component({
     selector: '[wlc-deposit-withdraw]',
     templateUrl: './deposit-withdraw.component.html',
-    styleUrls: ['./deposit-withdraw.component.scss'],
+    styleUrls: ['./styles/deposit-withdraw.component.scss'],
 })
 export class DepositWithdrawComponent extends AbstractComponent implements OnInit {
 
