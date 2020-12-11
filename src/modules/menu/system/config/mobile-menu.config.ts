@@ -37,27 +37,73 @@ export const wlcMobileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
             },
         },
     },
-    'mobile-menu:info2': {
-        name: gettext('Info'),
+    'mobile-menu:privacy-policy': {
+        name: gettext('Privacy policy'),
         type: 'sref',
-        icon: 'icons/info',
+        icon: 'icons/privacy-policy',
         class: 'info',
         params: {
             state: {
-                name: 'app.promotions',
-                params: {},
+                name: 'app.contacts',
+                params: {
+                    slug: 'privacy-policy',
+                },
             },
         },
     },
-    'mobile-menu:info3': {
-        name: gettext('Info'),
+    'mobile-menu:responsible-game': {
+        name: gettext('Responsible game'),
         type: 'sref',
-        icon: 'icons/info',
+        icon: 'icons/responsible-game',
         class: 'info',
         params: {
             state: {
-                name: 'app.promotions',
-                params: {},
+                name: 'app.contacts',
+                params: {
+                    slug: 'responsible-game',
+                },
+            },
+        },
+    },
+    'mobile-menu:fair-play': {
+        name: gettext('Fair play'),
+        type: 'sref',
+        icon: 'icons/fair-play',
+        class: 'info',
+        params: {
+            state: {
+                name: 'app.contacts',
+                params: {
+                    slug: 'fair-play',
+                },
+            },
+        },
+    },
+    'mobile-menu:games-rules': {
+        name: gettext('Games rules'),
+        type: 'sref',
+        icon: 'icons/games-rules',
+        class: 'info',
+        params: {
+            state: {
+                name: 'app.contacts',
+                params: {
+                    slug: 'games-rules',
+                },
+            },
+        },
+    },
+    'mobile-menu:terms-and-conditions': {
+        name: gettext('Terms and conditions'),
+        type: 'sref',
+        icon: 'icons/terms-and-conditions',
+        class: 'info',
+        params: {
+            state: {
+                name: 'app.contacts',
+                params: {
+                    slug: 'terms-and-conditions',
+                },
             },
         },
     },
@@ -69,8 +115,11 @@ export const wlcMobileMenuItemsDefault: MenuParams.MenuConfigItem[] = [
     {
         parent: 'mobile-menu:info',
         items: [
-            'mobile-menu:info2',
-            'mobile-menu:info3',
+            'mobile-menu:privacy-policy',
+            'mobile-menu:responsible-game',
+            'mobile-menu:fair-play',
+            'mobile-menu:games-rules',
+            'mobile-menu:terms-and-conditions',
         ],
     },
 ];

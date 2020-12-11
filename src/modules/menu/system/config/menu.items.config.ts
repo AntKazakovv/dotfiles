@@ -6,8 +6,8 @@ import {wlcProfileMenuItemsGlobal} from './profile-menu.config';
 export const wlcDefaultMenuItems = {
     'main-menu': [
         'main-menu:home',
-        'main-menu:casino',
-        'main-menu:tablegames',
+        //'main-menu:casino',
+        //'main-menu:tablegames',
         'main-menu:contacts',
     ],
     'affiliates-menu': [

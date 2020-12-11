@@ -266,8 +266,13 @@ export class GamesGridComponent extends AbstractComponent
 
         let games = this.gamesCatalogService.getGameList();
         if (this.$params?.byState) {
-            const category: CategoryModel = this.childCategory || this.parentCategory;
-            games = this.gamesCatalogService.getGamesByCategories([category]);
+            let categories: CategoryModel[] = [];
+            if (this.childCategory) {
+                categories.push(this.childCategory);
+            } else if (this.parentCategory) {
+                categories = this.gamesCatalogService.getCategoriesByParentId(this.parentCategory.id);
+            }
+            games = this.gamesCatalogService.getGamesByCategories(categories);
         } else if (this.$params?.filter) {
             // TODO: move to games service
             const categories: CategoryModel[] = this.gamesCatalogService.getCategories();

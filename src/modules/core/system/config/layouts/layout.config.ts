@@ -385,7 +385,7 @@ export const $layouts: ILayoutsConfig = {
         },
     },
     'app.catalog': {
-        extends: 'app.profile',
+        extends: 'app',
         sections: {
             content: {
                 components: [
@@ -394,5 +394,9 @@ export const $layouts: ILayoutsConfig = {
                 order: 2,
             },
         },
+    },
+    'app.catalog.child': {
+        replaceConfig: true,
+        extends: 'app.catalog',
     },
 };

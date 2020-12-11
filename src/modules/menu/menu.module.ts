@@ -11,6 +11,7 @@ import {MobileMenuComponent} from './components/mobile-menu/mobile-menu.componen
 
 export const components = {
     'wlc-menu': MenuComponent,
+    'wlc-main-menu': MainMenuComponent,
     'wlc-category-menu': CategoryMenuComponent,
     'wlc-profile-menu': ProfileMenuComponent,
     'wlc-mobile-menu': MobileMenuComponent,
