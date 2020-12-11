@@ -1,6 +1,6 @@
-import * as Params from 'wlc-engine/modules/menu/components/menu/menu.params';
+import * as MenuParams from 'wlc-engine/modules/menu/components/menu/menu.params';
 
-export const wlcMainMenuItemsGlobal: Params.IMenuItemsGlobal = {
+export const wlcMainMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     'main-menu:home': {
         name: gettext('Home page'),
         type: 'sref',
@@ -60,4 +60,45 @@ export const wlcMainMenuItemsGlobal: Params.IMenuItemsGlobal = {
             },
         },
     },
+    'main-menu:lottery': {
+        name: gettext('Lottery'),
+        type: 'sref',
+        class: 'lottery',
+        params: {
+            state: {
+                name: 'app.lottery',
+                params: {
+                },
+            },
+        },
+    },
+    'main-menu:promotions': {
+        name: gettext('Promotions'),
+        type: 'sref',
+        class: 'promotions',
+        params: {
+            state: {
+                name: 'app.promotions',
+                params: {
+                },
+            },
+        },
+    },
+    'main-menu:tournaments': {
+        name: gettext('Tournaments'),
+        type: 'sref',
+        class: 'tournaments',
+        params: {
+            state: {
+                name: 'app.tournaments',
+                params: {
+                },
+            },
+        },
+    },
 };
+
+export const wlcMainMenuItemsDefault: MenuParams.MenuConfigItem[] = [
+    'main-menu:home',
+    'main-menu:contacts',
+];

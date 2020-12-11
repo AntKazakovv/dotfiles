@@ -22,6 +22,8 @@ import {GamesCatalogService} from 'wlc-engine/modules/games/system/services';
 import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.model';
 import {MenuHelper} from 'wlc-engine/modules/menu/system/helpers/menu.helper';
 import {TranslateService} from '@ngx-translate/core';
+import {ConfigService} from 'wlc-engine/modules/core';
+import * as Config from 'wlc-engine/modules/menu/system/config/main-menu.items.config';
 
 import {
     clone as _clone,
@@ -41,6 +43,8 @@ export class MainMenuComponent extends AbstractComponent implements OnInit {
         items: [],
     };
 
+    protected menuConfig: MenuParams.MenuConfigItem[];
+
     constructor(
         @Inject('injectParams') protected injectParams: Params.IMainMenuCParams,
         protected cdr: ChangeDetectorRef,
@@ -49,6 +53,7 @@ export class MainMenuComponent extends AbstractComponent implements OnInit {
         protected gamesCatalogService: GamesCatalogService,
         protected translate: TranslateService,
         protected eventService: EventService,
+        protected configService: ConfigService,
     ) {
         super(
             <IMixedParams<Params.IMainMenuCParams>>{
@@ -60,13 +65,21 @@ export class MainMenuComponent extends AbstractComponent implements OnInit {
 
     public ngOnInit(): void {
         super.ngOnInit();
+        this.initConfig();
+        this.initMenu();
+    }
 
-        this.menuParams.items = MenuHelper.getItems(
-            {
-                items: null,
-                type: this.menuParams.type,
-            },
-        );
+    protected initConfig(): void {
+        const configMenu = this.configService.get<MenuParams.MenuConfigItem[]>('$base.mainMenu');
+        this.menuConfig = configMenu || Config.wlcMainMenuItemsDefault;
+    }
+
+    protected initMenu(): void {
+        this.menuParams = {
+            type: 'main-menu',
+        };
+        this.menuParams.items = MenuHelper.parseMenuConfig(this.menuConfig, Config.wlcMainMenuItemsGlobal);
+        this.menuParams = _clone(this.menuParams);
 
         if (this.gamesCatalogService.getGameList()) {
             this.addCategoryBtns();
