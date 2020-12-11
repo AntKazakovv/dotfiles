@@ -312,6 +312,7 @@ export class GamesGridComponent extends AbstractComponent
             from: this.filterName,
         }, (filter: IGamesFilterData) => {
             this.changeFilter(filter);
+            this.cdr.markForCheck();
         }, this.$destroy);
     }
 

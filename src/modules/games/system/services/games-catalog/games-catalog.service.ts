@@ -43,8 +43,11 @@ export class GamesCatalogService {
     });
     public favourites: number[] = [];
 
-    protected gamesCatalog: GamesCatalog;
-
+    private gamesCatalog: GamesCatalog;
+    private categoryMenus: string[] = [
+        'main-menu',
+        'category-menu',
+    ];
     private $resolve: () => void;
 
     constructor(
@@ -202,7 +205,7 @@ export class GamesCatalogService {
      */
     public getCategories(): CategoryModel[] {
         return _filter(this.gamesCatalog.getAvailableCategories(), (item: CategoryModel) => {
-            return !!item.menu;
+            return _includes(this.categoryMenus, item.menu);
         });
     }
 
@@ -333,19 +336,7 @@ export class GamesCatalogService {
      * @returns {Game[]} Filtered games list
      */
     public getGamesByCategories(categories: CategoryModel[]): Game[] {
-        const categoryIds = categories.map((category: CategoryModel) => {
-            return category.id;
-        });
-
-        const games = _filter(this.getGameList(), (game: Game) => {
-            for (const categoryId of categoryIds) {
-                if (_includes(game.categoryID, categoryId)) {
-                    return true;
-                }
-            }
-            return false;
-        });
-        return games;
+        return this.gamesCatalog.getGamesByCategories(categories);
     }
 
     /**

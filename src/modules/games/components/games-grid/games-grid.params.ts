@@ -9,6 +9,7 @@ export interface IGamesGridCParams extends IComponentParams<string, GGType, stri
     byState?: boolean;
     title?: string;
     usePlaceholders: boolean;
+    showTitle?: boolean;
     showAllLink?: {
         use?:boolean;
         link?: string;
@@ -26,6 +27,7 @@ export const defaultParams: IGamesGridCParams = {
     class: 'wlc-games-grid',
     gamesRows: 4,
     usePlaceholders: true,
+    showTitle: true,
     showAllLink: {
         use: false,
     },
