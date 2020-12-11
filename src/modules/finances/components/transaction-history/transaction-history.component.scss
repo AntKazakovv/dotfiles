@@ -1,7 +1,13 @@
+@use 'engine-scss/mixins/mediaqueries' as mq;
+
 .wlc-transaction-history {
 
     &-filter {
-        display: flex;
+        display: none;
+
+        @include mq.min(1024) {
+            display: flex;
+        }
 
         .wlc-btn {
             margin-right: 10px;

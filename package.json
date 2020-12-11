@@ -61,6 +61,7 @@
         "angular-mydatepicker": "^0.10.3",
         "angular-resize-event": "^2.0.1",
         "bootstrap": "^5.0.0-alpha1",
+        "bowser": "^2.11.0",
         "clean-webpack-plugin": "^3.0.0",
         "concurrently": "^5.2.0",
         "create-file": "^1.0.1",

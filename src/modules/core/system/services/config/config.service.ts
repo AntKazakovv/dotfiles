@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+
 import {DataService, IData} from '../data/data.service';
 import {AppConfigModel} from './app-config.model';
 import * as appConfig from 'wlc-config/index';
@@ -8,12 +9,17 @@ import {
     LocalStorageService,
     SessionStorageService,
 } from 'ngx-webstorage';
-import {BehaviorSubject} from 'rxjs';
+import {
+    BehaviorSubject,
+    fromEvent,
+    Observable,
+} from 'rxjs';
 import {
     IGlobalConfig,
     IGetParams,
     ISetParams,
 } from './config.interface';
+import {DeviceModel, IDeviceConfig} from 'wlc-engine/modules/core/system/models/device.model';
 
 export * from './app-config.model';
 export * from './config.interface';
@@ -122,6 +128,11 @@ export class ConfigService {
         this.set<any>({
             name: 'countries',
             value: new BehaviorSubject({}),
+        });
+
+        this.set<DeviceModel>({
+            name: 'device',
+            value: new DeviceModel(this.get<IDeviceConfig>('$base.device')),
         });
 
         this.$resolve();
