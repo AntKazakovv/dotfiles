@@ -211,7 +211,10 @@ export const $layouts: ILayoutsConfig = {
                 container: true,
                 components: [
                     {
-                        name: 'finances.wlc-deposit',
+                        name: 'finances.wlc-deposit-withdraw',
+                        params: {
+                            mode: 'deposit',
+                        },
                     },
                 ],
             },
@@ -224,7 +227,10 @@ export const $layouts: ILayoutsConfig = {
                 container: true,
                 components: [
                     {
-                        name: 'wlc-withdraw',
+                        name: 'finances.wlc-deposit-withdraw',
+                        params: {
+                            mode: 'withdraw',
+                        },
                     },
                 ],
             },

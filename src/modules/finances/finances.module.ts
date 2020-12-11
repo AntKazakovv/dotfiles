@@ -3,15 +3,14 @@ import {CommonModule} from '@angular/common';
 import {FinancesService} from './system/services/finances/finances.service';
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
 import {TranslateModule} from '@ngx-translate/core';
-import {DepositComponent} from './components/deposit/deposit.component';
+import {DepositWithdrawComponent} from './components/deposit-withdraw/deposit-withdraw.component';
 import {PaymentListComponent} from './components/payment-list/payment-list.component';
 import {TransactionHistoryComponent} from './components/transaction-history/transaction-history.component';
-import { TransactionStatusComponent } from './components/transaction-history/transaction-status/transaction-status.component';
-import { TransactionCancelComponent } from './components/transaction-history/transaction-cancel/transaction-cancel.component';
-import {WithdrawComponent} from './components/withdraw/withdraw.component';
+import {TransactionStatusComponent} from './components/transaction-history/transaction-status/transaction-status.component';
+import {TransactionCancelComponent} from './components/transaction-history/transaction-cancel/transaction-cancel.component';
 
 export const components = {
-    'wlc-deposit': DepositComponent,
+    'wlc-deposit-withdraw': DepositWithdrawComponent,
     'wlc-payment-list': PaymentListComponent,
     'wlc-transaction-history': TransactionHistoryComponent,
 };
@@ -23,18 +22,17 @@ export const components = {
         CoreModule,
     ],
     declarations: [
-        DepositComponent,
+        DepositWithdrawComponent,
         PaymentListComponent,
         TransactionHistoryComponent,
         TransactionStatusComponent,
         TransactionCancelComponent,
-        WithdrawComponent,
     ],
     providers: [
         FinancesService,
     ],
     exports: [
-        DepositComponent,
+        DepositWithdrawComponent,
         PaymentListComponent,
         TransactionHistoryComponent,
     ],
