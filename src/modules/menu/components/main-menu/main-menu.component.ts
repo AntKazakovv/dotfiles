@@ -20,13 +20,10 @@ import {
 import {gamesEvents} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
 import {GamesCatalogService} from 'wlc-engine/modules/games/system/services';
 import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.model';
-import {IMenuItem} from 'wlc-engine/modules/menu/components/menu/menu.params';
 import {MenuHelper} from 'wlc-engine/modules/menu/system/helpers/menu.helper';
 import {TranslateService} from '@ngx-translate/core';
-import {MenuItemType} from 'wlc-engine/modules/menu/components/menu/menu.params';
 
 import {
-    concat as _concat,
     clone as _clone,
 } from 'lodash';
 

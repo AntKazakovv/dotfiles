@@ -19,9 +19,10 @@ export interface IButtonParams extends IComponentParams<Theme, Type, ThemeMod> {
         text?: string;
         customModifiers?: CustomMod;
         event?: {
-          name: string;
-          data?: unknown;
+            name: string;
+            data?: unknown;
         };
+        sref?: string;
     };
 }
 

@@ -8,11 +8,16 @@
                [uiSref]="item.params?.state?.name"
                [uiParams]="item.params?.state?.params"
                [uiOptions]="item.params?.state?.options"
-               uiSrefActive="active">{{item.name | translate}}</a>
+               uiSrefActive="active">{{item.name | translate}}
+
+                <span class="{{$class}}__icon {{$class}}__icon--arrow"
+                      *ngIf="$params.common?.useArrow" wlc-icon [iconName]="'arrow'">
+            </span>
+            </a>
         </div>
     </ng-container>
 
-    <ng-container  #srefWithParent *ngIf="item.params?.state?.parent">
+    <ng-container #srefWithParent *ngIf="item.params?.state?.parent">
         <div class="{{$class}}__item {{$class}}__item--sref">
             <span class="{{$class}}__icon" *ngIf="item.icon" wlc-icon [iconName]="item.icon">
             </span>
@@ -58,37 +63,46 @@
         <span class="{{$class}}__icon" *ngIf="item.icon" wlc-icon [iconName]="item.icon">
         </span>
         <a class="{{$class}}__link"
-            (click)="openModal(item)"
-            >{{item.name | translate}}</a>
+           (click)="openModal(item)"
+        >{{item.name | translate}}</a>
     </div>
 </ng-template>
 
 <ng-template #dropdown let-item="item">
-    <div class="{{$class}}__item {{$class}}__item--dropdown" (click)="toggleDropdown(item)">
+    <div class="{{$class}}__item {{$class}}__item--dropdown"
+         [ngClass]="{'active': item.expand}">
         <a class="{{$class}}__link"
-        >{{item.parent.name | translate}}</a>
-        <span class="{{$class}}__icon" wlc-icon [iconName]="'arrow'">
+           (click)="toggleDropdown(item)"
+        >{{item.parent.name | translate}}
+            <span class="{{$class}}__icon" wlc-icon [iconName]="'arrow'">
         </span>
-    </div>
-    <div class="{{$class}}__submenu" [class.active]="item.opened">
-        <ng-container *ngFor="let item of item.items" [ngSwitch]="item.type">
+        </a>
 
-            <ng-container *ngSwitchCase="'anchor'" [ngTemplateOutlet]="anchor" [ngTemplateOutletContext]="{item: item}">
+        <div class="{{$class}}__submenu"
+             [@toggle]="item.expand ? 'opened' : 'closed'"
+        >
+            <ng-container *ngFor="let item of item.items" [ngSwitch]="item.type">
+
+                <ng-container *ngSwitchCase="'anchor'" [ngTemplateOutlet]="anchor"
+                              [ngTemplateOutletContext]="{item: item}">
+                </ng-container>
+
+                <ng-container *ngSwitchCase="'sref'" [ngTemplateOutlet]="sref" [ngTemplateOutletContext]="{item: item}">
+                </ng-container>
+
+                <ng-container *ngSwitchCase="'modal'" [ngTemplateOutlet]="modal"
+                              [ngTemplateOutletContext]="{item: item}">
+                </ng-container>
+
+                <ng-container *ngSwitchCase="'href'" [ngTemplateOutlet]="href" [ngTemplateOutletContext]="{item: item}">
+                </ng-container>
+
+                <ng-container *ngSwitchCase="'scroll'" [ngTemplateOutlet]="scroll"
+                              [ngTemplateOutletContext]="{item: item}">
+                </ng-container>
+
             </ng-container>
-
-            <ng-container *ngSwitchCase="'sref'" [ngTemplateOutlet]="sref" [ngTemplateOutletContext]="{item: item}">
-            </ng-container>
-
-            <ng-container *ngSwitchCase="'modal'" [ngTemplateOutlet]="modal" [ngTemplateOutletContext]="{item: item}">
-            </ng-container>
-
-            <ng-container *ngSwitchCase="'href'" [ngTemplateOutlet]="href" [ngTemplateOutletContext]="{item: item}">
-            </ng-container>
-
-            <ng-container *ngSwitchCase="'scroll'" [ngTemplateOutlet]="scroll" [ngTemplateOutletContext]="{item: item}">
-            </ng-container>
-
-        </ng-container>
+        </div>
     </div>
 </ng-template>
 

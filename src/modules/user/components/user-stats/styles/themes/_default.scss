@@ -1,0 +1,124 @@
+.wlc-user-stats--theme-default:host {
+
+    .wlc-user-stats {
+        width: 100%;
+        max-width: $userStatsMaxWidth;
+        color: $userStatsColor;
+
+        &-email {
+            display: flex;
+            align-items: center;
+            margin: $userStatsEmailMargin;
+
+            &__icon::ng-deep {
+                width: $userStatsIconWidth;
+                height: $userStatsIconHeight;
+                flex-shrink: 0;
+
+                svg {
+                    width: $userStatsIconWidth;
+                    height: $userStatsIconHeight;
+                }
+            }
+
+            &__value {
+                margin: $userStatsEmailValueMargin;
+                font: {
+                    size: $userStatsEmailValueSize;
+                    weight: $userStatsEmailValueWeight;
+                }
+            }
+
+            &__logout {
+                flex-shrink: 0;
+
+                .wlc-btn__text {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+
+                ::ng-deep {
+
+                    .wlc-icon {
+
+                        svg,
+                        path {
+                            fill: $logoutIconFill;
+                            @include bm.transition(fill);
+                        }
+
+                        &:hover {
+
+                            svg,
+                            path {
+                                fill: $logoutIconHoveredFill;
+                                @include bm.transition(fill);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        &-balance {
+            width: 100%;
+            padding: $userStatsBalancePadding;
+            border-radius: $userStatsBalanceBorderRadius;
+            background: $userStatsBalanceBg;
+
+            &--short {
+                padding: $userStatsBalanceShortPadding;
+                min-width: $userStatsBalanceShortMinWidth;
+                background: $userStatsBalanceShortBg;
+
+                > div {
+                    border-bottom-color: $userStatsBalanceShortBorderColor;
+                }
+            }
+
+            &__item {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: $userStatsBalanceItemPadding;
+                border-bottom: $userStatsBalanceItemBorder;
+
+                &:last-child {
+                    border-bottom: none;
+                }
+            }
+
+            .name,
+            .value {
+                display: block;
+                width: 50%;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
+            }
+
+            .name {
+                font: {
+                    size: $userStatsBalanceItemNameSize;
+                    weight: $userStatsBalanceItemNameWeight;
+                }
+            }
+
+            .value {
+                text-align: right;
+                font: {
+                    size: $userStatsBalanceItemValueSize;
+                    weight: $userStatsBalanceItemValueWeight;
+                }
+            }
+        }
+
+        &__content {
+
+            .wlc-btn-deposit {
+                margin: $userStatsBtnMargin;
+            }
+        }
+    }
+}

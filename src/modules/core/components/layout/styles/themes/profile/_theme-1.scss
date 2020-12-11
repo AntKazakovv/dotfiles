@@ -1,0 +1,13 @@
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/engine.variables' as ev;
+@import '../../utils/profile/vars';
+
+.wlc-sections__profile-content--theme-default {
+
+    > .container {
+        padding: 40px;
+        background-color: #555459;
+        border-radius: 30px;
+    }
+}

@@ -53,11 +53,13 @@ export interface IMenuItem {
 export interface IMenuItemsGroup {
     parent: IMenuItem,
     items: IMenuItem[],
-    opened?: boolean;
+    expand?: boolean;
 }
 
 export interface IMenuCParams extends IComponentParams<MenuTheme, MenuType, string> {
-    common?: {},
+    common?: {
+        useArrow: boolean;
+    },
     items?: MenuItemType[];
 }
 
@@ -68,6 +70,7 @@ export interface IMenuItemsGlobal {
 export interface IHelperGetItemsParams {
     items?: MenuItemType[];
     type?: MenuType;
+    theme?: string,
 }
 
 export interface IHelperGetItemsForCategories {

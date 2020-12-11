@@ -3,6 +3,7 @@ import {SignInFormComponent} from 'wlc-engine/modules/user/components/sign-in-fo
 import {SignUpComponent} from 'wlc-engine/modules/user/components/sign-up/sign-up.component';
 import {ChangePasswordFormComponent} from 'wlc-engine/modules/user/components/change-password-form/change-password-form.component';
 import {RestorePasswordFormComponent} from 'wlc-engine/modules/user/components/restore-password-form/restore-password-form.component';
+import {LogoutComponent} from 'wlc-engine/modules/user/components/logout/logout.component';
 import {
     IModalConfig,
     IModalList,
@@ -83,6 +84,16 @@ export const MODALS_LIST: IModalList = {
             modifier: 'restore-password',
             modalTitle: 'Password restore',
             component: RestorePasswordFormComponent,
+            size: 'md',
+            backdrop: 'static',
+        },
+    },
+    logout: {
+        config: {
+            id: 'logout',
+            modalTitle: 'Log out',
+            modifier: 'logout',
+            component: LogoutComponent,
             size: 'md',
             backdrop: 'static',
         },

@@ -40,7 +40,7 @@ export const profileForm: IFormWrapperCParams = {
                     },
                     {
                         name: 'regExp',
-                        options: new RegExp('^[A-Za-z]$'),
+                        options: new RegExp('^[A-Za-z]'),
                     },
                 ],
                 exampleValue: 'Ivan',

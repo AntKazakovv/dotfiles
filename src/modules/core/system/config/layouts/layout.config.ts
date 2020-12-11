@@ -71,7 +71,7 @@ export const $layouts: ILayoutsConfig = {
     'app.profile': {
         extends: 'app',
         sections: {
-            profile: {
+            'profile-menu': {
                 container: true,
                 components: [
                     {
@@ -79,24 +79,22 @@ export const $layouts: ILayoutsConfig = {
                         params: {
                         },
                     },
-                    {
-                        name: 'menu.wlc-profile-menu',
-                        params: {
-                            type: 'submenu',
-                        },
-                    },
                 ],
-            },
-            content: {
             },
         },
     },
     'app.profile.main.info': {
         extends: 'app.profile',
         sections: {
-            content: {
+            'profile-content': {
                 container: true,
                 components: [
+                    {
+                        name: 'menu.wlc-profile-menu',
+                        params: {
+                            type: 'submenu',
+                        },
+                    },
                     {
                         name: 'user.wlc-profile-form',
                     },
@@ -107,7 +105,7 @@ export const $layouts: ILayoutsConfig = {
     'app.profile.social': {
         extends: 'app.profile',
         sections: {
-            content: {
+            'profile-content': {
                 container: true,
                 components: [
                 ],
@@ -117,7 +115,7 @@ export const $layouts: ILayoutsConfig = {
     'app.profile.loyalty-bonuses.main': {
         extends: 'app.profile',
         sections: {
-            content: {
+            'profile-content': {
                 container: true,
                 components: [
                 ],
@@ -127,7 +125,7 @@ export const $layouts: ILayoutsConfig = {
     'app.profile.loyalty-bonuses.active': {
         extends: 'app.profile',
         sections: {
-            content: {
+            'profile-content': {
                 container: true,
                 components: [
                 ],
@@ -137,7 +135,7 @@ export const $layouts: ILayoutsConfig = {
     'app.profile.loyalty-bonuses.inventory': {
         extends: 'app.profile',
         sections: {
-            content: {
+            'profile-content': {
                 container: true,
                 components: [
                 ],
@@ -147,7 +145,7 @@ export const $layouts: ILayoutsConfig = {
     'app.profile.loyalty-bonuses.history': {
         extends: 'app.profile',
         sections: {
-            content: {
+            'profile-content': {
                 container: true,
                 components: [
                 ],
@@ -157,7 +155,7 @@ export const $layouts: ILayoutsConfig = {
     'app.profile.loyalty-bonuses.promo': {
         extends: 'app.profile',
         sections: {
-            content: {
+            'profile-content': {
                 container: true,
                 components: [
                 ],
@@ -167,7 +165,7 @@ export const $layouts: ILayoutsConfig = {
     'app.profile.loyalty-bonuses.system': {
         extends: 'app.profile',
         sections: {
-            content: {
+            'profile-content': {
                 container: true,
                 components: [
                 ],
@@ -177,7 +175,7 @@ export const $layouts: ILayoutsConfig = {
     'app.profile.loyalty-tournaments.main': {
         extends: 'app.profile',
         sections: {
-            content: {
+            'profile-content': {
                 container: true,
                 components: [
                 ],
@@ -187,7 +185,7 @@ export const $layouts: ILayoutsConfig = {
     'app.profile.loyalty-tournaments.active': {
         extends: 'app.profile',
         sections: {
-            content: {
+            'profile-content': {
                 container: true,
                 components: [
                 ],
@@ -207,7 +205,7 @@ export const $layouts: ILayoutsConfig = {
     'app.profile.cash.deposit': {
         extends: 'app.profile',
         sections: {
-            content: {
+            'profile-content': {
                 container: true,
                 components: [
                     {
@@ -223,7 +221,7 @@ export const $layouts: ILayoutsConfig = {
     'app.profile.cash.withdraw': {
         extends: 'app.profile',
         sections: {
-            content: {
+            'profile-content': {
                 container: true,
                 components: [
                     {
@@ -239,7 +237,7 @@ export const $layouts: ILayoutsConfig = {
     'app.profile.cash.wallet': {
         extends: 'app.profile',
         sections: {
-            content: {
+            'profile-content': {
                 container: true,
                 components: [
                 ],
@@ -249,9 +247,25 @@ export const $layouts: ILayoutsConfig = {
     'app.profile.cash.transactions': {
         extends: 'app.profile',
         sections: {
-            content: {
+            'profile-menu': {
                 container: true,
                 components: [
+                    {
+                        name: 'menu.wlc-profile-menu',
+                        params: {
+                        },
+                    },
+                ],
+            },
+            'profile-content': {
+                container: true,
+                components: [
+                    {
+                        name: 'menu.wlc-profile-menu',
+                        params: {
+                            type: 'submenu',
+                        },
+                    },
                     {
                         name: 'finances.wlc-transaction-history',
                     },
@@ -262,7 +276,7 @@ export const $layouts: ILayoutsConfig = {
     'app.profile.gamblings.bets': {
         extends: 'app.profile',
         sections: {
-            content: {
+            'profile-content': {
                 container: true,
                 components: [
                 ],
@@ -272,7 +286,7 @@ export const $layouts: ILayoutsConfig = {
     'app.profile.loyalty-store.main': {
         extends: 'app.profile',
         sections: {
-            content: {
+            'profile-content': {
                 container: true,
                 components: [
                 ],
@@ -282,7 +296,7 @@ export const $layouts: ILayoutsConfig = {
     'app.profile.loyalty-store.orders': {
         extends: 'app.profile',
         sections: {
-            content: {
+            'profile-content': {
                 container: true,
                 components: [
                 ],
@@ -292,7 +306,7 @@ export const $layouts: ILayoutsConfig = {
     'app.profile.messages': {
         extends: 'app.profile',
         sections: {
-            content: {
+            'profile-content': {
                 container: true,
                 components: [
                 ],
@@ -302,7 +316,7 @@ export const $layouts: ILayoutsConfig = {
     'app.profile.verification': {
         extends: 'app.profile',
         sections: {
-            content: {
+            'profile-content': {
                 container: true,
                 components: [
                 ],
@@ -312,7 +326,7 @@ export const $layouts: ILayoutsConfig = {
     'app.profile.password': {
         extends: 'app.profile',
         sections: {
-            content: {
+            'profile-content': {
                 container: true,
                 components: [
                 ],
@@ -322,7 +336,7 @@ export const $layouts: ILayoutsConfig = {
     'app.profile.notifications': {
         extends: 'app.profile',
         sections: {
-            content: {
+            'profile-content': {
                 container: true,
                 components: [
                 ],
@@ -332,7 +346,7 @@ export const $layouts: ILayoutsConfig = {
     'app.profile.payments': {
         extends: 'app.profile',
         sections: {
-            content: {
+            'profile-content': {
                 container: true,
                 components: [
                 ],
@@ -342,7 +356,7 @@ export const $layouts: ILayoutsConfig = {
     'app.profile.limits': {
         extends: 'app.profile',
         sections: {
-            content: {
+            'profile-content': {
                 container: true,
                 components: [
                 ],
@@ -352,7 +366,7 @@ export const $layouts: ILayoutsConfig = {
     'app.profile.loyalty-level': {
         extends: 'app.profile',
         sections: {
-            content: {
+            'profile-content': {
                 container: true,
                 components: [
                 ],
@@ -362,7 +376,7 @@ export const $layouts: ILayoutsConfig = {
     'app.profile.referrals': {
         extends: 'app.profile',
         sections: {
-            content: {
+            'profile-content': {
                 container: true,
                 components: [
                 ],
@@ -372,7 +386,7 @@ export const $layouts: ILayoutsConfig = {
     'app.profile.dashboard': {
         extends: 'app.profile',
         sections: {
-            content: {
+            'profile-content': {
                 container: true,
                 components: [
                 ],

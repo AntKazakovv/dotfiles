@@ -2,10 +2,8 @@ import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
-    HostBinding,
     OnDestroy,
     OnInit,
-    HostListener,
 } from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {StateService, TransitionService, UIRouter, UIRouterGlobals} from '@uirouter/core';

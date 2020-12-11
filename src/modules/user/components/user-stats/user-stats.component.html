@@ -1,0 +1,53 @@
+<div class="{{$class}}__content" [ngSwitch]="type">
+
+    <ng-template [ngSwitchCase]="'short'">
+        <div class="{{$class}}-balance {{$class}}-balance--short">
+            <div class="{{$class}}-balance__item {{$class}}-balance__real">
+                <span class="name">{{'Real balance' | translate}}</span>
+                <span class="value">{{userStats?.balance}}</span>
+            </div>
+
+            <div class="{{$class}}-balance__item {{$class}}-balance__bonus">
+                <span class="name">{{'Bonus balance' | translate}}</span>
+                <span class="value">{{userStats?.loyalty?.Balance}}</span>
+            </div>
+        </div>
+    </ng-template>
+
+    <ng-template [ngSwitchCase]="'default'">
+        <div class="{{$class}}-email">
+            <div
+                class="{{$class}}-email__icon"
+                wlc-icon
+                iconName="user-icon"
+            ></div>
+
+            <div class="{{$class}}-email__value">
+                {{userStats?.email | truncate: 20}}
+            </div>
+
+            <button
+                wlc-button
+                class="{{$class}}-email__logout wlc-btn-logout"
+                theme="icon"
+                icon="logout"
+                (click)="logout()"
+            ></button>
+        </div>
+
+        <div class="{{$class}}-balance" *ngIf="this.shownUserStats">
+            <div class="{{$class}}-balance__item {{$class}}-balance__item--{{item}}"
+                 *ngFor="let item of $params.fields">
+                <span class="name">{{this.shownUserStats[item].name | translate}}</span>
+                <span class="value">{{this.shownUserStats[item].value}}</span>
+            </div>
+        </div>
+
+        <button
+            wlc-button
+            class="wlc-btn-deposit"
+            text="Deposit"
+            (click)="depositAction()"
+        ></button>
+    </ng-template>
+</div>

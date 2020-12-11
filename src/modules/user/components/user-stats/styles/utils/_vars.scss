@@ -1,0 +1,34 @@
+$userStatsMaxWidth: 270px !default;
+$userStatsColor: #fff !default;
+
+$userStatsEmailMargin: 0 0 10px 0 !default;
+$userStatsEmailValueMargin: 0 15px !default;
+
+$userStatsIconWidth: 39px !default;
+$userStatsIconHeight: 39px !default;
+
+$userStatsEmailValueSize: 14px !default;
+$userStatsEmailValueWeight: bold !default;
+
+$userStatsBalancePadding: 11px 15px !default;
+$userStatsBalanceBorderRadius: 10px !default;
+$userStatsBalanceBg: #000 !default;
+
+$userStatsBalanceShortPadding: 0 !default;
+$userStatsBalanceShortMinWidth: 180px !default;
+$userStatsBalanceShortBg: none !default;
+$userStatsBalanceShortBorderColor: #8d979a !default;
+
+$userStatsBalanceItemPadding: 4px 0 !default;
+$userStatsBalanceItemBorder: 2px solid #353739 !default;
+
+$userStatsBalanceItemNameSize: 12px !default;
+$userStatsBalanceItemNameWeight: normal !default;
+
+$userStatsBalanceItemValueSize: 12px !default;
+$userStatsBalanceItemValueWeight: bold !default;
+
+$logoutIconFill: #c4c4c4 !default;
+$logoutIconHoveredFill: darken($logoutIconFill, 40) !default;
+
+$userStatsBtnMargin: 15px auto 0 !default;

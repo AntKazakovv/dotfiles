@@ -13,7 +13,6 @@ import * as Params from './profile-form.params';
 
 import {
     each as _each,
-    cloneDeep as _cloneDeep,
 } from 'lodash';
 
 /**

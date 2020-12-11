@@ -18,7 +18,6 @@ import {EventService} from 'wlc-engine/modules/core/system/services';
 import * as MenuParams from 'wlc-engine/modules/menu/components/menu/menu.params';
 import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.model';
 import * as Params from 'wlc-engine/modules/menu/components/category-menu/category-menu.params';
-import {gamesEvents} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
 import {MenuHelper} from 'wlc-engine/modules/menu/system/helpers/menu.helper';
 
 import {

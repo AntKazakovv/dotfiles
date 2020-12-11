@@ -11,15 +11,16 @@ import {
     SimpleChanges,
     OnInit,
 } from '@angular/core';
-import {Subject, Observable, fromEvent} from 'rxjs';
+import {StateService} from '@uirouter/core';
+import {Subject, fromEvent} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {IconComponent} from '../icon/icon.component';
 import {AbstractComponent, IMixedParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import * as BParams from './button.params';
 import {
     ConfigService,
     EventService,
 } from 'wlc-engine/modules/core/system/services';
+import * as BParams from './button.params';
 
 import {
     forEach as _forEach,
@@ -63,7 +64,8 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
         protected elementRef: ElementRef,
         protected cdr: ChangeDetectorRef,
         protected ConfigService: ConfigService,
-        private eventService: EventService,
+        protected stateService: StateService,
+        protected eventService: EventService,
     ) {
         super(
             <IMixedParams<BParams.IButtonParams>>{
@@ -84,11 +86,16 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
     }
 
     public ngAfterViewInit(): void {
-        if (this.$params?.common?.event) {
+        //todo refactor
+        if (this.$params.common?.event || this.params.common?.sref) {
             fromEvent(this.elementRef.nativeElement, 'click')
                 .pipe(takeUntil(this.$destroy))
                 .subscribe(() => {
-                    this.eventService.emit(this.$params?.common?.event);
+                    if (this.$params.common?.event) {
+                        this.eventService.emit(this.$params.common.event);
+                    } else if (this.params.common?.sref) {
+                        this.stateService.go(this.params.common.sref);
+                    }
                 });
         }
     }

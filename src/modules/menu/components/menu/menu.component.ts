@@ -4,29 +4,55 @@ import {
     Component,
     Inject,
     Injector,
-    Input,
+    Input, OnChanges,
     OnInit,
     SimpleChanges,
 } from '@angular/core';
 import {StateService} from '@uirouter/core';
+import {
+    animate,
+    state,
+    style,
+    transition,
+    trigger,
+} from '@angular/animations';
 
 import {AbstractComponent, IMixedParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {MenuHelper} from 'wlc-engine/modules/menu/system/helpers/menu.helper';
 import {
     LayoutService,
     ActionService,
-    EventService,
     ModalService,
 } from 'wlc-engine/modules/core/system/services';
 import * as Params from 'wlc-engine/modules/menu/components/menu/menu.params';
+
+import {
+    get as _get,
+    isString as _isString,
+} from 'lodash';
+import {IMenuItemsGroup} from 'wlc-engine/modules/menu/components/menu/menu.params';
 
 @Component({
     selector: '[wlc-menu]',
     templateUrl: './menu.component.html',
     styleUrls: ['./styles/menu.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    animations: [
+        trigger('toggle', [
+            state('opened', style({
+                height: '*',
+                opacity: 1,
+            })),
+            state('closed', style({
+                height: '0px',
+                opacity: 0,
+            })),
+            transition('* => *', [
+                animate('0.1s'),
+            ]),
+        ])],
 })
-export class MenuComponent extends AbstractComponent implements OnInit {
+export class MenuComponent extends AbstractComponent implements OnInit, OnChanges {
     public items: Params.MenuItemObjectType[];
     public $params: Params.IMenuCParams;
 
@@ -54,7 +80,7 @@ export class MenuComponent extends AbstractComponent implements OnInit {
     }
 
     public toggleDropdown(item: Params.IMenuItemsGroup): void {
-        item.opened = !item.opened;
+        item.expand = !item.expand;
     }
 
     public ngOnChanges(changes: SimpleChanges): void {
@@ -95,6 +121,21 @@ export class MenuComponent extends AbstractComponent implements OnInit {
                 type: this.$params.type,
             },
         );
+        this.expandItems();
         this.cdr.markForCheck();
+    }
+
+    protected expandItems(): void {
+        for (const item of this.items) {
+            if (_get(item, 'parent')) {
+                const itemsGroup: IMenuItemsGroup = item as IMenuItemsGroup;
+                for (const subitem of itemsGroup.items) {
+                    if (this.isActive(subitem.params?.state?.name)) {
+                        itemsGroup.expand = true;
+                        break;
+                    }
+                }
+            }
+        }
     }
 }

@@ -80,8 +80,8 @@ export class UserService {
 
         this.eventService.subscribe({
             name: 'USER_INFO',
-        }, (info: IUserInfo) => {
-            this.info.data = info;
+        }, (info: IData) => {
+            this.info.data = info?.data;
         });
 
         this.eventService.subscribe([
@@ -189,7 +189,7 @@ export class UserService {
     }
 
     public sendPasswordRestore(email: string, reCaptchaToken?: string): void {
-        const params: {email: string, reCaptchaToken?: string} = {
+        const params: { email: string, reCaptchaToken?: string } = {
             email: email,
         };
 
@@ -226,7 +226,7 @@ export class UserService {
     }
 
     public changeEmail(email: string, currentPassword?: string, code?: string): void {
-        const params: {email: string; currentPassword?: string; code?: string} = {email};
+        const params: { email: string; currentPassword?: string; code?: string } = {email};
 
         if (currentPassword) {
             params.currentPassword = currentPassword;
