@@ -1,4 +1,3 @@
-import {formatDate} from '@angular/common';
 import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
 import {ConfigService} from 'wlc-engine/modules/core/system/services';
@@ -6,25 +5,36 @@ import {
     IBonus,
     IBonusConditions,
     IBonusImageType,
+    ActionType,
 } from '../interfaces/bonuses.interface';
-
+import {BonusesService} from '../../system/services';
+import {DateTime} from 'luxon';
 import {
+    get as _get,
     toNumber as _toNumber,
     isNumber as _isNumber,
     isString as _isString,
+    toString as _toString,
     isObject as _isObject,
+    isArray as _isArray,
     floor as _floor,
     each as _each,
+    filter as _filter,
+    includes as _includes,
+    extend as _extend,
+    unset as _unset,
+    remove as _remove,
+    size as _size,
 } from 'lodash';
-import {LoyaltyBonusesService} from '../services/loyalty-bonuses.service';
 
 export class Bonus extends AbstractModel<IBonus> {
+    public isReady: Boolean = true;
     protected userCurrency: string;
 
     constructor(
         data: IBonus,
         protected ConfigService: ConfigService,
-        protected loyaltyBonusesService: LoyaltyBonusesService,
+        protected bonusesService: BonusesService,
     ) {
         super();
         this.data = this.modifyData(data);
@@ -241,6 +251,10 @@ export class Bonus extends AbstractModel<IBonus> {
         return _isNumber(this.data.PromoCode) ? '' : this.data.PromoCode;
     }
 
+    public get hasPromoCode(): boolean {
+        return _isNumber(this.data.PromoCode) ? !!this.data.PromoCode : !!this.data.PromoCode.length;
+    }
+
     public get promoCodeUsed(): string {
         return this.data.PromoCodeUsed;
     }
@@ -323,7 +337,11 @@ export class Bonus extends AbstractModel<IBonus> {
     }
 
     public get canSubscribe(): boolean {
-        return this.status == 1 && !this.selected && !this.active;
+        return this.status == 1 && !this.selected && !this.active && !this.inventoried;
+    }
+
+    public get canUnsubscribe(): boolean {
+        return this.isSubscribed || this.inventoried;
     }
 
     public get minDeposit(): number {
@@ -475,25 +493,106 @@ export class Bonus extends AbstractModel<IBonus> {
         return rounded ? _floor(progress) : progress;
     }
 
-    public expirationTime(format: string = 'L LT'): string {
-        // TODO add moment (window as any).moment.utc(this.data.Expire).local().format(format);
-        return formatDate(this.data.Expire, 'M/d/yy, h:mm a', 'en-US');
+    public expirationTime(format: string = 'D T'): string {
+        const defaultTime = DateTime.fromSQL(this.data.Expire);
+        const offsetTime = defaultTime.plus({minutes: defaultTime.offset});
+        return offsetTime.setLocale(defaultTime.locale).toFormat(format);
     }
 
-    public getInventory(): void {
-        // TODO
+    public addToLocalStorage(type: ActionType): void {
+        const target = this.results[this.target];
+        if (this.event === 'sign up'
+            && type === 'subscribe'
+            && ((this.target === 'balance' && _toString(target?.ReleaseWagering) === '0')
+                || (this.target !== 'balance'
+                    && ((_toString(target?.AwardWagering?.COEF) === '0')
+                        || (_toString(target?.AwardWagering?.EUR) === '0'))
+                )
+            )) {
+            return;
+        }
+
+        let ls: IIndexing<number[]>;
+
+        try {
+            ls = JSON.parse(localStorage.getItem('wlc.bonuses') || '{}');
+        } catch {
+            ls = {};
+        }
+        if (ls.hasOwnProperty(type) && _isArray(ls[type]) && !_includes(ls[type], this.id)) {
+            ls[type].push(this.id);
+        } else {
+            ls[type] = [this.id];
+        }
+        _each(ls, (list, key) => {
+            if (key === type) {
+                return;
+            }
+            if (!_isArray(ls[key])) {
+                _unset(ls, key);
+            } else {
+                _remove(list, (n) => n === this.id);
+            }
+        });
+        localStorage.setItem('wlc.bonuses', JSON.stringify(ls));
     }
 
-    public async join(): Promise<void> {
-        await this.loyaltyBonusesService.subscribeBonus(this);
-    }
+    public setFromLocalStorage(): void {
+        let ls: IIndexing<number[]>;
 
-    public async leave(): Promise<void> {
-        await this.loyaltyBonusesService.cancelBonus(this);
-    }
+        try {
+            ls = JSON.parse(localStorage.getItem('wlc.bonuses') || '{}');
+        } catch {
+            ls = {};
+        }
 
-    public async unsubscribe(): Promise<void> {
-        await this.loyaltyBonusesService.unsubscribeBonus(this);
+        _each(ls, (list, key) => {
+            if (!_isArray(list) || list.length === 0) {
+                _unset(ls, key);
+                return;
+            }
+            if (_includes(list, this.id)) {
+                switch (key) {
+                    case 'cancel':
+                        if (!this.active) {
+                            _remove(list, (n) => n === this.id);
+                        } else {
+                            this.data.Active = 0;
+                            this.data.Status = -99;
+                        }
+                        break;
+                    case 'subscribe':
+                        if (this.selected) {
+                            _remove(list, (n) => n === this.id);
+                        } else {
+                            this.data.Selected = 1;
+                            this.data.Status = -99;
+                        }
+                        break;
+                    case 'unsubscribe':
+                        if (!this.selected) {
+                            _remove(list, (n) => n === this.id);
+                        } else {
+                            this.data.Selected = 0;
+                            this.data.Status = -99;
+                        }
+                        break;
+                    case 'inventory':
+                        if (!this.inventoried) {
+                            _remove(list, (n) => n === this.id);
+                        } else {
+                            this.data.Inventoried = 0;
+                            this.data.Status = -99;
+                        }
+                        break;
+                }
+            }
+        });
+        if (_size(ls) !== 0) {
+            localStorage.setItem('wlc.bonuses', JSON.stringify(ls));
+        } else {
+            localStorage.removeItem('wlc.bonuses');
+        }
     }
 
     protected modifyData(bonus: IBonus): IBonus {

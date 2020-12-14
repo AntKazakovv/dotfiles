@@ -18,6 +18,7 @@ import {
     EventService,
 } from 'wlc-engine/modules/core/system/services';
 import {Bonus} from '../../system/models/bonus';
+import {BonusesService} from '../../system/services';
 import * as Params from './bonus-item.params';
 
 import {
@@ -61,6 +62,9 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
     public isAuth: boolean;
     public currency: string;
     public isChoose: boolean = false;
+    public isNoChooseBtn: boolean;
+    public isChooseBtn: boolean;
+    public isTypeRegDeposit: boolean;
 
     constructor(
         @Inject('injectParams') protected params: Params.IBonusItemParams,
@@ -68,6 +72,7 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
         protected ConfigService: ConfigService,
         protected modalService: ModalService,
         protected eventService: EventService,
+        protected bonusesService: BonusesService,
     ) {
         super(
             <IMixedParams<Params.IBonusItemParams>>{injectParams: params, defaultParams: Params.defaultParams}, ConfigService);
@@ -81,20 +86,9 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
         this.prepareModifiers();
         this.isAuth = this.ConfigService.get<boolean>('$user.isAuthenticated');
         this.currency = this.ConfigService.get<string>('appConfig.user.currency') || 'EUR';
-        this.eventService.subscribe({
-            name: 'BONUS_SUBSCRIBE_SUCCEEDED',
-        }, () => this.cdr.detectChanges(),
-        this.$destroy);
-
-        this.eventService.subscribe({
-            name: 'BONUS_UNSUBSCRIBE_SUCCEEDED',
-        }, () => this.cdr.detectChanges(),
-        this.$destroy);
-
-        this.eventService.subscribe({
-            name: 'BONUS_CANCEL_SUCCEEDED',
-        }, () => this.cdr.detectChanges(),
-        this.$destroy);
+        this.isTypeRegDeposit = this.$params.common?.type === 'reg' || this.$params.common?.type === 'deposit';
+        this.isNoChooseBtn = this.$params.common?.hideChooseBtn && this.isTypeRegDeposit;
+        this.isChooseBtn = !this.$params.common?.hideChooseBtn && this.isTypeRegDeposit;
     }
 
     public getBonusTag(): string {
@@ -121,6 +115,34 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
             name: BonusItemComponentEvents[type],
             data: bonus,
         });
+    }
+
+    public async getInventory(): Promise<void> {
+        this.bonus = await this.bonusesService.takeInventory(this.bonus);
+        if (this.bonus) {
+            this.cdr.markForCheck();
+        }
+    }
+
+    public async join(): Promise<void> {
+        this.bonus = await this.bonusesService.subscribeBonus(this.bonus);
+        if (this.bonus) {
+            this.cdr.markForCheck();
+        }
+    }
+
+    public async leave(): Promise<void> {
+        this.bonus = await this.bonusesService.cancelBonus(this.bonus);
+        if (this.bonus) {
+            this.cdr.markForCheck();
+        }
+    }
+
+    public async unsubscribe(): Promise<void> {
+        this.bonus = await this.bonusesService.unsubscribeBonus(this.bonus);
+        if (this.bonus) {
+            this.cdr.markForCheck();
+        }
     }
 
     protected prepareParams(): Params.IBonusItemParams {

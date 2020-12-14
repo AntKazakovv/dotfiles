@@ -14,16 +14,21 @@ import {
 import {ConfigService} from 'wlc-engine/modules/core';
 import {EventService} from 'wlc-engine/modules/core/system/services';
 import {Bonus} from '../../system/models/bonus';
-import {LoyaltyBonusesService} from '../../system/services/loyalty-bonuses.service';
+import {BonusesService} from '../../system/services';
 import * as Params from './bonuses-list.params';
 
 import {
     merge as _merge,
     isString as _isString,
     union as _union,
+    get as _get,
+    isUndefined as _isUndefined,
+    keys as _keys,
+    isObject as _isObject,
 } from 'lodash';
+import {IData} from 'wlc-engine/modules/core/system/services/data/data.service';
 
-export {IBonusesListParams} from './bonuses-list.params';
+export {IBonusesListCParams} from './bonuses-list.params';
 
 @Component({
     selector: '[wlc-bonuses-list]',
@@ -38,27 +43,42 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
     @Input() protected theme: Params.Theme;
     @Input() protected themeMod: Params.ThemeMod;
     @Input() protected customMod: Params.CustomMod;
+    @Input() protected inlineParams: Params.IBonusesListCParams;
 
-    public $params: Params.IBonusesListParams;
-    public bonuses: Bonus[];
+    public $params: Params.IBonusesListCParams;
+    public bonuses: Bonus[] = [];
+    public isReady: boolean = false;
 
     constructor(
-        @Inject('injectParams') protected params: Params.IBonusesListParams,
+        @Inject('injectParams') protected params: Params.IBonusesListCParams,
         protected cdr: ChangeDetectorRef,
         protected ConfigService: ConfigService,
-        protected loyaltyBonusesService: LoyaltyBonusesService,
+        protected bonusesService: BonusesService,
         protected eventService: EventService,
     ) {
         super(
-            <IMixedParams<Params.IBonusesListParams>>{injectParams: params, defaultParams: Params.defaultParams}, ConfigService);
+            <IMixedParams<Params.IBonusesListCParams>>{injectParams: params, defaultParams: Params.defaultParams}, ConfigService);
     }
 
-    public async ngOnInit(): Promise<void> {
-        super.ngOnInit();
+    public ngOnInit(): void {
+        super.ngOnInit(this.inlineParams);
         this.prepareModifiers();
-        await this.loyaltyBonusesService.loadBonuses();
-        this.bonuses = this.loyaltyBonusesService.allBonuses;
-        this.cdr.detectChanges();
+        this.isReady = false;
+
+        this.bonusesService.getSubscribe({
+            useQuery: true,
+            observer: {
+                next: (bonuses: Bonus[]) => {
+                    if (bonuses) {
+                        this.bonuses = this.bonusesService.filterBonuses(bonuses, this.$params.common?.filter);
+                        this.isReady = true;
+                    }
+                    this.cdr.markForCheck();
+                },
+            },
+            type: this.$params.common?.restType,
+            until: this.$destroy,
+        });
     }
 
     protected prepareModifiers(): void {

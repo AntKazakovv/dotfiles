@@ -4,6 +4,7 @@ export * from './user.interface';
 export * from './promo.interface';
 export * from './layouts.interface';
 export * from './fundist.interface';
+export * from './loyalty-config.interface';
 export * from './config/base.config';
 export {IDeviceType} from 'wlc-engine/modules/core/system/models/device.model';
 export * from './config.interface';

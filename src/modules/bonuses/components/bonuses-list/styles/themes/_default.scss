@@ -1,4 +1,45 @@
+@use 'engine-scss/mixins/mediaqueries' as mq;
 @import '../utils/vars';
 
+.wlc-bonuses-list--theme-default {
+    background-color: #000;
 
-// TODO:
+    &:host {
+
+        .wlc-bonuses-list__list {
+            margin: $margin;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            > div {
+                width: 100%;
+                margin-bottom: $gridGap;
+            }
+
+            @include mq.min(720) {
+                display: grid;
+                grid-gap: $gridGap;
+                grid-template-columns: repeat(auto-fill, minmax($minItemWidth, 1fr));
+
+                > div {
+                    margin-bottom: 0;
+                }
+            }
+        }
+
+        .wlc-bonuses-list__nocontent,
+        .wlc-bonuses-list__header {
+            text-align: center;
+
+            @include mq.min(1024) {
+                text-align: left;
+            }
+        }
+
+        .wlc-bonuses-list__header {
+            font-weight: bold;
+        }
+    }
+}
+

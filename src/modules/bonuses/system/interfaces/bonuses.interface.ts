@@ -1,5 +1,9 @@
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
-import {type} from 'os';
+import {
+    PartialObserver,
+    Observable,
+} from 'rxjs';
+import {Bonus} from '../models/bonus';
 
 export interface IBonus {
     Active: number;
@@ -107,4 +111,20 @@ export interface IBonusConditionsGames {
     MarketsBL: any;
 }
 
+export interface IQueryParams {
+    type?: string;
+    event?: string;
+    PromoCode?: string;
+}
+
+export interface IGetSubscribeParams {
+    useQuery: boolean;
+    observer: PartialObserver<Bonus[]>;
+    type?: RestType;
+    until?: Observable<unknown>;
+}
+
 export type IBonusImageType = 'default' | 'reg' | 'deposit' | 'promo' | 'store' | 'other';
+export type BonusesFilterType = 'all' | 'reg' | 'deposit' | 'promocode' | 'inventory' | 'main' | 'active' | 'default';
+export type RestType = 'active' | 'history' | 'store' | 'any';
+export type ActionType = 'inventory' | 'cancel' | 'subscribe' | 'unsubscribe';
