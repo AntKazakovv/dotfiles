@@ -1,4 +1,8 @@
-import {IIndexing, ILayoutsConfig} from 'wlc-engine/modules/core/system/interfaces';
+import {
+    IIndexing,
+    ILayoutsConfig,
+    ILoyaltyConfig,
+} from 'wlc-engine/modules/core/system/interfaces';
 import {AppConfigModel} from 'wlc-engine/modules/core';
 
 /**
@@ -12,6 +16,7 @@ export interface IGlobalConfig {
     $static: unknown,
     $files: IIndexing<string>,
     $games: unknown,
+    $loyalty: ILoyaltyConfig,
 }
 
 export interface IGetParams {

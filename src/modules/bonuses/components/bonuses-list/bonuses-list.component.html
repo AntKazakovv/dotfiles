@@ -1,6 +1,11 @@
 <div class="{{$class}}__content">
-    <h2>Bonuses</h2>
-    <div class="{{$class}}__list">
-        <div wlc-bonus-item [bonus]="bonus" *ngFor="let bonus of bonuses"></div>
+    <div class="{{$class}}__header">{{$params.common.title | translate}}</div>
+    <div class="{{$class}}__list" *ngIf="bonuses?.length && isReady; else: noBonuses">
+        <div wlc-bonus-item [bonus]="bonus" [type]="$params.common.filter" *ngFor="let bonus of bonuses"></div>
     </div>
+    <!-- TODO: add pagination -->
+    <ng-template #noBonuses>
+        <div class="{{$class}}__nocontent" *ngIf="isReady">{{'No bonuses available' | translate}}</div>
+        <div class="{{$class}}__nocontent" *ngIf="!isReady"><div wlc-loader></div></div>
+    </ng-template>
 </div>

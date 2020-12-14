@@ -1,12 +1,3 @@
 @import './utils/vars';
-
-.wlc-bonuses-list {
-
-    &__list {
-        display: grid;
-        grid-gap: 20px;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    }
-}
-
 @import './themes/default';
+

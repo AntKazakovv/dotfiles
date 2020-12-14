@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {LoyaltyBonusesService} from './system/services/loyalty-bonuses.service';
+import {BonusesService} from './system/services';
 import {CoreModule} from '../core/core.module';
 import {BonusItemComponent} from './components/bonus-item/bonus-item.component';
 import {BonusesListComponent} from './components/bonuses-list/bonuses-list.component';
@@ -22,7 +22,7 @@ export const components = {
         TranslateModule,
     ],
     providers: [
-        LoyaltyBonusesService,
+        BonusesService,
     ],
     exports: [
         BonusItemComponent,

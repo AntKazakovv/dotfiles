@@ -1,8 +1,10 @@
 export type BaseConfigType = Partial<IBaseConfig>;
+export type ErrorsType = 'modals' | 'notify' | 'none';
 
 interface IBaseConfig {
     profile: IProfile,
     tournaments: ITournaments,
+    errorsType: ErrorsType;
 }
 
 export interface IProfile {

@@ -1,9 +1,10 @@
-import {TemplateRef, QueryList} from '@angular/core';
+import {QueryList} from '@angular/core';
 import {NgTemplateNameDirective} from 'wlc-engine/modules/core/directives/template-name/template-name.directive';
 
 import {
     get as _get,
     size as _size,
+    each as _each,
 } from 'lodash';
 
 export class GlobalHelper {
@@ -38,6 +39,16 @@ export class GlobalHelper {
         // console.log(templatesList);
         // const dir = templatesList.find((template: NgTemplateNameDirective) => template.name === name);
         // return dir ? dir.template : null;
+    }
+
+    public static getModalMessages(errors: string[], title?: string): string[] {
+        const messages = title ? [title] : [];
+        if (errors) {
+            _each(errors, (error: string) => {
+                messages.push(error);
+            });
+        }
+        return messages;
     }
 
     /**
