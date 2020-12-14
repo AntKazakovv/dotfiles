@@ -153,7 +153,7 @@ class StartGameHandler {
         this.mobile = this.configService.get<boolean>('appConfig.siteconfig.mobile');
         this.isDemo = !!this.transition.params().demo;
         this.authenticated = this.userService.isAuthenticated;
-        this.playForReal = this.configService.get<boolean>('appConfig.siteconfig.game.playForReal');
+        this.playForReal = this.configService.get<boolean>('appConfig.siteconfig.games.playForReal');
 
         this.realPlayDisableByCountry = _includes(
             this.configService.get('$games.realPlayDisableByCountry') || [],

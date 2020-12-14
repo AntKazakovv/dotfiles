@@ -1,13 +1,4 @@
-export type BaseConfigType = Partial<IBaseConfig>;
-export type ErrorsType = 'modals' | 'notify' | 'none';
-
-interface IBaseConfig {
-    profile: IProfile,
-    tournaments: ITournaments,
-    errorsType: ErrorsType;
-}
-
-export interface IProfile {
+export interface IProfileСonfig {
     messages?: {
         use: boolean;
     },
@@ -34,8 +25,4 @@ export interface IProfile {
     wallet?: {
         use: boolean;
     },
-}
-
-export interface ITournaments {
-    use: boolean;
 }
