@@ -14,7 +14,6 @@ import {
     IIndexing,
     IForbidBanned,
 } from 'wlc-engine/modules/core/system/interfaces';
-import {ErrorsType} from 'wlc-engine/modules/core/system/interfaces/base-config.interface';
 import {
     IBonus,
     RestType,
@@ -501,19 +500,10 @@ export class BonusesService {
     }
 
     private showError(title: string, errors: string[]): void {
-        const errorsType = this.configService.get<ErrorsType>('$base.errorsType');
-        switch(errorsType) {
-            case 'notify':
-                // TODO
-                break;
-            case 'none':
-                break;
-            default:
-                this.modalService.showError({
-                    modalMessage: GlobalHelper.getModalMessages(errors, title),
-                });
-                break;
-        }
+        this.modalService.showError({
+            modalTitle: title,
+            modalMessage: errors,
+        });
     }
 
     private prepareBonusActionData(res: unknown, bonus: Bonus, actionType: ActionType): Bonus {
