@@ -26,6 +26,7 @@ import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 import {
     fromEvent,
     Subject,
+    Subscription,
 } from 'rxjs';
 import {
     takeUntil,
@@ -40,6 +41,11 @@ import {
     isObject as _isObject,
     isUndefined as _isUndefined,
     assign as _assign,
+    differenceWith as _differenceWith,
+    isEqual as _isEqual,
+    find as _find,
+    findIndex as _findIndex,
+    cloneDeep as _cloneDeep,
 } from 'lodash';
 
 @Component({
@@ -59,6 +65,9 @@ export class LayoutComponent implements OnInit, OnDestroy {
     protected allComponents$: ILayoutComponent[] = [];
     private currentConfig: ILayoutStateConfig;
     private $destroy: Subject<void> = new Subject();
+
+    private resize$: Subscription;
+    private auth$: Subscription;
 
     constructor(
         protected ConfigService: ConfigService,
@@ -100,13 +109,16 @@ export class LayoutComponent implements OnInit, OnDestroy {
         this.$destroy.complete();
     }
 
+    // public trackByComponent(index: number, component: ILayoutComponent): any {
+    //     return component.name + JSON.stringify(component.params);
+    // }
+
     protected async setComponents(state: string, params?: IIndexing<any>): Promise<void> {
         this.currentConfig = await this.layoutService.getLayout(this.layouts, state, params);
         this.section = this.currentConfig.sections[this.sectionName];
-        this.allComponents$ = this.section?.components as ILayoutComponent[] || [];
+        this.getAllComponents();
         this.setWatcher();
-        this.components = this.filterComponents();
-        this.cdr.markForCheck();
+        this.updateComponents();
     }
 
     protected filterComponents(): ILayoutComponent[] {
@@ -153,30 +165,62 @@ export class LayoutComponent implements OnInit, OnDestroy {
                 }
             });
 
-            fromEvent(window, 'resize').pipe(takeUntil(this.$destroy)).subscribe({
-                next: () => {
-                    this.components = this.filterComponents();
-                    this.cdr.markForCheck();
-                },
-            });
+            if (!this.resize$) {
+                this.resize$ = fromEvent(window, 'resize').pipe(takeUntil(this.$destroy)).subscribe({
+                    next: () => {
+                        this.updateComponents();
+                    },
+                });
+            }
         }
 
         const auth = _reduce(this.allComponents$, (res, component): boolean => {
             return res || !_isUndefined(component.display?.auth);
         }, false);
 
-        if (auth) {
-            this.eventService.filter(
+        if (auth && !this.auth$) {
+            this.auth$ = this.eventService.filter(
                 [{name: 'LOGIN'}, {name: 'LOGOUT'}],
                 this.$destroy)
                 .subscribe({
                     next: () => {
                         setTimeout(() => {
-                            this.components = this.filterComponents();
-                            this.cdr.markForCheck();
+                            this.updateComponents();
                         }, 0);
                     },
                 });
         }
+    }
+
+    protected getAllComponents(): void {
+        const allComponents = this.section?.components as ILayoutComponent[] || [];
+
+        if (this.allComponents$.length) {
+            const oldList = this.allComponents$.slice();
+
+            _each(allComponents, (component, key) => {
+                const index = _findIndex(oldList, (item: ILayoutComponent) => {
+                    return component.name === item.name && _isEqual(component.params, item.params);
+                });
+                if (index !== -1) {
+                    allComponents[key] = oldList[index];
+                    oldList.splice(index, 1);
+                }
+            });
+        }
+
+        if (this.allComponents$.length) {
+            this.allComponents$.length = 0;
+        }
+        this.allComponents$.push(...allComponents);
+
+    }
+
+    protected updateComponents(): void {
+        if (this.components) {
+            this.components.length = 0;
+        }
+        this.components.push(...this.filterComponents());
+        this.cdr.markForCheck();
     }
 }

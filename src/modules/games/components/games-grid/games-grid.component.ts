@@ -10,7 +10,11 @@ import {
     Input,
 } from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
-import {UIRouter} from '@uirouter/core';
+import {
+    UIRouter,
+    TransitionService,
+    UIRouterGlobals,
+} from '@uirouter/core';
 import {fromEvent} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
@@ -28,7 +32,6 @@ import {
     ILanguage,
 } from 'wlc-engine/modules/core';
 import {
-    CategoriesService,
     GamesCatalogService,
 } from 'wlc-engine/modules/games';
 import {GamesFilterServiceEvents} from 'wlc-engine/modules/games';
@@ -87,7 +90,7 @@ export class GamesGridComponent extends AbstractComponent
         protected translate: TranslateService,
         protected configService: ConfigService,
         protected renderer: Renderer2,
-        protected categoriesService: CategoriesService,
+        protected transition: TransitionService,
     ) {
         super({injectParams, defaultParams}, configService);
     }
@@ -95,27 +98,16 @@ export class GamesGridComponent extends AbstractComponent
     public async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
         this.$params = _extend({}, defaultParams, this.injectParams, this.inlineParams); // TODO delete costil params not working
-        this.games = await this.getGames();
 
-        if (this.childCategory) {
-            this.title = this.childCategory.title[this.translate.currentLang];
-        } else if (this.parentCategory) {
-            this.title = this.parentCategory.title[this.translate.currentLang];
-        } else {
-            this.title = this.$params?.title || this.categoryTitle;
-        }
-
-        this.filteredGames = this.games;
         this.hideSearchBlock = this.$params?.hideOnEmptySearch;
-
         this.useLazy = this.$params?.moreBtn?.lazy || false;
         this.lazyTimeout = this.$params?.moreBtn?.lazyTimeout || 1000;
         this.placeHolders = Array(6).fill(1);
-        this.cdr.detectChanges();
         this.filterName = this.$params.searchFilterName || 'page';
 
-        this.currentLanguage = _find(this.configService.get<ILanguage[]>('appConfig.languages'), {
-            code: this.translate.currentLang,
+        await this.prepareGrid();
+        this.transition.onSuccess({}, async (transition) => {
+            this.prepareGrid();
         });
 
         if (this.$params?.type === 'search') {
@@ -127,6 +119,24 @@ export class GamesGridComponent extends AbstractComponent
         if (this.useLazy) {
             this.initScrollListener();
         }
+    }
+
+    public async prepareGrid(): Promise<void> {
+        this.games = await this.getGames();
+        if (this.childCategory) {
+            this.title = this.childCategory.title[this.translate.currentLang];
+        } else if (this.parentCategory) {
+            this.title = this.parentCategory.title[this.translate.currentLang];
+        } else {
+            this.title = this.$params?.title || this.categoryTitle;
+        }
+        this.filteredGames = this.games;
+
+        this.cdr.detectChanges();
+
+        // this.currentLanguage = _find(this.configService.get<ILanguage[]>('appConfig.languages'), {
+        //     code: this.translate.currentLang,
+        // });
     }
 
     public ngAfterViewInit(): void {

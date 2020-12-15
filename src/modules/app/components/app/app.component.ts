@@ -75,12 +75,21 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
 
         this.transition.onSuccess({}, async (transition) => {
             this.setHostClass();
-            this.sections = _sortBy(this.layoutService
+            const sections = _sortBy(this.layoutService
                 .getAllSection('pages', this.uiRouter.transition?.targetState().name(),
                     this.uiRouter.transition?.targetState().params()), 'order');
+
+            if (this.sections.length) {
+                this.sections.length = 0;
+            }
+            this.sections.push(...sections);
         });
         this.setHostClass();
         this.cdr.markForCheck();
+    }
+
+    public trackBySectionName(index: number, section: SectionModel): string {
+        return section.name;
     }
 
     private setHostClass(): void {
