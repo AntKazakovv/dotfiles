@@ -15,7 +15,7 @@ export const defaultParams: ILogoCParams = {
     class: 'wlc-logo',
     link: 'app.home',
     uiOptions: {
-        reload: true,
+        reload: false,
         inherit: true,
     },
     disableLink: false,
