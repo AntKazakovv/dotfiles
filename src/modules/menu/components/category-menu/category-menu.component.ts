@@ -95,7 +95,7 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
      * Init menu
      */
     protected initMenu(): void {
-        if (this.$params.type == 'dropdown') {
+        if (this.$params.type === 'dropdown') {
             this.initAsDropdown();
         } else {
             if (this.gamesCatalogService.catalogOpened()) {

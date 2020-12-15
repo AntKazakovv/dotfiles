@@ -99,9 +99,9 @@ export class GamesGridComponent extends AbstractComponent
         super.ngOnInit(this.inlineParams);
         this.$params = _extend({}, defaultParams, this.injectParams, this.inlineParams); // TODO delete costil params not working
 
-        this.hideSearchBlock = this.$params?.hideOnEmptySearch;
-        this.useLazy = this.$params?.moreBtn?.lazy || false;
-        this.lazyTimeout = this.$params?.moreBtn?.lazyTimeout || 1000;
+        this.hideSearchBlock = this.$params.hideOnEmptySearch;
+        this.useLazy = this.$params.moreBtn?.lazy || false;
+        this.lazyTimeout = this.$params.moreBtn?.lazyTimeout || 1000;
         this.placeHolders = Array(6).fill(1);
         this.filterName = this.$params.searchFilterName || 'page';
 
@@ -110,7 +110,7 @@ export class GamesGridComponent extends AbstractComponent
             this.prepareGrid();
         });
 
-        if (this.$params?.type === 'search') {
+        if (this.$params.type === 'search') {
             this.initSearchListener();
         }
 
@@ -123,12 +123,13 @@ export class GamesGridComponent extends AbstractComponent
 
     public async prepareGrid(): Promise<void> {
         this.games = await this.getGames();
+        const lang: string = this.translate.currentLang || 'en';
         if (this.childCategory) {
-            this.title = this.childCategory.title[this.translate.currentLang];
+            this.title = this.childCategory.title[lang];
         } else if (this.parentCategory) {
-            this.title = this.parentCategory.title[this.translate.currentLang];
+            this.title = this.parentCategory.title[lang];
         } else {
-            this.title = this.$params?.title || this.categoryTitle;
+            this.title = this.$params.title || this.categoryTitle;
         }
         this.filteredGames = this.games;
 
@@ -232,7 +233,7 @@ export class GamesGridComponent extends AbstractComponent
     }
 
     protected setPlaceHolders(): void {
-        if (!this.$params?.usePlaceholders) {
+        if (!this.$params.usePlaceholders) {
             return;
         }
         this.placeHolders = Array(this.placeHoldersCount).fill(1);
@@ -275,7 +276,7 @@ export class GamesGridComponent extends AbstractComponent
         this.childCategory = this.gamesCatalogService.getChildCategoryByState();
 
         let games = this.gamesCatalogService.getGameList();
-        if (this.$params?.byState) {
+        if (this.$params.byState) {
             let categories: CategoryModel[] = [];
             if (this.childCategory) {
                 categories.push(this.childCategory);
@@ -286,11 +287,11 @@ export class GamesGridComponent extends AbstractComponent
                 }
             }
             games = this.gamesCatalogService.getGamesByCategories(categories);
-        } else if (this.$params?.filter) {
+        } else if (this.$params.filter) {
             // TODO: move to games service
             const categories: CategoryModel[] = this.gamesCatalogService.getCategories();
             const category = _find(categories, (item: CategoryModel) => {
-                return item?.slug === this.$params.filter.category;
+                return item.slug === this.$params.filter.category;
             });
             if (!categories || !category) {
                 return;
@@ -335,7 +336,7 @@ export class GamesGridComponent extends AbstractComponent
         if (this.searchQuery) {
             this.hideSearchBlock = false;
         } else {
-            this.hideSearchBlock = this.$params?.hideOnEmptySearch;
+            this.hideSearchBlock = this.$params.hideOnEmptySearch;
         }
 
         this.gamesCount = this.paginate;

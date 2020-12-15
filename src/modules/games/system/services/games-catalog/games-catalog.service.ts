@@ -216,7 +216,7 @@ export class GamesCatalogService {
      */
     public getParentCategoryByState(): CategoryModel {
         if (this.catalogOpened()) {
-            const categorySlug: string = this.router.stateService.params.category;
+            const categorySlug: string = this.router.stateService.params?.category;
             return this.getCategoryBySlug(categorySlug);
         }
     }
@@ -228,7 +228,7 @@ export class GamesCatalogService {
      */
     public getChildCategoryByState(): CategoryModel {
         if (this.catalogOpened()) {
-            const categorySlug: string = this.router.stateService.params.childCategory;
+            const categorySlug: string = this.router.stateService.params?.childCategory;
             return this.getCategoryBySlug(categorySlug);
         }
     }
@@ -241,7 +241,7 @@ export class GamesCatalogService {
      */
     public getCategoryBySlug(slug: string): CategoryModel {
         return _find(this.gamesCatalog.getCategories(), (category: CategoryModel) => {
-            return category.slug == slug;
+            return category.slug === slug;
         });
     }
 
@@ -265,7 +265,7 @@ export class GamesCatalogService {
      */
     public getCategoriesByParentId(id: string): CategoryModel[] {
         return _filter(this.gamesCatalog.getCategories(), (category: CategoryModel) => {
-            return category.parentId == id;
+            return category.parentId === id;
         });
     }
 

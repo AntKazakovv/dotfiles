@@ -52,16 +52,12 @@ export class GlobalHelper {
     }
 
     /**
-     * @ngdoc method
-     * @name sortByNumber
-     * @methodOf angular-wlc-theme-classes.class:Helper
+     * Sort items by number value of their some property
+     *
      * @param {T[]} items Items for sort.
      * @param {string} attr Property of item with number value.
      * @param {boolean} orderByAsc Sort ascending.
      * @returns {T[]} Sorted items
-     * @description
-     *
-     * Sort items by number value of their some property
      */
     public static sortByNumber<T>(items: T[], attr: string, orderByAsc = true): T[] {
         if (!_size(items) || !attr) {

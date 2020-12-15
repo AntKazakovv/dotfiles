@@ -90,7 +90,7 @@ export class ProfileMenuService {
             if (!_isString(item)) {
                 for (const subitemAlias of item.items) {
                     const subitem = Config.wlcProfileMenuItemsGlobal[subitemAlias];
-                    if (subitem && subitem.params?.state?.name == state) {
+                    if (subitem && subitem.params?.state?.name === state) {
                         return true;
                     }
                 }
