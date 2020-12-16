@@ -8,4 +8,9 @@ export {SentryService} from './sentry/sentry.service';
 export {ActionService} from './action/action.service';
 export {ModalService} from './modal/modal.service';
 export {ContactsService} from './contacts/contacts.service';
-export {ValidationService} from './validation/validation.service';
+export {
+    ValidationService,
+    IValidatorListItem,
+    IValidatorSettings,
+    ValidatorType,
+} from './validation/validation.service';

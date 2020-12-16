@@ -7,27 +7,37 @@ import {
     Input,
     OnInit,
     ViewEncapsulation,
+    SimpleChanges,
+    OnChanges,
 } from '@angular/core';
-import {AsyncValidatorFn, FormControl, FormGroup, ValidatorFn} from '@angular/forms';
-import {TransitionService, UIRouterGlobals} from '@uirouter/core';
-import {ConfigService} from 'wlc-engine/modules/core';
-import {IWrapperCParams, WrapperComponent} from 'wlc-engine/modules/core/components/wrapper/wrapper.component';
+import {
+    AsyncValidatorFn,
+    FormControl,
+    FormGroup,
+    ValidatorFn,
+} from '@angular/forms';
+import {
+    TransitionService,
+    UIRouterGlobals,
+} from '@uirouter/core';
+import {BehaviorSubject} from 'rxjs';
+
 import {
     EventService,
     LayoutService,
     ValidationService,
-} from 'wlc-engine/modules/core/system/services';
-import {
+    ConfigService,
+    WrapperComponent,
+    IWrapperCParams,
     IValidatorListItem,
     IValidatorSettings,
     ValidatorType,
-} from 'wlc-engine/modules/core/system/services/validation/validation.service';
-import {IInputCParams} from 'wlc-engine/modules/core/components/input/input.params';
-import {ITextareaCParams} from 'wlc-engine/modules/core/components/textarea/textarea.params';
-import {ISelectParams} from 'wlc-engine/modules/core/components/select/select.params';
-import {IButtonParams} from 'wlc-engine/modules/core/components/button/button.params';
-import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
-import {BehaviorSubject} from 'rxjs';
+    IInputCParams,
+    ITextareaCParams,
+    ISelectParams,
+    IButtonParams,
+    IIndexing,
+} from 'wlc-engine/modules/core';
 
 import {
     assign as _assign,
@@ -40,8 +50,7 @@ import {
     clone as _clone,
 } from 'lodash';
 
-export interface IControls {
-    [key: string]: FormControl;
+export interface IControls extends IIndexing<FormControl>{
 }
 
 export interface IGlobalValidators {
@@ -65,7 +74,7 @@ export interface IFormWrapperCParams extends IWrapperCParams {
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
 })
-export class FormWrapperComponent extends WrapperComponent implements OnInit {
+export class FormWrapperComponent extends WrapperComponent implements OnInit, OnChanges {
     @Input() public ngSubmit: (form: FormGroup) => Promise<boolean>;
     @Input() private config: IFormWrapperCParams;
     @Input() private formData: BehaviorSubject<IIndexing<any>>;
@@ -107,6 +116,9 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit {
         this.prepareParams();
         this.initForm();
         super.ngOnInit();
+    }
+
+    public ngOnChanges(changes: SimpleChanges): void {
     }
 
     public getInjector(component: any): Injector {

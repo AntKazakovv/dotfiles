@@ -5,6 +5,8 @@ import {
     get as _get,
     size as _size,
     each as _each,
+    mergeWith as _mergeWith,
+    isArray as _isArray,
 } from 'lodash';
 
 export class GlobalHelper {
@@ -65,6 +67,24 @@ export class GlobalHelper {
         }
         return items.sort((a: T, b: T): number => {
             return orderByAsc ? _get(a, attr, 0) - _get(b, attr, 0) : _get(b, attr, 0) - _get(a, attr, 0);
+        });
+    }
+
+    /**
+     * @ngdoc method
+     * @name mergeConfig
+     * @param {T} engineConfig default module config
+     * @param {T} projectConfig custom project config
+     * @returns {T} merged config
+     * @description
+     *
+     * prepare module config helper
+     */
+    public static mergeConfig<T>(engineConfig: T , projectConfig: T): T {
+        return _mergeWith(engineConfig, projectConfig, (objValue, srcValue) => {
+            if (_isArray(objValue)) {
+                return srcValue;
+            }
         });
     }
 }

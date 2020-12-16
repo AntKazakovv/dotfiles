@@ -5,8 +5,10 @@ import {
     Input,
 } from '@angular/core';
 import {FormGroup} from '@angular/forms';
-import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ContactsService, IEmailParams} from 'wlc-engine/modules/core/system/services/contacts/contacts.service';
+import {
+    ContactsService,
+    AbstractComponent,
+} from 'wlc-engine/modules/core';
 import * as Params from './feedback-form.params';
 
 /**

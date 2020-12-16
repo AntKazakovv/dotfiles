@@ -1,5 +1,4 @@
 import {TransitionService, UIRouterGlobals} from '@uirouter/core';
-import {ILayoutComponent} from 'wlc-engine/modules/core/system/interfaces';
 import {LayoutComponent} from 'wlc-engine/modules/core/components/layout/layout.component';
 import {
     ChangeDetectionStrategy,
@@ -9,14 +8,17 @@ import {
     Inject,
     Injector,
     Input,
+    OnChanges,
     OnInit,
     ViewEncapsulation,
+    SimpleChanges,
 } from '@angular/core';
 import {
+    ILayoutComponent,
     ConfigService,
     EventService,
     LayoutService,
-} from 'wlc-engine/modules/core/system/services';
+} from 'wlc-engine/modules/core';
 
 import {
     merge as _merge,
@@ -33,10 +35,11 @@ export interface IWrapperCParams {
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
 })
-export class WrapperComponent extends LayoutComponent implements OnInit {
+export class WrapperComponent extends LayoutComponent implements OnInit, OnChanges {
     @HostBinding('class') protected $hostClass: string;
     @Input() protected inlineParams: IWrapperCParams;
     protected $params: IWrapperCParams;
+    private initReady: boolean = false;
 
     constructor(
         ConfigService: ConfigService,
@@ -62,6 +65,14 @@ export class WrapperComponent extends LayoutComponent implements OnInit {
     public async ngOnInit(): Promise<void> {
         this.prepareParams();
         await this.initComponents();
+        this.initReady = true;
+    }
+
+    public ngOnChanges(changes: SimpleChanges): void {
+        if (this.initReady) {
+            this.prepareParams();
+            this.initComponents();
+        }
     }
 
     protected prepareParams(): void {
@@ -70,6 +81,7 @@ export class WrapperComponent extends LayoutComponent implements OnInit {
 
     private async initComponents(): Promise<void> {
         this.$hostClass = this.$params?.class;
+        this.allComponents$.length = 0;
 
         for (const el of this.$params?.components) {
             this.allComponents$.push({
@@ -78,7 +90,6 @@ export class WrapperComponent extends LayoutComponent implements OnInit {
             });
         }
         this.setWatcher();
-        this.components = this.filterComponents();
-        this.cdr.markForCheck();
+        this.updateComponents();
     }
 }
