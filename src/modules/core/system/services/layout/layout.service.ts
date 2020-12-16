@@ -53,11 +53,13 @@ export class LayoutService {
     } = {};
     private positionRegexp = /^(after|before)?\s?([^#]+)?#?(\d*)?/;
 
+    private loadedModules: IIndexing<unknown> = {};
+
     constructor(
-        protected ConfigService: ConfigService,
+        protected configService: ConfigService,
     ) {
-        this.layouts.pages = this.ConfigService.get<ILayoutsConfig>('$layouts');
-        this.layouts.panels = this.ConfigService.get<IPanelsConfig>('$panelsLayouts');
+        this.layouts.pages = this.configService.get<ILayoutsConfig>('$layouts');
+        this.layouts.panels = this.configService.get<IPanelsConfig>('$panelsLayouts');
     }
 
     public getLayoutConfig(type: LayoutsType, state: string, params?: IIndexing<any>): ILayoutStateConfig {
@@ -259,45 +261,80 @@ export class LayoutService {
     private async importModule(name: string): Promise<any> {
         switch (name) {
             case 'core':
+                if (this.loadedModules.core) {
+                    return this.loadedModules.core;
+                }
                 return import('wlc-engine/modules/core/core.module').then(m => {
-                    this.components.core = m.components;
+                    this.afterModuleLoad('core', m);
                     return m.CoreModule;
                 });
             case 'menu':
+                if (this.loadedModules.menu) {
+                    return this.loadedModules.menu;
+                }
                 return import('wlc-engine/modules/menu/menu.module').then(m => {
-                    this.components.menu = m.components;
+                    this.afterModuleLoad('menu', m);
                     return m.MenuModule;
                 });
             case 'games':
+                if (this.loadedModules.games) {
+                    return this.loadedModules.games;
+                }
                 return import('wlc-engine/modules/games/games.module').then(m => {
-                    this.components.games = m.components;
+                    this.afterModuleLoad('games', m);
                     return m.GamesModule;
                 });
             case 'static':
+                if (this.loadedModules.static) {
+                    return this.loadedModules.static;
+                }
                 return import('wlc-engine/modules/static/static.module').then(m => {
-                    this.components.static = m.components;
+                    this.afterModuleLoad('static', m);
                     return m.StaticModule;
                 });
             case 'promo':
+                if (this.loadedModules.promo) {
+                    return this.loadedModules.promo;
+                }
                 return import('wlc-engine/modules/promo/promo.module').then(m => {
-                    this.components.promo = m.components;
+                    this.afterModuleLoad('promo', m);
                     return m.PromoModule;
                 });
             case 'user':
+                if (this.loadedModules.user) {
+                    return this.loadedModules.user;
+                }
                 return import('wlc-engine/modules/user/user.module').then(m => {
-                    this.components.user = m.components;
+                    this.afterModuleLoad('user', m);
                     return m.UserModule;
                 });
             case 'finances':
+                if (this.loadedModules.finances) {
+                    return this.loadedModules.finances;
+                }
                 return import('wlc-engine/modules/finances/finances.module').then(m => {
-                    this.components.finances = m.components;
+                    this.afterModuleLoad('finances', m);
                     return m.FinancesModule;
                 });
             case 'bonuses':
+                if (this.loadedModules.bonuses) {
+                    return this.loadedModules.bonuses;
+                }
                 return import('wlc-engine/modules/bonuses/bonuses.module').then(m => {
-                    this.components.bonuses = m.components;
+                    this.afterModuleLoad('bonuses', m);
                     return m.BonusesModule;
                 });
         }
+    }
+
+    private afterModuleLoad(name: string, loadedModule: any): void {
+        this.loadedModules[name] = loadedModule;
+        if (loadedModule.moduleConfig) {
+            this.configService.set({
+                name: '$' + name,
+                value: loadedModule.moduleConfig,
+            });
+        }
+        this.components[name] = loadedModule.components;
     }
 }

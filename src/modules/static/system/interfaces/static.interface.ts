@@ -1,4 +1,8 @@
-import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
+import {IIndexing} from 'wlc-engine/modules/core';
+
+export interface IStaticConfig {
+    pages?: string[],
+}
 
 export type StaticTextType = 'page' | 'post' | 'tag' | 'category';
 export type TextDataType = IPostResponse | ITextObject;

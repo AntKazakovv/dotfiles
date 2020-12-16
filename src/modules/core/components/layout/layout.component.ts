@@ -41,11 +41,8 @@ import {
     isObject as _isObject,
     isUndefined as _isUndefined,
     assign as _assign,
-    differenceWith as _differenceWith,
     isEqual as _isEqual,
-    find as _find,
     findIndex as _findIndex,
-    cloneDeep as _cloneDeep,
 } from 'lodash';
 
 @Component({
@@ -108,10 +105,6 @@ export class LayoutComponent implements OnInit, OnDestroy {
         this.$destroy.next();
         this.$destroy.complete();
     }
-
-    // public trackByComponent(index: number, component: ILayoutComponent): any {
-    //     return component.name + JSON.stringify(component.params);
-    // }
 
     protected async setComponents(state: string, params?: IIndexing<any>): Promise<void> {
         this.currentConfig = await this.layoutService.getLayout(this.layouts, state, params);

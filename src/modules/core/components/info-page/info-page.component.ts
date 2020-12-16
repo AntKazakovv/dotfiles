@@ -3,10 +3,21 @@ import {
     Inject,
     OnInit,
     Input,
+    ChangeDetectorRef,
 } from '@angular/core';
-import {UIRouterGlobals} from '@uirouter/core';
-import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {
+    TransitionService,
+    UIRouterGlobals,
+} from '@uirouter/core';
+import {
+    IWrapperCParams,
+    AbstractComponent,
+} from 'wlc-engine/modules/core';
 import * as Params from './info-page.params';
+
+import {
+    cloneDeep as _cloneDeep,
+} from 'lodash';
 
 /**
  * Outputs disclaimer text
@@ -27,10 +38,13 @@ export class InfoPageComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams: Params.IInfoPageCParams;
     public $params: Params.IInfoPageCParams;
     public config: Params.IInfoPageConfig;
+    public content: IWrapperCParams;
 
     constructor(
         @Inject('injectParams') protected params: Params.IInfoPageCParams,
         private uiRouter: UIRouterGlobals,
+        private transition: TransitionService,
+        protected cdr: ChangeDetectorRef,
     ) {
         super({injectParams: params, defaultParams: Params.defaultParams});
     }
@@ -38,7 +52,15 @@ export class InfoPageComponent extends AbstractComponent implements OnInit {
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.config = this.$params.config;
+        this.transition.onSuccess({}, async (transition) => {
+            this.setChildParams();
+            this.cdr.detectChanges();
+        });
 
+        this.setChildParams();
+    }
+
+    protected setChildParams(): void {
         switch (this.uiRouter.params.slug) {
 
             case 'feedback':
@@ -55,5 +77,6 @@ export class InfoPageComponent extends AbstractComponent implements OnInit {
                     },
                 }];
         }
+        this.content = _cloneDeep(this.config.content);
     }
 }

@@ -5,5 +5,8 @@ export * from './system/services/files/files.service';
 export * from './system/services/action/action.service';
 export * from './system/services';
 export * from './components';
-export * from './system/interfaces';
-export {AbstractComponent, IMixedParams} from './system/classes/abstract.component';
+export {
+    AbstractComponent,
+    IMixedParams,
+} from './system/classes/abstract.component';
+export {GlobalHelper} from './system/helpers/global.helper';

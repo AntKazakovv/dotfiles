@@ -1,5 +1,4 @@
-import {IComponentParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {IWrapperCParams} from 'wlc-engine/modules/core/components/wrapper/wrapper.component';
+import {IComponentParams, IWrapperCParams} from 'wlc-engine/modules/core';
 
 export type ModeType = 'default';
 export type ComponentTheme = 'default';

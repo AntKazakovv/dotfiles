@@ -45,7 +45,7 @@ export class PostComponent extends AbstractComponent implements OnInit, AfterVie
         protected domSanitizer: DomSanitizer,
         protected cdr: ChangeDetectorRef,
         protected uiRouter: UIRouterGlobals,
-        protected ConfigService: ConfigService,
+        protected configService: ConfigService,
     ) {
         super({injectParams: params, defaultParams});
     }
@@ -56,13 +56,18 @@ export class PostComponent extends AbstractComponent implements OnInit, AfterVie
         try {
             const slug = this.slug || this.params.slug || this.uiRouter.params.slug;
 
-            const data: TextDataModel = await this.staticService.getPost(slug);
+            let data: TextDataModel;
+            if (this.configService.get<string[]>({name: '$static.pages'}).includes(slug)) {
+                data = await this.staticService.getPage(slug);
+            } else {
+                data = await this.staticService.getPost(slug);
+            }
+
             this.html = this.domSanitizer.bypassSecurityTrustHtml(data.html)?.['changingThisBreaksApplicationSecurity'];
 
             if (_isFunction(this.params.setTitle)) {
                 this.params.setTitle(data.title);
             }
-
         } catch (e) {
             console.log(e);
         } finally {
