@@ -4,12 +4,12 @@
         <div class="{{$class}}-balance {{$class}}-balance--short">
             <div class="{{$class}}-balance__item {{$class}}-balance__real">
                 <span class="name">{{'Real balance' | translate}}</span>
-                <span class="value">{{userStats?.balance  | number: '.2'}}</span>
+                <span class="value"><span wlc-currency [value]="userStats?.balance"></span></span>
             </div>
 
             <div class="{{$class}}-balance__item {{$class}}-balance__bonus">
                 <span class="name">{{'Bonus balance' | translate}}</span>
-                <span class="value">{{userStats?.loyalty?.Balance | number: '.2'}}</span>
+                <span class="value"><span wlc-currency [value]="userStats?.loyalty?.Balance"></span></span>
             </div>
         </div>
     </ng-template>
@@ -38,8 +38,14 @@
         <div class="{{$class}}-balance" *ngIf="this.shownUserStats">
             <div class="{{$class}}-balance__item {{$class}}-balance__item--{{item}}"
                  *ngFor="let item of $params.fields">
-                <span class="name">{{this.shownUserStats[item].name | translate}}</span>
-                <span class="value">{{this.shownUserStats[item].value}}</span>
+                <ng-container [ngSwitch]="this.shownUserStats[item]?.modification">
+
+                    <span class="name">{{this.shownUserStats[item]?.name | translate}}</span>
+                    <span class="value" *ngSwitchDefault>{{this.shownUserStats[item]?.value | number: '.0-2'}}</span>
+                    <span class="value" *ngSwitchCase="'amount'">
+                        <span wlc-currency [value]="this.shownUserStats[item]?.value"></span>
+                    </span>
+                </ng-container>
             </div>
         </div>
 

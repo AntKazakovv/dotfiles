@@ -29,6 +29,6 @@ export interface ISetParams<T> {
     value: T;
     storageType?: IStorageType;
     storageClear?: IStorageType;
-    replace?: boolean;
+    merge?: boolean;
     freeze?: boolean;
 }

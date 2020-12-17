@@ -19,6 +19,7 @@ import * as Params from './user-stats.params';
 export interface IUserStatsItem {
     name: string,
     value: string | number,
+    modification?: string;
 }
 
 @Component({
@@ -79,10 +80,12 @@ export class UserStatsComponent extends AbstractComponent implements OnInit, OnD
             balance: {
                 name: gettext('Real balance'),
                 value: this.userStats.balance,
+                modification: 'amount',
             },
             bonusBalance: {
                 name: gettext('Bonus balance'),
                 value: this.userStats.loyalty.Balance,
+                modification: 'amount',
             },
 
             points: {

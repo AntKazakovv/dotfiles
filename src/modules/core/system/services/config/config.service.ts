@@ -40,7 +40,7 @@ import {
  * Examples of getter and setter:
  * SET: this.config.set({name: 'url', value: 'google.com'}
 
-);
+ );
  * GET: this.config.get<boolean>('appConfig.mobile');
  */
 
@@ -107,7 +107,7 @@ export class ConfigService {
             return;
         }
 
-        if (setParams.replace) {
+        if (!setParams.merge) {
             _set(this.global, setParams.name, setParams.value);
         } else {
             _get(this.global, setParams.name) ?
