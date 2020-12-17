@@ -80,56 +80,6 @@ import {HammerConfig} from 'wlc-engine/modules/core/system/config/hammer.config'
 import {DummyComponent} from './components/dummy/dummy.component';
 //  -- CONFIGS IMPORTS STARTS--;
 
-// TODO DELETE
-@Component({
-    selector: 'test',
-    template: `
-        <div>
-            Result:
-            <span
-                wlc-currency
-                [indicatorFormat]="indicatorFormat"
-                [currency]="currency"
-                [value]="value"
-                [digitsInfo]="digitsInfo"
-                [locale]="locale"
-            ></span>
-        </div>
-        <div>
-            <label>Indicator</label>
-            <input [(ngModel)]="indicatorFormat">
-        </div>
-        <div>
-            <label>Currency</label>
-            <input [(ngModel)]="currency">
-        </div>
-        <div>
-            <label>Value</label>
-            <input [(ngModel)]="value">
-        </div>
-        <div>
-            <label>DigitsInfo</label>
-            <input [(ngModel)]="digitsInfo">
-        </div>
-        <div>
-            <label>Locale</label>
-            <input [(ngModel)]="locale">
-        </div>
-    `,
-})
-class Test {
-    // value;
-    // currency
-    // locale;
-    // indicatorFormat;
-    // digitsInfo;
-    value = 100;
-    currency = 'rub';
-    locale = 'ru';
-    indicatorFormat = 'symbol';
-    digitsInfo = '1-2-2';
-}
-
 export const components = {
     'wlc-logo': LogoComponent,
     'wlc-language-selector': LanguageSelectorComponent,
@@ -154,8 +104,6 @@ export const components = {
     'wlc-dummy-amount': DummyComponent,
     'wlc-currency': CurrencyComponent,
     'wlc-copyright': CopyrightComponent,
-    // TODO DELETE
-    'test': Test,
     'wlc-datepicker': DatepickerComponent,
     'wlc-text-block': TextBlockComponent,
 };
@@ -221,8 +169,6 @@ export const components = {
         TableComponent,
         DummyComponent,
         CopyrightComponent,
-        // TODO DELETE
-        Test,
         DatepickerComponent,
         InputMaskDirective,
         TextBlockComponent,
