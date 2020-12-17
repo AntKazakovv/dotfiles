@@ -1,7 +1,6 @@
 // -- MODULES IMPORTS START --;
 import {CommonModule} from '@angular/common';
-import {NgModule} from '@angular/core';
-
+import {Component, NgModule} from '@angular/core';
 import {
     HAMMER_GESTURE_CONFIG,
     HammerModule,
@@ -57,6 +56,7 @@ import {FormControlComponent} from './components/form-control/form-control.compo
 import {InfoPageComponent} from './components/info-page/info-page.component';
 import {TableComponent} from './components/table/table.component';
 import {CopyrightComponent} from './components/copyright/copyright.component';
+import {CurrencyComponent} from 'wlc-engine/modules/core/components/currency/currency.component';
 import {DatepickerComponent} from './components/datepicker/datepicker.component';
 import {TextBlockComponent} from './components/text-block/text-block.component';
 // -- COMPONENTS IMPORTS END  --;
@@ -71,10 +71,64 @@ import {InputMaskDirective} from './directives/input-mask.directive';
 import {TruncatePipe} from './pipes/truncate.pipe';
 //  -- PIPES IMPORTS END  --;
 
+//  -- CONSTANTS IMPORTS STARTS--;
+import {CRYPTOCURRENCIES, cryptocurrencies} from 'wlc-engine/modules/core/constants/currency-formats.constant';
+//  -- CONSTANTS IMPORTS END  --;
+
 //  -- CONFIGS IMPORTS STARTS--;
 import {HammerConfig} from 'wlc-engine/modules/core/system/config/hammer.config';
 import {DummyComponent} from './components/dummy/dummy.component';
 //  -- CONFIGS IMPORTS STARTS--;
+
+// TODO DELETE
+@Component({
+    selector: 'test',
+    template: `
+        <div>
+            Result:
+            <span
+                wlc-currency
+                [indicatorFormat]="indicatorFormat"
+                [currency]="currency"
+                [value]="value"
+                [digitsInfo]="digitsInfo"
+                [locale]="locale"
+            ></span>
+        </div>
+        <div>
+            <label>Indicator</label>
+            <input [(ngModel)]="indicatorFormat">
+        </div>
+        <div>
+            <label>Currency</label>
+            <input [(ngModel)]="currency">
+        </div>
+        <div>
+            <label>Value</label>
+            <input [(ngModel)]="value">
+        </div>
+        <div>
+            <label>DigitsInfo</label>
+            <input [(ngModel)]="digitsInfo">
+        </div>
+        <div>
+            <label>Locale</label>
+            <input [(ngModel)]="locale">
+        </div>
+    `,
+})
+class Test {
+    // value;
+    // currency
+    // locale;
+    // indicatorFormat;
+    // digitsInfo;
+    value = 100;
+    currency = 'rub';
+    locale = 'ru';
+    indicatorFormat = 'symbol';
+    digitsInfo = '1-2-2';
+}
 
 export const components = {
     'wlc-logo': LogoComponent,
@@ -98,7 +152,10 @@ export const components = {
     'wlc-form-control': FormControlComponent,
     'wlc-table': TableComponent,
     'wlc-dummy-amount': DummyComponent,
+    'wlc-currency': CurrencyComponent,
     'wlc-copyright': CopyrightComponent,
+    // TODO DELETE
+    'test': Test,
     'wlc-datepicker': DatepickerComponent,
     'wlc-text-block': TextBlockComponent,
 };
@@ -127,6 +184,7 @@ export const components = {
         ActionService,
         ModalService,
         ContactsService,
+        {provide: CRYPTOCURRENCIES, useValue: cryptocurrencies},
         {
             provide: HAMMER_GESTURE_CONFIG,
             useClass: HammerConfig,
@@ -153,6 +211,7 @@ export const components = {
         CloseComponent,
         LoaderComponent,
         WrapperComponent,
+        CurrencyComponent,
         FormWrapperComponent,
         TextareaComponent,
         ClickOutsideDirective,
@@ -162,6 +221,8 @@ export const components = {
         TableComponent,
         DummyComponent,
         CopyrightComponent,
+        // TODO DELETE
+        Test,
         DatepickerComponent,
         InputMaskDirective,
         TextBlockComponent,
@@ -186,6 +247,7 @@ export const components = {
         DisclaimerComponent,
         CloseComponent,
         LoaderComponent,
+        CurrencyComponent,
         ScrollbarComponent,
         LicenseComponent,
         InputComponent,
