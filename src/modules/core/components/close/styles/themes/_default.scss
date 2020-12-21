@@ -1,0 +1,33 @@
+@import '../utils/vars';
+
+.wlc-close--theme-default:host {
+    padding: 0;
+
+    &:hover {
+
+        &::ng-deep {
+
+            .wlc-icon svg * {
+                stroke: $iconColorHover;
+            }
+        }
+    }
+
+    &::ng-deep {
+
+        .wlc-icon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            width: $iconSize;
+            height: $iconSize;
+
+            svg * {
+                stroke: $iconColor;
+                transition: $transition;
+            }
+        }
+    }
+}
+

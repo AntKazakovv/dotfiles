@@ -1,0 +1,65 @@
+@import '../utils/vars';
+
+.wlc-sign-up-form--theme-default:host {
+    max-width: $formMaxWidth;
+    margin: $formMargin;
+
+    &::ng-deep {
+
+        .wlc-form {
+            display: grid;
+            grid-template-areas: $templateAreas;
+            grid-template-columns: $gridColumns;
+            grid-gap: $gridGap;
+        }
+
+        .wlc-text-block {
+            grid-area: head;
+        }
+
+        .wlc-input--email {
+            grid-area: email;
+        }
+
+        .wlc-input--password {
+            grid-area: password;
+        }
+
+        .wlc-select--currency {
+            grid-area: currency;
+        }
+
+        .wlc-input--promocode {
+            grid-area: promocode;
+        }
+
+        .wlc-checkbox--terms {
+            grid-area: terms;
+        }
+
+        .wlc-checkbox--age {
+            grid-area: age;
+        }
+
+        .wlc-btn {
+            grid-area: btn;
+
+            margin: $btnMargin;
+        }
+
+        .wlc-have-account {
+            grid-area: account;
+        }
+
+        .wlc-select__group {
+
+            .wlc-select__field,
+            .wlc-select__dropdown-item {
+                font-size: $selectFontSize;
+
+                // TODO remove this
+                padding: $selectPadding;
+            }
+        }
+    }
+}

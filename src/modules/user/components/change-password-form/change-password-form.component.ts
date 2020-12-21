@@ -1,7 +1,6 @@
 import {
     Component,
     Inject,
-    OnInit,
     Input,
     ChangeDetectorRef,
 } from '@angular/core';
@@ -31,22 +30,22 @@ import {
     templateUrl: './change-password-form.component.html',
     styleUrls: ['./styles/change-password-form.component.scss'],
 })
-export class ChangePasswordFormComponent extends AbstractComponent implements OnInit  {
+export class ChangePasswordFormComponent extends AbstractComponent {
+
     @Input() public inlineParams: Params.IChangePasswordFormCParams;
     public $params: Params.IChangePasswordFormCParams;
     public config = Params.changePasswordFormConfig;
 
     constructor(
-        @Inject('injectParams') protected params: Params.IChangePasswordFormCParams,
+        @Inject('injectParams') protected injectParams: Params.IChangePasswordFormCParams,
         protected userService: UserService,
         protected cdr: ChangeDetectorRef,
         protected modalService: ModalService,
     ) {
-        super({injectParams: params, defaultParams: Params.defaultParams});
-    }
-
-    public ngOnInit(): void {
-        super.ngOnInit(this.inlineParams);
+        super({
+            injectParams,
+            defaultParams: Params.defaultParams,
+        });
     }
 
     public async ngSubmit(form: FormGroup): Promise<void> {
@@ -56,7 +55,10 @@ export class ChangePasswordFormComponent extends AbstractComponent implements On
             await this.userService.setNewPassword(currentPassword, confirmPassword);
             this.modalService.closeAllModals();
         } catch (error) {
-            console.error(error);
+            this.modalService.closeAllModals();
+            this.modalService.showError({
+                modalMessage: error.errors,
+            });
         }
     }
 }

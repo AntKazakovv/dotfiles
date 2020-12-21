@@ -1,0 +1,21 @@
+@use 'sass:map';
+@import '../utils/vars';
+
+.wlc-modal--theme-default {
+
+    .wlc-modal__dialog {
+        background: map.get($themeDefault, 'dialogBackground');
+        border-radius: map.get($themeDefault, 'dialogBorderRadius');
+    }
+
+    .wlc-modal__body {
+        padding: 2rem;
+    }
+
+    .wlc-modal__close {
+        position: absolute;
+        right: 20px;
+        top: 30px;
+        z-index: 1;
+    }
+}

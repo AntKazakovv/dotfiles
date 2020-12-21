@@ -1,0 +1,6 @@
+@mixin common($fontSize, $fontWeight, $margin) {
+    font-size: $fontSize;
+    font-weight: $fontWeight;
+
+    margin: $margin;
+}

@@ -1,4 +1,5 @@
 @import '../utils/vars';
+@import '../utils/mixins';
 
 .wlc-text-block {
 
@@ -17,17 +18,12 @@
     }
 
     &__title {
-        font-size: $titleFontSize;
-        font-weight: $titleFontWeight;
-
-        margin: $titleMargin;
+        @include common($titleFontSize, $titleFontWeight, $titleMargin);
     }
 
     &__subtitle {
-        font-size: $subtitleFontSize;
-        font-weight: $subtitleFontWeight;
-        line-height: $subtitleLineHeight;
+        @include common($subtitleFontSize, $subtitleFontWeight, $subtitleMargin);
 
-        margin-bottom: $subtitleMargin;
+        line-height: $subtitleLineHeight;
     }
 }

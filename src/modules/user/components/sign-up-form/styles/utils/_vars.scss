@@ -1,0 +1,20 @@
+$formMaxWidth: 285px !default;
+$formMargin: auto !default;
+$fieldMargin: 0 0 20px 0 !default;
+$btnMargin: 30px auto !default;
+
+$templateAreas:
+    'head head'
+    'email email'
+    'password password'
+    'currency promocode'
+    'terms terms'
+    'age age'
+    'btn btn'
+    'account account' !default;
+
+$gridColumns: 100px 1fr !default;
+$gridGap: 20px 15px !default;
+
+$selectFontSize: 12px !default;
+$selectPadding: 9px 35px 9px 13px !important !default;

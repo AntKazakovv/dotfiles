@@ -39,12 +39,16 @@
         outline: none;
         border: map.get($themeVertical, 'inputBorder');
         border-radius: map.get($themeVertical, 'inputBorderRadius');
+
+        &::placeholder {
+            color: map.get($themeVertical, 'inputPlaceholderColor');
+        }
     }
 
     &.wlc-input--right-shift {
 
         .wlc-input__input {
-            padding-right: map.get($themeVertical, 'inputPaddingModify');
+            padding-right: map.get($themeVertical, 'inputPaddingRight');
         }
 
         .field-icon--eye {

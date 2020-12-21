@@ -1,0 +1,103 @@
+@use 'sass:map';
+@import '../utils/vars';
+
+@keyframes bounceInCheck {
+
+    0% {
+        transform: scale(0.5);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+
+    70% {
+        transform: scale(0.9);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.wlc-checkbox--theme-default:host {
+
+    .wlc-checkbox {
+        position: relative;
+
+        padding: map.get($themeDefault, 'checkboxPadding');
+
+        user-select: none;
+        cursor: pointer;
+
+        &__elem {
+            position: absolute;
+            top: map.get($themeDefault, 'checkboxElemTop');
+            left: map.get($themeDefault, 'checkboxElemLeft');
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            width: map.get($themeDefault, 'checkboxElemSize');
+            height: map.get($themeDefault, 'checkboxElemSize');
+
+            background: map.get($themeDefault, 'checkboxElemBackground');
+
+            border: map.get($themeDefault, 'checkboxElemBorder');
+            border-radius: map.get($themeDefault, 'checkboxElemBorderRadius');
+            transition: transform 0.2s ease-out;
+
+            ::ng-deep {
+
+                .wlc-icon-content {
+                    display: none;
+                    line-height: map.get($themeDefault, 'iconLineHieght');
+                }
+
+                svg {
+                    width: map.get($themeDefault, 'iconSvgWidth');
+                    height: map.get($themeDefault, 'iconSvgHeight');
+
+                    stroke: map.get($themeDefault, 'iconSvgStroke');
+                    stroke-width: map.get($themeDefault, 'iconSvgStrokeWidth');
+                    fill: map.get($themeDefault, 'iconSvgFill');
+                }
+            }
+
+            &.checked {
+                border-color: map.get($themeDefault, 'checkboxElemBorderColor');
+
+                transform: scale(1);
+                animation: bounceInCheck 0.5s forwards;
+
+                ::ng-deep {
+
+                    .wlc-icon-content {
+                        display: block;
+                    }
+                }
+            }
+        }
+    }
+
+    .wlc-checkbox__text {
+        font-size: map.get($themeDefault, 'textFontSize');
+        color: map.get($themeDefault, 'textColor');
+
+        margin-bottom: 0;
+    }
+
+    .wlc-checkbox__link {
+        color: map.get($themeDefault, 'linkColor');
+
+        &:hover {
+            color: map.get($themeDefault, 'linkHoverColor');
+            text-decoration: none;
+        }
+    }
+
+    .wlc-checkbox__checkbox {
+        display: none;
+    }
+}

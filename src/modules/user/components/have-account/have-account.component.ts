@@ -20,17 +20,23 @@ import {
     templateUrl: './have-account.component.html',
     styleUrls: ['./styles/have-account.component.scss'],
 })
-export class HaveAccountComponent extends AbstractComponent implements OnInit {
+export class HaveAccountComponent
+    extends AbstractComponent
+    implements OnInit {
+
     @Input() public inlineParams: Params.IHaveAccountCParams;
     @Input() public linkText: string;
     @Input() public titleText: string;
     public $params: Params.IHaveAccountCParams;
 
     constructor(
-        @Inject('injectParams') protected params: Params.IHaveAccountCParams,
+        @Inject('injectParams') protected injectParams: Params.IHaveAccountCParams,
         protected modalService: ModalService,
     ) {
-        super({injectParams: params, defaultParams: Params.defaultParams});
+        super({
+            injectParams,
+            defaultParams: Params.defaultParams,
+        });
     }
 
     public ngOnInit(): void {

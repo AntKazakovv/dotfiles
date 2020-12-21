@@ -1,7 +1,6 @@
 import {
     Component,
     Inject,
-    OnInit,
     Input,
     ChangeDetectorRef,
 } from '@angular/core';
@@ -31,22 +30,21 @@ import {
     templateUrl: './restore-password-form.component.html',
     styleUrls: ['./styles/restore-password-form.component.scss'],
 })
-export class RestorePasswordFormComponent extends AbstractComponent implements OnInit  {
-    @Input() public inlineParams: Params.IRestorePasswordFormCParams;
+export class RestorePasswordFormComponent extends AbstractComponent {
+
     public $params: Params.IRestorePasswordFormCParams;
     public config = Params.restorePasswordFormConfig;
 
     constructor(
-        @Inject('injectParams') protected params: Params.IRestorePasswordFormCParams,
+        @Inject('injectParams') protected injectParams: Params.IRestorePasswordFormCParams,
         protected userService: UserService,
         protected cdr: ChangeDetectorRef,
         protected modalService: ModalService,
     ) {
-        super({injectParams: params, defaultParams: Params.defaultParams});
-    }
-
-    public ngOnInit(): void {
-        super.ngOnInit(this.inlineParams);
+        super({
+            injectParams,
+            defaultParams: Params.defaultParams,
+        });
     }
 
     public async ngSubmit(form: FormGroup): Promise<void> {
@@ -56,8 +54,10 @@ export class RestorePasswordFormComponent extends AbstractComponent implements O
             await this.userService.sendPasswordRestore(email);
             this.modalService.closeAllModals();
         } catch (error) {
-            console.error(error);
+            this.modalService.closeAllModals();
+            this.modalService.showError({
+                modalMessage: error.errors,
+            });
         }
-
     }
 }

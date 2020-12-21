@@ -19,6 +19,7 @@ import {
     map as _map,
     filter as _filter,
     find as _find,
+    union as _union,
 } from 'lodash';
 
 /**
@@ -44,6 +45,7 @@ export class SelectComponent extends AbstractComponent implements OnInit {
     public $params: Params.ISelectParams;
     public control: FormControl;
     public isOpened: boolean;
+
     public get selectedItem() {
         const selected = _find(this.$params.items,
             (item) => {
@@ -66,32 +68,14 @@ export class SelectComponent extends AbstractComponent implements OnInit {
 
     ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
-        this.control = this.$params?.control;
+        this.prepareModifiers();
 
-        this.constantValues = {
-            currencies: this.prepareCurrency(),
-            countries: this.configService.get('countries'),
-            genders: new BehaviorSubject([
-                {
-                    value: '',
-                    title: 'Not selected',
-                },
-                {
-                    value: 'f',
-                    title: 'Female',
-                },
-                {
-                    value: 'm',
-                    title: 'Male',
-                },
-            ]),
-        };
+        this.control = this.$params?.control;
+        this.prepareConstantValues();
 
         //TODO custom fields
         if (this.$params?.options) {
-            this.constantValues[this.$params.options].pipe(takeUntil(this.$destroy)).subscribe((value) => {
-                this.$params.items = value || [];
-            });
+            this.setOptions();
         }
     }
 
@@ -117,7 +101,6 @@ export class SelectComponent extends AbstractComponent implements OnInit {
 
     private prepareCurrency(): BehaviorSubject<Params.ISelectOptions[]> {
         const modifyCurrencies = this.configService.get<IIndexing<ICurrency>>('appConfig.siteconfig.currencies');
-
         return new BehaviorSubject(
             _map(
                 _filter(modifyCurrencies, (el: ICurrency) => {
@@ -127,5 +110,46 @@ export class SelectComponent extends AbstractComponent implements OnInit {
                 }),
         );
 
+    }
+
+    private prepareConstantValues(): void {
+        this.constantValues = {
+            currencies: this.prepareCurrency(),
+            countries: this.configService.get('countries'),
+            genders: new BehaviorSubject([
+                {
+                    value: '',
+                    title: gettext('Not selected'),
+                },
+                {
+                    value: 'f',
+                    title: gettext('Female'),
+                },
+                {
+                    value: 'm',
+                    title: gettext('Male'),
+                },
+            ]),
+        };
+    }
+
+    private setOptions(): void {
+        this.constantValues[this.$params.options]
+            .pipe(takeUntil(this.$destroy))
+            .subscribe((value) => {
+                this.$params.items = value || [];
+            });
+    }
+
+    // TODO move to abstract class
+    private prepareModifiers(): void {
+        if (!this.$params.common.customModifiers) {
+            return;
+        }
+
+        let modifiers: Params.Modifiers[] = [];
+
+        modifiers = _union(modifiers, this.$params.common.customModifiers.split(' '));
+        this.addModifiers(modifiers);
     }
 }

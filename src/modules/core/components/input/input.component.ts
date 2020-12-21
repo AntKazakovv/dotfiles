@@ -47,6 +47,10 @@ export class InputComponent extends AbstractComponent implements OnInit {
     }
 
     public get setInputModifiers(): string {
+        if (!this.$params.common.customModifiers) {
+            return;
+        }
+
         return `${this.$params.class}__input--${this.$params.common.customModifiers}`;
     }
 
@@ -55,12 +59,13 @@ export class InputComponent extends AbstractComponent implements OnInit {
     }
 
     protected prepareModifiers(): void {
-        let modifiers: Params.Modifiers[] = [];
-
-        if (this.$params.common.customModifiers) {
-            modifiers = _union(modifiers, this.$params.common.customModifiers.split(' '));
+        if (!this.$params.common.customModifiers) {
+            return;
         }
 
+        let modifiers: Params.Modifiers[] = [];
+
+        modifiers = _union(modifiers, this.$params.common.customModifiers.split(' '));
         this.addModifiers(modifiers);
     }
 }

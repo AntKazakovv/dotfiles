@@ -1,0 +1,10 @@
+@import './vars';
+
+@mixin baseModal($positionType, $zIndex, $position) {
+    position: $positionType;
+    z-index: $zIndex;
+    top: $position;
+    right: $position;
+    left: $position;
+    bottom: $position;
+}

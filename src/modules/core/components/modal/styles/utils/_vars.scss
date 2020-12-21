@@ -1,0 +1,23 @@
+@use 'engine-scss/functions' as ef;
+
+$modalZIndex: 1050 !default;
+$modalPosition: 0 !default;
+
+$dialogWidth: auto !default;
+$dialogMaxWidth: 500px !default;
+$dialogMargin: 1.75rem auto !default;
+$dialogBackgroundClip: padding-box !default;
+
+$headerPadding: 1rem !default;
+$bodyPadding: 1rem !default;
+$footerPadding: 1rem !default;
+$backdropZIndex: 1040 !default;
+$backdropPosition: 0 !default;
+$backdropBackground: ef.get('color', 'backdropBackground') !default;
+
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'dialogBackground': ef.get('color', 'dialogBackground'),
+    'dialogBorder': 1px solid rgba($color: #000000, $alpha: 0.2),
+    'dialogBorderRadius': 15px
+), $customThemeDefault);

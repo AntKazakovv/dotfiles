@@ -12,7 +12,11 @@ import {IData} from 'wlc-engine/modules/core/system/services/data/data.service';
 import {
     each as _each,
     assign as _assign,
+    keys as _keys,
 } from 'lodash';
+
+
+//данные для входа 'maksim.shahov@softgamings.com', 'Test123!'
 
 @Injectable({
     providedIn: 'root',
@@ -128,26 +132,25 @@ export class UserService {
         }
     }
 
-    public async registration(formData): Promise<void> {
-        const response: any = await this.dataService.request('user/userRegistration', formData);
-        if (response.result) {
-            this.setProfileData(formData);
-            await this.createUserProfile(this.profile.data);
-            if (this.isFastRegistration) {
-                // fastRegistration
-            } else {
-                // registrationComplete
+    public setProfileData(formData): void {
+        _each(_keys(formData), (field) => {
+            if (field === 'password') {
+                this.profile.data.passwordRepeat = formData[field];
             }
-        } else {
-            _each(response.errors, (error) => {
-                console.error(error);
-            });
-        }
+
+            this.profile.data[field] = formData[field];
+        });
+
+        this.userProfile$.next(this.profile);
     }
 
-    public login(login: string, password: string): void {
+    public registration(formData): Promise<IIndexing<any>> {
+        return this.dataService.request('user/userRegistration', formData);
+    }
+
+    public login(login: string, password: string): Promise<IIndexing<any>> {
         const params = {login, password};
-        this.dataService.request('user/userLogin', params);
+        return this.dataService.request('user/userLogin', params);
     }
 
     public logout(): void {
@@ -188,7 +191,7 @@ export class UserService {
         }
     }
 
-    public sendPasswordRestore(email: string, reCaptchaToken?: string): void {
+    public sendPasswordRestore(email: string, reCaptchaToken?: string): Promise<IIndexing<any>> {
         const params: { email: string, reCaptchaToken?: string } = {
             email: email,
         };
@@ -197,7 +200,7 @@ export class UserService {
             params.reCaptchaToken = reCaptchaToken;
         }
 
-        this.dataService.request('user/passwordRestore', params);
+        return this.dataService.request('user/passwordRestore', params);
     }
 
     public restoreNewPassword(newPassword: string, repeatPassword: string, code: string): void {
@@ -210,9 +213,9 @@ export class UserService {
         this.dataService.request('user/validateRestoreCode', params);
     }
 
-    public setNewPassword(password: string, newPassword: string): void {
+    public setNewPassword(password: string, newPassword: string): Promise<IIndexing<any>> {
         const params = {password, newPassword};
-        this.dataService.request('user/newPassword', params);
+        return this.dataService.request('user/newPassword', params);
     }
 
     public changePhone(phoneCode: string, phoneNumber: string): void {
@@ -263,11 +266,11 @@ export class UserService {
         this.dataService.request('user/userProfile');
     }
 
-    protected fetchUserInfo(): void {
+    private fetchUserInfo(): void {
         this.dataService.request('user/userInfo');
     }
 
-    protected startUserInfoFetcher(): void {
+    private startUserInfoFetcher(): void {
         this.userInfoHandler = this.dataService.subscribe('user/userInfo', (userInfo) => {
             try {
                 this.eventService.emit({
@@ -283,11 +286,11 @@ export class UserService {
         });
     }
 
-    protected stopUserInfoFetcher(): void {
+    private stopUserInfoFetcher(): void {
         this.userInfoHandler?.unsubscribe();
     }
 
-    protected registerMethods(): void {
+    private registerMethods(): void {
         this.dataService.registerMethod({
             name: 'userRegistration',
             url: '/validate/user-register',
@@ -497,17 +500,5 @@ export class UserService {
                 fail: 'USER_INFO_ERROR',
             },
         });
-    }
-
-    protected setProfileData(formData): void {
-        this.profile.data.email = formData.data.email;
-        this.profile.data.password = formData.data.password;
-        this.profile.data.passwordRepeat = formData.data.password;
-        this.profile.data.currency = formData.data.currency;
-        this.userProfile$.next(this.profile);
-    }
-
-    protected get isFastRegistration(): number {
-        return this.configService.get<number>('appConfig.siteconfig.fastRegistration');
     }
 }
