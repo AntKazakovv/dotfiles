@@ -1,4 +1,4 @@
-import {IStaticConfig} from '../interfaces/static.interface';
+import {IStaticConfig} from 'wlc-engine/modules/static';
 
 export const staticConfig: IStaticConfig = {
     pages: [
@@ -8,4 +8,15 @@ export const staticConfig: IStaticConfig = {
         'fair-play',
         'games-rules',
     ],
+    wpPlugins: {
+        wlcApi: false,
+    },
+    cacheExpiry: {
+        category: 120 * 60 * 1000,
+        post: 120 * 60 * 1000,
+        plugin: 120 * 60 * 1000,
+        tag: 120 * 60 * 1000,
+        page: 120 * 60 * 1000,
+    },
+    additionalFields: [],
 };

@@ -12,6 +12,7 @@ import {SwiperModule} from 'ngx-swiper-wrapper';
 import {AngularResizedEventModule} from 'angular-resize-event';
 import {ModalModule} from 'ngx-bootstrap/modal';
 import {AngularMyDatePickerModule} from 'angular-mydatepicker';
+import {NgxIndexedDBModule} from 'ngx-indexed-db';
 // -- MODULES IMPORTS END --;
 
 // -- SERVICES IMPORTS START --;
@@ -25,6 +26,7 @@ import {
     ActionService,
     ModalService,
     ContactsService,
+    CachingService,
 } from './system/services';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 // -- SERVICES IMPORTS END  --;
@@ -59,6 +61,7 @@ import {CopyrightComponent} from './components/copyright/copyright.component';
 import {CurrencyComponent} from 'wlc-engine/modules/core/components/currency/currency.component';
 import {DatepickerComponent} from './components/datepicker/datepicker.component';
 import {TextBlockComponent} from './components/text-block/text-block.component';
+import {DummyComponent} from './components/dummy/dummy.component';
 // -- COMPONENTS IMPORTS END  --;
 
 //  -- DIRECTIVES IMPORTS STARTS--;
@@ -77,7 +80,7 @@ import {CRYPTOCURRENCIES, cryptocurrencies} from 'wlc-engine/modules/core/consta
 
 //  -- CONFIGS IMPORTS STARTS--;
 import {HammerConfig} from 'wlc-engine/modules/core/system/config/hammer.config';
-import {DummyComponent} from './components/dummy/dummy.component';
+import {dbConfig} from 'wlc-engine/modules/core/system/config/indexedDB.config';
 //  -- CONFIGS IMPORTS STARTS--;
 
 export const components = {
@@ -121,6 +124,7 @@ export const components = {
         AngularResizedEventModule,
         ModalModule,
         AngularMyDatePickerModule,
+        NgxIndexedDBModule.forRoot(dbConfig),
     ],
     providers: [
         DataService,
@@ -137,6 +141,7 @@ export const components = {
             provide: HAMMER_GESTURE_CONFIG,
             useClass: HammerConfig,
         },
+        CachingService,
     ],
     declarations: [
         LayoutComponent,

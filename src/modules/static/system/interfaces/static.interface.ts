@@ -1,13 +1,25 @@
 import {IIndexing} from 'wlc-engine/modules/core';
 
+export type StaticTextType = 'page' | 'post' | 'tag' | 'category';
+export type WpPluginsType = 'wlc-api';
+export interface IAcf extends IIndexing<any> {}
+
 export interface IStaticConfig {
     pages?: string[],
+    wpPlugins?: {
+        wlcApi?: boolean,
+    },
+    cacheExpiry?: ICacheExpiry,
+    additionalFields?: string[],
 }
 
-export type StaticTextType = 'page' | 'post' | 'tag' | 'category';
-export type TextDataType = IPostResponse | ITextObject;
-
-export interface IAcf extends IIndexing<any> {}
+export interface ICacheExpiry {
+    category: number,
+    post: number,
+    plugin: number,
+    tag: number,
+    page: number,
+}
 
 export interface IPostResponse {
     author: number;
@@ -80,11 +92,11 @@ export interface IStaticParams {
     fields?: string;
     categories?: string;
 }
-export interface ICategoryStaticText extends ITagStaticText {
+export interface ICategoryStaticText {
     parent: number;
-    acf: IAcf;
-}
-
-export interface ITextObject {
-    data: IPostResponse;
+    description: string;
+    name: string;
+    id: number;
+    slug: string;
+    count: number;
 }

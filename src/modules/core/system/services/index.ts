@@ -14,3 +14,4 @@ export {
     IValidatorSettings,
     ValidatorType,
 } from './validation/validation.service';
+export {CachingService} from './caching/caching.service';

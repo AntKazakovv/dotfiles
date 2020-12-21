@@ -13,18 +13,23 @@ import {
 } from 'rxjs';
 import {
     map,
+    switchMap,
     tap,
     filter,
     catchError,
 } from 'rxjs/internal/operators';
 import {TranslateService} from '@ngx-translate/core';
-import {EventService, LogService} from 'wlc-engine/modules/core/system/services';
-
+import {
+    CachingService,
+    EventService,
+    LogService,
+} from 'wlc-engine/modules/core/system/services';
 import {
     isString as _isString,
     get as _get,
     assign as _assign,
     isFunction as _isFunction,
+    has as _has,
 } from 'lodash';
 
 export interface IData {
@@ -33,12 +38,13 @@ export interface IData {
     system: string;
     code?: string;
     errors?: string[];
+    source?: string;
     data?: any;
 }
 
 export type RestMethodType = 'GET' | 'POST' | 'PATCH' | 'PUT' | 'DELETE';
 
-export type RequestParamsType = HttpParams | { [key: string]: string | string[] | any };
+export type RequestParamsType = HttpParams | {[key: string]: string | string[] | any};
 
 export interface IRequestMethod {
     /** name of method */
@@ -89,17 +95,15 @@ export class DataService {
     private urlPrefix = '/api/v1';
 
     private socketUrl = '';
-    private logService: LogService;
 
     constructor(
         private injector: Injector,
         private http: HttpClient,
         private translate: TranslateService,
         private eventService: EventService,
+        private cachingService: CachingService,
+        private logService: LogService,
     ) {
-        setTimeout(() => {
-            this.logService = injector.get(LogService);
-        }, 0);
         this.init();
     }
 
@@ -210,48 +214,49 @@ export class DataService {
     }
 
     protected request$<T>(method: IRegisteredMethod, params?: RequestParamsType): Observable<IData | T> {
-
         if (!method.url && !method.fullUrl) {
             throw new Error(`request$: url or fullUrl are necessary on ${method.system}/${method.name}`);
         }
 
         const requestParams = _assign(
-            {
-                lang: this.translate.currentLang || 'en',
-            },
+            {lang: this.translate.currentLang || 'en'},
             method.params,
             method.type === 'GET' ? params : {},
         );
         const requestBody = method.type !== 'GET' ? JSON.stringify(params) || '' : undefined;
         const url = method.fullUrl || this.urlPrefix + method.url;
 
-        return (
-            (method.preload
-                && method.type === 'GET'
-                && (globalThis as any)?.wlcPreload?.hasOwnProperty(method.preload)) ?
-                from((globalThis as any)?.wlcPreload[method.preload] as Promise<IData>) :
-                this.http.request<IData>(
-                    method.type,
-                    url,
-                    {
+        const preloadData$: Observable<IData> =
+            (method.type === 'GET' && _has(globalThis.wlcPreload, method.preload))
+                ? from(globalThis.wlcPreload[method.preload])
+                : of(undefined);
+
+
+        return preloadData$.pipe(
+            switchMap((result: IData) => {
+                if (result) {
+                    return of(result);
+                }
+                return method.cache > 0 ? from(this.cachingService.unStashRequest<T>(url)) : of(undefined);
+            }),
+            switchMap((result: IData) => {
+                return result
+                    ? this.restoreCachedData(method, result)
+                    : this.http.request<IData>(method.type, url, {
                         params: requestParams,
                         body: requestBody,
                         withCredentials: true,
-                    },
-                )
-                    .pipe(
-                        catchError((error: HttpErrorResponse) => {
-                            this.logService.sendLog(error.error || error);
-                            if (method.events?.fail) {
-                                this.eventService.emit({
-                                    name: method.events.fail,
-                                    data: error.error || error,
-                                });
-                            }
-                            return throwError(error.error || error);
-                        }),
-                    )
-        ).pipe(
+                    }).pipe(catchError((error: HttpErrorResponse) => {
+                        this.logService.sendLog(error.error || error);
+                        if (method.events?.fail) {
+                            this.eventService.emit({
+                                name: method.events.fail,
+                                data: error.error || error,
+                            });
+                        }
+                        return throwError(error.error || error);
+                    }));
+            }),
             map((data: IData): IData => {
                 let responseData: IData;
 
@@ -293,8 +298,9 @@ export class DataService {
             tap((data: IData) => {
                 this.flow$.next(data);
                 method.subject?.next(data);
-                if (method.type === 'GET' && method.cache > 0 && data.status === 'success') {
-                    // save to cache
+
+                if (method.type === 'GET' && method.cache > 0 && data.status === 'success' && data.source !== 'cache') {
+                    this.cachingService.stashRequest<T>(url, data.data, method.cache);
                 }
             }),
             map((data: any) => {
@@ -359,6 +365,16 @@ export class DataService {
             status: 'error',
             code: '0.1.2',
             data: event,
+        });
+    }
+
+    private restoreCachedData<T>(method: IRegisteredMethod, data: T): Observable<IData> {
+        return of({
+            status: 'success',
+            name: method.name,
+            system: method.name,
+            source: 'cache',
+            data,
         });
     }
 }
