@@ -9,15 +9,17 @@ import {BehaviorSubject} from 'rxjs';
 import {
     find as _find,
 } from 'lodash';
+import {FinancesHelper} from '../../helpers/finances.helper';
 
+interface ICancelWithdrawParams {
+    id: number;
+}
 @Injectable({providedIn: 'root'})
 export class FinancesService {
 
     public paymentSystems$: BehaviorSubject<PaymentSystem[]> = new BehaviorSubject(undefined);
 
     protected systems: PaymentSystem[] = [];
-    protected depositType: FilterType[] = ['deposit', 'Deposits', 'all', 'All'];
-    protected withdrawType: FilterType[] = ['withdraw', 'Withdraws', 'all', 'All'];
 
     constructor(
         protected dataService: DataService,
@@ -33,12 +35,7 @@ export class FinancesService {
     }
 
     public getSystemById(systemId: number): PaymentSystem {
-
-        if (this.systems.length) {
-            return _find(this.systems, {'id': systemId});
-        }
-
-        return null;
+        return this.systems.length ? _find(this.systems, {'id': systemId}) : null;
     }
 
     public async deposit(systemId: number, amount: number, additionalFields: object): Promise<any> {
@@ -106,7 +103,6 @@ export class FinancesService {
 
     /* public getPaymentSystemInfo(): Promise<IPaymentSystemInfo[]> {
         return null;
-
     } */
 
     /**
@@ -117,7 +113,7 @@ export class FinancesService {
      * @return {PaymentSystem[]} list of filtred payment systems
      */
     public filterSystems(filterType: FilterType = 'all'): PaymentSystem[] {
-        return this.systems.filter((system: PaymentSystem) => this.filterSystemsPipe(system, filterType));
+        return this.systems.filter((system: PaymentSystem) => FinancesHelper.checkSystemType(system, filterType));
     }
 
     /**
@@ -130,8 +126,7 @@ export class FinancesService {
      */
 
     public filterSystemsPipe(system: PaymentSystem, filterType: FilterType = 'all'): boolean {
-        return (this.depositType.includes(system.showFor) && this.depositType.includes(filterType))
-            || (this.withdrawType.includes(system.showFor) && this.withdrawType.includes(filterType));
+        return FinancesHelper.checkSystemType(system, filterType);
     }
 
     protected createPaymentSystems(data: IPaymentSystem[]): PaymentSystem[] {
@@ -169,12 +164,20 @@ export class FinancesService {
             system: 'finances',
             url: '/bets',
             type: 'GET',
+            events: {
+                success: 'BETS',
+                fail: 'BETS_ERROR',
+            },
         });
         this.dataService.registerMethod({
             name: 'transactions',
             system: 'finances',
             url: '/transactions',
             type: 'GET',
+            events: {
+                success: 'TRANSACTIONS',
+                fail: 'TRANSACTIONS_ERROR',
+            },
             mapFunc: this.createTransaction.bind(this),
         });
         this.dataService.registerMethod({
@@ -182,19 +185,20 @@ export class FinancesService {
             system: 'finances',
             url: '/deposits',
             type: 'POST',
+            events: {
+                success: 'DEPOSIT',
+                fail: 'DEPOSIT_ERROR',
+            },
         });
         this.dataService.registerMethod({
             name: 'withdrawals',
             system: 'finances',
             url: '/withdrawals',
             type: 'POST',
-        });
-
-        this.dataService.registerMethod({
-            name: 'cancelWithdrawal',
-            system: 'finances',
-            url: '/withdrawals',
-            type: 'DELETE',
+            events: {
+                success: 'WITHDRAW',
+                fail: 'WITHDRAW_ERROR',
+            },
         });
     }
 }

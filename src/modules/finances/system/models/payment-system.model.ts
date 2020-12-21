@@ -9,8 +9,13 @@ import {
     reduce as _reduce,
     map as _map,
     uniq as _uniq,
+    cloneDeep as _cloneDeep,
+    isArray as _isArray,
+    findIndex as _findIndex,
 } from 'lodash';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
+import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
+import {FinancesHelper} from '../helpers/finances.helper';
 
 export type FilterType = 'deposit' | 'Deposits' | 'withdraw' | 'Withdraws' | 'all' | 'All';
 
@@ -45,10 +50,11 @@ export interface IPaymentSystem {
 export interface IPaymentAdditionalParam {
     name: string;
     showfor: FilterType;
-    skipsaving: number;
+    skipsaving?: number;
     isHosted?: boolean;
     type?: 'input' | 'select';
     params?: IIndexing<string>;
+    value?: string;
 }
 
 export interface IHostedFields {
@@ -145,11 +151,11 @@ const fieldTemplatesNames = {
 
 export class PaymentSystem extends AbstractModel<IPaymentSystem> {
 
-    protected cardFields: boolean;
+    public cardFields: boolean;
 
-    constructor(data: IPaymentSystem, protected user: UserService) {
+    constructor(data: IPaymentSystem, protected UserService: UserService) {
         super();
-        this.data = data;
+        this.init(data);
     }
 
     public get appearance(): string {
@@ -162,6 +168,18 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
 
     public get additionalParams(): IIndexing<IPaymentAdditionalParam> {
         return this.data.additionalParams;
+    }
+
+    public get additionalParamsCount(): number {
+        return Object.keys(this.data.additionalParams).length;
+    }
+
+    public get additionalParamsDeposit(): IIndexing<IPaymentAdditionalParam> {
+        return this.getAdditionalParams('deposit');
+    }
+
+    public get additionalParamsWithdraw(): IIndexing<IPaymentAdditionalParam> {
+        return this.getAdditionalParams('withdraw');
     }
 
     public get alias(): string {
@@ -232,10 +250,6 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
         return this.data.withdrawMin || 1;
     }
 
-    /* public get paymentAdditionalParams(): IIndexing<string> {
-        return this.data.add
-    } */
-
     public get visible(): boolean {
         return this.data.visible || true;
     }
@@ -259,44 +273,104 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
     public checkRequiredFields(): object {
         return _pickBy(fieldTemplatesNames, (value, key) => {
 
-            return _includes(this.required, value.dbName) && Object.getOwnPropertyDescriptor((this.user.userProfile as any).__proto__, key)
-                && !_get(this.user.userProfile, [key, 'length'], false);
+            return _includes(this.required, value.dbName) &&
+                GlobalHelper.getOwnProperty(this.UserService.userProfile as any, key) &&
+                !_get(this.UserService.userProfile, [key, 'length'], false);
         });
     }
 
-    /* public getAdditionalParams(filterType: FilterType): void {
-        const additionalParams = angular.copy(this.additionalParams),
-            depositType: FilterType[] = ['deposit', 'Deposits', 'all', 'All'],
-            withdrawType: FilterType[] = ['withdraw', 'Withdraws', 'all', 'All'],
-            hostedFields: IHostedField[] = _get(this, 'hostedFields.fields', {});
-        let fields: IPaymentAdditionalParams = {};
+    protected prepareAdditionalFields(): void {
+        const hostedFields: IHostedField[] = _get(this, 'hostedFields.fields', {});
 
-        for (const key in additionalParams) {
-            if (additionalParams[key]) {
-                fields[key] = this.getField(additionalParams[key]);
-                fields[key].isHosted = _findIndex(hostedFields, (f: IHostedField) => f.name === key) !== -1;
+        for (const key in this.data.additionalParams) {
+            if (this.additionalParams[key]) {
+                this.data.additionalParams[key] = this.getField(this.data.additionalParams[key]);
+                this.data.additionalParams[key].isHosted = _findIndex(hostedFields,
+                    (f: IHostedField) => f.name === key) !== -1;
+                this.setFieldValue(key, this.additionalParams[key]);
             }
         }
 
-        fields = _pickBy(fields, (field: IPaymentAdditionalParam) => {
-            return (depositType.includes(field.showfor) && depositType.includes(filterType))
-                || (withdrawType.includes(field.showfor) && withdrawType.includes(filterType));
-        });
-
-        this.additionalParams = fields;
-        this.additionalParamsCount = Object.keys(this.additionalParams).length;
-
-        const addParams: IIndexing<string> = _get(this.user.userProfile.extProfile, `paymentSystems${this.alias}.additionalParams`, {});
+        //TODO разобраться с этим ид бонуса
+        /*
+        const addParams = _get(this.UserService,
+            `userProfile.extProfile.paymentSystems.${this.alias}.additionalParams`);
 
         if (addParams) {
             delete addParams.bonusId;
         }
+        */
+    }
 
-        this.paymentAdditionalParams = addParams;
-    } */
+    protected getAdditionalParams(filterType: FilterType): IIndexing<IPaymentAdditionalParam> {
+        let fields: IIndexing<IPaymentAdditionalParam> = {};
 
-    protected async init(): Promise<void> {
+        fields = _pickBy(this.additionalParams, (field: IPaymentAdditionalParam, key: string) => {
+            this.setFieldValue(key, field);
+            return (FinancesHelper.isDeposit(field.showfor) && FinancesHelper.isDeposit(filterType))
+                || (FinancesHelper.isWithdraw(field.showfor) && FinancesHelper.isWithdraw(filterType));
+        });
+
+        return fields;
+    }
+
+    protected getField(param: string | any): IPaymentAdditionalParam {
+        let field: IPaymentAdditionalParam,
+            parsParam: any;
+        try {
+            parsParam = eval(param);
+        } catch {
+            parsParam = param;
+        }
+
+        if (typeof parsParam === 'object') {
+            field = {
+                name: parsParam.label || parsParam.name,
+                type: parsParam.type || 'input',
+                showfor: parsParam.showfor || 'all',
+                skipsaving: parsParam.skipsaving || 0,
+                params: parsParam.data,
+            };
+        } else if (_isArray(parsParam)) {
+            field = {
+                name: parsParam[0],
+                type: parsParam[1],
+                showfor: 'all',
+                skipsaving: 0,
+                params: parsParam[2],
+            };
+        } else if (typeof parsParam === 'string') {
+            field = {
+                name: parsParam,
+                type: 'input',
+                showfor: 'all',
+                skipsaving: 0,
+            };
+        }
+
+        return field;
+    }
+
+    protected setFieldValue(key: string, field: IPaymentAdditionalParam) {
+        if (!field.skipsaving) {
+            if (['firstName', 'lastName'].includes(key)) {
+                field.value = _get(this.UserService, `userProfile.${key}`, '');
+            } else {
+                field.value = _get(this.UserService,
+                    `userProfile.extProfile.paymentSystems.${this.alias}.additionalParams.${key}`, '');
+            }
+        }
+    }
+
+    protected init(data: IPaymentSystem): void {
+        this.data = data;
+        this.prepareAdditionalFields();
         this.cardFields = this.isWithCardFields();
+
+        gettext('Withdraw Address');
+        gettext('Card number');
+        gettext('Card Expire (09/21)');
+        gettext('Card code (cvv)');
     }
 
     protected isWithCardFields(): boolean {

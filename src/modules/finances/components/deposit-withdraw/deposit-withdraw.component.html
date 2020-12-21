@@ -19,6 +19,11 @@
     </ul>
 </div>
 
+<div class="wlc-profile-payment-fields-item"
+    *ngFor="let field of additionalParams | keyvalue">
+    <label class="wlc-label">{{field.value.name}} - {{field.value.value}}</label>
+</div>
+
 <div *ngIf="$params?.mode === 'deposit'"
     wlc-form-wrapper [config]="depositFrom" [ngSubmit]="deposit.bind(this)">
 </div>
