@@ -1,6 +1,7 @@
 // -- MODULES IMPORTS START --;
 import {CommonModule} from '@angular/common';
-import {Component, NgModule} from '@angular/core';
+import {NgModule} from '@angular/core';
+
 import {
     HAMMER_GESTURE_CONFIG,
     HammerModule,

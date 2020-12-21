@@ -7,17 +7,18 @@ export type ComponentType = 'default' | CustomType;
 export type IndicatorFormatType = 'code' | 'symbol' | 'narrowSymbol' | 'name';
 
 export interface ICurrencyParams extends IComponentParams<ThemeType, ComponentType, ThemeModType>{
-    defaultCurrency?: string;
-    defaultDigitsInfo?: string;
-    defaultIndicator?: IndicatorFormatType;
-    defaultLocale?: string;
+    value?: number | string;
+    currency?: string;
+    digitsInfo?: string;
+    indicatorFormat?: IndicatorFormatType;
 }
 
 export const defaultParams: ICurrencyParams = {
     class: 'wlc-currency',
     componentName: 'wlc-currency',
     moduleName: 'core',
-    defaultCurrency: 'EUR',
-    defaultIndicator: 'symbol',
-    defaultDigitsInfo: '1-2-2',
+    value: 0,
+    currency: 'EUR',
+    indicatorFormat: 'symbol',
+    digitsInfo: '1-2-2',
 };
