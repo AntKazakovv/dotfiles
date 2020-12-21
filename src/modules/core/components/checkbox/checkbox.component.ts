@@ -1,8 +1,18 @@
-import {Component, Inject, Input, OnInit} from '@angular/core';
-import * as Params from './checkbox.params';
+import {
+    Component,
+    Inject,
+    Input,
+    OnInit,
+} from '@angular/core';
+
 import {FormControl} from '@angular/forms';
 import {ConfigService} from 'wlc-engine/modules/core';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes';
+import * as Params from './checkbox.params';
+
+import {
+    union as _union,
+} from 'lodash';
 
 @Component({
     selector: '[wlc-checkbox]',
@@ -24,5 +34,19 @@ export class CheckboxComponent extends AbstractComponent implements OnInit {
     ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.control = this.$params?.control;
+
+        this.prepareModifiers();
+    }
+
+    // TODO move to abstract class
+    private prepareModifiers(): void {
+        if (!this.$params.common.customModifiers) {
+            return;
+        }
+
+        let modifiers: Params.Modifiers[] = [];
+
+        modifiers = _union(modifiers, this.$params.common.customModifiers.split(' '));
+        this.addModifiers(modifiers);
     }
 }

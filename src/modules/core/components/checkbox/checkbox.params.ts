@@ -5,6 +5,10 @@ import {FormControl} from '@angular/forms';
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;
 export type CheckboxType ='terms' | 'age' | 'payment-rules';
+export type Theme = 'default' | CustomType;
+export type AutoModifiers = Theme | 'default';
+export type CustomMod = string;
+export type Modifiers = AutoModifiers | CustomMod | null;
 
 export interface ICheckboxCParams extends IComponentParams<ComponentTheme, ComponentType, string> {
     name?: string;
@@ -12,6 +16,10 @@ export interface ICheckboxCParams extends IComponentParams<ComponentTheme, Compo
     checkboxType: CheckboxType;
     validators?: ValidatorType[];
     control?: FormControl;
+    common?: {
+        customModifiers?: CustomMod;
+    }
+    modifiers?: Modifiers[];
 }
 
 export const defaultParams: ICheckboxCParams = {

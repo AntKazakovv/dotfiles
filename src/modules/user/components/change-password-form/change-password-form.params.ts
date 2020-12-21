@@ -94,7 +94,6 @@ export const changePasswordFormConfig: IFormWrapperCParams = {
         {
             name: 'core.wlc-button',
             params: {
-                name: 'submit',
                 theme: 'default',
                 common: {
                     text: gettext('Save'),

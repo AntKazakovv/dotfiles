@@ -1,0 +1,26 @@
+@use 'engine-scss/functions' as ef;
+
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'checkboxPadding': 3.5px 5px 3.5px 35px,
+    'checkboxElemSize': 25px,
+    'checkboxElemTop': 0,
+    'checkboxElemLeft': 0,
+    'checkboxElemBackground': #ffffff,
+    'checkboxElemBorder': 2px solid #f2f2f2,
+    'checkboxElemBorderRadius': 5px,
+    'checkboxElemBorderColor':ef.get('color', 'main'),
+
+    'iconLineHieght': 0,
+    'iconSvgWidth': 8px,
+    'iconSvgHeight': 7px,
+    'iconSvgStroke': ef.get('color', 'main'),
+    'iconSvgStrokeWidth': 3px,
+    'iconSvgFill': transparent,
+
+    'textFontSize': 12px,
+    'textColor': ef.get('color', 'text'),
+
+    'linkColor': ef.get('color', 'main'),
+    'linkHoverColor': ef.get('color', 'main')
+), $customThemeDefault);

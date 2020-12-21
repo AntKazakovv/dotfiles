@@ -35,7 +35,7 @@ export const signInFormConfig: IFormWrapperCParams = {
             name: 'core.wlc-text-block',
             params: <ITextBlockCParams>{
                 common: {
-                    textBlockTitle: gettext('Login'),
+                    textBlockTitle: gettext('Sign in'),
                     textBlockSubtitle: gettext('Welcome back!'),
                 },
             },
@@ -78,7 +78,6 @@ export const signInFormConfig: IFormWrapperCParams = {
         {
             name: 'core.wlc-button',
             params: <IButtonParams>{
-                name: 'submit',
                 common: {
                     text: gettext('Login'),
                     type: 'submit',
@@ -90,7 +89,7 @@ export const signInFormConfig: IFormWrapperCParams = {
             params: {
                 common: {
                     titleText: gettext('Don’t have an account?'),
-                    linkText: gettext('Register now'),
+                    linkText: gettext('Sign up now'),
                 },
             },
         },

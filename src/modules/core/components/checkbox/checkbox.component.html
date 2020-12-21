@@ -1,14 +1,22 @@
-<ng-container  [ngSwitch]="$params.checkboxType">
+<ng-container [ngSwitch]="$params.checkboxType">
     <label class="{{$class}}" *ngSwitchCase="'terms'">
         <input
             type="checkbox"
             name="{{$params.name}}"
             [formControl]="control"
+            [(ngModel)]="control.value"
             class="{{$class}}__checkbox"/>
-        <p class="{{$class}}__text">
+        <span
+            class="{{$class}}__elem"
+            wlc-icon [iconName]="'tick'"
+            [ngClass]="{checked: control.value}">
+        </span>
+        <div class="{{$class}}__text">
             {{'I agree with' | translate}}
-            <a uiSref="app.contacts({slug: 'terms-and-conditions'})" class="{{$class}}__link">{{'Terms and Conditions' | translate}}</a>
-        </p>
+            <a uiSref="app.contacts({slug: 'terms-and-conditions'})" class="{{$class}}__link">
+                {{'Terms and Conditions' | translate}}
+            </a>
+        </div>
     </label>
 
     <label class="{{$class}}" *ngSwitchCase="'age'">
@@ -18,9 +26,14 @@
             [formControl]="control"
             [(ngModel)]="control.value"
             class="{{$class}}__checkbox"/>
-        <p class="{{$class}}__text">
+        <span
+            class="{{$class}}__elem"
+            wlc-icon [iconName]="'tick'"
+            [ngClass]="{checked: control.value}">
+        </span>
+        <div class="{{$class}}__text">
             {{"I confirm that I'm 18 years or older" | translate}}
-        </p>
+        </div>
     </label>
 
     <label class="{{$class}}" *ngSwitchCase="'payment-rules'">
@@ -30,9 +43,15 @@
             [formControl]="control"
             [(ngModel)]="control.value"
             class="{{$class}}__checkbox"/>
-        <span class="{{$class}}__text">
-            {{"I have read and agree with the payment" | translate}}
-            <a uiSref="app.contacts({slug: 'terms-and-conditions', '#': 'item-8'})" class="{{$class}}__link">{{'systems restrictions' | translate}} *</a>
+        <span
+            class="{{$class}}__elem"
+            wlc-icon [iconName]="'tick'"
+            [ngClass]="{checked: control.value}">
         </span>
+        <div class="{{$class}}__text">
+            {{"I have read and agree with the payment" | translate}}
+            <a uiSref="app.contacts({slug: 'terms-and-conditions', '#': 'item-8'})"
+               class="{{$class}}__link">{{'systems restrictions' | translate}} *</a>
+        </div>
     </label>
 </ng-container>

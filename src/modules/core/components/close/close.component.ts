@@ -1,20 +1,33 @@
-import {Component, HostBinding, OnInit, Output, EventEmitter} from '@angular/core';
+import {
+    Component,
+    Input,
+    Inject,
+    Output,
+    EventEmitter,
+} from '@angular/core';
+import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {ModalService} from 'wlc-engine/modules/core/system/services';
+import * as Params from 'wlc-engine/modules/core/components/close/close.params';
 
 @Component({
     selector: '[wlc-close]',
     templateUrl: './close.component.html',
     styleUrls: ['./styles/close.component.scss'],
 })
-export class CloseComponent implements OnInit {
-    @HostBinding('class') protected class = 'wlc-close';
+export class CloseComponent extends AbstractComponent {
 
-    @Output() close: EventEmitter<void> = new EventEmitter<void>();
+    @Output() closeUp: EventEmitter<void> = new EventEmitter<void>();
 
-    ngOnInit(): void {
+    constructor(
+        @Inject('injectParams') protected injectParams: Params.ICloseCParams,
+    ) {
+        super({
+            injectParams,
+            defaultParams: Params.defaultParams,
+        });
     }
 
     public onClick(): void {
-        this.close.emit();
+        this.closeUp.emit();
     }
-
 }

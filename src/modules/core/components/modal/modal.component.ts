@@ -36,7 +36,7 @@ import {
 @Component({
     selector: '[wlc-modal-window]',
     templateUrl: './modal.component.html',
-    styleUrls: ['./modal.component.scss'],
+    styleUrls: ['./styles/modal.component.scss'],
     encapsulation: ViewEncapsulation.None,
 })
 export class WlcModalComponent extends AbstractComponent

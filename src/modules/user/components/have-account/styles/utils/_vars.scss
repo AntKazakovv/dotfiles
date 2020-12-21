@@ -1,0 +1,12 @@
+@use 'engine-scss/functions' as ef;
+
+$titleFontSize: 12px !default;
+$titleFontWeight: 400 !default;
+$titleColor: ef.get('color', 'text') !default;
+$titleMargin: 0 0 15px 0 !default;
+
+$linkColor: ef.get('color', 'main') !default;
+$linkColorHover: ef.get('color', 'main') !default;
+
+$iconFill: ef.get('color', 'main') !default;
+$iconMargin: 0 0 0 4px;

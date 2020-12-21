@@ -1,7 +1,6 @@
 import {
     Component,
     Inject,
-    OnInit,
     Input,
     ChangeDetectorRef,
 } from '@angular/core';
@@ -34,23 +33,19 @@ import {
     templateUrl: './sign-in-form.component.html',
     styleUrls: ['./styles/sign-in-form.component.scss'],
 })
-export class SignInFormComponent extends AbstractComponent implements OnInit {
-    @Input() public inlineParams: Params.ISignInFormCParams;
+export class SignInFormComponent extends AbstractComponent {
+
     public $params: Params.ISignInFormCParams;
     public config = Params.signInFormConfig;
 
     constructor(
-        @Inject('injectParams') protected params: Params.ISignInFormCParams,
+        @Inject('injectParams') protected injectParams: Params.ISignInFormCParams,
         protected userService: UserService,
         protected cdr: ChangeDetectorRef,
         protected modalService: ModalService,
         protected logService: LogService,
     ) {
-        super({injectParams: params, defaultParams: Params.defaultParams});
-    }
-
-    public ngOnInit(): void {
-        super.ngOnInit(this.inlineParams);
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public async ngSubmit(form: FormGroup): Promise<void> {
@@ -63,8 +58,12 @@ export class SignInFormComponent extends AbstractComponent implements OnInit {
             await this.userService.login(loginParam, password);
             this.modalService.closeModal('login');
         } catch (error) {
+            this.modalService.closeModal('login');
+            this.modalService.showError({
+                modalMessage: error.errors,
+            });
+
             this.logService.sendLog({code: '1.2.0', data: error});
         }
-
     }
 }

@@ -18,7 +18,7 @@ $selectBorderFocusColor: rgba(0, 0, 0, 0.2) !default;
 $selectBackground: #fff !default;
 $selectTextAlign: left !default;
 $selectPadding: 5px 35px 5px 20px !default;
-$selectArrowColor: #f12e74 !default;
+$selectArrowColor: ef.get('color', 'main') !default;
 
 $dropdownMaxHeight: 300px !default;
 $dropdownBg: #fff !default;
@@ -41,3 +41,19 @@ $errorsMaxWidth: 100% !default;
 $errorsBorderRadius: 10px !default;
 $errorsFontSize: 14px !default;
 $errorsPadding: 10px;
+
+$customThemeVertical: () !default;
+$themeVertical: map-merge((
+    'maxWidth': 100%,
+
+    'labelMaxWidth': 100%,
+    'labelMargin': 0 0 7px 7px,
+    'labelFontSize': 10px,
+    'labelFontWeight': 500,
+    'labelLineHeight': 1,
+    'labelColor': ef.get('color', 'main'),
+
+    'selectGroupSize': 100%,
+    'selectDropdownItemColor': #000000
+
+), $customThemeVertical);

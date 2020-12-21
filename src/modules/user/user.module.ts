@@ -1,7 +1,6 @@
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
-import {SignUpComponent} from './components/sign-up/sign-up.component';
 import {HaveAccountComponent} from './components/have-account/have-account.component';
 import {UserService} from './system/services';
 import {TranslateModule} from '@ngx-translate/core';
@@ -16,6 +15,7 @@ import {SignInFormComponent} from './components/sign-in-form/sign-in-form.compon
 import {PseudoLinkComponent} from './components/pseudo-link/pseudo-link.component';
 import {ChangePasswordFormComponent} from './components/change-password-form/change-password-form.component';
 import {RestorePasswordFormComponent} from './components/restore-password-form/restore-password-form.component';
+import {SignUpFormComponent} from './components/sign-up-form/sign-up-form.component';
 import {UserInfoComponent} from './components/user-info/user-info.component';
 import {UserStatsComponent} from './components/user-stats/user-stats.component';
 import {LogoutComponent} from './components/logout/logout.component';
@@ -24,6 +24,7 @@ import {LogoutComponent} from './components/logout/logout.component';
 export const components = {
     'wlc-login-signup': LoginSignupComponent,
     'wlc-profile-form': ProfileFormComponent,
+    'wlc-sign-up-form': SignUpFormComponent,
     'wlc-sign-in-form': SignInFormComponent,
     'wlc-have-account': HaveAccountComponent,
     'wlc-pseudo-link': PseudoLinkComponent,
@@ -36,7 +37,6 @@ export const components = {
 
 @NgModule({
     declarations: [
-        SignUpComponent,
         HaveAccountComponent,
         LoginSignupComponent,
         SignupBonusComponent,
@@ -46,6 +46,7 @@ export const components = {
         PseudoLinkComponent,
         ChangePasswordFormComponent,
         RestorePasswordFormComponent,
+        SignUpFormComponent,
         UserInfoComponent,
         UserStatsComponent,
     ],
@@ -61,7 +62,6 @@ export const components = {
         DataService,
     ],
     exports: [
-        SignUpComponent,
         HaveAccountComponent,
         LoginSignupComponent,
         TempLogoutComponent,
@@ -69,6 +69,7 @@ export const components = {
         SignInFormComponent,
         ChangePasswordFormComponent,
         RestorePasswordFormComponent,
+        SignUpFormComponent,
         UserInfoComponent,
         UserStatsComponent,
     ],

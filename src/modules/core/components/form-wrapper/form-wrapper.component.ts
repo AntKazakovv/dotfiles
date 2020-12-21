@@ -150,9 +150,18 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
 
     private initForm(): void {
 
+        this.prepareComponents();
+        this.prepareValidators();
+
+        this.form = new FormGroup(this.controls, this.globalValidators);
+
+        this.dataSubscription();
+    }
+
+    private prepareComponents(): void {
         _each(this.$params.components, component => {
 
-            // if (!component.params?.name) { return; }
+            if (!component.params?.name) { return; }
 
             const validators: ValidatorFn[] = [];
             const asyncValidators: AsyncValidatorFn[] = [];
@@ -185,7 +194,9 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
                 this.locked.push(component.params.name);
             }
         });
+    }
 
+    private prepareValidators(): void {
         _each(this.$params.validators, validator => {
             const validationRule = this.getValidator(validator);
 
@@ -200,25 +211,27 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
                 this.globalValidators.validators.push(validationRule.validator);
             }
         });
+    }
 
-        this.form = new FormGroup(this.controls, this.globalValidators);
-
+    private dataSubscription(): void {
         this.formData?.subscribe((data) => {
             _each(this.form.controls, (control, key) => {
                 const value = _get(data, key);
+
                 control.setValue(value);
+
                 if (_includes(this.locked, key) && value) {
                     control.disable();
                 }
             });
         });
-
     }
 
     private getValidator(validatorSettings: string | IValidatorSettings): IValidatorListItem {
         if (_isObject(validatorSettings)) {
             const changeValidator = _clone(this.validationService.getValidator(validatorSettings.name));
             changeValidator.validator = changeValidator.validator(validatorSettings.options);
+
             return changeValidator;
         }
         return this.validationService

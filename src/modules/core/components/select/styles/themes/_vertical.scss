@@ -1,0 +1,37 @@
+@use 'sass:map';
+@import '../utils/vars';
+
+.wlc-select--theme-vertical:host {
+    flex-wrap: wrap;
+    max-width: map.get($themeVertical, 'maxWidth');
+
+    .wlc-select__label {
+        display: block;
+        margin: map.get($themeVertical, 'labelMargin');
+        overflow: hidden;
+        max-width: map.get($themeVertical, 'labelMaxWidth');
+
+        font-size: map.get($themeVertical, 'labelFontSize');
+        font-weight: map.get($themeVertical, 'labelFontWeight');
+        line-height: map.get($themeVertical, 'labelLineHeight');
+        text-overflow: ellipsis;
+        white-space: nowrap;
+
+        color: map.get($themeVertical, 'labelColor');
+
+        cursor: pointer;
+        user-select: none;
+    }
+
+    .wlc-select__group {
+        width: map.get($themeVertical, 'selectGroupSize');
+        max-width: map.get($themeVertical, 'selectGroupSize');
+    }
+
+    .wlc-select__dropdown {
+
+        &-item {
+            color: map.get($themeVertical, 'selectDropdownItemColor');
+        }
+    }
+}

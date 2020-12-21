@@ -30,7 +30,11 @@ $color: map-merge((
     'linkSecondary': #474747,
 
     //Divider colors
-    'divider': #adadad
+    'divider': #adadad,
+
+    // Modal colors
+    'dialogBackground': #4a4b4c,
+    'backdropBackground': #000
 ), $customColor);
 
 $size: map-merge((

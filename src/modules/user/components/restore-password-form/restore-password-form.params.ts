@@ -53,7 +53,6 @@ export const restorePasswordFormConfig: IFormWrapperCParams = {
         {
             name: 'core.wlc-button',
             params: {
-                name: 'submit',
                 theme: 'default',
                 common: {
                     text: gettext('Restore'),
