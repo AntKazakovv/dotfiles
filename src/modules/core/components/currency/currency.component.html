@@ -1,7 +1,11 @@
 <ng-container *ngIf="useIcon && displayIcon?.placement === 'left'">
-    <ng-container *ngIf="isNegative && displayIcon.minusBeforeCurrency">-</ng-container>
+    <ng-container *ngIf="isNegative && displayIcon.minusBeforeCurrency">
+        -
+    </ng-container>
     <span class="wlc-currency__icon">{{displayIcon.icon}}</span>
-    <ng-container *ngIf="isNegative && !displayIcon.minusBeforeCurrency">-</ng-container>
+    <ng-container *ngIf="isNegative && !displayIcon.minusBeforeCurrency">
+        -
+    </ng-container>
 </ng-container>
 
 {{displayValue}}

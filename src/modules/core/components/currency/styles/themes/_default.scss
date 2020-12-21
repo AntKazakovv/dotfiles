@@ -1,0 +1,5 @@
+@import '../utils/mixins';
+
+.wlc-currency--theme-default:host {
+    @include currencyBase;
+}

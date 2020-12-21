@@ -1,0 +1,17 @@
+@import './vars';
+
+@mixin currencyBase {
+    display: inline-flex;
+    flex-wrap: nowrap;
+    color: $textColor;
+
+    .wlc-currency__icon {
+        font-family: CryptocurrencySymbols;
+        font-style: normal !important;
+        font-weight: normal !important;
+        font-variant: normal !important;
+        text-transform: none !important;
+        user-select: none;
+        speak: never;
+    }
+}

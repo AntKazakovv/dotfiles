@@ -1,15 +1,17 @@
 import {
     ChangeDetectionStrategy,
+    ChangeDetectorRef,
     Component,
-    HostBinding,
     Inject,
     Input,
     OnChanges,
     OnInit,
-    ViewEncapsulation,
 } from '@angular/core';
+import {TranslateService} from '@ngx-translate/core';
+import {BehaviorSubject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 
-import * as CurrencyParams from './currency.params';
+import * as Params from './currency.params';
 
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {isNegative, putInRange} from 'wlc-engine/helpers/functions';
@@ -25,12 +27,12 @@ import {
     toInteger as _toInteger,
     toNumber as _toNumber,
     includes as _includes,
-    toLower as _toLower,
     toUpper as _toUpper,
     padEnd as _padEnd,
     concat as _concat,
     reduce as _reduce,
     split as _split,
+    each as _each,
     find as _find,
     map as _map,
 } from 'lodash';
@@ -66,8 +68,7 @@ type CurrencyPart = Intl.NumberFormatPart;
 @Component({
     selector: '[wlc-currency]',
     templateUrl: './currency.component.html',
-    styleUrls: ['./currency.component.scss'],
-    encapsulation: ViewEncapsulation.None,
+    styleUrls: ['./styles/currency.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CurrencyComponent
@@ -76,31 +77,22 @@ export class CurrencyComponent
 
     /**
      * @description
-     * Number that should be formatted.
+     * Value that should be formatted. Could be a number or a string (component will try to parse it to a number).
      * 
+     * Use BehaviorSubject if you want dynamic currency display. Number otherwise.
+     *
      * @default 0
      */
-    @Input()
-    public get value(): number {
-        return this._value || 0;
-    }
-    public set value(newValue: number) {
-        this._value = _toNumber(newValue);
-    }
-    private _value: number;
+    @Input() public value:
+        | BehaviorSubject<number | string>
+        | number
+        | string;
 
     /**
      * @description
      * Currency code according to ISO 4217.
      */
-    @Input()
-    public get currency(): string {
-        return this._currency;
-    }
-    public set currency(newValue: string) {
-        this._currency = _toUpper(newValue).trim();
-    }
-    private _currency: string;
+    @Input() public currency: string;
 
     /**
      * @description
@@ -112,15 +104,7 @@ export class CurrencyComponent
      * 
      * @default 'symbol'
      */
-    @Input() public indicatorFormat: CurrencyParams.IndicatorFormatType;
-
-    /**
-     * @description
-     * Locale in form of BCP 47 tag according which value will be formatted.
-     * 
-     * @default Current language
-     */
-    @Input() public locale: string;
+    @Input() public indicatorFormat: Params.IndicatorFormatType;
 
     /**
      * @description
@@ -139,26 +123,10 @@ export class CurrencyComponent
     @Input() public digitsInfo: string;
 
     /**
-     * Classes that would be bind to host element
-     */
-    @HostBinding('class')
-    public get classList(): string {
-        const currencyModifier: string = _toLower(this.currency);
-        const signModifier: string = isNegative(this.value)
-            ? 'negative'
-            : 'positive';
-
-        return [
-            `${this.$class}--${currencyModifier}`,
-            `${this.$class}--${signModifier}`,
-        ].join(' ');
-    }
-
-    /**
      * Whether currency value is negative
      */
     public get isNegative(): boolean {
-        return isNegative(this.value);
+        return isNegative(this.numericValue);
     }
 
     /**
@@ -182,24 +150,26 @@ export class CurrencyComponent
      * and the currency icon is on the left side.
      */
     public displayIcon: IDisplayIcon;
+    public $params: Params.ICurrencyParams;
+
+    protected numericValue: number;
+
+    /**
+     * Intl format for currency
+     */
+    protected intlCurrencyFormat: Intl.NumberFormat;
 
     /**
      * Array with cryptocurrency codes
      */
     protected cryptocurrenciesList: string[] = Object.keys(this.cryptocurrencies);
 
-    protected params: CurrencyParams.ICurrencyParams = {
-        ...CurrencyParams.defaultParams,
-        ...this.configService.get<CurrencyParams.ICurrencyParams>(
-            `$modules.${CurrencyParams.defaultParams.moduleName}.components.${CurrencyParams.defaultParams.componentName}`,
-        ),
-    };
-
     /**
      * @returns {Object} format options for current currency or empty object
      */
     protected get currencyFormat(): ICurrencyFormat {
-        return this.cryptocurrencies[this.currency] || {};
+        return this.cryptocurrencies[_toUpper(this.$params.currency).trim()]
+            || {};
     }
 
     /**
@@ -208,27 +178,73 @@ export class CurrencyComponent
     protected get isCryptocurrency(): boolean {
         return _includes(
             this.cryptocurrenciesList,
-            this.currency,
+            _toUpper(this.$params.currency).trim(),
         );
     }
 
     constructor(
-        protected configService: ConfigService,
+        protected changeDetectorRef: ChangeDetectorRef,
+        protected translateService: TranslateService,
         @Inject(CRYPTOCURRENCIES)
         protected cryptocurrencies: ICryptocurrencies,
         @Inject('injectParams')
-        injectParams: CurrencyParams.ICurrencyParams,
+        injectParams: Params.ICurrencyParams,
+        configService: ConfigService,
     ) {
-        super({injectParams, defaultParams: CurrencyParams.defaultParams}, configService);
+        super({
+            injectParams,
+            defaultParams: Params.defaultParams,
+        }, configService);
+    }
+
+    public ngOnInit(): void {
+        super.ngOnInit(this.getInlineParams());
+
+        this.subscribeOnLanguageChange();
+        this.setIndicatorFormat();
+        this.setIntlCurrencyFormat(this.translateService.currentLang);
+        this.processValue();
+    }
+
+    protected subscribeOnLanguageChange(): void {
+        this.translateService.onLangChange
+            .pipe(takeUntil(this.$destroy))
+            .subscribe(({lang}) => {
+                this.setIntlCurrencyFormat(lang);
+                this.setDisplayValue();
+                this.changeDetectorRef.markForCheck();
+            });
+    }
+
+    protected getInlineParams(): Params.ICurrencyParams {
+        const inline = {};
+        _each(['value', 'currency', 'digitsInfo', 'indicatorFormat'], (key) => {
+            if (this[key] !== undefined) {
+                inline[key] = this[key];
+            }
+        });
+        return Object.keys(inline).length ? inline : null;
     }
 
     /**
-     * Reevaluate values on each binding change
+     * @description
+     * Evaluates value once if it is a number.
+     *
+     * If it's a behavior subject it subscribes on it and reevaluates display value on each update.
      */
-    public ngOnChanges(): void {
-        this.setDefaultValues();
-        this.setIndicatorFormat();
-        this.setDisplayValue();
+    protected processValue(): void {
+        if (this.value instanceof BehaviorSubject) {
+            this.value.pipe(
+                takeUntil(this.$destroy),
+            ).subscribe((nextValue) => {
+                this.numericValue = _toNumber(nextValue) || 0;
+                this.setDisplayValue();
+                this.changeDetectorRef.markForCheck();
+            });
+        } else {
+            this.numericValue = _toNumber(this.$params.value) || 0;
+            this.setDisplayValue();
+        }
     }
 
     /**
@@ -242,7 +258,10 @@ export class CurrencyComponent
             minimumIntegerDigits,
             minimumFractionDigits,
             maximumFractionDigits,
-        ] = _map(_split(this.digitsInfo, '-'), _toInteger);
+        ] = _map(
+            _split(this.$params.digitsInfo, '-'),
+            _toInteger,
+        );
 
         return {
             minimumIntegerDigits: putInRange(minimumIntegerDigits || 1, 1, 21),
@@ -251,31 +270,15 @@ export class CurrencyComponent
         };
     }
 
-    /**
-     * Sets default values for input if they weren't specified:
-     * 
-     * - `locale`: current site locale;
-     * - `digitsInfo`: empty string.
-     */
-    protected setDefaultValues(): void {
-        const {defaultCurrency, defaultLocale, defaultIndicator, defaultDigitsInfo} = this.params;
-
-        this.currency
-            = this.currency
-            || defaultCurrency;
-
-        this.locale
-            = this.locale
-            || defaultLocale
-            || this.configService.get('appConfig.language');
-
-        this.digitsInfo
-            = this.digitsInfo
-            || defaultDigitsInfo;
-
-        this.indicatorFormat
-            = this.indicatorFormat
-            || defaultIndicator;
+    protected setIntlCurrencyFormat(lang: string): void {
+        this.intlCurrencyFormat = Intl.NumberFormat(lang, {
+            style: 'currency',
+            // pass usd if this is cryptocurrency, otherwise Intl inserts literal
+            currency: this.isCryptocurrency ? 'USD' : _toUpper(this.$params.currency).trim(),
+            currencyDisplay: this.$params.indicatorFormat,
+            useGrouping: true,
+            ...this.getParsedDigitsInfo(2),
+        });
     }
 
     /**
@@ -288,12 +291,12 @@ export class CurrencyComponent
      */
     protected setIndicatorFormat(): void {
         if (this.isCryptocurrency) {
-            this.indicatorFormat = _find<CurrencyParams.IndicatorFormatType>(
-                [this.indicatorFormat, 'symbol', 'narrowSymbol', 'code', 'name'],
+            this.$params.indicatorFormat = _find<Params.IndicatorFormatType>(
+                [this.$params.indicatorFormat, 'symbol', 'narrowSymbol', 'code', 'name'],
                 (indicator) => !!this.currencyFormat[indicator],
             );
         } else {
-            this.indicatorFormat = this.indicatorFormat || 'symbol';
+            this.$params.indicatorFormat ||= 'symbol';
         }
     }
 
@@ -341,15 +344,7 @@ export class CurrencyComponent
      * Formats value according to ISO 4217
      */
     protected getIntlParts(): CurrencyPart[] {
-
-        return Intl.NumberFormat(this.locale, {
-            style: 'currency',
-            // pass usd if this is cryptocurrency, otherwise Intl inserts literal
-            currency: this.isCryptocurrency ? 'usd' : this.currency,
-            currencyDisplay: this.indicatorFormat,
-            useGrouping: true,
-            ...this.getParsedDigitsInfo(2),
-        }).formatToParts(this.value);
+        return this.intlCurrencyFormat.formatToParts(this.numericValue);
     }
 
     /**
@@ -382,10 +377,10 @@ export class CurrencyComponent
             return '';
         }
 
-        const chars: readonly number[] = this.currencyFormat[this.indicatorFormat];
+        const chars: readonly number[] = this.currencyFormat[this.$params.indicatorFormat];
 
         if (!chars) {
-            return this.currency;
+            return _toUpper(this.$params.currency).trim();
         }
 
         return String.fromCharCode(...chars);
@@ -398,7 +393,7 @@ export class CurrencyComponent
         const digitsInfo = this.getParsedDigitsInfo(this.currencyFormat.precision ?? 2);
 
         return _padEnd(
-            _toNumber(this.value.toString())
+            _toNumber(this.numericValue.toString())
                 .toFixed(digitsInfo.maximumFractionDigits)
                 .toString()
                 .split('.')[1],
