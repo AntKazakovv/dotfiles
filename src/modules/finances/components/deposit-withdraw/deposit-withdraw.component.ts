@@ -1,9 +1,9 @@
 import {Component, OnInit, Inject} from '@angular/core';
 import {CurrencyPipe} from '@angular/common';
 
-import {AbstractComponent, IMixedParams} from 'wlc-engine/modules/core';
+import {AbstractComponent, IIndexing, IMixedParams} from 'wlc-engine/modules/core';
 import {ConfigService, EventService, ModalService} from 'wlc-engine/modules/core/system/services';
-import {PaymentSystem} from 'wlc-engine/modules/finances/system/models/payment-system.model';
+import {IPaymentAdditionalParam, PaymentSystem} from 'wlc-engine/modules/finances/system/models/payment-system.model';
 import {FinancesService} from 'wlc-engine/modules/finances/system/services';
 
 import {IPaymentListParams} from './../payment-list/payment-list.params';
@@ -30,6 +30,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
     public title: string = gettext('Deposit');
     public requiredFields: Object = {};
     public requiredFieldsKeys: string[] = [];
+    public additionalParams: IIndexing<IPaymentAdditionalParam> = {};
 
     public listConfig: IPaymentListParams = {
         paymentType: 'deposit',
@@ -58,6 +59,8 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
             from: 'finances',
         }, (system: PaymentSystem) => {
             this.currentSystem = system;
+            this.additionalParams = this.listConfig.paymentType === 'deposit' ?
+                system.additionalParamsDeposit : system.additionalParamsWithdraw;
             this.checkUserProfileForPayment();
         }, this.$destroy);
 
@@ -91,7 +94,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
             const response = await this.financesService.deposit(
                 this.currentSystem.id,
                 form.value.amount,
-                {},
+                this.additionalParams,
             );
 
             if (response.length) {
@@ -204,8 +207,6 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
         }
 
         this.requiredFieldsKeys = Object.keys(this.requiredFields);
-
-        console.log(this.requiredFields);
 
         return !Object.keys(this.requiredFields).length;
     }

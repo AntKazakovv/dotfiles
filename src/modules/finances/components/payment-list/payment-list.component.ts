@@ -53,7 +53,6 @@ export class PaymentListComponent extends AbstractComponent implements OnInit {
     }
 
     public selectPayment(system: PaymentSystem): void {
-
         this.eventService.emit({
             name: 'select_system',
             from: 'finances',

@@ -70,6 +70,10 @@ export class GlobalHelper {
         });
     }
 
+    public static getOwnProperty(object: any, key: string): any {
+        return Object.getOwnPropertyDescriptor((object).__proto__, key);
+    }
+
     /**
      * @ngdoc method
      * @name mergeConfig
