@@ -8,6 +8,13 @@
     }
 }
 
+@mixin manualMod($class, $theme, $mod) {
+
+    @at-root #{selector.replace(&, '.#{$class}--theme-#{$theme}', '.#{$class}--#{$mod}')} {
+        @content;
+    }
+}
+
 @mixin betweenClass($class: '') {
     $stringSelector: string.unquote('#{&}');
     $index: string.index($stringSelector, ' ');

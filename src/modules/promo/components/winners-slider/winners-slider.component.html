@@ -1,0 +1,15 @@
+<div class="{{$class}}__wrapper" >
+    <h4 class="{{$class}}__title">{{title | translate}}</h4>
+    <ng-container *ngIf="ready">
+        <div class="{{$class}}__slider"
+            wlc-slider
+            [slides]="slides"
+            [inlineParams]="sliderParams">
+        </div>
+    </ng-container>
+</div>
+
+
+<ng-template #winner let-item="item">
+    <div class="foo">{{item.name}}</div>
+</ng-template>

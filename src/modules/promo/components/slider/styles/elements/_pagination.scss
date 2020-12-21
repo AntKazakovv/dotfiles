@@ -1,0 +1,178 @@
+.swiper-pagination {
+    position: absolute;
+    text-align: center;
+    transition: 0.3s opacity;
+    transform: translate3d(0, 0, 0);
+    z-index: $swiperPagiZindex;
+
+    &.swiper-pagination-hidden {
+        opacity: 0;
+    }
+}
+
+// Common Styles
+.swiper-pagination-fraction,
+.swiper-pagination-custom,
+.swiper-container-horizontal > .swiper-pagination-bullets {
+    bottom: $swiperPagiBottom;
+    left: 0;
+    width: 100%;
+}
+
+// Bullets
+.swiper-pagination-bullet {
+    width: $swiperPagiBulletWidth;
+    height: $swiperPagiBulletHeight;
+    display: inline-block;
+    border-radius: $swiperPagiBulletBorderRadius;
+    background: $swiperPagiBulletColor;
+
+    @at-root button#{&} {
+        border: none;
+        margin: 0;
+        padding: 0;
+        box-shadow: none;
+        appearance: none;
+    }
+
+    .swiper-pagination-clickable & {
+        cursor: pointer;
+    }
+}
+
+.swiper-pagination-bullet-active {
+    background: $swiperPagiBulletColorActive;
+    width: $swiperPagiBulletWidthActive;
+    height: $swiperPagiBulletHeightActive;
+}
+
+.swiper-pagination-bullets-dynamic {
+    overflow: hidden;
+    font-size: 0;
+
+    .swiper-pagination-bullet {
+        transform: scale(0.33);
+        position: relative;
+        width: $swiperPagiBulletDynamicSize;
+        height: $swiperPagiBulletDynamicSize;
+    }
+
+    .swiper-pagination-bullet-active {
+        transform: scale(1);
+        width: $swiperPagiBulletDynamicSize;
+        height: $swiperPagiBulletDynamicSize;
+    }
+
+    .swiper-pagination-bullet-active-main {
+        transform: scale(1);
+    }
+
+    .swiper-pagination-bullet-active-prev {
+        transform: scale(0.66);
+    }
+
+    .swiper-pagination-bullet-active-prev-prev {
+        transform: scale(0.33);
+    }
+
+    .swiper-pagination-bullet-active-next {
+        transform: scale(0.66);
+    }
+
+    .swiper-pagination-bullet-active-next-next {
+        transform: scale(0.33);
+    }
+}
+
+
+
+.swiper-container-vertical {
+
+    >.swiper-pagination-bullets {
+        right: $swiperPagiVerticalAside;
+        top: 50%;
+        transform: translate3d(0, -50%, 0);
+
+        .swiper-pagination-bullet {
+            margin: $swiperPagiBulletMarginVertical;
+            display: block;
+        }
+
+        &.swiper-pagination-bullets-dynamic {
+            top: 50%;
+            transform: translateY(-50%);
+
+            .swiper-pagination-bullet {
+                display: inline-block;
+                transition: 0.2s transform, 0.2s top;
+            }
+        }
+    }
+}
+
+.swiper-container-horizontal {
+
+    >.swiper-pagination-bullets {
+
+        .swiper-pagination-bullet {
+            margin: $swiperPagiBulletMarginHorizontal;
+        }
+
+        &.swiper-pagination-bullets-dynamic {
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+
+            .swiper-pagination-bullet {
+                transition: 0.2s transform, 0.2s left;
+            }
+        }
+    }
+
+    &.swiper-container-rtl > .swiper-pagination-bullets-dynamic .swiper-pagination-bullet {
+        transition: 0.2s transform, 0.2s right;
+    }
+}
+
+// Progress
+.swiper-pagination-progressbar {
+    background: $swiperPagiProgressbarBg;
+    border-radius: $swiperPagiProgressbarBorderRadius;
+    position: absolute;
+
+    .swiper-pagination-progressbar-fill {
+        background: $swiperPagiProgressbarBgFill;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        transform: scale(0);
+        transform-origin: left top;
+        border-radius: $swiperPagiProgressbarBorderRadius;
+    }
+
+    .swiper-container-rtl & .swiper-pagination-progressbar-fill {
+        transform-origin: right top;
+    }
+
+    .swiper-container-horizontal > &,
+    .swiper-container-vertical > &.swiper-pagination-progressbar-opposite {
+        width: 100%;
+        height: $swiperPagiProgressbarHeight;
+        left: 0;
+        top: 0;
+    }
+
+    .swiper-container-vertical > &,
+    .swiper-container-horizontal > &.swiper-pagination-progressbar-opposite {
+        width: $swiperPagiProgressbarHeight;
+        height: 100%;
+        left: 0;
+        top: 0;
+    }
+}
+
+.swiper-pagination-lock {
+    display: none;
+}

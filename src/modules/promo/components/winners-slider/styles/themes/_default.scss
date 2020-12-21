@@ -1,0 +1,47 @@
+@use 'engine-scss/mixins/base.mixins' as em;
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@import './../utils/vars';
+@import './../utils/mixins';
+
+.wlc-winners-slider--theme-default:host {
+
+    .wlc-winners-slider {
+
+        &__wrapper {
+            @include wrapperDefault();
+
+            @include mq.min(1200) {
+                display: flex;
+
+                @include em.manualMod('wlc-winners-slider', 'default' ,'headless') {
+                    display: block;
+                }
+            }
+        }
+
+        &__title {
+            margin-bottom: $titleMarginBottom;
+            font-size: $titleFontSize;
+            font-weight: $titleFontWeight;
+            color: $titleColor;
+
+            @include em.manualMod('wlc-winners-slider', 'default' ,'headless') {
+                display: none;
+            }
+
+            @include mq.min(1200) {
+                flex: 0 0 auto;
+                margin-bottom: $titleMarginBottomMq1200;
+                padding-right: $titlePaddingRightMq1200;
+            }
+        }
+
+        &__slider {
+
+            @include mq.min(1200) {
+                flex: 1 1 auto;
+                min-width: 0;
+            }
+        }
+    }
+}

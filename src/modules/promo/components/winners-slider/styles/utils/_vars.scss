@@ -1,0 +1,22 @@
+@use 'engine-scss/functions' as ef;
+
+// common
+$radius: ef.get('radius', 'biger') !default;
+
+// wrapper
+$wrapperPaddingBase: 15px !default;
+$wrapperPaddingAdd: 30px !default;
+$wrapperBackground: ef.get('color', 'backgroundSecondary') !default;
+$wrapperMaxWidth: 520px !default;
+
+// title
+$titleFontSize: ef.get('font', 'main') !default;
+$titleFontWeight: 500 !default;
+$titleColor: ef.get('color', 'background') !default;
+$titleBackground: ef.get('color', 'main') !default;
+$titleMarginBottom: 15px !default;
+$titleMarginBottomMq1200: 0 !default;
+$titlePaddingRightMq1200: 22px !default;
+
+// slider
+$sliderVerticalHeight: 280px !default;

@@ -215,10 +215,10 @@ export class WinnersService {
     protected mapResponse(response: IData, event: string): WinnerModel[] {
         if (response) {
             // for test, imitation of changing data
-            // const dataMock = Math.random() > 0.5 ? lastWinsData : lastWinsData2;
-            // const data = this.getData(dataMock as IWinnerData[]);
+            const dataMock = Math.random() > 0.5 ? lastWinsData : lastWinsData2;
+            const data = this.getData(dataMock as IWinnerData[]);
 
-            const data = this.getData(response.data as IWinnerData[]);
+            // const data = this.getData(response.data as IWinnerData[]);
 
             this.eventService.emit({
                 name: event,

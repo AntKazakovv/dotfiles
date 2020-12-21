@@ -1,0 +1,67 @@
+.swiper-navigation {
+    //
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+    position: absolute;
+    top: $swiperNaviTop;
+    margin-top: calc(-1 * #{$swiperNaviButtonSize} / 2);
+    z-index: $swiperNaviZindex;
+    width: $swiperNaviButtonSize;
+    height: $swiperNaviButtonSize;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: $swiperNaviButtonBg;
+    color: $swiperNaviArrowColor;
+    border-radius: $swiperNaviButtonBorderRadius;
+    transition: $swiperNaviButtonTransition;
+
+    &:hover {
+        background: $swiperNaviButtonBgHover;
+        color: $swiperNaviArrowColorHover;
+    }
+
+    &.swiper-button-disabled {
+        opacity: $swiperNaviButtonDisabledOpacity;
+        cursor: auto;
+        pointer-events: none;
+    }
+
+    &:after {
+        font-family: swiper-icons;
+        font-size: $swiperNaviArrowSize;
+        letter-spacing: 0;
+        text-transform: none;
+        font-variant: initial;
+        line-height: 1;
+    }
+}
+
+.swiper-button-prev,
+.swiper-container-rtl .swiper-button-next {
+
+    &:after {
+        content: 'prev';
+    }
+
+    left: $swiperNaviAside;
+    right: auto;
+}
+
+.swiper-button-next,
+.swiper-container-rtl .swiper-button-prev {
+
+    &:after {
+        content: 'next';
+    }
+
+    right: $swiperNaviAside;
+    left: auto;
+}
+
+.swiper-button-lock {
+    display: none;
+}

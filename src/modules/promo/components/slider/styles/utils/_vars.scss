@@ -1,0 +1,55 @@
+@use 'engine-scss/functions' as ef;
+
+// Navigation
+$swiperNaviZindex: 10 !default;
+$swiperNaviAside: 10px !default;
+$swiperNaviTop: 50% !default;
+
+$swiperNaviButtonSize: 44px !default;
+$swiperNaviButtonBorderRadius: 6px !default;
+$swiperNaviButtonBg: ef.get('color', 'main') !default;
+$swiperNaviButtonBgHover: ef.get('color', 'secondary') !default;
+$swiperNaviButtonDisabledOpacity: 0.25 !default;
+$swiperNaviButtonTransition: all 0.3s !default;
+
+$swiperNaviArrowSize: $swiperNaviButtonSize / 3 !default;
+$swiperNaviArrowColor: ef.get('color', 'background') !default;
+$swiperNaviArrowColorHover: $swiperNaviArrowColor !default;
+
+
+// Pagination
+$swiperPagiZindex: 10 !default;
+$swiperPagiBottom: 10px !default;
+$swiperPagiVerticalAside: 10px !default;
+
+$swiperPagiBulletWidth: 8px !default;
+$swiperPagiBulletHeight: 8px !default;
+$swiperPagiBulletColor: ef.get('color', 'secondary') !default;
+$swiperPagiBulletColorActive: ef.get('color', 'main') !default;
+$swiperPagiBulletWidthActive: $swiperPagiBulletWidth !default;
+$swiperPagiBulletHeightActive: $swiperPagiBulletHeight !default;
+$swiperPagiBulletBorderRadius: 50% !default;
+$swiperPagiBulletTransition: all ef.get('time', 'main') !default;
+
+$swiperPagiBulletDynamicSize: 12px !default;
+
+$swiperPagiBulletMarginHorizontal: 0 4px !default;
+$swiperPagiBulletMarginVertical: 6px 0 !default;
+
+$swiperPagiProgressbarBg: ef.get('color', 'secondary') !default;
+$swiperPagiProgressbarBorderRadius: 4px !default;
+$swiperPagiProgressbarBgFill: ef.get('color', 'main') !default;
+$swiperPagiProgressbarHeight: 4px !default;
+
+
+// Scrollbar
+$swiperScrollbarZindex: 50 !default;
+$swiperScrollbarAside: 3px !default;
+$swiperScrollbarWidth: 4px !default;
+$swiperScrollbarHeight: 98% !default;
+$swiperScrollbarTopLeft: 1% !default;
+$swiperScrollbarBg: ef.get('color', 'secondary') !default;
+$swiperScrollbarBorderRadius: 10px !default;
+
+$swiperScrollbarDragBg:ef.get('color', 'main') !default;
+$swiperScrollbarDragBorderRadius: 10px !default;

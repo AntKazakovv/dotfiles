@@ -17,6 +17,7 @@ export const localFiles: IIndexing<string> = {
     'age-restrictions': 'icons/age-restrictions.svg',
     'info': 'icons/info.svg',
     'burger': 'icons/burger.svg',
+    'winner-arrow': 'decors/winner-arrow.svg',
     'calendar': 'icons/calendar.svg',
     'login': 'icons/login.svg',
     'user-icon': 'icons/user-icon.svg',
