@@ -1,0 +1,42 @@
+.swiper-scrollbar {
+    border-radius: $swiperScrollbarBorderRadius;
+    position: relative;
+    -ms-touch-action: none;
+    background: $swiperScrollbarBg;
+
+    .swiper-container-horizontal > & {
+        position: absolute;
+        left: $swiperScrollbarTopLeft;
+        bottom: $swiperScrollbarAside;
+        z-index: $swiperScrollbarZindex;
+        height: $swiperScrollbarWidth;
+        width: $swiperScrollbarHeight;
+    }
+
+    .swiper-container-vertical > & {
+        position: absolute;
+        right: $swiperScrollbarAside;
+        top: $swiperScrollbarTopLeft;
+        z-index: $swiperScrollbarZindex;
+        width: $swiperScrollbarWidth;
+        height: $swiperScrollbarHeight;
+    }
+}
+
+.swiper-scrollbar-drag {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    background: $swiperScrollbarDragBg;
+    border-radius: $swiperScrollbarDragBorderRadius;
+    left: 0;
+    top: 0;
+}
+
+.swiper-scrollbar-cursor-drag {
+    cursor: move;
+}
+
+.swiper-scrollbar-lock {
+    display: none;
+}

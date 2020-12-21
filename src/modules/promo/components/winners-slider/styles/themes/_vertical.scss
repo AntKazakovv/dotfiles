@@ -1,0 +1,58 @@
+@use 'engine-scss/mixins/base.mixins' as em;
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@import './../utils/vars';
+@import './../utils/mixins';
+
+.wlc-winners-slider--theme-vertical:host {
+
+    .wlc-winners-slider {
+
+        &__wrapper {
+            @include wrapperDefault('vertical');
+            max-width: $wrapperMaxWidth;
+            background: $wrapperBackground;
+            border-radius: $radius;
+
+            @include em.manualMod('wlc-winners-slider', 'vertical' ,'headless') {
+                padding-top: $wrapperPaddingBase;
+            }
+
+            // TODO come up with vars for mediaqueries
+            @include mq.min(1200) {
+                padding: 0 35px 38px;
+
+                @include em.manualMod('wlc-winners-slider', 'vertical' ,'headless') {
+                    padding-top: 38px;
+                }
+            }
+        }
+
+        &__title {
+            display: inline-block;
+            margin-bottom: 15px;
+            margin-left: -1 * $wrapperPaddingBase;
+            padding: 8px $wrapperPaddingBase;
+            font-size: $titleFontSize;
+            font-weight: $titleFontWeight;
+            color: $titleColor;
+            background: $titleBackground;
+            border-bottom-right-radius: $radius;
+            border-top-left-radius: $radius;
+
+            @include em.manualMod('wlc-winners-slider', 'vertical' ,'headless') {
+                display: none;
+            }
+
+            // TODO come up with vars for mediaqueries
+            @include mq.min(1200) {
+                margin-left: -35px;
+                margin-bottom: 32px;
+                padding: 10px 22px;
+            }
+        }
+
+        &__slider {
+            height: $sliderVerticalHeight;
+        }
+    }
+}

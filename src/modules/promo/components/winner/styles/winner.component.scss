@@ -1,0 +1,17 @@
+
+:host {
+    // requires to reset swiper component styles
+    overflow: visible !important;
+    max-height: none !important;
+    max-width: none !important;
+
+    .wlc-winner {
+
+        &__wrapper {
+            max-width: 100%;
+        }
+    }
+}
+
+@import './themes/default';
+@import './themes/vertical';

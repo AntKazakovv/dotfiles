@@ -1,0 +1,32 @@
+<div class="{{$class}}__wrapper">
+    <div class="{{$class}}__block {{$class}}__block--left">
+        <img class="{{$class}}__image"
+            [attr.src]="[gameImage]"
+            [attr.alt]="[gameName]">
+    </div>
+
+    <div class="{{$class}}__block {{$class}}__block--right">
+        <div class="{{$class}}__user">
+            <img *ngIf="countryIso2 && !$params.hideCountry"
+                class="{{$class}}__country"
+                [attr.src]="[countryUrl]"
+                [attr.alt]="[countryIso3]">
+            <div class="{{$class}}__name">{{name}}</div>
+        </div>
+
+        <!-- TODO replace with amount component -->
+        <div class="{{$class}}__amount">{{amount}} {{currency}}</div>
+
+        <button type="button"
+            (click)="startGame($event)"
+            class="{{$class}}__game"
+            [attr.title]="[gameName]">
+            <span class="{{$class}}__game-name">{{gameName}}</span>
+            <span *ngIf="!$params.hideGameIcon"
+                class="{{$class}}__game-arrow"
+                wlc-icon
+                [iconName]="'winner-arrow'">
+            </span>
+        </button>
+    </div>
+</div>

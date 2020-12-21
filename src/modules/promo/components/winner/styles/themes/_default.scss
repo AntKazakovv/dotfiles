@@ -1,0 +1,69 @@
+@import './../utils/vars';
+@import './../utils/mixins';
+
+.wlc-winner--theme-default:host {
+
+    .wlc-winner {
+
+        &__wrapper {
+            @include wrapperDefault();
+            align-items: center;
+            padding-left: $borderLinePadding;
+
+            &:before {
+                content: '';
+                position: absolute;
+                width: $borderLineWidth;
+                height: 90%;
+                top: 10%;
+                left: 0;
+                border-radius: $borderLineRadius;
+                background-color: $borderLineColor;
+            }
+        }
+
+        &__block {
+
+            &--left {
+                @include leftDefault();
+            }
+
+            &--right {
+                @include rightDefault();
+                margin-left: $rightMarginLeft;
+            }
+        }
+
+        &__image {
+            @include imageDefault();
+        }
+
+        &__user {
+            @include userDefault();
+        }
+
+        &__name {
+            @include nameDefault();
+        }
+
+        &__country {
+            @include countryDefault();
+        }
+
+        &__game {
+            @include gameDefault();
+        }
+
+        &__game-name {
+            @include gameNameDefault();
+        }
+
+        &__game-arrow {
+            @include gameArrowDefault();
+        }
+
+        &__amount {
+            @include amountDefault();
+        }
+    }
+}

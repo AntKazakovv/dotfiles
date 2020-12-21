@@ -1,0 +1,9 @@
+<div class="{{$class}}__wrapper">
+    <ng-container *ngIf="ready">
+        <div class="{{$class}}__slider"
+            wlc-slider
+            [slides]="slides"
+            [inlineParams]="sliderParams">
+        </div>
+    </ng-container>
+</div>

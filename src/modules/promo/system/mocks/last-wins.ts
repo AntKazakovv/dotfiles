@@ -1,4 +1,75 @@
-export const lastWinsData = [{
+export const lastWinsData = [
+{
+    "GameID": 1569703,
+    "AmountEUR": 2,
+    "Amount": 2,
+    "Date": "2020-11-19 08:55:03",
+    "Name": "qwe a.",
+    "Currency": "EUR",
+    "CountryIso2": "ru",
+    "CountryIso3": "rus",
+    "ID": "62f064f54b82eb24e6c193d3d1baf082"
+}, {
+    "GameID": 1577440,
+    "AmountEUR": 4,
+    "Amount": 4,
+    "Date": "2020-11-18 09:22:01",
+    "Name": "pavel.golo**********@*******ings.com",
+    "Currency": "EUR",
+    "CountryIso2": "",
+    "CountryIso3": "",
+    "ID": "6d370b9146e8c60544b4d51537cec836"
+}, {
+    "GameID": 1813818,
+    "AmountEUR": 2.05,
+    "Amount": 2.05,
+    "Date": "2020-11-17 09:01:01",
+    "Name": "155170******@***t.ru",
+    "Currency": "EUR",
+    "CountryIso2": "ru",
+    "CountryIso3": "rus",
+    "ID": "b44d7ca5079d1fe960a2591cbfdf17a7"
+}, {
+    "GameID": 1555177,
+    "AmountEUR": 1.1,
+    "Amount": 1.1,
+    "Date": "2020-11-17 08:39:16",
+    "Name": "155170******@****.test",
+    "Currency": "EUR",
+    "CountryIso2": "ru",
+    "CountryIso3": "rus",
+    "ID": "b70a23e7804b48c49bf5de8bfc9c99d6"
+}, {
+    "GameID": 1569823,
+    "AmountEUR": 2.24,
+    "Amount": 204.24,
+    "Date": "2020-11-16 16:22:49",
+    "Name": "Igor P.",
+    "Currency": "RUB",
+    "CountryIso2": "ru",
+    "CountryIso3": "rus",
+    "ID": "bea2d511d468ef21526ffc87cd61060f"
+}, {
+    "GameID": 1775941,
+    "AmountEUR": 1.47,
+    "Amount": 1.47,
+    "Date": "2020-11-16 14:12:58",
+    "Name": "ALEKSEI C.",
+    "Currency": "EUR",
+    "CountryIso2": "ru",
+    "CountryIso3": "rus",
+    "ID": "8458e0ccbe3090e98e78d786c4ab89a7"
+}, {
+    "GameID": 1700044,
+    "AmountEUR": 5,
+    "Amount": 5,
+    "Date": "2020-11-16 14:01:41",
+    "Name": "olyapupy+*********@****ex.ru",
+    "Currency": "EUR",
+    "CountryIso2": "",
+    "CountryIso3": "",
+    "ID": "10aae794d2bb126a58162423f57569fd"
+}, {
     "GameID": 1516747,
     "AmountEUR": 2,
     "Amount": 2,
@@ -100,8 +171,9 @@ export const lastWinsData = [{
     "ID": "048ab57147105b99a844aaf3e7d30e44"
 }];
 
-export const lastWinsData2 = [{
-    "GameID": 1562689,
+export const lastWinsData2 = [
+{
+    "GameID": 1569670,
     "AmountEUR": 40,
     "Amount": 40,
     "Date": "2020-11-20 06:02:58",
@@ -111,7 +183,7 @@ export const lastWinsData2 = [{
     "CountryIso3": "rus",
     "ID": "32001d69efd8b4c7efc7aeefc947e900"
 }, {
-    "GameID": 1567306,
+    "GameID": 1566124,
     "AmountEUR": 7.5,
     "Amount": 7.5,
     "Date": "2020-11-17 11:05:16",
@@ -131,7 +203,7 @@ export const lastWinsData2 = [{
     "CountryIso3": "mlt",
     "ID": "f322c9c71c8b52c6bd433d5a60d969fa"
 }, {
-    "GameID": 1567306,
+    "GameID": 1556704,
     "AmountEUR": 80,
     "Amount": 80,
     "Date": "2020-11-16 11:21:12",
@@ -141,7 +213,7 @@ export const lastWinsData2 = [{
     "CountryIso3": "rus",
     "ID": "4e1ea57108f89810ac50bb5e43bbc5af"
 }, {
-    "GameID": 1567306,
+    "GameID": 1547485,
     "AmountEUR": 24,
     "Amount": 24,
     "Date": "2020-11-16 11:11:29",
@@ -171,7 +243,7 @@ export const lastWinsData2 = [{
     "CountryIso3": "bel",
     "ID": "15e0be992faac454531149e9ba410d56"
 }, {
-    "GameID": 1476620,
+    "GameID": 1529675,
     "AmountEUR": 9,
     "Amount": 9,
     "Date": "2020-11-13 12:52:50",

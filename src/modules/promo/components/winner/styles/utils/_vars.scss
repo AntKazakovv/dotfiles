@@ -1,0 +1,63 @@
+@use 'engine-scss/functions' as ef;
+
+// if vertical, be careful with sizes
+
+// common
+$borderRadius: ef.get('radius', 'biger') !default;
+$transition: ef.get('time', 'main') linear !default;
+
+// border line
+$borderLineWidth: 3px !default;
+$borderLineRadius: 3px !default;
+$borderLinePadding: 20px !default;
+$borderLineColor: ef.get('color', 'link') !default;
+
+// winner left block
+$leftBackground: ef.get('color', 'background') !default;
+$leftPadding: 8px 9px !default;
+$lineHeight: 1.2 !default;
+$leftMarginLevtVertival: 20px !default;
+
+// winner right block
+$rightGridTemplateColumns: auto 1fr !default;
+$rightGridTemplateAreas: 'user amount' 'game game' !default;
+$rightColumbGap: 10px !default;
+$rightRowGap: 6px !default;
+$rightMarginLeft: 28px !default;
+
+// image
+$imageSize: 62px !default;
+$imageBorderRadius: $borderRadius !default;
+$imageBorder: none !default;
+$imageShadow: 0 4px 9px rgba($color: #000000, $alpha: 0.7) !default;
+
+// user
+$userFontSize: ef.get('font', 'smaller') !default;
+$userColor: ef.get('color', 'text') !default;
+$userFontWeight: 400 !default;
+$userTextTransform: none !default;
+$userFontStyle: normal !default;
+
+// flag
+$flagWidth: 17px !default;
+$flagHeight: 11px !default;
+$flagMarginRight: 10px !default;
+$flagBorder: none !default;
+$flagShadow: none !default;
+
+// game
+$gameFontSize: ef.get('font', 'main') !default;
+$gameFontWeight: 500 !default;
+$gameColor: ef.get('color', 'link') !default;
+$gameBorderColor: transparent !default;
+$gameArrowColor: $gameColor !default;
+$gameArrowMarginLeft: 10px !default;
+
+$gameHoverColor: $gameColor !default;
+$gameHoverBorderColor: currentColor !default;
+$gameHoverArrowColor: currentColor !default;
+
+// amount
+$amountFontSize: ef.get('font', 'main') !default;
+$amountColor: ef.get('color', 'text') !default;
+$amountFontWeight: 500 !default;
