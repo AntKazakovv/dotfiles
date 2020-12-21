@@ -1,5 +1,5 @@
 import {ConfigService} from 'wlc-engine/modules/core';
-import {TextDataType} from 'wlc-engine/modules/static';
+import {IPostResponse} from 'wlc-engine/modules/static';
 
 import {
     get as _get,
@@ -24,7 +24,7 @@ export abstract class TextDataModel {
     protected cacheFields: string[] = ['id', 'date', 'slug', 'titleRaw', 'htmlRaw', 'image', 'extFields'];
 
     constructor(
-        protected dataObject: TextDataType,
+        protected dataObject: IPostResponse,
         protected configService: ConfigService,
     ) {
         this.prepareData(dataObject);
@@ -47,12 +47,6 @@ export abstract class TextDataModel {
             return this.decodeHtml(split[0]).replace(/\<*.\>?$/, '');
         } else {
             return this.decodeHtml(split[0]).replace(/\<*.\>?$/, '').split(' ').slice(0, 50).join(' ') + '...';
-            // const elem = angular.element(`<div>${this.htmlRaw}</div>`);
-            // if (elem.children()[0]) {
-            //     return elem[0].outerHTML;
-            // } else {
-            //     return elem.text().split(' ').slice(0, 50).join(' ') + '...';
-            // }
         }
     }
 

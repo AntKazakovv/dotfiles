@@ -69,7 +69,7 @@ export class PostComponent extends AbstractComponent implements OnInit, AfterVie
                 this.params.setTitle(data.title);
             }
         } catch (e) {
-            console.log(e);
+            console.error(e);
         } finally {
             this.isReady = true;
             this.cdr.markForCheck();

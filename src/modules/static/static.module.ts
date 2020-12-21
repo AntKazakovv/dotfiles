@@ -8,7 +8,7 @@ import {FaqComponent} from './components/faq/faq.component';
 import {PostMenuComponent} from './components/post-menu/post-menu.component';
 import {demoTestComponent} from './components/demo-test/demo-test.component';
 import {IIndexing, GlobalHelper} from 'wlc-engine/modules/core';
-
+import {StaticService} from 'wlc-engine/modules/static/system/services';
 import {IStaticConfig} from './system/interfaces/static.interface';
 import {staticConfig} from './system/config/static.config';
 import * as $config from 'wlc-config/index';
@@ -18,7 +18,7 @@ import {
 } from 'lodash';
 
 export const moduleConfig =
-    GlobalHelper.mergeConfig<IStaticConfig>(staticConfig, _get($config, '$static', {}));
+    GlobalHelper.mergeConfig<IStaticConfig>(staticConfig, _get($config, '$static'));
 
 export const components = {
     'wlc-post': PostComponent,
@@ -46,6 +46,9 @@ export const components = {
         demoTestComponent,
         FaqComponent,
         PostMenuComponent,
+    ],
+    providers: [
+        StaticService,
     ],
 })
 export class StaticModule {

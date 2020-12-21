@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, Injector} from '@angular/core';
 
 import {DataService, IData} from '../data/data.service';
 import {AppConfigModel} from './app-config.model';
@@ -46,7 +46,6 @@ import {
 
 @Injectable()
 export class ConfigService {
-
     public ready: Promise<void> = new Promise((resolve: () => void): void => {
         this.$resolve = resolve;
     });
@@ -56,18 +55,20 @@ export class ConfigService {
     private global: Partial<IGlobalConfig> = {};
 
     constructor(
-        private data: DataService,
+        private injector: Injector,
         private localStorageService: LocalStorageService,
         private sessionStorageService: SessionStorageService,
     ) {
-        this.getCountries();
+        setTimeout(() => {
+            this.getCountries();
+        }, 0);
     }
 
     /**
      * Load main appConfig on start app in AppModule;
      */
     public load(): Promise<IData> {
-        return this.data.request({
+        return this.injector.get<DataService>(DataService).request({
             name: 'bootstrap',
             system: 'config',
             url: '/bootstrap',
@@ -146,9 +147,10 @@ export class ConfigService {
     }
 
     private async getCountries(): Promise<void> {
-        this.data.request({
+        this.injector.get<DataService>(DataService).request({
             name: 'countries',
             url: '/countries',
+            cache: 120 * 60 * 1000,
             system: 'user',
             type: 'GET',
         }).then(async (data: IData) => {

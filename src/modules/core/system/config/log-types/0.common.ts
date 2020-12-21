@@ -190,4 +190,32 @@ export const errorTypes: ILogTypes = {
         level: 'error',
         group: 'Common',
     },
+    '0.5.0': {
+        description: 'IndexedDb not supported on device',
+        name: 'IndexedDb not supported on device',
+        type: 'caching',
+        level: 'error',
+        group: 'Common',
+    },
+    '0.5.1': {
+        description: 'Error during to save data in IndexedDb',
+        name: 'Error during to save data in IndexedDb',
+        type: 'caching',
+        level: 'error',
+        group: 'Common',
+    },
+    '0.5.2': {
+        description: 'Error during to read data in IndexedDb',
+        name: 'Error during to save data in IndexedDb',
+        type: 'caching',
+        level: 'error',
+        group: 'Common',
+    },
+    '0.5.3': {
+        description: 'Error during to clear data in IndexedDb',
+        name: 'Error during to save data in IndexedDb',
+        type: 'caching',
+        level: 'error',
+        group: 'Common',
+    },
 };

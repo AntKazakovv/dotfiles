@@ -92,6 +92,7 @@
         "ng2-cookies": "^1.0.12",
         "ngx-bootstrap": "^6.2.0",
         "ngx-countup": "^7.3.3",
+        "ngx-indexed-db": "^6.1.2",
         "ngx-swiper-wrapper": "^10.0.0",
         "ngx-webstorage": "^6.0.0",
         "parse5": "^6.0.0",
