@@ -78,7 +78,7 @@ export interface IModalConfig extends IModalBsOptions {
     /**
      * Action by click on confirm button. Modal closes after it.
      */
-    onConfirm?: () => unknown;
+    onConfirm?: () => void;
     /**
      * Close all modals before render
      */

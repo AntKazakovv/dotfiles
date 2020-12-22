@@ -3,7 +3,6 @@ import {
     OnInit,
     ViewEncapsulation,
     AfterViewInit,
-    ElementRef,
     OnDestroy,
     Injector,
     Inject,
@@ -11,9 +10,9 @@ import {
     Input,
     ViewChild,
 } from '@angular/core';
+
 import {
     BsModalRef,
-    BsModalService,
     ModalDirective,
 } from 'ngx-bootstrap/modal';
 
@@ -22,7 +21,7 @@ import {
     IModalBsOptions,
     defaultParams,
 } from './index';
-import {EventService} from 'wlc-engine/modules/core/system/services';
+import {EventService, ModalService} from 'wlc-engine/modules/core/system/services';
 import {
     AbstractComponent,
     IMixedParams,
@@ -31,6 +30,7 @@ import {ConfigService} from 'wlc-engine/modules/core';
 
 import {
     assign as _assign,
+    isString as _isString,
 } from 'lodash';
 
 @Component({
@@ -41,7 +41,7 @@ import {
 })
 export class WlcModalComponent extends AbstractComponent
     implements OnInit, AfterViewInit, OnDestroy {
-    @ViewChild('modal') public modalRef: BsModalRef;
+    @ViewChild('modal') public modalRef: ModalDirective;
     @ViewChild(ModalDirective) modalDirect: ModalDirective;
 
     public $params: IModalOptions;
@@ -56,7 +56,7 @@ export class WlcModalComponent extends AbstractComponent
         protected eventService: EventService,
         protected injector: Injector,
         protected ConfigService: ConfigService,
-        protected modalService: BsModalService,
+        protected modalService: ModalService,
     ) {
         super(<IMixedParams<IModalOptions>>{
             injectParams: params,
@@ -71,17 +71,22 @@ export class WlcModalComponent extends AbstractComponent
 
     public ngAfterViewInit(): void {
         this.modalDirect.show();
+        this.initEventHandlers();
     }
 
 
-    public confirm(): void {
+    public confirm(modal: string): void {
         const {config} = this.$params;
 
         if (config.onConfirm) {
             config.onConfirm();
         }
 
-        this.modalRef.hide();
+        this.modalService.closeModal(modal);
+    }
+
+    public closeModal(modal: string): void {
+        this.modalService.closeModal(modal);
     }
 
     public setTitle(title: string): void {
@@ -89,6 +94,10 @@ export class WlcModalComponent extends AbstractComponent
     }
 
     protected applyConfig(): void {
+        if (_isString(this.$params.config.modalMessage)) {
+            this.$params.config.modalMessage = [this.$params.config.modalMessage];
+        }
+
         const {config} = this.$params;
         _assign(this.bsOptions, {
             show: config.show,
@@ -147,29 +156,21 @@ export class WlcModalComponent extends AbstractComponent
         }
     }
 
-    @HostListener('show.bs.modal', ['$event.type', 'this.$params.config.onModalShow'])
-    protected showHandler(type: string, callback: () => void): void {
-        this.eventHandler(type, callback);
-    };
+    protected initEventHandlers(): void {
+        this.modalRef.onShow.subscribe(() => {
+            this.eventHandler('show.bs.modal', this.$params.config.onModalShow);
+        });
 
-    @HostListener('shown.bs.modal', ['$event.type', 'this.$params.config.onModalShown'])
-    protected shownHandler(type: string, callback: () => void): void {
-        this.eventHandler(type, callback);
-    };
+        this.modalRef.onShown.subscribe(() => {
+            this.eventHandler('shown.bs.modal', this.$params.config.onModalShown);
+        });
 
-    @HostListener('hide.bs.modal', ['$event.type', 'this.$params.config.onModalHide'])
-    protected hideHandler(type: string, callback: () => void): void {
-        this.eventHandler(type, callback);
-    };
+        this.modalRef.onHidden.subscribe(() => {
+            this.eventHandler('hidden.bs.modal', this.$params.config.onModalHidden);
+        });
 
-    @HostListener('hidden.bs.modal', ['$event.type', 'this.$params.config.onModalHidden'])
-    protected hiddenHandler(type: string, callback: () => void): void {
-        this.eventHandler(type, callback);
-    };
-
-    @HostListener('hidePrevented.bs.modal', ['$event.type', 'this.$params.config.onModalHidePrevented'])
-    protected hidePreventedHandler(type: string, callback: () => void): void {
-        this.eventHandler(type, callback);
-    };
-
+        this.modalRef.onHide.subscribe(() => {
+            this.eventHandler('hide.bs.modal', this.$params.config.onModalHide);
+        });
+    }
 }
