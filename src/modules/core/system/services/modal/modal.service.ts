@@ -77,7 +77,7 @@ export class ModalService {
      * @param config if string, search by id on MODALS_LIST.
      * @returns Reference on component
      */
-    public showModal(config: IModalParams): ComponentRef<WlcModalComponent> {
+    public showModal(config: IModalParams): void {
         let modalConfig: IModalConfig;
 
         if (_isString(config)) {
@@ -106,7 +106,23 @@ export class ModalService {
             return;
         }
 
-        return this.open(modalConfig);
+        if (modalConfig.dismissAll) {
+            if (this.activeModals.length) {
+                const subscription = this.eventService.subscribe(
+                    {name: this.events.MODAL_HIDDEN},
+                    () => {
+                        if (!this.activeModals.length) {
+                            subscription.unsubscribe();
+                            this.openModal(modalConfig);
+                        }
+                    },
+                );
+                this.closeAllModals();
+                return;
+            }
+        }
+
+        this.openModal(modalConfig);
     }
 
     /**
@@ -115,8 +131,8 @@ export class ModalService {
      * @param config if string, search by id on MODALS_LIST.
      * @returns Reference on component
      */
-    public showError(config: Partial<IModalConfig>): ComponentRef<WlcModalComponent> {
-        return this.showModal(_assignIn({
+    public showError(config: Partial<IModalConfig>): void {
+        this.showModal(_assignIn({
             id: 'Error',
             modalTitle: gettext('Error'),
         }, config));
@@ -159,9 +175,7 @@ export class ModalService {
     protected initListeners(): void {
         this.eventService.subscribe(
             {name: this.events.MODAL_HIDDEN},
-            (id: string) => {
-                this.closeModal(id);
-            },
+            (id: string) => this.closeModal(id),
         );
 
         this.eventService.subscribe(
@@ -202,17 +216,7 @@ export class ModalService {
         _remove(this.activeModals, (item: IActiveModal) => item.id === id);
     }
 
-    /**
-     * Create modal instance and render component
-     *
-     * @param config modal window configuration
-     * @returns Reference on component
-     */
-    protected open(config: IModalConfig): ComponentRef<WlcModalComponent> {
-        if (config.dismissAll) {
-            this.closeAllModals();
-        }
-
+    protected openModal(config: IModalConfig): void {
         let windowFactory = this.cfr.resolveComponentFactory(WlcModalComponent);
         let injector = Injector.create({
             providers: [
@@ -230,7 +234,5 @@ export class ModalService {
             id: config.id,
             ref: windowCmptRef,
         });
-
-        return windowCmptRef;
     }
 }

@@ -8,7 +8,7 @@ $currentGap: 10px !default;
 $contentPadding: ef.get('size', 'big') !default;
 $listMargin: ef.get('size', 'big') !default;
 
-$itemMinWidth: 250px !default;
+$itemMinWidth: 220px !default;
 $itemMinWidthTablet: 225px !default;
 $itemMinWidthMobile: 180px !default;
 $itemHeight: 150px !default;
@@ -17,4 +17,3 @@ $placeholderBackground: ef.get('color', 'backgroundSecondary') !default;
 $placeholderBorderRadius: ef.get('radius', 'less') !default;
 $placeholderTextColor: ef.get('color', 'textSecondary') !default;
 
-$resultMarginBottom: ef.get('size', 'main') !default;

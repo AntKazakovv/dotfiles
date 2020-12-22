@@ -15,7 +15,6 @@ import {
     BsModalRef,
     ModalDirective,
 } from 'ngx-bootstrap/modal';
-
 import {
     IModalOptions,
     IModalBsOptions,

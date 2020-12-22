@@ -72,13 +72,14 @@ export const signInFormConfig: IFormWrapperCParams = {
             },
         },
         {
-            name: 'user.wlc-pseudo-link',
+            name: 'user.wlc-restore-link',
             params: {},
         },
         {
             name: 'core.wlc-button',
             params: <IButtonParams>{
                 common: {
+                    customModifiers: 'submit',
                     text: gettext('Login'),
                     type: 'submit',
                 },

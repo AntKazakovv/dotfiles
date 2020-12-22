@@ -104,12 +104,11 @@ export class SelectComponent extends AbstractComponent implements OnInit {
         return new BehaviorSubject(
             _map(
                 _filter(modifyCurrencies, (el: ICurrency) => {
-                    return !el.registration;
+                    return el.registration;
                 }), (el) => {
                     return {title: el.Name, value: el.Alias};
                 }),
         );
-
     }
 
     private prepareConstantValues(): void {

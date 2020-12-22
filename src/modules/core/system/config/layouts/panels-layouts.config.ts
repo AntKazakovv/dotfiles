@@ -39,7 +39,4 @@ export const $panelsLayouts: IPanelsConfig = {
     'app.home': {
         extends: 'app',
     },
-    'app.catalog': {
-        extends: 'app',
-    },
 };

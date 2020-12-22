@@ -1,16 +1,35 @@
 @use 'engine-scss/functions' as ef;
 
+$modalLgSize: 800px !default;
+$modalMdSize: 500px !default;
+$modalSmSize: 300px !default;
+
+$closePosRight: 20px !default;
+$closePosTop: 20px !default;
+
+$modalHeaderColor: #fff !default;
+$modalBodyColor: $modalHeaderColor !default;
+
+$modalBg: ef.get('color', 'modal') !default;
+$modalOffset: 0 auto !default;
+$modalBorder: 1px solid rgba($color: #000000, $alpha: 0.2) !default;
+$modalBorderRadius: ef.get('radius', 'small') !default;
+
+$modalHeaderPadding: 1rem !default;
+$modalHeaderBorderBottom: 1px solid #000 !default;
+
+$modalBodyPadding: $modalHeaderPadding !default;
+
+$modalFooterPadding: $modalHeaderPadding !default;
+$modalFooterBorderTop: 1px solid #000 !default;
+$modalFooterJustify: center !default;
+
+$modalBackdrop: #000 !default;
+
+$modalAnimation: 'fadeLeft';
+$modalAnimationSettings: 0.5s forwards ease-in-out;
+
 $modalZIndex: 1050 !default;
-$modalPosition: 0 !default;
-
-$dialogWidth: auto !default;
-$dialogMaxWidth: 500px !default;
-$dialogMargin: 1.75rem auto !default;
-$dialogBackgroundClip: padding-box !default;
-
-$headerPadding: 1rem !default;
-$bodyPadding: 1rem !default;
-$footerPadding: 1rem !default;
 $backdropZIndex: 1040 !default;
 $backdropPosition: 0 !default;
 $backdropBackground: ef.get('color', 'backdropBackground') !default;

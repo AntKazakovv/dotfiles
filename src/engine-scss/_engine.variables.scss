@@ -12,7 +12,7 @@ $customVars: () !default;
 
 $color: map-merge((
     // Main colors
-    'main': #777777,
+    'main': #777,
     'secondary': #474747,
     'background': #000,
     'backgroundSecondary': #474747,
@@ -20,15 +20,13 @@ $color: map-merge((
     'error': #ea5555,
     'success': #65cb6a,
     'disabled': #adadad,
-
+    'modal': #4a4b4c,
     // Text colors
     'text': #e2e2e2,
     'textSecondary': #474747,
-
     //Link colors
     'link': #adadad,
     'linkSecondary': #474747,
-
     //Divider colors
     'divider': #adadad,
 

@@ -5,8 +5,9 @@ import {
     OnInit,
     ChangeDetectorRef,
     ChangeDetectionStrategy,
+    Output,
+    EventEmitter,
 } from '@angular/core';
-
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {
     ConfigService,
@@ -17,6 +18,7 @@ import {
     ISearchFieldCParams,
     defaultParams,
 } from './search-field.params';
+
 
 @Component({
     selector: '[wlc-search-field]',
@@ -29,8 +31,9 @@ export class SearchFieldComponent extends AbstractComponent implements OnInit {
     public searchQuery: string;
     public $params: ISearchFieldCParams;
 
+    @Output() public searchQueryEmit = new EventEmitter();
     @Input() protected inlineParams: ISearchFieldCParams;
-    protected disabledSimbols: RegExp = /[;\\~$%^*\[\]{}+=|?№<>!@]/gi;
+    protected disabledSymbols: RegExp = /[;\\~$%^*\[\]{}+=|?№<>!@]/gi;
 
     constructor(
         @Inject('injectParams') protected injectParams: ISearchFieldCParams,
@@ -38,7 +41,7 @@ export class SearchFieldComponent extends AbstractComponent implements OnInit {
         protected eventService: EventService,
         protected gamesFilterService: GamesFilterService,
         protected configService: ConfigService,
-    ){
+    ) {
         super({
             injectParams: injectParams,
             defaultParams: defaultParams,
@@ -53,7 +56,7 @@ export class SearchFieldComponent extends AbstractComponent implements OnInit {
         this.searchQuery = this.searchQuery
             .trim()
             .replace(/\s+/gi, ' ')
-            .replace(this.disabledSimbols, '');
+            .replace(this.disabledSymbols, '');
 
         this.emitSearch();
     }
@@ -63,11 +66,11 @@ export class SearchFieldComponent extends AbstractComponent implements OnInit {
         this.emitSearch();
     }
 
-    protected emitSearch(): void {
+    public emitSearch(): void {
         this.gamesFilterService.search(
             this.$params.searchFrom,
             this.searchQuery,
         );
+        this.searchQueryEmit.emit(this.searchQuery);
     }
-
 }

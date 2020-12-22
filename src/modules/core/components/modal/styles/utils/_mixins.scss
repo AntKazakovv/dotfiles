@@ -8,3 +8,35 @@
     left: $position;
     bottom: $position;
 }
+
+@mixin fadeAnimationMx($translateFrom: translate(0, 0), $translateTo: translate(0, 50px)) {
+
+    @keyframes fadeAnimation {
+
+        0% {
+            opacity: 0;
+            transform: $translateFrom;
+        }
+
+        100% {
+            opacity: 1;
+            transform: $translateTo;
+        }
+    }
+}
+
+@mixin fadeTop() {
+    @include fadeAnimationMx();
+}
+
+@mixin fadeBottom() {
+    @include fadeAnimationMx($translateFrom: translate(0, 100px), $translateTo: translate(0, 50px));
+}
+
+@mixin fadeLeft() {
+    @include fadeAnimationMx($translateFrom: translate(-50px, 50px), $translateTo: translate(0, 50px));
+}
+
+@mixin fadeRight() {
+    @include fadeAnimationMx($translateFrom: translate(50px, 50px), $translateTo: translate(0, 50px));
+}

@@ -3,18 +3,19 @@ import {
     ChangeDetectorRef,
     Component,
     ElementRef,
-    HostListener,
     Inject,
     OnInit,
     Input,
 } from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {trigger, state, style, transition, animate} from '@angular/animations';
-
-import {find as _find} from 'lodash';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ConfigService, ILanguage} from 'wlc-engine/modules/core';
 import * as Params from './language-selector.params';
+
+import {
+    find as _find,
+} from 'lodash';
 
 export {ILanguageSelectorCParams} from './language-selector.params';
 

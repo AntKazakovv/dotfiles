@@ -16,11 +16,7 @@ import {UserService} from 'wlc-engine/modules/user/system/services';
 import * as Params from './sign-up-form.params';
 
 import {
-    union as _union,
     keys as _keys,
-    each as _each,
-    filter as _filter,
-    map as _map,
 } from 'lodash';
 
 /**

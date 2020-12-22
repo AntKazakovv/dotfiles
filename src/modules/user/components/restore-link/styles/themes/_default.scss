@@ -1,0 +1,18 @@
+.wlc-restore-link {
+
+    &:host {
+        text-align: $alignText;
+
+        .wlc-btn {
+            font: {
+                size: $fontSize;
+                weight: $fontWeight;
+            }
+            color: $colorLink;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+}

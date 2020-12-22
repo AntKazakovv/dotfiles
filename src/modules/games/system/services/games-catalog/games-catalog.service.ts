@@ -317,10 +317,6 @@ export class GamesCatalogService {
         return this.gamesCatalog?.getGameList(filter);
     }
 
-    // public getGameById(id: string): Game {
-    //     return this.gameCatalog.getGameById(id);
-    // }
-
     public getGame(merchantId: string, launchCode: string): Game {
         return this.gamesCatalog.getGame(merchantId, launchCode);
     }

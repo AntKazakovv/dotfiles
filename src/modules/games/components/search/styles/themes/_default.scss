@@ -1,0 +1,353 @@
+::ng-deep {
+
+    .wlc-modal--search.wlc-modal--theme-default {
+
+        .wlc-modal__body {
+            padding-top: 0;
+        }
+
+        .wlc-modal__dialog {
+            min-height: 100vh;
+            max-width: 1920px;
+            margin: -50px auto 0;
+        }
+
+        .wlc-modal__close {
+            top: map-get($themeDefaultMobile, 'closeTop');
+            right: 10px;
+
+            @include mq.min(900) {
+                top: map-get($themeDefaultDesktop, 'closeTop');
+            }
+        }
+    }
+}
+
+.wlc-search--theme-default:host {
+
+    .wlc-search {
+
+        &__title {
+            padding: map-get($themeDefaultMobile, 'searchModalHeaderPadding');
+            margin: map-get($themeDefaultMobile, 'searchModalHeaderMargin');
+            font: {
+                size: map-get($themeDefaultMobile, 'searchModalHeaderSize');
+                weight: map-get($themeDefaultMobile, '$searchModalHeaderWeight');
+            };
+            border-bottom: map-get($themeDefaultMobile, 'searchModalHeaderBorderBottom');
+
+            @include mq.min(900) {
+                font: {
+                    size: map-get($themeDefaultDesktop, 'searchModalHeaderSize');
+                    weight: map-get($themeDefaultDesktop, '$searchModalHeaderWeight');
+                };
+            }
+        }
+
+        &__panel {
+            display: grid;
+            grid: {
+                template-columns: map-get($themeDefaultMobile, 'searchPanelColumns');
+                gap: map-get($themeDefaultMobile, 'searchPanelGap');
+            }
+            padding: map-get($themeDefaultMobile, 'searchPanelPadding');
+            background: map-get($themeDefaultMobile, 'searchPanelBg');
+            border-radius: map-get($themeDefaultMobile, 'searchPanelBorderRadius');
+
+            @include mq.min(900) {
+                grid-template-columns: map-get($themeDefaultDesktop, 'searchPanelColumns');
+                padding: map-get($themeDefaultDesktop, 'searchPanelPadding');
+                background: map-get($themeDefaultDesktop, 'searchPanelBg');
+                border-radius: map-get($themeDefaultDesktop, 'searchPanelBorderRadius');
+            }
+        }
+
+        &__col {
+
+            &--search {
+                grid-column-start: span 2;
+
+                @include mq.min(900) {
+                    grid-column-start: initial;
+                }
+            }
+
+            &--panel {
+                grid-column-start: span 2;
+
+                @include mq.min(900) {
+                    grid-column-start: span 3;
+                }
+            }
+
+            &--merchants,
+            &--categories {
+                min-width: map-get($themeDefaultMobile, 'searchColWidth');
+            }
+
+            .title {
+                display: block;
+                width: map-get($themeDefaultMobile, 'searchTitleWidth');
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                font-size: map-get($themeDefaultMobile, 'searchColSize');
+
+                &-wrap {
+                    display: flex;
+                    align-items: center;
+
+                    & .title {
+                        width: map-get($themeDefaultMobile, 'searchTitleWidth') - 20px;
+                    }
+                }
+            }
+        }
+
+        &__btn {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            width: 100%;
+            padding: map-get($themeDefaultMobile, 'btnPadding');
+            appearance: none;
+            background-color: map-get($themeDefaultMobile, 'btnBackground');
+            border-radius: map-get($themeDefaultMobile, 'btnBorderRadius');
+            border: map-get($themeDefaultMobile, 'btnBorder');
+            font-size: map-get($themeDefaultMobile, 'btnFontSize');
+            color: map-get($themeDefaultMobile, 'btnTextColor');
+            transition: $btnTransition linear;
+
+            @include mq.min(900) {
+                justify-content: flex-start;
+                padding: map-get($themeDefaultDesktop, 'btnPadding');
+            }
+
+            &:focus {
+                outline: none;
+            }
+
+            &:hover {
+                background: $btnBackgroundHover;
+            }
+
+            &:after {
+                content: '';
+                display: block;
+                position: absolute;
+                right: 10px;
+                top: 50%;
+                transform: translateY(-50%) rotate(225deg);
+                width: $btnArrowSize;
+                height: $btnArrowSize;
+                border-top: $btnArrowWidth solid $btnArrowColor;
+                border-left: $btnArrowWidth solid $btnArrowColor;
+                transition: $btnTransition linear;
+            }
+
+            .icon {
+                position: absolute;
+                top: 50%;
+                left: 10px;
+                transform: translateY(-50%);
+
+                ::ng-deep {
+
+                    svg {
+                        width: $btnIconSize;
+                        height: $btnIconSize;
+                        fill: $btnIconColor;
+
+                        path,
+                        mask {
+                            fill: $btnIconColor;
+                        }
+                    }
+                }
+            }
+
+            .counter {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-left: $btnCounterMarginLeft;
+                background: $btnCounterBackground;
+                width: $btnCounterSize;
+                height: $btnCounterSize;
+                font-size: $btnCounterFontSize;
+                border-radius: $btnCounterBorderRadius;
+                color: $btnCounterColor;
+            }
+
+            &.active {
+                background: $btnBackgroundActive;
+                color: $btnColorActive;
+
+                &:after {
+                    transform: translateY(-50%) rotate(45deg);
+                    border-color: $btnArrowColorActive;
+                }
+
+                .icon {
+                    color: $btnIconColorActive;
+                }
+            }
+        }
+
+        &__list {
+            display: grid;
+            gap: $listGap;
+            padding: 0;
+            list-style-type: none;
+            @if $listGrid {
+                @include m.list-grid($listGrid);
+            } @else {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            @include mq.min(900) {
+                grid-gap: 0 $listGap;
+            }
+
+            &-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                font: {
+                    size: map-get($themeDefaultMobile, 'searchBtnItemsSize');
+                }
+                padding: map-get($themeDefaultMobile, 'listBtnPadding');
+                border: map-get($themeDefaultMobile, 'listBtnBorder');
+                background: map-get($themeDefaultMobile, 'listBtnBackground');
+                border-radius: map-get($themeDefaultMobile, 'listBtnRadius');
+                font-size: map-get($themeDefaultMobile, 'listBtnFontSize');
+                color: map-get($themeDefaultMobile, 'listBtnColor');
+                transition: $listBtnTransition linear;
+
+                @include mq.min(900) {
+                    padding: map-get($themeDefaultDesktop, 'listBtnPadding');
+                    color: map-get($themeDefaultDesktop, 'listBtnColor');
+                    background: map-get($themeDefaultDesktop, 'listBtnBackground');
+                    border: map-get($themeDefaultDesktop, 'listBtnBorder');
+                    border-radius: map-get($themeDefaultDesktop, 'listBtnRadius');
+                    border-bottom: map-get($themeDefaultDesktop, 'listBtnBorderBottom');
+                }
+
+                &:focus {
+                    outline: none;
+                }
+
+                &.active,
+                &:hover {
+                    color: map-get($themeDefaultMobile, 'listBtnColorActive');
+                    background: map-get($themeDefaultMobile, 'listBtnBackgroundHover');
+
+                    @include mq.min(900) {
+                        color: map-get($themeDefaultDesktop, 'listBtnColorActive');
+                        background: map-get($themeDefaultDesktop, 'listBtnBackgroundHover');
+                        border-bottom: map-get($themeDefaultDesktop, 'listBtnBorderBottomActive');
+                    }
+
+                    .wlc-search__list-icon {
+                        background: map-get($themeDefaultDesktop, 'listBtnBackgroundActive');
+                        border: map-get($themeDefaultDesktop, 'listBtnBorderActive');
+                    }
+                }
+
+                &.active {
+
+                    .wlc-search__list-icon {
+                        border: $listBtnIconActive;
+
+                        &:before {
+                            opacity: 1;
+                            @include bm.transition(opacity);
+                        }
+                    }
+                }
+            }
+
+            &-icon {
+                display: none;
+                position: relative;
+                width: $listBtnIconSize;
+                height: $listBtnIconSize;
+                border-radius: $listBtnIconRadius;
+                background: $listBtnIconBackground;
+                border: $listBtnIconBorder;
+                margin: $listBtnIconMargin;
+                transition: $listBtnTransition linear;
+
+                @include mq.min(900) {
+                    display: block;
+                }
+
+                &:before {
+                    content: '';
+                    display: block;
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    width: 5px;
+                    height: 8px;
+                    border-right: $listBtnIconWidth solid map-get($themeDefaultMobile, 'listBtnColorActive');
+                    border-bottom: $listBtnIconWidth solid map-get($themeDefaultMobile, 'listBtnColorActive');
+                    transform: translate(-60%, -60%) rotate(45deg);
+                    opacity: 0;
+                }
+            }
+
+            &-text {
+                display: block;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                text-align: center;
+                width: 95%;
+
+                @include mq.min(900) {
+                    text-align: left;
+                }
+            }
+        }
+
+        &__result {
+            margin: map-get($themeDefaultMobile, 'resultMargin');
+            color: map-get($themeDefaultMobile, 'resultColor');
+            font: {
+                size: map-get($themeDefaultMobile, 'resultSize');
+                weight: map-get($themeDefaultMobile, 'resultWeight');
+            }
+
+            @include mq.min(900) {
+                margin: map-get($themeDefaultDesktop, 'resultMargin');
+            }
+        }
+    }
+
+    ::ng-deep {
+
+        .wlc-games-grid__content {
+            padding: map-get($themeDefaultMobile, 'gamesPadding');
+
+            @include mq.min(900) {
+                padding: map-get($themeDefaultDesktop, 'gamesPadding');
+            }
+        }
+
+        .wlc-games-grid__nocontent {
+            padding: map-get($themeDefaultMobile, 'noGamesPadding');
+
+            @include mq.min(900) {
+                padding: map-get($themeDefaultDesktop, 'noGamesPadding');
+            }
+        }
+
+        .wlc-games-grid__list {
+            margin: map-get($themeDefaultMobile, 'gamesMargin');
+        }
+    }
+}

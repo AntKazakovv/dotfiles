@@ -9,7 +9,7 @@
             (click)="toggleDropdown()"
             [formControl]="control"
             ngDefaultControl
-    >{{selectedItem || $params.common.placeholder || $params.items[0].title | translate}}
+    >{{selectedItem || $params.common.placeholder || $params.items[0]?.title | translate}}
     </button>
     <div class="{{$class}}-status"
          wlc-form-control

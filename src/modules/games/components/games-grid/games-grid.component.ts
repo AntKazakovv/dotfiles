@@ -13,8 +13,13 @@ import {TranslateService} from '@ngx-translate/core';
 import {
     UIRouter,
     TransitionService,
-    UIRouterGlobals,
 } from '@uirouter/core';
+import {
+    animate,
+    style,
+    transition,
+    trigger,
+} from '@angular/animations';
 import {fromEvent} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
@@ -51,6 +56,14 @@ import {
     templateUrl: './games-grid.component.html',
     styleUrls: ['./styles/games-grid.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    animations: [
+        trigger('appearance', [
+            transition(':enter', [
+                style({opacity: 0, transform: 'translateY(-20px)'}),
+                animate('0.8s', style({opacity: 1, transform: 'translateY(0)'})),
+            ]),
+        ]),
+    ],
 })
 export class GamesGridComponent extends AbstractComponent
     implements OnInit, AfterViewInit {
