@@ -128,7 +128,7 @@ export class ModalService {
      * @param id modal identifier
      * @returns void
      */
-    public closeModal(id: string): void {
+    public hideModal(id: string): void {
         const modal: IActiveModal = _find(this.activeModals, (item: IActiveModal) => item.id === id);
 
         if (!modal) {
@@ -159,7 +159,9 @@ export class ModalService {
     protected initListeners(): void {
         this.eventService.subscribe(
             {name: this.events.MODAL_HIDDEN},
-            (id: string) => this.remove(id),
+            (id: string) => {
+                this.closeModal(id);
+            },
         );
 
         this.eventService.subscribe(
@@ -178,11 +180,11 @@ export class ModalService {
     }
 
     /**
-     * Remode modal instance from DOM by id
+     * Remove modal instance from DOM by id
      *
      * @param id modal identifier
      */
-    protected remove(id: string): void {
+    public closeModal(id: string): void {
         const modal: IActiveModal = _find(this.activeModals, (item: IActiveModal) => item.id === id);
 
         if (!modal) {
