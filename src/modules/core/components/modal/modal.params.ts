@@ -25,24 +25,13 @@ export const DEFAULT_MODAL_CONFIG: Partial<IModalConfig> = {
 };
 
 export const MODALS_LIST: IModalList = {
-    baseInfo: {
-        config: {
-            id: 'baseInfo',
-            modifier: 'info',
-            modalTitle: 'Info',
-            modalMessage: 'Hello! I\'m base modal window!',
-            closeBtnText: 'Bye!',
-            size: 'sm',
-        },
-    },
     search: {
         config: {
             id: 'search',
             modifier: 'search',
-            modalTitle: 'Search games',
             component: SearchComponent,
-            size: 'lg',
             backdrop: 'static',
+            showFooter: false,
         },
     },
     login: {
@@ -53,6 +42,7 @@ export const MODALS_LIST: IModalList = {
             size: 'md',
             backdrop: 'static',
             showFooter: false,
+            dismissAll: true,
         },
     },
     signup: {
@@ -63,6 +53,7 @@ export const MODALS_LIST: IModalList = {
             size: 'md',
             backdrop: 'static',
             showFooter: false,
+            dismissAll: true,
         },
     },
     changePassword: {
@@ -73,6 +64,7 @@ export const MODALS_LIST: IModalList = {
             size: 'md',
             backdrop: 'static',
             showFooter: false,
+            dismissAll: true,
         },
     },
     restorePassword: {
@@ -83,6 +75,7 @@ export const MODALS_LIST: IModalList = {
             size: 'md',
             backdrop: 'static',
             showFooter: false,
+            dismissAll: true,
         },
     },
     logout: {
@@ -93,6 +86,7 @@ export const MODALS_LIST: IModalList = {
             component: LogoutComponent,
             size: 'md',
             backdrop: 'static',
+            dismissAll: true,
         },
     },
 };

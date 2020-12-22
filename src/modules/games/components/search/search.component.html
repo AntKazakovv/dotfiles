@@ -1,92 +1,116 @@
-<div class="wlc-search">
-    <div class="wlc-search__header">
+<div class="{{$class}}__title">
+    {{'Search game' | translate}}
+</div>
 
-        <div class="wlc-search__col wlc-search__col--search"
-            wlc-search-field
-            [inlineParams]="{searchFrom: gamesGridParams.searchFilterName}"
-        ></div>
+<div class="{{$class}}__panel">
 
-        <div class="wlc-search__col wlc-search__col--merchants">
-            <button class="wlc-search__btn wlc-search__btn--merchants"
-                type="button"
+    <div class="{{$class}}__col {{$class}}__col--search"
+         wlc-search-field
+         (searchQueryEmit)="setSearchQuery($event)"
+         [inlineParams]="{searchFrom: gamesGridParams.searchFilterName}"
+    ></div>
+
+    <div class="{{$class}}__col {{$class}}__col--merchants">
+        <button class="{{$class}}__btn"
                 [class.active]="openPanel === 'merchants'"
                 (click)="togglePanel('merchants')"
-                [ngSwitch]="!!filters.merchants.length">
-                <div class="icon" wlc-icon [iconName]="'filter'"></div>
+        >
+            <span class="icon" wlc-icon [iconName]="'filter-merchants'"></span>
 
-                <span class="title-wrap" *ngSwitchCase="true">
+            <span class="title-wrap" *ngIf="!!filters.merchants.length; else allProvider">
                     <span class="title">{{'Providers' | translate}}</span>
                     <span class="counter">{{filters.merchants.length}}</span>
                 </span>
 
-                <span class="title" *ngSwitchDefault>{{'All providers' | translate}}</span>
-            </button>
-        </div>
+            <ng-template #allProvider>
+                <span class="title">{{'All providers' | translate}}</span>
+            </ng-template>
+        </button>
 
-        <div class="wlc-search__col wlc-search__col--categories">
-            <button class="wlc-search__btn wlc-search__btn--merchants"
-                type="button"
+    </div>
+
+    <div class="{{$class}}__col {{$class}}__col--categories">
+        <button class="{{$class}}__btn"
                 [class.active]="openPanel === 'categories'"
                 (click)="togglePanel('categories')"
-                [ngSwitch]="!!filters.categories.length">
-                <div class="icon" wlc-icon [iconName]="'filter'"></div>
-                <span class="title-wrap" *ngSwitchCase="true">
+        >
+            <span class="icon" wlc-icon [iconName]="'filter-categories'"></span>
+
+            <span class="title-wrap" *ngIf="!!filters.categories.length; else allCategories">
                     <span class="title">{{'Categories' | translate}}</span>
                     <span class="counter">{{filters.categories.length}}</span>
                 </span>
-                <span class="title" *ngSwitchDefault>{{'All categories' | translate}}</span>
-            </button>
-        </div>
 
-        <div class="wlc-search__col wlc-search__col--panel">
-            <ul class="wlc-search__list" @openClose
-                *ngIf="openPanel === 'merchants'">
-                <li class="wlc-search__list-item">
-                    <button class="wlc-search__list-btn"
-                        (click)="chooseMerchant()"
-                        [class.active]="!filters.merchants.length">
-                        {{'Show all providers' | translate}}
-                        <span class="wlc-search__list-icon"></span>
-                    </button>
-                </li>
-                <li class="wlc-search__list-item"
-                    *ngFor="let merchant of merchants">
-                    <button class="wlc-search__list-btn"
-                        [class.active]="isActive('merchants', merchant.ID)"
-                        (click)="chooseMerchant(merchant)">
-                        {{merchant.Name}}
-                        <span class="wlc-search__list-icon"></span>
-                    </button>
-                </li>
-            </ul>
-
-            <ul class="wlc-search__list" @openClose
-                *ngIf="openPanel === 'categories'">
-                <li class="wlc-search__list-item">
-                    <button class="wlc-search__list-btn"
-                        (click)="chooseCategory()"
-                        [class.active]="!filters.categories.length">
-                        {{'Show all categories' | translate}}
-                        <span class="wlc-search__list-icon"></span>
-                    </button>
-                </li>
-                <li class="wlc-search__list-item"
-                    *ngFor="let category of categories">
-                    <button class="wlc-search__list-btn"
-                        [class.active]="isActive('categories', category.menuId)"
-                        (click)="chooseCategory(category)">
-                        {{category.title[currentLanguage] || category.title['en']}}
-                        <span class="wlc-search__list-icon"></span>
-                    </button>
-                </li>
-            </ul>
-        </div>
+            <ng-template #allCategories>
+                <span class="title">{{'All categories' | translate}}</span>
+            </ng-template>
+        </button>
     </div>
 
-    <div class="wlc-search__content">
-        <div class="wlc-search__games"
-            wlc-games-grid
-            [inlineParams]="gamesGridParams"
-        ></div>
+    <div class="{{$class}}__col {{$class}}__col--panel" [ngSwitch]="openPanel">
+        <ng-template *ngSwitchCase="'merchants'" [ngTemplateOutlet]="merchantsList"></ng-template>
+        <ng-template *ngSwitchCase="'categories'" [ngTemplateOutlet]="categoriesList"></ng-template>
     </div>
 </div>
+
+<div class="${{$class}}__content">
+
+    <div class="{{$class}}__result"
+         *ngIf="searchQuery?.length">
+        {{'Search query:' | translate}} {{searchQuery}}
+    </div>
+
+    <div class="${{$class}}__games"
+         wlc-games-grid
+         [inlineParams]="gamesGridParams"
+    ></div>
+</div>
+
+
+<ng-template #merchantsList>
+    <ul class="{{$class}}__list" @openClose>
+        <li class="{{$class}}__list-item">
+            <button class="{{$class}}__list-btn"
+                    (click)="chooseMerchant()"
+                    [class.active]="!filters.merchants.length">
+                <span class="{{$class}}__list-text">{{'All providers' | translate}}</span>
+                <span class="{{$class}}__list-icon"></span>
+            </button>
+        </li>
+
+        <li class="{{$class}}__list-item"
+            *ngFor="let merchant of merchants">
+            <button class="{{$class}}__list-btn"
+                    [class.active]="isActive('merchants', merchant.ID)"
+                    (click)="chooseMerchant(merchant)">
+                <span class="{{$class}}__list-text">{{merchant.Name}}</span>
+                <span class="{{$class}}__list-icon"></span>
+            </button>
+        </li>
+    </ul>
+</ng-template>
+
+<ng-template #categoriesList>
+    <ul class="{{$class}}__list" @openClose>
+        <li class="{{$class}}__list-item">
+            <button class="{{$class}}__list-btn"
+                    (click)="chooseCategory()"
+                    [class.active]="!filters.categories.length">
+                <span class="{{$class}}__list-text">{{'Show all categories' | translate}}</span>
+                <span class="{{$class}}__list-icon"></span>
+            </button>
+        </li>
+
+        <li class="{{$class}}__list-item"
+            *ngFor="let category of categories">
+            <button class="{{$class}}__list-btn"
+                    [class.active]="isActive('categories', category.menuId)"
+                    (click)="chooseCategory(category)">
+                    <span class="{{$class}}__list-text">
+                        {{category.title[currentLanguage] || category.title['en']}}
+                    </span>
+                <span class="{{$class}}__list-icon"></span>
+            </button>
+        </li>
+    </ul>
+</ng-template>

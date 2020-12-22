@@ -9,10 +9,9 @@ import {DataService} from 'wlc-engine/modules/core/system/services';
 // Components
 import {LoginSignupComponent} from './components/login-signup/login-signup.component';
 import {SignupBonusComponent} from './components/signup-bonus/signup-bonus.component';
-import {TempLogoutComponent} from './components/temp-logout/temp-logout.component';
 import {ProfileFormComponent} from './components/profile-form/profile-form.component';
 import {SignInFormComponent} from './components/sign-in-form/sign-in-form.component';
-import {PseudoLinkComponent} from './components/pseudo-link/pseudo-link.component';
+import {RestoreLinkComponent} from './components/restore-link/restore-link.component';
 import {ChangePasswordFormComponent} from './components/change-password-form/change-password-form.component';
 import {RestorePasswordFormComponent} from './components/restore-password-form/restore-password-form.component';
 import {SignUpFormComponent} from './components/sign-up-form/sign-up-form.component';
@@ -27,7 +26,7 @@ export const components = {
     'wlc-sign-up-form': SignUpFormComponent,
     'wlc-sign-in-form': SignInFormComponent,
     'wlc-have-account': HaveAccountComponent,
-    'wlc-pseudo-link': PseudoLinkComponent,
+    'wlc-restore-link': RestoreLinkComponent,
     'wlc-change-password-form': ChangePasswordFormComponent,
     'wlc-restore-password-form': RestorePasswordFormComponent,
     'wlc-user-info': UserInfoComponent,
@@ -40,10 +39,9 @@ export const components = {
         HaveAccountComponent,
         LoginSignupComponent,
         SignupBonusComponent,
-        TempLogoutComponent,
         ProfileFormComponent,
         SignInFormComponent,
-        PseudoLinkComponent,
+        RestoreLinkComponent,
         ChangePasswordFormComponent,
         RestorePasswordFormComponent,
         SignUpFormComponent,
@@ -64,7 +62,6 @@ export const components = {
     exports: [
         HaveAccountComponent,
         LoginSignupComponent,
-        TempLogoutComponent,
         ProfileFormComponent,
         SignInFormComponent,
         ChangePasswordFormComponent,

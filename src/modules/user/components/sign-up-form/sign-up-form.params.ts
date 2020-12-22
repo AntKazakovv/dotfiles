@@ -117,7 +117,6 @@ export const signUpFormConfig: IFormWrapperCParams = {
         {
             name: 'core.wlc-button',
             params: {
-                theme: 'default',
                 common: {
                     text: gettext('Register'),
                     type: 'submit',

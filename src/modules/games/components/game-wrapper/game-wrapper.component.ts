@@ -386,8 +386,8 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
      * @param {string} title
      * @returns {ComponentRef<WlcModalComponent>}
      */
-    protected setError(error: IError): ComponentRef<WlcModalComponent> {
-        return this.modalService.showError({
+    protected setError(error: IError): void {
+        this.modalService.showError({
             modalMessage: error.msg || gettext('Something wrong. Please try later.'),
             onModalHidden: () => {
                 if (error.state) {

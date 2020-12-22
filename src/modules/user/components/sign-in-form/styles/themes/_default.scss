@@ -15,7 +15,10 @@
         }
 
         .wlc-btn {
-            margin: $btnMargin;
+
+            &--submit {
+                margin: $btnMargin;
+            }
         }
     }
 }

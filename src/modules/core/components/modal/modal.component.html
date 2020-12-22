@@ -1,18 +1,26 @@
-<div bsModal [config]="bsOptions" tabindex="-1" role="dialog" #modal="bs-modal">
+<div class="fade"
+     bsModal
+     [config]="bsOptions"
+     tabindex="-1"
+     role="dialog"
+     #modal="bs-modal"
+>
     <div class="wlc-modal__dialog modal-dialog"
          [class]="dialogClasses">
         <div class="wlc-modal__header"
              [class.wlc-modal__header--headless]="!$params.config.modalTitle">
-            <h5 class="wlc-modal__title"
+            <div class="wlc-modal__title"
                 *ngIf="$params.config.modalTitle">
                 {{$params.config.modalTitle | translate}}
-            </h5>
-            <button
-                wlc-close
-                class="wlc-modal__close"
-                title="Close"
-                (closeUp)="modal.hide()"
-            ></button>
+            </div>
+            <button wlc-button
+                    class="wlc-modal__close"
+                    theme="none"
+                    icon="close"
+                    (click)="closeModal($params.config.id)"
+                    aria-label="Close"
+                    title="Close">
+            </button>
         </div>
 
         <div class="wlc-modal__body">
@@ -24,12 +32,12 @@
                     wlc-button
                     *ngIf="$params.config.showConfirmBtn"
                     [text]="$params.config.confirmBtnText || 'Confirm'"
-                    (click)="confirm()">
+                    (click)="confirm($params.config.id)">
             </button>
             <button type="button"
                     wlc-button
                     [text]="$params.config.closeBtnText || 'Close'"
-                    (click)="modal.hide()">
+                    (click)="closeModal($params.config.id)">
             </button>
         </div>
     </div>

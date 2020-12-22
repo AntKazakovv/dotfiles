@@ -22,7 +22,7 @@ export const defaultParams: ISearchParams = {
 export const defaultGamesGridParams: IGamesGridCParams = {
     type: 'search',
     searchFilterName: 'modal',
-    gamesRows: 2,
+    gamesRows: 3,
     usePlaceholders: false,
     filter: undefined,
     moreBtn: {

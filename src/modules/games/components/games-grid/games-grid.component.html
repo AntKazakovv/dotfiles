@@ -2,20 +2,16 @@
     <div class="{{$class}}__header" *ngIf="$params.showTitle || $params.showAllLink?.use">
         <h2 *ngIf="$params.showTitle">{{title | translate}}</h2>
         <a *ngIf="$params.showAllLink?.use"
-            uiSref="{{$params.showAllLink?.link}}"
-            class="{{$class}}__link">
+           uiSref="{{$params.showAllLink?.link}}"
+           class="{{$class}}__link">
             {{$params.showAllLink?.text || 'Show all' | translate}}
         </a>
     </div>
 
-    <div class="{{$class}}__result"
-        *ngIf="searchQuery.length">
-        {{'Search query:' | translate}} {{searchQuery}}
-    </div>
-
     <div *ngIf="filteredGames?.length; else: noGames"
-        class="{{$class}}__list"
-        (resized)="onResize($event)">
+         @appearance
+         class="{{$class}}__list"
+         (resized)="onResize($event)">
 
         <div class="{{$class}}__item" *ngFor="let game of filteredGames | slice: 0:gamesCount">
             <!-- TODO: add gameThumb component -->
@@ -23,7 +19,7 @@
         </div>
         <ng-container *ngIf="$params.usePlaceholders && !filteredGames.length">
             <div class="{{$class}}__item"
-                *ngFor="let item of placeHolders">
+                 *ngFor="let item of placeHolders">
                 <div class="{{$class}}__placeholder" [ngStyle]="placeHolderStyles">
                     <!-- TODO: add loader -->
                     <span *ngIf="$params.moreBtn.lazy && !lazyReady">Loading...</span>
@@ -32,10 +28,11 @@
         </ng-container>
     </div>
     <div class="{{$class}}__more"
-        *ngIf="!hideShowMoreBtn">
-        <button wlc-button [text]="'Load more games' | translate" [themeMod]="'secondary'" *ngIf="!useLazy" (click)="loadMore()"></button>
+         *ngIf="!hideShowMoreBtn && gamesCount < filteredGames?.length">
+        <button wlc-button [text]="'Load more games' | translate" [themeMod]="'secondary'" *ngIf="!useLazy"
+                (click)="loadMore()"></button>
     </div>
     <ng-template #noGames>
-        <p class="{{$class}}__nocontent">{{'No games available' | translate}}</p>
+        <div class="{{$class}}__nocontent" @appearance>{{'No games available' | translate}}</div>
     </ng-template>
 </div>

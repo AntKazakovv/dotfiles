@@ -1,0 +1,84 @@
+.wlc-search-field {
+    position: relative;
+    display: block;
+    color: $color;
+    line-height: 1;
+    font-size: $inputFontSize;
+
+    &__input {
+        width: 100%;
+        background: $bgColor;
+        border-radius: $borderRadius;
+        border: $border;
+        padding: $inputPadding;
+        transition: $transition;
+        color: $color;
+        font-size: inherit;
+
+        &:focus {
+            outline: none;
+            border-color: $borderColorActive;
+        }
+
+        &::-webkit-search-cancel-button {
+            display: none;
+        }
+
+        &::-ms-clear {
+            display: none;
+        }
+    }
+
+    &__clear {
+        position: absolute;
+        right: $searchIconRight + $searchIconSize + 5px;
+        top: 50%;
+        height: auto;
+        transform: translateY(-50%);
+        appearance: none;
+        border: none;
+        background: transparent;
+        color: $color;
+        padding: 4px;
+        font-size: 0;
+        opacity: 0.5;
+        transition: opacity $transition;
+
+        &:focus {
+            outline: none;
+        }
+
+        &:hover {
+            opacity: 1;
+        }
+
+        ::ng-deep {
+
+            svg {
+                width: $clearButtonSize;
+                height: $clearButtonSize;
+
+                line {
+                    stroke: $searchIconColor;
+                }
+            }
+        }
+    }
+
+    &__icon {
+        position: absolute;
+        top: 50%;
+        right: $searchIconRight;
+        transform: translateY(-50%);
+        pointer-events: none;
+
+        ::ng-deep {
+
+            svg {
+                width: $searchIconSize;
+                height: $searchIconSize;
+                fill: $searchIconColor;
+            }
+        }
+    }
+}

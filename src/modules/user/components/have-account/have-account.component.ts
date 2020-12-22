@@ -44,7 +44,6 @@ export class HaveAccountComponent
     }
 
     public showModal(modalName): void {
-        this.modalService.closeAllModals();
         this.modalService.showModal(modalName);
     }
 

@@ -1,3 +1,4 @@
+import {UIRouter} from '@uirouter/core';
 import {
     IIndexing,
 } from 'wlc-engine/modules/core/system/interfaces';
@@ -11,15 +12,16 @@ import {
     ICatalogTreeItem,
     IGames,
     IMapping,
-    IRestrictions, IJackpot, gamesEvents, IFavourite,
+    IRestrictions, IJackpot,
+    gamesEvents,
+    IFavourite,
+    IGame,
+    ISearchFilter,
 } from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
-
 import {GamesHelper} from 'wlc-engine/modules/games/system/helpers/games.helpers';
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {ConfigService, EventService} from 'wlc-engine/modules/core/system/services';
 import {Game} from 'wlc-engine/modules/games/system/models/game.model';
 import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.model';
-import {UIRouter} from '@uirouter/core';
-import {EventService} from 'wlc-engine/modules/core/system/services';
 import {GamesCatalogService} from 'wlc-engine/modules/games';
 import {IGamesFilterData} from 'wlc-engine/modules/games/system/interfaces/filters.interfaces';
 import {ILanguage} from 'wlc-engine/modules/core';
@@ -35,6 +37,8 @@ import {
     get as _get,
     includes as _includes,
     filter as _filter,
+    uniq as _uniq,
+    union as _union,
 } from 'lodash';
 
 export class GamesCatalog {
@@ -126,12 +130,7 @@ export class GamesCatalog {
         }
 
         if (searchQuery) {
-            gameList = gameList.filter((game: Game) => {
-                const name = _get(game.name, this.currentLanguage.code)
-                    || _get(game.name, 'en', '');
-
-                return name.toLowerCase().indexOf(searchQuery) !== -1;
-            });
+            gameList = this.sortNameByRegExp(searchQuery, gameList);
         }
 
         return gameList;
@@ -475,7 +474,7 @@ export class GamesCatalog {
         /***********************************************************************************************************
          * COUNTRIES RESTRICTIONS
          **********************************************************************************************************/
-        // TODO а как надо по дефолту то????
+            // TODO а как надо по дефолту то????
         const enableCountryRestriction: boolean = this.configService.get<boolean>('appConfig.games.enableRestricted') || true;
         const authUserAppConfigCountry = this.configService.get<string>('appConfig.user.country') || null;
         // TODO надо дописать, когда будет UserService
@@ -523,6 +522,38 @@ export class GamesCatalog {
         this.games = _sortBy(resultGames, (item: Game) => {
             return _toNumber(item.sort);
         });
+    }
+
+    protected sortNameByRegExp(searchQuery: string, gamesList: Game[]): Game[] {
+        const arrays: IIndexing<ISearchFilter> = {
+            completeMatch: {
+                array: [],
+                regExp: `^${searchQuery}[\\s]`,
+            },
+            firstMatch: {
+                array: [],
+                regExp: `[\\s]${searchQuery}[\\s]?$`,
+            },
+            secondMatch: {
+                array: [],
+                regExp: `[\\s]${searchQuery}`,
+            },
+            thirdMatch: {
+                array: [],
+                regExp: `${searchQuery}`,
+            },
+        };
+
+        _forEach(arrays, (item: any) => {
+            item.array = gamesList.filter((game: Game) => {
+                return new RegExp(item.regExp, 'gi').test(game.name.en);
+            });
+        });
+
+        return _uniq(_union(arrays.completeMatch.array,
+            arrays.firstMatch.array,
+            arrays.secondMatch.array,
+            arrays.thirdMatch.array));
     }
 
 }

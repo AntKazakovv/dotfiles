@@ -1,0 +1,16 @@
+$color: ef.get('color', 'text') !default;
+$bgColor: #fff !default;
+
+$clearButtonSize: 12px !default;
+$clearButtonColor: ef.get('color', 'text') !default;
+$searchIconSize: 18px !default;
+$searchIconColor: ef.get('color', 'text') !default;
+$searchIconRight: 10px !default;
+$spaceBetweenIcons: 14px !default;
+
+$borderRadius: ef.get('radius', 'main') !default;
+$border: none !default;
+$borderColorActive: ef.get('color', 'main') !default;
+$inputPadding: 12px 10px !default;
+$inputFontSize: ef.get('font', 'smaller') !default;
+$transition: ef.get('time', 'main') linear !default;

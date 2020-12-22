@@ -1,21 +1,20 @@
 <label class="{{$class}}">
-    <input type="search"
-        class="{{$class}}__input"
-        placeholder="Search"
-        #searchField
-        (input)="changeSearch()"
-        [(ngModel)]="searchQuery"
+    <input class="{{$class}}__input"
+           placeholder="{{$params.placeholder || 'Search' | translate}}"
+           #searchField
+           (input)="changeSearch()"
+           [(ngModel)]="searchQuery"
     >
-    <span class="{{$class}}__placeholder">{{$params.placeholder | translate}}</span>
     <button class="{{$class}}__clear"
-        wlc-icon
-        [iconName]="'close'"
-        [attr.aria-label]="'Clear search' | translate"
-        [attr.title]="'Clear search' | translate"
-        (click)="clearSearch()"
+            *ngIf="searchQuery?.length"
+            wlc-icon
+            [iconName]="'close'"
+            [attr.aria-label]="'Clear search' | translate"
+            [attr.title]="'Clear search' | translate"
+            (click)="clearSearch()"
     ></button>
-    <i class="{{$class}}__icon"
-        wlc-icon
-        [iconName]="'search'"
-    ></i>
+    <span class="{{$class}}__icon"
+          wlc-icon
+          [iconName]="'search'"
+    ></span>
 </label>
