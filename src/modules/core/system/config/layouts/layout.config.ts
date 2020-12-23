@@ -92,7 +92,7 @@ export const $layouts: ILayoutsConfig = {
                     {
                         name: 'core.wlc-title',
                         params: {
-                            text: gettext('Profile'),
+                            mainText: gettext('Profile'),
                         },
                     },
                     {
