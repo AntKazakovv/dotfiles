@@ -1,8 +1,19 @@
 import {Component, OnInit, Inject} from '@angular/core';
+import {FormControl} from '@angular/forms';
 import {CurrencyPipe} from '@angular/common';
+import {StateService} from '@uirouter/core';
+import {
+    AbstractComponent,
+    IIndexing,
+    IMixedParams,
+    ConfigService,
+    EventService,
+    ModalService,
+    ValidationService,
+    ISelectParams,
+    IInputCParams,
+} from 'wlc-engine/modules/core';
 
-import {AbstractComponent, IIndexing, IMixedParams} from 'wlc-engine/modules/core';
-import {ConfigService, EventService, ModalService} from 'wlc-engine/modules/core/system/services';
 import {IPaymentAdditionalParam, PaymentSystem} from 'wlc-engine/modules/finances/system/models/payment-system.model';
 import {FinancesService} from 'wlc-engine/modules/finances/system/services';
 
@@ -14,6 +25,7 @@ import * as Params from './deposit-withdraw.params';
 import {
     isString as _isString,
     isEqual as _isEqual,
+    each as _each,
 } from 'lodash';
 
 @Component({
@@ -36,6 +48,9 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
         paymentType: 'deposit',
     };
 
+    public additionalFields: Params.IAdditionalFields[] = [];
+    protected additionalForm: FormGroup;
+
     protected inProgress: boolean = false;
 
     constructor(
@@ -44,6 +59,9 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
         protected financesService: FinancesService,
         protected eventService: EventService,
         protected modalService: ModalService,
+        protected validationService: ValidationService,
+        protected stateService: StateService,
+
     ) {
         super(
             <IMixedParams<Params.IDepositWithdrawParams>>{
@@ -61,6 +79,51 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
             this.currentSystem = system;
             this.additionalParams = this.listConfig.paymentType === 'deposit' ?
                 system.additionalParamsDeposit : system.additionalParamsWithdraw;
+
+            const formColtrols: IIndexing<FormControl> = {};
+            this.additionalFields = Object.keys(this.additionalParams).map((key) => {
+                const field = this.additionalParams[key];
+                formColtrols[key] = new FormControl('', [
+                    this.validationService.getValidator('required').validator,
+                ]);
+
+                if (field.type === 'input') {
+                    return {
+                        type: 'input',
+                        params: <IInputCParams>{
+                            name: key,
+                            theme: 'vertical',
+                            common: {
+                                placeholder: field.name,
+                            },
+                            control: formColtrols[key],
+                        },
+                    };
+                }
+                if (field.type === 'select') {
+
+                    return {
+                        type: 'select',
+                        params: <ISelectParams>{
+                            labelText: field.name,
+                            name: key,
+                            theme: 'vertical',
+                            common: {
+                                placeholder: field.name,
+                            },
+                            items: Object.keys(field.params || {}).map((item) => {
+                                return {
+                                    value: item,
+                                    title: field.params[item],
+                                };
+                            }),
+                            control: formColtrols[key],
+                        },
+                    };
+                }
+            });
+
+            this.additionalForm = new FormGroup(formColtrols);
             this.checkUserProfileForPayment();
         }, this.$destroy);
 
@@ -68,8 +131,6 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
             this.title = gettext('Withdrawal');
             this.listConfig.paymentType = 'withdraw';
         }
-
-
     }
 
     public async deposit(form: FormGroup): Promise<void> {
@@ -88,13 +149,17 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
             return;
         }
 
+        if (!this.checkAdditionFields()) {
+            return;
+        }
+
         this.inProgress = true;
 
         try {
             const response = await this.financesService.deposit(
                 this.currentSystem.id,
                 form.value.amount,
-                this.additionalParams,
+                this.additionalForm.value,
             );
 
             if (response.length) {
@@ -154,13 +219,17 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
             return;
         }
 
+        if (!this.checkAdditionFields()) {
+            return;
+        }
+
         this.inProgress = true;
 
         try {
             const response = await this.financesService.withdraw(
                 this.currentSystem.id,
                 form.value.amount,
-                {},
+                this.additionalForm.value,
             );
 
             if (response[0] === 'redirect') {
@@ -209,6 +278,20 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
         this.requiredFieldsKeys = Object.keys(this.requiredFields);
 
         return !Object.keys(this.requiredFields).length;
+    }
+
+    public editProfile(): void {
+        this.stateService.go('app.profile.main.info');
+    }
+
+    protected checkAdditionFields(): boolean {
+        if (this.additionalForm.valid) {
+            return true;
+        }
+        _each(this.additionalForm.controls, (control) => {
+            control.markAsTouched();
+        });
+        return false;
     }
 
     /**
