@@ -17,11 +17,14 @@
             - {{requiredFields[item].label | translate}}
         </li>
     </ul>
+    <button wlc-button text="Edit profile" (click)="editProfile()"></button>
 </div>
 
-<div class="wlc-profile-payment-fields-item"
-    *ngFor="let field of additionalParams | keyvalue">
-    <label class="wlc-label">{{field.value.name}} - {{field.value.value}}</label>
+<div class="wlc-additional-form">
+    <div *ngFor="let field of additionalFields">
+        <div *ngIf="field.type === 'input'" wlc-input [inlineParams]="field.params"></div>
+        <div *ngIf="field.type === 'select'" wlc-select [inlineParams]="field.params"></div>
+    </div>
 </div>
 
 <div *ngIf="$params?.mode === 'deposit'"

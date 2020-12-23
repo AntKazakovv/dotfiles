@@ -40,7 +40,7 @@ export class CheckboxComponent extends AbstractComponent implements OnInit {
 
     // TODO move to abstract class
     private prepareModifiers(): void {
-        if (!this.$params.common.customModifiers) {
+        if (!this.$params.common?.customModifiers) {
             return;
         }
 
