@@ -87,10 +87,10 @@ export class TitleComponent extends AbstractComponent implements OnInit, AfterVi
 
     protected prepareParams(): void {
         if (!this.mainText) {
-            this.mainText = this.$params.text;
+            this.mainText = this.$params.mainText;
         }
         if (!this.secondText) {
-            this.secondText = this.$params.textSecond;
+            this.secondText = this.$params.secondText;
         }
     }
 

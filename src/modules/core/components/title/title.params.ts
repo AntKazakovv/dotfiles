@@ -16,8 +16,8 @@ export interface ITableCommonParams {
 export type TextType = string | BehaviorSubject<string>;
 
 export interface ITitleCParams extends IComponentParams<Theme, Type, ThemeMod>, ITableCommonParams {
-    text?: TextType,
-    textSecond?: TextType,
+    mainText?: TextType,
+    secondText?: TextType,
     common?: {
         mainTag?: TagType,
         secondTag?: TagType,
