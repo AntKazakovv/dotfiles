@@ -1,0 +1,27 @@
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/base.mixins' as em;
+@import '../utils/vars';
+
+.wlc-title--theme-default:host {
+
+    .wlc-title {
+
+        &__main {
+            font: {
+                size: $mainFontSizeMobile;
+                weight: $mainFontWeightMobile;
+            };
+            color: $mainColorMobile;
+            line-height: $mainLineHeightMobile;
+        }
+
+        &__second {
+            font: {
+                size: $secondFontSizeMobile;
+                weight: $secondFontWeightMobile;
+            };
+            color: $secondColorMobile;
+            line-height: $secondLineHeightMobile;
+        }
+    }
+}

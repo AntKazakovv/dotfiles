@@ -90,6 +90,12 @@ export const $layouts: ILayoutsConfig = {
                 container: true,
                 components: [
                     {
+                        name: 'core.wlc-title',
+                        params: {
+                            text: gettext('Profile'),
+                        },
+                    },
+                    {
                         name: 'menu.wlc-profile-menu',
                         params: {
                             type: 'submenu',

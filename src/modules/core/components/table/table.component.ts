@@ -8,7 +8,6 @@ import {
     Injector,
 } from '@angular/core';
 
-
 import {AbstractComponent, IMixedParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {HeightToggleAnimation} from 'wlc-engine/modules/core/system/animations/height-toggle.animation';
 import {LayoutService} from 'wlc-engine/modules/core/system/services';

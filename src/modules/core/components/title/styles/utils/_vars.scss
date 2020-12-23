@@ -1,0 +1,13 @@
+@use 'engine-scss/functions' as ef;
+
+// Main
+$mainFontSizeMobile: ef.get('font', 'big') !default;
+$mainColorMobile: ef.get('color', 'text') !default;
+$mainFontWeightMobile: bold !default;
+$mainLineHeightMobile: initial !default;
+
+//Second
+$secondFontSizeMobile: ef.get('font', 'big') !default;
+$secondColorMobile: ef.get('color', 'text') !default;
+$secondFontWeightMobile: bold !default;
+$secondLineHeightMobile: initial !default;

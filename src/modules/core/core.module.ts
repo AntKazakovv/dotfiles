@@ -63,6 +63,7 @@ import {CurrencyComponent} from 'wlc-engine/modules/core/components/currency/cur
 import {DatepickerComponent} from './components/datepicker/datepicker.component';
 import {TextBlockComponent} from './components/text-block/text-block.component';
 import {DummyComponent} from './components/dummy/dummy.component';
+import { TitleComponent } from './components/title/title.component';
 // -- COMPONENTS IMPORTS END  --;
 
 //  -- DIRECTIVES IMPORTS STARTS--;
@@ -85,31 +86,32 @@ import {dbConfig} from 'wlc-engine/modules/core/system/config/indexedDB.config';
 //  -- CONFIGS IMPORTS STARTS--;
 
 export const components = {
-    'wlc-logo': LogoComponent,
-    'wlc-language-selector': LanguageSelectorComponent,
-    'wlc-icon': IconComponent,
-    'wlc-dynamic-html': DynamicHtmlComponent,
     'wlc-button': ButtonComponent,
-    'wlc-modal': WlcModalComponent,
-    'wlc-icon-list': IconListComponent,
-    'wlc-disclaimer': DisclaimerComponent,
-    'wlc-loader': LoaderComponent,
-    'wlc-license': LicenseComponent,
-    'wlc-wrapper': WrapperComponent,
-    'wlc-form-wrapper': FormWrapperComponent,
-    'wlc-feedback-form': FeedbackFormComponent,
-    'wlc-input': InputComponent,
-    'wlc-textarea': TextareaComponent,
-    'wlc-select': SelectComponent,
     'wlc-checkbox': CheckboxComponent,
-    'wlc-info-page': InfoPageComponent,
-    'wlc-form-control': FormControlComponent,
-    'wlc-table': TableComponent,
-    'wlc-dummy-amount': DummyComponent,
-    'wlc-currency': CurrencyComponent,
     'wlc-copyright': CopyrightComponent,
+    'wlc-currency': CurrencyComponent,
     'wlc-datepicker': DatepickerComponent,
+    'wlc-disclaimer': DisclaimerComponent,
+    'wlc-dummy-amount': DummyComponent,
+    'wlc-dynamic-html': DynamicHtmlComponent,
+    'wlc-feedback-form': FeedbackFormComponent,
+    'wlc-form-control': FormControlComponent,
+    'wlc-form-wrapper': FormWrapperComponent,
+    'wlc-icon': IconComponent,
+    'wlc-icon-list': IconListComponent,
+    'wlc-info-page': InfoPageComponent,
+    'wlc-input': InputComponent,
+    'wlc-language-selector': LanguageSelectorComponent,
+    'wlc-license': LicenseComponent,
+    'wlc-loader': LoaderComponent,
+    'wlc-logo': LogoComponent,
+    'wlc-modal': WlcModalComponent,
+    'wlc-select': SelectComponent,
+    'wlc-table': TableComponent,
     'wlc-text-block': TextBlockComponent,
+    'wlc-textarea': TextareaComponent,
+    'wlc-title': TitleComponent,
+    'wlc-wrapper': WrapperComponent,
 };
 
 @NgModule({
@@ -179,6 +181,7 @@ export const components = {
         InputMaskDirective,
         TextBlockComponent,
         TruncatePipe,
+        TitleComponent,
     ],
     exports: [
         LayoutComponent,
@@ -215,6 +218,7 @@ export const components = {
         InputMaskDirective,
         TextBlockComponent,
         TruncatePipe,
+        TitleComponent,
     ],
 })
 export class CoreModule {
