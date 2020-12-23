@@ -27,7 +27,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         },
     },
     'profile-menu:edit-profile': {
-        name: gettext('Edit profile'),
+        name: gettext('General'),
         type: 'sref',
         icon: 'icons/edit-profile',
         class: 'edit-profile',
