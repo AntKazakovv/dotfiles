@@ -1,15 +1,18 @@
 import {
     AfterContentInit,
     AfterViewInit,
-    ChangeDetectionStrategy, ChangeDetectorRef,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
     Component,
     ContentChild,
-    ElementRef, Inject,
+    ElementRef,
+    Inject,
     Input,
     OnChanges,
     OnDestroy,
     SimpleChanges,
     OnInit,
+    HostBinding,
 } from '@angular/core';
 import {StateService} from '@uirouter/core';
 import {Subject, fromEvent} from 'rxjs';
@@ -29,7 +32,6 @@ import {
     isUndefined as _isUndefined,
     get as _get,
 } from 'lodash';
-
 
 export {IButtonParams} from './button.params';
 
@@ -58,6 +60,7 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
 
     public $params: BParams.IButtonParams;
     protected $loading = new Subject<boolean>();
+    @HostBinding('attr.type') typeAttr = this.params.common?.typeAttr;
 
     constructor(
         @Inject('injectParams') protected params: BParams.IButtonParams,
@@ -101,7 +104,7 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
     }
 
     protected prepareParams(): BParams.IButtonParams {
-        const inputProperties: string[] = ['text', 'size', 'icon', 'index', 'event'];
+        const inputProperties: string[] = ['text', 'size', 'icon', 'index', 'event', 'type'];
         const inlineParams: BParams.IButtonParams = {
             common: {},
         };

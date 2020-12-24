@@ -54,6 +54,7 @@ $themeVertical: map-merge((
     'labelColor': ef.get('color', 'main'),
 
     'selectGroupSize': 100%,
-    'selectDropdownItemColor': #000000
+    'selectDropdownItemColor': #000000,
+    'selectBorderRadius': 10px,
 
 ), $customThemeVertical);

@@ -25,10 +25,6 @@
             grid-area: password;
         }
 
-        .wlc-select--currency {
-            grid-area: currency;
-        }
-
         .wlc-input--promocode {
             grid-area: promocode;
         }
@@ -51,14 +47,16 @@
             grid-area: account;
         }
 
-        .wlc-select__group {
+        .wlc-select[wlc-select] {
+
+            .wlc-select--currency {
+                grid-area: currency;
+            }
 
             .wlc-select__field,
             .wlc-select__dropdown-item {
-                font-size: $selectFontSize;
-
-                // TODO remove this
                 padding: $selectPadding;
+                font-size: $selectFontSize;
             }
         }
     }

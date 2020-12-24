@@ -11,6 +11,7 @@ export interface IMobileMenuCParams extends IComponentParams<Theme, Type, ThemeM
     modifiers?: Modifiers[];
     common?: {
         themeMod?: ThemeMod;
+        useArrow?: boolean;
     };
 }
 

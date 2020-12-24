@@ -12,18 +12,24 @@
         border-image-width: 6px;
         background-image: linear-gradient(to right, $background, $backgroundSecondary);
 
-        &:hover {
-            background: transparent;
+        @media (hover: hover) {
+
+            &:hover {
+                background: transparent;
+            }
         }
 
         &.wlc-btn--theme-mod-secondary {
             border-image-width: 0;
             background-image: unset;
 
-            &:hover {
-                border-image-width: 6px;
-                border-image-source: linear-gradient(to right, $backgroundSecondary, $background);
-                background-image: linear-gradient(to right, $background, $backgroundSecondary);
+            @media (hover: hover) {
+
+                &:hover {
+                    border-image-width: 6px;
+                    border-image-source: linear-gradient(to right, $backgroundSecondary, $background);
+                    background-image: linear-gradient(to right, $background, $backgroundSecondary);
+                }
             }
         }
     }

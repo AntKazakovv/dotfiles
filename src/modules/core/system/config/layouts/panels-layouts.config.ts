@@ -20,16 +20,37 @@ export const $panelsLayouts: IPanelsConfig = {
                         },
                     },
                     {
-                        name: 'user.wlc-user-stats',
-                        display: {
-                            auth: true,
-                        },
-                    },
-                    {
                         name: 'menu.wlc-mobile-menu',
                         params: {
                             type: 'dropdown',
                             themeMod: 'vertical',
+                            common: {
+                                useArrow: true,
+                            },
+                        },
+                    },
+                    {
+                        name: 'core.wlc-language-selector',
+                        params: {
+                            themeMod: 'long',
+                        },
+                    },
+                ],
+            },
+            right: {
+                components: [
+                    {
+                        name: 'user.wlc-user-stats',
+                    },
+                    {
+                        name: 'menu.wlc-profile-menu',
+                        params: {
+                            theme: 'dropdown',
+                            themeMod: 'vertical',
+                            type: 'dropdown',
+                            common: {
+                                useArrow: true,
+                            },
                         },
                     },
                 ],

@@ -61,7 +61,6 @@ export class SignUpFormComponent extends AbstractComponent {
             this.userService.setProfileData(form.value);
 
             await this.userService.createUserProfile(this.userService.userProfile.data);
-            this.modalService.closeModal('signup');
 
             if (this.isFastRegistration) {
                 this.eventService.emit({name: 'LOGIN'});
@@ -101,6 +100,7 @@ export class SignUpFormComponent extends AbstractComponent {
                 gettext('Your account has been registered.'),
                 gettext('Please complete registration using link in e-mail'),
             ],
+            dismissAll: true,
         });
     }
 }

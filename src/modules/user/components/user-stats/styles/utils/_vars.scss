@@ -29,6 +29,6 @@ $userStatsBalanceItemValueSize: 12px !default;
 $userStatsBalanceItemValueWeight: bold !default;
 
 $logoutIconFill: #c4c4c4 !default;
-$logoutIconHoveredFill: darken($logoutIconFill, 40) !default;
+$logoutIconHoveredFill: lighten($logoutIconFill, 40) !default;
 
 $userStatsBtnMargin: 15px auto 0 !default;

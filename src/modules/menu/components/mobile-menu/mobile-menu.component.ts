@@ -64,6 +64,9 @@ export class MobileMenuComponent extends AbstractComponent implements OnInit {
             type: 'mobile-menu',
             theme: this.$params.theme,
             themeMod: this.$params.themeMod,
+            common: {
+                useArrow: this.$params.common?.useArrow,
+            },
         };
         this.menuParams.items = MenuHelper.parseMenuConfig(this.menuConfig, Config.wlcMobileMenuItemsGlobal);
         this.menuParams = _clone(this.menuParams);

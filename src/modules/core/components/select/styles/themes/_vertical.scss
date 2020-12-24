@@ -28,6 +28,10 @@
         max-width: map.get($themeVertical, 'selectGroupSize');
     }
 
+    .wlc-select__field {
+        border-radius: map.get($themeVertical, 'inputBorderRadius');
+    }
+
     .wlc-select__dropdown {
 
         &-item {

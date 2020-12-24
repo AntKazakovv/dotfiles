@@ -23,6 +23,7 @@ export interface IButtonParams extends IComponentParams<Theme, Type, ThemeMod> {
             data?: unknown;
         };
         sref?: string;
+        typeAttr?: string;
     };
 }
 

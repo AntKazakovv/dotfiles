@@ -8,8 +8,11 @@
         @include buttonBase;
         border-radius: 2px;
 
-        &:hover {
-            background: $backgroundHover;
+        @media (hover: hover) {
+
+            &:hover {
+                background: $backgroundHover;
+            }
         }
 
         &.wlc-btn--theme-mod-secondary {
