@@ -34,6 +34,12 @@ $backdropZIndex: 1040 !default;
 $backdropPosition: 0 !default;
 $backdropBackground: ef.get('color', 'backdropBackground') !default;
 
+$titleFontSize: 24px !default;
+$titleFontWeight: 700 !default;
+$titleMargin: 0 !default;
+
+$paddingDefault: 1.5rem 2rem;
+
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'dialogBackground': ef.get('color', 'dialogBackground'),

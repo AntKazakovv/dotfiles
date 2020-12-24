@@ -1,6 +1,37 @@
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 import {Game} from 'wlc-engine/modules/games/system/models/game.model';
 import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.model';
+import {MerchantModel} from 'wlc-engine/modules/games/system/models/merchant.model';
+
+export interface IGamesConfig {
+    run?: IRunGameOptions;
+    mobile?: IMobileGames;
+    realPlay?: IRealPlayOptions;
+}
+
+export interface IRealPlayOptions {
+    disable?: boolean;
+    disableByCountry?: IDisablePlayRealByCountry;
+}
+
+export interface IDisablePlayRealByCountry {
+    default?: string[];
+    forMerchant?: IIndexing<string[]>;
+}
+
+export interface IRunGameOptions {
+    skipCheckBalance: boolean;
+    checkProfileRequiredFields: boolean;
+    checkActiveBonusRestriction: boolean;
+}
+
+export interface IMobileGames {
+    loginUser?: IMobileLoginUser;
+}
+
+export interface IMobileLoginUser {
+    disableDemo?: boolean;
+}
 
 /**
  * TYPES
@@ -86,15 +117,15 @@ export type IGames = {
 export type IMapping = {
     merchantIdToNameMapping: IIndexing<string>;
     merchantIdToAliasMapping: IIndexing<string>;
-    merchantNameToObjectMapping: IIndexing<IMerchant>,
-    merchantNameToIdMapping: IIndexing<string>;
+    merchantNameToObjectMapping: IIndexing<MerchantModel>,
+    merchantNameToIdMapping: IIndexing<number>;
     merchantNameToTitleMapping: IIndexing<string>;
     byMerchant: IByMerchant;
 
     categoryById: IIndexing<CategoryModel>;
     categoryByName: IIndexing<CategoryModel>
     categoryIdToNameMapping: IIndexing<string>;
-    categoryNameToIdMapping: IIndexing<string>;
+    categoryNameToIdMapping: IIndexing<number>;
     categoryIdToTitleMapping: { [key: string]: IIndexing<string>; };
     categoryNameToTitleMapping: { [key: string]: IIndexing<string>; };
     byCategory: IByCategory;
@@ -117,7 +148,8 @@ export type IJackpot = {
 }
 
 export type IFavourite = {
-    game_id: number;
+    game_id: string;
+    favorite?: boolean;
 }
 
 /**
@@ -138,20 +170,18 @@ export interface ICatalogTreeItem extends ISupportedItem {
 }
 
 export interface IGameParams {
-    merchantId: string;
+    merchantId: number;
     launchCode: string;
-    demo: string;
+    demo: boolean;
     gameId: string;
     lang?: string;
-
-    [key: string]: string;
 }
 
 export interface ICustomGameParams {
-    merchantId?: string;
+    merchantId?: number;
     launchCode?: string;
     demo?: boolean;
-    gameId?: string;
+    gameId?: number;
     hideTitle?: boolean;
     autoresize?: boolean;
     sportsbookPage?: string;

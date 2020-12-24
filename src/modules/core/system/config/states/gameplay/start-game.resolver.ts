@@ -1,8 +1,8 @@
 'use strict';
 
-import {StateService, UIRouter, Transition, RawParams} from '@uirouter/core';
+import {StateService, UIRouter, Transition, RawParams, ResolveTypes} from '@uirouter/core';
 import {TranslateService} from '@ngx-translate/core';
-import {ResolveTypes} from '@uirouter/core/lib/state/interface';
+
 import {ConfigService} from 'wlc-engine/modules/core/system/services';
 import {LogService} from 'wlc-engine/modules/core/system/services';
 import {GamesCatalogService} from 'wlc-engine/modules/games/system/services';
@@ -11,6 +11,12 @@ import {Game} from 'wlc-engine/modules/games/system/models/game.model';
 import {ModalService} from 'wlc-engine/modules/core/system/services';
 import {UserService} from 'wlc-engine/modules/user/system/services';
 import {IModalConfig} from 'wlc-engine/modules/core/components/modal';
+import {MerchantFieldsService} from 'wlc-engine/modules/games/system/services';
+import {BonusesService} from 'wlc-engine/modules/bonuses/system/services/bonuses/bonuses.service';
+import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus';
+import {IRedirect} from 'wlc-engine/modules/core/system/interfaces/core.interface';
+import {IDisablePlayRealByCountry} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
+import {IPlayGameForRealCParams} from 'wlc-engine/modules/games/components/play-game-for-real/play-game-for-real.params';
 
 import {
     includes as _includes,
@@ -18,7 +24,23 @@ import {
     intersection as _intersection,
     forEach as _forEach,
     clone as _clone,
+    isArray as _isArray,
+    union as _union,
+    reduce as _reduce,
+    toNumber as _toNumber,
 } from 'lodash';
+
+export enum RejectReason {
+    RealPlayDisabled,
+    GameNotFounded,
+    GameHasNoDemo,
+    GamesCatalogNotReady,
+    RestrictedByActiveBonuses,
+    LowBalance,
+    EmptyRequiredFields,
+    StateChangeStart,
+    AuthRequired,
+}
 
 export const startGameResolver: ResolveTypes = {
     token: 'startGame',
@@ -32,6 +54,8 @@ export const startGameResolver: ResolveTypes = {
         Transition,
         ModalService,
         UserService,
+        BonusesService,
+        MerchantFieldsService,
     ],
     resolveFn: (
         configService: ConfigService,
@@ -43,6 +67,8 @@ export const startGameResolver: ResolveTypes = {
         transition: Transition,
         modalService: ModalService,
         userService: UserService,
+        bonusesService: BonusesService,
+        merchantFieldsService: MerchantFieldsService,
     ) => {
         return new StartGameHandler(
             configService,
@@ -54,6 +80,8 @@ export const startGameResolver: ResolveTypes = {
             modalService,
             transition,
             userService,
+            bonusesService,
+            merchantFieldsService,
         ).result.promise;
     },
 };
@@ -64,11 +92,11 @@ class StartGameHandler {
     private mobile: boolean = false;
     private isDemo: boolean = false;
     private authenticated: boolean = false;
-    private playForReal: boolean = false;
-    private realPlayDisableByCountry: boolean = false;
-    private checkRequiredFields: boolean = false;
-    private merchantId: string;
-    private zeroBalanceRedirect: any;
+    private realPlayDisabled: boolean = false;
+    private realPlayDisabledByCountry: boolean = false;
+    private checkProfileRequiredFields: boolean = false;
+    private merchantId: number;
+    private zeroBalanceRedirect: IRedirect;
     private game: Game;
 
     constructor(
@@ -81,24 +109,37 @@ class StartGameHandler {
         private modalService: ModalService,
         private transition: Transition,
         private userService: UserService,
+        private bonusesService: BonusesService,
+        private merchantFieldsService: MerchantFieldsService,
     ) {
         this.init();
     }
 
     private async init(): Promise<void> {
+
+        const waiter = this.logService.waiter({code: '3.0.11'}, 7000);
+        try {
+            await this.gamesCatalogService.ready;
+        } catch (err) {
+            this.logService.sendLog({code: '3.0.0', data: err});
+            this.result.reject(RejectReason.GamesCatalogNotReady);
+            return;
+        } finally {
+            waiter();
+        }
+
         this.prepare();
-        if (!this.checkPlayReal() || !await this.checkGame()) {
+
+        if (!this.checksForPlayReal() || !await this.checkGame()) {
             return;
         }
 
         if (this.authenticated) {
-            //this.checksForAuthenticated();
+            this.checksForAuthenticated();
         } else {
-            //this.checksForUnauthorized();
+            this.checksForUnauthorized();
         }
-
-        // @TODO Delete in feature
-        this.result.resolve();
+        //this.result.resolve();
     }
 
     /**
@@ -108,15 +149,15 @@ class StartGameHandler {
         const checkOnRunWaiter = this.logService.durationWaiter({
             code: '3.0.27',
             data: {
-                merchantId: this.stateService.params?.merchantId,
-                launchCode: this.stateService.params?.launchCode,
+                merchantId: this.transition.params().merchantId,
+                launchCode: this.transition.params().launchCode,
             },
         });
         this.logService.sendLog({
             code: '3.0.29',
             data: {
-                merchantId: this.stateService.params?.merchantId,
-                launchCode: this.stateService.params?.launchCode,
+                merchantId: this.transition.params().merchantId,
+                launchCode: this.transition.params().launchCode,
             },
         });
 
@@ -124,22 +165,19 @@ class StartGameHandler {
             this.logService.sendLog({
                 code: '3.0.26',
                 data: {
-                    merchantId: this.stateService.params?.merchantId,
-                    launchCode: this.stateService.params?.launchCode,
+                    merchantId: this.transition.params().merchantId,
+                    launchCode: this.transition.params().launchCode,
                 },
             });
         });
 
         const stateChangeHandler = this.router.transitionService.onStart({}, (transition) => {
-            this.result.reject({
-                type: 'STATE_CHANGE_START',
-            });
-
+            this.result.reject(RejectReason.StateChangeStart);
             this.logService.sendLog({
                 code: '3.0.28',
                 data: {
-                    merchantId: this.stateService.params?.merchantId,
-                    launchCode: this.stateService.params?.launchCode,
+                    merchantId: this.transition.params().merchantId,
+                    launchCode: this.transition.params().launchCode,
                 },
             });
             stateChangeHandler();
@@ -150,37 +188,57 @@ class StartGameHandler {
             stateChangeHandler();
         });
 
-        this.mobile = this.configService.get<boolean>('appConfig.siteconfig.mobile');
-        this.isDemo = !!this.transition.params().demo;
         this.authenticated = this.userService.isAuthenticated;
-        this.playForReal = this.configService.get<boolean>('appConfig.siteconfig.games.playForReal');
+        this.mobile = this.configService.get<boolean>('appConfig.siteconfig.mobile');
+        this.isDemo = this.transition.params().demo === 'true';
+        this.realPlayDisabled = this.configService.get<boolean>('$games.realPlay.disable');
+        this.checkProfileRequiredFields = this.configService.get<boolean>('$games.run.checkProfileRequiredFields');
+        this.merchantId = _toNumber(this.transition.params().merchantId);
+        this.zeroBalanceRedirect = this.configService.get<IRedirect>('$core.redirects.zeroBalance');
 
-        this.realPlayDisableByCountry = _includes(
-            this.configService.get('$games.realPlayDisableByCountry') || [],
-            this.configService.get<string>('appConfig.country')
-        );
+        this.setRealPlayDisabledByCountry();
+    }
 
-        this.checkRequiredFields = this.configService.get<boolean>('appConfig.siteconfig.checkRequiredFields');
-        this.merchantId = this.stateService.params?.merchantId;
-        this.zeroBalanceRedirect = this.configService.get<boolean>('appConfig.siteconfig.redirects.zeroBalanceRedirect');
+    private setRealPlayDisabledByCountry(): void {
+        const realPlayDisableByCountry: IDisablePlayRealByCountry = this.configService.get('$games.realPlay.disableByCountry');
+        const counryListDefault: string[] = realPlayDisableByCountry.default || [];
+
+        let counryListMerchant: string[] = [];
+        if (realPlayDisableByCountry.forMerchant?.[this.merchantId]) {
+            counryListMerchant = _reduce(realPlayDisableByCountry.forMerchant, (res, countryList: string[], merchantId) => {
+                return this.gamesCatalogService.getMerchantById(_toNumber(merchantId)) ? _union(res, countryList) : res;
+            }, []);
+        }
+        const countries: string[] = _union(counryListDefault, counryListMerchant);
+
+        this.realPlayDisabledByCountry = _includes(countries, this.configService.get<string>('appConfig.country'));
     }
 
     /**
-     * Check play real
+     * Checks for play real
      *
      * @returns {boolean}
      */
-    private checkPlayReal(): boolean {
-        if(!this.isDemo && (this.playForReal || this.realPlayDisableByCountry)) {
-            const modalParams: Partial<IModalConfig> = {};
-            if (this.realPlayDisableByCountry) {
+    private checksForPlayReal(): boolean {
+        if(!this.isDemo && (this.realPlayDisabled || this.realPlayDisabledByCountry)) {
+            const modalParams: Partial<IModalConfig> = {
+                onModalHide: () => {
+                    if (this.stateService.current.abstract || this.stateService.current.name === 'app.gameplay') {
+                        this.stateService.go('app.home', this.transition.params());
+                    } else {
+                        this.stateService.go(this.stateService.current.name, this.transition.params(), {reload: true});
+                    }
+                },
+                size: 'md',
+            };
+            if (this.realPlayDisabled) {
+                modalParams.modalMessage = gettext('Sorry, gambling is not possible');
+            } else if (this.realPlayDisabledByCountry) {
                 modalParams.modalMessage = gettext('Play for real is disabled in your country');
             }
-            if (this.playForReal) {
-                modalParams.modalMessage = gettext('Sorry, gambling is not possible');
-            }
+
             this.modalService.showError(modalParams);
-            this.result.reject('PLAY_FOR_REAL_DISABLED');
+            this.result.reject(RejectReason.RealPlayDisabled);
             return false;
         }
         return true;
@@ -188,31 +246,21 @@ class StartGameHandler {
 
     /**
      * Check game
+     *
      * @returns {boolean}
      */
     private async checkGame(): Promise<boolean> {
-        const waiter = this.logService.waiter({code: '3.0.11'}, 7000);
-        try {
-            await this.gamesCatalogService.ready;
-        } catch (err) {
-            this.logService.sendLog({code: '3.0.0', data: err});
-        } finally {
-            waiter();
-        }
-
-        this.game = this.gamesCatalogService.getGame(this.transition.params().merchantId, this.transition.params().launchCode);
+        this.game = this.gamesCatalogService.getGame(_toNumber(this.transition.params().merchantId), this.transition.params().launchCode);
         if (!this.game) {
             this.logService.sendLog({code: '3.0.1', data: this.stateService.params});
-            this.result.reject({
-                type: 'GAME_NOT_FOUND',
-            });
+            this.result.reject(RejectReason.GameNotFounded);
             return false;
-        } else if (this.isDemo) {
+        }
+        if (this.isDemo) {
             if (this.game.hasDemo) {
                 this.result.resolve();
-                return;
+                return true;
             }
-
             this.modalService.showError({
                 modalTitle: gettext('Game has no demo!'),
                 modalMessage: gettext('Dear Client, this game has no demo mode, you will redirect to normal mode.'),
@@ -222,10 +270,7 @@ class StartGameHandler {
                     this.stateService.go('app.gameplay', stateParams);
                 },
             });
-
-            this.result.reject({
-                type: 'GAME_HAS_NO_DEMO',
-            });
+            this.result.reject(RejectReason.GameHasNoDemo);
             return false;
         }
         return true;
@@ -234,58 +279,59 @@ class StartGameHandler {
     /**
      * Checks for authenticated users
      */
-    private checksForAuthenticated(): void {
-        this.getActiveBonuses().then(async (activeBonuses) => {
-            if (this.checkActiveBonusRestriction(this.game, activeBonuses)) {
-                // @TODO After creating ModalService
-                //this.errorService.showModal(this.translateService.instant(
-                // gettext('Sorry, this game is disabled with an active bonus')), 'Error');
-                this.result.reject();
-            }
-
-            const redirect = this.configService.get<boolean>('appConfig.siteconfig.redirects.zeroBalanceRedirect');
-            if (!redirect) {
-                if (!this.checkRequiredFields) {
-                    this.result.resolve();
-                } else {
-                    this.checkUserFields().then(() => {
-                        this.result.resolve();
-                    }, (r) => {
-                        this.result.reject(r);
-                    });
-                }
-            } else if (redirect && !this.checkRequiredFields) {
-                try {
-                    await this.checkUserBalance();
-                    this.result.resolve();
-                } catch (err) {
-                    this.result.reject(err);
-                }
-            } else {
-                try {
-                    await this.checkUserFields();
-                    await this.checkUserBalance();
-                    this.result.resolve();
-                } catch (err) {
-                    this.result.reject(err);
-                }
-            }
-
-        }).catch(() => {
+    private async checksForAuthenticated(): Promise<void> {
+        if (this.isDemo) {
             this.result.resolve();
-        });
+            return;
+        }
+
+        const activeBonuses: Bonus[] = await this.bonusesService.queryBonuses(true, 'active');
+
+        if (activeBonuses && this.gameRestrictedByActiveBonuses(this.game, activeBonuses)) {
+            this.modalService.showError({
+                modalMessage: gettext('Sorry, this game is disabled with an active bonus'),
+                onModalHide: () => {
+                    this.stateService.go('app.home', this.transition.params(), {reload: true});
+                },
+            });
+            this.result.reject(RejectReason.RestrictedByActiveBonuses);
+            return;
+        }
+
+        const redirect: IRedirect = this.configService.get<IRedirect>('$core.redirects.zeroBalance');
+        try {
+            if (this.checkProfileRequiredFields) {
+                await this.checkUserFields();
+            }
+            await this.checkUserBalance();
+            this.result.resolve();
+        } catch (err) {
+            this.result.reject(err);
+        }
     }
 
     /**
      * Checks for unauthorized users
      */
     private checksForUnauthorized() {
-        if (this.mobile) {
+        if (!this.isDemo) {
+            this.modalService.showModal<IPlayGameForRealCParams>('runGame', {
+                common: {
+                    game: this.game,
+                    disableDemo: false,
+                },
+            });
+            this.result.reject(RejectReason.AuthRequired);
+        } else {
             this.result.resolve();
-            return;
         }
 
-        // @TODO After creating MessagingService, WlcStateService, UserService
+
+        // if (this.mobile) {
+        //     this.result.resolve();
+        //     return;
+        // }
+
         // let authOk = false;
         // const authHandler = this.messagingService.subscribe(this.userService.events.AUTH_SUCCEEDED, () => {
         //     authOk = true;
@@ -321,10 +367,9 @@ class StartGameHandler {
         //         this.wlcStateService.clearRedirect();
         //     }
         // });
-
-        this.result.reject({
-            type: 'AUTH_REQUIRED',
-        });
+        // this.result.reject({
+        //     type: 'AUTH_REQUIRED',
+        // });
     }
 
     /**
@@ -332,52 +377,41 @@ class StartGameHandler {
      *
      * @returns {Promise}
      */
-    private checkUserBalance(): Promise<any> {
-        const deferred = new Deferred();
+    private checkUserBalance(): Promise<void> {
+        const deferred = new Deferred<void>();
 
-        const skipCheckBalance = this.configService.get<boolean>('appConfig.siteconfig.games.skipCheckBalanceBeforeGame');
+        const skipCheckBalance: boolean = this.configService.get<boolean>('$games.run.skipCheckBalance');
         if (skipCheckBalance) {
             deferred.resolve();
             return deferred.promise;
         }
 
-        // @TODO After creating of UserService
-        // this.userService.fetchUserInfo().then(info) => {
-        //     if (parseFloat(info.balance) > 0) {
-        //         return deferred.resolve();
-        //     }
-        //
-        //     //WlcStateService.setRedirect('app.games.play', $stateParams);
-        //
-        //     //const options = wlcModalRegistryProvider.get('lowBalance');
-        //     //ModalService.showDialog(options);
-        //
-        //     deferred.reject({
-        //         type: 'GAME_LOW_BALANCE',
-        //     });
-        // }, () => {
-        //     deferred.reject({
-        //         type: 'GAME_LOW_BALANCE',
-        //     });
-        // });
+        if (this.userService.userInfo?.balance > 0) {
+            deferred.resolve();
+            return deferred.promise;
+        }
+
+        //WlcStateService.setRedirect('app.games.play', $stateParams);
+        this.modalService.showModal({
+            id: 'low-balance',
+            modalTitle: gettext('Insufficient balance!'),
+            modalMessage: gettext('Deposit more money to play this game.'),
+            modifier: 'low-balance',
+            onModalHide: () => {
+                const redirect: IRedirect = this.configService.get<IRedirect>('$core.redirects.zeroBalance');
+                if (this.configService.get('$finances.fastDeposit.use')) {
+                    //@TODO After ready fast deposit
+                    //this.modalService.showModal('fastDeposit');
+                } else {
+                    this.stateService.go(redirect.state, redirect?.params || this.transition.params());
+                }
+            },
+            size: 'md',
+            backdrop: 'static',
+        });
+
+        deferred.reject(RejectReason.LowBalance);
         return deferred.promise;
-    }
-
-    /**
-     * Get active bonuses (for authenticated users)
-     *
-     * @returns {Promise}
-     */
-    private getActiveBonuses(): Promise<any> {
-        const defered = new Deferred();
-
-        // @TODO After creating of LoyaltyBonusesService
-        // this.loyaltyBonusesService.getBonuses({type: 'active'}).then(() => {
-        //     return defered.resolve(this.loyaltyBonusesService.activeBonuses);
-        // }).catch((error) => {
-        //     return defered.reject(error);
-        // });
-        return defered.promise;
     }
 
     /**
@@ -387,31 +421,13 @@ class StartGameHandler {
      * @param activeBonuses
      * @returns {boolean}
      */
-    private checkActiveBonusRestriction(game: Game, activeBonuses): boolean {
+    private gameRestrictedByActiveBonuses(game: Game, activeBonuses: Bonus[]): boolean {
         if (this.isDemo) {
             return false;
-        } else if (!this.configService.get<boolean>('appConfig.siteconfig.games.checkActiveBonusRestriction')) {
+        } else if (!this.configService.get<boolean>('$games.run.checkActiveBonusRestriction')) {
             return false;
         }
-
-        let gameRestricted = false;
-        _forEach(activeBonuses, (bonus) => {
-            const gamesWhiteList = bonus.GamesRestrictType === '1' ? bonus.IDGames : [],
-                gamesBlackList = bonus.GamesRestrictType === '0' ? bonus.IDGames : [],
-                categoriesWhiteList = bonus.CategoriesRestrictType === '1' ? _keys(bonus.IDCategories) : [],
-                categoriesBlackList = bonus.CategoriesRestrictType === '0' ? _keys(bonus.IDCategories) : [];
-
-            if (
-                gamesBlackList[game.ID] ||
-                _keys(gamesWhiteList).length && !gamesWhiteList[game.ID] && !_keys(gamesBlackList).length ||
-                _intersection(categoriesBlackList, game.categoryID).length ||
-                categoriesWhiteList.length && !_intersection(categoriesWhiteList, game.categoryID).length
-                && !categoriesBlackList.length
-            ) {
-                gameRestricted = true;
-            }
-        });
-        return gameRestricted;
+        return game.restrictedByBonuses(activeBonuses);
     }
 
     /**
@@ -419,24 +435,35 @@ class StartGameHandler {
      *
      * @returns {Promise}
      */
-    private checkUserFields(): Promise<any> {
-        const defered = new Deferred();
+    private checkUserFields(): Promise<void> {
+        const defered = new Deferred<void>();
 
-        // @TODO After Modals and MerchantFields will be created
-        // MerchantFields.checkRequiredFields(this.merchantId).then(() => {
-        //     defered.resolve();
-        // }, (requiredFields) => {
-        //     const modalParams = wlcModalRegistryProvider.get('requiredFields');
-        //     modalParams.requiredFields = requiredFields;
-        //     modalParams.showPassword = !!this.configService.appConfig.siteconfig.checkPassOnUpdate;
-        //     modalParams.onSuccess = () => {
-        //         this.stateService.go('app.games.play', this.stateService.params);
-        //     };
-        //     this.modalService.showDialog(modalParams);
-        //     defered.reject({
-        //         type: 'GAME_REQUIRED_FIELDS',
-        //     });
-        // });
+        this.merchantFieldsService.checkRequiredFields(this.merchantId).then(() => {
+            defered.resolve();
+        }, (emptyFields: string[]) => {
+
+            // @TODO Replace to modal with required fields
+            this.modalService.showModal({
+                id: 'game-required-fields',
+                modalTitle: gettext('Fill required fields'),
+                modalMessage: gettext('For play, fill data in your profile'),
+                modifier: 'game-required-fields',
+                onModalHide: () => {
+                    this.stateService.go('app.profile.main.info', this.transition.params());
+                },
+                size: 'md',
+                backdrop: 'static',
+            });
+
+            // const modalParams = wlcModalRegistryProvider.get('requiredFields');
+            // modalParams.requiredFields = emptyFields;
+            // modalParams.showPassword = this.configService.get('appConfig.siteconfig.profile.checkPassOnUpdate');
+            // modalParams.onSuccess = () => {
+            //     this.stateService.go('app.games.play', this.stateService.params);
+            // };
+            // this.modalService.showDialog(modalParams);
+            defered.reject(RejectReason.EmptyRequiredFields);
+        });
         return defered.promise;
     }
 }

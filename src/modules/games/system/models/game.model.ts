@@ -1,24 +1,33 @@
 import {UIRouter} from '@uirouter/core';
+
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
-import {IGame, IRestrictions, IStartGameOptions} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
+import {IGame, IGames, IRestrictions, IStartGameOptions} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
 import {GamesHelper} from 'wlc-engine/modules/games/system/helpers/games.helpers';
+import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
 
 import {
     isObject as _isObject,
     each as _each,
     get as _get,
     toNumber as _toNumber,
+    forEach as _forEach,
+    keys as _keys,
+    intersection as _intersection,
+    includes as _includes,
+    map as _map,
 } from 'lodash';
 
-export class Game {
+export class Game extends AbstractModel<IGame> {
     public ID: number;
-    public hasDemo: number;
+    public hasDemo: boolean;
     public name: IIndexing<string>;
-    public categoryID: string[];
+    public categoryID: number[];
     public description: IIndexing<string> | string[];
     public launchCode: string;
-    public merchantID: string;
-    public subMerchantID: string;
+    public merchantID: number;
+    public subMerchantID: number;
     public sort: string;
     public aspectRatio: string;
     public image: string;
@@ -57,17 +66,22 @@ export class Game {
     constructor(
         data: IGame,
         protected router: UIRouter,
+        protected configService: ConfigService,
     ) {
+        super();
+
         // Object.assign(this, data);
         this.ID = _toNumber(data.ID);
         this.aspectRatio = data.AR;
-        this.hasDemo = data.hasDemo;
+        this.hasDemo = !!data.hasDemo;
         this.name = data.Name;
-        this.categoryID = data.CategoryID;
+        this.categoryID = _map(data.CategoryID, (id: string) => {
+            return _toNumber(id);
+        });
         this.description = data.Description;
         this.launchCode = data.LaunchCode;
-        this.merchantID = data.MerchantID;
-        this.subMerchantID = data.SubMerchantID;
+        this.merchantID = _toNumber(data.MerchantID);
+        this.subMerchantID = _toNumber(data.SubMerchantID);
         this.sort = data.Sort;
         this.url = data.Url;
         this.image = data.Image;
@@ -132,6 +146,34 @@ export class Game {
             merchantId: this.merchantID,
             launchCode: this.launchCode,
             demo: options.demo,
+            locale: this.configService.get('appConfig.language'),
+        }, {
+            reload: true,
         });
+    }
+
+    /**
+     * Check game run restricted by bonuses or not
+     *
+     * @param {Bonus} bonus
+     * @returns {boolean} Restricted or not
+     */
+    public restrictedByBonuses(bonuses: Bonus[]): boolean {
+        for (const bonus of bonuses) {
+            const gamesWhiteList = bonus.gamesList(true),
+                gamesBlackList = bonus.gamesList(false),
+                categoriesWhiteList = bonus.categoriesList(true),
+                categoriesBlackList = bonus.categoriesList(false);
+
+            const inBlackList: boolean = _includes(gamesBlackList, this.ID) ||
+                _intersection(categoriesBlackList, this.categoryID).length > 0;
+            const notInWhiteList: boolean = gamesWhiteList.length && !_includes(gamesWhiteList, this.ID) ||
+                categoriesWhiteList.length && !_intersection(categoriesWhiteList, this.categoryID).length;
+
+            if (inBlackList || notInWhiteList) {
+                return true;
+            }
+        }
+        return false;
     }
 }

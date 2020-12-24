@@ -17,10 +17,31 @@
     overflow: hidden;
     visibility: hidden;
 
+    .show {
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    &__item {
+
+        &:focus {
+            outline: none;
+        }
+    }
+
     .modal-open & {
         visibility: visible;
         overflow-x: hidden;
         overflow-y: auto;
+    }
+
+    &__title {
+        white-space: nowrap;
+        overflow: hidden;
+        max-width: 70%;
+        text-overflow: ellipsis;
     }
 
     &__dialog {

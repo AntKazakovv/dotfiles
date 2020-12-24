@@ -7,7 +7,7 @@ import {
     ConfigService,
     DeviceModel,
     IDeviceConfig,
-    IDeviceType,
+    DeviceType,
     IIndexing,
     ModalService,
 } from 'wlc-engine/modules/core';
@@ -66,20 +66,20 @@ export class ActionService {
         }, 0);
     }
 
-    public deviceType(): BehaviorSubject<IDeviceType> {
+    public deviceType(): BehaviorSubject<DeviceType> {
 
         const device = this.configService.get<DeviceModel>('device'),
-            getDeviceType = (): IDeviceType => {
+            getDeviceType = (): DeviceType => {
                 const breakpoints = this.configService.get<IDeviceConfig>('$base.device')?.breakpoints;
                 if (device.windowWidth < breakpoints?.tablet) {
-                    return 'mobile';
+                    return DeviceType.Mobile;
                 } else if (device.windowWidth >= breakpoints?.tablet && device.windowWidth < breakpoints?.desktop) {
-                    return 'tablet';
+                    return DeviceType.Tablet;
                 } else {
-                    return 'desktop';
+                    return DeviceType.Desktop;
                 }
             },
-            handler = new BehaviorSubject<IDeviceType>(getDeviceType());
+            handler = new BehaviorSubject<DeviceType>(getDeviceType());
         let currentType = getDeviceType();
 
         this.windowResize.pipe(

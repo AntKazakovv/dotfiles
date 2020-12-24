@@ -9,6 +9,7 @@ import {
     IModalList,
     IModalOptions,
 } from './index';
+import {PlayGameForRealComponent} from 'wlc-engine/modules/games/components/play-game-for-real/play-game-for-real.component';
 
 export const defaultParams: IModalOptions = {
     class: 'wlc-modal',
@@ -89,4 +90,20 @@ export const MODALS_LIST: IModalList = {
             dismissAll: true,
         },
     },
+    runGame: {
+        config: {
+            id: 'play-game-for-real',
+            modifier: 'play-game-for-real',
+            component: PlayGameForRealComponent,
+            componentParams: {
+                common: {
+                    game: null,
+                    disableDemo: false,
+                },
+            },
+            size: 'md',
+            backdrop: 'static',
+            showFooter: false,
+        }
+    }
 };

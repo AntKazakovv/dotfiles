@@ -16,6 +16,9 @@ import {RawParams} from '@uirouter/core';
 import {DomSanitizer} from '@angular/platform-browser';
 import {ResizedEvent} from 'angular-resize-event';
 import {UIRouter} from '@uirouter/core';
+import {fromEvent} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
+
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {Game} from 'wlc-engine/modules/games/system/models/game.model';
 import {GamesCatalogService} from 'wlc-engine/modules/games';
@@ -23,9 +26,10 @@ import {ConfigService} from 'wlc-engine/modules/core';
 import {defaultParams, IGWParams} from './game-wrapper.params';
 import {IGameParams, ILaunchInfo} from '../../system/interfaces/games.interfaces';
 import {UserService} from 'wlc-engine/modules/user/system/services';
-import {LogService} from 'wlc-engine/modules/core/system/services';
+import {EventService, LogService} from 'wlc-engine/modules/core/system/services';
 import {ModalService} from 'wlc-engine/modules/core/system/services';
 import {WlcModalComponent} from 'wlc-engine/modules/core/components/modal';
+import {IPlayGameForRealCParams} from 'wlc-engine/modules/games/components/play-game-for-real/play-game-for-real.params';
 
 interface IError {
     msg: string;
@@ -41,6 +45,7 @@ import {
     isObject as _isObject,
     isString as _isString,
     toNumber as _toNumber,
+    get as _get,
 } from 'lodash';
 
 @Component({
@@ -53,21 +58,24 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
     @ViewChild('wrp', {read: ViewContainerRef, static: false}) wrp: ViewContainerRef;
     @ViewChild('header') header: ElementRef;
     @ViewChild('footer') footer: ElementRef;
+    @ViewChild('gameContainer') gameContainer: ElementRef;
 
     public $params: IGWParams;
     public game: Game;
     public gameHtml: string | HTMLIFrameElement = '';
     public isFavourite: boolean;
-    public useMobileIframe: boolean;
+    public useMobileIframe: boolean = false;
+    public mobileIframeLoaded: boolean = false;
     public isReady: boolean;
     public locale: string;
+    public gameParams: IGameParams;
+    public isAuth: boolean;
 
     protected aspectRatio: string;
     protected aspectRatioCoefficient: number;
 
-    protected gameParams: IGameParams;
     protected launchInfo: ILaunchInfo;
-    protected gameScriptTimeout: number;
+    protected gameScriptTimeout: any;
     protected destroyed: boolean = false;
     protected containerObserver: MutationObserver;
     protected iframeObserver: MutationObserver;
@@ -78,6 +86,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
     constructor(
         public router: UIRouter,
         public userService: UserService,
+        protected eventService: EventService,
         protected gamesCatalogService: GamesCatalogService,
         protected configService: ConfigService,
         protected modalService: ModalService,
@@ -93,16 +102,17 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
 
     public async ngOnInit(): Promise<void> {
         super.ngOnInit();
+
+        this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
         this.locale = this.$params.gameParams?.lang || this.router.stateService.params?.locale || 'en';
         this.gameParams = this.getGameParams();
-        // TODO это временно запихнуто
-        // await this.gamesCatalogService.load();
+        this.initEventHandlers();
 
-        this.game = this.gamesCatalogService.getGame(this.gameParams.merchantId, this.gameParams.launchCode); // TODO || getGameById
+        this.game = this.gamesCatalogService.getGame(_toNumber(this.gameParams.merchantId), this.gameParams.launchCode);
         if (this.game) {
             // TODO: this.LocalCacheService.set('lastGameParams', this.gameParams);
+            this.gamesCatalogService.loadFavourites();
             await this.openActiveGame();
-            this.isFavourite = await this.checkFavorite();
             this.isReady = true;
             this.cdr.detectChanges();
             this.initStartResizeParams();
@@ -111,6 +121,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
             this.logService.sendLog({code: '3.0.4', data: {gameParams: this.gameParams}});
             this.setError({
                 msg: gettext('The game does not exist or the game settings are incorrect'),
+                state: 'app.home',
             });
         }
     }
@@ -125,23 +136,56 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         this.setGameWindowSize(event.newWidth);
     }
 
-    public onFullscreen(event: Event): void {
-        if (this.iframe) {
-            this.requestFullscreen(this.iframe);
+    /**
+     * Play game for real
+     */
+    public playForReal(): void {
+        this.game.launch({
+            demo: false,
+        });
+    }
+
+    /**
+     * Open game on full screeen
+     *
+     * @param {Event} event
+     */
+    public openOnFullscreen(event: Event): void {
+        const container: HTMLElement = this.iframe ? this.iframe : this.wrp.element.nativeElement.querySelector('#egamings_container');
+        if (container) {
+            this.requestFullscreen(container);
+            if (this.iframe) {
+                const scrollAttr: string = this.iframe.getAttribute('scrolling');
+                this.iframe.setAttribute('scrolling', 'auto');
+
+                const fullScreenEvent = fromEvent(container, 'onfullscreenchange');
+                const subscription = fullScreenEvent.subscribe((event) => {
+                    if (!document.fullscreenElement) {
+                        if (scrollAttr) {
+                            this.iframe.setAttribute('scrolling', scrollAttr);
+                        } else {
+                            this.iframe.removeAttribute('scrolling');
+                        }
+                        subscription.unsubscribe();
+                    }
+                });
+            }
         }
     }
 
-    public async onFavourite(event: Event): Promise<void> {
+    /**
+     * Toggle favourite btn
+     *
+     * @param {Event} event
+     * @returns {Promise<void>}
+     */
+    public async toggleFavouriteBtn(event: Event): Promise<void> {
         if (!this.game) {
             return;
         }
         try {
-            // TODO: const result: {favorite: boolean} = await this.FavoriteGamesService.addRemoveFavorites(this.game);
-            // TODO: this.isFavourite = !!result.favorite;
-            this.isFavourite = !this.isFavourite;
-        } catch (error) {
-            //
-        }
+            await this.gamesCatalogService.toggleFavourites(this.game.ID);
+        } catch (error) {}
     }
 
     public onClose(event: Event): void {
@@ -213,12 +257,12 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
 
             this.renderer.setStyle(el, 'height', elementHeight + 'px');
             this.renderer.setStyle(el, 'maxWidth', elementNewWidth + 'px');
-            this.renderer.setStyle(this.header.nativeElement, 'maxWidth', elementNewWidth + 'px');
+            // this.renderer.setStyle(this.header.nativeElement, 'maxWidth', elementNewWidth + 'px');
             this.renderer.setStyle(this.footer.nativeElement, 'maxWidth', elementNewWidth + 'px');
         } else {
             this.renderer.setStyle(el, 'height', '100%');
             this.renderer.setStyle(el, 'maxWidth', '100%');
-            this.renderer.setStyle(this.header.nativeElement, 'maxWidth', '100%');
+            // this.renderer.setStyle(this.header.nativeElement, 'maxWidth', '100%');
             this.renderer.setStyle(this.footer.nativeElement, 'maxWidth', '100%');
         }
 
@@ -268,22 +312,18 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
     }
 
     /**
-     * Check favorite or not
+     * Check is game favorite or not
      *
      * @returns {Promise<boolean>}
      */
-    protected async checkFavorite(): Promise<boolean> {
-        if (!this.game || !this.userService.isAuthenticated) {
-            return false;
+    protected async updateFavorites(): Promise<void> {
+        if (!this.game || !this.configService.get<boolean>('$user.isAuthenticated')) {
+            return;
         }
         try {
-            // @TODO After creating FavoriteGamesService
-            //const result: IFavoriteGame[] = await this.FavoriteGamesService.getFavorites();
-            // return _findIndex(result, ['game_id', this.game.ID]) !== -1;
-            return false;
+            this.gamesCatalogService.loadFavourites();
         } catch (error) {
             this.logService.sendLog({code: '3.0.13', data: {error}});
-            return false;
         }
     }
 
@@ -294,20 +334,20 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
      */
     protected getGameParams(): IGameParams {
         return {
-            merchantId: this.$params.gameParams?.merchantId || this.router.stateService.params?.merchantId || '', // TODO: get from state
-            launchCode: this.$params.gameParams?.launchCode || this.router.stateService.params?.launchCode || '', // TODO: get from state
+            merchantId: this.$params.gameParams?.merchantId || _toNumber(this.router.stateService.params?.merchantId),
+            launchCode: this.$params.gameParams?.launchCode || this.router.stateService.params?.launchCode || '',
             lang: this.locale,
-            demo: this.$params.gameParams?.demo || this.router.stateService.params?.demo ? '1' : '0', // TODO: get from state
-            gameId: this.$params.gameParams?.gameId || this.router.stateService.params?.gameId || 'none', // TODO: get from state
+            demo: this.$params.gameParams?.demo || this.router.stateService.params?.demo === 'true',
+            gameId: this.$params.gameParams?.gameId || this.router.stateService.params?.gameId || '',
         };
     }
 
     protected async openActiveGame(): Promise<boolean> {
         try {
             await this.getLaunchParams();
+            this.cdr.detectChanges();
             if (this.useMobileIframe) {
-                // return this.runInMobileIframe();
-                return false;
+                return this.runInMobileIframe();
             } else if (this.launchInfo.gameScript) {
                 try {
                     if (this.configService.get<boolean>('appConfig.mobile')) {
@@ -348,10 +388,11 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         const waiter = this.logService.waiter({code: '3.0.3'});
         try {
             const launchInfo: ILaunchInfo = await this.gamesCatalogService.getLaunchParams(this.gameParams);
+            this.launchInfo = launchInfo;
             if (this.checkLaunch(launchInfo)) {
-                // this.launchInfo.gameScript = await this.getGameScript(this.launchInfo.gameScript);
+                //this.launchInfo.gameScript = await this.getGameScript(this.launchInfo.gameScript);
                 if (this.configService.get<boolean>('appConfig.mobile')) {
-                    // TODO
+                    this.useOrNotMobileIframe();
                 }
                 this.gameHtml = this.domSanitizer.bypassSecurityTrustHtml(launchInfo.gameHtml)?.['changingThisBreaksApplicationSecurity'];
                 this.cdr.markForCheck();
@@ -379,6 +420,123 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         return this.configService.get<boolean>('appConfig.mobile') || checkDesktop;
     }
 
+
+    /**
+     * Set use or not mobile iframe
+     */
+    protected useOrNotMobileIframe(): void {
+        this.useMobileIframe = true;
+        // const runInIframeOnly: boolean = this.configService.get('siteconfig.game.mobile.runInIframeOnly');
+        // if (runInIframeOnly) {
+        //     this.useMobileIframe = true;
+        //
+        //     const excludeOptions: IExcludeMerchantSettings = this.configService.get(
+        //         `siteconfig.game.mobile.notRunInIframe.${this.game.merchantID}`) as IExcludeMerchantSettings;
+        //     if (!excludeOptions) {
+        //         return;
+        //     }
+        //
+        //     if (excludeOptions.launchCodes) {
+        //         for (const launchCode of excludeOptions.launchCodes) {
+        //             if (this.gameParams.launchCode == launchCode) {
+        //                 this.useMobileIframe = false;
+        //                 return;
+        //             }
+        //         }
+        //     } else {
+        //         this.useMobileIframe = false;
+        //     }
+        //     return;
+        // }
+        // this.useMobileIframe = false;
+    }
+
+    /**
+     * Run game in mobile iframe
+     *
+     * @returns {boolean}
+     */
+    protected runInMobileIframe(): boolean {
+        let tryLoadIteration: number = 1,
+            errorOccured: boolean = false;
+
+        const waiter = this.logService.waiter({code: '3.0.10', data: {game: this.game}});
+
+        if (this.scriptCanBeRunInsideIframe()) {
+            const iframe: HTMLIFrameElement = document.createElement('iframe'),
+                html: string = this.gameHtml as string;
+
+            iframe.addEventListener('load', () => {
+                if (errorOccured) {
+                    return;
+                }
+
+                tryLoadIteration++;
+                try {
+                    const doc: HTMLDocument = (iframe.contentDocument) ?
+                        iframe.contentDocument : iframe.contentWindow.document;
+
+                    const loadedMainSiteInIframe: boolean = tryLoadIteration == 4 && !!doc.querySelector('.wlc-application');
+                    if (loadedMainSiteInIframe) {
+                        this.returnToPrevState();
+                    }
+
+                    if (tryLoadIteration > 4) {
+                        this.gameScriptTimeout = setTimeout(() => {
+                            errorOccured = true;
+                            this.logService.sendLog({code: '3.0.9', data: {game: this.game}});
+                            this.modalService.showError({
+                                modalMessage: gettext('Something wrong. Please try later.'),
+                            });
+                        }, 500);
+                    } else {
+                        doc.open();
+                        doc.write(html);
+                        doc.write(`<script>${this.launchInfo.gameScript}</script>`);
+                        doc.close();
+                        this.mobileIframeLoaded = true;
+                    }
+                    return true;
+                } catch (error) {
+                    if (this.mobileIframeLoaded) {
+                        waiter();
+                    }
+                    if (this.gameScriptTimeout) {
+                        clearInterval(this.gameScriptTimeout);
+                    }
+                    return false;
+                }
+            });
+            this.renderer.appendChild(this.gameContainer.nativeElement, iframe);
+        } else {
+            eval(this.launchInfo.gameScript);
+            this.mobileIframeLoaded = true;
+            waiter();
+        }
+        return true;
+    }
+
+    /**
+     * Checks whether or not the script can be run inside the iframe
+     *
+     * @returns {boolean}
+     */
+    protected scriptCanBeRunInsideIframe(): boolean {
+        const substrs: string[] = [
+            'window.location.replace',
+            'window.location.href=',
+            'params:base',
+            'var:exitUrl',
+        ];
+
+        for (const substr of substrs) {
+            if (_includes(this.launchInfo.gameScript, substr)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * Set error
      *
@@ -389,11 +547,43 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
     protected setError(error: IError): void {
         this.modalService.showError({
             modalMessage: error.msg || gettext('Something wrong. Please try later.'),
-            onModalHidden: () => {
-                if (error.state) {
-                    this.router.stateService.go(error.state, error.stateParams || {});
-                }
+            onModalHide: () => {
+                this.router.stateService.go(error.state || 'app.home', error.stateParams || {});
             },
+        });
+    }
+
+    /**
+     * Init event hanlers
+     */
+    protected initEventHandlers(): void {
+        this.gamesCatalogService.favoritesUpdated.pipe(
+            takeUntil(this.$destroy),
+        ).subscribe(() => {
+            this.game = this.gamesCatalogService.getGame(this.gameParams.merchantId, this.gameParams.launchCode);
+            this.cdr.detectChanges();
+        });
+
+        this.eventService.subscribe({
+            name: 'LOGOUT',
+        }, () => {
+            this.isAuth = false;
+            this.cdr.markForCheck();
+
+            this.modalService.showModal<IPlayGameForRealCParams>('runGame', {
+                common: {
+                    game: this.game,
+                    disableDemo: false,
+                },
+            });
+            this.router.stateService.go('app.home');
+        });
+
+        this.eventService.subscribe({
+            name: 'LOGIN',
+        }, () => {
+            this.isAuth = true;
+            this.cdr.markForCheck();
         });
     }
 }

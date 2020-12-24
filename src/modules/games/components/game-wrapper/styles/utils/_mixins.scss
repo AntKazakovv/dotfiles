@@ -1,0 +1,9 @@
+@import '../../../../../bonuses/components/bonuses-list/styles/utils/vars';
+
+@mixin flexBlock {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+}

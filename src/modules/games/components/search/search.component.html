@@ -81,9 +81,9 @@
         <li class="{{$class}}__list-item"
             *ngFor="let merchant of merchants">
             <button class="{{$class}}__list-btn"
-                    [class.active]="isActive('merchants', merchant.ID)"
+                    [class.active]="isActive('merchants', merchant.id)"
                     (click)="chooseMerchant(merchant)">
-                <span class="{{$class}}__list-text">{{merchant.Name}}</span>
+                <span class="{{$class}}__list-text">{{merchant.name}}</span>
                 <span class="{{$class}}__list-icon"></span>
             </button>
         </li>

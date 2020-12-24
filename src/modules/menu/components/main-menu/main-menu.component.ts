@@ -42,6 +42,7 @@ export class MainMenuComponent extends AbstractComponent implements OnInit {
         type: 'main-menu',
         items: [],
     };
+    public commonMenuItems: MenuParams.MenuItemType[];
 
     protected menuConfig: MenuParams.MenuConfigItem[];
 
@@ -78,18 +79,19 @@ export class MainMenuComponent extends AbstractComponent implements OnInit {
         this.menuParams = {
             type: 'main-menu',
         };
-        this.menuParams.items = MenuHelper.parseMenuConfig(this.menuConfig, Config.wlcMainMenuItemsGlobal);
+        this.commonMenuItems = MenuHelper.parseMenuConfig(this.menuConfig, Config.wlcMainMenuItemsGlobal);
+        this.menuParams.items = this.commonMenuItems;
         this.menuParams = _clone(this.menuParams);
 
         if (this.gamesCatalogService.getGameList()) {
             this.addCategoryBtns();
-        } else {
-            this.eventService.subscribe({
-                name: gamesEvents.FETCH_GAME_CATALOG_SUCCEEDED,
-            }, () => {
-                this.addCategoryBtns();
-            });
         }
+
+        const subscription = this.eventService.subscribe({
+            name: gamesEvents.FETCH_GAME_CATALOG_SUCCEEDED,
+        }, () => {
+            this.addCategoryBtns();
+        }, this.$destroy);
         this.cdr.markForCheck();
     }
 
@@ -103,8 +105,7 @@ export class MainMenuComponent extends AbstractComponent implements OnInit {
             categories: categories,
             lang: this.translate.currentLang,
         });
-
-        this.menuParams.items = menuItems.concat(this.menuParams.items as MenuParams.IMenuItem[]);
+        this.menuParams.items = menuItems.concat(this.commonMenuItems as MenuParams.IMenuItem[]);
         this.menuParams = _clone(this.menuParams);
         this.cdr.markForCheck();
     }

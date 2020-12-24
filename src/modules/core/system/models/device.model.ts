@@ -1,7 +1,11 @@
 import * as Bowser from 'bowser';
 // import
 
-export type IDeviceType = 'mobile' | 'tablet' | 'desktop';
+export enum DeviceType {
+    Mobile,
+    Tablet,
+    Desktop,
+}
 
 export interface IDeviceConfig {
     breakpoints: {

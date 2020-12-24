@@ -1,14 +1,31 @@
-<div class="{{$class}}__content" (resized)="onResize($event)">
+<div class="{{$class}}__content container" (resized)="onResize($event)">
     <div class="{{$class}}__header" #header>
         <h2>{{game?.name[locale] || game?.name['en'] || ''}}</h2>
-        <div class="{{$class}}__btns">
-            <div *ngIf="userService.isAuthenticated" class="icon-btn icon-btn--favourite" [class.active]="isFavourite" wlc-icon iconName="favourite" (click)="onFavourite($event)"></div>
-            <div class="icon-btn" wlc-icon iconName="fullscreen" (click)="onFullscreen($event)"></div>
+        <div class="{{$class}}__btn-left" *ngIf="gameParams.demo">
+            <button wlc-button
+                    text="Play for real"
+                    (click)="playForReal()"
+            ></button>
+        </div>
+        <div class="{{$class}}__btn-right">
+            <div *ngIf="isAuth" class="icon-btn icon-btn--favourite"
+                 [class.active]="game?.isFavourite"
+                 wlc-icon iconName="favourite" (click)="toggleFavouriteBtn($event)">
+            </div>
+            <div class="icon-btn" wlc-icon iconName="fullscreen" (click)="openOnFullscreen($event)"></div>
             <div class="icon-btn" wlc-icon iconName="close" (click)="onClose($event)"></div>
         </div>
     </div>
     <div class="{{$class}}__game-area" #wrp>
-        <div wlc-dynamic-html [html]="gameHtml" *ngIf="isReady; else preloader"></div>
+
+        <ng-container *ngIf="!useMobileIframe">
+            <div #gameContainer wlc-dynamic-html [html]="gameHtml" *ngIf="isReady; else preloader"></div>
+        </ng-container>
+
+        <ng-container *ngIf="useMobileIframe">
+            <div #gameContainer ></div>
+        </ng-container>
+
         <ng-template #preloader>
             <!-- TODO: add base component with preloader -->
             <div class="{{$class}}__loading">

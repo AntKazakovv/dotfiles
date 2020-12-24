@@ -14,6 +14,21 @@ import {SearchFieldComponent} from './components/search-field/search-field.compo
 import {SearchComponent} from './components/search/search.component';
 import {TotalJackpotComponent} from 'wlc-engine/modules/games/components/total-jackpot/total-jackpot.component';
 import {CountUpModule} from 'ngx-countup';
+import {PlayGameForRealComponent} from './components/play-game-for-real/play-game-for-real.component';
+import {GameDashboardComponent} from 'wlc-engine/modules/games/components/game-dashboard/game-dashboard.component';
+import {IIndexing, GlobalHelper} from 'wlc-engine/modules/core';
+
+import {IGamesConfig} from './system/interfaces/games.interfaces';
+import {gamesConfig} from './system/config/games.config';
+import * as $config from 'wlc-config/index';
+
+import {
+    get as _get,
+} from 'lodash';
+
+export const moduleConfig =
+    GlobalHelper.mergeConfig<IGamesConfig>(gamesConfig, _get($config, '$games', {}));
+
 
 export const components = {
     'wlc-games-grid': GamesGridComponent,
@@ -21,6 +36,8 @@ export const components = {
     'wlc-game-wrapper': GameWrapperComponent,
     'wlc-search-field': SearchFieldComponent,
     'wlc-total-jackpot': TotalJackpotComponent,
+    'wlc-play-game-for-real': PlayGameForRealComponent,
+    'wlc-game-dashboard': GameDashboardComponent,
 };
 
 @NgModule({
@@ -31,6 +48,8 @@ export const components = {
         SearchFieldComponent,
         SearchComponent,
         TotalJackpotComponent,
+        PlayGameForRealComponent,
+        GameDashboardComponent,
     ],
     id: 'GamesModule',
     imports: [
@@ -52,6 +71,8 @@ export const components = {
         SearchFieldComponent,
         SearchComponent,
         TotalJackpotComponent,
+        PlayGameForRealComponent,
+        GameDashboardComponent,
     ],
 })
 export class GamesModule {

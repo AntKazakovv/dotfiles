@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {UIRouter} from '@uirouter/core';
-import {Subscription} from 'rxjs';
+import {Subject} from 'rxjs';
 
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {
@@ -10,6 +10,7 @@ import {
 import {GamesCatalog} from 'wlc-engine/modules/games/system/models/games-catalog.model';
 import {Game} from 'wlc-engine/modules/games/system/models/game.model';
 import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.model';
+import {MerchantModel} from 'wlc-engine/modules/games/system/models/merchant.model';
 import {EventService} from 'wlc-engine/modules/core/system/services';
 import {UserService} from 'wlc-engine/modules/user/system/services';
 
@@ -31,6 +32,7 @@ import {
     includes as _includes,
     startsWith as _startsWith,
     isString as _isString,
+    toNumber as _toNumber,
 } from 'lodash';
 
 @Injectable({
@@ -42,6 +44,8 @@ export class GamesCatalogService {
         this.$resolve = resolve;
     });
     public favourites: number[] = [];
+
+    public favoritesUpdated: Subject<void> = new Subject<void>();
 
     private gamesCatalog: GamesCatalog;
     private categoryMenus: string[] = [
@@ -107,8 +111,9 @@ export class GamesCatalogService {
         this.eventService.subscribe({
             name: gamesEvents.FETCH_FAVOURITES_SUCCEEDED,
         }, (data: IData) => {
+            this.favourites = data.data.map((fav: IFavourite) => _toNumber(fav.game_id));
             this.gamesCatalog?.loadFavourites(data.data);
-            this.favourites = data.data.map((fav: IFavourite) => fav.game_id);
+            this.favoritesUpdated.next();
         });
 
         // хз, надо ли заново грузить
@@ -159,6 +164,7 @@ export class GamesCatalogService {
     }
 
     /**
+     * Remove or add game to favorites
      *
      * @param {string} ID
      * @returns {Promise<boolean>}
@@ -184,6 +190,7 @@ export class GamesCatalogService {
                 this.favourites = this.favourites.filter((item) => item !== game.ID);
             }
         }
+        this.favoritesUpdated.next();
         return !!response.data.favorite;
     }
 
@@ -263,7 +270,7 @@ export class GamesCatalogService {
      * @param {string} tag
      * @returns {CategoryModel[]}
      */
-    public getCategoriesByParentId(id: string): CategoryModel[] {
+    public getCategoriesByParentId(id: number): CategoryModel[] {
         return _filter(this.gamesCatalog.getCategories(), (category: CategoryModel) => {
             return category.parentId === id;
         });
@@ -293,15 +300,27 @@ export class GamesCatalogService {
         return this.gamesCatalog.getCategories();
     }
 
-    public getMerchants(): IMerchant[] {
+    public getMerchants(): MerchantModel[] {
         return this.gamesCatalog.getMerchants();
+    }
+
+    /**
+     * Get merchant by id
+     *
+     * @param {number} id
+     * @returns {MerchantModel}
+     */
+    public getMerchantById(id: number): MerchantModel {
+        return _find(this.gamesCatalog.getMerchants(), (merchant: MerchantModel) => {
+            return merchant.id === id;
+        });
     }
 
     public getAvailableCategories(): CategoryModel[] {
         return this.gamesCatalog.getAvailableCategories();
     }
 
-    public getAvailableMerchants(): IMerchant[] {
+    public getAvailableMerchants(): MerchantModel[] {
         return this.gamesCatalog.getAvailableMerchants();
     }
 
@@ -317,7 +336,11 @@ export class GamesCatalogService {
         return this.gamesCatalog?.getGameList(filter);
     }
 
-    public getGame(merchantId: string, launchCode: string): Game {
+    // public getGameById(id: string): Game {
+    //     return this.gameCatalog.getGameById(id);
+    // }
+
+    public getGame(merchantId: number, launchCode: string): Game {
         return this.gamesCatalog.getGame(merchantId, launchCode);
     }
 

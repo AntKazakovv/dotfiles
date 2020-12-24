@@ -11,7 +11,7 @@ import {
 import {AbstractComponent, IMixedParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {HeightToggleAnimation} from 'wlc-engine/modules/core/system/animations/height-toggle.animation';
 import {LayoutService} from 'wlc-engine/modules/core/system/services';
-import {ActionService, ConfigService, DeviceModel, IDeviceConfig, IDeviceType} from 'wlc-engine/modules/core';
+import {ActionService, ConfigService, DeviceModel, IDeviceConfig, DeviceType} from 'wlc-engine/modules/core';
 import {BehaviorSubject} from 'rxjs';
 import {takeUntil, filter} from 'rxjs/operators';
 import {TableRowModel} from './table-row.model';
@@ -40,7 +40,7 @@ export class TableComponent extends AbstractComponent implements OnInit {
     public rows: TableRowModel[] = [];
     public head: Params.ITableCol[] = [];
     public ready = false;
-    public deviceType: IDeviceType;
+    public deviceType: DeviceType;
 
     constructor(
         @Inject('injectParams') protected params: Params.ITableCParams,
@@ -96,7 +96,6 @@ export class TableComponent extends AbstractComponent implements OnInit {
             this.ready = true;
             this.cdr.markForCheck();
         }
-
         this.subscribeDeviceChange();
     }
 
@@ -117,7 +116,7 @@ export class TableComponent extends AbstractComponent implements OnInit {
     }
 
     public animationStatus(col: Params.ITableCol, item: TableRowModel, first: boolean): string {
-        return (col.disableHideClass || first) || item.opened || this.deviceType === 'desktop' ? 'opened' : 'closed';
+        return (col.disableHideClass || first) || item.opened || this.deviceType === DeviceType.Desktop ? 'opened' : 'closed';
     }
 
     private createTableRow(rows: unknown[]): TableRowModel[] {
@@ -138,7 +137,7 @@ export class TableComponent extends AbstractComponent implements OnInit {
     protected subscribeDeviceChange(): void {
         this.actionService.deviceType()
             .pipe(takeUntil(this.$destroy))
-            .subscribe((type: IDeviceType) => {
+            .subscribe((type: DeviceType) => {
                 this.deviceType = type;
                 this.cdr.markForCheck();
             });

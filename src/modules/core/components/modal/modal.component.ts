@@ -73,18 +73,18 @@ export class WlcModalComponent extends AbstractComponent
         this.initEventHandlers();
     }
 
-
     public confirm(modal: string): void {
         const {config} = this.$params;
 
         if (config.onConfirm) {
             config.onConfirm();
         }
-
+        this.modalRef.hide();
         this.modalService.closeModal(modal);
     }
 
     public closeModal(modal: string): void {
+        this.modalRef.hide();
         this.modalService.closeModal(modal);
     }
 

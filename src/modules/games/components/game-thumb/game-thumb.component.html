@@ -1,4 +1,4 @@
-<div class="wlc-game-thumb">
+<div class="wlc-game-thumb" (click)="startGame(false, true, true, $event)">
     <picture class="wlc-game-thumb__img">
         <img [src]="game.image" loading="lazy" alt="">
     </picture>
@@ -18,14 +18,15 @@
                     [text]="'Play'"
                     [theme]="gameThumbSettings?.buttons?.theme"
                     [themeMod]="gameThumbSettings?.buttons?.themeMode"
-                    (click)="startGame(game, false, $event)"
+                    (click)="startGame(false, true, false, $event)"
             ></button>
             <button
+                *ngIf="game.hasDemo"
                 wlc-button
                 [text]="'Demo'"
                 [theme]="gameThumbSettings?.buttons?.theme"
                 [themeMod]="gameThumbSettings?.buttons?.demoThemeMode"
-                (click)="startGame(game, true, $event)"
+                (click)="startGame(true, false, false, $event)"
             ></button>
         </div>
     </div>

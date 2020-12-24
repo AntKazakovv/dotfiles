@@ -162,6 +162,14 @@ export class UserProfile extends AbstractModel<IUserProfile> {
         return this.data.oddsStyle;
     }
 
+    public hasField(field: string): boolean {
+        return !!_get(this.data, field);
+    }
+
+    public fieldIsEmpty(field: string): boolean {
+        return !_get(this.data, field);
+    }
+
     protected init(): void {
         this.data = {
             address: '',

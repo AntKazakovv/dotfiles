@@ -1,30 +1,33 @@
-import {ICategory} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
+import {ICategory, IGames, IMerchant} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
+import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
 
 import {
     toNumber as _toNumber,
 } from 'lodash';
 
-export class CategoryModel {
+export class CategoryModel extends AbstractModel<ICategory> {
 
     constructor(
-        protected data: ICategory,
+        data: ICategory,
     ) {
+        super();
+        this.init(data);
     }
 
-    public get id(): string {
-        return this.data.ID;
+    public get id(): number {
+        return _toNumber(this.data.ID);
     }
 
-    public get parentId(): string {
+    public get parentId(): number {
         // TODO Delete after improve fundist
         let data: IIndexing<any>;
         try {
             data = JSON.parse(this.data.Tags.join(','));
         } catch (err) {
-            return '';
+            return;
         }
-        return data.parentid;
+        return _toNumber(data.parentid);
     }
 
     public get title(): IIndexing<string> {
@@ -71,5 +74,9 @@ export class CategoryModel {
             return '';
         }
         return data.icon;
+    }
+
+    protected init(data: ICategory): void {
+        this.data = data;
     }
 }

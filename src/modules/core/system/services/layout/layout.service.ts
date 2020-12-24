@@ -247,7 +247,7 @@ export class LayoutService {
         }
     }
 
-    private async importModules(modules: string[]): Promise<void> {
+    public async importModules(modules: string[]): Promise<void> {
         await Promise.all(
             modules.map(
                 async (module) =>

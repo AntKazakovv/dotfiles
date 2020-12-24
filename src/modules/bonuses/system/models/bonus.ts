@@ -9,6 +9,7 @@ import {
 } from '../interfaces/bonuses.interface';
 import {BonusesService} from '../../system/services';
 import {DateTime} from 'luxon';
+
 import {
     get as _get,
     toNumber as _toNumber,
@@ -25,6 +26,8 @@ import {
     unset as _unset,
     remove as _remove,
     size as _size,
+    keys as _keys,
+    map as _map,
 } from 'lodash';
 
 export class Bonus extends AbstractModel<IBonus> {
@@ -173,6 +176,7 @@ export class Bonus extends AbstractModel<IBonus> {
     public get freeroundWinning(): number {
         return _toNumber(this.data.FreeroundWinning);
     }
+
     public get group(): string {
         return this.data.Group;
     }
@@ -593,6 +597,36 @@ export class Bonus extends AbstractModel<IBonus> {
         } else {
             localStorage.removeItem('wlc.bonuses');
         }
+    }
+
+    /**
+     * Games list
+     *
+     * @param {boolean} whiteList
+     * @returns {number[]}
+     */
+    public gamesList(whiteList: boolean): number[] {
+        const restrictType = whiteList ? '1' : '0';
+        return this.data.GamesRestrictType === restrictType
+            ? _map(_keys(this.data.IDGames), (id: string) => {
+                return _toNumber(id);
+            })
+            : [];
+    }
+
+    /**
+     * Categories list
+     *
+     * @param {boolean} whiteList
+     * @returns {number[]}
+     */
+    public categoriesList(whiteList: boolean): number[] {
+        const restrictType = whiteList ? '1' : '0';
+        return this.data.CategoriesRestrictType === restrictType
+            ? _map(_keys(this.data.IDCategories), (id: string) => {
+                return _toNumber(id);
+            })
+            : [];
     }
 
     protected modifyData(bonus: IBonus): IBonus {

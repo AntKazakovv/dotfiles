@@ -21,6 +21,7 @@ export interface IBonus {
     BonusBalance: string;
     BonusType: string;
     BonusWinning: string;
+    CategoriesRestrictType?: string;
     Currency: string;
     Description: string;
     DisableCancel: string;
@@ -39,9 +40,12 @@ export interface IBonus {
     FreeroundCount: string;
     FreeRoundWagering: string;
     FreeroundWinning: string;
+    GamesRestrictType?: string;
     Group: string;
     ID: number | string;
     IDActivator: string;
+    IDCategories: string[];
+    IDGames: string[];
     IDPiFilter: string;
     Image: string;
     Image_other: string;

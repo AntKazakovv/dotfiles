@@ -1,0 +1,112 @@
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@import '../utils/mixins';
+@import '../utils/vars';
+
+.wlc-game-wrapper--theme-default {
+
+    .wlc-game-wrapper {
+
+        &__content {
+            margin: $contentMargin;
+        }
+
+        &__header {
+            @include flexBlock;
+
+            padding: $headerPaddings 0;
+            background: $headerBg;
+
+            h2 {
+                max-width: 50%;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                color: $headerColor;
+                margin: $headerMargin;
+            }
+        }
+
+        &__footer {
+            @include flexBlock;
+        }
+
+        &__btn-left {
+            margin: $btnLeftMargin;
+        }
+
+        &__btn-right {
+            display: flex;
+
+            .icon-btn {
+                margin-left: $iconsGap;
+                opacity: $iconsOpacity;
+                cursor: pointer;
+
+                svg {
+                    width: $iconsSize;
+                    height: $iconsSize;
+                    fill: none;
+                    stroke: $iconsColor;
+                    stroke-width: $iconsStroke;
+
+                    line {
+                        stroke: $iconsColor;
+                    }
+                }
+
+                &:hover {
+                    opacity: 1;
+                }
+
+                &--favourite {
+
+                    path {
+                        fill: none;
+                    }
+
+                    &.active {
+
+                        svg {
+                            stroke: none;
+
+                            path {
+                                fill: $iconsColorActive;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        &__game-area {
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            overflow: hidden;
+
+            div[wlc-dynamic] {
+                height: 100%;
+
+                div {
+                    height: 100%;
+                }
+            }
+
+            iframe,
+            object {
+                width: 100% !important;
+                height: 100%;
+
+                @include mq.max(900) {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    height: 100%;
+                    z-index: 10;
+                }
+            }
+        }
+    }
+}
+
+

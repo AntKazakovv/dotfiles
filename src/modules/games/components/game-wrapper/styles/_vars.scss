@@ -1,9 +1,0 @@
-@use 'engine-scss/functions' as ef;
-
-$contentPaddings: ef.get('size', 'big') !default;
-$headerPaddings: ef.get('size', 'main') !default;
-$headerBg: transparent !default;
-
-$iconsSize: 24px !default;
-$iconsColor: ef.get('color', 'text') !default;
-$iconsGap: ef.get('size', 'main') !default;

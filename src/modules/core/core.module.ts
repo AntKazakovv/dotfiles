@@ -82,8 +82,19 @@ import {CRYPTOCURRENCIES, cryptocurrencies} from 'wlc-engine/modules/core/consta
 
 //  -- CONFIGS IMPORTS STARTS--;
 import {HammerConfig} from 'wlc-engine/modules/core/system/config/hammer.config';
+import {GlobalHelper} from 'wlc-engine/modules/core/index';
+import {coreConfig} from './system/config/core.config';
+import {ICoreConfig} from './system/interfaces/core.interface';
 import {dbConfig} from 'wlc-engine/modules/core/system/config/indexedDB.config';
 //  -- CONFIGS IMPORTS STARTS--;
+import * as $config from 'wlc-config/index';
+
+import {
+    get as _get,
+} from 'lodash';
+
+export const moduleConfig =
+    GlobalHelper.mergeConfig<ICoreConfig>(coreConfig, _get($config, '$core', {}));
 
 export const components = {
     'wlc-button': ButtonComponent,
