@@ -9,6 +9,7 @@ export class HammerConfig extends HammerGestureConfig {
         super();
         (globalThis as any).Hammer = Hammer.default;
     }
+
     public overrides = <IIndexing<Object>>{
         swipe: {
             direction: Hammer.DIRECTION_ALL,

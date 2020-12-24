@@ -111,7 +111,8 @@
                     width: $favoriteSize;
                     height: $favoriteSize;
 
-                    fill: $favoriteBg;
+                    fill: none;
+                    stroke: $iconColor;
                     transition: $transition;
                 }
 
@@ -120,16 +121,18 @@
 
                     svg,
                     path {
-                        fill: $favoriteHoverBg;
+                        fill: $iconColor;
                         transition: $transition;
                     }
                 }
+            }
 
-                &.active {
+            &.active::ng-deep {
 
-                    svg {
-                        fill: $favoriteActiveBg;
-                    }
+                svg,
+                path {
+                    fill: $iconColor;
+                    stroke: none;
                 }
             }
 
@@ -150,7 +153,11 @@
             button {
 
                 &:first-child {
-                    margin-right: 10px;
+                    margin-right: auto;
+                }
+
+                &:last-child {
+                    margin-left: auto;
                 }
             }
 
@@ -159,6 +166,24 @@
             @include mq.max(900) {
                 display: none;
             }
+        }
+    }
+
+    .wlc-modal--play-game-for-real & {
+        margin: 40px 0px;
+
+        .wlc-game-thumb__desc {
+            visibility: visible;
+            opacity: 1;
+            background: none;
+        }
+
+        .wlc-game-thumb__name {
+            display: none;
+        }
+
+        .wlc-game-thumb__icon {
+            display: flex;
         }
     }
 }

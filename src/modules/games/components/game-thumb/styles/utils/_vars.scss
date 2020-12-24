@@ -17,6 +17,8 @@ $favoriteBackSize: 40px !default;
 $favoriteBackRadius: ef.get('radius', 'small') !default;
 $favoriteBoxShadow: 0 4px 15px rgba(0, 190, 225, 0.5) !default;
 
+$iconColor: ef.get('color', 'textSecondary') !default;
+
 $thumbNameColor: #fff !default;
 $thumbNameSize: 16px !default;
 $thumbNameWeight: bold !default;

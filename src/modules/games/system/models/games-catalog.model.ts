@@ -1,7 +1,7 @@
-import {UIRouter} from '@uirouter/core';
 import {
     IIndexing,
 } from 'wlc-engine/modules/core/system/interfaces';
+import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
 
 import {
     IByCategory,
@@ -22,6 +22,8 @@ import {GamesHelper} from 'wlc-engine/modules/games/system/helpers/games.helpers
 import {ConfigService, EventService} from 'wlc-engine/modules/core/system/services';
 import {Game} from 'wlc-engine/modules/games/system/models/game.model';
 import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.model';
+import {MerchantModel} from 'wlc-engine/modules/games/system/models/merchant.model';
+import {UIRouter} from '@uirouter/core';
 import {GamesCatalogService} from 'wlc-engine/modules/games';
 import {IGamesFilterData} from 'wlc-engine/modules/games/system/interfaces/filters.interfaces';
 import {ILanguage} from 'wlc-engine/modules/core';
@@ -41,15 +43,15 @@ import {
     union as _union,
 } from 'lodash';
 
-export class GamesCatalog {
+export class GamesCatalog extends AbstractModel<IGames> {
     public currentLanguage: ILanguage;
 
     protected games: Game[];
     protected categories: CategoryModel[];
-    protected merchants: IMerchant[];
+    protected merchants: MerchantModel[];
     protected restrictions: IRestrictions;
     protected availableCategories: CategoryModel[];
-    protected availableMerchants: IMerchant[];
+    protected availableMerchants: MerchantModel[];
     protected supportedCategories: ISupportedItem[];
     protected supportedMerchants: ISupportedItem[];
 
@@ -61,6 +63,8 @@ export class GamesCatalog {
         data: IGames,
         protected gamesCatalogService: GamesCatalogService,
     ) {
+        super();
+
         // TODO
         this.currentLanguage = {
             code: 'en',
@@ -76,10 +80,7 @@ export class GamesCatalog {
 
     /**
      *
-     * @param {string[]} includeCategories
-     * @param {string[]} includeMerchants
-     * @param {string[]} excludeCategories
-     * @param {string[]} excludeMerchants
+     * @param {IGamesFilterData} filter
      * @returns {Game[]}
      */
     public getGameList(filter?: IGamesFilterData): Game[] {
@@ -97,7 +98,7 @@ export class GamesCatalog {
         }
 
         if (excludeCategories.length) {
-            const exclCategoryIds: string[] = [];
+            const exclCategoryIds: number[] = [];
 
             _forEach(excludeCategories, (exclCategory: string) => {
                 const exclCategoryId = GamesHelper.getCategoryIdByName(exclCategory);
@@ -109,7 +110,7 @@ export class GamesCatalog {
             gameList = gameList.filter((item: Game): boolean => {
                 let rv = true;
                 for (const exclCategoryId of exclCategoryIds) {
-                    rv = rv && (!item.categoryID?.includes(exclCategoryId));
+                    rv = rv && (!_includes(item.categoryID, exclCategoryId));
                 }
                 return rv;
             });
@@ -117,15 +118,15 @@ export class GamesCatalog {
 
         if (includeMerchants.length) {
             gameList = gameList.filter((item: Game) => {
-                return includeMerchants.includes(item.merchantID)
-                    || includeMerchants.includes(item.subMerchantID);
+                return _includes(includeMerchants, item.merchantID)
+                    || _includes(includeMerchants, item.subMerchantID);
             });
         }
 
         if (excludeMerchants.length) {
             gameList = gameList.filter((item: Game) => {
-                return !excludeMerchants.includes(item.merchantID)
-                    && !excludeMerchants.includes(item.subMerchantID);
+                return !_includes(excludeMerchants, item.merchantID)
+                    && !_includes(excludeMerchants, item.subMerchantID);
             });
         }
 
@@ -158,17 +159,17 @@ export class GamesCatalog {
 
     /**
      *
-     * @returns {IMerchant[]}
+     * @returns {MerchantModel[]}
      */
-    public getMerchants(): IMerchant[] {
+    public getMerchants(): MerchantModel[] {
         return this.merchants;
     }
 
     /**
      *
-     * @returns {IMerchant[]}
+     * @returns {MerchantModel[]}
      */
-    public getAvailableMerchants(): IMerchant[] {
+    public getAvailableMerchants(): MerchantModel[] {
         return this.availableMerchants;
     }
 
@@ -236,7 +237,7 @@ export class GamesCatalog {
      * @param {string} launchCode
      * @returns {Game}
      */
-    public getGame(merchantID: string, launchCode: string): Game {
+    public getGame(merchantID: number, launchCode: string): Game {
         return _find(this.games, {merchantID, launchCode});
     }
 
@@ -265,9 +266,9 @@ export class GamesCatalog {
     /**
      *
      * @param {string} merchantName
-     * @returns {IMerchant}
+     * @returns {MerchantModel}
      */
-    public getMerchantByName(merchantName: string): IMerchant {
+    public getMerchantByName(merchantName: string): MerchantModel {
         return _find(this.merchants, {menuId: merchantName});
     }
 
@@ -277,7 +278,7 @@ export class GamesCatalog {
      * @param {string} launchCode
      * @returns {string}
      */
-    public getGameName(merchantId: string, launchCode: string): string {
+    public getGameName(merchantId: number, launchCode: string): string {
         return this.getGame(merchantId, launchCode)?.name?.en || '';
     }
 
@@ -311,10 +312,10 @@ export class GamesCatalog {
         const categoryId = GamesHelper.getCategoryIdByName('jackpot');
 
         _forEach(jackpots, jackpot => {
-            const game: Game = this.getGame(jackpot.MerchantID, jackpot.LaunchCode);
+            const game: Game = this.getGame(_toNumber(jackpot.MerchantID), jackpot.LaunchCode);
             if (game) {
                 game.jackpot = jackpot.amount;
-                if (!game.categoryID.includes(categoryId)) {
+                if (!_includes(game.categoryID, categoryId)) {
                     game.categoryID.push(categoryId);
                 }
             }
@@ -322,12 +323,13 @@ export class GamesCatalog {
     }
 
     /**
+     * Mark favorites games
      *
      * @param {IFavourite[]} favourites
      */
     public loadFavourites(favourites: IFavourite[]): void {
         _forEach(favourites, favourite => {
-            const game: Game = this.getGameById(favourite.game_id);
+            const game: Game = this.getGameById(_toNumber(favourite.game_id));
             if (game) {
                 game.isFavourite = true;
             }
@@ -496,7 +498,7 @@ export class GamesCatalog {
         const resultGames: Game[] = [];
 
         for (const item of response.games) {
-            const game = new Game(item, this.router);
+            const game = new Game(item, this.router, this.configService);
 
             if (!_isArray(game.categoryID)) {
                 continue;

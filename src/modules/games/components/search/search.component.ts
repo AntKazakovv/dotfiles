@@ -30,6 +30,7 @@ import {ILanguage} from 'wlc-engine/modules/core';
 import {TranslateService} from '@ngx-translate/core';
 import {IGamesGridCParams} from 'wlc-engine/modules/games/components/games-grid/games-grid.params';
 import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.model';
+import {MerchantModel} from 'wlc-engine/modules/games/system/models/merchant.model';
 import {
     GamesFilterService,
     GamesFilterServiceEvents,
@@ -40,6 +41,7 @@ import {
     filter as _filter,
     find as _find,
     assignIn as _assignIn,
+    includes as _includes,
 } from 'lodash';
 
 @Component({
@@ -63,7 +65,7 @@ import {
 export class SearchComponent extends AbstractComponent implements OnInit, OnDestroy {
     public $params: ISearchParams;
     public categories: CategoryModel[];
-    public merchants: IMerchant[];
+    public merchants: MerchantModel[];
 
     public openPanel: PanelType;
     public filters: IGamesFilterData = {
@@ -117,7 +119,6 @@ export class SearchComponent extends AbstractComponent implements OnInit, OnDest
         this.initActiveFilters();
     }
 
-
     public togglePanel(panel: PanelType): void {
         if (this.openPanel === panel) {
             this.openPanel = undefined;
@@ -134,8 +135,7 @@ export class SearchComponent extends AbstractComponent implements OnInit, OnDest
         }
 
         const catId = category.menuId;
-
-        if (this.filters.categories.includes(catId)) {
+        if (_includes(this.filters.categories, catId)) {
             this.filters.categories = _filter(
                 this.filters.categories,
                 (cat: string) => cat !== catId,
@@ -146,19 +146,18 @@ export class SearchComponent extends AbstractComponent implements OnInit, OnDest
         this.setFilter();
     }
 
-    public chooseMerchant(merchant?: IMerchant): void {
+    public chooseMerchant(merchant?: MerchantModel): void {
         if (!merchant) {
             this.filters.merchants = [];
             this.setFilter();
             return;
         }
 
-        const merchId = merchant.ID.toString();
-
-        if (this.filters.merchants.includes(merchId)) {
+        const merchId = merchant.id;
+        if (_includes(this.filters.merchants, merchId)) {
             this.filters.merchants = _filter(
                 this.filters.merchants,
-                (merch: string) => merch !== merchId,
+                (merch: number) => merch !== merchId,
             );
         } else {
             this.filters.merchants.push(merchId);
@@ -167,7 +166,7 @@ export class SearchComponent extends AbstractComponent implements OnInit, OnDest
     }
 
     public isActive(filter: PanelType, id: number | string): boolean {
-        return this.filters[filter].includes(id.toString());
+        return _includes(this.filters[filter], id);
     }
 
     public setSearchQuery(query): void {

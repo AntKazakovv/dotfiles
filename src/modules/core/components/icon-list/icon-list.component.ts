@@ -18,6 +18,7 @@ import {
 import {EventService, LogService, FilesService} from 'wlc-engine/modules/core/system/services';
 import * as Params from './icon-list.params';
 import {gamesEvents, IGames, IMerchant} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
+import {MerchantModel} from 'wlc-engine/modules/games/system/models/merchant.model';
 import {GamesCatalogService} from 'wlc-engine/modules/games/system/services';
 import {
     ConfigService,
@@ -83,18 +84,18 @@ export class IconListComponent extends AbstractComponent implements OnInit {
         this.eventService.subscribe({
             name: gamesEvents.FETCH_GAME_CATALOG_SUCCEEDED,
         }, () => {
-            const merchants: IMerchant[] = _sortedUniqBy(this.gamesCatalogService.getMerchants(),
-                (item: IMerchant) => item.Alias);
-            this.items = _map<IMerchant, IconModel>(merchants, (item: IMerchant): IconModel => {
+            const merchants: MerchantModel[] = _sortedUniqBy(this.gamesCatalogService.getMerchants(),
+                (item: MerchantModel) => item.alias);
+            this.items = _map<MerchantModel, IconModel>(merchants, (item: MerchantModel): IconModel => {
                 const image = this.$params.common.iconsColor === 'default'
-                    ? item.Image
-                    : `/gstatic/merchants/${this.$params.common.iconsColor}/${item.Alias.toLowerCase()}.png`;
+                    ? item.image
+                    : `/gstatic/merchants/${this.$params.common.iconsColor}/${item.alias.toLowerCase()}.png`;
 
                 const itemParams: IIconParams = {
-                    svgName: this.$params.theme === 'svg' ? item.Alias.toLowerCase() : undefined,
+                    svgName: this.$params.theme === 'svg' ? item.alias.toLowerCase() : undefined,
                     iconUrl: this.$params.theme === 'svg' ? undefined : image,
-                    alt: item.Name,
-                    modifier: this.getItemModifier(item.Alias.toLowerCase()),
+                    alt: item.name,
+                    modifier: this.getItemModifier(item.alias.toLowerCase()),
                 };
                 return new IconModel(itemParams, this.filesService, this.sanitizer);
             });

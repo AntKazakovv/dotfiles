@@ -9,6 +9,18 @@ import {TransactionHistoryComponent} from './components/transaction-history/tran
 import {TransactionStatusComponent} from './components/transaction-history/transaction-status/transaction-status.component';
 import {TransactionCancelComponent} from './components/transaction-history/transaction-cancel/transaction-cancel.component';
 
+import {GlobalHelper} from 'wlc-engine/modules/core/index';
+import {financesConfig} from './system/config/finances.config';
+import {IFinancesConfig} from './system/interfaces/finances.interface';
+import * as $config from 'wlc-config/index';
+
+import {
+    get as _get,
+} from 'lodash';
+
+export const moduleConfig =
+    GlobalHelper.mergeConfig<IFinancesConfig>(financesConfig, _get($config, '$finances', {}));
+
 export const components = {
     'wlc-deposit-withdraw': DepositWithdrawComponent,
     'wlc-payment-list': PaymentListComponent,

@@ -47,6 +47,7 @@ export class ModalService {
     };
 
     protected activeModals: IActiveModal[] = [];
+    protected closeQueue: IActiveModal[] = [];
     protected modalParams: IModalOptions = this.configService.get('appConfig.siteconfig.modalParams') || {};
 
     constructor(
@@ -77,7 +78,7 @@ export class ModalService {
      * @param config if string, search by id on MODALS_LIST.
      * @returns Reference on component
      */
-    public showModal(config: IModalParams): void {
+    public showModal<T>(config: IModalParams, componentParams?: T): void {
         let modalConfig: IModalConfig;
 
         if (_isString(config)) {
@@ -94,6 +95,10 @@ export class ModalService {
             }
         } else {
             modalConfig = _assignIn({}, DEFAULT_MODAL_CONFIG, config);
+        }
+
+        if (componentParams) {
+            modalConfig.componentParams = componentParams;
         }
 
         if (!modalConfig.id) {
@@ -122,6 +127,18 @@ export class ModalService {
             }
         }
 
+        if (this.closeQueue.length) {
+            const subscription = this.eventService.subscribe(
+                {name: this.events.MODAL_HIDDEN},
+                (id: string) => {
+                    if (!this.closeQueue.length) {
+                        subscription.unsubscribe();
+                        this.openModal(modalConfig);
+                    }
+                },
+            );
+            return;
+        }
         this.openModal(modalConfig);
     }
 
@@ -135,6 +152,7 @@ export class ModalService {
         this.showModal(_assignIn({
             id: 'Error',
             modalTitle: gettext('Error'),
+            size: 'md',
         }, config));
     }
 
@@ -175,7 +193,10 @@ export class ModalService {
     protected initListeners(): void {
         this.eventService.subscribe(
             {name: this.events.MODAL_HIDDEN},
-            (id: string) => this.closeModal(id),
+            (id: string) => {
+                _remove(this.closeQueue, (item: IActiveModal) => item.id === id);
+                this.closeModal(id);
+            },
         );
 
         this.eventService.subscribe(
@@ -213,6 +234,7 @@ export class ModalService {
 
         this.appRef.detachView(modal.ref.hostView);
         modal.ref.destroy();
+        this.closeQueue.push(modal);
         _remove(this.activeModals, (item: IActiveModal) => item.id === id);
     }
 

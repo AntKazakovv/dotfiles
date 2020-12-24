@@ -5,9 +5,9 @@ import {ICategory} from 'wlc-engine/modules/games/system/interfaces/games.interf
 export type IGamesFilterData = {
     searchQuery?: string;
     categories?: string[];
-    merchants?: string[];
+    merchants?: number[];
     excludeCategories?: string[];
-    excludeMerchants?: string[];
+    excludeMerchants?: number[];
 }
 
 export type IIndexingFilter = {

@@ -1,0 +1,19 @@
+@use 'engine-scss/functions' as ef;
+
+$contentMargin: 0 auto !default;
+$contentPaddings: ef.get('size', 'big') !default;
+
+$headerPaddings: ef.get('size', 'main') !default;
+$headerBg: transparent !default;
+$headerColor: ef.get('color', 'textSecondary') !default;
+$headerMargin: 0 !default;
+
+$btnLeftMargin: 0 auto 0 30px !default;
+$titleWidth: 50% !default;
+
+$iconsColor: ef.get('color', 'backgroundSecondary') !default;
+$iconsColorActive: ef.get('color', 'textSecondary') !default;
+$iconsGap: ef.get('size', 'smaller') !default;
+$iconsStroke: 3px !default;
+$iconsSize: 24px !default;
+$iconsOpacity: 0.8 !default;

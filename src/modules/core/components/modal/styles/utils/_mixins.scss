@@ -40,3 +40,9 @@
 @mixin fadeRight() {
     @include fadeAnimationMx($translateFrom: translate(50px, 50px), $translateTo: translate(0, 50px));
 }
+
+@mixin common($fontSize, $fontWeight, $margin) {
+    font-size: $fontSize;
+    font-weight: $fontWeight;
+    margin: $margin;
+}

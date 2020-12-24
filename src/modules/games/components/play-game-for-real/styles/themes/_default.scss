@@ -1,0 +1,103 @@
+@import '../utils/vars';
+
+.wlc-play-for-real--theme-default:host {
+    max-width: $formMaxWidth;
+    margin: $formMargin;
+
+    &::ng-deep {
+
+        .wlc-input {
+            margin: $fieldMargin;
+        }
+
+        .wlc-btn {
+            margin: $btnMargin;
+        }
+    }
+}
+
+//todo refactor
+
+::ng-deep {
+
+    .wlc-modal--play-game-for-real {
+
+        .wlc-modal__dialog {
+            background: $modalBg;
+            border-radius: $modalBorderRadius;
+
+            @include mq.max(640) {
+                border-radius: 0;
+                max-width: 100%;
+                height: 100vh;
+            }
+        }
+
+        .wlc-text-block[wlc-text-block] {
+
+            .wlc-text-block__head {
+                margin: $btnMargin;
+            }
+
+            .wlc-text-block__subtitle {
+                font-size: 16px;
+            }
+
+            .wlc-text-block__title,
+            .wlc-text-block__subtitle {
+                color: #fff;
+            }
+        }
+
+        .wlc-pseudo-link[wlc-pseudo-link],
+        .wlc-have-account[wlc-have-account],
+        .wlc-input[wlc-input].wlc-input--theme-vertical {
+
+            .wlc-pseudo-link__btn,
+            .wlc-have-account__title,
+            .wlc-have-account__link,
+            .wlc-input__label {
+                color: ef.get('color', 'main');
+
+                .wlc-icon {
+
+                    svg {
+                        fill: ef.get('color', 'main');
+                    }
+                }
+            }
+        }
+
+        .wlc-have-account {
+            margin-top: 30px;
+        }
+    }
+
+    .wlc-modal__close[wlc-button] {
+        position: absolute;
+        right: 20px;
+        top: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+        background: lighten(ef.get('color', 'background'), 20);
+        border-radius: 50%;
+
+        &:hover {
+            cursor: pointer;
+            background: lighten(ef.get('color', 'background'), 30);
+            @include bm.transition(background);
+        }
+
+        span {
+            display: flex;
+        }
+    }
+
+    .wlc-modal__header {
+        z-index: 10;
+    }
+}
