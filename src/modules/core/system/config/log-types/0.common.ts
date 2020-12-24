@@ -206,16 +206,39 @@ export const errorTypes: ILogTypes = {
     },
     '0.5.2': {
         description: 'Error during to read data in IndexedDb',
-        name: 'Error during to save data in IndexedDb',
+        name: 'Error during to read data in IndexedDb',
         type: 'caching',
         level: 'error',
         group: 'Common',
     },
     '0.5.3': {
         description: 'Error during to clear data in IndexedDb',
-        name: 'Error during to save data in IndexedDb',
+        name: 'Error during to clear data in IndexedDb',
         type: 'caching',
         level: 'error',
         group: 'Common',
     },
+    '0.5.4': {
+        description: 'Error during to save data in LocalStorage',
+        name: 'Error during to save data in LocalStorage',
+        type: 'caching',
+        level: 'error',
+        group: 'Common',
+    },
+    '0.5.5': {
+        description: 'Error during to read data in LocalStorage',
+        name: 'Error during to read data in LocalStorage',
+        type: 'caching',
+        level: 'error',
+        group: 'Common',
+    },
+    '0.5.6': {
+        description: 'Error during to clear data in LocalStorage',
+        name: 'Error during to clear data in LocalStorage',
+        type: 'caching',
+        level: 'error',
+        group: 'Common',
+    },
+
+
 };

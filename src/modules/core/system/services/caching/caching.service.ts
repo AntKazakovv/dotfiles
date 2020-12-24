@@ -1,5 +1,6 @@
-import {Injectable, Injector} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {NgxIndexedDBService} from 'ngx-indexed-db';
+import {LocalStorageService} from 'ngx-webstorage';
 import {DateTime} from 'luxon';
 import {ICachingObject} from 'wlc-engine/modules/core/system/interfaces';
 import {LogService} from 'wlc-engine/modules/core';
@@ -9,66 +10,93 @@ import {LogService} from 'wlc-engine/modules/core';
 })
 export class CachingService {
     private readonly keepTimeDefault = 10 * 60 * 1000;
+    private readonly dbSupport: boolean;
 
     constructor(
         private dbService: NgxIndexedDBService,
-        private injector: Injector,
+        private localStorageService: LocalStorageService,
         private logService: LogService,
-    ) {}
+    ) {
+        this.dbSupport = this.checkDbSupport();
+    }
 
     public async unStashRequest<T>(url: string): Promise<T> {
-        if (!this.checkDbSupport()) {
+        let data: ICachingObject<T>;
+
+        if (this.dbSupport) {
+            try {
+                data = await this.dbService.getByIndex('requests', 'url', url).toPromise();
+            } catch (error) {
+                this.logService.sendLog({code: '0.5.2', data: error});
+            }
+        } else {
+            try {
+                data = this.localStorageService.retrieve(url);
+            } catch (error) {
+                this.logService.sendLog({code: '0.5.5', data: error});
+            }
+        }
+
+        if (!data) {
             return;
         }
-        try {
-            const data: ICachingObject<T> = await this.dbService
-                .getByIndex('requests', 'url', url)
-                .toPromise();
 
-            if(!data) {
-                return;
-            }
-
-            if (data.expiration < DateTime.local().toMillis()) {
-                await this.clearStashing(data.id);
-                return;
-            }
-
-            return data.items;
-        } catch (error) {
-            this.logService.sendLog({code: '0.5.2', data: error});
+        if (data.expiration < DateTime.local().toMillis()) {
+            await this.clearStashing(data.id, url);
+            return;
         }
+
+        return data.items;
     }
 
-    public async stashRequest<T>(url: string, items: T[], keepTime = this.keepTimeDefault): Promise<number> {
-        if (!this.checkDbSupport()) {
-            return;
-        }
-        try {
-            const data: ICachingObject<T> = await this.dbService
-                .getByIndex('requests', 'url', url)
-                .toPromise();
+    public async stashRequest<T>(url: string, items: T[], keepTime = this.keepTimeDefault): Promise<number | boolean> {
+        if (this.dbSupport) {
+            let data: ICachingObject<T>;
+
+            try {
+                data = await this.dbService.getByIndex('requests', 'url', url).toPromise();
+            } catch (error) {
+                this.logService.sendLog({code: '0.5.2', data: error});
+            }
 
             if (!data) {
-                return this.dbService.add('requests', {
-                    url,
-                    expiration: DateTime.local().plus(keepTime).toMillis(),
-                    items,
-                }).toPromise();
+                try {
+                    return this.dbService.add('requests', {
+                        url,
+                        expiration: DateTime.local().plus(keepTime).toMillis(),
+                        items,
+                    }).toPromise();
+                } catch (error) {
+                    this.logService.sendLog({code: '0.5.1', data: error});
+                }
             }
             return data.id;
-        } catch (error) {
-            this.logService.sendLog({code: '0.5.1', data: error});
+        } else {
+            try {
+                this.localStorageService.store(url, {
+                    expiration: DateTime.local().plus(keepTime).toMillis(),
+                    items,
+                });
+                return true;
+            } catch (error) {
+                this.logService.sendLog({code: '0.5.4', data: error});
+            }
         }
     }
 
-    private async clearStashing(key: number): Promise<void> {
-        try {
-            await this.dbService
-                .delete('requests', key)
-                .toPromise();
-        } catch (error) {
-            this.logService.sendLog({code: '0.5.3', data: error});
+    private async clearStashing(key: number, url: string): Promise<void> {
+        if (this.dbSupport) {
+            try {
+                await this.dbService.delete('requests', key).toPromise();
+            } catch (error) {
+                this.logService.sendLog({code: '0.5.3', data: error});
+            }
+        } else {
+            try {
+                this.localStorageService.clear(url);
+            } catch (error) {
+                this.logService.sendLog({code: '0.5.6', data: error});
+            }
         }
     }
 
