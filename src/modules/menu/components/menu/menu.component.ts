@@ -8,7 +8,10 @@ import {
     OnInit,
     SimpleChanges,
 } from '@angular/core';
-import {StateService} from '@uirouter/core';
+import {
+    StateService,
+    TransitionService,
+} from '@uirouter/core';
 import {
     animate,
     state,
@@ -25,12 +28,12 @@ import {
     ModalService,
 } from 'wlc-engine/modules/core/system/services';
 import * as Params from 'wlc-engine/modules/menu/components/menu/menu.params';
+import {IMenuItemsGroup} from 'wlc-engine/modules/menu/components/menu/menu.params';
 
 import {
     get as _get,
-    isString as _isString,
+    forEach as _forEach,
 } from 'lodash';
-import {IMenuItemsGroup} from 'wlc-engine/modules/menu/components/menu/menu.params';
 
 @Component({
     selector: '[wlc-menu]',
@@ -73,6 +76,7 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
         protected actionService: ActionService,
         protected modalService: ModalService,
         protected stateSerivce: StateService,
+        protected transitionService: TransitionService,
     ) {
         super(
             <IMixedParams<Params.IMenuCParams>>{
@@ -98,6 +102,14 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.initItems();
+
+        this.transitionService.onEnter({}, () => {
+            _forEach(this.items, (item: Params.IMenuItemsGroup) => {
+                if (item.parent) {
+                    item.expand = false;
+                }
+            });
+        });
     }
 
     public scrollTo(selector: string): void {

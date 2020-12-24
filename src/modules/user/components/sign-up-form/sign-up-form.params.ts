@@ -70,11 +70,11 @@ export const signUpFormConfig: IFormWrapperCParams = {
         {
             name: 'core.wlc-select',
             params: {
-                labelText: 'Currency',
+                labelText: gettext('Currency'),
                 options: 'currencies',
                 theme: 'vertical',
                 common: {
-                    placeholder: '',
+                    placeholder: gettext('Currency'),
                     customModifiers: 'currency',
                 },
                 validators: ['required'],

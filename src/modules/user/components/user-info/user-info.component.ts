@@ -11,7 +11,7 @@ import {
     transition,
     trigger,
 } from '@angular/animations';
-import {StateService} from '@uirouter/core';
+import {StateService, TransitionService} from '@uirouter/core';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ConfigService} from 'wlc-engine/modules/core/system/services';
 import * as Params from './user-info.params';
@@ -49,6 +49,7 @@ export class UserInfoComponent extends AbstractComponent implements OnInit {
         @Inject('injectParams') protected injectParams: any,
         protected configService: ConfigService,
         protected elementRef: ElementRef,
+        protected transitionService: TransitionService,
         protected stateService: StateService,
     ) {
         super({injectParams, defaultParams: Params.defaultParams});
@@ -56,6 +57,9 @@ export class UserInfoComponent extends AbstractComponent implements OnInit {
 
     ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
+        this.transitionService.onEnter({}, () => {
+            this.isOpened = false;
+        });
     }
 
     public toggle(): void {

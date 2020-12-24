@@ -57,12 +57,12 @@ type CurrencyPart = Intl.NumberFormatPart;
 /**
  * @ngModule CoreModule
  * @description
- * 
+ *
  * Displays given number, formatted according passed options
  * or application state.
- * 
+ *
  * Supports ISO 4217 and cryptocurrencies.
- * 
+ *
  * It gets formatted value from Intl and transforms it if it is unsupported cryptocurrency
  */
 @Component({
@@ -78,7 +78,7 @@ export class CurrencyComponent
     /**
      * @description
      * Value that should be formatted. Could be a number or a string (component will try to parse it to a number).
-     * 
+     *
      * Use BehaviorSubject if you want dynamic currency display. Number otherwise.
      *
      * @default 0
@@ -101,7 +101,7 @@ export class CurrencyComponent
      * - `symbol`: show symbol with county-specific symbols (for example CA$ for canadian dollar);
      * - `symbolNarrow`: show symbol without country-specific symbols.
      * - `name`: show currency name in given locale (not supported by cryptocurrencies)
-     * 
+     *
      * @default 'symbol'
      */
     @Input() public indicatorFormat: Params.IndicatorFormatType;
@@ -109,15 +109,15 @@ export class CurrencyComponent
     /**
      * @description
      * Display options in the following format:
-     * 
+     *
      * `{minIntegerDigits}.{minFractionDigits}-{maxFractionDigits}`.
-     * 
+     *
      * - `minIntegerDigits` - minimum number of digits before decimal point.
      * - `minFractionDigits` - minimum number of digits after decimal point.
      * - `maxFractionDigits` - maximum number of digits after decimal point.
-     * 
+     *
      * Example: For value `1` and digitsInfo `2-1-2` result would be `01.0`
-     * 
+     *
      * @default '1-2-2''
      */
     @Input() public digitsInfo: string;
@@ -136,14 +136,14 @@ export class CurrencyComponent
 
     /**
      * Boolean that indicating whether the currency symbol will be displayed as an icon.
-     * 
+     *
      * Icon used in case the cryptocurrency symbol doesn't exist in UTF-16.
      */
     public useIcon: boolean = false;
 
     /**
      * Object that template will take as a guidance in case currency symbol displays as an icon.
-     * 
+     *
      * - `icon`: char for an icon;
      * - `placement`: where it should be placed, on the left side of the value or the right side;
      * - `minusBeforeCurrency`: whether should minus sign be placed before icon if the value is negative
@@ -244,12 +244,13 @@ export class CurrencyComponent
         } else {
             this.numericValue = _toNumber(this.$params.value) || 0;
             this.setDisplayValue();
+            this.changeDetectorRef.markForCheck();
         }
     }
 
     /**
      * Parses digitsInfo and transforms its values in safe range
-     * 
+     *
      * @param allowFractionDigits how long faction can be
      * @returns {Object} parsed and secured digitsInfo
      */
@@ -284,9 +285,9 @@ export class CurrencyComponent
     /**
      * For cryptocurrencies it looks for desirable format first, if it isn't found
      * it looks for the available one in the following order:
-     * 
+     *
      * symbol -> narrowSymbol -> code -> name.
-     * 
+     *
      * For other currencies it sets 'symbol' if indicator format wasn't specified
      */
     protected setIndicatorFormat(): void {
@@ -302,7 +303,7 @@ export class CurrencyComponent
 
     /**
      * Sets icon display information
-     * 
+     *
      * @param intlParts parts from Intl
      */
     protected setIcon(intlParts: CurrencyPart[]): void {
@@ -338,6 +339,7 @@ export class CurrencyComponent
         }
 
         this.displayValue = _map(intlParts, (part) => part.value).join('');
+        this.changeDetectorRef.markForCheck();
     }
 
     /**
@@ -349,7 +351,7 @@ export class CurrencyComponent
 
     /**
      * Transforms Intl format to cryptocurrency
-     * 
+     *
      * @param intlParts parts from Intl
      */
     protected formatToCryptocurrency(

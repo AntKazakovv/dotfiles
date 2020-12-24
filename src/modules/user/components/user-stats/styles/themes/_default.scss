@@ -31,6 +31,7 @@
 
             &__logout {
                 flex-shrink: 0;
+                margin-left: auto;
 
                 .wlc-btn__text {
                     display: flex;
@@ -41,6 +42,13 @@
                 ::ng-deep {
 
                     .wlc-icon {
+
+                        &,
+                        &-content {
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                        }
 
                         svg,
                         path {
@@ -92,14 +100,12 @@
             .name,
             .value {
                 display: block;
-                width: 30%;
                 white-space: nowrap;
                 text-overflow: ellipsis;
                 overflow: hidden;
             }
 
             .name {
-                width: 70%;
                 font: {
                     size: $userStatsBalanceItemNameSize;
                     weight: $userStatsBalanceItemNameWeight;
@@ -107,6 +113,7 @@
             }
 
             .value {
+                padding-left: 5px;
                 text-align: right;
                 font: {
                     size: $userStatsBalanceItemValueSize;

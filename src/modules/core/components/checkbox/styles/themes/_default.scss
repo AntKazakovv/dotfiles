@@ -66,6 +66,7 @@
             }
 
             &.checked {
+                background: map.get($themeDefault, 'checkboxElemBackgroundChecked');
                 border-color: map.get($themeDefault, 'checkboxElemBorderColor');
 
                 transform: scale(1);

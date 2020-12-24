@@ -14,6 +14,5 @@ export const defaultParams: IUserStatsCParams = {
         'bonusBalance',
         'points',
         'level',
-        ''
     ],
 };

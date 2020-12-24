@@ -12,6 +12,7 @@ import {
     Renderer2,
     AfterViewInit,
 } from '@angular/core';
+import {TransitionService} from '@uirouter/core';
 import {Observable} from 'rxjs';
 import {fromEvent} from 'rxjs/internal/observable/fromEvent';
 import {
@@ -63,11 +64,12 @@ export class BurgerPanelComponent extends AbstractComponent
 
     protected $width: number;
 
-    constructor (
+    constructor(
         protected configService: ConfigService,
         protected eventService: EventService,
         protected renderer: Renderer2,
         protected logService: LogService,
+        protected transitionService: TransitionService,
         private hostElement: ElementRef,
     ) {
         super({
@@ -86,6 +88,21 @@ export class BurgerPanelComponent extends AbstractComponent
             this.isUseTouchEvents = this.$params.touchEvents?.onlyMobile ?
                 this.configService.get<boolean>('appConfig.mobile') : true;
         }
+
+        this.transitionService.onEnter({}, () => {
+            this.closePanel();
+        });
+
+        this.eventService.filter(
+            [{name: 'LOGIN'}, {name: 'LOGOUT'}],
+            this.$destroy)
+            .subscribe({
+                next: () => {
+                    setTimeout(() => {
+                        this.closePanel();
+                    }, 0);
+                },
+            });
     }
 
     public ngOnChanges(changes: SimpleChanges): void {
@@ -140,7 +157,7 @@ export class BurgerPanelComponent extends AbstractComponent
 
         if (event.direction === Directions[this.$params.type] &&
             (Math.abs(event.deltaX) > this.$width / 5 * 3 ||
-            (event.deltaTime < this.$width && Math.abs(event.deltaX) > 70))) {
+                (event.deltaTime < this.$width && Math.abs(event.deltaX) > 70))) {
             this.closePanel();
         }
     }

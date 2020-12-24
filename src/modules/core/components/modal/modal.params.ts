@@ -23,6 +23,7 @@ export const DEFAULT_MODAL_CONFIG: Partial<IModalConfig> = {
     animation: true,
     dismissAll: false,
     showFooter: true,
+    size: 'md',
 };
 
 export const MODALS_LIST: IModalList = {

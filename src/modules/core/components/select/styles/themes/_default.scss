@@ -17,79 +17,79 @@
         position: relative;
         width: $selectWidth;
         max-width: $selectMaxWidth;
+    }
 
-        .wlc-select-status {
+    .wlc-select-status {
 
-            .wlc-select-status__icon {
+        .wlc-select-status__icon {
+            position: absolute;
+            top: 50%;
+            right: 15px;
+            transform: translateY(-50%);
+            width: $iconWidth;
+            height: $iconHeight;
+            border-radius: 50%;
+
+            &:before {
+                content: '';
                 position: absolute;
-                top: 50%;
-                right: 15px;
-                transform: translateY(-50%);
-                width: $iconWidth;
-                height: $iconHeight;
-                border-radius: 50%;
-
-                &:before {
-                    content: '';
-                    position: absolute;
-                }
-            }
-
-            .wlc-select-status__arrow {
-                position: absolute;
-                right: 15px;
-                top: 50%;
-                transform: translateY(-50%);
-            }
-
-            .wlc-select-status__errors {
-                position: absolute;
-                background: $errorsBgColor;
-                top: calc(100% - 5px);
-                right: 0;
-                width: fit-content;
-                min-width: $errorsMinWidth;
-                max-width: $errorsMaxWidth;
-                opacity: 0;
-                visibility: hidden;
-                color: $errorsColor;
-                border-radius: $errorsBorderRadius;
-                font-size: $errorsFontSize;
-                padding: $errorsPadding;
-                z-index: 10;
-
-                &:before {
-                    content: '';
-                    border: 8px solid transparent;
-                    border-bottom-color: $errorsBgColor;
-                    position: absolute;
-                    top: -15px;
-                    right: 13px;
-                }
             }
         }
 
-        button {
-            width: 100%;
-            border: $selectBorder;
-            border-radius: $selectBorderRadius;
-            padding: $selectPadding;
-            overflow: visible;
-            text-overflow: ellipsis;
-            background: $selectBackground;
-            text-align: $selectTextAlign;
-            color: $selectColor;
+        .wlc-select-status__arrow {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
 
-            &:focus {
-                outline: none;
-                border-color: $selectBorderFocusColor;
+        .wlc-select-status__errors {
+            position: absolute;
+            background: $errorsBgColor;
+            top: calc(100% - 5px);
+            right: 0;
+            width: fit-content;
+            min-width: $errorsMinWidth;
+            max-width: $errorsMaxWidth;
+            opacity: 0;
+            visibility: hidden;
+            color: $errorsColor;
+            border-radius: $errorsBorderRadius;
+            font-size: $errorsFontSize;
+            padding: $errorsPadding;
+            z-index: 10;
+
+            &:before {
+                content: '';
+                border: 8px solid transparent;
+                border-bottom-color: $errorsBgColor;
+                position: absolute;
+                top: -15px;
+                right: 13px;
             }
+        }
+    }
 
-            &.ng-touched {
+    .wlc-select__field {
+        width: 100%;
+        border: $selectBorder;
+        border-radius: $selectBorderRadius;
+        padding: $selectPadding;
+        overflow: visible;
+        text-overflow: ellipsis;
+        background: $selectBackground;
+        text-align: $selectTextAlign;
+        color: $selectColor;
 
-                &.ng-invalid {
-                    border-color: $errorColor;
-                }
+        &:focus {
+            outline: none;
+            border-color: $selectBorderFocusColor;
+        }
+
+        &.ng-touched {
+
+            &.ng-invalid {
+                border-color: $errorColor;
             }
         }
     }

@@ -1,15 +1,20 @@
 <div class="{{$class}}__content" [ngSwitch]="type">
 
     <ng-template [ngSwitchCase]="'short'">
-        <div class="{{$class}}-balance {{$class}}-balance--short">
+        <div class="{{$class}}-balance {{$class}}-balance--short" data-wlc-element="block_user-stat-balance">
             <div class="{{$class}}-balance__item {{$class}}-balance__real">
                 <span class="name">{{'Real balance' | translate}}</span>
-                <span class="value"><span wlc-currency [value]="userStats?.balance"></span></span>
+                <span class="value" *ngIf="this.shownUserStats">
+                    <span wlc-currency [value]="this.shownUserStats?.balance?.value"></span>
+                </span>
             </div>
 
             <div class="{{$class}}-balance__item {{$class}}-balance__bonus">
                 <span class="name">{{'Bonus balance' | translate}}</span>
-                <span class="value"><span wlc-currency [value]="userStats?.loyalty?.Balance"></span></span>
+                <span class="value" *ngIf="this.shownUserStats">
+                    <span wlc-currency [value]="this.shownUserStats?.bonusBalance?.value">
+                    </span>
+                </span>
             </div>
         </div>
     </ng-template>
@@ -22,8 +27,13 @@
                 iconName="user-icon"
             ></div>
 
-            <div class="{{$class}}-email__value">
-                {{userStats?.email | truncate: 20}}
+            <div class="{{$class}}-email__value" *ngIf="!this.shownUserStats?.firstName">
+                {{this.shownUserStats?.email?.value | truncate: 20}}
+            </div>
+
+            <div class="{{$class}}-email__value"
+                 *ngIf="this.shownUserStats?.firstName || this.shownUserStats?.lastName">
+                {{this.shownUserStats.firstName.value + ' ' + this.shownUserStats.lastName.value | truncate: 20}}
             </div>
 
             <button

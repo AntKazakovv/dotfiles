@@ -12,15 +12,21 @@
         border-radius: 50%;
         border: $borderSecondary;
 
-        &:hover {
-            background: $backgroundHover;
+        @media (hover: hover) {
+
+            &:hover {
+                background: $backgroundHover;
+            }
         }
 
         &.wlc-btn--theme-mod-secondary {
             @include buttonTransparency;
 
-            &:hover {
-                background: transparentize($backgroundHover, 0.5);
+            @media (hover: hover) {
+
+                &:hover {
+                    background: transparentize($backgroundHover, 0.5);
+                }
             }
         }
     }

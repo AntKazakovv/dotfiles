@@ -53,9 +53,7 @@ export class ChangePasswordFormComponent extends AbstractComponent {
 
         try {
             await this.userService.setNewPassword(currentPassword, confirmPassword);
-            this.modalService.closeAllModals();
         } catch (error) {
-            this.modalService.closeAllModals();
             this.modalService.showError({
                 modalMessage: error.errors,
             });

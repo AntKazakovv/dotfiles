@@ -52,9 +52,7 @@ export class RestorePasswordFormComponent extends AbstractComponent {
 
         try {
             await this.userService.sendPasswordRestore(email);
-            this.modalService.closeAllModals();
         } catch (error) {
-            this.modalService.closeAllModals();
             this.modalService.showError({
                 modalMessage: error.errors,
             });

@@ -16,6 +16,10 @@ import {Subscription} from 'rxjs';
 import {StateService} from '@uirouter/core';
 import * as Params from './user-stats.params';
 
+import {
+    reduce as _reduce,
+} from 'lodash';
+
 export interface IUserStatsItem {
     name: string,
     value: string | number,
@@ -84,7 +88,7 @@ export class UserStatsComponent extends AbstractComponent implements OnInit, OnD
             },
             bonusBalance: {
                 name: gettext('Bonus balance'),
-                value: this.userStats.loyalty.Balance,
+                value: this.getBonusBalance(),
                 modification: 'amount',
             },
 
@@ -121,9 +125,16 @@ export class UserStatsComponent extends AbstractComponent implements OnInit, OnD
                 value: this.userStats.loyalty.NextLevelPoints,
             },
         };
+        this.cdr.markForCheck();
     }
 
     public depositAction(): void {
         this.stateService.go('app.profile.cash.deposit');
+    }
+
+    protected getBonusBalance(): number {
+        return _reduce(this.userStats?.loyalty?.BonusesBalance, (result, item) => {
+            return result + parseFloat(item.Balance);
+        }, 0);
     }
 }

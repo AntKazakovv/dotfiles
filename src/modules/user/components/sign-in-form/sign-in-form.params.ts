@@ -81,7 +81,7 @@ export const signInFormConfig: IFormWrapperCParams = {
                 common: {
                     customModifiers: 'submit',
                     text: gettext('Login'),
-                    type: 'submit',
+                    typeAttr: 'submit',
                 },
             },
         },

@@ -13,10 +13,6 @@ import {
 import {UserService} from 'wlc-engine/modules/user/system/services';
 import * as Params from './sign-in-form.params';
 
-import {
-    union as _union,
-} from 'lodash';
-
 /**
  * Sign-in form component.
  *
@@ -58,7 +54,6 @@ export class SignInFormComponent extends AbstractComponent {
             await this.userService.login(loginParam, password);
             this.modalService.closeModal('login');
         } catch (error) {
-            this.modalService.closeModal('login');
             this.modalService.showError({
                 modalMessage: error.errors,
             });
