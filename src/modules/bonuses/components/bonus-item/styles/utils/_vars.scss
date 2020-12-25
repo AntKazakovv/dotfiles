@@ -4,11 +4,19 @@
 $minWidth: 300px !default;
 $maxWidth: 320px !default;
 $height: 370px !default;
+$infoWidth: $minWidth - 30px !default;
+$infoHeight: 125px !default;
 
 $relativeImageHeight: 70% !default;
 
-$bonusIconSize: 170px !default;
-$bonusIconValueBlockSize: 40px !default;
+$bonusIconSize: 144px !default;
+$bonusIconValueBlockWidth: 60px !default;
+$bonusIconValueBlockHeight: 25px !default;
+
+$bonusIconValueBlockBorderRds: 12px !default;
+$bonusIconValueBlockPosL: 50% !default;
+$bonusIconValueBlockPosB: 10px !default;
+$bonusIconValueBlockMagin: 0 0 0 -30px !default;
 
 $activeBlockMaxWidth: 80% !default;
 
@@ -19,9 +27,10 @@ $moreIconSize: 24px !default;
 $moreIconColor: ef.get('color', 'text') !default;
 
 // // Font
-$bonusIconFontSize: ef.get('font', 'big') !default;
-$bonusIconColor:rgba(0, 0, 0, 0.3) !default;
-$bonusIconValueFontSize: ef.get('font', 'less') !default;
+$bonusIconValueFontSize: 0.9rem !default;
+$bonusIconValueFontSizeSmall: 0.7rem !default;
+$bonusIconValueFontSizeSmaller: 0.5rem !default;
+$bonusIconValueFontW: 700 !default;
 $bonusIconValueFontColor: #000000 !default;
 
 $tagFontColor: #000 !default;
@@ -60,24 +69,6 @@ $backgroundRelativeHover:  ef.get('color', 'backgroundSecondary') !default;
 
 $imageBg: rgba(0, 0, 0, 0.3) !default;
 
-$bonusIconBg: transparent !default;
-$bonusIconBgImage: none !default;
-
-$bonusIconBgExperience: transparent !default;
-$bonusIconBgExperienceImage: none !default;
-
-$bonusIconBgLoyalty: transparent !default;
-$bonusIconBgLoyaltyImage: none !default;
-
-$bonusIconBgBalance: transparent !default;
-$bonusIconBgBalanceImage: none !default;
-
-$bonusIconBgFreerounds: transparent !default;
-$bonusIconBgFreeroundsImage: none !default;
-
-$bonusIconBgRelative: transparent !default;
-$bonusIconBgRelativeImage: none !default;
-
 $bonusIconValueBg: #fff !default;
 
 $tagBg: #fff !default;
@@ -99,7 +90,7 @@ $activeBlockProgressRadius: ef.get('radius', 'biger') !default;
 $progressBarRadius: 5px !default;
 
 //Padding
-$bonusIconMargin: 50px auto 0 auto !default;
+$bonusIconMargin: 55px auto 0 auto !default;
 $tagPadding: 0 ef.get('size', 'small') !default;
 $infoPadding: 0 ef.get('size', 'small') !default;
 
@@ -121,6 +112,15 @@ $moreIconPosLeft: auto !default;
 $moreIconPosRight: ef.get('size', 'small') !default;
 $moreIconPosTop: ef.get('size', 'small') !default;
 $moreIconPosBottom: auto !default;
+
+// chosen icon
+$chosenIconBg: #fff !default;
+$chosenIconBdRds: 50% !default;
+$chosenIconWidth: 22px !default;
+$chosenIconHeight: 22px !default;
+$chosenIconSvgColor: ef.get('color', 'text') !default;
+$chosenIconPosL: ef.get('size', 'small') !default;
+$chosenIconPosT: ef.get('size', 'small') !default;
 
 // Animation
 $time: ef.get('time', 'main') !default;

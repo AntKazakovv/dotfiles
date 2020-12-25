@@ -70,6 +70,7 @@ import { TitleComponent } from './components/title/title.component';
 import {NgTemplateNameDirective} from './directives/template-name/template-name.directive';
 import {ClickOutsideDirective} from './directives/click-outside.directive';
 import {InputMaskDirective} from './directives/input-mask.directive';
+import {ClampDirective} from './directives/clamp.directive';
 //  -- DIRECTIVES IMPORTS END  --;
 
 //  -- PIPES IMPORTS STARTS--;
@@ -190,6 +191,7 @@ export const components = {
         CopyrightComponent,
         DatepickerComponent,
         InputMaskDirective,
+        ClampDirective,
         TextBlockComponent,
         TruncatePipe,
         TitleComponent,
@@ -227,6 +229,7 @@ export const components = {
         CopyrightComponent,
         DatepickerComponent,
         InputMaskDirective,
+        ClampDirective,
         TextBlockComponent,
         TruncatePipe,
         TitleComponent,

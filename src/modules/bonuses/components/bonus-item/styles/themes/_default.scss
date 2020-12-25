@@ -1,3 +1,4 @@
+@use 'engine-scss/mixins/mediaqueries' as mq;
 @import '../utils/vars';
 
 .wlc-bonus-item--theme-default {
@@ -5,9 +6,8 @@
     .wlc-bonus-item {
 
         &__content {
-            display: grid;
             position: relative;
-            background-color: $background;
+            background: $background;
             height: $height;
             min-width: $minWidth;
             max-width: $maxWidth;
@@ -17,52 +17,58 @@
             margin-right: auto;
 
             &:hover {
-                background-color: $backgroundHover;
-
-                .wlc-bonus-item--view-experience & {
-                    background-color: $backgroundExperienceHover;
-                }
-
-                .wlc-bonus-item--view-loyalty  & {
-                    background-color: $backgroundLoyaltyHover;
-                }
-
-                .wlc-bonus-item--view-balance & {
-                    background-color: $backgroundBalanceHover;
-                }
-
-                .wlc-bonus-item--view-freerounds & {
-                    background-color: $backgroundFreeroundsHover;
-                }
-
-                .wlc-bonus-item--view-relative & {
-                    background-color: $backgroundRelativeHover;
-                }
+                background: $backgroundHover;
             }
 
-            .wlc-bonus-item--view-experience & {
-                background-color: $backgroundExperience;
+            @include mq.min(720) {
+                max-width: 100%;
             }
+        }
 
-            .wlc-bonus-item--view-loyalty  & {
-                background-color: $backgroundLoyalty;
-            }
+        &__wrapper {
+            position: relative;
+            cursor: pointer;
+            width: 100%;
+            height: 100%;
+            display: grid;
+            grid-template-rows: auto $infoHeight;
+        }
 
-            .wlc-bonus-item--view-balance & {
-                background-color: $backgroundBalance;
-            }
+        &__check-icon {
+            position: absolute;
+            background-color: $chosenIconBg;
+            border-radius: $chosenIconBdRds;
+            width: $chosenIconWidth;
+            height: $chosenIconHeight;
+            left: $chosenIconPosL;
+            top: $chosenIconPosT;
+            display: none;
+            justify-content: center;
+            align-items: center;
 
-            .wlc-bonus-item--view-freerounds & {
-                background-color: $backgroundFreerounds;
-            }
-
-            .wlc-bonus-item--view-relative & {
-                background-color: $backgroundRelative;
+            svg {
+                width: 100%;
+                stroke: $chosenIconSvgColor;
             }
         }
 
         &__image-block {
             position: relative;
+
+            &:hover {
+
+                & + .wlc-bonus-item__bottom {
+
+                    .wlc-bonus-item__btns {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+
+                    .wlc-bonus-item__description {
+                        opacity: 0;
+                    }
+                }
+            }
         }
 
         &__image {
@@ -82,63 +88,43 @@
         &__bonus-icon {
             width: $bonusIconSize;
             height: $bonusIconSize;
-            background-color: $bonusIconBg;
-            background-image: $bonusIconBgImage;
             background-repeat: no-repeat;
             background-size: cover;
             background-position: center center;
-            border-radius: 50%;
             margin: $bonusIconMargin;
             position: relative;
 
             .icon-sign {
-                font-size: $bonusIconFontSize;
-                font-weight: bold;
-                color: $bonusIconColor;
                 position: absolute;
-                left: 20%;
-                top: 20%;
+                width: 100%;
+                left: 0;
+                top: 0;
             }
 
             .icon-text {
-                width: $bonusIconValueBlockSize;
-                height: $bonusIconValueBlockSize;
-                border-radius: 50%;
+                width: $bonusIconValueBlockWidth;
+                height: $bonusIconValueBlockHeight;
+                border-radius: $bonusIconValueBlockBorderRds;
                 background-color: $bonusIconValueBg;
                 color: $bonusIconValueFontColor;
                 font-size: $bonusIconValueFontSize;
+                font-weight: $bonusIconValueFontW;
                 position: absolute;
-                right: 20%;
-                bottom: 20%;
+                left: $bonusIconValueBlockPosL;
+                bottom: $bonusIconValueBlockPosB;
+                margin: $bonusIconValueBlockMagin;
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 line-height: 1;
-            }
 
-            .wlc-bonus-item--view-experience & {
-                background-color: $bonusIconBgExperience;
-                background-image: $bonusIconBgExperienceImage;
-            }
+                &--small {
+                    font-size: $bonusIconValueFontSizeSmall;
+                }
 
-            .wlc-bonus-item--view-loyalty  & {
-                background-color: $bonusIconBgLoyalty;
-                background-image: $bonusIconBgLoyaltyImage;
-            }
-
-            .wlc-bonus-item--view-balance & {
-                background-color: $bonusIconBgBalance;
-                background-image: $bonusIconBgBalanceImage;
-            }
-
-            .wlc-bonus-item--view-freerounds & {
-                background-color: $bonusIconBgFreerounds;
-                background-image: $bonusIconBgFreeroundsImage;
-            }
-
-            .wlc-bonus-item--view-relative & {
-                background-color: $bonusIconBgRelative;
-                background-image: $bonusIconBgRelativeImage;
+                &--smaller {
+                    font-size: $bonusIconValueFontSizeSmaller;
+                }
             }
         }
 
@@ -174,7 +160,6 @@
         &__info-block {
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
             padding: $infoPadding;
             overflow: hidden;
@@ -184,9 +169,7 @@
             font-size: $nameFontSize;
             color: $nameFontColor;
             text-align: center;
-            width: 100%;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            width: $infoWidth;
         }
 
         &__description {
@@ -194,6 +177,7 @@
             color: $descriptionFontColor;
             text-align: center;
             transition: opacity $time ease-in-out;
+            width: $infoWidth;
         }
 
         &__active-block {
@@ -292,6 +276,10 @@
 
     &.wlc-bonus-item--type-active {
 
+        .wlc-bonus-item__wrapper {
+            grid-template-rows: auto;
+        }
+
         .wlc-bonus-item__image,
         .wlc-bonus-item__description,
         .wlc-bonus-item__bonus-icon {
@@ -311,6 +299,19 @@
                 }
             }
         }
+
+        .wlc-bonus-item__image-block {
+
+            &:hover {
+
+                & + .wlc-bonus-item__bottom {
+
+                    .wlc-bonus-item__description {
+                        opacity: 1;
+                    }
+                }
+            }
+        }
     }
 
     .wlc-bonus-item__content.nochoosebtn,
@@ -325,6 +326,19 @@
                 }
             }
         }
+
+        .wlc-bonus-item__image-block {
+
+            &:hover {
+
+                & + .wlc-bonus-item__bottom {
+
+                    .wlc-bonus-item__description {
+                        opacity: 1;
+                    }
+                }
+            }
+        }
     }
 
     .wlc-bonus-item__content.choosebtn.noauth {
@@ -336,6 +350,80 @@
                 .wlc-bonus-item__description {
                     opacity: 0;
                 }
+            }
+        }
+    }
+
+    .wlc-bonus-item__content.nochoosebtn {
+        cursor: pointer;
+        transform-origin: 50% 50%;
+        transform: scale(1);
+        transition: all $time ease-in-out;
+
+        &:hover {
+            transform: scale(1.05);
+        }
+    }
+
+    .wlc-bonus-item__content.chosen {
+        opacity: 1;
+
+        .wlc-bonus-item__check-icon {
+            display: flex;
+        }
+    }
+
+    &.wlc-bonus-item--view-experience {
+
+        .wlc-bonus-item__content {
+            background: $backgroundExperience;
+
+            &:hover {
+                background: $backgroundExperienceHover;
+            }
+        }
+    }
+
+    &.wlc-bonus-item--view-loyalty {
+
+        .wlc-bonus-item__content {
+            background: $backgroundLoyalty;
+
+            &:hover {
+                background: $backgroundLoyaltyHover;
+            }
+        }
+    }
+
+    &.wlc-bonus-item--view-balance {
+
+        .wlc-bonus-item__content {
+            background: $backgroundBalance;
+
+            &:hover {
+                background: $backgroundBalanceHover;
+            }
+        }
+    }
+
+    &.wlc-bonus-item--view-freerounds {
+
+        .wlc-bonus-item__content {
+            background: $backgroundFreerounds;
+
+            &:hover {
+                background: $backgroundFreeroundsHover;
+            }
+        }
+    }
+
+    &.wlc-bonus-item--view-relative {
+
+        .wlc-bonus-item__content {
+            background: $backgroundRelative;
+
+            &:hover {
+                background: $backgroundRelativeHover;
             }
         }
     }
