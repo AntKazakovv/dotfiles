@@ -32,6 +32,7 @@ import {
 
 export class Bonus extends AbstractModel<IBonus> {
     public isReady: Boolean = true;
+    public isChoose: Boolean = false;
     protected userCurrency: string;
 
     constructor(

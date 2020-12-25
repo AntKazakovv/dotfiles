@@ -25,8 +25,8 @@ import {
     isUndefined as _isUndefined,
     keys as _keys,
     isObject as _isObject,
+    each as _each,
 } from 'lodash';
-import {IData} from 'wlc-engine/modules/core/system/services/data/data.service';
 
 export {IBonusesListCParams} from './bonuses-list.params';
 
@@ -79,6 +79,18 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
             type: this.$params.common?.restType,
             until: this.$destroy,
         });
+
+        this.eventService.subscribe([
+            {name: 'CHOOSE_REG_BONUS_SUCCEEDED'},
+            {name: 'CHOOSE_DEPOSIT_BONUS_SUCCEEDED'},
+        ], (bonus: Bonus) => {
+            _each(this.bonuses, (item: Bonus) => {
+                if (item.id !== bonus.id) {
+                    item.isChoose = false;
+                }
+            });
+            this.cdr.detectChanges();
+        }, this.$destroy);
     }
 
     protected prepareModifiers(): void {

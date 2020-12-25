@@ -23,8 +23,7 @@ export interface IBonusItemParams extends IComponentParams<Theme, Type, ThemeMod
         hideDescription?: boolean;
         hideChooseBtn?: boolean;
         iconMoreBtn?: boolean;
-        maxNameLength?: number;
-        maxDescrLength?: number;
+        iconsPath?: string;
     };
 }
 
@@ -34,13 +33,12 @@ export const defaultParams: IBonusItemParams = {
     class: 'wlc-bonus-item',
     common: {
         imageByType: false,
-        useIconBonusImage: false,
+        useIconBonusImage: true,
         showAdditionalImage: false,
         showBonusTag: true,
         hideDescription: false,
         iconMoreBtn: true,
-        hideChooseBtn: false,
-        maxNameLength: 22,
-        maxDescrLength: 80,
+        hideChooseBtn: true,
+        iconsPath: '/gstatic/bonuses/icons/',
     },
 };

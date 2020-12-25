@@ -57,11 +57,11 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
     @Input() protected themeMod: Params.ThemeMod;
     @Input() protected customMod: Params.CustomMod;
     @Input() protected view: string;
+    @Input() protected chosen: boolean;
 
     public $params: Params.IBonusItemParams;
     public isAuth: boolean;
     public currency: string;
-    public isChoose: boolean = false;
     public isNoChooseBtn: boolean;
     public isChooseBtn: boolean;
     public isTypeRegDeposit: boolean;
@@ -105,16 +105,31 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
         return this.bonus.group;
     }
 
-    public openDescription(bonusId: number): void {
-        this.modalService.showModal('baseInfo');
+    public openDescription(bonus: Bonus): void {
+        this.modalService.showModal({
+            id: 'bonus-info',
+            modalTitle: bonus.name,
+            modifier: 'info',
+            modalMessage: [
+                gettext('Full bonus info coming soon...'),
+            ],
+            dismissAll: true,
+        });
+    }
+
+    public chooseBonusNoBtn(bonus: Bonus, type: string): void {
+        if (!this.isChooseBtn) {
+            this.chooseBonus(bonus, type);
+        }
     }
 
     public chooseBonus(bonus: Bonus, type: string): void {
-        this.isChoose = true;
+        this.bonus.isChoose = true;
         this.eventService.emit({
             name: BonusItemComponentEvents[type],
             data: bonus,
         });
+        this.cdr.markForCheck();
     }
 
     public async getInventory(): Promise<void> {
@@ -142,6 +157,17 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
         this.bonus = await this.bonusesService.unsubscribeBonus(this.bonus);
         if (this.bonus) {
             this.cdr.markForCheck();
+        }
+    }
+
+    public getValueLengthClass(value: number): string {
+        const strLength = value.toString().length;
+        if (strLength > 5 && strLength < 9) {
+            return 'small';
+        } else if (strLength >= 9) {
+            return 'smaller';
+        } else {
+            return 'default';
         }
     }
 

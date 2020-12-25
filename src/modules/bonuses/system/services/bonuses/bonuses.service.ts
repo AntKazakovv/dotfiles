@@ -69,7 +69,7 @@ export class BonusesService {
     private profile = this.userService.userProfile;
     private useForbidUserFields = this.configService.get<boolean>('$loyalty.useForbidUserFields');
     private depEvents = ['deposit', 'deposit first', 'deposit repeated', 'deposit sum'];
-    private regEvents = ['deposit', 'deposit first', 'deposit repeated', 'deposit sum', 'registration'];
+    private regEvents = ['deposit first', 'registration'];
 
     constructor(
         private dataService: DataService,
@@ -146,7 +146,7 @@ export class BonusesService {
                 case 'promocode':
                     return hasPromoCode && !selected;
                 case 'inventory':
-                    return inventoried && selected && !active;
+                    return inventoried && !active;
                 case 'active':
                     return bonus.isActive;
             }
@@ -494,6 +494,14 @@ export class BonusesService {
             {name: 'BONUS_SUBSCRIBE_SUCCEEDED'},
         ], (data: IData) => {
             if (data?.data?.event === 'sign up') {
+                this.updateSubscribers();
+            }
+        });
+
+        this.eventService.subscribe([
+            {name: 'BONUS_UNSUBSCRIBE_SUCCEEDED'},
+        ], (data: IData) => {
+            if (data?.data?.inventoried) {
                 this.updateSubscribers();
             }
         });
