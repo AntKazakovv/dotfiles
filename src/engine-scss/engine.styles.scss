@@ -9,3 +9,8 @@ body {
     //scale body when device width < 375px
     min-width: 375px;
 }
+
+// LAYOUTS
+
+// Profile
+@import './layouts/profile/profile';

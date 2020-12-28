@@ -1,0 +1,47 @@
+@use 'engine-scss/functions' as ef;
+
+$customMainInfoThemeDefault: () !default;
+$mainInfoThemeDefault: map-merge((
+    'sectionColGap': (
+        1024: ef.get('size', 'big'),
+    ),
+    'formRowGap': (
+        375: ef.get('size', 'smaller'),
+        768: ef.get('size', 'smally'),
+    ),
+    'labelColor': (
+        375: ef.get('color', 'text'),
+        768: ef.get('color', 'text'),
+    ),
+    'saveButtonShift': ef.get('size', 'main') - ef.get('size', 'smaller'),
+    'saveButtonAlign': (
+        375: center,
+        1024: end,
+    ),
+    'formMaxWidth': (
+        768: 768px,
+    ),
+    'inputWidth': (
+        768: 70%,
+    ),
+    'labelFontSize': (
+        768: ef.get('font', 'main'),
+    ),
+    'labelFontWeight': (
+        768: bold,
+    ),
+    'maxFormWidth': (
+        1024: 765px,
+    ),
+
+    'addBlockGap': ef.get('size', 'less'),
+    'addTitleFontSize': ef.get('font', 'smaller'),
+    'addTitleColor': ef.get('color', 'text'),
+    'addItemGap': ef.get('size', 'smaller'),
+    'addItemTitleMainFontSize': ef.get('font', 'main'),
+    'addItemTitleMainColor': ef.get('color', 'text'),
+    'addItemTitleSecondFontSize': ef.get('font', 'smaller'),
+    'addItemTitleSecondColor': ef.get('color', 'text'),
+    'addItemLinkFontSize': ef.get('font', 'main'),
+    'addItemLinkColor': ef.get('color', 'text'),
+), $customMainInfoThemeDefault);

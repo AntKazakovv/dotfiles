@@ -1,15 +1,26 @@
 import {CustomType, IComponentParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {IFormWrapperCParams} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
 import {ISelectParams} from 'wlc-engine/modules/core';
+import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;
+export type AdditionalBlockItemsType = 'emailNotification' | 'passwordRestore' | 'bankingInfo';
+
+export interface IAdditionalBlock {
+    title: string;
+    use: boolean;
+}
 
 export interface IProfileFormCParams extends IComponentParams<ComponentTheme, ComponentType, string> {
+    common?: {
+        additionalBlockItems?: AdditionalBlockItemsType[],
+    },
 }
 
 export const defaultParams: IProfileFormCParams = {
     class: 'wlc-profile-form',
+    common: {},
 };
 
 export const profileForm: IFormWrapperCParams = {
@@ -155,4 +166,15 @@ export const profileForm: IFormWrapperCParams = {
             },
         },
     ],
+};
+
+export const AdditionalBlock: IIndexing<IAdditionalBlock> = {
+    subscriptions: {
+        title: gettext('Subscriptions'),
+        use: true,
+    },
+    security: {
+        title: gettext('Security'),
+        use: true,
+    },
 };

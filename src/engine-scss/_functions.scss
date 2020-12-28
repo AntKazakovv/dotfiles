@@ -3,17 +3,27 @@
 @function get($map, $name) {
     @if ($map == 'color') {
         @return map-get(ev.$color, $name);
-    } @else if($map == 'size') {
+    } @else if ($map == 'size') {
         @return map-get(ev.$size, $name);
-    } @else if($map == 'radius') {
+    } @else if ($map == 'radius') {
         @return map-get(ev.$radius, $name);
-    } @else if($map == 'font') {
+    } @else if ($map == 'font') {
         @return map-get(ev.$font, $name);
-    } @else if($map == 'breakpoint') {
+    } @else if ($map == 'breakpoint') {
         @return map-get(ev.$grid-breakpoints, $name);
-    } @else if($map == 'time') {
+    } @else if ($map == 'time') {
         @return map-get(ev.$time, $name);
-    } @else if($map == 'custom') {
+    } @else if ($map == 'custom') {
         @return map-get(ev.$customVars, $name);
+    } @else if ($map == 'form') {
+        @return map-get(ev.$form, $name);
+    }
+}
+
+@function get-value($map, $name, $breakpoint: 375) {
+    @if (type-of(map-get($map, $name)) == map and map-has-key(map-get($map, $name), $breakpoint)) {
+        @return map-get(map-get($map, $name), $breakpoint);
+    } @else {
+        @return map-get($map, $name);
     }
 }

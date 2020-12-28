@@ -1,5 +1,53 @@
 @use 'engine-scss/functions' as ef;
 
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'errorColor': ef.get('form', 'errorColor'),
+    'successColor': ef.get('form', 'successColor'),
+
+    'maxWidth': ef.get('form', 'maxWidth'),
+
+    'labelFontWeight': ef.get('form', 'labelFontWeight'),
+    'labelColor': ef.get('form', 'labelColor'),
+    'labelFontSize': ef.get('form', 'labelFontSize'),
+    'labelGap': ef.get('size', 'small'),
+
+    'selectColor': ef.get('form', 'inputColor'),
+    'selectBackground': ef.get('form', 'inputBackground'),
+    'selectMaxWidth': ef.get('form', 'inputMaxWidth'),
+    'selectHeight': ef.get('form', 'inputHeight'),
+    'selectBorder': ef.get('form', 'inputBorder'),
+    'selectBorderFocusColor': ef.get('form', 'inputBorderFocusColor'),
+    'selectBorderRadius': ef.get('form', 'inputBorderRadius'),
+    'selectPadding': ef.get('form', 'inputPadding'),
+    'selectTextAlign': ef.get('form', 'inputTextAlign'),
+
+    'selectDropdownHeight': ef.get('form', 'selectDropdownHeight'),
+    'selectDropdownBorder': ef.get('form', 'inputBorder'),
+    'selectDropdownBorderRadius': ef.get('form', 'inputBorderRadius'),
+    'selectDropdownBackground': ef.get('form', 'inputBackground'),
+
+    'selectDropdownItemPadding': ef.get('form', 'inputPadding'),
+    'selectDropdownItemColor': ef.get('form', 'inputColor'),
+    'selectDropdownItemTransition': ef.get('form', 'selectDropdownItemTransition'),
+
+    'selectArrowColor': ef.get('form', 'selectArrowColor'),
+    'iconWidth': ef.get('form', 'iconWidth'),
+    'iconHeight': ef.get('form', 'iconHeight'),
+    'iconRightShift': ef.get('form', 'iconRightShift'),
+    'successIconColor': ef.get('form', 'successIconColor'),
+    'errorIconColor': ef.get('form', 'errorIconColor'),
+    'pendingIconColor': ef.get('form', 'pendingIconColor'),
+
+    'errorsBgColor': ef.get('form', 'errorsBgColor'),
+    'errorsColor': ef.get('form', 'errorsColor'),
+    'errorsMinWidth': ef.get('form', 'errorsMinWidth'),
+    'errorsMaxWidth': ef.get('form', 'errorsMaxWidth'),
+    'errorsBorderRadius': ef.get('form', 'errorsBorderRadius'),
+    'errorsFontSize': ef.get('form', 'errorsFontSize'),
+    'errorsPadding': ef.get('form', 'errorsPadding'),
+), $customThemeDefault);
+
 $errorColor: #f12e74 !default;
 $successColor: #27bb37 !default;
 

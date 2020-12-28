@@ -30,6 +30,9 @@ export class TitleComponent extends AbstractComponent implements OnInit, AfterVi
     public $params: Params.ITitleCParams;
     public ready: boolean;
 
+    @Input() public mainTag: Params.TagType;
+    @Input() public secondTag: Params.TagType;
+
     @Input() protected mainText: Params.TextType;
     @Input() protected secondText: Params.TextType;
     @Input() protected type: Params.Type;
@@ -91,6 +94,12 @@ export class TitleComponent extends AbstractComponent implements OnInit, AfterVi
         }
         if (!this.secondText) {
             this.secondText = this.$params.secondText;
+        }
+        if (!this.mainTag) {
+            this.mainTag = this.$params.common.mainTag;
+        }
+        if (!this.secondTag) {
+            this.secondTag = this.$params.common.secondTag;
         }
     }
 
