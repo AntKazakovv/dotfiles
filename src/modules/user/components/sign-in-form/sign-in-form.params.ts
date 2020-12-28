@@ -26,6 +26,8 @@ export interface ISignInFormCParams extends IComponentParams<ComponentTheme, Com
 
 export const defaultParams: ISignInFormCParams = {
     class: 'wlc-sign-in-form',
+    moduleName: 'user',
+    componentName: 'wlc-sign-in-form',
 };
 
 export const signInFormConfig: IFormWrapperCParams = {

@@ -29,7 +29,11 @@
     </div>
     <div class="{{$class}}__more"
          *ngIf="!hideShowMoreBtn && gamesCount < filteredGames?.length">
-        <button wlc-button [text]="'Load more games' | translate" [themeMod]="'secondary'" *ngIf="!useLazy"
+        <button wlc-button
+                [wlcElement]="'button_load-more-games'"
+                [text]="'Load more games'"
+                [themeMod]="'secondary'"
+                *ngIf="!useLazy"
                 (click)="loadMore()"></button>
     </div>
     <ng-template #noGames>

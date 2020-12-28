@@ -8,23 +8,8 @@
         @include buttonBase;
         border-radius: $radius;
 
-        @media (hover: hover) {
-
-            &:hover {
-                box-shadow: $shadow;
-            }
-        }
-
         &.wlc-btn--theme-mod-secondary {
             @include buttonTransparency;
-
-            @media (hover: hover) {
-
-                &:hover {
-                    box-shadow: unset;
-                    background: $backgroundHover;
-                }
-            }
         }
     }
 }

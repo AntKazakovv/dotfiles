@@ -185,8 +185,7 @@ export class GamesCatalogService {
             game.isFavourite = !!response.data.favorite;
             if (game.isFavourite) {
                 this.favourites.push(game.ID);
-            }
-            else {
+            } else {
                 this.favourites = this.favourites.filter((item) => item !== game.ID);
             }
         }
@@ -364,7 +363,7 @@ export class GamesCatalogService {
      * @returns {boolean}
      */
     public catalogOpened(): boolean {
-        return _startsWith(this.router.stateService.current.name,'app.catalog');
+        return _startsWith(this.router.stateService.current.name, 'app.catalog');
     }
 
     /**

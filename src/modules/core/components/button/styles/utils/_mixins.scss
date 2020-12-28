@@ -1,5 +1,6 @@
 @use 'engine-scss/functions' as ef;
 @use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/base.mixins' as bm;
 @import './vars';
 
 @mixin buttonBase {
@@ -22,6 +23,16 @@
         grid-column: 2;
         text-transform: $textTransform;
     }
+
+    @media (hover: hover) {
+
+        &:hover {
+            color: $colorDefaultHover;
+            border: $borderDefaultHover;
+            background: $backgroundHover;
+            @include bm.transition;
+        }
+    }
 }
 
 @mixin buttonTransparency {
@@ -29,8 +40,11 @@
     border: $borderSecondary;
     color: $fontColorSecondary;
 
-    &:hover {
-        background: transparentize($backgroundHover, 0.7);
-        color: $fontColorActiveSecondary;
+    @media (hover: hover) {
+
+        &:hover {
+            background: transparentize($backgroundHover, 0.7);
+            color: $fontColorActiveSecondary;
+        }
     }
 }

@@ -1,30 +1,37 @@
 @use 'engine-scss/functions' as ef;
 
-$transition: 0.5s !default;
-$thumbBorderRadius: ef.get('radius', 'biger') !default;
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'placeholderBg': darken(ef.get('color', 'background'), 1.5),
+    'placeholderBgImg': url('/static/images/logo.svg'),
+    'placeholderBgImgSize': 80%,
+    'thumbBorderRadius': ef.get('radius', 'biger'),
+    'thumbPadding': 8px,
+    'thumbHoverBg': rgba(0, 0, 0, 0.8),
+    'thumbNameColor': #fff,
+    'thumbNameSize': 16px,
+    'thumbNameWeight': bold,
+    'thumbNamePosition': center,
+    'thumbNameLineHeight': 22px,
+    'btnJustifyContent': space-between,
+    'btnAlignItems': flex-end,
+    'btnMarginItems': 0 auto,
+    'thumbBtnPosition': horizontal,
+    'favoritePosition': left,
+    'favoriteBg': #aaa,
+    'favoriteHoverBg': #87cf3f,
+    'favoriteActiveBg': #87cf3f,
+    'favoriteSize': 25px,
+    'favoriteBackBg': #555459,
+    'favoriteBackSize': 40px,
+    'favoriteBackRadius': ef.get('radius', 'small'),
+    'favoriteBoxShadow': 0 4px 15px rgba(0, 190, 225, 0.5),
+), $customThemeDefault);
 
-$thumbPadding: 8px !default;
-$thumbHoverBgColor: #833f00 !default;
-$thumbHoverBg: linear-gradient(180deg, rgba(35, 36, 38, 0.7) 40%, $thumbHoverBgColor 90.25%), !default;
+$customThemeDefaultCircle: () !default;
+$themeDefaultModCircle: map-merge((
+    'btnSize': 86px,
+    'btnBorder': 4px solid #fff,
+    'btnDemoColor': #fff,
+), $customThemeDefaultCircle);
 
-$favoritePosition: left !default; //none (left), flex-end(right);
-$favoriteBg: #aaa !default;
-$favoriteHoverBg: #87cf3f !default;
-$favoriteActiveBg: #87cf3f !default;
-$favoriteSize: 25px !default;
-$favoriteBackBg: #555459 !default;
-$favoriteBackSize: 40px !default;
-$favoriteBackRadius: ef.get('radius', 'small') !default;
-$favoriteBoxShadow: 0 4px 15px rgba(0, 190, 225, 0.5) !default;
-
-$iconColor: ef.get('color', 'textSecondary') !default;
-
-$thumbNameColor: #fff !default;
-$thumbNameSize: 16px !default;
-$thumbNameWeight: bold !default;
-$thumbNamePosition: center !default;
-
-$btnJustifyContent: space-between !default;
-$btnAlignItems: flex-end !default;
-
-$thumbBtnPosition: horizontal !default; //horizontal (default), vertical

@@ -1,68 +1,85 @@
 .wlc-game-thumb--theme-default:host {
-    height: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    height: 0;
+    padding-top: 75%;
+    background: {
+        color: map-get($themeDefault, 'placeholderBg');
+        image: map-get($themeDefault, 'placeholderBgImg');
+        position: center;
+        size: map-get($themeDefault, 'placeholderBgImgSize');
+        repeat: no-repeat;
+    }
+    border-radius: map-get($themeDefault, 'thumbBorderRadius');
 
-    .wlc-game-thumb {
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-template-rows: 1fr;
-        justify-content: center;
-        align-items: center;
-        height: 100%;
-        background: {
-            color: darken(ef.get('color', 'background'), 1.5);
-            image: url('/static/images/logo.svg');
-            position: center;
-            size: 80%;
-            repeat: no-repeat;
-        }
-        border-radius: $thumbBorderRadius;
-        overflow: hidden;
+    @media (hover: hover) {
 
         &:hover {
 
             .wlc-game-thumb__desc {
                 opacity: 1;
-                visibility: visible;
-                transition: $transition;
+                transform: translateX(0) skewX(0);
+                @include bm.transition(all, 0.4s);
+            }
+
+            .wlc-game-thumb__img {
+
+                img {
+                    filter: blur(3px);
+                    @include bm.transition(all, 0.4s);
+                }
             }
         }
+    }
+
+    .wlc-game-thumb {
 
         &__img {
-            grid-area: 1 / 1 / 2 / 2;
-            transition: $transition;
+            position: absolute;
+            top: 0;
+            left: 0;
 
             img {
+                display: block;
                 width: 100%;
                 height: 100%;
             }
         }
 
         &__desc {
-            display: grid;
-            grid-template-rows: 45% 45%;
-            grid-gap: 15px;
-            grid-area: 1 / 1 / 2 / 2;
-            background: $thumbHoverBg;
-
+            z-index: 2;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform: translateX(-100%) skewX(35deg);
+            display: none;
+            padding: map-get($themeDefault, 'thumbPadding');
             height: 100%;
-            padding: $thumbPadding;
-
-            z-index: 1;
-
+            width: 100%;
+            background: map-get($themeDefault, 'thumbHoverBg');
+            border-radius: map-get($themeDefault, 'thumbBorderRadius');
+            backdrop-filter: blur(2px);
             opacity: 0;
-            visibility: hidden;
-            transition: $transition;
+            @include bm.transition(all, 0.4s);
 
-            @include mq.max(900) {
-                grid-template-rows: 1fr;
+            @include mq.min(768) {
+                display: grid;
+                grid: {
+                    template-rows: 1fr auto;
+                }
             }
         }
 
-        &__head {
+        &__title {
+            position: relative;
             display: grid;
-            grid-template-columns: 1fr;
-            grid-template-rows: auto 1fr;
-            grid-gap: 15px;
+            grid: {
+                template-columns: 1fr;
+                template-rows: 1fr;
+            }
             justify-content: center;
 
             @include mq.max(900) {
@@ -72,29 +89,37 @@
 
         &__name {
             display: flex;
+            align-items: center;
             justify-content: center;
 
-            color: $thumbNameColor;
+            color: map-get($themeDefault, 'thumbNameColor');
             font: {
-                size: $thumbNameSize;
-                weight: $thumbNameWeight;
+                size: map-get($themeDefault, 'thumbNameSize');
+                weight: map-get($themeDefault, 'thumbNameWeight');
             }
-            text-align: $thumbNamePosition;
-            line-height: 22px;
+            text-align: map-get($themeDefault, 'thumbNamePosition');
+            line-height: map-get($themeDefault, 'thumbNameLineHeight');
 
             @include mq.max(900) {
                 align-items: center;
             }
         }
 
+        &__merchant {
+            color: map-get($themeDefault, 'thumbNameColor');
+        }
+
         &__icon {
+            position: absolute;
+            top: 0;
+            left: 0;
             display: flex;
-            justify-self: $favoritePosition;
-            width: $favoriteBackSize;
-            height: $favoriteBackSize;
-            border-radius: $favoriteBackRadius;
-            background-color: $favoriteBackBg;
-            box-shadow: $favoriteBoxShadow;
+            justify-self: map-get($themeDefault, 'favoritePosition');
+            width: map-get($themeDefault, 'favoriteBackSize');
+            height: map-get($themeDefault, 'favoriteBackSize');
+            border-radius: map-get($themeDefault, 'favoriteBackRadius');
+            background-color: map-get($themeDefault, 'favoriteBackBg');
+            box-shadow: map-get($themeDefault, 'favoriteBoxShadow');
 
             &.wlc-icon::ng-deep {
 
@@ -108,21 +133,23 @@
 
                 svg,
                 path {
-                    width: $favoriteSize;
-                    height: $favoriteSize;
+                    width: map-get($themeDefault, 'favoriteSize');
+                    height: map-get($themeDefault, 'favoriteSize');
 
-                    fill: none;
-                    stroke: $iconColor;
-                    transition: $transition;
+                    fill: map-get($themeDefault, 'favoriteBg');
+                    @include bm.transition;
                 }
 
-                &:hover {
-                    cursor: pointer;
+                @media (hover: hover) {
 
-                    svg,
-                    path {
-                        fill: $iconColor;
-                        transition: $transition;
+                    &:hover {
+                        cursor: pointer;
+
+                        svg,
+                        path {
+                            fill: map-get($themeDefault, 'favoriteHoverBg');
+                            @include bm.transition;
+                        }
                     }
                 }
             }
@@ -131,59 +158,148 @@
 
                 svg,
                 path {
-                    fill: $iconColor;
-                    stroke: none;
+                    fill: map-get($themeDefault, 'favoriteActiveBg');
+                    @include bm.transition;
                 }
-            }
-
-            @include mq.max(900) {
-                display: none;
             }
         }
 
         &__buttons {
-            display: flex;
-            justify-content: $btnJustifyContent;
-            align-items: $btnAlignItems;
+            display: none;
+            grid: {
+                template-columns: auto;
+                auto-flow: column;
+                gap: 10px;
+            }
+            align-items: map-get($themeDefault, 'btnAlignItems');
+            margin: map-get($themeDefault, 'btnMarginItems');
 
-            @include mq.max(900) {
-                display: none;
+            @include mq.min(768) {
+                display: grid;
             }
 
-            button {
+            ::ng-deep {
 
-                &:first-child {
-                    margin-right: auto;
+                .wlc-icon {
+                    display: none;
                 }
-
-                &:last-child {
-                    margin-left: auto;
-                }
-            }
-
-            @include verticalBtn;
-
-            @include mq.max(900) {
-                display: none;
             }
         }
     }
 
-    .wlc-modal--play-game-for-real & {
-        margin: 40px 0px;
+    &.wlc-game-thumb--theme-mod-vertical {
 
-        .wlc-game-thumb__desc {
-            visibility: visible;
-            opacity: 1;
-            background: none;
+        .wlc-game-thumb {
+
+            &__icon {
+                position: relative;
+                margin-right: 12px;
+            }
+
+            &__title {
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+            }
+
+            &__desc {
+                grid: {
+                    template-rows: 20% 1fr;
+                    gap: 10px;
+                }
+            }
+
+            &__buttons {
+                display: flex;
+                flex-direction: column;
+                align-items: stretch;
+                justify-content: center;
+            }
+        }
+    }
+
+    &.wlc-game-thumb--theme-mod-circle {
+
+        @media (hover: hover) {
+
+            &:hover {
+
+                .wlc-game-thumb {
+
+                    &__buttons {
+                        height: auto;
+                        opacity: 1;
+                        overflow: initial;
+                        @include bm.transition;
+                    }
+
+                    &__name,
+                    &__merchant {
+                        display: none;
+                    }
+
+                    &__desc {
+                        background: map-get($themeDefault, 'thumbHoverBg');
+                        @include bm.transition(background);
+                    }
+                }
+            }
         }
 
-        .wlc-game-thumb__name {
-            display: none;
+        .wlc-game-thumb {
+
+            &__buttons {
+                height: 0;
+                opacity: 0;
+                overflow: hidden;
+                grid-template-columns: 1fr;
+            }
+
+            &__desc {
+                display: flex;
+                align-items: flex-end;
+                justify-content: flex-start;
+                opacity: 1;
+                visibility: visible;
+                background: map-get($themeDefault, 'thumbHoverBg');
+            }
         }
 
-        .wlc-game-thumb__icon {
-            display: flex;
+        .wlc-btn {
+
+            &--play {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: map-get($themeDefaultModCircle, 'btnSize');
+                height: map-get($themeDefaultModCircle, 'btnSize');
+                min-width: auto;
+                margin: 0 auto;
+                font-size: 0;
+                border-radius: 50%;
+                border: map-get($themeDefaultModCircle, 'btnBorder');
+                color: transparent;
+
+                ::ng-deep {
+
+                    .wlc-icon {
+                        display: flex;
+                    }
+                }
+            }
+
+            &--demo {
+                background: none;
+                color: map-get($themeDefaultModCircle, 'btnDemoColor');
+
+                @media (hover: hover) {
+
+                    &:hover {
+                        box-shadow: none;
+                        text-decoration: underline;
+                    }
+                }
+            }
         }
     }
 }

@@ -23,7 +23,7 @@ import {
 import {fromEvent} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
-import {EventService} from 'wlc-engine/modules/core/system/services';
+import {ActionService, EventService} from 'wlc-engine/modules/core/system/services';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {
     defaultParams,
@@ -104,6 +104,7 @@ export class GamesGridComponent extends AbstractComponent
         protected configService: ConfigService,
         protected renderer: Renderer2,
         protected transition: TransitionService,
+        protected actionService: ActionService,
     ) {
         super({injectParams, defaultParams}, configService);
     }
@@ -147,10 +148,6 @@ export class GamesGridComponent extends AbstractComponent
         this.filteredGames = this.games;
 
         this.cdr.detectChanges();
-
-        // this.currentLanguage = _find(this.configService.get<ILanguage[]>('appConfig.languages'), {
-        //     code: this.translate.currentLang,
-        // });
     }
 
     public ngAfterViewInit(): void {
@@ -182,15 +179,14 @@ export class GamesGridComponent extends AbstractComponent
         this.checkGamesLength();
         this.setPlaceHolders();
         this.lazyReady = true;
-        this.cdr.detectChanges();
-    }
 
-    // TODO: to delete this test
-    public changeGames(): void {
-        this.games = this.games.slice(0, 12);
-        this.moreButtonChangeState(false);
-        this.checkGamesLength();
-        this.setPlaceHolders();
+        setTimeout(() => {
+            this.elementRef.nativeElement.scrollIntoView({
+                behavior: 'smooth',
+                block: 'end',
+            });
+        }, 500);
+        this.cdr.detectChanges();
     }
 
     protected initScrollListener(): void {

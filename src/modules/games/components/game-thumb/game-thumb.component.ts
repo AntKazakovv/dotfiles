@@ -1,4 +1,11 @@
-import {Component, Inject, Input, OnInit, ChangeDetectorRef} from '@angular/core';
+import {
+    Component,
+    Inject,
+    Input,
+    OnInit,
+    ChangeDetectorRef,
+    HostBinding,
+} from '@angular/core';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {Game} from 'wlc-engine/modules/games/system/models/game.model';
 import {GamesCatalogService} from 'wlc-engine/modules/games';
@@ -8,7 +15,10 @@ import * as Params from './game-thumb.params';
 import {EventService, ModalService} from 'wlc-engine/modules/core/system/services';
 import {IPlayGameForRealCParams} from 'wlc-engine/modules/games/components/play-game-for-real/play-game-for-real.params';
 import {UserService} from 'wlc-engine/modules/user/system/services';
-import {ActionService, DeviceType} from 'wlc-engine/modules/core';
+import {
+    ActionService,
+    DeviceType,
+} from 'wlc-engine/modules/core';
 
 import {
     takeUntil,
@@ -16,7 +26,6 @@ import {
 
 import {
     assign as _assign,
-    clone as _clone,
 } from 'lodash';
 
 @Component({
@@ -28,9 +37,12 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
 
     @Input() public game: Game;
     @Input() protected inlineParams: Params.IGameThumbCParams;
-
+    @HostBinding('attr.data-wlc-element') protected wlcElement;
+    @HostBinding('class.no-demo') protected noDemoClass;
     public gameThumbSettings: IIndexing<IIndexing<string> | string> = {
-        buttons: {},
+        buttons: {
+            demoThemeMode: 'secondary',
+        },
     };
     public isAuth: boolean;
     public $params: Params.IGameThumbCParams;
@@ -60,6 +72,8 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
             this.game = this.$params.common.game;
         }
 
+        this.wlcElement = `block_game-thumb-id-${this.game.ID}`;
+        this.noDemoClass = !!this.game.hasDemo;
         const buttonParams = this.configService
             .get<string>('$modules.games.components.wlc-game-thumb.buttons');
         if (buttonParams) {
@@ -97,7 +111,6 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
                 });
                 return;
             }
-            return;
         }
 
         this.modalService.closeAllModals();
