@@ -16,7 +16,7 @@ import {defaultParams, IBannerParams} from 'wlc-engine/modules/promo/components/
  *
  */
 @Component({
-    selector: '[banner]',
+    selector: '[wlc-banner]',
     templateUrl: './banner.component.html',
     styleUrls: ['./banner.component.scss'],
 })
