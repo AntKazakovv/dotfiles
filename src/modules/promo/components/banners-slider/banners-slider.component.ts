@@ -72,5 +72,4 @@ export class BannersSliderComponent extends AbstractComponent implements OnInit 
     protected getBanners(): BannerModel[] {
         return this.bannerService.getBanners(this.$params.filter || {});
     }
-
 }
