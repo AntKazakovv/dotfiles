@@ -1,6 +1,7 @@
 import {
     Type,
     ComponentRef,
+    TemplateRef,
 } from '@angular/core';
 import {WlcModalComponent} from './index';
 import {IComponentParams} from 'wlc-engine/modules/core/system/interfaces/config.interface';
@@ -48,15 +49,17 @@ export interface IModalConfig extends IModalBsOptions {
      */
     modalTitle?: string;
     /**
-     * If use component param is used, `modalMessage` param is ignored
+     * Allow to insert Component
      */
     component?: Type<unknown>;
-    /**
-     * Injected params for component
-     */
     componentParams?: unknown;
     /**
-     * String or array of strings
+     * Allow to insert TemplateRef
+     */
+    templateRef?: TemplateRef<unknown>;
+    templateRefParams?: unknown;
+    /**
+     * Allow to insert html string
      */
     modalMessage?: string | string[];
     /**

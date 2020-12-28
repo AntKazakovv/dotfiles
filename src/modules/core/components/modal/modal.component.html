@@ -22,8 +22,16 @@
             </button>
         </div>
 
-        <div class="wlc-modal__body">
-            <ng-container *ngTemplateOutlet="$params.config.component ? component : message"></ng-container>
+        <div class="wlc-modal__body" [ngSwitch]="getType()">
+            <ng-container *ngSwitchCase="'component'"
+                [ngTemplateOutlet]="component">
+            </ng-container>
+            <ng-container *ngSwitchCase="'templateRef'"
+                [ngTemplateOutlet]="template">
+            </ng-container>
+            <ng-container *ngSwitchCase="'message'"
+                [ngTemplateOutlet]="message">
+            </ng-container>
         </div>
 
         <div class="wlc-modal__footer" *ngIf='$params.config.showFooter'>
@@ -46,6 +54,13 @@
     <ng-container
         [ngComponentOutlet]="$params.config.component"
         [ngComponentOutletInjector]="inject"
+    ></ng-container>
+</ng-template>
+
+<ng-template #template>
+    <ng-container
+        [ngTemplateOutlet]="$params.config.templateRef"
+        [ngTemplateOutletContext]="$params.config.templateRefParams"
     ></ng-container>
 </ng-template>
 

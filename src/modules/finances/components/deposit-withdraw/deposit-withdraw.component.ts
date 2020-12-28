@@ -2,6 +2,8 @@ import {Component, OnInit, Inject} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {CurrencyPipe} from '@angular/common';
 import {StateService} from '@uirouter/core';
+import {FormGroup} from '@angular/forms';
+
 import {
     AbstractComponent,
     IIndexing,
@@ -13,12 +15,12 @@ import {
     ISelectParams,
     IInputCParams,
 } from 'wlc-engine/modules/core';
-
-import {IPaymentAdditionalParam, PaymentSystem} from 'wlc-engine/modules/finances/system/models/payment-system.model';
+import {
+    IPaymentAdditionalParam,
+    PaymentSystem
+} from 'wlc-engine/modules/finances/system/models/payment-system.model';
 import {FinancesService} from 'wlc-engine/modules/finances/system/services';
-
-import {IPaymentListParams} from './../payment-list/payment-list.params';
-import {FormGroup} from '@angular/forms';
+import {IPaymentListParams} from 'wlc-engine/modules/finances/components/payment-list/payment-list.params';
 
 import * as Params from './deposit-withdraw.params';
 
