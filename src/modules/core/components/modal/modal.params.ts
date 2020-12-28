@@ -2,6 +2,7 @@ import {SearchComponent} from 'wlc-engine/modules/games/components/search/search
 import {SignUpFormComponent} from 'wlc-engine/modules/user/components/sign-up-form/sign-up-form.component';
 import {SignInFormComponent} from 'wlc-engine/modules/user/components/sign-in-form/sign-in-form.component';
 import {ChangePasswordFormComponent} from 'wlc-engine/modules/user/components/change-password-form/change-password-form.component';
+import {NewPasswordFormComponent} from 'wlc-engine/modules/user/components/new-password-form/new-password-form.component';
 import {RestorePasswordFormComponent} from 'wlc-engine/modules/user/components/restore-password-form/restore-password-form.component';
 import {LogoutComponent} from 'wlc-engine/modules/user/components/logout/logout.component';
 import {
@@ -69,6 +70,17 @@ export const MODALS_LIST: IModalList = {
             dismissAll: true,
         },
     },
+    newPassword: {
+        config: {
+            id: 'new-password',
+            modifier: 'new-password',
+            component: NewPasswordFormComponent,
+            size: 'md',
+            backdrop: 'static',
+            showFooter: false,
+            dismissAll: true,
+        },
+    },
     restorePassword: {
         config: {
             id: 'restore-password',
@@ -105,6 +117,6 @@ export const MODALS_LIST: IModalList = {
             size: 'md',
             backdrop: 'static',
             showFooter: false,
-        }
-    }
+        },
+    },
 };

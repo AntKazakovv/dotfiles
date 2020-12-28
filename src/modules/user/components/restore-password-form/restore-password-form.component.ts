@@ -2,12 +2,13 @@ import {
     Component,
     Inject,
     Input,
-    ChangeDetectorRef,
 } from '@angular/core';
 import {FormGroup} from '@angular/forms';
+
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ModalService} from 'wlc-engine/modules/core/system/services';
 import {UserService} from 'wlc-engine/modules/user/system/services';
+
 import * as Params from './restore-password-form.params';
 
 import {
@@ -38,7 +39,6 @@ export class RestorePasswordFormComponent extends AbstractComponent {
     constructor(
         @Inject('injectParams') protected injectParams: Params.IRestorePasswordFormCParams,
         protected userService: UserService,
-        protected cdr: ChangeDetectorRef,
         protected modalService: ModalService,
     ) {
         super({
@@ -51,7 +51,14 @@ export class RestorePasswordFormComponent extends AbstractComponent {
         const {email} = form.value;
 
         try {
-            await this.userService.sendPasswordRestore(email);
+            const response = await this.userService.sendPasswordRestore(email);
+            // TODO change info message
+            this.modalService.showModal({
+                id: 'reset-password',
+                modalTitle: gettext('Password reset'),
+                dismissAll: true,
+                modalMessage: [response.data.result],
+            });
         } catch (error) {
             this.modalService.showError({
                 modalMessage: error.errors,

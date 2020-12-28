@@ -1,13 +1,25 @@
 import {Injectable} from '@angular/core';
-import {IIndexing, IUserInfo, IUserProfile} from 'wlc-engine/modules/core/system/interfaces';
-import {AppModule} from 'wlc-engine/modules/app/app.module';
-import {DataService, EventService} from 'wlc-engine/modules/core/system/services';
 import {TranslateService} from '@ngx-translate/core';
+import {
+    Subscription,
+    BehaviorSubject,
+} from 'rxjs';
+
+import {
+    DataService,
+    EventService,
+    ModalService,
+} from 'wlc-engine/modules/core/system/services';
+import {
+    IIndexing,
+    IUserInfo,
+    IUserProfile,
+} from 'wlc-engine/modules/core/system/interfaces';
+import {IData} from 'wlc-engine/modules/core/system/services/data/data.service';
 import {UserInfo} from 'wlc-engine/modules/user/system/models/info.model';
 import {UserProfile} from '../../models/profile.model';
 import {ConfigService} from 'wlc-engine/modules/core';
-import {Subscription, BehaviorSubject} from 'rxjs';
-import {IData} from 'wlc-engine/modules/core/system/services/data/data.service';
+
 
 import {
     each as _each,
@@ -50,37 +62,14 @@ export class UserService {
         public translate: TranslateService,
         protected dataService: DataService,
         protected eventService: EventService,
-        protected app: AppModule,
         protected configService: ConfigService,
+        protected modalService: ModalService,
     ) {
         this.isAuthenticated = this.configService.get('$user.isAuthenticated');
 
         this.registerMethods();
         this.info = new UserInfo(translate, eventService);
         this.profile = new UserProfile();
-        if (app.initialPath?.message) {
-            switch (app.initialPath.message) {
-                case 'SET_NEW_PASSWORD':
-                    //TODO
-                    break;
-                case 'COMPLETE_REGISTRATION':
-                    if (app.initialPath.code) {
-                        this.registrationComplete(app.initialPath.code);
-                    } else {
-                        //TODO modal
-                    }
-                    break;
-                case 'EMAIL_UNSUBSCRIBE':
-                    //TODO
-                    break;
-                case 'FINALIZE_SOCIAL_CONNECT':
-                    //TODO
-                    break;
-                // case 'FINALIZE_SOCIAL_REGISTRATION':
-                //     UserSocialRegisterService.init();
-                //     break;
-            }
-        }
 
         this.eventService.subscribe({
             name: 'USER_INFO',
@@ -203,9 +192,9 @@ export class UserService {
         return this.dataService.request('user/passwordRestore', params);
     }
 
-    public restoreNewPassword(newPassword: string, repeatPassword: string, code: string): void {
+    public restoreNewPassword(newPassword: string, repeatPassword: string, code: string):  Promise<IIndexing<any>> {
         const params = {newPassword, repeatPassword, code};
-        this.dataService.request('user/restoreNewPassword', params);
+        return this.dataService.request('user/restoreNewPassword', params);
     }
 
     public validateRestoreCode(code: string = ''): void {

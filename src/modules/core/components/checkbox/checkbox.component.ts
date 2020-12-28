@@ -4,10 +4,11 @@ import {
     Input,
     OnInit,
 } from '@angular/core';
-
 import {FormControl} from '@angular/forms';
-import {ConfigService} from 'wlc-engine/modules/core';
+
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes';
+import {ConfigService} from 'wlc-engine/modules/core';
+
 import * as Params from './checkbox.params';
 
 import {

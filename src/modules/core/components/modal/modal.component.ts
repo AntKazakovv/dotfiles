@@ -1,13 +1,13 @@
 import {
-    Component,
-    OnInit,
-    ViewEncapsulation,
     AfterViewInit,
-    OnDestroy,
+    Component,
+    HostListener,
     Injector,
     Inject,
-    HostListener,
     Input,
+    OnDestroy,
+    OnInit,
+    ViewEncapsulation,
     ViewChild,
 } from '@angular/core';
 
@@ -15,17 +15,22 @@ import {
     BsModalRef,
     ModalDirective,
 } from 'ngx-bootstrap/modal';
+
 import {
-    IModalOptions,
-    IModalBsOptions,
-    defaultParams,
-} from './index';
-import {EventService, ModalService} from 'wlc-engine/modules/core/system/services';
+    EventService,
+    ModalService,
+} from 'wlc-engine/modules/core/system/services';
 import {
     AbstractComponent,
     IMixedParams,
 } from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ConfigService} from 'wlc-engine/modules/core';
+
+import {
+    IModalOptions,
+    IModalBsOptions,
+    defaultParams,
+} from './index';
 
 import {
     assign as _assign,

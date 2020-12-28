@@ -1,13 +1,15 @@
 import {
     Component,
     Inject,
-    OnInit,
     Input,
+    OnInit,
 } from '@angular/core';
 import {FormControl} from '@angular/forms';
+
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import * as Params from 'wlc-engine/modules/core/components/input/input.params';
 import {ConfigService} from 'wlc-engine/modules/core';
+
+import * as Params from './input.params';
 
 import {
     union as _union,

@@ -1,12 +1,18 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {
+    Component,
+    Inject,
+    OnInit,
+} from '@angular/core';
+
+import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ModalService} from 'wlc-engine/modules/core/system/services';
+
+import * as Params from './login-signup.params';
 
 import {
     get as _get,
 } from 'lodash';
-import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 
-import * as Params from './login-signup.params';
 
 export {ILoginSignupCParams} from './login-signup.params';
 

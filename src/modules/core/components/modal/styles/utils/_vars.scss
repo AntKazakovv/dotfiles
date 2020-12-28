@@ -37,6 +37,9 @@ $backdropBackground: ef.get('color', 'backdropBackground') !default;
 $titleFontSize: 24px !default;
 $titleFontWeight: 700 !default;
 $titleMargin: 0 !default;
+$titleColor: ef.get('color', 'text') !default;
+
+$messageColor: ef.get('color', 'text') !default;
 
 $paddingDefault: 1.5rem 2rem;
 

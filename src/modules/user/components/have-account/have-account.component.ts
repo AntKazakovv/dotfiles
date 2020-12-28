@@ -4,9 +4,11 @@ import {
     Input,
     Inject,
 } from '@angular/core';
+
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ModalService} from 'wlc-engine/modules/core/system/services';
-import * as Params from 'wlc-engine/modules/user/components/have-account/have-account.params';
+
+import * as Params from './have-account.params';
 
 import {
     forEach as _forEach,

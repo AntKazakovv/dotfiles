@@ -2,15 +2,16 @@ import {
     Component,
     Inject,
     Input,
-    ChangeDetectorRef,
 } from '@angular/core';
 import {FormGroup} from '@angular/forms';
+
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {
     LogService,
     ModalService,
 } from 'wlc-engine/modules/core/system/services';
 import {UserService} from 'wlc-engine/modules/user/system/services';
+
 import * as Params from './sign-in-form.params';
 
 /**
@@ -37,7 +38,6 @@ export class SignInFormComponent extends AbstractComponent {
     constructor(
         @Inject('injectParams') protected injectParams: Params.ISignInFormCParams,
         protected userService: UserService,
-        protected cdr: ChangeDetectorRef,
         protected modalService: ModalService,
         protected logService: LogService,
     ) {
