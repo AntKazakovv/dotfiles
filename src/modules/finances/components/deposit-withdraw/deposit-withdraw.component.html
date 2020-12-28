@@ -1,14 +1,14 @@
-<h2 class="{{$class}}__title"
+<div class="{{$class}}__title"
     [ngSwitch]="$params.mode">
     <ng-container *ngSwitchCase="'deposit'">{{'Deposit' | translate}}</ng-container>
     <ng-container *ngSwitchCase="'withdraw'">{{'Withdrawal' | translate}}</ng-container>
-</h2>
+</div>
 
 <div class="{{$class}}__step {{$class}}__step--1">
-    <h3 class="{{$class}}__subtitle">
+    <div class="{{$class}}__subtitle">
         <div class="{{$class}}__subtitle-step">{{'Step' | translate}} 1</div>
         <div class="{{$class}}__subtitle-name"><span>1.</span> {{'Choose payment option' | translate}}</div>
-    </h3>
+    </div>
 
     <div wlc-payment-list
         [inlineParams]='listConfig'
@@ -19,10 +19,10 @@
 <div class="{{$class}}__divider"></div>
 
 <div class="{{$class}}__step {{$class}}__step--2">
-    <h3 class="{{$class}}__subtitle">
+    <div class="{{$class}}__subtitle">
         <div class="{{$class}}__subtitle-step">{{'Step' | translate}} 2</div>
-        <div class="{{$class}}__subtitle-name"><span>1.</span> {{'Payment information' | translate}}</div>
-    </h3>
+        <div class="{{$class}}__subtitle-name"><span>2.</span> {{'Payment information' | translate}}</div>
+    </div>
 
     <div class="{{$class}}__fields-error" *ngIf="!checkUserProfileForPayment()">
         <p class="{{$class}}__fields-message">{{'Payment method isn\'t available. Please fill in the following profile fields' | translate}}:</p>

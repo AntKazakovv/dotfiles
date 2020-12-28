@@ -6,7 +6,7 @@ import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     ViewChild,
-    TemplateRef,
+    TemplateRef, ElementRef,
 } from '@angular/core';
 import {
     map,
@@ -14,6 +14,12 @@ import {
     takeUntil,
 } from 'rxjs/operators';
 import {fromEvent} from 'rxjs';
+import {
+    animate,
+    style,
+    transition,
+    trigger,
+} from '@angular/animations';
 
 import {
     AbstractComponent,
@@ -34,11 +40,20 @@ import {
     isString as _isString,
 } from 'lodash';
 
+
 @Component({
     selector: '[wlc-payment-list]',
     templateUrl: './payment-list.component.html',
     styleUrls: ['./styles/payment-list.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    animations: [
+        trigger('appearance', [
+            transition(':enter', [
+                style({opacity: 0, transform: 'translateY(-20px)'}),
+                animate('0.8s', style({opacity: 1, transform: 'translateY(0)'})),
+            ]),
+        ]),
+    ],
 })
 export class PaymentListComponent extends AbstractComponent implements OnInit {
 
@@ -60,6 +75,7 @@ export class PaymentListComponent extends AbstractComponent implements OnInit {
         protected eventService: EventService,
         protected modalService: ModalService,
         protected actionService: ActionService,
+        protected hostRef: ElementRef,
     ) {
         super(
             <IMixedParams<Params.IPaymentListParams>>{

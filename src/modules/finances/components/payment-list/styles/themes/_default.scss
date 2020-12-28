@@ -3,128 +3,132 @@
 
 .wlc-payment-list--theme-default {
 
-    .wlc-payment-list {
+    &:host::ng-deep,
+    & {
 
-        &__ul {
-            margin: $listMargin;
-            padding: $listPadding;
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax($listItemSize, 1fr));
-            column-gap: $listGridColumnGup;
-            row-gap: $listGridRowGup;
-            list-style-type: none;
-        }
+        .wlc-payment-list {
 
-        &__button {
-            width: $itemWidth;
-            border: $itemBorder;
-            background: $itemBg;
-            border-radius: $itemBorderRadius;
-            padding: $itemPadding;
-            cursor: pointer;
-            transition: $itemTransition;
-            color: $itemSvgColor;
-
-            &:hover {
-                box-shadow: $itemBoxShadowHover;
-                color: $itemSvgColorHover;
+            &__ul {
+                margin: $listMargin;
+                padding: $listPadding;
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax($listItemSize, 1fr));
+                column-gap: $listGridColumnGup;
+                row-gap: $listGridRowGup;
+                list-style-type: none;
             }
 
-            &:focus {
-                outline: none;
+            &__button {
+                width: $itemWidth;
+                border: $itemBorder;
+                background: $itemBg;
+                border-radius: $itemBorderRadius;
+                padding: $itemPadding;
+                cursor: pointer;
+                transition: $itemTransition;
+                color: $itemSvgColor;
+
+                &:hover {
+                    box-shadow: $itemBoxShadowHover;
+                    color: $itemSvgColorHover;
+                }
+
+                &:focus {
+                    outline: none;
+                }
+
+                &.active {
+                    border-color: $itemBorderColorActive;
+                    box-shadow: $itemBoxShadowActive;
+                    color: $itemSvgColorActive;
+                }
             }
 
-            &.active {
-                border-color: $itemBorderColorActive;
-                box-shadow: $itemBoxShadowActive;
-                color: $itemSvgColorActive;
+            &__image {
+                width: $imageWidth;
+                height: $imagHeight;
+
+                ::ng-deep {
+                    @include iconInside();
+                }
             }
-        }
 
-        &__image {
-            width: $imageWidth;
-            height: $imagHeight;
+            &__btn-modal {
+                border: $btnBorder;
+                border-radius: $btnBorderRadius;
+                background: $btnBg;
+                color: $btnColor;
+                padding: $btnPadding;
+                display: flex;
+                align-items: center;
+                justify-content: $btnJustifyContent;
+                width: $btnWidth;
+                max-width: $btnMaxWidth;
+                height: $btnHeight;
+                margin: $btnMargin;
 
-            ::ng-deep {
+                &.selected {
+                    overflow: hidden;
+                }
+
+                &:focus {
+                    outline: none;
+                }
+            }
+
+            &__btn-modal-arrow {
+                margin: $btnArrowMargin;
+                color: $btnArrowColor;
+
+                svg {
+                    fill: currentColor;
+                }
+            }
+
+            &__btn-modal-text {
+                display: block;
+                padding: $btnTextPadding;
+                font-size: $btnTextFontSize;
+            }
+
+            &__btn-modal-image {
+                background: $btnImageBg;
+                padding: $btnImagePadding;
+                width: $btnImageWidth;
+                height: $btnImageHeight;
+                color: $btnImageSvgColor;
                 @include iconInside();
             }
-        }
 
-        &__btn-modal {
-            border: $btnBorder;
-            border-radius: $btnBorderRadius;
-            background: $btnBg;
-            color: $btnColor;
-            padding: $btnPadding;
-            display: flex;
-            align-items: center;
-            justify-content: $btnJustifyContent;
-            width: $btnWidth;
-            max-width: $btnMaxWidth;
-            height: $btnHeight;
-            margin: $btnMargin;
-
-            &.selected {
-                overflow: hidden;
+            &__title {
+                color: $titleColor;
+                text-align: $titleTextAlign;
+                font-size: $titleFontSize;
+                margin: $titleMargin;
             }
 
-            &:focus {
-                outline: none;
+            &__sys-table {
+                width: $tableWidth;
+                max-width: $tableMaxWidth;
+                margin: $tableMargin;
+                color: $tableColor;
             }
-        }
 
-        &__btn-modal-arrow {
-            margin: $btnArrowMargin;
-            color: $btnArrowColor;
-
-            svg {
-                fill: currentColor;
+            &__sys-tr {
+                border-top: $tableTrBorderTop;
             }
-        }
 
-        &__btn-modal-text {
-            display: block;
-            padding: $btnTextPadding;
-            font-size: $btnTextFontSize;
-        }
+            &__sys-th {
+                font-weight: $tableThFontWeight;
+                color: $tableThColor;
+                padding: $tableThPadding;
+            }
 
-        &__btn-modal-image {
-            background: $btnImageBg;
-            padding: $btnImagePadding;
-            width: $btnImageWidth;
-            height: $btnImageHeight;
-            color: $btnImageSvgColor;
-            @include iconInside();
-        }
-
-        &__title {
-            color: $titleColor;
-            text-align: $titleTextAlign;
-            font-size: $titleFontSize;
-            margin: $titleMargin;
-        }
-
-        &__sys-table {
-            width: $tableWidth;
-            max-width: $tableMaxWidth;
-            margin: $tableMargin;
-            color: $tableColor;
-        }
-
-        &__sys-tr {
-            border-top: $tableTrBorderTop;
-        }
-
-        &__sys-th {
-            font-weight: $tableThFontWeight;
-            color: $tableThColor;
-            padding: $tableThPadding;
-        }
-
-        &__sys-td {
-            text-align: $tableTdAlignment;
-            color: $tableTdColor;
-            padding: $tableTdPadding;
+            &__sys-td {
+                text-align: $tableTdAlignment;
+                color: $tableTdColor;
+                padding: $tableTdPadding;
+            }
         }
     }
 }
