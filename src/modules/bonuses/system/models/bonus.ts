@@ -333,22 +333,37 @@ export class Bonus extends AbstractModel<IBonus> {
     }
 
     // additional
+    /**
+     * @returns {boolean} is bonus active
+     */
     public get isActive(): boolean {
         return this.status == 1 && this.active;
     }
 
+    /**
+     * @returns {boolean} is bonus subscribed
+     */
     public get isSubscribed(): boolean {
         return this.status == 1 && this.selected && !this.active;
     }
 
+    /**
+     * @returns {boolean} is can subscribe bonus
+     */
     public get canSubscribe(): boolean {
         return this.status == 1 && !this.selected && !this.active && !this.inventoried;
     }
 
+    /**
+     * @returns {boolean} is can unsubscribe bonus
+     */
     public get canUnsubscribe(): boolean {
         return this.isSubscribed || this.inventoried;
     }
 
+    /**
+     * @returns {number} bonus min deposit
+     */
     public get minDeposit(): number {
         return _toNumber(this.amountMin[this.userCurrency]) ||
             _toNumber(this.amountMin?.EUR) ||
@@ -356,6 +371,9 @@ export class Bonus extends AbstractModel<IBonus> {
             _toNumber(this.conditions?.AmountMin?.EUR) || 0;
     }
 
+    /**
+     * @returns {number} bonus max deposit
+     */
     public get maxDeposit(): number {
         return _toNumber(this.amountMax[this.userCurrency]) ||
             _toNumber(this.amountMax?.EUR) ||
@@ -363,22 +381,34 @@ export class Bonus extends AbstractModel<IBonus> {
             _toNumber(this.conditions?.AmountMax?.EUR) || 0;
     }
 
+    /**
+     * @returns {number} multiplier for relative bonus
+     */
     public get multiplier(): number {
         if (this.results[this.target]?.Type === 'relative') {
             return _toNumber(this.results[this.target]?.Value) / 100;
         }
     }
 
+    /**
+     * @returns {number} bonus max win value
+     */
     public get maxWin(): number {
         return _toNumber(this.conditions?.MaxBonusWin?.Currency) ||
             _toNumber(this.conditions?.MaxBonusWin?.EUR) ||
             _toNumber(this.conditions?.MaxBonusWinCoef) || 0;
     }
 
+    /**
+     * @returns {boolean} is bonus max win relative
+     */
     public get isMaxWinRelative(): boolean {
         return !this.conditions?.MaxBonusWin?.EUR && !!this.conditions?.MaxBonusWinCoef;
     }
 
+    /**
+     * @returns {number} bonus limit value
+     */
     public get limitAmount(): number {
         if (this.results[this.target].Type === 'relative') {
             return _toNumber(this.results?.bonus?.LimitValue[this.userCurrency]) ||
@@ -386,10 +416,16 @@ export class Bonus extends AbstractModel<IBonus> {
         }
     }
 
+    /**
+     * @returns {boolean} is bonus limit in EUR (need for experience and loyalty bonuses)
+     */
     public get isLimitAmountEUR(): boolean {
         return !this.results?.balance?.LimitValue[this.userCurrency] && !! this.results?.balance?.LimitValue?.EUR;
     }
 
+    /**
+     * @returns {number} bonus wager value
+     */
     public get wager(): number {
         const resultsTarget = this.results[this.target];
         if (this.target === 'balance') {
@@ -400,10 +436,16 @@ export class Bonus extends AbstractModel<IBonus> {
         }
     }
 
+    /**
+     * @returns {boolean} bonus wagering type is absolute
+     */
     public get isWagerAbsolute(): boolean {
         return this.target !== 'balance' && this.results[this.target]?.WageringType === 'absolute';
     }
 
+    /**
+     * @returns {boolean} is bonus wager in EUR (need for experience and loyalty bonuses)
+     */
     public get isWagerEUR(): boolean {
         const resultsTarget = this.results[this.target];
         if (this.isWagerAbsolute) {
@@ -411,6 +453,9 @@ export class Bonus extends AbstractModel<IBonus> {
         }
     }
 
+    /**
+     * @returns {number} bonus value
+     */
     public get value(): number {
         const resultsTarget = this.results[this.target];
         if(!resultsTarget) {
@@ -424,6 +469,9 @@ export class Bonus extends AbstractModel<IBonus> {
         }
     }
 
+    /**
+     * @returns {string} bonus limitation text ('Winnings + Deposit', 'Winnings', 'Full lock', 'No lock')
+     */
     public get limitationText(): string {
 
         let str: string = '';
@@ -444,10 +492,16 @@ export class Bonus extends AbstractModel<IBonus> {
         return str;
     }
 
+    /**
+     * @returns {string} bonus stacking text (Allowed or Restricted)
+     */
     public get stackingText(): string {
         return this.allowStack ? 'Allowed' : 'Restricted';
     }
 
+    /**
+     * @returns {string} bonus status text
+     */
     public get statusText(): string {
         if (this.isActive) {
             return 'Active';
@@ -459,6 +513,9 @@ export class Bonus extends AbstractModel<IBonus> {
         return '';
     }
 
+    /**
+     * @returns {string} bonus target name
+     */
     public get viewTarget(): string {
         const resultsTarget = this.results[this.target];
         if(!resultsTarget) {
@@ -472,6 +529,12 @@ export class Bonus extends AbstractModel<IBonus> {
         }
     }
 
+    /**
+     * Get bonus image url by type
+     *
+     * @param type image type ('default' | 'reg' | 'deposit' | 'promo' | 'store' | 'other')
+     * @returns {string} bonus image url
+     */
     public getImageByType(type: IBonusImageType = 'default'): string {
         switch (type) {
             case 'reg':
@@ -486,6 +549,12 @@ export class Bonus extends AbstractModel<IBonus> {
         return this.image;
     }
 
+    /**
+     * Get bonus wagering progress in percent
+     *
+     * @param {boolean} rounded - (no required) round result
+     * @returns {number} bonus wagering progress (0 - 100)
+     */
     public getProgress(rounded?: boolean): number {
         let progress: number;
 
@@ -498,12 +567,23 @@ export class Bonus extends AbstractModel<IBonus> {
         return rounded ? _floor(progress) : progress;
     }
 
+    /**
+     * Formatted bonus expiration time
+     *
+     * @param {string} format date format by luxon plugin
+     * @returns {string} formatted date
+     */
     public expirationTime(format: string = 'D T'): string {
         const defaultTime = DateTime.fromSQL(this.data.Expire);
         const offsetTime = defaultTime.plus({minutes: defaultTime.offset});
         return offsetTime.setLocale(defaultTime.locale).toFormat(format);
     }
 
+    /**
+     * Add bonus to local storage
+     *
+     * @param type action type ('inventory' | 'cancel' | 'subscribe' | 'unsubscribe')
+     */
     public addToLocalStorage(type: ActionType): void {
         const target = this.results[this.target];
         if (this.event === 'sign up'
@@ -542,6 +622,9 @@ export class Bonus extends AbstractModel<IBonus> {
         localStorage.setItem('wlc.bonuses', JSON.stringify(ls));
     }
 
+    /**
+     * Set bonus action type to local storage
+     */
     public setFromLocalStorage(): void {
         let ls: IIndexing<number[]>;
 

@@ -83,6 +83,12 @@ export class BonusesService {
         this.setSubscribers();
     }
 
+    /**
+     * Get subscribtion from bonuses observer
+     *
+     * @param {IGetSubscribeParams} params params for subscribtion
+     * @returns {Subscription} subsctibtion
+     */
     public getSubscribe(params: IGetSubscribeParams): Subscription {
         if (params.useQuery) {
             this.queryBonuses(true, params?.type);
@@ -93,6 +99,12 @@ export class BonusesService {
         ).subscribe(params.observer);
     }
 
+    /**
+     * Get bonuses observer from bonses subjects by rest type
+     *
+     * @param {RestType} type bonuses rest type ('active' | 'history' | 'store' | 'any')
+     * @returns {Observable<Bonus[]>} Observable
+     */
     public getObserver(type?: RestType): Observable<Bonus[]> {
         let flow$: BehaviorSubject<Bonus[]>;
 
@@ -114,6 +126,13 @@ export class BonusesService {
         return flow$.asObservable();
     }
 
+    /**
+     * Filter bonuses
+     *
+     * @param {Bonus[]} bonuses bonuses array
+     * @param {BonusesFilterType} filter bonuses filter ('all' | 'reg' | 'deposit' | 'promocode' | 'inventory' | 'main' | 'active' | 'default')
+     * @returns {Bonus[]} filtered bonuses array
+     */
     public filterBonuses(bonuses: Bonus[], filter: BonusesFilterType): Bonus[] {
         return _filter(bonuses, (bonus: Bonus) => {
             const status = bonus.status,
@@ -155,6 +174,12 @@ export class BonusesService {
         });
     }
 
+    /**
+     * Get bonuses by promocode
+     *
+     * @param {string} code promocode
+     * @returns {Bonus[]} bonuses array
+     */
     public async getBonusesByCode(code: string): Promise<Bonus[]> {
         try {
             let bonusResult: Bonus[] = [];
@@ -173,6 +198,12 @@ export class BonusesService {
         }
     }
 
+    /**
+     * Get bonus by id
+     *
+     * @param {number} id bonus id
+     * @returns {Bonus} bonus object
+     */
     public async getBonus(id: number): Promise<Bonus | void> {
         // TODO add get from cache
         try {
@@ -194,6 +225,12 @@ export class BonusesService {
         }
     }
 
+    /**
+     * Subscribe bonus
+     *
+     * @param {Bonus} bonus bonus object
+     * @returns {Bonus} bonus object
+     */
     public async subscribeBonus(bonus: Bonus): Promise<Bonus> {
         bonus.data.PromoCode = bonus.data.PromoCode || '';
         const params = {ID: bonus.id, PromoCode: bonus.promoCode, Selected: 1};
@@ -216,6 +253,12 @@ export class BonusesService {
         }
     }
 
+    /**
+     * Unsubscribe bonus
+     *
+     * @param {Bonus} bonus bonus object
+     * @returns {Bonus} bonus object
+     */
     public async unsubscribeBonus(bonus: Bonus): Promise<Bonus> {
         const params = {ID: bonus.id, Selected: 0};
 
@@ -237,6 +280,12 @@ export class BonusesService {
         }
     }
 
+    /**
+     * Cancel bonus
+     *
+     * @param {Bonus} bonus bonus object
+     * @returns {Bonus} bonus object
+     */
     public async cancelBonus(bonus: Bonus): Promise<Bonus> {
         try {
             const response: IData = await this.dataService.request({
@@ -256,6 +305,12 @@ export class BonusesService {
         }
     }
 
+    /**
+     * Take inventory bonus
+     *
+     * @param {Bonus} bonus bonus object
+     * @returns {Bonus} bonus object
+     */
     public async takeInventory(bonus: Bonus): Promise<Bonus> {
         const params = {ID: bonus.id, type: 'take'};
         try {
@@ -276,6 +331,11 @@ export class BonusesService {
         }
     }
 
+    /**
+     * Add bonus to local cache
+     *
+     * @param {Bonus} bonus bonus object
+     */
     public cacheBonus(bonus: Bonus): void {
         const cacheKey = 'wlc.bonusData_' + bonus.id,
             bonusModel = {
@@ -297,7 +357,13 @@ export class BonusesService {
         // this.LocalCacheService.set(cacheKey, JSON.stringify(result), {maxAge: 2 * 60 * 1000});
     }
 
-    public getBonusFromCache(id: string): Bonus {
+    /**
+     * Get bonus from local cache
+     *
+     * @param {number} bonus bonus id
+     * @returns {Bonus} bonus object
+     */
+    public getBonusFromCache(id: number): Bonus {
         // TODO
         // const cacheKey = 'wlc.bonusData_' + id,
         //     cacheData = this.LocalCacheService.get(cacheKey);
@@ -313,6 +379,14 @@ export class BonusesService {
         return null;
     }
 
+    /**
+     * Get bonuses
+     *
+     * @param {boolean} publicSubject is public rxjs subject from query
+     * @param {RestType} type bonuses rest type ('active' | 'history' | 'store' | 'any') (no required)
+     * @param {string} promoCode bonus promocode (no required)
+     * @returns {Bonus[]} bonuses array
+     */
     public async queryBonuses(publicSubject: boolean, type?: RestType, promoCode?: string): Promise<Bonus[]> {
         let bonuses: Bonus[] = [];
         const queryParams: IQueryParams = {};
