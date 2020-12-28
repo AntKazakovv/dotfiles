@@ -22,11 +22,12 @@
 
 .wlc-checkbox--theme-default:host {
     position: relative;
-    padding: map.get($themeDefault, 'checkboxPadding');
 
     .wlc-checkbox {
 
         &__label {
+            padding: map.get($themeDefault, 'checkboxPadding');
+
             user-select: none;
             cursor: pointer;
         }

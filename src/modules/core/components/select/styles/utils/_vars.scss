@@ -1,5 +1,7 @@
 @use 'engine-scss/functions' as ef;
 
+// TODO refactor this. There are duplicate variables
+
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'errorColor': ef.get('form', 'errorColor'),
@@ -60,13 +62,14 @@ $labelFontSize: 16px !default;
 $selectWidth: 70% !default;
 $selectMaxWidth: 450px !default;
 $selectColor: ef.get('color', text) !default;
-$selectBorder: 2px solid rgba(0, 0, 0, 0.04) !default;
-$selectBorderRadius: 10px !default;
-$selectBorderFocusColor: rgba(0, 0, 0, 0.2) !default;
-$selectBackground: #fff !default;
-$selectTextAlign: left !default;
-$selectPadding: 5px 35px 5px 20px !default;
+$selectBorder: ef.get('form', 'inputBorder') !default;
+$selectBorderRadius: ef.get('form', 'inputBorderRadius') !default;
+$selectBorderFocusColor: ef.get('form', 'inputBorderFocusColor');
+$selectBackground: ef.get('form', 'inputBackground') !default;
+$selectTextAlign: ef.get('form', 'inputTextAlign') !default;
+$selectPadding: ef.get('form', 'inputPadding') !default;
 $selectArrowColor: ef.get('color', 'main') !default;
+$selectHeight: ef.get('form', 'inputHeight') !default;
 
 $dropdownMaxHeight: 300px !default;
 $dropdownBg: #fff !default;
@@ -76,33 +79,42 @@ $dropdownItemBg: #fff !default;
 $dropdownBorder: 2px solid rgba(0, 0, 0, 0.04) !default;
 $dropdownBorderRadius: 10px !default;
 
-$iconWidth: 12px !default;
-$iconHeight: 12px !default;
+$selectDropdownHeight: ef.get('form', 'selectDropdownHeight');
+$selectDropdownBorder: ef.get('form', 'inputBorder');
+$selectDropdownBorderRadius: ef.get('form', 'inputBorderRadius');
+$selectDropdownBackground: ef.get('form', 'inputBackground');
+
+$selectDropdownItemPadding: ef.get('form', 'inputPadding');
+
+$iconWidth: ef.get('form', 'iconWidth') !default;
+$iconHeight: ef.get('form', 'iconHeight') !default;
 $successIconColor: #fff !default;
 $errorIconColor: #fff !default;
 $pendingIconColor: rgba(0, 0, 0, 0.5) !default;
 
-$errorsBgColor: #ffebf2 !default;
-$errorsColor: #231f20 !default;
-$errorsMinWidth: 300px !default;
-$errorsMaxWidth: 100% !default;
-$errorsBorderRadius: 10px !default;
-$errorsFontSize: 14px !default;
-$errorsPadding: 10px;
+$errorsBgColor: ef.get('form', 'errorsBgColor') !default;
+$errorsColor: ef.get('form', 'errorsColor') !default;
+$errorsMinWidth: ef.get('form', 'errorsMinWidth') !default;
+$errorsMaxWidth: ef.get('form', 'errorsMaxWidth') !default;
+$errorsBorderRadius: ef.get('form', 'errorsBorderRadius') !default;
+$errorsFontSize: ef.get('form', 'errorsFontSize') !default;
+$errorsPadding: ef.get('form', 'errorsPadding') !default;
+
+$iconRightShift: ef.get('form', 'iconRightShift');
 
 $customThemeVertical: () !default;
 $themeVertical: map-merge((
-    'maxWidth': 100%,
+    'labelGap': ef.get('size', 'small'),
 
     'labelMaxWidth': 100%,
-    'labelMargin': 0 0 7px 7px,
-    'labelFontSize': 10px,
+    'labelMargin': 0 0 0 ef.get('size', 'smallest'),
+    'labelFontSize':  ef.get('font', 'small'),
     'labelFontWeight': 500,
     'labelLineHeight': 1,
     'labelColor': ef.get('color', 'main'),
 
     'selectGroupSize': 100%,
-    'selectDropdownItemColor': #000000,
-    'selectBorderRadius': 10px,
+    'selectDropdownItemColor': ef.get('color', 'dark'),
+    'selectBorderRadius': ef.get('radius', 'main'),
 
 ), $customThemeVertical);

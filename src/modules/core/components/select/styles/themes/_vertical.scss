@@ -1,41 +1,90 @@
 @use 'sass:map';
+
 @import '../utils/vars';
+@import '../utils/mixins';
 
 .wlc-select--theme-vertical:host {
-    flex-wrap: wrap;
-    max-width: map.get($themeVertical, 'maxWidth');
+    @include selectBase($themeVertical);
 
-    .wlc-select__label {
-        display: block;
-        margin: map.get($themeVertical, 'labelMargin');
-        overflow: hidden;
-        max-width: map.get($themeVertical, 'labelMaxWidth');
+    .wlc-select {
 
-        font-size: map.get($themeVertical, 'labelFontSize');
-        font-weight: map.get($themeVertical, 'labelFontWeight');
-        line-height: map.get($themeVertical, 'labelLineHeight');
-        text-overflow: ellipsis;
-        white-space: nowrap;
+        &__label {
+            display: block;
+            margin: map.get($themeVertical, 'labelMargin');
+            overflow: hidden;
+            max-width: map.get($themeVertical, 'labelMaxWidth');
 
-        color: map.get($themeVertical, 'labelColor');
+            font-size: map.get($themeVertical, 'labelFontSize');
+            font-weight: map.get($themeVertical, 'labelFontWeight');
+            line-height: map.get($themeVertical, 'labelLineHeight');
+            text-overflow: ellipsis;
+            white-space: nowrap;
 
-        cursor: pointer;
-        user-select: none;
-    }
+            color: map.get($themeVertical, 'labelColor');
 
-    .wlc-select__group {
-        width: map.get($themeVertical, 'selectGroupSize');
-        max-width: map.get($themeVertical, 'selectGroupSize');
-    }
+            cursor: pointer;
+            user-select: none;
+        }
 
-    .wlc-select__field {
-        border-radius: map.get($themeVertical, 'inputBorderRadius');
-    }
+        &__group {
+            position: relative;
+            width: map.get($themeVertical, 'selectGroupSize');
+            max-width: map.get($themeVertical, 'selectGroupSize');
+        }
 
-    .wlc-select__dropdown {
+        &__field {
+            width: 100%;
+            border: $selectBorder;
+            border-radius: $selectBorderRadius;
+            padding: $selectPadding;
+            overflow: visible;
+            text-overflow: ellipsis;
+            background: $selectBackground;
+            text-align: $selectTextAlign;
+            color: $selectColor;
+            height: $selectHeight;
 
-        &-item {
-            color: map.get($themeVertical, 'selectDropdownItemColor');
+            &:focus {
+                outline: none;
+                border-color: $selectBorderFocusColor;
+            }
+
+            &.ng-touched {
+
+                &.ng-invalid {
+                    border-color: $errorsColor;
+                }
+            }
+        }
+
+        &__dropdown {
+            @include dropdownBase;
+
+            &-item {
+                @include dropdownItemBase;
+
+                color: map-get($themeVertical, 'selectDropdownItemColor');
+
+                &:hover {
+                    background: darken(map-get($themeDefault, 'selectDropdownBackground'), 20);
+                    transition: map-get($themeDefault, 'selectDropdownItemTransition');
+                }
+            }
+        }
+
+        &-status {
+
+            &__icon {
+                @include baseStatusIcon;
+            }
+
+            &__arrow {
+                @include baseStatusArrow;
+            }
+
+            &__errors {
+                @include baseStatusErrors;
+            }
         }
     }
 }

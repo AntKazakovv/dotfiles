@@ -1,8 +1,12 @@
 @use 'sass:map';
+
 @import '../utils/vars';
+@import '../utils/mixins';
 
 .wlc-input--theme-vertical:host {
-    max-width: map.get($themeVertical, 'maxWidth');
+    @include inputBase($themeVertical);
+
+    grid-gap: map-get($themeVertical, 'labelGap');
 
     .wlc-input__label {
         display: block;
@@ -70,7 +74,6 @@
             }
         }
     }
-
 
     .field-icon {
         position: relative;
