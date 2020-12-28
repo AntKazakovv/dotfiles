@@ -7,6 +7,7 @@ $customSize: () !default;
 $customButton: () !default;
 $customTime: () !default;
 $customFont: () !default;
+$customForm: () !default;
 
 $customVars: () !default;
 
@@ -14,6 +15,8 @@ $color: map-merge((
     // Main colors
     'main': #777,
     'secondary': #474747,
+    'light': #ffffff,
+    'dark': #000000,
     'background': #000,
     'backgroundSecondary': #474747,
     'warn': #eee480,
@@ -21,28 +24,32 @@ $color: map-merge((
     'success': #65cb6a,
     'disabled': #adadad,
     'modal': #4a4b4c,
+
     // Text colors
     'text': #e2e2e2,
     'textSecondary': #474747,
-    //Link colors
+
+    // Link colors
     'link': #adadad,
     'linkSecondary': #474747,
-    //Divider colors
+
+    // Divider colors
     'divider': #adadad,
 
     // Modal colors
     'dialogBackground': #4a4b4c,
-    'backdropBackground': #000
+    'backdropBackground': #000,
 ), $customColor);
 
 $size: map-merge((
     'smallest': 5px,
     'small': 10px,
+    'smally': 15px,
     'smaller': 20px,
     'less': 30px,
     'main': 40px,
     'biger': 50px,
-    'big': 60px
+    'big': 60px,
 ), $customSize);
 
 $radius: map-merge((
@@ -71,6 +78,50 @@ $time: map-merge((
     'main': 0.3s,
     'long': 0.5s,
 ), $customTime);
+
+$form: map-merge((
+    'errorColor': map-get($color, 'error'),
+    'successColor': map-get($color, 'success'),
+
+    'maxWidth': 765px,
+
+    'labelFontWeight': normal,
+    'labelColor': map-get($color, 'text'),
+    'labelFontSize': map-get($font, 'smaller'),
+
+    'inputColor': map-get($color, 'dark'),
+    'inputFontSize': map-get($font, 'main'),
+    'inputHeight': 40px,
+    'inputBackground': map-get($color, 'light'),
+    'inputBorder': 2px solid map-get($color, 'divider'),
+    'inputBorderFocusColor': map-get($color, 'divider'),
+    'inputBorderRadius': map-get($radius, 'main'),
+    'inputPadding': map-get($size, 'smallest') map-get($size, 'main') map-get($size, 'smallest') map-get($size, 'smaller'),
+    'inputTextAlign': left,
+
+    'selectDropdownHeight': 300px,
+    'selectDropdownItemTransition': map-get($time, 'main') ease-in-out background,
+
+    'selectArrowColor': map-get($color, 'dark'),
+    'iconWidth': 12px,
+    'iconHeight': 12px,
+    'iconRightShift': 15px,
+    'successIconColor': map-get($color, 'success'),
+    'errorIconColor': map-get($color, 'error'),
+    'pendingIconColor': map-get($color, 'disabled'),
+
+    'errorsBgColor': lighten(map-get($color, 'error'), 10%),
+    'errorsColor': map-get($color, 'error'),
+    'errorsMinWidth': 300px,
+    'errorsMaxWidth': 100%,
+    'errorsBorderRadius': map-get($radius, 'main'),
+    'errorsFontSize': map-get($font, 'smaller'),
+    'errorsPadding': map-get($size, 'small'),
+
+    'placeholderFontSize': map-get($font, 'smaller'),
+    'placeholderPadding': 0 map-get($size, 'smaller'),
+    'placeholderShift': map-get($size, 'main') * -1,
+), $customForm);
 
 $grid-breakpoints: (
     320: 0,

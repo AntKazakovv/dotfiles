@@ -36,6 +36,8 @@ export class ProfileFormComponent extends AbstractComponent implements OnInit {
     public config = Params.profileForm;
     public userProfile = this.user.userProfile$;
 
+    public additionalBlocks = Params.AdditionalBlock;
+
     constructor(
         @Inject('injectParams') protected params: Params.IProfileFormCParams,
         protected user: UserService,

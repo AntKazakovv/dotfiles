@@ -1,0 +1,131 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/mediaqueries' as mq;
+
+@import '../utils/vars';
+
+.app-profile-main-info-state .wlc-sections {
+
+    &__profile-menu,
+    &__profile-content {
+
+        &--theme-default {
+
+            > .container {
+
+                @include mq.min(1200) {
+                    max-width: 1170px;
+                }
+            }
+        }
+    }
+
+    &__profile-content--theme-default {
+
+        > .container {
+            display: grid;
+            grid-template-columns: 1fr;
+        }
+
+        .wlc-profile-form {
+            display: grid;
+            grid-template-columns: 1fr;
+
+            @include mq.min(1024) {
+                grid-template-columns: 1.8fr 1fr;
+                grid-column-gap: ef.get-value($mainInfoThemeDefault, 'sectionColGap', 1024);
+            }
+
+            &__add {
+                display: grid;
+                grid-template-columns: 1fr;
+                grid-gap: ef.get-value($mainInfoThemeDefault, 'addBlockGap');
+                height: fit-content;
+            }
+
+            &__block {
+                display: grid;
+                grid-template-columns: 1fr;
+                grid-row-gap: ef.get-value($mainInfoThemeDefault, 'addItemGap');
+            }
+
+            &__title {
+                font-size: ef.get-value($mainInfoThemeDefault, 'addTitleFontSize');
+                color: ef.get-value($mainInfoThemeDefault, 'addTitleColor');
+            }
+
+            &__item {
+                display: grid;
+                grid-template-columns: 1fr auto;
+                grid-gap: ef.get('size', 'smally');
+                grid-template-areas:
+                    'title switcher'
+                    'link .'
+                    ;
+
+                &-title {
+                    grid-area: title;
+
+                    &-main {
+                        font-size: ef.get-value($mainInfoThemeDefault, 'addItemTitleMainFontSize');
+                        color: ef.get-value($mainInfoThemeDefault, 'addItemTitleMainColor');
+                        font-weight: bold;
+                    }
+
+                    &-description {
+                        font-size: ef.get-value($mainInfoThemeDefault, 'addItemTitleSecondFontSize');
+                        color: ef.get-value($mainInfoThemeDefault, 'addItemTitleSecondColor');
+                    }
+                }
+
+                &-switcher {
+                    grid-area: switcher;
+                }
+
+                &-link {
+                    grid-area: link;
+                    font-size: ef.get-value($mainInfoThemeDefault, 'addItemLinkFontSize');
+                    color: ef.get-value($mainInfoThemeDefault, 'addItemLinkColor');
+                }
+            }
+        }
+
+        // Main info form
+        .wlc-profile-form--theme-default {
+
+            .wlc-form {
+                display: grid;
+                grid-auto-columns: 1fr;
+                grid-row-gap: ef.get-value($mainInfoThemeDefault, 'formRowGap');
+
+                @include mq.min(768) {
+                    grid-gap: ef.get-value($mainInfoThemeDefault, 'formRowGap', 768);
+                }
+            }
+
+            .wlc-input[class],
+            .wlc-select[class] {
+
+                @include mq.min(768) {
+                    grid-template-columns: 1fr ef.get-value($mainInfoThemeDefault, 'inputWidth', 768);
+                    align-items: center;
+
+                    .wlc-input__label[class],
+                    .wlc-select__label[class] {
+                        font-size: ef.get-value($mainInfoThemeDefault, 'labelFontSize', 768);
+                        color: ef.get-value($mainInfoThemeDefault, 'labelColor', 768);
+                        font-weight: ef.get-value($mainInfoThemeDefault, 'labelFontWeight', 768);
+                    }
+                }
+            }
+
+            .wlc-btn[wlc-button] {
+                justify-self: ef.get-value($mainInfoThemeDefault, 'saveButtonAlign');
+                margin-top: ef.get-value($mainInfoThemeDefault, 'saveButtonShift');
+
+                @include mq.min(1024) {
+                    justify-self: ef.get-value($mainInfoThemeDefault, 'saveButtonAlign', 1024);
+                }
+            }
+        }
+    }
+}

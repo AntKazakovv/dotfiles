@@ -1,4 +1,6 @@
 @use 'sass:map';
+@use 'engine-scss/mixins/mediaqueries' as mq;
+
 @import '../utils/vars';
 
 @keyframes spin {
@@ -9,20 +11,19 @@
 }
 
 .wlc-input--theme-default:host {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: map.get($themeDefault, 'maxWidth');
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: map-get($themeDefault, 'labelGap');
 
     .wlc-input__label {
         font-weight: map.get($themeDefault, 'labelFontWeight');
         font-size: map.get($themeDefault, 'labelFontSize');
+        line-height: map.get($themeDefault, 'labelFontSize');
         color: map.get($themeDefault, 'labelColor');
     }
 
     .wlc-input__input {
-        width: map.get($themeDefault, 'inputWidth');
-        max-width: map.get($themeDefault, 'inputMaxWidth');
+        width: 100%;
         position: relative;
 
         input {
@@ -32,6 +33,7 @@
             padding: map.get($themeDefault, 'inputPadding');
             text-overflow: ellipsis;
             overflow: visible;
+            height: map.get($themeDefault, 'inputHeight');
 
             &:focus {
                 outline: none;

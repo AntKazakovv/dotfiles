@@ -1,1 +1,55 @@
-<div wlc-form-wrapper [config]="config" [formData]="userProfile" [ngSubmit]="ngSubmit.bind(this)"></div>
+<div class="{{$class}}__form"
+     wlc-form-wrapper
+     [config]="config"
+     [formData]="userProfile"
+     [ngSubmit]="ngSubmit.bind(this)"
+></div>
+
+<div class="{{$class}}__add">
+    <div class="{{$class}}__block">
+        <div
+            class="{{$class}}__title"
+            wlc-title [mainText]="additionalBlocks.subscriptions.title"
+            [mainTag]="'span'"
+        ></div>
+        <div class="{{$class}}__item">
+            <div class="{{$class}}__item-title">
+                <div class="{{$class}}__item-title-main" data-translate>Notifications via e-mail</div>
+            </div>
+            <div class="{{$class}}__item-switcher">
+                <div wlc-checkbox></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="{{$class}}__block">
+        <div
+                class="{{$class}}__title"
+                wlc-title [mainText]="additionalBlocks.security.title"
+                [mainTag]="'span'"
+        ></div>
+        <div class="{{$class}}__item">
+            <div class="{{$class}}__item-title">
+                <div class="{{$class}}__item-title-main" data-translate>
+                    Password
+                </div>
+                <div class="{{$class}}__item-title-description" data-translate>
+                    You can change your password here.
+                </div>
+            </div>
+            <div class="{{$class}}__item-link" data-translate>Change</div>
+        </div>
+
+        <div class="{{$class}}__item">
+            <div class="{{$class}}__item-title">
+                <div class="{{$class}}__item-title-main" data-translate>
+                    Banking information
+                </div>
+                <div class="{{$class}}__item-title-description" data-translate>
+                    You can add your banking information here.
+                </div>
+            </div>
+            <div class="{{$class}}__item-link" data-translate>Add info</div>
+        </div>
+    </div>
+</div>

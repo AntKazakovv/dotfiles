@@ -1,27 +1,29 @@
 @use 'engine-scss/mixins/mediaqueries' as mq;
 @use 'engine-scss/mixins/base.mixins' as em;
+@use 'engine-scss/functions' as ef;
 @import '../utils/vars';
 
 .wlc-title--theme-default:host {
 
-    .wlc-title {
+    div.wlc-title,
+    h1.wlc-title {
 
         &__main {
             font: {
-                size: $mainFontSizeMobile;
-                weight: $mainFontWeightMobile;
+                size: ef.get-value($themeDefault, 'mainFontSize');
+                weight: ef.get-value($themeDefault, 'mainFontWeight');
             };
-            color: $mainColorMobile;
-            line-height: $mainLineHeightMobile;
+            color: ef.get-value($themeDefault, 'mainColor');
+            line-height: ef.get-value($themeDefault, 'mainLineHeight');
         }
 
         &__second {
             font: {
-                size: $secondFontSizeMobile;
-                weight: $secondFontWeightMobile;
+                size: ef.get-value($themeDefault, 'secondFontSize');
+                weight: ef.get-value($themeDefault, 'secondFontWeight');
             };
-            color: $secondColorMobile;
-            line-height: $secondLineHeightMobile;
+            color: ef.get-value($themeDefault, 'secondColor');
+            line-height: ef.get-value($themeDefault, 'secondLineHeight');
         }
     }
 }

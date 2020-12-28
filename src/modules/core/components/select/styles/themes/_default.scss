@@ -1,136 +1,135 @@
 @use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/mediaqueries' as mq;
+
 @import '../utils/vars';
 
-.wlc-select--theme-mod-default:host {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: $maxWidth;
+.wlc-select--theme-default:host {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: map-get($themeDefault, 'labelGap');
 
-    .wlc-select__label {
-        font-weight: $labelFontWeight;
-        font-size: $labelFontSize;
-        color: $labelColor;
-    }
+    .wlc-select {
 
-    .wlc-select__group {
-        position: relative;
-        width: $selectWidth;
-        max-width: $selectMaxWidth;
-    }
-
-    .wlc-select-status {
-
-        .wlc-select-status__icon {
-            position: absolute;
-            top: 50%;
-            right: 15px;
-            transform: translateY(-50%);
-            width: $iconWidth;
-            height: $iconHeight;
-            border-radius: 50%;
-
-            &:before {
-                content: '';
-                position: absolute;
-            }
+        &__label {
+            font-weight: map-get($themeDefault, 'labelFontWeight');
+            font-size: map-get($themeDefault, 'labelFontSize');
+            line-height: map-get($themeDefault, 'labelFontSize');
+            color: map-get($themeDefault, 'labelColor');
         }
 
-        .wlc-select-status__arrow {
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-
-        .wlc-select-status__errors {
-            position: absolute;
-            background: $errorsBgColor;
-            top: calc(100% - 5px);
-            right: 0;
-            width: fit-content;
-            min-width: $errorsMinWidth;
-            max-width: $errorsMaxWidth;
-            opacity: 0;
-            visibility: hidden;
-            color: $errorsColor;
-            border-radius: $errorsBorderRadius;
-            font-size: $errorsFontSize;
-            padding: $errorsPadding;
-            z-index: 10;
-
-            &:before {
-                content: '';
-                border: 8px solid transparent;
-                border-bottom-color: $errorsBgColor;
-                position: absolute;
-                top: -15px;
-                right: 13px;
-            }
-        }
-    }
-
-    .wlc-select__field {
-        width: 100%;
-        border: $selectBorder;
-        border-radius: $selectBorderRadius;
-        padding: $selectPadding;
-        overflow: visible;
-        text-overflow: ellipsis;
-        background: $selectBackground;
-        text-align: $selectTextAlign;
-        color: $selectColor;
-
-        &:focus {
-            outline: none;
-            border-color: $selectBorderFocusColor;
-        }
-
-        &.ng-touched {
-
-            &.ng-invalid {
-                border-color: $errorColor;
-            }
-        }
-    }
-
-    .wlc-select__dropdown {
-        z-index: 15;
-        position: absolute;
-        top: calc(100% + 5px);
-        left: 0;
-        max-height: $dropdownMaxHeight;
-        width: 100%;
-        padding: 0;
-        border: $dropdownBorder;
-        border-radius: $dropdownBorderRadius;
-        background: $dropdownBg;
-        overflow: hidden scroll;
-        list-style: none;
-
-        &-item {
-            display: block;
+        &__group {
+            position: relative;
             width: 100%;
-            padding: $dropdownItemPadding;
-            background: $dropdownItemBg;
-            cursor: pointer;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
+        }
 
-            &:hover {
-                background: darken($dropdownItemBg, 20);
-                //TODO global transition mixin
-                transition: 0.3s ease-in-out background;
+        &__field {
+            width: 100%;
+            border: map-get($themeDefault, 'selectBorder');
+            border-radius: map-get($themeDefault, 'selectBorderRadius');
+            padding: map-get($themeDefault, 'selectPadding');
+            overflow: visible;
+            text-overflow: ellipsis;
+            background: map-get($themeDefault, 'selectBackground');
+            text-align: map-get($themeDefault, 'selectTextAlign');
+            color: map-get($themeDefault, 'selectColor');
+            height: map-get($themeDefault, 'selectHeight');
+
+            &:focus {
+                outline: none;
+                border-color: map-get($themeDefault, 'selectBorderFocusColor');
+            }
+
+            &.ng-touched {
+
+                &.ng-invalid {
+                    border-color: map-get($themeDefault, 'errorsColor');
+                }
             }
         }
-    }
 
-    .wlc-select-status__arrow {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        right: 0;
-        fill: $selectArrowColor;
+        &__dropdown {
+            z-index: 15;
+            position: absolute;
+            top: calc(100% + 5px);
+            left: 0;
+            max-height: map-get($themeDefault, 'selectDropdownHeight');
+            width: 100%;
+            padding: 0;
+            border: map-get($themeDefault, 'selectDropdownBorder');
+            border-radius: map-get($themeDefault, 'selectDropdownBorderRadius');
+            background: map-get($themeDefault, 'selectDropdownBackground');
+            overflow: hidden scroll;
+            list-style: none;
+
+            &-item {
+                display: flex;
+                align-items: center;
+                width: 100%;
+                min-height: map-get($themeDefault, 'selectHeight');
+                padding: map-get($themeDefault, 'selectDropdownItemPadding');
+                cursor: pointer;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                color: map-get($themeDefault, 'selectDropdownItemColor');
+
+                &:hover {
+                    background: darken(map-get($themeDefault, 'selectDropdownBackground'), 20);
+                    transition: map-get($themeDefault, 'selectDropdownItemTransition');
+                }
+            }
+        }
+
+        &-status {
+
+            &__icon {
+                position: absolute;
+                top: 50%;
+                right: map-get($themeDefault, 'iconRightShift');
+                transform: translateY(-50%);
+                width: map-get($themeDefault, 'iconWidth');
+                height: map-get($themeDefault, 'iconHeight');
+                border-radius: 50%;
+
+                &:before {
+                    content: '';
+                    position: absolute;
+                }
+            }
+
+            &__arrow {
+                position: absolute;
+                right: map-get($themeDefault, 'iconRightShift');
+                top: 50%;
+                transform: translateY(-50%);
+                fill: map-get($themeDefault, 'selectArrowColor');
+            }
+
+            &__errors {
+                position: absolute;
+                background: map-get($themeDefault, 'errorsBgColor');
+                top: calc(100% - 5px);
+                right: 0;
+                width: fit-content;
+                min-width: map-get($themeDefault, 'errorsMinWidth');
+                max-width: map-get($themeDefault, 'errorsMaxWidth');
+                opacity: 0;
+                visibility: hidden;
+                color: map-get($themeDefault, 'errorsColor');
+                border-radius: map-get($themeDefault, 'errorsBorderRadius');
+                font-size: map-get($themeDefault, 'errorsFontSize');
+                padding: map-get($themeDefault, 'errorsPadding');
+                z-index: 10;
+
+                &:before {
+                    content: '';
+                    border: 8px solid transparent;
+                    border-bottom-color: map-get($themeDefault, 'errorsBgColor');
+                    position: absolute;
+                    top: -15px;
+                    right: 13px;
+                }
+            }
+        }
     }
 }
