@@ -1,0 +1,21 @@
+@import '../utils/vars';
+
+.wlc-new-password-form--theme-default:host {
+    max-width: $formMaxWidth;
+    margin: $formMargin;
+
+    &::ng-deep {
+
+        .wlc-input {
+            margin: $fieldMargin;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+
+        .wlc-btn {
+            margin: $btnMargin;
+        }
+    }
+}

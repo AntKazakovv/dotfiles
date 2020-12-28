@@ -58,7 +58,7 @@ const states = {
 const appState: Ng2StateDeclaration = {
     name: 'app',
     url: '/:locale',
-    redirectTo: 'app.home',
+    // redirectTo: 'app.home',
     onEnter: StateHelper.onStateEnter,
     component: AppComponent,
     resolve: [

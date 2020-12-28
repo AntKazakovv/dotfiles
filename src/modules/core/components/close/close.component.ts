@@ -1,13 +1,15 @@
 import {
     Component,
+    EventEmitter,
     Input,
     Inject,
     Output,
-    EventEmitter,
 } from '@angular/core';
+
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ModalService} from 'wlc-engine/modules/core/system/services';
-import * as Params from 'wlc-engine/modules/core/components/close/close.params';
+
+import * as Params from './close.params';
 
 @Component({
     selector: '[wlc-close]',

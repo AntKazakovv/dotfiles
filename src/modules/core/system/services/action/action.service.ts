@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, Injector} from '@angular/core';
 import {CurrencyPipe} from '@angular/common';
 import {BehaviorSubject, fromEvent} from 'rxjs';
 import {Observable} from 'rxjs';
@@ -10,7 +10,9 @@ import {
     DeviceType,
     IIndexing,
     ModalService,
+    LayoutService,
 } from 'wlc-engine/modules/core';
+import {UserService} from 'wlc-engine/modules/user/system/services';
 
 @Injectable({
     providedIn: 'root',
@@ -21,11 +23,13 @@ export class ActionService {
     constructor(
         private configService: ConfigService,
         private modalService: ModalService,
+        private userService: UserService,
+        private layoutService: LayoutService,
     ) {
     }
 
-    public processMessages(initialPath: IIndexing<string>): void {
-        switch(initialPath?.message) {
+    public async processMessages(initialPath: IIndexing<string>): Promise<void> {
+        switch (initialPath?.message) {
             case 'PAYMENT_SUCCESS':
                 this.modalService.showModal({
                     id: 'payment-success',
@@ -43,11 +47,37 @@ export class ActionService {
                 this.modalService.showError({
                     modalMessage: [
                         gettext('Unfortunately your payment didn\'t go through.'
-                            +' An e-mail with detailed information has been sent to your e-mail address.'+
-                            ' If you have any questions, please don\'t hesitate to contact us.'),
+                            +' An e-mail with detailed information has been sent to your e-mail address.'
+                            +' If you have any questions, please don\'t hesitate to contact us.'),
                     ],
                 });
                 break;
+            case 'SET_NEW_PASSWORD':
+                await this.configService.ready;
+                await this.layoutService.importModules(['user']);
+
+                this.modalService.showModal('newPassword');
+                break;
+            case 'COMPLETE_REGISTRATION':
+                if (initialPath.code) {
+                    this.userService.registrationComplete(initialPath.code);
+                } else {
+                    this.modalService.showError({
+                        modalMessage: [
+                            gettext('Code missing'),
+                        ],
+                    });
+                }
+                break;
+            case 'EMAIL_UNSUBSCRIBE':
+                //TODO
+                break;
+            case 'FINALIZE_SOCIAL_CONNECT':
+                //TODO
+                break;
+            // case 'FINALIZE_SOCIAL_REGISTRATION':
+            //     UserSocialRegisterService.init();
+            //     break;
         }
     }
 

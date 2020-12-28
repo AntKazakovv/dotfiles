@@ -1,11 +1,13 @@
 import {
     Component,
-    OnInit,
     Input,
     Inject,
+    OnInit,
 } from '@angular/core';
+
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import * as Params from 'wlc-engine/modules/core/components/text-block/text-block.params';
+
+import * as Params from './text-block.params';
 
 import {
     forEach as _forEach,

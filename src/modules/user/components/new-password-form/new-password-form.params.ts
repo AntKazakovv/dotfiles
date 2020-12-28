@@ -3,12 +3,7 @@ import {
     IComponentParams,
 } from 'wlc-engine/modules/core/system/classes/abstract.component';
 
-import {
-    IFormWrapperCParams,
-    IInputCParams,
-    IButtonParams,
-    ITextBlockCParams,
-} from 'wlc-engine/modules/core';
+import {IFormWrapperCParams} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
 
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;
@@ -17,52 +12,39 @@ export type AutoModifiers = Theme | 'default';
 export type CustomMod = string;
 export type Modifiers = AutoModifiers | CustomMod | null;
 
-export interface ISignInFormCParams extends IComponentParams<ComponentTheme, ComponentType, string> {
+export interface INewPasswordFormCParams extends IComponentParams<ComponentTheme, ComponentType, string> {
     common?: {
         customModifiers?: CustomMod;
     };
     modifiers?: Modifiers[];
 }
 
-export const defaultParams: ISignInFormCParams = {
-    class: 'wlc-sign-in-form',
+export const defaultParams: INewPasswordFormCParams = {
+    class: 'wlc-new-password-form',
 };
 
-export const signInFormConfig: IFormWrapperCParams = {
+export const newPasswordFormConfig: IFormWrapperCParams = {
     class: 'wlc-form-wrapper',
     components: [
         {
             name: 'core.wlc-text-block',
-            params: <ITextBlockCParams>{
+            params: {
                 common: {
-                    textBlockTitle: gettext('Sign in'),
-                    textBlockSubtitle: gettext('Welcome back!'),
+                    textBlockTitle: gettext('Create a new password'),
                 },
             },
         },
         {
             name: 'core.wlc-input',
-            params: <IInputCParams>{
+            params: {
                 theme: 'vertical',
                 common: {
-                    placeholder: gettext('Email *'),
-                    type: 'mail',
-                },
-                name: 'email',
-                validators: ['required', 'email'],
-            },
-        },
-        {
-            name: 'core.wlc-input',
-            params: <IInputCParams>{
-                theme: 'vertical',
-                common: {
-                    placeholder: gettext('Password *'),
+                    placeholder: gettext('New password'),
                     type: 'password',
                     customModifiers: 'right-shift',
                     usePasswordVisibilityDirective: true,
                 },
-                name: 'password',
+                name: 'newPassword',
                 validators: ['required', 'password',
                     {
                         name: 'minLength',
@@ -72,31 +54,40 @@ export const signInFormConfig: IFormWrapperCParams = {
             },
         },
         {
-            name: 'user.wlc-restore-link',
+            name: 'core.wlc-input',
             params: {
+                theme: 'vertical',
                 common: {
-                    typeAttr: 'button',
+                    placeholder: gettext('Confirm password'),
+                    type: 'password',
+                    customModifiers: 'right-shift',
+                    usePasswordVisibilityDirective: true,
                 },
+                name: 'confirmPassword',
+                validators: ['required', 'password',
+                    {
+                        name: 'minLength',
+                        options: 6,
+                    },
+                ],
             },
         },
         {
             name: 'core.wlc-button',
-            params: <IButtonParams>{
+            params: {
+                theme: 'default',
                 common: {
-                    customModifiers: 'submit',
-                    text: gettext('Login'),
-                    typeAttr: 'submit',
+                    text: gettext('Save'),
+                    type: 'submit',
+                    customModifiers: 'centered',
                 },
             },
         },
+    ],
+    validators: [
         {
-            name: 'user.wlc-have-account',
-            params: {
-                common: {
-                    titleText: gettext('Don’t have an account?'),
-                    linkText: gettext('Sign up now'),
-                },
-            },
+            name: 'matchingFields',
+            options: ['newPassword', 'confirmPassword'],
         },
     ],
 };

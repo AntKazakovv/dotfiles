@@ -58,8 +58,7 @@ export class LayoutService {
     constructor(
         protected configService: ConfigService,
     ) {
-        this.layouts.pages = this.configService.get<ILayoutsConfig>('$layouts');
-        this.layouts.panels = this.configService.get<IPanelsConfig>('$panelsLayouts');
+        this.prepareLayouts();
     }
 
     public getLayoutConfig(type: LayoutsType, state: string, params?: IIndexing<any>): ILayoutStateConfig {
@@ -78,7 +77,6 @@ export class LayoutService {
 
             return _cloneDeep(this.layouts[type][state]);
         };
-
         if (this.layouts[type].hasOwnProperty(state)) {
             const paramsPath: string = params?.category || params?.slug;
 
@@ -195,6 +193,13 @@ export class LayoutService {
         }
 
         return _get(this.components, name);
+    }
+
+    private async prepareLayouts(): Promise<void> {
+        await this.configService.ready;
+
+        this.layouts.pages = this.configService.get<ILayoutsConfig>('$layouts');
+        this.layouts.panels = this.configService.get<IPanelsConfig>('$panelsLayouts');
     }
 
     private getPosition(section: ILayoutSectionConfig, item: ILayoutModifyItem): number {

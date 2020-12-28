@@ -2,12 +2,13 @@ import {
     Component,
     Inject,
     Input,
-    ChangeDetectorRef,
 } from '@angular/core';
 import {FormGroup} from '@angular/forms';
+
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ModalService} from 'wlc-engine/modules/core/system/services';
 import {UserService} from 'wlc-engine/modules/user/system/services';
+
 import * as Params from './change-password-form.params';
 
 import {
@@ -39,7 +40,6 @@ export class ChangePasswordFormComponent extends AbstractComponent {
     constructor(
         @Inject('injectParams') protected injectParams: Params.IChangePasswordFormCParams,
         protected userService: UserService,
-        protected cdr: ChangeDetectorRef,
         protected modalService: ModalService,
     ) {
         super({

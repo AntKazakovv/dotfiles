@@ -1,11 +1,11 @@
 import {
     ApplicationRef,
+    ComponentFactoryResolver,
+    ComponentRef,
     Injectable,
     Injector,
-    ComponentFactoryResolver,
     Inject,
     RendererFactory2,
-    ComponentRef,
 } from '@angular/core';
 import {DOCUMENT} from '@angular/common';
 
