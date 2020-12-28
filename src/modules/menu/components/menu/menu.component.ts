@@ -103,12 +103,8 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
         super.ngOnInit(this.inlineParams);
         this.initItems();
 
-        this.transitionService.onEnter({}, () => {
-            _forEach(this.items, (item: Params.IMenuItemsGroup) => {
-                if (item.parent) {
-                    item.expand = false;
-                }
-            });
+        this.transitionService.onSuccess({}, () => {
+            this.expandItems();
         });
     }
 
@@ -149,10 +145,7 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
             if (_get(item, 'parent')) {
                 const itemsGroup: IMenuItemsGroup = item as IMenuItemsGroup;
                 for (const subitem of itemsGroup.items) {
-                    if (this.isActive(subitem.params?.state?.name)) {
-                        itemsGroup.expand = true;
-                        break;
-                    }
+                    itemsGroup.expand = this.isActive(subitem.params?.state?.name);
                 }
             }
         }

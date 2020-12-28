@@ -1,5 +1,4 @@
 import * as Bowser from 'bowser';
-// import
 
 export enum DeviceType {
     Mobile,
@@ -21,7 +20,6 @@ export class DeviceModel {
     constructor(
         protected deviceConfig: IDeviceConfig,
     ) {
-        // console.log(deviceConfig);
     }
 
     public get isReady(): boolean {
@@ -46,5 +44,9 @@ export class DeviceModel {
 
     public get isDesktop(): boolean {
         return;
+    }
+
+    public get osName(): string {
+        return this.bowserParser.getOS().name;
     }
 }

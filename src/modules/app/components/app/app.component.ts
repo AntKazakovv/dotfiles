@@ -7,12 +7,13 @@ import {
 } from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {StateService, TransitionService, UIRouter, UIRouterGlobals} from '@uirouter/core';
+import {Title} from '@angular/platform-browser';
 import {takeUntil} from 'rxjs/operators';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {SectionModel} from 'wlc-engine/modules/core/system/models/section.model';
 import {ConfigService, LayoutService} from '../../../core/system/services';
 import {ILanguage} from 'wlc-engine/modules/core';
-import {Title} from '@angular/platform-browser';
+import {DeviceModel} from 'wlc-engine/modules/core';
 
 import {
     sortBy as _sortBy,
@@ -93,7 +94,7 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
     }
 
     private setHostClass(): void {
-        const hostClass = [defaultParams.hostClass];
+        const hostClass = [defaultParams.hostClass, this.configService.get<DeviceModel>('device')?.osName?.toLowerCase()];
         hostClass.push(`${_get(this.uiRouter, '$current.name', '').replace(/\./g, '-')}-state`);
         this.$hostClass = hostClass.join(' ');
     }

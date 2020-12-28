@@ -94,11 +94,11 @@ export class UserStatsComponent extends AbstractComponent implements OnInit, OnD
 
             points: {
                 name: gettext('Points'),
-                value: this.userStats.loyalty.Points,
+                value: this.userStats.loyalty?.Balance,
             },
             level: {
                 name: gettext('Level'),
-                value: this.userStats.loyalty.Level,
+                value: this.userStats.loyalty?.Level,
             },
             email: {
                 name: gettext('Email'),
@@ -114,15 +114,15 @@ export class UserStatsComponent extends AbstractComponent implements OnInit, OnD
             },
             levelName: {
                 name: gettext('Level name'),
-                value: this.userStats.loyalty.LevelName[this.translate.currentLang || 'en'],
+                value: this.userStats.loyalty?.LevelName[this.translate.currentLang || 'en'],
             },
             login: {
                 name: gettext('Login'),
-                value: this.userStats.loyalty.Login,
+                value: this.userStats.loyalty?.Login,
             },
             nextLvlPoints: {
                 name: gettext('Next Level Points'),
-                value: this.userStats.loyalty.NextLevelPoints,
+                value: this.userStats.loyalty?.NextLevelPoints,
             },
         };
         this.cdr.markForCheck();
