@@ -7,7 +7,7 @@
         .wlc-login-signup {
             justify-content: center;
             grid-auto-flow: initial;
-            margin: 40px 0;
+            margin: map-get($themeDefault, 'loginBtnMargin');
 
             .wlc-btn {
                 min-width: 100%;
@@ -15,7 +15,7 @@
         }
 
         .wlc-user-stats {
-            margin-bottom: 15px;
+            margin-bottom: map-get($themeDefault, 'gapSize');
         }
     }
 }

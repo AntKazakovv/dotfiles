@@ -6,9 +6,10 @@ import {
     Input,
     OnChanges,
     OnInit,
+    SimpleChanges,
 } from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
-import {BehaviorSubject} from 'rxjs';
+import {BehaviorSubject, Subscription} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
 import * as Params from './currency.params';
@@ -32,9 +33,11 @@ import {
     concat as _concat,
     reduce as _reduce,
     split as _split,
+    merge as _merge,
     each as _each,
     find as _find,
     map as _map,
+    get as _get,
 } from 'lodash';
 
 interface IParsedDigitsInfo {
@@ -152,6 +155,9 @@ export class CurrencyComponent
     public displayIcon: IDisplayIcon;
     public $params: Params.ICurrencyParams;
 
+    protected initiated: boolean = false;
+    protected valueSubscribe: Subscription;
+
     protected numericValue: number;
 
     /**
@@ -187,8 +193,7 @@ export class CurrencyComponent
         protected translateService: TranslateService,
         @Inject(CRYPTOCURRENCIES)
         protected cryptocurrencies: ICryptocurrencies,
-        @Inject('injectParams')
-        injectParams: Params.ICurrencyParams,
+        @Inject('injectParams') injectParams: Params.ICurrencyParams,
         configService: ConfigService,
     ) {
         super({
@@ -204,6 +209,16 @@ export class CurrencyComponent
         this.setIndicatorFormat();
         this.setIntlCurrencyFormat(this.translateService.currentLang);
         this.processValue();
+        this.initiated = true;
+    }
+
+    public ngOnChanges(changes: SimpleChanges): void {
+        if (this.initiated) {
+            this.$params = _merge(this.$params, this.getInlineParams());
+            this.setIndicatorFormat();
+            this.setIntlCurrencyFormat(this.translateService.currentLang);
+            this.processValue();
+        }
     }
 
     protected subscribeOnLanguageChange(): void {
@@ -234,13 +249,15 @@ export class CurrencyComponent
      */
     protected processValue(): void {
         if (this.value instanceof BehaviorSubject) {
-            this.value.pipe(
-                takeUntil(this.$destroy),
-            ).subscribe((nextValue) => {
-                this.numericValue = _toNumber(nextValue) || 0;
-                this.setDisplayValue();
-                this.changeDetectorRef.markForCheck();
-            });
+            if (!this.valueSubscribe) {
+                this.valueSubscribe = this.value.pipe(
+                    takeUntil(this.$destroy),
+                ).subscribe((nextValue) => {
+                    this.numericValue = _toNumber(nextValue) || 0;
+                    this.setDisplayValue();
+                    this.changeDetectorRef.markForCheck();
+                });
+            }
         } else {
             this.numericValue = _toNumber(this.$params.value) || 0;
             this.setDisplayValue();
@@ -308,8 +325,8 @@ export class CurrencyComponent
      */
     protected setIcon(intlParts: CurrencyPart[]): void {
         const minusSignIndex: number = _findIndex(intlParts, {type: 'minusSign'});
-        const currencyIndex: number  = _findIndex(intlParts, {type: 'currency'});
-        const integerIndex: number   = _findIndex(intlParts, {type: 'integer'});
+        const currencyIndex: number = _findIndex(intlParts, {type: 'currency'});
+        const integerIndex: number = _findIndex(intlParts, {type: 'integer'});
 
         this.displayIcon = {
             icon: this.currencyFormat.icon,
