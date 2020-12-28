@@ -54,10 +54,10 @@ $themePlaceholderShown: map-merge((
 
 $customThemeVertical: () !default;
 $themeVertical: map-merge((
-    'maxWidth': 100%,
+    'labelGap': ef.get('size', 'small'),
 
-    'labelMargin': 0 0 7px 7px,
-    'labelFontSize': 10px,
+    'labelMargin': 0 0 0 ef.get('size', 'smallest'),
+    'labelFontSize': ef.get('font', 'small'),
     'labelFontWeight': 500,
     'labelLineHeight': 1,
     'labelColor': ef.get('color', 'main'),
@@ -66,7 +66,7 @@ $themeVertical: map-merge((
     'inputHeight': 40px,
     'inputPadding': 5px 13px,
     'inputPaddingRight': 80px,
-    'inputFontSize': 12px,
+    'inputFontSize': ef.get('font', 'smaller'),
     'inputFontWeight': 400,
     'inputLineHeight': 1,
     'inputBackground': ef.get('color', 'light'),

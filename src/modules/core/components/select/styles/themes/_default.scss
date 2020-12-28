@@ -2,11 +2,10 @@
 @use 'engine-scss/mixins/mediaqueries' as mq;
 
 @import '../utils/vars';
+@import '../utils/mixins';
 
 .wlc-select--theme-default:host {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-gap: map-get($themeDefault, 'labelGap');
+    @include selectBase($themeDefault);
 
     .wlc-select {
 
@@ -48,29 +47,11 @@
         }
 
         &__dropdown {
-            z-index: 15;
-            position: absolute;
-            top: calc(100% + 5px);
-            left: 0;
-            max-height: map-get($themeDefault, 'selectDropdownHeight');
-            width: 100%;
-            padding: 0;
-            border: map-get($themeDefault, 'selectDropdownBorder');
-            border-radius: map-get($themeDefault, 'selectDropdownBorderRadius');
-            background: map-get($themeDefault, 'selectDropdownBackground');
-            overflow: hidden scroll;
-            list-style: none;
+            @include dropdownBase;
 
             &-item {
-                display: flex;
-                align-items: center;
-                width: 100%;
-                min-height: map-get($themeDefault, 'selectHeight');
-                padding: map-get($themeDefault, 'selectDropdownItemPadding');
-                cursor: pointer;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                white-space: nowrap;
+                @include dropdownItemBase;
+
                 color: map-get($themeDefault, 'selectDropdownItemColor');
 
                 &:hover {
@@ -83,52 +64,15 @@
         &-status {
 
             &__icon {
-                position: absolute;
-                top: 50%;
-                right: map-get($themeDefault, 'iconRightShift');
-                transform: translateY(-50%);
-                width: map-get($themeDefault, 'iconWidth');
-                height: map-get($themeDefault, 'iconHeight');
-                border-radius: 50%;
-
-                &:before {
-                    content: '';
-                    position: absolute;
-                }
+                @include baseStatusIcon;
             }
 
             &__arrow {
-                position: absolute;
-                right: map-get($themeDefault, 'iconRightShift');
-                top: 50%;
-                transform: translateY(-50%);
-                fill: map-get($themeDefault, 'selectArrowColor');
+                @include baseStatusArrow;
             }
 
             &__errors {
-                position: absolute;
-                background: map-get($themeDefault, 'errorsBgColor');
-                top: calc(100% - 5px);
-                right: 0;
-                width: fit-content;
-                min-width: map-get($themeDefault, 'errorsMinWidth');
-                max-width: map-get($themeDefault, 'errorsMaxWidth');
-                opacity: 0;
-                visibility: hidden;
-                color: map-get($themeDefault, 'errorsColor');
-                border-radius: map-get($themeDefault, 'errorsBorderRadius');
-                font-size: map-get($themeDefault, 'errorsFontSize');
-                padding: map-get($themeDefault, 'errorsPadding');
-                z-index: 10;
-
-                &:before {
-                    content: '';
-                    border: 8px solid transparent;
-                    border-bottom-color: map-get($themeDefault, 'errorsBgColor');
-                    position: absolute;
-                    top: -15px;
-                    right: 13px;
-                }
+                @include baseStatusErrors;
             }
         }
     }

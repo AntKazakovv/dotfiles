@@ -2,6 +2,7 @@
 @use 'engine-scss/mixins/mediaqueries' as mq;
 
 @import '../utils/vars';
+@import '../utils/mixins';
 
 @keyframes spin {
 
@@ -11,9 +12,7 @@
 }
 
 .wlc-input--theme-default:host {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-gap: map-get($themeDefault, 'labelGap');
+    @include inputBase($themeDefault);
 
     .wlc-input__label {
         font-weight: map.get($themeDefault, 'labelFontWeight');
