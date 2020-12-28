@@ -52,10 +52,10 @@
 </ng-template>
 
 <ng-template #list>
-    <div class="{{$class}}__list" [ngClass]="hostRef.nativeElement.classList.value">
+    <div class="{{$class}}__list"  [ngClass]="asModal && hostRef.nativeElement.classList.value">
         <h3 class="{{$class}}__title" *ngIf="asModal">{{$params.modalTitle | translate}}</h3>
 
-        <ul class="{{$class}}__ul">
+        <ul class="{{$class}}__ul" @appearance>
             <li *ngFor="let system of systems"
                 class="{{$class}}__item">
 
