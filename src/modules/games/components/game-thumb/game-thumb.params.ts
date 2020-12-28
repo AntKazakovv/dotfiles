@@ -13,11 +13,15 @@ export interface IGameThumbCParams extends IComponentParams<Theme, Type, ThemeMo
     common?: {
         themeMod?: ThemeMod;
         game?: Game,
+        useMerchantName?: boolean,
     }
 }
 
 export const defaultParams: IGameThumbCParams = {
     moduleName: 'games',
-    componentName: 'game-thumb',
+    componentName: 'wlc-game-thumb',
     class: 'wlc-game-thumb',
+    common: {
+        useMerchantName: false,
+    },
 };

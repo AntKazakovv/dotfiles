@@ -8,13 +8,6 @@
         @include buttonBase;
         border-radius: 2px;
 
-        @media (hover: hover) {
-
-            &:hover {
-                background: $backgroundHover;
-            }
-        }
-
         &.wlc-btn--theme-mod-secondary {
             @include buttonTransparency;
         }

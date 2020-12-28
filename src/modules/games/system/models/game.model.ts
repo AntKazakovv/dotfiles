@@ -1,7 +1,7 @@
 import {UIRouter} from '@uirouter/core';
 
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
-import {IGame, IGames, IRestrictions, IStartGameOptions} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
+import {IGame, IRestrictions, IStartGameOptions} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
 import {GamesHelper} from 'wlc-engine/modules/games/system/helpers/games.helpers';
 import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
@@ -10,10 +10,7 @@ import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.mode
 import {
     isObject as _isObject,
     each as _each,
-    get as _get,
     toNumber as _toNumber,
-    forEach as _forEach,
-    keys as _keys,
     intersection as _intersection,
     includes as _includes,
     map as _map,
@@ -31,6 +28,8 @@ export class Game extends AbstractModel<IGame> {
     public sort: string;
     public aspectRatio: string;
     public image: string;
+    public merchantName: string;
+    public merchantAlias?: string;
 
     protected url: string;
     protected sortPerCategory: IIndexing<number>;
@@ -57,8 +56,6 @@ export class Game extends AbstractModel<IGame> {
 
     public jackpot?: number;
     public isFavourite?: boolean;
-    protected merchantAlias?: string;
-    protected merchantName?: string;
     protected toggleFavourite?: any;
     protected isCurrencyDisabled?: boolean;
     protected CategoryTitle?: IIndexing<string>[];
@@ -88,6 +85,8 @@ export class Game extends AbstractModel<IGame> {
         this.sortPerCategory = data.SortPerCategory;
         this.isRestricted = data.isRestricted;
         this.freeround = data.Freeround;
+        this.merchantName = this.getMerchantName();
+        this.merchantAlias = this.getMerchantAlias();
     }
 
     /**
@@ -121,6 +120,11 @@ export class Game extends AbstractModel<IGame> {
     public getMerchantName(): string {
         return GamesHelper.getMerchantNameById(this.merchantID)
             || GamesHelper.getMerchantNameById(this.subMerchantID);
+    }
+
+    public getMerchantAlias(): string {
+        return GamesHelper.getMerchantAliasById(this.merchantID)
+            || GamesHelper.getMerchantAliasById(this.subMerchantID);
     }
 
     /**

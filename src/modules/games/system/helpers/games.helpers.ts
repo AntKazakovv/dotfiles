@@ -120,7 +120,7 @@ export class GamesHelper {
             }
         }
 
-        _each(merchants, (merch: string) => {
+        _each(merchants, (merch: number) => {
             if (!this.mapping.byMerchant[merch]) {
                 this.mapping.byMerchant[merch] = {
                     games: [],
@@ -174,7 +174,7 @@ export class GamesHelper {
      * @param {string} merchantName
      * @returns {MerchantModel}
      */
-    public static getMerchantByName(merchantId: string): MerchantModel {
+    public static getMerchantByName(merchantId: number): MerchantModel {
         return _get(this.mapping, `merchantNameToObjectMapping[${merchantId}]`, '');
     }
 
@@ -183,7 +183,7 @@ export class GamesHelper {
      * @param {string} merchantId
      * @returns {string}
      */
-    public static getMerchantAliasById(merchantId: string): string {
+    public static getMerchantAliasById(merchantId: number): string {
         return _get(this.mapping, `merchantIdToAliasMapping[${merchantId}]`, '');
     }
 

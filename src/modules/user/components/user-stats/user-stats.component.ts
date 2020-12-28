@@ -91,7 +91,6 @@ export class UserStatsComponent extends AbstractComponent implements OnInit, OnD
                 value: this.getBonusBalance(),
                 modification: 'amount',
             },
-
             points: {
                 name: gettext('Points'),
                 value: this.userStats.loyalty?.Balance,
