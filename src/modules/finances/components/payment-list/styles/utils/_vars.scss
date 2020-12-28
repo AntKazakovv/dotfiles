@@ -1,0 +1,74 @@
+@use 'engine-scss/functions' as ef;
+
+// List
+$listMargin: 0 !default;
+$listPadding: 0 !default;
+$listGridColumnGup: 20px !default;
+$listGridRowGup: $listGridColumnGup !default;
+$listItemSize: 150px !default;
+
+// Item Button
+$itemWidth: 100% !default;
+$itemBorder: 2px solid transparent !default;
+$itemBg: #fff !default;
+$itemBorderRadius: ef.get('radius', 'big') !default;
+$itemPadding: 6px !default;
+$itemTransition: all ef.get('time', 'main') !default;
+$itemSvgColor: ef.get('color', 'text') !default;
+
+$itemBoxShadowHover: 0 1px 5px ef.get('color', 'main') !default;
+$itemSvgColorHover: $itemSvgColor !default;
+
+$itemBoxShadowActive: 0 1px 14px ef.get('color', 'main') !default;
+$itemSvgColorActive: $itemSvgColor !default;
+$itemBorderColorActive: ef.get('color', 'main') !default;
+
+// Item Image
+$imageWidth: 136px !default;
+$imagHeight: 75px !default;
+
+// Button Modal
+$btnBorder: 2px solid ef.get('color', 'main') !default;
+$btnBorderRadius: 50px !default;
+$btnBg: transparent !default;
+$btnColor: ef.get('color', 'textSecondary') !default;
+$btnPadding: 0 !default;
+$btnJustifyContent: space-between !default;
+$btnWidth: 100% !default;
+$btnMaxWidth: 288px !default;
+$btnHeight: 65px !default;
+$btnMargin: 0 !default;
+
+$btnArrowColor: ef.get('color', 'main') !default;
+$btnArrowMargin: 0 15px 0 0 !default;
+
+$btnTextPadding: 15px !default;
+$btnTextFontSize: inherit !default;
+
+$btnImageBg: #fff !default;
+$btnImagePadding: 15px !default;
+$btnImageWidth: 100px !default;
+$btnImageHeight: 65px !default;
+$btnImageSvgColor: ef.get('color', 'text') !default;
+
+// Title
+$titleColor: #fff !default;
+$titleTextAlign: center !default;
+$titleFontSize: 20px !default;
+$titleMargin: -10px 10px 30px !default;
+
+// Table
+$tableWidth: $btnWidth !default;
+$tableMaxWidth: $btnMaxWidth !default;
+$tableMargin: 28px 0 0 !default;
+$tableColor: rgba($color: ef.get('color', 'textSecondary'), $alpha: 0.5) !default;
+
+$tableTrBorderTop: 2px solid ef.get('color', 'divider') !default;
+
+$tableThFontWeight: normal !default;
+$tableThColor: inherit !default;
+$tableThPadding: 14px 0 !default;
+
+$tableTdAlignment: right !default;
+$tableTdColor: ef.get('color', 'textSecondary') !default;
+$tableTdPadding: $tableThPadding !default;

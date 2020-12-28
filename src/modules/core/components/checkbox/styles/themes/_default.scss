@@ -21,14 +21,15 @@
 }
 
 .wlc-checkbox--theme-default:host {
+    position: relative;
+    padding: map.get($themeDefault, 'checkboxPadding');
 
     .wlc-checkbox {
-        position: relative;
 
-        padding: map.get($themeDefault, 'checkboxPadding');
-
-        user-select: none;
-        cursor: pointer;
+        &__label {
+            user-select: none;
+            cursor: pointer;
+        }
 
         &__elem {
             position: absolute;

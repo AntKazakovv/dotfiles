@@ -1,28 +1,62 @@
 @use 'engine-scss/functions' as ef;
 
-$transition: 0.5s !default;
-$thumbBorderRadius: ef.get('radius', 'biger') !default;
+//common
+$breakpoint: 480 !default;
 
-$thumbPadding: 8px !default;
-$thumbHoverBgColor: #833f00 !default;
-$thumbHoverBg: linear-gradient(180deg, rgba(35, 36, 38, 0.7) 40%, $thumbHoverBgColor 90.25%), !default;
+// Grid
+$gridTemplateColumns: 1fr !default;
+$gridGap: 20px !default;
+$commonColor: ef.get('color', 'textSecondary') !default;
 
-$favoritePosition: left !default; //none (left), flex-end(right);
-$favoriteBg: #aaa !default;
-$favoriteHoverBg: #87cf3f !default;
-$favoriteActiveBg: #87cf3f !default;
-$favoriteSize: 25px !default;
-$favoriteBackBg: #555459 !default;
-$favoriteBackSize: 40px !default;
-$favoriteBackRadius: ef.get('radius', 'small') !default;
-$favoriteBoxShadow: 0 4px 15px rgba(0, 190, 225, 0.5) !default;
+// Title
+$titleFontSize: 20px !default;
+$titleFontWeight: 700 !default;
+$titleColor: inherit !default;
 
-$thumbNameColor: #fff !default;
-$thumbNameSize: 16px !default;
-$thumbNameWeight: bold !default;
-$thumbNamePosition: center !default;
+// Divider
+$dividerMargin: 10px 0 !default;
+$dividerBg: ef.get('color', 'divider') !default;
+$dividerHeight: 2px !default;
+$dividerWidth: 100% !default;
 
-$btnJustifyContent: space-between !default;
-$btnAlignItems: flex-end !default;
+// Step
+$step1Bg: ef.get('color', 'background') !default;
+$step1BorderRadius: ef.get('radius', 'biger') !default;
+$step1Padding: 15px !default;
+$step1Margin: 0 0 20px !default;
+$step1BgBr: transparent !default;
+$step1BorderRadiusBr: 0 !default;
+$step1PaddingBr: 0 !default;
+$step1MarginBr: 0 !default;
 
-$thumbBtnPosition: horizontal !default; //horizontal (default), vertical
+// Subtitle
+$subtitleFontSize: 16px !default;
+$subtitleFontWeight: 700 !default;
+$subtitleMargin: 0 0 20px !default;
+$subtitleColor: inherit !default;
+$subtitleAlignment: center !default;
+$subtitleStepColor: ef.get('color', 'main') !default;
+$subtitleStepMargin: 0 0 10px !default;
+$subtitleAlignmentBr: left !default;
+$subtitleFontWeightBr: normal !default;
+
+// Errors
+$errorsColor: ef.get('color', 'error') !default;
+$errorsMargin: 0 0 20px !default;
+
+$errorsMessageMargin: 0 0 10px !default;
+
+$errorsUlMargin: 0 0 20px !default;
+$errorsUlPadding: 0 0 0 15px !default;
+
+$errorsLiType: none !default;
+$errorsLiBeforeDisplay: inline-block !default;
+$errorsLiBeforeContent: '-' !default;
+$errorsLiBeforeMargin: 0 5px 0 0 !default;
+
+// Forms
+$formWidth: 100% !default;
+$formMaxWidth: 288px !default;
+$formInputMarginBottom: 15px !default;
+$formAmountButtonMargin: 0 auto !default;
+$formAmountButtonMarginBr: 0 !default;

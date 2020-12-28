@@ -1,17 +1,43 @@
-import {Component, OnInit, Inject, Input, ChangeDetectionStrategy, ChangeDetectorRef} from '@angular/core';
+import {
+    Component,
+    OnInit,
+    Inject,
+    Input,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    ViewChild,
+    TemplateRef,
+} from '@angular/core';
+import {
+    map,
+    filter,
+    takeUntil,
+} from 'rxjs/operators';
+import {fromEvent} from 'rxjs';
 
-import {AbstractComponent, IMixedParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {EventService} from 'wlc-engine/modules/core/system/services';
+import {
+    AbstractComponent,
+    IMixedParams,
+} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {
+    ActionService,
+    EventService,
+    ModalService,
+} from 'wlc-engine/modules/core';
 import {FinancesService} from 'wlc-engine/modules/finances/system/services';
 import {PaymentSystem} from 'wlc-engine/modules/finances/system/models/payment-system.model';
-import {map, filter, tap} from 'rxjs/operators';
 
 import * as Params from './payment-list.params';
+
+import {
+    isUndefined as _isUndefined,
+    isString as _isString,
+} from 'lodash';
 
 @Component({
     selector: '[wlc-payment-list]',
     templateUrl: './payment-list.component.html',
-    styleUrls: ['./payment-list.component.scss'],
+    styleUrls: ['./styles/payment-list.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PaymentListComponent extends AbstractComponent implements OnInit {
@@ -19,14 +45,21 @@ export class PaymentListComponent extends AbstractComponent implements OnInit {
     public systems: PaymentSystem[] = [];
     public $params: Params.IPaymentListParams;
     public ready: boolean = false;
+    public asModal: boolean;
+    public showTable: boolean;
+
     @Input() public currentSystem: PaymentSystem;
     @Input() protected inlineParams: Params.IPaymentListParams;
+
+    @ViewChild('list') protected list: TemplateRef<any>;
 
     constructor(
         @Inject('injectParams') protected params: Params.IPaymentListParams,
         protected cdr: ChangeDetectorRef,
         protected financesService: FinancesService,
         protected eventService: EventService,
+        protected modalService: ModalService,
+        protected actionService: ActionService,
     ) {
         super(
             <IMixedParams<Params.IPaymentListParams>>{
@@ -37,6 +70,41 @@ export class PaymentListComponent extends AbstractComponent implements OnInit {
 
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
+        this.getPaymentSystems();
+        this.followBreakpoints();
+    }
+
+    public selectPayment(system: PaymentSystem): void {
+        this.eventService.emit({
+            name: 'select_system',
+            from: 'finances',
+            data: system,
+        });
+
+        if (this.$params.hideModalOnSelect) {
+            this.modalService.closeAllModals();
+        }
+
+        this.cdr.markForCheck();
+    }
+
+    public openModal(): void {
+        this.modalService.showModal({
+            id: 'payment-list',
+            templateRef: this.list,
+            size: this.$params.modalSize,
+        });
+    }
+
+    public getIcon(name: string): string {
+        const snakeName = name.toLowerCase().replace(/\s+|\s/g, '_').replace(/[()]/g, '');
+        if (this.$params.iconsType === 'svg') {
+            return `/paysystems/V2/svg/black/${snakeName}.svg`;
+        }
+        return `/paysystems/V2/png/color/${snakeName}.png`;
+    }
+
+    protected getPaymentSystems(): void {
         this.financesService.paymentSystems$.pipe(
             filter((systems) => !!systems),
             map(
@@ -52,12 +120,47 @@ export class PaymentListComponent extends AbstractComponent implements OnInit {
         });
     }
 
-    public selectPayment(system: PaymentSystem): void {
-        this.eventService.emit({
-            name: 'select_system',
-            from: 'finances',
-            data: system,
-        });
-    }
+    protected followBreakpoints(): void {
+        const {asModal, showTable} = this.$params;
 
+        if (!_isUndefined(asModal)) {
+            if (_isString(asModal)) {
+                const breakpoint = window.matchMedia(asModal);
+                this.asModal = breakpoint.matches;
+                fromEvent(breakpoint, 'change')
+                    .pipe(takeUntil(this.$destroy))
+                    .subscribe((event: MediaQueryListEvent) => {
+                        this.asModal = event.matches;
+                        this.cdr.markForCheck();
+                    });
+            } else {
+                this.actionService.deviceType()
+                    .pipe(takeUntil(this.$destroy))
+                    .subscribe((type) => {
+                        this.asModal = asModal === type;
+                        this.cdr.markForCheck();
+                    });
+            }
+        }
+
+        if (!_isUndefined(showTable)) {
+            if (_isString(showTable)) {
+                const breakpoint = window.matchMedia(showTable);
+                this.showTable = breakpoint.matches;
+                fromEvent(breakpoint, 'change')
+                    .pipe(takeUntil(this.$destroy))
+                    .subscribe((event: MediaQueryListEvent) => {
+                        this.showTable = event.matches;
+                        this.cdr.markForCheck();
+                    });
+            } else {
+                this.actionService.deviceType()
+                    .pipe(takeUntil(this.$destroy))
+                    .subscribe((type) => {
+                        this.showTable = showTable === type;
+                        this.cdr.markForCheck();
+                    });
+            }
+        }
+    }
 }

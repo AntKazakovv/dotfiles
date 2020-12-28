@@ -1,5 +1,13 @@
 @use 'engine-scss/functions' as ef;
 
+// common
+$breakpoint: 480 !default;
+$wrapBackground: ef.get('color', 'backgroundSecondary') !default;
+$wrapPadding: 24px 20px !default;
+$wrapBorderRadius: 10px !default;
+$wrapPaddingBr: 40px !default;
+$wrapBorderRadiusBr: 30px !default;
+
 // Header
 $headerBurgerBtnWidth: 30px !default;
 $headerSearchBtnWidth: 30px !default;

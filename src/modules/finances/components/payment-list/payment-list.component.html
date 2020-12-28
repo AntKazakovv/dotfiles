@@ -1,11 +1,80 @@
-<div *ngIf="ready; else preloader" class="{{$class}}">
-    <div *ngFor="let system of systems" class="item" [ngClass]="{'active': system.id === currentSystem?.id}">
-        <div (click)='selectPayment(system)'>
-            <div class="image" [ngStyle]="{'background-image': 'url(' + system.image + ')'}"></div>
-            <!-- <span class="title">{{system.name}}</span> -->
-        </div>
+<ng-container *ngIf="ready; else preloader">
+    <ng-container [ngTemplateOutlet]="asModal ? button : list"></ng-container>
+    <ng-container [ngTemplateOutlet]="showTable ? table : false"></ng-container>
+</ng-container>
+
+<ng-template #button>
+    <button type="button"
+        (click)="openModal()"
+        class="{{$class}}__btn-modal"
+        [ngClass]="{'selected': !!currentSystem}"
+        [attr.title]="$params.buttonText | translate"
+        [attr.aria-label]="$params.buttonText | translate">
+        <ng-container *ngIf="currentSystem && $params.showSelectedInButton">
+            <span wlc-icon
+            class="{{$class}}__btn-modal-image"
+            [iconUrl]="getIcon(currentSystem.name)"
+            [fallback]="currentSystem.image"></span>
+        </ng-container>
+        <span class="{{$class}}__btn-modal-text">{{$params.buttonText | translate}}</span>
+        <span class="{{$class}}__btn-modal-arrow" wlc-icon [iconName]="$params.arrowIcon"></span>
+    </button>
+</ng-template>
+
+<ng-template #table>
+    <table class="{{$class}}__sys-table">
+        <tr class="{{$class}}__sys-tr">
+            <th class="{{$class}}__sys-th">{{'Speed' | translate}}</th>
+            <!-- No data about speed :( -->
+            <td class="{{$class}}__sys-td">{{currentSystem ? 'Instant' : '---' | translate}}</td>
+        </tr>
+        <tr class="{{$class}}__sys-tr"
+            [ngSwitch]="$params.paymentType">
+            <th class="{{$class}}__sys-th">{{'Limit' | translate}}</th>
+            <td class="{{$class}}__sys-td"
+                *ngSwitchCase="'deposit'"
+                [ngSwitch]="!!currentSystem">
+                <span *ngSwitchDefault>---</span>
+                <span *ngSwitchCase="true">{{currentSystem.depositMin}} - {{currentSystem.depositMax}}</span>
+            </td>
+            <td class="{{$class}}__sys-td"
+                *ngSwitchCase="'withdraw'"
+                [ngSwitch]="!!currentSystem">
+                <span *ngSwitchDefault>---</span>
+                <span *ngSwitchCase="true">{{currentSystem.withdrawMin}} - {{currentSystem.withdrawMax}}</span>
+            </td>
+        </tr>
+        <tr class="{{$class}}__sys-tr">
+            <th class="{{$class}}__sys-th">{{'Provider' | translate}}</th>
+            <td class="{{$class}}__sys-td">{{currentSystem ? currentSystem.name : '---'}}</td>
+        </tr>
+    </table>
+</ng-template>
+
+<ng-template #list>
+    <div class="{{$class}}__list" [ngClass]="hostRef.nativeElement.classList.value">
+        <h3 class="{{$class}}__title" *ngIf="asModal">{{$params.modalTitle | translate}}</h3>
+
+        <ul class="{{$class}}__ul">
+            <li *ngFor="let system of systems"
+                class="{{$class}}__item">
+
+                <button type="button"
+                    class="{{$class}}__button"
+                    [ngClass]="{'active': system.id === currentSystem?.id}"
+                    (click)='selectPayment(system)'
+                    [attr.aria-label]="system.name"
+                    [attr.title]="system.name">
+
+                    <span wlc-icon
+                        class="{{$class}}__image"
+                        [iconUrl]="getIcon(system.name)"
+                        [fallback]="system.image"></span>
+                </button>
+            </li>
+        </ul>
     </div>
-</div>
+</ng-template>
 
 <ng-template #preloader>
     <div wlc-loader></div>

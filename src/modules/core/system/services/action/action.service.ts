@@ -1,11 +1,14 @@
 import {Injectable, Injector} from '@angular/core';
 import {CurrencyPipe} from '@angular/common';
-import {BehaviorSubject, fromEvent} from 'rxjs';
+import {
+    BehaviorSubject,
+    fromEvent,
+    fromEventPattern,
+} from 'rxjs';
 import {Observable} from 'rxjs';
-import {takeWhile, filter} from 'rxjs/operators';
+import {takeWhile} from 'rxjs/operators';
 import {
     ConfigService,
-    DeviceModel,
     IDeviceConfig,
     DeviceType,
     IIndexing,
@@ -14,11 +17,27 @@ import {
 } from 'wlc-engine/modules/core';
 import {UserService} from 'wlc-engine/modules/user/system/services';
 
+import {
+    forEach as _forEach,
+} from 'lodash';
+
+export interface IBreakpoint {
+    mq: MediaQueryList;
+    observer: Observable<MediaQueryListEvent>;
+};
+
+export interface IDeviceBreakpoints {
+    mobile: IBreakpoint;
+    tablet: IBreakpoint;
+    desktop: IBreakpoint;
+};
+
 @Injectable({
     providedIn: 'root',
 })
 export class ActionService {
-    public windowResize: Observable<Event> = fromEvent(window, 'resize');
+    public breakpoints: IDeviceBreakpoints;
+    private deviceTypeSubject: BehaviorSubject<DeviceType> = new BehaviorSubject(null)
 
     constructor(
         private configService: ConfigService,
@@ -26,6 +45,7 @@ export class ActionService {
         private userService: UserService,
         private layoutService: LayoutService,
     ) {
+        this.createBreakpoints();
     }
 
     public async processMessages(initialPath: IIndexing<string>): Promise<void> {
@@ -97,30 +117,41 @@ export class ActionService {
     }
 
     public deviceType(): BehaviorSubject<DeviceType> {
+        const getDeviceType = (): DeviceType => {
+            if (this.breakpoints.desktop.mq.matches) {
+                return DeviceType.Desktop;
+            } else if (this.breakpoints.tablet.mq.matches) {
+                return DeviceType.Tablet;
+            } else {
+                return DeviceType.Mobile;
+            }
+        };
 
-        const device = this.configService.get<DeviceModel>('device'),
-            getDeviceType = (): DeviceType => {
-                const breakpoints = this.configService.get<IDeviceConfig>('$base.device')?.breakpoints;
-                if (device.windowWidth < breakpoints?.tablet) {
-                    return DeviceType.Mobile;
-                } else if (device.windowWidth >= breakpoints?.tablet && device.windowWidth < breakpoints?.desktop) {
-                    return DeviceType.Tablet;
-                } else {
-                    return DeviceType.Desktop;
-                }
-            },
-            handler = new BehaviorSubject<DeviceType>(getDeviceType());
-        let currentType = getDeviceType();
+        _forEach(this.breakpoints, (item: IBreakpoint) => {
+            item.observer
+                .pipe(takeWhile(() => !!this.deviceTypeSubject.observers.length))
+                .subscribe(() => this.deviceTypeSubject.next(getDeviceType()));
+        });
 
-        this.windowResize.pipe(
-            takeWhile(() => !!handler.observers.length),
-            filter((): boolean => {
-                const result = getDeviceType() !== currentType;
-                currentType = getDeviceType();
-                return result;
-            }),
-        ).subscribe(() => handler.next(getDeviceType()));
+        return this.deviceTypeSubject;
+    }
 
-        return handler;
+    private async createBreakpoints(): Promise<void> {
+        await this.configService.ready;
+        const breakpoints = this.configService.get<IDeviceConfig>('$base.device')?.breakpoints;
+
+        this.breakpoints = {
+            mobile: this.createMq(breakpoints?.mobile),
+            tablet: this.createMq(breakpoints?.tablet),
+            desktop: this.createMq(breakpoints?.desktop),
+        };
+    }
+
+    private createMq(mq: number): IBreakpoint {
+        const mediaQuery = window.matchMedia(`(min-width: ${mq}px)`);
+        return {
+            mq: mediaQuery,
+            observer: fromEvent<MediaQueryListEvent>(mediaQuery, 'change'),
+        };
     }
 }

@@ -97,6 +97,17 @@ export class WlcModalComponent extends AbstractComponent
         this.$params.config.modalTitle = title;
     }
 
+    public getType(): string {
+        if (this.$params.config.component) {
+            return 'component';
+        } else if (this.$params.config.templateRef) {
+            return 'templateRef';
+        } else if (this.$params.config.modalMessage) {
+            return 'message';
+        }
+        return;
+    }
+
     protected applyConfig(): void {
         if (_isString(this.$params.config.modalMessage)) {
             this.$params.config.modalMessage = [this.$params.config.modalMessage];

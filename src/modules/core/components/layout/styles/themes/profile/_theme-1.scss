@@ -6,8 +6,13 @@
 .wlc-sections__profile-content--theme-default {
 
     > .container {
-        padding: 40px;
-        background-color: #555459;
-        border-radius: 30px;
+        padding: $wrapPadding;
+        background-color: $wrapBackground;
+        border-radius: $wrapBorderRadius;
+
+        @include mq.min($breakpoint) {
+            padding: $wrapPaddingBr;
+            border-radius: $wrapBorderRadiusBr;
+        }
     }
 }

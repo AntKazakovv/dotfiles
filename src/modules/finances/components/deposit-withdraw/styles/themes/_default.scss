@@ -1,61 +1,141 @@
-//todo
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@import '../utils/vars';
 
 .wlc-cash--theme-default:host {
     display: grid;
-    grid: {
-        auto-columns: 1fr;
-        gap: 10px;
-    };
-    color: #fff;
+    grid-template-columns: $gridTemplateColumns;
+    gap: $gridGap;
+    color: $commonColor;
 
-    .wlc-cash-title {
-        font: {
-            size: 20px;
-            weight: bold;
-        }
-    }
+    .wlc-cash {
 
-    .required-fields-error {
-        color: #f00;
-        margin: 10px 0;
+        &__title {
+            display: none;
 
-        li {
-            list-style: none;
-        }
-    }
-
-    .wlc-cash-subtitle {
-        font-size: 16px;
-    }
-
-    .wlc-additional-form,
-    .wlc-amount-form {
-        max-width: 50%;
-
-        ::ng-deep {
-
-            .wlc-form {
-
-                > .wlc-input,
-                .wlc-checkbox,
-                .wlc-btn {
-                    margin-bottom: 10px;
-                }
-
-                .wlc-input {
-                    max-width: 50%;
+            @include mq.min($breakpoint) {
+                display: block;
+                color: $titleColor;
+                font: {
+                    size: $titleFontSize;
+                    weight: $titleFontWeight;
                 }
             }
         }
-    }
 
-    .wlc-additional-form {
-        max-width: 50%;
+        &__divider {
+            display: none;
 
-        .wlc-input,
-        .wlc-select {
-            margin-bottom: 10px;
-            max-width: 50%;
+            @include mq.min($breakpoint) {
+                display: block;
+                margin: $dividerMargin;
+                background: $dividerBg;
+                height: $dividerHeight;
+                width: $dividerWidth;
+            }
+        }
+
+        &__step {
+
+            &--1 {
+                background: $step1Bg;
+                padding: $step1Padding;
+                border-radius: $step1BorderRadius;
+                margin: $step1Margin;
+
+                @include mq.min($breakpoint) {
+                    padding: $step1PaddingBr;
+                    background: $step1BgBr;
+                    border-radius: $step1BorderRadiusBr;
+                    margin-bottom: $step1MarginBr;
+                }
+            }
+        }
+
+        &__subtitle {
+            font-size: $subtitleFontSize;
+            font-weight: $subtitleFontWeight;
+            margin: $subtitleMargin;
+            color: $subtitleColor;
+            text-align: $subtitleAlignment;
+
+            @include mq.min($breakpoint) {
+                text-align: $subtitleAlignmentBr;
+                font-weight: $subtitleFontWeightBr;
+            }
+        }
+
+        &__subtitle-step {
+            color: $subtitleStepColor;
+            margin: $subtitleStepMargin;
+
+            @include mq.min($breakpoint) {
+                display: none;
+            }
+        }
+
+        &__subtitle-name {
+
+            span {
+                display: none;
+
+                @include mq.min($breakpoint) {
+                    display: inline-block;
+                }
+            }
+        }
+
+        &__fields-error {
+            color: $errorsColor;
+            margin: $errorsMargin;
+        }
+
+        &__fields-message {
+            margin: $errorsMessageMargin;
+        }
+
+        &__fields-ul {
+            margin: $errorsUlMargin;
+            padding: $errorsUlPadding;
+        }
+
+        &__fields-li {
+            list-style-type: $errorsLiType;
+
+            &:before {
+                content: $errorsLiBeforeContent;
+                display: $errorsLiBeforeDisplay;
+                margin: $errorsLiBeforeMargin;
+            }
+        }
+
+        &__additional-form,
+        &__amount-form {
+            width: $formWidth;
+            max-width: $formMaxWidth;
+
+            ::ng-deep {
+
+                .wlc-select,
+                .wlc-input,
+                .wlc-checkbox,
+                .wlc-btn {
+                    margin-bottom: $formInputMarginBottom;
+                }
+            }
+        }
+
+        &__amount-form {
+
+            ::ng-deep {
+
+                .wlc-btn {
+                    margin: $formAmountButtonMargin;
+
+                    @include mq.min($breakpoint) {
+                        margin: $formAmountButtonMarginBr;
+                    }
+                }
+            }
         }
     }
 }
