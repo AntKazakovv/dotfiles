@@ -1,3 +1,8 @@
+////
+/// This is a poster comment.
+/// It will apply annotations to all items from file.
+/// @group global
+////
 @import 'app.variables';
 
 $customColor: () !default;
@@ -11,13 +16,39 @@ $customForm: () !default;
 
 $customVars: () !default;
 
+/// Основная палитра цветов
+/// @name color
+///
+/// @prop {Color} main [#e2e2e2] - Основной цвет сайта
+/// @prop {Color} secondary [#474747] - Дополнительный цвет сайта
+/// @prop {Color} light [#ffffff] - Белый цвет (для элементов, имеющих максимально светлый цвет)
+/// @prop {Color} dark [#000000] - Чёрный цвет (для элементов, имеющих максимально тёмный цвет)
+/// @prop {Color} background [#000000] - Основной фоновый цвет.
+/// @prop {Color} backgroundSecondary [#474747] - Дополнительный фоновый цвет.
+/// @prop {Color} warn [#eee480] - Цвет сообщений о предупреждении о чём-либо.
+/// @prop {Color} error [#ea5555] - Цвет сообщений об ошибке.
+/// @prop {Color} success [#65cb6a] - Цвет сообщений об успешном выполнении чего-либо
+/// @prop {Color} disabled [#adadad] - Цвет отключённых элементов.
+/// @prop {Color} modal [#4a4b4c] - Цвет модальных окон.
+///
+/// @prop {Color} text [#e2e2e2] - Основной цвет текста.
+/// @prop {Color} textSecondary [#474747] - Дополнительный цвет текста.
+///
+/// @prop {Color} link [#adadad] - Основной цвет ссылок.
+/// @prop {Color} linkSecondary [#474747] - Дополнительный цвет ссылок.
+///
+/// @prop {Color} divider [#adadad] - Цвет границ (таблиц, блоков) и разделителей.
+///
+/// @prop {Color} dialogBackground [#4a4b4c] - Цвет модальных окон. (?)
+/// @prop {Color} backdropBackground [#000000] - Цвет подложки модальных окон
+$dummy: map-merge((), $customColor);
 $color: map-merge((
     // Main colors
-    'main': #777,
+    'main': #e2e2e2,
     'secondary': #474747,
     'light': #ffffff,
     'dark': #000000,
-    'background': #000,
+    'background': #000000,
     'backgroundSecondary': #474747,
     'warn': #eee480,
     'error': #ea5555,
@@ -38,7 +69,7 @@ $color: map-merge((
 
     // Modal colors
     'dialogBackground': #4a4b4c,
-    'backdropBackground': #000,
+    'backdropBackground': #000000,
 ), $customColor);
 
 $size: map-merge((

@@ -49,6 +49,7 @@ Thumbs.db
 
 # project dirs and files
 /docs
+/sassdoc
 
 roots/siteconfig_local.php
 
