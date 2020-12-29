@@ -7,7 +7,8 @@
         "build": "ng build",
         "docs": "npm run build:docs -- --serve",
         "build:docs": "compodoc -p ./tsconfig.docs.json -d docs",
-        "dist": "git submodule update --init && ng build --project wlc-engine --prod && npm run build:docs",
+        "build:sassdocs": "npm run gulp sassdoc",
+        "dist": "git submodule update --init && ng build --project wlc-engine --prod && npm run build:docs && npm run build:sassdocs",
         "test": "ng test",
         "lint": "ng lint",
         "e2e": "ng e2e",
@@ -115,6 +116,7 @@
         "zone.js": "0.11.3"
     },
     "devDependencies": {
-        "@compodoc/compodoc": "^1.1.11"
+        "@compodoc/compodoc": "^1.1.11",
+        "sassdoc": "^2.7.3"
     }
 }
