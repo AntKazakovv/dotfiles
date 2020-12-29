@@ -3,6 +3,7 @@
         <h2 *ngIf="$params.showTitle">{{title | translate}}</h2>
         <a *ngIf="$params.showAllLink?.use"
            uiSref="{{$params.showAllLink?.link}}"
+           [uiParams]="$params.showAllLink?.params || {}"
            class="{{$class}}__link">
             {{$params.showAllLink?.text || 'Show all' | translate}}
         </a>

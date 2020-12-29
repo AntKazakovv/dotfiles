@@ -32,6 +32,8 @@ import {
     has as _has,
 } from 'lodash';
 
+import {ISocketsData} from 'wlc-engine/modules/core/system/interfaces';
+
 export interface IData {
     status: 'success' | 'error';
     name: string;
@@ -205,6 +207,18 @@ export class DataService {
             return;
         }
         return this.apiList[requestName].flow;
+    }
+
+    public setSocketUrl(socketsData?: ISocketsData): void {
+        if (this.socket) {
+            this.socket.close();
+        }
+
+        //just for test
+        socketsData.server = 'wss://wsqa.egamings.com/ws';
+
+        this.socketUrl = `${socketsData.server}?token=${socketsData.token}&api=${socketsData.api}`;
+        this.socketConnect();
     }
 
     protected init(): void {

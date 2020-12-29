@@ -1,4 +1,4 @@
-import {IExtProfile, IUserProfile} from 'wlc-engine/modules/core/system/interfaces';
+import {IExtProfile, ISocketsData, IUserProfile} from 'wlc-engine/modules/core/system/interfaces';
 import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
 
 import {
@@ -160,6 +160,10 @@ export class UserProfile extends AbstractModel<IUserProfile> {
 
     public get oddsStyle(): string {
         return this.data.oddsStyle;
+    }
+
+    public get socketData(): ISocketsData {
+        return this.data.socketsData;
     }
 
     public hasField(field: string): boolean {

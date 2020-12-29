@@ -9,3 +9,9 @@ export interface IRedirect {
     state: string;
     params?: StateParams;
 }
+
+export interface ISocketsData {
+    api: string;
+    server: string;
+    token: string;
+}

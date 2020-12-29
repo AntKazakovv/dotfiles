@@ -40,9 +40,9 @@ export class ActionService {
     private deviceTypeSubject: BehaviorSubject<DeviceType> = new BehaviorSubject(null)
 
     constructor(
+        private injector: Injector,
         private configService: ConfigService,
         private modalService: ModalService,
-        private userService: UserService,
         private layoutService: LayoutService,
     ) {
         this.createBreakpoints();
@@ -80,7 +80,10 @@ export class ActionService {
                 break;
             case 'COMPLETE_REGISTRATION':
                 if (initialPath.code) {
-                    this.userService.registrationComplete(initialPath.code);
+                    await this.configService.ready;
+                    await this.layoutService.importModules(['games']);
+                    const userService = this.injector.get(UserService);
+                    userService.registrationComplete(initialPath.code);
                 } else {
                     this.modalService.showError({
                         modalMessage: [
