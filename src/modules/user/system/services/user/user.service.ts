@@ -81,6 +81,11 @@ export class UserService {
             {name: 'USER_PROFILE'},
         ], (profile: IData) => {
             this.profile.data = profile.data;
+
+            if (this.profile.socketData) {
+                this.dataService.setSocketUrl(this.profile.socketData);
+            }
+
             this.userProfile$.next(this.profile);
         });
 

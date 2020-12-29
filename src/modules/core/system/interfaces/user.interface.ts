@@ -2,6 +2,7 @@ import {
     IIndexing,
     ILoyalty,
     IFreeRound,
+    ISocketsData,
 } from './index';
 
 export interface IUserInfo {
@@ -61,6 +62,7 @@ export interface IUserProfile {
     passwordRepeat?: string;
     password?: string;
     oddsStyle?: string;
+    socketsData?: ISocketsData,
 }
 
 export interface IExtProfile {

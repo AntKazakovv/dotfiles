@@ -1,3 +1,4 @@
+import {IIndexing} from 'wlc-engine/modules/core';
 import {IComponentParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
 
 export type GGType = 'default' | 'search';
@@ -13,6 +14,8 @@ export interface IGamesGridCParams extends IComponentParams<string, GGType, stri
     showAllLink?: {
         use?:boolean;
         link?: string;
+        params?: IIndexing<string>;
+        text?: string;
     };
     moreBtn?: {
         hide?: boolean;
