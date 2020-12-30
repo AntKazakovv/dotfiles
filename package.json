@@ -6,7 +6,7 @@
         "start": "ng serve",
         "build": "ng build",
         "docs": "npm run build:docs -- --serve",
-        "build:docs": "compodoc -p ./tsconfig.docs.json -d docs",
+        "build:docs": "compodoc -p ./tsconfig.docs.json -d docs/compodoc",
         "build:sassdocs": "npm run gulp sassdoc",
         "dist": "git submodule update --init && ng build --project wlc-engine --prod && npm run build:docs && npm run build:sassdocs",
         "test": "ng test",
