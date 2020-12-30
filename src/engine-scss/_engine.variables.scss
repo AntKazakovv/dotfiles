@@ -17,6 +17,7 @@ $customForm: () !default;
 $customVars: () !default;
 
 /// Основная палитра цветов
+///
 /// @name color
 ///
 /// @prop {Color} main [#e2e2e2] - Основной цвет сайта
@@ -72,6 +73,23 @@ $color: map-merge((
     'backdropBackground': #000000,
 ), $customColor);
 
+/// Размеры отступов на сайте.
+/// Здесь перечислены все возможные отступы и поля для всех стандартных элементов на сайте.
+/// Это и отступ заголовка от текста, и расстояние между блоками игр и т.д.
+/// Если в дизайне используются другие значения, то по умолчанию для WLC проектов необходимо
+/// округлять размеры до используемых в данной палитре.
+///
+/// @name size
+///
+/// @prop {Size} smallest [5px] - smallest
+/// @prop {Size} small [10px] - small
+/// @prop {Size} smally [15px] - smallest
+/// @prop {Size} smaller [20px] - smaller
+/// @prop {Size} less [30px] - less
+/// @prop {Size} main [40px] - main
+/// @prop {Size} biger [50px] - biger
+/// @prop {Size} big [60px] - big
+$dummy: map-merge((), $customSize);
 $size: map-merge((
     'smallest': 5px,
     'small': 10px,
@@ -83,6 +101,20 @@ $size: map-merge((
     'big': 60px,
 ), $customSize);
 
+/// Размеры скругления элементов на сайте.
+/// Здесь перечислены все возможные значения скругления для всех стандартных элементов на сайте.
+/// Если в дизайне используются другие значения, то по умолчанию для WLC проектов необходимо
+/// округлять значения до используемых в данной палитре.
+///
+/// @name radius
+///
+/// @prop {Size} smaller [2px] - smaller
+/// @prop {Size} small [4px] - small
+/// @prop {Size} less [6px] - less
+/// @prop {Size} main [8px] - main
+/// @prop {Size} biger [10px] - biger
+/// @prop {Size} big [20px] - big
+$dummy: map-merge((), $customRadius);
 $radius: map-merge((
     'smaller': 2px,
     'small': 4px,
@@ -92,6 +124,23 @@ $radius: map-merge((
     'big': 20px
 ), $customRadius);
 
+/// Размеры шрифта сайта.
+/// По умолчанию используются относительные размеры в REM единицах. Значение `base` задаёт базовый размер,
+/// по отношению к которому выставляются остальные размеры. Базовый размер не используется в SASS файлах напрямую,
+/// он необходим для задания свойства `font-size` для элемента `html` в стилях сайта.
+///
+/// @name font
+///
+/// @prop {Size} base [18px] - base
+/// @prop {Size} small [0.6rem] - small
+/// @prop {Size} smaller [0.8rem] - smaller
+/// @prop {Size} less [0.9rem] - less
+/// @prop {Size} main [1rem] - main
+/// @prop {Size} biger [1.2rem] - biger
+/// @prop {Size} big [2rem] - big
+/// @prop {Size} huge [3.2rem] - huge
+/// @prop {Size} monster [4rem] - monster
+$dummy: map-merge((), $customFont);
 $font: map-merge((
     'base': 18px,
     'small': 0.6rem,
@@ -104,12 +153,67 @@ $font: map-merge((
     'monster': 4rem,
 ), $customFont);
 
+/// Значения длительности анимации.
+/// В основном используются в свойстве `transition`.
+///
+/// @name time
+///
+/// @prop {Time} less [0.2s] - less
+/// @prop {Time} main [0.3s] - main
+/// @prop {Time} long [0.5s] - long
+$dummy: map-merge((), $customTime);
 $time: map-merge((
     'less': 0.2s,
     'main': 0.3s,
     'long': 0.5s,
 ), $customTime);
 
+/// Параметры элементов форм, используемых на сайте.
+///
+/// @name form
+///
+/// @prop {Color} errorColor [#ea5555] - Цвет сообщений об ошибках валидации элемента формы.
+/// @prop {Color} successColor [#65cb6a] - Цвет сообщения об успешной валидации элемента формы.
+///
+/// @prop {Size} maxWidth [765px] - Максимальная ширина формы. В настоящее время не используется.
+///
+/// @prop {Size} labelFontWeight [normal] - Начертание заголовка элемента формы.
+/// @prop {Color} labelColor [#e2e2e2] - Цвет шрифта заголовка элемента формы.
+/// @prop {Size} labelFontSize [0.8rem] - Размер шрифта заголовка элемента формы.
+///
+/// @prop {Color} inputColor [#000000] - Цвет вводимого текста в элементы `<input>, <select>, <textarea>`.
+/// @prop {Size} inputFontSize [1rem] - Размер шрифта элементов `<input>, <select>, <textarea>`.
+/// @prop {Size} inputHeight [40px] - Высота элементов `<input>, <select>`.
+/// @prop {Color} inputBackground [#ffffff] - Фон элементов `<input>, <select>, <textarea>`.
+/// @prop {Border} inputBorder [2px solid #adadad] - Граница элементов `<input>, <select>, <textarea>`.
+/// @prop {Color} inputBorderFocusColor [#adadad] - Цвет границы активных элементов `<input>, <select>, <textarea>`.
+/// @prop {Size} inputBorderRadius [8px] - Размер скругления элементов `<input>, <select>, <textarea>`.
+/// @prop {Padding} inputPadding [5px 40px 5px 20px] - Поля элементов `<input>, <select>, <textarea>`.
+/// @prop {Align} inputTextAlign [left] - Выравнивание текста внутри элементов `<input>, <select>, <textarea>`.
+///
+/// @prop {Size} selectDropdownHeight [300px] - Максимальная высота выпадающего списка элемента `<select>`.
+/// @prop {Time} selectDropdownItemTransition [0.3s ease-in-out background] - Анимация элементов выпадающего списка `<select>` по наведению.
+///
+/// @prop {Color} selectArrowColor [#000000] - Цвет стрелки элемента `<select>`.
+/// @prop {Size} iconWidth [12px] - Высота иконки валидации для элементов формы.
+/// @prop {Size} iconHeight [12px] - Ширина иконки валидации для элементов формы.
+/// @prop {Size} iconRightShift [15px] - Сдвиг иконки валидации элемента формы от правого края.
+/// @prop {Color} successIconColor [#65cb6a] - Цвет иконки валидации при успехе.
+/// @prop {Color} errorIconColor [#ea5555] - Цвет иконки валидации при ошибке.
+/// @prop {Color} pendingIconColor [#adadad] - Цвет иконки валидации в состоянии передачи данных формой.
+///
+/// @prop {Color} errorsBgColor [#f08282] - Цвет фона сообщения об ошибке.
+/// @prop {Color} errorsColor [#ea5555] - Цвет Текста сообщения об ошибке.
+/// @prop {Size} errorsMinWidth [300px] - Минимальный размер элемента вывода сообщения об ошибке.
+/// @prop {Size} errorsMaxWidth [100%] - Максимальный размер элемента вывода сообщения об ошибке.
+/// @prop {Size} errorsBorderRadius [8px] - Размер скругления элемента вывода сообщения об ошибке.
+/// @prop {Size} errorsFontSize [0.8rem] - Размер шрифта сообщения об ошибке.
+/// @prop {Size} errorsPadding [10px] - Поля элемента вывода сообщения об ошибке.
+///
+/// @prop {Size} placeholderFontSize [0.8rem] - Размер шрифта `placeholder` элемента формы.
+/// @prop {Size} placeholderPadding [0 20px] - Поля `placeholder` элемента формы.
+/// @prop {Size} placeholderShift [-40px] - Сдвиг `placeholder` элемента формы.
+$dummy: map-merge((), $customForm);
 $form: map-merge((
     'errorColor': map-get($color, 'error'),
     'successColor': map-get($color, 'success'),
@@ -154,6 +258,24 @@ $form: map-merge((
     'placeholderShift': map-get($size, 'main') * -1,
 ), $customForm);
 
+/// Breakpoints для CSS медиа-запросов.
+///
+/// @name grid-breakpoints
+///
+/// @prop {Size} 320 [0] - Не используется. Минимальный размер 375px. При меньшем разрешении сайт масштабируется.
+/// @prop {Size} 375 [375px] - 375px
+/// @prop {Size} 480 [480px] - 480px
+/// @prop {Size} 560 [560px] - 560px
+/// @prop {Size} 640 [640px] - 640px
+/// @prop {Size} 720 [720px] - 720px
+/// @prop {Size} 768 [768px] - 768px
+/// @prop {Size} 900 [900px] - 900px
+/// @prop {Size} 1024 [1024px] - 1024px
+/// @prop {Size} 1200 [1200px] - 1200px
+/// @prop {Size} 1366 [1366px] - 1366px
+/// @prop {Size} 1420 [1420px] - 1420px
+/// @prop {Size} 1630 [1630px] - 1630px
+$dummy: ();
 $grid-breakpoints: (
     320: 0,
     375: 375px,
@@ -170,8 +292,25 @@ $grid-breakpoints: (
     1630: 1630px,
 );
 
+/// Ширина контейнера `container` при минимальной ширине экрана устройства.
+///
+/// @name container-max-widths
+///
+/// @prop {Size} 375 [345px] - 375px - 479px
+/// @prop {Size} 480 [450px] - 480px - 559px
+/// @prop {Size} 560 [530px] - 560px - 639px
+/// @prop {Size} 640 [610px] - 640px - 719px
+/// @prop {Size} 720 [690px] - 720px - 767px
+/// @prop {Size} 768 [738px] - 768px - 899px
+/// @prop {Size} 900 [870px] - 900px - 1023px
+/// @prop {Size} 1024 [994px] - 1024px - 1199px
+/// @prop {Size} 1200 [1170px] - 1200px - 1365px
+/// @prop {Size} 1366 [1336px] - 1366px - 1419px
+/// @prop {Size} 1420 [1390px] - 1420px - 1629px
+/// @prop {Size} 1630 [1600px] - 1630px и выше
+$dummy: ();
 $container-max-widths: (
-    320: 340px,
+    320: 290px,
     375: 345px,
     480: 450px,
     560: 530px,
