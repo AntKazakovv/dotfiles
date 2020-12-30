@@ -48,8 +48,8 @@ testem.log
 Thumbs.db
 
 # project dirs and files
-/docs
-/sassdoc
+/docs/compodoc
+/docs/sassdoc
 
 roots/siteconfig_local.php
 

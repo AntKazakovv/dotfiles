@@ -68,7 +68,7 @@ module.exports = function config(root, bundleType) {
             'zh-hant': {'code': 'zh-hant', 'label': 'Chinese', 'locale': 'zh_Hant'},
         },
         sassDocOptions: {
-            dest: `${root}/sassdoc`,
+            dest: `${root}/docs/sassdoc`,
             verbose: true,
             groups: {
                 'global': 'Global',
