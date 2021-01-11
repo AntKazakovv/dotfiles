@@ -18,6 +18,7 @@ $userStatsBalanceShortPadding: 0 !default;
 $userStatsBalanceShortMinWidth: 180px !default;
 $userStatsBalanceShortBg: none !default;
 $userStatsBalanceShortBorderColor: #8d979a !default;
+$userStatsBalanceColor: ef.get('color', 'textSecondary') !default;
 
 $userStatsBalanceItemPadding: 4px 0 !default;
 $userStatsBalanceItemBorder: 2px solid #353739 !default;

@@ -91,6 +91,7 @@
                 justify-content: space-between;
                 padding: $userStatsBalanceItemPadding;
                 border-bottom: $userStatsBalanceItemBorder;
+                color: $userStatsBalanceColor;
 
                 &:last-child {
                     border-bottom: none;

@@ -3,13 +3,13 @@
         <input
             type="checkbox"
             name="{{$params.name}}"
+            ngDefaultControl
             [formControl]="control"
-            [(ngModel)]="control.value"
             class="{{$class}}__checkbox"/>
         <span
             class="{{$class}}__elem"
             wlc-icon [iconName]="'tick'"
-            [ngClass]="{checked: control.value}">
+            [ngClass]="{checked: control?.value}">
         </span>
         <div class="{{$class}}__text">
             {{'I agree with' | translate}}
@@ -23,13 +23,13 @@
         <input
             type="checkbox"
             name="{{$params.name}}"
+            ngDefaultControl
             [formControl]="control"
-            [(ngModel)]="control.value"
             class="{{$class}}__checkbox"/>
         <span
             class="{{$class}}__elem"
             wlc-icon [iconName]="'tick'"
-            [ngClass]="{checked: control.value}">
+            [ngClass]="{checked: control?.value}">
         </span>
         <div class="{{$class}}__text">
             {{"I confirm that I'm 18 years or older" | translate}}
@@ -40,18 +40,36 @@
         <input
             type="checkbox"
             name="{{$params.name}}"
+            ngDefaultControl
             [formControl]="control"
-            [(ngModel)]="control.value"
             class="{{$class}}__checkbox"/>
         <span
             class="{{$class}}__elem"
             wlc-icon [iconName]="'tick'"
-            [ngClass]="{checked: control.value}">
+            [ngClass]="{checked: control?.value}">
         </span>
         <div class="{{$class}}__text">
             {{"I have read and agree with the payment" | translate}}
             <a uiSref="app.contacts({slug: 'terms-and-conditions', '#': 'item-8'})"
                class="{{$class}}__link">{{'systems restrictions' | translate}} *</a>
+        </div>
+    </label>
+
+    <label class="{{$class}}" *ngSwitchDefault>
+        <input
+                type="checkbox"
+                name="{{$params.name}}"
+                ngDefaultControl
+                [formControl]="control"
+                (change)="onChange($event)"
+                class="{{$class}}__checkbox"/>
+        <span
+                class="{{$class}}__elem"
+                wlc-icon [iconName]="'tick'"
+                [ngClass]="{checked: control?.value}">
+        </span>
+        <div class="{{$class}}__text" *ngIf="$params.text">
+            {{$params.text | translate}}
         </div>
     </label>
 </ng-container>

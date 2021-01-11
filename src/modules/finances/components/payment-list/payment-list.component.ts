@@ -136,12 +136,15 @@ export class PaymentListComponent extends AbstractComponent implements OnInit {
         });
     }
 
+    /**
+     *
+     */
     protected followBreakpoints(): void {
         const {asModal, showTable} = this.$params;
 
         if (!_isUndefined(asModal)) {
             if (_isString(asModal)) {
-                const breakpoint = window.matchMedia(asModal);
+                const breakpoint = window.matchMedia(asModal as string);
                 this.asModal = breakpoint.matches;
                 fromEvent(breakpoint, 'change')
                     .pipe(takeUntil(this.$destroy))
@@ -161,7 +164,7 @@ export class PaymentListComponent extends AbstractComponent implements OnInit {
 
         if (!_isUndefined(showTable)) {
             if (_isString(showTable)) {
-                const breakpoint = window.matchMedia(showTable);
+                const breakpoint = window.matchMedia(showTable as string);
                 this.showTable = breakpoint.matches;
                 fromEvent(breakpoint, 'change')
                     .pipe(takeUntil(this.$destroy))

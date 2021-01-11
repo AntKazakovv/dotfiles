@@ -10,6 +10,14 @@
             margin: $contentMargin;
         }
 
+        &__preloader {
+            margin: 0 auto;
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            left: 50%;
+        }
+
         &__header {
             @include flexBlock;
 
@@ -36,6 +44,7 @@
 
         &__btn-right {
             display: flex;
+            align-items: center;
 
             .icon-btn {
                 margin-left: $iconsGap;
@@ -96,14 +105,60 @@
             object {
                 width: 100% !important;
                 height: 100%;
+            }
+        }
+    }
 
-                @include mq.max(900) {
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    height: 100%;
-                    z-index: 10;
+    &.wlc-game-wrapper--mobile {
+        width: 100%;
+
+        .wlc-game-wrapper {
+
+            &__header {
+                display: none;
+            }
+
+            &__content {
+                z-index: 10;
+                margin: 0;
+                max-width: 100%;
+                position: fixed !important;
+                background: #000;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                right: 0;
+                display: grid;
+                height: 100%;
+                width: 100%;
+                grid-template-columns: 1fr;
+                grid-template-rows: 1fr;
+                align-content: center;
+                align-items: center;
+            }
+
+            &__game-area {
+                position: initial;
+                z-index: 10;
+                width: 100%;
+
+                div[wlc-dynamic-html] {
+                    display: none;
                 }
+
+                .ng-star-inserted {
+                    height: 100%;
+                }
+            }
+        }
+    }
+
+    &.wlc-game-wrapper--real-mobile {
+
+        .wlc-game-wrapper {
+
+            &__game-area {
+                height: 100% !important;
             }
         }
     }

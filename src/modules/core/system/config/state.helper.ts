@@ -16,7 +16,7 @@ export class StateHelper {
             const configService: ConfigService = $transition.injector().get(ConfigService);
             await configService.ready;
             const layoutService: LayoutService = $transition.injector().get(LayoutService);
-            layoutService.importModules(modules);
+            await layoutService.importModules(modules);
             return {};
         };
     }

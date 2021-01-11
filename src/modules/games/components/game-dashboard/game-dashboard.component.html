@@ -1,1 +1,80 @@
-<div></div>
+<div class="{{$class}}__tutorial" *ngIf="showMobileInstruction">
+    <div class="{{$class}}__tutorial-left-decor" [@leftShift]="decorAnimationState"></div>
+    <div class="{{$class}}__tutorial-item" [@fadeIn]="decorAnimationState">
+        <div class="{{$class}}__tutorial-arrow">
+            <span wlc-icon iconName="game-dashboard/arrow-right"></span>
+            <div class="tutorial-text">
+                {{'Pull this' | translate}} !
+            </div>
+        </div>
+        <div class="{{$class}}__tutorial-img">
+            <img src="/gstatic/wlc/game-dashboard/crown.png">
+        </div>
+        <div class="{{$class}}__tutorial-text">
+            {{'You can access the dashboard on your mobile device!' | translate}}
+        </div>
+    </div>
+    <div class="{{$class}}__tutorial-right-decor" [@rightShift]="decorAnimationState"></div>
+</div>
+
+<div class="{{$class}}__backdrop" #backdrop (click)="close()">
+</div>
+
+<div class="{{$class}}__wrp" #container>
+
+        <div class="{{$class}}__panch" #dragBtn [hidden]="!isMobile">
+            <div class="{{$class}}__panch-content">
+                <div *ngIf="this.showMobileInstruction && showPanchBtn" class="{{$class}}__panch-btn" #dragBtn [@fadeIn]="decorAnimationState" [@panchBtnColor]="showMobileInstruction ? 'active' : 'inactive'">
+                </div>
+                <div *ngIf="!this.showMobileInstruction && showPanchBtn" class="{{$class}}__panch-btn" #dragBtn>
+                </div>
+            </div>
+        </div>
+
+        <div class="{{$class}}__header">
+            <div class="{{$class}}__tab" *ngFor="let tab of tabs" (click)="openTab(tab.id)" [ngClass]="{'active': isActive(tab)}">
+                <div class="{{$class}}__tab-icon" wlc-icon [iconName]="tab.icon">
+                </div>
+            </div>
+        </div>
+        <div class="{{$class}}__content">
+
+            <ng-container [ngSwitch]="activeTabId">
+
+                <ng-container *ngSwitchCase="'profile'" [ngTemplateOutlet]="profile">
+                </ng-container>
+
+                <ng-container *ngSwitchCase="'bonuses'" [ngTemplateOutlet]="bonuses">
+                </ng-container>
+
+                <ng-container *ngSwitchCase="'tournaments'" [ngTemplateOutlet]="tournaments">
+                </ng-container>
+
+                <ng-container *ngSwitchCase="'last-played'" [ngTemplateOutlet]="lastplayed">
+                </ng-container>
+
+                <ng-container *ngSwitchDefault [ngTemplateOutlet]="profile">
+                </ng-container>
+
+            </ng-container>
+        </div>
+</div>
+
+<ng-template #profile>
+    <ng-container *ngIf="isAuth">
+        <div wlc-user-stats>
+        </div>
+    </ng-container>
+</ng-template>
+
+<ng-template #bonuses>
+
+</ng-template>
+
+<ng-template #tournaments>
+
+</ng-template>
+
+<ng-template #lastplayed>
+
+</ng-template>

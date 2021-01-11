@@ -37,7 +37,7 @@ export interface IDeviceBreakpoints {
 })
 export class ActionService {
     public breakpoints: IDeviceBreakpoints;
-    private deviceTypeSubject: BehaviorSubject<DeviceType> = new BehaviorSubject(null)
+    private deviceTypeSubject: BehaviorSubject<DeviceType> = new BehaviorSubject(null);
 
     constructor(
         private injector: Injector,
@@ -45,7 +45,7 @@ export class ActionService {
         private modalService: ModalService,
         private layoutService: LayoutService,
     ) {
-        this.createBreakpoints();
+        this.init();
     }
 
     public async processMessages(initialPath: IIndexing<string>): Promise<void> {
@@ -120,23 +120,27 @@ export class ActionService {
     }
 
     public deviceType(): BehaviorSubject<DeviceType> {
-        const getDeviceType = (): DeviceType => {
-            if (this.breakpoints.desktop.mq.matches) {
-                return DeviceType.Desktop;
-            } else if (this.breakpoints.tablet.mq.matches) {
-                return DeviceType.Tablet;
-            } else {
-                return DeviceType.Mobile;
-            }
-        };
-
         _forEach(this.breakpoints, (item: IBreakpoint) => {
             item.observer
                 .pipe(takeWhile(() => !!this.deviceTypeSubject.observers.length))
-                .subscribe(() => this.deviceTypeSubject.next(getDeviceType()));
+                .subscribe(() => this.deviceTypeSubject.next(this.getDeviceType()));
         });
-
         return this.deviceTypeSubject;
+    }
+
+    private async init(): Promise<void> {
+        await this.createBreakpoints();
+        this.deviceTypeSubject.next(this.getDeviceType());
+    }
+
+    private getDeviceType(): DeviceType {
+        if (this.breakpoints.desktop.mq.matches) {
+            return DeviceType.Desktop;
+        } else if (this.breakpoints.tablet.mq.matches) {
+            return DeviceType.Tablet;
+        } else {
+            return DeviceType.Mobile;
+        }
     }
 
     private async createBreakpoints(): Promise<void> {

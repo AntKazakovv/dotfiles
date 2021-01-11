@@ -8,6 +8,9 @@
             ></button>
         </div>
         <div class="{{$class}}__btn-right">
+            <div class="icon-btn">
+                <div wlc-checkbox [inlineParams]="dashboardBtn" *ngIf="showDashboardBtn"></div>
+            </div>
             <div *ngIf="isAuth" class="icon-btn icon-btn--favourite"
                  [class.active]="game?.isFavourite"
                  wlc-icon iconName="favourite" (click)="toggleFavouriteBtn($event)">
@@ -17,22 +20,20 @@
         </div>
     </div>
     <div class="{{$class}}__game-area" #wrp>
+        <div wlc-loader class="{{$class}}__preloader" *ngIf="!isReady">
+        </div>
 
-        <ng-container *ngIf="!useMobileIframe">
-            <div #gameContainer wlc-dynamic-html [html]="gameHtml" *ngIf="isReady; else preloader"></div>
+        <div wlc-game-dashboard [opened]="openDashboard"></div>
+
+        <ng-container *ngIf="isReady">
+            <ng-container *ngIf="!useMobileIframe">
+                <div #gameContainer wlc-dynamic-html [html]="gameHtml" *ngIf="isReady; else preloader"></div>
+            </ng-container>
+
+            <ng-container *ngIf="useMobileIframe">
+                <div #gameContainer ></div>
+            </ng-container>
         </ng-container>
-
-        <ng-container *ngIf="useMobileIframe">
-            <div #gameContainer ></div>
-        </ng-container>
-
-        <ng-template #preloader>
-            <!-- TODO: add base component with preloader -->
-            <div class="{{$class}}__loading">
-                <p class="{{$class}}__ring"></p>
-                <p>Loading...</p>
-            </div>
-        </ng-template>
     </div>
     <div class="{{$class}}__footer" #footer></div>
 </div>

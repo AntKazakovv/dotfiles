@@ -1,9 +1,9 @@
 import * as Bowser from 'bowser';
 
 export enum DeviceType {
-    Mobile,
-    Tablet,
-    Desktop,
+    Mobile = 'mobile',
+    Tablet = 'tablet',
+    Desktop= 'desktop',
 }
 
 export interface IDeviceConfig {
