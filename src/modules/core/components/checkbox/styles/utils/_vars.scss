@@ -20,7 +20,10 @@ $themeDefault: map-merge((
 
     'textFontSize': 12px,
     'textColor': ef.get('color', 'text'),
+    'leftTextPadding': 3.5px 35px 5px 3.5px,
 
     'linkColor': ef.get('color', 'main'),
     'linkHoverColor': ef.get('color', 'main')
 ), $customThemeDefault);
+
+$bgToggle: #bebebe !default;

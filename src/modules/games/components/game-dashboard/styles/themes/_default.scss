@@ -1,0 +1,187 @@
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@import '../utils/mixins';
+@import '../utils/vars';
+
+.wlc-game-dashboard--theme-default:host {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    overflow: visible !important;
+    pointer-events: none;
+
+    @include mq.min(900) {
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+        overflow: hidden;
+    }
+
+    &.wlc-game-dashboard--animate {
+
+        .wlc-game-dashboard__wrp {
+            transition: $transition;
+        }
+    }
+
+    .wlc-game-dashboard {
+
+        &__backdrop {
+            display: none;
+            background: transparentize($backgroundAdUnit, 0.2);
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: all;
+        }
+
+        &__tutorial {
+            pointer-events: all;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            background: transparentize($backgroundAdUnit, 0.2);
+
+            &-left-decor {
+                background: url('/gstatic/wlc/game-dashboard/tutorial-top.png') top left no-repeat;
+                height: 247px;
+                width: 181px;
+                top: 0;
+                left: 0;
+                position: absolute;
+            }
+
+            &-right-decor {
+                background: url('/gstatic/wlc/game-dashboard/tutorial.png') right bottom no-repeat;
+                height: 247px;
+                width: 181px;
+                bottom: 0;
+                right: 0;
+                position: absolute;
+            }
+        }
+
+        &__tutorial-item {
+            max-width: 250px;
+            text-align: center;
+        }
+
+        &__tutorial-img {
+            margin: 0 0 15px 0;
+        }
+
+        &__tutorial-arrow {
+            position: absolute;
+            top: 170px;
+            right: 20px;
+
+            .tutorial-text {
+                font-weight: 500;
+                font-size: 10px;
+                color: #ffffff;
+                margin-top: 8px;
+            }
+        }
+
+        &__tutorial-text {
+            font-weight: bold;
+            font-size: 16px;
+            color: #ffffff;
+        }
+
+        &__wrp {
+            width: 300px;
+            background: #4a4b4c;
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            transform: translateX(100%);
+            pointer-events: all;
+        }
+
+        &__panch {
+            position: absolute;
+            top: 100px;
+            left: -15px;
+            width: 30px;
+            height: 180px;
+
+            &-content {
+                position: relative;
+            }
+
+            &-btn {
+                border-radius: 5px;
+                background: #7d7a73;
+                width: 5px;
+                height: 180px;
+                position: absolute;
+                top: 0;
+                right: 15px;
+                cursor: pointer;
+            }
+        }
+
+        &__header {
+            display: flex;
+            justify-content: space-around;
+            background: #717273;
+            padding: 10px 0;
+        }
+
+        &__content {
+            padding: 20px;
+
+            &::ng-deep {
+
+                .wlc-user-stats-email {
+                    display: none;
+                }
+            }
+        }
+
+        &__tab {
+            display: flex;
+            cursor: pointer;
+            width: 43px;
+            height: 43px;
+            border-radius: 50%;
+            background: $backgroundTabs;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s ease-out;
+
+            &:hover,
+            &.active {
+                background: $backgroundTabsActive;
+            }
+        }
+    }
+
+    &.wlc-game-dashboard--mobile {
+
+        &.wlc-game-dashboard--backdrop {
+
+            .wlc-game-dashboard__backdrop {
+                display: block;
+            }
+        }
+
+        .wlc-game-dashboard {
+
+            &__tutorial {
+                display: flex;
+            }
+        }
+    }
+}
+

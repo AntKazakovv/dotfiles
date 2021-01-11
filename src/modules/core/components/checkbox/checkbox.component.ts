@@ -1,4 +1,5 @@
 import {
+    ChangeDetectorRef,
     Component,
     Inject,
     Input,
@@ -28,6 +29,7 @@ export class CheckboxComponent extends AbstractComponent implements OnInit {
     constructor(
         @Inject('injectParams') protected injectParams: any,
         protected configService: ConfigService,
+        protected cdr: ChangeDetectorRef,
     ) {
         super({injectParams, defaultParams: Params.defaultParams});
     }
@@ -35,19 +37,29 @@ export class CheckboxComponent extends AbstractComponent implements OnInit {
     ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.control = this.$params?.control;
-
         this.prepareModifiers();
+    }
+
+    protected onChange(event) {
+        const checked: boolean = event.target.checked;
+        if (this.$params.onChange) {
+            this.$params.onChange(checked);
+        }
     }
 
     // TODO move to abstract class
     private prepareModifiers(): void {
-        if (!this.$params.common?.customModifiers) {
-            return;
-        }
 
         let modifiers: Params.Modifiers[] = [];
+        if (this.$params.textSide) {
+            modifiers.push(`text-${this.$params.textSide}`);
+        }
 
-        modifiers = _union(modifiers, this.$params.common.customModifiers.split(' '));
+        if (this.$params.common?.customModifiers) {
+            modifiers = _union(modifiers, this.$params.common.customModifiers.split(' '));
+        }
+
         this.addModifiers(modifiers);
+        this.cdr.markForCheck();
     }
 }

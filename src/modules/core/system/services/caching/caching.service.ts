@@ -49,7 +49,7 @@ export class CachingService {
         return data.items;
     }
 
-    public async stashRequest<T>(url: string, items: T[], keepTime = this.keepTimeDefault): Promise<number | boolean> {
+    public async stashRequest<T>(url: string, items: T[] | T, keepTime = this.keepTimeDefault): Promise<number | boolean> {
         if (this.dbSupport) {
             let data: ICachingObject<T>;
 

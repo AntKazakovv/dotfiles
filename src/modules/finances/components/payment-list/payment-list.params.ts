@@ -1,4 +1,5 @@
 import {IComponentParams, CustomType} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {DeviceType} from 'wlc-engine/modules/core';
 
 export type Theme = 'default' | CustomType;
 export type Type = 'default' | CustomType;
@@ -6,12 +7,12 @@ export type ThemeMod = 'default'  | CustomType;
 
 export type IconsType = 'default' | 'svg';
 /**
- * @variation `0` - show button mode only on mobile
- * @variation `1` - show button mode only on tablet
- * @variation `2` - show button mode only on desktop
+ * @variation `mobile` - show button mode only on mobile
+ * @variation `tablet` - show button mode only on tablet
+ * @variation `desktop` - show button mode only on desktop
  * @variation `breakpoint` - show button mode according to breakpoint
  */
-export type ShowType = string | 0 | 1 | 2;
+export type ShowType = string | DeviceType;
 
 export interface IPaymentListParams extends IComponentParams<Theme, Type, ThemeMod> {
     paymentType?: 'deposit' | 'withdraw';

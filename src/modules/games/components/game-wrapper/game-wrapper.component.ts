@@ -10,7 +10,7 @@ import {
     ViewEncapsulation,
     HostListener,
     OnDestroy,
-    ComponentRef,
+    ComponentRef, AfterViewInit,
 } from '@angular/core';
 import {RawParams} from '@uirouter/core';
 import {DomSanitizer} from '@angular/platform-browser';
@@ -22,7 +22,7 @@ import {takeUntil} from 'rxjs/operators';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {Game} from 'wlc-engine/modules/games/system/models/game.model';
 import {GamesCatalogService} from 'wlc-engine/modules/games';
-import {ConfigService} from 'wlc-engine/modules/core';
+import {ActionService, ConfigService, DeviceType} from 'wlc-engine/modules/core';
 import {defaultParams, IGWParams} from './game-wrapper.params';
 import {IGameParams, ILaunchInfo} from '../../system/interfaces/games.interfaces';
 import {UserService} from 'wlc-engine/modules/user/system/services';
@@ -30,6 +30,7 @@ import {EventService, LogService} from 'wlc-engine/modules/core/system/services'
 import {ModalService} from 'wlc-engine/modules/core/system/services';
 import {WlcModalComponent} from 'wlc-engine/modules/core/components/modal';
 import {IPlayGameForRealCParams} from 'wlc-engine/modules/games/components/play-game-for-real/play-game-for-real.params';
+import * as GameDashboardParams from 'wlc-engine/modules/games/components/game-dashboard/game-dashboard.params';
 
 interface IError {
     msg: string;
@@ -47,6 +48,7 @@ import {
     toNumber as _toNumber,
     get as _get,
 } from 'lodash';
+import {FormControl} from '@angular/forms';
 
 @Component({
     selector: '[wlc-game-wrapper]',
@@ -54,7 +56,7 @@ import {
     styleUrls: ['./styles/game-wrapper.component.scss'],
     encapsulation: ViewEncapsulation.None,
 })
-export class GameWrapperComponent extends AbstractComponent implements OnInit, OnDestroy {
+export class GameWrapperComponent extends AbstractComponent implements OnInit, OnDestroy, AfterViewInit {
     @ViewChild('wrp', {read: ViewContainerRef, static: false}) wrp: ViewContainerRef;
     @ViewChild('header') header: ElementRef;
     @ViewChild('footer') footer: ElementRef;
@@ -70,17 +72,29 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
     public locale: string;
     public gameParams: IGameParams;
     public isAuth: boolean;
+    public openDashboard: boolean = true;
+    public showDashboardBtn: boolean = false;
+    public dashboardBtn = {
+        name: 'game-dashboard',
+        type: 'toggle',
+        text: gettext('Dashboard'),
+        textSide: 'left',
+        control: new FormControl(),
+        onChange: (checked: boolean) => {
+            this.toggleDasgboard(checked);
+        },
+    };
 
+    protected isMobile: boolean = false;
+    protected realMobile: boolean = false;
     protected aspectRatio: string;
     protected aspectRatioCoefficient: number;
-
     protected launchInfo: ILaunchInfo;
     protected gameScriptTimeout: any;
     protected destroyed: boolean = false;
     protected containerObserver: MutationObserver;
     protected iframeObserver: MutationObserver;
     protected iframe: HTMLElement;
-
     protected isIframeHeight: boolean = false;
 
     constructor(
@@ -89,6 +103,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         protected eventService: EventService,
         protected gamesCatalogService: GamesCatalogService,
         protected configService: ConfigService,
+        protected actionService: ActionService,
         protected modalService: ModalService,
         protected logService: LogService,
         @Inject('injectParams') protected injectParams: IGWParams,
@@ -103,6 +118,11 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
     public async ngOnInit(): Promise<void> {
         super.ngOnInit();
 
+        if (this.configService.get<boolean>('appConfig.mobile')) {
+            this.isMobile = true;
+            this.realMobile = true;
+            this.addModifiers('real-mobile');
+        }
         this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
         this.locale = this.$params.gameParams?.lang || this.router.stateService.params?.locale || 'en';
         this.gameParams = this.getGameParams();
@@ -113,6 +133,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
             // TODO: this.LocalCacheService.set('lastGameParams', this.gameParams);
             this.gamesCatalogService.loadFavourites();
             await this.openActiveGame();
+
             this.isReady = true;
             this.cdr.detectChanges();
             this.initStartResizeParams();
@@ -124,6 +145,11 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
                 state: 'app.home',
             });
         }
+    }
+
+    public ngAfterViewInit(): void {
+        this.showDashboardBtn = true;
+        this.initStartResizeParams();
     }
 
     @HostListener('window:resize') onWResize() {
@@ -150,7 +176,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
      *
      * @param {Event} event
      */
-    public openOnFullscreen(event: Event): void {
+    public openOnFullscreen(event?: Event): void {
         const container: HTMLElement = this.iframe ? this.iframe : this.wrp.element.nativeElement.querySelector('#egamings_container');
         if (container) {
             this.requestFullscreen(container);
@@ -200,8 +226,18 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         }
     }
 
+    /**
+     * Toggle game dashboard
+     *
+     * @param {boolean} open
+     */
+    protected toggleDasgboard(open: boolean): void {
+        open ? this.addModifiers('open-dashboard') : this.removeModifiers('open-dashboard');
+        this.openDashboard = open;
+    }
+
     protected initStartResizeParams(): void {
-        this.aspectRatio = this.game.aspectRatio || 'auto';
+        this.aspectRatio = this.game?.aspectRatio || 'auto';
         this.aspectRatioCoefficient = this.getAspectRatioCoefficient();
         this.checkIframe();
     }
@@ -465,6 +501,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         if (this.scriptCanBeRunInsideIframe()) {
             const iframe: HTMLIFrameElement = document.createElement('iframe'),
                 html: string = this.gameHtml as string;
+            this.iframe = iframe;
 
             iframe.addEventListener('load', () => {
                 if (errorOccured) {
@@ -557,6 +594,18 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
      * Init event hanlers
      */
     protected initEventHandlers(): void {
+        this.actionService.deviceType()
+            .pipe(takeUntil(this.$destroy))
+            .subscribe((type: DeviceType) => {
+                if (!type) {
+                    return;
+                }
+
+                this.isMobile = type !== DeviceType.Desktop;
+                this.isMobile ? this.addModifiers('mobile') : this.removeModifiers('mobile');
+                this.cdr.markForCheck();
+            });
+
         this.gamesCatalogService.favoritesUpdated.pipe(
             takeUntil(this.$destroy),
         ).subscribe(() => {
@@ -577,13 +626,29 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
                 },
             });
             this.router.stateService.go('app.home');
-        });
+        }, this.$destroy);
+
+        this.eventService.subscribe({
+            name: GameDashboardParams.Events.OPENED,
+        }, () => {
+            this.dashboardBtn.control.setValue(true);
+            this.openDashboard = true;
+            this.cdr.markForCheck();
+        }, this.$destroy);
+
+        this.eventService.subscribe({
+            name: GameDashboardParams.Events.CLOSED,
+        }, () => {
+            this.dashboardBtn.control.setValue(false);
+            this.openDashboard = false;
+            this.cdr.markForCheck();
+        }, this.$destroy);
 
         this.eventService.subscribe({
             name: 'LOGIN',
         }, () => {
             this.isAuth = true;
             this.cdr.markForCheck();
-        });
+        }, this.$destroy);
     }
 }

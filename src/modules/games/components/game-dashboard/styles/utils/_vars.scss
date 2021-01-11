@@ -1,0 +1,6 @@
+@use 'engine-scss/functions' as ef;
+
+$transition: 0.3s linear !default;
+$backgroundAdUnit: ef.get('color', 'background') !default;
+$backgroundTabs: #4a4b4c !default;
+$backgroundTabsActive: #e5e5e5 !default;
