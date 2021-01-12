@@ -10,10 +10,7 @@ import {
     AbstractComponent,
     ConfigService,
 } from 'wlc-engine/modules/core';
-import {
-    ISlide,
-    ISliderCParams,
-} from 'wlc-engine/modules/promo/components/slider/slider.params';
+import {ISlide} from 'wlc-engine/modules/promo/components/slider/slider.params';
 import {BannersService} from 'wlc-engine/modules/promo/system/services';
 import {BannerModel} from 'wlc-engine/modules/promo/system/models/banner.model';
 import {BannerComponent} from 'wlc-engine/modules/promo/components/banner/banner.component';
@@ -30,15 +27,11 @@ import {
     styleUrls: ['./styles/banners-slider.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-
 export class BannersSliderComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams: Params.IBannersSliderCParams;
 
     public $params: Params.IBannersSliderCParams;
     public ready: boolean = false;
-    public sliderParams: ISliderCParams = {
-        swiper: {},
-    };
     public slides: ISlide[] = [];
 
     constructor(
