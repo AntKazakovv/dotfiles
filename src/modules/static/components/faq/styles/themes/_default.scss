@@ -3,7 +3,7 @@
 .wlc-faq--theme-default:host {
     display: grid;
     grid-template-columns: 1fr;
-    grid-gap: $itemsGapSize;
+    grid-gap: map-get($themeDefault, 'itemsGapSize');
 
     .wlc-faq {
 
@@ -11,32 +11,43 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: $headerFontSize;
-            font-weight: $headerFontWeight;
-            color: $headerFontColor;
-            padding: $headerPadding;
+            font-size: map-get($themeDefault, 'headerFontSize');
+            font-weight: map-get($themeDefault, 'headerFontWeight');
+            color: map-get($themeDefault, 'headerFontColor');
+            padding: map-get($themeDefault, 'headerPadding');
         }
 
         &__item {
-            background: $itemBackground;
+            background: map-get($themeDefault, 'itemBackground');
             overflow: hidden;
-            border-radius: $itemBorderRadius;
-            transition: all $time;
+            border-radius: map-get($themeDefault, 'itemBorderRadius');
+            transition: all map-get($themeDefault, 'time');
 
-            &:hover,
-            &.expanded {
-                background: $itemBackgroundActive;
+            @media (hover: hover) {
 
-                .wlc-faq__title-text {
-                    color: $titleIconColorActive;
-                }
+                &:hover {
+                    background: map-get($themeDefault, 'itemBackgroundActive');
 
-                .wlc-faq__title-icon ::ng-deep svg * {
-                    fill: $titleIconColorActive;
+                    .wlc-faq__title-text {
+                        color: map-get($themeDefault, 'titleIconColorActive');
+                    }
+
+                    .wlc-faq__title-icon ::ng-deep svg path {
+                        fill: map-get($themeDefault, 'titleIconColorActive');
+                    }
                 }
             }
 
             &.expanded {
+                background: map-get($themeDefault, 'itemBackgroundActive');
+
+                .wlc-faq__title-text {
+                    color: map-get($themeDefault, 'titleIconColorActive');
+                }
+
+                .wlc-faq__title-icon ::ng-deep svg path {
+                    fill: map-get($themeDefault, 'titleIconColorActive');
+                }
 
                 .wlc-faq__title-icon {
                     transform: rotateZ(180deg);
@@ -48,25 +59,25 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            min-height: $titleMinHeight;
-            padding: $paddingSize;
-            cursor: default;
+            min-height: map-get($themeDefault, 'titleMinHeight');
+            padding: map-get($themeDefault, 'paddingSize');
+            cursor: pointer;
 
             &-text {
                 flex-grow: 1;
-                font-size: $titleFontSize;
-                font-weight: $titleFontWeight;
-                color: $titleColor;
-                transition: all $time;
-                padding-right: $paddingSize;
+                font-size: map-get($themeDefault, 'titleFontSize');
+                font-weight: map-get($themeDefault, 'titleFontWeight');
+                color: map-get($themeDefault, 'titleColor');
+                transition: all map-get($themeDefault, 'time');
+                padding-right: map-get($themeDefault, 'paddingSize');
             }
 
             &-icon {
                 flex-grow: 0;
-                width: $titleIconSize;
-                height: $titleIconSize;
-                min-width: $titleIconSize;
-                transition: all $time;
+                width: map-get($themeDefault, 'titleIconSize');
+                height: map-get($themeDefault, 'titleIconSize');
+                min-width: map-get($themeDefault, 'titleIconSize');
+                transition: all map-get($themeDefault, 'time');
 
                 ::ng-deep {
 
@@ -81,9 +92,9 @@
                             width: 100%;
                             height: auto;
 
-                            * {
-                                transition: all $time;
-                                fill: $titleColor;
+                            path {
+                                transition: all map-get($themeDefault, 'time');
+                                fill: map-get($themeDefault, 'titleColor');
                             }
                         }
                     }
@@ -93,18 +104,18 @@
 
         &__content {
             padding: {
-                left: $paddingSize;
-                right: $paddingSize;
+                left: map-get($themeDefault, 'paddingSize');
+                right: map-get($themeDefault, 'paddingSize');
             };
 
             &-wrp {
-                font-size: $contentFontSize;
-                font-weight: $contentFontWeight;
-                color: $contentFontColor;
-                border-top: 1px solid $contentFontColor;
+                font-size: map-get($themeDefault, 'contentFontSize');
+                font-weight: map-get($themeDefault, 'contentFontWeight');
+                color: map-get($themeDefault, 'contentFontColor');
+                border-top: 1px solid map-get($themeDefault, 'contentFontColor');
                 padding: {
-                    top: $paddingSize;
-                    bottom: $paddingSize;
+                    top: map-get($themeDefault, 'paddingSize');
+                    bottom: map-get($themeDefault, 'paddingSize');
                 };
             }
         }
