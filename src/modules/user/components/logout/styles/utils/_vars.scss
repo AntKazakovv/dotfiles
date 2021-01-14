@@ -1,4 +1,6 @@
-$formMaxWidth: 285px !default;
-$formMargin: auto !default;
-$fieldMargin: 0 0 20px 0 !default;
-$btnMargin: 0 auto 30px auto !default;
+@use 'engine-scss/functions' as ef;
+
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'color': ef.get('mainColor', 'baseOpacity'),
+), $customThemeDefault);

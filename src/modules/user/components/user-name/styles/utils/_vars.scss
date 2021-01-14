@@ -1,0 +1,13 @@
+@use 'engine-scss/functions' as ef;
+
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'userStatsEmailValueMargin': 0 15px,
+    'userStatsIconSize': (
+        375: 39px,
+    ),
+    'userStatsEmailValueSize': 14px,
+    'userStatsEmailValueWeight': bold,
+    'logoutIconFill': #c4c4c4,
+    'logoutIconHoveredFill': lighten(#000, 40%),
+), $customThemeDefault);

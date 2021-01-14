@@ -70,4 +70,14 @@ export namespace profileContent {
             componentLib.wlcTransactionHistory.def,
         ],
     };
+
+    export const profileDashboard: ILayoutSectionConfig = {
+        container: true,
+        components: [
+            componentLib.wlcTitle.profileDashboard,
+            componentLib.wlcLogout.def,
+            componentLib.wlcDashboardLoyaltyBlock.def,
+            componentLib.wlcDashboardExchange.def,
+        ],
+    };
 }

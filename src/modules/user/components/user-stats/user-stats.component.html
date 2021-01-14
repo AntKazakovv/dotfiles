@@ -20,30 +20,6 @@
     </ng-template>
 
     <ng-template [ngSwitchCase]="'default'">
-        <div class="{{$class}}-email">
-            <div
-                class="{{$class}}-email__icon"
-                wlc-icon
-                iconName="user-icon"
-            ></div>
-
-            <div class="{{$class}}-email__value" *ngIf="!this.shownUserStats?.firstName?.value">
-                {{(this.shownUserStats?.email?.value | truncate: 20) || 'Player' | translate}}
-            </div>
-
-            <div class="{{$class}}-email__value"
-                 *ngIf="this.shownUserStats?.firstName?.value || this.shownUserStats?.lastName?.value">
-                {{this.shownUserStats.firstName.value + ' ' + this.shownUserStats.lastName.value | truncate: 20}}
-            </div>
-
-            <button
-                wlc-button
-                class="{{$class}}-email__logout wlc-btn-logout"
-                theme="icon"
-                icon="logout"
-                (click)="logout()"
-            ></button>
-        </div>
 
         <div class="{{$class}}-balance">
             <div class="{{$class}}-balance__item {{$class}}-balance__item--{{item}}"
@@ -62,6 +38,7 @@
         </div>
 
         <button
+            *ngIf="useDepositBtn"
             wlc-button
             class="wlc-btn-deposit"
             text="Deposit"

@@ -4,6 +4,7 @@ import {
     ReactiveFormsModule,
 } from '@angular/forms';
 import {CommonModule} from '@angular/common';
+import {UIRouterModule} from '@uirouter/angular';
 
 import {TranslateModule} from '@ngx-translate/core';
 
@@ -23,12 +24,20 @@ import {SignInFormComponent} from './components/sign-in-form/sign-in-form.compon
 import {SignUpFormComponent} from './components/sign-up-form/sign-up-form.component';
 import {UserInfoComponent} from './components/user-info/user-info.component';
 import {UserStatsComponent} from './components/user-stats/user-stats.component';
+import {UserNameComponent} from './components/user-name/user-name.component';
+import {LoyaltyProgressComponent} from './components/loyalty-progress/loyalty-progress.component';
+import {LoyaltyBlockComponent} from './components/dashboard-loyalty-block/loyalty-block.component';
+import {ExchangeComponent} from './components/dashboard-exchange/exchange.component';
 
 
 export const components = {
     'wlc-change-password-form': ChangePasswordFormComponent,
+    'wlc-exchange': ExchangeComponent,
+    'wlc-have-account': HaveAccountComponent,
     'wlc-logout': LogoutComponent,
     'wlc-login-signup': LoginSignupComponent,
+    'wlc-loyalty-progress': LoyaltyProgressComponent,
+    'wlc-loyalty-block': LoyaltyBlockComponent,
     'wlc-new-password-form': NewPasswordFormComponent,
     'wlc-profile-form': ProfileFormComponent,
     'wlc-restore-link': RestoreLinkComponent,
@@ -37,13 +46,17 @@ export const components = {
     'wlc-sign-up-form': SignUpFormComponent,
     'wlc-user-info': UserInfoComponent,
     'wlc-user-stats': UserStatsComponent,
-
+    'wlc-user-name': UserNameComponent,
 };
 
 @NgModule({
     declarations: [
         ChangePasswordFormComponent,
+        ExchangeComponent,
+        HaveAccountComponent,
         LoginSignupComponent,
+        LoyaltyProgressComponent,
+        LoyaltyBlockComponent,
         NewPasswordFormComponent,
         ProfileFormComponent,
         RestoreLinkComponent,
@@ -52,6 +65,8 @@ export const components = {
         SignUpFormComponent,
         UserInfoComponent,
         UserStatsComponent,
+        UserNameComponent,
+        LogoutComponent,
     ],
     imports: [
         CommonModule,
@@ -59,6 +74,7 @@ export const components = {
         FormsModule,
         ReactiveFormsModule,
         TranslateModule,
+        UIRouterModule,
     ],
     providers: [
         DataService,
@@ -66,13 +82,19 @@ export const components = {
     ],
     exports: [
         ChangePasswordFormComponent,
+        ExchangeComponent,
+        HaveAccountComponent,
         LoginSignupComponent,
+        LoyaltyProgressComponent,
+        LoyaltyBlockComponent,
         ProfileFormComponent,
         RestorePasswordFormComponent,
         SignInFormComponent,
         SignUpFormComponent,
         UserInfoComponent,
         UserStatsComponent,
+        UserNameComponent,
+        LogoutComponent,
     ],
 })
 export class UserModule {

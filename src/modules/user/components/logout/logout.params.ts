@@ -8,6 +8,7 @@ export type CustomMod = string;
 export type Modifiers = AutoModifiers | CustomMod | null;
 
 export interface ILogoutCParams extends IComponentParams<ComponentTheme, ComponentType, string> {
+    useText?: boolean;
 }
 
 export const defaultParams: ILogoutCParams = {

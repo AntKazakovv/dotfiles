@@ -5,20 +5,16 @@ import {
     Input,
     ChangeDetectorRef, ChangeDetectionStrategy, OnDestroy,
 } from '@angular/core';
+import {Subscription} from 'rxjs';
+import {StateService} from '@uirouter/core';
 import {TranslateService} from '@ngx-translate/core';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ConfigService} from 'wlc-engine/modules/core';
 import {UserService} from 'wlc-engine/modules/user/system/services';
-import {EventService, ModalService} from 'wlc-engine/modules/core/system/services';
-import {IIndexing, IUserInfo} from 'wlc-engine/modules/core/system/interfaces';
-import {IData} from 'wlc-engine/modules/core/system/services/data/data.service';
-import {Subscription} from 'rxjs';
-import {StateService} from '@uirouter/core';
+import {ModalService} from 'wlc-engine/modules/core/system/services';
+import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
+import {UserInfo} from 'wlc-engine/modules/user/system/models/info.model';
 import * as Params from './user-stats.params';
-
-import {
-    reduce as _reduce,
-} from 'lodash';
 
 export interface IUserStatsItem {
     name: string,
@@ -34,9 +30,10 @@ export interface IUserStatsItem {
 })
 export class UserStatsComponent extends AbstractComponent implements OnInit, OnDestroy {
     @Input() public type: string = 'default';
+    @Input() public useDepositBtn: boolean = true;
     @Input() protected inlineParams: Params.IUserStatsCParams;
     public $params: any;
-    public userStats: IUserInfo;
+    public userStats: UserInfo;
     public shownUserStats: IIndexing<IUserStatsItem> = {};
     private userInfoHandler: Subscription;
 
@@ -44,7 +41,6 @@ export class UserStatsComponent extends AbstractComponent implements OnInit, OnD
         @Inject('injectParams') protected injectParams: Params.IUserStatsCParams,
         protected configService: ConfigService,
         protected UserService: UserService,
-        protected EventService: EventService,
         protected cdr: ChangeDetectorRef,
         protected modalService: ModalService,
         private translate: TranslateService,
@@ -55,12 +51,9 @@ export class UserStatsComponent extends AbstractComponent implements OnInit, OnD
 
     ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
-        this.userStats = this.UserService.userInfo?.data;
-        this.fillUserStatsFields();
-        this.userInfoHandler = this.EventService.subscribe({
-            name: 'USER_INFO',
-        }, (info: IData) => {
-            this.userStats = info?.data as IUserInfo;
+        this.userStats = this.UserService.userInfo;
+        this.userInfoHandler = this.UserService.userInfo$.subscribe((userInfo) => {
+            this.userStats = userInfo;
             this.fillUserStatsFields();
             this.cdr.markForCheck();
         });
@@ -70,23 +63,17 @@ export class UserStatsComponent extends AbstractComponent implements OnInit, OnD
         this.userInfoHandler?.unsubscribe();
     }
 
-    public logout(): void {
-        //TODO
-        //  this.modalService.showModal('logout');
-        this.UserService.logout();
-    }
-
     private fillUserStatsFields(): void {
 
         this.shownUserStats = {
             balance: {
                 name: gettext('Real balance'),
-                value: this.userStats?.balance - this.getBonusBalance(),
+                value: this.userStats?.realBalance,
                 modification: 'amount',
             },
             bonusBalance: {
                 name: gettext('Bonus balance'),
-                value: this.getBonusBalance(),
+                value: this.userStats?.bonusBalance,
                 modification: 'amount',
             },
             points: {
@@ -127,11 +114,5 @@ export class UserStatsComponent extends AbstractComponent implements OnInit, OnD
 
     public depositAction(): void {
         this.stateService.go('app.profile.cash.deposit');
-    }
-
-    protected getBonusBalance(): number {
-        return _reduce(this.userStats?.loyalty?.BonusesBalance, (result, item) => {
-            return result + parseFloat(item.Balance);
-        }, 0);
     }
 }

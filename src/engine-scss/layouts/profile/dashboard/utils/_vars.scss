@@ -1,0 +1,6 @@
+@use 'engine-scss/functions' as ef;
+
+$dashboardInfoThemeDefault: () !default;
+$dashboardThemeDefault: map-merge((
+
+), $dashboardInfoThemeDefault);

@@ -1,3 +1,8 @@
-<div class="{{$class}}_content">
-    //to do
-</div>
+<button
+    wlc-button
+    class="{{$class}}-logout"
+    [text]="$params.useText && 'Sign out'"
+    theme="icon"
+    icon="logout"
+    (click)="logout()"
+></button>

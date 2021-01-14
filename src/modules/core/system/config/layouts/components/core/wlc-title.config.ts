@@ -42,4 +42,12 @@ export namespace wlcTitle {
             mainText: gettext('Transactions history'),
         },
     };
+
+    export const profileDashboard: ILayoutComponent = {
+        name: 'core.wlc-title',
+        params: {
+            customMod: ['profile'],
+            mainText: gettext('Dashboard'),
+        },
+    };
 }

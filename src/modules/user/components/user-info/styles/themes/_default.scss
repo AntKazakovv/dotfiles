@@ -53,7 +53,8 @@
 
                 ::ng-deep {
 
-                    .wlc-user-stats {
+                    .wlc-user-stats,
+                    .wlc-user-name {
                         width: 100%;
                     }
                 }
@@ -69,6 +70,16 @@
         @include mq.min(1200) {
             padding: $userInfoDepositBtnPaddingDesktop;
             margin: $userInfoDepositBtnMarginDesktop;
+        }
+    }
+
+    ::ng-deep {
+
+        .wlc-user-info__wrp {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
         }
     }
 }
