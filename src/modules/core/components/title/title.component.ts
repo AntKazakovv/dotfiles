@@ -28,7 +28,7 @@ import {
 })
 export class TitleComponent extends AbstractComponent implements OnInit, AfterViewInit {
     public $params: Params.ITitleCParams;
-    public ready: boolean;
+    public ready: boolean = false;
 
     @Input() public mainTag: Params.TagType;
     @Input() public secondTag: Params.TagType;
@@ -38,7 +38,7 @@ export class TitleComponent extends AbstractComponent implements OnInit, AfterVi
     @Input() protected type: Params.Type;
     @Input() protected inlineParams: Params.ITitleCParams;
 
-    @ViewChild('div', { static: false }) divTemplate: TemplateRef<ElementRef>;
+    @ViewChild('div', {static: false}) divTemplate: TemplateRef<ElementRef>;
     @ViewChild('h1') h1Template: TemplateRef<ElementRef>;
     @ViewChild('h2') h2Template: TemplateRef<ElementRef>;
     @ViewChild('span') spanTemplate: TemplateRef<ElementRef>;
@@ -64,7 +64,7 @@ export class TitleComponent extends AbstractComponent implements OnInit, AfterVi
 
     public ngAfterViewInit(): void {
         this.ready = true;
-        this.cdr.markForCheck();
+        this.cdr.detectChanges();
     }
 
     public get $mainText(): string {

@@ -1,7 +1,13 @@
 <div class="{{$class}}__title"
-    [ngSwitch]="$params.mode">
-    <ng-container *ngSwitchCase="'deposit'">{{'Deposit' | translate}}</ng-container>
-    <ng-container *ngSwitchCase="'withdraw'">{{'Withdrawal' | translate}}</ng-container>
+     [ngSwitch]="$params.mode">
+
+    <ng-container *ngSwitchCase="'deposit'">
+        <div class="wlc-title--profile" wlc-title [mainText]="'Deposit'"></div>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'withdraw'">
+        <div class="wlc-title--profile" wlc-title [mainText]="'Withdrawal'"></div>
+    </ng-container>
 </div>
 
 <div class="{{$class}}__step {{$class}}__step--1">
@@ -11,8 +17,8 @@
     </div>
 
     <div wlc-payment-list
-        [inlineParams]='listConfig'
-        [currentSystem]='currentSystem'>
+         [inlineParams]='listConfig'
+         [currentSystem]='currentSystem'>
     </div>
 </div>
 
@@ -25,7 +31,8 @@
     </div>
 
     <div class="{{$class}}__fields-error" *ngIf="!checkUserProfileForPayment()">
-        <p class="{{$class}}__fields-message">{{'Payment method isn\'t available. Please fill in the following profile fields' | translate}}:</p>
+        <p class="{{$class}}__fields-message">{{'Payment method isn\'t available. Please fill in the following profile fields' | translate}}
+            :</p>
         <ul class="{{$class}}__fields-ul">
             <li class="{{$class}}__fields-li" *ngFor="let item of requiredFieldsKeys">
                 {{requiredFields[item].label | translate}}
@@ -35,17 +42,17 @@
     </div>
 
     <div class="{{$class}}__additional-form"
-        *ngIf="additionalFields.length">
+         *ngIf="additionalFields.length">
         <ng-container *ngFor="let field of additionalFields"
-            [ngSwitch]="field.type">
+                      [ngSwitch]="field.type">
             <div *ngSwitchCase="'input'"
-                wlc-input
-                [inlineParams]="field.params">
+                 wlc-input
+                 [inlineParams]="field.params">
             </div>
 
             <div *ngSwitchCase="'select'"
-                wlc-select
-                [inlineParams]="field.params">
+                 wlc-select
+                 [inlineParams]="field.params">
             </div>
         </ng-container>
     </div>
@@ -53,16 +60,16 @@
     <ng-container [ngSwitch]="$params.mode">
         <ng-container *ngSwitchCase="'deposit'">
             <div class="{{$class}}__amount-form"
-                wlc-form-wrapper
-                [config]="depositFrom"
-                [ngSubmit]="deposit.bind(this)">
+                 wlc-form-wrapper
+                 [config]="depositFrom"
+                 [ngSubmit]="deposit.bind(this)">
             </div>
         </ng-container>
         <ng-container *ngSwitchCase="'withdraw'">
             <div class="{{$class}}__amount-form"
-                wlc-form-wrapper
-                [config]="withdrawFrom"
-                [ngSubmit]="withdraw.bind(this)">
+                 wlc-form-wrapper
+                 [config]="withdrawFrom"
+                 [ngSubmit]="withdraw.bind(this)">
             </div>
         </ng-container>
     </ng-container>

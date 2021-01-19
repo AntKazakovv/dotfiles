@@ -17,7 +17,7 @@ $fontColorSecondary: ef.get('color', 'main') !default;
 $fontColorActiveSecondary: ef.get('color', 'text') !default;
 
 // Transform
-$textTransform: uppercase !default;
+$textTransform: initial !default;
 
 // Background
 $background: ef.get('color', 'main') !default;

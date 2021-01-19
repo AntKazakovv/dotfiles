@@ -59,7 +59,7 @@ export class ProfileFormComponent extends AbstractComponent implements OnInit {
                 id: 'profile-update',
                 modifier: 'info',
                 modalTitle: gettext('Profile update'),
-                modalMessage: [gettext('Profile update succsess')],
+                modalMessage: [gettext('Profile update success')],
             });
             return true;
         } else {
@@ -74,5 +74,13 @@ export class ProfileFormComponent extends AbstractComponent implements OnInit {
             });
             return false;
         }
+    }
+
+    public changePasswordModal(): void {
+        this.modalService.showModal('changePassword');
+    }
+
+    public addBankingInformation(): void {
+        //todo
     }
 }

@@ -1,1 +1,38 @@
 @import './main-info/themes/default';
+
+.wlc-sections__profile-content,
+.wlc-sections__profile-menu {
+
+    > .container {
+
+        @include mq.min(1366) {
+            max-width: ef.get-value($profileSettings, 'profileWidth');
+        }
+    }
+}
+
+.wlc-sections__profile-content {
+
+    > .container {
+        padding: ef.get-value($profileSettings, 'profilePadding', 375);
+        background: ef.get-value($profileSettings, 'profileBg', 375);
+        border-radius: ef.get-value($profileSettings, 'profileBorderRadius', 375);
+
+        @include mq.min(1024) {
+            padding: ef.get-value($profileSettings, 'profilePadding', 1024);
+            background: ef.get-value($profileSettings, 'profileBg', 1024);
+            border-radius: ef.get-value($profileSettings, 'profileBorderRadius', 1024);
+        }
+    }
+
+    .wlc-title.wlc-title--profile[wlc-title] {
+
+        .wlc-title__main {
+            font: {
+                size: ef.get-value($profileSettings, 'profileHeaderFontSize');
+            }
+        }
+    }
+}
+
+

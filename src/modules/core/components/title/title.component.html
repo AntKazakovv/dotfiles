@@ -16,15 +16,15 @@
 
 <ng-container *ngIf="ready">
     <ng-container
-            [ngTemplateOutlet]="getTemplateRef(mainTag)"
-            [ngTemplateOutletContext]="{data: {element: 'main', text: $mainText}}"
+        [ngTemplateOutlet]="getTemplateRef(mainTag)"
+        [ngTemplateOutletContext]="{data: {element: 'main', text: $mainText}}"
     >
     </ng-container>
 
     <ng-container
-            *ngIf="!!$secondText"
-            [ngTemplateOutlet]="getTemplateRef(secondTag)"
-            [ngTemplateOutletContext]="{data: {element: 'second', text: $secondText}}"
+        *ngIf="!!$secondText"
+        [ngTemplateOutlet]="getTemplateRef(secondTag)"
+        [ngTemplateOutletContext]="{data: {element: 'second', text: $secondText}}"
     >
     </ng-container>
 </ng-container>
