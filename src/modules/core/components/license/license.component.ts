@@ -24,10 +24,15 @@ export class LicenseComponent extends AbstractComponent implements OnInit, After
 
     constructor(
         @Inject('injectParams') protected injectParams: LParams.IApgSealCParams,
-        protected configService: ConfigService,
         private elRef: ElementRef,
+        configService: ConfigService,
     ) {
-        super({injectParams, defaultParams: LParams.defaultParams});
+        super({
+            injectParams,
+            defaultParams: LParams.defaultParams,
+        },
+        configService,
+        );
     }
 
     public ngOnInit(): void {

@@ -189,6 +189,7 @@ module.exports = function messagesTask() {
             this.params.paths.src + '/**/*.ts',
             this.params.paths.src + '/**/*.js',
             this.params.paths.src + '/**/*.html',
+            '!' + this.params.paths.src + '/custom/**/~*.*',
         ])
             .pipe(gettext.extract('front.pot', {}))
             .pipe(dest(this.params.paths.temp));

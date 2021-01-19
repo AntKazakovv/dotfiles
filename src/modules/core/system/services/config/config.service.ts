@@ -4,6 +4,12 @@ import {DataService, IData} from '../data/data.service';
 import {AppConfigModel} from './app-config.model';
 import * as appConfig from 'wlc-config/index';
 import * as wlcConfig from 'wlc-engine/modules/core/system/config/default.config';
+import {
+    $layoutsAff,
+    $panelsLayouts,
+    $layouts,
+} from 'wlc-engine/modules/core/system/config/layouts';
+import {AppType, ILayoutsConfig} from 'wlc-engine/modules/core/system/interfaces';
 import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
 import {
     LocalStorageService,
@@ -11,8 +17,6 @@ import {
 } from 'ngx-webstorage';
 import {
     BehaviorSubject,
-    fromEvent,
-    Observable,
 } from 'rxjs';
 import {
     IGlobalConfig,
@@ -86,7 +90,6 @@ export class ConfigService {
      * Getter with generic type, accepts as arg getParams object or string with path of global config.
      */
     public get<T>(getParams: string | IGetParams): T {
-
         if (_isObject(getParams)) {
             if (getParams.storageType) {
                 return _get(this, storageType[getParams.storageType])?.strategy.get(getParams.name);
@@ -121,7 +124,7 @@ export class ConfigService {
         }
     }
 
-    protected prepareData(response: unknown): AppConfigModel {
+    private prepareData(response: unknown): AppConfigModel {
         this.global.appConfig = new AppConfigModel(response);
         this.set<boolean>({name: '$user.isAuthenticated', value: this.global.appConfig.loggedIn === '1'});
         this.addSiteConfig();
@@ -140,10 +143,29 @@ export class ConfigService {
         return this.appConfig;
     }
 
-    protected addSiteConfig(): void {
-        _mergeWith(this.global, wlcConfig, (target, source) => (source.replaceConfig) ? source : undefined);
+    private addSiteConfig(): void {
+        if (appConfig.$base?.app) {
+            wlcConfig.$base.app = appConfig.$base.app;
+        }
+
+        const layoutConfig = this.addLayoutConfig(wlcConfig.$base.app);
+        _mergeWith(this.global, wlcConfig, layoutConfig, (target, source) => (source.replaceConfig) ? source : undefined);
         _mergeWith(this.global, appConfig, (target, source) => (source.replaceConfig) ? source : undefined);
         GlobalHelper.deepFreeze(this.global.appConfig);
+    }
+
+    private addLayoutConfig(appType: AppType): ILayoutsConfig {
+        switch (appType) {
+            case 'aff':
+                return {
+                    $layouts: $layoutsAff,
+                };
+            default:
+                return {
+                    $layouts,
+                    $panelsLayouts,
+                };
+        }
     }
 
     private async getCountries(): Promise<void> {

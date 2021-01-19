@@ -317,18 +317,24 @@ export class DataService {
                     this.cachingService.stashRequest<T>(url, data.data, method.cache);
                 }
             }),
-            map((data: any) => {
-                if (data.status === 'success' && typeof method.mapFunc === 'function') {
-                    data.data = method.mapFunc(data.data);
-                }
+            switchMap((data: IData) => {
+                return from(new Promise(async (done) => {
+                    if (data.status === 'success' && _isFunction(method.mapFunc)) {
+                        data.data = method.mapFunc(data.data);
 
-                if (method.events?.success) {
-                    this.eventService.emit({
-                        name: method.events.success,
-                        data,
-                    });
-                }
-                return data;
+                        if (_isFunction(data.data?.then)) {
+                            data.data = await data.data;
+                        }
+                    }
+
+                    if (method.events?.success) {
+                        this.eventService.emit({
+                            name: method.events.success,
+                            data,
+                        });
+                    }
+                    done(data);
+                }) as Promise<IData>);
             }),
         );
     }
