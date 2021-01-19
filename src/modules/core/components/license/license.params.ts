@@ -18,4 +18,6 @@ export interface IApgSealCParams extends IComponentParams<ComponentTheme, Compon
 
 export const defaultParams: IApgSealCParams = {
     class: 'wlc-license',
+    moduleName: 'core',
+    componentName: 'wlc-license',
 };

@@ -1,4 +1,4 @@
-export interface IProfileСonfig {
+export interface IProfileConfig {
     messages?: {
         use: boolean;
     },

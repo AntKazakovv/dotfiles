@@ -62,7 +62,6 @@ export class LayoutService {
     }
 
     public getLayoutConfig(type: LayoutsType, state: string, params?: IIndexing<any>): ILayoutStateConfig {
-
         const mergeExtendsLayout = () => {
             if (this.layouts[type][state]?.extends) {
                 return _cloneDeep(_extend(

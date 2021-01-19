@@ -1,6 +1,6 @@
-import {IProfileСonfig} from 'wlc-engine/modules/core/system/interfaces/base-config/profile.interface';
+import {IProfileConfig} from 'wlc-engine/modules/core/system/interfaces/base-config/profile.interface';
 
-export const profileConfig: IProfileСonfig = {
+export const profileConfig: IProfileConfig = {
     messages: {
         use: false,
     },
