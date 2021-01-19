@@ -1,9 +1,14 @@
+@use './functions' as ef;
+@use './mixins/mediaqueries' as mq;
 @import 'engine.variables';
 @import './font-icons';
 
+$fontFamilyProject: Roboto, sans-serif !default;
+$font-family-sans-serif: $fontFamilyProject;
+
 @import '~bootstrap/scss/bootstrap-reboot';
-@import 'app.styles';
 @import '~bootstrap/scss/bootstrap-grid';
+@import 'app.styles';
 
 body {
     //scale body when device width < 375px

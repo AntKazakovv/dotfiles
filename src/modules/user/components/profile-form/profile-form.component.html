@@ -24,9 +24,9 @@
 
     <div class="{{$class}}__block">
         <div
-                class="{{$class}}__title"
-                wlc-title [mainText]="additionalBlocks.security.title"
-                [mainTag]="'span'"
+            class="{{$class}}__title"
+            wlc-title [mainText]="additionalBlocks.security.title"
+            [mainTag]="'span'"
         ></div>
         <div class="{{$class}}__item">
             <div class="{{$class}}__item-title">
@@ -37,7 +37,10 @@
                     You can change your password here.
                 </div>
             </div>
-            <div class="{{$class}}__item-link" data-translate>Change</div>
+            <button wlc-button
+                    [icon]="'arrow'"
+                    (click)="changePasswordModal()"
+                    text="Change"></button>
         </div>
 
         <div class="{{$class}}__item">
@@ -49,7 +52,10 @@
                     You can add your banking information here.
                 </div>
             </div>
-            <div class="{{$class}}__item-link" data-translate>Add info</div>
+            <button wlc-button
+                    [icon]="'arrow'"
+                    (click)="addBankingInformation()"
+                    text="Add info"></button>
         </div>
     </div>
 </div>

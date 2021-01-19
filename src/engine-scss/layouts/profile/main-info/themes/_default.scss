@@ -5,34 +5,27 @@
 
 .app-profile-main-info-state .wlc-sections {
 
-    &__profile-menu,
-    &__profile-content {
-
-        &--theme-default {
-
-            > .container {
-
-                @include mq.min(1200) {
-                    max-width: 1170px;
-                }
-            }
-        }
-    }
-
     &__profile-content--theme-default {
 
         > .container {
             display: grid;
-            grid-template-columns: 1fr;
+            grid: {
+                template-columns: 1fr;
+            }
         }
 
         .wlc-profile-form {
             display: grid;
-            grid-template-columns: 1fr;
+            grid: {
+                template-columns: 1fr;
+                gap: ef.get-value($mainInfoThemeDefault, 'sectionRowGap', 1024);
+            }
 
             @include mq.min(1024) {
-                grid-template-columns: 1.8fr 1fr;
-                grid-column-gap: ef.get-value($mainInfoThemeDefault, 'sectionColGap', 1024);
+                grid: {
+                    template-columns: 1.8fr 1fr;
+                    gap: ef.get-value($mainInfoThemeDefault, 'sectionRowGap', 1024) ef.get-value($mainInfoThemeDefault, 'sectionColGap', 1024);
+                }
             }
 
             &__add {
@@ -46,11 +39,30 @@
                 display: grid;
                 grid-template-columns: 1fr;
                 grid-row-gap: ef.get-value($mainInfoThemeDefault, 'addItemGap');
+
+                @include mq.min(640) {
+                    grid-template-columns: 1fr 1fr;
+                }
+
+                @include mq.min(1024) {
+                    grid-template-columns: 1fr;
+                }
             }
 
             &__title {
-                font-size: ef.get-value($mainInfoThemeDefault, 'addTitleFontSize');
+                font: {
+                    size: ef.get-value($mainInfoThemeDefault, 'addTitleFontSize');
+                    weight: ef.get-value($mainInfoThemeDefault, 'addTitleFontWeight');
+                }
                 color: ef.get-value($mainInfoThemeDefault, 'addTitleColor');
+
+                @include mq.min(640) {
+                    grid-column-start: span 2;
+                }
+
+                @include mq.min(1024) {
+                    grid-column-start: auto;
+                }
             }
 
             &__item {
@@ -59,20 +71,23 @@
                 grid-gap: ef.get('size', 'smally');
                 grid-template-areas:
                     'title switcher'
-                    'link .'
-                    ;
+                    'link .';
 
                 &-title {
                     grid-area: title;
 
                     &-main {
+                        margin: ef.get-value($mainInfoThemeDefault, 'addItemTitleMainMargin');
                         font-size: ef.get-value($mainInfoThemeDefault, 'addItemTitleMainFontSize');
                         color: ef.get-value($mainInfoThemeDefault, 'addItemTitleMainColor');
                         font-weight: bold;
                     }
 
                     &-description {
-                        font-size: ef.get-value($mainInfoThemeDefault, 'addItemTitleSecondFontSize');
+                        font: {
+                            size: ef.get-value($mainInfoThemeDefault, 'addItemTitleSecondFontSize');
+                            weight: ef.get-value($mainInfoThemeDefault, 'addItemTitleSecondFontWeight');
+                        }
                         color: ef.get-value($mainInfoThemeDefault, 'addItemTitleSecondColor');
                     }
                 }
@@ -81,10 +96,48 @@
                     grid-area: switcher;
                 }
 
-                &-link {
+                .wlc-btn {
                     grid-area: link;
-                    font-size: ef.get-value($mainInfoThemeDefault, 'addItemLinkFontSize');
-                    color: ef.get-value($mainInfoThemeDefault, 'addItemLinkColor');
+                    font: {
+                        size: ef.get-value($mainInfoThemeDefault, 'addItemLinkFontSize');
+                    };
+
+                    &__text {
+                        display: flex;
+                    }
+
+                    &:hover {
+                        text-decoration: none;
+                    }
+
+                    @include mq.min(1024) {
+                        display: block;
+                        min-width: auto;
+                        height: auto;
+                        text-decoration: underline;
+                        padding: 0;
+                        font: {
+                            size: ef.get-value($mainInfoThemeDefault, 'addItemLinkFontSize', 1024);
+                        }
+                        color: ef.get('color', 'text');
+                        border: none;
+                        border-radius: 0;
+                        background: none;
+                    }
+
+                    .wlc-icon {
+                        display: none;
+                        margin-left: 3px;
+                        transform: rotate(-90deg);
+
+                        @include mq.min(1024) {
+                            display: flex;
+                        }
+
+                        svg {
+                            fill: ef.get('color', 'text');
+                        }
+                    }
                 }
             }
         }
@@ -100,6 +153,21 @@
                 @include mq.min(768) {
                     grid-gap: ef.get-value($mainInfoThemeDefault, 'formRowGap', 768);
                 }
+
+                .wlc-btn[wlc-button] {
+                    justify-self: ef.get-value($mainInfoThemeDefault, 'saveButtonAlign');
+                    margin-top: ef.get-value($mainInfoThemeDefault, 'saveButtonShift');
+                    font: {
+                        size: ef.get-value($mainInfoThemeDefault, 'saveButtonSize');
+                    }
+
+                    @include mq.min(1024) {
+                        justify-self: ef.get-value($mainInfoThemeDefault, 'saveButtonAlign', 1024);
+                        font: {
+                            size: ef.get-value($mainInfoThemeDefault, 'saveButtonSize', 1024);
+                        }
+                    }
+                }
             }
 
             .wlc-input[class],
@@ -111,19 +179,12 @@
 
                     .wlc-input__label[class],
                     .wlc-select__label[class] {
-                        font-size: ef.get-value($mainInfoThemeDefault, 'labelFontSize', 768);
+                        font: {
+                            size: ef.get-value($mainInfoThemeDefault, 'labelFontSize', 768);
+                            weight: ef.get-value($mainInfoThemeDefault, 'labelFontWeight', 768);
+                        }
                         color: ef.get-value($mainInfoThemeDefault, 'labelColor', 768);
-                        font-weight: ef.get-value($mainInfoThemeDefault, 'labelFontWeight', 768);
                     }
-                }
-            }
-
-            .wlc-btn[wlc-button] {
-                justify-self: ef.get-value($mainInfoThemeDefault, 'saveButtonAlign');
-                margin-top: ef.get-value($mainInfoThemeDefault, 'saveButtonShift');
-
-                @include mq.min(1024) {
-                    justify-self: ef.get-value($mainInfoThemeDefault, 'saveButtonAlign', 1024);
                 }
             }
         }

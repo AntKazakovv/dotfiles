@@ -1,51 +1,48 @@
 @use 'engine-scss/mixins/base.mixins' as bm;
 @use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/functions' as ef;
 @import '../utils/vars';
 
 .wlc-menu--theme-default:host {
     display: grid;
     grid-auto-columns: auto;
     grid-auto-flow: column;
-    grid-gap: $gapSize;
-    width: $width;
+    grid-gap: ef.get-value($themeDefault, 'gapSize');
+    width: ef.get-value($themeDefault, 'width');
     align-items: center;
 
-    @include mq.min(1024) {
-        grid-gap: $gapSize;
-    }
-
     @include mq.min(1200) {
-        grid-gap: $gapSize * 1.25;
+        grid-gap: ef.get-value($themeDefault, 'gapSize', 1200);
     }
 
     @include mq.min(1420) {
-        grid-gap: $gapSize * 1.5;
+        grid-gap: ef.get-value($themeDefault, 'gapSize', 1420);
     }
 
     .wlc-menu {
 
         &__link {
-            text-decoration: $textDecoration;
-            color: $textColor;
-            font-weight: $fontWeight;
-            font-size: $fontSize;
+            text-decoration: ef.get-value($themeDefault, 'textDecoration');
+            color: ef.get-value($themeDefault, 'textColor');
+            font-weight: ef.get-value($themeDefault, 'fontWeight');
+            font-size: ef.get-value($themeDefault, 'fontSize');
             cursor: pointer;
 
             @include mq.min(1024) {
-                font-size: $fontSize * 1.25;
+                font-size: ef.get-value($themeDefault, 'fontSize', 1024);
             }
 
             @include mq.min(1420) {
-                font-size: $fontSize * 1.5;
+                font-size: ef.get-value($themeDefault, 'fontSize', 1420);
             }
 
             &:hover {
-                color: $textColorHover;
+                color: ef.get-value($themeDefault, 'textColorHover');
             }
 
             &.active {
-                color: $textColorHover;
-                font-weight: $fontWeightActive;
+                color: ef.get-value($themeDefault, 'textColorHover');
+                font-weight: ef.get-value($themeDefault, 'fontWeightActive');
             }
         }
     }
@@ -61,12 +58,12 @@
             &:before {
                 content: '';
                 position: absolute;
-                bottom: $underlineOffset;
+                bottom: ef.get-value($themeDefault, 'underlineOffset');
                 left: 0;
                 display: block;
                 width: 100%;
                 height: 0;
-                background-color: $underlineColor;
+                background-color: ef.get-value($themeDefault, 'underlineColor');
                 opacity: 0;
                 pointer-events: none;
             }
@@ -75,7 +72,7 @@
             &.active {
 
                 &:before {
-                    height: $underlineHeight;
+                    height: ef.get-value($themeDefault, 'underlineHeight');
                     opacity: 100%;
                     @include bm.transition();
                 }

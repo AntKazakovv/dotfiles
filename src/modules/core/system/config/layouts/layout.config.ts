@@ -76,8 +76,7 @@ export const $layouts: ILayoutsConfig = {
                 components: [
                     {
                         name: 'menu.wlc-profile-menu',
-                        params: {
-                        },
+                        params: {},
                     },
                 ],
             },
@@ -92,6 +91,7 @@ export const $layouts: ILayoutsConfig = {
                     {
                         name: 'core.wlc-title',
                         params: {
+                            customMod: ['profile'],
                             mainText: gettext('Profile'),
                         },
                     },
@@ -113,8 +113,7 @@ export const $layouts: ILayoutsConfig = {
         sections: {
             'profile-content': {
                 container: true,
-                components: [
-                ],
+                components: [],
             },
         },
     },
@@ -124,6 +123,22 @@ export const $layouts: ILayoutsConfig = {
             'profile-content': {
                 container: true,
                 components: [
+                    {
+                        name: 'core.wlc-title',
+                        params: {
+                            customMod: ['profile'],
+                            mainText: gettext('Bonuses'),
+                        },
+                    },
+                    {
+                        name: 'bonuses.wlc-bonuses-list',
+                        params: {
+                            common: {
+                                title: '',
+                                filter: 'main',
+                            },
+                        },
+                    },
                 ],
             },
         },
@@ -133,8 +148,7 @@ export const $layouts: ILayoutsConfig = {
         sections: {
             'profile-content': {
                 container: true,
-                components: [
-                ],
+                components: [],
             },
         },
     },
@@ -143,8 +157,7 @@ export const $layouts: ILayoutsConfig = {
         sections: {
             'profile-content': {
                 container: true,
-                components: [
-                ],
+                components: [],
             },
         },
     },
@@ -153,8 +166,7 @@ export const $layouts: ILayoutsConfig = {
         sections: {
             'profile-content': {
                 container: true,
-                components: [
-                ],
+                components: [],
             },
         },
     },
@@ -163,8 +175,7 @@ export const $layouts: ILayoutsConfig = {
         sections: {
             'profile-content': {
                 container: true,
-                components: [
-                ],
+                components: [],
             },
         },
     },
@@ -173,8 +184,7 @@ export const $layouts: ILayoutsConfig = {
         sections: {
             'profile-content': {
                 container: true,
-                components: [
-                ],
+                components: [],
             },
         },
     },
@@ -183,8 +193,7 @@ export const $layouts: ILayoutsConfig = {
         sections: {
             'profile-content': {
                 container: true,
-                components: [
-                ],
+                components: [],
             },
         },
     },
@@ -193,8 +202,7 @@ export const $layouts: ILayoutsConfig = {
         sections: {
             'profile-content': {
                 container: true,
-                components: [
-                ],
+                components: [],
             },
         },
     },
@@ -203,8 +211,7 @@ export const $layouts: ILayoutsConfig = {
         sections: {
             content: {
                 container: true,
-                components: [
-                ],
+                components: [],
             },
         },
     },
@@ -245,31 +252,21 @@ export const $layouts: ILayoutsConfig = {
         sections: {
             'profile-content': {
                 container: true,
-                components: [
-                ],
+                components: [],
             },
         },
     },
     'app.profile.cash.transactions': {
         extends: 'app.profile',
         sections: {
-            'profile-menu': {
-                container: true,
-                components: [
-                    {
-                        name: 'menu.wlc-profile-menu',
-                        params: {
-                        },
-                    },
-                ],
-            },
             'profile-content': {
                 container: true,
                 components: [
                     {
-                        name: 'menu.wlc-profile-menu',
+                        name: 'core.wlc-title',
                         params: {
-                            type: 'submenu',
+                            customMod: ['profile'],
+                            mainText: gettext('Transactions history'),
                         },
                     },
                     {
@@ -284,8 +281,7 @@ export const $layouts: ILayoutsConfig = {
         sections: {
             'profile-content': {
                 container: true,
-                components: [
-                ],
+                components: [],
             },
         },
     },
@@ -294,8 +290,7 @@ export const $layouts: ILayoutsConfig = {
         sections: {
             'profile-content': {
                 container: true,
-                components: [
-                ],
+                components: [],
             },
         },
     },
@@ -304,8 +299,7 @@ export const $layouts: ILayoutsConfig = {
         sections: {
             'profile-content': {
                 container: true,
-                components: [
-                ],
+                components: [],
             },
         },
     },
@@ -314,8 +308,7 @@ export const $layouts: ILayoutsConfig = {
         sections: {
             'profile-content': {
                 container: true,
-                components: [
-                ],
+                components: [],
             },
         },
     },
@@ -324,8 +317,7 @@ export const $layouts: ILayoutsConfig = {
         sections: {
             'profile-content': {
                 container: true,
-                components: [
-                ],
+                components: [],
             },
         },
     },
@@ -334,8 +326,7 @@ export const $layouts: ILayoutsConfig = {
         sections: {
             'profile-content': {
                 container: true,
-                components: [
-                ],
+                components: [],
             },
         },
     },
@@ -344,8 +335,7 @@ export const $layouts: ILayoutsConfig = {
         sections: {
             'profile-content': {
                 container: true,
-                components: [
-                ],
+                components: [],
             },
         },
     },
@@ -354,8 +344,7 @@ export const $layouts: ILayoutsConfig = {
         sections: {
             'profile-content': {
                 container: true,
-                components: [
-                ],
+                components: [],
             },
         },
     },
@@ -364,8 +353,7 @@ export const $layouts: ILayoutsConfig = {
         sections: {
             'profile-content': {
                 container: true,
-                components: [
-                ],
+                components: [],
             },
         },
     },
@@ -374,8 +362,7 @@ export const $layouts: ILayoutsConfig = {
         sections: {
             'profile-content': {
                 container: true,
-                components: [
-                ],
+                components: [],
             },
         },
     },
@@ -384,8 +371,7 @@ export const $layouts: ILayoutsConfig = {
         sections: {
             'profile-content': {
                 container: true,
-                components: [
-                ],
+                components: [],
             },
         },
     },
@@ -394,8 +380,7 @@ export const $layouts: ILayoutsConfig = {
         sections: {
             'profile-content': {
                 container: true,
-                components: [
-                ],
+                components: [],
             },
         },
     },
@@ -414,9 +399,7 @@ export const $layouts: ILayoutsConfig = {
         extends: 'app',
         sections: {
             content: {
-                components: [
-
-                ],
+                components: [],
                 order: 2,
             },
         },

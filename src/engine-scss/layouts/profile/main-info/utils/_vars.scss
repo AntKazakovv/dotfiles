@@ -5,18 +5,26 @@ $mainInfoThemeDefault: map-merge((
     'sectionColGap': (
         1024: ef.get('size', 'big'),
     ),
+    'sectionRowGap': (
+        1024: ef.get('size', 'smaller'),
+    ),
     'formRowGap': (
         375: ef.get('size', 'smaller'),
         768: ef.get('size', 'smally'),
     ),
     'labelColor': (
-        375: ef.get('color', 'text'),
-        768: ef.get('color', 'text'),
+        375: transparentize(ef.get('color', 'text'), 0.55),
+        768: transparentize(ef.get('color', 'text'), 0.55),
     ),
     'saveButtonShift': ef.get('size', 'main') - ef.get('size', 'smaller'),
     'saveButtonAlign': (
         375: center,
         1024: end,
+    ),
+    'saveButtonWeight': ef.get-value($profileSettings, 'profileBtnWeight'),
+    'saveButtonSize': (
+        375: ef.get('font', 'less'),
+        1024: ef.get('font', 'main'),
     ),
     'formMaxWidth': (
         768: 768px,
@@ -25,7 +33,8 @@ $mainInfoThemeDefault: map-merge((
         768: 70%,
     ),
     'labelFontSize': (
-        768: ef.get('font', 'main'),
+        375: ef.get('font', 'small'),
+        768: ef.get('font', 'less'),
     ),
     'labelFontWeight': (
         768: bold,
@@ -33,15 +42,25 @@ $mainInfoThemeDefault: map-merge((
     'maxFormWidth': (
         1024: 765px,
     ),
-
-    'addBlockGap': ef.get('size', 'less'),
+    'addBlockGap': ef.get('size', 'smaller'),
     'addTitleFontSize': ef.get('font', 'smaller'),
-    'addTitleColor': ef.get('color', 'text'),
+    'addTitleFontWeight': 300,
+    'addTitleColor':  transparentize(ef.get('color', 'text'), 0.55),
     'addItemGap': ef.get('size', 'smaller'),
     'addItemTitleMainFontSize': ef.get('font', 'main'),
     'addItemTitleMainColor': ef.get('color', 'text'),
     'addItemTitleSecondFontSize': ef.get('font', 'smaller'),
-    'addItemTitleSecondColor': ef.get('color', 'text'),
-    'addItemLinkFontSize': ef.get('font', 'main'),
+    'addItemTitleSecondFontWeight': 300,
+    'addItemTitleSecondColor': transparentize(ef.get('color', 'text'), 0.55),
+    'addItemLinkFontSize': (
+        375: ef.get('font', 'less'),
+        1024: ef.get('font', 'smaller')
+    ),
+    'addItemLinkFontWeight': (
+        375: ef.get-value($profileSettings, 'profileBtnWeight'),
+    ),
     'addItemLinkColor': ef.get('color', 'text'),
+    'addItemTitleMainMargin': (
+        375: 0 0 5px 0,
+    ),
 ), $customMainInfoThemeDefault);

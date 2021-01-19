@@ -6,12 +6,12 @@
 
         .wlc-menu__link {
             display: block;
-            font-weight: $fontWeight;
-            font-size: $fontSize;
-            color: $textColor;
-            padding: $padding;
+            font-weight: ef.get-value($themeDefault, 'fontWeight');
+            font-size: ef.get-value($themeDefault, 'fontSize');
+            color: ef.get-value($themeDefault, 'textColor');
+            padding: ef.get-value($themeDefault, 'padding');
             text-decoration: none;
-            border-bottom: 1px solid $textColor;
+            border-bottom: 1px solid ef.get-value($themeDefault, 'textColor');
         }
     }
 }

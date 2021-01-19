@@ -13,6 +13,7 @@ $customButton: () !default;
 $customTime: () !default;
 $customFont: () !default;
 $customForm: () !default;
+$customProfileSettings: () !default;
 
 $customVars: () !default;
 
@@ -47,30 +48,26 @@ $color: map-merge((
     // Main colors
     'main': #e2e2e2,
     'secondary': #474747,
-    'light': #ffffff,
-    'dark': #000000,
-    'background': #000000,
+    'light': #fff,
+    'dark': #000,
+    'background': #000,
     'backgroundSecondary': #474747,
     'warn': #eee480,
     'error': #ea5555,
     'success': #65cb6a,
     'disabled': #adadad,
     'modal': #4a4b4c,
-
     // Text colors
     'text': #e2e2e2,
     'textSecondary': #474747,
-
     // Link colors
     'link': #adadad,
     'linkSecondary': #474747,
-
     // Divider colors
     'divider': #adadad,
-
     // Modal colors
     'dialogBackground': #4a4b4c,
-    'backdropBackground': #000000,
+    'backdropBackground': #000,
 ), $customColor);
 
 /// Размеры отступов на сайте.
@@ -217,13 +214,10 @@ $dummy: map-merge((), $customForm);
 $form: map-merge((
     'errorColor': map-get($color, 'error'),
     'successColor': map-get($color, 'success'),
-
     'maxWidth': 765px,
-
     'labelFontWeight': normal,
     'labelColor': map-get($color, 'text'),
     'labelFontSize': map-get($font, 'smaller'),
-
     'inputColor': map-get($color, 'dark'),
     'inputFontSize': map-get($font, 'main'),
     'inputHeight': 40px,
@@ -233,10 +227,8 @@ $form: map-merge((
     'inputBorderRadius': map-get($radius, 'main'),
     'inputPadding': map-get($size, 'smallest') map-get($size, 'main') map-get($size, 'smallest') map-get($size, 'smaller'),
     'inputTextAlign': left,
-
     'selectDropdownHeight': 300px,
     'selectDropdownItemTransition': map-get($time, 'main') ease-in-out background,
-
     'selectArrowColor': map-get($color, 'dark'),
     'iconWidth': 12px,
     'iconHeight': 12px,
@@ -244,7 +236,6 @@ $form: map-merge((
     'successIconColor': map-get($color, 'success'),
     'errorIconColor': map-get($color, 'error'),
     'pendingIconColor': map-get($color, 'disabled'),
-
     'errorsBgColor': lighten(map-get($color, 'error'), 10%),
     'errorsColor': map-get($color, 'error'),
     'errorsMinWidth': 300px,
@@ -252,7 +243,6 @@ $form: map-merge((
     'errorsBorderRadius': map-get($radius, 'main'),
     'errorsFontSize': map-get($font, 'smaller'),
     'errorsPadding': map-get($size, 'small'),
-
     'placeholderFontSize': map-get($font, 'smaller'),
     'placeholderPadding': 0 map-get($size, 'smaller'),
     'placeholderShift': map-get($size, 'main') * -1,
@@ -324,6 +314,28 @@ $container-max-widths: (
     1420: 1390px,
     1630: 1600px
 );
+
+/// Глобальные настройки профиля:
+///
+/// @name customProfileSettings
+$dummy: map-merge((), $customProfileSettings);
+$profileSettings: map-merge((
+    'profileWidth': 1275px,
+    'profileHeaderFontSize': 20px,
+    'profilePadding': (
+        375: 15px 20px,
+        1024: 30px 40px,
+    ),
+    'profileBg': (
+        375: map-get($color, 'backgroundSecondary'),
+        1024: map-get($color, 'backgroundSecondary'),
+    ),
+    'profileBorderRadius': (
+        375: map-get($size, 'small'),
+        1024: map-get($size, 'small')
+    ),
+    'profileBtnWeight': 700,
+), $customProfileSettings);
 
 $container-padding-x: 0;
 
