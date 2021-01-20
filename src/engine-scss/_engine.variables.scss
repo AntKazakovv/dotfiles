@@ -21,6 +21,25 @@ $customBtnSettings: () !default;
 $customMainColors: () !default;
 $customFieldColors: () !default;
 
+/// Основные цвета проекта из дизайна.
+///
+/// @name mainColors
+///
+/// @prop {Color} main [#ff8a00] - main color
+/// @prop {Color} secondary [#00d5bb] - secondary color
+/// @prop {Color} baseMain [#ffffff] - base main color
+/// @prop {color} baseOpacity [rgba(255, 255, 255, 0.4)] - base color with transparency
+/// @prop {color} bg100 [#e3e3e3] - background color gradation 100
+/// @prop {color} bg300 [#a3a3a3] - background color gradation 300
+/// @prop {color} bg500 [#5b5b5b] - background color gradation 500
+/// @prop {color} bg700 [#2f2f2f] - background color gradation 700
+/// @prop {color} bg [#1c1c1c] - background color
+/// @prop {color} bgModal [#3d3d3d] - modal background color
+/// @prop {color} elementsColor [#c4c4c4] - elements color
+/// @prop {color} error [#ffbcd5] - error color
+/// @prop {color} success [#acf7d3] - success color
+/// @prop {color} warning [#fdce70] - warning color
+/// @prop {color} disabled [#c4c4c4] - disabled color
 $mainColors: map-merge((
     'main': #ff8a00,
     'secondary': #00d5bb,
@@ -39,6 +58,24 @@ $mainColors: map-merge((
     'disabled': #c4c4c4,
 ), $customMainColors);
 
+/// Цвета ui элементов из дизайна.
+///
+/// @name fieldColors
+///
+/// @prop {Color} main [#ff8a00] - main color
+/// @prop {color} labelColor [#898989] - label color
+/// @prop {color} inputBg [#ffffff] - input background color
+/// @prop {color} borderColor [#f2f2f2] - border color
+/// @prop {color} textColor [#000000] - text color
+/// @prop {color} placeholderColor [#9d9d9d] - placeholder color
+/// @prop {color} arrowColor [#b9b9b9] - arrow color
+/// @prop {color} iconColor [#b1b1b1] - icon color
+/// @prop {color} disableBg [#414141] - disable background color
+/// @prop {color} disableBorder [#3e3e3e] - disable border
+/// @prop {color} errorBackground [#ffebf2] - error background
+/// @prop {color} errorBorder [#f5e2e8] - error border
+/// @prop {color} errorArrow [#ffbcd5] - error arrow
+/// @prop {color} successElement [#acf7d3] - success element
 $fieldColors: map-merge((
     'labelColor': #898989,
     'inputBg': #ffffff,
