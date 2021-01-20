@@ -20,7 +20,7 @@ $baseClass: 'wlc-burger-panel';
         color: map-get($themeDefault, 'panelTextColor');
         font-size: map-get($themeDefault, 'panelTextSize');
         transition: map-get($themeDefault, 'transition');
-        -webkit-tap-highlight-color: transparent;
+        outline-style: none;
     }
 
     &.#{$baseClass}--type-left {

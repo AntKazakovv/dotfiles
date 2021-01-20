@@ -1,7 +1,7 @@
 @use 'engine-scss/functions' as ef;
 
 //dropdown variables
-$menuGag: 5px !default;
+$menuGag: ef.get('size', 'smallest') !default;
 
 $activeTabLinkColor: #000 !default;
 $activeTabLinkBg: #fff000 !default;

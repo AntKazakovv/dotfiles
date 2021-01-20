@@ -55,7 +55,7 @@
 
             &-burger {
                 width: $headerBurgerBtnWidth;
-                text-align: left;
+                margin-right: auto;
 
                 @include mq.min(1024) {
                     margin-left: $headerGapColumns;
@@ -65,17 +65,16 @@
 
             &-search {
                 width: $headerSearchBtnWidth;
-                text-align: right;
+                margin-left: auto;
 
                 @include mq.min(1024) {
                     margin-right: $headerGapColumns;
-                    text-align: center;
                 }
             }
 
             &-login,
             &-user {
-                text-align: right;
+                margin-left: auto;
 
                 .wlc-icon {
                     width: 37px;
