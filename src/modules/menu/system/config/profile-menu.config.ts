@@ -87,7 +87,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         },
     },
     'profile-menu:bonuses-active': {
-        name: gettext('Active'),
+        name: gettext('Active bonuses'),
         type: 'sref',
         icon: 'icons/active-bonus',
         class: 'active-bonus',

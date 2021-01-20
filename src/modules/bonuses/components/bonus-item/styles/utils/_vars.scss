@@ -49,23 +49,23 @@ $activeBlockFontSecondaryColor: ef.get('color', 'text') !default;
 $activeBlockFontSecondarySize: ef.get('font', 'less') !default;
 
 // // Backgrounds
-$background: ef.get('color', 'backgroundSecondary') !default;
-$backgroundHover:  ef.get('color', 'backgroundSecondary') !default;
+$background: #878787 !default;
+$backgroundHover:  #878787 !default;
 
-$backgroundExperience: ef.get('color', 'backgroundSecondary') !default;
-$backgroundExperienceHover:  ef.get('color', 'backgroundSecondary') !default;
+$backgroundExperience: $background !default;
+$backgroundExperienceHover:  $backgroundHover !default;
 
-$backgroundLoyalty: ef.get('color', 'backgroundSecondary') !default;
-$backgroundLoyaltyHover:  ef.get('color', 'backgroundSecondary') !default;
+$backgroundLoyalty: $background !default;
+$backgroundLoyaltyHover:  $backgroundHover !default;
 
-$backgroundBalance: ef.get('color', 'backgroundSecondary') !default;
-$backgroundBalanceHover:  ef.get('color', 'backgroundSecondary') !default;
+$backgroundBalance: $background !default;
+$backgroundBalanceHover:  $backgroundHover !default;
 
-$backgroundFreerounds: ef.get('color', 'backgroundSecondary') !default;
-$backgroundFreeroundsHover:  ef.get('color', 'backgroundSecondary') !default;
+$backgroundFreerounds: $background !default;
+$backgroundFreeroundsHover:  $backgroundHover !default;
 
-$backgroundRelative: ef.get('color', 'backgroundSecondary') !default;
-$backgroundRelativeHover:  ef.get('color', 'backgroundSecondary') !default;
+$backgroundRelative: $background !default;
+$backgroundRelativeHover:  $backgroundHover !default;
 
 $imageBg: rgba(0, 0, 0, 0.3) !default;
 
@@ -118,6 +118,7 @@ $chosenIconBg: #fff !default;
 $chosenIconBdRds: 50% !default;
 $chosenIconWidth: 22px !default;
 $chosenIconHeight: 22px !default;
+$chosenIconSvgSize: 12px !default;
 $chosenIconSvgColor: ef.get('color', 'text') !default;
 $chosenIconPosL: ef.get('size', 'small') !default;
 $chosenIconPosT: ef.get('size', 'small') !default;

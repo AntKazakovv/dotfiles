@@ -10,4 +10,23 @@ export namespace wlcBonusesList {
             },
         },
     };
+    export const active: ILayoutComponent = {
+        name: 'bonuses.wlc-bonuses-list',
+        params: {
+            common: {
+                title: '',
+                restType: 'active',
+                filter: 'active',
+            },
+        },
+    };
+    export const inventory: ILayoutComponent = {
+        name: 'bonuses.wlc-bonuses-list',
+        params: {
+            common: {
+                title: '',
+                filter: 'inventory',
+            },
+        },
+    };
 }

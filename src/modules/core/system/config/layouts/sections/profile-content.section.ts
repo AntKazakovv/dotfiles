@@ -17,11 +17,27 @@ export namespace profileContent {
         ],
     };
 
-    export const profileLoyalty: ILayoutSectionConfig = {
+    export const profileBonusesMain: ILayoutSectionConfig = {
         container: true,
         components: [
             componentLib.wlcTitle.bonuses,
             componentLib.wlcBonusesList.main,
+        ],
+    };
+
+    export const profileBonusesActive: ILayoutSectionConfig = {
+        container: true,
+        components: [
+            componentLib.wlcTitle.activeBonuses,
+            componentLib.wlcBonusesList.active,
+        ],
+    };
+
+    export const profileBonusesInventory: ILayoutSectionConfig = {
+        container: true,
+        components: [
+            componentLib.wlcTitle.inventory,
+            componentLib.wlcBonusesList.inventory,
         ],
     };
 
