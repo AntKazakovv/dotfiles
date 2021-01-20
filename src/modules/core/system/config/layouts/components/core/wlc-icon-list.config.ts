@@ -4,23 +4,24 @@ export namespace wlcIconList {
     export const merchants: ILayoutComponent = {
         name: 'core.wlc-icon-list',
         params: {
-            type: 'merchants',
+            theme: 'merchants',
+            type: 'svg',
         },
     };
 
     export const payments: ILayoutComponent = {
         name: 'core.wlc-icon-list',
         params: {
-            type: 'payments',
             theme: 'payments',
+            type: 'svg',
             common: {
                 payment: {
                     include: [
-                        'maldopay',
+                        'Maldopay qr ref dep (2025)',
                         'skrill',
                         'neteller',
-                        'qiwiwallet',
-                        'yandexmoney',
+                        'Ecommpay qiwi',
+                        'Accentpay 2 yandex',
                     ],
                     exclude: ['all'],
                 },
