@@ -39,6 +39,7 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams: Params.IGameThumbCParams;
     @HostBinding('attr.data-wlc-element') protected wlcElement;
     @HostBinding('class.no-demo') protected noDemoClass;
+    @HostBinding('class.not-desktop') protected notDesktop;
     public gameThumbSettings: IIndexing<IIndexing<string> | string> = {
         buttons: {
             demoThemeMode: 'secondary',
@@ -93,7 +94,7 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
     public startGame(demo: boolean, modal: boolean, forMobile: boolean, $event: Event): void {
         $event.stopPropagation();
         if (modal) {
-            if (forMobile && this.deviceType != DeviceType.Mobile) {
+            if (forMobile && this.deviceType === DeviceType.Desktop) {
                 return;
             }
 
@@ -148,6 +149,7 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
             .pipe(takeUntil(this.$destroy))
             .subscribe((type: DeviceType) => {
                 this.deviceType = type;
+                this.notDesktop = this.deviceType !== 'desktop';
                 this.cdr.markForCheck();
             });
 

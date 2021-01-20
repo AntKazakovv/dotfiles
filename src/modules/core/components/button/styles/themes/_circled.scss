@@ -6,16 +6,16 @@
 
     &:host {
         @include buttonBase;
-        width: $minWidth;
-        height: $minWidth;
+        width: ef.get-value($themeDefault, 'minWidth');
+        height: ef.get-value($themeDefault, 'minWidth');
         grid-column-gap: unset;
         border-radius: 50%;
-        border: $borderSecondary;
+        border: ef.get-value($themeDefault, 'borderSecondary');
 
         @media (hover: hover) {
 
             &:hover {
-                background: $backgroundHover;
+                background: ef.get-value($themeDefault, 'backgroundHover');
             }
         }
 
@@ -25,7 +25,7 @@
             @media (hover: hover) {
 
                 &:hover {
-                    background: transparentize($backgroundHover, 0.5);
+                    background: transparentize(ef.get-value($themeDefault, 'backgroundHover'), 0.5);
                 }
             }
         }

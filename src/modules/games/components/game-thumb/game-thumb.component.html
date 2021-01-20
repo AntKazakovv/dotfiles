@@ -8,6 +8,7 @@
             <span class="{{$class}}__icon"
                   wlc-icon
                   iconName="favourite"
+                  wlcElement="button_favourite"
                   *ngIf="isAuth"
                   [ngClass]="{'active': game.isFavourite}"
                   (click)="toggleFavourites(game)">
@@ -17,9 +18,9 @@
             {{game.merchantAlias}}
         </span>
     </div>
-    <div class="{{$class}}__buttons">
+    <div class="{{$class}}__buttons" [ngClass]="{'no-demo': !game.hasDemo}">
         <button wlc-button
-                [wlcElement]="'button_game-play'"
+                wlcElement="button_game-play"
                 class="wlc-btn wlc-btn--play"
                 [icon]="'wlc-game-play'"
                 [text]="'Play'"
@@ -30,7 +31,7 @@
         <button
             *ngIf="game.hasDemo"
             wlc-button
-            [wlcElement]="'button_game-demo'"
+            wlcElement="button_game-demo"
             class="wlc-btn wlc-btn--demo"
             [text]="'Demo'"
             [theme]="gameThumbSettings?.buttons?.theme"

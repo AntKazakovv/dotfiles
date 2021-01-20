@@ -9,7 +9,7 @@
         border: none;
 
         overflow: hidden;
-        transition: all $time;
+        transition: all ef.get-value($themeDefault, 'time');
         cursor: pointer;
     }
 }

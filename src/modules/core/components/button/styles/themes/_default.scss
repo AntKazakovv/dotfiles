@@ -6,7 +6,6 @@
 
     &:host {
         @include buttonBase;
-        border-radius: 2px;
 
         &.wlc-btn--theme-mod-secondary {
             @include buttonTransparency;

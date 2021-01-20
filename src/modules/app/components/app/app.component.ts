@@ -94,8 +94,12 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
     }
 
     private setHostClass(): void {
-        const hostClass = [defaultParams.hostClass, this.configService.get<DeviceModel>('device')?.osName?.toLowerCase()];
-        hostClass.push(`${_get(this.uiRouter, '$current.name', '').replace(/\./g, '-')}-state`);
+        const hostClass = [
+            defaultParams.hostClass,
+            this.configService.get<DeviceModel>('device')?.osName,
+            this.configService.get<DeviceModel>('device')?.browserName,
+            `${_get(this.uiRouter, '$current.name', '').replace(/\./g, '-')}-state`,
+        ];
         this.$hostClass = hostClass.join(' ');
     }
 }

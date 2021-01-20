@@ -1,3 +1,4 @@
+@use 'engine-scss/functions' as ef;
 @import './utils/vars';
 
 .wlc-btn {
@@ -11,10 +12,8 @@
         border: none;
 
         overflow: hidden;
-        transition: all $time;
+        transition: all ef.get-value($themeDefault, 'time');
         cursor: pointer;
-
-        width: max-content;
     }
 }
 

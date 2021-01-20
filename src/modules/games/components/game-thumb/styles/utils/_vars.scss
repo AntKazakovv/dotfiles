@@ -15,17 +15,17 @@ $themeDefault: map-merge((
     'thumbNameLineHeight': 22px,
     'btnJustifyContent': space-between,
     'btnAlignItems': flex-end,
-    'btnMarginItems': 0 auto,
+    'btnMarginItems': 0,
     'thumbBtnPosition': horizontal,
     'favoritePosition': left,
     'favoriteBg': #aaa,
     'favoriteHoverBg': #87cf3f,
     'favoriteActiveBg': #87cf3f,
-    'favoriteSize': 25px,
+    'favoriteSize': 26px,
     'favoriteBackBg': #555459,
     'favoriteBackSize': 40px,
-    'favoriteBackRadius': ef.get('radius', 'small'),
-    'favoriteBoxShadow': 0 4px 15px rgba(0, 190, 225, 0.5),
+    'favoriteBackRadius': ef.get('radius', 'biger'),
+    'favoriteBoxShadow': 0 4px 15px rgba(0, 255, 24, 0.21),
 ), $customThemeDefault);
 
 $customThemeDefaultCircle: () !default;

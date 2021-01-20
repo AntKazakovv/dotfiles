@@ -3,7 +3,7 @@ import * as Bowser from 'bowser';
 export enum DeviceType {
     Mobile = 'mobile',
     Tablet = 'tablet',
-    Desktop= 'desktop',
+    Desktop = 'desktop',
 }
 
 export interface IDeviceConfig {
@@ -47,6 +47,10 @@ export class DeviceModel {
     }
 
     public get osName(): string {
-        return this.bowserParser.getOS().name;
+        return this.bowserParser.getOSName(true);
+    }
+
+    public get browserName(): string {
+        return this.bowserParser.getBrowserName(true);
     }
 }

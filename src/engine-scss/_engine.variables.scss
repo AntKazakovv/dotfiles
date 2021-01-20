@@ -16,6 +16,7 @@ $customForm: () !default;
 $customProfileSettings: () !default;
 
 $customVars: () !default;
+$customBtnSettings: () !default;
 
 /// Основная палитра цветов
 ///
@@ -338,4 +339,48 @@ $profileSettings: map-merge((
 ), $customProfileSettings);
 
 $container-padding-x: 0;
+
+$dummy: ();
+$buttonSettings: map-merge((
+    'scaleParam': 0.9,
+    // Size
+    'minWidth': 100px,
+    'heightSmall': 35px,
+    'heightDefault': 40px,
+    'heightLarge': 50px,
+    // Font
+    'fontSize': map-get($font, 'less'),
+    'fontWeight': bold,
+    //todo via variables
+    'fontColor': #000,
+    'colorDefaultHover': map-get($color, 'text'),
+    'fontColorActive': map-get($color, 'text'),
+    'fontColorSecondary': map-get($color, 'main'),
+    'fontColorActiveSecondary': lighten(map-get($color, 'main'), 20%),
+    // Transform
+    'textTransform': initial,
+    // Background
+    'background': map-get($color, 'main'),
+    'backgroundSecondary': map-get($color, 'secondary'),
+    'backgroundHover': darken(map-get($color, 'main'), 20%),
+    'backgroundSecondaryHover': darken(map-get($color, 'main'), 20%),
+    'backgroundResolve': map-get($color, 'success'),
+    'backgroundResolveHover': darken(map-get($color, 'success'), 20%),
+    'backgroundReject': map-get($color, 'error'),
+    'backgroundRejectHover': darken(map-get($color, 'error'), 20%),
+    'backgroundDisabled': map-get($color, 'disabled'),
+    'backgroundDisabledHover': darken(map-get($color, 'disabled'), 20%),
+    // Shadow
+    'shadow': 0 10px 10px map-get($color, 'secondary'),
+    //Border
+    'borderDefault': 2px solid transparent,
+    'borderRadiusDefault': map-get($radius, 'biger'),
+    'borderDefaultHover': 2px solid transparent,
+    'borderSecondary': 2px solid map-get($color, 'main'),
+    //Padding
+    'padding': map-get($size, 'smallest') map-get($size, 'smaller'),
+    'gap': map-get($size, 'smallest'),
+    // Animation
+    'time': map-get($time, 'main'),
+), $customBtnSettings);
 
