@@ -2,8 +2,8 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'gap': ef.get('size', 'small'),
-    'loginBtnMargin': ef.get('size', 'main') 0,
+    'gap': ef.get('size', 'smallest'),
+    'loginBtnMargin': 30px 0 ef.get('size', 'main'),
     'panelWidth': 290px,
     'panelBackground': ef.get('color', 'backgroundSecondary'),
     'panelTextColor': ef.get('color', 'text'),
@@ -16,6 +16,6 @@ $themeDefault: map-merge((
     'panelHeaderFontWeight': normal,
     'panelHeaderColor':ef.get('color', 'text'),
     'panelContentBackground': transparent,
-    'panelContentPadding': ef.get('size', 'small') ef.get('size', 'small') 30px,
+    'panelContentPadding': ef.get('size', 'small') ef.get('size', 'small') 40px,
     'closeIconColor': ef.get('color', 'text'),
 ), $customThemeDefault);

@@ -37,7 +37,7 @@ export class UserStatsComponent extends AbstractComponent implements OnInit, OnD
     @Input() protected inlineParams: Params.IUserStatsCParams;
     public $params: any;
     public userStats: IUserInfo;
-    public shownUserStats: IIndexing<IUserStatsItem>;
+    public shownUserStats: IIndexing<IUserStatsItem> = {};
     private userInfoHandler: Subscription;
 
     constructor(
@@ -56,6 +56,7 @@ export class UserStatsComponent extends AbstractComponent implements OnInit, OnD
     ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.userStats = this.UserService.userInfo?.data;
+        this.fillUserStatsFields();
         this.userInfoHandler = this.EventService.subscribe({
             name: 'USER_INFO',
         }, (info: IData) => {
@@ -76,14 +77,11 @@ export class UserStatsComponent extends AbstractComponent implements OnInit, OnD
     }
 
     private fillUserStatsFields(): void {
-        if (!this.userStats) {
-            return;
-        }
 
         this.shownUserStats = {
             balance: {
                 name: gettext('Real balance'),
-                value: this.userStats.balance,
+                value: this.userStats?.balance - this.getBonusBalance(),
                 modification: 'amount',
             },
             bonusBalance: {
@@ -93,35 +91,35 @@ export class UserStatsComponent extends AbstractComponent implements OnInit, OnD
             },
             points: {
                 name: gettext('Points'),
-                value: this.userStats.loyalty?.Balance,
+                value: this.userStats?.loyalty?.Balance,
             },
             level: {
                 name: gettext('Level'),
-                value: this.userStats.loyalty?.Level,
+                value: this.userStats?.loyalty?.Level,
             },
             email: {
                 name: gettext('Email'),
-                value: this.userStats.email,
+                value: this.userStats?.email,
             },
             firstName: {
                 name: gettext('First name'),
-                value: this.userStats.firstName,
+                value: this.userStats?.firstName,
             },
             lastName: {
                 name: gettext('Last name'),
-                value: this.userStats.lastName,
+                value: this.userStats?.lastName,
             },
             levelName: {
                 name: gettext('Level name'),
-                value: this.userStats.loyalty?.LevelName[this.translate.currentLang || 'en'],
+                value: this.userStats?.loyalty?.LevelName[this.translate.currentLang || 'en'],
             },
             login: {
                 name: gettext('Login'),
-                value: this.userStats.loyalty?.Login,
+                value: this.userStats?.loyalty?.Login,
             },
             nextLvlPoints: {
                 name: gettext('Next Level Points'),
-                value: this.userStats.loyalty?.NextLevelPoints,
+                value: this.userStats?.loyalty?.NextLevelPoints,
             },
         };
         this.cdr.markForCheck();

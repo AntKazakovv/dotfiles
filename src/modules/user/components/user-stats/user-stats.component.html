@@ -27,12 +27,12 @@
                 iconName="user-icon"
             ></div>
 
-            <div class="{{$class}}-email__value" *ngIf="!this.shownUserStats?.firstName.value">
-                {{this.shownUserStats?.email?.value | truncate: 20}}
+            <div class="{{$class}}-email__value" *ngIf="!this.shownUserStats?.firstName?.value">
+                {{(this.shownUserStats?.email?.value | truncate: 20) || 'Player' | translate}}
             </div>
 
             <div class="{{$class}}-email__value"
-                 *ngIf="this.shownUserStats?.firstName.value || this.shownUserStats?.lastName.value">
+                 *ngIf="this.shownUserStats?.firstName?.value || this.shownUserStats?.lastName?.value">
                 {{this.shownUserStats.firstName.value + ' ' + this.shownUserStats.lastName.value | truncate: 20}}
             </div>
 
@@ -45,13 +45,15 @@
             ></button>
         </div>
 
-        <div class="{{$class}}-balance" *ngIf="this.shownUserStats">
+        <div class="{{$class}}-balance">
             <div class="{{$class}}-balance__item {{$class}}-balance__item--{{item}}"
                  *ngFor="let item of $params.fields">
                 <ng-container [ngSwitch]="this.shownUserStats[item]?.modification">
 
                     <span class="name">{{this.shownUserStats[item]?.name | translate}}</span>
-                    <span class="value" *ngSwitchDefault>{{this.shownUserStats[item]?.value | number: '.0-2'}}</span>
+                    <span class="value" *ngSwitchDefault>
+                        {{(this.shownUserStats[item]?.value | number: '.0-2') || 'Unknown' | translate}}
+                    </span>
                     <span class="value" *ngSwitchCase="'amount'">
                         <span wlc-currency [value]="this.shownUserStats[item]?.value"></span>
                     </span>

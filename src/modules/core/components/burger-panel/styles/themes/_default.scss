@@ -15,7 +15,11 @@
         }
 
         .wlc-user-stats {
-            margin-bottom: map-get($themeDefault, 'gapSize');
+            margin-bottom: map-get($themeDefault, 'gap');
+        }
+
+        .wlc-category-menu {
+            margin-bottom: map-get($themeDefault, 'gap');
         }
     }
 }
