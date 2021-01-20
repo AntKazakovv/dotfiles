@@ -1,51 +1,42 @@
-@use 'engine-scss/functions' as ef;
-
-$scaleParam: 0.9 !default;
-
-// Size
-$minWidth: 100px !default;
-$heightSmall: 35px !default;
-$heightDefault: 40px !default;
-$heightLarge: 50px !default;
-
-// Font
-$fontSize: ef.get('font', 'main') !default;
-$fontColor: ef.get('color', 'text') !default;
-$colorDefaultHover: ef.get('color', 'text') !default;
-$fontColorActive: ef.get('color', 'text') !default;
-$fontColorSecondary: ef.get('color', 'main') !default;
-$fontColorActiveSecondary: ef.get('color', 'text') !default;
-
-// Transform
-$textTransform: initial !default;
-
-// Background
-$background: ef.get('color', 'main') !default;
-$backgroundSecondary: ef.get('color', 'secondary') !default;
-$backgroundHover: darken(ef.get('color', 'main'), 10%) !default;
-$backgroundSecondaryHover: darken(ef.get('color', 'main'), 10%) !default;
-$backgroundResolve: ef.get('color', 'success') !default;
-$backgroundResolveHover: darken(ef.get('color', 'success'), 10%) !default;
-$backgroundReject: ef.get('color', 'error') !default;
-$backgroundRejectHover: darken(ef.get('color', 'error'), 10%) !default;
-$backgroundDisabled: ef.get('color', 'disabled') !default;
-$backgroundDisabledHover: darken(ef.get('color', 'disabled'), 10%) !default;
-
-// Shadow
-$shadow: 0 10px 10px ef.get('color', 'secondary') !default;
-
-// Radius
-$radius: 50px !default;
-
-//Border
-$borderDefault: 2px solid transparent !default;
-$borderDefaultHover: 2px solid transparent !default;
-$borderSecondary: 2px solid ef.get('color', 'main') !default;
-
-//Padding
-$padding: ef.get('size', 'smallest') ef.get('size', 'smaller') !default;
-$gap: ef.get('size', 'smallest') !default;
-
-// Animation
-$time: ef.get('time', 'main') !default;
-
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'scaleParam': 0.9,
+    // Size
+    'minWidth': 100px,
+    'heightSmall': 35px,
+    'heightDefault': 40px,
+    'heightLarge': 50px,
+    // Font
+    'fontSize': ef.get('buttonSettings', 'fontSize'),
+    'fontWeight': ef.get('buttonSettings', 'fontWeight'),
+    'fontColor': ef.get('buttonSettings', 'fontColor'),
+    'colorDefaultHover': ef.get('buttonSettings', 'colorDefaultHover'),
+    'fontColorActive': ef.get('buttonSettings', 'fontColorActive'),
+    'fontColorSecondary': ef.get('buttonSettings', 'fontColorSecondary'),
+    'fontColorActiveSecondary':ef.get('buttonSettings', 'fontColorActiveSecondary'),
+    // Transform
+    'textTransform': initial,
+    // Background
+    'background': ef.get('buttonSettings', 'background'),
+    'backgroundSecondary': ef.get('buttonSettings', 'backgroundSecondary'),
+    'backgroundHover': ef.get('buttonSettings', 'backgroundHover'),
+    'backgroundSecondaryHover': ef.get('buttonSettings', 'backgroundSecondaryHover'),
+    'backgroundResolve': ef.get('buttonSettings', 'backgroundResolve'),
+    'backgroundResolveHover': ef.get('buttonSettings', 'backgroundResolveHover'),
+    'backgroundReject': ef.get('buttonSettings', 'backgroundReject'),
+    'backgroundRejectHover': ef.get('buttonSettings', 'backgroundRejectHover'),
+    'backgroundDisabled': ef.get('buttonSettings', 'backgroundDisabled'),
+    'backgroundDisabledHover': ef.get('buttonSettings', 'backgroundDisabledHover'),
+    // Shadow
+    'shadow': 0 10px 10px ef.get('buttonSettings', 'shadow'),
+    //Border
+    'borderDefault': 2px solid transparent,
+    'borderRadiusDefault': ef.get('buttonSettings', 'borderRadiusDefault'),
+    'borderDefaultHover': 2px solid transparent,
+    'borderSecondary': ef.get('buttonSettings', 'borderSecondary'),
+    //Padding
+    'padding': ef.get('buttonSettings', 'padding') ef.get('buttonSettings', 'padding'),
+    'gap': ef.get('buttonSettings', 'gap'),
+    // Animation
+    'time': ef.get('buttonSettings', 'time'),
+), $customThemeDefault);

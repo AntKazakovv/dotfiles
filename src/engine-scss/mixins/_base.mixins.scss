@@ -25,6 +25,6 @@
     }
 }
 
-@mixin transition($type: all, $speed: 0.3s, $mode: ease-in-out) {
+@mixin transition($type: all, $speed: 0.3s, $mode: linear) {
     transition: $type $speed $mode;
 }

@@ -15,10 +15,15 @@ import {
 import {
     FilesService,
     IFile,
+    IIndexing,
 } from 'wlc-engine/modules/core';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes';
 
 import * as Params from './icon.params';
+
+import {
+    keys as _keys,
+} from 'lodash';
 
 @Component({
     selector: '[wlc-icon]',
@@ -31,9 +36,11 @@ export class IconComponent extends AbstractComponent implements OnInit, OnChange
     public imagePath: string;
     public ready: boolean;
 
+    @Input() public wlcElement: string;
     @Input() protected iconUrl: string;
     @Input() protected iconName: string;
     @Input() protected fallback: string;
+
     constructor(
         protected sanitizer: DomSanitizer,
         protected fileService: FilesService,
@@ -47,7 +54,7 @@ export class IconComponent extends AbstractComponent implements OnInit, OnChange
     }
 
     public ngOnInit(): void {
-        super.ngOnInit();
+        super.ngOnInit(this.prepareParams());
         this.getIconHtml();
         this.ready = true;
     }
@@ -76,5 +83,12 @@ export class IconComponent extends AbstractComponent implements OnInit, OnChange
         }
 
         this.cdr.markForCheck();
+    }
+
+    protected prepareParams(): any {
+        const inlineParams: IIndexing<string> = {};
+        inlineParams.wlcElement = this.wlcElement;
+
+        return _keys(inlineParams).length ? inlineParams : null;
     }
 }

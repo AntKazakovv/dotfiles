@@ -6,30 +6,33 @@
 @mixin buttonBase {
     display: grid;
     grid-template-columns: auto 1fr auto;
-    grid-column-gap: $gap;
+    grid-column-gap: ef.get-value($themeDefault, 'gap');
     align-items: center;
 
-    min-width: $minWidth;
-    height: $heightDefault;
-    border: $borderDefault;
-    background: $background;
+    min-width: ef.get-value($themeDefault, 'minWidth');
+    height: ef.get-value($themeDefault, 'heightDefault');
+    border: ef.get-value($themeDefault, 'borderDefault');
+    border-radius: ef.get-value($themeDefault, 'borderRadiusDefault');
+    padding: ef.get-value($themeDefault, 'padding');
+    background: ef.get-value($themeDefault, 'background');
 
-    color: $fontColor;
-    font-size: $fontSize;
-
-    padding: $padding;
+    color: ef.get('buttonSettings', 'fontColor');
+    font: {
+        size: ef.get-value($themeDefault, 'fontSize');
+        weight: ef.get-value($themeDefault, 'fontWeight');
+    }
 
     .wlc-btn__text {
         grid-column: 2;
-        text-transform: $textTransform;
+        text-transform: ef.get-value($themeDefault, 'textTransform');
     }
 
     @media (hover: hover) {
 
         &:hover {
-            color: $colorDefaultHover;
-            border: $borderDefaultHover;
-            background: $backgroundHover;
+            color: ef.get-value($themeDefault, 'colorDefaultHover');
+            border: ef.get-value($themeDefault, 'borderDefaultHover');
+            background: ef.get-value($themeDefault, 'backgroundHover');
             @include bm.transition;
         }
     }
@@ -37,14 +40,14 @@
 
 @mixin buttonTransparency {
     background: transparent;
-    border: $borderSecondary;
-    color: $fontColorSecondary;
+    border: ef.get-value($themeDefault, 'borderSecondary');
+    color: ef.get-value($themeDefault, 'fontColorSecondary');
 
     @media (hover: hover) {
 
         &:hover {
-            background: transparentize($backgroundHover, 0.7);
-            color: $fontColorActiveSecondary;
+            background: transparentize(ef.get-value($themeDefault, 'backgroundHover'), 0.7);
+            color: ef.get-value($themeDefault, 'fontColorActiveSecondary');
         }
     }
 }

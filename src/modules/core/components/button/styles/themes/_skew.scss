@@ -7,10 +7,10 @@
     &:host {
         @include buttonBase;
         transform: skew(-20deg, 0);
-        border-image-source: linear-gradient(to right, $backgroundSecondary, $background);
+        border-image-source: linear-gradient(to right, ef.get-value($themeDefault, 'backgroundSecondary'), ef.get-value($themeDefault, 'background'));
         border-image-slice: 1;
         border-image-width: 6px;
-        background-image: linear-gradient(to right, $background, $backgroundSecondary);
+        background-image: linear-gradient(to right, ef.get-value($themeDefault, 'background'), ef.get-value($themeDefault, 'backgroundSecondary'));
 
         @media (hover: hover) {
 
@@ -27,8 +27,8 @@
 
                 &:hover {
                     border-image-width: 6px;
-                    border-image-source: linear-gradient(to right, $backgroundSecondary, $background);
-                    background-image: linear-gradient(to right, $background, $backgroundSecondary);
+                    border-image-source: linear-gradient(to right, ef.get-value($themeDefault, 'backgroundSecondary'), ef.get-value($themeDefault, 'background'));
+                    background-image: linear-gradient(to right, ef.get-value($themeDefault, 'background'), ef.get-value($themeDefault, 'backgroundSecondary'));
                 }
             }
         }
