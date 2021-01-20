@@ -34,6 +34,7 @@ export class Bonus extends AbstractModel<IBonus> {
     public isReady: Boolean = true;
     public isChoose: Boolean = false;
     protected userCurrency: string;
+    private regEvents = ['deposit first', 'registration', 'verification'];
 
     constructor(
         data: IBonus,
@@ -179,6 +180,12 @@ export class Bonus extends AbstractModel<IBonus> {
     }
 
     public get group(): string {
+        if (this.hasPromoCode) {
+            return 'Promocode';
+        }
+        if (this.regEvents.indexOf(this.event) !== -1) {
+            return 'Welcome bonus';
+        }
         return this.data.Group;
     }
 

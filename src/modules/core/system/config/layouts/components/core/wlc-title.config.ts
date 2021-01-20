@@ -21,7 +21,20 @@ export namespace wlcTitle {
             mainText: gettext('Bonuses'),
         },
     };
-
+    export const activeBonuses: ILayoutComponent = {
+        name: 'core.wlc-title',
+        params: {
+            customMod: ['profile'],
+            mainText: gettext('Active bonuses'),
+        },
+    };
+    export const inventory: ILayoutComponent = {
+        name: 'core.wlc-title',
+        params: {
+            customMod: ['profile'],
+            mainText: gettext('Inventory'),
+        },
+    };
     export const transactionsHistory: ILayoutComponent = {
         name: 'core.wlc-title',
         params: {

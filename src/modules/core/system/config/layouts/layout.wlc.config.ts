@@ -72,19 +72,19 @@ export const $layouts: ILayoutsConfig = {
     'app.profile.loyalty-bonuses.main': {
         extends: 'app.profile',
         sections: {
-            'profile-content': sectionsLib.profileContent.profileLoyalty,
+            'profile-content': sectionsLib.profileContent.profileBonusesMain,
         },
     },
     'app.profile.loyalty-bonuses.active': {
         extends: 'app.profile',
         sections: {
-            'profile-content': sectionsLib.profileContent.empty,
+            'profile-content': sectionsLib.profileContent.profileBonusesActive,
         },
     },
     'app.profile.loyalty-bonuses.inventory': {
         extends: 'app.profile',
         sections: {
-            'profile-content': sectionsLib.profileContent.empty,
+            'profile-content': sectionsLib.profileContent.profileBonusesInventory,
         },
     },
     'app.profile.loyalty-bonuses.history': {

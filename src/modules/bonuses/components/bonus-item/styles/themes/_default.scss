@@ -47,8 +47,10 @@
             align-items: center;
 
             svg {
-                width: 100%;
+                width: $chosenIconSvgSize;
+                height: $chosenIconSvgSize;
                 stroke: $chosenIconSvgColor;
+                fill: none;
             }
         }
 

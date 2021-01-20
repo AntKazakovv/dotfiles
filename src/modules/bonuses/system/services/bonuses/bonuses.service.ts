@@ -69,7 +69,7 @@ export class BonusesService {
     private profile = this.userService.userProfile;
     private useForbidUserFields = this.configService.get<boolean>('$loyalty.useForbidUserFields');
     private depEvents = ['deposit', 'deposit first', 'deposit repeated', 'deposit sum'];
-    private regEvents = ['deposit first', 'registration'];
+    private regEvents = ['deposit first', 'registration', 'verification'];
 
     constructor(
         private dataService: DataService,
@@ -130,7 +130,8 @@ export class BonusesService {
      * Filter bonuses
      *
      * @param {Bonus[]} bonuses bonuses array
-     * @param {BonusesFilterType} filter bonuses filter ('all' | 'reg' | 'deposit' | 'promocode' | 'inventory' | 'main' | 'active' | 'default')
+     * @param {BonusesFilterType} filter bonuses filter
+     * ('all' | 'reg' | 'deposit' | 'promocode' | 'inventory' | 'main' | 'active' | 'default')
      * @returns {Bonus[]} filtered bonuses array
      */
     public filterBonuses(bonuses: Bonus[], filter: BonusesFilterType): Bonus[] {
