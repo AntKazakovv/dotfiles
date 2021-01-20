@@ -1,5 +1,12 @@
+////
+/// This is a poster comment.
+/// It will apply annotations to all items from file.
+/// @group global
+////
 @use 'sass:selector';
 @use 'sass:string';
+@use './../functions' as ef;
+@use './mediaqueries' as mq;
 
 @mixin themeMod($class, $theme, $mod) {
 
@@ -27,4 +34,33 @@
 
 @mixin transition($type: all, $speed: 0.3s, $mode: linear) {
     transition: $type $speed $mode;
+}
+
+/// Creates css which depends on values for media-queries.
+/// If element hasn't map structure, the mixin returns common css - prop: value.
+/// If element has map structure, the mixin returns css for every media-query in the list.
+/// Uses `get-value` function to get value of property.
+/// The map of values must have mobile-first approach.
+/// Media-queries for different properties are packing during the compilation with postcss css-mqpacker plugin.
+///
+/// @name get-mq-map
+///
+/// @param {string} $prop - name of css property
+/// @param {variable} $map - theme variable with map of values
+/// @param {string} $name - name of value in the map
+
+@mixin get-mq-map($prop, $map, $name) {
+    @if (type-of(map-get($map, $name)) == map) {
+        @each $bp, $el in map-get($map, $name) {
+            @if $bp == 375 {
+                #{$prop}: ef.get-value($map, $name, $bp);
+            } @else {
+                @include mq.min($bp) {
+                    #{$prop}: ef.get-value($map, $name, $bp);
+                }
+            }
+        }
+    } @else {
+        #{$prop}: ef.get-value($map, $name);
+    }
 }

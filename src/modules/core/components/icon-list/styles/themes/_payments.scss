@@ -1,0 +1,44 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/base.mixins' as em;
+
+.wlc-icon-list--theme-payments {
+    grid-area: payments;
+    overflow-x: auto;
+    background-color: ef.get-value($themePayments, 'wrapperBackground');
+    border-radius: ef.get-value($themePayments, 'wrapperBorderRadius');
+    width: 100%;
+    @include em.get-mq-map('max-width', $themePayments, 'wrapperMaxWidth');
+    @include em.get-mq-map('max-width', $themePayments, 'wrapperMaxWidth');
+    @include em.get-mq-map('padding', $themePayments, 'wrapperPadding');
+
+    @include mq.min(900) {
+        overflow-x: initial;
+    }
+
+    .wlc-icon-list {
+
+        &__wrapper {
+            width: max-content;
+            display: ef.get-value($themePayments, 'gridDisplay');
+            align-items: ef.get-value($themePayments, 'gridAlignItems');
+            justify-content: ef.get-value($themePayments, 'gridJustifyContent');
+            margin: 0 auto;
+            @include em.get-mq-map('grid', $themePayments, 'gridTemplate');
+            @include em.get-mq-map('width', $themePayments, 'gridWidth');
+            @include em.get-mq-map('gap', $themePayments, 'gridGap');
+        }
+
+        &__item {
+            margin: ef.get-value($themePayments, 'iconMargin');
+            fill: ef.get-value($themePayments, 'iconFill');
+
+            img,
+            .wlc-icon img,
+            .wlc-icon svg {
+                @include em.get-mq-map('max-width', $themePayments, 'iconMaxWidth');
+                @include em.get-mq-map('max-height', $themePayments, 'iconMaxHeight');
+            }
+        }
+    }
+}

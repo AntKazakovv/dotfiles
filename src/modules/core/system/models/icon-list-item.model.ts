@@ -1,13 +1,9 @@
-import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
-import {FilesService} from 'wlc-engine/modules/core';
-
 export interface IIconParams {
-    modifier?: string;
-    svgName?: string;
-    svgPrefix?: string;
+    showAs?: IconType;
     iconUrl?: string;
     iconHoverUrl?: string;
     postfix?: IPostfix;
+    modifier?: string;
     sref?: string;
     href?: string;
     target?: string;
@@ -20,7 +16,10 @@ interface IPostfix {
     hover?: string;
 }
 
+type IconType = 'img' | 'svg';
+
 export class IconModel {
+    readonly showAs: IconType;
     readonly modifier: string;
     readonly sref: string;
     readonly href: string;
@@ -30,8 +29,6 @@ export class IconModel {
 
     constructor (
         protected icon: IIconParams,
-        protected filesService: FilesService,
-        protected sanitizer: DomSanitizer,
     ) {
         this.modifier = icon.modifier;
         this.sref = icon.sref;
@@ -39,16 +36,7 @@ export class IconModel {
         this.alt = icon.alt;
         this.title = icon.title;
         this.target = icon.target || (icon?.sref) ? '_self' : '_blank';
-    }
-
-    public get svg(): SafeHtml {
-        if (this.icon.svgName) {
-            const icon = this.icon.svgPrefix ? this.icon.svgPrefix + this.icon.svgName : this.icon.svgName;
-            const svg = this.filesService.getSvgByName(icon).htmlString;
-            if (svg) {
-                return this.sanitizer.bypassSecurityTrustHtml(svg);
-            }
-        }
+        this.showAs = (icon.showAs !== 'img' && icon.iconUrl.split('.').pop()) === 'svg' ? 'svg' : 'img';
     }
 
     public get template(): string {

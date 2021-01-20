@@ -1,0 +1,35 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/base.mixins' as em;
+
+@import '../utils/mixins';
+@import '../utils/vars';
+
+.wlc-icon-list--theme-merchants {
+    grid-area: merchants;
+
+    .wlc-icon-list {
+
+        &__wrapper {
+            display: ef.get-value($themeMerchants, 'gridDisplay');
+            align-items: ef.get-value($themeMerchants, 'gridAlignItems');
+            justify-content: ef.get-value($themeMerchants, 'gridJustifyContent');
+            @include em.get-mq-map('width', $themeMerchants, 'gridWidth');
+            @include em.get-mq-map('grid-template-columns', $themeMerchants, 'gridTemplateColumns');
+            @include em.get-mq-map('gap', $themeMerchants, 'gridGap');
+            @include em.get-mq-map('padding', $themeMerchants, 'padding');
+        }
+
+        &__item {
+            margin: ef.get-value($themeMerchants, 'iconMargin');
+            fill: ef.get-value($themeMerchants, 'iconFill');
+
+            img,
+            .wlc-icon img,
+            .wlc-icon svg {
+                @include em.get-mq-map('max-width', $themeMerchants, 'iconMaxWidth');
+                @include em.get-mq-map('max-height', $themeMerchants, 'iconMaxHeight');
+            }
+        }
+    }
+}

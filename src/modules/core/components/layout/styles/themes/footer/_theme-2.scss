@@ -1,12 +1,12 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/base.mixins' as em;
+
 @import '../../utils/vars';
 
 .wlc-sections__footer--theme-2 {
-    padding-bottom: $footerPaddingBottom;
-    background-color: $footerBackground;
-
-    @include mq.min(900) {
-        padding-bottom: 0;
-    }
+    background: ef.get-value($theme2Footer, 'baseBackground');
+    @include em.get-mq-map('padding-bottom', $theme2Footer, 'basePaddingBottom');
 
     .container {
         display: flex;
@@ -19,113 +19,68 @@
         align-items: center;
         justify-content: center;
         width: 100%;
-        padding: $footerMenuMobilePadding;
-        margin: $footerMenuMobileMargin;
-        max-width: $footerMenuMobileMaxWidth;
-        background: $footerMenuMobileBg;
-        border-radius: $footerMenuMobileRadius;
+        background: ef.get-value($theme2Footer, 'footerMenuBg');
+        border-radius: ef.get-value($theme2Footer, 'footerMenuRadius');
+        @include em.get-mq-map('padding', $theme2Footer, 'footerMenuPadding');
+        @include em.get-mq-map('margin', $theme2Footer, 'footerMenuMargin');
+        @include em.get-mq-map('max-width', $theme2Footer, 'footerMenuMaxWidth');
 
-        @include mq.min(560) {
-            max-width: $footerMenuMobileMaxWidth * 0.85;
-        }
-
-        @include mq.min(900) {
-            flex-direction: row;
-            order: -1;
-            margin: $footerGapTablet 0 0;
-            max-width: initial;
-        }
+        @include em.get-mq-map('flex-direction', $theme2Footer, 'footerMenuFlexDirection');
+        @include em.get-mq-map('order', $theme2Footer, 'footerMenuOrder');
 
         .wlc-post-menu[wlc-post-menu] {
             display: flex;
             flex-direction: column;
             justify-content: center;
-            width: 100%;
-
-            @include mq.min(900) {
-                margin: 0 $footerMenuDesktopGap * 0.7 0 0;
-                width: auto;
-            }
-
-            @include mq.min(1200) {
-                margin: 0 $footerMenuDesktopGap 0 0;
-            }
+            @include em.get-mq-map('margin', $theme2Footer, 'footerPostMenuMargin');
+            @include em.get-mq-map('width', $theme2Footer, 'footerPostMenuWidth');
 
             &:first-child {
-                margin-bottom: 20px;
-
-                @include mq.min(900) {
-                    margin-bottom: 0;
-                }
+                @include em.get-mq-map('margin-bottom', $theme2Footer, 'footerPostMenuFirstChildMarginBottom');
             }
 
             .wlc-post-menu {
 
                 &__title {
-                    font: {
-                        size: $footerMenuTitleSizeMobile;
-                        weight: $footerMenuTitleWeight;
-                    }
-                    text-transform: $footerMenuTitleTransform;
-                    color: $footerMenuTitleColor;
-                    text-align: $footerMenuTitleAlign;
-
-                    @include mq.min(900) {
-                        display: none;
-                    }
+                    font-size: ef.get-value($theme2Footer, 'footerPostMenuTitleFontSize');
+                    font-weight: ef.get-value($theme2Footer, 'footerPostMenuTitleFontWeight');
+                    text-transform: ef.get-value($theme2Footer, 'footerPostMenuTitleTextTransform');
+                    color: ef.get-value($theme2Footer, 'footerPostMenuTitleColor');
+                    text-align: ef.get-value($theme2Footer, 'footerPostMenuAlignment');
+                    @include em.get-mq-map('display', $theme2Footer, 'footerPostMenuTitleDisplay');
                 }
 
                 &__items {
-                    grid-gap: $footerMenuGap;
-                    font-size: $footerMenuItemSize;
-
-                    @include mq.min(900) {
-                        grid-auto-flow: column;
-                        grid-gap: $footerMenuDesktopGap * 0.7;
-                    }
-
-                    @include mq.min(1200) {
-                        grid-gap: $footerMenuDesktopGap;
-                    }
+                    font-size: ef.get-value($theme2Footer, 'footerPostMenuItemFontSize');
+                    @include em.get-mq-map('gap', $theme2Footer, 'footerPostMenuGridGap');
+                    @include em.get-mq-map('grid-auto-flow', $theme2Footer, 'footerPostMenuGridAutoFlow');
                 }
 
                 &__item {
-                    text-align: $footerMenuItemAlign;
-
-                    @include mq.min(900) {
-                        white-space: nowrap;
-                    }
+                    @include em.get-mq-map('text-align', $theme2Footer, 'footerPostMenuItemAlignment');
+                    @include em.get-mq-map('white-space', $theme2Footer, 'footerPostMenuItemWhiteSpace');
                 }
 
                 &__link {
-                    color: $footerMenuItemColor;
-
-                    @include mq.min(900) {
-                        font-size: 80%;
-                    }
-
-                    @include mq.min(1200) {
-                        font-size: 100%;
-                    }
+                    color: ef.get-value($theme2Footer, 'footerPostMenuLinkColor');
+                    @include em.get-mq-map('font-size', $theme2Footer, 'footerPostMenuLinkFontSize');
                 }
             }
         }
     }
 
     .footer-bottom {
-        display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
 
-        @include mq.min(900) {
-            display: grid;
-            grid-template-areas: $footerGridArea;
-            grid-template-columns: $footerGridColumn;
-            grid-column-gap: $footerMenuGap;
-            margin: $footerMenuGap 0;
-            order: 2;
-        }
+        @include em.get-mq-map('display', $theme2Footer, 'footerBottomDisplay');
+        @include em.get-mq-map('grid-template-areas', $theme2Footer, 'footerBottomGridArea');
+        @include em.get-mq-map('grid-template-columns', $theme2Footer, 'footerBottomGridColumn');
+        @include em.get-mq-map('grid-column-gap', $theme2Footer, 'footerBottomColumnGap');
+        @include em.get-mq-map('margin', $theme2Footer, 'footerBottomMargin');
+        @include em.get-mq-map('order', $theme2Footer, 'footerBottomOrder');
+
 
         .wlc-logo {
             grid-area: logo;
@@ -133,122 +88,76 @@
 
         .wlc-license[wlc-license] {
             grid-area: license;
-            margin: $footerGapMobile auto;
-            max-width: $footerMenuMobileMaxWidth;
-
-            @include mq.min(560) {
-                max-width: $footerMenuMobileMaxWidth * 0.85;
-            }
-
-            @include mq.min(900) {
-                max-width: initial;
-            }
+            @include em.get-mq-map('margin', $theme2Footer, 'licenseMargin');
+            @include em.get-mq-map('max-width', $theme2Footer, 'licenseMaxWidth');
         }
 
         .wlc-disclaimer[wlc-disclaimer] {
             grid-area: disclaimer;
-            margin: $footerGapMobile auto;
-            max-width: $footerMenuMobileMaxWidth;
-
-            @include mq.min(560) {
-                max-width: $footerMenuMobileMaxWidth * 0.85;
-            }
-
-            @include mq.min(900) {
-                max-width: initial;
-                margin: $footerGapTablet auto;
-            }
+            @include em.get-mq-map('margin', $theme2Footer, 'disclamerMargin');
+            @include em.get-mq-map('max-width', $theme2Footer, 'disclamerMaxWidth');
         }
 
         .wlc-copyright[wlc-copyright] {
             grid-area: copyright;
 
             > .wlc-copyright__text {
-
-                @include mq.min(900) {
-                    text-align: left;
-                }
+                @include em.get-mq-map('text-align', $theme2Footer, 'copyrightTextAlignment');
 
                 > span {
-                    display: block;
-
-                    @include mq.min(900) {
-                        display: inline-block;
-                    }
+                    @include em.get-mq-map('block', $theme2Footer, 'copyrightTextSpanDisplay');
                 }
             }
         }
     }
 
-    .wlc-icon-list {
-        display: grid;
-        grid: {
-            template-columns: repeat(4, 1fr);
-            gap: $footerGapMobile;
-        }
-        justify-content: center;
-        padding: $footerMenuMobilePadding;
+    .wlc-icon-list--theme-merchants {
+        @include em.get-mq-map('order', $theme2Footer, 'iconListMerchantsOrder');
 
-        @include mq.min(560) {
-            grid-template-columns: repeat(5, 1fr);
+        .wlc-icon-list__wrapper {
+            @include em.get-mq-map('gap', $theme2Footer, 'iconListMerchantsWrapperGap');
+            @include em.get-mq-map('grid-template-columns', $theme2Footer, 'iconListMerchantsWrapperGridColumn');
         }
 
-        @include mq.min(900) {
-            grid-template-columns: repeat(7, 1fr);
-            order: 1;
-            padding: 0;
-        }
+        .wlc-icon-list__item {
 
-        @include mq.min(1200) {
-            grid-template-columns: repeat(10, 1fr);
-            order: 1;
-        }
-
-        > .wlc-icon-list__item {
-            max-width: $footerMerchantsMaxWidthMobile;
-            margin: 0 auto;
+            img,
+            .wlc-icon img,
+            .wlc-icon svg {
+                max-height: none;
+                @include em.get-mq-map('max-width', $theme2Footer, 'iconMerchantsImageMaxWidth');
+            }
         }
     }
 
     .wlc-icon-list--theme-payments {
-        display: flex;
-        align-items: center;
-        overflow-x: auto;
-        padding: $footerPaymentsPadding;
+        background: ef.get-value($theme2Footer, 'iconListPaymentsBg');
+        @include em.get-mq-map('padding', $theme2Footer, 'iconListPaymentsPadding');
+        @include em.get-mq-map('order', $theme2Footer, 'iconListPaymentsOrder');
+        @include em.get-mq-map('margin', $theme2Footer, 'iconListPaymentsMargin');
 
-        @include mq.min(640) {
-            justify-content: center;
-            order: 0;
+        .wlc-icon-list__wrapper {
+            display: ef.get-value($theme2Footer, 'iconListPaymentsWrapperDisplay');
+            align-items: ef.get-value($theme2Footer, 'iconListPaymentsWrapperAlignItems');
+
+            @include em.get-mq-map('justify-content', $theme2Footer, 'iconListPaymentsWrapperJustify');
+            @include em.get-mq-map('flex-wrap', $theme2Footer, 'iconListPaymentsWrapperWrap');
         }
 
-        @include mq.min(900) {
-            order: 0;
-            overflow-x: initial;
-            margin: $footerGapTablet auto;
-            padding: 0;
-            flex-wrap: wrap;
-        }
+        .wlc-icon-list__item {
+            @include em.get-mq-map('margin', $theme2Footer, 'iconListPaymentsItemMargin');
 
-        .wlc-icon-list__image {
-            display: block;
-            max-width: $footerPaymentsMaxWidthMobile;
-            max-height: $footerPaymentsMaxHeightMobile;
-            margin: 0 $footerPaymentsGapMobile;
-            filter: brightness(0.8);
-
-            @include mq.min(900) {
-                max-height: $footerPaymentsMaxHeightMobile * 1.2;
-                margin: 0 $footerPaymentsGapTablet 5px;
+            img,
+            .wlc-icon img,
+            .wlc-icon svg {
+                @include em.get-mq-map('max-width', $theme2Footer, 'iconListPaymentsImageMaxWidth');
+                @include em.get-mq-map('max-height', $theme2Footer, 'iconListPaymentsImageMaxHeight');
             }
         }
     }
 
     .wlc-language-selector {
-        margin-top: $footerLanguageMarginTop;
-
-        @include mq.min(900) {
-            margin-top: 0;
-        }
+        @include em.get-mq-map('margin-top', $theme2Footer, 'languageMarginTop');
 
         .wlc-language-selector__current {
 
