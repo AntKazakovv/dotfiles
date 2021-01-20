@@ -1,0 +1,100 @@
+@use '../engine.variables' as ev;
+
+@mixin get-text-style($style) {
+    font-style: normal;
+    color: map-get(ev.$mainColors, 'elementsColor');
+
+    @if ($style == 'SigntText' ) {
+        @include SigntText;
+    } @else if ($style == 'PlaceholderText' ) {
+        @include PlaceholderText;
+    } @else if ($style == 'PrimaryText' ) {
+        @include PrimaryText;
+    } @else if ($style == 'ButtonText' ) {
+        @include ButtonText;
+    } @else if ($style == 'ThirdTitle') {
+        @include ThirdTitle;
+    } @else if ($style == 'PromoTitle' ) {
+        @include PromoTitle;
+    } @else if ($style == 'ScreamTitle') {
+        @include ScreamTitle;
+    } @else if ($style == 'PrimaryTextBold') {
+        @include PrimaryTextBold;
+    } @else if ($style == 'ThridTitleBold') {
+        @include ThridTitleBold;
+    } @else if ($style == 'QoteTextBold') {
+        @include QoteTextBold;
+    } @else if ($style == 'PlaceholderTextBold') {
+        @include PlaceholderTextBold;
+    }
+}
+
+// Base text styles
+
+@mixin SigntText {
+    font-weight: normal;
+    font-size: map-get(ev.$font, 'SigntText');
+    line-height: 1.45;
+}
+
+@mixin PlaceholderText {
+    font-weight: normal;
+    font-size: map-get(ev.$font, 'PlaceholderText');
+    line-height: 1.45;
+}
+
+@mixin PrimaryText {
+    font-weight: normal;
+    font-size: map-get(ev.$font, 'PrimaryText');
+    line-height: 1.45;
+}
+
+@mixin ButtonText {
+    font-weight: bold;
+    font-size: map-get(ev.$font, 'ButtonText');
+    line-height: 1.45;
+}
+
+@mixin ThirdTitle {
+    font-weight: normal;
+    font-size: map-get(ev.$font, 'ThirdTitle');
+    line-height: 1.45;
+}
+
+@mixin PromoTitle {
+    font-weight: bold;
+    font-size: map-get(ev.$font, 'PromoTitle');
+    line-height: 1.45;
+}
+
+@mixin ScreamTitle {
+    font-weight: bold;
+    font-size: map-get(ev.$font, 'ScreamTitle');
+    line-height: 1.45;
+}
+
+// Bold weight styles
+
+@mixin PrimaryTextBold {
+    font-weight: bold;
+    font-size: map-get(ev.$font, 'PrimaryTextBold');
+    line-height: 1.45;
+}
+
+@mixin ThridTitleBold {
+    font-weight: bold;
+    font-size: map-get(ev.$font, 'ThridTitleBold');
+    line-height: 1.45;
+}
+
+@mixin QoteTextBold {
+    font-weight: bold;
+    font-size: map-get(ev.$font, 'QoteTextBold');
+    line-height: 1.45;
+}
+
+@mixin PlaceholderTextBold {
+    font-weight: bold;
+    font-size: map-get(ev.$font, 'PlaceholderTextBold');
+    line-height: 1.25;
+}

@@ -18,6 +18,43 @@ $customProfileSettings: () !default;
 $customVars: () !default;
 $customBtnSettings: () !default;
 
+$customMainColors: () !default;
+$customFieldColors: () !default;
+
+$mainColors: map-merge((
+    'main': #ff8a00,
+    'secondary': #00d5bb,
+    'baseMain': #ffffff,
+    'baseOpacity': rgba(255, 255, 255, 0.4),
+    'bg100': #e3e3e3,
+    'bg300': #a3a3a3,
+    'bg500': #5b5b5b,
+    'bg700': #2f2f2f,
+    'bg': #1c1c1c,
+    'bgModal': #3d3d3d,
+    'elementsColor': #c4c4c4,
+    'error': #ffbcd5,
+    'success': #acf7d3,
+    'warning': #fdce70,
+    'disabled': #c4c4c4,
+), $customMainColors);
+
+$fieldColors: map-merge((
+    'labelColor': #898989,
+    'inputBg': #ffffff,
+    'borderColor': #f2f2f2,
+    'textColor': #000000,
+    'placeholderColor': #9d9d9d,
+    'arrowColor': #b9b9b9,
+    'iconColor': #b1b1b1,
+    'disableBg': #414141,
+    'disableBorder': #3e3e3e,
+    'errorBackground': #ffebf2,
+    'errorBorder': #f5e2e8,
+    'errorArrow': #ffbcd5,
+    'successElement': #acf7d3,
+), $customFieldColors);
+
 /// Основная палитра цветов
 ///
 /// @name color
@@ -149,6 +186,18 @@ $font: map-merge((
     'big': 2rem,
     'huge': 3.2rem,
     'monster': 4rem,
+
+    'SigntText': 10px,
+    'PlaceholderText': 12px,
+    'PrimaryText': 14px,
+    'ButtonText': 14px,
+    'ThirdTitle': 16px,
+    'PromoTitle': 36px,
+    'ScreamTitle': 48px,
+    'PrimaryTextBold': 14px,
+    'ThridTitleBold': 16px,
+    'QoteTextBold': 24px,
+    'PlaceholderTextBold': 12px,
 ), $customFont);
 
 /// Значения длительности анимации.
