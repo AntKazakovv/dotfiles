@@ -4,6 +4,7 @@ const WlcTemplateReplacePlugins = require('./wlcTemplateReplacePlugins');
 const WlcStructureInfoPlugin = require('./wlcStructureInfoPlugin');
 const WlcStaticImagePlugin = require('./wlcStaticImagePlugin');
 const WlcWatchExtFilesPlugin = require('./wlcWatchExtFilesPlugin');
+const path = require('path');
 
 module.exports = (config, schema, env) => {
     const isDev = env.configuration === 'dev';
@@ -63,6 +64,17 @@ module.exports = (config, schema, env) => {
             'src/custom',
         ]));
     }
+
+    const scssRules = config.module.rules.filter((item) => item.test.exec('.scss'));
+    const root = path.dirname(__dirname + '../../../');
+    scssRules.forEach(rule => {
+        const postcss = rule.use.find((item) => item.loader && item.loader.includes('postcss'));
+        postcss.options = {
+            config: {
+                path: `${root}/postcss.config.js`,
+            }
+        }
+    });
 
     return config;
 };

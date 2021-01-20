@@ -1,34 +1,31 @@
-import {IComponentParams} from 'wlc-engine/modules/core/system/interfaces/config.interface';
+import {
+    IComponentParams,
+    CustomType,
+} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {IIconParams} from 'wlc-engine/modules/core/system/models/icon-list-item.model';
 
-export type ListType = 'merchants' | 'payments' | 'custom';
-export type ListTheme = 'default' | 'svg';
-export type IconsColor = 'default' | 'white' | 'black' | 'gray' | 'colored';
 
-export interface IIconListComponentParams extends IComponentParams<ListTheme, ListType, string> {
+export type ComponentTheme = 'merchants' | 'payments' | CustomType;
+export type ComponentType = 'default' | 'svg';
+export type ComponentThemeMod = 'default' | CustomType;
+
+/**
+ * @param include
+ */
+export interface IIconListCParams extends IComponentParams<ComponentTheme, ComponentType, ComponentThemeMod> {
+    theme: ComponentTheme;
     common?: {
-        iconsColor?: IconsColor;
         payment?: {
             include?: string[],
             exclude?: string[],
         },
     }
     items?: IIconParams[];
+    imgPlaceholder?: string;
 }
 
-export const defaultParams: IIconListComponentParams = {
+export const defaultParams: IIconListCParams = {
     class: 'wlc-icon-list',
-    common: {
-        iconsColor: 'white',
-    },
+    theme: 'merchants',
+    imgPlaceholder: '/static/images/placeholder.png',
 };
-
-
-// TODO delete after service
-export interface IPayment {
-    Alias: {
-        [key: string]: string;
-    };
-    Init: string;
-    Name: string;
-}

@@ -26,9 +26,17 @@
 //     apiBaseUrl: string;
 // }
 
+import {IIndexing} from "wlc-engine/modules/core/system/interfaces";
+
 export interface ILanguage {
     code: string;
     label: string;
+}
+
+export interface IPaysystem {
+    Alias: IIndexing<string>;
+    Init: string;
+    Name: string;
 }
 
 export class AppConfigModel {
@@ -51,7 +59,10 @@ export class AppConfigModel {
     sessionName: string;
     showProfileMenu: boolean;
     site: string;
-    siteconfig: any;
+    siteconfig: {
+        payment_systems: IPaysystem[];
+        [key: string]: any;
+    };
     socialNetworks: any[];
     sportsbook: any;
     user: any;

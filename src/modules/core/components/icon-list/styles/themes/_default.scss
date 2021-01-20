@@ -1,14 +1,22 @@
-.wlc-icon-list--theme-default:host {
+.wlc-icon-list {
 
     .wlc-icon-list__wrp {
-
-        &__wrp {
-            display: block;
-        }
+        display: block;
     }
 
-    img {
-        width: 100%;
+    img,
+    .wlc-icon svg,
+    .wlc-icon img {
+        max-width: 100%;
         height: auto;
+        object-fit: contain;
+        object-position: center;
+    }
+
+    .wlc-icon svg {
+
+        path {
+            fill: inherit;
+        }
     }
 }

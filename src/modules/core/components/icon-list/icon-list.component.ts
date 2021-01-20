@@ -3,26 +3,27 @@ import {
     OnInit,
     ChangeDetectionStrategy,
     Inject,
-    Input, ChangeDetectorRef,
+    Input,
+    ChangeDetectorRef,
+    ViewEncapsulation,
 } from '@angular/core';
-import {DomSanitizer} from '@angular/platform-browser';
 
 import {
     AbstractComponent,
-    IMixedParams,
-} from 'wlc-engine/modules/core/system/classes/abstract.component';
+    ConfigService,
+    EventService,
+    LogService,
+} from 'wlc-engine/modules/core';
+import {GamesCatalogService} from 'wlc-engine/modules/games';
 import {
     IconModel,
     IIconParams,
 } from 'wlc-engine/modules/core/system/models/icon-list-item.model';
-import {EventService, LogService, FilesService} from 'wlc-engine/modules/core/system/services';
-import * as Params from './icon-list.params';
-import {gamesEvents, IGames, IMerchant} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
+import {gamesEvents} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
 import {MerchantModel} from 'wlc-engine/modules/games/system/models/merchant.model';
-import {GamesCatalogService} from 'wlc-engine/modules/games/system/services';
-import {
-    ConfigService,
-} from 'wlc-engine/modules/core';
+import {IPaysystem} from 'wlc-engine/modules/core/system/services/config/app-config.model';
+
+import * as Params from './icon-list.params';
 
 import {
     map as _map,
@@ -37,32 +38,29 @@ import {
     templateUrl: './icon-list.component.html',
     styleUrls: ['./styles/icon-list.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    encapsulation: ViewEncapsulation.None,
 })
 export class IconListComponent extends AbstractComponent implements OnInit {
     public items: IconModel[];
-    public $params: Params.IIconListComponentParams;
+    public $params: Params.IIconListCParams;
 
-    @Input() protected inlineParams: Params.IIconListComponentParams;
+    @Input() protected inlineParams: Params.IIconListCParams;
 
     constructor(
-        @Inject('injectParams') protected injectParams: Params.IIconListComponentParams,
-        protected filesService: FilesService,
-        protected sanitizer: DomSanitizer,
+        @Inject('injectParams') protected injectParams: Params.IIconListCParams,
         protected logService: LogService,
         protected gamesCatalogService: GamesCatalogService,
         protected cdr: ChangeDetectorRef,
         protected configService: ConfigService,
         protected eventService: EventService,
     ) {
-        super(
-            <IMixedParams<Params.IIconListComponentParams>>
-                {injectParams, defaultParams: Params.defaultParams});
+        super({injectParams, defaultParams: Params.defaultParams}, configService);
     }
 
     public async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
 
-        switch (this.$params.type) {
+        switch (this.$params.theme) {
             case ('merchants'):
                 await this.setMerchantsLst();
                 this.cdr.markForCheck();
@@ -71,40 +69,39 @@ export class IconListComponent extends AbstractComponent implements OnInit {
                 this.setPaymentsLst();
                 this.cdr.markForCheck();
                 break;
-            case ('custom'):
+            default:
                 this.setCustomLst();
                 this.cdr.markForCheck();
                 break;
-            default:
-                console.error('[wlc-icon-list] component requires "type" param');
         }
     }
 
     protected async setMerchantsLst(): Promise<void> {
+
         this.eventService.subscribe({
             name: gamesEvents.FETCH_GAME_CATALOG_SUCCEEDED,
         }, () => {
             const merchants: MerchantModel[] = _sortedUniqBy(this.gamesCatalogService.getMerchants(),
                 (item: MerchantModel) => item.alias);
+
+            const showAs = this.$params.type == 'svg' ? 'svg' : 'img';
             this.items = _map<MerchantModel, IconModel>(merchants, (item: MerchantModel): IconModel => {
-                const image = this.$params.common.iconsColor === 'default'
-                    ? item.image
-                    : `/gstatic/merchants/${this.$params.common.iconsColor}/${item.alias.toLowerCase()}.png`;
 
                 const itemParams: IIconParams = {
-                    svgName: this.$params.theme === 'svg' ? item.alias.toLowerCase() : undefined,
-                    iconUrl: this.$params.theme === 'svg' ? undefined : image,
+                    showAs: showAs,
+                    iconUrl: this.getPath(item.alias),
                     alt: item.name,
-                    modifier: this.getItemModifier(item.alias.toLowerCase()),
+                    modifier: this.getItemModifier(this.toSnakeCase(item.alias)),
                 };
-                return new IconModel(itemParams, this.filesService, this.sanitizer);
+                return new IconModel(itemParams);
             });
+
             this.cdr.markForCheck();
         });
     }
 
     protected setPaymentsLst(): void {
-        let payments: Params.IPayment[] = this.configService.get('appConfig.siteconfig.payment_systems') || [];
+        let payments: IPaysystem[] = this.configService.get('appConfig.siteconfig.payment_systems') || [];
 
         if (this.$params.common.payment?.exclude?.length) {
 
@@ -129,16 +126,16 @@ export class IconListComponent extends AbstractComponent implements OnInit {
             });
         }
 
-        this.items = _map<Params.IPayment, IconModel>(payments, (item: Params.IPayment): IconModel => {
-            const image = `/gstatic/paysystems/V2/${this.$params.common.iconsColor}/${item.Name.toLowerCase()}.png`;
+        const showAs = this.$params.type == 'svg' ? 'svg' : 'img';
+        this.items = _map<IPaysystem, IconModel>(payments, (item: IPaysystem): IconModel => {
 
             const itemParams: IIconParams = {
-                svgName: this.$params.theme === 'svg' ? item.Name.toLowerCase() : undefined,
-                iconUrl: this.$params.theme === 'svg' ? undefined : image,
+                showAs: showAs,
+                iconUrl: this.getPath(item.Name),
                 alt: item.Name,
-                modifier: this.getItemModifier(item.Name.toLowerCase()),
+                modifier: this.getItemModifier(this.toSnakeCase(item.Name)),
             };
-            return new IconModel(itemParams, this.filesService, this.sanitizer);
+            return new IconModel(itemParams);
         });
     }
 
@@ -146,17 +143,33 @@ export class IconListComponent extends AbstractComponent implements OnInit {
         if (this.$params.items?.length) {
             this.createItemsList(this.$params.items);
         } else {
-            console.error('[wlc-icon-list] component requires "items" param on type "custom"');
+            console.error('[wlc-icon-list] component requires "items" param on theme "custom"');
         }
     }
 
     protected createItemsList(items: IIconParams[]) {
         this.items = _map<IIconParams, IconModel>(items, (item: IIconParams): IconModel => {
-            return new IconModel(item, this.filesService, this.sanitizer);
+            return new IconModel(item);
         });
     }
 
     protected getItemModifier(mod: string): string {
         return mod ? `${this.$class}__item--${mod.replace(' ', '-')}` : '';
+    }
+
+    protected toSnakeCase(name: string): string {
+        return name.toLowerCase().replace(/\s+|\s/g, '_').replace(/[()]/g, '');
+    }
+
+    protected getPath(name: string): string {
+        const {type, theme} = this.$params;
+        const rootPath = type === 'svg' ? '' : '/gstatic';
+        const color = type === 'svg' ? 'black' : 'color';
+
+        if (theme === 'payments') {
+            return `${rootPath}/paysystems/V2/svg/${color}/${this.toSnakeCase(name)}.svg`;
+        } else {
+            return `${rootPath}/merchants/svg/${color}/${this.toSnakeCase(name)}.svg`;
+        }
     }
 }

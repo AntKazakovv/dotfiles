@@ -1,4 +1,5 @@
 @use 'engine-scss/functions' as ef;
+@use 'sass:map';
 
 // common
 $breakpoint: 480 !default;
@@ -20,62 +21,300 @@ $headerSvgBtn: #fff !default;
 
 $headerLoginBtnTabletPadding: 5px 10px !default;
 
-// Footer
-$footerBackground: ef.get('color', 'background') !default;
-$footerPaddingBottom: 15px !default;
-$footerGridArea: 'logo license disclaimer' 'logo license copyright' !default;
-$footerGridColumn: auto auto 1fr !default;
-$footerAccentBackground: ef.get('color', 'backgroundSecondary') !default;
-$footerGapMobile: ef.get('size', 'smaller') !default;
-$footerGapTablet: ef.get('size', 'less') !default;
-$footerGapDesktop: ef.get('size', 'main') !default;
-$footerPadding: ef.get('size', 'main') !default;
-$footerRadius: ef.get('radius', 'main') !default;
+// ~~ FOOTER ~~
+$customFooterCommon: () !default;
+$footerCommon: map-merge((
+    'baseBackground': ef.get('color', 'background'),
+    'elementMaxWidth': (
+        375: 90%,
+        560: 76.5%,
+        900: initial,
+    ),
+    'gapMobile': ef.get('size', 'smaller'),
+    'gapTablet': ef.get('size', 'less'),
+    'gapDesktop': ef.get('size', 'main'),
+), $customFooterCommon);
 
-$footerMerchantsGapMobile: ef.get('size', 'smaller') !default;
-$footerMerchantsGapTablet: ef.get('size', 'smallest') ef.get('size', 'smaller') !default;
-$footerMerchantsGapDesktop: ef.get('size', 'less') ef.get('size', 'smaller') !default;
-$footerMerchantsMaxHeight: ef.get('size', 'biger') !default;
-$footerMerchantsMaxWidthMobile: 80% !default;
+$customTheme1Footer: () !default;
+$theme1Footer: map-merge((
+    // base
+    'baseBackground': map-get($footerCommon, 'baseBackground'),
+    'basePaddingTopBottom': (
+        375: map-get($footerCommon, 'gapMobile'),
+        560: map-get($footerCommon, 'gapTablet'),
+        1024: map-get($footerCommon, 'gapDesktop'),
+    ),
+    'baseMarginTop': (
+        375: map-get($footerCommon, 'gapMobile'),
+        560: map-get($footerCommon, 'gapTablet'),
+        1024: auto,
+    ),
 
-$footerPaymentsBg: #282b30 !default;
-$footerPaymentsBorderRadius: 10px !default;
-$footerPaymentsJustify: space-evenly !default;
-$footerPaymentsIconsOpacity: 0.5 !default;
-$footerPaymentsGapMobile: ef.get('size', 'small') !default;
-$footerPaymentsGapTablet: ef.get('size', 'smaller') !default;
-$footerPaymentsGapDesktop: ef.get('size', 'less') !default;
-$footerPaymentsPaddingMobile: ef.get('size', 'smaller') !default;
-$footerPaymentsPaddingTablet: ef.get('size', 'small') !default;
-$footerPaymentsPaddingDesktop: ef.get('size', 'smaller') !default;
-$footerPaymentsIconWidth: 120px !default;
-$footerPaymentsMaxHeightMobile: ef.get('size', 'less') !default;
-$footerPaymentsMaxHeightTablet: ef.get('size', 'less') !default;
-$footerPaymentsMaxHeightDesktop: ef.get('size', 'biger') !default;
-$footerPaymentsMaxWidthMobile: 90px !default;
-$footerPaymentsPadding: 10px 0 !default;
+    // footer container
+    'footerContainerGridColumns': (
+        375: 1fr,
+        560: repeat(3, 1fr),
+        720: repeat(4, 1fr),
+        1200: 130px 200px 120px 1fr 130px,
+        1366: 130px 200px 120px 1fr 130px,
+    ),
+    'footerContainerGridAreas': (
+        375: 'merchants' 'payments' 'info' 'about-us' 'language' 'disclaimer',
+        560: 'merchants merchants merchants'
+        'payments payments payments'
+        'info about-us language'
+        'disclaimer disclaimer disclaimer',
+        720: 'merchants merchants merchants merchants'
+        'payments payments payments payments'
+        'logo info about-us language'
+        'disclaimer disclaimer disclaimer disclaimer',
+        1200: 'merchants merchants merchants merchants merchants'
+        'payments payments payments payments payments'
+        'logo info about-us disclaimer language',
+    ),
+    'footerContainerGridGap': (
+        375: map-get($footerCommon, 'gapMobile'),
+        560: map-get($footerCommon, 'gapTablet'),
+        1024: map-get($footerCommon, 'gapDesktop'),
+    ),
 
-$footerMenuMobileBg: #282b30 !default;
-$footerMenuMobileMaxWidth: 90% !default;
-$footerMenuMobileMargin: $footerGapMobile auto 0 !default;
-$footerMenuMobileRadius: 10px !default;
-$footerMenuMobilePadding: 15px 25px !default;
-$footerMenuItemAlign: center !default;
-$footerMenuItemColor: ef.get('color', 'main') !default;
-$footerMenuItemSize: ef.get('font', 'main') !default;
-$footerMenuGap: ef.get('size', 'smaller') !default;
-$footerMenuDesktopGap: ef.get('size', 'biger') !default;
-$footerMenuTitleColor: ef.get('color', 'main') !default;
-$footerMenuTitleAlign: center !default;
-$footerMenuTitleWeight: bold !default;
-$footerMenuTitleTransform: uppercase !default;
-$footerMenuTitleSizeMobile: ef.get('font', 'biger') !default;
-$footerMenuTitleSizeTablet: ef.get('font', 'biger') !default;
-$footerMenuTitleSizeDesktop: ef.get('font', 'biger') !default;
+    // icon list merchants
+    'iconListMerchantsGridGap': (
+        375: ef.get('size', 'smaller'),
+        560: ef.get('size', 'smallest') ef.get('size', 'smaller'),
+        1024: ef.get('size', 'less') ef.get('size', 'smaller'),
+    ),
+    'iconListMerchantsGridColumns': (
+        560: repeat(10, 1fr),
+    ),
 
-$footerDisclaimerTextSizeMobile: ef.get('font', 'small') !default;
-$footerDisclaimerTextSizeTablet: ef.get('font', 'smaller') !default;
-$footerDisclaimerTextSizeDesktop: ef.get('font', 'smaller') !default;
+    // list icon payments
+    'iconListPaymentsMaxWidth': (
+        375: calc(100vw - 30px),
+    ),
+    'iconListPaymentsWrapperPadding': (
+        375: 10px,
+        560: ef.get('size', 'small'),
+        900: ef.get('size', 'smaller'),
+    ),
+    'iconListPaymentsItemWidth': (
+        375: 120px,
+    ),
+    'iconListPaymentsItemImageMaxHeight': (
+        375: ef.get('size', 'less'),
+        1024: ef.get('size', 'biger'),
+    ),
 
-$footerLanguageMarginTop: 20px !default;
+    // post menu
+    'postMenuJustify': (
+        375: center,
+        560: flex-start,
+    ),
+    'postMenuTextAlign': (
+        375: center,
+        560: left,
+    ),
+    'postMenuTitleFontSize': (
+        375: ef.get('font', 'biger'),
+        560: ef.get('font', 'biger'),
+    ),
 
+    // disclamer
+    'disclamerFontSize': (
+        375: ef.get('font', 'small'),
+        560: ef.get('font', 'smaller'),
+    ),
+    'disclamerTextAlign': (
+        375: center,
+        1200: left,
+    ),
+
+    // language selector
+    'languageJustifySelf': (
+        375: center,
+        560: end,
+    ),
+
+    // logo
+    'logoMaxWidth': 120px,
+
+    // license
+    'licenseAboutUsMargin': map-get($footerCommon, 'gapDesktop') / 2 0 0,
+    'licenseMargin': map-get($footerCommon, 'gapDesktop') / 2 auto 0,
+), $customTheme1Footer);
+
+$customTheme2Footer: () !default;
+$theme2Footer: map-merge((
+    //base
+    'basePaddingBottom': (
+        375: 15px,
+        900: 0,
+    ),
+    'baseBackground': map-get($footerCommon, 'baseBackground'),
+
+    // footer-menu
+    'footerMenuFlexDirection': (
+        900: row,
+    ),
+    'footerMenuOrder': (
+        900: -1,
+    ),
+    'footerMenuPadding': (
+        375: 15px 25px,
+    ),
+    'footerMenuMargin': (
+        375: map-get($footerCommon, 'gapMobile') auto 0,
+        900: map-get($footerCommon, 'gapTablet') 0 0,
+    ),
+    'footerMenuMaxWidth': map-get($footerCommon, 'elementMaxWidth'),
+    'footerMenuBg': #282b30,
+    'footerMenuRadius': 10px,
+
+    // footer post menu
+    'footerPostMenuMargin': (
+        900: 0 ef.get('size', 'biger') * 0.7 0 0,
+        1200: 0 ef.get('size', 'biger') 0 0,
+    ),
+    'footerPostMenuWidth': (
+        375: 100%,
+        900: auto,
+    ),
+    'footerPostMenuFirstChildMarginBottom': (
+        375: 20px,
+        900: 0,
+    ),
+
+    //footer post menu title
+    'footerPostMenuTitleDisplay': (
+        900: none,
+    ),
+    'footerPostMenuTitleFontSize': ef.get('font', 'biger'),
+    'footerPostMenuTitleFontWeight': 700,
+    'footerPostMenuTitleTextTransform': uppercase,
+    'footerPostMenuTitleColor': ef.get('color', 'main'),
+    'footerPostMenuAlignment': center,
+
+    //footer post menu grid
+    'footerPostMenuGridGap': (
+        375: ef.get('size', 'smaller'),
+        900: ef.get('size', 'biger') * 0.7,
+        1200: ef.get('size', 'biger'),
+    ),
+    'footerPostMenuGridAutoFlow': (
+        900: column,
+    ),
+
+    //footer post menu item
+    'footerPostMenuItemAlignment': (
+        375: center,
+    ),
+    'footerPostMenuItemWhiteSpace': (
+        900: nowrap,
+    ),
+    'footerPostMenuItemFontSize': ef.get('font', 'main'),
+
+    //footer post menu link
+    'footerPostMenuLinkColor': ef.get('color', 'main'),
+    'footerPostMenuLinkFontSize': (
+        900: 80%,
+        1200: 100%,
+    ),
+
+    // footer bottom
+    'footerBottomDisplay': (
+        375: flex,
+        900: grid,
+    ),
+    'footerBottomGridArea': (
+        900: 'logo license disclaimer' 'logo license copyright',
+    ),
+    'footerBottomGridColumn': (
+        900: auto auto 1fr,
+    ),
+    'footerBottomColumnGap': (
+        900: ef.get('size', 'smaller'),
+    ),
+    'footerBottomMargin': (
+        900: ef.get('size', 'smaller') 0,
+    ),
+    'footerBottomOrder': (
+        900: 2,
+    ),
+
+    // license
+    'licenseMargin': (
+        375: map-get($footerCommon, 'gapMobile') auto,
+    ),
+    'licenseMaxWidth': map-get($footerCommon, 'elementMaxWidth'),
+
+    // disclamer
+    'disclamerMargin': (
+        375: map-get($footerCommon, 'gapMobile') auto,
+        900: map-get($footerCommon, 'gapTablet') auto,
+    ),
+    'disclamerMaxWidth': map-get($footerCommon, 'elementMaxWidth'),
+
+    // copyright
+    'copyrightTextAlignment': (
+        900: left,
+    ),
+    'copyrightTextSpanDisplay': (
+        375: block,
+        900: inline-block,
+    ),
+
+    // icon list merchants
+    'iconListMerchantsOrder': (
+        900: 1,
+    ),
+    'iconListMerchantsWrapperGap': (
+        375: map-get($footerCommon, 'gapMobile'),
+    ),
+    'iconListMerchantsWrapperGridColumn': (
+        560: repeat(5, 1fr),
+        900: repeat(7, 1fr),
+        1200: repeat(10, 1fr),
+    ),
+    'iconMerchantsImageMaxWidth': (
+        375: 80%,
+    ),
+
+    // icon list payments
+    'iconListPaymentsBg': none,
+    'iconListPaymentsPadding': (
+        375: 10px 0,
+        900: 0,
+    ),
+    'iconListPaymentsOrder': (
+        640: 0,
+    ),
+    'iconListPaymentsMargin': (
+        900: map-get($footerCommon, 'gapTablet') auto,
+    ),
+    'iconListPaymentsWrapperDisplay': flex,
+    'iconListPaymentsWrapperAlignItems': center,
+    'iconListPaymentsWrapperJustify': (
+        640: center
+    ),
+    'iconListPaymentsWrapperWrap': (
+        900: wrap,
+    ),
+    'iconListPaymentsItemMargin': (
+        375: 0 ef.get('size', 'small'),
+        900: 0 ef.get('size', 'smaller') 5px,
+    ),
+    'iconListPaymentsImageMaxWidth': (
+        375: 90px,
+    ),
+    'iconListPaymentsImageMaxHeight': (
+        375: ef.get('size', 'less'),
+        900: ef.get('size', 'less') * 1.2,
+    ),
+
+    // language selector
+    'languageMarginTop': (
+        375: 20px,
+        900: 0,
+    ),
+
+), $customTheme2Footer);
