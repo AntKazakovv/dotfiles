@@ -4,9 +4,12 @@ import {
     OnInit,
     Input,
 } from '@angular/core';
+import {TranslateService} from '@ngx-translate/core';
+import {takeUntil} from 'rxjs/operators';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ConfigService} from 'wlc-engine/modules/core';
 import {defaultParams, IDisclaimerParams} from './disclaimer.params';
+
 
 /**
  * Outputs disclaimer text
@@ -32,6 +35,7 @@ export class DisclaimerComponent extends AbstractComponent implements OnInit {
     constructor(
         @Inject('injectParams') protected params: IDisclaimerParams,
         protected configService: ConfigService,
+        protected translate: TranslateService,
     ) {
         super({injectParams: params, defaultParams});
     }
@@ -39,10 +43,14 @@ export class DisclaimerComponent extends AbstractComponent implements OnInit {
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.getDisclaimer();
+
+        this.translate.onLangChange.pipe(takeUntil(this.$destroy)).subscribe((v) => {
+            this.getDisclaimer();
+        });
     }
 
     public getDisclaimer() {
-        const lang = this.configService.get<string>('appConfig.language') || 'en';
-        this.disclaimer = this.configService.get<string>(`appConfig.footerText[${lang}]`);
+        this.disclaimer = this.configService.get<string>(`appConfig.footerText[${this.translate.currentLang}]`) ||
+            this.configService.get<string>('appConfig.footerText[en]');
     }
 }

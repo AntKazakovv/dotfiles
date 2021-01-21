@@ -26,7 +26,6 @@ export namespace footer {
                     class: 'footer-bottom',
                     id: 1,
                     components: [
-                        componentLib.wlcLogo.footer,
                         componentLib.wlcDisclaimer.def,
                         componentLib.wlcCopyright.def,
                         componentLib.wlcLicense.def,

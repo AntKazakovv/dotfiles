@@ -77,10 +77,10 @@
         @include em.get-mq-map('display', $theme2Footer, 'footerBottomDisplay');
         @include em.get-mq-map('grid-template-areas', $theme2Footer, 'footerBottomGridArea');
         @include em.get-mq-map('grid-template-columns', $theme2Footer, 'footerBottomGridColumn');
-        @include em.get-mq-map('grid-column-gap', $theme2Footer, 'footerBottomColumnGap');
+        @include em.get-mq-map('grid-gap', $theme2Footer, 'footerBottomGap');
         @include em.get-mq-map('margin', $theme2Footer, 'footerBottomMargin');
         @include em.get-mq-map('order', $theme2Footer, 'footerBottomOrder');
-
+        @include em.get-mq-map('max-width', $theme2Footer, 'footerBottomMaxWidth');
 
         .wlc-logo {
             grid-area: logo;
@@ -88,18 +88,21 @@
 
         .wlc-license[wlc-license] {
             grid-area: license;
-            @include em.get-mq-map('margin', $theme2Footer, 'licenseMargin');
             @include em.get-mq-map('max-width', $theme2Footer, 'licenseMaxWidth');
+
+            @include mq.min(900) {
+                align-self: flex-start;
+            }
         }
 
         .wlc-disclaimer[wlc-disclaimer] {
             grid-area: disclaimer;
-            @include em.get-mq-map('margin', $theme2Footer, 'disclamerMargin');
             @include em.get-mq-map('max-width', $theme2Footer, 'disclamerMaxWidth');
         }
 
         .wlc-copyright[wlc-copyright] {
             grid-area: copyright;
+            @include em.get-mq-map('margin', $theme2Footer, 'copyrightMargin');
 
             > .wlc-copyright__text {
                 @include em.get-mq-map('text-align', $theme2Footer, 'copyrightTextAlignment');
@@ -113,6 +116,8 @@
 
     .wlc-icon-list--theme-merchants {
         @include em.get-mq-map('order', $theme2Footer, 'iconListMerchantsOrder');
+        @include em.get-mq-map('max-width', $theme2Footer, 'iconListMerchantsMaxWidth');
+        @include em.get-mq-map('margin', $theme2Footer, 'iconListMerchantsMargin');
 
         .wlc-icon-list__wrapper {
             @include em.get-mq-map('gap', $theme2Footer, 'iconListMerchantsWrapperGap');
@@ -135,6 +140,7 @@
         @include em.get-mq-map('padding', $theme2Footer, 'iconListPaymentsPadding');
         @include em.get-mq-map('order', $theme2Footer, 'iconListPaymentsOrder');
         @include em.get-mq-map('margin', $theme2Footer, 'iconListPaymentsMargin');
+        @include em.get-mq-map('max-width', $theme2Footer, 'iconListPaymentsMaxWidth');
 
         .wlc-icon-list__wrapper {
             display: ef.get-value($theme2Footer, 'iconListPaymentsWrapperDisplay');
@@ -161,7 +167,6 @@
 
         .wlc-language-selector__current {
 
-            &-arrow,
             &-lang {
                 display: none;
             }

@@ -1,6 +1,6 @@
 @use 'engine-scss/functions' as ef;
 
-$gap: ef.get('size', 'smaller') !default;
+$gap: ef.get('size', 'smally') !default;
 $iconColor: ef.get('color', 'main') !default;
 $apgSealWidth: 45px !default;
 $ageRestrictionsWidth: 37px !default;
