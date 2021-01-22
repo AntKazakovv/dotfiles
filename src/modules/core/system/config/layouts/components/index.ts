@@ -31,3 +31,5 @@ export * from './finances/wlc-deposit-withdraw.config';
 export * from './finances/wlc-transaction-history.config';
 
 export * from './bonuses/wlc-bonuses-list.config';
+export * from './bonuses/wlc-enter-promocode.config';
+export * from './bonuses/wlc-see-all-bonuses.config';

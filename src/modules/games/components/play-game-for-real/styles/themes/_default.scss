@@ -50,12 +50,12 @@
         }
 
         .wlc-pseudo-link[wlc-pseudo-link],
-        .wlc-have-account[wlc-have-account],
+        .wlc-link-block[wlc-link-block],
         .wlc-input[wlc-input].wlc-input--theme-vertical {
 
             .wlc-pseudo-link__btn,
-            .wlc-have-account__title,
-            .wlc-have-account__link,
+            .wlc-link-block__subtitle,
+            .wlc-link-block__link,
             .wlc-input__label {
                 color: ef.get('color', 'main');
 
@@ -68,7 +68,7 @@
             }
         }
 
-        .wlc-have-account {
+        .wlc-link-block {
             margin-top: 30px;
         }
     }

@@ -1,0 +1,16 @@
+<div class="{{$class}}__container">
+    <h4 class="{{$class}}__title">{{$params.common.titleText}}</h4>
+    <div class="{{$class}}__control">
+        <div wlc-input
+             [inlineParams]='enterPromocodeInput'
+             (keydown.enter)="getBonusByPromocode()">
+        </div>
+        <button
+            wlc-button
+            class="{{$class}}__btn"
+            theme="icon"
+            icon="enter-arrow"
+            (click)="getBonusByPromocode()"
+        ></button>
+    </div>
+</div>

@@ -30,4 +30,5 @@ export const localFiles: IIndexing<string> = {
     'game-dashboard/arrow-right': 'game-dashboard/arrow-right.svg',
     'check': 'icons/check.svg',
     'game-thumb-play': 'icons/games/game-thumb-play.svg',
+    'enter-arrow': 'icons/enter-arrow.svg',
 };

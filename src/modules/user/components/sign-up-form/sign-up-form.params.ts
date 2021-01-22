@@ -124,12 +124,16 @@ export const signUpFormConfig: IFormWrapperCParams = {
             },
         },
         {
-            name: 'user.wlc-have-account',
+            name: 'core.wlc-link-block',
             params: {
                 common: {
-                    titleText: gettext('Already have an account?'),
+                    subtitleText: gettext('Already have an account?'),
                     linkText: gettext('Sign in now'),
-                    modalName: 'login',
+                    actionParams: {
+                        modal: {
+                            name: 'login',
+                        },
+                    },
                 },
             },
         },

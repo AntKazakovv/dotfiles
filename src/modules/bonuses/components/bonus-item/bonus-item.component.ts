@@ -28,6 +28,7 @@ import {
     get as _get,
     isUndefined as _isUndefined,
     keys as _keys,
+    forEach as _forEach,
 } from 'lodash';
 
 export {IBonusItemParams} from './bonus-item.params';
@@ -50,14 +51,14 @@ interface IBonusItemComponentEvents {
     encapsulation: ViewEncapsulation.None,
 })
 export class BonusItemComponent extends AbstractComponent implements OnInit, OnDestroy {
-
+    @Input() public inlineParams: Params.IBonusItemParams;
     @Input() public bonus: Bonus;
-    @Input() protected type: Params.Type;
-    @Input() protected theme: Params.Theme;
-    @Input() protected themeMod: Params.ThemeMod;
-    @Input() protected customMod: Params.CustomMod;
-    @Input() protected view: string;
-    @Input() protected chosen: boolean;
+    @Input() public type: Params.Type;
+    @Input() public theme: Params.Theme;
+    @Input() public themeMod: Params.ThemeMod;
+    @Input() public customMod: Params.CustomMod;
+    @Input() public view: string;
+    @Input() public chosen: boolean;
 
     public $params: Params.IBonusItemParams;
     public isAuth: boolean;
@@ -75,14 +76,19 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
         protected bonusesService: BonusesService,
     ) {
         super(
-            <IMixedParams<Params.IBonusItemParams>>{injectParams: params, defaultParams: Params.defaultParams}, ConfigService);
+            <IMixedParams<Params.IBonusItemParams>>{
+                injectParams: params,
+                defaultParams: Params.defaultParams,
+            }, ConfigService);
     }
 
     public ngOnInit(): void {
         super.ngOnInit(this.prepareParams());
+
         if (!this.view) {
-            this.view = this.bonus.viewTarget || 'default';
+            this.view = this.$params.common.bonus.viewTarget || 'default';
         }
+
         this.prepareModifiers();
         this.isAuth = this.ConfigService.get<boolean>('$user.isAuthenticated');
         this.currency = this.ConfigService.get<string>('appConfig.user.currency') || 'EUR';
@@ -92,17 +98,17 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
     }
 
     public getBonusTag(): string {
-        if (this.bonus.isActive) {
+        if (this.$params.common.bonus.isActive) {
             return 'Active';
         }
-        if (this.bonus.isSubscribed) {
+        if (this.$params.common.bonus.isSubscribed) {
             return 'Subscribed';
         }
 
-        if (this.bonus.inventoried) {
+        if (this.$params.common.bonus.inventoried) {
             return 'Inventoried';
         }
-        return this.bonus.group;
+        return this.$params.common.bonus.group;
     }
 
     public openDescription(bonus: Bonus): void {
@@ -124,7 +130,7 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
     }
 
     public chooseBonus(bonus: Bonus, type: string): void {
-        this.bonus.isChoose = true;
+        this.$params.common.bonus.isChoose = true;
         this.eventService.emit({
             name: BonusItemComponentEvents[type],
             data: bonus,
@@ -161,7 +167,7 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
     }
 
     public getValueLengthClass(value: number): string {
-        const strLength = value.toString().length;
+        const strLength = value && value.toString().length;
         if (strLength > 5 && strLength < 9) {
             return 'small';
         } else if (strLength >= 9) {
@@ -172,13 +178,16 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
     }
 
     protected prepareParams(): Params.IBonusItemParams {
+        const inputProperties: string[] = ['bonus', 'type', 'theme', 'themeMod', 'customMod', 'view', 'chosen'];
         const inlineParams: Params.IBonusItemParams = {
             common: {},
         };
 
-        if (!_isUndefined(_get(this, 'type'))) {
-            inlineParams.common.type = this.type;
-        }
+        _forEach(inputProperties, key => {
+            if (!_isUndefined(_get(this, key))) {
+                inlineParams.common[key] = _get(this, key);
+            }
+        });
 
         return _keys(inlineParams.common).length ? inlineParams : null;
     }

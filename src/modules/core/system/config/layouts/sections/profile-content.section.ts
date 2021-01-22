@@ -8,6 +8,14 @@ export namespace profileContent {
         ],
     };
 
+    export const profileDashboard: ILayoutSectionConfig = {
+        container: true,
+        components: [
+            componentLib.wlcEnterPromocode.def,
+            componentLib.wlcSeeAllBonuses.def,
+        ],
+    };
+
     export const profileMain: ILayoutSectionConfig = {
         container: true,
         components: [

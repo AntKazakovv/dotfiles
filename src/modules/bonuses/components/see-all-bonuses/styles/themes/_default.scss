@@ -1,0 +1,18 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/base.mixins' as em;
+@import '../utils/vars';
+
+.wlc-see-all-bonuses--theme-default:host {
+
+    .wlc-see-all-bonuses {
+
+        &__container {
+            @include em.get-mq-map('padding', $themeDefault, 'containerPadding');
+
+            background: ef.get-value($themeDefault, 'containerBackground');
+            box-shadow: ef.get-value($themeDefault, 'containerShadow');
+
+            border-radius: ef.get-value($themeDefault, 'containerRadius');
+        }
+    }
+}

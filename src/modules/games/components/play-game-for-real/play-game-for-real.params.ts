@@ -75,7 +75,7 @@ export const playGameForRealConfig = (params: IPlayForRealParams): IFormWrapperC
             ...demoBtn,
         ];
     }
-    
+
     const forNotAuthenticated = [
         {
             name: 'core.wlc-text-block',
@@ -106,7 +106,7 @@ export const playGameForRealConfig = (params: IPlayForRealParams): IFormWrapperC
                     placeholder: gettext('Password *'),
                     type: 'password',
                     customModifiers: 'right-shift',
-                    usePasswordVisibilityDirective: true,
+                    usePasswordVisibilityBtn: true,
                 },
                 name: 'password',
                 validators: ['required', 'password',
@@ -133,11 +133,16 @@ export const playGameForRealConfig = (params: IPlayForRealParams): IFormWrapperC
         },
         ...orDemoBtn,
         {
-            name: 'user.wlc-have-account',
+            name: 'core.wlc-link-block',
             params: {
                 common: {
-                    titleText: gettext('Don’t have an account?'),
-                    linkText: gettext('Register now'),
+                    subtitleText: gettext('Don’t have an account?'),
+                    linkText: gettext('Sign up now'),
+                    actionParams: {
+                        modal: {
+                            name: 'signup',
+                        },
+                    },
                 },
             },
         },

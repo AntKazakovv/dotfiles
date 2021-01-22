@@ -16,7 +16,7 @@ $themeDefault: map-merge((
     'inputMaxWidth': ef.get('form', 'inputMaxWidth'),
     'inputBorder': ef.get('form', 'inputBorder'),
     'inputBorderFocusColor': ef.get('form', 'inputBorderFocusColor'),
-    'inputBorderRadius': ef.get('form', 'inputBorderRadius'),
+    'inputBorderRadius': ef.get('radius', 'main'),
     'inputPadding': ef.get('form', 'inputPadding'),
 
     'iconWidth': ef.get('form', 'iconWidth'),
@@ -43,7 +43,7 @@ $themePlaceholderShown: map-merge((
     'inputFontSize': ef.get('form', 'inputFontSize'),
     'inputBorder': ef.get('form', 'inputBorder'),
     'inputBorderFocusColor': ef.get('form', 'inputBorderFocusColor'),
-    'inputBorderRadius': ef.get('form', 'inputBorderRadius'),
+    'inputBorderRadius': ef.get('radius', 'main'),
     'inputPadding': ef.get('form', 'inputPadding'),
 
     'placeholderFontSize': ef.get('form', 'placeholderFontSize'),

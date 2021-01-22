@@ -1,20 +1,12 @@
 <ng-template #default>
-    <label for="{{$params.name}}"
-           class="{{$class}}__label"
-    >{{$params.common.placeholder | translate}}</label>
+    <ng-container [ngTemplateOutlet]="label"></ng-container>
     <div class="{{$class}}__input">
         <input type="{{$params.common.type}}"
                id="{{$params.name}}"
                placeholder="{{$params.common.placeholder | translate}}"
                [formControl]="control"
         >
-        <div class="{{$class}}-status"
-             wlc-form-control
-             *ngIf="$params.name"
-             [className]="$class"
-             [control]="control"
-             [fieldName]="$params.name.toLowerCase()"
-        ></div>
+        <ng-container [ngTemplateOutlet]="status"></ng-container>
     </div>
 </ng-template>
 
@@ -25,22 +17,12 @@
            [formControl]="control"
            class="{{$class}}__input"
     >
-    <label for="{{$params.name}}"
-           class="{{$class}}__label"
-    >{{$params.common.placeholder | translate}}</label>
-    <div class="{{$class}}-status"
-         *ngIf="$params.name"
-         wlc-form-control
-         [className]="$class"
-         [control]="control"
-         [fieldName]="$params.name.toLowerCase()"
-    ></div>
+    <ng-container [ngTemplateOutlet]="label"></ng-container>
+    <ng-container [ngTemplateOutlet]="status"></ng-container>
 </ng-template>
 
 <ng-template #vertical>
-    <label for="{{$params.name}}"
-           class="{{$class}}__label"
-    >{{$params.common.placeholder | translate}}</label>
+    <ng-container [ngTemplateOutlet]="label"></ng-container>
     <div
         class="{{$class}}__container"
     >
@@ -53,7 +35,7 @@
             [ngClass]="setInputModifiers"
         >
         <span
-            *ngIf="$params.common.usePasswordVisibilityDirective"
+            *ngIf="$params.common.usePasswordVisibilityBtn"
             class="field-icon field-icon--eye"
             data-password-visibility
             wlc-icon [iconName]="'eye'"
@@ -62,16 +44,9 @@
             (touchstart)="toggleType('text')"
             (touchend)="toggleType('password')"
         ></span>
-        <div class="{{$class}}-status"
-             wlc-form-control
-             *ngIf="$params.name"
-             [className]="$class"
-             [control]="control"
-             [fieldName]="$params.name.toLowerCase()"
-        ></div>
+        <ng-container [ngTemplateOutlet]="status"></ng-container>
     </div>
 </ng-template>
-
 
 <ng-container [ngSwitch]="$params.theme">
     <ng-container [ngTemplateOutlet]="placeholderShown" *ngSwitchCase="'placeholder-shown'"></ng-container>
@@ -79,6 +54,21 @@
     <ng-container [ngTemplateOutlet]="default" *ngSwitchDefault></ng-container>
 </ng-container>
 
+<ng-template #label>
+    <label *ngIf="$params.common.useLable"
+           for="{{$params.name}}"
+           class="{{$class}}__label"
+    >{{$params.common.placeholder | translate}}</label>
+</ng-template>
 
+<ng-template #status>
+    <div class="{{$class}}-status"
+         wlc-form-control
+         *ngIf="$params.name"
+         [className]="$class"
+         [control]="control"
+         [fieldName]="$params.name.toLowerCase()"
+    ></div>
+</ng-template>
 
 
