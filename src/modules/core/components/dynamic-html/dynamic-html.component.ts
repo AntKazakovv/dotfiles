@@ -33,12 +33,14 @@ export class DynamicHtmlComponent implements AfterViewInit, OnDestroy {
         this.createComponentFromRaw(this.html);
     }
 
-    private createComponentFromRaw(template: string) {
+    private createComponentFromRaw(html: string) {
+        const domParser = new DOMParser();
         const dynamicComponent = Component({
-            template,
+            template: domParser.parseFromString(html, 'text/html')?.querySelector('body')?.innerHTML,
             selector: '[wlc-dynamic]',
         })(class {
-            public  window = window;
+            public window = window;
+
             ngOnInit() {
             }
         });
