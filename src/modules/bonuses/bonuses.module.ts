@@ -3,6 +3,7 @@ import {CommonModule} from '@angular/common';
 import {TranslateModule} from '@ngx-translate/core';
 
 import {CoreModule} from '../core/core.module';
+import {PromoModule} from '../promo/promo.module';
 import {BonusesService} from './system/services';
 
 import {BonusItemComponent} from './components/bonus-item/bonus-item.component';
@@ -27,6 +28,7 @@ export const components = {
     imports: [
         CommonModule,
         CoreModule,
+        PromoModule,
         TranslateModule,
     ],
     providers: [

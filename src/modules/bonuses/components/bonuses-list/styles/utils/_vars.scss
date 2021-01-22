@@ -1,6 +1,9 @@
 @use 'engine-scss/functions' as ef;
+@import '../../../../../promo/components/slider/styles/utils/vars';
 
 $gridGap: ef.get('size', 'smaller') !default;
 $margin: ef.get('size', 'smaller') auto ef.get('size', 'less') auto !default;
-$minItemWidth: 300px !default;
+$marginSwiper: ef.get('size', 'smaller') (-$swiperNaviButtonSize / 2 + 1) ef.get('size', 'less') (-$swiperNaviButtonSize / 2 + 1) !default;
+$minItemWidth: 280px !default;
+$headerColor: #fff !default;
 

@@ -1,7 +1,7 @@
 @use 'engine-scss/functions' as ef;
 
 // // Size
-$minWidth: 300px !default;
+$minWidth: 280px !default;
 $maxWidth: 320px !default;
 $height: 370px !default;
 $infoWidth: $minWidth - 30px !default;
@@ -26,6 +26,8 @@ $moreIconSize: 24px !default;
 
 $moreIconColor: ef.get('color', 'text') !default;
 
+$activeBlockTimeIconSize: 18px !default;
+
 // // Font
 $bonusIconValueFontSize: 0.9rem !default;
 $bonusIconValueFontSizeSmall: 0.7rem !default;
@@ -33,7 +35,7 @@ $bonusIconValueFontSizeSmaller: 0.5rem !default;
 $bonusIconValueFontW: 700 !default;
 $bonusIconValueFontColor: #000000 !default;
 
-$tagFontColor: #000 !default;
+$tagFontColor: #fff !default;
 $tagFontSize: ef.get('font', 'small') !default;
 
 $nameFontColor: ef.get('color', 'text') !default;
@@ -49,8 +51,8 @@ $activeBlockFontSecondaryColor: ef.get('color', 'text') !default;
 $activeBlockFontSecondarySize: ef.get('font', 'less') !default;
 
 // // Backgrounds
-$background: #878787 !default;
-$backgroundHover:  #878787 !default;
+$background: ef.get('mainColors', 'bg300') !default;
+$backgroundHover:  ef.get('mainColors', 'bg500') !default;
 
 $backgroundExperience: $background !default;
 $backgroundExperienceHover:  $backgroundHover !default;
@@ -71,13 +73,13 @@ $imageBg: rgba(0, 0, 0, 0.3) !default;
 
 $bonusIconValueBg: #fff !default;
 
-$tagBg: #fff !default;
+$tagBg: ef.get('mainColors', 'secondary') !default;
 
-$activeBlockTimerBg: ef.get('color', 'background') !default;
-$activeBlockProgressBg: ef.get('color', 'background') !default;
+$activeBlockTimerBg: ef.get('mainColors', 'bg') !default;
+$activeBlockProgressBg: transparent !default;
 
-$progressBarBg: ef.get('color', 'backgroundSecondary') !default;
-$progressBarColor: ef.get('color', 'text') !default;
+$progressBarBg: ef.get('color', 'text') !default;
+$progressBarColor: ef.get('mainColors', 'main') !default;
 
 // // Radius
 $radius: ef.get('radius', 'biger') !default;
@@ -86,8 +88,10 @@ $tagRadius: ef.get('radius', 'biger') !default;
 $activeBlockRadius: 0 !default;
 $activeBlockTimerRadius: ef.get('radius', 'biger') !default;
 $activeBlockProgressRadius: ef.get('radius', 'biger') !default;
+$activeBlockTimeIconFill: ef.get('mainColors', 'secondary') !default;
 
 $progressBarRadius: 5px !default;
+
 
 //Padding
 $bonusIconMargin: 55px auto 0 auto !default;
@@ -99,7 +103,8 @@ $activeBlockMargin: 0 auto !default;
 $activeBlockTimerPadding: ef.get('size', 'small') !default;
 $activeBlockTimerMargin: 0 !default;
 $activeBlockProgressPadding: ef.get('size', 'small') !default;
-$activeBlockProgressMargin: 0 !default;
+$activeBlockProgressMargin: ef.get('size', 'smaller') 0 0 0 !default;
+$activeBlockTimeIconMargin: 0 ef.get('size', 'small') 0 0 !default;
 
 $progressBarMargin: ef.get('size', 'smallest') 0 !default;
 

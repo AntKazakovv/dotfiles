@@ -70,6 +70,7 @@ export namespace profileContent {
             componentLib.wlcLogout.def,
             componentLib.wlcDashboardLoyaltyBlock.def,
             componentLib.wlcDashboardExchange.def,
+            componentLib.wlcBonusesList.dashboard,
             componentLib.wlcEnterPromocode.def,
             componentLib.wlcSeeAllBonuses.def,
         ],

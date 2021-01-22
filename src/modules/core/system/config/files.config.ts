@@ -13,6 +13,7 @@ export const localFiles: IIndexing<string> = {
     'favourite':'icons/favourite.svg',
     'eye': 'icons/eye.svg',
     'tick': 'icons/tick.svg',
+    'clock': 'icons/clock.svg',
     'search': 'icons/search.svg',
     'filter-merchants': 'icons/filter-merchants.svg',
     'filter-categories': 'icons/filter-categories.svg',

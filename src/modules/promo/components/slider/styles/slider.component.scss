@@ -19,5 +19,11 @@
     .swiper-container {
         max-height: 100%;
     }
-}
 
+    &--type-dashboard {
+
+        .swiper-container {
+            padding: 0 ($swiperNaviButtonSize /2 - 1);
+        }
+    }
+}

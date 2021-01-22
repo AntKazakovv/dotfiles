@@ -1,3 +1,4 @@
+import {SwiperConfigInterface} from 'ngx-swiper-wrapper';
 import {
     IComponentParams,
     CustomType,
@@ -7,7 +8,7 @@ import {
     BonusesFilterType,
 } from '../../system/interfaces/bonuses.interface';
 
-export type Type = 'default' | CustomType;
+export type Type = 'default' | 'swiper' | CustomType;
 export type Theme = 'default' | CustomType;
 export type ThemeMod = 'default' | CustomType;
 export type AutoModifiers = Theme | ThemeMod;
@@ -22,6 +23,8 @@ export interface IBonusesListCParams extends IComponentParams<Theme, Type, Theme
         restType?: RestType;
         filter?: BonusesFilterType;
         title?: string;
+        sortOrder?: ('active' | 'subscribe' | 'inventory' | number)[],
+        swiper?: SwiperConfigInterface;
     };
 }
 

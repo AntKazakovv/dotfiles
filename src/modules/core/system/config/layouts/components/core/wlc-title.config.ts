@@ -47,7 +47,7 @@ export namespace wlcTitle {
         name: 'core.wlc-title',
         params: {
             customMod: ['profile'],
-            mainText: gettext('Dashboard'),
+            mainText: gettext('My dashboard'),
         },
     };
 }

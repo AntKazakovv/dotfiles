@@ -29,4 +29,43 @@ export namespace wlcBonusesList {
             },
         },
     };
+    export const dashboard: ILayoutComponent = {
+        name: 'bonuses.wlc-bonuses-list',
+        params: {
+            type: 'swiper',
+            common: {
+                sortOrder: ['active', 'subscribe', 'inventory'],
+                title: 'My bonuses',
+                swiper: {
+                    slidesPerView: 4,
+                    spaceBetween: 20,
+                    loop: false,
+                    navigation: true,
+                    breakpoints: {
+                        320: {
+                            slidesPerView: 1,
+                        },
+                        560: {
+                            slidesPerView: 1,
+                        },
+                        768: {
+                            slidesPerView: 1,
+                        },
+                        900: {
+                            slidesPerView: 2,
+                        },
+                        1024: {
+                            slidesPerView: 2,
+                        },
+                        1200: {
+                            slidesPerView: 3,
+                        },
+                        1420: {
+                            slidesPerView: 4,
+                        },
+                    },
+                },
+            },
+        },
+    };
 }
