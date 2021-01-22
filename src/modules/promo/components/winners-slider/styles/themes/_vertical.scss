@@ -1,58 +1,63 @@
 @use 'engine-scss/mixins/base.mixins' as em;
 @use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/functions' as ef;
 @import './../utils/vars';
-@import './../utils/mixins';
 
 .wlc-winners-slider--theme-vertical:host {
 
     .wlc-winners-slider {
 
         &__wrapper {
-            @include wrapperDefault('vertical');
-            max-width: $wrapperMaxWidth;
-            background: $wrapperBackground;
-            border-radius: $radius;
+            max-width: ef.get-value($themeVertical, 'wrapperMaxWidth');
+            background: ef.get-value($themeVertical, 'wrapperBackground');
+            border-radius: ef.get-value($themeVertical, 'wrapperBorderRadius');
+            @include em.get-mq-map('padding', $themeVertical, 'wrapperPadding');
 
             @include em.manualMod('wlc-winners-slider', 'vertical' ,'headless') {
-                padding-top: $wrapperPaddingBase;
+                padding-top: ef.get-value($themeVertical, 'wrapperPaddingTopHeadless', ef.get-value($themeVertical, 'breakpoint'));
             }
+        }
 
-            // TODO come up with vars for mediaqueries
-            @include mq.min(1200) {
-                padding: 0 35px 38px;
-
-                @include em.manualMod('wlc-winners-slider', 'vertical' ,'headless') {
-                    padding-top: 38px;
-                }
-            }
+        &__loader {
+            @include em.get-mq-map('height', $themeVertical, 'loaderHeight');
         }
 
         &__title {
             display: inline-block;
-            margin-bottom: 15px;
-            margin-left: -1 * $wrapperPaddingBase;
-            padding: 8px $wrapperPaddingBase;
-            font-size: $titleFontSize;
-            font-weight: $titleFontWeight;
-            color: $titleColor;
-            background: $titleBackground;
-            border-bottom-right-radius: $radius;
-            border-top-left-radius: $radius;
+            font-size: ef.get-value($themeVertical, 'titleFontSize');
+            font-weight: ef.get-value($themeVertical, 'titleFontWeight');
+            color: ef.get-value($themeVertical, 'titleColor');
+            background: ef.get-value($themeVertical, 'titleBackground');
+            border-radius: ef.get-value($themeVertical, 'titleBorderRadius');
+            @include em.get-mq-map('margin', $themeVertical, 'titleMargin');
+            @include em.get-mq-map('padding', $themeVertical, 'titlePadding');
 
             @include em.manualMod('wlc-winners-slider', 'vertical' ,'headless') {
                 display: none;
             }
-
-            // TODO come up with vars for mediaqueries
-            @include mq.min(1200) {
-                margin-left: -35px;
-                margin-bottom: 32px;
-                padding: 10px 22px;
-            }
         }
 
         &__slider {
-            height: $sliderVerticalHeight;
+            height: ef.get-value($themeVertical, 'sliderHeight');
+
+            ::ng-deep {
+
+                .swiper-container {
+                    height: 100%;
+                    overflow-x: visible;
+
+                    @if ef.get-value($themeVertical, 'sliderShadowPadding') {
+                        height: calc(100% + #{ef.get-value($themeVertical, 'sliderShadowPadding')});
+                        margin-bottom: -1 * ef.get-value($themeVertical, 'sliderShadowPadding');
+                        padding-bottom: ef.get-value($themeVertical, 'sliderShadowPadding');
+                        margin-left: -1 * ef.get-value($themeVertical, 'sliderShadowPadding');
+                        padding-left: ef.get-value($themeVertical, 'sliderShadowPadding');
+                    }
+
+                    // margin-bottom: -10px;
+                    // padding-bottom: 10px;
+                }
+            }
         }
     }
 }

@@ -1,22 +1,80 @@
 @use 'engine-scss/functions' as ef;
+@use 'engine-scss/engine.variables' as ev;
 
-// common
-$radius: ef.get('radius', 'biger') !default;
+// ~~ theme DEFAULT
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'breakpoint': 1200,
+    'background': ef.get-value(ev.$mainColors, 'bg700'),
 
-// wrapper
-$wrapperPaddingBase: 15px !default;
-$wrapperPaddingAdd: 30px !default;
-$wrapperBackground: ef.get('color', 'backgroundSecondary') !default;
-$wrapperMaxWidth: 520px !default;
+    // wrapper
+    'wrapperPadding': 15px 0,
 
-// title
-$titleFontSize: ef.get('font', 'main') !default;
-$titleFontWeight: 500 !default;
-$titleColor: ef.get('color', 'background') !default;
-$titleBackground: ef.get('color', 'main') !default;
-$titleMarginBottom: 15px !default;
-$titleMarginBottomMq1200: 0 !default;
-$titlePaddingRightMq1200: 22px !default;
+    // container
+    'containerPadding': 0 15px,
 
-// slider
-$sliderVerticalHeight: 280px !default;
+    // swiper consainer
+    'swiperPaddingShadowFix': 10px 0, // for shadowf
+    'swiperMarginShadowFix': -10px 0, // for shadow
+
+    // title
+    'titleFontSize': ef.get('font', 'biger'),
+    'titleFontWeight': 700,
+    'titleColor': ef.get-value(ev.$mainColors, 'baseMain'),
+    'titleMarginBottom': (
+        375: 15px,
+        1200: 0,
+    ),
+    'titlePaddingRight': (
+        1200: 22px,
+    ),
+    'titleFlex': (
+        1200: 0 0 25%,
+        1630: 0 0 20%,
+    ),
+    'titleAlignment': (
+        1200: center,
+    ),
+    'loaderHeight': 62px,
+), $customThemeDefault);
+
+// ~~ theme VERTICAL
+$customThemeVertical: () !default;
+$themeVertical: map-merge((
+    'breakpoint': 1200,
+
+    // wrapper
+    'wrapperBorderRadius': ef.get('radius', 'biger'),
+    'wrapperPadding': (
+        375: 0 15px 30px,
+        1200: 0 35px 38px,
+    ),
+    'wrapperBackground': ef.get('color', 'backgroundSecondary'),
+    'wrapperMaxWidth': 520px,
+    'wrapperPaddingTopHeadless': (
+        1200: 38px,
+    ),
+
+    //loader
+    'loaderHeight': 280px,
+
+    // title
+    'titleBackground': ef.get-value(ev.$mainColors, 'secondary'),
+    'titleFontSize': ef.get('font', 'main'),
+    'titleFontWeight': 700,
+    'titleColor': ef.get-value(ev.$mainColors, 'baseMain'),
+    'titleMargin': (
+        375: 0 0 15px -15px,
+        1200: 0 0 32px -35px,
+    ),
+    'titlePadding': (
+        375: 10px 15px,
+        1200: 10px 22px,
+    ),
+    'titleBorderRadius': ef.get('radius', 'biger') 0 ef.get('radius', 'biger') 0,
+
+    // slider
+    'sliderHeight': 280px,
+    'sliderShadowPadding': 10px, // `false` or [space between slides]px
+), $customThemeVertical);
+

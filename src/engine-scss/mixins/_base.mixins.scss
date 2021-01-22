@@ -15,9 +15,16 @@
     }
 }
 
+/// Creates a selector which consists of theme modifier and modifier which was added manually by `addMidifiers` method.
+///
+/// @name manualMod
+///
+/// @param {string} $class - base class name of component
+/// @param {string} $theme - name of component theme
+/// @param {string} $mod - component modifier
 @mixin manualMod($class, $theme, $mod) {
 
-    @at-root #{selector.replace(&, '.#{$class}--theme-#{$theme}', '.#{$class}--#{$mod}')} {
+    @at-root #{selector.replace(&, '.#{$class}--theme-#{$theme}', '.#{$class}--theme-#{$theme}.#{$class}--#{$mod}')} {
         @content;
     }
 }

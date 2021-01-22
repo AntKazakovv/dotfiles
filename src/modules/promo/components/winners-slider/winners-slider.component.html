@@ -1,15 +1,16 @@
-<div class="{{$class}}__wrapper" >
-    <h4 class="{{$class}}__title">{{title | translate}}</h4>
-    <ng-container *ngIf="ready">
-        <div class="{{$class}}__slider"
-            wlc-slider
-            [slides]="slides"
-            [inlineParams]="sliderParams">
-        </div>
-    </ng-container>
+<div class="{{$class}}__wrapper">
+    <div class="{{$class}}__container" [ngClass]="{'container': $params.container}">
+        <h4 class="{{$class}}__title" *ngIf="$params.title">{{$params.title | translate}}</h4>
+        <ng-container *ngIf="ready; else loader">
+            <div class="{{$class}}__slider"
+                wlc-slider
+                [slides]="slides"
+                [inlineParams]="sliderParams">
+            </div>
+        </ng-container>
+    </div>
 </div>
 
-
-<ng-template #winner let-item="item">
-    <div class="foo">{{item.name}}</div>
+<ng-template #loader>
+    <div class="{{$class}}__loader" wlc-loader></div>
 </ng-template>

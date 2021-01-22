@@ -23,9 +23,6 @@ import {
 import {WinnerModel} from 'wlc-engine/modules/promo/system/models/winner.model';
 import {GamesCatalogService} from 'wlc-engine/modules/games';
 
-// TODO remove later
-import {lastWinsData, lastWinsData2} from '../../mocks/last-wins';
-
 import {
     merge as _merge,
     differenceWith as _differenceWith,
@@ -214,11 +211,7 @@ export class WinnersService {
      */
     protected mapResponse(response: IData, event: string): WinnerModel[] {
         if (response) {
-            // for test, imitation of changing data
-            const dataMock = Math.random() > 0.5 ? lastWinsData : lastWinsData2;
-            const data = this.getData(dataMock as IWinnerData[]);
-
-            // const data = this.getData(response.data as IWinnerData[]);
+            const data = this.getData(response.data as IWinnerData[]);
 
             this.eventService.emit({
                 name: event,
@@ -238,8 +231,8 @@ export class WinnersService {
      */
     protected filterResponse(prev: IData, current: IData): boolean {
         if (current?.data?.length) {
-            const diff = _differenceWith(prev?.data, current.data, _isEqual);
-            return !!diff.length;
+            const diff = prev ? _differenceWith(prev?.data, current.data, _isEqual).length : true;
+            return !!diff;
         }
         return true;
     }

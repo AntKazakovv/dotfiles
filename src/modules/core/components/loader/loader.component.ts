@@ -2,9 +2,11 @@ import {
     Component,
     OnInit,
     Inject,
+    Self,
+    Optional,
 } from '@angular/core';
 
-import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {AbstractComponent} from 'wlc-engine/modules/core';
 import * as Params from './loader.params';
 
 @Component({
@@ -16,7 +18,10 @@ export class LoaderComponent extends AbstractComponent implements OnInit {
     public $params: Params.ILoaderCParams;
 
     constructor(
-        @Inject('injectParams') protected injectParams: Params.ILoaderCParams,
+        @Self()
+        @Optional()
+        @Inject('injectParams')
+        protected injectParams: Params.ILoaderCParams,
     ) {
         super({injectParams, defaultParams: Params.defaultParams});
     }
@@ -24,5 +29,4 @@ export class LoaderComponent extends AbstractComponent implements OnInit {
     public ngOnInit(): void {
         super.ngOnInit();
     }
-
 }

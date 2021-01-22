@@ -5,13 +5,12 @@ import {
     OnInit,
     ViewChild,
     AfterViewInit,
-    ChangeDetectorRef,
     ElementRef,
     Renderer2,
     ViewEncapsulation,
-    SimpleChanges,
     OnChanges,
     Injector,
+    ChangeDetectorRef,
 } from '@angular/core';
 import {SwiperDirective} from 'ngx-swiper-wrapper';
 
@@ -26,6 +25,10 @@ import * as Params from './slider.params';
 
 import {
     assign as _assign,
+    isNumber as _isNumber,
+    toNumber as _toNumber,
+    times as _times,
+    thru as _thru,
 } from 'lodash';
 
 @Component({
@@ -45,6 +48,7 @@ export class SliderComponent extends AbstractComponent
     public $params: Params.ISliderCParams;
 
     public ready: boolean = false;
+    public slidesSequence: number[] = [];
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ISliderCParams,
@@ -64,16 +68,20 @@ export class SliderComponent extends AbstractComponent
         if (this.$params.slides && !this.slides) {
             this.slides = this.$params.slides;
         }
+
+        // for fix loop
+        this.fixSlidesSequence();
     }
 
     public ngAfterViewInit(): void {
         this.prepareControls();
-        this.swiper.init();
+        this.updateSwiper();
         this.ready = true;
     }
 
     public ngOnChanges(): void {
         if (this.ready) {
+            this.fixSlidesSequence();
             this.updateSwiper();
         }
     }
@@ -104,20 +112,51 @@ export class SliderComponent extends AbstractComponent
         return slide.injector;
     }
 
+    protected fixSlidesSequence(): void {
+        const {swiper} = this.$params;
+        const realSequence: number[] = _times(this.slides.length, (i) => i);
+
+        if (swiper.loop) {
+            const slides = _isNumber(swiper.slidesPerView) ? swiper.slidesPerView : 5;
+            if (slides > this.slides.length) {
+                this.slidesSequence  = _thru(realSequence, (arr) => {
+                    let result: number[] = [];
+                    while (result.length < slides) {
+                        result = result.concat(arr);
+                    }
+                    return result;
+                });
+                return;
+            }
+
+            this.slidesSequence = realSequence;
+            return;
+        }
+
+        this.slidesSequence = realSequence;
+    }
+
     protected updateSwiper(): void {
         const {swiper} = this.$params;
 
-        this.swiper.update();
+
+        if (swiper.autoplay) {
+            this.swiper.stopAutoplay(true);
+        }
 
         if (swiper.loop) {
-            // restart loop on dynamically changing slides
+            // loop fix
+            this.swiper.swiper().loopDestroy();
             this.swiper.swiper().loopCreate();
-            this.swiper.swiper().loopFix();
         }
 
         if (swiper.autoplay) {
             this.swiper.startAutoplay();
         }
+
+        this.swiper.update();
+
+        this.cdr.detectChanges();
     }
 
     protected prepareControls(): void {
@@ -153,5 +192,7 @@ export class SliderComponent extends AbstractComponent
 
             this.renderer.appendChild(wrapper, scrollbar);
         }
+
+        this.cdr.detectChanges();
     }
 }
