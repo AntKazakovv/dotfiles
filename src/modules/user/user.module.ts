@@ -33,7 +33,6 @@ import {ExchangeComponent} from './components/dashboard-exchange/exchange.compon
 export const components = {
     'wlc-change-password-form': ChangePasswordFormComponent,
     'wlc-exchange': ExchangeComponent,
-    'wlc-have-account': HaveAccountComponent,
     'wlc-logout': LogoutComponent,
     'wlc-login-signup': LoginSignupComponent,
     'wlc-loyalty-progress': LoyaltyProgressComponent,
@@ -53,7 +52,6 @@ export const components = {
     declarations: [
         ChangePasswordFormComponent,
         ExchangeComponent,
-        HaveAccountComponent,
         LoginSignupComponent,
         LoyaltyProgressComponent,
         LoyaltyBlockComponent,
@@ -83,7 +81,6 @@ export const components = {
     exports: [
         ChangePasswordFormComponent,
         ExchangeComponent,
-        HaveAccountComponent,
         LoginSignupComponent,
         LoyaltyProgressComponent,
         LoyaltyBlockComponent,

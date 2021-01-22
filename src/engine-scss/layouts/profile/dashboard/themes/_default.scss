@@ -13,14 +13,29 @@
             grid: {
                 template-columns: 1fr;
                 template-rows: auto;
-                template-areas: 'title' 'loyalty-progress' 'exchange';
+                template-areas: 'title' 'loyalty' 'exchange' 'promocode' 'see-all-bonuses';
                 gap: 20px;
+            }
+
+            @include mq.min(560) {
+                grid: {
+                    template-columns: 1fr 1fr;
+                    template-areas: 'title title' 'loyalty loyalty' 'exchange exchange' 'promocode see-all-bonuses';
+                }
+            }
+
+            @include mq.min(720) {
+                grid: {
+                    template-columns: repeat(3, 1fr);
+                    template-areas: 'title title title' 'loyalty loyalty promocode' 'exchange exchange see-all-bonuses';
+                    gap: 20px;
+                }
             }
 
             @include mq.min(1024) {
                 grid: {
-                    template-columns: 1fr 1fr;
-                    template-areas: 'title title' 'loyalty-progress exchange';
+                    template-columns: repeat(6, 1fr);
+                    template-areas: 'title title title title title title' 'loyalty loyalty loyalty exchange exchange exchange' '. . . . promocode promocode' '. . . . see-all-bonuses see-all-bonuses';
                     gap: 25px 40px;
                 }
             }
@@ -41,8 +56,8 @@
         grid-area: title;
     }
 
-    .wlc-loyalty-progress {
-        grid-area: loyalty-progress;
+    .wlc-loyalty-block {
+        grid-area: loyalty;
 
         .wlc-btn {
             align-self: flex-start;
@@ -51,5 +66,29 @@
 
     .wlc-exchange {
         grid-area: exchange;
+    }
+
+    .wlc-enter-promocode {
+        grid-area: promocode;
+    }
+
+    .wlc-see-all-bonuses {
+        grid-area: see-all-bonuses;
+    }
+
+    .wlc-see-all-bonuses,
+    .wlc-enter-promocode {
+        height: 100%;
+
+        &__container {
+
+            @include mq.max(1024) {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                height: 100%;
+            }
+        }
     }
 }
