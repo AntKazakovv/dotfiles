@@ -2,12 +2,14 @@
 @import '../utils/vars';
 
 .wlc-bonuses-list--theme-default {
-    background-color: #000;
 
     &:host {
 
-        .wlc-bonuses-list__list {
+        .wlc-bonuses-list__list-wrapper {
             margin: $margin;
+        }
+
+        .wlc-bonuses-list__list {
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -39,7 +41,17 @@
 
         .wlc-bonuses-list__header {
             font-weight: bold;
+            color: $headerColor;
         }
     }
 }
 
+.wlc-bonuses-list--type-swiper {
+
+    &:host {
+
+        .wlc-bonuses-list__list-wrapper {
+            margin: $marginSwiper;
+        }
+    }
+}

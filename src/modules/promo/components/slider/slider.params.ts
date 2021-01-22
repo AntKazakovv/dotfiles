@@ -23,7 +23,7 @@ export interface IWinnerSlide {
     params?: IWinnerCParams,
 };
 
-export type SlideType = 'banner' | 'winner';
+export type SlideType = 'banner' | 'winner' | 'dashboard';
 export type SlideParamsType = IBannerSlide | IWinnerSlide;
 /**
  * Takes the name of the component and its parameters.

@@ -49,6 +49,10 @@
 
     left: $swiperNaviAside;
     right: auto;
+
+    .wlc-slider--type-dashboard & {
+        left: 0;
+    }
 }
 
 .swiper-button-next,
@@ -60,6 +64,10 @@
 
     right: $swiperNaviAside;
     left: auto;
+
+    .wlc-slider--type-dashboard & {
+        right: 0;
+    }
 }
 
 .swiper-button-lock {

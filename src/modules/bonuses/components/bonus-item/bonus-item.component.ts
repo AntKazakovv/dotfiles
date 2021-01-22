@@ -85,13 +85,18 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
     public ngOnInit(): void {
         super.ngOnInit(this.prepareParams());
 
+        if (this.$params.bonus) {
+            this.$params.common.bonus = this.$params.bonus;
+            this.bonus = this.$params.bonus;
+        }
         if (!this.view) {
             this.view = this.$params.common.bonus.viewTarget || 'default';
         }
 
         this.prepareModifiers();
         this.isAuth = this.ConfigService.get<boolean>('$user.isAuthenticated');
-        this.currency = this.ConfigService.get<string>('appConfig.user.currency') || 'EUR';
+        this.currency = this.ConfigService.get<string>('appConfig.user.currency') === 'EUR' ?
+            '€' : this.ConfigService.get<string>('appConfig.user.currency');
         this.isTypeRegDeposit = this.$params.common?.type === 'reg' || this.$params.common?.type === 'deposit';
         this.isNoChooseBtn = this.$params.common?.hideChooseBtn && this.isTypeRegDeposit;
         this.isChooseBtn = !this.$params.common?.hideChooseBtn && this.isTypeRegDeposit;

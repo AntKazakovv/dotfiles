@@ -45,6 +45,7 @@ export class SliderComponent extends AbstractComponent
 
     @Input() public slides: Params.ISlide[];
     @Input() protected inlineParams: Params.ISliderCParams;
+    @Input() protected type: Params.SlideType;
     public $params: Params.ISliderCParams;
 
     public ready: boolean = false;
@@ -64,7 +65,6 @@ export class SliderComponent extends AbstractComponent
 
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
-
         if (this.$params.slides && !this.slides) {
             this.slides = this.$params.slides;
         }

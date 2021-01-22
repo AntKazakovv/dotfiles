@@ -13,6 +13,7 @@ export type Modifiers = AutoModifiers | CustomMod | null;
 
 export interface IBonusItemParams extends IComponentParams<Theme, Type, ThemeMod> {
     modifiers?: Modifiers[];
+    bonus?: Bonus,
     common?: {
         themeMod?: ThemeMod;
         customModifiers?: CustomMod;

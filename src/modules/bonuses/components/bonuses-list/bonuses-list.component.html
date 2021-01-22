@@ -1,10 +1,21 @@
 <div class="{{$class}}__content">
-    <div class="{{$class}}__header" *ngIf="$params.common.title">{{$params.common.title | translate}}</div>
-    <div class="{{$class}}__list" *ngIf="bonuses?.length && isReady; else: noBonuses">
-        <div wlc-bonus-item [bonus]="bonus" [chosen]="bonus.isChoose" [type]="$params.common.filter"
-             *ngFor="let bonus of bonuses"></div>
+    <div class="{{$class}}__header">{{$params.common.title | translate}}</div>
+    <div class="{{$class}}__list-wrapper" *ngIf="$params.type !== 'swiper'">
+        <div class="{{$class}}__list" *ngIf="bonuses?.length && isReady; else: noBonuses">
+            <div wlc-bonus-item [bonus]="bonus" [chosen]="bonus.isChoose" [type]="$params.common.filter" *ngFor="let bonus of bonuses"></div>
+        </div>
+        <!-- TODO: add pagination -->
     </div>
-    <!-- TODO: add pagination -->
+    <div class="{{$class}}__list-wrapper" *ngIf="$params.type === 'swiper'">
+        <ng-container *ngIf="bonuses?.length && isReady; else: noBonuses">
+            <div class="{{$class}}__slider"
+                wlc-slider
+                type="dashboard"
+                [slides]="slides"
+                [inlineParams]="sliderParams">
+            </div>
+        </ng-container>
+    </div>
     <ng-template #noBonuses>
         <div class="{{$class}}__nocontent" *ngIf="isReady">{{'No bonuses available' | translate}}</div>
         <div class="{{$class}}__nocontent" *ngIf="!isReady">

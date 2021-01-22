@@ -3,7 +3,8 @@
     [class.chosen]="chosen"
     [class.noauth]="!isAuth"
     [class.nochoosebtn]="isNoChooseBtn"
-    [class.choosebtn]="isChooseBtn">
+    [class.choosebtn]="isChooseBtn"
+    [class.active]="$params.common.bonus.isActive">
     <div class="{{$class}}__wrapper" (click)="chooseBonusNoBtn($params.common.bonus, $params.common?.type)">
         <div class="{{$class}}__image-block">
             <div class="{{$class}}__tag" *ngIf="$params.common?.showBonusTag">{{getBonusTag() | translate}}</div>
@@ -38,8 +39,11 @@
             <div class="{{$class}}__active-block" *ngIf="$params.common.bonus.isActive">
                 <div class="{{$class}}__timer">
                     <!-- TODO: add timer component -->
-                    {{$params.common.bonus.expirationTime()}}
-                    <div class="secondary-text">{{'Time working' | translate}}</div>
+                    <div class="{{$class}}__clock-icon" wlc-icon iconName="clock"></div>
+                    <div class="{{$class}}__timer-text">
+                        <div class="time-text">{{$params.common.bonus.expirationTime()}}</div>
+                        <div class="secondary-text">{{'Time remaining' | translate}}</div>
+                    </div>
                 </div>
                 <div class="{{$class}}__progress">
                     <div class="{{$class}}__remaning">
@@ -47,7 +51,7 @@
                         <span>{{currency}}</span> {{$params.common.bonus.wageringLeft}}
                         {{'of'| translate}}
                         <span>{{currency}}</span> {{$params.common.bonus.wageringTotal}}
-                        {{'remaning' | translate}}
+                        {{'remaining' | translate}}
                     </div>
                     <div class="{{$class}}__progressbar">
                         <div class="{{$class}}__progress-inner"
@@ -75,7 +79,6 @@
                 <button type="button"
                         wlc-button
                         text="Unsubscribe"
-                        themeMod="secondary"
                         *ngIf="$params.common.bonus.canUnsubscribe"
                         (click)="unsubscribe()">
                 </button>
