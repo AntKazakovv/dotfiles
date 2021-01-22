@@ -3,7 +3,7 @@
     <div class="{{$class}}__input">
         <input type="{{$params.common.type}}"
                id="{{$params.name}}"
-               placeholder="{{$params.common.placeholder | translate}}"
+               placeholder="{{$params.exampleValue || $params.common.placeholder | translate}}"
                [formControl]="control"
         >
         <ng-container [ngTemplateOutlet]="status"></ng-container>

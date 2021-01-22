@@ -1,11 +1,11 @@
 <ng-template #default>
     <label for="{{$params.name}}"
            class="{{$class}}__label"
-    >{{$params.placeholder | translate}}</label>
+    >{{$params.common.placeholder | translate}}</label>
     <div class="{{$class}}__textarea">
         <textarea name="{{$params.name}}"
                   id="{{$params.name}}"
-                  placeholder="{{$params.placeholder}}"
+                  placeholder="{{$params.exampleValue || $params.common.placeholder | translate}}"
                   [formControl]="control"
         ></textarea>
         <div class="{{$class}}-status form-control"
@@ -13,6 +13,7 @@
              *ngIf="$params.name"
              [className]="$class"
              [control]="control"
+             [validators]="$params?.validators"
              [fieldName]="$params.name.toLowerCase()"
         ></div>
     </div>
@@ -32,6 +33,7 @@
          *ngIf="$params.name"
          [className]="$class"
          [control]="control"
+         [validators]="$params?.validators"
          [fieldName]="$params.name.toLowerCase()"
     ></div>
 </ng-template>

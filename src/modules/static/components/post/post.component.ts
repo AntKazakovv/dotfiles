@@ -10,7 +10,7 @@ import {
     ChangeDetectorRef,
 } from '@angular/core';
 import {DomSanitizer} from '@angular/platform-browser';
-import {UIRouterGlobals} from '@uirouter/core';
+import {StateService, UIRouterGlobals} from '@uirouter/core';
 
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {StaticService, TextDataModel} from 'wlc-engine/modules/static';
@@ -46,6 +46,7 @@ export class PostComponent extends AbstractComponent implements OnInit, AfterVie
         protected cdr: ChangeDetectorRef,
         protected uiRouter: UIRouterGlobals,
         protected configService: ConfigService,
+        protected stateService: StateService,
     ) {
         super({injectParams: params, defaultParams});
     }
@@ -69,6 +70,9 @@ export class PostComponent extends AbstractComponent implements OnInit, AfterVie
                 this.params.setTitle(data.title);
             }
         } catch (e) {
+            // TODO: redirect on 404 page
+            this.stateService.go('app.home');
+
             console.error(e);
         } finally {
             this.isReady = true;

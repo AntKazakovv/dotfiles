@@ -1,0 +1,23 @@
+@use 'engine-scss/functions' as ef;
+
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'formElementsGap': 25px,
+    'margin': 0 auto,
+    'transition': 0.5s ease-in,
+    'accentColor': ef.get('color', 'secondary'),
+    'hrMargin': 10px 0 15px 0,
+    'hrColor':  #717273,
+    'headerColor': #fff,
+    'headerMargin': 0 0 30px 0,
+    'headerFontSize': ef.get('font', 'biger'),
+    'headerFontWeight': bold,
+    'contactsGap': 10px,
+    'contactsDelimiterBorder': 1px solid #363636,
+    'contactsHeaderFontSize': ef.get('font', 'small'),
+    'contactsHeaderFontWeight': bold,
+    'contactsContentFontSize': ef.get('font', 'biger'),
+    'contactsContentColor': #fff,
+    'contactsContentColorHover': darken(#fff, 10%),
+    'detailsHeaderColor': #898989,
+), $customThemeDefault);

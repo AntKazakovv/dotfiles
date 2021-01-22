@@ -55,7 +55,7 @@ export const wlcMainMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
             state: {
                 name: 'app.contacts',
                 params: {
-                    slug: 'feedback',
+                    slug: 'contacts',
                 },
             },
         },
