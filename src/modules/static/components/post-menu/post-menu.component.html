@@ -1,5 +1,6 @@
 <ng-template #sref let-item="item">
     <a uiSref="app.contacts"
+        uiSrefActive="active"
         [uiParams]="{slug: item.slug}"
         class="{{$class}}__link">
         <span>{{item.title | translate}}</span>

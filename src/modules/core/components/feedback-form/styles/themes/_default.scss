@@ -1,0 +1,87 @@
+@use 'engine-scss/mixins/mediaqueries' as mq;
+
+.wlc-feedback-form--theme-default:host {
+    margin: map-get($themeDefault, 'margin');
+
+    .wlc-feedback-form__header {
+        font-size: map-get($themeDefault, 'headerFontSize');
+        color: map-get($themeDefault, 'headerColor');
+        margin: map-get($themeDefault, 'headerMargin');
+        font-weight: map-get($themeDefault, 'headerFontWeight');
+    }
+
+    .wlc-feedback-form-details {
+        display: flex;
+        flex-wrap: wrap;
+
+        flex-direction: row;
+        margin: 0 map-get($themeDefault, 'contactsGap') * -1.5;
+
+        @include mq.min(1024) {
+            margin: 0 map-get($themeDefault, 'contactsGap') * -3;
+        }
+    }
+
+    .wlc-feedback-form-details__item {
+        margin-bottom: map-get($themeDefault, 'contactsGap');
+        padding: 0 map-get($themeDefault, 'contactsGap') * 1.5;
+
+        @include mq.min(1024) {
+            padding: 0 map-get($themeDefault, 'contactsGap') * 3;
+            max-width: 50%;
+        }
+
+        &:first-child {
+
+            @include mq.min(900) {
+                margin: 0;
+            }
+        }
+
+        a,
+        span {
+            display: block;
+        }
+
+        span {
+            font-size: map-get($themeDefault, 'contactsHeaderFontSize');
+            color: map-get($themeDefault, 'detailsHeaderColor');
+
+            @include mq.min(1024) {
+                font-size: map-get($themeDefault, 'contactsHeaderFontSize') * 1.3;
+            }
+        }
+
+        a,
+        span:nth-child(2) {
+            font-size: map-get($themeDefault, 'contactsContentFontSize');
+            max-width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-weight: map-get($themeDefault, 'contactsHeaderFontWeight');
+
+            color: map-get($themeDefault, 'contactsContentColor');
+            text-decoration: none;
+            transition: map-get($themeDefault, 'transition');
+
+            &:hover {
+                color: map-get($themeDefault, 'contactsContentColorHover');
+            }
+        }
+    }
+
+    hr {
+        background: map-get($themeDefault, 'hrColor');
+        opacity: 1;
+        height: 2px;
+        margin: map-get($themeDefault, 'hrMargin');
+    }
+
+    &::ng-deep {
+
+        .wlc-input,
+        .wlc-textarea {
+            margin-bottom: map-get($themeDefault, 'formElementsGap');
+        }
+    }
+}

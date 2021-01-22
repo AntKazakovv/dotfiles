@@ -1,26 +1,29 @@
-@use 'sass:map';
-@import '../utils/vars';
+@use 'engine-scss/mixins/mediaqueries' as mq;
 
 .wlc-textarea--theme-placeholder-shown:host {
     position: relative;
     display: flex;
     flex-flow: column-reverse nowrap;
-    margin: map.get($themePlaceholderShown, 'margin');
+    margin: $marginPlaceholderShown;
 
     .wlc-textarea__label,
     .wlc-textarea__textarea {
-        transition: map.get($themePlaceholderShown, 'transition');
+        transition: $transitionPlaceholderShown;
         line-height: 1;
     }
 
     .wlc-textarea__textarea {
-        font-size: map.get($themePlaceholderShown, 'textareaFontSize');
-        border: map.get($themePlaceholderShown, 'textareaBorder');
-        border-radius: map.get($themePlaceholderShown, 'textareaBorderRadius');
-        padding: map.get($themePlaceholderShown, 'textareaPadding');
+        font-size: $textareaFontSizePlaceholderShown;
+        border: $textareaBorderPlaceholderShown;
+        border-radius: $textareaBorderRadiusPlaceholderShown;
+        padding: $textareaPaddingPlaceholderShown;
         text-overflow: ellipsis;
         overflow: visible;
-        min-height: map.get($themePlaceholderShown, 'textareaMinHeight');
+        min-height: $textareaMinHeightPlaceholderShown;
+
+        @include mq.min(720) {
+            min-height: $textareaMinHeightPlaceholderShown * 2;
+        }
 
         &::placeholder {
             opacity: 0;
@@ -28,7 +31,7 @@
 
         &:focus {
             outline: 0;
-            border-color: map.get($themePlaceholderShown, 'textareaBorderFocusColor');
+            border-color: $textareaBorderFocusColorPlaceholderShown;
 
             &::placeholder {
                 opacity: 1;
@@ -48,9 +51,9 @@
         &:focus {
 
             & + .wlc-textarea__label {
-                transform: translateY(map.get($themePlaceholderShown, 'placeholderShift'));
-                font-size: map.get($themePlaceholderShown, 'placeholderFontSize');
-                padding: map.get($themePlaceholderShown, 'placeholderPadding');
+                transform: translateY($placeholderShiftPlaceholderShown);
+                font-size: $placeholderFontSizePlaceholderShown;
+                padding: $placeholderPaddingPlaceholderShown;
                 cursor: pointer;
             }
         }
@@ -60,9 +63,9 @@
         position: absolute;
         top: 0;
         left: 0;
-        font-size: map.get($themePlaceholderShown, 'textareaFontSize');
-        padding: map.get($themePlaceholderShown, 'textareaPadding');
-        margin: map.get($themePlaceholderShown, 'margin');
-        line-height: map.get($themePlaceholderShown, 'labelLineHeight');
+        font-size: $textareaFontSizePlaceholderShown;
+        padding: $textareaPaddingPlaceholderShown;
+        margin: $marginPlaceholderShown;
+        line-height: $labelLineHeightPlaceholderShown;
     }
 }

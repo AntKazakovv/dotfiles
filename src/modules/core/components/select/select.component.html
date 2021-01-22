@@ -16,6 +16,7 @@
          *ngIf="$params.name"
          [className]="$class"
          [control]="control"
+         [validators]="$params?.validators"
          [fieldName]="$params.name.toLowerCase()"
     ></div>
     <div class="{{$class}}-status" *ngIf="control.untouched">
