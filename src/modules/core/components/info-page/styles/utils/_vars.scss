@@ -1,6 +1,6 @@
 @use 'engine-scss/functions' as ef;
 
-$bgColor: #fff;
+$bgColor: ef.get('mainColor', 'bg');
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((

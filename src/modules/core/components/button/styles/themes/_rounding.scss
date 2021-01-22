@@ -6,7 +6,7 @@
 
     &:host {
         @include buttonBase;
-        border-radius: ef.get-value($themeDefault, 'radius');
+        border-radius: ef.get-value($themeDefault, 'radiusRoundingTheme');
 
         &.wlc-btn--theme-mod-secondary {
             @include buttonTransparency;

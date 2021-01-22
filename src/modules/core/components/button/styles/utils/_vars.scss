@@ -39,4 +39,5 @@ $themeDefault: map-merge((
     'gap': ef.get('buttonSettings', 'gap'),
     // Animation
     'time': ef.get('buttonSettings', 'time'),
+    'radiusRoundingTheme': 100px,
 ), $customThemeDefault);
