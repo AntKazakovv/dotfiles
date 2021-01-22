@@ -1,0 +1,55 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/mediaqueries' as mq;
+
+@import '../utils/vars';
+
+.app-profile-dashboard-state {
+
+    .wlc-sections__profile-content {
+
+        > .container {
+            position: relative;
+            display: grid;
+            grid: {
+                template-columns: 1fr;
+                template-rows: auto;
+                template-areas: 'title' 'loyalty-progress' 'exchange';
+                gap: 20px;
+            }
+
+            @include mq.min(1024) {
+                grid: {
+                    template-columns: 1fr 1fr;
+                    template-areas: 'title title' 'loyalty-progress exchange';
+                    gap: 25px 40px;
+                }
+            }
+
+            > .wlc-logout {
+                position: absolute;
+                top: 15px;
+                right: 10px;
+
+                svg {
+                    margin-left: 5px;
+                }
+            }
+        }
+    }
+
+    .wlc-title {
+        grid-area: title;
+    }
+
+    .wlc-loyalty-progress {
+        grid-area: loyalty-progress;
+
+        .wlc-btn {
+            align-self: flex-start;
+        }
+    }
+
+    .wlc-exchange {
+        grid-area: exchange;
+    }
+}

@@ -16,6 +16,20 @@ export const defaultParams: IUserInfoCParams = {
     dropdown: {
         components: [
             {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-user-info__wrp',
+                    components: [
+                        {
+                            name: 'user.wlc-user-name',
+                        },
+                        {
+                            name: 'user.wlc-logout',
+                        },
+                    ],
+                },
+            },
+            {
                 name: 'user.wlc-user-stats',
             },
             {

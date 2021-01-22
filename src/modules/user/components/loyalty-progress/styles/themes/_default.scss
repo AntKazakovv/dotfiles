@@ -1,0 +1,44 @@
+.wlc-loyalty-progress--theme-default:host {
+
+    .wlc-loyalty-progress {
+
+        &__content {
+            display: flex;
+            justify-content: space-between;
+            margin: map-get($themeDefault, 'contentMargin');
+        }
+
+        &__line {
+            position: relative;
+            width: 100%;
+            height: map-get($themeDefault, 'lineHeight');
+            background: map-get($themeDefault, 'lineEmptyBg');
+            border-radius: map-get($themeDefault, 'lineBorderRadius');
+            overflow: hidden;
+
+            &-current {
+                position: absolute;
+                left: 0;
+                top: 0;
+                height: 100%;
+                background: map-get($themeDefault, 'lineFillBg');
+            }
+        }
+
+        &__title {
+            font: {
+                size: map-get($themeDefault, 'levelNameSize');
+                weight: map-get($themeDefault, 'levelNameWeight');
+            };
+            color: map-get($themeDefault, 'levelNameColor');
+        }
+
+        &__points {
+            font: {
+                size: map-get($themeDefault, 'levelPointsSize');
+                weight: map-get($themeDefault, 'levelPointsWeight');
+            };
+            color: map-get($themeDefault, 'levelPointsColor');
+        }
+    }
+}

@@ -1,0 +1,26 @@
+.wlc-user-name--theme-default:host {
+
+    .wlc-user-name {
+
+        &__email {
+            display: flex;
+            align-items: center;
+
+            &-icon::ng-deep {
+                width: ef.get-value($themeDefault, 'userStatsIconSize', 375);
+                height: ef.get-value($themeDefault, 'userStatsIconSize', 375);
+                flex-shrink: 0;
+
+                svg {
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+
+            &-value {
+                margin: map-get($themeDefault, 'userStatsEmailValueMargin');
+                @include text.get-text-style('PrimaryText');
+            }
+        }
+    }
+}

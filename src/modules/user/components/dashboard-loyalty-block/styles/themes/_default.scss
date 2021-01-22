@@ -1,0 +1,65 @@
+.wlc-loyalty-block {
+
+    &:host {
+        padding: map-get($themeDefault, 'padding');
+        background: map-get($themeDefault, 'bg');
+        border-radius: map-get($themeDefault, 'borderRadius');
+    }
+
+    &__loyalty {
+        margin: map-get($themeDefault, 'loyaltyMargin');
+    }
+
+    &__all {
+        margin: map-get($themeDefault, 'loyaltyMargin');
+        @include text.get-text-style('PlaceholderText');
+        font-weight: 700;
+        text-align: center;
+
+        @include mq.min(900) {
+            text-align: left;
+        }
+
+        a {
+            color: map-get($themeDefault, 'allLinkColor');
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: underline;
+            }
+
+            ::ng-deep {
+
+                .wlc-icon {
+                    transform: rotate(-90deg);
+
+                    svg {
+                        fill: map-get($themeDefault, 'allLinkColor');
+                    }
+                }
+            }
+        }
+    }
+
+    &__user-name {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .wlc-logout {
+            display: none;
+            align-self: flex-start;
+
+            @include mq.min(900) {
+                display: block;
+            }
+
+            ::ng-deep {
+
+                svg {
+                    margin-left: 5px;
+                }
+            }
+        }
+    }
+}

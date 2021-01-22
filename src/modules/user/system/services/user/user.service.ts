@@ -57,6 +57,7 @@ export class UserService {
     }
 
     public userProfile$: BehaviorSubject<UserProfile> = new BehaviorSubject(null);
+    public userInfo$: BehaviorSubject<UserInfo> = new BehaviorSubject(null);
 
     constructor(
         public translate: TranslateService,
@@ -76,6 +77,7 @@ export class UserService {
             name: 'USER_INFO',
         }, (info: IData) => {
             this.info.data = info?.data;
+            this.userInfo$.next(this.info);
         });
 
         this.eventService.subscribe([
@@ -201,7 +203,7 @@ export class UserService {
         return this.dataService.request('user/passwordRestore', params);
     }
 
-    public restoreNewPassword(newPassword: string, repeatPassword: string, code: string):  Promise<IIndexing<any>> {
+    public restoreNewPassword(newPassword: string, repeatPassword: string, code: string): Promise<IIndexing<any>> {
         const params = {newPassword, repeatPassword, code};
         return this.dataService.request('user/restoreNewPassword', params);
     }

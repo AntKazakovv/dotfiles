@@ -408,14 +408,17 @@ $container-max-widths: (
 $dummy: map-merge((), $customProfileSettings);
 $profileSettings: map-merge((
     'profileWidth': 1275px,
-    'profileHeaderFontSize': 20px,
+    'profileHeaderFontSize': (
+        375: map-get($font, 'main'),
+        1024: map-get($font, 'biger'),
+    ),
     'profilePadding': (
-        375: 15px 20px,
+        375: 15px 10px,
         1024: 30px 40px,
     ),
     'profileBg': (
-        375: map-get($color, 'backgroundSecondary'),
-        1024: map-get($color, 'backgroundSecondary'),
+        375: map-get($mainColors, 'bg700'),
+        1024: map-get($mainColors, 'bg700'),
     ),
     'profileBorderRadius': (
         375: map-get($size, 'small'),
@@ -468,5 +471,6 @@ $buttonSettings: map-merge((
     'gap': map-get($size, 'smallest'),
     // Animation
     'time': map-get($time, 'main'),
+    'radiusRoundingTheme': 100px,
 ), $customBtnSettings);
 

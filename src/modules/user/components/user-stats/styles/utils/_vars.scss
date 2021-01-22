@@ -1,15 +1,6 @@
 $userStatsMaxWidth: 270px !default;
 $userStatsColor: #fff !default;
 
-$userStatsEmailMargin: 0 0 10px 0 !default;
-$userStatsEmailValueMargin: 0 15px !default;
-
-$userStatsIconWidth: 39px !default;
-$userStatsIconHeight: 39px !default;
-
-$userStatsEmailValueSize: 14px !default;
-$userStatsEmailValueWeight: bold !default;
-
 $userStatsBalancePadding: 11px 15px !default;
 $userStatsBalanceBorderRadius: 10px !default;
 $userStatsBalanceBg: #000 !default;
@@ -28,8 +19,5 @@ $userStatsBalanceItemNameWeight: normal !default;
 
 $userStatsBalanceItemValueSize: 12px !default;
 $userStatsBalanceItemValueWeight: bold !default;
-
-$logoutIconFill: #c4c4c4 !default;
-$logoutIconHoveredFill: lighten($logoutIconFill, 40) !default;
 
 $userStatsBtnMargin: 10px auto !default;

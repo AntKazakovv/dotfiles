@@ -1,17 +1,25 @@
 @import '../utils/vars';
 
-.wlc-change-password-form--theme-default:host {
-    max-width: $formMaxWidth;
-    margin: $formMargin;
+.wlc-logout--theme-default:host {
 
-    &::ng-deep {
+    .wlc-btn {
+        display: flex;
 
-        .wlc-input {
-            margin: $fieldMargin;
+        ::ng-deep {
+
+            .wlc-btn__text {
+                display: flex;
+                align-items: center;
+                @include text.get-text-style('PlaceholderText');
+                color: map-get($themeDefault, 'color');
+            }
         }
 
-        .wlc-btn {
-            margin: $btnMargin;
+        .wlc-icon {
+
+            svg {
+                fill: map-get($themeDefault, 'color');
+            }
         }
     }
 }

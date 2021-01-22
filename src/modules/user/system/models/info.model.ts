@@ -19,68 +19,68 @@ export class UserInfo extends AbstractModel<IUserInfo> {
     }
 
     public get lockExpiresAt(): string {
-        return this.data.LockExpiresAt;
+        return this.data?.LockExpiresAt;
     }
 
     public get affiliateID(): string {
-        return this.data.affiliateID;
+        return this.data?.affiliateID;
     }
 
     public get availableWithdraw(): number {
-        return this.data.availableWithdraw;
+        return this.data?.availableWithdraw;
     }
 
     public get balance(): number {
-        return this.data.balance;
+        return this.data?.balance;
     }
 
     public get category(): string {
-        return this.data.category;
+        return this.data?.category;
     }
 
     public get email(): string {
-        return this.data.email;
+        return this.data?.email;
     }
 
     public get emailHash(): string {
-        return this.data.emailHash;
+        return this.data?.emailHash;
     }
 
     public get firstName(): string {
-        return this.data.firstName;
+        return this.data?.firstName;
     }
 
     public get freeRounds(): IFreeRound[] {
-        return this.data.freerounds;
+        return this.data?.freerounds;
     }
 
     public get idUser(): string {
-        return this.data.idUser;
+        return this.data?.idUser;
     }
 
     public get lastName(): string {
-        return this.data.lastName;
+        return this.data?.lastName;
     }
 
     public get loyalty(): ILoyalty {
-        return this.data.loyalty;
+        return this.data?.loyalty;
     }
 
     public get pinCode(): string {
-        return this.data.pincode;
+        return this.data?.pincode;
     }
 
     public get socketsData(): string {
-        return this.data.socketsData;
+        return this.data?.socketsData;
     }
 
     public get status(): number {
-        return this.data.status;
+        return this.data?.status;
     }
 
     public get bonusBalance(): number {
 
-        return _reduce(this.data.loyalty.BonusesBalance, (accumulator: number, bonusBalance: number) => {
+        return _reduce(this.data?.loyalty?.BonusesBalance, (accumulator: number, bonusBalance: number) => {
             return accumulator + Number(_get(bonusBalance, 'Balance', 0));
         }, 0);
     }
@@ -89,23 +89,23 @@ export class UserInfo extends AbstractModel<IUserInfo> {
         return this.balance - this.bonusBalance;
     }
 
-    public get level(): string {
-        return this.data.loyalty?.Level;
+    public get level(): number {
+        return +this.data?.loyalty?.Level || 0;
     }
 
     public get levelName(): string {
         const defaultLanguage = 'en'; //TODO default lang
         const currentLanguage = this.translate.currentLang;
 
-        return this.data.loyalty?.LevelName[currentLanguage], this.data.loyalty?.LevelName[defaultLanguage], '';
+        return this.data?.loyalty?.LevelName[currentLanguage] || this.data?.loyalty?.LevelName[defaultLanguage];
     }
 
-    public get points(): string {
-        return this.data.loyalty?.Points, '';
+    public get points(): number {
+        return +this.data?.loyalty?.Points || 0;
     }
 
-    public get nextLevelPoints(): string {
-        return this.data.loyalty.NextLevelPoints, '';
+    public get nextLevelPoints(): number {
+        return +this.data?.loyalty?.NextLevelPoints || 0;
     }
 
     public updateBalance(balance: number): void {

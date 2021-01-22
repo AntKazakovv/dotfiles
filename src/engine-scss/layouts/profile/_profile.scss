@@ -1,4 +1,5 @@
 @import './main-info/themes/default';
+@import './dashboard/themes/default';
 
 .wlc-sections__profile-content,
 .wlc-sections__profile-menu {
@@ -28,8 +29,10 @@
     .wlc-title.wlc-title--profile[wlc-title] {
 
         .wlc-title__main {
-            font: {
-                size: ef.get-value($profileSettings, 'profileHeaderFontSize');
+            font-size: ef.get-value($profileSettings, 'profileHeaderFontSize');
+
+            @include mq.min(1024) {
+                font-size: ef.get-value($profileSettings, 'profileHeaderFontSize', 1024);
             }
         }
     }

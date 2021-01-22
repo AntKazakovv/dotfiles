@@ -1,0 +1,16 @@
+<div class="{{$class}}__email">
+    <div
+        class="{{$class}}__email-icon"
+        wlc-icon
+        iconName="user-icon"
+    ></div>
+
+    <div class="{{$class}}__email-value" *ngIf="!firstName || !lastName">
+        {{email | truncate: 20}}
+    </div>
+
+    <div class="{{$class}}__email-value"
+         *ngIf="firstName || lastName">
+        {{firstName + ' ' + lastName | truncate: 20}}
+    </div>
+</div>

@@ -1,0 +1,14 @@
+<div class="{{$class}}__content">
+    <div class="{{$class}}__title">{{userLoyalty?.levelName}}</div>
+    <div class="{{$class}}__points">
+        <span
+            class="{{$class}}__points-amount">{{userLoyalty?.points}} / {{userLoyalty?.nextLevelPoints}}</span>
+        <span
+            class="{{$class}}__points-next"> {{'points to' | translate}} {{userLoyalty?.level * 1 + 1}} {{'Level' | translate}}</span>
+    </div>
+</div>
+<div class="{{$class}}__line">
+    <div class="{{$class}}__line-current"
+         [ngStyle]="{'width' : ((userLoyalty?.points / userLoyalty?.nextLevelPoints) * 100) + '%'}"></div>
+    <div class="{{$class}}__line-sum"></div>
+</div>

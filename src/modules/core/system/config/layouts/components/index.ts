@@ -13,6 +13,9 @@ export * from './user/wlc-login-signup.config';
 export * from './user/wlc-user-info.config';
 export * from './user/wlc-profile-form.config';
 export * from './user/wlc-user-stats';
+export * from './user/wlc-dashboard-exchange';
+export * from './user/wlc-dashboard-loyalty-block';
+export * from './user/wlc-logout';
 
 export * from './promo/wlc-banners-slider.config';
 export * from './promo/wlc-slider.config';
