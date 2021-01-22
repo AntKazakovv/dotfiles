@@ -37,7 +37,7 @@ export namespace wlcBonusesList {
                 sortOrder: ['active', 'subscribe', 'inventory'],
                 title: 'My bonuses',
                 swiper: {
-                    slidesPerView: 4,
+                    slidesPerView: 2,
                     spaceBetween: 20,
                     loop: false,
                     navigation: true,
@@ -58,10 +58,10 @@ export namespace wlcBonusesList {
                             slidesPerView: 2,
                         },
                         1200: {
-                            slidesPerView: 3,
+                            slidesPerView: 2,
                         },
                         1420: {
-                            slidesPerView: 4,
+                            slidesPerView: 2,
                         },
                     },
                 },
