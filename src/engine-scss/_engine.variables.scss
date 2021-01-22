@@ -309,7 +309,7 @@ $form: map-merge((
     'inputFontSize': map-get($font, 'main'),
     'inputHeight': 40px,
     'inputBackground': map-get($color, 'light'),
-    'inputBorder': 2px solid map-get($color, 'divider'),
+    'inputBorder': 2px solid transparent,
     'inputBorderFocusColor': map-get($color, 'divider'),
     'inputBorderRadius': map-get($radius, 'main'),
     'inputPadding': map-get($size, 'smallest') map-get($size, 'main') map-get($size, 'smallest') map-get($size, 'smaller'),
@@ -332,7 +332,7 @@ $form: map-merge((
     'errorsPadding': map-get($size, 'small'),
     'placeholderFontSize': map-get($font, 'smaller'),
     'placeholderPadding': 0 map-get($size, 'smaller'),
-    'placeholderShift': map-get($size, 'main') * -1,
+    'placeholderShift': map-get($size, 'less') * -1,
 ), $customForm);
 
 /// Breakpoints для CSS медиа-запросов.

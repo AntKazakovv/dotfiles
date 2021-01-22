@@ -9,6 +9,7 @@ import {
     ViewEncapsulation,
     SimpleChanges,
     OnChanges,
+    ElementRef,
 } from '@angular/core';
 import {
     AsyncValidatorFn,
@@ -48,6 +49,7 @@ import {
     includes as _includes,
     isUndefined as _isUndefined,
     clone as _clone,
+    some as _some,
 } from 'lodash';
 
 export interface IControls extends IIndexing<FormControl>{
@@ -99,6 +101,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
         eventService: EventService,
         @Inject('injectParams') protected params: IFormWrapperCParams,
         protected validationService: ValidationService,
+        protected elRef: ElementRef,
     ) {
         super(
             ConfigService,
@@ -140,6 +143,15 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
             _each(this.form.controls, (control) => {
                 control.markAsTouched();
             });
+
+            _some(this.config.components, (component) => {
+                if (!!component.params.control.errors) {
+                    this.elRef.nativeElement.querySelector(`#${component.params.name}`).focus();
+                }
+
+                return !!component.params.control.errors
+            })
+
             this.cdr.markForCheck();
         }
     }

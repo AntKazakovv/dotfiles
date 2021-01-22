@@ -5,12 +5,14 @@ import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 import {IRequestMethod} from 'wlc-engine/modules/core/system/services/data/data.service';
 import {matchingFields} from './validators/matchFields.validator';
 import {email} from './validators/email.validator';
+import {regexp} from './validators/regexp.validator';
 
 export type ValidatorType = string | IValidatorSettings;
 
 export interface IValidatorSettings {
     name: string;
     options: any | number;
+    text?: string;
 }
 
 export interface IValidatorListItem {
@@ -42,10 +44,10 @@ export class ValidationService {
             validator: Validators.minLength,
         },
         maxLength: {
-            validator: Validators.max,
+            validator: Validators.maxLength,
         },
-        regExp: {
-            validator: Validators.pattern,
+        max: {
+            validator: Validators.max,
         },
     }
 
@@ -54,6 +56,7 @@ export class ValidationService {
     ) {
         this.setRule<IIndexing<boolean>>('matchingFields', matchingFields);
         this.setRule<IIndexing<boolean>>('email', email);
+        this.setRule<IIndexing<boolean>>('regExp', regexp);
     }
 
     public emailUnique(ctrl: AbstractControl): Promise<IIndexing<boolean>> {

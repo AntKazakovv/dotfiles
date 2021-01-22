@@ -1,52 +1,54 @@
+@use 'engine-scss/functions' as ef;
+
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'errorColor': #f12e74,
-    'successColor': #27bb37,
+    'errorColor': ef.get('form', 'errorColor'),
+    'successColor': ef.get('form', 'successColor'),
 
-    'maxWidth': 765px,
+    'labelFontWeight': ef.get('form', 'labelFontWeight'),
+    'labelColor': ef.get('form', 'labelColor'),
+    'labelFontSize': ef.get('form', 'labelFontSize'),
+    'labelGap': ef.get('size', 'small'),
 
-    'labelFontWeight': bold,
-    'labelColor': #231f20,
-    'labelFontSize': 16px,
+    'textareaWidth': ef.get('form', 'inputMaxWidth'),
+    'textareaMaxWidth': ef.get('form', 'inputMaxWidth'),
+    'textareaBorder': ef.get('form', 'inputBorder'),
+    'textareaBorderFocusColor': ef.get('form', 'inputBorderFocusColor'),
+    'textareaBorderRadius': ef.get('form', 'inputBorderRadius'),
+    'textareaPadding': ef.get('form', 'inputPadding'),
+    'textareaMinHeight': ef.get('form', 'textareaMinHeight'),
 
-    'textareaWidth': 70%,
-    'textareaMaxWidth': 450px,
-    'textareaBorder': 2px solid rgba(0, 0, 0, 0.04),
-    'textareaBorderFocusColor': rgba(0, 0, 0, 0.2),
-    'textareaBorderRadius': 10px,
-    'textareaPadding': 5px 35px 5px 20px,
-    'textareaMinHeight': 220px,
+    'iconWidth': ef.get('form', 'iconWidth'),
+    'iconHeight': ef.get('form', 'iconHeight'),
 
-    'iconWidth': 12px,
-    'iconHeight': 12px,
-    'successIconColor': #fff,
-    'errorIconColor': #fff,
-    'pendingIconColor': rgba(0, 0, 0, 0.5),
+    'successIconColor': ef.get('form', 'successIconColor'),
+    'errorIconColor': ef.get('form', 'errorIconColor'),
+    'pendingIconColor': ef.get('form', 'pendingIconColor'),
 
-    'errorsBgColor': #ffebf2,
-    'errorsColor': #231f20,
-    'errorsMinWidth': 300px,
-    'errorsMaxWidth': 100%,
-    'errorsBorderRadius': 10px,
-    'errorsFontSize': 14px,
-    'errorsPadding': 10px,
+    'errorsBgColor': ef.get('form', 'errorsBgColor'),
+    'errorsColor': ef.get('form', 'errorsColor'),
+    'errorsMinWidth': ef.get('form', 'errorsMinWidth'),
+    'errorsMaxWidth': ef.get('form', 'errorsMaxWidth'),
+    'errorsBorderRadius': ef.get('form', 'errorsBorderRadius'),
+    'errorsFontSize': ef.get('form', 'errorsFontSize'),
+    'errorsPadding': ef.get('form', 'errorsPadding'),
 ), $customThemeDefault);
 
-$customThemePlaceholderShown: () !default;
-$themePlaceholderShown: map-merge((
-    'transition': 0.2s,
-    'margin': 25px 0 0 0,
 
-    'textareaFontSize': 16px,
-    'textareaBorder': 2px solid rgba(0, 0, 0, 0.04),
-    'textareaBorderFocusColor': rgba(0, 0, 0, 0.2),
-    'textareaBorderRadius': 10px,
-    'textareaPadding': 10px 35px 10px 20px,
-    'textareaMinHeight': 250px,
+// theme: placeholder shown
 
-    'placeholderFontSize': 14px,
-    'placeholderPadding': 0 20px,
-    'placeholderShift': -44px,
+$transitionPlaceholderShown: 0.2s;
+$marginPlaceholderShown: 25px 0 0 0;
 
-    'labelLineHeight': 1.3,
-), $customThemePlaceholderShown);
+$textareaFontSizePlaceholderShown: 16px;
+$textareaBorderPlaceholderShown: 2px solid rgba(0, 0, 0, 0.04);
+$textareaBorderFocusColorPlaceholderShown: rgba(0, 0, 0, 0.2);
+$textareaBorderRadiusPlaceholderShown: 10px;
+$textareaPaddingPlaceholderShown: 10px 35px 10px 20px;
+$textareaMinHeightPlaceholderShown: 125px;
+
+$placeholderFontSizePlaceholderShown: 14px;
+$placeholderPaddingPlaceholderShown: 0 20px;
+$placeholderShiftPlaceholderShown: -44px;
+
+$labelLineHeightPlaceholderShown: 1.3;

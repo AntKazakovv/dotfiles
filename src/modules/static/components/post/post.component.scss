@@ -1,4 +1,5 @@
-.wlc-post {
+.wlc-post:host {
+    color: #fff;
 
     &-loading {
         text-align: center;
@@ -26,9 +27,11 @@
 }
 
 @keyframes loader-animation {
+
     0% {
         transform: rotate(0deg);
     }
+
     100% {
         transform: rotate(360deg);
     }
