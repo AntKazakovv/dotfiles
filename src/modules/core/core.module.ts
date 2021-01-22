@@ -65,6 +65,8 @@ import {DatepickerComponent} from './components/datepicker/datepicker.component'
 import {TextBlockComponent} from './components/text-block/text-block.component';
 import {DummyComponent} from './components/dummy/dummy.component';
 import {TitleComponent} from './components/title/title.component';
+import {ErrorPageComponent} from './components/error-page/error-page.component';
+
 // -- COMPONENTS IMPORTS END  --;
 
 //  -- DIRECTIVES IMPORTS STARTS--;
@@ -127,6 +129,7 @@ export const components = {
     'wlc-textarea': TextareaComponent,
     'wlc-title': TitleComponent,
     'wlc-wrapper': WrapperComponent,
+    'wlc-error-page': ErrorPageComponent,
 };
 
 @NgModule({
@@ -202,6 +205,7 @@ export const components = {
         WlcModalComponent,
         WrapperComponent,
         WrapperComponent,
+        ErrorPageComponent,
     ],
     exports: [
         BrowserAnimationsModule,
@@ -247,6 +251,7 @@ export const components = {
         WlcModalComponent,
         WrapperComponent,
         TitleComponent,
+        ErrorPageComponent,
     ],
 })
 export class CoreModule {

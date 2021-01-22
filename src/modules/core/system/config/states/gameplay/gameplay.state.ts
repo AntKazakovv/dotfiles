@@ -2,8 +2,8 @@
 
 import {Ng2StateDeclaration} from '@uirouter/angular';
 import {startGameResolver} from './start-game.resolver';
-import {StateHelper} from 'wlc-engine/modules/core/system/config/state.helper';
-import {ConfigService, ModalService} from 'wlc-engine/modules/core/system/services';
+import {StateHelper} from 'wlc-engine/modules/core/system/helpers/state.helper';
+import {ModalService} from 'wlc-engine/modules/core/system/services';
 
 export const gamePlayState: Ng2StateDeclaration = {
     url: '/play/:merchantId/:launchCode?:demo',

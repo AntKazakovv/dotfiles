@@ -3,6 +3,7 @@ import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 export const localFiles: IIndexing<string> = {
     'defaultLogo': 'icons/default-logo.svg',
     'defaultFooterLogo': 'icons/default-logo.svg',
+    '404-error': 'icons/404-error.svg',
     'poweroff': 'icons/poweroff.svg',
     'loading': 'icons/loading.svg',
     'arrow': 'icons/arrow.svg',

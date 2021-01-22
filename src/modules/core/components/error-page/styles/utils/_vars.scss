@@ -1,0 +1,13 @@
+@use 'engine-scss/functions' as ef;
+
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'color': #ffffff,
+    'underline': #ff8a00,
+    'gap': 15px,
+    'radius': 10px,
+    'background': #2f2f2f,
+    'background-active': #5b5b5b,
+    'background-image': none,
+    'padding': 15px,
+),$customThemeDefault);

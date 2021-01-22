@@ -3,6 +3,7 @@ export * from './catalog.state';
 export * from './home.state';
 export * from './pages.state';
 export * from './contacts.state';
+export * from './error-page.state';
 export * from './profile/profile.state';
 export * from './profile/profile-main.state';
 export * from './profile/profile-verification.state';
@@ -20,3 +21,4 @@ export * from './profile/profile-cash.state';
 export * from './profile/profile-bonuses.state';
 export * from './profile/profile-messages.state';
 export * from './profile/profile-password.state';
+

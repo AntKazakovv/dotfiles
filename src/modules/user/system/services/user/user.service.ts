@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
+import {StateService} from '@uirouter/core';
 import {
     Subscription,
     BehaviorSubject,
@@ -26,7 +27,6 @@ import {
     assign as _assign,
     keys as _keys,
 } from 'lodash';
-
 
 //данные для входа 'maksim.shahov@softgamings.com', 'Test123!'
 
@@ -64,6 +64,7 @@ export class UserService {
         protected eventService: EventService,
         protected configService: ConfigService,
         protected modalService: ModalService,
+        private stateService: StateService,
     ) {
         this.isAuthenticated = this.configService.get('$user.isAuthenticated');
 
@@ -110,6 +111,9 @@ export class UserService {
         }, () => {
             this.isAuthenticated = false;
             this.configService.set({name: '$user.isAuthenticated', value: false});
+            stateService.go('app.home', {
+                locale: this.translate.currentLang,
+            });
             this.stopUserInfoFetcher();
         });
 

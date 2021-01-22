@@ -20,11 +20,7 @@ import {IPlayGameForRealCParams} from 'wlc-engine/modules/games/components/play-
 
 import {
     includes as _includes,
-    keys as _keys,
-    intersection as _intersection,
-    forEach as _forEach,
     clone as _clone,
-    isArray as _isArray,
     union as _union,
     reduce as _reduce,
     toNumber as _toNumber,
@@ -116,7 +112,6 @@ class StartGameHandler {
     }
 
     private async init(): Promise<void> {
-
         const waiter = this.logService.waiter({code: '3.0.11'}, 7000);
         try {
             await this.gamesCatalogService.ready;
@@ -168,6 +163,10 @@ class StartGameHandler {
                     merchantId: this.transition.params().merchantId,
                     launchCode: this.transition.params().launchCode,
                 },
+            });
+
+            this.stateService.go('app.error', {
+                locale: this.configService.get('appConfig.language'),
             });
         });
 
@@ -251,6 +250,7 @@ class StartGameHandler {
      */
     private async checkGame(): Promise<boolean> {
         this.game = this.gamesCatalogService.getGame(_toNumber(this.transition.params().merchantId), this.transition.params().launchCode);
+
         if (!this.game) {
             this.logService.sendLog({code: '3.0.1', data: this.stateService.params});
             this.result.reject(RejectReason.GameNotFounded);

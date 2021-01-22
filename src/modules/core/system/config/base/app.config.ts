@@ -1,3 +1,6 @@
-import {AppType} from 'wlc-engine/modules/core';
+import {IAppConfig} from 'wlc-engine/modules/core/system/interfaces/base-config/app.interface';
 
-export const app: AppType = 'wlc';
+export const appConfig: IAppConfig = {
+    type: 'wlc',
+    toHomeFromErrorTimeout: 25000,
+};

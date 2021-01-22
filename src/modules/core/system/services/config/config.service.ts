@@ -144,11 +144,11 @@ export class ConfigService {
     }
 
     private addSiteConfig(): void {
-        if (appConfig.$base?.app) {
-            wlcConfig.$base.app = appConfig.$base.app;
+        if (appConfig.$base?.app.type) {
+            wlcConfig.$base.app.type = appConfig.$base.app.type;
         }
 
-        const layoutConfig = this.addLayoutConfig(wlcConfig.$base.app);
+        const layoutConfig = this.addLayoutConfig(wlcConfig.$base.app.type);
         _mergeWith(this.global, wlcConfig, layoutConfig, (target, source) => (source.replaceConfig) ? source : undefined);
         _mergeWith(this.global, appConfig, (target, source) => (source.replaceConfig) ? source : undefined);
         GlobalHelper.deepFreeze(this.global.appConfig);
