@@ -1,21 +1,35 @@
+
+/** Input params for an icon in an icon list [IconListComponent]{@link IconListComponent}. */
 export interface IIconParams {
+    /** Defines how to display image. If not defined, it will be defined automatically */
     showAs?: IconType;
+    /** Path to image  */
     iconUrl?: string;
+    /** Path to image which be displayed by hover. */
     iconHoverUrl?: string;
+    /** Potfix for image resolutions (2x supported). */
     postfix?: IPostfix;
+    /** Class modifier for the list item.  */
     modifier?: string;
+    /** Inside link. Only one parametr available `sref` or `href` */
     sref?: string;
+    /** Outside link. Only one parametr available `sref` or `href`. */
     href?: string;
+    /** If not defined, uses `_self` for `sref` and `_blank` for `href`. */
     target?: string;
+    /** Image alt attribute. Requires only if image is displayed with `<img>` tag. */
     alt?: string;
+    /** Link title attribute. Requires only if image is displayed with `<a>` tag. */
     title?: string;
 }
 
+/** Image resolution postfix. Example: `'@2x'`. */
 interface IPostfix {
     main: string;
     hover?: string;
 }
 
+/** Type of displayed icon. */
 type IconType = 'img' | 'svg';
 
 export class IconModel {

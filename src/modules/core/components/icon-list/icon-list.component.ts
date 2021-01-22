@@ -33,6 +33,10 @@ import {
     includes as _includes,
 } from 'lodash';
 
+/**
+ *  Component to display an icon list.
+ *  Take a look at [IconModel]{@link IconModel} to clarify data for items.
+ */
 @Component({
     selector: '[wlc-icon-list]',
     templateUrl: './icon-list.component.html',
@@ -41,9 +45,12 @@ import {
     encapsulation: ViewEncapsulation.None,
 })
 export class IconListComponent extends AbstractComponent implements OnInit {
+    /** List of items being rendered. */
     public items: IconModel[];
+    /** @ignore */
     public $params: Params.IIconListCParams;
 
+    /** @ignore */
     @Input() protected inlineParams: Params.IIconListCParams;
 
     constructor(
@@ -57,6 +64,7 @@ export class IconListComponent extends AbstractComponent implements OnInit {
         super({injectParams, defaultParams: Params.defaultParams}, configService);
     }
 
+    /** Calls method based on the component theme */
     public async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
 
@@ -76,6 +84,10 @@ export class IconListComponent extends AbstractComponent implements OnInit {
         }
     }
 
+    /** Creates the icon list.
+     * Calls if `theme` is `merchants`.
+     * Based on games request data.
+     **/
     protected async setMerchantsLst(): Promise<void> {
 
         this.eventService.subscribe({
@@ -100,6 +112,11 @@ export class IconListComponent extends AbstractComponent implements OnInit {
         });
     }
 
+    /**
+     * Creates the icon list.
+     * Calls if `theme` is `payments`.
+     * Based on bootstrap request data.
+     **/
     protected setPaymentsLst(): void {
         let payments: IPaysystem[] = this.configService.get('appConfig.siteconfig.payment_systems') || [];
 
@@ -139,28 +156,49 @@ export class IconListComponent extends AbstractComponent implements OnInit {
         });
     }
 
+    /**
+     * Creates the icon list.
+     * Calls if `theme` is `custom`.
+     * Based on `icons` param.
+     **/
     protected setCustomLst(): void {
         if (this.$params.items?.length) {
             this.createItemsList(this.$params.items);
         } else {
-            console.error('[wlc-icon-list] component requires "items" param on theme "custom"');
+            console.error('[wlc-icon-list] component requires "items" param on the custo theme');
         }
     }
 
-    protected createItemsList(items: IIconParams[]) {
+    /** @ignore */
+    protected createItemsList(items: IIconParams[]): void {
         this.items = _map<IIconParams, IconModel>(items, (item: IIconParams): IconModel => {
             return new IconModel(item);
         });
     }
 
+    /**
+     * Creates modifier for thee item.
+     * @param {string} mod - The item modifier
+     * @returns The class-modifier for the item.
+     */
     protected getItemModifier(mod: string): string {
         return mod ? `${this.$class}__item--${mod.replace(' ', '-')}` : '';
     }
 
+    /**
+     * Converts string to snakeCase. One or multiple spaces are replaced with underscores, parentheses are removed.
+     * @param {strign} name - The string to convert.
+     * @returns The snake cased string.
+     */
     protected toSnakeCase(name: string): string {
         return name.toLowerCase().replace(/\s+|\s/g, '_').replace(/[()]/g, '');
     }
 
+    /**
+     * Creates path to paysystem or merchant images.
+     * @param {string} name - Name of paysystem or alias of merchant
+     * @returns The path to image.
+     */
     protected getPath(name: string): string {
         const {type, theme} = this.$params;
         const rootPath = type === 'svg' ? '' : '/gstatic';
