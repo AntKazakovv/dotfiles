@@ -16,7 +16,8 @@ export interface IInputCParams extends IComponentParams<ComponentTheme, Componen
         placeholder?: string;
         type?: string;
         customModifiers?: CustomMod;
-        usePasswordVisibilityDirective?: boolean;
+        usePasswordVisibilityBtn?: boolean;
+        useLable?: boolean;
     }
     validators?: ValidatorType[];
     control?: FormControl;
@@ -30,6 +31,7 @@ export const defaultParams: Partial<IInputCParams> = {
     class: 'wlc-input',
     common: {
         type: 'text',
-        usePasswordVisibilityDirective: false,
+        usePasswordVisibilityBtn: false,
+        useLable: true,
     },
 };

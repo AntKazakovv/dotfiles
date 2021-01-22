@@ -1,0 +1,68 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/base.mixins' as em;
+@import '../utils/vars';
+
+.wlc-enter-promocode--theme-default:host {
+
+    .wlc-enter-promocode {
+
+        &__container {
+            @include em.get-mq-map('padding', $themeDefault, 'containerPadding');
+
+            background: ef.get-value($themeDefault, 'containerBackground');
+            box-shadow: ef.get-value($themeDefault, 'containerShadow');
+
+            border-radius: ef.get-value($themeDefault, 'containerRadius');
+        }
+
+        &__title {
+            font-size: ef.get-value($themeDefault, 'titleFontSize');
+            font-weight: ef.get-value($themeDefault, 'titleFontWeight');
+            line-height: ef.get-value($themeDefault, 'titleLineHeight');
+            text-align: center;
+            color: ef.get-value($themeDefault, 'titleColor');
+        }
+
+        &__control {
+            position: relative;
+        }
+
+        &__btn {
+            position: absolute;
+            top: ef.get-value($themeDefault, 'btnBasePosition');
+            bottom: ef.get-value($themeDefault, 'btnBasePosition');
+            right: ef.get-value($themeDefault, 'btnRightPosition');
+            margin: auto;
+
+            width: ef.get-value($themeDefault, 'btnSize');
+            height: ef.get-value($themeDefault, 'btnSize');
+
+            background: ef.get-value($themeDefault, 'btnBackground');
+            border-radius: ef.get-value($themeDefault, 'btnRadius');
+
+            @include em.transition(background);
+
+            ::ng-deep {
+
+                .wlc-btn__text,
+                .wlc-btn__text * {
+                    display: inline-block;
+                    line-height: 0;
+                }
+
+                svg {
+                    width: ef.get-value($themeDefault, 'btnIconSize');
+                    height: ef.get-value($themeDefault, 'btnIconSize');
+
+                    * {
+                        fill: ef.get-value($themeDefault, 'btnIconFill');
+                    }
+                }
+            }
+
+            &:hover {
+                background: ef.get-value($themeDefault, 'btnBackgroundHover');
+            }
+        }
+    }
+}

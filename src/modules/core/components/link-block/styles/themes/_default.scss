@@ -1,0 +1,69 @@
+@use 'engine-scss/functions' as ef;
+@import '../utils/vars';
+@import '../utils/mixins';
+
+.wlc-link-block--theme-default:host {
+
+    &::ng-deep {
+
+        .wlc-link-block {
+
+            &__title {
+                @include baseText( ef.get-value($themeDefault, 'titleFontSize'), ef.get-value($themeDefault, 'titleFontWeight'), center, ef.get-value($themeDefault, 'titleColor'));
+
+                margin: ef.get-value($themeDefault, 'titleMargin');
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+
+            &__subtitle {
+                @include baseText( ef.get-value($themeDefault, 'subtitleFontSize'), ef.get-value($themeDefault, 'subtitleFontWeight'), center, ef.get-value($themeDefault, 'subtitleColor'));
+
+                margin: ef.get-value($themeDefault, 'subtitleMargin');
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+
+            &__text {
+                text-align: center;
+
+                margin: 0;
+            }
+
+            &__link {
+                @include baseText(ef.get-value($themeDefault, 'linkFontSize'), ef.get-value($themeDefault, 'linkFontWeight'), center, ef.get-value($themeDefault, 'linkColor'));
+
+                outline: none;
+                border: none;
+
+                display: inline-flex;
+                align-items: center;
+
+                background: none;
+                text-decoration: none;
+
+                &:hover {
+                    color: ef.get-value($themeDefault, 'linkColorHover');
+                    text-decoration: underline;
+                }
+
+                .icon-arrow {
+                    margin: ef.get-value($themeDefault, 'iconMargin');
+
+                    ::ng-deep {
+
+                        svg {
+                            transform: rotateZ(-90deg);
+
+                            fill: ef.get-value($themeDefault, 'iconFill');
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

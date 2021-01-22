@@ -1,61 +1,61 @@
 <div class="{{$class}}__content"
-    [class.subscribed]="bonus.isSubscribed"
+    [class.subscribed]="$params.common.bonus.isSubscribed"
     [class.chosen]="chosen"
     [class.noauth]="!isAuth"
     [class.nochoosebtn]="isNoChooseBtn"
     [class.choosebtn]="isChooseBtn">
-    <div class="{{$class}}__wrapper" (click)="chooseBonusNoBtn(bonus, $params.common?.type)">
+    <div class="{{$class}}__wrapper" (click)="chooseBonusNoBtn($params.common.bonus, $params.common?.type)">
         <div class="{{$class}}__image-block">
             <div class="{{$class}}__tag" *ngIf="$params.common?.showBonusTag">{{getBonusTag() | translate}}</div>
             <div class="{{$class}}__image" *ngIf="!$params.common?.useIconBonusImage && $params.common.imageByType"
-                style="background-image: url({{bonus.getImageByType($params.common?.type)}});">
-                <img class="wlc-bonus-image-other" *ngIf="$params.common?.showAdditionalImage" [src]="bonus.imageOther" loading="lazy">
+                [style]="{backgroundImage: $params.common.bonus.getImageByType($params.common?.type)}">
+                <img class="wlc-bonus-image-other" *ngIf="$params.common?.showAdditionalImage" [src]="$params.common.bonus.imageOther" loading="lazy">
             </div>
             <div class="{{$class}}__image" *ngIf="!$params.common?.useIconBonusImage && !$params.common.imageByType"
-                style="background-image: url({{bonus.image}});">
-                <img class="wlc-bonus-image-other" *ngIf="$params.common?.showAdditionalImage" [src]="bonus.imageOther" loading="lazy">
+                [style]="{backgroundImage: $params.common.bonus.image}">
+                <img class="wlc-bonus-image-other" *ngIf="$params.common?.showAdditionalImage" [src]="$params.common.bonus.imageOther" loading="lazy">
             </div>
             <div class="{{$class}}__bonus-icon" *ngIf="$params.common?.useIconBonusImage">
-                <img class="icon-sign" [src]="$params.common?.iconsPath + bonus.viewTarget + '.svg'" alt="">
-                <div class="icon-text icon-text--{{getValueLengthClass(bonus.value)}}">{{bonus.value}}</div>
+                <img class="icon-sign" [src]="$params.common?.iconsPath + $params.common.bonus.viewTarget + '.svg'" alt="">
+                <div class="icon-text icon-text--{{getValueLengthClass($params.common.bonus.value)}}">{{$params.common.bonus.value}}</div>
             </div>
         </div>
         <div class="{{$class}}__bottom">
             <div class="{{$class}}__info-block">
                 <h4 class="{{$class}}__name" [wlc-clamp]="1">
-                    {{bonus.name}}
+                    {{$params.common.bonus.name}}
                 </h4>
                 <p class="{{$class}}__description" [wlc-clamp]="2">
-                    {{bonus.description}}
+                    {{$params.common.bonus.description}}
                 </p>
                 <button type="button"
                         wlc-button
                         text="{{'More info' | translate}}"
                         *ngIf="!$params.common?.iconMoreBtn"
-                        (click)="openDescription(bonus.id)">
+                        (click)="openDescription($params.common.bonus.id)">
                 </button>
             </div>
-            <div class="{{$class}}__active-block" *ngIf="bonus.isActive">
+            <div class="{{$class}}__active-block" *ngIf="$params.common.bonus.isActive">
                 <div class="{{$class}}__timer">
                     <!-- TODO: add timer component -->
-                    {{bonus.expirationTime()}}
+                    {{$params.common.bonus.expirationTime()}}
                     <div class="secondary-text">{{'Time working' | translate}}</div>
                 </div>
                 <div class="{{$class}}__progress">
                     <div class="{{$class}}__remaning">
                         <!-- TODO: add wlc-currency component -->
-                        <span>{{currency}}</span> {{bonus.wageringLeft}}
+                        <span>{{currency}}</span> {{$params.common.bonus.wageringLeft}}
                         {{'of'| translate}}
-                        <span>{{currency}}</span> {{bonus.wageringTotal}}
+                        <span>{{currency}}</span> {{$params.common.bonus.wageringTotal}}
                         {{'remaning' | translate}}
                     </div>
                     <div class="{{$class}}__progressbar">
                         <div class="{{$class}}__progress-inner"
-                            [ngStyle]="{width: (bonus.getProgress() || 0)+'%'}"
+                            [ngStyle]="{width: ($params.common.bonus.getProgress() || 0)+'%'}"
                         ></div>
                     </div>
                     <div class="secondary-text">
-                        {{bonus.getProgress()}}% {{'Cleared' | translate}}
+                        {{$params.common.bonus.getProgress()}}% {{'Cleared' | translate}}
                     </div>
                 </div>
             </div>
@@ -63,27 +63,27 @@
                 <button type="button"
                         wlc-button
                         text="Subscribe"
-                        *ngIf="bonus.canSubscribe"
+                        *ngIf="$params.common.bonus.canSubscribe"
                         (click)="join()">
                 </button>
                 <button type="button"
                         wlc-button
                         text="Take"
-                        *ngIf="bonus.inventoried"
+                        *ngIf="$params.common.bonus.inventoried"
                         (click)="getInventory()">
                 </button>
                 <button type="button"
                         wlc-button
                         text="Unsubscribe"
                         themeMod="secondary"
-                        *ngIf="bonus.canUnsubscribe"
+                        *ngIf="$params.common.bonus.canUnsubscribe"
                         (click)="unsubscribe()">
                 </button>
                 <button type="button"
                         wlc-button
                         text="Cancel"
                         themeMod="secondary"
-                        *ngIf="bonus.isActive"
+                        *ngIf="$params.common.bonus.isActive"
                         (click)="leave()">
                 </button>
             </div>
@@ -91,8 +91,8 @@
                 <button type="button"
                         wlc-button
                         text="Choose"
-                        [disabled]="bonus.isChoose"
-                        (click)="chooseBonus(bonus, $params.common?.type)">
+                        [disabled]="$params.common.bonus.isChoose"
+                        (click)="chooseBonus($params.common.bonus, $params.common?.type)">
                 </button>
             </div>
         </div>
@@ -102,7 +102,7 @@
             class="icon-btn"
             wlc-icon
             iconName="info"
-            (click)="openDescription(bonus)">
+            (click)="openDescription($params.common.bonus)">
         </div>
     </div>
     <div class="{{$class}}__check-icon" *ngIf="isTypeRegDeposit">

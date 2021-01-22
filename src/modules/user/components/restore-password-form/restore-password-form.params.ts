@@ -61,11 +61,16 @@ export const restorePasswordFormConfig: IFormWrapperCParams = {
             },
         },
         {
-            name: 'user.wlc-have-account',
+            name: 'core.wlc-link-block',
             params: {
                 common: {
-                    titleText: gettext('Don’t have an account?'),
+                    subtitleText: gettext('Don’t have an account?'),
                     linkText: gettext('Register now'),
+                    actionParams: {
+                        modal: {
+                            name: 'signup',
+                        },
+                    },
                 },
             },
         },

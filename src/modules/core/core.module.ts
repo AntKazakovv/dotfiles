@@ -50,6 +50,7 @@ import {FeedbackFormComponent} from './components/feedback-form/feedback-form.co
 import {InputComponent} from './components/input/input.component';
 import {ButtonComponent} from './components/button/button.component';
 import {CloseComponent} from './components/close/close.component';
+import {LinkBlockComponent} from './components/link-block/link-block.component';
 import {LoaderComponent} from './components/loader/loader.component';
 import {LayoutComponent} from './components/layout/layout.component';
 import {TextareaComponent} from './components/textarea/textarea.component';
@@ -63,7 +64,7 @@ import {CurrencyComponent} from 'wlc-engine/modules/core/components/currency/cur
 import {DatepickerComponent} from './components/datepicker/datepicker.component';
 import {TextBlockComponent} from './components/text-block/text-block.component';
 import {DummyComponent} from './components/dummy/dummy.component';
-import { TitleComponent } from './components/title/title.component';
+import {TitleComponent} from './components/title/title.component';
 // -- COMPONENTS IMPORTS END  --;
 
 //  -- DIRECTIVES IMPORTS STARTS--;
@@ -116,6 +117,7 @@ export const components = {
     'wlc-input': InputComponent,
     'wlc-language-selector': LanguageSelectorComponent,
     'wlc-license': LicenseComponent,
+    'wlc-link-block': LinkBlockComponent,
     'wlc-loader': LoaderComponent,
     'wlc-logo': LogoComponent,
     'wlc-modal': WlcModalComponent,
@@ -185,6 +187,7 @@ export const components = {
         LanguageSelectorComponent,
         LayoutComponent,
         LicenseComponent,
+        LinkBlockComponent,
         LoaderComponent,
         LogoComponent,
         WlcModalComponent,
@@ -225,6 +228,7 @@ export const components = {
         LanguageSelectorComponent,
         LayoutComponent,
         LicenseComponent,
+        LinkBlockComponent,
         LoaderComponent,
         LogoComponent,
         WlcModalComponent,

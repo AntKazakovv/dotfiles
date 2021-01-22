@@ -2,6 +2,7 @@ import {
     IComponentParams,
     CustomType,
 } from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus';
 
 export type Type = 'default' | 'reg' | 'deposit' | 'promo' | 'store' | 'active' | 'inventory' | CustomType;
 export type Theme = 'default' | CustomType;
@@ -24,6 +25,7 @@ export interface IBonusItemParams extends IComponentParams<Theme, Type, ThemeMod
         hideChooseBtn?: boolean;
         iconMoreBtn?: boolean;
         iconsPath?: string;
+        bonus?: Bonus;
     };
 }
 

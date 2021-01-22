@@ -216,7 +216,7 @@ export const $layouts: ILayoutsConfig = {
     'app.profile.dashboard': {
         extends: 'app.profile',
         sections: {
-            'profile-content': sectionsLib.profileContent.empty,
+            'profile-content': sectionsLib.profileContent.profileDashboard,
         },
     },
     'app.contacts': {

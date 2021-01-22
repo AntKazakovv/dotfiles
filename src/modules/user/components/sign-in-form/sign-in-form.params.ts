@@ -62,7 +62,7 @@ export const signInFormConfig: IFormWrapperCParams = {
                     placeholder: gettext('Password *'),
                     type: 'password',
                     customModifiers: 'right-shift',
-                    usePasswordVisibilityDirective: true,
+                    usePasswordVisibilityBtn: true,
                 },
                 name: 'password',
                 validators: ['required', 'password',
@@ -92,11 +92,16 @@ export const signInFormConfig: IFormWrapperCParams = {
             },
         },
         {
-            name: 'user.wlc-have-account',
+            name: 'core.wlc-link-block',
             params: {
                 common: {
-                    titleText: gettext('Don’t have an account?'),
+                    subtitleText: gettext('Don’t have an account?'),
                     linkText: gettext('Sign up now'),
+                    actionParams: {
+                        modal: {
+                            name: 'signup',
+                        },
+                    },
                 },
             },
         },

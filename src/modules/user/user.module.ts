@@ -13,7 +13,6 @@ import {UserService} from './system/services';
 
 // Components
 import {ChangePasswordFormComponent} from './components/change-password-form/change-password-form.component';
-import {HaveAccountComponent} from './components/have-account/have-account.component';
 import {LogoutComponent} from './components/logout/logout.component';
 import {LoginSignupComponent} from './components/login-signup/login-signup.component';
 import {NewPasswordFormComponent} from './components/new-password-form/new-password-form.component';
@@ -28,7 +27,6 @@ import {UserStatsComponent} from './components/user-stats/user-stats.component';
 
 export const components = {
     'wlc-change-password-form': ChangePasswordFormComponent,
-    'wlc-have-account': HaveAccountComponent,
     'wlc-logout': LogoutComponent,
     'wlc-login-signup': LoginSignupComponent,
     'wlc-new-password-form': NewPasswordFormComponent,
@@ -45,7 +43,6 @@ export const components = {
 @NgModule({
     declarations: [
         ChangePasswordFormComponent,
-        HaveAccountComponent,
         LoginSignupComponent,
         NewPasswordFormComponent,
         ProfileFormComponent,
@@ -69,7 +66,6 @@ export const components = {
     ],
     exports: [
         ChangePasswordFormComponent,
-        HaveAccountComponent,
         LoginSignupComponent,
         ProfileFormComponent,
         RestorePasswordFormComponent,
