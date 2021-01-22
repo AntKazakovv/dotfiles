@@ -60,7 +60,4 @@ export interface ISliderCParams extends IComponentParams<ComponentTheme, Compone
 
 export const defaultParams: ISliderCParams = {
     class: 'wlc-slider',
-    swiper: {
-        init: false,
-    },
 };

@@ -17,6 +17,7 @@ export interface IWinnersSliderCParams extends
     title?: string,
     winner?: IWinnerCParams;
     swiper?: SwiperConfigInterface;
+    container?: boolean;
 };
 
 export const defaultParams: IWinnersSliderCParams = {
@@ -29,21 +30,27 @@ export const swiperParamsDefault: IIndexing<SwiperConfigInterface> = {
         slidesPerView: 5,
         spaceBetween: 22,
         loop: true,
-        autoplay: true,
+        autoplay: {
+            disableOnInteraction: false,
+        },
+        watchSlidesVisibility: true,
+        observer: true,
+        observeParents: true,
+        preventClicks: false,
         breakpoints: {
             320: {
                 slidesPerView: 1,
             },
-            560: {
+            640: {
                 slidesPerView: 2,
             },
-            768: {
+            1024: {
                 slidesPerView: 3,
             },
             1200: {
                 slidesPerView: 4,
             },
-            1420: {
+            1630: {
                 slidesPerView: 5,
             },
         },
@@ -51,9 +58,14 @@ export const swiperParamsDefault: IIndexing<SwiperConfigInterface> = {
     vertical: {
         direction: 'vertical',
         slidesPerView: 4,
-        loopedSlides: 4,
         spaceBetween: 10,
         loop: true,
-        autoplay: true,
+        autoplay: {
+            disableOnInteraction: false,
+        },
+        watchSlidesVisibility: true,
+        observer: true,
+        observeParents: true,
+        preventClicks: false,
     },
 };

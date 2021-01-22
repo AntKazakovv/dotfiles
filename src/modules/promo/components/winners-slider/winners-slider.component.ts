@@ -7,6 +7,8 @@ import {
     ChangeDetectorRef,
     ViewChild,
     TemplateRef,
+    Self,
+    Optional,
 } from '@angular/core';
 import {SwiperConfigInterface} from 'ngx-swiper-wrapper';
 import {takeUntil} from 'rxjs/operators';
@@ -22,6 +24,7 @@ import * as Params from './winners-slider.params';
 import {
     merge as _merge,
     clone as _clone,
+    cloneDeep as _cloneDeep,
 } from 'lodash';
 import {WinnerComponent} from 'wlc-engine/modules/promo/components/winner/winner.component';
 
@@ -41,7 +44,6 @@ export class WinnersSliderComponent extends AbstractComponent implements OnInit 
     };
     public slides: ISlide[] = [];
 
-    public title: string;
     public ready: boolean = false;
     @ViewChild('winner') winner: TemplateRef<WinnerModel>;
 
@@ -58,9 +60,7 @@ export class WinnersSliderComponent extends AbstractComponent implements OnInit 
         super.ngOnInit(this.inlineParams);
         this.prepareSliderParams();
 
-        if (this.$params.title) {
-            this.title = this.$params.title;
-        } else {
+        if (!this.$params.title) {
             this.addModifiers('headless');
         }
 
@@ -94,13 +94,12 @@ export class WinnersSliderComponent extends AbstractComponent implements OnInit 
                     this.$params.winner,
                     {winner: item},
                 ),
-
-                // htmlString: '<div>Barracuda</div>',
-
-                // templateRef: this.winner,
-                // templateParams: {item: item},
             };
         });
+
+        if (!this.ready && this.slides.length) {
+            this.ready = true;
+        }
 
         this.cdr.markForCheck();
     }
@@ -111,12 +110,11 @@ export class WinnersSliderComponent extends AbstractComponent implements OnInit 
                                         || _clone(Params.swiperParamsDefault.default);
 
         if (this.$params.swiper) {
-            swiper = _merge(swiper, this.$params.swiper);
+            swiper = _merge({}, swiper, this.$params.swiper);
         }
 
         this.sliderParams.swiper = swiper;
 
-        this.ready = true;
         this.cdr.markForCheck();
     }
 

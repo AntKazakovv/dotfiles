@@ -1,4 +1,5 @@
-@import './../utils/vars';
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/base.mixins' as em;
 @import './../utils/mixins';
 
 .wlc-winner--theme-default:host {
@@ -6,64 +7,146 @@
     .wlc-winner {
 
         &__wrapper {
-            @include wrapperDefault();
+            position: relative;
+            display: flex;
+            line-height: ef.get-value($themeDefault, 'lineHeight');
             align-items: center;
-            padding-left: $borderLinePadding;
+            padding-left: ef.get-value($themeDefault, 'borderLinePadding');
 
             &:before {
                 content: '';
                 position: absolute;
-                width: $borderLineWidth;
+                width: ef.get-value($themeDefault, 'borderLineWidth');
                 height: 90%;
                 top: 10%;
                 left: 0;
-                border-radius: $borderLineRadius;
-                background-color: $borderLineColor;
+                border-radius: ef.get-value($themeDefault, 'borderLineRadius');
+                background-color: ef.get-value($themeDefault, 'borderLineColor');
             }
         }
 
         &__block {
 
             &--left {
-                @include leftDefault();
+                flex: 0 0 auto;
             }
 
             &--right {
-                @include rightDefault();
-                margin-left: $rightMarginLeft;
+                flex: 1 1 auto;
+                min-width: 0;
+                display: grid;
+                grid-template-columns: ef.get-value($themeDefault, 'rightGridTemplateColumns');
+                grid-template-areas: ef.get-value($themeDefault, 'rightGridTemplateAreas');
+                column-gap: ef.get-value($themeDefault, 'rightColumbGap');
+                row-gap: ef.get-value($themeDefault, 'rightRowGap');
+                @include em.get-mq-map('margin-left', $themeDefault, 'rightMarginLeft');
             }
         }
 
         &__image {
-            @include imageDefault();
+            width: ef.get-value($themeDefault, 'imageSize');
+            height: ef.get-value($themeDefault, 'imageSize');
+            max-width: ef.get-value($themeDefault, 'imageSize');
+            max-height: ef.get-value($themeDefault, 'imageSize');
+            border-radius: ef.get-value($themeDefault, 'imageBorderRadius');
+            object-fit: cover;
+            object-position: center;
+            border: ef.get-value($themeDefault, 'imageBorder');
+            box-shadow: ef.get-value($themeDefault, 'imageShadow');
         }
 
         &__user {
-            @include userDefault();
+            grid-area: user;
+            display: flex;
+            min-width: 1px;
+            align-items: center;
+            font: {
+                weight: ef.get-value($themeDefault, 'userFontWeight');
+                style: ef.get-value($themeDefault, 'userFontStyle');
+                size: ef.get-value($themeDefault, 'userFontSize');
+            };
+            text-transform: ef.get-value($themeDefault, 'userTextTransform');
+            color: ef.get-value($themeDefault, 'userColor');
         }
 
         &__name {
-            @include nameDefault();
+            flex: 1 1 auto;
+            overflow-x: hidden;
+            overflow-y: visible;
+            white-space: nowrap;
         }
 
         &__country {
-            @include countryDefault();
+            flex: 0 0 auto;
+            object-fit: cover;
+            object-position: center;
+            width: ef.get-value($themeDefault, 'countryWidth');
+            height: ef.get-value($themeDefault, 'countryHeight');
+            margin-right: ef.get-value($themeDefault, 'countryMarginRight');
+            border: ef.get-value($themeDefault, 'countryBorder');
+            box-shadow: ef.get-value($themeDefault, 'countryShadow');
         }
 
         &__game {
-            @include gameDefault();
+            padding: 0;
+            background: transparent;
+            border: none;
+
+            grid-area: game;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: ef.get-value($themeDefault, 'gameFontSize');
+            color: ef.get-value($themeDefault, 'gameColor');
+            font-weight: ef.get-value($themeDefault, 'gameFontWeight');
+            text-decoration: none;
+
+            &:hover {
+                color: ef.get-value($themeDefault, 'gameHoverColor');
+
+                .wlc-winner__game-name {
+                    border-bottom-color: ef.get-value($themeDefault, 'gameHoverBorderColor');
+                }
+
+                .wlc-winner__game-arrow {
+                    fill: ef.get-value($themeDefault, 'gameHoverArrowColor');
+                }
+            }
+
+            &:focus {
+                outline: none;
+            }
         }
 
         &__game-name {
-            @include gameNameDefault();
+            flex: 0 1 auto;
+            min-width: 0;
+            border-bottom: 1px solid ef.get-value($themeDefault, 'gameBorderColor');
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            transition: ef.get-value($themeDefault, 'transition');
         }
 
         &__game-arrow {
-            @include gameArrowDefault();
+            flex: 0 1 auto;
+            min-width: 0;
+            border-bottom: 1px solid ef.get-value($themeDefault, 'gameBorderColor');
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: ef.get-value($themeDefault, 'gameArrowColor');
+            margin-left: ef.get-value($themeDefault, 'gameArrowMarginLeft');
+            transition: ef.get-value($themeDefault, 'transition');
         }
 
         &__amount {
-            @include amountDefault();
+            grid-area: amount;
+            font-size: ef.get-value($themeDefault, 'amountFontSize');
+            white-space: nowrap;
+            font-weight: ef.get-value($themeDefault, 'amountFontWeight');
+            text-align: right;
+            color: ef.get-value($themeDefault, 'amountColor');
         }
     }
 }

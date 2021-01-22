@@ -1,63 +1,127 @@
 @use 'engine-scss/functions' as ef;
+@use 'engine-scss/engine.variables' as ev;
 
 // if vertical, be careful with sizes
 
-// common
-$borderRadius: ef.get('radius', 'biger') !default;
-$transition: ef.get('time', 'main') linear !default;
+// ~~ theme DEFAULT
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'transition': ef.get('time', 'main') linear,
+    'lineHeight': 1.3,
 
-// border line
-$borderLineWidth: 3px !default;
-$borderLineRadius: 3px !default;
-$borderLinePadding: 20px !default;
-$borderLineColor: ef.get('color', 'link') !default;
+    //border line
+    'borderLineWidth': 3px,
+    'borderLineRadius': 3px,
+    'borderLineColor': ef.get('color', 'link'),
+    'borderLinePadding': 20px,
 
-// winner left block
-$leftBackground: ef.get('color', 'background') !default;
-$leftPadding: 8px 9px !default;
-$lineHeight: 1.2 !default;
-$leftMarginLevtVertival: 20px !default;
+    // winner left block
+    'leftBackground': ef.get('color', 'background'),
+    'leftPadding': 8px 9px,
 
-// winner right block
-$rightGridTemplateColumns: auto 1fr !default;
-$rightGridTemplateAreas: 'user amount' 'game game' !default;
-$rightColumbGap: 10px !default;
-$rightRowGap: 6px !default;
-$rightMarginLeft: 28px !default;
+    // winner right block
+    'rightGridTemplateColumns': auto 1fr,
+    'rightGridTemplateAreas': 'user amount' 'game game',
+    'rightColumbGap': 10px,
+    'rightRowGap': 6px,
+    'rightMarginLeft': (
+        375: 15px,
+        1024: 28px,
+    ),
 
-// image
-$imageSize: 62px !default;
-$imageBorderRadius: $borderRadius !default;
-$imageBorder: none !default;
-$imageShadow: 0 4px 9px rgba($color: #000000, $alpha: 0.7) !default;
+    // image
+    'imageSize': 62px,
+    'imageBorderRadius': ef.get('radius', 'biger'),
+    'imageBorder': none,
+    'imageShadow': 0 4px 5px rgba($color: #000000, $alpha: 0.7),
 
-// user
-$userFontSize: ef.get('font', 'smaller') !default;
-$userColor: ef.get('color', 'text') !default;
-$userFontWeight: 400 !default;
-$userTextTransform: none !default;
-$userFontStyle: normal !default;
+    // user
+    'userFontSize': ef.get('font', 'smaller'),
+    'userColor': ef.get('color', 'text'),
+    'userFontWeight': 400,
+    'userTextTransform': none,
+    'userFontStyle': normal,
 
-// flag
-$flagWidth: 17px !default;
-$flagHeight: 11px !default;
-$flagMarginRight: 10px !default;
-$flagBorder: none !default;
-$flagShadow: none !default;
+    // country
+    'countryWidth': 17px,
+    'countryHeight': 11px,
+    'countryMarginRight': 10px,
+    'countryBorder': none,
+    'countryShadow': none,
 
-// game
-$gameFontSize: ef.get('font', 'main') !default;
-$gameFontWeight: 500 !default;
-$gameColor: ef.get('color', 'link') !default;
-$gameBorderColor: transparent !default;
-$gameArrowColor: $gameColor !default;
-$gameArrowMarginLeft: 10px !default;
+    // game
+    'gameFontSize': ef.get('font', 'main'),
+    'gameFontWeight': 700,
+    'gameColor': ef.get-value(ev.$mainColors, 'baseMain'),
+    'gameBorderColor': transparent,
+    'gameArrowColor': ef.get-value(ev.$mainColors, 'main'),
+    'gameArrowMarginLeft': 10px,
 
-$gameHoverColor: $gameColor !default;
-$gameHoverBorderColor: currentColor !default;
-$gameHoverArrowColor: currentColor !default;
+    'gameHoverColor': currentColor,
+    'gameHoverBorderColor': currentColor,
+    'gameHoverArrowColor': currentColor,
 
-// amount
-$amountFontSize: ef.get('font', 'main') !default;
-$amountColor: ef.get('color', 'text') !default;
-$amountFontWeight: 500 !default;
+    // amount
+    'amountFontSize': ef.get('font', 'main'),
+    'amountColor': ef.get('color', 'text'),
+    'amountFontWeight': 700,
+
+), $customThemeDefault);
+
+// ~~ theme VERTICAL
+$customThemeVertical: () !default;
+$themeVertical: map-merge((
+    'transition': ef.get('time', 'main') linear,
+    'lineHeight': 1.3,
+
+    // winner left block
+    'leftBackground': ef.get('color', 'background'),
+    'leftPadding': 8px 9px,
+    'leftMarginLevtVertival': 20px,
+
+    // winner right block
+    'rightGridTemplateColumns': auto 1fr,
+    'rightGridTemplateAreas': 'user amount' 'game game',
+    'rightColumbGap': 10px,
+    'rightRowGap': 6px,
+    'rightMarginLeft': 28px,
+    'rightBorderRadius': ef.get('radius', 'biger'),
+
+    // image
+    'imageSize': 62px,
+    'imageBorderRadius': ef.get('radius', 'biger'),
+    'imageBorder': none,
+    'imageShadow': 0 4px 5px rgba($color: #000000, $alpha: 0.7),
+
+    // user
+    'userFontSize': ef.get('font', 'smaller'),
+    'userColor': ef.get('color', 'text'),
+    'userFontWeight': 400,
+    'userTextTransform': none,
+    'userFontStyle': normal,
+
+    // country
+    'countryWidth': 17px,
+    'countryHeight': 11px,
+    'countryMarginRight': 10px,
+    'countryBorder': none,
+    'countryShadow': none,
+
+    // game
+    'gameFontSize': ef.get('font', 'main'),
+    'gameFontWeight': 700,
+    'gameColor': ef.get-value(ev.$mainColors, 'baseMain'),
+    'gameBorderColor': transparent,
+    'gameArrowColor': ef.get-value(ev.$mainColors, 'secondary'),
+    'gameArrowMarginLeft': 10px,
+
+    'gameHoverColor': currentColor,
+    'gameHoverBorderColor': currentColor,
+    'gameHoverArrowColor': currentColor,
+
+    // amount
+    'amountFontSize': ef.get('font', 'main'),
+    'amountColor': ef.get('color', 'text'),
+    'amountFontWeight': 700,
+
+), $customThemeVertical);

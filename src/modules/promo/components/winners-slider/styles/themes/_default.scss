@@ -1,17 +1,24 @@
 @use 'engine-scss/mixins/base.mixins' as em;
 @use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/functions' as ef;
 @import './../utils/vars';
-@import './../utils/mixins';
 
 .wlc-winners-slider--theme-default:host {
+    background-color: ef.get-value($themeDefault, 'background');
 
     .wlc-winners-slider {
 
         &__wrapper {
-            @include wrapperDefault();
+            @include em.get-mq-map('padding', $themeDefault, 'wrapperPadding');
+        }
 
-            @include mq.min(1200) {
+        &__container {
+            @include em.get-mq-map('padding', $themeDefault, 'containerPadding');
+
+            @include mq.min(ef.get-value($themeDefault, 'breakpoint')) {
                 display: flex;
+                justify-content: center;
+                align-items: center;
 
                 @include em.manualMod('wlc-winners-slider', 'default' ,'headless') {
                     display: block;
@@ -19,28 +26,42 @@
             }
         }
 
+        &__loader {
+            @include em.get-mq-map('height', $themeDefault, 'loaderHeight');
+
+            @include mq.min(ef.get-value($themeDefault, 'breakpoint')) {
+                flex: 1 1 auto;
+                min-width: 0;
+            }
+        }
+
         &__title {
-            margin-bottom: $titleMarginBottom;
-            font-size: $titleFontSize;
-            font-weight: $titleFontWeight;
-            color: $titleColor;
+            font-size: ef.get-value($themeDefault, 'titleFontSize');
+            font-weight: ef.get-value($themeDefault, 'titleFontWeight');
+            color: ef.get-value($themeDefault, 'titleColor');
+            @include em.get-mq-map('margin-bottom', $themeDefault, 'titleMarginBottom');
+            @include em.get-mq-map('padding-right', $themeDefault, 'titlePaddingRight');
+            @include em.get-mq-map('flex', $themeDefault, 'titleFlex');
+            @include em.get-mq-map('text-align', $themeDefault, 'titleAlignment');
 
             @include em.manualMod('wlc-winners-slider', 'default' ,'headless') {
                 display: none;
-            }
-
-            @include mq.min(1200) {
-                flex: 0 0 auto;
-                margin-bottom: $titleMarginBottomMq1200;
-                padding-right: $titlePaddingRightMq1200;
             }
         }
 
         &__slider {
 
-            @include mq.min(1200) {
+            @include mq.min(ef.get-value($themeDefault, 'breakpoint')) {
                 flex: 1 1 auto;
                 min-width: 0;
+            }
+
+            ::ng-deep {
+
+                .swiper-container {
+                    padding: ef.get-value($themeDefault, 'swiperPaddingShadowFix');
+                    margin: ef.get-value($themeDefault, 'swiperMarginShadowFix');
+                }
             }
         }
     }

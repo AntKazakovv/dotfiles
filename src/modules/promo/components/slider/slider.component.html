@@ -1,42 +1,47 @@
 <div #sliderRef [swiper]="$params.swiper" class="swiper-container">
     <div class="swiper-wrapper">
-        <ng-container *ngFor="let slide of slides" [ngSwitch]="detectSlide(slide)">
-            <ng-container *ngSwitchCase="'component'"
-                [ngTemplateOutlet]="component"
-                [ngTemplateOutletContext]="{item: slide}"
-            ></ng-container>
-
-            <ng-container *ngSwitchCase="'templateRef'"
-                [ngTemplateOutlet]="templateRef"
-                [ngTemplateOutletContext]="{item: slide}"
-            ></ng-container>
-
-            <ng-container *ngSwitchCase="'htmlString'"
-                [ngTemplateOutlet]="html"
-                [ngTemplateOutletContext]="{item: slide}"
-            ></ng-container>
-        </ng-container>
+        <div class="swiper-slide"
+            *ngFor="let n of slidesSequence">
+            <ng-container [ngTemplateOutlet]="slide"
+                [ngTemplateOutletContext]="{slide: slides[n]}">
+            </ng-container>
+        </div>
     </div>
 </div>
 
+<ng-template #slide let-slide="slide">
+    <ng-container [ngSwitch]="detectSlide(slide)">
+        <ng-container *ngSwitchCase="'component'"
+            [ngTemplateOutlet]="component"
+            [ngTemplateOutletContext]="{item: slide}"
+        ></ng-container>
+
+        <ng-container *ngSwitchCase="'templateRef'"
+            [ngTemplateOutlet]="templateRef"
+            [ngTemplateOutletContext]="{item: slide}"
+        ></ng-container>
+
+        <ng-container *ngSwitchCase="'htmlString'"
+            [ngTemplateOutlet]="html"
+            [ngTemplateOutletContext]="{item: slide}"
+        ></ng-container>
+    </ng-container>
+</ng-template>
+
 <ng-template #html let-item="item">
-    <div class="swiper-slide" [innerHTML]="item.htmlString"></div>
+    <div [innerHTML]="item.htmlString"></div>
 </ng-template>
 
 <ng-template #component let-item="item">
-    <div class="swiper-slide">
-        <ng-container
-            [ngComponentOutlet]="item.component"
-            [ngComponentOutletInjector]="getInjector(item)">
-        </ng-container>
-    </div>
+    <ng-container
+        [ngComponentOutlet]="item.component"
+        [ngComponentOutletInjector]="getInjector(item)">
+    </ng-container>
 </ng-template>
 
 <ng-template #templateRef let-item="item">
-    <div class="swiper-slide">
-        <ng-container
-            [ngTemplateOutlet]="item.templateRef"
-            [ngTemplateOutletContext]="item.templateParams">
-        </ng-container>
-    </div>
+    <ng-container
+        [ngTemplateOutlet]="item.templateRef"
+        [ngTemplateOutletContext]="item.templateParams">
+    </ng-container>
 </ng-template>

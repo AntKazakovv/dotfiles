@@ -14,8 +14,9 @@
             <div class="{{$class}}__name">{{name}}</div>
         </div>
 
-        <!-- TODO replace with amount component -->
-        <div class="{{$class}}__amount">{{amount}} {{currency}}</div>
+        <div class="{{$class}}__amount" >
+            <span wlc-currency [value]="amount" [currency]="currency" [digitsInfo]="0-0-0"></span>
+        </div>
 
         <button type="button"
             (click)="startGame($event)"
