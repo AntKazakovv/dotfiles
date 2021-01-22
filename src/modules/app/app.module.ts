@@ -41,6 +41,15 @@ export function loadConfig(config: ConfigService) {
             states: APP_STATES,
             useHash: false,
             config: routerConfigFn,
+            otherwise: (matchValue, url, {globals}) => {
+                return {
+                    state: 'app.error',
+                    params:
+                        {
+                            locale: globals.params.locale || 'en',
+                        },
+                };
+            },
         }),
         TranslateModule.forRoot({
             loader: {

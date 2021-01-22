@@ -2,11 +2,12 @@ import {IDeviceConfig} from 'wlc-engine/modules/core/system/models/device.model'
 import {IGamesConfig} from './games.interface';
 import {IProfileConfig} from './profile.interface';
 import {ITournamentsConfig} from './tournaments.interface';
+import {IAppConfig} from './app.interface';
 
-export type AppType = 'wlc' | 'aff';
+
 
 export interface IBaseConfig {
-    app?: AppType;
+    app?: IAppConfig;
     site?: {
         name: string,
         url: string,

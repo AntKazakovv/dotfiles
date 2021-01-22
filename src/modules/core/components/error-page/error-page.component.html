@@ -1,0 +1,15 @@
+<div class="{{$class}}__image"
+     wlc-icon [iconName]="'404-error'">
+</div>
+<div class="{{$class}}__message">
+    <h2 class="{{$class}}__title">
+        {{'Ooops! It seems you lost yourself!' | translate}}
+    </h2>
+    <p>{{'We got your back!' | translate}}</p>
+</div>
+<div *ngFor="let link of links " class="{{$class}}__link-wrp">
+    <a [uiSref]="link.state"
+       [uiParams]="link.params"
+       class="{{$class}}__link">{{link.title}}
+    </a>
+</div>

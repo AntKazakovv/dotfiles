@@ -1,5 +1,5 @@
 import {Ng2StateDeclaration} from '@uirouter/angular';
-import {StateHelper} from './state.helper';
+import {StateHelper} from '../helpers/state.helper';
 
 import {AppComponent} from 'wlc-engine/modules/app/components/app/app.component';
 import {ConfigService} from 'wlc-engine/modules/core/system/services';
@@ -8,8 +8,6 @@ import * as States from './states';
 
 import {
     map as _map,
-    values as _values,
-    assign as _assign,
 } from 'lodash';
 
 const states = {
@@ -53,6 +51,7 @@ const states = {
     'app.profile.loyalty-level': States.profileLoyaltyLevelState,
     'app.profile.referrals': States.profileReferralsState,
     'app.profile.dashboard': States.profileDashboardState,
+    'app.error': States.errorPageState,
 };
 
 const appState: Ng2StateDeclaration = {

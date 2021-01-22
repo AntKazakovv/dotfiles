@@ -20,8 +20,8 @@ import {debounceTime} from 'rxjs/operators';
 import {
     sortBy as _sortBy,
     get as _get,
+    includes as _includes,
 } from 'lodash';
-
 
 const defaultParams = {
     class: 'wlc-sections',
@@ -52,8 +52,9 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
         private meta: Meta,
     ) {
         super({injectParams: {}, defaultParams}, configService);
-        const currentLang = router.stateService.params?.locale || 'en';
         translate.addLangs(this.configService.get<ILanguage[]>('appConfig.languages').map((lang) => lang.code));
+
+        const currentLang = this.resolveLang();
         translate.setDefaultLang(currentLang);
         translate.use(currentLang);
         const siteName = this.configService.get<string>('$base.site.name');
@@ -63,7 +64,6 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
     }
 
     public ngOnInit(): void {
-
         this.translate.onLangChange.pipe(takeUntil(this.$destroy)).subscribe((v) => {
             this.stateService.go(
                 this.stateService.current.name,
@@ -123,5 +123,14 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
                 content: 'width=375',
             });
         }
+    }
+
+    private resolveLang(): string {
+        const langString = this.router.stateService.params?.locale;
+        if(_includes(this.translate.langs, langString)) {
+            return langString;
+        }
+
+        return 'en';
     }
 }

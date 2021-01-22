@@ -237,4 +237,11 @@ export const $layouts: ILayoutsConfig = {
     'app.catalog.child': {
         extends: 'app.catalog',
     },
+    'app.error': {
+        extends: 'app',
+        sections: {
+            content: sectionsLib.content.error,
+        },
+    },
+
 };
