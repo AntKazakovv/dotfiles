@@ -84,10 +84,6 @@
             @include em.get-mq-map('justify-self', $theme1Footer, 'languageJustifySelf');
         }
 
-        .wlc-logo {
-            @include em.get-mq-map('max-width', $theme1Footer, 'logoMaxWidth');
-        }
-
         .wlc-about-us {
 
             .wlc-license {

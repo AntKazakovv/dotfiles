@@ -30,8 +30,8 @@ $footerCommon: map-merge((
         560: 76.5%,
         900: initial,
     ),
-    'gapMobile': ef.get('size', 'smaller'),
-    'gapTablet': ef.get('size', 'less'),
+    'gapMobile': ef.get('size', 'smally'),
+    'gapTablet': ef.get('size', 'smaller'),
     'gapDesktop': ef.get('size', 'main'),
 ), $customFooterCommon);
 
@@ -49,7 +49,6 @@ $theme1Footer: map-merge((
         560: map-get($footerCommon, 'gapTablet'),
         1024: auto,
     ),
-
     // footer container
     'footerContainerGridColumns': (
         375: 1fr,
@@ -60,24 +59,15 @@ $theme1Footer: map-merge((
     ),
     'footerContainerGridAreas': (
         375: 'merchants' 'payments' 'info' 'about-us' 'language' 'disclaimer',
-        560: 'merchants merchants merchants'
-        'payments payments payments'
-        'info about-us language'
-        'disclaimer disclaimer disclaimer',
-        720: 'merchants merchants merchants merchants'
-        'payments payments payments payments'
-        'logo info about-us language'
-        'disclaimer disclaimer disclaimer disclaimer',
-        1200: 'merchants merchants merchants merchants merchants'
-        'payments payments payments payments payments'
-        'logo info about-us disclaimer language',
+        560: 'merchants merchants merchants' 'payments payments payments' 'info about-us language' 'disclaimer disclaimer disclaimer',
+        720: 'merchants merchants merchants merchants' 'payments payments payments payments' 'logo info about-us language' 'disclaimer disclaimer disclaimer disclaimer',
+        1200: 'merchants merchants merchants merchants merchants' 'payments payments payments payments payments' 'logo info about-us disclaimer language',
     ),
     'footerContainerGridGap': (
         375: map-get($footerCommon, 'gapMobile'),
         560: map-get($footerCommon, 'gapTablet'),
         1024: map-get($footerCommon, 'gapDesktop'),
     ),
-
     // icon list merchants
     'iconListMerchantsGridGap': (
         375: ef.get('size', 'smaller'),
@@ -87,7 +77,6 @@ $theme1Footer: map-merge((
     'iconListMerchantsGridColumns': (
         560: repeat(10, 1fr),
     ),
-
     // list icon payments
     'iconListPaymentsMaxWidth': (
         375: calc(100vw - 30px),
@@ -104,7 +93,6 @@ $theme1Footer: map-merge((
         375: ef.get('size', 'less'),
         1024: ef.get('size', 'biger'),
     ),
-
     // post menu
     'postMenuJustify': (
         375: center,
@@ -118,7 +106,6 @@ $theme1Footer: map-merge((
         375: ef.get('font', 'biger'),
         560: ef.get('font', 'biger'),
     ),
-
     // disclamer
     'disclamerFontSize': (
         375: ef.get('font', 'small'),
@@ -128,16 +115,11 @@ $theme1Footer: map-merge((
         375: center,
         1200: left,
     ),
-
     // language selector
     'languageJustifySelf': (
         375: center,
         560: end,
     ),
-
-    // logo
-    'logoMaxWidth': 120px,
-
     // license
     'licenseAboutUsMargin': map-get($footerCommon, 'gapDesktop') / 2 0 0,
     'licenseMargin': map-get($footerCommon, 'gapDesktop') / 2 auto 0,
@@ -151,7 +133,6 @@ $theme2Footer: map-merge((
         900: 0,
     ),
     'baseBackground': map-get($footerCommon, 'baseBackground'),
-
     // footer-menu
     'footerMenuFlexDirection': (
         900: row,
@@ -160,16 +141,16 @@ $theme2Footer: map-merge((
         900: -1,
     ),
     'footerMenuPadding': (
-        375: 15px 25px,
+        375: 45px 25px,
+        900: 15px 25px,
     ),
     'footerMenuMargin': (
-        375: map-get($footerCommon, 'gapMobile') auto 0,
+        375: map-get($footerCommon, 'gapTablet') auto,
         900: map-get($footerCommon, 'gapTablet') 0 0,
     ),
     'footerMenuMaxWidth': map-get($footerCommon, 'elementMaxWidth'),
     'footerMenuBg': #282b30,
     'footerMenuRadius': 10px,
-
     // footer post menu
     'footerPostMenuMargin': (
         900: 0 ef.get('size', 'biger') * 0.7 0 0,
@@ -183,7 +164,6 @@ $theme2Footer: map-merge((
         375: 20px,
         900: 0,
     ),
-
     //footer post menu title
     'footerPostMenuTitleDisplay': (
         900: none,
@@ -193,7 +173,6 @@ $theme2Footer: map-merge((
     'footerPostMenuTitleTextTransform': uppercase,
     'footerPostMenuTitleColor': ef.get('color', 'main'),
     'footerPostMenuAlignment': center,
-
     //footer post menu grid
     'footerPostMenuGridGap': (
         375: ef.get('size', 'smaller'),
@@ -203,7 +182,6 @@ $theme2Footer: map-merge((
     'footerPostMenuGridAutoFlow': (
         900: column,
     ),
-
     //footer post menu item
     'footerPostMenuItemAlignment': (
         375: center,
@@ -212,60 +190,68 @@ $theme2Footer: map-merge((
         900: nowrap,
     ),
     'footerPostMenuItemFontSize': ef.get('font', 'main'),
-
     //footer post menu link
-    'footerPostMenuLinkColor': ef.get('color', 'main'),
+    'footerPostMenuLinkColor': ef.get('mainColor', 'baseMain'),
     'footerPostMenuLinkFontSize': (
         900: 80%,
         1200: 100%,
     ),
-
     // footer bottom
     'footerBottomDisplay': (
         375: flex,
         900: grid,
     ),
     'footerBottomGridArea': (
-        900: 'logo license disclaimer' 'logo license copyright',
+        900: 'license disclaimer' 'license copyright',
     ),
     'footerBottomGridColumn': (
-        900: auto auto 1fr,
+        900: auto auto,
     ),
-    'footerBottomColumnGap': (
+    'footerBottomGap': (
         900: ef.get('size', 'smaller'),
     ),
     'footerBottomMargin': (
         900: ef.get('size', 'smaller') 0,
+        1200: map-get($footerCommon, 'gapDesktop') auto,
     ),
     'footerBottomOrder': (
         900: 2,
     ),
-
-    // license
-    'licenseMargin': (
-        375: map-get($footerCommon, 'gapMobile') auto,
+    'footerBottomMaxWidth': (
+        375: 100%,
+        1420: 1420px
     ),
+    // license
     'licenseMaxWidth': map-get($footerCommon, 'elementMaxWidth'),
-
     // disclamer
     'disclamerMargin': (
         375: map-get($footerCommon, 'gapMobile') auto,
         900: map-get($footerCommon, 'gapTablet') auto,
     ),
     'disclamerMaxWidth': map-get($footerCommon, 'elementMaxWidth'),
-
     // copyright
     'copyrightTextAlignment': (
         900: left,
+    ),
+    'copyrightMargin': (
+        375: map.get($footerCommon, 'gapTablet') auto map.get($footerCommon, 'gapDesktop'),
+        900: 0,
     ),
     'copyrightTextSpanDisplay': (
         375: block,
         900: inline-block,
     ),
-
     // icon list merchants
     'iconListMerchantsOrder': (
         900: 1,
+    ),
+    'iconListMerchantsMargin': (
+        375: initial,
+        1420: 0 auto,
+    ),
+    'iconListMerchantsMaxWidth': (
+        375: 100%,
+        1420: 1420px,
     ),
     'iconListMerchantsWrapperGap': (
         375: map-get($footerCommon, 'gapMobile'),
@@ -278,7 +264,6 @@ $theme2Footer: map-merge((
     'iconMerchantsImageMaxWidth': (
         375: 80%,
     ),
-
     // icon list payments
     'iconListPaymentsBg': none,
     'iconListPaymentsPadding': (
@@ -290,6 +275,11 @@ $theme2Footer: map-merge((
     ),
     'iconListPaymentsMargin': (
         900: map-get($footerCommon, 'gapTablet') auto,
+        1200: map-get($footerCommon, 'gapDesktop') auto,
+    ),
+    'iconListPaymentsMaxWidth': (
+        375: 100%,
+        1420: 1420px,
     ),
     'iconListPaymentsWrapperDisplay': flex,
     'iconListPaymentsWrapperAlignItems': center,
@@ -310,11 +300,9 @@ $theme2Footer: map-merge((
         375: ef.get('size', 'less'),
         900: ef.get('size', 'less') * 1.2,
     ),
-
     // language selector
     'languageMarginTop': (
         375: 20px,
         900: 0,
     ),
-
 ), $customTheme2Footer);

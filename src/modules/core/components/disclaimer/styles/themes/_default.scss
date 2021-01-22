@@ -3,13 +3,12 @@
 .wlc-disclaimer--theme-default:host {
 
     .wlc-disclaimer__text {
-        font-size: $fontSize;
+        @include text.get-text-style('SigntText');
         text-align: $textAlign;
         color: $textColor;
-        line-height: $lineHeight;
 
         @include mq.min(900) {
-            font-size: $fontSize * 1.2;
+            @include text.get-text-style('PlaceholderText');
             text-align: left;
         }
     }

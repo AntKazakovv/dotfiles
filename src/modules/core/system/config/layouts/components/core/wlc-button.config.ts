@@ -69,17 +69,16 @@ export namespace wlcButton {
     export const login: ILayoutComponent = {
         name: 'core.wlc-button',
         display: {
-            auth: true,
             before: 1023,
+            auth: false,
         },
         params: {
-            class: 'wlc-btn wlc-btn-user',
+            class: 'wlc-btn wlc-btn-login',
             common: {
-                icon: 'user-icon',
-                sref: 'app.profile.cash.deposit',
+                icon: 'login',
                 event: {
-                    name: 'PANEL_OPEN',
-                    data: 'right',
+                    name: 'SHOW_MODAL',
+                    data: 'login',
                 },
             },
         },

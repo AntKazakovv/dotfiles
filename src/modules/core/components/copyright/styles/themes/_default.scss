@@ -3,12 +3,16 @@
 .wlc-copyright--theme-default:host {
 
     .wlc-copyright__text {
-        font-size: $fontSize;
+        @include text.get-text-style('SigntText');
         text-align: $textAlign;
         color: $textColor;
 
         @include mq.min(900) {
-            font-size: $fontSize * 1.2;
+            @include text.get-text-style('PlaceholderText');
+        }
+
+        span {
+            display: block;
         }
 
         a {

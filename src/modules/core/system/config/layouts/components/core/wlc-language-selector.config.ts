@@ -6,6 +6,9 @@ export namespace wlcLanguageSelector {
         params: {
             themeMod: 'top-left',
         },
+        display: {
+            after: 900,
+        },
     };
     export const long: ILayoutComponent = {
         name: 'core.wlc-language-selector',
