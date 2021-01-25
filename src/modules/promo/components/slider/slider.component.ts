@@ -113,13 +113,17 @@ export class SliderComponent extends AbstractComponent
     }
 
     protected fixSlidesSequence(): void {
+        if (!this.slides?.length) {
+            return;
+        }
+
         const {swiper} = this.$params;
         const realSequence: number[] = _times(this.slides.length, (i) => i);
 
         if (swiper.loop) {
             const slides = _isNumber(swiper.slidesPerView) ? swiper.slidesPerView : 5;
             if (slides > this.slides.length) {
-                this.slidesSequence  = _thru(realSequence, (arr) => {
+                this.slidesSequence = _thru(realSequence, (arr) => {
                     let result: number[] = [];
                     while (result.length < slides) {
                         result = result.concat(arr);
