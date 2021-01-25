@@ -25,6 +25,10 @@
                 .user::ng-deep {
                     width: $userInfoDropdownBtnIconSize;
                     height: $userInfoDropdownBtnIconSize;
+
+                    circle {
+                        fill: $userInfoDropdownIconFill;
+                    }
                 }
 
                 .arrow::ng-deep {
@@ -80,6 +84,7 @@
             align-items: center;
             justify-content: space-between;
             width: 100%;
+            margin-bottom: ef.get('size', 'small');
         }
     }
 }

@@ -43,7 +43,8 @@ $customFieldColors: () !default;
 $mainColors: map-merge((
     'main': #ff8a00,
     'secondary': #00d5bb,
-    'baseMain': #ffffff,
+    'baseMain': #fff,
+    'buttonColor': #f94b00,
     'baseOpacity': rgba(255, 255, 255, 0.4),
     'bg100': #e3e3e3,
     'bg300': #a6a6a6,
@@ -78,9 +79,9 @@ $mainColors: map-merge((
 /// @prop {color} successElement [#acf7d3] - success element
 $fieldColors: map-merge((
     'labelColor': #898989,
-    'inputBg': #ffffff,
+    'inputBg': #fff,
     'borderColor': #f2f2f2,
-    'textColor': #000000,
+    'textColor': #000,
     'placeholderColor': #9d9d9d,
     'arrowColor': #b9b9b9,
     'iconColor': #b1b1b1,
@@ -133,7 +134,7 @@ $color: map-merge((
     'disabled': #adadad,
     'modal': #4a4b4c,
     // Text colors
-    'text': #ffffff,
+    'text': #fff,
     'textSecondary': #474747,
     // Link colors
     'link': #adadad,
@@ -223,7 +224,6 @@ $font: map-merge((
     'big': 2rem,
     'huge': 3.2rem,
     'monster': 4rem,
-
     'SigntText': 10px,
     'PlaceholderText': 12px,
     'PrimaryText': 14px,
@@ -441,15 +441,15 @@ $buttonSettings: map-merge((
     'fontSize': map-get($font, 'less'),
     'fontWeight': bold,
     //todo via variables
-    'fontColor': #000,
-    'colorDefaultHover': map-get($color, 'text'),
+    'fontColor': map-get($mainColors, 'baseMain'),
+    'colorDefaultHover': darken(map-get($mainColors, 'baseMain'), 20),
     'fontColorActive': map-get($color, 'text'),
     'fontColorSecondary': map-get($color, 'main'),
     'fontColorActiveSecondary': lighten(map-get($color, 'main'), 20%),
     // Transform
     'textTransform': initial,
     // Background
-    'background': map-get($color, 'main'),
+    'background': map-get($mainColors, 'buttonColor'),
     'backgroundSecondary': map-get($color, 'secondary'),
     'backgroundHover': darken(map-get($color, 'main'), 20%),
     'backgroundSecondaryHover': darken(map-get($color, 'main'), 20%),
@@ -472,5 +472,5 @@ $buttonSettings: map-merge((
     // Animation
     'time': map-get($time, 'main'),
     'radiusRoundingTheme': 100px,
-), $customBtnSettings);
+), $customButtonSettings);
 

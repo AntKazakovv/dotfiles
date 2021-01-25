@@ -2,5 +2,5 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'color': ef.get('mainColor', 'baseOpacity'),
+    'color': ef.get('mainColors', 'baseOpacity'),
 ), $customThemeDefault);

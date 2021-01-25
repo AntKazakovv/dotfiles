@@ -24,7 +24,7 @@ $themeMerchants: map-merge((
     'iconMaxWidth': 100%,
     'iconMaxHeight': ef.get('size', 'biger'),
     'iconMargin': 0 auto,
-    'iconFill': ef.get('color', 'textSecondary'),
+    'iconFill': ef.get('mainColors', 'bg100'),
 ), $customThemeMerchants);
 
 // ~~ theme PAYMENTS
@@ -55,5 +55,5 @@ $themePayments: map-merge((
     'iconMaxWidth': 120px,
     'iconMaxHeight': none,
     'iconMargin': 0 auto,
-    'iconFill': ef.get('color', 'textSecondary'),
+    'iconFill': ef.get('mainColors', 'bg100'),
 ), $customThemePayments);

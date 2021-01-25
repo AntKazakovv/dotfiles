@@ -3,8 +3,6 @@
 @function get($map, $name) {
     @if ($map == 'color') {
         @return map-get(ev.$color, $name);
-    } @else if ($map == 'mainColor') {
-        @return map-get(ev.$mainColors, $name);
     } @else if ($map == 'size') {
         @return map-get(ev.$size, $name);
     } @else if ($map == 'radius') {

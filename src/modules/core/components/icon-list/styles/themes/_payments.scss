@@ -31,13 +31,13 @@
 
         &__item {
             margin: ef.get-value($themePayments, 'iconMargin');
-            fill: ef.get-value($themePayments, 'iconFill');
 
             img,
             .wlc-icon img,
             .wlc-icon svg {
                 @include em.get-mq-map('max-width', $themePayments, 'iconMaxWidth');
                 @include em.get-mq-map('max-height', $themePayments, 'iconMaxHeight');
+                @include em.get-mq-map('fill', $themePayments, 'iconFill');
             }
         }
     }
