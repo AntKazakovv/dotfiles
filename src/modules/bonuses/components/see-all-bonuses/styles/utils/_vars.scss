@@ -6,7 +6,7 @@ $themeDefault: map-merge((
         375: ef.get('size', 'smaller') ef.get('size', 'small'),
         768: ef.get('size', 'less') ef.get('size', 'main'),
     ),
-    'containerBackground': ef.get('mainColor', 'bg300'),
-    'containerShadow': 0 4px 9px 0 rgba(ef.get('mainColor', 'bg'), 0.07),
+    'containerBackground': ef.get('mainColors', 'bg300'),
+    'containerShadow': 0 4px 9px 0 rgba(ef.get('mainColors', 'bg'), 0.07),
     'containerRadius': ef.get('radius', 'biger'),
 ), $customThemeDefault);

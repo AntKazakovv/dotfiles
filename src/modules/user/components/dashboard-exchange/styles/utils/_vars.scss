@@ -30,7 +30,7 @@ $themeDefault: map-merge((
         640: 0,
     ),
     'contentRadius': ef.get('radius', 'biger'),
-    'bg': ef.get('mainColor', 'bg300'),
+    'bg': ef.get('mainColors', 'bg300'),
     'contentBorder': 1px solid transparentize(ef.get('color', 'main'), 0.6),
     'pointsValueSize': 24px,
     'pointsValueWeight': bold,

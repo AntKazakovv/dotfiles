@@ -16,7 +16,7 @@
     padding: ef.get-value($themeDefault, 'padding');
     background: ef.get-value($themeDefault, 'background');
 
-    color: ef.get('buttonSettings', 'fontColor');
+    color: ef.get-value($themeDefault, 'fontColor');
     font: {
         size: ef.get-value($themeDefault, 'fontSize');
         weight: ef.get-value($themeDefault, 'fontWeight');

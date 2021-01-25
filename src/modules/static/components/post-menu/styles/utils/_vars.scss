@@ -8,7 +8,7 @@ $titlePadding: 0 0 ef.get('size', 'smaller') 0 !default;
 
 $linksGap: ef.get('size', 'small') !default;
 
-$linkColor: ef.get('mainColor', 'baseMain') !default;
+$linkColor: ef.get('mainColors', 'baseMain') !default;
 $linkSize: 100% !default;
 $linkDecoration: none !default;
 

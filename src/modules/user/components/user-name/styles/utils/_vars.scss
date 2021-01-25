@@ -10,4 +10,5 @@ $themeDefault: map-merge((
     'userStatsEmailValueWeight': bold,
     'logoutIconFill': #c4c4c4,
     'logoutIconHoveredFill': lighten(#000, 40%),
+    'iconFill': ef.get('mainColors', 'main'),
 ), $customThemeDefault);

@@ -22,13 +22,13 @@
 
         &__item {
             margin: ef.get-value($themeMerchants, 'iconMargin');
-            fill: ef.get-value($themeMerchants, 'iconFill');
 
             img,
             .wlc-icon img,
             .wlc-icon svg {
                 @include em.get-mq-map('max-width', $themeMerchants, 'iconMaxWidth');
                 @include em.get-mq-map('max-height', $themeMerchants, 'iconMaxHeight');
+                @include em.get-mq-map('fill', $themeMerchants, 'iconFill');
             }
         }
     }

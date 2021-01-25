@@ -191,7 +191,7 @@ $theme2Footer: map-merge((
     ),
     'footerPostMenuItemFontSize': ef.get('font', 'main'),
     //footer post menu link
-    'footerPostMenuLinkColor': ef.get('mainColor', 'baseMain'),
+    'footerPostMenuLinkColor': ef.get('mainColors', 'baseMain'),
     'footerPostMenuLinkFontSize': (
         900: 80%,
         1200: 100%,
