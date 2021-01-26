@@ -1,10 +1,10 @@
-$color: ef.get('color', 'text') !default;
+$color: #000 !default;
 $bgColor: #fff !default;
 
 $clearButtonSize: 12px !default;
-$clearButtonColor: ef.get('color', 'text') !default;
+$clearButtonColor: #000 !default;
 $searchIconSize: 18px !default;
-$searchIconColor: ef.get('color', 'text') !default;
+$searchIconColor: #000 !default;
 $searchIconRight: 10px !default;
 $spaceBetweenIcons: 14px !default;
 

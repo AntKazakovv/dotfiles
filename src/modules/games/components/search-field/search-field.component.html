@@ -4,6 +4,7 @@
            #searchField
            (input)="changeSearch()"
            [(ngModel)]="searchQuery"
+           data-wlc-element="input_search"
     >
     <button class="{{$class}}__clear"
             *ngIf="searchQuery?.length"

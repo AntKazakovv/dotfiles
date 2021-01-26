@@ -12,6 +12,7 @@
 
     <div class="{{$class}}__col {{$class}}__col--merchants">
         <button class="{{$class}}__btn"
+                data-wlc-element="block_filter-merchants"
                 [class.active]="openPanel === 'merchants'"
                 (click)="togglePanel('merchants')"
         >
@@ -31,6 +32,7 @@
 
     <div class="{{$class}}__col {{$class}}__col--categories">
         <button class="{{$class}}__btn"
+                data-wlc-element="block_filter-categories"
                 [class.active]="openPanel === 'categories'"
                 (click)="togglePanel('categories')"
         >
@@ -79,7 +81,8 @@
         </li>
 
         <li class="{{$class}}__list-item"
-            *ngFor="let merchant of merchants">
+            *ngFor="let merchant of merchants"
+            [attr.data-wlc-element]="'button_filter-' + merchant.name.toLowerCase() + '_' + merchant.id">
             <button class="{{$class}}__list-btn"
                     [class.active]="isActive('merchants', merchant.id)"
                     (click)="chooseMerchant(merchant)">
@@ -102,7 +105,8 @@
         </li>
 
         <li class="{{$class}}__list-item"
-            *ngFor="let category of categories">
+            *ngFor="let category of categories"
+            [attr.data-wlc-element]="'button_filter-' + category.name + '_' + category.id">
             <button class="{{$class}}__list-btn"
                     [class.active]="isActive('categories', category.menuId)"
                     (click)="chooseCategory(category)">
