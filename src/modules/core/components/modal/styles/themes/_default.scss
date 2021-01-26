@@ -1,5 +1,7 @@
 @use 'sass:map';
+@use 'engine-scss/mixins/mediaqueries' as mq;
 @import '../utils/vars';
+
 
 .wlc-modal--theme-default {
 
@@ -7,7 +9,10 @@
 
         &__dialog {
             background: map.get($themeDefault, 'dialogBackground');
-            border-radius: map.get($themeDefault, 'dialogBorderRadius');
+
+            @include mq.min(560) {
+                border-radius: map.get($themeDefault, 'dialogBorderRadius');
+            }
         }
 
         &__title {

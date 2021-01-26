@@ -54,7 +54,7 @@ import {
             transition(':enter', [
                 style({opacity: 0, height: '0px', padding: 0}),
                 animate('0.2s', style({height: '*', padding: '*'})),
-                animate('0.2s', style({opacity: 1}))
+                animate('0.2s', style({opacity: 1})),
             ]),
             transition(':leave', [
                 animate('0.2s', style({opacity: 0, height: '0px', padding: 0})),
@@ -182,12 +182,12 @@ export class SearchComponent extends AbstractComponent implements OnInit, OnDest
 
     protected initSearchListener(): void {
         this.eventService.subscribe({
-                name: GamesFilterServiceEvents.FILTER_SEARCH,
-                from: this.gamesGridParams.searchFilterName,
-            }, (data: IGamesFilterData) => {
-                this.filters.searchQuery = data.searchQuery;
-            },
-            this.$destroy);
+            name: GamesFilterServiceEvents.FILTER_SEARCH,
+            from: this.gamesGridParams.searchFilterName,
+        }, (data: IGamesFilterData) => {
+            this.filters.searchQuery = data.searchQuery;
+        },
+        this.$destroy);
     }
 
     protected getCategories(): void {

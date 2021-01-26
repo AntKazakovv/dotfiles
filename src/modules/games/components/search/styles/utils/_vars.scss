@@ -22,17 +22,17 @@ $themeDefaultMobile: map-merge((
     'resultMargin': 0 0 15px,
     'resultSize': 14px,
     'resultWeight': normal,
-    'resultColor': ef.get('color', 'text'),
-    'searchModalHeaderBorderBottom': 1px solid ef.get('color', 'text'),
+    'resultColor': #fff,
+    'searchModalHeaderBorderBottom': 1px solid #fff,
     'btnBackground': ef.get('color', 'main'),
     'btnFontSize': 14px,
     'btnBorderRadius': ef.get('radius', 'small'),
     'btnBorder': none,
     'listBtnRadius': ef.get('radius', 'small'),
-    'btnTextColor': ef.get('color', 'text'),
+    'btnTextColor': #000,
     'listBtnFontSize': 14px,
     'listBtnPadding': 5px 10px,
-    'listBtnColor': ef.get('color', 'text'),
+    'listBtnColor': #fff,
     'listBtnBackground': ef.get('color', 'backgroundSecondary'),
     'listBtnBackgroundActive': #fff,
     'listBtnColorActive': ef.get('color', 'success'),
@@ -61,14 +61,14 @@ $themeDefaultDesktop: map-merge((
     'resultMargin': 20px 0 0,
     'resultSize': 14px,
     'resultWeight': normal,
-    'resultColor': ef.get('color', 'text'),
-    'searchModalHeaderBorderBottom': 1px solid ef.get('color', 'text'),
+    'resultColor': #000,
+    'searchModalHeaderBorderBottom': 1px solid #000,
     'listBtnRadius': 0,
     'listBtnFontSize': 14px,
     'listBtnPadding': 14px 0,
-    'listBtnBorderBottom': 2px solid ef.get('color', 'text'),
-    'listBtnBorderBottomActive': 2px solid ef.get('color', 'text'),
-    'listBtnColor': ef.get('color', 'text'),
+    'listBtnBorderBottom': 2px solid #000,
+    'listBtnBorderBottomActive': 2px solid ef.get('color', 'success'),
+    'listBtnColor': #fff,
     'listBtnBorder': 0,
     'listBtnBackground': none,
     'listBtnBackgroundActive': none,
@@ -80,7 +80,7 @@ $themeDefaultDesktop: map-merge((
 
 $btnPaddingVertical: 8px !default;
 $btnPaddingLeft: 10px !default;
-$btnArrowColor: ef.get('color', 'text') !default;
+$btnArrowColor: #000 !default;
 $btnArrowWidth: 2px !default;
 $btnArrowSize: 8px !default;
 $btnArrowRightMargin: $btnPaddingLeft !default;
@@ -92,7 +92,7 @@ $btnIconRightMargin: $btnPaddingLeft !default;
 
 $btnBackgroundHover: ef.get('color', 'main') !default;
 $btnBackgroundActive: $btnBackgroundHover !default;
-$btnColorActive: darken(map-get($themeDefaultMobile, 'btnTextColor'), 20);
+$btnColorActive: #000;
 $btnArrowColorActive: $btnColorActive !default;
 $btnIconColorActive: inherit !default;
 
@@ -110,7 +110,7 @@ $listGrid: (
     1420: 6,
 ) !default;
 $listGap: 15px !default;
-$listBtnColor: ef.get('color', 'text') !default;
+$listBtnColor: #000 !default;
 $listBtnTransition: $btnTransition !default;
 $listBtnIconBackground: #fff !default;
 $listBtnIconBorder: 2px solid ef.get('color', 'main') !default;
