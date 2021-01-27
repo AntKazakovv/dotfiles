@@ -7,6 +7,19 @@
             </ng-container>
         </div>
     </div>
+
+    <div class="swiper-navigation" *ngIf="$params.swiper.navigation">
+        <div [ngClass]="[$params.swiper.navigation['prevEl'] ? $params.swiper.navigation['prevEl'] : 'swiper-button-prev']"></div>
+        <div [ngClass]="[$params.swiper.navigation['nextEl'] ? $params.swiper.navigation['nextEl'] : 'swiper-button-next']"></div>
+    </div>
+
+    <div *ngIf="$params.swiper.pagination"
+        [ngClass]="[$params.swiper.pagination['el'] ? $params.swiper.pagination['el'] : 'swiper-pagination']">
+    </div>
+
+    <div *ngIf="$params.swiper.scrollbar"
+    [ngClass]="[$params.swiper.scrollbar['el'] ? $params.swiper.scrollbar['el'] : 'swiper-scrollbar']">
+    </div>
 </div>
 
 <ng-template #slide let-slide="slide">

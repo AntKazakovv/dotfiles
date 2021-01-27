@@ -1,33 +1,14 @@
 import {SwiperConfigInterface} from 'ngx-swiper-wrapper';
 import { Type, TemplateRef, Injector } from '@angular/core';
-import {IWinnerCParams} from './../winner/winner.component';
 import {
     CustomType,
     IComponentParams,
 } from 'wlc-engine/modules/core/system/interfaces/config.interface';
-import {IBannersFilter} from 'wlc-engine/modules/promo/system/services/banners/banners.service';
 
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;
 export type ComponentThemeMod = 'default' | CustomType;
 
-/**
- * Options for slide banner.
-*/
-export interface IBannerSlide {
-    filter: IBannersFilter;
-};
-
-export interface IWinnerSlide {
-    request: 'latest' | 'biggest',
-    params?: IWinnerCParams,
-};
-
-export type SlideType = 'banner' | 'winner' | 'dashboard';
-export type SlideParamsType = IBannerSlide | IWinnerSlide;
-/**
- * Takes the name of the component and its parameters.
- */
 export interface ISlide {
     /** Allow to past Component */
     component?: Type<any>;
