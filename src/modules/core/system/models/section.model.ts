@@ -23,6 +23,7 @@ export class SectionModel implements ILayoutSectionConfig {
     public readonly modify: ILayoutModifyItem[];
     public readonly modifiers: string[];
     public readonly theme: string;
+    public readonly wlcElement: string;
 
     protected preparedModifiers: string[] = [];
 
@@ -30,6 +31,7 @@ export class SectionModel implements ILayoutSectionConfig {
         _assign(this, sectionData.section);
         this.name = sectionData.name;
         this.order = _isUndefined(this.order) ? 1 : this.order;
+        this.wlcElement = sectionData.section.wlcElement || 'section_' + this.name;
         this.prepareModifiers();
     }
 

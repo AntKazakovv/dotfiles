@@ -2,14 +2,14 @@
 
     <ng-template [ngSwitchCase]="'short'">
         <div class="{{$class}}-balance {{$class}}-balance--short" data-wlc-element="block_user-stat-balance">
-            <div class="{{$class}}-balance__item {{$class}}-balance__real">
+            <div class="{{$class}}-balance__item {{$class}}-balance__real" data-wlc-element="user-stat-balance_real">
                 <span class="name">{{'Real balance' | translate}}</span>
                 <span class="value">
                     <span wlc-currency [value]="shownUserStats?.balance?.value"></span>
                 </span>
             </div>
 
-            <div class="{{$class}}-balance__item {{$class}}-balance__bonus">
+            <div class="{{$class}}-balance__item {{$class}}-balance__bonus" data-wlc-element="user-stat-balance_bonus">
                 <span class="name">{{'Bonus balance' | translate}}</span>
                 <span class="value">
                     <span wlc-currency [value]="shownUserStats?.bonusBalance?.value">
@@ -23,7 +23,7 @@
 
         <div class="{{$class}}-balance">
             <div class="{{$class}}-balance__item {{$class}}-balance__item--{{item}}"
-                 *ngFor="let item of $params.fields">
+                 *ngFor="let item of $params.fields" [attr.data-wlc-element]="shownUserStats[item]?.wlcElement">
                 <ng-container [ngSwitch]="shownUserStats[item]?.modification">
 
                     <span class="name">{{shownUserStats[item]?.name | translate}}</span>
@@ -43,6 +43,7 @@
             class="wlc-btn-deposit"
             text="Deposit"
             (click)="depositAction()"
+            [wlcElement]="'buttton-deposit'"
         ></button>
     </ng-template>
 </div>

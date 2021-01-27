@@ -3,6 +3,7 @@
 <div *ngFor="let section of sections; trackBy: trackBySectionName"
      wlc-layout
      [sectionName]="section.name"
+     [attr.data-wlc-element]="section.wlcElement"
      [layouts]="'pages'"
      [ngClass]="section.classList(hostClass)"
 ></div>

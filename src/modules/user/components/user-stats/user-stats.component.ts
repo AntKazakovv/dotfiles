@@ -20,6 +20,7 @@ export interface IUserStatsItem {
     name: string,
     value: string | number,
     modification?: string;
+    wlcElement?: string;
 }
 
 @Component({
@@ -55,7 +56,7 @@ export class UserStatsComponent extends AbstractComponent implements OnInit, OnD
         this.userInfoHandler = this.UserService.userInfo$.subscribe((userInfo) => {
             this.userStats = userInfo;
             this.fillUserStatsFields();
-            this.cdr.markForCheck();
+            this.cdr.detectChanges();
         });
     }
 
@@ -70,19 +71,23 @@ export class UserStatsComponent extends AbstractComponent implements OnInit, OnD
                 name: gettext('Real balance'),
                 value: this.userStats?.realBalance,
                 modification: 'amount',
+                wlcElement: 'block_user-stat-item_real',
             },
             bonusBalance: {
                 name: gettext('Bonus balance'),
                 value: this.userStats?.bonusBalance,
                 modification: 'amount',
+                wlcElement: 'block_user-stat-item_bonus',
             },
             points: {
                 name: gettext('Points'),
                 value: this.userStats?.loyalty?.Balance,
+                wlcElement: 'block_user-stat-item_points',
             },
             level: {
                 name: gettext('Level'),
                 value: this.userStats?.loyalty?.Level,
+                wlcElement: 'block_user-stat-item_level',
             },
             email: {
                 name: gettext('Email'),
@@ -109,7 +114,7 @@ export class UserStatsComponent extends AbstractComponent implements OnInit, OnD
                 value: this.userStats?.loyalty?.NextLevelPoints,
             },
         };
-        this.cdr.markForCheck();
+        this.cdr.detectChanges();
     }
 
     public depositAction(): void {

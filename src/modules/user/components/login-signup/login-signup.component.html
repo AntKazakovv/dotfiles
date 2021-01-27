@@ -2,10 +2,12 @@
         wlc-button
         [text]="loginText || 'Login'"
         [themeMod]="'secondary'"
-        (click)="action('login')">
+        (click)="action('login')"
+        [wlcElement]="'button_login-modal'">
 </button>
 <button
         wlc-button
         [text]="signupText || 'Sign up'"
-        (click)="action('signup')">
+        (click)="action('signup')"
+        [wlcElement]="'button_register-modal'">
 </button>
