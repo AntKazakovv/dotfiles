@@ -1,4 +1,5 @@
 @use '../utils/vars' as v;
+@use 'engine-scss/mixins/text' as text;
 
 .wlc-post-menu--theme-default:host {
 
@@ -18,7 +19,7 @@
 
         &__link {
             color: v.$linkColor;
-            font-size: v.$linkSize;
+            @include text.get-text-style(ButtonText);
             text-decoration: v.$linkDecoration;
         }
     }

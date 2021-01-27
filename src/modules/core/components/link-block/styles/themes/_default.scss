@@ -1,4 +1,5 @@
 @use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/text' as text;
 @import '../utils/vars';
 @import '../utils/mixins';
 
@@ -9,7 +10,8 @@
         .wlc-link-block {
 
             &__title {
-                @include baseText( ef.get-value($themeDefault, 'titleFontSize'), ef.get-value($themeDefault, 'titleFontWeight'), center, ef.get-value($themeDefault, 'titleColor'));
+                @include text.get-text-style(PlaceholderText);
+                @include baseText(center, ef.get-value($themeDefault, 'titleColor'));
 
                 margin: ef.get-value($themeDefault, 'titleMargin');
 
@@ -19,7 +21,8 @@
             }
 
             &__subtitle {
-                @include baseText( ef.get-value($themeDefault, 'subtitleFontSize'), ef.get-value($themeDefault, 'subtitleFontWeight'), center, ef.get-value($themeDefault, 'subtitleColor'));
+                @include text.get-text-style(PlaceholderText);
+                @include baseText(center, ef.get-value($themeDefault, 'subtitleColor'));
 
                 margin: ef.get-value($themeDefault, 'subtitleMargin');
 
@@ -29,38 +32,26 @@
             }
 
             &__text {
-                text-align: center;
-
-                margin: 0;
-            }
-
-            &__link {
-                @include baseText(ef.get-value($themeDefault, 'linkFontSize'), ef.get-value($themeDefault, 'linkFontWeight'), center, ef.get-value($themeDefault, 'linkColor'));
-
-                outline: none;
-                border: none;
-
-                display: inline-flex;
+                display: flex;
                 align-items: center;
+                justify-content: center;
 
-                background: none;
-                text-decoration: none;
+                .wlc-btn {
+                    @include text.get-text-style(PlaceholderTextBold);
+                    @include baseText(center, ef.get-value($themeDefault, 'linkColor'));
 
-                &:hover {
-                    color: ef.get-value($themeDefault, 'linkColorHover');
-                    text-decoration: underline;
+                    &:hover {
+                        color: ef.get-value($themeDefault, 'linkColorHover');
+                        text-decoration: underline;
+                    }
                 }
 
-                .icon-arrow {
+                .wlc-icon::ng-deep {
                     margin: ef.get-value($themeDefault, 'iconMargin');
 
-                    ::ng-deep {
-
-                        svg {
-                            transform: rotateZ(-90deg);
-
-                            fill: ef.get-value($themeDefault, 'iconFill');
-                        }
+                    svg {
+                        transform: rotateZ(-90deg);
+                        fill: ef.get-value($themeDefault, 'iconFill');
                     }
                 }
             }

@@ -1,32 +1,5 @@
 @use 'engine-scss/functions' as ef;
 
-$customThemeDefault: () !default;
-$themeDefault: map-merge((
-    'width': fit-content,
-    'gapSize': (
-        375: ef.get('size', 'small'),
-        1200: ef.get('size', 'small'),
-        1420: ef.get('size', 'smaller')
-    ),
-    'paddingSize': ef.get('size', 'smaller'),
-    'textTransform': uppercase,
-    'textColor': ef.get('color', 'link'),
-    'textColorHover': darken(ef.get('color', 'linkSecondary'), 5%),
-    'textDecoration': none,
-    'fontWeight': 300,
-    'fontSize': (
-        375: ef.get('font', 'less'),
-        1024: ef.get('font', 'smaller'),
-        1420: ef.get('font', 'less'),
-    ),
-    'padding': 20px 25px,
-    'fontWeightActive': 500,
-    'letterSpacing': 1px,
-    'underlineHeight': 4px,
-    'underlineColor': ef.get('color', 'main'),
-    'underlineOffset': -15px,
-), $customThemeDefault);
-
 $customMenuThemeContacts: () !default;
 $menuThemeContacts: map-merge((
     'textTransform': inherit,

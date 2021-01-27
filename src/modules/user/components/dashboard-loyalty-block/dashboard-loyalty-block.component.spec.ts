@@ -1,19 +1,19 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {UserNameComponent} from 'wlc-engine/modules/user/components/user-name/user-name.component';
+import {LoyaltyBlockComponent} from './dashboard-loyalty-block.component';
 
-describe('UserNameComponent', () => {
-    let component: UserNameComponent;
-    let fixture: ComponentFixture<UserNameComponent>;
+describe('LoyaltyBlockComponent', () => {
+    let component: LoyaltyBlockComponent;
+    let fixture: ComponentFixture<LoyaltyBlockComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [ UserNameComponent ],
+            declarations: [ LoyaltyBlockComponent ],
         })
             .compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(UserNameComponent);
+        fixture = TestBed.createComponent(LoyaltyBlockComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

@@ -1,6 +1,7 @@
 @use 'engine-scss/functions' as ef;
 
-$fontSize: ef.get('font', 'small') !default;
-$textAlign: center !default;
-$textColor: ef.get('color', 'textSecondary') !default;
-$lineHeight: 15px !default;
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'textAlign': center,
+    'textColor': ef.get('mainColors', 'baseMain'),
+), $customThemeDefault);

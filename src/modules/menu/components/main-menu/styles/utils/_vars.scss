@@ -1,15 +1,46 @@
 @use 'engine-scss/functions' as ef;
 
-// Sizes
-$width: fit-content !default;
-$gapSize: ef.get('size', 'less') !default;
-$paddingSize: ef.get('size', 'smaller') !default;
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'width': fit-content,
+    'gapSize': (
+        375: ef.get('size', 'small'),
+        1200: ef.get('size', 'small'),
+        1420: ef.get('size', 'smaller')
+    ),
+    'paddingSize': ef.get('size', 'smaller'),
+    'textTransform': uppercase,
+    'textColor': ef.get('mainColors', 'baseMain'),
+    'textColorHover': darken(ef.get('mainColors', 'baseMain'), 5%),
+    'textDecoration': none,
+    'fontSize': (
+        375: ef.get('font', 'SigntText'),
+        1024: ef.get('font', 'PrimaryText'),
+        1420: ef.get('font', 'ThirdTitle'),
+    ),
+    'padding': 20px 25px,
+    'fontWeightActive': 500,
+    'letterSpacing': 1px,
+    'underlineHeight': 4px,
+    'underlineColor': ef.get('mainColors', 'baseMain'),
+    'underlineOffset': -15px,
+), $customThemeDefault);
 
-// Links
-$textTransform: uppercase !default;
-$textColor: ef.get('color', 'link') !default;
-$textColorHover: darken(ef.get('color', 'linkSecondary'), 5%) !default;
-$textDecoration: none !default;
-$fontWeight: 400 !default;
-$fontSize: ef.get('font', 'main') !default;
-$padding: 20px 25px;
+$customMenuThemeContacts: () !default;
+$menuThemeContacts: map-merge((
+    'textTransform': inherit,
+    'textColor': #fff,
+    'textColorHover': darken(ef.get('color', 'linkSecondary'), 5%),
+    'textDecoration': none,
+    'fontWeight': 700,
+    'fontSize': ef.get('font', 'main'),
+    'padding': 20px 25px,
+    'letterSpacing': 1px,
+
+    'hoverBg': ef.get('color', 'link'),
+    'hoverColor': #fff,
+
+    'activeBg': #717273,
+    'activeColor': #fff,
+    'borderColor': #717273,
+), $customMenuThemeContacts);

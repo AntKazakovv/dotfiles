@@ -1,4 +1,3 @@
-@use 'sass:map';
 @import '../utils/vars';
 
 @keyframes bounceInCheck {
@@ -26,7 +25,7 @@
     .wlc-checkbox {
 
         &__label {
-            padding: map.get($themeDefault, 'checkboxPadding');
+            padding: map-get($themeDefault, 'checkboxPadding');
 
             user-select: none;
             cursor: pointer;
@@ -34,42 +33,42 @@
 
         &__elem {
             position: absolute;
-            top: map.get($themeDefault, 'checkboxElemTop');
-            left: map.get($themeDefault, 'checkboxElemLeft');
+            top: map-get($themeDefault, 'checkboxElemTop');
+            left: map-get($themeDefault, 'checkboxElemLeft');
 
             display: flex;
             justify-content: center;
             align-items: center;
 
-            width: map.get($themeDefault, 'checkboxElemSize');
-            height: map.get($themeDefault, 'checkboxElemSize');
+            width: map-get($themeDefault, 'checkboxElemSize');
+            height: map-get($themeDefault, 'checkboxElemSize');
 
-            background: map.get($themeDefault, 'checkboxElemBackground');
+            background: map-get($themeDefault, 'checkboxElemBackground');
 
-            border: map.get($themeDefault, 'checkboxElemBorder');
-            border-radius: map.get($themeDefault, 'checkboxElemBorderRadius');
+            border: map-get($themeDefault, 'checkboxElemBorder');
+            border-radius: map-get($themeDefault, 'checkboxElemBorderRadius');
             transition: transform 0.2s ease-out;
 
             ::ng-deep {
 
                 .wlc-icon-content {
                     display: none;
-                    line-height: map.get($themeDefault, 'iconLineHieght');
+                    line-height: map-get($themeDefault, 'iconLineHieght');
                 }
 
                 svg {
-                    width: map.get($themeDefault, 'iconSvgWidth');
-                    height: map.get($themeDefault, 'iconSvgHeight');
+                    width: map-get($themeDefault, 'iconSvgWidth');
+                    height: map-get($themeDefault, 'iconSvgHeight');
 
-                    stroke: map.get($themeDefault, 'iconSvgStroke');
-                    stroke-width: map.get($themeDefault, 'iconSvgStrokeWidth');
-                    fill: map.get($themeDefault, 'iconSvgFill');
+                    stroke: map-get($themeDefault, 'iconSvgStroke');
+                    stroke-width: map-get($themeDefault, 'iconSvgStrokeWidth');
+                    fill: map-get($themeDefault, 'iconSvgFill');
                 }
             }
 
             &.checked {
-                background: map.get($themeDefault, 'checkboxElemBackgroundChecked');
-                border-color: map.get($themeDefault, 'checkboxElemBorderColor');
+                background: map-get($themeDefault, 'checkboxElemBackgroundChecked');
+                border-color: map-get($themeDefault, 'checkboxElemBorderColor');
 
                 transform: scale(1);
                 animation: bounceInCheck 0.5s forwards;
@@ -85,17 +84,17 @@
     }
 
     .wlc-checkbox__text {
-        font-size: map.get($themeDefault, 'textFontSize');
-        color: map.get($themeDefault, 'textColor');
+        font-size: map-get($themeDefault, 'textFontSize');
+        color: map-get($themeDefault, 'textColor');
 
         margin-bottom: 0;
     }
 
     .wlc-checkbox__link {
-        color: map.get($themeDefault, 'linkColor');
+        color: map-get($themeDefault, 'linkColor');
 
         &:hover {
-            color: map.get($themeDefault, 'linkHoverColor');
+            color: map-get($themeDefault, 'linkHoverColor');
             text-decoration: none;
         }
     }
@@ -107,7 +106,7 @@
     &.wlc-checkbox--text-left {
 
         .wlc-checkbox {
-            padding: map.get($themeDefault, 'leftTextPadding');
+            padding: map-get($themeDefault, 'leftTextPadding');
 
             &__elem {
                 left: unset;
@@ -119,25 +118,24 @@
     &.wlc-checkbox--type-toggle {
 
         .wlc-checkbox {
-            width: 120px;
-            height: 35px;
+            width: map-get($themeDefault, 'toggleWidth');
+            height: map-get($themeDefault, 'toggleHeight');
             display: flex;
             align-items: center;
-            padding: 0 6px;
+            padding: map-get($themeDefault, 'togglePadding');
 
             &__elem {
+                z-index: 3;
                 cursor: pointer;
-                background: $bgToggle;
-                transition: 0.4s;
-                border-radius: 35px;
+                background: map-get($themeDefault, 'toggleBackground');
+                border-radius: map-get($themeDefault, 'toggleRadius');
                 border: none;
                 width: 100%;
                 height: 100%;
 
-
                 &.checked + .wlc-checkbox__text {
                     padding-left: 0;
-                    padding-right: 34px;
+                    padding-right: map-get($themeDefault, 'toggleOffset');
                 }
 
                 &.checked::ng-deep {
@@ -153,26 +151,29 @@
                 }
 
                 &:before {
-                    position: absolute;
+                    z-index: 2;
                     content: '';
-                    height: 29px;
-                    width: 29px;
-                    left: 4px;
-                    bottom: 3px;
-                    background-color: #232426;
-                    transition: left 0.2s ease-out;
+                    position: absolute;
+                    top: 50%;
+                    left: map-get($themeDefault, 'toggleCircleOffset');
+                    transform: translateY(-50%);
+                    height: map-get($themeDefault, 'toggleCircleSize');
+                    width: map-get($themeDefault, 'toggleCircleSize');
+                    background-color: map-get($themeDefault, 'toggleCircleBg');
                     border-radius: 50%;
+                    @include bm.transition(left);
                 }
             }
 
             &__text {
                 position: relative;
-                font-size: 14px;
-                font-weight: bold;
-                line-height: 14px;
-                padding-left: 34px;
+                font: {
+                    size: 14px;
+                    weight: bold;
+                }
+                padding-left: map-get($themeDefault, 'toggleOffset');
                 padding-right: 0;
-                transition: padding 0.2s ease-out;
+                @include bm.transition(padding);
             }
         }
     }

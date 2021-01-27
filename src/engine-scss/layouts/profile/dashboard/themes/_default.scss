@@ -20,14 +20,14 @@
             @include mq.min(560) {
                 grid: {
                     template-columns: 1fr 1fr;
-                    template-areas: 'title title' 'loyalty loyalty' 'bonuses bonuses' 'exchange exchange' 'promocode see-all-bonuses';
+                    template-areas: 'title title' 'loyalty loyalty' 'bonuses-title bonuses-title' 'bonuses bonuses' 'exchange exchange' 'promocode see-all-bonuses';
                 }
             }
 
             @include mq.min(720) {
                 grid: {
                     template-columns: repeat(3, 1fr);
-                    template-areas: 'title title title' 'loyalty loyalty promocode' 'exchange exchange see-all-bonuses' 'bonuses bonuses bonuses';
+                    template-areas: 'title title title' 'loyalty loyalty promocode' 'exchange exchange see-all-bonuses' 'bonuses-title bonuses-title bonuses-title' 'bonuses bonuses bonuses';
                     gap: 20px;
                 }
             }
@@ -35,7 +35,7 @@
             @include mq.min(1024) {
                 grid: {
                     template-columns: repeat(6, 1fr);
-                    template-areas: 'title title title title title title' 'loyalty loyalty loyalty exchange exchange exchange' 'bonuses bonuses bonuses bonuses promocode promocode' 'bonuses bonuses bonuses bonuses see-all-bonuses see-all-bonuses';
+                    template-areas: 'title title title title title title' 'loyalty loyalty loyalty exchange exchange exchange' 'bonuses-title bonuses-title bonuses-title bonuses-title bonuses-title bonuses-title' 'bonuses bonuses bonuses bonuses promocode promocode' 'bonuses bonuses bonuses bonuses see-all-bonuses see-all-bonuses';
                     gap: 25px 40px;
                 }
             }
@@ -54,6 +54,14 @@
 
     .wlc-title {
         grid-area: title;
+
+        &--profile-bonuses {
+            grid-area: bonuses-title;
+
+            @include mq.min(1024) {
+                margin-left: 20px;
+            }
+        }
     }
 
     .wlc-loyalty-block {

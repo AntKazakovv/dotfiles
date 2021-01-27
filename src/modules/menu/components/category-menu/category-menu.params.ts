@@ -1,7 +1,7 @@
 import {IComponentParams, CustomType} from 'wlc-engine/modules/core/system/classes/abstract.component';
 
 export type Type = 'default' | 'dropdown' | CustomType;
-export type Theme = 'default' | CustomType;
+export type Theme = 'default' | 'dropdown' | CustomType;
 export type ThemeMod = 'default' | 'vertical' | CustomType;
 export type AutoModifiers = Theme | ThemeMod;
 export type CustomMod = string;

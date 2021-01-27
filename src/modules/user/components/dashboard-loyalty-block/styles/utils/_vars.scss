@@ -8,5 +8,5 @@ $themeDefault: map-merge((
     'loyaltyMargin': ef.get('size', 'smaller') 0 0,
     'allLinkSize': 12px,
     'allLinkWeight': bold,
-    'allLinkColor': ef.get('color', 'main'),
+    'allLinkColor': ef.get('mainColors', 'main'),
 ), $customThemeDefault);

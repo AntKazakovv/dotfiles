@@ -1,6 +1,8 @@
 @use 'engine-scss/functions' as ef;
 @use 'engine-scss/mixins/base.mixins' as em;
+@use 'engine-scss/mixins/text' as text;
 @import './../utils/mixins';
+
 
 .wlc-winner--theme-default:host {
 
@@ -60,11 +62,7 @@
             display: flex;
             min-width: 1px;
             align-items: center;
-            font: {
-                weight: ef.get-value($themeDefault, 'userFontWeight');
-                style: ef.get-value($themeDefault, 'userFontStyle');
-                size: ef.get-value($themeDefault, 'userFontSize');
-            };
+            @include text.get-text-style(PlaceholderText);
             text-transform: ef.get-value($themeDefault, 'userTextTransform');
             color: ef.get-value($themeDefault, 'userColor');
         }
@@ -96,9 +94,8 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            font-size: ef.get-value($themeDefault, 'gameFontSize');
+            @include text.get-text-style(ThridTitleBold);
             color: ef.get-value($themeDefault, 'gameColor');
-            font-weight: ef.get-value($themeDefault, 'gameFontWeight');
             text-decoration: none;
 
             &:hover {
@@ -142,9 +139,8 @@
 
         &__amount {
             grid-area: amount;
-            font-size: ef.get-value($themeDefault, 'amountFontSize');
+            @include text.get-text-style(ThridTitleBold);
             white-space: nowrap;
-            font-weight: ef.get-value($themeDefault, 'amountFontWeight');
             text-align: right;
             color: ef.get-value($themeDefault, 'amountColor');
         }

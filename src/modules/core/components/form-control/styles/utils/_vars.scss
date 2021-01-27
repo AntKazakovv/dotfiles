@@ -1,16 +1,19 @@
-$errorColor: #f12e74 !default;
-$successColor: #27bb37 !default;
+@use 'engine-scss/functions' as ef;
 
-$iconWidth: 12px !default;
-$iconHeight: 12px !default;
-$successIconColor: #fff !default;
-$errorIconColor: #fff !default;
-$pendingIconColor: rgba(0, 0, 0, 0.5) !default;
-
-$errorsBgColor: #ffebf2 !default;
-$errorsColor: #231f20 !default;
-$errorsMinWidth: 300px !default;
-$errorsMaxWidth: 100% !default;
-$errorsBorderRadius: 10px !default;
-$errorsFontSize: 14px !default;
-$errorsPadding: 10px !default;
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    errorColor: ef.get('mainColors', 'error'),
+    successColor: ef.get('mainColors', 'success'),
+    iconWidth: 12px,
+    iconHeight: 12px,
+    successIconColor: #fff,
+    errorIconColor: #fff,
+    pendingIconColor: rgba(0, 0, 0, 0.5),
+    errorsBgColor: ef.get('mainColors', 'error'),
+    errorsColor: #231f20,
+    errorsMinWidth: 300px,
+    errorsMaxWidth: 100%,
+    errorsBorderRadius: 10px,
+    errorsFontSize: 14px,
+    errorsPadding: 10px,
+), $customThemeDefault);

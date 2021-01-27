@@ -1,5 +1,6 @@
 @use 'engine-scss/functions' as ef;
 @use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/mixins/text' as text;
 
 @import '../utils/vars';
 
@@ -9,8 +10,7 @@
 
         .wlc-post-menu__link {
             display: block;
-            font-weight: ef.get-value($menuThemeContacts, 'fontWeight');
-            font-size: ef.get-value($menuThemeContacts, 'fontSize');
+            @include text.get-text-style(ThridTitleBold);
             color: ef.get-value($menuThemeContacts, 'textColor');
             padding: ef.get-value($menuThemeContacts, 'padding');
             text-decoration: ef.get-value($menuThemeContacts, 'textDecoration');

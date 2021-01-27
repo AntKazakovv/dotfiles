@@ -5,14 +5,14 @@
             <div class="{{$class}}-balance__item {{$class}}-balance__real">
                 <span class="name">{{'Real balance' | translate}}</span>
                 <span class="value">
-                    <span wlc-currency [value]="this.shownUserStats?.balance?.value"></span>
+                    <span wlc-currency [value]="shownUserStats?.balance?.value"></span>
                 </span>
             </div>
 
             <div class="{{$class}}-balance__item {{$class}}-balance__bonus">
                 <span class="name">{{'Bonus balance' | translate}}</span>
                 <span class="value">
-                    <span wlc-currency [value]="this.shownUserStats?.bonusBalance?.value">
+                    <span wlc-currency [value]="shownUserStats?.bonusBalance?.value">
                     </span>
                 </span>
             </div>
@@ -24,14 +24,14 @@
         <div class="{{$class}}-balance">
             <div class="{{$class}}-balance__item {{$class}}-balance__item--{{item}}"
                  *ngFor="let item of $params.fields">
-                <ng-container [ngSwitch]="this.shownUserStats[item]?.modification">
+                <ng-container [ngSwitch]="shownUserStats[item]?.modification">
 
-                    <span class="name">{{this.shownUserStats[item]?.name | translate}}</span>
+                    <span class="name">{{shownUserStats[item]?.name | translate}}</span>
                     <span class="value" *ngSwitchDefault>
-                        {{(this.shownUserStats[item]?.value | number: '.0-2') || 'Unknown' | translate}}
+                        {{(shownUserStats[item]?.value | number: '.0-2') || 'Unknown' | translate}}
                     </span>
                     <span class="value" *ngSwitchCase="'amount'">
-                        <span wlc-currency [value]="this.shownUserStats[item]?.value"></span>
+                        <span wlc-currency [value]="shownUserStats[item]?.value"></span>
                     </span>
                 </ng-container>
             </div>

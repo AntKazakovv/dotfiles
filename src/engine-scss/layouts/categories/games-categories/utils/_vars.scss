@@ -1,0 +1,35 @@
+@use 'engine-scss/functions' as ef;
+
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    sectionPadding: (
+        375: 0,
+        768: 10px 10px,
+        1024: 15px 20px 15px 30px,
+        1420: 15px 30px 15px 50px,
+    ),
+    sectionRadius: (
+        375: 0,
+        768: ef.get('radius', 'biger'),
+    ),
+    sectionBg: (
+        375: none,
+        768: ef.get('mainColors', 'bg500'),
+    ),
+    buttonSearchBg: (
+        375: ef.get('mainColors', 'bg500'),
+        768: ef.get('mainColors', 'bg')
+    ),
+    buttonSearchPadding: (
+        375: 12px 15px,
+    ),
+    buttonSearchRadius: (
+        375: 10px,
+    ),
+    buttonSearchColor: ef.get('mainColors', 'baseMain'),
+    buttonSearchBgHover: darken(ef.get('mainColors', 'baseMain'), 20%),
+    buttonSearchIconFill: ef.get('mainColors', 'main'),
+    buttonSearchIconMargin: 12px,
+    buttonMerchMargin: 30px,
+), $customThemeDefault);
+

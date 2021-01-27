@@ -12,8 +12,7 @@
 
     &__all {
         margin: map-get($themeDefault, 'loyaltyMargin');
-        @include text.get-text-style('PlaceholderText');
-        font-weight: 700;
+        @include lib.get-text-style('PlaceholderTextBold');
         text-align: center;
 
         @include mq.min(900) {

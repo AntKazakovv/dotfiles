@@ -1,9 +1,67 @@
+@use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/functions' as ef;
 @import '../utils/vars';
 
 .wlc-category-menu--theme-default:host {
-    display: grid;
-    grid-auto-columns: auto;
-    grid-auto-flow: column;
-    grid-gap: $gapSize;
-    align-items: center;
+
+    ::ng-deep {
+
+        .wlc-menu {
+            display: grid;
+            grid-auto-columns: auto;
+            grid-auto-flow: column;
+            @include bm.get-mq-map('grid-gap', $themeDefault, 'gapSize');
+            align-items: center;
+            width: fit-content;
+
+            &__link {
+                position: relative;
+                display: block;
+                padding: ef.get-value($themeDefault, 'linkPadding');
+                @include text.get-text-style(PrimaryText);
+                color: map-get($themeDefault, 'linkColor');
+                text-decoration: map-get($themeDefault, 'linkDecoration');
+
+                &:before {
+                    content: '';
+                    position: absolute;
+                    bottom: ef.get-value($themeDefault, 'underlineOffset');
+                    left: 0;
+                    display: block;
+                    width: 100%;
+                    height: 0;
+                    background-color: ef.get-value($themeDefault, 'underlineColor');
+                    border-radius: ef.get-value($themeDefault, 'underlineRadius');
+                    opacity: 0;
+                    pointer-events: none;
+                }
+
+                &.active {
+                    color: map-get($themeDefault, 'linkColorHovered');
+                    font-weight: map-get($themeDefault, 'linkActiveWeight');
+
+                    &:before {
+                        height: ef.get-value($themeDefault, 'underlineHeight');
+                        opacity: 100%;
+                        @include bm.transition();
+                    }
+                }
+
+                @media (hover: hover) {
+
+                    &:hover {
+                        color: map-get($themeDefault, 'linkColorHovered');
+
+                        &:before {
+                            height: ef.get-value($themeDefault, 'underlineHeight');
+                            opacity: 100%;
+                            @include bm.transition();
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

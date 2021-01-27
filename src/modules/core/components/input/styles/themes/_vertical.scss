@@ -1,5 +1,5 @@
-@use 'sass:map';
-
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/mixins/base.mixins' as bm;
 @import '../utils/vars';
 @import '../utils/mixins';
 
@@ -10,13 +10,11 @@
 
     .wlc-input__label {
         display: block;
-        margin: map.get($themeVertical, 'labelMargin');
+        margin: map-get($themeVertical, 'labelMargin');
 
-        font-size: map.get($themeVertical, 'labelFontSize');
-        font-weight: map.get($themeVertical, 'labelFontWeight');
-        line-height: map.get($themeVertical, 'labelLineHeight');
+        @include text.get-text-style(SigntText);
 
-        color: map.get($themeVertical, 'labelColor');
+        color: map-get($themeVertical, 'labelColor');
 
         cursor: pointer;
         user-select: none;
@@ -29,48 +27,46 @@
     .wlc-input__input {
         position: relative;
         display: block;
-        width: map.get($themeVertical, 'inputWidth');
-        height: map.get($themeVertical, 'inputHeight');
-        padding: map.get($themeVertical, 'inputPadding');
+        width: map-get($themeVertical, 'inputWidth');
+        height: map-get($themeVertical, 'inputHeight');
+        padding: map-get($themeVertical, 'inputPadding');
 
-        font-size: map.get($themeVertical, 'inputFontSize');
-        font-weight: map.get($themeVertical, 'inputFontWeight');
-        line-height: map.get($themeVertical, 'inputLineHeight');
-
-        background: map.get($themeVertical, 'inputBackground');
-        color: map.get($themeVertical, 'inputColor');
+        background: map-get($themeVertical, 'inputBackground');
+        color: map-get($themeVertical, 'inputColor');
 
         outline: none;
-        border: map.get($themeVertical, 'inputBorder');
-        border-radius: map.get($themeVertical, 'inputBorderRadius');
+        border: map-get($themeVertical, 'inputBorder');
+        border-radius: map-get($themeVertical, 'inputBorderRadius');
+
+        @include text.get-text-style(PlaceholderText);
 
         &::placeholder {
-            color: map.get($themeVertical, 'inputPlaceholderColor');
+            color: map-get($themeVertical, 'inputPlaceholderColor');
         }
     }
 
     &.wlc-input--right-shift {
 
         .wlc-input__input {
-            padding-right: map.get($themeVertical, 'inputPaddingRight');
+            padding-right: map-get($themeVertical, 'inputPaddingRight');
         }
 
         .field-icon--eye {
             position: absolute;
-            top: map.get($themeVertical, 'iconEyeTop');
-            right: map.get($themeVertical, 'iconEyeRight');
+            top: map-get($themeVertical, 'iconEyeTop');
+            right: map-get($themeVertical, 'iconEyeRight');
 
-            transform: map.get($themeVertical, 'iconEyeTransform');
+            transform: map-get($themeVertical, 'iconEyeTransform');
         }
 
         .wlc-input-status::ng-deep {
 
             .form-control__icon::ng-deep {
-                right: map.get($themeVertical, 'controlIconRight');
+                right: map-get($themeVertical, 'controlIconRight');
             }
 
             .form-control__errors {
-                right: map.get($themeVertical, 'controlErrorRight');
+                right: map-get($themeVertical, 'controlErrorRight');
             }
         }
     }
@@ -81,10 +77,10 @@
         align-items: center;
         justify-content: center;
 
-        width: map.get($themeVertical, 'fieldIconSize');
-        height: map.get($themeVertical, 'fieldIconSize');
+        width: map-get($themeVertical, 'fieldIconSize');
+        height: map-get($themeVertical, 'fieldIconSize');
 
-        line-height: map.get($themeVertical, 'fieldIconLineHeight');
+        line-height: map-get($themeVertical, 'fieldIconLineHeight');
 
         &--eye {
             cursor: pointer;
@@ -92,7 +88,7 @@
             ::ng-deep {
 
                 svg path {
-                    transition: fill 0.2s linear;
+                    @include bm.transition(fill);
                 }
             }
 
@@ -101,7 +97,7 @@
                 ::ng-deep {
 
                     svg path {
-                        fill: map.get($themeVertical, 'fieldIconSvgFillHover');
+                        fill: map-get($themeVertical, 'fieldIconSvgFillHover');
                     }
                 }
             }
@@ -112,7 +108,7 @@
 
                     svg path {
 
-                        fill: map.get($themeVertical, 'fieldIconSvgFillActive');
+                        fill: map-get($themeVertical, 'fieldIconSvgFillActive');
                     }
                 }
             }

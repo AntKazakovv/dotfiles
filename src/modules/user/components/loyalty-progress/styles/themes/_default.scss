@@ -1,3 +1,5 @@
+@use 'engine-scss/mixins/text' as lib;
+
 .wlc-loyalty-progress--theme-default:host {
 
     .wlc-loyalty-progress {
@@ -26,18 +28,12 @@
         }
 
         &__title {
-            font: {
-                size: map-get($themeDefault, 'levelNameSize');
-                weight: map-get($themeDefault, 'levelNameWeight');
-            };
+            @include lib.get-text-style('ButtonText');
             color: map-get($themeDefault, 'levelNameColor');
         }
 
         &__points {
-            font: {
-                size: map-get($themeDefault, 'levelPointsSize');
-                weight: map-get($themeDefault, 'levelPointsWeight');
-            };
+            @include lib.get-text-style('ButtonText');
             color: map-get($themeDefault, 'levelPointsColor');
         }
     }

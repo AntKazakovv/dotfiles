@@ -1,9 +1,7 @@
 @use 'engine-scss/functions' as ef;
 @import './vars';
 
-@mixin baseText ($fontSize, $fontWeight, $textAlign, $color) {
-    font-size: $fontSize;
-    font-weight: $fontWeight;
+@mixin baseText ($textAlign, $color) {
     text-align: $textAlign;
     color: $color;
 }

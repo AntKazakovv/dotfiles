@@ -26,8 +26,9 @@ import {UserInfoComponent} from './components/user-info/user-info.component';
 import {UserStatsComponent} from './components/user-stats/user-stats.component';
 import {UserNameComponent} from './components/user-name/user-name.component';
 import {LoyaltyProgressComponent} from './components/loyalty-progress/loyalty-progress.component';
-import {LoyaltyBlockComponent} from './components/dashboard-loyalty-block/loyalty-block.component';
+import {DashboardLoyaltyBlockComponent} from 'wlc-engine/modules/user/components/dashboard-loyalty-block/dashboard-loyalty-block.component';
 import {ExchangeComponent} from './components/dashboard-exchange/exchange.component';
+
 
 
 export const components = {
@@ -36,7 +37,7 @@ export const components = {
     'wlc-logout': LogoutComponent,
     'wlc-login-signup': LoginSignupComponent,
     'wlc-loyalty-progress': LoyaltyProgressComponent,
-    'wlc-loyalty-block': LoyaltyBlockComponent,
+    'wlc-loyalty-block': DashboardLoyaltyBlockComponent,
     'wlc-new-password-form': NewPasswordFormComponent,
     'wlc-profile-form': ProfileFormComponent,
     'wlc-restore-link': RestoreLinkComponent,
@@ -54,7 +55,7 @@ export const components = {
         ExchangeComponent,
         LoginSignupComponent,
         LoyaltyProgressComponent,
-        LoyaltyBlockComponent,
+        DashboardLoyaltyBlockComponent,
         NewPasswordFormComponent,
         ProfileFormComponent,
         RestoreLinkComponent,
@@ -83,7 +84,7 @@ export const components = {
         ExchangeComponent,
         LoginSignupComponent,
         LoyaltyProgressComponent,
-        LoyaltyBlockComponent,
+        DashboardLoyaltyBlockComponent,
         ProfileFormComponent,
         RestorePasswordFormComponent,
         SignInFormComponent,

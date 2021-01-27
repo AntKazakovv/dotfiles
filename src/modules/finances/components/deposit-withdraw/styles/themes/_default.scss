@@ -1,4 +1,5 @@
 @use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/text' as text;
 @import '../utils/vars';
 
 .wlc-cash--theme-default:host {
@@ -14,11 +15,8 @@
 
             @include mq.min($breakpoint) {
                 display: block;
+                @include text.get-text-style(ThridTitleBold);
                 color: $titleColor;
-                font: {
-                    size: $titleFontSize;
-                    weight: $titleFontWeight;
-                }
             }
         }
 
@@ -52,8 +50,7 @@
         }
 
         &__subtitle {
-            font-size: $subtitleFontSize;
-            font-weight: $subtitleFontWeight;
+            @include text.get-text-style(ThirdTitle);
             margin: $subtitleMargin;
             color: $subtitleColor;
             text-align: $subtitleAlignment;

@@ -1,5 +1,6 @@
 @use 'engine-scss/functions' as ef;
 @use 'engine-scss/mixins/base.mixins' as em;
+@use 'engine-scss/mixins/text' as text;
 @import '../utils/vars';
 
 .wlc-enter-promocode--theme-default:host {
@@ -16,9 +17,7 @@
         }
 
         &__title {
-            font-size: ef.get-value($themeDefault, 'titleFontSize');
-            font-weight: ef.get-value($themeDefault, 'titleFontWeight');
-            line-height: ef.get-value($themeDefault, 'titleLineHeight');
+            @include text.get-text-style(ThridTitleBold);
             text-align: center;
             color: ef.get-value($themeDefault, 'titleColor');
         }

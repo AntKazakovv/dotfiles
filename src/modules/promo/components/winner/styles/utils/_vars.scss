@@ -12,11 +12,11 @@ $themeDefault: map-merge((
     //border line
     'borderLineWidth': 3px,
     'borderLineRadius': 3px,
-    'borderLineColor': ef.get('color', 'link'),
+    'borderLineColor': ef.get('mainColors', 'baseOpacity'),
     'borderLinePadding': 20px,
 
     // winner left block
-    'leftBackground': ef.get('color', 'background'),
+    'leftBackground': ef.get('mainColors', 'bg'),
     'leftPadding': 8px 9px,
 
     // winner right block
@@ -37,7 +37,7 @@ $themeDefault: map-merge((
 
     // user
     'userFontSize': ef.get('font', 'smaller'),
-    'userColor': ef.get('color', 'text'),
+    'userColor': ef.get('mainColors', 'baseMain'),
     'userFontWeight': 400,
     'userTextTransform': none,
     'userFontStyle': normal,
@@ -52,9 +52,9 @@ $themeDefault: map-merge((
     // game
     'gameFontSize': ef.get('font', 'main'),
     'gameFontWeight': 700,
-    'gameColor': ef.get-value(ev.$mainColors, 'baseMain'),
+    'gameColor': ef.get('mainColors', 'baseMain'),
     'gameBorderColor': transparent,
-    'gameArrowColor': ef.get-value(ev.$mainColors, 'main'),
+    'gameArrowColor': ef.get('mainColors', 'main'),
     'gameArrowMarginLeft': 10px,
 
     'gameHoverColor': currentColor,
@@ -63,7 +63,7 @@ $themeDefault: map-merge((
 
     // amount
     'amountFontSize': ef.get('font', 'main'),
-    'amountColor': ef.get('color', 'text'),
+    'amountColor': ef.get('mainColors', 'baseMain'),
     'amountFontWeight': 700,
 
 ), $customThemeDefault);
@@ -75,7 +75,7 @@ $themeVertical: map-merge((
     'lineHeight': 1.3,
 
     // winner left block
-    'leftBackground': ef.get('color', 'background'),
+    'leftBackground': ef.get('mainColors', 'bg'),
     'leftPadding': 8px 9px,
     'leftMarginLevtVertival': 20px,
 
@@ -95,7 +95,7 @@ $themeVertical: map-merge((
 
     // user
     'userFontSize': ef.get('font', 'smaller'),
-    'userColor': ef.get('color', 'text'),
+    'userColor': ef.get('mainColors', 'baseMain'),
     'userFontWeight': 400,
     'userTextTransform': none,
     'userFontStyle': normal,
@@ -110,9 +110,9 @@ $themeVertical: map-merge((
     // game
     'gameFontSize': ef.get('font', 'main'),
     'gameFontWeight': 700,
-    'gameColor': ef.get-value(ev.$mainColors, 'baseMain'),
+    'gameColor': ef.get('mainColors', 'baseMain'),
     'gameBorderColor': transparent,
-    'gameArrowColor': ef.get-value(ev.$mainColors, 'secondary'),
+    'gameArrowColor': ef.get('mainColors', 'secondary'),
     'gameArrowMarginLeft': 10px,
 
     'gameHoverColor': currentColor,

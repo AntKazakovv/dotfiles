@@ -1,12 +1,11 @@
 .wlc-user-info--theme-default:host {
-    color: $userInfoColor;
 
     .wlc-user-info {
         display: flex;
         align-items: center;
 
         &-short {
-            margin: $userInfoShortMargin;
+            margin: map-get($themeDefault, 'userInfoShortMargin');
             flex-shrink: 0;
         }
 
@@ -17,25 +16,29 @@
                 display: flex;
                 align-items: center;
                 flex-shrink: 0;
-                padding: $userInfoDropdownBtnPadding;
-                border: $userInfoDropdownBtnBorder;
-                border-radius: $userInfoDropdownBtnBorderRadius;
+                padding: map-get($themeDefault, 'userInfoDropdownBtnPadding');
+                border: map-get($themeDefault, 'userInfoDropdownBtnBorder');
+                border-radius: map-get($themeDefault, 'userInfoDropdownBtnBorderRadius');
                 cursor: pointer;
 
                 .user::ng-deep {
-                    width: $userInfoDropdownBtnIconSize;
-                    height: $userInfoDropdownBtnIconSize;
+                    width: map-get($themeDefault, 'userInfoDropdownBtnIconSize');
+                    height: map-get($themeDefault, 'userInfoDropdownBtnIconSize');
+
+                    svg {
+                        display: block;
+                    }
 
                     circle {
-                        fill: $userInfoDropdownIconFill;
+                        fill: map-get($themeDefault, 'userInfoDropdownIconFill');
                     }
                 }
 
                 .arrow::ng-deep {
-                    margin: $userInfoDropdownArrowMargin;
+                    margin: map-get($themeDefault, 'userInfoDropdownArrowMargin');
 
                     svg {
-                        fill: $userInfoDropdownArrowFill;
+                        fill: map-get($themeDefault, 'userInfoDropdownArrowFill');
                     }
                 }
             }
@@ -43,17 +46,17 @@
             &__content {
                 z-index: 10;
                 position: absolute;
-                top: $userInfoDropdownTop;
-                right: $userInfoDropdownRight;
+                top: map-get($themeDefault, 'userInfoDropdownTop');
+                right: map-get($themeDefault, 'userInfoDropdownRight');
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
-                box-shadow: $userInfoDropdownBoxShadow;
-                min-width: $userInfoDropdownMinWidth;
-                padding: $userInfoDropdownPadding;
-                background: $userInfoDropdownBg;
-                border-radius: $userInfoDropdownBorderRadius;
+                box-shadow: map-get($themeDefault, 'userInfoDropdownBoxShadow');
+                min-width: map-get($themeDefault, 'userInfoDropdownMinWidth');
+                padding: map-get($themeDefault, 'userInfoDropdownPadding');
+                background: map-get($themeDefault, 'userInfoDropdownBg');
+                border-radius: map-get($themeDefault, 'userInfoDropdownBorderRadius');
 
                 ::ng-deep {
 
@@ -67,13 +70,13 @@
     }
 
     .wlc-btn-deposit {
-        padding: $userInfoDepositBtnPaddingMobile;
-        margin: $userInfoDepositBtnMarginMobile;
+        padding: map-get($themeDefault, 'userInfoDepositBtnPaddingMobile');
+        margin: map-get($themeDefault, 'userInfoDepositBtnMarginMobile');
         min-width: auto;
 
         @include mq.min(1200) {
-            padding: $userInfoDepositBtnPaddingDesktop;
-            margin: $userInfoDepositBtnMarginDesktop;
+            padding: map-get($themeDefault, 'userInfoDepositBtnPaddingDesktop');
+            margin: map-get($themeDefault, 'userInfoDepositBtnMarginDesktop');
         }
     }
 

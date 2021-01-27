@@ -1,39 +1,32 @@
+@use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/functions' as ef;
+
 .wlc-mobile-menu--type-dropdown:host {
 
     &.wlc-mobile-menu--theme-mod-vertical {
-        width: 100%;
 
-        .wlc-menu,
-        .wlc-mobile-menu {
+        .wlc-menu {
             display: grid;
-            grid-auto-flow: initial;
             grid: {
                 template-columns: 1fr;
-                gap: $menuGag;
+                gap: map-get($themeDropdownDefault, menuGag);
             }
-            width: 100%;
 
             ::ng-deep {
-
-                .wlc-category-menu {
-
-                    &,
-                    .wlc-menu {
-                        width: 100%;
-                    }
-                }
 
                 .wlc-menu__item {
 
                     &.active {
 
                         > .wlc-menu__link {
-                            color: $activeTabLinkColor;
-                            background: $activeTabLinkBg;
+                            color: map-get($themeDropdownDefault, activeTabLinkColor);
+                            background: map-get($themeDropdownDefault, activeTabLinkBg);
                             @include bm.transition();
 
                             .wlc-icon {
-                                fill: $activeTabLinkColor;
+                                fill: map-get($themeDropdownDefault, activeTabLinkColor);
                                 transform: rotate(180deg);
                                 @include bm.transition();
                             }
@@ -55,41 +48,38 @@
                     z-index: 2;
                     display: flex;
                     justify-content: space-between;
-                    padding: $linkPadding;
+                    padding: map-get($themeDropdownDefault, linkPadding);
                     width: 100%;
-                    font: {
-                        size: $linkSize;
-                        weight: $linkWeight;
-                    }
-                    color: $linkColor;
+                    @include text.get-text-style('PrimaryText');
+                    color: map-get($themeDropdownDefault, linkColor);
                     cursor: pointer;
                     text-decoration: none;
-                    background: $linkBg;
-                    border-radius: $linkBorderRadius;
+                    background: map-get($themeDropdownDefault, linkBg);
+                    border-radius: map-get($themeDropdownDefault, linkBorderRadius);
 
                     &:hover,
                     &.active {
-                        background: $activeLinkBg;
+                        background: map-get($themeDropdownDefault, activeLinkBg);
                         @include bm.transition(background);
                     }
 
                     .wlc-icon {
                         transform: rotate(-90deg);
-                        fill: $linkFill;
+                        fill: map-get($themeDropdownDefault, linkFill);
                         @include bm.transition();
                     }
                 }
 
                 .wlc-menu__submenu {
-                    margin-top: $menuGag;
-                    border-radius: $linkBorderRadius;
-                    background: $submenuBg;
+                    margin-top: map-get($themeDropdownDefault, menuGag);
+                    border-radius: map-get($themeDropdownDefault, linkBorderRadius);
+                    background: map-get($themeDropdownDefault, submenuBg);
 
                     .wlc-menu__link {
                         background: transparent;
 
                         &.active {
-                            background: $activeLinkBg;
+                            background: map-get($themeDropdownDefault, activeLinkBg);
                             @include bm.transition(background);
                         }
                     }

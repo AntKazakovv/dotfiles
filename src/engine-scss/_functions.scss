@@ -21,6 +21,8 @@
         @return map-get(ev.$buttonSettings, $name);
     } @else if ($map == 'mainColors') {
         @return map-get(ev.$mainColors, $name);
+    } @else if ($map == 'fieldColors') {
+        @return map-get(ev.$fieldColors, $name);
     }
 }
 

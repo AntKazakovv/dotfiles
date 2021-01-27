@@ -1,24 +1,80 @@
+@use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/functions' as ef;
 @import '../utils/vars';
 
 .wlc-main-menu--theme-default:host {
-    display: grid;
-    grid-auto-columns: auto;
-    grid-auto-flow: column;
-    grid-gap: $gapSize;
-    width: $width;
-    align-items: center;
 
-    .wlc-menu {
+    ::ng-deep {
 
-        &__link {
-            text-decoration: $textDecoration;
-            color: $textColor;
-            font-weight: $fontWeight;
-            font-size: $fontSize;
-            cursor: pointer;
+        .wlc-menu {
+            display: grid;
+            grid-auto-columns: auto;
+            grid-auto-flow: column;
+            grid-gap: ef.get-value($themeDefault, 'gapSize');
+            width: ef.get-value($themeDefault, 'width');
+            align-items: center;
 
-            &:hover {
-                color: $textColorHover;
+            @include mq.min(1200) {
+                grid-gap: ef.get-value($themeDefault, 'gapSize', 1200);
+            }
+
+            @include mq.min(1420) {
+                grid-gap: ef.get-value($themeDefault, 'gapSize', 1420);
+            }
+
+            .wlc-menu {
+
+                &__link {
+                    text-decoration: ef.get-value($themeDefault, 'textDecoration');
+                    color: ef.get-value($themeDefault, 'textColor');
+                    @include text.get-text-style(ThirdTitle);
+                    @include bm.get-mq-map('font-size', $themeDefault, 'fontSize');
+                    cursor: pointer;
+
+                    &:hover {
+                        color: ef.get-value($themeDefault, 'textColorHover');
+                    }
+
+                    &.active {
+                        color: ef.get-value($themeDefault, 'textColorHover');
+                        font-weight: ef.get-value($themeDefault, 'fontWeightActive');
+                    }
+                }
+            }
+        }
+
+        .wlc-menu--theme-mod-underline {
+
+            .wlc-menu {
+
+                &__link {
+                    position: relative;
+
+                    &:before {
+                        content: '';
+                        position: absolute;
+                        bottom: ef.get-value($themeDefault, 'underlineOffset');
+                        left: 0;
+                        display: block;
+                        width: 100%;
+                        height: 0;
+                        background-color: ef.get-value($themeDefault, 'underlineColor');
+                        opacity: 0;
+                        pointer-events: none;
+                    }
+
+                    &:hover,
+                    &.active {
+
+                        &:before {
+                            height: ef.get-value($themeDefault, 'underlineHeight');
+                            opacity: 100%;
+                            @include bm.transition();
+                        }
+                    }
+                }
             }
         }
     }
