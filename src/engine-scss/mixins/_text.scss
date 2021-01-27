@@ -4,8 +4,8 @@
     font-style: normal;
     color: map-get(ev.$mainColors, 'elementsColor');
 
-    @if ($style == 'SigntText' ) {
-        @include SigntText;
+    @if ($style == 'SignText' ) {
+        @include SignText;
     } @else if ($style == 'PlaceholderText' ) {
         @include PlaceholderText;
     } @else if ($style == 'PrimaryText' ) {
@@ -31,9 +31,9 @@
 
 // Base text styles
 
-@mixin SigntText {
+@mixin SignText {
     font-weight: normal;
-    font-size: map-get(ev.$font, 'SigntText');
+    font-size: map-get(ev.$font, 'SignText');
     line-height: 1.45;
 }
 

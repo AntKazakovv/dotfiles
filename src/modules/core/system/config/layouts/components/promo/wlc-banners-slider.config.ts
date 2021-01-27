@@ -4,20 +4,10 @@ export namespace wlcBannersSlider {
     export const home: ILayoutComponent = {
         name: 'promo.wlc-banners-slider',
         params: {
-            class: 'container wlc-slider',
+            class: 'wlc-slider',
             filter: {
                 position: ['home'],
             },
-            // slides: [
-            //     {
-            //         component: 'banner',
-            //         params: {
-            //             filter: {
-            //                 position: ['home'],
-            //             },
-            //         },
-            //     },
-            // ],
             swiper: {
                 slidesPerView: 1,
                 pagination: {
