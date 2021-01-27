@@ -57,6 +57,7 @@ $mainColors: map-merge((
     'success': #acf7d3,
     'warning': #fdce70,
     'disabled': #c4c4c4,
+    'gray900': #232426,
 ), $customMainColors);
 
 /// Цвета ui элементов из дизайна.
@@ -194,7 +195,8 @@ $radius: map-merge((
     'less': 6px,
     'main': 8px,
     'biger': 10px,
-    'big': 20px
+    'big': 20px,
+    'large': 100px,
 ), $customRadius);
 
 /// Размеры шрифта сайта.
@@ -215,7 +217,7 @@ $radius: map-merge((
 /// @prop {Size} monster [4rem] - monster
 $dummy: map-merge((), $customFont);
 $font: map-merge((
-    'base': 18px,
+    'base': 1.8rem,
     'small': 0.6rem,
     'smaller': 0.8rem,
     'less': 0.9rem,
@@ -224,17 +226,17 @@ $font: map-merge((
     'big': 2rem,
     'huge': 3.2rem,
     'monster': 4rem,
-    'SignText': 10px,
-    'PlaceholderText': 12px,
-    'PrimaryText': 14px,
-    'ButtonText': 14px,
-    'ThirdTitle': 16px,
-    'PromoTitle': 36px,
-    'ScreamTitle': 48px,
-    'PrimaryTextBold': 14px,
-    'ThridTitleBold': 16px,
-    'QoteTextBold': 24px,
-    'PlaceholderTextBold': 12px,
+    'SignText': 1rem,
+    'PlaceholderText': 1.2rem,
+    'PrimaryText': 1.4rem,
+    'ButtonText': 1.4rem,
+    'ThirdTitle': 1.6rem,
+    'PromoTitle': 3.6rem,
+    'ScreamTitle': 4.8rem,
+    'PrimaryTextBold': 1.4rem,
+    'ThridTitleBold': 1.6rem,
+    'QoteTextBold': 2.4rem,
+    'PlaceholderTextBold': 1.2rem,
 ), $customFont);
 
 /// Значения длительности анимации.
@@ -303,12 +305,12 @@ $form: map-merge((
     'successColor': map-get($color, 'success'),
     'maxWidth': 765px,
     'labelFontWeight': normal,
-    'labelColor': map-get($color, 'text'),
+    'labelColor': map-get($fieldColors, 'labelColor'),
     'labelFontSize': map-get($font, 'smaller'),
-    'inputColor': map-get($color, 'dark'),
+    'inputColor': map-get($fieldColors, 'textColor'),
     'inputFontSize': map-get($font, 'main'),
     'inputHeight': 40px,
-    'inputBackground': map-get($color, 'light'),
+    'inputBackground': map-get($fieldColors, 'inputBg'),
     'inputBorder': 2px solid transparent,
     'inputBorderFocusColor': map-get($color, 'divider'),
     'inputBorderRadius': map-get($radius, 'main'),
@@ -316,15 +318,15 @@ $form: map-merge((
     'inputTextAlign': left,
     'selectDropdownHeight': 300px,
     'selectDropdownItemTransition': map-get($time, 'main') ease-in-out background,
-    'selectArrowColor': map-get($color, 'dark'),
+    'selectArrowColor': map-get($fieldColors, 'arrowColor'),
     'iconWidth': 12px,
     'iconHeight': 12px,
     'iconRightShift': 15px,
-    'successIconColor': map-get($color, 'success'),
+    'successIconColor': map-get($fieldColors, 'successElement'),
     'errorIconColor': map-get($color, 'error'),
     'pendingIconColor': map-get($color, 'disabled'),
     'errorsBgColor': lighten(map-get($color, 'error'), 10%),
-    'errorsColor': map-get($color, 'error'),
+    'errorsColor': map-get($fieldColors, 'textColor'),
     'errorsMinWidth': 300px,
     'errorsMaxWidth': 100%,
     'errorsBorderRadius': map-get($radius, 'main'),
@@ -443,29 +445,30 @@ $buttonSettings: map-merge((
     //todo via variables
     'fontColor': map-get($mainColors, 'baseMain'),
     'colorDefaultHover': darken(map-get($mainColors, 'baseMain'), 20),
-    'fontColorActive': map-get($color, 'text'),
-    'fontColorSecondary': map-get($color, 'main'),
-    'fontColorActiveSecondary': lighten(map-get($color, 'main'), 20%),
+    'fontColorActive': map-get($mainColors, 'baseMain'),
+    'fontColorSecondary': map-get($mainColors, 'baseMain'),
+    'fontColorActiveSecondary': lighten(map-get($mainColors, 'baseMain'), 20%),
     // Transform
     'textTransform': initial,
     // Background
     'background': map-get($mainColors, 'buttonColor'),
-    'backgroundSecondary': map-get($color, 'secondary'),
-    'backgroundHover': darken(map-get($color, 'main'), 20%),
-    'backgroundSecondaryHover': darken(map-get($color, 'main'), 20%),
-    'backgroundResolve': map-get($color, 'success'),
-    'backgroundResolveHover': darken(map-get($color, 'success'), 20%),
-    'backgroundReject': map-get($color, 'error'),
-    'backgroundRejectHover': darken(map-get($color, 'error'), 20%),
-    'backgroundDisabled': map-get($color, 'disabled'),
-    'backgroundDisabledHover': darken(map-get($color, 'disabled'), 20%),
+    'backgroundSecondary': map-get($mainColors, 'secondary'),
+    'backgroundHover': darken(map-get($mainColors, 'buttonColor'), 20%),
+    'backgroundSecondaryHover': darken(map-get($mainColors, 'secondary'), 20%),
+    'backgroundResolve': map-get($mainColors, 'success'),
+    'backgroundResolveHover': darken(map-get($mainColors, 'success'), 20%),
+    'backgroundReject': map-get($mainColors, 'error'),
+    'backgroundRejectHover': darken(map-get($mainColors, 'error'), 20%),
+    'backgroundDisabled': map-get($mainColors, 'disabled'),
+    'backgroundDisabledHover': darken(map-get($mainColors, 'disabled'), 20%),
     // Shadow
-    'shadow': 0 10px 10px map-get($color, 'secondary'),
+    'shadow': 0 10px 10px map-get($mainColors, 'secondary'),
     //Border
     'borderDefault': 2px solid transparent,
     'borderRadiusDefault': map-get($radius, 'biger'),
-    'borderDefaultHover': 2px solid transparent,
-    'borderSecondary': 2px solid map-get($color, 'main'),
+    'borderDefaultHover': 2px solid darken(map-get($mainColors, 'buttonColor'), 20%),
+    'borderSecondary': 2px solid map-get($mainColors, 'buttonColor'),
+    'borderSecondaryHover': 2px solid darken(map-get($mainColors, 'buttonColor'), 20%),
     //Padding
     'padding': map-get($size, 'smallest') map-get($size, 'smaller'),
     'gap': map-get($size, 'smallest'),
@@ -473,4 +476,23 @@ $buttonSettings: map-merge((
     'time': map-get($time, 'main'),
     'radiusRoundingTheme': 100px,
 ), $customButtonSettings);
+
+$customBaseVariables: () !default;
+$baseVariables: map-merge((
+    // Possible to add image background to body:
+    //imageBackground: url('xxx'),
+), $customBaseVariables);
+
+$body-bg: map-get($mainColors, 'bg') !default;
+$body-color: map-get($mainColors, 'baseMain') !default;
+$font-size-root: 10px !default;
+$font-size-base: map-get($font, 'base') !default;
+$font-family-sans-serif: Roboto, sans-serif !default;
+$headings-margin-bottom: 0 !default;
+$paragraph-margin-bottom: 0 !default;
+$link-color: map-get($mainColors, 'main') !default;
+$link-decoration: underline !default;
+$link-hover-color: darken($link-color, 15%) !default;
+$link-hover-decoration: none !default;
+$enable-rfs: false;
 

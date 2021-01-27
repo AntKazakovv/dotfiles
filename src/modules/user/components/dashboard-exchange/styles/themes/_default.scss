@@ -1,3 +1,7 @@
+@use 'engine-scss/mixins/text' as lib;
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/functions' as ef;
+
 .wlc-exchange:host {
     display: grid;
     grid: {
@@ -32,23 +36,23 @@
             align-items: flex-end;
 
             &__value {
+                @include lib.get-text-style('QoteTextBold');
                 margin: ef.get-value($themeDefault, 'pointsValueMargin');
-                font: {
-                    size: ef.get-value($themeDefault, 'pointsValueSize');
-                    weight: ef.get-value($themeDefault, 'pointsValueWeight');
-                };
                 line-height: 1;
+                color: ef.get-value($themeDefault, 'pointsValueColor');
             }
 
             &__currency {
-                font-size: ef.get-value($themeDefault, 'pointsValueCurrencySize');
+                @include lib.get-text-style('PlaceholderText');
                 line-height: 1;
+                color: ef.get-value($themeDefault, 'pointsCurrencyColor');
             }
 
             &__desc {
+                @include lib.get-text-style('PlaceholderText');
                 width: 100%;
                 margin: ef.get-value($themeDefault, 'pointsDescMargin');
-                font-size: ef.get-value($themeDefault, 'pointsDescSize');
+                color: ef.get-value($themeDefault, 'pointsDescColor');
             }
         }
 

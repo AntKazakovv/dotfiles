@@ -11,7 +11,7 @@ import {ConfigService} from 'wlc-engine/modules/core';
 import {UserService} from 'wlc-engine/modules/user/system/services';
 import {ModalService} from 'wlc-engine/modules/core/system/services';
 import {IUserInfo} from 'wlc-engine/modules/core/system/interfaces';
-import * as Params from './loyalty-block.params';
+import * as Params from './dashboard-loyalty-block.params';
 
 import {
     reduce as _reduce,
@@ -19,12 +19,12 @@ import {
 } from 'lodash';
 
 @Component({
-    selector: '[wlc-loyalty-block]',
-    templateUrl: './loyalty-block.component.html',
-    styleUrls: ['./styles/loyalty-block.component.scss'],
+    selector: '[wlc-dashboard-loyalty-block]',
+    templateUrl: './dashboard-loyalty-block.component.html',
+    styleUrls: ['./styles/dashboard-loyalty-block.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoyaltyBlockComponent extends AbstractComponent implements OnInit, OnDestroy {
+export class DashboardLoyaltyBlockComponent extends AbstractComponent implements OnInit, OnDestroy {
     @Input() protected inlineParams: Params.ILoyaltyProgressCParams;
 
     constructor(

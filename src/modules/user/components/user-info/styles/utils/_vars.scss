@@ -1,25 +1,25 @@
-$userInfoColor: #fff !default;
+@use 'engine-scss/functions' as ef;
 
-$userInfoShortMargin: 0 20px !default;
-
-$userInfoDropdownBtnPadding: 5px 12px 5px 5px !default;
-$userInfoDropdownBtnBorder: 2px solid #f2f2f2 !default;
-$userInfoDropdownBtnBorderRadius: 100px !default;
-$userInfoDropdownArrowMargin: 0 0 0 32px !default;
-$userInfoDropdownArrowFill: #fff !default;
-$userInfoDropdownBtnIconSize: 27px !default;
-
-$userInfoDropdownTop: calc(100% + 10px) !default;
-$userInfoDropdownRight: 0 !default;
-$userInfoDropdownMinWidth: 270px !default;
-$userInfoDropdownBoxShadow: 3px 4px 15px -3px #000 !default;
-$userInfoDropdownPadding: 10px !default;
-$userInfoDropdownBg: #555459 !default;
-$userInfoDropdownBorderRadius: 10px !default;
-
-$userInfoGap: 10px !default;
-$userInfoDepositBtnMarginMobile: 0 16px 0 0 !default;
-$userInfoDepositBtnMarginDesktop: 0 32px 0 0 !default;
-$userInfoDepositBtnPaddingMobile: 5px 7px !default;
-$userInfoDepositBtnPaddingDesktop: 5px 20px !default;
-$userInfoDropdownIconFill: ef.get('mainColors', 'main') !default;
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'userInfoShortMargin': 0 20px,
+    'userInfoDropdownBtnPadding': 5px 12px 5px 5px,
+    'userInfoDropdownBtnBorder': 2px solid ef.get('mainColors', 'baseOpacity'),
+    'userInfoDropdownBtnBorderRadius': 100px,
+    'userInfoDropdownArrowMargin': 0 0 0 32px,
+    'userInfoDropdownArrowFill': ef.get('fieldColors', 'arrowColor'),
+    'userInfoDropdownBtnIconSize': 27px,
+    'userInfoDropdownTop': calc(100% + 10px),
+    'userInfoDropdownRight': 0,
+    'userInfoDropdownMinWidth': 270px,
+    'userInfoDropdownBoxShadow': 3px 4px 15px -3px #000,
+    'userInfoDropdownPadding': 10px,
+    'userInfoDropdownBg': ef.get('mainColors', 'bg700'),
+    'userInfoDropdownBorderRadius': 10px,
+    'userInfoGap': 10px,
+    'userInfoDepositBtnMarginMobile': 0 16px 0 0,
+    'userInfoDepositBtnMarginDesktop': 0 32px 0 0,
+    'userInfoDepositBtnPaddingMobile': 5px 7px,
+    'userInfoDepositBtnPaddingDesktop': 5px 20px,
+    'userInfoDropdownIconFill': ef.get('mainColors', 'main'),
+), $customThemeDefault);

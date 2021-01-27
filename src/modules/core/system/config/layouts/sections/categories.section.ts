@@ -13,6 +13,7 @@ export namespace categories {
                     components: [
                         componentLib.wlcCategoryMenu.categories,
                         componentLib.wlcButton.search,
+                        componentLib.wlcButton.searchMerchants,
                     ],
                 },
             },

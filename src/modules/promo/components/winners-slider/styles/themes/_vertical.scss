@@ -1,5 +1,6 @@
 @use 'engine-scss/mixins/base.mixins' as em;
 @use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/text' as text;
 @use 'engine-scss/functions' as ef;
 @import './../utils/vars';
 
@@ -24,8 +25,7 @@
 
         &__title {
             display: inline-block;
-            font-size: ef.get-value($themeVertical, 'titleFontSize');
-            font-weight: ef.get-value($themeVertical, 'titleFontWeight');
+            @include text.get-text-style(ThridTitleBold);
             color: ef.get-value($themeVertical, 'titleColor');
             background: ef.get-value($themeVertical, 'titleBackground');
             border-radius: ef.get-value($themeVertical, 'titleBorderRadius');

@@ -1,4 +1,5 @@
 @use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/text' as text;
 @import '../utils/vars';
 
 .wlc-bonus-item--theme-default {
@@ -135,9 +136,8 @@
             padding: $tagPadding;
             background-color: $tagBg;
             border-radius: $tagRadius;
+            @include text.get-text-style(SigntText);
             color: $tagFontColor;
-            font-size: $tagFontSize;
-            line-height: 2;
             left: 50%;
             transform: translateX(-50%);
             top: $tagPositionTop;
@@ -168,15 +168,14 @@
         }
 
         &__name {
-            font-size: $nameFontSize;
+            @include text.get-text-style(QoteTextBold);
             color: $nameFontColor;
-            font-weight: bold;
             text-align: center;
             width: $infoWidth;
         }
 
         &__description {
-            font-size: $descriptionFontSize;
+            @include text.get-text-style(PrimaryText);
             color: $descriptionFontColor;
             text-align: center;
             transition: opacity $time ease-in-out;
@@ -191,12 +190,12 @@
             max-width: $activeBlockMaxWidth;
             border-radius: $activeBlockRadius;
             text-align: center;
-            font-size: $activeBlockFontSize;
+            @include text.get-text-style(PrimaryTextBold);
             color: $activeBlockFontColor;
 
             .secondary-text {
+                @include text.get-text-style(PrimaryText);
                 color: $activeBlockFontSecondaryColor;
-                font-size: $activeBlockFontSecondarySize;
             }
         }
 
@@ -264,11 +263,6 @@
             right: $moreIconPosRight;
             top: $moreIconPosTop;
             bottom: $moreIconPosBottom;
-            opacity: 0.4;
-
-            &:hover {
-                opacity: 1;
-            }
 
             .icon-btn {
                 cursor: pointer;

@@ -35,7 +35,7 @@ export namespace wlcBonusesList {
             type: 'swiper',
             common: {
                 sortOrder: ['active', 'subscribe', 'inventory'],
-                title: 'My bonuses',
+                title: '',
                 swiper: {
                     slidesPerView: 2,
                     spaceBetween: 20,

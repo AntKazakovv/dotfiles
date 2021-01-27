@@ -1,18 +1,15 @@
 @use 'engine-scss/functions' as ef;
 
-//dropdown variables
-$menuGag: ef.get('size', 'smallest') !default;
-
-$activeTabLinkColor: #000 !default;
-$activeTabLinkBg: #fff000 !default;
-
-$linkPadding: 8px 12px !default;
-$linkSize: 14px !default;
-$linkWeight: normal !default;
-$linkColor: #fff !default;
-$linkBg: #6d6d70 !default;
-$activeLinkBg: darken($linkBg, 20) !default;
-$linkFill: $linkColor !default;
-$linkBorderRadius: 10px !default;
-
-$submenuBg: #000 !default;
+$customDropdownThemeDefault: () !default;
+$themeDropdownDefault: map-merge((
+    menuGag: 5px,
+    activeTabLinkColor: ef.get('mainColors', 'baseMain'),
+    activeTabLinkBg: ef.get('mainColors', 'main'),
+    linkPadding: 8px 12px,
+    linkColor: ef.get('mainColors', 'baseMain'),
+    linkBg: ef.get('mainColors', 'bg'),
+    activeLinkBg: ef.get('mainColors', 'baseOpacity'),
+    linkFill: linkColor,
+    linkBorderRadius: ef.get('radius', 'biger'),
+    submenuBg: ef.get('mainColors', 'bg'),
+), $customDropdownThemeDefault);

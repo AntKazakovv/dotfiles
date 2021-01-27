@@ -11,6 +11,12 @@
             grid-template-areas: $templateAreas;
             grid-template-columns: $gridColumns;
             grid-gap: $gridGap;
+
+            > .wlc-btn {
+                grid-area: btn;
+
+                margin: $btnMargin;
+            }
         }
 
         .wlc-text-block {
@@ -35,12 +41,6 @@
 
         .wlc-checkbox--age {
             grid-area: age;
-        }
-
-        .wlc-btn {
-            grid-area: btn;
-
-            margin: $btnMargin;
         }
 
         .wlc-link-block {

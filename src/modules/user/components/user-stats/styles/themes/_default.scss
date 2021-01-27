@@ -1,23 +1,24 @@
+@use 'engine-scss/mixins/text' as lib;
+
 .wlc-user-stats--theme-default:host {
 
     .wlc-user-stats {
         width: 100%;
-        max-width: $userStatsMaxWidth;
-        color: $userStatsColor;
+        max-width: map-get($themeDefault, 'maxWidth');
 
         &-balance {
             width: 100%;
-            padding: $userStatsBalancePadding;
-            border-radius: $userStatsBalanceBorderRadius;
-            background: $userStatsBalanceBg;
+            padding: map-get($themeDefault, 'balancePadding');
+            border-radius: map-get($themeDefault, 'balanceBorderRadius');
+            background: map-get($themeDefault, 'balanceBg');
 
             &--short {
-                padding: $userStatsBalanceShortPadding;
-                min-width: $userStatsBalanceShortMinWidth;
-                background: $userStatsBalanceShortBg;
+                padding: map-get($themeDefault, 'balanceShortPadding');
+                min-width: map-get($themeDefault, 'balanceShortMinWidth');
+                background: map-get($themeDefault, 'balanceShortBg');
 
                 > div {
-                    border-bottom-color: $userStatsBalanceShortBorderColor;
+                    border-bottom-color: map-get($themeDefault, 'balanceShortBorderColor');
                 }
             }
 
@@ -25,13 +26,23 @@
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-                padding: $userStatsBalanceItemPadding;
-                border-bottom: $userStatsBalanceItemBorder;
-                color: $userStatsBalanceColor;
+                padding: map-get($themeDefault, 'balanceItemPadding');
+                border-bottom: map-get($themeDefault, 'balanceItemBorder');
 
                 &:last-child {
                     border-bottom: none;
                 }
+            }
+
+            .name {
+                @include lib.get-text-style('PlaceholderText');
+                color: map-get($themeDefault, 'colorName');
+            }
+
+            .value {
+                padding-left: 5px;
+                @include lib.get-text-style('PlaceholderTextBold');
+                color: map-get($themeDefault, 'colorValue');
             }
 
             .name,
@@ -41,28 +52,12 @@
                 text-overflow: ellipsis;
                 overflow: hidden;
             }
-
-            .name {
-                font: {
-                    size: $userStatsBalanceItemNameSize;
-                    weight: $userStatsBalanceItemNameWeight;
-                }
-            }
-
-            .value {
-                padding-left: 5px;
-                text-align: right;
-                font: {
-                    size: $userStatsBalanceItemValueSize;
-                    weight: $userStatsBalanceItemValueWeight;
-                }
-            }
         }
 
         &__content {
 
             .wlc-btn-deposit {
-                margin: $userStatsBtnMargin;
+                margin: map-get($themeDefault, 'btnMargin');
             }
         }
     }

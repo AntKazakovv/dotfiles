@@ -1,23 +1,18 @@
-$userStatsMaxWidth: 270px !default;
-$userStatsColor: #fff !default;
+@use 'engine-scss/functions' as ef;
 
-$userStatsBalancePadding: 11px 15px !default;
-$userStatsBalanceBorderRadius: 10px !default;
-$userStatsBalanceBg: #000 !default;
-
-$userStatsBalanceShortPadding: 0 !default;
-$userStatsBalanceShortMinWidth: 180px !default;
-$userStatsBalanceShortBg: none !default;
-$userStatsBalanceShortBorderColor: #8d979a !default;
-$userStatsBalanceColor: ef.get('color', 'textSecondary') !default;
-
-$userStatsBalanceItemPadding: 4px 0 !default;
-$userStatsBalanceItemBorder: 2px solid #353739 !default;
-
-$userStatsBalanceItemNameSize: 12px !default;
-$userStatsBalanceItemNameWeight: normal !default;
-
-$userStatsBalanceItemValueSize: 12px !default;
-$userStatsBalanceItemValueWeight: bold !default;
-
-$userStatsBtnMargin: 10px auto !default;
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'maxWidth': 270px,
+    'colorName': ef.get('mainColors', 'baseMain'),
+    'colorValue': ef.get('mainColors', 'baseMain'),
+    'balancePadding': 11px 15px,
+    'balanceBorderRadius': ef.get('radius', 'biger'),
+    'balanceBg': ef.get('mainColors', 'bg'),
+    'balanceShortPadding': 0,
+    'balanceShortMinWidth': 180px,
+    'balanceShortBg': none,
+    'balanceShortBorderColor': ef.get('mainColors', 'bg700'),
+    'balanceItemPadding': 4px 0,
+    'balanceItemBorder': 2px solid ef.get('mainColors', 'bg700'),
+    'btnMargin': 10px auto,
+), $customThemeDefault);

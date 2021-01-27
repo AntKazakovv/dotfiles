@@ -1,24 +1,38 @@
 @use 'engine-scss/functions' as ef;
 
-// Sizes
-$width: fit-content !default;
-$gapSize: ef.get('size', 'less') !default;
-$paddingSize: ef.get('size', 'smaller') !default;
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    // Sizes
+    gapSize: (
+        375: ef.get('size', 'small'),
+        1024: ef.get('size', 'less'),
+        1420: ef.get('size', 'big')
+    ),
+    paddingSize: ef.get('size', 'smaller'),
+    //dropdown variables
+    menuGag: 5px,
+    linkPadding: 12px 5px,
+    linkActiveWeight: bold,
+    linkColor: ef.get('mainColors', 'baseMain'),
+    linkColorHovered: darken(ef.get('mainColors', 'baseMain'), 20%),
+    linkDecoration: none,
+    underlineOffset: 0,
+    underlineColor: ef.get('mainColors', 'main'),
+    underlineHeight: 6px,
+    underlineRadius: ef.get('radius', 'large')
+), $customThemeDefault);
 
-//dropdown variables
-$menuGag: 5px !default;
-
-$activeTabLinkColor: #000 !default;
-$activeTabLinkBg: #fff000 !default;
-
-$linkPadding: 8px 12px !default;
-$linkSize: 14px !default;
-$linkWeight: normal !default;
-$linkColor: #fff !default;
-$linkBg: #6d6d70 !default;
-$activeLinkBg: darken($linkBg, 20) !default;
-$linkFill: $linkColor !default;
-$linkBorderRadius: 10px !default;
-
-$submenuBg: #000 !default;
+$customDropdownThemeDefault: () !default;
+$themeDropdownDefault: map-merge((
+    menuGag: 5px,
+    activeTabLinkColor: ef.get('mainColors', 'baseMain'),
+    activeTabLinkBg: ef.get('mainColors', 'main'),
+    linkPadding: 8px 12px,
+    linkColor: ef.get('mainColors', 'baseMain'),
+    linkBg: ef.get('mainColors', 'bg'),
+    activeLinkBg: ef.get('mainColors', 'baseOpacity'),
+    linkFill: linkColor,
+    linkBorderRadius: ef.get('radius', 'biger'),
+    submenuBg: ef.get('mainColors', 'bg'),
+), $customDropdownThemeDefault);
 

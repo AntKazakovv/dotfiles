@@ -6,24 +6,32 @@ $themeDefault: map-merge((
     'checkboxElemSize': 25px,
     'checkboxElemTop': 0,
     'checkboxElemLeft': 0,
-    'checkboxElemBackground': #ffffff,
-    'checkboxElemBorder': 2px solid #f2f2f2,
+    'checkboxElemBackground': ef.get('mainColors', 'baseMain'),
+    'checkboxElemBorder': 2px solid ef.get('mainColors', 'baseMain'),
     'checkboxElemBorderRadius': 5px,
-    'checkboxElemBorderColor':ef.get('color', 'main'),
+    'checkboxElemBorderColor': ef.get('mainColors', 'main'),
 
     'iconLineHieght': 0,
     'iconSvgWidth': 8px,
     'iconSvgHeight': 7px,
-    'iconSvgStroke': ef.get('color', 'main'),
+    'iconSvgStroke': ef.get('mainColors', 'main'),
     'iconSvgStrokeWidth': 3px,
     'iconSvgFill': transparent,
 
     'textFontSize': 12px,
-    'textColor': ef.get('color', 'text'),
+    'textColor': ef.get('mainColors', 'baseMain'),
     'leftTextPadding': 3.5px 35px 5px 3.5px,
 
-    'linkColor': ef.get('color', 'main'),
-    'linkHoverColor': ef.get('color', 'main')
-), $customThemeDefault);
+    'linkColor': ef.get('mainColors', 'main'),
+    'linkHoverColor': darken(ef.get('mainColors', 'main'), 20),
 
-$bgToggle: #bebebe !default;
+    'toggleBackground': ef.get('mainColors', 'baseOpacity'),
+    'toggleWidth': 120px,
+    'toggleHeight': 35px,
+    'togglePadding': 0 6px,
+    'toggleRadius': ef.get('radius', 'large'),
+    'toggleOffset': 34px,
+    'toggleCircleSize': 29px,
+    'toggleCircleOffset': 4px,
+    'toggleCircleBg': ef.get('mainColors', 'main')
+), $customThemeDefault);

@@ -30,6 +30,7 @@ export class MobileMenuComponent extends AbstractComponent implements OnInit {
     public menuParams: MenuParams.IMenuCParams;
     public categoryMenuParams: CategoryMenuParams.ICategoryMenuCParams = {
         type: 'dropdown',
+        theme: 'dropdown',
         themeMod: 'vertical',
     };
 

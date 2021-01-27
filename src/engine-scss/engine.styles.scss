@@ -1,21 +1,17 @@
 @use './functions' as ef;
 @use './mixins/mediaqueries' as mq;
+@use './mixins/text' as text;
 @import 'engine.variables';
 @import './font-icons';
-
-$fontFamilyProject: Roboto, sans-serif !default;
-$font-family-sans-serif: $fontFamilyProject;
 
 @import '~bootstrap/scss/bootstrap-reboot';
 @import '~bootstrap/scss/bootstrap-grid';
 @import 'app.styles';
 
-body {
-    //scale body when device width < 375px
-    min-width: 375px;
-}
-
 // LAYOUTS
 
 // Profile
 @import './layouts/profile/profile';
+
+// Categories
+@import './layouts/categories/categories';

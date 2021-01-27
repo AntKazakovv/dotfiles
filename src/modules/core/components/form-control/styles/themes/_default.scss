@@ -7,7 +7,7 @@
     #{$touch}.ng-valid ~ & {
 
         #{$selector}__icon {
-            background: $successColor;
+            background: map-get($themeDefault, 'successColor');
 
             &:before {
                 width: 4px;
@@ -15,8 +15,8 @@
                 top: calc(50% - 1px);
                 left: 50%;
                 transform: translate(-50%, -50%) rotate(45deg);
-                border-bottom: 1px solid $successIconColor;
-                border-right: 1px solid $successIconColor;
+                border-bottom: 1px solid map-get($themeDefault, 'successIconColor');
+                border-right: 1px solid map-get($themeDefault, 'successIconColor');
             }
         }
     }
@@ -31,7 +31,7 @@
                 width: 100%;
                 height: 100%;
                 animation: spin 1s infinite linear;
-                border: 2px solid $pendingIconColor;
+                border: 2px solid map-get($themeDefault, 'pendingIconColor');
                 border-left-color: transparent;
                 border-radius: 50%;
             }
@@ -39,17 +39,17 @@
     }
 
     #{$touch}.ng-invalid ~ & {
-        border-color: $errorColor;
+        border-color: map-get($themeDefault, 'errorColor');
 
         #{$selector}__icon {
-            background: $errorColor;
+            background: map-get($themeDefault, 'errorColor');
             transform: translateY(-50%) rotate(45deg);
 
             &:before {
                 top: 50%;
                 left: 50%;
                 transform: translate(-50%, -50%);
-                background: $errorIconColor;
+                background: map-get($themeDefault, 'errorIconColor');
                 width: 2px;
                 height: 7px;
             }
@@ -60,7 +60,7 @@
                 top: 50%;
                 left: 50%;
                 transform: translate(-50%, -50%);
-                background: $errorIconColor;
+                background: map-get($themeDefault, 'errorIconColor');
                 width: 7px;
                 height: 2px;
             }
@@ -80,8 +80,8 @@
         top: 50%;
         right: 15px;
         transform: translateY(-50%);
-        width: $iconWidth;
-        height: $iconHeight;
+        width: map-get($themeDefault, 'iconWidth');
+        height: map-get($themeDefault, 'iconHeight');
         border-radius: 50%;
 
         .wlc-textarea & {
@@ -89,8 +89,8 @@
             top: 20px;
             right: 15px;
             transform: translateY(-50%);
-            width: $iconWidth;
-            height: $iconHeight;
+            width: map-get($themeDefault, 'iconWidth');
+            height: map-get($themeDefault, 'iconHeight');
             border-radius: 50%;
 
             &:before {
@@ -107,42 +107,42 @@
 
     &__errors {
         position: absolute;
-        background: $errorsBgColor;
+        background: map-get($themeDefault, 'errorsBgColor');
         top: calc(100% - 5px);
         right: 0;
         width: fit-content;
-        min-width: $errorsMinWidth;
-        max-width: $errorsMaxWidth;
+        min-width: map-get($themeDefault, 'errorsMinWidth');
+        max-width: map-get($themeDefault, 'errorsMaxWidth');
         opacity: 0;
         visibility: hidden;
-        color: $errorsColor;
-        border-radius: $errorsBorderRadius;
-        font-size: $errorsFontSize;
-        padding: $errorsPadding;
+        color: map-get($themeDefault, 'errorsColor');
+        border-radius: map-get($themeDefault, 'errorsBorderRadius');
+        font-size: map-get($themeDefault, 'errorsFontSize');
+        padding: map-get($themeDefault, 'errorsPadding');
         z-index: 10;
         margin-left: 20px;
         list-style: none;
 
         .wlc-textarea & {
             position: absolute;
-            background: $errorsBgColor;
+            background: map-get($themeDefault, 'errorsBgColor');
             top: 35px;
             right: 0;
             width: fit-content;
-            min-width: $errorsMinWidth;
-            max-width: $errorsMaxWidth;
+            min-width: map-get($themeDefault, 'errorsMinWidth');
+            max-width: map-get($themeDefault, 'errorsMaxWidth');
             opacity: 0;
             visibility: hidden;
-            color: $errorsColor;
-            border-radius: $errorsBorderRadius;
-            font-size: $errorsFontSize;
-            padding: $errorsPadding;
+            color: map-get($themeDefault, 'errorsColor');
+            border-radius: map-get($themeDefault, 'errorsBorderRadius');
+            font-size: map-get($themeDefault, 'errorsFontSize');
+            padding: map-get($themeDefault, 'errorsPadding');
             z-index: 10;
 
             &:before {
                 content: '';
                 border: 8px solid transparent;
-                border-bottom-color: $errorsBgColor;
+                border-bottom-color: map-get($themeDefault, 'errorsBgColor');
                 position: absolute;
                 top: -15px;
                 right: 13px;
@@ -152,7 +152,7 @@
         &:before {
             content: '';
             border: 8px solid transparent;
-            border-bottom-color: $errorsBgColor;
+            border-bottom-color: map-get($themeDefault, 'errorsBgColor');
             position: absolute;
             top: -15px;
             right: 13px;

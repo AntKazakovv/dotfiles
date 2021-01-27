@@ -1,6 +1,7 @@
 @use 'engine-scss/functions' as ef;
 @use 'engine-scss/mixins/mediaqueries' as mq;
 @use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/mixins/text' as text;
 @import './vars';
 
 @mixin buttonBase {
@@ -17,12 +18,9 @@
     background: ef.get-value($themeDefault, 'background');
 
     color: ef.get-value($themeDefault, 'fontColor');
-    font: {
-        size: ef.get-value($themeDefault, 'fontSize');
-        weight: ef.get-value($themeDefault, 'fontWeight');
-    }
 
     .wlc-btn__text {
+        @include text.get-text-style(ButtonText);
         grid-column: 2;
         text-transform: ef.get-value($themeDefault, 'textTransform');
     }
@@ -46,7 +44,8 @@
     @media (hover: hover) {
 
         &:hover {
-            background: transparentize(ef.get-value($themeDefault, 'backgroundHover'), 0.7);
+            background: ef.get-value($themeDefault, 'backgroundHover');
+            border: ef.get-value($themeDefault, 'borderSecondaryHover');
             color: ef.get-value($themeDefault, 'fontColorActiveSecondary');
         }
     }

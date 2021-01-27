@@ -1,3 +1,6 @@
 @use 'engine-scss/functions' as ef;
 
-$gap: ef.get('size', 'smaller') !default;
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'gap': ef.get('size', 'smaller'),
+), $customThemeDefault);

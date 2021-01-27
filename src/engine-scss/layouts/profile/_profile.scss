@@ -32,7 +32,9 @@
             font-size: ef.get-value($profileSettings, 'profileHeaderFontSize');
 
             @include mq.min(1024) {
-                font-size: ef.get-value($profileSettings, 'profileHeaderFontSize', 1024);
+                @include text.get-text-style(ThirdTitle);
+                font-weight: 700;
+                color: ef.get('mainColors', 'baseMain');
             }
         }
     }

@@ -4,12 +4,12 @@
 
     .wlc-disclaimer__text {
         @include text.get-text-style('SignText');
-        text-align: $textAlign;
-        color: $textColor;
+        text-align: map-get($themeDefault, 'textAlign');
+        color: map-get($themeDefault, 'textColor');
 
         @include mq.min(900) {
             @include text.get-text-style('PlaceholderText');
-            text-align: left;
+            text-align: map-get($themeDefault, 'textAlign');
         }
     }
 }

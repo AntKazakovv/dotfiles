@@ -3,7 +3,7 @@
 
 $gridGap: ef.get('size', 'smaller') !default;
 $margin: ef.get('size', 'smaller') auto ef.get('size', 'less') auto !default;
-$marginSwiper: ef.get('size', 'smaller') (-$swiperNaviButtonSize / 2 + 1) ef.get('size', 'less') (-$swiperNaviButtonSize / 2 + 1) !default;
+$marginSwiper: 0 !default;
 $minItemWidth: 280px !default;
-$headerColor: #fff !default;
+$headerColor: ef.get('mainColors', 'baseMain') !default;
 

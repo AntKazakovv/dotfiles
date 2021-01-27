@@ -4,8 +4,8 @@
 
     .wlc-copyright__text {
         @include text.get-text-style('SignText');
-        text-align: $textAlign;
-        color: $textColor;
+        text-align: map-get($themeDefault, 'textAlign');
+        color: map-get($themeDefault, 'textColor');
 
         @include mq.min(900) {
             @include text.get-text-style('PlaceholderText');
@@ -16,13 +16,18 @@
         }
 
         a {
-            text-decoration: $linkTextDecoration;
-            color: $linkColor;
-            transition: 0.5s ease-in;
+            text-decoration: map-get($themeDefault, 'textDecoration');
+            color: map-get($themeDefault, 'linkColor');
+            @include text.get-text-style('SignText');
+            @include bm.transition(color);
+
+            @include mq.min(900) {
+                @include text.get-text-style('PlaceholderText');
+            }
 
             &:hover,
             &:focus-visible {
-                color: $linkHoverColor;
+                color: map-get($themeDefault, 'linkHoverColor');
             }
         }
     }

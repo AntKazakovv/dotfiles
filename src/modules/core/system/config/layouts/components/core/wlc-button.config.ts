@@ -1,6 +1,24 @@
 import {ILayoutComponent} from 'wlc-engine/modules/core';
 
 export namespace wlcButton {
+    export const searchMerchants: ILayoutComponent = {
+        name: 'core.wlc-button',
+        display: {
+            after: 900,
+        },
+        params: {
+            class: 'wlc-btn wlc-btn-merch',
+            common: {
+                icon: 'filter-merchants',
+                text: 'All providers',
+                event: {
+                    name: 'SHOW_MODAL',
+                    data: 'search',
+                },
+            },
+        },
+    };
+
     export const search: ILayoutComponent = {
         name: 'core.wlc-button',
         params: {

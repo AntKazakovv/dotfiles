@@ -24,35 +24,38 @@ $progressBarSize: 5px !default;
 
 $moreIconSize: 24px !default;
 
-$moreIconColor: ef.get('color', 'text') !default;
-
 $activeBlockTimeIconSize: 18px !default;
 
 // // Font
-$bonusIconValueFontSize: 0.9rem !default;
-$bonusIconValueFontSizeSmall: 0.7rem !default;
-$bonusIconValueFontSizeSmaller: 0.5rem !default;
-$bonusIconValueFontW: 700 !default;
-$bonusIconValueFontColor: #000000 !default;
+$colorText: ef.get('mainColors', 'baseMain') !default;
+$colorField: ef.get('fieldColors', 'textColor') !default;
 
-$tagFontColor: #fff !default;
+$bonusIconValueFontSize: 2rem !default;
+$bonusIconValueFontSizeSmall: 1.7rem !default;
+$bonusIconValueFontSizeSmaller: 1.5rem !default;
+$bonusIconValueFontW: 700 !default;
+$bonusIconValueFontColor: $colorField !default;
+
+$tagFontColor: $colorText !default;
 $tagFontSize: ef.get('font', 'small') !default;
 
-$nameFontColor: ef.get('color', 'text') !default;
+$nameFontColor: $colorText !default;
 $nameFontSize: ef.get('font', 'biger') !default;
 
-$descriptionFontColor: ef.get('color', 'text') !default;
+$descriptionFontColor: $colorText !default;
 $descriptionFontSize: ef.get('font', 'less') !default;
 
-$activeBlockFontColor: ef.get('color', 'text') !default;
+$activeBlockFontColor: $colorText !default;
 $activeBlockFontSize: ef.get('font', 'less') !default;
 
-$activeBlockFontSecondaryColor: ef.get('color', 'text') !default;
+$activeBlockFontSecondaryColor: $colorText !default;
 $activeBlockFontSecondarySize: ef.get('font', 'less') !default;
+
+$moreIconColor: ef.get('mainColors', 'baseOpacity') !default;
 
 // // Backgrounds
 $background: ef.get('mainColors', 'bg300') !default;
-$backgroundHover:  ef.get('mainColors', 'bg500') !default;
+$backgroundHover: ef.get('mainColors', 'bg500') !default;
 
 $backgroundExperience: $background !default;
 $backgroundExperienceHover:  $backgroundHover !default;
@@ -71,14 +74,14 @@ $backgroundRelativeHover:  $backgroundHover !default;
 
 $imageBg: rgba(0, 0, 0, 0.3) !default;
 
-$bonusIconValueBg: #fff !default;
+$bonusIconValueBg: ef.get('mainColors', 'baseMain') !default;
 
 $tagBg: ef.get('mainColors', 'secondary') !default;
 
 $activeBlockTimerBg: ef.get('mainColors', 'bg') !default;
 $activeBlockProgressBg: transparent !default;
 
-$progressBarBg: ef.get('color', 'text') !default;
+$progressBarBg: ef.get('fieldColors', 'inputBg') !default;
 $progressBarColor: ef.get('mainColors', 'main') !default;
 
 // // Radius
@@ -95,7 +98,7 @@ $progressBarRadius: 5px !default;
 
 //Padding
 $bonusIconMargin: 55px auto 0 auto !default;
-$tagPadding: 0 ef.get('size', 'small') !default;
+$tagPadding: 4px 10px 3px !default;
 $infoPadding: 0 ef.get('size', 'small') !default;
 
 $activeBlockPadding: ef.get('size', 'small') !default;
@@ -119,12 +122,12 @@ $moreIconPosTop: ef.get('size', 'small') !default;
 $moreIconPosBottom: auto !default;
 
 // chosen icon
-$chosenIconBg: #fff !default;
+$chosenIconBg: ef.get('fieldColors', 'inputBg') !default;
 $chosenIconBdRds: 50% !default;
 $chosenIconWidth: 22px !default;
 $chosenIconHeight: 22px !default;
 $chosenIconSvgSize: 12px !default;
-$chosenIconSvgColor: ef.get('color', 'text') !default;
+$chosenIconSvgColor: ef.get('fieldColors', 'textColor') !default;
 $chosenIconPosL: ef.get('size', 'small') !default;
 $chosenIconPosT: ef.get('size', 'small') !default;
 

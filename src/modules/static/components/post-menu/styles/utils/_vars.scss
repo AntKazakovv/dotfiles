@@ -1,6 +1,6 @@
 @use 'engine-scss/functions' as ef;
 
-$color: ef.get('color', 'text') !default;
+$color: ef.get('mainColors', 'baseMain') !default;
 
 $titleColor: ef.get('color', 'main') !default;
 $titleWeight: bold !default;
@@ -13,29 +13,26 @@ $linkSize: 100% !default;
 $linkDecoration: none !default;
 
 // theme contacts
-$textColor: ef.get('color', 'link') !default;
+$textColor: ef.get('mainColors', 'baseMain') !default;
 $fontWeight: 700 !default;
 $fontSize: ef.get('font', 'main') !default;
 $padding: 20px 25px !default;
 
-$linkActiveBgthemeContacts: #292929 !default;
-$linkActiveColorthemeContacts: #fff !default;
-
 $customMenuThemeContacts: () !default;
 $menuThemeContacts: map-merge((
     'textTransform': inherit,
-    'textColor': #fff,
-    'textColorHover': darken(ef.get('color', 'linkSecondary'), 5%),
+    'textColor': ef.get('mainColors', 'baseMain'),
+    'textColorHover': darken(ef.get('mainColors', 'baseMain'), 5%),
     'textDecoration': none,
     'fontWeight': 700,
     'fontSize': ef.get('font', 'main'),
     'padding': 20px 25px,
     'letterSpacing': 1px,
 
-    'hoverBg': ef.get('color', 'link'),
-    'hoverColor': #fff,
+    'hoverBg': ef.get('mainColors', 'main'),
+    'hoverColor': ef.get('mainColors', 'baseMain'),
 
-    'activeBg': #717273,
-    'activeColor': #fff,
-    'borderColor': #717273,
+    'activeBg': ef.get('mainColors', 'main'),
+    'activeColor': ef.get('mainColors', 'baseMain'),
+    'borderColor': ef.get('mainColors', 'bg500'),
 ), $customMenuThemeContacts);

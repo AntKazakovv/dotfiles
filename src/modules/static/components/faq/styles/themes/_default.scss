@@ -1,3 +1,4 @@
+@use 'engine-scss/mixins/text' as text;
 @import '../utils/vars';
 
 .wlc-faq--theme-default:host {
@@ -11,8 +12,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: map-get($themeDefault, 'headerFontSize');
-            font-weight: map-get($themeDefault, 'headerFontWeight');
+            @include text.get-text-style(QoteTextBold);
             color: map-get($themeDefault, 'headerFontColor');
             padding: map-get($themeDefault, 'headerPadding');
         }
@@ -65,8 +65,7 @@
 
             &-text {
                 flex-grow: 1;
-                font-size: map-get($themeDefault, 'titleFontSize');
-                font-weight: map-get($themeDefault, 'titleFontWeight');
+                @include text.get-text-style(ThridTitleBold);
                 color: map-get($themeDefault, 'titleColor');
                 transition: all map-get($themeDefault, 'time');
                 padding-right: map-get($themeDefault, 'paddingSize');
@@ -109,8 +108,7 @@
             };
 
             &-wrp {
-                font-size: map-get($themeDefault, 'contentFontSize');
-                font-weight: map-get($themeDefault, 'contentFontWeight');
+                @include text.get-text-style(ThirdTitle);
                 color: map-get($themeDefault, 'contentFontColor');
                 border-top: 1px solid map-get($themeDefault, 'contentFontColor');
                 padding: {

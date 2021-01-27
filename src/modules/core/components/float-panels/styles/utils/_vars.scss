@@ -3,4 +3,4 @@
 $transition: ef.get('time', 'main') linear;
 $zindex: 1030;
 
-$backdropBackground: rgba($color: #000000, $alpha: 0.6);
+$backdropBackground: rgba($color: ef.get('mainColors', 'bg'), $alpha: 0.6);

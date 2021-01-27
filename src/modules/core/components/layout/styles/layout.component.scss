@@ -1,5 +1,6 @@
 @use 'engine-scss/functions' as ef;
 @use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/engine.variables' as ev;
 
 //Footer themes
 @import './themes/footer/theme-1';
@@ -13,8 +14,11 @@ html {
 }
 
 body {
-    background-color: ef.get('color', 'background');
-    color: ef.get('color', 'text');
+    min-width: 375px;
+
+    @if (map-has-key(ev.$mainColors, 'imageBackground')) {
+        background: map-get(ev.$mainColors, 'imageBackground');
+    }
 }
 
 .wlc-app-content {

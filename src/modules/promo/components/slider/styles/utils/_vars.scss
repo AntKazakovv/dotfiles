@@ -7,13 +7,13 @@ $swiperNaviTop: 50% !default;
 
 $swiperNaviButtonSize: 40px !default;
 $swiperNaviButtonBorderRadius: 6px !default;
-$swiperNaviButtonBg: ef.get('color', 'main') !default;
-$swiperNaviButtonBgHover: ef.get('color', 'secondary') !default;
+$swiperNaviButtonBg: ef.get('mainColors', 'baseOpacity') !default;
+$swiperNaviButtonBgHover: ef.get('mainColors', 'main') !default;
 $swiperNaviButtonDisabledOpacity: 0.25 !default;
 $swiperNaviButtonTransition: all 0.3s !default;
 
 $swiperNaviArrowSize: $swiperNaviButtonSize / 3 !default;
-$swiperNaviArrowColor: ef.get('color', 'background') !default;
+$swiperNaviArrowColor: ef.get('mainColors', 'baseMain') !default;
 $swiperNaviArrowColorHover: $swiperNaviArrowColor !default;
 
 

@@ -1,8 +1,12 @@
 @use 'engine-scss/functions' as ef;
 
-$fontSize: ef.get('font', 'small') !default;
-$textAlign: center !default;
-$textColor: ef.get('color', 'textSecondary') !default;
-$linkColor: ef.get('color', 'main') !default;
-$linkHoverColor: darken(ef.get('color', 'main'), 20%) !default;
-$linkTextDecoration: none !default;
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'textAlign': center,
+    'textColor': ef.get('color', 'textSecondary'),
+    'linkColor': ef.get('color', 'main'),
+    'linkHoverColor': darken(ef.get('color', 'main'), 20%),
+    'linkTextDecoration': none,
+    'textDecoration': underline,
+), $customThemeDefault);
+

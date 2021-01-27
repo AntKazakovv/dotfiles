@@ -50,4 +50,12 @@ export namespace wlcTitle {
             mainText: gettext('My dashboard'),
         },
     };
+
+    export const profileDashboardBonuses: ILayoutComponent = {
+        name: 'core.wlc-title',
+        params: {
+            customMod: ['profile', 'profile-bonuses'],
+            mainText: gettext('My bonuses'),
+        },
+    };
 }

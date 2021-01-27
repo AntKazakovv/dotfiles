@@ -49,7 +49,6 @@ import {LicenseComponent} from './components/license/license.component';
 import {FeedbackFormComponent} from './components/feedback-form/feedback-form.component';
 import {InputComponent} from './components/input/input.component';
 import {ButtonComponent} from './components/button/button.component';
-import {CloseComponent} from './components/close/close.component';
 import {LinkBlockComponent} from './components/link-block/link-block.component';
 import {LoaderComponent} from './components/loader/loader.component';
 import {LayoutComponent} from './components/layout/layout.component';
@@ -63,7 +62,6 @@ import {CopyrightComponent} from './components/copyright/copyright.component';
 import {CurrencyComponent} from 'wlc-engine/modules/core/components/currency/currency.component';
 import {DatepickerComponent} from './components/datepicker/datepicker.component';
 import {TextBlockComponent} from './components/text-block/text-block.component';
-import {DummyComponent} from './components/dummy/dummy.component';
 import {TitleComponent} from './components/title/title.component';
 import {ErrorPageComponent} from './components/error-page/error-page.component';
 
@@ -108,7 +106,6 @@ export const components = {
     'wlc-currency': CurrencyComponent,
     'wlc-datepicker': DatepickerComponent,
     'wlc-disclaimer': DisclaimerComponent,
-    'wlc-dummy-amount': DummyComponent,
     'wlc-dynamic-html': DynamicHtmlComponent,
     'wlc-feedback-form': FeedbackFormComponent,
     'wlc-form-control': FormControlComponent,
@@ -169,12 +166,10 @@ export const components = {
         ButtonComponent,
         CheckboxComponent,
         ClickOutsideDirective,
-        CloseComponent,
         CopyrightComponent,
         CurrencyComponent,
         DatepickerComponent,
         DisclaimerComponent,
-        DummyComponent,
         DynamicHtmlComponent,
         FallbackImgDirective,
         FeedbackFormComponent,
@@ -213,12 +208,10 @@ export const components = {
         ButtonComponent,
         CheckboxComponent,
         ClickOutsideDirective,
-        CloseComponent,
         CopyrightComponent,
         CurrencyComponent,
         DatepickerComponent,
         DisclaimerComponent,
-        DummyComponent,
         DynamicHtmlComponent,
         FallbackImgDirective,
         FloatPanelsComponent,
@@ -241,7 +234,6 @@ export const components = {
         SelectComponent,
         TableComponent,
         TextareaComponent,
-        DummyComponent,
         CopyrightComponent,
         DatepickerComponent,
         InputMaskDirective,
