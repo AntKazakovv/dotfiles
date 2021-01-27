@@ -11,9 +11,9 @@
             position: relative;
             display: grid;
             grid: {
-                template-columns: 1fr;
+                template-columns: minmax(0, 1fr);
                 template-rows: auto;
-                template-areas: 'title' 'loyalty' 'exchange' 'bonuses' 'promocode' 'see-all-bonuses';
+                template-areas: 'title' 'loyalty' 'exchange' 'bonuses-title' 'bonuses' 'promocode' 'see-all-bonuses';
                 gap: 20px;
             }
 
