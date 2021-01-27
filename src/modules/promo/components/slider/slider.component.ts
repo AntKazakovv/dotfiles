@@ -45,7 +45,6 @@ export class SliderComponent extends AbstractComponent
 
     @Input() public slides: Params.ISlide[];
     @Input() protected inlineParams: Params.ISliderCParams;
-    @Input() protected type: Params.SlideType;
     public $params: Params.ISliderCParams;
 
     public ready: boolean = false;
@@ -65,16 +64,15 @@ export class SliderComponent extends AbstractComponent
 
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
+
         if (this.$params.slides && !this.slides) {
             this.slides = this.$params.slides;
         }
-
         // for fix loop
         this.fixSlidesSequence();
     }
 
     public ngAfterViewInit(): void {
-        this.prepareControls();
         this.updateSwiper();
         this.ready = true;
     }
@@ -143,7 +141,6 @@ export class SliderComponent extends AbstractComponent
     protected updateSwiper(): void {
         const {swiper} = this.$params;
 
-
         if (swiper.autoplay) {
             this.swiper.stopAutoplay(true);
         }
@@ -158,44 +155,7 @@ export class SliderComponent extends AbstractComponent
             this.swiper.startAutoplay();
         }
 
-        this.swiper.update();
-
-        this.cdr.detectChanges();
-    }
-
-    protected prepareControls(): void {
-        const {swiper} = this.$params;
-        const wrapper = this.sliderRef.nativeElement;
-
-        if (swiper.navigation) {
-            const navigation = this.renderer.createElement('div');
-            this.renderer.addClass(navigation, 'swiper-navigation');
-
-            const navigationPrev = this.renderer.createElement('div');
-            this.renderer.addClass(navigationPrev, 'swiper-button-prev');
-
-            const navigationNext = this.renderer.createElement('div');
-            this.renderer.addClass(navigationNext, 'swiper-button-next');
-
-            this.renderer.appendChild(navigation, navigationNext);
-            this.renderer.appendChild(navigation, navigationPrev);
-
-            this.renderer.appendChild(wrapper, navigation);
-        }
-
-        if (swiper.pagination) {
-            const pagination = this.renderer.createElement('div');
-            this.renderer.addClass(pagination, 'swiper-pagination');
-
-            this.renderer.appendChild(wrapper, pagination);
-        }
-
-        if (swiper.scrollbar) {
-            const scrollbar = this.renderer.createElement('div');
-            this.renderer.addClass(scrollbar, 'swiper-scrollbar');
-
-            this.renderer.appendChild(wrapper, scrollbar);
-        }
+        this.swiper.swiper().update();
 
         this.cdr.detectChanges();
     }
