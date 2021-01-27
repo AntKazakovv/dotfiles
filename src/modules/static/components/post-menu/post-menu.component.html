@@ -2,14 +2,16 @@
     <a uiSref="app.contacts"
         uiSrefActive="active"
         [uiParams]="{slug: item.slug}"
-        class="{{$class}}__link">
+        class="{{$class}}__link"
+        [attr.data-wlc-element]="'link_' + item.slug">
         <span>{{item.title | translate}}</span>
     </a>
 </ng-template>
 
 <ng-template #href let-item="item">
     <a href="{{basePath + item.slug}}"
-        class="{{$class}}__link">
+        class="{{$class}}__link"
+        [attr.data-wlc-element]="'link_' + item.slug">
         <span>{{item.title | translate}}</span>
     </a>
 </ng-template>

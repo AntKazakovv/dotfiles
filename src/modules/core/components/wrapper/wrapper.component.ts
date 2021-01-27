@@ -27,6 +27,7 @@ import {
 export interface IWrapperCParams {
     components?: ILayoutComponent[];
     class?: string;
+    wlcElement?: string;
 }
 
 @Component({
@@ -37,6 +38,7 @@ export interface IWrapperCParams {
 })
 export class WrapperComponent extends LayoutComponent implements OnInit, OnChanges {
     @HostBinding('class') protected $hostClass: string;
+    @HostBinding('attr.data-wlc-element') protected $wlcElement: string;
     @Input() protected inlineParams: IWrapperCParams;
     protected $params: IWrapperCParams;
     private initReady: boolean = false;
@@ -81,6 +83,7 @@ export class WrapperComponent extends LayoutComponent implements OnInit, OnChang
 
     private async initComponents(): Promise<void> {
         this.$hostClass = this.$params?.class;
+        this.$wlcElement = this.$params?.wlcElement;
         this.allComponents$.length = 0;
 
         for (const el of this.$params?.components) {

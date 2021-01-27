@@ -92,6 +92,7 @@ export class IconListComponent extends AbstractComponent implements OnInit {
                     iconUrl: this.getPath(item.alias),
                     alt: item.name,
                     modifier: this.getItemModifier(this.toSnakeCase(item.alias)),
+                    wlcElement: item.wlcElement,
                 };
                 return new IconModel(itemParams);
             });
@@ -134,6 +135,7 @@ export class IconListComponent extends AbstractComponent implements OnInit {
                 iconUrl: this.getPath(item.Name),
                 alt: item.Name,
                 modifier: this.getItemModifier(this.toSnakeCase(item.Name)),
+                wlcElement: 'block_payment-' + item.Name.toLowerCase().replace(/\s/g, '-').replace(/[^a-zA-Z0-9-]/g, ''),
             };
             return new IconModel(itemParams);
         });

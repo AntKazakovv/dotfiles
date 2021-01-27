@@ -1,4 +1,4 @@
-<div class="{{$class}}__current"
+<div class="{{$class}}__current" [attr.data-wlc-element]="'selected_link_' + currentLanguage.code"
      (click)="toggle()"
 >
     <div *ngIf="!$params.currentLang?.hideFlag" class="{{$class}}__current-flag">

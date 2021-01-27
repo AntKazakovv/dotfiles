@@ -9,6 +9,7 @@ export interface IIconParams {
     target?: string;
     alt?: string;
     title?: string;
+    wlcElement?: string;
 }
 
 interface IPostfix {
@@ -26,6 +27,7 @@ export class IconModel {
     readonly target: string;
     readonly alt: string;
     readonly title: string;
+    readonly wlcElement: string;
 
     constructor (
         protected icon: IIconParams,
@@ -37,6 +39,7 @@ export class IconModel {
         this.title = icon.title;
         this.target = icon.target || (icon?.sref) ? '_self' : '_blank';
         this.showAs = (icon.showAs !== 'img' && icon.iconUrl.split('.').pop()) === 'svg' ? 'svg' : 'img';
+        this.wlcElement = icon.wlcElement || 'wlc-icon';
     }
 
     public get template(): string {
