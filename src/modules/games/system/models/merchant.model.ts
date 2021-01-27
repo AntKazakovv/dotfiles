@@ -40,6 +40,10 @@ export class MerchantModel extends AbstractModel<IMerchant> {
         return this.data.menuId;
     }
 
+    public get wlcElement(): string {
+        return 'block_merchant-' + this.alias.toLowerCase();
+    }
+
     protected init(data: IMerchant): void {
         this.data = data;
     }

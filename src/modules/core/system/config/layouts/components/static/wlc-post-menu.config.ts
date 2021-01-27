@@ -5,6 +5,7 @@ export namespace wlcPostMenu {
         name: 'static.wlc-post-menu',
         params: {
             themeMod: 'footer-info',
+            wlcElement: 'wlc-footer-info__block_legal',
             common: {
                 categorySlug: 'legal',
                 title: 'Information',
@@ -20,6 +21,7 @@ export namespace wlcPostMenu {
         name: 'static.wlc-post-menu',
         params: {
             themeMod: 'footer-about',
+            wlcElement: 'wlc-footer-info__block_about-us',
             common: {
                 categorySlug: 'about-us',
                 title: 'About Us',

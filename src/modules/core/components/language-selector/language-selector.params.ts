@@ -40,4 +40,5 @@ export const defaultParams: ILanguageSelectorCParams = {
             },
         },
     },
+    wlcElement: 'block_language-selector'
 };

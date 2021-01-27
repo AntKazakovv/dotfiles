@@ -13,6 +13,7 @@ export namespace footer {
                 name: 'core.wlc-wrapper',
                 params: {
                     class: 'footer-menu',
+                    wlcElement: 'block_footer-info',
                     components: [
                         componentLib.wlcPostMenu.footerInfo,
                         componentLib.wlcPostMenu.footerAbout,

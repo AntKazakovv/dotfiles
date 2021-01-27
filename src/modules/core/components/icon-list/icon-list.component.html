@@ -2,6 +2,7 @@
     <div class="{{$class}}__wrapper">
         <div *ngFor="let item of items"
              class="{{$class}}__item {{item.modifier}}"
+             [attr.data-wlc-element]="item.wlcElement"
              [ngSwitch]="item.template">
 
             <a class="{{$class}}__wrp" *ngSwitchCase="'sref'"
@@ -56,6 +57,7 @@
                 [iconUrl]="item.image"
                 [fallback]="$params.imgPlaceholder">
             </span>
+
         </ng-container>
     </ng-container>
 </ng-template>

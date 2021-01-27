@@ -6,6 +6,7 @@ export namespace wlcIconList {
         params: {
             theme: 'merchants',
             type: 'svg',
+            wlcElement: 'block_merchants',
         },
     };
 
@@ -14,6 +15,7 @@ export namespace wlcIconList {
         params: {
             theme: 'payments',
             type: 'svg',
+            wlcElement: 'block_payments',
             common: {
                 payment: {
                     include: [
