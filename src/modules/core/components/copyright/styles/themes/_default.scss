@@ -3,7 +3,7 @@
 .wlc-copyright--theme-default:host {
 
     .wlc-copyright__text {
-        @include text.get-text-style('SigntText');
+        @include text.get-text-style('SignText');
         text-align: $textAlign;
         color: $textColor;
 
