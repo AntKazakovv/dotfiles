@@ -35,6 +35,7 @@ export interface ILayoutSectionConfig {
     modifiers?: string[];
     theme?: string;
     order?: number;
+    wlcElement?: string;
 }
 
 export interface IPanelSectionConfig extends ILayoutSectionConfig {

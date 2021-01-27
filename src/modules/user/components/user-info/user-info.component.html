@@ -5,7 +5,7 @@
     </div>
 
     <button
-        data-wlc-element="button_deposit"
+        [wlcElement]="'button_deposit'"
         wlc-button
         class="wlc-btn-deposit"
         text="Deposit"
@@ -13,7 +13,7 @@
     ></button>
 
     <div class="{{$class}}-dropdown"
-         data-wlc-element="block_user-stat-username"
+         data-wlc-element="block_user-stat-dropdown"
          wlc-click-outside
          (clickOutside)="this.isOpened = false"
     >

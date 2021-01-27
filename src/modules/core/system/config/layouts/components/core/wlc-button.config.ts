@@ -41,6 +41,7 @@ export namespace wlcButton {
         },
         params: {
             class: 'wlc-btn wlc-btn-search',
+            wlcElement: 'wlc-btn-search',
             common: {
                 icon: 'search',
                 event: {
@@ -55,6 +56,7 @@ export namespace wlcButton {
         name: 'core.wlc-button',
         params: {
             class: 'wlc-btn wlc-btn-burger',
+            wlcElement: 'wlc-btn-burger',
             common: {
                 icon: 'burger',
                 event: {
