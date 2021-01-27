@@ -8,7 +8,7 @@
             <span class="{{$class}}__icon"
                   wlc-icon
                   iconName="favourite"
-                  wlcElement="button_favourite"
+                  [wlcElement]="'button_favourite'"
                   *ngIf="isAuth"
                   [ngClass]="{'active': game.isFavourite}"
                   (click)="toggleFavourites(game)">
