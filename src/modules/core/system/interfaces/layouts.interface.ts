@@ -44,9 +44,9 @@ export interface IPanelSectionConfig extends ILayoutSectionConfig {
 }
 
 export interface ILayoutModifyItem {
-    type: 'insert' | 'replace' | 'delete';
+    type: 'insert' | 'replace' | 'delete' | 'merge';
     position: string | number;
-    component?: ILayoutComponent;
+    component?: ILayoutComponent | Partial<ILayoutComponent>;
 }
 
 export interface ILayoutComponent {

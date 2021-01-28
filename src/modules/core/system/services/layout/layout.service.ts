@@ -10,6 +10,7 @@ import {
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {SectionModel, ISectionData} from 'wlc-engine/modules/core/system/models/section.model';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
+import {GlobalHelper} from 'wlc-engine/modules/core';
 
 import {
     cloneDeep as _cloneDeep,
@@ -128,15 +129,26 @@ export class LayoutService {
                     const position = this.getPosition(section, item);
                     switch (item.type) {
                         case 'insert':
-                            section.components.splice(position, 0, item.component);
+                            if (item.component.name) {
+                                section.components.splice(position, 0, item.component as ILayoutComponent);
+                            }
                             break;
 
                         case 'replace':
-                            section.components[position] = item.component;
+                            if (item.component.name) {
+                                section.components[position] = item.component as ILayoutComponent;
+                            }
                             break;
 
                         case 'delete':
                             section.components.splice(position, 1);
+                            break;
+
+                        case 'merge':
+                            const component = (_isString(section.components[position]))
+                                ? {name: section.components[position] as string}
+                                : section.components[position];
+                            section.components[position] = GlobalHelper.mergeConfig(component, item.component);
                             break;
                     }
                 });
