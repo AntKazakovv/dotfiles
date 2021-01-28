@@ -1,0 +1,20 @@
+@use 'engine-scss/functions' as ef;
+
+$customThemeDefaultBanner: () !default;
+$themeDefaultBanner: map-merge((
+    'background': ef.get('mainColors', 'bg500'),
+    'height': (
+        375: 220px,
+        768: 400px,
+    ),
+    'colorTitle': ef.get('mainColors', 'baseMain'),
+    'colorDescription': ef.get('mainColors', 'baseMain'),
+    'buttonMargin': (
+        375: ef.get('size', 'less') auto 0 auto,
+        768: ef.get('size', 'main') auto 0  0,
+    ),
+    'textAlign': (
+        375: center,
+        768: start,
+    ),
+), $customThemeDefaultBanner);

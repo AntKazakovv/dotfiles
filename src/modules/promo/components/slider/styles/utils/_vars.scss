@@ -53,3 +53,17 @@ $swiperScrollbarBorderRadius: 10px !default;
 
 $swiperScrollbarDragBg:ef.get('color', 'main') !default;
 $swiperScrollbarDragBorderRadius: 10px !default;
+
+$customThemeDefaultBanner: () !default;
+$themeDefaultBanner: map-merge((
+    'sectionsGap': (
+        375: 0 0 ef.get('size', 'sectionsGap') / 4 0,
+        768: 0 0 ef.get('size', 'sectionsGap') / 2 0,
+    ),
+    'bottomGap': (
+        375: ef.get('size', 'main'),
+    ),
+    'buttonGap': (
+        375: ef.get('size', 'small'),
+    ),
+), $customThemeDefaultBanner);

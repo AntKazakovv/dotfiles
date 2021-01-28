@@ -16,8 +16,8 @@ html {
 body {
     min-width: 375px;
 
-    @if (map-has-key(ev.$mainColors, 'imageBackground')) {
-        background: map-get(ev.$mainColors, 'imageBackground');
+    @if (map-has-key(ev.$baseVariables, 'imageBackground')) {
+        background: map-get(ev.$baseVariables, 'imageBackground');
     }
 }
 
@@ -25,4 +25,8 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+
+    .wlc-sections__footer {
+        margin-top: auto;
+    }
 }
