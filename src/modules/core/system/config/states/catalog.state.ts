@@ -9,10 +9,12 @@ export const catalogState: Ng2StateDeclaration = {
         const gamesCatalogService = trans.injector().get(GamesCatalogService);
         const categorySlug = trans.params().category;
         await gamesCatalogService.ready;
+
         if (!gamesCatalogService.getCategoryBySlug(categorySlug)) {
             trans.abort();
+            const {locale} = trans.params();
             trans.router.stateService.go('app.error', {
-                locale: trans.injector().get('lang') || 'en',
+                locale: locale || trans.injector().get('lang') || 'en',
             });
         }
     },

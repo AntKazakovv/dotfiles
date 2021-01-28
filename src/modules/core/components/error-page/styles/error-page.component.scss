@@ -1,5 +1,7 @@
 @use 'engine-scss/functions' as ef;
-@import './utils/mixins';
-@import './utils/vars';
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/base.mixins' as bm;
+@import 'utils/vars';
+@import 'utils/mixins';
 
-@import './themes/default';
+@import 'themes/default';

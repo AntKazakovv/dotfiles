@@ -52,11 +52,8 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
         private meta: Meta,
     ) {
         super({injectParams: {}, defaultParams}, configService);
-        translate.addLangs(this.configService.get<ILanguage[]>('appConfig.languages').map((lang) => lang.code));
+        this.resolveLang();
 
-        const currentLang = this.resolveLang();
-        translate.setDefaultLang(currentLang);
-        translate.use(currentLang);
         const siteName = this.configService.get<string>('$base.site.name');
         if (siteName) {
             titleService.setTitle(siteName);
@@ -125,12 +122,17 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
         }
     }
 
-    private resolveLang(): string {
-        const langString = this.router.stateService.params?.locale;
-        if(_includes(this.translate.langs, langString)) {
-            return langString;
-        }
+    private resolveLang(): void {
+        this.translate.addLangs(this.configService.get<ILanguage[]>('appConfig.languages').map((lang) => lang.code));
+        const {locale} = this.stateService.params;
 
-        return 'en';
+        if(_includes(this.translate.langs, locale)) {
+            this.translate.setDefaultLang(locale);
+            this.translate.use(locale);
+        } else {
+            this.stateService.go('app.error', {
+                locale: 'en',
+            });
+        }
     }
 }

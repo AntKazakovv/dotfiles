@@ -5,11 +5,11 @@
     <h2 class="{{$class}}__title">
         {{'Ooops! It seems you lost yourself!' | translate}}
     </h2>
-    <p>{{'We got your back!' | translate}}</p>
+    <p>{{'We\'ll bring you back!' | translate}}</p>
 </div>
-<div *ngFor="let link of links " class="{{$class}}__link-wrp">
-    <a [uiSref]="link.state"
-       [uiParams]="link.params"
-       class="{{$class}}__link">{{link.title}}
-    </a>
-</div>
+<a *ngFor="let link of links "
+    [uiSref]="link.state"
+    [uiParams]="link.params"
+    class="{{$class}}__link">
+    <span>{{link.title}}</span>
+</a>
