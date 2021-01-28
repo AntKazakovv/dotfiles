@@ -1,135 +1,96 @@
 @use 'engine-scss/functions' as ef;
 
-// // Size
-$minWidth: 280px !default;
-$maxWidth: 320px !default;
-$height: 370px !default;
-$infoWidth: $minWidth - 30px !default;
-$infoHeight: 125px !default;
-
-$relativeImageHeight: 70% !default;
-
-$bonusIconSize: 144px !default;
-$bonusIconValueBlockWidth: 60px !default;
-$bonusIconValueBlockHeight: 25px !default;
-
-$bonusIconValueBlockBorderRds: 12px !default;
-$bonusIconValueBlockPosL: 50% !default;
-$bonusIconValueBlockPosB: 10px !default;
-$bonusIconValueBlockMagin: 0 0 0 -30px !default;
-
-$activeBlockMaxWidth: 80% !default;
-
-$progressBarSize: 5px !default;
-
-$moreIconSize: 24px !default;
-
-$activeBlockTimeIconSize: 18px !default;
-
-// // Font
-$colorText: ef.get('mainColors', 'baseMain') !default;
-$colorField: ef.get('fieldColors', 'textColor') !default;
-
-$bonusIconValueFontSize: 2rem !default;
-$bonusIconValueFontSizeSmall: 1.7rem !default;
-$bonusIconValueFontSizeSmaller: 1.5rem !default;
-$bonusIconValueFontW: 700 !default;
-$bonusIconValueFontColor: $colorField !default;
-
-$tagFontColor: $colorText !default;
-$tagFontSize: ef.get('font', 'small') !default;
-
-$nameFontColor: $colorText !default;
-$nameFontSize: ef.get('font', 'biger') !default;
-
-$descriptionFontColor: $colorText !default;
-$descriptionFontSize: ef.get('font', 'less') !default;
-
-$activeBlockFontColor: $colorText !default;
-$activeBlockFontSize: ef.get('font', 'less') !default;
-
-$activeBlockFontSecondaryColor: $colorText !default;
-$activeBlockFontSecondarySize: ef.get('font', 'less') !default;
-
-$moreIconColor: ef.get('mainColors', 'baseOpacity') !default;
-
-// // Backgrounds
-$background: ef.get('mainColors', 'bg300') !default;
-$backgroundHover: ef.get('mainColors', 'bg500') !default;
-
-$backgroundExperience: $background !default;
-$backgroundExperienceHover:  $backgroundHover !default;
-
-$backgroundLoyalty: $background !default;
-$backgroundLoyaltyHover:  $backgroundHover !default;
-
-$backgroundBalance: $background !default;
-$backgroundBalanceHover:  $backgroundHover !default;
-
-$backgroundFreerounds: $background !default;
-$backgroundFreeroundsHover:  $backgroundHover !default;
-
-$backgroundRelative: $background !default;
-$backgroundRelativeHover:  $backgroundHover !default;
-
-$imageBg: rgba(0, 0, 0, 0.3) !default;
-
-$bonusIconValueBg: ef.get('mainColors', 'baseMain') !default;
-
-$tagBg: ef.get('mainColors', 'secondary') !default;
-
-$activeBlockTimerBg: ef.get('mainColors', 'bg') !default;
-$activeBlockProgressBg: transparent !default;
-
-$progressBarBg: ef.get('fieldColors', 'inputBg') !default;
-$progressBarColor: ef.get('mainColors', 'main') !default;
-
-// // Radius
-$radius: ef.get('radius', 'biger') !default;
-$tagRadius: ef.get('radius', 'biger') !default;
-
-$activeBlockRadius: 0 !default;
-$activeBlockTimerRadius: ef.get('radius', 'biger') !default;
-$activeBlockProgressRadius: ef.get('radius', 'biger') !default;
-$activeBlockTimeIconFill: ef.get('mainColors', 'secondary') !default;
-
-$progressBarRadius: 5px !default;
-
-
-//Padding
-$bonusIconMargin: 55px auto 0 auto !default;
-$tagPadding: 4px 10px 3px !default;
-$infoPadding: 0 ef.get('size', 'small') !default;
-
-$activeBlockPadding: ef.get('size', 'small') !default;
-$activeBlockMargin: 0 auto !default;
-$activeBlockTimerPadding: ef.get('size', 'small') !default;
-$activeBlockTimerMargin: 0 !default;
-$activeBlockProgressPadding: ef.get('size', 'small') !default;
-$activeBlockProgressMargin: ef.get('size', 'smaller') 0 0 0 !default;
-$activeBlockTimeIconMargin: 0 ef.get('size', 'small') 0 0 !default;
-
-$progressBarMargin: ef.get('size', 'smallest') 0 !default;
-
-$btnMargin: 0 ef.get('size', 'smallest') !default;
-
-//Position
-$tagPositionTop: ef.get('size', 'smaller') !default;
-
-$moreIconPosLeft: auto !default;
-$moreIconPosRight: ef.get('size', 'small') !default;
-$moreIconPosTop: ef.get('size', 'small') !default;
-$moreIconPosBottom: auto !default;
-
-// chosen icon
-$chosenIconBg: ef.get('fieldColors', 'inputBg') !default;
-$chosenIconBdRds: 50% !default;
-$chosenIconWidth: 22px !default;
-$chosenIconHeight: 22px !default;
-$chosenIconSvgSize: 12px !default;
-$chosenIconSvgColor: ef.get('fieldColors', 'textColor') !default;
-$chosenIconPosL: ef.get('size', 'small') !default;
-$chosenIconPosT: ef.get('size', 'small') !default;
-
-// Animation
-$time: ef.get('time', 'main') !default;
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    // // Size
+    'minWidth': 280px,
+    'maxWidth': 320px,
+    'height': 370px,
+    'infoWidth': 280px - 30px,
+    'infoHeight': 125px,
+    'relativeImageHeight': 70%,
+    'bonusIconSize': 144px,
+    'bonusIconValueBlockWidth': 60px,
+    'bonusIconValueBlockHeight': 25px,
+    'bonusIconValueBlockBorderRds': 12px,
+    'bonusIconValueBlockPosL': 50%,
+    'bonusIconValueBlockPosB': 10px,
+    'bonusIconValueBlockMagin': 0 0 0 -30px,
+    'activeBlockMaxWidth': 80%,
+    'progressBarSize': 5px,
+    'moreIconSize': 24px,
+    'activeBlockTimeIconSize': 18px,
+    // // Font
+    'descriptionFontColor': ef.get('mainColors', 'PrimaryText'),
+    'bonusIconValueFontSize': 2rem,
+    'bonusIconValueFontSizeSmall': 1.7rem,
+    'bonusIconValueFontSizeSmaller': 1.5rem,
+    'bonusIconValueFontW': 700,
+    'bonusIconValueFontColor': ef.get('fieldColors', 'textColor'),
+    'tagFontColor': ef.get('mainColors', 'baseMain'),
+    'tagFontSize': ef.get('font', 'small'),
+    'nameFontColor': ef.get('mainColors', 'baseMain'),
+    'nameFontSize': ef.get('font', 'biger'),
+    'descriptionFontSize': ef.get('font', 'less'),
+    'activeBlockFontColor': ef.get('mainColors', 'baseMain'),
+    'activeBlockFontSize': ef.get('font', 'less'),
+    'activeBlockFontSecondaryColor': ef.get('mainColors', 'baseMain'),
+    'activeBlockFontSecondarySize': ef.get('font', 'less'),
+    'moreIconColor': ef.get('mainColors', 'baseOpacity'),
+    // // Backgrounds
+    'backgroundExperience': ef.get('mainColors', 'bg300'),
+    'backgroundExperienceHover': ef.get('mainColors', 'bg500'),
+    'backgroundLoyalty': ef.get('mainColors', 'bg300'),
+    'backgroundLoyaltyHover': ef.get('mainColors', 'bg500'),
+    'backgroundBalance': ef.get('mainColors', 'bg300'),
+    'backgroundBalanceHover': ef.get('mainColors', 'bg500'),
+    'backgroundFreerounds': ef.get('mainColors', 'bg300'),
+    'backgroundFreeroundsHover': ef.get('mainColors', 'bg500'),
+    'backgroundRelative': ef.get('mainColors', 'bg300'),
+    'backgroundRelativeHover': ef.get('mainColors', 'bg500'),
+    'imageBg': rgba(0, 0, 0, 0.3),
+    'bonusIconValueBg': ef.get('mainColors', 'baseMain'),
+    'tagBg': ef.get('mainColors', 'secondary'),
+    'activeBlockTimerBg': ef.get('mainColors', 'bg'),
+    'activeBlockProgressBg': transparent,
+    'progressBarBg': ef.get('fieldColors', 'inputBg'),
+    'progressBarColor': ef.get('mainColors', 'main'),
+    // // Radius
+    'radius': ef.get('radius', 'biger'),
+    'tagRadius': ef.get('radius', 'biger'),
+    'activeBlockRadius': 0,
+    'activeBlockTimerRadius': ef.get('radius', 'biger'),
+    'activeBlockProgressRadius': ef.get('radius', 'biger'),
+    'activeBlockTimeIconFill': ef.get('mainColors', 'secondary'),
+    'progressBarRadius': 5px,
+    //Padding
+    'bonusIconMargin': 55px auto 0 auto,
+    'tagPadding': 4px 10px 3px,
+    'infoPadding': 0 ef.get('size', 'small'),
+    'activeBlockPadding': ef.get('size', 'small'),
+    'activeBlockMargin': 0 auto,
+    'activeBlockTimerPadding': ef.get('size', 'small'),
+    'activeBlockTimerMargin': 0,
+    'activeBlockProgressPadding': ef.get('size', 'small'),
+    'activeBlockProgressMargin': ef.get('size', 'smaller') 0 0 0,
+    'activeBlockTimeIconMargin': 0 ef.get('size', 'small') 0 0,
+    'progressBarMargin': ef.get('size', 'smallest') 0,
+    'btnMargin': 0 ef.get('size', 'smallest'),
+    //Position
+    'tagPositionTop': ef.get('size', 'smaller'),
+    'moreIconPosLeft': auto,
+    'moreIconPosRight': ef.get('size', 'small'),
+    'moreIconPosTop': ef.get('size', 'small'),
+    'moreIconPosBottom': auto,
+    // chosen icon
+    'chosenIconBg': ef.get('fieldColors', 'inputBg'),
+    'chosenIconBdRds': 50%,
+    'chosenIconWidth': 22px,
+    'chosenIconHeight': 22px,
+    'chosenIconSvgSize': 12px,
+    'chosenIconSvgColor': ef.get('fieldColors', 'textColor'),
+    'chosenIconPosL': ef.get('size', 'small'),
+    'chosenIconPosT': ef.get('size', 'small'),
+    // Animation
+    'time': ef.get('time', 'main')
+), $customThemeDefault);

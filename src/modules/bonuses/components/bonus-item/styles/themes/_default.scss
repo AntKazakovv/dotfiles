@@ -8,17 +8,17 @@
 
         &__content {
             position: relative;
-            background: $background;
-            height: $height;
-            min-width: $minWidth;
-            max-width: $maxWidth;
-            border-radius: $radius;
+            background: map-get($themeDefault, 'background');
+            height: map-get($themeDefault, 'height');
+            min-width: map-get($themeDefault, 'minWidth');
+            max-width: map-get($themeDefault, 'maxWidth');
+            border-radius: map-get($themeDefault, 'radius');
             overflow: hidden;
             margin-left: auto;
             margin-right: auto;
 
             &:hover {
-                background: $backgroundHover;
+                background: map-get($themeDefault, 'backgroundHover');
             }
 
             @include mq.min(720) {
@@ -32,25 +32,25 @@
             width: 100%;
             height: 100%;
             display: grid;
-            grid-template-rows: auto $infoHeight;
+            grid-template-rows: auto map-get($themeDefault, 'infoHeight');
         }
 
         &__check-icon {
             position: absolute;
-            background-color: $chosenIconBg;
-            border-radius: $chosenIconBdRds;
-            width: $chosenIconWidth;
-            height: $chosenIconHeight;
-            left: $chosenIconPosL;
-            top: $chosenIconPosT;
+            background-color: map-get($themeDefault, 'chosenIconBg');
+            border-radius: map-get($themeDefault, 'chosenIconBdRds');
+            width: map-get($themeDefault, 'chosenIconWidth');
+            height: map-get($themeDefault, 'chosenIconHeight');
+            left: map-get($themeDefault, 'chosenIconPosL');
+            top: map-get($themeDefault, 'chosenIconPosT');
             display: none;
             justify-content: center;
             align-items: center;
 
             svg {
-                width: $chosenIconSvgSize;
-                height: $chosenIconSvgSize;
-                stroke: $chosenIconSvgColor;
+                width: map-get($themeDefault, 'chosenIconSvgSize');
+                height: map-get($themeDefault, 'chosenIconSvgSize');
+                stroke: map-get($themeDefault, 'chosenIconSvgColor');
                 fill: none;
             }
         }
@@ -79,8 +79,8 @@
             background-size: cover;
             background-position: center center;
             background-repeat: no-repeat;
-            background-color: $imageBg;
-            padding-bottom: $relativeImageHeight;
+            background-color: map-get($themeDefault, 'imageBg');
+            padding-bottom: map-get($themeDefault, 'relativeImageHeight');
             position: relative;
 
             .wlc-bonus-image-other {
@@ -89,12 +89,12 @@
         }
 
         &__bonus-icon {
-            width: $bonusIconSize;
-            height: $bonusIconSize;
+            width: map-get($themeDefault, 'bonusIconSize');
+            height: map-get($themeDefault, 'bonusIconSize');
             background-repeat: no-repeat;
             background-size: cover;
             background-position: center center;
-            margin: $bonusIconMargin;
+            margin: map-get($themeDefault, 'bonusIconMargin');
             position: relative;
 
             .icon-sign {
@@ -105,41 +105,43 @@
             }
 
             .icon-text {
-                width: $bonusIconValueBlockWidth;
-                height: $bonusIconValueBlockHeight;
-                border-radius: $bonusIconValueBlockBorderRds;
-                background-color: $bonusIconValueBg;
-                color: $bonusIconValueFontColor;
-                font-size: $bonusIconValueFontSize;
-                font-weight: $bonusIconValueFontW;
+                width: map-get($themeDefault, 'bonusIconValueBlockWidth');
+                height: map-get($themeDefault, 'bonusIconValueBlockHeight');
+                border-radius: map-get($themeDefault, 'bonusIconValueBlockBorderRds');
+                background-color: map-get($themeDefault, 'bonusIconValueBg');
+                color: map-get($themeDefault, 'bonusIconValueFontColor');
+                font-size: map-get($themeDefault, 'bonusIconValueFontSize');
+                font-weight: map-get($themeDefault, 'bonusIconValueFontW');
                 position: absolute;
-                left: $bonusIconValueBlockPosL;
-                bottom: $bonusIconValueBlockPosB;
-                margin: $bonusIconValueBlockMagin;
+                left: map-get($themeDefault, 'bonusIconValueBlockPosL');
+                bottom: map-get($themeDefault, 'bonusIconValueBlockPosB');
+                margin: map-get($themeDefault, 'bonusIconValueBlockMagin');
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 line-height: 1;
 
                 &--small {
-                    font-size: $bonusIconValueFontSizeSmall;
+                    font-size: map-get($themeDefault, 'bonusIconValueFontSizeSmall');
                 }
 
                 &--smaller {
-                    font-size: $bonusIconValueFontSizeSmaller;
+                    font-size: map-get($themeDefault, 'bonusIconValueFontSizeSmaller');
                 }
             }
         }
 
         &__tag {
             position: absolute;
-            padding: $tagPadding;
-            background-color: $tagBg;
-            border-radius: $tagRadius;
-            @include text.get-text-style(SignText, $tagFontColor);
+            padding: map-get($themeDefault, 'tagPadding');
+            background-color: map-get($themeDefault, 'tagBg');
+            border-radius: map-get($themeDefault, 'tagRadius');
+
+            @include text.get-text-style('SignText', map-get($themeDefault, 'tagFontColor'));
+
             left: 50%;
             transform: translateX(-50%);
-            top: $tagPositionTop;
+            top: map-get($themeDefault, 'tagPositionTop');
             z-index: 2;
         }
 
@@ -162,49 +164,45 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: $infoPadding;
+            padding: map-get($themeDefault, 'infoPadding');
             overflow: hidden;
         }
 
         &__name {
-            @include text.get-text-style(QoteTextBold);
-            color: $nameFontColor;
+            @include text.get-text-style('QoteTextBold', map-get($themeDefault, 'nameFontColor'));
             text-align: center;
-            width: $infoWidth;
+            width: map-get($themeDefault, 'infoWidth');
         }
 
         &__description {
-            @include text.get-text-style(PrimaryText);
-            color: $descriptionFontColor;
+            @include text.get-text-style('PrimaryText', map-get($themeDefault, 'descriptionFontColor'));
             text-align: center;
-            transition: opacity $time ease-in-out;
-            width: $infoWidth;
+            transition: opacity map-get($themeDefault, 'time') ease-in-out;
+            width: map-get($themeDefault, 'infoWidth');
         }
 
         &__active-block {
             display: grid;
-            grid-gap: $activeBlockPadding;
-            padding: $activeBlockPadding;
-            margin: $activeBlockMargin;
-            max-width: $activeBlockMaxWidth;
-            border-radius: $activeBlockRadius;
+            grid-gap: map-get($themeDefault, 'activeBlockPadding');
+            padding: map-get($themeDefault, 'activeBlockPadding');
+            margin: map-get($themeDefault, 'activeBlockMargin');
+            max-width: map-get($themeDefault, 'activeBlockMaxWidth');
+            border-radius: map-get($themeDefault, 'activeBlockRadius');
             text-align: center;
-            @include text.get-text-style(PrimaryTextBold);
-            color: $activeBlockFontColor;
+            @include text.get-text-style('PrimaryTextBold', map-get($themeDefault, 'activeBlockFontColor'));
 
             .secondary-text {
-                @include text.get-text-style(PrimaryText);
-                color: $activeBlockFontSecondaryColor;
+                @include text.get-text-style('PrimaryText', map-get($themeDefault, 'activeBlockFontSecondaryColor'));
             }
         }
 
         &__timer {
             display: flex;
             align-items: center;
-            background-color: $activeBlockTimerBg;
-            border-radius: $activeBlockTimerRadius;
-            padding: $activeBlockTimerPadding;
-            margin: $activeBlockTimerMargin;
+            background-color: map-get($themeDefault, 'activeBlockTimerBg');
+            border-radius: map-get($themeDefault, 'activeBlockTimerRadius');
+            padding: map-get($themeDefault, 'activeBlockTimerPadding');
+            margin: map-get($themeDefault, 'activeBlockTimerMargin');
 
             .time-text {
                 font-weight: bold;
@@ -212,12 +210,12 @@
         }
 
         &__clock-icon {
-            margin: $activeBlockTimeIconMargin;
+            margin: map-get($themeDefault, 'activeBlockTimeIconMargin');
 
             svg {
-                fill: $activeBlockTimeIconFill;
-                width: $activeBlockTimeIconSize;
-                height: $activeBlockTimeIconSize;
+                fill: map-get($themeDefault, 'activeBlockTimeIconFill');
+                width: map-get($themeDefault, 'activeBlockTimeIconSize');
+                height: map-get($themeDefault, 'activeBlockTimeIconSize');
             }
         }
 
@@ -230,11 +228,11 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            background-color: $activeBlockProgressBg;
-            border-radius: $activeBlockProgressRadius;
-            padding: $activeBlockProgressPadding;
-            margin: $activeBlockProgressMargin;
-            transition: all $time ease-in-out;
+            background-color: map-get($themeDefault, 'activeBlockProgressBg');
+            border-radius: map-get($themeDefault, 'activeBlockProgressRadius');
+            padding: map-get($themeDefault, 'activeBlockProgressPadding');
+            margin: map-get($themeDefault, 'activeBlockProgressMargin');
+            transition: all map-get($themeDefault, 'time') ease-in-out;
         }
 
         &__remaning {
@@ -243,34 +241,34 @@
 
         &__progressbar {
             width: 100%;
-            height: $progressBarSize;
-            border-radius: $progressBarRadius;
-            background-color: $progressBarBg;
+            height: map-get($themeDefault, 'progressBarSize');
+            border-radius: map-get($themeDefault, 'progressBarRadius');
+            background-color: map-get($themeDefault, 'progressBarBg');
             overflow: hidden;
-            margin: $progressBarMargin;
+            margin: map-get($themeDefault, 'progressBarMargin');
         }
 
         &__progress-inner {
             width: 100%;
             height: 100%;
-            background-color: $progressBarColor;
+            background-color: map-get($themeDefault, 'progressBarColor');
         }
 
         &__more-icon {
             position: absolute;
-            left: $moreIconPosLeft;
-            right: $moreIconPosRight;
-            top: $moreIconPosTop;
-            bottom: $moreIconPosBottom;
+            left: map-get($themeDefault, 'moreIconPosLeft');
+            right: map-get($themeDefault, 'moreIconPosRight');
+            top: map-get($themeDefault, 'moreIconPosTop');
+            bottom: map-get($themeDefault, 'moreIconPosBottom');
 
             .icon-btn {
                 cursor: pointer;
-                width: $moreIconSize;
-                height: $moreIconSize;
+                width: map-get($themeDefault, 'moreIconSize');
+                height: map-get($themeDefault, 'moreIconSize');
 
                 svg {
                     width: 100%;
-                    fill: $moreIconColor;
+                    fill: map-get($themeDefault, 'moreIconColor');
                 }
             }
         }
@@ -282,11 +280,11 @@
             display: flex;
             justify-content: center;
             transform: translateY(400%);
-            transition: all $time ease-in-out;
+            transition: all map-get($themeDefault, 'time') ease-in-out;
             opacity: 0;
 
             button {
-                margin: $btnMargin;
+                margin: map-get($themeDefault, 'btnMargin');
             }
         }
     }
@@ -383,7 +381,7 @@
         cursor: pointer;
         transform-origin: 50% 50%;
         transform: scale(1);
-        transition: all $time ease-in-out;
+        transition: all map-get($themeDefault, 'time') ease-in-out;
 
         &:hover {
             transform: scale(1.05);
@@ -401,10 +399,10 @@
     &.wlc-bonus-item--view-experience {
 
         .wlc-bonus-item__content {
-            background: $backgroundExperience;
+            background: map-get($themeDefault, 'backgroundExperience');
 
             &:hover {
-                background: $backgroundExperienceHover;
+                background: map-get($themeDefault, 'backgroundExperienceHover');
             }
         }
     }
@@ -412,10 +410,10 @@
     &.wlc-bonus-item--view-loyalty {
 
         .wlc-bonus-item__content {
-            background: $backgroundLoyalty;
+            background: map-get($themeDefault, 'backgroundLoyalty');
 
             &:hover {
-                background: $backgroundLoyaltyHover;
+                background: map-get($themeDefault, 'backgroundLoyaltyHover');
             }
         }
     }
@@ -423,10 +421,10 @@
     &.wlc-bonus-item--view-balance {
 
         .wlc-bonus-item__content {
-            background: $backgroundBalance;
+            background: map-get($themeDefault, 'backgroundBalance');
 
             &:hover {
-                background: $backgroundBalanceHover;
+                background: map-get($themeDefault, 'backgroundBalanceHover');
             }
         }
     }
@@ -434,10 +432,10 @@
     &.wlc-bonus-item--view-freerounds {
 
         .wlc-bonus-item__content {
-            background: $backgroundFreerounds;
+            background: map-get($themeDefault, 'backgroundFreerounds');
 
             &:hover {
-                background: $backgroundFreeroundsHover;
+                background: map-get($themeDefault, 'backgroundFreeroundsHover');
             }
         }
     }
@@ -445,10 +443,10 @@
     &.wlc-bonus-item--view-relative {
 
         .wlc-bonus-item__content {
-            background: $backgroundRelative;
+            background: map-get($themeDefault, 'backgroundRelative');
 
             &:hover {
-                background: $backgroundRelativeHover;
+                background: map-get($themeDefault, 'backgroundRelativeHover');
             }
         }
     }

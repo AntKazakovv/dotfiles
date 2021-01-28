@@ -29,6 +29,10 @@
                         display: block;
                     }
 
+                    svg {
+                        display: block;
+                    }
+
                     circle {
                         fill: map-get($themeDefault, 'userInfoDropdownIconFill');
                     }
