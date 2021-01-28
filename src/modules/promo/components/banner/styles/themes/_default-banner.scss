@@ -1,0 +1,45 @@
+@use 'engine-scss/mixins/text' as lib;
+@use 'engine-scss/mixins/base.mixins' as em;
+@use 'engine-scss/mixins/mediaqueries' as mq;
+
+.wlc-banner--theme-default-banner:host {
+
+    ::ng-deep {
+
+        .banner {
+            display: flex;
+            align-items: center;
+            background: map-get($themeDefaultBanner, 'background');
+
+            @include em.get-mq-map('min-height', $themeDefaultBanner, 'height');
+
+            button {
+                @include em.get-mq-map('margin', $themeDefaultBanner, 'buttonMargin');
+            }
+        }
+
+        .banner__title {
+            @include lib.get-text-style('QoteTextBold');
+            color: map-get($themeDefaultBanner, 'colorTitle');
+
+            @include em.get-mq-map('text-align', $themeDefaultBanner, 'textAlign');
+
+            @include mq.min(768) {
+                @include lib.get-text-style('ScreamTitle');
+                color: map-get($themeDefaultBanner, 'colorTitle');
+            }
+        }
+
+        .banner__description {
+            @include lib.get-text-style('PrimaryText');
+            color: map-get($themeDefaultBanner, 'colorDescription');
+
+            @include em.get-mq-map('text-align', $themeDefaultBanner, 'textAlign');
+
+            @include mq.min(768) {
+                @include lib.get-text-style('QoteTextBold');
+                color: map-get($themeDefaultBanner, 'colorDescription');
+            }
+        }
+    }
+}

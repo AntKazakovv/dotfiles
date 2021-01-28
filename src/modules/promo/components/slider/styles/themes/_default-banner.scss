@@ -1,0 +1,35 @@
+@use 'engine-scss/mixins/text' as lib;
+@use 'engine-scss/mixins/base.mixins' as em;
+@use 'engine-scss/mixins/mediaqueries' as mq;
+
+.wlc-slider--theme-default-banner {
+    @include em.get-mq-map('margin', $themeDefaultBanner, 'sectionsGap');
+
+    .swiper-navigation {
+        @include em.container;
+
+        display: none;
+
+        @include em.get-mq-map('bottom', $themeDefaultBanner, 'bottomGap');
+
+        @include mq.min(768) {
+            display: flex;
+            justify-content: flex-end;
+
+            position: absolute;
+            z-index: 1;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    }
+
+    .swiper-button-prev,
+    .swiper-button-next {
+        position: static;
+        margin: 0;
+    }
+
+    .swiper-button-prev {
+        @include em.get-mq-map('margin-right', $themeDefaultBanner, 'buttonGap');
+    }
+}
