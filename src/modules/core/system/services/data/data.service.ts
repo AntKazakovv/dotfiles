@@ -135,7 +135,7 @@ export class DataService {
                     return this.apiList[name].subject.observers.length > 0;
                 }),
             ).pipe(
-                tap(() => {
+                tap(async () => {
                     this.request$(this.apiList[name]).toPromise();
                 }),
             ).subscribe();
@@ -251,7 +251,7 @@ export class DataService {
                 if (result) {
                     return of(result);
                 }
-                return method.cache > 0 ? from(this.cachingService.unStashRequest<T>(url)) : of(undefined);
+                return method.cache > 0 ? from(this.cachingService.get<T>(url)) : of(undefined);
             }),
             switchMap((result: IData) => {
                 return result
@@ -314,7 +314,7 @@ export class DataService {
                 method.subject?.next(data);
 
                 if (method.type === 'GET' && method.cache > 0 && data.status === 'success' && data.source !== 'cache') {
-                    this.cachingService.stashRequest<T>(url, data.data, method.cache);
+                    this.cachingService.set<T>(url, data.data, false, method.cache);
                 }
             }),
             switchMap((data: IData) => {

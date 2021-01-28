@@ -128,7 +128,7 @@ export class StaticService {
         const cacheExpiry = this.cacheExpiry('category');
 
         if (cacheExpiry) {
-            const categories = (await this.cachingService.unStashRequest<ICategoryStaticText[]>(httpRequestUrl)) || [];
+            const categories = (await this.cachingService.get<ICategoryStaticText[]>(httpRequestUrl)) || [];
             if (categories.length) {
                 this.categories = categories;
                 return this.$resolve();
@@ -140,7 +140,12 @@ export class StaticService {
         this.$resolve();
 
         if (cacheExpiry) {
-            await this.cachingService.stashRequest<ICategoryStaticText>(httpRequestUrl, response.body, cacheExpiry);
+            await this.cachingService.set<ICategoryStaticText>(
+                httpRequestUrl,
+                response.body,
+                false,
+                cacheExpiry,
+            );
         }
     }
 
@@ -169,7 +174,7 @@ export class StaticService {
         const cacheExpiry = this.cacheExpiry(type);
 
         if (cacheExpiry) {
-            const posts: IPostResponse[] = (await this.cachingService.unStashRequest<IPostResponse[]>(httpRequestUrl)) || [];
+            const posts: IPostResponse[] = (await this.cachingService.get<IPostResponse[]>(httpRequestUrl)) || [];
             if (posts.length) {
                 return this.switchTextData(posts[0]);
             }
@@ -179,7 +184,7 @@ export class StaticService {
         // TODO: check if not exist in current lang and load in English
 
         if (cacheExpiry) {
-            this.cachingService.stashRequest<IPostResponse>(httpRequestUrl, response.body, cacheExpiry);
+            this.cachingService.set<IPostResponse>(httpRequestUrl, response.body, false, cacheExpiry);
         }
 
         return this.switchTextData(response.body);
@@ -292,7 +297,7 @@ export class StaticService {
         let plugins: string[];
 
         if (cacheExpiry) {
-            plugins = (await this.cachingService.unStashRequest<string[]>(requestUrl)) || [];
+            plugins = (await this.cachingService.get<string[]>(requestUrl)) || [];
         }
 
         try {
@@ -301,7 +306,7 @@ export class StaticService {
                     .request<string[]>('GET', requestUrl)
                     .toPromise();
                 if (cacheExpiry) {
-                    this.cachingService.stashRequest<string>(requestUrl, plugins, cacheExpiry);
+                    this.cachingService.set<string>(requestUrl, plugins, false, cacheExpiry);
                 }
             }
 
@@ -341,7 +346,7 @@ export class StaticService {
         const httpRequestUrl = this.getHttpRequestParams<IPostResponse[]>('post', extParams)?.urlWithParams;
 
         const cachedPosts: IPostResponse[] = cacheExpiry
-            ? (await this.cachingService.unStashRequest<IPostResponse[]>(httpRequestUrl))
+            ? (await this.cachingService.get<IPostResponse[]>(httpRequestUrl))
             : [];
 
         let posts: IPostResponse[];
@@ -351,7 +356,7 @@ export class StaticService {
         } else {
             posts = (await this.requestData<IPostResponse[]>('post', extParams))?.body;
             if (cacheExpiry) {
-                this.cachingService.stashRequest<IPostResponse>(httpRequestUrl, posts, cacheExpiry);
+                this.cachingService.set<IPostResponse>(httpRequestUrl, posts, false, cacheExpiry);
             }
         }
 

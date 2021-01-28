@@ -139,7 +139,7 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
         this.isAuth = this.configService.get('$user.isAuthenticated');
         this.initEventHandlers();
 
-        this.cachingService.unStashRequest<boolean>(this.instructionCacheKey).then((data: boolean) => {
+        this.cachingService.get<boolean>(this.instructionCacheKey).then((data: boolean) => {
             this.showMobileInstruction = !data;
             if (this.showMobileInstruction) {
                 this.showPanchBtn = true;
@@ -223,7 +223,7 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
 
         if (this.showMobileInstruction) {
             this.showMobileInstruction = false;
-            this.cachingService.stashRequest<boolean>(this.instructionCacheKey, true);
+            this.cachingService.set<boolean>(this.instructionCacheKey, true);
             this.cdr.markForCheck();
         }
         this.oldDirection = null;

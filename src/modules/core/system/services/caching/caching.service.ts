@@ -20,7 +20,7 @@ export class CachingService {
         this.dbSupport = this.checkDbSupport();
     }
 
-    public async unStashRequest<T>(url: string): Promise<T> {
+    public async get<T>(url: string): Promise<T> {
         let data: ICachingObject<T>;
 
         if (this.dbSupport) {
@@ -49,7 +49,12 @@ export class CachingService {
         return data.items;
     }
 
-    public async stashRequest<T>(url: string, items: T[] | T, keepTime = this.keepTimeDefault): Promise<number | boolean> {
+    public async set<T>(
+        url: string,
+        items: T[] | T,
+        rewriting = false,
+        keepTime = this.keepTimeDefault,
+    ): Promise<number | boolean> {
         if (this.dbSupport) {
             let data: ICachingObject<T>;
 
@@ -59,8 +64,13 @@ export class CachingService {
                 this.logService.sendLog({code: '0.5.2', data: error});
             }
 
-            if (!data) {
+            if (!data || rewriting) {
                 try {
+
+                    if (data && rewriting) {
+                        await this.clearStashing(data.id, url);
+                    }
+
                     return this.dbService.add('requests', {
                         url,
                         expiration: DateTime.local().plus(keepTime).toMillis(),
@@ -70,6 +80,7 @@ export class CachingService {
                     this.logService.sendLog({code: '0.5.1', data: error});
                 }
             }
+
             return data.id;
         } else {
             try {
