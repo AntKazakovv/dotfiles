@@ -8,10 +8,10 @@ import {
     OnDestroy,
 } from '@angular/core';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ConfigService, ILoyalty} from 'wlc-engine/modules/core';
+import {ConfigService} from 'wlc-engine/modules/core';
 import {UserService} from 'wlc-engine/modules/user/system/services';
 import {ModalService} from 'wlc-engine/modules/core/system/services';
-import * as Params from './exchange.params';
+import * as Params from './exchange-modal.params';
 
 import {
     reduce as _reduce,
@@ -20,8 +20,8 @@ import {
 
 @Component({
     selector: '[wlc-exchange]',
-    templateUrl: './exchange.component.html',
-    styleUrls: ['./styles/exchange.component.scss'],
+    templateUrl: './exchange-modal.component.html',
+    styleUrls: ['./styles/exchange-modal.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExchangeModalComponent extends AbstractComponent implements OnInit, OnDestroy {
