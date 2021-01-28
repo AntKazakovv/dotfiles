@@ -15,7 +15,7 @@
 
             @include mq.min($breakpoint) {
                 display: block;
-                @include text.get-text-style(ThridTitleBold);
+                @include text.get-text-style(ThirdTitleBold);
                 color: $titleColor;
             }
         }

@@ -65,7 +65,7 @@
 
             &-text {
                 flex-grow: 1;
-                @include text.get-text-style(ThridTitleBold);
+                @include text.get-text-style(ThirdTitleBold);
                 color: map-get($themeDefault, 'titleColor');
                 transition: all map-get($themeDefault, 'time');
                 padding-right: map-get($themeDefault, 'paddingSize');

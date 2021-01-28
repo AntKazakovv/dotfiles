@@ -1,35 +1,36 @@
-
+@use 'engine-scss/functions' as ef;
 // Current
-$currentGap: ef.get('size', 'smallest') !default;
-$currentPadding: ef.get('size', 'smallest') !default;
-$currentBorderRadius: ef.get('size', 'smaller') !default;
-$currentBorder: 1px solid ef.get('color', 'divider') !default;
-$currentBackground: ef.get('color', 'backgroundSecondary') !default;
-$currentArrowColor: ef.get('color', 'text') !default;
-$currentColor: ef.get('color', 'text') !default;
-$currentFlagSize: ef.get('size', 'less') !default;
-$currentHeight: $currentFlagSize !default;
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    currentGap: ef.get('size', 'smallest'),
+    currentPadding: ef.get('size', 'smallest'),
+    currentBorderRadius: ef.get('size', 'smaller'),
+    currentBorder: 1px solid ef.get('color', 'divider'),
+    currentBackground: ef.get('color', 'backgroundSecondary'),
+    currentArrowColor: ef.get('color', 'text'),
+    currentColor: ef.get('color', 'text'),
+    currentFlagSize: ef.get('size', 'less'),
+    currentHeight: ef.get('size', 'less'),
+    dropdownGap: ef.get('size', 'small'),
+    dropdownPadding: ef.get('size', 'small'),
+    dropdownBackgroundColor: ef.get('color', 'backgroundSecondary'),
+    dropdownBorderRadius: ef.get('radius', 'less'),
+    dropdownArrowSize: ef.get('size', 'small'),
+    dropdownItemHover: darken(ef.get('color', 'backgroundSecondary'), 5%),
+    dropdownFlagSize: ef.get('size', 'less'),
+    dropdownLinkColor: ef.get('color', 'text'),
+), $customThemeDefault);
 
-// Dropdown
-$dropdownGap: ef.get('size', 'small') !default;
-$dropdownPadding: ef.get('size', 'small') !default;
-$dropdownBackgroundColor: ef.get('color', 'backgroundSecondary') !default;
-$dropdownBorderRadius: ef.get('radius', 'less') !default;
-$dropdownArrowSize: ef.get('size', 'small') !default;
-$dropdownItemHover: darken(ef.get('color', 'backgroundSecondary'), 5%) !default;
-$dropdownFlagSize: ef.get('size', 'less') !default;
-$dropdownLinkColor: ef.get('color', 'text') !default;
-
-// Mod Long
-$maxWidthModLong: 275px !default;
-
-$currentBorderModLong: 2px solid #f2f2f2 !default;
-$currentPaddingModLong: 7px 12px !default;
-$currentBgModLong: none !default;
-$currentBgModLongHover: $currentBgModLong !default;
-$currentBorderRadiusModLong: 10px !default;
-$currentMarginModLong: 5px 0 !default;
-$currentColorModLang: #fff;
-
-$dropdownBgModLong: none !default;
-$currentSizeModLong: 14px !default;
+$customThemeDefaultModLog: () !default;
+$themeDefaultModLog: map-merge((
+    maxWidthModLong: 275px,
+    currentBorderModLong: 2px solid #f2f2f2,
+    currentPaddingModLong: 7px 12px,
+    currentBgModLong: none,
+    currentBgModLongHover: currentBgModLong,
+    currentBorderRadiusModLong: 10px,
+    currentMarginModLong: 5px 0,
+    currentColorModLang: #fff,
+    dropdownBgModLong: none,
+    currentSizeModLong: 14px,
+), $customThemeDefaultModLog);

@@ -1,5 +1,6 @@
 @use 'engine-scss/functions' as ef;
 @use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/text' as text;
 
 @import '../utils/vars';
 @import '../utils/mixins';
@@ -10,10 +11,7 @@
     .wlc-select {
 
         &__label {
-            font-weight: map-get($themeDefault, 'labelFontWeight');
-            font-size: map-get($themeDefault, 'labelFontSize');
-            line-height: map-get($themeDefault, 'labelFontSize');
-            color: map-get($themeDefault, 'labelColor');
+            @include text.get-text-style('PrimaryText', map-get($themeDefault, 'labelColor'));
         }
 
         &__group {
@@ -41,7 +39,8 @@
             &.ng-touched {
 
                 &.ng-invalid {
-                    border-color: map-get($themeDefault, 'errorsColor');
+                    background: map-get($themeDefault, 'errorsBgColor');
+                    border-color: darken(map-get($themeDefault, 'errorsBgColor'), 10%);
                 }
             }
         }

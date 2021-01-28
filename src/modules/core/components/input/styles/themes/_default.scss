@@ -1,5 +1,6 @@
-@use 'sass:map';
 @use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/mixins/base.mixins' as bm;
 
 @import '../utils/vars';
 @import '../utils/mixins';
@@ -15,10 +16,7 @@
     @include inputBase($themeDefault);
 
     .wlc-input__label {
-        font-weight: map.get($themeDefault, 'labelFontWeight');
-        font-size: map.get($themeDefault, 'labelFontSize');
-        line-height: map.get($themeDefault, 'labelFontSize');
-        color: map.get($themeDefault, 'labelColor');
+        @include text.get-text-style('PrimaryText', map-get($themeDefault, 'labelColor'));
     }
 
     .wlc-input__input {
@@ -27,22 +25,23 @@
 
         input {
             width: 100%;
-            border: map.get($themeDefault, 'inputBorder');
-            border-radius: map.get($themeDefault, 'inputBorderRadius');
-            padding: map.get($themeDefault, 'inputPadding');
+            border: map-get($themeDefault, 'inputBorder');
+            border-radius: map-get($themeDefault, 'inputBorderRadius');
+            padding: map-get($themeDefault, 'inputPadding');
             text-overflow: ellipsis;
             overflow: visible;
-            height: map.get($themeDefault, 'inputHeight');
+            height: map-get($themeDefault, 'inputHeight');
 
             &:focus {
                 outline: none;
-                border-color: map.get($themeDefault, 'inputBorderFocusColor');
+                border-color: map-get($themeDefault, 'inputBorderFocusColor');
             }
 
             &.ng-touched {
 
                 &.ng-invalid {
-                    border-color: map.get($themeDefault, 'errorColor');
+                    background: map-get($themeDefault, 'errorsBgColor');
+                    border-color: darken(map-get($themeDefault, 'errorsBgColor'), 10%);
                 }
             }
         }

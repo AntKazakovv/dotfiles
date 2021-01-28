@@ -3,9 +3,9 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'textAlign': center,
-    'textColor': ef.get('color', 'textSecondary'),
-    'linkColor': ef.get('color', 'main'),
-    'linkHoverColor': darken(ef.get('color', 'main'), 20%),
+    'textColor': ef.get('mainColors', baseMain),
+    'linkColor': ef.get('mainColors', main),
+    'linkHoverColor': darken(ef.get('mainColors', main), 20%),
     'linkTextDecoration': none,
     'textDecoration': underline,
 ), $customThemeDefault);

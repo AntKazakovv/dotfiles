@@ -1,15 +1,17 @@
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/functions' as ef;
 @import '../utils/vars';
 
 .wlc-disclaimer--theme-default:host {
 
     .wlc-disclaimer__text {
-        @include text.get-text-style('SignText');
-        text-align: map-get($themeDefault, 'textAlign');
-        color: map-get($themeDefault, 'textColor');
+        @include text.get-text-style('SignText', map-get($themeDefault, 'textColor'));
+        text-align: ef.get-value($themeDefault, 'textAlign');
 
         @include mq.min(900) {
-            @include text.get-text-style('PlaceholderText');
-            text-align: map-get($themeDefault, 'textAlign');
+            @include text.get-text-style('PlaceholderText', map-get($themeDefault, 'textColor'));
+            text-align: ef.get-value($themeDefault, 'textAlign', 900);
         }
     }
 }

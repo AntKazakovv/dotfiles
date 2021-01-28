@@ -3,7 +3,7 @@
 @mixin currencyBase {
     display: inline-flex;
     flex-wrap: nowrap;
-    color: $textColor;
+    color: map-get($themeDefault, textColor);
 
     .wlc-currency__icon {
         font-family: CryptocurrencySymbols;

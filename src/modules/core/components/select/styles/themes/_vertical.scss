@@ -1,4 +1,6 @@
-@use 'sass:map';
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/text' as text;
 
 @import '../utils/vars';
 @import '../utils/mixins';
@@ -10,17 +12,13 @@
 
         &__label {
             display: block;
-            margin: map.get($themeVertical, 'labelMargin');
+            margin: map-get($themeVertical, 'labelMargin');
             overflow: hidden;
-            max-width: map.get($themeVertical, 'labelMaxWidth');
+            max-width: map-get($themeVertical, 'labelMaxWidth');
 
-            font-size: map.get($themeVertical, 'labelFontSize');
-            font-weight: map.get($themeVertical, 'labelFontWeight');
-            line-height: map.get($themeVertical, 'labelLineHeight');
+            @include text.get-text-style('SignText', map-get($themeVertical, 'labelColor'));
             text-overflow: ellipsis;
             white-space: nowrap;
-
-            color: map.get($themeVertical, 'labelColor');
 
             cursor: pointer;
             user-select: none;
@@ -28,31 +26,32 @@
 
         &__group {
             position: relative;
-            width: map.get($themeVertical, 'selectGroupSize');
-            max-width: map.get($themeVertical, 'selectGroupSize');
+            width: map-get($themeVertical, 'selectGroupSize');
+            max-width: map-get($themeVertical, 'selectGroupSize');
         }
 
         &__field {
             width: 100%;
-            border: $selectBorder;
-            border-radius: $selectBorderRadius;
-            padding: $selectPadding;
+            border: map-get($baseSettings, selectBorder);
+            border-radius: map-get($baseSettings, selectBorderRadius);
+            padding: map-get($baseSettings, selectPadding);
             overflow: visible;
             text-overflow: ellipsis;
-            background: $selectBackground;
-            text-align: $selectTextAlign;
-            color: $selectColor;
-            height: $selectHeight;
+            background: map-get($baseSettings, selectBackground);
+            text-align: map-get($baseSettings, selectTextAlign);
+            color: map-get($baseSettings, selectColor);
+            height: map-get($baseSettings, selectHeight);
 
             &:focus {
                 outline: none;
-                border-color: $selectBorderFocusColor;
+                border-color: map-get($baseSettings, selectBorderFocusColor);
             }
 
             &.ng-touched {
 
                 &.ng-invalid {
-                    border-color: $errorsColor;
+                    background: map-get($themeDefault, 'errorsBgColor');
+                    border-color: darken(map-get($themeDefault, 'errorsBgColor'), 10%);
                 }
             }
         }
