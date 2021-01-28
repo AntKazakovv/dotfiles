@@ -5,11 +5,14 @@ export namespace wlcGamesGrid {
         name: 'games.wlc-games-grid',
         params: {
             gamesRows: 2,
-            title: 'All games',
+            title: 'Top games',
             usePlaceholders: true,
             showAllLink: {
                 use: true,
                 link: 'app.catalog',
+                params: {
+                    category: 'topgames',
+                },
             },
         },
     };
@@ -17,15 +20,18 @@ export namespace wlcGamesGrid {
     export const roullete1row: ILayoutComponent = {
         name: 'games.wlc-games-grid',
         params: {
-            gamesRows: 1,
-            title: 'Roullete',
+            gamesRows: 2,
+            title: 'New games',
             filter: {
-                category: 'roulletegames',
+                category: 'new',
             },
             usePlaceholders: true,
             showAllLink: {
                 use: true,
-                link: 'app.catalog.popular',
+                link: 'app.catalog',
+                params: {
+                    category: 'new',
+                },
             },
             moreBtn: {
                 hide: true,
