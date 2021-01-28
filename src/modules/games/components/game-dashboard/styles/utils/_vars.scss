@@ -1,6 +1,48 @@
 @use 'engine-scss/functions' as ef;
+$customThemeDefault: () !default;
 
-$transition: 0.3s linear !default;
-$backgroundAdUnit: ef.get('color', 'background') !default;
-$backgroundTabs: #4a4b4c !default;
-$backgroundTabsActive: #e5e5e5 !default;
+$themeDefault: map-merge((
+    'transition': 0.3s linear,
+    'backgroundAdUnit': ef.get('mainColors', 'bg'),
+    'backgroundTabs': ef.get('mainColors', 'bg700'),
+    'backgroundTabsActive': ef.get('mainColors', 'main'),
+
+    'decorHeight': 247px,
+    'decorWidth': 181px,
+    'decorLeftPosition': top left,
+    'decorRightPosition': right bottom,
+
+    'itemWidth': 250px,
+    'imgMargin': 0 0 15px 0,
+
+    'tutotrialArrowTop': 170px,
+    'tutotrialArrowRight': 20px,
+    'tutorialColor': ef.get('mainColors', 'baseMain'),
+    'tutorialTextMargin': 8px 0 0,
+
+    'wrpWidth': 300px,
+    'wrpBackground': ef.get('mainColors', 'bg700'),
+
+    'panchTop': 100px,
+    'panchLeft': -15px,
+    'panchWidth': 30px,
+    'panchHeight': 180px,
+
+    'panchBtnRadius': 5px,
+    'panchBtnWidth': 5px,
+    'panchBtnHeight': 180px,
+    'panchBtnTop': 0,
+    'panchBtnRight': 15px,
+    'panchBtnBack': ef.get('mainColors', 'main'),
+    'panchBtnIcon': ef.get('mainColors', 'baseMain'),
+
+    'headerBackground': ef.get('mainColors', 'bg500'),
+    'headerPadding': 10px 0,
+
+    'tabWidth': 43px,
+    'tabHeight': 43px,
+    'tabRadius': 50%,
+
+    'contentPadding': 20px,
+
+), $customThemeDefault);

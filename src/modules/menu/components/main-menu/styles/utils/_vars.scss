@@ -14,7 +14,7 @@ $themeDefault: map-merge((
     'textColorHover': darken(ef.get('mainColors', 'baseMain'), 5%),
     'textDecoration': none,
     'fontSize': (
-        375: ef.get('font', 'SigntText'),
+        375: ef.get('font', 'SignText'),
         1024: ef.get('font', 'PrimaryText'),
         1420: ef.get('font', 'ThirdTitle'),
     ),
