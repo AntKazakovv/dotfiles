@@ -6,8 +6,6 @@
     @include em.get-mq-map('margin', $themeDefaultBanner, 'sectionsGap');
 
     .swiper-navigation {
-        @include em.container;
-
         display: none;
 
         @include em.get-mq-map('bottom', $themeDefaultBanner, 'bottomGap');
