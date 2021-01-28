@@ -1,17 +1,18 @@
 @use 'engine-scss/functions' as ef;
 @use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/text' as text;
 @import '../utils/vars';
 @import '../utils/mixins';
 
 .wlc-error-page--theme-default:host {
-    max-width: 360px;
+    max-width: 350px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: minmax(0, 250px) repeat(2, 1fr);
     grid-gap: ef.get-value($themeDefault, 'gap');
-    margin: 30px auto 60px;
+    margin: ef.get-value($themeDefault, 'pageMargin');
 
-    @include mq.min(900) {
+    @include mq.min(768) {
         max-width: 940px;
         grid-template-columns: repeat(4, 1fr);
         grid-template-rows: repeat(2, 1fr);
@@ -20,20 +21,12 @@
     .wlc-error-page__image {
         grid-column: 1 / span 2;
         grid-row: 1;
+        @include blockDecoration('backgroundImage');
 
-        @include mq.min(900) {
+        @include mq.min(768) {
             grid-column: 1 / span 2;
             grid-row: 1 / span 2;
         }
-
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: ef.get-value($themeDefault, 'background');
-        border-radius: ef.get-value($themeDefault, 'radius');
-        padding: ef.get-value($themeDefault, 'padding');
-
-        overflow: hidden;
 
         &.wlc-icon::ng-deep {
 
@@ -53,97 +46,74 @@
     .wlc-error-page__message {
         grid-column: 1 / span 2;
         grid-row: 2;
+        flex-direction: column;
+        @include blockDecoration('backgroundText');
 
-        @include mq.min(900) {
+        @include mq.min(768) {
             grid-column: 3 / span 2;
             grid-row: 1;
         }
 
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        background: ef.get-value($themeDefault, 'background');
-        border-radius: ef.get-value($themeDefault, 'radius');
-        padding: ef.get-value($themeDefault, 'padding');
-
-        overflow: hidden;
-
         h2 {
-            font-size: 24px;
-            font-weight: 700;
+            @include text.get-text-style('QoteTextBold');
             text-align: center;
-            margin-bottom: ef.get-value($themeDefault, 'padding') * 2;
+            margin-bottom: ef.get-value($themeDefault, 'padding');
         }
 
         p {
-            font-size: 16px;
+            @include text.get-text-style('ThirdTitle');
             text-align: center;
         }
     }
 
-    .wlc-error-page__link-wrp {
+    .wlc-error-page__link {
         grid-column: 1;
         grid-row: 3;
+        text-decoration: none;
+        transition: 0.4s;
+        @include blockDecoration('backgroundLink');
 
-        @include mq.min(900) {
-            grid-column: 3 / span 1;
+        @include mq.min(768) {
+            grid-column: 3;
             grid-row: 2;
         }
-
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: ef.get-value($themeDefault, 'background');
-        border-radius: ef.get-value($themeDefault, 'radius');
-        padding: ef.get-value($themeDefault, 'padding');
-
-        overflow: hidden;
 
         &:last-child {
             grid-column: 2;
 
-            @include mq.min(900) {
+            @include mq.min(768) {
                 grid-column: 4;
                 grid-row: 2;
             }
         }
 
         &:hover {
-            background: ef.get-value($themeDefault, 'background-active');
+            background: ef.get-value($themeDefault, 'backgroundLinkActive');
             transition: 0.4s;
-        }
-    }
 
-    .wlc-error-page__link {
-        position: relative;
+            span {
 
-        color: ef.get-value($themeDefault, 'color');
-        font-size: 16px;
-        font-weight: 300;
-        text-decoration: none;
-
-        &:before {
-            display: none;
-
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            right: 0;
-
-            height: 4px;
-
-            background: ef.get-value($themeDefault, 'underline');
-            border-radius: 4px;
+                &:before {
+                    display: block;
+                }
+            }
         }
 
-        &:hover {
-            font-weight: 700;
-            transition: 0.4s;
+        span {
+            position: relative;
+            @include text.get-text-style('ThirdTitle');
 
             &:before {
-                display: block;
+                display: none;
+
+                content: '';
+                position: absolute;
+                left: 0;
+                right: 0;
+                bottom: - ef.get-value($themeDefault, 'underlineHeight');
+                height: ef.get-value($themeDefault, 'underlineHeight');
+                background: ef.get-value($themeDefault, 'underline');
+                border-radius: 4px;
             }
         }
     }

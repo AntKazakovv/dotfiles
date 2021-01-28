@@ -15,13 +15,16 @@ import {HttpLoaderFactory, MissingTranslationService} from '../core/system/confi
 import {environment} from '../../system/environments/environment';
 import {AppComponent} from './components/app/app.component';
 import {CoreModule} from '../core/core.module';
-import {ConfigService} from '../core/system/services';
+import {
+    ConfigService,
+    EventService,
+    ActionService,
+} from 'wlc-engine/modules/core/system/services';
 import {Location} from '@angular/common';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 import {NgxWebstorageModule} from 'ngx-webstorage';
 import * as Sentry from '@sentry/angular';
 import {ModalModule} from 'ngx-bootstrap/modal';
-import {ActionService} from 'wlc-engine/modules/core/system/services';
 
 export function loadConfig(config: ConfigService) {
     return config.load();
@@ -41,13 +44,14 @@ export function loadConfig(config: ConfigService) {
             states: APP_STATES,
             useHash: false,
             config: routerConfigFn,
-            otherwise: (matchValue, url, {globals}) => {
+            otherwise: (matchValue, url, rt) => {
+                const locale = rt?.globals.params.locale
+                    || url.path.split('/')[1]
+                    || 'en';
+
                 return {
                     state: 'app.error',
-                    params:
-                        {
-                            locale: globals.params.locale || 'en',
-                        },
+                    params:{locale},
                 };
             },
         }),
@@ -90,14 +94,31 @@ export function loadConfig(config: ConfigService) {
     bootstrap: [UIView],
 })
 export class AppModule {
-
     public initialPath: IIndexing<string>;
+    private errorTimeoutId: number;
 
     constructor(
         location: Location,
         protected actionService: ActionService,
+        private eventService: EventService,
     ) {
         this.parseInitPath(location.path());
+
+        this.eventService.subscribe({
+            name: 'ERROR_PAGE_ENTER',
+        }, (data: number) => {
+            this.errorTimeoutId = data;
+        });
+
+        this.eventService.subscribe({
+            name: 'ERROR_PAGE_LEAVE',
+        }, () => {
+            if (this.errorTimeoutId) {
+                clearTimeout(this.errorTimeoutId);
+                this.errorTimeoutId = null;
+            }
+        });
+
     }
 
     protected parseInitPath(path: string): void {

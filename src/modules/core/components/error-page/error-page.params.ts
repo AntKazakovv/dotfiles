@@ -28,17 +28,17 @@ export const defaultParams: IErrorPageCParams = {
     class: 'wlc-error-page',
     links: [
         {
-            title: gettext('Slots'),
-            state: 'app.catalog',
-            params: {
-                category: 'slots',
-            },
-        },
-        {
             title: gettext('Casino'),
             state: 'app.catalog',
             params: {
                 category: 'casino',
+            },
+        },
+        {
+            title: gettext('Live Casino'),
+            state: 'app.catalog',
+            params: {
+                category: 'live',
             },
         },
     ],

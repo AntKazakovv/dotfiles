@@ -1,0 +1,11 @@
+@import './vars';
+
+@mixin blockDecoration($background) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: ef.get-value($themeDefault, $background);
+    border-radius: ef.get-value($themeDefault, 'radius');
+    padding: ef.get-value($themeDefault, 'padding');
+    overflow: hidden;
+}

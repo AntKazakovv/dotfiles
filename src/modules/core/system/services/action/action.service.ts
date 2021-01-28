@@ -24,13 +24,13 @@ import {
 export interface IBreakpoint {
     mq: MediaQueryList;
     observer: Observable<MediaQueryListEvent>;
-};
+}
 
 export interface IDeviceBreakpoints {
     mobile: IBreakpoint;
     tablet: IBreakpoint;
     desktop: IBreakpoint;
-};
+}
 
 @Injectable({
     providedIn: 'root',
