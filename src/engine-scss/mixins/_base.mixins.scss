@@ -71,10 +71,3 @@
         #{$prop}: ef.get-value($map, $name);
     }
 }
-
-// TODO: pull out mixin mesh formation
-@import '~bootstrap/scss/bootstrap-grid';
-
-@mixin container {
-    @extend .container;
-}
