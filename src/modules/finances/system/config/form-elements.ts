@@ -22,7 +22,7 @@ export namespace FormElements {
                 'required',
                 {
                     name: 'regExp',
-                    options: new RegExp('^[0-9]+$'),
+                    options: new RegExp('[^0-9]$'),
                 }],
         },
     };

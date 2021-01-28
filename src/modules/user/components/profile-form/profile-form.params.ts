@@ -52,7 +52,7 @@ export const profileForm: IFormWrapperCParams = {
                     },
                     {
                         name: 'regExp',
-                        options: new RegExp('^[A-Za-z]'),
+                        options: new RegExp('[^A-Za-z]'),
                     },
                 ],
                 exampleValue: 'Ivan',
@@ -65,7 +65,16 @@ export const profileForm: IFormWrapperCParams = {
                     placeholder: gettext('Last name'),
                 },
                 name: 'lastName',
-                validators: ['required'],
+                validators: ['required',
+                    {
+                        name: 'minLength',
+                        options: 2,
+                    },
+                    {
+                        name: 'regExp',
+                        options: new RegExp('[^A-Za-z]'),
+                    },
+                ],
                 exampleValue: 'Ivanov',
             },
         },
