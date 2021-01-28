@@ -149,8 +149,8 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
                     this.elRef.nativeElement.querySelector(`#${component.params.name}`).focus();
                 }
 
-                return !!component.params.control.errors
-            })
+                return !!component.params.control.errors;
+            });
 
             this.cdr.markForCheck();
         }
