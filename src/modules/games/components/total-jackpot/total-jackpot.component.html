@@ -1,7 +1,17 @@
-
 <div class="{{$class}}__title">{{$params.title | translate}}</div>
+
+<div class="{{$class}}__currency"
+     *ngIf="amount && currency?.position == 'left'"
+>{{currency.currency}}</div>
+
 <div class="{{$class}}__counter"
      [countUp]="amount"
+     [options]="$params.countUpOptions"
      [reanimateOnClick]="false"
      [ngClass]="{'loading': !amount}"
->---,---,---</div>
+>--- --- ---</div>
+
+<div class="{{$class}}__currency"
+     *ngIf="amount && currency?.position == 'right'"
+>{{currency.currency}}</div>
+

@@ -418,6 +418,7 @@ export class GamesCatalogService {
             system: 'games',
             url: '/jackpots',
             type: 'GET',
+            period: 10000,
             events: {
                 success: gamesEvents.FETCH_JACKPOTS_SUCCEEDED,
                 fail: gamesEvents.FETCH_JACKPOTS_FAILED,
