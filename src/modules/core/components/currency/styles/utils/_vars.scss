@@ -1,1 +1,6 @@
-$textColor: inherit !default;
+@use 'engine-scss/functions' as ef;
+
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    textColor: inherit,
+), $customThemeDefault);

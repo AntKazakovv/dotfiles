@@ -1,27 +1,28 @@
 @use '../engine.variables' as ev;
+@use '../functions' as ef;
 
-@mixin get-text-style($style) {
+@mixin get-text-style($style, $color: ef.get('mainColors', baseMain)) {
     font-style: normal;
-    color: map-get(ev.$mainColors, 'elementsColor');
+    color: $color;
 
-    @if ($style == 'SignText' ) {
+    @if ($style == 'SignText') {
         @include SignText;
-    } @else if ($style == 'PlaceholderText' ) {
+    } @else if ($style == 'PlaceholderText') {
         @include PlaceholderText;
-    } @else if ($style == 'PrimaryText' ) {
+    } @else if ($style == 'PrimaryText') {
         @include PrimaryText;
-    } @else if ($style == 'ButtonText' ) {
+    } @else if ($style == 'ButtonText') {
         @include ButtonText;
     } @else if ($style == 'ThirdTitle') {
         @include ThirdTitle;
-    } @else if ($style == 'PromoTitle' ) {
+    } @else if ($style == 'PromoTitle') {
         @include PromoTitle;
     } @else if ($style == 'ScreamTitle') {
         @include ScreamTitle;
     } @else if ($style == 'PrimaryTextBold') {
         @include PrimaryTextBold;
-    } @else if ($style == 'ThridTitleBold') {
-        @include ThridTitleBold;
+    } @else if ($style == 'ThirdTitleBold') {
+        @include ThirdTitleBold;
     } @else if ($style == 'QoteTextBold') {
         @include QoteTextBold;
     } @else if ($style == 'PlaceholderTextBold') {
@@ -81,9 +82,9 @@
     line-height: 1.45;
 }
 
-@mixin ThridTitleBold {
+@mixin ThirdTitleBold {
     font-weight: bold;
-    font-size: map-get(ev.$font, 'ThridTitleBold');
+    font-size: map-get(ev.$font, 'ThirdTitleBold');
     line-height: 1.45;
 }
 

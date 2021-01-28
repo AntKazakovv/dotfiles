@@ -82,7 +82,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            @include text.get-text-style(ThridTitleBold);
+            @include text.get-text-style(ThirdTitleBold);
             color: ef.get-value($themeVertical, 'gameColor');
             text-decoration: none;
 
@@ -127,7 +127,7 @@
 
         &__amount {
             grid-area: amount;
-            @include text.get-text-style(ThridTitleBold);
+            @include text.get-text-style(ThirdTitleBold);
             white-space: nowrap;
             text-align: right;
             color: ef.get-value($themeVertical, 'amountColor');

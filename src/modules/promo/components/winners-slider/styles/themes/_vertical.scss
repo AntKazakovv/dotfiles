@@ -25,7 +25,7 @@
 
         &__title {
             display: inline-block;
-            @include text.get-text-style(ThridTitleBold);
+            @include text.get-text-style(ThirdTitleBold);
             color: ef.get-value($themeVertical, 'titleColor');
             background: ef.get-value($themeVertical, 'titleBackground');
             border-radius: ef.get-value($themeVertical, 'titleBorderRadius');

@@ -1,14 +1,16 @@
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/mixins/text' as text;
 @import '../utils/vars';
 
 .wlc-copyright--theme-default:host {
 
     .wlc-copyright__text {
-        @include text.get-text-style('SignText');
+        @include text.get-text-style('SignText', map-get($themeDefault, 'textColor'));
         text-align: map-get($themeDefault, 'textAlign');
-        color: map-get($themeDefault, 'textColor');
 
         @include mq.min(900) {
-            @include text.get-text-style('PlaceholderText');
+            @include text.get-text-style('PlaceholderText', map-get($themeDefault, 'textColor'));
         }
 
         span {
@@ -17,12 +19,11 @@
 
         a {
             text-decoration: map-get($themeDefault, 'textDecoration');
-            color: map-get($themeDefault, 'linkColor');
-            @include text.get-text-style('SignText');
+            @include text.get-text-style('SignText', map-get($themeDefault, 'linkColor'));
             @include bm.transition(color);
 
             @include mq.min(900) {
-                @include text.get-text-style('PlaceholderText');
+                @include text.get-text-style('PlaceholderText', map-get($themeDefault, 'linkColor'));
             }
 
             &:hover,

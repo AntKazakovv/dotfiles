@@ -29,10 +29,10 @@ $themeDropdownDefault: map-merge((
     activeTabLinkBg: ef.get('mainColors', 'main'),
     linkPadding: 8px 12px,
     linkColor: ef.get('mainColors', 'baseMain'),
-    linkBg: ef.get('mainColors', 'bg'),
+    linkBg: ef.get('mainColors', 'bg700'),
     activeLinkBg: ef.get('mainColors', 'baseOpacity'),
     linkFill: linkColor,
     linkBorderRadius: ef.get('radius', 'biger'),
-    submenuBg: ef.get('mainColors', 'bg'),
+    submenuBg: ef.get('mainColors', 'bg700'),
 ), $customDropdownThemeDefault);
 

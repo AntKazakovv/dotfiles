@@ -38,7 +38,7 @@ $themePayments: map-merge((
         375: initial,
     ),
     'wrapperBorderRadius': ef.get('radius', 'main'),
-    'wrapperBackground': ef.get('color', 'backgroundSecondary'),
+    'wrapperBackground': ef.get('mainColors', 'bg'),
 
     //grid
     'gridDisplay': grid,

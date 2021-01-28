@@ -6,14 +6,11 @@ $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'errorColor': ef.get('form', 'errorColor'),
     'successColor': ef.get('form', 'successColor'),
-
     'maxWidth': ef.get('form', 'maxWidth'),
-
     'labelFontWeight': ef.get('form', 'labelFontWeight'),
     'labelColor': ef.get('form', 'labelColor'),
     'labelFontSize': ef.get('form', 'labelFontSize'),
     'labelGap': ef.get('size', 'small'),
-
     'selectColor': ef.get('form', 'inputColor'),
     'selectBackground': ef.get('form', 'inputBackground'),
     'selectMaxWidth': ef.get('form', 'inputMaxWidth'),
@@ -23,16 +20,13 @@ $themeDefault: map-merge((
     'selectBorderRadius': ef.get('form', 'inputBorderRadius'),
     'selectPadding': ef.get('form', 'inputPadding'),
     'selectTextAlign': ef.get('form', 'inputTextAlign'),
-
     'selectDropdownHeight': ef.get('form', 'selectDropdownHeight'),
     'selectDropdownBorder': ef.get('form', 'inputBorder'),
     'selectDropdownBorderRadius': ef.get('form', 'inputBorderRadius'),
     'selectDropdownBackground': ef.get('form', 'inputBackground'),
-
     'selectDropdownItemPadding': ef.get('form', 'inputPadding'),
     'selectDropdownItemColor': ef.get('form', 'inputColor'),
     'selectDropdownItemTransition': ef.get('form', 'selectDropdownItemTransition'),
-
     'selectArrowColor': ef.get('form', 'selectArrowColor'),
     'iconWidth': ef.get('form', 'iconWidth'),
     'iconHeight': ef.get('form', 'iconHeight'),
@@ -40,7 +34,6 @@ $themeDefault: map-merge((
     'successIconColor': ef.get('form', 'successIconColor'),
     'errorIconColor': ef.get('form', 'errorIconColor'),
     'pendingIconColor': ef.get('form', 'pendingIconColor'),
-
     'errorsBgColor': ef.get('form', 'errorsBgColor'),
     'errorsColor': ef.get('form', 'errorsColor'),
     'errorsMinWidth': ef.get('form', 'errorsMinWidth'),
@@ -50,71 +43,47 @@ $themeDefault: map-merge((
     'errorsPadding': ef.get('form', 'errorsPadding'),
 ), $customThemeDefault);
 
-$errorColor: #f12e74 !default;
-$successColor: #27bb37 !default;
-
-$maxWidth: 765px !default;
-
-$labelFontWeight: bold !default;
-$labelColor: #231f20 !default;
-$labelFontSize: 16px !default;
-
-$selectWidth: 70% !default;
-$selectMaxWidth: 450px !default;
-$selectColor: ef.get('color', text) !default;
-$selectBorder: ef.get('form', 'inputBorder') !default;
-$selectBorderRadius: ef.get('form', 'inputBorderRadius') !default;
-$selectBorderFocusColor: ef.get('form', 'inputBorderFocusColor');
-$selectBackground: ef.get('form', 'inputBackground') !default;
-$selectTextAlign: ef.get('form', 'inputTextAlign') !default;
-$selectPadding: ef.get('form', 'inputPadding') !default;
-$selectArrowColor: ef.get('color', 'main') !default;
-$selectHeight: ef.get('form', 'inputHeight') !default;
-
-$dropdownMaxHeight: 300px !default;
-$dropdownBg: #fff !default;
-
-$dropdownItemPadding: $selectPadding !default;
-$dropdownItemBg: #fff !default;
-$dropdownBorder: 2px solid rgba(0, 0, 0, 0.04) !default;
-$dropdownBorderRadius: 10px !default;
-
-$selectDropdownHeight: ef.get('form', 'selectDropdownHeight');
-$selectDropdownBorder: ef.get('form', 'inputBorder');
-$selectDropdownBorderRadius: ef.get('form', 'inputBorderRadius');
-$selectDropdownBackground: ef.get('form', 'inputBackground');
-
-$selectDropdownItemPadding: ef.get('form', 'inputPadding');
-
-$iconWidth: ef.get('form', 'iconWidth') !default;
-$iconHeight: ef.get('form', 'iconHeight') !default;
-$successIconColor: #fff !default;
-$errorIconColor: #fff !default;
-$pendingIconColor: rgba(0, 0, 0, 0.5) !default;
-
-$errorsBgColor: ef.get('form', 'errorsBgColor') !default;
-$errorsColor: ef.get('form', 'errorsColor') !default;
-$errorsMinWidth: ef.get('form', 'errorsMinWidth') !default;
-$errorsMaxWidth: ef.get('form', 'errorsMaxWidth') !default;
-$errorsBorderRadius: ef.get('form', 'errorsBorderRadius') !default;
-$errorsFontSize: ef.get('form', 'errorsFontSize') !default;
-$errorsPadding: ef.get('form', 'errorsPadding') !default;
-
-$iconRightShift: ef.get('form', 'iconRightShift');
-
 $customThemeVertical: () !default;
 $themeVertical: map-merge((
     'labelGap': ef.get('size', 'small'),
-
     'labelMaxWidth': 100%,
     'labelMargin': 0 0 0 ef.get('size', 'smallest'),
-    'labelFontSize':  ef.get('font', 'small'),
+    'labelFontSize': ef.get('font', 'small'),
     'labelFontWeight': 500,
     'labelLineHeight': 1,
-    'labelColor': ef.get('color', 'main'),
-
+    'labelColor': ef.get('form', 'labelColor'),
     'selectGroupSize': 100%,
-    'selectDropdownItemColor': ef.get('color', 'dark'),
+    'selectDropdownItemColor': ef.get('form', 'inputColor'),
     'selectBorderRadius': ef.get('radius', 'main'),
-
 ), $customThemeVertical);
+
+$customBaseSettings: () !default;
+$baseSettings: map-merge((
+    maxWidth: 765px,
+    selectWidth: 70%,
+    selectMaxWidth: 450px,
+    selectColor: ef.get('form', 'inputColor'),
+    selectBorder: ef.get('form', 'inputBorder'),
+    selectBorderRadius: ef.get('form', 'inputBorderRadius'),
+    selectBorderFocusColor: ef.get('form', 'inputBorderFocusColor'),
+    selectBackground: ef.get('form', 'inputBackground'),
+    selectTextAlign: ef.get('form', 'inputTextAlign'),
+    selectPadding: ef.get('form', 'inputPadding'),
+    selectArrowColor:ef.get('form', 'selectArrowColor'),
+    selectHeight: ef.get('form', 'inputHeight'),
+    selectDropdownHeight: ef.get('form', 'selectDropdownHeight'),
+    selectDropdownBorder: ef.get('form', 'inputBorder'),
+    selectDropdownBorderRadius: ef.get('form', 'inputBorderRadius'),
+    selectDropdownBackground: ef.get('form', 'inputBackground'),
+    selectDropdownItemPadding: ef.get('form', 'inputPadding'),
+    iconWidth: ef.get('form', 'iconWidth'),
+    iconHeight: ef.get('form', 'iconHeight'),
+    errorsBgColor: ef.get('form', 'errorsBgColor'),
+    errorsColor: ef.get('form', 'errorsColor'),
+    errorsMinWidth: ef.get('form', 'errorsMinWidth'),
+    errorsMaxWidth: ef.get('form', 'errorsMaxWidth'),
+    errorsBorderRadius: ef.get('form', 'errorsBorderRadius'),
+    errorsFontSize: ef.get('form', 'errorsFontSize'),
+    errorsPadding: ef.get('form', 'errorsPadding'),
+    iconRightShift: ef.get('form', 'iconRightShift')
+), $customThemeDefault);

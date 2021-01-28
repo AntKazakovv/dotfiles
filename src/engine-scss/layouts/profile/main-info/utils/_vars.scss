@@ -59,7 +59,10 @@ $mainInfoThemeDefault: map-merge((
     'addItemLinkFontWeight': (
         375: ef.get-value($profileSettings, 'profileBtnWeight'),
     ),
-    'addItemLinkColor': ef.get('color', 'text'),
+    'addItemLinkColor': (
+        375: ef.get('mainColors', baseMain),
+        1024: ef.get('mainColors', main)
+    ),
     'addItemTitleMainMargin': (
         375: 0 0 5px 0,
     ),

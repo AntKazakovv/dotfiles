@@ -15,10 +15,10 @@
     width: 100%;
     padding: 0;
 
-    max-height: $selectDropdownHeight;
-    border: $selectDropdownBorder;
-    border-radius: $selectDropdownBorderRadius;
-    background: $selectDropdownBackground;
+    max-height: map-get($baseSettings, selectDropdownHeight);
+    border: map-get($baseSettings, selectDropdownBorder);
+    border-radius: map-get($baseSettings, selectDropdownBorderRadius);
+    background: map-get($baseSettings, selectDropdownBackground);
     overflow: hidden scroll;
     list-style: none;
 }
@@ -27,8 +27,8 @@
     display: flex;
     align-items: center;
     width: 100%;
-    min-height: $selectHeight;
-    padding: $selectDropdownItemPadding;
+    min-height: map-get($baseSettings, selectHeight);
+    padding: map-get($baseSettings, selectDropdownItemPadding);
     cursor: pointer;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -38,10 +38,10 @@
 @mixin baseStatusIcon {
     position: absolute;
     top: 50%;
-    right: $iconRightShift;
+    right: map-get($baseSettings, iconRightShift);
     transform: translateY(-50%);
-    width: $iconWidth;
-    height: $iconHeight;
+    width: map-get($baseSettings, iconWidth);
+    height: map-get($baseSettings, iconHeight);
     border-radius: 50%;
 
     &:before {
@@ -55,29 +55,29 @@
     right: map-get($themeDefault, 'iconRightShift');
     top: 50%;
     transform: translateY(-50%);
-    fill: $selectArrowColor;
+    fill: map-get($baseSettings, selectArrowColor);
 }
 
 @mixin baseStatusErrors {
     position: absolute;
-    background: $errorsBgColor;
+    background: map-get($baseSettings, errorsBgColor);
     top: calc(100% - 5px);
     right: 0;
     width: fit-content;
-    min-width: $errorsMinWidth;
-    max-width: $errorsMaxWidth;
+    min-width: map-get($baseSettings, errorsMinWidth);
+    max-width: map-get($baseSettings, errorsMaxWidth);
     opacity: 0;
     visibility: hidden;
-    color: $errorsColor;
-    border-radius: $errorsBorderRadius;
-    font-size: $errorsFontSize;
-    padding: $errorsPadding;
+    color: map-get($baseSettings, rrorsColor);
+    border-radius: map-get($baseSettings, errorsBorderRadius);
+    font-size: map-get($baseSettings, errorsFontSize);
+    padding: map-get($baseSettings, errorsPadding);
     z-index: 10;
 
     &:before {
         content: '';
         border: 8px solid transparent;
-        border-bottom-color: $errorsBgColor;
+        border-bottom-color: map-get($baseSettings, errorsBgColor);
         position: absolute;
         top: -15px;
         right: 13px;

@@ -32,7 +32,7 @@
     .wlc-title.wlc-title--profile[wlc-title] {
 
         .wlc-title__main {
-            @include text.get-text-style(ThridTitleBold);
+            @include text.get-text-style(ThirdTitleBold);
             color: ef.get('mainColors', 'baseMain');
         }
     }

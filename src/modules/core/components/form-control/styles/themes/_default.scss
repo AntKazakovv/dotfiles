@@ -7,7 +7,7 @@
     #{$touch}.ng-valid ~ & {
 
         #{$selector}__icon {
-            background: map-get($themeDefault, 'successColor');
+            background: darken(map-get($themeDefault, 'successColor'), 20%);
 
             &:before {
                 width: 4px;
@@ -42,7 +42,7 @@
         border-color: map-get($themeDefault, 'errorColor');
 
         #{$selector}__icon {
-            background: map-get($themeDefault, 'errorColor');
+            background: darken(map-get($themeDefault, 'errorColor'), 20%);
             transform: translateY(-50%) rotate(45deg);
 
             &:before {

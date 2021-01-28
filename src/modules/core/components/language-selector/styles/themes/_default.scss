@@ -6,7 +6,7 @@
     display: flex;
     flex-direction: column;
     width: fit-content;
-    height: $currentHeight;
+    height: map-get($themeDefault, currentHeight);
 
     .wlc-language-selector {
 
@@ -15,15 +15,15 @@
             grid-auto-columns: auto;
             grid-auto-flow: column;
             align-items: center;
-            grid-gap: $currentGap;
+            grid-gap: map-get($themeDefault, currentGap);
             cursor: pointer;
 
             &-flag {
-                @include flag($currentFlagSize, $currentFlagSize, 50%);
+                @include flag(map-get($themeDefault, currentFlagSize), map-get($themeDefault, currentFlagSize), 50%);
             }
 
             &-lang {
-                color: $currentColor;
+                color: map-get($themeDefault, currentColor);
             }
 
             &-arrow {
@@ -31,7 +31,7 @@
                 ::ng-deep svg {
 
                     path {
-                        fill: $currentArrowColor;
+                        fill: map-get($themeDefault, currentArrowColor);
                     }
                 }
             }
@@ -43,28 +43,28 @@
             @include mod('default', 'bottom-left') {
                 top: 100%;
                 right: 0;
-                padding-top: $dropdownArrowSize;
+                padding-top: map-get($themeDefault, dropdownArrowSize);
             }
 
             @include mod('default', 'top-left') {
                 bottom: 100%;
                 right: 0;
-                padding-bottom: $dropdownArrowSize;
+                padding-bottom: map-get($themeDefault, dropdownArrowSize);
             }
         }
 
         &__list {
-            border-radius: $dropdownBorderRadius;
-            background: $dropdownBackgroundColor;
+            border-radius: map-get($themeDefault, dropdownBorderRadius);
+            background: map-get($themeDefault, dropdownBackgroundColor);
             position: relative;
             overflow: hidden;
 
             @include mod('default', 'bottom-left') {
-                transform: translateY($dropdownArrowSize);
+                transform: translateY(map-get($themeDefault, dropdownArrowSize));
             }
 
             @include mod('default', 'top-left') {
-                transform: translateY($dropdownArrowSize*-1);
+                transform: translateY(map-get($themeDefault, dropdownArrowSize) * -1);
             }
 
             &:before {
@@ -73,38 +73,38 @@
                 position: absolute;
                 width: 0;
                 height: 0;
-                border-left: $dropdownArrowSize solid transparent;
-                border-right: $dropdownArrowSize solid transparent;
+                border-left: map-get($themeDefault, dropdownArrowSize) solid transparent;
+                border-right: map-get($themeDefault, dropdownArrowSize) solid transparent;
 
                 @include mod('default', 'bottom-left') {
-                    right: $dropdownArrowSize;
-                    top: $dropdownArrowSize * -1;
+                    right: map-get($themeDefault, dropdownArrowSize);
+                    top: map-get($themeDefault, dropdownArrowSize) * -1;
                     border-top: 0;
-                    border-bottom: $dropdownArrowSize solid $dropdownBackgroundColor;
+                    border-bottom: map-get($themeDefault, dropdownArrowSize) solid map-get($themeDefault, dropdownBackgroundColor);
                 }
 
                 @include mod('default', 'top-left') {
-                    right: $dropdownArrowSize;
-                    bottom: $dropdownArrowSize * -1;
+                    right: map-get($themeDefault, dropdownArrowSize);
+                    bottom: map-get($themeDefault, dropdownArrowSize) * -1;
                     border-bottom: 0;
-                    border-top: $dropdownArrowSize solid $dropdownBackgroundColor;
+                    border-top: map-get($themeDefault, dropdownArrowSize) solid map-get($themeDefault, dropdownBackgroundColor);
                 }
             }
         }
 
         &__link {
             justify-content: flex-start;
-            padding: $dropdownPadding;
+            padding: map-get($themeDefault, dropdownPadding);
             display: grid;
             grid-auto-columns: auto;
             grid-auto-flow: column;
             align-items: center;
-            grid-gap: $dropdownGap;
-            color: $dropdownLinkColor;
+            grid-gap: map-get($themeDefault, dropdownGap);
+            color: map-get($themeDefault, dropdownLinkColor);
             text-decoration: none;
 
             &:hover {
-                background-color: $dropdownItemHover;
+                background-color: map-get($themeDefault, dropdownItemHover);
                 @include bm.transition(background-color);
             }
 
@@ -116,34 +116,34 @@
             }
 
             &-flag {
-                @include flag($dropdownFlagSize, $dropdownFlagSize, 50%);
+                @include flag(map-get($themeDefault, dropdownFlagSize), map-get($themeDefault, dropdownFlagSize), 50%);
             }
         }
     }
 
     &.wlc-language-selector--theme-mod-long {
         width: 100%;
-        max-width: $maxWidthModLong;
-        margin: $currentMarginModLong;
-        background: $currentBgModLong;
-        border-radius: $currentBorderRadiusModLong;
-        border: $currentBorderModLong;
+        max-width: map-get($themeDefaultModLog, maxWidthModLong);
+        margin: map-get($themeDefaultModLog, currentMarginModLong);
+        background: map-get($themeDefaultModLog, currentBgModLong);
+        border-radius: map-get($themeDefaultModLog, currentBorderRadiusModLong);
+        border: map-get($themeDefaultModLog, currentBorderModLong);
         height: auto;
 
         &:hover {
-            background: $currentBgModLongHover;
+            background: map-get($themeDefaultModLog, currentBgModLongHover);
             @include bm.transition(background);
         }
 
         .wlc-language-selector__current {
-            padding: $currentPaddingModLong;
+            padding: map-get($themeDefaultModLog, currentPaddingModLong);
             grid-template-columns: auto 1fr auto;
 
             &-lang {
                 font: {
-                    size: $currentSizeModLong;
+                    size: map-get($themeDefaultModLog, currentSizeModLong);
                 }
-                color: $currentColorModLang;
+                color: map-get($themeDefaultModLog, currentColorModLang);
             }
         }
 
@@ -154,12 +154,12 @@
             left: 0;
 
             .wlc-language-selector__link-lang {
-                font-size: $currentSizeModLong;
+                font-size: map-get($themeDefaultModLog, currentSizeModLong);
             }
         }
 
         .wlc-language-selector__list {
-            background: $dropdownBgModLong;
+            background: map-get($themeDefaultModLog, dropdownBgModLong);
         }
     }
 }

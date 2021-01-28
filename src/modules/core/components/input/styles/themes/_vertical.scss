@@ -12,9 +12,7 @@
         display: block;
         margin: map-get($themeVertical, 'labelMargin');
 
-        @include text.get-text-style(SigntText);
-
-        color: map-get($themeVertical, 'labelColor');
+        @include text.get-text-style(SignText, map-get($themeVertical, 'labelColor'));
 
         cursor: pointer;
         user-select: none;
@@ -32,16 +30,23 @@
         padding: map-get($themeVertical, 'inputPadding');
 
         background: map-get($themeVertical, 'inputBackground');
-        color: map-get($themeVertical, 'inputColor');
 
         outline: none;
         border: map-get($themeVertical, 'inputBorder');
         border-radius: map-get($themeVertical, 'inputBorderRadius');
 
-        @include text.get-text-style(PlaceholderText);
+        @include text.get-text-style(PlaceholderText, map-get($themeVertical, 'inputColor'));
 
         &::placeholder {
             color: map-get($themeVertical, 'inputPlaceholderColor');
+        }
+
+        &.ng-touched {
+
+            &.ng-invalid {
+                background: map-get($themeDefault, 'errorsBgColor');
+                border-color: darken(map-get($themeDefault, 'errorsBgColor'), 10%);
+            }
         }
     }
 

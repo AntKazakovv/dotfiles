@@ -1,4 +1,5 @@
 @use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/text' as text;
 @use 'engine-scss/mixins/mediaqueries' as mq;
 
 @import '../utils/vars';
@@ -50,11 +51,7 @@
             }
 
             &__title {
-                font: {
-                    size: ef.get-value($mainInfoThemeDefault, 'addTitleFontSize');
-                    weight: ef.get-value($mainInfoThemeDefault, 'addTitleFontWeight');
-                }
-                color: ef.get-value($mainInfoThemeDefault, 'addTitleColor');
+                @include text.get-text-style('PlaceholderText', ef.get-value($mainInfoThemeDefault, 'addTitleColor'));
 
                 @include mq.min(640) {
                     grid-column-start: span 2;
@@ -78,17 +75,11 @@
 
                     &-main {
                         margin: ef.get-value($mainInfoThemeDefault, 'addItemTitleMainMargin');
-                        font-size: ef.get-value($mainInfoThemeDefault, 'addItemTitleMainFontSize');
-                        color: ef.get-value($mainInfoThemeDefault, 'addItemTitleMainColor');
-                        font-weight: bold;
+                        @include text.get-text-style('ThirdTitleBold', ef.get-value($mainInfoThemeDefault, 'addItemTitleMainColor'));
                     }
 
                     &-description {
-                        font: {
-                            size: ef.get-value($mainInfoThemeDefault, 'addItemTitleSecondFontSize');
-                            weight: ef.get-value($mainInfoThemeDefault, 'addItemTitleSecondFontWeight');
-                        }
-                        color: ef.get-value($mainInfoThemeDefault, 'addItemTitleSecondColor');
+                        @include text.get-text-style('PlaceholderText', ef.get-value($mainInfoThemeDefault, 'addItemTitleSecondColor'));
                     }
                 }
 
@@ -96,14 +87,18 @@
                     grid-area: switcher;
                 }
 
-                .wlc-btn {
+                .wlc-btn[wlc-button] {
                     grid-area: link;
-                    font: {
-                        size: ef.get-value($mainInfoThemeDefault, 'addItemLinkFontSize');
-                    };
+                    width: fit-content;
 
-                    &__text {
+                    .wlc-btn__text {
                         display: flex;
+                        @include text.get-text-style('PlaceholderText', ef.get-value($mainInfoThemeDefault, 'addItemLinkColor', 375));
+
+                        @include mq.min(1024) {
+                            text-decoration: underline;
+                            color: ef.get-value($mainInfoThemeDefault, 'addItemLinkColor', 1024);
+                        }
                     }
 
                     &:hover {
@@ -114,12 +109,7 @@
                         display: block;
                         min-width: auto;
                         height: auto;
-                        text-decoration: underline;
                         padding: 0;
-                        font: {
-                            size: ef.get-value($mainInfoThemeDefault, 'addItemLinkFontSize', 1024);
-                        }
-                        color: ef.get('color', 'text');
                         border: none;
                         border-radius: 0;
                         background: none;
@@ -135,7 +125,7 @@
                         }
 
                         svg {
-                            fill: ef.get('color', 'text');
+                            fill: ef.get-value($mainInfoThemeDefault, 'addItemLinkColor', 1024);
                         }
                     }
                 }
@@ -176,15 +166,6 @@
                 @include mq.min(768) {
                     grid-template-columns: 1fr ef.get-value($mainInfoThemeDefault, 'inputWidth', 768);
                     align-items: center;
-
-                    .wlc-input__label[class],
-                    .wlc-select__label[class] {
-                        font: {
-                            size: ef.get-value($mainInfoThemeDefault, 'labelFontSize', 768);
-                            weight: ef.get-value($mainInfoThemeDefault, 'labelFontWeight', 768);
-                        }
-                        color: ef.get-value($mainInfoThemeDefault, 'labelColor', 768);
-                    }
                 }
             }
         }

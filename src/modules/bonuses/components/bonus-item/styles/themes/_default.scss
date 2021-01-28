@@ -136,8 +136,7 @@
             padding: $tagPadding;
             background-color: $tagBg;
             border-radius: $tagRadius;
-            @include text.get-text-style(SigntText);
-            color: $tagFontColor;
+            @include text.get-text-style(SignText, $tagFontColor);
             left: 50%;
             transform: translateX(-50%);
             top: $tagPositionTop;

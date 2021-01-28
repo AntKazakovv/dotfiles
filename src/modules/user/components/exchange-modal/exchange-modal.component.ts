@@ -19,7 +19,7 @@ import {
 } from 'lodash';
 
 @Component({
-    selector: '[wlc-exchange]',
+    selector: '[wlc-exchange-modal]',
     templateUrl: './exchange-modal.component.html',
     styleUrls: ['./styles/exchange-modal.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,

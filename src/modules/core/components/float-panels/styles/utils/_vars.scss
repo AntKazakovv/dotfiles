@@ -1,6 +1,10 @@
 @use 'engine-scss/functions' as ef;
 
-$transition: ef.get('time', 'main') linear;
-$zindex: 1030;
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    transition: ef.get('time', 'main') linear,
+    zindex: 1030,
+    backdropBackground: rgba($color: ef.get('mainColors', 'bg300'), $alpha: 0.6),
+), $customThemeDefault);
 
-$backdropBackground: rgba($color: ef.get('mainColors', 'bg'), $alpha: 0.6);
+

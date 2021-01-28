@@ -2,6 +2,9 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'textAlign': center,
+    'textAlign': (
+        375: center,
+        900: left,
+    ),
     'textColor': ef.get('mainColors', 'baseMain'),
 ), $customThemeDefault);
