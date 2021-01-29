@@ -78,10 +78,10 @@ module.exports = function buildTask() {
     ));
 
     task('engineBuild', series(
-        'scssLint',
-        'eslint',
+        // 'scssLint',
+        // 'eslint',
         // 'test',
         'engineBuild:prepare',
         'engineBuild:prod',
     ));
-}
+};
