@@ -34,6 +34,9 @@ export {ILanguageSelectorCParams} from './language-selector.params';
                 opacity: 0,
                 visibility: 'hidden',
             })),
+            transition('void => *', [
+                animate(0),
+            ]),
             transition('* => *', [
                 animate('0.3s'),
             ]),

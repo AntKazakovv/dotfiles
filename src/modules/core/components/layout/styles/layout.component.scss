@@ -2,13 +2,6 @@
 @use 'engine-scss/mixins/mediaqueries' as mq;
 @use 'engine-scss/engine.variables' as ev;
 
-//Footer themes
-@import './themes/footer/theme-1';
-@import './themes/footer/theme-2';
-
-//Header themes
-@import './themes/header/theme-1';
-
 html {
     scroll-behavior: smooth;
 }

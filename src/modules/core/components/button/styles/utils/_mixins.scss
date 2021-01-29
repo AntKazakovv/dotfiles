@@ -44,7 +44,7 @@
     @media (hover: hover) {
 
         &:hover {
-            background: ef.get-value($themeDefault, 'backgroundHover');
+            background: ef.get-value($themeDefault, 'backgroundSecondary');
             border: ef.get-value($themeDefault, 'borderSecondaryHover');
             color: ef.get-value($themeDefault, 'fontColorActiveSecondary');
         }

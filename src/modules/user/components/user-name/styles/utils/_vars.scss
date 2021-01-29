@@ -8,5 +8,5 @@ $themeDefault: map-merge((
         375: 39px,
     ),
     'iconFill': ef.get('mainColors', 'bg'),
-    'iconFillBg': ef.get('mainColors', 'main'),
+    'iconFillBg': ef.get('mainColors', secondary),
 ), $customThemeDefault);

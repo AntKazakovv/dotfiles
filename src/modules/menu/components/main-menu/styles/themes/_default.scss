@@ -28,8 +28,7 @@
 
                 &__link {
                     text-decoration: ef.get-value($themeDefault, 'textDecoration');
-                    color: ef.get-value($themeDefault, 'textColor');
-                    @include text.get-text-style(ThirdTitle);
+                    @include text.get-text-style(ThirdTitle, ef.get-value($themeDefault, 'textColor'));
                     @include bm.get-mq-map('font-size', $themeDefault, 'fontSize');
                     cursor: pointer;
 

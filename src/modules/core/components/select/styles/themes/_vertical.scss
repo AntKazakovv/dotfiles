@@ -47,6 +47,10 @@
                 border-color: map-get($baseSettings, selectBorderFocusColor);
             }
 
+            &.ng-untouched {
+                color: map-get($themeDefault, 'inputPlaceholderColor');
+            }
+
             &.ng-touched {
 
                 &.ng-invalid {

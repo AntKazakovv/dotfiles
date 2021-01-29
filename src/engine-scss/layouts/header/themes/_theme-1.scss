@@ -1,7 +1,9 @@
 @use 'engine-scss/mixins/mediaqueries' as mq;
 @use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/mixins/text' as text;
 @use 'engine-scss/engine.variables' as ev;
-@import '../../utils/vars';
+@use 'engine-scss/functions' as ef;
+@import '../utils/vars';
 
 .wlc-sections__header--theme {
 
@@ -9,27 +11,19 @@
         z-index: 10;
         position: relative;
         display: grid;
-        grid: {
-            template-columns: $headerGripColumnsMobile;
-            gap: $headerGapColumns;
-        };
         align-items: center;
         padding: 0 15px;
-        min-height: $headerMinHeight;
-        background: $headerBackground;
+        background: map-get($theme1Header, headerBackground);
+
+        @include bm.get-mq-map('grid-template-columns', $theme1Header, headerGridColumns);
+        @include bm.get-mq-map('grid-gap', $theme1Header, headerGridGap);
+        @include bm.get-mq-map('min-height', $theme1Header, headerMinHeight);
 
         @include mq.min(1024) {
-            grid-template-columns: $headerGripColumns;
-            grid-gap: $headerGapColumns * 1.2;
             max-width: 1920px;
             width: 100%;
             padding: 0;
-            min-height: $headerMinHeight * 1.5;
             margin: 0 auto;
-        }
-
-        @include mq.min(1420) {
-            grid-gap: $headerGapColumns * 1.5;
         }
 
         .wlc-logo {
@@ -46,7 +40,7 @@
             .wlc-btn {
 
                 @include mq.max(1200) {
-                    padding: $headerLoginBtnTabletPadding;
+                    padding: map-get($theme1Header, headerLoginBtnTabletPadding);
                 }
             }
         }
@@ -54,21 +48,21 @@
         .wlc-btn {
 
             &-burger {
-                width: $headerBurgerBtnWidth;
+                width: map-get($theme1Header, headerBurgerBtnWidth);
                 margin-right: auto;
 
                 @include mq.min(1024) {
-                    margin-left: $headerGapColumns;
+                    margin-left: map-get($theme1Header, headerGapColumns);
                     text-align: center;
                 }
             }
 
             &-search {
-                width: $headerSearchBtnWidth;
+                width: map-get($theme1Header, headerSearchBtnWidth);
                 margin-left: auto;
 
                 @include mq.min(1024) {
-                    margin-right: $headerGapColumns;
+                    margin-right: map-get($theme1Header, headerGapColumns);
                 }
             }
 
@@ -87,8 +81,16 @@
                 }
             }
 
-            svg {
-                fill: $headerSvgBtn;
+            svg,
+            rect {
+                fill: map-get($theme1Header, headerSvgBtn);
+            }
+        }
+
+        .wlc-user-info {
+
+            &__content {
+                justify-content: flex-end;
             }
         }
     }

@@ -41,6 +41,7 @@ $themeDefault: map-merge((
     'errorsBorderRadius': ef.get('form', 'errorsBorderRadius'),
     'errorsFontSize': ef.get('form', 'errorsFontSize'),
     'errorsPadding': ef.get('form', 'errorsPadding'),
+    'inputPlaceholderColor': ef.get('fieldColors', placeholderColor),
 ), $customThemeDefault);
 
 $customThemeVertical: () !default;

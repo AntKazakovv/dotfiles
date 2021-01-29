@@ -1,0 +1,11 @@
+@use 'engine-scss/functions' as ef;
+
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    gap: ef.get('size', 'smally'),
+    iconColor: ef.get('mainColors', main),
+    apgSealWidth: 45px,
+    ageRestrictionsWidth: 37px,
+), $customThemeDefault);
+
+

@@ -1,3 +1,5 @@
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/mixins/base.mixins' as bm;
 @import '../utils/mixins';
 @import '../utils/vars';
 
@@ -140,10 +142,18 @@
             grid-template-columns: auto 1fr auto;
 
             &-lang {
-                font: {
-                    size: map-get($themeDefaultModLog, currentSizeModLong);
+                @include text.get-text-style('PrimaryText', map-get($themeDefaultModLog, currentColorModLang));
+            }
+
+            &-flag {
+                width: map-get($themeDefaultModLog, currentFlagSize);
+                height: map-get($themeDefaultModLog, currentFlagSize);
+                margin-right: map-get($themeDefaultModLog, currentFlagMargin);
+
+                img {
+                    width: 100%;
+                    height: 100%;
                 }
-                color: map-get($themeDefaultModLog, currentColorModLang);
             }
         }
 
@@ -154,12 +164,22 @@
             left: 0;
 
             .wlc-language-selector__link-lang {
-                font-size: map-get($themeDefaultModLog, currentSizeModLong);
+                @include text.get-text-style('PrimaryText', map-get($themeDefaultModLog, currentColorModLang));
             }
         }
 
         .wlc-language-selector__list {
             background: map-get($themeDefaultModLog, dropdownBgModLong);
+        }
+
+        .wlc-language-selector__link-flag {
+            width: map-get($themeDefaultModLog, currentFlagSize);
+            height: map-get($themeDefaultModLog, currentFlagSize);
+
+            img {
+                width: 100%;
+                height: 100%;
+            }
         }
     }
 }

@@ -1,4 +1,4 @@
-@import './types/ring';
+@import 'themes/ring';
 @import './utils/vars';
 
 
@@ -8,8 +8,8 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        height: $size;
-        width: $size;
-        margin: $margin;
+        height: map-get($themeRingDefault, size);
+        width: map-get($themeRingDefault, size);
+        margin: map-get($themeRingDefault, margin);
     }
 }

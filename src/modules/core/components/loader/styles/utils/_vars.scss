@@ -1,7 +1,11 @@
 @use 'engine-scss/functions' as ef;
 
-$color: ef.get('color', 'main') !default;
-$width: 6px !default;
-$duration: 3s !default;
-$size: 100px !default;
-$margin: 0 auto !default;
+$customThemeRingDefault: () !default;
+$themeRingDefault: map-merge((
+    color: ef.get('mainColors', main),
+    width: 6px,
+    duration: 3s,
+    size: 100px,
+    margin: 0 auto,
+), $customThemeRingDefault);
+
