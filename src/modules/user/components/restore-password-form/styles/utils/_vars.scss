@@ -1,4 +1,9 @@
-$formMaxWidth: 285px !default;
-$formMargin: auto !default;
-$fieldMargin: 0 0 20px 0 !default;
-$btnMargin: 50px auto 30px auto !default;
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    formMaxWidth: 285px,
+    formMargin: auto,
+    fieldMargin: 0 0 20px 0,
+    btnMargin: 50px auto 30px auto,
+), $customThemeDefault);
+
+

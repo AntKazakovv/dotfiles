@@ -55,7 +55,13 @@
     right: map-get($themeDefault, 'iconRightShift');
     top: 50%;
     transform: translateY(-50%);
-    fill: map-get($baseSettings, selectArrowColor);
+
+    ::ng-deep {
+
+        svg {
+            fill: map-get($baseSettings, selectArrowColor);
+        }
+    }
 }
 
 @mixin baseStatusErrors {

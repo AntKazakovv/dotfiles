@@ -1,0 +1,24 @@
+.wlc-license {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: fit-content;
+    gap: map-get($themeDefault, gap);
+
+    &__apg-seal {
+        width: map-get($themeDefault, apgSealWidth);
+    }
+
+    &__age-restrictions {
+        width: 45px;
+        margin: 0 auto;
+        display: block;
+
+        svg {
+            width: 100%;
+
+            path {
+                fill: map-get($themeDefault, iconColor);
+            }
+        }
+    }
+}

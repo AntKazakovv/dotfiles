@@ -2,7 +2,7 @@
 
 $customThemeDefaultBanner: () !default;
 $themeDefaultBanner: map-merge((
-    'background': ef.get('mainColors', 'bg500'),
+    'background': ef.get('mainColors', 'bg700'),
     'height': (
         375: 220px,
         768: 400px,

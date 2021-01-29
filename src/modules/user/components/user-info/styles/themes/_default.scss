@@ -1,8 +1,11 @@
 .wlc-user-info--theme-default:host {
 
     .wlc-user-info {
-        display: flex;
-        align-items: center;
+
+        &__content {
+            display: flex;
+            align-items: center;
+        }
 
         &-short {
             margin: map-get($themeDefault, 'userInfoShortMargin');

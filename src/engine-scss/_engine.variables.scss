@@ -42,7 +42,7 @@ $customFieldColors: () !default;
 /// @prop {color} disabled [#c4c4c4] - disabled color
 $mainColors: map-merge((
     'main': #ff8a00,
-    'secondary': #00d5bb,
+    'secondary': #00a210,
     'baseMain': #fff,
     'buttonColor': #f94b00,
     'baseOpacity': rgba(255, 255, 255, 0.4),
@@ -468,8 +468,8 @@ $buttonSettings: map-merge((
     'borderDefault': 2px solid transparent,
     'borderRadiusDefault': map-get($radius, 'biger'),
     'borderDefaultHover': 2px solid darken(map-get($mainColors, 'buttonColor'), 20%),
-    'borderSecondary': 2px solid map-get($mainColors, 'buttonColor'),
-    'borderSecondaryHover': 2px solid darken(map-get($mainColors, 'buttonColor'), 20%),
+    'borderSecondary': 2px solid map-get($mainColors, 'secondary'),
+    'borderSecondaryHover': 2px solid darken(map-get($mainColors, 'secondary'), 20%),
     //Padding
     'padding': map-get($size, 'smallest') map-get($size, 'smaller'),
     'gap': map-get($size, 'smallest'),
