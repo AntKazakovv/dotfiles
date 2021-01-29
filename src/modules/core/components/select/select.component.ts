@@ -24,6 +24,7 @@ import {
     filter as _filter,
     find as _find,
     union as _union,
+    kebabCase as _kebabCase,
 } from 'lodash';
 
 /**
@@ -49,6 +50,7 @@ export class SelectComponent extends AbstractComponent implements OnInit {
     public $params: Params.ISelectParams;
     public control: FormControl;
     public isOpened: boolean;
+    public fieldWlcElement: string;
 
     public get selectedItem() {
         const selected = _find(this.$params.items,
@@ -76,6 +78,7 @@ export class SelectComponent extends AbstractComponent implements OnInit {
 
         this.control = this.$params?.control;
         this.prepareConstantValues();
+        this.fieldWlcElement = 'select_' + _kebabCase(this.$params.name);
 
         //TODO custom fields
         if (this.$params?.options) {

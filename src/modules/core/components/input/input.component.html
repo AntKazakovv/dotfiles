@@ -3,6 +3,7 @@
     <div class="{{$class}}__input">
         <input type="{{$params.common.type}}"
                id="{{$params.name}}"
+               [attr.data-wlc-element]='fieldWlcElement'
                placeholder="{{$params.exampleValue || $params.common.placeholder | translate}}"
                [formControl]="control"
         >
@@ -15,6 +16,7 @@
            id="{{$params.name}}"
            placeholder="{{$params.exampleValue || $params.common.placeholder | translate}}"
            [formControl]="control"
+           [attr.data-wlc-element]='fieldWlcElement'
            class="{{$class}}__input"
     >
     <ng-container [ngTemplateOutlet]="label"></ng-container>
@@ -31,6 +33,7 @@
             id="{{$params.name}}"
             placeholder="{{$params.exampleValue || $params.common.placeholder | translate}}"
             [formControl]="control"
+            [attr.data-wlc-element]='fieldWlcElement'
             class="{{$class}}__input"
             [ngClass]="setInputModifiers"
         >
