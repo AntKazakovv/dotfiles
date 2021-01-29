@@ -1,6 +1,10 @@
 import {TextDataModel} from './textdata.model';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
-import {get as _get, isBoolean as _isBoolean} from 'lodash';
+
+import {
+    get as _get,
+    isBoolean as _isBoolean,
+} from 'lodash-es';
 
 export interface IWlcWpResponse {
     id: number;

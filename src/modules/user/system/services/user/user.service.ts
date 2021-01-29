@@ -26,7 +26,7 @@ import {
     each as _each,
     assign as _assign,
     keys as _keys,
-} from 'lodash';
+} from 'lodash-es';
 
 //данные для входа 'maksim.shahov@softgamings.com', 'Test123!'
 

@@ -29,7 +29,7 @@ import {
     isUndefined as _isUndefined,
     keys as _keys,
     forEach as _forEach,
-} from 'lodash';
+} from 'lodash-es';
 
 export {IBonusItemParams} from './bonus-item.params';
 export const BonusItemComponentEvents: IBonusItemComponentEvents = {

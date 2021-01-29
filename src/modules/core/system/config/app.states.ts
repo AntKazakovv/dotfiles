@@ -8,7 +8,7 @@ import * as States from './states';
 
 import {
     map as _map,
-} from 'lodash';
+} from 'lodash-es';
 
 const states = {
     'app.home': States.homeState,

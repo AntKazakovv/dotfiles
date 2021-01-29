@@ -7,8 +7,6 @@ import {
     ChangeDetectorRef,
     ViewChild,
     TemplateRef,
-    Self,
-    Optional,
 } from '@angular/core';
 import {SwiperConfigInterface} from 'ngx-swiper-wrapper';
 import {takeUntil} from 'rxjs/operators';
@@ -18,15 +16,13 @@ import {WinnersService} from 'wlc-engine/modules/promo/system/services';
 import {ConfigService} from 'wlc-engine/modules/core';
 import {ISlide, ISliderCParams} from 'wlc-engine/modules/promo/components/slider/slider.params';
 import {WinnerModel} from 'wlc-engine/modules/promo/system/models/winner.model';
-
+import {WinnerComponent} from 'wlc-engine/modules/promo/components/winner/winner.component';
 import * as Params from './winners-slider.params';
 
 import {
     merge as _merge,
     clone as _clone,
-    cloneDeep as _cloneDeep,
-} from 'lodash';
-import {WinnerComponent} from 'wlc-engine/modules/promo/components/winner/winner.component';
+} from 'lodash-es';
 
 @Component({
     selector: '[wlc-winners-slider]',
@@ -117,5 +113,4 @@ export class WinnersSliderComponent extends AbstractComponent implements OnInit 
 
         this.cdr.markForCheck();
     }
-
 }

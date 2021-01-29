@@ -22,7 +22,7 @@ import {
     isArray as _isArray,
     toNumber as _toNumber,
     get as _get,
-} from 'lodash';
+} from 'lodash-es';
 
 export class GamesHelper {
     /**

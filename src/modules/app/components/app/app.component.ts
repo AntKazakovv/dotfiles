@@ -21,7 +21,7 @@ import {
     sortBy as _sortBy,
     get as _get,
     includes as _includes,
-} from 'lodash';
+} from 'lodash-es';
 
 const defaultParams = {
     class: 'wlc-sections',

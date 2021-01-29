@@ -14,7 +14,7 @@ import * as Params from './checkbox.params';
 
 import {
     union as _union,
-} from 'lodash';
+} from 'lodash-es';
 
 @Component({
     selector: '[wlc-checkbox]',

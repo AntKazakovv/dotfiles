@@ -8,7 +8,7 @@ import {
     filter as _filter,
     intersection as _intersection,
     startsWith as _startsWith,
-} from 'lodash';
+} from 'lodash-es';
 
 declare type IPlatform = 'any' | 'desktop' | 'mobile';
 declare type IVisibility = 'anyone' | 'anonymous' | 'authenticated';

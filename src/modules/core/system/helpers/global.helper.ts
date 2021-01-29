@@ -7,7 +7,7 @@ import {
     each as _each,
     mergeWith as _mergeWith,
     isArray as _isArray,
-} from 'lodash';
+} from 'lodash-es';
 
 export class GlobalHelper {
 

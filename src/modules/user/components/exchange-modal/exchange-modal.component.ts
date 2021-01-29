@@ -16,7 +16,7 @@ import * as Params from './exchange-modal.params';
 import {
     reduce as _reduce,
     assign as _assign,
-} from 'lodash';
+} from 'lodash-es';
 
 @Component({
     selector: '[wlc-exchange-modal]',

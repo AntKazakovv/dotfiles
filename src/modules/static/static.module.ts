@@ -15,7 +15,7 @@ import * as $config from 'wlc-config/index';
 
 import {
     get as _get,
-} from 'lodash';
+} from 'lodash-es';
 
 export const moduleConfig =
     GlobalHelper.mergeConfig<IStaticConfig>(staticConfig, _get($config, '$static'));

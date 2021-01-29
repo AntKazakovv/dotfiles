@@ -21,7 +21,7 @@ import {
     isObject as _isObject,
     get as _get,
     includes as _includes,
-} from 'lodash';
+} from 'lodash-es';
 
 /**
  * @deprecated

@@ -19,7 +19,7 @@ import {UserService} from 'wlc-engine/modules/user/system/services';
 
 import {
     forEach as _forEach,
-} from 'lodash';
+} from 'lodash-es';
 
 export interface IBreakpoint {
     mq: MediaQueryList;

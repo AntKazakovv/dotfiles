@@ -12,7 +12,7 @@ import {
     cloneDeep as _cloneDeep,
     isArray as _isArray,
     findIndex as _findIndex,
-} from 'lodash';
+} from 'lodash-es';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
 import {FinancesHelper} from '../helpers/finances.helper';

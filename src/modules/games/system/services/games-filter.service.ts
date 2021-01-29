@@ -12,7 +12,7 @@ import {
     extend as _extend,
     get as _get,
     merge as _merge,
-} from 'lodash';
+} from 'lodash-es';
 
 export const GamesFilterServiceEvents: IGamesFilterServiceEvents = {
     FILTER_CHANGED: 'FILTER_CHANGED',

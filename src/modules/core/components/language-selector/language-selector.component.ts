@@ -15,7 +15,7 @@ import * as Params from './language-selector.params';
 
 import {
     find as _find,
-} from 'lodash';
+} from 'lodash-es';
 
 export {ILanguageSelectorCParams} from './language-selector.params';
 

@@ -38,7 +38,7 @@ import {
     find as _find,
     map as _map,
     get as _get,
-} from 'lodash';
+} from 'lodash-es';
 
 interface IParsedDigitsInfo {
     minimumIntegerDigits: number;

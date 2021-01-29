@@ -31,7 +31,7 @@ import {
     keys as _keys,
     isUndefined as _isUndefined,
     get as _get,
-} from 'lodash';
+} from 'lodash-es';
 
 export {IButtonParams} from './button.params';
 

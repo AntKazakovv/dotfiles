@@ -14,7 +14,7 @@ import * as Params from './profile-menu.params';
 
 import {
     clone as _clone,
-} from 'lodash';
+} from 'lodash-es';
 
 @Component({
     selector: '[wlc-profile-menu]',

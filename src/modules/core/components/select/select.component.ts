@@ -25,7 +25,7 @@ import {
     find as _find,
     union as _union,
     kebabCase as _kebabCase,
-} from 'lodash';
+} from 'lodash-es';
 
 /**
  * Component select

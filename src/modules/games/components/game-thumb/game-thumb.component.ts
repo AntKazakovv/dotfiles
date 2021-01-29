@@ -26,7 +26,7 @@ import {
 
 import {
     assign as _assign,
-} from 'lodash';
+} from 'lodash-es';
 
 @Component({
     selector: '[wlc-game-thumb]',

@@ -18,7 +18,7 @@ import * as Params from './title.params';
 
 import {
     isString as _isString,
-} from 'lodash';
+} from 'lodash-es';
 
 @Component({
     selector: '[wlc-title]',

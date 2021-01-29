@@ -36,7 +36,7 @@ import {
     reduce as _reduce,
     filter as _filter,
     find as _find,
-} from 'lodash';
+} from 'lodash-es';
 
 export {IBonusesListCParams} from './bonuses-list.params';
 

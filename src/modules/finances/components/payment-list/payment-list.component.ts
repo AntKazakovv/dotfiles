@@ -38,7 +38,7 @@ import * as Params from './payment-list.params';
 import {
     isUndefined as _isUndefined,
     isString as _isString,
-} from 'lodash';
+} from 'lodash-es';
 
 
 @Component({

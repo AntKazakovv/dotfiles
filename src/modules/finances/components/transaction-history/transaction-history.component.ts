@@ -16,7 +16,7 @@ import {DateTime} from 'luxon';
 
 import {
     filter as _filter,
-} from 'lodash';
+} from 'lodash-es';
 
 
 

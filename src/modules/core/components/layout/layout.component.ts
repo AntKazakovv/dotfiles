@@ -43,7 +43,7 @@ import {
     assign as _assign,
     isEqual as _isEqual,
     findIndex as _findIndex,
-} from 'lodash';
+} from 'lodash-es';
 
 @Component({
     selector: '[wlc-layout]',

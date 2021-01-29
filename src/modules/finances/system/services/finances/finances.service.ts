@@ -8,7 +8,7 @@ import {BehaviorSubject} from 'rxjs';
 
 import {
     find as _find,
-} from 'lodash';
+} from 'lodash-es';
 import {FinancesHelper} from '../../helpers/finances.helper';
 
 interface ICancelWithdrawParams {

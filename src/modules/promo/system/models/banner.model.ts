@@ -4,7 +4,7 @@ import {
     map as _map,
     isObject as _isObject,
     assign as _assign,
-} from 'lodash';
+} from 'lodash-es';
 
 export class BannerModel {
     public readonly html: string;

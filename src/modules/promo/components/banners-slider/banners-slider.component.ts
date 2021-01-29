@@ -19,7 +19,7 @@ import * as Params from './banners-slider.params';
 
 import {
     merge as _merge,
-} from 'lodash';
+} from 'lodash-es';
 
 @Component({
     selector: '[wlc-banners-slider]',

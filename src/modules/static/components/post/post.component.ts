@@ -20,7 +20,7 @@ import {ConfigService} from 'wlc-engine/modules/core';
 
 import {
     isFunction as _isFunction,
-} from 'lodash';
+} from 'lodash-es';
 
 
 export * from './post.interface';

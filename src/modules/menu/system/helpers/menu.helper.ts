@@ -6,6 +6,8 @@ import {
 import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.model';
 import {IMenuItemParams, MenuItemObjectType} from 'wlc-engine/modules/menu/components/menu/menu.params';
 import {MenuItemType} from 'wlc-engine/modules/menu/components/menu/menu.params';
+import {IMenuItemsGroup} from 'wlc-engine/modules/menu';
+import {IMenuItem} from 'wlc-engine/modules/menu/components/menu/menu.params';
 
 import {
     isString as _isString,
@@ -13,9 +15,7 @@ import {
     isArray as _isArray,
     isObject as _isObject,
     map as _map,
-} from 'lodash';
-import {IMenuItemsGroup} from 'wlc-engine/modules/menu';
-import {IMenuItem} from 'wlc-engine/modules/menu/components/menu/menu.params';
+} from 'lodash-es';
 
 export class MenuHelper {
 

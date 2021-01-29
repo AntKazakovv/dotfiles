@@ -18,7 +18,7 @@ import * as Params from './sign-up-form.params';
 
 import {
     keys as _keys,
-} from 'lodash';
+} from 'lodash-es';
 
 /**
  * Sign-up form component.

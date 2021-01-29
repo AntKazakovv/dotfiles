@@ -6,7 +6,7 @@ import {StaticService, TextDataModel} from 'wlc-engine/modules/static';
 
 import {
     get as _get,
-} from 'lodash';
+} from 'lodash-es';
 
 export * from './post-menu.params';
 

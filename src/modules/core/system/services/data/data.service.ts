@@ -30,7 +30,7 @@ import {
     assign as _assign,
     isFunction as _isFunction,
     has as _has,
-} from 'lodash';
+} from 'lodash-es';
 
 import {ISocketsData} from 'wlc-engine/modules/core/system/interfaces';
 

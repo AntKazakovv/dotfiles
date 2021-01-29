@@ -33,7 +33,7 @@ import {
     startsWith as _startsWith,
     isString as _isString,
     toNumber as _toNumber,
-} from 'lodash';
+} from 'lodash-es';
 
 @Injectable({
     providedIn: 'root',

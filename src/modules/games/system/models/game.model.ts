@@ -14,7 +14,7 @@ import {
     intersection as _intersection,
     includes as _includes,
     map as _map,
-} from 'lodash';
+} from 'lodash-es';
 
 export class Game extends AbstractModel<IGame> {
     public ID: number;

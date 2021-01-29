@@ -41,7 +41,7 @@ import {
     filter as _filter,
     uniq as _uniq,
     union as _union,
-} from 'lodash';
+} from 'lodash-es';
 
 export class GamesCatalog extends AbstractModel<IGames> {
     public currentLanguage: ILanguage;

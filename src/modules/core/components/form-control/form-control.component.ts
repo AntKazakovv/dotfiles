@@ -12,13 +12,12 @@ import {FormControl} from '@angular/forms';
 import {takeUntil} from 'rxjs/operators';
 import {Subject} from 'rxjs';
 import {TranslateService} from '@ngx-translate/core';
+import {IValidatorSettings} from 'wlc-engine/modules/core';
 
 import {
-    each as _each,
     find as _find,
     isObject as _isObject,
-} from 'lodash';
-import {IValidatorSettings} from 'wlc-engine/modules/core';
+} from 'lodash-es';
 
 @Component({
     selector: '[wlc-form-control]',

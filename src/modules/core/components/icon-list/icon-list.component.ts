@@ -31,7 +31,7 @@ import {
     find as _find,
     filter as _filter,
     includes as _includes,
-} from 'lodash';
+} from 'lodash-es';
 
 @Component({
     selector: '[wlc-icon-list]',

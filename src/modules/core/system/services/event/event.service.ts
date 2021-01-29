@@ -8,7 +8,7 @@ import {
     get as _get,
     assign as _assign,
     isArray as _isArray,
-} from 'lodash';
+} from 'lodash-es';
 
 export type EventType = 'event' | 'error' | 'system';
 

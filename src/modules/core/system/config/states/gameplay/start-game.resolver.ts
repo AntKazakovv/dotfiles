@@ -24,7 +24,7 @@ import {
     union as _union,
     reduce as _reduce,
     toNumber as _toNumber,
-} from 'lodash';
+} from 'lodash-es';
 
 export enum RejectReason {
     RealPlayDisabled,

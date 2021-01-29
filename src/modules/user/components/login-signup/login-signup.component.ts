@@ -11,7 +11,7 @@ import * as Params from './login-signup.params';
 
 import {
     get as _get,
-} from 'lodash';
+} from 'lodash-es';
 
 
 export {ILoginSignupCParams} from './login-signup.params';

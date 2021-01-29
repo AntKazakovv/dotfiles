@@ -31,7 +31,7 @@ import {
     find as _find,
     remove as _remove,
     forEach as _forEach,
-} from 'lodash';
+} from 'lodash-es';
 
 export type IModalParams = IModalConfig | IModalName;
 

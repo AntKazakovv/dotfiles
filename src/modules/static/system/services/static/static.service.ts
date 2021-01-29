@@ -30,7 +30,7 @@ import {
     join as _join,
     isNumber as _isNumber,
     forEach as _forEach,
-} from 'lodash';
+} from 'lodash-es';
 
 @Injectable({
     providedIn: 'root',

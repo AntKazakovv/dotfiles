@@ -38,7 +38,7 @@ import {
     includes as _includes,
     find as _find,
     map as _map,
-} from 'lodash';
+} from 'lodash-es';
 
 @Injectable({
     providedIn: 'root',

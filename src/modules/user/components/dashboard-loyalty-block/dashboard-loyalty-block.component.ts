@@ -16,7 +16,7 @@ import * as Params from './dashboard-loyalty-block.params';
 import {
     reduce as _reduce,
     assign as _assign,
-} from 'lodash';
+} from 'lodash-es';
 
 @Component({
     selector: '[wlc-dashboard-loyalty-block]',

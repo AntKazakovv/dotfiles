@@ -27,7 +27,7 @@ import * as Config from 'wlc-engine/modules/menu/system/config/main-menu.items.c
 
 import {
     clone as _clone,
-} from 'lodash';
+} from 'lodash-es';
 
 @Component({
     selector: '[wlc-main-menu]',
