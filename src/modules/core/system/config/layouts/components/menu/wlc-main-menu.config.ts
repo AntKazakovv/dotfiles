@@ -9,6 +9,7 @@ export namespace wlcMainMenu {
         params: {
             themeMod: 'underline',
             type: 'main-menu',
+            wlcElement: 'block_main-nav',
         },
     };
 }

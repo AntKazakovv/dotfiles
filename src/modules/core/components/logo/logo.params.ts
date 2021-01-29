@@ -14,6 +14,7 @@ export interface ILogoCParams extends IComponentParams<string, string, string> {
 export const defaultParams: ILogoCParams = {
     class: 'wlc-logo',
     link: 'app.home',
+    wlcElement: 'block_logo',
     uiOptions: {
         reload: false,
         inherit: true,
