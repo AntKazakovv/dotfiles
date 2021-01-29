@@ -13,7 +13,7 @@ import * as Params from './profile-form.params';
 
 import {
     each as _each,
-} from 'lodash';
+} from 'lodash-es';
 
 /**
  * Profile form component.

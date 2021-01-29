@@ -21,7 +21,7 @@ import {
     get as _get,
     forEach as _forEach,
     isUndefined as _isUndefined,
-} from 'lodash';
+} from 'lodash-es';
 
 @Component({
     selector: '[wlc-faq]',

@@ -18,7 +18,7 @@ import * as Params from './user-name.params';
 import {
     reduce as _reduce,
     assign as _assign,
-} from 'lodash';
+} from 'lodash-es';
 
 
 @Component({

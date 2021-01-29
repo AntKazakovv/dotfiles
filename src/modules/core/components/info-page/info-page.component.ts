@@ -17,7 +17,7 @@ import * as Params from './info-page.params';
 
 import {
     cloneDeep as _cloneDeep,
-} from 'lodash';
+} from 'lodash-es';
 
 /**
  * Outputs disclaimer text

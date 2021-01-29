@@ -38,7 +38,7 @@ import {
     get as _get,
     set as _set,
     isObject as _isObject,
-} from 'lodash';
+} from 'lodash-es';
 
 /**
  * Examples of getter and setter:

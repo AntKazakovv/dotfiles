@@ -33,7 +33,7 @@ import {
 
 import {
     assign as _assign,
-} from 'lodash';
+} from 'lodash-es';
 
 enum Direction {
     Left = 'left',

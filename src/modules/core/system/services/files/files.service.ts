@@ -15,7 +15,7 @@ import {
     unionBy as _unionBy,
     flatten as _flatten,
     includes as _includes,
-} from 'lodash';
+} from 'lodash-es';
 
 type LocationFileType =
     'local-wlc'

@@ -7,7 +7,7 @@ import {
     isString as _isString,
     isUndefined as _isUndefined,
     cloneDeep as _cloneDeep,
-} from 'lodash';
+} from 'lodash-es';
 
 export interface ITransaction {
     Amount: number;

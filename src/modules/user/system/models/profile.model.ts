@@ -5,7 +5,7 @@ import {
     get as _get,
     reduce as _reduce,
     toString as _toString,
-} from 'lodash';
+} from 'lodash-es';
 
 export class UserProfile extends AbstractModel<IUserProfile> {
 

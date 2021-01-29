@@ -16,7 +16,7 @@ import {AbstractComponent, IMixedParams} from 'wlc-engine/modules/core/system/cl
 
 import {
     clone as _clone,
-} from 'lodash';
+} from 'lodash-es';
 
 @Component({
     selector: '[wlc-mobile-menu]',

@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {IData} from 'wlc-engine/modules/core/system/services/data/data.service';
 import {Bonus} from '../../models/bonus';
-import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
 import {
     ConfigService,
     EventService,
@@ -42,9 +41,7 @@ import {
     size as _size,
     unset as _unset,
     sortBy as _sortBy,
-    isEmpty as _isEmpty,
-    find as _find,
-} from 'lodash';
+} from 'lodash-es';
 
 interface IBonusData extends IData {
     data?: IBonus;

@@ -20,7 +20,7 @@ import {
     get as _get,
     isUndefined as _isUndefined,
     map as _map,
-} from 'lodash';
+} from 'lodash-es';
 
 
 @Component({

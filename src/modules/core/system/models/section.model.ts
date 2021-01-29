@@ -7,7 +7,7 @@ import {
     findIndex as _findIndex,
     union as _union,
     isUndefined as _isUndefined,
-} from 'lodash';
+} from 'lodash-es';
 
 export interface ISectionData {
     section: ILayoutSectionConfig;

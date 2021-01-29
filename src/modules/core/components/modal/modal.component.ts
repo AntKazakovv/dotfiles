@@ -35,7 +35,7 @@ import {
 import {
     assign as _assign,
     isString as _isString,
-} from 'lodash';
+} from 'lodash-es';
 
 @Component({
     selector: '[wlc-modal-window]',

@@ -23,7 +23,7 @@ import * as Params from './icon.params';
 
 import {
     keys as _keys,
-} from 'lodash';
+} from 'lodash-es';
 
 @Component({
     selector: '[wlc-icon]',

@@ -14,7 +14,7 @@ import * as Params from './input.params';
 import {
     union as _union,
     kebabCase as _kebabCase,
-} from 'lodash';
+} from 'lodash-es';
 
 /**
  * Component input

@@ -49,7 +49,7 @@ import {
     includes as _includes,
     extend as _extend,
     isUndefined as _isUndefined,
-} from 'lodash';
+} from 'lodash-es';
 
 @Component({
     selector: '[wlc-games-grid]',

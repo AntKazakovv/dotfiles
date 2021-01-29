@@ -23,7 +23,7 @@ import {MenuHelper} from 'wlc-engine/modules/menu/system/helpers/menu.helper';
 import {
     clone as _clone,
     assign as _assign,
-} from 'lodash';
+} from 'lodash-es';
 
 @Component({
     selector: '[wlc-category-menu]',

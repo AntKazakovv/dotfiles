@@ -12,7 +12,7 @@ import {
     forEach as _forEach,
     includes as _includes,
     filter as _filter,
-} from 'lodash';
+} from 'lodash-es';
 
 @Injectable({
     providedIn: 'root',

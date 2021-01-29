@@ -1,11 +1,9 @@
 import {IMerchant} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
-import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
 
 import {
     toNumber as _toNumber,
-} from 'lodash';
-import {IPaymentSystem} from 'wlc-engine/modules/finances/system/models/payment-system.model';
+} from 'lodash-es';
 
 export class MerchantModel extends AbstractModel<IMerchant> {
 

@@ -28,6 +28,11 @@ module.exports = (config, schema, env) => {
     });
 
     const progressPlugin = config.plugins.find(plugin => plugin.constructor.name === 'ProgressPlugin');
+    const dedupeModuleResolvePlugin = config.plugins.find(plugin => plugin.constructor.name === 'DedupeModuleResolvePlugin');
+
+    dedupeModuleResolvePlugin && Object.assign(dedupeModuleResolvePlugin.options, {
+        verbose: false,
+    });
 
     progressPlugin && Object.assign(progressPlugin, {
         profile: false,
@@ -66,14 +71,18 @@ module.exports = (config, schema, env) => {
     }
 
     const scssRules = config.module.rules.filter((item) => item.test.exec('.scss'));
-    const root = path.dirname(__dirname + '../../../');
+
     scssRules.forEach(rule => {
         const postcss = rule.use.find((item) => item.loader && item.loader.includes('postcss'));
         postcss.options = {
-            config: {
-                path: `${root}/postcss.config.js`,
-            }
-        }
+            postcssOptions: {
+                ident: 'embedded',
+                sourceMap: 'inline',
+                plugins: [
+                    require('css-mqpacker')({sort: true}),
+                ],
+            },
+        };
     });
 
     return config;

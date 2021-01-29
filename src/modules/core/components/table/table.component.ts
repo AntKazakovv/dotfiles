@@ -23,7 +23,7 @@ import {
     isObject as _isObject,
     uniq as _uniq,
     sortBy as _sortBy,
-} from 'lodash';
+} from 'lodash-es';
 
 @Component({
     selector: '[wlc-table]',

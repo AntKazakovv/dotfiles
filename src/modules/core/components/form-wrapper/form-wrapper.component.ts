@@ -50,7 +50,7 @@ import {
     isUndefined as _isUndefined,
     clone as _clone,
     some as _some,
-} from 'lodash';
+} from 'lodash-es';
 
 export interface IControls extends IIndexing<FormControl>{
 }

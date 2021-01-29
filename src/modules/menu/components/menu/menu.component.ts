@@ -33,7 +33,7 @@ import {IMenuItemsGroup} from 'wlc-engine/modules/menu/components/menu/menu.para
 import {
     get as _get,
     forEach as _forEach,
-} from 'lodash';
+} from 'lodash-es';
 
 @Component({
     selector: '[wlc-menu]',

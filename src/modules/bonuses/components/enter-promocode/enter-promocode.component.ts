@@ -21,7 +21,7 @@ import {
     get as _get,
     isUndefined as _isUndefined,
     keys as _keys,
-} from 'lodash';
+} from 'lodash-es';
 
 @Component({
     selector: '[wlc-enter-promocode]',

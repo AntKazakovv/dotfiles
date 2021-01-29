@@ -28,7 +28,7 @@ import {
     size as _size,
     keys as _keys,
     map as _map,
-} from 'lodash';
+} from 'lodash-es';
 
 export class Bonus extends AbstractModel<IBonus> {
     public isReady: Boolean = true;

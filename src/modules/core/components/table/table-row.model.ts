@@ -5,7 +5,7 @@ import {DateTime} from 'luxon';
 
 import {
     get as _get,
-} from 'lodash';
+} from 'lodash-es';
 
 export class TableRowModel {
 

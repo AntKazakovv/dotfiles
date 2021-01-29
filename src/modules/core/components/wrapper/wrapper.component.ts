@@ -22,7 +22,7 @@ import {
 
 import {
     merge as _merge,
-} from 'lodash';
+} from 'lodash-es';
 
 export interface IWrapperCParams {
     components?: ILayoutComponent[];

@@ -28,7 +28,7 @@ import {
     findIndex as _findIndex,
     includes as _includes,
     toSafeInteger as _toSafeInteger,
-} from 'lodash';
+} from 'lodash-es';
 
 export type LayoutsType = 'pages' | 'panels';
 

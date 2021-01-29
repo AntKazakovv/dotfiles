@@ -31,24 +31,19 @@ import {ModalService} from 'wlc-engine/modules/core/system/services';
 import {WlcModalComponent} from 'wlc-engine/modules/core/components/modal';
 import {IPlayGameForRealCParams} from 'wlc-engine/modules/games/components/play-game-for-real/play-game-for-real.params';
 import * as GameDashboardParams from 'wlc-engine/modules/games/components/game-dashboard/game-dashboard.params';
+import {FormControl} from '@angular/forms';
+import {
+    includes as _includes,
+    isObject as _isObject,
+    isString as _isString,
+    toNumber as _toNumber,
+} from 'lodash-es';
 
 interface IError {
     msg: string;
     state?: string;
     stateParams?: RawParams;
 }
-
-import {
-    filter as _filter,
-    find as _find,
-    includes as _includes,
-    extend as _extend,
-    isObject as _isObject,
-    isString as _isString,
-    toNumber as _toNumber,
-    get as _get,
-} from 'lodash';
-import {FormControl} from '@angular/forms';
 
 @Component({
     selector: '[wlc-game-wrapper]',

@@ -42,7 +42,7 @@ import {
     find as _find,
     assignIn as _assignIn,
     includes as _includes,
-} from 'lodash';
+} from 'lodash-es';
 
 @Component({
     selector: '[wlc-search]',

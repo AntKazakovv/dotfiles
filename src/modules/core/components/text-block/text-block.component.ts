@@ -14,7 +14,7 @@ import {
     get as _get,
     keys as _keys,
     isUndefined as _isUndefined,
-} from 'lodash';
+} from 'lodash-es';
 
 /**
  * text-block component. Use for header of component.

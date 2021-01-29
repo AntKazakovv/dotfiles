@@ -7,7 +7,7 @@ import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.mode
 
 import {
     toString as _toString,
-} from 'lodash';
+} from 'lodash-es';
 
 export class WinnerModel extends AbstractModel<IWinnerData> {
 

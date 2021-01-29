@@ -26,10 +26,8 @@ import * as Params from './slider.params';
 import {
     assign as _assign,
     isNumber as _isNumber,
-    toNumber as _toNumber,
     times as _times,
-    thru as _thru,
-} from 'lodash';
+} from 'lodash-es';
 
 @Component({
     selector: '[wlc-slider]',
@@ -121,13 +119,7 @@ export class SliderComponent extends AbstractComponent
         if (swiper.loop) {
             const slides = _isNumber(swiper.slidesPerView) ? swiper.slidesPerView : 5;
             if (slides > this.slides.length) {
-                this.slidesSequence = _thru(realSequence, (arr) => {
-                    let result: number[] = [];
-                    while (result.length < slides) {
-                        result = result.concat(arr);
-                    }
-                    return result;
-                });
+                this.slidesSequence = this.fillSequence(realSequence, slides);
                 return;
             }
 
@@ -136,6 +128,14 @@ export class SliderComponent extends AbstractComponent
         }
 
         this.slidesSequence = realSequence;
+    }
+
+    protected fillSequence(realSequence: number[], slides: number) {
+        let result: number[] = [];
+        while (result.length < slides) {
+            result = result.concat(realSequence);
+        }
+        return result;
     }
 
     protected updateSwiper(): void {

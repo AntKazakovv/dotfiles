@@ -21,7 +21,7 @@ import {
     isObject as _isObject,
     isString as _isString,
     extend as _extend,
-} from 'lodash';
+} from 'lodash-es';
 
 interface ILogTags {
     type: string;

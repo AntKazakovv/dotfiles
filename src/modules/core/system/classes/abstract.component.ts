@@ -23,7 +23,7 @@ import {
     cloneDeep as _cloneDeep,
     has as _has,
     split as _split,
-} from 'lodash';
+} from 'lodash-es';
 
 export {IComponentParams, CustomType} from 'wlc-engine/modules/core/system/interfaces/config.interface';
 

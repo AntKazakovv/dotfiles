@@ -28,7 +28,7 @@ import {
     differenceWith as _differenceWith,
     isEqual as _isEqual,
     map as _map,
-} from 'lodash';
+} from 'lodash-es';
 
 /**
  * Params for request

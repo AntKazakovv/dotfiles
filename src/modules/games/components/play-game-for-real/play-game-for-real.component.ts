@@ -24,7 +24,7 @@ import * as Params from './play-game-for-real.params';
 
 import {
     union as _union,
-} from 'lodash';
+} from 'lodash-es';
 
 /**
  * Play game for real form component.

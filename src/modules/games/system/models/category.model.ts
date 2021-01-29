@@ -4,7 +4,7 @@ import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.mode
 
 import {
     toNumber as _toNumber,
-} from 'lodash';
+} from 'lodash-es';
 
 export class CategoryModel extends AbstractModel<ICategory> {
 

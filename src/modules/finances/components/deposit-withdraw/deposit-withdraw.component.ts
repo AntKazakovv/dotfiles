@@ -28,7 +28,7 @@ import {
     isString as _isString,
     isEqual as _isEqual,
     each as _each,
-} from 'lodash';
+} from 'lodash-es';
 
 @Component({
     selector: '[wlc-deposit-withdraw]',
