@@ -66,6 +66,9 @@ export class InfoPageComponent extends AbstractComponent implements OnInit {
             case 'feedback':
                 this.config.content.components = [{
                     name: 'core.wlc-feedback-form',
+                    params: {
+                        wlcElement: 'section_contacts',
+                    },
                 }];
                 break;
 
@@ -74,6 +77,7 @@ export class InfoPageComponent extends AbstractComponent implements OnInit {
                     name: 'static.wlc-post',
                     params: {
                         slug: this.uiRouter.params.slug,
+                        wlcElement: 'section_static-text_' + this.uiRouter.params.slug,
                     },
                 }];
         }
