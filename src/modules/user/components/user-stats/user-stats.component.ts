@@ -71,23 +71,23 @@ export class UserStatsComponent extends AbstractComponent implements OnInit, OnD
                 name: gettext('Real balance'),
                 value: this.userStats?.realBalance,
                 modification: 'amount',
-                wlcElement: 'block_user-stat-item_real',
+                wlcElement: 'block_user-stat-balance-real',
             },
             bonusBalance: {
                 name: gettext('Bonus balance'),
                 value: this.userStats?.bonusBalance,
                 modification: 'amount',
-                wlcElement: 'block_user-stat-item_bonus',
+                wlcElement: 'block_user-stat-balance-bonus',
             },
             points: {
                 name: gettext('Points'),
                 value: this.userStats?.loyalty?.Balance,
-                wlcElement: 'block_user-stat-item_points',
+                wlcElement: 'block_user-stat-points',
             },
             level: {
                 name: gettext('Level'),
                 value: this.userStats?.loyalty?.Level,
-                wlcElement: 'block_user-stat-item_level',
+                wlcElement: 'block_user-stat-level',
             },
             email: {
                 name: gettext('Email'),

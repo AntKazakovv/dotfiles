@@ -78,6 +78,7 @@ export class MainMenuComponent extends AbstractComponent implements OnInit {
     protected initMenu(): void {
         this.menuParams = {
             type: 'main-menu',
+            wlcElement: this.$params.wlcElement || 'wlc-main-menu',
         };
         this.commonMenuItems = MenuHelper.parseMenuConfig(this.menuConfig, Config.wlcMainMenuItemsGlobal);
         this.menuParams.items = this.commonMenuItems;
@@ -87,7 +88,7 @@ export class MainMenuComponent extends AbstractComponent implements OnInit {
             this.addCategoryBtns();
         }
 
-        const subscription = this.eventService.subscribe({
+        this.eventService.subscribe({
             name: gamesEvents.FETCH_GAME_CATALOG_SUCCEEDED,
         }, () => {
             this.addCategoryBtns();
