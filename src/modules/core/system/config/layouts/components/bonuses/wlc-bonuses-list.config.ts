@@ -33,6 +33,7 @@ export namespace wlcBonusesList {
         name: 'bonuses.wlc-bonuses-list',
         params: {
             type: 'swiper',
+            wlcElement: 'block_bonuses',
             common: {
                 sortOrder: ['active', 'subscribe', 'inventory'],
                 title: '',

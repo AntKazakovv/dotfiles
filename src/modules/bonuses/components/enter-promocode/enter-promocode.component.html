@@ -1,4 +1,4 @@
-<div class="{{$class}}__container">
+<div class="{{$class}}__container" data-wlc-element="block_promocode">
     <h4 class="{{$class}}__title">{{$params.common.titleText}}</h4>
     <div class="{{$class}}__control">
         <div wlc-input
@@ -11,6 +11,7 @@
             theme="icon"
             icon="enter-arrow"
             (click)="getBonusByPromocode()"
+            [wlcElement]="'submit_promocode'"
         ></button>
     </div>
 </div>
