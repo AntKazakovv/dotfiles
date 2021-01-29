@@ -1,12 +1,12 @@
 <div class="{{$class}}__content">
-    <div class="{{$class}}-points">
+    <div class="{{$class}}-points" data-wlc-element="exchange-points">
         <div class="{{$class}}-points__value">0
             <span class="{{$class}}-points__currency">{{'LP' | translate}}</span>
         </div>
 
         <div class="{{$class}}-points__desc">{{'Available for exchange' | translate}}</div>
     </div>
-    <button wlc-button text="Exchange to cash" themeMod="secondary"></button>
+    <button wlc-button text="Exchange to cash" themeMod="secondary" [wlcElement]="'button_exchange'"></button>
 </div>
 <div class="{{$class}}__info"
      wlc-user-stats

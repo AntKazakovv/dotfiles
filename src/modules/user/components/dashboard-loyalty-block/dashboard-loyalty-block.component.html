@@ -1,10 +1,10 @@
-<div class="{{$class}}__user-name">
+<div class="{{$class}}__user-name"  data-wlc-element="user-name">
     <div wlc-user-name></div>
     <div wlc-logout useText="true"></div>
 </div>
 <div class="{{$class}}__loyalty" wlc-loyalty-progress></div>
 <div class="{{$class}}__all">
-    <a uiSref="app.profile.loyalty-bonuses.main">
+    <a uiSref="app.profile.loyalty-bonuses.main" data-wlc-element="link_loyalty-levels">
         {{'All levels' | translate}}
         <span wlc-icon iconName="arrow"></span>
     </a>

@@ -6,7 +6,7 @@
     [class.choosebtn]="isChooseBtn"
     [class.active]="$params.common.bonus.isActive">
     <div class="{{$class}}__wrapper" (click)="chooseBonusNoBtn($params.common.bonus, $params.common?.type)">
-        <div class="{{$class}}__image-block">
+        <div class="{{$class}}__image-block" data-wlc-element="bonus_image">
             <div class="{{$class}}__tag" *ngIf="$params.common?.showBonusTag">{{getBonusTag() | translate}}</div>
             <div class="{{$class}}__image" *ngIf="!$params.common?.useIconBonusImage && $params.common.imageByType"
                 [style]="{backgroundImage: $params.common.bonus.getImageByType($params.common?.type)}">
