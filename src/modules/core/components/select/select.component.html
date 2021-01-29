@@ -6,6 +6,7 @@
             type="button"
             id="{{$params.name}}"
             name="{{$params.name}}"
+            [attr.data-wlc-element]='fieldWlcElement'
             (click)="toggleDropdown()"
             [formControl]="control"
             ngDefaultControl

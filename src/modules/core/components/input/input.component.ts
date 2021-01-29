@@ -13,6 +13,7 @@ import * as Params from './input.params';
 
 import {
     union as _union,
+    kebabCase as _kebabCase,
 } from 'lodash';
 
 /**
@@ -34,6 +35,7 @@ export class InputComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams: Params.IInputCParams;
     public $params: Params.IInputCParams;
     public control: FormControl;
+    public fieldWlcElement: string;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IInputCParams,
@@ -46,6 +48,7 @@ export class InputComponent extends AbstractComponent implements OnInit {
         super.ngOnInit(this.inlineParams);
         this.control = this.$params?.control;
         this.prepareModifiers();
+        this.fieldWlcElement = 'input_' + _kebabCase(this.$params.name);
     }
 
     public get setInputModifiers(): string {
