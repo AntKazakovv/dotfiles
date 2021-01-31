@@ -5,6 +5,7 @@ export namespace wlcTitle {
         name: 'core.wlc-title',
         params: {
             mainText: gettext('Profile'),
+            wlcElement: 'header_edit-profile',
         },
     };
     export const profileV2: ILayoutComponent = {
@@ -12,6 +13,7 @@ export namespace wlcTitle {
         params: {
             customMod: ['profile'],
             mainText: gettext('Profile'),
+            wlcElement: 'header_edit-profile',
         },
     };
     export const bonuses: ILayoutComponent = {
@@ -19,6 +21,7 @@ export namespace wlcTitle {
         params: {
             customMod: ['profile'],
             mainText: gettext('Bonuses'),
+            wlcElement: 'header_bonuses',
         },
     };
     export const activeBonuses: ILayoutComponent = {
@@ -40,6 +43,7 @@ export namespace wlcTitle {
         params: {
             customMod: ['profile'],
             mainText: gettext('Transactions history'),
+            wlcElement: 'header_transactions-history',
         },
     };
 
@@ -56,6 +60,7 @@ export namespace wlcTitle {
         params: {
             customMod: ['profile', 'profile-bonuses'],
             mainText: gettext('My bonuses'),
+            wlcElement: 'header_user-bonuses',
         },
     };
 }
