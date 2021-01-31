@@ -6,6 +6,7 @@ export namespace footer {
         order: 1000,
         container: true,
         theme: '2',
+        wlcElement: 'section_footer',
         components: [
             componentLib.wlcIconList.merchants,
             componentLib.wlcIconList.payments,
