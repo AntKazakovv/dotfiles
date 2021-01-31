@@ -21,7 +21,7 @@
                 <div class="icon-text icon-text--{{getValueLengthClass($params.common.bonus.value)}}">{{$params.common.bonus.value}}</div>
             </div>
         </div>
-        <div class="{{$class}}__bottom">
+        <div class="{{$class}}__bottom" data-wlc-element="bonus_info">
             <div class="{{$class}}__info-block">
                 <h4 class="{{$class}}__name" [wlc-clamp]="1">
                     {{$params.common.bonus.name}}
@@ -68,7 +68,8 @@
                         wlc-button
                         text="Subscribe"
                         *ngIf="$params.common.bonus.canSubscribe"
-                        (click)="join()">
+                        (click)="join()"
+                        [wlcElement]="'button_subscribe'">
                 </button>
                 <button type="button"
                         wlc-button
@@ -105,7 +106,8 @@
             class="icon-btn"
             wlc-icon
             iconName="info"
-            (click)="openDescription($params.common.bonus)">
+            (click)="openDescription($params.common.bonus)"
+            [wlcElement]="'icon_info'">
         </div>
     </div>
     <div class="{{$class}}__check-icon" *ngIf="isTypeRegDeposit">
