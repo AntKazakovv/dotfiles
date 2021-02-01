@@ -1,5 +1,6 @@
 @use 'engine-scss/mixins/base.mixins' as bm;
 @use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/text' as text;
 @use 'engine-scss/functions' as ef;
 @import '../utils/vars';
 
@@ -24,12 +25,11 @@
         flex-shrink: 0;
         justify-content: space-between;
         margin-left: auto;
-        font-size: 12px;
-        color: map-get($themeDefault, 'buttonSearchColor');
 
         @include bm.get-mq-map('background', $themeDefault, 'buttonSearchBg');
         @include bm.get-mq-map('padding', $themeDefault, 'buttonSearchPadding');
         @include bm.get-mq-map('border-radius', $themeDefault, 'buttonSearchRadius');
+        @include text.get-text-style('PlaceholderText', map-get($themeDefault, 'buttonSearchColor'));
 
         @include mq.min(768) {
             width: auto;
