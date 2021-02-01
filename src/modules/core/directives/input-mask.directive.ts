@@ -1,5 +1,5 @@
-import {Directive, ElementRef, AfterViewInit, Input, HostBinding} from '@angular/core';
-import IMask from 'imask';
+import {Directive, ElementRef, Input, OnDestroy, AfterViewInit} from '@angular/core';
+import IMask, {InputMask} from 'imask';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 
 import {
@@ -30,25 +30,20 @@ export interface IMaskOptions {
 @Directive({
     selector: '[wlc-input-mask]',
 })
-export class InputMaskDirective implements AfterViewInit {
-    @Input('wlc-input-mask') wlcInputMask: any;
-    @HostBinding('class') class: string;
+export class InputMaskDirective implements AfterViewInit, OnDestroy {
+    @Input('wlc-input-mask') wlcInputMask: IMask.AnyMaskedOptions;
+    protected mask: InputMask<IMask.AnyMaskedOptions>;
 
     constructor(
         protected element: ElementRef,
     ) {}
 
     public ngAfterViewInit(): void {
-        const mask = IMask(this.element.nativeElement, this.wlcInputMask);
-        this.setClass(mask.masked.rawInputValue);
-        _assign(this.element.nativeElement, {mask});
-
-        mask.on('accept', () => {
-            this.setClass(mask.masked.rawInputValue);
-        });
+        this.mask = IMask(this.element.nativeElement, this.wlcInputMask);
+        _assign(this.element.nativeElement, {mask: this.mask});
     }
 
-    private setClass(rawInputValue: string): void {
-        this.class = rawInputValue.length ? '' : 'blank-mask';
+    public ngOnDestroy(): void {
+        this?.mask.destroy();
     }
 }
