@@ -60,7 +60,7 @@ $themeVertical: map-merge((
     'labelFontSize': ef.get('font', 'small'),
     'labelFontWeight': 500,
     'labelLineHeight': 1,
-    'labelColor': ef.get('fieldColors', labelColor),
+    'labelColor': ef.get('fieldColors', 'labelColor'),
 
     'inputWidth': 100%,
     'inputHeight': 40px,
@@ -69,10 +69,10 @@ $themeVertical: map-merge((
     'inputFontSize': ef.get('font', 'smaller'),
     'inputFontWeight': 400,
     'inputLineHeight': 1,
-    'inputBackground': ef.get('fieldColors', inputBg),
-    'inputColor': ef.get('fieldColors', textColor),
-    'inputPlaceholderColor': ef.get('fieldColors', placeholderColor),
-    'inputBorder': 2px solid ef.get('fieldColors', borderColor),
+    'inputBackground': ef.get('fieldColors', 'inputBg'),
+    'inputColor': ef.get('fieldColors', 'textColor'),
+    'inputPlaceholderColor': ef.get('fieldColors', 'placeholderColor'),
+    'inputBorder': 2px solid ef.get('fieldColors', 'borderColor'),
     'inputBorderRadius': ef.get('radius', 'main'),
 
     'iconEyeTop': 50%,
@@ -84,7 +84,7 @@ $themeVertical: map-merge((
 
     'fieldIconSize': 30px,
     'fieldIconLineHeight': 0,
-    'fieldIconSvgFillHover': ef.get('fieldColors', textColor),
-    'fieldIconSvgFillActive': ef.get('fieldColors', errorBackground),
+    'fieldIconSvgFillHover': ef.get('fieldColors', 'textColor'),
+    'fieldIconSvgFillActive': ef.get('fieldColors', 'errorBackground'),
 
 ), $customThemeVertical);

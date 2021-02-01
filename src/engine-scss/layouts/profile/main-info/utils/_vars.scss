@@ -12,19 +12,10 @@ $mainInfoThemeDefault: map-merge((
         375: ef.get('size', 'smaller'),
         768: ef.get('size', 'smally'),
     ),
-    'labelColor': (
-        375: transparentize(ef.get('color', 'text'), 0.55),
-        768: transparentize(ef.get('color', 'text'), 0.55),
-    ),
     'saveButtonShift': ef.get('size', 'main') - ef.get('size', 'smaller'),
     'saveButtonAlign': (
         375: center,
         1024: end,
-    ),
-    'saveButtonWeight': ef.get-value($profileSettings, 'profileBtnWeight'),
-    'saveButtonSize': (
-        375: ef.get('font', 'less'),
-        1024: ef.get('font', 'main'),
     ),
     'formMaxWidth': (
         768: 768px,
@@ -32,26 +23,18 @@ $mainInfoThemeDefault: map-merge((
     'inputWidth': (
         768: 70%,
     ),
-    'labelFontSize': (
-        375: ef.get('font', 'small'),
-        768: ef.get('font', 'less'),
-    ),
-    'labelFontWeight': (
-        768: bold,
-    ),
     'maxFormWidth': (
         1024: 765px,
     ),
     'addBlockGap': ef.get('size', 'smaller'),
     'addTitleFontSize': ef.get('font', 'smaller'),
     'addTitleFontWeight': 300,
-    'addTitleColor':  transparentize(ef.get('color', 'text'), 0.55),
+    'addTitleColor':  ef.get('mainColors', 'baseMain'),
     'addItemGap': ef.get('size', 'smaller'),
     'addItemTitleMainFontSize': ef.get('font', 'main'),
-    'addItemTitleMainColor': ef.get('color', 'text'),
+    'addItemTitleMainColor': ef.get('mainColors', 'baseMain'),
     'addItemTitleSecondFontSize': ef.get('font', 'smaller'),
-    'addItemTitleSecondFontWeight': 300,
-    'addItemTitleSecondColor': transparentize(ef.get('color', 'text'), 0.55),
+    'addItemTitleSecondColor': ef.get('mainColors', 'baseMain'),
     'addItemLinkFontSize': (
         375: ef.get('font', 'less'),
         1024: ef.get('font', 'smaller')
@@ -60,8 +43,8 @@ $mainInfoThemeDefault: map-merge((
         375: ef.get-value($profileSettings, 'profileBtnWeight'),
     ),
     'addItemLinkColor': (
-        375: ef.get('mainColors', baseMain),
-        1024: ef.get('mainColors', main)
+        375: ef.get('mainColors', 'baseMain'),
+        1024: ef.get('mainColors', 'main')
     ),
     'addItemTitleMainMargin': (
         375: 0 0 5px 0,

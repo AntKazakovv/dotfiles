@@ -50,9 +50,8 @@
             display: flex;
             min-width: 1px;
             align-items: center;
-            @include text.get-text-style(PlaceholderText);
+            @include text.get-text-style('PlaceholderText', ef.get-value($themeDefault, 'userColor'));
             text-transform: ef.get-value($themeVertical, 'userTextTransform');
-            color: ef.get-value($themeVertical, 'userColor');
         }
 
         &__name {
@@ -82,8 +81,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            @include text.get-text-style(ThirdTitleBold);
-            color: ef.get-value($themeVertical, 'gameColor');
+            @include text.get-text-style('ThridTitleBold', ef.get-value($themeDefault, 'gameColor'));
             text-decoration: none;
 
             &:hover {
@@ -127,10 +125,9 @@
 
         &__amount {
             grid-area: amount;
-            @include text.get-text-style(ThirdTitleBold);
+            @include text.get-text-style('ThridTitleBold', ef.get-value($themeDefault, 'amountColor'));
             white-space: nowrap;
             text-align: right;
-            color: ef.get-value($themeVertical, 'amountColor');
         }
     }
 }

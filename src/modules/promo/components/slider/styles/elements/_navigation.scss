@@ -1,38 +1,36 @@
-.swiper-navigation {
-    //
-}
+@use 'engine-scss/functions' as ef;
 
 .swiper-button-prev,
 .swiper-button-next {
     position: absolute;
-    top: $swiperNaviTop;
-    margin-top: calc(-1 * #{$swiperNaviButtonSize} / 2);
-    z-index: $swiperNaviZindex;
-    width: $swiperNaviButtonSize;
-    height: $swiperNaviButtonSize;
+    top: ef.get-value($themeDefaultNavigation, 'swiperNaviTop');
+    margin-top: calc(-1 * #{ef.get-value($themeDefaultNavigation, 'swiperNaviButtonSize')} / 2);
+    z-index: ef.get-value($themeDefaultNavigation, 'swiperNaviZindex');
+    width: ef.get-value($themeDefaultNavigation, 'swiperNaviButtonSize');
+    height: ef.get-value($themeDefaultNavigation, 'swiperNaviButtonSize');
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: $swiperNaviButtonBg;
-    color: $swiperNaviArrowColor;
-    border-radius: $swiperNaviButtonBorderRadius;
-    transition: $swiperNaviButtonTransition;
+    background: ef.get-value($themeDefaultNavigation, 'swiperNaviButtonBg');
+    color: ef.get-value($themeDefaultNavigation, 'swiperNaviArrowColor');
+    border-radius: ef.get-value($themeDefaultNavigation, 'swiperNaviButtonBorderRadius');
+    transition: ef.get-value($themeDefaultNavigation, 'swiperNaviButtonTransition');
 
     &:hover {
-        background: $swiperNaviButtonBgHover;
-        color: $swiperNaviArrowColorHover;
+        background: ef.get-value($themeDefaultNavigation, 'swiperNaviButtonBgHover');
+        color: ef.get-value($themeDefaultNavigation, 'swiperNaviArrowColorHover');
     }
 
     &.swiper-button-disabled {
-        opacity: $swiperNaviButtonDisabledOpacity;
+        opacity: ef.get-value($themeDefaultNavigation, 'swiperNaviButtonDisabledOpacity');
         cursor: auto;
         pointer-events: none;
     }
 
     &:after {
         font-family: swiper-icons;
-        font-size: $swiperNaviArrowSize;
+        font-size: ef.get-value($themeDefaultNavigation, 'swiperNaviArrowSize');
         letter-spacing: 0;
         text-transform: none;
         font-variant: initial;
@@ -47,7 +45,7 @@
         content: 'prev';
     }
 
-    left: $swiperNaviAside;
+    left: ef.get-value($themeDefaultNavigation, 'swiperNaviAside');
     right: auto;
 
     .wlc-slider--type-dashboard & {
@@ -62,7 +60,7 @@
         content: 'next';
     }
 
-    right: $swiperNaviAside;
+    right: ef.get-value($themeDefaultNavigation, 'swiperNaviAside');
     left: auto;
 
     .wlc-slider--type-dashboard & {

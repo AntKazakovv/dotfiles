@@ -1,3 +1,7 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/mixins/mediaqueries' as mq;
+
 .wlc-user-info--theme-default:host {
 
     .wlc-user-info {
@@ -8,7 +12,7 @@
         }
 
         &-short {
-            margin: map-get($themeDefault, 'userInfoShortMargin');
+            margin: ef.get-value($themeDefault, 'userInfoShortMargin');
             flex-shrink: 0;
         }
 
@@ -19,14 +23,14 @@
                 display: flex;
                 align-items: center;
                 flex-shrink: 0;
-                padding: map-get($themeDefault, 'userInfoDropdownBtnPadding');
-                border: map-get($themeDefault, 'userInfoDropdownBtnBorder');
-                border-radius: map-get($themeDefault, 'userInfoDropdownBtnBorderRadius');
+                padding: ef.get-value($themeDefault, 'userInfoDropdownBtnPadding');
+                border: ef.get-value($themeDefault, 'userInfoDropdownBtnBorder');
+                border-radius: ef.get-value($themeDefault, 'userInfoDropdownBtnBorderRadius');
                 cursor: pointer;
 
                 .user::ng-deep {
-                    width: map-get($themeDefault, 'userInfoDropdownBtnIconSize');
-                    height: map-get($themeDefault, 'userInfoDropdownBtnIconSize');
+                    width: ef.get-value($themeDefault, 'userInfoDropdownBtnIconSize');
+                    height: ef.get-value($themeDefault, 'userInfoDropdownBtnIconSize');
 
                     svg {
                         display: block;
@@ -35,15 +39,15 @@
                     }
 
                     circle {
-                        fill: map-get($themeDefault, 'userInfoDropdownIconFill');
+                        fill: ef.get-value($themeDefault, 'userInfoDropdownIconFill');
                     }
                 }
 
                 .arrow::ng-deep {
-                    margin: map-get($themeDefault, 'userInfoDropdownArrowMargin');
+                    margin: ef.get-value($themeDefault, 'userInfoDropdownArrowMargin');
 
                     svg {
-                        fill: map-get($themeDefault, 'userInfoDropdownArrowFill');
+                        fill: ef.get-value($themeDefault, 'userInfoDropdownArrowFill');
                     }
                 }
             }
@@ -51,17 +55,17 @@
             &__content {
                 z-index: 10;
                 position: absolute;
-                top: map-get($themeDefault, 'userInfoDropdownTop');
-                right: map-get($themeDefault, 'userInfoDropdownRight');
+                top: ef.get-value($themeDefault, 'userInfoDropdownTop');
+                right: ef.get-value($themeDefault, 'userInfoDropdownRight');
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
-                box-shadow: map-get($themeDefault, 'userInfoDropdownBoxShadow');
-                min-width: map-get($themeDefault, 'userInfoDropdownMinWidth');
-                padding: map-get($themeDefault, 'userInfoDropdownPadding');
-                background: map-get($themeDefault, 'userInfoDropdownBg');
-                border-radius: map-get($themeDefault, 'userInfoDropdownBorderRadius');
+                box-shadow: ef.get-value($themeDefault, 'userInfoDropdownBoxShadow');
+                min-width: ef.get-value($themeDefault, 'userInfoDropdownMinWidth');
+                padding: ef.get-value($themeDefault, 'userInfoDropdownPadding');
+                background: ef.get-value($themeDefault, 'userInfoDropdownBg');
+                border-radius: ef.get-value($themeDefault, 'userInfoDropdownBorderRadius');
 
                 ::ng-deep {
 
@@ -75,13 +79,13 @@
     }
 
     .wlc-btn-deposit {
-        padding: map-get($themeDefault, 'userInfoDepositBtnPaddingMobile');
-        margin: map-get($themeDefault, 'userInfoDepositBtnMarginMobile');
+        padding: ef.get-value($themeDefault, 'userInfoDepositBtnPaddingMobile');
+        margin: ef.get-value($themeDefault, 'userInfoDepositBtnMarginMobile');
         min-width: auto;
 
         @include mq.min(1200) {
-            padding: map-get($themeDefault, 'userInfoDepositBtnPaddingDesktop');
-            margin: map-get($themeDefault, 'userInfoDepositBtnMarginDesktop');
+            padding: ef.get-value($themeDefault, 'userInfoDepositBtnPaddingDesktop');
+            margin: ef.get-value($themeDefault, 'userInfoDepositBtnMarginDesktop');
         }
     }
 

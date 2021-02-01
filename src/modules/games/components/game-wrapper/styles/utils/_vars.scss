@@ -1,19 +1,21 @@
 @use 'engine-scss/functions' as ef;
 
-$contentMargin: 0 auto !default;
-$contentPaddings: ef.get('size', 'big') !default;
+$customThemeDefault: () !default;
 
-$headerPaddings: ef.get('size', 'main') !default;
-$headerBg: transparent !default;
-$headerColor: ef.get('color', 'textSecondary') !default;
-$headerMargin: 0 !default;
+$themeDefault: map-merge((
+    'contentMargin': 0 auto,
+    'contentPaddings': ef.get('size', 'big'),
+    'headerPaddings': ef.get('size', 'main'),
+    'headerBg': transparent,
+    'headerColor': ef.get('mainColors', 'baseMain'),
+    'headerMargin': 0,
+    'btnLeftMargin': 0 auto 0 30px,
+    'titleWidth': 50%,
+    'iconsColor': ef.get('mainColors', 'bg700'),
+    'iconsColorActive': ef.get('mainColors', 'main'),
+    'iconsGap': ef.get('size', 'smaller'),
+    'iconsStroke': 3px,
+    'iconsSize': 24px,
+    'iconsOpacity': 0.8,
+), $customThemeDefault);
 
-$btnLeftMargin: 0 auto 0 30px !default;
-$titleWidth: 50% !default;
-
-$iconsColor: ef.get('color', 'backgroundSecondary') !default;
-$iconsColorActive: ef.get('color', 'textSecondary') !default;
-$iconsGap: ef.get('size', 'smaller') !default;
-$iconsStroke: 3px !default;
-$iconsSize: 24px !default;
-$iconsOpacity: 0.8 !default;

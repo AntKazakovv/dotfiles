@@ -1,7 +1,9 @@
+@use 'engine-scss/functions' as ef;
+
 .wlc-login-signup--theme-default:host {
     display: grid;
     grid-auto-columns: auto;
     grid-auto-flow: column;
-    grid-gap: map-get($themeDefault, 'gap');
+    grid-gap: ef.get-value($themeDefault, 'gap');
     align-items: center;
 }

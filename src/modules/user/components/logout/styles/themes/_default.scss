@@ -1,3 +1,5 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/text' as text;
 @import '../utils/vars';
 
 .wlc-logout--theme-default:host {
@@ -10,15 +12,14 @@
             .wlc-btn__text {
                 display: flex;
                 align-items: center;
-                @include text.get-text-style('PlaceholderTextBold');
-                color: map-get($themeDefault, 'textColor');
+                @include text.get-text-style('PlaceholderTextBold', ef.get-value($themeDefault, 'textColor'));
             }
         }
 
         .wlc-icon {
 
             svg {
-                fill: map-get($themeDefault, 'iconColor');
+                fill: ef.get-value($themeDefault, 'iconColor');
             }
         }
     }

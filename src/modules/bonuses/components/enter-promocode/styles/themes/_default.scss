@@ -17,9 +17,8 @@
         }
 
         &__title {
-            @include text.get-text-style(ThirdTitleBold);
+            @include text.get-text-style('ThirdTitleBold', ef.get-value($themeDefault, 'titleColor'));
             text-align: center;
-            color: ef.get-value($themeDefault, 'titleColor');
         }
 
         &__control {

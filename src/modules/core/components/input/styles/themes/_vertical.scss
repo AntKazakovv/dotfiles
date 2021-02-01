@@ -1,3 +1,4 @@
+@use 'engine-scss/functions' as ef;
 @use 'engine-scss/mixins/text' as text;
 @use 'engine-scss/mixins/base.mixins' as bm;
 @import '../utils/vars';
@@ -6,13 +7,13 @@
 .wlc-input--theme-vertical:host {
     @include inputBase($themeVertical);
 
-    grid-gap: map-get($themeVertical, 'labelGap');
+    grid-gap: ef.get-value($themeVertical, 'labelGap');
 
     .wlc-input__label {
         display: block;
-        margin: map-get($themeVertical, 'labelMargin');
+        margin: ef.get-value($themeVertical, 'labelMargin');
 
-        @include text.get-text-style(SignText, map-get($themeVertical, 'labelColor'));
+        @include text.get-text-style(SignText, ef.get-value($themeVertical, 'labelColor'));
 
         cursor: pointer;
         user-select: none;
@@ -25,27 +26,27 @@
     .wlc-input__input {
         position: relative;
         display: block;
-        width: map-get($themeVertical, 'inputWidth');
-        height: map-get($themeVertical, 'inputHeight');
-        padding: map-get($themeVertical, 'inputPadding');
+        width: ef.get-value($themeVertical, 'inputWidth');
+        height: ef.get-value($themeVertical, 'inputHeight');
+        padding: ef.get-value($themeVertical, 'inputPadding');
 
-        background: map-get($themeVertical, 'inputBackground');
+        background: ef.get-value($themeVertical, 'inputBackground');
 
         outline: none;
-        border: map-get($themeVertical, 'inputBorder');
-        border-radius: map-get($themeVertical, 'inputBorderRadius');
+        border: ef.get-value($themeVertical, 'inputBorder');
+        border-radius: ef.get-value($themeVertical, 'inputBorderRadius');
 
-        @include text.get-text-style(PlaceholderText, map-get($themeVertical, 'inputColor'));
+        @include text.get-text-style(PlaceholderText, ef.get-value($themeVertical, 'inputColor'));
 
         &::placeholder {
-            color: map-get($themeVertical, 'inputPlaceholderColor');
+            color: ef.get-value($themeVertical, 'inputPlaceholderColor');
         }
 
         &.ng-touched {
 
             &.ng-invalid {
-                background: map-get($themeDefault, 'errorsBgColor');
-                border-color: darken(map-get($themeDefault, 'errorsBgColor'), 10%);
+                background: ef.get-value($themeDefault, 'errorsBgColor');
+                border-color: darken(ef.get-value($themeDefault, 'errorsBgColor'), 10%);
             }
         }
     }
@@ -53,25 +54,25 @@
     &.wlc-input--right-shift {
 
         .wlc-input__input {
-            padding-right: map-get($themeVertical, 'inputPaddingRight');
+            padding-right: ef.get-value($themeVertical, 'inputPaddingRight');
         }
 
         .field-icon--eye {
             position: absolute;
-            top: map-get($themeVertical, 'iconEyeTop');
-            right: map-get($themeVertical, 'iconEyeRight');
+            top: ef.get-value($themeVertical, 'iconEyeTop');
+            right: ef.get-value($themeVertical, 'iconEyeRight');
 
-            transform: map-get($themeVertical, 'iconEyeTransform');
+            transform: ef.get-value($themeVertical, 'iconEyeTransform');
         }
 
         .wlc-input-status::ng-deep {
 
             .form-control__icon::ng-deep {
-                right: map-get($themeVertical, 'controlIconRight');
+                right: ef.get-value($themeVertical, 'controlIconRight');
             }
 
             .form-control__errors {
-                right: map-get($themeVertical, 'controlErrorRight');
+                right: ef.get-value($themeVertical, 'controlErrorRight');
             }
         }
     }
@@ -82,10 +83,10 @@
         align-items: center;
         justify-content: center;
 
-        width: map-get($themeVertical, 'fieldIconSize');
-        height: map-get($themeVertical, 'fieldIconSize');
+        width: ef.get-value($themeVertical, 'fieldIconSize');
+        height: ef.get-value($themeVertical, 'fieldIconSize');
 
-        line-height: map-get($themeVertical, 'fieldIconLineHeight');
+        line-height: ef.get-value($themeVertical, 'fieldIconLineHeight');
 
         &--eye {
             cursor: pointer;
@@ -102,7 +103,7 @@
                 ::ng-deep {
 
                     svg path {
-                        fill: map-get($themeVertical, 'fieldIconSvgFillHover');
+                        fill: ef.get-value($themeVertical, 'fieldIconSvgFillHover');
                     }
                 }
             }
@@ -113,7 +114,7 @@
 
                     svg path {
 
-                        fill: map-get($themeVertical, 'fieldIconSvgFillActive');
+                        fill: ef.get-value($themeVertical, 'fieldIconSvgFillActive');
                     }
                 }
             }

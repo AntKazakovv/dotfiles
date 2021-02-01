@@ -1,10 +1,11 @@
 @use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/functions' as ef;
 @import '../utils/vars';
 
 .wlc-faq--theme-default:host {
     display: grid;
     grid-template-columns: 1fr;
-    grid-gap: map-get($themeDefault, 'itemsGapSize');
+    grid-gap: ef.get-value($themeDefault, 'itemsGapSize');
 
     .wlc-faq {
 
@@ -12,41 +13,40 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            @include text.get-text-style(QoteTextBold);
-            color: map-get($themeDefault, 'headerFontColor');
-            padding: map-get($themeDefault, 'headerPadding');
+            @include text.get-text-style('QoteTextBold', ef.get-value($themeDefault, 'headerFontColor'));
+            padding: ef.get-value($themeDefault, 'headerPadding');
         }
 
         &__item {
-            background: map-get($themeDefault, 'itemBackground');
+            background: ef.get-value($themeDefault, 'itemBackground');
             overflow: hidden;
-            border-radius: map-get($themeDefault, 'itemBorderRadius');
-            transition: all map-get($themeDefault, 'time');
+            border-radius: ef.get-value($themeDefault, 'itemBorderRadius');
+            transition: all ef.get-value($themeDefault, 'time');
 
             @media (hover: hover) {
 
                 &:hover {
-                    background: map-get($themeDefault, 'itemBackgroundActive');
+                    background: ef.get-value($themeDefault, 'itemBackgroundActive');
 
                     .wlc-faq__title-text {
-                        color: map-get($themeDefault, 'titleIconColorActive');
+                        color: ef.get-value($themeDefault, 'titleIconColorActive');
                     }
 
                     .wlc-faq__title-icon ::ng-deep svg path {
-                        fill: map-get($themeDefault, 'titleIconColorActive');
+                        fill: ef.get-value($themeDefault, 'titleIconColorActive');
                     }
                 }
             }
 
             &.expanded {
-                background: map-get($themeDefault, 'itemBackgroundActive');
+                background: ef.get-value($themeDefault, 'itemBackgroundActive');
 
                 .wlc-faq__title-text {
-                    color: map-get($themeDefault, 'titleIconColorActive');
+                    color: ef.get-value($themeDefault, 'titleIconColorActive');
                 }
 
                 .wlc-faq__title-icon ::ng-deep svg path {
-                    fill: map-get($themeDefault, 'titleIconColorActive');
+                    fill: ef.get-value($themeDefault, 'titleIconColorActive');
                 }
 
                 .wlc-faq__title-icon {
@@ -59,24 +59,23 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            min-height: map-get($themeDefault, 'titleMinHeight');
-            padding: map-get($themeDefault, 'paddingSize');
+            min-height: ef.get-value($themeDefault, 'titleMinHeight');
+            padding: ef.get-value($themeDefault, 'paddingSize');
             cursor: pointer;
 
             &-text {
                 flex-grow: 1;
-                @include text.get-text-style(ThirdTitleBold);
-                color: map-get($themeDefault, 'titleColor');
-                transition: all map-get($themeDefault, 'time');
-                padding-right: map-get($themeDefault, 'paddingSize');
+                @include text.get-text-style('ThridTitleBold', ef.get-value($themeDefault, 'titleColor'));
+                transition: all ef.get-value($themeDefault, 'time');
+                padding-right: ef.get-value($themeDefault, 'paddingSize');
             }
 
             &-icon {
                 flex-grow: 0;
-                width: map-get($themeDefault, 'titleIconSize');
-                height: map-get($themeDefault, 'titleIconSize');
-                min-width: map-get($themeDefault, 'titleIconSize');
-                transition: all map-get($themeDefault, 'time');
+                width: ef.get-value($themeDefault, 'titleIconSize');
+                height: ef.get-value($themeDefault, 'titleIconSize');
+                min-width: ef.get-value($themeDefault, 'titleIconSize');
+                transition: all ef.get-value($themeDefault, 'time');
 
                 ::ng-deep {
 
@@ -92,8 +91,8 @@
                             height: auto;
 
                             path {
-                                transition: all map-get($themeDefault, 'time');
-                                fill: map-get($themeDefault, 'titleColor');
+                                transition: all ef.get-value($themeDefault, 'time');
+                                fill: ef.get-value($themeDefault, 'titleColor');
                             }
                         }
                     }
@@ -103,17 +102,16 @@
 
         &__content {
             padding: {
-                left: map-get($themeDefault, 'paddingSize');
-                right: map-get($themeDefault, 'paddingSize');
+                left: ef.get-value($themeDefault, 'paddingSize');
+                right: ef.get-value($themeDefault, 'paddingSize');
             };
 
             &-wrp {
-                @include text.get-text-style(ThirdTitle);
-                color: map-get($themeDefault, 'contentFontColor');
-                border-top: 1px solid map-get($themeDefault, 'contentFontColor');
+                @include text.get-text-style('ThirdTitle', ef.get-value($themeDefault, 'titleColor'));
+                border-top: 1px solid ef.get-value($themeDefault, 'contentFontColor');
                 padding: {
-                    top: map-get($themeDefault, 'paddingSize');
-                    bottom: map-get($themeDefault, 'paddingSize');
+                    top: ef.get-value($themeDefault, 'paddingSize');
+                    bottom: ef.get-value($themeDefault, 'paddingSize');
                 };
             }
         }

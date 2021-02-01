@@ -1,25 +1,27 @@
+@use 'engine-scss/functions' as ef;
+
 .swiper-scrollbar {
-    border-radius: $swiperScrollbarBorderRadius;
+    border-radius: ef.get-value($themeDefaultScrollbar, 'swiperScrollbarBorderRadius');
     position: relative;
-    -ms-touch-action: none;
-    background: $swiperScrollbarBg;
+    touch-action: none;
+    background: ef.get-value($themeDefaultScrollbar, 'swiperScrollbarBg');
 
     .swiper-container-horizontal > & {
         position: absolute;
-        left: $swiperScrollbarTopLeft;
-        bottom: $swiperScrollbarAside;
-        z-index: $swiperScrollbarZindex;
-        height: $swiperScrollbarWidth;
-        width: $swiperScrollbarHeight;
+        left: ef.get-value($themeDefaultScrollbar, 'swiperScrollbarTopLeft');
+        bottom: ef.get-value($themeDefaultScrollbar, 'swiperScrollbarAside');
+        z-index: ef.get-value($themeDefaultScrollbar, 'swiperScrollbarZindex');
+        height: ef.get-value($themeDefaultScrollbar, 'swiperScrollbarWidth');
+        width: ef.get-value($themeDefaultScrollbar, 'swiperScrollbarHeight');
     }
 
     .swiper-container-vertical > & {
         position: absolute;
-        right: $swiperScrollbarAside;
-        top: $swiperScrollbarTopLeft;
-        z-index: $swiperScrollbarZindex;
-        width: $swiperScrollbarWidth;
-        height: $swiperScrollbarHeight;
+        right: ef.get-value($themeDefaultScrollbar, 'swiperScrollbarAside');
+        top: ef.get-value($themeDefaultScrollbar, 'swiperScrollbarTopLeft');
+        z-index: ef.get-value($themeDefaultScrollbar, 'swiperScrollbarZindex');
+        width: ef.get-value($themeDefaultScrollbar, 'swiperScrollbarWidth');
+        height: ef.get-value($themeDefaultScrollbar, 'swiperScrollbarHeight');
     }
 }
 
@@ -27,8 +29,8 @@
     height: 100%;
     width: 100%;
     position: relative;
-    background: $swiperScrollbarDragBg;
-    border-radius: $swiperScrollbarDragBorderRadius;
+    background: ef.get-value($themeDefaultScrollbar, 'swiperScrollbarDragBg');
+    border-radius: ef.get-value($themeDefaultScrollbar, 'swiperScrollbarDragBorderRadius');
     left: 0;
     top: 0;
 }

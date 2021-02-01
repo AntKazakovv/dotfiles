@@ -1,3 +1,5 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/text' as text;
 @import '../utils/vars';
 
 .form-control {
@@ -7,7 +9,7 @@
     #{$touch}.ng-valid ~ & {
 
         #{$selector}__icon {
-            background: darken(map-get($themeDefault, 'successColor'), 20%);
+            background: darken(ef.get-value($themeDefault, 'successColor'), 20%);
 
             &:before {
                 width: 4px;
@@ -15,8 +17,8 @@
                 top: calc(50% - 1px);
                 left: 50%;
                 transform: translate(-50%, -50%) rotate(45deg);
-                border-bottom: 1px solid map-get($themeDefault, 'successIconColor');
-                border-right: 1px solid map-get($themeDefault, 'successIconColor');
+                border-bottom: 1px solid ef.get-value($themeDefault, 'successIconColor');
+                border-right: 1px solid ef.get-value($themeDefault, 'successIconColor');
             }
         }
     }
@@ -31,7 +33,7 @@
                 width: 100%;
                 height: 100%;
                 animation: spin 1s infinite linear;
-                border: 2px solid map-get($themeDefault, 'pendingIconColor');
+                border: 2px solid ef.get-value($themeDefault, 'pendingIconColor');
                 border-left-color: transparent;
                 border-radius: 50%;
             }
@@ -39,17 +41,17 @@
     }
 
     #{$touch}.ng-invalid ~ & {
-        border-color: map-get($themeDefault, 'errorColor');
+        border-color: ef.get-value($themeDefault, 'errorColor');
 
         #{$selector}__icon {
-            background: darken(map-get($themeDefault, 'errorColor'), 20%);
+            background: darken(ef.get-value($themeDefault, 'errorColor'), 20%);
             transform: translateY(-50%) rotate(45deg);
 
             &:before {
                 top: 50%;
                 left: 50%;
                 transform: translate(-50%, -50%);
-                background: map-get($themeDefault, 'errorIconColor');
+                background: ef.get-value($themeDefault, 'errorIconColor');
                 width: 2px;
                 height: 7px;
             }
@@ -60,7 +62,7 @@
                 top: 50%;
                 left: 50%;
                 transform: translate(-50%, -50%);
-                background: map-get($themeDefault, 'errorIconColor');
+                background: ef.get-value($themeDefault, 'errorIconColor');
                 width: 7px;
                 height: 2px;
             }
@@ -80,8 +82,8 @@
         top: 50%;
         right: 15px;
         transform: translateY(-50%);
-        width: map-get($themeDefault, 'iconWidth');
-        height: map-get($themeDefault, 'iconHeight');
+        width: ef.get-value($themeDefault, 'iconWidth');
+        height: ef.get-value($themeDefault, 'iconHeight');
         border-radius: 50%;
 
         .wlc-textarea & {
@@ -89,8 +91,8 @@
             top: 20px;
             right: 15px;
             transform: translateY(-50%);
-            width: map-get($themeDefault, 'iconWidth');
-            height: map-get($themeDefault, 'iconHeight');
+            width: ef.get-value($themeDefault, 'iconWidth');
+            height: ef.get-value($themeDefault, 'iconHeight');
             border-radius: 50%;
 
             &:before {
@@ -107,42 +109,42 @@
 
     &__errors {
         position: absolute;
-        background: map-get($themeDefault, 'errorsBgColor');
+        background: ef.get-value($themeDefault, 'errorsBgColor');
         top: calc(100% - 5px);
         right: 0;
         width: fit-content;
-        min-width: map-get($themeDefault, 'errorsMinWidth');
-        max-width: map-get($themeDefault, 'errorsMaxWidth');
+        padding: ef.get-value($themeDefault, 'errorsPadding');
+        min-width: ef.get-value($themeDefault, 'errorsMinWidth');
+        max-width: ef.get-value($themeDefault, 'errorsMaxWidth');
         opacity: 0;
         visibility: hidden;
-        color: map-get($themeDefault, 'errorsColor');
-        border-radius: map-get($themeDefault, 'errorsBorderRadius');
-        font-size: map-get($themeDefault, 'errorsFontSize');
-        padding: map-get($themeDefault, 'errorsPadding');
+        border-radius: ef.get-value($themeDefault, 'errorsBorderRadius');
         z-index: 10;
         margin-left: 20px;
         list-style: none;
 
+        @include text.get-text-style('PrimaryText', ef.get-value($themeDefault, 'errorsColor'));
+
         .wlc-textarea & {
             position: absolute;
-            background: map-get($themeDefault, 'errorsBgColor');
+            background: ef.get-value($themeDefault, 'errorsBgColor');
             top: 35px;
             right: 0;
             width: fit-content;
-            min-width: map-get($themeDefault, 'errorsMinWidth');
-            max-width: map-get($themeDefault, 'errorsMaxWidth');
+            min-width: ef.get-value($themeDefault, 'errorsMinWidth');
+            max-width: ef.get-value($themeDefault, 'errorsMaxWidth');
             opacity: 0;
             visibility: hidden;
-            color: map-get($themeDefault, 'errorsColor');
-            border-radius: map-get($themeDefault, 'errorsBorderRadius');
-            font-size: map-get($themeDefault, 'errorsFontSize');
-            padding: map-get($themeDefault, 'errorsPadding');
+            border-radius: ef.get-value($themeDefault, 'errorsBorderRadius');
+            padding: ef.get-value($themeDefault, 'errorsPadding');
             z-index: 10;
+
+            @include text.get-text-style('PrimaryText', ef.get-value($themeDefault, 'errorsColor'));
 
             &:before {
                 content: '';
                 border: 8px solid transparent;
-                border-bottom-color: map-get($themeDefault, 'errorsBgColor');
+                border-bottom-color: ef.get-value($themeDefault, 'errorsBgColor');
                 position: absolute;
                 top: -15px;
                 right: 13px;
@@ -152,7 +154,7 @@
         &:before {
             content: '';
             border: 8px solid transparent;
-            border-bottom-color: map-get($themeDefault, 'errorsBgColor');
+            border-bottom-color: ef.get-value($themeDefault, 'errorsBgColor');
             position: absolute;
             top: -15px;
             right: 13px;

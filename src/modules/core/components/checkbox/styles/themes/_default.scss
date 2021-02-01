@@ -1,3 +1,6 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/mixins/text' as text;
 @import '../utils/vars';
 
 @keyframes bounceInCheck {
@@ -25,7 +28,7 @@
     .wlc-checkbox {
 
         &__label {
-            padding: map-get($themeDefault, 'checkboxPadding');
+            padding: ef.get-value($themeDefault, 'checkboxPadding');
 
             user-select: none;
             cursor: pointer;
@@ -33,42 +36,42 @@
 
         &__elem {
             position: absolute;
-            top: map-get($themeDefault, 'checkboxElemTop');
-            left: map-get($themeDefault, 'checkboxElemLeft');
+            top: ef.get-value($themeDefault, 'checkboxElemTop');
+            left: ef.get-value($themeDefault, 'checkboxElemLeft');
 
             display: flex;
             justify-content: center;
             align-items: center;
 
-            width: map-get($themeDefault, 'checkboxElemSize');
-            height: map-get($themeDefault, 'checkboxElemSize');
+            width: ef.get-value($themeDefault, 'checkboxElemSize');
+            height: ef.get-value($themeDefault, 'checkboxElemSize');
 
-            background: map-get($themeDefault, 'checkboxElemBackground');
+            background: ef.get-value($themeDefault, 'checkboxElemBackground');
 
-            border: map-get($themeDefault, 'checkboxElemBorder');
-            border-radius: map-get($themeDefault, 'checkboxElemBorderRadius');
+            border: ef.get-value($themeDefault, 'checkboxElemBorder');
+            border-radius: ef.get-value($themeDefault, 'checkboxElemBorderRadius');
             transition: transform 0.2s ease-out;
 
             ::ng-deep {
 
                 .wlc-icon-content {
                     display: none;
-                    line-height: map-get($themeDefault, 'iconLineHieght');
+                    line-height: ef.get-value($themeDefault, 'iconLineHieght');
                 }
 
                 svg {
-                    width: map-get($themeDefault, 'iconSvgWidth');
-                    height: map-get($themeDefault, 'iconSvgHeight');
+                    width: ef.get-value($themeDefault, 'iconSvgWidth');
+                    height: ef.get-value($themeDefault, 'iconSvgHeight');
 
-                    stroke: map-get($themeDefault, 'iconSvgStroke');
-                    stroke-width: map-get($themeDefault, 'iconSvgStrokeWidth');
-                    fill: map-get($themeDefault, 'iconSvgFill');
+                    stroke: ef.get-value($themeDefault, 'iconSvgStroke');
+                    stroke-width: ef.get-value($themeDefault, 'iconSvgStrokeWidth');
+                    fill: ef.get-value($themeDefault, 'iconSvgFill');
                 }
             }
 
             &.checked {
-                background: map-get($themeDefault, 'checkboxElemBackgroundChecked');
-                border-color: map-get($themeDefault, 'checkboxElemBorderColor');
+                background: ef.get-value($themeDefault, 'checkboxElemBackgroundChecked');
+                border-color: ef.get-value($themeDefault, 'checkboxElemBorderColor');
 
                 transform: scale(1);
                 animation: bounceInCheck 0.5s forwards;
@@ -84,17 +87,17 @@
     }
 
     .wlc-checkbox__text {
-        font-size: map-get($themeDefault, 'textFontSize');
-        color: map-get($themeDefault, 'textColor');
+        font-size: ef.get-value($themeDefault, 'textFontSize');
+        color: ef.get-value($themeDefault, 'textColor');
 
         margin-bottom: 0;
     }
 
     .wlc-checkbox__link {
-        color: map-get($themeDefault, 'linkColor');
+        color: ef.get-value($themeDefault, 'linkColor');
 
         &:hover {
-            color: map-get($themeDefault, 'linkHoverColor');
+            color: ef.get-value($themeDefault, 'linkHoverColor');
             text-decoration: none;
         }
     }
@@ -106,7 +109,7 @@
     &.wlc-checkbox--text-left {
 
         .wlc-checkbox {
-            padding: map-get($themeDefault, 'leftTextPadding');
+            padding: ef.get-value($themeDefault, 'leftTextPadding');
 
             &__elem {
                 left: unset;
@@ -118,24 +121,24 @@
     &.wlc-checkbox--type-toggle {
 
         .wlc-checkbox {
-            width: map-get($themeDefault, 'toggleWidth');
-            height: map-get($themeDefault, 'toggleHeight');
+            width: ef.get-value($themeDefault, 'toggleWidth');
+            height: ef.get-value($themeDefault, 'toggleHeight');
             display: flex;
             align-items: center;
-            padding: map-get($themeDefault, 'togglePadding');
+            padding: ef.get-value($themeDefault, 'togglePadding');
 
             &__elem {
                 z-index: 3;
                 cursor: pointer;
-                background: map-get($themeDefault, 'toggleBackground');
-                border-radius: map-get($themeDefault, 'toggleRadius');
+                background: ef.get-value($themeDefault, 'toggleBackground');
+                border-radius: ef.get-value($themeDefault, 'toggleRadius');
                 border: none;
                 width: 100%;
                 height: 100%;
 
                 &.checked + .wlc-checkbox__text {
                     padding-left: 0;
-                    padding-right: map-get($themeDefault, 'toggleOffset');
+                    padding-right: ef.get-value($themeDefault, 'toggleOffset');
                 }
 
                 &.checked::ng-deep {
@@ -155,11 +158,11 @@
                     content: '';
                     position: absolute;
                     top: 50%;
-                    left: map-get($themeDefault, 'toggleCircleOffset');
+                    left: ef.get-value($themeDefault, 'toggleCircleOffset');
                     transform: translateY(-50%);
-                    height: map-get($themeDefault, 'toggleCircleSize');
-                    width: map-get($themeDefault, 'toggleCircleSize');
-                    background-color: map-get($themeDefault, 'toggleCircleBg');
+                    height: ef.get-value($themeDefault, 'toggleCircleSize');
+                    width: ef.get-value($themeDefault, 'toggleCircleSize');
+                    background-color: ef.get-value($themeDefault, 'toggleCircleBg');
                     border-radius: 50%;
                     @include bm.transition(left);
                 }
@@ -167,12 +170,9 @@
 
             &__text {
                 position: relative;
-                font: {
-                    size: 14px;
-                    weight: bold;
-                }
-                padding-left: map-get($themeDefault, 'toggleOffset');
+                padding-left: ef.get-value($themeDefault, 'toggleOffset');
                 padding-right: 0;
+                @include text.get-text-style('ThirdTitleBold');
                 @include bm.transition(padding);
             }
         }

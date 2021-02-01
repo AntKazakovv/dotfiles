@@ -17,10 +17,8 @@
     padding: ef.get-value($themeDefault, 'padding');
     background: ef.get-value($themeDefault, 'background');
 
-    color: ef.get-value($themeDefault, 'fontColor');
-
     .wlc-btn__text {
-        @include text.get-text-style(ButtonText);
+        @include text.get-text-style('ButtonText', ef.get-value($themeDefault, 'fontColor'));
         grid-column: 2;
         text-transform: ef.get-value($themeDefault, 'textTransform');
     }
@@ -45,7 +43,7 @@
 
         &:hover {
             background: ef.get-value($themeDefault, 'backgroundSecondary');
-            border: ef.get-value($themeDefault, 'borderSecondaryHover');
+            border-color: ef.get-value($themeDefault, 'backgroundSecondary');
             color: ef.get-value($themeDefault, 'fontColorActiveSecondary');
         }
     }

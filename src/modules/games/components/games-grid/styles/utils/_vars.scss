@@ -1,19 +1,22 @@
 @use 'engine-scss/functions' as ef;
+$customThemeDefault: () !default;
 
-$headerColor: ef.get('color', 'main') !default;
-$allLinkColor: ef.get('color', 'link') !default;
+$themeDefault: map-merge((
+    'headerColor': ef.get('mainColors', 'baseMain'),
+    'allLinkColor': ef.get('mainColors', 'main'),
 
-//$currentGap: ef.get('size', 'main') !default;
-$currentGap: 10px !default;
-$contentPadding: ef.get('size', 'big') !default;
-$listMargin: ef.get('size', 'big') !default;
+    //$currentGap: ef.get('size', 'main') !default;
+    'currentGap': 10px,
+    'contentPadding': ef.get('size', 'big'),
+    'listMargin': ef.get('size', 'big'),
 
-$itemMinWidth: 220px !default;
-$itemMinWidthTablet: 225px !default;
-$itemMinWidthMobile: 180px !default;
-$itemHeight: 150px !default;
+    'itemMinWidth': 220px,
+    'itemMinWidthTablet': 225px,
+    'itemMinWidthMobile': 180px,
+    'itemHeight': 150px,
 
-$placeholderBackground: ef.get('color', 'backgroundSecondary') !default;
-$placeholderBorderRadius: ef.get('radius', 'less') !default;
-$placeholderTextColor: ef.get('color', 'textSecondary') !default;
+    'placeholderBackground': ef.get('color', 'backgroundSecondary'),
+    'placeholderBorderRadius': ef.get('radius', 'less'),
+    'placeholderTextColor': ef.get('color', 'textSecondary'),
+), $customThemeDefault);
 

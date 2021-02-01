@@ -10,29 +10,29 @@
         .wlc-payment-list {
 
             &__ul {
-                margin: $listMargin;
-                padding: $listPadding;
+                margin: map-get($themeDefault, 'listMargin');
+                padding: map-get($themeDefault, 'listPadding');
                 display: grid;
-                grid-template-columns: repeat(auto-fill, minmax($listItemSize, 1fr));
-                column-gap: $listGridColumnGup;
-                row-gap: $listGridRowGup;
+                grid-template-columns: repeat(auto-fill, minmax(map-get($themeDefault, 'listItemSize'), 1fr));
+                column-gap: map-get($themeDefault, 'listGridColumnGup');
+                row-gap: map-get($themeDefault, 'listGridRowGup');
                 list-style-type: none;
             }
 
             &__button {
                 height: 100%;
-                width: $itemWidth;
-                border: $itemBorder;
-                background: $itemBg;
-                border-radius: $itemBorderRadius;
-                padding: $itemPadding;
+                width: map-get($themeDefault, 'itemWidth');
+                border: map-get($themeDefault, 'itemBorder');
+                background: map-get($themeDefault, 'itemBg');
+                border-radius: map-get($themeDefault, 'itemBorderRadius');
+                padding: map-get($themeDefault, 'itemPadding');
                 cursor: pointer;
-                transition: $itemTransition;
-                color: $itemSvgColor;
+                transition: map-get($themeDefault, 'itemTransition');
+                color: map-get($themeDefault, 'itemSvgColor');
 
                 &:hover {
-                    box-shadow: $itemBoxShadowHover;
-                    color: $itemSvgColorHover;
+                    box-shadow: map-get($themeDefault, 'itemBoxShadowHover');
+                    color: map-get($themeDefault, 'itemSvgColorHover');
                 }
 
                 &:focus {
@@ -40,15 +40,15 @@
                 }
 
                 &.active {
-                    border-color: $itemBorderColorActive;
-                    box-shadow: $itemBoxShadowActive;
-                    color: $itemSvgColorActive;
+                    border-color: map-get($themeDefault, 'itemBorderColorActive');
+                    box-shadow: map-get($themeDefault, 'itemBoxShadowActive');
+                    color: map-get($themeDefault, 'itemSvgColorActive');
                 }
             }
 
             &__image {
-                width: $imageWidth;
-                height: $imagHeight;
+                width: map-get($themeDefault, 'imageWidth');
+                height: map-get($themeDefault, 'imagHeight');
 
                 ::ng-deep {
                     @include iconInside();
@@ -56,18 +56,18 @@
             }
 
             &__btn-modal {
-                border: $btnBorder;
-                border-radius: $btnBorderRadius;
-                background: $btnBg;
-                color: $btnColor;
-                padding: $btnPadding;
+                border: map-get($themeDefault, 'btnBorder');
+                border-radius: map-get($themeDefault, 'btnBorderRadius');
+                background: map-get($themeDefault, 'btnBg');
+                color: map-get($themeDefault, 'btnColor');
+                padding: map-get($themeDefault, 'btnPadding');
                 display: flex;
                 align-items: center;
-                justify-content: $btnJustifyContent;
-                width: $btnWidth;
-                max-width: $btnMaxWidth;
-                height: $btnHeight;
-                margin: $btnMargin;
+                justify-content: map-get($themeDefault, 'btnJustifyContent');
+                width: map-get($themeDefault, 'btnWidth');
+                max-width: map-get($themeDefault, 'btnMaxWidth');
+                height: map-get($themeDefault, 'btnHeight');
+                margin: map-get($themeDefault, 'btnMargin');
 
                 &.selected {
                     overflow: hidden;
@@ -79,8 +79,8 @@
             }
 
             &__btn-modal-arrow {
-                margin: $btnArrowMargin;
-                color: $btnArrowColor;
+                margin: map-get($themeDefault, 'btnArrowMargin');
+                color: map-get($themeDefault, 'btnArrowColor');
 
                 svg {
                     fill: currentColor;
@@ -89,47 +89,46 @@
 
             &__btn-modal-text {
                 display: block;
-                padding: $btnTextPadding;
-                font-size: $btnTextFontSize;
+                padding: map-get($themeDefault, 'btnTextPadding');
+                font-size: map-get($themeDefault, 'btnTextFontSize');
             }
 
             &__btn-modal-image {
-                background: $btnImageBg;
-                padding: $btnImagePadding;
-                width: $btnImageWidth;
-                height: $btnImageHeight;
-                color: $btnImageSvgColor;
+                background: map-get($themeDefault, 'btnImageBg');
+                padding: map-get($themeDefault, 'btnImagePadding');
+                width: map-get($themeDefault, 'btnImageWidth');
+                height: map-get($themeDefault, 'btnImageHeight');
+                color: map-get($themeDefault, 'btnImageSvgColor');
                 @include iconInside();
             }
 
             &__title {
-                @include text.get-text-style(ThirdTitle);
-                color: $titleColor;
-                text-align: $titleTextAlign;
-                margin: $titleMargin;
+                @include text.get-text-style('ThirdTitle', map-get($themeDefault, 'titleColor'));
+                text-align: map-get($themeDefault, 'titleTextAlign');
+                margin: map-get($themeDefault, 'titleMargin');
             }
 
             &__sys-table {
-                width: $tableWidth;
-                max-width: $tableMaxWidth;
-                margin: $tableMargin;
-                color: $tableColor;
+                width: map-get($themeDefault, 'tableWidth');
+                max-width: map-get($themeDefault, 'tableMaxWidth');
+                margin: map-get($themeDefault, 'tableMargin');
+                color: map-get($themeDefault, 'tableColor');
             }
 
             &__sys-tr {
-                border-top: $tableTrBorderTop;
+                border-top: map-get($themeDefault, 'tableTrBorderTop');
             }
 
             &__sys-th {
-                font-weight: $tableThFontWeight;
-                color: $tableThColor;
-                padding: $tableThPadding;
+                font-weight: map-get($themeDefault, 'tableThFontWeight');
+                color: map-get($themeDefault, 'tableThColor');
+                padding: map-get($themeDefault, 'tableThPadding');
             }
 
             &__sys-td {
-                text-align: $tableTdAlignment;
-                color: $tableTdColor;
-                padding: $tableTdPadding;
+                text-align: map-get($themeDefault, 'tableTdAlignment');
+                color: map-get($themeDefault, 'tableTdColor');
+                padding: map-get($themeDefault, 'tableTdPadding');
             }
         }
     }

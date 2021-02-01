@@ -1,13 +1,14 @@
 @use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/functions' as ef;
 
 .wlc-feedback-form--theme-default:host {
-    margin: map-get($themeDefault, 'margin');
+    margin: ef.get-value($themeDefault, 'margin');
 
     .wlc-feedback-form__header {
-        font-size: map-get($themeDefault, 'headerFontSize');
-        color: map-get($themeDefault, 'headerColor');
-        margin: map-get($themeDefault, 'headerMargin');
-        font-weight: map-get($themeDefault, 'headerFontWeight');
+        font-size: ef.get-value($themeDefault, 'headerFontSize');
+        color: ef.get-value($themeDefault, 'headerColor');
+        margin: ef.get-value($themeDefault, 'headerMargin');
+        font-weight: ef.get-value($themeDefault, 'headerFontWeight');
     }
 
     .wlc-feedback-form-details {
@@ -15,19 +16,19 @@
         flex-wrap: wrap;
 
         flex-direction: row;
-        margin: 0 map-get($themeDefault, 'contactsGap') * -1.5;
+        margin: 0 ef.get-value($themeDefault, 'contactsGap') * -1.5;
 
         @include mq.min(1024) {
-            margin: 0 map-get($themeDefault, 'contactsGap') * -3;
+            margin: 0 ef.get-value($themeDefault, 'contactsGap') * -3;
         }
     }
 
     .wlc-feedback-form-details__item {
-        margin-bottom: map-get($themeDefault, 'contactsGap');
-        padding: 0 map-get($themeDefault, 'contactsGap') * 1.5;
+        margin-bottom: ef.get-value($themeDefault, 'contactsGap');
+        padding: 0 ef.get-value($themeDefault, 'contactsGap') * 1.5;
 
         @include mq.min(1024) {
-            padding: 0 map-get($themeDefault, 'contactsGap') * 3;
+            padding: 0 ef.get-value($themeDefault, 'contactsGap') * 3;
             max-width: 50%;
         }
 
@@ -44,44 +45,44 @@
         }
 
         span {
-            font-size: map-get($themeDefault, 'contactsHeaderFontSize');
-            color: map-get($themeDefault, 'detailsHeaderColor');
+            font-size: ef.get-value($themeDefault, 'contactsHeaderFontSize');
+            color: ef.get-value($themeDefault, 'detailsHeaderColor');
 
             @include mq.min(1024) {
-                font-size: map-get($themeDefault, 'contactsHeaderFontSize') * 1.3;
+                font-size: ef.get-value($themeDefault, 'contactsHeaderFontSize') * 1.3;
             }
         }
 
         a,
         span:nth-child(2) {
-            font-size: map-get($themeDefault, 'contactsContentFontSize');
+            font-size: ef.get-value($themeDefault, 'contactsContentFontSize');
             max-width: 100%;
             overflow: hidden;
             text-overflow: ellipsis;
-            font-weight: map-get($themeDefault, 'contactsHeaderFontWeight');
+            font-weight: ef.get-value($themeDefault, 'contactsHeaderFontWeight');
 
-            color: map-get($themeDefault, 'contactsContentColor');
+            color: ef.get-value($themeDefault, 'contactsContentColor');
             text-decoration: none;
-            transition: map-get($themeDefault, 'transition');
+            transition: ef.get-value($themeDefault, 'transition');
 
             &:hover {
-                color: map-get($themeDefault, 'contactsContentColorHover');
+                color: ef.get-value($themeDefault, 'contactsContentColorHover');
             }
         }
     }
 
     hr {
-        background: map-get($themeDefault, 'hrColor');
+        background: ef.get-value($themeDefault, 'hrColor');
         opacity: 1;
         height: 2px;
-        margin: map-get($themeDefault, 'hrMargin');
+        margin: ef.get-value($themeDefault, 'hrMargin');
     }
 
     &::ng-deep {
 
         .wlc-input,
         .wlc-textarea {
-            margin-bottom: map-get($themeDefault, 'formElementsGap');
+            margin-bottom: ef.get-value($themeDefault, 'formElementsGap');
         }
     }
 }

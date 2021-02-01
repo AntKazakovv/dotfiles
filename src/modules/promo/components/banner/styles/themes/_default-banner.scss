@@ -1,6 +1,7 @@
 @use 'engine-scss/mixins/text' as lib;
 @use 'engine-scss/mixins/base.mixins' as em;
 @use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/functions' as ef;
 
 .wlc-banner--theme-default-banner:host {
 
@@ -9,7 +10,7 @@
         .banner {
             display: flex;
             align-items: center;
-            background: map-get($themeDefaultBanner, 'background');
+            background: ef.get-value($themeDefaultBanner, 'background');
 
             @include em.get-mq-map('min-height', $themeDefaultBanner, 'height');
 
@@ -20,25 +21,25 @@
 
         .banner__title {
             @include lib.get-text-style('QoteTextBold');
-            color: map-get($themeDefaultBanner, 'colorTitle');
+            color: ef.get-value($themeDefaultBanner, 'colorTitle');
 
             @include em.get-mq-map('text-align', $themeDefaultBanner, 'textAlign');
 
             @include mq.min(768) {
                 @include lib.get-text-style('ScreamTitle');
-                color: map-get($themeDefaultBanner, 'colorTitle');
+                color: ef.get-value($themeDefaultBanner, 'colorTitle');
             }
         }
 
         .banner__description {
             @include lib.get-text-style('PrimaryText');
-            color: map-get($themeDefaultBanner, 'colorDescription');
+            color: ef.get-value($themeDefaultBanner, 'colorDescription');
 
             @include em.get-mq-map('text-align', $themeDefaultBanner, 'textAlign');
 
             @include mq.min(768) {
                 @include lib.get-text-style('QoteTextBold');
-                color: map-get($themeDefaultBanner, 'colorDescription');
+                color: ef.get-value($themeDefaultBanner, 'colorDescription');
             }
         }
     }

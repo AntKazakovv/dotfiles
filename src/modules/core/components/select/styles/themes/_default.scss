@@ -11,7 +11,7 @@
     .wlc-select {
 
         &__label {
-            @include text.get-text-style('PrimaryText', map-get($themeDefault, 'labelColor'));
+            @include text.get-text-style('PrimaryText', ef.get-value($themeDefault, 'labelColor'));
         }
 
         &__group {
@@ -21,26 +21,26 @@
 
         &__field {
             width: 100%;
-            border: map-get($themeDefault, 'selectBorder');
-            border-radius: map-get($themeDefault, 'selectBorderRadius');
-            padding: map-get($themeDefault, 'selectPadding');
+            border: ef.get-value($themeDefault, 'selectBorder');
+            border-radius: ef.get-value($themeDefault, 'selectBorderRadius');
+            padding: ef.get-value($themeDefault, 'selectPadding');
             overflow: visible;
             text-overflow: ellipsis;
-            background: map-get($themeDefault, 'selectBackground');
-            text-align: map-get($themeDefault, 'selectTextAlign');
-            color: map-get($themeDefault, 'selectColor');
-            height: map-get($themeDefault, 'selectHeight');
+            background: ef.get-value($themeDefault, 'selectBackground');
+            text-align: ef.get-value($themeDefault, 'selectTextAlign');
+            color: ef.get-value($themeDefault, 'selectColor');
+            height: ef.get-value($themeDefault, 'selectHeight');
 
             &:focus {
                 outline: none;
-                border-color: map-get($themeDefault, 'selectBorderFocusColor');
+                border-color: ef.get-value($themeDefault, 'selectBorderFocusColor');
             }
 
             &.ng-touched {
 
                 &.ng-invalid {
-                    background: map-get($themeDefault, 'errorsBgColor');
-                    border-color: darken(map-get($themeDefault, 'errorsBgColor'), 10%);
+                    background: ef.get-value($themeDefault, 'errorsBgColor');
+                    border-color: darken(ef.get-value($themeDefault, 'errorsBgColor'), 10%);
                 }
             }
         }
@@ -51,11 +51,11 @@
             &-item {
                 @include dropdownItemBase;
 
-                color: map-get($themeDefault, 'selectDropdownItemColor');
+                color: ef.get-value($themeDefault, 'selectDropdownItemColor');
 
                 &:hover {
-                    background: darken(map-get($themeDefault, 'selectDropdownBackground'), 20);
-                    transition: map-get($themeDefault, 'selectDropdownItemTransition');
+                    background: darken(ef.get-value($themeDefault, 'selectDropdownBackground'), 20);
+                    transition: ef.get-value($themeDefault, 'selectDropdownItemTransition');
                 }
             }
         }

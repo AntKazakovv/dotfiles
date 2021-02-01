@@ -14,9 +14,9 @@
             auto-flow: column;
             gap: ef.get-value($submenuProfileDefault, 'menuGap');
         }
-        @include bm.get-mq-map('margin', $submenuProfileDefault, submenuMargin);
+        @include bm.get-mq-map('margin', $submenuProfileDefault, 'submenuMargin');
         width: 100%;
-        border-bottom: map-get($submenuProfileDefault, submenuBorderBottom);
+        border-bottom: ef.get-value($submenuProfileDefault, 'submenuBorderBottom');
 
         ::ng-deep {
 

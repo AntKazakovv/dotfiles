@@ -1,62 +1,57 @@
 @use 'engine-scss/functions' as ef;
 
-//common
-$breakpoint: 480 !default;
+$customThemeDefault: () !default;
 
-// Grid
-$gridTemplateColumns: 1fr !default;
-$gridGap: 20px !default;
-$commonColor: ef.get('mainColors', 'baseMain') !default;
+$themeDefault: map-merge((
+    //common
+    'breakpoint': 480,
+    // Grid
+    'gridTemplateColumns': 1fr,
+    'gridGap': 20px,
+    'commonColor': ef.get('mainColors', 'baseMain'),
 
-// Title
-$titleFontSize: 20px !default;
-$titleFontWeight: 700 !default;
-$titleColor: ef.get('mainColors', 'baseMain') !default;
-
-// Divider
-$dividerMargin: 10px 0 !default;
-$dividerBg: ef.get('mainColors', 'baseOpacity') !default;
-$dividerHeight: 2px !default;
-$dividerWidth: 100% !default;
-
-// Step
-$step1Bg: ef.get('mainColors', 'gray900') !default;
-$step1BorderRadius: ef.get('radius', 'biger') !default;
-$step1Padding: 15px !default;
-$step1Margin: 0 0 20px !default;
-$step1BgBr: transparent !default;
-$step1BorderRadiusBr: 0 !default;
-$step1PaddingBr: 0 !default;
-$step1MarginBr: 0 !default;
-
-// Subtitle
-$subtitleFontSize: 16px !default;
-$subtitleFontWeight: 700 !default;
-$subtitleMargin: 0 0 20px !default;
-$subtitleColor: ef.get('mainColors', 'baseMain') !default;
-$subtitleAlignment: center !default;
-$subtitleStepColor: ef.get('mainColors', 'main') !default;
-$subtitleStepMargin: 0 0 10px !default;
-$subtitleAlignmentBr: left !default;
-$subtitleFontWeightBr: normal !default;
-
-// Errors
-$errorsColor: ef.get('color', 'error') !default;
-$errorsMargin: 0 0 20px !default;
-
-$errorsMessageMargin: 0 0 10px !default;
-
-$errorsUlMargin: 0 0 20px !default;
-$errorsUlPadding: 0 0 0 15px !default;
-
-$errorsLiType: none !default;
-$errorsLiBeforeDisplay: inline-block !default;
-$errorsLiBeforeContent: '-' !default;
-$errorsLiBeforeMargin: 0 5px 0 0 !default;
-
-// Forms
-$formWidth: 100% !default;
-$formMaxWidth: 288px !default;
-$formInputMarginBottom: 15px !default;
-$formAmountButtonMargin: 0 auto !default;
-$formAmountButtonMarginBr: 0 !default;
+    // Title
+    'titleFontSize': 20px,
+    'titleFontWeight': 700,
+    'titleColor': ef.get('mainColors', 'baseMain'),
+    // Divider
+    'dividerMargin': 10px 0,
+    'dividerBg': ef.get('mainColors', 'baseOpacity'),
+    'dividerHeight': 2px,
+    'dividerWidth': 100%,
+    // Step
+    'step1Bg': ef.get('mainColors', 'bg'),
+    'step1BorderRadius': ef.get('radius', 'biger'),
+    'step1Padding': 15px,
+    'step1Margin': 0 0 20px,
+    'step1BgBr': transparent,
+    'step1BorderRadiusBr': 0,
+    'step1PaddingBr': 0,
+    'step1MarginBr': 0,
+    // Subtitle
+    'subtitleFontSize': 16px,
+    'subtitleFontWeight': 700,
+    'subtitleMargin': 0 0 20px,
+    'subtitleColor': ef.get('mainColors', 'baseMain'),
+    'subtitleAlignment': center,
+    'subtitleStepColor': ef.get('mainColors', 'main'),
+    'subtitleStepMargin': 0 0 10px,
+    'subtitleAlignmentBr': left,
+    'subtitleFontWeightBr': normal,
+    // Errors
+    'errorsColor': ef.get('color', 'error'),
+    'errorsMargin': 0 0 20px,
+    'errorsMessageMargin': 0 0 10px,
+    'errorsUlMargin': 0 0 20px,
+    'errorsUlPadding': 0 0 0 15px,
+    'errorsLiType': none,
+    'errorsLiBeforeDisplay': inline-block,
+    'errorsLiBeforeContent': '-',
+    'errorsLiBeforeMargin': 0 5px 0 0,
+    // Forms
+    'formWidth': 100%,
+    'formMaxWidth': 288px,
+    'formInputMarginBottom': 15px,
+    'formAmountButtonMargin': 0 auto,
+    'formAmountButtonMarginBr': 0,
+), $customThemeDefault);

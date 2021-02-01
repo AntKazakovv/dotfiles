@@ -10,10 +10,9 @@
         .wlc-link-block {
 
             &__title {
-                @include text.get-text-style(PlaceholderText);
-                @include baseText(center, ef.get-value($themeDefault, 'titleColor'));
-
+                @include text.get-text-style('PlaceholderText', ef.get-value($themeDefault, 'titleColor'));
                 margin: ef.get-value($themeDefault, 'titleMargin');
+                text-align: center;
 
                 &:last-child {
                     margin-bottom: 0;
@@ -21,10 +20,9 @@
             }
 
             &__subtitle {
-                @include text.get-text-style(PlaceholderText);
-                @include baseText(center, ef.get-value($themeDefault, 'subtitleColor'));
-
+                @include text.get-text-style('PlaceholderText', ef.get-value($themeDefault, 'subtitleColor'));
                 margin: ef.get-value($themeDefault, 'subtitleMargin');
+                text-align: center;
 
                 &:last-child {
                     margin-bottom: 0;
@@ -37,8 +35,8 @@
                 justify-content: center;
 
                 .wlc-btn {
-                    @include text.get-text-style(PlaceholderTextBold);
-                    @include baseText(center, ef.get-value($themeDefault, 'linkColor'));
+                    @include text.get-text-style(PlaceholderTextBold, ef.get-value($themeDefault, 'linkColor'));
+                    text-align: center;
 
                     &:hover {
                         color: ef.get-value($themeDefault, 'linkColorHover');

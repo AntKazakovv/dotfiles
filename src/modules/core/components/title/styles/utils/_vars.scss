@@ -7,7 +7,7 @@ $themeDefault: map-merge((
         375: ef.get('font', 'big'),
     ),
     'mainColor': (
-        375:ef.get('color', 'text'),
+        375:ef.get('mainColors', 'baseMain'),
     ),
     'mainFontWeight': (
         375: bold,
@@ -20,7 +20,7 @@ $themeDefault: map-merge((
         375: ef.get('font', 'big')
     ),
     'secondColor': (
-        375: ef.get('color', 'text')
+        375: ef.get('mainColors', 'baseMain')
     ),
     'secondFontWeight': (
         375: bold

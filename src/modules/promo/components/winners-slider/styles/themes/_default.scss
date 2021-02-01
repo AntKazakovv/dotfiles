@@ -37,8 +37,7 @@
         }
 
         &__title {
-            @include text.get-text-style(QoteTextBold);
-            color: ef.get-value($themeDefault, 'titleColor');
+            @include text.get-text-style('QoteTextBold', ef.get-value($themeDefault, 'titleColor'));
             @include em.get-mq-map('margin-bottom', $themeDefault, 'titleMarginBottom');
             @include em.get-mq-map('padding-right', $themeDefault, 'titlePaddingRight');
             @include em.get-mq-map('flex', $themeDefault, 'titleFlex');
