@@ -4,9 +4,9 @@ $customThemeDefault: () !default;
 $themeDefault: map-merge((
     sectionPadding: (
         375: 0,
-        768: 10px 10px,
-        1024: 15px 20px 15px 30px,
-        1420: 15px 30px 15px 50px,
+        768: ef.get('size', 'small'),
+        1024: ef.get('size', 'smally') ef.get('size', 'smally') ef.get('size', 'smally') ef.get('size', 'main'),
+        1420: ef.get('size', 'smally') ef.get('size', 'smally') ef.get('size', 'smally') ef.get('size', 'biger'),
     ),
     sectionRadius: (
         375: 0,
@@ -21,15 +21,15 @@ $themeDefault: map-merge((
         768: ef.get('mainColors', 'bg')
     ),
     buttonSearchPadding: (
-        375: 12px 15px,
+        375: ef.get('size', 'small') ef.get('size', 'smally'),
     ),
     buttonSearchRadius: (
-        375: 10px,
+        375: ef.get('radius', 'biger'),
     ),
     buttonSearchColor: ef.get('mainColors', 'baseMain'),
     buttonSearchBgHover: darken(ef.get('mainColors', 'baseMain'), 20%),
     buttonSearchIconFill: ef.get('mainColors', 'main'),
-    buttonSearchIconMargin: 12px,
-    buttonMerchMargin: 30px,
+    buttonSearchIconMargin: ef.get('size', 'small'),
+    buttonMerchMargin: ef.get('size', 'smally'),
 ), $customThemeDefault);
 
