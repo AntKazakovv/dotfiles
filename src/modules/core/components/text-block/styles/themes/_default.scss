@@ -1,29 +1,31 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/text' as text;
 @import '../utils/vars';
-@import '../utils/mixins';
 
 .wlc-text-block {
 
     &__head {
-        margin: $headMargin;
+        margin: ef.get-value($themeDefault, 'headMargin');
+    }
+
+    &__title {
+        @include text.get-text-style(ef.get-value($themeDefault, 'titleFontSize'), ef.get-value($themeDefault, 'titleColor'));
+        margin: ef.get-value($themeDefault, 'titleMargin');
+    }
+
+    &__subtitle {
+        @include text.get-text-style(ef.get-value($themeDefault, 'subtitleFontSize'), ef.get-value($themeDefault, 'subtitleColor'));
+        margin: ef.get-value($themeDefault, 'subtitleMargin');
     }
 
     &__title,
     &__subtitle {
         text-align: center;
-        color: $titleColor;
 
         &:last-child {
             margin-bottom: 0;
         }
     }
 
-    &__title {
-        @include common($titleFontSize, $titleFontWeight, $titleMargin);
-    }
 
-    &__subtitle {
-        @include common($subtitleFontSize, $subtitleFontWeight, $subtitleMargin);
-
-        line-height: $subtitleLineHeight;
-    }
 }

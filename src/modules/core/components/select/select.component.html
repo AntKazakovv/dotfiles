@@ -20,8 +20,13 @@
          [validators]="$params?.validators"
          [fieldName]="$params.name.toLowerCase()"
     ></div>
-    <div class="{{$class}}-status" *ngIf="control.untouched">
-        <span class="{{$class}}-status__arrow" wlc-icon iconName="arrow"></span>
+    <div class="{{$class}}-status">
+        <span
+            *ngIf="control.untouched"
+            class="{{$class}}-status__arrow"
+            wlc-icon iconName="arrow"
+            (click)="toggleDropdown()"
+        ></span>
     </div>
 
     <ul class="{{$class}}__dropdown" *ngIf="isOpened">

@@ -55,6 +55,7 @@
     right: ef.get-value($themeDefault, 'iconRightShift');
     top: 50%;
     transform: translateY(-50%);
+    cursor: pointer;
 
     ::ng-deep {
 

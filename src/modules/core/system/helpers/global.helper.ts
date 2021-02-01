@@ -91,4 +91,10 @@ export class GlobalHelper {
             }
         });
     }
+
+    public static parseHtmlSafely(htmlTemplate: string): string {
+        const html = new DOMParser().parseFromString(htmlTemplate, 'text/html');
+
+        return new XMLSerializer().serializeToString(html);
+    }
 }

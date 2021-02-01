@@ -70,6 +70,10 @@ export const signInFormConfig: IFormWrapperCParams = {
                         name: 'minLength',
                         options: 6,
                     },
+                    {
+                        name: 'maxLength',
+                        options: 50,
+                    },
                 ],
             },
         },
@@ -89,6 +93,7 @@ export const signInFormConfig: IFormWrapperCParams = {
                     text: gettext('Login'),
                     typeAttr: 'submit',
                 },
+                themeMod: 'secondary',
             },
         },
         {

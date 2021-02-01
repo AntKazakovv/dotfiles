@@ -7,7 +7,6 @@ import {FormGroup} from '@angular/forms';
 import {StateService} from '@uirouter/core';
 
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {AppModule} from 'wlc-engine/modules/app/app.module';
 import {
     EventService,
     ModalService,
@@ -41,7 +40,6 @@ export class NewPasswordFormComponent extends AbstractComponent {
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.INewPasswordFormCParams,
-        protected app: AppModule,
         protected stateService: StateService,
         protected userService: UserService,
         protected modalService: ModalService,
@@ -55,7 +53,7 @@ export class NewPasswordFormComponent extends AbstractComponent {
 
     public async ngSubmit(form: FormGroup): Promise<void> {
         const {newPassword, confirmPassword} = form.value;
-        const code = this.app.initialPath.code;
+        const code = this.injectParams.common.code;
 
         try {
             await this.userService.restoreNewPassword(newPassword, confirmPassword, code);

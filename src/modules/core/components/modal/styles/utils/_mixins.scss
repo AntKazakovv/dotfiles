@@ -46,3 +46,9 @@
     font-weight: $fontWeight;
     margin: $margin;
 }
+
+@mixin ellipsisText() {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

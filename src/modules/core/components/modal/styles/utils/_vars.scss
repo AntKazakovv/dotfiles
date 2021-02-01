@@ -1,51 +1,70 @@
 @use 'engine-scss/functions' as ef;
+$customHostModal: () !default;
+$hostModal: map-merge((
+    'modalXlSize': ef.get('modalSize', 'xl'),
+    'modalLgSize': ef.get('modalSize', 'lg'),
+    'modalMdSize': ef.get('modalSize', 'md'),
+    'modalSmSize': ef.get('modalSize', 'sm'),
+    'modalXsSize': ef.get('modalSize', 'xs'),
 
-$modalLgSize: 800px !default;
-$modalMdSize: 500px !default;
-$modalSmSize: 300px !default;
+    'closePosRight': 20px,
+    'closePosTop': 31px,
+    'closeSize': 30px,
+    'closeLineStroke': ef.get('mainColors', 'baseOpacity'),
 
-$closePosRight: 20px !default;
-$closePosTop: 20px !default;
+    'modalHeaderColor': ef.get('mainColors', 'baseMain'),
+    'modalBodyColor': ef.get('mainColors', 'baseMain'),
+    'modalBg': ef.get('mainColors', 'bgModal'),
+    'modalOffset': 0 auto,
+    'modalBorder': 1px solid rgba(ef.get('mainColors', 'bg'), $alpha: 0.2),
+    'modalBorderRadius': ef.get('radius', 'small'),
+    'modalHeaderPadding': ef.get('size', 'less'),
+    'modalBodyPadding': ef.get('size', 'less'),
+    'modalFooterPadding': ef.get('size', 'less'),
+    'modalHeaderBorderBottom': 1px solid ef.get('mainColors', 'bg'),
+    'modalFooterBorderTop': 1px solid transparent,
+    'modalFooterJustify': center,
+    'modalBackdrop': ef.get('mainColors', 'bg'),
+    'modalAnimation': 'fadeLeft',
+    'modalAnimationSettings': 0.5s forwards ease-in-out,
 
-$modalHeaderColor: #fff !default;
-$modalBodyColor: $modalHeaderColor !default;
+    'modalZIndex': 1050,
+    'modalPosition': 0,
+    'backdropZIndex': 1040,
+    'backdropPosition': 0,
+    'backdropBackground': ef.get('mainColors', 'bg'),
 
-$modalBg: ef.get('color', 'modal') !default;
-$modalOffset: 0 auto !default;
-$modalBorder: 1px solid rgba($color: #000000, $alpha: 0.2) !default;
-$modalBorderRadius: ef.get('radius', 'small') !default;
+    'titleFontSize': 'QoteTextBold',
+    'titleMargin': 0,
+    'titleColor': ef.get('mainColors', 'baseMain'),
+    'titleMaxWidth': 100%,
+    'titlePadding': 0 ef.get('size', 'main') 0 0,
+    'titlePaddingLeft':  70px,
 
-$modalHeaderPadding: 1rem !default;
-$modalHeaderBorderBottom: 1px solid #000 !default;
+    'backBtnTopPostion' : 31px,
+    'backBtnLeftPostion' : 26px,
+    'backBtnMaxWidth': ef.get('size', 'big'),
+    'backBtnWidth': auto,
+    'backBtnFontSize': 'PrimaryText',
+    'backBtnPadding': 2px,
+    'backBtnColor': ef.get('mainColors', 'baseMain'),
+    'backBtnIconColor': ef.get('mainColors', 'baseMain'),
+    'backBtnIconLineHeight': 0,
+    'backBtnIconMargin': 0 ef.get('size', 'smallest') 0 0,
 
-$modalBodyPadding: $modalHeaderPadding !default;
+    'messageColor': ef.get('mainColors', 'baseMain'),
 
-$modalFooterPadding: $modalHeaderPadding !default;
-$modalFooterBorderTop: 1px solid #000 !default;
-$modalFooterJustify: center !default;
+    'paddingDefault': 3rem 4rem,
+    'paddingHeadless': 0,
 
-$modalBackdrop: #000 !default;
-
-$modalAnimation: 'fadeLeft';
-$modalAnimationSettings: 0.5s forwards ease-in-out;
-
-$modalZIndex: 1050 !default;
-$backdropZIndex: 1040 !default;
-$backdropPosition: 0 !default;
-$backdropBackground: ef.get('color', 'backdropBackground') !default;
-
-$titleFontSize: 24px !default;
-$titleFontWeight: 700 !default;
-$titleMargin: 0 !default;
-$titleColor: ef.get('color', 'text') !default;
-
-$messageColor: ef.get('color', 'text') !default;
-
-$paddingDefault: 1.5rem 2rem;
+), $customHostModal);
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'dialogBackground': ef.get('color', 'dialogBackground'),
-    'dialogBorder': 1px solid rgba($color: #000000, $alpha: 0.2),
-    'dialogBorderRadius': 15px
+    'dialogBackground': ef.get('mainColors', 'bgModal'),
+    'dialogBorder': 1px solid rgba(ef.get('mainColors', 'bg'), $alpha: 0.2),
+    'dialogBorderRadius': ef.get('radius', 'big'),
+    'titleFontSize': 'QoteTextBold',
+    'titleMargin': 0,
+    'titleColor': ef.get('mainColors', 'baseMain'),
 ), $customThemeDefault);

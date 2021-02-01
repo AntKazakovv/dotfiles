@@ -64,7 +64,7 @@ $themeVertical: map-merge((
 
     'inputWidth': 100%,
     'inputHeight': 40px,
-    'inputPadding': 5px 13px,
+    'inputPadding': ef.get('form', 'inputPadding'),
     'inputPaddingRight': 80px,
     'inputFontSize': ef.get('font', 'smaller'),
     'inputFontWeight': 400,

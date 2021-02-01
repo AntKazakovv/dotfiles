@@ -54,7 +54,7 @@ export class EnterPromocodeComponent
         theme: 'default',
         common: {
             placeholder: gettext('Enter promo code'),
-            useLable: false,
+            useLabel: false,
         },
         control: new FormControl(''),
     };

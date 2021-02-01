@@ -45,6 +45,14 @@ export interface IModalConfig extends IModalBsOptions {
      */
     modifier?: 'info' | 'confirmation' | 'error' | string;
     /**
+     *  If need use back button in modal.
+     */
+    useBackButton?: boolean;
+    /**
+     *  Text for back button.
+     */
+    backButtonText?: string;
+    /**
      * Title. If title empty modal-header has class `no-title`
      */
     modalTitle?: string;
@@ -63,9 +71,17 @@ export interface IModalConfig extends IModalBsOptions {
      */
     modalMessage?: string | string[];
     /**
+     * Align text. Left by default
+     */
+    textAlign?: string;
+    /**
      * Text of close button. `Close` by default
      */
     closeBtnText?: string;
+    /**
+     * Сlose button visibility. Visible(true) by default
+     */
+    closeBtnVisibility?: boolean;
     /**
      * Show confirm button. `false` by default
      */
@@ -147,6 +163,7 @@ export interface IModalList {
 
 export type ModalTheme = 'default';
 export type ModalType = 'default';
+
 /**
  * Modal window params
  */

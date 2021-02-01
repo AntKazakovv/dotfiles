@@ -17,7 +17,7 @@ export interface IInputCParams extends IComponentParams<ComponentTheme, Componen
         type?: string;
         customModifiers?: CustomMod;
         usePasswordVisibilityBtn?: boolean;
-        useLable?: boolean;
+        useLabel?: boolean;
     }
     validators?: ValidatorType[];
     control?: FormControl;
@@ -32,6 +32,6 @@ export const defaultParams: Partial<IInputCParams> = {
     common: {
         type: 'text',
         usePasswordVisibilityBtn: false,
-        useLable: true,
+        useLabel: true,
     },
 };

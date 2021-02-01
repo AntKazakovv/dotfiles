@@ -7,7 +7,7 @@ describe('WlcModalComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [WlcModalComponent]
+            declarations: [WlcModalComponent],
         })
             .compileComponents();
     }));

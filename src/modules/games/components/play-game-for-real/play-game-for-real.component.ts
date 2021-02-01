@@ -74,14 +74,11 @@ export class PlayGameForRealComponent extends AbstractComponent implements OnIni
         this.onPlayDemo();
     }
 
-    public async ngSubmit(form: FormGroup): Promise<void> {
+    public ngSubmit(form: FormGroup): void {
         const {email, login, password} = form.value;
         const loginParam = email ? email : login;
-        try {
-            await this.userService.login(loginParam, password);
-        } catch (error) {
-            this.logService.sendLog({code: '1.2.0', data: error});
-        }
+
+        this.userService.loginRequest(loginParam, password);
     }
 
     /**

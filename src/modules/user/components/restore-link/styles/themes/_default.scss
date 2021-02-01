@@ -1,14 +1,13 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/text' as text;
+
 .wlc-restore-link {
 
     &:host {
-        text-align: $alignText;
+        text-align: ef.get-value($themeDefault, 'alignText') ;
 
         .wlc-btn {
-            font: {
-                size: $fontSize;
-                weight: $fontWeight;
-            }
-            color: $colorLink;
+            @include text.get-text-style(ef.get-value($themeDefault, 'linkFontSize'), ef.get-value($themeDefault, 'linkColor'));
 
             &:hover {
                 text-decoration: underline;

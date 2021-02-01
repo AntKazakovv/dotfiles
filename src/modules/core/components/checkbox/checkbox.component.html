@@ -13,9 +13,12 @@
         </span>
         <div class="{{$class}}__text">
             {{'I agree with' | translate}}
-            <a uiSref="app.contacts({slug: 'terms-and-conditions'})" class="{{$class}}__link">
+            <span
+                class="{{$class}}__link"
+                (click)="showModal('staticText', 'terms-and-conditions')"
+            >
                 {{'Terms and Conditions' | translate}}
-            </a>
+            </span>
         </div>
     </label>
 

@@ -8,7 +8,10 @@ import {
 import {FormControl} from '@angular/forms';
 
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes';
-import {ConfigService} from 'wlc-engine/modules/core';
+import {
+    ConfigService,
+    ModalService,
+} from 'wlc-engine/modules/core';
 
 import * as Params from './checkbox.params';
 
@@ -30,6 +33,7 @@ export class CheckboxComponent extends AbstractComponent implements OnInit {
         @Inject('injectParams') protected injectParams: any,
         protected configService: ConfigService,
         protected cdr: ChangeDetectorRef,
+        protected modalService: ModalService,
     ) {
         super({injectParams, defaultParams: Params.defaultParams});
     }
@@ -38,6 +42,10 @@ export class CheckboxComponent extends AbstractComponent implements OnInit {
         super.ngOnInit(this.inlineParams);
         this.control = this.$params?.control;
         this.prepareModifiers();
+    }
+
+    public showModal(name: string, slug: string): void {
+        this.modalService.showModal(name, {slug});
     }
 
     protected onChange(event) {

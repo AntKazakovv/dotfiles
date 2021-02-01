@@ -9,6 +9,7 @@ import {
 import {
     DataService,
     EventService,
+    LogService,
     ModalService,
 } from 'wlc-engine/modules/core/system/services';
 import {
@@ -62,10 +63,11 @@ export class UserService {
 
     constructor(
         public translate: TranslateService,
-        protected dataService: DataService,
-        protected eventService: EventService,
-        protected configService: ConfigService,
-        protected modalService: ModalService,
+        private dataService: DataService,
+        private eventService: EventService,
+        private configService: ConfigService,
+        private logService: LogService,
+        private modalService: ModalService,
         private stateService: StateService,
     ) {
         this.isAuthenticated = this.configService.get('$user.isAuthenticated');
@@ -182,12 +184,12 @@ export class UserService {
         this.dataService.request('user/userLogout');
     }
 
-    public createUserProfile(userProfile: IUserProfile): void {
-        this.dataService.request('user/createProfile', userProfile as any);
+    public createUserProfile(userProfile: IUserProfile): Promise<IIndexing<any>> {
+        return this.dataService.request('user/createProfile', userProfile as any);
     }
 
-    public registrationComplete(code: string): void {
-        this.dataService.request('user/registrationComplete', {code});
+    public registrationComplete(code: string): Promise<IIndexing<any>> {
+        return this.dataService.request('user/registrationComplete', {code});
     }
 
     public async updateProfile(profile: IUserProfile, updatePartial: boolean = false): Promise<true | IIndexing<any>> {
@@ -233,9 +235,9 @@ export class UserService {
         return this.dataService.request('user/restoreNewPassword', params);
     }
 
-    public validateRestoreCode(code: string = ''): void {
+    public validateRestoreCode(code: string = ''): Promise<IIndexing<any>> {
         const params = {action: 'checkRestoreCode', code};
-        this.dataService.request('user/validateRestoreCode', params);
+        return this.dataService.request('user/validateRestoreCode', params);
     }
 
     public setNewPassword(password: string, newPassword: string): Promise<IIndexing<any>> {
@@ -289,6 +291,19 @@ export class UserService {
 
     public fetchUserProfile(): Promise<IData> {
         return this.dataService.request('user/userProfile');
+    }
+
+    public async loginRequest(loginParam: string, password: string): Promise<void> {
+        try {
+            await this.login(loginParam, password);
+            this.modalService.closeModal('login');
+        } catch (error) {
+            this.modalService.showError({
+                modalMessage: error.errors,
+            });
+
+            this.logService.sendLog({code: '1.2.0', data: error});
+        }
     }
 
     private fetchUserInfo(): void {
