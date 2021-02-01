@@ -7,6 +7,8 @@ import {
     each as _each,
     mergeWith as _mergeWith,
     isArray as _isArray,
+    isUndefined as _isUndefined,
+    keys as _keys,
 } from 'lodash-es';
 
 export class GlobalHelper {
@@ -96,5 +98,29 @@ export class GlobalHelper {
         const html = new DOMParser().parseFromString(htmlTemplate, 'text/html');
 
         return new XMLSerializer().serializeToString(html);
+    }
+
+    /**
+     * @ngdoc method
+     * @name prepareParams
+     * @param {unknown} instance of class
+     * @param {string[]} inputProperties array of @Input properties
+     * @returns {T} inline params
+     * @description
+     *
+     * prepare component params
+     */
+    public static prepareParams<T>(instance: unknown, inputProperties: string[] = []): T {
+        const inlineParams: any = {
+            common: {},
+        };
+
+        _each(inputProperties, property => {
+            if (!_isUndefined(_get(instance, property))) {
+                inlineParams.common[property] = _get(instance, property);
+            }
+        });
+
+        return _keys(inlineParams.common).length ? inlineParams : null;
     }
 }

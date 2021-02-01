@@ -18,7 +18,7 @@ import {
 } from 'wlc-engine/modules/promo/components/slider/slider.params';
 import {SliderComponent} from 'wlc-engine/modules/promo/components/slider/slider.component';
 import {BonusItemComponent} from '../bonus-item/bonus-item.component';
-import {ConfigService} from 'wlc-engine/modules/core';
+import {CachingService, ConfigService} from 'wlc-engine/modules/core';
 import {EventService} from 'wlc-engine/modules/core/system/services';
 import {Bonus} from '../../system/models/bonus';
 import {BonusesService} from '../../system/services';
@@ -38,6 +38,7 @@ import {
     reduce as _reduce,
     filter as _filter,
     find as _find,
+    concat as _concat,
 } from 'lodash-es';
 
 export {IBonusesListCParams} from './bonuses-list.params';
@@ -66,20 +67,32 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
     };
     public slides: ISlide[] = [];
 
+    protected promocode: string = '';
+
     constructor(
         @Inject('injectParams') protected params: Params.IBonusesListCParams,
-        protected cdr: ChangeDetectorRef,
-        protected ConfigService: ConfigService,
         protected bonusesService: BonusesService,
+        protected cachingService: CachingService,
+        protected ConfigService: ConfigService,
+        protected cdr: ChangeDetectorRef,
         protected eventService: EventService,
     ) {
         super(
-            <IMixedParams<Params.IBonusesListCParams>>{injectParams: params, defaultParams: Params.defaultParams}, ConfigService);
+            <IMixedParams<Params.IBonusesListCParams>>{
+                injectParams: params,
+                defaultParams: Params.defaultParams,
+            }, ConfigService);
     }
 
-    public ngOnInit(): void {
+    public async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
         this.prepareModifiers();
+        this.setSubscription();
+
+        if (!this.bonusesService.promoBonus) {
+            await this.checkPromoBonus();
+        }
+
         this.isReady = false;
         if (this.$params.type === 'swiper') {
             this.sliderParams.swiper = this.$params.common?.swiper;
@@ -93,6 +106,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
                         this.bonuses = this.bonusesService.filterBonuses(bonuses, this.$params.common?.filter);
                         this.isReady = true;
                     }
+
                     this.prepareBonuses();
                     this.cdr.markForCheck();
                 },
@@ -141,36 +155,73 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
         this.cdr.markForCheck();
     }
 
-    protected sortBonuses(bonuses: Bonus[]): Bonus[] {
+    protected sortBonuses(): Bonus[] {
         if (!this.$params.common?.sortOrder) {
-            return bonuses;
+            return this.bonuses;
         }
+
+        if (!this.bonuses.length) return;
+
+        this.addPromoBonus();
 
         const result = _reduce(this.$params.common.sortOrder, (res, element) => {
             if (_isNumber(element)) {
-                return _unionBy(res, [_find(bonuses, (bonus) => bonus.id === element)], 'id');
+                return _unionBy(res, [_find(this.bonuses, (bonus) => bonus.id === element)], 'id');
             } else {
                 switch (element) {
                     case 'active':
-                        return _unionBy(res, _filter(bonuses, (bonus) => bonus.isActive), 'id');
+                        return _unionBy(res, _filter(this.bonuses, (bonus) => bonus.isActive), 'id');
                     case 'subscribe':
-                        return _unionBy(res, _filter(bonuses, (bonus) => bonus.isSubscribed), 'id');
+                        return _unionBy(res, _filter(this.bonuses, (bonus) => bonus.isSubscribed), 'id');
                     case 'inventory':
-                        return _unionBy(res, _filter(bonuses, (bonus) => bonus.inventoried), 'id');
+                        return _unionBy(res, _filter(this.bonuses, (bonus) => bonus.inventoried), 'id');
                     default:
-                        return _unionBy(res, bonuses, 'id');
+                        return _unionBy(res, this.bonuses, 'id');
                 }
             }
         }, []);
 
-        return (result.length === bonuses.length)
-            ? result : _unionBy(result, bonuses, 'id');
+        return (result.length === this.bonuses.length)
+            ? result : _unionBy(result, this.bonuses, 'id');
     }
 
     protected prepareBonuses(): void {
-        this.bonuses = this.sortBonuses(this.bonuses);
+        this.bonuses = this.sortBonuses();
         if (this.$params.type === 'swiper') {
             this.bonusesToSlides(this.bonuses);
         }
     }
+
+    protected setSubscription(): void {
+        this.unsubscribeFromBonusEvent();
+    }
+
+    protected unsubscribeFromBonusEvent(): void {
+        this.eventService.filter(
+            {name: 'UNSUBSCRIBE_FROM_BONUS'},
+            this.$destroy)
+            .subscribe({
+                next: async (unsubscribeBonus: any) => {
+                    this.bonuses = _filter(this.bonuses, bonus => bonus.id !== unsubscribeBonus.data.id);
+                },
+            });
+    }
+
+    protected addPromoBonus(): void {
+        if (!this.bonusesService.promoBonus) return;
+
+        this.bonuses = _concat(this.bonusesService.promoBonus, this.bonuses);
+        this.$params.common.sortOrder = _concat(this.bonusesService.promoBonus.id, this.$params.common.sortOrder);
+    }
+
+
+    protected async checkPromoBonus(): Promise<void> {
+        this.promocode = await this.cachingService.get(this.bonusesService.dbPromoUrl);
+
+        if (!this.promocode) return;
+
+        const bonus: Bonus[] = await this.bonusesService.getBonusesByCode(this.promocode);
+        this.bonusesService.promoBonus = bonus[0];
+    }
+
 }

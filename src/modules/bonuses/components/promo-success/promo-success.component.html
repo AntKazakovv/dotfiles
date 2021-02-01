@@ -1,0 +1,19 @@
+<div class="{{$class}}__container">
+    <h4 class="{{$class}}__title">{{$params.common.title}}</h4>
+
+    <span wlc-icon
+          [iconName]="$params.common.iconName"
+          class="{{$class}}__icon"
+    >
+    </span>
+
+    <div class="{{$class}}__text">{{$params.common.text}}</div>
+
+    <button
+        wlc-button
+        class="{{$class}}__btn"
+        [text]="$params.common.btnText"
+        (click)="goTo('app.profile.loyalty-bonuses.main')"
+    ></button>
+</div>
+

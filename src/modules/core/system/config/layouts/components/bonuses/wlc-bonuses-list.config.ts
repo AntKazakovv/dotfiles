@@ -7,6 +7,7 @@ export namespace wlcBonusesList {
             common: {
                 title: '',
                 filter: 'main',
+                sortOrder: ['active', 'subscribe', 'inventory'],
             },
         },
     };

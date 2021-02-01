@@ -6,9 +6,18 @@
 .wlc-enter-promocode--theme-default:host {
 
     .wlc-enter-promocode {
+        width: ef.get-value($themeDefault, 'baseWidth');
+        height: ef.get-value($themeDefault, 'baseHeight');
 
         &__container {
             @include em.get-mq-map('padding', $themeDefault, 'containerPadding');
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            height: ef.get-value($themeDefault, 'containerHeight');
 
             background: ef.get-value($themeDefault, 'containerBackground');
             box-shadow: ef.get-value($themeDefault, 'containerShadow');
@@ -17,12 +26,13 @@
         }
 
         &__title {
-            @include text.get-text-style('ThirdTitleBold', ef.get-value($themeDefault, 'titleColor'));
-            text-align: center;
+            @include text.get-text-style(ef.get-value($themeDefault, 'titleFontSize'), ef.get-value($themeDefault, 'titleColor'));
+            margin: ef.get-value($themeDefault, 'titleMargin');
         }
 
         &__control {
             position: relative;
+            width: ef.get-value($themeDefault, 'controlWidth');
         }
 
         &__btn {
@@ -60,6 +70,31 @@
 
             &:hover {
                 background: ef.get-value($themeDefault, 'btnBackgroundHover');
+            }
+
+            &.pending {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                background: lighten(ef.get-value($themeDefault, 'btnBackground'), 10%);
+
+                ::ng-deep {
+
+                    .wlc-btn__text {
+                        width: ef.get-value($themeDefault, 'btnIconSize');
+                        height: ef.get-value($themeDefault, 'btnIconSize');
+
+                        border: 2px solid ef.get-value($themeDefault, 'btnTextBorderColor');
+                        border-left-color: transparent;
+                        border-radius: ef.get-value($themeDefault, 'btnTextRadius');
+                        animation: spin 1s infinite linear;
+                    }
+
+                    svg {
+                        display: none;
+                    }
+                }
             }
         }
     }

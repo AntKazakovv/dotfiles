@@ -1,0 +1,50 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/text' as text;
+@import '../utils/vars';
+
+.wlc-promo-success--theme-default:host {
+
+
+    .wlc-promo-success {
+
+        &__container {
+            padding: ef.get-value($themeDefault, 'containerPadding');
+            text-align: center;
+        }
+
+        &__title {
+            @include text.get-text-style(ef.get-value($themeDefault, 'titleFontSize'), ef.get-value($themeDefault, 'titleColor'));
+
+            margin: ef.get-value($themeDefault, 'titleMargin');
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+
+        &__icon {
+            display: inline-block;
+
+            margin: ef.get-value($themeDefault, 'iconMargin');
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+
+        &__text {
+            @include text.get-text-style(ef.get-value($themeDefault, 'textFontSize'), ef.get-value($themeDefault, 'textColor'));
+            line-height: ef.get-value($themeDefault, 'textLineHieght');
+
+            margin: ef.get-value($themeDefault, 'textMargin');
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+
+        &__btn {
+            margin: 0 auto;
+        }
+    }
+}

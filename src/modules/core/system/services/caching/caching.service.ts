@@ -95,6 +95,10 @@ export class CachingService {
         }
     }
 
+    public claer(url: string): void {
+        this.set(url, null, true, 0);
+    }
+
     private async clearStashing(key: number, url: string): Promise<void> {
         if (this.dbSupport) {
             try {
