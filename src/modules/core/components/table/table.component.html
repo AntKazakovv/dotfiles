@@ -1,7 +1,7 @@
 <ng-container *ngIf='ready'>
 
     <div class="{{$class}}__row {{$class}}__row--head">
-        <span *ngFor="let col of head" class="{{$class}}__cell {{$class}}__cell--{{col.key}}">
+        <span *ngFor="let col of head" class="{{$class}}__cell {{$class}}__cell--{{col.key}}" [attr.data-wlc-element]="col.wlcElement">
             {{col.title | translate}}
         </span>
     </div>
@@ -13,6 +13,7 @@
              (click)="$first ? item.togleRow() : null"
              [ngClass]="[$first ? $class + '__cell--first' : '', (col.disableHideClass || $first) ? '' : 'wlc-cell-hide']"
              [@toggle]="animationStatus(col, item, $first)"
+             [attr.data-wlc-element]="col.wlcElement"
         >
             <ng-container [ngSwitch]="col.type">
                 <div class="{{$class}}__cell-label">{{col.title | translate}}:</div>

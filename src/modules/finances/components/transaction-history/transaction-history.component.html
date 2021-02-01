@@ -11,9 +11,9 @@
 </div>
 
 <ng-template #buttons>
-    <button wlc-button (click)="setFilter('all')" text="All"></button>
-    <button wlc-button (click)="setFilter('deposit')" text="Deposit"></button>
-    <button wlc-button (click)="setFilter('withdraw')" text="Withdraw"></button>
+    <button wlc-button (click)="setFilter('all')" text="All" [wlcElement]="'button_all'"></button>
+    <button wlc-button (click)="setFilter('deposit')" text="Deposit" [wlcElement]="'button_deposit'"></button>
+    <button wlc-button (click)="setFilter('withdraw')" text="Withdraw" [wlcElement]="'button_withdraw'"></button>
 </ng-template>
 
 <ng-template #preloader>
