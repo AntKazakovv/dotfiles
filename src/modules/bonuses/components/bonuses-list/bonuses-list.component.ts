@@ -150,7 +150,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
         });
 
         if (this.slider?.swiper) {
-            this.slider.swiper.swiper().slideTo(0);
+            this.slider.swiper.swiperRef.slideTo(0);
         }
         this.cdr.markForCheck();
     }
