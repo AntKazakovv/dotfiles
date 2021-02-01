@@ -31,4 +31,5 @@ export interface ITableCol {
     component?: string;
     componentClass?: unknown;
     disableHideClass?: boolean;
+    wlcElement?: string;
 }
