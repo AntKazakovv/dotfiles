@@ -12,7 +12,15 @@ import {
     Injector,
     ChangeDetectorRef,
 } from '@angular/core';
-import {SwiperDirective} from 'ngx-swiper-wrapper';
+import SwiperCore, {
+    EffectFade,
+    Navigation,
+    Pagination,
+    Autoplay,
+    Mousewheel,
+    Scrollbar,
+} from 'swiper/core';
+import {SwiperComponent} from 'swiper/angular';
 
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ConfigService} from 'wlc-engine/modules/core';
@@ -29,6 +37,15 @@ import {
     times as _times,
 } from 'lodash-es';
 
+SwiperCore.use([
+    EffectFade,
+    Navigation,
+    Pagination,
+    Autoplay,
+    Mousewheel,
+    Scrollbar,
+]);
+
 @Component({
     selector: '[wlc-slider]',
     templateUrl: './slider.component.html',
@@ -38,8 +55,7 @@ import {
 export class SliderComponent extends AbstractComponent
     implements OnInit, AfterViewInit, OnChanges {
 
-    @ViewChild(SwiperDirective) public swiper: SwiperDirective;
-    @ViewChild('sliderRef') public sliderRef: ElementRef;
+    @ViewChild(SwiperComponent) public swiper: ElementRef;
 
     @Input() public slides: Params.ISlide[];
     @Input() protected inlineParams: Params.ISliderCParams;
@@ -71,14 +87,12 @@ export class SliderComponent extends AbstractComponent
     }
 
     public ngAfterViewInit(): void {
-        this.updateSwiper();
         this.ready = true;
     }
 
     public ngOnChanges(): void {
         if (this.ready) {
             this.fixSlidesSequence();
-            this.updateSwiper();
         }
     }
 
@@ -136,27 +150,5 @@ export class SliderComponent extends AbstractComponent
             result = result.concat(realSequence);
         }
         return result;
-    }
-
-    protected updateSwiper(): void {
-        const {swiper} = this.$params;
-
-        if (swiper.autoplay) {
-            this.swiper.stopAutoplay(true);
-        }
-
-        if (swiper.loop) {
-            // loop fix
-            this.swiper.swiper().loopDestroy();
-            this.swiper.swiper().loopCreate();
-        }
-
-        if (swiper.autoplay) {
-            this.swiper.startAutoplay();
-        }
-
-        this.swiper.swiper().update();
-
-        this.cdr.detectChanges();
     }
 }

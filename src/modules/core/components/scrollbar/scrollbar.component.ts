@@ -1,34 +1,34 @@
+
 import {
     AfterViewChecked,
     ChangeDetectionStrategy,
+    ChangeDetectorRef,
     Component,
     Input,
     OnInit,
     ViewChild,
 } from '@angular/core';
-import {
-    SwiperConfigInterface,
-    SwiperDirective,
-} from 'ngx-swiper-wrapper';
+import {SwiperOptions} from 'swiper';
+import {SwiperComponent} from 'swiper/angular';
+import SwiperCore, {Scrollbar} from 'swiper/core';
 
 import {ConfigService} from 'wlc-engine/modules/core/system/services';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import * as Params from './scrollbar.params';
 
+SwiperCore.use([Scrollbar]);
 @Component({
     selector: '[wlc-scrollbar]',
     templateUrl: './scrollbar.component.html',
     styleUrls: ['./styles/scrollbar.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ScrollbarComponent extends AbstractComponent
-    implements OnInit, AfterViewChecked {
+export class ScrollbarComponent extends AbstractComponent implements OnInit {
 
-    @ViewChild(SwiperDirective) directiveRef: SwiperDirective;
+    @ViewChild(SwiperComponent) swiper: SwiperComponent;
 
     @Input() protected inlineParams: Params.IScrollbarCParams;
 
-    public swiperOptions: SwiperConfigInterface = Params.defaultSwiperOptions;
+    public swiperOptions: SwiperOptions = Params.defaultSwiperOptions;
 
     constructor(
         protected configService: ConfigService,
@@ -43,11 +43,7 @@ export class ScrollbarComponent extends AbstractComponent
         super.ngOnInit(this.inlineParams);
     }
 
-    public ngAfterViewChecked(): void {
-        this.directiveRef.update();
-    }
-
     public contentResizeHandler(): void {
-        this.directiveRef.update();
+        this.swiper.swiperRef.update();
     }
 }

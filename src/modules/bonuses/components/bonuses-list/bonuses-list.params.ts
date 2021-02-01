@@ -1,4 +1,5 @@
-import {SwiperConfigInterface} from 'ngx-swiper-wrapper';
+import {SwiperOptions} from 'swiper';
+
 import {
     IComponentParams,
     CustomType,
@@ -24,7 +25,7 @@ export interface IBonusesListCParams extends IComponentParams<Theme, Type, Theme
         filter?: BonusesFilterType;
         title?: string;
         sortOrder?: ('active' | 'subscribe' | 'inventory' | number)[],
-        swiper?: SwiperConfigInterface;
+        swiper?: SwiperOptions;
     };
 }
 

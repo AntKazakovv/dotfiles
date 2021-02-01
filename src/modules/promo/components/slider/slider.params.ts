@@ -1,5 +1,9 @@
-import {SwiperConfigInterface} from 'ngx-swiper-wrapper';
-import { Type, TemplateRef, Injector } from '@angular/core';
+import {
+    Type,
+    TemplateRef,
+    Injector,
+} from '@angular/core';
+import {SwiperOptions} from 'swiper';
 import {
     CustomType,
     IComponentParams,
@@ -32,7 +36,7 @@ export interface ISliderCParams extends IComponentParams<ComponentTheme, Compone
      * In parameters it takes the slick slider config (params.swiper).
      * See more: [slick docs]{@link https://kenwheeler.github.io/slick/}.
      */
-    swiper?: SwiperConfigInterface;
+    swiper?: SwiperOptions;
     /**
      * Component class. The default is "wlc-slider".
      */

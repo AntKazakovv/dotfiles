@@ -15,7 +15,6 @@ export namespace wlcBannersSlider {
                 pagination: {
                     clickable: true,
                     type: 'bullets',
-                    el: '.swiper-pagination',
                 },
             },
         },

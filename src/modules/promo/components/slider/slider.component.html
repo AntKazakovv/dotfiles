@@ -1,26 +1,11 @@
-<div #sliderRef [swiper]="$params.swiper" class="swiper-container">
-    <div class="swiper-wrapper">
-        <div class="swiper-slide"
-            *ngFor="let n of slidesSequence">
-            <ng-container [ngTemplateOutlet]="slide"
-                [ngTemplateOutletContext]="{slide: slides[n]}">
-            </ng-container>
-        </div>
-    </div>
-
-    <div class="swiper-navigation container" *ngIf="$params.swiper.navigation">
-        <div [ngClass]="[$params.swiper.navigation['prevEl'] ? $params.swiper.navigation['prevEl'] : 'swiper-button-prev']"></div>
-        <div [ngClass]="[$params.swiper.navigation['nextEl'] ? $params.swiper.navigation['nextEl'] : 'swiper-button-next']"></div>
-    </div>
-
-    <div *ngIf="$params.swiper.pagination"
-        [ngClass]="[$params.swiper.pagination['el'] ? $params.swiper.pagination['el'] : 'swiper-pagination']">
-    </div>
-
-    <div *ngIf="$params.swiper.scrollbar"
-    [ngClass]="[$params.swiper.scrollbar['el'] ? $params.swiper.scrollbar['el'] : 'swiper-scrollbar']">
-    </div>
-</div>
+<swiper [config]="$params.swiper">
+    <ng-template swiperSlide
+        *ngFor="let n of slidesSequence">
+        <ng-container [ngTemplateOutlet]="slide"
+            [ngTemplateOutletContext]="{slide: slides[n]}">
+        </ng-container>
+    </ng-template>
+</swiper>
 
 <ng-template #slide let-slide="slide">
     <ng-container [ngSwitch]="detectSlide(slide)">

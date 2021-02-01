@@ -1,4 +1,4 @@
-import {SwiperConfigInterface} from 'ngx-swiper-wrapper';
+import {SwiperOptions} from 'swiper';
 import {
     CustomType,
     IComponentParams,
@@ -14,14 +14,10 @@ export const defaultParams: IScrollbarCParams = {
     class: 'wlc-scrollbar',
 };
 
-export const defaultSwiperOptions: SwiperConfigInterface = {
+export const defaultSwiperOptions: SwiperOptions = {
     direction: 'vertical',
     slidesPerView: 'auto',
     freeMode: true,
-    scrollbar: {
-        el: '.swiper-scrollbar',
-        hide: false,
-    },
     mousewheel: true,
     freeModeMomentum: false,
     freeModeMomentumBounce: false,
