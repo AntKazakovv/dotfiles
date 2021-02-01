@@ -55,7 +55,7 @@ SwiperCore.use([
 export class SliderComponent extends AbstractComponent
     implements OnInit, AfterViewInit, OnChanges {
 
-    @ViewChild(SwiperComponent) public swiper: ElementRef;
+    @ViewChild(SwiperComponent) public swiper: SwiperComponent;
 
     @Input() public slides: Params.ISlide[];
     @Input() protected inlineParams: Params.ISliderCParams;
