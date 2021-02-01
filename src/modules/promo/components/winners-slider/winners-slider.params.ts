@@ -1,10 +1,9 @@
-import {SwiperConfigInterface} from 'ngx-swiper-wrapper';
+import {SwiperOptions} from 'swiper';
 import {
     CustomType,
     IComponentParams,
 } from 'wlc-engine/modules/core/system/interfaces/config.interface';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
-import {ISlide} from 'wlc-engine/modules/promo/components/slider/slider.params';
 import {IWinnerCParams} from 'wlc-engine/modules/promo/components/winner/winner.params';
 
 export type WinnersSliderType = 'latest' | 'biggest';
@@ -16,7 +15,7 @@ export interface IWinnersSliderCParams extends
     type: WinnersSliderType,
     title?: string,
     winner?: IWinnerCParams;
-    swiper?: SwiperConfigInterface;
+    swiper?: SwiperOptions;
     container?: boolean;
 };
 
@@ -25,7 +24,7 @@ export const defaultParams: IWinnersSliderCParams = {
     type: 'latest',
 };
 
-export const swiperParamsDefault: IIndexing<SwiperConfigInterface> = {
+export const swiperParamsDefault: IIndexing<SwiperOptions> = {
     default: {
         slidesPerView: 5,
         spaceBetween: 22,

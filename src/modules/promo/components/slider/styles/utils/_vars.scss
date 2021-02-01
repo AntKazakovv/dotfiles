@@ -64,6 +64,6 @@ $themeDefaultBanner: map-merge((
         375: ef.get('size', 'main'),
     ),
     'buttonGap': (
-        375: ef.get('size', 'small'),
+        375: ef.get('size', 'main') + ef.get('size', 'small'),
     ),
 ), $customThemeDefaultBanner);

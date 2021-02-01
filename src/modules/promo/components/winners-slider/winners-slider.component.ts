@@ -8,7 +8,7 @@ import {
     ViewChild,
     TemplateRef,
 } from '@angular/core';
-import {SwiperConfigInterface} from 'ngx-swiper-wrapper';
+import {SwiperOptions} from 'swiper';
 import {takeUntil} from 'rxjs/operators';
 
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
@@ -80,9 +80,9 @@ export class WinnersSliderComponent extends AbstractComponent implements OnInit 
         }
     }
 
-    protected responseToSlides(responce: WinnerModel[]): void {
+    protected responseToSlides(response: WinnerModel[]): void {
 
-        this.slides = responce.map((item: WinnerModel) => {
+        this.slides = response.map((item: WinnerModel) => {
             return {
                 component: WinnerComponent,
                 componentParams: _merge(
@@ -102,7 +102,7 @@ export class WinnersSliderComponent extends AbstractComponent implements OnInit 
 
     protected prepareSliderParams(): void {
 
-        let swiper: SwiperConfigInterface = _clone(Params.swiperParamsDefault[this.$params.theme])
+        let swiper: SwiperOptions = _clone(Params.swiperParamsDefault[this.$params.theme])
                                         || _clone(Params.swiperParamsDefault.default);
 
         if (this.$params.swiper) {

@@ -1,4 +1,4 @@
-import {SwiperConfigInterface} from 'ngx-swiper-wrapper';
+import {SwiperOptions} from 'swiper';
 import {
     IComponentParams,
     CustomType,
@@ -12,7 +12,7 @@ export type ComponentThemeMod = 'default' | CustomType;
 
 export interface IBannersSliderCParams extends IComponentParams<ComponentTheme, ComponentType, ComponentThemeMod> {
     filter?: IBannersFilter;
-    swiper?: SwiperConfigInterface;
+    swiper?: SwiperOptions;
     banner?: IBannerParams,
 };
 
@@ -22,7 +22,6 @@ export const defaultParams: IBannersSliderCParams = {
         slidesPerView: 1,
         loop: true,
         pagination: {
-            el: '.swiper-pagination',
             clickable: true,
         },
     },

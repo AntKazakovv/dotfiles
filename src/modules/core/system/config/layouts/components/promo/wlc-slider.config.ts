@@ -20,7 +20,6 @@ export namespace wlcSlider {
                 pagination: {
                     clickable: true,
                     type: 'bullets',
-                    el: '.swiper-pagination',
                 },
             },
         },

@@ -1,9 +1,8 @@
-<div class="{{$class}}__container swiper-container" [swiper]="swiperOptions">
-    <div class="{{$class}}__wrapper swiper-wrapper">
-        <div class="{{$class}}__slide swiper-slide"
+<swiper class="{{$class}}__container" [config]="swiperOptions" [scrollbar]="true">
+    <ng-template swiperSlide>
+        <div class="{{$class}}__slide"
             (resized)="contentResizeHandler()">
             <ng-content></ng-content>
         </div>
-    </div>
-    <div class="{{$class}}__scrollbar swiper-scrollbar"></div>
-</div>
+    </ng-template>
+</swiper>

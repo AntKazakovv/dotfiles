@@ -9,7 +9,7 @@ import {
 import {TranslateModule} from '@ngx-translate/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {UIRouterModule} from '@uirouter/angular';
-import {SwiperModule} from 'ngx-swiper-wrapper';
+import {SwiperModule} from 'swiper/angular';
 import {AngularResizedEventModule} from 'angular-resize-event';
 import {ModalModule} from 'ngx-bootstrap/modal';
 import {AngularMyDatePickerModule} from 'angular-mydatepicker';

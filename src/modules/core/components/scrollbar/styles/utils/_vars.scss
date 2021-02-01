@@ -1,12 +1,15 @@
 @use 'engine-scss/functions' as ef;
 
-$zindex: 30;
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'zIndex': 30,
 
-$scrollbarSize: ef.get('size', 'smallest');
-$scrollbarStretchSize: 98%;
-$scrollbarPadding: 3px;
-$scrollbarBackground: rgba($color: ef.get('color', 'text'), $alpha: 0.1);
-$scrollbarBorderRadius: ef.get('radius', 'main');
+    'scrollbarSize': ef.get('size', 'smallest'),
+    'scrollbarStretchSize': 98%,
+    'scrollbarPadding': 3px,
+    'scrollbarBackground': ef.get('mainColors', 'bg700'),
+    'scrollbarBorderRadius': ef.get('radius', 'main'),
 
-$draggerBackground: rgba($color: ef.get('color', 'text'), $alpha: 0.5);
-$draggerBorderRadius: $scrollbarBorderRadius;
+    'draggerBackground': ef.get('mainColors', 'bg100'),
+    'draggerBorderRadius': ef.get('radius', 'main'),
+), $customThemeDefault);

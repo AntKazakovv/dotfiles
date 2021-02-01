@@ -5,29 +5,25 @@
 .wlc-slider--theme-default-banner {
     @include em.get-mq-map('margin', $themeDefaultBanner, 'sectionsGap');
 
-    .swiper-navigation {
+    .swiper-button-prev,
+    .swiper-button-next {
         display: none;
 
         @include em.get-mq-map('bottom', $themeDefaultBanner, 'bottomGap');
 
         @include mq.min(768) {
             display: flex;
-            justify-content: flex-end;
-
-            position: absolute;
-            z-index: 1;
-            left: 50%;
-            transform: translateX(-50%);
+            top: auto;
         }
     }
 
-    .swiper-button-prev,
-    .swiper-button-next {
-        position: static;
-        margin: 0;
+    .swiper-button-prev {
+        left: auto;
+        @include em.get-mq-map('right', $themeDefaultBanner, 'bottomGap');
+        @include em.get-mq-map('margin-right', $themeDefaultBanner, 'buttonGap');
     }
 
-    .swiper-button-prev {
-        @include em.get-mq-map('margin-right', $themeDefaultBanner, 'buttonGap');
+    .swiper-button-next {
+        @include em.get-mq-map('right', $themeDefaultBanner, 'bottomGap');
     }
 }

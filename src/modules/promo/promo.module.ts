@@ -4,7 +4,7 @@ import {
     BannersService,
     WinnersService,
 } from './system/services';
-import {SwiperModule} from 'ngx-swiper-wrapper';
+import {SwiperModule} from 'swiper/angular';
 import {BannerComponent} from 'wlc-engine/modules/promo/components/banner/banner.component';
 import {SliderComponent} from 'wlc-engine/modules/promo/components/slider/slider.component';
 import {UserModule} from 'wlc-engine/modules/user/user.module';

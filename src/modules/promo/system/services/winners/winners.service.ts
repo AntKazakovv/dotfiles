@@ -43,7 +43,7 @@ export interface IWinnersParams {
 export enum WinnersServiceEvents {
     LATEST_WINS_GET = 'LATEST_WINNERS_GET',
     LATEST_WINS_SUCCESS = 'LATEST_WINNERS_SUCCESS',
-    LATEST_WINS_EERROR = 'LATEST_WINNERS_EERROR',
+    LATEST_WINS_ERROR = 'LATEST_WINNERS_ERROR',
     BIGGEST_WINS_GET = 'BIGGEST_WINS_GET',
     BIGGEST_WINS_SUCCESS = 'BIGGEST_WINS_SUCCESS',
     BIGGEST_WINS_ERROR = 'BIGGEST_WINS_ERROR',
@@ -122,7 +122,7 @@ export class WinnersService {
      * @returns {Observable<WinnerModel[]>} observable subject
      */
     public get latestWinsObserver(): Observable<WinnerModel[]> {
-        this.runLatestSream();
+        this.runLatestStream();
         return this.latestWins$.asObservable();
     }
 
@@ -131,7 +131,7 @@ export class WinnersService {
      * @returns {Observable<WinnerModel[]>} observable subject
      */
     public get biggestWinsObserver(): Observable<WinnerModel[]> {
-        this.runBiggestSream();
+        this.runBiggestStream();
         return this.biggestWins$.asObservable();
     }
 
@@ -170,7 +170,7 @@ export class WinnersService {
     /**
      * Subscribe on stream if no subscribers, send first request if no data
      */
-    protected runLatestSream(): void {
+    protected runLatestStream(): void {
         if (!this.latestWins$.observers?.length) {
             this.latestWins$.pipe(first()).subscribe(() => {
                 this.latestStream$.subscribe((data) => this.latestWins$.next(data));
@@ -188,7 +188,7 @@ export class WinnersService {
     /**
      * Subscribe on stream if no subscribers, send first request if no data
      */
-    protected runBiggestSream(): void {
+    protected runBiggestStream(): void {
         if (!this.biggestWins$.observers?.length) {
             this.biggestWins$.pipe(first()).subscribe(() => {
                 this.biggestStream$.subscribe((data) => this.biggestWins$.next(data));
@@ -266,7 +266,7 @@ export class WinnersService {
             type: 'GET',
             events: {
                 success: WinnersServiceEvents.LATEST_WINS_SUCCESS,
-                fail: WinnersServiceEvents.LATEST_WINS_EERROR,
+                fail: WinnersServiceEvents.LATEST_WINS_ERROR,
             },
             ...this.prepareParams('latestWins'),
         });
@@ -278,7 +278,7 @@ export class WinnersService {
             type: 'GET',
             events: {
                 success: WinnersServiceEvents.LATEST_WINS_SUCCESS,
-                fail: WinnersServiceEvents.LATEST_WINS_EERROR,
+                fail: WinnersServiceEvents.LATEST_WINS_ERROR,
             },
             ...this.prepareParams('biggestWins'),
         });
