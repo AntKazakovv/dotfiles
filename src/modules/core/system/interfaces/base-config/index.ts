@@ -4,8 +4,6 @@ import {IProfileConfig} from './profile.interface';
 import {ITournamentsConfig} from './tournaments.interface';
 import {IAppConfig} from './app.interface';
 
-
-
 export interface IBaseConfig {
     app?: IAppConfig;
     site?: {
@@ -16,4 +14,8 @@ export interface IBaseConfig {
     tournaments?: ITournamentsConfig,
     games?: IGamesConfig,
     device?: IDeviceConfig,
+    contacts?: {
+        phone?: string,
+        email?: string,
+    };
 }
