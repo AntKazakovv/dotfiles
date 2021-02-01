@@ -1,5 +1,5 @@
 import {FormControl} from '@angular/forms';
-import {IAngularMyDpOptions} from 'angular-mydatepicker';
+import {IAngularMyDpOptions, IMyDefaultMonth} from 'angular-mydatepicker';
 import {DateTime} from 'luxon';
 import {IMaskOptions} from 'wlc-engine/modules/core/directives/input-mask.directive';
 import {CustomType, IComponentParams} from 'wlc-engine/modules/core/system/classes';
@@ -14,9 +14,10 @@ export interface IDatepickerCParams extends IComponentParams<ComponentTheme, Com
     maskOptions?: IMaskOptions;
     label?: string;
     control?: FormControl;
+    defaultMonth?: IMyDefaultMonth;
 }
 
-const now = DateTime.local();
+const tomorrow = DateTime.local().plus({ days: 1 });
 
 export const defaultParams: Partial<IDatepickerCParams> = {
     class: 'wlc-datepicker',
@@ -24,9 +25,9 @@ export const defaultParams: Partial<IDatepickerCParams> = {
     datepickerOptions: {
         dateFormat: 'dd.mm.yyyy',
         disableSince: {
-            year: now.year,
-            month: now.month,
-            day: now.day + 1,
+            year: tomorrow.year,
+            month: tomorrow.month,
+            day: tomorrow.day,
         },
     },
     maskOptions: {

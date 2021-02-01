@@ -1,5 +1,5 @@
 <ng-template #default>
-    <label for="{{$params.name}}" class="{{$class}}__label">{{$params.label | translate}}</label>
+    <label (click)="dp.toggleCalendar()" class="{{$class}}__label">{{$params.label | translate}}</label>
     <div class="container">
         <input class="{{$class}}__input"
                #dp="angular-mydatepicker"
@@ -10,6 +10,10 @@
                [formControl]="control"
                [wlc-input-mask]="$params.maskOptions"
                (dateChanged)="onDateChanged()"
+               (click)="onDateChanged()"
+               [locale]="locale"
+               [defaultMonth]="defaultMonth"
+               inputmode="numeric"
         />
         <span wlc-icon
               class="{{$class}}__icon"

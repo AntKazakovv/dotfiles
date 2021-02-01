@@ -1,48 +1,55 @@
-@import '../utils/vars';
+@use 'engine-scss/mixins/text' as lib;
+@use 'engine-scss/functions' as ef;
 
 .wlc-datepicker--theme-default:host {
     position: relative;
-    max-width: $maxWidth;
+    max-width: ef.get-value($themeDefault, 'maxWidth');
 
     .container {
         position: relative;
     }
 
     .wlc-datepicker__label {
-        font-weight: $labelFontWeight;
-        font-size: $labelFontSize;
-        color: $labelColor;
-        padding: $labelPadding;
+        @include lib.get-text-style('SignText', ef.get-value($themeDefault, 'labelColor'));
+        padding: ef.get-value($themeDefault, 'labelPadding');
+        cursor: pointer;
     }
 
     .wlc-datepicker__input {
         width: 100%;
-        padding: $inputPadding;
-        border-radius: $inputBorderRadius;
-        border: $inputBorder;
-        color: $inputColor;
-        transition: $transition;
+        padding: ef.get-value($themeDefault, 'inputPadding');
+        border-radius: ef.get-value($themeDefault, 'inputBorderRadius');
+        border: ef.get-value($themeDefault, 'inputBorder');
+        color: ef.get-value($themeDefault, 'inputColor');
+        transition: ef.get-value($themeDefault, 'transition');
 
-        &.blank-mask {
-            color: $inputPlaceholderColor;
+        &.ng-untouched {
+            color: ef.get-value($themeDefault, 'inputPlaceholderColor');
         }
 
         &:focus {
             outline: none;
-            border: $inputFocusBorder;
+            border: ef.get-value($themeDefault, 'inputFocusBorder');
         }
     }
 
     .wlc-datepicker__icon {
         position: absolute;
-        top: 50%;
-        right: $iconRight;
-        transform: translateY(-50%);
-        width: $iconWidth;
-        height: $iconHeight;
+        top: 0;
+        right: 0;
+        height: 100%;
         cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: ef.get-value($themeDefault, 'iconPadding');
 
         &::ng-deep {
+
+            .wlc-icon-content {
+                width: ef.get-value($themeDefault, 'iconWidth');
+                height: ef.get-value($themeDefault, 'iconHeight');
+            }
 
             span,
             svg {
@@ -52,8 +59,104 @@
             }
 
             svg {
-                fill: $iconFill;
+                fill: ef.get-value($themeDefault, 'iconFill');
             }
+        }
+    }
+
+    ::ng-deep {
+
+        .ng-mydp * {
+            font-family: inherit;
+        }
+
+        .myDpSelector {
+            background: ef.get-value($themeDefault, 'datepickerBg');
+            border: none;
+            border-radius: ef.get-value($themeDefault, 'datepickerBorderRadius');
+            box-shadow: ef.get-value($themeDefault, 'datepickerBoxShadow');
+        }
+
+        .myDpSelectorArrow {
+
+            &:after {
+                border-color: transparent;
+                border-bottom-color: ef.get-value($themeDefault, 'datepickerBg');
+                border-width: 11px;
+                margin-left: -11px;
+            }
+        }
+
+        .myDpSelectedDay,
+        .myDpSelectedMonth,
+        .myDpSelectedYear {
+            background-color: ef.get-value($themeDefault, 'datepickerActiveColor') !important;
+
+            &:hover {
+                background-color: ef.get-value($themeDefault, 'datepickerHoverBg');
+            }
+        }
+
+        .myDpFooterBtn,
+        .myDpHeaderBtn,
+        .myDpMonthLabel,
+        .myDpYearLabel {
+
+            &:focus {
+                color: unset;
+            }
+
+            &:focus-visible {
+                color: ef.get-value($themeDefault, 'datepickerActiveColor');
+            }
+        }
+
+        .myDpCalTable,
+        .myDpDaycell,
+        .myDpMonthTable,
+        .myDpMonthcell,
+        .myDpWeekDayTitle,
+        .myDpYearTable,
+        .myDpYearcell,
+        .myDpIcon,
+        .myDpHeaderBtn,
+        .myDpHighlight {
+            color: ef.get-value($themeDefault, 'datepickerColor') !important;
+        }
+
+        .myDpMarkCurrDay,
+        .myDpMarkCurrMonth,
+        .myDpMarkCurrYear {
+            border-bottom: 2px solid ef.get-value($themeDefault, 'datepickerColor');
+        }
+
+        .myDpMonthYearSelBar,
+        .myDpDisabled {
+            background: ef.get-value($themeDefault, 'datepickerBg');
+        }
+
+        .myDpCurrMonth,
+        .myDpDaycell,
+        .myDpWeekDayTitle {
+            background: ef.get-value($themeDefault, 'datepickerBg');
+
+            &:hover {
+                background: ef.get-value($themeDefault, 'datepickerHoverBg');
+            }
+        }
+
+        .myDpPrevMonth {
+            opacity: ef.get-value($themeDefault, 'datepickerDisabledOpacity');
+        }
+
+        .myDpDisabled {
+            opacity: ef.get-value($themeDefault, 'datepickerDisabledOpacity');
+            cursor: not-allowed;
+        }
+
+        .myDpIcon {
+            font-family: angular-mydatepicker;
+            font-size: ef.get-value($themeDefault, 'datepickerIconSize');
         }
     }
 }
