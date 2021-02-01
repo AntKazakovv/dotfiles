@@ -1,3 +1,6 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/text' as text;
+
 .wlc-user-name--theme-default:host {
 
     .wlc-user-name {
@@ -26,9 +29,8 @@
             }
 
             &-value {
-                margin: map-get($themeDefault, 'userStatsEmailValueMargin');
-                @include text.get-text-style('PrimaryText');
-                color: map-get($themeDefault, 'userStatsEmailValueColor');
+                margin: ef.get-value($themeDefault, 'userStatsEmailValueMargin');
+                @include text.get-text-style('PrimaryText', ef.get-value($themeDefault, 'userStatsEmailValueColor'));
             }
         }
     }

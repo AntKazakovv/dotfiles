@@ -25,7 +25,7 @@
     &--type-dashboard {
 
         .swiper-container {
-            padding: 0 ($swiperNaviButtonSize /2 - 1);
+            padding: 0 (map-get($themeDefaultNavigation, 'swiperNaviButtonSize') /2 - 1);
         }
     }
 }

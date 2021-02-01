@@ -1,58 +1,58 @@
 @use 'engine-scss/functions' as ef;
 
+$customThemeDefaultNavigation: () !default;
 // Navigation
-$swiperNaviZindex: 10 !default;
-$swiperNaviAside: 10px !default;
-$swiperNaviTop: 50% !default;
+$themeDefaultNavigation: map-merge((
+    'swiperNaviZindex': 10,
+    'swiperNaviAside': 10px,
+    'swiperNaviTop': 50%,
+    'swiperNaviButtonSize': 40px,
+    'swiperNaviButtonBorderRadius': 6px,
+    'swiperNaviButtonBg': ef.get('mainColors', 'baseOpacity'),
+    'swiperNaviButtonBgHover': ef.get('mainColors', 'main'),
+    'swiperNaviButtonDisabledOpacity': 0.25,
+    'swiperNaviButtonTransition': all 0.3s,
+    'swiperNaviArrowSize': 40px / 3,
+    'swiperNaviArrowColor': ef.get('mainColors', 'baseMain'),
+    'swiperNaviArrowColorHover': ef.get('mainColors', 'baseMain'),
+), $customThemeDefaultNavigation);
 
-$swiperNaviButtonSize: 40px !default;
-$swiperNaviButtonBorderRadius: 6px !default;
-$swiperNaviButtonBg: ef.get('mainColors', 'baseOpacity') !default;
-$swiperNaviButtonBgHover: ef.get('mainColors', 'main') !default;
-$swiperNaviButtonDisabledOpacity: 0.25 !default;
-$swiperNaviButtonTransition: all 0.3s !default;
-
-$swiperNaviArrowSize: $swiperNaviButtonSize / 3 !default;
-$swiperNaviArrowColor: ef.get('mainColors', 'baseMain') !default;
-$swiperNaviArrowColorHover: $swiperNaviArrowColor !default;
-
-
+$customThemeDefaultPagination: () !default;
 // Pagination
-$swiperPagiZindex: 10 !default;
-$swiperPagiBottom: 10px !default;
-$swiperPagiVerticalAside: 10px !default;
+$themeDefaultPagination: map-merge((
+    'swiperPagiZindex': 10,
+    'swiperPagiBottom': 10px,
+    'swiperPagiVerticalAside': 10px,
+    'swiperPagiBulletWidth': 8px,
+    'swiperPagiBulletHeight': 8px,
+    'swiperPagiBulletColor': ef.get('color', 'secondary'),
+    'swiperPagiBulletColorActive': ef.get('color', 'main'),
+    'swiperPagiBulletWidthActive': 8px,
+    'swiperPagiBulletHeightActive': 8px,
+    'swiperPagiBulletBorderRadius': 50%,
+    'swiperPagiBulletTransition': all ef.get('time', 'main'),
+    'swiperPagiBulletDynamicSize': 12px,
+    'swiperPagiBulletMarginHorizontal': 0 4px,
+    'swiperPagiBulletMarginVertical': 6px 0,
+    'swiperPagiProgressbarBg': ef.get('color', 'secondary'),
+    'swiperPagiProgressbarBorderRadius': 4px,
+    'swiperPagiProgressbarBgFill': ef.get('color', 'main'),
+    'swiperPagiProgressbarHeight': 4px,
+), $customThemeDefaultPagination);
 
-$swiperPagiBulletWidth: 8px !default;
-$swiperPagiBulletHeight: 8px !default;
-$swiperPagiBulletColor: ef.get('color', 'secondary') !default;
-$swiperPagiBulletColorActive: ef.get('color', 'main') !default;
-$swiperPagiBulletWidthActive: $swiperPagiBulletWidth !default;
-$swiperPagiBulletHeightActive: $swiperPagiBulletHeight !default;
-$swiperPagiBulletBorderRadius: 50% !default;
-$swiperPagiBulletTransition: all ef.get('time', 'main') !default;
-
-$swiperPagiBulletDynamicSize: 12px !default;
-
-$swiperPagiBulletMarginHorizontal: 0 4px !default;
-$swiperPagiBulletMarginVertical: 6px 0 !default;
-
-$swiperPagiProgressbarBg: ef.get('color', 'secondary') !default;
-$swiperPagiProgressbarBorderRadius: 4px !default;
-$swiperPagiProgressbarBgFill: ef.get('color', 'main') !default;
-$swiperPagiProgressbarHeight: 4px !default;
-
-
+$customThemeDefaultScrollbar: () !default;
 // Scrollbar
-$swiperScrollbarZindex: 50 !default;
-$swiperScrollbarAside: 3px !default;
-$swiperScrollbarWidth: 4px !default;
-$swiperScrollbarHeight: 98% !default;
-$swiperScrollbarTopLeft: 1% !default;
-$swiperScrollbarBg: ef.get('color', 'secondary') !default;
-$swiperScrollbarBorderRadius: 10px !default;
-
-$swiperScrollbarDragBg:ef.get('color', 'main') !default;
-$swiperScrollbarDragBorderRadius: 10px !default;
+$themeDefaultScrollbar: map-merge((
+    'swiperScrollbarZindex': 50,
+    'swiperScrollbarAside': 3px,
+    'swiperScrollbarWidth': 4px,
+    'swiperScrollbarHeight': 98%,
+    'swiperScrollbarTopLeft': 1%,
+    'swiperScrollbarBg': ef.get('color', 'secondary'),
+    'swiperScrollbarBorderRadius': 10px,
+    'swiperScrollbarDragBg': ef.get('color', 'main'),
+    'swiperScrollbarDragBorderRadius': 10px,
+), $customThemeDefaultScrollbar);
 
 $customThemeDefaultBanner: () !default;
 $themeDefaultBanner: map-merge((

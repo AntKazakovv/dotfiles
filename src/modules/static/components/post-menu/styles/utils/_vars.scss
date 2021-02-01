@@ -1,22 +1,25 @@
 @use 'engine-scss/functions' as ef;
 
-$color: ef.get('mainColors', 'baseMain') !default;
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'color': ef.get('mainColors', 'baseMain'),
 
-$titleColor: ef.get('color', 'main') !default;
-$titleWeight: bold !default;
-$titlePadding: 0 0 ef.get('size', 'smaller') 0 !default;
+    'titleColor': ef.get('color', 'main'),
+    'titleWeight': bold,
+    'titlePadding': 0 0 ef.get('size', 'smaller') 0,
 
-$linksGap: ef.get('size', 'small') !default;
+    'linksGap': ef.get('size', 'small'),
 
-$linkColor: ef.get('mainColors', 'baseMain') !default;
-$linkSize: 100% !default;
-$linkDecoration: none !default;
+    'linkColor': ef.get('mainColors', 'baseMain'),
+    'linkSize': 100%,
+    'linkDecoration': none,
 
-// theme contacts
-$textColor: ef.get('mainColors', 'baseMain') !default;
-$fontWeight: 700 !default;
-$fontSize: ef.get('font', 'main') !default;
-$padding: 20px 25px !default;
+    // theme contacts
+    'textColor': ef.get('mainColors', 'baseMain'),
+    'fontWeight': 700,
+    'fontSize': ef.get('font', 'main'),
+    'padding': 20px 25px,
+), $customThemeDefault);
 
 $customMenuThemeContacts: () !default;
 $menuThemeContacts: map-merge((

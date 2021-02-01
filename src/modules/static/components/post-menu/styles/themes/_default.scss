@@ -1,26 +1,25 @@
-@use '../utils/vars' as v;
 @use 'engine-scss/mixins/text' as text;
+@import '../utils/vars';
 
 .wlc-post-menu--theme-default:host {
 
     .wlc-post-menu {
 
         &__title {
-            font-weight: v.$titleWeight;
-            color: v.$titleColor;
-            padding: v.$titlePadding;
+            font-weight: map-get($themeDefault, 'titleWeight');
+            color: map-get($themeDefault, 'titleColor');
+            padding: map-get($themeDefault, 'titlePadding');
         }
 
         &__items {
             display: grid;
             grid-template-columns: 1fr;
-            grid-gap: v.$linksGap;
+            grid-gap: map-get($themeDefault, 'linksGap');
         }
 
         &__link {
-            color: v.$linkColor;
-            @include text.get-text-style(ButtonText);
-            text-decoration: v.$linkDecoration;
+            @include text.get-text-style('ButtonText', map-get($themeDefault, 'linkColor'));
+            text-decoration: map-get($themeDefault, 'linkDecoration');
         }
     }
 }

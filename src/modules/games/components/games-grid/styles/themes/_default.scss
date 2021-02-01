@@ -1,0 +1,71 @@
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@import '../utils/vars';
+
+.wlc-games-grid--theme-default:host {
+
+    .wlc-games-grid {
+
+        &__content {
+            padding: map-get($themeDefault, 'contentPadding') 0;
+        }
+
+        &__header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            color: map-get($themeDefault, 'headerColor');
+            margin: 0 0 20px;
+        }
+
+        &__link {
+            color: map-get($themeDefault, 'allLinkColor');
+        }
+
+        &__list {
+            display: grid;
+            grid-gap: map-get($themeDefault, 'currentGap');
+            grid-template-columns: repeat(auto-fill, minmax(map-get($themeDefault, 'itemMinWidth'), 1fr));
+            margin-bottom: map-get($themeDefault, 'listMargin');
+
+            @include mq.max(900) {
+                grid-template-columns: repeat(auto-fill, minmax(map-get($themeDefault, 'itemMinWidthTablet'), 1fr));
+            }
+
+            @include mq.max(768) {
+                grid-template-columns: repeat(auto-fill, minmax(map-get($themeDefault, 'itemMinWidthMobile'), 1fr));
+            }
+
+            @include mq.max(480) {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            @include mq.min(1024) {
+                grid-gap: map-get($themeDefault, 'currentGap')*2;
+            }
+        }
+
+        &__more {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        &__placeholder {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            color: map-get($themeDefault, 'placeholderTextColor');
+
+            border-radius: map-get($themeDefault, 'placeholderBorderRadius');
+            background: {
+                image: map-get($themeDefault, 'placeholderBackground');
+                repeat: no-repeat;
+                size: cover;
+            }
+        }
+    }
+}
+
+

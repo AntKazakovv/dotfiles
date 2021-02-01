@@ -20,9 +20,8 @@
                 position: relative;
                 display: block;
                 padding: ef.get-value($themeDefault, 'linkPadding');
-                @include text.get-text-style(PrimaryText);
-                color: map-get($themeDefault, 'linkColor');
-                text-decoration: map-get($themeDefault, 'linkDecoration');
+                @include text.get-text-style('PrimaryText', ef.get-value($themeDefault, 'linkColor'));
+                text-decoration: ef.get-value($themeDefault, 'linkDecoration');
 
                 &:before {
                     content: '';
@@ -39,8 +38,8 @@
                 }
 
                 &.active {
-                    color: map-get($themeDefault, 'linkColorHovered');
-                    font-weight: map-get($themeDefault, 'linkActiveWeight');
+                    color: ef.get-value($themeDefault, 'linkColorHovered');
+                    font-weight: ef.get-value($themeDefault, 'linkActiveWeight');
 
                     &:before {
                         height: ef.get-value($themeDefault, 'underlineHeight');
@@ -52,7 +51,7 @@
                 @media (hover: hover) {
 
                     &:hover {
-                        color: map-get($themeDefault, 'linkColorHovered');
+                        color: ef.get-value($themeDefault, 'linkColorHovered');
 
                         &:before {
                             height: ef.get-value($themeDefault, 'underlineHeight');

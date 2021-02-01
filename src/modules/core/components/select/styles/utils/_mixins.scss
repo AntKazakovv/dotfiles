@@ -4,7 +4,7 @@
 @mixin selectBase($theme) {
     display: grid;
     grid-template-columns: 1fr;
-    grid-gap: map-get($theme, 'labelGap');
+    grid-gap: ef.get-value($theme, 'labelGap');
 }
 
 @mixin dropdownBase {
@@ -15,10 +15,10 @@
     width: 100%;
     padding: 0;
 
-    max-height: map-get($baseSettings, selectDropdownHeight);
-    border: map-get($baseSettings, selectDropdownBorder);
-    border-radius: map-get($baseSettings, selectDropdownBorderRadius);
-    background: map-get($baseSettings, selectDropdownBackground);
+    max-height: ef.get-value($baseSettings, 'selectDropdownHeight');
+    border: ef.get-value($baseSettings, 'selectDropdownBorder');
+    border-radius: ef.get-value($baseSettings, 'selectDropdownBorderRadius');
+    background: ef.get-value($baseSettings, 'selectDropdownBackground');
     overflow: hidden scroll;
     list-style: none;
 }
@@ -27,8 +27,8 @@
     display: flex;
     align-items: center;
     width: 100%;
-    min-height: map-get($baseSettings, selectHeight);
-    padding: map-get($baseSettings, selectDropdownItemPadding);
+    min-height: ef.get-value($baseSettings, 'selectHeight');
+    padding: ef.get-value($baseSettings, 'selectDropdownItemPadding');
     cursor: pointer;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -38,10 +38,10 @@
 @mixin baseStatusIcon {
     position: absolute;
     top: 50%;
-    right: map-get($baseSettings, iconRightShift);
+    right: ef.get-value($baseSettings, 'iconRightShift');
     transform: translateY(-50%);
-    width: map-get($baseSettings, iconWidth);
-    height: map-get($baseSettings, iconHeight);
+    width: ef.get-value($baseSettings, 'iconWidth');
+    height: ef.get-value($baseSettings, 'iconHeight');
     border-radius: 50%;
 
     &:before {
@@ -52,38 +52,38 @@
 
 @mixin baseStatusArrow {
     position: absolute;
-    right: map-get($themeDefault, 'iconRightShift');
+    right: ef.get-value($themeDefault, 'iconRightShift');
     top: 50%;
     transform: translateY(-50%);
 
     ::ng-deep {
 
         svg {
-            fill: map-get($baseSettings, selectArrowColor);
+            fill: ef.get-value($baseSettings, 'selectArrowColor');
         }
     }
 }
 
 @mixin baseStatusErrors {
     position: absolute;
-    background: map-get($baseSettings, errorsBgColor);
+    background: ef.get-value($baseSettings, 'errorsBgColor');
     top: calc(100% - 5px);
     right: 0;
     width: fit-content;
-    min-width: map-get($baseSettings, errorsMinWidth);
-    max-width: map-get($baseSettings, errorsMaxWidth);
+    min-width: ef.get-value($baseSettings, 'errorsMinWidth');
+    max-width: ef.get-value($baseSettings, 'errorsMaxWidth');
     opacity: 0;
     visibility: hidden;
-    color: map-get($baseSettings, rrorsColor);
-    border-radius: map-get($baseSettings, errorsBorderRadius);
-    font-size: map-get($baseSettings, errorsFontSize);
-    padding: map-get($baseSettings, errorsPadding);
+    color: ef.get-value($baseSettings, 'errorsColor');
+    border-radius: ef.get-value($baseSettings, 'errorsBorderRadius');
+    font-size: ef.get-value($baseSettings, 'errorsFontSize');
+    padding: ef.get-value($baseSettings, 'errorsPadding');
     z-index: 10;
 
     &:before {
         content: '';
         border: 8px solid transparent;
-        border-bottom-color: map-get($baseSettings, errorsBgColor);
+        border-bottom-color: ef.get-value($baseSettings, 'errorsBgColor');
         position: absolute;
         top: -15px;
         right: 13px;

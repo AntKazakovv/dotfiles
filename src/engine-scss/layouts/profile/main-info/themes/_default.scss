@@ -147,15 +147,9 @@
                 .wlc-btn[wlc-button] {
                     justify-self: ef.get-value($mainInfoThemeDefault, 'saveButtonAlign');
                     margin-top: ef.get-value($mainInfoThemeDefault, 'saveButtonShift');
-                    font: {
-                        size: ef.get-value($mainInfoThemeDefault, 'saveButtonSize');
-                    }
 
                     @include mq.min(1024) {
                         justify-self: ef.get-value($mainInfoThemeDefault, 'saveButtonAlign', 1024);
-                        font: {
-                            size: ef.get-value($mainInfoThemeDefault, 'saveButtonSize', 1024);
-                        }
                     }
                 }
             }

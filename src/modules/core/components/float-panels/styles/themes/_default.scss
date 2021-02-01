@@ -1,3 +1,4 @@
+@use 'engine-scss/functions' as ef;
 $baseClass: 'wlc-float-panels';
 
 :host {
@@ -9,13 +10,13 @@ $baseClass: 'wlc-float-panels';
         left: 0;
         width: 100%;
         height: 100%;
-        z-index: map-get($themeDefault, zindex);
+        z-index: ef.get-value($themeDefault, zindex);
 
         &.#{$baseClass}--open {
             visibility: visible;
 
             .#{$baseClass}__backdrop {
-                background: map-get($themeDefault, backdropBackground);
+                background: ef.get-value($themeDefault, backdropBackground);
             }
         }
     }
@@ -30,6 +31,6 @@ $baseClass: 'wlc-float-panels';
         width: 100%;
         height: 100%;
         background: transparent;
-        transition: map-get($themeDefault, transition);
+        transition: ef.get-value($themeDefault, transition);
     }
 }

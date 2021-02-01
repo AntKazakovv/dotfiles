@@ -1,3 +1,4 @@
+@use 'engine-scss/functions' as ef;
 @import '../utils/vars';
 
 .wlc-loader--type-ring:host {
@@ -6,8 +7,8 @@
 
         &__element {
             position: relative;
-            height: map-get($themeRingDefault, size);
-            width: map-get($themeRingDefault, size);
+            height: ef.get-value($themeRingDefault, 'size');
+            width: ef.get-value($themeRingDefault, 'size');
             border-radius: 50%;
 
             &:after,
@@ -18,16 +19,16 @@
                 left: 50%;
                 opacity: 0;
                 transform: translate(-50%, -50%);
-                border: map-get($themeRingDefault, width) solid map-get($themeRingDefault, color);
+                border: ef.get-value($themeRingDefault, 'width') solid ef.get-value($themeRingDefault, 'color');
                 border-radius: 50%;
             }
 
             &:before {
-                animation: loader map-get($themeRingDefault, duration) infinite;
+                animation: loader ef.get-value($themeRingDefault, 'duration') infinite;
             }
 
             &:after {
-                animation: loader map-get($themeRingDefault, duration) map-get($themeRingDefault, duration) / 2 infinite;
+                animation: loader ef.get-value($themeRingDefault, 'duration') ef.get-value($themeRingDefault, 'duration') / 2 infinite;
             }
         }
     }
@@ -44,13 +45,13 @@
 
     20% {
         opacity: 1;
-        border-width: map-get($themeRingDefault, width);
+        border-width: ef.get-value($themeRingDefault, 'width');
     }
 
     100% {
         opacity: 0;
         width: 100%;
         height: 100%;
-        border-width: map-get($themeRingDefault, width) + 2;
+        border-width: ef.get-value($themeRingDefault, 'width') + 2;
     }
 }

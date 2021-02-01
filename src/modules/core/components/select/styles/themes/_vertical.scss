@@ -12,11 +12,11 @@
 
         &__label {
             display: block;
-            margin: map-get($themeVertical, 'labelMargin');
+            margin: ef.get-value($themeVertical, 'labelMargin');
             overflow: hidden;
-            max-width: map-get($themeVertical, 'labelMaxWidth');
+            max-width: ef.get-value($themeVertical, 'labelMaxWidth');
 
-            @include text.get-text-style('SignText', map-get($themeVertical, 'labelColor'));
+            @include text.get-text-style('SignText', ef.get-value($themeVertical, 'labelColor'));
             text-overflow: ellipsis;
             white-space: nowrap;
 
@@ -26,36 +26,36 @@
 
         &__group {
             position: relative;
-            width: map-get($themeVertical, 'selectGroupSize');
-            max-width: map-get($themeVertical, 'selectGroupSize');
+            width: ef.get-value($themeVertical, 'selectGroupSize');
+            max-width: ef.get-value($themeVertical, 'selectGroupSize');
         }
 
         &__field {
             width: 100%;
-            border: map-get($baseSettings, selectBorder);
-            border-radius: map-get($baseSettings, selectBorderRadius);
-            padding: map-get($baseSettings, selectPadding);
+            border: ef.get-value($baseSettings, 'selectBorder');
+            border-radius: ef.get-value($baseSettings, 'selectBorderRadius');
+            padding: ef.get-value($baseSettings, 'selectPadding');
             overflow: visible;
             text-overflow: ellipsis;
-            background: map-get($baseSettings, selectBackground);
-            text-align: map-get($baseSettings, selectTextAlign);
-            color: map-get($baseSettings, selectColor);
-            height: map-get($baseSettings, selectHeight);
+            background: ef.get-value($baseSettings, 'selectBackground');
+            text-align: ef.get-value($baseSettings, 'selectTextAlign');
+            color: ef.get-value($baseSettings, 'selectColor');
+            height: ef.get-value($baseSettings, 'selectHeight');
 
             &:focus {
                 outline: none;
-                border-color: map-get($baseSettings, selectBorderFocusColor);
+                border-color: ef.get-value($baseSettings, 'selectBorderFocusColor');
             }
 
             &.ng-untouched {
-                color: map-get($themeDefault, 'inputPlaceholderColor');
+                color: ef.get-value($themeDefault, 'inputPlaceholderColor');
             }
 
             &.ng-touched {
 
                 &.ng-invalid {
-                    background: map-get($themeDefault, 'errorsBgColor');
-                    border-color: darken(map-get($themeDefault, 'errorsBgColor'), 10%);
+                    background: ef.get-value($themeDefault, 'errorsBgColor');
+                    border-color: darken(ef.get-value($themeDefault, 'errorsBgColor'), 10%);
                 }
             }
         }
@@ -66,11 +66,11 @@
             &-item {
                 @include dropdownItemBase;
 
-                color: map-get($themeVertical, 'selectDropdownItemColor');
+                color: ef.get-value($themeVertical, 'selectDropdownItemColor');
 
                 &:hover {
-                    background: darken(map-get($themeDefault, 'selectDropdownBackground'), 20);
-                    transition: map-get($themeDefault, 'selectDropdownItemTransition');
+                    background: darken(ef.get-value($themeDefault, 'selectDropdownBackground'), 20);
+                    transition: ef.get-value($themeDefault, 'selectDropdownItemTransition');
                 }
             }
         }

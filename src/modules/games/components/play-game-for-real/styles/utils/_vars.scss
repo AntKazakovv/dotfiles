@@ -1,10 +1,16 @@
 @use 'engine-scss/functions' as ef;
+$customThemeDefault: () !default;
 
-$formMaxWidth: 340px !default;
-$formMargin: auto !default;
-$fieldMargin: 0 0 20px 0 !default;
-$btnMargin: 0 auto 15px auto !default;
-$titleMargin: 0 auto 40px auto !default;
+$themeDefault: map-merge((
+    'formMaxWidth': 340px,
+    'formMargin': auto,
+    'fieldMargin': 0 0 20px 0,
+    'btnMargin': 0 auto 15px auto,
+    'titleMargin': 0 auto 40px auto,
 
-$modalBg: ef.get('color', 'background') !default;
-$modalBorderRadius: 15px !default;
+    'modalBg': ef.get('mainColors', 'bgModal'),
+    'modalBorderRadius': 15px,
+    'colorTitle': ef.get('mainColors', 'BaseMain'),
+    'subtitleMargin': 10px 0 0,
+    'widthGameThumbImg': 100%,
+), $customThemeDefault);

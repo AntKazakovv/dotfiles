@@ -1,9 +1,12 @@
 @use 'engine-scss/functions' as ef;
 @import '../../../../../promo/components/slider/styles/utils/vars';
 
-$gridGap: ef.get('size', 'smaller') !default;
-$margin: ef.get('size', 'smaller') auto ef.get('size', 'less') auto !default;
-$marginSwiper: 0 !default;
-$minItemWidth: 280px !default;
-$headerColor: ef.get('mainColors', 'baseMain') !default;
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'gridGap': ef.get('size', 'smaller'),
+    'margin': ef.get('size', 'smaller') auto ef.get('size', 'less') auto,
+    'marginSwiper': 0,
+    'minItemWidth': 280px,
+    'headerColor': ef.get('mainColors', 'baseMain'),
+), $customThemeDefault);
 

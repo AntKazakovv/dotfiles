@@ -7,7 +7,7 @@
     .wlc-game-wrapper {
 
         &__content {
-            margin: $contentMargin;
+            margin: map-get($themeDefault, 'contentMargin');
         }
 
         &__preloader {
@@ -21,16 +21,16 @@
         &__header {
             @include flexBlock;
 
-            padding: $headerPaddings 0;
-            background: $headerBg;
+            padding: map-get($themeDefault, 'headerPaddings') 0;
+            background: map-get($themeDefault, 'headerBg');
 
             h2 {
                 max-width: 50%;
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
-                color: $headerColor;
-                margin: $headerMargin;
+                color: map-get($themeDefault, 'headerColor');
+                margin: map-get($themeDefault, 'headerMargin');
             }
         }
 
@@ -39,7 +39,7 @@
         }
 
         &__btn-left {
-            margin: $btnLeftMargin;
+            margin: map-get($themeDefault, 'btnLeftMargin');
         }
 
         &__btn-right {
@@ -47,19 +47,19 @@
             align-items: center;
 
             .icon-btn {
-                margin-left: $iconsGap;
-                opacity: $iconsOpacity;
+                margin-left: map-get($themeDefault, 'iconsGap');
+                opacity: map-get($themeDefault, 'iconsOpacity');
                 cursor: pointer;
 
                 svg {
-                    width: $iconsSize;
-                    height: $iconsSize;
+                    width: map-get($themeDefault, 'iconsSize');
+                    height: map-get($themeDefault, 'iconsSize');
                     fill: none;
-                    stroke: $iconsColor;
-                    stroke-width: $iconsStroke;
+                    stroke: map-get($themeDefault, 'iconsColor');
+                    stroke-width: map-get($themeDefault, 'iconsStroke');
 
                     line {
-                        stroke: $iconsColor;
+                        stroke: map-get($themeDefault, 'iconsColor');
                     }
                 }
 
@@ -79,7 +79,7 @@
                             stroke: none;
 
                             path {
-                                fill: $iconsColorActive;
+                                fill: map-get($themeDefault, 'iconsColorActive');
                             }
                         }
                     }

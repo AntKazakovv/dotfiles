@@ -1,9 +1,11 @@
+@use 'engine-scss/functions' as ef;
+
 .swiper-pagination {
     position: absolute;
     text-align: center;
     transition: 0.3s opacity;
     transform: translate3d(0, 0, 0);
-    z-index: $swiperPagiZindex;
+    z-index: ef.get-value($themeDefaultPagination, 'swiperPagiZindex');
 
     &.swiper-pagination-hidden {
         opacity: 0;
@@ -14,18 +16,18 @@
 .swiper-pagination-fraction,
 .swiper-pagination-custom,
 .swiper-container-horizontal > .swiper-pagination-bullets {
-    bottom: $swiperPagiBottom;
+    bottom: ef.get-value($themeDefaultPagination, 'swiperPagiBottom');
     left: 0;
     width: 100%;
 }
 
 // Bullets
 .swiper-pagination-bullet {
-    width: $swiperPagiBulletWidth;
-    height: $swiperPagiBulletHeight;
+    width: ef.get-value($themeDefaultPagination, 'swiperPagiBulletWidth');
+    height: ef.get-value($themeDefaultPagination, 'swiperPagiBulletHeight');
     display: inline-block;
-    border-radius: $swiperPagiBulletBorderRadius;
-    background: $swiperPagiBulletColor;
+    border-radius: ef.get-value($themeDefaultPagination, 'swiperPagiBulletBorderRadius');
+    background: ef.get-value($themeDefaultPagination, 'swiperPagiBulletColor');
 
     @at-root button#{&} {
         border: none;
@@ -41,9 +43,9 @@
 }
 
 .swiper-pagination-bullet-active {
-    background: $swiperPagiBulletColorActive;
-    width: $swiperPagiBulletWidthActive;
-    height: $swiperPagiBulletHeightActive;
+    background: ef.get-value($themeDefaultPagination, 'swiperPagiBulletColorActive');
+    width: ef.get-value($themeDefaultPagination, 'swiperPagiBulletWidthActive');
+    height: ef.get-value($themeDefaultPagination, 'swiperPagiBulletHeightActive');
 }
 
 .swiper-pagination-bullets-dynamic {
@@ -53,14 +55,14 @@
     .swiper-pagination-bullet {
         transform: scale(0.33);
         position: relative;
-        width: $swiperPagiBulletDynamicSize;
-        height: $swiperPagiBulletDynamicSize;
+        width: ef.get-value($themeDefaultPagination, 'swiperPagiBulletDynamicSize');
+        height: ef.get-value($themeDefaultPagination, 'swiperPagiBulletDynamicSize');
     }
 
     .swiper-pagination-bullet-active {
         transform: scale(1);
-        width: $swiperPagiBulletDynamicSize;
-        height: $swiperPagiBulletDynamicSize;
+        width: ef.get-value($themeDefaultPagination, 'swiperPagiBulletDynamicSize');
+        height: ef.get-value($themeDefaultPagination, 'swiperPagiBulletDynamicSize');
     }
 
     .swiper-pagination-bullet-active-main {
@@ -89,12 +91,12 @@
 .swiper-container-vertical {
 
     >.swiper-pagination-bullets {
-        right: $swiperPagiVerticalAside;
+        right: ef.get-value($themeDefaultPagination, 'swiperPagiVerticalAside');
         top: 50%;
         transform: translate3d(0, -50%, 0);
 
         .swiper-pagination-bullet {
-            margin: $swiperPagiBulletMarginVertical;
+            margin: ef.get-value($themeDefaultPagination, 'swiperPagiBulletMarginVertical');
             display: block;
         }
 
@@ -115,7 +117,7 @@
     >.swiper-pagination-bullets {
 
         .swiper-pagination-bullet {
-            margin: $swiperPagiBulletMarginHorizontal;
+            margin: ef.get-value($themeDefaultPagination, 'swiperPagiBulletMarginHorizontal');
         }
 
         &.swiper-pagination-bullets-dynamic {
@@ -136,12 +138,12 @@
 
 // Progress
 .swiper-pagination-progressbar {
-    background: $swiperPagiProgressbarBg;
-    border-radius: $swiperPagiProgressbarBorderRadius;
+    background: ef.get-value($themeDefaultPagination, 'swiperPagiProgressbarBg');
+    border-radius: ef.get-value($themeDefaultPagination, 'swiperPagiProgressbarBorderRadius');
     position: absolute;
 
     .swiper-pagination-progressbar-fill {
-        background: $swiperPagiProgressbarBgFill;
+        background: ef.get-value($themeDefaultPagination, 'swiperPagiProgressbarBgFill');
         position: absolute;
         left: 0;
         top: 0;
@@ -149,7 +151,7 @@
         height: 100%;
         transform: scale(0);
         transform-origin: left top;
-        border-radius: $swiperPagiProgressbarBorderRadius;
+        border-radius: ef.get-value($themeDefaultPagination, 'swiperPagiProgressbarBorderRadius');
     }
 
     .swiper-container-rtl & .swiper-pagination-progressbar-fill {
@@ -159,14 +161,14 @@
     .swiper-container-horizontal > &,
     .swiper-container-vertical > &.swiper-pagination-progressbar-opposite {
         width: 100%;
-        height: $swiperPagiProgressbarHeight;
+        height: ef.get-value($themeDefaultPagination, 'swiperPagiProgressbarHeight');
         left: 0;
         top: 0;
     }
 
     .swiper-container-vertical > &,
     .swiper-container-horizontal > &.swiper-pagination-progressbar-opposite {
-        width: $swiperPagiProgressbarHeight;
+        width: ef.get-value($themeDefaultPagination, 'swiperPagiProgressbarHeight');
         height: 100%;
         left: 0;
         top: 0;

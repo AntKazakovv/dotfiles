@@ -1,74 +1,64 @@
 @use 'engine-scss/functions' as ef;
 
-// List
-$listMargin: 0 !default;
-$listPadding: 0 !default;
-$listGridColumnGup: 20px !default;
-$listGridRowGup: $listGridColumnGup !default;
-$listItemSize: 150px !default;
-
-// Item Button
-$itemWidth: 100% !default;
-$itemBorder: 2px solid transparent !default;
-$itemBg: ef.get('mainColors', 'bg') !default;
-$itemBorderRadius: ef.get('radius', 'big') !default;
-$itemPadding: 6px !default;
-$itemTransition: all ef.get('time', 'main') !default;
-$itemSvgColor: ef.get('mainColors', 'baseMain') !default;
-
-$itemBoxShadowHover: 0 1px 5px ef.get('color', 'main') !default;
-$itemSvgColorHover: $itemSvgColor !default;
-
-$itemBoxShadowActive: 0 1px 14px ef.get('mainColors', 'main') !default;
-$itemSvgColorActive: $itemSvgColor !default;
-$itemBorderColorActive: ef.get('mainColors', 'main') !default;
-
-// Item Image
-$imageWidth: 136px !default;
-$imagHeight: 75px !default;
-
-// Button Modal
-$btnBorder: 2px solid ef.get('mainColors', 'main') !default;
-$btnBorderRadius: 50px !default;
-$btnBg: transparent !default;
-$btnColor: ef.get('mainColors', 'baseMain')!default;
-$btnPadding: 0 !default;
-$btnJustifyContent: space-between !default;
-$btnWidth: 100% !default;
-$btnMaxWidth: 288px !default;
-$btnHeight: 65px !default;
-$btnMargin: 0 !default;
-
-$btnArrowColor: ef.get('mainColors', 'main') !default;
-$btnArrowMargin: 0 15px 0 0 !default;
-
-$btnTextPadding: 15px !default;
-$btnTextFontSize: inherit !default;
-
-$btnImageBg: #fff !default;
-$btnImagePadding: 15px !default;
-$btnImageWidth: 100px !default;
-$btnImageHeight: 65px !default;
-$btnImageSvgColor: ef.get('mainColors', 'baseMain') !default;
-
-// Title
-$titleColor: ef.get('mainColors', 'baseMain') !default;
-$titleTextAlign: center !default;
-$titleFontSize: 20px !default;
-$titleMargin: -10px 10px 30px !default;
-
-// Table
-$tableWidth: $btnWidth !default;
-$tableMaxWidth: $btnMaxWidth !default;
-$tableMargin: 28px 0 0 !default;
-$tableColor: rgba($color: ef.get('mainColors', 'baseMain'), $alpha: 0.5) !default;
-
-$tableTrBorderTop: 2px solid ef.get('color', 'divider') !default;
-
-$tableThFontWeight: normal !default;
-$tableThColor: inherit !default;
-$tableThPadding: 14px 0 !default;
-
-$tableTdAlignment: right !default;
-$tableTdColor: ef.get('color', 'textSecondary') !default;
-$tableTdPadding: $tableThPadding !default;
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    // List
+    'listMargin': 0,
+    'listPadding': 0,
+    'listGridColumnGup': 20px,
+    'listGridRowGup': 20px,
+    'listItemSize': 150px,
+    // Item Button
+    'itemWidth': 100%,
+    'itemBorder': 2px solid transparent,
+    'itemBg': ef.get('mainColors', 'bg'),
+    'itemBorderRadius': ef.get('radius', 'big'),
+    'itemPadding': 6px,
+    'itemTransition': all ef.get('time', 'main'),
+    'itemSvgColor': ef.get('mainColors', 'baseMain'),
+    'itemBoxShadowHover': 0 1px 5px ef.get('color', 'main'),
+    'itemSvgColorHover': ef.get('mainColors', 'baseMain'),
+    'itemBoxShadowActive': 0 1px 14px ef.get('mainColors', 'main'),
+    'itemSvgColorActive': ef.get('mainColors', 'baseMain'),
+    'itemBorderColorActive': ef.get('mainColors', 'main'),
+    // Item Image
+    'imageWidth': 136px,
+    'imagHeight': 75px,
+    // Button Modal
+    'btnBorder': 2px solid ef.get('mainColors', 'main'),
+    'btnBorderRadius': 50px,
+    'btnBg': transparent,
+    'btnColor': ef.get('mainColors', 'baseMain'),
+    'btnPadding': 0,
+    'btnJustifyContent': space-between,
+    'btnWidth': 100%,
+    'btnMaxWidth': 288px,
+    'btnHeight': 65px,
+    'btnMargin': 0,
+    'btnArrowColor': ef.get('mainColors', 'main'),
+    'btnArrowMargin': 0 15px 0 0,
+    'btnTextPadding': 15px,
+    'btnTextFontSize': inherit,
+    'btnImageBg': ef.get('mainColors', 'baseMain'),
+    'btnImagePadding': 15px,
+    'btnImageWidth': 100px,
+    'btnImageHeight': 65px,
+    'btnImageSvgColor': ef.get('mainColors', 'baseMain'),
+    // Title
+    'titleColor': ef.get('mainColors', 'baseMain'),
+    'titleTextAlign': center,
+    'titleFontSize': 20px,
+    'titleMargin': -10px 10px 30px,
+    // Table
+    'tableWidth': 100%,
+    'tableMaxWidth':  288px,
+    'tableMargin': 28px 0 0,
+    'tableColor': rgba($color: ef.get('mainColors', 'baseMain'), $alpha: 0.5),
+    'tableTrBorderTop': 2px solid ef.get('color', 'divider'),
+    'tableThFontWeight': normal,
+    'tableThColor': inherit,
+    'tableThPadding': 14px 0,
+    'tableTdAlignment': right,
+    'tableTdColor': ef.get('color', 'textSecondary'),
+    'tableTdPadding': 14px 0,
+), $customThemeDefault);

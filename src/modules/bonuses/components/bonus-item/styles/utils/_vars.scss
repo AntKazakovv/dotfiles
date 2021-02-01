@@ -92,5 +92,5 @@ $themeDefault: map-merge((
     'chosenIconPosL': ef.get('size', 'small'),
     'chosenIconPosT': ef.get('size', 'small'),
     // Animation
-    'time': ef.get('time', 'main')
+    'time': ef.get('time', 'main'),
 ), $customThemeDefault);

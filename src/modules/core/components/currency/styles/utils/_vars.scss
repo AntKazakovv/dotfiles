@@ -2,5 +2,5 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    textColor: inherit,
+    'textColor': inherit,
 ), $customThemeDefault);

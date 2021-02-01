@@ -1,30 +1,31 @@
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/functions' as ef;
 @import '../utils/vars';
 
 .wlc-play-for-real--theme-default:host {
-    max-width: $formMaxWidth;
-    margin: $formMargin;
+    max-width: map-get($themeDefault, 'formMaxWidth');
+    margin: map-get($themeDefault, 'formMargin');
 
     &::ng-deep {
 
         .wlc-input {
-            margin: $fieldMargin;
+            margin: map-get($themeDefault, 'fieldMargin');
         }
 
         .wlc-btn {
-            margin: $btnMargin;
+            margin: map-get($themeDefault, 'btnMargin');
         }
     }
 }
-
-//todo refactor
 
 ::ng-deep {
 
     .wlc-modal--play-game-for-real {
 
         .wlc-modal__dialog {
-            background: $modalBg;
-            border-radius: $modalBorderRadius;
+            background: map-get($themeDefault, 'modalBg');
+            border-radius: map-get($themeDefault, 'modalBorderRadius');
 
             @include mq.max(640) {
                 border-radius: 0;
@@ -33,19 +34,24 @@
             }
         }
 
+        .wlc-game-thumb__img {
+            width: map-get($themeDefault, 'widthGameThumbImg');
+        }
+
         .wlc-text-block[wlc-text-block] {
 
             .wlc-text-block__head {
-                margin: $btnMargin;
+                margin: map-get($themeDefault, 'btnMargin');
             }
 
             .wlc-text-block__subtitle {
-                font-size: 16px;
+                @include text.get-text-style('PrimaryText', map-get($themeDefault, 'colorTitle'));
+                margin: map-get($themeDefault, 'subtitleMargin');
             }
 
             .wlc-text-block__title,
             .wlc-text-block__subtitle {
-                color: #fff;
+                color: map-get($themeDefault, 'colorTitle');
             }
         }
 
@@ -70,30 +76,6 @@
 
         .wlc-link-block {
             margin-top: 30px;
-        }
-    }
-
-    .wlc-modal__close[wlc-button] {
-        position: absolute;
-        right: 20px;
-        top: 20px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 30px;
-        height: 30px;
-        cursor: pointer;
-        background: lighten(ef.get('color', 'background'), 20);
-        border-radius: 50%;
-
-        &:hover {
-            cursor: pointer;
-            background: lighten(ef.get('color', 'background'), 30);
-            @include bm.transition(background);
-        }
-
-        span {
-            display: flex;
         }
     }
 

@@ -4,68 +4,66 @@
 
 .wlc-cash--theme-default:host {
     display: grid;
-    grid-template-columns: $gridTemplateColumns;
-    gap: $gridGap;
-    color: $commonColor;
+    grid-template-columns: map-get($themeDefault, 'gridTemplateColumns');
+    gap: map-get($themeDefault, 'gridGap');
+    color: map-get($themeDefault, 'commonColor');
 
     .wlc-cash {
 
         &__title {
             display: none;
 
-            @include mq.min($breakpoint) {
+            @include mq.min(map-get($themeDefault, 'breakpoint')) {
                 display: block;
-                @include text.get-text-style(ThirdTitleBold);
-                color: $titleColor;
+                @include text.get-text-style('ThridTitleBold', map-get($themeDefault, 'titleColor'));
             }
         }
 
         &__divider {
             display: none;
 
-            @include mq.min($breakpoint) {
+            @include mq.min(map-get($themeDefault, 'breakpoint')) {
                 display: block;
-                margin: $dividerMargin;
-                background: $dividerBg;
-                height: $dividerHeight;
-                width: $dividerWidth;
+                margin: map-get($themeDefault, 'dividerMargin');
+                background: map-get($themeDefault, 'dividerBg');
+                height: map-get($themeDefault, 'dividerHeight');
+                width: map-get($themeDefault, 'dividerWidth');
             }
         }
 
         &__step {
 
             &--1 {
-                background: $step1Bg;
-                padding: $step1Padding;
-                border-radius: $step1BorderRadius;
-                margin: $step1Margin;
+                background: map-get($themeDefault, 'step1Bg');
+                padding: map-get($themeDefault, 'step1Padding');
+                border-radius: map-get($themeDefault, 'step1BorderRadius');
+                margin: map-get($themeDefault, 'step1Margin');
 
-                @include mq.min($breakpoint) {
-                    padding: $step1PaddingBr;
-                    background: $step1BgBr;
-                    border-radius: $step1BorderRadiusBr;
-                    margin-bottom: $step1MarginBr;
+                @include mq.min(map-get($themeDefault, 'breakpoint')) {
+                    padding: map-get($themeDefault, 'step1PaddingBr');
+                    background: map-get($themeDefault, 'step1BgBr');
+                    border-radius: map-get($themeDefault, 'step1BorderRadiusBr');
+                    margin-bottom: map-get($themeDefault, 'step1MarginBr');
                 }
             }
         }
 
         &__subtitle {
-            @include text.get-text-style(ThirdTitle);
-            margin: $subtitleMargin;
-            color: $subtitleColor;
-            text-align: $subtitleAlignment;
+            @include text.get-text-style('ThirdTitle', map-get($themeDefault, 'subtitleColor'));
+            margin: map-get($themeDefault, 'subtitleMargin');
+            text-align: map-get($themeDefault, 'subtitleAlignment');
 
-            @include mq.min($breakpoint) {
-                text-align: $subtitleAlignmentBr;
-                font-weight: $subtitleFontWeightBr;
+            @include mq.min(map-get($themeDefault, 'breakpoint')) {
+                text-align: map-get($themeDefault, 'subtitleAlignmentBr');
+                font-weight: map-get($themeDefault, 'subtitleAlignmentBr');
             }
         }
 
         &__subtitle-step {
-            color: $subtitleStepColor;
-            margin: $subtitleStepMargin;
+            color: map-get($themeDefault, 'subtitleStepColor');
+            margin: map-get($themeDefault, 'subtitleStepMargin');
 
-            @include mq.min($breakpoint) {
+            @include mq.min(map-get($themeDefault, 'breakpoint')) {
                 display: none;
             }
         }
@@ -75,40 +73,40 @@
             span {
                 display: none;
 
-                @include mq.min($breakpoint) {
+                @include mq.min(map-get($themeDefault, 'breakpoint')) {
                     display: inline-block;
                 }
             }
         }
 
         &__fields-error {
-            color: $errorsColor;
-            margin: $errorsMargin;
+            color: map-get($themeDefault, 'errorsColor');
+            margin: map-get($themeDefault, 'errorsMargin');
         }
 
         &__fields-message {
-            margin: $errorsMessageMargin;
+            margin: map-get($themeDefault, 'errorsMessageMargin');
         }
 
         &__fields-ul {
-            margin: $errorsUlMargin;
-            padding: $errorsUlPadding;
+            margin: map-get($themeDefault, 'errorsUlMargin');
+            padding: map-get($themeDefault, 'errorsUlPadding');
         }
 
         &__fields-li {
-            list-style-type: $errorsLiType;
+            list-style-type: map-get($themeDefault, 'errorsLiType');
 
             &:before {
-                content: $errorsLiBeforeContent;
-                display: $errorsLiBeforeDisplay;
-                margin: $errorsLiBeforeMargin;
+                content: map-get($themeDefault, 'errorsLiBeforeContent');
+                display: map-get($themeDefault, 'errorsLiBeforeDisplay');
+                margin: map-get($themeDefault, 'errorsLiBeforeMargin');
             }
         }
 
         &__additional-form,
         &__amount-form {
-            width: $formWidth;
-            max-width: $formMaxWidth;
+            width: map-get($themeDefault, 'formWidth');
+            max-width: map-get($themeDefault, 'formMaxWidth');
 
             ::ng-deep {
 
@@ -116,7 +114,7 @@
                 .wlc-input,
                 .wlc-checkbox,
                 .wlc-btn {
-                    margin-bottom: $formInputMarginBottom;
+                    margin-bottom: map-get($themeDefault, 'formInputMarginBottom');
                 }
             }
         }
@@ -126,10 +124,10 @@
             ::ng-deep {
 
                 .wlc-btn {
-                    margin: $formAmountButtonMargin;
+                    margin: map-get($themeDefault, 'formAmountButtonMargin');
 
-                    @include mq.min($breakpoint) {
-                        margin: $formAmountButtonMarginBr;
+                    @include mq.min(map-get($themeDefault, 'breakpoint')) {
+                        margin: map-get($themeDefault, 'formAmountButtonMarginBr');
                     }
                 }
             }

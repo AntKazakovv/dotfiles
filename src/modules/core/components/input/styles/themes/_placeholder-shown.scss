@@ -1,22 +1,23 @@
+@use 'engine-scss/functions' as ef;
 @import '../utils/vars';
 
 .wlc-input--theme-placeholder-shown:host {
     position: relative;
     display: flex;
     flex-flow: column-reverse nowrap;
-    margin: map-get($themePlaceholderShown, 'margin');
+    margin: ef.get-value($themePlaceholderShown, 'margin');
 
     .wlc-input__label,
     .wlc-input__input {
-        transition: map-get($themePlaceholderShown, 'transition');
+        transition: ef.get-value($themePlaceholderShown, 'transition');
         line-height: 1;
     }
 
     .wlc-input__input {
-        font-size: map-get($themePlaceholderShown, 'inputFontSize');
-        border: map-get($themePlaceholderShown, 'inputBorder');
-        border-radius: map-get($themePlaceholderShown, 'inputBorderRadius');
-        padding: map-get($themePlaceholderShown, 'inputPadding');
+        font-size: ef.get-value($themePlaceholderShown, 'inputFontSize');
+        border: ef.get-value($themePlaceholderShown, 'inputBorder');
+        border-radius: ef.get-value($themePlaceholderShown, 'inputBorderRadius');
+        padding: ef.get-value($themePlaceholderShown, 'inputPadding');
         text-overflow: ellipsis;
         overflow: visible;
 
@@ -27,7 +28,7 @@
 
         &:focus {
             outline: 0;
-            border-color: map-get($themePlaceholderShown, 'inputBorderFocusColor');
+            border-color: ef.get-value($themePlaceholderShown, 'inputBorderFocusColor');
 
             &::placeholder {
                 opacity: 1;
@@ -47,9 +48,9 @@
         &:focus {
 
             & + .wlc-input__label {
-                transform: translateY(map-get($themePlaceholderShown, 'placeholderShift'));
-                font-size: map-get($themePlaceholderShown, 'placeholderFontSize');
-                padding: map-get($themePlaceholderShown, 'placeholderPadding');
+                transform: translateY(ef.get-value($themePlaceholderShown, 'placeholderShift'));
+                font-size: ef.get-value($themePlaceholderShown, 'placeholderFontSize');
+                padding: ef.get-value($themePlaceholderShown, 'placeholderPadding');
                 cursor: pointer;
             }
         }
@@ -59,7 +60,7 @@
         position: absolute;
         top: 50%;
         left: 0;
-        font-size: map-get($themePlaceholderShown, 'inputFontSize');
-        padding: map-get($themePlaceholderShown, 'inputPadding');
+        font-size: ef.get-value($themePlaceholderShown, 'inputFontSize');
+        padding: ef.get-value($themePlaceholderShown, 'inputPadding');
     }
 }

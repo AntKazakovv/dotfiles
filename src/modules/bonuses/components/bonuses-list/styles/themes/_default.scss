@@ -1,4 +1,5 @@
 @use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/functions' as ef;
 @import '../utils/vars';
 
 .wlc-bonuses-list--theme-default {
@@ -6,7 +7,7 @@
     &:host {
 
         .wlc-bonuses-list__list-wrapper {
-            margin: $margin;
+            margin: ef.get-value($themeDefault, 'margin');
         }
 
         .wlc-bonuses-list__list {
@@ -16,13 +17,13 @@
 
             > div {
                 width: 100%;
-                margin-bottom: $gridGap;
+                margin-bottom: ef.get-value($themeDefault, 'gridGap');
             }
 
             @include mq.min(720) {
                 display: grid;
-                grid-gap: $gridGap;
-                grid-template-columns: repeat(auto-fill, minmax($minItemWidth, 1fr));
+                grid-gap: ef.get-value($themeDefault, 'gridGap');
+                grid-template-columns: repeat(auto-fill, minmax(ef.get-value($themeDefault, 'minItemWidth'), 1fr));
 
                 > div {
                     margin-bottom: 0;
@@ -41,7 +42,7 @@
 
         .wlc-bonuses-list__header {
             font-weight: bold;
-            color: $headerColor;
+            color: ef.get-value($themeDefault, 'headerColor');
         }
     }
 }
@@ -51,7 +52,7 @@
     &:host {
 
         .wlc-bonuses-list__list-wrapper {
-            margin: $marginSwiper;
+            margin: ef.get-value($themeDefault, 'marginSwiper');
         }
     }
 }
