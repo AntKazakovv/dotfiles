@@ -82,6 +82,12 @@ interface IRegisteredMethod extends IRequestMethod {
     intervalSubscribe?: Subscription;
 }
 
+interface ISocketQueue {
+    requestId: number;
+    method: string;
+    params?: any;
+}
+
 @Injectable()
 export class DataService {
 
@@ -97,6 +103,10 @@ export class DataService {
     private urlPrefix = '/api/v1';
 
     private socketUrl = '';
+
+    private requestId: number = 0;
+    private socketQueue: ISocketQueue[] = [];
+    private socketOpen: boolean = false;
 
     constructor(
         private injector: Injector,
@@ -209,22 +219,68 @@ export class DataService {
         return this.apiList[requestName].flow;
     }
 
+    /**
+     * Set socket url by socketsData from profile
+     * @param socketsData
+     */
     public setSocketUrl(socketsData?: ISocketsData): void {
-        if (this.socket) {
-            this.socket.close();
+
+        // TODO: just for test, remove after fundist & wlc_core release
+        if (window.location.host.match(/localhost$/)
+            || window.location.host.match(/^qa-/)
+            || window.location.host.match(/qa\.egamings\.com$/)) {
+            socketsData.server = 'wss://wsqa.egamings.com/ws';
         }
 
-        //just for test
-        socketsData.server = 'wss://wsqa.egamings.com/ws';
+        const socketUrl = `${socketsData.server}?token=${socketsData.token}&api=${socketsData.api}`;
 
-        this.socketUrl = `${socketsData.server}?token=${socketsData.token}&api=${socketsData.api}`;
-        this.socketConnect();
+        if (this.socketUrl !== socketUrl) {
+            if (this.socket) {
+                this.socket.close();
+            }
+
+            this.socketUrl = socketUrl;
+            this.socketConnect();
+        }
+    }
+
+    public socketRequest(method: string, params?: unknown): number {
+        const requestId = ++this.requestId;
+        if (this.socketOpen) {
+            this.socketRequest$(requestId, method, params);
+        } else {
+            this.addToSocketQueue(requestId, method, params);
+        }
+        return requestId;
     }
 
     protected init(): void {
         if (this.socketUrl) {
             this.socketConnect();
         }
+    }
+
+    protected addToSocketQueue(requestId: number, method: string, params?: any) {
+        this.socketQueue.push(
+            {
+                requestId,
+                method,
+                params,
+            },
+        );
+    }
+
+    protected processSocketQueue() {
+        while (this.socketQueue.length) {
+            const request = this.socketQueue.shift();
+            this.socketRequest$(request.requestId, request.method, request.params);
+        }
+    }
+
+    protected socketRequest$(requestId: number, method: string, params?: any): void {
+        this.socket.send(JSON.stringify({
+            requestId, method, params,
+        }));
     }
 
     protected request$<T>(method: IRegisteredMethod, params?: RequestParamsType): Observable<IData | T> {
@@ -342,12 +398,20 @@ export class DataService {
     private socketConnect(): void {
         this.socket = new WebSocket(this.socketUrl);
         this.socket.onopen = () => {
+            this.socketOpen = true;
+            this.eventService.emit({
+                name: 'SOCKET_CONNECT',
+                status: 'success',
+            });
+            this.processSocketQueue();
             this.setSocketHandlers();
         };
     }
 
     private setSocketHandlers(): void {
         this.socket.addEventListener('close', () => {
+            this.socketOpen = false;
+            this.socket = null;
             this.onSocketClose();
         });
         this.socket.addEventListener('message', (event: MessageEvent) => {
@@ -366,7 +430,10 @@ export class DataService {
 
     private onSocketMessage(event: MessageEvent): void {
         try {
-            this.flow$.next(JSON.parse(event.data));
+            const data = JSON.parse(event.data);
+            data.name = `${data.system}-${data.event}`;
+            data.system = 'socket';
+            this.flow$.next(data);
         } catch (error) {
             this.flow$.next({
                 system: 'websocket',

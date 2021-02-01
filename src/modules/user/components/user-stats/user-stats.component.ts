@@ -92,26 +92,59 @@ export class UserStatsComponent extends AbstractComponent implements OnInit, OnD
             email: {
                 name: gettext('Email'),
                 value: this.userStats?.email,
+                wlcElement: 'block_user-stat_email',
             },
             firstName: {
                 name: gettext('First name'),
                 value: this.userStats?.firstName,
+                wlcElement: 'block_user-stat_firstname',
             },
             lastName: {
                 name: gettext('Last name'),
                 value: this.userStats?.lastName,
+                wlcElement: 'block_user-stat_lastname',
             },
             levelName: {
                 name: gettext('Level name'),
-                value: this.userStats?.loyalty?.LevelName[this.translate.currentLang || 'en'],
+                value: this.userStats?.levelName,
+                modification: 'string',
+                wlcElement: 'block_user-stat_level-name',
             },
             login: {
                 name: gettext('Login'),
                 value: this.userStats?.loyalty?.Login,
+                modification: 'string',
+                wlcElement: 'block_user-stat_login',
             },
             nextLvlPoints: {
                 name: gettext('Next Level Points'),
                 value: this.userStats?.loyalty?.NextLevelPoints,
+                wlcElement: 'block_user-stat_next-level-points',
+            },
+            expPoints: {
+                name: gettext('Experience points'),
+                value: this.userStats?.loyalty?.Points,
+                wlcElement: 'block_user-stat_expirience-points',
+            },
+            expPointsTotal: {
+                name: gettext('Experience points all time'),
+                value: this.userStats?.loyalty?.TotalPoints,
+                wlcElement: 'block_user-stat_expirience-points-total',
+            },
+            levelCoef: {
+                name: gettext('Level coefficient'),
+                value: this.userStats?.loyalty?.LevelCoef,
+                wlcElement: 'block_user-stat_level-coef',
+            },
+            depositCount: {
+                name: gettext('Deposit count'),
+                value: this.userStats?.loyalty?.DepositsCount,
+                wlcElement: 'block_user-stat_deposit-count',
+            },
+            freespins: {
+                name: gettext('Freespins'),
+                value: this.userStats?.freespins,
+                wlcElement: 'block_user-stat_freespins-count',
             },
         };
         this.cdr.detectChanges();

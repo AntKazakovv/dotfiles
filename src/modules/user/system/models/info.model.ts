@@ -1,4 +1,9 @@
-import {IFreeRound, ILoyalty, IUserInfo} from 'wlc-engine/modules/core/system/interfaces';
+import {
+    IFreeRound,
+    ILoyalty,
+    IUserInfo,
+    ISocketsData,
+} from 'wlc-engine/modules/core/system/interfaces';
 import {TranslateService} from '@ngx-translate/core';
 import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
 import {EventService} from 'wlc-engine/modules/core/system/services';
@@ -6,10 +11,14 @@ import {EventService} from 'wlc-engine/modules/core/system/services';
 import {
     get as _get,
     reduce as _reduce,
-    toString as _toString,
+    assign as _assign,
+    isString as _isString,
 } from 'lodash-es';
 
 export class UserInfo extends AbstractModel<IUserInfo> {
+
+    public separateLoyalty: boolean = false;
+    protected $loyaltyData: ILoyalty = {} as ILoyalty;
 
     constructor(
         protected translate: TranslateService,
@@ -54,6 +63,12 @@ export class UserInfo extends AbstractModel<IUserInfo> {
         return this.data?.freerounds;
     }
 
+    public get freespins(): number{
+        return _reduce(this.freeRounds, (accumulator: number, freeround: IFreeRound) => {
+            return accumulator + Number(_get(freeround, 'Count', 0));
+        }, 0);
+    }
+
     public get idUser(): string {
         return this.data?.idUser;
     }
@@ -63,15 +78,30 @@ export class UserInfo extends AbstractModel<IUserInfo> {
     }
 
     public get loyalty(): ILoyalty {
-        return this.data?.loyalty;
+        return this.$loyaltyData;
+    }
+
+    public set loyalty(data: ILoyalty) {
+        this.$loyaltyData = _assign({}, this.$loyaltyData, data);
+
+        // TODO remove after bugfix in socket server
+        if (_isString(this.$loyaltyData?.LevelName)) {
+            try {
+                _assign(this.$loyaltyData, {LevelName: JSON.parse(this.$loyaltyData?.LevelName)});
+            } catch (error) {
+                //
+            }
+        }
+        this.data.loyalty = this.$loyaltyData;
+        this.checkData();
     }
 
     public get pinCode(): string {
         return this.data?.pincode;
     }
 
-    public get socketsData(): string {
-        return this.data?.socketsData;
+    public get socketsData(): ISocketsData {
+        return this.data.socketsData;
     }
 
     public get status(): number {
@@ -79,7 +109,6 @@ export class UserInfo extends AbstractModel<IUserInfo> {
     }
 
     public get bonusBalance(): number {
-
         return _reduce(this.data?.loyalty?.BonusesBalance, (accumulator: number, bonusBalance: number) => {
             return accumulator + Number(_get(bonusBalance, 'Balance', 0));
         }, 0);
@@ -110,6 +139,19 @@ export class UserInfo extends AbstractModel<IUserInfo> {
 
     public updateBalance(balance: number): void {
         //TODO update
+    }
+
+    public set data(data: IUserInfo) {
+        super.data = data;
+        if (this.separateLoyalty) {
+            this.data.loyalty = this.$loyaltyData;
+        } else {
+            this.$loyaltyData = this.data.loyalty;
+        }
+    }
+
+    public get data(): IUserInfo {
+        return super.data;
     }
 
     protected checkData(): void {
