@@ -10,12 +10,13 @@
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: minmax(0, 250px) repeat(2, 1fr);
     grid-gap: ef.get-value($themeDefault, 'gap');
-    margin: ef.get-value($themeDefault, 'pageMargin');
+    margin: ef.get-value($themeDefault, 'pageMarginMobile');
 
     @include mq.min(768) {
         max-width: 940px;
         grid-template-columns: repeat(4, 1fr);
         grid-template-rows: repeat(2, 1fr);
+        margin: ef.get-value($themeDefault, 'pageMargin');
     }
 
     .wlc-error-page__image {

@@ -23,5 +23,6 @@ $themeDefault: map-merge((
     'gap': ef.get('size', 'smally'),
     'radius': ef.get('radius', 'biger'),
     'padding': ef.get('size', 'smally'),
-    'pageMargin': ef.get('size', 'less') auto  ef.get('size', 'big'),
+    'pageMargin': ef.get('size', 'biger') * 3 auto,
+    'pageMarginMobile': ef.get('size', 'smally') auto,
 ), $customThemeDefault);
