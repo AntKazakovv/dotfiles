@@ -11,6 +11,7 @@ import {
     ViewContainerRef,
 } from '@angular/core';
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
+import {GlobalHelper} from 'wlc-engine/modules/core';
 
 @Component({
     selector: '[wlc-dynamic-html]',
@@ -30,7 +31,7 @@ export class DynamicHtmlComponent implements AfterViewInit, OnDestroy {
     }
 
     ngAfterViewInit(): void {
-        this.createComponentFromRaw(this.html);
+        this.createComponentFromRaw(GlobalHelper.parseHtmlSafely(this.html));
     }
 
     private createComponentFromRaw(html: string) {
@@ -67,5 +68,4 @@ export class DynamicHtmlComponent implements AfterViewInit, OnDestroy {
             this.componentReference.destroy();
         }
     }
-
 }

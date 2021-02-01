@@ -8,11 +8,22 @@
          [class]="dialogClasses">
         <div class="wlc-modal__header"
              [class.wlc-modal__header--headless]="!$params.config.modalTitle">
+            <div *ngIf="$params.config.useBackButton"
+                 class="wlc-modal__back-btn"
+                 (click)="goBack('login')"
+            >
+                <span class="icon-arrow"
+                      wlc-icon [iconName]="'arrow'"
+                ></span>
+                {{$params.config.backButtonText | translate}}
+            </div>
             <div class="wlc-modal__title"
-                *ngIf="$params.config.modalTitle">
+                 [class.wlc-modal__title--back-btn]="$params.config.useBackButton"
+                 *ngIf="$params.config.modalTitle">
                 {{$params.config.modalTitle | translate}}
             </div>
-            <button wlc-button
+            <button *ngIf="$params.config.closeBtnVisibility"
+                    wlc-button
                     class="wlc-modal__close"
                     theme="none"
                     icon="close"
@@ -25,13 +36,16 @@
 
         <div class="wlc-modal__body" [ngSwitch]="getType()">
             <ng-container *ngSwitchCase="'component'"
-                [ngTemplateOutlet]="component">
+                          [ngTemplateOutlet]="component">
             </ng-container>
             <ng-container *ngSwitchCase="'templateRef'"
-                [ngTemplateOutlet]="template">
+                          [ngTemplateOutlet]="template">
             </ng-container>
             <ng-container *ngSwitchCase="'message'"
-                [ngTemplateOutlet]="message">
+                          [ngTemplateOutlet]="message">
+            </ng-container>
+            <ng-container *ngSwitchCase="'message-and-component'"
+                          [ngTemplateOutlet]="messageAndComponent">
             </ng-container>
         </div>
 
@@ -66,8 +80,23 @@
 </ng-template>
 
 <ng-template #message>
-    <div class="modal-message" *ngFor="let msg of $params.config.modalMessage">
+    <div
+        *ngFor="let msg of $params.config.modalMessage"
+        [style]="{'text-align': $params.config.textAlign}"
+        class="modal-message" >
         {{msg | translate}}
     </div>
+</ng-template>
+<ng-template #messageAndComponent>
+    <div
+        *ngFor="let msg of $params.config.modalMessage"
+        [style]="{'text-align': $params.config.textAlign}"
+        class="modal-message" >
+        {{msg | translate}}
+    </div>
+    <ng-container
+        [ngComponentOutlet]="$params.config.component"
+        [ngComponentOutletInjector]="inject"
+    ></ng-container>
 </ng-template>
 

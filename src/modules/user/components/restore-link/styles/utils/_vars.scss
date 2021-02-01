@@ -1,5 +1,8 @@
-$colorLink: ef.get('color', 'link') !default;
-$fontSize: 12px !default;
-$fontWeight: normal !default;
+@use 'engine-scss/functions' as ef;
 
-$alignText: right !default;
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'linkFontSize': 'PlaceholderText',
+    'linkColor': ef.get('mainColors', 'main'),
+    'alignText': right,
+), $customThemeDefault);

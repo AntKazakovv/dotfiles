@@ -1,11 +1,30 @@
 import {Injectable} from '@angular/core';
-import {AbstractControl, AsyncValidatorFn, ValidatorFn, Validators} from '@angular/forms';
+import {
+    AbstractControl,
+    AsyncValidatorFn,
+    ValidatorFn,
+    Validators,
+} from '@angular/forms';
+import {
+    Observable,
+    from,
+    of,
+} from 'rxjs';
+import {
+    delay,
+    map,
+    switchMap,
+} from 'rxjs/operators';
 import {DataService} from 'wlc-engine/modules/core/system/services';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
-import {IRequestMethod} from 'wlc-engine/modules/core/system/services/data/data.service';
+import {
+    IData,
+    IRequestMethod,
+} from 'wlc-engine/modules/core/system/services/data/data.service';
 import {matchingFields} from './validators/matchFields.validator';
 import {email} from './validators/email.validator';
 import {regexp} from './validators/regexp.validator';
+
 
 export type ValidatorType = string | IValidatorSettings;
 
@@ -29,6 +48,10 @@ export class ValidationService {
             validator: this.emailUnique.bind(this),
             async: true,
         },
+        emailExist: {
+            validator: this.emailExist.bind(this),
+            async: true,
+        },
         loginUnique: {
             validator: this.loginUnique.bind(this),
             async: true,
@@ -49,7 +72,9 @@ export class ValidationService {
         max: {
             validator: Validators.max,
         },
-    }
+    };
+
+    private delay: number = 500;
 
     constructor(
         private dataService: DataService,
@@ -59,13 +84,24 @@ export class ValidationService {
         this.setRule<IIndexing<boolean>>('regExp', regexp);
     }
 
-    public emailUnique(ctrl: AbstractControl): Promise<IIndexing<boolean>> {
-        return this.dataService.request<IIndexing<string>>('user/emailUnique', {email: ctrl.value})
-            .then(value => {
-                return value.data.result ? null : {
-                    'email-not-unique': true,
-                };
-            });
+    public emailUnique(ctrl: AbstractControl): Observable<IIndexing<boolean>> {
+        return of(ctrl.value).pipe(
+            delay(this.delay),
+            switchMap(() => from(this.checkEmail(ctrl)).pipe(
+                map(response => {
+                    return response.data.result ? null : {'email-not-unique': true};
+                }),
+            )));
+    }
+
+    public emailExist(ctrl: AbstractControl): Observable<IIndexing<boolean>> {
+        return of(ctrl.value).pipe(
+            delay(this.delay),
+            switchMap(() => from(this.checkEmail(ctrl)).pipe(
+                map(response => {
+                    return !response.data.result ? null : {'email-not-exist': true};
+                }),
+            )));
     }
 
     public loginUnique(ctrl: AbstractControl): Promise<IIndexing<boolean>> {
@@ -99,5 +135,10 @@ export class ValidationService {
             validator: rule.bind(this),
             async,
         };
+    }
+
+    private checkEmail(ctrl): Promise<IIndexing<string> | IData> {
+        return this.dataService.request<IIndexing<string>>('user/emailUnique',
+            {email: ctrl.value});
     }
 }

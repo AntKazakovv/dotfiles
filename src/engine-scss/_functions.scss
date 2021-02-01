@@ -17,7 +17,9 @@
         @return map-get(ev.$customVars, $name);
     } @else if ($map == 'form') {
         @return map-get(ev.$form, $name);
-    } @else if ($map == 'buttonSettings') {
+    } @else if ($map == 'modalSize') {
+        @return map-get(ev.$modalSize, $name);
+    }  @else if ($map == 'buttonSettings') {
         @return map-get(ev.$buttonSettings, $name);
     } @else if ($map == 'mainColors') {
         @return map-get(ev.$mainColors, $name);

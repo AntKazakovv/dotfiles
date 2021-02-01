@@ -47,7 +47,7 @@ export const restorePasswordFormConfig: IFormWrapperCParams = {
                     type: 'mail',
                 },
                 name: 'email',
-                validators: ['required', 'email'],
+                validators: ['required', 'email', 'emailExist'],
             },
         },
         {

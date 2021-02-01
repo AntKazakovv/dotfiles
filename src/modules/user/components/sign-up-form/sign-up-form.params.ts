@@ -64,6 +64,10 @@ export const signUpFormConfig: IFormWrapperCParams = {
                         name: 'minLength',
                         options: 6,
                     },
+                    {
+                        name: 'maxLength',
+                        options: 50,
+                    },
                 ],
             },
         },
@@ -89,14 +93,13 @@ export const signUpFormConfig: IFormWrapperCParams = {
                     placeholder: gettext('Promocode'),
                     customModifiers: 'promocode',
                 },
-                name: 'promocode',
+                name: 'registrationPromoCode',
             },
         },
         {
             name: 'core.wlc-checkbox',
             params: {
                 checkboxType: 'terms',
-                validators: ['required'],
                 name: 'agreedWithTermsAndConditions',
                 common: {
                     customModifiers: 'terms',
@@ -107,7 +110,6 @@ export const signUpFormConfig: IFormWrapperCParams = {
             name: 'core.wlc-checkbox',
             params: {
                 checkboxType: 'age',
-                validators: ['required'],
                 name: 'ageConfirmed',
                 common: {
                     customModifiers: 'age',

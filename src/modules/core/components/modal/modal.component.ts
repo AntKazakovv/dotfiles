@@ -98,14 +98,20 @@ export class WlcModalComponent extends AbstractComponent
     }
 
     public getType(): string {
-        if (this.$params.config.component) {
-            return 'component';
+        if (this.$params.config.modalMessage && this.$params.config.component) {
+            return 'message-and-component';
         } else if (this.$params.config.templateRef) {
             return 'templateRef';
         } else if (this.$params.config.modalMessage) {
             return 'message';
+        } else if (this.$params.config.component) {
+            return 'component';
         }
         return;
+    }
+
+    public goBack(name): void {
+        this.modalService.showModal(name);
     }
 
     protected applyConfig(): void {

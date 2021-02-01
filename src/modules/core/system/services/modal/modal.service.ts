@@ -133,11 +133,9 @@ export class ModalService {
                 (id: string) => {
                     if (!this.closeQueue.length) {
                         subscription.unsubscribe();
-                        this.openModal(modalConfig);
                     }
                 },
             );
-            return;
         }
         this.openModal(modalConfig);
     }

@@ -38,7 +38,6 @@ import {
 })
 export class SignUpFormComponent extends AbstractComponent {
 
-    public $params: Params.ISignUpFormCParams;
     public config = Params.signUpFormConfig;
 
     constructor(
@@ -60,6 +59,10 @@ export class SignUpFormComponent extends AbstractComponent {
             await this.userService.registration(this.formDataPreparation(form));
             this.userService.setProfileData(form.value);
 
+            if (!this.checkConfirmation(form)) {
+                return;
+            }
+
             await this.userService.createUserProfile(this.userService.userProfile.data);
 
             if (this.isFastRegistration) {
@@ -68,8 +71,10 @@ export class SignUpFormComponent extends AbstractComponent {
                 this.registrationComplete();
             }
         } catch (error) {
+            const message = gettext('Error occured during registration');
+
             this.modalService.showError({
-                modalMessage: error.errors,
+                modalMessage: [message, ...error.errors],
             });
 
             this.logService.sendLog({code: '2.1.0', data: error});
@@ -102,5 +107,19 @@ export class SignUpFormComponent extends AbstractComponent {
             ],
             dismissAll: true,
         });
+    }
+
+    protected checkConfirmation(form: FormGroup): boolean {
+        const {ageConfirmed, agreedWithTermsAndConditions} = form.value;
+
+        if (ageConfirmed && agreedWithTermsAndConditions) {
+            return true;
+        }
+
+        this.modalService.showError({
+            modalMessage: gettext('You must agree with Terms and Conditions as well as confirm that you are at least 18 years old'),
+        });
+
+        return false;
     }
 }

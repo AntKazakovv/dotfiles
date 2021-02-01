@@ -1,4 +1,7 @@
-import {Injectable, Injector} from '@angular/core';
+import {
+    Injectable,
+    Injector,
+} from '@angular/core';
 import {CurrencyPipe} from '@angular/common';
 import {
     BehaviorSubject,
@@ -9,11 +12,12 @@ import {Observable} from 'rxjs';
 import {takeWhile} from 'rxjs/operators';
 import {
     ConfigService,
-    IDeviceConfig,
     DeviceType,
+    EventService,
+    IDeviceConfig,
     IIndexing,
-    ModalService,
     LayoutService,
+    ModalService,
 } from 'wlc-engine/modules/core';
 import {UserService} from 'wlc-engine/modules/user/system/services';
 
@@ -42,8 +46,9 @@ export class ActionService {
     constructor(
         private injector: Injector,
         private configService: ConfigService,
-        private modalService: ModalService,
+        private eventService: EventService,
         private layoutService: LayoutService,
+        private modalService: ModalService,
     ) {
         this.init();
     }
@@ -73,24 +78,10 @@ export class ActionService {
                 });
                 break;
             case 'SET_NEW_PASSWORD':
-                await this.configService.ready;
-                await this.layoutService.importModules(['user']);
-
-                this.modalService.showModal('newPassword');
+                this.setNewPassword(initialPath);
                 break;
             case 'COMPLETE_REGISTRATION':
-                if (initialPath.code) {
-                    await this.configService.ready;
-                    await this.layoutService.importModules(['games']);
-                    const userService = this.injector.get(UserService);
-                    userService.registrationComplete(initialPath.code);
-                } else {
-                    this.modalService.showError({
-                        modalMessage: [
-                            gettext('Code missing'),
-                        ],
-                    });
-                }
+                this.completeRegistration(initialPath);
                 break;
             case 'EMAIL_UNSUBSCRIBE':
                 //TODO
@@ -160,5 +151,66 @@ export class ActionService {
             mq: mediaQuery,
             observer: fromEvent<MediaQueryListEvent>(mediaQuery, 'change'),
         };
+    }
+
+    private async setNewPassword(initialPath: IIndexing<string>): Promise<void> {
+        if (!initialPath.code) {
+            this.showErrorModal('Code missing');
+            return;
+        }
+
+        await this.configService.ready;
+        await this.layoutService.importModules(['user']);
+
+        try {
+            const userService: UserService = this.injector.get(UserService);
+            await userService.validateRestoreCode(initialPath.code);
+        } catch (error) {
+            const message = gettext('Error occured during password recovery');
+
+            this.modalService.showError({
+                modalMessage: [message, ...error.errors],
+            });
+
+            return;
+        }
+
+        this.modalService.showModal('newPassword',
+            {
+                common: {
+                    code: initialPath.code,
+                },
+            });
+    }
+
+    private async completeRegistration(initialPath: IIndexing<string>): Promise<void> {
+        if (!initialPath.code) {
+            this.showErrorModal('Code missing');
+            return;
+        }
+
+        await this.configService.ready;
+        await this.layoutService.importModules(['games']);
+        const userService: UserService = this.injector.get(UserService);
+
+        try {
+            this.modalService.showModal('registrationSuccess');
+            await userService.registrationComplete(initialPath.code);
+            this.modalService.closeAllModals();
+            this.eventService.emit({name: 'LOGIN'});
+        } catch (error) {
+            this.modalService.showError({
+                modalMessage: error.errors,
+            });
+        }
+
+    }
+
+    private showErrorModal(message: string): void {
+        this.modalService.showError({
+            modalMessage: [
+                gettext(message),
+            ],
+        });
     }
 }

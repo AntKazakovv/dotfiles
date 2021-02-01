@@ -58,16 +58,16 @@
 </ng-container>
 
 <ng-template #label>
-    <label *ngIf="$params.common.useLable"
+    <label *ngIf="$params.common.useLabel"
            for="{{$params.name}}"
            class="{{$class}}__label"
     >{{$params.common.placeholder | translate}}</label>
 </ng-template>
 
 <ng-template #status>
-    <div class="{{$class}}-status"
+    <div *ngIf="$params.name && $params.validators?.length"
+         class="{{$class}}-status"
          wlc-form-control
-         *ngIf="$params.name"
          [className]="$class"
          [control]="control"
          [fieldName]="$params.name.toLowerCase()"

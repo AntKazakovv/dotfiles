@@ -1,5 +1,6 @@
-@use 'sass:map';
+@use 'engine-scss/functions' as ef;
 @use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/text' as text;
 @import '../utils/vars';
 
 
@@ -8,38 +9,32 @@
     .wlc-modal {
 
         &__dialog {
-            background: map.get($themeDefault, 'dialogBackground');
+            background: ef.get-value($themeDefault, 'dialogBackground');
 
             @include mq.min(560) {
-                border-radius: map.get($themeDefault, 'dialogBorderRadius');
+                border-radius: ef.get-value($themeDefault, 'dialogBorderRadius');
             }
         }
 
         &__title {
-            @include common($titleFontSize, $titleFontWeight, $titleMargin);
+            @include text.get-text-style(ef.get-value($themeDefault, 'titleFontSize'), ef.get-value($themeDefault, 'titleColor'));
+            margin: ef.get-value($themeDefault, 'titleMargin');
         }
 
         &__header {
-            padding: $paddingDefault;
+            padding: ef.get-value($themeDefault, 'paddingDefault');
 
             &--headless {
-                padding: 0;
+                padding: ef.get-value($themeDefault, 'paddingHeadless');
             }
         }
 
         &__body {
-            padding: $paddingDefault;
+            padding: ef.get-value($themeDefault, 'paddingDefault');
         }
 
         &__footer {
-            padding: $paddingDefault;
-        }
-
-        &__close {
-            position: absolute;
-            right: 20px;
-            top: 30px;
-            z-index: 1;
+            padding: ef.get-value($themeDefault, 'paddingDefault');
         }
     }
 }

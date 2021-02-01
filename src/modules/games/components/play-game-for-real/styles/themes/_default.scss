@@ -1,85 +1,18 @@
-@use 'engine-scss/mixins/text' as text;
-@use 'engine-scss/mixins/mediaqueries' as mq;
 @use 'engine-scss/functions' as ef;
 @import '../utils/vars';
 
 .wlc-play-for-real--theme-default:host {
-    max-width: map-get($themeDefault, 'formMaxWidth');
-    margin: map-get($themeDefault, 'formMargin');
+    max-width: ef.get-value($themeDefault, 'formMaxWidth');
+    margin: ef.get-value($themeDefault, 'formMargin');
 
     &::ng-deep {
 
         .wlc-input {
-            margin: map-get($themeDefault, 'fieldMargin');
+            margin: ef.get-value($themeDefault, 'fieldMargin');
         }
 
         .wlc-btn {
-            margin: map-get($themeDefault, 'btnMargin');
+            margin: ef.get-value($themeDefault, 'btnMargin');
         }
-    }
-}
-
-::ng-deep {
-
-    .wlc-modal--play-game-for-real {
-
-        .wlc-modal__dialog {
-            background: map-get($themeDefault, 'modalBg');
-            border-radius: map-get($themeDefault, 'modalBorderRadius');
-
-            @include mq.max(640) {
-                border-radius: 0;
-                max-width: 100%;
-                height: 100vh;
-            }
-        }
-
-        .wlc-game-thumb__img {
-            width: map-get($themeDefault, 'widthGameThumbImg');
-        }
-
-        .wlc-text-block[wlc-text-block] {
-
-            .wlc-text-block__head {
-                margin: map-get($themeDefault, 'btnMargin');
-            }
-
-            .wlc-text-block__subtitle {
-                @include text.get-text-style('PrimaryText', map-get($themeDefault, 'colorTitle'));
-                margin: map-get($themeDefault, 'subtitleMargin');
-            }
-
-            .wlc-text-block__title,
-            .wlc-text-block__subtitle {
-                color: map-get($themeDefault, 'colorTitle');
-            }
-        }
-
-        .wlc-pseudo-link[wlc-pseudo-link],
-        .wlc-link-block[wlc-link-block],
-        .wlc-input[wlc-input].wlc-input--theme-vertical {
-
-            .wlc-pseudo-link__btn,
-            .wlc-link-block__subtitle,
-            .wlc-link-block__link,
-            .wlc-input__label {
-                color: ef.get('color', 'main');
-
-                .wlc-icon {
-
-                    svg {
-                        fill: ef.get('color', 'main');
-                    }
-                }
-            }
-        }
-
-        .wlc-link-block {
-            margin-top: 30px;
-        }
-    }
-
-    .wlc-modal__header {
-        z-index: 10;
     }
 }

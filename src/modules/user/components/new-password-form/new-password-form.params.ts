@@ -15,6 +15,7 @@ export type Modifiers = AutoModifiers | CustomMod | null;
 export interface INewPasswordFormCParams extends IComponentParams<ComponentTheme, ComponentType, string> {
     common?: {
         customModifiers?: CustomMod;
+        code?: string;
     };
     modifiers?: Modifiers[];
 }
@@ -45,10 +46,14 @@ export const newPasswordFormConfig: IFormWrapperCParams = {
                     usePasswordVisibilityDirective: true,
                 },
                 name: 'newPassword',
-                validators: ['required', 'password',
+                validators: ['required',
                     {
                         name: 'minLength',
                         options: 6,
+                    },
+                    {
+                        name: 'maxLength',
+                        options: 50,
                     },
                 ],
             },
@@ -64,10 +69,14 @@ export const newPasswordFormConfig: IFormWrapperCParams = {
                     usePasswordVisibilityDirective: true,
                 },
                 name: 'confirmPassword',
-                validators: ['required', 'password',
+                validators: ['required',
                     {
                         name: 'minLength',
                         options: 6,
+                    },
+                    {
+                        name: 'maxLength',
+                        options: 50,
                     },
                 ],
             },
@@ -75,7 +84,6 @@ export const newPasswordFormConfig: IFormWrapperCParams = {
         {
             name: 'core.wlc-button',
             params: {
-                theme: 'default',
                 common: {
                     text: gettext('Save'),
                     type: 'submit',

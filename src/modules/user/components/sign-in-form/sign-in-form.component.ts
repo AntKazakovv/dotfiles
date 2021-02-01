@@ -37,28 +37,16 @@ export class SignInFormComponent extends AbstractComponent {
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ISignInFormCParams,
-        protected userService: UserService,
-        protected modalService: ModalService,
         protected logService: LogService,
+        protected userService: UserService,
     ) {
         super({injectParams, defaultParams: Params.defaultParams});
     }
 
-    public async ngSubmit(form: FormGroup): Promise<void> {
+    public ngSubmit(form: FormGroup): void {
         const {email, login, password} = form.value;
-
-        //TODO: Add login parameter by phone number
         const loginParam = email ? email : login;
 
-        try {
-            await this.userService.login(loginParam, password);
-            this.modalService.closeModal('login');
-        } catch (error) {
-            this.modalService.showError({
-                modalMessage: error.errors,
-            });
-
-            this.logService.sendLog({code: '1.2.0', data: error});
-        }
+        this.userService.loginRequest(loginParam, password);
     }
 }
