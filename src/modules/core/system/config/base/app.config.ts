@@ -2,5 +2,5 @@ import {IAppConfig} from 'wlc-engine/modules/core/system/interfaces/base-config/
 
 export const appConfig: IAppConfig = {
     type: 'wlc',
-    toHomeFromErrorTimeout: 25000000,
+    toHomeFromErrorTimeout: 25000,
 };
