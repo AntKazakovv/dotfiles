@@ -20,7 +20,7 @@ import {IData} from 'wlc-engine/modules/core/system/services/data/data.service';
 import {UserInfo} from 'wlc-engine/modules/user/system/models/info.model';
 import {UserProfile} from '../../models/profile.model';
 import {ConfigService} from 'wlc-engine/modules/core';
-
+import {filter} from 'rxjs/operators';
 
 import {
     each as _each,
@@ -39,6 +39,7 @@ export class UserService {
     protected info: UserInfo;
     protected profile: UserProfile;
     protected userInfoHandler: Subscription;
+    private useSocketLoyalty: boolean = false;
 
     public get userInfo(): UserInfo {
         if (this.info.dataReady) {
@@ -78,19 +79,41 @@ export class UserService {
         }, (info: IData) => {
             this.info.data = info?.data;
             this.userInfo$.next(this.info);
+
+            if (this.info.socketsData) {
+                this.info.separateLoyalty = true;
+                this.dataService.setSocketUrl(this.info.socketsData);
+            }
         });
 
         this.eventService.subscribe([
             {name: 'USER_PROFILE'},
         ], (profile: IData) => {
             this.profile.data = profile.data;
-
-            if (this.profile.socketData) {
-                this.dataService.setSocketUrl(this.profile.socketData);
-            }
-
             this.userProfile$.next(this.profile);
         });
+
+        this.eventService.subscribe({name: 'SOCKET_CONNECT', status: 'success'}, () => {
+            this.dataService.socketRequest('loyalty.get');
+        });
+
+        this.dataService.flow
+            .pipe(filter(
+                (data) => {
+                    return data.system === 'socket'
+                        && (
+                            data.name === 'loyalty-get'
+                            || data.name === 'loyalty-UserInfo'
+                        );
+                }))
+            .subscribe((data) => {
+                this.info.loyalty = data.data;
+                this.userInfo$.next(this.info);
+                this.eventService.emit({
+                    name: 'USER_INFO',
+                    data: this.info,
+                });
+            });
 
         this.eventService.subscribe([
             {name: 'PROFILE_UPDATE'},
@@ -103,9 +126,10 @@ export class UserService {
         }, () => {
             this.isAuthenticated = true;
             this.configService.set({name: '$user.isAuthenticated', value: true});
-            this.fetchUserInfo();
-            this.startUserInfoFetcher();
-            this.fetchUserProfile();
+            this.fetchUserProfile().then(() => {
+                this.fetchUserInfo();
+                this.startUserInfoFetcher();
+            });
         });
 
         this.eventService.subscribe({
@@ -126,9 +150,10 @@ export class UserService {
         });
 
         if (this.isAuthenticated) {
-            this.fetchUserProfile();
-            this.fetchUserInfo();
-            this.startUserInfoFetcher();
+            this.fetchUserProfile().then(() => {
+                this.fetchUserInfo();
+                this.startUserInfoFetcher();
+            });
         }
     }
 
@@ -192,7 +217,7 @@ export class UserService {
     }
 
     public sendPasswordRestore(email: string, reCaptchaToken?: string): Promise<IIndexing<any>> {
-        const params: { email: string, reCaptchaToken?: string } = {
+        const params: {email: string, reCaptchaToken?: string} = {
             email: email,
         };
 
@@ -229,7 +254,7 @@ export class UserService {
     }
 
     public changeEmail(email: string, currentPassword?: string, code?: string): void {
-        const params: { email: string; currentPassword?: string; code?: string } = {email};
+        const params: {email: string; currentPassword?: string; code?: string} = {email};
 
         if (currentPassword) {
             params.currentPassword = currentPassword;
@@ -262,8 +287,8 @@ export class UserService {
         this.dataService.request('user/disableProfile');
     }
 
-    public fetchUserProfile(): void {
-        this.dataService.request('user/userProfile');
+    public fetchUserProfile(): Promise<IData> {
+        return this.dataService.request('user/userProfile');
     }
 
     private fetchUserInfo(): void {
@@ -272,6 +297,9 @@ export class UserService {
 
     private startUserInfoFetcher(): void {
         this.userInfoHandler = this.dataService.subscribe('user/userInfo', (userInfo) => {
+            if (!userInfo) {
+                return;
+            }
             try {
                 this.eventService.emit({
                     name: 'USER_INFO',
@@ -495,10 +523,10 @@ export class UserService {
             url: '/userInfo',
             type: 'GET',
             period: 10000,
-            events: {
-                success: 'USER_INFO',
-                fail: 'USER_INFO_ERROR',
-            },
+            // events: {
+            //     success: 'USER_INFO',
+            //     fail: 'USER_INFO_ERROR',
+            // },
         });
     }
 }

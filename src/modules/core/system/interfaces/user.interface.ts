@@ -19,7 +19,7 @@ export interface IUserInfo {
     loyalty: ILoyalty;
     pincode: string;
     status: number;
-    socketsData: string;
+    socketsData?: ISocketsData,
     freerounds: IFreeRound[];
 }
 
