@@ -10,11 +10,6 @@ $font-family-sans-serif: $fontFamilyProject;
 @import '~bootstrap/scss/bootstrap-grid';
 @import 'app.styles';
 
-body {
-    //scale body when device width < 375px
-    min-width: 375px;
-}
-
 // LAYOUTS
 
 // Profile

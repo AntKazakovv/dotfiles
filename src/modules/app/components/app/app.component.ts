@@ -15,7 +15,6 @@ import {ConfigService, LayoutService} from '../../../core/system/services';
 import {ILanguage} from 'wlc-engine/modules/core';
 import {DeviceModel} from 'wlc-engine/modules/core';
 import {fromEvent} from 'rxjs';
-import {debounceTime} from 'rxjs/operators';
 
 import {
     sortBy as _sortBy,
@@ -92,7 +91,7 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
         this.updateMetaTag();
         this.cdr.markForCheck();
 
-        fromEvent(window, 'resize').pipe(debounceTime(500)).subscribe(() => {
+        fromEvent(window, 'resize').subscribe(() => {
             this.updateMetaTag();
         });
     }
@@ -112,12 +111,12 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
     }
 
     private updateMetaTag(): void {
-        if (window.innerWidth > 375) {
-            this.meta.updateTag({
-                name: 'viewport',
-                content: 'width=device-width, initial-scale=1',
-            });
-        } else {
+        this.meta.updateTag({
+            name: 'viewport',
+            content: 'width=device-width, initial-scale=1',
+        });
+
+        if (window.matchMedia('(max-width: 375px)').matches) {
             this.meta.updateTag({
                 name: 'viewport',
                 content: 'width=375',
