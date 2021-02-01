@@ -1,5 +1,4 @@
 @use 'engine-scss/functions' as ef;
-@import '../../../../../promo/components/slider/styles/utils/vars';
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
@@ -7,6 +6,8 @@ $themeDefault: map-merge((
     'margin': ef.get('size', 'smaller') auto ef.get('size', 'less') auto,
     'marginSwiper': 0,
     'minItemWidth': 280px,
+    'minItemWidthDesktop': 320px,
     'headerColor': ef.get('mainColors', 'baseMain'),
+    'swiperPadding': 0 ef.get('size', 'smaller') - 1px 0 ef.get('size', 'smaller') - 1px,
 ), $customThemeDefault);
 

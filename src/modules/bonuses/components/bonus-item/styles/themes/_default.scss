@@ -1,5 +1,6 @@
 @use 'engine-scss/mixins/mediaqueries' as mq;
 @use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/functions' as ef;
 @import '../utils/vars';
 
 .wlc-bonus-item--theme-default {
@@ -8,17 +9,21 @@
 
         &__content {
             position: relative;
-            background: map-get($themeDefault, 'background');
-            height: map-get($themeDefault, 'height');
-            min-width: map-get($themeDefault, 'minWidth');
-            max-width: map-get($themeDefault, 'maxWidth');
-            border-radius: map-get($themeDefault, 'radius');
+            background: ef.get-value($themeDefault, 'background');
+            height: ef.get-value($themeDefault, 'height');
+            min-width: ef.get-value($themeDefault, 'minWidth');
+            max-width: ef.get-value($themeDefault, 'maxWidth');
+            border-radius: ef.get-value($themeDefault, 'radius');
             overflow: hidden;
             margin-left: auto;
             margin-right: auto;
 
             &:hover {
-                background: map-get($themeDefault, 'backgroundHover');
+                background: ef.get-value($themeDefault, 'backgroundHover');
+            }
+
+            @include mq.min(1200) {
+                min-width: ef.get-value($themeDefault, 'minWidthDesktop');
             }
 
             @include mq.min(720) {
@@ -32,25 +37,25 @@
             width: 100%;
             height: 100%;
             display: grid;
-            grid-template-rows: auto map-get($themeDefault, 'infoHeight');
+            grid-template-rows: auto ef.get-value($themeDefault, 'infoHeight');
         }
 
         &__check-icon {
             position: absolute;
-            background-color: map-get($themeDefault, 'chosenIconBg');
-            border-radius: map-get($themeDefault, 'chosenIconBdRds');
-            width: map-get($themeDefault, 'chosenIconWidth');
-            height: map-get($themeDefault, 'chosenIconHeight');
-            left: map-get($themeDefault, 'chosenIconPosL');
-            top: map-get($themeDefault, 'chosenIconPosT');
+            background-color: ef.get-value($themeDefault, 'chosenIconBg');
+            border-radius: ef.get-value($themeDefault, 'chosenIconBdRds');
+            width: ef.get-value($themeDefault, 'chosenIconWidth');
+            height: ef.get-value($themeDefault, 'chosenIconHeight');
+            left: ef.get-value($themeDefault, 'chosenIconPosL');
+            top: ef.get-value($themeDefault, 'chosenIconPosT');
             display: none;
             justify-content: center;
             align-items: center;
 
             svg {
-                width: map-get($themeDefault, 'chosenIconSvgSize');
-                height: map-get($themeDefault, 'chosenIconSvgSize');
-                stroke: map-get($themeDefault, 'chosenIconSvgColor');
+                width: ef.get-value($themeDefault, 'chosenIconSvgSize');
+                height: ef.get-value($themeDefault, 'chosenIconSvgSize');
+                stroke: ef.get-value($themeDefault, 'chosenIconSvgColor');
                 fill: none;
             }
         }
@@ -79,8 +84,8 @@
             background-size: cover;
             background-position: center center;
             background-repeat: no-repeat;
-            background-color: map-get($themeDefault, 'imageBg');
-            padding-bottom: map-get($themeDefault, 'relativeImageHeight');
+            background-color: ef.get-value($themeDefault, 'imageBg');
+            padding-bottom: ef.get-value($themeDefault, 'relativeImageHeight');
             position: relative;
 
             .wlc-bonus-image-other {
@@ -89,12 +94,12 @@
         }
 
         &__bonus-icon {
-            width: map-get($themeDefault, 'bonusIconSize');
-            height: map-get($themeDefault, 'bonusIconSize');
+            width: ef.get-value($themeDefault, 'bonusIconSize');
+            height: ef.get-value($themeDefault, 'bonusIconSize');
             background-repeat: no-repeat;
             background-size: cover;
             background-position: center center;
-            margin: map-get($themeDefault, 'bonusIconMargin');
+            margin: ef.get-value($themeDefault, 'bonusIconMargin');
             position: relative;
 
             .icon-sign {
@@ -105,43 +110,43 @@
             }
 
             .icon-text {
-                width: map-get($themeDefault, 'bonusIconValueBlockWidth');
-                height: map-get($themeDefault, 'bonusIconValueBlockHeight');
-                border-radius: map-get($themeDefault, 'bonusIconValueBlockBorderRds');
-                background-color: map-get($themeDefault, 'bonusIconValueBg');
-                color: map-get($themeDefault, 'bonusIconValueFontColor');
-                font-size: map-get($themeDefault, 'bonusIconValueFontSize');
-                font-weight: map-get($themeDefault, 'bonusIconValueFontW');
+                width: ef.get-value($themeDefault, 'bonusIconValueBlockWidth');
+                height: ef.get-value($themeDefault, 'bonusIconValueBlockHeight');
+                border-radius: ef.get-value($themeDefault, 'bonusIconValueBlockBorderRds');
+                background-color: ef.get-value($themeDefault, 'bonusIconValueBg');
+                color: ef.get-value($themeDefault, 'bonusIconValueFontColor');
+                font-size: ef.get-value($themeDefault, 'bonusIconValueFontSize');
+                font-weight: ef.get-value($themeDefault, 'bonusIconValueFontW');
                 position: absolute;
-                left: map-get($themeDefault, 'bonusIconValueBlockPosL');
-                bottom: map-get($themeDefault, 'bonusIconValueBlockPosB');
-                margin: map-get($themeDefault, 'bonusIconValueBlockMagin');
+                left: ef.get-value($themeDefault, 'bonusIconValueBlockPosL');
+                bottom: ef.get-value($themeDefault, 'bonusIconValueBlockPosB');
+                margin: ef.get-value($themeDefault, 'bonusIconValueBlockMagin');
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 line-height: 1;
 
                 &--small {
-                    font-size: map-get($themeDefault, 'bonusIconValueFontSizeSmall');
+                    font-size: ef.get-value($themeDefault, 'bonusIconValueFontSizeSmall');
                 }
 
                 &--smaller {
-                    font-size: map-get($themeDefault, 'bonusIconValueFontSizeSmaller');
+                    font-size: ef.get-value($themeDefault, 'bonusIconValueFontSizeSmaller');
                 }
             }
         }
 
         &__tag {
             position: absolute;
-            padding: map-get($themeDefault, 'tagPadding');
-            background-color: map-get($themeDefault, 'tagBg');
-            border-radius: map-get($themeDefault, 'tagRadius');
+            padding: ef.get-value($themeDefault, 'tagPadding');
+            background-color: ef.get-value($themeDefault, 'tagBg');
+            border-radius: ef.get-value($themeDefault, 'tagRadius');
 
-            @include text.get-text-style('SignText', map-get($themeDefault, 'tagFontColor'));
+            @include text.get-text-style('SignText', ef.get-value($themeDefault, 'tagFontColor'));
 
             left: 50%;
             transform: translateX(-50%);
-            top: map-get($themeDefault, 'tagPositionTop');
+            top: ef.get-value($themeDefault, 'tagPositionTop');
             z-index: 2;
         }
 
@@ -164,45 +169,53 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: map-get($themeDefault, 'infoPadding');
+            padding: ef.get-value($themeDefault, 'infoPadding');
             overflow: hidden;
         }
 
         &__name {
-            @include text.get-text-style('QoteTextBold', map-get($themeDefault, 'nameFontColor'));
+            @include text.get-text-style('QoteTextBold', ef.get-value($themeDefault, 'nameFontColor'));
             text-align: center;
-            width: map-get($themeDefault, 'infoWidth');
+            width: ef.get-value($themeDefault, 'infoWidth');
+
+            @include mq.min(1200) {
+                width: ef.get-value($themeDefault, 'infoWidthDesktop');
+            }
         }
 
         &__description {
-            @include text.get-text-style('PrimaryText', map-get($themeDefault, 'descriptionFontColor'));
+            @include text.get-text-style('PrimaryText', ef.get-value($themeDefault, 'descriptionFontColor'));
             text-align: center;
-            transition: opacity map-get($themeDefault, 'time') ease-in-out;
-            width: map-get($themeDefault, 'infoWidth');
+            transition: opacity ef.get-value($themeDefault, 'time') ease-in-out;
+            width: ef.get-value($themeDefault, 'infoWidth');
+
+            @include mq.min(1200) {
+                width: ef.get-value($themeDefault, 'infoWidthDesktop');
+            }
         }
 
         &__active-block {
             display: grid;
-            grid-gap: map-get($themeDefault, 'activeBlockPadding');
-            padding: map-get($themeDefault, 'activeBlockPadding');
-            margin: map-get($themeDefault, 'activeBlockMargin');
-            max-width: map-get($themeDefault, 'activeBlockMaxWidth');
-            border-radius: map-get($themeDefault, 'activeBlockRadius');
+            grid-gap: ef.get-value($themeDefault, 'activeBlockPadding');
+            padding: ef.get-value($themeDefault, 'activeBlockPadding');
+            margin: ef.get-value($themeDefault, 'activeBlockMargin');
+            max-width: ef.get-value($themeDefault, 'activeBlockMaxWidth');
+            border-radius: ef.get-value($themeDefault, 'activeBlockRadius');
             text-align: center;
-            @include text.get-text-style('PrimaryTextBold', map-get($themeDefault, 'activeBlockFontColor'));
+            @include text.get-text-style('PrimaryTextBold', ef.get-value($themeDefault, 'activeBlockFontColor'));
 
             .secondary-text {
-                @include text.get-text-style('PrimaryText', map-get($themeDefault, 'activeBlockFontSecondaryColor'));
+                @include text.get-text-style('PrimaryText', ef.get-value($themeDefault, 'activeBlockFontSecondaryColor'));
             }
         }
 
         &__timer {
             display: flex;
             align-items: center;
-            background-color: map-get($themeDefault, 'activeBlockTimerBg');
-            border-radius: map-get($themeDefault, 'activeBlockTimerRadius');
-            padding: map-get($themeDefault, 'activeBlockTimerPadding');
-            margin: map-get($themeDefault, 'activeBlockTimerMargin');
+            background-color: ef.get-value($themeDefault, 'activeBlockTimerBg');
+            border-radius: ef.get-value($themeDefault, 'activeBlockTimerRadius');
+            padding: ef.get-value($themeDefault, 'activeBlockTimerPadding');
+            margin: ef.get-value($themeDefault, 'activeBlockTimerMargin');
 
             .time-text {
                 font-weight: bold;
@@ -210,12 +223,12 @@
         }
 
         &__clock-icon {
-            margin: map-get($themeDefault, 'activeBlockTimeIconMargin');
+            margin: ef.get-value($themeDefault, 'activeBlockTimeIconMargin');
 
             svg {
-                fill: map-get($themeDefault, 'activeBlockTimeIconFill');
-                width: map-get($themeDefault, 'activeBlockTimeIconSize');
-                height: map-get($themeDefault, 'activeBlockTimeIconSize');
+                fill: ef.get-value($themeDefault, 'activeBlockTimeIconFill');
+                width: ef.get-value($themeDefault, 'activeBlockTimeIconSize');
+                height: ef.get-value($themeDefault, 'activeBlockTimeIconSize');
             }
         }
 
@@ -228,11 +241,11 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            background-color: map-get($themeDefault, 'activeBlockProgressBg');
-            border-radius: map-get($themeDefault, 'activeBlockProgressRadius');
-            padding: map-get($themeDefault, 'activeBlockProgressPadding');
-            margin: map-get($themeDefault, 'activeBlockProgressMargin');
-            transition: all map-get($themeDefault, 'time') ease-in-out;
+            background-color: ef.get-value($themeDefault, 'activeBlockProgressBg');
+            border-radius: ef.get-value($themeDefault, 'activeBlockProgressRadius');
+            padding: ef.get-value($themeDefault, 'activeBlockProgressPadding');
+            margin: ef.get-value($themeDefault, 'activeBlockProgressMargin');
+            transition: all ef.get-value($themeDefault, 'time') ease-in-out;
         }
 
         &__remaning {
@@ -241,34 +254,34 @@
 
         &__progressbar {
             width: 100%;
-            height: map-get($themeDefault, 'progressBarSize');
-            border-radius: map-get($themeDefault, 'progressBarRadius');
-            background-color: map-get($themeDefault, 'progressBarBg');
+            height: ef.get-value($themeDefault, 'progressBarSize');
+            border-radius: ef.get-value($themeDefault, 'progressBarRadius');
+            background-color: ef.get-value($themeDefault, 'progressBarBg');
             overflow: hidden;
-            margin: map-get($themeDefault, 'progressBarMargin');
+            margin: ef.get-value($themeDefault, 'progressBarMargin');
         }
 
         &__progress-inner {
             width: 100%;
             height: 100%;
-            background-color: map-get($themeDefault, 'progressBarColor');
+            background-color: ef.get-value($themeDefault, 'progressBarColor');
         }
 
         &__more-icon {
             position: absolute;
-            left: map-get($themeDefault, 'moreIconPosLeft');
-            right: map-get($themeDefault, 'moreIconPosRight');
-            top: map-get($themeDefault, 'moreIconPosTop');
-            bottom: map-get($themeDefault, 'moreIconPosBottom');
+            left: ef.get-value($themeDefault, 'moreIconPosLeft');
+            right: ef.get-value($themeDefault, 'moreIconPosRight');
+            top: ef.get-value($themeDefault, 'moreIconPosTop');
+            bottom: ef.get-value($themeDefault, 'moreIconPosBottom');
 
             .icon-btn {
                 cursor: pointer;
-                width: map-get($themeDefault, 'moreIconSize');
-                height: map-get($themeDefault, 'moreIconSize');
+                width: ef.get-value($themeDefault, 'moreIconSize');
+                height: ef.get-value($themeDefault, 'moreIconSize');
 
                 svg {
                     width: 100%;
-                    fill: map-get($themeDefault, 'moreIconColor');
+                    fill: ef.get-value($themeDefault, 'moreIconColor');
                 }
             }
         }
@@ -280,11 +293,11 @@
             display: flex;
             justify-content: center;
             transform: translateY(400%);
-            transition: all map-get($themeDefault, 'time') ease-in-out;
+            transition: all ef.get-value($themeDefault, 'time') ease-in-out;
             opacity: 0;
 
             button {
-                margin: map-get($themeDefault, 'btnMargin');
+                margin: ef.get-value($themeDefault, 'btnMargin');
             }
         }
     }
@@ -381,7 +394,7 @@
         cursor: pointer;
         transform-origin: 50% 50%;
         transform: scale(1);
-        transition: all map-get($themeDefault, 'time') ease-in-out;
+        transition: all ef.get-value($themeDefault, 'time') ease-in-out;
 
         &:hover {
             transform: scale(1.05);
@@ -399,10 +412,10 @@
     &.wlc-bonus-item--view-experience {
 
         .wlc-bonus-item__content {
-            background: map-get($themeDefault, 'backgroundExperience');
+            background: ef.get-value($themeDefault, 'backgroundExperience');
 
             &:hover {
-                background: map-get($themeDefault, 'backgroundExperienceHover');
+                background: ef.get-value($themeDefault, 'backgroundExperienceHover');
             }
         }
     }
@@ -410,10 +423,10 @@
     &.wlc-bonus-item--view-loyalty {
 
         .wlc-bonus-item__content {
-            background: map-get($themeDefault, 'backgroundLoyalty');
+            background: ef.get-value($themeDefault, 'backgroundLoyalty');
 
             &:hover {
-                background: map-get($themeDefault, 'backgroundLoyaltyHover');
+                background: ef.get-value($themeDefault, 'backgroundLoyaltyHover');
             }
         }
     }
@@ -421,10 +434,10 @@
     &.wlc-bonus-item--view-balance {
 
         .wlc-bonus-item__content {
-            background: map-get($themeDefault, 'backgroundBalance');
+            background: ef.get-value($themeDefault, 'backgroundBalance');
 
             &:hover {
-                background: map-get($themeDefault, 'backgroundBalanceHover');
+                background: ef.get-value($themeDefault, 'backgroundBalanceHover');
             }
         }
     }
@@ -432,10 +445,10 @@
     &.wlc-bonus-item--view-freerounds {
 
         .wlc-bonus-item__content {
-            background: map-get($themeDefault, 'backgroundFreerounds');
+            background: ef.get-value($themeDefault, 'backgroundFreerounds');
 
             &:hover {
-                background: map-get($themeDefault, 'backgroundFreeroundsHover');
+                background: ef.get-value($themeDefault, 'backgroundFreeroundsHover');
             }
         }
     }
@@ -443,10 +456,10 @@
     &.wlc-bonus-item--view-relative {
 
         .wlc-bonus-item__content {
-            background: map-get($themeDefault, 'backgroundRelative');
+            background: ef.get-value($themeDefault, 'backgroundRelative');
 
             &:hover {
-                background: map-get($themeDefault, 'backgroundRelativeHover');
+                background: ef.get-value($themeDefault, 'backgroundRelativeHover');
             }
         }
     }

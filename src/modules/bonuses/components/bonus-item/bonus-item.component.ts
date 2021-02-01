@@ -122,7 +122,7 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
             modalTitle: bonus.name,
             modifier: 'info',
             modalMessage: [
-                gettext('Full bonus info coming soon...'),
+                bonus.description,
             ],
             dismissAll: true,
         });
@@ -173,9 +173,9 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
 
     public getValueLengthClass(value: number): string {
         const strLength = value && value.toString().length;
-        if (strLength > 5 && strLength < 9) {
+        if (strLength > 4 && strLength < 7) {
             return 'small';
-        } else if (strLength >= 9) {
+        } else if (strLength >= 7) {
             return 'smaller';
         } else {
             return 'default';

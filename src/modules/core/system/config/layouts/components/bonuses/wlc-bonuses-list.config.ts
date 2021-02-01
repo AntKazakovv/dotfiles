@@ -56,7 +56,7 @@ export namespace wlcBonusesList {
                             slidesPerView: 2,
                         },
                         1024: {
-                            slidesPerView: 2,
+                            slidesPerView: 1,
                         },
                         1200: {
                             slidesPerView: 2,
