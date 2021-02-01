@@ -29,6 +29,10 @@
                     margin-bottom: 0;
                 }
             }
+
+            @include mq.min(1200) {
+                grid-template-columns: repeat(auto-fill, minmax(ef.get-value($themeDefault, 'minItemWidthDesktop'), 1fr));
+            }
         }
 
         .wlc-bonuses-list__nocontent,
@@ -53,6 +57,24 @@
 
         .wlc-bonuses-list__list-wrapper {
             margin: ef.get-value($themeDefault, 'marginSwiper');
+
+            ::ng-deep {
+
+                .swiper-container {
+
+                    @include mq.min(480) {
+                        padding: ef.get-value($themeDefault, 'swiperPadding');
+                    }
+                }
+
+                .swiper-button-next {
+                    right: 0;
+                }
+
+                .swiper-button-prev {
+                    left: 0;
+                }
+            }
         }
     }
 }

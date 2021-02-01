@@ -7,7 +7,7 @@
     [class.active]="$params.common.bonus.isActive">
     <div class="{{$class}}__wrapper" (click)="chooseBonusNoBtn($params.common.bonus, $params.common?.type)">
         <div class="{{$class}}__image-block" data-wlc-element="bonus_image">
-            <div class="{{$class}}__tag" *ngIf="$params.common?.showBonusTag">{{getBonusTag() | translate}}</div>
+            <div class="{{$class}}__tag" *ngIf="$params.common?.showBonusTag && getBonusTag()?.length">{{getBonusTag() | translate}}</div>
             <div class="{{$class}}__image" *ngIf="!$params.common?.useIconBonusImage && $params.common.imageByType"
                 [style]="{backgroundImage: $params.common.bonus.getImageByType($params.common?.type)}">
                 <img class="wlc-bonus-image-other" *ngIf="$params.common?.showAdditionalImage" [src]="$params.common.bonus.imageOther" loading="lazy">
@@ -42,7 +42,7 @@
                     <div class="{{$class}}__clock-icon" wlc-icon iconName="clock"></div>
                     <div class="{{$class}}__timer-text">
                         <div class="time-text">{{$params.common.bonus.expirationTime()}}</div>
-                        <div class="secondary-text">{{'Time remaining' | translate}}</div>
+                        <div class="secondary-text">{{'Time remaning' | translate}}</div>
                     </div>
                 </div>
                 <div class="{{$class}}__progress">

@@ -6,6 +6,7 @@ import {
     Input,
     OnDestroy,
     OnInit,
+    ViewChild,
 } from '@angular/core';
 import {
     AbstractComponent,
@@ -15,6 +16,7 @@ import {
     ISliderCParams,
     ISlide,
 } from 'wlc-engine/modules/promo/components/slider/slider.params';
+import {SliderComponent} from 'wlc-engine/modules/promo/components/slider/slider.component';
 import {BonusItemComponent} from '../bonus-item/bonus-item.component';
 import {ConfigService} from 'wlc-engine/modules/core';
 import {EventService} from 'wlc-engine/modules/core/system/services';
@@ -54,6 +56,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
     @Input() protected themeMod: Params.ThemeMod;
     @Input() protected customMod: Params.CustomMod;
     @Input() protected inlineParams: Params.IBonusesListCParams;
+    @ViewChild(SliderComponent) public slider: SliderComponent;
 
     public $params: Params.IBonusesListCParams;
     public bonuses: Bonus[] = [];
@@ -131,6 +134,10 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
                 ),
             };
         });
+
+        if (this.slider?.swiper) {
+            this.slider.swiper.swiper().slideTo(0);
+        }
         this.cdr.markForCheck();
     }
 

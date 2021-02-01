@@ -4,9 +4,11 @@ $customThemeDefault: () !default;
 $themeDefault: map-merge((
     // // Size
     'minWidth': 280px,
+    'minWidthDesktop': 320px,
     'maxWidth': 320px,
     'height': 370px,
     'infoWidth': 280px - 30px,
+    'infoWidthDesktop': 320px - 30px,
     'infoHeight': 125px,
     'relativeImageHeight': 70%,
     'bonusIconSize': 144px,
@@ -23,8 +25,8 @@ $themeDefault: map-merge((
     // // Font
     'descriptionFontColor': ef.get('mainColors', 'PrimaryText'),
     'bonusIconValueFontSize': 2rem,
-    'bonusIconValueFontSizeSmall': 1.7rem,
-    'bonusIconValueFontSizeSmaller': 1.5rem,
+    'bonusIconValueFontSizeSmall': 1.6rem,
+    'bonusIconValueFontSizeSmaller': 1.2rem,
     'bonusIconValueFontW': 700,
     'bonusIconValueFontColor': ef.get('fieldColors', 'textColor'),
     'tagFontColor': ef.get('mainColors', 'baseMain'),

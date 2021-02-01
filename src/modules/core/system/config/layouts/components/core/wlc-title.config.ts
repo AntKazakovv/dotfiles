@@ -59,7 +59,7 @@ export namespace wlcTitle {
         name: 'core.wlc-title',
         params: {
             customMod: ['profile', 'profile-bonuses'],
-            mainText: gettext('My bonuses'),
+            mainText: gettext('My Bonuses'),
             wlcElement: 'header_user-bonuses',
         },
     };
