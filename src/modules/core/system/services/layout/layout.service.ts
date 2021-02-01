@@ -340,6 +340,14 @@ export class LayoutService {
                     this.afterModuleLoad('bonuses', m);
                     return m.BonusesModule;
                 });
+            case 'profile':
+                if (this.loadedModules.profile) {
+                    return this.loadedModules.profile;
+                }
+                return import('wlc-engine/modules/profile/profile.module').then(m => {
+                    this.afterModuleLoad('profile', m);
+                    return m.ProfileModule;
+                });
         }
     }
 
