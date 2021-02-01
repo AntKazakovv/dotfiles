@@ -12,17 +12,10 @@
             display: grid;
             grid-auto-columns: auto;
             grid-auto-flow: column;
-            grid-gap: ef.get-value($themeDefault, 'gapSize');
             width: ef.get-value($themeDefault, 'width');
             align-items: center;
 
-            @include mq.min(1200) {
-                grid-gap: ef.get-value($themeDefault, 'gapSize', 1200);
-            }
-
-            @include mq.min(1420) {
-                grid-gap: ef.get-value($themeDefault, 'gapSize', 1420);
-            }
+            @include bm.get-mq-map('grid-gap', $themeDefault, 'gapSize');
 
             .wlc-menu {
 
