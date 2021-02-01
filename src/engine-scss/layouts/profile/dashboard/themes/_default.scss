@@ -35,7 +35,12 @@
             @include mq.min(1024) {
                 grid: {
                     template-columns: repeat(6, 1fr);
-                    template-areas: 'title title title title title title' 'loyalty loyalty loyalty exchange exchange exchange' 'bonuses-title bonuses-title bonuses-title bonuses-title bonuses-title bonuses-title' 'bonuses bonuses bonuses bonuses promocode promocode' 'bonuses bonuses bonuses bonuses see-all-bonuses see-all-bonuses';
+                    template-areas:
+                        'title title title title title title'
+                        'loyalty loyalty loyalty exchange exchange exchange'
+                        'bonuses-title bonuses-title bonuses-title bonuses-title bonuses-title bonuses-title'
+                        'bonuses bonuses bonuses bonuses promocode promocode'
+                        'bonuses bonuses bonuses bonuses see-all-bonuses see-all-bonuses';
                     gap: 25px 40px;
                 }
             }
@@ -80,24 +85,11 @@
         grid-area: promocode;
     }
 
-    .wlc-see-all-bonuses {
+    .wlc-link-block {
         grid-area: see-all-bonuses;
     }
 
     .wlc-bonuses-list {
         grid-area: bonuses;
-    }
-
-    .wlc-see-all-bonuses,
-    .wlc-enter-promocode {
-        height: 100%;
-
-        &__container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            height: 100%;
-        }
     }
 }

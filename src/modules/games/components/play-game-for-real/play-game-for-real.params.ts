@@ -136,8 +136,8 @@ export const playGameForRealConfig = (params: IPlayForRealParams): IFormWrapperC
             name: 'core.wlc-link-block',
             params: {
                 common: {
-                    subtitleText: gettext('Don’t have an account?'),
-                    linkText: gettext('Sign up now'),
+                    subtitle: gettext('Don’t have an account?'),
+                    link: gettext('Sign up now'),
                     actionParams: {
                         modal: {
                             name: 'signup',

@@ -12,7 +12,10 @@ import {
     AbstractComponent,
     IMixedParams,
 } from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ConfigService} from 'wlc-engine/modules/core';
+import {
+    CachingService,
+    ConfigService,
+} from 'wlc-engine/modules/core';
 import {
     ModalService,
     EventService,
@@ -69,6 +72,7 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
 
     constructor(
         @Inject('injectParams') protected params: Params.IBonusItemParams,
+        protected cachingService: CachingService,
         protected cdr: ChangeDetectorRef,
         protected ConfigService: ConfigService,
         protected modalService: ModalService,
@@ -153,6 +157,7 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
     public async join(): Promise<void> {
         this.bonus = await this.bonusesService.subscribeBonus(this.bonus);
         if (this.bonus) {
+            this.bonusesService.clearPromoBonus();
             this.cdr.markForCheck();
         }
     }
@@ -166,7 +171,9 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
 
     public async unsubscribe(): Promise<void> {
         this.bonus = await this.bonusesService.unsubscribeBonus(this.bonus);
+
         if (this.bonus) {
+            this.sendEvent('UNSUBSCRIBE_FROM_BONUS', this.bonus);
             this.cdr.markForCheck();
         }
     }
@@ -205,5 +212,12 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
             modifiers = _union(modifiers, this.$params.common.customModifiers.split(' '));
         }
         this.addModifiers(modifiers);
+    }
+
+    protected sendEvent(eventName, data): void {
+        this.eventService.emit({
+            name: eventName,
+            data,
+        });
     }
 }

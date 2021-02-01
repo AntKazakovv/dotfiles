@@ -2,6 +2,9 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
+    'baseHeight': 100%,
+    'baseWidth': 100%,
+
     'containerPadding': (
         375: ef.get('size', 'smaller') ef.get('size', 'small'),
         768: ef.get('size', 'less') ef.get('size', 'main'),
@@ -9,20 +12,26 @@ $themeDefault: map-merge((
     'containerBackground': ef.get('mainColors', 'bg300'),
     'containerShadow': 0 4px 9px 0 rgba(ef.get('mainColors', 'bg'), 0.07),
     'containerRadius': ef.get('radius', 'biger'),
+    'containerHeight': 100%,
 
-    'titleFontSize': ef.get('font', 'less'),
-    'titleFontWeight': 700,
-    'titleLineHeight': 1.3,
+    'titleFontSize': 'ThirdTitleBold',
     'titleColor': ef.get('mainColors', 'baseMain'),
+    'titleMargin': 0 0 ef.get('size', 'less') 0,
+
+    'controlWidth': 100%,
 
     'btnBasePosition': 0,
-    'btnRightPosition': 5px,
+    'btnRightPosition': 4px,
     'btnSize': 32px,
     'btnBackground': ef.get('mainColors', 'main'),
-    'btnBackgroundHover': lighten(ef.get('mainColors', 'main'), 15),
+    'btnBackgroundHover': lighten(ef.get('mainColors', 'main'), 10%),
     'btnRadius': ef.get('radius', 'main'),
 
     'btnIconSize': 16px,
     'btnIconFill':  ef.get('mainColors', 'baseMain'),
+
+    'btnTextSize': 16px,
+    'btnTextBorderColor': ef.get('mainColors', 'baseMain'),
+    'btnTextRadius': 50px
 
 ), $customThemeDefault);

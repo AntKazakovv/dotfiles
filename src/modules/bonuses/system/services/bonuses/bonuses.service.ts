@@ -6,7 +6,7 @@ import {
     EventService,
     ModalService,
     LogService,
-    DataService,
+    DataService, CachingService,
 } from 'wlc-engine/modules/core/system/services';
 import {UserService} from 'wlc-engine/modules/user/system/services';
 import {
@@ -51,12 +51,15 @@ interface IBonusData extends IData {
     providedIn: 'root',
 })
 export class BonusesService {
+    public promoBonus: Bonus = null;
+    public dbPromoUrl: string = 'promocode'
+
     protected bonuses: Bonus[] = [];
     protected storeBonuses: Bonus[] = [];
     protected activeBonuses: Bonus[] = [];
     protected historyBonuses: Bonus[] = [];
 
-    private subjects: {[key: string]: BehaviorSubject<Bonus[]>} = {
+    private subjects: { [key: string]: BehaviorSubject<Bonus[]> } = {
         bonuses$: new BehaviorSubject(null),
         active$: new BehaviorSubject(null),
         history$: new BehaviorSubject(null),
@@ -69,6 +72,7 @@ export class BonusesService {
     private regEvents = ['deposit first', 'registration', 'verification'];
 
     constructor(
+        private cachingService: CachingService,
         private dataService: DataService,
         private eventService: EventService,
         private configService: ConfigService,
@@ -211,14 +215,14 @@ export class BonusesService {
                 url: `/bonuses/${id}`,
                 type: 'GET',
             });
-            if(_isObject(data.data)) {
+            if (_isObject(data.data)) {
                 const bonus: Bonus = new Bonus(data.data, this.configService, this);
                 this.cacheBonus(bonus);
                 return bonus;
             } else {
                 this.logService.sendLog({code: '10.0.1', data: data.data});
             }
-        } catch(error) {
+        } catch (error) {
             this.logService.sendLog({code: '10.0.1', data: error});
         }
     }
@@ -246,7 +250,7 @@ export class BonusesService {
                 },
             }, params);
             return response.data;
-        } catch(error) {
+        } catch (error) {
             this.showError('Bonus subscribe failed', error?.errors);
         }
     }
@@ -273,7 +277,7 @@ export class BonusesService {
                 },
             }, params);
             return response.data;
-        } catch(error) {
+        } catch (error) {
             this.showError('Bonus unsubscribe failed', error?.errors);
         }
     }
@@ -298,7 +302,7 @@ export class BonusesService {
                 },
             });
             return response.data;
-        } catch(error) {
+        } catch (error) {
             this.showError('Bonus cancel failed', error?.errors);
         }
     }
@@ -324,7 +328,7 @@ export class BonusesService {
                 },
             }, params);
             return response.data;
-        } catch(error) {
+        } catch (error) {
             this.showError('Bonus take failed', error?.errors);
         }
     }
@@ -403,32 +407,33 @@ export class BonusesService {
             const res: IData = await this.dataService.request('bonuses/bonuses', queryParams);
             let result = this.modifyBonuses(res.data);
             result = this.checkForbid(result, queryParams);
-            if(result.length) {
+            if (result.length) {
                 this.checkBonusesInLocalStorage(result);
             }
             _each(result, (bonus: Bonus) => {
                 bonus.setFromLocalStorage();
-                bonuses.push(bonus);
+                bonuses.unshift(bonus);
             });
 
-            bonuses = _sortBy(bonuses, (o) => {
-                return o.id;
+            bonuses = _sortBy(bonuses, (bonus) => {
+                return bonus.id;
             });
+
             switch (type) {
                 case 'active':
-                    publicSubject ? this.subjects.active$.next(bonuses): null;
+                    publicSubject ? this.subjects.active$.next(bonuses) : null;
                     this.activeBonuses = bonuses;
                     break;
                 case 'history':
-                    publicSubject ? this.subjects.history$.next(bonuses): null;
+                    publicSubject ? this.subjects.history$.next(bonuses) : null;
                     this.historyBonuses = bonuses;
                     break;
                 case 'store':
-                    publicSubject ? this.subjects.store$.next(bonuses): null;
+                    publicSubject ? this.subjects.store$.next(bonuses) : null;
                     this.storeBonuses = bonuses;
                     break;
                 default:
-                    publicSubject ? this.subjects.bonuses$.next(bonuses): null;
+                    publicSubject ? this.subjects.bonuses$.next(bonuses) : null;
                     this.bonuses = bonuses;
                     break;
             }
@@ -439,6 +444,13 @@ export class BonusesService {
                 name: 'BONUSES_FETCH_FAILED',
                 data: error,
             });
+        }
+    }
+
+    public clearPromoBonus(): void {
+        if (this.promoBonus) {
+            this.cachingService.claer(this.dbPromoUrl);
+            this.promoBonus = null;
         }
     }
 
@@ -470,11 +482,11 @@ export class BonusesService {
         const forbiddenCategories = this.configService.get<IIndexing<IForbidBanned>>('$loyalty.forbidBanned');
         if (
             (this.useForbidUserFields &&
-            (
-                _get(this.profile, 'info.loyalty.ForbidBonuses') === '1' ||
-                _get(forbiddenCategories, `${userCategory}.forbidBonuses`, false)
-            ) &&
-            queryParams.type !== 'history')
+                (
+                    _get(this.profile, 'info.loyalty.ForbidBonuses') === '1' ||
+                    _get(forbiddenCategories, `${userCategory}.forbidBonuses`, false)
+                ) &&
+                queryParams.type !== 'history')
         ) {
             bonuses = _filter(bonuses, (bonus: Bonus) => {
                 return bonus.active || bonus.selected || bonus.inventoried;
@@ -563,6 +575,12 @@ export class BonusesService {
         });
 
         this.eventService.subscribe([
+            {name: 'LOGOUT'},
+        ], () => {
+            this.clearPromoBonus();
+        });
+
+        this.eventService.subscribe([
             {name: 'BONUS_SUBSCRIBE_SUCCEEDED'},
         ], (data: IData) => {
             if (data?.data?.event === 'sign up') {
@@ -575,6 +593,15 @@ export class BonusesService {
         ], (data: IData) => {
             if (data?.data?.inventoried) {
                 this.updateSubscribers();
+            }
+        });
+
+        this.eventService.subscribe([
+            {name: 'PROMO_SUCCESS'},
+        ], (bonus: Bonus) => {
+            if (bonus) {
+                this.promoBonus = bonus;
+                this.cachingService.set(this.dbPromoUrl, this.promoBonus.promoCode, true, 24 * 60 * 60 * 100);
             }
         });
     }
@@ -590,7 +617,7 @@ export class BonusesService {
         bonus.addToLocalStorage(actionType);
         _extend(bonus.data, res);
 
-        switch(actionType) {
+        switch (actionType) {
             case 'inventory':
                 bonus.data.Inventoried = 0;
                 break;

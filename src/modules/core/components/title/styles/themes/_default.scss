@@ -13,7 +13,7 @@
                 size: ef.get-value($themeDefault, 'mainFontSize');
                 weight: ef.get-value($themeDefault, 'mainFontWeight');
             };
-            color: ef.get-value($themeDefault, 'mainColor');
+            color: ef.get-value($themeDefault, 'mainColors');
             line-height: ef.get-value($themeDefault, 'mainLineHeight');
         }
 

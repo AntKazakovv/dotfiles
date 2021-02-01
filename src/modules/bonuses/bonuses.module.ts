@@ -9,13 +9,13 @@ import {BonusesService} from './system/services';
 import {BonusItemComponent} from './components/bonus-item/bonus-item.component';
 import {BonusesListComponent} from './components/bonuses-list/bonuses-list.component';
 import {EnterPromocodeComponent} from './components/enter-promocode/enter-promocode.component';
-import {SeeAllBonusesComponent} from './components/see-all-bonuses/see-all-bonuses.component';
+import {PromoSuccessComponent} from './components/promo-success/promo-success.component';
 
 export const components = {
     'wlc-bonus-item': BonusItemComponent,
     'wlc-bonuses-list': BonusesListComponent,
     'wlc-enter-promocode': EnterPromocodeComponent,
-    'wlc-see-all-bonuses': SeeAllBonusesComponent,
+    'wlc-promo-success': PromoSuccessComponent,
 };
 
 @NgModule({
@@ -23,7 +23,7 @@ export const components = {
         BonusItemComponent,
         BonusesListComponent,
         EnterPromocodeComponent,
-        SeeAllBonusesComponent,
+        PromoSuccessComponent,
     ],
     imports: [
         CommonModule,
@@ -38,6 +38,7 @@ export const components = {
         BonusItemComponent,
         BonusesListComponent,
         EnterPromocodeComponent,
+        PromoSuccessComponent
     ],
 })
 

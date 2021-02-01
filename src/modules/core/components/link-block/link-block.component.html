@@ -1,19 +1,21 @@
-<div *ngIf="$params.common.titleText"
-     class="{{$class}}__title">
-    {{$params.common.titleText | translate}}
-</div>
-<div *ngIf="$params.common.subtitleText"
-     class="{{$class}}__subtitle">
-    {{$params.common.subtitleText | translate}}
-</div>
-<div *ngIf="$params.common.linkText"
-     class="{{$class}}__text">
-    <button
-        wlc-button
-        icon="arrow"
-        theme="cleared"
-        text="{{$params.common.linkText}}"
-        (click)="goTo($params.common.actionParams)"
-    >
-    </button>
+<div class="{{$class}}__container">
+    <h3 *ngIf="$params.common.title"
+        class="{{$class}}__title">
+        {{$params.common.title | translate}}
+    </h3>
+    <h4 *ngIf="$params.common.subtitle"
+        class="{{$class}}__subtitle">
+        {{$params.common.subtitle | translate}}
+    </h4>
+    <div *ngIf="$params.common.link"
+         class="{{$class}}__text">
+        <button
+            wlc-button
+            icon="arrow"
+            theme="cleared"
+            text="{{$params.common.link}}"
+            (click)="goTo($params.common.actionParams)"
+        >
+        </button>
+    </div>
 </div>

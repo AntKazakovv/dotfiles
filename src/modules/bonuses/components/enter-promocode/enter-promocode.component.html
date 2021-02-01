@@ -1,5 +1,5 @@
 <div class="{{$class}}__container" data-wlc-element="block_promocode">
-    <h4 class="{{$class}}__title">{{$params.common.titleText}}</h4>
+    <h4 class="{{$class}}__title">{{$params.common.title}}</h4>
     <div class="{{$class}}__control">
         <div wlc-input
              [inlineParams]='enterPromocodeInput'
@@ -8,6 +8,8 @@
         <button
             wlc-button
             class="{{$class}}__btn"
+            [class.pending]="pending$ | async"
+            [disabled]="pending$ | async"
             theme="icon"
             icon="enter-arrow"
             (click)="getBonusByPromocode()"
