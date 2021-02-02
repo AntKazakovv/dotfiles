@@ -1,122 +1,141 @@
+@use 'engine-scss/functions' as ef;
 //media queries variables
 
-$customThemeDefaultMobile: () !default;
-$themeDefaultMobile: map-merge((
-    'closeTop': 15px,
-    'searchModalHeaderSize': 14px,
-    'searchModalHeaderWeight': bold,
-    'searchModalHeaderPadding': 20px 0,
-    'searchModalHeaderMargin': 0 0 20px,
-    'searchPanelBg': transparent,
-    'searchPanelColumns': 1fr 1fr,
-    'searchPanelBorderRadius': 0,
-    'searchPanelPadding': 0,
-    'searchPanelGap': 15px,
-    'searchColWidth': 100%,
-    'searchColSize': 14px,
-    'searchBtnItemsSize': 14px,
-    'btnPadding': 8px 15px,
-    'gamesPadding': 0,
-    'noGamesPadding': 15px 0,
-    'gamesMargin': 0 0 30px,
-    'resultMargin': 0 0 15px,
-    'resultSize': 14px,
-    'resultWeight': normal,
-    'resultColor': #fff,
-    'searchModalHeaderBorderBottom': 1px solid #fff,
-    'btnBackground': ef.get('color', 'main'),
-    'btnFontSize': 14px,
-    'btnBorderRadius': ef.get('radius', 'small'),
-    'btnBorder': none,
-    'listBtnRadius': ef.get('radius', 'small'),
-    'btnTextColor': #000,
-    'listBtnFontSize': 14px,
-    'listBtnPadding': 5px 10px,
-    'listBtnColor': #fff,
-    'listBtnBackground': ef.get('color', 'backgroundSecondary'),
-    'listBtnBackgroundActive': #fff,
-    'listBtnColorActive': ef.get('color', 'success'),
-    'listBtnBackgroundHover': ef.get('color', 'secondary'),
-    'listBtnBorder': 2px solid ef.get('color', 'secondary'),
-    'listBtnBorderActive': 2px solid ef.get('color', 'success'),
-), $customThemeDefaultMobile);
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'btnPaddingVertical': 8px,
+    'btnPaddingLeft': 10px,
+    'btnArrowColor': ef.get('mainColors', 'baseOpacity'),
+    'btnArrowWidth': 2px,
+    'btnArrowSize': 8px,
+    'btnArrowRightMargin': 10px,
+    'btnArrowLeftMargin': 8px,
+    'btnTransition': ef.get('time', 'main'),
+    'btnIconSize': 18px,
+    'btnIconColor': ef.get('mainColors', 'baseMain'),
+    'btnIconRightMargin': 10px,
 
-$customThemeDefaultDesktop: () !default;
-$themeDefaultDesktop: map-merge((
-    'closeTop': 22px,
-    'searchModalHeaderSize': 24px,
-    'searchModalHeaderWeight': bold,
-    'searchPanelBg': darken(ef.get('color', 'modal'), 15),
-    'searchPanelBorderRadius': ef.get('radius', 'main'),
-    'searchPanelColumns': 1fr 0.3fr 0.3fr,
-    'searchPanelPadding': 20px 20px 5px 20px,
-    'searchColWidth': 100%,
-    'searchColSize': 14px,
-    'searchBtnItemsSize': 14px,
-    'searchTitleWidth': 95px,
-    'btnPadding': 8px 15px 8px 35px,
-    'gamesPadding': 20px 0,
-    'noGamesPadding': 0,
-    'gamesMargin': 0 0 30px,
-    'resultMargin': 20px 0 0,
-    'resultSize': 14px,
-    'resultWeight': normal,
-    'resultColor': #000,
-    'searchModalHeaderBorderBottom': 1px solid #000,
-    'listBtnRadius': 0,
-    'listBtnFontSize': 14px,
-    'listBtnPadding': 14px 0,
-    'listBtnBorderBottom': 2px solid #000,
-    'listBtnBorderBottomActive': 2px solid ef.get('color', 'success'),
-    'listBtnColor': #fff,
+    'btnBackgroundHover': ef.get('mainColors', 'main'),
+    'btnBackgroundActive': ef.get('mainColors', 'main'),
+    'btnColorActive': ef.get('mainColors', 'baseMain'),
+    'btnArrowColorActive': ef.get('mainColors', 'baseMain'),
+    'btnIconColorActive': ef.get('mainColors', 'baseMain'),
+
+    'btnCounterSize': 18px,
+    'btnCounterFontSize': 12px,
+    'btnCounterMarginLeft': 6px,
+    'btnCounterBackground': ef.get('color', 'success'),
+    'btnCounterBorderRadius': 50%,
+    'btnCounterColor': ef.get('color', 'textSecondary'),
+    'btnCounterLineHeight': 12px,
+
+    'listGrid': (
+        320: 2,
+        900: 4,
+        1200: 5,
+        1420: 6,
+    ),
+    'listGap': 20px,
+    'listMargin': (
+        375: 10px 0 15px,
+        900: 25px 0 0,
+    ),
+    'listBtnTransition': ef.get('time', 'main'),
+    'listBtnIconBackground': 2px solid ef.get('mainColors', 'bg300'),
+    'listBtnIconBorder': 2px solid ef.get('fieldColors', 'borderColor'),
+    'listBtnIconActive': 2px solid ef.get('mainColors', 'main'),
+    'listBtnIconMargin': 0 0 0 5px,
+    'listBtnIconRadius': ef.get('radius', 'small'),
+    'listBtnIconWidth': 2px,
+    'listBtnIconSize': 25px,
+    'modalCloseRight': (
+        375: 3px,
+        900: 33px,
+    ),
+    'closeTop': (
+        375: 30px,
+        900: 30px,
+    ),
+    'searchBtnItemsFont': 'PrimaryText',
+    'listBtnColor': ef.get('mainColors', 'baseMain'),
+    'listBtnPadding': (
+        375: 5px 10px,
+        900: 14px 0,
+    ),
     'listBtnBorder': 0,
-    'listBtnBackground': none,
-    'listBtnBackgroundActive': none,
-    'listBtnColorActive': ef.get('color', 'success'),
-    'listBtnBackgroundHover': none,
-), $customThemeDefaultDesktop);
+    'listBtnBackground': (
+        375: ef.get('mainColors', 'bg700'),
+        900: none,
+    ),
+    'listBtnRadius': (
+        375: ef.get('radius', 'small'),
+        900: 0,
+    ),
+    'listBtnBorderBottom': 2px solid ef.get('mainColors', 'baseOpacity'),
+    'listBtnColorActive': (
+        375: ef.get('mainColors', 'main'),
+        900: ef.get('mainColors', 'baseMain'),
+    ),
+    'listBtnBackgroundHover': (
+        375: ef.get('mainColors', 'bg700'),
+        900: none,
+    ),
+    'listBtnBorderActive': 2px solid ef.get('mainColors', 'main'),
+    'resultMargin': (
+        375: 0 0 15px,
+        900: 20px 0 0,
+    ),
+    'resultColor': ef.get('mainColors', 'main'),
+    'resultSize': 'PrimaryText',
 
-//static variables
+    'gamesPadding': (
+        375: 20px 0,
+        900: 20px 0,
+    ),
+    'noGamesPadding': (
+        375: 15px 0,
+        900: 0,
+    ),
+    'gamesMargin': 0 0 ef.get('size', 'less'),
 
-$btnPaddingVertical: 8px !default;
-$btnPaddingLeft: 10px !default;
-$btnArrowColor: #000 !default;
-$btnArrowWidth: 2px !default;
-$btnArrowSize: 8px !default;
-$btnArrowRightMargin: $btnPaddingLeft !default;
-$btnArrowLeftMargin: 8px !default;
-$btnTransition: ef.get('time', 'main') !default;
-$btnIconSize: 18px !default;
-$btnIconColor: inherit !default;
-$btnIconRightMargin: $btnPaddingLeft !default;
-
-$btnBackgroundHover: ef.get('color', 'main') !default;
-$btnBackgroundActive: $btnBackgroundHover !default;
-$btnColorActive: #000;
-$btnArrowColorActive: $btnColorActive !default;
-$btnIconColorActive: inherit !default;
-
-$btnCounterSize: 18px !default;
-$btnCounterFontSize: 12px !default;
-$btnCounterMarginLeft: 6px !default;
-$btnCounterBackground: ef.get('color', 'success') !default;
-$btnCounterBorderRadius: 50% !default;
-$btnCounterColor: ef.get('color', 'textSecondary') !default;
-
-$listGrid: (
-    320: 2,
-    900: 4,
-    1200: 5,
-    1420: 6,
-) !default;
-$listGap: 15px !default;
-$listBtnColor: #000 !default;
-$listBtnTransition: $btnTransition !default;
-$listBtnIconBackground: #fff !default;
-$listBtnIconBorder: 2px solid ef.get('color', 'main') !default;
-$listBtnIconActive: 2px solid ef.get('color', 'main') !default;
-$listBtnIconMargin: 0 0 0 5px !default;
-$listBtnIconRadius: ef.get('radius', 'small') !default;
-$listBtnIconWidth: 2px !default;
-$listBtnIconSize: 25px !default;
+    'searchModalHeaderPadding':  ef.get('size', 'less') 0 ef.get('size', 'smaller'),
+    'searchModalHeaderMargin': 0,
+    'searchModalHeaderFont': 'QoteTextBold',
+    'searchModalHeaderFontColor': ef.get('mainColors', 'baseMain'),
+    'searchModalHeaderBorderBottom': none,
+    'searchPanelColumns': (
+        375: 1fr 1fr,
+        900: 1fr 0.3fr 0.3fr,
+    ),
+    'searchPanelGap': (
+        375: 10px 15px,
+        900: 0 15px,
+    ),
+    'searchPanelPadding': (
+        375: 15px 15px 5px 15px,
+        900: 20px,
+    ),
+    'searchPanelBg': ef.get('mainColors', 'bg300'),
+    'searchPanelBorderRadius': ef.get('radius', 'biger'),
+    'searchColWidth': (
+        375: 100%,
+        900: 170px,
+    ),
+    'searchTitleWidth': 95px,
+    'searchColSize': 14px,
+    'btnPadding': (
+        375: 8px 15px,
+        900: 10px 15px 10px 35px,
+    ),
+    'btnBackground': ef.get('mainColors', 'bg'),
+    'btnBorderRadius': ef.get('radius', 'biger'),
+    'btnBorder': none,
+    'btnFont': 'PlaceholderText',
+    'btnTextColor': ef.get('mainColors', 'baseMain'),
+    'heightBtn': 40px,
+    'modalPaddingSearch': (
+        375: 0 10px,
+        900: 0 50px,
+    ),
+), $customThemeDefault);
 

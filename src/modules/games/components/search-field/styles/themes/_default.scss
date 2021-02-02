@@ -1,23 +1,31 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/text' as text;
+@import '../utils/vars';
+
 .wlc-search-field {
     position: relative;
     display: block;
-    color: $color;
+    color: ef.get-value($themeDefault, 'color');
     line-height: 1;
-    font-size: $inputFontSize;
 
     &__input {
         width: 100%;
-        background: $bgColor;
-        border-radius: $borderRadius;
-        border: $border;
-        padding: $inputPadding;
-        transition: $transition;
-        color: $color;
-        font-size: inherit;
+        background: ef.get-value($themeDefault, 'bgColor');
+        border-radius: ef.get-value($themeDefault, 'borderRadius');
+        border: ef.get-value($themeDefault, 'border');
+        padding: ef.get-value($themeDefault, 'inputPadding');
+        transition: ef.get-value($themeDefault, 'transition');
+        height: ef.get-value($themeDefault, 'heightInput');
+        @include text.get-text-style(ef.get-value($themeDefault, 'fontName'), ef.get-value($themeDefault, 'color'));
+
+        &::placeholder {
+            color: ef.get-value($themeDefault, 'placeholderColor');
+        }
+
 
         &:focus {
             outline: none;
-            border-color: $borderColorActive;
+            border-color: ef.get-value($themeDefault, 'borderColorActive');
         }
 
         &::-webkit-search-cancel-button {
@@ -31,18 +39,18 @@
 
     &__clear {
         position: absolute;
-        right: $searchIconRight + $searchIconSize + 5px;
+        right: ef.get-value($themeDefault, 'searchIconRight') + ef.get-value($themeDefault, 'searchIconSize')  + 5px;
         top: 50%;
         height: auto;
         transform: translateY(-50%);
         appearance: none;
         border: none;
         background: transparent;
-        color: $color;
+        color: ef.get-value($themeDefault, 'color');
         padding: 4px;
         font-size: 0;
         opacity: 0.5;
-        transition: opacity $transition;
+        transition: opacity ef.get-value($themeDefault, 'transition');
 
         &:focus {
             outline: none;
@@ -55,11 +63,11 @@
         ::ng-deep {
 
             svg {
-                width: $clearButtonSize;
-                height: $clearButtonSize;
+                width: ef.get-value($themeDefault, 'clearButtonSize');
+                height: ef.get-value($themeDefault, 'clearButtonSize');
 
                 line {
-                    stroke: $searchIconColor;
+                    stroke: ef.get-value($themeDefault, 'searchIconColor');
                 }
             }
         }
@@ -68,16 +76,16 @@
     &__icon {
         position: absolute;
         top: 50%;
-        right: $searchIconRight;
+        right: ef.get-value($themeDefault, 'searchIconRight');
         transform: translateY(-50%);
         pointer-events: none;
 
         ::ng-deep {
 
             svg {
-                width: $searchIconSize;
-                height: $searchIconSize;
-                fill: $searchIconColor;
+                width: ef.get-value($themeDefault, 'searchIconSize');
+                height: ef.get-value($themeDefault, 'searchIconSize');
+                fill: ef.get-value($themeDefault, 'searchIconColor');
             }
         }
     }
