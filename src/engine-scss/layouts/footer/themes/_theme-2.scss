@@ -42,8 +42,6 @@
             .wlc-post-menu {
 
                 &__title {
-                    font-size: ef.get-value($theme2Footer, 'footerPostMenuTitleFontSize');
-                    font-weight: ef.get-value($theme2Footer, 'footerPostMenuTitleFontWeight');
                     text-transform: ef.get-value($theme2Footer, 'footerPostMenuTitleTextTransform');
                     color: ef.get-value($theme2Footer, 'footerPostMenuTitleColor');
                     text-align: ef.get-value($theme2Footer, 'footerPostMenuAlignment');
@@ -51,7 +49,6 @@
                 }
 
                 &__items {
-                    font-size: ef.get-value($theme2Footer, 'footerPostMenuItemFontSize');
                     @include em.get-mq-map('gap', $theme2Footer, 'footerPostMenuGridGap');
                     @include em.get-mq-map('grid-auto-flow', $theme2Footer, 'footerPostMenuGridAutoFlow');
                 }
@@ -124,6 +121,10 @@
         }
 
         .wlc-icon-list__item {
+
+            .wlc-icon-list__wrp {
+                text-align: center;
+            }
 
             img,
             .wlc-icon img,

@@ -3,29 +3,12 @@
 $customThemeDefault: () !default;
 
 $themeDefault: map-merge((
-    'mainFontSize': (
-        375: ef.get('font', 'big'),
-    ),
     'mainColor': (
         375:ef.get('mainColors', 'baseMain'),
-    ),
-    'mainFontWeight': (
-        375: bold,
-    ),
-    'mainLineHeight': (
-        375: initial
-    ),
-
-    'secondFontSize': (
-        375: ef.get('font', 'big')
     ),
     'secondColor': (
         375: ef.get('mainColors', 'baseMain')
     ),
-    'secondFontWeight': (
-        375: bold
-    ),
-    'secondLineHeight': (
-        375: initial
-    ),
+    'mainTitleStyle': 'QoteTextBold',
+    'secondTitleStyle': 'PlaceholderText',
 ), $customThemeDefault);

@@ -1,6 +1,7 @@
 @use 'engine-scss/functions' as ef;
 @use 'engine-scss/mixins/base.mixins' as bm;
 @use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/mixins/mediaqueries' as mq;
 
 @import './utils/mixins';
 @import './utils/vars';
@@ -107,8 +108,12 @@
         flex-direction: column;
         margin: ef.get-value($hostModal, 'modalOffset');
         background: ef.get-value($hostModal, 'modalBg');
-        border: ef.get-value($hostModal, 'modalBorder');
+        border: none;
         border-radius: ef.get-value($hostModal, 'modalBorderRadius');
+
+        @include mq.min(560) {
+            border: ef.get-value($hostModal, 'modalBorder');
+        }
 
         .fade & {
             animation: fadeAnimation ef.get-value($hostModal, 'modalAnimationSettings');

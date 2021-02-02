@@ -12,14 +12,15 @@
             justify-content: space-between;
             align-items: center;
             margin: ef.get-value($themeDefault, 'headerMargin');
-        }
 
-        ::ng-deep {
+            ::ng-deep {
 
-            .wlc-title {
+                .wlc-title {
 
-                &__main {
-                    @include text.get-text-style('QoteTextBold', ef.get-value($themeDefault, 'headerColor'));
+                    &__main {
+                        @include text.get-text-style(ef.get-value($themeDefault, 'headerFontStyle'), ef.get-value($themeDefault, 'headerColor'));
+                        line-height: 1;
+                    }
                 }
             }
         }

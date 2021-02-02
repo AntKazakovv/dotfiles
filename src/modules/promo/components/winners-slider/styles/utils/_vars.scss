@@ -74,7 +74,7 @@ $themeVertical: map-merge((
     'titleBorderRadius': ef.get('radius', 'biger') 0 ef.get('radius', 'biger') 0,
 
     // slider
-    'sliderHeight': 280px,
+    'sliderHeight': 320px,
     'sliderShadowPadding': 10px, // `false` or [space between slides]px
 ), $customThemeVertical);
 

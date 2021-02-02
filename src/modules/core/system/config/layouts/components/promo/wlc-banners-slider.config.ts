@@ -12,10 +12,7 @@ export namespace wlcBannersSlider {
             swiper: {
                 slidesPerView: 1,
                 navigation: true,
-                pagination: {
-                    clickable: true,
-                    type: 'bullets',
-                },
+                pagination: false,
             },
         },
     };

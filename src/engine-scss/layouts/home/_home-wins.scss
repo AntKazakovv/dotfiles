@@ -2,9 +2,9 @@
 @use 'engine-scss/functions' as ef;
 
 // TODO: there must be another component
-.wlc-sections__recent-wins-and-tournaments {
+.wlc-sections__content-wins {
 
-    & > .container {
+    .wlc-home-wins {
         display: grid;
         grid-template-columns: 1fr;
         gap: ef.get('size', 'smaller');

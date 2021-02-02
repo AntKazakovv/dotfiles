@@ -1,5 +1,6 @@
 @use 'engine-scss/mixins/mediaqueries' as mq;
 @use 'engine-scss/mixins/base.mixins' as em;
+@use 'engine-scss/mixins/text' as text;
 @use 'engine-scss/functions' as ef;
 @import '../utils/vars';
 
@@ -9,21 +10,11 @@
     h1.wlc-title {
 
         &__main {
-            font: {
-                size: ef.get-value($themeDefault, 'mainFontSize');
-                weight: ef.get-value($themeDefault, 'mainFontWeight');
-            };
-            color: ef.get-value($themeDefault, 'mainColors');
-            line-height: ef.get-value($themeDefault, 'mainLineHeight');
+            @include text.get-text-style(ef.get-value($themeDefault, 'mainTitleStyle'), ef.get-value($themeDefault, 'mainColors'));
         }
 
         &__second {
-            font: {
-                size: ef.get-value($themeDefault, 'secondFontSize');
-                weight: ef.get-value($themeDefault, 'secondFontWeight');
-            };
-            color: ef.get-value($themeDefault, 'secondColor');
-            line-height: ef.get-value($themeDefault, 'secondLineHeight');
+            @include text.get-text-style(ef.get-value($themeDefault, 'secondTitleStyle'), ef.get-value($themeDefault, 'secondColor'));
         }
     }
 }
