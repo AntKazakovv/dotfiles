@@ -89,6 +89,10 @@ export class WinnersSliderComponent extends AbstractComponent implements OnInit 
                     {theme: this.$params.theme},
                     this.$params.winner,
                     {winner: item},
+                    {
+                        winnerType: this.$params.type,
+                        wlcElement: 'block_item-' + this.$params.type + '-wins',
+                    },
                 ),
             };
         });
@@ -110,7 +114,7 @@ export class WinnersSliderComponent extends AbstractComponent implements OnInit 
         }
 
         this.sliderParams.swiper = swiper;
-
+        this.sliderParams.wlcElement = 'list_' + this.$params.type + '-wins';
         this.cdr.markForCheck();
     }
 }

@@ -7,6 +7,7 @@ export namespace wlcBiggestWinsSlider {
             type: 'biggest',
             theme: 'vertical',
             title: 'Biggest wins',
+            wlcElement: 'section_biggest-wins'
         },
     };
 }

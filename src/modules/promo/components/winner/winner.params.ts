@@ -11,6 +11,7 @@ export interface IWinnerCParams extends IComponentParams<WinnerTheme, WinnerType
     winner?: WinnerModel;
     hideCountry?: boolean;
     hideGameIcon?: boolean;
+    winnerType?: string;
 };
 
 export const defaultParams: Partial<IWinnerCParams> = {
