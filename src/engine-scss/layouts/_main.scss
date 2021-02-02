@@ -1,0 +1,9 @@
+@use 'engine-scss/mixins/base.mixins' as em;
+@use 'engine-scss/engine.variables' as ev;
+
+@import './header/header';
+@import './footer/footer';
+@import './profile/profile';
+@import './categories/categories';
+
+@include em.init-layout-gap(ev.$layoutGap);

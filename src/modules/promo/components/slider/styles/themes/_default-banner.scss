@@ -3,7 +3,6 @@
 @use 'engine-scss/mixins/mediaqueries' as mq;
 
 .wlc-slider--theme-default-banner {
-    @include em.get-mq-map('margin', $themeDefaultBanner, 'sectionsGap');
 
     .swiper-button-prev,
     .swiper-button-next {
