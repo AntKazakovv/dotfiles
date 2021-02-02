@@ -1,22 +1,29 @@
 @use 'engine-scss/functions' as ef;
+
 $customThemeDefault: () !default;
 
 $themeDefault: map-merge((
+    'headerMargin': 0 0 ef.get('size', 'smaller'),
     'headerColor': ef.get('mainColors', 'baseMain'),
     'allLinkColor': ef.get('mainColors', 'main'),
-
-    //$currentGap: ef.get('size', 'main') !default;
-    'currentGap': 10px,
+    'allLinkIconMargin': ef.get('size', 'smallest'),
+    'gridGap': (
+        375: ef.get('size', 'small'),
+        1024: ef.get('size', 'smally'),
+        1420: ef.get('size', 'smaller')
+    ),
     'contentPadding': ef.get('size', 'big'),
     'listMargin': ef.get('size', 'big'),
-
-    'itemMinWidth': 220px,
-    'itemMinWidthTablet': 225px,
-    'itemMinWidthMobile': 180px,
-    'itemHeight': 150px,
-
+    'gridColumns': (
+        375: repeat(auto-fill, minmax(160px, 1fr)),
+        900: repeat(auto-fill, minmax(225px, 1fr)),
+        1200: repeat(auto-fill, minmax(220px, 1fr)),
+    ),
     'placeholderBackground': ef.get('color', 'backgroundSecondary'),
     'placeholderBorderRadius': ef.get('radius', 'less'),
     'placeholderTextColor': ef.get('color', 'textSecondary'),
+    'moreButtonMargin': (
+        375: ef.get('size', 'main') 0 0,
+    )
 ), $customThemeDefault);
 

@@ -14,6 +14,14 @@ export namespace wlcGamesGrid {
                     category: 'topgames',
                 },
             },
+            moreBtn: {
+                hide: true,
+                lazy: false,
+            },
+            mobileSettings: {
+                gamesRows: 3,
+                showLoadButton: true,
+            },
         },
     };
 

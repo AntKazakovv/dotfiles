@@ -1,54 +1,75 @@
 @use 'engine-scss/mixins/mediaqueries' as mq;
-@import '../utils/vars';
+@use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/functions' as ef;
 
 .wlc-games-grid--theme-default:host {
 
     .wlc-games-grid {
 
-        &__content {
-            padding: map-get($themeDefault, 'contentPadding') 0;
-        }
-
         &__header {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            margin: ef.get-value($themeDefault, 'headerMargin');
+        }
 
-            color: map-get($themeDefault, 'headerColor');
-            margin: 0 0 20px;
+        ::ng-deep {
+
+            .wlc-title {
+
+                &__main {
+                    @include text.get-text-style('QoteTextBold', ef.get-value($themeDefault, 'headerColor'));
+                }
+            }
         }
 
         &__link {
-            color: map-get($themeDefault, 'allLinkColor');
+            display: flex;
+            align-items: center;
+            @include text.get-text-style('PlaceholderTextBold', ef.get-value($themeDefault, 'allLinkColor'));
+            text-decoration: none;
+
+            @media (hover: hover) {
+
+                &:hover {
+
+                    .wlc-icon {
+                        transform: rotateX(360deg) translateX(10px);
+                        @include bm.transition(transform, 0.3s);
+                    }
+                }
+            }
+
+            ::ng-deep {
+
+                .wlc-icon {
+                    margin-left: ef.get-value($themeDefault, 'allLinkIconMargin');
+                    @include bm.transition(transform, 0.3s);
+
+                    &-content {
+                        display: flex;
+                    }
+
+                    svg {
+                        transform: rotate(-90deg);
+                        fill: ef.get-value($themeDefault, 'allLinkColor');
+                    }
+                }
+            }
         }
 
         &__list {
             display: grid;
-            grid-gap: map-get($themeDefault, 'currentGap');
-            grid-template-columns: repeat(auto-fill, minmax(map-get($themeDefault, 'itemMinWidth'), 1fr));
-            margin-bottom: map-get($themeDefault, 'listMargin');
-
-            @include mq.max(900) {
-                grid-template-columns: repeat(auto-fill, minmax(map-get($themeDefault, 'itemMinWidthTablet'), 1fr));
-            }
-
-            @include mq.max(768) {
-                grid-template-columns: repeat(auto-fill, minmax(map-get($themeDefault, 'itemMinWidthMobile'), 1fr));
-            }
-
-            @include mq.max(480) {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            @include mq.min(1024) {
-                grid-gap: map-get($themeDefault, 'currentGap')*2;
-            }
+            @include bm.get-mq-map('grid-gap', $themeDefault, 'gridGap');
+            @include bm.get-mq-map('grid-template-columns', $themeDefault, 'gridColumns');
         }
 
         &__more {
             display: flex;
             justify-content: center;
             align-items: center;
+            margin: ef.get-value($themeDefault, 'moreButtonMargin');
         }
 
         &__placeholder {
@@ -56,11 +77,11 @@
             justify-content: center;
             align-items: center;
 
-            color: map-get($themeDefault, 'placeholderTextColor');
+            color: ef.get-value($themeDefault, 'placeholderTextColor');
 
-            border-radius: map-get($themeDefault, 'placeholderBorderRadius');
+            border-radius: ef.get-value($themeDefault, 'placeholderBorderRadius');
             background: {
-                image: map-get($themeDefault, 'placeholderBackground');
+                image: ef.get-value($themeDefault, 'placeholderBackground');
                 repeat: no-repeat;
                 size: cover;
             }

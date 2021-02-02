@@ -35,6 +35,7 @@ import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.mod
 import {
     ConfigService,
     ILanguage,
+    DeviceType,
 } from 'wlc-engine/modules/core';
 import {
     GamesCatalogService,
@@ -90,6 +91,7 @@ export class GamesGridComponent extends AbstractComponent
     protected filterName: string;
     protected parentCategory: CategoryModel;
     protected childCategory: CategoryModel;
+    protected deviceType: DeviceType;
 
     @Input() protected inlineParams: IGamesGridCParams;
 
@@ -111,7 +113,8 @@ export class GamesGridComponent extends AbstractComponent
 
     public async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
-        this.$params = _extend({}, defaultParams, this.injectParams, this.inlineParams); // TODO delete costil params not working
+        this.initDeviceTypeListener();
+        this.setupMobileSettings();
 
         this.hideSearchBlock = this.$params.hideOnEmptySearch;
         this.useLazy = this.$params.moreBtn?.lazy || false;
@@ -262,9 +265,8 @@ export class GamesGridComponent extends AbstractComponent
      * @returns {Promise<Game[]>}
      */
     protected async getGames(): Promise<Game[]> {
-        return new Promise<Game[]>((resolve, reject) => {
-            let games: Game[] = this.gamesCatalogService.getGameList();
-            if (games) {
+        return new Promise<Game[]>((resolve) => {
+            if (this.gamesCatalogService.getGameList()) {
                 resolve(this.getFilteredGames());
             }
             this.eventService.subscribe({
@@ -368,4 +370,23 @@ export class GamesGridComponent extends AbstractComponent
         this.hideShowMoreBtn = this.filteredGames?.length < this.paginate;
     }
 
+    protected initDeviceTypeListener(): void {
+        this.actionService.deviceType()
+            .pipe(takeUntil(this.$destroy))
+            .subscribe((type: DeviceType) => {
+                this.deviceType = type;
+                this.setupMobileSettings();
+                this.cdr.markForCheck();
+            });
+    }
+
+    protected setupMobileSettings(): void {
+        if (this.deviceType === DeviceType.Mobile) {
+            if (this.$params.mobileSettings?.showLoadButton) {
+                this.$params.moreBtn.hide = false;
+            }
+
+            this.$params.gamesRows = this.$params.mobileSettings?.gamesRows || this.$params.gamesRows;
+        }
+    }
 }

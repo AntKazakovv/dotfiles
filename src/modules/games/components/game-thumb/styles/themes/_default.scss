@@ -1,3 +1,8 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/mixins/text' as text;
+
 .wlc-game-thumb--theme-default:host {
     position: relative;
     display: flex;
@@ -7,13 +12,13 @@
     height: 0;
     padding-top: 75%;
     background: {
-        color: map-get($themeDefault, 'placeholderBg');
-        image: map-get($themeDefault, 'placeholderBgImg');
+        color: ef.get-value($themeDefault, 'placeholderBg');
+        image: ef.get-value($themeDefault, 'placeholderBgImg');
         position: center;
-        size: map-get($themeDefault, 'placeholderBgImgSize');
+        size: ef.get-value($themeDefault, 'placeholderBgImgSize');
         repeat: no-repeat;
     }
-    border-radius: map-get($themeDefault, 'thumbBorderRadius');
+    border-radius: ef.get-value($themeDefault, 'thumbBorderRadius');
 
     //remove hover content on mobile devices
     &.not-desktop {
@@ -27,14 +32,10 @@
 
         .wlc-game-thumb__desc {
             opacity: 1;
-            transform: translateX(0) skewX(0);
-            @include bm.transition(all, 0.4s);
-        }
 
-        .wlc-game-thumb__img {
-
-            img {
-                @include bm.transition(all, 0.4s);
+            &:before {
+                transform: translateX(0) skewX(0);
+                @include bm.transition(all, 0.25s);
             }
         }
     }
@@ -45,6 +46,7 @@
             position: absolute;
             top: 0;
             left: 0;
+            width: 100%;
 
             img {
                 display: block;
@@ -58,18 +60,29 @@
             position: absolute;
             top: 0;
             left: 0;
-            transform: translateX(-100%) skewX(35deg);
             display: grid;
             grid: {
                 template-rows: 1fr auto;
             }
-            padding: map-get($themeDefault, 'thumbPadding');
+            padding: ef.get-value($themeDefault, 'thumbPadding');
             height: 100%;
             width: 100%;
-            background: map-get($themeDefault, 'thumbHoverBg');
-            border-radius: map-get($themeDefault, 'thumbBorderRadius');
             opacity: 0;
-            @include bm.transition(all, 0.4s);
+            @include bm.transition(all, 0.25s);
+
+            &:before {
+                z-index: 1;
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                transform: translateX(-100%) skewX(35deg);
+                background: ef.get-value($themeDefault, 'thumbHoverBg');
+                border-radius: ef.get-value($themeDefault, 'thumbBorderRadius');
+                pointer-events: none;
+            }
         }
 
         &__title {
@@ -87,22 +100,13 @@
         }
 
         &__name {
+            z-index: 3;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding-top: 10px;
-
-            color: map-get($themeDefault, 'thumbNameColor');
-            font: {
-                size: map-get($themeDefault, 'thumbNameSize');
-                weight: map-get($themeDefault, 'thumbNameWeight');
-            }
-            text-align: map-get($themeDefault, 'thumbNamePosition');
-            line-height: map-get($themeDefault, 'thumbNameLineHeight');
-
-            @include mq.max(768) {
-                align-items: center;
-            }
+            padding: ef.get-value($themeDefault, 'thumbNamePadding');
+            @include text.get-text-style('ThirdTitleBold', ef.get-value($themeDefault, 'thumbNameColor'));
+            text-align: ef.get-value($themeDefault, 'thumbNamePosition');
 
             @include mq.min(1420) {
                 padding-top: 0;
@@ -110,20 +114,21 @@
         }
 
         &__merchant {
-            color: map-get($themeDefault, 'thumbNameColor');
+            @include text.get-text-style('ThirdTitle', ef.get-value($themeDefault, 'thumbNameColor'));
         }
 
         &__icon {
+            z-index: 4;
             position: absolute;
             top: 0;
             left: 0;
             display: flex;
-            justify-self: map-get($themeDefault, 'favoritePosition');
-            width: map-get($themeDefault, 'favoriteBackSize');
-            height: map-get($themeDefault, 'favoriteBackSize');
-            border-radius: map-get($themeDefault, 'favoriteBackRadius');
-            background-color: map-get($themeDefault, 'favoriteBackBg');
-            box-shadow: map-get($themeDefault, 'favoriteBoxShadow');
+            justify-self: ef.get-value($themeDefault, 'favoritePosition');
+            width: ef.get-value($themeDefault, 'favoriteBackSize');
+            height: ef.get-value($themeDefault, 'favoriteBackSize');
+            border-radius: ef.get-value($themeDefault, 'favoriteBackRadius');
+            background-color: ef.get-value($themeDefault, 'favoriteBackBg');
+            box-shadow: ef.get-value($themeDefault, 'favoriteBoxShadow');
 
             &.wlc-icon::ng-deep {
 
@@ -137,10 +142,10 @@
 
                 svg,
                 path {
-                    width: map-get($themeDefault, 'favoriteSize');
-                    height: map-get($themeDefault, 'favoriteSize');
+                    width: ef.get-value($themeDefault, 'favoriteSize');
+                    height: ef.get-value($themeDefault, 'favoriteSize');
 
-                    fill: map-get($themeDefault, 'favoriteBg');
+                    fill: ef.get-value($themeDefault, 'favoriteBg');
                     @include bm.transition;
                 }
 
@@ -151,7 +156,7 @@
 
                         svg,
                         path {
-                            fill: map-get($themeDefault, 'favoriteHoverBg');
+                            fill: ef.get-value($themeDefault, 'favoriteHoverBg');
                             @include bm.transition;
                         }
                     }
@@ -159,24 +164,26 @@
             }
 
             &.active::ng-deep {
+                background: ef.get-value($themeDefault, 'favoriteBackBgActive');
 
                 svg,
                 path {
-                    fill: map-get($themeDefault, 'favoriteActiveBg');
+                    fill: ef.get-value($themeDefault, 'favoriteActiveBg');
                     @include bm.transition;
                 }
             }
         }
 
         &__buttons {
+            z-index: 3;
             display: none;
             grid: {
                 template-columns: auto;
                 auto-flow: column;
-                gap: 10px;
+                gap: ef.get-value($themeDefault, 'btnGap');
             }
-            align-items: map-get($themeDefault, 'btnAlignItems');
-            margin: map-get($themeDefault, 'btnMarginItems');
+            align-items: ef.get-value($themeDefault, 'btnAlignItems');
+            margin: ef.get-value($themeDefault, 'btnMarginItems');
 
             &.no-demo {
                 justify-content: center;
@@ -247,7 +254,7 @@
                     }
 
                     &__desc {
-                        background: map-get($themeDefault, 'thumbHoverBg');
+                        background: ef.get-value($themeDefault, 'thumbHoverBg');
                         @include bm.transition(background);
                     }
                 }
@@ -269,7 +276,7 @@
                 justify-content: flex-start;
                 opacity: 1;
                 visibility: visible;
-                background: map-get($themeDefault, 'thumbHoverBg');
+                background: ef.get-value($themeDefault, 'thumbHoverBg');
             }
         }
 
@@ -279,13 +286,13 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                width: map-get($themeDefaultModCircle, 'btnSize');
-                height: map-get($themeDefaultModCircle, 'btnSize');
+                width: ef.get-value($themeDefaultModCircle, 'btnSize');
+                height: ef.get-value($themeDefaultModCircle, 'btnSize');
                 min-width: auto;
                 margin: 0 auto;
                 font-size: 0;
                 border-radius: 50%;
-                border: map-get($themeDefaultModCircle, 'btnBorder');
+                border: ef.get-value($themeDefaultModCircle, 'btnBorder');
                 color: transparent;
 
                 ::ng-deep {
@@ -298,7 +305,7 @@
 
             &--demo {
                 background: none;
-                color: map-get($themeDefaultModCircle, 'btnDemoColor');
+                color: ef.get-value($themeDefaultModCircle, 'btnDemoColor');
 
                 @media (hover: hover) {
 
