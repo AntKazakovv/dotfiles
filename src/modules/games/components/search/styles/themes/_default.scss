@@ -1,9 +1,20 @@
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/functions' as ef;
+@use '../utils/mixins' as m;
+@import '../utils/vars';
+
 ::ng-deep {
 
     .wlc-modal--search.wlc-modal--theme-default {
 
         .wlc-modal__body {
-            padding-top: 0;
+            padding: ef.get-value($themeDefault, 'modalPaddingSearch');
+
+            @include mq.min(900) {
+                padding: ef.get-value($themeDefault, 'modalPaddingSearch', 900);
+            }
         }
 
         .wlc-modal__dialog {
@@ -13,11 +24,12 @@
         }
 
         .wlc-modal__close {
-            top: map-get($themeDefaultMobile, 'closeTop');
-            right: 10px;
+            top: ef.get-value($themeDefault, 'closeTop');
+            right: ef.get-value($themeDefault, 'modalCloseRight');
 
             @include mq.min(900) {
-                top: map-get($themeDefaultDesktop, 'closeTop');
+                top: ef.get-value($themeDefault, 'closeTop', 900);
+                right: ef.get-value($themeDefault, 'modalCloseRight', 900);
             }
         }
     }
@@ -28,37 +40,26 @@
     .wlc-search {
 
         &__title {
-            padding: map-get($themeDefaultMobile, 'searchModalHeaderPadding');
-            margin: map-get($themeDefaultMobile, 'searchModalHeaderMargin');
-            font: {
-                size: map-get($themeDefaultMobile, 'searchModalHeaderSize');
-                weight: map-get($themeDefaultMobile, '$searchModalHeaderWeight');
-            };
-            border-bottom: map-get($themeDefaultMobile, 'searchModalHeaderBorderBottom');
-
-            @include mq.min(900) {
-                font: {
-                    size: map-get($themeDefaultDesktop, 'searchModalHeaderSize');
-                    weight: map-get($themeDefaultDesktop, '$searchModalHeaderWeight');
-                };
-            }
+            padding: ef.get-value($themeDefault, 'searchModalHeaderPadding');
+            margin: ef.get-value($themeDefault, 'searchModalHeaderMargin');
+            @include text.get-text-style(ef.get-value($themeDefault, 'searchModalHeaderFont'), ef.get-value($themeDefault, 'searchModalHeaderFontColor'));
+            border-bottom: ef.get-value($themeDefault, 'searchModalHeaderBorderBottom');
         }
 
         &__panel {
             display: grid;
             grid: {
-                template-columns: map-get($themeDefaultMobile, 'searchPanelColumns');
-                gap: map-get($themeDefaultMobile, 'searchPanelGap');
+                template-columns: ef.get-value($themeDefault, 'searchPanelColumns');
+                gap: ef.get-value($themeDefault, 'searchPanelGap');
             }
-            padding: map-get($themeDefaultMobile, 'searchPanelPadding');
-            background: map-get($themeDefaultMobile, 'searchPanelBg');
-            border-radius: map-get($themeDefaultMobile, 'searchPanelBorderRadius');
+            padding: ef.get-value($themeDefault, 'searchPanelPadding');
+            background: ef.get-value($themeDefault, 'searchPanelBg');
+            border-radius: ef.get-value($themeDefault, 'searchPanelBorderRadius');
 
             @include mq.min(900) {
-                grid-template-columns: map-get($themeDefaultDesktop, 'searchPanelColumns');
-                padding: map-get($themeDefaultDesktop, 'searchPanelPadding');
-                background: map-get($themeDefaultDesktop, 'searchPanelBg');
-                border-radius: map-get($themeDefaultDesktop, 'searchPanelBorderRadius');
+                gap: ef.get-value($themeDefault, 'searchPanelGap', 900);
+                grid-template-columns: ef.get-value($themeDefault, 'searchPanelColumns', 900);
+                padding: ef.get-value($themeDefault, 'searchPanelPadding', 900);
             }
         }
 
@@ -82,23 +83,27 @@
 
             &--merchants,
             &--categories {
-                min-width: map-get($themeDefaultMobile, 'searchColWidth');
+                min-width: ef.get-value($themeDefault, 'searchColWidth');
+
+                @include mq.min(900) {
+                    min-width: ef.get-value($themeDefault, 'searchColWidth', 900);
+                }
             }
 
             .title {
                 display: block;
-                width: map-get($themeDefaultMobile, 'searchTitleWidth');
+                width: ef.get-value($themeDefault, 'searchTitleWidth');
                 text-overflow: ellipsis;
                 overflow: hidden;
                 white-space: nowrap;
-                font-size: map-get($themeDefaultMobile, 'searchColSize');
+                font-size: ef.get-value($themeDefault, 'searchColSize');
 
                 &-wrap {
                     display: flex;
                     align-items: center;
 
                     & .title {
-                        width: map-get($themeDefaultMobile, 'searchTitleWidth') - 20px;
+                        width: ef.get-value($themeDefault, 'searchTitleWidth') - 20px;
                     }
                 }
             }
@@ -109,20 +114,19 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100%;
+            height: ef.get-value($themeDefault, 'heightBtn');
             width: 100%;
-            padding: map-get($themeDefaultMobile, 'btnPadding');
+            padding: ef.get-value($themeDefault, 'btnPadding');
             appearance: none;
-            background-color: map-get($themeDefaultMobile, 'btnBackground');
-            border-radius: map-get($themeDefaultMobile, 'btnBorderRadius');
-            border: map-get($themeDefaultMobile, 'btnBorder');
-            font-size: map-get($themeDefaultMobile, 'btnFontSize');
-            color: map-get($themeDefaultMobile, 'btnTextColor');
-            transition: $btnTransition linear;
+            background-color: ef.get-value($themeDefault, 'btnBackground');
+            border-radius: ef.get-value($themeDefault, 'btnBorderRadius');
+            border: ef.get-value($themeDefault, 'btnBorder');
+            @include text.get-text-style(ef.get-value($themeDefault, 'btnFont'), ef.get-value($themeDefault, 'btnTextColor'));
+            transition: ef.get-value($themeDefault, 'btnTransition') linear;
 
             @include mq.min(900) {
                 justify-content: flex-start;
-                padding: map-get($themeDefaultDesktop, 'btnPadding');
+                padding: ef.get-value($themeDefault, 'btnPadding', 900);
             }
 
             &:focus {
@@ -130,39 +134,39 @@
             }
 
             &:hover {
-                background: $btnBackgroundHover;
+                background: ef.get-value($themeDefault, 'btnBackgroundHover');
             }
 
             &:after {
                 content: '';
                 display: block;
                 position: absolute;
-                right: 10px;
+                right: 13px;
                 top: 50%;
                 transform: translateY(-50%) rotate(225deg);
-                width: $btnArrowSize;
-                height: $btnArrowSize;
-                border-top: $btnArrowWidth solid $btnArrowColor;
-                border-left: $btnArrowWidth solid $btnArrowColor;
-                transition: $btnTransition linear;
+                width: ef.get-value($themeDefault, 'btnArrowSize');
+                height: ef.get-value($themeDefault, 'btnArrowSize');
+                border-top: ef.get-value($themeDefault, 'btnArrowWidth') solid ef.get-value($themeDefault, 'btnArrowColor');
+                border-left: ef.get-value($themeDefault, 'btnArrowWidth') solid ef.get-value($themeDefault, 'btnArrowColor');
+                transition: ef.get-value($themeDefault, 'btnTransition') linear;
             }
 
             .icon {
                 position: absolute;
                 top: 50%;
-                left: 10px;
+                left: 13px;
                 transform: translateY(-50%);
 
                 ::ng-deep {
 
                     svg {
-                        width: $btnIconSize;
-                        height: $btnIconSize;
-                        fill: $btnIconColor;
+                        width: ef.get-value($themeDefault, 'btnIconSize');
+                        height: ef.get-value($themeDefault, 'btnIconSize');
+                        fill: ef.get-value($themeDefault, 'btnIconColor');
 
                         path,
                         mask {
-                            fill: $btnIconColor;
+                            fill: ef.get-value($themeDefault, 'btnIconColor');
                         }
                     }
                 }
@@ -172,43 +176,46 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                margin-left: $btnCounterMarginLeft;
-                background: $btnCounterBackground;
-                width: $btnCounterSize;
-                height: $btnCounterSize;
-                font-size: $btnCounterFontSize;
-                border-radius: $btnCounterBorderRadius;
-                color: $btnCounterColor;
+                margin-left: ef.get-value($themeDefault, 'btnCounterMarginLeft');
+                background: ef.get-value($themeDefault, 'btnCounterBackground');
+                width: ef.get-value($themeDefault, 'btnCounterSize');
+                height: ef.get-value($themeDefault, 'btnCounterSize');
+                font-size: ef.get-value($themeDefault, 'btnCounterFontSize');
+                border-radius: ef.get-value($themeDefault, 'btnCounterBorderRadius');
+                color: ef.get-value($themeDefault, 'btnCounterColor');
+                line-height: ef.get-value($themeDefault, 'btnCounterLineHeight');
             }
 
             &.active {
-                background: $btnBackgroundActive;
-                color: $btnColorActive;
+                background: ef.get-value($themeDefault, 'btnBackgroundActive');
+                color: ef.get-value($themeDefault, 'btnColorActive');
 
                 &:after {
-                    transform: translateY(-50%) rotate(45deg);
-                    border-color: $btnArrowColorActive;
+                    transform: translateY(-30%) rotate(45deg);
+                    border-color: ef.get-value($themeDefault, 'btnArrowColorActive');
                 }
 
                 .icon {
-                    color: $btnIconColorActive;
+                    color: ef.get-value($themeDefault, 'btnIconColorActive');
                 }
             }
         }
 
         &__list {
             display: grid;
-            gap: $listGap;
+            gap: ef.get-value($themeDefault, 'listGap');
             padding: 0;
+            margin: ef.get-value($themeDefault, 'listMargin');
             list-style-type: none;
-            @if $listGrid {
-                @include m.list-grid($listGrid);
+            @if ef.get-value($themeDefault, 'listGrid') {
+                @include m.list-grid(ef.get-value($themeDefault, 'listGrid'));
             } @else {
                 grid-template-columns: repeat(2, minmax(0, 1fr));
             }
 
             @include mq.min(900) {
-                grid-gap: 0 $listGap;
+                grid-gap: 0 ef.get-value($themeDefault, 'listGap');
+                margin: ef.get-value($themeDefault, 'listMargin', 900);
             }
 
             &-btn {
@@ -216,24 +223,18 @@
                 align-items: center;
                 justify-content: center;
                 width: 100%;
-                font: {
-                    size: map-get($themeDefaultMobile, 'searchBtnItemsSize');
-                }
-                padding: map-get($themeDefaultMobile, 'listBtnPadding');
-                border: map-get($themeDefaultMobile, 'listBtnBorder');
-                background: map-get($themeDefaultMobile, 'listBtnBackground');
-                border-radius: map-get($themeDefaultMobile, 'listBtnRadius');
-                font-size: map-get($themeDefaultMobile, 'listBtnFontSize');
-                color: map-get($themeDefaultMobile, 'listBtnColor');
-                transition: $listBtnTransition linear;
+                @include text.get-text-style(ef.get-value($themeDefault, 'searchBtnItemsFont'), ef.get-value($themeDefault, 'listBtnColor'));
+                padding: ef.get-value($themeDefault, 'listBtnPadding');
+                border: ef.get-value($themeDefault, 'listBtnBorder');
+                background: ef.get-value($themeDefault, 'listBtnBackground');
+                border-radius: ef.get-value($themeDefault, 'listBtnRadius');
+                transition: ef.get-value($themeDefault, 'listBtnTransition') linear;
 
                 @include mq.min(900) {
-                    padding: map-get($themeDefaultDesktop, 'listBtnPadding');
-                    color: map-get($themeDefaultDesktop, 'listBtnColor');
-                    background: map-get($themeDefaultDesktop, 'listBtnBackground');
-                    border: map-get($themeDefaultDesktop, 'listBtnBorder');
-                    border-radius: map-get($themeDefaultDesktop, 'listBtnRadius');
-                    border-bottom: map-get($themeDefaultDesktop, 'listBtnBorderBottom');
+                    padding: ef.get-value($themeDefault, 'listBtnPadding', 900);
+                    background: ef.get-value($themeDefault, 'listBtnBackground', 900);
+                    border-radius: ef.get-value($themeDefault, 'listBtnRadius', 900);
+                    border-bottom: ef.get-value($themeDefault, 'listBtnBorderBottom');
                 }
 
                 &:focus {
@@ -242,25 +243,23 @@
 
                 &.active,
                 &:hover {
-                    color: map-get($themeDefaultMobile, 'listBtnColorActive');
-                    background: map-get($themeDefaultMobile, 'listBtnBackgroundHover');
+                    color: ef.get-value($themeDefault, 'listBtnColorActive');
+                    background: ef.get-value($themeDefault, 'listBtnBackgroundHover');
 
                     @include mq.min(900) {
-                        color: map-get($themeDefaultDesktop, 'listBtnColorActive');
-                        background: map-get($themeDefaultDesktop, 'listBtnBackgroundHover');
-                        border-bottom: map-get($themeDefaultDesktop, 'listBtnBorderBottomActive');
+                        color: ef.get-value($themeDefault, 'listBtnColorActive', 900);
+                        background: ef.get-value($themeDefault, 'listBtnBackgroundHover', 900);
                     }
 
                     .wlc-search__list-icon {
-                        background: map-get($themeDefaultDesktop, 'listBtnBackgroundActive');
-                        border: map-get($themeDefaultDesktop, 'listBtnBorderActive');
+                        border: ef.get-value($themeDefault, 'listBtnBorderActive');
                     }
                 }
 
                 &.active {
 
                     .wlc-search__list-icon {
-                        border: $listBtnIconActive;
+                        border: ef.get-value($themeDefault, 'listBtnIconActive');
 
                         &:before {
                             opacity: 1;
@@ -273,13 +272,13 @@
             &-icon {
                 display: none;
                 position: relative;
-                width: $listBtnIconSize;
-                height: $listBtnIconSize;
-                border-radius: $listBtnIconRadius;
-                background: $listBtnIconBackground;
-                border: $listBtnIconBorder;
-                margin: $listBtnIconMargin;
-                transition: $listBtnTransition linear;
+                width: ef.get-value($themeDefault, 'listBtnIconSize');
+                height: ef.get-value($themeDefault, 'listBtnIconSize');
+                border-radius: ef.get-value($themeDefault, 'listBtnIconRadius');
+                background: ef.get-value($themeDefault, 'listBtnIconBackground');
+                border: ef.get-value($themeDefault, 'listBtnIconBorder');
+                margin: ef.get-value($themeDefault, 'listBtnIconMargin');
+                transition: ef.get-value($themeDefault, 'listBtnTransition') linear;
 
                 @include mq.min(900) {
                     display: block;
@@ -293,8 +292,8 @@
                     left: 50%;
                     width: 5px;
                     height: 8px;
-                    border-right: $listBtnIconWidth solid map-get($themeDefaultMobile, 'listBtnColorActive');
-                    border-bottom: $listBtnIconWidth solid map-get($themeDefaultMobile, 'listBtnColorActive');
+                    border-right: ef.get-value($themeDefault, 'listBtnIconWidth') solid ef.get-value($themeDefault, 'listBtnColorActive');
+                    border-bottom: ef.get-value($themeDefault, 'listBtnIconWidth') solid ef.get-value($themeDefault, 'listBtnColorActive');
                     transform: translate(-60%, -60%) rotate(45deg);
                     opacity: 0;
                 }
@@ -315,39 +314,35 @@
         }
 
         &__result {
-            margin: map-get($themeDefaultMobile, 'resultMargin');
-            color: map-get($themeDefaultMobile, 'resultColor');
-            font: {
-                size: map-get($themeDefaultMobile, 'resultSize');
-                weight: map-get($themeDefaultMobile, 'resultWeight');
-            }
+            margin: ef.get-value($themeDefault, 'resultMargin');
+            @include text.get-text-style(ef.get-value($themeDefault, 'resultSize'), ef.get-value($themeDefault, 'resultColor'));
 
             @include mq.min(900) {
-                margin: map-get($themeDefaultDesktop, 'resultMargin');
-            }
-        }
-    }
-
-    ::ng-deep {
-
-        .wlc-games-grid__content {
-            padding: map-get($themeDefaultMobile, 'gamesPadding');
-
-            @include mq.min(900) {
-                padding: map-get($themeDefaultDesktop, 'gamesPadding');
+                margin: ef.get-value($themeDefault, 'resultMargin', 900);
             }
         }
 
-        .wlc-games-grid__nocontent {
-            padding: map-get($themeDefaultMobile, 'noGamesPadding');
+        &__content::ng-deep {
+
+            .wlc-games-grid__content {
+                padding: ef.get-value($themeDefault, 'gamesPadding');
+
+                @include mq.min(900) {
+                    padding: ef.get-value($themeDefault, 'gamesPadding', 900);
+                }
+            }
+
+            .wlc-games-grid__nocontent {
+                padding: ef.get-value($themeDefault, 'noGamesPadding');
 
             @include mq.min(900) {
-                padding: map-get($themeDefaultDesktop, 'noGamesPadding');
+                padding: ef.get-value($themeDefault, 'noGamesPadding', 900);
             }
-        }
+            }
 
-        .wlc-games-grid__list {
-            margin: map-get($themeDefaultMobile, 'gamesMargin');
+            .wlc-games-grid__list {
+                margin: ef.get-value($themeDefault, 'gamesMargin');
+            }
         }
     }
 }
