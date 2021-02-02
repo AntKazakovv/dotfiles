@@ -5,6 +5,7 @@ $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'headerMargin': 0 0 ef.get('size', 'smaller'),
     'headerColor': ef.get('mainColors', 'baseMain'),
+    'headerFontStyle': 'QoteTextBold',
     'allLinkColor': ef.get('mainColors', 'main'),
     'allLinkIconMargin': ef.get('size', 'smallest'),
     'gridGap': (
@@ -23,7 +24,8 @@ $themeDefault: map-merge((
     'placeholderBorderRadius': ef.get('radius', 'less'),
     'placeholderTextColor': ef.get('color', 'textSecondary'),
     'moreButtonMargin': (
-        375: ef.get('size', 'main') 0 0,
+        375: ef.get('size', 'smaller') 0 0,
+        1024: ef.get('size', 'main') 0 0,
     )
 ), $customThemeDefault);
 

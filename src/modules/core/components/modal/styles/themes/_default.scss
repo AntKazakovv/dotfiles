@@ -5,6 +5,11 @@
 
 
 .wlc-modal--theme-default {
+    background: ef.get-value($themeDefault, 'dialogBackground');
+
+    @include mq.min(560) {
+        background: none;
+    }
 
     .wlc-modal {
 

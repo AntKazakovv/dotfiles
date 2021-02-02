@@ -45,6 +45,10 @@ export namespace wlcGamesGrid {
                 hide: true,
                 lazy: false,
             },
+            mobileSettings: {
+                gamesRows: 3,
+                showLoadButton: true,
+            },
         },
     };
 
@@ -58,11 +62,15 @@ export namespace wlcGamesGrid {
                 use: false,
             },
             moreBtn: {
-                hide: false,
+                hide: true,
                 lazy: false,
             },
             usePlaceholders: true,
             byState: true,
+            mobileSettings: {
+                gamesRows: 3,
+                showLoadButton: true,
+            },
         },
     };
 }

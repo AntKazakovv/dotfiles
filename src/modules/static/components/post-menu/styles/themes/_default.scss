@@ -1,4 +1,5 @@
 @use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/mixins/mediaqueries' as mq;
 @import '../utils/vars';
 
 .wlc-post-menu--theme-default:host {
@@ -6,9 +7,8 @@
     .wlc-post-menu {
 
         &__title {
-            font-weight: map-get($themeDefault, 'titleWeight');
-            color: map-get($themeDefault, 'titleColor');
             padding: map-get($themeDefault, 'titlePadding');
+            @include text.get-text-style('ThirdTitleBold', map-get($themeDefault, 'titleColor'));
         }
 
         &__items {
@@ -18,7 +18,11 @@
         }
 
         &__link {
-            @include text.get-text-style('ButtonText', map-get($themeDefault, 'linkColor'));
+            @include text.get-text-style('PrimaryText', map-get($themeDefault, 'linkColor'));
+
+            @include mq.min(900) {
+                @include text.get-text-style('ButtonText', map-get($themeDefault, 'linkColor'));
+            }
             text-decoration: map-get($themeDefault, 'linkDecoration');
         }
     }

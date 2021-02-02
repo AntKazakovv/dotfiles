@@ -41,6 +41,7 @@
         }
 
         &__dropdown {
+            z-index: 2;
             position: absolute;
 
             @include mod('default', 'bottom-left') {

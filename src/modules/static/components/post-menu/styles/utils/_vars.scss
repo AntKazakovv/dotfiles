@@ -4,7 +4,7 @@ $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'color': ef.get('mainColors', 'baseMain'),
 
-    'titleColor': ef.get('color', 'main'),
+    'titleColor': ef.get('mainColors', 'main'),
     'titleWeight': bold,
     'titlePadding': 0 0 ef.get('size', 'smaller') 0,
 

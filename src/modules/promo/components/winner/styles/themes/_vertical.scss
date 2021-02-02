@@ -50,7 +50,6 @@
             display: flex;
             min-width: 1px;
             align-items: center;
-            @include text.get-text-style('PlaceholderText', ef.get-value($themeDefault, 'userColor'));
             text-transform: ef.get-value($themeVertical, 'userTextTransform');
         }
 
@@ -59,6 +58,7 @@
             overflow-x: hidden;
             overflow-y: visible;
             white-space: nowrap;
+            @include text.get-text-style('PlaceholderText', ef.get-value($themeDefault, 'userColor'));
         }
 
         &__country {
@@ -81,7 +81,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            @include text.get-text-style('ThridTitleBold', ef.get-value($themeDefault, 'gameColor'));
+            @include text.get-text-style('ThirdTitleBold', ef.get-value($themeDefault, 'gameColor'));
             text-decoration: none;
 
             &:hover {
@@ -125,7 +125,7 @@
 
         &__amount {
             grid-area: amount;
-            @include text.get-text-style('ThridTitleBold', ef.get-value($themeDefault, 'amountColor'));
+            @include text.get-text-style('ThirdTitleBold', ef.get-value($themeDefault, 'amountColor'));
             white-space: nowrap;
             text-align: right;
         }

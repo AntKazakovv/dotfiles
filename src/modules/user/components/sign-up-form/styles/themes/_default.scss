@@ -1,3 +1,4 @@
+@use 'engine-scss/mixins/text' as text;
 @import '../utils/vars';
 
 .wlc-sign-up-form--theme-default:host {
@@ -16,6 +17,12 @@
                 grid-area: btn;
 
                 margin: $btnMargin;
+            }
+
+            //todo delete
+            .wlc-link-block__subtitle {
+                @include text.get-text-style('PlaceholderText');
+                margin-bottom: 10px;
             }
         }
 

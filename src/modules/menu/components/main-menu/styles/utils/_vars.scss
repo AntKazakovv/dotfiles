@@ -2,7 +2,7 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'width': fit-content,
+    'width': max-content,
     'gapSize': (
         375: ef.get('size', 'small'),
         1200: ef.get('size', 'smaller'),

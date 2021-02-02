@@ -43,7 +43,7 @@ $customFieldColors: () !default;
 /// @prop {color} disabled [#c4c4c4] - disabled color
 $mainColors: map-merge((
     'main': #ff8a00,
-    'secondary': #0098A2,
+    'secondary': #0098a2,
     'baseMain': #fff,
     'buttonColor': #f94b00,
     'baseOpacity': rgba(255, 255, 255, 0.4),
@@ -502,8 +502,10 @@ $layoutGap: map-merge((
     'all': [
     '.wlc-sections__banner-section',
     '.wlc-sections__categories',
-    '.wlc-games-grid',
-    '.wlc-sections__recent-wins-and-tournaments',
+    '.wlc-sections__content-games-top',
+    '.wlc-sections__content-games-bottom',
+    '.wlc-sections__content-games',
+    '.wlc-sections__content-wins',
     ],
     '.app-contacts-state': [
     '.wlc-sections__info-page'
