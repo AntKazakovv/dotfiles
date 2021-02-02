@@ -173,7 +173,10 @@ $size: map-merge((
     'main': 40px,
     'biger': 50px,
     'big': 60px,
-    'sectionsGap': 40px,
+    'sectionsGap': (
+        375: 20px,
+        1024: 40px,
+    ),
 ), $customSize);
 
 /// Размеры скругления элементов на сайте.
@@ -488,6 +491,27 @@ $baseVariables: map-merge((
     // Possible to add image background to body:
     //imageBackground: url('xxx'),
 ), $customBaseVariables);
+
+/// Глобальные настройки лейаута. В качестве параметров принимает map,
+/// состоящий из ключа (название родительского класса или глобально для всех "all")
+/// и листа с перечнем классов.
+///
+/// @name customLayoutGap
+$customLayoutGap: () !default;
+$layoutGap: map-merge((
+    'all': [
+    '.wlc-sections__banner-section',
+    '.wlc-sections__categories',
+    '.wlc-games-grid',
+    ],
+    '.app-contacts-state': [
+    '.wlc-sections__info-page'
+    ],
+    '[class*=\'app-profile-\']': [
+    '.wlc-sections__header',
+    '.wlc-sections__profile-content'
+    ]
+), $customLayoutGap);
 
 $body-bg: map-get($mainColors, 'bg') !default;
 $body-color: map-get($mainColors, 'baseMain') !default;
