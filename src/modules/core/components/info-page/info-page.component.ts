@@ -67,7 +67,7 @@ export class InfoPageComponent extends AbstractComponent implements OnInit {
                 this.config.content.components = [{
                     name: 'core.wlc-feedback-form',
                     params: {
-                        wlcElement: 'section_contacts',
+                        wlcElement: 'form_contacts',
                     },
                 }];
                 break;

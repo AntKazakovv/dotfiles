@@ -1,13 +1,13 @@
 <div class="{{$class}}__header" data-wlc-element="title_contact-details">{{'Contact details' | translate}}</div>
 
 <div class="{{$class}}-details">
-    <div class="{{$class}}-details__item" *ngIf="phone">
+    <div class="{{$class}}-details__item" *ngIf="phone" data-wlc-element="block_phone">
         <span>{{'Phone' | translate}}</span>
-        <a href="tel:{{phone}}">{{phone}}</a>
+        <a href="tel:{{phone}}" data-wlc-element="link_phone">{{phone}}</a>
     </div>
-    <div class="{{$class}}-details__item" *ngIf="email">
+    <div class="{{$class}}-details__item" *ngIf="email" data-wlc-element="block_email">
         <span>{{'E-mail' | translate}}</span>
-        <a href="mailto:{{email}}">{{email}}</a>
+        <a href="mailto:{{email}}" data-wlc-element="link_email">{{email}}</a>
     </div>
     <div class="{{$class}}-details__item" data-wlc-element="block_response-time">
         <span>{{'Estimated response time' | translate}}</span>
