@@ -2,6 +2,7 @@ import {IIndexing} from 'wlc-engine/modules/core';
 import {IComponentParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
 
 export type GGType = 'default' | 'search';
+
 export interface IGamesGridCParams extends IComponentParams<string, GGType, string> {
     gamesRows: number;
     filter?: {
@@ -12,7 +13,7 @@ export interface IGamesGridCParams extends IComponentParams<string, GGType, stri
     usePlaceholders: boolean;
     showTitle?: boolean;
     showAllLink?: {
-        use?:boolean;
+        use?: boolean;
         link?: string;
         params?: IIndexing<string>;
         text?: string;
@@ -24,6 +25,10 @@ export interface IGamesGridCParams extends IComponentParams<string, GGType, stri
     };
     hideOnEmptySearch?: boolean;
     searchFilterName?: string; // search param searchFrom must has the same name
+    mobileSettings?: {
+        showLoadButton?: boolean;
+        gamesRows?: number;
+    }
 }
 
 export const defaultParams: IGamesGridCParams = {
