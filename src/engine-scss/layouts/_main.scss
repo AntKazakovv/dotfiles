@@ -5,5 +5,6 @@
 @import './footer/footer';
 @import './profile/profile';
 @import './categories/categories';
+@import './home/recent-wins-and-tournaments';
 
 @include em.init-layout-gap(ev.$layoutGap);

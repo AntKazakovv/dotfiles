@@ -1,0 +1,23 @@
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/functions' as ef;
+
+// TODO: there must be another component
+.wlc-sections__recent-wins-and-tournaments {
+
+    & > .container {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: ef.get('size', 'smaller');
+
+        @include mq.min(720) {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .wlc-winners-slider.wlc-winners-slider--theme-vertical {
+
+            .wlc-winners-slider__wrapper {
+                max-width: 100%;
+            }
+        }
+    }
+}

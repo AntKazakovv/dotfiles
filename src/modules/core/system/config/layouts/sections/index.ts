@@ -9,3 +9,4 @@ export * from './profile-content.section';
 export * from './info-page.section';
 export * from './left-panel.section';
 export * from './right-panel.section';
+export * from './recent-wins-and-tournaments.section';
