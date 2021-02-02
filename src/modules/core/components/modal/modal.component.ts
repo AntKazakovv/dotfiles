@@ -9,12 +9,10 @@ import {
     OnInit,
     ViewEncapsulation,
     ViewChild,
-    ElementRef,
 } from '@angular/core';
 
-import * as clampLib from 'text-overflow-clamp';
-
 import {
+    BsModalRef,
     ModalDirective,
 } from 'ngx-bootstrap/modal';
 
@@ -49,7 +47,6 @@ export class WlcModalComponent extends AbstractComponent
     implements OnInit, AfterViewInit, OnDestroy {
     @ViewChild('modal') public modalRef: ModalDirective;
     @ViewChild(ModalDirective) modalDirect: ModalDirective;
-    @ViewChild('titleText') titleText: ElementRef;
 
     public $params: IModalOptions;
     public dialogClasses: string[] = [];
@@ -79,7 +76,6 @@ export class WlcModalComponent extends AbstractComponent
     public ngAfterViewInit(): void {
         this.modalDirect.show();
         this.initEventHandlers();
-        setTimeout(() => this.setTitleView());
     }
 
     public confirm(modal: string): void {
@@ -168,17 +164,6 @@ export class WlcModalComponent extends AbstractComponent
                 parent: this.injector,
             });
         }
-    }
-
-    @HostListener('window:resize') onWResize() {
-        this.setTitleView();
-    }
-
-    protected setTitleView(): void {
-        const elem = this.titleText?.nativeElement as HTMLElement;
-        elem.style.width = '100%';
-        elem.style.width = elem.getBoundingClientRect().width + 'px';
-        clampLib(elem, 2);
     }
 
     protected eventHandler(type: string, callback: () => void) {
