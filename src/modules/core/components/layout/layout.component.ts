@@ -43,6 +43,8 @@ import {
     assign as _assign,
     isEqual as _isEqual,
     findIndex as _findIndex,
+    min as _min,
+    max as _max,
 } from 'lodash-es';
 
 @Component({
@@ -126,11 +128,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
                 }
 
                 if (result && (component.display?.after || component.display?.before)) {
-                    if (component.display.after > component.display.before) {
-                        result = result && (window.innerWidth >= component.display.after || window.innerWidth <= component.display.before);
-                    } else {
-                        result = result && (window.innerWidth >= component.display.after && window.innerWidth <= component.display.before);
-                    }
+                    result = result && window.matchMedia(this.createMediaQuery(component.display)).matches;
                 }
 
                 if (result && !_isUndefined(component.display?.auth)) {
@@ -215,5 +213,21 @@ export class LayoutComponent implements OnInit, OnDestroy {
         }
         this.components.push(...this.filterComponents());
         this.cdr.markForCheck();
+    }
+
+    protected createMediaQuery(display: {before?: number, after?: number}): string {
+        const mediaQuery: string[] = [];
+        const min: number = _min(Object.values(display)),
+            max: number = _max(Object.values(display));
+
+        if (!_isUndefined(min)) {
+            mediaQuery.push(`(min-width: ${min}px)`);
+        }
+
+        if (!_isUndefined(max)) {
+            mediaQuery.push(`(max-width: ${max}px)`);
+        }
+
+        return mediaQuery.join(' and ');
     }
 }

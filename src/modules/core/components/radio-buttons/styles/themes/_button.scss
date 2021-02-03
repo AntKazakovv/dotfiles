@@ -1,0 +1,80 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/mixins/text' as lib;
+@use 'modules/core/components/button/styles/utils/_mixins' as m;
+
+@use 'modules/core/components/button/styles/utils/_vars' as btn;
+@import '../utils/vars';
+
+@mixin button {
+    @include m.buttonBase();
+    padding: ef.get('buttonSettings', 'padding');
+    min-width: auto;
+}
+
+.wlc-radio-buttons--theme-button:host {
+
+    .wlc-radio-buttons {
+
+        &__title {
+            width: ef.get-value($themeButton, 'titleWidth');
+            padding: ef.get-value($themeButton, 'titlePadding');
+            @include lib.get-text-style('SignText', ef.get-value($themeDefault, 'titleColor'));
+        }
+
+        &__elems {
+            display: flex;
+            margin-right: ef.get-value($themeButton, 'spaceBetweenButtons') / 2 * -1;
+            margin-left: ef.get-value($themeButton, 'spaceBetweenButtons') / 2 * -1;
+            margin-bottom: ef.get-value($themeButton, 'spaceBetweenButtons') / 2 * -1;
+        }
+
+        &__text {
+            grid-column: 2;
+            text-align: center;
+        }
+
+        &__radio {
+            @include bm.visuallyHidden();
+        }
+
+        &__group {
+            @include button();
+            @include m.buttonTransparency();
+            flex: 1 1 auto;
+            margin-right: ef.get-value($themeButton, 'spaceBetweenButtons') / 2;
+            margin-left: ef.get-value($themeButton, 'spaceBetweenButtons') / 2;
+            margin-bottom: ef.get-value($themeButton, 'spaceBetweenButtons') / 2;
+            @include bm.transition();
+            min-width: auto;
+            cursor: pointer;
+            font-weight: ef.get('buttonSettings', 'fontWeight');
+            font-size: ef.get('font', 'PrimaryText');
+
+            &.active {
+                @include button();
+                cursor: default;
+            }
+        }
+    }
+
+    &.wlc-radio-buttons--theme-button-rounding {
+
+        .wlc-radio-buttons {
+
+            &__group {
+                border-radius: ef.get('buttonSettings', 'radiusRoundingTheme');
+
+                &:hover {
+                    box-shadow: unset;
+                    background: ef.get('buttonSettings', 'backgroundHover');
+                }
+
+                &.active {
+                    @include button();
+                    cursor: default;
+                }
+            }
+        }
+    }
+}

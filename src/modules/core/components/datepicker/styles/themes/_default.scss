@@ -1,6 +1,7 @@
 @use 'engine-scss/mixins/text' as lib;
 @use 'engine-scss/functions' as ef;
 
+
 .wlc-datepicker--theme-default:host {
     position: relative;
     max-width: ef.get-value($themeDefault, 'maxWidth');
@@ -142,6 +143,13 @@
 
             &:hover {
                 background: ef.get-value($themeDefault, 'datepickerHoverBg');
+            }
+        }
+
+        .myDpDaycell {
+
+            &.defaultDate {
+                box-shadow: ef.get-value($themeDefault, 'datepickerDefaultDateBoxShadow');
             }
         }
 

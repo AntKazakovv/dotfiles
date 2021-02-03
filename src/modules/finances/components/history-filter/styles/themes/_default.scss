@@ -1,0 +1,42 @@
+@use 'engine-scss/functions' as ef;
+
+@import '../utils/vars';
+
+.wlc-history-filter--theme-default:host {
+
+    .wlc-history-filter {
+
+        &__button {
+            position: relative;
+            overflow: visible;
+            color: ef.get-value($themeDefault, 'buttonIconFill');
+
+            @media (hover: hover) {
+
+                &:hover {
+                    color: ef.get-value($themeDefault, 'buttonIconFillHover');
+                }
+            }
+
+
+            &:after {
+                content: '';
+                position: absolute;
+                top: ef.get-value($themeDefault, 'buttonSignalPosTop');
+                right: ef.get-value($themeDefault, 'buttonSignalPosRight');
+                width: ef.get-value($themeDefault, 'buttonSignalSize');
+                height: ef.get-value($themeDefault, 'buttonSignalSize');
+                border-radius: ef.get-value($themeDefault, 'buttonSignalBorderRadius');
+                background-color: transparent;
+                transition: ef.get-value($themeDefault, 'buttonSignalTransition');
+            }
+
+            &.filtered {
+
+                &:after {
+                    background-color: ef.get-value($themeDefault, 'buttonSignalBg');
+                }
+            }
+        }
+    }
+}

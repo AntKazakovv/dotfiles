@@ -1,0 +1,25 @@
+@use 'engine-scss/functions' as ef;
+
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'color': ef.get('color', 'textSecondary'),
+
+    'formTemplateColumns': repeat(2, 1fr),
+    'formTemplateAreas': 'textBlock textBlock' 'radioButtons radioButtons' 'datepicker1 datepicker2' 'button button',
+    'formColumnGap': 15px,
+    'formRowGap': 20px,
+    'formAlignItems': center,
+    'formJustifyContent': center,
+
+    'textBlockGridArea': textBlock,
+    'textBlockAlignment': left,
+
+    'radioButtonsGridArea': radioButtons,
+
+    'datePicker1GridArea': datepicker1,
+    'datePicker2GridArea': datepicker2,
+
+    'btnGridArea': button,
+    'btnWidth': auto,
+    'btnMargin': 0 auto,
+), $customThemeDefault);

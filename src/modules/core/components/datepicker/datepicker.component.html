@@ -7,9 +7,8 @@
                angular-mydatepicker
                name="{{$params.name}}"
                [options]="$params.datepickerOptions"
-               [formControl]="control"
                [wlc-input-mask]="$params.maskOptions"
-               (dateChanged)="onDateChanged()"
+               (dateChanged)="onDateChanged($event)"
                (click)="onDateChanged()"
                [locale]="locale"
                [defaultMonth]="defaultMonth"
@@ -21,6 +20,13 @@
               (click)="dp.toggleCalendar()"
         ></span>
     </div>
+    <div class="{{$class}}-status"
+        wlc-form-control
+        *ngIf="$params.name"
+        [className]="$class"
+        [control]="control"
+        [fieldName]="$params.name.toLowerCase()"
+    ></div>
 </ng-template>
 
 <ng-container [ngSwitch]="$params.theme">

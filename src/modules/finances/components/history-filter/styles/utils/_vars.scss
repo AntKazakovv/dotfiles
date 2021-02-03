@@ -1,0 +1,15 @@
+@use 'engine-scss/functions' as ef;
+
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'buttonIconFill': ef.get('mainColors', 'baseMain'),
+    'buttonIconFillHover': ef.get('mainColors', 'secondary'),
+    'buttonIconTransition': all 0.3s,
+
+    'buttonSignalSize': 8px,
+    'buttonSignalBorderRadius': 50%,
+    'buttonSignalBg': ef.get('mainColors', 'main'),
+    'buttonSignalPosTop': -4px,
+    'buttonSignalPosRight': -4px,
+    'buttonSignalTransition': all 0.3s,
+), $customThemeDefault);

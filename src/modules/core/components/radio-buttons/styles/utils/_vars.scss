@@ -1,0 +1,22 @@
+@use 'engine-scss/functions' as ef;
+
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'spaceBetweenButtons': 10px,
+
+    // title
+    'titleWidth': 100%,
+    'titleColor': ef.get('fieldColors', 'labelColor'),
+    'titlePadding': 0 0 0 10px,
+), $customThemeDefault);
+
+$customThemeButton: () !default;
+$themeButton: map-merge((
+    'spaceBetweenButtons': 10px,
+
+    // title
+    'titleWidth': 100%,
+    'titleColor': ef.get('fieldColors', 'labelColor'),
+    'titlePadding': 0 0 0 10px,
+
+), $customThemeButton);

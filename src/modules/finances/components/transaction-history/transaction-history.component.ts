@@ -1,24 +1,38 @@
-import {Component, OnInit, ChangeDetectorRef, Inject} from '@angular/core';
-import {AbstractComponent, IMixedParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {FinancesService} from 'wlc-engine/modules/finances/system/services';
-import {Transaction} from 'wlc-engine/modules/finances/system/models/transaction-history.model';
 import {
+    Component,
+    OnInit,
+    ChangeDetectorRef,
+    Inject,
+} from '@angular/core';
+import {FormControl} from '@angular/forms';
+import {BehaviorSubject} from 'rxjs';
+import {
+    filter,
+    takeUntil,
+} from 'rxjs/operators';
+import {DateTime} from 'luxon';
+
+import {
+    AbstractComponent,
+    IMixedParams,
+    EventService,
     ISelectCParams,
     IInputCParams,
     ITableCParams,
 } from 'wlc-engine/modules/core';
-import {EventService} from 'wlc-engine/modules/core';
+import {
+    FinancesService,
+    HistoryFilterService,
+} from 'wlc-engine/modules/finances/system/services';
+import {Transaction} from 'wlc-engine/modules/finances/system/models/transaction-history.model';
+
 import * as Params from './transaction-history.params';
-import {FormControl} from '@angular/forms';
-import {BehaviorSubject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
-import {DateTime} from 'luxon';
+
 
 import {
     filter as _filter,
+    assign as _assign,
 } from 'lodash-es';
-
-
 
 @Component({
     selector: '[wlc-transaction-history]',
@@ -95,6 +109,7 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
         protected cdr: ChangeDetectorRef,
         protected financesService: FinancesService,
         protected eventService: EventService,
+        protected historyFilterService: HistoryFilterService,
     ) {
         super(
             <IMixedParams<Params.ITransactionHistoryCParams>>{
@@ -107,6 +122,7 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
         super.ngOnInit();
         this.allTransactions = await this.financesService.getTransactionList();
         this.setMinMaxDate();
+        this.historyFilter();
 
         this.transaction.next(this.filterTransaction());
 
@@ -134,6 +150,7 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
                     this.transaction.next(this.filterTransaction());
                 },
             });
+
 
         this.ready = true;
         this.cdr.markForCheck();
@@ -166,10 +183,29 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
     protected setMinMaxDate(): void {
         const dates = this.allTransactions.map((transaction) => transaction.date).sort();
 
-        this.startDate = dates[0];
-        this.endDate = dates[dates.length-1];
+        this.startDate = (dates[0] || DateTime.local()).startOf('day');
+        this.endDate = (dates[dates.length - 1] || DateTime.local()).endOf('day');
 
         this.startDateInput.control.setValue(this.startDate.toFormat('dd-MM-yyyy'));
         this.endDateInput.control.setValue(this.endDate.toFormat('dd-MM-yyyy'));
+    }
+
+    protected historyFilter(): void {
+        this.historyFilterService.setDefaultFilter('transaction', {
+            endDate: this.endDate,
+            startDate: this.startDate,
+        });
+
+        this.historyFilterService.getFilter('transaction')
+            .pipe(
+                takeUntil(this.$destroy),
+                filter((data) => !!data),
+            )
+            .subscribe((data) => {
+                this.filterType = data.filterType;
+                this.endDate = data.endDate;
+                this.startDate = data.startDate;
+                this.transaction.next(this.filterTransaction());
+            });
     }
 }

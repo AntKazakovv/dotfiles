@@ -62,6 +62,7 @@ import {CopyrightComponent} from './components/copyright/copyright.component';
 import {CurrencyComponent} from 'wlc-engine/modules/core/components/currency/currency.component';
 import {DatepickerComponent} from './components/datepicker/datepicker.component';
 import {TextBlockComponent} from './components/text-block/text-block.component';
+import {RadioButtonsComponent} from './components/radio-buttons/radio-buttons.component';
 import {TitleComponent} from './components/title/title.component';
 import {ErrorPageComponent} from './components/error-page/error-page.component';
 
@@ -120,6 +121,7 @@ export const components = {
     'wlc-loader': LoaderComponent,
     'wlc-logo': LogoComponent,
     'wlc-modal': WlcModalComponent,
+    'wlc-radio-buttons': RadioButtonsComponent,
     'wlc-select': SelectComponent,
     'wlc-table': TableComponent,
     'wlc-text-block': TextBlockComponent,
@@ -181,6 +183,7 @@ export const components = {
         InfoPageComponent,
         InputComponent,
         InputMaskDirective,
+        RadioButtonsComponent,
         ClampDirective,
         LanguageSelectorComponent,
         LayoutComponent,
@@ -237,6 +240,7 @@ export const components = {
         CopyrightComponent,
         DatepickerComponent,
         InputMaskDirective,
+        RadioButtonsComponent,
         ClampDirective,
         TextBlockComponent,
         TruncatePipe,
