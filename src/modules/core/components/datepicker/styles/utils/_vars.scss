@@ -26,4 +26,5 @@ $themeDefault: map-merge((
     'datepickerBoxShadow': 0 24px 48px rgba(0, 0, 0, 0.2),
     'datepickerIconSize': 14px,
     'datepickerDisabledOpacity': 0.5,
+    'datepickerDefaultDateBoxShadow': inset 0 0 0 1px ef.get('mainColors', 'secondary'),
 ), $customThemeDefault);

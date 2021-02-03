@@ -1,0 +1,17 @@
+<fieldset class="{{$class}}__wrapper">
+    <legend class="{{$class}}__title">{{$params.common.placeholder | translate}}</legend>
+
+    <div class="{{$class}}__elems">
+        <label class="{{$class}}__group"
+            *ngFor="let item of $params.items"
+            [ngClass]="{'active': item.value === control.value}">
+
+            <input class="{{$class}}__radio"
+                [attr.name]="$params.name"
+                (change)="changeHandler(item)"
+                type="radio">
+
+            <span class="{{$class}}__text">{{item.title | translate}}</span>
+        </label>
+    </div>
+</fieldset>

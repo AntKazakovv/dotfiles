@@ -25,6 +25,7 @@ export const localFiles: IIndexing<string> = {
     'login': 'icons/login.svg',
     'user-icon': 'icons/user-icon.svg',
     'logout': 'icons/logout.svg',
+    'settings': 'icons/settings.svg',
     'game-dashboard/profile': 'game-dashboard/profile.svg',
     'game-dashboard/bonuses': 'game-dashboard/bonuses.svg',
     'game-dashboard/last-played': 'game-dashboard/last-played.svg',

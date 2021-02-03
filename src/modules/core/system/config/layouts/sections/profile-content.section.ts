@@ -59,6 +59,7 @@ export namespace profileContent {
         container: true,
         components: [
             componentLib.wlcTitle.transactionsHistory,
+            componentLib.wlcTransactionHistory.filter,
             componentLib.wlcTransactionHistory.def,
         ],
     };

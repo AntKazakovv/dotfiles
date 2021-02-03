@@ -44,6 +44,17 @@
     transition: $type $speed $mode;
 }
 
+/*Hide element but keep it accessible*/
+@mixin visuallyHidden {
+    clip: rect(0 0 0 0);
+    clip-path: inset(100%);
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+}
+
 /// Creates css which depends on values for media-queries.
 /// If element hasn't map structure, the mixin returns common css - prop: value.
 /// If element has map structure, the mixin returns css for every media-query in the list.

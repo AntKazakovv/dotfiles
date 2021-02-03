@@ -1,0 +1,9 @@
+<button class="{{$class}}__button"
+    [ngClass]="{'filtered': isFiltered}"
+    attr.aria-label="{{'History settings' | translate}}"
+    type="button"
+    wlc-button
+    theme="custom"
+    [icon]="$params.icon || 'settings'"
+    (click)="openFilter()">
+</button>

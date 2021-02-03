@@ -35,6 +35,12 @@
             @include text.get-text-style(ThirdTitleBold, ef.get-value($profileSettings, 'titleColor'));
         }
     }
+
+    .profile-history-filter {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
 }
 
 

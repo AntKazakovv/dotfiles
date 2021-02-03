@@ -1,0 +1,61 @@
+@use 'engine-scss/functions' as ef;
+@import '../utils/vars';
+
+.wlc-history-filter-form--theme-default:host {
+
+    ::ng-deep {
+
+        .wlc-form {
+            display: grid;
+            grid-template-columns: ef.get-value($themeDefault, 'formTemplateColumns');
+            grid-template-areas: ef.get-value($themeDefault, 'formTemplateAreas');
+            column-gap: ef.get-value($themeDefault, 'formColumnGap');
+            row-gap: ef.get-value($themeDefault, 'formRowGap');
+            align-items: ef.get-value($themeDefault, 'formAlignItems');
+            justify-content: ef.get-value($themeDefault, 'formJustifyContent');
+        }
+
+        .wlc-text-block {
+            grid-area: ef.get-value($themeDefault, 'textBlockGridArea');
+            width: 100%;
+            margin-bottom: 0;
+
+            ::ng-deep {
+
+                .wlc-text-block {
+
+                    &__head {
+                        margin-bottom: 0;
+                    }
+
+                    &__title {
+                        text-align: ef.get-value($themeDefault, 'textBlockAlignment');
+                    }
+                }
+            }
+        }
+
+        .wlc-radio-buttons {
+            grid-area: ef.get-value($themeDefault, 'radioButtonsGridArea');
+            width: 100%;
+        }
+
+        .wlc-datepicker {
+            max-width: 100%;
+
+            &:nth-of-type(1) {
+                grid-area: ef.get-value($themeDefault, 'datePicker1GridArea');
+            }
+
+            &:nth-of-type(2) {
+                grid-area: ef.get-value($themeDefault, 'datePicker2GridArea');
+            }
+        }
+
+        .wlc-btn {
+            grid-area: ef.get-value($themeDefault, 'btnGridArea');
+            width: ef.get-value($themeDefault, 'btnWidth');
+            margin: ef.get-value($themeDefault, 'btnMargin');
+        }
+    }
+}

@@ -1,0 +1,43 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/mixins/text' as lib;
+
+.wlc-radio-buttons--theme-default:host {
+
+    .wlc-radio-buttons {
+
+        &__title {
+            width: ef.get-value($themeButton, 'titleWidth');
+            padding: ef.get-value($themeButton, 'titlePadding');
+            @include lib.get-text-style('SignText', ef.get-value($themeButton, 'titleColor'));
+        }
+
+        &__elems {
+            display: flex;
+            margin-right: ef.get-value($themeDefault, 'spaceBetweenButtons') / 2 * -1;
+            margin-left: ef.get-value($themeDefault, 'spaceBetweenButtons') / 2 * -1;
+            margin-bottom: ef.get-value($themeDefault, 'spaceBetweenButtons') / 2 * -1;
+        }
+
+        &__group {
+            flex: 1 1 auto;
+            margin-right: ef.get-value($themeDefault, 'spaceBetweenButtons') / 2;
+            margin-left: ef.get-value($themeDefault, 'spaceBetweenButtons') / 2;
+            margin-bottom: ef.get-value($themeDefault, 'spaceBetweenButtons') / 2;
+            cursor: pointer;
+
+            &.active {
+                cursor: default;
+            }
+        }
+
+        &__text {
+            grid-column: 2;
+            text-align: center;
+        }
+
+        &__radio {
+            @include bm.visuallyHidden();
+        }
+    }
+}

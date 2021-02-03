@@ -38,11 +38,24 @@ export namespace wlcTitle {
             mainText: gettext('Inventory'),
         },
     };
+
     export const transactionsHistory: ILayoutComponent = {
         name: 'core.wlc-title',
         params: {
             customMod: ['profile'],
             mainText: gettext('Transactions history'),
+            wlcElement: 'header_transactions-history',
+        },
+        display: {
+            after: 1024,
+        },
+    };
+
+    export const history: ILayoutComponent = {
+        name: 'core.wlc-title',
+        params: {
+            customMod: ['profile'],
+            mainText: gettext('History'),
             wlcElement: 'header_transactions-history',
         },
     };
