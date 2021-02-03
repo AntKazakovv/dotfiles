@@ -31,6 +31,10 @@ export class LoginSignupComponent extends AbstractComponent implements OnInit {
         super({injectParams, defaultParams: Params.defaultParams});
     }
 
+    public ngOnInit(): void {
+        super.ngOnInit();
+    }
+
     public get loginText(): string {
         return _get(this.$params, 'login.title');
     }
@@ -42,11 +46,6 @@ export class LoginSignupComponent extends AbstractComponent implements OnInit {
     public get changePasswordText(): string {
         return _get(this.$params, 'changePassword.title');
     }
-
-    public ngOnInit(): void {
-        super.ngOnInit();
-    }
-
 
     public action(actionButton: Params.IActionNameType): void {
         switch (this.$params?.[actionButton]?.action) {

@@ -217,8 +217,9 @@ export class LayoutComponent implements OnInit, OnDestroy {
 
     protected createMediaQuery(display: {before?: number, after?: number}): string {
         const mediaQuery: string[] = [];
-        const min: number = _min(Object.values(display)),
-            max: number = _max(Object.values(display));
+        const queries = [display.after, display.before];
+        const min: number = _min(queries),
+            max: number = _max(queries);
 
         if (!_isUndefined(min)) {
             mediaQuery.push(`(min-width: ${min}px)`);

@@ -37,7 +37,6 @@ export class LogoutComponent extends AbstractComponent implements OnInit {
 
 
     public logout(): void {
-        debugger;
         this.UserService.logout();
     }
 }
