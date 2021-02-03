@@ -1,6 +1,6 @@
 import {CustomType, IComponentParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {IFormWrapperCParams} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
-import {ISelectParams} from 'wlc-engine/modules/core';
+import {ISelectCParams} from 'wlc-engine/modules/core';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 
 export type ComponentTheme = 'default' | CustomType;
@@ -83,7 +83,7 @@ export const profileForm: IFormWrapperCParams = {
         },
         {
             name: 'core.wlc-select',
-            params: <ISelectParams>{
+            params: <ISelectCParams>{
                 labelText: gettext('Gender'),
                 wlcElement: 'block_gender',
                 common: {
@@ -97,7 +97,7 @@ export const profileForm: IFormWrapperCParams = {
         },
         {
             name: 'core.wlc-select',
-            params: <ISelectParams>{
+            params: <ISelectCParams>{
                 labelText: gettext('Country'),
                 wlcElement: 'block_country',
                 common: {

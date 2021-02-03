@@ -15,7 +15,7 @@ import {
 
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {
-    ISearchParams,
+    ISearchCParams,
     PanelType,
     defaultParams,
     defaultGamesGridParams,
@@ -63,7 +63,7 @@ import {
     ],
 })
 export class SearchComponent extends AbstractComponent implements OnInit, OnDestroy {
-    public $params: ISearchParams;
+    public $params: ISearchCParams;
     public categories: CategoryModel[];
     public merchants: MerchantModel[];
 
@@ -80,7 +80,7 @@ export class SearchComponent extends AbstractComponent implements OnInit, OnDest
     public searchQuery: string;
 
     constructor(
-        @Inject('injectParams') protected injectParams: ISearchParams,
+        @Inject('injectParams') protected injectParams: ISearchCParams,
         protected configService: ConfigService,
         protected gamesCatalogService: GamesCatalogService,
         protected cdr: ChangeDetectorRef,

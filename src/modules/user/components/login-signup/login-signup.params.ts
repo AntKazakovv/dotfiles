@@ -7,7 +7,7 @@ export type ThemeModType = 'default' | CustomType;
 export type IActionNameType = 'login' | 'signup' | 'changePassword';
 export type IActionType = 'login' | 'signup' | 'changePassword' | 'url' | 'modal';
 export type ITargetType = 'blank' | 'self';
-export type IButtonParams = {
+export type IButtonCParams = {
     action?: IActionType;
     title?: string;
     url?: string;
@@ -15,9 +15,9 @@ export type IButtonParams = {
 };
 
 export interface ILoginSignupCParams extends IComponentParams<ThemeType, ComponentType, ThemeModType> {
-    login?: IButtonParams;
-    signup?: IButtonParams;
-    changePassword?: IButtonParams;
+    login?: IButtonCParams;
+    signup?: IButtonCParams;
+    changePassword?: IButtonCParams;
 }
 
 export const defaultParams: ILoginSignupCParams = {

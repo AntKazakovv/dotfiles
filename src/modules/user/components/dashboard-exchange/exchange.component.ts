@@ -25,10 +25,10 @@ import {
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExchangeComponent extends AbstractComponent implements OnInit, OnDestroy {
-    @Input() protected inlineParams: Params.IExchangeCParams;
+    @Input() protected inlineParams: Params.IDashboardExchangeCParams;
 
     constructor(
-        @Inject('injectParams') protected injectParams: Params.IExchangeCParams,
+        @Inject('injectParams') protected injectParams: Params.IDashboardExchangeCParams,
         protected configService: ConfigService,
         protected UserService: UserService,
         protected cdr: ChangeDetectorRef,

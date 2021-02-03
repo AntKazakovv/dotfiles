@@ -12,7 +12,7 @@ import {
     EventService,
     ModalService,
     ValidationService,
-    ISelectParams,
+    ISelectCParams,
     IInputCParams,
 } from 'wlc-engine/modules/core';
 import {
@@ -20,7 +20,7 @@ import {
     PaymentSystem
 } from 'wlc-engine/modules/finances/system/models/payment-system.model';
 import {FinancesService} from 'wlc-engine/modules/finances/system/services';
-import {IPaymentListParams} from 'wlc-engine/modules/finances/components/payment-list/payment-list.params';
+import {IPaymentListCParams} from 'wlc-engine/modules/finances/components/payment-list/payment-list.params';
 
 import * as Params from './deposit-withdraw.params';
 
@@ -37,7 +37,7 @@ import {
 })
 export class DepositWithdrawComponent extends AbstractComponent implements OnInit {
 
-    public $params: Params.IDepositWithdrawParams;
+    public $params: Params.IDepositWithdrawCParams;
     public currentSystem: PaymentSystem;
     public depositFrom = Params.depositForm;
     public withdrawFrom = Params.withdrawFrom;
@@ -46,7 +46,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
     public requiredFieldsKeys: string[] = [];
     public additionalParams: IIndexing<IPaymentAdditionalParam> = {};
 
-    public listConfig: IPaymentListParams = {
+    public listConfig: IPaymentListCParams = {
         paymentType: 'deposit',
     };
 
@@ -56,7 +56,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
     protected inProgress: boolean = false;
 
     constructor(
-        @Inject('injectParams') protected params: Params.IDepositWithdrawParams,
+        @Inject('injectParams') protected params: Params.IDepositWithdrawCParams,
         protected configService: ConfigService,
         protected financesService: FinancesService,
         protected eventService: EventService,
@@ -66,7 +66,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
 
     ) {
         super(
-            <IMixedParams<Params.IDepositWithdrawParams>>{
+            <IMixedParams<Params.IDepositWithdrawCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
             }, configService);
@@ -106,7 +106,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
 
                     return {
                         type: 'select',
-                        params: <ISelectParams>{
+                        params: <ISelectCParams>{
                             labelText: field.name,
                             name: key,
                             theme: 'vertical',

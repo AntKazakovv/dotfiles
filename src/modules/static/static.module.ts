@@ -6,8 +6,7 @@ import {CoreModule} from 'wlc-engine/modules/core/core.module';
 import {PostComponent} from './components/post/post.component';
 import {FaqComponent} from './components/faq/faq.component';
 import {PostMenuComponent} from './components/post-menu/post-menu.component';
-import {demoTestComponent} from './components/demo-test/demo-test.component';
-import {IIndexing, GlobalHelper} from 'wlc-engine/modules/core';
+import {GlobalHelper} from 'wlc-engine/modules/core';
 import {StaticService} from 'wlc-engine/modules/static/system/services';
 import {IStaticConfig} from './system/interfaces/static.interface';
 import {staticConfig} from './system/config/static.config';
@@ -22,7 +21,6 @@ export const moduleConfig =
 
 export const components = {
     'wlc-post': PostComponent,
-    'wlc-demo-test': demoTestComponent,
     'wlc-faq': FaqComponent,
     'wlc-post-menu': PostMenuComponent,
 };
@@ -30,7 +28,6 @@ export const components = {
 @NgModule({
     declarations: [
         PostComponent,
-        demoTestComponent,
         FaqComponent,
         PostMenuComponent,
     ],
@@ -43,7 +40,6 @@ export const components = {
     ],
     exports: [
         PostComponent,
-        demoTestComponent,
         FaqComponent,
         PostMenuComponent,
     ],

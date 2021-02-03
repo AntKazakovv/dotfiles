@@ -8,11 +8,11 @@ export type Theme = 'default' | CustomType;
 export type Type = 'default' | CustomType;
 export type ThemeMod = 'default' | CustomType;
 
-export interface ITransactionHistoryParams extends IComponentParams<Theme, Type, ThemeMod> {
+export interface ITransactionHistoryCParams extends IComponentParams<Theme, Type, ThemeMod> {
     filterType?: 'select' | 'button',
 }
 
-export const defaultParams: ITransactionHistoryParams = {
+export const defaultParams: ITransactionHistoryCParams = {
     class: 'wlc-transaction-history',
     filterType: 'button',
 };

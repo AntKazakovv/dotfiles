@@ -33,7 +33,7 @@ export class EnterPromocodeComponent
     extends AbstractComponent
     implements OnInit, OnDestroy {
 
-    @Input() public inlineParams: Params.IEnterPromocodeParams;
+    @Input() public inlineParams: Params.IEnterPromocodeCParams;
     @Input() public title: string;
 
     public pending$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
@@ -42,7 +42,7 @@ export class EnterPromocodeComponent
     protected pendingSubscriber: Subscription;
 
     constructor(
-        @Inject('injectParams') protected injectParams: Params.IEnterPromocodeParams,
+        @Inject('injectParams') protected injectParams: Params.IEnterPromocodeCParams,
         protected bonusesService: BonusesService,
         protected eventService: EventService,
         protected modalService: ModalService,

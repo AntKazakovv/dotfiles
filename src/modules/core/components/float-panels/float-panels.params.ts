@@ -2,7 +2,7 @@ import {IComponentParams} from 'wlc-engine/modules/core/system/interfaces/config
 import {IBurgerPanelCParams} from './../burger-panel/burger-panel.params';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/index';
 
-export interface IFloatPanelsComponentParams extends IComponentParams <string, string, string> {
+export interface IFloatPanelsCParams extends IComponentParams <string, string, string> {
     /** Params for each panel by name */
     panels?: IIndexing<IBurgerPanelCParams>;
 };
@@ -15,7 +15,7 @@ export interface IFloatPanelsComponentEvents {
     PANEL_CLOSE: string,
 };
 
-export const defaultParams: IFloatPanelsComponentParams = {
+export const defaultParams: IFloatPanelsCParams = {
     class: 'wlc-float-panels',
     panels: {
         left: {

@@ -11,7 +11,7 @@ export interface IBasePath {
     page?: string;
 }
 
-export interface IPostMenuComponentParams extends IComponentParams<Theme, Type, ThemeMod> {
+export interface IPostMenuCParams extends IComponentParams<Theme, Type, ThemeMod> {
     modifiers?: ModifiersType[];
     common?: {
         categorySlug?: string;
@@ -20,7 +20,7 @@ export interface IPostMenuComponentParams extends IComponentParams<Theme, Type, 
     };
 }
 
-export const defaultParams: IPostMenuComponentParams = {
+export const defaultParams: IPostMenuCParams = {
     class: 'wlc-post-menu',
     common: {
     },

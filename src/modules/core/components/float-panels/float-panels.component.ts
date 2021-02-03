@@ -32,7 +32,7 @@ import {
 export class FloatPanelsComponent extends AbstractComponent implements OnInit {
     @Input() public sections: SectionModel[] = [];
     public openedPanel: string;
-    public $params: Params.IFloatPanelsComponentParams;
+    public $params: Params.IFloatPanelsCParams;
 
     protected panelIds: string[] = [];
 

@@ -14,7 +14,7 @@ import {HeightToggleAnimation} from 'wlc-engine/modules/core/system/animations/h
 
 import * as Params from './faq.params';
 
-export {IFaqComponentParams} from './faq.params';
+export {IFaqCParams} from './faq.params';
 
 import {
     map as _map,
@@ -32,13 +32,13 @@ import {
 })
 export class FaqComponent extends AbstractComponent implements OnInit {
     public faqData: Params.IFaqData[];
-    public $params: Params.IFaqComponentParams;
+    public $params: Params.IFaqCParams;
 
     @Input() protected slug: string;
     protected showErrors: boolean;
 
     constructor(
-        @Inject('injectParams') protected injectParams: Params.IFaqComponentParams,
+        @Inject('injectParams') protected injectParams: Params.IFaqCParams,
         protected staticService: StaticService,
         protected cdr: ChangeDetectorRef,
     ) {

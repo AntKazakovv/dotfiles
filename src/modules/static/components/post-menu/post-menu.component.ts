@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnInit} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
-import {defaultParams, IPostMenuComponentParams} from './post-menu.params';
+import {defaultParams, IPostMenuCParams} from './post-menu.params';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {StaticService, TextDataModel} from 'wlc-engine/modules/static';
 
@@ -23,11 +23,11 @@ export class PostMenuComponent extends AbstractComponent implements OnInit {
     public type = 'sref';
     public basePath: string;
 
-    public $params: IPostMenuComponentParams;
+    public $params: IPostMenuCParams;
 
     constructor(
         protected staticService: StaticService,
-        @Inject('injectParams') protected injectParams: IPostMenuComponentParams,
+        @Inject('injectParams') protected injectParams: IPostMenuCParams,
         protected cdr: ChangeDetectorRef,
         private translate: TranslateService,
     ) {

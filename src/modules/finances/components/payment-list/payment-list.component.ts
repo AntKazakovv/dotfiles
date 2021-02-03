@@ -58,18 +58,18 @@ import {
 export class PaymentListComponent extends AbstractComponent implements OnInit {
 
     public systems: PaymentSystem[] = [];
-    public $params: Params.IPaymentListParams;
+    public $params: Params.IPaymentListCParams;
     public ready: boolean = false;
     public asModal: boolean;
     public showTable: boolean;
 
     @Input() public currentSystem: PaymentSystem;
-    @Input() protected inlineParams: Params.IPaymentListParams;
+    @Input() protected inlineParams: Params.IPaymentListCParams;
 
     @ViewChild('list') protected list: TemplateRef<any>;
 
     constructor(
-        @Inject('injectParams') protected params: Params.IPaymentListParams,
+        @Inject('injectParams') protected params: Params.IPaymentListCParams,
         protected cdr: ChangeDetectorRef,
         protected financesService: FinancesService,
         protected eventService: EventService,
@@ -78,7 +78,7 @@ export class PaymentListComponent extends AbstractComponent implements OnInit {
         protected hostRef: ElementRef,
     ) {
         super(
-            <IMixedParams<Params.IPaymentListParams>>{
+            <IMixedParams<Params.IPaymentListCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
             });

@@ -11,7 +11,7 @@ export type AutoModifiers = Theme | ThemeMod;
 export type CustomMod = string;
 export type Modifiers = AutoModifiers | CustomMod | null;
 
-export interface IBonusItemParams extends IComponentParams<Theme, Type, ThemeMod> {
+export interface IBonusItemCParams extends IComponentParams<Theme, Type, ThemeMod> {
     modifiers?: Modifiers[];
     bonus?: Bonus,
     common?: {
@@ -30,7 +30,7 @@ export interface IBonusItemParams extends IComponentParams<Theme, Type, ThemeMod
     };
 }
 
-export const defaultParams: IBonusItemParams = {
+export const defaultParams: IBonusItemCParams = {
     moduleName: 'bonuses',
     componentName: 'wlc-bonus-item',
     class: 'wlc-bonus-item',

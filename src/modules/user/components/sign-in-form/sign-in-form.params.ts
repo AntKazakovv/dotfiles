@@ -6,7 +6,7 @@ import {
 import {
     IFormWrapperCParams,
     IInputCParams,
-    IButtonParams,
+    IButtonCParams,
     ITextBlockCParams,
 } from 'wlc-engine/modules/core';
 
@@ -87,7 +87,7 @@ export const signInFormConfig: IFormWrapperCParams = {
         },
         {
             name: 'core.wlc-button',
-            params: <IButtonParams>{
+            params: <IButtonCParams>{
                 common: {
                     customModifiers: 'submit',
                     text: gettext('Login'),

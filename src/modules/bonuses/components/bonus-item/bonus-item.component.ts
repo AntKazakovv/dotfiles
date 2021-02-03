@@ -34,7 +34,7 @@ import {
     forEach as _forEach,
 } from 'lodash-es';
 
-export {IBonusItemParams} from './bonus-item.params';
+export {IBonusItemCParams} from './bonus-item.params';
 export const BonusItemComponentEvents: IBonusItemComponentEvents = {
     reg: 'CHOOSE_REG_BONUS_SUCCEEDED',
     deposit: 'CHOOSE_DEPOSIT_BONUS_SUCCEEDED',
@@ -54,7 +54,7 @@ interface IBonusItemComponentEvents {
     encapsulation: ViewEncapsulation.None,
 })
 export class BonusItemComponent extends AbstractComponent implements OnInit, OnDestroy {
-    @Input() public inlineParams: Params.IBonusItemParams;
+    @Input() public inlineParams: Params.IBonusItemCParams;
     @Input() public bonus: Bonus;
     @Input() public type: Params.Type;
     @Input() public theme: Params.Theme;
@@ -63,7 +63,7 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
     @Input() public view: string;
     @Input() public chosen: boolean;
 
-    public $params: Params.IBonusItemParams;
+    public $params: Params.IBonusItemCParams;
     public isAuth: boolean;
     public currency: string;
     public isNoChooseBtn: boolean;
@@ -71,7 +71,7 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
     public isTypeRegDeposit: boolean;
 
     constructor(
-        @Inject('injectParams') protected params: Params.IBonusItemParams,
+        @Inject('injectParams') protected params: Params.IBonusItemCParams,
         protected cachingService: CachingService,
         protected cdr: ChangeDetectorRef,
         protected ConfigService: ConfigService,
@@ -80,7 +80,7 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
         protected bonusesService: BonusesService,
     ) {
         super(
-            <IMixedParams<Params.IBonusItemParams>>{
+            <IMixedParams<Params.IBonusItemCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
             }, ConfigService);
@@ -189,9 +189,9 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
         }
     }
 
-    protected prepareParams(): Params.IBonusItemParams {
+    protected prepareParams(): Params.IBonusItemCParams {
         const inputProperties: string[] = ['bonus', 'type', 'theme', 'themeMod', 'customMod', 'view', 'chosen'];
-        const inlineParams: Params.IBonusItemParams = {
+        const inlineParams: Params.IBonusItemCParams = {
             common: {},
         };
 

@@ -153,7 +153,7 @@ export class CurrencyComponent
      * and the currency icon is on the left side.
      */
     public displayIcon: IDisplayIcon;
-    public $params: Params.ICurrencyParams;
+    public $params: Params.ICurrencyCParams;
 
     protected initiated: boolean = false;
     protected valueSubscribe: Subscription;
@@ -193,7 +193,7 @@ export class CurrencyComponent
         protected translateService: TranslateService,
         @Inject(CRYPTOCURRENCIES)
         protected cryptocurrencies: ICryptocurrencies,
-        @Inject('injectParams') injectParams: Params.ICurrencyParams,
+        @Inject('injectParams') injectParams: Params.ICurrencyCParams,
         configService: ConfigService,
     ) {
         super({
@@ -231,7 +231,7 @@ export class CurrencyComponent
             });
     }
 
-    protected getInlineParams(): Params.ICurrencyParams {
+    protected getInlineParams(): Params.ICurrencyCParams {
         const inline = {};
         _each(['value', 'currency', 'digitsInfo', 'indicatorFormat'], (key) => {
             if (this[key] !== undefined) {

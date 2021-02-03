@@ -2,13 +2,13 @@ import {IComponentParams} from 'wlc-engine/modules/core/system/classes/abstract.
 
 export type ModifiersType = string;
 
-export interface ISPParams extends IComponentParams<string, string, string> {
+export interface IPostCParams extends IComponentParams<string, string, string> {
     modifiers?: ModifiersType[];
     common?: {
     };
 }
 
-export const defaultParams: ISPParams = {
+export const defaultParams: IPostCParams = {
     class: 'wlc-post',
     common: {
     },

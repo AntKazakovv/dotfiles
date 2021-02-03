@@ -4,11 +4,11 @@ import {BannerModel} from 'wlc-engine/modules/promo/system/models/banner.model';
 export type ComponentTheme = 'default';
 export type ComponentType = 'default';
 
-export interface IBannerParams extends IComponentParams<ComponentTheme, ComponentType, string> {
+export interface IBannerCParams extends IComponentParams<ComponentTheme, ComponentType, string> {
     banner?: BannerModel;
     class?: string;
 }
 
-export const defaultParams: IBannerParams = {
+export const defaultParams: IBannerCParams = {
     class: 'wlc-banner',
 };

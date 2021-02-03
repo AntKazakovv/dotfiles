@@ -9,7 +9,7 @@ export type AutoModifiers = Theme | 'default';
 export type CustomMod = string;
 export type Modifiers = AutoModifiers | CustomMod | null;
 
-export interface ISelectParams extends IComponentParams<ComponentTheme, ComponentType, string> {
+export interface ISelectCParams extends IComponentParams<ComponentTheme, ComponentType, string> {
     name: string;
     value?: string;
     common?: {
@@ -32,6 +32,6 @@ export interface ISelectOptions {
     title: string;
 }
 
-export const defaultParams: Partial<ISelectParams> = {
+export const defaultParams: Partial<ISelectCParams> = {
     class: 'wlc-select',
 };

@@ -23,7 +23,7 @@ import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract
 import {Game} from 'wlc-engine/modules/games/system/models/game.model';
 import {GamesCatalogService} from 'wlc-engine/modules/games';
 import {ActionService, ConfigService, DeviceType} from 'wlc-engine/modules/core';
-import {defaultParams, IGWParams} from './game-wrapper.params';
+import {defaultParams, IGameWrapperCParams} from './game-wrapper.params';
 import {IGameParams, ILaunchInfo} from '../../system/interfaces/games.interfaces';
 import {UserService} from 'wlc-engine/modules/user/system/services';
 import {EventService, LogService} from 'wlc-engine/modules/core/system/services';
@@ -57,7 +57,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
     @ViewChild('footer') footer: ElementRef;
     @ViewChild('gameContainer') gameContainer: ElementRef;
 
-    public $params: IGWParams;
+    public $params: IGameWrapperCParams;
     public game: Game;
     public gameHtml: string | HTMLIFrameElement = '';
     public isFavourite: boolean;
@@ -101,7 +101,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         protected actionService: ActionService,
         protected modalService: ModalService,
         protected logService: LogService,
-        @Inject('injectParams') protected injectParams: IGWParams,
+        @Inject('injectParams') protected injectParams: IGameWrapperCParams,
         protected elementRef: ElementRef,
         protected domSanitizer: DomSanitizer,
         protected cdr: ChangeDetectorRef,

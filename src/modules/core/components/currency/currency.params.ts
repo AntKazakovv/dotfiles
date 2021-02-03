@@ -6,14 +6,14 @@ export type ComponentType = 'default' | CustomType;
 
 export type IndicatorFormatType = 'code' | 'symbol' | 'narrowSymbol' | 'name';
 
-export interface ICurrencyParams extends IComponentParams<ThemeType, ComponentType, ThemeModType>{
+export interface ICurrencyCParams extends IComponentParams<ThemeType, ComponentType, ThemeModType>{
     value?: number | string;
     currency?: string;
     digitsInfo?: string;
     indicatorFormat?: IndicatorFormatType;
 }
 
-export const defaultParams: ICurrencyParams = {
+export const defaultParams: ICurrencyCParams = {
     class: 'wlc-currency',
     componentName: 'wlc-currency',
     moduleName: 'core',

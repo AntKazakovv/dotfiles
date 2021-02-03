@@ -1,6 +1,6 @@
 import {Component, Inject, Input, OnInit} from '@angular/core';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {defaultParams, IBannerParams} from 'wlc-engine/modules/promo/components/banner/banner.params';
+import {defaultParams, IBannerCParams} from 'wlc-engine/modules/promo/components/banner/banner.params';
 
 /**
  * Displaying banners, takes BannerModel as a parameter.
@@ -21,12 +21,12 @@ import {defaultParams, IBannerParams} from 'wlc-engine/modules/promo/components/
     styleUrls: ['./styles/banner.component.scss'],
 })
 export class BannerComponent extends AbstractComponent implements OnInit {
-    public $params: IBannerParams;
+    public $params: IBannerCParams;
 
-    @Input() protected inlineParams: IBannerParams;
+    @Input() protected inlineParams: IBannerCParams;
 
     constructor(
-        @Inject('injectParams') protected injectParams: IBannerParams,
+        @Inject('injectParams') protected injectParams: IBannerCParams,
     ) {
         super({injectParams, defaultParams});
     }

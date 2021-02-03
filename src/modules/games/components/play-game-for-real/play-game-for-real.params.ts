@@ -7,7 +7,7 @@ import {Game} from 'wlc-engine/modules/games/system/models/game.model';
 import {
     IFormWrapperCParams,
     IInputCParams,
-    IButtonParams,
+    IButtonCParams,
     ITextBlockCParams,
 } from 'wlc-engine/modules/core';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
@@ -51,7 +51,7 @@ export const playGameForRealConfig = (params: IPlayForRealParams): IFormWrapperC
         demoBtn = [
             {
                 name: 'core.wlc-button',
-                params: <IButtonParams>{
+                params: <IButtonCParams>{
                     name: 'play-demo',
                     common: {
                         text: gettext('Demo'),
@@ -123,7 +123,7 @@ export const playGameForRealConfig = (params: IPlayForRealParams): IFormWrapperC
         },
         {
             name: 'core.wlc-button',
-            params: <IButtonParams>{
+            params: <IButtonCParams>{
                 name: 'submit',
                 common: {
                     text: gettext('Login'),
@@ -175,7 +175,7 @@ export const playGameForRealConfig = (params: IPlayForRealParams): IFormWrapperC
         },
         {
             name: 'core.wlc-button',
-            params: <IButtonParams>{
+            params: <IButtonCParams>{
                 name: 'play-real',
                 common: {
                     text: gettext('Play'),

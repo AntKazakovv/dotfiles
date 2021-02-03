@@ -4,7 +4,7 @@ import {
     IInputCParams,
     IFormWrapperCParams,
     ICheckboxCParams,
-    IButtonParams,
+    IButtonCParams,
 } from 'wlc-engine/modules/core';
 
 export namespace FormElements {
@@ -38,7 +38,7 @@ export namespace FormElements {
 
     export const depositButton ={
         name: 'core.wlc-button',
-        params: <IButtonParams>{
+        params: <IButtonCParams>{
             name: 'submit',
             common: {
                 text: gettext('Add deposit'),
@@ -48,7 +48,7 @@ export namespace FormElements {
 
     export const withdrawButton ={
         name: 'core.wlc-button',
-        params: <IButtonParams>{
+        params: <IButtonCParams>{
             name: 'submit',
             common: {
                 text: gettext('Withdrawal'),

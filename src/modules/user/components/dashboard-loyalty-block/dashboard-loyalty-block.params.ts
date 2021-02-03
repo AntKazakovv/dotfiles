@@ -3,9 +3,9 @@ import {CustomType, IComponentParams} from 'wlc-engine/modules/core/system/class
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;
 
-export interface ILoyaltyProgressCParams extends IComponentParams<ComponentTheme, ComponentType, string> {
+export interface ILoyaltyBlockCParams extends IComponentParams<ComponentTheme, ComponentType, string> {
 }
 
-export const defaultParams: ILoyaltyProgressCParams = {
+export const defaultParams: ILoyaltyBlockCParams = {
     class: 'wlc-loyalty-block',
 };

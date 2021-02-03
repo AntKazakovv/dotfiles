@@ -6,13 +6,13 @@ import {
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;
 
-export interface IEnterPromocodeParams extends IComponentParams<ComponentTheme, ComponentType, string> {
+export interface IEnterPromocodeCParams extends IComponentParams<ComponentTheme, ComponentType, string> {
     common?: {
         title?: string,
     };
 }
 
-export const defaultParams: IEnterPromocodeParams = {
+export const defaultParams: IEnterPromocodeCParams = {
     moduleName: 'bonuses',
     class: 'wlc-enter-promocode',
     common: {
