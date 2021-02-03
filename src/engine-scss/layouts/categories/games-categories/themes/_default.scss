@@ -7,9 +7,9 @@
 .wlc-sections__categories--theme-1 {
 
     > .container {
-        @include bm.get-mq-map('padding', $themeDefault, 'sectionPadding');
-        @include bm.get-mq-map('border-radius', $themeDefault, 'sectionRadius');
-        @include bm.get-mq-map('background', $themeDefault, 'sectionBg');
+        @include bm.get-mq-map('padding', $theme1Default, 'sectionPadding');
+        @include bm.get-mq-map('border-radius', $theme1Default, 'sectionRadius');
+        @include bm.get-mq-map('background', $theme1Default, 'sectionBg');
     }
 
     .games-categories {
@@ -26,10 +26,10 @@
         justify-content: space-between;
         margin-left: auto;
 
-        @include bm.get-mq-map('background', $themeDefault, 'buttonSearchBg');
-        @include bm.get-mq-map('padding', $themeDefault, 'buttonSearchPadding');
-        @include bm.get-mq-map('border-radius', $themeDefault, 'buttonSearchRadius');
-        @include text.get-text-style('PlaceholderText', map-get($themeDefault, 'buttonSearchColor'));
+        @include bm.get-mq-map('background', $theme1Default, 'buttonSearchBg');
+        @include bm.get-mq-map('padding', $theme1Default, 'buttonSearchPadding');
+        @include bm.get-mq-map('border-radius', $theme1Default, 'buttonSearchRadius');
+        @include text.get-text-style('PlaceholderText', map-get($theme1Default, 'buttonSearchColor'));
 
         @include mq.min(768) {
             width: auto;
@@ -44,23 +44,23 @@
         }
 
         &:hover {
-            @include bm.get-mq-map('background', $themeDefault, 'buttonSearchBgHover');
+            @include bm.get-mq-map('background', $theme1Default, 'buttonSearchBgHover');
         }
 
         svg {
-            fill: map-get($themeDefault, 'buttonSearchIconFill');
+            fill: map-get($theme1Default, 'buttonSearchIconFill');
         }
 
         .wlc-icon {
-            margin-left: map-get($themeDefault, 'buttonSearchIconMargin');
+            margin-left: map-get($theme1Default, 'buttonSearchIconMargin');
         }
     }
 
     .wlc-btn-merch[wlc-button] {
-        margin-left: map-get($themeDefault, 'buttonMerchMargin');
+        margin-left: map-get($theme1Default, 'buttonMerchMargin');
 
         path {
-            stroke: map-get($themeDefault, 'buttonSearchIconFill');
+            stroke: map-get($theme1Default, 'buttonSearchIconFill');
         }
     }
 

@@ -1,14 +1,13 @@
 @use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/text' as text;
 @use 'engine-scss/functions' as ef;
 
 .wlc-feedback-form--theme-default:host {
     margin: ef.get-value($themeDefault, 'margin');
 
     .wlc-feedback-form__header {
-        font-size: ef.get-value($themeDefault, 'headerFontSize');
-        color: ef.get-value($themeDefault, 'headerColor');
+        @include text.get-text-style('QoteTextBold', ef.get-value($themeDefault, 'headerColor'));
         margin: ef.get-value($themeDefault, 'headerMargin');
-        font-weight: ef.get-value($themeDefault, 'headerFontWeight');
     }
 
     .wlc-feedback-form-details {
@@ -45,23 +44,15 @@
         }
 
         span {
-            font-size: ef.get-value($themeDefault, 'contactsHeaderFontSize');
-            color: ef.get-value($themeDefault, 'detailsHeaderColor');
-
-            @include mq.min(1024) {
-                font-size: ef.get-value($themeDefault, 'contactsHeaderFontSize') * 1.3;
-            }
+            @include text.get-text-style('SignText', ef.get-value($themeDefault, 'detailsHeaderColor'));
         }
 
         a,
         span:nth-child(2) {
-            font-size: ef.get-value($themeDefault, 'contactsContentFontSize');
+            @include text.get-text-style('QoteTextBold', ef.get-value($themeDefault, 'contactsContentColor'));
             max-width: 100%;
             overflow: hidden;
             text-overflow: ellipsis;
-            font-weight: ef.get-value($themeDefault, 'contactsHeaderFontWeight');
-
-            color: ef.get-value($themeDefault, 'contactsContentColor');
             text-decoration: none;
             transition: ef.get-value($themeDefault, 'transition');
 
@@ -83,6 +74,11 @@
         .wlc-input,
         .wlc-textarea {
             margin-bottom: ef.get-value($themeDefault, 'formElementsGap');
+
+            .wlc-input__label[class],
+            .wlc-textarea__label[class] {
+                @include text.get-text-style('SignText');
+            }
         }
     }
 }

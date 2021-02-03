@@ -1,4 +1,5 @@
 @use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/functions' as ef;
 @use 'engine-scss/mixins/text' as text;
 @import '../utils/mixins';
 @import '../utils/vars';
@@ -14,7 +15,7 @@
     &.wlc-game-dashboard--animate {
 
         .wlc-game-dashboard__wrp {
-            transition: map-get($themeDefault, 'transition');
+            transition: ef.get-value($themeDefault, 'transition');
         }
     }
 
@@ -30,22 +31,22 @@
             display: none;
             align-items: center;
             justify-content: center;
-            color: map-get($themeDefault, 'tutorialColor');
-            background: transparentize(map-get($themeDefault, 'backgroundAdUnit'), 0.2);
+            color: ef.get-value($themeDefault, 'tutorialColor');
+            background: transparentize(ef.get-value($themeDefault, 'backgroundAdUnit'), 0.2);
 
             &-left-decor {
-                background: url('/gstatic/wlc/game-dashboard/tutorial-top.png') map-get($themeDefault, 'decorLeftPosition') no-repeat;
-                height: map-get($themeDefault, 'decorHeight');
-                width: map-get($themeDefault, 'decorWidth');
+                background: url('/gstatic/wlc/game-dashboard/tutorial-top.png') ef.get-value($themeDefault, 'decorLeftPosition') no-repeat;
+                height: ef.get-value($themeDefault, 'decorHeight');
+                width: ef.get-value($themeDefault, 'decorWidth');
                 top: 0;
                 left: 0;
                 position: absolute;
             }
 
             &-right-decor {
-                background: url('/gstatic/wlc/game-dashboard/tutorial.png') map-get($themeDefault, 'decorRightPosition') no-repeat;
-                height: map-get($themeDefault, 'decorHeight');
-                width: map-get($themeDefault, 'decorWidth');
+                background: url('/gstatic/wlc/game-dashboard/tutorial.png') ef.get-value($themeDefault, 'decorRightPosition') no-repeat;
+                height: ef.get-value($themeDefault, 'decorHeight');
+                width: ef.get-value($themeDefault, 'decorWidth');
                 bottom: 0;
                 right: 0;
                 position: absolute;
@@ -53,32 +54,32 @@
         }
 
         &__tutorial-item {
-            max-width: map-get($themeDefault, 'itemWidth');
+            max-width: ef.get-value($themeDefault, 'itemWidth');
             text-align: center;
         }
 
         &__tutorial-img {
-            margin: map-get($themeDefault, 'imgMargin');
+            margin: ef.get-value($themeDefault, 'imgMargin');
         }
 
         &__tutorial-arrow {
             position: absolute;
-            top: map-get($themeDefault, 'tutotrialArrowTop');
-            right: map-get($themeDefault, 'tutotrialArrowRight');
+            top: ef.get-value($themeDefault, 'tutotrialArrowTop');
+            right: ef.get-value($themeDefault, 'tutotrialArrowRight');
 
             .tutorial-text {
-                @include text.get-text-style('SignText', map-get($themeDefault, 'tutorialColor'));
-                margin: map-get($themeDefault, 'tutorialTextMargin');
+                @include text.get-text-style('SignText', ef.get-value($themeDefault, 'tutorialColor'));
+                margin: ef.get-value($themeDefault, 'tutorialTextMargin');
             }
         }
 
         &__tutorial-text {
-            @include text.get-text-style('ThirdTitle', map-get($themeDefault, 'tutorialColor'));
+            @include text.get-text-style('ThirdTitle', ef.get-value($themeDefault, 'tutorialColor'));
         }
 
         &__wrp {
-            width: map-get($themeDefault, 'wrpWidth');
-            background: map-get($themeDefault, 'wrpBackground');
+            width: ef.get-value($themeDefault, 'wrpWidth');
+            background: ef.get-value($themeDefault, 'wrpBackground');
             position: absolute;
             top: 0;
             right: 0;
@@ -89,23 +90,23 @@
 
         &__panch {
             position: absolute;
-            top: map-get($themeDefault, 'panchTop');
-            left: map-get($themeDefault, 'panchLeft');
-            width: map-get($themeDefault, 'panchWidth');
-            height: map-get($themeDefault, 'panchHeight');
+            top: ef.get-value($themeDefault, 'panchTop');
+            left: ef.get-value($themeDefault, 'panchLeft');
+            width: ef.get-value($themeDefault, 'panchWidth');
+            height: ef.get-value($themeDefault, 'panchHeight');
 
             &-content {
                 position: relative;
             }
 
             &-btn {
-                border-radius: map-get($themeDefault, 'panchBtnRadius');
-                background: map-get($themeDefault, 'panchBtnBack');
-                width: map-get($themeDefault, 'panchBtnWidth');
-                height: map-get($themeDefault, 'panchBtnHeight');
+                border-radius: ef.get-value($themeDefault, 'panchBtnRadius');
+                background: ef.get-value($themeDefault, 'panchBtnBack');
+                width: ef.get-value($themeDefault, 'panchBtnWidth');
+                height: ef.get-value($themeDefault, 'panchBtnHeight');
                 position: absolute;
-                top: map-get($themeDefault, 'panchBtnTop');
-                right: map-get($themeDefault, 'panchBtnRight');
+                top: ef.get-value($themeDefault, 'panchBtnTop');
+                right: ef.get-value($themeDefault, 'panchBtnRight');
                 cursor: pointer;
             }
         }
@@ -113,12 +114,12 @@
         &__header {
             display: flex;
             justify-content: space-around;
-            background: map-get($themeDefault, 'headerBackground');
-            padding: map-get($themeDefault, 'headerPadding');
+            background: ef.get-value($themeDefault, 'headerBackground');
+            padding: ef.get-value($themeDefault, 'headerPadding');
         }
 
         &__content {
-            padding: map-get($themeDefault, 'contentPadding');
+            padding: ef.get-value($themeDefault, 'contentPadding');
 
             &::ng-deep {
 
@@ -131,10 +132,10 @@
         &__tab {
             display: flex;
             cursor: pointer;
-            width: map-get($themeDefault, 'tabWidth');
-            height: map-get($themeDefault, 'tabHeight');
-            border-radius: map-get($themeDefault, 'tabRadius');
-            background: map-get($themeDefault, 'backgroundTabs');
+            width: ef.get-value($themeDefault, 'tabWidth');
+            height: ef.get-value($themeDefault, 'tabHeight');
+            border-radius: ef.get-value($themeDefault, 'tabRadius');
+            background: ef.get-value($themeDefault, 'backgroundTabs');
             align-items: center;
             justify-content: center;
             transition: background 0.2s ease-out;
@@ -143,14 +144,14 @@
 
                 svg,
                 path {
-                    fill: map-get($themeDefault, 'panchBtnIcon');
+                    fill: ef.get-value($themeDefault, 'panchBtnIcon');
                     stroke: none;
                 }
             }
 
             &:hover,
             &.active {
-                background: map-get($themeDefault, 'backgroundTabsActive');
+                background: ef.get-value($themeDefault, 'backgroundTabsActive');
             }
         }
     }

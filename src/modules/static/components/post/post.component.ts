@@ -28,7 +28,7 @@ export * from './post.interface';
 @Component({
     selector: '[wlc-post]',
     templateUrl: './post.component.html',
-    styleUrls: ['./post.component.scss'],
+    styleUrls: ['./styles/post.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PostComponent extends AbstractComponent implements OnInit, AfterViewInit {
