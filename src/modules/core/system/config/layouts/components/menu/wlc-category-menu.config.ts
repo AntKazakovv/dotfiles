@@ -10,4 +10,11 @@ export namespace wlcCategoryMenu {
             type: 'categories-menu',
         },
     };
+    export const categoriesWithIcons: ILayoutComponent = {
+        name: 'menu.wlc-category-menu',
+        params: {
+            theme: 'with-icons',
+            type: 'categories-menu',
+        },
+    }
 }

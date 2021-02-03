@@ -36,3 +36,16 @@ $themeDropdownDefault: map-merge((
     'submenuBg': ef.get('mainColors', 'bg700'),
 ), $customDropdownThemeDefault);
 
+$customWithIcons: () !default;
+$withIcons: map-merge((
+    'menuItemColor': ef.get('mainColors', 'baseMain'),
+    'menuItemHoverColor': ef.get('mainColors', 'main'),
+    'menuItemPadding': (
+        375: 0 ef.get('size', 'smaller') 0 0,
+    ),
+    'menuItemMargin': (
+        375: 0 auto,
+    ),
+    'menuItemTextAlign': center,
+    'transition': 0.5s ease-in,
+), $customWithIcons);

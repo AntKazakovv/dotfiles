@@ -1,0 +1,82 @@
+@use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/text' as lib;
+@use 'engine-scss/functions' as ef;
+
+.wlc-sections__categories--theme-2 {
+
+    .games-categories {
+        display: grid;
+        grid-template-rows: 1fr;
+        align-items: center;
+
+        @include bm.get-mq-map('grid-template-columns', $withIcons, 'gridColumns');
+        @include bm.get-mq-map('gap', $withIcons, 'sectionGap');
+
+        @include mq.min(900) {
+            grid-template-columns: minmax(0, 1fr) 250px;
+            grid-template-rows: 1fr 1fr;
+            grid-template-areas:
+                'category-menu btn-search'
+                'category-menu btn-merch';
+        }
+    }
+
+    .wlc-category-menu {
+        grid-area: category-menu;
+        overflow: hidden;
+    }
+
+    .wlc-btn {
+
+        &.wlc-btn-search,
+        &.wlc-btn-merch {
+            width: 100%;
+            @include bm.get-mq-map('border-radius', $withIcons, 'buttonBorderRadius');
+            @include bm.get-mq-map('padding', $withIcons, 'buttonPadding');
+
+            .wlc-btn-search__text,
+            .wlc-btn-merch__text {
+                @include lib.get-text-style('PlaceholderText');
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+        }
+
+        &.wlc-btn-search {
+            grid-area: btn-search;
+            background: ef.get-value($withIcons, 'searchButtonBg');
+            align-self: end;
+
+            @media (hover: hover) {
+
+                &:hover {
+                    background: ef.get-value($withIcons, 'searchButtonBgHover');
+                }
+            }
+
+            svg {
+                fill: map-get($withIcons, 'searchButtonIconFill');
+            }
+        }
+
+        &.wlc-btn-merch {
+            grid-area: btn-merch;
+            background: ef.get-value($withIcons, 'merchButtonBg');
+            align-self: start;
+
+            @media (hover: hover) {
+
+                &:hover {
+                    background: ef.get-value($withIcons, 'merchButtonBgHover');
+                }
+            }
+
+            svg {
+                fill: map-get($withIcons, 'merchButtonIconFill');
+                color: map-get($withIcons, 'merchButtonIconFill');
+            }
+        }
+    }
+}
