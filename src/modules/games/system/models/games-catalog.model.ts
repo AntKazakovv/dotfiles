@@ -112,7 +112,7 @@ export class GamesCatalog extends AbstractModel<IGames> {
     public isSpecialCategory(category: CategoryModel): boolean {
         return !!_find(this.specialCategories, (item: ICategory) => {
             return category.slug === item.Slug;
-        })
+        });
     }
 
     /**
