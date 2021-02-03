@@ -4,7 +4,6 @@ const WlcTemplateReplacePlugins = require('./wlcTemplateReplacePlugins');
 const WlcStructureInfoPlugin = require('./wlcStructureInfoPlugin');
 const WlcStaticImagePlugin = require('./wlcStaticImagePlugin');
 const WlcWatchExtFilesPlugin = require('./wlcWatchExtFilesPlugin');
-const path = require('path');
 
 module.exports = (config, schema, env) => {
     const isDev = env.configuration === 'dev';
@@ -44,7 +43,10 @@ module.exports = (config, schema, env) => {
             'config/frontend/**/*.{ts,js}',
             'wlc-engine/**/*.{ts,js}',
         ],
+        baseConfig: require('../../../.eslintrc.js'),
         lintDirtyModulesOnly: true,
+        threads: true,
+        cache: true,
         failOnError: false,
     }));
 

@@ -5,6 +5,9 @@ module.exports = {
         '@typescript-eslint',
     ],
     rules: {
+        '@angular-eslint/no-input-rename': 'off',
+        '@typescript-eslint/no-inferrable-types': 'off',
+        'quote-props': 'off',
         '@angular-eslint/directive-selector': [
             'error',
             {type: 'attribute', prefix: 'wlc', style: 'kebab-case'},
@@ -13,9 +16,7 @@ module.exports = {
             'error',
             {type: 'attribute', prefix: 'wlc', style: 'kebab-case'},
         ],
-        '@typescript-eslint/no-inferrable-types': 'off',
         'semi': ['error', 'always'],
-        'quote-props': 'off',
         'comma-dangle': ['error', 'always-multiline'],
         'indent': ['error', 4, {'SwitchCase': 1}],
     },
@@ -26,6 +27,11 @@ module.exports = {
             parserOptions: {
                 ecmaVersion: '2020',
                 sourceType: 'module',
+                // project: [
+                //     './tsconfig.json',
+                //     './tsconfig.engine.json',
+                //     './tsconfig.app.json',
+                // ],
             },
             plugins: [
                 '@angular-eslint/template',

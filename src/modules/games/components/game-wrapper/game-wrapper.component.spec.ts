@@ -8,9 +8,9 @@ describe('GameWrapperComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [ GameWrapperComponent ]
+            declarations: [ GameWrapperComponent ],
         })
-        .compileComponents();
+            .compileComponents();
     }));
 
     beforeEach(() => {

@@ -8,7 +8,7 @@ describe('NewPasswordFormComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [NewPasswordFormComponent]
+            declarations: [NewPasswordFormComponent],
         })
             .compileComponents();
     });

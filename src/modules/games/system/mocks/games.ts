@@ -18,7 +18,7 @@ export const gamesMockData: IGames = {
             "ja": "その他",
             "zh-hant": "其它",
             "zh-hans": "其它",
-            "ko": "기타"
+            "ko": "기타",
         },
         "Tags": ["main", "menu", "others"],
         "Name": {
@@ -36,12 +36,12 @@ export const gamesMockData: IGames = {
             "ja": "その他",
             "zh-hant": "其它",
             "zh-hans": "其它",
-            "ko": "기타"
+            "ko": "기타",
         },
         "CSort": "20",
         "CSubSort": "0",
         "Slug": "other",
-        "menuId": "other"
+        "menuId": "other",
     }, {
         "ID": "1252",
         "Trans": {"en": "blocked games", "ru": "blocked games"},
@@ -50,7 +50,7 @@ export const gamesMockData: IGames = {
         "CSort": "20",
         "CSubSort": "0",
         "Slug": "blockedgames",
-        "menuId": "blockedgames"
+        "menuId": "blockedgames",
     }, {
         "ID": "41",
         "Trans": {
@@ -64,7 +64,7 @@ export const gamesMockData: IGames = {
             "cn": "二十一点纸牌游戏",
             "ja": "ブラックジャック",
             "zh-hans": "二十一点纸牌游戏",
-            "ko": "블랙잭"
+            "ko": "블랙잭",
         },
         "Tags": ["blackjacks"],
         "Name": {
@@ -78,12 +78,12 @@ export const gamesMockData: IGames = {
             "cn": "二十一点纸牌游戏",
             "ja": "ブラックジャック",
             "zh-hans": "二十一点纸牌游戏",
-            "ko": "블랙잭"
+            "ko": "블랙잭",
         },
         "CSort": "14",
         "CSubSort": "0",
         "Slug": "blackjacks",
-        "menuId": "blackjacks"
+        "menuId": "blackjacks",
     }, {
         "ID": "38",
         "Trans": {"en": "HTML5"},
@@ -92,7 +92,7 @@ export const gamesMockData: IGames = {
         "CSort": "13",
         "CSubSort": "0",
         "Slug": "HTML5",
-        "menuId": "html5"
+        "menuId": "html5",
     }, {
         "ID": "1172",
         "Trans": {"en": "Drops and wins", "ru": "Drops and wins"},
@@ -101,7 +101,7 @@ export const gamesMockData: IGames = {
         "CSort": "13",
         "CSubSort": "0",
         "Slug": "dropswins",
-        "menuId": "dropsandwins"
+        "menuId": "dropsandwins",
     }, {
         "ID": "37",
         "Trans": {
@@ -117,7 +117,7 @@ export const gamesMockData: IGames = {
             "cn": "在线直播赌场",
             "ja": "ライブカジノ",
             "zh-hans": "在线直播赌场",
-            "ko": "라이브 카지노"
+            "ko": "라이브 카지노",
         },
         "Tags": ["main"],
         "Name": {
@@ -133,12 +133,12 @@ export const gamesMockData: IGames = {
             "cn": "在线直播赌场",
             "ja": "ライブカジノ",
             "zh-hans": "在线直播赌场",
-            "ko": "라이브 카지노"
+            "ko": "라이브 카지노",
         },
         "CSort": "12",
         "CSubSort": "0",
         "Slug": "livecasino",
-        "menuId": "livecasino"
+        "menuId": "livecasino",
     }, {
         "ID": "35",
         "Trans": {
@@ -157,7 +157,7 @@ export const gamesMockData: IGames = {
             "cn": "新",
             "ja": "新しい",
             "zh-hans": "新",
-            "ko": "새로운 게임"
+            "ko": "새로운 게임",
         },
         "Tags": ["new", "menu"],
         "Name": {
@@ -176,12 +176,12 @@ export const gamesMockData: IGames = {
             "cn": "新",
             "ja": "新しい",
             "zh-hans": "新",
-            "ko": "새로운 게임"
+            "ko": "새로운 게임",
         },
         "CSort": "11",
         "CSubSort": "0",
         "Slug": "new",
-        "menuId": "new"
+        "menuId": "new",
     }, {
         "ID": "4",
         "Trans": {
@@ -199,7 +199,7 @@ export const gamesMockData: IGames = {
             "ja": "人気",
             "zh-hant": "流行的",
             "zh-hans": "流行的",
-            "ko": "인기 게임"
+            "ko": "인기 게임",
         },
         "Tags": ["main", "menu", "popular"],
         "Name": {
@@ -217,12 +217,12 @@ export const gamesMockData: IGames = {
             "ja": "人気",
             "zh-hant": "流行的",
             "zh-hans": "流行的",
-            "ko": "인기 게임"
+            "ko": "인기 게임",
         },
         "CSort": "9",
         "CSubSort": "0",
         "Slug": "popular",
-        "menuId": "popular"
+        "menuId": "popular",
     }, {
         "ID": "16",
         "Trans": {
@@ -236,7 +236,7 @@ export const gamesMockData: IGames = {
             "cn": "老虎机",
             "ja": "スロット",
             "zh-hans": "老虎机",
-            "ko": "슬롯"
+            "ko": "슬롯",
         },
         "Tags": ["main", "menu"],
         "Name": {
@@ -250,12 +250,12 @@ export const gamesMockData: IGames = {
             "cn": "老虎机",
             "ja": "スロット",
             "zh-hans": "老虎机",
-            "ko": "슬롯"
+            "ko": "슬롯",
         },
         "CSort": "8",
         "CSubSort": "0",
         "Slug": "slots",
-        "menuId": "slots"
+        "menuId": "slots",
     }, {
         "ID": "7",
         "Trans": {
@@ -269,7 +269,7 @@ export const gamesMockData: IGames = {
             "cn": "桌上游戏",
             "ja": "テーブルゲーム",
             "zh-hans": "桌上游戏",
-            "ko": "테이블 게임"
+            "ko": "테이블 게임",
         },
         "Tags": ["main", "menu", "tablegames"],
         "Name": {
@@ -283,12 +283,12 @@ export const gamesMockData: IGames = {
             "cn": "桌上游戏",
             "ja": "テーブルゲーム",
             "zh-hans": "桌上游戏",
-            "ko": "테이블 게임"
+            "ko": "테이블 게임",
         },
         "CSort": "7",
         "CSubSort": "0",
         "Slug": "tablegames",
-        "menuId": "tablegames"
+        "menuId": "tablegames",
     }, {
         "ID": "19",
         "Trans": {
@@ -305,7 +305,7 @@ export const gamesMockData: IGames = {
             "cn": "刮刮卡",
             "ja": "スクラッチカード",
             "zh-hans": "刮刮卡",
-            "ko": "스크래치 카드"
+            "ko": "스크래치 카드",
         },
         "Tags": ["main", "menu"],
         "Name": {
@@ -322,12 +322,12 @@ export const gamesMockData: IGames = {
             "cn": "刮刮卡",
             "ja": "スクラッチカード",
             "zh-hans": "刮刮卡",
-            "ko": "스크래치 카드"
+            "ko": "스크래치 카드",
         },
         "CSort": "7",
         "CSubSort": "0",
         "Slug": "scratchcards",
-        "menuId": "scratchcards"
+        "menuId": "scratchcards",
     }, {
         "ID": "13",
         "Trans": {"en": "Jackpots", "de": "Jackpots", "sv": "Jackpots", "ru": "Джекпоты", "uk": "Джекпоти"},
@@ -336,7 +336,7 @@ export const gamesMockData: IGames = {
         "CSort": "5",
         "CSubSort": "0",
         "Slug": "jackpots",
-        "menuId": "jackpots"
+        "menuId": "jackpots",
     }, {
         "ID": "84",
         "Trans": {
@@ -344,7 +344,7 @@ export const gamesMockData: IGames = {
             "de": "Virtuelle Spiele",
             "sv": "Virtuella spel",
             "ru": "Виртуальные игры",
-            "uk": "Віртуальний спорт"
+            "uk": "Віртуальний спорт",
         },
         "Tags": ["menu"],
         "Name": {
@@ -352,12 +352,12 @@ export const gamesMockData: IGames = {
             "de": "Virtuelle Spiele",
             "sv": "Virtuella spel",
             "ru": "Виртуальные игры",
-            "uk": "Віртуальний спорт"
+            "uk": "Віртуальний спорт",
         },
         "CSort": "5",
         "CSubSort": "0",
         "Slug": "virtualsports",
-        "menuId": "virtualsports"
+        "menuId": "virtualsports",
     }, {
         "ID": "33",
         "Trans": {"en": "HTML5"},
@@ -366,7 +366,7 @@ export const gamesMockData: IGames = {
         "CSort": "4",
         "CSubSort": "0",
         "Slug": "",
-        "menuId": "html5"
+        "menuId": "html5",
     }, {
         "ID": "10",
         "Trans": {
@@ -380,7 +380,7 @@ export const gamesMockData: IGames = {
             "cn": "视频扑克",
             "ja": "ビデオポーカー",
             "zh-hans": "视频扑克",
-            "ko": "비디오 포커"
+            "ko": "비디오 포커",
         },
         "Tags": ["main", "menu"],
         "Name": {
@@ -394,12 +394,12 @@ export const gamesMockData: IGames = {
             "cn": "视频扑克",
             "ja": "ビデオポーカー",
             "zh-hans": "视频扑克",
-            "ko": "비디오 포커"
+            "ko": "비디오 포커",
         },
         "CSort": "3",
         "CSubSort": "0",
         "Slug": "videopoker",
-        "menuId": "videopoker"
+        "menuId": "videopoker",
     }, {
         "ID": "760",
         "Trans": {"en": "Big Time Gaming"},
@@ -408,7 +408,7 @@ export const gamesMockData: IGames = {
         "CSort": "0",
         "CSubSort": "0",
         "Slug": "bigtimegaming",
-        "menuId": "bigtimegaming"
+        "menuId": "bigtimegaming",
     }, {
         "ID": "781",
         "Trans": {"en": "Cayetano"},
@@ -417,7 +417,7 @@ export const gamesMockData: IGames = {
         "CSort": "0",
         "CSubSort": "0",
         "Slug": "cayetano",
-        "menuId": "cayetano"
+        "menuId": "cayetano",
     }, {
         "ID": "862",
         "Trans": {"en": "Push Gaming"},
@@ -426,7 +426,7 @@ export const gamesMockData: IGames = {
         "CSort": "0",
         "CSubSort": "0",
         "Slug": "pushgaming",
-        "menuId": "pushgaming"
+        "menuId": "pushgaming",
     }, {
         "ID": "1228",
         "Trans": {"en": "Check This Out"},
@@ -435,7 +435,7 @@ export const gamesMockData: IGames = {
         "CSort": "0",
         "CSubSort": "0",
         "Slug": "checkthisout",
-        "menuId": "checkthisout"
+        "menuId": "checkthisout",
     }],
     games: [{
         "ID": "1807820",
@@ -465,7 +465,7 @@ export const gamesMockData: IGames = {
         "IsVirtual": "0",
         "TableID": "1807820",
         "LaunchCode": "hotscatterdeluxe",
-        "isRestricted": false
+        "isRestricted": false,
     }, {
         "ID": "1556365",
         "Image": "\/gstatic\/games\/betsoft\/315\/gold_canyon.jpg",
@@ -497,7 +497,7 @@ export const gamesMockData: IGames = {
         "MobileWindowsUrl": "991\/809",
         "Freeround": "1",
         "LaunchCode": "809",
-        "isRestricted": false
+        "isRestricted": false,
     }, {
         "ID": "1478210",
         "Image": "\/gstatic\/games\/habanero\/315\/santas_village.jpg",
@@ -527,7 +527,7 @@ export const gamesMockData: IGames = {
         "TableID": "1478210",
         "Freeround": "1",
         "LaunchCode": "SGSantasVillage",
-        "isRestricted": false
+        "isRestricted": false,
     }, {
         "ID": "1820505",
         "Image": "\/gstatic\/games\/betsoft\/315\/miles_bellhouse_and_the_gears_of_time.jpg",
@@ -559,7 +559,7 @@ export const gamesMockData: IGames = {
         "MobileWindowsUrl": "991\/834",
         "Freeround": "1",
         "LaunchCode": "834",
-        "isRestricted": false
+        "isRestricted": false,
     }, {
         "ID": "1568995",
         "Image": "\/gstatic\/games\/betsoft\/315\/take_the_bank.jpg",
@@ -591,7 +591,7 @@ export const gamesMockData: IGames = {
         "MobileWindowsUrl": "991\/813",
         "Freeround": "1",
         "LaunchCode": "813",
-        "isRestricted": false
+        "isRestricted": false,
     }, {
         "ID": "1478748",
         "Image": "\/gstatic\/games\/betsoft\/315\/tigers_claw.jpg",
@@ -623,7 +623,7 @@ export const gamesMockData: IGames = {
         "MobileWindowsUrl": "991\/791",
         "Freeround": "1",
         "LaunchCode": "788",
-        "isRestricted": false
+        "isRestricted": false,
     }, {
         "ID": "1519348",
         "Image": "\/gstatic\/games\/betsoft\/315\/chillipop.jpg",
@@ -655,7 +655,7 @@ export const gamesMockData: IGames = {
         "MobileWindowsUrl": "991\/800",
         "Freeround": "1",
         "LaunchCode": "800",
-        "isRestricted": false
+        "isRestricted": false,
     }, {
         "ID": "16846",
         "Image": "\/gstatic\/games\/betsoft\/315\/fruit_zen.jpg",
@@ -687,7 +687,7 @@ export const gamesMockData: IGames = {
         "MobileWindowsUrl": "991\/515",
         "Freeround": "1",
         "LaunchCode": "512",
-        "isRestricted": false
+        "isRestricted": false,
     }, {
         "ID": "1658893",
         "Image": "\/gstatic\/games\/betsoft\/315\/monster_pop.jpg",
@@ -719,7 +719,7 @@ export const gamesMockData: IGames = {
         "MobileWindowsUrl": "991\/819",
         "Freeround": "1",
         "LaunchCode": "819",
-        "isRestricted": false
+        "isRestricted": false,
     }, {
         "ID": "1679452",
         "Image": "\/gstatic\/games\/betsoft\/315\/back_to_venus.jpg",
@@ -751,7 +751,7 @@ export const gamesMockData: IGames = {
         "MobileWindowsUrl": "991\/817",
         "Freeround": "1",
         "LaunchCode": "817",
-        "isRestricted": false
+        "isRestricted": false,
     }, {
         "ID": "1090661",
         "Image": "\/gstatic\/games\/betsoft\/315\/charms_and_clovers.jpg",
@@ -783,7 +783,7 @@ export const gamesMockData: IGames = {
         "MobileWindowsUrl": "991\/675",
         "Freeround": "1",
         "LaunchCode": "691",
-        "isRestricted": false
+        "isRestricted": false,
     }, {
         "ID": "1478167",
         "Image": "\/gstatic\/games\/betsoft\/315\/stampede.jpg",
@@ -815,7 +815,7 @@ export const gamesMockData: IGames = {
         "MobileWindowsUrl": "991\/774",
         "Freeround": "1",
         "LaunchCode": "771",
-        "isRestricted": false
+        "isRestricted": false,
     }, {
         "ID": "1814438",
         "Image": "\/gstatic\/games\/netent\/315\/speedbaccarat_jade.jpg",
@@ -844,7 +844,7 @@ export const gamesMockData: IGames = {
         "IsVirtual": "0",
         "TableID": "1814438",
         "LaunchCode": "lcspeedbaccarat_not_mobilelr_sw--300",
-        "isRestricted": false
+        "isRestricted": false,
     }, {
         "ID": "1814436",
         "Image": "\/gstatic\/games\/netent\/315\/speed_baccarat_gold.jpg",
@@ -873,7 +873,7 @@ export const gamesMockData: IGames = {
         "IsVirtual": "0",
         "TableID": "1814436",
         "LaunchCode": "lcspeedbaccarat_not_mobilehr_sw--301",
-        "isRestricted": false
+        "isRestricted": false,
     }, {
         "ID": "1814434",
         "Image": "\/gstatic\/games\/netent\/315\/speed_baccarat_silver.jpg",
@@ -902,7 +902,7 @@ export const gamesMockData: IGames = {
         "IsVirtual": "0",
         "TableID": "1814434",
         "LaunchCode": "lcspeedbaccarat_not_mobile_sw--302",
-        "isRestricted": false
+        "isRestricted": false,
     }, {
         "ID": "1696467",
         "Image": "\/gstatic\/games\/betsoft\/315\/quest_to_the_west.jpg",
@@ -934,7 +934,7 @@ export const gamesMockData: IGames = {
         "MobileWindowsUrl": "991\/820",
         "Freeround": "1",
         "LaunchCode": "820",
-        "isRestricted": false
+        "isRestricted": false,
     }, {
         "ID": "1637614",
         "Image": "\/gstatic\/games\/betsoft\/315\/spring_tails.jpg",
@@ -966,7 +966,7 @@ export const gamesMockData: IGames = {
         "MobileWindowsUrl": "991\/816",
         "Freeround": "1",
         "LaunchCode": "816",
-        "isRestricted": false
+        "isRestricted": false,
     }, {
         "ID": "1626265",
         "Image": "\/gstatic\/games\/betsoft\/315\/total_overdrive.jpg",
@@ -998,7 +998,7 @@ export const gamesMockData: IGames = {
         "MobileWindowsUrl": "991\/818",
         "Freeround": "1",
         "LaunchCode": "818",
-        "isRestricted": false
+        "isRestricted": false,
     }, {
         "ID": "1478216",
         "Image": "\/gstatic\/games\/netent\/315\/twinspindeluxe_not_mobile_sw.jpg",
@@ -1028,7 +1028,7 @@ export const gamesMockData: IGames = {
         "TableID": "1478216",
         "Freeround": "1",
         "LaunchCode": "twinspindeluxe_not_mobile_sw",
-        "isRestricted": false
+        "isRestricted": false,
     }, {
         "ID": "1609927",
         "Image": "\/gstatic\/games\/betsoft\/315\/super_sweets.jpg",
@@ -1060,7 +1060,7 @@ export const gamesMockData: IGames = {
         "MobileWindowsUrl": "991\/815",
         "Freeround": "1",
         "LaunchCode": "815",
-        "isRestricted": false
+        "isRestricted": false,
     }, {
         "ID": "1527431",
         "Image": "\/gstatic\/games\/netent\/315\/dealer_roulette_vip1.jpg",
@@ -1089,7 +1089,7 @@ export const gamesMockData: IGames = {
         "IsVirtual": "0",
         "TableID": "1527431",
         "LaunchCode": "lcroulette_not_mobile_sw--1",
-        "isRestricted": false
+        "isRestricted": false,
     }, {
         "ID": "1546867",
         "Image": "\/gstatic\/games\/tomhorn\/315\/incas_treasure.jpg",
@@ -1119,7 +1119,7 @@ export const gamesMockData: IGames = {
         "TableID": "1546867",
         "Freeround": "1",
         "LaunchCode": "VSIncas_TNP",
-        "isRestricted": false
+        "isRestricted": false,
     }, {
         "ID": "1471621",
         "Image": "\/gstatic\/games\/netent\/315\/roulette_classic1.jpg",
@@ -1148,7 +1148,7 @@ export const gamesMockData: IGames = {
         "IsVirtual": "0",
         "TableID": "1471621",
         "LaunchCode": "lcroulette_not_mobile_sw--7",
-        "isRestricted": false
+        "isRestricted": false,
     }, {
         "ID": "1515604",
         "Image": "\/gstatic\/games\/tomhorn\/315\/frozen_queen.jpg",
@@ -1167,7 +1167,7 @@ export const gamesMockData: IGames = {
             "sk": "In a kingdom trapped in perpetual winter, magic hides at every turn, with myriads of fantastic creatures bringing icy wins as players push their way towards its hidden treasures. Look for two magic crystals as they open the realm of magnificent fortune. Unlock the frozen reels and meet the mighty Queen. During her reign 4 reels expand to 5 and 81 paths to frosty wins change to 243 as players are snowed with abundance of chilling riches.",
             "ru": "In a kingdom trapped in perpetual winter, magic hides at every turn, with myriads of fantastic creatures bringing icy wins as players push their way towards its hidden treasures. Look for two magic crystals as they open the realm of magnificent fortune. Unlock the frozen reels and meet the mighty Queen. During her reign 4 reels expand to 5 and 81 paths to frosty wins change to 243 as players are snowed with abundance of chilling riches.",
             "zh-hans": "In a kingdom trapped in perpetual winter, magic hides at every turn, with myriads of fantastic creatures bringing icy wins as players push their way towards its hidden treasures. Look for two magic crystals as they open the realm of magnificent fortune. Unlock the frozen reels and meet the mighty Queen. During her reign 4 reels expand to 5 and 81 paths to frosty wins change to 243 as players are snowed with abundance of chilling riches.",
-            "ko": "In a kingdom trapped in perpetual winter, magic hides at every turn, with myriads of fantastic creatures bringing icy wins as players push their way towards its hidden treasures. Look for two magic crystals as they open the realm of magnificent fortune. Unlock the frozen reels and meet the mighty Queen. During her reign 4 reels expand to 5 and 81 paths to frosty wins change to 243 as players are snowed with abundance of chilling riches."
+            "ko": "In a kingdom trapped in perpetual winter, magic hides at every turn, with myriads of fantastic creatures bringing icy wins as players push their way towards its hidden treasures. Look for two magic crystals as they open the realm of magnificent fortune. Unlock the frozen reels and meet the mighty Queen. During her reign 4 reels expand to 5 and 81 paths to frosty wins change to 243 as players are snowed with abundance of chilling riches.",
         },
         "MobileUrl": "987\/VSFrozenQ_TNP",
         "Branded": 0,
@@ -1192,7 +1192,7 @@ export const gamesMockData: IGames = {
         "TableID": "1515604",
         "Freeround": "1",
         "LaunchCode": "VSFrozenQ_TNP",
-        "isRestricted": false
+        "isRestricted": false,
     }, {
         "ID": "1141487",
         "Image": "\/gstatic\/games\/tomhorn\/315\/fire_n_hot.jpg",
@@ -1210,7 +1210,7 @@ export const gamesMockData: IGames = {
             "pt": "O videojogo de slots Fire 'n' Hot foi melhorado com um Jogo de Bónus. Tem cinco cilindros giratórios com cinco linhas de jogo fixas. O 7 Dourado é Wild e substitui todos os outros símbolos, exceto o Scatter, para o ajudar a ganhar.",
             "sk": "Videohra Fire'n'Hot je vylepšená o bonusovú hru. Má päť valcov a päť pevne daných výherných radov. Zlatý symbol 7 je zástupný symbol a zastupuje všetky ostatné symboly, ktoré vám pomôžu vyhrať, okrem symbolu scatter.",
             "ru": "Видеослот-игра Fire 'n' Hot дополнена призовой игрой. В игре имеется пять вращающихся барабанов с пятью фиксированными выигрышными линиями. Символ с золотой 7 является «диким» и заменяет все другие символы, кроме «разбросанного символа», помогая вам победить.",
-            "zh-hans": "火爆视频老虎机是奖励游戏加成游戏。有五条旋转转轮五条嬴奖线，金色的7符号是万能的，可以代替其他符号让您赢，除了散射符号。"
+            "zh-hans": "火爆视频老虎机是奖励游戏加成游戏。有五条旋转转轮五条嬴奖线，金色的7符号是万能的，可以代替其他符号让您赢，除了散射符号。",
         },
         "MobileUrl": "987\/VSlotFH_TNP",
         "Branded": 0,
@@ -1235,7 +1235,7 @@ export const gamesMockData: IGames = {
         "TableID": "1141487",
         "Freeround": "1",
         "LaunchCode": "VSlotFH_TNP",
-        "isRestricted": false
+        "isRestricted": false,
     }, {
         "ID": "1520317",
         "Image": "\/gstatic\/games\/spinomenal\/315\/demi_gods2_ce.jpg",
@@ -1265,7 +1265,7 @@ export const gamesMockData: IGames = {
         "TableID": "1520317",
         "Freeround": "1",
         "LaunchCode": "SlotMachine_DemiGods2-CE",
-        "isRestricted": false
+        "isRestricted": false,
     }, {
         "ID": "1574890",
         "Image": "\/gstatic\/games\/spinomenal\/315\/majestic_king_christmas_edition.jpg",
@@ -1295,7 +1295,7 @@ export const gamesMockData: IGames = {
         "TableID": "1574890",
         "Freeround": "1",
         "LaunchCode": "SlotMachine_MajesticKing-CE",
-        "isRestricted": false
+        "isRestricted": false,
     }, {
         "ID": "1528566",
         "Image": "\/gstatic\/games\/spinomenal\/315\/fruits_deluxe.jpg",
@@ -1325,7 +1325,7 @@ export const gamesMockData: IGames = {
         "TableID": "1528566",
         "Freeround": "1",
         "LaunchCode": "SlotMachine_FruitsDeluxe",
-        "isRestricted": false
+        "isRestricted": false,
     }, {
         "ID": "1570462",
         "Image": "\/gstatic\/games\/tomhorn\/315\/diamond_hill.jpg",
@@ -1355,7 +1355,7 @@ export const gamesMockData: IGames = {
         "TableID": "1570462",
         "Freeround": "1",
         "LaunchCode": "VS9x9_TNP",
-        "isRestricted": false
+        "isRestricted": false,
     }, {
         "ID": "1692661",
         "Image": "\/gstatic\/games\/wazdan\/315\/sic_bo_dragons.jpg",
@@ -1384,7 +1384,7 @@ export const gamesMockData: IGames = {
         "IsVirtual": "0",
         "TableID": "1692661",
         "LaunchCode": "376",
-        "isRestricted": false
+        "isRestricted": false,
     }, {
         "ID": "1678942",
         "Image": "\/gstatic\/games\/wazdan\/315\/lucky_9.jpg",
@@ -1414,7 +1414,7 @@ export const gamesMockData: IGames = {
         "TableID": "1678942",
         "Freeround": "1",
         "LaunchCode": "389",
-        "isRestricted": false
+        "isRestricted": false,
     }, {
         "ID": "1678939",
         "Image": "\/gstatic\/games\/wazdan\/315\/sonic_reels.jpg",
@@ -1443,7 +1443,7 @@ export const gamesMockData: IGames = {
         "IsVirtual": "0",
         "TableID": "1678939",
         "LaunchCode": "375",
-        "isRestricted": false
+        "isRestricted": false,
     }, {
         "ID": "1476620",
         "Image": "\/gstatic\/games\/boominggames\/315\/booming_bananas.jpg",
@@ -1473,7 +1473,7 @@ export const gamesMockData: IGames = {
         "TableID": "1476620",
         "Freeround": "1",
         "LaunchCode": "594791455f97bf001b00000d",
-        "isRestricted": false
+        "isRestricted": false,
     }, {
         "ID": "1678936",
         "Image": "\/gstatic\/games\/wazdan\/315\/black_horse_deluxe.jpg",
@@ -1503,7 +1503,7 @@ export const gamesMockData: IGames = {
         "TableID": "1678936",
         "Freeround": "1",
         "LaunchCode": "361",
-        "isRestricted": false
+        "isRestricted": false,
     }, {
         "ID": "1539121",
         "Image": "\/gstatic\/games\/wazdan\/315\/9_lions.jpg",
@@ -1533,7 +1533,7 @@ export const gamesMockData: IGames = {
         "TableID": "1539121",
         "Freeround": "1",
         "LaunchCode": "65888",
-        "isRestricted": false
+        "isRestricted": false,
     }, {
         "ID": "1562572",
         "Image": "\/gstatic\/games\/pariplay\/315\/wolf_riches.jpg",
@@ -1562,7 +1562,7 @@ export const gamesMockData: IGames = {
         "IsVirtual": "0",
         "TableID": "1562572",
         "LaunchCode": "PP_HTML5_WolfRiches_Desktop",
-        "isRestricted": false
+        "isRestricted": false,
     }, {
         "ID": "1531775",
         "Image": "\/gstatic\/games\/betradar\/315\/sportsbook.png",
@@ -1591,7 +1591,7 @@ export const gamesMockData: IGames = {
         "IsVirtual": "0",
         "TableID": "1531775",
         "LaunchCode": "sportsbookNEW",
-        "isRestricted": false
+        "isRestricted": false,
     }, {
         "ID": "1821196",
         "Image": "\/gstatic\/games\/worldmatch\/315\/el_sueno_de_antonio_y_erandi.jpg",
@@ -1620,7 +1620,7 @@ export const gamesMockData: IGames = {
         "IsVirtual": "0",
         "TableID": "1821196",
         "LaunchCode": "869--10356",
-        "isRestricted": false
+        "isRestricted": false,
     }, {
         "ID": "1729321",
         "Image": "\/gstatic\/games\/worldmatch\/315\/hawild_island.jpg",
@@ -1649,7 +1649,7 @@ export const gamesMockData: IGames = {
         "IsVirtual": "0",
         "TableID": "1729321",
         "LaunchCode": "850--9590",
-        "isRestricted": false
+        "isRestricted": false,
     }, {
         "ID": "1703722",
         "Image": "\/gstatic\/games\/worldmatch\/315\/goodluck_hot_pot.jpg",
@@ -1678,7 +1678,7 @@ export const gamesMockData: IGames = {
         "IsVirtual": "0",
         "TableID": "1703722",
         "LaunchCode": "849--9529",
-        "isRestricted": false
+        "isRestricted": false,
     }, {
         "ID": "1674247",
         "Image": "\/gstatic\/games\/worldmatch\/315\/royal_key.jpg",
@@ -1707,7 +1707,7 @@ export const gamesMockData: IGames = {
         "IsVirtual": "0",
         "TableID": "1674247",
         "LaunchCode": "844--8884",
-        "isRestricted": false
+        "isRestricted": false,
     }, {
         "ID": "1668997",
         "Image": "\/gstatic\/games\/worldmatch\/315\/lord_of_north.jpg",
@@ -1736,7 +1736,7 @@ export const gamesMockData: IGames = {
         "IsVirtual": "0",
         "TableID": "1668997",
         "LaunchCode": "843--8705",
-        "isRestricted": false
+        "isRestricted": false,
     }, {
         "ID": "1721008",
         "Image": "\/gstatic\/games\/betsoft\/315\/the_hive.jpg",
@@ -1768,7 +1768,7 @@ export const gamesMockData: IGames = {
         "MobileWindowsUrl": "991\/827",
         "Freeround": "1",
         "LaunchCode": "827",
-        "isRestricted": false
+        "isRestricted": false,
     }, {
         "ID": "1589521",
         "Image": "\/gstatic\/games\/worldmatch\/315\/thuan_yuan_panda.jpg",
@@ -1797,7 +1797,7 @@ export const gamesMockData: IGames = {
         "IsVirtual": "0",
         "TableID": "1589521",
         "LaunchCode": "828--8185",
-        "isRestricted": false
+        "isRestricted": false,
     }, {
         "ID": "1535665",
         "Image": "\/gstatic\/games\/betsoft\/315\/fruitbat_crazy.jpg",
@@ -1829,7 +1829,7 @@ export const gamesMockData: IGames = {
         "MobileWindowsUrl": "991\/804",
         "Freeround": "1",
         "LaunchCode": "804",
-        "isRestricted": false
+        "isRestricted": false,
     }, {
         "ID": "3086",
         "Image": "\/gstatic\/games\/netent\/315\/eldorado_sw.jpg",
@@ -1859,7 +1859,7 @@ export const gamesMockData: IGames = {
         "TableID": "3086",
         "Freeround": "1",
         "LaunchCode": "eldorado_not_mobile_sw",
-        "isRestricted": false
+        "isRestricted": false,
     }, {
         "ID": "1537423",
         "Image": "\/gstatic\/games\/tomhorn\/315\/VSSherlock_TNP.jpg",
@@ -1889,7 +1889,7 @@ export const gamesMockData: IGames = {
         "TableID": "1537423",
         "Freeround": "1",
         "LaunchCode": "VSSherlock_TNP",
-        "isRestricted": false
+        "isRestricted": false,
     }, {
         "ID": "1536649",
         "Image": "\/gstatic\/games\/spinomenal\/315\/4_horsemen.jpg",
@@ -1919,7 +1919,7 @@ export const gamesMockData: IGames = {
         "TableID": "1536649",
         "Freeround": "1",
         "LaunchCode": "SlotMachine_4Horsemen",
-        "isRestricted": false
+        "isRestricted": false,
     }, {
         "ID": "1690810",
         "Image": "\/gstatic\/games\/wazdan\/315\/reel_hero.jpg",
@@ -1949,7 +1949,7 @@ export const gamesMockData: IGames = {
         "TableID": "1690810",
         "Freeround": "1",
         "LaunchCode": "385",
-        "isRestricted": false
+        "isRestricted": false,
     }, {
         "ID": "1546660",
         "Image": "\/gstatic\/games\/spinomenal\/315\/demi_gods_II_15lines.jpg",
@@ -1979,7 +1979,7 @@ export const gamesMockData: IGames = {
         "TableID": "1546660",
         "Freeround": "1",
         "LaunchCode": "SlotMachine_DemiGods2-15E",
-        "isRestricted": false
+        "isRestricted": false,
     }, {
         "ID": "1678945",
         "Image": "\/gstatic\/games\/wazdan\/315\/9_tigers_tm.jpg",
@@ -2009,7 +2009,7 @@ export const gamesMockData: IGames = {
         "TableID": "1678945",
         "Freeround": "1",
         "LaunchCode": "390",
-        "isRestricted": false
+        "isRestricted": false,
     }, {
         "ID": "5852",
         "Image": "\/gstatic\/games\/evosw\/315\/holdem.jpg",
@@ -2038,7 +2038,7 @@ export const gamesMockData: IGames = {
         "IsVirtual": "0",
         "TableID": "5852",
         "LaunchCode": "108",
-        "isRestricted": false
+        "isRestricted": false,
     }, {
         "ID": "1475785",
         "Image": "\/gstatic\/games\/betsoft\/315\/slotfather_2.jpg",
@@ -2070,7 +2070,7 @@ export const gamesMockData: IGames = {
         "MobileWindowsUrl": "991\/707",
         "Freeround": "1",
         "LaunchCode": "704",
-        "isRestricted": false
+        "isRestricted": false,
     }, {
         "ID": "1825677",
         "Image": "\/gstatic\/games\/mg\/315\/elite_of_evil_the_first_quest.jpg",
@@ -2099,7 +2099,7 @@ export const gamesMockData: IGames = {
         "IsVirtual": "0",
         "TableID": "1825677",
         "LaunchCode": "ETI--20941--EliteofEvilTheFirstQuestDesktop--50300--18",
-        "isRestricted": false
+        "isRestricted": false,
     }, {
         "ID": "1825674",
         "Image": "\/gstatic\/games\/mg\/315\/super_bar_x.jpg",
@@ -2128,7 +2128,7 @@ export const gamesMockData: IGames = {
         "IsVirtual": "0",
         "TableID": "1825674",
         "LaunchCode": "ETI--21405--rgl-superbarx--50300--34",
-        "isRestricted": false
+        "isRestricted": false,
     }, {
         "ID": "1825668",
         "Image": "\/gstatic\/games\/redtigergaming\/315\/path_of_destiny.jpg",
@@ -2158,7 +2158,7 @@ export const gamesMockData: IGames = {
         "TableID": "1825668",
         "Freeround": "1",
         "LaunchCode": "PathOfDestiny",
-        "isRestricted": false
+        "isRestricted": false,
     }, {
         "ID": "1825665",
         "Image": "\/gstatic\/games\/playngo\/315\/holiday_spirits.jpg",
@@ -2188,7 +2188,7 @@ export const gamesMockData: IGames = {
         "TableID": "1825665",
         "Freeround": "1",
         "LaunchCode": "464",
-        "isRestricted": false
+        "isRestricted": false,
     }, {
         "ID": "1686073",
         "Image": "\/gstatic\/games\/evosw\/315\/mega_ball.jpg",
@@ -2217,7 +2217,7 @@ export const gamesMockData: IGames = {
         "IsVirtual": "1",
         "TableID": "1686073:5574497",
         "LaunchCode": "megaball--oonrr3man2kr2tei",
-        "isRestricted": false
+        "isRestricted": false,
     }],
     merchants: {
         "926": {
@@ -2226,7 +2226,7 @@ export const gamesMockData: IGames = {
             "IDParent": null,
             "Alias": "Igrosoft",
             "Image": "\/gstatic\/merchants\/igrosoft.jpg",
-            "menuId": "igrosoft"
+            "menuId": "igrosoft",
         },
         "927": {
             "ID": "927",
@@ -2234,7 +2234,7 @@ export const gamesMockData: IGames = {
             "IDParent": null,
             "Alias": "Fugaso",
             "Image": "\/gstatic\/merchants\/fugaso.jpg",
-            "menuId": "fugaso"
+            "menuId": "fugaso",
         },
         "929": {
             "ID": "929",
@@ -2242,7 +2242,7 @@ export const gamesMockData: IGames = {
             "IDParent": null,
             "Alias": "ConceptGaming",
             "Image": "\/gstatic\/merchants\/conceptgaming.jpg",
-            "menuId": "conceptgaming"
+            "menuId": "conceptgaming",
         },
         "930": {
             "ID": "930",
@@ -2250,7 +2250,7 @@ export const gamesMockData: IGames = {
             "IDParent": null,
             "Alias": "Genii",
             "Image": "\/gstatic\/merchants\/genii.jpg",
-            "menuId": "genii"
+            "menuId": "genii",
         },
         "931": {
             "ID": "931",
@@ -2258,7 +2258,7 @@ export const gamesMockData: IGames = {
             "IDParent": null,
             "Alias": "Leander",
             "Image": "\/gstatic\/merchants\/leander.jpg",
-            "menuId": "leander"
+            "menuId": "leander",
         },
         "933": {
             "ID": "933",
@@ -2266,7 +2266,7 @@ export const gamesMockData: IGames = {
             "IDParent": null,
             "Alias": "RedTigerGaming",
             "Image": "\/gstatic\/merchants\/redtigergaming.jpg",
-            "menuId": "redtigergaming"
+            "menuId": "redtigergaming",
         },
         "934": {
             "ID": "934",
@@ -2274,7 +2274,7 @@ export const gamesMockData: IGames = {
             "IDParent": null,
             "Alias": "LiveGames",
             "Image": "\/gstatic\/merchants\/livegames.jpg",
-            "menuId": "livegames"
+            "menuId": "livegames",
         },
         "935": {
             "ID": "935",
@@ -2282,7 +2282,7 @@ export const gamesMockData: IGames = {
             "IDParent": null,
             "Alias": "RelaxGaming",
             "Image": "\/gstatic\/merchants\/relaxgaming.jpg",
-            "menuId": "relaxgaming"
+            "menuId": "relaxgaming",
         },
         "936": {
             "ID": "936",
@@ -2290,7 +2290,7 @@ export const gamesMockData: IGames = {
             "IDParent": null,
             "Alias": "Medialive",
             "Image": "\/gstatic\/merchants\/medialive.jpg",
-            "menuId": "medialive"
+            "menuId": "medialive",
         },
         "938": {
             "ID": "938",
@@ -2298,7 +2298,7 @@ export const gamesMockData: IGames = {
             "IDParent": null,
             "Alias": "NoLimitCity",
             "Image": "\/gstatic\/merchants\/nolimitcity.jpg",
-            "menuId": "nolimitcity"
+            "menuId": "nolimitcity",
         },
         "939": {
             "ID": "939",
@@ -2306,7 +2306,7 @@ export const gamesMockData: IGames = {
             "IDParent": null,
             "Alias": "PGSoft",
             "Image": "\/gstatic\/merchants\/pgsoft.jpg",
-            "menuId": "pgsoft"
+            "menuId": "pgsoft",
         },
         "940": {
             "ID": "940",
@@ -2314,7 +2314,7 @@ export const gamesMockData: IGames = {
             "IDParent": null,
             "Alias": "Evoplay Entertainment",
             "Image": "\/gstatic\/merchants\/evoplay.jpg",
-            "menuId": "evoplay"
+            "menuId": "evoplay",
         },
         "941": {
             "ID": "941",
@@ -2322,7 +2322,7 @@ export const gamesMockData: IGames = {
             "IDParent": null,
             "Alias": "Wazdan",
             "Image": "\/gstatic\/merchants\/wazdan.jpg",
-            "menuId": "wazdan"
+            "menuId": "wazdan",
         },
         "942": {
             "ID": "942",
@@ -2330,7 +2330,7 @@ export const gamesMockData: IGames = {
             "IDParent": null,
             "Alias": "XProGaming",
             "Image": "\/gstatic\/merchants\/xprogaming.jpg",
-            "menuId": "xprogaming"
+            "menuId": "xprogaming",
         },
         "943": {
             "ID": "943",
@@ -2338,7 +2338,7 @@ export const gamesMockData: IGames = {
             "IDParent": null,
             "Alias": "PlaysonDirect",
             "Image": "\/gstatic\/merchants\/playsondirect.jpg",
-            "menuId": "playsondirect"
+            "menuId": "playsondirect",
         },
         "944": {
             "ID": "944",
@@ -2346,7 +2346,7 @@ export const gamesMockData: IGames = {
             "IDParent": null,
             "Alias": "PlaynGo",
             "Image": "\/gstatic\/merchants\/playngo.jpg",
-            "menuId": "playngo"
+            "menuId": "playngo",
         },
         "945": {
             "ID": "945",
@@ -2354,7 +2354,7 @@ export const gamesMockData: IGames = {
             "IDParent": null,
             "Alias": "VivoGaming",
             "Image": "\/gstatic\/merchants\/vivogaming.jpg",
-            "menuId": "vivogaming"
+            "menuId": "vivogaming",
         },
         "946": {
             "ID": "946",
@@ -2362,7 +2362,7 @@ export const gamesMockData: IGames = {
             "IDParent": null,
             "Alias": "WACS",
             "Image": "\/gstatic\/merchants\/wacs.jpg",
-            "menuId": "wacs"
+            "menuId": "wacs",
         },
         "947": {
             "ID": "947",
@@ -2370,7 +2370,7 @@ export const gamesMockData: IGames = {
             "IDParent": null,
             "Alias": "Patagonia",
             "Image": "\/gstatic\/merchants\/patagonia.jpg",
-            "menuId": "patagonia"
+            "menuId": "patagonia",
         },
         "948": {
             "ID": "948",
@@ -2378,7 +2378,7 @@ export const gamesMockData: IGames = {
             "IDParent": null,
             "Alias": "Edict",
             "Image": "\/gstatic\/merchants\/edict.jpg",
-            "menuId": "edict"
+            "menuId": "edict",
         },
         "949": {
             "ID": "949",
@@ -2386,7 +2386,7 @@ export const gamesMockData: IGames = {
             "IDParent": null,
             "Alias": "Platipus",
             "Image": "\/gstatic\/merchants\/platipus.jpg",
-            "menuId": "platipus"
+            "menuId": "platipus",
         },
         "950": {
             "ID": "950",
@@ -2394,7 +2394,7 @@ export const gamesMockData: IGames = {
             "IDParent": null,
             "Alias": "Apollo",
             "Image": "\/gstatic\/merchants\/apollo.jpg",
-            "menuId": "apollo"
+            "menuId": "apollo",
         },
         "955": {
             "ID": "955",
@@ -2402,7 +2402,7 @@ export const gamesMockData: IGames = {
             "IDParent": null,
             "Alias": "GameArt",
             "Image": "\/gstatic\/merchants\/gameart.jpg",
-            "menuId": "gameart"
+            "menuId": "gameart",
         },
         "957": {
             "ID": "957",
@@ -2410,7 +2410,7 @@ export const gamesMockData: IGames = {
             "IDParent": null,
             "Alias": "Spigo",
             "Image": "\/gstatic\/merchants\/spigo.jpg",
-            "menuId": "spigo"
+            "menuId": "spigo",
         },
         "958": {
             "ID": "958",
@@ -2418,7 +2418,7 @@ export const gamesMockData: IGames = {
             "IDParent": null,
             "Alias": "BetRadar",
             "Image": "\/gstatic\/merchants\/betradar.jpg",
-            "menuId": "betradar"
+            "menuId": "betradar",
         },
         "959": {
             "ID": "959",
@@ -2426,7 +2426,7 @@ export const gamesMockData: IGames = {
             "IDParent": null,
             "Alias": "Spinomenal",
             "Image": "\/gstatic\/merchants\/spinomenal.jpg",
-            "menuId": "spinomenal"
+            "menuId": "spinomenal",
         },
         "960": {
             "ID": "960",
@@ -2434,7 +2434,7 @@ export const gamesMockData: IGames = {
             "IDParent": null,
             "Alias": "PragmaticPlay",
             "Image": "\/gstatic\/merchants\/pragmaticplay.jpg",
-            "menuId": "pragmaticplay"
+            "menuId": "pragmaticplay",
         },
         "963": {
             "ID": "963",
@@ -2442,7 +2442,7 @@ export const gamesMockData: IGames = {
             "IDParent": null,
             "Alias": "ISoftBet",
             "Image": "\/gstatic\/merchants\/isoftbet.jpg",
-            "menuId": "isoftbet"
+            "menuId": "isoftbet",
         },
         "964": {
             "ID": "964",
@@ -2450,7 +2450,7 @@ export const gamesMockData: IGames = {
             "IDParent": null,
             "Alias": "OrientalGame",
             "Image": "\/gstatic\/merchants\/orientalgame.jpg",
-            "menuId": "orientalgame"
+            "menuId": "orientalgame",
         },
         "966": {
             "ID": "966",
@@ -2458,7 +2458,7 @@ export const gamesMockData: IGames = {
             "IDParent": null,
             "Alias": "AsiaLiveTech",
             "Image": "\/gstatic\/merchants\/asialivetech.jpg",
-            "menuId": "asialivetech"
+            "menuId": "asialivetech",
         },
         "967": {
             "ID": "967",
@@ -2466,7 +2466,7 @@ export const gamesMockData: IGames = {
             "IDParent": null,
             "Alias": "AsiaGaming",
             "Image": "\/gstatic\/merchants\/asiagaming.jpg",
-            "menuId": "asiagaming"
+            "menuId": "asiagaming",
         },
         "968": {
             "ID": "968",
@@ -2474,7 +2474,7 @@ export const gamesMockData: IGames = {
             "IDParent": null,
             "Alias": "SAGaming",
             "Image": "\/gstatic\/merchants\/sagaming.jpg",
-            "menuId": "sagaming"
+            "menuId": "sagaming",
         },
         "970": {
             "ID": "970",
@@ -2482,7 +2482,7 @@ export const gamesMockData: IGames = {
             "IDParent": null,
             "Alias": "OneXTwoNetwork",
             "Image": "\/gstatic\/merchants\/onextwonetwork.jpg",
-            "menuId": "onextwonetwork"
+            "menuId": "onextwonetwork",
         },
         "971": {
             "ID": "971",
@@ -2490,7 +2490,7 @@ export const gamesMockData: IGames = {
             "IDParent": null,
             "Alias": "AuthenticGaming",
             "Image": "\/gstatic\/merchants\/authenticgaming.jpg",
-            "menuId": "authenticgaming"
+            "menuId": "authenticgaming",
         },
         "972": {
             "ID": "972",
@@ -2498,7 +2498,7 @@ export const gamesMockData: IGames = {
             "IDParent": null,
             "Alias": "Digitain",
             "Image": "\/gstatic\/merchants\/digitain.jpg",
-            "menuId": "digitain"
+            "menuId": "digitain",
         },
         "974": {
             "ID": "974",
@@ -2506,7 +2506,7 @@ export const gamesMockData: IGames = {
             "IDParent": null,
             "Alias": "Kiron",
             "Image": "\/gstatic\/merchants\/kiron.jpg",
-            "menuId": "kiron"
+            "menuId": "kiron",
         },
         "975": {
             "ID": "975",
@@ -2514,7 +2514,7 @@ export const gamesMockData: IGames = {
             "IDParent": null,
             "Alias": "AmaticDirect",
             "Image": "\/gstatic\/merchants\/amaticdirect.jpg",
-            "menuId": "amaticdirect"
+            "menuId": "amaticdirect",
         },
         "976": {
             "ID": "976",
@@ -2522,7 +2522,7 @@ export const gamesMockData: IGames = {
             "IDParent": null,
             "Alias": "Habanero",
             "Image": "\/gstatic\/merchants\/habanero.jpg",
-            "menuId": "habanero"
+            "menuId": "habanero",
         },
         "977": {
             "ID": "977",
@@ -2530,7 +2530,7 @@ export const gamesMockData: IGames = {
             "IDParent": null,
             "Alias": "BoomingGames",
             "Image": "\/gstatic\/merchants\/boominggames.jpg",
-            "menuId": "boominggames"
+            "menuId": "boominggames",
         },
         "978": {
             "ID": "978",
@@ -2538,7 +2538,7 @@ export const gamesMockData: IGames = {
             "IDParent": null,
             "Alias": "PariPlay",
             "Image": "\/gstatic\/merchants\/pariplay.jpg",
-            "menuId": "pariplay"
+            "menuId": "pariplay",
         },
         "979": {
             "ID": "979",
@@ -2546,7 +2546,7 @@ export const gamesMockData: IGames = {
             "IDParent": null,
             "Alias": "WorldMatch",
             "Image": "\/gstatic\/merchants\/worldmatch.jpg",
-            "menuId": "worldmatch"
+            "menuId": "worldmatch",
         },
         "980": {
             "ID": "980",
@@ -2554,7 +2554,7 @@ export const gamesMockData: IGames = {
             "IDParent": null,
             "Alias": "LuckyStreak",
             "Image": "\/gstatic\/merchants\/luckystreak.jpg",
-            "menuId": "luckystreak"
+            "menuId": "luckystreak",
         },
         "983": {
             "ID": "983",
@@ -2562,7 +2562,7 @@ export const gamesMockData: IGames = {
             "IDParent": null,
             "Alias": "Ezugi",
             "Image": "\/gstatic\/merchants\/ezugi.jpg",
-            "menuId": "ezugi"
+            "menuId": "ezugi",
         },
         "985": {
             "ID": "985",
@@ -2570,7 +2570,7 @@ export const gamesMockData: IGames = {
             "IDParent": null,
             "Alias": "GoldenRace",
             "Image": "\/gstatic\/merchants\/goldenrace.jpg",
-            "menuId": "goldenrace"
+            "menuId": "goldenrace",
         },
         "986": {
             "ID": "986",
@@ -2578,7 +2578,7 @@ export const gamesMockData: IGames = {
             "IDParent": null,
             "Alias": "MrSlotty",
             "Image": "\/gstatic\/merchants\/mrslotty.jpg",
-            "menuId": "mrslotty"
+            "menuId": "mrslotty",
         },
         "987": {
             "ID": "987",
@@ -2586,7 +2586,7 @@ export const gamesMockData: IGames = {
             "IDParent": null,
             "Alias": "TomHorn",
             "Image": "\/gstatic\/merchants\/tomhorn.jpg",
-            "menuId": "tomhorn"
+            "menuId": "tomhorn",
         },
         "990": {
             "ID": "990",
@@ -2594,7 +2594,7 @@ export const gamesMockData: IGames = {
             "IDParent": null,
             "Alias": "BetGames",
             "Image": "\/gstatic\/merchants\/betgames.jpg",
-            "menuId": "betgames"
+            "menuId": "betgames",
         },
         "991": {
             "ID": "991",
@@ -2602,7 +2602,7 @@ export const gamesMockData: IGames = {
             "IDParent": null,
             "Alias": "BetSoft",
             "Image": "\/gstatic\/merchants\/betsoft.jpg",
-            "menuId": "betsoft"
+            "menuId": "betsoft",
         },
         "992": {
             "ID": "992",
@@ -2610,7 +2610,7 @@ export const gamesMockData: IGames = {
             "IDParent": null,
             "Alias": "NetEnt",
             "Image": "\/gstatic\/merchants\/netent.jpg",
-            "menuId": "netent"
+            "menuId": "netent",
         },
         "997": {
             "ID": "997",
@@ -2618,7 +2618,7 @@ export const gamesMockData: IGames = {
             "IDParent": null,
             "Alias": "Microgaming",
             "Image": "\/gstatic\/merchants\/mg.jpg",
-            "menuId": "mg"
+            "menuId": "mg",
         },
         "998": {
             "ID": "998",
@@ -2626,8 +2626,8 @@ export const gamesMockData: IGames = {
             "IDParent": null,
             "Alias": "Evolution",
             "Image": "\/gstatic\/merchants\/evosw.jpg",
-            "menuId": "evosw"
-        }
+            "menuId": "evosw",
+        },
     },
     countriesRestrictions: {
         "0": {
@@ -2637,7 +2637,7 @@ export const gamesMockData: IGames = {
             "Countries": ["afg", "alb", "dza", "asm", "ago", "aia", "atg", "asc", "aus", "bhs", "ggy", "bel", "bmu", "bwa", "iot", "bgr", "cym", "col", "hrv", "CUW", "cze", "dnk", "ecu", "est", "eth", "flk", "fro", "fra", "guf", "pyf", "gha", "gib", "grl", "glp", "gum", "guy", "hkg", "irn", "irq", "isr", "ita", "jey", "prk", "kwt", "lao", "lva", "ltu", "imn", "mtq", "myt", "mex", "msr", "mmr", "nam", "ncl", "nic", "mnp", "pak", "pan", "png", "phl", "pcn", "prt", "pri", "reu", "rou", "kna", "lca", "vct", "sgp", "slb", "esp", "shn", "spm", "sdn", "swe", "che", "syr", "twn", "tto", "tun", "tca", "tuv", "uga", "gbr", "usa", "umi", "vgb", "vir", "wlf", "yem", "zwe"],
             "IsDefault": "1",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "1": {
             "ID": "2",
@@ -2646,7 +2646,7 @@ export const gamesMockData: IGames = {
             "Countries": ["asm", "aia", "atg", "blz", "bel", "bmu", "bgr", "iot", "vgb", "vir", "glp", "ggy", "gib", "grl", "gum", "dnk", "jey", "esp", "ita", "CUW", "lva", "ltu", "mus", "myt", "umi", "mtq", "mex", "msr", "ncl", "asc", "imn", "cym", "tca", "wlf", "pcn", "prt", "pri", "reu", "rou", "shn", "mnp", "vct", "kna", "lca", "spm", "sgp", "gbr", "usa", "slb", "tuv", "fro", "flk", "fra", "guf", "pyf", "swe", "est"],
             "IsDefault": "0",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "2": {
             "ID": "3",
@@ -2655,7 +2655,7 @@ export const gamesMockData: IGames = {
             "Countries": ["aus", "asm", "vir", "gum", "ita", "CUW", "umi", "pri", "reu", "mnp", "usa", "fra"],
             "IsDefault": "0",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "3": {
             "ID": "4",
@@ -2664,7 +2664,7 @@ export const gamesMockData: IGames = {
             "Countries": ["aus", "asm", "vir", "glp", "gum", "ita", "CUW", "myt", "umi", "mtq", "ncl", "wlf", "pri", "reu", "mnp", "spm", "usa", "fra", "guf", "pyf"],
             "IsDefault": "1",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "4": {
             "ID": "5",
@@ -2673,7 +2673,7 @@ export const gamesMockData: IGames = {
             "Countries": ["asm", "vir", "gum", "CUW", "umi", "pri", "mnp", "usa"],
             "IsDefault": "1",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "6": {
             "ID": "8",
@@ -2682,7 +2682,7 @@ export const gamesMockData: IGames = {
             "Countries": ["aus", "asm", "abw", "vir", "glp", "gum", "ita", "chn", "cck", "CUW", "myt", "umi", "mtq", "nld", "ncl", "wlf", "pri", "reu", "mnp", "spm", "usa", "fra", "guf", "pyf"],
             "IsDefault": "0",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "7": {
             "ID": "10",
@@ -2691,7 +2691,7 @@ export const gamesMockData: IGames = {
             "Countries": ["aus", "asm", "vir", "glp", "gum", "ita", "CUW", "myt", "umi", "mtq", "ncl", "wlf", "pri", "reu", "mnp", "spm", "usa", "fra", "guf", "pyf"],
             "IsDefault": "0",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "8": {
             "ID": "11",
@@ -2700,7 +2700,7 @@ export const gamesMockData: IGames = {
             "Countries": ["asm", "aus", "CUW", "fra", "guf", "pyf", "glp", "gum", "ita", "mtq", "myt", "ncl", "mnp", "pri", "reu", "spm", "usa", "vir", "wlf"],
             "IsDefault": "0",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "9": {
             "ID": "12",
@@ -2709,7 +2709,7 @@ export const gamesMockData: IGames = {
             "Countries": ["aus", "asm", "vir", "glp", "gum", "ita", "CUW", "myt", "umi", "mtq", "ncl", "wlf", "pri", "reu", "mnp", "spm", "usa", "fra", "guf", "pyf"],
             "IsDefault": "0",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "10": {
             "ID": "13",
@@ -2718,7 +2718,7 @@ export const gamesMockData: IGames = {
             "Countries": ["asm", "aus", "CUW", "fra", "guf", "pyf", "glp", "gum", "ita", "mtq", "myt", "ncl", "mnp", "pri", "reu", "spm", "usa", "umi", "vir", "wlf"],
             "IsDefault": "0",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "11": {
             "ID": "14",
@@ -2727,7 +2727,7 @@ export const gamesMockData: IGames = {
             "Countries": ["aus", "asm", "vir", "glp", "gum", "ita", "CUW", "myt", "umi", "mtq", "ncl", "wlf", "pri", "reu", "mnp", "spm", "usa", "fra", "guf", "pyf"],
             "IsDefault": "0",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "12": {
             "ID": "16",
@@ -2736,7 +2736,7 @@ export const gamesMockData: IGames = {
             "Countries": ["aus", "aze", "alb", "dza", "asm", "aia", "ago", "atg", "afg", "blz", "bel", "bmu", "bgr", "iot", "vgb", "vir", "guy", "glp", "ggy", "gib", "hkg", "grl", "gum", "dnk", "jey", "zwe", "isr", "ind", "idn", "irq", "irn", "esp", "ita", "yem", "khm", "qat", "chn", "prk", "kor", "kwt", "CUW", "lao", "lva", "ltu", "mus", "myt", "mys", "umi", "mtq", "mex", "msr", "mmr", "nam", "nic", "ncl", "asc", "imn", "cym", "tca", "wlf", "pak", "pan", "png", "pcn", "prt", "pri", "reu", "rus", "rou", "shn", "mnp", "vct", "kna", "lca", "spm", "sgp", "syr", "gbr", "usa", "slb", "sdn", "tha", "twn", "tuv", "tun", "tur", "uga", "ukr", "fro", "phl", "flk", "fra", "guf", "pyf", "swe", "ecu", "est"],
             "IsDefault": "0",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "13": {
             "ID": "19",
@@ -2745,7 +2745,7 @@ export const gamesMockData: IGames = {
             "Countries": ["afg", "alb", "dza", "asm", "ago", "aia", "atg", "asc", "aus", "aze", "ggy", "bel", "blz", "bmu", "bwa", "iot", "bgr", "khm", "cym", "chn", "col", "hrv", "CUW", "cze", "dnk", "ecu", "est", "eth", "flk", "fro", "fra", "guf", "pyf", "gha", "gib", "grl", "glp", "gum", "guy", "hkg", "ind", "idn", "irn", "irq", "isr", "ita", "jpn", "jey", "prk", "kwt", "lao", "lva", "ltu", "mys", "imn", "mtq", "mus", "myt", "mex", "msr", "mmr", "nam", "ncl", "nic", "mnp", "pak", "pan", "png", "phl", "pcn", "prt", "pri", "qat", "reu", "rou", "rus", "kna", "lca", "vct", "sgp", "slb", "esp", "shn", "spm", "sdn", "swe", "che", "syr", "twn", "tha", "tto", "tun", "tur", "tca", "tuv", "uga", "ukr", "gbr", "usa", "umi", "vgb", "vir", "wlf", "yem", "zwe"],
             "IsDefault": "0",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "14": {
             "ID": "22",
@@ -2754,7 +2754,7 @@ export const gamesMockData: IGames = {
             "Countries": ["aus", "aze", "alb", "dza", "asm", "aia", "ago", "ata", "atg", "arg", "abw", "afg", "bhs", "bgd", "brb", "bhr", "blz", "ben", "bmu", "bol", "bwa", "iot", "brn", "bfa", "bdi", "btn", "vut", "vat", "ven", "vgb", "vir", "tls", "vnm", "gab", "hti", "guy", "gmb", "gha", "glp", "gtm", "gin", "gnb", "ggy", "gib", "hnd", "hkg", "grd", "grl", "gum", "jey", "dji", "dma", "dom", "egy", "zmb", "esh", "zwe", "isr", "ind", "idn", "jor", "irq", "irn", "esp", "ita", "yem", "cpv", "kaz", "khm", "cmr", "can", "qat", "ken", "kgz", "kir", "chn", "cck", "col", "com", "cog", "cod", "prk", "kor", "cri", "civ", "cub", "kwt", "CUW", "lao", "lso", "lbr", "lbn", "lby", "mus", "mrt", "mdg", "myt", "mac", "mkd", "mwi", "mys", "mli", "umi", "mdv", "mar", "mtq", "mhl", "mex", "fsm", "moz", "mng", "msr", "mmr", "nam", "nru", "npl", "ner", "nga", "nic", "niu", "nzl", "ncl", "are", "omn", "bvt", "asc", "imn", "nfk", "cxr", "hmd", "cym", "cok", "tca", "wlf", "pak", "plw", "pse", "pan", "png", "pry", "pcn", "pri", "reu", "rwa", "slv", "wsm", "stp", "sau", "swz", "shn", "mnp", "syc", "sen", "vct", "kna", "lca", "spm", "sgp", "sxm", "syr", "gbr", "usa", "slb", "som", "sdn", "sur", "sle", "tjk", "tha", "twn", "tza", "tgo", "tkl", "ton", "tto", "tuv", "tun", "tkm", "uga", "uzb", "ukr", "ury", "fro", "fji", "phl", "flk", "fra", "guf", "pyf", "caf", "tcd", "chl", "sjm", "lka", "ecu", "gnq", "eri", "eth", "zaf", "jam", "jpn"],
             "IsDefault": "0",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "15": {
             "ID": "23",
@@ -2763,7 +2763,7 @@ export const gamesMockData: IGames = {
             "Countries": ["asm", "aus", "cxr", "cck", "CUW", "gum", "hmd", "irn", "prk", "lva", "nfk", "mnp", "pri", "zaf", "syr", "twn", "usa", "umi", "vir"],
             "IsDefault": "1",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "17": {
             "ID": "29",
@@ -2772,7 +2772,7 @@ export const gamesMockData: IGames = {
             "Countries": ["asm", "vir", "glp", "gum", "CUW", "myt", "umi", "mtq", "ncl", "wlf", "pri", "reu", "mnp", "spm", "usa", "fra", "guf", "pyf"],
             "IsDefault": "1",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "19": {
             "ID": "34",
@@ -2781,7 +2781,7 @@ export const gamesMockData: IGames = {
             "Countries": ["afg", "alb", "dza", "asm", "ago", "aia", "atg", "aus", "aze", "bhs", "ggy", "bel", "blz", "bmu", "bwa", "iot", "bgr", "cym", "chn", "col", "hrv", "CUW", "cze", "dnk", "ecu", "est", "eth", "flk", "fra", "guf", "pyf", "gha", "gib", "glp", "gum", "guy", "hkg", "ind", "irn", "irq", "isr", "ita", "jpn", "jey", "prk", "kor", "kwt", "lva", "ltu", "mys", "imn", "mtq", "myt", "mex", "msr", "nam", "ncl", "nic", "mnp", "nor", "pak", "pan", "phl", "pcn", "prt", "pri", "qat", "reu", "rou", "rus", "kna", "lca", "vct", "sgp", "slb", "esp", "shn", "spm", "sdn", "swe", "che", "syr", "twn", "tha", "tto", "tun", "tur", "tca", "tuv", "uga", "ukr", "are", "gbr", "usa", "umi", "vgb", "vir", "wlf", "yem", "zwe"],
             "IsDefault": "0",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "20": {
             "ID": "38",
@@ -2790,7 +2790,7 @@ export const gamesMockData: IGames = {
             "Countries": ["asm", "aus", "cxr", "cck", "CUW", "gum", "hmd", "irn", "prk", "lva", "nfk", "mnp", "pri", "zaf", "syr", "twn", "usa", "umi", "vir"],
             "IsDefault": "0",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "21": {
             "ID": "41",
@@ -2799,7 +2799,7 @@ export const gamesMockData: IGames = {
             "Countries": ["asm", "vir", "gum", "CUW", "umi", "pri", "mnp", "usa"],
             "IsDefault": "1",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "22": {
             "ID": "42",
@@ -2808,7 +2808,7 @@ export const gamesMockData: IGames = {
             "Countries": ["asm", "aus", "cxr", "cck", "CUW", "gum", "hmd", "irn", "prk", "lva", "nfk", "mnp", "pri", "zaf", "syr", "twn", "usa", "umi", "vir"],
             "IsDefault": "0",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "24": {
             "ID": "50",
@@ -2817,7 +2817,7 @@ export const gamesMockData: IGames = {
             "Countries": ["asm", "aia", "atg", "ggy", "blz", "bmu", "iot", "bgr", "cym", "CUW", "cyp", "flk", "fra", "guf", "pyf", "gib", "glp", "gum", "ita", "jey", "imn", "mtq", "myt", "msr", "ncl", "mnp", "phl", "pcn", "pri", "reu", "kna", "lca", "vct", "sgp", "slb", "shn", "spm", "twn", "tca", "tuv", "usa", "umi", "vgb", "vir", "wlf"],
             "IsDefault": "1",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "25": {
             "ID": "54",
@@ -2826,7 +2826,7 @@ export const gamesMockData: IGames = {
             "Countries": ["asm", "vir", "gum", "CUW", "umi", "pri", "mnp", "usa"],
             "IsDefault": "1",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "26": {
             "ID": "57",
@@ -2835,7 +2835,7 @@ export const gamesMockData: IGames = {
             "Countries": ["aus", "dza", "asm", "afg", "vir", "hti", "glp", "gum", "egy", "irq", "irn", "prk", "cub", "CUW", "lao", "lby", "myt", "umi", "mtq", "ncl", "nfk", "wlf", "pak", "pse", "pri", "reu", "mnp", "spm", "syr", "gbr", "usa", "som", "phl", "fra", "guf", "pyf"],
             "IsDefault": "1",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "27": {
             "ID": "60",
@@ -2844,7 +2844,7 @@ export const gamesMockData: IGames = {
             "Countries": ["asm", "aus", "CUW", "fra", "guf", "pyf", "glp", "gum", "mtq", "myt", "ncl", "mnp", "pri", "reu", "spm", "usa", "umi", "vir", "wlf"],
             "IsDefault": "1",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "28": {
             "ID": "66",
@@ -2853,7 +2853,7 @@ export const gamesMockData: IGames = {
             "Countries": ["afg", "alb", "dza", "asm", "ago", "aia", "atg", "aus", "bhs", "ggy", "bel", "blz", "bmu", "bwa", "iot", "bgr", "khm", "cym", "chn", "col", "hrv", "CUW", "cze", "dnk", "ecu", "est", "eth", "flk", "fra", "guf", "pyf", "gha", "gib", "gum", "guy", "hkg", "irn", "irq", "isr", "ita", "jey", "prk", "kwt", "lao", "lva", "ltu", "imn", "mtq", "mex", "msr", "mmr", "nam", "ncl", "nic", "mnp", "pak", "pan", "png", "phl", "pcn", "prt", "pri", "reu", "rou", "kna", "lca", "vct", "srb", "sgp", "slb", "esp", "lka", "shn", "spm", "sdn", "swe", "che", "syr", "twn", "tto", "tun", "tca", "tuv", "uga", "gbr", "usa", "umi", "vgb", "vir", "wlf", "yem", "zwe"],
             "IsDefault": "0",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "31": {
             "ID": "76",
@@ -2862,7 +2862,7 @@ export const gamesMockData: IGames = {
             "Countries": ["aus", "asm", "aia", "atg", "blz", "bmu", "iot", "vgb", "vir", "ggy", "gib", "gum", "jey", "isr", "cck", "CUW", "umi", "msr", "imn", "nfk", "cxr", "hmd", "cym", "pcn", "pri", "shn", "mnp", "vct", "kna", "lca", "gbr", "usa", "slb", "tuv", "flk"],
             "IsDefault": "1",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "33": {
             "ID": "82",
@@ -2871,7 +2871,7 @@ export const gamesMockData: IGames = {
             "Countries": ["asm", "CUW", "gum", "mnp", "pri", "usa", "umi", "vir"],
             "IsDefault": "1",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "34": {
             "ID": "85",
@@ -2880,7 +2880,7 @@ export const gamesMockData: IGames = {
             "Countries": ["afg", "asm", "aia", "atg", "ggy", "blz", "bmu", "iot", "cym", "chn", "CUW", "cyp", "dnk", "eth", "flk", "fro", "fra", "guf", "pyf", "deu", "gib", "grl", "glp", "gum", "hkg", "irn", "irq", "isr", "ita", "jey", "kwt", "mac", "imn", "mtq", "myt", "msr", "ncl", "mnp", "pcn", "pri", "reu", "rou", "kna", "lca", "vct", "slb", "som", "shn", "spm", "swe", "syr", "twn", "tca", "tuv", "gbr", "usa", "umi", "vgb", "vir", "wlf", "yem"],
             "IsDefault": "1",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "35": {
             "ID": "88",
@@ -2889,7 +2889,7 @@ export const gamesMockData: IGames = {
             "Countries": ["asm", "abw", "CUW", "deu", "gum", "nld", "mnp", "pol", "pri", "esp", "usa", "umi", "vir"],
             "IsDefault": "1",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "37": {
             "ID": "92",
@@ -2898,7 +2898,7 @@ export const gamesMockData: IGames = {
             "Countries": ["asm", "abw", "aus", "CUW", "fra", "guf", "pyf", "glp", "gum", "irn", "isr", "ita", "ltu", "mtq", "myt", "nld", "ncl", "mnp", "pri", "reu", "zaf", "spm", "swe", "usa", "umi", "vir", "wlf"],
             "IsDefault": "1",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "38": {
             "ID": "94",
@@ -2907,7 +2907,7 @@ export const gamesMockData: IGames = {
             "Countries": ["asm", "vir", "gum", "CUW", "umi", "pri", "mnp", "usa"],
             "IsDefault": "1",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "40": {
             "ID": "100",
@@ -2916,7 +2916,7 @@ export const gamesMockData: IGames = {
             "Countries": ["afg", "asm", "atg", "bel", "cub", "CUW", "fra", "gum", "irn", "irq", "isr", "lux", "mac", "mnp", "pri", "sdn", "syr", "gbr", "usa", "umi", "vir"],
             "IsDefault": "1",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "41": {
             "ID": "103",
@@ -2925,7 +2925,7 @@ export const gamesMockData: IGames = {
             "Countries": ["asm", "aia", "atg", "ggy", "blz", "bmu", "iot", "cym", "CUW", "flk", "gum", "jey", "msr", "mnp", "pcn", "pol", "pri", "kna", "lca", "vct", "slb", "shn", "tca", "tuv", "gbr", "usa", "umi", "vgb", "vir"],
             "IsDefault": "1",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "44": {
             "ID": "112",
@@ -2934,7 +2934,7 @@ export const gamesMockData: IGames = {
             "Countries": ["aus", "asm", "vir", "gum", "isr", "CUW", "umi", "pri", "mnp", "usa"],
             "IsDefault": "1",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "45": {
             "ID": "115",
@@ -2943,7 +2943,7 @@ export const gamesMockData: IGames = {
             "Countries": ["asm", "aus", "CUW", "dnk", "fro", "grl", "gum", "mnp", "pri", "esp", "swe", "usa", "umi", "vir"],
             "IsDefault": "1",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "46": {
             "ID": "118",
@@ -2952,7 +2952,7 @@ export const gamesMockData: IGames = {
             "Countries": ["asm", "vir", "gum", "CUW", "umi", "pri", "mnp", "usa"],
             "IsDefault": "1",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "47": {
             "ID": "121",
@@ -2961,7 +2961,7 @@ export const gamesMockData: IGames = {
             "Countries": ["asm", "vir", "gum", "CUW", "umi", "pri", "mnp", "usa"],
             "IsDefault": "1",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "48": {
             "ID": "124",
@@ -2970,7 +2970,7 @@ export const gamesMockData: IGames = {
             "Countries": ["asm", "vir", "gum", "CUW", "umi", "pri", "mnp", "usa"],
             "IsDefault": "1",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "49": {
             "ID": "127",
@@ -2979,7 +2979,7 @@ export const gamesMockData: IGames = {
             "Countries": ["asm", "vir", "gum", "CUW", "umi", "pri", "mnp", "usa"],
             "IsDefault": "1",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "52": {
             "ID": "136",
@@ -2988,7 +2988,7 @@ export const gamesMockData: IGames = {
             "Countries": ["asm", "vir", "gum", "CUW", "umi", "pri", "mnp", "usa"],
             "IsDefault": "1",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "56": {
             "ID": "148",
@@ -2997,7 +2997,7 @@ export const gamesMockData: IGames = {
             "Countries": ["asm", "vir", "gum", "CUW", "umi", "pri", "mnp", "usa"],
             "IsDefault": "1",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "57": {
             "ID": "151",
@@ -3006,7 +3006,7 @@ export const gamesMockData: IGames = {
             "Countries": ["asm", "vir", "gum", "CUW", "mac", "umi", "pri", "mnp", "sgp", "usa", "twn", "phl"],
             "IsDefault": "1",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "58": {
             "ID": "154",
@@ -3015,7 +3015,7 @@ export const gamesMockData: IGames = {
             "Countries": ["asm", "vir", "gum", "CUW", "umi", "pri", "mnp", "usa"],
             "IsDefault": "1",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "60": {
             "ID": "160",
@@ -3024,7 +3024,7 @@ export const gamesMockData: IGames = {
             "Countries": ["asm", "vir", "gum", "CUW", "umi", "pri", "mnp", "usa"],
             "IsDefault": "1",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "61": {
             "ID": "163",
@@ -3033,7 +3033,7 @@ export const gamesMockData: IGames = {
             "Countries": ["asm", "vir", "gum", "CUW", "umi", "pri", "mnp", "usa"],
             "IsDefault": "1",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "63": {
             "ID": "169",
@@ -3042,7 +3042,7 @@ export const gamesMockData: IGames = {
             "Countries": ["asm", "vir", "gum", "CUW", "umi", "pri", "mnp", "usa"],
             "IsDefault": "1",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "67": {
             "ID": "181",
@@ -3051,7 +3051,7 @@ export const gamesMockData: IGames = {
             "Countries": ["aus", "asm", "aia", "atg", "bhs", "blz", "bmu", "bgr", "iot", "vgb", "vir", "glp", "ggy", "gib", "grl", "gum", "dnk", "jey", "isr", "esp", "ita", "cyp", "cck", "prk", "CUW", "myt", "umi", "mtq", "msr", "ncl", "imn", "nfk", "cxr", "hmd", "cym", "tca", "wlf", "pcn", "prt", "pri", "reu", "rou", "shn", "mnp", "vct", "kna", "lca", "spm", "gbr", "usa", "slb", "twn", "tuv", "ukr", "fro", "flk", "fra", "guf", "pyf", "swe"],
             "IsDefault": "1",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "68": {
             "ID": "184",
@@ -3060,7 +3060,7 @@ export const gamesMockData: IGames = {
             "Countries": ["asm", "vir", "glp", "gum", "CUW", "myt", "umi", "mtq", "ncl", "wlf", "pri", "reu", "mnp", "spm", "usa", "fra", "guf", "pyf"],
             "IsDefault": "1",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "69": {
             "ID": "187",
@@ -3069,7 +3069,7 @@ export const gamesMockData: IGames = {
             "Countries": ["aus", "asm", "bel", "vir", "glp", "grl", "gum", "dnk", "isr", "irq", "irn", "esp", "cck", "prk", "kor", "CUW", "myt", "mtq", "ncl", "nfk", "cxr", "hmd", "cym", "wlf", "pri", "reu", "sau", "mnp", "spm", "sgp", "usa", "fro", "fra", "guf", "pyf"],
             "IsDefault": "1",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "71": {
             "ID": "193",
@@ -3078,7 +3078,7 @@ export const gamesMockData: IGames = {
             "Countries": ["asm", "abw", "aus", "bel", "bgr", "cxr", "cck", "col", "cok", "hrv", "CUW", "dnk", "fro", "fra", "guf", "pyf", "grl", "glp", "gum", "hmd", "hkg", "isr", "ita", "mtq", "myt", "nld", "ncl", "nzl", "niu", "nfk", "mnp", "prt", "pri", "reu", "rou", "spm", "swe", "tkl", "usa", "umi", "vir", "wlf"],
             "IsDefault": "1",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "72": {
             "ID": "196",
@@ -3087,7 +3087,7 @@ export const gamesMockData: IGames = {
             "Countries": ["afg", "alb", "dza", "asm", "ago", "aia", "atg", "asc", "aus", "bhs", "ggy", "bel", "bmu", "bwa", "iot", "bgr", "can", "cym", "CUW", "cze", "dnk", "ecu", "est", "eth", "flk", "fro", "fra", "guf", "pyf", "gha", "gib", "grl", "glp", "gum", "guy", "hkg", "irn", "irq", "isr", "ita", "jey", "prk", "kor", "kwt", "lao", "lva", "ltu", "imn", "mtq", "mus", "myt", "mex", "msr", "nam", "ncl", "nic", "mnp", "pak", "pan", "phl", "pcn", "prt", "pri", "reu", "rou", "kna", "lca", "vct", "sgp", "slb", "esp", "shn", "spm", "sdn", "swe", "che", "syr", "twn", "tto", "tun", "tca", "tuv", "uga", "gbr", "usa", "umi", "vgb", "vir", "wlf", "yem", "zwe"],
             "IsDefault": "0",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "73": {
             "ID": "199",
@@ -3096,7 +3096,7 @@ export const gamesMockData: IGames = {
             "Countries": ["asm", "vir", "gum", "isr", "CUW", "umi", "pri", "mnp", "usa"],
             "IsDefault": "1",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "74": {
             "ID": "202",
@@ -3105,7 +3105,7 @@ export const gamesMockData: IGames = {
             "Countries": ["afg", "alb", "dza", "asm", "ago", "aia", "atg", "aus", "aze", "bhs", "ggy", "bel", "blz", "bmu", "bwa", "iot", "bgr", "khm", "cym", "chn", "col", "hrv", "CUW", "cze", "dnk", "ecu", "est", "eth", "flk", "fra", "guf", "pyf", "gha", "gib", "gum", "guy", "hkg", "ind", "idn", "irn", "irq", "isr", "ita", "jey", "prk", "kor", "kwt", "lao", "lva", "ltu", "mys", "imn", "mtq", "myt", "mex", "msr", "nam", "ncl", "nic", "mnp", "pak", "pan", "phl", "pcn", "prt", "pri", "qat", "reu", "rou", "rus", "kna", "lca", "vct", "sgp", "slb", "esp", "shn", "spm", "sdn", "swe", "che", "syr", "twn", "tha", "tto", "tun", "tur", "tca", "tuv", "uga", "ukr", "gbr", "usa", "umi", "vgb", "vir", "wlf", "yem", "zwe"],
             "IsDefault": "0",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "75": {
             "ID": "206",
@@ -3114,7 +3114,7 @@ export const gamesMockData: IGames = {
             "Countries": ["afg", "alb", "dza", "asm", "ago", "aia", "atg", "aus", "bhs", "ggy", "bel", "blz", "bmu", "bwa", "iot", "bgr", "khm", "cym", "cze", "dnk", "ecu", "est", "eth", "flk", "fra", "guf", "pyf", "gha", "gib", "gum", "guy", "hkg", "idn", "irn", "irq", "isr", "ita", "jey", "prk", "kwt", "lao", "lva", "ltu", "mac", "imn", "mtq", "mex", "msr", "mmr", "nam", "ncl", "nic", "mnp", "pak", "pan", "png", "phl", "pcn", "prt", "pri", "reu", "rou", "kna", "lca", "vct", "srb", "sgp", "slb", "esp", "lka", "shn", "spm", "sdn", "swe", "che", "syr", "twn", "tto", "tun", "tca", "tuv", "uga", "gbr", "usa", "umi", "vgb", "vir", "wlf", "yem", "zwe"],
             "IsDefault": "0",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "76": {
             "ID": "211",
@@ -3123,7 +3123,7 @@ export const gamesMockData: IGames = {
             "Countries": ["afg", "alb", "dza", "asm", "ago", "aia", "atg", "aus", "aze", "bhs", "ggy", "bel", "blz", "bmu", "bwa", "iot", "bgr", "cym", "chn", "CUW", "cze", "dnk", "ecu", "est", "eth", "flk", "fra", "guf", "pyf", "gib", "gum", "guy", "hkg", "ind", "irn", "irq", "isr", "ita", "jey", "prk", "kwt", "lao", "lva", "ltu", "mac", "mys", "imn", "mtq", "mex", "msr", "nam", "ncl", "nic", "mnp", "pak", "pan", "phl", "pcn", "prt", "pri", "qat", "reu", "rou", "rus", "kna", "lca", "vct", "sgp", "slb", "esp", "shn", "spm", "sdn", "swe", "che", "syr", "twn", "tha", "tto", "tun", "tur", "tca", "tuv", "uga", "ukr", "gbr", "usa", "umi", "vgb", "vir", "wlf", "yem", "zwe"],
             "IsDefault": "0",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "77": {
             "ID": "214",
@@ -3132,7 +3132,7 @@ export const gamesMockData: IGames = {
             "Countries": ["asm", "CUW", "gum", "ita", "mnp", "pri", "usa", "umi", "vir"],
             "IsDefault": "1",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "79": {
             "ID": "220",
@@ -3141,7 +3141,7 @@ export const gamesMockData: IGames = {
             "Countries": ["asm", "gum", "CUW", "umi", "pri", "mnp", "usa"],
             "IsDefault": "1",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "80": {
             "ID": "223",
@@ -3150,7 +3150,7 @@ export const gamesMockData: IGames = {
             "Countries": ["asm", "aia", "atg", "abw", "ggy", "blz", "bmu", "iot", "bgr", "cym", "CUW", "flk", "gib", "gum", "jey", "imn", "msr", "nld", "ant", "mnp", "pcn", "pol", "prt", "pri", "kna", "lca", "vct", "slb", "shn", "tca", "tuv", "gbr", "usa", "umi", "vgb", "vir"],
             "IsDefault": "1",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "81": {
             "ID": "226",
@@ -3159,7 +3159,7 @@ export const gamesMockData: IGames = {
             "Countries": ["asm", "vir", "gum", "CUW", "umi", "pri", "mnp", "usa"],
             "IsDefault": "1",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "83": {
             "ID": "232",
@@ -3168,7 +3168,7 @@ export const gamesMockData: IGames = {
             "Countries": ["asm", "cub", "CUW", "dnk", "fra", "guf", "pyf", "grl", "glp", "gum", "irn", "irq", "prk", "lby", "mtq", "myt", "mmr", "ncl", "mnp", "pri", "reu", "spm", "sdn", "usa", "umi", "vir", "wlf", "zwe"],
             "IsDefault": "1",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "84": {
             "ID": "235",
@@ -3177,7 +3177,7 @@ export const gamesMockData: IGames = {
             "Countries": ["asm", "CUW", "fra", "guf", "pyf", "gum", "mtq", "myt", "ncl", "mnp", "pri", "reu", "spm", "usa", "umi", "vir", "wlf"],
             "IsDefault": "1",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "86": {
             "ID": "241",
@@ -3186,7 +3186,7 @@ export const gamesMockData: IGames = {
             "Countries": ["asm", "vir", "gum", "CUW", "umi", "pri", "mnp", "usa"],
             "IsDefault": "1",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "87": {
             "ID": "244",
@@ -3195,7 +3195,7 @@ export const gamesMockData: IGames = {
             "Countries": ["asm", "CUW", "gum", "lva", "mys", "mnp", "pri", "sgp", "twn", "usa", "umi", "vir"],
             "IsDefault": "1",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "88": {
             "ID": "247",
@@ -3204,7 +3204,7 @@ export const gamesMockData: IGames = {
             "Countries": ["asm", "vir", "gum", "CUW", "umi", "pri", "mnp", "usa"],
             "IsDefault": "1",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "90": {
             "ID": "253",
@@ -3213,7 +3213,7 @@ export const gamesMockData: IGames = {
             "Countries": ["asm", "vir", "gum", "CUW", "umi", "pri", "mnp", "usa"],
             "IsDefault": "1",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "91": {
             "ID": "256",
@@ -3222,7 +3222,7 @@ export const gamesMockData: IGames = {
             "Countries": ["asm", "vir", "gum", "CUW", "umi", "pri", "mnp", "usa"],
             "IsDefault": "1",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "92": {
             "ID": "259",
@@ -3231,7 +3231,7 @@ export const gamesMockData: IGames = {
             "Countries": ["asm", "vir", "gum", "CUW", "umi", "usa"],
             "IsDefault": "1",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "94": {
             "ID": "265",
@@ -3240,7 +3240,7 @@ export const gamesMockData: IGames = {
             "Countries": ["afg", "alb", "dza", "asm", "ago", "aia", "atg", "aus", "bhs", "ggy", "bel", "blz", "bmu", "bwa", "iot", "bgr", "cym", "cxr", "cck", "col", "hrv", "CUW", "cze", "dnk", "ecu", "est", "eth", "flk", "fro", "fra", "guf", "pyf", "gha", "gib", "grl", "glp", "gum", "guy", "hmd", "hkg", "irn", "irq", "isr", "ita", "prk", "kwt", "lva", "ltu", "imn", "mtq", "myt", "mex", "msr", "nam", "ncl", "nic", "nfk", "mnp", "pak", "pan", "png", "phl", "pcn", "prt", "pri", "rou", "kna", "lca", "vct", "srb", "sgp", "slb", "esp", "shn", "sdn", "swe", "che", "syr", "twn", "tto", "tun", "tca", "tuv", "uga", "gbr", "usa", "umi", "vgb", "vir", "wlf", "yem", "zwe"],
             "IsDefault": "1",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "95": {
             "ID": "271",
@@ -3249,7 +3249,7 @@ export const gamesMockData: IGames = {
             "Countries": ["asm", "aut", "CUW", "gum", "mnp", "pri", "usa", "umi", "vir"],
             "IsDefault": "0",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "96": {
             "ID": "277",
@@ -3258,7 +3258,7 @@ export const gamesMockData: IGames = {
             "Countries": ["afg", "alb", "dza", "asm", "ago", "aia", "atg", "asc", "aus", "bhs", "ggy", "bel", "bmu", "bwa", "iot", "bgr", "khm", "cym", "CUW", "cze", "dnk", "ecu", "est", "eth", "flk", "fro", "fra", "guf", "pyf", "gha", "gib", "grl", "glp", "gum", "guy", "hkg", "idn", "irn", "irq", "isr", "ita", "jey", "prk", "kor", "kwt", "lao", "lva", "ltu", "imn", "mtq", "mus", "myt", "mex", "msr", "mmr", "nam", "ncl", "nic", "mnp", "pak", "pan", "png", "phl", "pcn", "prt", "pri", "reu", "rou", "kna", "lca", "vct", "srb", "sgp", "slb", "esp", "lka", "shn", "spm", "sdn", "swe", "che", "syr", "twn", "tto", "tun", "tca", "tuv", "uga", "gbr", "usa", "umi", "vgb", "vir", "wlf", "yem", "zwe"],
             "IsDefault": "0",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "97": {
             "ID": "280",
@@ -3267,7 +3267,7 @@ export const gamesMockData: IGames = {
             "Countries": ["afg", "alb", "dza", "asm", "ago", "aia", "atg", "asc", "aus", "bhs", "ggy", "bel", "bmu", "bwa", "iot", "bgr", "cym", "chn", "CUW", "cze", "dnk", "ecu", "est", "eth", "flk", "fro", "fra", "guf", "pyf", "gha", "gib", "grl", "glp", "gum", "guy", "hkg", "irn", "irq", "isr", "ita", "jey", "prk", "kwt", "lao", "lva", "ltu", "imn", "mtq", "mus", "myt", "mex", "msr", "nam", "ncl", "nic", "mnp", "pak", "pan", "phl", "pcn", "prt", "pri", "reu", "rou", "kna", "lca", "vct", "sgp", "slb", "esp", "shn", "spm", "sdn", "swe", "che", "syr", "twn", "tto", "tun", "tca", "tuv", "uga", "gbr", "usa", "umi", "vgb", "vir", "wlf", "yem", "zwe"],
             "IsDefault": "0",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "98": {
             "ID": "283",
@@ -3276,7 +3276,7 @@ export const gamesMockData: IGames = {
             "Countries": ["asm", "CUW", "gum", "mnp", "pri", "usa", "vir"],
             "IsDefault": "0",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "99": {
             "ID": "286",
@@ -3285,7 +3285,7 @@ export const gamesMockData: IGames = {
             "Countries": ["asm", "aus", "bgr", "cxr", "cck", "CUW", "dnk", "fro", "grl", "gum", "hmd", "hkg", "nzl", "niu", "nfk", "mnp", "prt", "pri", "usa", "umi", "vir"],
             "IsDefault": "0",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "100": {
             "ID": "289",
@@ -3294,7 +3294,7 @@ export const gamesMockData: IGames = {
             "Countries": ["asm", "CUW", "gum", "mnp", "pri", "usa", "umi", "vir"],
             "IsDefault": "0",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "101": {
             "ID": "292",
@@ -3303,7 +3303,7 @@ export const gamesMockData: IGames = {
             "Countries": ["afg", "alb", "dza", "asm", "ago", "aia", "atg", "aus", "bhs", "ggy", "bel", "blz", "bmu", "bwa", "iot", "bgr", "khm", "cym", "chn", "CUW", "cze", "dnk", "ecu", "est", "eth", "flk", "fra", "guf", "pyf", "gha", "gib", "glp", "gum", "guy", "hkg", "irn", "irq", "isr", "ita", "jey", "prk", "kwt", "lao", "lva", "ltu", "mac", "imn", "mtq", "myt", "mex", "msr", "mmr", "nam", "ncl", "nic", "mnp", "pak", "pan", "png", "phl", "pcn", "prt", "pri", "reu", "rou", "kna", "lca", "vct", "srb", "sgp", "slb", "esp", "shn", "spm", "swe", "che", "twn", "tca", "tuv", "gbr", "usa", "umi", "vgb", "vir", "wlf"],
             "IsDefault": "0",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "104": {
             "ID": "301",
@@ -3312,7 +3312,7 @@ export const gamesMockData: IGames = {
             "Countries": ["asm", "aia", "atg", "ggy", "blz", "bmu", "iot", "cym", "CUW", "flk", "gib", "gum", "imn", "msr", "mnp", "pcn", "pri", "kna", "lca", "vct", "slb", "shn", "tca", "tuv", "gbr", "usa", "umi", "vgb", "vir"],
             "IsDefault": "1",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "105": {
             "ID": "304",
@@ -3321,7 +3321,7 @@ export const gamesMockData: IGames = {
             "Countries": ["afg", "asm", "bhs", "bwa", "khm", "chn", "CUW", "cyp", "dnk", "egy", "eth", "fro", "fra", "guf", "pyf", "gha", "grl", "glp", "gum", "hkg", "isl", "irn", "irq", "isr", "jpn", "prk", "kwt", "mac", "mys", "mtq", "myt", "mng", "ncl", "mnp", "pak", "pan", "pri", "reu", "sau", "sgp", "sxm", "som", "spm", "swe", "syr", "tto", "tur", "usa", "vir", "wlf", "yem", "zwe"],
             "IsDefault": "0",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "106": {
             "ID": "307",
@@ -3330,7 +3330,7 @@ export const gamesMockData: IGames = {
             "Countries": ["afg", "alb", "dza", "asm", "ago", "aia", "atg", "aus", "bhs", "ggy", "bel", "blz", "bmu", "bwa", "iot", "bgr", "khm", "cym", "chn", "cxr", "cck", "col", "civ", "hrv", "cub", "CUW", "cyp", "cze", "dnk", "ecu", "est", "eth", "flk", "fro", "fra", "guf", "pyf", "gha", "gib", "grl", "glp", "gum", "guy", "hmd", "hkg", "idn", "irn", "irq", "isr", "ita", "prk", "kwt", "lva", "ltu", "imn", "mtq", "myt", "mex", "msr", "nam", "ncl", "nic", "nfk", "mnp", "pak", "pan", "png", "phl", "pcn", "prt", "pri", "rou", "kna", "lca", "vct", "srb", "sgp", "slb", "zaf", "esp", "shn", "sdn", "swe", "che", "syr", "twn", "tha", "tto", "tun", "tur", "tca", "tuv", "uga", "gbr", "usa", "umi", "vnm", "vgb", "vir", "wlf", "yem", "zwe"],
             "IsDefault": "0",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "107": {
             "ID": "310",
@@ -3339,7 +3339,7 @@ export const gamesMockData: IGames = {
             "Countries": ["asm", "aus", "cxr", "cck", "cub", "CUW", "dnk", "fra", "guf", "pyf", "glp", "gum", "hmd", "irn", "irq", "prk", "lby", "mtq", "myt", "mmr", "ncl", "nfk", "mnp", "pri", "reu", "spm", "sdn", "usa", "umi", "vir", "wlf", "zwe"],
             "IsDefault": "0",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "108": {
             "ID": "313",
@@ -3348,7 +3348,7 @@ export const gamesMockData: IGames = {
             "Countries": ["asm", "aus", "can", "cxr", "cck", "cub", "CUW", "dnk", "fra", "guf", "pyf", "grl", "glp", "gum", "hmd", "irn", "irq", "prk", "lby", "mtq", "myt", "mmr", "ncl", "nfk", "mnp", "pri", "reu", "spm", "sdn", "usa", "umi", "vir", "wlf", "zwe"],
             "IsDefault": "0",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "112": {
             "ID": "325",
@@ -3357,7 +3357,7 @@ export const gamesMockData: IGames = {
             "Countries": ["asm", "CUW", "gum", "mnp", "pri", "usa", "umi", "vir"],
             "IsDefault": "1",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "113": {
             "ID": "328",
@@ -3366,7 +3366,7 @@ export const gamesMockData: IGames = {
             "Countries": ["afg", "alb", "dza", "asm", "ago", "aia", "atg", "arg", "abw", "asc", "aus", "bhs", "ggy", "brb", "bel", "blz", "bmu", "bol", "bes", "bwa", "bra", "iot", "bgr", "can", "cym", "chl", "chn", "cpt", "col", "cri", "hrv", "cub", "CUW", "cze", "dnk", "dma", "dom", "ecu", "slv", "est", "eth", "flk", "fro", "fra", "guf", "pyf", "gha", "gib", "grl", "grd", "glp", "gum", "gtm", "guy", "hti", "hnd", "hkg", "irn", "irq", "isr", "ita", "jam", "jpn", "jey", "prk", "kwt", "lao", "lva", "ltu", "imn", "mtq", "myt", "mex", "msr", "mmr", "nam", "ncl", "nic", "mnp", "pak", "pan", "png", "pry", "per", "phl", "pcn", "prt", "pri", "reu", "rou", "blm", "kna", "lca", "vct", "sgp", "sxm", "slb", "esp", "shn", "spm", "sdn", "sur", "swe", "che", "syr", "twn", "tto", "tun", "tca", "tuv", "uga", "gbr", "usa", "umi", "ury", "ven", "vgb", "vir", "wlf", "yem", "zwe"],
             "IsDefault": "0",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "123": {
             "ID": "367",
@@ -3375,7 +3375,7 @@ export const gamesMockData: IGames = {
             "Countries": ["arm"],
             "IsDefault": "0",
             "IDParent": "41",
-            "IDApiTemplate": "1"
+            "IDApiTemplate": "1",
         },
         "124": {
             "ID": "373",
@@ -3384,7 +3384,7 @@ export const gamesMockData: IGames = {
             "Countries": ["asm", "aus", "cxr", "cck", "CUW", "gum", "hmd", "irn", "prk", "nfk", "mnp", "pri", "zaf", "syr", "twn", "usa", "umi", "vir"],
             "IsDefault": "0",
             "IDParent": "38",
-            "IDApiTemplate": "13"
+            "IDApiTemplate": "13",
         },
         "125": {
             "ID": "377",
@@ -3393,7 +3393,7 @@ export const gamesMockData: IGames = {
             "Countries": ["asm", "aus", "cxr", "cck", "CUW", "gum", "hmd", "irn", "prk", "nfk", "mnp", "pri", "zaf", "syr", "twn", "usa", "umi", "vir"],
             "IsDefault": "0",
             "IDParent": "23",
-            "IDApiTemplate": "13"
+            "IDApiTemplate": "13",
         },
         "126": {
             "ID": "381",
@@ -3402,7 +3402,7 @@ export const gamesMockData: IGames = {
             "Countries": ["asm", "aus", "CUW", "fra", "guf", "pyf", "glp", "gum", "ita", "mtq", "myt", "ncl", "mnp", "pri", "reu", "esp", "spm", "usa", "umi", "vir", "wlf"],
             "IsDefault": "0",
             "IDParent": "13",
-            "IDApiTemplate": "21"
+            "IDApiTemplate": "21",
         },
         "127": {
             "ID": "385",
@@ -3411,7 +3411,7 @@ export const gamesMockData: IGames = {
             "Countries": ["asm", "aus", "CUW", "fra", "guf", "pyf", "glp", "gum", "ita", "mtq", "myt", "ncl", "mnp", "pri", "reu", "esp", "spm", "usa", "umi", "vir", "wlf"],
             "IsDefault": "0",
             "IDParent": "14",
-            "IDApiTemplate": "21"
+            "IDApiTemplate": "21",
         },
         "128": {
             "ID": "389",
@@ -3420,7 +3420,7 @@ export const gamesMockData: IGames = {
             "Countries": ["asm", "aus", "CUW", "fra", "guf", "pyf", "glp", "gum", "ita", "mtq", "myt", "ncl", "mnp", "pri", "reu", "esp", "spm", "usa", "umi", "vir", "wlf"],
             "IsDefault": "0",
             "IDParent": "10",
-            "IDApiTemplate": "21"
+            "IDApiTemplate": "21",
         },
         "129": {
             "ID": "393",
@@ -3429,7 +3429,7 @@ export const gamesMockData: IGames = {
             "Countries": ["asm", "abw", "aus", "chn", "cck", "CUW", "fra", "guf", "pyf", "glp", "gum", "ita", "mtq", "myt", "nld", "ncl", "mnp", "pri", "reu", "esp", "spm", "usa", "umi", "vir", "wlf"],
             "IsDefault": "0",
             "IDParent": "8",
-            "IDApiTemplate": "21"
+            "IDApiTemplate": "21",
         },
         "131": {
             "ID": "401",
@@ -3438,7 +3438,7 @@ export const gamesMockData: IGames = {
             "Countries": ["asm", "aus", "CUW", "fra", "guf", "pyf", "glp", "gum", "ita", "mtq", "myt", "mnp", "pri", "reu", "esp", "spm", "usa", "umi", "vir", "wlf"],
             "IsDefault": "0",
             "IDParent": "12",
-            "IDApiTemplate": "21"
+            "IDApiTemplate": "21",
         },
         "132": {
             "ID": "405",
@@ -3447,7 +3447,7 @@ export const gamesMockData: IGames = {
             "Countries": ["asm", "aus", "CUW", "fra", "gum", "ita", "mnp", "pri", "reu", "esp", "spm", "usa", "umi", "vir", "wlf"],
             "IsDefault": "0",
             "IDParent": "3",
-            "IDApiTemplate": "21"
+            "IDApiTemplate": "21",
         },
         "133": {
             "ID": "409",
@@ -3456,7 +3456,7 @@ export const gamesMockData: IGames = {
             "Countries": ["asm", "aus", "CUW", "fra", "guf", "pyf", "glp", "gum", "ita", "mtq", "myt", "ncl", "mnp", "pri", "reu", "esp", "spm", "usa", "umi", "vir"],
             "IsDefault": "0",
             "IDParent": "11",
-            "IDApiTemplate": "21"
+            "IDApiTemplate": "21",
         },
         "134": {
             "ID": "413",
@@ -3465,7 +3465,7 @@ export const gamesMockData: IGames = {
             "Countries": ["asm", "aus", "CUW", "fra", "guf", "pyf", "glp", "gum", "ita", "mtq", "myt", "ncl", "mnp", "pri", "reu", "esp", "spm", "usa", "umi", "vir", "wlf"],
             "IsDefault": "0",
             "IDParent": "4",
-            "IDApiTemplate": "21"
+            "IDApiTemplate": "21",
         },
         "135": {
             "ID": "414",
@@ -3474,7 +3474,7 @@ export const gamesMockData: IGames = {
             "Countries": ["asm", "aia", "atg", "aus", "bhs", "ggy", "bel", "blz", "bmu", "iot", "bgr", "cym", "CUW", "cyp", "dnk", "flk", "fro", "gib", "grl", "gum", "hkg", "irn", "isr", "ita", "jey", "prk", "imn", "msr", "mnp", "pcn", "prt", "pri", "rou", "kna", "lca", "vct", "sgp", "slb", "esp", "shn", "sdn", "swe", "syr", "twn", "tur", "tca", "tuv", "ukr", "gbr", "usa", "umi", "vgb", "vir", "wlf"],
             "IsDefault": "0",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "136": {
             "ID": "416",
@@ -3483,7 +3483,7 @@ export const gamesMockData: IGames = {
             "Countries": ["aus", "asm", "aia", "atg", "blz", "bmu", "iot", "vgb", "glp", "ggy", "gib", "gum", "ita", "CUW", "myt", "umi", "mtq", "msr", "ncl", "imn", "cym", "tca", "pcn", "pri", "reu", "shn", "vct", "kna", "lca", "spm", "gbr", "usa", "slb", "tuv", "flk", "fra", "guf", "pyf"],
             "IsDefault": "0",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "138": {
             "ID": "423",
@@ -3492,7 +3492,7 @@ export const gamesMockData: IGames = {
             "Countries": ["asm", "aus", "cxr", "cck", "CUW", "dnk", "fro", "grl", "gum", "irn", "irq", "prk", "lva", "nfk", "mnp", "prt", "pri", "rou", "zaf", "esp", "syr", "twn", "usa", "umi", "vir"],
             "IsDefault": "0",
             "IDParent": "0",
-            "IDApiTemplate": "0"
+            "IDApiTemplate": "0",
         },
         "139": {
             "ID": "426",
@@ -3501,8 +3501,8 @@ export const gamesMockData: IGames = {
             "Countries": ["aus", "dza", "asm", "afg", "vir", "hti", "glp", "gum", "egy", "irq", "irn", "prk", "cub", "CUW", "lao", "lby", "myt", "umi", "mtq", "ncl", "nfk", "wlf", "pak", "pse", "pri", "reu", "mnp", "spm", "syr", "gbr", "usa", "som", "phl", "fra", "guf", "pyf"],
             "IsDefault": "0",
             "IDParent": "57",
-            "IDApiTemplate": "0"
-        }
+            "IDApiTemplate": "0",
+        },
     },
     merchantsCurrencies: [{
         "ID": "3",
@@ -3510,510 +3510,510 @@ export const gamesMockData: IGames = {
         "IDMerchant": "973",
         "Currencies": ["AED", "AMD", "ARS", "AZN", "BGN", "BND", "BOB", "BRL", "BYN", "CAD", "CHF", "CLP", "CNY", "COP", "CRC", "CZK", "DJF", "DKK", "DZD", "ETH", "EUR", "GBP", "GEL", "GHS", "GYD", "HKD", "HRK", "HUF", "IDR", "ILS", "INR", "IQD", "IRR", "ISK", "JPY", "KES", "KGS", "KHR", "KMF", "KRW", "KZT", "LBP", "LRD", "LTC", "MBC", "MDL", "MKD", "MNT", "MXN", "MYR", "NGN", "NOK", "NZD", "PEN", "PHP", "PLN", "PYG", "RON", "RSD", "RUB", "RWF", "SEK", "SGD", "THB", "TJS", "TMT", "TND", "TRY", "TWD", "TZS", "UAH", "UGX", "USD", "UYU", "UZS", "VEF", "VND", "XAF", "ZAR"],
         "DefaultCurrency": "EUR",
-        "IsDefault": "1"
+        "IsDefault": "1",
     }, {
         "ID": "4",
         "Name": "*",
         "IDMerchant": "979",
         "Currencies": ["AED", "AMD", "ARS", "AUD", "AZN", "BCH", "BGN", "BOB", "BRL", "BTC", "BYR", "CAD", "CHF", "CLP", "CNY", "COP", "CZK", "DKK", "EUR", "GBP", "GEL", "GHS", "HKD", "HUF", "ILS", "INR", "IOT", "IQD", "IRR", "JPY", "KES", "KGS", "KRW", "KZT", "MBC", "MDL", "MNT", "MXN", "MYR", "NGN", "NOK", "NZD", "PEN", "PHP", "PLN", "PYG", "RON", "RSD", "RUB", "SEK", "SGD", "THB", "TJS", "TMT", "TND", "TRY", "UAH", "USD", "UYU", "UZS", "VEF", "VES", "VND", "XAF", "ZAR"],
         "DefaultCurrency": "EUR",
-        "IsDefault": "1"
+        "IsDefault": "1",
     }, {
         "ID": "5",
         "Name": "BC Default",
         "IDMerchant": "993",
         "Currencies": ["AUD", "CAD", "EUR", "GBP", "ILS", "KZT", "MDL", "NOK", "PLN", "RUB", "SEK", "TJS", "USD"],
         "DefaultCurrency": "",
-        "IsDefault": "1"
+        "IsDefault": "1",
     }, {
         "ID": "8",
         "Name": "*",
         "IDMerchant": "970",
         "Currencies": ["AED", "AMD", "ARS", "AUD", "AZN", "BC1", "BDT", "BGN", "BND", "BOB", "BRL", "BTC", "BYN", "BYR", "CAD", "CHF", "CLP", "CNY", "COP", "CRC", "CZK", "DJF", "DKK", "DZD", "ET1", "ETB", "EUR", "GBP", "GEL", "GHS", "GYD", "HKD", "HRK", "HUF", "IDR", "ILS", "INR", "IQD", "IRR", "ISK", "JPY", "KES", "KGS", "KHR", "KMF", "KRW", "KZT", "LBP", "LRD", "LT1", "MBC", "MDL", "MKD", "MNT", "MXN", "MYR", "NGN", "NOK", "NZD", "PEN", "PHP", "PKR", "PLN", "PYG", "RON", "RSD", "RUB", "RWF", "SEK", "SGD", "THB", "TJS", "TMT", "TND", "TRY", "TWD", "TZS", "UAH", "USD", "UYU", "UZS", "VEF", "VND", "XAF", "XB3", "ZAR"],
         "DefaultCurrency": "EUR",
-        "IsDefault": "1"
+        "IsDefault": "1",
     }, {
         "ID": "11",
         "Name": "Default",
         "IDMerchant": "975",
         "Currencies": ["BRL", "CAD", "CHF", "CZK", "EUR", "GBP", "INR", "KZT", "MBC", "NOK", "NZD", "PLN", "RSD", "RUB", "SEK", "TRY", "TZS", "UAH", "USD", "ZAR"],
         "DefaultCurrency": "EUR",
-        "IsDefault": "1"
+        "IsDefault": "1",
     }, {
         "ID": "13",
         "Name": "*",
         "IDMerchant": "992",
         "Currencies": ["AMD", "ARS", "AUD", "BGN", "BOB", "BRL", "CAD", "CHF", "CLP", "CNY", "COP", "CZK", "DKK", "EUR", "GBP", "GEL", "GHS", "HKD", "HRK", "IDR", "ILS", "INR", "ISK", "JPY", "KES", "KZT", "MXN", "MYR", "NGN", "NOK", "NZD", "PEN", "PHP", "PLN", "RON", "RSD", "RUB", "SEK", "SGD", "THB", "TRY", "TWD", "TZS", "UAH", "USD", "VND", "XAF", "ZAR"],
         "DefaultCurrency": "EUR",
-        "IsDefault": "1"
+        "IsDefault": "1",
     }, {
         "ID": "16",
         "Name": "*",
         "IDMerchant": "940",
         "Currencies": ["AED", "ALL", "AMD", "ARS", "AUD", "AZN", "BDT", "BGN", "BOB", "BRL", "BYN", "CAD", "CDF", "CHF", "CLP", "CNY", "COP", "CZK", "DKK", "DZD", "EUR", "GBP", "GEL", "GHS", "HKD", "HUF", "IDR", "ILS", "INR", "IQD", "IRR", "ISK", "JPY", "KES", "KGS", "KHR", "KRW", "KZT", "MAD", "MBC", "MDL", "MKD", "MNT", "MXN", "MYR", "NGN", "NOK", "NZD", "PEN", "PHP", "PKR", "PLN", "PYG", "QAR", "RON", "RSD", "RUB", "SEK", "SGD", "THB", "TJS", "TMT", "TND", "TRY", "TWD", "TZS", "UAH", "UGX", "USD", "UYU", "UZS", "VEF", "VND", "XAF", "XOF", "ZAR", "ZWL"],
         "DefaultCurrency": "EUR",
-        "IsDefault": "1"
+        "IsDefault": "1",
     }, {
         "ID": "19",
         "Name": "*",
         "IDMerchant": "998",
         "Currencies": ["AED", "ALL", "AMD", "ARS", "AZN", "BC1", "BDT", "BGN", "BND", "BOB", "BRL", "BYN", "CAD", "CDF", "CHF", "CLP", "CNY", "COP", "CRC", "CZK", "DJF", "DKK", "DZD", "ET1", "ETB", "ETH", "EUR", "GBP", "GEL", "GHS", "GMD", "GYD", "HKD", "HRK", "HUF", "IDR", "ILS", "INR", "IQD", "ISK", "JPY", "KES", "KGS", "KHR", "KMF", "KRW", "KZT", "LBP", "LRD", "LT1", "LTC", "MBC", "MDL", "MKD", "MNT", "MXN", "MYR", "NGN", "NOK", "NZD", "PEN", "PHP", "PKR", "PLN", "PYG", "RON", "RSD", "RUB", "RWF", "SEK", "SGD", "THB", "TJS", "TMT", "TND", "TRY", "TWD", "TZS", "UAH", "UGX", "USD", "UYU", "UZS", "VEF", "VND", "XAF", "XOF", "ZAR", "ZMW", "ZWL"],
         "DefaultCurrency": "EUR",
-        "IsDefault": "1"
+        "IsDefault": "1",
     }, {
         "ID": "22",
         "Name": "*",
         "IDMerchant": "976",
         "Currencies": ["AED", "AMD", "ARS", "AUD", "AZN", "BC1", "BCH", "BDT", "BGN", "BND", "BOB", "BRL", "BTC", "BTT", "BYR", "CAD", "CHF", "CLP", "CNY", "COP", "CRC", "CZK", "DJF", "DKK", "DZD", "ET1", "ET2", "ETH", "EUR", "GBP", "GEL", "GHS", "GYD", "HKD", "HRK", "HUF", "IDR", "ILS", "INR", "IQD", "IRR", "ISK", "JPY", "KES", "KGS", "KHR", "KMF", "KRW", "KZT", "LBP", "LRD", "LT1", "LTC", "MBC", "MDL", "MNT", "MXN", "MYR", "NGN", "NOK", "NZD", "PEN", "PHP", "PKR", "PLN", "PYG", "RON", "RSD", "RUB", "RWF", "SEK", "SGD", "THB", "TJS", "TMT", "TND", "TRX", "TRY", "TWD", "TZS", "UAH", "UGX", "USD", "USDT", "UYU", "UZS", "VEF", "VND", "XAF", "ZAR"],
         "DefaultCurrency": "EUR",
-        "IsDefault": "1"
+        "IsDefault": "1",
     }, {
         "ID": "37",
         "Name": "*",
         "IDMerchant": "939",
         "Currencies": ["AED", "AMD", "ARS", "AUD", "AZN", "BRL", "BTC", "CAD", "CHF", "CLP", "CNY", "COP", "CZK", "DKK", "DZD", "EUR", "GBP", "GEL", "GHS", "HKD", "HUF", "INR", "IRR", "JPY", "KES", "KRW", "KZT", "LBP", "MAD", "MBC", "MNT", "MXN", "NGN", "NOK", "NZD", "PEN", "PLN", "RON", "RSD", "RUB", "SEK", "TND", "TRY", "UAH", "UGX", "USD", "VND", "XAF", "ZAR"],
         "DefaultCurrency": "",
-        "IsDefault": "1"
+        "IsDefault": "1",
     }, {
         "ID": "40",
         "Name": "",
         "IDMerchant": "965",
         "Currencies": ["AED", "ALL", "AMD", "ARS", "AUD", "AZN", "BC1", "BC2", "BCH", "BDT", "BGN", "BND", "BOB", "BRL", "BTC", "BYN", "BYR", "CAD", "CDF", "CHF", "CLP", "CNY", "COP", "CRC", "CZK", "DJF", "DKK", "DZD", "ET1", "ET2", "ETB", "ETH", "EUR", "GBP", "GEL", "GHS", "GMD", "GYD", "HKD", "HRK", "HUF", "IDR", "ILS", "INR", "IOT", "IQD", "IRR", "ISK", "JPY", "KES", "KGS", "KHR", "KMF", "KRW", "KZT", "LBP", "LRD", "LT1", "LT2", "LTC", "LTL", "MBC", "MDL", "MKD", "MNT", "MXN", "MYR", "NGN", "NOK", "NZD", "PEN", "PHP", "PKR", "PLN", "PYG", "RON", "RSD", "RUB", "RWF", "SEK", "SGD", "THB", "TJS", "TMT", "TND", "TRY", "TWD", "TZS", "UAH", "UGX", "USD", "UYU", "UZS", "VEF", "VES", "VND", "XAF", "XB3", "XM1", "XMR", "XOF", "ZAR", "ZMW", "ZWL"],
         "DefaultCurrency": "USD",
-        "IsDefault": "1"
+        "IsDefault": "1",
     }, {
         "ID": "43",
         "Name": "1",
         "IDMerchant": "700",
         "Currencies": [],
         "DefaultCurrency": "",
-        "IsDefault": "0"
+        "IsDefault": "0",
     }, {
         "ID": "46",
         "Name": "*",
         "IDMerchant": "933",
         "Currencies": ["AED", "ALL", "AMD", "ARS", "AZN", "BDT", "BND", "BRL", "BYN", "CAD", "CHF", "CLP", "CNY", "COP", "CZK", "DKK", "ETH", "EUR", "GBP", "GEL", "GHS", "HKD", "HRK", "HUF", "IDR", "ILS", "INR", "IRR", "JPY", "KES", "KGS", "KHR", "KRW", "KZT", "MDL", "MKD", "MNT", "MXN", "MYR", "NGN", "NOK", "NZD", "PEN", "PHP", "PKR", "PLN", "PYG", "RON", "RSD", "RUB", "RWF", "SEK", "SGD", "THB", "TJS", "TRY", "TWD", "TZS", "UAH", "UGX", "USD", "UZS", "VND", "XAF", "XOF", "ZAR"],
         "DefaultCurrency": "EUR",
-        "IsDefault": "1"
+        "IsDefault": "1",
     }, {
         "ID": "49",
         "Name": "",
         "IDMerchant": "969",
         "Currencies": ["AMD", "ARS", "AUD", "AZN", "BGN", "BOB", "BRL", "CAD", "CHF", "CLP", "CNY", "COP", "CZK", "DKK", "EUR", "GBP", "GEL", "GHS", "HKD", "HUF", "ILS", "INR", "IQD", "JPY", "KRW", "KZT", "MXN", "MYR", "NOK", "NZD", "PEN", "PHP", "PKR", "PLN", "PYG", "RON", "RSD", "RUB", "RWF", "SEK", "SGD", "THB", "TND", "TRY", "TWD", "TZS", "UAH", "USD", "UYU", "UZS", "VND", "ZAR"],
         "DefaultCurrency": "EUR",
-        "IsDefault": "1"
+        "IsDefault": "1",
     }, {
         "ID": "52",
         "Name": "",
         "IDMerchant": "997",
         "Currencies": ["AED", "AMD", "ARS", "AUD", "AZN", "BGN", "BND", "BOB", "BRL", "BYN", "CAD", "CHF", "CLP", "CNY", "COP", "CRC", "CZK", "DJF", "DKK", "DZD", "EUR", "GBP", "GEL", "GHS", "GYD", "HKD", "HRK", "HUF", "IDR", "ILS", "INR", "IQD", "IRR", "ISK", "JPY", "KES", "KGS", "KHR", "KRW", "KZT", "LBP", "LRD", "MDL", "MKD", "MNT", "MXN", "MYR", "NGN", "NOK", "NZD", "PEN", "PHP", "PKR", "PLN", "PYG", "RON", "RSD", "RUB", "RWF", "SEK", "SGD", "THB", "TJS", "TMT", "TND", "TRY", "TWD", "TZS", "UAH", "UGX", "USD", "UYU", "UZS", "VEF", "VES", "VND", "XAF", "ZAR"],
         "DefaultCurrency": "EUR",
-        "IsDefault": "1"
+        "IsDefault": "1",
     }, {
         "ID": "55",
         "Name": "*",
         "IDMerchant": "971",
         "Currencies": ["AED", "AMD", "ARS", "AUD", "AZN", "BGN", "BRL", "BTC", "BYN", "CAD", "CHF", "CLP", "CNY", "COP", "CZK", "DKK", "ET1", "ET2", "ETH", "EUR", "GBP", "GEL", "GHS", "HKD", "HUF", "ILS", "INR", "IQD", "IRR", "JPY", "KES", "KGS", "KRW", "KZT", "LT1", "LT2", "LTC", "MDL", "MNT", "MXN", "MYR", "NGN", "NOK", "NZD", "PEN", "PLN", "RON", "RUB", "SEK", "SGD", "THB", "TJS", "TMT", "TRY", "UAH", "USD", "UYU", "VEF", "XAF", "XB3", "ZAR"],
         "DefaultCurrency": "EUR",
-        "IsDefault": "1"
+        "IsDefault": "1",
     }, {
         "ID": "58",
         "Name": "",
         "IDMerchant": "943",
         "Currencies": ["AED", "AMD", "ARS", "AUD", "AZN", "BGN", "BOB", "BRL", "BTC", "BYN", "BYR", "CAD", "CHF", "CLP", "CNY", "COP", "CRC", "CZK", "DJF", "DKK", "DZD", "EUR", "GBP", "GEL", "GHS", "GYD", "HKD", "HRK", "HUF", "IDR", "ILS", "INR", "IQD", "IRR", "ISK", "JPY", "KES", "KGS", "KHR", "KMF", "KRW", "KZT", "LBP", "LRD", "MBC", "MDL", "MKD", "MNT", "MXN", "MYR", "NGN", "NOK", "NZD", "PEN", "PHP", "PKR", "PLN", "PYG", "RON", "RSD", "RUB", "RWF", "SEK", "SGD", "THB", "TJS", "TMT", "TND", "TRY", "TWD", "TZS", "UAH", "UGX", "USD", "UYU", "UZS", "VEF", "VES", "VND", "XAF", "XB3", "ZAR"],
         "DefaultCurrency": "EUR",
-        "IsDefault": "1"
+        "IsDefault": "1",
     }, {
         "ID": "61",
         "Name": "*",
         "IDMerchant": "927",
         "Currencies": ["AED", "ALL", "AMD", "ARS", "AUD", "AZN", "BDT", "BGN", "BND", "BOB", "BRL", "BTC", "BTT", "BYN", "BYR", "CAD", "CDF", "CHF", "CLP", "CNY", "COP", "CRC", "CZK", "DKK", "EUR", "GBP", "GEL", "GHS", "GMD", "GYD", "HKD", "HRK", "HUF", "IDR", "ILS", "INR", "IQD", "IRR", "ISK", "JPY", "KES", "KGS", "KHR", "KRW", "KZT", "LBP", "LRD", "LTL", "MBC", "MDL", "MKD", "MNT", "MXN", "MYR", "NGN", "NOK", "NZD", "PEN", "PHP", "PKR", "PLN", "PYG", "RON", "RSD", "RUB", "RWF", "SEK", "SGD", "THB", "TJS", "TMT", "TND", "TRX", "TRY", "TWD", "TZS", "UAH", "UGX", "USD", "USDT", "UYU", "UZS", "VEF", "VES", "VND", "XAF", "XOF", "ZAR", "ZMW"],
         "DefaultCurrency": "",
-        "IsDefault": "1"
+        "IsDefault": "1",
     }, {
         "ID": "64",
         "Name": "",
         "IDMerchant": "929",
         "Currencies": [],
         "DefaultCurrency": "",
-        "IsDefault": "1"
+        "IsDefault": "1",
     }, {
         "ID": "67",
         "Name": "*",
         "IDMerchant": "941",
         "Currencies": ["AED", "ALL", "AMD", "ARS", "AUD", "AZN", "BGN", "BND", "BOB", "BRL", "BYN", "BYR", "CAD", "CHF", "CLP", "CNY", "COP", "CRC", "CZK", "DJF", "DKK", "DZD", "EUR", "GBP", "GEL", "GHS", "GYD", "HKD", "HRK", "HUF", "IDR", "ILS", "INR", "IQD", "IRR", "ISK", "JPY", "KES", "KGS", "KHR", "KMF", "KRW", "KZT", "LBP", "LRD", "LTC", "MBC", "MDL", "MKD", "MNT", "MXN", "MYR", "NGN", "NOK", "NZD", "PEN", "PHP", "PKR", "PLN", "PYG", "RON", "RSD", "RUB", "RWF", "SEK", "SGD", "THB", "TJS", "TMT", "TND", "TRY", "TWD", "TZS", "UAH", "UGX", "USD", "UYU", "UZS", "VEF", "VND", "XAF", "ZAR"],
         "DefaultCurrency": "",
-        "IsDefault": "1"
+        "IsDefault": "1",
     }, {
         "ID": "70",
         "Name": "*",
         "IDMerchant": "945",
         "Currencies": ["AED", "AMD", "ARS", "AUD", "AZN", "BC1", "BCH", "BGN", "BOB", "BRL", "BTC", "BTT", "BYN", "CAD", "CHF", "CLP", "CNY", "COP", "CZK", "DKK", "ET1", "ET2", "ETH", "EUR", "GBP", "GEL", "GHS", "HKD", "HUF", "ILS", "INR", "IQD", "IRR", "JPY", "KES", "KGS", "KRW", "KZT", "LT1", "LTC", "MDL", "MNT", "MXN", "MYR", "NGN", "NOK", "NZD", "PEN", "PLN", "PYG", "RON", "RSD", "RUB", "SEK", "SGD", "THB", "TJS", "TMT", "TND", "TRX", "TRY", "TWD", "UAH", "UGX", "USD", "USDT", "UYU", "UZS", "VEF", "VND", "XAF", "XB3", "ZAR"],
         "DefaultCurrency": "EUR",
-        "IsDefault": "1"
+        "IsDefault": "1",
     }, {
         "ID": "73",
         "Name": "",
         "IDMerchant": "958",
         "Currencies": ["AED", "ALL", "AMD", "ARS", "AUD", "AZN", "BC1", "BC2", "BCH", "BDT", "BGN", "BND", "BOB", "BRL", "BTC", "BYN", "BYR", "CAD", "CDF", "CHF", "CLP", "CNY", "COP", "CRC", "CZK", "DJF", "DKK", "DZD", "ET1", "ET2", "ETB", "ETH", "EUR", "GBP", "GEL", "GHS", "GMD", "GYD", "HKD", "HRK", "HUF", "IDR", "ILS", "INR", "IOT", "IQD", "IRR", "ISK", "JPY", "KES", "KGS", "KHR", "KMF", "KRW", "KZT", "LBP", "LRD", "LT1", "LT2", "LTC", "LTL", "MBC", "MDL", "MKD", "MNT", "MXN", "MYR", "NGN", "NOK", "NZD", "PEN", "PHP", "PKR", "PLN", "PYG", "RON", "RSD", "RUB", "RWF", "SEK", "SGD", "THB", "TJS", "TMT", "TND", "TRY", "TWD", "TZS", "UAH", "UGX", "USD", "UYU", "UZS", "VEF", "VES", "VND", "XAF", "XB3", "XM1", "XMR", "XOF", "ZAR", "ZMW", "ZWL"],
         "DefaultCurrency": "",
-        "IsDefault": "1"
+        "IsDefault": "1",
     }, {
         "ID": "76",
         "Name": "*",
         "IDMerchant": "974",
         "Currencies": ["AED", "AMD", "ARS", "AUD", "AZN", "BGN", "BOB", "BRL", "BTC", "BYN", "CAD", "CHF", "CLP", "CNY", "COP", "CZK", "DKK", "ETB", "EUR", "GBP", "GEL", "GHS", "HKD", "HRK", "HUF", "IDR", "ILS", "INR", "IQD", "IRR", "ISK", "JPY", "KES", "KGS", "KRW", "KZT", "MBC", "MDL", "MNT", "MXN", "MYR", "NGN", "NOK", "NZD", "PEN", "PHP", "PLN", "PYG", "RON", "RSD", "RUB", "RWF", "SEK", "SGD", "THB", "TJS", "TMT", "TND", "TRY", "TWD", "TZS", "UAH", "UGX", "USD", "UYU", "UZS", "VEF", "VND", "XAF", "ZAR"],
         "DefaultCurrency": "EUR",
-        "IsDefault": "1"
+        "IsDefault": "1",
     }, {
         "ID": "79",
         "Name": "*",
         "IDMerchant": "989",
         "Currencies": ["AUD", "BRL", "BTC", "CAD", "EUR", "INR", "KZT", "MDL", "NOK", "PLN", "RUB", "TJS", "TRY", "UAH", "USD"],
         "DefaultCurrency": "EUR",
-        "IsDefault": "1"
+        "IsDefault": "1",
     }, {
         "ID": "82",
         "Name": "*",
         "IDMerchant": "983",
         "Currencies": ["AED", "AMD", "ARS", "AZN", "BCH", "BGN", "BOB", "BRL", "BYN", "CAD", "CHF", "CLP", "CNY", "COP", "CZK", "DKK", "ETH", "EUR", "GBP", "GEL", "GHS", "HKD", "HUF", "INR", "IQD", "IRR", "JPY", "KES", "KGS", "KZT", "LTC", "MBC", "MDL", "MNT", "MXN", "MYR", "NGN", "NOK", "NZD", "PEN", "PHP", "PLN", "PYG", "RSD", "RUB", "SEK", "SGD", "THB", "TJS", "TMT", "TND", "TRY", "TWD", "TZS", "UAH", "UGX", "USD", "UYU", "UZS", "VEF", "VES", "VND", "XAF"],
         "DefaultCurrency": "EUR",
-        "IsDefault": "1"
+        "IsDefault": "1",
     }, {
         "ID": "85",
         "Name": "",
         "IDMerchant": "990",
         "Currencies": ["AED", "AMD", "ARS", "AUD", "AZN", "BDT", "BGN", "BND", "BOB", "BRL", "BTC", "BYN", "CAD", "CHF", "CLP", "CNY", "COP", "CRC", "CZK", "DJF", "DKK", "DZD", "EUR", "GBP", "GEL", "GHS", "GYD", "HKD", "HRK", "IDR", "ILS", "INR", "IQD", "IRR", "ISK", "JPY", "KES", "KGS", "KHR", "KMF", "KRW", "KZT", "LBP", "LRD", "MBC", "MDL", "MKD", "MNT", "MXN", "MYR", "NGN", "NOK", "NZD", "PEN", "PHP", "PKR", "PLN", "PYG", "RON", "RSD", "RUB", "RWF", "SEK", "SGD", "THB", "TJS", "TMT", "TND", "TRY", "TWD", "TZS", "UAH", "UGX", "USD", "UYU", "UZS", "VEF", "VES", "VND", "XAF", "ZAR"],
         "DefaultCurrency": "EUR",
-        "IsDefault": "1"
+        "IsDefault": "1",
     }, {
         "ID": "88",
         "Name": "*",
         "IDMerchant": "980",
         "Currencies": ["AED", "AMD", "ARS", "AUD", "AZN", "BGN", "BOB", "BRL", "BTC", "BYN", "CAD", "CHF", "CLP", "CNY", "COP", "CZK", "DKK", "ETH", "EUR", "GBP", "GEL", "GYD", "HKD", "HUF", "IDR", "ILS", "INR", "IQD", "IRR", "JPY", "KES", "KGS", "KHR", "KRW", "KZT", "MBC", "MDL", "MNT", "MXN", "MYR", "NGN", "NOK", "NZD", "PEN", "PLN", "PYG", "RON", "RUB", "SEK", "THB", "TJS", "TMT", "TND", "TRY", "TWD", "TZS", "UAH", "UGX", "USD", "UYU", "UZS", "VEF", "VND", "XAF", "ZAR"],
         "DefaultCurrency": "EUR",
-        "IsDefault": "1"
+        "IsDefault": "1",
     }, {
         "ID": "91",
         "Name": "*",
         "IDMerchant": "936",
         "Currencies": ["AMD", "AZN", "BYN", "EUR", "GBP", "KGS", "KZT", "NOK", "RUB", "SEK", "TRY", "TZS", "UAH", "USD", "UZS"],
         "DefaultCurrency": "EUR",
-        "IsDefault": "1"
+        "IsDefault": "1",
     }, {
         "ID": "94",
         "Name": "*",
         "IDMerchant": "967",
         "Currencies": ["AUD", "BRL", "BTC", "CNY", "EUR", "GBP", "IDR", "INR", "JPY", "KRW", "MYR", "SGD", "THB", "USD", "VND"],
         "DefaultCurrency": "EUR",
-        "IsDefault": "1"
+        "IsDefault": "1",
     }, {
         "ID": "97",
         "Name": "**",
         "IDMerchant": "966",
         "Currencies": ["ARS", "BND", "BRL", "BTC", "BYN", "CLP", "CNY", "ETH", "EUR", "HKD", "IDR", "INR", "JPY", "KHR", "KRW", "KZT", "LTC", "MNT", "MYR", "NGN", "NOK", "PEN", "PHP", "PYG", "SEK", "SGD", "THB", "TRY", "TWD", "UAH", "USD", "UYU", "VND", "ZAR"],
         "DefaultCurrency": "EUR",
-        "IsDefault": "1"
+        "IsDefault": "1",
     }, {
         "ID": "100",
         "Name": "",
         "IDMerchant": "968",
         "Currencies": ["AED", "AUD", "BDT", "BND", "BRL", "BTC", "CAD", "CHF", "CNY", "EUR", "GBP", "IDR", "INR", "JPY", "KHR", "MBC", "MYR", "NOK", "PLN", "RUB", "SEK", "SGD", "THB", "TRY", "TWD", "UAH", "USD", "VND", "ZAR"],
         "DefaultCurrency": "EUR",
-        "IsDefault": "1"
+        "IsDefault": "1",
     }, {
         "ID": "103",
         "Name": "",
         "IDMerchant": "964",
         "Currencies": ["CNY", "IDR", "JPY", "KRW", "MYR", "THB", "TWD", "USD", "VND"],
         "DefaultCurrency": "USD",
-        "IsDefault": "1"
+        "IsDefault": "1",
     }, {
         "ID": "106",
         "Name": "Default",
         "IDMerchant": "942",
         "Currencies": ["AED", "AMD", "ARS", "AUD", "AZN", "BGN", "BOB", "BRL", "BTC", "BYN", "BYR", "CAD", "CHF", "CLP", "CNY", "COP", "CZK", "DKK", "EUR", "GBP", "GEL", "GHS", "HKD", "HUF", "INR", "IQD", "IRR", "JPY", "KES", "KGS", "KRW", "KZT", "MXN", "MYR", "NGN", "NOK", "NZD", "PEN", "PKR", "PLN", "PYG", "RON", "RSD", "RUB", "SEK", "SGD", "THB", "TJS", "TMT", "TND", "TRY", "TWD", "TZS", "UAH", "UGX", "USD", "UYU", "UZS", "VEF", "VES", "VND", "XAF", "ZAR"],
         "DefaultCurrency": "EUR",
-        "IsDefault": "1"
+        "IsDefault": "1",
     }, {
         "ID": "109",
         "Name": "*",
         "IDMerchant": "950",
         "Currencies": ["AED", "AMD", "ARS", "AUD", "AZN", "BGN", "BOB", "BRL", "BTC", "BYN", "CAD", "CHF", "CLP", "CNY", "COP", "CZK", "DKK", "ETH", "EUR", "GBP", "GEL", "GHS", "HKD", "HUF", "ILS", "INR", "IQD", "IRR", "JPY", "KES", "KGS", "KRW", "KZT", "LT1", "LTC", "MBC", "MDL", "MNT", "MXN", "MYR", "NGN", "NOK", "NZD", "PEN", "PLN", "PYG", "RON", "RSD", "RUB", "SEK", "SGD", "THB", "TJS", "TMT", "TND", "TRY", "TWD", "UAH", "UGX", "USD", "UYU", "UZS", "VND", "XAF", "ZAR"],
         "DefaultCurrency": "EUR",
-        "IsDefault": "1"
+        "IsDefault": "1",
     }, {
         "ID": "112",
         "Name": "*",
         "IDMerchant": "977",
         "Currencies": ["AED", "AMD", "ARS", "AUD", "AZN", "BDT", "BGN", "BND", "BOB", "BRL", "CAD", "CHF", "CLP", "CNY", "COP", "CRC", "CZK", "DJF", "DKK", "DZD", "ET1", "ET2", "ETH", "EUR", "GBP", "GEL", "GHS", "GYD", "HKD", "HRK", "HUF", "IDR", "ILS", "INR", "IOT", "IQD", "IRR", "ISK", "JPY", "KES", "KGS", "KHR", "KMF", "KRW", "KZT", "LBP", "LRD", "LT1", "LT2", "LTC", "MBC", "MDL", "MKD", "MNT", "MXN", "MYR", "NGN", "NOK", "NZD", "PEN", "PHP", "PKR", "PLN", "PYG", "RON", "RSD", "RUB", "RWF", "SEK", "SGD", "THB", "TJS", "TMT", "TND", "TRY", "TWD", "TZS", "UAH", "UGX", "USD", "UYU", "UZS", "VEF", "VND", "XAF", "XOF", "ZAR"],
         "DefaultCurrency": "EUR",
-        "IsDefault": "1"
+        "IsDefault": "1",
     }, {
         "ID": "115",
         "Name": "*",
         "IDMerchant": "986",
         "Currencies": ["AED", "AMD", "ARS", "AUD", "AZN", "BC1", "BCH", "BDT", "BGN", "BOB", "BRL", "BTC", "BTT", "BYN", "CAD", "CHF", "CLP", "CNY", "COP", "CRC", "CZK", "DJF", "DKK", "DZD", "ET1", "ET2", "ETH", "EUR", "GBP", "GEL", "GHS", "GYD", "HKD", "HRK", "HUF", "IDR", "ILS", "INR", "IQD", "IRR", "ISK", "JPY", "KES", "KGS", "KHR", "KMF", "KRW", "KZT", "LBP", "LRD", "LT1", "LT2", "LTC", "MBC", "MDL", "MKD", "MNT", "MXN", "MYR", "NGN", "NOK", "NZD", "PEN", "PHP", "PKR", "PLN", "PYG", "RON", "RSD", "RUB", "RWF", "SEK", "SGD", "THB", "TJS", "TMT", "TND", "TRX", "TRY", "TZS", "UAH", "UGX", "USD", "USDT", "UYU", "UZS", "VEF", "VND", "XAF", "ZAR"],
         "DefaultCurrency": "EUR",
-        "IsDefault": "1"
+        "IsDefault": "1",
     }, {
         "ID": "118",
         "Name": "*",
         "IDMerchant": "959",
         "Currencies": ["AED", "AMD", "ARS", "AUD", "AZN", "BC1", "BC2", "BCH", "BDT", "BGN", "BND", "BOB", "BRL", "BTC", "BTT", "BYN", "CAD", "CHF", "CLP", "CNY", "COP", "CRC", "CZK", "DJF", "DKK", "DZD", "ET1", "ET2", "ETH", "EUR", "GBP", "GEL", "GHS", "GYD", "HKD", "HRK", "HUF", "IDR", "ILS", "INR", "IOT", "IQD", "IRR", "ISK", "JPY", "KES", "KGS", "KHR", "KMF", "KRW", "KZT", "LBP", "LRD", "LT1", "LT2", "LTC", "MBC", "MDL", "MKD", "MNT", "MXN", "MYR", "NGN", "NOK", "NZD", "PEN", "PHP", "PKR", "PLN", "PYG", "RON", "RSD", "RUB", "RWF", "SEK", "SGD", "THB", "TJS", "TMT", "TND", "TRX", "TRY", "TWD", "TZS", "UAH", "UGX", "USD", "USDT", "UYU", "UZS", "VEF", "VND", "XAF", "XB3", "ZAR"],
         "DefaultCurrency": "EUR",
-        "IsDefault": "1"
+        "IsDefault": "1",
     }, {
         "ID": "121",
         "Name": "*",
         "IDMerchant": "987",
         "Currencies": ["AED", "AMD", "ARS", "AUD", "AZN", "BC1", "BCH", "BDT", "BGN", "BND", "BOB", "BRL", "CAD", "CHF", "CLP", "CNY", "COP", "CRC", "CZK", "DJF", "DKK", "DZD", "ET1", "EUR", "GBP", "GEL", "GHS", "GYD", "HKD", "HRK", "HUF", "IDR", "ILS", "INR", "IQD", "IRR", "ISK", "JPY", "KES", "KGS", "KHR", "KMF", "KRW", "KZT", "LBP", "LRD", "LT1", "MBC", "MDL", "MKD", "MNT", "MXN", "MYR", "NGN", "NOK", "NZD", "PEN", "PHP", "PKR", "PLN", "PYG", "RON", "RSD", "RUB", "RWF", "SEK", "SGD", "THB", "TJS", "TMT", "TND", "TRY", "TWD", "TZS", "UAH", "UGX", "USD", "UYU", "UZS", "VEF", "VES", "VND", "XAF", "ZAR"],
         "DefaultCurrency": "EUR",
-        "IsDefault": "1"
+        "IsDefault": "1",
     }, {
         "ID": "124",
         "Name": "",
         "IDMerchant": "944",
         "Currencies": ["AED", "AMD", "ARS", "AUD", "AZN", "BC1", "BC2", "BCH", "BDT", "BGN", "BND", "BOB", "BRL", "BTC", "BYN", "CAD", "CHF", "CLP", "CNY", "COP", "CRC", "CZK", "DJF", "DKK", "DZD", "EUR", "GBP", "GEL", "GHS", "GYD", "HKD", "HRK", "HUF", "IDR", "ILS", "INR", "IQD", "IRR", "ISK", "JPY", "KES", "KGS", "KHR", "KMF", "KRW", "KZT", "LBP", "LRD", "MBC", "MDL", "MKD", "MNT", "MXN", "MYR", "NGN", "NOK", "NZD", "PEN", "PHP", "PKR", "PLN", "PYG", "RON", "RSD", "RUB", "RWF", "SEK", "SGD", "THB", "TJS", "TMT", "TND", "TRY", "TWD", "TZS", "UAH", "UGX", "USD", "UYU", "UZS", "VEF", "VND", "XAF", "ZAR"],
         "DefaultCurrency": "EUR",
-        "IsDefault": "1"
+        "IsDefault": "1",
     }, {
         "ID": "127",
         "Name": "*",
         "IDMerchant": "960",
         "Currencies": ["AED", "AMD", "ARS", "AUD", "AZN", "BC1", "BC2", "BCH", "BDT", "BGN", "BND", "BOB", "BRL", "BTC", "BYN", "CAD", "CHF", "CLP", "CNY", "COP", "CRC", "CZK", "DJF", "DKK", "DZD", "ET1", "ET2", "ETH", "EUR", "GBP", "GEL", "GHS", "GYD", "HKD", "HRK", "HUF", "IDR", "ILS", "INR", "IQD", "IRR", "ISK", "JPY", "KES", "KGS", "KHR", "KMF", "KRW", "KZT", "LBP", "LRD", "LT1", "LT2", "LTC", "MDL", "MKD", "MNT", "MXN", "MYR", "NGN", "NOK", "NZD", "PEN", "PHP", "PKR", "PLN", "PYG", "RON", "RSD", "RUB", "RWF", "SEK", "SGD", "THB", "TJS", "TMT", "TND", "TRY", "TWD", "TZS", "UAH", "UGX", "USD", "UYU", "UZS", "VEF", "VND", "XAF", "ZAR"],
         "DefaultCurrency": "EUR",
-        "IsDefault": "1"
+        "IsDefault": "1",
     }, {
         "ID": "130",
         "Name": "*",
         "IDMerchant": "954",
         "Currencies": ["AMD", "ARS", "AZN", "BRL", "BYN", "CHF", "CNY", "EUR", "GBP", "GEL", "JPY", "KGS", "KZT", "MDL", "MNT", "NOK", "NZD", "RUB", "SEK", "TRY", "UAH", "USD", "UZS", "XAF", "ZAR"],
         "DefaultCurrency": "EUR",
-        "IsDefault": "1"
+        "IsDefault": "1",
     }, {
         "ID": "133",
         "Name": "*",
         "IDMerchant": "955",
         "Currencies": ["AED", "AMD", "ARS", "AUD", "AZN", "BC1", "BC2", "BCH", "BDT", "BGN", "BND", "BOB", "BRL", "BTC", "BTT", "BYN", "BYR", "CAD", "CHF", "CLP", "CNY", "COP", "CRC", "CZK", "DJF", "DKK", "DZD", "ET1", "ET2", "ETH", "EUR", "GBP", "GEL", "GHS", "GYD", "HKD", "HRK", "HUF", "IDR", "ILS", "INR", "IQD", "IRR", "ISK", "JPY", "KES", "KGS", "KHR", "KMF", "KRW", "KZT", "LBP", "LRD", "LT1", "LT2", "LTC", "LTL", "MBC", "MDL", "MKD", "MNT", "MXN", "MYR", "NGN", "NOK", "NZD", "PEN", "PHP", "PKR", "PLN", "PYG", "RON", "RSD", "RUB", "RWF", "SEK", "SGD", "THB", "TJS", "TMT", "TND", "TRX", "TRY", "TWD", "TZS", "UAH", "UGX", "USD", "USDT", "UYU", "UZS", "VEF", "VND", "XAF", "XB3", "ZAR"],
         "DefaultCurrency": "EUR",
-        "IsDefault": "1"
+        "IsDefault": "1",
     }, {
         "ID": "136",
         "Name": "Default*",
         "IDMerchant": "985",
         "Currencies": ["AED", "AMD", "ARS", "AUD", "AZN", "BC2", "BCH", "BDT", "BGN", "BND", "BOB", "BRL", "BTC", "BYN", "BYR", "CAD", "CHF", "CLP", "CNY", "COP", "CRC", "CZK", "DJF", "DKK", "DZD", "ET2", "ETB", "ETH", "EUR", "GBP", "GEL", "GHS", "GYD", "HKD", "HRK", "HUF", "IDR", "ILS", "INR", "IQD", "IRR", "ISK", "JPY", "KES", "KGS", "KHR", "KMF", "KRW", "KZT", "LBP", "LRD", "LT2", "LTC", "MBC", "MDL", "MKD", "MNT", "MXN", "MYR", "NGN", "NOK", "NZD", "PEN", "PHP", "PKR", "PLN", "PYG", "RON", "RSD", "RUB", "RWF", "SEK", "SGD", "THB", "TJS", "TMT", "TND", "TRY", "TWD", "TZS", "UAH", "UGX", "USD", "UYU", "UZS", "VEF", "VND", "XAF", "ZAR"],
         "DefaultCurrency": "EUR",
-        "IsDefault": "1"
+        "IsDefault": "1",
     }, {
         "ID": "139",
         "Name": "*",
         "IDMerchant": "991",
         "Currencies": ["AED", "AMD", "ARS", "AUD", "AZN", "BC1", "BC2", "BCH", "BDT", "BGN", "BND", "BOB", "BRL", "BTC", "BYN", "BYR", "CAD", "CHF", "CLP", "CNY", "COP", "CRC", "CZK", "DJF", "DKK", "DZD", "ET1", "ETH", "EUR", "GBP", "GEL", "GHS", "GYD", "HKD", "HRK", "HUF", "IDR", "ILS", "INR", "IQD", "IRR", "ISK", "JPY", "KES", "KGS", "KHR", "KMF", "KRW", "KZT", "LBP", "LRD", "LT1", "LTC", "MBC", "MDL", "MKD", "MNT", "MXN", "MYR", "NGN", "NOK", "NZD", "PEN", "PHP", "PKR", "PLN", "PYG", "RON", "RSD", "RUB", "RWF", "SEK", "SGD", "THB", "TMT", "TND", "TRY", "TWD", "TZS", "UAH", "USD", "UYU", "UZS", "VEF", "VES", "VND", "XAF", "XB3", "ZAR"],
         "DefaultCurrency": "",
-        "IsDefault": "1"
+        "IsDefault": "1",
     }, {
         "ID": "142",
         "Name": "",
         "IDMerchant": "963",
         "Currencies": ["AED", "ALL", "AMD", "ARS", "AUD", "AZN", "BC1", "BC2", "BDT", "BGN", "BND", "BOB", "BRL", "BTC", "BYN", "BYR", "CAD", "CHF", "CLP", "CNY", "COP", "CRC", "CZK", "DJF", "DKK", "DZD", "ET1", "ET2", "ETH", "EUR", "GBP", "GEL", "GHS", "GYD", "HKD", "HRK", "HUF", "IDR", "ILS", "INR", "IQD", "IRR", "ISK", "JPY", "KES", "KGS", "KHR", "KMF", "KRW", "KZT", "LBP", "LRD", "LT1", "LT2", "LTC", "MBC", "MDL", "MKD", "MNT", "MXN", "MYR", "NGN", "NOK", "NZD", "PEN", "PHP", "PKR", "PLN", "PYG", "RON", "RSD", "RUB", "RWF", "SEK", "SGD", "THB", "TJS", "TMT", "TND", "TRY", "TWD", "TZS", "UAH", "UGX", "USD", "UYU", "UZS", "VEF", "VES", "VND", "XAF", "XOF", "ZAR"],
         "DefaultCurrency": "",
-        "IsDefault": "1"
+        "IsDefault": "1",
     }, {
         "ID": "145",
         "Name": "",
         "IDMerchant": "956",
         "Currencies": ["AED", "ALL", "AMD", "ARS", "AUD", "AZN", "BC1", "BC2", "BCH", "BDT", "BGN", "BND", "BOB", "BRL", "BTC", "BYN", "CAD", "CHF", "CLP", "CNY", "COP", "CRC", "CZK", "DJF", "DKK", "DZD", "ET1", "ET2", "ETH", "EUR", "GBP", "GEL", "GHS", "GYD", "HKD", "HRK", "HUF", "IDR", "ILS", "INR", "IQD", "IRR", "ISK", "JPY", "KES", "KGS", "KHR", "KMF", "KRW", "KZT", "LBP", "LRD", "LT1", "LT2", "LTC", "MBC", "MDL", "MKD", "MNT", "MXN", "MYR", "NGN", "NOK", "NZD", "PEN", "PHP", "PKR", "PLN", "PYG", "RON", "RSD", "RUB", "RWF", "SEK", "SGD", "THB", "TJS", "TMT", "TND", "TRY", "TWD", "TZS", "UAH", "UGX", "USD", "UYU", "UZS", "VEF", "VND", "XAF", "ZAR"],
         "DefaultCurrency": "",
-        "IsDefault": "1"
+        "IsDefault": "1",
     }, {
         "ID": "148",
         "Name": "*",
         "IDMerchant": "978",
         "Currencies": ["AED", "ALL", "AMD", "ARS", "AUD", "AZN", "BDT", "BGN", "BOB", "BRL", "CAD", "CHF", "CLP", "CNY", "COP", "CZK", "DKK", "EUR", "GBP", "GEL", "GHS", "HKD", "HRK", "HUF", "IDR", "INR", "IQD", "IRR", "ISK", "JPY", "KES", "KGS", "KRW", "KZT", "MNT", "MXN", "MYR", "NGN", "NOK", "NZD", "PEN", "PHP", "PLN", "PYG", "RON", "RUB", "SEK", "SGD", "THB", "TND", "TRY", "TWD", "TZS", "UAH", "UGX", "USD", "UYU", "VND", "XAF", "XOF", "ZAR"],
         "DefaultCurrency": "EUR",
-        "IsDefault": "1"
+        "IsDefault": "1",
     }, {
         "ID": "151",
         "Name": "",
         "IDMerchant": "953",
         "Currencies": ["AMD", "ARS", "AUD", "BGN", "BRL", "CAD", "CHF", "CLP", "CNY", "CZK", "DKK", "EUR", "GBP", "GEL", "HKD", "HUF", "ILS", "INR", "JPY", "KRW", "KZT", "MXN", "MYR", "NGN", "NOK", "NZD", "PEN", "PLN", "RON", "RUB", "SEK", "SGD", "THB", "TRY", "TWD", "UAH", "USD", "VND", "ZAR"],
         "DefaultCurrency": "EUR",
-        "IsDefault": "1"
+        "IsDefault": "1",
     }, {
         "ID": "154",
         "Name": "",
         "IDMerchant": "957",
         "Currencies": ["AMD", "AUD", "BGN", "CAD", "CHF", "CZK", "DKK", "EUR", "GBP", "GEL", "NOK", "PLN", "SEK", "TRY", "USD"],
         "DefaultCurrency": "EUR",
-        "IsDefault": "1"
+        "IsDefault": "1",
     }, {
         "ID": "157",
         "Name": "*",
         "IDMerchant": "951",
         "Currencies": ["AED", "AMD", "ARS", "AUD", "AZN", "BC1", "BGN", "BOB", "BRL", "BTC", "BYR", "CAD", "CHF", "CLP", "CNY", "COP", "CZK", "DKK", "EUR", "GBP", "HKD", "HUF", "IQD", "IRR", "JPY", "KES", "MXN", "NGN", "NOK", "NZD", "PEN", "PLN", "RON", "RSD", "RUB", "SEK", "SGD", "THB", "TND", "TRY", "USD", "VEF", "ZAR"],
         "DefaultCurrency": "",
-        "IsDefault": "1"
+        "IsDefault": "1",
     }, {
         "ID": "160",
         "Name": "*",
         "IDMerchant": "948",
         "Currencies": ["ALL", "AMD", "AUD", "AZN", "BGN", "BRL", "CAD", "CHF", "CLP", "COP", "CZK", "DKK", "EUR", "GBP", "GEL", "GHS", "HRK", "HUF", "INR", "KES", "KGS", "KRW", "KZT", "MDL", "MKD", "MNT", "MXN", "NGN", "NOK", "NZD", "PEN", "PLN", "RON", "RSD", "RUB", "RWF", "SEK", "TJS", "TRY", "UAH", "UGX", "USD", "UZS", "XAF", "ZAR"],
         "DefaultCurrency": "",
-        "IsDefault": "1"
+        "IsDefault": "1",
     }, {
         "ID": "163",
         "Name": "*",
         "IDMerchant": "949",
         "Currencies": ["AED", "ALL", "AMD", "ARS", "AUD", "AZN", "BC1", "BC2", "BDT", "BGN", "BND", "BOB", "BRL", "BTC", "BYN", "BYR", "CAD", "CHF", "CLP", "CNY", "COP", "CRC", "CZK", "DJF", "DKK", "DZD", "ET1", "EUR", "GBP", "GEL", "GHS", "GYD", "HKD", "HRK", "HUF", "IDR", "ILS", "INR", "IQD", "IRR", "ISK", "JPY", "KES", "KGS", "KHR", "KMF", "KRW", "KZT", "LBP", "LRD", "LT1", "MBC", "MDL", "MKD", "MNT", "MXN", "MYR", "NGN", "NOK", "NZD", "PEN", "PHP", "PKR", "PLN", "PYG", "RON", "RSD", "RUB", "RWF", "SEK", "SGD", "THB", "TJS", "TMT", "TND", "TRY", "TWD", "UAH", "USD", "UYU", "UZS", "VEF", "VES", "VND", "XAF", "XB3", "ZAR"],
         "DefaultCurrency": "EUR",
-        "IsDefault": "1"
+        "IsDefault": "1",
     }, {
         "ID": "166",
         "Name": "*",
         "IDMerchant": "946",
         "Currencies": ["AED", "AMD", "ARS", "AUD", "AZN", "BGN", "BOB", "BRL", "BYN", "BYR", "CAD", "CHF", "CLP", "CNY", "COP", "CRC", "CZK", "DJF", "DKK", "EUR", "GBP", "GEL", "GHS", "HKD", "HRK", "HUF", "IDR", "ILS", "INR", "IQD", "IRR", "JPY", "KES", "KGS", "KRW", "KZT", "LTL", "MBC", "MNT", "MXN", "MYR", "NOK", "NZD", "PEN", "PHP", "PLN", "PYG", "RON", "RSD", "RUB", "SEK", "SGD", "THB", "TJS", "TMT", "TND", "TRY", "TWD", "UAH", "UGX", "USD", "UYU", "UZS", "VEF", "XAF", "ZAR"],
         "DefaultCurrency": "EUR",
-        "IsDefault": "1"
+        "IsDefault": "1",
     }, {
         "ID": "169",
         "Name": "*",
         "IDMerchant": "947",
         "Currencies": ["AED", "AMD", "ARS", "AUD", "BGN", "BOB", "BRL", "CAD", "CHF", "CLP", "COP", "DKK", "EUR", "GBP", "HKD", "HUF", "ILS", "INR", "IQD", "JPY", "KRW", "KZT", "MXN", "MYR", "NOK", "PEN", "PLN", "RON", "RSD", "RUB", "SEK", "THB", "TND", "TRY", "TWD", "UAH", "USD", "UYU", "VEF", "VND", "ZAR"],
         "DefaultCurrency": "EUR",
-        "IsDefault": "1"
+        "IsDefault": "1",
     }, {
         "ID": "172",
         "Name": "*",
         "IDMerchant": "924",
         "Currencies": ["AED", "ALL", "AMD", "ARS", "AUD", "AZN", "BDT", "BGN", "BOB", "BRL", "BTT", "BYN", "CAD", "CDF", "CHF", "CLP", "CNY", "COP", "CZK", "DKK", "DZD", "ETB", "EUR", "GBP", "GEL", "GHS", "HKD", "HRK", "HUF", "IDR", "ILS", "INR", "IQD", "IRR", "ISK", "JPY", "KES", "KGS", "KRW", "KZT", "MBC", "MDL", "MKD", "MNT", "MXN", "MYR", "NGN", "NOK", "NZD", "PEN", "PHP", "PLN", "PYG", "RON", "RSD", "RUB", "SEK", "THB", "TJS", "TMT", "TND", "TRX", "TRY", "TWD", "TZS", "UAH", "UGX", "USD", "USDT", "UYU", "UZS", "VEF", "VND", "XAF", "ZAR"],
         "DefaultCurrency": "",
-        "IsDefault": "1"
+        "IsDefault": "1",
     }, {
         "ID": "175",
         "Name": "",
         "IDMerchant": "925",
         "Currencies": ["AMD", "ARS", "AUD", "BGN", "BRL", "CAD", "CHF", "CLP", "CNY", "COP", "CZK", "DKK", "EUR", "GBP", "GEL", "HKD", "HRK", "HUF", "IDR", "INR", "ISK", "JPY", "KHR", "KRW", "LTL", "MXN", "MYR", "NOK", "NZD", "PEN", "PHP", "PLN", "PYG", "RON", "RSD", "RUB", "SEK", "SGD", "THB", "TRY", "TWD", "UAH", "USD", "UYU", "VND", "ZAR"],
         "DefaultCurrency": "",
-        "IsDefault": "1"
+        "IsDefault": "1",
     }, {
         "ID": "178",
         "Name": "*",
         "IDMerchant": "937",
         "Currencies": ["AED", "AMD", "ARS", "AUD", "BRL", "CAD", "CLP", "CNY", "COP", "DKK", "EUR", "GBP", "GHS", "HKD", "IDR", "INR", "JPY", "KES", "KRW", "MYR", "NOK", "NZD", "PEN", "PHP", "RON", "RUB", "SEK", "SGD", "THB", "TRY", "TWD", "USD", "VES", "VND"],
         "DefaultCurrency": "",
-        "IsDefault": "1"
+        "IsDefault": "1",
     }, {
         "ID": "181",
         "Name": "",
         "IDMerchant": "928",
         "Currencies": ["ALL", "AMD", "ARS", "AUD", "AZN", "BGN", "BND", "BRL", "CAD", "CHF", "CLP", "CNY", "COP", "CZK", "DKK", "EUR", "GBP", "GEL", "GHS", "HKD", "HRK", "HUF", "IDR", "ILS", "INR", "ISK", "JPY", "KGS", "KRW", "KZT", "LTL", "MDL", "MNT", "MXN", "MYR", "NGN", "NOK", "NZD", "PEN", "PHP", "PLN", "PYG", "RON", "RSD", "RUB", "SEK", "SGD", "THB", "TJS", "TRY", "TWD", "TZS", "UAH", "USD", "UYU", "VND", "ZAR", "ZMW"],
         "DefaultCurrency": "",
-        "IsDefault": "1"
+        "IsDefault": "1",
     }, {
         "ID": "184",
         "Name": "*",
         "IDMerchant": "952",
         "Currencies": ["AED", "ALL", "AMD", "ARS", "AUD", "AZN", "BCH", "BDT", "BGN", "BND", "BOB", "BRL", "BYN", "BYR", "CAD", "CDF", "CHF", "CLP", "CNY", "COP", "CRC", "CZK", "DJF", "DKK", "DZD", "ETB", "EUR", "GBP", "GEL", "GHS", "GMD", "GYD", "HKD", "HRK", "HUF", "IDR", "ILS", "INR", "IOT", "IQD", "IRR", "ISK", "JPY", "KES", "KGS", "KHR", "KMF", "KRW", "KZT", "LBP", "LRD", "LTC", "LTL", "MDL", "MKD", "MNT", "MXN", "MYR", "NGN", "NOK", "NZD", "PEN", "PHP", "PKR", "PLN", "PYG", "RON", "RSD", "RUB", "RWF", "SEK", "SGD", "THB", "TJS", "TMT", "TND", "TRY", "TWD", "TZS", "UAH", "UGX", "USD", "UYU", "UZS", "VEF", "VES", "VND", "XAF", "XB3", "XM1", "XMR", "XOF", "ZAR", "ZMW", "ZWL"],
         "DefaultCurrency": "EUR",
-        "IsDefault": "1"
+        "IsDefault": "1",
     }, {
         "ID": "187",
         "Name": "*",
         "IDMerchant": "926",
         "Currencies": ["AED", "ALL", "AMD", "ARS", "AUD", "AZN", "BDT", "BGN", "BND", "BOB", "BRL", "BYN", "CAD", "CDF", "CHF", "CLP", "CNY", "COP", "CRC", "CZK", "DJF", "DKK", "DZD", "ETB", "EUR", "GBP", "GEL", "GHS", "GMD", "GYD", "HKD", "HRK", "HUF", "IDR", "ILS", "INR", "IQD", "IRR", "ISK", "JPY", "KES", "KGS", "KHR", "KMF", "KRW", "KZT", "LBP", "LRD", "MBC", "MDL", "MKD", "MNT", "MXN", "MYR", "NGN", "NOK", "NZD", "PEN", "PHP", "PKR", "PLN", "PYG", "RON", "RSD", "RUB", "RWF", "SEK", "SGD", "THB", "TJS", "TMT", "TND", "TRY", "TWD", "TZS", "UAH", "UGX", "USD", "UYU", "UZS", "VES", "VND", "XAF", "XOF", "ZAR", "ZMW", "ZWL"],
         "DefaultCurrency": "EUR",
-        "IsDefault": "1"
+        "IsDefault": "1",
     }, {
         "ID": "190",
         "Name": "",
         "IDMerchant": "935",
         "Currencies": ["AMD", "ARS", "AUD", "AZN", "BGN", "BOB", "BRL", "CAD", "CHF", "CLP", "CNY", "COP", "CZK", "DKK", "EUR", "GBP", "GEL", "GHS", "HKD", "HUF", "ILS", "INR", "IQD", "JPY", "KRW", "KZT", "MXN", "MYR", "NOK", "NZD", "PEN", "PHP", "PKR", "PLN", "PYG", "RON", "RSD", "RUB", "RWF", "SEK", "SGD", "THB", "TRY", "TWD", "TZS", "UAH", "USD", "UYU", "UZS", "VND", "ZAR"],
         "DefaultCurrency": "",
-        "IsDefault": "1"
+        "IsDefault": "1",
     }, {
         "ID": "193",
         "Name": "*",
         "IDMerchant": "934",
         "Currencies": ["AED", "ALL", "AMD", "ARS", "AUD", "AZN", "BCH", "BDT", "BGN", "BOB", "BRL", "BTC", "BYN", "CAD", "CDF", "CHF", "CLP", "CNY", "COP", "CZK", "DKK", "DZD", "ETB", "ETH", "EUR", "GBP", "GEL", "GHS", "HKD", "HRK", "HUF", "IDR", "ILS", "INR", "IQD", "IRR", "ISK", "JPY", "KES", "KGS", "KHR", "KRW", "KZT", "LTC", "MDL", "MKD", "MNT", "MXN", "MYR", "NGN", "NOK", "NZD", "PEN", "PHP", "PKR", "PLN", "PYG", "RON", "RSD", "RUB", "SEK", "SGD", "THB", "TJS", "TMT", "TND", "TRY", "TWD", "TZS", "UAH", "UGX", "USD", "UYU", "UZS", "VEF", "VND", "XAF", "XOF", "ZAR", "ZMW", "ZWL"],
         "DefaultCurrency": "EUR",
-        "IsDefault": "1"
+        "IsDefault": "1",
     }, {
         "ID": "196",
         "Name": "*",
         "IDMerchant": "938",
         "Currencies": ["AMD", "ARS", "AUD", "BRL", "BTC", "CAD", "CLP", "CNY", "COP", "CZK", "DKK", "ET1", "ETH", "EUR", "GBP", "HKD", "IDR", "INR", "ISK", "JPY", "KRW", "KZT", "LT1", "LTC", "MBC", "MYR", "NOK", "NZD", "PEN", "PLN", "RSD", "RUB", "SEK", "THB", "TRY", "TWD", "TZS", "UAH", "USD", "VND", "ZAR"],
         "DefaultCurrency": "",
-        "IsDefault": "1"
+        "IsDefault": "1",
     }, {
         "ID": "199",
         "Name": "*",
         "IDMerchant": "972",
         "Currencies": ["AED", "AMD", "ARS", "AUD", "BRL", "CAD", "CHF", "CLP", "CNY", "COP", "CZK", "DKK", "EUR", "GBP", "HKD", "ILS", "INR", "IQD", "IRR", "JPY", "KES", "KRW", "KZT", "MXN", "MYR", "NGN", "NOK", "NZD", "PEN", "PLN", "PYG", "RUB", "SEK", "SGD", "THB", "TMT", "TND", "TRY", "UAH", "UGX", "USD", "UYU", "UZS", "VEF", "VND", "ZAR"],
         "DefaultCurrency": "SGD",
-        "IsDefault": "1"
+        "IsDefault": "1",
     }, {
         "ID": "202",
         "Name": "",
         "IDMerchant": "920",
         "Currencies": ["AMD", "ARS", "AUD", "AZN", "BGN", "BOB", "BRL", "BYR", "CAD", "CHF", "CLP", "CNY", "COP", "CZK", "DKK", "EUR", "GBP", "GEL", "HKD", "HRK", "HUF", "IDR", "ILS", "INR", "ISK", "JPY", "KES", "KGS", "KRW", "KZT", "LTL", "MDL", "MNT", "MXN", "MYR", "NGN", "NOK", "NZD", "PEN", "PHP", "PLN", "PYG", "RON", "RSD", "RUB", "SGD", "THB", "TND", "TRY", "TWD", "TZS", "UAH", "USD", "UYU", "UZS", "VEF", "VND", "XAF", "ZAR"],
         "DefaultCurrency": "",
-        "IsDefault": "1"
+        "IsDefault": "1",
     }, {
         "ID": "205",
         "Name": "*",
         "IDMerchant": "932",
         "Currencies": ["ARS", "AUD", "BGN", "BRL", "CAD", "CHF", "CLP", "CNY", "COP", "CZK", "DKK", "EUR", "GBP", "GEL", "HKD", "HRK", "HUF", "ISK", "JPY", "KRW", "KZT", "MBC", "MXN", "MYR", "NGN", "NOK", "NZD", "PEN", "PLN", "RON", "RUB", "SEK", "SGD", "THB", "TRY", "TWD", "UAH", "USD", "VEF", "ZAR"],
         "DefaultCurrency": "",
-        "IsDefault": "1"
+        "IsDefault": "1",
     }, {
         "ID": "211",
         "Name": "Playlogiq",
         "IDMerchant": "985",
         "Currencies": ["ETB", "EUR", "ILS", "NGN", "TND", "TRY", "USD"],
         "DefaultCurrency": "",
-        "IsDefault": "0"
+        "IsDefault": "0",
     }, {
         "ID": "214",
         "Name": "HooliganVision",
         "IDMerchant": "935",
         "Currencies": [],
         "DefaultCurrency": "",
-        "IsDefault": "0"
+        "IsDefault": "0",
     }, {
         "ID": "241",
         "Name": "AZN",
         "IDMerchant": "992",
         "Currencies": ["AMD", "ARS", "AUD", "AZN", "BGN", "BOB", "BRL", "CAD", "CHF", "CLP", "CNY", "COP", "CZK", "DKK", "EUR", "GBP", "GEL", "GHS", "HKD", "HRK", "IDR", "ILS", "INR", "ISK", "JPY", "KES", "KZT", "MXN", "MYR", "NGN", "NOK", "NZD", "PEN", "PHP", "PLN", "RON", "RSD", "RUB", "SEK", "SGD", "THB", "TRY", "TWD", "TZS", "UAH", "USD", "VND", "XAF", "ZAR"],
         "DefaultCurrency": "",
-        "IsDefault": "0"
+        "IsDefault": "0",
     }, {
         "ID": "244",
         "Name": "*",
         "IDMerchant": "931",
         "Currencies": ["AMD", "ARS", "AUD", "BDT", "BGN", "BOB", "BRL", "CAD", "CHF", "CLP", "CNY", "COP", "CRC", "CZK", "DKK", "EUR", "GBP", "GEL", "GHS", "HKD", "HRK", "HUF", "IDR", "INR", "ISK", "JPY", "KRW", "KZT", "LTL", "MXN", "MYR", "NGN", "NOK", "NZD", "PEN", "PHP", "PKR", "PLN", "PYG", "RON", "RUB", "SEK", "SGD", "THB", "TRY", "TZS", "UGX", "USD", "UYU", "VEF", "VND", "XMR", "ZAR", "ZMW"],
         "DefaultCurrency": "",
-        "IsDefault": "1"
+        "IsDefault": "1",
     }, {
         "ID": "247",
         "Name": "*",
         "IDMerchant": "930",
         "Currencies": ["AMD", "ARS", "AUD", "BC1", "BCH", "BOB", "BRL", "BTC", "CAD", "CHF", "CLP", "CNY", "CZK", "DKK", "EUR", "GBP", "GEL", "GHS", "JPY", "KES", "KHR", "LT1", "LTC", "MBC", "MXN", "NGN", "NOK", "NZD", "PEN", "PLN", "RUB", "RWF", "SEK", "TRY", "TZS", "UAH", "UGX", "USD", "VEF"],
         "DefaultCurrency": "",
-        "IsDefault": "1"
+        "IsDefault": "1",
     }, {
         "ID": "253",
         "Name": "*",
         "IDMerchant": "919",
         "Currencies": ["AED", "AMD", "ARS", "AUD", "BDT", "BRL", "CAD", "CHF", "CLP", "CNY", "CZK", "DKK", "EUR", "GBP", "HKD", "IDR", "INR", "JPY", "KRW", "MXN", "MYR", "NOK", "NZD", "PEN", "PLN", "PYG", "RUB", "SEK", "SGD", "THB", "TND", "TRY", "UAH", "USD", "UYU", "VES", "VND", "ZAR"],
         "DefaultCurrency": "EUR",
-        "IsDefault": "1"
+        "IsDefault": "1",
     }, {
         "ID": "254",
         "Name": "*",
         "IDMerchant": "914",
         "Currencies": ["AED", "ALL", "AMD", "ARS", "AUD", "AZN", "BDT", "BGN", "BND", "BOB", "BRL", "BYN", "BYR", "CAD", "CDF", "CHF", "CLP", "CNY", "COP", "CRC", "CZK", "DJF", "DKK", "DZD", "ETB", "EUR", "GBP", "GEL", "GHS", "GMD", "GTQ", "GYD", "HKD", "HRK", "HUF", "IDR", "ILS", "INR", "IOT", "IQD", "IRR", "ISK", "JPY", "KES", "KGS", "KHR", "KMF", "KRW", "KZT", "LBP", "LRD", "LTL", "MAD", "MDL", "MKD", "MNT", "MXN", "MYR", "NGN", "NIO", "NOK", "NZD", "PEN", "PHP", "PKR", "PLN", "PYG", "QAR", "RON", "RSD", "RUB", "RWF", "SEK", "SGD", "THB", "TJS", "TMT", "TND", "TRY", "TWD", "TZS", "UAH", "UGX", "USD", "UYU", "UZS", "VEF", "VES", "VND", "XAF", "XMR", "XOF", "ZAR", "ZMW", "ZWL"],
         "DefaultCurrency": "",
-        "IsDefault": "1"
-    }]
-}
+        "IsDefault": "1",
+    }],
+};
