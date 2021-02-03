@@ -42,7 +42,6 @@
     &__title {
         @include text.get-text-style(ef.get-value($hostModal, 'titleFontSize'), ef.get-value($hostModal, 'titleColor'));
         margin: ef.get-value($hostModal, 'titleMargin');
-        @include ellipsisText;
 
         max-width: ef.get-value($hostModal, 'titleMaxWidth');
         padding: ef.get-value($hostModal, 'titlePadding');
