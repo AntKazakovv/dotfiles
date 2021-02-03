@@ -16,5 +16,5 @@ export namespace wlcCategoryMenu {
             theme: 'with-icons',
             type: 'categories-menu',
         },
-    }
+    };
 }
