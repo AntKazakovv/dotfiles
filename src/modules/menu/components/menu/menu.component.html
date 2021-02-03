@@ -2,22 +2,26 @@
 
     <ng-container *ngIf="!item.params?.state?.parent; else srefWithParent">
         <div class="{{$class}}__item {{$class}}__item--sref">
-            <span class="{{$class}}__icon" *ngIf="item.icon" wlc-icon [iconName]="item.icon">
-            </span>
+
             <a class="{{$class}}__link"
                *ngIf="item.params?.state?.activeEq"
                [uiSref]="item.params?.state?.name"
                [uiParams]="item.params?.state?.params"
                [uiOptions]="item.params?.state?.options"
-               uiSrefActiveEq="active">{{item.name | translate}}</a>
+               uiSrefActiveEq="active">
+               {{item.name | translate}}</a>
+
+
             <a class="{{$class}}__link"
                *ngIf="!item.params?.state?.activeEq"
                [uiSref]="item.params?.state?.name"
                [uiParams]="item.params?.state?.params"
                [uiOptions]="item.params?.state?.options"
-               uiSrefActive="active">{{item.name | translate}}
+               uiSrefActive="active">
 
-                <span class="{{$class}}__icon {{$class}}__icon--arrow"
+               <span class="{{$class}}__icon" *ngIf="item.icon" wlc-icon [iconName]="item.icon"></span>
+               <span>{{item.name | translate}}</span>
+               <span class="{{$class}}__icon {{$class}}__icon--arrow"
                       *ngIf="$params.common?.useArrow" wlc-icon [iconName]="'arrow'">
             </span>
             </a>

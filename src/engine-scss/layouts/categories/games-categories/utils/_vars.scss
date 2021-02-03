@@ -33,3 +33,25 @@ $gamesCategoriesDefault: map-merge((
     buttonMerchMargin: ef.get('size', 'smally'),
 ), $customGamesCategoriesDefault);
 
+$customWithIcons: () !default;
+$withIcons: map-merge((
+    searchButtonBg: ef.get('mainColors', 'bg500'),
+    searchButtonBgHover: ef.get('mainColors', 'bg300'),
+    searchButtonIconFill: ef.get('mainColors', 'main'),
+    merchButtonBg: ef.get('mainColors', 'bg500'),
+    merchButtonBgHover: ef.get('mainColors', 'bg300'),
+    merchButtonIconFill: ef.get('mainColors', 'main'),
+    sectionGap: (
+        900: ef.get('size', 'small'),
+    ),
+    buttonPadding: (
+        375: ef.get('size', 'small') ef.get('size', 'smally'),
+    ),
+    buttonBorderRadius: (
+        375: ef.get('radius', 'biger'),
+    ),
+    gridColumns: (
+        375: minmax(0, 1fr),
+        900: minmax(0, 1fr) 250px,
+    ),
+), $customThemeDefault);

@@ -19,5 +19,21 @@ export namespace categories {
             },
         ],
     };
+    export const catalogWithIcons: ILayoutSectionConfig = {
+        container: true,
+        theme: '2',
+        components: [
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'games-categories',
+                    components: [
+                        componentLib.wlcCategoryMenu.categoriesWithIcons,
+                        componentLib.wlcButton.searchV3,
+                        componentLib.wlcButton.searchMerchants,
+                    ],
+                },
+            },
+        ],
+    };
 }
-
