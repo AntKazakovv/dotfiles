@@ -22,7 +22,9 @@ import {
     IGameParams,
     IJackpot,
     IGames,
-    gamesEvents, IFavourite,
+    gamesEvents,
+    IFavourite,
+    ILastPlayedGame,
 } from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
 import {IGamesFilterData} from 'wlc-engine/modules/games/system/interfaces/filters.interfaces';
 
@@ -33,6 +35,7 @@ import {
     startsWith as _startsWith,
     isString as _isString,
     toNumber as _toNumber,
+    map as _map,
 } from 'lodash-es';
 
 @Injectable({
@@ -139,10 +142,26 @@ export class GamesCatalogService {
      *
      * @returns {Promise<void>}
      */
-    public async loadLastGames(): Promise<void> {
+    private async loadLastGames(): Promise<ILastPlayedGame[]> {
         if (this.configService.get('$user.isAuthenticated')) {
-            await this.dataService.request('games/lastGames');
+            const data: IData = await this.dataService.request('games/lastGames');
+            return data.data;
         }
+    }
+
+    /**
+     * Get last games
+     *
+     * @returns {Promise<Game[]>} Last games list
+     */
+    public async getLastGames(): Promise<Game[]> {
+        const lastPlayed: ILastPlayedGame[] = await this.loadLastGames();
+        const lastPlayedIds: number[] = _map(lastPlayed, (gameInfo: ILastPlayedGame) => {
+            return _toNumber(gameInfo.ID);
+        });
+        return this.getGameList({
+            ids: lastPlayedIds,
+        });
     }
 
     /**
@@ -157,10 +176,26 @@ export class GamesCatalogService {
      *
      * @returns {Promise<void>}
      */
-    public async loadFavourites(): Promise<void> {
+    public async loadFavourites(): Promise<IFavourite[]> {
         if (this.configService.get('$user.isAuthenticated')) {
-            this.dataService.request('games/favorites');
+            const data: IData = await this.dataService.request('games/favorites');
+            return data.data;
         }
+    }
+
+    /**
+     * Get favorite games
+     *
+     * @returns {Promise<Game[]>}
+     */
+    public async getFavouriteGames(): Promise<Game[]> {
+        const favoriteGames: IFavourite[] = await this.loadFavourites();
+        this.favourites = _map(favoriteGames, (gameInfo: IFavourite) => {
+            return _toNumber(gameInfo.game_id);
+        });
+        return this.getGameList({
+            ids: this.favourites,
+        });
     }
 
     /**
@@ -191,6 +226,10 @@ export class GamesCatalogService {
         }
         this.favoritesUpdated.next();
         return !!response.data.favorite;
+    }
+
+    public isSpecialCategory(category: CategoryModel): boolean {
+        return this.gamesCatalog.isSpecialCategory(category);
     }
 
     /**

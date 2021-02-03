@@ -107,6 +107,10 @@
                 height: 100%;
             }
         }
+
+        //&__game-container {
+        //    height: 100%;
+        //}
     }
 
     &.wlc-game-wrapper--mobile {
@@ -145,20 +149,20 @@
                 div[wlc-dynamic-html] {
                     display: none;
                 }
+            }
 
-                .ng-star-inserted {
-                    height: 100%;
-                }
+            &__game-container {
+                height: 100%;
             }
         }
-    }
 
-    &.wlc-game-wrapper--real-mobile {
+        &.wlc-game-wrapper--real-mobile {
 
-        .wlc-game-wrapper {
+            .wlc-game-wrapper {
 
-            &__game-area {
-                height: 100% !important;
+                &__game-area {
+                    height: 100% !important;
+                }
             }
         }
     }

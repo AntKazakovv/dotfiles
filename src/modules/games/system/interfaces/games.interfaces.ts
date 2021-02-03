@@ -152,6 +152,11 @@ export type IFavourite = {
     favorite?: boolean;
 }
 
+export interface ILastPlayedGame {
+    ID: string;
+    Image: string;
+}
+
 /**
  * INTERFACES
  */

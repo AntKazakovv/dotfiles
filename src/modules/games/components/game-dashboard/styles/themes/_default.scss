@@ -1,6 +1,6 @@
 @use 'engine-scss/mixins/mediaqueries' as mq;
-@use 'engine-scss/functions' as ef;
 @use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/functions' as ef;
 @import '../utils/mixins';
 @import '../utils/vars';
 
@@ -21,6 +21,21 @@
 
     .wlc-game-dashboard {
 
+        &__backdrop {
+            display: none;
+            background: transparentize(ef.get-value($themeDefault, 'backgroundAdUnit'), 0.2);
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: all;
+        }
+
+        &__container {
+            height: 100%;
+        }
+
         &__tutorial {
             pointer-events: all;
             position: fixed;
@@ -35,19 +50,19 @@
             background: transparentize(ef.get-value($themeDefault, 'backgroundAdUnit'), 0.2);
 
             &-left-decor {
-                background: url('/gstatic/wlc/game-dashboard/tutorial-top.png') ef.get-value($themeDefault, 'decorLeftPosition') no-repeat;
+                background: url('/gstatic/wlc/game-dashboard/tutorial.png') right bottom no-repeat;
                 height: ef.get-value($themeDefault, 'decorHeight');
                 width: ef.get-value($themeDefault, 'decorWidth');
-                top: 0;
+                bottom: 0;
                 left: 0;
                 position: absolute;
             }
 
             &-right-decor {
-                background: url('/gstatic/wlc/game-dashboard/tutorial.png') ef.get-value($themeDefault, 'decorRightPosition') no-repeat;
+                background: url('/gstatic/wlc/game-dashboard/tutorial-top.png') top left no-repeat;
                 height: ef.get-value($themeDefault, 'decorHeight');
                 width: ef.get-value($themeDefault, 'decorWidth');
-                bottom: 0;
+                top: 0;
                 right: 0;
                 position: absolute;
             }
@@ -65,33 +80,68 @@
         &__tutorial-arrow {
             position: absolute;
             top: ef.get-value($themeDefault, 'tutotrialArrowTop');
-            right: ef.get-value($themeDefault, 'tutotrialArrowRight');
+            left: ef.get-value($themeDefault, 'tutotrialArrowLeft');
+            text-align: right;
+
+            &-icon {
+                transform: scale(-1, 1);
+            }
 
             .tutorial-text {
+                //font-weight: 500;
+                //font-size: 10px;
+                //color: #ffffff;
+                //margin-top: 8px;
+                //margin-left: 20px;
                 @include text.get-text-style('SignText', ef.get-value($themeDefault, 'tutorialColor'));
-                margin: ef.get-value($themeDefault, 'tutorialTextMargin');
+                margin: ef.get-value($themeDefault, 'tutorialArrowTextMargin');
             }
         }
 
         &__tutorial-text {
+            font-weight: bold;
+            font-size: 16px;
+            color: #ffffff;
+            margin-bottom: 59px;
             @include text.get-text-style('ThirdTitle', ef.get-value($themeDefault, 'tutorialColor'));
+        }
+
+        &__dont-show {
+            display: inline-block;
+
+            ::ng-deep {
+
+                .wlc-checkbox {
+
+                    &__elem {
+                        top: ef.get-value($themeDefault, 'tutorialCheckTop');
+                    }
+
+                    &__text {
+
+                        color: ef.get-value($themeDefault, 'tutorialDontShowColor');
+                        margin: ef.get-value($themeDefault, 'tutorialDontShowMargin');
+                    }
+                }
+            }
         }
 
         &__wrp {
             width: ef.get-value($themeDefault, 'wrpWidth');
+            height: 100%;
             background: ef.get-value($themeDefault, 'wrpBackground');
             position: absolute;
             top: 0;
-            right: 0;
+            left: 0;
             bottom: 0;
-            transform: translateX(100%);
+            transform: translateX(-300px);
             pointer-events: all;
         }
 
         &__panch {
             position: absolute;
             top: ef.get-value($themeDefault, 'panchTop');
-            left: ef.get-value($themeDefault, 'panchLeft');
+            right: ef.get-value($themeDefault, 'panchRight');
             width: ef.get-value($themeDefault, 'panchWidth');
             height: ef.get-value($themeDefault, 'panchHeight');
 
@@ -120,6 +170,8 @@
 
         &__content {
             padding: ef.get-value($themeDefault, 'contentPadding');
+            height: 100%;
+            width: 100%;
 
             &::ng-deep {
 
@@ -154,9 +206,207 @@
                 background: ef.get-value($themeDefault, 'backgroundTabsActive');
             }
         }
+
+        &__games-slider {
+            width: 100%;
+            height: 100%;
+        }
+
+        &__game {
+            margin-bottom: 15px;
+        }
+    }
+
+    ::ng-deep {
+
+        .wlc-loader {
+            margin-top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .wlc-game-dashboard__games-slider {
+
+            .swiper-container {
+                padding: 0;
+                height: 100%;
+            }
+
+            .swiper-wrapper {
+                height: 95%;
+                display: flex;
+                justify-content: center;
+
+                .swiper-slide {
+                    height: calc(98% / 2 - 15px);
+                    display: inline-block;
+                    max-width: 150px;
+
+                    .wlc-game-thumb {
+                        height: 100%;
+                        padding-top: unset;
+                    }
+
+                    @media (min-height: 450px) {
+                        height: calc(98% / 3 - 15px);
+                    }
+                }
+            }
+
+            .swiper-pagination {
+                bottom: -5px;
+            }
+
+            .wlc-game-thumb {
+                background: unset;
+
+                &__img {
+                    left: unset !important;
+                    height: 100%;
+
+                    img {
+                        width: auto !important;
+                        height: 100%;
+                    }
+                }
+            }
+        }
+
+        .wlc-scrollbar {
+            height: 90%;
+
+            &__container {
+                padding-right: 15px;
+            }
+        }
+    }
+
+    .wlc-loyalty-progress {
+        margin-top: 30px;
+    }
+
+    &.wlc-game-dashboard--not-auth {
+
+        .wlc-game-dashboard {
+
+            &__header {
+                justify-content: flex-start;
+                padding: 10px;
+            }
+
+            &__tab {
+                margin: 0 15px 0 0;
+            }
+        }
+    }
+
+    &.wlc-game-dashboard--mobile.wlc-game-dashboard--not-auth.wlc-game-dashboard--landscape {
+
+        .wlc-game-dashboard {
+
+            &__tab {
+                margin: 0 0 15px 0;
+            }
+        }
     }
 
     &.wlc-game-dashboard--mobile {
+
+        &.wlc-game-dashboard--landscape {
+
+            .wlc-game-dashboard {
+
+                &__tutorial {
+
+                    &-left-decor {
+                        background: url('/gstatic/wlc/game-dashboard/tutorial-bottom.png') right bottom no-repeat;
+                    }
+                }
+
+                &__container {
+                    display: grid;
+                    //grid-template-columns: 1fr 60px;
+                    grid-template-columns: minmax(0, 1fr) 60px;
+                    grid-template-rows: 1fr;
+                    height: 100%;
+                }
+
+                &__wrp {
+                    top: 10px;
+                    height: calc(100% - 20px);
+                    border-radius: 0 15px 15px 0;
+                }
+
+                &__header {
+                    flex-direction: column;
+                    align-items: center;
+                    grid-column: 2;
+                    border-radius: 0 15px 15px 0;
+                }
+
+                &__content {
+                    height: 100%;
+                    grid-column: 1;
+                    grid-row: 1;
+
+                    &--profile {
+                        display: grid;
+                        grid-template-columns: 1fr 1fr;
+                        grid-template-rows: 1fr;
+                        padding: 0;
+                    }
+                }
+
+                &__backdrop-label {
+                    position: absolute;
+                    right: 0;
+                    top: 50%;
+                    transform: translate(50%, -50%);
+                }
+
+                &__tutorial-arrow {
+                    top: 125px;
+                }
+
+                &__profile-user-stats {
+                    background: #a6a6a6;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+
+                    .wlc-user-stats {
+                        margin: auto 10px;
+                    }
+                }
+
+                &__user-info {
+                    display: flex;
+                    align-items: center;
+                }
+
+                &__profile-user {
+                    padding: 0 26px;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                }
+
+                &__deposit-btn {
+                    margin-top: 30px;
+                }
+            }
+
+            ::ng-deep {
+
+                .wlc-user-name {
+
+                    &__email-icon {
+                        width: 27px !important;
+                        height: 27px !important;
+                    }
+                }
+            }
+        }
 
         &.wlc-game-dashboard--backdrop {
 

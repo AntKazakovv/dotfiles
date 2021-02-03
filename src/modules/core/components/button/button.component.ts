@@ -53,11 +53,12 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
     @Input() protected type: BParams.Type;
     @Input() protected theme: BParams.Theme;
     @Input() protected themeMod: BParams.ThemeMod;
-    @Input() protected customMod: BParams.CustomMod
+    @Input() protected customMod: BParams.CustomMod;
     @Input() protected size: BParams.Size;
     @Input() protected icon: string;
     @Input() protected index: BParams.Index;
     @Input() protected wlcElement: string;
+    @Input() protected inlineParams: BParams.IButtonParams;
 
     public $params: BParams.IButtonCParams;
     protected $loading = new Subject<boolean>();
@@ -90,21 +91,24 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
     }
 
     public ngAfterViewInit(): void {
-        //todo refactor
-        if (this.$params.common?.event || this.params.common?.sref) {
+        if (this.$params.common?.event || this.$params.common?.sref) {
             fromEvent(this.elementRef.nativeElement, 'click')
                 .pipe(takeUntil(this.$destroy))
                 .subscribe(() => {
                     if (this.$params.common?.event) {
                         this.eventService.emit(this.$params.common.event);
-                    } else if (this.params.common?.sref) {
-                        this.stateService.go(this.params.common.sref);
+                    } else if (this.$params.common?.sref) {
+                        this.stateService.go(this.$params.common.sref);
                     }
                 });
         }
     }
 
-    protected prepareParams(): BParams.IButtonCParams {
+    protected prepareParams(): BParams.IButtonParams {
+        if (this.inlineParams) {
+            return this.inlineParams;
+        }
+
         const inputProperties: string[] = ['text', 'size', 'icon', 'index', 'event', 'type'];
         const inlineParams: BParams.IButtonCParams = {
             common: {},
@@ -132,3 +136,4 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
         this.addModifiers(modifiers);
     }
 }
+

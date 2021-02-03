@@ -23,18 +23,24 @@ import SwiperCore, {
 import {SwiperComponent} from 'swiper/angular';
 
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ConfigService} from 'wlc-engine/modules/core';
+import {ActionService, ConfigService, DeviceModel, DeviceOrientation} from 'wlc-engine/modules/core';
 import {
     BannersService,
     WinnersService,
 } from 'wlc-engine/modules/promo/system/services';
-
+import {IResizeEvent} from 'wlc-engine/modules/core/system/services/action/action.service';
 import * as Params from './slider.params';
 
+import {takeUntil} from 'rxjs/operators';
 import {
     assign as _assign,
     isNumber as _isNumber,
     times as _times,
+    ceil as _ceil,
+    floor as _floor,
+    toNumber as _toNumber,
+    get as _get,
+    forEach as _forEach,
 } from 'lodash-es';
 
 SwiperCore.use([
@@ -59,10 +65,14 @@ export class SliderComponent extends AbstractComponent
 
     @Input() public slides: Params.ISlide[];
     @Input() protected inlineParams: Params.ISliderCParams;
+
+    public sliderWrap: Element;
     public $params: Params.ISliderCParams;
 
     public ready: boolean = false;
     public slidesSequence: number[] = [];
+    public emptySlidesCount: number = 0;
+    public slideMaxWidth: number = 0;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ISliderCParams,
@@ -72,6 +82,7 @@ export class SliderComponent extends AbstractComponent
         protected cdr: ChangeDetectorRef,
         protected renderer: Renderer2,
         protected injector: Injector,
+        protected actionService: ActionService,
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService);
     }
@@ -79,14 +90,33 @@ export class SliderComponent extends AbstractComponent
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
 
+        const {swiper} = this.$params;
         if (this.$params.slides && !this.slides) {
             this.slides = this.$params.slides;
         }
+        this.initEmptySlidesCount();
         // for fix loop
         this.fixSlidesSequence();
     }
 
+    public initEmptySlidesCount(): void {
+        if (this.isAutoSlidesAndColumnMode()) {
+            const {swiper} = this.$params;
+            if (_isNumber(swiper?.slidesPerView) && swiper?.slidesPerColumn) {
+                const groupCount: number = swiper.slidesPerView * swiper.slidesPerColumn;
+                const fullFilledSlides: number = Math.floor(this.slides.length / groupCount);
+                this.emptySlidesCount = groupCount - (this.slides.length - (groupCount * fullFilledSlides));
+            }
+        } else {
+            this.emptySlidesCount = 0;
+        }
+    }
+
     public ngAfterViewInit(): void {
+        this.windowResizeHandler();
+        setTimeout(() => {
+            this.updateView();
+        }, 0);
         this.ready = true;
     }
 
@@ -122,16 +152,100 @@ export class SliderComponent extends AbstractComponent
         return slide.injector;
     }
 
+    public onUpdate(swiper): void {
+        if (this.isAutoSlidesAndColumnMode()) {
+            this.setSliderWrapper();
+            const slides: HTMLCollection = _get(this.sliderWrap, 'children');
+            const firstSlide = (slides[0] as HTMLElement);
+
+            _forEach(slides, (slide: HTMLElement) => {
+                slide.style.maxWidth = firstSlide.style.width;
+            });
+            this.cdr.detectChanges();
+        }
+    }
+
+    protected setSliderWrapper(): void {
+        const swiperContainer: HTMLElement = _get(this.swiper, 'elementRef.nativeElement');
+        if (!this.sliderWrap) {
+            this.sliderWrap = swiperContainer.querySelector('.swiper-wrapper');
+        }
+    }
+
+    protected isAutoSlidesAndColumnMode(): boolean {
+        return !!(this.$params.swiper?.slidesPerView === 'auto' && this.$params.swiper?.slidesPerColumn);
+    }
+
+    protected updateView(): void {
+        const swiperContainer: HTMLElement = _get(this.swiper, 'elementRef.nativeElement');
+        if (!this.sliderWrap) {
+            this.sliderWrap = swiperContainer.querySelector('.swiper-wrapper');
+        }
+        const slides: HTMLCollection = _get(this.sliderWrap, 'children');
+        const firstSlide = (slides[0] as HTMLElement);
+
+        if (this.$params.slidesAspectRatio) {
+            const aspectCoef: string[] = this.$params.slidesAspectRatio.split('/');
+            if (aspectCoef.length === 2 && slides.length) {
+                const slideHeight: number = firstSlide.offsetHeight;
+                const slideWidth: number = slideHeight * (_toNumber(aspectCoef[0]) / _toNumber(aspectCoef[1]));
+                this.slideMaxWidth = slideWidth;
+
+                _forEach(slides, (slide: HTMLElement) => {
+                    slide.style.width = `${slideWidth}px`;
+                    slide.style.maxWidth = `${slideWidth}px`;
+                });
+            }
+        }
+
+        if (this.isAutoSlidesAndColumnMode()) {
+            this.emptySlidesCount = 0;
+
+            this.renderer.setStyle(this.sliderWrap, 'width', 'auto');
+            const swiperWidth: number = swiperContainer.offsetWidth;
+
+            const margin = parseInt(firstSlide.style.marginRight);
+            const slideWith = firstSlide.offsetWidth + margin;
+
+            const groupCount: number = this.$params.swiper.slidesPerColumn *
+                _ceil(swiperWidth / (firstSlide.offsetWidth + margin));
+            const floorGroupCount: number = this.$params.swiper.slidesPerColumn *
+                _floor(swiperWidth / (firstSlide.offsetWidth + margin));
+            const minGroup = _ceil(slides.length / this.$params.swiper.slidesPerColumn)
+                * this.$params.swiper.slidesPerColumn;
+            const minGroupWidth: number = minGroup / this.$params.swiper.slidesPerColumn * slideWith;
+
+            if (this.slides.length < floorGroupCount) {
+                this.emptySlidesCount = floorGroupCount - this.slides.length;
+            } else if (this.slides.length < groupCount) {
+                this.emptySlidesCount = groupCount - this.slides.length;
+            } else {
+                this.emptySlidesCount = minGroup - this.slides.length;
+            }
+            this.fixSlidesSequence();
+        }
+        this.cdr.detectChanges();
+        this.swiper.updateSwiper({});
+    }
+
+    protected windowResizeHandler(): void {
+        this.actionService.windowResize()
+            .pipe(takeUntil(this.$destroy))
+            .subscribe((data: IResizeEvent) => {
+                this.updateView();
+            });
+    }
+
     protected fixSlidesSequence(): void {
         if (!this.slides?.length) {
             return;
         }
 
         const {swiper} = this.$params;
-        const realSequence: number[] = _times(this.slides.length, (i) => i);
+        const realSequence: number[] = _times(this.slides.length + this.emptySlidesCount, (i) => i);
 
-        if (swiper.loop) {
-            const slides = _isNumber(swiper.slidesPerView) ? swiper.slidesPerView : 5;
+        if (swiper?.loop) {
+            const slides: number = _isNumber(swiper.slidesPerView) ? swiper.slidesPerView : 5;
             if (slides > this.slides.length) {
                 this.slidesSequence = this.fillSequence(realSequence, slides);
                 return;
@@ -140,7 +254,6 @@ export class SliderComponent extends AbstractComponent
             this.slidesSequence = realSequence;
             return;
         }
-
         this.slidesSequence = realSequence;
     }
 

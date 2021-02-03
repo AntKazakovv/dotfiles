@@ -3,11 +3,7 @@ import {
     Injector,
 } from '@angular/core';
 import {CurrencyPipe} from '@angular/common';
-import {
-    BehaviorSubject,
-    fromEvent,
-    fromEventPattern,
-} from 'rxjs';
+
 import {Observable} from 'rxjs';
 import {takeWhile} from 'rxjs/operators';
 import {
@@ -16,10 +12,19 @@ import {
     EventService,
     IDeviceConfig,
     IIndexing,
-    LayoutService,
     ModalService,
+    LayoutService,
+    DeviceModel,
+    DeviceOrientation,
 } from 'wlc-engine/modules/core';
 import {UserService} from 'wlc-engine/modules/user/system/services';
+
+import {
+    BehaviorSubject,
+    Subject,
+    fromEvent,
+    fromEventPattern,
+} from 'rxjs';
 
 import {
     forEach as _forEach,
@@ -36,12 +41,21 @@ export interface IDeviceBreakpoints {
     desktop: IBreakpoint;
 }
 
+export interface IResizeEvent {
+    device: DeviceModel,
+    event: Event;
+}
+
 @Injectable({
     providedIn: 'root',
 })
 export class ActionService {
-    public breakpoints: IDeviceBreakpoints;
+
+    public device: DeviceModel;
+
     private deviceTypeSubject: BehaviorSubject<DeviceType> = new BehaviorSubject(null);
+    private windowResizeSubject: Subject<IResizeEvent> = new Subject();
+    private breakpoints: IDeviceBreakpoints;
 
     constructor(
         private injector: Injector,
@@ -110,16 +124,40 @@ export class ActionService {
         }, 0);
     }
 
-    public deviceType(): BehaviorSubject<DeviceType> {
+    /**
+     * Get device orientation
+     *
+     * @returns {DeviceOrientation}
+     */
+    public deviceOrientation(): DeviceOrientation {
+        return this.device.orientation;
+    }
+
+    public deviceType(): Observable<DeviceType> {
         _forEach(this.breakpoints, (item: IBreakpoint) => {
             item.observer
                 .pipe(takeWhile(() => !!this.deviceTypeSubject.observers.length))
                 .subscribe(() => this.deviceTypeSubject.next(this.getDeviceType()));
         });
-        return this.deviceTypeSubject;
+        return this.deviceTypeSubject.asObservable();
+    }
+
+    public windowResize(): Observable<IResizeEvent> {
+        return this.windowResizeSubject.asObservable();
     }
 
     private async init(): Promise<void> {
+        this.configService.ready.then(() => {
+            this.device = this.configService.get<DeviceModel>('device');
+            fromEvent(window, 'resize').subscribe({
+                next: (data: Event) => {
+                    this.windowResizeSubject.next({
+                        device: this.device,
+                        event: event,
+                    });
+                },
+            });
+        });
         await this.createBreakpoints();
         this.deviceTypeSubject.next(this.getDeviceType());
     }

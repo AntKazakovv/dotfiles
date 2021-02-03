@@ -2,7 +2,9 @@
     <div class="{{$class}}__tutorial-left-decor" [@leftShift]="decorAnimationState"></div>
     <div class="{{$class}}__tutorial-item" [@fadeIn]="decorAnimationState">
         <div class="{{$class}}__tutorial-arrow">
-            <span wlc-icon iconName="game-dashboard/arrow-right"></span>
+            <div class="{{$class}}__tutorial-arrow-icon">
+                <span wlc-icon iconName="game-dashboard/arrow-right"></span>
+            </div>
             <div class="tutorial-text">
                 {{'Pull this' | translate}} !
             </div>
@@ -13,62 +15,92 @@
         <div class="{{$class}}__tutorial-text">
             {{'You can access the dashboard on your mobile device!' | translate}}
         </div>
+        <div class="{{$class}}__dont-show" wlc-checkbox [inlineParams]="dontShowAgainBtn"></div>
     </div>
     <div class="{{$class}}__tutorial-right-decor" [@rightShift]="decorAnimationState"></div>
 </div>
 
 <div class="{{$class}}__backdrop" #backdrop (click)="close()">
+    <div class="{{$class}}__backdrop-label" #activeTabLabel [hidden]="!opened || hideBackdropLabel">
+        {{activeTab?.label | translate}}
+    </div>
 </div>
 
 <div class="{{$class}}__wrp" #container>
 
         <div class="{{$class}}__panch" #dragBtn [hidden]="!isMobile">
             <div class="{{$class}}__panch-content">
-                <div *ngIf="this.showMobileInstruction && showPanchBtn" class="{{$class}}__panch-btn" #dragBtn [@fadeIn]="decorAnimationState" [@panchBtnColor]="showMobileInstruction ? 'active' : 'inactive'">
+                <div *ngIf="this.showMobileInstruction && showPanchBtn" class="{{$class}}__panch-btn" [@fadeIn]="decorAnimationState" (click)="onDashboardBtnClick()">
                 </div>
-                <div *ngIf="!this.showMobileInstruction && showPanchBtn" class="{{$class}}__panch-btn" #dragBtn>
-                </div>
-            </div>
-        </div>
-
-        <div class="{{$class}}__header">
-            <div class="{{$class}}__tab" *ngFor="let tab of tabs" (click)="openTab(tab.id)" [ngClass]="{'active': isActive(tab)}">
-                <div class="{{$class}}__tab-icon" wlc-icon [iconName]="tab.icon">
+                <div *ngIf="!this.showMobileInstruction && showPanchBtn" class="{{$class}}__panch-btn" (click)="onDashboardBtnClick()">
                 </div>
             </div>
         </div>
-        <div class="{{$class}}__content">
 
-            <ng-container [ngSwitch]="activeTabId">
-
-                <ng-container *ngSwitchCase="'profile'" [ngTemplateOutlet]="profile">
+        <div class="{{$class}}__container">
+            <div class="{{$class}}__header">
+                <ng-container *ngFor="let tab of tabs">
+                    <div class="{{$class}}__tab" (click)="openTab(tab)" *ngIf="checkShowTab(tab)" [ngClass]="{'active': isActive(tab)}">
+                        <div class="{{$class}}__tab-icon" wlc-icon [iconName]="tab.icon">
+                        </div>
+                    </div>
                 </ng-container>
+            </div>
+            <div class="{{$class}}__content {{$class}}__content--{{activeTab?.id || 'default'}}">
 
-                <ng-container *ngSwitchCase="'bonuses'" [ngTemplateOutlet]="bonuses">
+                <ng-container [ngSwitch]="activeTab?.id">
+
+                    <ng-container *ngSwitchCase="'profile'" [ngTemplateOutlet]="profile">
+                    </ng-container>
+
+                    <ng-container *ngSwitchCase="'bonuses'" [ngTemplateOutlet]="bonuses">
+                    </ng-container>
+
+                    <ng-container *ngSwitchCase="'tournaments'" [ngTemplateOutlet]="tournaments">
+                    </ng-container>
+
+                    <ng-container *ngSwitchCase="'last-played'" [ngTemplateOutlet]="lastplayed">
+                    </ng-container>
+
+                    <ng-container *ngSwitchDefault [ngTemplateOutlet]="profile">
+                    </ng-container>
+
                 </ng-container>
-
-                <ng-container *ngSwitchCase="'tournaments'" [ngTemplateOutlet]="tournaments">
-                </ng-container>
-
-                <ng-container *ngSwitchCase="'last-played'" [ngTemplateOutlet]="lastplayed">
-                </ng-container>
-
-                <ng-container *ngSwitchDefault [ngTemplateOutlet]="profile">
-                </ng-container>
-
-            </ng-container>
+            </div>
         </div>
 </div>
 
 <ng-template #profile>
-    <ng-container *ngIf="isAuth">
+    <ng-container *ngIf="isAuth && (!isMobile || !landscapeOrientation)">
         <div wlc-user-stats>
+        </div>
+        <div wlc-loyalty-progress>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="isAuth && isMobile && landscapeOrientation">
+        <div class="{{$class}}__profile-user">
+            <div class="{{$class}}__user-info">
+                <div wlc-user-name>
+                </div>
+                <div wlc-logout>
+                </div>
+            </div>
+            <div wlc-loyalty-progress>
+            </div>
+            <div class="{{$class}}__deposit-btn">
+                <button wlc-button [inlineParams]="depositBtnParams"></button>
+            </div>
+        </div>
+        <div class="{{$class}}__profile-user-stats">
+            <div wlc-user-stats [useDepositBtn]="false">
+            </div>
         </div>
     </ng-container>
 </ng-template>
 
 <ng-template #bonuses>
-
+    <div wlc-bonuses-list [inlineParams]="bonusesListParams">
+    </div>
 </ng-template>
 
 <ng-template #tournaments>
@@ -76,5 +108,28 @@
 </ng-template>
 
 <ng-template #lastplayed>
+    <ng-container *ngIf="lastPlayedGamesReady; else preloader">
+        <ng-container *ngIf="lastPlayedGamesSlides.length">
 
+            <div class="{{$class}}__games-slider" *ngIf="isMobile && landscapeOrientation"
+                 wlc-slider
+                 [slides]="lastPlayedGamesSlides"
+                 [inlineParams]="lastPlayedSwiper">
+            </div>
+
+            <div wlc-scrollbar *ngIf="!isMobile || !landscapeOrientation">
+                <div class="{{$class}}__game" *ngFor="let game of lastPlayedGames | slice: 0:lastPlayedGamesShowLimit">
+                    <div wlc-game-thumb [game]="game"></div>
+                </div>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="!lastPlayedGamesSlides.length">
+            {{'Games not found' | translate}}
+        </ng-container>
+    </ng-container>
+</ng-template>
+
+<ng-template #preloader>
+    <div wlc-loader class="{{$class}}__preloader">
+    </div>
 </ng-template>

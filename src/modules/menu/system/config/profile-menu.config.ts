@@ -462,6 +462,14 @@ export const wlcProfileMenuItemsDefault: MenuParams.MenuConfigItem[] = [
     'profile-menu:cash-withdrawal',
     'profile-menu:transaction-history',
     {
+        parent: 'profile-menu:cash',
+        items: [
+            'profile-menu:cash-deposit',
+            'profile-menu:cash-withdrawal',
+            'profile-menu:transaction-history',
+        ],
+    },
+    {
         parent: 'profile-menu:account-settings',
         items: [
             'profile-menu:edit-profile',

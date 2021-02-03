@@ -128,8 +128,6 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
             // TODO: this.LocalCacheService.set('lastGameParams', this.gameParams);
             this.gamesCatalogService.loadFavourites();
             await this.openActiveGame();
-
-            this.isReady = true;
             this.cdr.detectChanges();
             this.initStartResizeParams();
         } else {
@@ -376,7 +374,9 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
     protected async openActiveGame(): Promise<boolean> {
         try {
             await this.getLaunchParams();
+            this.isReady = true;
             this.cdr.detectChanges();
+
             if (this.useMobileIframe) {
                 return this.runInMobileIframe();
             } else if (this.launchInfo.gameScript) {
@@ -457,6 +457,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
      */
     protected useOrNotMobileIframe(): void {
         this.useMobileIframe = true;
+        this.cdr.detectChanges();
         // const runInIframeOnly: boolean = this.configService.get('siteconfig.game.mobile.runInIframeOnly');
         // if (runInIframeOnly) {
         //     this.useMobileIframe = true;

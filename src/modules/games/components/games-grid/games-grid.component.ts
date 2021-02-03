@@ -70,6 +70,7 @@ export class GamesGridComponent extends AbstractComponent
     implements OnInit, AfterViewInit {
 
     public $params: IGamesGridCParams;
+    public isReady: boolean = false;
     public filteredGames: Game[]; // TODO temporary: until gameService will be able to back category
     public title: string;
     public gamesCount: number = this.configService.get<number>('$games.components.wlc-games-grid.defaultCount') || 12;
@@ -149,6 +150,7 @@ export class GamesGridComponent extends AbstractComponent
             this.title = this.$params.title || this.categoryTitle;
         }
         this.filteredGames = this.games;
+        this.isReady = true;
 
         this.cdr.detectChanges();
     }
@@ -265,14 +267,19 @@ export class GamesGridComponent extends AbstractComponent
      * @returns {Promise<Game[]>}
      */
     protected async getGames(): Promise<Game[]> {
-        return new Promise<Game[]>((resolve) => {
-            if (this.gamesCatalogService.getGameList()) {
-                resolve(this.getFilteredGames());
+        return new Promise<Game[]>(async (resolve, reject) => {
+            let games: Game[] = this.gamesCatalogService.getGameList();
+            if (games) {
+                const gamesList = await this.getFilteredGames();
+                resolve(gamesList);
             }
             this.eventService.subscribe({
                 name: gamesEvents.FETCH_GAME_CATALOG_SUCCEEDED,
             }, () => {
-                resolve(this.getFilteredGames());
+                (async () => {
+                    const gamesList = await this.getFilteredGames();
+                    resolve(gamesList);
+                })();
             });
         });
     }
@@ -282,37 +289,50 @@ export class GamesGridComponent extends AbstractComponent
      *
      * @returns {Game[]}
      */
-    protected getFilteredGames(): Game[] {
+    protected async getFilteredGames(): Promise<Game[]> {
         this.parentCategory = this.gamesCatalogService.getParentCategoryByState();
         this.childCategory = this.gamesCatalogService.getChildCategoryByState();
 
         let games = this.gamesCatalogService.getGameList();
         if (this.$params.byState) {
-            let categories: CategoryModel[] = [];
-            if (this.childCategory) {
-                categories.push(this.childCategory);
-            } else if (this.parentCategory) {
-                categories = this.gamesCatalogService.getCategoriesByParentId(this.parentCategory.id);
-                if (!categories.length) {
-                    categories.push(this.parentCategory);
+            if (this.parentCategory?.slug == 'last-played') {
+                games = await this.gamesCatalogService.getLastGames();
+            } else if (this.parentCategory?.slug == 'favourites') {
+                games = await this.gamesCatalogService.getFavouriteGames();
+            } else {
+                let categories: CategoryModel[] = [];
+                if (this.childCategory) {
+                    categories.push(this.childCategory);
+                } else if (this.parentCategory) {
+                    categories = this.gamesCatalogService.getCategoriesByParentId(this.parentCategory.id);
+                    if (!categories.length) {
+                        categories.push(this.parentCategory);
+                    }
                 }
+                games = this.gamesCatalogService.getGamesByCategories(categories);
             }
-            games = this.gamesCatalogService.getGamesByCategories(categories);
         } else if (this.$params.filter) {
-            // TODO: move to games service
-            const categories: CategoryModel[] = this.gamesCatalogService.getCategories();
-            const category = _find(categories, (item: CategoryModel) => {
-                return item.slug === this.$params.filter.category;
-            });
-            if (!categories || !category) {
-                return;
-            }
-            const currentLang = this.router.stateService.params?.locale || 'en';
-            this.categoryTitle = category.title[currentLang];
 
-            games = _filter(games, (item: Game) => {
-                return _includes(item.categoryID, category.id);
-            });
+            if (this.$params.filter.category == 'last-played') {
+                games = await this.gamesCatalogService.getLastGames();
+            } else if (this.$params.filter.category == 'favourites') {
+                games = await this.gamesCatalogService.getFavouriteGames();
+            } else {
+                // TODO: move to games service
+                const categories: CategoryModel[] = this.gamesCatalogService.getCategories();
+                const category = _find(categories, (item: CategoryModel) => {
+                    return item.slug === this.$params.filter.category;
+                });
+                if (!categories || !category) {
+                    return;
+                }
+                const currentLang = this.router.stateService.params?.locale || 'en';
+                this.categoryTitle = category.title[currentLang];
+
+                games = _filter(games, (item: Game) => {
+                    return _includes(item.categoryID, category.id);
+                });
+            }
         }
         return games;
     }

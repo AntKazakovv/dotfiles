@@ -103,4 +103,15 @@ export namespace wlcButton {
             },
         },
     };
+
+    export const deposit: ILayoutComponent = {
+        name: 'core.wlc-button',
+        params: {
+            themeMod: 'deposit',
+            common: {
+                text: gettext('Deposit'),
+                sref: 'app.profile.cash.deposit',
+            },
+        },
+    };
 }

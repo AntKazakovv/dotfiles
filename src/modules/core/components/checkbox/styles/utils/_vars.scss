@@ -26,12 +26,15 @@ $themeDefault: map-merge((
     'linkHoverColor': darken(ef.get('mainColors', 'main'), 20),
 
     'toggleBackground': ef.get('mainColors', 'baseOpacity'),
-    'toggleWidth': 120px,
-    'toggleHeight': 35px,
-    'togglePadding': 0 6px,
+    'toggleWidth': auto,
+    'toggleHeight': 24px,
+    'toggleElemWidth': 50px,
+    'togglePadding': 0 ef.get('size', 'smally'),
     'toggleRadius': ef.get('radius', 'large'),
-    'toggleOffset': 34px,
-    'toggleCircleSize': 29px,
-    'toggleCircleOffset': 4px,
-    'toggleCircleBg': ef.get('mainColors', 'main')
+    'toggleCircleSize': 20px,
+    'toggleCircleOffset': 2px,
+    'toggleCircleBg': ef.get('mainColors', 'main'),
+    'togglePaddingLeftText': 0,
+    'togglePaddingRightText': ef.get('size', 'smally'),
+    'toggleFontStyle': 'ThirdTitleBold'
 ), $customThemeDefault);

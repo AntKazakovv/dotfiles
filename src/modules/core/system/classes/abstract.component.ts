@@ -17,9 +17,9 @@ import {
     isArray as _isArray,
     map as _map,
     merge as _merge,
+    assign as _assign,
     union as _union,
     forEach as _forEach,
-    clone as _clone,
     cloneDeep as _cloneDeep,
     has as _has,
     split as _split,
@@ -91,7 +91,7 @@ export class AbstractComponent implements OnDestroy, OnInit, OnChanges {
 
     public ngOnChanges(changes: SimpleChanges): void {
         if (_get(changes, 'inlineParams') && _get(this, 'inlineParams')) {
-            this.$params = _merge(this.$params, _get(this, 'inlineParams'));
+            _assign(this.$params, _get(this, 'inlineParams'));
         }
     }
 
