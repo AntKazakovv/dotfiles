@@ -46,8 +46,8 @@ import {
     styleUrls: ['./styles/select.component.scss'],
 })
 export class SelectComponent extends AbstractComponent implements OnInit {
-    @Input() protected inlineParams: Params.ISelectParams;
-    public $params: Params.ISelectParams;
+    @Input() protected inlineParams: Params.ISelectCParams;
+    public $params: Params.ISelectCParams;
     public control: FormControl;
     public isOpened: boolean;
     public fieldWlcElement: string;
@@ -64,7 +64,7 @@ export class SelectComponent extends AbstractComponent implements OnInit {
     private constantValues: IIndexing<BehaviorSubject<Params.ISelectOptions[]>> = {};
 
     constructor(
-        @Inject('injectParams') protected injectParams: Params.ISelectParams,
+        @Inject('injectParams') protected injectParams: Params.ISelectCParams,
         protected configService: ConfigService,
         protected cdr: ChangeDetectorRef,
         private EventService: EventService,

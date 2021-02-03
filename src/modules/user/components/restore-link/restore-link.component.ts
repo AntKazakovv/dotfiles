@@ -14,10 +14,10 @@ import * as Params from './restore-link.params';
     styleUrls: ['./styles/restore-link.component.scss'],
 })
 export class RestoreLinkComponent extends AbstractComponent implements OnInit {
-    public $params: Params.IRestoreLinkComponent;
+    public $params: Params.IRestoreLinkCParams;
 
     constructor(
-        @Inject('injectParams') protected injectParams: Params.IRestoreLinkComponent,
+        @Inject('injectParams') protected injectParams: Params.IRestoreLinkCParams,
         protected modalService: ModalService,
     ) {
         super({

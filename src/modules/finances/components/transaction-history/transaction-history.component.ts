@@ -3,7 +3,7 @@ import {AbstractComponent, IMixedParams} from 'wlc-engine/modules/core/system/cl
 import {FinancesService} from 'wlc-engine/modules/finances/system/services';
 import {Transaction} from 'wlc-engine/modules/finances/system/models/transaction-history.model';
 import {
-    ISelectParams,
+    ISelectCParams,
     IInputCParams,
     ITableCParams,
 } from 'wlc-engine/modules/core';
@@ -28,7 +28,7 @@ import {
 export class TransactionHistoryComponent extends AbstractComponent implements OnInit {
 
     public ready = false;
-    public filterSelect: ISelectParams = {
+    public filterSelect: ISelectCParams = {
         name: 'type',
         value: 'all',
         common: {
@@ -51,7 +51,7 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
         ],
     };
 
-    public $params: Params.ITransactionHistoryParams;
+    public $params: Params.ITransactionHistoryCParams;
 
     public startDateInput: IInputCParams = {
         name: 'startDate',
@@ -91,13 +91,13 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
     protected allTransactions: Transaction[] = [];
 
     constructor(
-        @Inject('injectParams') protected params: Params.ITransactionHistoryParams,
+        @Inject('injectParams') protected params: Params.ITransactionHistoryCParams,
         protected cdr: ChangeDetectorRef,
         protected financesService: FinancesService,
         protected eventService: EventService,
     ) {
         super(
-            <IMixedParams<Params.ITransactionHistoryParams>>{
+            <IMixedParams<Params.ITransactionHistoryCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
             });

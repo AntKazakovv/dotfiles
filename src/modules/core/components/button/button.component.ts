@@ -33,7 +33,7 @@ import {
     get as _get,
 } from 'lodash-es';
 
-export {IButtonParams} from './button.params';
+export {IButtonCParams} from './button.params';
 
 @Component({
     selector: 'button[wlc-button]',
@@ -59,12 +59,12 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
     @Input() protected index: BParams.Index;
     @Input() protected wlcElement: string;
 
-    public $params: BParams.IButtonParams;
+    public $params: BParams.IButtonCParams;
     protected $loading = new Subject<boolean>();
     @HostBinding('attr.type') typeAttr = this.params.common?.typeAttr;
 
     constructor(
-        @Inject('injectParams') protected params: BParams.IButtonParams,
+        @Inject('injectParams') protected params: BParams.IButtonCParams,
         protected elementRef: ElementRef,
         protected cdr: ChangeDetectorRef,
         protected ConfigService: ConfigService,
@@ -72,7 +72,7 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
         protected eventService: EventService,
     ) {
         super(
-            <IMixedParams<BParams.IButtonParams>>{
+            <IMixedParams<BParams.IButtonCParams>>{
                 injectParams: params,
                 defaultParams: BParams.defaultParams,
             }, ConfigService);
@@ -104,9 +104,9 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
         }
     }
 
-    protected prepareParams(): BParams.IButtonParams {
+    protected prepareParams(): BParams.IButtonCParams {
         const inputProperties: string[] = ['text', 'size', 'icon', 'index', 'event', 'type'];
-        const inlineParams: BParams.IButtonParams = {
+        const inlineParams: BParams.IButtonCParams = {
             common: {},
         };
 

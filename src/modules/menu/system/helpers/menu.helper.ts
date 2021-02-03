@@ -4,10 +4,6 @@ import {
     wlcMenuItemsGlobal,
 } from 'wlc-engine/modules/menu/system/config/menu.items.config';
 import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.model';
-import {IMenuItemParams, MenuItemObjectType} from 'wlc-engine/modules/menu/components/menu/menu.params';
-import {MenuItemType} from 'wlc-engine/modules/menu/components/menu/menu.params';
-import {IMenuItemsGroup} from 'wlc-engine/modules/menu';
-import {IMenuItem} from 'wlc-engine/modules/menu/components/menu/menu.params';
 
 import {
     isString as _isString,
@@ -25,10 +21,10 @@ export class MenuHelper {
      * @param {IHelperGetItemsParams} params
      * @returns {MenuItemObjectType[]}
      */
-    public static getItems(params: Params.IHelperGetItemsParams): MenuItemObjectType[] {
+    public static getItems(params: Params.IHelperGetItemsParams): Params.MenuItemObjectType[] {
 
-        const items: MenuItemType[] = (_isArray(params?.items)) ? params.items : _get(wlcDefaultMenuItems, params.type, []),
-            resultList: MenuItemObjectType[] = [];
+        const items: Params.MenuItemType[] = (_isArray(params?.items)) ? params.items : _get(wlcDefaultMenuItems, params.type, []),
+            resultList: Params.MenuItemObjectType[] = [];
 
         _map(items, (item: Params.MenuItemType) => {
             if (_isString(item)) {
@@ -50,7 +46,7 @@ export class MenuHelper {
      */
     public static getItemsForCategories(params: Params.IHelperGetItemsForCategories): Params.IMenuItem[] {
         return _map(params.categories, (category: CategoryModel) => {
-            let itemParams: IMenuItemParams = {
+            let itemParams: Params.IMenuItemParams = {
                 state: {
                     name: 'app.catalog',
                     params: {
@@ -85,17 +81,17 @@ export class MenuHelper {
      * @param {IMenuItemsGlobal} globalItemsConfig
      * @returns {MenuItemObjectType[]}
      */
-    public static parseMenuConfig(config: Params.MenuConfigItem[], globalItemsConfig: Params.IMenuItemsGlobal): MenuItemObjectType[] {
-        const menuItems: MenuItemObjectType[] = _map(config, (configMenuItem: Params.MenuConfigItem) => {
+    public static parseMenuConfig(config: Params.MenuConfigItem[], globalItemsConfig: Params.IMenuItemsGlobal): Params.MenuItemObjectType[] {
+        const menuItems: Params.MenuItemObjectType[] = _map(config, (configMenuItem: Params.MenuConfigItem) => {
             if (_isString(configMenuItem)) {
-                const menuItem: IMenuItem = globalItemsConfig[configMenuItem];
+                const menuItem: Params.IMenuItem = globalItemsConfig[configMenuItem];
                 return menuItem;
             } else {
-                const parent: IMenuItem = globalItemsConfig[configMenuItem.parent];
-                const items: IMenuItem[] = configMenuItem.items.map((item: string) => {
+                const parent: Params.IMenuItem = globalItemsConfig[configMenuItem.parent];
+                const items: Params.IMenuItem[] = configMenuItem.items.map((item: string) => {
                     return globalItemsConfig[item];
                 });
-                const menuItem: IMenuItemsGroup = {
+                const menuItem: Params.IMenuItemsGroup = {
                     parent: parent,
                     items: items,
                 };

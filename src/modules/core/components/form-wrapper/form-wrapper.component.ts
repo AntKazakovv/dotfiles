@@ -35,8 +35,8 @@ import {
     ValidatorType,
     IInputCParams,
     ITextareaCParams,
-    ISelectParams,
-    IButtonParams,
+    ISelectCParams,
+    IButtonCParams,
     IIndexing,
 } from 'wlc-engine/modules/core';
 
@@ -62,7 +62,7 @@ export interface IGlobalValidators {
 
 export interface IFormComponent {
     name: string;
-    params: IInputCParams | ITextareaCParams | ISelectParams | IButtonParams | any;
+    params: IInputCParams | ITextareaCParams | ISelectCParams | IButtonCParams | any;
 }
 
 export interface IFormWrapperCParams extends IWrapperCParams {

@@ -25,10 +25,10 @@ import {
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DashboardLoyaltyBlockComponent extends AbstractComponent implements OnInit, OnDestroy {
-    @Input() protected inlineParams: Params.ILoyaltyProgressCParams;
+    @Input() protected inlineParams: Params.ILoyaltyBlockCParams;
 
     constructor(
-        @Inject('injectParams') protected injectParams: Params.ILoyaltyProgressCParams,
+        @Inject('injectParams') protected injectParams: Params.ILoyaltyBlockCParams,
         protected configService: ConfigService,
         protected UserService: UserService,
         protected cdr: ChangeDetectorRef,

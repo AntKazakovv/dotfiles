@@ -1,6 +1,5 @@
 export {StaticService} from 'wlc-engine/modules/static/system/services/static/static.service';
 export * from 'wlc-engine/modules/static/system/interfaces/static.interface';
-export {PostModel} from 'wlc-engine/modules/static/system/models/index';
 export * from 'wlc-engine/modules/static/system/models';
 
 export * from 'wlc-engine/modules/static/components/post-menu/post-menu.component';

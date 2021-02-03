@@ -9,7 +9,7 @@ export type AutoModifiers = Theme | Size | ThemeMod | 'loading';
 export type CustomMod = string;
 export type Modifiers = AutoModifiers | CustomMod | null;
 
-export interface IButtonParams extends IComponentParams<Theme, Type, ThemeMod> {
+export interface IButtonCParams extends IComponentParams<Theme, Type, ThemeMod> {
     modifiers?: Modifiers[];
     common?: {
         themeMod?: ThemeMod;
@@ -27,7 +27,7 @@ export interface IButtonParams extends IComponentParams<Theme, Type, ThemeMod> {
     };
 }
 
-export const defaultParams: IButtonParams = {
+export const defaultParams: IButtonCParams = {
     moduleName: 'core',
     componentName: 'wlc-button',
     class: 'wlc-btn',

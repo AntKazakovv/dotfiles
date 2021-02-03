@@ -9,13 +9,13 @@ export interface IGamesGridCParamsPartial extends IGamesGridCParams {
     searchFilterName: never,
 };
 
-export interface ISearchParams extends IComponentParams<string, string, string> {
+export interface ISearchCParams extends IComponentParams<string, string, string> {
     gamesGridParams?: IGamesGridCParamsPartial;
 };
 
 export type PanelType = 'merchants' | 'categories';
 
-export const defaultParams: ISearchParams = {
+export const defaultParams: ISearchCParams = {
     class: 'wlc-search',
 };
 

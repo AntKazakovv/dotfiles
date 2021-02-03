@@ -14,7 +14,7 @@ export type IconsType = 'default' | 'svg';
  */
 export type ShowType = string | DeviceType;
 
-export interface IPaymentListParams extends IComponentParams<Theme, Type, ThemeMod> {
+export interface IPaymentListCParams extends IComponentParams<Theme, Type, ThemeMod> {
     paymentType?: 'deposit' | 'withdraw';
     asModal?: ShowType;
     showTable?: ShowType;
@@ -27,7 +27,7 @@ export interface IPaymentListParams extends IComponentParams<Theme, Type, ThemeM
     hideModalOnSelect?: boolean;
 }
 
-export const defaultParams: IPaymentListParams = {
+export const defaultParams: IPaymentListCParams = {
     paymentType: 'deposit',
     class: 'wlc-payment-list',
     iconsType: 'default',

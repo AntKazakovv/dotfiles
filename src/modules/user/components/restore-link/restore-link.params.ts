@@ -6,9 +6,9 @@ import {
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;
 
-export interface IRestoreLinkComponent extends IComponentParams<ComponentTheme, ComponentType, string> {
+export interface IRestoreLinkCParams extends IComponentParams<ComponentTheme, ComponentType, string> {
 }
 
-export const defaultParams: IRestoreLinkComponent = {
+export const defaultParams: IRestoreLinkCParams = {
     class: 'wlc-restore-link',
 };
