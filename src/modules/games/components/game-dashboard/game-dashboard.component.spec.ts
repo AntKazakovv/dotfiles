@@ -8,7 +8,7 @@ describe('GameDashboardComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [GameDashboardComponent]
+            declarations: [GameDashboardComponent],
         })
             .compileComponents();
     });

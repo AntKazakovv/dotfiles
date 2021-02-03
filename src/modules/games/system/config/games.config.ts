@@ -17,7 +17,7 @@ export const gamesConfig: IGamesConfig = {
             default: [],
             forMerchant: {
                 "992": ['usa', 'fra', 'cuw', 'gbr', 'esp', 'ita'],
-            }
-        }
+            },
+        },
     },
 };

@@ -35,7 +35,7 @@ class WlcFlog {
         url: '/flog',
         method: 'POST',
         startTime: new Date(),
-        flogDisableMessage: 'Flog disabled'
+        flogDisableMessage: 'Flog disabled',
     };
     private readonly FP2Options: IFP2Options = {
         excludes: {
@@ -45,8 +45,8 @@ class WlcFlog {
             audio: true,
             enumerateDevices: true,
             adBlock: true,
-            webglVendorAndRenderer: true
-        }
+            webglVendorAndRenderer: true,
+        },
     };
 
     constructor() {
@@ -71,7 +71,7 @@ class WlcFlog {
         return this.send({
             level: 'log',
             code: code,
-            ...data
+            ...data,
         });
     }
 
@@ -83,7 +83,7 @@ class WlcFlog {
      */
     public async logDuration(code: string): Promise<string> {
         return this.log(code, {
-            duration: this.timeFromStart()
+            duration: this.timeFromStart(),
         });
     }
 
@@ -98,7 +98,7 @@ class WlcFlog {
         return this.send({
             level: 'error',
             code: code,
-            ...data
+            ...data,
         });
     }
 
@@ -113,7 +113,7 @@ class WlcFlog {
         return this.send({
             level: 'fatal',
             code: code,
-            ...data
+            ...data,
         });
     }
 
@@ -181,7 +181,7 @@ class WlcFlog {
             const response: Response = await fetch(this.params.url, {
                 method: this.params.method,
                 body: dataString,
-                signal: abortController.signal
+                signal: abortController.signal,
             });
             abortController.abort();
             if (response?.ok) {

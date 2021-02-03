@@ -8,9 +8,9 @@ describe('GamesGridComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-        declarations: [ GamesGridComponent ]
+            declarations: [ GamesGridComponent ],
         })
-        .compileComponents();
+            .compileComponents();
     }));
 
     beforeEach(() => {

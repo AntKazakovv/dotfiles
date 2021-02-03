@@ -15,7 +15,7 @@ import {GlobalHelper} from 'wlc-engine/modules/core';
 
 @Component({
     selector: '[wlc-dynamic-html]',
-    template: '',
+    templateUrl: './dynamic-html.component.html',
 })
 export class DynamicHtmlComponent implements AfterViewInit, OnDestroy {
     @Input() protected html: string;

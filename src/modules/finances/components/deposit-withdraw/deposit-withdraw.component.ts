@@ -17,7 +17,7 @@ import {
 } from 'wlc-engine/modules/core';
 import {
     IPaymentAdditionalParam,
-    PaymentSystem
+    PaymentSystem,
 } from 'wlc-engine/modules/finances/system/models/payment-system.model';
 import {FinancesService} from 'wlc-engine/modules/finances/system/services';
 import {IPaymentListCParams} from 'wlc-engine/modules/finances/components/payment-list/payment-list.params';

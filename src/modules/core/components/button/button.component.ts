@@ -43,9 +43,7 @@ export {IButtonCParams} from './button.params';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ButtonComponent extends AbstractComponent implements OnInit,
-    OnChanges,
     OnDestroy,
-    AfterContentInit,
     AfterViewInit {
 
     @ContentChild(IconComponent, {read: ElementRef}) IconComponentElement!: ElementRef;
@@ -81,12 +79,6 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
     ngOnInit(): void {
         super.ngOnInit(this.prepareParams());
         this.prepareModifiers();
-    }
-
-    ngOnChanges(changes: SimpleChanges): void {
-    }
-
-    ngAfterContentInit(): void {
     }
 
     public ngAfterViewInit(): void {

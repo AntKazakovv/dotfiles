@@ -38,7 +38,7 @@ export const components = {
         BonusItemComponent,
         BonusesListComponent,
         EnterPromocodeComponent,
-        PromoSuccessComponent
+        PromoSuccessComponent,
     ],
 })
 

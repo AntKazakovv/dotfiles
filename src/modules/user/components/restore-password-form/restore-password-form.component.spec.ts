@@ -8,7 +8,7 @@ describe('RestorePasswordFormComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [RestorePasswordFormComponent]
+            declarations: [RestorePasswordFormComponent],
         })
             .compileComponents();
     }));

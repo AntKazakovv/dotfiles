@@ -40,5 +40,5 @@ export const defaultParams: ILanguageSelectorCParams = {
             },
         },
     },
-    wlcElement: 'block_language-selector'
+    wlcElement: 'block_language-selector',
 };
