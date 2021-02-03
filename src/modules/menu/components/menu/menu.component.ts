@@ -65,6 +65,7 @@ import {
 export class MenuComponent extends AbstractComponent implements OnInit, OnChanges {
     public items: Params.MenuItemObjectType[];
     public $params: Params.IMenuCParams;
+    public inited: boolean = false;
 
     @Input() protected inlineParams: Params.IMenuCParams;
 
@@ -96,10 +97,14 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
 
     public ngOnChanges(changes: SimpleChanges): void {
         super.ngOnChanges(changes);
+        if (!this.inited) {
+            return;
+        }
         this.initItems();
     }
 
     public ngOnInit(): void {
+        this.inited = true;
         super.ngOnInit(this.inlineParams);
         this.initItems();
 
@@ -137,7 +142,7 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
             },
         );
         this.expandItems();
-        this.cdr.markForCheck();
+        this.cdr.detectChanges();
     }
 
     protected expandItems(): void {

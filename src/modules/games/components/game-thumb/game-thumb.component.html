@@ -5,18 +5,18 @@
 </picture>
 <div class="{{$class}}__desc">
     <div class="{{$class}}__title">
-            <span class="{{$class}}__icon"
-                  wlc-icon
-                  iconName="favourite"
-                  [wlcElement]="'button_favourite'"
-                  *ngIf="isAuth"
-                  [ngClass]="{'active': game.isFavourite}"
-                  (click)="toggleFavourites(game)">
-            </span>
+        <span class="{{$class}}__icon"
+              wlc-icon
+              iconName="favourite"
+              [wlcElement]="'button_favourite'"
+              *ngIf="isAuth"
+              [ngClass]="{'active': game.isFavourite}"
+              (click)="toggleFavourites(game)">
+        </span>
         <span class="{{$class}}__name" data-wlc-element="block_game-thumb-name">{{game.name.en | truncate: 25}}</span>
         <span class="{{$class}}__merchant" data-wlc-element="block_game-thumb-alias" *ngIf="$params.useMerchantName">
-            {{game.merchantAlias}}
-        </span>
+        {{game.merchantAlias}}
+    </span>
     </div>
     <div class="{{$class}}__buttons" [ngClass]="{'no-demo': !game.hasDemo}">
         <button wlc-button
@@ -29,14 +29,15 @@
                 (click)="startGame(false, true, false, $event)"
         ></button>
         <button
-            *ngIf="game.hasDemo"
-            wlc-button
-            wlcElement="button_game-demo"
-            class="wlc-btn wlc-btn--demo"
-            [text]="'Demo'"
-            [theme]="gameThumbSettings?.buttons?.theme"
-            [themeMod]="gameThumbSettings?.buttons?.demoThemeMode"
-            (click)="startGame(true, false, false, $event)"
+                *ngIf="game.hasDemo"
+                wlc-button
+                wlcElement="button_game-demo"
+                class="wlc-btn wlc-btn--demo"
+                [text]="'Demo'"
+                [theme]="gameThumbSettings?.buttons?.theme"
+                [themeMod]="gameThumbSettings?.buttons?.demoThemeMode"
+                (click)="startGame(true, false, false, $event)"
         ></button>
     </div>
 </div>
+

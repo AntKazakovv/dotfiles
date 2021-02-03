@@ -10,34 +10,43 @@
         </a>
     </div>
 
-    <div *ngIf="filteredGames?.length; else: noGames"
-         @appearance
-         class="{{$class}}__list"
-         (resized)="onResize($event)">
+    <ng-container *ngIf="isReady; else : preloader">
+        <div *ngIf="filteredGames?.length; else: noGames"
+             @appearance
+             class="{{$class}}__list"
+             (resized)="onResize($event)">
 
-        <div class="{{$class}}__item" *ngFor="let game of filteredGames | slice: 0:gamesCount">
-            <div wlc-game-thumb [game]="game"></div>
-        </div>
-        <ng-container *ngIf="$params.usePlaceholders && !filteredGames.length">
-            <div class="{{$class}}__item"
-                 *ngFor="let item of placeHolders">
-                <div class="{{$class}}__placeholder" [ngStyle]="placeHolderStyles">
-                    <!-- TODO: add loader -->
-                    <span *ngIf="$params.moreBtn.lazy && !lazyReady">Loading...</span>
-                </div>
+            <div class="{{$class}}__item" *ngFor="let game of filteredGames | slice: 0:gamesCount">
+                <div wlc-game-thumb [game]="game"></div>
             </div>
-        </ng-container>
-    </div>
-    <div class="{{$class}}__more"
-         *ngIf="!hideShowMoreBtn && gamesCount < filteredGames?.length">
-        <button wlc-button
-                [wlcElement]="'button_load-more-games'"
-                [text]="'Load more games'"
-                [themeMod]="'secondary'"
-                *ngIf="!useLazy"
-                (click)="loadMore()"></button>
-    </div>
+            <ng-container *ngIf="$params.usePlaceholders && !filteredGames.length">
+                <div class="{{$class}}__item"
+                     *ngFor="let item of placeHolders">
+                    <div class="{{$class}}__placeholder" [ngStyle]="placeHolderStyles">
+                        <!-- TODO: add loader -->
+                        <span *ngIf="$params.moreBtn.lazy && !lazyReady">Loading...</span>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+        <div class="{{$class}}__more"
+             *ngIf="!hideShowMoreBtn && gamesCount < filteredGames?.length">
+            <button wlc-button
+                    [wlcElement]="'button_load-more-games'"
+                    [text]="'Load more games'"
+                    [themeMod]="'secondary'"
+                    *ngIf="!useLazy"
+                    (click)="loadMore()"></button>
+        </div>
+    </ng-container>
+
     <ng-template #noGames>
         <div class="{{$class}}__nocontent" @appearance>{{'No games available' | translate}}</div>
     </ng-template>
+
+    <ng-template #preloader>
+        <div wlc-loader class="{{$class}}__preloader">
+        </div>
+    </ng-template>
 </div>
+

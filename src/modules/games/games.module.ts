@@ -11,6 +11,8 @@ import {GameThumbComponent} from './components/game-thumb/game-thumb.component';
 import {GameWrapperComponent} from './components/game-wrapper/game-wrapper.component';
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
 import {UserModule} from 'wlc-engine/modules/user/user.module';
+import {BonusesModule} from 'wlc-engine/modules/bonuses/bonuses.module';
+import {PromoModule} from 'wlc-engine/modules/promo/promo.module';
 import {SearchFieldComponent} from './components/search-field/search-field.component';
 import {SearchComponent} from './components/search/search.component';
 import {TotalJackpotComponent} from 'wlc-engine/modules/games/components/total-jackpot/total-jackpot.component';
@@ -57,6 +59,8 @@ export const components = {
         CommonModule,
         CoreModule,
         UserModule,
+        BonusesModule,
+        PromoModule,
         UIRouterModule,
         TranslateModule,
         AngularResizedEventModule,

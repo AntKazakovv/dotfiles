@@ -6,6 +6,11 @@ export enum DeviceType {
     Desktop = 'desktop',
 }
 
+export enum DeviceOrientation {
+    Portrait = 'portrait',
+    Landscape = 'landscape',
+}
+
 export interface IDeviceConfig {
     breakpoints: {
         mobile: number;
@@ -20,6 +25,10 @@ export class DeviceModel {
     constructor(
         protected deviceConfig: IDeviceConfig,
     ) {
+    }
+
+    public get orientation(): DeviceOrientation {
+        return window.matchMedia("(orientation:portrait)").matches ? DeviceOrientation.Portrait : DeviceOrientation.Landscape;
     }
 
     public get isReady(): boolean {

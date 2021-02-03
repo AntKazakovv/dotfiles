@@ -2,6 +2,7 @@
 @use 'engine-scss/mixins/base.mixins' as bm;
 @use 'engine-scss/mixins/text' as text;
 @import '../utils/vars';
+@import '../utils/mixins';
 
 @keyframes bounceInCheck {
 
@@ -70,18 +71,7 @@
             }
 
             &.checked {
-                background: ef.get-value($themeDefault, 'checkboxElemBackgroundChecked');
-                border-color: ef.get-value($themeDefault, 'checkboxElemBorderColor');
-
-                transform: scale(1);
-                animation: bounceInCheck 0.5s forwards;
-
-                ::ng-deep {
-
-                    .wlc-icon-content {
-                        display: block;
-                    }
-                }
+                @include checkboxChecked;
             }
         }
     }
@@ -89,7 +79,6 @@
     .wlc-checkbox__text {
         font-size: ef.get-value($themeDefault, 'textFontSize');
         color: ef.get-value($themeDefault, 'textColor');
-
         margin-bottom: 0;
     }
 
@@ -125,21 +114,18 @@
             height: ef.get-value($themeDefault, 'toggleHeight');
             display: flex;
             align-items: center;
+            flex-direction: row-reverse;
             padding: ef.get-value($themeDefault, 'togglePadding');
 
             &__elem {
+                position: relative;
                 z-index: 3;
                 cursor: pointer;
                 background: ef.get-value($themeDefault, 'toggleBackground');
                 border-radius: ef.get-value($themeDefault, 'toggleRadius');
                 border: none;
-                width: 100%;
-                height: 100%;
-
-                &.checked + .wlc-checkbox__text {
-                    padding-left: 0;
-                    padding-right: ef.get-value($themeDefault, 'toggleOffset');
-                }
+                width: ef.get-value($themeDefault, 'toggleElemWidth');
+                height: ef.get-value($themeDefault, 'toggleHeight');
 
                 &.checked::ng-deep {
                     animation: none;
@@ -150,7 +136,7 @@
                 }
 
                 &.checked:before {
-                    left: calc(100% - 33px);
+                    left: calc(100% - #{ef.get-value($themeDefault, 'toggleCircleSize')} - #{ef.get-value($themeDefault, 'toggleCircleOffset')});
                 }
 
                 &:before {
@@ -170,10 +156,21 @@
 
             &__text {
                 position: relative;
-                padding-left: ef.get-value($themeDefault, 'toggleOffset');
-                padding-right: 0;
-                @include text.get-text-style('ThirdTitleBold');
+                padding-left: ef.get-value($themeDefault, 'togglePaddingLeftText');
+                padding-right: ef.get-value($themeDefault, 'togglePaddingRightText');
+                @include text.get-text-style(ef.get-value($themeDefault, 'toggleFontStyle'));
                 @include bm.transition(padding);
+            }
+        }
+    }
+
+    &.wlc-checkbox--theme-mod-bg-transparent {
+
+        .wlc-checkbox__elem {
+            background: unset;
+
+            &.checked {
+                @include checkboxChecked;
             }
         }
     }

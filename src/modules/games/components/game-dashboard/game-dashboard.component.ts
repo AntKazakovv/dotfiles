@@ -19,12 +19,27 @@ import {
     transition,
     trigger,
 } from '@angular/animations';
+import {FormControl} from '@angular/forms';
 
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {HammerConfig} from 'wlc-engine/modules/core/system/config/hammer.config';
-import {ActionService, ConfigService, DeviceType, EventService} from 'wlc-engine/modules/core';
+import {
+    ActionService,
+    ConfigService,
+    DeviceType,
+    DeviceModel,
+    DeviceOrientation,
+    EventService, IIndexing,
+} from 'wlc-engine/modules/core';
 import {CachingService} from 'wlc-engine/modules/core/system/services/caching/caching.service';
 import * as Params from './game-dashboard.params';
+import {DashboardSide} from 'wlc-engine/modules/games/components/game-dashboard/game-dashboard.params';
+import {GamesCatalogService} from 'wlc-engine/modules/games';
+import {Game} from 'wlc-engine/modules/games/system/models/game.model';
+import {ISlide, ISliderCParams} from 'wlc-engine/modules/promo/components/slider/slider.params';
+import {GameThumbComponent} from 'wlc-engine/modules/games/components/game-thumb/game-thumb.component';
+import {IResizeEvent} from 'wlc-engine/modules/core/system/services/action/action.service';
+import * as componentLib from 'wlc-engine/modules/core/system/config/layouts/components';
 
 import {fromEvent} from 'rxjs/internal/observable/fromEvent';
 import {
@@ -52,10 +67,10 @@ interface IPanEventOptions {
     animations: [
         trigger('leftShift', [
             state('hidden', style({
-                transform: 'translateX(-100%)',
+                transform: 'translateX(-100%) scale(-1, 1)',
             })),
             state('shown', style({
-                transform: 'translateX(0)',
+                transform: 'translateX(0) scale(-1, 1)',
             })),
             transition('hidden => shown', [
                 animate('0.5s'),
@@ -63,10 +78,10 @@ interface IPanEventOptions {
         ]),
         trigger('rightShift', [
             state('hidden', style({
-                transform: 'translateX(100%)',
+                transform: 'translateX(100%) scale(-1, 1)',
             })),
             state('shown', style({
-                transform: 'translateX(0)',
+                transform: 'translateX(0) scale(-1, 1)',
             })),
             transition('hidden => shown', [
                 animate('0.5s'),
@@ -83,38 +98,68 @@ interface IPanEventOptions {
                 animate('0.5s'),
             ]),
         ]),
-        trigger('panchBtnColor', [
-            state('inactive', style({
-            })),
-            state('active', style({
-                background: '#fff',
-            })),
-            transition('inactive => active', [
-            ]),
-        ]),
     ],
 })
 export class GameDashboardComponent extends AbstractComponent implements OnInit, OnChanges, AfterViewInit {
     @ViewChild('dragBtn') dragBtn: ElementRef;
     @ViewChild('backdrop') backdrop: ElementRef;
     @ViewChild('container') container: ElementRef;
+    @ViewChild('activeTabLabel') activeTabLabel: ElementRef;
 
     @Input() public opened: boolean;
 
     public $params: Params.IGameDashboardCParams;
     public tabs: Params.IGameDashboardTab[] = Params.dashboardTabs;
-    public activeTabId: string = '';
+    public activeTab: Params.IGameDashboardTab;
     public isMobile: boolean = false;
     public isAuth: boolean = false;
+    public hideBackdropLabel: boolean = false;
+    public lastPlayedGames: Game[] = [];
+    public lastPlayedGamesSlides: ISlide[] = [];
+    public lastPlayedGamesShowLimit: number = 8;
+    public lastPlayedGamesReady: boolean = false;
     public showMobileInstruction: boolean = false;
     public showPanchBtn: boolean = false;
     public decorAnimationState: string = 'hidden';
+    public dontShowAgainBtn = {
+        themeMod: 'bg-transparent',
+        name: 'dont-show',
+        text: gettext('Don\'t show again'),
+        textSide: 'right',
+        control: new FormControl(),
+        onChange: (checked: boolean) => {
+            this.cachingService.set<boolean>(this.dontShowInstructionKey, checked, true);
+        },
+    };
+    public bonusesListParams = {
+        common: {
+            restType: 'any',
+            filter: 'all',
+            title: 'My bonuses',
+            swiper: {
+                navigation: true,
+                slidesPerView: 1,
+                spaceBetween: 40,
+            },
+        },
+        type: 'swiper',
+    };
+    public depositBtnParams = componentLib.wlcButton.deposit.params;
+    public lastPlayedSwiper: ISliderCParams;
+    public landscapeOrientation: boolean = false;
+    public desktopSide: DashboardSide = 'right';
+    public side: DashboardSide = 'left';
 
-    protected dashboardWidth: number = 300;
-    protected translate: number;
+    protected breakpoints: IIndexing<number> = {
+        backdropLabel: 680,
+    };
+    protected defaultWidth: number = 300;
+    protected dashboardWidth: number = this.defaultWidth;
+    protected translate: number = -this.dashboardWidth;
     protected oldDeltaX: number = 0;
     protected oldDirection: Direction;
-    protected instructionCacheKey = 'gameDashboardInstruction';
+    protected dontShowInstructionKey = 'gameDashboardDontShowInstruction';
+    protected disableOpenOnClick: boolean = false;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IGameDashboardCParams,
@@ -124,6 +169,7 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
         protected renderer: Renderer2,
         protected cachingService: CachingService,
         protected eventService: EventService,
+        protected gamesCatalogService: GamesCatalogService,
         private hostElem: ElementRef,
     ) {
         super({
@@ -134,44 +180,101 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
 
     public async ngOnInit(): Promise<void> {
         super.ngOnInit();
-        this.activeTabId = this.tabs[0].id;
+        this.backdropLabelVisibility();
+        this.loadLastPlayedGames();
+        this.initLastPlayedSwiper();
+
+        if (this.$params.common?.desktopSide) {
+            this.desktopSide = this.$params.common.desktopSide;
+        }
+
+        await this.configService.ready;
+        this.activeTab = this.tabs[0];
         this.isMobile = this.configService.get<boolean>('appConfig.mobile');
         this.isAuth = this.configService.get('$user.isAuthenticated');
+        if (!this.isAuth) {
+            this.addModifiers('not-auth');
+        }
         this.initEventHandlers();
 
-        this.cachingService.get<boolean>(this.instructionCacheKey).then((data: boolean) => {
-            this.showMobileInstruction = !data;
-            if (this.showMobileInstruction) {
-                this.showPanchBtn = true;
-                setTimeout(() => {
-                    this.decorAnimationState = 'shown';
-                    this.cdr.markForCheck();
-                }, 500);
-            } else {
-                this.showPanchBtn = true;
-            }
-            this.cdr.markForCheck();
-        });
+        this.showMobileInstruction = !await this.cachingService.get<boolean>(this.dontShowInstructionKey) &&
+            !this.configService.get(`$games.${this.dontShowInstructionKey}`);
+
+        if (this.showMobileInstruction) {
+            this.configService.set({
+                name: `$games.${this.dontShowInstructionKey}`,
+                value: true,
+            });
+            this.showPanchBtn = true;
+            setTimeout(() => {
+                this.decorAnimationState = 'shown';
+                this.cdr.markForCheck();
+            }, 500);
+        } else {
+            this.showPanchBtn = true;
+        }
         this.cdr.markForCheck();
     }
 
     public ngOnChanges(changes: SimpleChanges): void {
         super.ngOnChanges(changes);
         if (changes.opened) {
-            changes.opened.currentValue ? this.open() : this.close();
+            if (changes.opened.currentValue) {
+                this.open();
+            } else {
+                this.close();
+            }
         }
     }
 
+    public initLastPlayedSwiper(): void {
+        let lastPlayedSlidesPerColumn: number = 2;
+        if (document.documentElement.clientHeight > 450) {
+            lastPlayedSlidesPerColumn = 3;
+        }
+
+        this.lastPlayedSwiper = {
+            slidesAspectRatio: '1.2/1',
+            slides: this.lastPlayedGamesSlides,
+            swiper: {
+                direction: 'horizontal',
+                slidesPerView: 'auto',
+                slidesPerColumn: lastPlayedSlidesPerColumn,
+                pagination: {
+                    clickable: true,
+                },
+                spaceBetween: 10,
+                breakpoints: {
+                    1000: {
+                        direction: 'horizontal',
+                        slidesPerView: 'auto',
+                        slidesPerColumn: lastPlayedSlidesPerColumn,
+                        spaceBetween: 10,
+                        pagination: {
+                            clickable: true,
+                        },
+                    },
+                    860: {
+                        direction: 'horizontal',
+                        slidesPerView: 'auto',
+                        slidesPerColumn: lastPlayedSlidesPerColumn,
+                        spaceBetween: 10,
+                        pagination: {
+                            clickable: true,
+                        },
+                    },
+                },
+            },
+        };
+    }
+
     public ngAfterViewInit(): void {
+        this.initDashboardPosition();
         this.close();
         this.setPanEvents(this.dragBtn);
         this.setPanEvents(this.backdrop, {
-            disableDirection: Direction.Left,
+            disableDirection: Direction.Right,
         });
-
-        setTimeout(() => {
-            this.addModifiers('animate');
-        }, 1000);
     }
 
     /**
@@ -179,8 +282,8 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
      *
      * @param {string} id
      */
-    public openTab(id: string): void {
-        this.activeTabId = id;
+    public openTab(tab: Params.IGameDashboardTab): void {
+        this.activeTab = tab;
         this.cdr.detectChanges();
     }
 
@@ -191,7 +294,17 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
      * @returns {boolean}
      */
     public isActive(tab: Params.IGameDashboardTab): boolean {
-        return tab.id === this.activeTabId;
+        return tab.id === this.activeTab?.id;
+    }
+
+    /**
+     * Check show tab or not
+     *
+     * @param {IGameDashboardTab} tab
+     * @returns {boolean}
+     */
+    public checkShowTab(tab: Params.IGameDashboardTab): boolean {
+        return !tab.auth || (tab.auth && this.isAuth);
     }
 
     /**
@@ -206,6 +319,103 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
      */
     public close(): void {
         this.changeView(false);
+    }
+
+    protected async loadLastPlayedGames(): Promise<void> {
+        this.lastPlayedGames = await this.gamesCatalogService.getLastGames();
+        this.lastPlayedGamesSlides = this.lastPlayedGames.map((game: Game) => {
+            return {
+                component: GameThumbComponent,
+                componentParams: {
+                    common: {
+                        game: game,
+                    },
+                },
+            };
+        });
+        this.lastPlayedGamesReady = true;
+        this.cdr.detectChanges();
+    }
+
+    protected initDashboardPosition(): void {
+        if (!this.container) {
+            return;
+        }
+
+        if (this.isMobile) {
+            this.side = 'left';
+            this.renderer.setStyle(
+                this.container.nativeElement,
+                'left',
+                '0',
+            );
+            this.renderer.setStyle(
+                this.container.nativeElement,
+                'right',
+                'unset',
+            );
+
+            if (this.landscapeOrientation) {
+                let widthCoef: number = 75;
+                if (document.body.clientWidth < 600) {
+                    widthCoef = 95;
+                } else if (document.body.clientWidth < 680) {
+                    widthCoef = 85;
+                }
+                this.dashboardWidth = document.body.clientWidth / 100 * widthCoef;
+                this.translate = -this.dashboardWidth;
+                this.renderer.setStyle(
+                    this.container.nativeElement,
+                    'width',
+                    `${this.dashboardWidth}px`,
+                );
+
+                const labelMargin: number = (document.body.clientWidth - this.dashboardWidth) / 2;
+                this.renderer.setStyle(
+                    this.activeTabLabel.nativeElement,
+                    'right',
+                    `${labelMargin}px`,
+                );
+            } else {
+                this.dashboardWidth = this.defaultWidth;
+                this.translate = -this.dashboardWidth;
+                this.renderer.setStyle(
+                    this.container.nativeElement,
+                    'width',
+                    `${this.dashboardWidth}px`,
+                );
+            }
+
+            if (this.showMobileInstruction) {
+                this.close();
+            }
+        } else {
+            this.side = this.desktopSide || this.side;
+            this.dashboardWidth = this.defaultWidth;
+            this.renderer.setStyle(
+                this.container.nativeElement,
+                'width',
+                `${this.dashboardWidth}px`,
+            );
+
+            if (this.side == 'right' && this.container.nativeElement) {
+                this.translate = this.dashboardWidth;
+                this.renderer.setStyle(
+                    this.container.nativeElement,
+                    'left',
+                    'unset',
+                );
+                this.renderer.setStyle(
+                    this.container.nativeElement,
+                    'right',
+                    '0',
+                );
+            }
+        }
+
+        if (!this.opened) {
+            this.close();
+        }
     }
 
     /**
@@ -223,7 +433,6 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
 
         if (this.showMobileInstruction) {
             this.showMobileInstruction = false;
-            this.cachingService.set<boolean>(this.instructionCacheKey, true);
             this.cdr.markForCheck();
         }
         this.oldDirection = null;
@@ -239,7 +448,7 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
         const leftDirection = this.oldDirection == Direction.Left;
         const rightDirection = this.oldDirection == Direction.Right;
         this.addModifiers('animate');
-        if (leftDirection) {
+        if (rightDirection) {
             this.open();
         } else {
             this.close();
@@ -253,6 +462,8 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
      * @param {IPanEventOptions} options
      */
     protected panmoveHandler(event: HammerInput, options?: IPanEventOptions): void {
+        this.disableOpenOnClick = true;
+
         const leftDirection = this.checkDirection(Direction.Left, event);
         const rightDirection = this.checkDirection(Direction.Right, event);
 
@@ -272,15 +483,15 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
             }
 
             if (leftDirection) {
-                translate = Math.abs(event.deltaY) < 50 ? event.deltaX + this.dashboardWidth : this.dashboardWidth;
+                translate = Math.abs(event.deltaY) < 50 ? event.deltaX + 0 : -this.dashboardWidth;
                 this.oldDeltaX = event.deltaX;
             } else {
                 translate = Math.abs(event.deltaY) < 50 ? this.translate + event.deltaX - this.oldDeltaX : this.translate;
                 this.oldDeltaX = event.deltaX;
             }
 
-            if ((leftDirection && translate > 0 && translate < this.dashboardWidth) ||
-                (rightDirection && translate <= this.dashboardWidth)) {
+            if ((leftDirection && translate > -this.dashboardWidth) ||
+                (rightDirection && translate < 0)) {
                 this.translate = translate;
                 this.renderer.setStyle(
                     this.container.nativeElement,
@@ -317,18 +528,54 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
      * Init event handlers
      */
     protected initEventHandlers(): void {
+        this.actionService.windowResize()
+            .pipe(takeUntil(this.$destroy))
+            .subscribe((event: IResizeEvent) => {
+                this.backdropLabelVisibility();
+                this.initLastPlayedSwiper();
+
+                const currentOrientation = !event.device.isDesktop && event.device.orientation == DeviceOrientation.Landscape;
+                if (currentOrientation !== this.landscapeOrientation) {
+                    this.landscapeOrientation = currentOrientation;
+                }
+
+                this.initDashboardPosition();
+
+                if (this.landscapeOrientation) {
+                    this.addModifiers('landscape');
+                } else {
+                    this.removeModifiers('landscape');
+                }
+                this.cdr.detectChanges();
+            });
+
         this.actionService.deviceType()
             .pipe(takeUntil(this.$destroy))
             .subscribe((type: DeviceType) => {
                 if (!type) {
                     return;
                 }
-
                 this.isMobile = type !== DeviceType.Desktop;
-                this.isMobile ? this.addModifiers('mobile') : this.removeModifiers('mobile');
-                if (this.isMobile && this.showMobileInstruction) {
-                    this.close();
+
+                if (this.isMobile) {
+                    this.addModifiers('mobile');
+                    this.removeModifiers('animate');
+                    this.side = 'left';
+                    if (this.actionService.device.orientation == DeviceOrientation.Landscape) {
+                        this.addModifiers('landscape');
+                        this.landscapeOrientation = true;
+                    }
+                    this.initLastPlayedSwiper();
+                    if (this.showMobileInstruction) {
+                        this.close();
+                    }
+                } else {
+                    this.removeModifiers('mobile');
+                    setTimeout(() => {
+                        this.addModifiers('animate');
+                    }, 1000);
                 }
+                this.initDashboardPosition();
                 this.cdr.markForCheck();
             });
 
@@ -336,6 +583,7 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
             name: 'LOGOUT',
         }, () => {
             this.isAuth = false;
+            this.addModifiers('not-auth');
             this.cdr.markForCheck();
         });
 
@@ -343,8 +591,13 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
             name: 'LOGIN',
         }, () => {
             this.isAuth = true;
+            this.removeModifiers('not-auth');
             this.cdr.markForCheck();
         });
+    }
+
+    protected backdropLabelVisibility(): void {
+        this.hideBackdropLabel = this.actionService.device.windowWidth < this.breakpoints.backdropLabel;
     }
 
     /**
@@ -356,11 +609,17 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
         if (!this.container) {
             return;
         }
+        this.cdr.detectChanges();
         this.opened = open;
 
-        open ? this.addModifiers('backdrop') : this.removeModifiers('backdrop');
+        if (open) {
+            this.addModifiers('backdrop');
+        } else {
+            this.removeModifiers('backdrop');
+        }
 
-        const translate: number = open ? 0 : this.dashboardWidth;
+        const translateForClosed: number = this.side == 'right' ? this.dashboardWidth : -this.dashboardWidth;
+        const translate: number = open ? 0 : translateForClosed;
         this.renderer.setStyle(
             this.container.nativeElement,
             'transform',
@@ -392,5 +651,21 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
         fromEvent(hammer$, 'panend').pipe(
             takeUntil(this.$destroy),
         ).subscribe((event: HammerInput) => this.panendHandler(event, options));
+    }
+
+    protected onDashboardBtnClick(): void {
+        if (this.disableOpenOnClick) {
+            this.disableOpenOnClick = false;
+            return;
+        }
+
+        if (!this.opened) {
+            this.addModifiers('animate');
+            if (this.showMobileInstruction) {
+                this.showMobileInstruction = false;
+            }
+            this.open();
+            this.cdr.markForCheck();
+        }
     }
 }

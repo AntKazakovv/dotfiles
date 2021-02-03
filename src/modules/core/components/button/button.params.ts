@@ -12,7 +12,6 @@ export type Modifiers = AutoModifiers | CustomMod | null;
 export interface IButtonCParams extends IComponentParams<Theme, Type, ThemeMod> {
     modifiers?: Modifiers[];
     common?: {
-        themeMod?: ThemeMod;
         size?: Size;
         icon?: string;
         index?: Index;

@@ -59,6 +59,37 @@ export class GamesCatalog extends AbstractModel<IGames> {
     protected eventService: EventService;
     protected router: UIRouter;
 
+    protected specialCategories: ICategory[] = [
+        {
+            ID: '-1',
+            Name: {
+                en: gettext('Last played'),
+            },
+            Trans: {
+                en: gettext('Last played'),
+            },
+            Tags: [],
+            menuId: 'last-played',
+            Slug: 'last-played',
+            CSort: '0',
+            CSubSort: '0',
+        },
+        {
+            ID: '-2',
+            Name: {
+                en: gettext('My favourites'),
+            },
+            Trans: {
+                en: gettext('My favourites'),
+            },
+            Tags: [],
+            menuId: 'favourites',
+            Slug: 'favourites',
+            CSort: '0',
+            CSubSort: '0',
+        },
+    ];
+
     constructor(
         data: IGames,
         protected gamesCatalogService: GamesCatalogService,
@@ -78,6 +109,12 @@ export class GamesCatalog extends AbstractModel<IGames> {
         this.processFetchedGamesCatalog(data);
     }
 
+    public isSpecialCategory(category: CategoryModel): boolean {
+        return !!_find(this.specialCategories, (item: ICategory) => {
+            return category.slug === item.Slug;
+        })
+    }
+
     /**
      *
      * @param {IGamesFilterData} filter
@@ -89,6 +126,7 @@ export class GamesCatalog extends AbstractModel<IGames> {
         const includeMerchants = filter?.merchants || [];
         const excludeMerchants = filter?.excludeMerchants || [];
         const searchQuery = filter?.searchQuery || '';
+        const gameIds = filter?.ids;
 
         let gameList: Game[] = _concat([], this.games);
 
@@ -134,6 +172,11 @@ export class GamesCatalog extends AbstractModel<IGames> {
             gameList = this.sortNameByRegExp(searchQuery, gameList);
         }
 
+        if (gameIds) {
+            gameList = _filter(gameList, (game: Game): boolean => {
+                return _includes(gameIds, game.ID);
+            });
+        }
         return gameList;
     }
 
@@ -470,6 +513,8 @@ export class GamesCatalog extends AbstractModel<IGames> {
         /***********************************************************************************************************
          * CATEGORIES
          **********************************************************************************************************/
+        response.categories = _concat(this.specialCategories, response.categories);
+
         const mapCategories = GamesHelper.mapCategories(response.categories);
         this.categories = GlobalHelper.sortByNumber<CategoryModel>(mapCategories.categoriesArray, 'sort', true);
 

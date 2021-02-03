@@ -13,7 +13,7 @@ export type DashboardSide = 'left' | 'right';
 export interface IGameDashboardCParams extends IComponentParams<Theme, Type, ThemeMod> {
     modifiers?: Modifiers[];
     common?: {
-        side: DashboardSide;
+        desktopSide: DashboardSide;
         themeMod?: ThemeMod;
     }
 }
@@ -27,28 +27,39 @@ export const defaultParams: IGameDashboardCParams = {
     moduleName: 'games',
     componentName: 'game-dashboard',
     class: 'wlc-game-dashboard',
+    common: {
+        desktopSide: 'right',
+    },
 };
 
 export interface IGameDashboardTab {
     id: string;
     icon: string;
+    label?: string;
+    auth?: boolean;
 }
 
-export const dashboardTabs = [
+export const dashboardTabs: IGameDashboardTab[] = [
     {
         id: 'profile',
         icon: 'game-dashboard/profile',
+        label: gettext('Profile'),
+        auth: true,
     },
     {
         id: 'bonuses',
         icon: 'game-dashboard/bonuses',
+        label: gettext('Bonuses'),
     },
     {
         id: 'tournaments',
         icon: 'game-dashboard/tournaments',
+        label: gettext('Tournaments'),
     },
     {
         id: 'last-played',
         icon: 'game-dashboard/last-played',
+        label: gettext('Last played'),
+        auth: true,
     },
 ];

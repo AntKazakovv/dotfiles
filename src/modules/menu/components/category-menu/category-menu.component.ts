@@ -71,6 +71,10 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
             themeMod: this.$params.themeMod,
         });
         this.init();
+        this.router.transitionService.onSuccess({}, (transition) => {
+            this.menuParams.items = [];
+            this.initMenu();
+        });
         this.onInitEnded = true;
     }
 
@@ -95,6 +99,9 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
      * Init menu
      */
     protected initMenu(): void {
+        this.usedStandartCategories = false;
+        this.categories = [];
+
         if (this.$params.type === 'dropdown') {
             this.initAsDropdown();
         } else {
@@ -121,7 +128,7 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
 
         }
         this.menuParams = _clone(this.menuParams);
-        this.cdr.markForCheck();
+        this.cdr.detectChanges();
     }
 
     /**
