@@ -56,7 +56,7 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
     @Input() protected icon: string;
     @Input() protected index: BParams.Index;
     @Input() protected wlcElement: string;
-    @Input() protected inlineParams: BParams.IButtonParams;
+    @Input() protected inlineParams: BParams.IButtonCParams;
 
     public $params: BParams.IButtonCParams;
     protected $loading = new Subject<boolean>();
@@ -96,7 +96,7 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
         }
     }
 
-    protected prepareParams(): BParams.IButtonParams {
+    protected prepareParams(): BParams.IButtonCParams {
         if (this.inlineParams) {
             return this.inlineParams;
         }
