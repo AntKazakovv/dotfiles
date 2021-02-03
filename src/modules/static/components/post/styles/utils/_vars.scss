@@ -1,0 +1,9 @@
+@use 'engine-scss/functions' as ef;
+
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'contentColor': ef.get('mainColors', 'baseMain'),
+    'contentHeaderColor': ef.get('mainColors', 'baseMain'),
+    'contentHeaderMargin': ef.get('size', 'small') 0,
+    'contentMargin': 0 0 ef.get('size', 'smallest'),
+), $customThemeDefault);

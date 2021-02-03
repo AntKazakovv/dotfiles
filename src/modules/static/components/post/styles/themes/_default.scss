@@ -1,0 +1,32 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/mixins/mediaqueries' as mq;
+
+.wlc-post--theme-default:host {
+    @include text.get-text-style('PlaceholderText', ef.get-value($themeDefault, 'contentHeaderColor'));
+
+    @include mq.min(900) {
+        @include text.get-text-style('ThirdTitle', ef.get-value($themeDefault, 'contentHeaderColor'));
+    }
+
+    ::ng-deep {
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            @include text.get-text-style('ThirdTitleBold', ef.get-value($themeDefault, 'contentColor'));
+            margin: ef.get-value($themeDefault, 'contentHeaderMargin');
+
+            @include mq.min(900) {
+                @include text.get-text-style('QoteTextBold', ef.get-value($themeDefault, 'contentHeaderColor'));
+            }
+
+            &:first-child {
+                margin-top: 0;
+            }
+        }
+    }
+}

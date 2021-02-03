@@ -1,7 +1,7 @@
 @use 'engine-scss/functions' as ef;
 
-$customThemeDefault: () !default;
-$themeDefault: map-merge((
+$customTheme1Default: () !default;
+$theme1Default: map-merge((
     sectionPadding: (
         375: 0,
         768: ef.get('size', 'small'),
@@ -31,5 +31,5 @@ $themeDefault: map-merge((
     buttonSearchIconFill: ef.get('mainColors', 'main'),
     buttonSearchIconMargin: ef.get('size', 'small'),
     buttonMerchMargin: ef.get('size', 'smally'),
-), $customThemeDefault);
+), $customTheme1Default);
 
