@@ -7,11 +7,11 @@
     ></div>
 
     <div class="{{$class}}__email-value" *ngIf="!firstName || !lastName">
-        {{email | truncate: 20}}
+        {{email | truncate: $params.userNameLength}}
     </div>
 
     <div class="{{$class}}__email-value"
          *ngIf="firstName || lastName">
-        {{firstName + ' ' + lastName | truncate: 20}}
+        {{firstName + ' ' + lastName | truncate: $params.userNameLength}}
     </div>
 </div>

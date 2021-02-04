@@ -24,8 +24,8 @@ $themeDefault: map-merge((
     'placeholderBorderRadius': ef.get('radius', 'less'),
     'placeholderTextColor': ef.get('color', 'textSecondary'),
     'moreButtonMargin': (
-        375: ef.get('size', 'smaller') 0 0,
+        375: ef.get('size', 'main') 0 0,
         1024: ef.get('size', 'main') 0 0,
-    )
+    ),
 ), $customThemeDefault);
 

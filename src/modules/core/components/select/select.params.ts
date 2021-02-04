@@ -29,7 +29,7 @@ export interface ISelectCParams extends IComponentParams<ComponentTheme, Compone
 
 export interface ISelectOptions {
     value: unknown;
-    title: string;
+    title: string | number;
 }
 
 export const defaultParams: Partial<ISelectCParams> = {

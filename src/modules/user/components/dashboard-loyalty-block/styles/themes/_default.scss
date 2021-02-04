@@ -32,14 +32,11 @@
                 text-decoration: underline;
             }
 
-            ::ng-deep {
+            .wlc-icon::ng-deep {
 
-                .wlc-icon {
+                svg {
                     transform: rotate(-90deg);
-
-                    svg {
-                        fill: ef.get-value($themeDefault, 'allLinkColor');
-                    }
+                    fill: ef.get-value($themeDefault, 'allLinkColor');
                 }
             }
         }

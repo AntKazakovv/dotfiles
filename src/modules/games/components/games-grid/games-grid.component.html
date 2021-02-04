@@ -1,7 +1,7 @@
 <div class="{{$class}}__content" [hidden]="hideSearchBlock">
     <div class="{{$class}}__header" *ngIf="$params.showTitle || $params.showAllLink?.use">
         <div *ngIf="$params.showTitle" wlc-title [mainText]="title"></div>
-        <a *ngIf="$params.showAllLink?.use"
+        <a *ngIf="$params.showAllLink?.use && isDesktop"
            uiSref="{{$params.showAllLink?.link}}"
            [uiParams]="$params.showAllLink?.params || {}"
            class="{{$class}}__link">
@@ -35,9 +35,16 @@
                     [wlcElement]="'button_load-more-games'"
                     [text]="'Load more games'"
                     [themeMod]="'secondary'"
-                    *ngIf="!useLazy"
+                    *ngIf="!$params.showAllLink?.use && !useLazy"
                     (click)="loadMore()"></button>
+            <button *ngIf="$params.showAllLink?.use && !isDesktop"
+                    wlc-button
+                    [text]="$params.showAllLink?.text || 'Show all'"
+                    uiSref="{{$params.showAllLink?.link}}"
+                    [uiParams]="$params.showAllLink?.params || {}">
+            </button>
         </div>
+
     </ng-container>
 
     <ng-template #noGames>

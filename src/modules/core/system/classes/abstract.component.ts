@@ -9,8 +9,14 @@ import {
 import {Subject} from 'rxjs';
 import {IComponentParams} from 'wlc-engine/modules/core/system/interfaces/config.interface';
 
-import {ConfigService} from 'wlc-engine/modules/core';
+import {
+    ActionService,
+    ConfigService,
+    DeviceType,
+} from 'wlc-engine/modules/core';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
+import {takeUntil} from "rxjs/operators";
+
 import {
     filter as _filter,
     get as _get,
@@ -58,6 +64,7 @@ export class AbstractComponent implements OnDestroy, OnInit, OnChanges {
     constructor(
         private mixedParams: IMixedParams<unknown>,
         protected ConfigService?: ConfigService,
+        protected actionService?: ActionService,
     ) {
     }
 
@@ -69,6 +76,7 @@ export class AbstractComponent implements OnDestroy, OnInit, OnChanges {
         !inlineParams ? this.mixedParams.injectParams : {},
         inlineParams,
         );
+
         if (_get(this, 'type')) {
             this.$params.type = _get(this, 'type');
         }
@@ -85,13 +93,14 @@ export class AbstractComponent implements OnDestroy, OnInit, OnChanges {
         if (this.$params.customMod) {
             this.modifiers = (_isArray(this.$params.customMod)) ? this.$params.customMod : _split(this.$params.customMod, ' ');
         }
+
         this.prepareHostClass();
         this.setWlcElementOnHost();
     }
 
     public ngOnChanges(changes: SimpleChanges): void {
-        if (_get(changes, 'inlineParams') && _get(this, 'inlineParams')) {
-            _assign(this.$params, _get(this, 'inlineParams'));
+        if (_get(changes, 'inlineParams') && _cloneDeep(_get(this, 'inlineParams'))) {
+            _assign(this.$params, _cloneDeep(_get(this, 'inlineParams')));
         }
     }
 

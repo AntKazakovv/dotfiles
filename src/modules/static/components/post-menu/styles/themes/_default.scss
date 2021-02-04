@@ -1,5 +1,6 @@
 @use 'engine-scss/mixins/text' as text;
 @use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/base.mixins' as bm;
 @import '../utils/vars';
 
 .wlc-post-menu--theme-default:host {
@@ -24,6 +25,18 @@
                 @include text.get-text-style('ButtonText', map-get($themeDefault, 'linkColor'));
             }
             text-decoration: map-get($themeDefault, 'linkDecoration');
+
+            @media (hover: hover) {
+
+                &:hover {
+                    color: map-get($themeDefault, 'linkColorHover');
+                    @include bm.transition(color);
+                }
+            }
+
+            &.active {
+                color: map-get($themeDefault, 'linkColorHover');
+            }
         }
     }
 }

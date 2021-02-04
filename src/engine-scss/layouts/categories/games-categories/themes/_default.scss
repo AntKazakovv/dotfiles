@@ -5,6 +5,10 @@
 
 .wlc-sections__categories--theme-1 {
 
+    &[class] {
+        @include bm.get-mq-map('margin', $gamesCategoriesDefault, 'sectionMargin');
+    }
+
     > .container {
         @include bm.get-mq-map('padding', $gamesCategoriesDefault, 'sectionPadding');
         @include bm.get-mq-map('border-radius', $gamesCategoriesDefault, 'sectionRadius');
@@ -21,6 +25,8 @@
     .wlc-btn-search.wlc-btn,
     .wlc-btn-merch.wlc-btn {
         width: 100%;
+        min-width: 150px;
+        height: 40px;
         flex-shrink: 0;
         justify-content: space-between;
         margin-left: auto;

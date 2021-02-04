@@ -11,7 +11,7 @@ $themeDefault: map-merge((
     'paddingSize': ef.get('size', 'smaller'),
     'textTransform': uppercase,
     'textColor': ef.get('mainColors', 'baseMain'),
-    'textColorHover': darken(ef.get('mainColors', 'baseMain'), 5%),
+    'textColorHover': ef.get('mainColors', 'baseMain'),
     'textDecoration': none,
     'fontSize': (
         375: ef.get('font', 'SignText'),

@@ -136,6 +136,7 @@
     }
 
     .wlc-icon-list--theme-payments {
+        position: relative;
         background: ef.get-value($theme2Footer, 'iconListPaymentsBg');
         @include em.get-mq-map('padding', $theme2Footer, 'iconListPaymentsPadding');
         @include em.get-mq-map('order', $theme2Footer, 'iconListPaymentsOrder');

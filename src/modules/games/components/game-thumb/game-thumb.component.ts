@@ -5,6 +5,8 @@ import {
     OnInit,
     ChangeDetectorRef,
     HostBinding,
+    Self,
+    Optional,
 } from '@angular/core';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {Game} from 'wlc-engine/modules/games/system/models/game.model';
@@ -51,7 +53,7 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
     protected deviceType: DeviceType;
 
     constructor(
-        @Inject('injectParams') protected injectParams: Params.IGameThumbCParams,
+        @Inject('injectParams')  @Optional() @Self() protected injectParams: Params.IGameThumbCParams,
         protected gamesCatalogService: GamesCatalogService,
         protected cdr: ChangeDetectorRef,
         protected configService: ConfigService,

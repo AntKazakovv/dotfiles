@@ -48,6 +48,11 @@
                 @include mq.min(1024) {
                     grid-template-columns: 1fr;
                 }
+
+                &:first-child {
+                    // While notifications is absent
+                    display: none;
+                }
             }
 
             &__title {
@@ -69,6 +74,11 @@
                 grid-template-areas:
                     'title switcher'
                     'link .';
+
+                &:last-child {
+                    // While banking information is absent
+                    display: none;
+                }
 
                 &-title {
                     grid-area: title;
@@ -156,6 +166,15 @@
 
             .wlc-input[class],
             .wlc-select[class] {
+
+                .wlc-input__label,
+                .wlc-select__label {
+                    @include text.get-text-style('SignText',  ef.get('form', 'labelColor'));
+
+                    @include mq.min(768) {
+                        @include text.get-text-style('PrimaryText', ef.get('form', 'labelColor'));
+                    }
+                }
 
                 @include mq.min(768) {
                     grid-template-columns: 1fr ef.get-value($mainInfoThemeDefault, 'inputWidth', 768);
