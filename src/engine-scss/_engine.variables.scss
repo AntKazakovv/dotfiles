@@ -520,7 +520,7 @@ $body-bg: map-get($mainColors, 'bg') !default;
 $body-color: map-get($mainColors, 'baseMain') !default;
 $font-size-root: 10px !default;
 $font-size-base: map-get($font, 'base') !default;
-$font-family-sans-serif: Roboto, sans-serif !default;
+$font-family-sans-serif: Inter, sans-serif !default;
 $headings-margin-bottom: 0 !default;
 $paragraph-margin-bottom: 0 !default;
 $link-color: map-get($mainColors, 'main') !default;
