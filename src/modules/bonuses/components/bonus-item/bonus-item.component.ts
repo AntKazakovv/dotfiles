@@ -11,15 +11,11 @@ import {
 import {
     AbstractComponent,
     IMixedParams,
-} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {
     CachingService,
     ConfigService,
-} from 'wlc-engine/modules/core';
-import {
     ModalService,
     EventService,
-} from 'wlc-engine/modules/core/system/services';
+} from 'wlc-engine/modules/core';
 import {Bonus} from '../../system/models/bonus';
 import {BonusesService} from '../../system/services';
 import * as Params from './bonus-item.params';
@@ -33,6 +29,7 @@ import {
     keys as _keys,
     forEach as _forEach,
 } from 'lodash-es';
+import {getLocaleDateTimeFormat} from '@angular/common';
 
 export {IBonusItemCParams} from './bonus-item.params';
 export const BonusItemComponentEvents: IBonusItemComponentEvents = {
@@ -94,7 +91,7 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
             this.bonus = this.$params.bonus;
         }
         if (!this.view) {
-            this.view = this.$params.common.bonus.viewTarget || 'default';
+            this.view = this.$params.common.bonus?.viewTarget || 'default';
         }
 
         this.prepareModifiers();
@@ -107,17 +104,17 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
     }
 
     public getBonusTag(): string {
-        if (this.$params.common.bonus.isActive) {
-            return 'Active';
+        if (this.$params.common.bonus?.isActive) {
+            return gettext('Active');
         }
-        if (this.$params.common.bonus.isSubscribed) {
-            return 'Subscribed';
+        if (this.$params.common.bonus?.isSubscribed) {
+            return gettext('Subscribed');
         }
 
-        if (this.$params.common.bonus.inventoried) {
-            return 'Inventoried';
+        if (this.$params.common.bonus?.inventoried) {
+            return gettext('Inventoried');
         }
-        return this.$params.common.bonus.group;
+        return this.$params.common.bonus?.group;
     }
 
     public openDescription(bonus: Bonus): void {
@@ -155,26 +152,38 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
     }
 
     public async join(): Promise<void> {
+
         this.bonus = await this.bonusesService.subscribeBonus(this.bonus);
         if (this.bonus) {
-            this.sendEvent('SUBSCRIBE_ON_BONUS', this.bonus);
             this.bonusesService.clearPromoBonus();
             this.cdr.markForCheck();
         }
     }
 
-    public async leave(): Promise<void> {
-        this.bonus = await this.bonusesService.cancelBonus(this.bonus);
-        if (this.bonus) {
-            this.cdr.markForCheck();
-        }
+    public leave(): void {
+        this.modalService.showModal({
+            id: 'bonus-info',
+            modalTitle: gettext('Confirmation'),
+            modifier: 'confirmation',
+            modalMessage: gettext('Are you sure?'),
+            showConfirmBtn: true,
+            closeBtnText: gettext('No'),
+            confirmBtnText: gettext('Yes'),
+            textAlign: 'center',
+            onConfirm: async () => {
+                this.bonus = await this.bonusesService.cancelBonus(this.bonus);
+                if (this.bonus) {
+                    this.cdr.markForCheck();
+                }
+            },
+            dismissAll: true,
+        });
     }
 
     public async unsubscribe(): Promise<void> {
         this.bonus = await this.bonusesService.unsubscribeBonus(this.bonus);
 
         if (this.bonus) {
-            this.sendEvent('UNSUBSCRIBE_FROM_BONUS', this.bonus);
             this.cdr.markForCheck();
         }
     }
@@ -202,12 +211,5 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
             modifiers = _union(modifiers, this.$params.common.customModifiers.split(' '));
         }
         this.addModifiers(modifiers);
-    }
-
-    protected sendEvent(eventName, data): void {
-        this.eventService.emit({
-            name: eventName,
-            data,
-        });
     }
 }

@@ -11,15 +11,16 @@ import {
 import {
     AbstractComponent,
     IMixedParams,
-} from 'wlc-engine/modules/core/system/classes/abstract.component';
+    CachingService,
+    ConfigService,
+    EventService,
+} from 'wlc-engine/modules/core';
 import {
     ISliderCParams,
     ISlide,
 } from 'wlc-engine/modules/promo/components/slider/slider.params';
 import {SliderComponent} from 'wlc-engine/modules/promo/components/slider/slider.component';
 import {BonusItemComponent} from '../bonus-item/bonus-item.component';
-import {CachingService, ConfigService} from 'wlc-engine/modules/core';
-import {EventService} from 'wlc-engine/modules/core/system/services';
 import {Bonus} from '../../system/models/bonus';
 import {BonusesService} from '../../system/services';
 import * as Params from './bonuses-list.params';
@@ -34,6 +35,7 @@ import {
     filter as _filter,
     find as _find,
     concat as _concat,
+    isObject as _isObject,
 } from 'lodash-es';
 
 export {IBonusesListCParams} from './bonuses-list.params';
@@ -82,8 +84,6 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
     public async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
         this.prepareModifiers();
-        this.setSubscription();
-
 
         if (!this.bonusesService.promoBonus) {
             await this.checkPromoBonus();
@@ -134,7 +134,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
     }
 
     protected bonusesToSlides(bonuses: Bonus[]): void {
-        this.slides = bonuses.map((item: Bonus) => {
+        this.slides = bonuses?.map((item: Bonus) => {
             return {
                 component: BonusItemComponent,
                 componentParams: _merge(
@@ -183,37 +183,10 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
 
     protected prepareBonuses(): void {
         this.bonuses = this.sortBonuses();
+        this.checkBonuses();
         if (this.$params.type === 'swiper' && this.bonuses?.length) {
             this.bonusesToSlides(this.bonuses);
         }
-    }
-
-    protected setSubscription(): void {
-        this.subscribeOnBonusEvent();
-        this.unsubscribeFromBonusEvent();
-    }
-
-    protected unsubscribeFromBonusEvent(): void {
-        this.eventService.filter(
-            {name: 'UNSUBSCRIBE_FROM_BONUS'},
-            this.$destroy)
-            .subscribe({
-                next: async (selectedBonus: any) => {
-                    this.bonuses = _filter(this.bonuses, bonus => bonus.id !== selectedBonus.data.id);
-                    this.bonusesToSlides(this.bonuses);
-                },
-            });
-    }
-
-    protected subscribeOnBonusEvent(): void {
-        this.eventService.filter(
-            {name: 'SUBSCRIBE_ON_BONUS'},
-            this.$destroy)
-            .subscribe({
-                next: async (selectedBonus: any) => {
-                    this.$params.common.sortOrder = _filter(this.$params.common.sortOrder, item => item !== selectedBonus.data.id);
-                },
-            });
     }
 
     protected addPromoBonus(): void {
@@ -233,4 +206,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
         this.bonusesService.promoBonus = bonus[0];
     }
 
+    protected checkBonuses() {
+        this.bonuses = _filter(this.bonuses, (bonus: Bonus) => _isObject(bonus));
+    }
 }

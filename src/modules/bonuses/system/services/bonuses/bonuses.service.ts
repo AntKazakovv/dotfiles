@@ -1,18 +1,17 @@
 import {Injectable} from '@angular/core';
-import {IData} from 'wlc-engine/modules/core/system/services/data/data.service';
 import {Bonus} from '../../models/bonus';
 import {
+    IData,
     ConfigService,
     EventService,
     ModalService,
     LogService,
-    DataService, CachingService,
-} from 'wlc-engine/modules/core/system/services';
-import {UserService} from 'wlc-engine/modules/user/system/services';
-import {
+    DataService,
+    CachingService,
     IIndexing,
     IForbidBanned,
-} from 'wlc-engine/modules/core/system/interfaces';
+} from 'wlc-engine/modules/core';
+import {UserService} from 'wlc-engine/modules/user/system/services';
 import {
     IBonus,
     RestType,
@@ -217,7 +216,6 @@ export class BonusesService {
             });
             if (_isObject(data.data)) {
                 const bonus: Bonus = new Bonus(data.data, this.configService, this);
-                this.cacheBonus(bonus);
                 return bonus;
             } else {
                 this.logService.sendLog({code: '10.0.1', data: data.data});
@@ -251,7 +249,7 @@ export class BonusesService {
             }, params);
             return response.data;
         } catch (error) {
-            this.showError('Bonus subscribe failed', error?.errors);
+            this.showError(gettext('Bonus subscribe failed'), error?.errors);
         }
     }
 
@@ -278,7 +276,7 @@ export class BonusesService {
             }, params);
             return response.data;
         } catch (error) {
-            this.showError('Bonus unsubscribe failed', error?.errors);
+            this.showError(gettext('Bonus unsubscribe failed'), error?.errors);
         }
     }
 
@@ -303,7 +301,7 @@ export class BonusesService {
             });
             return response.data;
         } catch (error) {
-            this.showError('Bonus cancel failed', error?.errors);
+            this.showError(gettext('Bonus cancel failed'), error?.errors);
         }
     }
 
@@ -329,56 +327,8 @@ export class BonusesService {
             }, params);
             return response.data;
         } catch (error) {
-            this.showError('Bonus take failed', error?.errors);
+            this.showError(gettext('Bonus take failed'), error?.errors);
         }
-    }
-
-    /**
-     * Add bonus to local cache
-     *
-     * @param {Bonus} bonus bonus object
-     */
-    public cacheBonus(bonus: Bonus): void {
-        const cacheKey = 'wlc.bonusData_' + bonus.id,
-            bonusModel = {
-                ID: '',
-                Name: '',
-                Description: '',
-                Image: '',
-                Terms: '',
-                Event: '',
-                Expire: '',
-                Starts: '',
-                Ends: '',
-                Conditions: '',
-                Results: '',
-                Limitation: '',
-            };
-        // TODO
-        // const result = _assign(bonusModel, _pick(bonus, _keys(bonusModel)));
-        // this.LocalCacheService.set(cacheKey, JSON.stringify(result), {maxAge: 2 * 60 * 1000});
-    }
-
-    /**
-     * Get bonus from local cache
-     *
-     * @param {number} bonus bonus id
-     * @returns {Bonus} bonus object
-     */
-    public getBonusFromCache(id: number): Bonus {
-        // TODO
-        // const cacheKey = 'wlc.bonusData_' + id,
-        //     cacheData = this.LocalCacheService.get(cacheKey);
-
-        // if (!cacheData) {
-        //     return undefined;
-        // }
-
-        // const result = JSON.parse(cacheData);
-        // const bonus = new Bonus(result, ...this.bonusParams);
-
-        //return bonus;
-        return null;
     }
 
     /**
@@ -570,6 +520,8 @@ export class BonusesService {
             {name: 'PROFILE_UPDATE'},
             {name: 'BONUS_TAKE_SUCCEEDED'},
             {name: 'BONUS_CANCEL_SUCCEEDED'},
+            {name: 'BONUS_SUBSCRIBE_SUCCEEDED'},
+            {name: 'BONUS_UNSUBSCRIBE_SUCCEEDED'},
         ], () => {
             this.updateSubscribers();
         });
@@ -578,22 +530,6 @@ export class BonusesService {
             {name: 'LOGOUT'},
         ], () => {
             this.clearPromoBonus();
-        });
-
-        this.eventService.subscribe([
-            {name: 'BONUS_SUBSCRIBE_SUCCEEDED'},
-        ], (data: IData) => {
-            if (data?.data?.event === 'sign up') {
-                this.updateSubscribers();
-            }
-        });
-
-        this.eventService.subscribe([
-            {name: 'BONUS_UNSUBSCRIBE_SUCCEEDED'},
-        ], (data: IData) => {
-            if (data?.data?.inventoried) {
-                this.updateSubscribers();
-            }
         });
 
         this.eventService.subscribe([

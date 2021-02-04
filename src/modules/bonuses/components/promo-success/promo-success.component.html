@@ -1,5 +1,5 @@
 <div class="{{$class}}__container">
-    <h4 class="{{$class}}__title">{{$params.common.title}}</h4>
+    <h4 class="{{$class}}__title">{{$params.common.title | translate}}</h4>
 
     <span wlc-icon
           [iconName]="$params.common.iconName"
@@ -7,7 +7,7 @@
     >
     </span>
 
-    <div class="{{$class}}__text">{{$params.common.text}}</div>
+    <div class="{{$class}}__text">{{$params.common.text | translate}}</div>
 
     <button
         wlc-button

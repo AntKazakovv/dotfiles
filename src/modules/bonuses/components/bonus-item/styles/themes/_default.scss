@@ -30,7 +30,7 @@
                 min-width: ef.get-value($themeDefault, 'minWidthDesktop');
             }
 
-            @include mq.min(720) {
+            @include mq.min(768) {
                 max-width: 100%;
             }
         }
@@ -109,7 +109,7 @@
             background-repeat: no-repeat;
             background-size: cover;
             background-position: center center;
-            margin: ef.get-value($themeDefault, 'bonusIconMargin');
+            @include em.get-mq-map('margin', $themeDefault, 'bonusIconMargin');
             position: relative;
 
             .icon-sign {
@@ -188,10 +188,12 @@
 
         &__name {
             @include text.get-text-style('QoteTextBold', ef.get-value($themeDefault, 'nameFontColor'));
+            line-height: 1.4;
             text-align: center;
             width: ef.get-value($themeDefault, 'infoWidth');
 
             @include mq.min(1200) {
+                line-height: 1.5;
                 width: ef.get-value($themeDefault, 'infoWidthDesktop');
             }
         }
@@ -209,8 +211,7 @@
 
         &__active-block {
             display: grid;
-            grid-gap: ef.get-value($themeDefault, 'activeBlockPadding');
-            padding: ef.get-value($themeDefault, 'activeBlockPadding');
+            @include em.get-mq-map('padding', $themeDefault, 'activeBlockPadding');
             margin: ef.get-value($themeDefault, 'activeBlockMargin');
             max-width: ef.get-value($themeDefault, 'activeBlockMaxWidth');
             border-radius: ef.get-value($themeDefault, 'activeBlockRadius');
@@ -247,6 +248,7 @@
 
         &__timer-text {
             text-align: left;
+            line-height: 1.3;
         }
 
         &__progress {
@@ -305,9 +307,12 @@
             @include em.get-mq-map('bottom', $themeDefault, 'btnBottomPosition');
             display: flex;
             justify-content: center;
-            transition: all ef.get-value($themeDefault, 'time') ease-in-out;
             @include em.get-mq-map('opacity', $themeDefault, 'btnsOpacity');
             @include em.get-mq-map('transform', $themeDefault, 'btnsTranslateY');
+
+            @include mq.min(1200) {
+                transition: transform ef.get-value($themeDefault, 'time') ease-in-out;
+            }
 
             button {
                 margin: ef.get-value($themeDefault, 'btnMargin');
@@ -319,7 +324,7 @@
     .active {
 
         .wlc-bonus-item__wrapper {
-            grid-template-rows: auto;
+            grid-template-rows: 41px auto;
         }
 
         .wlc-bonus-item__image,
@@ -329,6 +334,7 @@
 
         .wlc-bonus-item__name {
             margin-bottom: 0;
+            line-height: 1.2;
         }
 
         .wlc-bonus-item__bottom {
@@ -359,6 +365,10 @@
                         .wlc-bonus-item__description {
                             opacity: 1;
                         }
+                    }
+
+                    .wlc-bonus-item__progress {
+                        opacity: 0;
                     }
                 }
             }

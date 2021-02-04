@@ -1,0 +1,34 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/mediaqueries' as mq;
+
+@import '../utils/vars';
+
+.app-profile-loyalty-bonuses-main-state {
+
+    .wlc-sections__profile-content {
+
+        > .container {
+            position: relative;
+            display: grid;
+            grid: {
+                template-columns: minmax(0, 1fr);
+                template-rows: auto;
+                gap: ef.get-value($storeThemeDefault, 'sectionGap', 719);
+            }
+
+            @include mq.min(720) {
+                grid: {
+                    gap: ef.get-value($storeThemeDefault, 'sectionGap', 720);
+                }
+            }
+        }
+    }
+
+    .wlc-title {
+        text-align: center;
+
+        @include mq.min(720) {
+            text-align: left;
+        }
+    }
+}

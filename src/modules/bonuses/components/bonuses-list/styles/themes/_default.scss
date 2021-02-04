@@ -6,10 +6,6 @@
 
     &:host {
 
-        .wlc-bonuses-list__list-wrapper {
-            margin: ef.get-value($themeDefault, 'margin');
-        }
-
         .wlc-bonuses-list__list {
             display: flex;
             flex-direction: column;
@@ -35,18 +31,12 @@
             }
         }
 
-        .wlc-bonuses-list__nocontent,
-        .wlc-bonuses-list__header {
+        .wlc-bonuses-list__nocontent {
             text-align: center;
 
             @include mq.min(1024) {
                 text-align: left;
             }
-        }
-
-        .wlc-bonuses-list__header {
-            font-weight: bold;
-            color: ef.get-value($themeDefault, 'headerColor');
         }
     }
 }
@@ -56,23 +46,36 @@
     &:host {
 
         .wlc-bonuses-list__list-wrapper {
-            margin: ef.get-value($themeDefault, 'marginSwiper');
 
             ::ng-deep {
 
                 .swiper-container {
 
-                    @include mq.min(480) {
+                    @include mq.min(720) {
                         padding: ef.get-value($themeDefault, 'swiperPadding');
                     }
                 }
 
+                .swiper-slide {
+                    width: 300px;
+                }
+
                 .swiper-button-next {
                     right: 0;
+                    display: none;
+
+                    @include mq.min(720) {
+                        display: flex;
+                    }
                 }
 
                 .swiper-button-prev {
                     left: 0;
+                    display: none;
+
+                    @include mq.min(720) {
+                        display: flex;
+                    }
                 }
             }
         }

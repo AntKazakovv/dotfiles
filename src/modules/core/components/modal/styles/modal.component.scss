@@ -183,6 +183,10 @@
         border-top: ef.get-value($hostModal, 'modalFooterBorderTop');
     }
 
+    &__footer [wlc-button] {
+        margin: ef.get-value($hostModal, 'modalFooterBtnsMargin');
+    }
+
     &__close[wlc-button] {
         position: absolute;
         right: ef.get-value($hostModal, 'closePosRight');
