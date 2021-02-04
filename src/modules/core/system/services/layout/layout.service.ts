@@ -62,59 +62,47 @@ export class LayoutService {
         this.prepareLayouts();
     }
 
+    /**
+     * Return layout config
+     *
+     * @param type {string} type of layout config pages || panels
+     * @param state {string} state
+     * @param params {IIndexing<any>} state params
+     *
+     * @return {ILayoutStateConfig}
+     */
     public getLayoutConfig(type: LayoutsType, state: string, params?: IIndexing<any>): ILayoutStateConfig {
-        const mergeExtendsLayout = () => {
-            if (this.layouts[type][state]?.extends) {
-                return _cloneDeep(_extend(
-                    _cloneDeep(this.layouts[type][state]),
-                    _mergeWith(
-                        this.getLayoutConfig(type, this.layouts[type][state].extends, params),
-                        this.layouts[type][state],
-                        (target, source) => {
-                            return _isArray(target) ? source : undefined;
-                        })));
+        const config = this.getLayoutConfig$(type, state, params);
+        _each(config.sections, (section, name) => {
+            if (section === null) {
+                delete config.sections[name];
             }
-
-            return _cloneDeep(this.layouts[type][state]);
-        };
-        if (this.layouts[type].hasOwnProperty(state)) {
-            const paramsPath: string = params?.category || params?.slug;
-
-            if (paramsPath) {
-                const subCategoryPath = `${state}.${paramsPath}`;
-                const subCategories = this.layouts[type][state]?.subcategories;
-
-                if (subCategories?.[subCategoryPath]) {
-                    if (subCategories[subCategoryPath]?.extends) {
-                        return _cloneDeep(_extend(
-                            _cloneDeep(subCategories[subCategoryPath]),
-                            _mergeWith(
-                                this.getLayoutConfig(type, subCategories[subCategoryPath].extends),
-                                subCategories[subCategoryPath],
-                                (target, source) => {
-                                    return _isArray(target) ? source : undefined;
-                                })));
-                    }
-                    return _cloneDeep(subCategories[subCategoryPath]);
-                } else {
-                    return mergeExtendsLayout();
-                }
-            }
-            return mergeExtendsLayout();
-        } else {
-            return _cloneDeep(this.layouts[type].app) || {};
-        }
+        });
+        return config;
     }
 
     /**
      Return all sections of current state
+     * @param type {string} type of layout config pages || panels
+     * @param state {string} state
+     * @param params {IIndexing<any>} state params
+     *
+     * @return {SectionModel[]}
      */
     public getAllSection(type: LayoutsType, state: string, params?: IIndexing<any>): SectionModel[] {
-        return _map(this.getLayoutConfig(type, state, params)?.sections, (section, name) => {
-            return new SectionModel(<ISectionData>{section, name});
-        });
+        return _map(
+            this.getLayoutConfig(type, state, params)?.sections,
+            (section, name) => {
+                return new SectionModel(<ISectionData>{section, name});
+            });
     }
-
+    /**
+     * @param type {string} type of layout config pages || panels
+     * @param state {string} state
+     * @param params {IIndexing<any>} state params
+     *
+     * @return {Promise<ILayoutStateConfig>}
+     */
     public async getLayout(type: LayoutsType, state: string, params?: IIndexing<any>): Promise<ILayoutStateConfig> {
         const res: ILayoutStateConfig = this.getLayoutConfig(type, state, params);
 
@@ -191,10 +179,24 @@ export class LayoutService {
         return res;
     }
 
+    /**
+     * return component class by it's name
+     *
+     * @param name {string} name of component
+     *
+     * @return {componentClass}
+     */
     public getComponent(name: string): unknown {
         return _get(this.components, name);
     }
 
+    /**
+     * load and return component class by it's name
+     *
+     * @param name {string} name of component
+     *
+     * @return {Promise<unknown>}
+     */
     public async loadComponent(name: string): Promise<unknown> {
 
         const [module] = name.split('.');
@@ -206,11 +208,73 @@ export class LayoutService {
         return _get(this.components, name);
     }
 
+    /**
+     * manual load modules
+     *
+     * @param modules {string[]} list of modules to load
+     *
+     * @return {Promise}
+     */
+    public async importModules(modules: string[]): Promise<void> {
+        await Promise.all(
+            modules.map(
+                async (module) =>
+                    this.components.hasOwnProperty(module)
+                        ? Promise.resolve()
+                        : this.importModule(module),
+            ),
+        );
+    }
+
     private async prepareLayouts(): Promise<void> {
         await this.configService.ready;
 
         this.layouts.pages = this.configService.get<ILayoutsConfig>('$layouts');
         this.layouts.panels = this.configService.get<IPanelsConfig>('$panelsLayouts');
+    }
+
+    private getLayoutConfig$(type: LayoutsType, state: string, params?: IIndexing<any>): ILayoutStateConfig {
+        const mergeExtendsLayout = () => {
+            if (this.layouts[type][state]?.extends) {
+                return _cloneDeep(_extend(
+                    _cloneDeep(this.layouts[type][state]),
+                    _mergeWith(
+                        this.getLayoutConfig$(type, this.layouts[type][state].extends, params),
+                        this.layouts[type][state],
+                        (target, source) => {
+                            return _isArray(target) ? source : undefined;
+                        })));
+            }
+
+            return _cloneDeep(this.layouts[type][state]);
+        };
+        if (this.layouts[type].hasOwnProperty(state)) {
+            const paramsPath: string = params?.category || params?.slug;
+
+            if (paramsPath) {
+                const subCategoryPath = `${state}.${paramsPath}`;
+                const subCategories = this.layouts[type][state]?.subcategories;
+
+                if (subCategories?.[subCategoryPath]) {
+                    if (subCategories[subCategoryPath]?.extends) {
+                        return _cloneDeep(_extend(
+                            _cloneDeep(subCategories[subCategoryPath]),
+                            _mergeWith(
+                                this.getLayoutConfig$(type, subCategories[subCategoryPath].extends),
+                                subCategories[subCategoryPath],
+                                (target, source) => {
+                                    return _isArray(target) ? source : undefined;
+                                })));
+                    }
+                    return _cloneDeep(subCategories[subCategoryPath]);
+                } else {
+                    return mergeExtendsLayout();
+                }
+            }
+            return mergeExtendsLayout();
+        } else {
+            return _cloneDeep(this.layouts[type].app) || {};
+        }
     }
 
     private getPosition(section: ILayoutSectionConfig, item: ILayoutModifyItem): number {
@@ -261,17 +325,6 @@ export class LayoutService {
 
             return (position < section.components.length) ? position : section.components.length;
         }
-    }
-
-    public async importModules(modules: string[]): Promise<void> {
-        await Promise.all(
-            modules.map(
-                async (module) =>
-                    this.components.hasOwnProperty(module)
-                        ? Promise.resolve()
-                        : this.importModule(module),
-            ),
-        );
     }
 
     private async importModule(name: string): Promise<any> {

@@ -149,8 +149,8 @@ export class ConfigService {
         }
 
         const layoutConfig = this.addLayoutConfig(wlcConfig.$base.app.type);
-        _mergeWith(this.global, wlcConfig, layoutConfig, (target, source) => (source.replaceConfig) ? source : undefined);
-        _mergeWith(this.global, appConfig, (target, source) => (source.replaceConfig) ? source : undefined);
+        _mergeWith(this.global, wlcConfig, layoutConfig, (target, source) => (source?.replaceConfig) ? source : undefined);
+        _mergeWith(this.global, appConfig, (target, source) => (source?.replaceConfig) ? source : undefined);
         GlobalHelper.deepFreeze(this.global.appConfig);
     }
 

@@ -28,6 +28,9 @@ export class SectionModel implements ILayoutSectionConfig {
     protected preparedModifiers: string[] = [];
 
     constructor(sectionData: ISectionData) {
+        if (sectionData.section === null) {
+            return;
+        }
         _assign(this, sectionData.section);
         this.name = sectionData.name;
         this.order = _isUndefined(this.order) ? 1 : this.order;
