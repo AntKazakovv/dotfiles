@@ -23,7 +23,6 @@ export interface IBonusesListCParams extends IComponentParams<Theme, Type, Theme
         customModifiers?: CustomMod;
         restType?: RestType;
         filter?: BonusesFilterType;
-        title?: string;
         sortOrder?: ('active' | 'subscribe' | 'inventory' | number)[],
         swiper?: SwiperOptions;
     };
@@ -36,6 +35,5 @@ export const defaultParams: IBonusesListCParams = {
     common: {
         restType: 'any',
         filter: 'all',
-        title: 'Bonuses',
     },
 };

@@ -1,6 +1,6 @@
 import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
-import {ConfigService} from 'wlc-engine/modules/core/system/services';
+import {ConfigService} from 'wlc-engine/modules/core';
 import {
     IBonus,
     IBonusConditions,
@@ -181,10 +181,10 @@ export class Bonus extends AbstractModel<IBonus> {
 
     public get group(): string {
         if (this.hasPromoCode) {
-            return 'Promocode';
+            return gettext('Promocode');
         }
         if (this.regEvents.indexOf(this.event) !== -1) {
-            return 'Welcome bonus';
+            return gettext('Welcome bonus');
         }
         return this.data.Group;
     }
@@ -484,16 +484,16 @@ export class Bonus extends AbstractModel<IBonus> {
         let str: string = '';
         switch (this.limitation) {
             case 'winevent':
-                str = 'Winnings + Deposit';
+                str = gettext('Winnings + Deposit');
                 break;
             case 'win':
-                str = 'Winnings';
+                str = gettext('Winnings');
                 break;
             case 'all':
-                str = 'Full lock';
+                str = gettext('Full lock');
                 break;
             default:
-                str = 'No lock';
+                str = gettext('No lock');
                 break;
         }
         return str;

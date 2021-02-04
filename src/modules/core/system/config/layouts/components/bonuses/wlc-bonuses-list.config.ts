@@ -5,7 +5,6 @@ export namespace wlcBonusesList {
         name: 'bonuses.wlc-bonuses-list',
         params: {
             common: {
-                title: '',
                 filter: 'main',
                 sortOrder: ['active', 'subscribe', 'inventory'],
             },
@@ -15,7 +14,6 @@ export namespace wlcBonusesList {
         name: 'bonuses.wlc-bonuses-list',
         params: {
             common: {
-                title: '',
                 restType: 'active',
                 filter: 'active',
             },
@@ -25,7 +23,6 @@ export namespace wlcBonusesList {
         name: 'bonuses.wlc-bonuses-list',
         params: {
             common: {
-                title: '',
                 filter: 'inventory',
             },
         },
@@ -37,7 +34,6 @@ export namespace wlcBonusesList {
             wlcElement: 'block_bonuses',
             common: {
                 sortOrder: ['active', 'subscribe', 'inventory'],
-                title: '',
                 swiper: {
                     slidesPerView: 2,
                     spaceBetween: 20,
@@ -45,25 +41,40 @@ export namespace wlcBonusesList {
                     navigation: true,
                     breakpoints: {
                         320: {
-                            slidesPerView: 1,
+                            slidesPerView: 'auto',
+                            spaceBetween: 10,
                         },
                         560: {
-                            slidesPerView: 1,
+                            slidesPerView: 'auto',
+                            spaceBetween: 10,
+                        },
+                        680: {
+                            slidesPerView: 'auto',
+                            spaceBetween: 10,
+                        },
+                        720: {
+                            slidesPerView: 2,
+                            spaceBetween: 20,
                         },
                         768: {
-                            slidesPerView: 1,
+                            slidesPerView: 2,
+                            spaceBetween: 20,
                         },
                         900: {
                             slidesPerView: 2,
+                            spaceBetween: 20,
                         },
                         1024: {
                             slidesPerView: 1,
+                            spaceBetween: 20,
                         },
                         1200: {
                             slidesPerView: 2,
+                            spaceBetween: 20,
                         },
                         1420: {
                             slidesPerView: 2,
+                            spaceBetween: 20,
                         },
                     },
                 },

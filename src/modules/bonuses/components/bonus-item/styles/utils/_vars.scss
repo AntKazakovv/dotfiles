@@ -11,7 +11,7 @@ $themeDefault: map-merge((
     'infoWidthDesktop': 320px - 30px,
     'infoHeight': (
         320: auto 160px,
-        1200: auto 125px,
+        1200: auto 132px,
     ),
     'relativeImageHeight': 70%,
     'bonusIconSize': 144px,
@@ -21,8 +21,8 @@ $themeDefault: map-merge((
     'bonusIconValueBlockPosL': 50%,
     'bonusIconValueBlockPosB': 10px,
     'bonusIconValueBlockMagin': 0 0 0 -30px,
-    'activeBlockMaxWidth': 80%,
-    'progressBarSize': 5px,
+    'activeBlockMaxWidth': 250px,
+    'progressBarSize': 7px,
     'moreIconSize': 24px,
     'activeBlockTimeIconSize': 18px,
     // // Font
@@ -67,28 +67,35 @@ $themeDefault: map-merge((
     'activeBlockTimerRadius': ef.get('radius', 'biger'),
     'activeBlockProgressRadius': ef.get('radius', 'biger'),
     'activeBlockTimeIconFill': ef.get('mainColors', 'secondary'),
-    'progressBarRadius': 5px,
+    'progressBarRadius': 10px,
     //Padding
-    'bonusIconMargin': 55px auto 0 auto,
+    'bonusIconMargin': (
+        320: 55px auto 0 auto,
+        1200: 77px auto 0 auto,
+    ),
     'tagPadding': 4px 10px 3px,
     'infoPadding': 0 ef.get('size', 'small'),
-    'activeBlockPadding': ef.get('size', 'small'),
-    'activeBlockMargin': 0 auto,
-    'activeBlockTimerPadding': ef.get('size', 'small'),
-    'activeBlockTimerMargin': 0,
-    'activeBlockProgressPadding': ef.get('size', 'small'),
-    'activeBlockProgressMargin': (
-        320: 0,
-        1200: ef.get('size', 'smaller') 0 0 0
+    'activeBlockPadding': (
+        320: ef.get('size', 'smaller') 0 0 0,
+        1200: 30px 0 0 0,
     ),
-    'activeBlockTimeIconMargin': 0 ef.get('size', 'small') 0 0,
+    'activeBlockMargin': 0 auto,
+    'activeBlockTimerPadding': 9px 15px 8px 15px,
+    'activeBlockTimerMargin': 0,
+    'activeBlockProgressPadding': 0,
+    'activeBlockProgressMargin': (
+        320: ef.get('size', 'smaller') 0 0 0,
+        1200: 37px 0 0 0
+    ),
+    'activeBlockTimeIconMargin': -5px ef.get('size', 'small') 0 0,
+
     'progressBarMargin': ef.get('size', 'smallest') 0,
     'btnMargin': 0 ef.get('size', 'smallest'),
     //Position
     'tagPositionTop': ef.get('size', 'smaller'),
     'moreIconPosLeft': auto,
-    'moreIconPosRight': ef.get('size', 'small'),
-    'moreIconPosTop': ef.get('size', 'small'),
+    'moreIconPosRight': ef.get('size', 'smaller'),
+    'moreIconPosTop': ef.get('size', 'smally'),
     'moreIconPosBottom': auto,
     // chosen icon
     'chosenIconBg': ef.get('fieldColors', 'inputBg'),
@@ -103,13 +110,13 @@ $themeDefault: map-merge((
     'time': ef.get('time', 'main'),
 
     'infoBlockPadding': (
-        320: 0,
-        1200: ef.get('size', 'big') 0 0 0,
+        320: ef.get('size', 'smaller') 0 0 0,
+        1200: 34px 0 0 0,
     ),
 
     'btnBottomPosition': (
         320: 6%,
-        1200: 10%,
+        1200: 40px,
     ),
 
     'btnsOpacity': (

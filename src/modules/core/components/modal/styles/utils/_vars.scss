@@ -19,6 +19,7 @@ $hostModal: map-merge((
     'modalOffset': 0 auto,
     'modalBorder': 1px solid rgba(ef.get('mainColors', 'bg'), $alpha: 0.2),
     'modalBorderRadius': ef.get('radius', 'small'),
+    'modalFooterBtnsMargin': 0 ef.get('size', 'smallest'),
     'modalHeaderPadding': ef.get('size', 'less'),
     'modalBodyPadding': ef.get('size', 'less'),
     'modalFooterPadding': ef.get('size', 'less'),

@@ -176,9 +176,11 @@ export class WlcModalComponent extends AbstractComponent
 
     protected setTitleView(): void {
         const elem = this.titleText?.nativeElement as HTMLElement;
-        elem.style.width = '100%';
-        elem.style.width = elem.getBoundingClientRect().width + 'px';
-        clampLib(elem, 2);
+        if (elem) {
+            elem.style.width = '100%';
+            elem.style.width = elem.getBoundingClientRect().width + 'px';
+            clampLib(elem, 2);
+        }
     }
 
     protected eventHandler(type: string, callback: () => void) {
