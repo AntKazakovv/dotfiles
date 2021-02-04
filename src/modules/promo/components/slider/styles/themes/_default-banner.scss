@@ -44,12 +44,18 @@
     }
 
     .wlc-swiper-button-prev {
-        transform: rotate(90deg);
         @include em.get-mq-map('margin-right', $themeDefaultBanner, 'buttonGap');
+
+        .wlc-icon-content {
+            transform: rotate(90deg);
+        }
     }
 
     .wlc-swiper-button-next {
-        transform: rotate(270deg);
+
+        .wlc-icon-content {
+            transform: rotate(-90deg);
+        }
     }
 
     .wlc-icon {
