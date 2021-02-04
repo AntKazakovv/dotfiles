@@ -1,5 +1,6 @@
 @use 'engine-scss/mixins/mediaqueries' as mq;
 @use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/mixins/base.mixins' as em;
 @use 'engine-scss/functions' as ef;
 @import '../utils/vars';
 
@@ -18,8 +19,11 @@
             margin-left: auto;
             margin-right: auto;
 
-            &:hover {
-                background: ef.get-value($themeDefault, 'backgroundHover');
+            @media (hover: hover) {
+
+                &:hover {
+                    background: ef.get-value($themeDefault, 'backgroundHover');
+                }
             }
 
             @include mq.min(1200) {
@@ -36,7 +40,7 @@
             width: 100%;
             height: 100%;
             display: grid;
-            grid-template-rows: auto ef.get-value($themeDefault, 'infoHeight');
+            @include em.get-mq-map('grid-template-rows', $themeDefault, 'infoHeight');
         }
 
         &__check-icon {
@@ -62,17 +66,24 @@
         &__image-block {
             position: relative;
 
-            &:hover {
+            @media (hover: hover) {
 
-                & + .wlc-bonus-item__bottom {
+                &:hover {
 
-                    .wlc-bonus-item__btns {
-                        opacity: 1;
-                        transform: translateY(0);
-                    }
+                    & + .wlc-bonus-item__bottom {
 
-                    .wlc-bonus-item__description {
-                        opacity: 0;
+                        .wlc-bonus-item__btns {
+                            opacity: 1;
+                            transform: translateY(0);
+                        }
+
+                        .wlc-bonus-item__description {
+                            opacity: 0;
+                        }
+
+                        .wlc-bonus-item__progress {
+                            opacity: 0;
+                        }
                     }
                 }
             }
@@ -151,15 +162,18 @@
 
         &__bottom {
 
-            &:hover {
+            @media (hover: hover) {
 
-                .wlc-bonus-item__btns {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
+                &:hover {
 
-                .wlc-bonus-item__description {
-                    opacity: 0;
+                    .wlc-bonus-item__btns {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+
+                    .wlc-bonus-item__description {
+                        opacity: 0;
+                    }
                 }
             }
         }
@@ -243,7 +257,7 @@
             background-color: ef.get-value($themeDefault, 'activeBlockProgressBg');
             border-radius: ef.get-value($themeDefault, 'activeBlockProgressRadius');
             padding: ef.get-value($themeDefault, 'activeBlockProgressPadding');
-            margin: ef.get-value($themeDefault, 'activeBlockProgressMargin');
+            @include em.get-mq-map('margin', $themeDefault, 'activeBlockProgressMargin');
             transition: all ef.get-value($themeDefault, 'time') ease-in-out;
         }
 
@@ -288,12 +302,12 @@
         &__btns {
             width: 100%;
             position: absolute;
-            bottom: 10%;
+            @include em.get-mq-map('bottom', $themeDefault, 'btnBottomPosition');
             display: flex;
             justify-content: center;
-            transform: translateY(400%);
             transition: all ef.get-value($themeDefault, 'time') ease-in-out;
-            opacity: 0;
+            @include em.get-mq-map('opacity', $themeDefault, 'btnsOpacity');
+            @include em.get-mq-map('transform', $themeDefault, 'btnsTranslateY');
 
             button {
                 margin: ef.get-value($themeDefault, 'btnMargin');
@@ -319,33 +333,39 @@
 
         .wlc-bonus-item__bottom {
 
-            &:hover {
+            @media (hover: hover) {
 
-                .wlc-bonus-item__description {
-                    opacity: 1;
-                }
+                &:hover {
 
-                .wlc-bonus-item__progress {
-                    opacity: 0;
+                    .wlc-bonus-item__description {
+                        opacity: 1;
+                    }
+
+                    .wlc-bonus-item__progress {
+                        opacity: 0;
+                    }
                 }
             }
         }
 
         .wlc-bonus-item__image-block {
 
-            &:hover {
+            @media (hover: hover) {
 
-                & + .wlc-bonus-item__bottom {
+                &:hover {
 
-                    .wlc-bonus-item__description {
-                        opacity: 1;
+                    & + .wlc-bonus-item__bottom {
+
+                        .wlc-bonus-item__description {
+                            opacity: 1;
+                        }
                     }
                 }
             }
         }
 
         .wlc-bonus-item__info-block {
-            padding-top: 60px;
+            @include em.get-mq-map('padding', $themeDefault, 'infoBlockPadding');
         }
     }
 
@@ -354,22 +374,28 @@
 
         .wlc-bonus-item__bottom {
 
-            &:hover {
+            @media (hover: hover) {
 
-                .wlc-bonus-item__description {
-                    opacity: 1;
+                &:hover {
+
+                    .wlc-bonus-item__description {
+                        opacity: 1;
+                    }
                 }
             }
         }
 
         .wlc-bonus-item__image-block {
 
-            &:hover {
+            @media (hover: hover) {
 
-                & + .wlc-bonus-item__bottom {
+                &:hover {
 
-                    .wlc-bonus-item__description {
-                        opacity: 1;
+                    & + .wlc-bonus-item__bottom {
+
+                        .wlc-bonus-item__description {
+                            opacity: 1;
+                        }
                     }
                 }
             }
@@ -395,8 +421,11 @@
         transform: scale(1);
         transition: all ef.get-value($themeDefault, 'time') ease-in-out;
 
-        &:hover {
-            transform: scale(1.05);
+        @media (hover: hover) {
+
+            &:hover {
+                transform: scale(1.05);
+            }
         }
     }
 
@@ -413,8 +442,11 @@
         .wlc-bonus-item__content {
             background: ef.get-value($themeDefault, 'backgroundExperience');
 
-            &:hover {
-                background: ef.get-value($themeDefault, 'backgroundExperienceHover');
+            @media (hover: hover) {
+
+                &:hover {
+                    background: ef.get-value($themeDefault, 'backgroundExperienceHover');
+                }
             }
         }
     }
@@ -424,8 +456,11 @@
         .wlc-bonus-item__content {
             background: ef.get-value($themeDefault, 'backgroundLoyalty');
 
-            &:hover {
-                background: ef.get-value($themeDefault, 'backgroundLoyaltyHover');
+            @media (hover: hover) {
+
+                &:hover {
+                    background: ef.get-value($themeDefault, 'backgroundLoyaltyHover');
+                }
             }
         }
     }
@@ -435,8 +470,11 @@
         .wlc-bonus-item__content {
             background: ef.get-value($themeDefault, 'backgroundBalance');
 
-            &:hover {
-                background: ef.get-value($themeDefault, 'backgroundBalanceHover');
+            @media (hover: hover) {
+
+                &:hover {
+                    background: ef.get-value($themeDefault, 'backgroundBalanceHover');
+                }
             }
         }
     }
@@ -446,8 +484,11 @@
         .wlc-bonus-item__content {
             background: ef.get-value($themeDefault, 'backgroundFreerounds');
 
-            &:hover {
-                background: ef.get-value($themeDefault, 'backgroundFreeroundsHover');
+            @media (hover: hover) {
+
+                &:hover {
+                    background: ef.get-value($themeDefault, 'backgroundFreeroundsHover');
+                }
             }
         }
     }
@@ -457,8 +498,11 @@
         .wlc-bonus-item__content {
             background: ef.get-value($themeDefault, 'backgroundRelative');
 
-            &:hover {
-                background: ef.get-value($themeDefault, 'backgroundRelativeHover');
+            @media (hover: hover) {
+
+                &:hover {
+                    background: ef.get-value($themeDefault, 'backgroundRelativeHover');
+                }
             }
         }
     }

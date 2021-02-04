@@ -239,6 +239,7 @@ export class ActionService {
         } catch (error) {
             this.modalService.showError({
                 modalMessage: error.errors,
+                dismissAll: true,
             });
         }
 

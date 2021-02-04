@@ -26,7 +26,7 @@
         }
 
         &__title {
-            @include text.get-text-style(ef.get-value($themeDefault, 'titleFontSize'), ef.get-value($themeDefault, 'titleColor'));
+            @include text.get-text-style(ef.get-value($themeDefault, 'titleFontStyle'), ef.get-value($themeDefault, 'titleColor'));
             margin: ef.get-value($themeDefault, 'titleMargin');
         }
 
@@ -97,5 +97,20 @@
                 }
             }
         }
+    }
+
+    .wlc-input {
+
+        ::ng-deep {
+
+            input {
+                text-transform: uppercase;
+
+                &::placeholder {
+                    text-transform: none;
+                }
+            }
+        }
+
     }
 }

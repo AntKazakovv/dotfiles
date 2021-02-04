@@ -157,6 +157,7 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
     public async join(): Promise<void> {
         this.bonus = await this.bonusesService.subscribeBonus(this.bonus);
         if (this.bonus) {
+            this.sendEvent('SUBSCRIBE_ON_BONUS', this.bonus);
             this.bonusesService.clearPromoBonus();
             this.cdr.markForCheck();
         }

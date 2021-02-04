@@ -9,7 +9,10 @@ $themeDefault: map-merge((
     'height': 370px,
     'infoWidth': 280px - 30px,
     'infoWidthDesktop': 320px - 30px,
-    'infoHeight': 125px,
+    'infoHeight': (
+        320: auto 160px,
+        1200: auto 125px,
+    ),
     'relativeImageHeight': 70%,
     'bonusIconSize': 144px,
     'bonusIconValueBlockWidth': 60px,
@@ -74,7 +77,10 @@ $themeDefault: map-merge((
     'activeBlockTimerPadding': ef.get('size', 'small'),
     'activeBlockTimerMargin': 0,
     'activeBlockProgressPadding': ef.get('size', 'small'),
-    'activeBlockProgressMargin': ef.get('size', 'smaller') 0 0 0,
+    'activeBlockProgressMargin': (
+        320: 0,
+        1200: ef.get('size', 'smaller') 0 0 0
+    ),
     'activeBlockTimeIconMargin': 0 ef.get('size', 'small') 0 0,
     'progressBarMargin': ef.get('size', 'smallest') 0,
     'btnMargin': 0 ef.get('size', 'smallest'),
@@ -95,4 +101,24 @@ $themeDefault: map-merge((
     'chosenIconPosT': ef.get('size', 'small'),
     // Animation
     'time': ef.get('time', 'main'),
+
+    'infoBlockPadding': (
+        320: 0,
+        1200: ef.get('size', 'big') 0 0 0,
+    ),
+
+    'btnBottomPosition': (
+        320: 6%,
+        1200: 10%,
+    ),
+
+    'btnsOpacity': (
+        320: 1,
+        1200: 0,
+    ),
+    'btnsTranslateY': (
+        320: translateY(0),
+        1200: translateY(400%),
+    )
+
 ), $customThemeDefault);
