@@ -94,6 +94,7 @@ export class SliderComponent extends AbstractComponent
         if (this.$params.slides && !this.slides) {
             this.slides = this.$params.slides;
         }
+
         this.initEmptySlidesCount();
         // for fix loop
         this.fixSlidesSequence();

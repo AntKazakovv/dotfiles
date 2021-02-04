@@ -1,5 +1,5 @@
-<div class="{{$class}}__wrapper">
-    <ng-container *ngIf="ready">
+<div class="{{$class}}__wrapper" *ngIf="slides.length">
+    <ng-container *ngIf="ready && slides.length">
         <div class="{{$class}}__slider"
             wlc-slider
             [slides]="slides"
@@ -8,7 +8,7 @@
     </ng-container>
 </div>
 
-<div slot-container-end>
+<div slot-container-end *ngIf="slides.length">
     <div class="container swiper-button-container" *ngIf="$params.theme == 'default-banner'">
         <button class="wlc-swiper-button-prev" wlc-icon iconName="arrow"></button>
         <button class="wlc-swiper-button-next" wlc-icon iconName="arrow"></button>

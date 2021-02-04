@@ -250,7 +250,7 @@ export class GamesCatalogService {
      */
     public getCategories(): CategoryModel[] {
         return _filter(this.gamesCatalog.getAvailableCategories(), (item: CategoryModel) => {
-            return _includes(this.categoryMenus, item.menu);
+            return _includes(this.categoryMenus, item?.menu);
         });
     }
 
