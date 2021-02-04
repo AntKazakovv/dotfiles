@@ -17,6 +17,7 @@ import * as chatLogs from './7.chat';
 import * as verifyIdentityLogs from './8.verify-identity';
 import * as verificationLogs from './9.verification';
 import * as bonusesLogs from './10.bonuses';
+import * as storeLogs from './11.store';
 
 type LogGroupType = 'Common' | 'Sign Up' | 'Bonus' | '404 not found' | 'AutoTest' | 'Load' | 'Livechat' | 'Hellosoda';
 type LogMethodsType = 'Flog' | 'Sentry' | 'Both';
@@ -49,4 +50,5 @@ export const logTypes: ILogTypes = _assign(
     verifyIdentityLogs,
     verificationLogs,
     bonusesLogs,
+    storeLogs,
 );

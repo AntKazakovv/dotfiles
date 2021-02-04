@@ -77,4 +77,13 @@ export namespace profileContent {
             componentLib.wlcSeeAllBonuses.def,
         ],
     };
+
+    export const profileStore: ILayoutSectionConfig = {
+        container: true,
+        components: [
+            componentLib.wlcTitle.profileStore,
+            componentLib.wlcUserStats.store,
+            componentLib.wlcStoreList.def,
+        ],
+    };
 }

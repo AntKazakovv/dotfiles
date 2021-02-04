@@ -74,6 +74,7 @@ import {ClickOutsideDirective} from './directives/click-outside.directive';
 import {FallbackImgDirective} from './directives/fallback-img.directive';
 import {InputMaskDirective} from './directives/input-mask.directive';
 import {ClampDirective} from './directives/clamp.directive';
+import {ValueLengthDirective} from './directives/value-length.directive';
 //  -- DIRECTIVES IMPORTS END  --;
 
 //  -- PIPES IMPORTS STARTS--;
@@ -200,6 +201,7 @@ export const components = {
         TextBlockComponent,
         TruncatePipe,
         TitleComponent,
+        ValueLengthDirective,
         WlcModalComponent,
         WrapperComponent,
         WrapperComponent,
@@ -244,6 +246,7 @@ export const components = {
         ClampDirective,
         TextBlockComponent,
         TruncatePipe,
+        ValueLengthDirective,
         WlcModalComponent,
         WrapperComponent,
         TitleComponent,

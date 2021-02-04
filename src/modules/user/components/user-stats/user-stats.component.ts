@@ -8,13 +8,21 @@ import {
 import {Subscription} from 'rxjs';
 import {StateService} from '@uirouter/core';
 import {TranslateService} from '@ngx-translate/core';
-import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {AbstractComponent, IMixedParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ConfigService} from 'wlc-engine/modules/core';
 import {UserService} from 'wlc-engine/modules/user/system/services';
 import {ModalService} from 'wlc-engine/modules/core/system/services';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 import {UserInfo} from 'wlc-engine/modules/user/system/models/info.model';
 import * as Params from './user-stats.params';
+
+import {
+    union as _union,
+    get as _get,
+    isUndefined as _isUndefined,
+    keys as _keys,
+    forEach as _forEach,
+} from 'lodash-es';
 
 export interface IUserStatsItem {
     name: string,
@@ -32,8 +40,8 @@ export interface IUserStatsItem {
 export class UserStatsComponent extends AbstractComponent implements OnInit, OnDestroy {
     @Input() public type: string = 'default';
     @Input() public useDepositBtn: boolean = true;
-    @Input() protected inlineParams: Params.IUserStatsCParams;
-    public $params: any;
+    @Input() public inlineParams: Params.IUserStatsCParams;
+    public $params: Params.IUserStatsCParams;
     public userStats: UserInfo;
     public shownUserStats: IIndexing<IUserStatsItem> = {};
     private userInfoHandler: Subscription;
@@ -46,12 +54,14 @@ export class UserStatsComponent extends AbstractComponent implements OnInit, OnD
         protected modalService: ModalService,
         private translate: TranslateService,
         private stateService: StateService,
+        protected ConfigService: ConfigService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams});
+        super(
+            <IMixedParams<Params.IUserStatsCParams>>{injectParams: injectParams, defaultParams: Params.defaultParams}, ConfigService);
     }
 
     ngOnInit(): void {
-        super.ngOnInit(this.inlineParams);
+        super.ngOnInit(this.prepareParams());
         this.userStats = this.UserService.userInfo;
         this.userInfoHandler = this.UserService.userInfo$.subscribe((userInfo) => {
             this.userStats = userInfo;
@@ -80,7 +90,7 @@ export class UserStatsComponent extends AbstractComponent implements OnInit, OnD
                 wlcElement: 'block_user-stat-balance-bonus',
             },
             points: {
-                name: gettext('Points'),
+                name: gettext('LP'),
                 value: this.userStats?.loyalty?.Balance,
                 wlcElement: 'block_user-stat-points',
             },
@@ -122,7 +132,7 @@ export class UserStatsComponent extends AbstractComponent implements OnInit, OnD
                 wlcElement: 'block_user-stat_next-level-points',
             },
             expPoints: {
-                name: gettext('Experience points'),
+                name: gettext('EXP'),
                 value: this.userStats?.loyalty?.Points,
                 wlcElement: 'block_user-stat_expirience-points',
             },
@@ -152,5 +162,12 @@ export class UserStatsComponent extends AbstractComponent implements OnInit, OnD
 
     public depositAction(): void {
         this.stateService.go('app.profile.cash.deposit');
+    }
+
+    protected prepareParams(): Params.IUserStatsCParams {
+        if (this.injectParams?.type) {
+            this.type = this.injectParams.type;
+        }
+        return this.inlineParams;
     }
 }

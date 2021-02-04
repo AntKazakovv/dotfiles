@@ -178,17 +178,6 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
         }
     }
 
-    public getValueLengthClass(value: number): string {
-        const strLength = value && value.toString().length;
-        if (strLength > 4 && strLength < 7) {
-            return 'small';
-        } else if (strLength >= 7) {
-            return 'smaller';
-        } else {
-            return 'default';
-        }
-    }
-
     protected prepareParams(): Params.IBonusItemCParams {
         const inputProperties: string[] = ['bonus', 'type', 'theme', 'themeMod', 'customMod', 'view', 'chosen'];
         const inlineParams: Params.IBonusItemCParams = {

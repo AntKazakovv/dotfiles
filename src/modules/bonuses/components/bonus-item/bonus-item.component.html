@@ -18,7 +18,7 @@
             </div>
             <div class="{{$class}}__bonus-icon" *ngIf="$params.common?.useIconBonusImage">
                 <img class="icon-sign" [src]="$params.common?.iconsPath + $params.common.bonus.viewTarget + '.svg'" alt="">
-                <div class="icon-text icon-text--{{getValueLengthClass($params.common.bonus.value)}}">{{$params.common.bonus.value}}</div>
+                <div class="icon-text" [wlc-value-length]="$params.common.bonus.value" minLength="4" maxLength="7">{{$params.common.bonus.value}}</div>
             </div>
         </div>
         <div class="{{$class}}__bottom" data-wlc-element="bonus_info">

@@ -1,0 +1,63 @@
+@use 'engine-scss/functions' as ef;
+
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    // // Size
+    'minWidth': 280px,
+    'minWidthDesktop': 320px,
+    'maxWidth': 320px,
+    'height': 370px,
+    'heightMobile': 410px,
+    'infoWidth': 280px - 30px,
+    'infoWidthDesktop': 320px - 30px,
+    'infoHeight': 110px,
+    'infoHeightMobile': 90px,
+    'imageHeight': 370px - 110px, //$height - $infoHeight
+    'bonusIconSize': 144px,
+    'bonusIconValueBlockWidth': 60px,
+    'bonusIconValueBlockHeight': 25px,
+    'bonusIconValueBlockBorderRds': 12px,
+    'bonusIconValueBlockPosL': 50%,
+    'bonusIconValueBlockPosB': 10px,
+    'bonusIconValueBlockMagin': 0 0 0 -30px,
+    'moreIconSize': 24px,
+    'topImgMargin': 65px,
+    'bottomImgMargin': ef.get('size', 'smaller'),
+    'maxImageHeight': 370px - 110px - 65px - ef.get('size', 'smaller'), //imageHeight - $topImgMargin - $bottomImgMargin;
+    // // Font
+    'bonusIconValueFontSize': 2rem,
+    'bonusIconValueFontSizeSmall': 1.6rem,
+    'bonusIconValueFontSizeSmaller': 1.2rem,
+    'bonusIconValueFontW': 700,
+    'bonusIconValueFontColor': ef.get('fieldColors', 'textColor'),
+    'tagFontColor': ef.get('mainColors', 'baseMain'),
+    'tagFontSize': ef.get('font', 'small'),
+    'nameFontColor': ef.get('mainColors', 'baseMain'),
+    'nameFontSize': ef.get('font', 'biger'),
+    'priceFontColor': ef.get('mainColors', 'baseMain'),
+    'priceFontSize': ef.get('font', 'PrimaryText'),
+    'moreIconColor': ef.get('mainColors', 'baseOpacity'),
+    // // Backgrounds
+    'background': ef.get('mainColors', 'bg300'),
+    'backgroundHover':  ef.get('mainColors', 'bg500'),
+    'imageBg': transparent,
+    'bonusIconValueBg': ef.get('mainColors', 'baseMain'),
+    'tagBg': ef.get('mainColors', 'secondary'),
+    // // Radius
+    'radius': ef.get('radius', 'biger'),
+    'tagRadius': ef.get('radius', 'biger'),
+    //Padding
+    'bonusIconMargin': 65px auto 0 auto,
+    'tagPadding': 4px 10px 3px,
+    'infoPadding': 0 ef.get('size', 'small'),
+    'btnMargin': 0 ef.get('size', 'smallest'),
+    'imagePadding': 65px 0 ef.get('size', 'smaller') 0, // $topImgMargin 0 $bottomImgMargin 0
+    //Position
+    'tagPositionTop': ef.get('size', 'smaller'),
+    'moreIconPosLeft': auto,
+    'moreIconPosRight': ef.get('size', 'small'),
+    'moreIconPosTop': ef.get('size', 'small'),
+    'moreIconPosBottom': auto,
+    // Animation
+    'time': ef.get('time', 'main'),
+), $customThemeDefault);

@@ -1,0 +1,9 @@
+@use 'engine-scss/functions' as ef;
+
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'gridGap': ef.get('size', 'smaller'),
+    'minItemWidth': 280px,
+    'minItemWidthDesktop': 320px,
+), $customThemeDefault);
+

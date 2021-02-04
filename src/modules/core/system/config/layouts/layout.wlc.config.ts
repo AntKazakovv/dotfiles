@@ -158,7 +158,7 @@ export const $layouts: ILayoutsConfig = {
     'app.profile.loyalty-store.main': {
         extends: 'app.profile',
         sections: {
-            'profile-content': sectionsLib.profileContent.empty,
+            'profile-content': sectionsLib.profileContent.profileStore,
         },
     },
     'app.profile.loyalty-store.orders': {

@@ -4,7 +4,10 @@ export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;
 
 export interface IUserStatsCParams extends IComponentParams<ComponentTheme, ComponentType, string> {
-    fields: string[];
+    fields?: string[];
+    type?: ComponentType;
+    theme?: ComponentTheme;
+    useDepositBtn?: boolean;
 }
 
 export const defaultParams: IUserStatsCParams = {

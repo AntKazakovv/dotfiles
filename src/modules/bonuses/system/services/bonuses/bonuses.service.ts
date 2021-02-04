@@ -51,11 +51,11 @@ interface IBonusData extends IData {
     providedIn: 'root',
 })
 export class BonusesService {
+    public storeBonuses: Bonus[] = [];
     public promoBonus: Bonus = null;
-    public dbPromoUrl: string = 'promocode'
+    public dbPromoUrl: string = 'promocode';
 
     protected bonuses: Bonus[] = [];
-    protected storeBonuses: Bonus[] = [];
     protected activeBonuses: Bonus[] = [];
     protected historyBonuses: Bonus[] = [];
 

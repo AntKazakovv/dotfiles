@@ -195,7 +195,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         },
     },
     'profile-menu:store': {
-        name: gettext('Store'),
+        name: gettext('Market'),
         type: 'title',
         class: 'store',
         params: {
@@ -448,16 +448,12 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
             },
         },
     },
-    'profile-menu:market': {
-        name: gettext('Market'),
-        type: 'title',
-        class: 'market',
-    },
 };
 
 export const wlcProfileMenuItemsDefault: MenuParams.MenuConfigItem[] = [
     'profile-menu:dashboard',
     'profile-menu:bonuses-as-offers',
+    'profile-menu:store',
     'profile-menu:cash-deposit',
     'profile-menu:cash-withdrawal',
     'profile-menu:transaction-history',

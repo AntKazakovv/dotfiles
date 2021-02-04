@@ -76,4 +76,12 @@ export namespace wlcTitle {
             wlcElement: 'header_user-bonuses',
         },
     };
+
+    export const profileStore: ILayoutComponent = {
+        name: 'core.wlc-title',
+        params: {
+            customMod: ['profile'],
+            mainText: gettext('Market'),
+        },
+    };
 }
