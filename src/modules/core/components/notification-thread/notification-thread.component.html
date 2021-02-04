@@ -1,0 +1,18 @@
+<ul class="wlc-notification-thread__list">
+    <li *ngFor="let notification of notifications$ | async"
+        class="wlc-notification-thread__item"
+        [@thread]="{
+            value: notification.threadAnimationState,
+            params: {amount: notification.threadAnimationValue}
+        }"
+        [@hide]="notification.hide"
+        [style.position]="notification.collision ? 'static' : 'absolute'"
+        (mouseenter)="disableDismissTimer(notification)"
+        (mouseleave)="resetDismissTimer(notification)"
+        #notification
+    >
+        <ng-container *ngComponentOutlet="notification.Component;
+                                          injector: notification.injector"
+        ></ng-container>
+    </li>
+</ul>

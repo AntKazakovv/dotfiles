@@ -21,6 +21,7 @@ import {
 
 import {BonusesService} from 'wlc-engine/modules/bonuses/system/services';
 import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus';
+import {IPushMessageParams, NotificationEvents} from 'wlc-engine/modules/core/system/services/notification';
 
 import * as Params from 'wlc-engine/modules/bonuses/components/enter-promocode/enter-promocode.params';
 
@@ -78,7 +79,7 @@ export class EnterPromocodeComponent
         const promocode = this.enterPromocodeInput.control.value;
 
         if (!promocode) {
-            this.showPromoModalError('Enter promocode');
+            this.showErrorNotification('Enter promocode');
             return;
         }
 
@@ -93,7 +94,7 @@ export class EnterPromocodeComponent
             }
 
             if (!bonuses.length) {
-                this.showPromoModalError('No voucher found', 'Info');
+                this.showErrorNotification('No voucher found');
                 return;
             }
 
@@ -105,16 +106,20 @@ export class EnterPromocodeComponent
             });
 
         } catch (error) {
-            this.showPromoModalError(error.errors ? error.errors : error);
+            this.showErrorNotification(error.errors ? error.errors : error);
         } finally {
             this.pending$.next(false);
         }
     }
 
-    protected showPromoModalError(message: string | string[], title: string = 'Error'): void {
-        this.modalService.showError({
-            modalTitle: gettext(title),
-            modalMessage: gettext(message),
+    protected showErrorNotification(message: string, title: string = 'Error'): void {
+        this.eventService.emit({
+            name: NotificationEvents.PushMessage,
+            data: <IPushMessageParams>{
+                type: 'error',
+                title: gettext(title),
+                message,
+            },
         });
     }
 

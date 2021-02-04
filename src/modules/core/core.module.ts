@@ -25,6 +25,7 @@ import {
     LogService,
     SentryService,
     ActionService,
+    NotificationService,
     ModalService,
     ContactsService,
     CachingService,
@@ -59,6 +60,8 @@ import {FormControlComponent} from './components/form-control/form-control.compo
 import {InfoPageComponent} from './components/info-page/info-page.component';
 import {TableComponent} from './components/table/table.component';
 import {CopyrightComponent} from './components/copyright/copyright.component';
+import {NotificationThreadComponent} from './components/notification-thread/notification-thread.component';
+import {MessageComponent} from './components/message/message.component';
 import {CurrencyComponent} from 'wlc-engine/modules/core/components/currency/currency.component';
 import {DatepickerComponent} from './components/datepicker/datepicker.component';
 import {TextBlockComponent} from './components/text-block/text-block.component';
@@ -93,6 +96,7 @@ import {ICoreConfig} from './system/interfaces/core.interface';
 import {dbConfig} from 'wlc-engine/modules/core/system/config/indexedDB.config';
 //  -- CONFIGS IMPORTS STARTS--;
 import * as $config from 'wlc-config/index';
+
 
 import {
     get as _get,
@@ -163,6 +167,8 @@ export const components = {
             useClass: HammerConfig,
         },
         CachingService,
+        NotificationService,
+        GlobalHelper.bootstrapProviders(NotificationService),
     ],
     declarations: [
         BurgerPanelComponent,
@@ -192,8 +198,10 @@ export const components = {
         LinkBlockComponent,
         LoaderComponent,
         LogoComponent,
+        MessageComponent,
         WlcModalComponent,
         NgTemplateNameDirective,
+        NotificationThreadComponent,
         ScrollbarComponent,
         SelectComponent,
         TableComponent,

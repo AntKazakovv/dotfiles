@@ -15,7 +15,6 @@ import {takeUntil} from 'rxjs/operators';
 import * as Params from './currency.params';
 
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {isNegative, putInRange} from 'wlc-engine/helpers/functions';
 import {
     ICurrencyFormat,
     CRYPTOCURRENCIES,
@@ -129,7 +128,7 @@ export class CurrencyComponent
      * Whether currency value is negative
      */
     public get isNegative(): boolean {
-        return isNegative(this.numericValue);
+        return this.numericValue < 0;
     }
 
     /**
@@ -282,9 +281,9 @@ export class CurrencyComponent
         );
 
         return {
-            minimumIntegerDigits: putInRange(minimumIntegerDigits || 1, 1, 21),
-            minimumFractionDigits: putInRange(minimumFractionDigits ?? 2, 0, allowFractionDigits),
-            maximumFractionDigits: putInRange(maximumFractionDigits ?? 2, 0, allowFractionDigits),
+            minimumIntegerDigits: this.putInRange(minimumIntegerDigits || 1, 1, 21),
+            minimumFractionDigits: this.putInRange(minimumFractionDigits ?? 2, 0, allowFractionDigits),
+            maximumFractionDigits: this.putInRange(maximumFractionDigits ?? 2, 0, allowFractionDigits),
         };
     }
 
@@ -419,5 +418,10 @@ export class CurrencyComponent
             digitsInfo.minimumFractionDigits,
             '0',
         );
+    }
+
+    protected putInRange(num: number, start: number, end?: number): number {
+        const min = Math.max(num, start);
+        return Number.isFinite(end) ? Math.min(min, end) : min;
     }
 }

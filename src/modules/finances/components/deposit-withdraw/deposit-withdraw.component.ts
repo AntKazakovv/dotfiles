@@ -21,6 +21,7 @@ import {
 } from 'wlc-engine/modules/finances/system/models/payment-system.model';
 import {FinancesService} from 'wlc-engine/modules/finances/system/services';
 import {IPaymentListCParams} from 'wlc-engine/modules/finances/components/payment-list/payment-list.params';
+import {IPushMessageParams, NotificationEvents} from 'wlc-engine/modules/core/system/services/notification';
 
 import * as Params from './deposit-withdraw.params';
 
@@ -141,12 +142,13 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
         }
 
         if (!this.currentSystem) {
-            this.modalService.showModal({
-                id: 'deposit-error',
-                modifier: 'error',
-                modalTitle: gettext('Error'),
-                modalMessage: [gettext('You must select payment method')],
-                size: 'sm',
+            this.eventService.emit({
+                name: NotificationEvents.PushMessage,
+                data: <IPushMessageParams>{
+                    type: 'error',
+                    title: gettext('Error'),
+                    message: gettext('You must select payment method'),
+                },
             });
             return;
         }
@@ -176,12 +178,13 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
                     }
                     return;
                 } else if (response[0] === 'markup_redirect') {
-                    this.modalService.showModal({
-                        id: 'deposit-redirect-notification',
-                        modifier: 'info',
-                        modalTitle: gettext('Redirect'),
-                        modalMessage: gettext('You will be redirected in a moment'),
-                        size: 'sm',
+                    this.eventService.emit({
+                        name: NotificationEvents.PushMessage,
+                        data: <IPushMessageParams>{
+                            type: 'warning',
+                            title: gettext('Redirect'),
+                            message: gettext('You will be redirected in a moment'),
+                        },
                     });
 
                     await this.createRedirectForm(response[1]?.html);
@@ -193,12 +196,15 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
             document.body.appendChild(formSubmit);
             formSubmit.submit();
         } catch (error) {
-            this.modalService.showModal({
-                id: 'deposit-error',
-                modifier: 'error',
-                modalTitle: gettext('Error'),
-                modalMessage: error.errors?.length ? error.errors : gettext('Something went wrong. Please try again later.'),
-                size: 'sm',
+            this.eventService.emit({
+                name: NotificationEvents.PushMessage,
+                data: <IPushMessageParams>{
+                    type: 'error',
+                    title: gettext('Error'),
+                    message: error.errors?.length
+                        ? error.errors
+                        : gettext('Something went wrong. Please try again later.'),
+                },
             });
         } finally {
             this.inProgress = false;
@@ -211,12 +217,13 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
         }
 
         if (!this.currentSystem) {
-            this.modalService.showModal({
-                id: 'deposit-error',
-                modifier: 'error',
-                modalTitle: gettext('Error'),
-                modalMessage: [gettext('You must select payment method')],
-                size: 'sm',
+            this.eventService.emit({
+                name: NotificationEvents.PushMessage,
+                data: <IPushMessageParams>{
+                    type: 'error',
+                    title: gettext('Error'),
+                    message: gettext('You must select payment method'),
+                },
             });
             return;
         }
@@ -239,14 +246,16 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
                 return;
             }
 
-            this.modalService.showModal({
-                id: 'withdraw-reponse',
-                modalTitle: gettext('Withdraw'),
-                modifier: 'info',
-                modalMessage: [
-                    gettext('Withdraw request has been successfully sent!'),
-                    gettext('Withdraw sum') + ' ' + new CurrencyPipe('en-US', 'EUR').transform(form.value.amount),
-                ],
+            this.eventService.emit({
+                name: NotificationEvents.PushMessage,
+                data: <IPushMessageParams>{
+                    type: 'error',
+                    title: gettext('Withdraw'),
+                    message: [
+                        gettext('Withdraw request has been successfully sent!'),
+                        gettext('Withdraw sum') + ' ' + new CurrencyPipe('en-US', 'EUR').transform(form.value.amount),
+                    ],
+                },
             });
 
             form.controls['amount'].setValue('');
@@ -254,14 +263,15 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
             this.currentSystem = null;
 
         } catch (error) {
-            this.modalService.showModal({
-                id: 'withdraw-error',
-                modifier: 'error',
-                modalTitle: gettext('Error'),
-                modalMessage: error.errors?.length
-                    ? error.errors.filter((i: unknown) => _isString(i))
-                    : gettext('Something went wrong. Please try again later.'),
-                size: 'sm',
+            this.eventService.emit({
+                name: NotificationEvents.PushMessage,
+                data: <IPushMessageParams>{
+                    type: 'error',
+                    title: gettext('Error'),
+                    message: error.errors?.length
+                        ? error.errors.filter((i: unknown) => _isString(i))
+                        : gettext('Something went wrong. Please try again later.'),
+                },
             });
         } finally {
             this.inProgress = false;

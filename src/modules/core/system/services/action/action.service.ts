@@ -29,6 +29,7 @@ import {
 import {
     forEach as _forEach,
 } from 'lodash-es';
+import { IPushMessageParams, NotificationEvents } from 'wlc-engine/modules/core/system/services/notification';
 
 export interface IBreakpoint {
     mq: MediaQueryList;
@@ -70,25 +71,31 @@ export class ActionService {
     public async processMessages(initialPath: IIndexing<string>): Promise<void> {
         switch (initialPath?.message) {
             case 'PAYMENT_SUCCESS':
-                this.modalService.showModal({
-                    id: 'payment-success',
-                    modifier: 'info',
-                    modalTitle: gettext('Success'),
-                    modalMessage: [
-                        gettext('Deposit completed successfully'),
-                        new CurrencyPipe('en_US', 'EUR').transform(initialPath.amount)
-                            + ' ' + gettext('were successfully deposited in your account.'),
-                    ],
-                    closeBtnText: gettext('Ok'),
+                this.eventService.emit({
+                    name: NotificationEvents.PushMessage,
+                    data: <IPushMessageParams>{
+                        type: 'success',
+                        title: gettext('Payment success'),
+                        message: [
+                            gettext('Deposit completed successfully'),
+                            new CurrencyPipe('en_US', 'EUR').transform(initialPath.amount)
+                                + ' ' + gettext('were successfully deposited in your account.'),
+                        ],
+                    },
                 });
                 break;
             case 'PAYMENT_FAIL':
-                this.modalService.showError({
-                    modalMessage: [
-                        gettext('Unfortunately your payment didn\'t go through.'
-                            +' An e-mail with detailed information has been sent to your e-mail address.'
-                            +' If you have any questions, please don\'t hesitate to contact us.'),
-                    ],
+                this.eventService.emit({
+                    name: NotificationEvents.PushMessage,
+                    data: <IPushMessageParams>{
+                        type: 'error',
+                        title: gettext('Payment failed'),
+                        message: [
+                            gettext('Unfortunately your payment didn\'t go through.'
+                                +' An e-mail with detailed information has been sent to your e-mail address.'
+                                +' If you have any questions, please don\'t hesitate to contact us.'),
+                        ],
+                    },
                 });
                 break;
             case 'SET_NEW_PASSWORD':
@@ -193,7 +200,7 @@ export class ActionService {
 
     private async setNewPassword(initialPath: IIndexing<string>): Promise<void> {
         if (!initialPath.code) {
-            this.showErrorModal('Code missing');
+            this.showErrorNotification('Code missing');
             return;
         }
 
@@ -213,17 +220,16 @@ export class ActionService {
             return;
         }
 
-        this.modalService.showModal('newPassword',
-            {
-                common: {
-                    code: initialPath.code,
-                },
-            });
+        this.modalService.showModal('newPassword', {
+            common: {
+                code: initialPath.code,
+            },
+        });
     }
 
     private async completeRegistration(initialPath: IIndexing<string>): Promise<void> {
         if (!initialPath.code) {
-            this.showErrorModal('Code missing');
+            this.showErrorNotification('Code missing');
             return;
         }
 
@@ -234,22 +240,22 @@ export class ActionService {
         try {
             this.modalService.showModal('registrationSuccess');
             await userService.registrationComplete(initialPath.code);
-            this.modalService.closeAllModals();
             this.eventService.emit({name: 'LOGIN'});
         } catch (error) {
-            this.modalService.showError({
-                modalMessage: error.errors,
-                dismissAll: true,
-            });
+            this.showErrorNotification(error.errors);
+        } finally {
+            this.modalService.closeAllModals();
         }
-
     }
 
-    private showErrorModal(message: string): void {
-        this.modalService.showError({
-            modalMessage: [
-                gettext(message),
-            ],
+    private showErrorNotification(message: string, title: string = gettext('Payment error')): void {
+        this.eventService.emit({
+            name: NotificationEvents.PushMessage,
+            data: <IPushMessageParams>{
+                type: 'error',
+                title,
+                message: gettext(message),
+            },
         });
     }
 }

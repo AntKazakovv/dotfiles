@@ -1,4 +1,9 @@
-import {QueryList} from '@angular/core';
+import {
+    APP_INITIALIZER,
+    Type,
+    Provider,
+    QueryList,
+} from '@angular/core';
 import {NgTemplateNameDirective} from 'wlc-engine/modules/core/directives/template-name/template-name.directive';
 
 import {
@@ -92,6 +97,28 @@ export class GlobalHelper {
                 return srcValue;
             }
         });
+    }
+
+    /**
+     * @description
+     *
+     * Bootstraps given providers on app init.
+     *
+     * Note: You still have to provide it in providers.
+     *
+     * Note: Providers are bootstrapped before ApplicationRef is created so you cannot inject it during service creation.
+     *
+     * **TRY TO AVOID IT**
+     *
+     * @param providers providers that should be bootstrapped
+     */
+    public static bootstrapProviders(...providers: Type<unknown>[]): Provider {
+        return {
+            provide: APP_INITIALIZER,
+            useFactory: () => () => null,
+            deps: providers,
+            multi: true,
+        };
     }
 
     public static parseHtmlSafely(htmlTemplate: string): string {

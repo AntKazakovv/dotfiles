@@ -12,6 +12,7 @@ import {
     ModalService,
 } from 'wlc-engine/modules/core/system/services';
 import {UserService} from 'wlc-engine/modules/user/system/services';
+import {IPushMessageParams, NotificationEvents} from 'wlc-engine/modules/core/system/services/notification';
 
 import * as Params from './new-password-form.params';
 
@@ -61,17 +62,27 @@ export class NewPasswordFormComponent extends AbstractComponent {
             this.stateService.go('app.home');
             this.eventService.emit({name: 'LOGIN'});
 
-            // TODO change info message
-            this.modalService.showModal({
-                id: 'password-changed',
-                modalTitle: gettext('Password reset'),
-                dismissAll: true,
-                modalMessage: ['Password has been changed!'],
+            this.eventService.emit({
+                name: NotificationEvents.PushMessage,
+                data: <IPushMessageParams>{
+                    type: 'success',
+                    title: gettext('Password reset'),
+                    message: gettext('Password has been changed!'),
+                },
             });
 
+            if (this.modalService.getActiveModal('new-password')) {
+                this.modalService.closeModal('new-password');
+            }
+
         } catch (error) {
-            this.modalService.showError({
-                modalMessage: error.errors,
+            this.eventService.emit({
+                name: NotificationEvents.PushMessage,
+                data: <IPushMessageParams>{
+                    type: 'error',
+                    title: gettext('Password reset failed'),
+                    message: error.errors,
+                },
             });
         }
     }

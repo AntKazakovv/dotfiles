@@ -7,6 +7,7 @@ import {FormGroup} from '@angular/forms';
 
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {
+    EventService,
     LogService,
     ModalService,
 } from 'wlc-engine/modules/core/system/services';
@@ -38,6 +39,7 @@ export class SignInFormComponent extends AbstractComponent {
     constructor(
         @Inject('injectParams') protected injectParams: Params.ISignInFormCParams,
         protected logService: LogService,
+        protected eventService: EventService,
         protected userService: UserService,
     ) {
         super({injectParams, defaultParams: Params.defaultParams});

@@ -7,7 +7,8 @@ import {
 import {FormGroup} from '@angular/forms';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ContactsService} from 'wlc-engine/modules/core/system/services/contacts/contacts.service';
-import {ConfigService, ModalService} from 'wlc-engine/modules/core/system/services';
+import {ConfigService, EventService} from 'wlc-engine/modules/core/system/services';
+import {IPushMessageParams, NotificationEvents} from 'wlc-engine/modules/core/system/services/notification';
 import * as Params from './feedback-form.params';
 
 /**
@@ -36,7 +37,7 @@ export class FeedbackFormComponent extends AbstractComponent implements OnInit {
         @Inject('injectParams') protected params: Params.IFeedbackFormCParams,
         protected contactsService: ContactsService,
         protected configService: ConfigService,
-        protected modalService: ModalService,
+        protected eventService: EventService,
     ) {
         super({injectParams: params, defaultParams: Params.defaultParams});
     }
@@ -58,23 +59,26 @@ export class FeedbackFormComponent extends AbstractComponent implements OnInit {
             message,
         })
             .then(() => {
-                // TODO: replace with notification
-                this.modalService.showModal({
-                    id: 'feedback-form-successful-dispatch',
-                    modifier: 'info',
-                    modalTitle: gettext('Form submission successfully'),
-                    modalMessage: gettext('Your message has been successfully sent'),
-                    size: 'sm',
+                this.eventService.emit({
+                    name: NotificationEvents.PushMessage,
+                    data: <IPushMessageParams>{
+                        type: 'success',
+                        title: gettext('Form submitting successfully'),
+                        message: gettext('Your message has been successfully sent'),
+                    },
                 });
+
             })
             .catch((error) => {
                 console.error('Form submission error: ', error);
 
-                this.modalService.showError({
-                    modalTitle: gettext('Form submission error'),
-                    modalMessage: [
-                        gettext('Check the correctness of filling in the data'),
-                    ],
+                this.eventService.emit({
+                    name: NotificationEvents.PushMessage,
+                    data: <IPushMessageParams>{
+                        type: 'error',
+                        title: gettext('Form submitting error'),
+                        message: gettext('Check the correctness of filling in the data'),
+                    },
                 });
             });
     }

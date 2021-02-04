@@ -75,7 +75,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
         private transition: TransitionService,
         protected injector: Injector,
         private uiRouter: UIRouterGlobals,
-        private eventService: EventService,
+        protected eventService: EventService,
     ) {
     }
 
