@@ -1,5 +1,5 @@
 // Init font from https://google-webfonts-helper.herokuapp.com/
-@mixin init-font($path, $style) {
+@mixin init-font($path) {
     @for $i from 1 through 6 {
 
         $font: if($i == 4, 'regular', $i + '00');
