@@ -1,64 +1,30 @@
+// Init font from https://google-webfonts-helper.herokuapp.com/
+@mixin init-font($path, $style) {
+    @for $i from 1 through 6 {
+
+        $font: if($i == 4, 'regular', $i + '00');
+
+        @font-face {
+            font-family: Inter;
+            font-style: normal;
+            font-weight: #{$i}00;
+            font-display: swap;
+            src:
+                local(''),
+                url('#{$path}-#{$font}.woff2') format('woff2'),
+                url('#{$path}-#{$font}.woff') format('woff');
+        }
+    }
+}
+
 @if ($font-family-sans-serif == Inter, sans-serif) {
 
-    $inter: '/gstatic/wlc/fonts/inter/inter-v3-vietnamese_latin-ext_latin_greek-ext_greek_cyrillic-ext_cyrillic';
+    $inter: '/gstatic/wlc/fonts/Inter/inter-v3-vietnamese_latin-ext_latin_greek-ext_greek_cyrillic-ext_cyrillic';
+    @include init-font($inter);
+}
 
-    @font-face {
-        font-family: Inter;
-        font-style: normal;
-        font-weight: 100;
-        src:
-            local(''),
-            url('#{$inter}-100.woff2') format('woff2'),
-            url('#{$inter}-100.woff') format('woff');
-    }
+@if ($font-family-sans-serif == Roboto, sans-serif) {
 
-    @font-face {
-        font-family: Inter;
-        font-style: normal;
-        font-weight: 200;
-        src:
-            local(''),
-            url('#{$inter}-200.woff2') format('woff2'),
-            url('/#{$inter}-200.woff') format('woff');
-    }
-
-    @font-face {
-        font-family: Inter;
-        font-style: normal;
-        font-weight: 300;
-        src:
-            local(''),
-            url('#{$inter}-300.woff2') format('woff2'),
-            url('#{$inter}-300.woff') format('woff');
-    }
-
-    @font-face {
-        font-family: Inter;
-        font-style: normal;
-        font-weight: 400;
-        src:
-            local(''),
-            url('#{$inter}-regular.woff2') format('woff2'),
-            url('#{$inter}-regular.woff') format('woff');
-    }
-
-    @font-face {
-        font-family: Inter;
-        font-style: normal;
-        font-weight: 500;
-        src:
-            local(''),
-            url('#{$inter}-500.woff2') format('woff2'),
-            url('#{$inter}-500.woff') format('woff');
-    }
-
-    @font-face {
-        font-family: Inter;
-        font-style: normal;
-        font-weight: 600;
-        src:
-            local(''),
-            url('#{$inter}-600.woff2') format('woff2'),
-            url('#{$inter}-600.woff') format('woff');
-    }
+    $roboto: '/gstatic/wlc/fonts/Roboto/roboto-v3-vietnamese_latin-ext_latin_greek-ext_greek_cyrillic-ext_cyrillic';
+    @include init-font($roboto);
 }
