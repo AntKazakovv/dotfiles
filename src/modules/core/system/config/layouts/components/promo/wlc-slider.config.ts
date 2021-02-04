@@ -2,27 +2,21 @@ import {ILayoutComponent} from 'wlc-engine/modules/core';
 
 export namespace wlcSlider {
     export const catalog: ILayoutComponent = {
-        name: 'promo.wlc-slider',
+        name: 'promo.wlc-banners-slider',
         params: {
-            class: 'container wlc-slider',
-            slides: [
-                {
-                    component: 'banner',
-                    params: {
-                        filter: {
-                            position: ['home'],
-                        },
-                    },
-                },
-            ],
+            class: 'wlc-slider',
+            theme: 'default-banner',
+            filter: {
+                position: ['catalog'],
+            },
             swiper: {
                 slidesPerView: 1,
-                pagination: {
-                    clickable: true,
-                    type: 'bullets',
+                navigation: {
+                    nextEl: '.wlc-swiper-button-next',
+                    prevEl: '.wlc-swiper-button-prev',
                 },
+                pagination: false,
             },
         },
     };
-
-}
+};

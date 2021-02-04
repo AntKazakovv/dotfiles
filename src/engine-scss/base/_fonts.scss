@@ -17,14 +17,12 @@
     }
 }
 
-@if ($font-family-sans-serif == Inter, sans-serif) {
-
+@if (nth($list: $font-family-sans-serif, $n: 1) == Inter) {
     $inter: '/gstatic/wlc/fonts/Inter/inter-v3-vietnamese_latin-ext_latin_greek-ext_greek_cyrillic-ext_cyrillic';
     @include init-font($inter);
 }
 
-@if ($font-family-sans-serif == Roboto, sans-serif) {
-
-    $roboto: '/gstatic/wlc/fonts/Roboto/roboto-v3-vietnamese_latin-ext_latin_greek-ext_greek_cyrillic-ext_cyrillic';
+@if (nth($list: $font-family-sans-serif, $n: 1) == Roboto) {
+    $roboto: '/gstatic/wlc/fonts/Roboto/roboto-v20-vietnamese_latin-ext_latin_greek-ext_greek_cyrillic-ext_cyrillic';
     @include init-font($roboto);
 }

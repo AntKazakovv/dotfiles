@@ -8,3 +8,7 @@
 @import './home/home-wins';
 
 @include em.init-layout-gap(ev.$layoutGap);
+
+[class*='wlc-sections__']:empty {
+    display: none;
+}
