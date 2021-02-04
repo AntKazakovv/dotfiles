@@ -13,6 +13,8 @@ import {
     SimpleChanges,
     OnInit,
     HostBinding,
+    Optional,
+    Self,
 } from '@angular/core';
 import {StateService} from '@uirouter/core';
 import {Subject, fromEvent} from 'rxjs';
@@ -36,6 +38,7 @@ import {
 export {IButtonCParams} from './button.params';
 
 @Component({
+    // eslint-disable-next-line @angular-eslint/component-selector
     selector: 'button[wlc-button]',
     templateUrl: './button.component.html',
     styleUrls: ['./styles/button.component.scss'],
@@ -60,10 +63,12 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
 
     public $params: BParams.IButtonCParams;
     protected $loading = new Subject<boolean>();
-    @HostBinding('attr.type') typeAttr = this.params.common?.typeAttr;
+    @HostBinding('attr.type') typeAttr = this.params?.common?.typeAttr;
 
     constructor(
-        @Inject('injectParams') protected params: BParams.IButtonCParams,
+        @Inject('injectParams')
+        @Optional() @Self()
+        protected params: BParams.IButtonCParams,
         protected elementRef: ElementRef,
         protected cdr: ChangeDetectorRef,
         protected ConfigService: ConfigService,
@@ -87,7 +92,7 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
             fromEvent(this.elementRef.nativeElement, 'click')
                 .pipe(takeUntil(this.$destroy))
                 .subscribe(() => {
-                    if (this.$params.common?.event) {
+                    if (this.$params?.common?.event) {
                         this.eventService.emit(this.$params.common.event);
                     } else if (this.$params.common?.sref) {
                         this.stateService.go(this.$params.common.sref);
@@ -101,7 +106,7 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
             return this.inlineParams;
         }
 
-        const inputProperties: string[] = ['text', 'size', 'icon', 'index', 'event', 'type'];
+        const inputProperties: string[] = ['text', 'size', 'icon', 'index', 'event', 'type', 'theme'];
         const inlineParams: BParams.IButtonCParams = {
             common: {},
         };
@@ -119,10 +124,10 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
 
     protected prepareModifiers(): void {
         let modifiers: BParams.Modifiers[] = [];
-        if (this.$params.common.size) {
+        if (this.$params?.common?.size) {
             modifiers.push(`size-${this.$params.common.size}`);
         }
-        if (this.$params.common.customModifiers) {
+        if (this.$params?.common?.customModifiers) {
             modifiers = _union(modifiers, this.$params.common.customModifiers.split(' '));
         }
         this.addModifiers(modifiers);

@@ -1,0 +1,54 @@
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/base.mixins' as bm;
+@import './vars';
+
+@mixin threadBase {
+    position: fixed;
+    pointer-events: none;
+
+    @include bm.get-mq-map('width', $notificationThread, 'width');
+
+    &.wlc-notification-thread--theme-mod-left {
+        left: 0;
+    }
+
+    &.wlc-notification-thread--theme-mod-center {
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+    }
+
+    &.wlc-notification-thread--theme-mod-right {
+        right: 0;
+    }
+
+    .wlc-notification-thread__list {
+        display: flex;
+        flex-direction: column;
+        list-style: none;
+        margin: 0;
+        pointer-events: none;
+
+        @include bm.get-mq-map('padding-left', $notificationThread, 'gap');
+        @include bm.get-mq-map('padding-right', $notificationThread, 'gap');
+
+        &.wlc-notification-thread--top {
+            flex-direction: column-reverse;
+        }
+    }
+
+    .wlc-notification-thread__item {
+        top: 100%;
+        pointer-events: initial;
+
+        @include bm.get-mq-map('padding-bottom', $notificationThread, 'gap');
+        @include bm.get-mq-map('left', $notificationThread, 'gap');
+        @include bm.get-mq-map('right', $notificationThread, 'gap');
+
+        .wlc-notification-thread--top & {
+            bottom: 100%;
+            top: auto;
+        }
+    }
+}

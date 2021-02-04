@@ -40,6 +40,16 @@
     }
 }
 
+@mixin desktopHover {
+
+    @media (hover: hover) {
+
+        &:hover {
+            @content;
+        }
+    }
+}
+
 @mixin transition($type: all, $speed: 0.3s, $mode: linear) {
     transition: $type $speed $mode;
 }

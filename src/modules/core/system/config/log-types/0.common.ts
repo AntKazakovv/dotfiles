@@ -239,6 +239,11 @@ export const errorTypes: ILogTypes = {
         level: 'error',
         group: 'Common',
     },
-
-
+    '0.6.0': {
+        description: 'Notification doesn\'t exist',
+        name: 'Notification doesn\'t exist',
+        type: 'notification_thread',
+        level: 'error',
+        group: 'Common',
+    },
 };

@@ -1,0 +1,62 @@
+@use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/functions' as ef;
+@import '../utils/vars';
+@import '../utils/mixins';
+
+.wlc-btn--theme-borderless:host {
+    display: inline-grid;
+    position: relative;
+    border-radius: 4px;
+    font-size: inherit;
+    line-height: inherit;
+
+    grid-column-gap: 0;
+    grid-template-columns: 1fr;
+    overflow: initial;
+    min-width: auto;
+    height: auto;
+    border: none;
+    background: none;
+    padding: 0;
+    margin: 0;
+
+    .wlc-btn__text {
+        text-transform: capitalize;
+        font-size: inherit;
+        line-height: inherit;
+    }
+
+    &:after {
+        content: '';
+        display: block;
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        right: 50%;
+        height: 1px;
+        background-color: ef.get-value($borderlessTheme, 'fontColor');
+        transition:
+            left ef.get-value($borderlessTheme, 'transition'),
+            right ef.get-value($borderlessTheme, 'transition');
+    }
+
+    @include bm.desktopHover {
+
+        background: none;
+        border: 0;
+        color: ef.get-value($borderlessTheme, 'fontColor');
+
+        &:after {
+            left: -(ef.get-value($borderlessTheme, 'underlineExtraSize'));
+            right: -(ef.get-value($borderlessTheme, 'underlineExtraSize'));
+        }
+    }
+
+    &:active {
+
+        &:after {
+            left: 50%;
+            right: 50%;
+        }
+    }
+}

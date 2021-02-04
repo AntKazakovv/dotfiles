@@ -13,6 +13,7 @@ import {
     ModalService,
 } from 'wlc-engine/modules/core/system/services';
 import {UserService} from 'wlc-engine/modules/user/system/services';
+import {IPushMessageParams, NotificationEvents} from 'wlc-engine/modules/core/system/services/notification';
 
 import * as Params from './sign-up-form.params';
 
@@ -43,9 +44,9 @@ export class SignUpFormComponent extends AbstractComponent {
     constructor(
         @Inject('injectParams') protected injectParams: Params.ISignUpFormCParams,
         protected userService: UserService,
-        protected modalService: ModalService,
         protected logService: LogService,
         protected configService: ConfigService,
+        protected modalService: ModalService,
         protected eventService: EventService,
     ) {
         super({
@@ -71,10 +72,13 @@ export class SignUpFormComponent extends AbstractComponent {
                 this.registrationComplete();
             }
         } catch (error) {
-            const message = gettext('Error occured during registration');
-
-            this.modalService.showError({
-                modalMessage: [message, ...error.errors],
+            this.eventService.emit({
+                name: NotificationEvents.PushMessage,
+                data: <IPushMessageParams>{
+                    type: 'error',
+                    title: gettext('Registration error'),
+                    message: error.errors,
+                },
             });
 
             this.logService.sendLog({code: '2.1.0', data: error});
@@ -97,16 +101,21 @@ export class SignUpFormComponent extends AbstractComponent {
     }
 
     protected registrationComplete(): void {
-        this.modalService.showModal({
-            id: 'user-registration',
-            modalTitle: gettext('User registration'),
-            modifier: 'info',
-            modalMessage: [
-                gettext('Your account has been registered.'),
-                gettext('Please complete registration using link in e-mail'),
-            ],
-            dismissAll: true,
+        this.eventService.emit({
+            name: NotificationEvents.PushMessage,
+            data: <IPushMessageParams>{
+                type: 'success',
+                title: gettext('User registration'),
+                message: [
+                    gettext('Your account has been registered.'),
+                    gettext('Please complete registration using link in e-mail'),
+                ],
+            },
         });
+
+        if (this.modalService.getActiveModal('signup')) {
+            this.modalService.closeModal('signup');
+        }
     }
 
     protected checkConfirmation(form: FormGroup): boolean {
@@ -116,8 +125,13 @@ export class SignUpFormComponent extends AbstractComponent {
             return true;
         }
 
-        this.modalService.showError({
-            modalMessage: gettext('You must agree with Terms and Conditions as well as confirm that you are at least 18 years old'),
+        this.eventService.emit({
+            name: NotificationEvents.PushMessage,
+            data: <IPushMessageParams>{
+                type: 'error',
+                title: gettext('User registration'),
+                message: gettext('You must agree with Terms and Conditions as well as confirm that you are at least 18 years old'),
+            },
         });
 
         return false;

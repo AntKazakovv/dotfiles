@@ -1,0 +1,16 @@
+@use 'engine-scss/functions' as ef;
+
+$customNotificationThreadStyle: () !default;
+
+$notificationThread: map-merge((
+    gap: (
+        0:    10px,
+        900:  15px,
+    ),
+    width: (
+        0:    100%,
+        480:  350px,
+        900:  400px,
+        1200: 500px,
+    ),
+), $customNotificationThreadStyle);

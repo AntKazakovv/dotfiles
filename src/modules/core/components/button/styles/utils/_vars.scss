@@ -1,5 +1,15 @@
 @use 'engine-scss/engine.variables' as ev;
+@use 'engine-scss/functions' as ef;
 
 $customThemeDefault: () !default;
+
 $themeDefault: map-merge(map-merge(ev.$buttonSettings, (
 )), $customThemeDefault);
+
+$customThemeBorderless: () !default;
+
+$borderlessTheme: map-merge(
+    map-merge(ev.$buttonSettings, (
+        'underlineExtraSize': 0.25ch,
+        'transition': ef.get('time', 'less') ease,
+    )), $customThemeBorderless);

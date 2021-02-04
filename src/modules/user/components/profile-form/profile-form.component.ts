@@ -7,8 +7,9 @@ import {
 } from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ModalService} from 'wlc-engine/modules/core/system/services';
+import {EventService, ModalService} from 'wlc-engine/modules/core/system/services';
 import {UserService} from 'wlc-engine/modules/user/system/services';
+import {IPushMessageParams, NotificationEvents} from 'wlc-engine/modules/core/system/services/notification';
 import * as Params from './profile-form.params';
 
 import {
@@ -43,6 +44,7 @@ export class ProfileFormComponent extends AbstractComponent implements OnInit {
         protected user: UserService,
         protected cdr: ChangeDetectorRef,
         protected modalService: ModalService,
+        protected eventService: EventService,
     ) {
         super({injectParams: params, defaultParams: Params.defaultParams});
     }
@@ -55,22 +57,23 @@ export class ProfileFormComponent extends AbstractComponent implements OnInit {
         const result = await this.user.updateProfile(form.value, false);
 
         if (result === true) {
-            this.modalService.showModal({
-                id: 'profile-update',
-                modifier: 'info',
-                modalTitle: gettext('Profile update'),
-                modalMessage: [gettext('Profile update success')],
+            this.eventService.emit({
+                name: NotificationEvents.PushMessage,
+                data: <IPushMessageParams>{
+                    type: 'success',
+                    title: gettext('Profile update'),
+                    message: gettext('Profile update success'),
+                },
             });
             return true;
         } else {
-            const messages = ['Profile save failed'];
-            if (result.errors) {
-                _each(result.errors, (error) => {
-                    messages.push(error);
-                });
-            }
-            this.modalService.showError({
-                modalMessage: messages,
+            this.eventService.emit({
+                name: NotificationEvents.PushMessage,
+                data: <IPushMessageParams>{
+                    type: 'error',
+                    title: gettext('Profile update failed'),
+                    message: result.errors,
+                },
             });
             return false;
         }

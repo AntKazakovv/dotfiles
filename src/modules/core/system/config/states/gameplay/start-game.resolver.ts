@@ -3,7 +3,7 @@
 import {StateService, UIRouter, Transition, RawParams, ResolveTypes} from '@uirouter/core';
 import {TranslateService} from '@ngx-translate/core';
 
-import {ConfigService} from 'wlc-engine/modules/core/system/services';
+import {ConfigService, EventService} from 'wlc-engine/modules/core/system/services';
 import {LogService} from 'wlc-engine/modules/core/system/services';
 import {GamesCatalogService} from 'wlc-engine/modules/games/system/services';
 import {Deferred} from 'wlc-engine/modules/core/system/classes';
@@ -17,6 +17,7 @@ import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus';
 import {IRedirect} from 'wlc-engine/modules/core/system/interfaces/core.interface';
 import {IDisablePlayRealByCountry} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
 import {IPlayGameForRealCParams} from 'wlc-engine/modules/games/components/play-game-for-real/play-game-for-real.params';
+import {IPushMessageParams, NotificationEvents} from 'wlc-engine/modules/core/system/services/notification';
 
 import {
     includes as _includes,
@@ -52,6 +53,7 @@ export const startGameResolver: ResolveTypes = {
         UserService,
         BonusesService,
         MerchantFieldsService,
+        EventService,
     ],
     resolveFn: (
         configService: ConfigService,
@@ -65,6 +67,7 @@ export const startGameResolver: ResolveTypes = {
         userService: UserService,
         bonusesService: BonusesService,
         merchantFieldsService: MerchantFieldsService,
+        eventService: EventService,
     ) => {
         return new StartGameHandler(
             configService,
@@ -78,6 +81,7 @@ export const startGameResolver: ResolveTypes = {
             userService,
             bonusesService,
             merchantFieldsService,
+            eventService,
         ).result.promise;
     },
 };
@@ -107,6 +111,7 @@ class StartGameHandler {
         private userService: UserService,
         private bonusesService: BonusesService,
         private merchantFieldsService: MerchantFieldsService,
+        private eventService: EventService,
     ) {
         this.init();
     }
@@ -220,24 +225,22 @@ class StartGameHandler {
      */
     private checksForPlayReal(): boolean {
         if(!this.isDemo && (this.realPlayDisabled || this.realPlayDisabledByCountry)) {
-            const modalParams: Partial<IModalConfig> = {
-                onModalHide: () => {
-                    if (this.stateService.current.abstract || this.stateService.current.name === 'app.gameplay') {
-                        this.stateService.go('app.home', this.transition.params());
-                    } else {
-                        this.stateService.go(this.stateService.current.name, this.transition.params(), {reload: true});
-                    }
-                },
-                size: 'md',
-            };
+            let message: string;
+
             if (this.realPlayDisabled) {
-                modalParams.modalMessage = gettext('Sorry, gambling is not possible');
+                message = gettext('Sorry, gambling is not possible');
             } else if (this.realPlayDisabledByCountry) {
-                modalParams.modalMessage = gettext('Play for real is disabled in your country');
+                message = gettext('Play for real is disabled in your country');
             }
 
-            this.modalService.showError(modalParams);
+            this.showErrorNotification(message);
+
             this.result.reject(RejectReason.RealPlayDisabled);
+            if (this.stateService.current.abstract || this.stateService.current.name === 'app.gameplay') {
+                this.stateService.go('app.home', this.transition.params());
+            } else {
+                this.stateService.go(this.stateService.current.name, this.transition.params(), {reload: true});
+            }
             return false;
         }
         return true;
@@ -249,7 +252,10 @@ class StartGameHandler {
      * @returns {boolean}
      */
     private async checkGame(): Promise<boolean> {
-        this.game = this.gamesCatalogService.getGame(_toNumber(this.transition.params().merchantId), this.transition.params().launchCode);
+        this.game = this.gamesCatalogService.getGame(
+            _toNumber(this.transition.params().merchantId),
+            this.transition.params().launchCode,
+        );
 
         if (!this.game) {
             this.logService.sendLog({code: '3.0.1', data: this.stateService.params});
@@ -261,16 +267,16 @@ class StartGameHandler {
                 this.result.resolve();
                 return true;
             }
-            this.modalService.showError({
-                modalTitle: gettext('Game has no demo!'),
-                modalMessage: gettext('Dear Client, this game has no demo mode, you will redirect to normal mode.'),
-                onModalHidden: () => {
-                    const stateParams: RawParams = _clone(this.transition.params());
-                    stateParams.demo = false;
-                    this.stateService.go('app.gameplay', stateParams);
-                },
-            });
+
+            this.showErrorNotification(
+                gettext('Dear Client, this game has no demo mode, you will be redirected to normal mode.'),
+                gettext('Game has no demo!'),
+            );
+
             this.result.reject(RejectReason.GameHasNoDemo);
+            const stateParams: RawParams = _clone(this.transition.params());
+            stateParams.demo = false;
+            this.stateService.go('app.gameplay', stateParams);
             return false;
         }
         return true;
@@ -288,13 +294,10 @@ class StartGameHandler {
         const activeBonuses: Bonus[] = await this.bonusesService.queryBonuses(true, 'active');
 
         if (activeBonuses && this.gameRestrictedByActiveBonuses(this.game, activeBonuses)) {
-            this.modalService.showError({
-                modalMessage: gettext('Sorry, this game is disabled with an active bonus'),
-                onModalHide: () => {
-                    this.stateService.go('app.home', this.transition.params(), {reload: true});
-                },
-            });
+            this.showErrorNotification(gettext('Sorry, this game is disabled with an active bonus'));
+
             this.result.reject(RejectReason.RestrictedByActiveBonuses);
+            this.stateService.go('app.home', this.transition.params(), {reload: true});
             return;
         }
 
@@ -392,25 +395,19 @@ class StartGameHandler {
         }
 
         //WlcStateService.setRedirect('app.games.play', $stateParams);
-        this.modalService.showModal({
-            id: 'low-balance',
-            modalTitle: gettext('Insufficient balance!'),
-            modalMessage: gettext('Deposit more money to play this game.'),
-            modifier: 'low-balance',
-            onModalHide: () => {
-                const redirect: IRedirect = this.configService.get<IRedirect>('$core.redirects.zeroBalance');
-                if (this.configService.get('$finances.fastDeposit.use')) {
-                    //@TODO After ready fast deposit
-                    //this.modalService.showModal('fastDeposit');
-                } else {
-                    this.stateService.go(redirect.state, redirect?.params || this.transition.params());
-                }
-            },
-            size: 'md',
-            backdrop: 'static',
-        });
+        this.showErrorNotification(
+            gettext('Deposit more money to play this game.'),
+            gettext('Insufficient balance!'),
+        );
 
         deferred.reject(RejectReason.LowBalance);
+        const redirect: IRedirect = this.configService.get<IRedirect>('$core.redirects.zeroBalance');
+        if (this.configService.get('$finances.fastDeposit.use')) {
+            //@TODO After ready fast deposit
+            //this.modalService.showModal('fastDeposit');
+        } else {
+            this.stateService.go(redirect.state, redirect?.params || this.transition.params());
+        }
         return deferred.promise;
     }
 
@@ -465,5 +462,16 @@ class StartGameHandler {
             defered.reject(RejectReason.EmptyRequiredFields);
         });
         return defered.promise;
+    }
+
+    private showErrorNotification(message: string, title: string = gettext('Game launch error')): void {
+        this.eventService.emit({
+            name: NotificationEvents.PushMessage,
+            data: <IPushMessageParams>{
+                type: 'error',
+                title,
+                message,
+            },
+        });
     }
 }

@@ -6,8 +6,9 @@ import {
 import {FormGroup} from '@angular/forms';
 
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ModalService} from 'wlc-engine/modules/core/system/services';
+import {EventService, ModalService} from 'wlc-engine/modules/core/system/services';
 import {UserService} from 'wlc-engine/modules/user/system/services';
+import {IPushMessageParams, NotificationEvents} from 'wlc-engine/modules/core/system/services/notification';
 
 import * as Params from './change-password-form.params';
 
@@ -41,6 +42,7 @@ export class ChangePasswordFormComponent extends AbstractComponent {
         @Inject('injectParams') protected injectParams: Params.IChangePasswordFormCParams,
         protected userService: UserService,
         protected modalService: ModalService,
+        protected eventService: EventService,
     ) {
         super({
             injectParams,
@@ -53,9 +55,27 @@ export class ChangePasswordFormComponent extends AbstractComponent {
 
         try {
             await this.userService.setNewPassword(currentPassword, confirmPassword);
+
+            this.eventService.emit({
+                name: NotificationEvents.PushMessage,
+                data: <IPushMessageParams>{
+                    type: 'success',
+                    title: gettext('Password change successfully'),
+                    message: gettext('Your password has been changed successfully!'),
+                },
+            });
+
+            if (this.modalService.getActiveModal('change-password')) {
+                this.modalService.closeModal('change-password');
+            }
         } catch (error) {
-            this.modalService.showError({
-                modalMessage: error.errors,
+            this.eventService.emit({
+                name: NotificationEvents.PushMessage,
+                data: <IPushMessageParams>{
+                    type: 'error',
+                    title: gettext('Failed to change password'),
+                    message: error.errors,
+                },
             });
         }
     }

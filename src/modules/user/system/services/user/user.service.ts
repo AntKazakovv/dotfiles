@@ -21,6 +21,7 @@ import {IData} from 'wlc-engine/modules/core/system/services/data/data.service';
 import {UserInfo} from 'wlc-engine/modules/user/system/models/info.model';
 import {UserProfile} from '../../models/profile.model';
 import {ConfigService} from 'wlc-engine/modules/core';
+import {IPushMessageParams, NotificationEvents} from 'wlc-engine/modules/core/system/services/notification';
 import {filter} from 'rxjs/operators';
 
 import {
@@ -298,8 +299,12 @@ export class UserService {
             await this.login(loginParam, password);
             this.modalService.closeModal('login');
         } catch (error) {
-            this.modalService.showError({
-                modalMessage: error.errors,
+            this.eventService.emit({
+                name: NotificationEvents.PushMessage,
+                data: <IPushMessageParams>{
+                    type: 'error',
+                    message: error.errors,
+                },
             });
 
             this.logService.sendLog({code: '1.2.0', data: error});

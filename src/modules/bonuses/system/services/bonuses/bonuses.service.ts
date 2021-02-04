@@ -4,10 +4,12 @@ import {
     IData,
     ConfigService,
     EventService,
-    ModalService,
     LogService,
     DataService,
     CachingService,
+} from 'wlc-engine/modules/core/system/services';
+import {IPushMessageParams, NotificationEvents} from 'wlc-engine/modules/core/system/services/notification';
+import {
     IIndexing,
     IForbidBanned,
 } from 'wlc-engine/modules/core';
@@ -75,7 +77,6 @@ export class BonusesService {
         private dataService: DataService,
         private eventService: EventService,
         private configService: ConfigService,
-        private modalService: ModalService,
         private userService: UserService,
         private logService: LogService,
     ) {
@@ -543,9 +544,13 @@ export class BonusesService {
     }
 
     private showError(title: string, errors: string[]): void {
-        this.modalService.showError({
-            modalTitle: title,
-            modalMessage: errors,
+        this.eventService.emit({
+            name: NotificationEvents.PushMessage,
+            data: <IPushMessageParams>{
+                type: 'error',
+                title,
+                message: errors,
+            },
         });
     }
 

@@ -39,10 +39,12 @@ import {
     IButtonCParams,
     IIndexing,
 } from 'wlc-engine/modules/core';
+import {IPushMessageParams, NotificationEvents} from 'wlc-engine/modules/core/system/services/notification';
 
 import {
     assign as _assign,
     merge as _merge,
+    find as _find,
     isObject as _isObject,
     each as _each,
     get as _get,
@@ -145,15 +147,43 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
             });
 
             _some(this.config.components, (component) => {
-                if (!!component.params.control.errors) {
+                if (!!component.params.control?.errors) {
                     this.elRef.nativeElement.querySelector(`#${component.params.name}`).focus();
                 }
 
-                return !!component.params.control.errors;
+                return !!component.params.control?.errors;
             });
+
+            if (this.hasRequiredError) {
+                this.eventService.emit({
+                    name: NotificationEvents.PushMessage,
+                    data: <IPushMessageParams>{
+                        type: 'error',
+                        title: gettext('Form error'),
+                        message: gettext('Fill required fields'),
+                    },
+                });
+            } else if (this.hasAnyError) {
+                this.eventService.emit({
+                    name: NotificationEvents.PushMessage,
+                    data: <IPushMessageParams>{
+                        type: 'error',
+                        title: gettext('Error filling form'),
+                        message: gettext('Check the correctness of filling out the form fields'),
+                    },
+                });
+            }
 
             this.cdr.markForCheck();
         }
+    }
+
+    protected get hasRequiredError(): boolean {
+        return !!_find(this.controls, (control) => control.errors?.required);
+    }
+
+    protected get hasAnyError(): boolean {
+        return !!_find(this.controls, (control) => !!control.errors);
     }
 
     protected prepareParams(): void {

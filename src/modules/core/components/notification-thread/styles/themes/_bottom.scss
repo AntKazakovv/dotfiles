@@ -1,0 +1,7 @@
+@import '../utils/mixins';
+
+.wlc-notification-thread--theme-bottom:host {
+    bottom: 0;
+
+    @include threadBase;
+}

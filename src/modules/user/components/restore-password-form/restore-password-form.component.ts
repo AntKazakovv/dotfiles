@@ -6,8 +6,9 @@ import {
 import {FormGroup} from '@angular/forms';
 
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ModalService} from 'wlc-engine/modules/core/system/services';
+import {EventService} from 'wlc-engine/modules/core/system/services';
 import {UserService} from 'wlc-engine/modules/user/system/services';
+import {IPushMessageParams, NotificationEvents} from 'wlc-engine/modules/core/system/services/notification';
 
 import * as Params from './restore-password-form.params';
 
@@ -39,7 +40,7 @@ export class RestorePasswordFormComponent extends AbstractComponent {
     constructor(
         @Inject('injectParams') protected injectParams: Params.IRestorePasswordFormCParams,
         protected userService: UserService,
-        protected modalService: ModalService,
+        protected eventService: EventService,
     ) {
         super({
             injectParams,
@@ -52,16 +53,22 @@ export class RestorePasswordFormComponent extends AbstractComponent {
 
         try {
             const response = await this.userService.sendPasswordRestore(email);
-            // TODO change info message
-            this.modalService.showModal({
-                id: 'reset-password',
-                modalTitle: gettext('Password reset'),
-                dismissAll: true,
-                modalMessage: [response.data.result],
+
+            this.eventService.emit({
+                name: NotificationEvents.PushMessage,
+                data: <IPushMessageParams>{
+                    type: 'success',
+                    title: gettext('Password reset'),
+                    message: response.data.result,
+                },
             });
         } catch (error) {
-            this.modalService.showError({
-                modalMessage: error.errors,
+            this.eventService.emit({
+                name: NotificationEvents.PushMessage,
+                data: <IPushMessageParams>{
+                    type: 'error',
+                    message: error.errors,
+                },
             });
         }
     }
