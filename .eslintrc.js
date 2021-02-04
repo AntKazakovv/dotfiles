@@ -5,6 +5,8 @@ module.exports = {
         '@typescript-eslint',
     ],
     rules: {
+        "no-console": ["error", { allow: ["warn", "error"] }],
+        "no-debugger": "error",
         '@angular-eslint/no-input-rename': 'off',
         '@typescript-eslint/no-inferrable-types': 'off',
         'quote-props': 'off',

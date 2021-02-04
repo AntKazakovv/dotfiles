@@ -131,7 +131,6 @@ export class SelectComponent extends AbstractComponent implements OnInit {
         this.constantValues[this.$params.options]
             .pipe(takeUntil(this.$destroy))
             .subscribe((value) => {
-                console.log('%cLOG', 'color: orange;', value);
                 this.$params.items = value || [];
             });
     }

@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { NotificationThreadComponent } from './notification-thread.component';
+import {NotificationThreadComponent} from './notification-thread.component';
 
 describe('NotificationsComponent', () => {
     let component: NotificationThreadComponent;
@@ -8,7 +8,7 @@ describe('NotificationsComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [ NotificationThreadComponent ]
+            declarations: [NotificationThreadComponent],
         }).compileComponents();
     });
 

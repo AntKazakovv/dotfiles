@@ -67,7 +67,6 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
 
     constructor(
         @Inject('injectParams')
-        @Optional() @Self()
         protected params: BParams.IButtonCParams,
         protected elementRef: ElementRef,
         protected cdr: ChangeDetectorRef,
