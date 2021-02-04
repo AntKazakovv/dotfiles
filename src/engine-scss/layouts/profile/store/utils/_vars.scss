@@ -1,0 +1,9 @@
+@use 'engine-scss/functions' as ef;
+
+$customStoreThemeDefault: () !default;
+$storeThemeDefault: map-merge((
+    'sectionGap': (
+        719: ef.get('size', 'small'),
+        720: ef.get('size', 'smaller'),
+    ),
+), $customStoreThemeDefault);

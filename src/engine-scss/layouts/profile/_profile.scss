@@ -3,6 +3,7 @@
 @use 'engine-scss/mixins/text' as text;
 @import './main-info/themes/default';
 @import './dashboard/themes/default';
+@import './store/themes/default';
 
 .wlc-sections__profile-content,
 .wlc-sections__profile-menu {

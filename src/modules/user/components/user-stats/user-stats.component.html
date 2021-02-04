@@ -19,6 +19,19 @@
         </div>
     </ng-template>
 
+    <ng-template [ngSwitchCase]="'store'">
+        <div class="{{$class}}-balance {{$class}}-balance--store" data-wlc-element="block_info">
+            <div class="{{$class}}-balance__item {{$class}}-balance__item--points" [attr.data-wlc-element]="shownUserStats?.points?.wlcElement">
+                <span class="value">{{(shownUserStats?.points?.value | number: '.0-2') || 0}}</span>
+                <span class="name">{{shownUserStats?.points?.name | translate}}</span>
+            </div>
+            <div class="{{$class}}-balance__item {{$class}}-balance__item--exppoints" [attr.data-wlc-element]="shownUserStats?.expPoints?.wlcElement">
+                <span class="value">{{(shownUserStats?.expPoints?.value | number: '.0-2') || 0}}</span>
+                <span class="name">{{shownUserStats?.expPoints?.name | translate}}</span>
+            </div>
+        </div>
+    </ng-template>
+
     <ng-template [ngSwitchCase]="'default'">
 
         <div class="{{$class}}-balance">

@@ -1,17 +1,17 @@
 <ng-template #div let-data="data">
-    <div class="{{$class}}__{{data.element}}">{{data.text}}</div>
+    <div class="{{$class}}__{{data.element}}">{{data.text | translate}}</div>
 </ng-template>
 
 <ng-template #h1 let-data="data">
-    <h1 class="{{$class}}__{{data.element}}">{{data.text}}</h1>
+    <h1 class="{{$class}}__{{data.element}}">{{data.text | translate}}</h1>
 </ng-template>
 
 <ng-template #h2 let-data="data">
-    <h2 class="{{$class}}__{{data.element}}">{{data.text}}</h2>
+    <h2 class="{{$class}}__{{data.element}}">{{data.text | translate}}</h2>
 </ng-template>
 
 <ng-template #span let-data="data">
-    <span class="{{$class}}__{{data.element}}">{{data.text}}</span>
+    <span class="{{$class}}__{{data.element}}">{{data.text | translate}}</span>
 </ng-template>
 
 <ng-container *ngIf="ready">

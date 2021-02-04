@@ -1,0 +1,42 @@
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/functions' as ef;
+@import '../utils/vars';
+
+.wlc-store-list--theme-default {
+
+    &:host {
+
+        .wlc-store-list__list {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            > div {
+                width: 100%;
+                margin-bottom: ef.get-value($themeDefault, 'gridGap');
+            }
+
+            @include mq.min(1200) {
+                grid-template-columns: repeat(auto-fill, minmax(ef.get-value($themeDefault, 'minItemWidthDesktop'), 1fr));
+            }
+
+            @include mq.min(720) {
+                display: grid;
+                grid-gap: ef.get-value($themeDefault, 'gridGap');
+                grid-template-columns: repeat(auto-fill, minmax(ef.get-value($themeDefault, 'minItemWidth'), 1fr));
+
+                > div {
+                    margin-bottom: 0;
+                }
+            }
+        }
+
+        .wlc-store-list__nocontent {
+            text-align: center;
+
+            @include mq.min(1024) {
+                text-align: left;
+            }
+        }
+    }
+}

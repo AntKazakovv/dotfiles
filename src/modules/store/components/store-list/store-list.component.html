@@ -1,0 +1,12 @@
+<div class="{{$class}}__content">
+    <div class="{{$class}}__list" *ngIf="storeItems?.length && isReady; else: noItems">
+        <div wlc-store-item [storeItem]="item" *ngFor="let item of storeItems"></div>
+    </div>
+    <!-- TODO: add pagination -->
+    <ng-template #noItems>
+        <div class="{{$class}}__nocontent" *ngIf="isReady">{{'No store items available' | translate}}</div>
+        <div class="{{$class}}__nocontent" *ngIf="!isReady">
+            <div wlc-loader></div>
+        </div>
+    </ng-template>
+</div>

@@ -1,0 +1,54 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/mediaqueries' as mq;
+
+@import '../utils/vars';
+
+.app-profile-loyalty-store-main-state {
+
+    .wlc-sections__profile-content {
+
+        > .container {
+            position: relative;
+            display: grid;
+            grid: {
+                template-columns: minmax(0, 1fr);
+                template-rows: auto;
+                template-areas: 'title' 'stats' 'store';
+                gap: ef.get-value($storeThemeDefault, 'sectionGap', 719);
+            }
+
+            @include mq.min(720) {
+                grid: {
+                    template-columns: repeat(2, 1fr);
+                    template-areas:
+                        'title stats'
+                        'store store';
+                    gap: ef.get-value($storeThemeDefault, 'sectionGap', 720);
+                }
+            }
+        }
+    }
+
+    .wlc-title {
+        grid-area: title;
+        text-align: center;
+
+        @include mq.min(720) {
+            text-align: left;
+        }
+    }
+
+    .wlc-user-stats--type-store {
+        grid-area: stats;
+        display: flex;
+        justify-content: center;
+
+        @include mq.min(720) {
+            justify-content: flex-end;
+        }
+    }
+
+    .wlc-store-list {
+        grid-area: store;
+    }
+}
