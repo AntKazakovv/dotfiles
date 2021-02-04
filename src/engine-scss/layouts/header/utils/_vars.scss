@@ -2,24 +2,25 @@
 
 $customTheme1Header: () !default;
 $theme1Header: map-merge((
-    headerBurgerBtnWidth: ef.get('size', 'less'),
-    headerSearchBtnWidth: ef.get('size', 'less'),
-    headerGapColumns: ef.get('size', 'main'),
-    headerGridColumns: (
+    'headerBurgerBtnWidth': ef.get('size', 'less'),
+    'headerSearchBtnWidth': ef.get('size', 'less'),
+    'headerGapColumns': ef.get('size', 'main'),
+    'headerGridColumns': (
         375: 0.5fr 1fr 0.5fr,
         1024: auto auto 1fr auto auto,
         1200: auto auto 1fr auto auto,
     ),
-    headerGridGap: (
+    'headerGridGap': (
         375: ef.get('size', 'main'),
     ),
-    headerMinHeight: (
+    'headerMinHeight': (
         375: 70px,
         1024: 105px,
     ),
-    headerBackground: transparent,
-    headerSvgBtn: ef.get('mainColors', 'baseOpacity'),
-    headerLoginBtnTabletPadding: ef.get('size', 'smallest')  ef.get('size', 'small'),
+    'headerBackground': transparent,
+    'headerSvgBtn': ef.get('mainColors', 'baseOpacity'),
+    'headerSvgBtnHover': darken(ef.get('mainColors', 'baseOpacity'), 20%),
+    'headerLoginBtnTabletPadding': ef.get('size', 'smallest') ef.get('size', 'small'),
 ), $customTheme1Header);
 
 // Header

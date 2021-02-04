@@ -10,16 +10,6 @@ $themeDefault: map-merge((
         375: ef.get-value(ev.$profileSettings, 'profileBg', 375),
     ),
     'profileMenuActiveColor': ef.get('mainColors', 'baseMain'),
-    'submenuBorderBottom': 2px solid ef.get('mainColors', 'baseOpacity'),
-    'submenuMargin': (
-        375: 0 0 30px,
-        1024: 0 0 40px,
-    ),
-    'submenuItemPadding': (
-        375: 10px 0,
-        1024: 15px 0
-    ),
-    'submenuItemActiveBorder': ef.get('mainColors', 'main'),
 ), $customThemeDefault);
 
 $customDropdownThemeDefault: () !default;
@@ -40,7 +30,7 @@ $customSubmenuProfileDefault: () !default;
 $submenuProfileDefault: map-merge((
     'submenuBorderBottom': 2px solid ef.get('mainColors', 'baseOpacity'),
     'submenuMargin': (
-        375: 0 0 30px,
+        375: 20px 0,
         1024: 0 0 40px,
     ),
     'submenuItemPadding': (

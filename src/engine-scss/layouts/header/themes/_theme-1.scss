@@ -13,11 +13,11 @@
         display: grid;
         align-items: center;
         padding: 0 15px;
-        background: map-get($theme1Header, headerBackground);
+        background: map-get($theme1Header, 'headerBackground');
 
-        @include bm.get-mq-map('grid-template-columns', $theme1Header, headerGridColumns);
-        @include bm.get-mq-map('grid-gap', $theme1Header, headerGridGap);
-        @include bm.get-mq-map('min-height', $theme1Header, headerMinHeight);
+        @include bm.get-mq-map('grid-template-columns', $theme1Header, 'headerGridColumns');
+        @include bm.get-mq-map('grid-gap', $theme1Header, 'headerGridGap');
+        @include bm.get-mq-map('min-height', $theme1Header, 'headerMinHeight');
 
         @include mq.min(1024) {
             max-width: 1920px;
@@ -43,7 +43,7 @@
             .wlc-btn {
 
                 @include mq.max(1200) {
-                    padding: map-get($theme1Header, headerLoginBtnTabletPadding);
+                    padding: map-get($theme1Header, 'headerLoginBtnTabletPadding');
                 }
             }
         }
@@ -51,21 +51,50 @@
         .wlc-btn {
 
             &-burger {
-                width: map-get($theme1Header, headerBurgerBtnWidth);
+                width: map-get($theme1Header, 'headerBurgerBtnWidth');
                 margin-right: auto;
 
                 @include mq.min(1024) {
-                    margin-left: map-get($theme1Header, headerGapColumns);
+                    margin-left: map-get($theme1Header, 'headerGapColumns');
                     text-align: center;
                 }
             }
 
             &-search {
-                width: map-get($theme1Header, headerSearchBtnWidth);
+                width: map-get($theme1Header, 'headerSearchBtnWidth');
                 margin-left: auto;
 
                 @include mq.min(1024) {
-                    margin-right: map-get($theme1Header, headerGapColumns);
+                    margin-right: map-get($theme1Header, 'headerGapColumns');
+                }
+
+                @media (hover: hover) {
+
+                    &:hover {
+                        transform: rotate(30deg);
+                        @include bm.transition(transform);
+                    }
+                }
+            }
+
+            &-burger,
+            &-search {
+
+                svg,
+                rect {
+                    fill: map-get($theme1Header, 'headerSvgBtn');
+                }
+
+                @media (hover: hover) {
+
+                    &:hover {
+
+                        svg,
+                        rect {
+                            fill: map-get($theme1Header, 'headerSvgBtnHover');
+                            @include bm.transition(fill);
+                        }
+                    }
                 }
             }
 
@@ -82,11 +111,6 @@
                         height: 37px;
                     }
                 }
-            }
-
-            svg,
-            rect {
-                fill: map-get($theme1Header, headerSvgBtn);
             }
         }
 

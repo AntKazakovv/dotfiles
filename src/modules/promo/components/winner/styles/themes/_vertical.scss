@@ -34,6 +34,7 @@
         }
 
         &__image {
+            display: block;
             width: ef.get-value($themeVertical, 'imageSize');
             height: ef.get-value($themeVertical, 'imageSize');
             max-width: ef.get-value($themeVertical, 'imageSize');

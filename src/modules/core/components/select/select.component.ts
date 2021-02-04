@@ -106,18 +106,6 @@ export class SelectComponent extends AbstractComponent implements OnInit {
         });
     }
 
-    private prepareCurrency(): BehaviorSubject<Params.ISelectOptions[]> {
-        const modifyCurrencies = this.configService.get<IIndexing<ICurrency>>('appConfig.siteconfig.currencies');
-        return new BehaviorSubject(
-            _map(
-                _filter(modifyCurrencies, (el: ICurrency) => {
-                    return el.registration;
-                }), (el) => {
-                    return {title: el.Name, value: el.Alias};
-                }),
-        );
-    }
-
     private prepareConstantValues(): void {
         this.constantValues = {
             currencies: this.prepareCurrency(),
@@ -143,6 +131,7 @@ export class SelectComponent extends AbstractComponent implements OnInit {
         this.constantValues[this.$params.options]
             .pipe(takeUntil(this.$destroy))
             .subscribe((value) => {
+                console.log('%cLOG', 'color: orange;', value);
                 this.$params.items = value || [];
             });
     }
@@ -157,5 +146,17 @@ export class SelectComponent extends AbstractComponent implements OnInit {
 
         modifiers = _union(modifiers, this.$params.common.customModifiers.split(' '));
         this.addModifiers(modifiers);
+    }
+
+    private prepareCurrency(): BehaviorSubject<Params.ISelectOptions[]> {
+        const modifyCurrencies = this.configService.get<IIndexing<ICurrency>>('appConfig.siteconfig.currencies');
+        return new BehaviorSubject(
+            _map(
+                _filter(modifyCurrencies, (el: ICurrency) => {
+                    return el.registration;
+                }), (el) => {
+                    return {title: el.Name, value: el.Alias};
+                }),
+        );
     }
 }

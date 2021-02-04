@@ -63,7 +63,7 @@
                     opacity: 0;
                     transition: none;
                     background: {
-                        image: url('/static/images/styles/profile-menu-smooth.svg');
+                        image: url('/static/images/menu/profile-menu-smooth.svg');
                         position: center;
                         size: cover;
                         repeat: no-repeat;
@@ -91,6 +91,10 @@
                         left: -17px;
                         transform: scaleX(-1);
                     }
+                }
+
+                &.active {
+                    font-weight: bold;
                 }
             }
         }

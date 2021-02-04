@@ -6,19 +6,12 @@ import {
     ChangeDetectorRef, ChangeDetectionStrategy, OnDestroy,
 } from '@angular/core';
 import {first, skipWhile} from 'rxjs/operators';
-import {TranslateService} from '@ngx-translate/core';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ConfigService} from 'wlc-engine/modules/core';
 import {UserService} from 'wlc-engine/modules/user/system/services';
 import {EventService, ModalService} from 'wlc-engine/modules/core/system/services';
-import {IIndexing, IUserInfo} from 'wlc-engine/modules/core/system/interfaces';
-import {StateService} from '@uirouter/core';
 import * as Params from './user-name.params';
 
-import {
-    reduce as _reduce,
-    assign as _assign,
-} from 'lodash-es';
 
 
 @Component({
@@ -28,10 +21,9 @@ import {
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserNameComponent extends AbstractComponent implements OnInit, OnDestroy {
-    @Input() public type: string = 'default';
+    @Input() public userNameLength: number;
     @Input() protected inlineParams: Params.IUserNameCParams;
     public $params: any;
-    public userStats: IUserInfo;
     public email: string;
     public firstName: string;
     public lastName: string;
@@ -56,5 +48,6 @@ export class UserNameComponent extends AbstractComponent implements OnInit, OnDe
                 this.lastName = userInfo.lastName;
                 this.cdr.markForCheck();
             });
+        this.$params.userNameLength = this.userNameLength || this.$params.userNameLength;
     }
 }

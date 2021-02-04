@@ -178,7 +178,7 @@
             z-index: 3;
             display: none;
             grid: {
-                template-columns: auto;
+                template-columns: minmax(0, 1fr) minmax(0, 1fr);
                 auto-flow: column;
                 gap: ef.get-value($themeDefault, 'btnGap');
             }
@@ -187,6 +187,7 @@
 
             &.no-demo {
                 justify-content: center;
+                grid-template-columns: auto;
             }
 
             @include mq.min(768) {
@@ -198,6 +199,10 @@
                 .wlc-icon {
                     display: none;
                 }
+            }
+
+            .wlc-btn {
+                min-width: auto;
             }
         }
     }

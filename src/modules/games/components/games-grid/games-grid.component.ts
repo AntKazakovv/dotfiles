@@ -82,6 +82,7 @@ export class GamesGridComponent extends AbstractComponent
     public searchQuery: string = '';
     public hideSearchBlock: boolean = false;
     public currentLanguage: ILanguage;
+    public isDesktop: boolean;
 
     protected games: Game[];
     protected lazyTimeout: number;
@@ -109,7 +110,7 @@ export class GamesGridComponent extends AbstractComponent
         protected transition: TransitionService,
         protected actionService: ActionService,
     ) {
-        super({injectParams, defaultParams}, configService);
+        super({injectParams, defaultParams}, configService, actionService);
     }
 
     public async ngOnInit(): Promise<void> {
@@ -395,6 +396,7 @@ export class GamesGridComponent extends AbstractComponent
             .pipe(takeUntil(this.$destroy))
             .subscribe((type: DeviceType) => {
                 this.deviceType = type;
+                this.isDesktop = this.deviceType === 'desktop';
                 this.setupMobileSettings();
                 this.cdr.markForCheck();
             });

@@ -48,7 +48,7 @@ export class TableComponent extends AbstractComponent implements OnInit {
         protected cdr: ChangeDetectorRef,
         protected injector: Injector,
         protected configService: ConfigService,
-        private actionService: ActionService,
+        protected actionService: ActionService,
     ) {
         super(
             <IMixedParams<Params.ITableCParams>>{

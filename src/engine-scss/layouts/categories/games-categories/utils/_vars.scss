@@ -2,55 +2,59 @@
 
 $customGamesCategoriesDefault: () !default;
 $gamesCategoriesDefault: map-merge((
-    sectionPadding: (
+    'sectionMargin': (
+        375: -30px 0 20px,
+        900: 0 0 40px,
+    ),
+    'sectionPadding': (
         375: 0,
         768: ef.get('size', 'small'),
         1024: ef.get('size', 'smally') ef.get('size', 'smally') ef.get('size', 'smally') ef.get('size', 'main'),
         1420: ef.get('size', 'smally') ef.get('size', 'smally') ef.get('size', 'smally') ef.get('size', 'biger'),
     ),
-    sectionRadius: (
+    'sectionRadius': (
         375: 0,
         768: ef.get('radius', 'biger'),
     ),
-    sectionBg: (
+    'sectionBg': (
         375: none,
         768: ef.get('mainColors', 'bg700'),
     ),
-    buttonSearchBg: (
+    'buttonSearchBg': (
         375: ef.get('mainColors', 'bg500'),
         768: ef.get('mainColors', 'bg')
     ),
-    buttonSearchPadding: (
+    'buttonSearchPadding': (
         375: ef.get('size', 'small') ef.get('size', 'smally'),
     ),
-    buttonSearchRadius: (
+    'buttonSearchRadius': (
         375: ef.get('radius', 'biger'),
     ),
-    buttonSearchColor: ef.get('mainColors', 'baseMain'),
-    buttonSearchBgHover: darken(ef.get('mainColors', 'baseMain'), 20%),
-    buttonSearchIconFill: ef.get('mainColors', 'main'),
-    buttonSearchIconMargin: ef.get('size', 'small'),
-    buttonMerchMargin: ef.get('size', 'smally'),
+    'buttonSearchColor': ef.get('mainColors', 'baseMain'),
+    'buttonSearchBgHover': darken(ef.get('mainColors', 'baseMain'), 20%),
+    'buttonSearchIconFill': ef.get('mainColors', 'main'),
+    'buttonSearchIconMargin': ef.get('size', 'small'),
+    'buttonMerchMargin': ef.get('size', 'smally'),
 ), $customGamesCategoriesDefault);
 
 $customWithIcons: () !default;
 $withIcons: map-merge((
-    searchButtonBg: ef.get('mainColors', 'bg500'),
-    searchButtonBgHover: ef.get('mainColors', 'bg300'),
-    searchButtonIconFill: ef.get('mainColors', 'main'),
-    merchButtonBg: ef.get('mainColors', 'bg500'),
-    merchButtonBgHover: ef.get('mainColors', 'bg300'),
-    merchButtonIconFill: ef.get('mainColors', 'main'),
-    sectionGap: (
+    'searchButtonBg': ef.get('mainColors', 'bg500'),
+    'searchButtonBgHover': ef.get('mainColors', 'bg300'),
+    'searchButtonIconFill': ef.get('mainColors', 'main'),
+    'merchButtonBg': ef.get('mainColors', 'bg500'),
+    'merchButtonBgHover': ef.get('mainColors', 'bg300'),
+    'merchButtonIconFill': ef.get('mainColors', 'main'),
+    'sectionGap': (
         900: ef.get('size', 'small'),
     ),
-    buttonPadding: (
+    'buttonPadding': (
         375: ef.get('size', 'small') ef.get('size', 'smally'),
     ),
-    buttonBorderRadius: (
+    'buttonBorderRadius': (
         375: ef.get('radius', 'biger'),
     ),
-    gridColumns: (
+    'gridColumns': (
         375: minmax(0, 1fr),
         900: minmax(0, 1fr) 250px,
     ),

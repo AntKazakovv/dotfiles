@@ -174,8 +174,7 @@ $size: map-merge((
     'biger': 50px,
     'big': 60px,
     'sectionsGap': (
-        375: 20px,
-        1024: 40px,
+        375: 40px,
     ),
 ), $customSize);
 
@@ -444,14 +443,13 @@ $dummy: ();
 $buttonSettings: map-merge((
     'scaleParam': 0.9,
     // Size
-    'minWidth': 100px,
+    'minWidth': 110px,
     'heightSmall': 35px,
     'heightDefault': 40px,
     'heightLarge': 50px,
     // Font
     'fontSize': map-get($font, 'less'),
     'fontWeight': bold,
-    //todo via variables
     'fontColor': map-get($mainColors, 'baseMain'),
     'colorDefaultHover': darken(map-get($mainColors, 'baseMain'), 20),
     'fontColorActive': map-get($mainColors, 'baseMain'),

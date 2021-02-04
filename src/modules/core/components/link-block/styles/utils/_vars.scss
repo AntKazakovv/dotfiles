@@ -4,10 +4,10 @@ $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'baseHeight': 100%,
     'baseWidth': 100%,
-
     'containerPadding': (
         375: ef.get('size', 'smaller') ef.get('size', 'small'),
-        768: ef.get('size', 'less') ef.get('size', 'main'),
+        768: ef.get('size', 'smaller') ef.get('size', 'smaller'),
+        1024: ef.get('size', 'less') ef.get('size', 'main'),
     ),
     'containerBackground': ef.get('mainColors', 'bg300'),
     'containerShadow': 0 4px 9px 0 rgba(ef.get('mainColors', 'bg'), 0.07),

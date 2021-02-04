@@ -11,6 +11,7 @@ $themeDefault: map-merge((
     'linksGap': ef.get('size', 'small'),
 
     'linkColor': ef.get('mainColors', 'baseMain'),
+    'linkColorHover': darken(ef.get('mainColors', 'baseMain'), 30%),
     'linkSize': 100%,
     'linkDecoration': none,
 
@@ -25,7 +26,7 @@ $customMenuThemeContacts: () !default;
 $menuThemeContacts: map-merge((
     'textTransform': inherit,
     'textColor': ef.get('mainColors', 'baseMain'),
-    'textColorHover': darken(ef.get('mainColors', 'baseMain'), 5%),
+    'textColorHover': darken(ef.get('mainColors', 'baseMain'), 30%),
     'textDecoration': none,
     'fontWeight': 700,
     'fontSize': ef.get('font', 'main'),
