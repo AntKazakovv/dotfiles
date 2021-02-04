@@ -11,7 +11,10 @@ export namespace wlcBannersSlider {
             },
             swiper: {
                 slidesPerView: 1,
-                navigation: true,
+                navigation: {
+                    nextEl: '.wlc-swiper-button-next',
+                    prevEl: '.wlc-swiper-button-prev',
+                },
                 pagination: false,
             },
         },

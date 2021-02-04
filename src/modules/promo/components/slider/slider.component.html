@@ -5,6 +5,12 @@
             [ngTemplateOutletContext]="{slide: slides[n]}">
         </ng-container>
     </ng-template>
+    <div slot="container-start">
+        <ng-content select="[slot-container-start]"></ng-content>
+    </div>
+    <div slot="container-end">
+        <ng-content select="[slot-container-end]"></ng-content>
+    </div>
 </swiper>
 
 <ng-template #slide let-slide="slide">
