@@ -4,6 +4,7 @@ import {
     ChangeDetectionStrategy,
     Inject,
     Input,
+    ChangeDetectorRef,
 } from '@angular/core';
 
 import {
@@ -38,6 +39,7 @@ export class BannersSliderComponent extends AbstractComponent implements OnInit 
         @Inject('injectParams') protected injectParams: Params.IBannersSliderCParams,
         protected configService: ConfigService,
         protected bannerService: BannersService,
+        protected cdr: ChangeDetectorRef,
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService);
     }
@@ -46,7 +48,10 @@ export class BannersSliderComponent extends AbstractComponent implements OnInit 
         super.ngOnInit(this.inlineParams);
 
         this.createSlides();
-        this.ready = true;
+        setTimeout(() => {
+            this.ready = true;
+            this.cdr.detectChanges();
+        }, 0);
     }
 
     protected createSlides(): void {
