@@ -26,7 +26,8 @@
                 <h4 class="{{$class}}__name" [wlc-clamp]="1">
                     {{$params.common.bonus.name}}
                 </h4>
-                <p class="{{$class}}__description" [wlc-clamp]="2">
+                <p *ngIf="$params.common.bonus.description"
+                    class="{{$class}}__description" [wlc-clamp]="2">
                     {{$params.common.bonus.description}}
                 </p>
                 <button type="button"

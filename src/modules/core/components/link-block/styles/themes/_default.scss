@@ -23,7 +23,7 @@
         }
 
         &__subtitle {
-            @include text.get-text-style(ef.get-value($themeDefault, 'titleFontStyle'), ef.get-value($themeDefault, 'titleColor'));
+            @include text.get-text-style(ef.get-value($themeDefault, 'subtitleFontStyle'), ef.get-value($themeDefault, 'subtitleColor'));
 
             margin: ef.get-value($themeDefault, 'subtitleMargin');
 
@@ -38,7 +38,7 @@
             justify-content: center;
 
             .wlc-btn {
-                @include text.get-text-style(ef.get-value($themeDefault, 'linkFontSize'), ef.get-value($themeDefault, 'linkColor'));
+                @include text.get-text-style(ef.get-value($themeDefault, 'linkFontStyle'), ef.get-value($themeDefault, 'linkColor'));
 
                 &:hover {
                     color: ef.get-value($themeDefault, 'linkColorHover');

@@ -1,4 +1,5 @@
 @use 'engine-scss/functions' as ef;
+
 $customHostModal: () !default;
 $hostModal: map-merge((
     'modalXlSize': ef.get('modalSize', 'xl'),
@@ -56,6 +57,23 @@ $hostModal: map-merge((
 
     'paddingDefault': 3rem 4rem,
     'paddingHeadless': 0,
+
+    // animation
+    'fadeBottomFromHorizontal': 0,
+    'fadeBottomFromVertical': 100px,
+    'fadeBottomToHorizontal': 0,
+    'fadeBottomToVertical': 50px,
+
+    'fadeLeftFromHorizontal': -50px,
+    'fadeLeftFromVertical': 50px,
+    'fadeLeftToHorizontal': 0,
+    'fadeLeftToVertical': 50px,
+
+    'fadeRightFromHorizontal': 50px,
+    'fadeRightFromVertical': 50px,
+    'fadeRightToHorizontal': 0,
+    'fadeRightToVertical': 50px,
+    //animation
 
 ), $customHostModal);
 

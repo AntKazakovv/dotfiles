@@ -1,5 +1,6 @@
 @use 'engine-scss/functions' as ef;
 @use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/mixins/base.mixins' as em;
 @import '../utils/vars';
 
 .wlc-promo-success--theme-default:host {
@@ -13,7 +14,7 @@
         }
 
         &__title {
-            @include text.get-text-style(ef.get-value($themeDefault, 'titleFontSize'), ef.get-value($themeDefault, 'titleColor'));
+            @include text.get-text-style(ef.get-value($themeDefault, 'titleFontStyle'), ef.get-value($themeDefault, 'titleColor'));
 
             margin: ef.get-value($themeDefault, 'titleMargin');
 
@@ -33,7 +34,7 @@
         }
 
         &__text {
-            @include text.get-text-style(ef.get-value($themeDefault, 'textFontSize'), ef.get-value($themeDefault, 'textColor'));
+            @include text.get-text-style(ef.get-value($themeDefault, 'textFontStyle'), ef.get-value($themeDefault, 'textColor'));
             line-height: ef.get-value($themeDefault, 'textLineHieght');
 
             margin: ef.get-value($themeDefault, 'textMargin');
@@ -45,6 +46,17 @@
 
         &__btn {
             margin: 0 auto;
+        }
+    }
+}
+
+::ng-deep {
+
+    .wlc-modal--promo-success.wlc-modal--theme-default {
+
+        .wlc-modal__dialog {
+            @include em.get-mq-map('min-height', $themeDefault, 'dialogMinHeight');
+            @include em.get-mq-map('margin', $themeDefault, 'dialogMargin');
         }
     }
 }

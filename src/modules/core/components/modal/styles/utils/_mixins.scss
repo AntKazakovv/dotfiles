@@ -1,13 +1,5 @@
+@use 'engine-scss/functions' as ef;
 @import './vars';
-
-@mixin baseModal($positionType, $zIndex, $position) {
-    position: $positionType;
-    z-index: $zIndex;
-    top: $position;
-    right: $position;
-    left: $position;
-    bottom: $position;
-}
 
 @mixin fadeAnimationMx($translateFrom: translate(0, 0), $translateTo: translate(0, 50px)) {
 
@@ -30,21 +22,31 @@
 }
 
 @mixin fadeBottom() {
-    @include fadeAnimationMx($translateFrom: translate(0, 100px), $translateTo: translate(0, 50px));
+    @include fadeAnimationMx(
+        $translateFrom: translate(ef.get-value($hostModal, 'fadeBottomFromHorizontal'), ef.get-value($hostModal, 'fadeBottomFromVertical')),
+        $translateTo: translate(ef.get-value($hostModal, 'fadeBottomToHorizontal'), ef.get-value($hostModal, 'fadeBottomToVertical'))
+    );
 }
 
 @mixin fadeLeft() {
-    @include fadeAnimationMx($translateFrom: translate(-50px, 50px), $translateTo: translate(0, 50px));
+    @include fadeAnimationMx(
+        $translateFrom: translate(ef.get-value($hostModal, 'fadeLeftFromHorizontal'), ef.get-value($hostModal, 'fadeLeftFromVertical')),
+        $translateTo: translate(ef.get-value($hostModal, 'fadeLeftToHorizontal'), ef.get-value($hostModal, 'fadeLeftToVertical'))
+    );
+}
+
+@mixin fadeLeftMobile() {
+    @include fadeAnimationMx(
+        $translateFrom: translate(-50px, 0),
+        $translateTo: translate(0, 0)
+    );
 }
 
 @mixin fadeRight() {
-    @include fadeAnimationMx($translateFrom: translate(50px, 50px), $translateTo: translate(0, 50px));
-}
-
-@mixin common($fontSize, $fontWeight, $margin) {
-    font-size: $fontSize;
-    font-weight: $fontWeight;
-    margin: $margin;
+    @include fadeAnimationMx(
+        $translateFrom: translate(ef.get-value($hostModal, 'fadeRightFromHorizontal'), ef.get-value($hostModal, 'fadeRightFromVertical')),
+        $translateTo: translate(ef.get-value($hostModal, 'fadeRightToHorizontal'), ef.get-value($hostModal, 'fadeRightToVertical'))
+    );
 }
 
 @mixin ellipsisText() {

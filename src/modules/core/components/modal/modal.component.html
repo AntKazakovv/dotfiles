@@ -50,14 +50,15 @@
         </div>
 
         <div class="wlc-modal__footer" *ngIf='$params.config.showFooter'>
-            <button type="button"
-                    wlc-button
+            <button wlc-button
+                    typeAttr="button"
                     *ngIf="$params.config.showConfirmBtn"
                     [text]="$params.config.confirmBtnText || 'Confirm'"
                     (click)="confirm($params.config.id)">
             </button>
-            <button type="button"
-                    wlc-button
+            <button wlc-button
+                    typeAttr="button"
+                    type="rejected"
                     [text]="$params.config.closeBtnText || 'Close'"
                     (click)="closeModal($params.config.id)">
             </button>
@@ -83,7 +84,7 @@
     <div
         *ngFor="let msg of $params.config.modalMessage"
         [style]="{'text-align': $params.config.textAlign}"
-        class="modal-message" >
+        class="modal-message">
         {{msg | translate}}
     </div>
 </ng-template>
@@ -91,7 +92,7 @@
     <div
         *ngFor="let msg of $params.config.modalMessage"
         [style]="{'text-align': $params.config.textAlign}"
-        class="modal-message" >
+        class="modal-message">
         {{msg | translate}}
     </div>
     <ng-container

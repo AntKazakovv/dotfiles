@@ -26,14 +26,9 @@ import * as Params from './bonuses-list.params';
 
 import {
     merge as _merge,
-    isString as _isString,
     isNumber as _isNumber,
     union as _union,
     unionBy as _unionBy,
-    get as _get,
-    isUndefined as _isUndefined,
-    keys as _keys,
-    isObject as _isObject,
     each as _each,
     reduce as _reduce,
     filter as _filter,
@@ -88,6 +83,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
         super.ngOnInit(this.inlineParams);
         this.prepareModifiers();
         this.setSubscription();
+
 
         if (!this.bonusesService.promoBonus) {
             await this.checkPromoBonus();
@@ -164,7 +160,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
 
         this.addPromoBonus();
 
-        const result = _reduce(this.$params.common.sortOrder, (res, element) => {
+        const result = _reduce(_union(this.$params.common.sortOrder), (res, element) => {
             if (_isNumber(element)) {
                 return _unionBy(res, [_find(this.bonuses, (bonus) => bonus.id === element)], 'id');
             } else {
@@ -187,12 +183,13 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
 
     protected prepareBonuses(): void {
         this.bonuses = this.sortBonuses();
-        if (this.$params.type === 'swiper') {
+        if (this.$params.type === 'swiper' && this.bonuses?.length) {
             this.bonusesToSlides(this.bonuses);
         }
     }
 
     protected setSubscription(): void {
+        this.subscribeOnBonusEvent();
         this.unsubscribeFromBonusEvent();
     }
 
@@ -201,8 +198,20 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
             {name: 'UNSUBSCRIBE_FROM_BONUS'},
             this.$destroy)
             .subscribe({
-                next: async (unsubscribeBonus: any) => {
-                    this.bonuses = _filter(this.bonuses, bonus => bonus.id !== unsubscribeBonus.data.id);
+                next: async (selectedBonus: any) => {
+                    this.bonuses = _filter(this.bonuses, bonus => bonus.id !== selectedBonus.data.id);
+                    this.bonusesToSlides(this.bonuses);
+                },
+            });
+    }
+
+    protected subscribeOnBonusEvent(): void {
+        this.eventService.filter(
+            {name: 'SUBSCRIBE_ON_BONUS'},
+            this.$destroy)
+            .subscribe({
+                next: async (selectedBonus: any) => {
+                    this.$params.common.sortOrder = _filter(this.$params.common.sortOrder, item => item !== selectedBonus.data.id);
                 },
             });
     }
