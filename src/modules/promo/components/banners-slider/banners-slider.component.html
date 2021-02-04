@@ -9,7 +9,7 @@
 </div>
 
 <div slot-container-end>
-    <div class="container swiper-button-container">
+    <div class="container swiper-button-container" *ngIf="$params.theme == 'default-banner'">
         <button class="wlc-swiper-button-prev" wlc-icon iconName="arrow"></button>
         <button class="wlc-swiper-button-next" wlc-icon iconName="arrow"></button>
     </div>
