@@ -14,7 +14,7 @@
             <span wlc-icon
             class="{{$class}}__btn-modal-image"
             [iconUrl]="getIcon(currentSystem.name)"
-            [wlc-fallback]="currentSystem.image"></span>
+            [fallback]="currentSystem.image"></span>
         </ng-container>
         <span class="{{$class}}__btn-modal-text">{{$params.buttonText | translate}}</span>
         <span class="{{$class}}__btn-modal-arrow" wlc-icon [iconName]="$params.arrowIcon"></span>
@@ -69,7 +69,7 @@
                     <span wlc-icon
                         class="{{$class}}__image"
                         [iconUrl]="getIcon(system.name)"
-                        [wlc-fallback]="system.image"></span>
+                        [fallback]="system.image"></span>
                 </button>
             </li>
         </ul>
