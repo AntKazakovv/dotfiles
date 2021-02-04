@@ -1,28 +1,61 @@
 @use 'engine-scss/mixins/text' as lib;
 @use 'engine-scss/mixins/base.mixins' as em;
 @use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/functions' as ef;
 
 .wlc-slider--theme-default-banner {
+    position: relative;
 
-    .swiper-button-prev,
-    .swiper-button-next {
+    .swiper-button-container {
+
         display: none;
-
-        @include em.get-mq-map('bottom', $themeDefaultBanner, 'bottomGap');
 
         @include mq.min(768) {
             display: flex;
-            top: auto;
+            justify-content: flex-end;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+
+        @include em.get-mq-map('bottom', $themeDefaultBanner, 'bottomGap');
+    }
+
+    .wlc-swiper-button-prev,
+    .wlc-swiper-button-next {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: ef.get-value($themeDefaultBanner, 'buttonSize');
+        height: ef.get-value($themeDefaultBanner, 'buttonSize');
+        background: ef.get-value($themeDefaultBanner, 'buttonBg');
+        border-radius: ef.get-value($themeDefaultBanner, 'buttonBorderRadius');
+        transition: ef.get-value($themeDefaultBanner, 'transition');
+        outline: none;
+        border: none;
+
+        @media (hover: hover) {
+
+            &:hover {
+                background: ef.get-value($themeDefaultBanner, 'buttonBgHover');
+            }
         }
     }
 
-    .swiper-button-prev {
-        left: auto;
-        @include em.get-mq-map('right', $themeDefaultBanner, 'bottomGap');
+    .wlc-swiper-button-prev {
+        transform: rotate(90deg);
         @include em.get-mq-map('margin-right', $themeDefaultBanner, 'buttonGap');
     }
 
-    .swiper-button-next {
-        @include em.get-mq-map('right', $themeDefaultBanner, 'bottomGap');
+    .wlc-swiper-button-next {
+        transform: rotate(270deg);
+    }
+
+    .wlc-icon {
+
+        svg {
+            fill: ef.get-value($themeDefaultBanner, 'iconFill');
+        }
     }
 }

@@ -57,9 +57,15 @@ $themeDefaultScrollbar: map-merge((
 $customThemeDefaultBanner: () !default;
 $themeDefaultBanner: map-merge((
     'bottomGap': (
-        375: ef.get('size', 'main'),
+        375: ef.get('size', 'smaller'),
     ),
     'buttonGap': (
-        375: ef.get('size', 'main') + ef.get('size', 'small'),
+        375: 10px,
     ),
+    'buttonBg': ef.get('mainColors', 'baseOpacity'),
+    'buttonBgHover': ef.get('mainColors', 'main'),
+    'iconFill': ef.get('mainColors', 'baseMain'),
+    'transition': 0.5s ease-in,
+    'buttonBorderRadius': ef.get('size', 'small'),
+    'buttonSize': ef.get('size', 'main'),
 ), $customThemeDefaultBanner);
