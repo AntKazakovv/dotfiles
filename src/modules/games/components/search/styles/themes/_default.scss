@@ -200,10 +200,6 @@
                 grid-template-columns: repeat(2, minmax(0, 1fr));
             }
 
-            @include mq.min(900) {
-                grid-gap: 0 ef.get-value($themeDefault, 'listGap');
-            }
-
             &-btn {
                 display: flex;
                 align-items: center;
@@ -245,9 +241,12 @@
                     .wlc-search__list-icon {
                         border: ef.get-value($themeDefault, 'listBtnIconActive');
 
-                        &:before {
-                            opacity: 1;
-                            @include bm.transition(opacity);
+                        &::ng-deep {
+
+                            .wlc-icon-content {
+                                opacity: 1;
+                                @include bm.transition(opacity);
+                            }
                         }
                     }
                 }
@@ -269,18 +268,21 @@
                     display: block;
                 }
 
-                &:before {
-                    content: '';
-                    display: block;
-                    position: absolute;
-                    top: 50%;
-                    left: 50%;
-                    width: 5px;
-                    height: 8px;
-                    border-right: ef.get-value($themeDefault, 'listBtnIconWidth') solid ef.get-value($themeDefault, 'listBtnColorCheck');
-                    border-bottom: ef.get-value($themeDefault, 'listBtnIconWidth') solid ef.get-value($themeDefault, 'listBtnColorCheck');
-                    transform: translate(-60%, -60%) rotate(45deg);
-                    opacity: 0;
+                &::ng-deep {
+
+                    .wlc-icon-content {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        height: 100%;
+                        opacity: 0;
+
+                        svg {
+                            stroke: ef.get-value($themeDefault, 'listBtnCheckColor');
+                            stroke-width: 3px;
+                            width: ef.get-value($themeDefault, 'listBtnCheckWidth');
+                        }
+                    }
                 }
             }
 

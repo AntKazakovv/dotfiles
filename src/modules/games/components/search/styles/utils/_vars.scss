@@ -55,8 +55,8 @@ $themeDefault: map-merge((
     ),
 
     'listGap': (
-        375: 10px,
-        560: 20px,
+        375: 10px 15px,
+        560: 0 20px,
     ),
 
     'listMargin': (
@@ -69,7 +69,6 @@ $themeDefault: map-merge((
     'listBtnIconActive': 2px solid ef.get('mainColors', 'main'),
     'listBtnIconMargin': 0 0 0 5px,
     'listBtnIconRadius': ef.get('radius', 'small'),
-    'listBtnIconWidth': 2px,
     'listBtnIconSize': 25px,
     'modalCloseRight': (
         375: 4px,
@@ -111,7 +110,8 @@ $themeDefault: map-merge((
         375: 40px,
         560: auto,
     ),
-    'listBtnColorCheck': ef.get('mainColors', 'main'),
+    'listBtnCheckColor': ef.get('mainColors', 'main'),
+    'listBtnCheckWidth': 9px,
     'listBtnBackgroundHover': (
         375: none,
     ),
