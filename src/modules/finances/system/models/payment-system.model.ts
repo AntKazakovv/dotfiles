@@ -16,6 +16,7 @@ import {
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
 import {FinancesHelper} from '../helpers/finances.helper';
+import {ICryptoMessage} from 'wlc-engine/modules/finances/system/interfaces/finances.interface';
 
 export type FilterType = 'deposit' | 'Deposits' | 'withdraw' | 'Withdraws' | 'all' | 'All';
 
@@ -35,7 +36,7 @@ export interface IPaymentSystem {
     image: string;
     image_withdraw?: string;
     lastAccounts: string[];
-    message: string | IIndexing<string>;
+    message: string | IIndexing<string> | ICryptoMessage;
     name: string;
     name_withdraw?: string;
     required: string[];
@@ -152,10 +153,16 @@ const fieldTemplatesNames = {
 export class PaymentSystem extends AbstractModel<IPaymentSystem> {
 
     public cardFields: boolean;
+    public isPayCryptosV2: boolean;
 
     constructor(data: IPaymentSystem, protected UserService: UserService) {
         super();
         this.init(data);
+        // TODO: remove when finished tiket #181785
+        if (this.alias.includes('paycryptos') && this.alias.includes('v2')) {
+            this.data.lastAccounts = [];
+            this.isPayCryptosV2 = true;
+        }
     }
 
     public get appearance(): string {
@@ -168,6 +175,10 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
 
     public get additionalParams(): IIndexing<IPaymentAdditionalParam> {
         return this.data.additionalParams;
+    }
+
+    public set additionalParams(data: IIndexing<IPaymentAdditionalParam>) {
+        this.data.additionalParams = data;
     }
 
     public get additionalParamsCount(): number {
@@ -184,6 +195,14 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
 
     public get alias(): string {
         return this.data.alias;
+    }
+
+    public get cryptoCheck(): boolean {
+        if ((typeof(this.message) !== 'string')
+            && (this.message.translate === 'pay_to_address' && this.message.address)) {
+            return true;
+        }
+        return false;
     }
 
     public get depositMax(): number {
@@ -222,8 +241,12 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
         return this.data.lastAccounts || [];
     }
 
-    public get message(): string | IIndexing<string> {
+    public get message(): string | IIndexing<string> | ICryptoMessage {
         return this.data.message;
+    }
+
+    public set message(data: string | IIndexing<string> | ICryptoMessage) {
+        this.data.message = data;
     }
 
     public get name(): string {
@@ -271,8 +294,8 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
     }
 
     public checkRequiredFields(): object {
-        return _pickBy(fieldTemplatesNames, (value, key) => {
 
+        return _pickBy(fieldTemplatesNames, (value, key) => {
             return _includes(this.required, value.dbName) &&
                 GlobalHelper.getOwnProperty(this.UserService.userProfile as any, key) &&
                 !_get(this.UserService.userProfile, [key, 'length'], false);

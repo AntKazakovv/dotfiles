@@ -63,6 +63,10 @@ export class InputComponent extends AbstractComponent implements OnInit {
         this.$params.common.type = type;
     }
 
+    public onClipboardCopied(value: string): void {
+        // TODO notification
+    }
+
     protected prepareModifiers(): void {
         if (!this.$params.common.customModifiers) {
             return;

@@ -12,6 +12,13 @@ $gamesCategoriesDefault: map-merge((
         1024: ef.get('size', 'smally') ef.get('size', 'smally') ef.get('size', 'smally') ef.get('size', 'main'),
         1420: ef.get('size', 'smally') ef.get('size', 'smally') ef.get('size', 'smally') ef.get('size', 'biger'),
     ),
+    'gamesTemplateColumns': (
+        375: minmax(0, 1fr),
+        768: minmax(0, 1fr) auto auto
+    ),
+    'gamesTemplateColumnsGap': (
+        375: ef.get('size', 'smaller'),
+    ),
     'sectionRadius': (
         375: 0,
         768: ef.get('radius', 'biger'),

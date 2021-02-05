@@ -31,22 +31,26 @@
         <input
             type="{{$params.common.type}}"
             id="{{$params.name}}"
+            [value]="$params.value"
+            [readOnly]="$params.common.readonly"
             placeholder="{{$params.exampleValue || $params.common.placeholder | translate}}"
             [formControl]="control"
             [attr.data-wlc-element]='fieldWlcElement'
             class="{{$class}}__input"
             [ngClass]="setInputModifiers"
         >
-        <span
+        <ng-container
             *ngIf="$params.common.usePasswordVisibilityBtn"
-            class="field-icon field-icon--eye"
-            data-password-visibility
-            wlc-icon [iconName]="'eye'"
-            (mousedown)="toggleType('text')"
-            (mouseup)="toggleType('password')"
-            (touchstart)="toggleType('text')"
-            (touchend)="toggleType('password')"
-        ></span>
+            [ngTemplateOutlet]="password">
+        </ng-container>
+        <ng-container
+            *ngIf="$params.clipboard"
+            [ngTemplateOutlet]="clipboard">
+        </ng-container>
+        <ng-container
+            *ngIf="$params.currency"
+            [ngTemplateOutlet]="currency">
+        </ng-container>
         <ng-container [ngTemplateOutlet]="status"></ng-container>
     </div>
 </ng-template>
@@ -74,4 +78,31 @@
     ></div>
 </ng-template>
 
+<ng-template #clipboard>
+    <span
+        class="field-icon field-icon--copy"
+        wlc-icon [iconName]="'copy'"
+        [wlc-copy-to-clipboard]="$params.value"
+        (changed)="onClipboardCopied($event)"
+    ></span>
+</ng-template>
 
+<ng-template #password>
+    <span
+        class="field-icon field-icon--eye"
+        data-password-visibility
+        wlc-icon [iconName]="'eye'"
+        (mousedown)="toggleType('text')"
+        (mouseup)="toggleType('password')"
+        (touchstart)="toggleType('text')"
+        (touchend)="toggleType('password')"
+    ></span>
+</ng-template>
+
+<ng-template #currency>
+    <span
+        class="field-icon field-icon--currency"
+        wlc-currency
+        [showIconOnly]="true"
+    ></span>
+</ng-template>

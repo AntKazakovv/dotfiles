@@ -54,6 +54,12 @@
                 cursor: pointer;
             }
         }
+
+        &:disabled {
+            background: ef.get-value($themeDefault, 'inputDisabledBg');
+            border-color: ef.get-value($themeDefault, 'inputDisabledBgBorder');
+            color: ef.get-value($themeDefault, 'inputDisabledColor');
+        }
     }
 
     .wlc-input__label {

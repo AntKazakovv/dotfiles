@@ -19,6 +19,7 @@
     border: ef.get-value($baseSettings, 'selectDropdownBorder');
     border-radius: ef.get-value($baseSettings, 'selectDropdownBorderRadius');
     background: ef.get-value($baseSettings, 'selectDropdownBackground');
+    box-shadow: ef.get-value($baseSettings, 'selectDropdownBoxShadow');
     overflow: hidden scroll;
     list-style: none;
 }

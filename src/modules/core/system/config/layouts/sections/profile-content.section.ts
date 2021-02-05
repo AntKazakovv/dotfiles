@@ -17,6 +17,16 @@ export namespace profileContent {
         ],
     };
 
+    export const profileHistory: ILayoutSectionConfig = {
+        container: true,
+        components: [
+            componentLib.wlcTitle.profileHistory,
+            componentLib.wlcProfileMenu.submenu,
+            componentLib.wlcTransactionHistory.filter,
+            componentLib.wlcTransactionHistory.def,
+        ],
+    };
+
     export const profileBonusesMain: ILayoutSectionConfig = {
         container: true,
         components: [
@@ -44,6 +54,8 @@ export namespace profileContent {
     export const profileDeposit: ILayoutSectionConfig = {
         container: true,
         components: [
+            componentLib.wlcDepositWithdraw.balance,
+            componentLib.wlcDepositWithdraw.submenu,
             componentLib.wlcDepositWithdraw.deposit,
         ],
     };
@@ -51,6 +63,8 @@ export namespace profileContent {
     export const profileWithdraw: ILayoutSectionConfig = {
         container: true,
         components: [
+            componentLib.wlcDepositWithdraw.balance,
+            componentLib.wlcDepositWithdraw.submenu,
             componentLib.wlcDepositWithdraw.withdraw,
         ],
     };
@@ -59,6 +73,7 @@ export namespace profileContent {
         container: true,
         components: [
             componentLib.wlcTitle.transactionsHistory,
+            componentLib.wlcProfileMenu.submenu,
             componentLib.wlcTransactionHistory.filter,
             componentLib.wlcTransactionHistory.def,
         ],
@@ -75,6 +90,15 @@ export namespace profileContent {
             componentLib.wlcBonusesList.dashboard,
             componentLib.wlcEnterPromocode.def,
             componentLib.wlcSeeAllBonuses.def,
+        ],
+    };
+
+    export const profileVerification: ILayoutSectionConfig = {
+        container: true,
+        components: [
+            componentLib.wlcTitle.profileV2,
+            componentLib.wlcProfileMenu.submenu,
+            componentLib.wlcVerification.def,
         ],
     };
 

@@ -13,10 +13,10 @@
     </div>
 
     <div class="wlc-notification-message__content">
-        <h4 class="wlc-notification-message__heading">{{title}}</h4>
+        <h4 class="wlc-notification-message__heading">{{title | translate}}</h4>
         <span class="wlc-notification-message__message-container">
             <span class="wlc-notification-message__message">
-                {{message}}
+                {{message | translate}}
             </span>
             <button *ngIf="action"
                     wlc-button

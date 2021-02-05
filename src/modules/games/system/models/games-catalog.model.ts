@@ -41,13 +41,16 @@ import {
     filter as _filter,
     uniq as _uniq,
     union as _union,
+    cloneDeep as _cloneDeep,
+    uniqBy as _uniqBy,
 } from 'lodash-es';
 
 export class GamesCatalog extends AbstractModel<IGames> {
     public currentLanguage: ILanguage;
 
     protected games: Game[];
-    protected categories: CategoryModel[];
+    protected categories: CategoryModel[] = [];
+    protected projectCategories: CategoryModel[] = [];
     protected merchants: MerchantModel[];
     protected restrictions: IRestrictions;
     protected availableCategories: CategoryModel[];
@@ -69,8 +72,8 @@ export class GamesCatalog extends AbstractModel<IGames> {
                 en: gettext('Last played'),
             },
             Tags: [],
-            menuId: 'last-played',
-            Slug: 'last-played',
+            menuId: 'lastplayed',
+            Slug: 'lastplayed',
             CSort: '0',
             CSubSort: '0',
         },
@@ -85,6 +88,20 @@ export class GamesCatalog extends AbstractModel<IGames> {
             Tags: [],
             menuId: 'favourites',
             Slug: 'favourites',
+            CSort: '0',
+            CSubSort: '0',
+        },
+        {
+            ID: '-3',
+            Name: {
+                en: gettext('Casino'),
+            },
+            Trans: {
+                en: gettext('Casino'),
+            },
+            Tags: ['{"menu":"main-menu"}'],
+            menuId: 'casino',
+            Slug: 'casino',
             CSort: '0',
             CSubSort: '0',
         },
@@ -185,7 +202,7 @@ export class GamesCatalog extends AbstractModel<IGames> {
      * @returns {CategoryModel[]}
      */
     public getCategories(): CategoryModel[] {
-        return this.categories;
+        return this.projectCategories;
     }
 
     /**
@@ -557,8 +574,7 @@ export class GamesCatalog extends AbstractModel<IGames> {
             if (!merchantName) {
                 continue;
             }
-
-            game.isFavourite = this.gamesCatalogService.favourites.includes(game.ID);
+            game.isFavourite = _includes(this.gamesCatalogService.favourites, game.ID);
             game.setSortedCategoryFields();
             GamesHelper.fillGamesByCategoriesMerchants(game, this.availableCategories, this.availableMerchants);
             resultGames.push(game);
@@ -569,6 +585,65 @@ export class GamesCatalog extends AbstractModel<IGames> {
         this.games = _sortBy(resultGames, (item: Game) => {
             return _toNumber(item.sort);
         });
+
+        this.prepareCategories();
+    }
+
+    protected prepareCategories(): void {
+        let parentCategories: CategoryModel[] = _filter(this.categories, (category: CategoryModel) => {
+            return category.menu === 'main-menu' && category.slug !== 'casinogames';
+        });
+        parentCategories = _uniqBy(parentCategories, (category) => {
+            return category.slug;
+        });
+
+        const casinoCategory: CategoryModel = _find(parentCategories, (category) => {
+            return category.slug === 'casino';
+        });
+
+        const otherCategories: CategoryModel[] = _filter(parentCategories, (category) => {
+            return category.slug !== casinoCategory.slug;
+        });
+
+        let gamesList = this.games;
+        _forEach(otherCategories, (category) => {
+            const freeGames: Game[] = [];
+            for (const game of gamesList) {
+                if (game.hasCategory(category)) {
+                    category.addGame(game);
+                } else {
+                    freeGames.push(game);
+                }
+            }
+            gamesList = freeGames;
+        });
+        casinoCategory.setGames(gamesList);
+
+        const childCategories = _filter(this.categories, (category: CategoryModel) => {
+            return !category.isParent;
+        });
+
+        const availableChildCategories: CategoryModel[] = [];
+
+        _forEach(childCategories, (category: CategoryModel) => {
+            const games: Game[] = _filter(casinoCategory.games, (game) => {
+                return _includes(game.categoryID, category.id);
+            });
+            if (games.length) {
+                const newChildCategory = _cloneDeep(category);
+                newChildCategory.setParentCategory(casinoCategory);
+                newChildCategory.setGames(games);
+                availableChildCategories.push(newChildCategory);
+            }
+        });
+
+        let specialCategories: CategoryModel[] = _filter(this.categories, (category: CategoryModel) => {
+            return category.isLastPlayed || category.isFavourites;
+        });
+        specialCategories = specialCategories.slice(0, 2);
+
+        casinoCategory.setChildCategories(availableChildCategories);
+        this.projectCategories = _union(specialCategories, parentCategories, availableChildCategories);
     }
 
     protected sortNameByRegExp(searchQuery: string, gamesList: Game[]): Game[] {

@@ -150,4 +150,15 @@ export class GlobalHelper {
 
         return _keys(inlineParams.common).length ? inlineParams : null;
     }
+
+    /**
+     * Converts string to snakeCase. One or multiple spaces are replaced with underscores, parentheses are removed.
+     * @ngdoc method
+     * @name toSnakeCase
+     * @param {string} name - The string to convert.
+     * @returns The snake cased string.
+     */
+    public static toSnakeCase(name: string): string {
+        return name.toLowerCase().replace(/\s+|\s/g, '_').replace(/[()]/g, '');
+    }
 }

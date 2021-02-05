@@ -38,4 +38,5 @@ export const defaultParams: IPaymentListCParams = {
     modalSize: 'md',
     modalTitle: 'Choose payment option',
     hideModalOnSelect: true,
+    showSelectedInButton: true,
 };

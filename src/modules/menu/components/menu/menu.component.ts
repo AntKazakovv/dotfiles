@@ -7,6 +7,8 @@ import {
     Input, OnChanges,
     OnInit,
     SimpleChanges,
+    ViewChild,
+    TemplateRef,
 } from '@angular/core';
 import {
     StateService,
@@ -28,12 +30,14 @@ import {
     ModalService,
 } from 'wlc-engine/modules/core/system/services';
 import * as Params from 'wlc-engine/modules/menu/components/menu/menu.params';
-import {IMenuItemsGroup} from 'wlc-engine/modules/menu/components/menu/menu.params';
+import {IMenuItem, IMenuItemsGroup} from 'wlc-engine/modules/menu/components/menu/menu.params';
 
 import {
     get as _get,
     forEach as _forEach,
+    has as _has,
 } from 'lodash-es';
+import {ISlide, ISliderCParams} from 'wlc-engine/modules/promo/components/slider/slider.params';
 
 @Component({
     selector: '[wlc-menu]',
@@ -67,7 +71,23 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
     public $params: Params.IMenuCParams;
     public inited: boolean = false;
 
+    @ViewChild('anchor') tplAnchor: TemplateRef<any>;
+    @ViewChild('sref') tplSref: TemplateRef<any>;
+    @ViewChild('title') tplTitle: TemplateRef<any>;
+    @ViewChild('modal') tplModal: TemplateRef<any>;
+    @ViewChild('href') tplHref: TemplateRef<any>;
+    @ViewChild('scroll') tplScroll: TemplateRef<any>;
+
     @Input() protected inlineParams: Params.IMenuCParams;
+
+    public slides: ISlide[] = [];
+    public sliderParams: ISliderCParams = {
+        swiper: {
+            direction: 'horizontal',
+            slidesPerView: 'auto',
+            spaceBetween: 10,
+        },
+    };
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IMenuCParams,
@@ -142,6 +162,46 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
             },
         );
         this.expandItems();
+
+        if (this.$params.common?.useSwiper) {
+            this.slides = [];
+            this.addModifiers('swiper');
+            _forEach(this.items, (item) => {
+                let template: TemplateRef<any>;
+                let templateParams = {item: item};
+
+                if (_has(item, 'parent')) {
+                    return;
+                }
+
+                const menuItem: IMenuItem = item as IMenuItem;
+                switch (menuItem.type) {
+                    case 'anchor':
+                        template = this.tplAnchor;
+                        break;
+                    case 'sref':
+                        template = this.tplSref;
+                        break;
+                    case 'title':
+                        template = this.tplTitle;
+                        break;
+                    case 'modal':
+                        template = this.tplModal;
+                        break;
+                    case 'href':
+                        template = this.tplHref;
+                        break;
+                    case 'scroll':
+                        template = this.tplScroll;
+                        break;
+                }
+                this.slides.push({
+                    templateRef: template,
+                    templateParams: templateParams,
+                });
+            });
+        }
+
         this.cdr.detectChanges();
     }
 

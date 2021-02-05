@@ -1,0 +1,73 @@
+<div class="{{$class}}">
+    <ng-container *ngFor="let docItem of docItems">
+        <ng-container [ngTemplateOutlet]="item"
+                      [ngTemplateOutletContext]="{docItem: docItem}">
+        </ng-container>
+    </ng-container>
+</div>
+
+<ng-template #item let-docItem="docItem">
+    <div class="{{$class}}__item">
+        <div class="{{$class}}__doc-type-wrp">
+            <div class="{{$class}}__icon"
+                 wlc-icon
+                 [iconName]="toKebabCase(docItem.TypeKey)"
+            ></div>
+            <div class="{{$class}}__title">
+                {{docItem.Name}}
+            </div>
+            <div class="{{$class}}__required">
+                {{'Required' | translate}}
+            </div>
+        </div>
+        <ul class="wlc-docs-list" *ngIf="docItem.docs.length">
+            <li *ngFor="let doc of docItem.docs"
+                class="wlc-docs-list__item {{toKebabCase(doc.Status)}}"
+            >
+                <p class="wlc-docs-list__text">
+                    <a [href]="doc.DownloadLink"
+                       download
+                       class="wlc-docs-list__link">{{doc.FileName}}</a>
+                    <span class="wlc-docs-list__remove"
+                         wlc-icon
+                         iconName="close"
+                         (click)="ready && deleteFile(doc.ID, docItem.ID)"
+                    ></span>
+                </p>
+
+                <span class="wlc-docs-list__icon"
+                      wlc-icon
+                      [iconName]="toKebabCase(doc.Status)"
+                ></span>
+            </li>
+        </ul>
+        <div class="{{$class}}__dropzone" wlc-dnd [dnd-data-label]="docItem.ID">
+            <input type="file"
+                   #inputFile
+                   (change)="ready && fileUpload($event.target.files, docItem)">
+
+            <p class="{{$class}}__text"
+               [ngSwitch]="docItem.loading">
+                <ng-template [ngSwitchCase]="'loading'">
+                    {{'File is loading ' | translate}}
+                </ng-template>
+                <ng-template [ngSwitchCase]="'deleting'">
+                    {{'File is deleting ' | translate}}
+                </ng-template>
+                <ng-template ngSwitchDefault>
+                    {{'Drop file here or ' | translate}}
+                    <span>{{'browse' | translate}}</span>
+                    {{'jpg, png. Max size 10MB' | translate}}
+                </ng-template>
+            </p>
+        </div>
+        <div class="{{$class}}__upload">
+            <button wlc-button
+                    class="wlc-btn-upload"
+                    text="Upload"
+                    (click)="inputFile.click()"
+            ></button>
+            <p class="{{$class}}__text">{{'jpg, png. Max size 10MB' | translate}}</p>
+        </div>
+    </div>
+</ng-template>

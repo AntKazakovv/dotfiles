@@ -9,7 +9,7 @@ $themeDropdownDefault: map-merge((
     linkColor: ef.get('mainColors', 'baseMain'),
     linkBg: ef.get('mainColors', 'bg700'),
     activeLinkBg: ef.get('mainColors', 'baseOpacity'),
-    linkFill: linkColor,
+    linkFill: ef.get('mainColors', 'baseMain'),
     linkBorderRadius: ef.get('radius', 'biger'),
     submenuBg: ef.get('mainColors', 'bg700'),
 ), $customDropdownThemeDefault);

@@ -40,4 +40,6 @@ export * from './bonuses/wlc-bonuses-list.config';
 export * from './bonuses/wlc-enter-promocode.config';
 export * from './bonuses/wlc-see-all-bonuses.config';
 
+export * from './profile/wlc-verification.config';
+
 export * from './store/wlc-store-list.config';

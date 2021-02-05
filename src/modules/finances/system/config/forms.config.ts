@@ -12,7 +12,15 @@ export const depositForm: IFormWrapperCParams = {
     ],
 };
 
-export const withdrawFrom: IFormWrapperCParams = {
+export const depositFormCrypto: IFormWrapperCParams = {
+    class: 'wlc-form-wrapper wlc-amount-form',
+    components: [
+        FormElements.rules,
+        FormElements.depositButton,
+    ],
+};
+
+export const withdrawForm: IFormWrapperCParams = {
     class: 'wlc-form-wrapper wlc-amount-form',
     components: [
         FormElements.amount,

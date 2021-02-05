@@ -8,6 +8,7 @@ import {MenuComponent} from './components/menu/menu.component';
 import {MainMenuComponent} from './components/main-menu/main-menu.component';
 import {CategoryMenuComponent} from './components/category-menu/category-menu.component';
 import {MobileMenuComponent} from './components/mobile-menu/mobile-menu.component';
+import {PromoModule} from 'wlc-engine/modules/promo/promo.module';
 
 export const components = {
     'wlc-menu': MenuComponent,
@@ -31,6 +32,7 @@ export const components = {
         TranslateModule,
         UIRouterModule,
         CoreModule,
+        PromoModule,
     ],
     exports: [
         ProfileMenuComponent,

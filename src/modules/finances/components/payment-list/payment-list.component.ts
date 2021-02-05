@@ -6,7 +6,8 @@ import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     ViewChild,
-    TemplateRef, ElementRef,
+    TemplateRef,
+    ElementRef,
 } from '@angular/core';
 import {
     map,
@@ -23,12 +24,10 @@ import {
 
 import {
     AbstractComponent,
-    IMixedParams,
-} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {
     ActionService,
     EventService,
     ModalService,
+    GlobalHelper,
 } from 'wlc-engine/modules/core';
 import {FinancesService} from 'wlc-engine/modules/finances/system/services';
 import {PaymentSystem} from 'wlc-engine/modules/finances/system/models/payment-system.model';
@@ -77,11 +76,7 @@ export class PaymentListComponent extends AbstractComponent implements OnInit {
         protected actionService: ActionService,
         protected hostRef: ElementRef,
     ) {
-        super(
-            <IMixedParams<Params.IPaymentListCParams>>{
-                injectParams: params,
-                defaultParams: Params.defaultParams,
-            });
+        super({injectParams: params, defaultParams: Params.defaultParams});
     }
 
     public ngOnInit(): void {
@@ -98,7 +93,7 @@ export class PaymentListComponent extends AbstractComponent implements OnInit {
         });
 
         if (this.$params.hideModalOnSelect) {
-            this.modalService.closeAllModals();
+            this.modalService.closeModal('payment-list');
         }
 
         this.cdr.markForCheck();
@@ -113,7 +108,7 @@ export class PaymentListComponent extends AbstractComponent implements OnInit {
     }
 
     public getIcon(name: string): string {
-        const snakeName = name.toLowerCase().replace(/\s+|\s/g, '_').replace(/[()]/g, '');
+        const snakeName = GlobalHelper.toSnakeCase(name);
         if (this.$params.iconsType === 'svg') {
             return `/paysystems/V2/svg/black/${snakeName}.svg`;
         }
@@ -132,6 +127,13 @@ export class PaymentListComponent extends AbstractComponent implements OnInit {
         ).subscribe((systems) => {
             this.ready = true;
             this.systems = systems;
+
+            if (this.currentSystem && !this.systems.some((s) => s.id === this.currentSystem.id)) {
+                this.eventService.emit({
+                    name: 'select_system',
+                    from: 'finances',
+                });
+            }
             this.cdr.markForCheck();
         });
     }

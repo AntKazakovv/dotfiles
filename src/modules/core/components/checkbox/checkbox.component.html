@@ -44,15 +44,17 @@
             type="checkbox"
             name="{{$params.name}}"
             ngDefaultControl
+            (change)="onChange($event)"
             [formControl]="control"
             class="{{$class}}__checkbox"/>
         <span
             class="{{$class}}__elem"
-            wlc-icon [iconName]="'tick'"
+            wlc-icon
+            [iconName]="'tick'"
             [ngClass]="{checked: control?.value}">
         </span>
         <div class="{{$class}}__text">
-            {{"I have read and agree with the payment" | translate}}
+            {{"I have read and agree to the payment" | translate}}
             <a uiSref="app.contacts({slug: 'terms-and-conditions', '#': 'item-8'})"
                class="{{$class}}__link">{{'systems restrictions' | translate}} *</a>
         </div>
@@ -68,11 +70,13 @@
                 class="{{$class}}__checkbox"/>
         <span
                 class="{{$class}}__elem"
-                wlc-icon [iconName]="'tick'"
+                wlc-icon
+                [iconName]="'tick'"
                 [ngClass]="{checked: control?.value}">
         </span>
         <div class="{{$class}}__text" *ngIf="$params.text">
             {{$params.text | translate}}
         </div>
     </label>
+
 </ng-container>

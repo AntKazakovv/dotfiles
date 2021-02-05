@@ -1,0 +1,147 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/mixins/mediaqueries' as mq;
+
+@import '../utils/vars';
+
+.wlc-verification--theme-default:host {
+
+    .wlc-verification {
+        display: grid;
+        grid-template-columns: ef.get-value($themeDefault, 'gridColums', 320);
+        gap: ef.get('size', 'smaller');
+
+        @include mq.min(768) {
+            grid-template-columns: ef.get-value($themeDefault, 'gridColums', 768);
+        }
+
+        @include mq.min(1024) {
+            grid-template-columns: ef.get-value($themeDefault, 'gridColums', 1024);
+        }
+
+        &__item {
+            background: ef.get-value($themeDefault, 'backgroundItem');
+            border-radius: ef.get-value($themeDefault, 'borderRadius');
+            padding: ef.get-value($themeDefault, 'paddingItem');
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        &__doc-type-wrp {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        &__title {
+            @include text.get-text-style(ef.get-value($themeDefault, 'titleFont'), ef.get-value($themeDefault, 'color'));
+            padding-bottom: ef.get-value($themeDefault, 'titlePadding');
+            text-align: center;
+        }
+
+        &__required {
+            @include text.get-text-style(ef.get-value($themeDefault, 'subTitleFont'), ef.get-value($themeDefault, 'color'));
+            padding-bottom: ef.get-value($themeDefault, 'textPadding');
+        }
+
+        &__description {
+            @include text.get-text-style(ef.get-value($themeDefault, 'textFont'), ef.get-value($themeDefault, 'color'));
+            padding-bottom: ef.get-value($themeDefault, 'textPadding');
+        }
+
+        .wlc-docs-list {
+            width: 100%;
+            list-style-type: none;
+            padding: 0;
+            padding-top: ef.get-value($themeDefault, 'textPadding');
+            padding-bottom: ef.get-value($themeDefault, 'textPadding');
+            border-top: ef.get-value($themeDefault, 'borderDocList');
+
+            &__item {
+                display: flex;
+                justify-content: space-between;
+            }
+
+            &__text {
+                display: flex;
+                align-items: center;
+
+                &:hover {
+
+                    .wlc-docs-list__remove {
+                        display: block;
+                    }
+                }
+            }
+
+            &__link {
+                @include text.get-text-style(ef.get-value($themeDefault, 'fontDocList'), ef.get-value($themeDefault, 'color'));
+                text-decoration: none;
+            }
+
+            &__remove {
+                padding-left: ef.get-value($themeDefault, 'titlePadding');
+                display: none;
+                cursor: pointer;
+            }
+        }
+
+        &__dropzone {
+            background: ef.get-value($themeDefault, 'backgroundDropdawn');
+            border-radius: ef.get-value($themeDefault, 'borderRadius');
+            border: ef.get-value($themeDefault, 'borderDropdawn');
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            padding: ef.get-value($themeDefault, 'paddingItem');
+            width: 100%;
+
+            @include mq.max(768) {
+                display: none;
+            }
+
+            &.dragovered {
+                border-color: ef.get-value($themeDefault, 'borderColorDrag');
+            }
+
+            input {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                opacity: 0;
+            }
+        }
+
+        &__text {
+            @include text.get-text-style(ef.get-value($themeDefault, 'subTitleFont'), ef.get-value($themeDefault, 'color'));
+            align-self: center;
+
+            span {
+                color: ef.get-value($themeDefault, 'successText');
+            }
+        }
+
+        &__upload {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            @include mq.min(768) {
+                display: none;
+            }
+
+            .wlc-btn-upload {
+                margin-bottom: ef.get-value($themeDefault, 'textPadding');
+            }
+        }
+    }
+}

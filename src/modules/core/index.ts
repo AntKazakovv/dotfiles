@@ -15,3 +15,7 @@ export {
     IData,
 } from './system/services/data/data.service';
 export {GlobalHelper} from './system/helpers/global.helper';
+export {
+    IPushMessageParams,
+    NotificationEvents,
+} from 'wlc-engine/modules/core/system/services/notification';

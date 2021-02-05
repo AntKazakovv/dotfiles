@@ -338,6 +338,7 @@ $form: map-merge((
     'placeholderFontSize': map-get($font, 'smaller'),
     'placeholderPadding': 0 map-get($size, 'smaller'),
     'placeholderShift': map-get($size, 'less') * -1,
+    'placeholderColor': map-get($color, 'textSecondary'),
 ), $customForm);
 
 $modalSize: map-merge((
@@ -423,7 +424,7 @@ $profileSettings: map-merge((
     'profileWidth': 1275px,
     'titleColor': map-get($mainColors, 'baseMain'),
     'profilePadding': (
-        375: 15px 10px,
+        375: map-get($size, 'smally'),
         1024: 30px 40px,
     ),
     'profileBg': (

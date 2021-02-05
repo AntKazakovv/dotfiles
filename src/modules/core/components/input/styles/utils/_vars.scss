@@ -18,6 +18,9 @@ $themeDefault: map-merge((
     'inputBorderFocusColor': ef.get('form', 'inputBorderFocusColor'),
     'inputBorderRadius': ef.get('radius', 'main'),
     'inputPadding': ef.get('form', 'inputPadding'),
+    'inputDisabledBg': ef.get('fieldColors', 'disableBg'),
+    'inputDisabledBorder': ef.get('fieldColors', 'disableBorder'),
+    'inputDisabledColor': ef.get('fieldColors', 'placeholderColor'),
 
     'iconWidth': ef.get('form', 'iconWidth'),
     'iconHeight': ef.get('form', 'iconHeight'),
@@ -84,7 +87,10 @@ $themeVertical: map-merge((
 
     'fieldIconSize': 30px,
     'fieldIconLineHeight': 0,
+    'fieldIconSvgFill': ef.get('fieldColors', 'iconColor'),
     'fieldIconSvgFillHover': ef.get('fieldColors', 'textColor'),
     'fieldIconSvgFillActive': ef.get('fieldColors', 'errorBackground'),
+
+    'errorsColor': ef.get('form', 'errorsColor'),
 
 ), $customThemeVertical);
