@@ -90,9 +90,7 @@ export class IconListComponent extends AbstractComponent implements OnInit {
      **/
     protected async setMerchantsLst(): Promise<void> {
 
-        this.eventService.subscribe({
-            name: gamesEvents.FETCH_GAME_CATALOG_SUCCEEDED,
-        }, () => {
+        this.gamesCatalogService.ready.then(() => {
             const merchants: MerchantModel[] = _sortedUniqBy(this.gamesCatalogService.getMerchants(),
                 (item: MerchantModel) => item.alias);
 
