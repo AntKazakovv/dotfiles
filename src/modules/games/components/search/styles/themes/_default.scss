@@ -8,29 +8,21 @@
 ::ng-deep {
 
     .wlc-modal--search.wlc-modal--theme-default {
+        @include bm.get-mq-map('padding', $themeDefault, 'modalPadding');
 
         .wlc-modal__body {
-            padding: ef.get-value($themeDefault, 'modalPaddingSearch');
-
-            @include mq.min(900) {
-                padding: ef.get-value($themeDefault, 'modalPaddingSearch', 900);
-            }
+            @include bm.get-mq-map('padding', $themeDefault, 'modalPaddingSearch');
         }
 
         .wlc-modal__dialog {
-            min-height: 100vh;
-            max-width: 1920px;
+            min-height: 900px;
+            max-width: 1433px;
             margin: -50px auto 0;
         }
 
         .wlc-modal__close {
-            top: ef.get-value($themeDefault, 'closeTop');
-            right: ef.get-value($themeDefault, 'modalCloseRight');
-
-            @include mq.min(900) {
-                top: ef.get-value($themeDefault, 'closeTop', 900);
-                right: ef.get-value($themeDefault, 'modalCloseRight', 900);
-            }
+            @include bm.get-mq-map('top', $themeDefault, 'closeTop');
+            @include bm.get-mq-map('right', $themeDefault, 'modalCloseRight');
         }
     }
 }
@@ -43,24 +35,20 @@
             padding: ef.get-value($themeDefault, 'searchModalHeaderPadding');
             margin: ef.get-value($themeDefault, 'searchModalHeaderMargin');
             @include text.get-text-style(ef.get-value($themeDefault, 'searchModalHeaderFont'), ef.get-value($themeDefault, 'searchModalHeaderFontColor'));
-            border-bottom: ef.get-value($themeDefault, 'searchModalHeaderBorderBottom');
+            @include bm.get-mq-map('border-bottom', $themeDefault, 'searchModalHeaderBorderBottom');
+
+            @include mq.min(560) {
+                @include text.get-text-style(ef.get-value($themeDefault, 'searchModalHeaderFont', 560));
+            }
         }
 
         &__panel {
             display: grid;
-            grid: {
-                template-columns: ef.get-value($themeDefault, 'searchPanelColumns');
-                gap: ef.get-value($themeDefault, 'searchPanelGap');
-            }
-            padding: ef.get-value($themeDefault, 'searchPanelPadding');
-            background: ef.get-value($themeDefault, 'searchPanelBg');
+            @include bm.get-mq-map('gap', $themeDefault, 'searchPanelGap');
+            @include bm.get-mq-map('grid-template-columns', $themeDefault, 'searchPanelColumns');
+            @include bm.get-mq-map('padding', $themeDefault, 'searchPanelPadding');
+            @include bm.get-mq-map('background', $themeDefault, 'searchPanelBg');
             border-radius: ef.get-value($themeDefault, 'searchPanelBorderRadius');
-
-            @include mq.min(900) {
-                gap: ef.get-value($themeDefault, 'searchPanelGap', 900);
-                grid-template-columns: ef.get-value($themeDefault, 'searchPanelColumns', 900);
-                padding: ef.get-value($themeDefault, 'searchPanelPadding', 900);
-            }
         }
 
         &__col {
@@ -83,11 +71,7 @@
 
             &--merchants,
             &--categories {
-                min-width: ef.get-value($themeDefault, 'searchColWidth');
-
-                @include mq.min(900) {
-                    min-width: ef.get-value($themeDefault, 'searchColWidth', 900);
-                }
+                @include bm.get-mq-map('min-width', $themeDefault, 'searchColWidth');
             }
 
             .title {
@@ -116,17 +100,18 @@
             align-items: center;
             height: ef.get-value($themeDefault, 'heightBtn');
             width: 100%;
-            padding: ef.get-value($themeDefault, 'btnPadding');
+            @include bm.get-mq-map('padding', $themeDefault, 'btnPadding');
             appearance: none;
-            background-color: ef.get-value($themeDefault, 'btnBackground');
+            @include bm.get-mq-map('background-color', $themeDefault, 'btnBackground');
             border-radius: ef.get-value($themeDefault, 'btnBorderRadius');
-            border: ef.get-value($themeDefault, 'btnBorder');
             @include text.get-text-style(ef.get-value($themeDefault, 'btnFont'), ef.get-value($themeDefault, 'btnTextColor'));
-            transition: ef.get-value($themeDefault, 'btnTransition') linear;
+            transition:
+                background-color ef.get-value($themeDefault, 'btnTransition') linear,
+                border ef.get-value($themeDefault, 'btnTransition') linear;
+            @include bm.get-mq-map('border', $themeDefault, 'btnBorder');
 
             @include mq.min(900) {
                 justify-content: flex-start;
-                padding: ef.get-value($themeDefault, 'btnPadding', 900);
             }
 
             &:focus {
@@ -134,7 +119,7 @@
             }
 
             &:hover {
-                background: ef.get-value($themeDefault, 'btnBackgroundHover');
+                @include bm.get-mq-map('background', $themeDefault, 'btnBackgroundHover');
             }
 
             &:after {
@@ -189,6 +174,8 @@
             &.active {
                 background: ef.get-value($themeDefault, 'btnBackgroundActive');
                 color: ef.get-value($themeDefault, 'btnColorActive');
+                @include bm.get-mq-map('border', $themeDefault, 'btnBorderActive');
+                @include text.get-text-style(ef.get-value($themeDefault, 'btnFontActive'));
 
                 &:after {
                     transform: translateY(-30%) rotate(45deg);
@@ -203,9 +190,9 @@
 
         &__list {
             display: grid;
-            gap: ef.get-value($themeDefault, 'listGap');
             padding: 0;
-            margin: ef.get-value($themeDefault, 'listMargin');
+            @include bm.get-mq-map('gap', $themeDefault, 'listGap');
+            @include bm.get-mq-map('margin', $themeDefault, 'listMargin');
             list-style-type: none;
             @if ef.get-value($themeDefault, 'listGrid') {
                 @include m.list-grid(ef.get-value($themeDefault, 'listGrid'));
@@ -215,7 +202,6 @@
 
             @include mq.min(900) {
                 grid-gap: 0 ef.get-value($themeDefault, 'listGap');
-                margin: ef.get-value($themeDefault, 'listMargin', 900);
             }
 
             &-btn {
@@ -224,16 +210,14 @@
                 justify-content: center;
                 width: 100%;
                 @include text.get-text-style(ef.get-value($themeDefault, 'searchBtnItemsFont'), ef.get-value($themeDefault, 'listBtnColor'));
-                padding: ef.get-value($themeDefault, 'listBtnPadding');
-                border: ef.get-value($themeDefault, 'listBtnBorder');
-                background: ef.get-value($themeDefault, 'listBtnBackground');
-                border-radius: ef.get-value($themeDefault, 'listBtnRadius');
-                transition: ef.get-value($themeDefault, 'listBtnTransition') linear;
+                @include bm.get-mq-map('padding', $themeDefault, 'listBtnPadding');
+                @include bm.get-mq-map('background', $themeDefault, 'listBtnBackground');
+                @include bm.get-mq-map('border-radius', $themeDefault, 'listBtnRadius');
+                @include bm.get-mq-map('border', $themeDefault, 'listBtnBorder');
+                @include bm.get-mq-map('height', $themeDefault, 'listBtnHeight');
+                transition: border-color ef.get-value($themeDefault, 'listBtnTransition') linear;
 
-                @include mq.min(900) {
-                    padding: ef.get-value($themeDefault, 'listBtnPadding', 900);
-                    background: ef.get-value($themeDefault, 'listBtnBackground', 900);
-                    border-radius: ef.get-value($themeDefault, 'listBtnRadius', 900);
+                @include mq.min(560) {
                     border-bottom: ef.get-value($themeDefault, 'listBtnBorderBottom');
                 }
 
@@ -243,20 +227,20 @@
 
                 &.active,
                 &:hover {
-                    color: ef.get-value($themeDefault, 'listBtnColorActive');
-                    background: ef.get-value($themeDefault, 'listBtnBackgroundHover');
-
-                    @include mq.min(900) {
-                        color: ef.get-value($themeDefault, 'listBtnColorActive', 900);
-                        background: ef.get-value($themeDefault, 'listBtnBackgroundHover', 900);
-                    }
+                    @include bm.get-mq-map('color', $themeDefault, 'listBtnColorActive');
+                    @include bm.get-mq-map('background', $themeDefault, 'listBtnBackgroundHover');
 
                     .wlc-search__list-icon {
-                        border: ef.get-value($themeDefault, 'listBtnBorderActive');
+                        @include bm.get-mq-map('color', $themeDefault, 'listBtnColorActive');
                     }
                 }
 
                 &.active {
+                    @include text.get-text-style(ef.get-value($themeDefault, 'searchBtnItemsFontActive'));
+                    @include bm.get-mq-map('border', $themeDefault, 'listBtnBorderActive');
+                    @include mq.min(560) {
+                        border-bottom: ef.get-value($themeDefault, 'listBtnBorderBottom');
+                    }
 
                     .wlc-search__list-icon {
                         border: ef.get-value($themeDefault, 'listBtnIconActive');
@@ -273,6 +257,7 @@
                 display: none;
                 position: relative;
                 width: ef.get-value($themeDefault, 'listBtnIconSize');
+                min-width: ef.get-value($themeDefault, 'listBtnIconSize');
                 height: ef.get-value($themeDefault, 'listBtnIconSize');
                 border-radius: ef.get-value($themeDefault, 'listBtnIconRadius');
                 background: ef.get-value($themeDefault, 'listBtnIconBackground');
@@ -280,7 +265,7 @@
                 margin: ef.get-value($themeDefault, 'listBtnIconMargin');
                 transition: ef.get-value($themeDefault, 'listBtnTransition') linear;
 
-                @include mq.min(900) {
+                @include mq.min(560) {
                     display: block;
                 }
 
@@ -292,8 +277,8 @@
                     left: 50%;
                     width: 5px;
                     height: 8px;
-                    border-right: ef.get-value($themeDefault, 'listBtnIconWidth') solid ef.get-value($themeDefault, 'listBtnColorActive');
-                    border-bottom: ef.get-value($themeDefault, 'listBtnIconWidth') solid ef.get-value($themeDefault, 'listBtnColorActive');
+                    border-right: ef.get-value($themeDefault, 'listBtnIconWidth') solid ef.get-value($themeDefault, 'listBtnColorCheck');
+                    border-bottom: ef.get-value($themeDefault, 'listBtnIconWidth') solid ef.get-value($themeDefault, 'listBtnColorCheck');
                     transform: translate(-60%, -60%) rotate(45deg);
                     opacity: 0;
                 }
@@ -307,37 +292,25 @@
                 text-align: center;
                 width: 95%;
 
-                @include mq.min(900) {
+                @include mq.min(560) {
                     text-align: left;
                 }
             }
         }
 
         &__result {
-            margin: ef.get-value($themeDefault, 'resultMargin');
+            @include bm.get-mq-map('margin', $themeDefault, 'resultMargin');
             @include text.get-text-style(ef.get-value($themeDefault, 'resultSize'), ef.get-value($themeDefault, 'resultColor'));
-
-            @include mq.min(900) {
-                margin: ef.get-value($themeDefault, 'resultMargin', 900);
-            }
         }
 
         &__content::ng-deep {
 
             .wlc-games-grid__content {
-                padding: ef.get-value($themeDefault, 'gamesPadding');
-
-                @include mq.min(900) {
-                    padding: ef.get-value($themeDefault, 'gamesPadding', 900);
-                }
+                @include bm.get-mq-map('padding', $themeDefault, 'gamesPadding');
             }
 
             .wlc-games-grid__nocontent {
-                padding: ef.get-value($themeDefault, 'noGamesPadding');
-
-            @include mq.min(900) {
-                padding: ef.get-value($themeDefault, 'noGamesPadding', 900);
-            }
+                @include bm.get-mq-map('padding', $themeDefault, 'noGamesPadding');
             }
 
             .wlc-games-grid__list {
