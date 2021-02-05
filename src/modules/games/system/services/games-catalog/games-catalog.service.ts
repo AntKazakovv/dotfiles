@@ -244,6 +244,18 @@ export class GamesCatalogService {
     }
 
     /**
+     * Get available categories by current state
+     *
+     * @returns {CategoryModel[]}
+     */
+    public getCategoriesByState(): CategoryModel[] {
+        if (this.catalogOpened()) {
+            const parentCategory = this.getParentCategoryByState();
+            return this.getCategoriesByParentId(parentCategory.id);
+        }
+    }
+
+    /**
      * Get available categories (which has games and menu key)
      *
      * @returns {CategoryModel[]}
@@ -264,6 +276,12 @@ export class GamesCatalogService {
             const categorySlug: string = this.router.stateService.params?.category;
             return this.getCategoryBySlug(categorySlug);
         }
+    }
+
+    public getParentCategories(): CategoryModel[] {
+        return _filter(this.gamesCatalog.getCategories(), (category: CategoryModel) => {
+            return category.isParent;
+        });
     }
 
     /**
@@ -310,7 +328,7 @@ export class GamesCatalogService {
      */
     public getCategoriesByParentId(id: number): CategoryModel[] {
         return _filter(this.gamesCatalog.getCategories(), (category: CategoryModel) => {
-            return category.parentId === id;
+            return category.parentCategory?.id === id;
         });
     }
 

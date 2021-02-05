@@ -296,21 +296,16 @@ export class GamesGridComponent extends AbstractComponent
 
         let games = this.gamesCatalogService.getGameList();
         if (this.$params.byState) {
-            if (this.parentCategory?.slug == 'last-played') {
+            if (this.parentCategory?.slug == 'lastplayed') {
                 games = await this.gamesCatalogService.getLastGames();
             } else if (this.parentCategory?.slug == 'favourites') {
                 games = await this.gamesCatalogService.getFavouriteGames();
             } else {
-                let categories: CategoryModel[] = [];
                 if (this.childCategory) {
-                    categories.push(this.childCategory);
+                    games = this.childCategory.games;
                 } else if (this.parentCategory) {
-                    categories = this.gamesCatalogService.getCategoriesByParentId(this.parentCategory.id);
-                    if (!categories.length) {
-                        categories.push(this.parentCategory);
-                    }
+                    games = this.parentCategory.games;
                 }
-                games = this.gamesCatalogService.getGamesByCategories(categories);
             }
         } else if (this.$params.filter) {
 

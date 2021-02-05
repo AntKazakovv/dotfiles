@@ -86,7 +86,10 @@ export const wlcMainMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     },
 };
 
+
+
+
 export const wlcMainMenuItemsDefault: MenuParams.MenuConfigItem[] = [
-    'main-menu:home',
+    //'main-menu:home',
     'main-menu:contacts',
 ];

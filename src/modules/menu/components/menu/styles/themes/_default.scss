@@ -1,0 +1,26 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/mixins/text' as text;
+
+@import '../utils/vars';
+
+.wlc-menu--theme-default:host {
+
+    &.wlc-menu--swiper {
+
+        ::ng-deep {
+
+            .swiper-slide,
+            .swiper-wrapper {
+                width: auto !important;
+            }
+        }
+    }
+
+    .wlc-menu__item {
+
+        .wlc-menu__link {
+            white-space: nowrap;
+        }
+    }
+}

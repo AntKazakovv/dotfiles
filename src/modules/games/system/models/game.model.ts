@@ -15,6 +15,7 @@ import {
     includes as _includes,
     map as _map,
 } from 'lodash-es';
+import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.model';
 
 export class Game extends AbstractModel<IGame> {
     public ID: number;
@@ -111,6 +112,16 @@ export class Game extends AbstractModel<IGame> {
         }
 
         return this.isRestricted;
+    }
+
+    /**
+     * Check has category or not
+     *
+     * @param {CategoryModel} category
+     * @returns {boolean}
+     */
+    public hasCategory(category: CategoryModel): boolean {
+        return _includes(this.categoryID, category.id);
     }
 
     /**
