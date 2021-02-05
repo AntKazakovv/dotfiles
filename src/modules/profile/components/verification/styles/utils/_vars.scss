@@ -1,0 +1,26 @@
+@use 'engine-scss/functions' as ef;
+
+$customThemeDefault: () !default;
+
+$themeDefault: map-merge((
+    'backgroundItem': ef.get('mainColors', 'bg300'),
+    'borderRadius': ef.get('radius', 'biger'),
+    'paddingItem': ef.get('size', 'main') ef.get('size', 'big'),
+    'color': ef.get('mainColors', 'baseMain'),
+    'titleFont': 'ThirdTitleBold',
+    'subTitleFont': 'PlaceholderText',
+    'textFont': 'PrimaryText',
+    'titlePadding': ef.get('size', 'smallest'),
+    'textPadding': ef.get('size', 'smaller'),
+    'gridColums': (
+        320: 1fr,
+        768: repeat(2, 1fr),
+        1024: repeat(3, 1fr)
+    ),
+    'borderDocList': 1px solid ef.get('mainColors', 'baseOpacity'),
+    'fontDocList': 'ButtonText',
+    'backgroundDropdawn': ef.get('mainColors', 'bg700'),
+    'borderDropdawn': 1px dashed ef.get('mainColors', 'bg500'),
+    'borderColorDrag': ef.get('mainColors', 'main'),
+    'successText': ef.get('mainColors', 'success'),
+), $customThemeDefault);

@@ -176,7 +176,7 @@ export const $layouts: ILayoutsConfig = {
     'app.profile.verification': {
         extends: 'app.profile',
         sections: {
-            'profile-content': sectionsLib.profileContent.empty,
+            'profile-content': sectionsLib.profileContent.profileVerification,
         },
     },
     'app.profile.password': {

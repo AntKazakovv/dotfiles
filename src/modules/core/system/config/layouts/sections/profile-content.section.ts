@@ -78,6 +78,15 @@ export namespace profileContent {
         ],
     };
 
+    export const profileVerification: ILayoutSectionConfig = {
+        container: true,
+        components: [
+            componentLib.wlcTitle.profileV2,
+            componentLib.wlcProfileMenu.submenu,
+            componentLib.wlcVerification.def,
+        ],
+    };
+
     export const profileStore: ILayoutSectionConfig = {
         container: true,
         components: [
