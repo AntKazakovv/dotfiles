@@ -1,0 +1,133 @@
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/mixins/mediaqueries' as mq;
+
+.wlc-crypto-data--theme-default:host {
+    margin: 0 auto 20px;
+    max-width: 370px;
+
+    @include mq.min(640) {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        column-gap: 20px;
+        max-width: none;
+    }
+
+    .wlc-crypto-data {
+
+        &__text {
+            max-width: 370px;
+            text-align: center;
+
+            @include mq.min(640) {
+                text-align: left;
+            }
+        }
+
+        &__text-row {
+            margin-bottom: 20px;
+            @include text.get-text-style('PrimaryText', #ffffff);
+        }
+
+        &__clipboard {
+            margin-bottom: 20px;
+        }
+
+        &__address {
+            background: #fff;
+            cursor: pointer;
+            width: 100%;
+            padding: 5px 10px;
+        }
+
+        &__qr {
+            display: flex;
+            justify-content: center;
+
+            @include mq.min(640) {
+                display: block;
+                justify-content: flex-start;
+            }
+        }
+
+        &__qr-text {
+            display: none;
+
+            @include mq.min(640) {
+                display: block;
+                @include text.get-text-style('PrimaryText', #ffffff);
+                margin-bottom: 20px;
+            }
+        }
+
+        &__qr-wrapper {
+            width: 250px;
+            background-color: #fff;
+            position: relative;
+
+            &:before {
+                content: '';
+                display: block;
+                padding-top: 100%;
+            }
+        }
+
+        &__loader {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        &__qr-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        &__warning {
+            margin-top: 20px;
+            @include text.get-text-style('PlaceholderText', #ffffff);
+            text-align: center;
+
+            @include mq.min(640) {
+                text-align: left;
+            }
+
+            .stress {
+                color: #ff78ab;
+            }
+        }
+    }
+
+    &.wlc-crypto-data--theme-mod-modal {
+        display: block;
+        max-width: 370px;
+        margin: 0 auto;
+
+        .wlc-crypto-data {
+
+            &__text {
+                margin-right: 0;
+                max-width: none;
+                text-align: center;
+            }
+
+            &__qr-text {
+                display: none;
+            }
+
+            &__qr {
+                display: flex;
+                justify-content: center;
+            }
+
+            &__warning {
+                text-align: center;
+            }
+        }
+    }
+}

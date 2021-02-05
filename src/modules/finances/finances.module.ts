@@ -1,3 +1,7 @@
+import {
+    FormsModule,
+    ReactiveFormsModule,
+} from '@angular/forms';
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {
@@ -13,10 +17,12 @@ import {TransactionCancelComponent} from './components/transaction-history/trans
 import {HistoryFilterComponent} from './components/history-filter/history-filter.component';
 import {HistoryFilterFormComponent} from './components/history-filter/history-filter-form/history-filter-form.component';
 import {PaymentListComponent} from './components/payment-list/payment-list.component';
+import {CryptoDataComponent} from './components/crypto-data/crypto-data.component';
 
 import {GlobalHelper} from 'wlc-engine/modules/core';
 import {financesConfig} from './system/config/finances.config';
 import {IFinancesConfig} from './system/interfaces/finances.interface';
+import {AddProfileInfoComponent} from 'wlc-engine/modules/finances/components/deposit-withdraw/add-profile-info';
 import * as $config from 'wlc-config/index';
 
 import {
@@ -38,8 +44,12 @@ export const components = {
         CommonModule,
         TranslateModule,
         CoreModule,
+        FormsModule,
+        ReactiveFormsModule,
     ],
     declarations: [
+        AddProfileInfoComponent,
+        CryptoDataComponent,
         DepositWithdrawComponent,
         PaymentListComponent,
         TransactionHistoryComponent,

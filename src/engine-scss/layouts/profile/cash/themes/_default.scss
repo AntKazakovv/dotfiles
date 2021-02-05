@@ -1,0 +1,36 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/base.mixins' as em;
+
+@import '../utils/vars';
+
+.app-profile-cash-deposit-state,
+.app-profile-cash-withdraw-state {
+
+    .wlc-sections__profile-content {
+
+        .wlc-user-stats {
+            margin: ef.get-value($cashPagesThemeDefault, 'userStatsMargin');
+        }
+
+        .wlc-menu {
+            margin: ef.get-value($cashPagesThemeDefault, 'menuMargin');
+
+            .wlc-menu__item {
+
+                .wlc-menu__link {
+                    @if ef.get-value($cashPagesThemeDefault, 'menuItemRedefine') {
+                        text-transform: ef.get-value($cashPagesThemeDefault, 'menuItemTextTransform');
+                        color: ef.get-value($cashPagesThemeDefault, 'menuItemColor');
+                    }
+
+                    &.active {
+                        @if ef.get-value($cashPagesThemeDefault, 'menuItemRedefine') {
+                            font-weight: ef.get-value($cashPagesThemeDefault, 'menuItemActiveWheit');
+                            color: ef.get-value($cashPagesThemeDefault, 'menuItemActiveColor');
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

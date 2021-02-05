@@ -3,11 +3,12 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'checkboxPadding': 3.5px 5px 3.5px 35px,
-    'checkboxElemSize': 25px,
-    'checkboxElemTop': 0,
+    'checkboxElemSize': 24px,
+    'checkboxElemTop': 50%,
     'checkboxElemLeft': 0,
     'checkboxElemBackground': ef.get('mainColors', 'baseMain'),
     'checkboxElemBorder': 2px solid ef.get('mainColors', 'baseMain'),
+    'checkboxElemMarginTop': -12px,
     'checkboxElemBorderRadius': 5px,
     'checkboxElemBorderColor': ef.get('mainColors', 'main'),
 
@@ -24,6 +25,7 @@ $themeDefault: map-merge((
 
     'linkColor': ef.get('mainColors', 'main'),
     'linkHoverColor': darken(ef.get('mainColors', 'main'), 20),
+    'errorColor': ef.get('form', 'errorsColor'),
 
     'toggleBackground': ef.get('mainColors', 'baseOpacity'),
     'toggleWidth': auto,

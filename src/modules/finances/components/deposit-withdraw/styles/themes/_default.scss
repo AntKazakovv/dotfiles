@@ -1,69 +1,63 @@
+@use 'engine-scss/functions' as ef;
 @use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/base.mixins' as em;
 @use 'engine-scss/mixins/text' as text;
+
 @import '../utils/vars';
 
 .wlc-cash--theme-default:host {
     display: grid;
-    grid-template-columns: map-get($themeDefault, 'gridTemplateColumns');
-    gap: map-get($themeDefault, 'gridGap');
-    color: map-get($themeDefault, 'commonColor');
+    grid-template-columns: ef.get-value($themeDefault, 'gridTemplateColumns');
+    gap: ef.get-value($themeDefault, 'gridGap');
+    color: ef.get-value($themeDefault, 'commonColor');
 
     .wlc-cash {
 
         &__title {
             display: none;
 
-            @include mq.min(map-get($themeDefault, 'breakpoint')) {
+            @include mq.min(ef.get-value($themeDefault, 'breakpoint')) {
                 display: block;
-                @include text.get-text-style('ThridTitleBold', map-get($themeDefault, 'titleColor'));
+                @include text.get-text-style(ThirdTitleBold, map-get($themeDefault, 'titleColor'));
             }
         }
 
         &__divider {
             display: none;
 
-            @include mq.min(map-get($themeDefault, 'breakpoint')) {
+            @include mq.min(ef.get-value($themeDefault, 'breakpoint')) {
                 display: block;
-                margin: map-get($themeDefault, 'dividerMargin');
-                background: map-get($themeDefault, 'dividerBg');
-                height: map-get($themeDefault, 'dividerHeight');
-                width: map-get($themeDefault, 'dividerWidth');
+                margin: ef.get-value($themeDefault, 'dividerMargin');
+                background: ef.get-value($themeDefault, 'dividerBg');
+                height: ef.get-value($themeDefault, 'dividerHeight');
+                width: ef.get-value($themeDefault, 'dividerWidth');
+                border-radius: ef.get-value($themeDefault, 'dividerRadius');
             }
         }
 
         &__step {
 
             &--1 {
-                background: map-get($themeDefault, 'step1Bg');
-                padding: map-get($themeDefault, 'step1Padding');
-                border-radius: map-get($themeDefault, 'step1BorderRadius');
-                margin: map-get($themeDefault, 'step1Margin');
-
-                @include mq.min(map-get($themeDefault, 'breakpoint')) {
-                    padding: map-get($themeDefault, 'step1PaddingBr');
-                    background: map-get($themeDefault, 'step1BgBr');
-                    border-radius: map-get($themeDefault, 'step1BorderRadiusBr');
-                    margin-bottom: map-get($themeDefault, 'step1MarginBr');
-                }
+                @include em.get-mq-map('background', $themeDefault, 'step1Bg');
+                @include em.get-mq-map('padding', $themeDefault, 'step1Padding');
+                @include em.get-mq-map('border-radius', $themeDefault, 'step1BorderRadius');
+                @include em.get-mq-map('margin', $themeDefault, 'step1Margin');
             }
         }
 
         &__subtitle {
+            font-size: ef.get-value($themeDefault, 'subtitleFontSize');
+            margin: ef.get-value($themeDefault, 'subtitleMargin');
+            @include em.get-mq-map('font-weight', $themeDefault, 'subtitleFontWeight');
+            @include em.get-mq-map('text-align', $themeDefault, 'subtitleAlignment');
             @include text.get-text-style('ThirdTitle', map-get($themeDefault, 'subtitleColor'));
-            margin: map-get($themeDefault, 'subtitleMargin');
-            text-align: map-get($themeDefault, 'subtitleAlignment');
-
-            @include mq.min(map-get($themeDefault, 'breakpoint')) {
-                text-align: map-get($themeDefault, 'subtitleAlignmentBr');
-                font-weight: map-get($themeDefault, 'subtitleAlignmentBr');
-            }
         }
 
         &__subtitle-step {
-            color: map-get($themeDefault, 'subtitleStepColor');
-            margin: map-get($themeDefault, 'subtitleStepMargin');
+            color: ef.get-value($themeDefault, 'subtitleStepColor');
+            margin: ef.get-value($themeDefault, 'subtitleStepMargin');
 
-            @include mq.min(map-get($themeDefault, 'breakpoint')) {
+            @include mq.min(ef.get-value($themeDefault, 'breakpoint')) {
                 display: none;
             }
         }
@@ -73,64 +67,56 @@
             span {
                 display: none;
 
-                @include mq.min(map-get($themeDefault, 'breakpoint')) {
+                @include mq.min(ef.get-value($themeDefault, 'breakpoint')) {
                     display: inline-block;
                 }
             }
         }
 
         &__fields-error {
-            color: map-get($themeDefault, 'errorsColor');
-            margin: map-get($themeDefault, 'errorsMargin');
+            margin: ef.get-value($themeDefault, 'errorsMargin');
+            @include text.get-text-style(ThirdTitle, ef.get-value($themeDefault, 'errorsColor'));
         }
 
         &__fields-message {
-            margin: map-get($themeDefault, 'errorsMessageMargin');
+            margin: ef.get-value($themeDefault, 'errorsMessageMargin');
         }
 
         &__fields-ul {
-            margin: map-get($themeDefault, 'errorsUlMargin');
-            padding: map-get($themeDefault, 'errorsUlPadding');
+            margin: ef.get-value($themeDefault, 'errorsUlMargin');
+            padding: ef.get-value($themeDefault, 'errorsUlPadding');
         }
 
         &__fields-li {
-            list-style-type: map-get($themeDefault, 'errorsLiType');
+            list-style-type: ef.get-value($themeDefault, 'errorsLiType');
 
             &:before {
-                content: map-get($themeDefault, 'errorsLiBeforeContent');
-                display: map-get($themeDefault, 'errorsLiBeforeDisplay');
-                margin: map-get($themeDefault, 'errorsLiBeforeMargin');
+                content: ef.get-value($themeDefault, 'errorsLiBeforeContent');
+                display: ef.get-value($themeDefault, 'errorsLiBeforeDisplay');
+                margin: ef.get-value($themeDefault, 'errorsLiBeforeMargin');
             }
         }
 
-        &__additional-form,
-        &__amount-form {
-            width: map-get($themeDefault, 'formWidth');
-            max-width: map-get($themeDefault, 'formMaxWidth');
+        &__field-wrap {
+            margin-bottom: ef.get-value($themeDefault, 'formInputMarginBottom');
+            width: 100%;
 
-            ::ng-deep {
-
-                .wlc-select,
-                .wlc-input,
-                .wlc-checkbox,
-                .wlc-btn {
-                    margin-bottom: map-get($themeDefault, 'formInputMarginBottom');
-                }
+            @include mq.min(480) {
+                max-width: ef.get-value($themeDefault, 'formInputMaxWidth');
             }
         }
 
-        &__amount-form {
+        &__field-subtitle {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.6);
+            margin-left: 5px;
+            margin-top: 6px;
+        }
 
-            ::ng-deep {
-
-                .wlc-btn {
-                    margin: map-get($themeDefault, 'formAmountButtonMargin');
-
-                    @include mq.min(map-get($themeDefault, 'breakpoint')) {
-                        margin: map-get($themeDefault, 'formAmountButtonMarginBr');
-                    }
-                }
-            }
+        &__additional-form {
+            display: grid;
+            grid-template-columns: ef.get-value($themeDefault, 'formAdditionalGridTemplateColumns');
+            column-gap: ef.get-value($themeDefault, 'formAdditionalColumnGap');
         }
     }
 }

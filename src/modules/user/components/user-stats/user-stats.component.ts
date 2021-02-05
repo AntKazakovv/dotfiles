@@ -68,6 +68,10 @@ export class UserStatsComponent extends AbstractComponent implements OnInit, OnD
             this.fillUserStatsFields();
             this.cdr.detectChanges();
         });
+
+        if (!_isUndefined(this.$params.useDepositBtn)) {
+            this.useDepositBtn = this.$params.useDepositBtn;
+        }
     }
 
     ngOnDestroy() {

@@ -3,7 +3,10 @@ import {
     CustomType,
     IInputCParams,
     ISelectCParams,
+    ICheckboxCParams,
 } from 'wlc-engine/modules/core';
+import {IButtonCParams} from 'wlc-engine/modules/core/components/button/button.component';
+
 
 export type Theme = 'default' | CustomType;
 export type Type = 'default' | CustomType;
@@ -26,4 +29,6 @@ export interface IAdditionalFields {
     params: IInputCParams | ISelectCParams,
 }
 
-export {depositForm, withdrawFrom} from 'wlc-engine/modules/finances/system/config';
+export type FieldType = IInputCParams | IButtonCParams | ICheckboxCParams;
+
+export {depositForm, depositFormCrypto, withdrawForm} from 'wlc-engine/modules/finances/system/config';

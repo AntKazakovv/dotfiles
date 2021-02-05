@@ -38,7 +38,7 @@ export class CheckboxComponent extends AbstractComponent implements OnInit {
         super({injectParams, defaultParams: Params.defaultParams});
     }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.control = this.$params?.control;
         this.prepareModifiers();
@@ -48,8 +48,9 @@ export class CheckboxComponent extends AbstractComponent implements OnInit {
         this.modalService.showModal(name, {slug});
     }
 
-    protected onChange(event) {
-        const checked: boolean = event.target.checked;
+    protected onChange(event: Event): void {
+        this.control?.markAllAsTouched();
+        const checked: boolean = (event.target as HTMLInputElement).checked;
         if (this.$params.onChange) {
             this.$params.onChange(checked);
         }

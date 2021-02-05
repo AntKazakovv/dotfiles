@@ -18,6 +18,7 @@ export interface IInputCParams extends IComponentParams<ComponentTheme, Componen
         customModifiers?: CustomMod;
         usePasswordVisibilityBtn?: boolean;
         useLabel?: boolean;
+        readonly?: boolean;
     }
     validators?: ValidatorType[];
     control?: FormControl;
@@ -25,6 +26,9 @@ export interface IInputCParams extends IComponentParams<ComponentTheme, Componen
     disabled?: boolean;
     locked?: boolean;
     modifiers?: Modifiers[];
+    icon?: string;
+    clipboard?: boolean;
+    currency?: boolean;
 }
 
 export const defaultParams: Partial<IInputCParams> = {

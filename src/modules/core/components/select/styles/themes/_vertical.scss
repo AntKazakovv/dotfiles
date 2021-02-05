@@ -18,7 +18,6 @@
 
             @include text.get-text-style('SignText', ef.get-value($themeVertical, 'labelColor'));
             text-overflow: ellipsis;
-            white-space: nowrap;
 
             cursor: pointer;
             user-select: none;
