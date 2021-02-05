@@ -1,10 +1,10 @@
 @use 'engine-scss/functions' as ef;
 
 $customThemeDefault: () !default;
-
 $themeDefault: map-merge((
     //common
-    'breakpoint': 480,
+    'breakpoint': 900,
+
     // Grid
     'gridTemplateColumns': 1fr,
     'gridGap': 20px,
@@ -14,44 +14,67 @@ $themeDefault: map-merge((
     'titleFontSize': 20px,
     'titleFontWeight': 700,
     'titleColor': ef.get('mainColors', 'baseMain'),
+
     // Divider
     'dividerMargin': 10px 0,
     'dividerBg': ef.get('mainColors', 'baseOpacity'),
     'dividerHeight': 2px,
     'dividerWidth': 100%,
+    'dividerRadius': 10px,
+
     // Step
-    'step1Bg': ef.get('mainColors', 'bg'),
-    'step1BorderRadius': ef.get('radius', 'biger'),
-    'step1Padding': 15px,
-    'step1Margin': 0 0 20px,
-    'step1BgBr': transparent,
-    'step1BorderRadiusBr': 0,
-    'step1PaddingBr': 0,
-    'step1MarginBr': 0,
+    'step1Bg': (
+        375: ef.get('mainColors', 'bg300'),
+        480: transparent,
+    ),
+    'step1BorderRadius': (
+        375: ef.get('radius', 'biger'),
+        480: 0,
+    ),
+    'step1Padding': (
+        375: 15px,
+        480: 0,
+    ),
+    'step1Margin': (
+        375: 0 0 20px,
+        480: 0,
+    ),
+
     // Subtitle
     'subtitleFontSize': 16px,
-    'subtitleFontWeight': 700,
+    'subtitleFontWeight': (
+        375: 700,
+        900: normal,
+    ),
     'subtitleMargin': 0 0 20px,
     'subtitleColor': ef.get('mainColors', 'baseMain'),
-    'subtitleAlignment': center,
+    'subtitleAlignment': (
+        375: center,
+        900: left,
+    ),
     'subtitleStepColor': ef.get('mainColors', 'main'),
     'subtitleStepMargin': 0 0 10px,
-    'subtitleAlignmentBr': left,
-    'subtitleFontWeightBr': normal,
+
     // Errors
     'errorsColor': ef.get('color', 'error'),
     'errorsMargin': 0 0 20px,
+
     'errorsMessageMargin': 0 0 10px,
+
     'errorsUlMargin': 0 0 20px,
     'errorsUlPadding': 0 0 0 15px,
+
     'errorsLiType': none,
     'errorsLiBeforeDisplay': inline-block,
     'errorsLiBeforeContent': '-',
     'errorsLiBeforeMargin': 0 5px 0 0,
+
     // Forms
     'formWidth': 100%,
-    'formMaxWidth': 288px,
+    'formInputMaxWidth': 288px,
     'formInputMarginBottom': 15px,
     'formAmountButtonMargin': 0 auto,
     'formAmountButtonMarginBr': 0,
+    'formAdditionalGridTemplateColumns': repeat(auto-fit, minmax(200px, 1fr)),
+    'formAdditionalColumnGap': 15px,
 ), $customThemeDefault);

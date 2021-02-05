@@ -124,6 +124,8 @@ export class CurrencyComponent
      */
     @Input() public digitsInfo: string;
 
+    @Input() public showIconOnly: boolean = false;
+
     /**
      * Whether currency value is negative
      */
@@ -343,6 +345,10 @@ export class CurrencyComponent
         this.useIcon = !!this.currencyFormat.icon;
 
         let intlParts: CurrencyPart[] = this.getIntlParts();
+
+        if (this.showIconOnly) {
+            intlParts = intlParts.filter(({type}) => type === 'currency');
+        }
 
         if (this.useIcon) {
             this.setIcon(intlParts);

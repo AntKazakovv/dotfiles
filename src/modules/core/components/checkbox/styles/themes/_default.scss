@@ -37,8 +37,9 @@
 
         &__elem {
             position: absolute;
-            top: ef.get-value($themeDefault, 'checkboxElemTop');
-            left: ef.get-value($themeDefault, 'checkboxElemLeft');
+            top: map-get($themeDefault, 'checkboxElemTop');
+            left: map-get($themeDefault, 'checkboxElemLeft');
+            margin-top: map-get($themeDefault, 'checkboxElemMarginTop');
 
             display: flex;
             justify-content: center;
@@ -93,6 +94,10 @@
 
     .wlc-checkbox__checkbox {
         display: none;
+
+        &.ng-touched.ng-invalid + .wlc-checkbox__elem {
+            box-shadow: 0 0 0 2px map-get($themeDefault, 'errorColor');
+        }
     }
 
     &.wlc-checkbox--text-left {

@@ -1,4 +1,8 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/base.mixins' as em;
 @use 'engine-scss/mixins/text' as text;
+
 @import '../utils/vars';
 @import '../utils/mixins';
 
@@ -10,29 +14,35 @@
         .wlc-payment-list {
 
             &__ul {
-                margin: map-get($themeDefault, 'listMargin');
-                padding: map-get($themeDefault, 'listPadding');
+                margin: ef.get-value($themeDefault, 'listMargin');
+                padding: ef.get-value($themeDefault, 'listPadding');
                 display: grid;
-                grid-template-columns: repeat(auto-fill, minmax(map-get($themeDefault, 'listItemSize'), 1fr));
-                column-gap: map-get($themeDefault, 'listGridColumnGup');
-                row-gap: map-get($themeDefault, 'listGridRowGup');
                 list-style-type: none;
+                @include em.get-mq-map('grid-template-columns', $themeDefault, 'listGridTemplateColumns');
+                @include em.get-mq-map('gap', $themeDefault, 'listGridGap');
             }
 
             &__button {
+                position: relative;
                 height: 100%;
-                width: map-get($themeDefault, 'itemWidth');
-                border: map-get($themeDefault, 'itemBorder');
-                background: map-get($themeDefault, 'itemBg');
-                border-radius: map-get($themeDefault, 'itemBorderRadius');
-                padding: map-get($themeDefault, 'itemPadding');
+                width: ef.get-value($themeDefault, 'itemWidth');
+                border: ef.get-value($themeDefault, 'itemBorder');
+                background: ef.get-value($themeDefault, 'itemBg');
+                border-radius: ef.get-value($themeDefault, 'itemBorderRadius');
                 cursor: pointer;
-                transition: map-get($themeDefault, 'itemTransition');
-                color: map-get($themeDefault, 'itemSvgColor');
+                transition: ef.get-value($themeDefault, 'itemTransition');
+                color: ef.get-value($themeDefault, 'itemSvgColor');
+
+                &:before {
+                    content: '';
+                    display: block;
+                    width: 100%;
+                    padding-top: ef.get-value($themeDefault, 'itemBeforePaddingTop');
+                }
 
                 &:hover {
-                    box-shadow: map-get($themeDefault, 'itemBoxShadowHover');
-                    color: map-get($themeDefault, 'itemSvgColorHover');
+                    box-shadow: ef.get-value($themeDefault, 'itemBoxShadowHover');
+                    color: ef.get-value($themeDefault, 'itemSvgColorHover');
                 }
 
                 &:focus {
@@ -40,34 +50,42 @@
                 }
 
                 &.active {
-                    border-color: map-get($themeDefault, 'itemBorderColorActive');
-                    box-shadow: map-get($themeDefault, 'itemBoxShadowActive');
-                    color: map-get($themeDefault, 'itemSvgColorActive');
+                    border-color: ef.get-value($themeDefault, 'itemBorderColorActive');
+                    box-shadow: ef.get-value($themeDefault, 'itemBoxShadowActive');
+                    color: ef.get-value($themeDefault, 'itemSvgColorActive');
                 }
             }
 
             &__image {
-                width: map-get($themeDefault, 'imageWidth');
-                height: map-get($themeDefault, 'imagHeight');
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: ef.get-value($themeDefault, 'itemPadding');
 
                 ::ng-deep {
+
                     @include iconInside();
                 }
             }
 
             &__btn-modal {
-                border: map-get($themeDefault, 'btnBorder');
-                border-radius: map-get($themeDefault, 'btnBorderRadius');
-                background: map-get($themeDefault, 'btnBg');
-                color: map-get($themeDefault, 'btnColor');
-                padding: map-get($themeDefault, 'btnPadding');
+                border: ef.get-value($themeDefault, 'btnBorder');
+                border-radius: ef.get-value($themeDefault, 'btnBorderRadius');
+                background: ef.get-value($themeDefault, 'btnBg');
+                color: ef.get-value($themeDefault, 'btnColor');
+                padding: ef.get-value($themeDefault, 'btnPadding');
                 display: flex;
                 align-items: center;
-                justify-content: map-get($themeDefault, 'btnJustifyContent');
-                width: map-get($themeDefault, 'btnWidth');
-                max-width: map-get($themeDefault, 'btnMaxWidth');
-                height: map-get($themeDefault, 'btnHeight');
-                margin: map-get($themeDefault, 'btnMargin');
+                justify-content: ef.get-value($themeDefault, 'btnJustifyContent');
+                width: ef.get-value($themeDefault, 'btnWidth');
+                max-width: ef.get-value($themeDefault, 'btnMaxWidth');
+                height: ef.get-value($themeDefault, 'btnHeight');
+                margin: ef.get-value($themeDefault, 'btnMargin');
 
                 &.selected {
                     overflow: hidden;
@@ -79,8 +97,8 @@
             }
 
             &__btn-modal-arrow {
-                margin: map-get($themeDefault, 'btnArrowMargin');
-                color: map-get($themeDefault, 'btnArrowColor');
+                margin: ef.get-value($themeDefault, 'btnArrowMargin');
+                color: ef.get-value($themeDefault, 'btnArrowColor');
 
                 svg {
                     fill: currentColor;
@@ -89,46 +107,58 @@
 
             &__btn-modal-text {
                 display: block;
-                padding: map-get($themeDefault, 'btnTextPadding');
-                font-size: map-get($themeDefault, 'btnTextFontSize');
+                padding: ef.get-value($themeDefault, 'btnTextPadding');
+                font-size: ef.get-value($themeDefault, 'btnTextFontSize');
             }
 
             &__btn-modal-image {
-                background: map-get($themeDefault, 'btnImageBg');
-                padding: map-get($themeDefault, 'btnImagePadding');
-                width: map-get($themeDefault, 'btnImageWidth');
-                height: map-get($themeDefault, 'btnImageHeight');
-                color: map-get($themeDefault, 'btnImageSvgColor');
+                background: ef.get-value($themeDefault, 'btnImageBg');
+                padding: ef.get-value($themeDefault, 'btnImagePadding');
+                width: ef.get-value($themeDefault, 'btnImageWidth');
+                height: ef.get-value($themeDefault, 'btnImageHeight');
+                color: ef.get-value($themeDefault, 'btnImageSvgColor');
                 @include iconInside();
             }
 
             &__title {
-                @include text.get-text-style('ThirdTitle', map-get($themeDefault, 'titleColor'));
-                text-align: map-get($themeDefault, 'titleTextAlign');
-                margin: map-get($themeDefault, 'titleMargin');
+                @include text.get-text-style('ThirdTitle');
+                text-align: ef.get-value($themeDefault, 'titleTextAlign');
+                margin: ef.get-value($themeDefault, 'titleMargin');
+                color: ef.get-value($themeDefault, 'titleColor');
             }
 
             &__sys-table {
-                width: map-get($themeDefault, 'tableWidth');
-                max-width: map-get($themeDefault, 'tableMaxWidth');
-                margin: map-get($themeDefault, 'tableMargin');
-                color: map-get($themeDefault, 'tableColor');
+                width: ef.get-value($themeDefault, 'tableWidth');
+                max-width: ef.get-value($themeDefault, 'tableMaxWidth');
+                margin: ef.get-value($themeDefault, 'tableMargin');
+                color: ef.get-value($themeDefault, 'tableColor');
             }
 
             &__sys-tr {
-                border-top: map-get($themeDefault, 'tableTrBorderTop');
+                border-top: ef.get-value($themeDefault, 'tableTrBorderTop');
+
+                &--provider {
+
+                    .wlc-payment-list__sys-td {
+                        white-space: nowrap;
+                        overflow-x: hidden;
+                        text-overflow: ellipsis;
+                        max-width: 1em;
+                    }
+                }
             }
 
             &__sys-th {
-                font-weight: map-get($themeDefault, 'tableThFontWeight');
-                color: map-get($themeDefault, 'tableThColor');
-                padding: map-get($themeDefault, 'tableThPadding');
+                width: 1%;
+                font-weight: ef.get-value($themeDefault, 'tableThFontWeight');
+                color: ef.get-value($themeDefault, 'tableThColor');
+                padding: ef.get-value($themeDefault, 'tableThPadding');
             }
 
             &__sys-td {
-                text-align: map-get($themeDefault, 'tableTdAlignment');
-                color: map-get($themeDefault, 'tableTdColor');
-                padding: map-get($themeDefault, 'tableTdPadding');
+                text-align: ef.get-value($themeDefault, 'tableTdAlignment');
+                color: ef.get-value($themeDefault, 'tableTdColor');
+                padding: ef.get-value($themeDefault, 'tableTdPadding');
             }
         }
     }

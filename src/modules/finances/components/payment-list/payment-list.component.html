@@ -23,12 +23,12 @@
 
 <ng-template #table>
     <table class="{{$class}}__sys-table">
-        <tr class="{{$class}}__sys-tr">
+        <tr class="{{$class}}__sys-tr {{$class}}__sys-tr--speed">
             <th class="{{$class}}__sys-th">{{'Speed' | translate}}</th>
             <!-- No data about speed :( -->
             <td class="{{$class}}__sys-td">{{currentSystem ? 'Instant' : '---' | translate}}</td>
         </tr>
-        <tr class="{{$class}}__sys-tr"
+        <tr class="{{$class}}__sys-tr {{$class}}__sys-tr--limit"
             [ngSwitch]="$params.paymentType">
             <th class="{{$class}}__sys-th">{{'Limit' | translate}}</th>
             <td class="{{$class}}__sys-td"
@@ -44,7 +44,7 @@
                 <span *ngSwitchCase="true">{{currentSystem.withdrawMin}} - {{currentSystem.withdrawMax}}</span>
             </td>
         </tr>
-        <tr class="{{$class}}__sys-tr">
+        <tr class="{{$class}}__sys-tr {{$class}}__sys-tr--provider">
             <th class="{{$class}}__sys-th">{{'Provider' | translate}}</th>
             <td class="{{$class}}__sys-td">{{currentSystem ? currentSystem.name : '---'}}</td>
         </tr>

@@ -33,6 +33,7 @@ import {
     keys as _keys,
     isUndefined as _isUndefined,
     get as _get,
+    merge as _merge,
 } from 'lodash-es';
 
 export {IButtonCParams} from './button.params';
@@ -117,6 +118,7 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
         });
 
         inlineParams.wlcElement = this.wlcElement;
+        _merge(inlineParams, this.inlineParams);
 
         return _keys(inlineParams.common).length ? inlineParams : null;
     }

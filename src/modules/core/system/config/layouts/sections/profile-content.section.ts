@@ -44,6 +44,8 @@ export namespace profileContent {
     export const profileDeposit: ILayoutSectionConfig = {
         container: true,
         components: [
+            componentLib.wlcDepositWithdraw.balance,
+            componentLib.wlcDepositWithdraw.submenu,
             componentLib.wlcDepositWithdraw.deposit,
         ],
     };
@@ -51,6 +53,8 @@ export namespace profileContent {
     export const profileWithdraw: ILayoutSectionConfig = {
         container: true,
         components: [
+            componentLib.wlcDepositWithdraw.balance,
+            componentLib.wlcDepositWithdraw.submenu,
             componentLib.wlcDepositWithdraw.withdraw,
         ],
     };

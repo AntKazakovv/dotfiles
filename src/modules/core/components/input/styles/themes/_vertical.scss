@@ -49,6 +49,18 @@
                 border-color: darken(ef.get-value($themeDefault, 'errorsBgColor'), 10%);
             }
         }
+
+        &[type='number'] {
+            /* stylelint-disable */
+            -moz-appearance: textfield;
+
+            &::-webkit-outer-spin-button,
+            &::-webkit-inner-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
+            }
+            /* stylelint-enable */
+        }
     }
 
     &.wlc-input--right-shift {
@@ -58,6 +70,22 @@
         }
 
         .field-icon--eye {
+            position: absolute;
+            top: ef.get-value($themeVertical, 'iconEyeTop');
+            right: ef.get-value($themeVertical, 'iconEyeRight');
+
+            transform: ef.get-value($themeVertical, 'iconEyeTransform');
+        }
+
+        .field-icon--copy {
+            position: absolute;
+            top: ef.get-value($themeVertical, 'iconEyeTop');
+            right: ef.get-value($themeVertical, 'iconEyeRight');
+
+            transform: ef.get-value($themeVertical, 'iconEyeTransform');
+        }
+
+        .field-icon--currency {
             position: absolute;
             top: ef.get-value($themeVertical, 'iconEyeTop');
             right: ef.get-value($themeVertical, 'iconEyeRight');
@@ -88,12 +116,14 @@
 
         line-height: ef.get-value($themeVertical, 'fieldIconLineHeight');
 
+        &--copy,
         &--eye {
             cursor: pointer;
 
             ::ng-deep {
 
                 svg path {
+                    fill: ef.get-value($themeVertical, 'fieldIconSvgFill');
                     @include bm.transition(fill);
                 }
             }
@@ -118,6 +148,10 @@
                     }
                 }
             }
+        }
+
+        &--currency {
+            color: ef.get-value($themeVertical, 'fieldIconSvgFill');
         }
     }
 }

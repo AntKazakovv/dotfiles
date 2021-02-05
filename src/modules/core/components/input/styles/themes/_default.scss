@@ -45,6 +45,18 @@
                     border-color: darken(ef.get-value($themeDefault, 'errorsBgColor'), 10%);
                 }
             }
+
+            &[type='number'] {
+                /* stylelint-disable */
+                -moz-appearance: textfield;
+
+                &::-webkit-outer-spin-button,
+                &::-webkit-inner-spin-button {
+                    -webkit-appearance: none;
+                    margin: 0;
+                }
+                /* stylelint-enable */
+            }
         }
     }
 }

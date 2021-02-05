@@ -1,5 +1,5 @@
 <div class="{{$class}}__title"
-     [ngSwitch]="$params.mode">
+    [ngSwitch]="$params.mode">
 
     <ng-container *ngSwitchCase="'deposit'">
         <div class="wlc-title--profile" wlc-title [mainText]="'Deposit'"></div>
@@ -17,8 +17,8 @@
     </div>
 
     <div wlc-payment-list
-         [inlineParams]='listConfig'
-         [currentSystem]='currentSystem'>
+        [inlineParams]='listConfig'
+        [currentSystem]='currentSystem'>
     </div>
 </div>
 
@@ -30,8 +30,8 @@
         <div class="{{$class}}__subtitle-name"><span>2.</span> {{'Payment information' | translate}}</div>
     </div>
 
-    <div class="{{$class}}__fields-error" *ngIf="!checkUserProfileForPayment()">
-        <p class="{{$class}}__fields-message">{{'Payment method isn\'t available. Please fill in the following profile fields' | translate}}
+    <div class="{{$class}}__fields-error" *ngIf="requiredFieldsKeys.length">
+        <p class="{{$class}}__fields-message">{{'Payment method is not available. Please, add the following info' | translate}}
             :</p>
         <ul class="{{$class}}__fields-ul">
             <li class="{{$class}}__fields-li" *ngFor="let item of requiredFieldsKeys">
@@ -41,37 +41,54 @@
         <button wlc-button text="Edit profile" (click)="editProfile()"></button>
     </div>
 
-    <div class="{{$class}}__additional-form"
-         *ngIf="additionalFields.length">
-        <ng-container *ngFor="let field of additionalFields"
-                      [ngSwitch]="field.type">
-            <div *ngSwitchCase="'input'"
-                 wlc-input
-                 [inlineParams]="field.params">
-            </div>
+    <form class="{{$class}}__amount-form"
+        (ngSubmit)="sendForm()"
+        [formGroup]="baseForm">
 
-            <div *ngSwitchCase="'select'"
-                 wlc-select
-                 [inlineParams]="field.params">
-            </div>
-        </ng-container>
-    </div>
+        <div wlc-crypto-data
+            *ngIf="cryptoCheck.value && $params.mode === 'deposit'"
+            [system]="currentSystem"></div>
 
-    <ng-container [ngSwitch]="$params.mode">
-        <ng-container *ngSwitchCase="'deposit'">
-            <div class="{{$class}}__amount-form"
-                 wlc-form-wrapper
-                 [config]="depositFrom"
-                 [ngSubmit]="deposit.bind(this)">
-            </div>
-        </ng-container>
-        <ng-container *ngSwitchCase="'withdraw'">
-            <div class="{{$class}}__amount-form"
-                 wlc-form-wrapper
-                 [config]="withdrawFrom"
-                 [ngSubmit]="withdraw.bind(this)">
-            </div>
-        </ng-container>
-    </ng-container>
 
+        <div class="{{$class}}__field-wrap" *ngIf="!disableAmount.value">
+            <div wlc-input [inlineParams]="baseFields.amount"></div>
+            <div *ngIf="currentSystem" class="{{$class}}__field-subtitle">
+                (<span wlc-currency [value]="$params.mode === 'deposit' ? currentSystem.depositMin : currentSystem.withdrawMin"></span> -
+                <span wlc-currency [value]="$params.mode === 'deposit' ? currentSystem.depositMax : currentSystem.withdrawMax"></span>)
+            </div>
+        </div>
+
+
+        <div class="{{$class}}__additional-form"
+         *ngIf="additionalFields.length && !requiredFieldsKeys.length">
+
+            <ng-container *ngFor="let field of additionalFields"
+                [ngSwitch]="field.type">
+                <div class="{{$class}}__field-wrap">
+                    <div *ngSwitchCase="'input'"
+                        wlc-input
+                        [inlineParams]="field.params">
+                    </div>
+
+                    <div *ngSwitchCase="'select'"
+                        wlc-select
+                        [inlineParams]="field.params">
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+
+        <div class="{{$class}}__fields-error" *ngIf="currentSystem?.isPayCryptosV2 && !cryptoCheck.value && $params.mode === 'deposit'">
+            {{'Before you can proceed with the deposit, you must read and accept the terms.' | translate}}
+        </div>
+
+        <div class="{{$class}}__field-wrap" *ngIf="baseFields.rules">
+            <div wlc-checkbox [inlineParams]="baseFields.rules"></div>
+        </div>
+
+        <div class="{{$class}}__field-wrap">
+            <button wlc-button [inlineParams]="baseFields.submit"></button>
+        </div>
+
+    </form>
 </div>

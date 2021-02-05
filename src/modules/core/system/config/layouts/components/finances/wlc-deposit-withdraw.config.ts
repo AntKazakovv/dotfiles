@@ -14,4 +14,28 @@ export namespace wlcDepositWithdraw {
             mode: 'withdraw',
         },
     };
-}
+
+    export const submenu: ILayoutComponent = {
+        name: 'menu.wlc-menu',
+        display: {
+            before: 899,
+        },
+        params: {
+            themeMod: 'underline',
+            items: [
+                'profile-menu:cash-deposit',
+                'profile-menu:cash-withdrawal',
+            ],
+        },
+    };
+
+    export const balance: ILayoutComponent = {
+        name: 'user.wlc-user-stats',
+        display: {
+            before: 899,
+        },
+        params: {
+            useDepositBtn: false,
+        },
+    };
+};
