@@ -11,7 +11,6 @@
                uiSrefActiveEq="active">
                {{item.name | translate}}</a>
 
-
             <a class="{{$class}}__link"
                *ngIf="!item.params?.state?.activeEq"
                [uiSref]="item.params?.state?.name"
@@ -21,7 +20,7 @@
 
                <span class="{{$class}}__icon" *ngIf="item.icon" wlc-icon [iconName]="item.icon"></span>
                <span>{{item.name | translate}}</span>
-               <span class="{{$class}}__icon {{$class}}__icon--arrow"
+               <span class="{{$class}}__icon-arrow"
                       *ngIf="$params.common?.useArrow" wlc-icon [iconName]="'arrow'">
             </span>
             </a>
@@ -85,7 +84,7 @@
         <a class="{{$class}}__link"
            (click)="toggleDropdown(item)"
         >{{item.parent.name | translate}}
-            <span class="{{$class}}__icon" wlc-icon [iconName]="'arrow'">
+            <span class="{{$class}}__icon-arrow" wlc-icon [iconName]="'arrow'">
         </span>
         </a>
 
@@ -112,32 +111,44 @@
                               [ngTemplateOutletContext]="{item: item}">
                 </ng-container>
 
+                <ng-container *ngIf="item.parent" [ngTemplateOutlet]="dropdown" [ngTemplateOutletContext]="{item: item}">
+                </ng-container>
+
             </ng-container>
         </div>
     </div>
 </ng-template>
 
-<ng-container *ngFor="let item of items" [ngSwitch]="item.type">
+<ng-container *ngIf="$params.common?.useSwiper && slides.length">
+    <div wlc-slider
+         [slides]="slides"
+         [inlineParams]="sliderParams">
+    </div>
+</ng-container>
 
-    <ng-container *ngSwitchCase="'anchor'" [ngTemplateOutlet]="anchor" [ngTemplateOutletContext]="{item: item}">
+<ng-container *ngIf="!$params.common?.useSwiper">
+    <ng-container *ngFor="let item of items" [ngSwitch]="item.type">
+
+        <ng-container *ngSwitchCase="'anchor'" [ngTemplateOutlet]="anchor" [ngTemplateOutletContext]="{item: item}">
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'sref'" [ngTemplateOutlet]="sref" [ngTemplateOutletContext]="{item: item}">
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'title'" [ngTemplateOutlet]="sref" [ngTemplateOutletContext]="{item: item}">
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'modal'" [ngTemplateOutlet]="modal" [ngTemplateOutletContext]="{item: item}">
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'href'" [ngTemplateOutlet]="href" [ngTemplateOutletContext]="{item: item}">
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'scroll'" [ngTemplateOutlet]="scroll" [ngTemplateOutletContext]="{item: item}">
+        </ng-container>
+
+        <ng-container *ngIf="item.parent" [ngTemplateOutlet]="dropdown" [ngTemplateOutletContext]="{item: item}">
+        </ng-container>
+
     </ng-container>
-
-    <ng-container *ngSwitchCase="'sref'" [ngTemplateOutlet]="sref" [ngTemplateOutletContext]="{item: item}">
-    </ng-container>
-
-    <ng-container *ngSwitchCase="'title'" [ngTemplateOutlet]="sref" [ngTemplateOutletContext]="{item: item}">
-    </ng-container>
-
-    <ng-container *ngSwitchCase="'modal'" [ngTemplateOutlet]="modal" [ngTemplateOutletContext]="{item: item}">
-    </ng-container>
-
-    <ng-container *ngSwitchCase="'href'" [ngTemplateOutlet]="href" [ngTemplateOutletContext]="{item: item}">
-    </ng-container>
-
-    <ng-container *ngSwitchCase="'scroll'" [ngTemplateOutlet]="scroll" [ngTemplateOutletContext]="{item: item}">
-    </ng-container>
-
-    <ng-container *ngIf="item.parent" [ngTemplateOutlet]="dropdown" [ngTemplateOutletContext]="{item: item}">
-    </ng-container>
-
 </ng-container>

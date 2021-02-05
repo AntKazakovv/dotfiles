@@ -23,7 +23,10 @@ import {MenuHelper} from 'wlc-engine/modules/menu/system/helpers/menu.helper';
 import {
     clone as _clone,
     assign as _assign,
+    forEach as _forEach,
+    concat as _concat,
 } from 'lodash-es';
+import {ConfigService} from 'wlc-engine/modules/core';
 
 @Component({
     selector: '[wlc-category-menu]',
@@ -38,20 +41,24 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
     public menuParams: MenuParams.IMenuCParams = {
         type: 'category-menu',
         items: [],
+        common: {
+            useSwiper: true,
+        },
     };
-
     @Input() public inlineParams: Params.ICategoryMenuCParams;
 
     protected categories: CategoryModel[];
     protected parentCategory: CategoryModel;
     protected usedStandartCategories: boolean = false;
     protected onInitEnded: boolean = false;
+    protected isAuth: boolean;
 
     constructor(
         @Inject('injectParams') protected params: Params.ICategoryMenuCParams,
         protected cdr: ChangeDetectorRef,
         protected injector: Injector,
         protected gamesCatalogService: GamesCatalogService,
+        protected configService: ConfigService,
         protected eventService: EventService,
         protected translate: TranslateService,
         protected router: UIRouter,
@@ -71,10 +78,9 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
             themeMod: this.$params.themeMod,
         });
         this.init();
-        this.router.transitionService.onSuccess({}, (transition) => {
-            this.menuParams.items = [];
-            this.initMenu();
-        });
+        this.initEventHandlers();
+
+        this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
         this.onInitEnded = true;
     }
 
@@ -83,6 +89,33 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
         if (this.onInitEnded) {
             this.init();
         }
+    }
+
+    /**
+     * Init event handlers
+     */
+    protected initEventHandlers(): void {
+        if (this.$params.type !== 'dropdown') {
+            this.router.transitionService.onSuccess({}, (transition) => {
+                this.menuParams.items = [];
+                this.initMenu();
+            });
+        }
+        this.eventService.subscribe({
+            name: 'LOGOUT',
+        }, () => {
+            this.isAuth = false;
+            this.menuParams.items = [];
+            this.initMenu();
+        });
+
+        this.eventService.subscribe({
+            name: 'LOGIN',
+        }, () => {
+            this.isAuth = true;
+            this.menuParams.items = [];
+            this.initMenu();
+        });
     }
 
     /**
@@ -101,28 +134,30 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
     protected initMenu(): void {
         this.usedStandartCategories = false;
         this.categories = [];
+        this.parentCategory = this.gamesCatalogService.getParentCategoryByState();
 
         if (this.$params.type === 'dropdown') {
             this.initAsDropdown();
+            this.menuParams.common.useSwiper = false;
         } else {
             if (this.gamesCatalogService.catalogOpened()) {
-                this.parentCategory = this.gamesCatalogService.getParentCategoryByState();
-                this.categories = this.gamesCatalogService.getCategoriesByParentId(this.parentCategory.id);
-                if (!this.categories.length) {
-                    this.setStandartCategories();
-                }
+                this.categories = this.gamesCatalogService.getCategoriesByState();
             } else {
-                this.setStandartCategories();
-            }
+                const parentCategory = this.gamesCatalogService.getCategoryBySlug('casino');
+                const specialCategories = this.getSpecialCategories();
 
+                if (parentCategory) {
+                    this.categories = _concat(specialCategories, parentCategory.childCategories) as CategoryModel[];
+                }
+            }
             const menuItems = MenuHelper.getItemsForCategories({
                 categories: this.categories,
-                openChildCatalog: !this.usedStandartCategories && this.gamesCatalogService.catalogOpened(),
+                openChildCatalog: true,
                 lang: this.translate.currentLang,
             });
             this.menuParams.items = menuItems.concat(this.menuParams.items as MenuParams.IMenuItem[]);
 
-            if (!this.usedStandartCategories) {
+            if (this.gamesCatalogService.catalogOpened()) {
                 this.menuParams.items.unshift(this.getAllGamesBtn());
             }
 
@@ -131,22 +166,13 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
         this.cdr.detectChanges();
     }
 
-    /**
-     * Set standart categories
-     */
-    protected setStandartCategories(): void {
-        this.usedStandartCategories = true;
-        this.categories = this.getStandartCategories();
-    }
-
-    /**
-     * Get standart categories (which is not childs categpries and not for main menu)
-     *
-     * @returns {CategoryModel[]}
-     */
-    protected getStandartCategories(): CategoryModel[] {
-        const itemByMenu: CategoryModel[] = this.gamesCatalogService.getCategoriesByMenu('category-menu');
-        return itemByMenu ? itemByMenu : this.gamesCatalogService.getCategoriesByMenu('');
+    protected getSpecialCategories(): CategoryModel[] {
+        const specialCategories = [];
+        if (this.isAuth) {
+            specialCategories.push(this.gamesCatalogService.getCategoryBySlug('favourites'));
+            specialCategories.push(this.gamesCatalogService.getCategoryBySlug('lastplayed'));
+        }
+        return specialCategories;
     }
 
     /**
@@ -184,16 +210,33 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
      * Init as dropdown menu
      */
     protected initAsDropdown(): void {
-        const menuItems = MenuHelper.getItemsForCategories({
-            categories: this.getStandartCategories(),
-            openChildCatalog: false,
-            lang: this.translate.currentLang,
+        const parentCategories = this.gamesCatalogService.getParentCategories();
+        let dropdownMenu = [];
+
+        const specialCategories = this.getSpecialCategories();
+        if (specialCategories.length) {
+            dropdownMenu = specialCategories;
+        }
+
+        _forEach(parentCategories, (category) => {
+            const menuItems = MenuHelper.getItemsForCategories({
+                categories: [category],
+                lang: this.translate.currentLang,
+            });
+            if (category.childCategories.length) {
+                const childItems = MenuHelper.getItemsForCategories({
+                    categories: category.childCategories,
+                    lang: this.translate.currentLang,
+                });
+                dropdownMenu.push({
+                    parent: menuItems[0],
+                    items: childItems,
+                });
+            } else if (menuItems[0]) {
+                dropdownMenu.push(menuItems[0]);
+            }
         });
-        const itemsGroup: MenuParams.IMenuItemsGroup = {
-            parent: this.getAllGamesBtn(true),
-            items: menuItems,
-        };
-        this.menuParams.items = [itemsGroup];
+        this.menuParams.items = dropdownMenu;
     }
 
 }

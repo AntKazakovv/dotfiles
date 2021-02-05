@@ -28,9 +28,12 @@
                             @include bm.transition();
 
                             .wlc-icon {
-                                fill: ef.get-value($themeDropdownDefault, 'activeTabLinkColor');
                                 transform: rotate(180deg);
                                 @include bm.transition();
+
+                                svg {
+                                    fill: ef.get-value($themeDropdownDefault, 'activeTabLinkColor');
+                                }
                             }
                         }
                     }
@@ -66,8 +69,11 @@
 
                     .wlc-icon {
                         transform: rotate(-90deg);
-                        fill: ef.get-value($themeDropdownDefault, 'linkFill');
                         @include bm.transition();
+
+                        svg {
+                            fill: ef.get-value($themeDropdownDefault, 'linkFill');
+                        }
                     }
                 }
 

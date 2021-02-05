@@ -54,18 +54,19 @@ export class MenuHelper {
                     },
                 },
             };
-            if (params.openChildCatalog) {
+            if (category.parentCategory) {
                 itemParams = {
                     state: {
                         name: 'app.catalog.child',
                         params: {
+                            category: category.parentCategory.slug,
                             childCategory: category.slug,
                         },
                     },
                 };
             }
             return {
-                name: category.title[params.lang],
+                name: category.title[params.lang] || category.title['en'],
                 type: 'sref',
                 icon: category.icon,
                 class: category.slug,

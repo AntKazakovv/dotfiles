@@ -124,6 +124,8 @@ export class SliderComponent extends AbstractComponent
     public ngOnChanges(): void {
         if (this.ready) {
             this.fixSlidesSequence();
+            this.cdr.detectChanges();
+            this.swiper.updateSwiper({});
         }
     }
 

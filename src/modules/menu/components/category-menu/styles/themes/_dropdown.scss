@@ -25,10 +25,13 @@
                             background: ef.get-value($themeDropdownDefault, 'activeTabLinkBg');
                             @include bm.transition();
 
-                            .wlc-icon {
-                                fill: ef.get-value($themeDropdownDefault, 'activeTabLinkColor');
+                            .wlc-menu__icon-arrow {
                                 transform: rotate(180deg);
                                 @include bm.transition();
+
+                                svg {
+                                    fill: ef.get-value($themeDropdownDefault, 'activeTabLinkColor');
+                                }
                             }
                         }
                     }
@@ -42,6 +45,10 @@
                             }
                         }
                     }
+                }
+
+                .wlc-menu__icon {
+                    display: none;
                 }
 
                 .wlc-menu__link {
@@ -62,10 +69,14 @@
                         @include bm.transition(background);
                     }
 
-                    .wlc-icon {
+                    .wlc-menu__icon-arrow {
                         transform: rotate(-90deg);
                         fill: ef.get-value($themeDropdownDefault, 'linkFill');
                         @include bm.transition();
+
+                        svg {
+                            fill: ef.get-value($themeDropdownDefault, 'linkFill');
+                        }
                     }
                 }
 

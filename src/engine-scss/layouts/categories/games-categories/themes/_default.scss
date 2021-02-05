@@ -16,10 +16,9 @@
     }
 
     .games-categories {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-right: auto;
+        display: grid;
+        @include bm.get-mq-map('grid-gap', $gamesCategoriesDefault, 'gamesTemplateColumnsGap');
+        @include bm.get-mq-map('grid-template-columns', $gamesCategoriesDefault, 'gamesTemplateColumns');
     }
 
     .wlc-btn-search.wlc-btn,
@@ -62,7 +61,6 @@
     }
 
     .wlc-btn-merch[wlc-button] {
-        margin-left: map-get($gamesCategoriesDefault, 'buttonMerchMargin');
 
         path {
             stroke: map-get($gamesCategoriesDefault, 'buttonSearchIconFill');
