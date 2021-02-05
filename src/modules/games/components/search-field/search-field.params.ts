@@ -9,6 +9,6 @@ export interface ISearchFieldCParams extends IComponentParams<string, string, st
 
 export const defaultParams: ISearchFieldCParams = {
     class: 'wlc-search-field',
-    placeholder: 'Search game',
+    placeholder: 'Search for games',
     searchFrom: 'page',
 };
