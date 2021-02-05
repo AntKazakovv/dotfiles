@@ -73,6 +73,7 @@ export namespace profileContent {
         container: true,
         components: [
             componentLib.wlcTitle.transactionsHistory,
+            componentLib.wlcProfileMenu.submenu,
             componentLib.wlcTransactionHistory.filter,
             componentLib.wlcTransactionHistory.def,
         ],
