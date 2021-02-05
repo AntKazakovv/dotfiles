@@ -11,6 +11,7 @@ import {ConfigService} from 'wlc-engine/modules/core';
 import {ProfileMenuService} from 'wlc-engine/modules/menu/system/services';
 import * as MenuParams from 'wlc-engine/modules/menu/components/menu/menu.params';
 import * as Params from './profile-menu.params';
+import {UIRouter} from '@uirouter/core';
 
 import {
     clone as _clone,
@@ -31,6 +32,7 @@ export class ProfileMenuComponent extends AbstractComponent implements OnInit {
         protected cdr: ChangeDetectorRef,
         protected configService: ConfigService,
         protected profileMenuService: ProfileMenuService,
+        protected router: UIRouter,
     ) {
         super(
             <IMixedParams<Params.IProfileMenuCParams>>{
@@ -52,6 +54,18 @@ export class ProfileMenuComponent extends AbstractComponent implements OnInit {
                 useArrow: this.$params.common?.useArrow,
             },
         };
+
+        this.router.transitionService.onSuccess({}, (transition) => {
+            this.menuParams.items = [];
+            this.initMenu();
+        });
+        this.initMenu();
+    }
+
+    /**
+     * Init menu
+     */
+    protected initMenu(): void {
         switch (this.$params.type) {
             case 'tabs':
                 this.menuParams.items = this.profileMenuService.getTabsMenu();
