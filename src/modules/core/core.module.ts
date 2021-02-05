@@ -77,6 +77,7 @@ import {ClickOutsideDirective} from './directives/click-outside.directive';
 import {FallbackImgDirective} from './directives/fallback-img.directive';
 import {InputMaskDirective} from './directives/input-mask.directive';
 import {ClampDirective} from './directives/clamp.directive';
+import {DrugNDropDirective} from 'wlc-engine/modules/core/directives/drug-n-drop/drug-n-drop.directive';
 import {ValueLengthDirective} from './directives/value-length.directive';
 //  -- DIRECTIVES IMPORTS END  --;
 
@@ -214,6 +215,7 @@ export const components = {
         WrapperComponent,
         WrapperComponent,
         ErrorPageComponent,
+        DrugNDropDirective,
     ],
     exports: [
         BrowserAnimationsModule,
@@ -259,6 +261,7 @@ export const components = {
         WrapperComponent,
         TitleComponent,
         ErrorPageComponent,
+        DrugNDropDirective,
     ],
 })
 export class CoreModule {

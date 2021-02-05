@@ -46,7 +46,7 @@ export interface IData {
 
 export type RestMethodType = 'GET' | 'POST' | 'PATCH' | 'PUT' | 'DELETE';
 
-export type RequestParamsType = HttpParams | {[key: string]: string | string[] | any};
+export type RequestParamsType = HttpParams | {[key: string]: string | string[] | any} | FormData;
 
 export interface IRequestMethod {
     /** name of method */
@@ -293,10 +293,12 @@ export class DataService {
             method.params,
             method.type === 'GET' ? params : {},
         );
-        const requestBody = method.type !== 'GET' ? JSON.stringify(params) || '' : undefined;
+
+        const requestBody = method.type !== 'GET' ? this.checkFormData(params) || '' : undefined;
+
         const url = method.fullUrl || this.urlPrefix + method.url;
 
-        const preloadData$: Observable<unknown> =
+        const preloadData$: Observable<IData> =
             (method.type === 'GET' && _has(globalThis.wlcPreload, method.preload))
                 ? from(globalThis.wlcPreload[method.preload])
                 : of(undefined);
@@ -463,5 +465,12 @@ export class DataService {
             source: 'cache',
             data,
         });
+    }
+
+    private checkFormData(params: RequestParamsType): string | FormData {
+        if (params instanceof FormData) {
+            return params;
+        }
+        return JSON.stringify(params);
     }
 }

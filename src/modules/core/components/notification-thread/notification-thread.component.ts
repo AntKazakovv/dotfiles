@@ -16,10 +16,6 @@ import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract
 import {INotification, NotificationService} from 'wlc-engine/modules/core/system/services/notification/notification.service';
 import * as Params from 'wlc-engine/modules/core/system/services/notification/notification.params';
 
-import {
-    map as _map,
-} from 'lodash-es';
-
 export const HIDE_ANIMATION_DURATION: number = 300;
 export const SHIFT_ANIMATION_DURATION: number = 300;
 export const DISMISS_ANIMATION_DURATION: number = 150;
