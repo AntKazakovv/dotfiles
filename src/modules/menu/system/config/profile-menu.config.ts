@@ -206,6 +206,17 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
             },
         },
     },
+    'profile-menu:history': {
+        name: gettext('History'),
+        type: 'title',
+        class: 'history',
+        params: {
+            state: {
+                name: 'app.profile.history',
+                params: {},
+            },
+        },
+    },
     'profile-menu:store-main': {
         name: gettext('Store'),
         type: 'sref',
@@ -456,7 +467,15 @@ export const wlcProfileMenuItemsDefault: MenuParams.MenuConfigItem[] = [
     'profile-menu:store',
     'profile-menu:cash-deposit',
     'profile-menu:cash-withdrawal',
-    'profile-menu:transaction-history',
+    {
+        parent: 'profile-menu:history',
+        items: [
+            'profile-menu:bonuses-history',
+            'profile-menu:bets-history',
+            'profile-menu:transaction-history',
+            'profile-menu:tournaments-history',
+        ],
+    },
     {
         parent: 'profile-menu:account-settings',
         items: [

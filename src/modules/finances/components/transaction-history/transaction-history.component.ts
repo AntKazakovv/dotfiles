@@ -17,8 +17,8 @@ import {
     IMixedParams,
     EventService,
     ISelectCParams,
-    IInputCParams,
     ITableCParams,
+    IDatepickerCParams,
 } from 'wlc-engine/modules/core';
 import {
     FinancesService,
@@ -67,27 +67,15 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
 
     public $params: Params.ITransactionHistoryCParams;
 
-    public startDateInput: IInputCParams = {
+    public startDateInput: IDatepickerCParams = {
         name: 'startDate',
-        common: {
-            placeholder: gettext('Start date'),
-        },
-        exampleValue: '__.__.____',
+        label: 'Start date',
         control: new FormControl(''),
-        validators: [
-            {
-                name: 'regExp',
-                options: new RegExp('^[0-9]{2}\.[0-9]{2}\.[0-9]{4}$'),
-            },
-        ],
     }
 
-    public endDateInput: IInputCParams = {
+    public endDateInput: IDatepickerCParams = {
         name: 'endDate',
-        common: {
-            placeholder: gettext('End date'),
-        },
-        exampleValue: '__.__.____',
+        label: 'End date',
         control: new FormControl(''),
     }
 
@@ -132,12 +120,12 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
         });
 
         this.startDateInput.control.valueChanges.pipe(takeUntil(this.$destroy)).subscribe((value) => {
-            this.startDate = DateTime.fromFormat(value + ' 00:00:00', 'dd-MM-yyyy HH:mm:ss');
+            this.startDate = value.set({ hour: 0, minute: 0, second: 0 });
             this.transaction.next(this.filterTransaction());
         });
 
         this.endDateInput.control.valueChanges.pipe(takeUntil(this.$destroy)).subscribe((value) => {
-            this.endDate = DateTime.fromFormat(value + ' 23:59:59', 'dd-MM-yyyy HH:mm:ss');
+            this.endDate = value.set({ hour: 23, minute: 59, second: 59 });
             this.transaction.next(this.filterTransaction());
         });
 
@@ -185,9 +173,6 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
 
         this.startDate = (dates[0] || DateTime.local()).startOf('day');
         this.endDate = (dates[dates.length - 1] || DateTime.local()).endOf('day');
-
-        this.startDateInput.control.setValue(this.startDate.toFormat('dd-MM-yyyy'));
-        this.endDateInput.control.setValue(this.endDate.toFormat('dd-MM-yyyy'));
     }
 
     protected historyFilter(): void {

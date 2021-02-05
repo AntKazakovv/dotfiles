@@ -21,6 +21,7 @@ const states = {
     'app.profile.main': States.profileMainState,
     'app.profile.main.info': States.profileMainInfoState,
     'app.profile.social': States.profileState,
+    'app.profile.history': States.profileHistoryState,
     'app.profile.loyalty-bonuses': States.profileBonusesState,
     'app.profile.loyalty-bonuses.main': States.profileBonusesMainState,
     'app.profile.loyalty-bonuses.active': States.profileBonusesActiveState,

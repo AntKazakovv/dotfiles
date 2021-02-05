@@ -57,6 +57,12 @@
                     border-color: darken(ef.get-value($themeDefault, 'errorsBgColor'), 10%);
                 }
             }
+
+            &:disabled {
+                background: ef.get-value($themeDefault, 'selectDisabledBg');
+                border-color: ef.get-value($themeDefault, 'selectDisabledBgBorder');
+                color: ef.get-value($themeDefault, 'selectDisabledColor');
+            }
         }
 
         &__dropdown {
@@ -64,8 +70,7 @@
 
             &-item {
                 @include dropdownItemBase;
-
-                color: ef.get-value($themeVertical, 'selectDropdownItemColor');
+                @include text.get-text-style('PrimaryText', ef.get-value($themeDefault, 'selectDropdownItemColor'));
 
                 &:hover {
                     background: darken(ef.get-value($themeDefault, 'selectDropdownBackground'), 20);

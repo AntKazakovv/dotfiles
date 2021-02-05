@@ -8,6 +8,7 @@ export namespace wlcTitle {
             wlcElement: 'header_edit-profile',
         },
     };
+
     export const profileV2: ILayoutComponent = {
         name: 'core.wlc-title',
         params: {
@@ -16,6 +17,16 @@ export namespace wlcTitle {
             wlcElement: 'header_edit-profile',
         },
     };
+
+    export const profileHistory: ILayoutComponent = {
+        name: 'core.wlc-title',
+        params: {
+            customMod: ['profile'],
+            mainText: gettext('History'),
+            wlcElement: 'header_history',
+        },
+    };
+
     export const bonuses: ILayoutComponent = {
         name: 'core.wlc-title',
         params: {

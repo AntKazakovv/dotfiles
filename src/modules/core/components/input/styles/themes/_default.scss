@@ -32,6 +32,7 @@
             text-overflow: ellipsis;
             overflow: visible;
             height: ef.get-value($themeDefault, 'inputHeight');
+            @include text.get-text-style('PrimaryText', ef.get-value($themeVertical, 'inputColor'));
 
             &:focus {
                 outline: none;
@@ -44,6 +45,12 @@
                     background: ef.get-value($themeDefault, 'errorsBgColor');
                     border-color: darken(ef.get-value($themeDefault, 'errorsBgColor'), 10%);
                 }
+            }
+
+            &:disabled {
+                background: ef.get-value($themeDefault, 'inputDisabledBg');
+                border-color: ef.get-value($themeDefault, 'inputDisabledBgBorder');
+                color: ef.get-value($themeDefault, 'inputDisabledColor');
             }
 
             &[type='number'] {

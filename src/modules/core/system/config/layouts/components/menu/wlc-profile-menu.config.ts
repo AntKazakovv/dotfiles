@@ -13,6 +13,7 @@ export namespace wlcProfileMenu {
             type: 'submenu',
         },
     };
+
     export const vertical: ILayoutComponent = {
         name: 'menu.wlc-profile-menu',
         params: {

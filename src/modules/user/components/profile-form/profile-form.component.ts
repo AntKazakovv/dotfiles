@@ -12,10 +12,6 @@ import {UserService} from 'wlc-engine/modules/user/system/services';
 import {IPushMessageParams, NotificationEvents} from 'wlc-engine/modules/core/system/services/notification';
 import * as Params from './profile-form.params';
 
-import {
-    each as _each,
-} from 'lodash-es';
-
 /**
  * Profile form component.
  *
