@@ -20,7 +20,7 @@
             <div class="wlc-modal__title"
                  [class.wlc-modal__title--back-btn]="$params.config.useBackButton"
                  *ngIf="$params.config.modalTitle">
-                 <div #titleText>{{$params.config.modalTitle | translate}}</div>
+                 {{$params.config.modalTitle | translate}}
             </div>
             <button *ngIf="$params.config.closeBtnVisibility"
                     wlc-button

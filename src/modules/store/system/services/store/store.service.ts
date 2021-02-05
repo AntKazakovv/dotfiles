@@ -6,14 +6,14 @@ import {
     LogService,
     DataService,
     IData,
+    IPushMessageParams,
+    NotificationEvents,
+    IIndexing,
+    IForbidBanned,
 } from 'wlc-engine/modules/core';
 import {UserService} from 'wlc-engine/modules/user/system/services';
 import {BonusesService} from 'wlc-engine/modules/bonuses/system/services';
 import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus';
-import {
-    IIndexing,
-    IForbidBanned,
-} from 'wlc-engine/modules/core/system/interfaces';
 import {
     IStoreResponse,
     IStore,
@@ -167,18 +167,10 @@ export class StoreService {
                     fail: 'STORE_ITEM_BUY_FAILED',
                 },
             }, params);
-            this.modalService.showModal({
-                id: 'store-item-success',
-                modalTitle: gettext('Product purchase'),
-                modifier: 'info',
-                modalMessage: [
-                    gettext('Product succesfuly purchased'),
-                ],
-                dismissAll: true,
-            });
+            this.showSuccess(gettext('Product purchase'), gettext('Product succesfuly purchased'));
             return response.data;
         } catch (error) {
-            this.showError(gettext('Product purchase failed'), error?.errors);
+            this.showError(gettext('Purchase error'), error?.errors);
         }
     }
 
@@ -276,9 +268,24 @@ export class StoreService {
     }
 
     private showError(title: string, errors: string[]): void {
-        this.modalService.showError({
-            modalTitle: title,
-            modalMessage: errors,
+        this.eventService.emit({
+            name: NotificationEvents.PushMessage,
+            data: <IPushMessageParams>{
+                type: 'error',
+                title,
+                message: errors,
+            },
+        });
+    }
+
+    private showSuccess(title: string, msg: string): void {
+        this.eventService.emit({
+            name: NotificationEvents.PushMessage,
+            data: <IPushMessageParams>{
+                type: 'success',
+                title,
+                message: msg,
+            },
         });
     }
 }

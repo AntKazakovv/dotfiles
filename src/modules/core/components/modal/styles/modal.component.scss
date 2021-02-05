@@ -46,6 +46,13 @@
         max-width: ef.get-value($hostModal, 'titleMaxWidth');
         padding: ef.get-value($hostModal, 'titlePadding');
 
+        /* stylelint-disable */
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        /* stylelint-enable */
+        overflow: hidden;
+
         color: ef.get-value($hostModal, 'titleColor');
 
         &--back-btn {
