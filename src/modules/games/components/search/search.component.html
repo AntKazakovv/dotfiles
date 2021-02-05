@@ -76,7 +76,8 @@
                     (click)="chooseMerchant()"
                     [class.active]="!filters.merchants.length">
                 <span class="{{$class}}__list-text">{{'All providers' | translate}}</span>
-                <span class="{{$class}}__list-icon"></span>
+                <span class="{{$class}}__list-icon" wlc-icon iconName="tick">
+                </span>
             </button>
         </li>
 
@@ -87,7 +88,8 @@
                     [class.active]="isActive('merchants', merchant.id)"
                     (click)="chooseMerchant(merchant)">
                 <span class="{{$class}}__list-text">{{merchant.name}}</span>
-                <span class="{{$class}}__list-icon"></span>
+                <span class="{{$class}}__list-icon" wlc-icon iconName="tick">
+                </span>
             </button>
         </li>
     </ul>
@@ -100,7 +102,8 @@
                     (click)="chooseCategory()"
                     [class.active]="!filters.categories.length">
                 <span class="{{$class}}__list-text">{{'All categories' | translate}}</span>
-                <span class="{{$class}}__list-icon"></span>
+                <span class="{{$class}}__list-icon" wlc-icon iconName="tick">
+                </span>
             </button>
         </li>
 
@@ -113,7 +116,8 @@
                     <span class="{{$class}}__list-text">
                         {{category.title[currentLanguage] || category.title['en']}}
                     </span>
-                <span class="{{$class}}__list-icon"></span>
+                <span class="{{$class}}__list-icon" wlc-icon iconName="tick">
+                </span>
             </button>
         </li>
     </ul>
