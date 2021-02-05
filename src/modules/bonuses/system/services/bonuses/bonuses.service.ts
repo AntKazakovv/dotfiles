@@ -7,11 +7,10 @@ import {
     LogService,
     DataService,
     CachingService,
-} from 'wlc-engine/modules/core/system/services';
-import {IPushMessageParams, NotificationEvents} from 'wlc-engine/modules/core/system/services/notification';
-import {
     IIndexing,
     IForbidBanned,
+    IPushMessageParams,
+    NotificationEvents,
 } from 'wlc-engine/modules/core';
 import {UserService} from 'wlc-engine/modules/user/system/services';
 import {
@@ -248,6 +247,7 @@ export class BonusesService {
                     fail: 'BONUS_SUBSCRIBE_FAILED',
                 },
             }, params);
+            this.showSuccess(gettext('Bonus subscribe success'));
             return response.data;
         } catch (error) {
             this.showError(gettext('Bonus subscribe failed'), error?.errors);
@@ -275,6 +275,7 @@ export class BonusesService {
                     fail: 'BONUS_UNSUBSCRIBE_FAILED',
                 },
             }, params);
+            this.showSuccess(gettext('Bonus unsubscribe success'));
             return response.data;
         } catch (error) {
             this.showError(gettext('Bonus unsubscribe failed'), error?.errors);
@@ -300,6 +301,7 @@ export class BonusesService {
                     fail: 'BONUS_CANCEL_FAILED',
                 },
             });
+            this.showSuccess(gettext('Bonus cancel success'));
             return response.data;
         } catch (error) {
             this.showError(gettext('Bonus cancel failed'), error?.errors);
@@ -326,6 +328,7 @@ export class BonusesService {
                     fail: 'BONUS_TAKE_FAILED',
                 },
             }, params);
+            this.showSuccess(gettext('Bonus take success'));
             return response.data;
         } catch (error) {
             this.showError(gettext('Bonus take failed'), error?.errors);
@@ -550,6 +553,16 @@ export class BonusesService {
                 type: 'error',
                 title,
                 message: errors,
+            },
+        });
+    }
+
+    private showSuccess(title: string): void {
+        this.eventService.emit({
+            name: NotificationEvents.PushMessage,
+            data: <IPushMessageParams>{
+                type: 'success',
+                title,
             },
         });
     }

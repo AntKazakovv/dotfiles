@@ -26,8 +26,8 @@ $themeDefault: map-merge((
     'maxImageHeight': 370px - 110px - 65px - ef.get('size', 'smaller'), //imageHeight - $topImgMargin - $bottomImgMargin;
     // // Font
     'bonusIconValueFontSize': 2rem,
-    'bonusIconValueFontSizeSmall': 1.6rem,
-    'bonusIconValueFontSizeSmaller': 1.2rem,
+    'bonusIconValueFontSizeSmall': 1.4rem,
+    'bonusIconValueFontSizeSmaller': 1rem,
     'bonusIconValueFontW': 700,
     'bonusIconValueFontColor': ef.get('fieldColors', 'textColor'),
     'tagFontColor': ef.get('mainColors', 'baseMain'),
