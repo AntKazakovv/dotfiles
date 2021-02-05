@@ -8,7 +8,7 @@ $themeDefault: map-merge((
     'labelPadding': 0 0 0 ef.get('radius', 'biger'),
     'inputColor': ef.get('fieldColors', 'textColor'),
     'inputPlaceholderColor': ef.get('fieldColors', 'placeholderColor'),
-    'inputPadding': 9px 12px,
+    'inputPadding': 11px,
     'inputBorderRadius': ef.get('radius', 'biger'),
     'inputBorder': 2px solid ef.get('fieldColors', 'borderColor'),
     'inputFocusBorder': 2px solid darken(ef.get('fieldColors', 'borderColor'), 10%),

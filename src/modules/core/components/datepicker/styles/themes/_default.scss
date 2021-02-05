@@ -17,6 +17,7 @@
     }
 
     .wlc-datepicker__input {
+        @include lib.get-text-style('SignText', ef.get-value($themeDefault, 'PrimaryText'));
         width: 100%;
         padding: ef.get-value($themeDefault, 'inputPadding');
         border-radius: ef.get-value($themeDefault, 'inputBorderRadius');

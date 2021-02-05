@@ -72,7 +72,7 @@ export class DatepickerComponent extends AbstractComponent implements OnInit, Af
     public onDateChanged(date: IMyDateModel): void {
         this.mask?.nativeElement?.mask.updateValue();
         // TODO functional for range. Are we going to use range?
-        let dateTime = DateTime.fromJSDate(date.singleDate.jsDate);
+        let dateTime = DateTime.fromJSDate(date?.singleDate?.jsDate);
         if (this.$params.name === 'endDate') {
             dateTime = dateTime.endOf('day');
         }

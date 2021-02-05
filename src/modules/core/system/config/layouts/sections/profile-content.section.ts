@@ -17,6 +17,16 @@ export namespace profileContent {
         ],
     };
 
+    export const profileHistory: ILayoutSectionConfig = {
+        container: true,
+        components: [
+            componentLib.wlcTitle.profileHistory,
+            componentLib.wlcProfileMenu.submenu,
+            componentLib.wlcTransactionHistory.filter,
+            componentLib.wlcTransactionHistory.def,
+        ],
+    };
+
     export const profileBonusesMain: ILayoutSectionConfig = {
         container: true,
         components: [

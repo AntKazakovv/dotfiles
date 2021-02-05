@@ -98,6 +98,49 @@ export const profileForm: IFormWrapperCParams = {
         {
             name: 'core.wlc-select',
             params: <ISelectCParams>{
+                labelText: gettext('Date of birth'),
+                wlcElement: 'block_day',
+                customMod: 'day',
+                common: {
+                    placeholder: gettext('Day'),
+                },
+                locked: true,
+                name: 'birthDay',
+                validators: ['required'],
+                options: 'birthDay',
+            },
+        },
+        {
+            name: 'core.wlc-select',
+            params: <ISelectCParams>{
+                wlcElement: 'block_month',
+                customMod: 'month',
+                common: {
+                    placeholder: gettext('Month'),
+                },
+                locked: true,
+                name: 'birthMonth',
+                validators: ['required'],
+                options: 'birthMonth',
+            },
+        },
+        {
+            name: 'core.wlc-select',
+            params: <ISelectCParams>{
+                wlcElement: 'block_year',
+                customMod: 'year',
+                common: {
+                    placeholder: gettext('Year'),
+                },
+                locked: true,
+                name: 'birthYear',
+                validators: ['required'],
+                options: 'birthYear',
+            },
+        },
+        {
+            name: 'core.wlc-select',
+            params: <ISelectCParams>{
                 labelText: gettext('Country'),
                 wlcElement: 'block_country',
                 common: {
@@ -161,7 +204,7 @@ export const profileForm: IFormWrapperCParams = {
                 },
                 wlcElement: 'block_iban',
                 name: 'ibanNumber',
-                validators: ['required'],
+                validators: [],
             },
         },
         {

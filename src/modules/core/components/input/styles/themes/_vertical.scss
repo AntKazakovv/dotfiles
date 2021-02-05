@@ -36,7 +36,7 @@
         border: ef.get-value($themeVertical, 'inputBorder');
         border-radius: ef.get-value($themeVertical, 'inputBorderRadius');
 
-        @include text.get-text-style(PlaceholderText, ef.get-value($themeVertical, 'inputColor'));
+        @include text.get-text-style('PrimaryText', ef.get-value($themeVertical, 'inputColor'));
 
         &::placeholder {
             color: ef.get-value($themeVertical, 'inputPlaceholderColor');
@@ -48,6 +48,12 @@
                 background: ef.get-value($themeDefault, 'errorsBgColor');
                 border-color: darken(ef.get-value($themeDefault, 'errorsBgColor'), 10%);
             }
+        }
+
+        &:disabled {
+            background: ef.get-value($themeDefault, 'inputDisabledBg');
+            border-color: ef.get-value($themeDefault, 'inputDisabledBgBorder');
+            color: ef.get-value($themeDefault, 'inputDisabledColor');
         }
 
         &[type='number'] {

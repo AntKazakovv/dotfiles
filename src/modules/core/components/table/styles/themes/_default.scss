@@ -1,19 +1,21 @@
 @use 'engine-scss/mixins/mediaqueries' as mq;
 @use 'engine-scss/mixins/base.mixins' as em;
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/functions' as ef;
 @import '../utils/vars';
 
 .wlc-table--theme-default:host {
     display: grid;
     grid-template-columns: 1fr;
-    grid-gap: $rowGapMobile;
-    font-size: $fontSizeMobile;
+    grid-gap: ef.get-value($themeDefault, 'rowGapMobile');
+    font-size: ef.get-value($themeDefault, 'fontSizeMobile');
 
     @include mq.min(768) {
         grid-template-columns: 1fr 1fr;
     }
 
     @include mq.min(1024) {
-        font-size: $fontSizeDesktop;
+        font-size: ef.get-value($themeDefault, 'fontSizeDesktop');
         display: table;
         width: 100%;
         border-collapse: collapse;
@@ -25,19 +27,19 @@
             position: relative;
             display: grid;
             grid-template-columns: 1fr;
-            border: $rowBorderMobile;
-            border-radius: $rowBorderRadiusSizeMobile;
+            border: ef.get-value($themeDefault, 'rowBorderMobile');
+            border-radius: ef.get-value($themeDefault, 'rowBorderRadiusSizeMobile');
             height: fit-content;
-            background: $rowBackgroundMobile;
-            transition: all $animationTime;
+            background: ef.get-value($themeDefault, 'rowBackgroundMobile');
+            transition: all ef.get-value($themeDefault, 'animationTime');
 
             @include mq.min(1024) {
                 display: table-row;
-                border: $rowBorderDesktop;
+                border: ef.get-value($themeDefault, 'rowBorderDesktop');
             }
 
             &.wlc-show {
-                border: $rowBorderOpenedMobile;
+                border: ef.get-value($themeDefault, 'rowBorderOpenedMobile');
             }
 
             &--head {
@@ -45,23 +47,28 @@
 
                 @include mq.min(1024) {
                     display: table-row;
-                    font-size: $fontSizeTitleDesktop;
-                    font-weight: $fontWeightTitleDesktop;
-                    background: $rowTitleBackgroundDesktop;
+                    background: ef.get-value($themeDefault, 'rowTitleBackgroundDesktop');
+                }
+
+                .wlc-table__cell {
+
+                    @include mq.min(1024) {
+                        @include text.get-text-style('PrimaryTextBold', ef.get-value($themeDefault, 'textColor'));
+                    }
                 }
             }
 
             &--odd {
 
                 @include mq.min(1024) {
-                    background: $rowOddBackgroundDesktop;
+                    background: ef.get-value($themeDefault, 'rowOddBackgroundDesktop');
                 }
             }
 
             &--even {
 
                 @include mq.min(1024) {
-                    background: $rowEvenBackgroundDesktop;
+                    background: ef.get-value($themeDefault, 'rowEvenBackgroundDesktop');
                 }
             }
         }
@@ -73,21 +80,21 @@
             justify-content: space-between;
             grid-auto-columns: auto;
             grid-auto-flow: column;
-            grid-gap: $cellGapMobile;
-            padding: $paddingMobile;
-            color: $textColor;
+            grid-gap: ef.get-value($themeDefault, 'cellGapMobile');
+            padding: ef.get-value($themeDefault, 'paddingMobile');
+            @include text.get-text-style('PrimaryText', ef.get-value($themeDefault, 'textColor'));
 
             @include mq.min(1024) {
                 display: table-cell;
-                border: $cellBorderDesktop;
-                text-align: $textAlignDesktop;
+                border: ef.get-value($themeDefault, 'cellBorderDesktop');
+                text-align: ef.get-value($themeDefault, 'textAlignDesktop');
 
                 &:first-child {
-                    border-radius: $rowBorderRadiusSizeDesktop 0 0 $rowBorderRadiusSizeDesktop;
+                    border-radius: ef.get-value($themeDefault, 'rowBorderRadiusSizeDesktop') 0 0 ef.get-value($themeDefault, 'rowBorderRadiusSizeDesktop');
                 }
 
                 &:last-child {
-                    border-radius: 0 $rowBorderRadiusSizeDesktop $rowBorderRadiusSizeDesktop 0;
+                    border-radius: 0 ef.get-value($themeDefault, 'rowBorderRadiusSizeDesktop') ef.get-value($themeDefault, 'rowBorderRadiusSizeDesktop') 0;
                 }
             }
 
@@ -97,15 +104,15 @@
 
             &--first {
                 grid-template-columns: auto 1fr auto;
-                font-size: $fontSizeTitleMobile;
+                font-size: ef.get-value($themeDefault, 'fontSizeTitleMobile');
                 font-weight: bold;
-                background: $rowTitleBackgroundMobile;
-                border-bottom: $rowTitleBorderBottomMobile;
-                border-radius: $rowBorderRadiusSizeMobile $rowBorderRadiusSizeMobile 0 0;
-                transition: all $animationTime;
+                background: ef.get-value($themeDefault, 'rowTitleBackgroundMobile');
+                border-bottom: ef.get-value($themeDefault, 'rowTitleBorderBottomMobile');
+                border-radius: ef.get-value($themeDefault, 'rowBorderRadiusSizeMobile') ef.get-value($themeDefault, 'rowBorderRadiusSizeMobile') 0 0;
+                transition: all ef.get-value($themeDefault, 'animationTime');
 
                 @include em.betweenClass('.wlc-show') {
-                    border-bottom: $rowTitleBorderBottomOpenedMobile;
+                    border-bottom: ef.get-value($themeDefault, 'rowTitleBorderBottomOpenedMobile');
                 }
 
                 @include mq.min(1024) {
@@ -128,17 +135,17 @@
             &-arrow {
 
                 ::ng-deep svg {
-                    transition: all $animationTime;
+                    transition: all ef.get-value($themeDefault, 'animationTime');
 
                     @include em.betweenClass('.wlc-show') {
                         transform: rotateZ(180deg);
                     }
 
                     * {
-                        fill: $openIconColor;
+                        fill: ef.get-value($themeDefault, 'openIconColor');
 
                         @include em.betweenClass('.wlc-show') {
-                            fill: $openIconColorOpened;
+                            fill: ef.get-value($themeDefault, 'openIconColorOpened');
                         }
                     }
                 }
@@ -149,8 +156,8 @@
                 text-align: end;
 
                 @include mq.min(1024) {
-                    text-align: $textAlignDesktop;
-                    justify-self: $textAlignDesktop;
+                    text-align: ef.get-value($themeDefault, 'textAlignDesktop');
+                    justify-self: ef.get-value($themeDefault, 'textAlignDesktop');
                 }
 
                 @include em.betweenClass('.wlc-table__cell--first') {
@@ -158,8 +165,8 @@
                     text-align: start;
 
                     @include mq.min(1024) {
-                        text-align: $textAlignDesktop;
-                        justify-self: $textAlignDesktop;
+                        text-align: ef.get-value($themeDefault, 'textAlignDesktop');
+                        justify-self: ef.get-value($themeDefault, 'textAlignDesktop');
                     }
                 }
             }

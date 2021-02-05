@@ -59,6 +59,13 @@ export const $layouts: ILayoutsConfig = {
             'profile-menu': sectionsLib.profileMenu.def,
         },
     },
+    'app.profile.history': {
+        extends: 'app',
+        sections: {
+            'profile-menu': sectionsLib.profileMenu.def,
+            'profile-content': sectionsLib.profileContent.profileHistory,
+        },
+    },
     'app.profile.main.info': {
         extends: 'app.profile',
         sections: {

@@ -8,6 +8,7 @@ import {
 import {FormControl} from '@angular/forms';
 import {BehaviorSubject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
+import {DateTime, Info} from 'luxon';
 
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {
@@ -25,6 +26,7 @@ import {
     find as _find,
     union as _union,
     kebabCase as _kebabCase,
+    range as _range,
 } from 'lodash-es';
 
 /**
@@ -51,6 +53,7 @@ export class SelectComponent extends AbstractComponent implements OnInit {
     public control: FormControl;
     public isOpened: boolean;
     public fieldWlcElement: string;
+    protected daysInMonth: number = 31;
 
     public get selectedItem() {
         const selected = _find(this.$params.items,
@@ -84,9 +87,23 @@ export class SelectComponent extends AbstractComponent implements OnInit {
         if (this.$params?.options) {
             this.setOptions();
         }
+
+        if (this.$params.name === 'birthDay') {
+            this.EventService.subscribe({
+                name: `SELECT_CHOSEN_BIRTHMONTH`,
+            }, (value: Params.ISelectOptions) => {
+                this.daysInMonth = DateTime.local(DateTime.local().year, value.value as number).daysInMonth;
+                this.prepareConstantValues();
+                this.setOptions();
+                this.cdr.markForCheck();
+            });
+        }
     }
 
     public toggleDropdown(): void {
+        if (this.control.status === 'DISABLED') {
+            return;
+        }
         this.isOpened = !this.isOpened;
         this.cdr.markForCheck();
     }
@@ -124,6 +141,9 @@ export class SelectComponent extends AbstractComponent implements OnInit {
                     title: gettext('Male'),
                 },
             ]),
+            birthMonth: this.getDateList('months'),
+            birthDay: this.getDateList('days'),
+            birthYear: this.getDateList('years'),
         };
     }
 
@@ -158,4 +178,34 @@ export class SelectComponent extends AbstractComponent implements OnInit {
                 }),
         );
     }
+
+    private getDateList(value: string): BehaviorSubject<Params.ISelectOptions[]> {
+        let list: Params.ISelectOptions[] = [];
+        switch (value) {
+            case 'days': {
+                let day = 1;
+                while (this.daysInMonth >= day) {
+                    list.push({title: day, value: '' + day});
+                    day++;
+                }
+                break;
+            }
+
+            case 'months': {
+                list = _map(Info.months(), (month: string, index: number) => {
+                    return {title: gettext(month), value: '' + ++index};
+                });
+                break;
+            }
+
+            case 'years': {
+                list = _map(_range(DateTime.local().year - 18, 1900), (n) => {
+                    return {title: '' + n, value: '' + n};
+                });
+                break;
+            }
+        }
+
+        return new BehaviorSubject<Params.ISelectOptions[]>(list);
+    };
 }
