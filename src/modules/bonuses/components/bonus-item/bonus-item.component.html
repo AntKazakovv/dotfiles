@@ -7,7 +7,7 @@
     [class.active]="$params.common.bonus?.isActive">
     <div class="{{$class}}__wrapper" (click)="chooseBonusNoBtn($params.common.bonus, $params.common?.type)">
         <div class="{{$class}}__image-block" data-wlc-element="bonus_image">
-            <div class="{{$class}}__tag" *ngIf="$params.common?.showBonusTag && getBonusTag()?.length">{{getBonusTag() | translate}}</div>
+            <div class="{{$class}}__tag" data-wlc-element="bonus_type-title" *ngIf="$params.common?.showBonusTag && getBonusTag()?.length">{{getBonusTag() | translate}}</div>
             <div class="{{$class}}__image" *ngIf="!$params.common?.useIconBonusImage && $params.common.imageByType"
                 [style]="{backgroundImage: $params.common.bonus?.getImageByType($params.common?.type)}">
                 <img class="wlc-bonus-image-other" *ngIf="$params.common?.showAdditionalImage" [src]="$params.common.bonus?.imageOther" loading="lazy">
@@ -18,12 +18,12 @@
             </div>
             <div class="{{$class}}__bonus-icon" *ngIf="$params.common?.useIconBonusImage">
                 <img class="icon-sign" [src]="$params.common?.iconsPath + $params.common.bonus?.viewTarget + '.svg'" alt="">
-                <div class="icon-text" [wlc-value-length]="$params.common.bonus?.value" minLength="4" maxLength="7">{{$params.common.bonus?.value}}</div>
+                <div class="icon-text" data-wlc-element="bonus_value-quantity" [wlc-value-length]="$params.common.bonus?.value" minLength="4" maxLength="7">{{$params.common.bonus?.value}}</div>
             </div>
         </div>
         <div class="{{$class}}__bottom" data-wlc-element="bonus_info">
             <div class="{{$class}}__info-block">
-                <h4 class="{{$class}}__name" [wlc-clamp]="1">
+                <h4 class="{{$class}}__name" [wlc-clamp]="1" data-wlc-element="bonus_title-name">
                     {{$params.common.bonus?.name}}
                 </h4>
                 <p *ngIf="$params.common.bonus?.description"
@@ -82,7 +82,8 @@
                         wlc-button
                         text="Unsubscribe"
                         *ngIf="$params.common.bonus?.canUnsubscribe"
-                        (click)="unsubscribe()">
+                        (click)="unsubscribe()"
+                        [wlcElement]="'button_unsubscribe'">
                 </button>
                 <button type="button"
                         wlc-button
@@ -107,7 +108,7 @@
             wlc-icon
             iconName="info"
             (click)="openDescription($params.common.bonus)"
-            [wlcElement]="'icon_info'">
+            [wlcElement]="'button_terms'">
         </div>
     </div>
     <div class="{{$class}}__check-icon" *ngIf="isTypeRegDeposit">

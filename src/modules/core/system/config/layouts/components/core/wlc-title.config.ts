@@ -76,6 +76,7 @@ export namespace wlcTitle {
         params: {
             customMod: ['profile'],
             mainText: gettext('My dashboard'),
+            wlcElement: 'header_dashboard',
         },
     };
 

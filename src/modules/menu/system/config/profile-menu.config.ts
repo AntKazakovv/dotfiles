@@ -453,6 +453,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         type: 'sref',
         icon: 'icons/dashboard',
         class: 'dashboard',
+        wlcElement: 'link_cc-profile-menu_dashboard',
         params: {
             state: {
                 name: 'app.profile.dashboard',

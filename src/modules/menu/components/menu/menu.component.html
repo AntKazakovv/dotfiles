@@ -8,7 +8,9 @@
                [uiSref]="item.params?.state?.name"
                [uiParams]="item.params?.state?.params"
                [uiOptions]="item.params?.state?.options"
+               [attr.data-wlc-element]="item.wlcElement"
                uiSrefActiveEq="active">
+
                {{item.name | translate}}</a>
 
             <a class="{{$class}}__link"
@@ -16,6 +18,7 @@
                [uiSref]="item.params?.state?.name"
                [uiParams]="item.params?.state?.params"
                [uiOptions]="item.params?.state?.options"
+               [attr.data-wlc-element]="item.wlcElement"
                uiSrefActive="active">
 
                <span class="{{$class}}__icon" *ngIf="item.icon" wlc-icon [iconName]="item.icon"></span>

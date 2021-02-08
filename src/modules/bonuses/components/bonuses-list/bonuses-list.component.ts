@@ -141,6 +141,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
                     {theme: this.$params.theme},
                     {type: this.$params.common.filter},
                     {bonus: item},
+                    {wlcElement: 'block_bonus'},
                 ),
             };
         });
