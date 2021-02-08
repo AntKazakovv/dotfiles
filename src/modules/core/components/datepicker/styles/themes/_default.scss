@@ -92,7 +92,10 @@
         .myDpSelectedDay,
         .myDpSelectedMonth,
         .myDpSelectedYear {
-            background-color: ef.get-value($themeDefault, 'datepickerActiveColor') !important;
+
+            &[class] {
+                background-color: ef.get-value($themeDefault, 'datepickerActiveColor');
+            }
 
             &:hover {
                 background-color: ef.get-value($themeDefault, 'datepickerHoverBg');
@@ -123,7 +126,10 @@
         .myDpIcon,
         .myDpHeaderBtn,
         .myDpHighlight {
-            color: ef.get-value($themeDefault, 'datepickerColor') !important;
+
+            &[class] {
+                color: ef.get-value($themeDefault, 'datepickerColor');
+            }
         }
 
         .myDpMarkCurrDay,

@@ -17,7 +17,7 @@ $themeDefault: map-merge((
     'iconHeight': 15px,
     'iconFill': ef.get('fieldColors', 'iconColor'),
 
-    'datepickerBg': ef.get('mainColors', 'baseMain'),
+    'datepickerBg': ef.get('fieldColors', 'inputBg'),
     'datepickerHoverBg': darken(ef.get('mainColors', 'main'), 10%),
     'datepickerColor': ef.get('fieldColors', 'textColor'),
     'datepickerCurrentColor': ef.get('fieldColors', 'textColor'),
