@@ -1,50 +1,42 @@
-@use 'sass:map';
 @use 'engine-scss/mixins/mediaqueries' as mq;
 @use 'engine-scss/functions' as ef;
-@import '../utils/vars';
+@use 'engine-scss/mixins/base.mixins' as bm;
 
 .wlc-info-page--theme-default:host {
-    margin: 15px auto;
-    max-width: 1200px;
+    margin: ef.get-value($themeDefault, 'margin');
+    max-width: ef.get-value($themeDefault, 'maxWidth');
     display: grid;
-    grid-template-columns: ef.get-value($themeDefault, 'columns');
-    padding: 0;
-    background: map-get($themeDefault, 'bgColor');
-    border-radius: 10px;
+    padding: ef.get-value($themeDefault, 'padding');
+    background: ef.get-value($themeDefault, 'bgColor');
+    border-radius: ef.get-value($themeDefault, 'borderRadius');
     overflow: hidden;
 
-    @include mq.min(720) {
-        grid-template-columns: ef.get-value($themeDefault, 'columns', 720);
-    }
+    @include bm.get-mq-map('grid-template-columns', $themeDefault, 'columns');
 
     .wlc-info-page__menu {
         display: none;
 
         @include mq.min(720) {
             display: block;
-            border-right: 2px solid #717273;
+            border-right: ef.get-value($themeDefault, 'border');
         }
 
         ::ng-deep {
 
             .wlc-loader {
-                margin: map-get($themeDefault, 'loaderMargin');
+                margin: ef.get-value($themeDefault, 'loaderMargin');
             }
         }
     }
 
     .wlc-info-page__content {
-        padding: map-get($themeDefault, 'contentPadding');
-
-        @include mq.min(1200) {
-            padding: map-get($themeDefault, 'contentPadding') * 2;
-        }
+        @include bm.get-mq-map('padding', $themeDefault, 'contentPadding');
     }
 
     ::ng-deep {
 
         .wlc-btn {
-            margin: map-get($themeDefault, 'btnMargin');
+            margin: ef.get-value($themeDefault, 'btnMargin');
         }
     }
 }

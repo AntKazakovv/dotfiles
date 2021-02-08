@@ -38,5 +38,5 @@ $menuThemeContacts: map-merge((
 
     'activeBg': ef.get('mainColors', 'main'),
     'activeColor': ef.get('mainColors', 'baseMain'),
-    'borderColor': ef.get('mainColors', 'bg500'),
+    'border': 2px solid ef.get('mainColors', 'bg500'),
 ), $customMenuThemeContacts);

@@ -2,8 +2,6 @@
 @use 'engine-scss/mixins/base.mixins' as bm;
 @use 'engine-scss/mixins/text' as text;
 
-@import '../utils/vars';
-
 .wlc-post-menu--theme-contacts:host {
 
     .wlc-post-menu__item {
@@ -13,7 +11,7 @@
             @include text.get-text-style('ThridTitleBold', ef.get-value($menuThemeContacts, 'textColor'));
             padding: ef.get-value($menuThemeContacts, 'padding');
             text-decoration: ef.get-value($menuThemeContacts, 'textDecoration');
-            border-bottom: 1px solid ef.get-value($menuThemeContacts, 'borderColor');
+            border-bottom: ef.get-value($menuThemeContacts, 'border');
             text-transform: ef.get-value($menuThemeContacts, 'textTransform');
             letter-spacing: ef.get-value($menuThemeContacts, 'letterSpacing');
             @include bm.transition;
