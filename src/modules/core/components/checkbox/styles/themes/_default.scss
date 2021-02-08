@@ -126,6 +126,8 @@
                 position: relative;
                 z-index: 3;
                 cursor: pointer;
+                top: auto;
+                margin: 0;
                 background: ef.get-value($themeDefault, 'toggleBackground');
                 border-radius: ef.get-value($themeDefault, 'toggleRadius');
                 border: none;

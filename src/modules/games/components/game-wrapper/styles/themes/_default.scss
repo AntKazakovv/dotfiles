@@ -76,7 +76,7 @@
                     &.active {
 
                         svg {
-                            stroke: none;
+                            stroke: map-get($themeDefault, 'iconsColorActive');
 
                             path {
                                 fill: map-get($themeDefault, 'iconsColorActive');
