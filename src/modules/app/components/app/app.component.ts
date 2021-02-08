@@ -14,7 +14,8 @@ import {SectionModel} from 'wlc-engine/modules/core/system/models/section.model'
 import {ConfigService, LayoutService} from '../../../core/system/services';
 import {ILanguage} from 'wlc-engine/modules/core';
 import {DeviceModel} from 'wlc-engine/modules/core';
-import {fromEvent} from 'rxjs';
+import {fromEvent} from 'rxjs/internal/observable/fromEvent';
+import {filter} from 'rxjs/operators';
 
 import {
     sortBy as _sortBy,
@@ -37,6 +38,8 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
     public hostClass = defaultParams.class;
     public sections: SectionModel[] = [];
     public panels: SectionModel[] = [];
+
+    private testViewPort = false;
 
     constructor(
         public router: UIRouter,
@@ -88,7 +91,7 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
         this.updateMetaTag();
         this.cdr.markForCheck();
 
-        fromEvent(window, 'resize').subscribe(() => {
+        fromEvent(window, 'resize').pipe(filter(() => !this.testViewPort)).subscribe(() => {
             this.updateMetaTag();
         });
     }
@@ -108,16 +111,33 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
     }
 
     private updateMetaTag(): void {
-        this.meta.updateTag({
-            name: 'viewport',
-            content: 'width=device-width, initial-scale=1',
-        });
+        const current = this.meta.getTag('name=\'viewport\'')?.attributes.getNamedItem('content').value;
 
-        if (window.matchMedia('(max-width: 375px)').matches) {
+        if (window.matchMedia('(max-width: 375px)').matches && current === 'width=device-width, initial-scale=1') {
             this.meta.updateTag({
                 name: 'viewport',
                 content: 'width=375',
             });
+            return;
+        }
+
+        if (current === 'width=375') {
+            this.testViewPort = true;
+
+            this.meta.updateTag({
+                name: 'viewport',
+                content: 'width=device-width, initial-scale=1',
+            });
+
+            if (window.matchMedia('(max-width: 375px)').matches) {
+                this.meta.updateTag({
+                    name: 'viewport',
+                    content: 'width=375',
+                });
+            }
+            setTimeout(() => {
+                this.testViewPort = false;
+            }, 0);
         }
     }
 
