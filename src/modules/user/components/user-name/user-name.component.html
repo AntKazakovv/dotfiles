@@ -11,6 +11,7 @@
     </div>
 
     <div class="{{$class}}__email-value"
+        data-wlc-element="input_email"
          *ngIf="firstName || lastName">
         {{firstName + ' ' + lastName | truncate: $params.userNameLength}}
     </div>

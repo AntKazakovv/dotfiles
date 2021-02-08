@@ -4,6 +4,7 @@ export namespace wlcSeeAllBonuses {
     export const def: ILayoutComponent = {
         name: 'core.wlc-link-block',
         params: {
+            wlcElement: 'block_all-bonuses',
             themeMod: 'secondary',
             common: {
                 title: gettext('Want more promo content'),

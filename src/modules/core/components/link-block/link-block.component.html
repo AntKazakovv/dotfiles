@@ -1,4 +1,4 @@
-<div class="{{$class}}__container">
+<div class="{{$class}}__container" [attr.data-wlc-element]="$params.wlcElement + '-container'">
     <h3 *ngIf="$params.common.title"
         class="{{$class}}__title">
         {{$params.common.title | translate}}
@@ -13,6 +13,7 @@
             wlc-button
             icon="arrow"
             theme="cleared"
+            [wlcElement]="$params.wlcElement + '-button'"
             text="{{$params.common.link}}"
             (click)="goTo($params.common.actionParams)"
         >

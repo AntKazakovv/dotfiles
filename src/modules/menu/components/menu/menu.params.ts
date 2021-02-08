@@ -48,6 +48,7 @@ export interface IMenuItem {
     type: ItemType;
     icon?: string;
     class?: string;
+    wlcElement?: string;
     params?: IMenuItemParams;
 }
 
