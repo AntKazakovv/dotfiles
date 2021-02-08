@@ -90,7 +90,6 @@ export class SliderComponent extends AbstractComponent
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
 
-        const {swiper} = this.$params;
         if (this.$params.slides && !this.slides) {
             this.slides = this.$params.slides;
         }
