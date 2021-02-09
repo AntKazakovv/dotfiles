@@ -28,7 +28,10 @@
             .wlc-icon svg {
                 @include em.get-mq-map('max-width', $themeMerchants, 'iconMaxWidth');
                 @include em.get-mq-map('max-height', $themeMerchants, 'iconMaxHeight');
-                @include em.get-mq-map('fill', $themeMerchants, 'iconFill');
+
+                * {
+                    @include em.get-mq-map('fill', $themeMerchants, 'iconFill');
+                }
             }
         }
     }
