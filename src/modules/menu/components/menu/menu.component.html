@@ -38,6 +38,7 @@
                [uiSref]="item.params?.state?.name"
                [uiParams]="item.params?.state?.params"
                [uiOptions]="item.params?.state?.options"
+               [attr.data-wlc-element]="item.wlcElement"
                [class.active]="isActive(item.params?.state?.parent)">{{item.name | translate}}</a>
         </div>
     </ng-container>
