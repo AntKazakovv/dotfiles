@@ -37,7 +37,10 @@
 @mixin buttonTransparency {
     background: transparent;
     border: ef.get-value($themeDefault, 'borderSecondary');
-    color: ef.get-value($themeDefault, 'fontColorSecondary');
+
+    .wlc-btn__text {
+        color: ef.get-value($themeDefault, 'fontColorSecondary');
+    }
 
     @media (hover: hover) {
 
