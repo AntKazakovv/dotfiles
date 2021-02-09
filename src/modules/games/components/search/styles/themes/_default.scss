@@ -313,6 +313,7 @@
 
             .wlc-games-grid__nocontent {
                 @include bm.get-mq-map('padding', $themeDefault, 'noGamesPadding');
+                @include bm.get-mq-map('margin', $themeDefault, 'noGamesMargin');
             }
 
             .wlc-games-grid__list {
