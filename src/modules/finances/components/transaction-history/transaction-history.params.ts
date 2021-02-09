@@ -23,7 +23,7 @@ export const transactionTableHeadConfig: ITableCol[] = [
         title: '#',
         type: 'index',
         order: 10,
-        wlcElement: 'transaction-history_cell_num',
+        wlcElement: 'wlc-profile-table__cell_num',
     },
     {
         key: 'date',
@@ -31,7 +31,7 @@ export const transactionTableHeadConfig: ITableCol[] = [
         type: 'date',
         format: 'dd-MM-yyyy HH:mm:ss',
         order: 20,
-        wlcElement: 'transaction-history_cell_time',
+        wlcElement: 'wlc-profile-table__cell_time',
     },
     {
         key: 'amount',
@@ -39,12 +39,13 @@ export const transactionTableHeadConfig: ITableCol[] = [
         type: 'amount',
         disableHideClass: true,
         order: 30,
-        wlcElement: 'transaction-history_cell_amount',
+        wlcElement: 'wlc-profile-table__cell_amount',
     },
     {
         key: 'status',
         title: 'Status',
         type: 'component',
+        wlcElement: 'wlc-profile-table__cell_status',
         mapValue: (item: Transaction) => {return {transaction: item};},
         order: 40,
         componentClass: TransactionStatusComponent,
@@ -54,7 +55,7 @@ export const transactionTableHeadConfig: ITableCol[] = [
         title: 'Method',
         type: 'text',
         order: 50,
-        wlcElement: 'transaction-history_cell_method',
+        wlcElement: 'wlc-profile-table__cell_method',
     },
     {
         key: 'type',
@@ -63,6 +64,6 @@ export const transactionTableHeadConfig: ITableCol[] = [
         mapValue: (item: Transaction) => {return {transaction: item};},
         componentClass: TransactionCancelComponent,
         order: 60,
-        wlcElement: 'transaction-history_cell_type',
+        wlcElement: 'wlc-profile-table__cell_type',
     },
 ];
