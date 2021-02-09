@@ -1,0 +1,49 @@
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/text' as text;
+@import '../utils/vars';
+
+.wlc-timer--theme-default:host {
+
+    .wlc-timer {
+
+        &__content {
+            display: flex;
+            align-items: center;
+            background-color: ef.get-value($themeDefault, 'timerBg');
+            border-radius: ef.get-value($themeDefault, 'timerRadius');
+            padding: ef.get-value($themeDefault, 'timerPadding');
+
+            .time-text {
+                font-weight: bold;
+
+                &--countdown {
+                    display: flex;
+                }
+
+                &__divider {
+                    margin: 0 2px;
+                }
+            }
+        }
+
+        &__clock-icon {
+            margin: ef.get-value($themeDefault, 'timeIconMargin');
+
+            ::ng-deep {
+
+                svg {
+                    fill: ef.get-value($themeDefault, 'timeIconFill');
+                    width: ef.get-value($themeDefault, 'timeIconSize');
+                    height: ef.get-value($themeDefault, 'timeIconSize');
+                }
+            }
+        }
+
+        &__timer-text {
+            text-align: left;
+            line-height: 1.3;
+        }
+    }
+}

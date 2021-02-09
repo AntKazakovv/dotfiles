@@ -38,20 +38,12 @@
                 </button>
             </div>
             <div class="{{$class}}__active-block" *ngIf="$params.common.bonus?.isActive">
-                <div class="{{$class}}__timer">
-                    <!-- TODO: add timer component -->
-                    <div class="{{$class}}__clock-icon" wlc-icon iconName="clock"></div>
-                    <div class="{{$class}}__timer-text">
-                        <div class="time-text">{{$params.common.bonus?.expirationTime()}}</div>
-                        <div class="secondary-text">{{'Time remaining' | translate}}</div>
-                    </div>
-                </div>
+                <div class="{{$class}}__timer" wlc-timer [value]="$params.common.bonus?.expirationTimeLuxon" text="Time remaining"></div>
                 <div class="{{$class}}__progress" *ngIf="$params.common.bonus?.wageringTotal">
                     <div class="{{$class}}__remaning">
-                        <!-- TODO: add wlc-currency component -->
-                        <span>{{currency}}</span> {{$params.common.bonus?.wageringLeft | number: '.0-2'}}
+                        <span wlc-currency [value]="$params.common.bonus?.wageringLeft"></span>
                         {{'of'| translate}}
-                        <span>{{currency}}</span> {{$params.common.bonus?.wageringTotal | number: '.0-2'}}
+                        <span wlc-currency [value]="$params.common.bonus?.wageringTotal"></span>
                         {{'remaining' | translate}}
                     </div>
                     <div class="{{$class}}__progressbar">

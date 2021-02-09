@@ -224,31 +224,7 @@
         }
 
         &__timer {
-            display: flex;
-            align-items: center;
-            background-color: ef.get-value($themeDefault, 'activeBlockTimerBg');
-            border-radius: ef.get-value($themeDefault, 'activeBlockTimerRadius');
-            padding: ef.get-value($themeDefault, 'activeBlockTimerPadding');
             margin: ef.get-value($themeDefault, 'activeBlockTimerMargin');
-
-            .time-text {
-                font-weight: bold;
-            }
-        }
-
-        &__clock-icon {
-            margin: ef.get-value($themeDefault, 'activeBlockTimeIconMargin');
-
-            svg {
-                fill: ef.get-value($themeDefault, 'activeBlockTimeIconFill');
-                width: ef.get-value($themeDefault, 'activeBlockTimeIconSize');
-                height: ef.get-value($themeDefault, 'activeBlockTimeIconSize');
-            }
-        }
-
-        &__timer-text {
-            text-align: left;
-            line-height: 1.3;
         }
 
         &__progress {

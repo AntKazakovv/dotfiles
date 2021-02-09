@@ -66,6 +66,7 @@ import {CurrencyComponent} from 'wlc-engine/modules/core/components/currency/cur
 import {DatepickerComponent} from './components/datepicker/datepicker.component';
 import {TextBlockComponent} from './components/text-block/text-block.component';
 import {RadioButtonsComponent} from './components/radio-buttons/radio-buttons.component';
+import {TimerComponent} from './components/timer/timer.component';
 import {TitleComponent} from './components/title/title.component';
 import {ErrorPageComponent} from './components/error-page/error-page.component';
 
@@ -133,6 +134,7 @@ export const components = {
     'wlc-table': TableComponent,
     'wlc-text-block': TextBlockComponent,
     'wlc-textarea': TextareaComponent,
+    'wlc-timer': TimerComponent,
     'wlc-title': TitleComponent,
     'wlc-wrapper': WrapperComponent,
     'wlc-error-page': ErrorPageComponent,
@@ -211,6 +213,7 @@ export const components = {
         TextareaComponent,
         TextBlockComponent,
         TruncatePipe,
+        TimerComponent,
         TitleComponent,
         ValueLengthDirective,
         WlcModalComponent,
@@ -262,6 +265,7 @@ export const components = {
         ValueLengthDirective,
         WlcModalComponent,
         WrapperComponent,
+        TimerComponent,
         TitleComponent,
         ErrorPageComponent,
         DrugNDropDirective,
