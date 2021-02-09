@@ -537,6 +537,14 @@ export class Bonus extends AbstractModel<IBonus> {
     }
 
     /**
+     * @returns {DateTime} bonus expiration time in luxon format
+     */
+    public get expirationTimeLuxon(): DateTime {
+        const defaultTime = DateTime.fromSQL(this.data.Expire);
+        return defaultTime.plus({minutes: defaultTime.offset});
+    }
+
+    /**
      * Get bonus image url by type
      *
      * @param type image type ('default' | 'reg' | 'deposit' | 'promo' | 'store' | 'other')

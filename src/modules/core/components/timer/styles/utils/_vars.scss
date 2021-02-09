@@ -1,0 +1,12 @@
+@use 'engine-scss/functions' as ef;
+
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'timerBg': ef.get('mainColors', 'bg'),
+    'timerRadius': ef.get('radius', 'biger'),
+    'timerPadding': 9px 15px 8px 15px,
+    'timeIconMargin': -5px ef.get('size', 'small') 0 0,
+    'timeIconSize': 18px,
+    'timeIconFill': ef.get('mainColors', 'secondary'),
+), $customThemeDefault);
+

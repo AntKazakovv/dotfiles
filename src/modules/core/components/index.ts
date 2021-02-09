@@ -25,5 +25,6 @@ export {NotificationThreadComponent} from './notification-thread/notification-th
 export {MessageComponent} from './message/message.component';
 export {ITextBlockCParams} from './text-block/text-block.params';
 export {ITextareaCParams} from './textarea/textarea.params';
+export {ITimerCParams} from './timer/timer.params';
 export {ITitleCParams} from './title/title.params';
 export {IWrapperCParams, WrapperComponent} from './wrapper/wrapper.component';

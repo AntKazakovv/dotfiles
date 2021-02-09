@@ -1,0 +1,24 @@
+<div class="{{$class}}__content" data-wlc-element="block_timer">
+    <div class="{{$class}}__clock-icon" wlc-icon iconName="clock"></div>
+    <div class="{{$class}}__timer-text">
+        <div class="time-text" *ngIf="$params.common?.noCountDown">{{$params.common?.value}}</div>
+        <div class="time-text time-text--countdown" *ngIf="!$params.common?.noCountDown">
+            <div class="time-text__item time-text__item--days">
+                <span class="value">{{days}}</span><span class=text>{{'d' | translate}}</span>
+            </div>
+            <div class="time-text__divider">:</div>
+            <div class="time-text__item time-text__item--hours">
+                <span class="value">{{hours}}</span><span class=text>{{'h' | translate}}</span>
+            </div>
+            <div class="time-text__divider">:</div>
+            <div class="time-text__item time-text__item--minutes">
+                <span class="value">{{minutes}}</span><span class=text>{{'m' | translate}}</span>
+            </div>
+            <div class="time-text__divider">:</div>
+            <div class="time-text__item time-text__item--days">
+                <span class="value">{{seconds}}</span><span class=text>{{'s' | translate}}</span>
+            </div>
+        </div>
+        <div class="secondary-text">{{$params.common?.text | translate}}</div>
+    </div>
+</div>

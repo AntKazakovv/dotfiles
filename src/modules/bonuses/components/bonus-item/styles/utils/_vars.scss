@@ -24,7 +24,6 @@ $themeDefault: map-merge((
     'activeBlockMaxWidth': 250px,
     'progressBarSize': 7px,
     'moreIconSize': 24px,
-    'activeBlockTimeIconSize': 18px,
     // // Font
     'descriptionFontColor': ef.get('mainColors', 'PrimaryText'),
     'bonusIconValueFontSize': 2rem,
@@ -56,7 +55,6 @@ $themeDefault: map-merge((
     'imageBg': rgba(0, 0, 0, 0.3),
     'bonusIconValueBg': ef.get('mainColors', 'baseMain'),
     'tagBg': ef.get('mainColors', 'secondary'),
-    'activeBlockTimerBg': ef.get('mainColors', 'bg'),
     'activeBlockProgressBg': transparent,
     'progressBarBg': ef.get('fieldColors', 'inputBg'),
     'progressBarColor': ef.get('mainColors', 'main'),
@@ -64,9 +62,7 @@ $themeDefault: map-merge((
     'radius': ef.get('radius', 'biger'),
     'tagRadius': ef.get('radius', 'biger'),
     'activeBlockRadius': 0,
-    'activeBlockTimerRadius': ef.get('radius', 'biger'),
     'activeBlockProgressRadius': ef.get('radius', 'biger'),
-    'activeBlockTimeIconFill': ef.get('mainColors', 'secondary'),
     'progressBarRadius': 10px,
     //Padding
     'bonusIconMargin': (
@@ -80,14 +76,12 @@ $themeDefault: map-merge((
         1200: 30px 0 0 0,
     ),
     'activeBlockMargin': 0 auto,
-    'activeBlockTimerPadding': 9px 15px 8px 15px,
     'activeBlockTimerMargin': 0,
     'activeBlockProgressPadding': 0,
     'activeBlockProgressMargin': (
         320: ef.get('size', 'smaller') 0 0 0,
         1200: 37px 0 0 0
     ),
-    'activeBlockTimeIconMargin': -5px ef.get('size', 'small') 0 0,
 
     'progressBarMargin': ef.get('size', 'smallest') 0,
     'btnMargin': 0 ef.get('size', 'smallest'),

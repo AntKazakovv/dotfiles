@@ -29,7 +29,6 @@ import {
     keys as _keys,
     forEach as _forEach,
 } from 'lodash-es';
-import {getLocaleDateTimeFormat} from '@angular/common';
 
 export {IBonusItemCParams} from './bonus-item.params';
 export const BonusItemComponentEvents: IBonusItemComponentEvents = {
