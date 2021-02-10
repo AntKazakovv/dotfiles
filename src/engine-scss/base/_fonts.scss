@@ -1,28 +1,96 @@
-// Init font from https://google-webfonts-helper.herokuapp.com/
-@mixin init-font($path) {
-    @for $i from 1 through 6 {
+@mixin initFont($config, $font) {
+    $path: #{map-get($font, path)};
+    $configWeight: map-get($config, weight);
+    $configStyle: map-get($config, style);
+    $configCustom: map-get($config, custom);
 
-        $font: if($i == 4, 'regular', $i + '00');
+    @each $style in map-get($font, style) {
+        @each $weight in map-get($font, weight) {
+            $src: ();
 
-        @font-face {
-            font-family: Inter;
-            font-style: normal;
-            font-weight: #{$i}00;
-            font-display: swap;
-            src:
-                local(''),
-                url('#{$path}-#{$font}.woff2') format('woff2'),
-                url('#{$path}-#{$font}.woff') format('woff');
+            @each $format in map-get($font, format) {
+
+                @if ($format == 'variations') {
+
+                    $src: append(
+                        $src, url('#{$path}-variable.woff2')
+                        format('woff2-variations')
+                    );
+                } @else {
+
+                    @if (map-get($configCustom, '#{$weight}/#{$style}')) {
+                        $fontName: map-get($configCustom, '#{$weight}/#{$style}');
+
+                        $src: append(
+                            $src, url('#{$path}-#{$fontName}.#{$format}')
+                            format('#{$format}')
+                        );
+                    } @else {
+
+                        $fontNameWeight: if(
+                            map-get($configWeight, $weight) == '', '', '-#{map-get($configWeight, $weight)}'
+                        );
+                        $fontNameStyle: if(
+                            map-get($configStyle, $style) == '', '', '-#{map-get($configStyle, $style)}'
+                        );
+                        $src: append(
+                            $src, url('#{$path}#{$fontNameWeight}#{$fontNameStyle}.#{$format}')
+                            format('#{$format}')
+                        );
+                    }
+                }
+            }
+
+            @font-face {
+                font-family: map-get($font, name);
+                font-weight: $weight;
+                font-style: $style;
+                font-display: swap;
+                src: join($src, (), comma);
+            }
         }
     }
 }
 
+// Config font from https://google-webfonts-helper.herokuapp.com/
+$fontConfig: (
+    weight: (
+        100: '100',
+        200: '200',
+        300: '300',
+        400: 'regular',
+        500: '500',
+        600: '600',
+        700: '700',
+        900: '900',
+    ),
+    style: (
+        normal: '',
+        italic: 'italic',
+    ),
+    custom: (
+        '400/italic': 'italic',
+    )
+);
+
 @if (nth($list: $font-family-sans-serif, $n: 1) == Inter) {
-    $inter: '/gstatic/wlc/fonts/Inter/inter-v3-vietnamese_latin-ext_latin_greek-ext_greek_cyrillic-ext_cyrillic';
-    @include init-font($inter);
+    $inter: (
+        name: 'Inter',
+        weight: (100, 300, 400, 500, 600),
+        style: (normal),
+        format: ('woff2', 'woff'),
+        path: '/gstatic/wlc/fonts/Inter/inter-v3-vietnamese_latin-ext_latin_greek-ext_greek_cyrillic-ext_cyrillic',
+    );
+    @include initFont($fontConfig, $inter);
 }
 
 @if (nth($list: $font-family-sans-serif, $n: 1) == Roboto) {
-    $roboto: '/gstatic/wlc/fonts/Roboto/roboto-v20-vietnamese_latin-ext_latin_greek-ext_greek_cyrillic-ext_cyrillic';
-    @include init-font($roboto);
+    $roboto: (
+        name: 'Roboto',
+        weight: (100, 300, 400, 500, 700, 900),
+        style: (normal, italic),
+        format: ('woff2', 'woff'),
+        path: '/gstatic/wlc/fonts/Roboto/roboto-v20-vietnamese_latin-ext_latin_greek-ext_greek_cyrillic-ext_cyrillic',
+    );
+    @include initFont($fontConfig, $roboto);
 }
