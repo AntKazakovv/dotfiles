@@ -2,14 +2,16 @@
 @use 'engine-scss/functions' as ef;
 
 $customThemeDefault: () !default;
-
 $themeDefault: map-merge(map-merge(ev.$buttonSettings, (
 )), $customThemeDefault);
 
-$customThemeBorderless: () !default;
+$customThemeCircled: () !default;
+$themeCircled: map-merge(map-merge(ev.$buttonSettings, (
+    'backgroundHover': transparentize(ef.get-value($themeDefault, 'backgroundHover'), 0.5),
+)), $customThemeCircled);
 
-$borderlessTheme: map-merge(
-    map-merge(ev.$buttonSettings, (
-        'underlineExtraSize': 0.25ch,
-        'transition': ef.get('time', 'less') ease,
-    )), $customThemeBorderless);
+$customThemeBorderless: () !default;
+$borderlessTheme: map-merge(map-merge(ev.$buttonSettings, (
+    'underlineExtraSize': 0.25ch,
+    'transition': ef.get('time', 'less') ease,
+)), $customThemeBorderless);

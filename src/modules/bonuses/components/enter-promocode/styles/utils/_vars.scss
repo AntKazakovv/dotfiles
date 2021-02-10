@@ -25,6 +25,7 @@ $themeDefault: map-merge((
     'btnSize': 32px,
     'btnBackground': ef.get('mainColors', 'main'),
     'btnBackgroundHover': lighten(ef.get('mainColors', 'main'), 10%),
+    'btnBackgroundPending': lighten(ef.get('mainColors', 'main'), 10%),
     'btnRadius': ef.get('radius', 'main'),
 
     'btnIconSize': 16px,

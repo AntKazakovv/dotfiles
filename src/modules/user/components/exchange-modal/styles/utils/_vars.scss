@@ -2,6 +2,7 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
+    'background': darken(ef.get('color', 'backgroundSecondary'), 20),
     'contentMargin': 0 0 ef.get('size', 'small') 0,
     'lineHeight': 6px,
     'lineEmptyBg': #fff,

@@ -23,7 +23,7 @@
 
         &__backdrop {
             display: none;
-            background: transparentize(ef.get-value($themeDefault, 'backgroundAdUnit'), 0.2);
+            background: ef.get-value($themeDefault, 'backdropBackground');
             position: absolute;
             top: 0;
             left: 0;
@@ -47,7 +47,7 @@
             align-items: center;
             justify-content: center;
             color: ef.get-value($themeDefault, 'tutorialColor');
-            background: transparentize(ef.get-value($themeDefault, 'backgroundAdUnit'), 0.2);
+            background: ef.get-value($themeDefault, 'backdropBackground');
 
             &-left-decor {
                 background: url('/gstatic/wlc/game-dashboard/tutorial.png') right bottom no-repeat;
