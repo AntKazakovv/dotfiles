@@ -26,8 +26,6 @@ export class BannerModel {
         const html = new DOMParser()
             .parseFromString(this.html, 'text/html');
 
-        return html.querySelector('.swiper-slide')
-            ? this.html
-            : `<div class="swiper-slide">${this.html}</div>`;
+        return this.html;
     }
 }

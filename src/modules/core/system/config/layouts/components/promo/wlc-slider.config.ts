@@ -9,13 +9,15 @@ export namespace wlcSlider {
             filter: {
                 position: ['catalog'],
             },
-            swiper: {
-                slidesPerView: 1,
-                navigation: {
-                    nextEl: '.wlc-swiper-button-next',
-                    prevEl: '.wlc-swiper-button-prev',
+            sliderParams: {
+                swiper: {
+                    slidesPerView: 1,
+                    navigation: {
+                        nextEl: '.wlc-swiper-button-next',
+                        prevEl: '.wlc-swiper-button-prev',
+                    },
+                    pagination: false,
                 },
-                pagination: false,
             },
         },
     };

@@ -9,13 +9,16 @@ export namespace wlcBannersSlider {
             filter: {
                 position: ['home'],
             },
-            swiper: {
-                slidesPerView: 1,
-                navigation: {
-                    nextEl: '.wlc-swiper-button-next',
-                    prevEl: '.wlc-swiper-button-prev',
+            sliderParams: {
+                theme: 'default-banner',
+                swiper: {
+                    slidesPerView: 1,
+                    navigation: {
+                        nextEl: '.wlc-swiper-button-next',
+                        prevEl: '.wlc-swiper-button-prev',
+                    },
+                    pagination: false,
                 },
-                pagination: false,
             },
         },
     };
