@@ -6,6 +6,7 @@ $themeDefault: map-merge((
     'backgroundAdUnit': ef.get('mainColors', 'bg'),
     'backgroundTabs': ef.get('mainColors', 'bg700'),
     'backgroundTabsActive': ef.get('mainColors', 'main'),
+    'backdropBackground': transparentize(ef.get('mainColors', 'bg'), 0.2),
 
     'decorHeight': 247px,
     'decorWidth': 181px,

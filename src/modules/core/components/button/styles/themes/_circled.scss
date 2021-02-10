@@ -25,7 +25,7 @@
             @media (hover: hover) {
 
                 &:hover {
-                    background: transparentize(ef.get-value($themeDefault, 'backgroundHover'), 0.5);
+                    background: ef.get-value($themeCircled, 'backgroundHover');
                 }
             }
         }
