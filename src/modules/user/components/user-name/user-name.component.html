@@ -6,7 +6,7 @@
         iconName="user-icon"
     ></div>
 
-    <div class="{{$class}}__email-value" *ngIf="!firstName || !lastName">
+    <div class="{{$class}}__email-value" *ngIf="!firstName || !lastName" data-wlc-element="input_email">
         {{email | truncate: $params.userNameLength}}
     </div>
 
