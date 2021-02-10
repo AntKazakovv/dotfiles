@@ -81,7 +81,8 @@
                         wlc-button
                         text="Cancel"
                         *ngIf="$params.common.bonus?.isActive"
-                        (click)="leave()">
+                        (click)="leave()"
+                        [wlcElement]="'button_cancel'">
                 </button>
             </div>
             <div class="{{$class}}__btns" *ngIf="isChooseBtn">
@@ -89,7 +90,8 @@
                         wlc-button
                         text="Choose"
                         [disabled]="$params.common.bonus?.isChoose"
-                        (click)="chooseBonus($params.common.bonus, $params.common?.type)">
+                        (click)="chooseBonus($params.common.bonus, $params.common?.type)"
+                        [wlcElement]="'button_choose'">
                 </button>
             </div>
         </div>
