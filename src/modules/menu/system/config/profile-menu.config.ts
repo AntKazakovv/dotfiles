@@ -16,8 +16,9 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     },
     'profile-menu:account-settings': {
         name: gettext('Account settings'),
-        class: 'account-settings             ',
-        type: 'title',
+        class: 'account-settings',
+        type: 'sref',
+        wlcElement: 'link_cc-profile-menu_account-settings',
         params: {
             state: {
                 parent: 'app.profile.main',
@@ -30,6 +31,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         name: gettext('General'),
         type: 'sref',
         icon: 'icons/edit-profile',
+        wlcElement: 'link_profileMain',
         class: 'edit-profile',
         params: {
             state: {

@@ -38,6 +38,7 @@ export const changePasswordFormConfig: IFormWrapperCParams = {
             name: 'core.wlc-input',
             params: {
                 theme: 'vertical',
+                wlcElement: 'block_password-current',
                 common: {
                     placeholder: gettext('Current password'),
                     type: 'password',
@@ -61,6 +62,7 @@ export const changePasswordFormConfig: IFormWrapperCParams = {
             name: 'core.wlc-input',
             params: {
                 theme: 'vertical',
+                wlcElement: 'block_password-new',
                 common: {
                     placeholder: gettext('New password'),
                     type: 'password',
@@ -84,6 +86,7 @@ export const changePasswordFormConfig: IFormWrapperCParams = {
             name: 'core.wlc-input',
             params: {
                 theme: 'vertical',
+                wlcElement: 'block_password-confirm',
                 common: {
                     placeholder: gettext('Confirm password'),
                     type: 'password',
@@ -107,6 +110,7 @@ export const changePasswordFormConfig: IFormWrapperCParams = {
             name: 'core.wlc-button',
             params: {
                 theme: 'default',
+                wlcElement: 'button_submit',
                 common: {
                     text: gettext('Save'),
                     type: 'submit',

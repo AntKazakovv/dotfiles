@@ -68,6 +68,9 @@ export const MODALS_LIST: IModalList = {
             id: 'change-password',
             modifier: 'change-password',
             component: ChangePasswordFormComponent,
+            componentParams: {
+                wlcElement: 'modal_password-change',
+            },
             size: 'md',
             showFooter: false,
             dismissAll: true,
