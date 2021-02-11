@@ -1,6 +1,6 @@
-@use 'engine-scss/mixins/mediaqueries' as mq;
-@use 'engine-scss/mixins/base.mixins' as bm;
 @use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/base.mixins' as em;
 @use 'engine-scss/mixins/text' as text;
 @import '../utils/vars';
 
@@ -8,7 +8,7 @@
 
     .wlc-copyright__text {
         @include text.get-text-style('SignText', ef.get-value($themeDefault, 'textColor'));
-        text-align: ef.get-value($themeDefault, 'textAlign');
+        @include em.get-mq-map('text-align', $themeDefault, 'textAlign');
 
         @include mq.min(900) {
             @include text.get-text-style('PlaceholderText', ef.get-value($themeDefault, 'textColor'));
@@ -21,7 +21,7 @@
         a {
             text-decoration: ef.get-value($themeDefault, 'textDecoration');
             @include text.get-text-style('SignText', ef.get-value($themeDefault, 'linkColor'));
-            @include bm.transition(color);
+            @include em.transition(color);
 
             @include mq.min(900) {
                 @include text.get-text-style('PlaceholderText', ef.get-value($themeDefault, 'linkColor'));

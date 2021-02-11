@@ -9,7 +9,6 @@
     border-radius: ef.get-value($themePayments, 'wrapperBorderRadius');
     width: 100%;
     @include em.get-mq-map('max-width', $themePayments, 'wrapperMaxWidth');
-    @include em.get-mq-map('max-width', $themePayments, 'wrapperMaxWidth');
     @include em.get-mq-map('padding', $themePayments, 'wrapperPadding');
 
     @include mq.min(900) {
