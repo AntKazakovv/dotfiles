@@ -10,7 +10,7 @@ $themeDefault: map-merge((
     ),
     'paddingSize': ef.get('size', 'smaller'),
     //dropdown variables
-    'menuGag': 5px,
+    'menuGag': ef.get('size', 'smallest'),
     'linkPadding': 12px 5px,
     'linkActiveWeight': bold,
     'linkColor': ef.get('mainColors', 'baseMain'),
@@ -19,7 +19,8 @@ $themeDefault: map-merge((
     'underlineOffset': 0,
     'underlineColor': ef.get('mainColors', 'main'),
     'underlineHeight': 6px,
-    'underlineRadius': ef.get('radius', 'large')
+    'underlineRadius': ef.get('radius', 'large'),
+    'iconDirection': column,
 ), $customThemeDefault);
 
 $customDropdownThemeDefault: () !default;
