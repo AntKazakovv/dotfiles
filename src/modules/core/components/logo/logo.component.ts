@@ -17,6 +17,7 @@ import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract
 export class LogoComponent extends AbstractComponent implements OnInit {
     public $params: Params.ILogoCParams;
     public logoImageSource: string;
+    public logoName: boolean = true;
 
     constructor(
         @Inject('injectParams') protected componentParams: Params.ILogoCParams,
@@ -45,6 +46,7 @@ export class LogoComponent extends AbstractComponent implements OnInit {
         const customMainConfigLogoName = this.configService.get<string>({name: '$base.customLogoName'});
 
         if (customLogoUrl) {
+            this.logoName = false;
             return customLogoUrl;
         } else if (customLogoName) {
             return customLogoName;

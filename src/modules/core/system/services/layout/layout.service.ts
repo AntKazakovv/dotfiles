@@ -136,7 +136,7 @@ export class LayoutService {
                             const component = (_isString(section.components[position]))
                                 ? {name: section.components[position] as string}
                                 : section.components[position];
-                            section.components[position] = GlobalHelper.mergeConfig(component, item.component);
+                            section.components[position] = GlobalHelper.mergeConfig(_cloneDeep(component), item.component);
                             break;
                     }
                 });
@@ -296,7 +296,7 @@ export class LayoutService {
             let indexElem = 1;
 
             if (!positionObject[1] || _includes(['before', 'after'], positionObject[1])) {
-                positionParams.shift = positionObject[1] === 'before' ? 0 : 1;
+                positionParams.shift = positionObject[1] === 'after' ? 1 : 0;
                 indexElem = 2;
             }
             positionParams.name = positionObject[indexElem];
