@@ -2,7 +2,41 @@ import {ILayoutSectionConfig} from 'wlc-engine/modules/core';
 import * as componentLib from '../components';
 
 export namespace footer {
-    export const def: ILayoutSectionConfig = {
+    export const themeFirst: ILayoutSectionConfig = {
+        order: 1000,
+        container: true,
+        theme: '1',
+        wlcElement: 'section_footer',
+        components: [
+            componentLib.wlcIconList.merchants,
+            componentLib.wlcIconList.payments,
+            componentLib.wlcLogo.header,
+            componentLib.wlcPostMenu.footerInfo,
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-footer-menu',
+                    wlcElement: 'block_footer-menu',
+                    components: [
+                        componentLib.wlcPostMenu.footerAbout,
+                        componentLib.wlcLicense.def,
+                    ],
+                },
+            },
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-footer-disclaimer',
+                    components: [
+                        componentLib.wlcDisclaimer.def,
+                        componentLib.wlcCopyright.def,
+                    ],
+                },
+            },
+            componentLib.wlcLanguageSelector.topLeft,
+        ],
+    };
+    export const themeSecond: ILayoutSectionConfig = {
         order: 1000,
         container: true,
         theme: '2',
@@ -37,4 +71,3 @@ export namespace footer {
         ],
     };
 }
-

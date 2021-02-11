@@ -51,6 +51,19 @@
             }
         }
 
+        .wlc-logo {
+            grid-area: logo;
+            display: none;
+
+            @include mq.min(640) {
+                display: block;
+            }
+
+            svg {
+                max-width: 100%;
+            }
+        }
+
         .wlc-post-menu {
             display: flex;
             @include em.get-mq-map('justify-content', $theme1Footer, 'postMenuJustify');
@@ -95,6 +108,14 @@
             display: flex;
             flex-direction: row-reverse;
             @include em.get-mq-map('margin', $theme1Footer, 'licenseMargin');
+        }
+
+        .wlc-footer-menu {
+            grid-area: about-us;
+        }
+
+        .wlc-footer-disclaimer {
+            grid-area: disclaimer;
         }
     }
 }
