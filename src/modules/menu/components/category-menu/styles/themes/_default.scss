@@ -67,4 +67,23 @@
             }
         }
     }
+
+    &.wlc-category-menu--theme-mod-with-icons {
+
+        ::ng-deep {
+
+            .wlc-menu {
+
+                &__link {
+                    display: flex;
+                    flex-direction: ef.get-value($themeDefault, 'iconDirection');
+                    align-items: center;
+                }
+
+                &__icon {
+                    margin-bottom: ef.get-value($themeDefault, 'menuGag');
+                }
+            }
+        }
+    }
 }
