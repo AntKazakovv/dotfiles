@@ -3,6 +3,7 @@ import * as componentLib from '../components';
 
 export namespace footer {
     export const themeFirst: ILayoutSectionConfig = {
+        replaceConfig: true,
         order: 1000,
         container: true,
         theme: '1',
@@ -37,6 +38,7 @@ export namespace footer {
         ],
     };
     export const themeSecond: ILayoutSectionConfig = {
+        replaceConfig: true,
         order: 1000,
         container: true,
         theme: '2',

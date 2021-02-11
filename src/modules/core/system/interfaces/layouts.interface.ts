@@ -29,6 +29,7 @@ export interface IPanelsSectionsConfig {
 }
 
 export interface ILayoutSectionConfig {
+    replaceConfig?: boolean;
     container?: string | boolean;
     components?: (ILayoutComponent | string)[];
     modify?: ILayoutModifyItem[];
