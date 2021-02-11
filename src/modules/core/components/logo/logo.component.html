@@ -1,8 +1,19 @@
 <div class="{{$class}}-wrp">
+    <ng-container *ngIf="logoName; else logoUrl">
+        <a [uiSref]="$params.link"
+           [uiOptions]="$params.uiOptions"
+           class="{{$class}}__image"
+           wlc-icon
+           [iconName]="logoImageSource"
+        ></a>
+    </ng-container>
+</div>
+
+<ng-template #logoUrl>
     <a [uiSref]="$params.link"
        [uiOptions]="$params.uiOptions"
        class="{{$class}}__image"
        wlc-icon
-       [iconName]="logoImageSource"
+       [iconUrl]="logoImageSource"
     ></a>
-</div>
+</ng-template>
