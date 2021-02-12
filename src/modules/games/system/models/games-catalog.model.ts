@@ -592,7 +592,6 @@ export class GamesCatalog extends AbstractModel<IGames> {
 
     protected prepareCategories(): void {
         const parents = this.configService.get<string[]>('$games.categories.parents') || [];
-        debugger;
         _forEach(this.categories, (category: CategoryModel) => {
             if (_includes(parents, category.slug) && !category.initedWithMenu) {
                 category.setMenu('main-menu');
