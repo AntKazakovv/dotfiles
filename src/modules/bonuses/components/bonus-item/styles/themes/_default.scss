@@ -21,7 +21,7 @@
 
             @media (hover: hover) {
 
-                &:hover {
+                &:not(.disabled):hover {
                     background: ef.get-value($themeDefault, 'backgroundHover');
                 }
             }
@@ -32,6 +32,17 @@
 
             @include mq.min(768) {
                 max-width: 100%;
+            }
+
+            &.disabled {
+                filter: grayscale(100%);
+                opacity: 0.5;
+                cursor: not-allowed;
+
+                .wlc-bonus-item__wrapper,
+                .wlc-bonus-item__more-icon {
+                    pointer-events: none;
+                }
             }
         }
 
@@ -430,7 +441,7 @@
 
             @media (hover: hover) {
 
-                &:hover {
+                &:not(.disabled):hover {
                     background: ef.get-value($themeDefault, 'backgroundExperienceHover');
                 }
             }
@@ -444,7 +455,7 @@
 
             @media (hover: hover) {
 
-                &:hover {
+                &:not(.disabled):hover {
                     background: ef.get-value($themeDefault, 'backgroundLoyaltyHover');
                 }
             }
@@ -458,7 +469,7 @@
 
             @media (hover: hover) {
 
-                &:hover {
+                &:not(.disabled):hover {
                     background: ef.get-value($themeDefault, 'backgroundBalanceHover');
                 }
             }
@@ -472,7 +483,7 @@
 
             @media (hover: hover) {
 
-                &:hover {
+                &:not(.disabled):hover {
                     background: ef.get-value($themeDefault, 'backgroundFreeroundsHover');
                 }
             }
@@ -486,7 +497,7 @@
 
             @media (hover: hover) {
 
-                &:hover {
+                &:not(.disabled):hover {
                     background: ef.get-value($themeDefault, 'backgroundRelativeHover');
                 }
             }

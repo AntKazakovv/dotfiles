@@ -369,6 +369,13 @@ export class Bonus extends AbstractModel<IBonus> {
     }
 
     /**
+     * @returns {boolean} is bonus disabled
+     */
+    public get isDisabled(): boolean {
+        return this.status === -99;
+    }
+
+    /**
      * @returns {number} bonus min deposit
      */
     public get minDeposit(): number {
