@@ -18,6 +18,10 @@ export namespace wlcBannersSlider {
                         prevEl: '.wlc-swiper-button-prev',
                     },
                     pagination: false,
+                    autoplay: {
+                        delay: 10000,
+                    },
+                    lazy: true,
                 },
             },
         },

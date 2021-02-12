@@ -23,9 +23,6 @@ export class BannerModel {
 
     public getHtml(): string {
 
-        const html = new DOMParser()
-            .parseFromString(this.html, 'text/html');
-
         return this.html;
     }
 }

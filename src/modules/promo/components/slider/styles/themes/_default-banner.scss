@@ -6,6 +6,15 @@
 .wlc-slider--theme-default-banner {
     position: relative;
 
+    &.container {
+
+        .swiper-button-container {
+            left: initial;
+            transform: initial;
+            right: 1%;
+        }
+    }
+
     .swiper-button-container {
 
         display: none;

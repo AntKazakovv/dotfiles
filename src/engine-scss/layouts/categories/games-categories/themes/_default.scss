@@ -19,6 +19,7 @@
         display: grid;
         @include bm.get-mq-map('grid-gap', $gamesCategoriesDefault, 'gamesTemplateColumnsGap');
         @include bm.get-mq-map('grid-template-columns', $gamesCategoriesDefault, 'gamesTemplateColumns');
+        align-items: ef.get-value($gamesCategoriesDefault, 'gamesCategoriesAlign');
     }
 
     .wlc-btn-search.wlc-btn,

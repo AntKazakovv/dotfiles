@@ -25,6 +25,8 @@ export const defaultParams: IBannersSliderCParams = {
             pagination: {
                 clickable: true,
             },
+            lazy: true,
+            preventClicks: true,
         },
     },
 };

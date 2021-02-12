@@ -9,6 +9,8 @@ import {
     intersection as _intersection,
     startsWith as _startsWith,
 } from 'lodash-es';
+import {TranslateService} from "@ngx-translate/core";
+import {takeUntil} from "rxjs/operators";
 
 declare type IPlatform = 'any' | 'desktop' | 'mobile';
 declare type IVisibility = 'anyone' | 'anonymous' | 'authenticated';
@@ -29,12 +31,11 @@ export class BannersService {
         protected eventService: EventService,
         protected configService: ConfigService,
         protected userService: UserService,
+        protected translate: TranslateService,
     ) {
         this.prepareBanners();
 
-        this.eventService.subscribe({
-            name: 'LANGUAGE_CHANGED',
-        }, () => {
+        this.translate.onLangChange.subscribe(() => {
             this.prepareBanners();
         });
     }
@@ -73,8 +74,7 @@ export class BannersService {
     }
 
     protected prepareBanners(): void {
-        const banners = this.configService.get<any>(`appConfig.banners[${this.configService
-            .get<string>('appConfig.language')}]`);
+        const banners = this.configService.get<any>(`appConfig.banners[${this.translate.currentLang}]`);
         this.banners = banners?.map((banner: BannerModel): BannerModel => new BannerModel(banner));
         this.banners = this.filterByGeo(this.banners, '-');
         this.banners = this.filterByGeo(this.banners, '+');

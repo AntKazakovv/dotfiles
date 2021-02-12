@@ -52,6 +52,8 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
 
     @ContentChild(IconComponent, {read: ElementRef}) IconComponentElement!: ElementRef;
     @Input() public text: string;
+    @Input() public event: {name: string, data?: unknown};
+    @Input() public sref: string;
     @Input() protected type: BParams.Type;
     @Input() protected theme: BParams.Theme;
     @Input() protected themeMod: BParams.ThemeMod;
@@ -106,7 +108,7 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
             return this.inlineParams;
         }
 
-        const inputProperties: string[] = ['text', 'size', 'icon', 'index', 'event', 'type', 'theme'];
+        const inputProperties: string[] = ['text', 'size', 'icon', 'index', 'event', 'type', 'theme', 'sref'];
         const inlineParams: BParams.IButtonCParams = {
             common: {},
         };

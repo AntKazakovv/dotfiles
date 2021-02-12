@@ -81,6 +81,8 @@ import {ClampDirective} from './directives/clamp.directive';
 import {CopyToClipboardDirective} from './directives/copy-to-clipboard.directive';
 import {DrugNDropDirective} from 'wlc-engine/modules/core/directives/drug-n-drop/drug-n-drop.directive';
 import {ValueLengthDirective} from './directives/value-length.directive';
+import {ParallaxMovementDirective} from './directives/parallax-movement.directive';
+import {AuthDirective} from './directives/auth.directive';
 //  -- DIRECTIVES IMPORTS END  --;
 
 //  -- PIPES IMPORTS STARTS--;
@@ -175,6 +177,7 @@ export const components = {
         GlobalHelper.bootstrapProviders(NotificationService),
     ],
     declarations: [
+        AuthDirective,
         BurgerPanelComponent,
         ButtonComponent,
         CheckboxComponent,
@@ -207,6 +210,7 @@ export const components = {
         WlcModalComponent,
         NgTemplateNameDirective,
         NotificationThreadComponent,
+        ParallaxMovementDirective,
         ScrollbarComponent,
         SelectComponent,
         TableComponent,
@@ -223,6 +227,7 @@ export const components = {
         DrugNDropDirective,
     ],
     exports: [
+        AuthDirective,
         BrowserAnimationsModule,
         BurgerPanelComponent,
         ButtonComponent,
@@ -258,6 +263,7 @@ export const components = {
         CopyrightComponent,
         DatepickerComponent,
         InputMaskDirective,
+        ParallaxMovementDirective,
         RadioButtonsComponent,
         ClampDirective,
         TextBlockComponent,

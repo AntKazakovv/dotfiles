@@ -16,6 +16,7 @@ $gamesCategoriesDefault: map-merge((
         375: minmax(0, 1fr),
         768: minmax(0, 1fr) auto auto
     ),
+    'gamesCategoriesAlign': center,
     'gamesTemplateColumnsGap': (
         375: ef.get('size', 'smaller'),
     ),

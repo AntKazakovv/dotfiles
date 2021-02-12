@@ -1,0 +1,90 @@
+@keyframes fadeUp {
+
+    0% {
+        opacity: 0;
+        transform: translateY(-200%);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeDown {
+
+    0% {
+        opacity: 0;
+        transform: translateY(200%);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeRight {
+
+    0% {
+        opacity: 0;
+        transform: translateX(200%);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeLeft {
+
+    0% {
+        opacity: 0;
+        transform: translateX(-200%);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+%fadeDown {
+    animation: fadeDown 1s;
+}
+
+%fadeUp {
+    animation: fadeUp 1s;
+}
+
+%fadeRight {
+    animation: fadeRight 1s;
+}
+
+%fadeLeft {
+    animation: fadeLeft 1s;
+}
+
+.swiper-slide-active {
+
+    .animation {
+        animation-fill-mode: both;
+
+        &--fade-up {
+            @extend %fadeUp;
+        }
+
+        &--fade-down {
+            @extend %fadeDown;
+        }
+
+        &--fade-left {
+            @extend %fadeLeft;
+        }
+
+        &--fade-right {
+            @extend %fadeRight;
+        }
+    }
+}

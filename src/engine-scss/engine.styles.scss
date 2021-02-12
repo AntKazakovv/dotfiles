@@ -1,6 +1,7 @@
 @use './functions' as ef;
 @use './mixins/mediaqueries' as mq;
 @use './mixins/text' as text;
+@import './mixins/animations';
 @import 'engine.variables';
 @import './font-icons';
 @import './base/fonts';
