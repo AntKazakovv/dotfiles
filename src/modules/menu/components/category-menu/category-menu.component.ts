@@ -160,7 +160,7 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
             if (this.gamesCatalogService.catalogOpened()) {
                 this.menuParams.items.unshift(this.getAllGamesBtn());
             }
-
+            this.menuParams.items.unshift(this.getLobbyBtn());
         }
         this.menuParams = _clone(this.menuParams);
         this.cdr.detectChanges();
@@ -204,6 +204,20 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
             delete item.params;
         }
         return item;
+    }
+
+    protected getLobbyBtn(): MenuParams.IMenuItem {
+        return {
+            name: this.translate.instant(gettext('Lobby')),
+            type: 'sref',
+            icon: 'lobby',
+            class: 'lobby',
+            params: {
+                state: {
+                    name: 'app.home',
+                },
+            },
+        };
     }
 
     /**

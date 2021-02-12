@@ -42,6 +42,10 @@ export class CategoryModel extends AbstractModel<ICategory> {
         return this.slug === 'favourites';
     }
 
+    public get isSpecial(): boolean {
+        return _includes(this.specialCategories, this.slug);
+    }
+
     public get isParent(): boolean {
         return !this.parent && (this.menu === 'main-menu' || _includes(this.specialCategories, this.slug));
     }

@@ -10,6 +10,18 @@ import {CategoryMenuComponent} from './components/category-menu/category-menu.co
 import {MobileMenuComponent} from './components/mobile-menu/mobile-menu.component';
 import {PromoModule} from 'wlc-engine/modules/promo/promo.module';
 
+import {GlobalHelper} from 'wlc-engine/modules/core';
+import {menuConfig} from './system/config/menu.config';
+import {IMenuConfig} from './system/interfaces/menu.interface';
+import * as $config from 'wlc-config/index';
+
+import {
+    get as _get,
+} from 'lodash-es';
+
+export const moduleConfig =
+    GlobalHelper.mergeConfig<IMenuConfig>(menuConfig, _get($config, '$menu', {}));
+
 export const components = {
     'wlc-menu': MenuComponent,
     'wlc-main-menu': MainMenuComponent,
