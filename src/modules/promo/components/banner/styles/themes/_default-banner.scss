@@ -8,38 +8,283 @@
     ::ng-deep {
 
         .banner {
+            overflow: hidden;
+            position: relative;
             display: flex;
             align-items: center;
             background: ef.get-value($themeDefaultBanner, 'background');
+            background-size: cover;
+            background-repeat: no-repeat;
 
             @include em.get-mq-map('min-height', $themeDefaultBanner, 'height');
 
-            button {
+            .wlc-btn {
                 @include em.get-mq-map('margin', $themeDefaultBanner, 'buttonMargin');
             }
-        }
 
-        .banner__title {
-            @include lib.get-text-style('QoteTextBold');
-            color: ef.get-value($themeDefaultBanner, 'colorTitle');
-
-            @include em.get-mq-map('text-align', $themeDefaultBanner, 'textAlign');
-
-            @include mq.min(768) {
-                @include lib.get-text-style('ScreamTitle');
-                color: ef.get-value($themeDefaultBanner, 'colorTitle');
+            .container {
+                z-index: 12;
+                position: relative;
             }
-        }
 
-        .banner__description {
-            @include lib.get-text-style('PrimaryText');
-            color: ef.get-value($themeDefaultBanner, 'colorDescription');
+            &__decor {
+                z-index: 11;
+                position: absolute;
+                object-position: initial;
 
-            @include em.get-mq-map('text-align', $themeDefaultBanner, 'textAlign');
+                img {
+                    display: block;
+                    width: 100%;
+                    object-fit: contain;
+                    object-position: inherit;
+                }
+            }
 
-            @include mq.min(768) {
-                @include lib.get-text-style('QoteTextBold');
-                color: ef.get-value($themeDefaultBanner, 'colorDescription');
+            &-1 {
+
+                .banner_bg {
+
+                    &:before {
+                        display: block;
+
+                        @include mq.min(1024) {
+                            display: none;
+                        }
+                    }
+                }
+
+                .banner__decor {
+
+                    &--center {
+
+                        @include em.get-mq-map('left', $themeDefault1Banner, 'bannerDecorCenterLeft');
+                        @include em.get-mq-map('bottom', $themeDefault1Banner, 'bannerDecorCenterBottom');
+                        @include em.get-mq-map('max-width', $themeDefault1Banner, 'bannerDecorCenterMaxWidth');
+
+                        @include mq.min(1420) {
+                            max-height: 320px;
+                        }
+                    }
+
+                    &--right {
+                        right: 2%;
+                        bottom: 3%;
+                        max-width: 30vw;
+
+                        @include mq.min(768) {
+                            max-width: 35vw;
+                        }
+
+                        @include mq.min(1200) {
+                            max-width: 30vw;
+                        }
+
+                        @include mq.min(1420) {
+                            bottom: 5%;
+                            right: 5%;
+                            max-height: 355px;
+                            max-width: 25vw;
+                        }
+
+                        @include mq.min(1630) {
+                            max-width: 20vw;
+                        }
+
+                        @media (min-width: 2540px) {
+
+                            @include mq.min(2500) {
+                                left: 65%;
+                            }
+                        }
+                    }
+                }
+
+                .banner__title,
+                .banner__description {
+                    @include em.get-mq-map('color', $themeDefaultBanner, 'banner1DefaultColor');
+                }
+            }
+
+            &-2 {
+
+                .banner__decor {
+
+                    &--left {
+                        left: -1%;
+                        bottom: 0;
+                        max-width: 30vw;
+
+                        @include mq.min(768) {
+                            bottom: -15%;
+                        }
+
+                        @include mq.min(1420) {
+                            bottom: -40%;
+                        }
+                    }
+
+                    &--right {
+                        right: 2%;
+                        top: 2%;
+                        max-width: 30vw;
+                    }
+                }
+            }
+
+            &-3 {
+
+                .banner__decor {
+
+                    img {
+                        height: 100%;
+                        object-fit: cover;
+                    }
+
+                    &--left {
+                        z-index: 10;
+                        left: 1%;
+                        bottom: 2%;
+                        max-width: 200px;
+                        animation-delay: 0.5s;
+
+                        @include mq.min(768) {
+                            left: 40%;
+                            max-width: 350px;
+                            display: none;
+                        }
+
+                        @include mq.min(1200) {
+                            display: block;
+                            left: calc(50% - 150px);
+                        }
+                    }
+
+                    &--center {
+                        display: none;
+                        z-index: 11;
+                        top: 0;
+                        left: 45%;
+                        height: 105%;
+                        max-width: 660px;
+                        animation-delay: 1s;
+
+                        img {
+                            object-position: 100% 45%;
+                        }
+
+                        @include mq.min(1024) {
+                            display: block;
+                        }
+
+                        @include mq.min(1200) {
+                            left: 50%;
+                        }
+                    }
+
+                    &--right {
+                        z-index: 10;
+                        right: 0;
+                        display: none;
+                        max-width: 32vw;
+                        animation-delay: 1.5s;
+
+                        @include mq.min(560) {
+                            display: block;
+                        }
+
+                        @include mq.min(768) {
+                            right: initial;
+                            left: 60%;
+                            height: 100%;
+                            max-width: 420px;
+                        }
+
+                        @include mq.min(1024) {
+                            left: 75%;
+                        }
+
+                        @include mq.min(1200) {
+                            left: calc(50% + 470px);
+                            height: auto;
+                        }
+                    }
+                }
+            }
+
+            &_bg {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+
+                &:before {
+                    z-index: 9;
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: ef.get-value($themeDefaultBanner, 'backdropColor');
+                }
+
+                img {
+                    display: block;
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    object-position: right;
+                    @include em.transition(all, 0.1s);
+
+                    @include mq.min(1630) {
+                        object-position: bottom;
+                    }
+                }
+            }
+
+            &__title {
+                @include lib.get-text-style('QoteTextBold', ef.get-value($themeDefaultBanner, 'colorTitle'));
+                @include em.get-mq-map('text-align', $themeDefaultBanner, 'textAlign');
+
+                @include mq.min(768) {
+                    @include lib.get-text-style('ScreamTitle', ef.get-value($themeDefaultBanner, 'colorTitle'));
+                }
+            }
+
+            &__description {
+                @include lib.get-text-style('PrimaryText', ef.get-value($themeDefaultBanner, 'colorDescription'));
+                @include em.get-mq-map('text-align', $themeDefaultBanner, 'textAlign');
+
+                @include mq.min(768) {
+                    @include lib.get-text-style('QoteTextBold', ef.get-value($themeDefaultBanner, 'colorDescription'));
+                }
+            }
+
+            &--center {
+
+                .banner__title,
+                .banner__description {
+                    text-align: center;
+                }
+
+                .wlc-btn[wlc-button] {
+                    margin-left: auto;
+                    margin-right: auto;
+                }
+            }
+
+            &--right {
+
+                .banner__title,
+                .banner__description {
+                    text-align: right;
+                }
+
+                .wlc-btn[wlc-button] {
+                    margin-left: auto;
+                    margin-right: 0;
+                }
             }
         }
     }

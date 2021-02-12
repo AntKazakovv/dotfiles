@@ -11,7 +11,7 @@ $themeDefaultNavigation: map-merge((
     'swiperNaviButtonBg': ef.get('mainColors', 'baseOpacity'),
     'swiperNaviButtonBgHover': ef.get('mainColors', 'main'),
     'swiperNaviButtonDisabledOpacity': 0.25,
-    'swiperNaviButtonTransition': all 0.3s,
+    'swiperNaviButtonTransition': all 0.3s linear,
     'swiperNaviArrowSize': 40px / 3,
     'swiperNaviArrowColor': ef.get('mainColors', 'baseMain'),
     'swiperNaviArrowColorHover': ef.get('mainColors', 'baseMain'),
@@ -65,7 +65,7 @@ $themeDefaultBanner: map-merge((
     'buttonBg': ef.get('mainColors', 'baseOpacity'),
     'buttonBgHover': ef.get('mainColors', 'main'),
     'iconFill': ef.get('mainColors', 'baseMain'),
-    'transition': 0.5s ease-in,
+    'transition': 0.3s linear,
     'buttonBorderRadius': ef.get('size', 'small'),
     'buttonSize': ef.get('size', 'main'),
 ), $customThemeDefaultBanner);
