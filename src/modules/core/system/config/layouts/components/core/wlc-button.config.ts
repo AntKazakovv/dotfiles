@@ -146,4 +146,13 @@ export namespace wlcButton {
             },
         },
     };
+
+    export const totalJackpot: ILayoutComponent = {
+        name: 'core.wlc-button',
+        params: {
+            common: {
+                text: gettext('Play'),
+            },
+        },
+    };
 }

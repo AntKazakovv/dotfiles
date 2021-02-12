@@ -1,17 +1,29 @@
-<div class="{{$class}}__title">{{$params.title | translate}}</div>
+<svg width="100%">
+     <linearGradient id="linear-gradient" gradientTransform="rotate(90)">
+          <stop offset="0%" stop-color="#BB862C"/>
+          <stop offset="10%" stop-color="#BB862C"/>
+          <stop offset="40%" stop-color="#FFE6B3"/>
+          <stop offset="80%" stop-color="#BB862C"/>
+          <stop offset="100%" stop-color="#BB862C"/>
+     </linearGradient>
 
-<div class="{{$class}}__currency"
-     *ngIf="amount && currency?.position == 'left'"
->{{currency.currency}}</div>
 
-<div class="{{$class}}__counter"
-     [countUp]="amount"
-     [options]="$params.countUpOptions"
-     [reanimateOnClick]="false"
-     [ngClass]="{'loading': !amount}"
->--- --- ---</div>
-
-<div class="{{$class}}__currency"
-     *ngIf="amount && currency?.position == 'right'"
->{{currency.currency}}</div>
+     <text x="50%" y="50%" dy=".35em" text-anchor="middle"
+           fill="url(#linear-gradient)"
+           class="{{$class}}__text"
+     >
+          <tspan class="{{$class}}__currency"
+                 *ngIf="amount && currency?.position == 'left'"
+          >{{currency.currency}}</tspan>
+          <tspan class="{{$class}}__counter"
+                 [countUp]="amount"
+                 [options]="$params.countUpOptions"
+                 [reanimateOnClick]="false"
+                 [ngClass]="{'loading': !amount}"
+          >--- --- ---</tspan>
+          <tspan class="{{$class}}__currency"
+                 *ngIf="amount && currency?.position == 'right'"
+          >{{currency.currency}}</tspan>
+     </text>
+</svg>
 

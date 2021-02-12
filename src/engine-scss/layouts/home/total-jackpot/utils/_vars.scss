@@ -1,0 +1,30 @@
+@use 'engine-scss/functions' as ef;
+
+$customThemeTotalJackpot: () !default;
+$themeTotalJackpot: map-merge((
+    'sectionBackground': url('/gstatic/wlc/jackpots/total-jackpot-bg.jpg'),
+    'sectionBorderRadius': ef.get('size', 'small'),
+    'textStrokeColor': #683c14,
+    'secondaryBackground': url('/gstatic/wlc/jackpots/total-jackpot-coins.png'),
+    'secondaryBackgroundHeight': (
+        375: 120px,
+        720: 175px,
+    ),
+    'jackpotFontSize': (
+        375: 3rem,
+        640: 6rem,
+        1024: 8rem,
+        1200: 12rem,
+    ),
+    'gap': (
+        375: 20px 0,
+        720: 40px 0,
+    ),
+    'sectionHeight': (
+        375: 250px,
+        720: 400px,
+    ),
+    'sectionPadding': (
+        375: 20px,
+    ),
+), $customThemeTotalJackpot);

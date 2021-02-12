@@ -105,4 +105,11 @@ export namespace wlcTitle {
             mainText: gettext('Market'),
         },
     };
+
+    export const totalJackpot: ILayoutComponent = {
+        name: 'core.wlc-title',
+        params: {
+            mainText: gettext('Total Jackpot'),
+        },
+    };
 }
