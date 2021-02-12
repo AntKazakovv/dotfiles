@@ -262,10 +262,6 @@ export class GamesCatalogService {
      */
     public getCategories(): CategoryModel[] {
         return this.gamesCatalog.getAvailableCategories();
-        // return _filter(this.gamesCatalog.getAvailableCategories(), (item: CategoryModel) => {
-        //     //return _includes(this.categoryMenus, item?.menu);
-        //     return item;
-        // });
     }
 
     public getCategoriesForFilter(): CategoryModel[] {

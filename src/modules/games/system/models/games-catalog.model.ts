@@ -238,7 +238,6 @@ export class GamesCatalog extends AbstractModel<IGames> {
      * @returns {CategoryModel[]}
      */
     public getAvailableCategories(): CategoryModel[] {
-        //return this.availableCategories;
         return this.projectCategories;
     }
 
