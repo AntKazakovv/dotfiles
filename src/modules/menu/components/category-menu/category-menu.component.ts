@@ -183,7 +183,7 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
      */
     protected getAllGamesBtn(withoutParams: boolean = false): MenuParams.IMenuItem {
         const item: MenuParams.IMenuItem = {
-            name: this.translate.instant(gettext('All games')),
+            name: gettext('All games'),
             type: 'sref',
             icon: 'allgames',
             class: 'allgames',
@@ -208,7 +208,7 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
 
     protected getLobbyBtn(): MenuParams.IMenuItem {
         return {
-            name: this.translate.instant(gettext('Lobby')),
+            name: gettext('Lobby'),
             type: 'sref',
             icon: 'lobby',
             class: 'lobby',
