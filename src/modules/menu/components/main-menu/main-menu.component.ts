@@ -71,7 +71,7 @@ export class MainMenuComponent extends AbstractComponent implements OnInit {
     }
 
     protected initConfig(): void {
-        const configMenu = this.configService.get<MenuParams.MenuConfigItem[]>('$base.mainMenu');
+        const configMenu = this.configService.get<MenuParams.MenuConfigItem[]>('$menu.mainMenu');
         this.menuConfig = configMenu || Config.wlcMainMenuItemsDefault;
     }
 

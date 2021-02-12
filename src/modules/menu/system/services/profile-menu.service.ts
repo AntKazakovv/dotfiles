@@ -125,7 +125,7 @@ export class ProfileMenuService {
      * Init config of menu
      */
     protected initConfig(): void {
-        const configMenu = this.configService.get<MenuParams.MenuConfigItem[]>('$base.profileMenu');
+        const configMenu = this.configService.get<MenuParams.MenuConfigItem[]>('$menu.profileMenu');
         this.profileMenuConfig = configMenu || wlcProfileMenuItemsDefault;
         this.filterConfig();
         GlobalHelper.deepFreeze(this.profileMenuConfig);
