@@ -23,6 +23,7 @@ export interface IBonusesListCParams extends IComponentParams<Theme, Type, Theme
         customModifiers?: CustomMod;
         restType?: RestType;
         filter?: BonusesFilterType;
+        filterByGroup?: string,
         sortOrder?: ('active' | 'subscribe' | 'inventory' | number)[],
         swiper?: SwiperOptions;
     };

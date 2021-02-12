@@ -9,6 +9,7 @@ export const wlcDefaultMenuItems = {
         //'main-menu:casino',
         //'main-menu:tablegames',
         'main-menu:contacts',
+        'main-menu:promotions',
     ],
     'affiliates-menu': [
         'affiliates-menu:why-us',

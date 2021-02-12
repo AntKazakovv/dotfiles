@@ -123,3 +123,145 @@ $themeDefault: map-merge((
     )
 
 ), $customThemeDefault);
+
+$customThemePromo: () !default;
+$themePromo: map-merge((
+    // Common
+    'height': (
+        320: 270px,
+        1200: 450px,
+    ),
+    'minWidth': (
+        320: 250px,
+        900: 355px,
+        1200: 600px,
+    ),
+    'maxWidth': (
+        320: 355px,
+        900: 100%,
+        1200: 790px,
+    ),
+    'radius': ef.get('radius', 'biger'),
+    //Info
+    'infoPadding': (
+        320: ef.get('size', 'smaller') ef.get('size', 'smaller') ef.get('size', 'less') ef.get('size', 'smaller'),
+        1200: ef.get('size', 'less') ef.get('size', 'main') ef.get('size', 'main') ef.get('size', 'main'),
+    ),
+    'nameFontColor': ef.get('mainColors', 'baseMain'),
+    'nameFontSize': (
+        320: ef.get('font', 'QoteTextBold'),
+        1200: ef.get('font', 'PromoTitle'),
+    ),
+    'nameMaxWidth': (
+        320: 200px,
+        640: 150px,
+        768: 200px,
+        1024: 350px,
+        1200: 100%,
+    ),
+    'nameHeight': (
+        320: 72px,
+        1200: 108px,
+    ),
+    'nameMargin': (
+        320: 0 0 ef.get('size', 'small') 0,
+        1200: 0 0 ef.get('size', 'smaller') 0,
+    ),
+    'descriptionFontColor': ef.get('mainColors', 'PrimaryText'),
+    'btnMargin': 0,
+    //Tag
+    'tagFontColor': ef.get('mainColors', 'secondary'),
+    'tagFontColor2': ef.get('mainColors', 'main'),
+    //Image
+    'imageBg': rgba(0, 0, 0, 0.3),
+    'imgHeight': (
+        320: 100px,
+        1200: 450px,
+    ),
+    'imgWidth': (
+        320: 100px,
+        1200: 340px,
+        1366: 280px,
+        1630: 340px,
+    ),
+    'imgTop': (
+        320: ef.get('size', 'smaller'),
+        1200: auto,
+    ),
+    'imgRight': (
+        320: ef.get('size', 'smaller'),
+        1200: auto,
+    ),
+    //MoreIcon
+    'moreIconSize': 24px,
+    'moreIconColor': ef.get('mainColors', 'baseOpacity'),
+    'moreIconPosRight': (
+        320: ef.get('size', 'small'),
+        1200: ef.get('size', 'smaller'),
+    ),
+    'moreIconPosTop': (
+        320: ef.get('size', 'smallest'),
+        1200: ef.get('size', 'smally'),
+    ),
+    //Bonus icon
+    'bonusIconShadow': 0 4px 9px rgba(0, 0, 0, 0.3),
+    'bonusIconRadius': 50%,
+    'bonusIconSize': (
+        320: 100px,
+        1200: 144px,
+    ),
+    'bonusIconLeft': (
+        320: 0,
+        1200: 35px,
+    ),
+    'bonusIconTop': (
+        320: 0,
+        1200: 35px,
+    ),
+    'bonusIconValueBlockWidth': (
+        320: 42px,
+        1200: 60px,
+    ),
+    'bonusIconValueBlockHeight': (
+        320: 18px,
+        1200: 25px,
+    ),
+    'bonusIconValueBlockPosB': (
+        320: 5px,
+        1200: 10px,
+    ),
+    'bonusIconValueBlockMagin': (
+        320: 0 0 0 -21px,
+        1200: 0 0 0 -30px,
+    ),
+    'bonusIconValueBlockBorderRds': 12px,
+    // // Font
+    'bonusIconValueFontSize': (
+        320: 1.2rem,
+        1200: 2rem,
+    ),
+    'bonusIconValueFontSizeSmall': (
+        320: 1rem,
+        1200: 1.4rem,
+    ),
+    'bonusIconValueFontSizeSmaller': (
+        320: 0.6rem,
+        1200: 1rem,
+    ),
+    'bonusIconValueFontW': 700,
+    'bonusIconValueFontColor': ef.get('fieldColors', 'textColor'),
+    // // Backgrounds
+    'backgroundExperience': ef.get('mainColors', 'bg300'),
+    'backgroundExperienceHover': ef.get('mainColors', 'bg500'),
+    'backgroundLoyalty': ef.get('mainColors', 'bg300'),
+    'backgroundLoyaltyHover': ef.get('mainColors', 'bg500'),
+    'backgroundBalance': ef.get('mainColors', 'bg300'),
+    'backgroundBalanceHover': ef.get('mainColors', 'bg500'),
+    'backgroundFreerounds': ef.get('mainColors', 'bg300'),
+    'backgroundFreeroundsHover': ef.get('mainColors', 'bg500'),
+    'backgroundRelative': ef.get('mainColors', 'bg300'),
+    'backgroundRelativeHover': ef.get('mainColors', 'bg500'),
+    'bonusIconValueBg': ef.get('mainColors', 'baseMain'),
+    // Animation
+    'time': ef.get('time', 'main'),
+), $customThemePromo);

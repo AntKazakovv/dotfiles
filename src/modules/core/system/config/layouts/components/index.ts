@@ -22,6 +22,8 @@ export * from './promo/wlc-slider.config';
 export * from './promo/wlc-last-wins-slider.config';
 export * from './promo/wlc-biggest-wins-slider.config';
 
+export * from './promotions/wlc-bonuses-list.config';
+
 export * from './menu/wlc-category-menu.config';
 export * from './menu/wlc-main-menu.config';
 export * from './menu/wlc-profile-menu.config';

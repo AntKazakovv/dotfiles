@@ -53,6 +53,12 @@ export const $layouts: ILayoutsConfig = {
             content: sectionsLib.content.gamePlay,
         },
     },
+    'app.promotions': {
+        extends: 'app',
+        sections: {
+            content: sectionsLib.content.promotions,
+        },
+    },
     'app.profile': {
         extends: 'app',
         sections: {

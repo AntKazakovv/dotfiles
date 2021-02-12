@@ -19,6 +19,7 @@ import {
 import {Bonus} from '../../system/models/bonus';
 import {BonusesService} from '../../system/services';
 import * as Params from './bonus-item.params';
+import {UIRouter} from '@uirouter/core';
 
 import {
     merge as _merge,
@@ -74,6 +75,7 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
         protected modalService: ModalService,
         protected eventService: EventService,
         protected bonusesService: BonusesService,
+        protected router: UIRouter,
     ) {
         super(
             <IMixedParams<Params.IBonusItemCParams>>{
@@ -90,7 +92,7 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
             this.bonus = this.$params.bonus;
         }
         if (!this.view) {
-            this.view = this.$params.common.bonus?.viewTarget || 'default';
+            this.view = this.$params.common.bonus.viewTarget || 'default';
         }
 
         this.prepareModifiers();
@@ -103,17 +105,17 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
     }
 
     public getBonusTag(): string {
-        if (this.$params.common.bonus?.isActive) {
+        if (this.$params.common.bonus.isActive) {
             return gettext('Active');
         }
-        if (this.$params.common.bonus?.isSubscribed) {
+        if (this.$params.common.bonus.isSubscribed) {
             return gettext('Subscribed');
         }
 
-        if (this.$params.common.bonus?.inventoried) {
+        if (this.$params.common.bonus.inventoried) {
             return gettext('Inventoried');
         }
-        return this.$params.common.bonus?.group;
+        return this.$params.common.bonus.group;
     }
 
     public openDescription(bonus: Bonus): void {
@@ -184,6 +186,27 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
 
         if (this.bonus) {
             this.cdr.markForCheck();
+        }
+    }
+
+    public action(type: string) {
+        switch (type) {
+            case 'register':
+                this.chooseBonus(this.$params.common?.bonus, 'reg');
+                this.modalService.showModal('signup');
+                break;
+            case 'deposit':
+                this.router.stateService.go(
+                    this.$params.common?.promoLinks?.deposit.state || 'app.profile.cash.deposit',
+                    this.$params.common?.promoLinks?.deposit?.params || {},
+                );
+                break;
+            case 'play':
+                this.router.stateService.go(
+                    this.$params.common?.promoLinks?.play.state || 'app.catalog',
+                    this.$params.common?.promoLinks?.play?.params || {category: 'casino'},
+                );
+                break;
         }
     }
 

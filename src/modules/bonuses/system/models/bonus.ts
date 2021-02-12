@@ -35,6 +35,9 @@ export class Bonus extends AbstractModel<IBonus> {
     public isChoose: Boolean = false;
     protected userCurrency: string;
     private regEvents = ['deposit first', 'registration', 'verification'];
+    private depEvents = ['deposit', 'deposit first', 'deposit repeated', 'deposit sum'];
+    private $isReg: boolean;
+    private $isDep: boolean;
 
     constructor(
         data: IBonus,
@@ -44,6 +47,16 @@ export class Bonus extends AbstractModel<IBonus> {
         super();
         this.data = this.modifyData(data);
         this.userCurrency = this.ConfigService.get<string>('appConfig.user.currency') || 'EUR';
+    }
+
+    public set data(data: IBonus) {
+        super.data = data;
+        this.$isDep = this.depEvents.indexOf(this.data.Event) !== -1;
+        this.$isReg = this.regEvents.indexOf(this.data.Event) !== -1;
+    }
+
+    public get data(): IBonus {
+        return super.data;
     }
 
     // default
@@ -183,7 +196,7 @@ export class Bonus extends AbstractModel<IBonus> {
         if (this.hasPromoCode) {
             return gettext('Promocode');
         }
-        if (this.regEvents.indexOf(this.event) !== -1) {
+        if (this.$isReg) {
             return gettext('Welcome bonus');
         }
         return this.data.Group;
@@ -210,7 +223,7 @@ export class Bonus extends AbstractModel<IBonus> {
     }
 
     public get imagePromo(): string {
-        return this.data.Image_promo;
+        return this.data.Image_promo.length ? this.data.Image_promo : this.data.Image;
     }
 
     public get imageReg(): string {
@@ -345,6 +358,13 @@ export class Bonus extends AbstractModel<IBonus> {
      */
     public get isActive(): boolean {
         return this.status == 1 && this.active;
+    }
+
+    /**
+     * @returns {boolean} is bonus deposit
+     */
+    public get isDeposit(): boolean {
+        return this.$isDep;
     }
 
     /**
@@ -756,7 +776,6 @@ export class Bonus extends AbstractModel<IBonus> {
         }
 
         bonus.ExpireDays = bonus.ExpireDays || bonus.Expire;
-
         return bonus;
     }
 }
