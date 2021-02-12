@@ -93,9 +93,9 @@ export class MenuHelper {
                 if (_has(configMenuItem, 'parent')) {
                     const item = configMenuItem as MenuConfigItemsGroup;
                     const parent: Params.IMenuItem = globalItemsConfig[item.parent];
-                    const items: Params.IMenuItem[] = item.items.map((item: string) => {
+                    const items: Params.IMenuItem[] = item.items?.map((item: string) => {
                         return globalItemsConfig[item];
-                    });
+                    }) || [];
                     const menuItem: Params.IMenuItemsGroup = {
                         parent: parent,
                         items: items,

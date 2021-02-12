@@ -7,7 +7,8 @@ import {
     ConfigService,
 } from 'wlc-engine/modules/core';
 import {
-    IMenuItem, IMenuItemsGroup,
+    IMenuItem,
+    IMenuItemsGroup,
     MenuItemObjectType,
 } from 'wlc-engine/modules/menu/components/menu/menu.params';
 import {MenuHelper} from 'wlc-engine/modules/menu/system/helpers/menu.helper';
