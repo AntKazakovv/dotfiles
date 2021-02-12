@@ -93,7 +93,7 @@ export class WinnersSliderComponent extends AbstractComponent implements OnInit 
             };
         });
 
-        if (!this.ready && this.slides.length) {
+        if (!this.ready) {
             this.ready = true;
         }
 
