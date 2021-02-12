@@ -167,7 +167,7 @@ export class StoreService {
                     fail: 'STORE_ITEM_BUY_FAILED',
                 },
             }, params);
-            this.showSuccess(gettext('Product purchase'), gettext('Product succesfuly purchased'));
+            this.showSuccess(gettext('Product purchase'), gettext('Product successfully purchased'));
             return response.data;
         } catch (error) {
             this.showError(gettext('Purchase error'), error?.errors);

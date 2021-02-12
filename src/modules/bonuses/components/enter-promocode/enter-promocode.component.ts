@@ -79,7 +79,7 @@ export class EnterPromocodeComponent
         const promocode = this.enterPromocodeInput.control.value;
 
         if (!promocode) {
-            this.showErrorNotification('Enter promocode');
+            this.showErrorNotification(gettext('Enter promocode'));
             return;
         }
 
@@ -94,7 +94,7 @@ export class EnterPromocodeComponent
             }
 
             if (!bonuses.length) {
-                this.showErrorNotification('No voucher found');
+                this.showErrorNotification(gettext('No voucher found'));
                 return;
             }
 
@@ -112,12 +112,12 @@ export class EnterPromocodeComponent
         }
     }
 
-    protected showErrorNotification(message: string, title: string = 'Error'): void {
+    protected showErrorNotification(message: string, title: string = gettext('Promocode error')): void {
         this.eventService.emit({
             name: NotificationEvents.PushMessage,
             data: <IPushMessageParams>{
                 type: 'error',
-                title: gettext(title),
+                title,
                 message,
             },
         });

@@ -29,8 +29,8 @@
                     icon="close"
                     wlcElement="button_close"
                     (click)="closeModal($params.config.id)"
-                    aria-label="Close"
-                    title="Close">
+                    [attr.aria-label]="'Close' | translate"
+                    [title]="'Close' | translate">
             </button>
         </div>
 

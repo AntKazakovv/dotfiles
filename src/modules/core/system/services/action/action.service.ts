@@ -200,7 +200,7 @@ export class ActionService {
 
     private async setNewPassword(initialPath: IIndexing<string>): Promise<void> {
         if (!initialPath.code) {
-            this.showErrorNotification('Code missing');
+            this.showErrorNotification(gettext('Code missing'), gettext('Password recovery error'));
             return;
         }
 
@@ -211,11 +211,7 @@ export class ActionService {
             const userService: UserService = this.injector.get(UserService);
             await userService.validateRestoreCode(initialPath.code);
         } catch (error) {
-            const message = gettext('Error occured during password recovery');
-
-            this.modalService.showError({
-                modalMessage: [message, ...error.errors],
-            });
+            this.showErrorNotification(error.errors, gettext('Error occured during password recovery'));
 
             return;
         }
@@ -229,7 +225,10 @@ export class ActionService {
 
     private async completeRegistration(initialPath: IIndexing<string>): Promise<void> {
         if (!initialPath.code) {
-            this.showErrorNotification('Code missing');
+            this.showErrorNotification(
+                gettext('Code missing'),
+                gettext('Registration error'),
+            );
             return;
         }
 
@@ -240,21 +239,29 @@ export class ActionService {
         try {
             this.modalService.showModal('registrationSuccess');
             await userService.registrationComplete(initialPath.code);
+            this.eventService.emit({
+                name: NotificationEvents.PushMessage,
+                data: <IPushMessageParams>{
+                    type: 'success',
+                    title: gettext('Registration success'),
+                    message: gettext('You have been successfully registered!'),
+                },
+            });
             this.eventService.emit({name: 'LOGIN'});
         } catch (error) {
-            this.showErrorNotification(error.errors);
+            this.showErrorNotification(error.errors, gettext('Registration error'));
         } finally {
             this.modalService.closeAllModals();
         }
     }
 
-    private showErrorNotification(message: string, title: string = gettext('Payment error')): void {
+    private showErrorNotification(message: string, title: string): void {
         this.eventService.emit({
             name: NotificationEvents.PushMessage,
             data: <IPushMessageParams>{
                 type: 'error',
                 title,
-                message: gettext(message),
+                message,
             },
         });
     }

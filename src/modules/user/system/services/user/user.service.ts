@@ -303,6 +303,7 @@ export class UserService {
                 name: NotificationEvents.PushMessage,
                 data: <IPushMessageParams>{
                     type: 'error',
+                    title: gettext('Login error'),
                     message: error.errors,
                 },
             });

@@ -57,8 +57,8 @@ export class ProfileFormComponent extends AbstractComponent implements OnInit {
                 name: NotificationEvents.PushMessage,
                 data: <IPushMessageParams>{
                     type: 'success',
-                    title: gettext('Profile update'),
-                    message: gettext('Profile update success'),
+                    title: gettext('Profile updated successfully'),
+                    message: gettext('Your profile has been updated successfully'),
                 },
             });
             return true;

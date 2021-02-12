@@ -58,7 +58,7 @@ export class RestorePasswordFormComponent extends AbstractComponent {
                 name: NotificationEvents.PushMessage,
                 data: <IPushMessageParams>{
                     type: 'success',
-                    title: gettext('Password reset'),
+                    title: gettext('Password reset success'),
                     message: response.data.result,
                 },
             });
@@ -67,6 +67,7 @@ export class RestorePasswordFormComponent extends AbstractComponent {
                 name: NotificationEvents.PushMessage,
                 data: <IPushMessageParams>{
                     type: 'error',
+                    title: gettext('Password reset failed'),
                     message: error.errors,
                 },
             });

@@ -16,7 +16,11 @@
         <h4 class="wlc-notification-message__heading">{{title | translate}}</h4>
         <span class="wlc-notification-message__message-container">
             <span class="wlc-notification-message__message">
-                {{message | translate}}
+                <ng-container *ngFor="let message of messages">
+                    <ng-container *ngIf="message">
+                        {{(message | translate) + '\n'}}
+                    </ng-container>
+                </ng-container>
             </span>
             <button *ngIf="action"
                     wlc-button

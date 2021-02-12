@@ -25,6 +25,8 @@
         @include ThirdTitleBold;
     } @else if ($style == 'QoteTextBold') {
         @include QoteTextBold;
+    } @else if ($style == 'QoteTextBoldTight') {
+        @include QoteTextBoldTight;
     } @else if ($style == 'PlaceholderTextBold') {
         @include PlaceholderTextBold;
     }
@@ -92,6 +94,12 @@
     font-weight: bold;
     font-size: map-get(ev.$font, 'QoteTextBold');
     line-height: 1.45;
+}
+
+@mixin QoteTextBoldTight {
+    font-weight: bold;
+    font-size: map-get(ev.$font, 'QoteTextBoldTight');
+    line-height: 1.25;
 }
 
 @mixin PlaceholderTextBold {

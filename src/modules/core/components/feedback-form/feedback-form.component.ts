@@ -63,7 +63,7 @@ export class FeedbackFormComponent extends AbstractComponent implements OnInit {
                     name: NotificationEvents.PushMessage,
                     data: <IPushMessageParams>{
                         type: 'success',
-                        title: gettext('Form submitting successfully'),
+                        title: gettext('Form submitted successfully'),
                         message: gettext('Your message has been successfully sent'),
                     },
                 });

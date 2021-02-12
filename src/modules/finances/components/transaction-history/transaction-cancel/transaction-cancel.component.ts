@@ -1,6 +1,10 @@
 import {Component, OnInit, ChangeDetectorRef, Inject} from '@angular/core';
+import {
+    EventService,
+    IPushMessageParams,
+    NotificationEvents,
+} from 'wlc-engine/modules/core';
 import {AbstractComponent, IMixedParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ModalService} from 'wlc-engine/modules/core/system/services';
 import {FinancesService} from 'wlc-engine/modules/finances/system/services/finances/finances.service';
 import * as Params from './transaction-cancel.params';
 
@@ -18,7 +22,7 @@ export class TransactionCancelComponent extends AbstractComponent implements OnI
         @Inject('injectParams') protected params: Params.ITransactionCancelParams,
         protected cdr: ChangeDetectorRef,
         protected financesService: FinancesService,
-        protected modalService: ModalService,
+        protected eventService: EventService,
     ) {
         super(
             <IMixedParams<Params.ITransactionCancelParams>>{
@@ -42,9 +46,15 @@ export class TransactionCancelComponent extends AbstractComponent implements OnI
             await this.financesService.cancelWithdrawal(this.$params.transaction.id);
             this.$params.transaction.setStatus(-55);
         } catch (error) {
-            this.modalService.showError({
-                id: 'cancel-transaction-error-' + this.$params.transaction.id,
-                modalMessage: error.errors?.length ? error.errors : gettext('Something went wrong. Please try again later.'),
+            this.eventService.emit({
+                name: NotificationEvents.PushMessage,
+                data: <IPushMessageParams>{
+                    type: 'error',
+                    title: gettext('Transaction error'),
+                    message: error.errors?.length
+                        ? error.errors
+                        : gettext('Something went wrong. Please try again later.'),
+                },
             });
         } finally {
             this.$params.transaction.cancelProgress = false;

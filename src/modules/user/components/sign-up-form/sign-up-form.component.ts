@@ -105,7 +105,7 @@ export class SignUpFormComponent extends AbstractComponent {
             name: NotificationEvents.PushMessage,
             data: <IPushMessageParams>{
                 type: 'success',
-                title: gettext('User registration'),
+                title: gettext('Registration success'),
                 message: [
                     gettext('Your account has been registered.'),
                     gettext('Please complete registration using link in e-mail'),
@@ -129,7 +129,7 @@ export class SignUpFormComponent extends AbstractComponent {
             name: NotificationEvents.PushMessage,
             data: <IPushMessageParams>{
                 type: 'error',
-                title: gettext('User registration'),
+                title: gettext('Registration error'),
                 message: gettext('You must agree with Terms and Conditions as well as confirm that you are at least 18 years old'),
             },
         });
