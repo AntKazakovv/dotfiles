@@ -16,6 +16,7 @@
     border-radius: ef.get-value($themeDefault, 'borderRadiusDefault');
     padding: ef.get-value($themeDefault, 'padding');
     background: ef.get-value($themeDefault, 'background');
+    box-shadow: ef.get-value($themeDefault, 'shadow');
 
     .wlc-btn__text {
         @include text.get-text-style('ButtonText', ef.get-value($themeDefault, 'fontColor'));
@@ -29,6 +30,7 @@
             color: ef.get-value($themeDefault, 'colorDefaultHover');
             border: ef.get-value($themeDefault, 'borderDefaultHover');
             background: ef.get-value($themeDefault, 'backgroundHover');
+            box-shadow: ef.get-value($themeDefault, 'shadowHover');
             @include bm.transition;
         }
     }
@@ -37,6 +39,7 @@
 @mixin buttonTransparency {
     background: transparent;
     border: ef.get-value($themeDefault, 'borderSecondary');
+    box-shadow: ef.get-value($themeDefault, 'shadowSecondary');
 
     .wlc-btn__text {
         color: ef.get-value($themeDefault, 'fontColorSecondary');
@@ -47,6 +50,7 @@
         &:hover {
             background: ef.get-value($themeDefault, 'backgroundSecondary');
             border-color: ef.get-value($themeDefault, 'backgroundSecondary');
+            box-shadow: ef.get-value($themeDefault, 'shadowSecondaryHover');
             color: ef.get-value($themeDefault, 'fontColorActiveSecondary');
         }
     }

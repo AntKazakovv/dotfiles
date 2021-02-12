@@ -461,8 +461,8 @@ $buttonSettings: map-merge((
     'textTransform': initial,
     // Background
     'background': map-get($mainColors, 'buttonColor'),
-    'backgroundSecondary': map-get($mainColors, 'secondary'),
     'backgroundHover': darken(map-get($mainColors, 'buttonColor'), 20%),
+    'backgroundSecondary': map-get($mainColors, 'secondary'),
     'backgroundSecondaryHover': darken(map-get($mainColors, 'secondary'), 20%),
     'backgroundResolve': map-get($mainColors, 'success'),
     'backgroundResolveHover': darken(map-get($mainColors, 'success'), 20%),
@@ -471,7 +471,10 @@ $buttonSettings: map-merge((
     'backgroundDisabled': map-get($mainColors, 'disabled'),
     'backgroundDisabledHover': darken(map-get($mainColors, 'disabled'), 20%),
     // Shadow
-    'shadow': 0 10px 10px map-get($mainColors, 'secondary'),
+    'shadow': none,
+    'shadowHover': none,
+    'shadowSecondary': none,
+    'shadowHoverSecondary': none,
     //Border
     'borderDefault': 2px solid transparent,
     'borderRadiusDefault': map-get($radius, 'biger'),
