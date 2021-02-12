@@ -1,6 +1,7 @@
+import {MenuConfigItem} from 'wlc-engine/modules/menu/components/menu/menu.params';
 
 export interface IMenuConfig {
-    mainMenu?: any;
-    mobileMenu?: any;
-    profileMenu?: any;
+    mainMenu?: MenuConfigItem[];
+    mobileMenu?: MenuConfigItem[];
+    profileMenu?: MenuConfigItem[];
 }
