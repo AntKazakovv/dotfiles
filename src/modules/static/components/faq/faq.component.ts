@@ -32,6 +32,7 @@ import {
 })
 export class FaqComponent extends AbstractComponent implements OnInit {
     public faqData: Params.IFaqData[];
+    public ready: boolean = false;
     public $params: Params.IFaqCParams;
 
     @Input() protected slug: string;
@@ -52,11 +53,13 @@ export class FaqComponent extends AbstractComponent implements OnInit {
         try {
             const data: TextDataModel = await this.getRawData();
             this.faqData = this.parseTableData(data?.html);
-            this.cdr.detectChanges();
         } catch (e) {
             if (this.showErrors) {
                 console.error('Error post loading');
             }
+        } finally {
+            this.ready = true;
+            this.cdr.detectChanges();
         }
     }
 

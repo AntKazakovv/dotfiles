@@ -1,23 +1,29 @@
-<ng-container *ngIf="faqData; else preloader">
+<ng-container *ngIf="ready; else preloader">
     <div class="{{$class}}__header" *ngIf="$params.common.title">{{$params.common.title | translate}}</div>
-    <div class="{{$class}}__item"
-         *ngFor="let item of faqData"
-         [ngClass]="{expanded: item.expand}"
-    >
-        <div class="{{$class}}__title"
-             (click)="expandToggle(item)">
-            <div class="{{$class}}__title-text">{{item.title}}</div>
-            <div class="{{$class}}__title-icon" wlc-icon [iconName]="'thin-arrow'"></div>
-        </div>
-        <div class="{{$class}}__content"
-             [@toggle]="item.expand ? 'opened' : 'closed'">
-            <div class="{{$class}}__content-wrp">
-                {{item.content}}
+    <ng-container *ngIf="faqData; else noData">
+        <div class="{{$class}}__item"
+            *ngFor="let item of faqData"
+            [ngClass]="{expanded: item.expand}"
+        >
+            <div class="{{$class}}__title"
+                (click)="expandToggle(item)">
+                <div class="{{$class}}__title-text">{{item.title}}</div>
+                <div class="{{$class}}__title-icon" wlc-icon [iconName]="'thin-arrow'"></div>
+            </div>
+            <div class="{{$class}}__content"
+                [@toggle]="item.expand ? 'opened' : 'closed'">
+                <div class="{{$class}}__content-wrp">
+                    {{item.content}}
+                </div>
             </div>
         </div>
-    </div>
+    </ng-container>
 </ng-container>
 
 <ng-template #preloader>
     <div wlc-loader></div>
+</ng-template>
+
+<ng-template #noData>
+    <div *ngIf="$params.common.title">No data</div>
 </ng-template>
