@@ -8,3 +8,10 @@ $themeDefault: map-merge((
     'swiperPadding': 0 ef.get('size', 'smaller') - 1px 0 ef.get('size', 'smaller') - 1px,
 ), $customThemeDefault);
 
+$customThemePromo: () !default;
+$themePromo: map-merge((
+    'gridGap': ef.get('size', 'smaller'),
+    'minItemWidth': 280px,
+    'minItemWidth900': 360px,
+    'minItemWidthDesktop': 600px,
+), $customThemePromo);

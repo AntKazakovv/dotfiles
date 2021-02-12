@@ -20,7 +20,7 @@ export const wlcMobileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         class: 'promotions',
         params: {
             state: {
-                name: 'app.profile.main.info',
+                name: 'app.promotions',
                 params: {},
             },
         },

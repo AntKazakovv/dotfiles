@@ -1,0 +1,272 @@
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/mixins/base.mixins' as em;
+@use 'engine-scss/functions' as ef;
+@import '../utils/vars';
+
+.wlc-bonus-item--theme-promo {
+
+    .wlc-bonus-item {
+
+        &__content {
+            position: relative;
+            background: ef.get-value($themePromo, 'background');
+            @include em.get-mq-map('height', $themePromo, 'height');
+            @include em.get-mq-map('min-width', $themePromo, 'minWidth');
+            @include em.get-mq-map('max-width', $themePromo, 'maxWidth');
+            border-radius: ef.get-value($themePromo, 'radius');
+            overflow: hidden;
+            margin-left: auto;
+            margin-right: auto;
+
+            @media (hover: hover) {
+
+                &:hover {
+                    background: ef.get-value($themePromo, 'backgroundHover');
+                }
+            }
+
+            &.subscribed,
+            &.active,
+            &.inventoried {
+
+                .wlc-bonus-item__tag {
+                    @include text.get-text-style('ThirdTitleBold', ef.get-value($themePromo, 'tagFontColor2'));
+                }
+            }
+        }
+
+        &__wrapper {
+            position: relative;
+
+            @include mq.min(1200) {
+                display: grid;
+                grid-template-columns: minmax(0, 1fr) ef.get-value($themePromo, 'imgWidth', 1200);
+            }
+
+            @include mq.min(1366) {
+                display: grid;
+                grid-template-columns: minmax(0, 1fr) ef.get-value($themePromo, 'imgWidth', 1366);
+            }
+
+            @include mq.min(1630) {
+                display: grid;
+                grid-template-columns: minmax(0, 1fr) ef.get-value($themePromo, 'imgWidth', 1630);
+            }
+        }
+
+        &__image-block {
+            @include em.get-mq-map('height', $themePromo, 'imgHeight');
+            @include em.get-mq-map('width', $themePromo, 'imgWidth');
+            @include em.get-mq-map('top', $themePromo, 'imgTop');
+            @include em.get-mq-map('right', $themePromo, 'imgRight');
+            position: absolute;
+
+            @include mq.min(1200) {
+                position: relative;
+            }
+        }
+
+        &__info-block {
+            @include em.get-mq-map('height', $themePromo, 'height');
+            overflow: hidden;
+            @include em.get-mq-map('padding', $themePromo, 'infoPadding');
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        &__image {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-color: ef.get-value($themePromo, 'imageBg');
+            display: none;
+
+            @include mq.min(1200) {
+                display: block;
+            }
+        }
+
+        &__bonus-icon {
+            @include em.get-mq-map('width', $themePromo, 'bonusIconSize');
+            @include em.get-mq-map('height', $themePromo, 'bonusIconSize');
+            @include em.get-mq-map('left', $themePromo, 'bonusIconLeft');
+            @include em.get-mq-map('top', $themePromo, 'bonusIconTop');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center center;
+            border-radius: ef.get-value($themePromo, 'bonusIconRadius');
+            box-shadow: ef.get-value($themePromo, 'bonusIconShadow');
+            position: absolute;
+
+            .icon-sign {
+                position: absolute;
+                width: 100%;
+                left: 0;
+                top: 0;
+            }
+
+            .icon-text {
+                @include em.get-mq-map('width', $themePromo, 'bonusIconValueBlockWidth');
+                @include em.get-mq-map('height', $themePromo, 'bonusIconValueBlockHeight');
+                @include em.get-mq-map('font-size', $themePromo, 'bonusIconValueFontSize');
+                @include em.get-mq-map('bottom', $themePromo, 'bonusIconValueBlockPosB');
+                @include em.get-mq-map('margin', $themePromo, 'bonusIconValueBlockMagin');
+
+                left: 50%;
+                border-radius: ef.get-value($themePromo, 'bonusIconValueBlockBorderRds');
+                background-color: ef.get-value($themePromo, 'bonusIconValueBg');
+                color: ef.get-value($themePromo, 'bonusIconValueFontColor');
+                font-weight: ef.get-value($themePromo, 'bonusIconValueFontW');
+                position: absolute;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                line-height: 1;
+
+                &.wlc-small {
+                    @include em.get-mq-map('font-size', $themePromo, 'bonusIconValueFontSizeSmall');
+                }
+
+                &.wlc-smaller {
+                    @include em.get-mq-map('font-size', $themePromo, 'bonusIconValueFontSizeSmaller');
+                }
+            }
+        }
+
+        &__tag {
+            @include text.get-text-style('ThirdTitleBold', ef.get-value($themePromo, 'tagFontColor'));
+        }
+
+        &__name {
+            color: ef.get-value($themePromo, 'nameFontColor');
+            @include em.get-mq-map('font-size', $themePromo, 'nameFontSize');
+            font-weight: bold;
+            line-height: 1.5;
+            @include em.get-mq-map('max-width', $themePromo, 'nameMaxWidth');
+            @include em.get-mq-map('min-height', $themePromo, 'nameHeight');
+            @include em.get-mq-map('margin', $themePromo, 'nameMargin');
+
+            /* stylelint-disable */
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            /* stylelint-enable */
+            overflow: hidden;
+        }
+
+        &__description {
+            @include text.get-text-style('ThirdTitle', ef.get-value($themePromo, 'descriptionFontColor'));
+            /* stylelint-disable */
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            /* stylelint-enable */
+            overflow: hidden;
+
+            @include mq.min(1200) {
+                /* stylelint-disable */
+                -webkit-line-clamp: 3;
+                /* stylelint-enable */
+            }
+        }
+
+        &__more-icon {
+            position: absolute;
+            @include em.get-mq-map('top', $themePromo, 'moreIconPosTop');
+            @include em.get-mq-map('right', $themePromo, 'moreIconPosRight');
+
+            .icon-btn {
+                cursor: pointer;
+                width: ef.get-value($themePromo, 'moreIconSize');
+                height: ef.get-value($themePromo, 'moreIconSize');
+
+                svg {
+                    width: 100%;
+                    fill: ef.get-value($themePromo, 'moreIconColor');
+                }
+            }
+        }
+
+        &__btns {
+
+            button {
+                margin: ef.get-value($themePromo, 'btnMargin');
+            }
+        }
+    }
+
+    &.wlc-bonus-item--view-experience {
+
+        .wlc-bonus-item__content {
+            background: ef.get-value($themePromo, 'backgroundExperience');
+
+            @media (hover: hover) {
+
+                &:hover {
+                    background: ef.get-value($themePromo, 'backgroundExperienceHover');
+                }
+            }
+        }
+    }
+
+    &.wlc-bonus-item--view-loyalty {
+
+        .wlc-bonus-item__content {
+            background: ef.get-value($themePromo, 'backgroundLoyalty');
+
+            @media (hover: hover) {
+
+                &:hover {
+                    background: ef.get-value($themePromo, 'backgroundLoyaltyHover');
+                }
+            }
+        }
+    }
+
+    &.wlc-bonus-item--view-balance {
+
+        .wlc-bonus-item__content {
+            background: ef.get-value($themePromo, 'backgroundBalance');
+
+            @media (hover: hover) {
+
+                &:hover {
+                    background: ef.get-value($themePromo, 'backgroundBalanceHover');
+                }
+            }
+        }
+    }
+
+    &.wlc-bonus-item--view-freerounds {
+
+        .wlc-bonus-item__content {
+            background: ef.get-value($themePromo, 'backgroundFreerounds');
+
+            @media (hover: hover) {
+
+                &:hover {
+                    background: ef.get-value($themePromo, 'backgroundFreeroundsHover');
+                }
+            }
+        }
+    }
+
+    &.wlc-bonus-item--view-relative {
+
+        .wlc-bonus-item__content {
+            background: ef.get-value($themePromo, 'backgroundRelative');
+
+            @media (hover: hover) {
+
+                &:hover {
+                    background: ef.get-value($themePromo, 'backgroundRelativeHover');
+                }
+            }
+        }
+    }
+}

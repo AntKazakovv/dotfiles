@@ -1,0 +1,10 @@
+@use 'engine-scss/functions' as ef;
+
+$customPromotionsThemeDefault: () !default;
+$promotionsThemeDefault: map-merge((
+    'titleFontSize': ef.get('font', 'base'),
+    'titleAlign': center,
+    'sectionMargin': 0 0 ef.get('size', 'main') 0,
+    'listMargin': 0 0 ef.get('size', 'smaller') 0,
+    'btnMargin': 0 auto ef.get('size', 'main') auto,
+), $customPromotionsThemeDefault);

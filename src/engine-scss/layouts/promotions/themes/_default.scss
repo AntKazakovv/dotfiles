@@ -1,0 +1,36 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/mixins/mediaqueries' as mq;
+
+@import '../utils/vars';
+
+.app-promotions-state {
+
+    .wlc-sections__content--theme-default {
+
+        .wlc-title.wlc-title--promotions[wlc-title] {
+            text-align: ef.get-value($promotionsThemeDefault, 'titleAlign');
+            margin: ef.get-value($promotionsThemeDefault, 'listMargin');
+
+            div.wlc-title__main {
+                font-size: ef.get-value($promotionsThemeDefault, 'titleFontSize');
+            }
+
+            @include mq.min(900) {
+                margin: ef.get-value($promotionsThemeDefault, 'sectionMargin');
+            }
+        }
+
+        .wlc-bonuses-list {
+            margin: ef.get-value($promotionsThemeDefault, 'listMargin');
+
+            @include mq.min(900) {
+                margin: ef.get-value($promotionsThemeDefault, 'sectionMargin');
+            }
+        }
+
+        .wlc-btn--theme-mod-promotions {
+            margin: ef.get-value($promotionsThemeDefault, 'btnMargin');
+        }
+    }
+}

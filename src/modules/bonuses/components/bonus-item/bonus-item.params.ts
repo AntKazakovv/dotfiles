@@ -3,6 +3,7 @@ import {
     CustomType,
 } from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus';
+import {IIndexing} from 'wlc-engine/modules/core';
 
 export type Type = 'default' | 'reg' | 'deposit' | 'promo' | 'store' | 'active' | 'inventory' | CustomType;
 export type Theme = 'default' | CustomType;
@@ -11,6 +12,10 @@ export type AutoModifiers = Theme | ThemeMod;
 export type CustomMod = string;
 export type Modifiers = AutoModifiers | CustomMod | null;
 
+export interface ILinkParams {
+    state: string;
+    params?: IIndexing<string>;
+}
 export interface IBonusItemCParams extends IComponentParams<Theme, Type, ThemeMod> {
     modifiers?: Modifiers[];
     bonus?: Bonus,
@@ -27,6 +32,10 @@ export interface IBonusItemCParams extends IComponentParams<Theme, Type, ThemeMo
         iconMoreBtn?: boolean;
         iconsPath?: string;
         bonus?: Bonus;
+        promoLinks?: {
+            deposit?: ILinkParams,
+            play?: ILinkParams,
+        };
     };
 }
 
@@ -43,5 +52,16 @@ export const defaultParams: IBonusItemCParams = {
         iconMoreBtn: true,
         hideChooseBtn: true,
         iconsPath: '/gstatic/bonuses/icons/',
+        promoLinks: {
+            deposit: {
+                state: 'app.profile.cash.deposit',
+            },
+            play: {
+                state: 'app.catalog',
+                params: {
+                    category: 'casino',
+                },
+            },
+        },
     },
 };

@@ -17,6 +17,7 @@ const states = {
     'app.gameplay': States.gamePlayState,
     'app.pages': States.pagesState,
     'app.contacts': States.contactsState,
+    'app.promotions': States.promotionsState,
     'app.profile': States.profileState,
     'app.profile.main': States.profileMainState,
     'app.profile.main.info': States.profileMainInfoState,

@@ -211,6 +211,9 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
     protected prepareBonuses(): void {
         this.bonuses = this.sortBonuses();
         this.checkBonuses();
+        if (this.$params.common?.filterByGroup) {
+            this.bonuses = _filter(this.bonuses, (bonus) => bonus.data.Group === this.$params.common.filterByGroup);
+        }
     }
 
     protected addPromoBonus(): void {

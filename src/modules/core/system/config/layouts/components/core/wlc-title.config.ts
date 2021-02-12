@@ -1,6 +1,15 @@
 import {ILayoutComponent} from 'wlc-engine/modules/core';
 
 export namespace wlcTitle {
+    export const promotions: ILayoutComponent = {
+        name: 'core.wlc-title',
+        params: {
+            customMod: ['promotions'],
+            mainText: gettext('Promotions'),
+            wlcElement: 'header_promotions',
+        },
+    };
+
     export const profile: ILayoutComponent = {
         name: 'core.wlc-title',
         params: {

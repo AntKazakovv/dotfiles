@@ -132,4 +132,18 @@ export namespace wlcButton {
             },
         },
     };
+
+    export const toProfile: ILayoutComponent = {
+        name: 'core.wlc-button',
+        display: {
+            auth: true,
+        },
+        params: {
+            themeMod: 'promotions',
+            common: {
+                text: gettext('Go to Profile'),
+                sref: 'app.profile.loyalty-bonuses.main',
+            },
+        },
+    };
 }

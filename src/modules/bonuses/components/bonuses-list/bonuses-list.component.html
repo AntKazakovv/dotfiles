@@ -1,7 +1,7 @@
 <div class="{{$class}}__content">
     <div class="{{$class}}__list-wrapper" *ngIf="$params.type !== 'swiper'">
         <div class="{{$class}}__list" *ngIf="bonuses?.length && isReady; else: noBonuses">
-            <div wlc-bonus-item [bonus]="bonus" [chosen]="bonus.isChoose" [type]="$params.common.filter" *ngFor="let bonus of bonuses"></div>
+            <div wlc-bonus-item [bonus]="bonus" [chosen]="bonus.isChoose" [type]="$params.common.filter" [theme]="$params.theme" *ngFor="let bonus of bonuses"></div>
         </div>
         <!-- TODO: add pagination -->
     </div>
