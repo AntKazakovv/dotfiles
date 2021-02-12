@@ -1,6 +1,6 @@
 @use 'engine-scss/functions' as ef;
 @use 'engine-scss/mixins/text' as text;
-@import '../utils/vars';
+@use 'engine-scss/mixins/base.mixins' as em;
 
 .wlc-logout--theme-default:host {
 
@@ -20,6 +20,28 @@
 
             svg {
                 fill: ef.get-value($themeDefault, 'iconColor');
+            }
+        }
+
+        @media (hover: hover) {
+
+            &:hover {
+
+                ::ng-deep {
+
+                    .wlc-btn__text {
+                        color: ef.get-value($themeDefault, 'textColorHover');
+                        @include em.transition(color);
+                    }
+
+                    ::ng-deep {
+
+                        path {
+                            stroke: ef.get-value($themeDefault, 'textColorHover');
+                            @include em.transition(stroke);
+                        }
+                    }
+                }
             }
         }
     }

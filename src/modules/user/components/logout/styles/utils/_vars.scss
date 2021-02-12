@@ -4,4 +4,5 @@ $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'iconColor': ef.get('mainColors', 'baseOpacity'),
     'textColor': ef.get('mainColors', 'baseOpacity'),
+    'textColorHover': darken(ef.get('mainColors', 'baseOpacity'), 20),
 ), $customThemeDefault);
