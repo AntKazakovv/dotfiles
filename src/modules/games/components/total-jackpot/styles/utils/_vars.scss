@@ -1,5 +1,8 @@
 @use 'engine-scss/functions' as ef;
 
-$fontSize: ef.get('size', 'less') !default;
-$color: ef.get('color', 'textSecondary') !default;
-$gap: 15px !default;
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'fontSize': ef.get('size', 'less'),
+    'fontWeight': bold,
+    'loadingAnimation': pulse 2s infinite,
+), $customThemeDefault);

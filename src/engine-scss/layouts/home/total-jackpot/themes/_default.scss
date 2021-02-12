@@ -1,0 +1,64 @@
+@use 'engine-scss/mixins/text' as lib;
+@use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/mediaqueries' as mq;
+
+.wlc-sections__total-jackpot {
+
+    .container {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: ef.get-value($themeTotalJackpot, 'sectionBackground');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        border-radius: ef.get-value($themeTotalJackpot, 'sectionBorderRadius');
+        overflow: hidden;
+
+        @include bm.get-mq-map('padding', $themeTotalJackpot, 'sectionPadding');
+        @include bm.get-mq-map('min-height', $themeTotalJackpot, 'sectionHeight');
+
+        &:before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: ef.get-value($themeTotalJackpot, 'secondaryBackground');
+            background-size: auto 100%;
+            background-repeat: no-repeat;
+            background-position: center;
+
+            @include bm.get-mq-map('height', $themeTotalJackpot, 'secondaryBackgroundHeight');
+        }
+    }
+
+    .wlc-total-jackpot[class] {
+        width: 100%;
+        @include bm.get-mq-map('height', $themeTotalJackpot, 'jackpotFontSize');
+        @include bm.get-mq-map('margin', $themeTotalJackpot, 'gap');
+
+        .wlc-total-jackpot__text[class] {
+            @include bm.get-mq-map('font-size', $themeTotalJackpot, 'jackpotFontSize');
+            @include textStroke(4, ef.get-value($themeTotalJackpot, 'textStrokeColor'));
+
+            @include mq.min(768) {
+                @include textStroke(8, ef.get-value($themeTotalJackpot, 'textStrokeColor'));
+            }
+        }
+    }
+
+    .wlc-btn {
+        position: relative;
+        z-index: 1;
+    }
+
+    .wlc-title[class] {
+
+        .wlc-title__main[class] {
+            @include lib.get-text-style('ThirdTitleBold');
+        }
+    }
+}

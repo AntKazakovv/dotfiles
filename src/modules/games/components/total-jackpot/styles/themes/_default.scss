@@ -1,33 +1,17 @@
-@import '../utils/vars';
-
-@keyframes pulse {
-
-    0% {
-        opacity: 0.3;
-    }
-
-    50% {
-        opacity: 0.1;
-    }
-
-    100% {
-        opacity: 0.3;
-    }
-}
+@use 'engine-scss/functions' as ef;
 
 .wlc-total-jackpot--theme-default:host {
     display: flex;
-    font-size: $fontSize;
-    color: $color;
-
-    .wlc-total-jackpot__title {
-        margin-right: $gap;
-    }
 
     .wlc-total-jackpot__counter {
 
         &.loading {
-            animation: pulse 2s infinite;
+            animation: ef.get-value($themeDefault, 'loadingAnimation');
         }
+    }
+
+    .wlc-total-jackpot__text {
+        font-size: ef.get-value($themeDefault, 'fontSize');
+        font-weight: ef.get-value($themeDefault, 'fontWeight');
     }
 }

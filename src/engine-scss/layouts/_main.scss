@@ -6,7 +6,8 @@
 @import './promotions/promotions';
 @import './profile/profile';
 @import './categories/categories';
-@import './home/home-wins';
+@import './home/home-wins/home-wins';
+@import './home/total-jackpot/total-jackpot';
 
 @include em.init-layout-gap(ev.$layoutGap);
 
