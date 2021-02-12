@@ -53,7 +53,7 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
     protected deviceType: DeviceType;
 
     constructor(
-        @Inject('injectParams')  @Optional() @Self() protected injectParams: Params.IGameThumbCParams,
+        @Inject('injectParams') protected injectParams: Params.IGameThumbCParams,
         protected gamesCatalogService: GamesCatalogService,
         protected cdr: ChangeDetectorRef,
         protected configService: ConfigService,
