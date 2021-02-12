@@ -298,7 +298,7 @@ export class DataService {
 
         const url = method.fullUrl || this.urlPrefix + method.url;
 
-        const preloadData$: Observable<IData> =
+        const preloadData$: Observable<unknown> =
             (method.type === 'GET' && _has(globalThis.wlcPreload, method.preload))
                 ? from(globalThis.wlcPreload[method.preload])
                 : of(undefined);

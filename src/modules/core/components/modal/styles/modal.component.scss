@@ -40,7 +40,8 @@
     }
 
     &__title {
-        @include text.get-text-style(ef.get-value($hostModal, 'titleFontSize'), ef.get-value($hostModal, 'titleColor'));
+        @include text.get-text-style(ef.get-value($hostModal, 'titleFontSizeMobile'), ef.get-value($hostModal, 'titleColor'));
+        font-weight: bold;
         margin: ef.get-value($hostModal, 'titleMargin');
 
         max-width: ef.get-value($hostModal, 'titleMaxWidth');
@@ -57,6 +58,10 @@
 
         &--back-btn {
             padding-left: ef.get-value($hostModal, 'ef.get-value($hostModal, '')');
+        }
+
+        @include mq.min(560) {
+            @include text.get-text-style(ef.get-value($hostModal, 'titleFontSize'), ef.get-value($hostModal, 'titleColor'));
         }
     }
 

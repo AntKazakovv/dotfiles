@@ -4,6 +4,7 @@
     [class.noauth]="!isAuth"
     [class.nochoosebtn]="isNoChooseBtn"
     [class.choosebtn]="isChooseBtn"
+    [class.disabled]="$params.common.bonus?.isDisabled"
     [class.active]="$params.common.bonus?.isActive">
     <div class="{{$class}}__wrapper" (click)="chooseBonusNoBtn($params.common.bonus, $params.common?.type)">
         <div class="{{$class}}__image-block" data-wlc-element="bonus_image">
@@ -79,6 +80,7 @@
                 </button>
                 <button type="button"
                         wlc-button
+                        themeMod="secondary"
                         text="Cancel"
                         *ngIf="$params.common.bonus?.isActive"
                         (click)="leave()"

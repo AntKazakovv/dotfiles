@@ -14,6 +14,7 @@ import {
     CachingService,
     ConfigService,
     EventService,
+    IData,
 } from 'wlc-engine/modules/core';
 import {
     ISliderCParams,
@@ -104,6 +105,9 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
                     }
 
                     this.prepareBonuses();
+                    if (this.$params.type === 'swiper' && this.bonuses?.length) {
+                        this.bonusesToSlides(this.bonuses);
+                    }
                     this.cdr.markForCheck();
                 },
             },
@@ -123,6 +127,28 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
             this.prepareBonuses();
             this.cdr.detectChanges();
         }, this.$destroy);
+
+        if (this.$params.type === 'swiper') {
+            this.eventService.subscribe([
+                {name: 'LOGIN'},
+                {name: 'LOGOUT'},
+                {name: 'PROFILE_UPDATE'},
+                {name: 'BONUS_TAKE_SUCCEEDED'},
+                {name: 'BONUS_CANCEL_SUCCEEDED'},
+            ], () => {
+                if (this.bonuses?.length) {
+                    this.bonusesToSlides(this.bonuses, true);
+                }
+            }, this.$destroy);
+
+            this.eventService.subscribe([
+                {name: 'BONUS_SUBSCRIBE_SUCCEEDED'},
+            ], (bonus: IData) => {
+                if (bonus?.data?.event === 'sign up' && this.bonuses?.length) {
+                    this.bonusesToSlides(this.bonuses, true);
+                }
+            }, this.$destroy);
+        }
     }
 
     protected prepareModifiers(): void {
@@ -133,7 +159,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
         this.addModifiers(modifiers);
     }
 
-    protected bonusesToSlides(bonuses: Bonus[]): void {
+    protected bonusesToSlides(bonuses: Bonus[], scroll?: boolean): void {
         this.slides = bonuses?.map((item: Bonus) => {
             return {
                 component: BonusItemComponent,
@@ -146,7 +172,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
             };
         });
 
-        if (this.slider?.swiper) {
+        if (this.slider?.swiper && scroll) {
             this.slider.swiper.swiperRef.slideTo(0);
         }
         this.cdr.markForCheck();
@@ -185,9 +211,6 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
     protected prepareBonuses(): void {
         this.bonuses = this.sortBonuses();
         this.checkBonuses();
-        if (this.$params.type === 'swiper' && this.bonuses?.length) {
-            this.bonusesToSlides(this.bonuses);
-        }
     }
 
     protected addPromoBonus(): void {
