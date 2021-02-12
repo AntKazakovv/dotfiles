@@ -44,7 +44,10 @@
     }
 
     .wlc-notification-message__heading {
+        display: inline-block;
+        width: 100%;
         max-width: 100%;
+        word-break: break-word;
         overflow: hidden;
         text-overflow: ellipsis;
         @include text.get-text-style(
@@ -58,6 +61,8 @@
     }
 
     .wlc-notification-message__message-container {
+        display: inline-block;
+        width: 100%;
         max-width: 100%;
         margin: 0;
         @include text.get-text-style(

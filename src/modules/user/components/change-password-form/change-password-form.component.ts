@@ -60,7 +60,7 @@ export class ChangePasswordFormComponent extends AbstractComponent {
                 name: NotificationEvents.PushMessage,
                 data: <IPushMessageParams>{
                     type: 'success',
-                    title: gettext('Password change successfully'),
+                    title: gettext('Password changed successfully'),
                     message: gettext('Your password has been changed successfully!'),
                 },
             });

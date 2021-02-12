@@ -159,7 +159,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
                     name: NotificationEvents.PushMessage,
                     data: <IPushMessageParams>{
                         type: 'error',
-                        title: gettext('Form error'),
+                        title: gettext('Error filling form'),
                         message: gettext('Fill required fields'),
                     },
                 });

@@ -13,10 +13,8 @@ import {IImage, IMessageData} from './message.interface';
 import * as Params from './message.params';
 
 import {
-    join as _join,
     assign as _assign,
     isArray as _isArray,
-    capitalize as _capitalize,
 } from 'lodash-es';
 
 @Component({
@@ -31,7 +29,7 @@ export class MessageComponent
 
     public $params: Params.IMessageParams;
     public title: string;
-    public message: string;
+    public messages: string[];
     public action: {
         label: string;
         onClick: () => void;
@@ -65,13 +63,8 @@ export class MessageComponent
         const {title, message, action, image} = this.params;
 
         _assign(this, {
-            title: title
-                || gettext(this.$params.type === 'info'
-                    ? 'Message'
-                    : _capitalize(this.$params.type)),
-            message: _isArray(message)
-                ? _join(message, '\n')
-                : message,
+            title: title || this.$params.defaultTitles[this.$params.type],
+            messages: _isArray(message) ? message : [message],
             image,
             icon: this.$params.typeIcons[this.$params.type],
         });

@@ -22,7 +22,13 @@ import {takeUntil} from 'rxjs/operators';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {Game} from 'wlc-engine/modules/games/system/models/game.model';
 import {GamesCatalogService} from 'wlc-engine/modules/games';
-import {ActionService, ConfigService, DeviceType} from 'wlc-engine/modules/core';
+import {
+    ActionService,
+    ConfigService,
+    DeviceType,
+    IPushMessageParams,
+    NotificationEvents,
+} from 'wlc-engine/modules/core';
 import {defaultParams, IGameWrapperCParams} from './game-wrapper.params';
 import {IGameParams, ILaunchInfo} from '../../system/interfaces/games.interfaces';
 import {UserService} from 'wlc-engine/modules/user/system/services';
@@ -518,8 +524,13 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
                         this.gameScriptTimeout = setTimeout(() => {
                             errorOccured = true;
                             this.logService.sendLog({code: '3.0.9', data: {game: this.game}});
-                            this.modalService.showError({
-                                modalMessage: gettext('Something wrong. Please try later.'),
+                            this.eventService.emit({
+                                name: NotificationEvents.PushMessage,
+                                data: <IPushMessageParams>{
+                                    type: 'error',
+                                    title: gettext('Game error'),
+                                    message: gettext('Something wrong. Please try later.'),
+                                },
                             });
                         }, 500);
                     } else {

@@ -11,7 +11,9 @@ import {FormGroup} from '@angular/forms';
 import {
     AbstractComponent,
     ConfigService,
-    ModalService,
+    EventService,
+    IPushMessageParams,
+    NotificationEvents,
 } from 'wlc-engine/modules/core';
 import {UserService} from 'wlc-engine/modules/user/system/services';
 
@@ -38,8 +40,8 @@ export class AddProfileInfoComponent extends AbstractComponent implements OnInit
         @Inject('injectParams') protected injectParams: Params.IAddProfileInfoCParams,
         protected configService: ConfigService,
         protected userService: UserService,
-        protected modalService: ModalService,
         protected cdr: ChangeDetectorRef,
+        protected eventService: EventService,
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService);
     }
@@ -53,22 +55,22 @@ export class AddProfileInfoComponent extends AbstractComponent implements OnInit
         const result = await this.userService.updateProfile(form.value, true);
 
         if (result === true) {
-            this.modalService.showModal({
-                id: 'profile-update',
-                modifier: 'info',
-                modalTitle: gettext('Profile update'),
-                modalMessage: [gettext('Profile update success')],
-                dismissAll: true,
+            this.eventService.emit({
+                name: NotificationEvents.PushMessage,
+                data: <IPushMessageParams>{
+                    type: 'success',
+                    title: gettext('Profile updated successfully'),
+                    message: gettext('Your profile has been updated successfully'),
+                },
             });
         } else {
-            const messages = ['Profile save failed'];
-            if (result.errors) {
-                _each(result.errors, (error) => {
-                    messages.push(error);
-                });
-            }
-            this.modalService.showError({
-                modalMessage: messages,
+            this.eventService.emit({
+                name: NotificationEvents.PushMessage,
+                data: <IPushMessageParams>{
+                    type: 'error',
+                    title: gettext('Profile update failed'),
+                    message: result.errors,
+                },
             });
         }
 
