@@ -71,8 +71,7 @@ export class MainMenuComponent extends AbstractComponent implements OnInit {
     }
 
     protected initConfig(): void {
-        const configMenu = this.configService.get<MenuParams.MenuConfigItem[]>('$menu.mainMenu');
-        this.menuConfig = configMenu || Config.wlcMainMenuItemsDefault;
+        this.menuConfig = this.configService.get<MenuParams.MenuConfigItem[]>('$menu.mainMenu');
     }
 
     protected initMenu(): void {
@@ -80,7 +79,6 @@ export class MainMenuComponent extends AbstractComponent implements OnInit {
             type: 'main-menu',
             wlcElement: this.$params.wlcElement || 'wlc-main-menu',
         };
-        debugger;
         this.commonMenuItems = MenuHelper.parseMenuConfig(this.menuConfig, Config.wlcMainMenuItemsGlobal);
         this.menuParams.items = this.commonMenuItems;
         this.menuParams = _clone(this.menuParams);

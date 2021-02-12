@@ -57,8 +57,7 @@ export class MobileMenuComponent extends AbstractComponent implements OnInit {
     }
 
     protected initConfig(): void {
-        const configMenu = this.configService.get<MenuParams.MenuConfigItem[]>('$menu.mobileMenu');
-        this.menuConfig = configMenu || Config.wlcMobileMenuItemsDefault;
+        this.menuConfig = this.configService.get<MenuParams.MenuConfigItem[]>('$menu.mobileMenu');
     }
 
     protected initMenu(): void {

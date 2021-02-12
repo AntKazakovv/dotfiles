@@ -16,7 +16,6 @@ import {
     IProfileMenuItemsGroup,
 } from 'wlc-engine/modules/menu/components/profile-menu/profile-menu.params';
 import {
-    wlcProfileMenuItemsDefault,
     wlcProfileMenuItemsGlobal,
     profileMenuFilter,
 } from 'wlc-engine/modules/menu/system/config/profile-menu.config';
@@ -126,8 +125,7 @@ export class ProfileMenuService {
      * Init config of menu
      */
     protected initConfig(): void {
-        const configMenu = this.configService.get<MenuParams.MenuConfigItem[]>('$menu.profileMenu');
-        this.profileMenuConfig = configMenu || wlcProfileMenuItemsDefault;
+        this.profileMenuConfig = this.configService.get<MenuParams.MenuConfigItem[]>('$menu.profileMenu');
         this.filterConfig();
         GlobalHelper.deepFreeze(this.profileMenuConfig);
     }

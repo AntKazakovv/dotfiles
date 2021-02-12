@@ -4,6 +4,7 @@ import {
     wlcMenuItemsGlobal,
 } from 'wlc-engine/modules/menu/system/config/menu.items.config';
 import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.model';
+import {MenuConfigItemsGroup} from 'wlc-engine/modules/menu/components/menu/menu.params';
 
 import {
     isString as _isString,
@@ -13,7 +14,6 @@ import {
     map as _map,
     has as _has,
 } from 'lodash-es';
-import {MenuConfigItemsGroup} from 'wlc-engine/modules/menu/components/menu/menu.params';
 
 export class MenuHelper {
 
@@ -85,8 +85,6 @@ export class MenuHelper {
      * @returns {MenuItemObjectType[]}
      */
     public static parseMenuConfig(config: Params.MenuConfigItem[], globalItemsConfig: Params.IMenuItemsGlobal): Params.MenuItemObjectType[] {
-        debugger;
-
         const menuItems: Params.MenuItemObjectType[] = _map(config, (configMenuItem: Params.MenuConfigItem) => {
             if (_isString(configMenuItem)) {
                 const menuItem: Params.IMenuItem = globalItemsConfig[configMenuItem];

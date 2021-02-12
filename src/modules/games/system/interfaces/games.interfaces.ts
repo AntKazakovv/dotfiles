@@ -7,7 +7,7 @@ export interface IGamesConfig {
     run?: IRunGameOptions;
     mobile?: IMobileGames;
     realPlay?: IRealPlayOptions;
-    categories?: ICategories
+    categories?: ICategories;
 }
 
 export interface ICategories {
