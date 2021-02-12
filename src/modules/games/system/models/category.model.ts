@@ -6,6 +6,7 @@ import {Game} from 'wlc-engine/modules/games/system/models/game.model';
 import {
     toNumber as _toNumber,
     includes as _includes,
+    has as _has,
 } from 'lodash-es';
 
 export class CategoryModel extends AbstractModel<ICategory> {
@@ -14,6 +15,8 @@ export class CategoryModel extends AbstractModel<ICategory> {
     private parent: CategoryModel;
     private childs: CategoryModel[] = [];
     private specialCategories = ['casino', 'lastplayed', 'favourites', 'last-played'];
+    private usedMenu: string;
+    private tagsData: IIndexing<string> = {};
 
     constructor(
         data: ICategory,
@@ -42,19 +45,16 @@ export class CategoryModel extends AbstractModel<ICategory> {
         return this.slug === 'favourites';
     }
 
+    public get isSpecial(): boolean {
+        return _includes(this.specialCategories, this.slug);
+    }
+
     public get isParent(): boolean {
         return !this.parent && (this.menu === 'main-menu' || _includes(this.specialCategories, this.slug));
     }
 
     public get parentId(): number {
-        // TODO Delete after improve fundist
-        let data: IIndexing<string | number>;
-        try {
-            data = JSON.parse(this.data.Tags.join(','));
-        } catch (err) {
-            return;
-        }
-        return _toNumber(data.parentid);
+        return _toNumber(this.tagsData.parentid);
     }
 
     public get title(): IIndexing<string> {
@@ -82,14 +82,11 @@ export class CategoryModel extends AbstractModel<ICategory> {
     }
 
     public get menu(): string {
-        // TODO Delete after improve fundist
-        let data: IIndexing<string | number>;
-        try {
-            data = JSON.parse(this.data.Tags.join(','));
-        } catch (err) {
-            return '';
-        }
-        return data.menu as string;
+        return this.usedMenu;
+    }
+
+    public get initedWithMenu(): boolean {
+        return _has(this.tagsData, 'menu');
     }
 
     public get icon(): string {
@@ -116,7 +113,16 @@ export class CategoryModel extends AbstractModel<ICategory> {
         this.childs = categories;
     }
 
+    public setMenu(menu: string): void {
+        this.usedMenu = menu;
+    }
+
     protected init(data: ICategory): void {
         this.data = data;
+        try {
+            this.tagsData = JSON.parse(this.data.Tags.join(','));
+            this.usedMenu = this.tagsData.menu || '';
+        } catch (err) {
+        }
     }
 }

@@ -4,6 +4,7 @@ import {
     wlcMenuItemsGlobal,
 } from 'wlc-engine/modules/menu/system/config/menu.items.config';
 import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.model';
+import {MenuConfigItemsGroup} from 'wlc-engine/modules/menu/components/menu/menu.params';
 
 import {
     isString as _isString,
@@ -11,6 +12,7 @@ import {
     isArray as _isArray,
     isObject as _isObject,
     map as _map,
+    has as _has,
 } from 'lodash-es';
 
 export class MenuHelper {
@@ -88,15 +90,21 @@ export class MenuHelper {
                 const menuItem: Params.IMenuItem = globalItemsConfig[configMenuItem];
                 return menuItem;
             } else {
-                const parent: Params.IMenuItem = globalItemsConfig[configMenuItem.parent];
-                const items: Params.IMenuItem[] = configMenuItem.items.map((item: string) => {
-                    return globalItemsConfig[item];
-                });
-                const menuItem: Params.IMenuItemsGroup = {
-                    parent: parent,
-                    items: items,
-                };
-                return menuItem;
+                if (_has(configMenuItem, 'parent')) {
+                    const item = configMenuItem as MenuConfigItemsGroup;
+                    const parent: Params.IMenuItem = globalItemsConfig[item.parent];
+                    const items: Params.IMenuItem[] = item.items?.map((item: string) => {
+                        return globalItemsConfig[item];
+                    }) || [];
+                    const menuItem: Params.IMenuItemsGroup = {
+                        parent: parent,
+                        items: items,
+                    };
+                    return menuItem;
+                } else {
+                    const item: Params.IMenuItem = configMenuItem as Params.IMenuItem;
+                    return item;
+                }
             }
         });
         return menuItems;

@@ -20,4 +20,10 @@ export const gamesConfig: IGamesConfig = {
             },
         },
     },
+    categories: {
+        parents: [
+            'casino',
+            'livecasino',
+        ],
+    },
 };

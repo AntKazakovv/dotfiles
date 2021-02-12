@@ -7,6 +7,11 @@ export interface IGamesConfig {
     run?: IRunGameOptions;
     mobile?: IMobileGames;
     realPlay?: IRealPlayOptions;
+    categories?: ICategories;
+}
+
+export interface ICategories {
+    parents?: string[];
 }
 
 export interface IRealPlayOptions {

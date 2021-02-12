@@ -5,7 +5,7 @@ export interface MenuConfigItemsGroup {
     parent: string;
     items: string[];
 }
-export type MenuConfigItem = MenuConfigItemsGroup | string
+export type MenuConfigItem = MenuConfigItemsGroup | IMenuItem | string;
 export type MenuItemObjectType = IMenuItem | IMenuItemsGroup;
 export type MenuItemType = string | IMenuItem | IMenuItemsGroup;
 export type MenuType = 'main-menu' | 'category-menu' | 'profile-menu' | 'mobile-menu' | 'footer:tc' | 'footer:about';

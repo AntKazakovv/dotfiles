@@ -191,7 +191,7 @@ export class SearchComponent extends AbstractComponent implements OnInit, OnDest
     }
 
     protected getCategories(): void {
-        this.categories = this.gamesCatalogService.getCategories();
+        this.categories = this.gamesCatalogService.getCategoriesForFilter();
     }
 
     protected getMerchants(): void {

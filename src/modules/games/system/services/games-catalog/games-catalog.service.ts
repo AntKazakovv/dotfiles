@@ -261,8 +261,12 @@ export class GamesCatalogService {
      * @returns {CategoryModel[]}
      */
     public getCategories(): CategoryModel[] {
-        return _filter(this.gamesCatalog.getAvailableCategories(), (item: CategoryModel) => {
-            return _includes(this.categoryMenus, item?.menu);
+        return this.gamesCatalog.getAvailableCategories();
+    }
+
+    public getCategoriesForFilter(): CategoryModel[] {
+        return _filter(this.gamesCatalog.getAvailableCategories(), (category: CategoryModel) => {
+            return !category.isSpecial;
         });
     }
 

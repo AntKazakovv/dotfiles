@@ -43,6 +43,7 @@ import {
     union as _union,
     cloneDeep as _cloneDeep,
     uniqBy as _uniqBy,
+    has as _has,
 } from 'lodash-es';
 
 export class GamesCatalog extends AbstractModel<IGames> {
@@ -238,7 +239,7 @@ export class GamesCatalog extends AbstractModel<IGames> {
      * @returns {CategoryModel[]}
      */
     public getAvailableCategories(): CategoryModel[] {
-        return this.availableCategories;
+        return this.projectCategories;
     }
 
     public getCategoryByName(categoryName: string): CategoryModel {
@@ -590,6 +591,13 @@ export class GamesCatalog extends AbstractModel<IGames> {
     }
 
     protected prepareCategories(): void {
+        const parents = this.configService.get<string[]>('$games.categories.parents') || [];
+        _forEach(this.categories, (category: CategoryModel) => {
+            if (_includes(parents, category.slug) && !category.initedWithMenu) {
+                category.setMenu('main-menu');
+            }
+        });
+
         let parentCategories: CategoryModel[] = _filter(this.categories, (category: CategoryModel) => {
             return category.menu === 'main-menu' && category.slug !== 'casinogames';
         });
