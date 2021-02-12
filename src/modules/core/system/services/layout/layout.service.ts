@@ -107,7 +107,7 @@ export class LayoutService {
         const res: ILayoutStateConfig = this.getLayoutConfig(type, state, params);
 
         _each(res?.sections, (section) => {
-            if (section.modify) {
+            if (section?.modify && section?.components) {
                 _each(section.modify, (item) => {
                     if (_isString(item.component)) {
                         item.component = {
