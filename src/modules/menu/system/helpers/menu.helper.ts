@@ -11,7 +11,9 @@ import {
     isArray as _isArray,
     isObject as _isObject,
     map as _map,
+    has as _has,
 } from 'lodash-es';
+import {MenuConfigItemsGroup} from 'wlc-engine/modules/menu/components/menu/menu.params';
 
 export class MenuHelper {
 
@@ -83,20 +85,28 @@ export class MenuHelper {
      * @returns {MenuItemObjectType[]}
      */
     public static parseMenuConfig(config: Params.MenuConfigItem[], globalItemsConfig: Params.IMenuItemsGlobal): Params.MenuItemObjectType[] {
+        debugger;
+
         const menuItems: Params.MenuItemObjectType[] = _map(config, (configMenuItem: Params.MenuConfigItem) => {
             if (_isString(configMenuItem)) {
                 const menuItem: Params.IMenuItem = globalItemsConfig[configMenuItem];
                 return menuItem;
             } else {
-                const parent: Params.IMenuItem = globalItemsConfig[configMenuItem.parent];
-                const items: Params.IMenuItem[] = configMenuItem.items.map((item: string) => {
-                    return globalItemsConfig[item];
-                });
-                const menuItem: Params.IMenuItemsGroup = {
-                    parent: parent,
-                    items: items,
-                };
-                return menuItem;
+                if (_has(configMenuItem, 'parent')) {
+                    const item = configMenuItem as MenuConfigItemsGroup;
+                    const parent: Params.IMenuItem = globalItemsConfig[item.parent];
+                    const items: Params.IMenuItem[] = item.items.map((item: string) => {
+                        return globalItemsConfig[item];
+                    });
+                    const menuItem: Params.IMenuItemsGroup = {
+                        parent: parent,
+                        items: items,
+                    };
+                    return menuItem;
+                } else {
+                    const item: Params.IMenuItem = configMenuItem as Params.IMenuItem;
+                    return item;
+                }
             }
         });
         return menuItems;

@@ -7,7 +7,7 @@ import {
     ConfigService,
 } from 'wlc-engine/modules/core';
 import {
-    IMenuItem,
+    IMenuItem, IMenuItemsGroup,
     MenuItemObjectType,
 } from 'wlc-engine/modules/menu/components/menu/menu.params';
 import {MenuHelper} from 'wlc-engine/modules/menu/system/helpers/menu.helper';
@@ -38,6 +38,7 @@ import {
     includes as _includes,
     find as _find,
     map as _map,
+    has as _has,
 } from 'lodash-es';
 
 @Injectable({
@@ -67,8 +68,8 @@ export class ProfileMenuService {
             this.tabsMenu = this.profileMenuConfig.map((item: MenuParams.MenuConfigItem) => {
                 if (_isString(item)) {
                     return wlcProfileMenuItemsGlobal[item];
-                } else if (item.parent) {
-                    return wlcProfileMenuItemsGlobal[item.parent];
+                } else if (_has(item, 'parent')) {
+                    return wlcProfileMenuItemsGlobal[_get(item, 'parent')];
                 }
             });
         }
@@ -87,8 +88,8 @@ export class ProfileMenuService {
         }
 
         const parentInMenuConfig: MenuParams.MenuConfigItemsGroup = _find(this.profileMenuConfig, (item: MenuParams.MenuConfigItem) => {
-            if (!_isString(item)) {
-                for (const subitemAlias of item.items) {
+            if (!_isString(item) && _has(item, 'items')) {
+                for (const subitemAlias of _get(item, 'items')) {
                     const subitem = Config.wlcProfileMenuItemsGlobal[subitemAlias];
                     if (subitem && subitem.params?.state?.name === state) {
                         return true;
