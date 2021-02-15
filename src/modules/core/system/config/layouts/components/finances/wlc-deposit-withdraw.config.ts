@@ -5,6 +5,7 @@ export namespace wlcDepositWithdraw {
         name: 'finances.wlc-deposit-withdraw',
         params: {
             mode: 'deposit',
+            wlcElement: 'block_profile-deposit',
         },
     };
 
@@ -12,6 +13,7 @@ export namespace wlcDepositWithdraw {
         name: 'finances.wlc-deposit-withdraw',
         params: {
             mode: 'withdraw',
+            wlcElement: 'block_profile-withdraw',
         },
     };
 

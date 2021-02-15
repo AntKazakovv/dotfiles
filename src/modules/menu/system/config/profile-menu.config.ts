@@ -261,6 +261,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         type: 'sref',
         icon: 'icons/deposit',
         class: 'deposit',
+        wlcElement: 'link_cc-profile-menu_deposit',
         params: {
             state: {
                 name: 'app.profile.cash.deposit',
@@ -273,6 +274,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         type: 'sref',
         icon: 'icons/withdrawal',
         class: 'withdrawal',
+        wlcElement: 'link_cc-profile-menu_withdraw',
         params: {
             state: {
                 name: 'app.profile.cash.withdraw',

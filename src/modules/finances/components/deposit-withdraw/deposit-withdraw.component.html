@@ -2,11 +2,11 @@
     [ngSwitch]="$params.mode">
 
     <ng-container *ngSwitchCase="'deposit'">
-        <div class="wlc-title--profile" wlc-title [mainText]="'Deposit'"></div>
+        <div class="wlc-title--profile" wlc-title [mainText]="'Deposit'" [inlineParams]="{wlcElement: 'header_deposit'}"></div>
     </ng-container>
 
     <ng-container *ngSwitchCase="'withdraw'">
-        <div class="wlc-title--profile" wlc-title [mainText]="'Withdrawal'"></div>
+        <div class="wlc-title--profile" wlc-title [mainText]="'Withdrawal'" [inlineParams]="{wlcElement: 'header_withdraw'}"></div>
     </ng-container>
 </div>
 
@@ -17,6 +17,7 @@
     </div>
 
     <div wlc-payment-list
+        data-wlc-element="block_payment-list"
         [inlineParams]='listConfig'
         [currentSystem]='currentSystem'>
     </div>
@@ -30,15 +31,15 @@
         <div class="{{$class}}__subtitle-name"><span>2.</span> {{'Payment information' | translate}}</div>
     </div>
 
-    <div class="{{$class}}__fields-error" *ngIf="requiredFieldsKeys.length">
+    <div class="{{$class}}__fields-error" *ngIf="requiredFieldsKeys.length" data-wlc-element="add_required_fields">
         <p class="{{$class}}__fields-message">{{'Payment method is not available. Please, add the following info' | translate}}
             :</p>
         <ul class="{{$class}}__fields-ul">
-            <li class="{{$class}}__fields-li" *ngFor="let item of requiredFieldsKeys">
+            <li class="{{$class}}__fields-li" *ngFor="let item of requiredFieldsKeys" [attr.data-wlc-element]="requiredFields[item].template">
                 {{requiredFields[item].label | translate}}
             </li>
         </ul>
-        <button wlc-button text="Edit profile" (click)="editProfile()"></button>
+        <button wlc-button text="Edit profile" (click)="editProfile()" wlcElement="add_info"></button>
     </div>
 
     <form class="{{$class}}__amount-form"
