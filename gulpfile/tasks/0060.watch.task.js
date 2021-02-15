@@ -5,6 +5,7 @@ module.exports = function watchTask() {
 
     const watchList = [
         `${this.params.paths.dist}/*`,
+        `!${this.params.paths.dist}/*.map`,
     ];
 
     const distDirectoryWatcher = (cb) => {
@@ -22,9 +23,9 @@ module.exports = function watchTask() {
         const watcher = watch(
             watchList,
             {
-                delay: 200
+                delay: 200,
             },
-            series('liveReload:reload')
+            series('liveReload:reload'),
         );
 
         cb();
@@ -36,20 +37,20 @@ module.exports = function watchTask() {
     });
 
     task('watch', (cb) => {
-        if(this.params.isEngineBundle) {
-            return
+        if (this.params.isEngineBundle) {
+            return;
         }
 
         this.execShell(
             'LRPID=$(fuser -vn tcp 35729 | awk \'{print $1}\'); if [ $LRPID ]; then kill -9 $LRPID; fi',
-            true
+            true,
         ).then(() => {
             liveReload.listen({
-                port: process.env.LIVERELOAD || 35729
+                port: process.env.LIVERELOAD || 35729,
             });
 
             distDirectoryWatcher(cb);
         });
 
     });
-}
+};
