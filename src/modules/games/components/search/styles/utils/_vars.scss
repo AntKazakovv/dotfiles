@@ -116,7 +116,7 @@ $themeDefault: map-merge((
         375: none,
     ),
     'resultMargin': (
-        375: 0 0 15px,
+        375: 0,
         560: 20px 0 0,
     ),
     'resultColor': ef.get('mainColors', 'baseMain'),
@@ -130,6 +130,11 @@ $themeDefault: map-merge((
         375: 0 0 15px,
         900: 0,
     ),
+
+    'noGamesMargin': (
+        375: -5px 0 0,
+    ),
+
     'gamesMargin': 0 0 ef.get('size', 'less'),
 
     'searchModalHeaderPadding': (
