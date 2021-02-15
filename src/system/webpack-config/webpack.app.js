@@ -8,47 +8,24 @@ const WlcWatchExtFilesPlugin = require('./wlcWatchExtFilesPlugin');
 module.exports = (config, schema, env) => {
     const isDev = env.configuration === 'dev';
 
-    Object.assign(config.stats, {
-        errorDetails: false,
-        chunks: false,
-        chunkModules: false,
-        children: false,
-        reasons: false,
-        hash: false,
-        moduleAssets: false,
-        assets: false,
-        logging: false,
-        moduleTrace: false,
-        warnings: false,
-        errors: false,
-        entrypoints: false,
-        version: false,
-        timings: true,
-    });
-
-    const progressPlugin = config.plugins.find(plugin => plugin.constructor.name === 'ProgressPlugin');
     const dedupeModuleResolvePlugin = config.plugins.find(plugin => plugin.constructor.name === 'DedupeModuleResolvePlugin');
 
     dedupeModuleResolvePlugin && Object.assign(dedupeModuleResolvePlugin.options, {
         verbose: false,
     });
 
-    progressPlugin && Object.assign(progressPlugin, {
-        profile: false,
-    });
-
-    config.plugins.push(new ESLintPlugin({
-        files: [
-            'src/**/*.{ts,js}',
-            'config/frontend/**/*.{ts,js}',
-            'wlc-engine/**/*.{ts,js}',
-        ],
-        baseConfig: require('../../../.eslintrc.js'),
-        lintDirtyModulesOnly: true,
-        threads: true,
-        cache: true,
-        failOnError: false,
-    }));
+    // config.plugins.push(new ESLintPlugin({
+    //     files: [
+    //         'src/**/*.{ts,js}',
+    //         'config/frontend/**/*.{ts,js}',
+    //         'wlc-engine/**/*.{ts,js}',
+    //     ],
+    //     baseConfig: require('../../../.eslintrc.js'),
+    //     lintDirtyModulesOnly: true,
+    //     threads: true,
+    //     cache: true,
+    //     failOnError: false,
+    // }));
 
     config.plugins.push(new StylelintPlugin({
         lintDirtyModulesOnly: true,

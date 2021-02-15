@@ -69,7 +69,7 @@
         "create-file": "^1.0.1",
         "css-mqpacker": "^7.0.0",
         "eslint": "7.18.0",
-        "eslint-webpack-plugin": "2.4.3",
+        "eslint-webpack-plugin": "2.5.1",
         "express": "^4.17.1",
         "glob": "^7.1.6",
         "gulp": "^4.0.2",
