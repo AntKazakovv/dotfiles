@@ -57,18 +57,20 @@
 
         <ul class="{{$class}}__ul" @appearance>
             <li *ngFor="let system of systems"
-                class="{{$class}}__item">
+                class="{{$class}}__item" [attr.data-wlc-element]="'block_payment-item-' + system.id">
 
                 <button type="button"
                     class="{{$class}}__button"
                     [ngClass]="{'active': system.id === currentSystem?.id}"
                     (click)='selectPayment(system)'
                     [attr.aria-label]="system.name"
+                    [attr.data-wlc-element]="'block_payment-item-name'"
                     [attr.title]="system.name">
 
                     <span wlc-icon
                         class="{{$class}}__image"
                         [iconUrl]="getIcon(system.name)"
+                        [wlcElement]="'block_payment-item-img'"
                         [fallback]="system.image"></span>
                 </button>
             </li>

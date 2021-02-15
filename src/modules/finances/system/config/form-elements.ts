@@ -44,6 +44,7 @@ export namespace FormElements {
         name: 'core.wlc-button',
         params: <IButtonCParams>{
             name: 'submit',
+            wlcElement: 'button_deposit',
             common: {
                 text: gettext('Deposit'),
             },
@@ -54,6 +55,7 @@ export namespace FormElements {
         name: 'core.wlc-button',
         params: <IButtonCParams>{
             name: 'submit',
+            wlcElement: 'button_withdraw',
             common: {
                 text: gettext('Withdraw'),
             },

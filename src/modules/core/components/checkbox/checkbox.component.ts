@@ -17,6 +17,7 @@ import * as Params from './checkbox.params';
 
 import {
     union as _union,
+    kebabCase as _kebabCase,
 } from 'lodash-es';
 
 @Component({
@@ -28,6 +29,7 @@ export class CheckboxComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams: Params.ICheckboxCParams;
     public $params: Params.ICheckboxCParams;
     public control: FormControl;
+    public fieldWlcElement: string;
 
     constructor(
         @Inject('injectParams') protected injectParams: any,
@@ -42,6 +44,7 @@ export class CheckboxComponent extends AbstractComponent implements OnInit {
         super.ngOnInit(this.inlineParams);
         this.control = this.$params?.control;
         this.prepareModifiers();
+        this.fieldWlcElement = 'checkbox_' + _kebabCase(this.$params.name);
     }
 
     public showModal(name: string, slug: string): void {

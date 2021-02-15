@@ -90,6 +90,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
 
     public listConfig: IPaymentListCParams = {
         paymentType: 'deposit',
+        wlcElement: 'block_payment-list',
     };
 
     public baseFields: {[key: string]: Params.FieldType} = {};
@@ -535,6 +536,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
         this.baseForm = new FormGroup({});
 
         this.baseFields['amount'] = _assign({
+            wlcElement: 'block_amount',
             control: new FormControl('', [
                 Validators.required,
                 this.validationService.getValidator('numberDecimal').validator,
@@ -544,6 +546,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
 
         if (this.$params.mode === 'deposit') {
             this.baseFields['rules'] = _assign({
+                wlcElement: 'block_payment-checkbox',
                 control: new FormControl('', [Validators.requiredTrue]),
             }, FormElements.rules.params);
             this.toggleFormField('rules', true);
