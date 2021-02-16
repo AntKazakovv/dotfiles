@@ -140,6 +140,14 @@
 
         &__tag {
             @include text.get-text-style('ThirdTitleBold', ef.get-value($themePromo, 'tagFontColor'));
+            @include em.get-mq-map('max-width', $themePromo, 'tagMaxWidth');
+            /* stylelint-disable */
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            /* stylelint-enable */
+            overflow: hidden;
+            word-break: break-word;
         }
 
         &__name {
@@ -157,6 +165,7 @@
             -webkit-box-orient: vertical;
             /* stylelint-enable */
             overflow: hidden;
+            word-break: break-word;
         }
 
         &__description {
