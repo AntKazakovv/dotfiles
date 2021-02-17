@@ -31,6 +31,7 @@ export namespace profileContent {
         container: true,
         components: [
             componentLib.wlcTitle.bonuses,
+            componentLib.wlcCounter.bonuses,
             componentLib.wlcBonusesList.main,
         ],
     };

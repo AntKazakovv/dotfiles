@@ -11,7 +11,7 @@
                [attr.data-wlc-element]="item.wlcElement"
                uiSrefActiveEq="active">
 
-               {{item.name | translate}}</a>
+               {{item.name | translate}} <span *ngIf="item?.counter" wlc-counter [counterType]="item?.counter"></span></a>
 
             <a class="{{$class}}__link"
                *ngIf="!item.params?.state?.activeEq"
@@ -22,7 +22,7 @@
                uiSrefActive="active">
 
                <span class="{{$class}}__icon" *ngIf="item.icon" wlc-icon [iconName]="item.icon"></span>
-               <span>{{item.name | translate}}</span>
+               <span>{{item.name | translate}} <span *ngIf="item?.counter" wlc-counter [counterType]="item?.counter"></span></span>
                <span class="{{$class}}__icon-arrow"
                       *ngIf="$params.common?.useArrow" wlc-icon [iconName]="'arrow'">
             </span>
@@ -39,7 +39,7 @@
                [uiParams]="item.params?.state?.params"
                [uiOptions]="item.params?.state?.options"
                [attr.data-wlc-element]="item.wlcElement"
-               [class.active]="isActive(item.params?.state?.parent)">{{item.name | translate}}</a>
+               [class.active]="isActive(item.params?.state?.parent)">{{item.name | translate}} <span *ngIf="item?.counter" wlc-counter [counterType]="item?.counter"></span></a>
         </div>
     </ng-container>
 

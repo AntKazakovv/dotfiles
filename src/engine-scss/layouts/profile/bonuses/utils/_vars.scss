@@ -3,6 +3,6 @@
 $customBonusesThemeDefault: () !default;
 $bonusesThemeDefault: map-merge((
     'sectionGap': (
-        375: ef.get('size', 'smaller'),
+        375: ef.get('size', 'smaller') 3px,
     ),
 ), $customBonusesThemeDefault);

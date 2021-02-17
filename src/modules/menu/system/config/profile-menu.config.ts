@@ -67,6 +67,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     },
     'profile-menu:bonuses-as-offers': {
         name: gettext('Bonuses'),
+        counter: 'bonuses-main',
         type: 'sref',
         class: 'bonuses',
         params: {
@@ -113,7 +114,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         },
     },
     'profile-menu:bonuses-history': {
-        name: gettext('History'),
+        name: gettext('Bonuses history'),
         type: 'sref',
         icon: 'icons/bonuses-history',
         class: 'bonuses-history',
@@ -198,11 +199,10 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     },
     'profile-menu:store': {
         name: gettext('Market'),
-        type: 'title',
+        type: 'sref',
         class: 'store',
         params: {
             state: {
-                parent: 'app.profile.loyalty-store',
                 name: 'app.profile.loyalty-store.main',
                 params: {},
             },
