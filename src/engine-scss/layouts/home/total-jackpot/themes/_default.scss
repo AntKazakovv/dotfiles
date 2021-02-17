@@ -40,12 +40,29 @@
         @include bm.get-mq-map('height', $themeTotalJackpot, 'jackpotFontSize');
         @include bm.get-mq-map('margin', $themeTotalJackpot, 'gap');
 
+        svg {
+
+            .safari & {
+                transform: translateX(3%);
+
+                @include mq.min(1366) {
+                    transform: unset;
+                }
+            }
+        }
+
         .wlc-total-jackpot__text[class] {
+            transform: scale(0.95);
+            transform-origin: center;
             @include bm.get-mq-map('font-size', $themeTotalJackpot, 'jackpotFontSize');
-            @include textStroke(4, ef.get-value($themeTotalJackpot, 'textStrokeColor'));
+            @include textStroke(3, ef.get-value($themeTotalJackpot, 'textStrokeColor'));
 
             @include mq.min(768) {
-                @include textStroke(8, ef.get-value($themeTotalJackpot, 'textStrokeColor'));
+                @include textStroke(6, ef.get-value($themeTotalJackpot, 'textStrokeColor'));
+            }
+
+            .safari & {
+                text-shadow: none;
             }
         }
     }

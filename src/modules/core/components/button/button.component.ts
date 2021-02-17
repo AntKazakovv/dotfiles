@@ -97,7 +97,7 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
                     if (this.$params?.common?.event) {
                         this.eventService.emit(this.$params.common.event);
                     } else if (this.$params.common?.sref) {
-                        this.stateService.go(this.$params.common.sref);
+                        this.stateService.go(this.$params.common.sref, this.$params.common?.srefParams);
                     }
                 });
         }

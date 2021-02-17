@@ -1,20 +1,22 @@
 <svg width="100%">
-     <linearGradient id="linear-gradient" gradientTransform="rotate(90)">
-          <stop offset="0%" stop-color="#BB862C"/>
-          <stop offset="10%" stop-color="#BB862C"/>
-          <stop offset="40%" stop-color="#FFE6B3"/>
-          <stop offset="80%" stop-color="#BB862C"/>
-          <stop offset="100%" stop-color="#BB862C"/>
-     </linearGradient>
+     <defs>
+          <linearGradient id="jackpot-linear-gradient" gradientTransform="rotate(90)">
+               <stop offset="-37%" stop-color="#FFDB1F"/>
+               <stop offset="32%" stop-color="#F4CE4B"/>
+               <stop offset="55%" stop-color="#FFE8BD"/>
+               <stop offset="77%" stop-color="#FFD234"/>
+               <stop offset="140%" stop-color="#955C28"/>
+          </linearGradient>
+     </defs>
 
-
-     <text x="50%" y="50%" dy=".35em" text-anchor="middle"
-           fill="url(#linear-gradient)"
+     <text x="50%" y="50%" dy=".35em"
+           text-anchor="middle"
+           fill="url(#jackpot-linear-gradient) #ffdb1f"
            class="{{$class}}__text"
      >
           <tspan class="{{$class}}__currency"
                  *ngIf="amount && currency?.position == 'left'"
-          >{{currency.currency}}</tspan>
+          >{{currency.currency}}&#032;</tspan>
           <tspan class="{{$class}}__counter"
                  [countUp]="amount"
                  [options]="$params.countUpOptions"
@@ -26,4 +28,3 @@
           >{{currency.currency}}</tspan>
      </text>
 </svg>
-
