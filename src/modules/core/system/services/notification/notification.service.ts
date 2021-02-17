@@ -18,7 +18,8 @@ import {
     EventService,
     ConfigService,
     LogService,
-} from 'wlc-engine/modules/core/system/services';
+    GlobalHelper,
+} from 'wlc-engine/modules/core';
 import {
     DISMISS_ANIMATION_DURATION,
     SHIFT_ANIMATION_DURATION,
@@ -308,7 +309,7 @@ export class NotificationService {
                 this.displayItems = items;
             }
 
-            mq.addEventListener('change', (event) => {
+            GlobalHelper.mediaQueryObserver(mq).subscribe((event: MediaQueryListEvent) => {
                 if (event.matches) {
                     this.displayItems = items;
                 } else {
@@ -316,6 +317,7 @@ export class NotificationService {
                 }
                 this.refresh();
             });
+
         });
 
         this.refresh();

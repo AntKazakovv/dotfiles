@@ -14,7 +14,11 @@ import {
     filter,
     takeUntil,
 } from 'rxjs/operators';
-import {fromEvent} from 'rxjs';
+import {
+    Observable,
+    fromEvent,
+    fromEventPattern,
+} from 'rxjs';
 import {
     animate,
     style,
@@ -148,7 +152,7 @@ export class PaymentListComponent extends AbstractComponent implements OnInit {
             if (_isString(asModal)) {
                 const breakpoint = window.matchMedia(asModal as string);
                 this.asModal = breakpoint.matches;
-                fromEvent(breakpoint, 'change')
+                GlobalHelper.mediaQueryObserver(breakpoint)
                     .pipe(takeUntil(this.$destroy))
                     .subscribe((event: MediaQueryListEvent) => {
                         this.asModal = event.matches;
@@ -168,7 +172,7 @@ export class PaymentListComponent extends AbstractComponent implements OnInit {
             if (_isString(showTable)) {
                 const breakpoint = window.matchMedia(showTable as string);
                 this.showTable = breakpoint.matches;
-                fromEvent(breakpoint, 'change')
+                GlobalHelper.mediaQueryObserver(breakpoint)
                     .pipe(takeUntil(this.$destroy))
                     .subscribe((event: MediaQueryListEvent) => {
                         this.showTable = event.matches;

@@ -3,9 +3,15 @@ import {
     Injector,
 } from '@angular/core';
 import {CurrencyPipe} from '@angular/common';
-
+import {
+    BehaviorSubject,
+    Subject,
+    fromEvent,
+    fromEventPattern,
+} from 'rxjs';
 import {Observable} from 'rxjs';
 import {takeWhile} from 'rxjs/operators';
+
 import {
     ConfigService,
     DeviceType,
@@ -16,20 +22,15 @@ import {
     LayoutService,
     DeviceModel,
     DeviceOrientation,
+    IPushMessageParams,
+    NotificationEvents,
+    GlobalHelper,
 } from 'wlc-engine/modules/core';
 import {UserService} from 'wlc-engine/modules/user/system/services';
 
 import {
-    BehaviorSubject,
-    Subject,
-    fromEvent,
-    fromEventPattern,
-} from 'rxjs';
-
-import {
     forEach as _forEach,
 } from 'lodash-es';
-import { IPushMessageParams, NotificationEvents } from 'wlc-engine/modules/core/system/services/notification';
 
 export interface IBreakpoint {
     mq: MediaQueryList;
@@ -183,18 +184,18 @@ export class ActionService {
         await this.configService.ready;
         const breakpoints = this.configService.get<IDeviceConfig>('$base.device')?.breakpoints;
 
-        this.breakpoints = {
-            mobile: this.createMq(breakpoints?.mobile),
-            tablet: this.createMq(breakpoints?.tablet),
-            desktop: this.createMq(breakpoints?.desktop),
+        const createMq = (mq: number): IBreakpoint => {
+            const mediaQuery = window.matchMedia(`(min-width: ${mq}px)`);
+            return {
+                mq: mediaQuery,
+                observer: GlobalHelper.mediaQueryObserver(mediaQuery),
+            };
         };
-    }
 
-    private createMq(mq: number): IBreakpoint {
-        const mediaQuery = window.matchMedia(`(min-width: ${mq}px)`);
-        return {
-            mq: mediaQuery,
-            observer: fromEvent<MediaQueryListEvent>(mediaQuery, 'change'),
+        this.breakpoints = {
+            mobile: createMq(breakpoints?.mobile),
+            tablet: createMq(breakpoints?.tablet),
+            desktop: createMq(breakpoints?.desktop),
         };
     }
 
@@ -211,7 +212,7 @@ export class ActionService {
             const userService: UserService = this.injector.get(UserService);
             await userService.validateRestoreCode(initialPath.code);
         } catch (error) {
-            this.showErrorNotification(error.errors, gettext('Error occured during password recovery'));
+            this.showErrorNotification(error.errors, gettext('Error occurred during password recovery'));
 
             return;
         }
