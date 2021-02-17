@@ -39,7 +39,8 @@
                                 "src",
                                 "src/engine-scss/dummy"
                             ]
-                        }
+                        },
+                        "webWorkerTsConfig": "./tsconfig.worker.json"
                     },
                     "configurations": {
                         "production": {

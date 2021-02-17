@@ -1,125 +1,84 @@
 import {Injectable} from '@angular/core';
-import {NgxIndexedDBService} from 'ngx-indexed-db';
 import {LocalStorageService} from 'ngx-webstorage';
-import {DateTime} from 'luxon';
-import {ICachingObject} from 'wlc-engine/modules/core/system/interfaces';
 import {LogService} from 'wlc-engine/modules/core';
+import {AbstractCache} from './classes/abstract.cache';
+import {WorkerStorageCache} from './classes/workerstorage.class';
+import {LocalStorageCache} from './classes/localstorage.class';
 
 @Injectable({
     providedIn: 'root',
 })
 export class CachingService {
     private readonly keepTimeDefault = 10 * 60 * 1000;
-    private readonly dbSupport: boolean;
+    private storage: AbstractCache;
+    private storageType: 'indexeddb' | 'localstorage';
+
+    private $resolve: () => void;
+    private ready: Promise<void> = new Promise((resolve: () => void): void => {
+        this.$resolve = resolve;
+    });
 
     constructor(
-        private dbService: NgxIndexedDBService,
         private localStorageService: LocalStorageService,
         private logService: LogService,
     ) {
-        this.dbSupport = this.checkDbSupport();
+        this.init();
     }
 
-    public async get<T>(url: string): Promise<T> {
-        let data: ICachingObject<T>;
-
-        if (this.dbSupport) {
-            try {
-                data = await this.dbService.getByIndex('requests', 'url', url).toPromise();
-            } catch (error) {
-                this.logService.sendLog({code: '0.5.2', data: error});
-            }
+    public async init(): Promise<void> {
+        let storage = new WorkerStorageCache();
+        if (await storage.isAvailable) {
+            this.storage = storage;
+            this.storageType = 'indexeddb';
         } else {
-            try {
-                data = this.localStorageService.retrieve(url);
-            } catch (error) {
-                this.logService.sendLog({code: '0.5.5', data: error});
-            }
+            this.storage = new LocalStorageCache(this.localStorageService);
+            this.storageType = 'localstorage';
         }
+        this.$resolve();
+    }
 
-        if (!data) {
-            return;
+    public async get<T>(key: string): Promise<T> {
+        try {
+            await this.ready;
+            return this.storage.get<T>(key);
+        } catch (error) {
+            this.logService.sendLog({code: this.storageType === 'indexeddb' ? '0.5.2': '0.5.5', data: error});
         }
-
-        if (data.expiration < DateTime.local().toMillis()) {
-            await this.clearStashing(data.id, url);
-            return;
-        }
-
-        return data.items;
     }
 
     public async set<T>(
-        url: string,
-        items: T[] | T,
+        key: string,
+        items: T | T[],
         rewriting = false,
         keepTime = this.keepTimeDefault,
-    ): Promise<number | boolean> {
-        if (this.dbSupport) {
-            let data: ICachingObject<T>;
+    ): Promise<void> {
+        await this.ready;
 
+        let data: T;
+        try {
+            data = await this.storage.get<T>(key);
+        } catch (error) {
+            this.logService.sendLog({code: '0.5.2', data: error});
+        }
+
+        if (!data || rewriting) {
             try {
-                data = await this.dbService.getByIndex('requests', 'url', url).toPromise();
-            } catch (error) {
-                this.logService.sendLog({code: '0.5.2', data: error});
-            }
-
-            if (!data || rewriting) {
-                try {
-
-                    if (data && rewriting) {
-                        await this.clearStashing(data.id, url);
-                    }
-
-                    return this.dbService.add('requests', {
-                        url,
-                        expiration: DateTime.local().plus(keepTime).toMillis(),
-                        items,
-                    }).toPromise();
-                } catch (error) {
-                    this.logService.sendLog({code: '0.5.1', data: error});
+                if (data && rewriting) {
+                    await this.storage.delete(key);
                 }
-            }
-
-            return data.id;
-        } else {
-            try {
-                this.localStorageService.store(url, {
-                    expiration: DateTime.local().plus(keepTime).toMillis(),
-                    items,
-                });
-                return true;
+                await this.storage.set(key, items, keepTime);
             } catch (error) {
-                this.logService.sendLog({code: '0.5.4', data: error});
+                this.logService.sendLog({code: this.storageType === 'indexeddb' ? '0.5.1': '0.5.4', data: error});
             }
         }
     }
 
-    public claer(url: string): void {
-        this.set(url, null, true, 0);
-    }
-
-    private async clearStashing(key: number, url: string): Promise<void> {
-        if (this.dbSupport) {
-            try {
-                await this.dbService.delete('requests', key).toPromise();
-            } catch (error) {
-                this.logService.sendLog({code: '0.5.3', data: error});
-            }
-        } else {
-            try {
-                this.localStorageService.clear(url);
-            } catch (error) {
-                this.logService.sendLog({code: '0.5.6', data: error});
-            }
+    public async clear(key: string): Promise<void> {
+        try {
+            await this.ready;
+            await this.storage.delete(key);
+        } catch (error) {
+            this.logService.sendLog({code: this.storageType === 'indexeddb' ? '0.5.3': '0.5.6', data: error});
         }
-    }
-
-    private checkDbSupport(): boolean {
-        if (!globalThis.indexedDB) {
-            this.logService.sendLog({code: '0.5.0'});
-            return false;
-        }
-        return true;
     }
 }

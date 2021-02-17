@@ -405,7 +405,7 @@ export class BonusesService {
 
     public clearPromoBonus(): void {
         if (this.promoBonus) {
-            this.cachingService.claer(this.dbPromoUrl);
+            this.cachingService.clear(this.dbPromoUrl);
             this.promoBonus = null;
         }
     }

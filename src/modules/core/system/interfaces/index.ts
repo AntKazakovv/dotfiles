@@ -8,6 +8,5 @@ export * from './base-config';
 export * from './loyalty-config.interface';
 export {DeviceType} from 'wlc-engine/modules/core/system/models/device.model';
 export * from './config.interface';
-export * from './caching.interface';
 export * from './core.interface';
 export {AppType} from './base-config/app.interface';

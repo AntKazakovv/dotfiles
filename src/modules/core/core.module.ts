@@ -13,7 +13,6 @@ import {SwiperModule} from 'swiper/angular';
 import {AngularResizedEventModule} from 'angular-resize-event';
 import {ModalModule} from 'ngx-bootstrap/modal';
 import {AngularMyDatePickerModule} from 'angular-mydatepicker';
-import {NgxIndexedDBModule} from 'ngx-indexed-db';
 // -- MODULES IMPORTS END --;
 
 // -- SERVICES IMPORTS START --;
@@ -99,7 +98,6 @@ import {HammerConfig} from 'wlc-engine/modules/core/system/config/hammer.config'
 import {GlobalHelper} from 'wlc-engine/modules/core/index';
 import {coreConfig} from './system/config/core.config';
 import {ICoreConfig} from './system/interfaces/core.interface';
-import {dbConfig} from 'wlc-engine/modules/core/system/config/indexedDB.config';
 //  -- CONFIGS IMPORTS STARTS--;
 import * as $config from 'wlc-config/index';
 
@@ -157,7 +155,6 @@ export const components = {
         AngularResizedEventModule,
         ModalModule,
         AngularMyDatePickerModule,
-        NgxIndexedDBModule.forRoot(dbConfig),
     ],
     providers: [
         DataService,
