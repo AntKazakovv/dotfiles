@@ -4,6 +4,12 @@ import {
     Provider,
     QueryList,
 } from '@angular/core';
+import {
+    fromEvent,
+    fromEventPattern,
+    Observable,
+} from 'rxjs';
+
 import {NgTemplateNameDirective} from 'wlc-engine/modules/core/directives/template-name/template-name.directive';
 
 import {
@@ -160,5 +166,18 @@ export class GlobalHelper {
      */
     public static toSnakeCase(name: string): string {
         return name.toLowerCase().replace(/\s+|\s/g, '_').replace(/[()]/g, '');
+    }
+
+    /**
+     * Creates cross browser mediaQuery observer. (fix for old safari. addListener is deprecated!!)
+     * @param mql - MediaQueryList
+     * @returns observable media query
+     */
+    public static mediaQueryObserver(mql: MediaQueryList): Observable<MediaQueryListEvent> {
+        return mql.addEventListener ? fromEvent<MediaQueryListEvent>(mql, 'change') :
+            fromEventPattern<MediaQueryListEvent>(
+                mql.addListener.bind(mql),
+                mql.removeListener.bind(mql),
+            );
     }
 }
