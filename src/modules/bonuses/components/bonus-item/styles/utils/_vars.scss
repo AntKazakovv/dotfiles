@@ -172,6 +172,12 @@ $themePromo: map-merge((
     //Tag
     'tagFontColor': ef.get('mainColors', 'secondary'),
     'tagFontColor2': ef.get('mainColors', 'main'),
+    'tagMaxWidth': (
+        320: 100%,
+        640: 150px,
+        768: 200px,
+        1024: 100%,
+    ),
     //Image
     'imageBg': rgba(0, 0, 0, 0.3),
     'imgHeight': (
