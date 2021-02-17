@@ -1,4 +1,4 @@
-import {IComponentParams} from 'wlc-engine/modules/core/system/interfaces/config.interface';
+import {IComponentParams, ICounterType} from 'wlc-engine/modules/core/system/interfaces/config.interface';
 import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.model';
 
 export interface MenuConfigItemsGroup {
@@ -45,6 +45,7 @@ export interface IMenuItemParams {
 
 export interface IMenuItem {
     name: string;
+    counter?: ICounterType;
     type: ItemType;
     icon?: string;
     class?: string;
@@ -54,6 +55,7 @@ export interface IMenuItem {
 
 export interface IMenuItemsGroup {
     parent: IMenuItem,
+    counter?: ICounterType;
     items: IMenuItem[],
     expand?: boolean;
 }

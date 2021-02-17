@@ -1,4 +1,5 @@
 @use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/text' as lib;
 @use 'engine-scss/mixins/mediaqueries' as mq;
 
 @import '../utils/vars';
@@ -11,10 +12,25 @@
             position: relative;
             display: grid;
             grid: {
-                template-columns: minmax(0, 1fr);
+                template-columns: minmax(0, max-content) 1fr;
+                template-areas: 'title counter'
+                    'bonuses-list bonuses-list';
                 template-rows: auto;
                 gap: ef.get-value($bonusesThemeDefault, 'sectionGap');
             }
+        }
+
+        .wlc-title {
+            grid-area: title;
+        }
+
+        .wlc-counter {
+            grid-area: counter;
+            @include lib.get-text-style('ThirdTitleBold');
+        }
+
+        .wlc-bonuses-list {
+            grid-area: bonuses-list;
         }
     }
 }

@@ -58,6 +58,11 @@
 
                 .swiper-slide {
                     width: 300px;
+                    will-change: transform;
+                }
+
+                .swiper-wrapper {
+                    will-change: transform;
                 }
 
                 .swiper-button-next {

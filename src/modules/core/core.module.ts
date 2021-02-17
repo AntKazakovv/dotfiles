@@ -41,6 +41,7 @@ import {FormWrapperComponent} from './components/form-wrapper/form-wrapper.compo
 import {LogoComponent} from './components/logo/logo.component';
 import {LanguageSelectorComponent} from './components/language-selector/language-selector.component';
 import {IconComponent} from './components/icon/icon.component';
+import {CounterComponent} from './components/counter/counter.component';
 import {DynamicHtmlComponent} from './components/dynamic-html/dynamic-html.component';
 import {WlcModalComponent} from './components/modal';
 import {IconListComponent} from './components/icon-list/icon-list.component';
@@ -118,6 +119,7 @@ export const components = {
     'wlc-datepicker': DatepickerComponent,
     'wlc-disclaimer': DisclaimerComponent,
     'wlc-dynamic-html': DynamicHtmlComponent,
+    'wlc-counter': CounterComponent,
     'wlc-feedback-form': FeedbackFormComponent,
     'wlc-form-control': FormControlComponent,
     'wlc-form-wrapper': FormWrapperComponent,
@@ -184,6 +186,7 @@ export const components = {
         ClickOutsideDirective,
         CopyrightComponent,
         CopyToClipboardDirective,
+        CounterComponent,
         CurrencyComponent,
         DatepickerComponent,
         DisclaimerComponent,
@@ -235,6 +238,7 @@ export const components = {
         ClickOutsideDirective,
         CopyrightComponent,
         CopyToClipboardDirective,
+        CounterComponent,
         CurrencyComponent,
         DatepickerComponent,
         DisclaimerComponent,

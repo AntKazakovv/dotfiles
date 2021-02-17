@@ -56,8 +56,8 @@ export class BonusesService {
     public storeBonuses: Bonus[] = [];
     public promoBonus: Bonus = null;
     public dbPromoUrl: string = 'promocode';
+    public bonuses: Bonus[] = [];
 
-    protected bonuses: Bonus[] = [];
     protected activeBonuses: Bonus[] = [];
     protected historyBonuses: Bonus[] = [];
 
