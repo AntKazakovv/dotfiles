@@ -2,7 +2,8 @@
     <div class="{{$class}}__block {{$class}}__block--left">
         <img class="{{$class}}__image"
             [attr.src]="[gameImage]"
-            [attr.alt]="[gameName]">
+            [attr.alt]="[gameName]"
+            [attr.data-wlc-element]="'img_item-' + $params.winnerType + '-wins'">
     </div>
 
     <div class="{{$class}}__block {{$class}}__block--right">
@@ -11,10 +12,10 @@
                 class="{{$class}}__country"
                 [attr.src]="[countryUrl]"
                 [attr.alt]="[countryIso3]">
-            <div class="{{$class}}__name">{{name}}</div>
+            <div class="{{$class}}__name" [attr.data-wlc-element]="'name_user_item-' + $params.winnerType + '-wins'">{{name}}</div>
         </div>
 
-        <div class="{{$class}}__amount" >
+        <div class="{{$class}}__amount" [attr.data-wlc-element]="'amount_item-' + $params.winnerType + '-wins'">
             <span wlc-currency [value]="amount" [currency]="currency" [digitsInfo]="0-0-0"></span>
         </div>
 
@@ -22,10 +23,11 @@
             (click)="startGame($event)"
             class="{{$class}}__game"
             [attr.title]="[gameName]">
-            <span class="{{$class}}__game-name">{{gameName}}</span>
+            <span class="{{$class}}__game-name" [attr.data-wlc-element]="'name_game_item-' + $params.winnerType + '-wins'">{{gameName}}</span>
             <span *ngIf="!$params.hideGameIcon"
                 class="{{$class}}__game-arrow"
                 wlc-icon
+                [wlcElement]="'button_game_play_item-'+ $params.winnerType + '-wins'"
                 [iconName]="'winner-arrow'">
             </span>
         </button>
