@@ -17,7 +17,7 @@ $themeDefaultBanner: map-merge((
         375: center,
         768: start,
     ),
-    'backdropColor': linear-gradient(to bottom, #00000073, #ffffff00),
+    'backdropColor': linear-gradient(to bottom, #000000, transparent),
     'banner1DefaultColor': (
         375: #fff,
         1024: ef.get('mainColors', 'bg'),
