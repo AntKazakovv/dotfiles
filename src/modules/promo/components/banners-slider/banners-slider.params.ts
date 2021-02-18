@@ -6,7 +6,7 @@ import {ISliderCParams} from 'wlc-engine/modules/promo/components/slider/slider.
 import {IBannersFilter} from 'wlc-engine/modules/promo/system/services/banners/banners.service';
 import {IBannerCParams} from './../banner/banner.params';
 
-export type ComponentTheme = 'default' | CustomType;
+export type ComponentTheme = 'default' | 'default-banner' | CustomType;
 export type ComponentType = 'default' | CustomType;
 export type ComponentThemeMod = 'default' | CustomType;
 

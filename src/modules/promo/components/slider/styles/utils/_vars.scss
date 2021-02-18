@@ -68,4 +68,6 @@ $themeDefaultBanner: map-merge((
     'transition': 0.3s linear,
     'buttonBorderRadius': ef.get('size', 'small'),
     'buttonSize': ef.get('size', 'main'),
+    'containerPadding': 0 ef.get('size', 'main'),
+    'containerBorderRadius': ef.get('size', 'small'),
 ), $customThemeDefaultBanner);

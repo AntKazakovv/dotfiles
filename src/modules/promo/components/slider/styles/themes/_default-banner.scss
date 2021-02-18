@@ -74,3 +74,13 @@
         }
     }
 }
+
+.container > .wlc-slider--theme-default-banner {
+    border-radius: ef.get-value($themeDefaultBanner, 'containerBorderRadius');
+    overflow: hidden;
+
+    .banner,
+    .swiper-button-container {
+        padding: ef.get-value($themeDefaultBanner, 'containerPadding');
+    }
+}

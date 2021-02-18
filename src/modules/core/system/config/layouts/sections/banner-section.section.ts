@@ -3,7 +3,7 @@ import * as componentLib from '../components';
 
 export namespace bannerSection {
     export const home: ILayoutSectionConfig = {
-        container: false,
+        container: true,
         components: [
             componentLib.wlcBannersSlider.home,
         ],
