@@ -312,8 +312,12 @@ export class UserService {
         }
     }
 
-    private fetchUserInfo(): void {
-        this.dataService.request('user/userInfo');
+    private async fetchUserInfo(): Promise<void> {
+        try {
+            await this.dataService.request('user/userInfo');
+        } catch (error) {
+            //
+        }
     }
 
     private startUserInfoFetcher(): void {

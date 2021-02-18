@@ -38,7 +38,7 @@ export interface IData {
     status: 'success' | 'error';
     name: string;
     system: string;
-    code?: string;
+    code?: number | string;
     errors?: string[];
     source?: string;
     data?: any;
@@ -146,7 +146,11 @@ export class DataService {
                 }),
             ).pipe(
                 tap(async () => {
-                    this.request$(this.apiList[name]).toPromise();
+                    try {
+                        await this.request$(this.apiList[name]).toPromise();
+                    } catch (error) {
+                        //
+                    }
                 }),
             ).subscribe();
         }
@@ -326,6 +330,15 @@ export class DataService {
                                 data: error.error || error,
                             });
                         }
+                        const errData: IData = {
+                            name: method.name,
+                            system: method.system,
+                            status: 'error',
+                            code: error.status,
+                            errors: error.error,
+                        };
+                        this.flow$.next(errData);
+                        method.subject.next(errData);
                         return throwError(error.error || error);
                     }));
             }),
@@ -334,6 +347,8 @@ export class DataService {
 
                 if (_get(data, 'status') && (_get(data, 'data') || _get(data, 'errors'))) {
                     responseData = data;
+                    responseData.system = data.system || method.system;
+                    responseData.name = data.name || method.name;
                 } else {
                     responseData = data.errors ?
                         {
@@ -362,9 +377,10 @@ export class DataService {
                             data: responseData.errors,
                         });
                     }
+                    this.flow$.next(responseData);
+                    method.subject.next(responseData);
                     throwError(responseData.errors);
                 }
-
                 return responseData;
             }),
             tap((data: IData) => {
