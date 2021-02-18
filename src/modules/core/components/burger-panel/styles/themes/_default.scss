@@ -7,7 +7,7 @@
         .wlc-login-signup {
             justify-content: center;
             grid-auto-flow: initial;
-            margin: map-get($themeDefault, 'loginBtnMargin');
+            padding: map-get($themeDefault, 'loginBtnPadding');
 
             .wlc-btn {
                 min-width: 100%;
