@@ -2,15 +2,20 @@
 
 $customGamesCategoriesDefault: () !default;
 $gamesCategoriesDefault: map-merge((
+    'sectionHeight': (
+        375: 60px,
+        1630: 75px,
+    ),
     'sectionMargin': (
         375: -30px 0 20px,
-        900: 0 0 40px,
+        900: 0 0 ef.get-value(ef.get('size', 'sectionsGap'), 375),
+        1630: 0 0 ef.get-value(ef.get('size', 'sectionsGap'), 1630),
     ),
     'sectionPadding': (
         375: 0,
         768: ef.get('size', 'small'),
-        1024: ef.get('size', 'smally') ef.get('size', 'smally') ef.get('size', 'smally') ef.get('size', 'main'),
-        1420: ef.get('size', 'smally') ef.get('size', 'smally') ef.get('size', 'smally') ef.get('size', 'biger'),
+        1024: 0 ef.get('size', 'small') 0 ef.get('size', 'main'),
+        1630: 0 ef.get('size', 'smally') 0 ef.get('size', 'biger'),
     ),
     'gamesTemplateColumns': (
         375: minmax(0, 1fr),
@@ -28,12 +33,14 @@ $gamesCategoriesDefault: map-merge((
         375: none,
         768: ef.get('mainColors', 'bg700'),
     ),
+    'buttonSearchHeight': ef.get('buttonSettings', 'heightDefault'),
     'buttonSearchBg': (
         375: ef.get('mainColors', 'bg500'),
         768: ef.get('mainColors', 'bg')
     ),
     'buttonSearchPadding': (
-        375: ef.get('size', 'small') ef.get('size', 'smally'),
+        375: 0 ef.get('size', 'small'),
+        1630: 0 ef.get('size', 'smally'),
     ),
     'buttonSearchRadius': (
         375: ef.get('radius', 'biger'),

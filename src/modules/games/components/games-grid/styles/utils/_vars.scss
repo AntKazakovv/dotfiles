@@ -11,14 +11,15 @@ $themeDefault: map-merge((
     'gridGap': (
         375: ef.get('size', 'small'),
         1024: ef.get('size', 'smally'),
-        1420: ef.get('size', 'smaller')
+        1630: ef.get('size', 'smaller')
     ),
     'contentPadding': ef.get('size', 'big'),
     'listMargin': ef.get('size', 'big'),
     'gridColumns': (
         375: repeat(auto-fill, minmax(160px, 1fr)),
         900: repeat(auto-fill, minmax(225px, 1fr)),
-        1200: repeat(auto-fill, minmax(220px, 1fr)),
+        1024: repeat(auto-fill, minmax(200px, 1fr)),
+        1630: repeat(auto-fill, minmax(220px, 1fr)),
     ),
     'placeholderBackground': ef.get('color', 'backgroundSecondary'),
     'placeholderBorderRadius': ef.get('radius', 'less'),

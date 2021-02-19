@@ -5,7 +5,8 @@ $themeDefaultBanner: map-merge((
     'background': ef.get('mainColors', 'bg500'),
     'height': (
         375: 220px,
-        768: 400px,
+        1024: 300px,
+        1630: 400px,
     ),
     'colorTitle': ef.get('mainColors', 'baseMain'),
     'colorDescription': ef.get('mainColors', 'baseMain'),

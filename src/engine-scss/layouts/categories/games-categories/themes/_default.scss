@@ -17,6 +17,7 @@
 
     .games-categories {
         display: grid;
+        @include bm.get-mq-map('min-height', $gamesCategoriesDefault, 'sectionHeight');
         @include bm.get-mq-map('grid-gap', $gamesCategoriesDefault, 'gamesTemplateColumnsGap');
         @include bm.get-mq-map('grid-template-columns', $gamesCategoriesDefault, 'gamesTemplateColumns');
         align-items: ef.get-value($gamesCategoriesDefault, 'gamesCategoriesAlign');
@@ -26,11 +27,12 @@
     .wlc-btn-merch.wlc-btn {
         width: 100%;
         min-width: 150px;
-        height: 40px;
         flex-shrink: 0;
         justify-content: space-between;
+        align-items: center;
         margin-left: auto;
 
+        @include bm.get-mq-map('height', $gamesCategoriesDefault, 'buttonSearchHeight');
         @include bm.get-mq-map('background', $gamesCategoriesDefault, 'buttonSearchBg');
         @include bm.get-mq-map('padding', $gamesCategoriesDefault, 'buttonSearchPadding');
         @include bm.get-mq-map('border-radius', $gamesCategoriesDefault, 'buttonSearchRadius');

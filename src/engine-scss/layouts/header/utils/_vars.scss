@@ -11,11 +11,12 @@ $theme1Header: map-merge((
         1200: auto auto 1fr auto auto,
     ),
     'headerGridGap': (
-        375: ef.get('size', 'main'),
+        375: ef.get('size', 'smaller'),
+        1630: ef.get('size', 'main'),
     ),
     'headerMinHeight': (
         375: 70px,
-        1024: 105px,
+        1630: 100px,
     ),
     'headerBackground': transparent,
     'headerGlobalPadding': ef.get('size', 'smally'),
