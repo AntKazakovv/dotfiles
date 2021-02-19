@@ -21,6 +21,7 @@ import {
     map as _map,
     has as _has,
     trim as _trim,
+    cloneDeep as _cloneDeep,
 } from 'lodash-es';
 
 export class MenuHelper {
@@ -109,17 +110,17 @@ export class MenuHelper {
 
         const menuItems: Params.MenuItemObjectType[] = _map(config, (configMenuItem: Params.MenuConfigItem) => {
             if (_isString(configMenuItem)) {
-                const menuItem: Params.IMenuItem = globalItemsConfig[configMenuItem];
+                const menuItem: Params.IMenuItem = _cloneDeep(globalItemsConfig[configMenuItem]);
                 MenuHelper.setIcon(menuItem, iconsFolder, disableIcons);
                 return menuItem;
             } else {
                 if (_has(configMenuItem, 'parent')) {
                     const item = configMenuItem as MenuConfigItemsGroup;
-                    const parent: Params.IMenuItem = globalItemsConfig[item.parent];
+                    const parent: Params.IMenuItem = _cloneDeep(globalItemsConfig[item.parent]);
                     MenuHelper.setIcon(parent, iconsFolder, disableIcons);
 
                     const items: Params.IMenuItem[] = item.items?.map((item: string) => {
-                        const itemData = globalItemsConfig[item];
+                        const itemData = _cloneDeep(globalItemsConfig[item]);
                         MenuHelper.setIcon(itemData, iconsFolder, disableIcons);
                         return itemData;
                     }) || [];
@@ -130,7 +131,8 @@ export class MenuHelper {
                     };
                     return menuItem;
                 } else {
-                    const item: Params.IMenuItem = configMenuItem as Params.IMenuItem;
+                    const item: Params.IMenuItem = _cloneDeep(configMenuItem as Params.IMenuItem);
+                    MenuHelper.setIcon(item, iconsFolder, disableIcons);
                     return item;
                 }
             }
@@ -138,7 +140,7 @@ export class MenuHelper {
         return menuItems;
     }
 
-    protected static setIcon(item: Params.IMenuItem, iconsFolder: string, disable: boolean): void {
+    public static setIcon(item: Params.IMenuItem, iconsFolder: string, disable: boolean): void {
         if (item) {
             if (disable) {
                 item.icon = '';
