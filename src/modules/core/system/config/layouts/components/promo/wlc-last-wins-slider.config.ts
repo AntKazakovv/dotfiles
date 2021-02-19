@@ -7,7 +7,7 @@ export namespace wlcLastWinsSlider {
             type: 'latest',
             theme: 'vertical',
             title: 'Recent wins',
-            wlcElement: 'section_last-winners'
+            wlcElement: 'section_last-winners',
         },
     };
 }
