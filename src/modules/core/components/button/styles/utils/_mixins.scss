@@ -11,7 +11,7 @@
     align-items: center;
 
     min-width: ef.get-value($themeDefault, 'minWidth');
-    height: ef.get-value($themeDefault, 'heightDefault');
+    @include bm.get-mq-map('height', $themeDefault, 'heightDefault');
     border: ef.get-value($themeDefault, 'borderDefault');
     border-radius: ef.get-value($themeDefault, 'borderRadiusDefault');
     padding: ef.get-value($themeDefault, 'padding');

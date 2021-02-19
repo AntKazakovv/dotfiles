@@ -174,7 +174,8 @@ $size: map-merge((
     'biger': 50px,
     'big': 60px,
     'sectionsGap': (
-        375: 40px,
+        375: 30px,
+        1630: 40px,
     ),
 ), $customSize);
 
@@ -412,8 +413,6 @@ $container-max-widths: (
     900: 870px,
     1024: 994px,
     1200: 1170px,
-    1366: 1336px,
-    1420: 1390px,
     1630: 1600px
 );
 
@@ -447,7 +446,10 @@ $buttonSettings: map-merge((
     // Size
     'minWidth': 110px,
     'heightSmall': 35px,
-    'heightDefault': 40px,
+    'heightDefault': (
+        375: 35px,
+        1630: 40px,
+    ),
     'heightLarge': 50px,
     // Font
     'fontSize': map-get($font, 'less'),
