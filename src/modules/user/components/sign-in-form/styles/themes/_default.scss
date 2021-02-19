@@ -1,14 +1,15 @@
 @use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/functions' as ef;
 @import '../utils/vars';
 
 .wlc-sign-in-form--theme-default:host {
-    max-width: $formMaxWidth;
-    margin: $formMargin;
+    max-width: ef.get-value($themeDefault, 'formMaxWidth');
+    margin: ef.get-value($themeDefault, 'formMargin');
 
     &::ng-deep {
 
         .wlc-input {
-            margin: $fieldMargin;
+            margin: ef.get-value($themeDefault, 'fieldMargin');
 
             &:last-child {
                 margin-bottom: 0;
@@ -18,7 +19,7 @@
         .wlc-btn {
 
             &--submit {
-                margin: $btnMargin;
+                margin: ef.get-value($themeDefault, 'btnMargin');
             }
         }
 

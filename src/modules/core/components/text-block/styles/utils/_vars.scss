@@ -6,7 +6,7 @@ $themeDefault: map-merge((
 
     'titleFontSize': 'QoteTextBold',
     'titleColor': ef.get('mainColors', 'baseMain'),
-    'titleMargin': 0 0 ef.get('size', 'smally') 0,
+    'titleMargin': 0 0 ef.get('size', 'small') 0,
 
     'subtitleFontSize': 'PrimaryText',
     'subtitleColor': ef.get('mainColors', 'baseMain'),

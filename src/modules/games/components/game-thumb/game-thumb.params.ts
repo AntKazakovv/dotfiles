@@ -1,7 +1,7 @@
 import {IComponentParams, CustomType} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {Game} from 'wlc-engine/modules/games/system/models/game.model';
 
-export type Type = 'default' | CustomType;
+export type Type = 'default' | 'modal' | CustomType;
 export type Theme = 'default' | CustomType;
 export type ThemeMod = 'default' | CustomType;
 export type AutoModifiers = Theme | ThemeMod;

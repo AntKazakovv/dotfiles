@@ -24,7 +24,7 @@ import {
     AbstractComponent,
     IMixedParams,
 } from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ConfigService} from 'wlc-engine/modules/core';
+import {ConfigService, DeviceModel} from 'wlc-engine/modules/core';
 
 import {
     IModalOptions,
@@ -71,6 +71,7 @@ export class WlcModalComponent extends AbstractComponent
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.applyConfig();
+        this.setDeviceClass();
     }
 
     public ngAfterViewInit(): void {
@@ -193,5 +194,14 @@ export class WlcModalComponent extends AbstractComponent
         this.modalRef.onHide.subscribe(() => {
             this.eventHandler('hide.bs.modal', this.$params.config.onModalHide);
         });
+    }
+
+    private setDeviceClass(): void {
+        const deviceClass = [
+            '',
+            this.ConfigService.get<DeviceModel>('device')?.osName,
+            this.ConfigService.get<DeviceModel>('device')?.browserName,
+        ];
+        this.$hostClass += deviceClass.join(' ');
     }
 }

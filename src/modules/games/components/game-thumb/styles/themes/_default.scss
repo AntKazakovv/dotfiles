@@ -322,6 +322,14 @@
             }
         }
     }
+
+    &.wlc-game-thumb--type-modal {
+
+        .wlc-game-thumb__icon {
+            left: ef.get-value($themeDefault, 'thumbPadding');
+            top: ef.get-value($themeDefault, 'thumbPadding');
+        }
+    }
 }
 
 

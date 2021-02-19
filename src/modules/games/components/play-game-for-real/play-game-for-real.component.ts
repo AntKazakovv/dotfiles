@@ -72,6 +72,7 @@ export class PlayGameForRealComponent extends AbstractComponent implements OnIni
         super.ngOnInit(this.inlineParams);
         this.onLoginSuccess();
         this.onPlayDemo();
+        this.onSignUp();
     }
 
     public ngSubmit(form: FormGroup): void {
@@ -110,6 +111,17 @@ export class PlayGameForRealComponent extends AbstractComponent implements OnIni
                     demo: false,
                 });
             }
+        }, this.$destroy);
+    }
+
+    protected onSignUp(): void {
+        this.eventService.subscribe({
+            name: Params.Events.SIGN_UP,
+        }, () => {
+            this.modalService.closeModal('play-game-for-real');
+            setTimeout(() => {
+                this.modalService.showModal('signup');
+            }, 1000);
         }, this.$destroy);
     }
 }

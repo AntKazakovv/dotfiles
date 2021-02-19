@@ -9,6 +9,7 @@ import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract
 import {ModalService} from 'wlc-engine/modules/core/system/services';
 import {UserService} from 'wlc-engine/modules/user/system/services';
 import * as Params from './logout.params';
+import {IconComponent} from 'wlc-engine/modules/core/components/icon/icon.component';
 
 @Component({
     selector: '[wlc-logout]',
@@ -22,10 +23,9 @@ export class LogoutComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected params: Params.ILogoutCParams,
-        protected userService: UserService,
         protected cdr: ChangeDetectorRef,
         protected modalService: ModalService,
-        protected UserService: UserService,
+        protected userService: UserService,
     ) {
         super({injectParams: params, defaultParams: Params.defaultParams});
     }
@@ -35,8 +35,25 @@ export class LogoutComponent extends AbstractComponent implements OnInit {
         this.$params.useText = this.$params.useText || this.useText;
     }
 
-
     public logout(): void {
-        this.UserService.logout();
+        this.modalService.showModal({
+            id: 'logout-confirm',
+            modalTitle: gettext('Confirmation'),
+            modifier: 'confirmation',
+            modalMessage: gettext('Are you sure?'),
+            showConfirmBtn: true,
+            closeBtnParams: {
+                themeMod: 'secondary',
+                common: {
+                    text: gettext('No'),
+                },
+            },
+            confirmBtnText: gettext('Yes'),
+            textAlign: 'center',
+            onConfirm: () => {
+                this.userService.logout();
+            },
+            dismissAll: true,
+        });
     }
 }
