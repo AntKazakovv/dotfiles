@@ -90,7 +90,7 @@ export class CategoryModel extends AbstractModel<ICategory> {
     }
 
     public get icon(): string {
-        return `category-${this.slug}`;
+        return this.slug.toLowerCase();
     }
 
     public get games(): Game[] {

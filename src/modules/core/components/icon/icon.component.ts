@@ -39,6 +39,7 @@ export class IconComponent extends AbstractComponent implements OnInit, OnChange
     @Input() public wlcElement: string;
     @Input() protected iconUrl: string;
     @Input() protected iconName: string;
+    @Input() protected iconPath: string;
     @Input() protected fallback: string;
 
     constructor(
@@ -72,16 +73,23 @@ export class IconComponent extends AbstractComponent implements OnInit, OnChange
             file = this.fileService.getSvgByName(this.iconName);
         } else if (this.iconUrl) {
             file = await this.fileService.getFileByUrl(this.iconUrl);
+        } else if (this.iconPath) {
+            file = await this.fileService.getFile(this.iconPath);
+
+            if (!file?.htmlString && !file?.url && this.fallback) {
+                file = await this.fileService.getFile(this.fallback);
+            }
         }
 
-        if (file.htmlString) {
+        if (file?.htmlString) {
             this.imageHtml = this.sanitizer.bypassSecurityTrustHtml(file.htmlString);
-        } else if (file.url) {
+            this.addModifiers('loaded');
+        } else if (file?.url) {
             this.imagePath = file.url;
+            this.addModifiers('loaded');
         } else {
             this.elRef.nativeElement.remove();
         }
-
         this.cdr.markForCheck();
     }
 

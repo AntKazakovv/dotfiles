@@ -5,6 +5,7 @@ export const wlcMainMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         name: gettext('Home page'),
         type: 'sref',
         class: 'home',
+        icon: 'home',
         params: {
             state: {
                 name: 'app.home',
@@ -16,6 +17,7 @@ export const wlcMainMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         name: gettext('Casino'),
         type: 'sref',
         class: 'casino',
+        icon: 'casino',
         params: {
             state: {
                 name: 'app.catalog',
@@ -27,6 +29,7 @@ export const wlcMainMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         name: gettext('Table games'),
         type: 'sref',
         class: 'table',
+        icon: 'tablegames',
         params: {
             state: {
                 name: 'app.catalog',
@@ -40,6 +43,7 @@ export const wlcMainMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         name: gettext('Promotions'),
         type: 'sref',
         class: 'promo',
+        icon: 'promotions',
         params: {
             state: {
                 name: 'app.promotions',
@@ -51,6 +55,7 @@ export const wlcMainMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         name: gettext('Contacts'),
         type: 'sref',
         class: 'contacts',
+        icon: 'contacts',
         params: {
             state: {
                 name: 'app.contacts',
@@ -64,6 +69,7 @@ export const wlcMainMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         name: gettext('Lottery'),
         type: 'sref',
         class: 'lottery',
+        icon: 'lottery',
         params: {
             state: {
                 name: 'app.lottery',
@@ -76,6 +82,7 @@ export const wlcMainMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         name: gettext('Tournaments'),
         type: 'sref',
         class: 'tournaments',
+        icon: 'tournaments',
         params: {
             state: {
                 name: 'app.tournaments',

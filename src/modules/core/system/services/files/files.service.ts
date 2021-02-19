@@ -43,12 +43,27 @@ export interface IFile {
 export class FilesService {
     protected rowFileList: IFileMeta[] = [];
     protected stashedFiles: IFile[] = [];
+    protected fetchedFiles: IIndexing<string> = {};
+    protected getFileRequests: IIndexing<Promise<IFile>> = {};
 
     constructor(
         protected configService: ConfigService,
         private httpClient: HttpClient,
     ) {
         this.init();
+    }
+
+    public async getFile(filePath: string): Promise<IFile> {
+        if (!filePath) {
+            return {key: filePath};
+        }
+        if (this.getFileRequests[filePath]) {
+            return this.getFileRequests[filePath];
+        }
+        const findFilePromise = this.findFile(filePath);
+        this.getFileRequests[filePath] = findFilePromise;
+
+        return await findFilePromise;
     }
 
     public async getFileByUrl(url: string): Promise<IFile> {
@@ -107,6 +122,27 @@ export class FilesService {
         }
     }
 
+    protected async findFile(filePath: string): Promise<IFile> {
+        let file: IFile = {key: filePath};
+        if (!filePath) {
+            return file;
+        }
+
+        const path: string = filePath.split('.')[0];
+        file = this.getSvgByName(path);
+        if (!file.location) {
+            file = await this.getFileByUrl(filePath);
+
+            if (file.url) {
+                const fileData = await this.fetchStaticFile(file.url);
+                if (!fileData) {
+                    return {key: filePath};
+                }
+            }
+        }
+        return file;
+    }
+
     protected normalizeFileUrl(fileUrl: string): string {
         return fileUrl[0] === '/' ? fileUrl : '/' + fileUrl;
     }
@@ -133,6 +169,10 @@ export class FilesService {
     }
 
     protected async fetchStaticFile(url: string): Promise<string> {
+        if (this.fetchedFiles[url]) {
+            return this.fetchedFiles[url];
+        }
+
         try {
             const res: HttpResponse<string> = await this.httpClient.request('GET', url, {
                 headers: {
@@ -142,6 +182,7 @@ export class FilesService {
                 responseType: 'text',
             }).toPromise();
 
+            this.fetchedFiles[url] = res.body;
             return res.body;
         } catch (e) {
             return undefined;

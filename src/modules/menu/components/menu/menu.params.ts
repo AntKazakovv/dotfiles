@@ -64,6 +64,12 @@ export interface IMenuCParams extends IComponentParams<MenuTheme, MenuType, stri
     common?: {
         useArrow?: boolean;
         useSwiper?: boolean;
+        swiper?: {
+            scrollToStart: boolean;
+        },
+        icons?: {
+            fallback?: string;
+        };
     },
     items?: MenuItemType[];
 }
@@ -82,6 +88,11 @@ export interface IHelperGetItemsForCategories {
     openChildCatalog?: boolean;
     categories: CategoryModel[];
     lang: string;
+    icons?: {
+        folder?: string;
+        disable?: boolean;
+        fallback?: string;
+    };
 }
 
 export const defaultParams: IMenuCParams = {

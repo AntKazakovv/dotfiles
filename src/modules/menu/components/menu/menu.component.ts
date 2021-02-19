@@ -9,6 +9,8 @@ import {
     SimpleChanges,
     ViewChild,
     TemplateRef,
+    ElementRef,
+    AfterViewInit,
 } from '@angular/core';
 import {
     StateService,
@@ -31,13 +33,14 @@ import {
 } from 'wlc-engine/modules/core/system/services';
 import * as Params from 'wlc-engine/modules/menu/components/menu/menu.params';
 import {IMenuItem, IMenuItemsGroup} from 'wlc-engine/modules/menu/components/menu/menu.params';
+import {ISlide, ISliderCParams} from 'wlc-engine/modules/promo/components/slider/slider.params';
+import {SliderComponent} from 'wlc-engine/modules/promo/components/slider/slider.component';
 
 import {
     get as _get,
     forEach as _forEach,
     has as _has,
 } from 'lodash-es';
-import {ISlide, ISliderCParams} from 'wlc-engine/modules/promo/components/slider/slider.params';
 
 @Component({
     selector: '[wlc-menu]',
@@ -71,6 +74,7 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
     public $params: Params.IMenuCParams;
     public inited: boolean = false;
 
+    @ViewChild('slider') slider: SliderComponent;
     @ViewChild('anchor') tplAnchor: TemplateRef<any>;
     @ViewChild('sref') tplSref: TemplateRef<any>;
     @ViewChild('title') tplTitle: TemplateRef<any>;
@@ -88,6 +92,9 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
             spaceBetween: 10,
         },
     };
+
+    protected iconsFallback: string = '';
+    protected iconsExtension: string = 'svg';
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IMenuCParams,
@@ -126,6 +133,8 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
     public ngOnInit(): void {
         this.inited = true;
         super.ngOnInit(this.inlineParams);
+
+        this.iconsFallback = this.$params.common?.icons?.fallback;
         this.initItems();
 
         this.transitionService.onSuccess({}, () => {
@@ -135,6 +144,13 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
 
     public scrollTo(selector: string): void {
         this.actionService.scrollTo(selector);
+    }
+
+    public getIcon(item: IMenuItem): string {
+        if (item.icon) {
+            return item.icon.split('.').length > 1 ? item.icon : `${item.icon}.${this.iconsExtension}`;
+        }
+        return '';
     }
 
     public async openModal(item: Params.IMenuItemParamsModal) {
@@ -200,6 +216,11 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
                     templateParams: templateParams,
                 });
             });
+
+            if (this.slider && this.$params?.common?.swiper?.scrollToStart) {
+                this.slider.scrollToStart();
+                this.slider.update();
+            }
         }
 
         this.cdr.detectChanges();

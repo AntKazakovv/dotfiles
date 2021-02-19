@@ -19,14 +19,17 @@ import * as MenuParams from 'wlc-engine/modules/menu/components/menu/menu.params
 import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.model';
 import * as Params from 'wlc-engine/modules/menu/components/category-menu/category-menu.params';
 import {MenuHelper} from 'wlc-engine/modules/menu/system/helpers/menu.helper';
+import {ConfigService} from 'wlc-engine/modules/core';
 
 import {
     clone as _clone,
     assign as _assign,
     forEach as _forEach,
     concat as _concat,
+    has as _has,
+    trim as _trim,
 } from 'lodash-es';
-import {ConfigService} from 'wlc-engine/modules/core';
+
 
 @Component({
     selector: '[wlc-category-menu]',
@@ -43,6 +46,12 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
         items: [],
         common: {
             useSwiper: true,
+            swiper: {
+                scrollToStart: true,
+            },
+            icons: {
+                fallback: '',
+            },
         },
     };
     @Input() public inlineParams: Params.ICategoryMenuCParams;
@@ -52,6 +61,9 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
     protected usedStandartCategories: boolean = false;
     protected onInitEnded: boolean = false;
     protected isAuth: boolean;
+    protected iconsFolder: string;
+    protected useIcons: boolean;
+    protected iconsFallback: string = 'plug.svg';
 
     constructor(
         @Inject('injectParams') protected params: Params.ICategoryMenuCParams,
@@ -68,6 +80,7 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
                 injectParams: params,
                 defaultParams: Params.defaultParams,
             },
+            configService,
         );
     }
 
@@ -77,10 +90,18 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
             theme: this.$params.theme,
             themeMod: this.$params.themeMod,
         });
-        this.init();
-        this.initEventHandlers();
+
+        this.useIcons = _has(this.$params, 'common.icons.use')
+            ? this.$params.common.icons.use
+            : this.configService.get<boolean>('$menu.categoryMenu.icons.use');
+
+        this.iconsFolder = this.$params.common?.icons?.folder || this.configService.get<string>('$menu.categoryMenu.icons.folder');
+        this.menuParams.common.icons.fallback = this.iconPath(this.iconsFallback);
 
         this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
+
+        this.init();
+        this.initEventHandlers();
         this.onInitEnded = true;
     }
 
@@ -98,6 +119,14 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
         if (this.$params.type !== 'dropdown') {
             this.router.transitionService.onSuccess({}, (transition) => {
                 this.menuParams.items = [];
+                this.menuParams.common.swiper.scrollToStart = true;
+
+                const currentParent = this.gamesCatalogService.getParentCategoryByState();
+                if (this.parentCategory && currentParent) {
+                    if (this.parentCategory.slug === currentParent.slug) {
+                        this.menuParams.common.swiper.scrollToStart = false;
+                    }
+                }
                 this.initMenu();
             });
         }
@@ -154,6 +183,10 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
                 categories: this.categories,
                 openChildCatalog: true,
                 lang: this.translate.currentLang,
+                icons: {
+                    folder: this.iconsFolder,
+                    disable: !this.useIcons,
+                },
             });
             this.menuParams.items = menuItems.concat(this.menuParams.items as MenuParams.IMenuItem[]);
 
@@ -185,7 +218,7 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
         const item: MenuParams.IMenuItem = {
             name: gettext('All games'),
             type: 'sref',
-            icon: 'allgames',
+            icon: this.iconPath('allgames'),
             class: 'allgames',
             params: {
                 state: {
@@ -210,7 +243,7 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
         return {
             name: gettext('Lobby'),
             type: 'sref',
-            icon: 'lobby',
+            icon: this.iconPath('lobby'),
             class: 'lobby',
             params: {
                 state: {
@@ -251,6 +284,14 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
             }
         });
         this.menuParams.items = dropdownMenu;
+    }
+
+    protected iconPath(iconName: string): string {
+        if (this.useIcons) {
+            const folder = _trim(this.iconsFolder, '/');
+            return folder ? `${folder}/${iconName}` : iconName;
+        }
+        return '';
     }
 
 }

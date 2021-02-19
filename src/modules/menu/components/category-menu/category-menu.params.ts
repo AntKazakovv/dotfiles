@@ -9,7 +9,15 @@ export type Modifiers = AutoModifiers | CustomMod | null;
 
 export interface ICategoryMenuCParams extends IComponentParams<Theme, Type, ThemeMod> {
     modifiers?: Modifiers[];
+    theme?: Theme;
     themeMod?: ThemeMod;
+    common?: {
+        icons?: {
+            folder?: string;
+            use?: boolean,
+        }
+    };
+    type?: Type,
 }
 
 export const defaultParams: ICategoryMenuCParams = {

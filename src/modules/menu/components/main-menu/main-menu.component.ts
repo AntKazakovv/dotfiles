@@ -27,6 +27,7 @@ import * as Config from 'wlc-engine/modules/menu/system/config/main-menu.items.c
 
 import {
     clone as _clone,
+    has as _has,
 } from 'lodash-es';
 
 @Component({
@@ -45,6 +46,8 @@ export class MainMenuComponent extends AbstractComponent implements OnInit {
     public commonMenuItems: MenuParams.MenuItemType[];
 
     protected menuConfig: MenuParams.MenuConfigItem[];
+    protected useIcons: boolean;
+    protected iconsFolder: string;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IMainMenuCParams,
@@ -61,6 +64,7 @@ export class MainMenuComponent extends AbstractComponent implements OnInit {
                 injectParams,
                 defaultParams: Params.defaultParams,
             },
+            configService,
         );
     }
 
@@ -71,15 +75,26 @@ export class MainMenuComponent extends AbstractComponent implements OnInit {
     }
 
     protected initConfig(): void {
-        this.menuConfig = this.configService.get<MenuParams.MenuConfigItem[]>('$menu.mainMenu');
+        this.menuConfig = this.configService.get<MenuParams.MenuConfigItem[]>('$menu.mainMenu.items');
     }
 
     protected initMenu(): void {
+        this.useIcons = _has(this.$params, 'common.icons.use')
+            ? this.$params.common.icons.use
+            : this.configService.get<boolean>('$menu.mainMenu.icons.use');
+
+        this.iconsFolder = this.$params.common?.icons?.folder || this.configService.get<string>('$menu.mainMenu.icons.folder');
+
         this.menuParams = {
             type: 'main-menu',
             wlcElement: this.$params.wlcElement || 'wlc-main-menu',
         };
-        this.commonMenuItems = MenuHelper.parseMenuConfig(this.menuConfig, Config.wlcMainMenuItemsGlobal);
+        this.commonMenuItems = MenuHelper.parseMenuConfig(this.menuConfig, Config.wlcMainMenuItemsGlobal, {
+            icons: {
+                folder: this.iconsFolder,
+                disable: !this.useIcons,
+            },
+        });
         this.menuParams.items = this.commonMenuItems;
         this.menuParams = _clone(this.menuParams);
 
@@ -104,6 +119,10 @@ export class MainMenuComponent extends AbstractComponent implements OnInit {
         const menuItems: MenuParams.IMenuItem[] = MenuHelper.getItemsForCategories({
             categories: categories,
             lang: this.translate.currentLang,
+            icons: {
+                folder: this.iconsFolder,
+                disable: !this.useIcons,
+            },
         });
         this.menuParams.items = menuItems.concat(this.commonMenuItems as MenuParams.IMenuItem[]);
         this.menuParams = _clone(this.menuParams);

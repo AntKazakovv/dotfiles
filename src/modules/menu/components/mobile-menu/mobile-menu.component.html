@@ -1,4 +1,4 @@
 <div class="{{$class}}__content">
-    <div wlc-category-menu [inlineParams]="categoryMenuParams"></div>
+    <div wlc-category-menu [inlineParams]="categoryMenuParams" *ngIf="categoryMenuParams"></div>
     <div wlc-menu [inlineParams]="menuParams"></div>
 </div>

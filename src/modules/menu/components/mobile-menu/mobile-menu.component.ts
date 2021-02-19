@@ -16,6 +16,7 @@ import {AbstractComponent, IMixedParams} from 'wlc-engine/modules/core/system/cl
 
 import {
     clone as _clone,
+    has as _has,
 } from 'lodash-es';
 
 @Component({
@@ -28,11 +29,7 @@ export class MobileMenuComponent extends AbstractComponent implements OnInit {
 
     public $params: Params.IMobileMenuCParams;
     public menuParams: MenuParams.IMenuCParams;
-    public categoryMenuParams: CategoryMenuParams.ICategoryMenuCParams = {
-        type: 'dropdown',
-        theme: 'dropdown',
-        themeMod: 'vertical',
-    };
+    public categoryMenuParams: CategoryMenuParams.ICategoryMenuCParams;
 
     protected menuConfig: MenuParams.MenuConfigItem[];
 
@@ -57,7 +54,7 @@ export class MobileMenuComponent extends AbstractComponent implements OnInit {
     }
 
     protected initConfig(): void {
-        this.menuConfig = this.configService.get<MenuParams.MenuConfigItem[]>('$menu.mobileMenu');
+        this.menuConfig = this.configService.get<MenuParams.MenuConfigItem[]>('$menu.mobileMenu.items');
     }
 
     protected initMenu(): void {
@@ -69,7 +66,31 @@ export class MobileMenuComponent extends AbstractComponent implements OnInit {
                 useArrow: this.$params.common?.useArrow,
             },
         };
-        this.menuParams.items = MenuHelper.parseMenuConfig(this.menuConfig, Config.wlcMobileMenuItemsGlobal);
+
+        const useIcons: boolean = _has(this.$params, 'common.icons.use')
+            ? this.$params.common.icons.use
+            : this.configService.get<boolean>('$menu.mobileMenu.icons.use');
+
+        const iconsFolder: string = this.$params.common?.icons?.folder || this.configService.get<string>('$menu.mobileMenu.icons.folder');
+
+        this.categoryMenuParams = {
+            type: 'dropdown',
+            theme: 'dropdown',
+            themeMod: 'vertical',
+            common: {
+                icons: {
+                    folder: this.configService.get<string>('$menu.mobileMenu.categoryIcons.folder'),
+                    use: this.configService.get<boolean>('$menu.mobileMenu.categoryIcons.use'),
+                },
+            },
+        };
+
+        this.menuParams.items = MenuHelper.parseMenuConfig(this.menuConfig, Config.wlcMobileMenuItemsGlobal, {
+            icons: {
+                folder: iconsFolder,
+                disable: !useIcons,
+            },
+        });
         this.menuParams = _clone(this.menuParams);
         this.cdr.markForCheck();
     }

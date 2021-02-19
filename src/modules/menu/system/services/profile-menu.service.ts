@@ -25,6 +25,13 @@ import * as MenuParams from 'wlc-engine/modules/menu/components/menu/menu.params
 import * as Config from 'wlc-engine/modules/menu/system/config/profile-menu.config';
 import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
 
+export interface IMenuOptions {
+    icons?: {
+        folder?: string;
+        disable?: boolean;
+    }
+}
+
 import {
     get as _get,
     forEach as _forEach,
@@ -63,7 +70,7 @@ export class ProfileMenuService {
      *
      * @returns {IMenuItem[]}
      */
-    public getTabsMenu(): IMenuItem[] {
+    public getTabsMenu(options?: IMenuOptions): IMenuItem[] {
         if (!this.tabsMenu) {
             this.tabsMenu = this.profileMenuConfig.map((item: MenuParams.MenuConfigItem) => {
                 if (_isString(item)) {
@@ -81,7 +88,7 @@ export class ProfileMenuService {
      *
      * @returns {IMenuItem[]}
      */
-    public getSubMenu(): IMenuItem[] {
+    public getSubMenu(options?: IMenuOptions): IMenuItem[] {
         const state = this.stateSerivce.current.name;
         if (this.subMenu[state]) {
             return this.subMenu[state];
@@ -115,7 +122,7 @@ export class ProfileMenuService {
      *
      * @returns {MenuItemObjectType[]}
      */
-    public getDropdownMenu(): MenuItemObjectType[] {
+    public getDropdownMenu(options?: IMenuOptions): MenuItemObjectType[] {
         if (!this.dropdownMenu.length) {
             this.dropdownMenu = MenuHelper.parseMenuConfig(this.profileMenuConfig, Config.wlcProfileMenuItemsGlobal);
         }
@@ -126,7 +133,7 @@ export class ProfileMenuService {
      * Init config of menu
      */
     protected initConfig(): void {
-        this.profileMenuConfig = this.configService.get<MenuParams.MenuConfigItem[]>('$menu.profileMenu');
+        this.profileMenuConfig = this.configService.get<MenuParams.MenuConfigItem[]>('$menu.profileMenu.items');
         this.filterConfig();
         GlobalHelper.deepFreeze(this.profileMenuConfig);
     }

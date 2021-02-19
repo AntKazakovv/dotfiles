@@ -4,7 +4,7 @@ export const wlcMobileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     'mobile-menu:sportsbook': {
         name: gettext('Sportsbook'),
         type: 'sref',
-        icon: 'icons/sportsbook',
+        icon: 'sportsbook',
         class: 'sportsbook',
         params: {
             state: {
@@ -16,7 +16,7 @@ export const wlcMobileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     'mobile-menu:promotions': {
         name: gettext('Promotions'),
         type: 'sref',
-        icon: 'icons/promotions',
+        icon: 'promotions',
         class: 'promotions',
         params: {
             state: {
@@ -28,7 +28,7 @@ export const wlcMobileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     'mobile-menu:info': {
         name: gettext('Info'),
         type: 'sref',
-        icon: 'icons/info',
+        icon: 'info',
         class: 'info',
         params: {
             state: {
@@ -40,7 +40,7 @@ export const wlcMobileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     'mobile-menu:privacy-policy': {
         name: gettext('Privacy policy'),
         type: 'sref',
-        icon: 'icons/privacy-policy',
+        icon: 'privacy-policy',
         class: 'info',
         params: {
             state: {
@@ -54,7 +54,7 @@ export const wlcMobileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     'mobile-menu:responsible-game': {
         name: gettext('Responsible game'),
         type: 'sref',
-        icon: 'icons/responsible-game',
+        icon: 'responsible-game',
         class: 'info',
         params: {
             state: {
@@ -68,7 +68,7 @@ export const wlcMobileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     'mobile-menu:fair-play': {
         name: gettext('Fair play'),
         type: 'sref',
-        icon: 'icons/fair-play',
+        icon: 'fair-play',
         class: 'info',
         params: {
             state: {
@@ -82,7 +82,7 @@ export const wlcMobileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     'mobile-menu:games-rules': {
         name: gettext('Games rules'),
         type: 'sref',
-        icon: 'icons/games-rules',
+        icon: 'games-rules',
         class: 'info',
         params: {
             state: {
@@ -96,7 +96,7 @@ export const wlcMobileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     'mobile-menu:terms-and-conditions': {
         name: gettext('Terms and conditions'),
         type: 'sref',
-        icon: 'icons/terms-and-conditions',
+        icon: 'terms-and-conditions',
         class: 'info',
         params: {
             state: {
@@ -108,18 +108,3 @@ export const wlcMobileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         },
     },
 };
-
-export const wlcMobileMenuItemsDefault: MenuParams.MenuConfigItem[] = [
-    'mobile-menu:sportsbook',
-    'mobile-menu:promotions',
-    {
-        parent: 'mobile-menu:info',
-        items: [
-            'mobile-menu:privacy-policy',
-            'mobile-menu:responsible-game',
-            'mobile-menu:fair-play',
-            'mobile-menu:games-rules',
-            'mobile-menu:terms-and-conditions',
-        ],
-    },
-];
