@@ -83,6 +83,11 @@ $hostModal: map-merge((
 
 ), $customHostModal);
 
+$customLanguageModal: () !default;
+$languageModal: map-merge((
+    'paddingBody': 0 ef.get('size', 'less'),
+), $customLanguageModal);
+
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'dialogBackground': ef.get('mainColors', 'bgModal'),

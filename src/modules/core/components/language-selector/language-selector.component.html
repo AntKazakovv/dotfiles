@@ -1,5 +1,6 @@
 <div class="{{$class}}__current" [attr.data-wlc-element]="'selected_link_' + currentLanguage.code"
      (click)="toggle()"
+     [ngClass]="[(isOpened || isModalOpen) ? $class + '__current--opened': '']"
 >
     <div *ngIf="!$params.currentLang?.hideFlag" class="{{$class}}__current-flag">
         <img src="{{getFlagUrl(currentLanguage.code)}}"
@@ -14,9 +15,14 @@
 <div class="{{$class}}__dropdown"
      [@toggle]="isOpened ? 'opened' : 'closed'"
 >
+    <ng-container [ngTemplateOutlet]="langList"  [ngTemplateOutletContext]="{list: availableLanguages, class: $class}"></ng-container>
+
+</div>
+<ng-template #langList let-list="list" let-$class="class">
     <div class="{{$class}}__list">
-        <div *ngFor="let lang of availableLanguages"
-             class="{{$class}}__item {{$class}}__item--{{lang.code}}">
+        <div *ngFor="let lang of list"
+             class="{{$class}}__item {{$class}}__item--{{lang.code}}"
+             [ngClass]="[lang.code === currentLanguage.code ? $class + '__item--active': '']">
 
             <a href="/{{lang.code}}"
                class="{{$class}}__link"
@@ -33,4 +39,4 @@
             </a>
         </div>
     </div>
-</div>
+</ng-template>

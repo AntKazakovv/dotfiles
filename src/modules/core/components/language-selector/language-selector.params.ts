@@ -2,7 +2,7 @@ import {IComponentParams} from 'wlc-engine/modules/core/system/classes/abstract.
 
 
 export type ThemeType = 'default';
-export type ThemeModType = 'bottom-left' | 'bottom-right' | 'top-left' | 'top-right';
+export type ThemeModType = 'bottom-left' | 'bottom-right' | 'top-left' | 'top-right' | 'long';
 export type ComponentType = 'click' | 'hover';
 
 export interface ILanguageSelectorCParams extends IComponentParams<ThemeType, ComponentType, ThemeModType> {
@@ -25,6 +25,7 @@ export interface ILanguageSelectorCParams extends IComponentParams<ThemeType, Co
         hideFlag?: boolean;
         hideLang?: boolean;
     };
+    toggleOnScroll?: ThemeModType;
 }
 
 export const defaultParams: ILanguageSelectorCParams = {

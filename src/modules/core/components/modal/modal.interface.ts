@@ -5,6 +5,7 @@ import {
 } from '@angular/core';
 import {WlcModalComponent} from './index';
 import {IComponentParams} from 'wlc-engine/modules/core/system/interfaces/config.interface';
+import {IButtonCParams} from 'wlc-engine/modules/core/components';
 
 /**
  * Modal options from bootstrap documentation
@@ -79,6 +80,10 @@ export interface IModalConfig extends IModalBsOptions {
      */
     closeBtnText?: string;
     /**
+     * Сlose button params
+     */
+    closeBtnParams?: IButtonCParams;
+    /**
      * Сlose button visibility. Visible(true) by default
      */
     closeBtnVisibility?: boolean;
@@ -90,6 +95,10 @@ export interface IModalConfig extends IModalBsOptions {
      * Text of confirm button. `Confirm` by default
      */
     confirmBtnText?: string;
+    /**
+     * Confirm button params
+     */
+    confirmBtnParams?: IButtonCParams;
     /**
      * if false then hide modal footer
      */

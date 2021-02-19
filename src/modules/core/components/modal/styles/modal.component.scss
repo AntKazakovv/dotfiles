@@ -241,6 +241,22 @@
     .wlc-modal__header {
         z-index: 10;
     }
+
+    &.wlc-modal--type-lang {
+
+        .wlc-modal__header {
+            justify-content: center;
+            border-bottom: none;
+        }
+
+        .wlc-modal__title {
+            padding: 0;
+        }
+
+        .wlc-modal__body {
+            padding: ef.get-value($languageModal, 'paddingBody');
+        }
+    }
 }
 
 .modal-backdrop {

@@ -25,11 +25,20 @@
                 @include flag(ef.get-value($themeDefault, 'currentFlagSize'), ef.get-value($themeDefault, 'currentFlagSize'), 50%);
             }
 
+            &--opened {
+
+                .wlc-language-selector__current-arrow {
+                    transform: rotate(0.5turn);
+                }
+            }
+
             &-lang {
-                color: ef.get-value($themeDefault, 'currentColor');
+                @include text.get-text-style(ef.get-value($themeDefault, 'langFontStyleCurrent'), ef.get-value($themeDefaultModLog, 'langFontColorCurrent'));
+                text-transform: capitalize;
             }
 
             &-arrow {
+                @include bm.transition(transform);
 
                 ::ng-deep svg {
 
@@ -58,10 +67,7 @@
         }
 
         &__list {
-            border-radius: ef.get-value($themeDefault, 'dropdownBorderRadius');
-            background: ef.get-value($themeDefault, 'dropdownBackgroundColor');
-            position: relative;
-            overflow: hidden;
+            @include list(repeat(3, 1fr), ef.get-value($themeDefault, 'listGap'), ef.get-value($themeDefault, 'listPadding'), ef.get-value($themeDefault, 'dropdownBackgroundColor'));
 
             @include mod('default', 'bottom-left') {
                 transform: translateY(ef.get-value($themeDefault, 'dropdownArrowSize'));
@@ -96,31 +102,26 @@
             }
         }
 
-        &__link {
-            justify-content: flex-start;
-            padding: ef.get-value($themeDefault, 'dropdownPadding');
-            display: grid;
-            grid-auto-columns: auto;
-            grid-auto-flow: column;
-            align-items: center;
-            grid-gap: ef.get-value($themeDefault, 'dropdownGap');
-            color: ef.get-value($themeDefault, 'dropdownLinkColor');
-            text-decoration: none;
+        &__item--active {
 
-            &:hover {
-                background-color: ef.get-value($themeDefault, 'dropdownItemHover');
-                @include bm.transition(background-color);
+            .wlc-language-selector__link {
+
+                &-flag {
+                    box-shadow: 0 0 0 4px ef.get-value($themeModal, 'flagBoxShadowHover'), 0 0 7px 7px rgba(0, 0, 0, 0.67);
+                }
             }
+        }
+
+        &__link {
+
+            @include link();
 
             &-lang {
-
-                .wlc-language-selector__current & {
-                    text-transform: uppercase;
-                }
+                @include lang();
             }
 
             &-flag {
-                @include flag(ef.get-value($themeDefault, 'dropdownFlagSize'), ef.get-value($themeDefault, 'dropdownFlagSize'), 50%);
+                @include flag(ef.get-value($themeDefault, 'dropdownFlagSize'), ef.get-value($themeDefault, 'dropdownFlagSize'), 50%, ef.get-value($themeDefault, 'flagBoxShadow'), ef.get-value($themeModal, 'flagBoxShadowHover'));
             }
         }
     }
@@ -139,49 +140,158 @@
             @include bm.transition(background);
         }
 
-        .wlc-language-selector__current {
-            padding: ef.get-value($themeDefaultModLog, 'currentPaddingModLong');
-            grid-template-columns: auto 1fr auto;
+        .wlc-language-selector {
 
-            &-lang {
-                @include text.get-text-style('PrimaryText', ef.get-value($themeDefaultModLog, 'currentColorModLang'));
+            &__current {
+                padding: ef.get-value($themeDefaultModLog, 'currentPaddingModLong');
+                grid-template-columns: auto 1fr auto;
+                border-radius: ef.get-value($themeDefaultModLog, 'currentBorderRadiusModLong');
+                @include bm.transition(background);
+
+                &--opened {
+                    background: ef.get-value($themeDefaultModLog, 'currentBgModLongActive');
+
+                    .wlc-language-selector__current-arrow::ng-deep {
+
+                        svg {
+
+                            path {
+                                fill: ef.get-value($themeDefaultModLog, 'currentFillModLongActive');
+                            }
+                        }
+                    }
+
+                    .wlc-language-selector__current-lang {
+                        @include text.get-text-style(ef.get-value($themeDefaultModLog, 'langFontStyleActive'), ef.get-value($themeDefaultModLog, 'currentColorModLang'));
+                    }
+                }
+
+                &-lang {
+                    @include text.get-text-style(ef.get-value($themeDefaultModLog, 'langFontStyle'), ef.get-value($themeDefaultModLog, 'currentColorModLang'));
+                }
+
+                &-flag {
+                    width: ef.get-value($themeDefaultModLog, 'currentFlagSize');
+                    height: ef.get-value($themeDefaultModLog, 'currentFlagSize');
+                    margin-right: ef.get-value($themeDefaultModLog, 'currentFlagMargin');
+
+                    img {
+                        width: 100%;
+                        height: 100%;
+                    }
+                }
             }
 
-            &-flag {
-                width: ef.get-value($themeDefaultModLog, 'currentFlagSize');
-                height: ef.get-value($themeDefaultModLog, 'currentFlagSize');
-                margin-right: ef.get-value($themeDefaultModLog, 'currentFlagMargin');
+            &__dropdown {
+                position: absolute;
+                width: 100%;
+                top: calc(100% + 5px);
+                left: 0;
 
-                img {
-                    width: 100%;
-                    height: 100%;
+                .wlc-language-selector__link-lang {
+                    @include text.get-text-style('PrimaryText', ef.get-value($themeDefaultModLog, 'currentColorModLang'));
+                }
+            }
+
+            &__list {
+                background: ef.get-value($themeDefaultModLog, 'dropdownBgModLong');
+                padding: ef.get-value($themeDefaultModLog, 'dropdownPaddingLong');
+                grid-template-columns: 1fr;
+            }
+
+            &__link {
+
+                &:hover {
+
+                    .wlc-language-selector__link-flag {
+                        box-shadow: 0 0 0 3px ef.get-value($themeDefault, 'flagBoxShadowHover'), 0 0 3px 3px rgba(0, 0, 0, 0.67);
+                    }
+                }
+
+
+                &-flag {
+                    width: ef.get-value($themeDefaultModLog, 'currentFlagSize');
+                    height: ef.get-value($themeDefaultModLog, 'currentFlagSize');
+                    box-shadow: 0 0 0 3px ef.get-value($themeDefault, 'flagBoxShadow');
+
+                    img {
+                        width: 100%;
+                        height: 100%;
+                    }
+                }
+
+                &-lang {
+                    position: relative;
+                    opacity: 1;
+                    visibility: visible;
+                    left: 0;
+                    bottom: 0;
+                    transform: none;
+                    background: none;
+
+                    &:before {
+                        display: none;
+                    }
                 }
             }
         }
+    }
 
-        .wlc-language-selector__dropdown {
-            position: absolute;
-            width: 100%;
-            top: calc(100% + 5px);
-            left: 0;
+    &.wlc-language-selector--border-around {
+        height: ef.get-value($themeBorderAround, 'currentHeight');
 
-            .wlc-language-selector__link-lang {
-                @include text.get-text-style('PrimaryText', ef.get-value($themeDefaultModLog, 'currentColorModLang'));
+        .wlc-language-selector {
+
+            &__current {
+                border: ef.get-value($themeBorderAround, 'currentBorder');
+                padding: ef.get-value($themeBorderAround, 'currentPadding');
+                height: ef.get-value($themeBorderAround, 'currentHeight');
+                border-radius: ef.get-value($themeBorderAround, 'currentRadius');
+
+                &-flag {
+                    width: ef.get-value($themeBorderAround, 'currentFlagSize');
+                    height: ef.get-value($themeBorderAround, 'currentFlagSize');
+
+                    img {
+                        width: ef.get-value($themeBorderAround, 'currentFlagSize');
+                        height: ef.get-value($themeBorderAround, 'currentFlagSize');
+                    }
+                }
             }
         }
+    }
+}
 
-        .wlc-language-selector__list {
-            background: ef.get-value($themeDefaultModLog, 'dropdownBgModLong');
+.wlc-language-modal {
+
+    &__list {
+        @include list(repeat(auto-fit, minmax(60px, 1fr)), ef.get-value($themeModal, 'listGap'), ef.get-value($themeModal, 'listPadding'));
+    }
+
+    &__item {
+        display: flex;
+        justify-content: center;
+
+        &--active {
+
+            .wlc-language-modal__link {
+
+                &-flag {
+                    box-shadow: 0 0 0 4px ef.get-value($themeModal, 'flagBoxShadowHover'), 0 0 7px 7px rgba(0, 0, 0, 0.67);
+                }
+            }
+        }
+    }
+
+    &__link {
+        @include link();
+
+        &-lang {
+            @include lang();
         }
 
-        .wlc-language-selector__link-flag {
-            width: ef.get-value($themeDefaultModLog, 'currentFlagSize');
-            height: ef.get-value($themeDefaultModLog, 'currentFlagSize');
-
-            img {
-                width: 100%;
-                height: 100%;
-            }
+        &-flag {
+            @include flag(ef.get-value($themeModal, 'dropdownFlagSize'), ef.get-value($themeModal, 'dropdownFlagSize'), 50%, ef.get-value($themeModal, 'flagBoxShadow'), ef.get-value($themeModal, 'flagBoxShadowHover'));
         }
     }
 }
