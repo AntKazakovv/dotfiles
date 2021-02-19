@@ -35,6 +35,8 @@ $themeDropdownDefault: map-merge((
     'linkFill': ef.get('mainColors', 'baseMain'),
     'linkBorderRadius': ef.get('radius', 'biger'),
     'submenuBg': ef.get('mainColors', 'bg700'),
+    'arrowFillColor': ef.get('mainColors', 'baseOpacity'),
+    'arrowFillColorActive': ef.get('mainColors', 'baseMain'),
 ), $customDropdownThemeDefault);
 
 $customWithIcons: () !default;
