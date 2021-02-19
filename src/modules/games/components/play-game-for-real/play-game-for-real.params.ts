@@ -35,6 +35,7 @@ export const defaultParams: IPlayGameForRealCParams = {
 export const Events: IIndexing<string> = {
     PLAY_DEMO: 'runDemo@playGameForRealModal',
     PLAY_REAL: 'runReal@playGameForRealModal',
+    SIGN_UP: 'signUp@playGameForRealModal',
 };
 
 interface IPlayForRealParams {
@@ -53,6 +54,7 @@ export const playGameForRealConfig = (params: IPlayForRealParams): IFormWrapperC
                 name: 'core.wlc-button',
                 params: <IButtonCParams>{
                     name: 'play-demo',
+                    themeMod: 'secondary',
                     common: {
                         text: gettext('Demo'),
                         type: 'button',
@@ -118,6 +120,14 @@ export const playGameForRealConfig = (params: IPlayForRealParams): IFormWrapperC
             },
         },
         {
+            name: 'user.wlc-restore-link',
+            params: {
+                common: {
+                    typeAttr: 'button',
+                },
+            },
+        },
+        {
             name: 'user.wlc-pseudo-link',
             params: {},
         },
@@ -125,6 +135,7 @@ export const playGameForRealConfig = (params: IPlayForRealParams): IFormWrapperC
             name: 'core.wlc-button',
             params: <IButtonCParams>{
                 name: 'submit',
+                themeMod: 'secondary',
                 common: {
                     text: gettext('Login'),
                     type: 'submit',
@@ -139,8 +150,8 @@ export const playGameForRealConfig = (params: IPlayForRealParams): IFormWrapperC
                     subtitle: gettext('Don’t have an account?'),
                     link: gettext('Sign up now'),
                     actionParams: {
-                        modal: {
-                            name: 'signup',
+                        event: {
+                            name: Events.SIGN_UP,
                         },
                     },
                 },
@@ -160,6 +171,7 @@ export const playGameForRealConfig = (params: IPlayForRealParams): IFormWrapperC
         {
             name: 'games.wlc-game-thumb',
             params: {
+                type: 'modal',
                 common: {
                     game: params.game,
                 },
@@ -168,6 +180,7 @@ export const playGameForRealConfig = (params: IPlayForRealParams): IFormWrapperC
         {
             name: 'core.wlc-text-block',
             params: <ITextBlockCParams>{
+                themeMod: 'game-title',
                 common: {
                     textBlockSubtitle: params.game.name['en'],
                 },

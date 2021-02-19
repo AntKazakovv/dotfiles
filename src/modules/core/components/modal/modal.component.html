@@ -83,6 +83,7 @@
 </ng-template>
 
 <ng-template #message>
+    <div class="modal-icon modal-icon--confirm" *ngIf="$params?.config?.modifier === 'confirmation' && !$params?.config?.hideIcon" wlc-icon iconName="status/confirm"></div>
     <div
         *ngFor="let msg of $params.config.modalMessage"
         [style]="{'text-align': $params.config.textAlign}"

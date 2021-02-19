@@ -49,7 +49,7 @@ $themeDefault: map-merge((
 
 $customThemeVertical: () !default;
 $themeVertical: map-merge((
-    'labelGap': ef.get('size', 'small'),
+    'labelGap': 0,
     'labelMaxWidth': 100%,
     'labelMargin': 0 0 0 ef.get('size', 'smallest'),
     'labelFontSize': ef.get('font', 'small'),

@@ -76,9 +76,14 @@ export interface IModalConfig extends IModalBsOptions {
      */
     textAlign?: string;
     /**
+     * Hide icon from modal. `false` by default
+     */
+    hideIcon?: boolean;
+    /**
      * Text of close button. `Close` by default
      */
     closeBtnText?: string;
+
     /**
      * Сlose button params
      */

@@ -168,7 +168,12 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
             modifier: 'confirmation',
             modalMessage: gettext('Are you sure?'),
             showConfirmBtn: true,
-            closeBtnText: gettext('No'),
+            closeBtnParams: {
+                themeMod: 'secondary',
+                common: {
+                    text: gettext('No'),
+                },
+            },
             confirmBtnText: gettext('Yes'),
             textAlign: 'center',
             onConfirm: async () => {

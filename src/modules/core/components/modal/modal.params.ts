@@ -16,6 +16,8 @@ import {
 } from './index';
 
 export const defaultParams: IModalOptions = {
+    moduleName: 'core',
+    componentName: 'wlc-modal-window',
     class: 'wlc-modal',
 };
 
@@ -29,7 +31,7 @@ export const DEFAULT_MODAL_CONFIG: Partial<IModalConfig> = {
     showFooter: true,
     size: 'md',
     useBackButton: false,
-    backButtonText: 'back',
+    backButtonText: '',
     closeBtnVisibility: true,
     textAlign: 'left',
 };
@@ -128,6 +130,7 @@ export const MODALS_LIST: IModalList = {
             modifier: 'static-text',
             component: PostComponent,
             size: 'lg',
+            scrollable: true,
         },
     },
     registrationSuccess: {

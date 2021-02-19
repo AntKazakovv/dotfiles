@@ -1,4 +1,5 @@
 @use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/text' as text;
 @import '../utils/vars';
 
 .wlc-play-for-real--theme-default:host {
@@ -13,6 +14,22 @@
 
         .wlc-btn {
             margin: ef.get-value($themeDefault, 'btnMargin');
+        }
+
+        .wlc-restore-link__content {
+            margin: ef.get-value($themeDefault, 'restoreLinkMargin');
+        }
+
+        .wlc-link-block {
+            margin: ef.get-value($themeDefault, 'linkBlockMargin');
+        }
+
+        .wlc-text-block--theme-mod-game-title {
+            margin: ef.get-value($themeDefault, 'gameTitleMargin');
+
+            .wlc-text-block__subtitle {
+                @include text.get-text-style('ThirdTitleBold');
+            }
         }
     }
 }

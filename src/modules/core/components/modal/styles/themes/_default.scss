@@ -1,6 +1,7 @@
 @use 'engine-scss/functions' as ef;
 @use 'engine-scss/mixins/mediaqueries' as mq;
 @use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/engine.variables' as ev;
 @import '../utils/vars';
 
 
@@ -49,3 +50,10 @@
     }
 }
 
+body.modal-open {
+    background-color: ef.get-value($themeDefault, 'dialogBackground');
+
+    @include mq.min(560) {
+        background-color: ev.$body-bg;
+    }
+}

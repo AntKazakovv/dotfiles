@@ -5,6 +5,7 @@
 
     &:host {
         text-align: ef.get-value($themeDefault, 'alignText') ;
+        line-height: 1;
 
         .wlc-btn {
             @include text.get-text-style(ef.get-value($themeDefault, 'linkFontSize'), ef.get-value($themeDefault, 'linkColor'));

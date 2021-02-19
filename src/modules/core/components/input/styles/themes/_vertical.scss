@@ -12,6 +12,7 @@
         margin: ef.get-value($themeVertical, 'labelMargin');
 
         @include text.get-text-style('SignText', ef.get-value($themeVertical, 'labelColor'));
+        line-height: 1.9;
 
         cursor: pointer;
         user-select: none;
