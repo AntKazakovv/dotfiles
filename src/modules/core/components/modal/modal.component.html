@@ -54,12 +54,14 @@
                     typeAttr="button"
                     *ngIf="$params.config.showConfirmBtn"
                     [text]="$params.config.confirmBtnText || 'Confirm'"
+                    [inlineParams]="$params.config.confirmBtnParams"
                     (click)="confirm($params.config.id)">
             </button>
             <button wlc-button
                     typeAttr="button"
                     type="rejected"
                     [text]="$params.config.closeBtnText || 'Close'"
+                    [inlineParams]="$params.config.closeBtnParams"
                     (click)="closeModal($params.config.id)">
             </button>
         </div>

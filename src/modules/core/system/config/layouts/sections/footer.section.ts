@@ -54,7 +54,7 @@ export namespace footer {
                     components: [
                         componentLib.wlcPostMenu.footerInfo,
                         componentLib.wlcPostMenu.footerAbout,
-                        componentLib.wlcLanguageSelector.topLeft,
+                        componentLib.wlcLanguageSelector.topLeftTheme2,
                     ],
                 },
             },

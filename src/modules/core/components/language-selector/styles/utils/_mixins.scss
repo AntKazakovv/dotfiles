@@ -1,15 +1,90 @@
 @use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/functions' as ef;
+@import 'vars';
 
-@mixin flag($width, $height, $borderRadius) {
+@mixin flag($width, $height, $borderRadius, $boxShadow:null, $boxShadowHover:null) {
     width: $height;
     height: $height;
     border-radius: $borderRadius;
     overflow: hidden;
 
+    @if $boxShadow != null {
+        box-shadow: 0 0 0 4px $boxShadow;
+        transition: box-shadow 0.2s ease-out;
+
+        &:hover {
+            box-shadow: 0 0 0 4px $boxShadowHover, 0 0 7px 7px rgba(0, 0, 0, 0.67);
+        }
+    }
+
     img {
         display: block;
         width: $height;
         height: $height;
+    }
+}
+
+@mixin list($templateColumns, $gap, $padding, $background:null) {
+    display: grid;
+    grid-template-columns: $templateColumns;
+    grid-gap: $gap;
+    padding: $padding;
+    border-radius: ef.get-value($themeDefault, 'dropdownBorderRadius');
+    position: relative;
+
+    @if $background != null {
+        background: ef.get-value($themeDefault, 'dropdownBackgroundColor');
+    }
+}
+
+@mixin lang {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    left: ef.get-value($themeDefault, 'langLeft');
+    bottom: ef.get-value($themeDefault, 'langBottom');
+    background-color: ef.get-value($themeDefault, 'langBg');
+    padding: ef.get-value($themeDefault, 'langPadding');
+    height: ef.get-value($themeDefault, 'langHeight');
+    border-radius: ef.get-value($themeDefault, 'langRadius');
+    visibility: hidden;
+    transform: translate(-50%, 0);
+    z-index: 2;
+    opacity: 0;
+    @include text.get-text-style(ef.get-value($themeDefault, 'langFontStyle'), ef.get-value($themeDefault, 'langFontColor'));
+    @include bm.transition(opacity);
+
+    &:before {
+        content: '';
+        position: absolute;
+        left: 50%;
+        top: -6px;
+        border: 3px solid transparent;
+        border-bottom: 4px solid #fff;
+        transform: translate(-50%, 0);
+    }
+}
+
+@mixin link {
+    justify-content: flex-start;
+    display: grid;
+    grid-auto-columns: auto;
+    grid-auto-flow: column;
+    align-items: center;
+    grid-gap: ef.get-value($themeDefault, 'dropdownGap');
+    color: ef.get-value($themeDefault, 'dropdownLinkColor');
+    text-decoration: none;
+    position: relative;
+
+    &:hover {
+
+        .wlc-language-selector__link-lang,
+        .wlc-language-modal__link-lang {
+            opacity: 1;
+            visibility: visible;
+        }
     }
 }
 
