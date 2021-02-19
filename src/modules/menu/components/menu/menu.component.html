@@ -21,7 +21,7 @@
                [attr.data-wlc-element]="item.wlcElement"
                uiSrefActive="active">
 
-               <span class="{{$class}}__icon" *ngIf="item.icon" wlc-icon [iconName]="item.icon"></span>
+               <span class="{{$class}}__icon" *ngIf="item.icon" wlc-icon [iconPath]="getIcon(item)" [fallback]="iconsFallback"></span>
                <span>{{item.name | translate}} <span *ngIf="item?.counter" wlc-counter [counterType]="item?.counter"></span></span>
                <span class="{{$class}}__icon-arrow"
                       *ngIf="$params.common?.useArrow" wlc-icon [iconName]="'arrow'">
@@ -32,7 +32,7 @@
 
     <ng-container #srefWithParent *ngIf="item.params?.state?.parent">
         <div class="{{$class}}__item {{$class}}__item--sref">
-            <span class="{{$class}}__icon" *ngIf="item.icon" wlc-icon [iconName]="item.icon">
+            <span class="{{$class}}__icon" *ngIf="item.icon" wlc-icon [iconPath]="getIcon(item)" [fallback]="iconsFallback">
             </span>
             <a class="{{$class}}__link"
                [uiSref]="item.params?.state?.name"
@@ -56,7 +56,7 @@
 
 <ng-template #anchor let-item="item">
     <div class="{{$class}}__item {{$class}}__item--anchor">
-        <span class="{{$class}}__icon" *ngIf="item.icon" wlc-icon [iconName]="item.icon">
+        <span class="{{$class}}__icon" *ngIf="item.icon" wlc-icon [iconPath]="getIcon(item)" [fallback]="iconsFallback">
         </span>
         <a class="{{$class}}__link"
            href="#{{item.params.anchor?.name}}"
@@ -74,7 +74,7 @@
 
 <ng-template #modal let-item="item">
     <div class="{{$class}}__item {{$class}}__item--modal" (click)="showModal(item?.params?.modal?.name)">
-        <span class="{{$class}}__icon" *ngIf="item.icon" wlc-icon [iconName]="item.icon">
+        <span class="{{$class}}__icon" *ngIf="item.icon" wlc-icon [iconPath]="getIcon(item)" [fallback]="iconsFallback">
         </span>
         <a class="{{$class}}__link"
            (click)="openModal(item)"
@@ -124,7 +124,7 @@
 </ng-template>
 
 <ng-container *ngIf="$params.common?.useSwiper && slides.length">
-    <div wlc-slider
+    <div wlc-slider #slider
          [slides]="slides"
          [inlineParams]="sliderParams">
     </div>

@@ -21,6 +21,10 @@ export interface IProfileMenuCParams extends IComponentParams<Theme, Type, Theme
     common?: {
         themeMod?: ThemeMod;
         useArrow?: boolean;
+        icons?: {
+            folder?: string;
+            use?: boolean;
+        }
     };
 }
 

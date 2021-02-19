@@ -6,6 +6,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         name: gettext('My account'),
         class: 'my-account',
         type: 'title',
+        icon: 'my-account',
         params: {
             state: {
                 parent: 'app.profile.main',
@@ -18,6 +19,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         name: gettext('Account settings'),
         class: 'account-settings',
         type: 'sref',
+        icon: 'account-settings',
         wlcElement: 'link_cc-profile-menu_account-settings',
         params: {
             state: {
@@ -30,7 +32,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     'profile-menu:edit-profile': {
         name: gettext('General'),
         type: 'sref',
-        icon: 'icons/edit-profile',
+        icon: 'edit-profile',
         wlcElement: 'link_profileMain',
         class: 'edit-profile',
         params: {
@@ -43,7 +45,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     'profile-menu:socials': {
         name: gettext('Social networks'),
         type: 'sref',
-        icon: 'icons/socials',
+        icon: 'socials',
         class: 'socials',
         params: {
             state: {
@@ -57,6 +59,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         name: gettext('Bonuses'),
         type: 'title',
         class: 'bonuses',
+        icon: 'bonuses',
         params: {
             state: {
                 parent: 'app.profile.loyalty-bonuses',
@@ -70,6 +73,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         counter: 'bonuses-main',
         type: 'sref',
         class: 'bonuses',
+        icon: 'bonuses',
         params: {
             state: {
                 name: 'app.profile.loyalty-bonuses.main',
@@ -80,7 +84,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     'profile-menu:bonuses-offers': {
         name: gettext('Offers'),
         type: 'sref',
-        icon: 'icons/bonuses-offers',
+        icon: 'bonuses-offers',
         class: 'bonuses-offers',
         params: {
             state: {
@@ -92,7 +96,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     'profile-menu:bonuses-active': {
         name: gettext('Active bonuses'),
         type: 'sref',
-        icon: 'icons/active-bonus',
+        icon: 'active-bonuses',
         class: 'active-bonus',
         params: {
             state: {
@@ -104,7 +108,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     'profile-menu:bonuses-inventory': {
         name: gettext('Inventory'),
         type: 'sref',
-        icon: 'icons/inventory-bonus',
+        icon: 'inventory-bonuses',
         class: 'inventory-bonus',
         params: {
             state: {
@@ -116,7 +120,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     'profile-menu:bonuses-history': {
         name: gettext('Bonuses history'),
         type: 'sref',
-        icon: 'icons/bonuses-history',
+        icon: 'bonuses-history',
         class: 'bonuses-history',
         params: {
             state: {
@@ -128,7 +132,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     'profile-menu:bonuses-voucher': {
         name: gettext('Voucher'),
         type: 'sref',
-        icon: 'icons/bonuses-voucher',
+        icon: 'bonuses-voucher',
         class: 'bonuses-voucher',
         params: {
             state: {
@@ -140,7 +144,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     'profile-menu:bonuses-system': {
         name: gettext('Bonuses system'),
         type: 'sref',
-        icon: 'icons/bonuses-system',
+        icon: 'bonuses-system',
         class: 'bonuses-system',
         params: {
             state: {
@@ -152,6 +156,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     'profile-menu:tournaments': {
         name: gettext('Tournaments'),
         type: 'title',
+        icon: 'tournaments',
         class: 'tournaments',
         params: {
             state: {
@@ -164,7 +169,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     'profile-menu:tournaments-current': {
         name: gettext('Current tournaments'),
         type: 'sref',
-        icon: 'icon/tournaments-current',
+        icon: 'current-tournaments',
         class: 'tournaments-current',
         params: {
             state: {
@@ -176,7 +181,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     'profile-menu:tournaments-active': {
         name: gettext('Active tournaments'),
         type: 'sref',
-        icon: 'icons/tournaments-active',
+        icon: 'active-tournaments',
         class: 'tournaments-active',
         params: {
             state: {
@@ -188,7 +193,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     'profile-menu:tournaments-history': {
         name: gettext('Tournaments history'),
         type: 'sref',
-        icon: 'icons/tournaments-history',
+        icon: 'tournaments-history',
         class: 'tournaments-history',
         params: {
             state: {
@@ -199,7 +204,8 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     },
     'profile-menu:store': {
         name: gettext('Market'),
-        type: 'sref',
+        type: 'title',
+        icon: 'store',
         class: 'store',
         params: {
             state: {
@@ -211,6 +217,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     'profile-menu:history': {
         name: gettext('History'),
         type: 'title',
+        icon: 'history',
         class: 'history',
         params: {
             state: {
@@ -223,7 +230,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     'profile-menu:store-main': {
         name: gettext('Store'),
         type: 'sref',
-        icon: 'icons/store-main',
+        icon: 'store',
         class: 'store-main',
         params: {
             state: {
@@ -235,7 +242,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     'profile-menu:store-orders': {
         name: gettext('Store orders'),
         type: 'sref',
-        icon: 'icons/store-orders',
+        icon: 'store-orders',
         class: 'store-orders',
         params: {
             state: {
@@ -247,6 +254,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     'profile-menu:cash': {
         name: gettext('Cash'),
         type: 'title',
+        icon: 'cash',
         class: 'cash',
         params: {
             state: {
@@ -259,7 +267,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     'profile-menu:cash-deposit': {
         name: gettext('Deposit'),
         type: 'sref',
-        icon: 'icons/deposit',
+        icon: 'deposit',
         class: 'deposit',
         wlcElement: 'link_cc-profile-menu_deposit',
         params: {
@@ -272,7 +280,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     'profile-menu:cash-withdrawal': {
         name: gettext('Withdrawal'),
         type: 'sref',
-        icon: 'icons/withdrawal',
+        icon: 'withdrawal',
         class: 'withdrawal',
         wlcElement: 'link_cc-profile-menu_withdraw',
         params: {
@@ -285,7 +293,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     'profile-menu:cash-wallet': {
         name: gettext('Wallet'),
         type: 'sref',
-        icon: 'icons/wallet',
+        icon: 'wallet',
         class: 'wallet',
         params: {
             state: {
@@ -297,7 +305,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     'profile-menu:transaction-history': {
         name: gettext('Transaction history'),
         type: 'sref',
-        icon: 'icons/transaction-history',
+        icon: 'transaction-history',
         class: 'transaction-history',
         params: {
             state: {
@@ -309,6 +317,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     'profile-menu:gamblings': {
         name: gettext('Gamblings'),
         type: 'title',
+        icon: 'gamblings',
         class: 'gamblings',
         params: {
             state: {
@@ -321,7 +330,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     'profile-menu:bets-history': {
         name: gettext('Bets history'),
         type: 'sref',
-        icon: 'icons/bonus-history',
+        icon: 'bets-history',
         class: 'bonus-history',
         params: {
             state: {
@@ -333,7 +342,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     'profile-menu:messages': {
         name: gettext('Messages'),
         type: 'sref',
-        icon: 'icons/messages',
+        icon: 'messages',
         class: 'messages',
         params: {
             state: {
@@ -345,7 +354,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     'profile-menu:logout': {
         name: gettext('Logout'),
         type: 'modal',
-        icon: 'icons/logout',
+        icon: 'logout',
         class: 'logout',
         params: {
             modal: {
@@ -356,7 +365,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     'profile-menu:verification': {
         name: gettext('Verification'),
         type: 'sref',
-        icon: 'icons/verification',
+        icon: 'verification',
         class: 'verification',
         params: {
             state: {
@@ -368,7 +377,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     'profile-menu:password': {
         name: gettext('Password'),
         type: 'sref',
-        icon: 'icons/password',
+        icon: 'password',
         class: 'password',
         params: {
             state: {
@@ -380,7 +389,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     'profile-menu:notifications': {
         name: gettext('Notifications'),
         type: 'sref',
-        icon: 'icons/notifications',
+        icon: 'notifications',
         class: 'notifications',
         params: {
             state: {
@@ -392,7 +401,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     'profile-menu:payments': {
         name: gettext('Payments'),
         type: 'sref',
-        icon: 'icons/payments',
+        icon: 'payments',
         class: 'payments',
         params: {
             state: {
@@ -404,7 +413,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     'profile-menu:limits': {
         name: gettext('Limits'),
         type: 'sref',
-        icon: 'icons/limits',
+        icon: 'limits',
         class: 'limits',
         params: {
             state: {
@@ -416,7 +425,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     'profile-menu:open-bets': {
         name: gettext('Open bets'),
         type: 'sref',
-        icon: 'icons/active-bonus',
+        icon: 'open-bets',
         class: 'active-bonus',
         params: {
             state: {
@@ -431,7 +440,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     'profile-menu:loyalty-level': {
         name: gettext('Loyalty'),
         type: 'sref',
-        icon: 'icons/loyalty-levels',
+        icon: 'loyalty-levels',
         class: 'loyalty-levels',
         params: {
             state: {
@@ -443,7 +452,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     'profile-menu:referrals': {
         name: gettext('Referrals'),
         type: 'sref',
-        icon: 'icons/referrals',
+        icon: 'referrals',
         class: 'referrals',
         params: {
             state: {
@@ -455,7 +464,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     'profile-menu:dashboard': {
         name: gettext('Dashboard'),
         type: 'sref',
-        icon: 'icons/dashboard',
+        icon: 'dashboard',
         class: 'dashboard',
         wlcElement: 'link_cc-profile-menu_dashboard',
         params: {
@@ -466,75 +475,6 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         },
     },
 };
-
-export const wlcProfileMenuItemsDefault: MenuParams.MenuConfigItem[] = [
-    'profile-menu:dashboard',
-    'profile-menu:bonuses-as-offers',
-    'profile-menu:store',
-    'profile-menu:cash-deposit',
-    'profile-menu:cash-withdrawal',
-    {
-        parent: 'profile-menu:history',
-        items: [
-            'profile-menu:bonuses-history',
-            'profile-menu:bets-history',
-            'profile-menu:transaction-history',
-            'profile-menu:tournaments-history',
-        ],
-    },
-    {
-        parent: 'profile-menu:account-settings',
-        items: [
-            'profile-menu:edit-profile',
-            'profile-menu:verification',
-            'profile-menu:messages',
-        ],
-    },
-    // {
-    //     parent: 'profile-menu:tournaments',
-    //     items: [
-    //         'profile-menu:tournaments-current',
-    //         'profile-menu:tournaments-active',
-    //         'profile-menu:tournaments-history',
-    //     ],
-    // },
-    // {
-    //     parent: 'profile-menu:cash',
-    //     items: [
-    //         'profile-menu:cash-deposit',
-    //         'profile-menu:cash-withdrawal',
-    //         'profile-menu:cash-wallet',
-    //         'profile-menu:transaction-history',
-    //     ],
-    // },
-    // {
-    //     parent: 'profile-menu:gamblings',
-    //     items: [
-    //         'profile-menu:loyalty-level',
-    //         'profile-menu:bets-history',
-    //     ],
-    // },
-    // {
-    //     parent: 'profile-menu:store',
-    //     items: [
-    //         'profile-menu:store-main',
-    //         'profile-menu:store-orders',
-    //     ],
-    // },
-    // {
-    //     parent: 'profile-menu:bonuses',
-    //     items: [
-    //         'profile-menu:bonuses-offers',
-    //         'profile-menu:bonuses-active',
-    //         'profile-menu:bonuses-inventory',
-    //         'profile-menu:bonuses-history',
-    //         'profile-menu:bonuses-voucher',
-    //         'profile-menu:bonuses-system',
-    //     ],
-    // },
-    // 'profile-menu:referrals',
-    // 'profile-menu:logout',
-];
 
 export const profileMenuFilter: ProfileMenuParams.IProfileMenuFilter[] = [
     {

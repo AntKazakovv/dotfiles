@@ -13,6 +13,7 @@ import {TranslateModule} from '@ngx-translate/core';
 import {WinnersSliderComponent} from 'wlc-engine/modules/promo/components/winners-slider/winners-slider.component';
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
 import {BannersSliderComponent} from 'wlc-engine/modules/promo/components/banners-slider/banners-slider.component';
+import {AngularResizedEventModule} from 'angular-resize-event';
 
 export const components = {
     'wlc-slider': SliderComponent,
@@ -35,6 +36,7 @@ export const components = {
         UserModule,
         TranslateModule,
         CoreModule,
+        AngularResizedEventModule,
     ],
     providers: [
         BannersService,

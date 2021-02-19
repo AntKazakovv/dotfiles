@@ -12,6 +12,10 @@ export interface IMainMenuCParams extends IComponentParams<Theme, Type, ThemeMod
     modifiers?: Modifiers[];
     common?: {
         themeMod?: ThemeMod;
+        icons?: {
+            folder?: string,
+            use?: boolean,
+        }
     };
     items?: IMenuItem[];
 }

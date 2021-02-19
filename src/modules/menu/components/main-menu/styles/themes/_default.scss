@@ -15,11 +15,23 @@
             width: ef.get-value($themeDefault, 'width');
             align-items: center;
 
+            &__icon {
+                display: inline-block;
+                margin-right: 7px;
+
+                svg {
+                    max-height: 25px;
+                    max-width: 25px;
+                }
+            }
+
             @include bm.get-mq-map('grid-gap', $themeDefault, 'gapSize');
 
             .wlc-menu {
 
                 &__link {
+                    display: flex;
+                    align-items: center;
                     text-decoration: ef.get-value($themeDefault, 'textDecoration');
                     @include text.get-text-style('ThirdTitle', ef.get-value($themeDefault, 'textColor'));
                     @include bm.get-mq-map('font-size', $themeDefault, 'fontSize');

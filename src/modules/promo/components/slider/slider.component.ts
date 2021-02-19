@@ -124,7 +124,7 @@ export class SliderComponent extends AbstractComponent
         if (this.ready) {
             this.fixSlidesSequence();
             this.cdr.detectChanges();
-            this.swiper.updateSwiper({});
+            this.update();
         }
     }
 
@@ -165,6 +165,14 @@ export class SliderComponent extends AbstractComponent
             });
             this.cdr.detectChanges();
         }
+    }
+
+    public update(): void {
+        this.swiper.updateSwiper({});
+    }
+
+    public scrollToStart(): void {
+        this.swiper.setIndex(0, 0, true);
     }
 
     protected setSliderWrapper(): void {
@@ -227,7 +235,7 @@ export class SliderComponent extends AbstractComponent
             this.fixSlidesSequence();
         }
         this.cdr.detectChanges();
-        this.swiper.updateSwiper({});
+        this.update();
     }
 
     protected windowResizeHandler(): void {

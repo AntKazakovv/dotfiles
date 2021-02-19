@@ -12,8 +12,12 @@ export interface IMobileMenuCParams extends IComponentParams<Theme, Type, ThemeM
     common?: {
         themeMod?: ThemeMod;
         useArrow?: boolean;
+        icons?: {
+            folder?: string,
+            use?: boolean,
+        },
     };
-}
+};
 
 export const defaultParams: IMobileMenuCParams = {
     moduleName: 'menu',
