@@ -1,0 +1,6 @@
+@use 'engine-scss/functions' as ef;
+
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'logoWidth': 100%,
+), $customThemeDefault);

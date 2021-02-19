@@ -8,22 +8,25 @@
 .wlc-sections__header--theme {
 
     &-1 {
-        z-index: 10;
-        position: relative;
-        display: grid;
-        align-items: center;
-        padding: 0 15px;
-        background: map-get($theme1Header, 'headerBackground');
+        background: map-get($theme1Header, headerBackground);
 
-        @include bm.get-mq-map('grid-template-columns', $theme1Header, 'headerGridColumns');
-        @include bm.get-mq-map('grid-gap', $theme1Header, 'headerGridGap');
-        @include bm.get-mq-map('min-height', $theme1Header, 'headerMinHeight');
+        .container {
+            z-index: 10;
+            position: relative;
+            display: grid;
+            align-items: center;
+            padding: 0 map-get($theme1Header, 'headerGlobalPadding');
 
-        @include mq.min(1024) {
-            max-width: 1920px;
-            width: 100%;
-            padding: 0;
-            margin: 0 auto;
+            @include bm.get-mq-map('grid-template-columns', $theme1Header, headerGridColumns);
+            @include bm.get-mq-map('grid-gap', $theme1Header, headerGridGap);
+            @include bm.get-mq-map('min-height', $theme1Header, headerMinHeight);
+
+            @include mq.min(1024) {
+                max-width: 1920px;
+                width: 100%;
+                padding: 0;
+                margin: 0 auto;
+            }
         }
 
         .wlc-logo {

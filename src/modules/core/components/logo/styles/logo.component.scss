@@ -1,11 +1,14 @@
+@import './utils/vars';
+
 :host {
     display: inline-block;
 }
 
 .wlc-logo__image::ng-deep {
 
-    img {
+    img,
+    svg {
         display: block;
-        width: 100%;
+        width: map-get($themeDefault, 'logoWidth');
     }
 }

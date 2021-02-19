@@ -38,7 +38,7 @@ export const defaultParams: IErrorPageCParams = {
             title: gettext('Live Casino'),
             state: 'app.catalog',
             params: {
-                category: 'live',
+                category: 'livecasino',
             },
         },
     ],
