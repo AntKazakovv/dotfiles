@@ -341,6 +341,7 @@ $form: map-merge((
     'placeholderPadding': 0 map-get($size, 'smaller'),
     'placeholderShift': map-get($size, 'less') * -1,
     'placeholderColor': map-get($color, 'textSecondary'),
+    'textareaMinHeight': 115px,
 ), $customForm);
 
 $modalSize: map-merge((

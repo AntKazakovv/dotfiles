@@ -79,6 +79,7 @@
             position: absolute;
             top: ef.get-value($themeVertical, 'iconEyeTop');
             right: ef.get-value($themeVertical, 'iconEyeRight');
+            z-index: 1;
 
             transform: ef.get-value($themeVertical, 'iconEyeTransform');
         }

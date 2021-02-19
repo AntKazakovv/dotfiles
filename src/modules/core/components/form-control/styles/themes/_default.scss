@@ -9,16 +9,19 @@
     #{$touch}.ng-valid ~ & {
 
         #{$selector}__icon {
-            background: darken(ef.get-value($themeDefault, 'successColor'), 20%);
 
-            &:before {
-                width: 4px;
-                height: 6px;
-                top: calc(50% - 1px);
-                left: 50%;
-                transform: translate(-50%, -50%) rotate(45deg);
-                border-bottom: 1px solid ef.get-value($themeDefault, 'successIconColor');
-                border-right: 1px solid ef.get-value($themeDefault, 'successIconColor');
+            .icon {
+                background: darken(ef.get-value($themeDefault, 'successColor'), 20%);
+
+                &:before {
+                    width: 4px;
+                    height: 6px;
+                    top: calc(50% - 1px);
+                    left: 50%;
+                    transform: translate(-50%, -50%) rotate(45deg);
+                    border-bottom: 1px solid ef.get-value($themeDefault, 'successIconColor');
+                    border-right: 1px solid ef.get-value($themeDefault, 'successIconColor');
+                }
             }
         }
     }
@@ -27,15 +30,18 @@
 
         #{$selector}__icon {
 
-            &:before {
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                animation: spin 1s infinite linear;
-                border: 2px solid ef.get-value($themeDefault, 'pendingIconColor');
-                border-left-color: transparent;
-                border-radius: 50%;
+            .icon {
+
+                &:before {
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    animation: spin 1s infinite linear;
+                    border: 2px solid ef.get-value($themeDefault, 'pendingIconColor');
+                    border-left-color: transparent;
+                    border-radius: 50%;
+                }
             }
         }
     }
@@ -44,27 +50,30 @@
         border-color: ef.get-value($themeDefault, 'errorColor');
 
         #{$selector}__icon {
-            background: darken(ef.get-value($themeDefault, 'errorColor'), 20%);
-            transform: translateY(-50%) rotate(45deg);
 
-            &:before {
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                background: ef.get-value($themeDefault, 'errorIconColor');
-                width: 2px;
-                height: 7px;
-            }
+            .icon {
+                background: darken(ef.get-value($themeDefault, 'errorColor'), 20%);
+                transform: rotate(45deg);
 
-            &:after {
-                content: '';
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                background: ef.get-value($themeDefault, 'errorIconColor');
-                width: 7px;
-                height: 2px;
+                &:before {
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    background: ef.get-value($themeDefault, 'errorIconColor');
+                    width: 2px;
+                    height: 7px;
+                }
+
+                &:after {
+                    content: '';
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    background: ef.get-value($themeDefault, 'errorIconColor');
+                    width: 7px;
+                    height: 2px;
+                }
             }
         }
 
@@ -80,11 +89,24 @@
     &__icon {
         position: absolute;
         top: 50%;
-        right: 15px;
+        right: 0;
         transform: translateY(-50%);
-        width: ef.get-value($themeDefault, 'iconWidth');
-        height: ef.get-value($themeDefault, 'iconHeight');
-        border-radius: 50%;
+        height: 100%;
+        width: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .icon {
+            width: ef.get-value($themeDefault, 'iconWidth');
+            height: ef.get-value($themeDefault, 'iconHeight');
+            border-radius: 50%;
+
+            &:before {
+                content: '';
+                position: absolute;
+            }
+        }
 
         .wlc-textarea & {
             position: absolute;
@@ -99,11 +121,6 @@
                 content: '';
                 position: absolute;
             }
-        }
-
-        &:before {
-            content: '';
-            position: absolute;
         }
     }
 
@@ -147,7 +164,7 @@
                 border-bottom-color: ef.get-value($themeDefault, 'errorsBgColor');
                 position: absolute;
                 top: -15px;
-                right: 13px;
+                right: 12px;
             }
         }
 

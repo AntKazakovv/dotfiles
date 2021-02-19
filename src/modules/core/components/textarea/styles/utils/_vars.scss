@@ -5,18 +5,20 @@ $themeDefault: map-merge((
     'errorColor': ef.get('form', 'errorColor'),
     'successColor': ef.get('form', 'successColor'),
 
-    'labelFontWeight': ef.get('form', 'labelFontWeight'),
     'labelColor': ef.get('form', 'labelColor'),
-    'labelFontSize': ef.get('form', 'labelFontSize'),
     'labelGap': ef.get('size', 'small'),
 
+    'textareaColor': ef.get('fieldColors', 'textColor'),
     'textareaWidth': ef.get('form', 'inputMaxWidth'),
     'textareaMaxWidth': ef.get('form', 'inputMaxWidth'),
     'textareaBorder': ef.get('form', 'inputBorder'),
     'textareaBorderFocusColor': ef.get('form', 'inputBorderFocusColor'),
     'textareaBorderRadius': ef.get('form', 'inputBorderRadius'),
     'textareaPadding': ef.get('form', 'inputPadding'),
-    'textareaMinHeight': ef.get('form', 'textareaMinHeight'),
+    'textareaMinHeight': (
+        375: ef.get('form', 'textareaMinHeight'),
+        720: ef.get('form', 'textareaMinHeight') * 2,
+    ),
 
     'iconWidth': ef.get('form', 'iconWidth'),
     'iconHeight': ef.get('form', 'iconHeight'),

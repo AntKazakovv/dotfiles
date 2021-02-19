@@ -37,6 +37,10 @@
             &:focus {
                 outline: none;
                 border-color: ef.get-value($themeDefault, 'inputBorderFocusColor');
+
+                &::placeholder {
+                    color: transparent;
+                }
             }
 
             &.ng-touched {

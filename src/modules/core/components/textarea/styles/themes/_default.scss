@@ -1,4 +1,7 @@
 @use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/mixins/text' as lib;
 
 @keyframes spin {
 
@@ -10,40 +13,40 @@
 .wlc-textarea--theme-default:host {
     display: grid;
     grid-template-columns: 1fr;
-    grid-gap: map-get($themeDefault, 'labelGap');
+    grid-gap: ef.get-value($themeDefault, 'labelGap');
 
     .wlc-textarea__label {
-        font-weight: map-get($themeDefault, 'labelFontWeight');
-        font-size: map-get($themeDefault, 'labelFontSize');
-        color: map-get($themeDefault, 'labelColor');
+        @include lib.get-text-style('PrimaryText', ef.get-value($themeDefault, 'labelColor'));
     }
 
     .wlc-textarea__textarea {
-        width: map-get($themeDefault, 'textareaWidth');
-        max-width: map-get($themeDefault, '$textareaMaxWidth');
+        width: ef.get-value($themeDefault, 'textareaWidth');
+        max-width: ef.get-value($themeDefault, '$textareaMaxWidth');
         position: relative;
 
         textarea {
             width: 100%;
-            border: map-get($themeDefault, 'textareaBorder');
-            border-radius: map-get($themeDefault, 'textareaBorderRadius');
-            padding: map-get($themeDefault, 'textareaPadding');
+            border: ef.get-value($themeDefault, 'textareaBorder');
+            border-radius: ef.get-value($themeDefault, 'textareaBorderRadius');
+            padding: ef.get-value($themeDefault, 'textareaPadding');
             resize: vertical;
-            min-height: map-get($themeDefault, 'textareaMinHeight');
 
-            @include mq.min(720) {
-                // min-height: map-get($themeDefault, 'textareaMinHeight') * 2;
-            }
+            @include lib.get-text-style('PrimaryText', ef.get-value($themeDefault, 'textareaColor'));
+            @include bm.get-mq-map('min-height', $themeDefault, 'textareaMinHeight');
 
             &:focus {
                 outline: none;
-                border-color: map-get($themeDefault, 'textareaBorderFocusColor');
+                border-color: ef.get-value($themeDefault, 'textareaBorderFocusColor');
+
+                &::placeholder {
+                    color: transparent;
+                }
             }
 
             &.ng-touched {
 
                 &.ng-invalid {
-                    border-color: map-get($themeDefault, 'errorColor');
+                    border-color: ef.get-value($themeDefault, 'errorColor');
                 }
             }
         }
