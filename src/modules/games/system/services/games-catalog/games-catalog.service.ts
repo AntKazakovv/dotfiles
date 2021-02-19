@@ -282,9 +282,15 @@ export class GamesCatalogService {
         }
     }
 
-    public getParentCategories(): CategoryModel[] {
+    public getParentWithSpecialCategories(): CategoryModel[] {
         return _filter(this.gamesCatalog.getCategories(), (category: CategoryModel) => {
             return category.isParent;
+        });
+    }
+
+    public getParentCategories(): CategoryModel[] {
+        return _filter(this.gamesCatalog.getCategories(), (category: CategoryModel) => {
+            return category.isParent && !category.isLastPlayed && !category.isFavourites;
         });
     }
 

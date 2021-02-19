@@ -262,7 +262,10 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
 
         const specialCategories = this.getSpecialCategories();
         if (specialCategories.length) {
-            dropdownMenu = specialCategories;
+            dropdownMenu = MenuHelper.getItemsForCategories({
+                categories: specialCategories,
+                lang: this.translate.currentLang,
+            });
         }
 
         _forEach(parentCategories, (category) => {
