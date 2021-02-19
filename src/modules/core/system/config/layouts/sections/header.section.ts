@@ -5,6 +5,7 @@ export namespace header {
     export const def: ILayoutSectionConfig = {
         order: 0,
         theme: '1',
+        container: true,
         components: [
             componentLib.wlcButton.burger,
             componentLib.wlcLogo.header,

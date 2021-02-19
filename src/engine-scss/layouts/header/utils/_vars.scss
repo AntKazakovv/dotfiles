@@ -18,6 +18,7 @@ $theme1Header: map-merge((
         1024: 105px,
     ),
     'headerBackground': transparent,
+    'headerGlobalPadding': ef.get('size', 'smally'),
     'headerSvgBtn': ef.get('mainColors', 'baseOpacity'),
     'headerSvgBtnHover': darken(ef.get('mainColors', 'baseOpacity'), 20%),
     'headerLoginBtnTabletPadding': ef.get('size', 'smallest') ef.get('size', 'small'),

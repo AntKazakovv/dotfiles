@@ -1,7 +1,0 @@
-@use './vars' as v;
-
-@mixin roundedBlock($padding, $background) {
-    padding: $padding $padding * 2;
-    background-color: $background;
-    border-radius: 100vh;
-}
