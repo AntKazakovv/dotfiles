@@ -91,7 +91,7 @@ export const playGameForRealConfig = (params: IPlayForRealParams): IFormWrapperC
             params: <IInputCParams>{
                 theme: 'vertical',
                 common: {
-                    placeholder: gettext('Email *'),
+                    placeholder: gettext('Email'),
                     type: 'mail',
                 },
                 name: 'email',
@@ -103,7 +103,7 @@ export const playGameForRealConfig = (params: IPlayForRealParams): IFormWrapperC
             params: <IInputCParams>{
                 theme: 'vertical',
                 common: {
-                    placeholder: gettext('Password *'),
+                    placeholder: gettext('Password'),
                     type: 'password',
                     customModifiers: 'right-shift',
                     usePasswordVisibilityBtn: true,

@@ -1,15 +1,10 @@
+<div wlc-text-block
+    textBlockTitle="Add info"
+></div>
+
 <div class="{{$class}}__form"
-    [ngClass]="{pending: isPending}"
     wlc-form-wrapper
     [ngSubmit]="onSubmit.bind(this)"
     [config]="$params.formConfig">
 </div>
 
-<div class="{{$class}}__backdrop" *ngIf="isPending">
-    <div class="{{$class}}__message">
-        {{'Please, wait. Our little slaves are processing the data...' | translate}}
-    </div>
-    <div class="{{$class}}__loader"
-        wlc-loader>
-    </div>
-</div>

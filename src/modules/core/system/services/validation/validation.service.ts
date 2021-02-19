@@ -75,6 +75,9 @@ export class ValidationService {
         numberDecimal: {
             validator: Validators.pattern(/^[0-9]+(\.[0-9]{1,2})*$/),
         },
+        pattern: {
+            validator: Validators.pattern,
+        },
     };
 
     private delay: number = 500;

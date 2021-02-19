@@ -5,6 +5,8 @@
     display: grid;
     grid-template-columns: 1fr;
     grid-gap: ef.get-value($theme, 'labelGap');
+    width: 100%;
+    max-width: 100%;
 }
 
 @mixin dropdownBase {
@@ -33,7 +35,7 @@
     cursor: pointer;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
+    // white-space: nowrap;
 }
 
 @mixin baseStatusIcon {

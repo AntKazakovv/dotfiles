@@ -47,7 +47,7 @@ export const signInFormConfig: IFormWrapperCParams = {
             params: <IInputCParams>{
                 theme: 'vertical',
                 common: {
-                    placeholder: gettext('Email *'),
+                    placeholder: gettext('Email'),
                     type: 'mail',
                 },
                 name: 'email',
@@ -59,7 +59,7 @@ export const signInFormConfig: IFormWrapperCParams = {
             params: <IInputCParams>{
                 theme: 'vertical',
                 common: {
-                    placeholder: gettext('Password *'),
+                    placeholder: gettext('Password'),
                     type: 'password',
                     customModifiers: 'right-shift',
                     usePasswordVisibilityBtn: true,

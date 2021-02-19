@@ -17,6 +17,7 @@
         &__group {
             position: relative;
             width: 100%;
+            min-width: 0;
         }
 
         &__field {
@@ -24,7 +25,8 @@
             border: ef.get-value($themeDefault, 'selectBorder');
             border-radius: ef.get-value($themeDefault, 'selectBorderRadius');
             padding: ef.get-value($themeDefault, 'selectPadding');
-            overflow: visible;
+            overflow: hidden;
+            white-space: nowrap;
             text: {
                 overflow: ellipsis;
                 align: ef.get-value($themeDefault, 'selectTextAlign');

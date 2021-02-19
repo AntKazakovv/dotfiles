@@ -7,8 +7,6 @@
 .wlc-input--theme-vertical:host {
     @include inputBase($themeVertical);
 
-    grid-gap: ef.get-value($themeVertical, 'labelGap');
-
     .wlc-input__label {
         display: block;
         margin: ef.get-value($themeVertical, 'labelMargin');
@@ -84,6 +82,9 @@
         }
 
         .field-icon--copy {
+            border: none;
+            appearance: none;
+            background: none;
             position: absolute;
             top: ef.get-value($themeVertical, 'iconEyeTop');
             right: ef.get-value($themeVertical, 'iconEyeRight');
@@ -134,12 +135,15 @@
                 }
             }
 
-            &:hover {
+            @media (hover: hover) {
 
-                ::ng-deep {
+                &:hover {
 
-                    svg path {
-                        fill: ef.get-value($themeVertical, 'fieldIconSvgFillHover');
+                    ::ng-deep {
+
+                        svg path {
+                            fill: ef.get-value($themeVertical, 'fieldIconSvgFillHover');
+                        }
                     }
                 }
             }

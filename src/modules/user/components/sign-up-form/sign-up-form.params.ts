@@ -40,7 +40,7 @@ export const signUpFormConfig: IFormWrapperCParams = {
             params: {
                 theme: 'vertical',
                 common: {
-                    placeholder: gettext('Email *'),
+                    placeholder: gettext('Email'),
                     type: 'mail',
                     customModifiers: 'email',
                 },
@@ -53,7 +53,7 @@ export const signUpFormConfig: IFormWrapperCParams = {
             params: {
                 theme: 'vertical',
                 common: {
-                    placeholder: gettext('Password *'),
+                    placeholder: gettext('Password'),
                     type: 'password',
                     customModifiers: 'right-shift password',
                     usePasswordVisibilityDirective: true,

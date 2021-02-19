@@ -12,6 +12,7 @@ import {
     AbstractComponent,
     ConfigService,
     EventService,
+    ModalService,
     IPushMessageParams,
     NotificationEvents,
 } from 'wlc-engine/modules/core';
@@ -34,12 +35,13 @@ export class AddProfileInfoComponent extends AbstractComponent implements OnInit
     @Input() protected inlineParams: Params.IAddProfileInfoCParams;
 
     public $params: Params.IAddProfileInfoCParams;
-    public isPending: boolean = false;
+    protected isPending: boolean = false;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IAddProfileInfoCParams,
         protected configService: ConfigService,
         protected userService: UserService,
+        protected modalService: ModalService,
         protected cdr: ChangeDetectorRef,
         protected eventService: EventService,
     ) {
@@ -51,7 +53,13 @@ export class AddProfileInfoComponent extends AbstractComponent implements OnInit
     }
 
     public async onSubmit(form: FormGroup): Promise<void> {
+        if (this.isPending) {
+            return;
+        }
+
         this.isPending = true;
+        this.modalService.showModal('dataIsProcessing');
+
         const result = await this.userService.updateProfile(form.value, true);
 
         if (result === true) {
@@ -63,15 +71,27 @@ export class AddProfileInfoComponent extends AbstractComponent implements OnInit
                     message: gettext('Your profile has been updated successfully'),
                 },
             });
+
+            this.modalService.closeAllModals();
         } else {
+
+            const messages = ['Profile save failed'];
+            if (result.errors) {
+                _each(result.errors, (error) => {
+                    messages.push(error);
+                });
+            }
+
             this.eventService.emit({
                 name: NotificationEvents.PushMessage,
                 data: <IPushMessageParams>{
                     type: 'error',
                     title: gettext('Profile update failed'),
-                    message: result.errors,
+                    message: messages,
                 },
             });
+
+            this.modalService.closeModal('data-is-processing');
         }
 
         this.isPending = false;

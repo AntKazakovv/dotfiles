@@ -154,4 +154,17 @@ export const MODALS_LIST: IModalList = {
             dismissAll: true,
         },
     },
+    dataIsProcessing: {
+        config: {
+            id: 'data-is-processing',
+            modifier: 'data-is-processing',
+            component: LoaderComponent,
+            size: 'md',
+            backdrop: 'static',
+            closeBtnVisibility: false,
+            showFooter: false,
+            modalMessage: gettext('Please, wait. Data processing in progress...'),
+            textAlign: 'center',
+        },
+    },
 };
