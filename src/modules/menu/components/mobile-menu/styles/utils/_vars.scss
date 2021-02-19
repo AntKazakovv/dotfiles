@@ -2,14 +2,16 @@
 
 $customDropdownThemeDefault: () !default;
 $themeDropdownDefault: map-merge((
-    menuGag: 5px,
-    activeTabLinkColor: ef.get('mainColors', 'baseMain'),
-    activeTabLinkBg: ef.get('mainColors', 'main'),
-    linkPadding: 8px 12px,
-    linkColor: ef.get('mainColors', 'baseMain'),
-    linkBg: ef.get('mainColors', 'bg700'),
-    activeLinkBg: ef.get('mainColors', 'baseOpacity'),
-    linkFill: ef.get('mainColors', 'baseMain'),
-    linkBorderRadius: ef.get('radius', 'biger'),
-    submenuBg: ef.get('mainColors', 'bg700'),
+    'menuGag': 5px,
+    'activeTabLinkColor': ef.get('mainColors', 'baseMain'),
+    'activeTabLinkBg': ef.get('mainColors', 'main'),
+    'linkPadding': 8px 12px,
+    'linkColor': ef.get('mainColors', 'baseMain'),
+    'linkBg': ef.get('mainColors', 'bg700'),
+    'activeLinkBg': ef.get('mainColors', 'baseOpacity'),
+    'linkFill': ef.get('mainColors', 'baseMain'),
+    'linkBorderRadius': ef.get('radius', 'biger'),
+    'submenuBg': ef.get('mainColors', 'bg700'),
+    'arrowFillColor': ef.get('mainColors', 'baseOpacity'),
+    'arrowFillColorActive': ef.get('mainColors', 'baseMain'),
 ), $customDropdownThemeDefault);
