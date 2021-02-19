@@ -14,6 +14,12 @@ import {FinancesHelper} from '../../helpers/finances.helper';
 interface ICancelWithdrawParams {
     id: number;
 }
+
+interface IQueries {
+    amount: number;
+    queries: number;
+}
+
 @Injectable({providedIn: 'root'})
 export class FinancesService {
 
@@ -40,12 +46,12 @@ export class FinancesService {
 
     public async deposit(systemId: number, amount: number, additionalFields: object): Promise<any> {
         try {
-            const res = await this.dataService.request('finances/deposits', {
+            const res = await this.dataService.request<IData>('finances/deposits', {
                 systemId,
                 amount,
                 additional: additionalFields,
             });
-            return res;
+            return res.data;
         } catch (error) {
             return Promise.reject(error);
         }
@@ -53,25 +59,36 @@ export class FinancesService {
 
     public async withdraw(systemId: number, amount: number, additionalFields: object): Promise<any> {
         try {
-            const res = await this.dataService.request('finances/withdrawals', {
+            const res = await this.dataService.request<IData>('finances/postWithdrawal', {
                 systemId,
                 amount,
                 additional: additionalFields,
             });
-            return res;
+            return res.data;
         } catch (error) {
             return Promise.reject(error);
         }
     }
 
-    public getWithdrawQueries(): Promise<any> {
-        return null;
-
+    public async getWithdrawQueries(): Promise<IQueries> {
+        try {
+            const result = await this.dataService.request<IData>('finances/getWithdrawal', {type: 'queries'});
+            return result.data as IQueries;
+        } catch (error) {
+            return Promise.reject(error);
+        }
     }
 
-    public checkWithdraw(systemId: number): Promise<any> {
-        return null;
-
+    public async checkWithdraw(systemId: number): Promise<any> {
+        try {
+            const result = await this.dataService.request<IData>('finances/getWithdrawal', {
+                type: 'status',
+                systemId: systemId,
+            });
+            return result.data;
+        } catch (error) {
+            return Promise.reject(error);
+        }
     }
 
     public async cancelWithdrawal(id: number): Promise<IData> {
@@ -191,12 +208,22 @@ export class FinancesService {
             },
         });
         this.dataService.registerMethod({
-            name: 'withdrawals',
+            name: 'postWithdrawal',
             system: 'finances',
             url: '/withdrawals',
             type: 'POST',
             events: {
-                success: 'WITHDRAW',
+                success: 'WITHDRAW_POST',
+                fail: 'WITHDRAW_ERROR',
+            },
+        });
+        this.dataService.registerMethod({
+            name: 'getWithdrawal',
+            system: 'finances',
+            url: '/withdrawals',
+            type: 'GET',
+            events: {
+                success: 'WITHDRAW_GET',
                 fail: 'WITHDRAW_ERROR',
             },
         });

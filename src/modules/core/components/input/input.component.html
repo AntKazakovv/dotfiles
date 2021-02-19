@@ -6,6 +6,7 @@
                [attr.data-wlc-element]='fieldWlcElement'
                placeholder="{{$params.exampleValue || $params.common.placeholder | translate}}"
                [formControl]="control"
+               (input)="onInput($event)"
         >
         <ng-container [ngTemplateOutlet]="status"></ng-container>
     </div>
@@ -18,6 +19,7 @@
            [formControl]="control"
            [attr.data-wlc-element]='fieldWlcElement'
            class="{{$class}}__input"
+           (input)="onInput($event)"
     >
     <ng-container [ngTemplateOutlet]="label"></ng-container>
     <ng-container [ngTemplateOutlet]="status"></ng-container>
@@ -31,13 +33,13 @@
         <input
             type="{{$params.common.type}}"
             id="{{$params.name}}"
-            [value]="$params.value"
             [readOnly]="$params.common.readonly"
             placeholder="{{$params.exampleValue || $params.common.placeholder | translate}}"
             [formControl]="control"
             [attr.data-wlc-element]='fieldWlcElement'
             class="{{$class}}__input"
             [ngClass]="setInputModifiers"
+            (input)="onInput($event)"
         >
         <ng-container
             *ngIf="$params.common.usePasswordVisibilityBtn"
@@ -65,7 +67,7 @@
     <label *ngIf="$params.common.useLabel"
            for="{{$params.name}}"
            class="{{$class}}__label"
-    >{{$params.common.placeholder | translate}}</label>
+    >{{$params.common.placeholder | translate}} {{this.$params.validators?.includes('required') ? '*' : ''}}</label>
 </ng-template>
 
 <ng-template #status>
@@ -80,12 +82,12 @@
 </ng-template>
 
 <ng-template #clipboard>
-    <span
+    <button
         class="field-icon field-icon--copy"
         wlc-icon [iconName]="'copy'"
-        [wlc-copy-to-clipboard]="$params.value"
-        (changed)="onClipboardCopied($event)"
-    ></span>
+        [wlc-copy-to-clipboard]="control.value"
+        (copied)="onClipboardCopied($event)"
+    ></button>
 </ng-template>
 
 <ng-template #password>

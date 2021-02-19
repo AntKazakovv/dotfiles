@@ -43,7 +43,7 @@ export const restorePasswordFormConfig: IFormWrapperCParams = {
             params: {
                 theme: 'vertical',
                 common: {
-                    placeholder: gettext('Email *'),
+                    placeholder: gettext('Email'),
                     type: 'mail',
                 },
                 name: 'email',

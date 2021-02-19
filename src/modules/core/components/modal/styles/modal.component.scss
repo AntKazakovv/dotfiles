@@ -26,6 +26,10 @@
         }
     }
 
+    &__wrapper {
+        @include bm.get-mq-map('padding', $hostModal, 'modalWrapperPadding');
+    }
+
     &__item {
 
         &:focus {
@@ -262,3 +266,13 @@
     overflow: hidden;
 }
 
+.wlc-modal.wlc-modal--data-is-processing {
+    background: rgba($color: ef.get-value($hostModal, 'backdropBackground'), $alpha: 0.6);
+
+    .wlc-modal__dialog {
+
+        @include mq.min(560) {
+            box-shadow: 0 0 20px darken($color: ef.get-value($hostModal, 'backdropBackground'), $amount: 20%);
+        }
+    }
+}

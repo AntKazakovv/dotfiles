@@ -173,6 +173,7 @@ export class ModalService {
             return;
         }
 
+        this.closeQueue.push(modal);
         modal.ref.instance.modalDirect.hide();
     }
 
@@ -181,7 +182,7 @@ export class ModalService {
      */
     public closeAllModals(): void {
         _forEach(this.activeModals, (item: IActiveModal) => {
-            this.closeModal(item.id);
+            this.hideModal(item.id);
         });
     }
 
@@ -232,7 +233,6 @@ export class ModalService {
 
         this.appRef.detachView(modal.ref.hostView);
         modal.ref.destroy();
-        this.closeQueue.push(modal);
         _remove(this.activeModals, (item: IActiveModal) => item.id === id);
     }
 

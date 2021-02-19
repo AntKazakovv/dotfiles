@@ -1,0 +1,19 @@
+@use 'engine-scss/functions' as ef;
+
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    // title
+    'titleMargin': 0 0 20px,
+
+    // form
+    'formPadding': 0 0 20px,
+    'formFieldsGap': 20px,
+    'formFieldMarginBottom': 15px,
+
+    'formPasswordBorderTop': 2px solid ef.get('mainColors', 'baseOpacity'),
+    'formPasswordPaddingTop': 20px,
+    'formPasswordMarginTop': 5px,
+
+    'formSubmitMargin': 25px auto 0,
+
+), $customThemeDefault);

@@ -6,11 +6,10 @@ import {IFormWrapperCParams} from 'wlc-engine/modules/core';
 
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;
-export type ComponentThemeMod = 'default' | CustomType;
+export type ComponentThemeMod = 'default' | 'overflow' | CustomType;
 
 export interface IAddProfileInfoCParams extends IComponentParams<ComponentTheme, ComponentType, ComponentThemeMod> {
     formConfig: IFormWrapperCParams;
-    onSubmit: any;
 };
 
 export const defaultParams: Partial<IAddProfileInfoCParams> = {

@@ -7,6 +7,10 @@ $hostModal: map-merge((
     'modalMdSize': ef.get('modalSize', 'md'),
     'modalSmSize': ef.get('modalSize', 'sm'),
     'modalXsSize': ef.get('modalSize', 'xs'),
+    'modalWrapperPadding': (
+        375: 30px 0,
+        900: 50px 0 30px,
+    ),
 
     'closePosRight': 20px,
     'closePosTop': 31px,
@@ -67,9 +71,9 @@ $hostModal: map-merge((
     'fadeBottomToVertical': 50px,
 
     'fadeLeftFromHorizontal': -50px,
-    'fadeLeftFromVertical': 50px,
+    'fadeLeftFromVertical': 0,
     'fadeLeftToHorizontal': 0,
-    'fadeLeftToVertical': 50px,
+    'fadeLeftToVertical': 0,
 
     'fadeRightFromHorizontal': 50px,
     'fadeRightFromVertical': 50px,

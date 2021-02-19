@@ -29,6 +29,7 @@ export interface IInputCParams extends IComponentParams<ComponentTheme, Componen
     icon?: string;
     clipboard?: boolean;
     currency?: boolean;
+    prohibitedPattern?: RegExp;
 }
 
 export const defaultParams: Partial<IInputCParams> = {

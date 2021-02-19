@@ -1,0 +1,85 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/base.mixins' as em;
+
+.wlc-add-profile-info--theme-default:host {
+    position: relative;
+
+    ::ng-deep {
+
+        .wlc-text-block {
+            margin: ef.get-value($themeDefault, 'titleMargin');
+        }
+    }
+
+    .wlc-add-profile-info {
+
+        &__form {
+            @include em.get-mq-map('padding', $themeDefault, 'formPadding');
+
+            ::ng-deep {
+
+                .wlc-form {
+                    display: flex;
+                    flex-direction: column;
+                    margin-right: -(ef.get-value($themeDefault, 'formFieldsGap') / 2);
+                    margin-left: -(ef.get-value($themeDefault, 'formFieldsGap') / 2);
+
+                    & > .wlc-input,
+                    & > .wlc-select {
+                        margin-bottom: ef.get-value($themeDefault, 'formFieldMarginBottom');
+                        padding-right: ef.get-value($themeDefault, 'formFieldsGap') / 2;
+                        padding-left: ef.get-value($themeDefault, 'formFieldsGap') / 2;
+                    }
+                }
+
+                .wlc-btn.wlc-btn--submit {
+                    margin: 25px auto 0;
+                }
+
+                .wlc-input.wlc-input--password {
+                    padding-top: ef.get-value($themeDefault, 'formPasswordPaddingTop');
+                    margin-top: ef.get-value($themeDefault, 'formPasswordMarginTop');
+                    border-top: ef.get-value($themeDefault, 'formPasswordBorderTop');
+                }
+            }
+        }
+    }
+
+    &.wlc-add-profile-info--theme-mod-overflow {
+
+        .wlc-add-profile-info {
+
+            &__form {
+
+                ::ng-deep {
+
+                    .wlc-form {
+                        flex-direction: row;
+                        flex-wrap: wrap;
+
+                        & > .wlc-input,
+                        & > .wlc-select {
+                            flex: 0 0 50%;
+                        }
+
+                        &:after {
+                            content: '';
+                            display: block;
+                            width: 100%;
+                        }
+                    }
+
+                    .wlc-input.wlc-input--phone,
+                    .wlc-input.wlc-input--password {
+                        flex: 1 1 100%;
+                    }
+
+                    .wlc-btn.wlc-btn--submit {
+                        order: 1;
+                        align-self: center;
+                    }
+                }
+            }
+        }
+    }
+}

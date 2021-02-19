@@ -1,0 +1,77 @@
+@use 'engine-scss/functions' as ef;
+
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    // wrapper
+    'wrapperMargin': 0 auto 20px,
+    'wrapperMaxWidth': (
+        375: 370px,
+        640: none,
+    ),
+    'wrapperDisplay': (
+        640: grid,
+    ),
+    'wrapperGridTemplateColumn': (
+        640: auto 1fr,
+    ),
+    'wrapperGridGap': (
+        640: 20px,
+        768: 50px,
+    ),
+
+    'wrapperModalDisplay': block,
+    'wrapperModalMaxWidth': 370px,
+    'wrapperModalMargin': 0 auto,
+
+    // text
+    'textMaxWidth': 370px,
+    'textAlignment': (
+        375: center,
+        640: left,
+    ),
+    'textColor': ef.get('mainColors', 'baseMain'),
+    'textRowMargin': 0 0 20px,
+
+    'textModalMaxWidth': none,
+    'textModalAlignment': center,
+
+    // clipboard
+    'clipboardMargin': 0 0 20px,
+
+    // qr
+    'qrDisplay': (
+        375: flex,
+        640: block,
+    ),
+    'qrJustifyContent': (
+        375: center,
+        640: flex-start,
+    ),
+    'qrTextDisplay': (
+        375: none,
+        640: block,
+    ),
+    'qrTextMargin': (
+        640: 0 0 20px,
+    ),
+    'qrWrapperWidth': 250px,
+    'qrWrapperBackground': #fff,
+
+    'qrModalDisplay': flex,
+    'qrModalJustifyContent': center,
+    'qrTextModalDisplay': none,
+
+    // warning
+    'warningMargin': (
+        375: 20px 0,
+        640: 20px 0 0
+    ),
+    'warningAlignment': (
+        375: center,
+        640: left,
+    ),
+    'warningStressColor': ef.get('mainColors', 'error'),
+
+    'warningModalAlignment': center,
+
+), $customThemeDefault);

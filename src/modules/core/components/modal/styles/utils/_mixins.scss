@@ -1,7 +1,7 @@
 @use 'engine-scss/functions' as ef;
 @import './vars';
 
-@mixin fadeAnimationMx($translateFrom: translate(0, 0), $translateTo: translate(0, 50px)) {
+@mixin fadeAnimationMx($translateFrom: translate(0, -50px), $translateTo: translate(0, 0)) {
 
     @keyframes fadeAnimation {
 

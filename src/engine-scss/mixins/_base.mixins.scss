@@ -54,7 +54,7 @@
     transition: $type $speed $mode;
 }
 
-/*Hide element but keep it accessible*/
+/// Hide element but keep it accessible
 @mixin visuallyHidden {
     clip: rect(0 0 0 0);
     clip-path: inset(100%);

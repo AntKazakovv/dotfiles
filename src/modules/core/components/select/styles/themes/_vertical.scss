@@ -27,6 +27,7 @@
             position: relative;
             width: ef.get-value($themeVertical, 'selectGroupSize');
             max-width: ef.get-value($themeVertical, 'selectGroupSize');
+            min-width: 0;
         }
 
         &__field {
@@ -34,8 +35,9 @@
             border: ef.get-value($baseSettings, 'selectBorder');
             border-radius: ef.get-value($baseSettings, 'selectBorderRadius');
             padding: ef.get-value($baseSettings, 'selectPadding');
-            overflow: visible;
+            overflow: hidden;
             text-overflow: ellipsis;
+            white-space: nowrap;
             background: ef.get-value($baseSettings, 'selectBackground');
             text-align: ef.get-value($baseSettings, 'selectTextAlign');
             color: ef.get-value($baseSettings, 'selectColor');

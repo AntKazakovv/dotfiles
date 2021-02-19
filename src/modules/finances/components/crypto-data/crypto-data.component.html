@@ -13,6 +13,9 @@
         <div class="{{$class}}__text-row">
             {{'To make a deposit you need to replenish a wallet for a specified amount.' | translate}}
         </div>
+        <div class="{{$class}}__warning" *ngIf="!this.$params.themeMod?.includes('modal')">
+            <span class="stress">{{'Attention!' | translate}}</span> {{'Payments through contracts are not supported.' | translate}}
+        </div>
     </div>
 
 
@@ -24,7 +27,8 @@
                 [src]="imgUrl">
         </div>
     </div>
-    <div class="{{$class}}__warning">
+
+    <div class="{{$class}}__warning" *ngIf="this.$params.themeMod?.includes('modal')">
         <span class="stress">{{'Attention!' | translate}}</span> {{'Payments through contracts are not supported.' | translate}}
     </div>
 

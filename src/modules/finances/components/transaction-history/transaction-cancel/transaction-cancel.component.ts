@@ -6,6 +6,7 @@ import {
 } from 'wlc-engine/modules/core';
 import {AbstractComponent, IMixedParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {FinancesService} from 'wlc-engine/modules/finances/system/services/finances/finances.service';
+import {FinancesHelper} from 'wlc-engine/modules/finances/system/helpers/finances.helper';
 import * as Params from './transaction-cancel.params';
 
 @Component({
@@ -51,9 +52,7 @@ export class TransactionCancelComponent extends AbstractComponent implements OnI
                 data: <IPushMessageParams>{
                     type: 'error',
                     title: gettext('Transaction error'),
-                    message: error.errors?.length
-                        ? error.errors
-                        : gettext('Something went wrong. Please try again later.'),
+                    message: FinancesHelper.errorToMessage(error),
                 },
             });
         } finally {

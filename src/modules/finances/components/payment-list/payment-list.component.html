@@ -55,7 +55,7 @@
     <div class="{{$class}}__list"  [ngClass]="asModal && hostRef.nativeElement.classList.value">
         <h3 class="{{$class}}__title" *ngIf="asModal">{{$params.modalTitle | translate}}</h3>
 
-        <ul class="{{$class}}__ul" @appearance>
+        <ul class="{{$class}}__ul" [@appearance]="systems.length">
             <li *ngFor="let system of systems"
                 class="{{$class}}__item" [attr.data-wlc-element]="'block_payment-item-' + system.id">
 

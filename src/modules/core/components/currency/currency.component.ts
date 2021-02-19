@@ -9,18 +9,28 @@ import {
     SimpleChanges,
 } from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
-import {BehaviorSubject, Subscription} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {
+    BehaviorSubject,
+    Subscription,
+} from 'rxjs';
+import {
+    first,
+    takeUntil,
+} from 'rxjs/operators';
 
-import * as Params from './currency.params';
-
-import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {
     ICurrencyFormat,
     CRYPTOCURRENCIES,
     ICryptocurrencies,
 } from 'wlc-engine/modules/core/constants/currency-formats.constant';
-import {ConfigService} from 'wlc-engine/modules/core';
+import {
+    ConfigService,
+    AbstractComponent,
+} from 'wlc-engine/modules/core';
+import {UserService} from 'wlc-engine/modules/user/system/services';
+import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
+
+import * as Params from './currency.params';
 
 import {
     findIndex as _findIndex,
@@ -195,7 +205,8 @@ export class CurrencyComponent
         @Inject(CRYPTOCURRENCIES)
         protected cryptocurrencies: ICryptocurrencies,
         @Inject('injectParams') injectParams: Params.ICurrencyCParams,
-        configService: ConfigService,
+        protected configService: ConfigService,
+        protected userService: UserService,
     ) {
         super({
             injectParams,
@@ -206,6 +217,7 @@ export class CurrencyComponent
     public ngOnInit(): void {
         super.ngOnInit(this.getInlineParams());
 
+        this.getUserCurrency();
         this.subscribeOnLanguageChange();
         this.setIndicatorFormat();
         this.setIntlCurrencyFormat(this.translateService.currentLang);
@@ -215,11 +227,15 @@ export class CurrencyComponent
 
     public ngOnChanges(changes: SimpleChanges): void {
         if (this.initiated) {
-            this.$params = _merge(this.$params, this.getInlineParams());
-            this.setIndicatorFormat();
-            this.setIntlCurrencyFormat(this.translateService.currentLang);
-            this.processValue();
+            this.updateComponent();
         }
+    }
+
+    protected updateComponent(): void {
+        this.$params = _merge(this.$params, this.getInlineParams());
+        this.setIndicatorFormat();
+        this.setIntlCurrencyFormat(this.translateService.currentLang);
+        this.processValue();
     }
 
     protected subscribeOnLanguageChange(): void {
@@ -240,6 +256,22 @@ export class CurrencyComponent
             }
         });
         return Object.keys(inline).length ? inline : null;
+    }
+
+    protected getUserCurrency(): void {
+        if (!this.currency) {
+            if (this.userService.userProfile$.getValue()) {
+                this.currency = this.userService.userProfile$.getValue().currency;
+                this.updateComponent();
+            } else {
+                this.userService.userProfile$
+                    .pipe(first((profile) => !!profile))
+                    .subscribe((profile: UserProfile) => {
+                        this.currency = profile.currency;
+                        this.updateComponent();
+                    });
+            }
+        }
     }
 
     /**

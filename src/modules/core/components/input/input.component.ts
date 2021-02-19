@@ -7,7 +7,14 @@ import {
 import {FormControl} from '@angular/forms';
 
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ConfigService} from 'wlc-engine/modules/core';
+import {
+    ConfigService,
+    EventService,
+} from 'wlc-engine/modules/core';
+import {
+    NotificationEvents,
+    IPushMessageParams,
+} from 'wlc-engine/modules/core/system/services/notification';
 
 import * as Params from './input.params';
 
@@ -15,6 +22,7 @@ import {
     union as _union,
     kebabCase as _kebabCase,
 } from 'lodash-es';
+
 
 /**
  * Component input
@@ -40,6 +48,7 @@ export class InputComponent extends AbstractComponent implements OnInit {
     constructor(
         @Inject('injectParams') protected injectParams: Params.IInputCParams,
         protected configService: ConfigService,
+        protected eventService: EventService,
     ) {
         super({injectParams, defaultParams: Params.defaultParams});
     }
@@ -63,8 +72,30 @@ export class InputComponent extends AbstractComponent implements OnInit {
         this.$params.common.type = type;
     }
 
-    public onClipboardCopied(value: string): void {
-        // TODO notification
+    public onClipboardCopied(): void {
+        this.eventService.emit({
+            name: NotificationEvents.PushMessage,
+            data: <IPushMessageParams>{
+                type: 'info',
+                title: gettext('Info'),
+                message: gettext('Copied to clipboard!'),
+            },
+        });
+    }
+
+    /**
+     * If params contains `prohibitedPattern` regular expression, prohibited symbols will be replaced
+     */
+    public onInput(event: InputEvent): void {
+        if (!(this.$params.prohibitedPattern && this.control)) {
+            return;
+        }
+
+        let value = this.control.value;
+        if (this.$params.prohibitedPattern.test(event.data)) {
+            value = value.replace(this.$params.prohibitedPattern, '');
+            this.control.patchValue(value, {emitEvent: false, emitModelToViewChange: true});
+        }
     }
 
     protected prepareModifiers(): void {

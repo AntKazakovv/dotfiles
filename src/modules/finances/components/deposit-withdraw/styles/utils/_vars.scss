@@ -21,6 +21,7 @@ $themeDefault: map-merge((
     'dividerHeight': 2px,
     'dividerWidth': 100%,
     'dividerRadius': 10px,
+    'dividerCryptoMargin': 30px 0,
 
     // Step
     'step1Bg': (
@@ -75,6 +76,11 @@ $themeDefault: map-merge((
     'formInputMarginBottom': 15px,
     'formAmountButtonMargin': 0 auto,
     'formAmountButtonMarginBr': 0,
-    'formAdditionalGridTemplateColumns': repeat(auto-fit, minmax(200px, 1fr)),
+    'formAdditionalGridTemplateColumns': repeat(auto-fill, 288px),
     'formAdditionalColumnGap': 15px,
+
+    // limits
+    'limitsColor': ef.get('fieldColors', 'labelColor'),
+    'limitsMargin': 6px 0 0 5px,
+
 ), $customThemeDefault);

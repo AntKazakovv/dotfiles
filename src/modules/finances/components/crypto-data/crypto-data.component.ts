@@ -5,7 +5,9 @@ import {
     Inject,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
+    OnChanges,
 } from '@angular/core';
+import {FormControl} from '@angular/forms';
 
 import {PaymentSystem} from 'wlc-engine/modules/finances/system/models/payment-system.model';
 import {
@@ -14,9 +16,9 @@ import {
     IInputCParams,
     IMixedParams,
 } from 'wlc-engine/modules/core';
+import {ICryptoMessage} from 'wlc-engine/modules/finances/system/interfaces/finances.interface';
 
 import * as Params from './crypto-data.params';
-import {ICryptoMessage} from 'wlc-engine/modules/finances/system/interfaces/finances.interface';
 
 @Component({
     selector: '[wlc-crypto-data]',
@@ -24,7 +26,7 @@ import {ICryptoMessage} from 'wlc-engine/modules/finances/system/interfaces/fina
     styleUrls: ['./styles/crypto-data.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CryptoDataComponent extends AbstractComponent implements OnInit {
+export class CryptoDataComponent extends AbstractComponent implements OnInit, OnChanges {
 
     @Input() public system: PaymentSystem;
 
@@ -61,7 +63,6 @@ export class CryptoDataComponent extends AbstractComponent implements OnInit {
 
         this.inputParams = {
             name: 'address',
-            value: this.message.address,
             theme: 'vertical',
             common: {
                 readonly: true,
@@ -69,6 +70,17 @@ export class CryptoDataComponent extends AbstractComponent implements OnInit {
                 customModifiers: 'right-shift',
             },
             clipboard: true,
+            control: new FormControl(this.message.address),
         };
+    }
+
+    public ngOnChanges(): void {
+        if (this.inputParams) {
+            this.inputParams.control.patchValue(this.message.address, {
+                onlySelf: true,
+                emitModelToViewChange: true,
+                emitViewToModelChange: true,
+            });
+        }
     }
 }

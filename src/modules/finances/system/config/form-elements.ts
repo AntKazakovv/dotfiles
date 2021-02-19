@@ -13,21 +13,23 @@ export namespace FormElements {
         name: 'core.wlc-input',
         params: <IInputCParams>{
             common: {
-                placeholder: gettext('Amount') + ' *',
-                type: 'number',
+                placeholder: gettext('Amount'),
                 customModifiers: 'right-shift',
+                type: 'number',
             },
             exampleValue: gettext('Amount'),
             theme: 'vertical',
             locked: true,
             name: 'amount',
             currency: true,
+            prohibitedPattern: /[^0-9.,]/,
             validators: [
                 'required',
                 {
                     name: 'regExp',
                     options: new RegExp('[^0-9]$'),
-                }],
+                },
+            ],
         },
     };
 
@@ -65,6 +67,7 @@ export namespace FormElements {
     export const email = {
         name: 'core.wlc-input',
         params: <IInputCParams>{
+            theme: 'vertical',
             common: {
                 placeholder: gettext('Email'),
             },
@@ -78,9 +81,11 @@ export namespace FormElements {
     export const firstName = {
         name: 'core.wlc-input',
         params: <IInputCParams>{
+            theme: 'vertical',
             common: {
                 placeholder: gettext('First name'),
             },
+            prohibitedPattern: /[0-9_!,.¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]"№^]/,
             name: 'firstName',
             validators: ['required',
                 {
@@ -88,29 +93,47 @@ export namespace FormElements {
                     options: 2,
                 },
                 {
-                    name: 'regExp',
-                    options: new RegExp('^[A-Za-z]$'),
+                    name: 'maxLength',
+                    options: 25,
+                },
+                {
+                    name: 'pattern',
+                    options: /[^0-9_!,.¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]"№^]/,
                 },
             ],
-            exampleValue: 'Ivan',
         },
     };
 
     export const lastName = {
         name: 'core.wlc-input',
         params: <IInputCParams>{
+            theme: 'vertical',
             common: {
                 placeholder: gettext('Last name'),
             },
+            prohibitedPattern: /[0-9_!,.¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]"№^]/,
             name: 'lastName',
-            validators: ['required'],
-            exampleValue: 'Ivanov',
+            validators: ['required',
+                {
+                    name: 'minLength',
+                    options: 2,
+                },
+                {
+                    name: 'maxLength',
+                    options: 25,
+                },
+                {
+                    name: 'pattern',
+                    options: /[^0-9_!,.¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]"№^]/,
+                },
+            ],
         },
     };
 
     export const gender = {
         name: 'core.wlc-select',
         params: <ISelectCParams>{
+            theme: 'vertical',
             labelText: gettext('Gender'),
             common: {
                 placeholder: gettext('Gender'),
@@ -125,6 +148,7 @@ export namespace FormElements {
     export const country = {
         name: 'core.wlc-select',
         params: <ISelectCParams>{
+            theme: 'vertical',
             labelText: gettext('Country'),
             common: {
                 placeholder: gettext('Country'),
@@ -139,50 +163,55 @@ export namespace FormElements {
     export const city = {
         name: 'core.wlc-input',
         params: <IInputCParams>{
+            theme: 'vertical',
             common: {
                 placeholder: gettext('City'),
             },
             name: 'city',
-            validators: [],
+            validators: ['required'],
         },
     };
 
     export const address = {
         name: 'core.wlc-input',
         params: <IInputCParams>{
+            theme: 'vertical',
             common: {
                 placeholder: gettext('Address'),
             },
             name: 'address',
-            validators: [],
+            validators: ['required'],
         },
     };
 
     export const postalCode =  {
         name: 'core.wlc-input',
         params: <IInputCParams>{
+            theme: 'vertical',
             common: {
                 placeholder: gettext('Postal code'),
             },
             name: 'postalCode',
-            validators: [],
+            validators: ['required'],
         },
     };
 
     export const pep = {
         name: 'core.wlc-input',
         params: <IInputCParams>{
+            theme: 'vertical',
             common: {
                 placeholder: gettext('PEP'),
             },
             name: 'pep',
-            validators: [],
+            validators: ['required'],
         },
     };
 
     export const ibanNumber = {
         name: 'core.wlc-input',
         params: <IInputCParams>{
+            theme: 'vertical',
             common: {
                 placeholder: gettext('Iban number'),
             },
@@ -193,23 +222,77 @@ export namespace FormElements {
 
     export const password = {
         name: 'core.wlc-input',
-        params: <IInputCParams>{
+        params: <IInputCParams> {
+            theme: 'vertical',
             common: {
-                placeholder: gettext('Password'),
+                placeholder: gettext('Current password'),
                 type: 'password',
+                customModifiers: 'right-shift',
+                usePasswordVisibilityBtn: true,
             },
+            customMod: ['password'],
             name: 'currentPassword',
-            validators: ['required'],
+            validators: ['required', 'password',
+                {
+                    name: 'minLength',
+                    options: 6,
+                },
+                {
+                    name: 'maxLength',
+                    options: 50,
+                },
+            ],
         },
     };
 
     export const mobilePhone = {
         name: 'core.wlc-input',
         params: <IInputCParams>{
+            theme: 'vertical',
             common: {
                 placeholder: gettext('Mobile phone'),
             },
-            name: 'mobilePhone',
+            name: 'phoneNumber',
+            customMod: ['phone'],
+            validators: ['required'],
+        },
+    };
+
+    export const bankNameText = {
+        name: 'core.wlc-input',
+        params: <IInputCParams>{
+            theme: 'vertical',
+            common: {
+                placeholder: gettext('Bank name'),
+            },
+            name: 'bankName',
+            customMod: ['bank-name'],
+            validators: ['required'],
+        },
+    };
+
+    export const branchCode = {
+        name: 'core.wlc-input',
+        params: <IInputCParams>{
+            theme: 'vertical',
+            common: {
+                placeholder: gettext('Branch code'),
+            },
+            name: 'branchCode',
+            customMod: ['branch-code'],
+            validators: ['required'],
+        },
+    };
+
+    export const swift = {
+        name: 'core.wlc-input',
+        params: <IInputCParams>{
+            theme: 'vertical',
+            common: {
+                placeholder: gettext('SWIFT'),
+            },
+            name: 'swift',
+            customMod: ['swift'],
             validators: ['required'],
         },
     };
@@ -218,8 +301,9 @@ export namespace FormElements {
         name: 'core.wlc-button',
         params: <IButtonCParams>{
             name: 'submit',
+            modifiers: ['submit'],
             common: {
-                text: gettext('Save changes'),
+                text: gettext('Save'),
                 customModifiers: 'submit',
             },
         },

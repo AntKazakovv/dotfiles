@@ -13,7 +13,11 @@ import {
 import {CurrencyPipe} from '@angular/common';
 import {StateService} from '@uirouter/core';
 import {BehaviorSubject} from 'rxjs';
-import {filter, pairwise} from 'rxjs/operators';
+import {
+    filter,
+    pairwise,
+    takeUntil,
+} from 'rxjs/operators';
 
 import {
     AbstractComponent,
@@ -50,20 +54,22 @@ import {
     IPushMessageParams,
     NotificationEvents,
 } from 'wlc-engine/modules/core/system/services/notification';
+import {FinancesHelper} from '../../system/helpers/finances.helper';
 
 import * as Params from './deposit-withdraw.params';
 
 import {
-    extend as _extend,
-    isString as _isString,
-    isEqual as _isEqual,
-    each as _each,
     assign as _assign,
-    forEach as _forEach,
-    isEmpty as _isEmpty,
-    transform as _transform,
     camelCase as _camelCase,
+    cloneDeep as _cloneDeep,
+    each as _each,
+    extend as _extend,
+    forEach as _forEach,
     has as _has,
+    isEmpty as _isEmpty,
+    isEqual as _isEqual,
+    isString as _isString,
+    transform as _transform,
 } from 'lodash-es';
 
 @Component({
@@ -76,7 +82,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
 
     public showModalCryptoPayment: boolean = true;
     public $params: Params.IDepositWithdrawCParams;
-    public cryptoCheck: BehaviorSubject<boolean> = new BehaviorSubject(false);
+    public cryptoCheck: boolean = false;
     public disableAmount: BehaviorSubject<boolean> = new BehaviorSubject(false);
     public currentSystem: PaymentSystem;
     public formType: string = '';
@@ -121,6 +127,25 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
             }, configService);
     }
 
+    public get hideAmountField(): boolean {
+        if (this.requiredFieldsKeys.length) {
+            return true;
+        }
+
+        if (this.$params.mode === 'deposit' && this.disableAmount.value) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public get showPayCryptosV2Text(): boolean {
+        if (this.currentSystem?.isPayCryptosV2 && !this.cryptoCheck && this.$params.mode === 'deposit') {
+            return  true;
+        }
+        return false;
+    }
+
     public ngOnInit(): void {
         super.ngOnInit();
         this.initFields();
@@ -133,37 +158,41 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
     }
 
     public sendForm(): void {
+        if (this.inProgress) {
+            return;
+        }
+
+        const {mode} = this.$params;
+        const notificationTitle = mode === 'deposit' ? gettext('Deposit') : gettext('Withdraw');
 
         if (!this.currentSystem) {
-            this.eventService.emit({
-                name: NotificationEvents.PushMessage,
-                data: <IPushMessageParams>{
-                    type: 'error',
-                    title: gettext('Error'),
-                    message: gettext('You must select payment method'),
-                },
+            this.pushNotification({
+                type: 'error',
+                title: notificationTitle,
+                message: gettext('You must select payment method'),
             });
             return;
         }
 
         if (this.requiredFieldsKeys.length) {
-            this.eventService.emit({
-                name: NotificationEvents.PushMessage,
-                data: <IPushMessageParams>{
-                    type: 'error',
-                    title: gettext('Error'),
-                    message: gettext('You must fill required profile fields'),
-                },
+            this.pushNotification({
+                type: 'error',
+                title: notificationTitle,
+                message: gettext('You must fill required profile fields'),
             });
             return;
         }
 
         if (this.baseForm.invalid) {
             this.baseForm.markAllAsTouched();
+            this.pushNotification({
+                type: 'error',
+                title: notificationTitle,
+                message: gettext('Fill required fields'),
+            });
             return;
         }
 
-        const {mode} = this.$params;
         if (mode === 'deposit') {
             this.deposit(this.baseForm);
         } else if (mode === 'withdraw') {
@@ -172,78 +201,62 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
     }
 
     public async deposit(form: FormGroup, saveProfile: boolean = false): Promise<void> {
-        if (this.inProgress) {
-            return;
-        }
 
         if (this.additionalForm && !this.checkAdditionFields()) {
             return;
         }
 
         this.inProgress = true;
+        this.modalService.showModal('dataIsProcessing');
 
         try {
             const response = await this.financesService.deposit(
                 this.currentSystem.id,
                 this.currentSystem.disableAmount ? this.currentSystem.depositMin : form.value.amount,
-                this.additionalForm?.value,
+                this.additionalForm?.value || {},
             );
 
             if (saveProfile) {
-                try {
-                    await this.saveProfile();
-                } catch (err) {
-                    // TODO message error
-                }
+                await this.saveProfile();
             }
 
-            if (response.data.length) {
-                if (response.data[0] === 'message' || response.data[0] === 'markup') {
-                    this.showDepositResponse(response.data[1], response.data[0]);
+            if (response.length) {
+
+                if (response[0] === 'message' || response[0] === 'markup') {
+                    this.showDepositResponse(response[1], response[0]);
                     return;
-                } else if (response.data[0] === 'redirect') {
+                } else if (response[0] === 'redirect') {
                     if (this.currentSystem?.appearance === 'newtab') {
-                        window.open(response.data[1], '_blank');
+                        window.open(response[1], '_blank');
                     } else {
-                        window.location.replace(response.data[1]);
+                        window.location.replace(response[1]);
                     }
                     return;
                 } else if (response[0] === 'markup_redirect') {
-                    this.eventService.emit({
-                        name: NotificationEvents.PushMessage,
-                        data: <IPushMessageParams>{
-                            type: 'warning',
-                            title: gettext('Redirect'),
-                            message: gettext('You will be redirected in a moment'),
-                        },
+                    this.pushNotification({
+                        type: 'warning',
+                        title: gettext('Deposit'),
+                        message: gettext('You will be redirected in a moment!'),
                     });
 
-                    await this.createRedirectForm(response.data[1]?.html);
+                    await this.createRedirectForm(response[1]?.html);
                     return;
                 }
             }
 
-            const formSubmit: HTMLFormElement = this.createForm(response.data);
+            const formSubmit: HTMLFormElement = this.createForm(response);
             document.body.appendChild(formSubmit);
             formSubmit.submit();
-
-            this.eventService.emit({
-                name: 'select_system',
-                from: 'finances',
-            });
         } catch (error) {
-            this.eventService.emit({
-                name: NotificationEvents.PushMessage,
-                data: <IPushMessageParams>{
-                    type: 'error',
-                    title: gettext('Error'),
-                    message: error.errors?.length
-                        ? error.errors
-                        : gettext('Something went wrong. Please try again later.'),
-                },
+            this.pushNotification({
+                type: 'error',
+                title: gettext('Deposit'),
+                message: FinancesHelper.errorToMessage(error),
             });
         } finally {
+            this.modalService.closeModal('data-is-processing');
             this.inProgress = false;
+            this.financesService.fetchPaymentSystems();
         }
     }
 
@@ -252,37 +265,22 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
             return;
         }
 
-        if (!this.currentSystem) {
-            this.eventService.emit({
-                name: NotificationEvents.PushMessage,
-                data: <IPushMessageParams>{
-                    type: 'error',
-                    title: gettext('Error'),
-                    message: gettext('You must select payment method'),
-                },
-            });
+        if (this.additionalForm && !this.checkAdditionFields()) {
             return;
         }
 
-        if (!this.checkAdditionFields()) {
-            return;
-        }
-
+        this.modalService.showModal('dataIsProcessing');
         this.inProgress = true;
 
         try {
             const response = await this.financesService.withdraw(
                 this.currentSystem.id,
                 form.value.amount,
-                this.additionalForm.value,
+                this.additionalForm?.value || {},
             );
 
             if (saveProfile) {
-                try {
-                    await this.saveProfile();
-                } catch (err) {
-                    // TODO message error
-                }
+                await this.saveProfile();
             }
 
             if (response[0] === 'redirect') {
@@ -290,38 +288,27 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
                 return;
             }
 
-            this.eventService.emit({
-                name: NotificationEvents.PushMessage,
-                data: <IPushMessageParams>{
-                    type: 'error',
-                    title: gettext('Withdraw'),
-                    message: [
-                        gettext('Withdraw request has been successfully sent!'),
-                        gettext('Withdraw sum') + ' ' + new CurrencyPipe('en-US', 'EUR').transform(form.value.amount),
-                    ],
-                },
+            this.pushNotification({
+                type: 'success',
+                title: gettext('Withdraw'),
+                message: [
+                    gettext('Withdraw request has been successfully sent!'),
+                    gettext('Withdraw sum') + ' ' + new CurrencyPipe('en-US', 'EUR').transform(form.value.amount),
+                ],
             });
 
-            form.controls['amount'].setValue('');
-            form.controls['amount'].markAsUntouched();
+            this.resetPaymentSystem();
 
-            this.eventService.emit({
-                name: 'select_system',
-                from: 'finances',
-            });
         } catch (error) {
-            this.eventService.emit({
-                name: NotificationEvents.PushMessage,
-                data: <IPushMessageParams>{
-                    type: 'error',
-                    title: gettext('Error'),
-                    message: error.errors?.length
-                        ? error.errors.filter((i: unknown) => _isString(i))
-                        : gettext('Something went wrong. Please try again later.'),
-                },
+            this.pushNotification({
+                type: 'error',
+                title: gettext('Error'),
+                message: FinancesHelper.errorToMessage(error),
             });
         } finally {
+            this.modalService.closeModal('data-is-processing');
             this.inProgress = false;
+            this.financesService.fetchPaymentSystems();
         }
     }
 
@@ -343,8 +330,15 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
 
         try {
             this.userService.updateProfile(profile);
-        } catch {
-
+        } catch (error) {
+            this.eventService.emit({
+                name: NotificationEvents.PushMessage,
+                data: <IPushMessageParams>{
+                    type: 'error',
+                    title: this.$params.mode === 'deposit' ? gettext('Deposit error') : gettext('Withdraw error'),
+                    message: FinancesHelper.errorToMessage(error),
+                },
+            });
         }
 
         return deferred.promise;
@@ -387,19 +381,25 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
     }
 
     public editProfile(): void {
-        // this.stateService.go('app.profile.main.info');
 
         this.modalService.showModal({
             id: 'add-profile-info',
             modifier: 'add-profile-info',
-            modalTitle: gettext('Add info'),
             component: AddProfileInfoComponent,
             componentParams: <IAddProfileInfoCParams>{
                 formConfig: this.profileForm,
+                themeMod: this.requiredFieldsKeys.length > 5 ? 'overflow' : '',
             },
             showFooter: false,
             dismissAll: true,
             backdrop: 'static',
+        });
+    }
+
+    protected resetPaymentSystem(): void {
+        this.eventService.emit({
+            name: 'select_system',
+            from: 'finances',
         });
     }
 
@@ -434,13 +434,13 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
     }
 
     protected checkAdditionFields(): boolean {
-        if (this.additionalForm.valid) {
-            return true;
+        if (this.additionalForm && !this.additionalForm.valid) {
+            _each(this.additionalForm.controls, (control) => {
+                control.markAsTouched();
+            });
+            return false;
         }
-        _each(this.additionalForm.controls, (control) => {
-            control.markAsTouched();
-        });
-        return false;
+        return true;
     }
 
     /**
@@ -493,10 +493,10 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
         if (type === 'message') {
             if ((typeof(params) !== 'string')
             && (!this.showModalCryptoPayment && params.translate === 'pay_to_address' && params.address)) {
-                this.currentSystem.message = params;
                 this.currentSystem.additionalParams = undefined;
+                this.cdr.markForCheck();
             } else {
-                this.currentSystem = undefined;
+                this.resetPaymentSystem();
             }
         }
     }
@@ -586,6 +586,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
             .pipe(
                 pairwise(),
                 filter(([prev, current]) => prev !== current),
+                takeUntil(this.$destroy),
             )
             .subscribe(() => {
                 this.onDisableAmountChange();
@@ -593,7 +594,9 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
     }
 
     protected onDisableAmountChange(): void {
-        this.updateFields();
+        if (this.$params.mode === 'deposit') {
+            this.updateFields();
+        }
     }
 
     protected onProfileUpdate(): void {
@@ -606,13 +609,20 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
         if (!system) {
             this.currentSystem = undefined;
             this.requiredFields = {};
-            this.requiredFieldsKeys = [];
+            this.requiredFieldsKeys.length = 0;
+            this.cryptoCheck = false;
+            this.disableAmount.next(false);
+            this.baseForm.reset();
+            this.baseForm.removeControl('additionalForm');
+            this.additionalFields.length = 0;
+            this.cdr.markForCheck();
             return;
         }
+
         this.currentSystem = system;
         this.setAdditionalValues();
 
-        this.cryptoCheck.next(this.currentSystem.cryptoCheck && this.$params.mode === 'deposit');
+        this.cryptoCheck = this.currentSystem.cryptoCheck && this.$params.mode === 'deposit';
         this.disableAmount.next(this.currentSystem.disableAmount);
 
         this.setAmountValidators();
@@ -620,6 +630,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
             system.additionalParamsDeposit : system.additionalParamsWithdraw;
 
         this.baseForm.removeControl('additionalForm');
+        this.additionalForm = undefined;
         this.additionalFields.length = 0;
 
         if (!_isEmpty(this.additionalParams)) {
@@ -640,6 +651,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
                                 placeholder: field.name,
                             },
                             control: formControls[key],
+                            validators: ['required'],
                         },
                     };
                 } else if (field.type === 'select') {
@@ -659,6 +671,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
                                 };
                             }),
                             control: formControls[key],
+                            validators: ['required'],
                         },
                     };
                 }
@@ -710,5 +723,12 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
                 }
                 break;
         }
+    }
+
+    protected pushNotification(params: IPushMessageParams): void {
+        this.eventService.emit({
+            name: NotificationEvents.PushMessage,
+            data: params,
+        });
     }
 }
