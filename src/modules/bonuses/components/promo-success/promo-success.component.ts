@@ -21,6 +21,8 @@ export class PromoSuccessComponent
     extends AbstractComponent
     implements OnInit {
 
+    public $params: Params.IPromoSuccessCParams;
+
     @Input() public inlineParams: Params.IPromoSuccessCParams;
     @Input() public actionParams: Params.IActionParams;
     @Input() public btnText: string;

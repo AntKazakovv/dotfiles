@@ -642,7 +642,7 @@ export class Bonus extends AbstractModel<IBonus> {
         let ls: IIndexing<number[]>;
 
         try {
-            ls = JSON.parse(localStorage.getItem('wlc.bonuses') || '{}');
+            ls = JSON.parse(localStorage?.getItem('wlc.bonuses') || '{}');
         } catch {
             ls = {};
         }
@@ -661,7 +661,7 @@ export class Bonus extends AbstractModel<IBonus> {
                 _remove(list, (n) => n === this.id);
             }
         });
-        localStorage.setItem('wlc.bonuses', JSON.stringify(ls));
+        localStorage?.setItem('wlc.bonuses', JSON.stringify(ls));
     }
 
     /**
@@ -671,7 +671,7 @@ export class Bonus extends AbstractModel<IBonus> {
         let ls: IIndexing<number[]>;
 
         try {
-            ls = JSON.parse(localStorage.getItem('wlc.bonuses') || '{}');
+            ls = JSON.parse(localStorage?.getItem('wlc.bonuses') || '{}');
         } catch {
             ls = {};
         }
@@ -719,9 +719,9 @@ export class Bonus extends AbstractModel<IBonus> {
             }
         });
         if (_size(ls) !== 0) {
-            localStorage.setItem('wlc.bonuses', JSON.stringify(ls));
+            localStorage?.setItem('wlc.bonuses', JSON.stringify(ls));
         } else {
-            localStorage.removeItem('wlc.bonuses');
+            localStorage?.removeItem('wlc.bonuses');
         }
     }
 

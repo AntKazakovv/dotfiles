@@ -37,6 +37,7 @@ export class EnterPromocodeComponent
     @Input() public inlineParams: Params.IEnterPromocodeCParams;
     @Input() public title: string;
 
+    public $params: Params.IEnterPromocodeCParams;
     public pending$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
     protected bonus: Bonus[];
