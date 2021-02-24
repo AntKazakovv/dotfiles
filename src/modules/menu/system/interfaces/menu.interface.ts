@@ -15,9 +15,15 @@ export interface IMobileMenuSettings extends IMenuSettings {
     }
 };
 
+export interface ICategoryMenuSettings extends IMenuSettings {
+    lobbyBtn?: {
+        use?: boolean;
+    }
+};
+
 export interface IMenuConfig {
     mainMenu?: IMenuSettings;
-    categoryMenu?: IMenuSettings;
+    categoryMenu?: ICategoryMenuSettings;
     mobileMenu?: IMobileMenuSettings;
     profileMenu?: IMenuSettings;
 }

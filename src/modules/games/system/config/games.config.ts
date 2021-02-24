@@ -21,6 +21,11 @@ export const gamesConfig: IGamesConfig = {
         },
     },
     categories: {
+        exclude: {
+            bySlug: [
+                'casinogames',
+            ]
+        },
         parents: [
             'casino',
             'livecasino',

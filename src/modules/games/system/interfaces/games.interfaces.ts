@@ -11,7 +11,17 @@ export interface IGamesConfig {
 }
 
 export interface ICategories {
+    exclude?: IExcludeCategories;
+    sort?: ISortCategories,
     parents?: string[];
+}
+
+export interface IExcludeCategories {
+    bySlug?: string[];
+}
+
+export interface ISortCategories {
+    byDefault?: IIndexing<number>;
 }
 
 export interface IRealPlayOptions {
