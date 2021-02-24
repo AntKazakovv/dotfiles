@@ -6,7 +6,11 @@ import {
     Input,
     ChangeDetectorRef,
     ViewEncapsulation,
+    ElementRef,
+    HostBinding,
 } from '@angular/core';
+import {fromEvent, Subscription} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 
 import {
     AbstractComponent,
@@ -47,11 +51,12 @@ import {
 export class IconListComponent extends AbstractComponent implements OnInit {
     /** List of items being rendered. */
     public items: IconModel[];
-    /** @ignore */
     public $params: Params.IIconListCParams;
+    protected resize$: Subscription;
+    protected wrapper: HTMLElement;
 
-    /** @ignore */
     @Input() protected inlineParams: Params.IIconListCParams;
+    @HostBinding('class.scrollable') protected scrollable: boolean = false;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IIconListCParams,
@@ -60,6 +65,7 @@ export class IconListComponent extends AbstractComponent implements OnInit {
         protected cdr: ChangeDetectorRef,
         protected configService: ConfigService,
         protected eventService: EventService,
+        protected hostElement: ElementRef,
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService);
     }
@@ -82,6 +88,22 @@ export class IconListComponent extends AbstractComponent implements OnInit {
                 this.cdr.markForCheck();
                 break;
         }
+
+        if (!this.resize$) {
+            this.resize$ = fromEvent(window, 'resize').pipe(takeUntil(this.$destroy)).subscribe(() => {
+                this.scrollingCheck();
+            });
+        }
+    }
+
+    public scrollingCheck(): void {
+
+        if (!this.wrapper) {
+            this.wrapper = this.hostElement.nativeElement.querySelector('.wlc-icon-list__wrapper');
+        }
+
+        const {clientWidth, scrollWidth} = this.wrapper;
+        this.scrollable = clientWidth !== scrollWidth;
     }
 
     /** Creates the icon list.

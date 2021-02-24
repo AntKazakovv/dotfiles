@@ -4,7 +4,6 @@
 
 .wlc-icon-list--theme-payments {
     grid-area: payments;
-    overflow-x: auto;
     background-color: ef.get-value($themePayments, 'wrapperBackground');
     border-radius: ef.get-value($themePayments, 'wrapperBorderRadius');
     width: 100%;
@@ -15,14 +14,41 @@
         overflow-x: initial;
     }
 
+    &.scrollable {
+        position: relative;
+
+        &:before {
+            right: -100px;
+            background: ef.get-value($themePayments, 'scrollableShadowBgRight');
+        }
+
+        &:after {
+            left: -100px;
+            background: ef.get-value($themePayments, 'scrollableShadowBgLeft');
+        }
+
+        &:before,
+        &:after {
+            z-index: 10;
+            content: '';
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            height: calc(100% + 20px);
+            width: ef.get-value($themePayments, 'scrollableShadowWidth');
+        }
+    }
+
     .wlc-icon-list {
 
         &__wrapper {
-            width: max-content;
+            z-index: 1;
+            position: relative;
+            overflow-x: auto;
+            max-width: 100%;
             display: ef.get-value($themePayments, 'gridDisplay');
             align-items: ef.get-value($themePayments, 'gridAlignItems');
-            justify-content: ef.get-value($themePayments, 'gridJustifyContent');
-            margin: 0 auto;
+            margin: ef.get-value($themePayments, 'margin');
             @include em.get-mq-map('grid', $themePayments, 'gridTemplate');
             @include em.get-mq-map('width', $themePayments, 'gridWidth');
             @include em.get-mq-map('gap', $themePayments, 'gridGap');

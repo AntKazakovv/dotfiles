@@ -124,7 +124,7 @@ $theme2Footer: map-merge((
         900: 15px 25px,
     ),
     'footerMenuMargin': (
-        375: 0 auto map-get($footerCommon, 'gapTablet'),
+        375: map-get($footerCommon, 'gapTablet') auto,
         900: 0,
     ),
     'footerMenuMaxWidth': map-get($footerCommon, 'elementMaxWidth'),
@@ -235,8 +235,8 @@ $theme2Footer: map-merge((
         1200: map-get($footerCommon, 'gapDesktop'),
     ),
     'iconListMerchantsWrapperGridColumn': (
-        560: repeat(5, 1fr),
-        900: repeat(7, 1fr),
+        560: repeat(6, 1fr),
+        900: repeat(8, 1fr),
         1200: repeat(10, 1fr),
     ),
     'iconMerchantsImageMaxWidth': (
@@ -249,7 +249,8 @@ $theme2Footer: map-merge((
         900: 0,
     ),
     'iconListPaymentsOrder': (
-        640: 0,
+        375: -1,
+        900: 0,
     ),
     'iconListPaymentsMargin': (
         375: map-get($footerCommon, 'gapTablet') 0,
