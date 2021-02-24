@@ -1,5 +1,6 @@
 @use 'engine-scss/functions' as ef;
 @use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/mixins/mediaqueries' as mq;
 @import '../utils/vars';
 
 .wlc-play-for-real--theme-default:host {
@@ -10,6 +11,16 @@
 
         .wlc-input {
             margin: ef.get-value($themeDefault, 'fieldMargin');
+        }
+
+        .wlc-text-block__title {
+            @include text.get-text-style(ef.get-value($themeDefault, 'titleFontSizeMobile'));
+            margin: ef.get-value($themeDefault, 'titleMarginMobile');
+
+            @include mq.min(560) {
+                @include text.get-text-style(ef.get-value($themeDefault, 'titleFontSize'));
+                margin: ef.get-value($themeDefault, 'titleMargin');
+            }
         }
 
         .wlc-btn {

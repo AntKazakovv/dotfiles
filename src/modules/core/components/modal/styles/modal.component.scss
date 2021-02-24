@@ -183,6 +183,7 @@
         border: none;
         border-radius: ef.get-value($hostModal, 'modalBorderRadius');
         will-change: transform;
+        opacity: 0;
 
         @include mq.min(560) {
             border: ef.get-value($hostModal, 'modalBorder');
@@ -191,6 +192,7 @@
 
         .fade & {
             animation: fadeAnimation ef.get-value($hostModal, 'modalAnimationSettings');
+            animation-delay: 0.2s;
 
             @if ef.get-value($hostModal, 'modalAnimation') == 'fadeTop' {
                 @include fadeTop;
@@ -225,13 +227,14 @@
         }
 
         &--scrollable {
+            will-change: transform;
 
             .wlc-modal__body {
-                max-height: ef.get-value($hostModal, 'staticMaxHeightMobile');
+                height: ef.get-value($hostModal, 'staticMaxHeightMobile');
                 overflow-y: auto;
 
                 @include mq.min(560) {
-                    max-height: ef.get-value($hostModal, 'staticMaxHeight');
+                    height: ef.get-value($hostModal, 'staticMaxHeight');
                 }
 
                  /* stylelint-disable */
@@ -413,11 +416,12 @@ body.modal-open {
     .wlc-modal__dialog--scrollable {
 
         .wlc-modal__body {
-            max-height: ef.get-value($hostModal, 'staticMaxHeightMobileIos');
+            will-change: contents;
+            height: ef.get-value($hostModal, 'staticMaxHeightMobileIos');
             overflow-y: auto;
 
             @include mq.min(560) {
-                max-height: ef.get-value($hostModal, 'staticMaxHeight');
+                height: ef.get-value($hostModal, 'staticMaxHeight');
             }
         }
     }

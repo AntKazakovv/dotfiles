@@ -13,7 +13,7 @@ $hostModal: map-merge((
     ),
 
     'closePosRight': 25px,
-    'closePosTop': 31px,
+    'closePosTop': 27px,
     'closeSize': 30px,
     'closeLineStroke': ef.get('mainColors', 'baseMain'),
 
@@ -35,7 +35,7 @@ $hostModal: map-merge((
     'modalFooterJustify': center,
     'modalBackdrop': ef.get('mainColors', 'bg'),
     'modalAnimation': 'fadeLeft',
-    'modalAnimationSettings': 0.5s forwards ease-in-out,
+    'modalAnimationSettings': 0.3s forwards ease-in-out,
 
     'modalZIndex': 1050,
     'modalPosition': 0,
