@@ -206,7 +206,6 @@ export class BonusesService {
      * @returns {Bonus} bonus object
      */
     public async getBonus(id: number): Promise<Bonus | void> {
-        // TODO add get from cache
         try {
             const data: IBonusData = await this.dataService.request({
                 name: 'bonusById',
@@ -215,7 +214,7 @@ export class BonusesService {
                 type: 'GET',
             });
             if (_isObject(data.data)) {
-                const bonus: Bonus = new Bonus(data.data, this.configService, this);
+                const bonus: Bonus = new Bonus(data.data, this.configService, this.cachingService, this);
                 return bonus;
             } else {
                 this.logService.sendLog({code: '10.0.1', data: data.data});
@@ -241,7 +240,7 @@ export class BonusesService {
                 system: 'bonuses',
                 url: `/bonuses/${bonus.id}`,
                 type: 'POST',
-                mapFunc: (res) => this.prepareBonusActionData(res, bonus, 'subscribe'),
+                mapFunc: async (res) => await this.prepareBonusActionData(res, bonus, 'subscribe'),
                 events: {
                     success: 'BONUS_SUBSCRIBE_SUCCEEDED',
                     fail: 'BONUS_SUBSCRIBE_FAILED',
@@ -269,7 +268,7 @@ export class BonusesService {
                 system: 'bonuses',
                 url: `/bonuses/${bonus.id}`,
                 type: 'POST',
-                mapFunc: (res) => this.prepareBonusActionData(res, bonus, 'unsubscribe'),
+                mapFunc: async (res) => await this.prepareBonusActionData(res, bonus, 'unsubscribe'),
                 events: {
                     success: 'BONUS_UNSUBSCRIBE_SUCCEEDED',
                     fail: 'BONUS_UNSUBSCRIBE_FAILED',
@@ -295,7 +294,7 @@ export class BonusesService {
                 system: 'bonuses',
                 url: `/bonuses/${bonus.id}`,
                 type: 'DELETE',
-                mapFunc: (res) => this.prepareBonusActionData(res, bonus, 'cancel'),
+                mapFunc: async (res) => await this.prepareBonusActionData(res, bonus, 'cancel'),
                 events: {
                     success: 'BONUS_CANCEL_SUCCEEDED',
                     fail: 'BONUS_CANCEL_FAILED',
@@ -322,7 +321,7 @@ export class BonusesService {
                 system: 'bonuses',
                 url: `/bonuses/${bonus.id}`,
                 type: 'PUT',
-                mapFunc: (res) => this.prepareBonusActionData(res, bonus, 'inventory'),
+                mapFunc: async (res) => await this.prepareBonusActionData(res, bonus, 'inventory'),
                 events: {
                     success: 'BONUS_TAKE_SUCCEEDED',
                     fail: 'BONUS_TAKE_FAILED',
@@ -362,10 +361,10 @@ export class BonusesService {
             let result = this.modifyBonuses(res.data);
             result = this.checkForbid(result, queryParams);
             if (result.length) {
-                this.checkBonusesInLocalStorage(result);
+                await this.checkBonusesInCache(result);
             }
             _each(result, (bonus: Bonus) => {
-                bonus.setFromLocalStorage();
+                bonus.setFromCache();
                 bonuses.unshift(bonus);
             });
 
@@ -413,7 +412,7 @@ export class BonusesService {
 
         if (data?.length) {
             for (const bonusData of data) {
-                const bonus: Bonus = new Bonus(bonusData, this.configService, this);
+                const bonus: Bonus = new Bonus(bonusData, this.configService, this.cachingService, this);
                 queryBonuses.push(bonus);
             }
         }
@@ -449,12 +448,12 @@ export class BonusesService {
         return bonuses;
     }
 
-    private checkBonusesInLocalStorage(bonuses: Bonus[]): void {
+    private async checkBonusesInCache(bonuses: Bonus[]): Promise<void> {
         const bonusesIDs: number[] = _map(bonuses, 'id');
         let lsBonuses: IIndexing<number[]>;
 
         try {
-            lsBonuses = JSON.parse(localStorage.getItem('wlc.bonuses') || '{}');
+            lsBonuses = await this.cachingService.get('bonuses') || {};
         } catch {
             lsBonuses = {};
         }
@@ -474,11 +473,10 @@ export class BonusesService {
         });
 
         if (_size(lsBonuses) !== 0) {
-            localStorage.setItem('wlc.bonuses', JSON.stringify(lsBonuses));
+            this.cachingService.set<IIndexing<number[]>>('bonuses', lsBonuses, true, Number.MAX_SAFE_INTEGER);
         } else {
-            localStorage.removeItem('wlc.bonuses');
+            this.cachingService.clear('bonuses');
         }
-
     }
 
     private setSubscribers() {
@@ -567,8 +565,8 @@ export class BonusesService {
         });
     }
 
-    private prepareBonusActionData(res: unknown, bonus: Bonus, actionType: ActionType): Bonus {
-        bonus.addToLocalStorage(actionType);
+    private async prepareBonusActionData(res: unknown, bonus: Bonus, actionType: ActionType): Promise<Bonus> {
+        await bonus.addToCache(actionType);
         _extend(bonus.data, res);
 
         switch (actionType) {

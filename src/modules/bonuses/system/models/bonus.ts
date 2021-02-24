@@ -1,6 +1,9 @@
-import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
-import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
-import {ConfigService} from 'wlc-engine/modules/core';
+import {
+    IIndexing,
+    AbstractModel,
+    ConfigService,
+    CachingService,
+} from 'wlc-engine/modules/core';
 import {
     IBonus,
     IBonusConditions,
@@ -42,6 +45,7 @@ export class Bonus extends AbstractModel<IBonus> {
     constructor(
         data: IBonus,
         protected ConfigService: ConfigService,
+        protected cachingService: CachingService,
         protected bonusesService: BonusesService,
     ) {
         super();
@@ -622,11 +626,11 @@ export class Bonus extends AbstractModel<IBonus> {
     }
 
     /**
-     * Add bonus to local storage
+     * Add bonus to cache
      *
      * @param type action type ('inventory' | 'cancel' | 'subscribe' | 'unsubscribe')
      */
-    public addToLocalStorage(type: ActionType): void {
+    public async addToCache(type: ActionType): Promise<void> {
         const target = this.results[this.target];
         if (this.event === 'sign up'
             && type === 'subscribe'
@@ -642,7 +646,7 @@ export class Bonus extends AbstractModel<IBonus> {
         let ls: IIndexing<number[]>;
 
         try {
-            ls = JSON.parse(localStorage?.getItem('wlc.bonuses') || '{}');
+            ls = await this.cachingService.get('bonuses') || {};
         } catch {
             ls = {};
         }
@@ -661,17 +665,17 @@ export class Bonus extends AbstractModel<IBonus> {
                 _remove(list, (n) => n === this.id);
             }
         });
-        localStorage?.setItem('wlc.bonuses', JSON.stringify(ls));
+        this.cachingService.set<IIndexing<number[]>>('bonuses', ls, true, Number.MAX_SAFE_INTEGER);
     }
 
     /**
      * Set bonus action type to local storage
      */
-    public setFromLocalStorage(): void {
+    public async setFromCache(): Promise<void> {
         let ls: IIndexing<number[]>;
 
         try {
-            ls = JSON.parse(localStorage?.getItem('wlc.bonuses') || '{}');
+            ls = await this.cachingService.get('bonuses') || {};
         } catch {
             ls = {};
         }
@@ -719,9 +723,9 @@ export class Bonus extends AbstractModel<IBonus> {
             }
         });
         if (_size(ls) !== 0) {
-            localStorage?.setItem('wlc.bonuses', JSON.stringify(ls));
+            this.cachingService.set<IIndexing<number[]>>('bonuses', ls, true, Number.MAX_SAFE_INTEGER);
         } else {
-            localStorage?.removeItem('wlc.bonuses');
+            this.cachingService.clear('bonuses');
         }
     }
 
