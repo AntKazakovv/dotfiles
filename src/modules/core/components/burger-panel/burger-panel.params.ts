@@ -5,6 +5,7 @@ export type BurgerPanelType = 'left' | 'right';
 export interface IBurgerPanelCParams extends IComponentParams<string, BurgerPanelType, string> {
     type: BurgerPanelType;
     title?: string;
+    showHeader?: boolean;
     touchEvents?: {
         use?: true;
         onlyMobile?: boolean;
@@ -14,6 +15,7 @@ export interface IBurgerPanelCParams extends IComponentParams<string, BurgerPane
 export const defaultParams: IBurgerPanelCParams = {
     class: 'wlc-burger-panel',
     type: 'left',
+    showHeader: true,
     touchEvents: {
         use: true,
     },
