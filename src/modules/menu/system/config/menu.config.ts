@@ -16,6 +16,9 @@ export const menuConfig: IMenuConfig = {
             folder: 'wlc/icons/european/v1',
             use: false,
         },
+        lobbyBtn: {
+            use: true,
+        },
     },
     mobileMenu: {
         items: [

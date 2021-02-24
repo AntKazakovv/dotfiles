@@ -68,8 +68,8 @@ export class GamesCatalogService {
     }
 
     public async init(): Promise<void> {
+        await this.configService.ready;
         this.registerMethods();
-
         // TODO cache
         // this.gamesCatalogCache = this.CacheFactory.get('gamesCatalogCache');
         // if (!this.gamesCatalogCache) {
@@ -233,6 +233,16 @@ export class GamesCatalogService {
     }
 
     /**
+     * Sort categories (used desc order)
+     *
+     * @param {CategoryModel[]} categories
+     * @returns {CategoryModel[]}
+     */
+    public sortCategories(categories: CategoryModel[]): CategoryModel[] {
+        return this.gamesCatalog.sortCategories(categories);
+    }
+
+    /**
      * Get game launch params
      *
      * @param {IGameParams} options
@@ -309,13 +319,11 @@ export class GamesCatalogService {
     /**
      * Get available category by slug
      *
-     * @param {string} slug
-     * @returns {CategoryModel[]}
+     * @param {string | string[]} slug
+     * @returns {CategoryModel}
      */
-    public getCategoryBySlug(slug: string): CategoryModel {
-        return _find(this.gamesCatalog.getCategories(), (category: CategoryModel) => {
-            return category.slug === slug;
-        });
+    public getCategoryBySlug(slug: string | string[]): CategoryModel {
+        return this.gamesCatalog.getCategoryBySlug(slug);
     }
 
     /**

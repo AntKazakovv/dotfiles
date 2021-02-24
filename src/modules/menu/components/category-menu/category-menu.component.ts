@@ -64,6 +64,7 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
     protected iconsFolder: string;
     protected useIcons: boolean;
     protected iconsFallback: string = 'plug.svg';
+    protected useLobbyBtn: boolean;
 
     constructor(
         @Inject('injectParams') protected params: Params.ICategoryMenuCParams,
@@ -91,6 +92,7 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
             themeMod: this.$params.themeMod,
         });
 
+        this.useLobbyBtn = this.configService.get<boolean>('$menu.categoryMenu.lobbyBtn.use');
         this.useIcons = _has(this.$params, 'common.icons.use')
             ? this.$params.common.icons.use
             : this.configService.get<boolean>('$menu.categoryMenu.icons.use');
@@ -172,11 +174,12 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
             if (this.gamesCatalogService.catalogOpened()) {
                 this.categories = this.gamesCatalogService.getCategoriesByState();
             } else {
-                const parentCategory = this.gamesCatalogService.getCategoryBySlug('casino');
+                const parentCategory = this.gamesCatalogService.getCategoryBySlug(['casino', 'livecasino', 'tablegames']);
                 const specialCategories = this.getSpecialCategories();
 
                 if (parentCategory) {
-                    this.categories = _concat(specialCategories, parentCategory.childCategories) as CategoryModel[];
+                    const categories: CategoryModel[] = _concat(specialCategories, parentCategory.childCategories) as CategoryModel[];
+                    this.categories = this.gamesCatalogService.sortCategories(categories);
                 }
             }
             const menuItems = MenuHelper.getItemsForCategories({
@@ -193,7 +196,9 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
             if (this.gamesCatalogService.catalogOpened()) {
                 this.menuParams.items.unshift(this.getAllGamesBtn());
             }
-            this.menuParams.items.unshift(this.getLobbyBtn());
+            if (this.useLobbyBtn) {
+                this.menuParams.items.unshift(this.getLobbyBtn());
+            }
         }
         this.menuParams = _clone(this.menuParams);
         this.cdr.detectChanges();
@@ -204,6 +209,7 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
         if (this.isAuth) {
             specialCategories.push(this.gamesCatalogService.getCategoryBySlug('favourites'));
             specialCategories.push(this.gamesCatalogService.getCategoryBySlug('lastplayed'));
+            this.gamesCatalogService.sortCategories(specialCategories);
         }
         return specialCategories;
     }

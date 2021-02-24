@@ -110,7 +110,8 @@ export class MainMenuComponent extends AbstractComponent implements OnInit {
         this.cdr.markForCheck();
     }
 
-    protected addCategoryBtns(): void {
+    protected async addCategoryBtns(): Promise<void> {
+        await this.gamesCatalogService.ready;
         const categories: CategoryModel[] = this.gamesCatalogService.getCategoriesByMenu('main-menu');
         if (!categories) {
             return;

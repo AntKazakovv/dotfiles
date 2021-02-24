@@ -17,6 +17,7 @@ export class CategoryModel extends AbstractModel<ICategory> {
     private specialCategories = ['casino', 'lastplayed', 'favourites', 'last-played'];
     private usedMenu: string;
     private tagsData: IIndexing<string> = {};
+    private defaultSort: number = 0;
 
     constructor(
         data: ICategory,
@@ -66,7 +67,7 @@ export class CategoryModel extends AbstractModel<ICategory> {
     }
 
     public get sort(): number {
-        return _toNumber(this.data.CSubSort);
+        return this.defaultSort;
     }
 
     public get tags(): string[] {
@@ -74,7 +75,7 @@ export class CategoryModel extends AbstractModel<ICategory> {
     }
 
     public get slug(): string {
-        return this.data.Slug;
+        return this.data.Slug.toLowerCase();
     }
 
     public get menuId(): string {
@@ -87,6 +88,10 @@ export class CategoryModel extends AbstractModel<ICategory> {
 
     public get initedWithMenu(): boolean {
         return _has(this.tagsData, 'menu');
+    }
+
+    public get initedWithDefaultSort(): boolean {
+        return !!this.data.CSubSort;
     }
 
     public get icon(): string {
@@ -117,8 +122,13 @@ export class CategoryModel extends AbstractModel<ICategory> {
         this.usedMenu = menu;
     }
 
+    public setDefaultSort(sort: number): void {
+        this.defaultSort = sort;
+    }
+
     protected init(data: ICategory): void {
         this.data = data;
+        this.defaultSort = _toNumber(this.data.CSubSort) || 0;
         try {
             this.tagsData = JSON.parse(this.data.Tags.join(','));
             this.usedMenu = this.tagsData.menu || '';

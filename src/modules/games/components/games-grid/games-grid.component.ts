@@ -268,6 +268,8 @@ export class GamesGridComponent extends AbstractComponent
      * @returns {Promise<Game[]>}
      */
     protected async getGames(): Promise<Game[]> {
+        await this.gamesCatalogService.ready;
+
         return new Promise<Game[]>(async (resolve, reject) => {
             let games: Game[] = this.gamesCatalogService.getGameList();
             if (games) {
