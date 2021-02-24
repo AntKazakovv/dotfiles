@@ -20,6 +20,7 @@ import {
     get as _get,
     isUndefined as _isUndefined,
     map as _map,
+    each as _each,
 } from 'lodash-es';
 
 
@@ -53,6 +54,13 @@ export class FloatPanelsComponent extends AbstractComponent implements OnInit {
 
         if (!_isUndefined(this.sections) && this.sections.length) {
             this.panelIds = _map(this.sections, (section: SectionModel) => section.name);
+            _each(this.sections, (section) => {
+                _each(['wlcElement', 'class', 'theme', 'type', 'themeMod', 'customMod', 'showHeader'], (param) => {
+                    if (!_isUndefined(section[param]) && !this.$params.panels[section.name][param]) {
+                        this.$params.panels[section.name][param] = section[param];
+                    }
+                });
+            });
             this.initListeners();
         }
     }

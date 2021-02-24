@@ -1,7 +1,17 @@
-<div class="{{$class}}__header">
+<div class="{{$class}}__header" *ngIf="$params.showHeader; else close">
     <div class="{{$class}}__title">
         {{title | translate}}
     </div>
+    <ng-container [ngTemplateOutlet]="close"></ng-container>
+</div>
+
+<div class="{{$class}}__content" wlc-scrollbar>
+    <div class="{{$class}}__inner">
+        <ng-content></ng-content>
+    </div>
+</div>
+
+<ng-template #close>
     <button class="{{$class}}__close"
         [attr.title]="'Close' | translate"
         [attr.aria-label]="'Close' | translate"
@@ -10,10 +20,4 @@
         wlc-icon
         [iconName]="'close'"
     ></button>
-</div>
-
-<div class="{{$class}}__content" wlc-scrollbar>
-    <div class="{{$class}}__inner">
-        <ng-content></ng-content>
-    </div>
-</div>
+</ng-template>
