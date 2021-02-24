@@ -148,7 +148,8 @@ export class LayoutComponent implements OnInit, OnDestroy {
         if (resize) {
             _each(this.allComponents$, (component, key) => {
                 if (_isUndefined(component.display?.before)) {
-                    _assign(this.allComponents$[key].display, {before: Number.MAX_SAFE_INTEGER});
+                    // 999999999 - highest number supported by matchMedia in safari
+                    _assign(this.allComponents$[key].display, {before: 999999999});
                 }
 
                 if (_isUndefined(component.display?.after)) {

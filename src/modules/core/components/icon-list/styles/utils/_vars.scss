@@ -30,7 +30,7 @@ $themeMerchants: map-merge((
 // ~~ theme PAYMENTS
 $customThemePayments: () !default;
 $themePayments: map-merge((
-    // wrapper
+
     'wrapperMaxWidth': (
         375: calc(100vw - 30px),
     ),
@@ -40,20 +40,21 @@ $themePayments: map-merge((
     'wrapperBorderRadius': ef.get('radius', 'main'),
     'wrapperBackground': ef.get('mainColors', 'bg'),
 
-    //grid
     'gridDisplay': grid,
     'gridTemplate': (
         375: auto/auto-flow auto,
     ),
     'gridAlignItems': center,
-    'gridJustifyContent': center,
+    'margin': 0 auto,
     'gridGap': (
         375: ef.get('size', 'smaller'),
     ),
 
-    // icon
     'iconMaxWidth': 120px,
     'iconMaxHeight': none,
     'iconMargin': 0 auto,
     'iconFill': ef.get('mainColors', 'bg100'),
+    'scrollableShadowWidth': 150px,
+    'scrollableShadowBgLeft': linear-gradient(-90deg, transparent 0, ef.get('mainColors', 'bg') 35%),
+    'scrollableShadowBgRight': linear-gradient(90deg, transparent 0, ef.get('mainColors', 'bg') 35%),
 ), $customThemePayments);
