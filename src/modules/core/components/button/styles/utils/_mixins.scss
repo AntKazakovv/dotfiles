@@ -49,8 +49,8 @@
 
         &:hover {
             background: ef.get-value($themeDefault, 'backgroundSecondary');
-            border-color: ef.get-value($themeDefault, 'backgroundSecondary');
-            box-shadow: ef.get-value($themeDefault, 'shadowSecondaryHover');
+            border: ef.get-value($themeDefault, 'borderSecondaryHover');
+            box-shadow: ef.get-value($themeDefault, 'shadowHoverSecondary');
             color: ef.get-value($themeDefault, 'fontColorActiveSecondary');
         }
     }
