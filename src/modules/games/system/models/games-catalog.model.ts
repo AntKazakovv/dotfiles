@@ -227,6 +227,9 @@ export class GamesCatalog extends AbstractModel<IGames> {
      * @returns {CategoryModel}
      */
     public getCategoryBySlug(slug: string | string[], byDefaultCategories?: boolean): CategoryModel {
+        if (!slug) {
+            return;
+        }
         const slugs: string[] = _isString(slug) ? [slug] : slug;
         const categoryList = byDefaultCategories ? this.categories : this.projectCategories;
 

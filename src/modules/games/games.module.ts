@@ -32,7 +32,6 @@ import {
 export const moduleConfig =
     GlobalHelper.mergeConfig<IGamesConfig>(gamesConfig, _get($config, '$games', {}));
 
-
 export const components = {
     'wlc-games-grid': GamesGridComponent,
     'wlc-game-thumb': GameThumbComponent,

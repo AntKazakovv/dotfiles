@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {UIRouter} from '@uirouter/core';
+import {UIRouter, UIRouterGlobals} from '@uirouter/core';
 import {Subject} from 'rxjs';
 
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
@@ -11,7 +11,7 @@ import {GamesCatalog} from 'wlc-engine/modules/games/system/models/games-catalog
 import {Game} from 'wlc-engine/modules/games/system/models/game.model';
 import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.model';
 import {MerchantModel} from 'wlc-engine/modules/games/system/models/merchant.model';
-import {EventService} from 'wlc-engine/modules/core/system/services';
+import {EventService, LayoutService} from 'wlc-engine/modules/core/system/services';
 import {UserService} from 'wlc-engine/modules/user/system/services';
 
 import {
@@ -63,12 +63,16 @@ export class GamesCatalogService {
         public eventService: EventService,
         protected dataService: DataService,
         protected userService: UserService,
+        protected uiRouter: UIRouterGlobals,
+        protected layoutService: LayoutService,
     ) {
         this.init();
     }
 
     public async init(): Promise<void> {
         await this.configService.ready;
+        // TODO: remove this after refactor component in other modules to use load & injector
+        await this.layoutService.importModules(['games']);
         this.registerMethods();
         // TODO cache
         // this.gamesCatalogCache = this.CacheFactory.get('gamesCatalogCache');
@@ -287,7 +291,7 @@ export class GamesCatalogService {
      */
     public getParentCategoryByState(): CategoryModel {
         if (this.catalogOpened()) {
-            const categorySlug: string = this.router.stateService.params?.category;
+            const categorySlug: string = this.uiRouter.params?.category;
             return this.getCategoryBySlug(categorySlug);
         }
     }
@@ -311,7 +315,7 @@ export class GamesCatalogService {
      */
     public getChildCategoryByState(): CategoryModel {
         if (this.catalogOpened()) {
-            const categorySlug: string = this.router.stateService.params?.childCategory;
+            const categorySlug: string = this.uiRouter.params?.childCategory;
             return this.getCategoryBySlug(categorySlug);
         }
     }
@@ -438,7 +442,7 @@ export class GamesCatalogService {
      * @returns {boolean}
      */
     public catalogOpened(): boolean {
-        return _startsWith(this.router.stateService.current.name, 'app.catalog');
+        return _startsWith(this.uiRouter.current.name, 'app.catalog');
     }
 
     /**
