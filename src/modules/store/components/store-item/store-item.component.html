@@ -1,8 +1,8 @@
 <div class="{{$class}}__content" [class.noauth]="!isAuth" [class.mobile]="isMobile">
     <div class="{{$class}}__wrapper">
         <div class="{{$class}}__image-block">
-            <div class="{{$class}}__tag">{{storeItem.itemType | translate}}</div>
-            <div class="{{$class}}__image" *ngIf="!storeItem.isBonus">
+            <div class="{{$class}}__tag" data-wlc-element="store_item-title">{{storeItem.itemType | translate}}</div>
+            <div class="{{$class}}__image" data-wlc-element="store_item-image" *ngIf="!storeItem.isBonus">
                 <img [src]="storeItem.image" alt="">
             </div>
             <div class="{{$class}}__bonus-icon" *ngIf="storeItem.isBonus">
@@ -12,10 +12,10 @@
         </div>
         <div class="{{$class}}__bottom">
             <div class="{{$class}}__info-block">
-                <h4 class="{{$class}}__name" [wlc-clamp]="1">
+                <h4 class="{{$class}}__name" data-wlc-element="store_item-name" [wlc-clamp]="1">
                     {{storeItem.name}}
                 </h4>
-                <div class="{{$class}}__price" *ngIf="!!storeItem.priceLoyalty">
+                <div class="{{$class}}__price" data-wlc-element="store_item-price" *ngIf="!!storeItem.priceLoyalty">
                     {{storeItem.priceLoyalty}} LP
                 </div>
                 <div class="{{$class}}__price" *ngIf="!!storeItem.priceExp">
@@ -29,6 +29,7 @@
                     text="Buy now"
                     [disabled]="buyClick"
                     *ngIf="storeItem.canBuy"
+                    [wlcElement]="'button_buy'"
                     (click)="buyItem()">
             </button>
         </div>
@@ -38,6 +39,7 @@
             class="icon-btn"
             wlc-icon
             iconName="info"
+            [wlcElement]="'button_terms'"
             (click)="openDescription(storeItem)">
         </div>
     </div>
