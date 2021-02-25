@@ -24,7 +24,7 @@ export const gamesConfig: IGamesConfig = {
         exclude: {
             bySlug: [
                 'casinogames',
-            ]
+            ],
         },
         parents: [
             'casino',
