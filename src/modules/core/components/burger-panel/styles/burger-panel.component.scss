@@ -81,7 +81,9 @@ $baseClass: 'wlc-burger-panel';
         position: relative;
         flex: 1 1 auto;
         min-height: 1px;
-        background: ef.get-value($themeDefault, 'panelContentBackground');
+        background: map-get($themeDefault, 'panelContentBackground');
+        overflow-y: auto;
+        height: 100%;
     }
 
     &__inner {

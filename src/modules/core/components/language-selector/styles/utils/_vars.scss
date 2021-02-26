@@ -8,6 +8,7 @@ $themeDefault: map-merge((
     'currentBorder': 1px solid ef.get('color', 'divider'),
     'currentBackground': ef.get('mainColors', bg700),
     'currentArrowColor': ef.get('mainColors', 'baseOpacity'),
+    'currentArrowColorHover': ef.get('mainColors', 'main'),
     'currentColor': ef.get('mainColors', 'baseOpacity'),
     'currentFlagSize': ef.get('size', 'less'),
     'currentHeight': ef.get('size', 'less'),
