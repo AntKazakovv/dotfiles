@@ -37,7 +37,6 @@
                 overflow: ellipsis;
                 align: ef.get-value($themeDefault, 'selectTextAlign');
             }
-            white-space: nowrap;
             background: ef.get-value($themeDefault, 'selectBackground');
             @include text.get-text-style('PrimaryText', ef.get-value($themeDefault, 'selectColor'));
             height: ef.get-value($themeDefault, 'selectHeight');
