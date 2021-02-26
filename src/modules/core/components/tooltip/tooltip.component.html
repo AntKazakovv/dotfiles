@@ -1,0 +1,6 @@
+<div class="{{$class}}__icon" wlc-icon iconName="info">
+</div>
+<div class="{{$class}}__content" *ngIf="isShow" [@showTooltip]>
+    {{$params.inlineText | translate}}
+</div>
+

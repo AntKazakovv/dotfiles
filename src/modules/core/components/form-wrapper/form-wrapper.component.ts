@@ -51,9 +51,11 @@ import {
     includes as _includes,
     clone as _clone,
     some as _some,
+    isArray as _isArray,
+    set as _set,
 } from 'lodash-es';
 
-export interface IControls extends IIndexing<FormControl>{
+export interface IControls extends IIndexing<FormControl> {
 }
 
 export interface IGlobalValidators {
@@ -103,7 +105,8 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
         @Inject('injectParams') protected params: IFormWrapperCParams,
         protected validationService: ValidationService,
         protected elRef: ElementRef,
-    ) {
+    )
+    {
         super(
             ConfigService,
             layoutService,
@@ -119,18 +122,32 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
     public async ngOnInit() {
         this.prepareParams();
         this.initForm();
+
         super.ngOnInit();
     }
 
+    // Don't delete this because without it the app will crash
     // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
     public ngOnChanges(changes: SimpleChanges): void {
     }
 
     public getInjector(component: any): Injector {
 
-        _assign(component.params, {
-            control: this.form?.controls[component.params.name],
-        });
+        if (component.params.components) {
+            _each(component.params.components, component => {
+                this.getInjector(component);
+            });
+        }
+
+        if (_isArray(component.params.name)) {
+            _each(component.params.name, (field: string) => {
+                _set(component.params, `${field}.control`, this.form?.controls[field]);
+            });
+        } else {
+            _assign(component.params, {
+                control: this.form?.controls[component.params.name],
+            });
+        }
 
         return super.getInjector(component);
     }
@@ -192,7 +209,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
 
     private initForm(): void {
 
-        this.prepareComponents();
+        this.prepareComponents(this.$params.components);
         this.prepareValidators();
 
         this.form = new FormGroup(this.controls, this.globalValidators);
@@ -200,10 +217,17 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
         this.dataSubscription();
     }
 
-    private prepareComponents(): void {
-        _each(this.$params.components, component => {
+    private prepareComponents(components: IFormComponent[]): void {
+        _each(components, component => {
 
-            if (!component.params?.name) { return; }
+            if (component.params.components) {
+                this.prepareComponents(component.params.components);
+                return;
+            }
+
+            if (!component.params?.name) {
+                return;
+            }
 
             const validators: ValidatorFn[] = [];
             const asyncValidators: AsyncValidatorFn[] = [];
@@ -223,14 +247,32 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
                 }
             });
 
-            this.controls[component.params.name] = new FormControl(
-                {
-                    value: _get(this.formData?.value, component.params.name) || component.params.value || '',
-                    disabled: component.params.disabled,
-                },
-                validators,
-                asyncValidators,
-            );
+            if (_isArray(component.params.name)) {
+                _each(component.params.name, (field: string) => {
+
+                    this.controls[field] = new FormControl(
+                        {
+                            value: _get(this.formData?.value, field, ''),
+                            disabled: component.params.disabled,
+                        },
+                        validators,
+                        asyncValidators,
+                    );
+
+                    if (component.params.locked) {
+                        this.locked.push(field);
+                    }
+                });
+            } else {
+                this.controls[component.params.name] = new FormControl(
+                    {
+                        value: _get(this.formData?.value, component.params.name, component.params.value) || '',
+                        disabled: component.params.disabled,
+                    },
+                    validators,
+                    asyncValidators,
+                );
+            }
 
             if (component.params.locked) {
                 this.locked.push(component.params.name);
@@ -259,13 +301,14 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
         this.formData?.subscribe((data) => {
             _each(this.form.controls, (control, key) => {
                 const value = _get(data, key);
-
                 control.setValue(value);
 
                 if (_includes(this.locked, key) && value) {
                     control.disable();
+                    control.updateValueAndValidity();
                 }
             });
+            this.cdr.detectChanges();
         });
     }
 
@@ -276,7 +319,6 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
 
             return changeValidator;
         }
-        return this.validationService
-            .getValidator(validatorSettings);
+        return this.validationService.getValidator(validatorSettings);
     }
 }

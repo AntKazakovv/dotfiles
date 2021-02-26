@@ -1,14 +1,24 @@
-import {Directive, ElementRef, Input, OnDestroy, AfterViewInit} from '@angular/core';
+import {
+    Directive,
+    ElementRef,
+    Input,
+    OnDestroy,
+    AfterViewInit,
+    OnChanges,
+    ChangeDetectorRef,
+    SimpleChanges,
+} from '@angular/core';
 import IMask, {InputMask} from 'imask';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 
 import {
     assign as _assign,
+    get as _get,
 } from 'lodash-es';
 
 /**
  * See more: [imask docs]{@link https://imask.js.org/}.
-*/
+ */
 export interface IMaskOptions {
     mask: string | DateConstructor | Number;
     min?: string | Date | number;
@@ -30,20 +40,32 @@ export interface IMaskOptions {
 @Directive({
     selector: '[wlc-input-mask]',
 })
-export class InputMaskDirective implements AfterViewInit, OnDestroy {
+export class InputMaskDirective implements AfterViewInit,
+    OnChanges,
+    OnDestroy {
     @Input('wlc-input-mask') wlcInputMask: IMask.AnyMaskedOptions;
     protected mask: InputMask<IMask.AnyMaskedOptions>;
 
     constructor(
         protected element: ElementRef,
-    ) {}
+        protected cdr: ChangeDetectorRef,
+    )
+    {
+    }
 
     public ngAfterViewInit(): void {
-        this.mask = IMask(this.element.nativeElement, this.wlcInputMask);
-        _assign(this.element.nativeElement, {mask: this.mask});
+        if (this.wlcInputMask) {
+            this.mask = IMask(this.element.nativeElement, this.wlcInputMask);
+            _assign(this.element.nativeElement, {mask: this.mask});
+        }
+    }
+
+    public ngOnChanges(changes: SimpleChanges): void {
+        this.element.nativeElement?.mask?.updateOptions(_get(changes, 'wlcInputMask.currentValue'));
+        this.cdr.detectChanges();
     }
 
     public ngOnDestroy(): void {
-        this?.mask.destroy();
+        this?.mask?.destroy();
     }
 }

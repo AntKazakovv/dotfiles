@@ -1,0 +1,11 @@
+@use 'engine-scss/functions' as ef;
+
+.wlc-phone-field--theme-default {
+
+    &:host {
+        display: grid;
+        grid-template-columns: ef.get-value($themeDefault, 'templateColumns');
+        grid-gap: ef.get-value($themeDefault, 'gap');
+        align-items: flex-end;
+    }
+}

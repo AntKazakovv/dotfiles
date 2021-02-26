@@ -70,4 +70,100 @@
             }
         }
     }
+
+    //TODO Make cross themes variables and styles
+    &.wlc-input--right-shift {
+
+        .field-icon--eye {
+            position: absolute;
+            top: ef.get-value($themeVertical, 'iconEyeTop');
+            right: ef.get-value($themeVertical, 'iconEyeRight');
+            z-index: 1;
+
+            transform: ef.get-value($themeVertical, 'iconEyeTransform');
+        }
+
+        .field-icon--copy {
+            border: none;
+            appearance: none;
+            background: none;
+            position: absolute;
+            top: ef.get-value($themeVertical, 'iconEyeTop');
+            right: ef.get-value($themeVertical, 'iconEyeRight');
+
+            transform: ef.get-value($themeVertical, 'iconEyeTransform');
+        }
+
+        .field-icon--currency {
+            position: absolute;
+            top: ef.get-value($themeVertical, 'iconEyeTop');
+            right: ef.get-value($themeVertical, 'iconEyeRight');
+
+            transform: ef.get-value($themeVertical, 'iconEyeTransform');
+        }
+
+        .wlc-input-status::ng-deep {
+
+            .form-control__icon::ng-deep {
+                right: ef.get-value($themeVertical, 'controlIconRight');
+            }
+
+            .form-control__errors {
+                right: ef.get-value($themeVertical, 'controlErrorRight');
+            }
+        }
+    }
+
+    .field-icon {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        width: ef.get-value($themeVertical, 'fieldIconSize');
+        height: ef.get-value($themeVertical, 'fieldIconSize');
+
+        line-height: ef.get-value($themeVertical, 'fieldIconLineHeight');
+
+        &--copy,
+        &--eye {
+            cursor: pointer;
+
+            ::ng-deep {
+
+                svg path {
+                    fill: ef.get-value($themeVertical, 'fieldIconSvgFill');
+                    @include bm.transition(fill);
+                }
+            }
+
+            @media (hover: hover) {
+
+                &:hover {
+
+                    ::ng-deep {
+
+                        svg path {
+                            fill: ef.get-value($themeVertical, 'fieldIconSvgFillHover');
+                        }
+                    }
+                }
+            }
+
+            &:active {
+
+                ::ng-deep {
+
+                    svg path {
+
+                        fill: ef.get-value($themeVertical, 'fieldIconSvgFillActive');
+                    }
+                }
+            }
+        }
+
+        &--currency {
+            color: ef.get-value($themeVertical, 'fieldIconSvgFill');
+        }
+    }
 }

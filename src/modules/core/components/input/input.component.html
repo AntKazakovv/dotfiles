@@ -1,21 +1,35 @@
 <ng-template #default>
     <ng-container [ngTemplateOutlet]="label"></ng-container>
     <div class="{{$class}}__input">
-        <input type="{{$params.common.type}}"
+        <input type="{{$params.common?.type}}"
                id="{{$params.name}}"
+               [wlc-input-mask]="$params.maskOptions"
                [attr.data-wlc-element]='fieldWlcElement'
-               placeholder="{{$params.exampleValue || $params.common.placeholder | translate}}"
+               placeholder="{{$params.exampleValue || $params.common?.placeholder | translate}}"
                [formControl]="control"
                (input)="onInput($event)"
         >
+        <ng-container
+            *ngIf="$params.common?.usePasswordVisibilityBtn"
+            [ngTemplateOutlet]="password">
+        </ng-container>
+        <ng-container
+            *ngIf="$params.clipboard"
+            [ngTemplateOutlet]="clipboard">
+        </ng-container>
+        <ng-container
+            *ngIf="$params.currency"
+            [ngTemplateOutlet]="currency">
+        </ng-container>
         <ng-container [ngTemplateOutlet]="status"></ng-container>
     </div>
 </ng-template>
 
 <ng-template #placeholderShown>
-    <input type="{{$params.common.type}}"
+    <input type="{{$params.common?.type}}"
            id="{{$params.name}}"
-           placeholder="{{$params.exampleValue || $params.common.placeholder | translate}}"
+           [wlc-input-mask]="$params.maskOptions"
+           placeholder="{{$params.exampleValue || $params.common?.placeholder | translate}}"
            [formControl]="control"
            [attr.data-wlc-element]='fieldWlcElement'
            class="{{$class}}__input"
@@ -31,10 +45,12 @@
         class="{{$class}}__container"
     >
         <input
-            type="{{$params.common.type}}"
+            type="{{$params.common?.type}}"
             id="{{$params.name}}"
-            [readOnly]="$params.common.readonly"
-            placeholder="{{$params.exampleValue || $params.common.placeholder | translate}}"
+            [value]="$params.value"
+            [wlc-input-mask]="$params.maskOptions"
+            [readOnly]="$params.common?.readonly"
+            placeholder="{{$params.exampleValue || $params.common?.placeholder | translate}}"
             [formControl]="control"
             [attr.data-wlc-element]='fieldWlcElement'
             class="{{$class}}__input"
@@ -42,7 +58,7 @@
             (input)="onInput($event)"
         >
         <ng-container
-            *ngIf="$params.common.usePasswordVisibilityBtn"
+            *ngIf="$params.common?.usePasswordVisibilityBtn"
             [ngTemplateOutlet]="password">
         </ng-container>
         <ng-container
@@ -64,10 +80,15 @@
 </ng-container>
 
 <ng-template #label>
-    <label *ngIf="$params.common.useLabel"
+    <label *ngIf="$params.common?.useLabel && $params.common.placeholder"
            for="{{$params.name}}"
            class="{{$class}}__label"
-    >{{$params.common.placeholder | translate}} {{this.$params.validators?.includes('required') ? '*' : ''}}</label>
+    >{{$params.common.placeholder | translate}}
+        <ng-container *ngIf="isFieldRequired()">*</ng-container>
+    </label>
+    <div *ngIf="$params.common?.tooltipText"
+         wlc-tooltip [inlineParams]="{inlineText: $params.common?.tooltipText}"
+    ></div>
 </ng-template>
 
 <ng-template #status>

@@ -11,7 +11,13 @@
     .wlc-select {
 
         &__label {
+            display: flex;
+            align-items: center;
             @include text.get-text-style('PrimaryText', ef.get-value($themeDefault, 'labelColor'));
+
+            .wlc-tooltip {
+                margin-left: 5px;
+            }
         }
 
         &__group {
@@ -31,6 +37,7 @@
                 overflow: ellipsis;
                 align: ef.get-value($themeDefault, 'selectTextAlign');
             }
+            white-space: nowrap;
             background: ef.get-value($themeDefault, 'selectBackground');
             @include text.get-text-style('PrimaryText', ef.get-value($themeDefault, 'selectColor'));
             height: ef.get-value($themeDefault, 'selectHeight');

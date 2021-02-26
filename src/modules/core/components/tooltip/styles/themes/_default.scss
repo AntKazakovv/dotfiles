@@ -1,0 +1,60 @@
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/base.mixins' as em;
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/functions' as ef;
+
+.wlc-tooltip--theme-default {
+
+    &:host {
+        z-index: 100;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        @include em.get-mq-map('width', $themeDefault, 'iconSize');
+        @include em.get-mq-map('height', $themeDefault, 'iconSize');
+
+        .wlc-tooltip__icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            cursor: pointer;
+            @include em.get-mq-map('width', $themeDefault, 'iconSize');
+            @include em.get-mq-map('height', $themeDefault, 'iconSize');
+
+            &.wlc-icon {
+
+                ::ng-deep {
+
+                    .wlc-icon-content {
+                        display: flex;
+                        align-items: center;
+                    }
+
+                    svg {
+                        @include em.get-mq-map('width', $themeDefault, 'iconSize');
+                        @include em.get-mq-map('height', $themeDefault, 'iconSize');
+                    }
+
+                    path {
+                        fill: ef.get-value($themeDefault, 'iconFill');
+                    }
+                }
+            }
+        }
+
+        .wlc-tooltip__content {
+            z-index: 101;
+            position: absolute;
+            left: ef.get-value($themeDefault, 'contentOffsetLeft');
+            top: ef.get-value($themeDefault, 'contentOffsetTop');
+            padding: ef.get-value($themeDefault, 'contentPadding');
+            width: max-content;
+            max-width: ef.get-value($themeDefault, 'contentMaxWidth');
+            background: ef.get-value($themeDefault, 'contentBg');
+            border-radius: ef.get-value($themeDefault, 'contentBorderRadius');
+            @include text.get-text-style(ef.get-value($themeDefault, 'textStyle'), ef.get-value($themeDefault, 'contentColor'));
+        }
+    }
+}

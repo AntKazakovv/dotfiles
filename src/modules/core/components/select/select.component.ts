@@ -4,29 +4,26 @@ import {
     Inject,
     Input,
     OnInit,
+    SimpleChanges,
+    OnChanges,
 } from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {BehaviorSubject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
-import {DateTime, Info} from 'luxon';
-
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {
     ConfigService,
     EventService,
-} from 'wlc-engine/modules/core/system/services';
-import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
-import {ICurrency} from 'wlc-engine/modules/finances/system/interfaces';
+    SelectValuesService,
+    IIndexing,
+} from 'wlc-engine/modules/core';
 
 import * as Params from './select.params';
 
 import {
-    map as _map,
-    filter as _filter,
     find as _find,
     union as _union,
     kebabCase as _kebabCase,
-    range as _range,
 } from 'lodash-es';
 
 /**
@@ -47,35 +44,36 @@ import {
     templateUrl: './select.component.html',
     styleUrls: ['./styles/select.component.scss'],
 })
-export class SelectComponent extends AbstractComponent implements OnInit {
+export class SelectComponent extends AbstractComponent implements OnInit,
+    OnChanges {
     @Input() protected inlineParams: Params.ISelectCParams;
     public $params: Params.ISelectCParams;
     public control: FormControl;
     public isOpened: boolean;
     public fieldWlcElement: string;
-    protected daysInMonth: number = 31;
 
     public get selectedItem() {
-        const selected = _find(this.$params.items,
-            (item) => {
-                return item.value === this.control.value;
-            },
-        );
+        const selected = _find(this.$params.items, (item) => {
+            return item.value == this.control.value;
+        });
         return selected?.title;
     };
 
-    private constantValues: IIndexing<BehaviorSubject<Params.ISelectOptions[]>> = {};
+    protected constantValues: IIndexing<BehaviorSubject<Params.ISelectOptions[]>> = {};
+    protected dayList = this.selectValues.getDateList('days');
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ISelectCParams,
         protected configService: ConfigService,
         protected cdr: ChangeDetectorRef,
-        private EventService: EventService,
-    ) {
+        protected EventService: EventService,
+        protected selectValues: SelectValuesService,
+    )
+    {
         super({injectParams, defaultParams: Params.defaultParams});
     }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.prepareModifiers();
 
@@ -83,20 +81,15 @@ export class SelectComponent extends AbstractComponent implements OnInit {
         this.prepareConstantValues();
         this.fieldWlcElement = 'select_' + _kebabCase(this.$params.name);
 
-        //TODO custom fields
         if (this.$params?.options) {
             this.setOptions();
         }
+    }
 
-        if (this.$params.name === 'birthDay') {
-            this.EventService.subscribe({
-                name: `SELECT_CHOSEN_BIRTHMONTH`,
-            }, (value: Params.ISelectOptions) => {
-                this.daysInMonth = DateTime.local(DateTime.local().year, value.value as number).daysInMonth;
-                this.prepareConstantValues();
-                this.setOptions();
-                this.cdr.markForCheck();
-            });
+    public ngOnChanges(changes: SimpleChanges): void {
+        if (this.$params) {
+            super.ngOnChanges(changes);
+            this.cdr.detectChanges();
         }
     }
 
@@ -123,10 +116,15 @@ export class SelectComponent extends AbstractComponent implements OnInit {
         });
     }
 
+    protected isFieldRequired(): boolean {
+        return this.$params.validators?.includes('required');
+    }
+
     private prepareConstantValues(): void {
         this.constantValues = {
-            currencies: this.prepareCurrency(),
+            currencies: this.selectValues.prepareCurrency(),
             countries: this.configService.get('countries'),
+            phoneCodes: this.selectValues.getPhoneCodes(),
             genders: new BehaviorSubject([
                 {
                     value: '',
@@ -141,9 +139,10 @@ export class SelectComponent extends AbstractComponent implements OnInit {
                     title: gettext('Male'),
                 },
             ]),
-            birthMonth: this.getDateList('months'),
-            birthDay: this.getDateList('days'),
-            birthYear: this.getDateList('years'),
+            birthMonth: this.selectValues.getDateList('months'),
+            birthDay: this.selectValues.dayList,
+            birthYear: this.selectValues.getDateList('years'),
+            pep: this.selectValues.getPepList(),
         };
     }
 
@@ -151,13 +150,15 @@ export class SelectComponent extends AbstractComponent implements OnInit {
         this.constantValues[this.$params.options]
             .pipe(takeUntil(this.$destroy))
             .subscribe((value) => {
-                this.$params.items = value || [];
+                this.$params.items = value || [{
+                    title: gettext('No data'),
+                    value: '',
+                }];
             });
     }
 
-    // TODO move to abstract class
     private prepareModifiers(): void {
-        if (!this.$params.common.customModifiers) {
+        if (!this.$params.common?.customModifiers) {
             return;
         }
 
@@ -166,46 +167,4 @@ export class SelectComponent extends AbstractComponent implements OnInit {
         modifiers = _union(modifiers, this.$params.common.customModifiers.split(' '));
         this.addModifiers(modifiers);
     }
-
-    private prepareCurrency(): BehaviorSubject<Params.ISelectOptions[]> {
-        const modifyCurrencies = this.configService.get<IIndexing<ICurrency>>('appConfig.siteconfig.currencies');
-        return new BehaviorSubject(
-            _map(
-                _filter(modifyCurrencies, (el: ICurrency) => {
-                    return el.registration;
-                }), (el) => {
-                    return {title: el.Name, value: el.Alias};
-                }),
-        );
-    }
-
-    private getDateList(value: string): BehaviorSubject<Params.ISelectOptions[]> {
-        let list: Params.ISelectOptions[] = [];
-        switch (value) {
-            case 'days': {
-                let day = 1;
-                while (this.daysInMonth >= day) {
-                    list.push({title: day, value: '' + day});
-                    day++;
-                }
-                break;
-            }
-
-            case 'months': {
-                list = _map(Info.months(), (month: string, index: number) => {
-                    return {title: gettext(month), value: '' + ++index};
-                });
-                break;
-            }
-
-            case 'years': {
-                list = _map(_range(DateTime.local().year - 18, 1900), (n) => {
-                    return {title: '' + n, value: '' + n};
-                });
-                break;
-            }
-        }
-
-        return new BehaviorSubject<Params.ISelectOptions[]>(list);
-    };
 }

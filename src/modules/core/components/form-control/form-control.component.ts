@@ -40,9 +40,13 @@ export class FormControlComponent implements OnInit, OnDestroy {
     constructor(
         private cdr: ChangeDetectorRef,
         private translate: TranslateService,
-    ) {}
+    ) {
+    }
 
     ngOnInit() {
+        if (!this.control) {
+            return;
+        }
         this.errors = this.getErrors();
         this.control.statusChanges.pipe(takeUntil(this.ngUnsubscribe)).subscribe(() => {
             this.errors = this.getErrors();
@@ -57,7 +61,7 @@ export class FormControlComponent implements OnInit, OnDestroy {
 
     protected getErrors(): string[] {
 
-        return Object.keys(this.control.errors || {}).map((item) => {
+        return Object.keys(this.control?.errors || {}).map((item) => {
             const key = 'validator-' + this.fieldName + '-' + item;
 
             const validator = _find(this.validators, (validator) => {

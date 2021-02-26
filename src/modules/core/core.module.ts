@@ -33,6 +33,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 // -- SERVICES IMPORTS END  --;
 
 // -- COMPONENTS IMPORTS  --;
+import {BirthdayFieldComponent} from './components/birthday-field/birthday-field.component';
 import {BurgerPanelComponent} from './components/burger-panel/burger-panel.component';
 import {FloatPanelsComponent} from './components/float-panels/float-panels.component';
 import {WrapperComponent} from './components/wrapper/wrapper.component';
@@ -65,6 +66,7 @@ import {MessageComponent} from './components/message/message.component';
 import {CurrencyComponent} from 'wlc-engine/modules/core/components/currency/currency.component';
 import {DatepickerComponent} from './components/datepicker/datepicker.component';
 import {TextBlockComponent} from './components/text-block/text-block.component';
+import {TooltipComponent} from './components/tooltip/tooltip.component';
 import {RadioButtonsComponent} from './components/radio-buttons/radio-buttons.component';
 import {TimerComponent} from './components/timer/timer.component';
 import {TitleComponent} from './components/title/title.component';
@@ -101,7 +103,6 @@ import {ICoreConfig} from './system/interfaces/core.interface';
 //  -- CONFIGS IMPORTS STARTS--;
 import * as $config from 'wlc-config/index';
 
-
 import {
     get as _get,
 } from 'lodash-es';
@@ -110,6 +111,7 @@ export const moduleConfig =
     GlobalHelper.mergeConfig<ICoreConfig>(coreConfig, _get($config, '$core', {}));
 
 export const components = {
+    'wlc-birth-field': BirthdayFieldComponent,
     'wlc-button': ButtonComponent,
     'wlc-checkbox': CheckboxComponent,
     'wlc-copyright': CopyrightComponent,
@@ -135,6 +137,7 @@ export const components = {
     'wlc-select': SelectComponent,
     'wlc-table': TableComponent,
     'wlc-text-block': TextBlockComponent,
+    'wlc-tooltip': TooltipComponent,
     'wlc-textarea': TextareaComponent,
     'wlc-timer': TimerComponent,
     'wlc-title': TitleComponent,
@@ -177,6 +180,7 @@ export const components = {
     ],
     declarations: [
         AuthDirective,
+        BirthdayFieldComponent,
         BurgerPanelComponent,
         ButtonComponent,
         CheckboxComponent,
@@ -218,6 +222,7 @@ export const components = {
         TextBlockComponent,
         TruncatePipe,
         TimerComponent,
+        TooltipComponent,
         TitleComponent,
         ValueLengthDirective,
         WlcModalComponent,
@@ -228,6 +233,7 @@ export const components = {
     ],
     exports: [
         AuthDirective,
+        BirthdayFieldComponent,
         BrowserAnimationsModule,
         BurgerPanelComponent,
         ButtonComponent,
@@ -261,6 +267,7 @@ export const components = {
         SelectComponent,
         TableComponent,
         TextareaComponent,
+        TooltipComponent,
         CopyrightComponent,
         DatepickerComponent,
         InputMaskDirective,

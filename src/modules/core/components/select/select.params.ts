@@ -15,13 +15,13 @@ export interface ISelectCParams extends IComponentParams<ComponentTheme, Compone
     common?: {
         placeholder?: string;
         customModifiers?: CustomMod;
+        tooltipText?: string;
     },
     validators?: ValidatorType[];
     control?: FormControl;
     disabled?: boolean;
     locked?: boolean;
     labelText?: string;
-
     options?: string;
     items?: ISelectOptions[];
     modifiers?: Modifiers[];

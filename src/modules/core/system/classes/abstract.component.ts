@@ -99,8 +99,8 @@ export class AbstractComponent implements OnDestroy, OnInit, OnChanges {
     }
 
     public ngOnChanges(changes: SimpleChanges): void {
-        if (_get(changes, 'inlineParams') && _cloneDeep(_get(this, 'inlineParams'))) {
-            _assign(this.$params, _cloneDeep(_get(this, 'inlineParams')));
+        if (_get(changes, 'inlineParams') && (_get(this, 'inlineParams'))) {
+            _assign(this.$params, _get(this, 'inlineParams'));
         }
     }
 

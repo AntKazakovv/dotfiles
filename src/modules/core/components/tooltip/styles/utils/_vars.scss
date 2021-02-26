@@ -1,0 +1,18 @@
+@use 'engine-scss/functions' as ef;
+
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'iconSize': (
+        375: 15px,
+        1024: 18px,
+    ),
+    'iconFill': ef.get('mainColors', 'baseOpacity'),
+    'contentOffsetTop': 9px,
+    'contentOffsetLeft': 9px,
+    'contentPadding': ef.get('size', 'small') ef.get('size', 'smaller'),
+    'contentMaxWidth': 220px,
+    'contentBg': ef.get('mainColors', 'main'),
+    'contentBorderRadius': ef.get('radius', 'biger'),
+    'textStyle': 'PrimaryText',
+    'contentColor': ef.get('mainColors', 'baseMain'),
+), $customThemeDefault);

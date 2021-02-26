@@ -33,10 +33,11 @@
             .icon {
 
                 &:before {
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
+                    top: 50%;
+                    left: 50%;
+                    margin-top: ef.get-value($themeDefault, 'iconHeight') / 2;
+                    width: ef.get-value($themeDefault, 'iconWidth');
+                    height: ef.get-value($themeDefault, 'iconHeight');
                     animation: spin 1s infinite linear;
                     border: 2px solid ef.get-value($themeDefault, 'pendingIconColor');
                     border-left-color: transparent;

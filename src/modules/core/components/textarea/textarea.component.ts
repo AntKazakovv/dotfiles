@@ -45,4 +45,8 @@ export class TextareaComponent extends AbstractComponent implements OnInit {
         this.control = this.$params?.control;
         this.fieldWlcElement = 'textarea_' + _kebabCase(this.$params.name);
     }
+
+    protected isFieldRequired(): boolean {
+        return this.$params.validators?.includes('required');
+    }
 }

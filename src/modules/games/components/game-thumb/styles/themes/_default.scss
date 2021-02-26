@@ -114,7 +114,9 @@
         }
 
         &__merchant {
+            z-index: 11;
             @include text.get-text-style('ThirdTitle', ef.get-value($themeDefault, 'thumbNameColor'));
+            text-align: ef.get-value($themeDefault, 'thumbNamePosition');
         }
 
         &__icon {

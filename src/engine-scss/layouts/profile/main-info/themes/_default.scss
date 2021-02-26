@@ -1,6 +1,7 @@
 @use 'engine-scss/functions' as ef;
 @use 'engine-scss/mixins/text' as text;
 @use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/base.mixins' as bm;
 
 @import '../utils/vars';
 
@@ -23,8 +24,12 @@
             }
 
             @include mq.min(1024) {
+                grid-template-columns: minmax(0, 1fr) 25%;
+            }
+
+            @include mq.min(1200) {
                 grid: {
-                    template-columns: 1.8fr 1fr;
+                    template-columns: minmax(765px, max-content) 1fr;
                     gap: ef.get-value($mainInfoThemeDefault, 'sectionRowGap', 1024) ef.get-value($mainInfoThemeDefault, 'sectionColGap', 1024);
                 }
             }
@@ -48,11 +53,6 @@
                 @include mq.min(1024) {
                     grid-template-columns: 1fr;
                 }
-
-                &:first-child {
-                    // While notifications is absent
-                    display: none;
-                }
             }
 
             &__title {
@@ -70,15 +70,10 @@
             &__item {
                 display: grid;
                 grid-template-columns: 1fr auto;
-                grid-gap: ef.get('size', 'smally');
+                grid-gap: ef.get-value($mainInfoThemeDefault, 'addBlockGap');
                 grid-template-areas:
                     'title switcher'
                     'link .';
-
-                &:last-child {
-                    // While banking information is absent
-                    display: none;
-                }
 
                 &-title {
                     grid-area: title;
@@ -100,19 +95,16 @@
                 .wlc-btn[wlc-button] {
                     grid-area: link;
                     width: fit-content;
+                    overflow: initial;
+                    @include bm.arrowIconAnimation;
 
                     .wlc-btn__text {
                         display: flex;
-                        @include text.get-text-style('PlaceholderText', ef.get-value($mainInfoThemeDefault, 'addItemLinkColor', 375));
+                        color: ef.get-value($mainInfoThemeDefault, 'addItemLinkColor', 375);
 
                         @include mq.min(1024) {
-                            text-decoration: underline;
-                            color: ef.get-value($mainInfoThemeDefault, 'addItemLinkColor', 1024);
+                            @include text.get-text-style('PlaceholderTextBold', ef.get-value($mainInfoThemeDefault, 'addItemLinkColor', 1024));
                         }
-                    }
-
-                    &:hover {
-                        text-decoration: none;
                     }
 
                     @include mq.min(1024) {
@@ -128,7 +120,7 @@
                     .wlc-icon {
                         display: none;
                         margin-left: 3px;
-                        transform: rotate(-90deg);
+                        @include bm.transition();
 
                         @include mq.min(1024) {
                             display: flex;
@@ -136,6 +128,7 @@
 
                         svg {
                             fill: ef.get-value($mainInfoThemeDefault, 'addItemLinkColor', 1024);
+                            transform: rotate(-90deg);
                         }
                     }
                 }
@@ -156,10 +149,60 @@
 
                 .wlc-btn[wlc-button] {
                     justify-self: ef.get-value($mainInfoThemeDefault, 'saveButtonAlign');
-                    margin-top: ef.get-value($mainInfoThemeDefault, 'saveButtonShift');
 
-                    @include mq.min(1024) {
+                    @include mq.min(768) {
                         justify-self: ef.get-value($mainInfoThemeDefault, 'saveButtonAlign', 1024);
+                        margin-top: ef.get-value($mainInfoThemeDefault, 'saveButtonShift');
+                    }
+                }
+            }
+
+            .wlc-birth-field {
+                $gapWidth: 140px + ef.get-value($mainInfoThemeDefault, 'formRowGap', 768) * 2;
+                $inputWidth: ef.get-value($mainInfoThemeDefault, 'inputWidth', 768);
+                grid-template-columns: repeat(3, minmax(90px, 1fr));
+
+                @include mq.min(768) {
+                    grid-template-columns: 1fr calc(#{$inputWidth / 2} - #{$gapWidth / 2}) calc(#{$inputWidth / 2} - #{$gapWidth / 2});
+                }
+
+                .wlc-select[class] {
+                    grid-template-columns: minmax(0, 1fr);
+
+                    &:first-child {
+
+                        @include mq.min(768) {
+                            grid-template-columns: 1fr 140px;
+                        }
+                    }
+                }
+            }
+
+            .wlc-phone-field {
+                $gapWidth: 140px + ef.get-value($mainInfoThemeDefault, 'formRowGap', 768);
+                $inputWidth: ef.get-value($mainInfoThemeDefault, 'inputWidth', 768);
+                grid-template-columns: 100px  minmax(0, 1fr);
+
+                @include mq.min(768) {
+                    grid-template-columns: minmax(0, 1fr) calc(#{$inputWidth} - #{$gapWidth});
+                }
+
+                .wlc-select[class] {
+
+                    @include mq.min(768) {
+                        grid-template-columns: minmax(0, 1fr) 140px;
+                        grid-gap: 0;
+                    }
+                }
+
+                .wlc-input[class] {
+                    grid-template-columns: minmax(0, 1fr);
+
+                    @include mq.min(768) {
+
+                        .wlc-input__label {
+                            display: none;
+                        }
                     }
                 }
             }
@@ -169,16 +212,27 @@
 
                 .wlc-input__label,
                 .wlc-select__label {
-                    @include text.get-text-style('SignText',  ef.get('form', 'labelColor'));
+                    @include text.get-text-style('SignText', ef.get('form', 'labelColor'));
+                    margin-left: 5px;
 
                     @include mq.min(768) {
                         @include text.get-text-style('PrimaryText', ef.get('form', 'labelColor'));
+                        margin: 0;
+                    }
+                }
+
+                input[class],
+                .wlc-select__field {
+
+                    @include mq.max(768) {
+                        padding: 5px 10px;
+                        font-size: 1.2rem;
                     }
                 }
 
                 @include mq.min(768) {
                     grid-template-columns: 1fr ef.get-value($mainInfoThemeDefault, 'inputWidth', 768);
-                    align-items: center;
+                    align-items: flex-start;
                 }
             }
         }
