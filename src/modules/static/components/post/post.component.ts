@@ -16,7 +16,7 @@ import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract
 import {StaticService, TextDataModel} from 'wlc-engine/modules/static';
 import {IPostComponentParams} from './post.interface';
 import {defaultParams} from './post.params';
-import {ConfigService} from 'wlc-engine/modules/core';
+import {ConfigService, LogService} from 'wlc-engine/modules/core';
 
 import {
     isFunction as _isFunction,
@@ -47,6 +47,7 @@ export class PostComponent extends AbstractComponent implements OnInit, AfterVie
         protected uiRouter: UIRouterGlobals,
         protected configService: ConfigService,
         protected stateService: StateService,
+        protected logService: LogService,
     ) {
         super({injectParams: params, defaultParams});
     }
@@ -69,11 +70,13 @@ export class PostComponent extends AbstractComponent implements OnInit, AfterVie
             if (_isFunction(this.params.setTitle)) {
                 this.params.setTitle(data.title);
             }
-        } catch (e) {
-            // TODO: redirect on 404 page
-            this.stateService.go('app.home');
-
-            console.error(e);
+        } catch (error) {
+            // TODO: add log service in static service metods
+            this.logService.sendLog({code: '12.0.0', data: error});
+            this.stateService.go('app.error', {
+                locale: this.configService.get('appConfig.language'),
+            });
+            console.error(error);
         } finally {
             this.isReady = true;
             this.cdr.markForCheck();
