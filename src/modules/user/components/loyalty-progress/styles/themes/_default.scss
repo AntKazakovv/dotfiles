@@ -1,21 +1,22 @@
 @use 'engine-scss/mixins/text' as lib;
+@use 'engine-scss/functions' as ef;
 
 .wlc-loyalty-progress--theme-default:host {
 
     .wlc-loyalty-progress {
 
         &__content {
-            display: flex;
-            justify-content: space-between;
-            margin: map-get($themeDefault, 'contentMargin');
+            display: block;
+            margin: ef.get-value($themeDefault, 'contentMargin');
         }
 
         &__line {
             position: relative;
             width: 100%;
-            height: map-get($themeDefault, 'lineHeight');
-            background: map-get($themeDefault, 'lineEmptyBg');
-            border-radius: map-get($themeDefault, 'lineBorderRadius');
+            margin: 5px 0;
+            height: ef.get-value($themeDefault, 'lineHeight');
+            background: ef.get-value($themeDefault, 'lineEmptyBg');
+            border-radius: ef.get-value($themeDefault, 'lineBorderRadius');
             overflow: hidden;
 
             &-current {
@@ -23,18 +24,19 @@
                 left: 0;
                 top: 0;
                 height: 100%;
-                background: map-get($themeDefault, 'lineFillBg');
+                background: ef.get-value($themeDefault, 'lineFillBg');
             }
         }
 
         &__title {
             @include lib.get-text-style('ButtonText');
-            color: map-get($themeDefault, 'levelNameColor');
+            color: ef.get-value($themeDefault, 'levelNameColor');
         }
 
         &__points {
-            @include lib.get-text-style('ButtonText');
-            color: map-get($themeDefault, 'levelPointsColor');
+            display: flex;
+            justify-content: space-between;
+            @include lib.get-text-style('ButtonText', ef.get-value($themeDefault, 'levelPointsColor'));
         }
     }
 }

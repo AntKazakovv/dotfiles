@@ -49,7 +49,8 @@ export class TableComponent extends AbstractComponent implements OnInit {
         protected injector: Injector,
         protected configService: ConfigService,
         protected actionService: ActionService,
-    ) {
+    )
+    {
         super(
             <IMixedParams<Params.ITableCParams>>{
                 injectParams: params,
@@ -61,7 +62,6 @@ export class TableComponent extends AbstractComponent implements OnInit {
         super.ngOnInit(this.inlineParams);
 
         this.prepareHead();
-
         if (this.$params.rows instanceof BehaviorSubject) {
             this.$params.rows.pipe(takeUntil(this.$destroy)).subscribe((rows) => {
                 this.rows = this.createTableRow(rows);

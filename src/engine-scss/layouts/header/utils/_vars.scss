@@ -8,18 +8,23 @@ $theme1Header: map-merge((
     'headerGridColumns': (
         375: 0.5fr 1fr 0.5fr,
         1024: auto auto 1fr auto auto,
-        1200: auto auto 1fr auto auto,
+        1200: auto auto minmax(0, 1fr) auto auto,
     ),
     'headerGridGap': (
-        375: ef.get('size', 'smaller'),
-        1630: ef.get('size', 'main'),
+        375: ef.get('size', 'less'),
+        1024: ef.get('size', 'smaller'),
+        1630: ef.get('size', 'main')
     ),
     'headerMinHeight': (
         375: 70px,
         1630: 100px,
     ),
+    'headerPadding': (
+        375: 0,
+        1024: ef.get('size', 'smaller'),
+        1630: ef.get('size', 'main')
+    ),
     'headerBackground': transparent,
-    'headerGlobalPadding': ef.get('size', 'smally'),
     'headerSvgBtn': ef.get('mainColors', 'baseOpacity'),
     'headerSvgBtnHover': darken(ef.get('mainColors', 'baseOpacity'), 20%),
     'headerLoginBtnTabletPadding': ef.get('size', 'smallest') ef.get('size', 'small'),

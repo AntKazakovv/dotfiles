@@ -40,6 +40,7 @@ import {
     get as _get,
     forEach as _forEach,
     has as _has,
+    find as _find,
 } from 'lodash-es';
 
 @Component({
@@ -105,7 +106,8 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
         protected modalService: ModalService,
         protected stateSerivce: StateService,
         protected transitionService: TransitionService,
-    ) {
+    )
+    {
         super(
             <IMixedParams<Params.IMenuCParams>>{
                 injectParams,
@@ -227,13 +229,12 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
     }
 
     protected expandItems(): void {
-        for (const item of this.items) {
-            if (_get(item, 'parent')) {
-                const itemsGroup: IMenuItemsGroup = item as IMenuItemsGroup;
-                for (const subitem of itemsGroup.items) {
-                    itemsGroup.expand = this.isActive(subitem.params?.state?.name);
-                }
+        _forEach(this.items, (item: IMenuItemsGroup) => {
+            if (item.parent) {
+                item.expand = !!_find(item.items, (subItem) => {
+                    return this.isActive(subItem.params?.state?.name);
+                });
             }
-        }
+        });
     }
 }

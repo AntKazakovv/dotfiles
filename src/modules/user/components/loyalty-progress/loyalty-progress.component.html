@@ -1,14 +1,12 @@
 <div class="{{$class}}__content" data-wlc-element="block_game-play-info-exp-line">
     <div class="{{$class}}__title" data-wlc-element="user-loyalty-title">{{userLoyalty?.levelName}}</div>
-    <div class="{{$class}}__points" data-wlc-element="user-loyalty-points">
-        <span
-            class="{{$class}}__points-amount">{{userLoyalty?.points}} / {{userLoyalty?.nextLevelPoints}}</span>
-        <span
-            class="{{$class}}__points-next"> {{'points to' | translate}} {{userLoyalty?.level * 1 + 1}} {{'Level' | translate}}</span>
+    <div class="{{$class}}__line">
+        <div class="{{$class}}__line-current"
+             [ngStyle]="{'width' : ((userLoyalty?.points / userLoyalty?.nextLevelPoints) * 100) + '%'}"></div>
+        <div class="{{$class}}__line-sum"></div>
     </div>
-</div>
-<div class="{{$class}}__line">
-    <div class="{{$class}}__line-current"
-         [ngStyle]="{'width' : ((userLoyalty?.points / userLoyalty?.nextLevelPoints) * 100) + '%'}"></div>
-    <div class="{{$class}}__line-sum"></div>
+    <div class="{{$class}}__points" data-wlc-element="user-loyalty-points">
+        <div class="{{$class}}__points-start">{{userLoyalty?.points}}</div>
+        <div class="{{$class}}__points-end">{{userLoyalty?.nextLevelPoints}}</div>
+    </div>
 </div>

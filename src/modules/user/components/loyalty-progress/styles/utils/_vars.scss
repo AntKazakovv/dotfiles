@@ -2,7 +2,7 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'contentMargin': 0 0 ef.get('size', 'smallest') 0,
+    'contentMargin': 0,
     'lineHeight': 7px,
     'lineEmptyBg': ef.get('fieldColors', 'inputBg'),
     'lineFillBg': ef.get('mainColors', 'main'),

@@ -6,8 +6,11 @@
 
 .wlc-profile-menu.wlc-profile-menu--type-submenu:host {
 
-    .wlc-menu--theme-default.wlc-menu--type-profile-menu {
+    .wlc-profile-menu__content {
         position: relative;
+    }
+
+    .wlc-menu--theme-default.wlc-menu--type-profile-menu {
         display: grid;
         grid: {
             auto-columns: max-content;
@@ -15,8 +18,18 @@
             gap: ef.get-value($submenuProfileDefault, 'menuGap');
         }
         @include bm.get-mq-map('margin', $submenuProfileDefault, 'submenuMargin');
+        overflow: auto hidden;
         width: 100%;
-        border-bottom: ef.get-value($submenuProfileDefault, 'submenuBorderBottom');
+
+        &:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: ef.get-value($submenuProfileDefault, 'submenuBorderBottomHeight');
+            background: ef.get-value($submenuProfileDefault, 'submenuBorderBottom');
+        }
 
         ::ng-deep {
 
@@ -24,6 +37,7 @@
 
                 &__link {
                     position: relative;
+                    z-index: 2;
                     display: flex;
                     padding: ef.get-value($submenuProfileDefault, 'submenuItemPadding');
                     text-decoration: none;
@@ -37,7 +51,7 @@
                         content: '';
                         position: absolute;
                         left: 0;
-                        bottom: -2px;
+                        bottom: 0;
                         width: 0;
                         height: 2px;
                         background: ef.get-value($submenuProfileDefault, 'submenuItemActiveBorder');

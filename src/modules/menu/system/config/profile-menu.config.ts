@@ -202,9 +202,22 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
             },
         },
     },
-    'profile-menu:store': {
+    'profile-menu:market': {
         name: gettext('Market'),
         type: 'title',
+        icon: 'market',
+        class: 'market',
+        params: {
+            state: {
+                parent: 'app.profile.loyalty-store.main',
+                name: 'app.profile.loyalty-store.main',
+                params: {},
+            },
+        },
+    },
+    'profile-menu:store': {
+        name: gettext('Store'),
+        type: 'sref',
         icon: 'store',
         class: 'store',
         params: {

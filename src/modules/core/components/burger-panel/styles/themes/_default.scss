@@ -1,4 +1,4 @@
-//todo in layout component
+@use 'engine-scss/functions' as ef;
 
 .wlc-burger-panel--theme-default:host {
 
@@ -7,19 +7,39 @@
         .wlc-login-signup {
             justify-content: center;
             grid-auto-flow: initial;
-            padding: map-get($themeDefault, 'loginBtnPadding');
+            margin: ef.get-value($themeDefault, 'loginBtnMargin');
 
             .wlc-btn {
                 min-width: 100%;
             }
         }
 
-        .wlc-user-stats {
-            margin-bottom: map-get($themeDefault, 'gap');
+        .wlc-user-stats[wlc-user-stats] {
+            margin: ef.get-value($themeDefault, 'gap') 0;
+
+            ::ng-deep {
+
+                .wlc-user-stats-balance {
+                    background: ef.get('mainColors', 'bg700');
+                }
+            }
         }
 
         .wlc-category-menu {
-            margin-bottom: map-get($themeDefault, 'gap');
+            margin-bottom: ef.get-value($themeDefault, 'gap');
+        }
+
+        .wlc-profile-menu[wlc-profile-menu] {
+
+            ::ng-deep {
+
+                .wlc-menu[wlc-menu] {
+
+                    .wlc-menu__link {
+                        background: ef.get('mainColors', 'bg700');
+                    }
+                }
+            }
         }
     }
 }

@@ -13,10 +13,12 @@ export * from './core/wlc-error-page.config';
 export * from './user/wlc-login-signup.config';
 export * from './user/wlc-user-info.config';
 export * from './user/wlc-profile-form.config';
-export * from './user/wlc-user-stats';
-export * from './user/wlc-dashboard-exchange';
-export * from './user/wlc-dashboard-loyalty-block';
-export * from './user/wlc-logout';
+export * from './user/wlc-user-stats.config';
+export * from './user/wlc-user-name.config';
+export * from './user/wlc-dashboard-exchange.config';
+export * from './user/wlc-dashboard-loyalty-block.config';
+export * from './user/wlc-logout.config';
+export * from './user/wlc-loyalty-progress.config';
 
 export * from './promo/wlc-banners-slider.config';
 export * from './promo/wlc-slider.config';
@@ -47,3 +49,4 @@ export * from './bonuses/wlc-see-all-bonuses.config';
 export * from './profile/wlc-verification.config';
 
 export * from './store/wlc-store-list.config';
+export * from './store/wlc-loyalty-levels.config';

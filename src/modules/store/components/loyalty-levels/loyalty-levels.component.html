@@ -1,0 +1,7 @@
+<div *ngIf="ready; else preloader" class="{{$class}}">
+    <div wlc-table [inlineParams]='tableData'></div>
+</div>
+
+<ng-template #preloader>
+    <div wlc-loader></div>
+</ng-template>

@@ -48,7 +48,13 @@ export const menuConfig: IMenuConfig = {
         items: [
             'profile-menu:dashboard',
             'profile-menu:bonuses-as-offers',
-            'profile-menu:store',
+            {
+                parent: 'profile-menu:market',
+                items: [
+                    'profile-menu:store',
+                    'profile-menu:loyalty-level',
+                ],
+            },
             'profile-menu:cash-deposit',
             'profile-menu:cash-withdrawal',
             {
