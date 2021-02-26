@@ -161,14 +161,6 @@ export const playGameForRealConfig = (params: IPlayForRealParams): IFormWrapperC
 
     const forAuthenticated = [
         {
-            name: 'core.wlc-text-block',
-            params: <ITextBlockCParams>{
-                common: {
-                    textBlockTitle: gettext('Lets play!'),
-                },
-            },
-        },
-        {
             name: 'games.wlc-game-thumb',
             params: {
                 type: 'modal',

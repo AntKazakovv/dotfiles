@@ -2,8 +2,9 @@
 $customThemeDefault: () !default;
 
 $themeDefault: map-merge((
-    'formMaxWidth': 340px,
+    'formMaxWidth': 290px,
     'formMargin': auto,
+    'formPadding': ef.get('size', 'smallest') 0,
     'fieldMargin': 0 25px ef.get('size', 'smaller') 25px,
     'btnMargin': 0 auto ef.get('size', 'smaller') auto,
     'titleMargin': 0 auto ef.get('size', 'small') auto,
@@ -19,4 +20,6 @@ $themeDefault: map-merge((
     'colorTitle': ef.get('mainColors', 'BaseMain'),
     'subtitleMargin': ef.get('size', 'small') 0 0,
     'widthGameThumbImg': 100%,
+
+    'linkBlockBtnMargin': 0 auto 10px auto
 ), $customThemeDefault);
