@@ -10,7 +10,7 @@ import {
     ViewEncapsulation,
     HostListener,
     OnDestroy,
-    ComponentRef, AfterViewInit,
+    ComponentRef, AfterViewInit, Input,
 } from '@angular/core';
 import {RawParams} from '@uirouter/core';
 import {DomSanitizer} from '@angular/platform-browser';
@@ -44,6 +44,7 @@ import {
     isString as _isString,
     toNumber as _toNumber,
 } from 'lodash-es';
+import * as Params from 'wlc-engine/modules/bonuses/components/bonus-item/bonus-item.params';
 
 interface IError {
     msg: string;
@@ -62,6 +63,8 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
     @ViewChild('header') header: ElementRef;
     @ViewChild('footer') footer: ElementRef;
     @ViewChild('gameContainer') gameContainer: ElementRef;
+
+    @Input() public inlineParams: IGameWrapperCParams;
 
     public $params: IGameWrapperCParams;
     public game: Game;
@@ -112,12 +115,13 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         protected domSanitizer: DomSanitizer,
         protected cdr: ChangeDetectorRef,
         protected renderer: Renderer2,
+        protected hostElement: ElementRef,
     ) {
         super({injectParams, defaultParams});
     }
 
     public async ngOnInit(): Promise<void> {
-        super.ngOnInit();
+        super.ngOnInit(this.inlineParams);
 
         if (this.configService.get<boolean>('appConfig.mobile')) {
             this.isMobile = true;
@@ -236,9 +240,30 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
     }
 
     protected initStartResizeParams(): void {
-        this.aspectRatio = this.game?.aspectRatio || 'auto';
-        this.aspectRatioCoefficient = this.getAspectRatioCoefficient();
-        this.checkIframe();
+        if (this.$params.theme === 'default') {
+            this.aspectRatio = this.game?.aspectRatio || 'auto';
+            this.aspectRatioCoefficient = this.getAspectRatioCoefficient();
+            this.checkIframe();
+        } else {
+            this.initFullPageIframeSize();
+        }
+    }
+
+    protected initFullPageIframeSize(): void {
+        if (this.isMobile) {
+            return;
+        }
+
+        if (this.hostElement?.nativeElement) {
+            const elem = this.hostElement.nativeElement;
+            const height: number = window.innerHeight - elem.offsetTop;
+            this.renderer.setStyle(elem, 'height', height + 'px');
+
+            const iframe = this.wrp?.element?.nativeElement.querySelector('iframe');
+            if (iframe) {
+                this.renderer.setStyle(iframe, 'height', height + 'px');
+            }
+        }
     }
 
     protected checkIframe(): void {
@@ -274,6 +299,10 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
     }
 
     protected setGameWindowSize(width?: number): void {
+        if (this.$params.theme !== 'default') {
+            return;
+        }
+
         const el = this.wrp?.element?.nativeElement;
         const maxHeight: number = this.getMaxHeight();
         if (!width) {

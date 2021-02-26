@@ -1,0 +1,27 @@
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@import '../utils/mixins';
+@import '../utils/vars';
+
+.wlc-game-wrapper--theme-fullscreen-game-frame {
+    margin-bottom: 30px;
+
+    .wlc-game-wrapper {
+
+        &__game-area,
+        &__content {
+            height: 100%;
+        }
+
+        &__content {
+            min-height: 300px;
+        }
+
+        &__preloader {
+            margin: 0 auto;
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            left: 50%;
+        }
+    }
+}

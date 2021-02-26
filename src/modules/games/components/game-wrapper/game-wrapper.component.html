@@ -1,4 +1,4 @@
-<div class="{{$class}}__content container" (resized)="onResize($event)">
+<div *ngIf="$params.theme == 'default'" class="{{$class}}__content container" (resized)="onResize($event)">
     <div class="{{$class}}__header" #header>
         <h2>{{game?.name[locale] || game?.name['en'] || ''}}</h2>
         <div class="{{$class}}__btn-left" *ngIf="gameParams.demo">
@@ -37,3 +37,21 @@
     </div>
     <div class="{{$class}}__footer" #footer></div>
 </div>
+
+<div *ngIf="$params.theme == 'fullscreen-game-frame'" class="{{$class}}__content" (resized)="onResize($event)">
+    <div class="{{$class}}__game-area" #wrp>
+        <div wlc-loader class="{{$class}}__preloader" *ngIf="!isReady">
+        </div>
+        <ng-container *ngIf="isReady">
+            <ng-container *ngIf="!useMobileIframe">
+                <div #gameContainer class="{{$class}}__game-container" wlc-dynamic-html [html]="gameHtml" *ngIf="isReady; else preloader"></div>
+            </ng-container>
+
+            <ng-container *ngIf="useMobileIframe">
+                <div #gameContainer class="{{$class}}__game-container" id="egamings_container"></div>
+            </ng-container>
+        </ng-container>
+    </div>
+</div>
+
+
