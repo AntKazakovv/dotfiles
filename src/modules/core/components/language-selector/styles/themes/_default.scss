@@ -43,7 +43,18 @@
                 ::ng-deep svg {
 
                     path {
+                        @include bm.transition(fill);
                         fill: ef.get-value($themeDefault, 'currentArrowColor');
+                    }
+                }
+            }
+
+            &:hover {
+
+                ::ng-deep svg {
+
+                    path {
+                        fill: ef.get-value($themeDefault, 'currentArrowColorHover');
                     }
                 }
             }
@@ -130,15 +141,9 @@
         width: 100%;
         max-width: ef.get-value($themeDefaultModLog, 'maxWidthModLong');
         margin: ef.get-value($themeDefaultModLog, 'currentMarginModLong');
-        background: ef.get-value($themeDefaultModLog, 'currentBgModLong');
         border-radius: ef.get-value($themeDefaultModLog, 'currentBorderRadiusModLong');
         border: ef.get-value($themeDefaultModLog, 'currentBorderModLong');
         height: auto;
-
-        &:hover {
-            background: ef.get-value($themeDefaultModLog, 'currentBgModLongHover');
-            @include bm.transition(background);
-        }
 
         .wlc-language-selector {
 
@@ -146,10 +151,19 @@
                 padding: ef.get-value($themeDefaultModLog, 'currentPaddingModLong');
                 grid-template-columns: auto 1fr auto;
                 border-radius: ef.get-value($themeDefaultModLog, 'currentBorderRadiusModLong');
+                background: ef.get-value($themeDefaultModLog, 'currentBgModLong');
                 @include bm.transition(background);
+
+                &:hover {
+                    background: ef.get-value($themeDefaultModLog, 'currentBgModLongHover');
+                }
 
                 &--opened {
                     background: ef.get-value($themeDefaultModLog, 'currentBgModLongActive');
+
+                    &:hover {
+                        background: ef.get-value($themeDefaultModLog, 'currentBgModLongActive');
+                    }
 
                     .wlc-language-selector__current-arrow::ng-deep {
 
@@ -163,6 +177,12 @@
 
                     .wlc-language-selector__current-lang {
                         @include text.get-text-style(ef.get-value($themeDefaultModLog, 'langFontStyleActive'), ef.get-value($themeDefaultModLog, 'currentColorModLang'));
+                    }
+
+                    ~ .wlc-language-selector__dropdown {
+                        transform: scaleY(1);
+                        position: relative;
+                        margin-top: 5px;
                     }
                 }
 
@@ -187,6 +207,9 @@
                 width: 100%;
                 top: calc(100% + 5px);
                 left: 0;
+                transform: scaleY(0);
+                transform-origin: top;
+                @include bm.transition(transform);
 
                 .wlc-language-selector__link-lang {
                     @include text.get-text-style('PrimaryText', ef.get-value($themeDefaultModLog, 'currentColorModLang'));

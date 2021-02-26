@@ -44,6 +44,13 @@ export class ScrollbarComponent extends AbstractComponent implements OnInit {
     }
 
     public contentResizeHandler(): void {
-        this.swiper.swiperRef.update();
+        if (this.swiper) {
+            setTimeout(() => {
+                this.swiper.updateSwiper({});
+            }, 0);
+            setTimeout(() => {
+                this.swiper.updateSwiper({});
+            }, 500);
+        }
     }
 }
