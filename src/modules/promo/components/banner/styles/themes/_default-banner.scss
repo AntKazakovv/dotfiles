@@ -102,6 +102,7 @@
                 .banner__title,
                 .banner__description {
                     @include em.get-mq-map('color', $themeDefaultBanner, 'banner1DefaultColor');
+                    text-shadow: 1px 1px 2px ef.get-value($themeDefaultBanner, 'banner1ColorShadow'), 0 0 1em ef.get-value($themeDefaultBanner, 'banner1ColorShadow');
                 }
             }
 
@@ -246,18 +247,28 @@
 
             &__title {
                 @include lib.get-text-style('QoteTextBold', ef.get-value($themeDefaultBanner, 'colorTitle'));
+                text-shadow: 1px 1px 2px ef.get-value($themeDefaultBanner, 'colorShadow'), 0 0 1em ef.get-value($themeDefaultBanner, 'colorShadow');
                 @include em.get-mq-map('text-align', $themeDefaultBanner, 'textAlign');
 
                 @include mq.min(768) {
+                    @include lib.get-text-style('PromoTitle', ef.get-value($themeDefaultBanner, 'colorTitle'));
+                }
+
+                @include mq.min(1200) {
                     @include lib.get-text-style('ScreamTitle', ef.get-value($themeDefaultBanner, 'colorTitle'));
                 }
             }
 
             &__description {
                 @include lib.get-text-style('PrimaryText', ef.get-value($themeDefaultBanner, 'colorDescription'));
+                text-shadow: 1px 1px 2px ef.get-value($themeDefaultBanner, 'colorShadow'), 0 0 20px ef.get-value($themeDefaultBanner, 'colorShadow');
                 @include em.get-mq-map('text-align', $themeDefaultBanner, 'textAlign');
 
                 @include mq.min(768) {
+                    @include lib.get-text-style('ThirdTitleBold', ef.get-value($themeDefaultBanner, 'colorDescription'));
+                }
+
+                @include mq.min(1200) {
                     @include lib.get-text-style('QoteTextBold', ef.get-value($themeDefaultBanner, 'colorDescription'));
                 }
             }
