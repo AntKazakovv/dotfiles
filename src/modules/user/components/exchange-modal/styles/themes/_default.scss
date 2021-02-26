@@ -19,7 +19,14 @@
             position: relative;
             display: flex;
             flex-wrap: wrap;
-            align-items: flex-end;
+            justify-content: flex-end;
+            flex-direction: column;
+
+            @include mq.min(1024) {
+                flex-direction: row;
+                align-items: flex-end;
+                justify-content: start;
+            }
 
             &__value {
                 margin-right: 5px;

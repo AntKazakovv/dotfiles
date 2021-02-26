@@ -43,6 +43,5 @@ $themeDefault: map-merge((
     'pointsDescSize': 12px,
     'exchangeBtnMargin': (
         375: ef.get('size', 'smaller') 0 0,
-        640: ef.get('size', 'less') 0 0,
     ),
 ), $customThemeDefault);
