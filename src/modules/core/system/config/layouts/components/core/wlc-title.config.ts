@@ -103,6 +103,7 @@ export namespace wlcTitle {
         params: {
             customMod: ['profile'],
             mainText: gettext('Market'),
+            wlcElement: 'header_store',
         },
     };
 
