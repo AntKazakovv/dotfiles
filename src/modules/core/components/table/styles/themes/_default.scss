@@ -5,37 +5,34 @@
 @import '../utils/vars';
 
 .wlc-table--theme-default:host {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-gap: ef.get-value($themeDefault, 'rowGapMobile');
-    font-size: ef.get-value($themeDefault, 'fontSizeMobile');
-
-    @include mq.min(768) {
-        grid-template-columns: 1fr 1fr;
-    }
-
-    @include mq.min(1024) {
-        font-size: ef.get-value($themeDefault, 'fontSizeDesktop');
-        display: table;
-        width: 100%;
-        border-collapse: collapse;
-    }
 
     .wlc-table {
+
+        &__content {
+            display: grid;
+            @include em.get-mq-map('grid-template-columns', $themeDefault, 'rowTemplateColumns');
+            grid-gap: ef.get-value($themeDefault, 'rowGapMobile');
+
+            @include mq.min(1024) {
+                display: table;
+                width: 100%;
+                border-collapse: collapse;
+            }
+        }
 
         &__row {
             position: relative;
             display: grid;
             grid-template-columns: 1fr;
-            border: ef.get-value($themeDefault, 'rowBorderMobile');
+            @include em.get-mq-map('border', $themeDefault, 'rowBorder');
             border-radius: ef.get-value($themeDefault, 'rowBorderRadiusSizeMobile');
             height: fit-content;
             background: ef.get-value($themeDefault, 'rowBackgroundMobile');
             transition: all ef.get-value($themeDefault, 'animationTime');
+            overflow: hidden;
 
             @include mq.min(1024) {
                 display: table-row;
-                border: ef.get-value($themeDefault, 'rowBorderDesktop');
             }
 
             &.wlc-show {
@@ -81,7 +78,7 @@
             grid-auto-columns: auto;
             grid-auto-flow: column;
             grid-gap: ef.get-value($themeDefault, 'cellGapMobile');
-            padding: ef.get-value($themeDefault, 'paddingMobile');
+            @include em.get-mq-map('padding', $themeDefault, 'paddingCell');
             @include text.get-text-style('PrimaryText', ef.get-value($themeDefault, 'textColor'));
 
             @include mq.min(1024) {
@@ -96,6 +93,10 @@
                 &:last-child {
                     border-radius: 0 ef.get-value($themeDefault, 'rowBorderRadiusSizeDesktop') ef.get-value($themeDefault, 'rowBorderRadiusSizeDesktop') 0;
                 }
+
+                &--index {
+                    width: 10%;
+                }
             }
 
             ::ng-deep p {
@@ -107,7 +108,6 @@
                 font-size: ef.get-value($themeDefault, 'fontSizeTitleMobile');
                 font-weight: bold;
                 background: ef.get-value($themeDefault, 'rowTitleBackgroundMobile');
-                border-bottom: ef.get-value($themeDefault, 'rowTitleBorderBottomMobile');
                 border-radius: ef.get-value($themeDefault, 'rowBorderRadiusSizeMobile') ef.get-value($themeDefault, 'rowBorderRadiusSizeMobile') 0 0;
                 transition: all ef.get-value($themeDefault, 'animationTime');
 
@@ -141,7 +141,7 @@
                         transform: rotateZ(180deg);
                     }
 
-                    * {
+                    path {
                         fill: ef.get-value($themeDefault, 'openIconColor');
 
                         @include em.betweenClass('.wlc-show') {
@@ -154,10 +154,12 @@
             &-content {
                 justify-self: end;
                 text-align: end;
+                font-weight: bold;
 
                 @include mq.min(1024) {
                     text-align: ef.get-value($themeDefault, 'textAlignDesktop');
                     justify-self: ef.get-value($themeDefault, 'textAlignDesktop');
+                    font-weight: normal;
                 }
 
                 @include em.betweenClass('.wlc-table__cell--first') {
@@ -168,6 +170,30 @@
                         text-align: ef.get-value($themeDefault, 'textAlignDesktop');
                         justify-self: ef.get-value($themeDefault, 'textAlignDesktop');
                     }
+                }
+            }
+        }
+
+        &__empty {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            align-self: center;
+            grid-column-start: span 2;
+            margin: 20px auto;
+            @include text.get-text-style('PrimaryText', ef.get-value($themeDefault, 'textColor'));
+            text-align: center;
+
+            &-text {
+                align-self: center;
+            }
+
+            &-img {
+                display: none;
+
+                @include mq.min(1024) {
+                    display: block;
                 }
             }
         }

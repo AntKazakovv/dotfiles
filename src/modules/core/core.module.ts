@@ -12,6 +12,7 @@ import {UIRouterModule} from '@uirouter/angular';
 import {SwiperModule} from 'swiper/angular';
 import {AngularResizedEventModule} from 'angular-resize-event';
 import {ModalModule} from 'ngx-bootstrap/modal';
+import {PaginationModule} from 'ngx-bootstrap/pagination';
 import {AngularMyDatePickerModule} from 'angular-mydatepicker';
 // -- MODULES IMPORTS END --;
 
@@ -36,7 +37,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {BirthdayFieldComponent} from './components/birthday-field/birthday-field.component';
 import {BurgerPanelComponent} from './components/burger-panel/burger-panel.component';
 import {FloatPanelsComponent} from './components/float-panels/float-panels.component';
-import {WrapperComponent} from './components/wrapper/wrapper.component';
+import {WrapperComponent} from 'wlc-engine/modules/core/components';
 import {FormWrapperComponent} from './components/form-wrapper/form-wrapper.component';
 import {LogoComponent} from './components/logo/logo.component';
 import {LanguageSelectorComponent} from './components/language-selector/language-selector.component';
@@ -61,8 +62,8 @@ import {FormControlComponent} from './components/form-control/form-control.compo
 import {InfoPageComponent} from './components/info-page/info-page.component';
 import {TableComponent} from './components/table/table.component';
 import {CopyrightComponent} from './components/copyright/copyright.component';
-import {NotificationThreadComponent} from './components/notification-thread/notification-thread.component';
-import {MessageComponent} from './components/message/message.component';
+import {NotificationThreadComponent} from 'wlc-engine/modules/core/components';
+import {MessageComponent} from 'wlc-engine/modules/core/components';
 import {CurrencyComponent} from 'wlc-engine/modules/core/components/currency/currency.component';
 import {DatepickerComponent} from './components/datepicker/datepicker.component';
 import {TextBlockComponent} from './components/text-block/text-block.component';
@@ -71,6 +72,7 @@ import {RadioButtonsComponent} from './components/radio-buttons/radio-buttons.co
 import {TimerComponent} from './components/timer/timer.component';
 import {TitleComponent} from './components/title/title.component';
 import {ErrorPageComponent} from './components/error-page/error-page.component';
+import {WlcPaginationComponent} from './components/pagination/pagination.component';
 
 // -- COMPONENTS IMPORTS END  --;
 
@@ -133,6 +135,7 @@ export const components = {
     'wlc-loader': LoaderComponent,
     'wlc-logo': LogoComponent,
     'wlc-modal': WlcModalComponent,
+    'wlc-pagination': WlcPaginationComponent,
     'wlc-radio-buttons': RadioButtonsComponent,
     'wlc-select': SelectComponent,
     'wlc-table': TableComponent,
@@ -157,6 +160,7 @@ export const components = {
         ReactiveFormsModule,
         AngularResizedEventModule,
         ModalModule,
+        PaginationModule.forRoot(),
         AngularMyDatePickerModule,
     ],
     providers: [
@@ -212,6 +216,7 @@ export const components = {
         LogoComponent,
         MessageComponent,
         WlcModalComponent,
+        WlcPaginationComponent,
         NgTemplateNameDirective,
         NotificationThreadComponent,
         ParallaxMovementDirective,
@@ -262,6 +267,7 @@ export const components = {
         LoaderComponent,
         LogoComponent,
         WlcModalComponent,
+        WlcPaginationComponent,
         NgTemplateNameDirective,
         ScrollbarComponent,
         SelectComponent,

@@ -1,0 +1,21 @@
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/functions' as ef;
+
+.wlc-transaction-history {
+    margin-top: ef.get('size', 'smaller');
+
+    &-filter {
+        display: none;
+
+        @include mq.min(1024) {
+            display: grid;
+            align-items: flex-end;
+            grid: {
+                auto-flow: column;
+                auto-columns: 140px;
+                gap: ef.get('size', 'smally');
+            };
+            margin-top: ef.get('size', 'smaller');
+        }
+    }
+}

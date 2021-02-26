@@ -1,0 +1,14 @@
+<div class="{{$class}}-filter">
+    <div wlc-datepicker [inlineParams]='startDateInput'></div>
+    <div wlc-datepicker [inlineParams]='endDateInput'></div>
+
+    <div wlc-select [inlineParams]='filterSelect'></div>
+</div>
+
+<div *ngIf="ready; else preloader" class="{{$class}}">
+    <div wlc-table [inlineParams]='tableData'></div>
+</div>
+
+<ng-template #preloader>
+    <div wlc-loader></div>
+</ng-template>

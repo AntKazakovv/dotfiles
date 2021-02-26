@@ -24,6 +24,7 @@ import {
     uniq as _uniq,
     sortBy as _sortBy,
 } from 'lodash-es';
+import {PageChangedEvent} from "ngx-bootstrap/pagination";
 
 @Component({
     selector: '[wlc-table]',
@@ -38,6 +39,8 @@ export class TableComponent extends AbstractComponent implements OnInit {
 
     public $params: Params.ITableCParams;
     public rows: TableRowModel[] = [];
+    public paginatedRows: TableRowModel[] = [];
+    public itemPerPage: number = 10;
     public head: Params.ITableCol[] = [];
     public ready = false;
     public deviceType: DeviceType;
@@ -65,6 +68,8 @@ export class TableComponent extends AbstractComponent implements OnInit {
         if (this.$params.rows instanceof BehaviorSubject) {
             this.$params.rows.pipe(takeUntil(this.$destroy)).subscribe((rows) => {
                 this.rows = this.createTableRow(rows);
+                this.paginatedRows = this.rows?.slice(0, this.itemPerPage);;
+
                 this.cdr.markForCheck();
             });
         } else {
@@ -96,6 +101,9 @@ export class TableComponent extends AbstractComponent implements OnInit {
             this.ready = true;
             this.cdr.markForCheck();
         }
+
+        this.paginatedRows = this.rows?.slice(0, this.itemPerPage);
+        this.cdr.markForCheck();
         this.subscribeDeviceChange();
     }
 
@@ -119,6 +127,22 @@ export class TableComponent extends AbstractComponent implements OnInit {
         return (col.disableHideClass || first) || item.opened || this.deviceType === DeviceType.Desktop ? 'opened' : 'closed';
     }
 
+    protected subscribeDeviceChange(): void {
+        this.actionService.deviceType()
+            .pipe(takeUntil(this.$destroy))
+            .subscribe((type: DeviceType) => {
+                this.deviceType = type;
+                this.cdr.markForCheck();
+            });
+    }
+
+    public pageChanged(event: PageChangedEvent): void {
+        const startItem = (event.page - 1) * event.itemsPerPage;
+        const endItem = event.page * event.itemsPerPage;
+        this.paginatedRows = this.rows.slice(startItem, endItem);
+        this.cdr.markForCheck();
+    }
+
     private createTableRow(rows: unknown[]): TableRowModel[] {
         return rows.map((row) => new TableRowModel(row, this.$params));
     }
@@ -127,19 +151,10 @@ export class TableComponent extends AbstractComponent implements OnInit {
         this.head = _sortBy(this.$params.head.map((item: Params.ITableCol) => {
             if (item.type === 'amount') {
                 item.type = 'component';
-                item.component = 'core.wlc-dummy-amount';
+                item.component = 'core.wlc-currency';
             }
             item.order = item.order || Number.MAX_SAFE_INTEGER;
             return item;
         }), 'order');
-    }
-
-    protected subscribeDeviceChange(): void {
-        this.actionService.deviceType()
-            .pipe(takeUntil(this.$destroy))
-            .subscribe((type: DeviceType) => {
-                this.deviceType = type;
-                this.cdr.markForCheck();
-            });
     }
 }

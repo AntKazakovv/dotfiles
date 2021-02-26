@@ -4,6 +4,8 @@
 
 .wlc-datepicker--theme-default:host {
     position: relative;
+    display: flex;
+    flex-direction: column;
     max-width: ef.get-value($themeDefault, 'maxWidth');
 
     .container {
@@ -13,6 +15,7 @@
     .wlc-datepicker__label {
         @include lib.get-text-style('SignText', ef.get-value($themeDefault, 'labelColor'));
         padding: ef.get-value($themeDefault, 'labelPadding');
+        margin: ef.get-value($themeDefault, 'labelMargin');
         cursor: pointer;
     }
 
@@ -36,6 +39,7 @@
     }
 
     .wlc-datepicker__icon {
+        z-index: 1;
         position: absolute;
         top: 0;
         right: 0;

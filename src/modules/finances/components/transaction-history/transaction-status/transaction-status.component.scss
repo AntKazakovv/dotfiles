@@ -1,3 +1,6 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/text' as text;
+
 :host {
     display: inline-flex;
     align-items: center;
@@ -9,27 +12,40 @@
     position: absolute;
     top: 25px;
     right: 0;
-    background-color: #c5c;
-    border: 1px solid #ccc;
+    background-color: ef.get('mainColors', 'main');
     border-radius: 10px;
     max-width: 200px;
+    min-width: 200px;
     padding: 5px;
     z-index: 10;
 }
 
 .info-icon {
-
-    margin: 5px;
-    border: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 5px;
     border-radius: 50%;
-    width: 16px;
-    height: 16px;
-    display: inline-block;
+    width: 18px;
+    height: 18px;
 
     &:hover {
 
         + span {
             display: block;
+            @include text.get-text-style('PrimaryText', ef.get('mainColors', 'baseMain'));
+        }
+    }
+
+    ::ng-deep {
+
+        svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        path {
+            fill: ef.get('mainColors', 'baseOpacity');
         }
     }
 }

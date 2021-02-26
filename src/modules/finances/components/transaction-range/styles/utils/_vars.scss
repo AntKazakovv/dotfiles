@@ -1,0 +1,6 @@
+@use 'engine-scss/functions' as ef;
+
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'betHistoryColor': ef.get('mainColors', 'baseOpacity'),
+), $customThemeDefault);

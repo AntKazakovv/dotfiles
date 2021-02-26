@@ -32,7 +32,6 @@ import * as Params from './history-filter.params';
 import {
     isEqual as _isEqual,
     keys as _keys,
-    get as _get,
     merge as _merge,
 } from 'lodash-es';
 

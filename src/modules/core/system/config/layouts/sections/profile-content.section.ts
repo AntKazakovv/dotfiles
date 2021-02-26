@@ -21,7 +21,7 @@ export namespace profileContent {
         container: true,
         components: [
             componentLib.wlcTransactionHistory.filter,
-            componentLib.wlcProfileMenu.submenu,
+            componentLib.wlcProfileMenu.submenuHistory,
             componentLib.wlcTransactionHistory.def,
         ],
     };
@@ -73,7 +73,7 @@ export namespace profileContent {
         container: true,
         components: [
             componentLib.wlcTransactionHistory.filter,
-            componentLib.wlcProfileMenu.submenu,
+            componentLib.wlcProfileMenu.submenuHistory,
             componentLib.wlcTransactionHistory.def,
         ],
     };
@@ -118,6 +118,24 @@ export namespace profileContent {
             componentLib.wlcLoyaltyProgress.market,
             componentLib.wlcProfileMenu.submenu,
             componentLib.wlcLoyaltyLevels.def,
+        ],
+    };
+
+    export const profileBetHistory: ILayoutSectionConfig = {
+        container: true,
+        components: [
+            componentLib.wlcBetHistory.filter,
+            componentLib.wlcProfileMenu.submenuHistory,
+            componentLib.wlcBetHistory.def,
+        ],
+    };
+
+    export const profileBonusesHistory: ILayoutSectionConfig = {
+        container: true,
+        components: [
+            componentLib.wlcBonusesHistory.filter,
+            componentLib.wlcProfileMenu.submenu,
+            componentLib.wlcBonusesHistory.def,
         ],
     };
 }

@@ -18,7 +18,7 @@ export namespace wlcTransactionHistory {
                         config: 'transaction',
                     },
                     display: {
-                        before: 1024,
+                        before: 1023,
                     },
                 },
             ],

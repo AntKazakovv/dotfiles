@@ -31,7 +31,6 @@ import * as Params from './transaction-history.params';
 
 import {
     filter as _filter,
-    assign as _assign,
 } from 'lodash-es';
 
 @Component({
@@ -98,7 +97,8 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
         protected financesService: FinancesService,
         protected eventService: EventService,
         protected historyFilterService: HistoryFilterService,
-    ) {
+    )
+    {
         super(
             <IMixedParams<Params.ITransactionHistoryCParams>>{
                 injectParams: params,
@@ -120,12 +120,12 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
         });
 
         this.startDateInput.control.valueChanges.pipe(takeUntil(this.$destroy)).subscribe((value) => {
-            this.startDate = value.set({ hour: 0, minute: 0, second: 0 });
+            this.startDate = value.set({hour: 0, minute: 0, second: 0});
             this.transaction.next(this.filterTransaction());
         });
 
         this.endDateInput.control.valueChanges.pipe(takeUntil(this.$destroy)).subscribe((value) => {
-            this.endDate = value.set({ hour: 23, minute: 59, second: 59 });
+            this.endDate = value.set({hour: 23, minute: 59, second: 59});
             this.transaction.next(this.filterTransaction());
         });
 
@@ -163,6 +163,11 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
 
         result = _filter(result, (item) => {
             return item.date >= this.startDate && item.date <= this.endDate;
+        });
+
+        this.historyFilterService.dateChanges$.next({
+            startDate: this.startDate,
+            endDate: this.endDate,
         });
 
         return result;

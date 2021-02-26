@@ -1,0 +1,88 @@
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/functions' as ef;
+
+.wlc-pagination--theme-default {
+
+    &:host {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 20px auto;
+
+        ::ng-deep {
+
+            .pagination {
+                display: flex;
+                align-items: center;
+                list-style-type: none;
+                padding: 0;
+
+                .page-item {
+                    margin-right: 20px;
+
+                    &:last-child {
+                        margin: 0;
+                    }
+                }
+
+                &-prev,
+                &-next {
+
+                    .wlc-icon {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        width: 40px;
+                        height: 40px;
+                        border-radius: 10px;
+                        background: #ff8a00;
+
+                        &-content {
+                            display: flex;
+                            align-items: center;
+                        }
+
+                        svg {
+                            transform: rotate(-90deg);
+                            fill: #fff;
+                        }
+                    }
+
+                    &.disabled {
+
+                        .wlc-icon {
+                            background: ef.get('mainColors', 'baseOpacity');
+                        }
+                    }
+                }
+
+                &-prev {
+
+                    .wlc-icon {
+
+                        svg {
+                            transform: rotate(90deg);
+                        }
+                    }
+                }
+
+                &-page {
+
+                    .page-link {
+                        display: block;
+                        @include text.get-text-style('ButtonText', ef.get('fieldColors', 'labelColor'));
+                        text-decoration: none;
+                    }
+
+                    &.active {
+
+                        .page-link {
+                            color: ef.get('mainColors', 'baseMain');
+                            font-weight: bold;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

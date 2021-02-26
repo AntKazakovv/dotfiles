@@ -10,12 +10,14 @@ import {
 } from './system/services';
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
 import {TranslateModule} from '@ngx-translate/core';
+import {BetHistoryComponent} from './components/bet-history/bet-history.component';
 import {DepositWithdrawComponent} from './components/deposit-withdraw/deposit-withdraw.component';
 import {TransactionHistoryComponent} from './components/transaction-history/transaction-history.component';
 import {TransactionStatusComponent} from './components/transaction-history/transaction-status/transaction-status.component';
 import {TransactionCancelComponent} from './components/transaction-history/transaction-cancel/transaction-cancel.component';
 import {HistoryFilterComponent} from './components/history-filter/history-filter.component';
 import {HistoryFilterFormComponent} from './components/history-filter/history-filter-form/history-filter-form.component';
+import {HistoryRangeComponent} from './components/transaction-range/history-range.component';
 import {PaymentListComponent} from './components/payment-list/payment-list.component';
 import {CryptoDataComponent} from './components/crypto-data/crypto-data.component';
 
@@ -33,8 +35,10 @@ export const moduleConfig =
     GlobalHelper.mergeConfig<IFinancesConfig>(financesConfig, _get($config, '$finances', {}));
 
 export const components = {
+    'wlc-bet-history': BetHistoryComponent,
     'wlc-deposit-withdraw': DepositWithdrawComponent,
     'wlc-history-filter': HistoryFilterComponent,
+    'wlc-history-range': HistoryRangeComponent,
     'wlc-payment-list': PaymentListComponent,
     'wlc-transaction-history': TransactionHistoryComponent,
 };
@@ -49,6 +53,7 @@ export const components = {
     ],
     declarations: [
         AddProfileInfoComponent,
+        BetHistoryComponent,
         CryptoDataComponent,
         DepositWithdrawComponent,
         PaymentListComponent,
@@ -57,15 +62,18 @@ export const components = {
         TransactionCancelComponent,
         HistoryFilterComponent,
         HistoryFilterFormComponent,
+        HistoryRangeComponent,
     ],
     providers: [
         FinancesService,
         HistoryFilterService,
     ],
     exports: [
+        BetHistoryComponent,
         DepositWithdrawComponent,
         PaymentListComponent,
         TransactionHistoryComponent,
+        HistoryRangeComponent,
     ],
 })
 export class FinancesModule {

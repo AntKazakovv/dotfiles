@@ -23,6 +23,8 @@ export type HistoryType = 'transaction' | 'bonus' | 'bet';
 })
 export class HistoryFilterService {
 
+    public dateChanges$ = new BehaviorSubject(null);
+
     protected history: IHistoryData = {
         transaction: new BehaviorSubject(null),
         bonus: new BehaviorSubject(null),
@@ -66,5 +68,4 @@ export class HistoryFilterService {
     public setDefaultFilter(type: HistoryType, data: IIndexing<any>) {
         _assign(this.historyDefault[type], data);
     }
-
 }

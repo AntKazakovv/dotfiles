@@ -1,0 +1,29 @@
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/functions' as ef;
+
+.wlc-history-range--theme-default:host {
+
+    .wlc-history-range {
+
+        &__content {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        &__value {
+            display: flex;
+            align-items: center;
+        }
+
+        &__name {
+            margin: 0 5px 0 0;
+        }
+
+        &__name,
+        &__value {
+            white-space: nowrap;
+            @include text.get-text-style('PlaceholderText', ef.get-value($themeDefault, 'betHistoryColor'));
+        }
+    }
+}
