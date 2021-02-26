@@ -140,6 +140,7 @@ export namespace wlcButton {
         },
         params: {
             themeMod: 'promotions',
+            wlcElement: 'button_go-to-profile',
             common: {
                 text: gettext('Go to Profile'),
                 sref: 'app.profile.loyalty-bonuses.main',

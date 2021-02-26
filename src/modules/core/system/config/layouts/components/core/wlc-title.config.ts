@@ -6,7 +6,7 @@ export namespace wlcTitle {
         params: {
             customMod: ['promotions'],
             mainText: gettext('Promotions'),
-            wlcElement: 'header_promotions',
+            wlcElement: 'header_offers',
         },
     };
 

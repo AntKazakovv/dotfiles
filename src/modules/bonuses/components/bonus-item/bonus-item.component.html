@@ -6,7 +6,8 @@
     [class.choosebtn]="isChooseBtn"
     [class.active]="$params.common.bonus.isActive"
     [class.inventoried]="$params.common.bonus.inventoried"
-    [class.disabled]="$params.common.bonus.isDisabled">
+    [class.disabled]="$params.common.bonus.isDisabled"
+    data-wlc-element="block_bonus">
     <ng-container [ngSwitch]="$params.theme">
         <ng-container [ngTemplateOutlet]="promo" *ngSwitchCase="'promo'"></ng-container>
         <ng-container [ngTemplateOutlet]="default" *ngSwitchDefault></ng-container>
@@ -51,7 +52,7 @@
                     {{$params.common.bonus.name}}
                 </h4>
                 <p *ngIf="$params.common.bonus.description"
-                    class="{{$class}}__description" [wlc-clamp]="2">
+                    class="{{$class}}__description" [wlc-clamp]="2" data-wlc-element="bonus_description-name">
                     {{$params.common.bonus.description}}
                 </p>
                 <button type="button"
@@ -131,7 +132,7 @@
                     {{$params.common.bonus.name}}
                 </h4>
                 <p *ngIf="$params.common.bonus.description"
-                    class="{{$class}}__description">
+                    class="{{$class}}__description" data-wlc-element="bonus_description-name">
                     {{$params.common.bonus.description}}
                 </p>
             </div>
