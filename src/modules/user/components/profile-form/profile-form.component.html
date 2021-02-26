@@ -17,7 +17,7 @@
                 <div class="{{$class}}__item-title-main">{{'Notifications via e-mail' | translate}}</div>
             </div>
             <div class="{{$class}}__item-switcher">
-                <!-- <div wlc-checkbox></div> -->
+                <div wlc-checkbox [inlineParams]="toggleBtn"></div>
             </div>
         </div>
     </div>
@@ -44,7 +44,7 @@
                     text="Change"></button>
         </div>
 
-        <div class="{{$class}}__item" data-wlc-element="block_banking-info">
+       <!-- <div class="{{$class}}__item" data-wlc-element="block_banking-info">
             <div class="{{$class}}__item-title">
                 <div class="{{$class}}__item-title-main">
                     {{'Banking information' | translate}}
@@ -58,6 +58,6 @@
                     [icon]="'arrow'"
                     (click)="addBankingInformation()"
                     text="Add info"></button>
-        </div>
+        </div>-->
     </div>
 </div>

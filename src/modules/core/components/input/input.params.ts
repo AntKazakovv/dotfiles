@@ -1,6 +1,7 @@
 import {FormControl} from '@angular/forms';
 import {CustomType, IComponentParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ValidatorType} from 'wlc-engine/modules/core/system/services/validation/validation.service';
+import {IMaskOptions} from 'wlc-engine/modules/core/directives/input-mask.directive';
 
 export type ComponentTheme = 'default'| 'placeholder-shown' | 'vertical' | CustomType;
 export type ComponentType = 'default' | CustomType;
@@ -19,6 +20,7 @@ export interface IInputCParams extends IComponentParams<ComponentTheme, Componen
         usePasswordVisibilityBtn?: boolean;
         useLabel?: boolean;
         readonly?: boolean;
+        tooltipText?: string;
     }
     validators?: ValidatorType[];
     control?: FormControl;
@@ -30,6 +32,7 @@ export interface IInputCParams extends IComponentParams<ComponentTheme, Componen
     clipboard?: boolean;
     currency?: boolean;
     prohibitedPattern?: RegExp;
+    maskOptions?: IMaskOptions;
 }
 
 export const defaultParams: Partial<IInputCParams> = {

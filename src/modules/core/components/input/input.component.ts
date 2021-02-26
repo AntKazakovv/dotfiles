@@ -2,7 +2,10 @@ import {
     Component,
     Inject,
     Input,
+    ChangeDetectorRef,
+    OnChanges,
     OnInit,
+    SimpleChanges,
 } from '@angular/core';
 import {FormControl} from '@angular/forms';
 
@@ -23,7 +26,6 @@ import {
     kebabCase as _kebabCase,
 } from 'lodash-es';
 
-
 /**
  * Component input
  *
@@ -39,7 +41,7 @@ import {
     templateUrl: './input.component.html',
     styleUrls: ['./styles/input.component.scss'],
 })
-export class InputComponent extends AbstractComponent implements OnInit {
+export class InputComponent extends AbstractComponent implements OnInit, OnChanges {
     @Input() protected inlineParams: Params.IInputCParams;
     public $params: Params.IInputCParams;
     public control: FormControl;
@@ -49,6 +51,7 @@ export class InputComponent extends AbstractComponent implements OnInit {
         @Inject('injectParams') protected injectParams: Params.IInputCParams,
         protected configService: ConfigService,
         protected eventService: EventService,
+        protected cdr: ChangeDetectorRef,
     ) {
         super({injectParams, defaultParams: Params.defaultParams});
     }
@@ -58,6 +61,13 @@ export class InputComponent extends AbstractComponent implements OnInit {
         this.control = this.$params?.control;
         this.prepareModifiers();
         this.fieldWlcElement = 'input_' + _kebabCase(this.$params.name);
+    }
+
+    public ngOnChanges(changes: SimpleChanges): void {
+        if (this.$params) {
+            super.ngOnChanges(changes);
+            this.cdr.detectChanges();
+        }
     }
 
     public get setInputModifiers(): string {
@@ -107,5 +117,9 @@ export class InputComponent extends AbstractComponent implements OnInit {
 
         modifiers = _union(modifiers, this.$params.common.customModifiers.split(' '));
         this.addModifiers(modifiers);
+    }
+
+    protected isFieldRequired(): boolean {
+        return this.$params.validators?.includes('required');
     }
 }

@@ -3,14 +3,14 @@
 $customMainInfoThemeDefault: () !default;
 $mainInfoThemeDefault: map-merge((
     'sectionColGap': (
-        1024: ef.get('size', 'big'),
+        1024: ef.get('size', 'main') * 2,
     ),
     'sectionRowGap': (
         1024: ef.get('size', 'smaller'),
     ),
     'formRowGap': (
         375: ef.get('size', 'smaller'),
-        768: ef.get('size', 'smally'),
+        768: ef.get('size', 'small'),
     ),
     'saveButtonShift': ef.get('size', 'main') - ef.get('size', 'smaller'),
     'saveButtonAlign': (
@@ -21,10 +21,7 @@ $mainInfoThemeDefault: map-merge((
         768: 768px,
     ),
     'inputWidth': (
-        768: 70%,
-    ),
-    'maxFormWidth': (
-        1024: 765px,
+        768: 450px,
     ),
     'addBlockGap': ef.get('size', 'smaller'),
     'addTitleFontSize': ef.get('font', 'smaller'),

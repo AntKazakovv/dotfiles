@@ -1,0 +1,7 @@
+@use 'engine-scss/functions' as ef;
+
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'gap': ef.get('size', 'small'),
+    'templateColumns': minmax(0, 1fr),
+), $customThemeDefault);

@@ -142,6 +142,7 @@
 
                 &.checked:before {
                     left: calc(100% - #{ef.get-value($themeDefault, 'toggleCircleSize')} - #{ef.get-value($themeDefault, 'toggleCircleOffset')});
+                    background-color: ef.get-value($themeDefault, 'toggleCircleBgActive');
                 }
 
                 &:before {
@@ -155,7 +156,7 @@
                     width: ef.get-value($themeDefault, 'toggleCircleSize');
                     background-color: ef.get-value($themeDefault, 'toggleCircleBg');
                     border-radius: 50%;
-                    @include bm.transition(left);
+                    @include bm.transition();
                 }
             }
 

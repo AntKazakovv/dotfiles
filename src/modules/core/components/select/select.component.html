@@ -1,7 +1,14 @@
 <label for="{{$params.name}}"
+       *ngIf="$params.labelText"
        class="{{$class}}__label"
->{{$params.labelText | translate}}</label>
-<div class="{{$class}}__group" wlc-click-outside (clickOutside)="closeDropdown()">
+>{{$params.labelText | translate}}
+    <ng-container *ngIf="isFieldRequired()">*</ng-container>
+    <div *ngIf="$params.common.tooltipText"
+         wlc-tooltip [inlineParams]="{inlineText: $params.common.tooltipText}">
+    </div>
+</label>
+<div class="{{$class}}__group"
+     wlc-click-outside (clickOutside)="closeDropdown()">
     <button class="{{$class}}__field"
             type="button"
             id="{{$params.name}}"
@@ -17,7 +24,7 @@
          *ngIf="$params.name"
          [className]="$class"
          [control]="control"
-         [validators]="$params?.validators"
+         [validators]="$params.validators"
          [fieldName]="$params.name.toLowerCase()"
     ></div>
     <div class="{{$class}}-status">

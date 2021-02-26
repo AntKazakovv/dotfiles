@@ -49,7 +49,7 @@ export interface IUserProfile {
     phoneAltCode?: string;
     phoneAltNumber?: string;
     phoneCode?: string;
-    phoneNumber?: string;
+    phoneNumber?: number | string;
     phoneVerified?: string;
     postalCode?: string;
     registrationBonus?: string;

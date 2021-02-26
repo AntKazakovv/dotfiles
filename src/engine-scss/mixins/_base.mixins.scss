@@ -118,3 +118,17 @@
         }
     }
 }
+
+@mixin arrowIconAnimation() {
+
+    @media (hover: hover) {
+
+        &:hover {
+
+            .wlc-icon {
+                transform: rotateX(360deg) translateX(10px);
+                @include transition(transform, 0.3s);
+            }
+        }
+    }
+}

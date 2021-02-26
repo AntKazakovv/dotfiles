@@ -47,16 +47,17 @@ export const profileForm: IFormWrapperCParams = {
                 },
                 wlcElement: 'block_Name',
                 name: 'firstName',
-                validators: ['required',
+                locked: true,
+                validators: [
+                    'required',
                     {
                         name: 'minLength',
                         options: 2,
                     },
-                    {
-                        name: 'regExp',
-                        options: new RegExp('[^A-Za-z]'),
-                    },
                 ],
+                maskOptions: {
+                    mask: /^[a-zA-zА-Яа-яёЁ][a-zA-zА-Яа-яёЁ\s\-]{0,50}$/,
+                },
                 exampleValue: 'Ivan',
             },
         },
@@ -68,26 +69,27 @@ export const profileForm: IFormWrapperCParams = {
                 },
                 wlcElement: 'block_last-name',
                 name: 'lastName',
-                validators: ['required',
+                locked: true,
+                validators: [
+                    'required',
                     {
                         name: 'minLength',
                         options: 2,
                     },
-                    {
-                        name: 'regExp',
-                        options: new RegExp('[^A-Za-z]'),
-                    },
                 ],
+                maskOptions: {
+                    mask: /^[a-zA-zА-Яа-яёЁ][a-zA-zА-Яа-яёЁ\s\-]{0,50}$/,
+                },
                 exampleValue: 'Ivanov',
             },
         },
         {
             name: 'core.wlc-select',
             params: <ISelectCParams>{
-                labelText: gettext('Gender'),
+                labelText: gettext('Sex'),
                 wlcElement: 'block_gender',
                 common: {
-                    placeholder: gettext('Gender'),
+                    placeholder: gettext('Sex'),
                 },
                 locked: true,
                 name: 'gender',
@@ -96,46 +98,11 @@ export const profileForm: IFormWrapperCParams = {
             },
         },
         {
-            name: 'core.wlc-select',
-            params: <ISelectCParams>{
-                labelText: gettext('Date of birth'),
-                wlcElement: 'block_day',
-                customMod: 'day',
-                common: {
-                    placeholder: gettext('Day'),
-                },
-                locked: true,
-                name: 'birthDay',
+            name: 'core.wlc-birth-field',
+            params: {
+                name: ['birthDay', 'birthMonth', 'birthYear'],
                 validators: ['required'],
-                options: 'birthDay',
-            },
-        },
-        {
-            name: 'core.wlc-select',
-            params: <ISelectCParams>{
-                wlcElement: 'block_month',
-                customMod: 'month',
-                common: {
-                    placeholder: gettext('Month'),
-                },
                 locked: true,
-                name: 'birthMonth',
-                validators: ['required'],
-                options: 'birthMonth',
-            },
-        },
-        {
-            name: 'core.wlc-select',
-            params: <ISelectCParams>{
-                wlcElement: 'block_year',
-                customMod: 'year',
-                common: {
-                    placeholder: gettext('Year'),
-                },
-                locked: true,
-                name: 'birthYear',
-                validators: ['required'],
-                options: 'birthYear',
             },
         },
         {
@@ -186,25 +153,26 @@ export const profileForm: IFormWrapperCParams = {
             },
         },
         {
-            name: 'core.wlc-input',
-            params: {
+            name: 'core.wlc-select',
+            params: <ISelectCParams>{
+                labelText: gettext('PEP'),
+                wlcElement: 'block_pep',
                 common: {
                     placeholder: gettext('PEP'),
+                    tooltipText: gettext('Politically Exposed Person'),
                 },
-                wlcElement: 'block_pep',
+                locked: true,
                 name: 'pep',
                 validators: [],
+                options: 'pep',
             },
         },
         {
-            name: 'core.wlc-input',
+            name: 'user.wlc-phone-field',
             params: {
-                common: {
-                    placeholder: gettext('Iban number'),
-                },
-                wlcElement: 'block_iban',
-                name: 'ibanNumber',
-                validators: [],
+                name: ['phoneCode', 'phoneNumber'],
+                validators: ['required'],
+                locked: true,
             },
         },
         {
@@ -214,6 +182,8 @@ export const profileForm: IFormWrapperCParams = {
                     placeholder: gettext('Password'),
                     wlcElement: 'block_password',
                     type: 'password',
+                    customModifiers: 'right-shift',
+                    usePasswordVisibilityBtn: true,
                 },
                 name: 'currentPassword',
                 validators: ['required'],

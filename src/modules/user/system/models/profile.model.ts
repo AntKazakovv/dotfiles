@@ -114,8 +114,8 @@ export class UserProfile extends AbstractModel<IUserProfile> {
         return this.data.phoneCode;
     }
 
-    public get phoneNumber(): string {
-        return this.data.phoneNumber;
+    public get phoneNumber(): number {
+        return +this.data.phoneNumber;
     }
 
     public get phoneVerified(): string {

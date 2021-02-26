@@ -14,12 +14,12 @@
                 align-items: center;
                 @include text.get-text-style('PlaceholderTextBold', ef.get-value($themeDefault, 'textColor'));
             }
-        }
 
-        .wlc-icon {
+            .wlc-icon {
 
-            svg {
-                fill: ef.get-value($themeDefault, 'iconColor');
+                path {
+                    stroke: ef.get-value($themeDefault, 'iconColor');
+                }
             }
         }
 

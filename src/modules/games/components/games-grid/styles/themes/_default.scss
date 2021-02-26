@@ -31,16 +31,7 @@
             @include text.get-text-style('PlaceholderTextBold', ef.get-value($themeDefault, 'allLinkColor'));
             text-decoration: none;
 
-            @media (hover: hover) {
-
-                &:hover {
-
-                    .wlc-icon {
-                        transform: rotateX(360deg) translateX(10px);
-                        @include bm.transition(transform, 0.3s);
-                    }
-                }
-            }
+            @include bm.arrowIconAnimation;
 
             ::ng-deep {
 

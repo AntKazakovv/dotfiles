@@ -1,7 +1,9 @@
 <ng-template #default>
     <label for="{{$params.name}}"
            class="{{$class}}__label"
-    >{{$params.common.placeholder | translate}}</label>
+    >{{$params.common.placeholder | translate}}
+        <ng-container *ngIf="isFieldRequired()">*</ng-container>
+    </label>
     <div class="{{$class}}__textarea">
         <textarea name="{{$params.name}}"
                   id="{{$params.name}}"
