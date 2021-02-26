@@ -4,6 +4,24 @@
 
 .wlc-game-wrapper--theme-default {
 
+    &.wlc-game-wrapper--type-default {
+
+        .wlc-game-wrapper {
+
+            &__game-area {
+
+                iframe,
+                object {
+                    height: 100%;
+                }
+            }
+        }
+    }
+
+    &.wlc-game-wrapper--type-fullscreen-game-frame {
+        margin-bottom: 30px;
+    }
+
     .wlc-game-wrapper {
 
         &__content {
@@ -104,7 +122,6 @@
             iframe,
             object {
                 width: 100% !important;
-                height: 100%;
             }
         }
 

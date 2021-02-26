@@ -60,6 +60,12 @@ export const $layouts: ILayoutsConfig = {
             content: sectionsLib.content.promotions,
         },
     },
+    'app.sportsbook': {
+        extends: 'app',
+        sections: {
+            content: sectionsLib.content.sportsbook,
+        },
+    },
     'app.profile': {
         extends: 'app',
         sections: {

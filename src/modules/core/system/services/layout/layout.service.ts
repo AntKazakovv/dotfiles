@@ -409,6 +409,14 @@ export class LayoutService {
                     this.afterModuleLoad('profile', m);
                     return m.ProfileModule;
                 });
+            case 'sportsbook':
+                if (this.loadedModules.sportsbook) {
+                    return this.loadedModules.sportsbook;
+                }
+                return import('wlc-engine/modules/sportsbook/sportsbook.module').then(m => {
+                    this.afterModuleLoad('sportsbook', m);
+                    return m.SportsbookModule;
+                });
         }
     }
 

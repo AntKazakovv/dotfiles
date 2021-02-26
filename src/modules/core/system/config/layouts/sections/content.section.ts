@@ -25,6 +25,14 @@ export namespace content {
         ],
     };
 
+    export const sportsbook: ILayoutSectionConfig = {
+        order: 2,
+        container: false,
+        components: [
+            componentLib.wlcSportsbook.def,
+        ],
+    };
+
     export const error: ILayoutSectionConfig = {
         container: true,
         components: [

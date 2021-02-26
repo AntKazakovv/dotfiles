@@ -91,4 +91,17 @@ export const wlcMainMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
             },
         },
     },
+    'main-menu:sportsbook': {
+        name: gettext('Sportsbook'),
+        type: 'sref',
+        class: 'sportsbook',
+        icon: 'sportsbook',
+        params: {
+            state: {
+                name: 'app.sportsbook',
+                params: {
+                },
+            },
+        },
+    },
 };
