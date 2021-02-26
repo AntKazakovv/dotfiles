@@ -62,7 +62,6 @@ export interface IMenuItemsGroup {
 
 export interface IMenuCParams extends IComponentParams<MenuTheme, MenuType, string> {
     common?: {
-        useArrow?: boolean;
         useSwiper?: boolean;
         swiper?: {
             scrollToStart: boolean;

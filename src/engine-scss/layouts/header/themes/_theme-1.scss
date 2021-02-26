@@ -15,28 +15,27 @@
             position: relative;
             display: grid;
             align-items: center;
-            padding: 0 map-get($theme1Header, 'headerGlobalPadding');
 
-            @include bm.get-mq-map('grid-template-columns', $theme1Header, headerGridColumns);
-            @include bm.get-mq-map('grid-gap', $theme1Header, headerGridGap);
-            @include bm.get-mq-map('min-height', $theme1Header, headerMinHeight);
+            @include bm.get-mq-map('grid-template-columns', $theme1Header, 'headerGridColumns');
+            @include bm.get-mq-map('grid-gap', $theme1Header, 'headerGridGap');
+            @include bm.get-mq-map('min-height', $theme1Header, 'headerMinHeight');
+            @include bm.get-mq-map('padding', $theme1Header, 'headerPadding');
 
             @include mq.min(1024) {
                 max-width: 1920px;
                 width: 100%;
-                padding: 0;
                 margin: 0 auto;
             }
         }
 
-        .wlc-logo {
+        .wlc-logo[wlc-logo] {
 
-            &__image,
+            img,
             svg {
-                display: block;
                 margin: 0 auto;
                 max-height: 50%;
                 height: 100%;
+                width: auto;
             }
         }
 
@@ -58,7 +57,6 @@
                 margin-right: auto;
 
                 @include mq.min(1024) {
-                    margin-left: map-get($theme1Header, 'headerGapColumns');
                     text-align: center;
                 }
             }
@@ -66,10 +64,6 @@
             &-search {
                 width: map-get($theme1Header, 'headerSearchBtnWidth');
                 margin-left: auto;
-
-                @include mq.min(1024) {
-                    margin-right: map-get($theme1Header, 'headerGapColumns');
-                }
 
                 @media (hover: hover) {
 

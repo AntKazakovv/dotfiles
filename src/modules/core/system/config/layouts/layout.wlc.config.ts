@@ -220,7 +220,7 @@ export const $layouts: ILayoutsConfig = {
     'app.profile.loyalty-level': {
         extends: 'app.profile',
         sections: {
-            'profile-content': sectionsLib.profileContent.empty,
+            'profile-content': sectionsLib.profileContent.profileLoyaltyLevels,
         },
     },
     'app.profile.referrals': {

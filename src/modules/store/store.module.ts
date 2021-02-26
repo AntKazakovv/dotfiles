@@ -8,16 +8,19 @@ import {UserModule} from '../user/user.module';
 
 import {StoreService} from './system/services';
 
+import {LoyaltyLevelsComponent} from './components/loyalty-levels/loyalty-levels.component';
 import {StoreItemComponent} from './components/store-item/store-item.component';
 import {StoreListComponent} from './components/store-list/store-list.component';
 
 export const components = {
+    'wlc-loyalty-levels': LoyaltyLevelsComponent,
     'wlc-store-item': StoreItemComponent,
     'wlc-store-list': StoreListComponent,
 };
 
 @NgModule({
     declarations: [
+        LoyaltyLevelsComponent,
         StoreItemComponent,
         StoreListComponent,
     ],
@@ -32,6 +35,7 @@ export const components = {
         StoreService,
     ],
     exports: [
+        LoyaltyLevelsComponent,
         StoreItemComponent,
         StoreListComponent,
     ],

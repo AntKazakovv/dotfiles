@@ -37,8 +37,11 @@
                     @include bm.get-mq-map('font-size', $themeDefault, 'fontSize');
                     cursor: pointer;
 
-                    &:hover {
-                        color: ef.get-value($themeDefault, 'textColorHover');
+                    @media (hover: hover) {
+
+                        &:hover {
+                            color: ef.get-value($themeDefault, 'textColorHover');
+                        }
                     }
 
                     &.active {

@@ -60,9 +60,6 @@ export class ProfileMenuComponent extends AbstractComponent implements OnInit {
             type: 'profile-menu',
             theme: this.$params.theme,
             themeMod: this.$params.themeMod,
-            common: {
-                useArrow: this.$params.common?.useArrow,
-            },
         };
 
         this.router.transitionService.onSuccess({}, (transition) => {

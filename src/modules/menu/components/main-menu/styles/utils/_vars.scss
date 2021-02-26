@@ -6,7 +6,8 @@ $themeDefault: map-merge((
     'gapSize': (
         375: ef.get('size', 'small'),
         1200: ef.get('size', 'smaller'),
-        1420: ef.get('size', 'main')
+        1420: ef.get('size', 'less'),
+        1630: ef.get('size', 'main'),
     ),
     'paddingSize': ef.get('size', 'smaller'),
     'textTransform': uppercase,

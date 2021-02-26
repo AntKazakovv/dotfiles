@@ -62,9 +62,6 @@ export class MobileMenuComponent extends AbstractComponent implements OnInit {
             type: 'mobile-menu',
             theme: this.$params.theme,
             themeMod: this.$params.themeMod,
-            common: {
-                useArrow: this.$params.common?.useArrow,
-            },
         };
 
         const useIcons: boolean = _has(this.$params, 'common.icons.use')

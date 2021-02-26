@@ -5,11 +5,19 @@ $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'profileMenuGap': (
         375: ef.get('size', 'small'),
+        900: ef.get('size', 'smallest')
     ),
     'profileMenuBg': (
         375: ef.get-value(ev.$profileSettings, 'profileBg', 375),
     ),
     'profileMenuActiveColor': ef.get('mainColors', 'baseMain'),
+    'profileMenuBgBeforeHeight': ef.get('size', 'smaller'),
+    'profileMenuLinkPadding': (
+        375: ef.get('size', 'small') ef.get('size', 'small'),
+        1024: ef.get('size', 'small') ef.get('size', 'smaller')
+    ),
+    'profileMenuLinkBorderRadius': ef.get('radius', 'big') ef.get('radius', 'big') 0 0,
+    'iconSize': 16px,
 ), $customThemeDefault);
 
 $customDropdownThemeDefault: () !default;
@@ -19,16 +27,17 @@ $themeDropdownDefault: map-merge((
     'activeTabLinkBg': ef.get('mainColors', 'main'),
     'linkPadding': 8px 12px,
     'linkColor': ef.get('mainColors', 'baseMain'),
-    'linkBg': ef.get('mainColors', 'bg700'),
+    'linkBg': ef.get('mainColors', 'bg'),
     'activeLinkBg': ef.get('mainColors', 'baseOpacity'),
     'linkFill': ef.get('mainColors', 'baseMain'),
     'linkBorderRadius': ef.get('radius', 'biger'),
-    'submenuBg': ef.get('mainColors', 'bg700'),
+    'submenuBg': ef.get('mainColors', 'bg'),
 ), $customDropdownThemeDefault);
 
 $customSubmenuProfileDefault: () !default;
 $submenuProfileDefault: map-merge((
-    'submenuBorderBottom': 2px solid ef.get('mainColors', 'baseOpacity'),
+    'submenuBorderBottom': ef.get('mainColors', 'baseOpacity'),
+    'submenuBorderBottomHeight': 2px,
     'submenuMargin': (
         375: 20px 0,
         1024: 0 0 40px,

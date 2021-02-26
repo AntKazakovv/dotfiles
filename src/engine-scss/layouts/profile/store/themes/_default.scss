@@ -3,7 +3,8 @@
 
 @import '../utils/vars';
 
-.app-profile-loyalty-store-main-state {
+.app-profile-loyalty-store-main-state,
+.app-profile-loyalty-level-state {
 
     .wlc-sections__profile-content {
 
@@ -11,44 +12,41 @@
             position: relative;
             display: grid;
             grid: {
-                template-columns: minmax(0, 1fr);
+                template-columns: minmax(0, 1fr) minmax(0, 1fr);
                 template-rows: auto;
-                template-areas: 'title' 'stats' 'store';
-                gap: ef.get-value($storeThemeDefault, 'sectionGap', 719);
+                template-areas: 'title stats' 'submenu submenu' 'store store';
             }
 
             @include mq.min(720) {
                 grid: {
                     template-columns: repeat(2, 1fr);
-                    template-areas:
-                        'title stats'
-                        'store store';
-                    gap: ef.get-value($storeThemeDefault, 'sectionGap', 720);
+                    template-areas: 'title stats' 'submenu submenu' 'store store';
                 }
             }
         }
-    }
 
-    .wlc-title {
-        grid-area: title;
-        text-align: center;
-
-        @include mq.min(720) {
-            text-align: left;
+        .wlc-title {
+            grid-area: title;
         }
-    }
 
-    .wlc-user-stats--type-store {
-        grid-area: stats;
-        display: flex;
-        justify-content: center;
-
-        @include mq.min(720) {
-            justify-content: flex-end;
+        .wlc-loyalty-progress {
+            grid-area: stats;
+            max-width: 300px;
+            width: 100%;
+            margin-left: auto;
         }
-    }
 
-    .wlc-store-list {
-        grid-area: store;
+        .wlc-loyalty-table,
+        .wlc-store-list {
+            grid-area: store;
+        }
+
+        .wlc-profile-menu {
+            grid-area: submenu;
+
+            @include mq.min(1024) {
+                margin: -20px 0 0;
+            }
+        }
     }
 }

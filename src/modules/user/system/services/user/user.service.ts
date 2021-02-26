@@ -5,6 +5,7 @@ import {
     Subscription,
     BehaviorSubject,
 } from 'rxjs';
+import {filter} from 'rxjs/operators';
 
 import {
     DataService,
@@ -14,7 +15,6 @@ import {
 } from 'wlc-engine/modules/core/system/services';
 import {
     IIndexing,
-    IUserInfo,
     IUserProfile,
 } from 'wlc-engine/modules/core/system/interfaces';
 import {IData} from 'wlc-engine/modules/core/system/services/data/data.service';
@@ -22,7 +22,6 @@ import {UserInfo} from 'wlc-engine/modules/user/system/models/info.model';
 import {UserProfile} from '../../models/profile.model';
 import {ConfigService} from 'wlc-engine/modules/core';
 import {IPushMessageParams, NotificationEvents} from 'wlc-engine/modules/core/system/services/notification';
-import {filter} from 'rxjs/operators';
 
 import {
     each as _each,
@@ -70,7 +69,8 @@ export class UserService {
         private logService: LogService,
         private modalService: ModalService,
         private stateService: StateService,
-    ) {
+    )
+    {
         this.isAuthenticated = this.configService.get('$user.isAuthenticated');
 
         this.registerMethods();
@@ -185,6 +185,10 @@ export class UserService {
         this.dataService.request('user/userLogout');
     }
 
+    public getLoyaltyLevels():  Promise<IData> {
+        return this.dataService.request('loyalty/levels');
+    }
+
     public createUserProfile(userProfile: IUserProfile): Promise<IIndexing<any>> {
         return this.dataService.request('user/createProfile', userProfile as any);
     }
@@ -220,7 +224,7 @@ export class UserService {
     }
 
     public sendPasswordRestore(email: string, reCaptchaToken?: string): Promise<IIndexing<any>> {
-        const params: {email: string, reCaptchaToken?: string} = {
+        const params: { email: string, reCaptchaToken?: string } = {
             email: email,
         };
 
@@ -257,7 +261,7 @@ export class UserService {
     }
 
     public changeEmail(email: string, currentPassword?: string, code?: string): void {
-        const params: {email: string; currentPassword?: string; code?: string} = {email};
+        const params: { email: string; currentPassword?: string; code?: string } = {email};
 
         if (currentPassword) {
             params.currentPassword = currentPassword;
@@ -552,6 +556,13 @@ export class UserService {
             //     success: 'USER_INFO',
             //     fail: 'USER_INFO_ERROR',
             // },
+        });
+
+        this.dataService.registerMethod({
+            name: 'levels',
+            system: 'loyalty',
+            url: '/loyalty/levels',
+            type: 'GET',
         });
     }
 }

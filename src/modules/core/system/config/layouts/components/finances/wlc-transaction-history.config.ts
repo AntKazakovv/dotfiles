@@ -8,9 +8,6 @@ export namespace wlcTransactionHistory {
 
     export const filter: ILayoutComponent = {
         name: 'core.wlc-wrapper',
-        display: {
-            before: 1023,
-        },
         params: {
             class: 'profile-history-filter',
             components: [
@@ -19,6 +16,9 @@ export namespace wlcTransactionHistory {
                     name: 'finances.wlc-history-filter',
                     params: {
                         config: 'transaction',
+                    },
+                    display: {
+                        before: 1024,
                     },
                 },
             ],

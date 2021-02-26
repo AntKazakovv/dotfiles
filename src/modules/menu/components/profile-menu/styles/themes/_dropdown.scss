@@ -61,7 +61,14 @@
                     background: ef.get-value($themeDropdownDefault, 'linkBg');
                     border-radius: ef.get-value($themeDropdownDefault, 'linkBorderRadius');
 
-                    &:hover,
+                    @media (hover: hover) {
+
+                        &:hover {
+                            background: ef.get-value($themeDropdownDefault, 'activeLinkBg');
+                            @include bm.transition(background);
+                        }
+                    }
+
                     &.active {
                         background: ef.get-value($themeDropdownDefault, 'activeLinkBg');
                         @include bm.transition(background);
@@ -88,6 +95,14 @@
                         &.active {
                             background: ef.get-value($themeDropdownDefault, 'activeLinkBg');
                             @include bm.transition(background);
+                        }
+
+                        @media (hover: hover) {
+
+                            &:hover {
+                                background: ef.get-value($themeDropdownDefault, 'activeLinkBg');
+                                @include bm.transition(background);
+                            }
                         }
                     }
                 }

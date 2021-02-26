@@ -1,3 +1,5 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/text' as text;
 @import './utils/vars';
 
 @import './themes/default';
@@ -14,12 +16,12 @@ $baseClass: 'wlc-burger-panel';
         flex-direction: column;
         height: 100%;
         max-height: 100%;
-        width: map-get($themeDefault, 'panelWidth');
-        max-width: map-get($themeDefault, 'panelWidth');
-        background-color: map-get($themeDefault, 'panelBackground');
-        color: map-get($themeDefault, 'panelTextColor');
-        font-size: map-get($themeDefault, 'panelTextSize');
-        transition: map-get($themeDefault, 'transition');
+        width: ef.get-value($themeDefault, 'panelWidth');
+        max-width: ef.get-value($themeDefault, 'panelWidth');
+        background-color: ef.get-value($themeDefault, 'panelBackground');
+        color: ef.get-value($themeDefault, 'panelTextColor');
+        font-size: ef.get-value($themeDefault, 'panelTextSize');
+        transition: ef.get-value($themeDefault, 'transition');
         outline-style: none;
     }
 
@@ -46,14 +48,10 @@ $baseClass: 'wlc-burger-panel';
         display: flex;
         justify-content: space-between;
         align-items: center;
-        background: map-get($themeDefault, 'panelHeaderBackground');
-        padding: map-get($themeDefault, 'panelHeaderPadding');
-        border-bottom: map-get($themeDefault, 'panelHeaderBorderBottom');
-        font: {
-            size: map-get($themeDefault, 'panelHeaderFontSize');
-            weight: map-get($themeDefault, 'panelHeaderFontWeight');
-        }
-        color: map-get($themeDefault, 'panelHeaderColor');
+        background: ef.get-value($themeDefault, 'panelHeaderBackground');
+        padding: ef.get-value($themeDefault, 'panelHeaderPadding');
+        border-bottom: ef.get-value($themeDefault, 'panelHeaderBorderBottom');
+        @include text.get-text-style('PrimaryTextBold', ef.get-value($themeDefault, 'panelHeaderColor'));
     }
 
     &__title {
@@ -67,8 +65,8 @@ $baseClass: 'wlc-burger-panel';
         background: transparent;
         border: none;
         opacity: 0.5;
-        color: map-get($themeDefault, 'closeIconColor');
-        transition: map-get($themeDefault, 'transition');
+        color: ef.get-value($themeDefault, 'closeIconColor');
+        transition: ef.get-value($themeDefault, 'transition');
 
         &:focus {
             outline: none;
@@ -83,11 +81,11 @@ $baseClass: 'wlc-burger-panel';
         position: relative;
         flex: 1 1 auto;
         min-height: 1px;
-        background: map-get($themeDefault, 'panelContentBackground');
+        background: ef.get-value($themeDefault, 'panelContentBackground');
     }
 
     &__inner {
-        padding: map-get($themeDefault, 'panelContentPadding');
+        padding: ef.get-value($themeDefault, 'panelContentPadding');
     }
 }
 
