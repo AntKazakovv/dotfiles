@@ -122,6 +122,7 @@ export const MODALS_LIST: IModalList = {
             },
             size: 'md',
             showFooter: false,
+            modalTitle: gettext('Lets play!'),
         },
     },
     staticText: {

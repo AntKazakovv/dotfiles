@@ -335,6 +335,7 @@
         .wlc-modal__header {
             justify-content: center;
             border-bottom: none;
+            padding: ef.get-value($hostModal, 'modalHeaderLangPadding');
         }
 
         .wlc-modal__title {
