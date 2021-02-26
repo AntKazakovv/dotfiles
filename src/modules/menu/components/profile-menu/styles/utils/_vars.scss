@@ -27,11 +27,17 @@ $themeDropdownDefault: map-merge((
     'activeTabLinkBg': ef.get('mainColors', 'main'),
     'linkPadding': 8px 12px,
     'linkColor': ef.get('mainColors', 'baseMain'),
-    'linkBg': ef.get('mainColors', 'bg'),
+    'linkBg': (
+        375: ef.get('mainColors', 'bg700'),
+        1024: ef.get('mainColors', 'bg'),
+    ),
     'activeLinkBg': ef.get('mainColors', 'baseOpacity'),
     'linkFill': ef.get('mainColors', 'baseMain'),
     'linkBorderRadius': ef.get('radius', 'biger'),
-    'submenuBg': ef.get('mainColors', 'bg'),
+    'submenuBg': (
+        375: ef.get('mainColors', 'bg700'),
+        1024: ef.get('mainColors', 'bg'),
+    ),
 ), $customDropdownThemeDefault);
 
 $customSubmenuProfileDefault: () !default;

@@ -122,7 +122,7 @@ export const changePasswordFormConfig: IFormWrapperCParams = {
     validators: [
         {
             name: 'matchingFields',
-            options: ['currentPassword', 'confirmPassword'],
+            options: ['newPassword', 'confirmPassword'],
         },
     ],
 };

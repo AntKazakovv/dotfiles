@@ -58,7 +58,7 @@
                     @include text.get-text-style('PrimaryText', ef.get-value($themeDropdownDefault, 'linkColor'));
                     cursor: pointer;
                     text-decoration: none;
-                    background: ef.get-value($themeDropdownDefault, 'linkBg');
+                    @include bm.get-mq-map('background', $themeDropdownDefault, 'linkBg');
                     border-radius: ef.get-value($themeDropdownDefault, 'linkBorderRadius');
 
                     @media (hover: hover) {
@@ -87,7 +87,7 @@
                 .wlc-menu__submenu {
                     margin-top: ef.get-value($themeDropdownDefault, 'menuGag');
                     border-radius: ef.get-value($themeDropdownDefault, 'linkBorderRadius');
-                    background: ef.get-value($themeDropdownDefault, 'submenuBg');
+                    @include bm.get-mq-map('background', $themeDropdownDefault, 'submenuBg');
 
                     .wlc-menu__link {
                         background: transparent;
