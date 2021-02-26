@@ -15,6 +15,13 @@
             justify-content: ef.get-value($themeDefault, 'formJustifyContent');
         }
 
+        .wlc-bet-filters {
+
+            .wlc-form {
+                grid-template-areas: ef.get-value($themeDefault, 'formBetTemplateAreas');
+            }
+        }
+
         .wlc-text-block {
             grid-area: ef.get-value($themeDefault, 'textBlockGridArea');
             width: 100%;

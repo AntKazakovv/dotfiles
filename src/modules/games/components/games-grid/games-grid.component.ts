@@ -15,7 +15,7 @@ import {
     TransitionService,
 } from '@uirouter/core';
 import {
-    animate,
+    animate, query, stagger,
     style,
     transition,
     trigger,
@@ -59,9 +59,11 @@ import {
     changeDetection: ChangeDetectionStrategy.OnPush,
     animations: [
         trigger('appearance', [
-            transition(':enter', [
-                style({opacity: 0, transform: 'translateY(-20px)'}),
-                animate('0.8s', style({opacity: 1, transform: 'translateY(0)'})),
+            transition('*<=>*', [
+                query(':enter', [
+                    style({opacity: 0}),
+                    stagger('0.03s', animate('0.8s', style({opacity: 1}))),
+                ]),
             ]),
         ]),
     ],

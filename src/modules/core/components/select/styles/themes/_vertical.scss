@@ -41,7 +41,7 @@
             white-space: nowrap;
             background: ef.get-value($baseSettings, 'selectBackground');
             text-align: ef.get-value($baseSettings, 'selectTextAlign');
-            color: ef.get-value($baseSettings, 'selectColor');
+            @include text.get-text-style('PrimaryText', ef.get-value($baseSettings, 'selectColor'));
             height: ef.get-value($baseSettings, 'selectHeight');
 
             &:focus {

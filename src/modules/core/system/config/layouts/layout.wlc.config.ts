@@ -112,7 +112,7 @@ export const $layouts: ILayoutsConfig = {
     'app.profile.loyalty-bonuses.history': {
         extends: 'app.profile',
         sections: {
-            'profile-content': sectionsLib.profileContent.empty,
+            'profile-content': sectionsLib.profileContent.profileBonusesHistory,
         },
     },
     'app.profile.loyalty-bonuses.promo': {
@@ -172,7 +172,7 @@ export const $layouts: ILayoutsConfig = {
     'app.profile.gamblings.bets': {
         extends: 'app.profile',
         sections: {
-            'profile-content': sectionsLib.profileContent.empty,
+            'profile-content': sectionsLib.profileContent.profileBetHistory,
         },
     },
     'app.profile.loyalty-store.main': {

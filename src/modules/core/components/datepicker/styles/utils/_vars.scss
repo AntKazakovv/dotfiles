@@ -6,6 +6,7 @@ $themeDefault: map-merge((
     'transition': 0.5s ease-in,
     'labelColor':  ef.get('fieldColors', 'labelColor'),
     'labelPadding': 0 0 0 ef.get('radius', 'biger'),
+    'labelMargin': 0 0 ef.get('size', 'smallest') 0,
     'inputColor': ef.get('fieldColors', 'textColor'),
     'inputPlaceholderColor': ef.get('fieldColors', 'placeholderColor'),
     'inputPadding': 11px,

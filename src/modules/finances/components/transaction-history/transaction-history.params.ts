@@ -37,7 +37,6 @@ export const transactionTableHeadConfig: ITableCol[] = [
         key: 'amount',
         title: 'Amount',
         type: 'amount',
-        disableHideClass: true,
         order: 30,
         wlcElement: 'wlc-profile-table__cell_amount',
     },

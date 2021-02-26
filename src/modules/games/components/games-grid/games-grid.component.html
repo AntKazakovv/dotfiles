@@ -12,7 +12,7 @@
 
     <ng-container *ngIf="isReady; else : preloader">
         <div *ngIf="filteredGames?.length; else: noGames"
-             @appearance
+             [@appearance]="filteredGames.length"
              class="{{$class}}__list"
              (resized)="onResize($event)">
 

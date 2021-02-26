@@ -8,12 +8,14 @@ import {UserModule} from '../user/user.module';
 import {BonusesService} from './system/services';
 
 import {BonusItemComponent} from './components/bonus-item/bonus-item.component';
+import {BonusesHistoryComponent} from './components/bonuses-history/bonuses-history.component';
 import {BonusesListComponent} from './components/bonuses-list/bonuses-list.component';
 import {EnterPromocodeComponent} from './components/enter-promocode/enter-promocode.component';
 import {PromoSuccessComponent} from './components/promo-success/promo-success.component';
 
 export const components = {
     'wlc-bonus-item': BonusItemComponent,
+    'wlc-bonuses-history': BonusesHistoryComponent,
     'wlc-bonuses-list': BonusesListComponent,
     'wlc-enter-promocode': EnterPromocodeComponent,
     'wlc-promo-success': PromoSuccessComponent,
@@ -23,6 +25,7 @@ export const components = {
     declarations: [
         BonusItemComponent,
         BonusesListComponent,
+        BonusesHistoryComponent,
         EnterPromocodeComponent,
         PromoSuccessComponent,
     ],
@@ -39,6 +42,7 @@ export const components = {
     exports: [
         BonusItemComponent,
         BonusesListComponent,
+        BonusesHistoryComponent,
         EnterPromocodeComponent,
         PromoSuccessComponent,
     ],

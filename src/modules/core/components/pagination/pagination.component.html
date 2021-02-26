@@ -1,0 +1,14 @@
+<pagination [totalItems]="totalItems"
+            [customNextTemplate]="firstTemplate"
+            [customPreviousTemplate]="lastTemplate"
+            [itemsPerPage]="itemPerPage"
+            (pageChanged)="pageChanged($event)"></pagination>
+
+
+<ng-template #lastTemplate>
+    <button wlc-button theme="cleared" icon="arrow"></button>
+</ng-template>
+
+<ng-template #firstTemplate>
+    <button wlc-button theme="cleared" icon="arrow"></button>
+</ng-template>

@@ -36,6 +36,15 @@ export namespace wlcTitle {
         },
     };
 
+    export const betHistory: ILayoutComponent = {
+        name: 'core.wlc-title',
+        params: {
+            customMod: ['profile'],
+            mainText: gettext('Bet history'),
+            wlcElement: 'header_bet-history',
+        },
+    };
+
     export const bonuses: ILayoutComponent = {
         name: 'core.wlc-title',
         params: {
@@ -75,7 +84,16 @@ export namespace wlcTitle {
         name: 'core.wlc-title',
         params: {
             customMod: ['profile'],
-            mainText: gettext('History'),
+            mainText: gettext('Transaction history'),
+            wlcElement: 'header_transactions-history',
+        },
+    };
+
+    export const bonusesHistory: ILayoutComponent = {
+        name: 'core.wlc-title',
+        params: {
+            customMod: ['profile'],
+            mainText: gettext('Bonuses history'),
             wlcElement: 'header_transactions-history',
         },
     };

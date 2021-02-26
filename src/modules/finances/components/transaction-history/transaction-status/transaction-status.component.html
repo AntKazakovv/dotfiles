@@ -1,5 +1,8 @@
-<span [attr.data-wlc-element]="'status_' + $params.transaction.status.value">{{$params.transaction.status.title}}</span>
+<span
+    [attr.data-wlc-element]="'status_' + $params.transaction.status.value">
+    {{$params.transaction.status.title | translate}}
+</span>
 <div *ngIf="$params.transaction.note">
-    <span class="info-icon">i</span>
+    <span wlc-icon iconName="info" class="info-icon"></span>
     <span class="note">{{$params.transaction.note}}</span>
 </div>

@@ -108,8 +108,8 @@ export class FinancesService {
         return (await this.dataService.request<IData>('finances/transactions', params)).data as Transaction[];
     }
 
-    public getBetsList(params: any): Promise<any> {
-        return null;
+    public async getBetsList(params: any= {}): Promise<Transaction[]> {
+        return (await this.dataService.request<IData>('finances/bets', params)).data;
     }
 
     public async fetchPaymentSystems(): Promise<PaymentSystem[]> {

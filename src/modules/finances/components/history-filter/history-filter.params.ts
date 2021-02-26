@@ -161,9 +161,45 @@ export namespace formConfig {
         ],
     };
 
-    // TODO bets history form
-    // export const bet: IFormWrapperCParams = {
-    // };
+    export const bet: IFormWrapperCParams = {
+        class: 'wlc-bet-filters',
+        components: [
+            {
+                name: 'core.wlc-text-block',
+                params: <ITextBlockCParams>{
+                    common: {
+                        textBlockTitle: gettext('Filter'),
+                    },
+                },
+            },
+            {
+                name: 'core.wlc-datepicker',
+                params: <IDatepickerCParams>{
+                    name: 'startDate',
+                    label: gettext('Start Date'),
+                    datepickerOptions: {
+                        alignSelectorRight: true,
+                    },
+                },
+            },
+            {
+                name: 'core.wlc-datepicker',
+                params: <IDatepickerCParams>{
+                    name: 'endDate',
+                    label: gettext('End Date'),
+                },
+            },
+            {
+                name: 'core.wlc-button',
+                params: <IButtonCParams>{
+                    name: 'submit',
+                    common: {
+                        text: gettext('Save'),
+                    },
+                },
+            },
+        ],
+    };
 }
 
 

@@ -9,7 +9,7 @@
                [options]="$params.datepickerOptions"
                [wlc-input-mask]="$params.maskOptions"
                (dateChanged)="onDateChanged($event)"
-               (click)="onDateChanged()"
+               (change)="onDateChanged()"
                [locale]="locale"
                [defaultMonth]="defaultMonth"
                inputmode="numeric"

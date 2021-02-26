@@ -1,13 +1,14 @@
-<ng-container *ngIf='ready'>
+<div class="{{$class}}__content" *ngIf='ready'>
 
-    <div class="{{$class}}__row {{$class}}__row--head">
-        <span *ngFor="let col of head" class="{{$class}}__cell {{$class}}__cell--{{col.key}}" [attr.data-wlc-element]="col.wlcElement">
+    <div class="{{$class}}__row {{$class}}__row--head" *ngIf="rows.length">
+        <span *ngFor="let col of head" class="{{$class}}__cell {{$class}}__cell--{{col.key}}"
+              [attr.data-wlc-element]="col.wlcElement">
             {{col.title | translate}}
         </span>
     </div>
 
-    <div *ngFor="let item of rows; index as $index" class="{{$class}}__row"
-         [ngClass]="[$class + '__row--' + (($index%2) ? 'even' : 'odd'), item.opened ? 'wlc-show':'']">
+    <div *ngFor="let item of paginatedRows; index as $index" class="{{$class}}__row"
+         [ngClass]="[$class + '__row--' + (($index % 2) ? 'even' : 'odd'), item.opened ? 'wlc-show':'']">
         <div class="{{$class}}__cell {{$class}}__cell--{{col.key}}"
              *ngFor="let col of head; let $first = first"
              (click)="$first ? item.togleRow() : null"
@@ -33,5 +34,15 @@
         </div>
     </div>
 
-    <div *ngIf="!rows.length">{{$params.noItemsText | translate}}</div>
-</ng-container>
+    <div *ngIf="!rows.length" class="{{$class}}__empty">
+        <div class="{{$class}}__empty-text">{{$params.noItemsText | translate}}</div>
+        <img class="{{$class}}__empty-img" src='/gstatic/wlc/icons/empty-table-bg.svg'>
+    </div>
+</div>
+<div wlc-pagination
+     *ngIf="rows.length > itemPerPage"
+     [totalItems]="rows.length"
+     [itemPerPage]="itemPerPage"
+     [pageChanged]="pageChanged.bind(this)">
+</div>
+

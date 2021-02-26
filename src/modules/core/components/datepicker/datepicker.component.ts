@@ -37,7 +37,8 @@ import * as Params from './datepicker.params';
     templateUrl: './datepicker.component.html',
     styleUrls: ['./styles/datepicker.component.scss'],
 })
-export class DatepickerComponent extends AbstractComponent implements OnInit, AfterViewInit {
+export class DatepickerComponent extends AbstractComponent implements OnInit,
+    AfterViewInit {
     @Input() protected inlineParams: Params.IDatepickerCParams;
     @ViewChild('mask') mask: ElementRef;
     @ViewChild(AngularMyDatePickerDirective) dp: AngularMyDatePickerDirective;
@@ -51,7 +52,8 @@ export class DatepickerComponent extends AbstractComponent implements OnInit, Af
         protected configService: ConfigService,
         protected translateService: TranslateService,
         protected cdr: ChangeDetectorRef,
-    ) {
+    )
+    {
         super({injectParams, defaultParams: Params.defaultParams});
     }
 
@@ -71,8 +73,13 @@ export class DatepickerComponent extends AbstractComponent implements OnInit, Af
 
     public onDateChanged(date: IMyDateModel): void {
         this.mask?.nativeElement?.mask.updateValue();
-        // TODO functional for range. Are we going to use range?
-        let dateTime = DateTime.fromJSDate(date?.singleDate?.jsDate);
+        let dateTime;
+        if (date) {
+            dateTime = DateTime.fromJSDate(date?.singleDate?.jsDate);
+        } else {
+            dateTime = DateTime.now();
+        }
+
         if (this.$params.name === 'endDate') {
             dateTime = dateTime.endOf('day');
         }
