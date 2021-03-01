@@ -76,19 +76,10 @@ export class AbstractComponent implements OnDestroy, OnInit, OnChanges {
         !inlineParams ? this.mixedParams.injectParams : {},
         inlineParams,
         );
+        this.$params.theme = _get(this, 'theme', 'default');
+        this.$params.type = _get(this, 'type', 'default');
+        this.$params.themeMod = _get(this, 'themeMod', 'default');
 
-        if (_get(this, 'type')) {
-            this.$params.type = _get(this, 'type');
-        }
-        if (_get(this, 'theme')) {
-            this.$params.theme = _get(this, 'theme');
-        }
-        if (_get(this, 'themeMod')) {
-            this.$params.themeMod = _get(this, 'themeMod');
-        }
-        if (_get(this, 'customMod')) {
-            this.$params.customMod = _get(this, 'customMod');
-        }
         this.$class = this.$params?.class;
         if (this.$params.customMod) {
             this.modifiers = (_isArray(this.$params.customMod)) ? this.$params.customMod : _split(this.$params.customMod, ' ');
@@ -114,9 +105,10 @@ export class AbstractComponent implements OnDestroy, OnInit, OnChanges {
     }
 
     protected prepareHostClass(): void {
-        this.modifiers = _union(this.modifiers, [(this.$params.type) ? `type-${this.$params.type}` : 'type-default']);
-        this.modifiers = _union(this.modifiers, [(this.$params.theme) ? `theme-${this.$params.theme}` : 'theme-default']);
-        this.modifiers = _union(this.modifiers, [(this.$params.themeMod) ? `theme-mod-${this.$params.themeMod}` : 'theme-mod-default']);
+        this.modifiers = _union(this.modifiers, [`type-${this.$params.type}`]);
+        this.modifiers = _union(this.modifiers, [`theme-${this.$params.theme}`]);
+        this.modifiers = _union(this.modifiers, [`theme-mod-${this.$params.themeMod}`]);
+
         const preparedModifiers = _map(this.modifiers, (mod: string): string => `${this.$class}--${mod}`);
         this.$hostClass = [this.$class, ...preparedModifiers].join(' ');
         this.cdr?.markForCheck();
