@@ -20,5 +20,4 @@ export const defaultParams: IGameWrapperCParams = {
     updateOnWindowResize: true,
     padding: 0,
     gameParams: undefined,
-    theme: 'fullscreen-game-frame',
 };
