@@ -49,6 +49,8 @@ import {
     find as _find,
     includes as _includes,
     extend as _extend,
+    reduce as _reduce,
+    keys as _keys,
     isUndefined as _isUndefined,
 } from 'lodash-es';
 
@@ -117,6 +119,9 @@ export class GamesGridComponent extends AbstractComponent
 
     public async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
+        this.$params.wlcElement = this.$params.wlcElement || 'wlc-games-grid-' + this.getWlcSuffics();
+        this.setWlcElementOnHost();
+
         this.initDeviceTypeListener();
         this.setupMobileSettings();
 
@@ -408,6 +413,18 @@ export class GamesGridComponent extends AbstractComponent
             }
 
             this.$params.gamesRows = this.$params.mobileSettings?.gamesRows || this.$params.gamesRows;
+        }
+    }
+
+    protected getWlcSuffics(): string {
+        if (this.$params.filter) {
+            return _reduce(_keys(this.$params.filter).sort(), (res, item) => {
+                res.push(item + '-' + this.$params.filter[item]);
+                return res;
+            }, []).join('-');
+
+        } else {
+            return 'all-games';
         }
     }
 }
