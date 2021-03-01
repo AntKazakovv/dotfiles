@@ -35,9 +35,8 @@ export class DynamicHtmlComponent implements AfterViewInit, OnDestroy {
     }
 
     private createComponentFromRaw(html: string) {
-        const domParser = new DOMParser();
         const dynamicComponent = Component({
-            template: domParser.parseFromString(html, 'text/html')?.querySelector('body')?.innerHTML,
+            template: this.cleanHtml(html),
             selector: '[wlc-dynamic]',
         })(class {
             public window = window;
@@ -61,6 +60,35 @@ export class DynamicHtmlComponent implements AfterViewInit, OnDestroy {
                 this.viewRef.insert(this.componentReference.hostView);
                 this.componentReference.changeDetectorRef.markForCheck();
             });
+    }
+
+    private cleanHtml(html: string): string {
+        const domParser = new DOMParser();
+        const parseHtml = domParser.parseFromString(html, 'text/html')?.querySelector('body');
+        const elements = parseHtml.getElementsByTagName('*');
+        let resultHtml = "";
+        for (let i=0; i<elements.length; i++) {
+            if (!(elements[i] instanceof HTMLUnknownElement)) {
+                if (elements[i].childNodes) {
+                    this.cleanChild(elements[i].childNodes);
+                }
+                resultHtml += elements[i].outerHTML;
+            }
+        }
+        return resultHtml;
+    }
+
+    protected cleanChild(elements: NodeListOf<ChildNode>): NodeListOf<ChildNode> {
+        for (let i=0; i<elements.length; i++) {
+            if (elements[i] instanceof HTMLUnknownElement) {
+                elements[i].remove();
+            } else {
+                if (elements[i].childNodes) {
+                    this.cleanChild(elements[i].childNodes);
+                }
+            }
+        }
+        return elements;
     }
 
     ngOnDestroy() {
