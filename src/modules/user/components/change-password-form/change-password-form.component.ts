@@ -1,5 +1,5 @@
 import {
-    Component,
+    Component, ElementRef,
     Inject,
     Input,
 } from '@angular/core';
@@ -11,10 +11,6 @@ import {UserService} from 'wlc-engine/modules/user/system/services';
 import {IPushMessageParams, NotificationEvents} from 'wlc-engine/modules/core/system/services/notification';
 
 import * as Params from './change-password-form.params';
-
-import {
-    union as _union,
-} from 'lodash-es';
 
 /**
  * Change-password form component.
@@ -43,6 +39,7 @@ export class ChangePasswordFormComponent extends AbstractComponent {
         protected userService: UserService,
         protected modalService: ModalService,
         protected eventService: EventService,
+        protected elRef: ElementRef,
     ) {
         super({
             injectParams,
@@ -77,6 +74,13 @@ export class ChangePasswordFormComponent extends AbstractComponent {
                     message: error.errors,
                 },
             });
+
+            if (error.errors?.includes('Password is invalid')) {
+                this.elRef.nativeElement.querySelector('#currentPassword').focus();
+                this.elRef.nativeElement.querySelector('#currentPassword').control.setErrors({
+                    notCorrect: true,
+                });
+            }
         }
     }
 }

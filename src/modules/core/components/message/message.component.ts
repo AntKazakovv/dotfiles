@@ -15,6 +15,8 @@ import * as Params from './message.params';
 import {
     assign as _assign,
     isArray as _isArray,
+    isObject as _isObject,
+    values as _values,
 } from 'lodash-es';
 
 @Component({
@@ -64,7 +66,7 @@ export class MessageComponent
 
         _assign(this, {
             title: title || this.$params.defaultTitles[this.$params.type],
-            messages: _isArray(message) ? message : [message],
+            messages: _isArray(message) ? message : _isObject(message) ? _values(message) : [message],
             image,
             icon: this.$params.typeIcons[this.$params.type],
         });

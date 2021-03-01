@@ -46,7 +46,7 @@ export const changePasswordFormConfig: IFormWrapperCParams = {
                     usePasswordVisibilityBtn: true,
                 },
                 name: 'currentPassword',
-                validators: ['required',
+                validators: ['required', 'password',
                     {
                         name: 'minLength',
                         options: 6,
@@ -70,7 +70,7 @@ export const changePasswordFormConfig: IFormWrapperCParams = {
                     usePasswordVisibilityBtn: true,
                 },
                 name: 'newPassword',
-                validators: ['required',
+                validators: ['required', 'password',
                     {
                         name: 'minLength',
                         options: 6,
@@ -94,7 +94,7 @@ export const changePasswordFormConfig: IFormWrapperCParams = {
                     usePasswordVisibilityBtn: true,
                 },
                 name: 'confirmPassword',
-                validators: ['required',
+                validators: ['required', 'password',
                     {
                         name: 'minLength',
                         options: 6,

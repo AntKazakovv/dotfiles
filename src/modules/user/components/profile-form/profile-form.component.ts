@@ -90,6 +90,7 @@ export class ProfileFormComponent extends AbstractComponent implements OnInit {
                     message: gettext('Your profile has been updated successfully'),
                 },
             });
+            this.userProfile.next(this.user.userProfile);
             this.cdr.detectChanges();
             return true;
         } else {

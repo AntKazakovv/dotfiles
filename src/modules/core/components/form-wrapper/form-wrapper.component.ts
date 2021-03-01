@@ -190,9 +190,8 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
                     },
                 });
             }
-
-            this.cdr.markForCheck();
         }
+        this.cdr.detectChanges();
     }
 
     protected get hasRequiredError(): boolean {
@@ -305,10 +304,10 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
 
                 if (_includes(this.locked, key) && value) {
                     control.disable();
-                    control.updateValueAndValidity();
                 }
+                control.updateValueAndValidity();
             });
-            this.cdr.detectChanges();
+            this.cdr.markForCheck();
         });
     }
 

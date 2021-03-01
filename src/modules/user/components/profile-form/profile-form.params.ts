@@ -56,7 +56,7 @@ export const profileForm: IFormWrapperCParams = {
                     },
                 ],
                 maskOptions: {
-                    mask: /^[a-zA-zА-Яа-яёЁ][a-zA-zА-Яа-яёЁ\s\-]{0,50}$/,
+                    mask: 'textField',
                 },
                 exampleValue: 'Ivan',
             },
@@ -78,7 +78,7 @@ export const profileForm: IFormWrapperCParams = {
                     },
                 ],
                 maskOptions: {
-                    mask: /^[a-zA-zА-Яа-яёЁ][a-zA-zА-Яа-яёЁ\s\-]{0,50}$/,
+                    mask: 'textField',
                 },
                 exampleValue: 'Ivanov',
             },
@@ -128,6 +128,9 @@ export const profileForm: IFormWrapperCParams = {
                 wlcElement: 'block_city',
                 name: 'city',
                 validators: [],
+                maskOptions: {
+                    mask: 'textField',
+                },
             },
         },
         {
@@ -186,7 +189,7 @@ export const profileForm: IFormWrapperCParams = {
                     usePasswordVisibilityBtn: true,
                 },
                 name: 'currentPassword',
-                validators: ['required'],
+                validators: ['required', 'password'],
             },
         },
         {
