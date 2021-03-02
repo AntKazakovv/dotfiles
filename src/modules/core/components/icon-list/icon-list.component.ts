@@ -8,9 +8,10 @@ import {
     ViewEncapsulation,
     ElementRef,
     HostBinding,
+    AfterViewChecked,
 } from '@angular/core';
-import {fromEvent, Subscription} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {fromEvent, Observable} from 'rxjs';
+import {debounceTime, takeUntil} from 'rxjs/operators';
 
 import {
     AbstractComponent,
@@ -23,7 +24,6 @@ import {
     IconModel,
     IIconParams,
 } from 'wlc-engine/modules/core/system/models/icon-list-item.model';
-import {gamesEvents} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
 import {MerchantModel} from 'wlc-engine/modules/games/system/models/merchant.model';
 import {IPaysystem} from 'wlc-engine/modules/core/system/services/config/app-config.model';
 
@@ -48,15 +48,16 @@ import {
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
 })
-export class IconListComponent extends AbstractComponent implements OnInit {
+export class IconListComponent extends AbstractComponent implements OnInit, AfterViewChecked {
     /** List of items being rendered. */
     public items: IconModel[];
     public $params: Params.IIconListCParams;
-    protected resize$: Subscription;
+    protected resize$: Observable<Event>;
     protected wrapper: HTMLElement;
 
     @Input() protected inlineParams: Params.IIconListCParams;
-    @HostBinding('class.scrollable') protected scrollable: boolean = false;
+    @HostBinding('class.scrollable--left') protected scrollableLeft: boolean = false;
+    @HostBinding('class.scrollable--right') protected scrollableRight: boolean = false;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IIconListCParams,
@@ -76,41 +77,58 @@ export class IconListComponent extends AbstractComponent implements OnInit {
 
         switch (this.$params.theme) {
             case ('merchants'):
-                await this.setMerchantsLst();
-                this.cdr.markForCheck();
+                await this.setMerchantsList();
                 break;
             case ('payments'):
                 this.setPaymentsLst();
-                this.cdr.markForCheck();
                 break;
             default:
                 this.setCustomLst();
-                this.cdr.markForCheck();
                 break;
         }
 
-        if (!this.resize$) {
-            this.resize$ = fromEvent(window, 'resize').pipe(takeUntil(this.$destroy)).subscribe(() => {
-                this.scrollingCheck();
-            });
-        }
+        this.cdr.markForCheck();
+    }
+
+    public ngAfterViewChecked(): void {
+        this.scrollingCheck();
     }
 
     public scrollingCheck(): void {
 
-        if (!this.wrapper) {
-            this.wrapper = this.hostElement.nativeElement.querySelector('.wlc-icon-list__wrapper');
+        if (!this.resize$) {
+            this.resize$ = fromEvent<Event>(window, 'resize')
+                .pipe(takeUntil(this.$destroy))
+                .pipe(debounceTime(300));
+
+            this.resize$.subscribe(() => {
+                this.scrollingCheck();
+            });
         }
 
-        const {clientWidth, scrollWidth} = this.wrapper;
-        this.scrollable = clientWidth !== scrollWidth;
+        if (!this.wrapper) {
+            this.wrapper = this.hostElement.nativeElement.querySelector('.wlc-icon-list__wrapper');
+
+            fromEvent(this.wrapper, 'scroll')
+                .pipe(takeUntil(this.$destroy))
+                .pipe(debounceTime(300))
+                .subscribe(() => {
+                    this.scrollingCheck();
+                });
+        }
+
+        const {clientWidth, scrollWidth, scrollLeft} = this.wrapper;
+
+        this.scrollableLeft = !!scrollLeft;
+        this.scrollableRight = (scrollWidth - clientWidth) > scrollLeft;
+        this.cdr.markForCheck();
     }
 
     /** Creates the icon list.
      * Calls if `theme` is `merchants`.
      * Based on games request data.
      **/
-    protected async setMerchantsLst(): Promise<void> {
+    protected async setMerchantsList(): Promise<void> {
 
         this.gamesCatalogService.ready.then(() => {
             const merchants: MerchantModel[] = _sortedUniqBy(this.gamesCatalogService.getMerchants(),
