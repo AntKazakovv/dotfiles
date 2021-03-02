@@ -70,6 +70,10 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
             );
         });
 
+        this.router.transitionService.onStart({}, () => {
+            window.scrollTo(0, 0);
+        });
+
         this.panels = _sortBy(this.layoutService
             .getAllSection('panels', this.uiRouter.current.name, this.uiRouter.params), 'order');
 
