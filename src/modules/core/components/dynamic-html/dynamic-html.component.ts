@@ -65,17 +65,18 @@ export class DynamicHtmlComponent implements AfterViewInit, OnDestroy {
     private cleanHtml(html: string): string {
         const domParser = new DOMParser();
         const parseHtml = domParser.parseFromString(html, 'text/html')?.querySelector('body');
-        const elements = parseHtml.getElementsByTagName('*');
-        let resultHtml = "";
-        for (let i=0; i<elements.length; i++) {
-            if (!(elements[i] instanceof HTMLUnknownElement)) {
-                if (elements[i].childNodes) {
-                    this.cleanChild(elements[i].childNodes);
-                }
-                resultHtml += elements[i].outerHTML;
-            }
-        }
-        return resultHtml;
+        // const elements = parseHtml.getElementsByTagName('*');
+        // let resultHtml = "";
+        // for (let i=0; i<elements.length; i++) {
+        //     if (!(elements[i] instanceof HTMLUnknownElement)) {
+        //         if (elements[i].childNodes) {
+        //             this.cleanChild(elements[i].childNodes);
+        //         }
+        //         resultHtml += elements[i].outerHTML;
+        //     }
+        // }
+        // return resultHtml;
+        return parseHtml.innerHTML;
     }
 
     protected cleanChild(elements: NodeListOf<ChildNode>): NodeListOf<ChildNode> {
