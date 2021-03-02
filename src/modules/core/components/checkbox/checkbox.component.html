@@ -57,7 +57,7 @@
         </span>
         <div class="{{$class}}__text">
             {{"I have read and agree to the payment" | translate}}
-            <a uiSref="app.contacts({slug: 'terms-and-conditions', '#': 'item-8'})"
+            <a uiSref="app.contacts" [uiParams]="{slug: 'terms-and-conditions', '#': 'item-8'}"
                class="{{$class}}__link">{{'systems restrictions' | translate}} *</a>
         </div>
     </label>
