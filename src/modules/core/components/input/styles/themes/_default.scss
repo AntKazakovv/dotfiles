@@ -18,6 +18,7 @@
 
     .wlc-input__label {
         @include text.get-text-style('PrimaryText', ef.get-value($themeDefault, 'labelColor'));
+        cursor: pointer;
     }
 
     .wlc-input__input {
