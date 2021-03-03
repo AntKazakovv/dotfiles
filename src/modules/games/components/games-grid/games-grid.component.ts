@@ -122,6 +122,16 @@ export class GamesGridComponent extends AbstractComponent
         this.$params.wlcElement = this.$params.wlcElement || 'wlc-games-grid-' + this.getWlcSuffics();
         this.setWlcElementOnHost();
 
+        if (this.$params.titleIcon?.byCategory && this.$params.filter.category) {
+            const folder = this.$params.titleIcon.folder || this.configService.get<string>('$menu.categoryMenu.icons.folder');
+            const icon = folder ? `${folder}/${this.$params.filter.category}` : this.$params.filter.category;
+            this.$params.titleIcon.name = icon.split('.').length > 1 ? icon : `${icon}.svg`;
+        }
+
+        if (this.$params.titleIcon?.name) {
+            this.addModifiers('title-icon');
+        }
+
         this.initDeviceTypeListener();
         this.setupMobileSettings();
 

@@ -28,5 +28,7 @@ $themeDefault: map-merge((
         375: ef.get('size', 'main') 0 0,
         1024: ef.get('size', 'main') 0 0,
     ),
+    'titleIconMargin': 0 ef.get('size', 'small') 0 0,
+    'titleWithIconMargin': 0 auto 0 0,
 ), $customThemeDefault);
 

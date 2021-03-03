@@ -38,6 +38,7 @@ import {
     get as _get,
     set as _set,
     isObject as _isObject,
+    cloneDeep as _cloneDeep,
 } from 'lodash-es';
 
 /**
@@ -149,8 +150,8 @@ export class ConfigService {
         }
 
         const layoutConfig = this.addLayoutConfig(wlcConfig.$base.app.type);
-        _mergeWith(this.global, wlcConfig, layoutConfig, (target, source) => (source?.replaceConfig) ? source : undefined);
-        _mergeWith(this.global, appConfig, (target, source) => (source?.replaceConfig) ? source : undefined);
+        _mergeWith(this.global, wlcConfig, layoutConfig, (target, source) => (source?.replaceConfig) ? _cloneDeep(source) : undefined);
+        _mergeWith(this.global, appConfig, (target, source) => (source?.replaceConfig) ? _cloneDeep(source) : undefined);
         GlobalHelper.deepFreeze(this.global.appConfig);
     }
 

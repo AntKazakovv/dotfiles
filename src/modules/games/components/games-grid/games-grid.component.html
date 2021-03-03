@@ -1,6 +1,9 @@
 <div class="{{$class}}__content" [hidden]="hideSearchBlock">
     <div class="{{$class}}__header" *ngIf="$params.showTitle || $params.showAllLink?.use">
+
+        <span *ngIf="$params.titleIcon?.name" wlc-icon [iconPath]="$params.titleIcon?.name"></span>
         <div *ngIf="$params.showTitle" wlc-title [mainText]="title"></div>
+
         <a *ngIf="$params.showAllLink?.use && isDesktop"
            uiSref="{{$params.showAllLink?.link}}"
            [uiParams]="$params.showAllLink?.params || {}"
