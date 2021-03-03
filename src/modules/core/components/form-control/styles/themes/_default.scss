@@ -99,6 +99,7 @@
         align-items: center;
 
         .icon {
+            position: relative;
             width: ef.get-value($themeDefault, 'iconWidth');
             height: ef.get-value($themeDefault, 'iconHeight');
             border-radius: 50%;

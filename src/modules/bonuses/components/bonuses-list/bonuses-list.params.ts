@@ -10,7 +10,7 @@ import {
 } from '../../system/interfaces/bonuses.interface';
 
 export type Type = 'default' | 'swiper' | CustomType;
-export type Theme = 'default' | CustomType;
+export type Theme = 'default' | 'partial' | CustomType;
 export type ThemeMod = 'default' | CustomType;
 export type AutoModifiers = Theme | ThemeMod;
 export type CustomMod = string;
@@ -23,18 +23,24 @@ export interface IBonusesListCParams extends IComponentParams<Theme, Type, Theme
         customModifiers?: CustomMod;
         restType?: RestType;
         filter?: BonusesFilterType;
-        filterByGroup?: string,
-        sortOrder?: ('active' | 'subscribe' | 'inventory' | number)[],
+        filterByGroup?: string;
+        sortOrder?: ('active' | 'subscribe' | 'inventory' | number)[];
         swiper?: SwiperOptions;
+        useBlankBonus?: boolean;
+        selectFirstBonus?: boolean;
     };
 }
+
 
 export const defaultParams: IBonusesListCParams = {
     moduleName: 'bonuses',
     componentName: 'wlc-bonuses-list',
     class: 'wlc-bonuses-list',
+    theme: 'default',
     common: {
         restType: 'any',
         filter: 'all',
+        useBlankBonus: false,
+        selectFirstBonus: false,
     },
 };

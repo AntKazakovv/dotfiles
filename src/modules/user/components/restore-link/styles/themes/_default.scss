@@ -1,5 +1,6 @@
 @use 'engine-scss/functions' as ef;
 @use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/mixins/base.mixins' as em;
 
 .wlc-restore-link {
 
@@ -11,7 +12,8 @@
             @include text.get-text-style(ef.get-value($themeDefault, 'linkFontSize'), ef.get-value($themeDefault, 'linkColor'));
 
             &:hover {
-                text-decoration: underline;
+                color: lighten(ef.get-value($themeDefault, 'linkColor'), 20%);
+                @include em.transition(color);
             }
         }
     }

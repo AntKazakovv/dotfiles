@@ -1,0 +1,14 @@
+@use 'engine-scss/functions' as ef;
+@import '../utils/vars';
+
+.wlc-bonuses-list--theme-partial:host {
+
+    .wlc-bonuses-list {
+
+        &__list {
+            display: grid;
+            grid-template-columns: ef.get-value($themePartial, 'gridTemplateColumns');
+            grid-gap: ef.get-value($themePartial, 'gridGap');
+        }
+    }
+}

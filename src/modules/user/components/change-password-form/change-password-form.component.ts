@@ -54,6 +54,7 @@ export class ChangePasswordFormComponent extends AbstractComponent {
         const {currentPassword, confirmPassword} = form.value;
 
         try {
+            form.disable();
             await this.userService.setNewPassword(currentPassword, confirmPassword);
 
             this.eventService.emit({
@@ -77,6 +78,8 @@ export class ChangePasswordFormComponent extends AbstractComponent {
                     message: error.errors,
                 },
             });
+        } finally {
+            form.enable();
         }
     }
 }

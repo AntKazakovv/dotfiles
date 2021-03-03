@@ -72,6 +72,8 @@ import {RadioButtonsComponent} from './components/radio-buttons/radio-buttons.co
 import {TimerComponent} from './components/timer/timer.component';
 import {TitleComponent} from './components/title/title.component';
 import {ErrorPageComponent} from './components/error-page/error-page.component';
+import {TabSwitcherComponent} from './components/tab-switcher/tab-switcher.component';
+import {StepsComponent} from './components/steps/steps.component';
 import {WlcPaginationComponent} from './components/pagination/pagination.component';
 
 // -- COMPONENTS IMPORTS END  --;
@@ -138,6 +140,8 @@ export const components = {
     'wlc-pagination': WlcPaginationComponent,
     'wlc-radio-buttons': RadioButtonsComponent,
     'wlc-select': SelectComponent,
+    'wlc-steps': StepsComponent,
+    'wlc-tab-switcher': TabSwitcherComponent,
     'wlc-table': TableComponent,
     'wlc-text-block': TextBlockComponent,
     'wlc-tooltip': TooltipComponent,
@@ -222,6 +226,8 @@ export const components = {
         ParallaxMovementDirective,
         ScrollbarComponent,
         SelectComponent,
+        StepsComponent,
+        TabSwitcherComponent,
         TableComponent,
         TextareaComponent,
         TextBlockComponent,
@@ -271,6 +277,8 @@ export const components = {
         NgTemplateNameDirective,
         ScrollbarComponent,
         SelectComponent,
+        StepsComponent,
+        TabSwitcherComponent,
         TableComponent,
         TextareaComponent,
         TooltipComponent,

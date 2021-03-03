@@ -55,7 +55,7 @@ $mainColors: map-merge((
     'bgModal': #3d3d3d,
     'elementsColor': #c4c4c4,
     'error': #ffbcd5,
-    'success': #acf7d3,
+    'success': #33ff9d,
     'warning': #fdce70,
     'disabled': #c4c4c4,
 ), $customMainColors);
@@ -319,7 +319,7 @@ $form: map-merge((
     'inputBorder': 2px solid transparent,
     'inputBorderFocusColor': map-get($color, 'divider'),
     'inputBorderRadius': map-get($radius, 'main'),
-    'inputPadding': map-get($size, 'smallest') map-get($size, 'main') map-get($size, 'smallest') map-get($size, 'smaller'),
+    'inputPadding': map-get($size, 'small'),
     'inputTextAlign': left,
     'selectDropdownHeight': 300px,
     'selectDropdownItemTransition': map-get($time, 'main') ease-in-out background,
@@ -343,14 +343,6 @@ $form: map-merge((
     'placeholderColor': map-get($color, 'textSecondary'),
     'textareaMinHeight': 115px,
 ), $customForm);
-
-$modalSize: map-merge((
-    'xs': 100%,
-    'sm': 300px,
-    'md': 500px,
-    'lg': 800px,
-    'xl': 1140px,
-), $customModalSize);
 
 /// Breakpoints для CSS медиа-запросов.
 ///

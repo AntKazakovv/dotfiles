@@ -31,10 +31,11 @@ export const restorePasswordFormConfig: IFormWrapperCParams = {
             name: 'core.wlc-text-block',
             params: {
                 common: {
-                    textBlockTitle: gettext('Password restore'),
-                    textBlockSubtitle: gettext(`Please enter e-mail that was used to create an account at
-                    ${$base.site.url || $base.site.name}.
-                    A password reset link will be sent to your e-mail address shortly.`),
+                    textBlockSubtitle: [
+                        gettext('Please enter e-mail that was used to create an account at'),
+                        $base.site.url || $base.site.name + '. ',
+                        gettext('A password reset link will be sent to your e-mail address shortly.'),
+                    ],
                 },
             },
         },
@@ -43,8 +44,8 @@ export const restorePasswordFormConfig: IFormWrapperCParams = {
             params: {
                 theme: 'vertical',
                 common: {
-                    placeholder: gettext('Email'),
-                    type: 'mail',
+                    placeholder: gettext('E-mail'),
+                    type: 'email',
                 },
                 name: 'email',
                 validators: ['required', 'email', 'emailExist'],
@@ -56,7 +57,7 @@ export const restorePasswordFormConfig: IFormWrapperCParams = {
                 common: {
                     text: gettext('Restore'),
                     type: 'submit',
-                    customModifiers: 'centered',
+                    customModifiers: 'centered restore',
                 },
             },
         },
@@ -64,8 +65,8 @@ export const restorePasswordFormConfig: IFormWrapperCParams = {
             name: 'core.wlc-link-block',
             params: {
                 common: {
-                    subtitle: gettext('Don’t have an account?'),
-                    link: gettext('Register now'),
+                    subtitle: gettext('Don\'t have an account?'),
+                    link: gettext('Sign up now'),
                     actionParams: {
                         modal: {
                             name: 'signup',

@@ -54,6 +54,10 @@ export interface IModalConfig extends IModalBsOptions {
      */
     backButtonText?: string;
     /**
+     * Remove padding from modal-body
+     */
+    withoutPadding?: boolean;
+    /**
      * Title. If title empty modal-header has class `no-title`
      */
     modalTitle?: string;

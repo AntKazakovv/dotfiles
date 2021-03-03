@@ -1,0 +1,127 @@
+@use 'engine-scss/functions' as ef;
+
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'stepsHeight': 100%,
+
+    'containerMinHeight': (
+        320: auto,
+        900: 665px,
+    ),
+    'containerTemplateCol': (
+        320: 1fr,
+        900: 1fr 430px,
+    ),
+
+    'mainPadding': (
+        320: ef.get('size', 'smaller') 0 ef.get('size', 'main'),
+        900: ef.get('size', 'smaller') ef.get('size', 'less') ef.get('size', 'main'),
+    ),
+    'mainMaxWidth': (
+        320: 280px,
+        900: 100%,
+    ),
+    'mainMargin': (
+        320: auto,
+        900: 0,
+    ),
+
+    'mainJustifyContent': (
+        320: flex-start,
+        900: space-between,
+    ),
+
+    'nextStepBtnMargin': (
+        320: auto auto ef.get('size', 'smaller'),
+        900: auto auto ef.get('size', 'less'),
+    ),
+
+    'bonusListWidth': (
+        320: 280px,
+        900: 100%,
+    ),
+
+    'bonusListMargin': (
+        320: 0 auto ef.get('size', 'less'),
+        900: ef.get('size', 'main') auto ef.get('size', 'main') auto,
+    ),
+
+    'swiperControlsTopPos': 117px,
+    'swiperContainerPadding': 0,
+
+    'singupHeadMaxWidth': 285px,
+    'singupHeadWidth': 100%,
+    'singupHeadPadding': 0 ef.get('size', 'smally'),
+
+    'singupLinkBlockDisplay': (
+        320: flex,
+        560: block,
+    ),
+    'singupLinkBlockRightPos': 100%,
+    'singupLinkBlockTopPos': (
+        320: 4px,
+        560: 10px,
+    ),
+    'singupLinkBlockMarign': (
+        320: 0 -20px 0 0,
+        560: 0 15px 0 0,
+    ),
+    'singupLinkBlockSize': (
+        320: 30px,
+        560: auto,
+    ),
+    'singupLinkBlockMaxWidth': (
+        320: none,
+        560: 70px,
+    ),
+
+    'singupBtnTextFontSize': 0,
+    'singupBtnTextFontSizeMD': 'PlaceholderTextBold',
+    'singupBtnTextColor': ef.get('mainColors', 'main'),
+    'singupIconSvgWidth': (
+        320: 14px,
+        560: 10px,
+    ),
+    'singupIconSvgHeight': (
+        320: 19px,
+        560: 8px,
+    ),
+
+    'titleStyle': 'QoteTextBold',
+    'titleMargin': 0 0 ef.get('size', 'small') 0,
+
+    'subtitleStyle': 'PrimaryText',
+
+    'asideDisplay': (
+        320: none,
+        900: block
+    ),
+
+    'asideBonusPadding': 28px ef.get('size', 'big') 100px ef.get('size', 'big'),
+    'asideBonusHeight': 100%,
+    'asideBonusBackround': rgba(#000, 0.4),
+    'asideBonusTitleStyle': 'PromoTitle',
+    'asideBonusTitleMargin':  auto auto ef.get('size', 'less'),
+    'asideBonusSubtitleStyle': 'PrimaryText',
+    'asideBonusSubtitleMargin': 0  auto auto,
+    'asideBonusTextStyle': 'ThirdTitle',
+
+    'stepsSubtitleMarign': 0 auto ef.get('size', 'big'),
+    'btnMargin': 0 auto ef.get('size', 'main'),
+
+    'backBtnPositionTop': 30px,
+    'backBtnPositionLeft': 40px,
+    'backBtnMaxWidth': 100%,
+    'backBtnColorHover': ef.get('mainColors', 'main'),
+
+    'backBtnIconMargin': 0 ef.get('size', 'smallest') 0 0,
+    'backBtnIconFill': ef.get('mainColors', 'baseMain'),
+    'backBtnIconFillHover': ef.get('mainColors', 'main'),
+
+    'time': ef.get('time', 'main'),
+
+    'dynamicTextDisplay': (
+        320: block,
+        900: none,
+    ),
+), $customThemeDefault);

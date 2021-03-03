@@ -4,10 +4,12 @@ import {
     Component,
     Inject,
     Input,
+    OnChanges,
     OnDestroy,
     OnInit,
     ViewEncapsulation,
 } from '@angular/core';
+import {UIRouter} from '@uirouter/core';
 import {
     AbstractComponent,
     IMixedParams,
@@ -16,31 +18,22 @@ import {
     ModalService,
     EventService,
 } from 'wlc-engine/modules/core';
-import {Bonus} from '../../system/models/bonus';
-import {BonusesService} from '../../system/services';
+import {
+    Bonus,
+    BonusesService,
+    BonusItemComponentEvents,
+    ChosenBonusSetParams,
+    ChosenBonusType,
+} from 'wlc-engine/modules/bonuses';
 import * as Params from './bonus-item.params';
-import {UIRouter} from '@uirouter/core';
 
 import {
-    merge as _merge,
-    isString as _isString,
     union as _union,
     get as _get,
     isUndefined as _isUndefined,
     keys as _keys,
     forEach as _forEach,
 } from 'lodash-es';
-
-export {IBonusItemCParams} from './bonus-item.params';
-export const BonusItemComponentEvents: IBonusItemComponentEvents = {
-    reg: 'CHOOSE_REG_BONUS_SUCCEEDED',
-    deposit: 'CHOOSE_DEPOSIT_BONUS_SUCCEEDED',
-};
-
-interface IBonusItemComponentEvents {
-    reg: string;
-    deposit: string;
-}
 
 @Component({
     selector: '[wlc-bonus-item]',
@@ -50,15 +43,15 @@ interface IBonusItemComponentEvents {
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
 })
-export class BonusItemComponent extends AbstractComponent implements OnInit, OnDestroy {
+export class BonusItemComponent extends AbstractComponent implements OnInit, OnDestroy, OnChanges {
     @Input() public inlineParams: Params.IBonusItemCParams;
-    @Input() public bonus: Bonus;
     @Input() public type: Params.Type;
     @Input() public theme: Params.Theme;
     @Input() public themeMod: Params.ThemeMod;
     @Input() public customMod: Params.CustomMod;
     @Input() public view: string;
     @Input() public chosen: boolean;
+    @Input() public bonus: Bonus;
 
     public $params: Params.IBonusItemCParams;
     public isAuth: boolean;
@@ -71,7 +64,7 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
         @Inject('injectParams') protected params: Params.IBonusItemCParams,
         protected cachingService: CachingService,
         protected cdr: ChangeDetectorRef,
-        protected ConfigService: ConfigService,
+        protected configService: ConfigService,
         protected modalService: ModalService,
         protected eventService: EventService,
         protected bonusesService: BonusesService,
@@ -81,7 +74,11 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
             <IMixedParams<Params.IBonusItemCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            }, ConfigService);
+            }, configService);
+    }
+
+    public get isPreviewTheme(): boolean {
+        return this.$params.theme === 'preview';
     }
 
     public ngOnInit(): void {
@@ -91,8 +88,28 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
             this.$params.common.bonus = this.$params.bonus;
             this.bonus = this.$params.bonus;
         }
+
         if (!this.view) {
-            this.view = this.$params.common.bonus.viewTarget || 'default';
+            this.view = this.$params.common.bonus?.viewTarget || 'default';
+        }
+
+        this.eventService.subscribe([
+            {name: BonusItemComponentEvents.reg},
+            {name: BonusItemComponentEvents.blank},
+        ],
+        (bonus: Bonus) => {
+            if (this.isPreviewTheme) {
+                this.$params.common.bonus = bonus;
+                this.cdr.markForCheck();
+            }
+        }, this.$destroy);
+
+        if (this.isPreviewTheme && !this.$params.common.bonus) {
+            const chosenBonus = this.configService.get<ChosenBonusType>(ChosenBonusSetParams.ChosenBonus);
+            if (chosenBonus?.id) {
+                this.$params.common.bonus = chosenBonus as Bonus;
+                this.cdr.markForCheck();
+            }
         }
 
         this.prepareModifiers();
@@ -105,17 +122,17 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
     }
 
     public getBonusTag(): string {
-        if (this.$params.common.bonus.isActive) {
+        if (this.$params.common.bonus?.isActive) {
             return gettext('Active');
         }
-        if (this.$params.common.bonus.isSubscribed) {
+        if (this.$params.common.bonus?.isSubscribed) {
             return gettext('Subscribed');
         }
 
-        if (this.$params.common.bonus.inventoried) {
+        if (this.$params.common.bonus?.inventoried) {
             return gettext('Inventoried');
         }
-        return this.$params.common.bonus.group;
+        return this.$params.common.bonus?.group;
     }
 
     public openDescription(bonus: Bonus): void {
@@ -126,7 +143,7 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
             modalMessage: [
                 bonus.description,
             ],
-            dismissAll: true,
+            dismissAll: false,
         });
     }
 
@@ -137,12 +154,16 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
     }
 
     public chooseBonus(bonus: Bonus, type: string): void {
-        this.$params.common.bonus.isChoose = true;
+        bonus.isChoose = this.$params.common.bonus.isChoose = true;
         this.eventService.emit({
             name: BonusItemComponentEvents[type],
             data: bonus,
         });
         this.cdr.markForCheck();
+    }
+
+    public chooseBlankBonus(): void {
+        this.eventService.emit({name: 'CHOOSE_BLANK_BONUS'});
     }
 
     public async getInventory(): Promise<void> {
@@ -197,8 +218,10 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
     public action(type: string) {
         switch (type) {
             case 'register':
-                this.chooseBonus(this.$params.common?.bonus, 'reg');
                 this.modalService.showModal('signup');
+                setTimeout(() => {
+                    this.chooseBonus(this.$params.common?.bonus, 'reg');
+                });
                 break;
             case 'deposit':
                 this.router.stateService.go(
@@ -216,6 +239,10 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
     }
 
     protected prepareParams(): Params.IBonusItemCParams {
+        if (this.inlineParams) {
+            return this.inlineParams;
+        }
+
         const inputProperties: string[] = ['bonus', 'type', 'theme', 'themeMod', 'customMod', 'view', 'chosen'];
         const inlineParams: Params.IBonusItemCParams = {
             common: {},

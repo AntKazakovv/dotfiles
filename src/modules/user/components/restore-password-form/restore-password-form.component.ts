@@ -6,7 +6,7 @@ import {
 import {FormGroup} from '@angular/forms';
 
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {EventService} from 'wlc-engine/modules/core/system/services';
+import {EventService, ModalService} from 'wlc-engine/modules/core/system/services';
 import {UserService} from 'wlc-engine/modules/user/system/services';
 import {IPushMessageParams, NotificationEvents} from 'wlc-engine/modules/core/system/services/notification';
 
@@ -39,8 +39,9 @@ export class RestorePasswordFormComponent extends AbstractComponent {
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IRestorePasswordFormCParams,
-        protected userService: UserService,
         protected eventService: EventService,
+        protected modalService: ModalService,
+        protected userService: UserService,
     ) {
         super({
             injectParams,
@@ -52,7 +53,9 @@ export class RestorePasswordFormComponent extends AbstractComponent {
         const {email} = form.value;
 
         try {
+            form.disable();
             const response = await this.userService.sendPasswordRestore(email);
+            this.modalService.closeModal('restore-password');
 
             this.eventService.emit({
                 name: NotificationEvents.PushMessage,
@@ -71,6 +74,8 @@ export class RestorePasswordFormComponent extends AbstractComponent {
                     message: error.errors,
                 },
             });
+        } finally {
+            form.enable();
         }
     }
 }

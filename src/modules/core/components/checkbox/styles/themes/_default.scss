@@ -27,6 +27,9 @@
     .wlc-checkbox {
 
         &__label {
+            display: flex;
+            align-items: center;
+
             padding: ef.get-value($themeDefault, 'checkboxPadding');
 
             user-select: none;
@@ -35,9 +38,7 @@
 
         &__elem {
             position: absolute;
-            top: map-get($themeDefault, 'checkboxElemTop');
             left: map-get($themeDefault, 'checkboxElemLeft');
-            margin-top: map-get($themeDefault, 'checkboxElemMarginTop');
 
             display: flex;
             justify-content: center;

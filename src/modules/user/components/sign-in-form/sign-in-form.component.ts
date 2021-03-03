@@ -11,6 +11,10 @@ import {
     LogService,
     ModalService,
 } from 'wlc-engine/modules/core/system/services';
+import {
+    IPushMessageParams,
+    NotificationEvents,
+} from 'wlc-engine/modules/core';
 import {UserService} from 'wlc-engine/modules/user/system/services';
 
 import * as Params from './sign-in-form.params';
@@ -38,17 +42,35 @@ export class SignInFormComponent extends AbstractComponent {
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ISignInFormCParams,
-        protected logService: LogService,
         protected eventService: EventService,
+        protected logService: LogService,
+        protected modalService: ModalService,
         protected userService: UserService,
     ) {
         super({injectParams, defaultParams: Params.defaultParams});
     }
 
-    public ngSubmit(form: FormGroup): void {
+    public async ngSubmit(form: FormGroup): Promise<void> {
         const {email, login, password} = form.value;
         const loginParam = email ? email : login;
 
-        this.userService.loginRequest(loginParam, password);
+        try {
+            form.disable();
+            await this.userService.login(loginParam, password);
+            this.modalService.closeModal('login');
+        } catch (error) {
+            this.eventService.emit({
+                name: NotificationEvents.PushMessage,
+                data: <IPushMessageParams>{
+                    type: 'error',
+                    title: gettext('Login error'),
+                    message: error.errors,
+                },
+            });
+
+            this.logService.sendLog({code: '1.2.0', data: error});
+        } finally {
+            form.enable();
+        }
     }
 }

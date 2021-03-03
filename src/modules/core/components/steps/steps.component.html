@@ -1,0 +1,13 @@
+<ng-template #default>
+    <p>default</p>
+</ng-template>
+
+<ng-template #signInUp>
+    <div wlc-wrapper [inlineParams]="currentStep.config"></div>
+</ng-template>
+
+<ng-container [ngSwitch]="$params.theme">
+    <ng-container [ngTemplateOutlet]="signInUp" *ngSwitchCase="'signInUp'"></ng-container>
+    <ng-container [ngTemplateOutlet]="default" *ngSwitchDefault></ng-container>
+</ng-container>
+

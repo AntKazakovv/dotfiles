@@ -2,8 +2,16 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'formMaxWidth': 290px,
+    'formMaxWidth': 285px,
     'formMargin': auto,
-    'fieldMargin': 0 0 ef.get('size', 'smaller') 0,
-    'btnMargin': ef.get('size', 'main') auto,
+    'formHeight': 100%,
+
+    'restoreLineHeight': 0,
+    'restoreMargin':  0 0 ef.get('size', 'biger'),
+
+    'fieldMargin': 0 0 ef.get('size', 'smaller'),
+    'btnMargin': (
+        320: auto auto ef.get('size', 'smaller'),
+        900: auto auto ef.get('size', 'less'),
+    ),
 ), $customThemeDefault);
