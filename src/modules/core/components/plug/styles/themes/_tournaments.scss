@@ -1,0 +1,45 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/text' as lib;
+@use 'engine-scss/mixins/base.mixins' as em;
+@use 'engine-scss/mixins/mediaqueries' as mq;
+
+.wlc-plug--theme-tournaments:host {
+    background: ef.get-value($themeTournaments, 'background');
+    border-radius: ef.get-value($themeTournaments, 'borderRadius');
+    position: relative;
+    overflow: hidden;
+
+    @include em.get-mq-map('padding', $themeTournaments, 'padding');
+    @include em.get-mq-map('min-height', $themeTournaments, 'minHeight');
+
+    .wrapper {
+        height: 100%;
+
+        @include em.get-mq-map('margin', $themeTournaments, 'wrapperMargin');
+    }
+
+    .wlc-plug__label {
+        @include lib.get-text-style('ThirdTitleBold', ef.get-value($themeTournaments, 'color'));
+        min-width: ef.get-value($themeTournaments, 'labelMinWidth');
+        text-align: ef.get-value($themeTournaments, 'labelTextAlign');
+
+        position: absolute;
+        top: ef.get-value($themeTournaments, 'labelPositionTop');
+        left: ef.get-value($themeTournaments, 'labelPositionLeft');
+        padding: ef.get-value($themeTournaments, 'labelPadding');
+        background: ef.get-value($themeTournaments, 'labelBg');
+        border-radius: ef.get-value($themeTournaments, 'labelBorderRadius');
+    }
+
+    .wlc-plug__title {
+        @include lib.get-text-style('QoteTextBold', ef.get-value($themeTournaments, 'color'));
+
+        @include mq.min(640) {
+            @include lib.get-text-style('PromoTitle', ef.get-value($themeTournaments, 'color'));
+        }
+    }
+
+    .wlc-plug__description {
+        @include lib.get-text-style('PrimaryText', ef.get-value($themeTournaments, 'color'));
+    }
+}

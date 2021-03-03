@@ -1,0 +1,11 @@
+<ng-template #default>
+    <div class="wrapper">
+        <div class="{{$class}}__label" *ngIf="$params.label">{{$params.label | translate}}</div>
+        <div class="{{$class}}__title" *ngIf="$params.title">{{$params.title | translate}}</div>
+        <div class="{{$class}}__description" *ngIf="$params.description">{{$params.description | translate}}</div>
+    </div>
+</ng-template>
+
+<ng-container [ngSwitch]="$params.theme">
+    <ng-container [ngTemplateOutlet]="default" *ngSwitchDefault></ng-container>
+</ng-container>

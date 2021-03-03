@@ -8,6 +8,8 @@
 @import './categories/categories';
 @import './home/home-wins/home-wins';
 @import './home/total-jackpot/total-jackpot';
+@import './home/promo-categories/promo-categories';
+@import './home/promo-bonuses/promo-bonuses';
 
 @include em.init-layout-gap(ev.$layoutGap);
 

@@ -1,0 +1,19 @@
+<div class="{{$class}}__wrapper">
+
+    <div *ngFor="let category of categories" class="{{$class}}-item">
+
+        <div class="{{$class}}-item__category category-card category-card--{{category.slug}}">
+            <a class="wrapper" uiSref="app.catalog" [uiParams]="{category: category.slug}">
+                <span class="category-card__title">{{category.name[lang] || category.name['en']}}</span>
+                <span class="category-card__link">
+                    {{'All games' | translate}}
+                    <span wlc-icon iconName="arrow"></span>
+                </span>
+            </a>
+        </div>
+
+        <div class="{{$class}}-item__game">
+            <div wlc-game-thumb [game]="category.game"></div>
+        </div>
+    </div>
+</div>

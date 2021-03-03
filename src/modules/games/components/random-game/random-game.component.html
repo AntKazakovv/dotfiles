@@ -1,0 +1,10 @@
+<div class="{{$class}}__wrapper">
+    <span class="{{$class}}__title">{{$params.title | translate}}</span>
+
+    <div class="{{$class}}__icon"
+         wlc-icon
+         [iconName]="'question-mark'"
+    ></div>
+
+    <button wlc-button text="Play now" (click)="toRandomGame()"></button>
+</div>

@@ -1,0 +1,17 @@
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/base.mixins' as bm;
+
+.wlc-bonuses-list--theme-promo-home:host {
+    position: relative;
+
+    .wlc-bonuses-list__slider-pagination {
+        display: flex;
+        position: absolute;
+        z-index: 99;
+
+        @include bm.get-mq-map('bottom', $themePromoHome, 'paginationBottom');
+        @include bm.get-mq-map('right', $themePromoHome, 'paginationRight');
+    }
+}
+

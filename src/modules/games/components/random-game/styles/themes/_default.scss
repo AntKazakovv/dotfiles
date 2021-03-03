@@ -1,0 +1,32 @@
+@use 'engine-scss/mixins/text' as lib;
+@use 'engine-scss/functions' as ef;
+
+.wlc-random-game--theme-default:host {
+    background: ef.get-value($themeDefault, 'background');
+    border-radius: ef.get-value($themeDefault, 'borderRadius');
+    height: 100%;
+
+    .wlc-random-game__wrapper {
+        padding: ef.get-value($themeDefault, 'padding');
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        height: 100%;
+    }
+
+    .wlc-random-game__title {
+        @include lib.get-text-style('ThirdTitle', ef.get-value($themeDefault, 'titleColor'));
+    }
+
+    ::ng-deep {
+
+        .wlc-random-game__icon {
+
+            svg {
+                fill: ef.get-value($themeDefault, 'iconFill');
+                margin: ef.get-value($themeDefault, 'iconMargin');
+            }
+        }
+    }
+}
