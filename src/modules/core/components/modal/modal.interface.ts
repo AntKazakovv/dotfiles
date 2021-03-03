@@ -50,6 +50,10 @@ export interface IModalConfig extends IModalBsOptions {
      */
     useBackButton?: boolean;
     /**
+     * wlc-element
+     */
+    wlcElement?: string;
+    /**
      *  Text for back button.
      */
     backButtonText?: string;

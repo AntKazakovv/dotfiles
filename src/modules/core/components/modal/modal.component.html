@@ -5,6 +5,7 @@
      #modal="bs-modal"
 >
     <div class="wlc-modal__dialog modal-dialog"
+         [attr.data-wlc-element]="$params.wlcElement"
          [class]="dialogClasses">
         <div class="wlc-modal__header"
              [class.wlc-modal__header--headless]="!$params.config.modalTitle">
@@ -18,6 +19,7 @@
                 {{$params.config.backButtonText | translate}}
             </div>
             <div class="wlc-modal__title"
+                 [attr.data-wlc-element]="$params.wlcElement + '-title'"
                  [class.wlc-modal__title--back-btn]="$params.config.useBackButton"
                  *ngIf="$params.config.modalTitle">
                  {{$params.config.modalTitle | translate}}
@@ -61,6 +63,7 @@
                     typeAttr="button"
                     type="rejected"
                     [text]="$params.config.closeBtnText || 'Close'"
+                    [wlcElement]="'button_close'"
                     [inlineParams]="$params.config.closeBtnParams"
                     (click)="closeModal($params.config.id)">
             </button>
@@ -86,6 +89,7 @@
     <div class="modal-icon modal-icon--confirm" *ngIf="$params?.config?.modifier === 'confirmation' && !$params?.config?.hideIcon" wlc-icon iconName="status/confirm"></div>
     <div
         *ngFor="let msg of $params.config.modalMessage"
+        [attr.data-wlc-element]="$params.wlcElement + '-message'"
         [style]="{'text-align': $params.config.textAlign}"
         class="modal-message">
         {{msg | translate}}
@@ -95,6 +99,7 @@
     <div
         *ngFor="let msg of $params.config.modalMessage"
         [style]="{'text-align': $params.config.textAlign}"
+        [attr.data-wlc-element]="$params.wlcElement + '-message'"
         class="modal-message">
         {{msg | translate}}
     </div>
