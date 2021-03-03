@@ -1,7 +1,7 @@
 <div *ngIf="$params.theme == 'default'" class="{{$class}}__content container" (resized)="onResize($event)">
     <div class="{{$class}}__header" #header>
         <h2>{{game?.name[locale] || game?.name['en'] || ''}}</h2>
-        <div class="{{$class}}__btn-left" *ngIf="gameParams.demo">
+        <div class="{{$class}}__btn-left" *ngIf="gameParams.demo" data-wlc-element="wlc-game-play-for-real">
             <button wlc-button
                     text="Play for real"
                     (click)="playForReal()"
@@ -13,10 +13,10 @@
             </div>
             <div *ngIf="isAuth" class="icon-btn icon-btn--favourite"
                  [class.active]="game?.isFavourite"
-                 wlc-icon iconName="favourite" (click)="toggleFavouriteBtn($event)">
+                 wlc-icon iconName="favourite" (click)="toggleFavouriteBtn($event)" [wlcElement]="'button_favourite'">
             </div>
-            <div class="icon-btn" wlc-icon iconName="fullscreen" (click)="openOnFullscreen($event)"></div>
-            <div class="icon-btn" wlc-icon iconName="close" (click)="onClose($event)"></div>
+            <div class="icon-btn" wlc-icon iconName="fullscreen" (click)="openOnFullscreen($event)" [wlcElement]="'button_fullscreen'" ></div>
+            <div class="icon-btn" wlc-icon iconName="close" (click)="onClose($event)" [wlcElement]="'button_close'"></div>
         </div>
     </div>
     <div class="{{$class}}__game-area" #wrp>
