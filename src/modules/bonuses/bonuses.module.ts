@@ -34,7 +34,6 @@ export const components = {
         CoreModule,
         PromoModule,
         TranslateModule,
-        UserModule,
     ],
     providers: [
         BonusesService,

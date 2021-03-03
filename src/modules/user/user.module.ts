@@ -6,6 +6,7 @@ import {
 import {CommonModule} from '@angular/common';
 import {UIRouterModule} from '@uirouter/angular';
 
+
 import {TranslateModule} from '@ngx-translate/core';
 
 import {DataService} from 'wlc-engine/modules/core/system/services';
@@ -29,7 +30,6 @@ import {LoyaltyProgressComponent} from './components/loyalty-progress/loyalty-pr
 import {DashboardLoyaltyBlockComponent} from 'wlc-engine/modules/user/components/dashboard-loyalty-block/dashboard-loyalty-block.component';
 import {ExchangeComponent} from './components/dashboard-exchange/exchange.component';
 import {PhoneFieldComponent} from './components/phone-field/phone-field.component';
-
 
 
 export const components = {

@@ -15,3 +15,9 @@ $themePromo: map-merge((
     'minItemWidth900': 360px,
     'minItemWidthDesktop': 600px,
 ), $customThemePromo);
+
+$customThemePartial: () !default;
+$themePartial: map-merge((
+    'gridTemplateColumns': repeat(auto-fill, minmax(145px, 1fr)),
+    'gridGap': 17px,
+), $customThemePartial);

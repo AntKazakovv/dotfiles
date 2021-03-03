@@ -94,7 +94,7 @@ export const playGameForRealConfig = (params: IPlayForRealParams): IFormWrapperC
                 theme: 'vertical',
                 common: {
                     placeholder: gettext('Email'),
-                    type: 'mail',
+                    type: 'email',
                 },
                 name: 'email',
                 validators: ['required', 'email'],
@@ -147,7 +147,7 @@ export const playGameForRealConfig = (params: IPlayForRealParams): IFormWrapperC
             name: 'core.wlc-link-block',
             params: {
                 common: {
-                    subtitle: gettext('Don’t have an account?'),
+                    subtitle: gettext('Don\'t have an account?'),
                     link: gettext('Sign up now'),
                     actionParams: {
                         event: {

@@ -1,0 +1,47 @@
+@use 'engine-scss/functions' as ef;
+
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'containerPadding': (
+        320: 0 ef.get('size', 'smally') ef.get('size', 'smaller'),
+        560: 0,
+    ),
+    'containerRadius': ef.get('radius', 'biger'),
+
+    'navDisplay': (
+        320: flex,
+        900: none,
+    ),
+    'navMinHeight': 55px,
+    'navItemFlex': 1 1 100%,
+    'navItemBackground': ef.get('mainColors', 'bg500'),
+    'navItemPadding': ef.get('size', 'smally'),
+    'navItemActiveBackground': ef.get('mainColors', 'bg700'),
+    'navItemColor': ef.get('mainColors', 'baseMain'),
+    'navItemStyle': 'ThirdTitle',
+    'navItemActiveStyle': 'ThirdTitleBold',
+    'navItemFirstRadius': ef.get('radius', 'biger') 0 0 0,
+    'navItemLastRadius':  0 ef.get('radius', 'biger') 0 0,
+
+    'bodyBackground': (
+        320: ef.get('mainColors', 'bg700'),
+        900: transparent,
+    ),
+    'bodyHeight': 100%,
+    'bodyRadius': 0 0 ef.get('radius', 'biger') ef.get('radius', 'biger'),
+
+    // modifiers
+    'bodyItemLoginPadding': ef.get('size', 'smaller') ef.get('size', 'smally') ef.get('size', 'main'),
+    // modifiers
+
+    'loginBodyWidth': (
+        320: 100%,
+        560: 500px,
+    ),
+    'signupBodyWidth': (
+        320: 100%,
+        900: 868px,
+        1024: 992px,
+        1200: 1138px,
+    )
+), $customThemeDefault);

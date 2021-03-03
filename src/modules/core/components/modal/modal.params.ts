@@ -7,13 +7,12 @@ import {PostComponent} from 'wlc-engine/modules/static/components/post/post.comp
 import {PromoSuccessComponent} from 'wlc-engine/modules/bonuses/components/promo-success/promo-success.component';
 import {RestorePasswordFormComponent} from 'wlc-engine/modules/user/components/restore-password-form/restore-password-form.component';
 import {SearchComponent} from 'wlc-engine/modules/games/components/search/search.component';
-import {SignUpFormComponent} from 'wlc-engine/modules/user/components/sign-up-form/sign-up-form.component';
-import {SignInFormComponent} from 'wlc-engine/modules/user/components/sign-in-form/sign-in-form.component';
 import {
     IModalConfig,
     IModalList,
     IModalOptions,
 } from './index';
+import {TabSwitcherComponent} from 'wlc-engine/modules/core/components/tab-switcher/tab-switcher.component';
 
 export const defaultParams: IModalOptions = {
     moduleName: 'core',
@@ -34,6 +33,7 @@ export const DEFAULT_MODAL_CONFIG: Partial<IModalConfig> = {
     backButtonText: '',
     closeBtnVisibility: true,
     textAlign: 'left',
+    withoutPadding: false,
 };
 
 export const MODALS_LIST: IModalList = {
@@ -48,21 +48,59 @@ export const MODALS_LIST: IModalList = {
     login: {
         config: {
             id: 'login',
-            modifier: 'login',
-            component: SignInFormComponent,
-            size: 'md',
+            modifier: 'login-sign-up',
+            modalTitle: gettext('Sign in now!'),
+            component: TabSwitcherComponent,
+            size: 'as',
             showFooter: false,
             dismissAll: true,
+            componentParams: {
+                tabs: {
+                    'signIn': {
+                        name: gettext('Sign in'),
+                        startTab: 'signIn',
+                        component: 'user.wlc-sign-in-form',
+                        modifier: 'login',
+                        modalId: 'login',
+                    },
+                    'signUp': {
+                        name: gettext('Sign up'),
+                        component: 'core.wlc-steps',
+                        theme: 'signInUp',
+                        modifier: 'signup',
+                        modalId: 'signup',
+                    },
+                },
+            },
         },
     },
     signup: {
         config: {
             id: 'signup',
-            modifier: 'signup',
-            component: SignUpFormComponent,
-            size: 'md',
+            modifier: 'login-sign-up',
+            modalTitle: gettext('Sign up now!'),
+            component: TabSwitcherComponent,
+            size: 'as',
             showFooter: false,
             dismissAll: true,
+            withoutPadding: true,
+            componentParams: {
+                tabs: {
+                    'signIn': {
+                        name: gettext('Sign in'),
+                        component: 'user.wlc-sign-in-form',
+                        modifier: 'login',
+                        modalId: 'login',
+                    },
+                    'signUp': {
+                        name: gettext('Sign up'),
+                        startTab: 'signUp',
+                        component: 'core.wlc-steps',
+                        modifier: 'signup',
+                        modalId: 'signup',
+                    },
+                },
+            },
         },
     },
     changePassword: {
@@ -91,12 +129,14 @@ export const MODALS_LIST: IModalList = {
     restorePassword: {
         config: {
             id: 'restore-password',
-            modifier: 'restore-password',
+            modifier: 'restore',
             component: RestorePasswordFormComponent,
+            modalTitle: gettext('Password restore'),
             size: 'md',
             showFooter: false,
             dismissAll: true,
             useBackButton: true,
+            backButtonText: gettext('Back'),
         },
     },
     logout: {

@@ -1,5 +1,6 @@
 @use 'engine-scss/functions' as ef;
 @use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/base.mixins' as em;
 @use 'engine-scss/mixins/text' as text;
 @use 'engine-scss/engine.variables' as ev;
 @import '../utils/vars';
@@ -46,6 +47,90 @@
 
         &__footer {
             padding: ef.get-value($themeDefault, 'paddingDefault');
+        }
+    }
+
+    // Modifiers
+
+    &.wlc-modal--login-sign-up {
+        @include em.get-mq-map('background', $themeDefault, 'loginSignUpModalBackground');
+
+
+        .wlc-modal {
+
+            &__close {
+                @include em.get-mq-map('right', $themeDefault, 'loginSignUpClosePosRight');
+                @include em.get-mq-map('top', $themeDefault, 'loginSignUpClosePosTop');
+            }
+
+            &__header {
+                @include em.get-mq-map('padding', $themeDefault, 'loginSignUpHeaderPadding');
+                border-bottom: none;
+            }
+
+            &__title {
+                @include em.get-mq-map('display', $themeDefault, 'loginSignUpTitleDisplay');
+                @include text.get-text-style(ef.get-value($themeDefault, 'loginSignUpTitleStyle'), ef.get-value($themeDefault, 'loginSignUpTitleColor'));
+                text-align: left;
+            }
+
+            &__body {
+                padding: 0;
+            }
+
+            &__dialog {
+                @include em.get-mq-map('height', $themeDefault, 'loginSignUpDialogHeight');
+                @include em.get-mq-map('margin', $themeDefault, 'loginSignUpDialogMarign');
+                @include em.get-mq-map('border', $themeDefault, 'loginSignUpDialogBorder');
+            }
+        }
+    }
+
+    &.wlc-modal--restore {
+        @include em.get-mq-map('background', $themeDefault, 'restoreModalBackground');
+
+        .wlc-modal {
+
+            &__header {
+                padding: ef.get-value($themeDefault, 'restoreHeaderPadding');
+                //@include em.get-mq-map('padding', $themeDefault, 'restoreHeaderPadding');
+                border-bottom: none;
+            }
+
+            &__body {
+                padding: ef.get-value($themeDefault, 'restoreBodyPadding');
+            }
+
+            &__title {
+                @include em.get-mq-map('display', $themeDefault, 'restoreTitleDisplay');
+                @include text.get-text-style(ef.get-value($themeDefault, 'restoreTitleStyle'), ef.get-value($themeDefault, 'restoreTitleColor'));
+                text-align: left;
+
+                @include mq.min(900) {
+                    text-align: center;
+                    @include text.get-text-style(ef.get-value($themeDefault, 'restoreTitleStyleDesk'), ef.get-value($themeDefault, 'restoreTitleColor'));
+                }
+            }
+
+            &__back-btn {
+                justify-content: center;
+
+                .icon-arrow {
+                    @include mq.min(900) {
+                        margin-top: 0;
+                    }
+                }
+            }
+
+            &__back-btn-text {
+                @include em.get-mq-map('display', $themeDefault, 'restoreBtnTextDisplay');
+            }
+
+            &__dialog {
+                @include em.get-mq-map('height', $themeDefault, 'restoreDialogHeight');
+                @include em.get-mq-map('border', $themeDefault, 'restoreDialogBorder');
+                @include em.get-mq-map('margin', $themeDefault, 'restoreDialogMarign');
+            }
         }
     }
 }

@@ -1,0 +1,23 @@
+<div class="{{$class}}__container">
+    <div class="{{$class}}-nav">
+        <div class="{{$class}}-nav__item {{$class + '-nav__item--' + tab.modifier}}"
+             *ngFor="let tab of tabs"
+             [class.active]="tab.active"
+             (click)="selectTab(tab)"
+        >
+            {{tab.name | translate}}
+        </div>
+    </div>
+    <div class="{{$class}}-body">
+        <div *ngFor="let tab of tabs"
+             class="{{$class}}-body__item {{$class + '-body__item--' + tab.modifier}}"
+             [class.active]="tab.active"
+        >
+            <ng-container *ngIf="tab.active"
+                          [ngComponentOutlet]="tab.componentClass"
+                          [ngComponentOutletInjector]="tab.injector"
+            ></ng-container>
+        </div>
+    </div>
+</div>
+

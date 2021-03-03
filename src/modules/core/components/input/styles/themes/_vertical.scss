@@ -7,6 +7,18 @@
 .wlc-input--theme-vertical:host {
     @include inputBase($themeVertical);
 
+    input:matches(
+    [type='email'],
+    [type='number'],
+    [type='password'],
+    [type='search'],
+    [type='tel'],
+    [type='text'],
+    [type='url']) {
+        /* stylelint-disable */
+        -webkit-appearance: none;
+    }
+
     .wlc-input__label {
         display: block;
         margin: ef.get-value($themeVertical, 'labelMargin');
@@ -56,7 +68,6 @@
         }
 
         &[type='number'] {
-            /* stylelint-disable */
             -moz-appearance: textfield;
 
             &::-webkit-outer-spin-button,
@@ -64,6 +75,7 @@
                 -webkit-appearance: none;
                 margin: 0;
             }
+
             /* stylelint-enable */
         }
     }

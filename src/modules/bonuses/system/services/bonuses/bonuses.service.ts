@@ -83,6 +83,10 @@ export class BonusesService {
         this.setSubscribers();
     }
 
+    public get hasBonuses(): boolean {
+        return !!this.bonuses.length;
+    }
+
     /**
      * Get subscribtion from bonuses observer
      *
@@ -100,7 +104,7 @@ export class BonusesService {
     }
 
     /**
-     * Get bonuses observer from bonses subjects by rest type
+     * Get bonuses observer from bonuses subjects by rest type
      *
      * @param {RestType} type bonuses rest type ('active' | 'history' | 'store' | 'any')
      * @returns {Observable<Bonus[]>} Observable

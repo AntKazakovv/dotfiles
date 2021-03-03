@@ -15,7 +15,9 @@
                 <span class="icon-arrow"
                       wlc-icon [iconName]="'arrow'"
                 ></span>
-                {{$params.config.backButtonText | translate}}
+                <span class="wlc-modal__back-btn-text">
+                    {{$params.config.backButtonText | translate}}
+                </span>
             </div>
             <div class="wlc-modal__title"
                  [class.wlc-modal__title--back-btn]="$params.config.useBackButton"
@@ -33,8 +35,10 @@
                     [title]="'Close' | translate">
             </button>
         </div>
-
-        <div class="wlc-modal__body" [ngSwitch]="getType()">
+        <div
+            class="wlc-modal__body"
+            [ngClass]="{'without-padding': $params.config.withoutPadding}"
+            [ngSwitch]="getType()">
             <ng-container *ngSwitchCase="'component'"
                           [ngTemplateOutlet]="component">
             </ng-container>

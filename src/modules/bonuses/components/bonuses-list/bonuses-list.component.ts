@@ -21,9 +21,14 @@ import {
     ISlide,
 } from 'wlc-engine/modules/promo/components/slider/slider.params';
 import {SliderComponent} from 'wlc-engine/modules/promo/components/slider/slider.component';
+import {
+    Bonus,
+    BonusesService,
+    BonusItemComponentEvents,
+    ChosenBonusSetParams,
+    ChosenBonusType,
+} from 'wlc-engine/modules/bonuses';
 import {BonusItemComponent} from '../bonus-item/bonus-item.component';
-import {Bonus} from '../../system/models/bonus';
-import {BonusesService} from '../../system/services';
 import * as Params from './bonuses-list.params';
 
 import {
@@ -38,8 +43,6 @@ import {
     concat as _concat,
     isObject as _isObject,
 } from 'lodash-es';
-
-export {IBonusesListCParams} from './bonuses-list.params';
 
 @Component({
     selector: '[wlc-bonuses-list]',
@@ -71,7 +74,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
         @Inject('injectParams') protected params: Params.IBonusesListCParams,
         protected bonusesService: BonusesService,
         protected cachingService: CachingService,
-        protected ConfigService: ConfigService,
+        protected configService: ConfigService,
         protected cdr: ChangeDetectorRef,
         protected eventService: EventService,
     ) {
@@ -79,7 +82,11 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
             <IMixedParams<Params.IBonusesListCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            }, ConfigService);
+            }, configService);
+    }
+
+    public get chosenBonus(): Bonus {
+        return _find(this.bonuses, ({isChoose}) => isChoose);
     }
 
     public async ngOnInit(): Promise<void> {
@@ -96,16 +103,42 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
         }
 
         this.bonusesService.getSubscribe({
-            useQuery: true,
+            useQuery: !this.bonusesService.hasBonuses,
             observer: {
                 next: (bonuses: Bonus[]) => {
                     if (bonuses) {
                         this.bonuses = this.bonusesService.filterBonuses(bonuses, this.$params.common?.filter);
                         this.isReady = true;
+
+                        const chosenBonus = this.configService.get<ChosenBonusType>(ChosenBonusSetParams.ChosenBonus);
+
+                        if (chosenBonus?.id) {
+                            _find(this.bonuses, (item: Bonus) => {
+                                if (item.id === chosenBonus.id) {
+                                    item.isChoose = true;
+                                    return true;
+                                }
+                            });
+                        } else if (!this.selectFirstBonus && chosenBonus?.id === null) {
+                            this.chooseBlankBonus();
+                        } else if (this.selectFirstBonus && !this.chosenBonus) {
+                            this.chooseFirstBonus();
+                        }
+                    }
+
+                    if (this.$params.common?.useBlankBonus) {
+                        const blankBonus: any = {
+                            id: null,
+                            type: 'blank',
+                            isChoose: !this.chosenBonus,
+                            name: gettext('Proceed without'),
+                        };
+                        this.bonuses.push(blankBonus);
                     }
 
                     this.prepareBonuses();
-                    if (this.$params.type === 'swiper' && this.bonuses?.length) {
+                    if (this.$params.type === 'swiper' && this.bonuses.length) {
+
                         this.bonusesToSlides(this.bonuses);
                     }
                     this.cdr.markForCheck();
@@ -116,16 +149,55 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
         });
 
         this.eventService.subscribe([
-            {name: 'CHOOSE_REG_BONUS_SUCCEEDED'},
-            {name: 'CHOOSE_DEPOSIT_BONUS_SUCCEEDED'},
+            {name: BonusItemComponentEvents.reg},
+            {name: BonusItemComponentEvents.deposit},
         ], (bonus: Bonus) => {
             _each(this.bonuses, (item: Bonus) => {
                 if (item.id !== bonus.id) {
                     item.isChoose = false;
                 }
             });
+
+            if (this.slider) {
+                this.bonusesToSlides(this.bonuses, false);
+            }
+
             this.prepareBonuses();
-            this.cdr.detectChanges();
+
+            const allowedBonus: boolean = !!_find(this.bonuses, ({id}: Bonus) => id === bonus.id);
+
+            if (!allowedBonus && this.selectFirstBonus) {
+                return this.chooseFirstBonus();
+            } else if (!allowedBonus && !this.selectFirstBonus) {
+                return this.chooseBlankBonus();
+            }
+            this.configService.set<ChosenBonusType>({
+                name: ChosenBonusSetParams.ChosenBonus,
+                value: bonus,
+            });
+            this.cdr.markForCheck();
+        }, this.$destroy);
+
+        this.eventService.subscribe({name: 'hidden.bs.modal'}, (name: string) => {
+            if (name === 'signup') {
+                this.chooseBlankBonus();
+            }
+        }, this.$destroy);
+
+        this.eventService.subscribe({name: 'CHOOSE_BLANK_BONUS'}, () => {
+            this.chooseBlankBonus();
+            this.cdr.markForCheck();
+
+            _each(this.bonuses, bonus => {
+                if (bonus.type === 'blank') {
+                    bonus.isChoose = true;
+                }
+            });
+
+            if (this.slider) {
+                this.bonusesToSlides(this.bonuses, false);
+                this.cdr.markForCheck();
+            }
         }, this.$destroy);
 
         if (this.$params.type === 'swiper') {
@@ -149,6 +221,34 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
                 }
             }, this.$destroy);
         }
+    }
+
+    public ngOnDestroy(): void {
+        super.ngOnDestroy();
+        this.unchooseBonuses();
+    }
+
+    public chooseBlankBonus(): void {
+        this.unchooseBonuses();
+        setTimeout(() => {
+            const isChoosenBonus = _find(this.bonuses, ({isChoose}) => isChoose);
+
+            _each(this.bonuses, bonus => {
+                if (!isChoosenBonus && bonus.type === 'blank') {
+                    bonus.isChoose = true;
+                    this.cdr.markForCheck();
+                }
+            });
+        }, 0);
+        this.configService.set<ChosenBonusType>({
+            name: ChosenBonusSetParams.ChosenBonus,
+            value: {id: null},
+        });
+        this.eventService.emit({name: BonusItemComponentEvents.blank});
+    }
+
+    protected get selectFirstBonus(): boolean {
+        return this.$params?.common.selectFirstBonus;
     }
 
     protected prepareModifiers(): void {
@@ -223,7 +323,6 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
         this.$params.common.sortOrder = _concat(this.bonusesService.promoBonus.id, this.$params.common.sortOrder);
     }
 
-
     protected async checkPromoBonus(): Promise<void> {
         this.promocode = await this.cachingService.get(this.bonusesService.dbPromoUrl);
 
@@ -235,5 +334,28 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
 
     protected checkBonuses() {
         this.bonuses = _filter(this.bonuses, (bonus: Bonus) => _isObject(bonus));
+    }
+
+    protected chooseFirstBonus(): void {
+        if (this.bonuses.length) {
+            this.bonuses[0].isChoose = true;
+            this.eventService.emit({
+                name: BonusItemComponentEvents.reg,
+                data: this.bonuses[0],
+            });
+            this.configService.set<ChosenBonusType>({
+                name: ChosenBonusSetParams.ChosenBonus,
+                value: this.bonuses[0],
+            });
+            this.cdr.markForCheck();
+        }
+    }
+
+    protected unchooseBonuses(): void {
+        _each(this.bonuses, (bonus) => {
+            bonus.isChoose = false;
+        });
+
+        this.cdr.markForCheck();
     }
 }

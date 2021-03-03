@@ -1,12 +1,33 @@
-@use 'engine-scss/mixins/text' as text;
 @use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/mixins/base.mixins' as em;
 @import '../utils/vars';
 
 .wlc-sign-in-form--theme-default:host {
     max-width: ef.get-value($themeDefault, 'formMaxWidth');
     margin: ef.get-value($themeDefault, 'formMargin');
+    height: ef.get-value($themeDefault, 'formHeight');
 
     &::ng-deep {
+
+        .wlc-form-wrapper,
+        .wlc-form {
+            height: ef.get-value($themeDefault, 'formHeight');
+        }
+
+        .wlc-form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .wlc-restore-link {
+            line-height: ef.get-value($themeDefault, 'restoreLineHeight');
+            margin: ef.get-value($themeDefault, 'restoreMargin');
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
 
         .wlc-input {
             margin: ef.get-value($themeDefault, 'fieldMargin');
@@ -19,17 +40,7 @@
         .wlc-btn {
 
             &--submit {
-                margin: ef.get-value($themeDefault, 'btnMargin');
-            }
-        }
-
-        //todo delete
-
-        .wlc-link-block {
-
-            .wlc-link-block__subtitle[class] {
-                @include text.get-text-style('PlaceholderText');
-                margin-bottom: 10px;
+                @include em.get-mq-map('margin', $themeDefault, 'btnMargin');
             }
         }
     }

@@ -1,28 +1,33 @@
-@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/base.mixins' as em;
+
 @import '../utils/vars';
 
 .wlc-sign-up-form--theme-default:host {
-    max-width: $formMaxWidth;
-    margin: $formMargin;
+    display: flex;
+    flex-direction: column;
+    max-width: ef.get-value($themeDefault, 'formMaxWidth');
+    margin: ef.get-value($themeDefault, 'formMargin');
+    height: ef.get-value($themeDefault, 'formHeight');
 
     &::ng-deep {
 
+        .wlc-form-wrapper {
+            height: 100%;
+        }
+
         .wlc-form {
             display: grid;
-            grid-template-areas: $templateAreas;
-            grid-template-columns: $gridColumns;
-            grid-gap: $gridGap;
+            grid-template-areas: ef.get-value($themeDefault, 'templateAreas');
+            grid-template-columns: ef.get-value($themeDefault, 'gridColumns');
+            grid-gap: ef.get-value($themeDefault, 'gridGap');
+            height: ef.get-value($themeDefault, 'formHeight');
+            grid-template-rows: repeat(5, max-content) minmax(auto, 1fr) max-content;
 
             > .wlc-btn {
                 grid-area: btn;
 
-                margin: $btnMargin;
-            }
-
-            //todo delete
-            .wlc-link-block__subtitle {
-                @include text.get-text-style('PlaceholderText');
-                margin-bottom: 10px;
+                @include em.get-mq-map('margin', $themeDefault, 'btnMargin');
             }
         }
 
@@ -62,8 +67,22 @@
 
             .wlc-select__field,
             .wlc-select__dropdown-item {
-                padding: $selectPadding;
-                font-size: $selectFontSize;
+                padding: ef.get-value($themeDefault, 'selectPadding');
+                font-size: ef.get-value($themeDefault, 'selectFontSize');
+            }
+        }
+
+        .wlc-checkbox[wlc-checkbox] {
+
+            .wlc-checkbox__link {
+                color: ef.get-value($themeDefault, 'checkboxLinkColor');
+                border-bottom: 1px solid ef.get-value($themeDefault, 'checkboxLinkColor');
+                transition: color 0.3s linear, border-bottom-color 0.3s linear;
+
+                &:hover {
+                    color: lighten(ef.get-value($themeDefault, 'checkboxLinkColor'), 20%);
+                    border-bottom-color: lighten(ef.get-value($themeDefault, 'checkboxLinkColor'), 20%);
+                }
             }
         }
     }

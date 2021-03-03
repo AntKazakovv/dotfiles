@@ -1,4 +1,7 @@
-import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
+import {
+    IIndexing,
+    ISetParams,
+} from 'wlc-engine/modules/core';
 import {
     PartialObserver,
     Observable,
@@ -132,3 +135,19 @@ export type IBonusImageType = 'default' | 'reg' | 'deposit' | 'promo' | 'store' 
 export type BonusesFilterType = 'all' | 'reg' | 'deposit' | 'promocode' | 'inventory' | 'main' | 'active' | 'default';
 export type RestType = 'active' | 'history' | 'store' | 'any';
 export type ActionType = 'inventory' | 'cancel' | 'subscribe' | 'unsubscribe';
+
+interface IBlankBonus {
+    id: null
+}
+
+export enum ChosenBonusSetParams {
+    ChosenBonus = 'CHOSEN_BONUS',
+}
+
+export type ChosenBonusType = Bonus | IBlankBonus;
+
+export enum BonusItemComponentEvents {
+    reg = 'CHOOSE_REG_BONUS_SUCCEEDED',
+    blank = 'UNCHOOSE_ANY_BONUS',
+    deposit = 'CHOOSE_DEPOSIT_BONUS_SUCCEEDED',
+}
