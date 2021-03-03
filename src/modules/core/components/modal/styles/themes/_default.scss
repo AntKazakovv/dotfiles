@@ -58,6 +58,10 @@
 
         .wlc-modal {
 
+            &__wrapper {
+                @include em.get-mq-map('padding', $themeDefault, 'loginSignUpModalWrapperPadding');
+            }
+
             &__close {
                 @include em.get-mq-map('right', $themeDefault, 'loginSignUpClosePosRight');
                 @include em.get-mq-map('top', $themeDefault, 'loginSignUpClosePosTop');
@@ -90,6 +94,10 @@
         @include em.get-mq-map('background', $themeDefault, 'restoreModalBackground');
 
         .wlc-modal {
+
+            &__wrapper {
+                @include em.get-mq-map('padding', $themeDefault, 'restoreModalWrapperPadding');
+            }
 
             &__header {
                 padding: ef.get-value($themeDefault, 'restoreHeaderPadding');
