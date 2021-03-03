@@ -5,6 +5,23 @@
 
 .wlc-games-grid--theme-default:host {
 
+    &.wlc-games-grid--title-icon {
+
+        .wlc-games-grid__header {
+
+            ::ng-deep {
+
+                .wlc-icon {
+                    margin: ef.get-value($themeDefault, 'titleIconMargin');
+                }
+
+                .wlc-title {
+                    margin: ef.get-value($themeDefault, 'titleWithIconMargin');
+                }
+            }
+        }
+    }
+
     .wlc-games-grid {
 
         &__header {
@@ -80,5 +97,3 @@
         }
     }
 }
-
-
