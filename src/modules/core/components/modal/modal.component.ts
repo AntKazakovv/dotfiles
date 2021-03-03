@@ -72,6 +72,7 @@ export class WlcModalComponent extends AbstractComponent
         super.ngOnInit(this.inlineParams);
         this.applyConfig();
         this.setDeviceClass();
+        this.$params.wlcElement = this.$params.config?.wlcElement || this.$params.wlcElement || 'wlc-modal';
     }
 
     public ngAfterViewInit(): void {

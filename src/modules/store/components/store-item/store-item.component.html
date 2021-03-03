@@ -15,7 +15,7 @@
                 <h4 class="{{$class}}__name" data-wlc-element="store_item-name" [wlc-clamp]="1">
                     {{storeItem.name}}
                 </h4>
-                <div class="{{$class}}__price" data-wlc-element="store_item-price" *ngIf="!!storeItem.priceLoyalty">
+                <div class="{{$class}}__price" data-wlc-element="store_item-price-exp" *ngIf="!!storeItem.priceLoyalty">
                     {{storeItem.priceLoyalty}} LP
                 </div>
                 <div class="{{$class}}__price" *ngIf="!!storeItem.priceExp">
