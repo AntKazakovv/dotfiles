@@ -23,4 +23,5 @@ export const defaultParams: IGameWrapperCParams = {
     updateOnWindowResize: true,
     padding: 0,
     gameParams: undefined,
+    wlcElement: 'section_game-play-container',
 };

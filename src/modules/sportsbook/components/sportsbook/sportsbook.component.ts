@@ -51,6 +51,7 @@ export class SportsbookComponent extends AbstractComponent implements OnInit {
                     merchantId: settings.merchantId,
                     launchCode: settings.launchCode,
                 },
+                wlcElement: 'section_sportsbook_game-play',
                 theme: 'fullscreen-game-frame',
             };
         }
