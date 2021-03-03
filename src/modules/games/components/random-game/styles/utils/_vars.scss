@@ -1,0 +1,11 @@
+@use 'engine-scss/functions' as ef;
+
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'background': ef.get('mainColors', 'bg700'),
+    'borderRadius': ef.get('size', 'small'),
+    'padding': ef.get('size', 'smaller'),
+    'iconMargin': ef.get('size', 'small') 0,
+    'iconFill': ef.get('mainColors', 'baseOpacity'),
+    'titleColor': ef.get('mainColors', 'baseMain'),
+), $customThemeDefault);

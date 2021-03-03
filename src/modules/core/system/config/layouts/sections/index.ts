@@ -11,3 +11,5 @@ export * from './left-panel.section';
 export * from './right-panel.section';
 export * from './recent-wins-and-tournaments.section';
 export * from './total-jackpot.section';
+export * from './promo-categories.section';
+export * from './promo-bonuses.section';

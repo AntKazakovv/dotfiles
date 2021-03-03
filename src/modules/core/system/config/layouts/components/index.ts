@@ -9,6 +9,7 @@ export * from './core/wlc-license.config';
 export * from './core/wlc-info-page.config';
 export * from './core/wlc-title.config';
 export * from './core/wlc-error-page.config';
+export * from './core/wlc-plug.config';
 
 export * from './user/wlc-login-signup.config';
 export * from './user/wlc-user-info.config';
@@ -36,6 +37,8 @@ export * from './games/wlc-game-wrapper.config';
 export * from './games/wlc-games-grid.config';
 export * from './games/wlc-games-grid.config';
 export * from './games/wlc-total-jackpot.config';
+export * from './games/wlc-random-game.config';
+export * from './games/wlc-category-preview.config';
 
 export * from './static/wlc-post-menu.config';
 

@@ -1,0 +1,95 @@
+@use 'engine-scss/mixins/text' as lib;
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/base.mixins' as bm;
+
+.wlc-category-preview--theme-default:host {
+
+    .wlc-category-preview__wrapper {
+        display: grid;
+        grid-template-columns: ef.get-value($themeDefault, 'wraperGridColumns');
+
+        @include bm.get-mq-map('gap', $themeDefault, 'gap');
+    }
+
+    .wlc-category-preview-item__category {
+        position: relative;
+        height: 0;
+        padding-top: 75%;
+        background: ef.get-value($themeDefault, 'categoryBg');
+        background-repeat: no-repeat;
+        border-radius: ef.get-value($themeDefault, 'categoryBorderRadius');
+
+        @include bm.get-mq-map('margin-bottom', $themeDefault, 'gap');
+
+        .wrapper {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    .category-card {
+        position: relative;
+
+        .wrapper {
+            display: flex;
+            flex-direction: ef.get-value($themeDefault, 'categoryFlexDirection');
+            justify-content: ef.get-value($themeDefault, 'categoryJustifyContent');
+            text-decoration: none;
+
+            @include bm.get-mq-map('padding', $themeDefault, 'categoryPadding');
+
+            @media (hover) {
+
+                &:hover {
+                    text-decoration: none;
+
+                    .category-card__link {
+
+                        ::ng-deep {
+
+                            .wlc-icon {
+
+                                svg {
+                                    transform: rotate(270deg);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .category-card__title {
+        @include lib.get-text-style('QoteTextBold', ef.get-value($themeDefault, 'categoryTitleColor'));
+        @include bm.get-mq-map('font-size', $themeDefault, 'categoryTitleFontSize');
+    }
+
+    .category-card__link {
+
+        @include bm.get-mq-map('display', $themeDefault, 'categoryLinkDisplay');
+
+        @include mq.min(560) {
+            @include lib.get-text-style('ThirdTitle', ef.get-value($themeDefault, 'categoryLinkColor'));
+
+            ::ng-deep {
+
+                .wlc-icon {
+
+                    svg {
+                        @include bm.transition(transform);
+                        transform: rotate(-90deg);
+
+                        path {
+                            fill: ef.get-value($themeDefault, 'categoryLinkColor');
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,4 +1,6 @@
 @use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/text' as lib;
+@use 'engine-scss/mixins/base.mixins' as em;
 
 .swiper-button-prev,
 .swiper-button-next {
@@ -70,4 +72,49 @@
 
 .swiper-button-lock {
     display: none;
+}
+
+.wlc-swiper-button-prev,
+.wlc-swiper-button-next {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: ef.get-value($themeDefaultBanner, 'buttonSize');
+    height: ef.get-value($themeDefaultBanner, 'buttonSize');
+    background: ef.get-value($themeDefaultBanner, 'buttonBg');
+    border-radius: ef.get-value($themeDefaultBanner, 'buttonBorderRadius');
+    transition: ef.get-value($themeDefaultBanner, 'transition');
+    outline: none;
+    border: none;
+
+    @media (hover) {
+
+        &:hover {
+            background: ef.get-value($themeDefaultBanner, 'buttonBgHover');
+        }
+    }
+
+    svg {
+        fill: ef.get-value($themeDefaultBanner, 'iconFill');
+    }
+
+    &.swiper-button-disabled {
+        opacity: 0.5;
+        cursor: auto;
+    }
+}
+
+.wlc-swiper-button-prev {
+    @include em.get-mq-map('margin-right', $themeDefaultBanner, 'buttonGap');
+
+    .wlc-icon-content {
+        transform: rotate(90deg);
+    }
+}
+
+.wlc-swiper-button-next {
+
+    .wlc-icon-content {
+        transform: rotate(-90deg);
+    }
 }

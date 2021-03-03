@@ -10,7 +10,7 @@ import {
 } from '../../system/interfaces/bonuses.interface';
 
 export type Type = 'default' | 'swiper' | CustomType;
-export type Theme = 'default' | 'partial' | CustomType;
+export type Theme = 'default' | 'partial' | 'promo-home' | CustomType;
 export type ThemeMod = 'default' | CustomType;
 export type AutoModifiers = Theme | ThemeMod;
 export type CustomMod = string;

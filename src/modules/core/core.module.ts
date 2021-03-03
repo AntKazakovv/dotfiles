@@ -75,6 +75,7 @@ import {ErrorPageComponent} from './components/error-page/error-page.component';
 import {TabSwitcherComponent} from './components/tab-switcher/tab-switcher.component';
 import {StepsComponent} from './components/steps/steps.component';
 import {WlcPaginationComponent} from './components/pagination/pagination.component';
+import {PlugComponent} from './components/plug/plug.component';
 
 // -- COMPONENTS IMPORTS END  --;
 
@@ -150,6 +151,7 @@ export const components = {
     'wlc-title': TitleComponent,
     'wlc-wrapper': WrapperComponent,
     'wlc-error-page': ErrorPageComponent,
+    'wlc-plug': PlugComponent,
 };
 
 @NgModule({
@@ -241,6 +243,7 @@ export const components = {
         WrapperComponent,
         ErrorPageComponent,
         DrugNDropDirective,
+        PlugComponent,
     ],
     exports: [
         AuthDirective,
@@ -297,6 +300,7 @@ export const components = {
         TitleComponent,
         ErrorPageComponent,
         DrugNDropDirective,
+        PlugComponent,
     ],
 })
 export class CoreModule {

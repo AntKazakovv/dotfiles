@@ -81,4 +81,24 @@ export namespace wlcBonusesList {
             },
         },
     };
+    export const promoHome: ILayoutComponent = {
+        name: 'bonuses.wlc-bonuses-list',
+        params: {
+            type: 'swiper',
+            theme: 'promo-home',
+            wlcElement: 'block_bonuses-main',
+            common: {
+                sortOrder: ['active', 'subscribe', 'inventory'],
+                swiper: {
+                    slidesPerView: 1,
+                    navigation: {
+                        nextEl: '.wlc-swiper-button-next',
+                        prevEl: '.wlc-swiper-button-prev',
+                    },
+                    pagination: false,
+                    lazy: true,
+                },
+            },
+        },
+    };
 }
