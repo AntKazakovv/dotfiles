@@ -2,7 +2,7 @@ import {
     Component,
     ElementRef,
     Inject,
-    Input,
+    Input, OnInit,
 } from '@angular/core';
 import {FormGroup} from '@angular/forms';
 
@@ -34,7 +34,7 @@ import {IFormComponent} from "wlc-engine/modules/core/components/form-wrapper/fo
     templateUrl: './change-password-form.component.html',
     styleUrls: ['./styles/change-password-form.component.scss'],
 })
-export class ChangePasswordFormComponent extends AbstractComponent {
+export class ChangePasswordFormComponent extends AbstractComponent implements OnInit {
 
     @Input() public inlineParams: Params.IChangePasswordFormCParams;
     public $params: Params.IChangePasswordFormCParams;
