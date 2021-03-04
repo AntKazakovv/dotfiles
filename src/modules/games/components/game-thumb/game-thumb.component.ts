@@ -65,7 +65,7 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
         super({
             injectParams,
             defaultParams: Params.defaultParams,
-        });
+        }, configService);
     }
 
     public ngOnInit(): void {
