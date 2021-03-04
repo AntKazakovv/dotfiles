@@ -105,8 +105,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
         @Inject('injectParams') protected params: IFormWrapperCParams,
         protected validationService: ValidationService,
         protected elRef: ElementRef,
-    )
-    {
+    ) {
         super(
             ConfigService,
             layoutService,
@@ -155,6 +154,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
     public async submit(): Promise<void> {
         if (this.form.valid) {
             if (await this.ngSubmit(this.form)) {
+                this.form.controls.currentPassword.setValue('');
                 this.form.markAsPristine();
                 this.form.markAsUntouched();
             }
