@@ -24,14 +24,14 @@
     }
 
     .wlc-bonus-item__tag {
-        @include lib.get-text-style('ThirdTitleBold', ef.get-value($themePromoHome, 'color'));
+        @include lib.get-text-style('ThirdTitleBold', ef.get-value($themePromoHome, 'tagColor'));
+        @include em.get-mq-map('padding', $themePromoHome, 'tagPadding');
+
         min-width: ef.get-value($themePromoHome, 'tagMinWidth');
         text-align: ef.get-value($themePromoHome, 'tagTextAlign');
-
         position: absolute;
         top: ef.get-value($themePromoHome, 'tagTopPosition');
         left: ef.get-value($themePromoHome, 'tagLeftPosition');
-        padding: ef.get-value($themePromoHome, 'tagPadding');
         background: ef.get-value($themePromoHome, 'tagBg');
         border-radius: ef.get-value($themePromoHome, 'tagBorderRadius');
     }
