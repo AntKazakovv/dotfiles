@@ -30,49 +30,6 @@
 
         @include em.get-mq-map('bottom', $themeDefaultBanner, 'bottomGap');
     }
-
-    .wlc-swiper-button-prev,
-    .wlc-swiper-button-next {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: ef.get-value($themeDefaultBanner, 'buttonSize');
-        height: ef.get-value($themeDefaultBanner, 'buttonSize');
-        background: ef.get-value($themeDefaultBanner, 'buttonBg');
-        border-radius: ef.get-value($themeDefaultBanner, 'buttonBorderRadius');
-        transition: ef.get-value($themeDefaultBanner, 'transition');
-        outline: none;
-        border: none;
-
-        @media (hover: hover) {
-
-            &:hover {
-                background: ef.get-value($themeDefaultBanner, 'buttonBgHover');
-            }
-        }
-    }
-
-    .wlc-swiper-button-prev {
-        @include em.get-mq-map('margin-right', $themeDefaultBanner, 'buttonGap');
-
-        .wlc-icon-content {
-            transform: rotate(90deg);
-        }
-    }
-
-    .wlc-swiper-button-next {
-
-        .wlc-icon-content {
-            transform: rotate(-90deg);
-        }
-    }
-
-    .wlc-icon {
-
-        svg {
-            fill: ef.get-value($themeDefaultBanner, 'iconFill');
-        }
-    }
 }
 
 .container > .wlc-slider--theme-default-banner {

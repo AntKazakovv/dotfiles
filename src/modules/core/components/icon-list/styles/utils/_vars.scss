@@ -55,6 +55,8 @@ $themePayments: map-merge((
     'iconMargin': 0 auto,
     'iconFill': ef.get('mainColors', 'bg100'),
     'scrollableShadowWidth': 150px,
-    'scrollableShadowBgLeft': linear-gradient(-90deg, transparent 0, ef.get('mainColors', 'bg') 35%),
-    'scrollableShadowBgRight': linear-gradient(90deg, transparent 0, ef.get('mainColors', 'bg') 35%),
+    'scrollableShadowBgLeft':
+        linear-gradient(-90deg, transparentize(ef.get('mainColors', 'bg'), 1) 0, ef.get('mainColors', 'bg') 35%),
+    'scrollableShadowBgRight':
+        linear-gradient(90deg, transparentize(ef.get('mainColors', 'bg'), 1) 0, ef.get('mainColors', 'bg') 35%),
 ), $customThemePayments);

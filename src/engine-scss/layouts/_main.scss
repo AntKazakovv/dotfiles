@@ -8,9 +8,18 @@
 @import './categories/categories';
 @import './home/home-wins/home-wins';
 @import './home/total-jackpot/total-jackpot';
+@import './home/promo-categories/promo-categories';
+@import './home/promo-bonuses/promo-bonuses';
 
 @include em.init-layout-gap(ev.$layoutGap);
 
 [class*='wlc-sections__']:empty {
     display: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+
+    :root {
+        scroll-behavior: auto;
+    }
 }

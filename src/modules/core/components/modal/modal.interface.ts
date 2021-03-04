@@ -50,9 +50,17 @@ export interface IModalConfig extends IModalBsOptions {
      */
     useBackButton?: boolean;
     /**
+     * wlc-element
+     */
+    wlcElement?: string;
+    /**
      *  Text for back button.
      */
     backButtonText?: string;
+    /**
+     * Remove padding from modal-body
+     */
+    withoutPadding?: boolean;
     /**
      * Title. If title empty modal-header has class `no-title`
      */

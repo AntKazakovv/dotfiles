@@ -1,0 +1,75 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/mixins/base.mixins' as em;
+@import '../utils/vars';
+
+.wlc-tab-switcher--theme-default:host {
+    height: 100%;
+
+    .wlc-tab-switcher {
+
+        &__container {
+            @include em.get-mq-map('padding', $themeDefault, 'containerPadding');
+            border-radius: ef.get-value($themeDefault, 'containerRadius');
+            overflow: hidden;
+            height: 100%;
+        }
+
+        &-nav {
+            @include em.get-mq-map('display', $themeDefault, 'navDisplay');
+            min-height: ef.get-value($themeDefault, 'navMinHeight');
+
+            &__item {
+                flex: ef.get-value($themeDefault, 'navItemFlex');
+                padding: ef.get-value($themeDefault, 'navItemPadding');
+                text-align: center;
+                background: ef.get-value($themeDefault, 'navItemBackground');
+                @include text.get-text-style(ef.get-value($themeDefault, 'navItemStyle'), ef.get-value($themeDefault, 'navItemColor'));
+
+                max-width: 100%;
+                overflow: hidden;
+                text-overflow: ellipsis;
+
+                cursor: pointer;
+
+                &.active {
+                    background: ef.get-value($themeDefault, 'navItemActiveBackground');
+                    @include text.get-text-style(ef.get-value($themeDefault, 'navItemActiveStyle'), ef.get-value($themeDefault, 'navItemColor'));
+                }
+
+                &:first-child {
+                    border-radius: ef.get-value($themeDefault, 'navItemFirstRadius');
+                }
+
+                &:last-child {
+                    border-radius: ef.get-value($themeDefault, 'navItemLastRadius');
+                }
+            }
+        }
+
+        &-body {
+            @include em.get-mq-map('background', $themeDefault, 'bodyBackground');
+            border-radius: ef.get-value($themeDefault, 'bodyRadius');
+            height: calc(#{ef.get-value($themeDefault, 'bodyHeight')} - #{ef.get-value($themeDefault, 'navMinHeight')});
+
+            &__item {
+                display: none;
+                height: 100%;
+
+                &.active {
+                    display: block;
+                }
+
+                &--login {
+                    padding: ef.get-value($themeDefault, 'bodyItemLoginPadding');
+                    @include em.get-mq-map('width', $themeDefault, 'loginBodyWidth');
+                    margin: auto;
+                }
+
+                &--signup {
+                    @include em.get-mq-map('width', $themeDefault, 'signupBodyWidth');
+                }
+            }
+        }
+    }
+}

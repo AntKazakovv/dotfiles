@@ -17,8 +17,11 @@ export interface IGameWrapperCParams extends IComponentParams<Theme, Type, Theme
 
 export const defaultParams: IGameWrapperCParams = {
     class: 'wlc-game-wrapper',
+    theme: 'default',
+    themeMod: 'default',
+    type: 'default',
     updateOnWindowResize: true,
     padding: 0,
     gameParams: undefined,
-    theme: 'fullscreen-game-frame',
+    wlcElement: 'section_game-play-container',
 };

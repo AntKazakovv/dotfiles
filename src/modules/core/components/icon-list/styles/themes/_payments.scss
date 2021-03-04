@@ -15,27 +15,52 @@
     }
 
     &.scrollable {
-        position: relative;
 
-        &:before {
-            right: -100px;
-            background: ef.get-value($themePayments, 'scrollableShadowBgRight');
+        &--left,
+        &--right {
+            position: relative;
+            scrollbar-width: none;
+
+            &::-webkit-scrollbar {
+                width: 0;
+            }
+
+            &:before,
+            &:after {
+                z-index: 10;
+                content: '';
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                height: calc(100% + 20px);
+                width: ef.get-value($themePayments, 'scrollableShadowWidth');
+                opacity: 0;
+                transition: 0.5s ease-in;
+            }
+
+            &:after {
+                left: -100px;
+                background: ef.get-value($themePayments, 'scrollableShadowBgLeft');
+            }
+
+            &:before {
+                right: -100px;
+                background: ef.get-value($themePayments, 'scrollableShadowBgRight');
+            }
         }
 
-        &:after {
-            left: -100px;
-            background: ef.get-value($themePayments, 'scrollableShadowBgLeft');
+        &--left {
+
+            &:after {
+                opacity: 1;
+            }
         }
 
-        &:before,
-        &:after {
-            z-index: 10;
-            content: '';
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            height: calc(100% + 20px);
-            width: ef.get-value($themePayments, 'scrollableShadowWidth');
+        &--right {
+
+            &:before {
+                opacity: 1;
+            }
         }
     }
 

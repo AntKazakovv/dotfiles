@@ -1,0 +1,14 @@
+@use 'engine-scss/functions' as ef;
+
+$customThemePromoBonuses: () !default;
+$themePromoBonuses: map-merge((
+    'columns': (
+        375: minmax(0, 1fr),
+        640: minmax(0, 1fr) 1fr,
+        1630: 520px 1fr,
+    ),
+    'gap': (
+        375: ef.get('size', 'small'),
+        1200: ef.get('size', 'smaller'),
+    )
+), $customThemePromoBonuses);

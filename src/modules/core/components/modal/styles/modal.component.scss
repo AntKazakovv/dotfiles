@@ -62,6 +62,7 @@
 
     &__wrapper {
         @include bm.get-mq-map('padding', $hostModal, 'modalWrapperPadding');
+        height: 100%;
     }
 
     &__item {
@@ -84,6 +85,8 @@
 
         max-width: ef.get-value($hostModal, 'titleMaxWidth');
         padding: ef.get-value($hostModal, 'titlePadding');
+        width: calc(100% - 40px);
+        text-align: center;
 
         /* stylelint-disable */
         display: -webkit-box;
@@ -95,7 +98,8 @@
         color: ef.get-value($hostModal, 'titleColor');
 
         &--back-btn {
-            padding-left: ef.get-value($hostModal, 'ef.get-value($hostModal, '')');
+            width: calc(100% - 40px - #{ef.get-value($hostModal, 'titlePaddingLeft')});
+            padding-left: ef.get-value($hostModal, 'titlePaddingLeft');
         }
 
         @include mq.min(560) {
@@ -104,41 +108,48 @@
     }
 
     &__back-btn {
-        @include ellipsisText;
-
         display: flex;
         align-items: center;
 
-        position: absolute;
-        left: ef.get-value($hostModal, 'backBtnLeftPostion');
-        top: 50%;
-        transform: translateY(-50%);
-        @include text.get-text-style(ef.get-value($themeDefault, 'backBtnFontSize'), ef.get-value($themeDefault, 'backBtnColor'));
-
         max-width: ef.get-value($hostModal, 'backBtnMaxWidth');
-        width: ef.get-value($hostModal, 'backBtnWidth');
         padding: ef.get-value($hostModal, 'backBtnPadding');
+        @include bm.get-mq-map('width', $hostModal, 'backBtnSize');
+        @include bm.get-mq-map('height', $hostModal, 'backBtnSize');
 
         cursor: pointer;
+
+        &-text {
+            max-width: 100%;
+            @include ellipsisText;
+            @include text.get-text-style(ef.get-value($hostModal, 'backBtnFontStyle'), ef.get-value($hostModal, 'backBtnColor'));
+        }
 
         .icon-arrow {
             line-height: ef.get-value($hostModal, 'backBtnIconLineHeight');
             margin: ef.get-value($hostModal, 'backBtnIconMargin');
 
             svg {
+                @include bm.get-mq-map('width', $hostModal, 'backBtnIconWidth');
+                @include bm.get-mq-map('height', $hostModal, 'backBtnIconHeight');
                 transform: rotateZ(90deg);
                 fill: ef.get-value($hostModal, 'backBtnIconColor');
             }
         }
 
         .wlc-modal__header--headless & {
+            position: absolute;
             top: ef.get-value($hostModal, 'backBtnTopPostion');
             transform: translateY(0);
+            left: ef.get-value($hostModal, 'backBtnLeftPostion');
         }
 
         &:hover {
-            color: lighten(ef.get-value($hostModal, 'backBtnColor'), 20%);
-            @include bm.transition(color);
+
+            .wlc-modal__back-btn-text {
+                color: lighten(ef.get-value($hostModal, 'backBtnColor'), 20%);
+                @include bm.transition(color);
+            }
+
 
             .icon-arrow svg {
                 fill: lighten(ef.get-value($hostModal, 'backBtnIconColor'), 20%);
@@ -183,6 +194,7 @@
         border: none;
         border-radius: ef.get-value($hostModal, 'modalBorderRadius');
         will-change: transform;
+        @include bm.get-mq-map('overflow', $hostModal, 'dialogOverflow');
         opacity: 0;
 
         @include mq.min(560) {
@@ -210,12 +222,21 @@
             max-width: 100%;
         }
 
+        &--as {
+            @include bm.get-mq-map('max-width', $hostModal, 'modalASSize');
+            width: auto;
+        }
+
+        &--xxl {
+            @include bm.get-mq-map('max-width', $hostModal, 'modalXXlSize');
+        }
+
         &--xl {
-            max-width: ef.get-value($hostModal, 'modalXlSize');
+            @include bm.get-mq-map('max-width', $hostModal, 'modalXlSize');
         }
 
         &--lg {
-            max-width: ef.get-value($hostModal, 'modalLgSize');
+            @include bm.get-mq-map('max-width', $hostModal, 'modalLgSize');
         }
 
         &--md {
@@ -237,11 +258,11 @@
                     height: ef.get-value($hostModal, 'staticMaxHeight');
                 }
 
-                 /* stylelint-disable */
+                /* stylelint-disable */
                 &::-webkit-scrollbar {
                     width: ef.get-value($hostModal, 'scrollBarWidth');
                     background-color: transparent;
-                  }
+                }
 
                 &::-webkit-scrollbar-thumb {
                     border-radius: ef.get-value($hostModal, 'scrollBarWidth');
@@ -251,6 +272,7 @@
                 &::-webkit-scrollbar-track {
                     background-color: ef.get-value($hostModal, 'scrollBarTrackColor');
                 }
+
                 /* stylelint-enable */
             }
         }
@@ -259,7 +281,7 @@
     &__header {
         position: relative;
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-start;
         flex-shrink: 0;
         align-items: center;
         color: ef.get-value($hostModal, 'modalHeaderColor');
@@ -277,6 +299,10 @@
         position: relative;
         padding: ef.get-value($hostModal, 'modalBodyPadding');
         color: ef.get-value($hostModal, 'modalBodyColor');
+
+        &.without-padding {
+            padding: 0;
+        }
     }
 
     &__footer {
@@ -308,7 +334,7 @@
         @include bm.transition(opacity);
 
         .wlc-modal__header--headless & {
-            top: ef.get-value($hostModal, 'closePosTop');
+            @include bm.get-mq-map('top', $hostModal, 'closePosTop');
             transform: translateY(0);
         }
 
@@ -425,5 +451,15 @@ body.modal-open {
                 height: ef.get-value($hostModal, 'staticMaxHeight');
             }
         }
+    }
+}
+
+.wlc-modal--login-sign-up {
+    text-align: center;
+
+    .modal-dialog {
+        display: inline-block;
+        text-align: left;
+        @include bm.get-mq-map('width', $themeDefault, 'loginSignupWidth');
     }
 }

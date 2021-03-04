@@ -1,0 +1,212 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/mixins/base.mixins' as em;
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@import '../utils/vars';
+
+.wlc-bonus-item--theme-partial {
+
+    .wlc-bonus-item {
+
+        &__content {
+            cursor: pointer;
+
+            &.chosen {
+
+                .wlc-bonus-item__icon-sign {
+                    border-color: ef.get-value($themePartial, 'blankIconSignBorderColor');
+                }
+            }
+
+            &.blank-bonus {
+
+                .wlc-bonus-item {
+
+                    &__icon-sign {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+
+                        @include em.get-mq-map('padding', $themePartial, 'blankIconSignPadding');
+                        @include em.get-mq-map('background', $themePartial, 'blankIconSignBackground');
+
+                        &.chosen {
+                            border-color: ef.get-value($themePartial, 'blankIconSignChosenBorderColor');
+                        }
+
+                        .wlc-bonus-item__name {
+                            display: block;
+                            color: ef.get-value($themePartial, 'blankCheckNameColor');
+                            /* stylelint-disable */
+                            display: -webkit-box;
+                            line-clamp: 2;
+                            box-orient: vertical;
+                            -webkit-line-clamp: 2;
+                            -webkit-box-orient: vertical;
+                            /* stylelint-enable */
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                        }
+                    }
+
+                    &__check-icon {
+                        @include em.get-mq-map('background', $themePartial, 'blankCheckIconBackground');
+                    }
+
+                    &__icon-text,
+                    &__more-icon,
+                    &__name {
+                        display: none;
+                    }
+                }
+            }
+        }
+
+        &__body {
+            position: relative;
+            @include em.get-mq-map('height', $themePartial, 'bodySize');
+            @include em.get-mq-map('width', $themePartial, 'bodySize');
+            @include em.get-mq-map('padding', $themePartial, 'bodyPadding');
+            margin: ef.get-value($themePartial, 'bodyMarign');
+            border-radius: ef.get-value($themePartial, 'bodyRadius');
+            @include em.get-mq-map('background', $themePartial, 'bodyBackground');
+            text-align: center;
+        }
+
+        &__footer {
+            @include em.get-mq-map('display', $themePartial, 'footerDisplay');
+            background: ef.get-value($themePartial, 'footerBackground');
+            padding: ef.get-value($themePartial, 'footerPadding');
+            border-radius: ef.get-value($themePartial, 'footerRadius');
+            max-width: ef.get-value($themePartial, 'footerMaxWidth');
+            margin: ef.get-value($themePartial, 'footerMargin');
+        }
+
+        &__check-icon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            position: absolute;
+            right: ef.get-value($themePartial, 'checkIconRightPos');
+            @include em.get-mq-map('top', $themePartial, 'checkIconTopPos');
+
+            width: ef.get-value($themePartial, 'checkIconSize');
+            height: ef.get-value($themePartial, 'checkIconSize');
+
+            background: ef.get-value($themePartial, 'checkIconBackground');
+            border-radius: ef.get-value($themePartial, 'checkIconRadius');
+
+            line-height: 0;
+
+            span {
+                display: inline-block;
+                line-height: 0;
+            }
+
+            svg {
+                width: ef.get-value($themePartial, 'checkIconSvgSize');
+                height: ef.get-value($themePartial, 'checkIconSvgSize');
+
+                stroke: ef.get-value($themePartial, 'checkIconStrokeColor');
+                line-height: 0;
+            }
+        }
+
+        &__bonus-icon {
+            position: relative;
+
+            display: flex;
+            justify-content: center;
+            @include em.get-mq-map('max-width', $themePartial, 'bonusIconMaxWidth');
+            @include em.get-mq-map('margin', $themePartial, 'bonusIconMargin');
+        }
+
+        &__icon-sign {
+            border: ef.get-value($themePartial, 'iconSignBorder');
+            border-radius: ef.get-value($themePartial, 'iconSignRadius');
+            background: ef.get-value($themePartial, 'iconSignBackground');
+            @include em.get-mq-map('width', $themePartial, 'iconSignSize');
+            @include em.get-mq-map('height', $themePartial, 'iconSignSize');
+        }
+
+        &__icon-text {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            position: absolute;
+            @include em.get-mq-map('bottom', $themePartial, 'iconTextBottomPos');
+            left: ef.get-value($themePartial, 'iconTextleftPos');
+            right: ef.get-value($themePartial, 'iconTextRightPos');
+            margin: ef.get-value($themePartial, 'iconTextMargin');
+
+
+            @include em.get-mq-map('height', $themePartial, 'iconTextHeight');
+            @include em.get-mq-map('max-width', $themePartial, 'iconTextMaxWidth');
+
+            @include text.get-text-style(ef.get-value($themePartial, 'iconTextStyle'), ef.get-value($themePartial, 'iconTextColor'));
+
+            background: ef.get-value($themePartial, 'iconTextBackground');
+            @include em.get-mq-map('border-radius', $themePartial, 'iconTextRadius');
+
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+
+            &.wlc-small {
+                @include text.get-text-style(ef.get-value($themePartial, 'iconTextStyle'), ef.get-value($themePartial, 'iconTextColor'));
+            }
+
+            &.wlc-smaller {
+                @include em.get-mq-map('font-size', $themePartial, 'bonusIconValueFontSizeSmaller');
+            }
+        }
+
+
+        &__more-icon {
+            @include em.get-mq-map('display', $themePartial, 'moreIconDisplay');
+            position: absolute;
+            top: ef.get-value($themePartial, 'moreIconTopPos');
+            right: ef.get-value($themePartial, 'moreIconRightPos');
+
+            svg {
+                width: ef.get-value($themePartial, 'moreIconSvgWidth');
+                fill: ef.get-value($themePartial, 'moreIconSvgFill');
+            }
+        }
+
+        &__name {
+            @include em.get-mq-map('display', $themePartial, 'bonusNameDisplay');
+            font-size: 16px; // remove after add mobile styles
+            line-height: 20px; // remove after add mobile styles
+            font-weight: 700; // remove after add mobile styles
+            //@include text.get-text-style(ef.get-value($themePartial, 'bonusNameStyle'), ef.get-value($themePartial, 'bonusNameColor'));
+
+            /* stylelint-disable */
+            display: -webkit-box;
+            line-clamp: 2;
+            box-orient: vertical;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            /* stylelint-enable */
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        &__description {
+            @include text.get-text-style(ef.get-value($themePartial, 'bonusDescriptionStyle'), ef.get-value($themePartial, 'bonusDescriptionColor'));
+            text-align: justify;
+
+            /* stylelint-disable */
+            display: -webkit-box;
+            line-clamp: 4;
+            box-orient: vertical;
+            -webkit-line-clamp: 4;
+            -webkit-box-orient: vertical;
+            /* stylelint-enable */
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+}

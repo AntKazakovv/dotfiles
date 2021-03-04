@@ -1,19 +1,41 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/base.mixins' as em;
 @import '../utils/vars';
 
 .wlc-restore-password-form--theme-default:host {
-    max-width: map-get($themeDefault, formMaxWidth);
-    margin: map-get($themeDefault, formMargin);
+    max-width: ef.get-value($themeDefault, 'formMaxWidth');
+    margin: ef.get-value($themeDefault, 'formMargin');
+    height: ef.get-value($themeDefault, 'formHeight');
 
     &::ng-deep {
 
-        .wlc-input {
-            margin: map-get($themeDefault, fieldMargin);
+        .wlc-form-wrapper,
+        .wlc-form {
+            height: ef.get-value($themeDefault, 'formHeight');
         }
 
         .wlc-form {
+            display: flex;
+            flex-direction: column;
+        }
 
-            > .wlc-btn {
-                margin: map-get($themeDefault, btnMargin);
+        .wlc-text-block__subtitle {
+            @include em.get-mq-map('margin-left', $themeDefault, 'subtitleSideMargin');
+            @include em.get-mq-map('margin-right', $themeDefault, 'subtitleSideMargin');
+        }
+
+        .wlc-input {
+            margin: ef.get-value($themeDefault, 'fieldMargin');
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+
+        .wlc-btn {
+
+            &--restore {
+                @include em.get-mq-map('margin', $themeDefault, 'btnMargin');
             }
         }
     }

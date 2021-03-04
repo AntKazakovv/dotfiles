@@ -40,15 +40,32 @@
             .wlc-btn {
                 @include text.get-text-style(ef.get-value($themeDefault, 'linkFontStyle'), ef.get-value($themeDefault, 'linkColor'));
 
+
+
                 &:hover {
                     color: ef.get-value($themeDefault, 'linkColorHover');
-                    text-decoration: underline;
+                    @include em.transition(color);
+
+                    ::ng-deep {
+
+                        .wlc-icon svg * {
+                            fill: lighten(ef.get-value($themeDefault, 'iconFill'), 20%);
+                            @include em.transition(fill);
+                        }
+                    }
                 }
             }
 
             ::ng-deep {
 
+                .wlc-btn__text {
+                    display: flex;
+                    align-items: center;
+                }
+
                 .wlc-icon {
+                    display: inline-block;
+                    line-height: 0;
                     margin: ef.get-value($themeDefault, 'iconMargin');
 
                     svg {

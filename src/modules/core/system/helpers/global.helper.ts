@@ -56,6 +56,10 @@ export class GlobalHelper {
         // return dir ? dir.template : null;
     }
 
+    public static randomNumber(min: number, max: number): number {
+        return Math.round(min - 0.5 + Math.random() * (max - min + 1));
+    }
+
     public static getModalMessages(errors: string[], title?: string): string[] {
         const messages = title ? [title] : [];
         if (errors) {

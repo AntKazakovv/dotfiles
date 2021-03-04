@@ -15,6 +15,7 @@ export interface IEnterPromocodeCParams extends IComponentParams<ComponentTheme,
 export const defaultParams: IEnterPromocodeCParams = {
     moduleName: 'bonuses',
     class: 'wlc-enter-promocode',
+    componentName: 'wlc-enter-promocode',
     common: {
         title: gettext('Have a promo code?'),
     },

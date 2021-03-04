@@ -271,3 +271,207 @@ $themePromo: map-merge((
     // Animation
     'time': ef.get('time', 'main'),
 ), $customThemePromo);
+
+$customThemePartial: () !default;
+$themePartial: map-merge((
+    'blankIconSignBorderColor': ef.get('mainColors', 'success'),
+    'blankIconSignPadding': (
+        320: ef.get('size', 'smallest'),
+        900: ef.get('size', 'smally'),
+    ),
+    'blankIconSignBackground': (
+        320: ef.get('mainColors', 'bg700'),
+        900: ef.get('mainColors', 'bg300'),
+    ),
+    'blankIconSignChosenBorderColor': ef.get('mainColors', 'success'),
+    'blankCheckIconBackground': ef.get('mainColors', 'success'),
+    'blankCheckNameColor': ef.get('fieldColors', 'inputBg'),
+
+    'bodySize': (
+        320: 235px,
+        900: auto,
+    ),
+    'bodyMarign': auto,
+    'bodyPadding': (
+        320: ef.get('size', 'less'),
+        900: 0,
+    ),
+    'bodyRadius': ef.get('radius', 'biger'),
+    'bodyBackground': (
+        320: ef.get('mainColors', 'bg300'),
+        900: transparent,
+    ),
+
+    'footerDisplay': (
+        320: block,
+        900: none,
+    ),
+    'footerBackground': ef.get('mainColors', 'bg'),
+    'footerPadding': ef.get('size', 'smally') ef.get('size', 'smaller'),
+    'footerRadius': ef.get('radius', 'biger'),
+    'footerMaxWidth': 235px,
+    'footerMargin': ef.get('size', 'main') auto 0,
+
+    'checkIconRightPos': 12px,
+    'checkIconTopPos': (
+        320: 0,
+        900: 8px,
+    ),
+    'checkIconSize': 25px,
+    'checkIconBackground': ef.get('mainColors', 'success'),
+    'checkIconRadius': 50%,
+    'checkIconSvgSize': 13px,
+    'checkIconStrokeColor': ef.get('mainColors', 'baseMain'),
+
+    'bonusIconMargin': (
+        320: 0 auto ef.get('size', 'smally'),
+        900: 0 auto,
+    ),
+    'bonusIconMaxWidth': (
+        320: 120px,
+        900: 145px,
+    ),
+
+    'iconSignBorder': 3px solid transparent,
+    'iconSignRadius': 50%,
+    'iconSignBackground': ef.get('mainColors', 'baseMain'),
+    'iconSignSize': (
+        320: 120px,
+        900: 145px,
+    ),
+
+    'iconTextBottomPos': (
+        320: 9px,
+        900: 11px
+    ),
+    'iconTextleftPos': 0,
+    'iconTextRightPos': 0,
+    'iconTextHeight': (
+        320: 20px,
+        900: 25px,
+    ),
+    'iconTextMaxWidth': (
+        320: 50px,
+        900: 70px,
+    ),
+    'iconTextMargin': auto,
+    'iconTextStyle': 'ThirdTitleBold',
+    'iconTextColor': ef.get('fieldColors', 'textColor'),
+    'iconTextBackground': ef.get('mainColors', 'baseMain'),
+    'iconTextRadius': (
+        320: ef.get('radius', 'main'),
+        900: ef.get('radius', 'biger'),
+    ),
+
+    'moreIconDisplay': (
+        320: block,
+        900: none,
+    ),
+    'moreIconTopPos': 20px,
+    'moreIconRightPos': 20px,
+    'moreIconSvgWidth': 100%,
+    'moreIconSvgFill': ef.get('mainColors', 'baseOpacity'),
+
+    'bonusNameDisplay': (
+        320: block,
+        900: none,
+    ),
+    'bonusNameStyle': 'ThirdTitleBoldM',
+    'bonusNameColor': ef.get('mainColors', 'baseMain'),
+
+    'bonusDescriptionStyle': 'PlaceholderText',
+    'bonusDescriptionColor': ef.get('mainColors', 'baseMain'),
+
+    'bonusIconValueFontSizeSmall': 1.4rem,
+    'bonusIconValueFontSizeSmaller': 1rem,
+), $customThemePartial);
+
+$customThemePreview: () !default;
+$themePreview: map-merge((
+    'hostHeight': 100%,
+
+    'contentHeigh': 100%,
+
+    'tagStyle': 'SignText',
+    'tagFontColor': ef.get('mainColors', 'baseMain'),
+
+    'bonusIconMaxWidht': 205px,
+    'bonusIconMargin': 70px auto,
+
+    'iconSignBoreder': 3px solid transparent,
+    'iconSignRadius': 50%,
+    'iconSignBackground': ef.get('mainColors', 'baseMain'),
+    'iconSignSize': 205px,
+    'iconSignShadow': 0 1px 14px 0 rgba(ef.get('fieldColors', 'textColor'), 0.15),
+
+    'moreIconTopPos': 0,
+    'moreIconRightPos': 0,
+    'moreIconSvgWidth': 100%,
+    'moreIconSvgFill': ef.get('mainColors', 'baseOpacity'),
+
+    'iconTextBottomPos': 13px,
+    'iconTextLeftPos': 0,
+    'iconTextRightPos': 0,
+    'iconTextWidth': 85px,
+    'iconTextHeight': 36px,
+    'iconTextMargin': auto,
+    'iconTextStyle': 'QoteTextBold',
+    'iconTextColor': ef.get('fieldColors', 'textColor'),
+    'iconTextBackground': ef.get('mainColors', 'baseMain'),
+    'iconTextRadius': 15px,
+
+    'bonusNameMargin': 0 0 ef.get('size', 'small') 0,
+    'bonusNameStyle': 'PromoTitle',
+    'bonusNameColor': ef.get('mainColors', 'baseMain'),
+
+    'bonusHeight': 100%,
+    'bonusBackround': rgba(ef.get('fieldColors', 'textColor'), 0.4),
+    'bonusTitleStyle': 'PromoTitle',
+    'bonusTitleMargin': auto auto ef.get('size', 'less'),
+    'bonusSubtitleStyle': 'PrimaryText',
+    'bonusSubtitleMargin': 0 auto auto,
+    'bonusTextStyle': 'ThirdTitle',
+    'bonusPadding': 28px ef.get('size', 'big') 75px ef.get('size', 'big'),
+    'bonusBackground': ef.get('mainColors', 'bg300'),
+
+    'bonusIconValueFontSizeSmaller': 1.4rem,
+), $customThemePreview);
+
+$customThemePromoHome: () !default;
+$themePromoHome: map-merge((
+    'background': ef.get('mainColors', 'bg700'),
+    'color': ef.get('mainColors', 'baseMain'),
+    'borderRadius': ef.get('size', 'small'),
+    'padding': (
+        375: ef.get('size', 'big') ef.get('size', 'small') ef.get('size', 'small') ef.get('size', 'small'),
+        640: ef.get('size', 'big') ef.get('size', 'main') ef.get('size', 'main') 35px,
+    ),
+    'minHeight': (
+        375: 300px,
+        640: 380px,
+    ),
+    'tagTopPosition': 0,
+    'tagLeftPosition': 0,
+    'tagPadding': ef.get('size', 'small'),
+    'tagBg': ef.get('mainColors', 'main'),
+    'tagMinWidth': 140px,
+    'tagTextAlign': center,
+    'tagBorderRadius': 0 0 ef.get('size', 'small') 0,
+    'moreIconTopPosition': ef.get('size', 'smaller'),
+    'moreIconRightPosition': ef.get('size', 'smaller'),
+    'moreIconFill': ef.get('mainColors', 'baseOpacity'),
+    'bonusIconWidth': 120px,
+    'bonusIconHeight': 120px,
+    'bonusIconTextBg': ef.get('fieldColors', 'inputBg'),
+    'bonusIconTextColor': ef.get('fieldColors', 'textColor'),
+    'bonusIconTextBottom': ef.get('size', 'small'),
+    'bonusIconTextRight': ef.get('size', 'main'),
+    'bonusIconTextWidth': ef.get('size', 'main'),
+    'bonusIconTextPadding': 2px,
+    'bonusIconTextBorderRadius': 50%,
+    'infoBlockMaxWidth': (
+        375: 100%,
+        1024: 278px,
+    ),
+    'descriptionMarginTop': ef.get('size', 'smaller'),
+), $customThemePromoHome);

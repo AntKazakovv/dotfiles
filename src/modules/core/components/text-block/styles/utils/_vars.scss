@@ -10,5 +10,9 @@ $themeDefault: map-merge((
 
     'subtitleFontSize': 'PrimaryText',
     'subtitleColor': ef.get('mainColors', 'baseMain'),
-    'subtitleMargin': 0 0 ef.get('size', 'smally') 0,
+    'subtitleMargin': 0 0 ef.get('size', 'small') 0,
+
+    'dynamicFontSize': 'PrimaryText',
+    'dynamicColor': ef.get('mainColors', 'baseMain'),
+    'dynamicMargin': 0 0 ef.get('size', 'small') 0,
 ), $customThemeDefault);

@@ -34,8 +34,8 @@ import {
 } from 'lodash-es';
 
 export class Bonus extends AbstractModel<IBonus> {
-    public isReady: Boolean = true;
-    public isChoose: Boolean = false;
+    public isReady: boolean = true;
+    public isChoose: boolean = false;
     protected userCurrency: string;
     private regEvents = ['deposit first', 'registration', 'verification'];
     private depEvents = ['deposit', 'deposit first', 'deposit repeated', 'deposit sum'];

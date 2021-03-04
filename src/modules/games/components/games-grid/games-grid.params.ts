@@ -12,6 +12,12 @@ export interface IGamesGridCParams extends IComponentParams<string, GGType, stri
     title?: string;
     usePlaceholders: boolean;
     showTitle?: boolean;
+    titleIcon?: {
+        name?: string,
+        byCategory?: boolean;
+        folder?: string;
+    };
+    titleIconByCategory?: boolean;
     showAllLink?: {
         use?: boolean;
         link?: string;

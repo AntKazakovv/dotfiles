@@ -1,0 +1,106 @@
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/base.mixins' as em;
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/text' as lib;
+
+.wlc-bonus-item--theme-promo-home {
+    overflow: hidden;
+    position: relative;
+    background: ef.get-value($themePromoHome, 'background');
+    border-radius: ef.get-value($themePromoHome, 'borderRadius');
+    height: 100%;
+
+    @include em.get-mq-map('min-height', $themePromoHome, 'minHeight');
+    @include em.get-mq-map('padding', $themePromoHome, 'padding');
+
+    .wlc-bonus-item__content {
+        height: 100%;
+    }
+
+    .wlc-bonus-item__wrapper {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .wlc-bonus-item__tag {
+        @include lib.get-text-style('ThirdTitleBold', ef.get-value($themePromoHome, 'color'));
+        min-width: ef.get-value($themePromoHome, 'tagMinWidth');
+        text-align: ef.get-value($themePromoHome, 'tagTextAlign');
+
+        position: absolute;
+        top: ef.get-value($themePromoHome, 'tagTopPosition');
+        left: ef.get-value($themePromoHome, 'tagLeftPosition');
+        padding: ef.get-value($themePromoHome, 'tagPadding');
+        background: ef.get-value($themePromoHome, 'tagBg');
+        border-radius: ef.get-value($themePromoHome, 'tagBorderRadius');
+    }
+
+    .wlc-bonus-item__more-icon {
+        position: absolute;
+        right: ef.get-value($themePromoHome, 'moreIconRightPosition');
+        top: ef.get-value($themePromoHome, 'moreIconTopPosition');
+        cursor: pointer;
+
+        svg {
+            display: block;
+            fill: ef.get-value($themePromoHome, 'moreIconFill');
+        }
+    }
+
+
+    .wlc-bonus-item__bonus-icon {
+        position: relative;
+        display: none;
+        justify-content: flex-end;
+        width: ef.get-value($themePromoHome, 'bonusIconWidth');
+        height: ef.get-value($themePromoHome, 'bonusIconHeight');
+
+        @include mq.min(1024) {
+            display: flex;
+        }
+
+        .icon-text {
+            @include lib.get-text-style('ThirdTitleBold', ef.get-value($themePromoHome, 'bonusIconTextColor'));
+            width: ef.get-value($themePromoHome, 'bonusIconTextWidth');
+            text-overflow: ellipsis;
+            text-align: center;
+            display: block;
+            overflow: hidden;
+            position: absolute;
+            bottom: ef.get-value($themePromoHome, 'bonusIconTextBottom');
+            right: ef.get-value($themePromoHome, 'bonusIconTextRight');
+            background: ef.get-value($themePromoHome, 'bonusIconTextBg');
+            user-select: none;
+            padding: ef.get-value($themePromoHome, 'bonusIconTextPadding');
+            border-radius: ef.get-value($themePromoHome, 'bonusIconTextBorderRadius');
+        }
+    }
+
+    .wlc-bonus-item__info-wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+    }
+
+    .wlc-bonus-item__info-block {
+        @include em.get-mq-map('max-width', $themePromoHome, 'infoBlockMaxWidth');
+
+        h4 {
+            @include lib.get-text-style('QoteTextBold', ef.get-value($themePromoHome, 'color'));
+
+            @include mq.min(640) {
+                @include lib.get-text-style('PromoTitle', ef.get-value($themePromoHome, 'color'));
+            }
+        }
+    }
+
+    .wlc-bonus-item__description {
+        margin-top: ef.get-value($themePromoHome, 'descriptionMarginTop');
+        @include lib.get-text-style('PrimaryText', ef.get-value($themePromoHome, 'color'));
+    }
+
+    .wlc-bonus-item__btns {
+        margin-top: auto;
+    }
+}

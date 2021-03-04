@@ -84,6 +84,10 @@ export class SelectComponent extends AbstractComponent implements OnInit,
         if (this.$params?.options) {
             this.setOptions();
         }
+
+        if (!this.$params.common.placeholder) {
+            this.control.setValue(this.$params.items[0]?.value || '');
+        }
     }
 
     public ngOnChanges(changes: SimpleChanges): void {
@@ -116,7 +120,7 @@ export class SelectComponent extends AbstractComponent implements OnInit,
         });
     }
 
-    protected isFieldRequired(): boolean {
+    public isFieldRequired(): boolean {
         return this.$params.validators?.includes('required');
     }
 

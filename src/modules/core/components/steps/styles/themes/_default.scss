@@ -1,0 +1,144 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/mixins/base.mixins' as em;
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@import '../utils/vars';
+
+.wlc-steps--theme-mod-default:host {
+    height: ef.get-value($themeDefault, 'stepsHeight');
+
+    &::ng-deep {
+
+        .wlc-bonuses-list,
+        .wlc-text-block {
+            align-self: stretch;
+        }
+
+        .wlc-btn--next-step {
+            @include em.get-mq-map('margin', $themeDefault, 'nextStepBtnMargin');
+        }
+
+        .wlc-bonuses-list {
+            @include em.get-mq-map('width', $themeDefault, 'bonusListWidth');
+            @include em.get-mq-map('margin', $themeDefault, 'bonusListMargin');
+
+            &--type-swiper {
+
+                .wlc-bonuses-list__list-wrapper .wlc-bonuses-list__slider {
+
+                    .swiper-button-next,
+                    .swiper-button-prev {
+                        display: flex;
+                        top: ef.get-value($themeDefault, 'swiperControlsTopPos');
+                        transform: none;
+                    }
+
+                    .swiper-container {
+                        padding: ef.get-value($themeDefault, 'swiperContainerPadding');
+                    }
+                }
+            }
+        }
+
+        .wlc-steps {
+
+            &__container {
+                display: grid;
+                @include em.get-mq-map('grid-template-columns', $themeDefault, 'containerTemplateCol');
+                @include em.get-mq-map('min-height', $themeDefault, 'containerMinHeight');
+                height: ef.get-value($themeDefault, 'stepsHeight');
+            }
+
+            &__main {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                @include em.get-mq-map('justify-content', $themeDefault, 'mainJustifyContent');
+                @include em.get-mq-map('padding', $themeDefault, 'mainPadding');
+            }
+
+            &__head {
+                text-align: center;
+            }
+
+            &__aside {
+                @include em.get-mq-map('display', $themeDefault, 'asideDisplay');
+            }
+        }
+
+        .wlc-steps__container--sign-up {
+
+            .wlc-steps__head {
+                position: relative;
+                max-width: ef.get-value($themeDefault, 'singupHeadMaxWidth');
+                width: ef.get-value($themeDefault, 'singupHeadWidth');
+                padding: ef.get-value($themeDefault, 'singupHeadPadding');
+
+                .wlc-link-block {
+                    @include em.get-mq-map('display', $themeDefault, 'singupLinkBlockDisplay');
+                    justify-content: center;
+                    align-items: center;
+
+                    position: absolute;
+                    right: ef.get-value($themeDefault, 'singupLinkBlockRightPos');
+                    @include em.get-mq-map('top', $themeDefault, 'singupLinkBlockTopPos');
+                    @include em.get-mq-map('margin', $themeDefault, 'singupLinkBlockMarign');
+
+                    @include em.get-mq-map('width', $themeDefault, 'singupLinkBlockSize');
+                    @include em.get-mq-map('height', $themeDefault, 'singupLinkBlockSize');
+                    @include em.get-mq-map('max-width', $themeDefault, 'singupLinkBlockMaxWidth');
+
+                    overflow: hidden;
+
+                    &__text::ng-deep {
+
+                        .wlc-btn:hover {
+                            text-decoration: none;
+
+                            .wlc-btn__text {
+                                color: lighten(ef.get-value($themeDefault, 'singupBtnTextColor'), 20%);
+                                @include em.transition(color);
+                            }
+
+                            .wlc-icon svg * {
+                                fill: lighten(ef.get-value($themeDefault, 'singupBtnTextColor'), 20%);
+                                @include em.transition(fill);
+                            }
+                        }
+                    }
+
+                    .wlc-btn__text {
+                        display: flex;
+                        align-items: center;
+                        font-size: ef.get-value($themeDefault, 'singupBtnTextFontSize');
+                        line-height: 1;
+
+                        @include mq.min(560) {
+                            @include text.get-text-style(ef.get-value($themeDefault, 'singupBtnTextFontSizeMD'), ef.get-value($themeDefault, 'singupBtnTextColor'));
+                        }
+                    }
+
+                    .wlc-icon {
+                        order: -1;
+                        margin: 0 5px 0 0;
+                        line-height: 0;
+
+                        svg {
+                            transform: rotateZ(90deg);
+                            @include em.get-mq-map('width', $themeDefault, 'singupIconSvgWidth');
+                            @include em.get-mq-map('height', $themeDefault, 'singupIconSvgHeight');
+                        }
+                    }
+                }
+
+                .wlc-text-block {
+                    text-align: center;
+
+                    &__dynamic {
+                        @include em.get-mq-map('display', $themeDefault, 'dynamicTextDisplay');
+                    }
+                }
+            }
+        }
+    }
+}

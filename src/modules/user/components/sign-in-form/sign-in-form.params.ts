@@ -47,8 +47,8 @@ export const signInFormConfig: IFormWrapperCParams = {
             params: <IInputCParams>{
                 theme: 'vertical',
                 common: {
-                    placeholder: gettext('Email'),
-                    type: 'mail',
+                    placeholder: gettext('E-mail'),
+                    type: 'email',
                 },
                 name: 'email',
                 validators: ['required', 'email'],
@@ -65,16 +65,7 @@ export const signInFormConfig: IFormWrapperCParams = {
                     usePasswordVisibilityBtn: true,
                 },
                 name: 'password',
-                validators: ['required', 'password',
-                    {
-                        name: 'minLength',
-                        options: 6,
-                    },
-                    {
-                        name: 'maxLength',
-                        options: 50,
-                    },
-                ],
+                validators: ['required'],
             },
         },
         {
@@ -90,7 +81,7 @@ export const signInFormConfig: IFormWrapperCParams = {
             params: <IButtonCParams>{
                 common: {
                     customModifiers: 'submit',
-                    text: gettext('Login'),
+                    text: gettext('Sign in'),
                     typeAttr: 'submit',
                 },
                 themeMod: 'secondary',
@@ -100,7 +91,7 @@ export const signInFormConfig: IFormWrapperCParams = {
             name: 'core.wlc-link-block',
             params: {
                 common: {
-                    subtitle: gettext('Don’t have an account?'),
+                    subtitle: gettext('Don\'t have an account?'),
                     link: gettext('Sign up now'),
                     actionParams: {
                         modal: {

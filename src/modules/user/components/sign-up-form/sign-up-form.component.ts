@@ -1,10 +1,8 @@
 import {
     Component,
     Inject,
-    Input,
 } from '@angular/core';
 import {FormGroup} from '@angular/forms';
-
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {
     ConfigService,
@@ -14,7 +12,10 @@ import {
 } from 'wlc-engine/modules/core/system/services';
 import {UserService} from 'wlc-engine/modules/user/system/services';
 import {IPushMessageParams, NotificationEvents} from 'wlc-engine/modules/core/system/services/notification';
-
+import {
+    ChosenBonusSetParams,
+    ChosenBonusType,
+} from 'wlc-engine/modules/bonuses';
 import * as Params from './sign-up-form.params';
 
 import {
@@ -57,6 +58,7 @@ export class SignUpFormComponent extends AbstractComponent {
 
     public async ngSubmit(form: FormGroup): Promise<void> {
         try {
+            form.disable();
             await this.userService.registration(this.formDataPreparation(form));
             this.userService.setProfileData(form.value);
 
@@ -82,6 +84,8 @@ export class SignUpFormComponent extends AbstractComponent {
             });
 
             this.logService.sendLog({code: '2.1.0', data: error});
+        } finally {
+            form.enable();
         }
     }
 
@@ -92,9 +96,14 @@ export class SignUpFormComponent extends AbstractComponent {
             fields: _keys(form.value),
         };
 
+        const chosenBonus = this.configService.get<ChosenBonusType>(ChosenBonusSetParams.ChosenBonus);
+
+        if (chosenBonus?.id) {
+            formData.data.registrationBonus = chosenBonus.id;
+            formData.fields.push('registrationBonus');
+        }
         return formData;
     }
-
 
     protected get isFastRegistration(): number {
         return this.configService.get<number>('appConfig.siteconfig.fastRegistration');

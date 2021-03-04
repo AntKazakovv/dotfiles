@@ -17,6 +17,7 @@
 
     .wlc-textarea__label {
         @include lib.get-text-style('PrimaryText', ef.get-value($themeDefault, 'labelColor'));
+        cursor: pointer;
     }
 
     .wlc-textarea__textarea {

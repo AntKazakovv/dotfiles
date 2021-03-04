@@ -19,6 +19,8 @@ import {TotalJackpotComponent} from 'wlc-engine/modules/games/components/total-j
 import {CountUpModule} from 'ngx-countup';
 import {PlayGameForRealComponent} from './components/play-game-for-real/play-game-for-real.component';
 import {GameDashboardComponent} from 'wlc-engine/modules/games/components/game-dashboard/game-dashboard.component';
+import {RandomGameComponent} from  'wlc-engine/modules/games/components/random-game/random-game.component';
+import {CategoryPreviewComponent} from 'wlc-engine/modules/games/components/category-preview/category-preview.component';
 import {IIndexing, GlobalHelper} from 'wlc-engine/modules/core';
 
 import {IGamesConfig} from './system/interfaces/games.interfaces';
@@ -29,17 +31,20 @@ import {
     get as _get,
 } from 'lodash-es';
 
+
 export const moduleConfig =
     GlobalHelper.mergeConfig<IGamesConfig>(gamesConfig, _get($config, '$games', {}));
 
 export const components = {
-    'wlc-games-grid': GamesGridComponent,
+    'wlc-category-preview': CategoryPreviewComponent,
+    'wlc-game-dashboard': GameDashboardComponent,
     'wlc-game-thumb': GameThumbComponent,
     'wlc-game-wrapper': GameWrapperComponent,
+    'wlc-games-grid': GamesGridComponent,
+    'wlc-play-game-for-real': PlayGameForRealComponent,
+    'wlc-random-game': RandomGameComponent,
     'wlc-search-field': SearchFieldComponent,
     'wlc-total-jackpot': TotalJackpotComponent,
-    'wlc-play-game-for-real': PlayGameForRealComponent,
-    'wlc-game-dashboard': GameDashboardComponent,
 };
 
 @NgModule({
@@ -52,6 +57,8 @@ export const components = {
         TotalJackpotComponent,
         PlayGameForRealComponent,
         GameDashboardComponent,
+        RandomGameComponent,
+        CategoryPreviewComponent,
     ],
     id: 'GamesModule',
     imports: [
@@ -78,6 +85,8 @@ export const components = {
         TotalJackpotComponent,
         PlayGameForRealComponent,
         GameDashboardComponent,
+        RandomGameComponent,
+        CategoryPreviewComponent,
     ],
 })
 export class GamesModule {

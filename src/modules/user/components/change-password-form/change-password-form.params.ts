@@ -17,112 +17,117 @@ export interface IChangePasswordFormCParams extends IComponentParams<ComponentTh
         customModifiers?: CustomMod;
     };
     modifiers?: Modifiers[];
+    config: IFormWrapperCParams;
 }
 
 export const defaultParams: IChangePasswordFormCParams = {
     class: 'wlc-change-password-form',
-};
-
-export const changePasswordFormConfig: IFormWrapperCParams = {
-    class: 'wlc-form-wrapper',
-    components: [
-        {
-            name: 'core.wlc-text-block',
-            params: {
-                common: {
-                    textBlockTitle: gettext('Change password'),
+    config: {
+        class: 'wlc-form-wrapper',
+        components: [
+            {
+                name: 'core.wlc-text-block',
+                params: {
+                    common: {
+                        textBlockTitle: gettext('Change password'),
+                    },
                 },
             },
-        },
-        {
-            name: 'core.wlc-input',
-            params: {
-                theme: 'vertical',
-                wlcElement: 'block_password-current',
-                common: {
-                    placeholder: gettext('Current password'),
-                    type: 'password',
-                    customModifiers: 'right-shift',
-                    usePasswordVisibilityBtn: true,
-                },
-                name: 'currentPassword',
-                validators: ['required', 'password',
-                    {
-                        name: 'minLength',
-                        options: 6,
+            {
+                name: 'core.wlc-input',
+                params: {
+                    theme: 'vertical',
+                    wlcElement: 'block_password-current',
+                    common: {
+                        placeholder: gettext('Current password'),
+                        type: 'password',
+                        customModifiers: 'right-shift',
+                        usePasswordVisibilityBtn: true,
                     },
-                    {
-                        name: 'maxLength',
-                        options: 50,
-                    },
-                ],
-            },
-        },
-        {
-            name: 'core.wlc-input',
-            params: {
-                theme: 'vertical',
-                wlcElement: 'block_password-new',
-                common: {
-                    placeholder: gettext('New password'),
-                    type: 'password',
-                    customModifiers: 'right-shift',
-                    usePasswordVisibilityBtn: true,
-                },
-                name: 'newPassword',
-                validators: ['required', 'password',
-                    {
-                        name: 'minLength',
-                        options: 6,
-                    },
-                    {
-                        name: 'maxLength',
-                        options: 50,
-                    },
-                ],
-            },
-        },
-        {
-            name: 'core.wlc-input',
-            params: {
-                theme: 'vertical',
-                wlcElement: 'block_password-confirm',
-                common: {
-                    placeholder: gettext('Confirm password'),
-                    type: 'password',
-                    customModifiers: 'right-shift',
-                    usePasswordVisibilityBtn: true,
-                },
-                name: 'confirmPassword',
-                validators: ['required', 'password',
-                    {
-                        name: 'minLength',
-                        options: 6,
-                    },
-                    {
-                        name: 'maxLength',
-                        options: 50,
-                    },
-                ],
-            },
-        },
-        {
-            name: 'core.wlc-button',
-            params: {
-                theme: 'default',
-                wlcElement: 'button_submit',
-                common: {
-                    text: gettext('Save'),
-                    type: 'submit',
-                    customModifiers: 'centered',
+                    name: 'currentPassword',
+                    validators: [
+                        'required',
+                        'password',
+                        {
+                            name: 'minLength',
+                            options: 6,
+                        },
+                        {
+                            name: 'maxLength',
+                            options: 50,
+                        },
+                    ],
                 },
             },
-        },
-    ],
-    validators: [
-        {
-            name: 'matchingFields',
-            options: ['newPassword', 'confirmPassword'],
-        },
-    ],
+            {
+                name: 'core.wlc-input',
+                params: {
+                    theme: 'vertical',
+                    wlcElement: 'block_password-new',
+                    common: {
+                        placeholder: gettext('New password'),
+                        type: 'password',
+                        customModifiers: 'right-shift',
+                        usePasswordVisibilityBtn: true,
+                    },
+                    name: 'newPassword',
+                    validators: [
+                        'required',
+                        'password',
+                        {
+                            name: 'minLength',
+                            options: 6,
+                        },
+                        {
+                            name: 'maxLength',
+                            options: 50,
+                        },
+                    ],
+                },
+            },
+            {
+                name: 'core.wlc-input',
+                params: {
+                    theme: 'vertical',
+                    wlcElement: 'block_password-confirm',
+                    common: {
+                        placeholder: gettext('Confirm password'),
+                        type: 'password',
+                        customModifiers: 'right-shift',
+                        usePasswordVisibilityBtn: true,
+                    },
+                    name: 'confirmPassword',
+                    validators: [
+                        'required',
+                        'password',
+                        {
+                            name: 'minLength',
+                            options: 6,
+                        },
+                        {
+                            name: 'maxLength',
+                            options: 50,
+                        },
+                    ],
+                },
+            },
+            {
+                name: 'core.wlc-button',
+                params: {
+                    wlcElement: 'button_submit',
+                    common: {
+                        text: gettext('Save'),
+                        type: 'submit',
+                        customModifiers: 'centered',
+                    },
+                },
+            },
+        ],
+        validators: [
+            {
+                name: 'matchingFields',
+                options: ['newPassword', 'confirmPassword'],
+            },
+        ],
+    },
 };

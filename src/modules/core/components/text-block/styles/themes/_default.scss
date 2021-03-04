@@ -18,14 +18,18 @@
         margin: ef.get-value($themeDefault, 'subtitleMargin');
     }
 
+    &__dynamic {
+        @include text.get-text-style(ef.get-value($themeDefault, 'dynamicFontSize'), ef.get-value($themeDefault, 'dynamicColor'));
+        margin: ef.get-value($themeDefault, 'dynamicMargin');
+    }
+
     &__title,
-    &__subtitle {
+    &__subtitle,
+    &__dynamic {
         text-align: center;
 
         &:last-child {
             margin-bottom: 0;
         }
     }
-
-
 }

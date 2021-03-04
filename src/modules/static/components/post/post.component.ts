@@ -16,10 +16,11 @@ import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract
 import {StaticService, TextDataModel} from 'wlc-engine/modules/static';
 import {IPostComponentParams} from './post.interface';
 import {defaultParams} from './post.params';
-import {ConfigService, LogService} from 'wlc-engine/modules/core';
+import {ConfigService, LogService, ActionService} from 'wlc-engine/modules/core';
 
 import {
     isFunction as _isFunction,
+    get as _get,
 } from 'lodash-es';
 
 
@@ -48,6 +49,7 @@ export class PostComponent extends AbstractComponent implements OnInit, AfterVie
         protected configService: ConfigService,
         protected stateService: StateService,
         protected logService: LogService,
+        protected actionService: ActionService,
     ) {
         super({injectParams: params, defaultParams});
     }
@@ -80,6 +82,11 @@ export class PostComponent extends AbstractComponent implements OnInit, AfterVie
         } finally {
             this.isReady = true;
             this.cdr.markForCheck();
+            if (_get(this.uiRouter.params, '#')) {
+                setTimeout(() => {
+                    this.actionService.scrollTo(`[name=${_get(this.uiRouter.params, '#').split('?')[0]}]`);
+                }, 0);
+            }
         }
     }
 

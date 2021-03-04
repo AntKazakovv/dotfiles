@@ -15,3 +15,21 @@ $themePromo: map-merge((
     'minItemWidth900': 360px,
     'minItemWidthDesktop': 600px,
 ), $customThemePromo);
+
+$customThemePartial: () !default;
+$themePartial: map-merge((
+    'gridTemplateColumns': repeat(auto-fill, minmax(145px, 1fr)),
+    'gridGap': 17px,
+), $customThemePartial);
+
+$customThemePromoHome: () !default;
+$themePromoHome: map-merge((
+    'paginationBottom': (
+        375: ef.get('size', 'smaller'),
+        640: ef.get('size', 'main'),
+    ),
+    'paginationRight': (
+        375: ef.get('size', 'smaller'),
+        640: ef.get('size', 'main'),
+    ),
+), $customThemePromoHome);

@@ -3,11 +3,11 @@ import {
     Injector,
 } from '@angular/core';
 import {CurrencyPipe} from '@angular/common';
+import {UIRouter} from '@uirouter/core';
 import {
     BehaviorSubject,
     Subject,
     fromEvent,
-    fromEventPattern,
 } from 'rxjs';
 import {Observable} from 'rxjs';
 import {takeWhile} from 'rxjs/operators';
@@ -65,6 +65,7 @@ export class ActionService {
         private eventService: EventService,
         private layoutService: LayoutService,
         private modalService: ModalService,
+        private router: UIRouter,
     ) {
         this.init();
     }
@@ -117,7 +118,7 @@ export class ActionService {
         }
     }
 
-    public scrollTo(selector: string): void {
+    public scrollTo(selector?: string): void {
         setTimeout(() => {
             const element = selector ?
                 document.querySelector(selector) :
@@ -165,6 +166,9 @@ export class ActionService {
                     });
                 },
             });
+        });
+        this.router.transitionService.onSuccess({}, () => {
+            this.scrollTo();
         });
         await this.createBreakpoints();
         this.deviceTypeSubject.next(this.getDeviceType());

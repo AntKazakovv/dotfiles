@@ -27,21 +27,12 @@ export const signUpFormConfig: IFormWrapperCParams = {
     class: 'wlc-form-wrapper',
     components: [
         {
-            name: 'core.wlc-text-block',
-            params: {
-                common: {
-                    textBlockTitle: gettext('Register'),
-                    textBlockSubtitle: gettext('Your adventure begins'),
-                },
-            },
-        },
-        {
             name: 'core.wlc-input',
             params: {
                 theme: 'vertical',
                 common: {
-                    placeholder: gettext('Email'),
-                    type: 'mail',
+                    placeholder: gettext('E-mail'),
+                    type: 'email',
                     customModifiers: 'email',
                 },
                 name: 'email',
@@ -56,7 +47,7 @@ export const signUpFormConfig: IFormWrapperCParams = {
                     placeholder: gettext('Password'),
                     type: 'password',
                     customModifiers: 'right-shift password',
-                    usePasswordVisibilityDirective: true,
+                    usePasswordVisibilityBtn: true,
                 },
                 name: 'password',
                 validators: ['required', 'password',
@@ -78,7 +69,6 @@ export const signUpFormConfig: IFormWrapperCParams = {
                 options: 'currencies',
                 theme: 'vertical',
                 common: {
-                    placeholder: gettext('Currency'),
                     customModifiers: 'currency',
                 },
                 validators: ['required'],
@@ -120,7 +110,7 @@ export const signUpFormConfig: IFormWrapperCParams = {
             name: 'core.wlc-button',
             params: {
                 common: {
-                    text: gettext('Register'),
+                    text: gettext('Sign up'),
                     type: 'submit',
                 },
             },

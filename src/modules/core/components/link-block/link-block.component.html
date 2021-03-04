@@ -13,9 +13,10 @@
             wlc-button
             icon="arrow"
             theme="cleared"
+            [attr.type]="'button'"
             [wlcElement]="$params.wlcElement + '-button'"
             text="{{$params.common.link}}"
-            (click)="goTo($params.common.actionParams)"
+            (click)="goTo($params.common.actionParams); $event.preventDefault();"
         >
         </button>
     </div>

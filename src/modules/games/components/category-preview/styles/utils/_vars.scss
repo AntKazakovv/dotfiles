@@ -1,0 +1,34 @@
+@use 'engine-scss/functions' as ef;
+$customThemeDefault: () !default;
+
+$themeDefault: map-merge((
+    'categoryBg': (
+        radial-gradient(100% 100% at 50% 50%, ef.get('mainColors', 'baseOpacity') 49%, transparentize(ef.get('mainColors', 'baseOpacity'), 1) 50%) 10px 110px/74px 74px,
+
+        radial-gradient(100% 100% at 50% 50%, ef.get('mainColors', 'bg500') 49%, transparentize(ef.get('mainColors', 'bg500'), 1) 50%) -40px 70px/170px 170px,
+
+        linear-gradient(ef.get('mainColors', 'bg300'), ef.get('mainColors', 'bg300')) 0 0/100% 100%
+    ),
+    'categoryBorderRadius': ef.get('size', 'small'),
+    'gap': (
+        375: ef.get('size', 'small'),
+        1200: ef.get('size', 'smaller'),
+    ),
+    'categoryLinkDisplay': (
+        375: none,
+        560: block,
+    ),
+    'categoryLinkColor': ef.get('mainColors', 'baseMain'),
+    'categoryTitleColor': ef.get('mainColors', 'baseMain'),
+    'categoryTitleFontSize': (
+        375: 1.6rem,
+        560: 2.4rem,
+    ),
+    'categoryPadding': (
+        375: ef.get('size', 'small'),
+        1200: ef.get('size', 'smaller'),
+    ),
+    'categoryJustifyContent': flex-end,
+    'categoryFlexDirection': column,
+    'wraperGridColumns': repeat(auto-fit, minmax(100px, 1fr)),
+), $customThemeDefault);

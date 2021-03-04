@@ -2,18 +2,64 @@
 
 $customHostModal: () !default;
 $hostModal: map-merge((
-    'modalXlSize': ef.get('modalSize', 'xl'),
-    'modalLgSize': ef.get('modalSize', 'lg'),
-    'modalMdSize': ef.get('modalSize', 'md'),
-    'modalSmSize': ef.get('modalSize', 'sm'),
-    'modalXsSize': ef.get('modalSize', 'xs'),
-    'modalWrapperPadding': (
-        375: 30px 0,
-        900: 50px 0 30px,
+    // Auto Size modal - width: auto;
+    'modalASSize': (
+        320: 100%,
+        560: 530px,
+        640: 610px,
+        720: 690px,
+        768: 738px,
+        900: 870px,
+        1024: 994px,
+        1200: 1140px,
+        1366: 1336px,
+        1420: 1390px,
+        1630: 1435px
+    ),
+    'modalXXlSize': (
+        320: 100%,
+        560: 530px,
+        640: 610px,
+        720: 690px,
+        768: 738px,
+        900: 870px,
+        1024: 994px,
+        1200: 1140px,
+        1366: 1336px,
+        1420: 1390px,
+        1630: 1435px
+    ),
+    'modalXlSize': (
+        320: 100%,
+        560: 530px,
+        640: 610px,
+        720: 690px,
+        768: 738px,
+        900: 870px,
+        1024: 994px,
+        1200: 1140px,
+    ),
+    'modalLgSize': (
+        320: 100%,
+        560: 530px,
+        640: 610px,
+        720: 690px,
+        768: 738px,
+        900: 800px,
+    ),
+    'modalMdSize': 500px,
+    'modalSmSize': 300px,
+
+    modalWrapperPadding: (
+        320: 30px 0,
+        900: 50px 0,
     ),
 
     'closePosRight': 25px,
-    'closePosTop': 27px,
+    'closePosTop': (
+        320: -40px,
+        560: 31px,
+    ),
     'closeSize': 30px,
     'closeLineStroke': ef.get('mainColors', 'baseMain'),
 
@@ -50,19 +96,30 @@ $hostModal: map-merge((
     'titleMargin': 0,
     'titleColor': ef.get('mainColors', 'baseMain'),
     'titleMaxWidth': 100%,
-    'titlePadding': 0 ef.get('size', 'main') 0 0,
-    'titlePaddingLeft':  70px,
+    'titlePadding': 0 ef.get('size', 'smally') 0 ef.get('size', 'smally'),
+    'titlePaddingLeft':  ef.get('size', 'smally'),
 
     'backBtnTopPostion' : 31px,
     'backBtnLeftPostion' : 26px,
     'backBtnMaxWidth': ef.get('size', 'big'),
-    'backBtnWidth': auto,
-    'backBtnFontSize': 'PrimaryText',
+    'backBtnSize': (
+        320: 30px,
+        900: auto,
+    ),
+    'backBtnFontStyle': 'PlaceholderTextBold',
     'backBtnPadding': 2px,
-    'backBtnColor': ef.get('mainColors', 'baseMain'),
-    'backBtnIconColor': ef.get('mainColors', 'baseMain'),
+    'backBtnColor': ef.get('mainColors', 'main'),
+    'backBtnIconColor': ef.get('mainColors', 'main'),
+    'backBtnIconWidth': (
+        320: 14px,
+        900: 10px,
+    ),
+    'backBtnIconHeight': (
+        320: 12px,
+        900: 8px,
+    ),
     'backBtnIconLineHeight': 0,
-    'backBtnIconMargin': 0 ef.get('size', 'smallest') 0 0,
+    'backBtnIconMargin': 1px ef.get('size', 'smallest') 0 0,
 
     'messageColor': ef.get('mainColors', 'baseMain'),
     'messageFontSizeConfirm': ef.get('font', 'PrimaryText'),
@@ -73,6 +130,11 @@ $hostModal: map-merge((
 
     'paddingDefault': 3rem 4rem,
     'paddingHeadless': 0,
+
+    'dialogOverflow': (
+        320: visible,
+        560: hidden,
+    ),
 
     // animation
     'fadeBottomFromHorizontal': 0,
@@ -114,4 +176,100 @@ $themeDefault: map-merge((
     'titleFontMobile': 'PrimaryText',
     'titleMargin': 0,
     'titleColor': ef.get('mainColors', 'baseMain'),
+
+    // loginSignUp modal modifier
+    'loginSignUpModalWrapperPadding': (
+        320: 10px 0,
+        900: 50px 0,
+    ),
+    'loginSignUpModalBackground': (
+        320: ef.get('mainColors', 'bgModal'),
+        900: transparent,
+    ),
+
+    'loginSignUpHeaderPadding': (
+        320: 15px,
+        900: 0,
+    ),
+
+    'loginSignUpClosePosTop': (
+        320: 50%,
+        900: 38px,
+    ),
+
+    'loginSignUpClosePosRight': (
+        320: 10px,
+        560: -7px,
+        900: 20px,
+    ),
+
+    'loginSignUpTitleDisplay': (
+        320: block,
+        900: none,
+    ),
+
+    'loginSignUpTitleStyle': 'PrimaryTextBold',
+    'loginSignUpTitleColor': ef.get('mainColors', 'baseMain'),
+
+    'loginSignUpDialogHeight': (
+        320: 100%,
+        560: auto,
+    ),
+
+    'loginSignUpDialogMarign': (
+        320: 0 auto,
+        560: auto,
+    ),
+
+    'loginSignUpDialogBorder': (
+        320: none,
+        900: 1px solid rgba(ef.get('mainColors', 'bg'), $alpha: 0.2),
+    ),
+    // loginSignUp modal modifier
+
+    // restore password modal modifier
+    'restoreModalWrapperPadding': (
+        320: 10px 0,
+        900: 50px 0,
+    ),
+    'restoreModalBackground': (
+        320: ef.get('mainColors', 'bgModal'),
+        560: transparent,
+    ),
+
+    'restoreHeaderPadding': 20px 15px,
+
+    'restoreDialogBorder': (
+        320: none,
+        560: 1px solid rgba(ef.get('mainColors', 'bg'), $alpha: 0.2),
+    ),
+
+    'restoreDialogMarign': (
+        320: -10px auto 0,
+        560: auto,
+    ),
+
+    'restoreDialogHeight': (
+        320: 100%,
+        560: auto,
+    ),
+
+    'restoreBtnTextDisplay': (
+        320: none,
+        900: block,
+    ),
+    'restoreTitleStyleDesk': 'QoteTextBold',
+    'restoreTitleStyle': 'PrimaryTextBold',
+    'restoreTitleColor': ef.get('mainColors', 'baseMain'),
+
+    'restoreBodyPadding': 10px 30px 30px,
+    // restore password modal modifier
+
+    // login-sign-up
+    'loginSignupWidth': (
+        320: 100%,
+        560: 500px,
+        900: auto,
+    ),
+    // login-sign-up
 ), $customThemeDefault);

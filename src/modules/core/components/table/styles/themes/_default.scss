@@ -123,6 +123,20 @@
                 }
             }
 
+            &--status {
+                position: relative;
+
+                ::ng-deep {
+
+                    .wlc-tooltip {
+                        position: absolute;
+                        right: -5px;
+                        top: 50%;
+                        transform: translateY(-50%);
+                    }
+                }
+            }
+
             &-label,
             &-arrow {
                 justify-self: start;

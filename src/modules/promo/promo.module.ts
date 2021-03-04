@@ -33,7 +33,6 @@ export const components = {
     imports: [
         CommonModule,
         SwiperModule,
-        UserModule,
         TranslateModule,
         CoreModule,
         AngularResizedEventModule,

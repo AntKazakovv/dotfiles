@@ -1,0 +1,132 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/mixins/base.mixins' as em;
+@import '../utils/vars';
+
+.wlc-bonus-item--theme-preview {
+    height: ef.get-value($themePreview, 'hostHeight');
+
+    .wlc-bonus-item {
+
+        &__content {
+            height: ef.get-value($themePreview, 'contentHeigh');
+            padding: ef.get-value($themePreview, 'bonusPadding');
+            background: ef.get-value($themePreview, 'bonusBackground');
+            text-align: center;
+        }
+
+        &__tag {
+            @include text.get-text-style(ef.get-value($themePreview, 'bonusSubtitleStyle'), ef.get-value($themePreview, 'tagFontColor'));
+        }
+
+        &__bonus-icon {
+            position: relative;
+            max-width: ef.get-value($themePreview, 'bonusIconMaxWidht');
+            margin: ef.get-value($themePreview, 'bonusIconMargin');
+        }
+
+        &__icon-sign {
+            border: ef.get-value($themePreview, 'iconSignBoreder');
+            border-radius: ef.get-value($themePreview, 'iconSignRadius');
+            background: ef.get-value($themePreview, 'iconSignBackground');
+            width: ef.get-value($themePreview, 'iconSignSize');
+            height: ef.get-value($themePreview, 'iconSignSize');
+            box-shadow: ef.get-value($themePreview, 'iconSignShadow');
+        }
+
+        &__more-icon {
+            position: absolute;
+            top: ef.get-value($themePreview, 'moreIconTopPos');
+            right: ef.get-value($themePreview, 'moreIconRightPos');
+            cursor: pointer;
+
+            svg {
+                width: ef.get-value($themePreview, 'moreIconSvgWidth');
+                fill: ef.get-value($themePreview, 'moreIconSvgFill');
+            }
+        }
+
+        &__icon-text {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            position: absolute;
+            bottom: ef.get-value($themePreview, 'iconTextBottomPos');
+            left: ef.get-value($themePreview, 'iconTextLeftPos');
+            right: ef.get-value($themePreview, 'iconTextRightPos');
+
+            width: ef.get-value($themePreview, 'iconTextWidth');
+            height: ef.get-value($themePreview, 'iconTextHeight');
+            margin: ef.get-value($themePreview, 'iconTextMargin');
+
+            background: ef.get-value($themePreview, 'iconTextBackground');
+            border-radius: ef.get-value($themePreview, 'iconTextRadius');
+            @include text.get-text-style(ef.get-value($themePreview, 'iconTextStyle'), ef.get-value($themePreview, 'iconTextColor'));
+
+            &.wlc-small {
+                @include text.get-text-style(ef.get-value($themePreview, 'iconTextStyle'), ef.get-value($themePreview, 'iconTextColor'));
+            }
+
+            &.wlc-smaller {
+                @include em.get-mq-map('font-size', $themePreview, 'bonusIconValueFontSizeSmaller');
+            }
+        }
+
+        &__name {
+            @include text.get-text-style(ef.get-value($themePreview, 'bonusNameStyle'), ef.get-value($themePreview, 'bonusNameColor'));
+            margin: ef.get-value($themePreview, 'bonusNameMargin');
+            cursor: pointer;
+            max-width: 100%;
+            /* stylelint-disable */
+            display: -webkit-box;
+            line-clamp: 2;
+            box-orient: vertical;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            /* stylelint-enable */
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        &__description {
+            /* stylelint-disable */
+            display: -webkit-box;
+            line-clamp: 3;
+            box-orient: vertical;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            /* stylelint-enable */
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        &__blank {
+            display: flex;
+            flex-direction: column;
+            padding: ef.get-value($themePreview, 'bonusPadding');
+            height: ef.get-value($themePreview, 'bonusHeight');
+            background: url('/gstatic/wlc/bonuses/blank-bonus-decor.png') no-repeat center top, linear-gradient(180deg, #8dacc9 0%, #003d5f 100%);
+            background-size: contain;
+            text-align: center;
+
+            &-title {
+                @include text.get-text-style(ef.get-value($themePreview, 'bonusTitleStyle'));
+                margin: ef.get-value($themeDefault, 'bonusTitleMargin');
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+
+            &-subtitle {
+                @include text.get-text-style(ef.get-value($themePreview, 'bonusSubtitleStyle'));
+                margin: ef.get-value($themePreview, 'bonusSubtitleMargin');
+            }
+
+            &-text {
+                @include text.get-text-style(ef.get-value($themePreview, 'bonusTextStyle'));
+            }
+        }
+    }
+}

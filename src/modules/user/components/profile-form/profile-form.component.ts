@@ -14,6 +14,11 @@ import {ICheckboxCParams} from 'wlc-engine/modules/core';
 
 import * as Params from './profile-form.params';
 
+import {
+    find as _find,
+} from 'lodash-es';
+import {IFormComponent} from "wlc-engine/modules/core/components/form-wrapper/form-wrapper.component";
+
 
 /**
  * Profile form component.
@@ -33,7 +38,6 @@ import * as Params from './profile-form.params';
 export class ProfileFormComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams: Params.IProfileFormCParams;
     public $params: Params.IProfileFormCParams;
-    public config = Params.profileForm;
     public userProfile = this.user.userProfile$;
     public sendEmail: boolean;
     public userToggleChoice: boolean;
@@ -46,16 +50,13 @@ export class ProfileFormComponent extends AbstractComponent implements OnInit {
         },
     };
 
-    public additionalBlocks = Params.AdditionalBlock;
-
     constructor(
         @Inject('injectParams') protected params: Params.IProfileFormCParams,
         protected user: UserService,
         protected cdr: ChangeDetectorRef,
         protected modalService: ModalService,
         protected eventService: EventService,
-    )
-    {
+    ) {
         super({injectParams: params, defaultParams: Params.defaultParams});
     }
 
@@ -102,6 +103,13 @@ export class ProfileFormComponent extends AbstractComponent implements OnInit {
                     message: result.errors,
                 },
             });
+
+            if (result.errors.currentPassword) {
+                const currentPassword: IFormComponent = _find(this.$params.config.components, component => {
+                    return component.params.name === 'currentPassword';
+                });
+                currentPassword.params.control.setErrors({currentPassword: true});
+            }
             return false;
         }
     }

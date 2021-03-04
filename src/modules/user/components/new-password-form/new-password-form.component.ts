@@ -57,6 +57,7 @@ export class NewPasswordFormComponent extends AbstractComponent {
         const code = this.injectParams.common.code;
 
         try {
+            form.disable();
             await this.userService.restoreNewPassword(newPassword, confirmPassword, code);
 
             this.stateService.go('app.home');
@@ -84,6 +85,8 @@ export class NewPasswordFormComponent extends AbstractComponent {
                     message: error.errors,
                 },
             });
+        } finally {
+            form.enable();
         }
     }
 }

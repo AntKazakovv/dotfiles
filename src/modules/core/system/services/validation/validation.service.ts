@@ -8,15 +8,18 @@ import {
 import {
     Observable,
     from,
-    of,
+    of, Subscription,
 } from 'rxjs';
 import {
     delay,
     map,
     switchMap,
 } from 'rxjs/operators';
-import {DataService} from 'wlc-engine/modules/core/system/services';
-import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
+import {
+    DataService,
+    EventService,
+    IIndexing,
+} from 'wlc-engine/modules/core';
 import {
     IData,
     IRequestMethod,
@@ -24,7 +27,6 @@ import {
 import {matchingFields} from './validators/matchFields.validator';
 import {email} from './validators/email.validator';
 import {regexp} from './validators/regexp.validator';
-
 
 export type ValidatorType = string | IValidatorSettings;
 
@@ -84,6 +86,7 @@ export class ValidationService {
 
     constructor(
         private dataService: DataService,
+        private eventService: EventService,
     ) {
         this.setRule<IIndexing<boolean>>('matchingFields', matchingFields);
         this.setRule<IIndexing<boolean>>('email', email);

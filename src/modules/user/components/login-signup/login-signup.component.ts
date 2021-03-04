@@ -5,7 +5,11 @@ import {
 } from '@angular/core';
 
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ModalService} from 'wlc-engine/modules/core/system/services';
+import {
+    ConfigService,
+    ModalService,
+} from 'wlc-engine/modules/core/system/services';
+import {TabSwitcherComponent} from 'wlc-engine/modules/core/components/tab-switcher/tab-switcher.component';
 
 import * as Params from './login-signup.params';
 
@@ -13,8 +17,6 @@ import {
     get as _get,
 } from 'lodash-es';
 
-
-export {ILoginSignupCParams} from './login-signup.params';
 
 @Component({
     selector: '[wlc-login-signup]',
@@ -27,6 +29,7 @@ export class LoginSignupComponent extends AbstractComponent implements OnInit {
     constructor(
         @Inject('injectParams') protected injectParams: Params.ILoginSignupCParams,
         protected ModalService: ModalService,
+        protected configService: ConfigService,
     ) {
         super({injectParams, defaultParams: Params.defaultParams});
     }
@@ -70,3 +73,5 @@ export class LoginSignupComponent extends AbstractComponent implements OnInit {
         }
     }
 }
+
+

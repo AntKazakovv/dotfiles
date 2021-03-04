@@ -1,5 +1,6 @@
 import {
-    Component, ElementRef,
+    Component,
+    ElementRef,
     Inject,
     Input,
 } from '@angular/core';
@@ -11,6 +12,11 @@ import {UserService} from 'wlc-engine/modules/user/system/services';
 import {IPushMessageParams, NotificationEvents} from 'wlc-engine/modules/core/system/services/notification';
 
 import * as Params from './change-password-form.params';
+
+import {
+    find as _find,
+} from 'lodash-es';
+import {IFormComponent} from "wlc-engine/modules/core/components/form-wrapper/form-wrapper.component";
 
 /**
  * Change-password form component.
@@ -32,7 +38,6 @@ export class ChangePasswordFormComponent extends AbstractComponent {
 
     @Input() public inlineParams: Params.IChangePasswordFormCParams;
     public $params: Params.IChangePasswordFormCParams;
-    public config = Params.changePasswordFormConfig;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IChangePasswordFormCParams,
@@ -47,10 +52,15 @@ export class ChangePasswordFormComponent extends AbstractComponent {
         });
     }
 
+    public ngOnInit(): void {
+        super.ngOnInit();
+    }
+
     public async ngSubmit(form: FormGroup): Promise<void> {
         const {currentPassword, confirmPassword} = form.value;
 
         try {
+            form.disable();
             await this.userService.setNewPassword(currentPassword, confirmPassword);
 
             this.eventService.emit({
@@ -74,13 +84,8 @@ export class ChangePasswordFormComponent extends AbstractComponent {
                     message: error.errors,
                 },
             });
-
-            if (error.errors?.includes('Password is invalid')) {
-                this.elRef.nativeElement.querySelector('#currentPassword').focus();
-                this.elRef.nativeElement.querySelector('#currentPassword').control.setErrors({
-                    notCorrect: true,
-                });
-            }
+        } finally {
+            form.enable();
         }
     }
 }
