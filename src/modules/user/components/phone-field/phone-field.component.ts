@@ -65,8 +65,10 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
         }));
 
 
-        this.$params.phoneNumber.control.markAsUntouched();
-        this.$params.phoneNumber.control.markAsPristine();
+        setTimeout(() => {
+            this.$params.phoneNumber.control.markAsUntouched();
+            this.$params.phoneNumber.control.markAsPristine();
+        });
 
         this.$params.phoneCode.control.valueChanges.subscribe(val => {
             if (val) {
