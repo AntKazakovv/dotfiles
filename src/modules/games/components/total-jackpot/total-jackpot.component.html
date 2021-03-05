@@ -16,11 +16,13 @@
      >
           <tspan class="{{$class}}__currency"
                  *ngIf="amount && currency?.position == 'left'"
+                 data-wlc-element="total-jackpot_currency"
           >{{currency.currency}}&#032;</tspan>
           <tspan class="{{$class}}__counter"
                  [countUp]="amount"
                  [options]="$params.countUpOptions"
                  [reanimateOnClick]="false"
+                 data-wlc-element="total-jackpot_counter"
                  [ngClass]="{'loading': !amount}"
           >--- --- ---</tspan>
           <tspan class="{{$class}}__currency"

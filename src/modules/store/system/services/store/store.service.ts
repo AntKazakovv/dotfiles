@@ -167,10 +167,10 @@ export class StoreService {
                     fail: 'STORE_ITEM_BUY_FAILED',
                 },
             }, params);
-            this.showSuccess(gettext('Product purchase'), gettext('Product successfully purchased'));
+            this.showSuccess(gettext('Product purchase'), gettext('Product successfully purchased'), 'buy');
             return response.data;
         } catch (error) {
-            this.showError(gettext('Purchase error'), error?.errors);
+            this.showError(gettext('Purchase error'), error?.errors, 'buy');
         }
     }
 
@@ -267,24 +267,26 @@ export class StoreService {
         }
     }
 
-    private showError(title: string, errors: string[]): void {
+    private showError(title: string, errors: string[], id?: string): void {
         this.eventService.emit({
             name: NotificationEvents.PushMessage,
             data: <IPushMessageParams>{
                 type: 'error',
                 title,
                 message: errors,
+                wlcElement: id ?  'notification-store-' + id + '-error' : undefined,
             },
         });
     }
 
-    private showSuccess(title: string, msg: string): void {
+    private showSuccess(title: string, msg: string, id?: string): void {
         this.eventService.emit({
             name: NotificationEvents.PushMessage,
             data: <IPushMessageParams>{
                 type: 'success',
                 title,
                 message: msg,
+                wlcElement: id ?  'notification-store-' + id + '-success' : undefined,
             },
         });
     }

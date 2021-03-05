@@ -120,6 +120,7 @@ export class EnterPromocodeComponent
                 type: 'error',
                 title,
                 message,
+                wlcElement: 'notification_promocode-error',
             },
         });
     }

@@ -471,6 +471,7 @@ class StartGameHandler {
                 type: 'error',
                 title,
                 message,
+                wlcElement: 'notification_game-launch-error',
             },
         });
     }

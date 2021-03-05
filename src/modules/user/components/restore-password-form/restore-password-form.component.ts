@@ -63,6 +63,7 @@ export class RestorePasswordFormComponent extends AbstractComponent {
                     type: 'success',
                     title: gettext('Password reset success'),
                     message: response.data.result,
+                    wlcElement: 'notification_password-reset-success',
                 },
             });
         } catch (error) {
@@ -72,6 +73,7 @@ export class RestorePasswordFormComponent extends AbstractComponent {
                     type: 'error',
                     title: gettext('Password reset failed'),
                     message: error.errors,
+                    wlcElement: 'notification_password-reset-error',
                 },
             });
         } finally {

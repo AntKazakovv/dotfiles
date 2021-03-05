@@ -89,6 +89,7 @@ export class InputComponent extends AbstractComponent implements OnInit, OnChang
                 type: 'info',
                 title: gettext('Info'),
                 message: gettext('Copied to clipboard!'),
+                wlcElement: 'notifiсation_input-info',
             },
         });
     }

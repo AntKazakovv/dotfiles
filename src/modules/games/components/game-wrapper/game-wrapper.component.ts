@@ -559,6 +559,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
                                     type: 'error',
                                     title: gettext('Game error'),
                                     message: gettext('Something wrong. Please try later.'),
+                                    wlcElement: 'notification_game-error',
                                 },
                             });
                         }, 500);

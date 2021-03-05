@@ -69,6 +69,7 @@ export class NewPasswordFormComponent extends AbstractComponent {
                     type: 'success',
                     title: gettext('Password reset'),
                     message: gettext('Password has been changed!'),
+                    wlcElement: 'notification_password-change-success',
                 },
             });
 
@@ -83,6 +84,7 @@ export class NewPasswordFormComponent extends AbstractComponent {
                     type: 'error',
                     title: gettext('Password reset failed'),
                     message: error.errors,
+                    wlcElement: 'notification_password-change-error',
                 },
             });
         } finally {
