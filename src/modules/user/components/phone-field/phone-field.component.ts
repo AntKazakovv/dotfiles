@@ -45,8 +45,6 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
 
     ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
-        this.$params.phoneNumber.control.setValue('');
-        this.$params.phoneNumber.control.markAsUntouched();
         this.user.userProfile$.subscribe((profile => {
             if (profile) {
 
@@ -66,6 +64,10 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
             }
         }));
 
+
+        this.$params.phoneNumber.control.markAsUntouched();
+        this.$params.phoneNumber.control.markAsPristine();
+
         this.$params.phoneCode.control.valueChanges.subscribe(val => {
             if (val) {
                 this.setValidators(val);
@@ -79,8 +81,7 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
         const max = lengths?.maxLength || 13;
 
         this.$params.phoneNumber.maskOptions = _assign(this.$params.phoneNumber.maskOptions, {
-            to: +'9'.repeat(max),
-            from: +'0'.repeat(min),
+            mask: '0'.repeat(max),
         });
         this.$params.phoneNumber.control.clearValidators();
         this.$params.phoneNumber.control.setValidators([Validators.minLength(min), Validators.required]);

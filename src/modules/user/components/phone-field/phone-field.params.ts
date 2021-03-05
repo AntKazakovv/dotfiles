@@ -46,9 +46,7 @@ export let defaultParams: Partial<IPhoneFieldCParams> = {
             },
         ],
         maskOptions: {
-            mask: IMask.MaskedRange,
-            from: +'0'.repeat(6),
-            to: +'9'.repeat(9),
+            mask: '0'.repeat(13),
         },
     },
 };
