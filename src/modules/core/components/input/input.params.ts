@@ -42,6 +42,6 @@ export const defaultParams: Partial<IInputCParams> = {
         type: 'text',
         usePasswordVisibilityBtn: false,
         useLabel: true,
-        autocomplete: 'off',
+        autocomplete: 'none',
     },
 };
