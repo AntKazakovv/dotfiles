@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {EventService, ModalService} from 'wlc-engine/modules/core/system/services';
+import {ConfigService, EventService, ModalService} from 'wlc-engine/modules/core/system/services';
 import {UserService} from 'wlc-engine/modules/user/system/services';
 import {IPushMessageParams, NotificationEvents} from 'wlc-engine/modules/core/system/services/notification';
 import {ICheckboxCParams} from 'wlc-engine/modules/core';
@@ -56,12 +56,14 @@ export class ProfileFormComponent extends AbstractComponent implements OnInit {
         protected cdr: ChangeDetectorRef,
         protected modalService: ModalService,
         protected eventService: EventService,
+        protected configService: ConfigService,
     ) {
         super({injectParams: params, defaultParams: Params.defaultParams});
     }
 
-    public ngOnInit(): void {
+    public async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
+        await this.configService.ready;
         this.toggleBtn.control.valueChanges.subscribe((value) => {
             this.userToggleChoice = this.toggleBtn.control.value;
         });
