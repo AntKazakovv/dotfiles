@@ -49,6 +49,7 @@ export const restorePasswordFormConfig: IFormWrapperCParams = {
                 },
                 name: 'email',
                 validators: ['required', 'email', 'emailExist'],
+                wlcElement: 'input_restore-userlogin',
             },
         },
         {
@@ -59,6 +60,7 @@ export const restorePasswordFormConfig: IFormWrapperCParams = {
                     type: 'submit',
                     customModifiers: 'centered restore',
                 },
+                wlcElement: 'button_restore',
             },
         },
         {
@@ -73,6 +75,7 @@ export const restorePasswordFormConfig: IFormWrapperCParams = {
                         },
                     },
                 },
+                wlcElement: 'register_block',
             },
         },
     ],
