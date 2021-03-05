@@ -34,7 +34,7 @@ export let defaultParams: Partial<IPhoneFieldCParams> = {
         common: {
             placeholder: gettext('Phone number'),
             type: 'tel',
-            autocomplete: 'off',
+            autocomplete: 'phone',
         },
         wlcElement: 'block_phoneNumber',
         name: 'phoneNumber',
@@ -43,6 +43,7 @@ export let defaultParams: Partial<IPhoneFieldCParams> = {
         maskOptions: {
             mask: IMask.MaskedRange,
             from: +'0'.repeat(6),
+            to: +'9'.repeat(9),
         },
     },
 };
