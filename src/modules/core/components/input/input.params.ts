@@ -21,6 +21,7 @@ export interface IInputCParams extends IComponentParams<ComponentTheme, Componen
         useLabel?: boolean;
         readonly?: boolean;
         tooltipText?: string;
+        autocomplete?: string;
     }
     validators?: ValidatorType[];
     control?: FormControl;
@@ -41,5 +42,6 @@ export const defaultParams: Partial<IInputCParams> = {
         type: 'text',
         usePasswordVisibilityBtn: false,
         useLabel: true,
+        autocomplete: 'off',
     },
 };
