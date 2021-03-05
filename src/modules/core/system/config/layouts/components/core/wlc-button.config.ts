@@ -159,6 +159,7 @@ export namespace wlcButton {
                     childCategory: 'jackpots',
                 },
             },
+            wlcElement: 'button-play',
         },
     };
 }

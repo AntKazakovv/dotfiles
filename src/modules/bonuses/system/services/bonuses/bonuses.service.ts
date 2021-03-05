@@ -555,6 +555,7 @@ export class BonusesService {
                 type: 'error',
                 title,
                 message: errors,
+                wlcElement: 'notifiсation_bonus-error',
             },
         });
     }
@@ -565,6 +566,7 @@ export class BonusesService {
             data: <IPushMessageParams>{
                 type: 'success',
                 title,
+                wlcElement: 'notifiсation_bonus-success',
             },
         });
     }

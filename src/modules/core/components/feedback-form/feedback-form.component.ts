@@ -65,6 +65,7 @@ export class FeedbackFormComponent extends AbstractComponent implements OnInit {
                         type: 'success',
                         title: gettext('Form submitted successfully'),
                         message: gettext('Your message has been successfully sent'),
+                        wlcElement: 'notifiсation_feedback-send-success',
                     },
                 });
 
@@ -78,6 +79,7 @@ export class FeedbackFormComponent extends AbstractComponent implements OnInit {
                         type: 'error',
                         title: gettext('Form submitting error'),
                         message: gettext('Check the correctness of filling in the data'),
+                        wlcElement: 'notifiсation_feedback-send-error',
                     },
                 });
             });

@@ -83,6 +83,7 @@ export class ActionService {
                             new CurrencyPipe('en_US', 'EUR').transform(initialPath.amount)
                                 + ' ' + gettext('were successfully deposited in your account.'),
                         ],
+                        wlcElement: 'notification_deposit-success',
                     },
                 });
                 break;
@@ -97,6 +98,7 @@ export class ActionService {
                                 +' An e-mail with detailed information has been sent to your e-mail address.'
                                 +' If you have any questions, please don\'t hesitate to contact us.'),
                         ],
+                        wlcElement: 'notification_deposit-error',
                     },
                 });
                 break;
@@ -205,7 +207,7 @@ export class ActionService {
 
     private async setNewPassword(initialPath: IIndexing<string>): Promise<void> {
         if (!initialPath.code) {
-            this.showErrorNotification(gettext('Code missing'), gettext('Password recovery error'));
+            this.showErrorNotification(gettext('Code missing'), gettext('Password recovery error'), 'password-recovery-code');
             return;
         }
 
@@ -216,7 +218,7 @@ export class ActionService {
             const userService: UserService = this.injector.get(UserService);
             await userService.validateRestoreCode(initialPath.code);
         } catch (error) {
-            this.showErrorNotification(error.errors, gettext('Error occurred during password recovery'));
+            this.showErrorNotification(error.errors, gettext('Error occurred during password recovery'), 'password-recovery');
 
             return;
         }
@@ -233,6 +235,7 @@ export class ActionService {
             this.showErrorNotification(
                 gettext('Code missing'),
                 gettext('Registration error'),
+                'registrtation-code',
             );
             return;
         }
@@ -250,23 +253,25 @@ export class ActionService {
                     type: 'success',
                     title: gettext('Registration success'),
                     message: gettext('You have been successfully registered!'),
+                    wlcElement: 'notification_registration-success',
                 },
             });
             this.eventService.emit({name: 'LOGIN'});
         } catch (error) {
-            this.showErrorNotification(error.errors, gettext('Registration error'));
+            this.showErrorNotification(error.errors, gettext('Registration error'), 'register');
         } finally {
             this.modalService.closeAllModals();
         }
     }
 
-    private showErrorNotification(message: string, title: string): void {
+    private showErrorNotification(message: string, title: string, id?: string): void {
         this.eventService.emit({
             name: NotificationEvents.PushMessage,
             data: <IPushMessageParams>{
                 type: 'error',
                 title,
                 message,
+                wlcElement: id ? `notification_${id}-error` : null,
             },
         });
     }

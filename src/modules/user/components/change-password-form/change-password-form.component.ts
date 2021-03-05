@@ -63,6 +63,7 @@ export class ChangePasswordFormComponent extends AbstractComponent {
                     type: 'success',
                     title: gettext('Password changed successfully'),
                     message: gettext('Your password has been changed successfully!'),
+                    wlcElement: 'notification_password-update-success',
                 },
             });
 
@@ -76,6 +77,7 @@ export class ChangePasswordFormComponent extends AbstractComponent {
                     type: 'error',
                     title: gettext('Failed to change password'),
                     message: error.errors,
+                    wlcElement: 'notification_password-update-error',
                 },
             });
         } finally {

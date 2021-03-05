@@ -69,6 +69,7 @@ export class AddProfileInfoComponent extends AbstractComponent implements OnInit
                     type: 'success',
                     title: gettext('Profile updated successfully'),
                     message: gettext('Your profile has been updated successfully'),
+                    wlcElement: 'notification_profile-update-success',
                 },
             });
 
@@ -88,6 +89,7 @@ export class AddProfileInfoComponent extends AbstractComponent implements OnInit
                     type: 'error',
                     title: gettext('Profile update failed'),
                     message: messages,
+                    wlcElement: 'notification_profile-update-error',
                 },
             });
 

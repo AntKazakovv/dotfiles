@@ -80,6 +80,7 @@ export class SignUpFormComponent extends AbstractComponent {
                     type: 'error',
                     title: gettext('Registration error'),
                     message: error.errors,
+                    wlcElement: 'notification_registration-error',
                 },
             });
 
@@ -119,6 +120,7 @@ export class SignUpFormComponent extends AbstractComponent {
                     gettext('Your account has been registered.'),
                     gettext('Please complete registration using link in e-mail'),
                 ],
+                wlcElement: 'notification_registration-success',
             },
         });
 
@@ -140,6 +142,7 @@ export class SignUpFormComponent extends AbstractComponent {
                 type: 'error',
                 title: gettext('Registration error'),
                 message: gettext('You must agree with Terms and Conditions as well as confirm that you are at least 18 years old'),
+                wlcElement: 'notification_registration-terms-error',
             },
         });
 

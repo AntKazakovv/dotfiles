@@ -53,6 +53,7 @@ export class TransactionCancelComponent extends AbstractComponent implements OnI
                     type: 'error',
                     title: gettext('Transaction error'),
                     message: FinancesHelper.errorToMessage(error),
+                    wlcElement: 'notification_transaction-error',
                 },
             });
         } finally {
