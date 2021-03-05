@@ -17,6 +17,7 @@ import * as Params from './phone-field.params';
 import {
     clone as _clone,
     find as _find,
+    assign as _assign,
 } from 'lodash-es';
 import IMask from "imask";
 
@@ -38,8 +39,7 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
         protected selectValues: SelectValuesService,
         protected cdr: ChangeDetectorRef,
         protected user: UserService,
-    )
-    {
+    ) {
         super({injectParams, defaultParams: Params.defaultParams});
     }
 
@@ -76,11 +76,10 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
         const min = lengths?.minLength || 6;
         const max = lengths?.maxLength || 13;
 
-        this.$params.phoneNumber.maskOptions = {
-            mask: IMask.MaskedRange,
+        this.$params.phoneNumber.maskOptions = _assign(this.$params.phoneNumber.maskOptions, {
             to: +'9'.repeat(max),
             from: +'0'.repeat(min),
-        };
+        });
         this.$params.phoneNumber.control.clearValidators();
         this.$params.phoneNumber.control.setValidators([Validators.minLength(min), Validators.required]);
         this.$params.phoneNumber.control.updateValueAndValidity({
