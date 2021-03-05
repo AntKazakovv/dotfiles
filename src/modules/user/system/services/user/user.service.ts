@@ -143,6 +143,8 @@ export class UserService {
             stateService.go('app.home', {
                 locale: this.translate.currentLang,
             });
+            this.userInfo$.next(null);
+            this.profile = null;
             this.stopUserInfoFetcher();
         });
 
