@@ -86,7 +86,6 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
             mask: '0'.repeat(max),
         });
         this.$params.phoneNumber.control.clearValidators();
-        this.$params.phoneNumber.control.setValidators([Validators.minLength(min), Validators.required]);
         this.$params.phoneNumber.control.updateValueAndValidity({
             onlySelf: true,
         });
