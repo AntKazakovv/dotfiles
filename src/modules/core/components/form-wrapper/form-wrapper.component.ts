@@ -304,7 +304,6 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
                 if (_includes(this.locked, key) && value) {
                     control.disable();
                 }
-                control.updateValueAndValidity();
             });
             this.cdr.markForCheck();
         });

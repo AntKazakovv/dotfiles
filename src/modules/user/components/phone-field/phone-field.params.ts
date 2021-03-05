@@ -43,7 +43,9 @@ export let defaultParams: Partial<IPhoneFieldCParams> = {
             'required',
         ],
         maskOptions: {
-            mask: '0'.repeat(13),
+            mask: /^\d+$/,
+            max: '0'.repeat(13),
+            autofix: false,
         },
     },
 };

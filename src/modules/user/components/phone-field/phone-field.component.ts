@@ -19,7 +19,8 @@ import {
     find as _find,
     assign as _assign,
 } from 'lodash-es';
-import IMask from "imask";
+
+import {debounceTime} from "rxjs/operators";
 
 @Component({
     selector: '[wlc-phone-field]',
@@ -49,7 +50,6 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
             if (profile) {
 
                 if (!profile.countryCode && !this.$params.phoneCode.control.value) {
-
                     this.configService.get<BehaviorSubject<ICountry[]>>('countries').subscribe(data => {
                         const country = _find(data, (item) => {
                             return this.configService.get<string>('appConfig.country') === item?.value;
@@ -64,17 +64,16 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
             }
         }));
 
-
-        setTimeout(() => {
-            this.$params.phoneNumber.control.markAsUntouched();
-            this.$params.phoneNumber.control.markAsPristine();
-        });
-
         this.$params.phoneCode.control.valueChanges.subscribe(val => {
             if (val) {
                 this.setValidators(val);
             }
         });
+
+        this.$params.phoneNumber.control.valueChanges
+            .pipe(debounceTime(500)).subscribe((val) => {
+                //
+            });
     }
 
     protected setValidators(value: string): void {
@@ -83,7 +82,7 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
         const max = lengths?.maxLength || 13;
 
         this.$params.phoneNumber.maskOptions = _assign(this.$params.phoneNumber.maskOptions, {
-            mask: '0'.repeat(max),
+            max: '0'.repeat(max),
         });
         this.$params.phoneNumber.control.clearValidators();
         this.$params.phoneNumber.control.setValidators([Validators.minLength(min), Validators.required]);

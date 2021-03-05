@@ -65,7 +65,7 @@ export class InputMaskDirective implements AfterViewInit,
     public ngOnChanges(changes: SimpleChanges): void {
         if (changes.wlcInputMask?.currentValue?.mask || this.wlcInputMask) {
             this.getPattern(changes.wlcInputMask.currentValue.mask);
-            this.element.nativeElement?.mask?.updateOptions(this.wlcInputMask);
+            this.mask.updateOptions(this.wlcInputMask);
             this.cdr.detectChanges();
         }
     }
