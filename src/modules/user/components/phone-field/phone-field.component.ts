@@ -18,6 +18,7 @@ import {
     clone as _clone,
     find as _find,
 } from 'lodash-es';
+import IMask from "imask";
 
 @Component({
     selector: '[wlc-phone-field]',
@@ -76,10 +77,9 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
         const max = lengths?.maxLength || 13;
 
         this.$params.phoneNumber.maskOptions = {
-            // @ts-ignore
-            mask: Number,
-            max: '9'.repeat(max),
-            min: '0'.repeat(min),
+            mask: IMask.MaskedRange,
+            to: +'9'.repeat(max),
+            from: +'0'.repeat(min),
         };
         this.$params.phoneNumber.control.clearValidators();
         this.$params.phoneNumber.control.setValidators([Validators.minLength(min), Validators.required]);

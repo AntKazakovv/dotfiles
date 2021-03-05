@@ -192,7 +192,7 @@ export const defaultParams: IProfileFormCParams = {
                         usePasswordVisibilityBtn: true,
                     },
                     name: 'currentPassword',
-                    validators: ['required', 'password'],
+                    validators: ['required'],
                 },
             },
             {

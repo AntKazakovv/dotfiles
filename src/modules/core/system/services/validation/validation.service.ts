@@ -8,7 +8,7 @@ import {
 import {
     Observable,
     from,
-    of, Subscription,
+    of,
 } from 'rxjs';
 import {
     delay,
@@ -27,6 +27,7 @@ import {
 import {matchingFields} from './validators/matchFields.validator';
 import {email} from './validators/email.validator';
 import {regexp} from './validators/regexp.validator';
+import {newPassword} from './validators/new-password.validator';
 
 export type ValidatorType = string | IValidatorSettings;
 
@@ -91,6 +92,7 @@ export class ValidationService {
         this.setRule<IIndexing<boolean>>('matchingFields', matchingFields);
         this.setRule<IIndexing<boolean>>('email', email);
         this.setRule<IIndexing<boolean>>('regExp', regexp);
+        this.setRule<IIndexing<boolean>>('newPassword', newPassword);
     }
 
     public emailUnique(ctrl: AbstractControl): Observable<IIndexing<boolean>> {

@@ -157,7 +157,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
                 }
             });
 
-            if (!this.resize$) {
+            if (!this.resize$) {2;
                 this.resize$ = fromEvent(window, 'resize').pipe(takeUntil(this.$destroy)).subscribe({
                     next: () => {
                         this.updateComponents();

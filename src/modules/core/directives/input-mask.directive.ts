@@ -8,7 +8,7 @@ import {
     ChangeDetectorRef,
     SimpleChanges,
 } from '@angular/core';
-import IMask, {InputMask} from 'imask';
+import IMask, {InputMask, MaskedPattern} from 'imask';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 
 import {
@@ -21,7 +21,7 @@ import {
  * See more: [imask docs]{@link https://imask.js.org/}.
  */
 export interface IMaskOptions {
-    mask: string | DateConstructor | Number | RegExp;
+    mask: string | DateConstructor | Number | RegExp | IMask.AnyMask;
     min?: string | Date | number;
     max?: string | Date | number;
     lazy?: boolean;
