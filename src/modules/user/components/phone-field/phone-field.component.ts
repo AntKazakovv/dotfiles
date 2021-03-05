@@ -45,6 +45,8 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
 
     ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
+        this.$params.phoneNumber.control.setValue('');
+        this.$params.phoneNumber.control.markAsUntouched();
         this.user.userProfile$.subscribe((profile => {
             if (profile) {
 

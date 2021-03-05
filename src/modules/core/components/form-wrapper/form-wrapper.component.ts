@@ -212,8 +212,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
         this.prepareValidators();
 
         this.form = new FormGroup(this.controls, this.globalValidators);
-        this.form.markAsUntouched();
-        this.form.markAsPristine();
+        this.form.reset();
 
         this.dataSubscription();
     }
