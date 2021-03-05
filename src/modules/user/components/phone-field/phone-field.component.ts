@@ -79,15 +79,10 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
 
     protected setValidators(value: string): void {
         const lengths = this.selectValues.getPhoneLimitsDefault()[value];
-        const min = lengths?.minLength || 6;
         const max = lengths?.maxLength || 13;
 
         this.$params.phoneNumber.maskOptions = _assign(this.$params.phoneNumber.maskOptions, {
             mask: '0'.repeat(max),
-        });
-        this.$params.phoneNumber.control.clearValidators();
-        this.$params.phoneNumber.control.updateValueAndValidity({
-            onlySelf: true,
         });
 
         this.$params.phoneCode = _clone(this.$params.phoneCode);

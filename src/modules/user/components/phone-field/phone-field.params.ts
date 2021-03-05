@@ -41,10 +41,6 @@ export let defaultParams: Partial<IPhoneFieldCParams> = {
         locked: true,
         validators: [
             'required',
-            {
-                name: 'minLength',
-                options: 6,
-            },
         ],
         maskOptions: {
             mask: '0'.repeat(13),

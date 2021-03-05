@@ -177,7 +177,13 @@ export const defaultParams: IProfileFormCParams = {
                 name: 'user.wlc-phone-field',
                 params: {
                     name: ['phoneCode', 'phoneNumber'],
-                    validators: ['required'],
+                    validators: [
+                        'required',
+                        {
+                            name: 'minLength',
+                            options: 6,
+                        },
+                    ],
                     locked: true,
                 },
             },

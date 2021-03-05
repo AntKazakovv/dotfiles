@@ -212,7 +212,6 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
         this.prepareValidators();
 
         this.form = new FormGroup(this.controls, this.globalValidators);
-        this.form.reset();
 
         this.dataSubscription();
     }
@@ -249,7 +248,6 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
 
             if (_isArray(component.params.name)) {
                 _each(component.params.name, (field: string) => {
-
                     this.controls[field] = new FormControl(
                         {
                             value: _get(this.formData?.value, field, ''),
