@@ -132,7 +132,8 @@ module.exports = function messagesTask() {
                 return `echo 'php to POT -> ${this.params.paths.root}/${codeDir}'\n` +
                     `find ${this.params.paths.root}/${codeDir} -type f -name '*.php' -print >> ${tmpFile.name}\n`;
             }),
-            getTextCommand = `xgettext -L PHP --force-po -f ${tmpFile.name} -o ${this.params.paths.temp}/messages_php.pot\n`;
+            getTextCommand = `xgettext -L PHP --force-po -f ${tmpFile.name} -o ${this.params.paths.temp}/messages_php.pot\n`
+                +  `sed --in-place ${this.params.paths.temp}/messages_php.pot --expression="s|#:[[:space:]]${this.params.paths.root}|#: |"\n`;
 
         await this.execShell(commands, true);
         await this.execShell(getTextCommand, true);
