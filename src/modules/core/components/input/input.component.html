@@ -3,6 +3,7 @@
     <div class="{{$class}}__input">
         <input type="{{$params.common?.type}}"
                id="{{$params.name}}"
+               aut
                [wlc-input-mask]="$params.maskOptions"
                [attr.data-wlc-element]='fieldWlcElement'
                placeholder="{{$params.exampleValue || $params.common?.placeholder | translate}}"
