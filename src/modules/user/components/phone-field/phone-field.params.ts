@@ -39,7 +39,12 @@ export let defaultParams: Partial<IPhoneFieldCParams> = {
         wlcElement: 'block_phoneNumber',
         name: 'phoneNumber',
         locked: true,
-        validators: ['required'],
+        validators: ['required',
+            {
+                name: 'minLength',
+                options: 6,
+            },
+        ],
         maskOptions: {
             mask: IMask.MaskedRange,
             from: +'0'.repeat(6),
