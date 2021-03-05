@@ -110,6 +110,12 @@ export class LayoutComponent implements OnInit, OnDestroy {
 
     protected async setComponents(state: string, params?: IIndexing<any>): Promise<void> {
         this.currentConfig = await this.layoutService.getLayout(this.layouts, state, params);
+        this.eventService.emit({
+            name: 'SECTION_READY',
+            data: {
+                sectionName: this.sectionName,
+            },
+        });
         this.section = this.currentConfig.sections[this.sectionName];
         this.getAllComponents();
         this.setWatcher();
