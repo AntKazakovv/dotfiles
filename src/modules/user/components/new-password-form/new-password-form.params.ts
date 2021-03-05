@@ -45,6 +45,7 @@ export const newPasswordFormConfig: IFormWrapperCParams = {
                     customModifiers: 'right-shift',
                     usePasswordVisibilityBtn: true,
                 },
+                wlcElement: 'block_password-new',
                 name: 'newPassword',
                 validators: ['required',
                     {
@@ -68,6 +69,7 @@ export const newPasswordFormConfig: IFormWrapperCParams = {
                     customModifiers: 'right-shift',
                     usePasswordVisibilityBtn: true,
                 },
+                wlcElement: 'block_password-confirm',
                 name: 'confirmPassword',
                 validators: ['required',
                     {
@@ -89,6 +91,7 @@ export const newPasswordFormConfig: IFormWrapperCParams = {
                     type: 'submit',
                     customModifiers: 'centered',
                 },
+                wlcElement: 'button_submit',
             },
         },
     ],

@@ -222,6 +222,7 @@ export class ActionService {
         }
 
         this.modalService.showModal('newPassword', {
+            wlcElement: 'form_forgot-password',
             common: {
                 code: initialPath.code,
             },

@@ -12,6 +12,7 @@
             <div *ngIf="$params.config.useBackButton"
                  class="wlc-modal__back-btn"
                  (click)="goBack('login')"
+                 data-wlc-element="button_back"
             >
                 <span class="icon-arrow"
                       wlc-icon [iconName]="'arrow'"
@@ -69,7 +70,8 @@
                     [text]="$params.config.closeBtnText || 'Close'"
                     [wlcElement]="'button_close'"
                     [inlineParams]="$params.config.closeBtnParams"
-                    (click)="closeModal($params.config.id)">
+                    (click)="closeModal($params.config.id)"
+                    wlcElement="button_close">
             </button>
         </div>
     </div>

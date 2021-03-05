@@ -109,7 +109,7 @@ export const MODALS_LIST: IModalList = {
             modifier: 'change-password',
             component: ChangePasswordFormComponent,
             componentParams: {
-                wlcElement: 'modal_password-change',
+                wlcElement: 'wlc-profile-edit__password',
             },
             size: 'md',
             showFooter: false,
@@ -121,6 +121,9 @@ export const MODALS_LIST: IModalList = {
             id: 'new-password',
             modifier: 'new-password',
             component: NewPasswordFormComponent,
+            componentParams: {
+                wlcElement: 'form_forgot-password',
+            },
             size: 'md',
             showFooter: false,
             dismissAll: true,
@@ -131,6 +134,9 @@ export const MODALS_LIST: IModalList = {
             id: 'restore-password',
             modifier: 'restore',
             component: RestorePasswordFormComponent,
+            componentParams: {
+                wlcElement: 'form_password-recovery',
+            },
             modalTitle: gettext('Password restore'),
             size: 'md',
             showFooter: false,
