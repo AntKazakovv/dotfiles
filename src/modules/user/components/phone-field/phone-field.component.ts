@@ -7,11 +7,11 @@ import {
 } from '@angular/core';
 import {Validators} from '@angular/forms';
 import {BehaviorSubject} from "rxjs";
+import {distinctUntilChanged} from 'rxjs/operators';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ConfigService, ICountry, IInputCParams, ISelectCParams, SelectValuesService} from 'wlc-engine/modules/core';
 import {ISelectOptions} from 'wlc-engine/modules/core/components/select/select.params';
 import {UserService} from "wlc-engine/modules/user/system/services";
-import {distinctUntilChanged} from 'rxjs/operators';
 
 import * as Params from './phone-field.params';
 
@@ -67,6 +67,10 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
             if (val) {
                 this.setValidators(val);
             }
+        });
+
+        this.$params.phoneNumber.control.valueChanges.pipe(distinctUntilChanged()).subscribe(() => {
+            this.$params.phoneNumber.control.updateValueAndValidity({onlySelf: true});
         });
     }
 

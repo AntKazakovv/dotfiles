@@ -11,13 +11,13 @@ import {ConfigService, EventService, ModalService} from 'wlc-engine/modules/core
 import {UserService} from 'wlc-engine/modules/user/system/services';
 import {IPushMessageParams, NotificationEvents} from 'wlc-engine/modules/core/system/services/notification';
 import {ICheckboxCParams} from 'wlc-engine/modules/core';
+import {IFormComponent} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
 
 import * as Params from './profile-form.params';
 
 import {
     find as _find,
 } from 'lodash-es';
-import {IFormComponent} from "wlc-engine/modules/core/components/form-wrapper/form-wrapper.component";
 
 
 /**

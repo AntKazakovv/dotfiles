@@ -82,7 +82,7 @@ export namespace profileContent {
         container: true,
         components: [
             componentLib.wlcTitle.profileDashboard,
-            componentLib.wlcLogout.def,
+            componentLib.wlcLogout.useText,
             componentLib.wlcDashboardLoyaltyBlock.def,
             componentLib.wlcDashboardExchange.def,
             componentLib.wlcTitle.profileDashboardBonuses,

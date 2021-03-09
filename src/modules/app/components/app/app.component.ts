@@ -126,6 +126,7 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
             defaultParams.hostClass,
             this.configService.get<DeviceModel>('device')?.osName,
             this.configService.get<DeviceModel>('device')?.browserName,
+            `wlc-locale-${this.translate.currentLang}`,
             `${_get(this.uiRouter, '$current.name', '').replace(/\./g, '-')}-state`,
             ...this.additionalHostClass,
         ];
@@ -167,7 +168,7 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
         this.translate.addLangs(this.configService.get<ILanguage[]>('appConfig.languages').map((lang) => lang.code));
         const {locale} = this.stateService.params;
 
-        if(_includes(this.translate.langs, locale)) {
+        if (_includes(this.translate.langs, locale)) {
             this.translate.setDefaultLang(locale);
             this.translate.use(locale);
         } else {

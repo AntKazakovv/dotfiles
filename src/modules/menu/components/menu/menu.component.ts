@@ -9,8 +9,6 @@ import {
     SimpleChanges,
     ViewChild,
     TemplateRef,
-    ElementRef,
-    AfterViewInit,
 } from '@angular/core';
 import {
     StateService,
@@ -37,7 +35,6 @@ import {ISlide, ISliderCParams} from 'wlc-engine/modules/promo/components/slider
 import {SliderComponent} from 'wlc-engine/modules/promo/components/slider/slider.component';
 
 import {
-    get as _get,
     forEach as _forEach,
     has as _has,
     find as _find,
@@ -66,7 +63,7 @@ import {
                 animate(0),
             ]),
             transition('* => *', [
-                animate('0.1s'),
+                animate('0.3s'),
             ]),
         ])],
 })
@@ -104,7 +101,7 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
         protected layoutService: LayoutService,
         protected actionService: ActionService,
         protected modalService: ModalService,
-        protected stateSerivce: StateService,
+        protected stateService: StateService,
         protected transitionService: TransitionService,
     )
     {
@@ -117,7 +114,7 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
     }
 
     public isActive(state: string): boolean {
-        return this.stateSerivce.includes(state);
+        return this.stateService.includes(state);
     }
 
     public toggleDropdown(item: Params.IMenuItemsGroup): void {

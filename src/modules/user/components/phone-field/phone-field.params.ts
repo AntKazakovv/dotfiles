@@ -34,7 +34,6 @@ export let defaultParams: Partial<IPhoneFieldCParams> = {
         common: {
             placeholder: gettext('Phone number'),
             type: 'text',
-            autocomplete: 'none',
         },
         wlcElement: 'block_phoneNumber',
         name: 'phoneNumber',

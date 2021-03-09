@@ -1,16 +1,16 @@
 <div class="{{$class}}__backdrop"
-    *ngIf="openedPanel"
-    (click)="closePanel(openedPanel)"></div>
+     *ngIf="openedPanel"
+     (click)="closePanel(openedPanel)"></div>
 
 <ng-container *ngFor="let section of sections">
     <div wlc-burger-panel
-        tabindex="-1"
-        [isOpened]="openedPanel === section.name"
-        [inlineParams]="getBurgerPanel(section.name)"
-        [id]="section.name">
+         tabindex="-1"
+         [isOpened]="openedPanel === section.name"
+         [inlineParams]="getBurgerPanel(section.name)"
+         [id]="section.name">
         <div wlc-layout
-            [sectionName]="section.name"
-            [layouts]="'panels'"
+             [sectionName]="section.name"
+             [layouts]="'panels'"
         ></div>
     </div>
 </ng-container>

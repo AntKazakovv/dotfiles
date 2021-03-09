@@ -19,6 +19,7 @@
             ::ng-deep {
 
                 .wlc-menu__item {
+                    overflow: hidden;
 
                     &.active {
 
@@ -89,15 +90,33 @@
                     border-radius: ef.get-value($themeDropdownDefault, 'linkBorderRadius');
                     @include bm.get-mq-map('background', $themeDropdownDefault, 'submenuBg');
 
+                    .wlc-menu__item:last-child {
+
+                        .wlc-menu__link {
+                            border-bottom-left-radius: ef.get-value($themeDropdownDefault, 'linkBorderRadius');
+                            border-bottom-right-radius: ef.get-value($themeDropdownDefault, 'linkBorderRadius');
+                        }
+                    }
+
+                    .wlc-menu__item:first-child {
+
+                        .wlc-menu__link {
+                            border-top-left-radius: ef.get-value($themeDropdownDefault, 'linkBorderRadius');
+                            border-top-right-radius: ef.get-value($themeDropdownDefault, 'linkBorderRadius');
+                        }
+                    }
+
                     .wlc-menu__link {
                         background: transparent;
 
                         &.active {
                             background: ef.get-value($themeDropdownDefault, 'activeLinkBg');
+                            border-radius: 0;
                             @include bm.transition(background);
                         }
 
                         @media (hover: hover) {
+                            border-radius: 0;
 
                             &:hover {
                                 background: ef.get-value($themeDropdownDefault, 'activeLinkBg');

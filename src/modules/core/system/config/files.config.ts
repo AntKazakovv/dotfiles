@@ -48,4 +48,5 @@ export const localFiles: IIndexing<string> = {
     'validated': 'icons/doc-icons/loaded.svg',
     'failed-validation': 'icons/doc-icons/not-correct.svg',
     'question-mark': 'icons/question-mark.svg',
+    'defCategoryIcon': 'icons/plug.svg',
 };

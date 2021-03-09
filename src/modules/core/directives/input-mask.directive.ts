@@ -8,6 +8,7 @@ import {
     ChangeDetectorRef,
     SimpleChanges,
 } from '@angular/core';
+import {fromEvent} from 'rxjs';
 import IMask, {InputMask} from 'imask';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 
@@ -15,8 +16,6 @@ import {
     assign as _assign,
     isString as _isString,
 } from 'lodash-es';
-import {fromEvent} from "rxjs";
-import {log} from "util";
 
 /**
  * See more: [imask docs]{@link https://imask.js.org/}.
@@ -58,7 +57,7 @@ export class InputMaskDirective implements AfterViewInit,
         this.getPattern(this.wlcInputMask);
 
         if (this.wlcInputMask) {
-            this.mask = IMask(this.element.nativeElement, this.wlcInputMask as IMask.AnyMaskedOptions);
+            this.mask = IMask(this.element.nativeElement, this.wlcInputMask);
             _assign(this.element.nativeElement, {mask: this.mask});
 
             fromEvent(this.element.nativeElement, 'keyup').subscribe(() => {

@@ -15,8 +15,9 @@
 <div class="{{$class}}__dropdown"
      [@toggle]="isOpened ? 'opened' : 'closed'"
 >
-    <ng-container [ngTemplateOutlet]="langList"  [ngTemplateOutletContext]="{list: availableLanguages, class: $class}"></ng-container>
-
+    <ng-container [ngTemplateOutlet]="langList"
+                  [ngTemplateOutletContext]="{list: availableLanguages, class: $class}"
+                  ></ng-container>
 </div>
 <ng-template #langList let-list="list" let-$class="class">
     <div class="{{$class}}__list">

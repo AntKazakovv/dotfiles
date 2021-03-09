@@ -41,12 +41,7 @@ export class SportsbookComponent extends AbstractComponent implements OnInit {
 
         const settings: ISportsbookSettings = this.sportsbookService.getSportsbookSettings();
         if (settings) {
-            if (settings.id == 'betradar') {
-                this.betradarService.setBetradarParams();
-                this.betradarService.initNavigation(this.$destroy, this.cdr);
-            }
-
-            this.gameWrapperParams = {
+            const gameWrapperParams: IGameWrapperCParams = {
                 gameParams: {
                     merchantId: settings.merchantId,
                     launchCode: settings.launchCode,
@@ -54,6 +49,12 @@ export class SportsbookComponent extends AbstractComponent implements OnInit {
                 wlcElement: 'section_sportsbook_game-play',
                 theme: 'fullscreen-game-frame',
             };
+
+            if (settings.id === 'betradar') {
+                this.betradarService.setBetradarParams();
+                this.betradarService.initNavigation(this.$destroy, this.cdr);
+            }
+            this.gameWrapperParams = gameWrapperParams;
         }
         this.cdr.detectChanges();
     }

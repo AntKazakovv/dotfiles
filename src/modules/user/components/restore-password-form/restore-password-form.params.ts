@@ -48,7 +48,7 @@ export const restorePasswordFormConfig: IFormWrapperCParams = {
                     type: 'email',
                 },
                 name: 'email',
-                validators: ['required', 'email', 'emailExist'],
+                validators: ['required', 'email'],
                 wlcElement: 'input_restore-userlogin',
             },
         },

@@ -28,14 +28,6 @@ export const newPasswordFormConfig: IFormWrapperCParams = {
     class: 'wlc-form-wrapper',
     components: [
         {
-            name: 'core.wlc-text-block',
-            params: {
-                common: {
-                    textBlockTitle: gettext('Create a new password'),
-                },
-            },
-        },
-        {
             name: 'core.wlc-input',
             params: {
                 theme: 'vertical',
@@ -47,7 +39,7 @@ export const newPasswordFormConfig: IFormWrapperCParams = {
                 },
                 wlcElement: 'block_password-new',
                 name: 'newPassword',
-                validators: ['required',
+                validators: ['required', 'password',
                     {
                         name: 'minLength',
                         options: 6,

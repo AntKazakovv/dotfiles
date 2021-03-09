@@ -141,6 +141,17 @@
             }
         }
     }
+
+    &.wlc-modal--new-password {
+
+        .wlc-modal {
+
+            &__body {
+                padding-top: 0;
+            }
+        }
+    }
+
 }
 
 body.modal-open {

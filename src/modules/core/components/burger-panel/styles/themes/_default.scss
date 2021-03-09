@@ -8,6 +8,7 @@
             justify-content: center;
             grid-auto-flow: initial;
             margin: ef.get-value($themeDefault, 'loginBtnMargin');
+            margin-bottom: ef.get-value($themeDefault, 'componentGap');
 
             .wlc-btn {
                 min-width: 100%;
@@ -40,6 +41,13 @@
                     }
                 }
             }
+        }
+
+        .wlc-user-info__wrp {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 0 0 ef.get-value($themeDefault, 'componentGap') 0;
         }
     }
 }

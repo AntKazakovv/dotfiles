@@ -153,6 +153,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
     public ngAfterViewInit(): void {
         this.showDashboardBtn = true;
         this.initStartResizeParams();
+        this.initFullPageIframeSize();
     }
 
     @HostListener('window:resize') onWResize() {
@@ -214,7 +215,8 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         }
         try {
             await this.gamesCatalogService.toggleFavourites(this.game.ID);
-        } catch (error) {}
+        } catch (error) {
+        }
     }
 
     public onClose(event: Event): void {
@@ -244,24 +246,53 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
             this.aspectRatio = this.game?.aspectRatio || 'auto';
             this.aspectRatioCoefficient = this.getAspectRatioCoefficient();
             this.checkIframe();
-        } else {
-            this.initFullPageIframeSize();
         }
     }
 
     protected initFullPageIframeSize(): void {
-        if (this.isMobile) {
-            return;
-        }
+        if (this.$params.theme === 'fullscreen-game-frame' && this.hostElement) {
+            this.containerObserver = new MutationObserver(() => {
+                const iframe = document.querySelector('#egamings_container iframe');
+                if (iframe) {
+                    this.iframe = iframe as HTMLElement;
+                    this.containerObserver.disconnect();
+                    this.containerObserver = null;
+                    this.setFullPageIframeSize();
 
+                    this.iframeObserver = new MutationObserver(() => {
+                        this.setFullPageIframeSize();
+                    });
+                    this.iframeObserver.observe(iframe, {
+                        attributes: true,
+                        attributeFilter: ['height'],
+                    });
+                }
+            });
+            this.containerObserver.observe(this.hostElement.nativeElement, {
+                childList: true,
+                subtree: true,
+            });
+        }
+    }
+
+    protected setFullPageIframeSize(): void {
         if (this.hostElement?.nativeElement) {
             const elem = this.hostElement.nativeElement;
-            const height: number = window.innerHeight - elem.offsetTop;
-            this.renderer.setStyle(elem, 'height', height + 'px');
-
             const iframe = this.wrp?.element?.nativeElement.querySelector('iframe');
+
+            let height: string = this.isMobile ? null : (globalThis.innerHeight - elem.offsetTop) + 'px';
+
+            const iframeHeightAttr: string = iframe?.getAttribute('height');
+            if (_includes(iframeHeightAttr, 'px') && height) {
+                const iframeHeight: number = parseInt(iframeHeightAttr);
+                const calcHeight: number = parseInt(height);
+                if (iframeHeight > calcHeight) {
+                    height = null;
+                }
+            }
+            this.renderer.setStyle(elem, 'height', height);
             if (iframe) {
-                this.renderer.setStyle(iframe, 'height', height + 'px');
+                this.renderer.setStyle(iframe, 'height', height);
             }
         }
     }
@@ -300,6 +331,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
 
     protected setGameWindowSize(width?: number): void {
         if (this.$params.theme !== 'default') {
+            this.setFullPageIframeSize();
             return;
         }
 
@@ -349,7 +381,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
     }
 
     protected getMaxHeight(): number {
-        const windowHeight = window.window.innerHeight;
+        const windowHeight = globalThis.innerHeight;
         const wrpElTop = this.wrp?.element?.nativeElement.getBoundingClientRect().top;
         const padding = this.$params?.padding || 0;
         const elFooterHeight = this.footer.nativeElement.getBoundingClientRect().height;

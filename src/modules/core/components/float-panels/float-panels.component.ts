@@ -14,7 +14,7 @@ import {
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {SectionModel} from 'wlc-engine/modules/core/system/models/section.model';
 import * as Params from './float-panels.params';
-import {IBurgerPanelCParams} from './../burger-panel/burger-panel.params';
+import {IBurgerPanelCParams} from 'wlc-engine/modules/core';
 
 import {
     get as _get,
@@ -22,7 +22,6 @@ import {
     map as _map,
     each as _each,
 } from 'lodash-es';
-
 
 @Component({
     selector: '[wlc-float-panels]',

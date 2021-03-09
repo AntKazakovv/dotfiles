@@ -54,7 +54,13 @@ export class RestorePasswordFormComponent extends AbstractComponent {
 
         try {
             form.disable();
+            if (await this.doesEmailExist(email)) {
+                setTimeout(() => form.controls.email.setErrors({'email-not-exist': true}));
+                return;
+            };
+
             const response = await this.userService.sendPasswordRestore(email);
+
             this.modalService.closeModal('restore-password');
 
             this.eventService.emit({
@@ -79,5 +85,22 @@ export class RestorePasswordFormComponent extends AbstractComponent {
         } finally {
             form.enable();
         }
+    }
+
+    protected async doesEmailExist(email: string): Promise<boolean> {
+        const response = await this.userService.emailUnique(email);
+
+        if (response.data.result) {
+            this.eventService.emit({
+                name: NotificationEvents.PushMessage,
+                data: <IPushMessageParams>{
+                    type: 'error',
+                    title: gettext('Error'),
+                    message: gettext('Account with this e-mail isn\'t exist'),
+                },
+            });
+        }
+
+        return response.data.result;
     }
 }

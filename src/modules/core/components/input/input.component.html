@@ -3,7 +3,6 @@
     <div class="{{$class}}__input">
         <input type="{{$params.common?.type}}"
                id="{{$params.name}}"
-               autocomplete="{{$params.common.autocomplete}}"
                [wlc-input-mask]="$params.maskOptions"
                [attr.data-wlc-element]='fieldWlcElement'
                placeholder="{{$params.exampleValue || $params.common?.placeholder | translate}}"
@@ -29,7 +28,6 @@
 <ng-template #placeholderShown>
     <input type="{{$params.common?.type}}"
            id="{{$params.name}}"
-           autocomplete="{{$params.common.autocomplete}}"
            [wlc-input-mask]="$params.maskOptions"
            placeholder="{{$params.exampleValue || $params.common?.placeholder | translate}}"
            [formControl]="control"

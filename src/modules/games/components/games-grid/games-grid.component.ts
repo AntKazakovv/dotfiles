@@ -204,9 +204,9 @@ export class GamesGridComponent extends AbstractComponent
         this.lazyReady = true;
 
         setTimeout(() => {
-            window.scrollTo({
-                top: this.elementRef.nativeElement.getBoundingClientRect().top() + 10,
+            this.elementRef.nativeElement.scrollIntoView({
                 behavior: 'smooth',
+                block: 'end',
             });
         }, 500);
         this.cdr.detectChanges();

@@ -9,7 +9,6 @@ import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract
 import {ModalService} from 'wlc-engine/modules/core/system/services';
 import {UserService} from 'wlc-engine/modules/user/system/services';
 import * as Params from './logout.params';
-import {IconComponent} from 'wlc-engine/modules/core/components/icon/icon.component';
 
 @Component({
     selector: '[wlc-logout]',

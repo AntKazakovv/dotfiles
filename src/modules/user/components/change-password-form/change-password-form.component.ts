@@ -13,11 +13,6 @@ import {IPushMessageParams, NotificationEvents} from 'wlc-engine/modules/core/sy
 
 import * as Params from './change-password-form.params';
 
-import {
-    find as _find,
-} from 'lodash-es';
-import {IFormComponent} from "wlc-engine/modules/core/components/form-wrapper/form-wrapper.component";
-
 /**
  * Change-password form component.
  *

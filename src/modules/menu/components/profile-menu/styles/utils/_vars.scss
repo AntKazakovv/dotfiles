@@ -14,7 +14,8 @@ $themeDefault: map-merge((
     'profileMenuBgBeforeHeight': ef.get('size', 'smaller'),
     'profileMenuLinkPadding': (
         375: ef.get('size', 'small') ef.get('size', 'small'),
-        1024: ef.get('size', 'small') ef.get('size', 'smaller')
+        1024: ef.get('size', 'small') ef.get('size', 'smally'),
+        1200: ef.get('size', 'small') ef.get('size', 'smaller')
     ),
     'profileMenuLinkBorderRadius': ef.get('radius', 'big') ef.get('radius', 'big') 0 0,
     'iconSize': 16px,
@@ -31,7 +32,7 @@ $themeDropdownDefault: map-merge((
         375: ef.get('mainColors', 'bg700'),
         1024: ef.get('mainColors', 'bg'),
     ),
-    'activeLinkBg': ef.get('mainColors', 'baseOpacity'),
+    'activeLinkBg': ef.get('mainColors', 'bg500'),
     'linkFill': ef.get('mainColors', 'baseMain'),
     'linkBorderRadius': ef.get('radius', 'biger'),
     'submenuBg': (
