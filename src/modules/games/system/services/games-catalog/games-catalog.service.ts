@@ -27,9 +27,11 @@ import {
     ILastPlayedGame,
 } from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
 import {IGamesFilterData} from 'wlc-engine/modules/games/system/interfaces/filters.interfaces';
+import {ActionService, DeviceType} from 'wlc-engine/modules/core';
 
 import {
     find as _find,
+    get as _get,
     filter as _filter,
     includes as _includes,
     startsWith as _startsWith,
@@ -56,6 +58,7 @@ export class GamesCatalogService {
         'category-menu',
     ];
     private $resolve: () => void;
+    private isMobile: boolean = false;
 
     constructor(
         public configService: ConfigService,
@@ -65,6 +68,7 @@ export class GamesCatalogService {
         protected userService: UserService,
         protected uiRouter: UIRouterGlobals,
         protected layoutService: LayoutService,
+        protected actionService: ActionService,
     ) {
         this.init();
     }
@@ -131,6 +135,14 @@ export class GamesCatalogService {
         ], () => {
             this.loadGames();
         });
+
+        this.actionService.deviceType()
+            .subscribe((type: DeviceType) => {
+                if (!type) {
+                    return;
+                }
+                this.isMobile = type !== DeviceType.Desktop;
+            });
     }
 
     /**
