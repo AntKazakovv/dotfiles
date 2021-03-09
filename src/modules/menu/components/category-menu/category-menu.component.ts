@@ -50,7 +50,7 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
                 scrollToStart: true,
             },
             icons: {
-                fallback: '',
+                fallback: 'wlc/icons/asian/v1/plug.svg',
             },
         },
     };
@@ -63,7 +63,6 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
     protected isAuth: boolean;
     protected iconsFolder: string;
     protected useIcons: boolean;
-    protected iconsFallback: string = 'plug.svg';
     protected useLobbyBtn: boolean;
 
     constructor(
@@ -98,7 +97,6 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
             : this.configService.get<boolean>('$menu.categoryMenu.icons.use');
 
         this.iconsFolder = this.$params.common?.icons?.folder || this.configService.get<string>('$menu.categoryMenu.icons.folder');
-        this.menuParams.common.icons.fallback = this.iconPath(this.iconsFallback);
 
         this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
 
@@ -271,6 +269,10 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
             dropdownMenu = MenuHelper.getItemsForCategories({
                 categories: specialCategories,
                 lang: this.translate.currentLang,
+                icons: {
+                    folder: this.iconsFolder,
+                    disable: !this.useIcons,
+                },
             });
         }
 
@@ -283,6 +285,10 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
                 const childItems = MenuHelper.getItemsForCategories({
                     categories: category.childCategories,
                     lang: this.translate.currentLang,
+                    icons: {
+                        folder: this.iconsFolder,
+                        disable: !this.useIcons,
+                    },
                 });
                 dropdownMenu.push({
                     parent: menuItems[0],

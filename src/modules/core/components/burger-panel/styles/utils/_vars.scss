@@ -3,6 +3,7 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'gap': ef.get('size', 'smallest'),
+    'componentGap': ef.get('size', 'smaller'),
     'loginBtnPadding': ef.get('size', 'smaller') 0 ef.get('size', 'main'),
     'panelWidth': 290px,
     'panelBackground': ef.get('mainColors', 'bg'),

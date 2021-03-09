@@ -31,7 +31,7 @@ $themeDefault: map-merge((
     'langPadding': 0 ef.get('size', 'smallest'),
     'langHeight': 20px,
     'langRadius': 20px,
-    'langFontStyleCurrent': 'ThirdTitleBold',
+    'langFontStyleCurrent': 'PrimaryText',
     'langFontColorCurrent': ef.get('mainColors', 'baseMain'),
 
     'listGap': ef.get('size', 'smaller'),
@@ -61,7 +61,7 @@ $customThemeDefaultModLog: () !default;
 $themeDefaultModLog: map-merge((
     'maxWidthModLong': 275px,
     'currentBorderModLong': 0,
-    'currentPaddingModLong': 7px 12px,
+    'currentPaddingModLong': 7px 15px,
     'currentBgModLong': ef.get('mainColors', 'bg700'),
     'currentBgModLongActive': ef.get('mainColors', 'main'),
     'currentBgModLongHover': ef.get('mainColors', 'baseOpacity'),
@@ -73,7 +73,7 @@ $themeDefaultModLog: map-merge((
     'currentFlagSize': ef.get('size', 'smaller'),
     'currentFlagMargin': 5px,
     'dropdownFlagSize': ef.get('size', 'smaller'),
-    'dropdownPaddingLong': ef.get('size', 'smaller') 12px,
-    'langFontStyleActive': 'ButtonText',
+    'dropdownPaddingLong': ef.get('size', 'smaller') ef.get('size', 'smally'),
+    'langFontStyleActive': 'PrimaryText',
     'langFontStyle': 'PrimaryText',
 ), $customThemeDefaultModLog);

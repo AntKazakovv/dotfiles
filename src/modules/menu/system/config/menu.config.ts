@@ -32,6 +32,7 @@ export const menuConfig: IMenuConfig = {
                     'mobile-menu:fair-play',
                     'mobile-menu:games-rules',
                     'mobile-menu:terms-and-conditions',
+                    'mobile-menu:contact-us',
                 ],
             },
         ],
@@ -40,8 +41,8 @@ export const menuConfig: IMenuConfig = {
             use: false,
         },
         categoryIcons: {
-            folder: 'wlc/icons/european/v1',
-            use: false,
+            folder: 'wlc/icons/asian/categories/v1',
+            use: true,
         },
     },
     profileMenu: {

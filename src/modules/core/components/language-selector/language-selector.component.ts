@@ -42,12 +42,13 @@ export {ILanguageSelectorCParams} from './language-selector.params';
             state('closed', style({
                 opacity: 0,
                 visibility: 'hidden',
+                pointerEvents: 'none',
             })),
             transition('void => *', [
                 animate(0),
             ]),
             transition('* => *', [
-                animate('0.3s'),
+                animate('0.2s'),
             ]),
         ]),
     ],
@@ -61,7 +62,6 @@ export class LanguageSelectorComponent
     public currentLanguage: ILanguage;
     public isOpened: boolean;
     public isModalOpen: boolean;
-    public langList: any;
 
     private modToggled: boolean = false;
     private defaultThemeMod: 'default' | Params.ThemeModType;

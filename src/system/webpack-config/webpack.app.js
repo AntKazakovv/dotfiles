@@ -1,4 +1,4 @@
-const ESLintPlugin = require('eslint-webpack-plugin');
+// const ESLintPlugin = require('eslint-webpack-plugin');
 const StylelintPlugin = require('stylelint-webpack-plugin');
 const WlcTemplateReplacePlugins = require('./wlcTemplateReplacePlugins');
 const WlcStructureInfoPlugin = require('./wlcStructureInfoPlugin');
@@ -41,7 +41,7 @@ module.exports = (config, schema, env) => {
 
     config.plugins.push(WlcTemplateReplacePlugins.templates);
 
-    if(isDev) {
+    if (isDev) {
         config.plugins.push(new WlcStructureInfoPlugin());
         config.plugins.push(new WlcWatchExtFilesPlugin([
             'roots/static/images',

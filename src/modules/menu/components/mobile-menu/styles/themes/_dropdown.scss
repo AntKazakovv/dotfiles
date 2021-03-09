@@ -7,16 +7,22 @@
 
     &.wlc-mobile-menu--theme-mod-vertical {
 
-        .wlc-menu {
-            display: grid;
-            grid: {
-                template-columns: 1fr;
-                gap: ef.get-value($themeDropdownDefault, 'menuGag');
-            }
+        ::ng-deep {
 
-            ::ng-deep {
+            .wlc-category-menu--type-dropdown.wlc-category-menu--theme-mod-vertical .wlc-menu,
+            .wlc-menu {
+                display: grid;
+                grid: {
+                    template-columns: 1fr;
+                    gap: ef.get-value($themeDropdownDefault, 'menuGag');
+                }
 
                 .wlc-menu__item {
+
+                    .wlc-menu__link span {
+                        white-space: normal;
+                    }
+
 
                     &.active {
 
@@ -50,7 +56,8 @@
                 .wlc-menu__link {
                     z-index: 2;
                     display: flex;
-                    justify-content: space-between;
+                    justify-content: flex-start;
+                    align-items: center;
                     padding: ef.get-value($themeDropdownDefault, 'linkPadding');
                     width: 100%;
                     @include text.get-text-style('PrimaryText');
@@ -59,15 +66,23 @@
                     text-decoration: none;
                     background: ef.get-value($themeDropdownDefault, 'linkBg');
                     border-radius: ef.get-value($themeDropdownDefault, 'linkBorderRadius');
+                    @include bm.transition(background);
 
-                    &:hover,
+                    &:hover {
+                        background: ef.get-value($themeDropdownDefault, 'linkBg');
+
+                        @include mq.min(1024) {
+                            background: ef.get-value($themeDropdownDefault, 'activeLinkBg');
+                        }
+                    }
+
                     &.active {
                         background: ef.get-value($themeDropdownDefault, 'activeLinkBg');
-                        @include bm.transition(background);
                     }
 
                     .wlc-menu__icon-arrow {
                         transform: rotate(-90deg);
+                        margin-left: auto;
                         @include bm.transition();
 
                         svg {
@@ -81,8 +96,38 @@
                     border-radius: ef.get-value($themeDropdownDefault, 'linkBorderRadius');
                     background: ef.get-value($themeDropdownDefault, 'submenuBg');
 
+                    .wlc-menu__item {
+
+                        &:hover {
+
+                            .wlc-menu__link {
+                                border-radius: 0;
+
+                                @include mq.min(1024) {
+                                    background: ef.get-value($themeDropdownDefault, 'activeLinkBg');
+                                }
+                            }
+                        }
+
+                        &:last-child {
+
+                            .wlc-menu__link {
+                                border-bottom-left-radius: ef.get-value($themeDropdownDefault, 'linkBorderRadius');
+                                border-bottom-right-radius: ef.get-value($themeDropdownDefault, 'linkBorderRadius');
+                            }
+                        }
+
+                        &:first-child {
+
+                            .wlc-menu__link {
+                                border-top-left-radius: ef.get-value($themeDropdownDefault, 'linkBorderRadius');
+                                border-top-right-radius: ef.get-value($themeDropdownDefault, 'linkBorderRadius');
+                            }
+                        }
+                    }
+
                     .wlc-menu__link {
-                        background: transparent;
+                        border-radius: 0;
 
                         &.active {
                             background: ef.get-value($themeDropdownDefault, 'activeLinkBg');
@@ -94,3 +139,4 @@
         }
     }
 }
+

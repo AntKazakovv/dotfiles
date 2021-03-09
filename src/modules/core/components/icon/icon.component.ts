@@ -37,10 +37,10 @@ export class IconComponent extends AbstractComponent implements OnInit, OnChange
     public ready: boolean;
 
     @Input() public wlcElement: string;
+    @Input() public fallback: string;
     @Input() protected iconUrl: string;
     @Input() protected iconName: string;
     @Input() protected iconPath: string;
-    @Input() protected fallback: string;
 
     constructor(
         protected sanitizer: DomSanitizer,

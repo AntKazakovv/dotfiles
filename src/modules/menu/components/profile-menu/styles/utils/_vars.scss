@@ -32,7 +32,7 @@ $themeDropdownDefault: map-merge((
         375: ef.get('mainColors', 'bg700'),
         1024: ef.get('mainColors', 'bg'),
     ),
-    'activeLinkBg': ef.get('mainColors', 'baseOpacity'),
+    'activeLinkBg': ef.get('mainColors', 'bg500'),
     'linkFill': ef.get('mainColors', 'baseMain'),
     'linkBorderRadius': ef.get('radius', 'biger'),
     'submenuBg': (
