@@ -35,7 +35,7 @@ $themeDefault: map-merge((
     'toggleRadius': ef.get('radius', 'large'),
     'toggleCircleSize': 20px,
     'toggleCircleOffset': 2px,
-    'toggleCircleBg': darken(ef.get('mainColors', 'main'), 15%),
+    'toggleCircleBg': ef.get('mainColors', 'disabled'),
     'toggleCircleBgActive': ef.get('mainColors', 'main'),
     'togglePaddingLeftText': 0,
     'togglePaddingRightText': ef.get('size', 'smally'),

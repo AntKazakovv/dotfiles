@@ -15,8 +15,11 @@ import {
     map,
     switchMap,
 } from 'rxjs/operators';
-import {DataService} from 'wlc-engine/modules/core/system/services';
-import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
+import {
+    DataService,
+    EventService,
+    IIndexing,
+} from 'wlc-engine/modules/core';
 import {
     IData,
     IRequestMethod,
@@ -24,7 +27,7 @@ import {
 import {matchingFields} from './validators/matchFields.validator';
 import {email} from './validators/email.validator';
 import {regexp} from './validators/regexp.validator';
-
+import {newPassword} from './validators/new-password.validator';
 
 export type ValidatorType = string | IValidatorSettings;
 
@@ -84,10 +87,12 @@ export class ValidationService {
 
     constructor(
         private dataService: DataService,
+        private eventService: EventService,
     ) {
         this.setRule<IIndexing<boolean>>('matchingFields', matchingFields);
         this.setRule<IIndexing<boolean>>('email', email);
         this.setRule<IIndexing<boolean>>('regExp', regexp);
+        this.setRule<IIndexing<boolean>>('newPassword', newPassword);
     }
 
     public emailUnique(ctrl: AbstractControl): Observable<IIndexing<boolean>> {

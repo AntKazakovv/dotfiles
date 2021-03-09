@@ -215,7 +215,8 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         }
         try {
             await this.gamesCatalogService.toggleFavourites(this.game.ID);
-        } catch (error) {}
+        } catch (error) {
+        }
     }
 
     public onClose(event: Event): void {
@@ -263,13 +264,13 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
                     });
                     this.iframeObserver.observe(iframe, {
                         attributes: true,
-                        attributeFilter: ['height']
+                        attributeFilter: ['height'],
                     });
                 }
             });
             this.containerObserver.observe(this.hostElement.nativeElement, {
                 childList: true,
-                subtree: true
+                subtree: true,
             });
         }
     }

@@ -118,6 +118,7 @@ export class SelectValuesService {
             },
             '+7': {
                 minLength: 10,
+                maxLength: 11,
             },
             '+45': {
                 minLength: 8,

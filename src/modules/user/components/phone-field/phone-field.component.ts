@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 import {Validators} from '@angular/forms';
 import {BehaviorSubject} from "rxjs";
+import {distinctUntilChanged} from 'rxjs/operators';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ConfigService, ICountry, IInputCParams, ISelectCParams, SelectValuesService} from 'wlc-engine/modules/core';
 import {ISelectOptions} from 'wlc-engine/modules/core/components/select/select.params';
@@ -17,6 +18,7 @@ import * as Params from './phone-field.params';
 import {
     clone as _clone,
     find as _find,
+    assign as _assign,
 } from 'lodash-es';
 
 @Component({
@@ -37,8 +39,7 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
         protected selectValues: SelectValuesService,
         protected cdr: ChangeDetectorRef,
         protected user: UserService,
-    )
-    {
+    ) {
         super({injectParams, defaultParams: Params.defaultParams});
     }
 
@@ -48,7 +49,6 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
             if (profile) {
 
                 if (!profile.countryCode && !this.$params.phoneCode.control.value) {
-
                     this.configService.get<BehaviorSubject<ICountry[]>>('countries').subscribe(data => {
                         const country = _find(data, (item) => {
                             return this.configService.get<string>('appConfig.country') === item?.value;
@@ -63,10 +63,14 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
             }
         }));
 
-        this.$params.phoneCode.control.valueChanges.subscribe(val => {
+        this.$params.phoneCode?.control?.valueChanges.subscribe(val => {
             if (val) {
                 this.setValidators(val);
             }
+        });
+
+        this.$params.phoneNumber?.control?.valueChanges.pipe(distinctUntilChanged()).subscribe(() => {
+            this.$params.phoneNumber.control.updateValueAndValidity({onlySelf: true});
         });
     }
 
@@ -75,12 +79,9 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
         const min = lengths?.minLength || 6;
         const max = lengths?.maxLength || 13;
 
-        this.$params.phoneNumber.maskOptions = {
-            // @ts-ignore
-            mask: Number,
-            max: '9'.repeat(max),
-            min: '0'.repeat(min),
-        };
+        this.$params.phoneNumber.maskOptions = _assign(this.$params.phoneNumber.maskOptions, {
+            max: '0'.repeat(max),
+        });
         this.$params.phoneNumber.control.clearValidators();
         this.$params.phoneNumber.control.setValidators([Validators.minLength(min), Validators.required]);
         this.$params.phoneNumber.control.updateValueAndValidity({

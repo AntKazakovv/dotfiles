@@ -1,7 +1,8 @@
 import {
     Component,
+    ElementRef,
     Inject,
-    Input,
+    Input, OnInit,
 } from '@angular/core';
 import {FormGroup} from '@angular/forms';
 
@@ -11,10 +12,6 @@ import {UserService} from 'wlc-engine/modules/user/system/services';
 import {IPushMessageParams, NotificationEvents} from 'wlc-engine/modules/core/system/services/notification';
 
 import * as Params from './change-password-form.params';
-
-import {
-    union as _union,
-} from 'lodash-es';
 
 /**
  * Change-password form component.
@@ -32,17 +29,17 @@ import {
     templateUrl: './change-password-form.component.html',
     styleUrls: ['./styles/change-password-form.component.scss'],
 })
-export class ChangePasswordFormComponent extends AbstractComponent {
+export class ChangePasswordFormComponent extends AbstractComponent implements OnInit {
 
     @Input() public inlineParams: Params.IChangePasswordFormCParams;
     public $params: Params.IChangePasswordFormCParams;
-    public config = Params.changePasswordFormConfig;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IChangePasswordFormCParams,
         protected userService: UserService,
         protected modalService: ModalService,
         protected eventService: EventService,
+        protected elRef: ElementRef,
     ) {
         super({
             injectParams,

@@ -105,8 +105,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
         @Inject('injectParams') protected params: IFormWrapperCParams,
         protected validationService: ValidationService,
         protected elRef: ElementRef,
-    )
-    {
+    ) {
         super(
             ConfigService,
             layoutService,
@@ -155,6 +154,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
     public async submit(): Promise<void> {
         if (this.form.valid) {
             if (await this.ngSubmit(this.form)) {
+                this.form.controls.currentPassword.setValue('');
                 this.form.markAsPristine();
                 this.form.markAsUntouched();
             }
@@ -192,9 +192,8 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
                     },
                 });
             }
-
-            this.cdr.markForCheck();
         }
+        this.cdr.detectChanges();
     }
 
     protected get hasRequiredError(): boolean {
@@ -251,7 +250,6 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
 
             if (_isArray(component.params.name)) {
                 _each(component.params.name, (field: string) => {
-
                     this.controls[field] = new FormControl(
                         {
                             value: _get(this.formData?.value, field, ''),
@@ -307,10 +305,9 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
 
                 if (_includes(this.locked, key) && value) {
                     control.disable();
-                    control.updateValueAndValidity();
                 }
             });
-            this.cdr.detectChanges();
+            this.cdr.markForCheck();
         });
     }
 

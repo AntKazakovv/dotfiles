@@ -1,6 +1,6 @@
 <div class="{{$class}}__form"
      wlc-form-wrapper
-     [config]="config"
+     [config]="$params.config"
      [formData]="userProfile"
      [ngSubmit]="ngSubmit.bind(this)"
 ></div>
@@ -9,7 +9,7 @@
     <div class="{{$class}}__block">
         <div
             class="{{$class}}__title"
-            wlc-title [mainText]="additionalBlocks.subscriptions.title"
+            wlc-title [mainText]="$params.additionalBlocks.subscriptions.title"
             [mainTag]="'span'"
         ></div>
         <div class="{{$class}}__item" data-wlc-element="block_subscriptions">
@@ -25,7 +25,7 @@
     <div class="{{$class}}__block">
         <div
             class="{{$class}}__title"
-            wlc-title [mainText]="additionalBlocks.security.title"
+            wlc-title [mainText]="$params.additionalBlocks.security.title"
             [mainTag]="'span'"
         ></div>
         <div class="{{$class}}__item" data-wlc-element="block_edit-password">

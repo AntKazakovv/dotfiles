@@ -338,7 +338,7 @@ export class DataService {
                             errors: error.error,
                         };
                         this.flow$.next(errData);
-                        method.subject.next(errData);
+                        method.subject?.next(errData);
                         return throwError(error.error || error);
                     }));
             }),

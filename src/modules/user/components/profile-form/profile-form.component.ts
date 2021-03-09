@@ -7,12 +7,17 @@ import {
 } from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {EventService, ModalService} from 'wlc-engine/modules/core/system/services';
+import {ConfigService, EventService, ModalService} from 'wlc-engine/modules/core/system/services';
 import {UserService} from 'wlc-engine/modules/user/system/services';
 import {IPushMessageParams, NotificationEvents} from 'wlc-engine/modules/core/system/services/notification';
 import {ICheckboxCParams} from 'wlc-engine/modules/core';
+import {IFormComponent} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
 
 import * as Params from './profile-form.params';
+
+import {
+    find as _find,
+} from 'lodash-es';
 
 
 /**
@@ -33,7 +38,6 @@ import * as Params from './profile-form.params';
 export class ProfileFormComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams: Params.IProfileFormCParams;
     public $params: Params.IProfileFormCParams;
-    public config = Params.profileForm;
     public userProfile = this.user.userProfile$;
     public sendEmail: boolean;
     public userToggleChoice: boolean;
@@ -46,21 +50,20 @@ export class ProfileFormComponent extends AbstractComponent implements OnInit {
         },
     };
 
-    public additionalBlocks = Params.AdditionalBlock;
-
     constructor(
         @Inject('injectParams') protected params: Params.IProfileFormCParams,
         protected user: UserService,
         protected cdr: ChangeDetectorRef,
         protected modalService: ModalService,
         protected eventService: EventService,
-    )
-    {
+        protected configService: ConfigService,
+    ) {
         super({injectParams: params, defaultParams: Params.defaultParams});
     }
 
-    public ngOnInit(): void {
+    public async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
+        await this.configService.ready;
         this.toggleBtn.control.valueChanges.subscribe((value) => {
             this.userToggleChoice = this.toggleBtn.control.value;
         });
@@ -91,6 +94,7 @@ export class ProfileFormComponent extends AbstractComponent implements OnInit {
                     wlcElement: 'notification_profile-update-success',
                 },
             });
+            this.userProfile.next(this.user.userProfile);
             this.cdr.detectChanges();
             return true;
         } else {
@@ -103,6 +107,13 @@ export class ProfileFormComponent extends AbstractComponent implements OnInit {
                     wlcElement: 'notification_profile-update-error',
                 },
             });
+
+            if (result.errors.currentPassword) {
+                const currentPassword: IFormComponent = _find(this.$params.config.components, component => {
+                    return component.params.name === 'currentPassword';
+                });
+                currentPassword.params.control.setErrors({currentPassword: true});
+            }
             return false;
         }
     }
