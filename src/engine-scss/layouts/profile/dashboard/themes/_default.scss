@@ -41,7 +41,7 @@
                         'bonuses-title bonuses-title bonuses-title bonuses-title bonuses-title bonuses-title'
                         'bonuses bonuses bonuses bonuses promocode promocode'
                         'bonuses bonuses bonuses bonuses see-all-bonuses see-all-bonuses';
-                    gap: 20px 40px;
+                    gap: 40px;
                 }
             }
 
@@ -59,6 +59,10 @@
 
     .wlc-title {
         grid-area: title;
+
+        @include mq.min(1024) {
+            margin-bottom: -20px;
+        }
 
         &--profile-bonuses {
             grid-area: bonuses-title;
@@ -87,5 +91,10 @@
 
     .wlc-bonuses-list {
         grid-area: bonuses;
+
+        @include mq.min(1024) {
+            margin-left: -20px;
+            margin-right: -20px;
+        }
     }
 }

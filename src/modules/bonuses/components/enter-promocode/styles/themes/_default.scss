@@ -33,10 +33,14 @@
         &__control {
             position: relative;
             width: ef.get-value($themeDefault, 'controlWidth');
+            @include em.get-mq-map('max-width', $themeDefault, 'controlMaxWidth');
         }
 
         &__btn {
             position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             top: ef.get-value($themeDefault, 'btnBasePosition');
             bottom: ef.get-value($themeDefault, 'btnBasePosition');
             right: ef.get-value($themeDefault, 'btnRightPosition');

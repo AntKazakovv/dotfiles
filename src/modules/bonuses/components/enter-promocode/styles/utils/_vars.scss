@@ -20,6 +20,11 @@ $themeDefault: map-merge((
 
     'controlWidth': 100%,
 
+    'controlMaxWidth': (
+        375: 250px,
+        560: none,
+    ),
+
     'btnBasePosition': 0,
     'btnRightPosition': 4px,
     'btnSize': 32px,
@@ -28,7 +33,7 @@ $themeDefault: map-merge((
     'btnBackgroundPending': lighten(ef.get('mainColors', 'main'), 10%),
     'btnRadius': ef.get('radius', 'main'),
 
-    'btnIconSize': 16px,
+    'btnIconSize': 13px,
     'btnIconFill':  ef.get('mainColors', 'baseMain'),
 
     'btnTextSize': 16px,

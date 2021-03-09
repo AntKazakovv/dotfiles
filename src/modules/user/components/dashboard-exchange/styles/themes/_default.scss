@@ -97,7 +97,7 @@
         margin: ef.get-value($themeDefault, 'exchangeBtnMargin');
 
         @include mq.min(640) {
-            margin: ef.get-value($themeDefault, 'exchangeBtnMargin', 640);
+            margin: ef.get-value($themeDefault, 'exchangeBtnMargin', 375);
         }
     }
 

@@ -7,7 +7,7 @@ $themeDefaultNavigation: map-merge((
     'swiperNaviAside': 10px,
     'swiperNaviTop': 50%,
     'swiperNaviButtonSize': 40px,
-    'swiperNaviButtonBorderRadius': 6px,
+    'swiperNaviButtonBorderRadius': ef.get('radius', 'biger'),
     'swiperNaviButtonBg': ef.get('mainColors', 'baseOpacity'),
     'swiperNaviButtonBgHover': ef.get('mainColors', 'main'),
     'swiperNaviButtonDisabledOpacity': 0.25,
