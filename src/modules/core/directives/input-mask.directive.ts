@@ -8,14 +8,15 @@ import {
     ChangeDetectorRef,
     SimpleChanges,
 } from '@angular/core';
-import IMask, {InputMask, MaskedPattern} from 'imask';
+import IMask, {InputMask} from 'imask';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 
 import {
     assign as _assign,
-    get as _get,
     isString as _isString,
 } from 'lodash-es';
+import {fromEvent} from "rxjs";
+import {log} from "util";
 
 /**
  * See more: [imask docs]{@link https://imask.js.org/}.
@@ -44,7 +45,7 @@ export interface IMaskOptions {
 export class InputMaskDirective implements AfterViewInit,
     OnChanges,
     OnDestroy {
-    @Input('wlc-input-mask') wlcInputMask: IMaskOptions | string;
+    @Input('wlc-input-mask') wlcInputMask: IMask.AnyMaskedOptions;
     protected mask: InputMask<IMask.AnyMaskedOptions>;
 
     constructor(
@@ -59,11 +60,16 @@ export class InputMaskDirective implements AfterViewInit,
         if (this.wlcInputMask) {
             this.mask = IMask(this.element.nativeElement, this.wlcInputMask as IMask.AnyMaskedOptions);
             _assign(this.element.nativeElement, {mask: this.mask});
+
+            fromEvent(this.element.nativeElement, 'keyup').subscribe(() => {
+                this.element.nativeElement.value = this.mask.value;
+                this.element.nativeElement.dispatchEvent(new Event('input'));
+            });
         }
     }
 
     public ngOnChanges(changes: SimpleChanges): void {
-        if (changes.wlcInputMask?.currentValue?.mask || this.wlcInputMask) {
+        if (this.mask && (changes.wlcInputMask?.currentValue?.mask || this.wlcInputMask)) {
             this.getPattern(changes.wlcInputMask.currentValue.mask);
             this.mask.updateOptions(this.wlcInputMask);
             this.cdr.detectChanges();

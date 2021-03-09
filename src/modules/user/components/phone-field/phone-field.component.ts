@@ -11,6 +11,7 @@ import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract
 import {ConfigService, ICountry, IInputCParams, ISelectCParams, SelectValuesService} from 'wlc-engine/modules/core';
 import {ISelectOptions} from 'wlc-engine/modules/core/components/select/select.params';
 import {UserService} from "wlc-engine/modules/user/system/services";
+import {distinctUntilChanged} from 'rxjs/operators';
 
 import * as Params from './phone-field.params';
 
@@ -19,8 +20,6 @@ import {
     find as _find,
     assign as _assign,
 } from 'lodash-es';
-
-import {debounceTime} from "rxjs/operators";
 
 @Component({
     selector: '[wlc-phone-field]',
@@ -69,11 +68,6 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
                 this.setValidators(val);
             }
         });
-
-        this.$params.phoneNumber.control.valueChanges
-            .pipe(debounceTime(500)).subscribe((val) => {
-                //
-            });
     }
 
     protected setValidators(value: string): void {
