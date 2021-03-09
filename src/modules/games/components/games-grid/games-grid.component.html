@@ -33,12 +33,11 @@
             </ng-container>
         </div>
         <div class="{{$class}}__more"
-             *ngIf="!hideShowMoreBtn && gamesCount < filteredGames?.length">
+             *ngIf="gamesCount < filteredGames?.length">
             <button wlc-button
                     [wlcElement]="'button_load-more-games'"
                     [text]="'Load more games'"
-                    [themeMod]="'secondary'"
-                    *ngIf="!$params.showAllLink?.use && !useLazy"
+                    *ngIf="!hideShowMoreBtn && !$params.showAllLink?.use && !useLazy"
                     (click)="loadMore()"></button>
             <button *ngIf="$params.showAllLink?.use && !isDesktop"
                     wlc-button

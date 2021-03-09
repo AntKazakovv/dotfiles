@@ -5,13 +5,16 @@ export namespace wlcGamesGrid {
         name: 'games.wlc-games-grid',
         params: {
             gamesRows: 2,
-            title: 'Top games',
+            title: 'Popular games',
             usePlaceholders: true,
+            filter: {
+                category: 'popular',
+            },
             showAllLink: {
                 use: true,
                 link: 'app.catalog',
                 params: {
-                    category: 'topgames',
+                    category: 'popular',
                 },
             },
             moreBtn: {
@@ -62,7 +65,7 @@ export namespace wlcGamesGrid {
                 use: false,
             },
             moreBtn: {
-                hide: true,
+                hide: false,
                 lazy: false,
             },
             usePlaceholders: true,
