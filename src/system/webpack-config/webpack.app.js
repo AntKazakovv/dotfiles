@@ -56,7 +56,10 @@ module.exports = (config, schema, env) => {
         postcss.options = {
             postcssOptions: {
                 ident: 'embedded',
-                sourceMap: 'inline',
+                map: isDev && {
+                    inline: true,
+                    annotation: true,
+                },
                 plugins: [
                     require('css-mqpacker')({sort: true}),
                 ],

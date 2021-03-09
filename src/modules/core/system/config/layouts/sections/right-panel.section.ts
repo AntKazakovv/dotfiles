@@ -3,6 +3,7 @@ import * as componentLib from '../components';
 
 export namespace rightPanel {
     export const def: IPanelSectionConfig = {
+        theme: 'mobile',
         components: [
             {
                 name: 'core.wlc-wrapper',

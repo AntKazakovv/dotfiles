@@ -28,6 +28,9 @@ import {
     findIndex as _findIndex,
     includes as _includes,
     toSafeInteger as _toSafeInteger,
+    min as _min,
+    max as _max,
+    isUndefined as _isUndefined,
 } from 'lodash-es';
 
 export type LayoutsType = 'pages' | 'panels';
@@ -224,6 +227,23 @@ export class LayoutService {
                         : this.importModule(module),
             ),
         );
+    }
+
+    public createMediaQuery(display: {before?: number, after?: number}): string {
+        const mediaQuery: string[] = [];
+        const queries = [display.after, display.before];
+        const min: number = _min(queries),
+            max: number = _max(queries);
+
+        if (!_isUndefined(min)) {
+            mediaQuery.push(`(min-width: ${min}px)`);
+        }
+
+        if (!_isUndefined(max)) {
+            mediaQuery.push(`(max-width: ${max}px)`);
+        }
+
+        return mediaQuery.join(' and ');
     }
 
     private async prepareLayouts(): Promise<void> {

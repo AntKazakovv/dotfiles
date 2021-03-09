@@ -14,4 +14,14 @@ export namespace wlcLogout {
     export const def: ILayoutComponent = {
         name: 'user.wlc-logout',
     };
+
+    export const burgerPanelLeft: ILayoutComponent = {
+        name: 'user.wlc-logout',
+        params: {
+            useText: false,
+        },
+        display: {
+            auth: true,
+        },
+    };
 }

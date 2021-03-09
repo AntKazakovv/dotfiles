@@ -1,0 +1,53 @@
+@import '../utils/vars';
+
+.wlc-burger-panel--theme-mobile:host {
+    width: map-get($themeMobile, 'panelWidth');
+    max-width: map-get($themeMobile, 'panelWidth');
+    height: 100%;
+    max-height: 100%;
+    background-color: map-get($themeMobile, 'panelBackground');
+
+    &.wlc-burger-panel--type-left {
+        left: 0;
+        transform: translateX(-100%);
+    }
+
+    &.wlc-burger-panel--type-right {
+        right: 0;
+        transform: translateX(100%);
+    }
+
+    &.wlc-burger-panel--open {
+        visibility: visible;
+        transform: none;
+    }
+
+    ::ng-deep {
+
+        .wlc-burger-panel__header {
+            border-bottom: map-get($themeMobile, 'panelHeaderBorderBottom');
+        }
+
+        .wlc-burger-panel__inner {
+            padding: map-get($themeMobile, 'panelContentPadding');
+        }
+
+        .wlc-login-signup {
+            justify-content: center;
+            grid-auto-flow: initial;
+            padding: map-get($themeMobile, 'loginBtnPadding');
+
+            .wlc-btn {
+                min-width: 100%;
+            }
+        }
+
+        .wlc-user-stats {
+            margin-bottom: map-get($themeMobile, 'gap');
+        }
+
+        .wlc-category-menu {
+            margin-bottom: map-get($themeMobile, 'gap');
+        }
+    }
+}

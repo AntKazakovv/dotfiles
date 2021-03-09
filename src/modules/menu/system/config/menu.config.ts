@@ -3,6 +3,7 @@ import {IMenuConfig} from '../interfaces/menu.interface';
 export const menuConfig: IMenuConfig = {
     mainMenu: {
         items: [
+            'main-menu:home',
             'main-menu:promotions',
             'main-menu:contacts',
         ],

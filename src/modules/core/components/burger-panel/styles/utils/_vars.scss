@@ -2,21 +2,97 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'gap': ef.get('size', 'smallest'),
-    'componentGap': ef.get('size', 'smaller'),
-    'loginBtnPadding': ef.get('size', 'smaller') 0 ef.get('size', 'main'),
-    'panelWidth': 290px,
-    'panelBackground': ef.get('mainColors', 'bg'),
+    'panelHeight': 250px,
+    'panelBackground': ef.get('mainColors', 'bg700'),
+    'panelContentPadding': (
+        900: 30px,
+        1366: 55px
+    ),
+    'panelLinksMargin': (
+        900: 15px,
+        1366: 30px,
+        1630: 60px
+    ),
+    'panelLinksPadding': (
+        900: 0 15px 0 0,
+        1366: 0 30px 0 0,
+        1630: 0 90px 0 40px
+    ),
+    'panelLinksGridGap': (
+        900: 5px 20px,
+        1366: 10px 30px,
+        1630: 30px 85px
+    ),
+    'panelLinksBorder': 2px solid ef.get('mainColors', 'baseOpacity'),
+    'panelLinksColor': ef.get('mainColors', 'baseMain'),
+    'panelLinkDecoration': none,
+    'panelFontSize': (
+        900: ef.get('font', 'biger'),
+        1200: ef.get('font', 'PrimaryText'),
+        1420: ef.get('font', 'ThirdTitle')
+    ),
+    'panelUnderlineHeight': 4px,
+    'panelUnderlineColor': ef.get('mainColors', 'main'),
+    'panelUnderlineOffset': -5px,
+    'panelSearchColor': ef.get('mainColors', 'baseOpacity'),
+    'panelSearchPositionTop': (
+        900: 25px,
+        1366: 35px
+    ),
+    'panelSearchPositionRight': (
+        900: 15px,
+        1366: 40px
+    ),
+    'userDepositMargin': (
+        900: -30px 30px -30px auto,
+        1366: -55px 0 -55px 105px
+    ),
+    'userDepositBg': ef.get('mainColors', 'baseOpacity'),
+    'userDepositSize': (
+        900: 355px,
+        1366: 465px
+    ),
+    'userDepositHeight': 465px,
+    'userDepositTitleSize': (
+        900: ef.get('font', 'ThirdTitle'),
+        1366: ef.get('font', 'QoteTextBold')
+    ),
     'panelTextColor': ef.get('mainColors', 'baseMain'),
     'panelTextSize': ef.get('font', 'size'),
     'transition': ef.get('time', 'main') linear,
     'panelHeaderBackground': transparent,
     'panelHeaderPadding': ef.get('size', 'smaller'),
-    'panelHeaderBorderBottom': 2px solid ef.get('mainColors', 'baseOpacity'),
     'panelHeaderFontSize': ef.get('font', 'PrimaryText'),
     'panelHeaderFontWeight': 700,
     'panelHeaderColor':ef.get('mainColors', 'baseMain'),
     'panelContentBackground': transparent,
-    'panelContentPadding': ef.get('size', 'smaller') ef.get('size', 'smaller') ef.get('size', 'main'),
     'closeIconColor': ef.get('mainColors', 'baseOpacity'),
+    'componentGap': ef.get('size', 'smaller'),
 ), $customThemeDefault);
+
+$customThemeLeft: () !default;
+$themeLeft: map-merge((
+    'panelWidth': 290px,
+    'panelBackground': ef.get('mainColors', 'bg700'),
+    'loginBtnMargin': 30px 0 0,
+    'loginBtnPadding': ef.get('size', 'smaller') 0,
+    'loginBtnBg': ef.get('mainColors', 'bg'),
+    'gap': ef.get('size', 'smallest'),
+    'separatorMargin': 10px 25px,
+    'separatorHeight': 2px,
+    'separatorColor': rgba(ef.get('mainColors', 'baseMain'), 0.2),
+    'menuLinksPadding': 8px 25px,
+    'menuLinksColor': ef.get('mainColors', 'baseMain'),
+    'menuLinksDecoration': none,
+    'languageSelectorBg': ef.get('mainColors', 'bg500'),
+), $customThemeLeft);
+
+$customThemeMobile: () !default;
+$themeMobile: map-merge((
+    'panelWidth': 290px,
+    'panelBackground': ef.get('mainColors', 'bg'),
+    'panelHeaderBorderBottom': 2px solid ef.get('mainColors', 'baseOpacity'),
+    'panelContentPadding': ef.get('size', 'smaller') ef.get('size', 'smaller') ef.get('size', 'main'),
+    'loginBtnPadding': ef.get('size', 'smaller') 0,
+    'gap': ef.get('size', 'smallest'),
+), $customThemeMobile);

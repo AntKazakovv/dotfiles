@@ -148,6 +148,18 @@ export namespace wlcButton {
         },
     };
 
+    export const toProfileV2: ILayoutComponent = {
+        name: 'core.wlc-button',
+        params: {
+            class: 'wlc-btn',
+            themeMod: 'secondary',
+            common: {
+                text: gettext('Profile'),
+                sref: 'app.profile.dashboard',
+            },
+        },
+    };
+
     export const totalJackpot: ILayoutComponent = {
         name: 'core.wlc-button',
         params: {

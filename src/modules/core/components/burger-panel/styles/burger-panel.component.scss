@@ -3,91 +3,66 @@
 @import './utils/vars';
 
 @import './themes/default';
+@import './themes/left';
+@import './themes/mobile';
 
-$baseClass: 'wlc-burger-panel';
+.wlc-burger-panel:host {
+    visibility: hidden;
+    position: absolute;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    color: map-get($themeDefault, 'panelTextColor');
+    font-size: map-get($themeDefault, 'panelTextSize');
+    transition: map-get($themeDefault, 'transition');
+    outline-style: none;
 
-:host {
+    ::ng-deep {
 
-    &.#{$baseClass} {
-        visibility: hidden;
-        position: absolute;
-        top: 0;
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-        max-height: 100%;
-        width: ef.get-value($themeDefault, 'panelWidth');
-        max-width: ef.get-value($themeDefault, 'panelWidth');
-        background-color: ef.get-value($themeDefault, 'panelBackground');
-        color: ef.get-value($themeDefault, 'panelTextColor');
-        font-size: ef.get-value($themeDefault, 'panelTextSize');
-        transition: ef.get-value($themeDefault, 'transition');
-        outline-style: none;
-    }
-
-    &.#{$baseClass}--type-left {
-        left: 0;
-        transform: translateX(-100%);
-    }
-
-    &.#{$baseClass}--type-right {
-        right: 0;
-        transform: translateX(100%);
-    }
-
-    &.#{$baseClass}--open {
-        visibility: visible;
-        transform: none;
-    }
-}
-
-.#{$baseClass} {
-
-    &__header {
-        flex: 0 0 auto;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        background: ef.get-value($themeDefault, 'panelHeaderBackground');
-        padding: ef.get-value($themeDefault, 'panelHeaderPadding');
-        border-bottom: ef.get-value($themeDefault, 'panelHeaderBorderBottom');
-        @include text.get-text-style('PrimaryTextBold', ef.get-value($themeDefault, 'panelHeaderColor'));
-    }
-
-    &__title {
-        flex: 1 1 auto;
-    }
-
-    &__close {
-        padding: 0;
-        flex: 0 0 auto;
-        appearance: none;
-        background: transparent;
-        border: none;
-        opacity: 0.5;
-        color: ef.get-value($themeDefault, 'closeIconColor');
-        transition: ef.get-value($themeDefault, 'transition');
-
-        &:focus {
-            outline: none;
+        .wlc-burger-panel__header {
+            flex: 0 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: map-get($themeDefault, 'panelHeaderBackground');
+            padding: map-get($themeDefault, 'panelHeaderPadding');
+            font: {
+                size: map-get($themeDefault, 'panelHeaderFontSize');
+                weight: map-get($themeDefault, 'panelHeaderFontWeight');
+            }
+            color: map-get($themeDefault, 'panelHeaderColor');
         }
 
-        &:hover {
-            opacity: 1;
+        .wlc-burger-panel__title {
+            flex: 1 1 auto;
+        }
+
+        .wlc-burger-panel__close {
+            padding: 0;
+            flex: 0 0 auto;
+            appearance: none;
+            background: transparent;
+            border: none;
+            opacity: 0.5;
+            color: ef.get-value($themeDefault, 'closeIconColor');
+            transition: ef.get-value($themeDefault, 'transition');
+
+            &:focus {
+                outline: none;
+            }
+
+            &:hover {
+                opacity: 1;
+            }
+        }
+
+        .wlc-burger-panel__content {
+            position: relative;
+            flex: 1 1 auto;
+            min-height: 1px;
+            height: 100%;
+            background: ef.get-value($themeDefault, 'panelContentBackground');
+            overflow-y: auto;
         }
     }
-
-    &__content {
-        position: relative;
-        flex: 1 1 auto;
-        min-height: 1px;
-        background: map-get($themeDefault, 'panelContentBackground');
-        overflow-y: auto;
-        height: 100%;
-    }
-
-    &__inner {
-        padding: ef.get-value($themeDefault, 'panelContentPadding');
-    }
 }
-

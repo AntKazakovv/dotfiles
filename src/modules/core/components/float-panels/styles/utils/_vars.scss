@@ -3,8 +3,8 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'transition': ef.get('time', 'main') linear,
-    'zindex': 1030,
-    'backdropBackground': transparentize(ef.get('mainColors', 'bg300'), 0.6),
+    'zindex': 999,
+    'backdropBackground': transparentize(ef.get('mainColors', 'bg'), 0.1),
 ), $customThemeDefault);
 
 

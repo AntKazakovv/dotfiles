@@ -5,7 +5,8 @@ export const wlcMainMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         name: gettext('Home page'),
         type: 'sref',
         class: 'home',
-        icon: 'home',
+        icon: 'lobby',
+        sort: 100,
         params: {
             state: {
                 name: 'app.home',
@@ -52,10 +53,10 @@ export const wlcMainMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         },
     },
     'main-menu:contacts': {
-        name: gettext('Contacts'),
+        name: gettext('Contact Us'),
         type: 'sref',
         class: 'contacts',
-        icon: 'contacts',
+        icon: 'info',
         params: {
             state: {
                 name: 'app.contacts',

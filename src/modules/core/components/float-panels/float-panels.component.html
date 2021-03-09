@@ -2,7 +2,7 @@
      *ngIf="openedPanel"
      (click)="closePanel(openedPanel)"></div>
 
-<ng-container *ngFor="let section of sections">
+<ng-container *ngFor="let section of shownSections">
     <div wlc-burger-panel
          tabindex="-1"
          [isOpened]="openedPanel === section.name"

@@ -134,7 +134,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
                 }
 
                 if (result && (component.display?.after || component.display?.before)) {
-                    result = result && window.matchMedia(this.createMediaQuery(component.display)).matches;
+                    result = result && window.matchMedia(this.layoutService.createMediaQuery(component.display)).matches;
                 }
 
                 if (result && !_isUndefined(component.display?.auth)) {
@@ -220,22 +220,5 @@ export class LayoutComponent implements OnInit, OnDestroy {
         }
         this.components.push(...this.filterComponents());
         this.cdr.markForCheck();
-    }
-
-    protected createMediaQuery(display: {before?: number, after?: number}): string {
-        const mediaQuery: string[] = [];
-        const queries = [display.after, display.before];
-        const min: number = _min(queries),
-            max: number = _max(queries);
-
-        if (!_isUndefined(min)) {
-            mediaQuery.push(`(min-width: ${min}px)`);
-        }
-
-        if (!_isUndefined(max)) {
-            mediaQuery.push(`(max-width: ${max}px)`);
-        }
-
-        return mediaQuery.join(' and ');
     }
 }
