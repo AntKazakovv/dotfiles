@@ -10,44 +10,64 @@ export interface IBonusesHistoryCParams extends IComponentParams<Theme, Type, Th
 }
 
 export const defaultParams: IBonusesHistoryCParams = {
-    class: 'wlc-transaction-history',
+    class: 'wlc-bonuses-history',
 };
 
 export const betHistoryTableHeadConfig: ITableCol[] = [
     {
-        key: 'index',
-        title: '#',
-        type: 'index',
-        order: 10,
-        wlcElement: 'wlc-profile-table__cell_num',
-    },
-    {
-        key: 'Date',
-        title: 'Bet time',
-        type: 'date',
+        key: 'Name',
+        title: gettext('Bonus name'),
+        type: 'text',
         order: 20,
-        wlcElement: 'wlc-profile-table__cell_time',
+        wlcElement: 'wlc-profile-table__cell_name',
     },
     {
-        key: 'Amount',
-        title: 'Amount',
+        key: 'Balance',
+        title: gettext('Balance'),
         type: 'amount',
-        disableHideClass: true,
         order: 30,
-        wlcElement: 'wlc-profile-table__cell_amount',
+        wlcElement: 'wlc-profile-table__cell_balance',
     },
     {
-        key: 'Merchant',
-        title: 'Merchant',
+        key: 'LoyaltyPoints',
+        title: gettext('Loyalty'),
         type: 'text',
         order: 50,
-        wlcElement: 'wlc-profile-table__cell_method',
+        wlcElement: 'wlc-profile-table__cell_loyalty',
     },
     {
-        key: 'GameName',
-        title: 'Game',
+        key: 'ExperiencePoints',
+        title: gettext('Experience'),
         type: 'text',
         order: 50,
-        wlcElement: 'wlc-profile-table__cell_method',
+        wlcElement: 'wlc-profile-table__cell_experience',
+    },
+    {
+        key: 'FreeroundCount',
+        title: gettext('Freerounds'),
+        type: 'text',
+        order: 50,
+        wlcElement: 'wlc-profile-table__cell_freerounds',
+    },
+    {
+        key: 'WageringTotal',
+        title: gettext('Wagering'),
+        type: 'text',
+        order: 50,
+        wlcElement: 'wlc-profile-table__cell_wagering',
+    },
+    {
+        key: 'End',
+        title: gettext('Ended'),
+        type: 'date',
+        order: 50,
+        wlcElement: 'wlc-profile-table__cell_ended',
+    },
+    {
+        key: 'StatusName',
+        title: gettext('Status'),
+        type: 'text',
+        order: 50,
+        wlcElement: 'wlc-profile-table__cell_status',
     },
 ];

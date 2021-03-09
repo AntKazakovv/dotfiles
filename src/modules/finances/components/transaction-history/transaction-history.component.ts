@@ -36,7 +36,7 @@ import {
 @Component({
     selector: '[wlc-transaction-history]',
     templateUrl: './transaction-history.component.html',
-    styleUrls: ['./transaction-history.component.scss'],
+    styleUrls: ['./styles/transaction-history.component.scss'],
 })
 export class TransactionHistoryComponent extends AbstractComponent implements OnInit {
 

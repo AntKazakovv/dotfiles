@@ -1,4 +1,5 @@
 @use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/mixins/base.mixins' as bm;
 @use 'engine-scss/functions' as ef;
 
 .wlc-pagination--theme-default {
@@ -7,7 +8,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        margin: 20px auto;
+        margin: ef.get-value($themeDefault, 'hostMargin');
 
         ::ng-deep {
 
@@ -15,14 +16,10 @@
                 display: flex;
                 align-items: center;
                 list-style-type: none;
-                padding: 0;
+                padding: ef.get-value($themeDefault, 'paginationPadding');
 
                 .page-item {
-                    margin-right: 20px;
-
-                    &:last-child {
-                        margin: 0;
-                    }
+                    margin: ef.get-value($themeDefault, 'pageItemMargin');
                 }
 
                 &-prev,
@@ -32,10 +29,18 @@
                         display: flex;
                         align-items: center;
                         justify-content: center;
-                        width: 40px;
-                        height: 40px;
-                        border-radius: 10px;
-                        background: #ff8a00;
+                        width: ef.get-value($themeDefault, 'pageItemWidth');
+                        height: ef.get-value($themeDefault, 'pageItemHeight');
+                        border-radius: ef.get-value($themeDefault, 'pageItemRadius');
+                        background: ef.get-value($themeDefault, 'activePaginationArrowColor');
+
+                        @media (hover) {
+
+                            &:hover {
+                                background: ef.get-value($themeDefault, 'activePaginationArrowColorHover');
+                                @include bm.transition(background);
+                            }
+                        }
 
                         &-content {
                             display: flex;
@@ -44,14 +49,14 @@
 
                         svg {
                             transform: rotate(-90deg);
-                            fill: #fff;
+                            fill: ef.get-value($themeDefault, 'pageItemInnerFill');
                         }
                     }
 
                     &.disabled {
 
                         .wlc-icon {
-                            background: ef.get('mainColors', 'baseOpacity');
+                            background: ef.get-value($themeDefault, 'pageItemDisabled');
                         }
                     }
                 }
@@ -70,14 +75,14 @@
 
                     .page-link {
                         display: block;
-                        @include text.get-text-style('ButtonText', ef.get('fieldColors', 'labelColor'));
+                        @include text.get-text-style('ButtonText', ef.get-value($themeDefault, 'pageItemColor'));
                         text-decoration: none;
                     }
 
                     &.active {
 
                         .page-link {
-                            color: ef.get('mainColors', 'baseMain');
+                            color: ef.get-value($themeDefault, 'pageItemActiveColor');
                             font-weight: bold;
                         }
                     }

@@ -3,6 +3,5 @@
     {{$params.transaction.status.title | translate}}
 </span>
 <div *ngIf="$params.transaction.note">
-    <span wlc-icon iconName="info" class="info-icon"></span>
-    <span class="note">{{$params.transaction.note}}</span>
+    <div wlc-tooltip [inlineParams]="{inlineText: $params.transaction.note}"></div>
 </div>

@@ -61,7 +61,7 @@ export const menuConfig: IMenuConfig = {
             {
                 parent: 'profile-menu:history',
                 items: [
-                    // 'profile-menu:bonuses-history',
+                    'profile-menu:bonuses-history',
                     'profile-menu:transaction-history',
                     'profile-menu:bets-history',
                     // 'profile-menu:tournaments-history',

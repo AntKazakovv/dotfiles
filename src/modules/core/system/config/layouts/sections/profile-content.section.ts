@@ -125,7 +125,7 @@ export namespace profileContent {
         container: true,
         components: [
             componentLib.wlcBetHistory.filter,
-            componentLib.wlcProfileMenu.submenuHistory,
+            componentLib.wlcProfileMenu.submenuBetHistory,
             componentLib.wlcBetHistory.def,
         ],
     };

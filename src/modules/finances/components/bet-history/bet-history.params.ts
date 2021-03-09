@@ -13,7 +13,7 @@ export interface IBetHistoryCParams extends IComponentParams<Theme, Type, ThemeM
 }
 
 export const defaultParams: IBetHistoryCParams = {
-    class: 'wlc-transaction-history',
+    class: 'wlc-bet-history',
 };
 
 export const betHistoryTableHeadConfig: ITableCol[] = [
@@ -22,34 +22,34 @@ export const betHistoryTableHeadConfig: ITableCol[] = [
         title: '#',
         type: 'index',
         order: 10,
-        wlcElement: 'wlc-profile-table__cell_num',
+        wlcElement: 'wlc-profile-table__cell_index',
     },
     {
         key: 'Date',
-        title: 'Bet time',
+        title: gettext('Bet time'),
         type: 'date',
         order: 20,
         wlcElement: 'wlc-profile-table__cell_time',
     },
     {
         key: 'Amount',
-        title: 'Amount',
+        title: gettext('Amount'),
         type: 'amount',
         order: 30,
         wlcElement: 'wlc-profile-table__cell_amount',
     },
     {
         key: 'Merchant',
-        title: 'Merchant',
+        title: gettext('Merchant'),
         type: 'text',
         order: 50,
-        wlcElement: 'wlc-profile-table__cell_method',
+        wlcElement: 'wlc-profile-table__cell_merchant',
     },
     {
         key: 'GameName',
-        title: 'Game',
+        title: gettext('Game'),
         type: 'text',
         order: 50,
-        wlcElement: 'wlc-profile-table__cell_method',
+        wlcElement: 'wlc-profile-table__cell_game',
     },
 ];

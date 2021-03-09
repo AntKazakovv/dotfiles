@@ -25,6 +25,21 @@ export namespace wlcProfileMenu {
                         type: 'submenu',
                     },
                 },
+            ],
+        },
+    };
+
+    export const submenuBetHistory: ILayoutComponent = {
+        name: 'core.wlc-wrapper',
+        params: {
+            class: 'wlc-submenu-history',
+            components: [
+                {
+                    name: 'menu.wlc-profile-menu',
+                    params: {
+                        type: 'submenu',
+                    },
+                },
                 {
                     name: 'finances.wlc-history-range',
                     params: {

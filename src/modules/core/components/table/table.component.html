@@ -11,7 +11,7 @@
          [ngClass]="[$class + '__row--' + (($index % 2) ? 'even' : 'odd'), item.opened ? 'wlc-show':'']">
         <div class="{{$class}}__cell {{$class}}__cell--{{col.key}}"
              *ngFor="let col of head; let $first = first"
-             (click)="$first ? item.togleRow() : null"
+             (click)="$first ? item.toggleRow() : null"
              [ngClass]="[$first ? $class + '__cell--first' : '', (col.disableHideClass || $first) ? '' : 'wlc-cell-hide']"
              [@toggle]="animationStatus(col, item, $first)"
              [attr.data-wlc-element]="col.wlcElement"

@@ -40,7 +40,7 @@ export class TableComponent extends AbstractComponent implements OnInit {
     public $params: Params.ITableCParams;
     public rows: TableRowModel[] = [];
     public paginatedRows: TableRowModel[] = [];
-    public itemPerPage: number = 10;
+    public itemPerPage: number;
     public head: Params.ITableCol[] = [];
     public ready = false;
     public deviceType: DeviceType;
@@ -52,8 +52,7 @@ export class TableComponent extends AbstractComponent implements OnInit {
         protected injector: Injector,
         protected configService: ConfigService,
         protected actionService: ActionService,
-    )
-    {
+    ) {
         super(
             <IMixedParams<Params.ITableCParams>>{
                 injectParams: params,
@@ -63,13 +62,12 @@ export class TableComponent extends AbstractComponent implements OnInit {
 
     public async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
-
+        this.itemPerPage = this.$params.pageCount;
         this.prepareHead();
         if (this.$params.rows instanceof BehaviorSubject) {
             this.$params.rows.pipe(takeUntil(this.$destroy)).subscribe((rows) => {
                 this.rows = this.createTableRow(rows);
-                this.paginatedRows = this.rows?.slice(0, this.itemPerPage);;
-
+                this.paginatedRows = this.rows?.slice(0, this.itemPerPage);
                 this.cdr.markForCheck();
             });
         } else {

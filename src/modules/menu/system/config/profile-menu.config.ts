@@ -234,8 +234,8 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         class: 'history',
         params: {
             state: {
-                parent: 'app.profile.cash.transactions',
-                name: 'app.profile.cash.transactions',
+                parent: 'app.profile.loyalty-bonuses.history',
+                name: 'app.profile.loyalty-bonuses.history',
                 params: {},
             },
         },

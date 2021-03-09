@@ -89,8 +89,7 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
         protected eventService: EventService,
         protected historyFilterService: HistoryFilterService,
         protected gamesCatalogService: GamesCatalogService,
-    )
-    {
+    ) {
         super(
             <IMixedParams<Params.IBetHistoryCParams>>{
                 injectParams: params,
@@ -105,9 +104,9 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
             endDate: this.endDate.toFormat("y-LL-dd'\T'TT"),
         });
 
-        this.setMinMaxDate();
         this.historyFilter();
 
+        await this.gamesCatalogService.ready;
         this.filterSelect.items = this.filterSelect.items.concat(
             _sortBy(this.gamesCatalogService?.getAvailableMerchants(), 'name')?.map(el => {
                 return {
@@ -133,6 +132,11 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
             this.bets.next(this.filterTransaction());
         });
 
+        this.historyFilterService.dateChanges$.next({
+            startDate: this.startDate,
+            endDate: this.endDate,
+        });
+
         this.ready = true;
         this.cdr.detectChanges();
     }
@@ -152,20 +156,7 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
             return iso >= this.startDate.startOf('hours') && iso <= this.endDate.startOf('hours');
         });
 
-        this.historyFilterService.dateChanges$.next({
-            startDate: this.startDate,
-            endDate: this.endDate,
-        });
-
         return result;
-    }
-
-    protected setMinMaxDate(): void {
-        const dates = this.allBets.map((transaction) => transaction.DateISO).sort((a, b) => {
-            return DateTime.fromSQL(a).diff(DateTime.fromSQL(b)).toObject().milliseconds;
-        });
-        this.startDate = DateTime.fromSQL(dates[0]).startOf('day');
-        this.endDate = DateTime.fromSQL(dates[dates.length - 1]).endOf('day');
     }
 
     protected historyFilter(): void {

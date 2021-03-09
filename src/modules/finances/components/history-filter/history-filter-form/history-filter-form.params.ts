@@ -20,7 +20,7 @@ export interface IHistoryFilterFormCParams extends IComponentParams<Theme, Type,
     formConfig: IFormWrapperCParams;
     onSubmit: (form: FormGroup) => void;
     formData: BehaviorSubject<IIndexing<any>>;
-};
+}
 
 export const defaultParams: Partial<IHistoryFilterFormCParams> = {
     class: 'wlc-history-filter-form',

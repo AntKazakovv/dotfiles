@@ -14,11 +14,13 @@ export interface ITableCommonParams {
 export interface ITableCParams extends IComponentParams<Theme, Type, ThemeMod>, ITableCommonParams {
     head?: ITableCol[],
     rows?: unknown[] | BehaviorSubject<unknown[]>,
+    pageCount?: number
 }
 
 export const defaultParams: ITableCParams = {
     class: 'wlc-table',
     noItemsText: gettext('No items available'),
+    pageCount: 10,
 };
 
 export interface ITableCol {

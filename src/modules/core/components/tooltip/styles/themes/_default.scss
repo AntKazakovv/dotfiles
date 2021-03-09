@@ -6,7 +6,6 @@
 .wlc-tooltip--theme-default {
 
     &:host {
-        z-index: 100;
         position: relative;
         display: flex;
         align-items: center;
@@ -52,6 +51,8 @@
             padding: ef.get-value($themeDefault, 'contentPadding');
             width: max-content;
             max-width: ef.get-value($themeDefault, 'contentMaxWidth');
+            max-height: ef.get-value($themeDefault, 'tooltipMaxHeight');
+            overflow: auto;
             background: ef.get-value($themeDefault, 'contentBg');
             border-radius: ef.get-value($themeDefault, 'contentBorderRadius');
             @include text.get-text-style(ef.get-value($themeDefault, 'textStyle'), ef.get-value($themeDefault, 'contentColor'));

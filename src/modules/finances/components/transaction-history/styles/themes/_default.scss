@@ -1,7 +1,7 @@
 @use 'engine-scss/mixins/mediaqueries' as mq;
 @use 'engine-scss/functions' as ef;
 
-.wlc-bonuses-history--theme-default {
+.wlc-transaction-history--theme-default {
 
     @include mq.min(1024) {
         margin: ef.get-value($themeDefault, 'sectionMargin');
@@ -13,7 +13,7 @@
             min-height: ef.get-value($themeDefault, 'sectionLoaderMinHeight');
         }
 
-        .wlc-bonuses-history-filter {
+        .wlc-transaction-history-filter {
             display: none;
 
             @include mq.min(1024) {
@@ -25,6 +25,11 @@
                     gap: ef.get-value($themeDefault, 'filterGap');
                 };
                 margin: ef.get-value($themeDefault, 'filterMargin');
+            }
+
+            .wlc-btn.active {
+                background: ef.get('mainColors', 'buttonColor');
+                border-color: ef.get('mainColors', 'buttonColor');
             }
 
             .wlc-select[wlc-select] {

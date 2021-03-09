@@ -20,6 +20,7 @@ export class TableRowModel {
     }
 
     public getValue(col: Params.ITableCol, index?: number): string {
+
         switch (col.type) {
 
             case 'index':
@@ -38,7 +39,7 @@ export class TableRowModel {
         }
     }
 
-    public togleRow(): void {
+    public toggleRow(): void {
         this.opened = !this.opened;
     }
 }

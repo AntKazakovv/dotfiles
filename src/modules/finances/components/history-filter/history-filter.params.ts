@@ -75,6 +75,9 @@ export namespace formConfig {
                 params: <IDatepickerCParams>{
                     name: 'endDate',
                     label: gettext('End Date'),
+                    datepickerOptions: {
+                        alignSelectorRight: true,
+                    },
                 },
             },
             {
