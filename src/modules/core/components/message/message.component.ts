@@ -60,7 +60,8 @@ export class MessageComponent
     }
 
     public ngOnInit(): void {
-        super.ngOnInit();
+        this.params.wlcElement = `${(this.params.wlcElement || 'notification_status-' + this.params.type)}`;
+        super.ngOnInit(this.params);
 
         const {title, message, action, image} = this.params;
 

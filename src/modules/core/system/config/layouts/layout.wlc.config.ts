@@ -247,6 +247,19 @@ export const $layouts: ILayoutsConfig = {
             'info-page': sectionsLib.infoPage.contacts,
         },
     },
+    'app.pages': {
+        extends: 'app',
+        sections: {
+            'pages': {
+                container: true,
+                components: [
+                    {
+                        name: 'static.wlc-post',
+                    },
+                ],
+            },
+        },
+    },
     'app.catalog': {
         replaceConfig: true,
         extends: 'app',

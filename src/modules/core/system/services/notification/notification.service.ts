@@ -336,6 +336,7 @@ export class NotificationService {
      * @param params object with message data and notification options
      */
     private pushMessage({dismissTime, ...componentParams}: IPushMessageParams): void {
+
         this.pushComponent({
             Component: MessageComponent,
             componentParams,

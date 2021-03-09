@@ -21,4 +21,5 @@ export interface IMessageData {
     type?: Params.TMessageType;
     action?: IAction;
     image?: IImage;
+    wlcElement?: string;
 }

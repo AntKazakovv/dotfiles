@@ -1,4 +1,4 @@
-<div class="wlc-notification-message__inner">
+<div class="wlc-notification-message__inner" data-wlc-element="modal_password-recovery-2">
     <span *ngIf="icon && !image"
           class="wlc-notification-message__icon"
           wlc-icon
@@ -13,8 +13,8 @@
     </div>
 
     <div class="wlc-notification-message__content">
-        <h4 class="wlc-notification-message__heading">{{title | translate}}</h4>
-        <span class="wlc-notification-message__message-container">
+        <h4 class="wlc-notification-message__heading" [attr.data-wlc-element]="'notification-title'">{{title | translate}}</h4>
+        <span class="wlc-notification-message__message-container" [attr.data-wlc-element]="'notification-text'">
             <span class="wlc-notification-message__message">
                 <ng-container *ngFor="let message of messages">
                     <ng-container *ngIf="message">
@@ -25,6 +25,7 @@
             <button *ngIf="action"
                     wlc-button
                     theme="borderless"
+                    wlcElement="button_close"
                     [text]="action.label"
                     (click)="action.onClick()"
             ></button>
@@ -35,6 +36,7 @@
             wlc-icon
             iconName="close"
             class="wlc-notification-message__dismiss"
+            wlcElement="button_close"
             type="button"
             aria-label="Dismiss"
             title="Dismiss"

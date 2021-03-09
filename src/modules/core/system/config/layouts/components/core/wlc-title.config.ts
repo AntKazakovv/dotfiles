@@ -129,6 +129,7 @@ export namespace wlcTitle {
         name: 'core.wlc-title',
         params: {
             mainText: gettext('Total Jackpot'),
+            wlcElement: 'header_total-jackpot',
         },
     };
 }

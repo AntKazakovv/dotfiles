@@ -170,6 +170,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
                 type: 'error',
                 title: notificationTitle,
                 message: gettext('You must select payment method'),
+                wlcElement: 'notification_deposit-method-error',
             });
             return;
         }
@@ -179,6 +180,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
                 type: 'error',
                 title: notificationTitle,
                 message: gettext('You must fill required profile fields'),
+                wlcElement: 'notification_deposit-fields-error',
             });
             return;
         }
@@ -189,6 +191,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
                 type: 'error',
                 title: notificationTitle,
                 message: gettext('Fill required fields'),
+                wlcElement: 'notification_deposit-field-error',
             });
             return;
         }
@@ -237,6 +240,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
                         type: 'warning',
                         title: gettext('Deposit'),
                         message: gettext('You will be redirected in a moment!'),
+                        wlcElement: 'notification_deposit-redirection-warning',
                     });
 
                     await this.createRedirectForm(response[1]?.html);
@@ -295,6 +299,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
                     gettext('Withdraw request has been successfully sent!'),
                     gettext('Withdraw sum') + ' ' + new CurrencyPipe('en-US', 'EUR').transform(form.value.amount),
                 ],
+                wlcElement: 'notification_withdraw-request-success',
             });
 
             this.resetPaymentSystem();

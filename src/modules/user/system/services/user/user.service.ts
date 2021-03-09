@@ -311,6 +311,7 @@ export class UserService {
                     type: 'error',
                     title: gettext('Login error'),
                     message: error.errors,
+                    wlcElement: 'notification_login-error',
                 },
             });
 

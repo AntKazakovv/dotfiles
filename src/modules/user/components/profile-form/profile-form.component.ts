@@ -91,6 +91,7 @@ export class ProfileFormComponent extends AbstractComponent implements OnInit {
                     type: 'success',
                     title: gettext('Profile updated successfully'),
                     message: gettext('Your profile has been updated successfully'),
+                    wlcElement: 'notification_profile-update-success',
                 },
             });
             this.userProfile.next(this.user.userProfile);
@@ -103,6 +104,7 @@ export class ProfileFormComponent extends AbstractComponent implements OnInit {
                     type: 'error',
                     title: gettext('Profile update failed'),
                     message: result.errors,
+                    wlcElement: 'notification_profile-update-error',
                 },
             });
 

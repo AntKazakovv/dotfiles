@@ -11,7 +11,7 @@ import {Title, Meta} from '@angular/platform-browser';
 import {takeUntil} from 'rxjs/operators';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {SectionModel} from 'wlc-engine/modules/core/system/models/section.model';
-import {ConfigService, LayoutService} from '../../../core/system/services';
+import {ConfigService, LayoutService, EventService} from 'wlc-engine/modules/core';
 import {ILanguage} from 'wlc-engine/modules/core';
 import {DeviceModel} from 'wlc-engine/modules/core';
 import {fromEvent} from 'rxjs/internal/observable/fromEvent';
@@ -21,6 +21,8 @@ import {
     sortBy as _sortBy,
     get as _get,
     includes as _includes,
+    union as _union,
+    remove as _remove,
 } from 'lodash-es';
 
 const defaultParams = {
@@ -40,6 +42,7 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
     public panels: SectionModel[] = [];
 
     private testViewPort = false;
+    private additionalHostClass = [];
 
     constructor(
         public router: UIRouter,
@@ -47,6 +50,7 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
         protected translate: TranslateService,
         protected stateService: StateService,
         protected layoutService: LayoutService,
+        protected eventService: EventService,
         protected uiRouter: UIRouterGlobals,
         protected cdr: ChangeDetectorRef,
         private transition: TransitionService,
@@ -80,6 +84,19 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
         this.sections = _sortBy(this.layoutService
             .getAllSection('pages', this.uiRouter.current.name, this.uiRouter.params), 'order');
 
+        const sections = _union(
+            this.panels.map((item) => item.name),
+            this.sections.map((item) => item.name),
+        );
+        const ready = this.eventService.subscribe<{sectionName: string}>({name: 'SECTION_READY'}, (event) => {
+            _remove(sections, (item) => item === event.sectionName);
+            if (!sections.length) {
+                ready.unsubscribe();
+                this.additionalHostClass.push('app-ready');
+                this.setHostClass();
+            }
+        });
+
         this.transition.onSuccess({}, async (transition) => {
             this.setHostClass();
             const sections = _sortBy(this.layoutService
@@ -110,6 +127,7 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
             this.configService.get<DeviceModel>('device')?.osName,
             this.configService.get<DeviceModel>('device')?.browserName,
             `${_get(this.uiRouter, '$current.name', '').replace(/\./g, '-')}-state`,
+            ...this.additionalHostClass,
         ];
         this.$hostClass = hostClass.join(' ');
     }
