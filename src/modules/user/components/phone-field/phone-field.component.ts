@@ -63,13 +63,13 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
             }
         }));
 
-        this.$params.phoneCode.control.valueChanges.subscribe(val => {
+        this.$params.phoneCode?.control?.valueChanges.subscribe(val => {
             if (val) {
                 this.setValidators(val);
             }
         });
 
-        this.$params.phoneNumber.control.valueChanges.pipe(distinctUntilChanged()).subscribe(() => {
+        this.$params.phoneNumber?.control?.valueChanges.pipe(distinctUntilChanged()).subscribe(() => {
             this.$params.phoneNumber.control.updateValueAndValidity({onlySelf: true});
         });
     }

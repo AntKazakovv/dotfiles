@@ -47,10 +47,6 @@ export class ChangePasswordFormComponent extends AbstractComponent implements On
         });
     }
 
-    public ngOnInit(): void {
-        super.ngOnInit();
-    }
-
     public async ngSubmit(form: FormGroup): Promise<void> {
         const {currentPassword, confirmPassword} = form.value;
 

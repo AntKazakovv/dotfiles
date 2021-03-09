@@ -6,3 +6,4 @@ gettext('validator-mustMatch');
 gettext('validator-minlength');
 gettext('validator-maxlength');
 gettext('validator-password');
+gettext('validator-newPasswordReg');
