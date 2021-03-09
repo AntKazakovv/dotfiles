@@ -1,0 +1,18 @@
+@use 'engine-scss/functions' as ef;
+
+$customThemeDefault: () !default;
+
+$themeDefault: map-merge((
+    'hostMargin': 20px auto,
+    'pagginationPadding': 0,
+    'activePaginationArrowColor': ef.get('mainColors', 'main'),
+    'activePaginationArrowColorHover': darken(ef.get('mainColors', 'main'), 10%),
+    'pageItemMargin': 0 ef.get('size', 'smaller'),
+    'pageItemHeight': ef.get('size', 'main'),
+    'pageItemWidth': ef.get('size', 'main'),
+    'pageItemRadius': ef.get('radius', 'biger'),
+    'pageItemInnerFill': ef.get('mainColors', 'baseMain'),
+    'pageItemDisabled': ef.get('mainColors', 'baseOpacity'),
+    'pageItemColor': ef.get('fieldColors', 'labelColor'),
+    'pageItemActiveColor': ef.get('mainColors', 'baseMain'),
+), $customThemeDefault);

@@ -5,48 +5,9 @@
     display: inline-flex;
     align-items: center;
     position: relative;
-}
 
-.note {
-    display: none;
-    position: absolute;
-    top: 25px;
-    right: 0;
-    background-color: ef.get('mainColors', 'main');
-    border-radius: 10px;
-    max-width: 200px;
-    min-width: 200px;
-    padding: 5px;
-    z-index: 10;
-}
-
-.info-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: 5px;
-    border-radius: 50%;
-    width: 18px;
-    height: 18px;
-
-    &:hover {
-
-        + span {
-            display: block;
-            @include text.get-text-style('PrimaryText', ef.get('mainColors', 'baseMain'));
-        }
-    }
-
-    ::ng-deep {
-
-        svg {
-            width: 18px;
-            height: 18px;
-        }
-
-        path {
-            fill: ef.get('mainColors', 'baseOpacity');
-        }
+    .wlc-tooltip {
+        margin-left: 4px;
     }
 }
 

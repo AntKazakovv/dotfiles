@@ -320,6 +320,7 @@ $form: map-merge((
     'inputBorderFocusColor': map-get($color, 'divider'),
     'inputBorderRadius': map-get($radius, 'main'),
     'inputPadding': map-get($size, 'small') map-get($size, 'main') map-get($size, 'small') map-get($size, 'small'),
+    'selectDropdownPadding': map-get($size, 'small'),
     'inputTextAlign': left,
     'selectDropdownHeight': 300px,
     'selectDropdownItemTransition': map-get($time, 'main') ease-in-out background,

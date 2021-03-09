@@ -15,9 +15,8 @@ import * as Params from './pagination.params';
     styleUrls: ['./styles/pagination.component.scss'],
 })
 export class WlcPaginationComponent extends AbstractComponent implements OnInit {
-    @Input() data: any;
     @Input() totalItems: number;
-    @Input() pageChanged: any;
+    @Input() pageChanged: Function;
     @Input() itemPerPage: number;
 
     public $params: Params.IPaginationCParams;

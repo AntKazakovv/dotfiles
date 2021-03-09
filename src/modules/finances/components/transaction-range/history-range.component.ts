@@ -6,19 +6,17 @@ import {
     Input,
     ChangeDetectorRef,
 } from '@angular/core';
-import {filter, takeUntil} from "rxjs/operators";
+import {filter} from "rxjs/operators";
+import {TransitionService} from "@uirouter/core";
 
 import {
     AbstractComponent,
     ConfigService,
     EventService,
-    ModalService,
 } from 'wlc-engine/modules/core';
 import {HistoryFilterService} from 'wlc-engine/modules/finances/system/services';
 
 import * as Params from './history-range.params';
-import {sortBy as _sortBy} from "lodash-es";
-import {TransitionService} from "@uirouter/core";
 
 @Component({
     selector: '[wlc-history-range]',
@@ -59,8 +57,8 @@ export class HistoryRangeComponent extends AbstractComponent implements OnInit {
         this.historyFilterService.dateChanges$
             .pipe(filter(date => !!date))
             .subscribe((value) => {
-                this.endDate = value?.endDate.toFormat("y-LL-dd TT");
                 this.startDate = value?.startDate.toFormat("y-LL-dd TT");
+                this.endDate = value?.endDate.toFormat("y-LL-dd TT");
                 this.ready = true;
                 this.cdr.detectChanges();
             });

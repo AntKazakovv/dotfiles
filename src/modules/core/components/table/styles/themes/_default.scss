@@ -5,6 +5,9 @@
 @import '../utils/vars';
 
 .wlc-table--theme-default:host {
+    display: flex;
+    flex-direction: column;
+    min-height: ef.get-value($themeDefault, 'sectionLoaderHeight');
 
     .wlc-table {
 
@@ -12,6 +15,7 @@
             display: grid;
             @include em.get-mq-map('grid-template-columns', $themeDefault, 'rowTemplateColumns');
             grid-gap: ef.get-value($themeDefault, 'rowGapMobile');
+            margin-bottom: auto;
 
             @include mq.min(1024) {
                 display: table;
@@ -37,6 +41,10 @@
 
             &.wlc-show {
                 border: ef.get-value($themeDefault, 'rowBorderOpenedMobile');
+
+                @include mq.min(1024) {
+                    border: none;
+                }
             }
 
             &--head {
@@ -113,6 +121,10 @@
 
                 @include em.betweenClass('.wlc-show') {
                     border-bottom: ef.get-value($themeDefault, 'rowTitleBorderBottomOpenedMobile');
+
+                    @include mq.min(1024) {
+                        border: none;
+                    }
                 }
 
                 @include mq.min(1024) {
@@ -120,20 +132,6 @@
                     border-bottom: none;
                     font-weight: initial;
                     border-radius: initial;
-                }
-            }
-
-            &--status {
-                position: relative;
-
-                ::ng-deep {
-
-                    .wlc-tooltip {
-                        position: absolute;
-                        right: -5px;
-                        top: 50%;
-                        transform: translateY(-50%);
-                    }
                 }
             }
 
@@ -160,6 +158,23 @@
 
                         @include em.betweenClass('.wlc-show') {
                             fill: ef.get-value($themeDefault, 'openIconColorOpened');
+                        }
+                    }
+                }
+            }
+
+            &--status {
+
+                ::ng-deep {
+
+                    .wlc-tooltip[wlc-tooltip] {
+
+                        .wlc-tooltip__content {
+
+                            @include mq.max(1024) {
+                                left: initial;
+                                right: ef.get-value($themeDefault, 'tooltipOffset');
+                            }
                         }
                     }
                 }
@@ -195,7 +210,7 @@
             align-items: flex-end;
             align-self: center;
             grid-column-start: span 2;
-            margin: 20px auto;
+            margin: ef.get-value($themeDefault, 'emptySectionMargin');
             @include text.get-text-style('PrimaryText', ef.get-value($themeDefault, 'textColor'));
             text-align: center;
 
@@ -208,6 +223,10 @@
 
                 @include mq.min(1024) {
                     display: block;
+                    width: ef.get-value($themeDefault, 'emptyImgWidth');
+                    height: ef.get-value($themeDefault, 'emptyImgHeight');
+                    max-height: ef.get-value($themeDefault, 'emptyImgMaxHeight');
+                    max-width: ef.get-value($themeDefault, 'emptyImgMaxWidth');
                 }
             }
         }

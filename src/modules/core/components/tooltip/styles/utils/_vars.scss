@@ -15,4 +15,5 @@ $themeDefault: map-merge((
     'contentBorderRadius': ef.get('radius', 'biger'),
     'textStyle': 'PrimaryText',
     'contentColor': ef.get('mainColors', 'baseMain'),
+    'tooltipMaxHeight': 200px,
 ), $customThemeDefault);

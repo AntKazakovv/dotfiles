@@ -27,7 +27,7 @@ export const transactionTableHeadConfig: ITableCol[] = [
     },
     {
         key: 'date',
-        title: 'Transaction time',
+        title: gettext('Transaction time'),
         type: 'date',
         format: 'dd-MM-yyyy HH:mm:ss',
         order: 20,
@@ -35,14 +35,14 @@ export const transactionTableHeadConfig: ITableCol[] = [
     },
     {
         key: 'amount',
-        title: 'Amount',
+        title: gettext('Amount'),
         type: 'amount',
         order: 30,
         wlcElement: 'wlc-profile-table__cell_amount',
     },
     {
         key: 'status',
-        title: 'Status',
+        title: gettext('Status'),
         type: 'component',
         wlcElement: 'wlc-profile-table__cell_status',
         mapValue: (item: Transaction) => {return {transaction: item};},
@@ -51,14 +51,14 @@ export const transactionTableHeadConfig: ITableCol[] = [
     },
     {
         key: 'system',
-        title: 'Method',
+        title: gettext('Method'),
         type: 'text',
         order: 50,
         wlcElement: 'wlc-profile-table__cell_method',
     },
     {
         key: 'type',
-        title: 'Type',
+        title: gettext('Type'),
         type: 'component',
         mapValue: (item: Transaction) => {return {transaction: item};},
         componentClass: TransactionCancelComponent,

@@ -96,7 +96,7 @@ export class Bonus extends AbstractModel<IBonus> {
         return this.data.AmountMin;
     }
 
-    public get balance(): number {
+    public get balance(): number | string {
         return this.data.Balance;
     }
 
@@ -258,7 +258,7 @@ export class Bonus extends AbstractModel<IBonus> {
         return _toNumber(this.data.LoyaltyPoints);
     }
 
-    public get maxBet(): number{
+    public get maxBet(): number {
         return _toNumber(this.data.MaxBet[this.userCurrency]) ||
             _toNumber(this.data.MaxBet?.EUR) ||
             _toNumber(this.data.Conditions?.MaxBet?.Currency) ||
@@ -458,7 +458,7 @@ export class Bonus extends AbstractModel<IBonus> {
      * @returns {boolean} is bonus limit in EUR (need for experience and loyalty bonuses)
      */
     public get isLimitAmountEUR(): boolean {
-        return !this.results?.balance?.LimitValue[this.userCurrency] && !! this.results?.balance?.LimitValue?.EUR;
+        return !this.results?.balance?.LimitValue[this.userCurrency] && !!this.results?.balance?.LimitValue?.EUR;
     }
 
     /**
@@ -496,7 +496,7 @@ export class Bonus extends AbstractModel<IBonus> {
      */
     public get value(): number {
         const resultsTarget = this.results[this.target];
-        if(!resultsTarget) {
+        if (!resultsTarget) {
             return 0;
         }
         if (this.target === 'loyalty' || this.target === 'experience') {
@@ -556,7 +556,7 @@ export class Bonus extends AbstractModel<IBonus> {
      */
     public get viewTarget(): string {
         const resultsTarget = this.results[this.target];
-        if(!resultsTarget) {
+        if (!resultsTarget) {
             return 'default';
         }
 
@@ -604,7 +604,7 @@ export class Bonus extends AbstractModel<IBonus> {
     public getProgress(rounded?: boolean): number {
         let progress: number;
 
-        if (!this.wageringTotal)  {
+        if (!this.wageringTotal) {
             progress = !this.wagering ? 100 : 0;
         } else {
             progress = this.wagering / this.wageringTotal * 100;

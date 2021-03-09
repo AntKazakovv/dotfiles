@@ -362,19 +362,24 @@ export class BonusesService {
         }
         try {
             const res: IData = await this.dataService.request('bonuses/bonuses', queryParams);
-            let result = this.modifyBonuses(res.data);
-            result = this.checkForbid(result, queryParams);
-            if (result.length) {
-                await this.checkBonusesInCache(result);
-            }
-            _each(result, (bonus: Bonus) => {
-                bonus.setFromCache();
-                bonuses.unshift(bonus);
-            });
 
-            bonuses = _sortBy(bonuses, (bonus) => {
-                return bonus.id;
-            });
+            if (type !== 'history') {
+                let result = this.modifyBonuses(res.data);
+                result = this.checkForbid(result, queryParams);
+                if (result.length) {
+                    await this.checkBonusesInCache(result);
+                }
+                _each(result, (bonus: Bonus) => {
+                    bonus.setFromCache();
+                    bonuses.unshift(bonus);
+                });
+
+                bonuses = _sortBy(bonuses, (bonus) => {
+                    return bonus.id;
+                });
+            } else {
+                bonuses = res.data;
+            }
 
             switch (type) {
                 case 'active':

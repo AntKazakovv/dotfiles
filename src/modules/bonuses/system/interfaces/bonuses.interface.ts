@@ -17,7 +17,7 @@ export interface IBonus {
     AwardWageringTotal: number;
     AmountMax: IIndexing<string>;
     AmountMin: IIndexing<string>;
-    Balance: number;
+    Balance: number | string;
     Block: string;
     Bonus: string;
     BonusAwarded: string;

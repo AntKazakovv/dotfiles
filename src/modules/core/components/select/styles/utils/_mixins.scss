@@ -29,13 +29,13 @@
 @mixin dropdownItemBase {
     display: flex;
     align-items: center;
+    //todo make via display block for text-overflow supports
     width: 100%;
     min-height: ef.get-value($baseSettings, 'selectHeight');
     padding: ef.get-value($baseSettings, 'selectDropdownItemPadding');
     cursor: pointer;
     overflow: hidden;
     text-overflow: ellipsis;
-    // white-space: nowrap;
 }
 
 @mixin baseStatusIcon {

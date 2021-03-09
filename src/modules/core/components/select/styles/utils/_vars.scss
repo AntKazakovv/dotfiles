@@ -79,7 +79,7 @@ $baseSettings: map-merge((
     selectDropdownBorder: ef.get('form', 'inputBorder'),
     selectDropdownBorderRadius: ef.get('form', 'inputBorderRadius'),
     selectDropdownBackground: ef.get('form', 'inputBackground'),
-    selectDropdownItemPadding: ef.get('form', 'inputPadding'),
+    selectDropdownItemPadding: ef.get('form', 'selectDropdownPadding'),
     selectDropdownBoxShadow: 0 8px 6px -6px ef.get('mainColors', 'bg'),
     iconWidth: ef.get('form', 'iconWidth'),
     iconHeight: ef.get('form', 'iconHeight'),
