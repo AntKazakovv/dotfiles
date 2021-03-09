@@ -1,6 +1,7 @@
 @use 'engine-scss/functions' as ef;
 @use 'engine-scss/mixins/text' as text;
 @use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/mixins/mediaqueries' as mq;
 @import '../utils/mixins';
 @import '../utils/vars';
 
@@ -45,16 +46,6 @@
                     path {
                         @include bm.transition(fill);
                         fill: ef.get-value($themeDefault, 'currentArrowColor');
-                    }
-                }
-            }
-
-            &:hover {
-
-                ::ng-deep svg {
-
-                    path {
-                        fill: ef.get-value($themeDefault, 'currentArrowColorHover');
                     }
                 }
             }
@@ -155,7 +146,9 @@
                 @include bm.transition(background);
 
                 &:hover {
-                    background: ef.get-value($themeDefaultModLog, 'currentBgModLongHover');
+                    @include mq.min(1024) {
+                        background: ef.get-value($themeDefaultModLog, 'currentBgModLongHover');
+                    }
                 }
 
                 &--opened {
@@ -209,7 +202,7 @@
                 left: 0;
                 transform: scaleY(0);
                 transform-origin: top;
-                @include bm.transition(transform);
+                transition-duration: 0.5s;
 
                 .wlc-language-selector__link-lang {
                     @include text.get-text-style('PrimaryText', ef.get-value($themeDefaultModLog, 'currentColorModLang'));

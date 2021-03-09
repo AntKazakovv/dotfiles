@@ -82,7 +82,7 @@ export class BurgerPanelComponent extends AbstractComponent
         super.ngOnInit(this.inlineParams);
         this.addModifiers(this.id);
 
-        this.title = this.$params.title || 'Menu';
+        this.title = this.$params.title || gettext('Menu');
 
         if (this.$params.touchEvents?.use) {
             this.isUseTouchEvents = this.$params.touchEvents?.onlyMobile ?

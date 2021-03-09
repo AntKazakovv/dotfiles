@@ -4,7 +4,16 @@ import * as componentLib from '../components';
 export namespace rightPanel {
     export const def: IPanelSectionConfig = {
         components: [
-            componentLib.wlcUserName.def,
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-user-info__wrp',
+                    components: [
+                        componentLib.wlcUserName.def,
+                        componentLib.wlcLogout.def,
+                    ],
+                },
+            },
             componentLib.wlcUserStats.def,
             componentLib.wlcProfileMenu.vertical,
         ],

@@ -1,26 +1,15 @@
 import {Injectable} from '@angular/core';
-import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 import {EventService} from 'wlc-engine/modules/core/system/services';
-import {ICategory} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
-import {UserService} from 'wlc-engine/modules/user/system/services';
 import {GamesCatalogService, GamesFilterService} from 'wlc-engine/modules/games';
 import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.model';
 
 import {
     ICategoryMenuItem,
     ICategoryOptions,
-    IGamesFilterData,
-    IGamesFilterServiceEvents,
 } from 'wlc-engine/modules/games/system/interfaces/filters.interfaces';
 
 import {
-    concat as _concat,
     forEach as _forEach,
-    isArray as _isArray,
-    isString as _isString,
-    isObject as _isObject,
-    get as _get,
-    includes as _includes,
 } from 'lodash-es';
 
 /**

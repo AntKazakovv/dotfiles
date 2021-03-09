@@ -31,7 +31,7 @@ $themeDropdownDefault: map-merge((
     'linkPadding': 8px 12px,
     'linkColor': ef.get('mainColors', 'baseMain'),
     'linkBg': ef.get('mainColors', 'bg700'),
-    'activeLinkBg': ef.get('mainColors', 'baseOpacity'),
+    'activeLinkBg': ef.get('mainColors', 'bg500'),
     'linkFill': ef.get('mainColors', 'baseMain'),
     'linkBorderRadius': ef.get('radius', 'biger'),
     'submenuBg': ef.get('mainColors', 'bg700'),
@@ -51,4 +51,5 @@ $withIcons: map-merge((
     ),
     'menuItemTextAlign': center,
     'transition': 0.5s ease-in,
+    'iconColor': ef.get('mainColors', 'main'),
 ), $customWithIcons);

@@ -1,4 +1,4 @@
-import {ICategory, IGames, IMerchant} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
+import {ICategory} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
 import {Game} from 'wlc-engine/modules/games/system/models/game.model';

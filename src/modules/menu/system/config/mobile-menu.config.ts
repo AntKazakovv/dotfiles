@@ -107,4 +107,18 @@ export const wlcMobileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
             },
         },
     },
+    'mobile-menu:contact-us': {
+        name: gettext('Contacts'),
+        type: 'sref',
+        icon: 'contact-us',
+        class: 'info',
+        params: {
+            state: {
+                name: 'app.contacts',
+                params: {
+                    slug: 'feedback',
+                },
+            },
+        },
+    },
 };
