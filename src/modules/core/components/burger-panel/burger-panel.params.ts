@@ -6,16 +6,18 @@ export interface IBurgerPanelCParams extends IComponentParams<string, BurgerPane
     type: BurgerPanelType;
     title?: string;
     showHeader?: boolean;
+    useScroll?: boolean;
     touchEvents?: {
         use?: true;
         onlyMobile?: boolean;
     };
-};
+}
 
 export const defaultParams: IBurgerPanelCParams = {
     class: 'wlc-burger-panel',
     type: 'left',
     showHeader: true,
+    useScroll: true,
     touchEvents: {
         use: true,
     },

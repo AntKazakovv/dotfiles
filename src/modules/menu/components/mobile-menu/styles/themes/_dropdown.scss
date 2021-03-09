@@ -80,6 +80,14 @@
                         background: ef.get-value($themeDropdownDefault, 'activeLinkBg');
                     }
 
+                    @media (hover) {
+
+                        &:hover {
+                            background: ef.get-value($themeDropdownDefault, 'activeLinkBg');
+                            @include bm.transition(background);
+                        }
+                    }
+
                     .wlc-menu__icon-arrow {
                         transform: rotate(-90deg);
                         margin-left: auto;

@@ -5,11 +5,23 @@
     <ng-container [ngTemplateOutlet]="close"></ng-container>
 </div>
 
-<div class="{{$class}}__content" wlc-scrollbar>
+<ng-container *ngIf="$params.useScroll; else noScrollBar">
+    <div class="{{$class}}__content" wlc-scrollbar>
+        <ng-container [ngTemplateOutlet]="innerContent"></ng-container>
+    </div>
+</ng-container>
+
+<ng-template #noScrollBar>
+    <div class="{{$class}}__content">
+        <ng-container [ngTemplateOutlet]="innerContent"></ng-container>
+    </div>
+</ng-template>
+
+<ng-template #innerContent>
     <div class="{{$class}}__inner">
         <ng-content></ng-content>
     </div>
-</div>
+</ng-template>
 
 <ng-template #close>
     <button class="{{$class}}__close"

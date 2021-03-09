@@ -1,45 +1,135 @@
+@use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/text' as text;
 @use 'engine-scss/functions' as ef;
 
 .wlc-burger-panel--theme-default:host {
+    left: 0;
+    width: 100%;
+    max-width: 100%;
+    background-color: map-get($themeDefault, 'panelBackground');
+    transform: translateY(-100%);
+
+    &.wlc-burger-panel--open {
+        visibility: visible;
+        transform: none;
+    }
 
     ::ng-deep {
 
-        .wlc-login-signup {
+        .wlc-burger-panel__close {
+            z-index: 5;
+            position: absolute;
+            top: 0;
+            left: 0;
+            @include bm.get-mq-map('width', $themeDefault, 'panelContentPadding');
+            @include bm.get-mq-map('height', $themeDefault, 'panelContentPadding');
+        }
+
+        .wlc-burger-panel__content {
+            @include bm.get-mq-map('padding', $themeDefault, 'panelContentPadding');
+        }
+
+        .wlc-burger-panel__inner {
+
+            & > div {
+                display: flex;
+            }
+        }
+
+        .wlc-main-menu,
+        .wlc-post-menu {
+            @include bm.get-mq-map('margin-right', $themeDefault, 'panelLinksMargin');
+            @include bm.get-mq-map('padding', $themeDefault, 'panelLinksPadding');
+            border-right: ef.get-value($themeDefault, 'panelLinksBorder');
+        }
+
+        .wlc-menu,
+        .wlc-post-menu__items {
+            display: grid;
+            grid-template-columns: repeat(2, auto);
+            @include bm.get-mq-map('gap', $themeDefault, 'panelLinksGridGap');
+        }
+
+        .wlc-post-menu__link,
+        .wlc-menu__link {
+            position: relative;
+            text-decoration: ef.get-value($themeDefault, 'panelLinkDecoration');
+            color: ef.get-value($themeDefault, 'panelLinksColor');
+            @include bm.get-mq-map('font-size', $themeDefault, 'panelFontSize');
+            cursor: pointer;
+
+            &:before {
+                content: '';
+                position: absolute;
+                bottom: ef.get-value($themeDefault, 'panelUnderlineOffset');
+                left: 0;
+                display: block;
+                width: 100%;
+                height: 0;
+                background-color: ef.get-value($themeDefault, 'panelUnderlineColor');
+                opacity: 0;
+                pointer-events: none;
+            }
+
+            &:hover,
+            &.active {
+
+                &:before {
+                    height: ef.get-value($themeDefault, 'panelUnderlineHeight');
+                    opacity: 1;
+                    @include bm.transition();
+                }
+            }
+        }
+
+        .wlc-burger-panel__user-deposit {
+            position: relative;
+            @include bm.get-mq-map('margin', $themeDefault, 'userDepositMargin');
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             justify-content: center;
-            grid-auto-flow: initial;
-            margin: ef.get-value($themeDefault, 'loginBtnMargin');
+            width: 100%;
+            @include bm.get-mq-map('max-width', $themeDefault, 'userDepositSize');
+            overflow: hidden;
             margin-bottom: ef.get-value($themeDefault, 'componentGap');
 
+            &:after {
+                content: '';
+                position: absolute;
+                top: -80px;
+                right: 0;
+                bottom: -80px;
+                left: 0;
+                background: ef.get-value($themeDefault, 'userDepositBg');
+                border-radius: 100%;
+            }
+
+            .wlc-title,
             .wlc-btn {
-                min-width: 100%;
+                z-index: 2;
+                position: relative;
             }
-        }
 
-        .wlc-user-stats[wlc-user-stats] {
-            margin: ef.get-value($themeDefault, 'gap') 0;
+            .wlc-title {
+                margin-bottom: 20px;
+                max-width: 255px;
+                text-align: center;
 
-            ::ng-deep {
-
-                .wlc-user-stats-balance {
-                    background: ef.get('mainColors', 'bg700');
+                .wlc-title__main {
+                    @include bm.get-mq-map('font-size', $themeDefault, 'userDepositTitleSize');
                 }
             }
         }
 
-        .wlc-category-menu {
-            margin-bottom: ef.get-value($themeDefault, 'gap');
-        }
+        .wlc-btn-search {
+            position: absolute;
+            @include bm.get-mq-map('top', $themeDefault, 'panelSearchPositionTop');
+            @include bm.get-mq-map('right', $themeDefault, 'panelSearchPositionRight');
 
-        .wlc-profile-menu[wlc-profile-menu] {
-
-            ::ng-deep {
-
-                .wlc-menu[wlc-menu] {
-
-                    .wlc-menu__link {
-                        background: ef.get('mainColors', 'bg700');
-                    }
-                }
+            svg {
+                fill: ef.get-value($themeDefault, 'panelSearchColor');
             }
         }
 

@@ -28,4 +28,20 @@ export namespace wlcPostMenu {
             },
         },
     };
+
+    export const burgerPanelInfo: ILayoutComponent = {
+        name: 'static.wlc-post-menu',
+        params: {
+            theme: 'burger-panel',
+            themeMod: 'burger-panel-info',
+            wlcElement: 'wlc-burger-panel__block_legal',
+            common: {
+                categorySlug: 'legal',
+                basePath: {
+                    page: 'static-text',
+                    addLanguage: true,
+                },
+            },
+        },
+    };
 }

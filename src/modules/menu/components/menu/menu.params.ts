@@ -51,6 +51,7 @@ export interface IMenuItem {
     class?: string;
     wlcElement?: string;
     params?: IMenuItemParams;
+    sort?: number,
 }
 
 export interface IMenuItemsGroup {

@@ -23,5 +23,18 @@
         .wlc-menu__link {
             white-space: nowrap;
         }
+
+        .wlc-menu__icon::ng-deep {
+
+            svg {
+                width: 25px;
+                height: auto;
+            }
+
+            svg,
+            path {
+                fill: ef.get-value($menuThemeDefault, 'iconColor');
+            }
+        }
     }
 }

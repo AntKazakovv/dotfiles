@@ -16,7 +16,7 @@ export namespace wlcLoginSignup {
             },
         },
     };
-    export const panel: ILayoutComponent = {
+    export const burgerPanel: ILayoutComponent = {
         name: 'user.wlc-login-signup',
         display: {
             auth: false,

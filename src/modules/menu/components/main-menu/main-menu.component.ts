@@ -28,6 +28,8 @@ import * as Config from 'wlc-engine/modules/menu/system/config/main-menu.items.c
 import {
     clone as _clone,
     has as _has,
+    sortBy as _sortBy,
+    merge as _merge,
 } from 'lodash-es';
 
 @Component({
@@ -42,6 +44,11 @@ export class MainMenuComponent extends AbstractComponent implements OnInit {
     public menuParams: MenuParams.IMenuCParams = {
         type: 'main-menu',
         items: [],
+        common: {
+            icons: {
+                fallback: 'wlc/icons/asian/v1/plug.svg',
+            },
+        },
     };
     public commonMenuItems: MenuParams.MenuItemType[];
 
@@ -69,6 +76,7 @@ export class MainMenuComponent extends AbstractComponent implements OnInit {
     }
 
     public ngOnInit(): void {
+
         super.ngOnInit();
         this.initConfig();
         this.initMenu();
@@ -85,16 +93,17 @@ export class MainMenuComponent extends AbstractComponent implements OnInit {
 
         this.iconsFolder = this.$params.common?.icons?.folder || this.configService.get<string>('$menu.mainMenu.icons.folder');
 
-        this.menuParams = {
-            type: 'main-menu',
+        _merge(this.menuParams, {
             wlcElement: this.$params.wlcElement || 'wlc-main-menu',
-        };
+        });
+
         this.commonMenuItems = MenuHelper.parseMenuConfig(this.menuConfig, Config.wlcMainMenuItemsGlobal, {
             icons: {
                 folder: this.iconsFolder,
                 disable: !this.useIcons,
             },
         });
+
         this.menuParams.items = this.commonMenuItems;
         this.menuParams = _clone(this.menuParams);
 
@@ -125,7 +134,7 @@ export class MainMenuComponent extends AbstractComponent implements OnInit {
                 disable: !this.useIcons,
             },
         });
-        this.menuParams.items = menuItems.concat(this.commonMenuItems as MenuParams.IMenuItem[]);
+        this.menuParams.items = _sortBy(menuItems.concat(this.commonMenuItems as MenuParams.IMenuItem[]), (item) => item.sort);
         this.menuParams = _clone(this.menuParams);
         this.cdr.markForCheck();
     }

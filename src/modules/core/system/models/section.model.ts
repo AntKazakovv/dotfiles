@@ -1,21 +1,24 @@
-import {ILayoutComponent, ILayoutModifyItem, ILayoutSectionConfig} from 'wlc-engine/modules/core/system/interfaces';
+import {
+    ILayoutComponent,
+    ILayoutModifyItem,
+    ILayoutSectionConfig,
+    IPanelSectionConfig,
+} from 'wlc-engine/modules/core/system/interfaces';
 
 import {
     assign as _assign,
     map as _map,
-    reduce as _reduce,
-    findIndex as _findIndex,
     union as _union,
     isUndefined as _isUndefined,
 } from 'lodash-es';
 
 export interface ISectionData {
-    section: ILayoutSectionConfig;
+    section: ILayoutSectionConfig | IPanelSectionConfig;
     name: string;
     order: number;
 }
 
-export class SectionModel implements ILayoutSectionConfig {
+export class SectionModel { // implements ILayoutSectionConfig | IPanelSectionConfig;
     public readonly name: string;
     public readonly order: number;
     public readonly container: string | boolean;
@@ -24,7 +27,11 @@ export class SectionModel implements ILayoutSectionConfig {
     public readonly modifiers: string[];
     public readonly theme: string;
     public readonly wlcElement: string;
-
+    public display: {
+        after?: number;
+        before?: number;
+    }
+    public useScroll: boolean;
     protected preparedModifiers: string[] = [];
 
     constructor(sectionData: ISectionData) {
