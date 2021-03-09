@@ -1,6 +1,17 @@
 @use 'engine-scss/functions' as ef;
 
-$formMaxWidth: 285px !default;
-$formMargin: auto !default;
-$fieldMargin: 0 0 20px 0 !default;
-$btnMargin: 50px auto 30px auto !default;
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'formMaxWidth': 285px,
+    'formMargin': auto,
+    'formHeight': 100%,
+
+    'fieldMargin': 0 0 ef.get('size', 'smaller'),
+    'inputBackground': ef.get('fieldColors', 'inputBg'),
+    'inputColor': ef.get('fieldColors', 'textColor'),
+
+    'btnMargin': (
+        320: auto auto ef.get('size', 'smaller'),
+        560: ef.get('size', 'main') auto ef.get('size', 'biger'),
+    ),
+), $customThemeDefault);

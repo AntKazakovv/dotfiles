@@ -15,6 +15,8 @@ $themeDefault: map-merge((
     'restoreMargin':  auto 0 ef.get('size', 'less'),
 
     'fieldMargin': 0 0 ef.get('size', 'smaller'),
+    'inputBackground': ef.get('fieldColors', 'inputBg'),
+    'inputColor': ef.get('fieldColors', 'textColor'),
 
     'btnMargin': (
         320: auto auto ef.get('size', 'smaller'),

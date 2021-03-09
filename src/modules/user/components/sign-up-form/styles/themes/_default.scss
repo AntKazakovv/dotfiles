@@ -31,6 +31,20 @@
             }
         }
 
+        .wlc-input {
+
+            ::ng-deep {
+
+                .wlc-input__container {
+
+                    .wlc-input__input:disabled {
+                        background: ef.get-value($themeDefault, 'inputBackground');
+                        color: ef.get-value($themeDefault, 'inputColor');
+                    }
+                }
+            }
+        }
+
         .wlc-text-block {
             grid-area: head;
         }

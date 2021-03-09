@@ -127,6 +127,7 @@ export const MODALS_LIST: IModalList = {
             size: 'md',
             showFooter: false,
             dismissAll: true,
+            modalTitle: gettext('Create a new password'),
         },
     },
     restorePassword: {
