@@ -3,12 +3,13 @@
 $customGamesCategoriesDefault: () !default;
 $gamesCategoriesDefault: map-merge((
     'sectionHeight': (
-        375: 60px,
+        375: auto,
+        768: 60px,
         1630: 75px,
     ),
     'sectionMargin': (
-        375: -30px 0 20px,
-        900: 0 0 ef.get-value(ef.get('size', 'sectionsGap'), 375),
+        375: -20px 0 20px,
+        768: 0 0 ef.get-value(ef.get('size', 'sectionsGap'), 375),
         1630: 0 0 ef.get-value(ef.get('size', 'sectionsGap'), 1630),
     ),
     'sectionPadding': (

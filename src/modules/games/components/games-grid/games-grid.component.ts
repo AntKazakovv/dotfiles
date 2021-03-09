@@ -159,11 +159,11 @@ export class GamesGridComponent extends AbstractComponent
 
     public async prepareGrid(): Promise<void> {
         this.games = await this.getGames();
-        const lang: string = this.translate.currentLang || 'en';
+        const lang: string = this.translate.currentLang;
         if (this.childCategory) {
-            this.title = this.childCategory.title[lang];
+            this.title = this.childCategory.title[lang] || this.childCategory.title['en'];
         } else if (this.parentCategory) {
-            this.title = this.parentCategory.title[lang];
+            this.title = this.parentCategory.title[lang] || this.parentCategory.title['en'];
         } else {
             this.title = this.$params.title || this.categoryTitle;
         }
@@ -243,13 +243,20 @@ export class GamesGridComponent extends AbstractComponent
         const itemElement = el.querySelector('.' + this.$class + '__item')?.firstChild;
         const itemWidth = itemElement?.getBoundingClientRect().width;
         this.prevPlaceHoldersCount = Math.floor(width / itemWidth);
-        if (this.prevPlaceHoldersCount && this.prevPlaceHoldersCount < 10) {
-            this.paginate = this.prevPlaceHoldersCount * this.$params.gamesRows;
-            this.placeHoldersCount = this.prevPlaceHoldersCount;
+        this.paginate = this.prevPlaceHoldersCount * this.$params.gamesRows;
+        this.placeHoldersCount = this.prevPlaceHoldersCount;
+
+        if (this.gamesCount > this.paginate) {
+
+            while (this.gamesCount % this.prevPlaceHoldersCount !== 0) {
+                this.gamesCount++;
+            }
+        } else {
             this.gamesCount = this.paginate;
-            this.checkGamesLength();
-            this.cdr.markForCheck();
         }
+
+        this.checkGamesLength();
+        this.cdr.markForCheck();
     }
 
     protected checkGamesLength(): void {
