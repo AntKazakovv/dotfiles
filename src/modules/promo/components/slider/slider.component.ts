@@ -113,7 +113,7 @@ export class SliderComponent extends AbstractComponent
     }
 
     public ngAfterViewInit(): void {
-        this.windowResizeHandler();
+        this.initEventHandlers();
         setTimeout(() => {
             this.updateView();
         }, 0);
@@ -273,5 +273,27 @@ export class SliderComponent extends AbstractComponent
             result = result.concat(realSequence);
         }
         return result;
+    }
+
+    protected initEventHandlers(): void {
+        this.actionService.windowResize()
+            .pipe(takeUntil(this.$destroy))
+            .subscribe((data: IResizeEvent) => {
+                this.updateView();
+            });
+
+        this.swiper.s_progress.subscribe((swiper) => {
+            this.removeModifiers('on-start');
+            this.removeModifiers('on-end');
+            this.removeModifiers('on-progress');
+
+            if (swiper.isBeginning) {
+                this.addModifiers('on-start');
+            } else if (swiper.isEnd) {
+                this.addModifiers('on-end');
+            } else {
+                this.addModifiers('on-progress');
+            }
+        })
     }
 }

@@ -21,6 +21,7 @@ $themeDefault: map-merge((
     'underlineHeight': 6px,
     'underlineRadius': ef.get('radius', 'large'),
     'iconDirection': column,
+    'swiperShadowColor': #867f7f63,
 ), $customThemeDefault);
 
 $customDropdownThemeDefault: () !default;

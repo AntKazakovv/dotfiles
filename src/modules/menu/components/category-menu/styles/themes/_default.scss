@@ -10,6 +10,23 @@
 
     ::ng-deep {
 
+        .wlc-slider {
+
+            &--on-start {
+                box-shadow: 5px 0 5px -5px ef.get-value($themeDefault, 'swiperShadowColor');
+            }
+
+            &--on-end {
+                box-shadow: -5px 0 5px -5px ef.get-value($themeDefault, 'swiperShadowColor');
+            }
+
+            &--on-progress {
+                box-shadow:
+                    5px 0 5px -5px ef.get-value($themeDefault, 'swiperShadowColor'),
+                    -5px 0 5px -5px ef.get-value($themeDefault, 'swiperShadowColor');
+            }
+        }
+
         .wlc-menu {
             display: block;
             width: 100%;
