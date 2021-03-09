@@ -159,6 +159,7 @@ export const MODALS_LIST: IModalList = {
     runGame: {
         config: {
             id: 'play-game-for-real',
+            modalTitle: gettext('Lets\'s play!'),
             modifier: 'play-game-for-real',
             component: PlayGameForRealComponent,
             componentParams: {
@@ -169,7 +170,6 @@ export const MODALS_LIST: IModalList = {
             },
             size: 'md',
             showFooter: false,
-            modalTitle: gettext('Lets play!'),
         },
     },
     staticText: {

@@ -19,6 +19,8 @@ import {IDisablePlayRealByCountry} from 'wlc-engine/modules/games/system/interfa
 import {IPlayGameForRealCParams} from 'wlc-engine/modules/games/components/play-game-for-real/play-game-for-real.params';
 import {IPushMessageParams, NotificationEvents} from 'wlc-engine/modules/core/system/services/notification';
 
+import {skipWhile} from 'rxjs/operators';
+
 import {
     includes as _includes,
     clone as _clone,
@@ -161,7 +163,7 @@ class StartGameHandler {
             },
         });
 
-        this.result.promise.catch(() => {
+        this.result.promise.catch((reason) => {
             this.logService.sendLog({
                 code: '3.0.26',
                 data: {
@@ -170,9 +172,11 @@ class StartGameHandler {
                 },
             });
 
-            this.stateService.go('app.error', {
-                locale: this.configService.get('appConfig.language'),
-            });
+            if (reason === RejectReason.GameNotFounded) {
+                this.stateService.go('app.error', {
+                    locale: this.configService.get('appConfig.language'),
+                });
+            }
         });
 
         const stateChangeHandler = this.router.transitionService.onStart({}, (transition) => {
@@ -380,7 +384,7 @@ class StartGameHandler {
      *
      * @returns {Promise}
      */
-    private checkUserBalance(): Promise<void> {
+    private async checkUserBalance(): Promise<void> {
         const deferred = new Deferred<void>();
 
         const skipCheckBalance: boolean = this.configService.get<boolean>('$games.run.skipCheckBalance');
@@ -388,6 +392,14 @@ class StartGameHandler {
             deferred.resolve();
             return deferred.promise;
         }
+
+        const userInfo = new Deferred<void>();
+        const subscription = this.userService.userInfo$.pipe(skipWhile(v => !v))
+            .subscribe(() => {
+                userInfo.resolve();
+                subscription.unsubscribe();
+            });
+        await userInfo.promise;
 
         if (this.userService.userInfo?.balance > 0) {
             deferred.resolve();

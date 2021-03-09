@@ -72,6 +72,7 @@ export class PlayGameForRealComponent extends AbstractComponent implements OnIni
         super.ngOnInit(this.inlineParams);
         this.onLoginSuccess();
         this.onPlayDemo();
+        this.onPlayReal();
         this.onSignUp();
     }
 
@@ -96,6 +97,25 @@ export class PlayGameForRealComponent extends AbstractComponent implements OnIni
             if (this.$params.common?.game) {
                 this.$params.common.game.launch({
                     demo: true,
+                });
+            }
+        }, this.$destroy);
+    }
+
+    /**
+     * Handler for click on "play real"
+     */
+    protected onPlayReal(): void {
+        this.eventService.subscribe({
+            name: Params.Events.PLAY_REAL,
+        }, () => {
+            this.modalService.closeModal('play-game-for-real');
+            if (this.stateService.params.demo === 'false') {
+                return;
+            }
+            if (this.$params.common?.game) {
+                this.$params.common.game.launch({
+                    demo: false,
                 });
             }
         }, this.$destroy);

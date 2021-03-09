@@ -84,7 +84,7 @@ export const playGameForRealConfig = (params: IPlayForRealParams): IFormWrapperC
             params: <ITextBlockCParams>{
                 common: {
                     textBlockTitle: params.game.name['en'],
-                    textBlockSubtitle: gettext('Sign in to play for real!'),
+                    textBlockSubtitle: gettext('Sign in to play for real'),
                 },
             },
         },
@@ -137,7 +137,7 @@ export const playGameForRealConfig = (params: IPlayForRealParams): IFormWrapperC
                 name: 'submit',
                 themeMod: 'secondary',
                 common: {
-                    text: gettext('Login'),
+                    text: gettext('Sign in'),
                     type: 'submit',
                 },
             },

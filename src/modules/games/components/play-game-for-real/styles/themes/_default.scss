@@ -14,12 +14,8 @@
 
             &__title {
                 @include text.get-text-style(ef.get-value($themeDefault, 'titleFontSizeMobile'));
-                margin: ef.get-value($themeDefault, 'titleMarginMobile');
-
-                @include mq.min(560) {
-                    @include text.get-text-style(ef.get-value($themeDefault, 'titleFontSize'));
-                    margin: ef.get-value($themeDefault, 'titleMargin');
-                }
+                @include text.get-text-style(ef.get-value($themeDefault, 'titleFontSize'));
+                margin: ef.get-value($themeDefault, 'titleMargin');
             }
         }
 
@@ -40,7 +36,6 @@
         .wlc-restore-link {
 
             .wlc-btn {
-                display: block;
                 margin: ef.get-value($themeDefault, 'restoreLinkMargin');
             }
 
@@ -55,10 +50,6 @@
 
         .wlc-btn {
             margin: ef.get-value($themeDefault, 'btnMargin');
-
-            &:last-child {
-                margin-bottom: 0;
-            }
         }
 
         .wlc-text-block--theme-mod-game-title {
