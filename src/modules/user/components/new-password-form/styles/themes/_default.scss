@@ -1,21 +1,31 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/base.mixins' as em;
 @import '../utils/vars';
 
 .wlc-new-password-form--theme-default:host {
-    max-width: $formMaxWidth;
-    margin: $formMargin;
+    max-width: ef.get-value($themeDefault, 'formMaxWidth');
+    margin: ef.get-value($themeDefault, 'formMargin');
 
     &::ng-deep {
 
         .wlc-input {
-            margin: $fieldMargin;
+            margin: ef.get-value($themeDefault, 'fieldMargin');
 
             &:last-child {
                 margin-bottom: 0;
             }
+
+            .wlc-input__container {
+
+                .wlc-input__input:disabled {
+                    background: ef.get-value($themeDefault, 'inputBackground');
+                    color: ef.get-value($themeDefault, 'inputColor');
+                }
+            }
         }
 
         .wlc-btn {
-            margin: $btnMargin;
+            @include em.get-mq-map('margin', $themeDefault, 'btnMargin');
         }
     }
 }

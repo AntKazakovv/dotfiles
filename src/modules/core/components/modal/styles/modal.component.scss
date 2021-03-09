@@ -85,7 +85,8 @@
 
         max-width: ef.get-value($hostModal, 'titleMaxWidth');
         padding: ef.get-value($hostModal, 'titlePadding');
-        width: calc(100% - 40px);
+        //width: calc(100% - 40px);
+        width: calc(100%);
         text-align: center;
 
         /* stylelint-disable */

@@ -57,8 +57,7 @@ $hostModal: map-merge((
 
     'closePosRight': 25px,
     'closePosTop': (
-        320: -40px,
-        560: 31px,
+        320: 32px,
     ),
     'closeSize': 30px,
     'closeLineStroke': ef.get('mainColors', 'baseMain'),
@@ -77,7 +76,8 @@ $hostModal: map-merge((
     'modalBodyPaddingConfirm': ef.get('size', 'small') ef.get('size', 'less'),
     'modalFooterPadding': ef.get('size', 'less'),
     'modalFooterPaddingConfirm': ef.get('size', 'less') ef.get('size', 'less') ef.get('size', 'main') ef.get('size', 'less'),
-    'modalHeaderBorderBottom': 1px solid ef.get('mainColors', 'baseOpacity'),
+    //'modalHeaderBorderBottom': 1px solid ef.get('mainColors', 'baseOpacity'),
+    'modalHeaderBorderBottom': unset,
     'modalFooterBorderTop': 1px solid transparent,
     'modalFooterJustify': center,
     'modalBackdrop': ef.get('mainColors', 'bg'),
