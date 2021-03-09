@@ -1,7 +1,7 @@
 import {ChangeDetectorRef, Injectable} from '@angular/core';
 import {UIRouter} from '@uirouter/core';
-import {SportsbookService} from 'wlc-engine/modules/sportsbook/system/services/sportsbook/sportsbook.service';
-import {IIndexing} from 'wlc-engine/modules/core';
+import {SportsbookService} from 'wlc-engine/modules/sportsbook';
+import {ConfigService} from 'wlc-engine/modules/core';
 
 import {takeUntil} from 'rxjs/operators';
 import {Observable, Subject, Subscription} from 'rxjs';
@@ -37,16 +37,12 @@ export class BetradarService {
     constructor(
         protected router: UIRouter,
         protected sportsbookService: SportsbookService,
+        protected configService: ConfigService,
     ) {
 
     }
 
     /**
-     * @ngdoc method
-     * @name service.service#setBetradarParams
-     * @methodOf angular-wlc-theme.service:SportsbookService
-     * @description
-     *
      * Saves parameters for navigation to the window object.
      * These parameters will be used when loading iframe page.
      */
@@ -60,7 +56,7 @@ export class BetradarService {
                 urlParams.push(stateParam);
             }
         });
-        window['SPORTSBOOK_URL_PATH'] = urlParams;
+        globalThis['SPORTSBOOK_URL_PATH'] = urlParams;
 
         const urlQueryParams: {
             [key: string]: string
@@ -72,7 +68,17 @@ export class BetradarService {
                 urlQueryParams[param] = stateParamVal;
             }
         });
-        window['SPORTSBOOK_URL_QUERY_PARAMS'] = urlQueryParams;
+        globalThis['SPORTSBOOK_URL_QUERY_PARAMS'] = urlQueryParams;
+
+        const customCssFile: string = this.configService.get<string>('$sportsbook.betradar.cssFile');
+        const configFile: string = this.configService.get<string>('$sportsbook.betradar.configFile');
+
+        if (customCssFile) {
+            globalThis['SPORTSBOOK_CUSTOM_CSS'] = customCssFile;
+        }
+        if (configFile) {
+            globalThis['SPORTSBOOK_CUSTOM_CONFIG'] = configFile;
+        }
     }
 
     /**
