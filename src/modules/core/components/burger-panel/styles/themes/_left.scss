@@ -86,11 +86,25 @@
 
                 &.active,
                 &:hover {
-                    background: rgba(#fff, 0.4);
+                    color: ef.get-value($themeLeft, 'menuLinksHoverColor');
+                    background: ef.get-value($themeLeft, 'menuLinksHoverBg');
                 }
 
                 &.active {
-                    font-weight: 700;
+                    font-weight: ef.get-value($themeLeft, 'menuLinksActiveWeight');
+                }
+            }
+
+            &__icon {
+
+                svg {
+                    width: ef.get-value($themeLeft, 'menuLinksIconWidth');
+                    height: ef.get-value($themeLeft, 'menuLinksIconHeight');
+                    fill: ef.get-value($themeLeft, 'menuLinksIconFill');
+
+                    path {
+                        fill: ef.get-value($themeLeft, 'menuLinksIconFill');
+                    }
                 }
             }
         }

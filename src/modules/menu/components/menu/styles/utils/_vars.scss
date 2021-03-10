@@ -19,7 +19,3 @@ $menuThemeContacts: map-merge((
 ), $customMenuThemeContacts);
 
 $customMenuThemeDefault: () !default;
-$menuThemeDefault: map-merge((
-
-    'iconColor': ef.get('mainColors', 'main'),
-), $customMenuThemeDefault);

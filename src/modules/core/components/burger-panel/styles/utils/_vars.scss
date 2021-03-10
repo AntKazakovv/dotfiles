@@ -83,7 +83,13 @@ $themeLeft: map-merge((
     'separatorColor': rgba(ef.get('mainColors', 'baseMain'), 0.2),
     'menuLinksPadding': 8px 25px,
     'menuLinksColor': ef.get('mainColors', 'baseMain'),
+    'menuLinksHoverColor': inherit,
+    'menuLinksHoverBg': ef.get('mainColors', 'baseOpacity'),
+    'menuLinksActiveWeight': 700,
     'menuLinksDecoration': none,
+    'menuLinksIconWidth': 25px,
+    'menuLinksIconHeight': auto,
+    'menuLinksIconFill': ef.get('mainColors', 'main'),
     'languageSelectorBg': ef.get('mainColors', 'bg500'),
 ), $customThemeLeft);
 
