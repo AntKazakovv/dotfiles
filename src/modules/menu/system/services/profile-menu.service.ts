@@ -72,12 +72,18 @@ export class ProfileMenuService {
      */
     public getTabsMenu(options?: IMenuOptions): IMenuItem[] {
         if (!this.tabsMenu) {
+            const disbaleIcons: boolean = options?.icons?.disable;
+            const iconsFolder: string = options?.icons?.folder;
+
             this.tabsMenu = this.profileMenuConfig.map((item: MenuParams.MenuConfigItem) => {
+                let menuItem;
                 if (_isString(item)) {
-                    return wlcProfileMenuItemsGlobal[item];
+                    menuItem = _cloneDeep(wlcProfileMenuItemsGlobal[item]);
                 } else if (_has(item, 'parent')) {
-                    return wlcProfileMenuItemsGlobal[_get(item, 'parent')];
+                    menuItem = _cloneDeep(wlcProfileMenuItemsGlobal[_get(item, 'parent')]);
                 }
+                MenuHelper.setIcon(menuItem, iconsFolder, disbaleIcons);
+                return menuItem;
             });
         }
         return this.tabsMenu;
@@ -108,8 +114,12 @@ export class ProfileMenuService {
 
         let items: MenuParams.IMenuItem[] = [];
         if (parentInMenuConfig) {
+            const disbaleIcons: boolean = options?.icons?.disable;
+            const iconsFolder: string = options?.icons?.folder;
+
             items = _map(parentInMenuConfig.items, (itemAlias: string) => {
-                const menuItem: MenuParams.IMenuItem = Config.wlcProfileMenuItemsGlobal[itemAlias];
+                const menuItem: MenuParams.IMenuItem = _cloneDeep(Config.wlcProfileMenuItemsGlobal[itemAlias]);
+                MenuHelper.setIcon(menuItem, iconsFolder, disbaleIcons);
                 return menuItem;
             });
             this.subMenu[state] = items;
@@ -124,7 +134,7 @@ export class ProfileMenuService {
      */
     public getDropdownMenu(options?: IMenuOptions): MenuItemObjectType[] {
         if (!this.dropdownMenu.length) {
-            this.dropdownMenu = MenuHelper.parseMenuConfig(this.profileMenuConfig, Config.wlcProfileMenuItemsGlobal);
+            this.dropdownMenu = MenuHelper.parseMenuConfig(this.profileMenuConfig, Config.wlcProfileMenuItemsGlobal, options);
         }
         return this.dropdownMenu;
     }

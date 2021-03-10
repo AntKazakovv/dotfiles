@@ -280,6 +280,10 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
             const menuItems = MenuHelper.getItemsForCategories({
                 categories: [category],
                 lang: this.translate.currentLang,
+                icons: {
+                    folder: this.iconsFolder,
+                    disable: !this.useIcons,
+                },
             });
             if (category.childCategories.length) {
                 const childItems = MenuHelper.getItemsForCategories({

@@ -83,11 +83,10 @@
 <ng-template #dropdown let-item="item">
     <div class="{{$class}}__item {{$class}}__item--dropdown"
          [ngClass]="{'active': item.expand}">
-        <a class="{{$class}}__link"
-           (click)="toggleDropdown(item)"
-        >{{item.parent.name | translate}}
-            <span class="{{$class}}__icon-arrow" wlc-icon [iconName]="'arrow'">
+        <span class="{{$class}}__icon" *ngIf="item.icon" wlc-icon [iconPath]="getIcon(item)" [fallback]="iconsFallback">
         </span>
+        <a class="{{$class}}__link" (click)="toggleDropdown(item)">{{item.parent.name | translate}}
+            <span class="{{$class}}__icon-arrow" wlc-icon [iconName]="'arrow'"></span>
         </a>
 
         <div class="{{$class}}__submenu"

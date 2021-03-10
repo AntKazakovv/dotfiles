@@ -81,5 +81,13 @@ export const menuConfig: IMenuConfig = {
             folder: 'wlc/icons/european/v1',
             use: false,
         },
+        subMenuIcons: {
+            folder: 'wlc/icons/european/v1',
+            use: false,
+        },
+        dropdownMenuIcons: {
+            folder: 'wlc/icons/european/v1',
+            use: false,
+        },
     },
 };
