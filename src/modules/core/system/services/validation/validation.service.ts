@@ -26,7 +26,10 @@ import {
 } from 'wlc-engine/modules/core/system/services/data/data.service';
 import {matchingFields} from './validators/matchFields.validator';
 import {email} from './validators/email.validator';
-import {regexp} from './validators/regexp.validator';
+import {
+    regexpEmoji,
+    regexp,
+} from './validators/regexp.validator';
 import {newPassword} from './validators/new-password.validator';
 
 export type ValidatorType = string | IValidatorSettings;
@@ -95,6 +98,7 @@ export class ValidationService {
         this.setRule<IIndexing<boolean>>('matchingFields', matchingFields);
         this.setRule<IIndexing<boolean>>('email', email);
         this.setRule<IIndexing<boolean>>('regExp', regexp);
+        this.setRule<IIndexing<boolean>>('regexpEmoji', regexpEmoji);
         this.setRule<IIndexing<boolean>>('newPassword', newPassword);
     }
 
