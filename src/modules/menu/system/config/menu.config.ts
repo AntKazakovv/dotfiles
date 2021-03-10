@@ -42,7 +42,7 @@ export const menuConfig: IMenuConfig = {
             use: false,
         },
         categoryIcons: {
-            folder: 'wlc/icons/asian/categories/v1',
+            folder: 'wlc/icons/european/v1',
             use: true,
         },
     },
