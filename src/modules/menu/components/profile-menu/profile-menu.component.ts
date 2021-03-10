@@ -50,11 +50,24 @@ export class ProfileMenuComponent extends AbstractComponent implements OnInit {
     public ngOnInit(): void {
         super.ngOnInit();
 
+        let configKey: string = 'icons';
+        switch (this.$params.type) {
+            case 'tabs':
+                configKey = 'icons';
+                break;
+            case 'submenu':
+                configKey = 'subMenuIcons';
+                break;
+            case 'dropdown':
+                configKey = 'dropdownMenuIcons';
+                break;
+        }
+
         this.useIcons = _has(this.$params, 'common.icons.use')
             ? this.$params.common.icons.use
-            : this.configService.get<boolean>('$menu.profileMenu.icons.use');
+            : this.configService.get<boolean>(`$menu.profileMenu.${configKey}.use`);
 
-        this.iconsFolder = this.$params.common?.icons?.folder || this.configService.get<string>('$menu.profileMenu.icons.folder');
+        this.iconsFolder = this.$params.common?.icons?.folder || this.configService.get<string>(`$menu.profileMenu.${configKey}.folder`);
 
         this.menuParams = {
             type: 'profile-menu',
