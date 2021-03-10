@@ -34,6 +34,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 // -- SERVICES IMPORTS END  --;
 
 // -- COMPONENTS IMPORTS  --;
+import {AmountLimitComponent} from './components/amount-limit/amount-limit.component';
 import {BirthdayFieldComponent} from './components/birthday-field/birthday-field.component';
 import {BurgerPanelComponent} from './components/burger-panel/burger-panel.component';
 import {FloatPanelsComponent} from './components/float-panels/float-panels.component';
@@ -116,6 +117,7 @@ export const moduleConfig =
     GlobalHelper.mergeConfig<ICoreConfig>(coreConfig, _get($config, '$core', {}));
 
 export const components = {
+    'wlc-amount-limit': AmountLimitComponent,
     'wlc-birth-field': BirthdayFieldComponent,
     'wlc-button': ButtonComponent,
     'wlc-checkbox': CheckboxComponent,
@@ -189,6 +191,7 @@ export const components = {
         GlobalHelper.bootstrapProviders(NotificationService),
     ],
     declarations: [
+        AmountLimitComponent,
         AuthDirective,
         BirthdayFieldComponent,
         BurgerPanelComponent,
@@ -246,6 +249,7 @@ export const components = {
         PlugComponent,
     ],
     exports: [
+        AmountLimitComponent,
         AuthDirective,
         BirthdayFieldComponent,
         BrowserAnimationsModule,

@@ -75,6 +75,9 @@ export class ValidationService {
         max: {
             validator: Validators.max,
         },
+        min: {
+            validator: Validators.min,
+        },
         numberDecimal: {
             validator: Validators.pattern(/^[0-9]+(\.[0-9]{1,2})*$/),
         },

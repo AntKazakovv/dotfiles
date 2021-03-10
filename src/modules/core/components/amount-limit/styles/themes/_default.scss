@@ -1,0 +1,13 @@
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/functions' as ef;
+
+@import '../utils/vars';
+
+.wlc-amount-limit--theme-default:host {
+
+    .wlc-amount-limit {
+        display: block;
+        @include text.get-text-style('PlaceholderText', ef.get-value($themeDefault, 'limitsColor'));
+        margin: ef.get-value($themeDefault, 'limitsMargin');
+    }
+}
