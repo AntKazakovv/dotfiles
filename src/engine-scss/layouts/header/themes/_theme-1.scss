@@ -28,7 +28,9 @@
             }
         }
 
-        .wlc-logo[wlc-logo] {
+        .wlc-logo {
+            max-width: map-get($theme1Header, 'headerSvgLogoWidth');
+            margin: 0 auto;
 
             img,
             svg {
