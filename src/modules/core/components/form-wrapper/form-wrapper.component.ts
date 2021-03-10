@@ -72,7 +72,6 @@ export interface IFormWrapperCParams extends IWrapperCParams {
     components: IFormComponent[];
     validators?: ValidatorType[];
 }
-
 @Component({
     selector: '[wlc-form-wrapper]',
     templateUrl: './form-wrapper.component.html',
@@ -81,16 +80,14 @@ export interface IFormWrapperCParams extends IWrapperCParams {
 })
 export class FormWrapperComponent extends WrapperComponent implements OnInit, OnChanges {
     @Input() public ngSubmit: (form: FormGroup) => Promise<boolean>;
+    @Input() private beforeSubmit: (form: FormGroup) => boolean;
     @Input() private config: IFormWrapperCParams;
     @Input() private formData: BehaviorSubject<IIndexing<any>>;
 
     public $params: IFormWrapperCParams;
     public form: FormGroup;
-    private controls: IControls = {};
-    private globalValidators = {
-        validators: [],
-        asyncValidators: [],
-    };
+    private controls: IControls;
+    private globalValidators:IGlobalValidators;
 
     private locked: string[] = [];
 
@@ -128,6 +125,9 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
     // Don't delete this because without it the app will crash
     // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
     public ngOnChanges(changes: SimpleChanges): void {
+        if (this.form && changes.config) {
+            this.ngOnInit();
+        }
     }
 
     public getInjector(component: any): Injector {
@@ -144,7 +144,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
             });
         } else {
             _assign(component.params, {
-                control: this.form?.controls[component.params.name],
+                control: this.form?.controls[component.params.name] || new FormControl(''),
             });
         }
 
@@ -152,6 +152,12 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
     }
 
     public async submit(): Promise<void> {
+        if (this.beforeSubmit) {
+            if (!this.beforeSubmit(this.form)) {
+                return;
+            }
+        }
+
         if (this.form.valid) {
             if (await this.ngSubmit(this.form)) {
                 this.form.controls.currentPassword.setValue('');
@@ -219,6 +225,8 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
     }
 
     private prepareComponents(components: IFormComponent[]): void {
+        this.controls = {};
+
         _each(components, component => {
 
             if (component.params.components) {
@@ -281,6 +289,11 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
     }
 
     private prepareValidators(): void {
+        this.globalValidators = {
+            validators: [],
+            asyncValidators: [],
+        };
+
         _each(this.$params.validators, validator => {
             const validationRule = this.getValidator(validator);
 

@@ -72,6 +72,11 @@
         }
     }
 
+    .wlc-input__limits {
+        display: block;
+        @include text.get-text-style('PlaceholderText', ef.get-value($themeDefault, 'limitsColor'));
+    }
+
     //TODO Make cross themes variables and styles
     &.wlc-input--right-shift {
 

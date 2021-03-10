@@ -7,21 +7,20 @@ $themeDefault: map-merge((
 
     // Grid
     'gridTemplateColumns': 1fr,
-    'gridGap': 20px,
+    'gridGap': ef.get('size', 'smaller'),
     'commonColor': ef.get('mainColors', 'baseMain'),
 
     // Title
-    'titleFontSize': 20px,
-    'titleFontWeight': 700,
+    'titleFontStyle': 'ThirdTitleBold',
     'titleColor': ef.get('mainColors', 'baseMain'),
 
     // Divider
-    'dividerMargin': 10px 0,
+    'dividerMargin': ef.get('size', 'small') 0,
     'dividerBg': ef.get('mainColors', 'baseOpacity'),
     'dividerHeight': 2px,
     'dividerWidth': 100%,
-    'dividerRadius': 10px,
-    'dividerCryptoMargin': 30px 0,
+    'dividerRadius': ef.get('radius', 'biger'),
+    'dividerCryptoMargin': ef.get('size', 'less') 0,
 
     // Step
     'step1Bg': (
@@ -33,54 +32,77 @@ $themeDefault: map-merge((
         480: 0,
     ),
     'step1Padding': (
-        375: 15px,
+        375: ef.get('size', 'smally'),
         480: 0,
     ),
     'step1Margin': (
-        375: 0 0 20px,
+        375: 0 0 ef.get('size', 'smaller'),
         480: 0,
     ),
 
     // Subtitle
-    'subtitleFontSize': 16px,
-    'subtitleFontWeight': (
-        375: 700,
-        900: normal,
-    ),
-    'subtitleMargin': 0 0 20px,
+    'subtitleFontStyle': 'ThirdTitle',
+    'subtitleMargin': 0 0 ef.get('size', 'smaller'),
     'subtitleColor': ef.get('mainColors', 'baseMain'),
     'subtitleAlignment': (
         375: center,
         900: left,
     ),
     'subtitleStepColor': ef.get('mainColors', 'main'),
-    'subtitleStepMargin': 0 0 10px,
+    'subtitleStepMargin': 0 0 ef.get('size', 'small'),
 
     // Errors
     'errorsColor': ef.get('color', 'error'),
-    'errorsMargin': 0 0 20px,
+    'errorsMargin': 0 0 ef.get('size', 'smaller'),
 
-    'errorsMessageMargin': 0 0 10px,
+    'errorsMessageMargin': 0 0 ef.get('size', 'small'),
 
-    'errorsUlMargin': 0 0 20px,
-    'errorsUlPadding': 0 0 0 15px,
+    'errorsUlMargin': 0 0 ef.get('size', 'smaller'),
+    'errorsUlPadding': 0 0 0 ef.get('size', 'smally'),
 
     'errorsLiType': none,
     'errorsLiBeforeDisplay': inline-block,
     'errorsLiBeforeContent': '-',
-    'errorsLiBeforeMargin': 0 5px 0 0,
+    'errorsLiBeforeMargin': 0 ef.get('size', 'smallest') 0 0,
 
     // Forms
-    'formWidth': 100%,
-    'formInputMaxWidth': 288px,
-    'formInputMarginBottom': 15px,
-    'formAmountButtonMargin': 0 auto,
-    'formAmountButtonMarginBr': 0,
-    'formAdditionalGridTemplateColumns': repeat(auto-fill, 288px),
-    'formAdditionalColumnGap': 15px,
+    'formInputMaxWidth': (
+        480: 288px,
+    ),
+    'formInputMaxWidthBreakpoint': 480,
+    'formInputOneLineGridColumnStart': (
+        640: 1,
+    ),
+    'formInputOneLineGridColumnEnd': (
+        640: 3,
+        1024: 4,
+        1366: 5,
+    ),
+    'formAdditionalGridTemplateColumns': (
+        720: repeat(2, minmax(max-content, 288px)),
+        1024: repeat(3, 288px),
+        1366: repeat(4, minmax(max-content, 288px)),
+    ),
+    'formGap': ef.get('size', 'smally'),
+    'fieldContaninerGap': ef.get('size', 'small'),
+    'fieldContaninerMaxWidth': (
+        320: 100%,
+        480: 288px,
+    ),
+    'formSubmitJustifySelf': (
+        320: center,
+        720: left,
+    ),
+    'formSubmitMargin': ef.get('size', 'smaller') 0 0,
+    'formJustifyContent': (
+        320: center,
+        720: stretch,
+    ),
 
-    // limits
-    'limitsColor': ef.get('fieldColors', 'labelColor'),
-    'limitsMargin': 6px 0 0 5px,
+    'additionalFieldsTemplateColumns': (
+        320: repeat(1, minmax(288px, 1fr)),
+        720: repeat(2, minmax(288px, 1fr)),
+    ),
+    'additionalFieldsGap': ef.get('size', 'smally'),
 
 ), $customThemeDefault);

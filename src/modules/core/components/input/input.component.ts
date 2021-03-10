@@ -24,6 +24,7 @@ import * as Params from './input.params';
 import {
     union as _union,
     kebabCase as _kebabCase,
+    isObject as _isObject,
 } from 'lodash-es';
 
 /**

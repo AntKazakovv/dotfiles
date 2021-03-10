@@ -23,11 +23,19 @@ export namespace FormElements {
             name: 'amount',
             currency: true,
             prohibitedPattern: /[^0-9.,]/,
+            customMod: ['amount'],
             validators: [
                 'required',
+                'numberDecimal',
                 {
-                    name: 'regExp',
-                    options: new RegExp('[^0-9]$'),
+                    name: 'min',
+                    text: 'The entered amount is less than the minimum',
+                    options: 10,
+                },
+                {
+                    name: 'max',
+                    text: 'The entered amount is more than the maximum',
+                    options: 10000,
                 },
             ],
         },
@@ -39,6 +47,7 @@ export namespace FormElements {
             name: 'paymentRules',
             checkboxType: 'payment-rules',
             validators: ['required'],
+            customMod: ['rules'],
         },
     };
 
@@ -50,6 +59,7 @@ export namespace FormElements {
             common: {
                 text: gettext('Deposit'),
             },
+            customMod: ['submit', 'deposit'],
         },
     };
 
@@ -61,6 +71,7 @@ export namespace FormElements {
             common: {
                 text: gettext('Withdraw'),
             },
+            customMod: ['submit', 'withdraw'],
         },
     };
 

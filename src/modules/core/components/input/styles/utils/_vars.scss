@@ -35,6 +35,8 @@ $themeDefault: map-merge((
     'errorsBorderRadius': ef.get('form', 'errorsBorderRadius'),
     'errorsFontSize': ef.get('form', 'errorsFontSize'),
     'errorsPadding': ef.get('form', 'errorsPadding'),
+
+    'limitsColor': ef.get('fieldColors', 'labelColor'),
 ), $customThemeDefault);
 
 
@@ -57,7 +59,7 @@ $themePlaceholderShown: map-merge((
 
 $customThemeVertical: () !default;
 $themeVertical: map-merge((
-    'labelGap': 0,
+    'labelGap': ef.get('size', 'small'),
 
     'labelMargin': 0 0 0 ef.get('size', 'small'),
     'labelFontSize': ef.get('font', 'small'),

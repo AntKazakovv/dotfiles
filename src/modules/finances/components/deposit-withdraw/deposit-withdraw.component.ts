@@ -12,12 +12,6 @@ import {
 } from '@angular/forms';
 import {CurrencyPipe} from '@angular/common';
 import {StateService} from '@uirouter/core';
-import {BehaviorSubject} from 'rxjs';
-import {
-    filter,
-    pairwise,
-    takeUntil,
-} from 'rxjs/operators';
 
 import {
     AbstractComponent,
@@ -32,6 +26,9 @@ import {
     ICheckboxCParams,
     IFormWrapperCParams,
     IExtProfilePaymentSystems,
+    IValidatorSettings,
+    IPushMessageParams,
+    NotificationEvents,
 } from 'wlc-engine/modules/core';
 import {
     IPaymentAdditionalParam,
@@ -50,11 +47,8 @@ import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
 import {Deferred} from 'wlc-engine/modules/core/system/classes';
 import {CryptoDataComponent} from '../crypto-data/crypto-data.component';
 import {ICryptoMessage} from 'wlc-engine/modules/finances/system/interfaces/finances.interface';
-import {
-    IPushMessageParams,
-    NotificationEvents,
-} from 'wlc-engine/modules/core/system/services/notification';
 import {FinancesHelper} from '../../system/helpers/finances.helper';
+import {IFormComponent} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
 
 import * as Params from './deposit-withdraw.params';
 
@@ -68,6 +62,7 @@ import {
     has as _has,
     isEmpty as _isEmpty,
     isEqual as _isEqual,
+    isObject as _isObject,
     isString as _isString,
     transform as _transform,
 } from 'lodash-es';
@@ -83,7 +78,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
     public showModalCryptoPayment: boolean = true;
     public $params: Params.IDepositWithdrawCParams;
     public cryptoCheck: boolean = false;
-    public disableAmount: BehaviorSubject<boolean> = new BehaviorSubject(false);
+    public disableAmount: boolean = false;
     public currentSystem: PaymentSystem;
     public formType: string = '';
     public depositForm = Params.depositForm;
@@ -99,14 +94,10 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
         wlcElement: 'block_payment-list',
     };
 
-    public baseFields: {[key: string]: Params.FieldType} = {};
-    public baseForm: FormGroup;
-
-    public additionalFields: Params.IAdditionalFields[] = [];
-    protected additionalForm: FormGroup;
+    public formConfig: IFormWrapperCParams;
+    protected formObject: FormGroup;
 
     protected profileForm: IFormWrapperCParams;
-
     protected inProgress: boolean = false;
 
     constructor(
@@ -127,17 +118,6 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
             }, configService);
     }
 
-    public get hideAmountField(): boolean {
-        if (this.requiredFieldsKeys.length) {
-            return true;
-        }
-
-        if (this.$params.mode === 'deposit' && this.disableAmount.value) {
-            return true;
-        }
-
-        return false;
-    }
 
     public get showPayCryptosV2Text(): boolean {
         if (this.currentSystem?.isPayCryptosV2 && !this.cryptoCheck && this.$params.mode === 'deposit') {
@@ -148,8 +128,8 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
 
     public ngOnInit(): void {
         super.ngOnInit();
-        this.initFields();
         this.initSubscribers();
+        this.updateFormConfig();
 
         if (this.$params.mode === 'withdraw') {
             this.title = gettext('Withdrawal');
@@ -157,14 +137,8 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
         }
     }
 
-    public sendForm(): void {
-        if (this.inProgress) {
-            return;
-        }
-
-        const {mode} = this.$params;
-        const notificationTitle = mode === 'deposit' ? gettext('Deposit') : gettext('Withdraw');
-
+    public formBeforeSubmit(): boolean {
+        const notificationTitle = this.$params.mode === 'deposit' ? gettext('Deposit') : gettext('Withdraw');
         if (!this.currentSystem) {
             this.pushNotification({
                 type: 'error',
@@ -172,42 +146,34 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
                 message: gettext('You must select payment method'),
                 wlcElement: 'notification_deposit-method-error',
             });
-            return;
-        }
-
-        if (this.requiredFieldsKeys.length) {
+            return false;
+        } else if (this.requiredFieldsKeys.length) {
             this.pushNotification({
                 type: 'error',
                 title: notificationTitle,
                 message: gettext('You must fill required profile fields'),
                 wlcElement: 'notification_deposit-fields-error',
             });
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public sendForm(form: FormGroup): void {
+        if (this.inProgress) {
             return;
         }
+        this.formObject = form;
 
-        if (this.baseForm.invalid) {
-            this.baseForm.markAllAsTouched();
-            this.pushNotification({
-                type: 'error',
-                title: notificationTitle,
-                message: gettext('Fill required fields'),
-                wlcElement: 'notification_deposit-field-error',
-            });
-            return;
-        }
-
-        if (mode === 'deposit') {
-            this.deposit(this.baseForm);
-        } else if (mode === 'withdraw') {
-            this.withdraw(this.baseForm);
+        if (this.$params.mode === 'deposit') {
+            this.deposit(this.formObject);
+        } else if (this.$params.mode === 'withdraw') {
+            this.withdraw(this.formObject);
         }
     }
 
     public async deposit(form: FormGroup, saveProfile: boolean = false): Promise<void> {
-
-        if (this.additionalForm && !this.checkAdditionFields()) {
-            return;
-        }
 
         this.inProgress = true;
         this.modalService.showModal('dataIsProcessing');
@@ -216,7 +182,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
             const response = await this.financesService.deposit(
                 this.currentSystem.id,
                 this.currentSystem.disableAmount ? this.currentSystem.depositMin : form.value.amount,
-                this.additionalForm?.value || {},
+                this.getAdditionalParams(),
             );
 
             if (saveProfile) {
@@ -265,13 +231,6 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
     }
 
     public async withdraw(form: FormGroup, saveProfile: boolean = false): Promise<void> {
-        if (this.inProgress) {
-            return;
-        }
-
-        if (this.additionalForm && !this.checkAdditionFields()) {
-            return;
-        }
 
         this.modalService.showModal('dataIsProcessing');
         this.inProgress = true;
@@ -280,7 +239,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
             const response = await this.financesService.withdraw(
                 this.currentSystem.id,
                 form.value.amount,
-                this.additionalForm?.value || {},
+                this.getAdditionalParams() || {},
             );
 
             if (saveProfile) {
@@ -401,6 +360,17 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
         });
     }
 
+    protected getAdditionalParams(): IIndexing<string> {
+        return Object.keys(this.additionalParams).reduce((acc: IIndexing<string>, name: string) => {
+            if (this.formObject.value[name]) {
+                acc[name] = this.formObject.value[name];
+            } else {
+                console.error(`${name} field is lost`);
+            }
+            return acc;
+        }, {});
+    }
+
     protected resetPaymentSystem(): void {
         this.eventService.emit({
             name: 'select_system',
@@ -431,21 +401,11 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
 
         for (const key in this.additionalParams) {
             if (!this.currentSystem?.additionalParams[key]?.skipsaving) {
-                additionalParams[key] = this.additionalForm.value[key];
+                additionalParams[key] = this.formObject.value[key];
             }
         }
 
         return additionalParams;
-    }
-
-    protected checkAdditionFields(): boolean {
-        if (this.additionalForm && !this.additionalForm.valid) {
-            _each(this.additionalForm.controls, (control) => {
-                control.markAsTouched();
-            });
-            return false;
-        }
-        return true;
     }
 
     /**
@@ -537,39 +497,6 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
         return input;
     }
 
-    protected initFields(): void {
-        this.baseForm = new FormGroup({});
-
-        this.baseFields['amount'] = _assign({
-            wlcElement: 'block_amount',
-            control: new FormControl('', [
-                Validators.required,
-                this.validationService.getValidator('numberDecimal').validator,
-            ]),
-        }, FormElements.amount.params);
-        this.toggleFormField('amount', true);
-
-        if (this.$params.mode === 'deposit') {
-            this.baseFields['rules'] = _assign({
-                wlcElement: 'block_payment-checkbox',
-                control: new FormControl('', [Validators.requiredTrue]),
-            }, FormElements.rules.params);
-            this.toggleFormField('rules', true);
-        }
-
-        this.baseFields['submit'] = _assign(
-            {},
-            this.$params.mode === 'withdraw' ? FormElements.withdrawButton.params : FormElements.depositButton.params,
-        );
-
-        this.cdr.markForCheck();
-    }
-
-    protected updateFields(): void {
-        this.toggleFormField('amount', !this.disableAmount.getValue());
-        this.cdr.markForCheck();
-    }
-
     protected initSubscribers(): void {
 
         this.eventService.subscribe(
@@ -586,22 +513,6 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
             () => this.onProfileUpdate(),
             this.$destroy,
         );
-
-        this.disableAmount
-            .pipe(
-                pairwise(),
-                filter(([prev, current]) => prev !== current),
-                takeUntil(this.$destroy),
-            )
-            .subscribe(() => {
-                this.onDisableAmountChange();
-            });
-    }
-
-    protected onDisableAmountChange(): void {
-        if (this.$params.mode === 'deposit') {
-            this.updateFields();
-        }
     }
 
     protected onProfileUpdate(): void {
@@ -616,10 +527,9 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
             this.requiredFields = {};
             this.requiredFieldsKeys.length = 0;
             this.cryptoCheck = false;
-            this.disableAmount.next(false);
-            this.baseForm.reset();
-            this.baseForm.removeControl('additionalForm');
-            this.additionalFields.length = 0;
+            this.disableAmount = false;
+            this.additionalParams = {};
+            this.updateFormConfig();
             this.cdr.markForCheck();
             return;
         }
@@ -628,40 +538,97 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
         this.setAdditionalValues();
 
         this.cryptoCheck = this.currentSystem.cryptoCheck && this.$params.mode === 'deposit';
-        this.disableAmount.next(this.currentSystem.disableAmount);
+        this.disableAmount = this.currentSystem.disableAmount;
 
-        this.setAmountValidators();
         this.additionalParams = this.listConfig.paymentType === 'deposit' ?
             system.additionalParamsDeposit : system.additionalParamsWithdraw;
 
-        this.baseForm.removeControl('additionalForm');
-        this.additionalForm = undefined;
-        this.additionalFields.length = 0;
+        this.checkUserProfileForPayment();
 
+        this.updateFormConfig();
+    }
+
+    protected pushNotification(params: IPushMessageParams): void {
+        this.eventService.emit({
+            name: NotificationEvents.PushMessage,
+            data: params,
+        });
+    }
+
+    protected updateFormConfig(): void {
+
+        const {mode} = this.$params;
+        const formComponents: IFormComponent[] = [];
+
+        // amount
+        if (!(mode === 'deposit' && this.disableAmount)) {
+            let amount = FormElements.amount;
+            let showLimits = false;
+
+            if (this.currentSystem) {
+                const {depositMin, depositMax, withdrawMin, withdrawMax} = this.currentSystem;
+
+                _forEach(amount.params.validators, (val: IValidatorSettings | string) => {
+                    if (_isObject(val) && val.name === 'min') {
+                        val.options = mode === 'deposit' ? depositMin : withdrawMin;
+                    } else if (_isObject(val) && val.name === 'max') {
+                        val.options = mode === 'deposit' ? depositMax : withdrawMax;
+                    }
+                });
+
+                showLimits = true;
+            }
+
+            const fieldWrap = {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-field-container',
+                    components: [
+                        amount,
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-amount-limit__wrap',
+                                components: [
+                                    {
+                                        name: 'core.wlc-amount-limit',
+                                        params: {
+                                            minValue: amount.params.validators.find((val) => val['name'] && val['name'] === 'min')['options'],
+                                            maxValue: amount.params.validators.find((val) => val['name'] && val['name'] === 'max')['options'],
+                                            showLimits,
+                                        },
+                                    },
+                                ],
+                            },
+                        },
+                    ],
+                },
+            };
+
+            formComponents.push(fieldWrap);
+        }
+
+        // additional
         if (!_isEmpty(this.additionalParams)) {
-            const formControls: IIndexing<FormControl> = {};
-            this.additionalFields = Object.keys(this.additionalParams).map((key) => {
+            const additionalFields = Object.keys(this.additionalParams).map((key) => {
                 const field = this.additionalParams[key];
-                formControls[key] = new FormControl('', [
-                    this.validationService.getValidator('required').validator,
-                ]);
-
                 if (field.type === 'input') {
                     return {
-                        type: 'input',
+                        name: 'core.wlc-input',
                         params: <IInputCParams>{
                             name: key,
                             theme: 'vertical',
                             common: {
                                 placeholder: field.name,
                             },
-                            control: formControls[key],
+                            control: new FormControl(''),
                             validators: ['required'],
+                            customMod: ['additional'],
                         },
                     };
                 } else if (field.type === 'select') {
                     return {
-                        type: 'select',
+                        name: 'core.wlc-select',
                         params: <ISelectCParams>{
                             labelText: field.name,
                             name: key,
@@ -675,65 +642,40 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
                                     title: field.params[item],
                                 };
                             }),
-                            control: formControls[key],
+                            control: new FormControl(''),
                             validators: ['required'],
+                            customMod: ['additional'],
                         },
                     };
                 }
             });
 
-            this.additionalForm = new FormGroup(formControls);
-            this.baseForm.addControl('additionalForm', this.additionalForm);
+            const additionalFieldsWrap = {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-additional-fields',
+                    components: [...additionalFields],
+                },
+            };
+
+            formComponents.push(additionalFieldsWrap);
         }
 
-        this.checkUserProfileForPayment();
-    }
-
-    protected setAmountValidators(): void {
-        const {mode} = this.$params;
-        const {depositMin, depositMax, withdrawMin, withdrawMax} = this.currentSystem;
-        const amount = (this.baseFields.amount['control'] as FormControl);
-
-        amount.clearValidators();
-        amount.setValidators([
-            Validators.required,
-            this.validationService.getValidator('numberDecimal').validator,
-            Validators.min(mode === 'deposit' ? depositMin : withdrawMin),
-            Validators.max(mode === 'deposit' ? depositMax : withdrawMax),
-        ]);
-
-    }
-
-    protected toggleFormField(name: string, show: boolean): void {
-        switch (name) {
-            case 'amount':
-                if (show) {
-                    this.baseForm.addControl(
-                        (this.baseFields.amount as IInputCParams).name,
-                        (this.baseFields.amount as IInputCParams).control,
-                    );
-                } else {
-                    this.baseForm.removeControl('amount');
-                }
-                break;
-
-            case 'rules':
-                if (show) {
-                    this.baseForm.addControl(
-                        (this.baseFields.rules as ICheckboxCParams).name,
-                        (this.baseFields.rules as ICheckboxCParams).control,
-                    );
-                } else {
-                    this.baseForm.removeControl('rules');
-                }
-                break;
+        // rules
+        if (mode === 'deposit') {
+            formComponents.push(FormElements.rules);
         }
+
+        // button
+        const button = mode === 'deposit' ? FormElements.depositButton : FormElements.withdrawButton;
+        formComponents.push(button);
+
+        this.formConfig = {
+            class: `${mode}-form`,
+            components: formComponents,
+        };
+
+        this.cdr.markForCheck();
     }
 
-    protected pushNotification(params: IPushMessageParams): void {
-        this.eventService.emit({
-            name: NotificationEvents.PushMessage,
-            data: params,
-        });
-    }
 }
