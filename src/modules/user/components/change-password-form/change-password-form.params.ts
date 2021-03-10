@@ -28,9 +28,7 @@ export const defaultParams: IChangePasswordFormCParams = {
             {
                 name: 'core.wlc-text-block',
                 params: {
-                    common: {
-                        textBlockTitle: gettext('Change password'),
-                    },
+                    textBlockTitle: gettext('Change password'),
                 },
             },
             {

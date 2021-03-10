@@ -17,6 +17,7 @@ import {
     ConfigService,
     ModalService,
     EventService,
+    GlobalHelper,
 } from 'wlc-engine/modules/core';
 import {
     Bonus,
@@ -82,7 +83,8 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
     }
 
     public ngOnInit(): void {
-        super.ngOnInit(this.prepareParams());
+        super.ngOnInit(GlobalHelper.prepareParams(this,
+            ['bonus', 'type', 'theme', 'themeMod', 'customMod', 'view', 'chosen']));
 
         if (this.$params.bonus) {
             this.$params.common.bonus = this.$params.bonus;
@@ -236,25 +238,6 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
                 );
                 break;
         }
-    }
-
-    protected prepareParams(): Params.IBonusItemCParams {
-        if (this.inlineParams) {
-            return this.inlineParams;
-        }
-
-        const inputProperties: string[] = ['bonus', 'type', 'theme', 'themeMod', 'customMod', 'view', 'chosen'];
-        const inlineParams: Params.IBonusItemCParams = {
-            common: {},
-        };
-
-        _forEach(inputProperties, key => {
-            if (!_isUndefined(_get(this, key))) {
-                inlineParams.common[key] = _get(this, key);
-            }
-        });
-
-        return _keys(inlineParams.common).length ? inlineParams : null;
     }
 
     protected prepareModifiers(): void {

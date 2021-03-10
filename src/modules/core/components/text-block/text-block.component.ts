@@ -6,12 +6,7 @@ import {
 } from '@angular/core';
 
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ConfigService} from 'wlc-engine/modules/core';
-import {
-    Bonus,
-    ChosenBonusSetParams,
-    ChosenBonusType,
-} from 'wlc-engine/modules/bonuses';
+import {ConfigService, GlobalHelper} from 'wlc-engine/modules/core';
 
 import * as Params from './text-block.params';
 
@@ -55,7 +50,8 @@ export class TextBlockComponent extends AbstractComponent implements OnInit {
     }
 
     public ngOnInit(): void {
-        super.ngOnInit(this.prepareParams());
+        super.ngOnInit(GlobalHelper.prepareParams(this,
+            ['textBlockTitle', 'textBlockSubtitle', 'textBlockText', 'dynamicText']));
     }
 
     public checkType(text: string | string[]): boolean {
@@ -63,29 +59,8 @@ export class TextBlockComponent extends AbstractComponent implements OnInit {
     };
 
     public getDynamicText(): string {
-        const chosenBonus: Bonus | any = this.configService.get<ChosenBonusType>(ChosenBonusSetParams.ChosenBonus);
-        let bonusName = gettext('Without Bonus');
+        const text = this.configService.get<string>(this.$params.dynamicText.param);
 
-        if  (chosenBonus?.name) {
-            bonusName = chosenBonus.name;
-        }
-
-        return bonusName;
+        return text || this.$params.dynamicText.textDefault;
     }
-
-    protected prepareParams(): Params.ITextBlockCParams {
-        const inputProperties: string[] = ['textBlockTitle', 'textBlockSubtitle', 'textBlockText', 'textBlockDynamicText'];
-        const inlineParams: Params.ITextBlockCParams = {
-            common: {},
-        };
-
-        _each(inputProperties, key => {
-            if (!_isUndefined(_get(this, key))) {
-                inlineParams.common[key] = _get(this, key);
-            }
-        });
-
-        return _keys(inlineParams.common).length ? inlineParams : null;
-    }
-
 }

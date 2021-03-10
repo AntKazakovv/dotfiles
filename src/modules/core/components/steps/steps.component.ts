@@ -48,19 +48,22 @@ export class StepsComponent extends AbstractComponent implements OnInit {
         this.stepList = this.prepareSteps();
 
         this.currentStep = this.getStepParamByName(this.$params.startStepName);
+        this.setSubscription();
+    }
 
+    protected setSubscription(): void {
         this.eventService.subscribe({name: Params.StepsEvents.Next}, () => {
             this.nextStep();
-        });
+        }, this.$destroy);
 
         this.eventService.subscribe({name: Params.StepsEvents.Prev}, () => {
             this.previousStep();
-        });
+        }, this.$destroy);
     }
 
     protected currentStepIndex(): number {
-        const indx = _findIndex(this.stepList, (step) => step.name === this.currentStep.name);
-        return indx >= 0 ? indx : 0;
+        const index = _findIndex(this.stepList, (step) => step.name === this.currentStep.name);
+        return index >= 0 ? index : 0;
     }
 
     protected nextStep(): void {

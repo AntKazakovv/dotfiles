@@ -30,13 +30,11 @@ export const restorePasswordFormConfig: IFormWrapperCParams = {
         {
             name: 'core.wlc-text-block',
             params: {
-                common: {
-                    textBlockSubtitle: [
-                        gettext('Please enter e-mail that was used to create an account at'),
-                        $base.site.url || $base.site.name + '. ',
-                        gettext('A password reset link will be sent to your e-mail address shortly.'),
-                    ],
-                },
+                textBlockSubtitle: [
+                    gettext('Please enter e-mail that was used to create an account at'),
+                    $base.site.url || $base.site.name + '. ',
+                    gettext('A password reset link will be sent to your e-mail address shortly.'),
+                ],
             },
         },
         {

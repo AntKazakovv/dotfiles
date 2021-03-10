@@ -69,9 +69,7 @@ export const playGameForRealConfig = (params: IPlayForRealParams): IFormWrapperC
             {
                 name: 'core.wlc-text-block',
                 params: <ITextBlockCParams>{
-                    common: {
-                        textBlockSubtitle: gettext('or'),
-                    },
+                    textBlockSubtitle: gettext('or'),
                 },
             },
             ...demoBtn,
@@ -82,10 +80,8 @@ export const playGameForRealConfig = (params: IPlayForRealParams): IFormWrapperC
         {
             name: 'core.wlc-text-block',
             params: <ITextBlockCParams>{
-                common: {
-                    textBlockTitle: params.game.name['en'],
-                    textBlockSubtitle: gettext('Sign in to play for real'),
-                },
+                textBlockTitle: params.game.name['en'],
+                textBlockSubtitle: gettext('Sign in to play for real'),
             },
         },
         {
@@ -173,9 +169,7 @@ export const playGameForRealConfig = (params: IPlayForRealParams): IFormWrapperC
             name: 'core.wlc-text-block',
             params: <ITextBlockCParams>{
                 themeMod: 'game-title',
-                common: {
-                    textBlockSubtitle: params.game.name['en'],
-                },
+                textBlockSubtitle: params.game.name['en'],
             },
         },
         {
