@@ -130,20 +130,19 @@ export type IGames = {
 }
 
 export type IMapping = {
-    merchantIdToNameMapping: IIndexing<string>;
-    merchantIdToAliasMapping: IIndexing<string>;
-    merchantNameToObjectMapping: IIndexing<MerchantModel>,
-    merchantNameToIdMapping: IIndexing<number>;
-    merchantNameToTitleMapping: IIndexing<string>;
-    byMerchant: IByMerchant;
-
-    categoryById: IIndexing<CategoryModel>;
-    categoryByName: IIndexing<CategoryModel>
-    categoryIdToNameMapping: IIndexing<string>;
-    categoryNameToIdMapping: IIndexing<number>;
-    categoryIdToTitleMapping: { [key: string]: IIndexing<string>; };
-    categoryNameToTitleMapping: { [key: string]: IIndexing<string>; };
-    byCategory: IByCategory;
+    merchantIdToNameMapping?: IIndexing<string>;
+    merchantIdToAliasMapping?: IIndexing<string>;
+    merchantNameToObjectMapping?: IIndexing<MerchantModel>,
+    merchantNameToIdMapping?: IIndexing<number>;
+    merchantNameToTitleMapping?: IIndexing<string>;
+    byMerchant?: IByMerchant;
+    categoryById?: IIndexing<CategoryModel>;
+    categoryByName?: IIndexing<CategoryModel>
+    categoryIdToNameMapping?: IIndexing<string>;
+    categoryNameToIdMapping?: IIndexing<number>;
+    categoryIdToTitleMapping?: { [key: string]: IIndexing<string>; };
+    categoryNameToTitleMapping?: { [key: string]: IIndexing<string>; };
+    byCategory?: IByCategory;
 }
 
 export type IRestrictions = {

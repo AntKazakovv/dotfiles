@@ -10,13 +10,19 @@ export interface IGamesGridCParamsPartial extends IGamesGridCParams {
 };
 
 export interface ISearchCParams extends IComponentParams<string, string, string> {
-    gamesGridParams?: IGamesGridCParamsPartial;
+    common?: {
+        gamesGridParams?: IGamesGridCParamsPartial;
+        openProvidersList?: boolean,
+    }
 };
 
 export type PanelType = 'merchants' | 'categories';
 
 export const defaultParams: ISearchCParams = {
     class: 'wlc-search',
+    common: {
+        openProvidersList: false,
+    },
 };
 
 export const defaultGamesGridParams: IGamesGridCParams = {
@@ -24,7 +30,7 @@ export const defaultGamesGridParams: IGamesGridCParams = {
     searchFilterName: 'modal',
     gamesRows: 3,
     usePlaceholders: false,
-    filter: undefined,
+    byState: true,
     moreBtn: {
         hide: false,
         lazy: false,

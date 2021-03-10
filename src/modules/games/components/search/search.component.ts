@@ -22,9 +22,6 @@ import {
 } from './search.params';
 import {ConfigService} from 'wlc-engine/modules/core/system/services';
 import {GamesCatalogService} from 'wlc-engine/modules/games/system/services';
-import {
-    IMerchant,
-} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {ILanguage} from 'wlc-engine/modules/core';
 import {TranslateService} from '@ngx-translate/core';
@@ -42,6 +39,8 @@ import {
     find as _find,
     assignIn as _assignIn,
     includes as _includes,
+    forEach as _forEach,
+    uniqBy as _uniqBy,
 } from 'lodash-es';
 
 @Component({
@@ -79,6 +78,11 @@ export class SearchComponent extends AbstractComponent implements OnInit, OnDest
     public gamesGridParams: IGamesGridCParams;
     public searchQuery: string;
 
+    protected parentCategory: CategoryModel;
+    protected childCategory: CategoryModel;
+    protected selectedCategories: CategoryModel[] = [];
+    protected selectedMerchants: MerchantModel[] = [];
+
     constructor(
         @Inject('injectParams') protected injectParams: ISearchCParams,
         protected configService: ConfigService,
@@ -107,15 +111,18 @@ export class SearchComponent extends AbstractComponent implements OnInit, OnDest
             {
                 showTitle: false,
             },
-            this.$params.gamesGridParams,
+            this.$params.common?.gamesGridParams,
         );
+        if (this.$params.common?.openProvidersList) {
+            this.togglePanel('merchants');
+        }
+        this.parentCategory = this.gamesCatalogService.getParentCategoryByState();
+        this.childCategory = this.gamesCatalogService.getChildCategoryByState();
 
         this.getCategories();
         this.getMerchants();
-
         this.initSearchListener();
         this.setFilter();
-
         this.initActiveFilters();
     }
 
@@ -130,6 +137,8 @@ export class SearchComponent extends AbstractComponent implements OnInit, OnDest
     public chooseCategory(category?: CategoryModel): void {
         if (!category) {
             this.filters.categories = [];
+            this.selectedCategories = [];
+            this.getMerchants();
             this.setFilter();
             return;
         }
@@ -143,12 +152,28 @@ export class SearchComponent extends AbstractComponent implements OnInit, OnDest
         } else {
             this.filters.categories.push(catId);
         }
+
+        if (this.filters.categories.length) {
+            this.selectedCategories = _filter(this.categories, (category: CategoryModel) => {
+                return _includes(this.filters.categories, category.menuId);
+            });
+
+            let merchnatsList: MerchantModel[] = [];
+            _forEach(this.selectedCategories, (category) => {
+                merchnatsList = merchnatsList.concat(category.merchants);
+            });
+            this.merchants = _uniqBy(merchnatsList, 'id');
+        } else {
+            this.getMerchants();
+        }
         this.setFilter();
     }
 
     public chooseMerchant(merchant?: MerchantModel): void {
         if (!merchant) {
             this.filters.merchants = [];
+            this.selectedMerchants = [];
+            this.getCategories();
             this.setFilter();
             return;
         }
@@ -162,6 +187,18 @@ export class SearchComponent extends AbstractComponent implements OnInit, OnDest
         } else {
             this.filters.merchants.push(merchId);
         }
+
+        if (this.filters.merchants.length) {
+            this.selectedMerchants = _filter(this.merchants, (merchant: MerchantModel) => {
+                return _includes(this.filters.merchants, merchant.id);
+            });
+            const categoriesList: CategoryModel[] = _filter(this.gamesCatalogService.getCategoriesForFilter(), (category) => {
+                return category.hasSomeMerchant(this.selectedMerchants);
+            });
+            this.categories = categoriesList;
+        } else {
+            this.getCategories();
+        }
         this.setFilter();
     }
 
@@ -174,7 +211,7 @@ export class SearchComponent extends AbstractComponent implements OnInit, OnDest
     }
 
     protected initActiveFilters(): void {
-        const activeCategory = this.gamesCatalogService.getParentCategoryByState();
+        const activeCategory = this.childCategory || this.parentCategory;
         if (activeCategory) {
             this.chooseCategory(activeCategory);
         }
@@ -195,7 +232,12 @@ export class SearchComponent extends AbstractComponent implements OnInit, OnDest
     }
 
     protected getMerchants(): void {
-        this.merchants = this.gamesCatalogService.getAvailableMerchants();
+        const category = this.childCategory || this.parentCategory;
+        if (category && this.selectedCategories.length) {
+            this.merchants = category.merchants;
+        } else {
+            this.merchants = this.gamesCatalogService.getAvailableMerchants();
+        }
     }
 
     protected setFilter(): void {

@@ -45,6 +45,19 @@ export const MODALS_LIST: IModalList = {
             showFooter: false,
         },
     },
+    searchWithOpenedProviders: {
+        config: {
+            id: 'search',
+            modifier: 'search',
+            component: SearchComponent,
+            componentParams: {
+                common: {
+                    openProvidersList: true,
+                },
+            },
+            showFooter: false,
+        },
+    },
     login: {
         config: {
             id: 'login',

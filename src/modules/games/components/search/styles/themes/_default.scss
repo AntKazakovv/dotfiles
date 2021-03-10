@@ -76,7 +76,6 @@
 
             .title {
                 display: block;
-                width: ef.get-value($themeDefault, 'searchTitleWidth');
                 text-overflow: ellipsis;
                 overflow: hidden;
                 white-space: nowrap;
@@ -85,10 +84,9 @@
                 &-wrap {
                     display: flex;
                     align-items: center;
-
-                    & .title {
-                        width: ef.get-value($themeDefault, 'searchTitleWidth') - 20px;
-                    }
+                    justify-content: center;
+                    flex: 1 1 0%;
+                    min-width: 0;
                 }
             }
         }
@@ -164,6 +162,7 @@
                 margin-left: ef.get-value($themeDefault, 'btnCounterMarginLeft');
                 background: ef.get-value($themeDefault, 'btnCounterBackground');
                 width: ef.get-value($themeDefault, 'btnCounterSize');
+                min-width: ef.get-value($themeDefault, 'btnCounterSize');
                 height: ef.get-value($themeDefault, 'btnCounterSize');
                 font-size: ef.get-value($themeDefault, 'btnCounterFontSize');
                 border-radius: ef.get-value($themeDefault, 'btnCounterBorderRadius');
@@ -211,7 +210,7 @@
                 @include bm.get-mq-map('border-radius', $themeDefault, 'listBtnRadius');
                 @include bm.get-mq-map('border', $themeDefault, 'listBtnBorder');
                 @include bm.get-mq-map('height', $themeDefault, 'listBtnHeight');
-                transition: border-color ef.get-value($themeDefault, 'listBtnTransition') linear;
+                transition: border-color, color ef.get-value($themeDefault, 'listBtnTransition') linear;
 
                 @include mq.min(560) {
                     border-bottom: ef.get-value($themeDefault, 'listBtnBorderBottom');
@@ -225,18 +224,15 @@
                 &:hover {
                     @include bm.get-mq-map('color', $themeDefault, 'listBtnColorActive');
                     @include bm.get-mq-map('background', $themeDefault, 'listBtnBackgroundHover');
+                    @include bm.get-mq-map('border', $themeDefault, 'listBtnBorderActive');
 
-                    .wlc-search__list-icon {
-                        @include bm.get-mq-map('color', $themeDefault, 'listBtnColorActive');
+                    @include mq.min(560) {
+                        border-bottom: ef.get-value($themeDefault, 'listBtnBorderBottomActive');
                     }
                 }
 
                 &.active {
                     @include text.get-text-style(ef.get-value($themeDefault, 'searchBtnItemsFontActive'));
-                    @include bm.get-mq-map('border', $themeDefault, 'listBtnBorderActive');
-                    @include mq.min(560) {
-                        border-bottom: ef.get-value($themeDefault, 'listBtnBorderBottom');
-                    }
 
                     .wlc-search__list-icon {
                         border: ef.get-value($themeDefault, 'listBtnIconActive');

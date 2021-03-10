@@ -65,6 +65,11 @@
         height: 100%;
     }
 
+    .fade {
+        outline: none;
+        outline-offset: 0;
+    }
+
     &__item {
 
         &:focus {

@@ -25,6 +25,7 @@ module.exports = function config(root, bundleType) {
             localLanguagesDist: root + '/src/static',
             indexFile: `${root}/roots/template/angular.html`,
             srcIndexFile: `${root}/src/index.html`,
+            polyfillsFile: `${root}/src/polyfills.ts`,
         },
         tmpFileOptions: {
             tmpdir: root + '/temp',

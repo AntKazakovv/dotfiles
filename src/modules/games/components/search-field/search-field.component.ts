@@ -7,6 +7,9 @@ import {
     ChangeDetectionStrategy,
     Output,
     EventEmitter,
+    AfterViewInit,
+    ElementRef,
+    ViewChild,
 } from '@angular/core';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {
@@ -26,13 +29,17 @@ import {
     styleUrls: ['./styles/search-field.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SearchFieldComponent extends AbstractComponent implements OnInit {
+export class SearchFieldComponent extends AbstractComponent implements OnInit, AfterViewInit {
+
+    @ViewChild('searchField') searchField: ElementRef;
+
+    @Input() protected inlineParams: ISearchFieldCParams;
+
+    @Output() public searchQueryEmit = new EventEmitter();
 
     public searchQuery: string;
     public $params: ISearchFieldCParams;
 
-    @Output() public searchQueryEmit = new EventEmitter();
-    @Input() protected inlineParams: ISearchFieldCParams;
     protected disabledSymbols: RegExp = /[;\\~$%^*\[\]{}+=|?№<>!@]/gi;
 
     constructor(
@@ -50,6 +57,14 @@ export class SearchFieldComponent extends AbstractComponent implements OnInit {
 
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
+    }
+
+    public ngAfterViewInit(): void {
+        if (this.$params.focus) {
+            setTimeout(() => {
+                this.searchField.nativeElement.focus();
+            }, 1000);
+        }
     }
 
     public changeSearch(): void {

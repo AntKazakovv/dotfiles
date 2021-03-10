@@ -57,7 +57,6 @@ export class GamesCatalog extends AbstractModel<IGames> {
     protected merchants: MerchantModel[];
     protected restrictions: IRestrictions;
     protected availableCategories: CategoryModel[];
-    protected availableMerchants: MerchantModel[];
     protected supportedCategories: ISupportedItem[];
     protected supportedMerchants: ISupportedItem[];
 
@@ -267,7 +266,7 @@ export class GamesCatalog extends AbstractModel<IGames> {
      * @returns {MerchantModel[]}
      */
     public getAvailableMerchants(): MerchantModel[] {
-        return this.availableMerchants;
+        return GamesHelper.availableMerchants;
     }
 
     /**
@@ -550,11 +549,12 @@ export class GamesCatalog extends AbstractModel<IGames> {
         this.merchants = [];
         this.categories = [];
         this.availableCategories = [];
-        this.availableMerchants = [];
 
         if (!_get(response, 'games.length')) {
             return;
         }
+
+        GamesHelper.reset();
 
         /***********************************************************************************************************
          * MERCHANTS
@@ -613,7 +613,7 @@ export class GamesCatalog extends AbstractModel<IGames> {
             }
             game.isFavourite = _includes(this.gamesCatalogService.favourites, game.ID);
             game.setSortedCategoryFields();
-            GamesHelper.fillGamesByCategoriesMerchants(game, this.availableCategories, this.availableMerchants);
+            GamesHelper.fillGamesByCategoriesMerchants(game, this.availableCategories);
             resultGames.push(game);
         }
 

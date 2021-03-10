@@ -13,7 +13,7 @@ export namespace wlcButton {
                 text: 'All providers',
                 event: {
                     name: 'SHOW_MODAL',
-                    data: 'search',
+                    data: 'searchWithOpenedProviders',
                 },
             },
         },

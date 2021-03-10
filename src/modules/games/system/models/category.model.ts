@@ -2,11 +2,15 @@ import {ICategory} from 'wlc-engine/modules/games/system/interfaces/games.interf
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
 import {Game} from 'wlc-engine/modules/games/system/models/game.model';
+import {MerchantModel} from 'wlc-engine/modules/games/system/models/merchant.model';
+import {GamesHelper} from 'wlc-engine/modules/games/system/helpers/games.helpers';
 
 import {
     toNumber as _toNumber,
     includes as _includes,
     has as _has,
+    forEach as _forEach,
+    find as _find,
 } from 'lodash-es';
 
 export class CategoryModel extends AbstractModel<ICategory> {
@@ -17,6 +21,8 @@ export class CategoryModel extends AbstractModel<ICategory> {
     private specialCategories = ['casino', 'lastplayed', 'favourites', 'last-played'];
     private usedMenu: string;
     private tagsData: IIndexing<string> = {};
+    private merchantsList: MerchantModel[];
+    private updateMerchants: boolean = false;
     private defaultSort: number = 0;
 
     constructor(
@@ -102,12 +108,19 @@ export class CategoryModel extends AbstractModel<ICategory> {
         return this.gamesList;
     }
 
+    public get merchants(): MerchantModel[] {
+        this.checkMerchants();
+        return this.merchantsList;
+    }
+
     public setGames(games: Game[]): void {
         this.gamesList = games || [];
+        this.updateMerchants = true;
     }
 
     public addGame(game: Game): void {
         this.gamesList.push(game);
+        this.updateMerchants = true;
     }
 
     public setParentCategory(category: CategoryModel): void {
@@ -122,6 +135,25 @@ export class CategoryModel extends AbstractModel<ICategory> {
         this.usedMenu = menu;
     }
 
+    public hasSomeMerchant(merchants: MerchantModel[]): boolean {
+        this.checkMerchants();
+        for (const merchant of merchants) {
+            const findedMerchant = _find(this.merchantsList, (item: MerchantModel) => {
+                return item.id === merchant.id;
+            });
+            if (findedMerchant) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    protected checkMerchants(): void {
+        if (!this.merchantsList || this.updateMerchants) {
+            this.setAvailableMerchants();
+        }
+    }
+
     public setDefaultSort(sort: number): void {
         this.defaultSort = sort;
     }
@@ -134,5 +166,20 @@ export class CategoryModel extends AbstractModel<ICategory> {
             this.usedMenu = this.tagsData.menu || '';
         } catch (err) {
         }
+    }
+
+    protected setAvailableMerchants(): void {
+        this.merchantsList = [];
+
+        let merchantIds: IIndexing<boolean> = {};
+        _forEach(this.gamesList, (game) => {
+            merchantIds[game.merchantID] = true;
+        });
+
+        _forEach(GamesHelper.availableMerchants, (merchant: MerchantModel) => {
+            if (merchantIds[merchant.id]) {
+                this.merchantsList.push(merchant);
+            }
+        });
     }
 }
