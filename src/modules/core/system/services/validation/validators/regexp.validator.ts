@@ -8,6 +8,6 @@ export function regexp(regexp: string) {
 
 export function regexpEmoji() {
     return (control: FormControl) => {
-        return (control.value).match(new RegExp(/\p{Emoji_Presentation}/gu)) ? {'regexpEmoji': true} : null;
+        return (control.value)?.match(new RegExp(/\p{Emoji_Presentation}/gu)) ? {'regexpEmoji': true} : null;
     };
 }

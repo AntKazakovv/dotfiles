@@ -38,8 +38,9 @@ import {
     ISelectCParams,
     IButtonCParams,
     IIndexing,
+    IPushMessageParams,
+    NotificationEvents,
 } from 'wlc-engine/modules/core';
-import {IPushMessageParams, NotificationEvents} from 'wlc-engine/modules/core/system/services/notification';
 
 import {
     assign as _assign,
@@ -254,6 +255,11 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
                 name: 'regexpEmoji',
                 text: 'Such constructions are prohibited',
             };
+
+            if (!component.params.validators) {
+                component.params.validators = [];
+            }
+
             switch (component.name) {
                 case 'core.wlc-input':
                     component.params.validators.push(tagReg, maxLength, emojiReg);
