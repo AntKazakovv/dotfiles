@@ -50,7 +50,7 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
                 scrollToStart: true,
             },
             icons: {
-                fallback: 'wlc/icons/asian/v1/plug.svg',
+                fallback: '',
             },
         },
     };
@@ -97,6 +97,7 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
             : this.configService.get<boolean>('$menu.categoryMenu.icons.use');
 
         this.iconsFolder = this.$params.common?.icons?.folder || this.configService.get<string>('$menu.categoryMenu.icons.folder');
+        this.menuParams.common.icons.fallback = this.iconPath('plug.svg');
 
         this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
 
