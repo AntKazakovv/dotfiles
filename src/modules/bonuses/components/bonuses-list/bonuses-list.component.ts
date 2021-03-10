@@ -148,6 +148,36 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
             until: this.$destroy,
         });
 
+        this.setSubscription();
+    }
+
+    public ngOnDestroy(): void {
+        super.ngOnDestroy();
+        this.unchooseBonuses();
+    }
+
+    public chooseBlankBonus(): void {
+        this.unchooseBonuses();
+        setTimeout(() => {
+            const isChosenBonus = _find(this.bonuses, ({isChoose}) => isChoose);
+
+            _each(this.bonuses, bonus => {
+                if (!isChosenBonus && bonus.type === 'blank') {
+                    bonus.isChoose = true;
+                    this.cdr.markForCheck();
+                }
+            });
+        }, 0);
+
+        this.configService.set<ChosenBonusType>({
+            name: ChosenBonusSetParams.ChosenBonus,
+            value: {id: null},
+        });
+
+        this.eventService.emit({name: BonusItemComponentEvents.blank});
+    }
+
+    protected setSubscription(): void {
         this.eventService.subscribe([
             {name: BonusItemComponentEvents.reg},
             {name: BonusItemComponentEvents.deposit},
@@ -221,30 +251,6 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
                 }
             }, this.$destroy);
         }
-    }
-
-    public ngOnDestroy(): void {
-        super.ngOnDestroy();
-        this.unchooseBonuses();
-    }
-
-    public chooseBlankBonus(): void {
-        this.unchooseBonuses();
-        setTimeout(() => {
-            const isChoosenBonus = _find(this.bonuses, ({isChoose}) => isChoose);
-
-            _each(this.bonuses, bonus => {
-                if (!isChoosenBonus && bonus.type === 'blank') {
-                    bonus.isChoose = true;
-                    this.cdr.markForCheck();
-                }
-            });
-        }, 0);
-        this.configService.set<ChosenBonusType>({
-            name: ChosenBonusSetParams.ChosenBonus,
-            value: {id: null},
-        });
-        this.eventService.emit({name: BonusItemComponentEvents.blank});
     }
 
     protected get selectFirstBonus(): boolean {

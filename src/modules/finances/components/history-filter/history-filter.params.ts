@@ -35,9 +35,7 @@ export namespace formConfig {
             {
                 name: 'core.wlc-text-block',
                 params: <ITextBlockCParams>{
-                    common: {
-                        textBlockTitle: gettext('Filter'),
-                    },
+                    textBlockTitle: gettext('Filter'),
                 },
             },
             {
@@ -98,9 +96,7 @@ export namespace formConfig {
             {
                 name: 'core.wlc-text-block',
                 params: <ITextBlockCParams>{
-                    common: {
-                        textBlockTitle: gettext('Filter'),
-                    },
+                    textBlockTitle: gettext('Filter'),
                 },
             },
             {
@@ -170,9 +166,7 @@ export namespace formConfig {
             {
                 name: 'core.wlc-text-block',
                 params: <ITextBlockCParams>{
-                    common: {
-                        textBlockTitle: gettext('Filter'),
-                    },
+                    textBlockTitle: gettext('Filter'),
                 },
             },
             {

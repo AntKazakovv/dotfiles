@@ -36,10 +36,8 @@ export const signInFormConfig: IFormWrapperCParams = {
         {
             name: 'core.wlc-text-block',
             params: <ITextBlockCParams>{
-                common: {
-                    textBlockTitle: gettext('Sign in'),
-                    textBlockSubtitle: gettext('Welcome back!'),
-                },
+                textBlockTitle: gettext('Sign in'),
+                textBlockSubtitle: gettext('Welcome back!'),
             },
         },
         {

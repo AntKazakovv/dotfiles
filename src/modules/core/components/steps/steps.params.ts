@@ -8,6 +8,7 @@ import {
 } from 'wlc-engine/modules/core';
 import {Type} from 'wlc-engine/modules/bonuses/components/bonus-item/bonus-item.params';
 import {Subject} from 'rxjs';
+import {ChosenBonusSetParams} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses.interface';
 
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;
@@ -37,7 +38,7 @@ export interface IStepsParams extends IComponentParams<Theme, Type, ThemeMod> {
     startStepName: string,
 }
 
-export const defaultParams : IStepsParams = {
+export const defaultParams: IStepsParams = {
     moduleName: 'core',
     componentName: 'wlc-steps',
     class: 'wlc-steps',
@@ -56,10 +57,8 @@ export const defaultParams : IStepsParams = {
                             {
                                 name: 'core.wlc-text-block',
                                 params: {
-                                    common: {
-                                        textBlockTitle: gettext('Register 1/2'),
-                                        textBlockSubtitle: gettext('Choose your Welcome Bonus'),
-                                    },
+                                    textBlockTitle: gettext('Register 1/2'),
+                                    textBlockSubtitle: gettext('Choose your Welcome Bonus'),
                                 },
                             },
                             {
@@ -138,8 +137,7 @@ export const defaultParams : IStepsParams = {
                             {
                                 params: {
                                     theme: 'preview',
-                                    common: {
-                                    },
+                                    common: {},
                                 },
                                 name: 'bonuses.wlc-bonus-item',
                                 display: {
@@ -181,17 +179,17 @@ export const defaultParams : IStepsParams = {
                                         {
                                             name: 'core.wlc-text-block',
                                             params: {
-                                                common: {
-                                                    textBlockTitle: gettext('Register 2/2'),
-                                                    textBlockSubtitle: gettext('Your adventure begins'),
-                                                },
+                                                textBlockTitle: gettext('Register 2/2'),
+                                                textBlockSubtitle: gettext('Your adventure begins'),
                                             },
                                         },
                                         {
                                             name: 'core.wlc-text-block',
                                             params: {
-                                                common: {
-                                                    textBlockDynamicText: gettext('The chosen bonus:'),
+                                                dynamicText: {
+                                                    text: gettext('The chosen bonus:'),
+                                                    textDefault: gettext('Without Bonus'),
+                                                    param: ChosenBonusSetParams.ChosenBonus + '.name',
                                                 },
                                             },
                                         },
@@ -213,8 +211,7 @@ export const defaultParams : IStepsParams = {
                                 name: 'bonuses.wlc-bonus-item',
                                 params: {
                                     theme: 'preview',
-                                    common: {
-                                    },
+                                    common: {},
                                 },
                                 display: {
                                     after: 899,
