@@ -85,6 +85,7 @@ $themeDefault: map-merge((
     ),
     'formGap': ef.get('size', 'smally'),
     'fieldContaninerGap': ef.get('size', 'small'),
+    'fieldGap': ef.get('size', 'small'),
     'fieldContaninerMaxWidth': (
         320: 100%,
         480: 288px,

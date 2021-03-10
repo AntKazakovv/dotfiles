@@ -126,6 +126,11 @@
                     @include em.get-mq-map('max-width', $themeDefault, 'fieldContaninerMaxWidth');
                 }
 
+                .wlc-input--theme-vertical,
+                .wlc-select--theme-vertical {
+                    gap: ef.get-value($themeDefault, 'fieldGap');
+                }
+
                 .wlc-input,
                 .wlc-select,
                 .wlc-checkbox {
