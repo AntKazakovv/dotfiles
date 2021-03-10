@@ -70,6 +70,11 @@
         outline-offset: 0;
     }
 
+    .fade {
+        outline: none;
+        outline-offset: 0;
+    }
+
     &__item {
 
         &:focus {
