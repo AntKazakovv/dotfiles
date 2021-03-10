@@ -38,6 +38,11 @@ export const defaultParams: ILanguageSelectorCParams = {
             dim: 'svg',
             replace: {
                 en: 'gb',
+                zh: 'cn',
+                'zh-hans': 'cn',
+                'zh-hant': 'cn',
+                'sp': 'es',
+                'pt-br': 'pt',
             },
         },
     },

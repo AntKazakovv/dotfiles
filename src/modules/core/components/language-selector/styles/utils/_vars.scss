@@ -28,7 +28,7 @@ $themeDefault: map-merge((
     'langBg': ef.get('mainColors', 'baseMain'),
     'langFontStyle': 'SignText',
     'langFontColor': ef.get('fieldColors', 'textColor'),
-    'langPadding': 0 ef.get('size', 'smallest'),
+    'langPadding': 0 ef.get('size', 'small'),
     'langHeight': 20px,
     'langRadius': 20px,
     'langFontStyleCurrent': 'PrimaryText',

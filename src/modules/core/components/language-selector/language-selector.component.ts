@@ -119,7 +119,13 @@ export class LanguageSelectorComponent
         event.preventDefault();
         try {
             if (lang !== this.translate.currentLang) {
-                this.translate.use(lang);
+                this.translate.use(lang)
+                    .pipe(takeUntil(this.$destroy))
+                    .subscribe(() => {
+                        if (this.isModalOpen) {
+                            this.modalService.closeModal('langSwitcherRef');
+                        }
+                    });
             }
         } catch (error) {
             throw error;
@@ -142,7 +148,7 @@ export class LanguageSelectorComponent
             this.modalService.showModal({
                 id: 'langSwitcherRef',
                 templateRef: this.langListRef,
-                modalTitle: 'Choose your language',
+                modalTitle: gettext('Choose your language'),
                 closeBtnParams: {
                     themeMod: 'secondary',
                     common: {

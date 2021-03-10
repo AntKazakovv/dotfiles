@@ -47,7 +47,7 @@
     bottom: ef.get-value($themeDefault, 'langBottom');
     background-color: ef.get-value($themeDefault, 'langBg');
     padding: ef.get-value($themeDefault, 'langPadding');
-    height: ef.get-value($themeDefault, 'langHeight');
+    min-height: ef.get-value($themeDefault, 'langHeight');
     border-radius: ef.get-value($themeDefault, 'langRadius');
     visibility: hidden;
     transform: translate(-50%, 0);
