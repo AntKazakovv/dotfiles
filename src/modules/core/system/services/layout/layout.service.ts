@@ -421,6 +421,14 @@ export class LayoutService {
                     this.afterModuleLoad('store', m);
                     return m.StoreModule;
                 });
+            case 'tournaments':
+                if (this.loadedModules.tournaments) {
+                    return this.loadedModules.tournaments;
+                }
+                return import('wlc-engine/modules/tournaments/tournaments.module').then(m => {
+                    this.afterModuleLoad('tournaments', m);
+                    return m.TournamentsModule;
+                });
             case 'profile':
                 if (this.loadedModules.profile) {
                     return this.loadedModules.profile;

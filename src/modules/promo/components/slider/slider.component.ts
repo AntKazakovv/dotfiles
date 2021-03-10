@@ -294,6 +294,6 @@ export class SliderComponent extends AbstractComponent
             } else {
                 this.addModifiers('on-progress');
             }
-        })
+        });
     }
 }
