@@ -3,8 +3,10 @@ import {NgModule} from '@angular/core';
 import {TranslateModule} from '@ngx-translate/core';
 import {UIRouterModule} from '@uirouter/angular';
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
-import {VerificationComponent} from './components/verification/verification.component';
-import {VerificationService} from './system/services/verification/verification.service';
+import {VerificationComponent} from 'wlc-engine/modules/profile/components';
+import {VerificationService} from 'wlc-engine/modules/profile/system/services';
+import {VerificationGroupComponent} from './components/verification-group/verification-group.component';
+
 
 export const components = {
     'wlc-verification': VerificationComponent,
@@ -13,6 +15,7 @@ export const components = {
 @NgModule({
     declarations: [
         VerificationComponent,
+        VerificationGroupComponent,
     ],
     imports: [
         CommonModule,

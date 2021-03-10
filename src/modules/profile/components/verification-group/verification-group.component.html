@@ -1,0 +1,101 @@
+<ng-container>
+    <div class="{{$class}}__doc-type-wrp">
+        <div class="{{$class}}__icons-wrp">
+            <div class="{{$class}}__icon"
+                 wlc-icon
+                 [iconName]="currentDocGroup.iconName"
+            ></div>
+            <div class="{{$class}}__icon-check"
+                 wlc-icon
+                 [iconName]="currentDocGroup.statusIconName"
+            ></div>
+        </div>
+        <div class="{{$class}}__title">
+            {{currentDocGroup.Name}}
+        </div>
+        <div class="{{$class}}__required">
+            {{'Required' | translate}}
+        </div>
+        <div class="{{$class}}__description"
+             *ngIf="currentDocGroup.Description">
+            {{currentDocGroup.Description}}
+        </div>
+    </div>
+    <ul class="{{$class}}-docs-list">
+        <li *ngFor="let doc of currentDocGroup.docs"
+            class="{{$class}}-docs-list__item {{doc.className}}">
+            <p class="{{$class}}-docs-list__text">
+                <a [href]="doc.DownloadLink"
+                   target="_blank"
+                   class="{{$class}}-docs-list__link">
+                    {{doc.FileName}}
+                </a>
+                <span class="{{$class}}-docs-list__remove"
+                      *ngIf="doc.canDelete && !doc.pending"
+                      wlc-icon
+                      iconName="close"
+                      (click)="deleteDoc(doc)"
+                ></span>
+                <span class="{{$class}}-docs-list__preload"
+                      *ngIf="doc.pending"
+                ></span>
+            </p>
+            <div class="{{$class}}__check-wrp">
+                <span class="{{$class}}-docs-list__icon"
+                      wlc-icon
+                      [iconName]="doc.iconName"
+                ></span>
+                <span class="{{$class}}-docs-list__info info-icon"
+                      *ngIf="doc.StatusDescription"
+                      [tooltip]="doc.StatusDescription"
+                      containerClass="{{$class}}__tooltip"
+                      placement="bottom"
+                      wlc-icon
+                      iconName="info"
+                      container="body"
+                ></span>
+            </div>
+        </li>
+    </ul>
+    <div class="{{$class}}__dropzone"
+         wlc-dnd
+         [dnd-data-label]="currentDocGroup.ID"
+         (click)="inputFile.click(); $event.stopPropagation()"
+    >
+        <input type="file"
+               #inputFile
+               hidden
+               accept="image/*"
+               [disabled]="currentDocGroup.pending"
+               (change)="uploadFile($event.target.files, currentDocGroup.ID)">
+        <p class="{{$class}}__text"
+           [ngSwitch]="currentDocGroup.loadingStatus">
+            <ng-template [ngSwitchCase]="'loading'">
+                {{'File is loading...' | translate}}
+            </ng-template>
+            <ng-template [ngSwitchCase]="'deleting'">
+                {{'File is deleting...' | translate}}
+            </ng-template>
+            <ng-template ngSwitchDefault>
+                {{'Drop file here or' | translate}}
+                <span>{{'browse' | translate}}</span>
+                {{$params.fileTypes?.join(', ')}}.
+                {{'Max size' | translate}}
+                {{$params.maxSize}} MB
+            </ng-template>
+        </p>
+    </div>
+    <div class="{{$class}}__upload">
+        <button wlc-button
+                class="wlc-btn-upload"
+                [disabled]="currentDocGroup.pending"
+                text="{{currentDocGroup.buttonText | translate}}"
+                (click)="inputFile.click(); $event.stopPropagation()"
+        ></button>
+        <p class="{{$class}}__text">
+            {{'browse' | translate | titlecase}}
+            {{$params.fileTypes?.join(', ')}}.
+            {{'Max size' | translate}} {{$params.maxSize}} MB
+        </p>
+    </div>
+</ng-container>

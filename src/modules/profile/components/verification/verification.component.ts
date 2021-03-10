@@ -2,31 +2,35 @@ import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
+    ElementRef,
     Inject,
     OnInit,
+    ViewChild,
 } from '@angular/core';
+import {FormControl} from '@angular/forms';
 import {
     AbstractComponent,
     ConfigService,
     EventService,
-    IData,
     IMixedParams,
-    ModalService,
+    ISelectCParams,
 } from 'wlc-engine/modules/core';
-import {VerificationService} from 'wlc-engine/modules/profile/system/services/verification/verification.service';
-import * as Params from './verification.params';
 import {
     IDoc,
-    IDocItem,
     IDocTypeResponse,
-    IDroppedFiles, LoaderType,
-} from 'wlc-engine/modules/profile/system/interfaces/verification.interface';
+    DocGroupModel,
+    DocModel,
+    VerificationService,
+    IDroppedFiles,
+    LoaderStatus,
+    ISelectOptions,
+} from 'wlc-engine/modules/profile';
+import * as Params from './verification.params';
 
 import {
     map as _map,
-    forEach as _forEach,
-    kebabCase as _kebabCase,
     filter as _filter,
+    find as _find,
 } from 'lodash-es';
 
 @Component({
@@ -37,10 +41,21 @@ import {
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class VerificationComponent extends AbstractComponent implements OnInit {
-    public docItems: IDocItem[];
+    @ViewChild('inputFile') public inputFile: ElementRef<HTMLInputElement>;
+    public docGroups: DocGroupModel[];
+    public currentDocGroup: DocGroupModel;
+    public loaded: boolean = false;
     public $params: Params.IVerificationCParams;
+    public selectParams: ISelectCParams = {
+        labelText: gettext('Type document'),
+        theme: 'vertical',
+        common: {},
+        name: 'docGroups',
+        items: [],
+        control: new FormControl(''),
+    };
 
-    public ready: boolean = false;
+    private docTypes: IDocTypeResponse[];
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IVerificationCParams,
@@ -48,7 +63,6 @@ export class VerificationComponent extends AbstractComponent implements OnInit {
         protected verificationService: VerificationService,
         protected cdr: ChangeDetectorRef,
         protected eventService: EventService,
-        protected modalService: ModalService,
     ) {
         super(
             <IMixedParams<Params.IVerificationCParams>>{
@@ -57,88 +71,111 @@ export class VerificationComponent extends AbstractComponent implements OnInit {
             }, configService);
     }
 
-    async ngOnInit(): Promise<void> {
-        super.ngOnInit();
+    public get selectItems(): ISelectOptions[] {
+        return _map(this.docTypes, ({ID, Name}) => {
+            return {
+                value: ID,
+                title: Name,
+            };
+        });
+    }
+
+    public get isSelectMode(): boolean {
+        return this.docTypes.length >= this.$params.selectModeFrom;
+    }
+
+    public async ngOnInit(): Promise<void> {
+        super.ngOnInit({
+            ...this.verificationService.params,
+            ...this.injectParams,
+        } as Params.IVerificationCParams);
+        this.docTypes = await this.verificationService.getDocsTypes();
+        if (!this.docTypes.length) {
+            this.loaded = true;
+            return this.cdr.markForCheck();
+        }
 
         this.eventService.subscribe({
             name: 'DROP_FILES',
         }, (data: IDroppedFiles) => {
-            if (this.ready) {
-                this.fileUpload(data.files, data.label);
+            if (data.label === this.currentDocGroup.ID) {
+                this.preloadFile(data.files);
             }
         });
 
-        this.eventService.subscribe([
-            {name: 'DELETE_DOC_ERROR'},
-            {name: 'SEND_FILE_ERROR'},
-        ], (res: IData) => {
-            this.showError(res.errors[0]);
-            this.ready = true;
-        });
-
-        const docTypes: IDocTypeResponse[] = await this.verificationService.getDocsTypes();
-        await this.updateDocItems(docTypes);
-        this.ready = true;
+        this.selectParams.items = this.selectItems;
+        this.selectParams.control.setValue(this.docTypes[0].ID);
+        this.selectParams.control.registerOnChange(this.setCurrentDocGroup.bind(this));
+        await this.updateDocItems();
+        this.currentDocGroup = this.docGroups[0];
+        this.loaded = true;
     }
 
-    public async fileUpload(files: FileList, docLabel: string): Promise<void> {
-        this.ready = false;
-        this.setLoader(docLabel, 'loading');
-        const result = await this.verificationService.uploadDoc(files[0], docLabel);
-        if (result) {
-            await this.updateDocItems();
-        }
-        this.setLoader(docLabel);
-        this.ready = true;
-    }
-
-    public async deleteFile(docId: number, docLabel: string): Promise<void> {
-        this.ready = false;
-        this.setLoader(docLabel, 'deleting');
-        const result = await this.verificationService.deleteDoc(docId);
-        if (result) {
-            await this.updateDocItems();
-        }
-        this.setLoader(docLabel);
-        this.ready = true;
-    }
-
-    public toKebabCase(string: string): string {
-        return _kebabCase(string);
-    }
-
-    protected setLoader(docLabel: string, status: LoaderType = false) {
-        _forEach(this.docItems, (item: IDocItem) => {
-            if (item.ID === docLabel) {
-                item.loading = status;
-            }
-        });
-        this.cdr.markForCheck();
-    }
-
-    protected async updateDocItems(docTypes?: IDocTypeResponse[]): Promise<void> {
+    public async updateDocItems(): Promise<void> {
         const docs: IDoc[] = await this.verificationService.getUserDocs();
-
-        this.docItems = _map(docTypes || this.docItems, (docType: IDocTypeResponse) => {
+        this.docGroups = _map(this.docTypes, (docType: IDocTypeResponse) => {
             const userDocs: IDoc[] = _filter(docs, (userDoc: IDoc) => {
-                return docType.ID === userDoc.DocType;
+                return docType.TypeKey === userDoc.DocType;
             });
-
-            return {
-                ...docType,
-                docs: userDocs || [],
-            };
+            return new DocGroupModel(docType, _map(userDocs, (doc) => new DocModel(doc)), this.isSelectMode);
         });
-
+        if (this.currentDocGroup) {
+            this.setCurrentDocGroup(this.currentDocGroup.ID);
+        }
         this.cdr.markForCheck();
     }
 
-    protected showError(modalMessage: string): void {
-        this.modalService.showError({
-            modalMessage,
-            textAlign: 'center',
-            size: 'sm',
-            showFooter: false,
-        });
+    public async preloadFile(files: FileList): Promise<void> {
+        if (files[0] && this.verificationService.checkFormat(files[0])) {
+            this.currentDocGroup.preview = {
+                base64: await this.verificationService.getPreview(files[0]),
+                file: files[0],
+            };
+        }
+        this.cdr.markForCheck();
     }
+
+    public async uploadFile(): Promise<void> {
+        if (this.currentDocGroup.pending) {
+            return;
+        }
+        this.switchLoader(LoaderStatus.Loading);
+
+        try {
+            await this.verificationService.uploadFile(this.currentDocGroup.preview.file, this.currentDocGroup.ID);
+            await this.updateDocItems();
+        } catch (result) {
+            this.verificationService.showError(result.errors[0]);
+        } finally {
+            this.switchLoader();
+            this.clearPreview();
+        }
+    }
+
+    public clearPreview() {
+        this.currentDocGroup.preview = {};
+        this.inputFile.nativeElement.value = '';
+    }
+
+    public async deleteDoc(doc: DocModel): Promise<void> {
+        doc.switchLoader(LoaderStatus.Deleting);
+        this.cdr.markForCheck();
+
+        try {
+            await this.verificationService.deleteDoc(doc);
+            await this.updateDocItems();
+        } catch (result) {
+            this.verificationService.showError(result.errors[0]);
+        }
+    }
+
+    protected setCurrentDocGroup(id: string) {
+        this.currentDocGroup = _find(this.docGroups, ({ID}) => ID === id);
+    }
+
+    protected switchLoader(status: LoaderStatus = LoaderStatus.Ready): void {
+        this.currentDocGroup.switchLoader(status);
+        this.cdr.markForCheck();
+    }
+
 }

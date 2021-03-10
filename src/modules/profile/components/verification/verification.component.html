@@ -1,73 +1,104 @@
-<div class="{{$class}}">
-    <ng-container *ngFor="let docItem of docItems">
-        <ng-container [ngTemplateOutlet]="item"
-                      [ngTemplateOutletContext]="{docItem: docItem}">
-        </ng-container>
-    </ng-container>
+<div class="{{$class}}__content" *ngIf="loaded">
+    <div class="{{$class}}__tile" *ngIf="!isSelectMode; else list">
+        <div class="{{$class}}__item"
+             *ngFor="let docGroup of docGroups"
+             wlc-verification-group
+             [doc-group]="docGroup"
+             (needUpdate)="updateDocItems()">
+        </div>
+    </div>
 </div>
 
-<ng-template #item let-docItem="docItem">
-    <div class="{{$class}}__item">
-        <div class="{{$class}}__doc-type-wrp">
-            <div class="{{$class}}__icon"
-                 wlc-icon
-                 [iconName]="toKebabCase(docItem.TypeKey)"
-            ></div>
-            <div class="{{$class}}__title">
-                {{docItem.Name}}
-            </div>
-            <div class="{{$class}}__required">
-                {{'Required' | translate}}
-            </div>
-        </div>
-        <ul class="wlc-docs-list" *ngIf="docItem.docs.length">
-            <li *ngFor="let doc of docItem.docs"
-                class="wlc-docs-list__item {{toKebabCase(doc.Status)}}"
-            >
-                <p class="wlc-docs-list__text">
-                    <a [href]="doc.DownloadLink"
-                       download
-                       class="wlc-docs-list__link">{{doc.FileName}}</a>
-                    <span class="wlc-docs-list__remove"
-                         wlc-icon
-                         iconName="close"
-                         (click)="ready && deleteFile(doc.ID, docItem.ID)"
-                    ></span>
-                </p>
-
-                <span class="wlc-docs-list__icon"
-                      wlc-icon
-                      [iconName]="toKebabCase(doc.Status)"
-                ></span>
-            </li>
-        </ul>
-        <div class="{{$class}}__dropzone" wlc-dnd [dnd-data-label]="docItem.ID">
+<ng-template #list>
+    <div class="{{$class}}__drag">
+        <div class="{{$class}}__doc-select"
+             wlc-select
+             [inlineParams]="selectParams"
+        ></div>
+        <div class="{{$class}}__dropzone"
+             wlc-dnd
+             [dnd-data-label]="currentDocGroup.ID"
+             [ngStyle]="{'backgroundImage': 'url(' + currentDocGroup.previewString + ')'}"
+             (click)="inputFile.click()">
             <input type="file"
                    #inputFile
-                   (change)="ready && fileUpload($event.target.files, docItem)">
-
-            <p class="{{$class}}__text"
-               [ngSwitch]="docItem.loading">
-                <ng-template [ngSwitchCase]="'loading'">
-                    {{'File is loading ' | translate}}
-                </ng-template>
-                <ng-template [ngSwitchCase]="'deleting'">
-                    {{'File is deleting ' | translate}}
-                </ng-template>
-                <ng-template ngSwitchDefault>
-                    {{'Drop file here or ' | translate}}
-                    <span>{{'browse' | translate}}</span>
-                    {{'jpg, png. Max size 10MB' | translate}}
-                </ng-template>
-            </p>
-        </div>
-        <div class="{{$class}}__upload">
+                   hidden
+                   accept="image/*"
+                   [disabled]="currentDocGroup.pending"
+                   (change)="preloadFile($event.target.files)">
             <button wlc-button
                     class="wlc-btn-upload"
-                    text="Upload"
-                    (click)="inputFile.click()"
+                    [ngClass]="{selected: currentDocGroup.isSelected}"
+                    [disabled]="currentDocGroup.pending"
+                    text="{{currentDocGroup.buttonText | translate}}"
+                    (click)="currentDocGroup.previewString ? uploadFile() : inputFile.click(); $event.stopPropagation()"
             ></button>
-            <p class="{{$class}}__text">{{'jpg, png. Max size 10MB' | translate}}</p>
+            <span class="{{$class}}__dropzone-clear"
+                  *ngIf="currentDocGroup.previewString && !currentDocGroup.pending"
+                  wlc-icon
+                  iconName="close"
+                  (click)="clearPreview(); $event.stopPropagation()"></span>
+            <p class="{{$class}}__text" *ngIf="!currentDocGroup.previewString">
+                <span>{{'Click to select an image or drag the selected image here.'| translate}}</span>
+                <br>{{'Format' | translate}}:
+                {{$params.fileTypes?.join(', ')}}.
+                {{'Max size' | translate}} {{$params.maxSize}} MB
+            </p>
+        </div>
+        <div class="{{$class}}__description"
+             *ngIf="currentDocGroup.Description">
+            {{currentDocGroup.Description}}
+        </div>
+        <div class="{{$class}}__upload-docs">
+            <div class="{{$class}}__title"
+                 *ngIf="!currentDocGroup.docs.length">
+                {{'No uploaded documents' | translate}}
+            </div>
+            <div class="{{$class}}__title"
+                 *ngIf="currentDocGroup.docs.length">
+                {{'Uploaded documents' | translate}}
+            </div>
+            <ul class="{{$class}}-docs">
+                <li class="{{$class}}-docs__item {{doc.className}}"
+                    *ngFor="let doc of currentDocGroup.docs">
+                    <div class="{{$class}}-docs__doc-icon"
+                         wlc-icon
+                         iconName="doc-common"
+                    ></div>
+                    <div class="{{$class}}-docs__doc-info-wrp">
+                        <div class="{{$class}}-docs__doc-status">{{doc.statusText | translate}}</div>
+                        <p class="{{$class}}-docs__doc-title">
+                            <a [href]="doc.DownloadLink"
+                               target="_blank"
+                            >{{doc.FileName}}</a>
+                            <span class="{{$class}}-docs__remove"
+                                  *ngIf="doc.canDelete && !doc.pending"
+                                  wlc-icon
+                                  iconName="close"
+                                  (click)="deleteDoc(doc); $event.stopPropagation()"
+                            ></span>
+                            <span class="{{$class}}-docs__preload"
+                                  *ngIf="doc.pending"
+                            ></span>
+                        </p>
+                    </div>
+                    <div class="{{$class}}-docs__check-wrp">
+                        <div class="{{$class}}-docs__check-icon"
+                             wlc-icon
+                             [iconName]="doc.iconName"
+                        ></div>
+                        <span class="{{$class}}-docs__info info-icon"
+                              *ngIf="doc.StatusDescription"
+                              [tooltip]="doc.StatusDescription"
+                              containerClass="{{$class}}__tooltip"
+                              placement="bottom"
+                              wlc-icon
+                              iconName="info"
+                              container="body"
+                        ></span>
+                    </div>
+                </li>
+            </ul>
         </div>
     </div>
 </ng-template>

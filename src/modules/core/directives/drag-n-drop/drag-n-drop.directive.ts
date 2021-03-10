@@ -4,7 +4,7 @@ import {EventService} from 'wlc-engine/modules/core';
 @Directive({
     selector: '[wlc-dnd]',
 })
-export class DrugNDropDirective {
+export class DragNDropDirective {
     @Input('dnd-data-label') label: string
     constructor(
         protected eventService: EventService,
@@ -31,7 +31,6 @@ export class DrugNDropDirective {
         e.stopPropagation();
         e.currentTarget.classList.remove('dragovered');
         const files: FileList = e.dataTransfer.files;
-
         if (files.length) {
             this.eventService.emit({
                 name: 'DROP_FILES',

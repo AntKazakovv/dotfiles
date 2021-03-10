@@ -48,6 +48,7 @@ export {IButtonCParams} from './button.params';
 })
 export class ButtonComponent extends AbstractComponent implements OnInit,
     OnDestroy,
+    OnChanges,
     AfterViewInit {
 
     @ContentChild(IconComponent, {read: ElementRef}) IconComponentElement!: ElementRef;
@@ -87,6 +88,12 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
     ngOnInit(): void {
         super.ngOnInit(this.prepareParams());
         this.prepareModifiers();
+    }
+
+    ngOnChanges(changes) {
+        if (_get(changes, 'text') && _get(this, '$params.common.text')) {
+            this.$params.common.text = this.text;
+        }
     }
 
     public ngAfterViewInit(): void {

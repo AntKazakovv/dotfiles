@@ -39,6 +39,7 @@ export const localFiles: IIndexing<string> = {
     'enter-arrow': 'icons/enter-arrow.svg',
     'promo-success': 'decors/promo-success.svg',
     'copy': 'icons/copy.svg',
+    'doc-common': 'icons/doc-icons/doc.svg',
     'doc-1': 'icons/doc-icons/personal.svg',
     'doc-2': 'icons/doc-icons/personal.svg',
     'doc-3': 'icons/doc-icons/personal.svg',

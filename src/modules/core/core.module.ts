@@ -12,6 +12,7 @@ import {UIRouterModule} from '@uirouter/angular';
 import {SwiperModule} from 'swiper/angular';
 import {AngularResizedEventModule} from 'angular-resize-event';
 import {ModalModule} from 'ngx-bootstrap/modal';
+import {TooltipModule} from 'ngx-bootstrap/tooltip';
 import {PaginationModule} from 'ngx-bootstrap/pagination';
 import {AngularMyDatePickerModule} from 'angular-mydatepicker';
 // -- MODULES IMPORTS END --;
@@ -87,7 +88,7 @@ import {FallbackImgDirective} from './directives/fallback-img.directive';
 import {InputMaskDirective} from './directives/input-mask.directive';
 import {ClampDirective} from './directives/clamp.directive';
 import {CopyToClipboardDirective} from './directives/copy-to-clipboard.directive';
-import {DrugNDropDirective} from 'wlc-engine/modules/core/directives/drug-n-drop/drug-n-drop.directive';
+import {DragNDropDirective} from 'wlc-engine/modules/core/directives/drag-n-drop/drag-n-drop.directive';
 import {ValueLengthDirective} from './directives/value-length.directive';
 import {ParallaxMovementDirective} from './directives/parallax-movement.directive';
 import {AuthDirective} from './directives/auth.directive';
@@ -168,6 +169,7 @@ export const components = {
         ReactiveFormsModule,
         AngularResizedEventModule,
         ModalModule,
+        TooltipModule.forRoot(),
         PaginationModule.forRoot(),
         AngularMyDatePickerModule,
     ],
@@ -245,7 +247,7 @@ export const components = {
         WrapperComponent,
         WrapperComponent,
         ErrorPageComponent,
-        DrugNDropDirective,
+        DragNDropDirective,
         PlugComponent,
     ],
     exports: [
@@ -303,7 +305,8 @@ export const components = {
         TimerComponent,
         TitleComponent,
         ErrorPageComponent,
-        DrugNDropDirective,
+        DragNDropDirective,
+        TooltipModule,
         PlugComponent,
     ],
 })
