@@ -1,0 +1,355 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/base.mixins' as em;
+
+@import '../utils/vars';
+
+.wlc-verification-group--theme-default:host {
+
+    background: ef.get-value($themeDefault, 'backgroundItem');
+    border-radius: ef.get-value($themeDefault, 'borderRadius');
+    padding: ef.get-value($themeDefault, 'paddingItem');
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+
+    .wlc-verification-group {
+
+        &__check-wrp {
+            grid-area: doc-icons;
+            justify-self: end;
+        }
+
+        &__doc-type-wrp {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        &__icons-wrp {
+            position: relative;
+
+            ::ng-deep .wlc-icon-content {
+
+                svg {
+                    fill: ef.get-value($themeDefault, 'tileIconColor');
+                }
+            }
+        }
+
+        &__icon {
+
+            ::ng-deep .wlc-icon-content {
+
+                svg {
+                    width: ef.get-value($themeDefault, 'tileIconWidth');
+                    height: ef.get-value($themeDefault, 'tileIconHeigth');
+                    fill: ef.get-value($themeDefault, 'tileIconColor');
+                }
+            }
+        }
+
+        &__icon-check {
+            position: absolute;
+            width: ef.get-value($themeDefault, 'iconCheckDemensions');
+            height: ef.get-value($themeDefault, 'iconCheckDemensions');
+            right: -10px;
+            bottom: -4px;
+            z-index: 99;
+
+            ::ng-deep .wlc-icon-content {
+                width: 100%;
+                height: 100%;
+                display: block;
+                position: relative;
+                background: ef.get-value($themeDefault, 'backgroundItem');
+                border-radius: 100%;
+
+                svg {
+                    padding: 3px;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+        }
+
+        &__title {
+            @include text.get-text-style(ef.get-value($themeDefault, 'titleFont'), ef.get-value($themeDefault, 'color'));
+            padding-bottom: ef.get-value($themeDefault, 'titlePadding');
+            text-align: center;
+        }
+
+        &__required {
+            @include text.get-text-style(ef.get-value($themeDefault, 'subTitleFont'), ef.get-value($themeDefault, 'color'));
+            padding-bottom: ef.get-value($themeDefault, 'offset');
+        }
+
+        &__description {
+            @include text.get-text-style(ef.get-value($themeDefault, 'textFont'), ef.get-value($themeDefault, 'color'));
+            padding-bottom: ef.get-value($themeDefault, 'offset');
+        }
+
+        &__dropzone {
+            min-height: 175px;
+            background: ef.get-value($themeDefault, 'backgroundDropdown');
+            border-radius: ef.get-value($themeDefault, 'borderRadius');
+            border: ef.get-value($themeDefault, 'borderDropdown');
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            padding: ef.get-value($themeDefault, 'paddingItem');
+            width: 100%;
+            display: none;
+            cursor: pointer;
+
+            @include mq.min(768) {
+                display: flex;
+            }
+
+            &.dragovered {
+                border-color: ef.get-value($themeDefault, 'borderColorDrag');
+            }
+
+            input {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                opacity: 0;
+                cursor: pointer;
+            }
+        }
+
+        &__text {
+            @include text.get-text-style(ef.get-value($themeDefault, 'subTitleFont'), ef.get-value($themeDefault, 'color'));
+            align-self: center;
+
+            span {
+                color: ef.get-value($themeDefault, 'successText');
+            }
+        }
+
+        &__upload {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            @include mq.min(768) {
+                display: none;
+            }
+
+            .wlc-btn-upload {
+                margin-bottom: ef.get-value($themeDefault, 'offset');
+            }
+        }
+
+        &-docs-list {
+            width: 100%;
+            list-style-type: none;
+            padding: 0;
+            padding-bottom: ef.get-value($themeDefault, 'offset');
+
+            &__item {
+                display: grid;
+                grid-template-columns: 3fr minmax(50px, max-content);
+                grid-template-areas: 'doc-name doc-icons';
+                column-gap: 5px;
+                position: relative;
+
+                &:first-child {
+                    border-top: ef.get-value($themeDefault, 'borderDocList');
+                    padding-top: ef.get-value($themeDefault, 'offset');
+                }
+
+                &.awaiting-validation {
+
+                    ::ng-deep .wlc-icon-content {
+
+                        svg {
+
+                            path {
+                                fill: ef.get-value($themeDefault, 'docsStatusAwaiting');
+                            }
+                        }
+                    }
+                }
+
+                &.validated {
+
+                    ::ng-deep .wlc-icon-content {
+
+                        svg {
+
+                            rect {
+                                fill: ef.get-value($themeDefault, 'docsStatusValidated');
+                            }
+                        }
+                    }
+                }
+
+                &.failed-validation {
+
+                    ::ng-deep .wlc-icon-content {
+
+                        svg {
+
+                            rect {
+                                fill: ef.get-value($themeDefault, 'docsStatusFailed');
+                            }
+                        }
+                    }
+                }
+            }
+
+            &__text {
+                display: block;
+                grid-area: doc-name;
+                justify-self: stretch;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                padding-right: ef.get-value($themeDefault, 'docTextOffset');
+                position: relative;
+
+                @include mq.min(768) {
+
+                    &:hover {
+
+                        .wlc-verification-group-docs-list__remove {
+                            display: block;
+                        }
+                    }
+                }
+            }
+
+            &__link {
+                @include text.get-text-style(ef.get-value($themeDefault, 'fontDocList'), ef.get-value($themeDefault, 'color'));
+                text-decoration: none;
+                padding-right: ef.get-value($themeDefault, 'docOffset');
+                white-space: nowrap;
+                overflow: hidden;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+
+            &__remove {
+                padding-left: ef.get-value($themeDefault, 'titlePadding');
+                cursor: pointer;
+                position: absolute;
+                right: 0;
+                top: 0;
+
+                @include mq.min(1024) {
+                    display: none;
+                }
+
+                ::ng-deep .wlc-icon-content {
+
+                    svg {
+                        width: ef.get-value($themeDefault, 'removeIconDocsDemensitons');
+                        height: ef.get-value($themeDefault, 'removeIconDocsDemensitons');
+                    }
+                }
+
+                &:hover {
+
+                    &::ng-deep .wlc-icon-content {
+
+                        svg {
+
+                            line {
+                                stroke: ef.get-value($themeDefault, 'removeIconDocsHoverColor');
+                            }
+                        }
+                    }
+                }
+            }
+
+            &__preload {
+                position: absolute;
+                right: 0;
+                top: -25%;
+                width: ef.get-value($themeDefault, 'preloaderDementions');
+                height: ef.get-value($themeDefault, 'preloaderDementions');
+                border: ef.get-value($themeDefault, 'preloaderBg');
+                border-top: ef.get-value($themeDefault, 'preloaderColor');
+                border-radius: 100%;
+                animation: spin 1s infinite linear;
+            }
+
+            @keyframes spin {
+
+                from {
+                    transform: rotate(0deg);
+                }
+
+                to {
+                    transform: rotate(360deg);
+                }
+            }
+
+            &__info {
+                cursor: pointer;
+
+                &.info-icon {
+
+                    ::ng-deep .wlc-icon-content {
+
+                        svg {
+
+                            path {
+                                fill: ef.get-value($themeDefault, 'infoIconBg');
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+::ng-deep body {
+
+    .wlc-verification-group__tooltip {
+
+        .tooltip-inner {
+            border-radius: ef.get-value($themeDefault, 'borderRadius');
+            background: ef.get-value($themeDefault, 'tooltipBg');
+            padding: ef.get-value($themeDefault, 'tooltipOffset');
+        }
+
+        &.top {
+            margin-right: ef.get-value($themeDefault, 'tooltipOffset');
+
+            .tooltip-arrow {
+
+                &:before {
+                    border-top-color: ef.get-value($themeDefault, 'tooltipBg');
+                }
+            }
+        }
+
+        &.bottom {
+            margin-right: ef.get-value($themeDefault, 'tooltipOffset');
+
+            .tooltip-arrow {
+
+                &:before {
+                    border-bottom-color: ef.get-value($themeDefault, 'tooltipBg');
+                }
+            }
+        }
+    }
+}

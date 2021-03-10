@@ -7,15 +7,13 @@ export type Theme = 'default' | CustomType;
 export type Type = 'default' | CustomType;
 export type ThemeMod = 'default' | CustomType;
 
-export interface IVerificationCParams extends IComponentParams<Theme, Type, ThemeMod> {
+export interface IVerificationGroupCParams extends IComponentParams<Theme, Type, ThemeMod> {
     maxSize: number; // MB
     fileTypes: string[];
     maxDocsCount: number;
-    selectModeFrom: number;
 }
 
-export const defaultParams: Partial<IVerificationCParams> = {
-    class: 'wlc-verification',
-    componentName: 'wlc-verification',
-    selectModeFrom: 4,
+export const defaultParams: Partial<IVerificationGroupCParams> = {
+    class: 'wlc-verification-group',
+    componentName: 'wlc-verification-group',
 };

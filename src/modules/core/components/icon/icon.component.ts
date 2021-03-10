@@ -79,6 +79,10 @@ export class IconComponent extends AbstractComponent implements OnInit, OnChange
             if (!file?.htmlString && !file?.url && this.fallback) {
                 file = await this.fileService.getFile(this.fallback);
             }
+        } else {
+            file = {
+                key: undefined,
+            };
         }
 
         if (file?.htmlString) {
