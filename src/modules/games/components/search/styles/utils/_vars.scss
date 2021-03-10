@@ -102,9 +102,10 @@ $themeDefault: map-merge((
         560: 0,
     ),
     'listBtnBorderBottom': 2px solid ef.get('mainColors', 'baseOpacity'),
+    'listBtnBorderBottomActive': 2px solid ef.get('mainColors', 'main'),
     'listBtnColorActive': (
         375: ef.get('mainColors', 'baseMain'),
-        560: ef.get('mainColors', 'baseMain'),
+        560: ef.get('mainColors', 'main'),
     ),
     'listBtnHeight': (
         375: 40px,
@@ -153,7 +154,9 @@ $themeDefault: map-merge((
     ),
     'searchPanelColumns': (
         375: 1fr 1fr,
-        900: 1fr 0.3fr 0.3fr,
+        900: 1fr 0.6fr 0.6fr,
+        1024: 1fr 0.4fr 0.4fr,
+        1200: 1fr 0.3fr 0.3fr,
     ),
     'searchPanelGap': (
         375: 20px 15px,
@@ -175,8 +178,8 @@ $themeDefault: map-merge((
     'searchTitleWidth': 95px,
     'searchColSize': 14px,
     'btnPadding': (
-        375: 8px 15px,
-        900: 10px 15px 10px 35px,
+        375: 8px 35px,
+        900: 10px 30px 10px 35px,
     ),
     'btnBorderRadius': ef.get('radius', 'biger'),
     'btnFont': 'PlaceholderText',

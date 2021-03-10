@@ -59,12 +59,24 @@ module.exports = function preBuildTask() {
         fs.symlinkSync('./node_modules/@egamings/wlc-engine/src', this.params.paths.engineLink);
     }
 
+    // Create symlink to the polyfills.ts file in the src directory
+    const makePolyfillsSymlink = () => {
+        try {
+            fs.lstatSync(this.params.paths.polyfillsFile);
+            fs.unlinkSync(this.params.paths.polyfillsFile);
+        } catch {
+            //
+        }
+        fs.symlinkSync('../wlc-engine/polyfills.ts', this.params.paths.polyfillsFile);
+    }
+
     task('prepare:build', (cb) => {
         makeDistDirectory();
         makeTempDirectory();
         makeIndexHtmlSymlink();
         makeWlcEngineSymlink();
         makeSrcIndexHtmlSymlink();
+        makePolyfillsSymlink();
 
         cb();
     });

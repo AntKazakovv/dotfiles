@@ -139,10 +139,10 @@
         .wlc-language-selector {
 
             &__current {
+                background: ef.get-value($themeDefaultModLog, 'currentBgModLong');
                 padding: ef.get-value($themeDefaultModLog, 'currentPaddingModLong');
                 grid-template-columns: auto 1fr auto;
                 border-radius: ef.get-value($themeDefaultModLog, 'currentBorderRadiusModLong');
-                background: ef.get-value($themeDefaultModLog, 'currentBgModLong');
                 @include bm.transition(background);
 
                 &:hover {
@@ -175,9 +175,9 @@
                     ~ .wlc-language-selector__dropdown {
                         transform: scaleY(1);
                         position: relative;
-                        margin-top: 5px;
                     }
                 }
+
 
                 &-lang {
                     @include text.get-text-style(ef.get-value($themeDefaultModLog, 'langFontStyle'), ef.get-value($themeDefaultModLog, 'currentColorModLang'));
@@ -197,12 +197,13 @@
 
             &__dropdown {
                 position: absolute;
-                width: 100%;
                 top: calc(100% + 5px);
-                left: 0;
+                width: 100%;
+                margin-top: 5px;
                 transform: scaleY(0);
                 transform-origin: top;
-                transition-duration: 0.5s;
+                overflow: hidden;
+                @include bm.transition(transform, 0.5s);
 
                 .wlc-language-selector__link-lang {
                     @include text.get-text-style('PrimaryText', ef.get-value($themeDefaultModLog, 'currentColorModLang'));

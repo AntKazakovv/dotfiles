@@ -30,7 +30,19 @@ import {UserService} from 'wlc-engine/modules/user/system/services';
 
 import {
     forEach as _forEach,
+    isString as _isString,
 } from 'lodash-es';
+
+export type ScrollPositionType = 'start' | 'end';
+
+export interface IScrollOptions {
+    position: ScrollPositionType;
+}
+
+export interface IScrollSmoothlyOptions {
+    position?: ScrollPositionType;
+    time?: number;
+}
 
 export interface IBreakpoint {
     mq: MediaQueryList;
@@ -120,16 +132,20 @@ export class ActionService {
         }
     }
 
-    public scrollTo(selector?: string): void {
+    public scrollTo(elem?: string | Element, options?: IScrollOptions): void {
         setTimeout(() => {
-            const element = selector ?
-                document.querySelector(selector) :
-                document.querySelector('body');
+            elem = elem || 'body';
+            let element;
+            if (_isString(elem)) {
+                element = document.querySelector(elem);
+            } else {
+                element = elem;
+            }
 
             setTimeout(() => {
                 element.scrollIntoView({
                     behavior: 'smooth',
-                    block: 'start',
+                    block: options?.position || 'start',
                 });
             }, 100);
         }, 0);

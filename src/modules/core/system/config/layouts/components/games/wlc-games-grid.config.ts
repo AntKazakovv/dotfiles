@@ -76,4 +76,46 @@ export namespace wlcGamesGrid {
             },
         },
     };
+
+    export const catalogGamesWithLoadMoreBtn: ILayoutComponent = {
+        name: 'games.wlc-games-grid',
+        params: {
+            title: 'All games',
+            filter: undefined,
+            showAllLink: {
+                use: false,
+            },
+            moreBtn: {
+                hide: false,
+                lazy: false,
+            },
+            usePlaceholders: true,
+            byState: true,
+            mobileSettings: {
+                gamesRows: 3,
+                showLoadButton: true,
+            },
+        },
+    };
+
+    export const catalogGamesWithLazyLoad: ILayoutComponent = {
+        name: 'games.wlc-games-grid',
+        params: {
+            title: 'All games',
+            filter: undefined,
+            showAllLink: {
+                use: false,
+            },
+            moreBtn: {
+                hide: false,
+                lazy: true,
+            },
+            usePlaceholders: true,
+            byState: true,
+            mobileSettings: {
+                gamesRows: 3,
+                showLoadButton: true,
+            },
+        },
+    };
 }

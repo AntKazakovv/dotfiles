@@ -7,7 +7,7 @@
     <div class="{{$class}}__col {{$class}}__col--search"
          wlc-search-field
          (searchQueryEmit)="setSearchQuery($event)"
-         [inlineParams]="{searchFrom: gamesGridParams.searchFilterName}"
+         [inlineParams]="{searchFrom: gamesGridParams.searchFilterName, focus: true}"
     ></div>
 
     <div class="{{$class}}__col {{$class}}__col--merchants">

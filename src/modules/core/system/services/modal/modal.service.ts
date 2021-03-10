@@ -31,6 +31,7 @@ import {
     find as _find,
     remove as _remove,
     forEach as _forEach,
+    last as _last,
 } from 'lodash-es';
 
 export type IModalParams = IModalConfig | IModalName;
@@ -234,6 +235,11 @@ export class ModalService {
         this.appRef.detachView(modal.ref.hostView);
         modal.ref.destroy();
         _remove(this.activeModals, (item: IActiveModal) => item.id === id);
+
+        const lastModal = this.activeModals[this.activeModals.length - 1];
+        if (lastModal) {
+            lastModal.ref.location.nativeElement.children[0].focus();
+        }
     }
 
     protected openModal(config: IModalConfig): void {

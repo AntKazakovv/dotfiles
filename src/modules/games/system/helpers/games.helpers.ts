@@ -18,31 +18,22 @@ import {
 
 import {
     each as _each,
-    assign as _assign,
     isArray as _isArray,
     toNumber as _toNumber,
     get as _get,
+    set as _set,
 } from 'lodash-es';
 
 export class GamesHelper {
-    /**
-     * Initial value
-     */
-    public static mapping: IMapping = {
-        merchantIdToNameMapping: {},
-        merchantIdToAliasMapping: {},
-        merchantNameToObjectMapping: {},
-        merchantNameToIdMapping: {},
-        merchantNameToTitleMapping: {},
-        byMerchant: {},
-        categoryById: {},
-        categoryByName: {},
-        categoryNameToIdMapping: {},
-        categoryNameToTitleMapping: {},
-        categoryIdToNameMapping: {},
-        categoryIdToTitleMapping: {},
-        byCategory: {},
-    };
+
+    public static availableMerchants: MerchantModel[] = [];
+
+    public static mapping: IMapping = {};
+
+    public static reset(): void {
+        GamesHelper.mapping = {};
+        GamesHelper.availableMerchants = [];
+    }
 
     /***************************************************************************************************************
      * MAPPING
@@ -65,11 +56,11 @@ export class GamesHelper {
             }
 
             const merchant: MerchantModel = new MerchantModel(merchantItem);
-            this.mapping.merchantIdToNameMapping[merchant.id] = merchant.menuId;
-            this.mapping.merchantIdToAliasMapping[merchant.id] = merchant.alias || merchant.name;
-            this.mapping.merchantNameToObjectMapping[merchant.menuId] = merchant;
-            this.mapping.merchantNameToIdMapping[merchant.menuId] = _toNumber(merchantId);
-            this.mapping.merchantNameToTitleMapping[merchant.menuId] = merchant.name;
+            _set(this.mapping, `merchantIdToNameMapping.${merchant.id}`, merchant.menuId);
+            _set(this.mapping, `merchantIdToAliasMapping.${merchant.id}`, merchant.alias || merchant.name);
+            _set(this.mapping, `merchantNameToObjectMapping.${merchant.menuId}`, merchant);
+            _set(this.mapping, `merchantNameToIdMapping.${merchant.menuId}`, _toNumber(merchantId));
+            _set(this.mapping, `merchantNameToTitleMapping.${merchant.menuId}`, merchant.name);
             merchantsArray.push(merchant);
         });
         return {merchantsArray};
@@ -88,13 +79,12 @@ export class GamesHelper {
         _each(categories, (item: ICategory) => {
             const category = new CategoryModel(item);
             categoriesArray.push(category);
-
-            this.mapping.categoryById[category.id] = category;
-            this.mapping.categoryByName[category.name] = category;
-            this.mapping.categoryNameToIdMapping[category.name] = category.id;
-            this.mapping.categoryNameToTitleMapping[category.name] = category.title;
-            this.mapping.categoryIdToNameMapping[category.id] = category.name;
-            this.mapping.categoryIdToTitleMapping[category.id] = category.title;
+            _set(this.mapping, `categoryById.${category.id}`, category);
+            _set(this.mapping, `categoryByName.${category.name}`, category);
+            _set(this.mapping, `categoryNameToIdMapping.${category.name}`, category.id);
+            _set(this.mapping, `categoryNameToTitleMapping.${category.name}`, category.title);
+            _set(this.mapping, `categoryIdToNameMapping.${category.id}`, category.name);
+            _set(this.mapping, `categoryIdToTitleMapping.${category.id}`, category.title);
         });
         return {categoriesArray};
     }
@@ -107,8 +97,7 @@ export class GamesHelper {
      */
     public static fillGamesByCategoriesMerchants(
         game: Game,
-        availableCategories: CategoryModel[],
-        availableMerchants: MerchantModel[]): void
+        availableCategories: CategoryModel[]): void
     {
         const merchantName: string = game.getMerchantName();
         const merchants: string[] = [merchantName];
@@ -120,28 +109,28 @@ export class GamesHelper {
             }
         }
 
-        _each(merchants, (merch: number) => {
-            if (!this.mapping.byMerchant[merch]) {
-                this.mapping.byMerchant[merch] = {
+        _each(merchants, (merchantName: string) => {
+            if (!_get(this.mapping, `byMerchant.${merchantName}`)) {
+                _set(this.mapping, `byMerchant.${merchantName}`, {
                     games: [],
                     categories: {},
-                };
-                availableMerchants.push(GamesHelper.getMerchantByName(merch));
+                });
+                GamesHelper.availableMerchants.push(GamesHelper.getMerchantByName(merchantName));
             }
-            this.mapping.byMerchant[merch].games.push(game);
+            this.mapping.byMerchant[merchantName].games.push(game);
         });
 
         _each(game.categoryID, (categoryId: number) => {
-            const category: CategoryModel = this.getCategoryById(categoryId);
-            const categoryName: string = this.getCategoryNameById(categoryId);
-            const categoryTitle = this.getCategoryTitleById(categoryId);
+            const category: CategoryModel = GamesHelper.getCategoryById(categoryId);
+            const categoryName: string = GamesHelper.getCategoryNameById(categoryId);
+            const categoryTitle = GamesHelper.getCategoryTitleById(categoryId);
 
-            if (!this.mapping.byCategory[categoryName]) {
-                this.mapping.byCategory[categoryName] = {
+            if (!_get(this.mapping, `byCategory.${categoryName}`)) {
+                _set(this.mapping, `byCategory.${categoryName}`, {
                     title: categoryTitle,
                     games: [],
                     merchants: {},
-                };
+                });
                 availableCategories.push(category);
             }
 
@@ -170,12 +159,13 @@ export class GamesHelper {
     }
 
     /**
+     * Get merchant by name
      *
      * @param {string} merchantName
      * @returns {MerchantModel}
      */
-    public static getMerchantByName(merchantId: number): MerchantModel {
-        return _get(this.mapping, `merchantNameToObjectMapping[${merchantId}]`, '');
+    public static getMerchantByName(merchantName: string): MerchantModel {
+        return _get(this.mapping, `merchantNameToObjectMapping[${merchantName}]`, '');
     }
 
     /**

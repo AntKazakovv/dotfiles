@@ -1,7 +1,6 @@
 import {
     AfterViewInit,
     Component,
-    HostListener,
     Injector,
     Inject,
     Input,
@@ -9,7 +8,6 @@ import {
     OnInit,
     ViewEncapsulation,
     ViewChild,
-    ElementRef,
 } from '@angular/core';
 
 import {
