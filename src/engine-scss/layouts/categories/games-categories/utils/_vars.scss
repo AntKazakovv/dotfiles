@@ -8,7 +8,7 @@ $gamesCategoriesDefault: map-merge((
         1630: 75px,
     ),
     'sectionMargin': (
-        375: -20px 0 20px,
+        375: -30px 0 20px,
         768: 0 0 ef.get-value(ef.get('size', 'sectionsGap'), 375),
         1630: 0 0 ef.get-value(ef.get('size', 'sectionsGap'), 1630),
     ),
