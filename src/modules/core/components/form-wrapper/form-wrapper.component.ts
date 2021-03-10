@@ -232,10 +232,32 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
 
             const validators: ValidatorFn[] = [];
             const asyncValidators: AsyncValidatorFn[] = [];
-
+            const tagReg = {
+                name: 'regExp',
+                text: 'Such constructions are prohibited',
+                options: /(<\?)|(\?>)|(<\/?(.*)>)/gi,
+            };
+            const maxLength = {
+                name: 'maxLength',
+                text: 'The field must be no more than 50 characters long',
+                options: 50,
+            };
+            const emojiReg = {
+                name: 'regexpEmoji',
+                text: 'Such constructions are prohibited',
+            };
+            switch (component.name) {
+                case 'core.wlc-input':
+                    component.params.validators.push(tagReg, maxLength, emojiReg);
+                    break;
+                case 'core.wlc-textarea':
+                    component.params.validators.push(tagReg, emojiReg);
+                    break;
+                default:
+                    break;
+            }
             _each(component.params.validators, (validator) => {
                 const validationRule = this.getValidator(validator);
-
                 if (!validationRule) {
                     console.error('Validator not found: ', validator);
                     return;
