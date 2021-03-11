@@ -55,7 +55,7 @@ export class LinkBlockComponent
             this.modalService.showModal(data.modal.name);
             return;
         } else if (data.url) {
-            this.router.stateService.go(data.url.path);
+            this.router.stateService.go(data.url.path, data.url.params);
             return;
         } else if (data.event) {
             this.eventService.emit({

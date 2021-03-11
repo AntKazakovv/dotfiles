@@ -9,6 +9,7 @@ import {
     ElementRef,
     HostBinding,
     AfterViewChecked,
+    ViewChild,
 } from '@angular/core';
 import {fromEvent, Observable} from 'rxjs';
 import {debounceTime, takeUntil} from 'rxjs/operators';
@@ -58,6 +59,7 @@ export class IconListComponent extends AbstractComponent implements OnInit, Afte
     @Input() protected inlineParams: Params.IIconListCParams;
     @HostBinding('class.scrollable--left') protected scrollableLeft: boolean = false;
     @HostBinding('class.scrollable--right') protected scrollableRight: boolean = false;
+    @ViewChild('wrapper') wrapperElement: ElementRef;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IIconListCParams,
@@ -107,9 +109,10 @@ export class IconListComponent extends AbstractComponent implements OnInit, Afte
         }
 
         if (!this.wrapper) {
-            this.wrapper = this.hostElement.nativeElement.querySelector('.wlc-icon-list__wrapper');
+            this.wrapper = this.wrapperElement.nativeElement
+                || this.hostElement.nativeElement.querySelector(`.${this.$params.class || 'wlc-icon-list'}__wrapper`);
 
-            fromEvent(this.wrapper, 'scroll')
+            fromEvent(this.wrapperElement.nativeElement, 'scroll')
                 .pipe(takeUntil(this.$destroy))
                 .pipe(debounceTime(300))
                 .subscribe(() => {
@@ -117,7 +120,7 @@ export class IconListComponent extends AbstractComponent implements OnInit, Afte
                 });
         }
 
-        const {clientWidth, scrollWidth, scrollLeft} = this.wrapper;
+        const {clientWidth, scrollWidth, scrollLeft} = this.wrapperElement.nativeElement;
 
         this.scrollableLeft = !!scrollLeft;
         this.scrollableRight = (scrollWidth - clientWidth) > scrollLeft;
