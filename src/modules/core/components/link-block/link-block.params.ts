@@ -1,7 +1,8 @@
 import {
     CustomType,
     IComponentParams,
-} from 'wlc-engine/modules/core/system/classes/abstract.component';
+    IIndexing,
+} from 'wlc-engine/modules/core';
 
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;
@@ -23,6 +24,7 @@ export interface IActionParams {
     },
     url?: {
         path: string,
+        params: IIndexing<string>,
     },
     event?: {
         name: string,

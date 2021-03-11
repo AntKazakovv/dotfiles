@@ -1,5 +1,5 @@
 <ng-container>
-    <div class="{{$class}}__wrapper">
+    <div class="{{$class}}__wrapper" #wrapper>
         <div *ngFor="let item of items"
              class="{{$class}}__item {{item.modifier}}"
              [attr.data-wlc-element]="item.wlcElement"
