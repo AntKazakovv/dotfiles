@@ -1,0 +1,13 @@
+<div *ngIf="tournaments?.length && isReady; else noData">
+    <div wlc-tournament-thumb
+         *ngFor="let tournament of tournaments"
+         [tournament]="tournament"
+    ></div>
+</div>
+
+<ng-template #noData>
+    <div *ngIf="isReady">{{'No tournaments available' | translate}}</div>
+    <div *ngIf="!isReady">
+        <div wlc-loader></div>
+    </div>
+</ng-template>

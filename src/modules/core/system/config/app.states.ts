@@ -55,6 +55,7 @@ const states = {
     'app.profile.referrals': States.profileReferralsState,
     'app.profile.dashboard': States.profileDashboardState,
     'app.error': States.errorPageState,
+    'app.tournaments': States.tournamentsState,
 };
 
 const appState: Ng2StateDeclaration = {

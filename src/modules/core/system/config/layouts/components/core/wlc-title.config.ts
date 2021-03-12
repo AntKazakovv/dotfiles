@@ -132,4 +132,13 @@ export namespace wlcTitle {
             wlcElement: 'header_total-jackpot',
         },
     };
+
+    export const tournaments: ILayoutComponent = {
+        name: 'core.wlc-title',
+        params: {
+            customMod: ['tournaments'],
+            mainText: gettext('Tournaments'),
+            wlcElement: 'header_promo_tournaments',
+        },
+    };
 }

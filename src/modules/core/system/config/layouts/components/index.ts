@@ -59,3 +59,5 @@ export * from './store/wlc-store-list.config';
 export * from './store/wlc-loyalty-levels.config';
 
 export * from './sportsbook/wlc-sportsbook.config';
+
+export * from './tournaments/wlc-tournament-list.config';
