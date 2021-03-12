@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, Injector} from '@angular/core';
 import {Tournament} from '../../models/tournament';
 import {
     IData,
@@ -11,6 +11,7 @@ import {
     IForbidBanned,
     IPushMessageParams,
     NotificationEvents,
+    LayoutService,
 } from 'wlc-engine/modules/core';
 import {UserService} from 'wlc-engine/modules/user/system/services';
 import {
@@ -18,6 +19,9 @@ import {
     RestType,
     IGetSubscribeParams,
     IQueryParams,
+    ITournamentUserStats,
+    ITopTournamentUsers,
+    ITournamentUser,
 } from '../../interfaces/tournaments.interface';
 import {
     BehaviorSubject,
@@ -30,21 +34,13 @@ import {
     takeUntil,
     filter as rxFilter,
     tap as rxTap,
-    skip as rxSkip,
 } from 'rxjs/operators';
 
 import {
     filter as _filter,
-    includes as _includes,
     extend as _extend,
-    each as _each,
     isObject as _isObject,
     get as _get,
-    isArray as _isArray,
-    map as _map,
-    size as _size,
-    unset as _unset,
-    sortBy as _sortBy,
 } from 'lodash-es';
 
 interface ITournamentData extends IData {
@@ -63,11 +59,11 @@ export class TournamentsService {
         history$: new BehaviorSubject(null),
     };
 
-    private winnersSubjects: BehaviorSubject<number>[] = [];
+    private winnersSubjects: IIndexing<BehaviorSubject<ITopTournamentUsers>> = {};
 
     private profile = this.userService.userProfile;
     private useForbidUserFields = this.configService.get<boolean>('$loyalty.useForbidUserFields');
-    private winLimit = this.configService.get<number>('$tournaments.winLimit') || -1;
+    private winLimit = this.configService.get<number>('$tournaments.winLimit') || 10;
     private winnersLimit: IIndexing<number> = {};
 
     constructor(
@@ -77,47 +73,11 @@ export class TournamentsService {
         private configService: ConfigService,
         private userService: UserService,
         private logService: LogService,
+        private layoutService: LayoutService,
+        private injector: Injector,
     ) {
         this.registerMethods();
         this.setSubscribers();
-
-        //TODO TO DELETE
-        // HELP FOR COMPONENT /////////////////////////////////////////////
-        // this.getSubscribe({
-        //     useQuery: true,
-        //     observer: {
-        //         next: (tournaments: Tournament[]) => {
-        //             if (tournaments) {
-        //                 console.log('ALL', tournaments);
-        //             }
-        //         },
-        //     },
-        // });
-
-        // this.getSubscribe({
-        //     useQuery: true,
-        //     observer: {
-        //         next: (tournaments: Tournament[]) => {
-        //             if (tournaments) {
-        //                 console.log('ACTIVE', tournaments);
-        //             }
-        //         },
-        //     },
-        //     type: 'active',
-        // });
-
-        // this.getSubscribe({
-        //     useQuery: true,
-        //     observer: {
-        //         next: (tournaments: Tournament[]) => {
-        //             if (tournaments) {
-        //                 console.log('HISTORY', tournaments);
-        //             }
-        //         },
-        //     },
-        //     type: 'history',
-        // });
-        // end HELP FOR COMPONENT ////////////////////////////////////////////
     }
 
     public get hasTournaments(): boolean {
@@ -164,7 +124,16 @@ export class TournamentsService {
         return flow$.asObservable();
     }
 
-    public getWinnersSubjects(tournamentID: number, limit?: number, interval: number = 15000): BehaviorSubject<any> {
+    /**
+     * Get winners subjects
+     *
+     * @param {number} tournamentID tournament id
+     * @param {Observable<unknown>} until until observable
+     * @param {number} limit limit of tops
+     * @param {number} interval get top interval
+     * @returns {BehaviorSubject<ITopTournamentUsers>} tournament winners subjects
+     */
+    public getWinnersSubjects(tournamentID: number, until?:Observable<unknown>, limit?: number, interval: number = 15000): BehaviorSubject<ITopTournamentUsers> {
 
         if (limit !== undefined) {
             if (limit === 0) {
@@ -174,16 +143,63 @@ export class TournamentsService {
             }
         }
 
-        // if (!this.winnersSubjects[tournamentID]) {
-        //     this.winnersSubjects[tournamentID] = new BehaviorSubject(null);
+        if (!this.winnersSubjects[tournamentID]) {
+            this.winnersSubjects[tournamentID] = new BehaviorSubject(null);
 
-        //     const winnersInterval = rxInterval(interval).pipe(
-        //         rxFilter(() => this.winnersSubjects[tournamentID].observers.length > 0)
-        //     ).pipe(rxTap(() => this.getTournamentTop(tournamentID, this.winnersLimit['' + tournamentID]) ));
+            const winnersInterval = rxInterval(interval).pipe(
+                rxFilter(() => this.winnersSubjects[tournamentID].observers.length > 0),
+            ).pipe(rxTap(() => this.getTournamentTop(tournamentID, this.winnersLimit['' + tournamentID]) ));
 
-        //     winnersInterval.subscribe({next: () => {}});
-        // }
+            winnersInterval.pipe(
+                (until) ? takeUntil(until) : pipe(),
+            ).subscribe({next: () => {}});
+        }
         return this.winnersSubjects[tournamentID];
+    }
+
+    /**
+     * Get tournament top
+     *
+     * @param {number} id tournament id
+     * @param {number} limit limit of tops
+     * @param {number} start tops from place
+     * @returns {Promise<ITopTournamentUsers>} tournament top users promise
+     */
+    public async getTournamentTop(id: number, limit: number = -1, start: number = 0): Promise<ITopTournamentUsers> {
+
+        if (!start && limit === -1) {
+            limit = this.winLimit;
+        }
+
+        const params = {
+            limit: limit,
+            start: start,
+        };
+
+        if (limit === 0) {
+            delete params.limit;
+        }
+
+        try {
+            const response: IData = await this.dataService.request({
+                name: 'tournamentTop',
+                system: 'tournaments',
+                url: `/tournaments/${id}/top`,
+                type: 'GET',
+                events: {
+                    success: 'TOURNAMENT_TOP_SUCCEEDED',
+                    fail: 'TOURNAMENT_TOP_FAILED',
+                },
+            }, params);
+            if (!this.winnersSubjects[id]) {
+                this.getWinnersSubjects(id);
+            }
+            this.winnersSubjects[id].next(response.data);
+
+            return response.data as ITopTournamentUsers;
+        } catch (error) {
+            this.logService.sendLog({code: '13.0.2', data: error});
+        }
     }
 
     /**
@@ -201,13 +217,13 @@ export class TournamentsService {
                 type: 'GET',
             });
             if (_isObject(data.data)) {
-                const tournament: Tournament = new Tournament(data.data, this.configService, this.cachingService, this);
+                const tournament: Tournament = new Tournament(data.data, this.configService, this.cachingService, this, this.layoutService, this.injector);
                 return tournament;
             } else {
-                //this.logService.sendLog({code: '10.0.1', data: data.data});
+                this.logService.sendLog({code: '13.0.1', data: data.data});
             }
         } catch (error) {
-            //this.logService.sendLog({code: '10.0.1', data: error});
+            this.logService.sendLog({code: '13.0.1', data: error});
         }
     }
 
@@ -224,7 +240,7 @@ export class TournamentsService {
             const response: IData = await this.dataService.request({
                 name: 'tournamentSubscribe',
                 system: 'tournaments',
-                url: `/tournament/${tournament.id}`,
+                url: `/tournaments/${tournament.id}`,
                 type: 'POST',
                 mapFunc: async (res) => await this.prepareTournamentActionData(res, tournament),
                 events: {
@@ -252,7 +268,7 @@ export class TournamentsService {
             const response: IData = await this.dataService.request({
                 name: 'tournamentleave',
                 system: 'tournaments',
-                url: `/tournament/${tournament.id}`,
+                url: `/tournaments/${tournament.id}`,
                 type: 'POST',
                 mapFunc: async (res) => await this.prepareTournamentActionData(res, tournament),
                 events: {
@@ -300,11 +316,51 @@ export class TournamentsService {
             }
             return tournaments;
         } catch (error) {
-            // this.logService.sendLog({code: '10.0.0', data: error});
+            this.logService.sendLog({code: '13.0.0', data: error});
             this.eventService.emit({
                 name: 'TOURNAMENTS_FETCH_FAILED',
                 data: error,
             });
+        }
+    }
+
+    /**
+     * Get user stats
+     *
+     * @returns {Promise<ITournamentUserStats>} tournament user stats
+     */
+    public async getUserStats(): Promise<ITournamentUserStats> {
+        try {
+            const res: IData = await this.dataService.request('tournaments/tournaments', {type: 'userstats'});
+            return res.data as ITournamentUserStats;
+        } catch (error) {
+            this.logService.sendLog({code: '13.0.3', data: error});
+        }
+    }
+
+    /**
+     * Get tournament user
+     *
+     * @param {number} id tournament id
+     * @returns {Promise<ITournamentUser>} tournament user data promise
+     */
+    public async getTournamentUser(id: number): Promise<ITournamentUser> {
+        try {
+            const response: IData = await this.dataService.request({
+                name: 'tournamentUser',
+                system: 'tournaments',
+                url: `/tournaments/${id}/user`,
+                type: 'GET',
+                events: {
+                    success: 'TOURNAMENT_USER_SUCCEEDED',
+                    fail: 'TOURNAMENT_USER_FAILED',
+                },
+            });
+            if (response.data?.result) {
+                return response.data.result as ITournamentUser;
+            }
+        } catch (error) {
+            this.logService.sendLog({code: '13.0.4', data: error});
         }
     }
 
@@ -340,7 +396,7 @@ export class TournamentsService {
 
         if (data?.length) {
             for (const tournamentData of data) {
-                const tournament: Tournament = new Tournament(tournamentData, this.configService, this.cachingService, this);
+                const tournament: Tournament = new Tournament(tournamentData, this.configService, this.cachingService, this, this.layoutService, this.injector);
                 queryTournaments.push(tournament);
             }
         }
