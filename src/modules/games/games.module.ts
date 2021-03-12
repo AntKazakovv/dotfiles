@@ -18,7 +18,8 @@ import {SearchComponent} from './components/search/search.component';
 import {TotalJackpotComponent} from 'wlc-engine/modules/games/components/total-jackpot/total-jackpot.component';
 import {CountUpModule} from 'ngx-countup';
 import {PlayGameForRealComponent} from './components/play-game-for-real/play-game-for-real.component';
-import {GameDashboardComponent} from 'wlc-engine/modules/games/components/game-dashboard/game-dashboard.component';
+import {GameDashboardComponent} from './components/game-dashboard/game-dashboard.component';
+import {GameDashboardBonusesComponent} from './components/game-dashboard-bonuses/game-dashboard-bonuses.component';
 import {RandomGameComponent} from  'wlc-engine/modules/games/components/random-game/random-game.component';
 import {CategoryPreviewComponent} from 'wlc-engine/modules/games/components/category-preview/category-preview.component';
 import {IIndexing, GlobalHelper} from 'wlc-engine/modules/core';
@@ -57,6 +58,7 @@ export const components = {
         TotalJackpotComponent,
         PlayGameForRealComponent,
         GameDashboardComponent,
+        GameDashboardBonusesComponent,
         RandomGameComponent,
         CategoryPreviewComponent,
     ],

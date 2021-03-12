@@ -135,6 +135,12 @@
                 border: none;
                 width: ef.get-value($themeDefault, 'toggleElemWidth');
                 height: ef.get-value($themeDefault, 'toggleHeight');
+                @include bm.transition(background);
+
+                &.checked {
+                    background: ef.get-value($themeDefault, 'toggleBackgroundActive');
+                    opacity: 1;
+                }
 
                 &.checked::ng-deep {
                     animation: none;

@@ -200,25 +200,15 @@
 
         &__name {
             @include text.get-text-style('QoteTextBold', ef.get-value($themeDefault, 'nameFontColor'));
-            line-height: 1.4;
-            text-align: center;
-            width: ef.get-value($themeDefault, 'infoWidth');
-
-            @include mq.min(1200) {
-                line-height: 1.5;
-                width: ef.get-value($themeDefault, 'infoWidthDesktop');
-            }
+            text-align: ef.get-value($themeDefault, 'positionText');
+            @include em.get-mq-map('width', $themeDefault, 'infoWidth');
         }
 
         &__description {
             @include text.get-text-style('PrimaryText', ef.get-value($themeDefault, 'descriptionFontColor'));
-            text-align: center;
-            transition: opacity ef.get-value($themeDefault, 'time') ease-in-out;
-            width: ef.get-value($themeDefault, 'infoWidth');
-
-            @include mq.min(1200) {
-                width: ef.get-value($themeDefault, 'infoWidthDesktop');
-            }
+            text-align: ef.get-value($themeDefault, 'positionText');
+            @include em.get-mq-map('width', $themeDefault, 'infoWidth');
+            @include em.transition(opacity);
         }
 
         &__active-block {
@@ -227,7 +217,7 @@
             margin: ef.get-value($themeDefault, 'activeBlockMargin');
             max-width: ef.get-value($themeDefault, 'activeBlockMaxWidth');
             border-radius: ef.get-value($themeDefault, 'activeBlockRadius');
-            text-align: center;
+            text-align: ef.get-value($themeDefault, 'positionText');
             @include text.get-text-style('PrimaryTextBold', ef.get-value($themeDefault, 'activeBlockFontColor'));
 
             .secondary-text {
@@ -295,12 +285,11 @@
             @include em.get-mq-map('bottom', $themeDefault, 'btnBottomPosition');
             display: flex;
             justify-content: center;
-            will-change: transform;
             @include em.get-mq-map('opacity', $themeDefault, 'btnsOpacity');
             @include em.get-mq-map('transform', $themeDefault, 'btnsTranslateY');
 
             @include mq.min(1200) {
-                transition: transform ef.get-value($themeDefault, 'time') ease-in-out;
+                @include em.transition(transform);
             }
 
             button {

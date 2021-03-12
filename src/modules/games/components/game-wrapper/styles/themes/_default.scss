@@ -64,7 +64,7 @@
             display: flex;
             align-items: center;
 
-            .icon-btn {
+            .wlc-icon {
                 margin-left: map-get($themeDefault, 'iconsGap');
                 opacity: map-get($themeDefault, 'iconsOpacity');
                 cursor: pointer;
@@ -140,7 +140,7 @@
             }
 
             &__content {
-                z-index: 10;
+                z-index: 15;
                 margin: 0;
                 max-width: 100%;
                 position: fixed !important;

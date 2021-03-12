@@ -55,3 +55,16 @@
         }
     }
 }
+
+@mixin buttonReadMore {
+    background: unset;
+    border-color: ef.get-value($themeDefault, 'borderColorRead');
+
+    @media (hover: hover) {
+
+        &:hover {
+            background: unset;
+            border-color: ef.get-value($themeDefault, 'borderColorRead');
+        }
+    }
+}

@@ -6,7 +6,7 @@
                 <span wlc-icon iconName="game-dashboard/arrow-right"></span>
             </div>
             <div class="tutorial-text">
-                {{'Pull this' | translate}} !
+                {{'Tap this' | translate}} !
             </div>
         </div>
         <div class="{{$class}}__tutorial-img">
@@ -21,7 +21,7 @@
 </div>
 
 <div class="{{$class}}__backdrop" #backdrop (click)="close()">
-    <div class="{{$class}}__backdrop-label" #activeTabLabel [hidden]="!opened || hideBackdropLabel">
+    <div class="{{$class}}__backdrop-label" #activeTabLabel [hidden]="!opened || hideBackdropLabel || !landscapeOrientation">
         {{activeTab?.label | translate}}
     </div>
 </div>
@@ -46,25 +46,26 @@
                     </div>
                 </ng-container>
             </div>
-            <div class="{{$class}}__content {{$class}}__content--{{activeTab?.id || 'default'}}">
-
-                <ng-container [ngSwitch]="activeTab?.id">
-
-                    <ng-container *ngSwitchCase="'profile'" [ngTemplateOutlet]="profile">
+            <div class="{{$class}}__content {{$class}}__content--{{activeTab?.id || 'default'}}" *ngIf="viewInited">
+                <ng-container *ngFor="let tab of tabs">
+                    <ng-container *ngIf="!tab.updateOnOpen">
+                        <div [hidden]="activeTab?.id !== tab.id" class="{{$class}}__content-item">
+                            <div class="{{$class}}__title" *ngIf="!landscapeOrientation || !isMobile">
+                                {{tab.label | translate}}
+                            </div>
+                            <ng-container [ngTemplateOutlet]="getTabContentTemplate(tab)">
+                            </ng-container>
+                        </div>
                     </ng-container>
-
-                    <ng-container *ngSwitchCase="'bonuses'" [ngTemplateOutlet]="bonuses">
+                    <ng-container *ngIf="tab.updateOnOpen">
+                        <div *ngIf="activeTab?.id === tab.id" class="{{$class}}__content-item">
+                            <div class="{{$class}}__title" *ngIf="!landscapeOrientation || !isMobile">
+                                {{tab.label | translate}}
+                            </div>
+                            <ng-container [ngTemplateOutlet]="getTabContentTemplate(tab)">
+                            </ng-container>
+                        </div>
                     </ng-container>
-
-                    <ng-container *ngSwitchCase="'tournaments'" [ngTemplateOutlet]="tournaments">
-                    </ng-container>
-
-                    <ng-container *ngSwitchCase="'last-played'" [ngTemplateOutlet]="lastplayed">
-                    </ng-container>
-
-                    <ng-container *ngSwitchDefault [ngTemplateOutlet]="profile">
-                    </ng-container>
-
                 </ng-container>
             </div>
         </div>
@@ -99,8 +100,7 @@
 </ng-template>
 
 <ng-template #bonuses>
-    <div wlc-bonuses-list [inlineParams]="bonusesListParams">
-    </div>
+    <div wlc-game-dashboard-bonuses></div>
 </ng-template>
 
 <ng-template #tournaments>
@@ -109,7 +109,7 @@
 
 <ng-template #lastplayed>
     <ng-container *ngIf="lastPlayedGamesReady; else preloader">
-        <ng-container *ngIf="lastPlayedGamesSlides.length">
+        <ng-container *ngIf="lastPlayedGamesSlides.length > 0">
 
             <div class="{{$class}}__games-slider" *ngIf="isMobile && landscapeOrientation"
                  wlc-slider

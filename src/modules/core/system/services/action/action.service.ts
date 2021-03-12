@@ -1,6 +1,8 @@
 import {
     Injectable,
     Injector,
+    Renderer2,
+    RendererFactory2,
 } from '@angular/core';
 import {CurrencyPipe} from '@angular/common';
 import {UIRouter} from '@uirouter/core';
@@ -70,6 +72,8 @@ export class ActionService {
     private deviceTypeSubject: BehaviorSubject<DeviceType> = new BehaviorSubject(null);
     private windowResizeSubject: Subject<IResizeEvent> = new Subject();
     private breakpoints: IDeviceBreakpoints;
+    private renderer: Renderer2;
+    private scrollTop: number;
 
     constructor(
         private injector: Injector,
@@ -77,9 +81,35 @@ export class ActionService {
         private eventService: EventService,
         private layoutService: LayoutService,
         private modalService: ModalService,
+        private rendererFactory: RendererFactory2,
         private router: UIRouter,
     ) {
         this.init();
+    }
+
+    public lockBody(): void {
+        if(window.pageYOffset) {
+            this.scrollTop = window.pageYOffset;
+        }
+
+        const elems = [document.documentElement, document.body];
+        _forEach(elems, (elem) => {
+            this.renderer.setStyle(elem, 'height', '100%');
+            this.renderer.setStyle(elem, 'overflow', 'hidden');
+        });
+    }
+
+    public unlockBody(): void {
+        const elems = [document.documentElement, document.body];
+        _forEach(elems, (elem) => {
+            this.renderer.setStyle(elem, 'height', '');
+            this.renderer.setStyle(elem, 'overflow', '');
+        });
+
+        if (this.scrollTop) {
+            window.scrollTo(0, this.scrollTop);
+            this.scrollTop = 0;
+        }
     }
 
     public async processMessages(initialPath: IIndexing<string>): Promise<void> {
@@ -174,6 +204,7 @@ export class ActionService {
     }
 
     private async init(): Promise<void> {
+        this.renderer = this.rendererFactory.createRenderer(null, null);
         this.configService.ready.then(() => {
             this.device = this.configService.get<DeviceModel>('device');
             fromEvent(window, 'resize').subscribe({

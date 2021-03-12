@@ -1,0 +1,29 @@
+<ng-container *ngIf="isReady && bonuses?.length && slides?.length; else: noBonuses">
+    <div class="{{$class}}__slider" *ngIf="!landscapeOrientation || !isMobile"
+         wlc-slider
+         [slides]="slides"
+         [inlineParams]="$params.common?.sliderParams">
+    </div>
+    <div class="{{$class}}__slider" *ngIf="isMobile && landscapeOrientation"
+         wlc-slider
+         [slides]="slides"
+         [inlineParams]="$params.common?.landscapeSliderParams">
+    </div>
+    <div slot-container-end *ngIf="!landscapeOrientation || !isMobile">
+        <div class="swiper-button-prev" wlc-icon iconName="arrow"></div>
+        <div class="swiper-button-next" wlc-icon iconName="arrow"></div>
+    </div>
+</ng-container>
+
+<ng-template #noBonuses>
+    <div class="{{$class}}__not-found" *ngIf="isReady">{{'No bonuses available' | translate}}</div>
+    <div class="{{$class}}__not-found" *ngIf="!isReady">
+        <div wlc-loader></div>
+    </div>
+</ng-template>
+
+<ng-template #bonus let-item="item">
+    <div class="{{$class}}__bonus-wrp" [ngClass]="{'active-bonus': item.bonus.isActive}">
+        <div class="{{$class}}__bonus" wlc-bonus-item [inlineParams]="item.bonusItemParams"></div>
+    </div>
+</ng-template>

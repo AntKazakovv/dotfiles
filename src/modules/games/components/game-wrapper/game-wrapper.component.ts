@@ -385,7 +385,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         const windowHeight = globalThis.innerHeight;
         const wrpElTop = this.wrp?.element?.nativeElement.getBoundingClientRect().top;
         const padding = this.$params?.padding || 0;
-        const elFooterHeight = this.footer.nativeElement.getBoundingClientRect().height;
+        const elFooterHeight = this.footer.nativeElement.getBoundingClientRect().height || 0;
         return windowHeight - wrpElTop - padding - elFooterHeight;
     }
 

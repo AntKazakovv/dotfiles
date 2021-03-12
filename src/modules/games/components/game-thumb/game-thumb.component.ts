@@ -70,7 +70,6 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
 
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
-
         if (!this.game && this.$params.common?.game) {
             this.game = this.$params.common.game;
         }
