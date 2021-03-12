@@ -1,12 +1,11 @@
 import {
     IIndexing,
-    ISetParams,
 } from 'wlc-engine/modules/core';
+import {Tournament} from '../models/tournament';
 import {
     PartialObserver,
     Observable,
 } from 'rxjs';
-import {Tournament} from '../models/tournament';
 
 export interface ITournamentGames {
     Categories: number[];
@@ -55,45 +54,51 @@ export interface ITournament {
 
 export interface ITopTournamentUsers {
     limit: number;
-    results: ITounamentPlace[];
+    results: ITournamentPlace[];
     start: number;
     user: ITournamentUser;
 }
 
-export interface ITounamentPlace {
+export interface ITournamentPlace {
     Email: string;
     FirstName: string;
-    IDUser: number;
+    IDUser: string;
     IDUserPlace: string;
     LastName: string;
     Login: string;
-    Points: number;
+    Points: string;
     UserLogin: string;
-    Prize?: number;
+    Win: number;
 }
 
 export interface ITournamentUser {
     AddDate: string;
-    Balance: number;
-    BetsAmount: number;
-    BetsCount: number;
+    Balance: string;
+    BetsAmount: string;
+    BetsCount: string;
     Currency: string;
     EndDate: string;
-    ExRate: number;
-    ID: number;
-    IDLoyalty: number;
-    IDTournament: number;
-    IDUser: number;
-    LastBet: any;
-    ManualPoints: number;
-    Place: number;
+    ExRate: string;
+    ID: string;
+    IDLoyalty: string;
+    IDTournament: string;
+    IDUser: string;
+    LastBet: string;
+    ManualPoints: string;
+    Place: string;
     Points: number;
-    PointsCoef: number;
-    Qualification: number;
-    Status: number;
-    Win: any;
-    WinsAmount: number;
-    WinsCount: number;
+    PointsCoef: string;
+    Qualification: string;
+    Status: string;
+    Win: string;
+    WinsAmount: string;
+    WinsCount: string;
+}
+
+export interface ITournamentUserStats {
+    money: number;
+    played: number;
+    wins: number;
 }
 
 export interface IGetSubscribeParams {

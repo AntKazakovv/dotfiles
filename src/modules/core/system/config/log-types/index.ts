@@ -19,6 +19,7 @@ import * as verificationLogs from './9.verification';
 import * as bonusesLogs from './10.bonuses';
 import * as storeLogs from './11.store';
 import * as postsLogs from './12.posts';
+import * as tournamentsLogs from './13.tournaments';
 
 type LogGroupType = 'Common' | 'Sign Up' | 'Bonus' | '404 not found' | 'AutoTest' | 'Load' | 'Livechat' | 'Hellosoda';
 type LogMethodsType = 'Flog' | 'Sentry' | 'Both';
@@ -53,4 +54,5 @@ export const logTypes: ILogTypes = _assign(
     bonusesLogs,
     storeLogs,
     postsLogs,
+    tournamentsLogs,
 );

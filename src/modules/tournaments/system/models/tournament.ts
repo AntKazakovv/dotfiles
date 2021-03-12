@@ -1,47 +1,56 @@
+import {Injector} from '@angular/core';
 import {
-    IIndexing,
     AbstractModel,
     ConfigService,
     CachingService,
+    LayoutService,
 } from 'wlc-engine/modules/core';
+import {GamesCatalogService} from 'wlc-engine/modules/games';
+import {Game} from 'wlc-engine/modules/games/system/models/game.model';
+import {GamesHelper} from 'wlc-engine/modules/games/system/helpers/games.helpers';
 import {
     ITournament,
+    ITopTournamentUsers,
+    ITournamentPlace,
 } from '../interfaces/tournaments.interface';
 import {TournamentsService} from '../services';
+import {
+    PartialObserver,
+    Subscription,
+    pipe,
+    Observable,
+} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 import {DateTime} from 'luxon';
 
 import {
-    get as _get,
     toNumber as _toNumber,
-    isNumber as _isNumber,
-    isString as _isString,
     toString as _toString,
-    isObject as _isObject,
-    isArray as _isArray,
-    floor as _floor,
-    each as _each,
-    filter as _filter,
-    includes as _includes,
-    extend as _extend,
-    unset as _unset,
-    remove as _remove,
-    size as _size,
-    keys as _keys,
     map as _map,
+    each as _each,
+    uniqBy as _uniqBy,
+    remove as _remove,
+    filter as _filter,
 } from 'lodash-es';
 
 export class Tournament extends AbstractModel<ITournament> {
+    public topWin: ITournamentPlace[];
     protected userCurrency: string;
+    protected GamesCatalogService: GamesCatalogService;
 
     constructor(
         data: ITournament,
         protected ConfigService: ConfigService,
         protected cachingService: CachingService,
         protected tournamentsService: TournamentsService,
+        protected layoutService: LayoutService,
+        protected injector: Injector,
     ) {
         super();
         this.data = data;
         this.userCurrency = this.ConfigService.get<string>('appConfig.user.currency') || 'EUR';
+        this.layoutService.importModules(['games']);
+        this.GamesCatalogService = this.injector.get(GamesCatalogService);
     }
 
     public set data(data: ITournament) {
@@ -195,7 +204,7 @@ export class Tournament extends AbstractModel<ITournament> {
     }
 
     /**
-     * @returns {number} tournament fee amout
+     * @returns {number} tournament fee amount
      */
     public get feeAmount(): number {
         if (this.feeType === 'loyalty') {
@@ -208,14 +217,14 @@ export class Tournament extends AbstractModel<ITournament> {
     }
 
     /**
-     * @returns {string} tournament fee cuurency
+     * @returns {string} tournament fee currency
      */
     public get feeCurrency(): string {
         return (this.feeType === 'loyalty') ? 'LP' : this.userCurrency;
     }
 
     /**
-     * @returns {string} tournament target cuurency
+     * @returns {string} tournament target currency
      */
     public get targetCurrency(): string {
         return (this.target === 'loyalty') ? 'LP' : this.userCurrency;
@@ -288,6 +297,30 @@ export class Tournament extends AbstractModel<ITournament> {
     }
 
     /**
+     * @returns {Game[]} tournament games array
+     */
+    public get games(): Game[] {
+        let games: Game[] = [];
+        games = this.GamesCatalogService.getGameList({
+            categories: _map(this.data.Games.Categories, (id: number) => GamesHelper.getCategoryNameById(id)),
+            excludeCategories: _map(this.data.Games.CategoriesBL, (id: number) => GamesHelper.getCategoryNameById(id)),
+            merchants: this.data.Games.Merchants || [],
+            excludeMerchants: this.data.Games.MerchantsBL || [],
+        });
+
+        _each(this.data.Games.Games, (id) => {
+            const game = this.GamesCatalogService.getGameById(id);
+            if (game) {
+                games.push(game);
+            }
+        });
+
+        games = _filter(games, (game: Game) => !this.data.Games.GamesBL.includes(game.ID));
+
+        return _uniqBy(games, 'ID');
+    }
+
+    /**
      * Formatted tournament starts time
      *
      * @param {string} format date format by luxon plugin
@@ -307,5 +340,73 @@ export class Tournament extends AbstractModel<ITournament> {
     public endsTime(format: string = 'D T'): string {
         const defaultTime = DateTime.fromSQL(this.data.Ends);
         return this.endsLuxon.setLocale(defaultTime.locale).toFormat(format);
+    }
+
+    /**
+     * Winners subscription
+     *
+     * @param {PartialObserver<ITopTournamentUsers>} observer observer
+     * @param {} params until?: Observable<unknown>, limit?: number, start?: number
+     * @returns {Subscription} Winners subscription
+     */
+    public getWinnersSubscribe(
+        observer: PartialObserver<ITopTournamentUsers>,
+        params?: {
+            until?: Observable<unknown>,
+            limit?: number,
+            start?: number
+        }): Subscription {
+        const winnersSubject = this.tournamentsService.getWinnersSubjects(this.id, params?.until, params?.limit);
+
+        if (winnersSubject.observers.length === 0) {
+            this.tournamentsService.getTournamentTop(this.id, params?.limit, params?.start);
+        }
+
+        return winnersSubject.pipe(
+            (params?.until) ? takeUntil(params?.until) : pipe(),
+        ).subscribe(observer);
+    }
+
+    /**
+     * Get tournament top array
+     *
+     * @param {ITopTournamentUsers} result tournament top users
+     * @returns {ITournamentPlace[]} tournament top array
+     */
+
+    public getTopArray(result: ITopTournamentUsers): ITournamentPlace[] {
+        const topWin = result?.results || [];
+
+        if (result?.user) {
+            if (_toNumber(result.user.Place) > topWin.length || !result.user.Place) {
+                topWin.push({
+                    Email: this.ConfigService.get<string>('appConfig.user.Email')?.substring(0, 6) + '***',
+                    FirstName: this.ConfigService.get<string>('appConfig.user.first_name'),
+                    IDUser: result.user.IDUser,
+                    IDUserPlace: result.user.Place || '-',
+                    LastName: this.ConfigService.get<string>('appConfig.user.last_name'),
+                    Login: this.ConfigService.get<string>('appConfig.user.user_id'),
+                    Points: _toString(result.user.Points),
+                    UserLogin: this.ConfigService.get<string>('appConfig.user.login'),
+                    Win: _toNumber(result.user.Win),
+                });
+            }
+        }
+
+        _each(topWin, (item: ITournamentPlace) => {
+            if (!item.UserLogin?.length) {
+                item.UserLogin = this.getUserLogin(item);
+            }
+        });
+
+        return _uniqBy(topWin, 'IDUser');
+    }
+
+    protected getUserLogin(item: ITournamentPlace): string {
+        if (item.FirstName?.length && item.LastName?.length) {
+            return item.FirstName + ' ' + item.LastName.substring(0, 1);
+        } else {
+            return item.Email.substring(0, 6) + '***';
+        }
     }
 }
