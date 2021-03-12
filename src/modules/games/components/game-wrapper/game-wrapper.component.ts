@@ -280,7 +280,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
             const elem = this.hostElement.nativeElement;
             const iframe = this.wrp?.element?.nativeElement.querySelector('iframe');
 
-            let height: string = this.isMobile ? null : (globalThis.innerHeight - elem.offsetTop) + 'px';
+            let height: string = (globalThis.innerHeight - elem.offsetTop) + 'px';
 
             const iframeHeightAttr: string = iframe?.getAttribute('height');
             if (_includes(iframeHeightAttr, 'px') && height) {
@@ -523,7 +523,10 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
      * Set use or not mobile iframe
      */
     protected useOrNotMobileIframe(): void {
-        this.useMobileIframe = true;
+
+        if (this.$params.theme !== 'fullscreen-game-frame') {
+            this.useMobileIframe = true;
+        }
         this.cdr.detectChanges();
         // const runInIframeOnly: boolean = this.configService.get('siteconfig.game.mobile.runInIframeOnly');
         // if (runInIframeOnly) {
