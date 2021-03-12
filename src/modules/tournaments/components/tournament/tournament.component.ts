@@ -9,24 +9,24 @@ import {
     AbstractComponent,
     GlobalHelper,
 } from 'wlc-engine/modules/core';
-import * as Params from 'wlc-engine/modules/tournaments/components/tournament-thumb/tournament-thumb.params';
+import * as Params from 'wlc-engine/modules/tournaments/components/tournament/tournament.params';
 
 @Component({
-    selector: '[wlc-tournament-thumb]',
-    templateUrl: './tournament-thumb.component.html',
-    styleUrls: ['./styles/tournament-thumb.component.scss'],
+    selector: '[wlc-tournament]',
+    templateUrl: './tournament.component.html',
+    styleUrls: ['./styles/tournament.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TournamentThumbComponent
+export class TournamentComponent
     extends AbstractComponent
     implements OnInit {
 
-    public $params: Params.ITournamentThumbCParams;
+    public $params: Params.ITournamentCParams;
     @Input() public tournament: Tournament;
     @Input() public thumbType: string;
 
     constructor(
-        @Inject('injectParams') protected injectParams: Params.ITournamentThumbCParams,
+        @Inject('injectParams') protected injectParams: Params.ITournamentCParams,
     ) {
         super({
             injectParams,
