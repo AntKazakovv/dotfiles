@@ -138,4 +138,10 @@ export namespace profileContent {
             componentLib.wlcBonusesHistory.def,
         ],
     };
+    export const profileTournaments: ILayoutSectionConfig = {
+        container: true,
+        components: [
+            componentLib.wlcTournamentList.def,
+        ],
+    };
 }

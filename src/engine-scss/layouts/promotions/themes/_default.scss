@@ -34,3 +34,22 @@
         }
     }
 }
+
+.app-tournaments-state {
+
+    .wlc-sections__tournaments--theme-default {
+
+        .wlc-title.wlc-title--tournaments[wlc-title] {
+            text-align: ef.get-value($promotionsThemeDefault, 'titleAlign');
+            margin: ef.get-value($promotionsThemeDefault, 'listMargin');
+
+            div.wlc-title__main {
+                font-size: ef.get-value($promotionsThemeDefault, 'titleFontSize');
+            }
+
+            @include mq.min(900) {
+                margin: ef.get-value($promotionsThemeDefault, 'sectionMargin');
+            }
+        }
+    }
+}

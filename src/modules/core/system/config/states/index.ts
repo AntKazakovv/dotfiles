@@ -6,6 +6,7 @@ export * from './contacts.state';
 export * from './promotions.state';
 export * from './error-page.state';
 export * from './sportsbook.state';
+export * from './tournaments.state';
 export * from './profile/profile.state';
 export * from './profile/profile-history.state';
 export * from './profile/profile-main.state';

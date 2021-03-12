@@ -1,0 +1,22 @@
+<div [ngSwitch]="thumbType">
+    <ng-container *ngSwitchDefault>
+        <button
+            wlc-button
+            [text]="'default'">
+        </button>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'main'">
+        <button
+            wlc-button
+            [text]="'Main'">
+        </button>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'sec'">
+        <button
+            wlc-button
+            [text]="'Sec'">
+        </button>
+    </ng-container>
+</div>

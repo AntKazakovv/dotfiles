@@ -130,7 +130,7 @@ export const $layouts: ILayoutsConfig = {
     'app.profile.loyalty-tournaments.main': {
         extends: 'app.profile',
         sections: {
-            'profile-content': sectionsLib.profileContent.empty,
+            'profile-content': sectionsLib.profileContent.profileTournaments,
         },
     },
     'app.profile.loyalty-tournaments.active': {
@@ -278,5 +278,10 @@ export const $layouts: ILayoutsConfig = {
             content: sectionsLib.content.error,
         },
     },
-
+    'app.tournaments': {
+        extends: 'app',
+        sections: {
+            'tournaments': sectionsLib.promoTournaments.def,
+        },
+    },
 };

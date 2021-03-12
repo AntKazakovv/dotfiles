@@ -5,12 +5,18 @@ import {TranslateModule} from '@ngx-translate/core';
 import {CoreModule} from '../core/core.module';
 import {UserModule} from '../user/user.module';
 import {TournamentsService} from './system/services';
+import {TournamentListComponent} from './components/tournament-list/tournament-list.component';
+import {TournamentThumbComponent} from './components/tournament-thumb/tournament-thumb.component';
 
 export const components = {
+    'wlc-tournament-list': TournamentListComponent,
+    'wlc-tournament-thumb': TournamentThumbComponent,
 };
 
 @NgModule({
     declarations: [
+        TournamentListComponent,
+        TournamentThumbComponent,
     ],
     imports: [
         CommonModule,
@@ -21,8 +27,7 @@ export const components = {
     providers: [
         TournamentsService,
     ],
-    exports: [
-    ],
+    exports: [],
 })
 
 export class TournamentsModule {

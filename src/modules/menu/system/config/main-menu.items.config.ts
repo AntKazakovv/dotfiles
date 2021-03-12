@@ -87,8 +87,6 @@ export const wlcMainMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         params: {
             state: {
                 name: 'app.tournaments',
-                params: {
-                },
             },
         },
     },
