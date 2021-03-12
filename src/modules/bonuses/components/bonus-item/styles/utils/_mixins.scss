@@ -1,0 +1,41 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/base.mixins' as em;
+@import './vars';
+
+@mixin bonusProgress {
+
+    &__timer {
+        margin: ef.get-value($themeDefault, 'activeBlockTimerMargin');
+    }
+
+    &__progress {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: ef.get-value($themeDefault, 'activeBlockProgressBg');
+        border-radius: ef.get-value($themeDefault, 'activeBlockProgressRadius');
+        padding: ef.get-value($themeDefault, 'activeBlockProgressPadding');
+        @include em.get-mq-map('margin', $themeDefault, 'activeBlockProgressMargin');
+        transition: all ef.get-value($themeDefault, 'time') ease-in-out;
+    }
+
+    &__remaning {
+        font-weight: bold;
+    }
+
+    &__progressbar {
+        width: 100%;
+        height: ef.get-value($themeDefault, 'progressBarSize');
+        border-radius: ef.get-value($themeDefault, 'progressBarRadius');
+        background-color: ef.get-value($themeDefault, 'progressBarBg');
+        overflow: hidden;
+        margin: ef.get-value($themeDefault, 'progressBarMargin');
+    }
+
+    &__progress-inner {
+        width: 100%;
+        height: 100%;
+        background-color: ef.get-value($themeDefault, 'progressBarColor');
+    }
+}

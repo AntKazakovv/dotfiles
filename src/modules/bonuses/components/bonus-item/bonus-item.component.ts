@@ -7,6 +7,7 @@ import {
     OnChanges,
     OnDestroy,
     OnInit,
+    SimpleChanges,
     ViewEncapsulation,
 } from '@angular/core';
 import {UIRouter} from '@uirouter/core';
@@ -83,13 +84,13 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
     }
 
     public ngOnInit(): void {
-        super.ngOnInit(GlobalHelper.prepareParams(this,
+        super.ngOnInit(this.inlineParams || GlobalHelper.prepareParams(this,
             ['bonus', 'type', 'theme', 'themeMod', 'customMod', 'view', 'chosen']));
 
         if (this.$params.bonus) {
             this.$params.common.bonus = this.$params.bonus;
-            this.bonus = this.$params.bonus;
         }
+        this.bonus = this.$params.bonus || this.$params.common.bonus;
 
         if (!this.view) {
             this.view = this.$params.common.bonus?.viewTarget || 'default';
@@ -121,6 +122,18 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
         this.isTypeRegDeposit = this.$params.common?.type === 'reg' || this.$params.common?.type === 'deposit';
         this.isNoChooseBtn = this.$params.common?.hideChooseBtn && this.isTypeRegDeposit;
         this.isChooseBtn = !this.$params.common?.hideChooseBtn && this.isTypeRegDeposit;
+
+        if (!this.$params.common.bonus.description) {
+            this.addModifiers('no-description');
+        }
+
+        if (this.$params.common.bonus.isActive) {
+            this.addModifiers('is-active');
+        }
+
+        if (!this.getBonusTag()) {
+            this.addModifiers('no-tag');
+        }
     }
 
     public getBonusTag(): string {
@@ -176,7 +189,6 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
     }
 
     public async join(): Promise<void> {
-
         this.bonus = await this.bonusesService.subscribeBonus(this.bonus);
         if (this.bonus) {
             this.bonusesService.clearPromoBonus();
@@ -215,6 +227,13 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
         if (this.bonus) {
             this.cdr.markForCheck();
         }
+    }
+
+    /**
+     * Registration
+     */
+    public registration(): void {
+        this.modalService.showModal('signup');
     }
 
     public action(type: string) {

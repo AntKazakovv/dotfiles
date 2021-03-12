@@ -125,16 +125,19 @@ export class SliderComponent extends AbstractComponent
             this.fixSlidesSequence();
             this.cdr.detectChanges();
             this.update();
+
         }
     }
 
     public detectSlide(slide: Params.ISlide): string {
-        if (slide.component) {
-            return 'component';
-        } else if (slide.templateRef) {
-            return 'templateRef';
-        } else if (slide.htmlString) {
-            return 'htmlString';
+        if (slide) {
+            if (slide.component) {
+                return 'component';
+            } else if (slide.templateRef) {
+                return 'templateRef';
+            } else if (slide.htmlString) {
+                return 'htmlString';
+            }
         }
         return '';
     }
@@ -184,6 +187,10 @@ export class SliderComponent extends AbstractComponent
 
     protected isAutoSlidesAndColumnMode(): boolean {
         return !!(this.$params.swiper?.slidesPerView === 'auto' && this.$params.swiper?.slidesPerColumn);
+    }
+
+    protected onResize(event): void {
+        this.updateView();
     }
 
     protected updateView(): void {

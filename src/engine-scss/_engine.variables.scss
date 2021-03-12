@@ -477,6 +477,7 @@ $buttonSettings: map-merge((
     'borderDefaultHover': 2px solid darken(map-get($mainColors, 'buttonColor'), 20%),
     'borderSecondary': 2px solid map-get($mainColors, 'secondary'),
     'borderSecondaryHover': 2px solid darken(map-get($mainColors, 'secondary'), 20%),
+    'borderColorRead': map-get($mainColors, 'baseOpacity'),
     //Padding
     'padding': map-get($size, 'smallest') map-get($size, 'smaller'),
     'gap': map-get($size, 'smallest'),

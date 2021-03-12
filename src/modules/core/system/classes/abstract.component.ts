@@ -29,6 +29,7 @@ import {
     cloneDeep as _cloneDeep,
     has as _has,
     split as _split,
+    mergeWith as _mergeWith,
 } from 'lodash-es';
 
 export {IComponentParams, CustomType} from 'wlc-engine/modules/core/system/interfaces/config.interface';
@@ -99,8 +100,12 @@ export class AbstractComponent implements OnDestroy, OnInit, OnChanges {
     }
 
     public ngOnChanges(changes: SimpleChanges): void {
-        if (_get(changes, 'inlineParams') && (_get(this, 'inlineParams'))) {
-            _assign(this.$params, _get(this, 'inlineParams'));
+        if (_get(changes, 'inlineParams.currentValue') && _get(this, 'inlineParams')) {
+            _mergeWith(this.$params, _get(changes, 'inlineParams.currentValue'), (objValue, srcValue) => {
+                if (_isArray(objValue)) {
+                    return srcValue;
+                }
+            });
         }
     }
 

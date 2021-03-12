@@ -6,7 +6,7 @@ import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus';
 import {IIndexing} from 'wlc-engine/modules/core';
 
 export type Type = 'default' | 'reg' | 'deposit' | 'promo' | 'store' | 'active' | 'inventory' | CustomType;
-export type Theme = 'default' | 'partial' | 'preview' | CustomType;
+export type Theme = 'default' | 'long' | 'grid' | 'partial' | 'preview' | CustomType;
 export type ThemeMod = 'default' | CustomType;
 export type AutoModifiers = Theme | ThemeMod;
 export type CustomMod = string;
@@ -33,6 +33,7 @@ export interface IBonusItemCParams extends IComponentParams<Theme, Type, ThemeMo
         iconMoreBtn?: boolean;
         iconsPath?: string;
         bonus?: Bonus;
+        nameClamp?: number;
         usePreviewBonus?: boolean,
         promoLinks?: {
             deposit?: ILinkParams,
@@ -54,6 +55,7 @@ export const defaultParams: IBonusItemCParams = {
         iconMoreBtn: true,
         hideChooseBtn: true,
         iconsPath: '/gstatic/bonuses/icons/',
+        nameClamp: 1,
         usePreviewBonus: false,
         promoLinks: {
             deposit: {

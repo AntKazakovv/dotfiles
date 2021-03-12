@@ -28,6 +28,7 @@ $themeDefault: map-merge((
     'errorColor': ef.get('form', 'errorsColor'),
 
     'toggleBackground': ef.get('mainColors', 'baseOpacity'),
+    'toggleBackgroundActive': ef.get('mainColors', 'baseOpacity'),
     'toggleWidth': auto,
     'toggleHeight': 24px,
     'toggleElemWidth': 50px,

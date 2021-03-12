@@ -3,7 +3,7 @@
 $customThemeDefault: () !default;
 
 $themeDefault: map-merge((
-    'contentMargin': 0 auto,
+    'contentMargin': 0 auto 40px auto,
     'contentPaddings': ef.get('size', 'big'),
     'headerPaddings': ef.get('size', 'main'),
     'headerBg': transparent,

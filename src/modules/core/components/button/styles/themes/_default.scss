@@ -10,5 +10,9 @@
         &.wlc-btn--theme-mod-secondary {
             @include buttonTransparency;
         }
+
+        &.wlc-btn--theme-mod-readmore {
+            @include buttonReadMore;
+        }
     }
 }

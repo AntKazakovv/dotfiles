@@ -11,6 +11,7 @@ import {
     Renderer2,
     SimpleChanges,
     ViewChild,
+    TemplateRef,
 } from '@angular/core';
 import {
     animate,
@@ -48,6 +49,8 @@ import {
 
 import {
     assign as _assign,
+    get as _get,
+    find as _find,
 } from 'lodash-es';
 
 enum Direction {
@@ -101,6 +104,11 @@ interface IPanEventOptions {
     ],
 })
 export class GameDashboardComponent extends AbstractComponent implements OnInit, OnChanges, AfterViewInit {
+    @ViewChild('bonuses') bonusesTpl: TemplateRef<ElementRef>;
+    @ViewChild('profile') profileTpl: TemplateRef<ElementRef>;
+    @ViewChild('tournaments') tournamentsTpl: TemplateRef<ElementRef>;
+    @ViewChild('lastplayed') lastplayedTpl: TemplateRef<ElementRef>;
+
     @ViewChild('dragBtn') dragBtn: ElementRef;
     @ViewChild('backdrop') backdrop: ElementRef;
     @ViewChild('container') container: ElementRef;
@@ -149,6 +157,7 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
     public landscapeOrientation: boolean = false;
     public desktopSide: DashboardSide = 'right';
     public side: DashboardSide = 'left';
+    public viewInited: boolean = false;
 
     protected breakpoints: IIndexing<number> = {
         backdropLabel: 680,
@@ -189,12 +198,18 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
         }
 
         await this.configService.ready;
-        this.activeTab = this.tabs[0];
         this.isMobile = this.configService.get<boolean>('appConfig.mobile');
         this.isAuth = this.configService.get('$user.isAuthenticated');
         if (!this.isAuth) {
             this.addModifiers('not-auth');
         }
+
+        this.activeTab = _find(this.tabs, (tab) => {
+            if (tab.auth) {
+                return this.isAuth;
+            }
+            return true;
+        });
         this.initEventHandlers();
 
         this.showMobileInstruction = !await this.cachingService.get<boolean>(this.dontShowInstructionKey) &&
@@ -275,6 +290,7 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
         this.setPanEvents(this.backdrop, {
             disableDirection: Direction.Right,
         });
+        this.viewInited = true;
     }
 
     /**
@@ -284,6 +300,12 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
      */
     public openTab(tab: Params.IGameDashboardTab): void {
         this.activeTab = tab;
+        this.eventService.emit({
+            name : Params.Events.CHANED_TAB,
+            data: {
+                tab: tab,
+            },
+        });
         this.cdr.detectChanges();
     }
 
@@ -319,6 +341,10 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
      */
     public close(): void {
         this.changeView(false);
+    }
+
+    public getTabContentTemplate(tab: Params.IGameDashboardTab): TemplateRef<any> {
+        return _get(this, `${tab.id}Tpl`);
     }
 
     protected async loadLastPlayedGames(): Promise<void> {
@@ -659,13 +685,15 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
             return;
         }
 
+        this.addModifiers('animate');
         if (!this.opened) {
-            this.addModifiers('animate');
             if (this.showMobileInstruction) {
                 this.showMobileInstruction = false;
             }
             this.open();
-            this.cdr.markForCheck();
+        } else {
+            this.close();
         }
+        this.cdr.markForCheck();
     }
 }

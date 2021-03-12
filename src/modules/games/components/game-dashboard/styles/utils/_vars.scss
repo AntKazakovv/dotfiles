@@ -7,6 +7,7 @@ $themeDefault: map-merge((
     'backgroundTabs': ef.get('mainColors', 'bg700'),
     'backgroundTabsActive': ef.get('mainColors', 'main'),
     'backdropBackground': transparentize(ef.get('mainColors', 'bg'), 0.2),
+    'backgroundTabsUserLandscape': ef.get('mainColors', 'bg300'),
 
     'decorHeight': 247px,
     'decorWidth': 181px,
@@ -16,9 +17,9 @@ $themeDefault: map-merge((
     'itemWidth': 250px,
     'imgMargin': 0 0 15px 0,
 
-    'tutotrialArrowTop': 112px,
-    'tutotrialArrowRight': unset,
-    'tutotrialArrowLeft': 20px,
+    'tutorialArrowTop': 135px,
+    'tutorialArrowRight': unset,
+    'tutorialArrowLeft': 20px,
     'tutorialColor': ef.get('mainColors', 'baseMain'),
     'tutorialArrowTextMargin': 8px 0 0 20px,
     'tutorialDontShowColor': #fff,
@@ -46,10 +47,14 @@ $themeDefault: map-merge((
     'headerBackground': ef.get('mainColors', 'bg500'),
     'headerPadding': 10px 0,
 
-    'tabWidth': 43px,
-    'tabHeight': 43px,
+    'tabWidth': 44px,
+    'tabHeight': 44px,
     'tabRadius': 50%,
 
-    'contentPadding': 20px,
+    'contentPadding': ef.get('size', 'smaller'),
+
+    'fontStylePoints': 'SignText',
+
+    'paddingBonuses': ef.get('size', 'smaller'),
 
 ), $customThemeDefault);

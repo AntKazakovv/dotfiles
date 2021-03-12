@@ -9,6 +9,7 @@ export type CustomMod = string;
 export type Modifiers = AutoModifiers | CustomMod | null;
 
 export type DashboardSide = 'left' | 'right';
+export type DashboardTab = 'profile' | 'bonuses' | 'tournaments' | 'lastplayed';
 
 export interface IGameDashboardCParams extends IComponentParams<Theme, Type, ThemeMod> {
     modifiers?: Modifiers[];
@@ -18,10 +19,21 @@ export interface IGameDashboardCParams extends IComponentParams<Theme, Type, The
     }
 }
 
-export const Events: IIndexing<string> = {
+interface IEvents {
+    OPENED: string,
+    CLOSED: string,
+    CHANED_TAB: string,
+};
+
+export const Events: IEvents = {
     OPENED: 'opened@GameDashboard',
     CLOSED: 'closed@GameDashboard',
+    CHANED_TAB: 'changedTab@GameDashboard',
 };
+
+export interface IChangedTabEvent {
+    tab: IGameDashboardTab;
+}
 
 export const defaultParams: IGameDashboardCParams = {
     moduleName: 'games',
@@ -33,10 +45,11 @@ export const defaultParams: IGameDashboardCParams = {
 };
 
 export interface IGameDashboardTab {
-    id: string;
+    id: DashboardTab;
     icon: string;
     label?: string;
     auth?: boolean;
+    updateOnOpen?: boolean;
 }
 
 export const dashboardTabs: IGameDashboardTab[] = [
@@ -49,17 +62,19 @@ export const dashboardTabs: IGameDashboardTab[] = [
     {
         id: 'bonuses',
         icon: 'game-dashboard/bonuses',
-        label: gettext('Bonuses'),
+        label: gettext('My bonuses'),
+        updateOnOpen: true,
     },
+    // {
+    //     id: 'tournaments',
+    //     icon: 'game-dashboard/tournaments',
+    //     label: gettext('Tournaments'),
+    // },
     {
-        id: 'tournaments',
-        icon: 'game-dashboard/tournaments',
-        label: gettext('Tournaments'),
-    },
-    {
-        id: 'last-played',
+        id: 'lastplayed',
         icon: 'game-dashboard/last-played',
         label: gettext('Last played'),
         auth: true,
+        updateOnOpen: true,
     },
 ];

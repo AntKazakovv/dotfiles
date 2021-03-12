@@ -8,14 +8,12 @@ import {
 import {TranslateService} from '@ngx-translate/core';
 import {StateService, TransitionService, UIRouter, UIRouterGlobals} from '@uirouter/core';
 import {Title, Meta} from '@angular/platform-browser';
-import {takeUntil} from 'rxjs/operators';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {SectionModel} from 'wlc-engine/modules/core/system/models/section.model';
-import {ConfigService, LayoutService, EventService} from 'wlc-engine/modules/core';
-import {ILanguage} from 'wlc-engine/modules/core';
-import {DeviceModel} from 'wlc-engine/modules/core';
+import {ConfigService, LayoutService, EventService, ILanguage, ActionService, DeviceModel} from 'wlc-engine/modules/core';
+
 import {fromEvent} from 'rxjs/internal/observable/fromEvent';
-import {filter} from 'rxjs/operators';
+import {takeUntil, filter} from 'rxjs/operators';
 
 import {
     sortBy as _sortBy,
@@ -42,6 +40,7 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
     public panels: SectionModel[] = [];
 
     private testViewPort = false;
+    private isIOS: boolean = false;
     private additionalHostClass = [];
 
     constructor(
@@ -53,6 +52,7 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
         protected eventService: EventService,
         protected uiRouter: UIRouterGlobals,
         protected cdr: ChangeDetectorRef,
+        protected actionService: ActionService,
         private transition: TransitionService,
         private titleService: Title,
         private meta: Meta,
@@ -64,6 +64,7 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
         if (siteName) {
             titleService.setTitle(siteName);
         }
+        this.isIOS = this.actionService.device.osName === 'ios';
     }
 
     public ngOnInit(): void {
@@ -135,27 +136,32 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
 
     private updateMetaTag(): void {
         const current = this.meta.getTag('name=\'viewport\'')?.attributes.getNamedItem('content').value;
-
         if (window.matchMedia('(max-width: 375px)').matches && current === 'width=device-width, initial-scale=1') {
             this.meta.updateTag({
                 name: 'viewport',
-                content: 'width=375',
+                content: this.isIOS ? 'width=375, maximum-scale=1' : 'width=375',
+            });
+            return;
+        } else {
+            this.meta.updateTag({
+                name: 'viewport',
+                content: this.isIOS ? 'width=device-width, initial-scale=1, maximum-scale=1' : 'width=device-width, initial-scale=1',
             });
             return;
         }
 
-        if (current === 'width=375') {
+        if (_includes(current, 'width=375')) {
             this.testViewPort = true;
 
             this.meta.updateTag({
                 name: 'viewport',
-                content: 'width=device-width, initial-scale=1',
+                content: this.isIOS ? 'width=device-width, initial-scale=1, maximum-scale=1' : 'width=device-width, initial-scale=1',
             });
 
             if (window.matchMedia('(max-width: 375px)').matches) {
                 this.meta.updateTag({
                     name: 'viewport',
-                    content: 'width=375',
+                    content: this.isIOS ? 'width=375, maximum-scale=1' : 'width=375',
                 });
             }
             setTimeout(() => {
