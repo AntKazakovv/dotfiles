@@ -6,17 +6,17 @@ import {CoreModule} from '../core/core.module';
 import {UserModule} from '../user/user.module';
 import {TournamentsService} from './system/services';
 import {TournamentListComponent} from './components/tournament-list/tournament-list.component';
-import {TournamentThumbComponent} from './components/tournament-thumb/tournament-thumb.component';
+import {TournamentComponent} from './components/tournament/tournament.component';
 
 export const components = {
     'wlc-tournament-list': TournamentListComponent,
-    'wlc-tournament-thumb': TournamentThumbComponent,
+    'wlc-tournament': TournamentComponent,
 };
 
 @NgModule({
     declarations: [
         TournamentListComponent,
-        TournamentThumbComponent,
+        TournamentComponent,
     ],
     imports: [
         CommonModule,

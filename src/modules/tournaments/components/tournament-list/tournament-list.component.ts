@@ -57,6 +57,7 @@ export class TournamentListComponent
                     this.cdr.markForCheck();
                 },
             },
+            until: this.$destroy,
         });
     }
 }
