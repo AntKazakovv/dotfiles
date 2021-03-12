@@ -90,6 +90,7 @@
     }
 
     .wlc-bonuses-list {
+        max-width: 100%;
         grid-area: bonuses;
 
         @include mq.min(1024) {

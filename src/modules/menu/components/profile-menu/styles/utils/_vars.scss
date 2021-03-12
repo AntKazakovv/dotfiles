@@ -7,6 +7,9 @@ $themeDefault: map-merge((
         375: ef.get('size', 'small'),
         900: ef.get('size', 'smallest')
     ),
+    'profileMenuWidth': (
+        900: max-content,
+    ),
     'profileMenuBg': (
         375: ef.get-value(ev.$profileSettings, 'profileBg', 375),
     ),

@@ -18,41 +18,20 @@
 
         .wlc-profile-form {
             display: grid;
-            grid: {
-                template-columns: 1fr;
-                gap: ef.get-value($mainInfoThemeDefault, 'sectionRowGap', 1024);
-            }
-
-            @include mq.min(1024) {
-                grid-template-columns: minmax(0, 1fr) 25%;
-            }
-
-            @include mq.min(1200) {
-                grid: {
-                    template-columns: minmax(765px, max-content) 1fr;
-                    gap: ef.get-value($mainInfoThemeDefault, 'sectionRowGap', 1024) ef.get-value($mainInfoThemeDefault, 'sectionColGap', 1024);
-                }
-            }
+            @include bm.get-mq-map('grid-template-columns', $mainInfoThemeDefault, 'sectionFormColumns');
+            @include bm.get-mq-map('grid-gap', $mainInfoThemeDefault, 'sectionColGap');
 
             &__add {
                 display: grid;
                 grid-template-columns: 1fr;
                 grid-gap: ef.get-value($mainInfoThemeDefault, 'addBlockGap');
-                height: fit-content;
+                height: ef.get-value($mainInfoThemeDefault, 'addBlockHeight');
             }
 
             &__block {
                 display: grid;
-                grid-template-columns: 1fr;
+                @include bm.get-mq-map('grid-template-columns', $mainInfoThemeDefault, 'addBlockProfileColumns');
                 grid-row-gap: ef.get-value($mainInfoThemeDefault, 'addItemGap');
-
-                @include mq.min(640) {
-                    grid-template-columns: 1fr 1fr;
-                }
-
-                @include mq.min(1024) {
-                    grid-template-columns: 1fr;
-                }
             }
 
             &__title {
@@ -69,11 +48,9 @@
 
             &__item {
                 display: grid;
-                grid-template-columns: 1fr auto;
+                grid-template-columns: ef.get-value($mainInfoThemeDefault, 'addBlockColumns');
                 grid-gap: ef.get-value($mainInfoThemeDefault, 'addBlockGap');
-                grid-template-areas:
-                    'title switcher'
-                    'link .';
+                grid-template-areas: ef.get-value($mainInfoThemeDefault, 'addBlockAreas');
 
                 &-title {
                     grid-area: title;
@@ -90,11 +67,18 @@
 
                 &-switcher {
                     grid-area: switcher;
+
+                    .wlc-checkbox[wlc-checkbox] {
+
+                        .wlc-checkbox__label {
+                            padding: ef.get-value($mainInfoThemeDefault, 'switcherPadding');
+                        }
+                    }
                 }
 
                 .wlc-btn[wlc-button] {
                     grid-area: link;
-                    width: fit-content;
+                    width: ef.get-value($mainInfoThemeDefault, 'addItemWidth');
                     overflow: initial;
                     @include bm.arrowIconAnimation;
 
@@ -148,19 +132,18 @@
                 }
 
                 .wlc-btn[wlc-button] {
-                    justify-self: ef.get-value($mainInfoThemeDefault, 'saveButtonAlign');
+                    @include bm.get-mq-map('justify-self', $mainInfoThemeDefault, 'saveButtonAlign');
 
                     @include mq.min(768) {
-                        justify-self: ef.get-value($mainInfoThemeDefault, 'saveButtonAlign', 1024);
                         margin-top: ef.get-value($mainInfoThemeDefault, 'saveButtonShift');
                     }
                 }
             }
 
             .wlc-birth-field {
-                $gapWidth: 140px + ef.get-value($mainInfoThemeDefault, 'formRowGap', 768) * 2;
-                $inputWidth: ef.get-value($mainInfoThemeDefault, 'inputWidth', 768);
-                grid-template-columns: repeat(3, minmax(90px, 1fr));
+                $gapWidth: ef.get-value($mainInfoThemeDefault, 'birthInnerGap');
+                $inputWidth: ef.get-value($mainInfoThemeDefault, 'inputWidth', 1200);
+                grid-template-columns: ef.get-value($mainInfoThemeDefault, 'birthColumns');
 
                 @include mq.min(768) {
                     grid-template-columns: 1fr calc(#{$inputWidth / 2} - #{$gapWidth / 2}) calc(#{$inputWidth / 2} - #{$gapWidth / 2});
@@ -172,16 +155,16 @@
                     &:first-child {
 
                         @include mq.min(768) {
-                            grid-template-columns: 1fr 140px;
+                            grid-template-columns: ef.get-value($mainInfoThemeDefault, 'birthSize');
                         }
                     }
                 }
             }
 
             .wlc-phone-field {
-                $gapWidth: 140px + ef.get-value($mainInfoThemeDefault, 'formRowGap', 768);
-                $inputWidth: ef.get-value($mainInfoThemeDefault, 'inputWidth', 768);
-                grid-template-columns: 100px  minmax(0, 1fr);
+                $gapWidth: ef.get-value($mainInfoThemeDefault, 'phoneInnerGap');
+                $inputWidth: ef.get-value($mainInfoThemeDefault, 'inputWidth', 1200);
+                grid-template-columns: ef.get-value($mainInfoThemeDefault, 'phoneTemplateColumns');
 
                 @include mq.min(768) {
                     grid-template-columns: minmax(0, 1fr) calc(#{$inputWidth} - #{$gapWidth});
@@ -190,8 +173,8 @@
                 .wlc-select[class] {
 
                     @include mq.min(768) {
-                        grid-template-columns: minmax(0, 1fr) 140px;
-                        grid-gap: 0;
+                        grid-template-columns: ef.get-value($mainInfoThemeDefault, 'phoneSize');
+                        grid-gap: ef.get-value($mainInfoThemeDefault, 'phoneGap');
                     }
                 }
 
@@ -221,17 +204,8 @@
                     }
                 }
 
-                input[class],
-                .wlc-select__field {
-
-                    @include mq.max(768) {
-                        padding: 5px 10px;
-                        font-size: 1.2rem;
-                    }
-                }
-
                 @include mq.min(768) {
-                    grid-template-columns: 1fr ef.get-value($mainInfoThemeDefault, 'inputWidth', 768);
+                    grid-template-columns: 1fr ef.get-value($mainInfoThemeDefault, 'inputWidth', 1200);
                     align-items: flex-start;
                 }
             }
