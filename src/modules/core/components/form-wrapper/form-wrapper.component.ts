@@ -10,6 +10,8 @@ import {
     SimpleChanges,
     OnChanges,
     ElementRef,
+    Output,
+    EventEmitter,
 } from '@angular/core';
 import {
     AsyncValidatorFn,
@@ -85,9 +87,11 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
     @Input() private config: IFormWrapperCParams;
     @Input() private formData: BehaviorSubject<IIndexing<any>>;
 
+    @Output() public form$ = new EventEmitter<FormGroup>();
+
     public $params: IFormWrapperCParams;
     public form: FormGroup;
-    private controls: IControls;
+    private controls: IControls = {};
     private globalValidators:IGlobalValidators;
 
     private locked: string[] = [];
@@ -221,14 +225,15 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
         this.prepareValidators();
 
         this.form = new FormGroup(this.controls, this.globalValidators);
+        this.form$.emit(this.form);
 
         this.dataSubscription();
     }
 
     private prepareComponents(components: IFormComponent[]): void {
-        this.controls = {};
+        const controls = {};
 
-        _each(components, component => {
+        _each(components, (component) => {
 
             if (component.params.components) {
                 this.prepareComponents(component.params.components);
@@ -286,7 +291,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
 
             if (_isArray(component.params.name)) {
                 _each(component.params.name, (field: string) => {
-                    this.controls[field] = new FormControl(
+                    controls[field] = this.controls[field] || new FormControl(
                         {
                             value: _get(this.formData?.value, field, ''),
                             disabled: component.params.disabled,
@@ -300,7 +305,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
                     }
                 });
             } else {
-                this.controls[component.params.name] = new FormControl(
+                controls[component.params.name] = this.controls[component.params.name] || new FormControl(
                     {
                         value: _get(this.formData?.value, component.params.name, component.params.value) || '',
                         disabled: component.params.disabled,
@@ -314,6 +319,8 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
                 this.locked.push(component.params.name);
             }
         });
+
+        this.controls = _assign({}, this.controls, controls);
     }
 
     private prepareValidators(): void {

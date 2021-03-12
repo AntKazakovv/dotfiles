@@ -93,7 +93,7 @@ export class ConfigService {
     public get<T>(getParams: string | IGetParams): T {
         if (_isObject(getParams)) {
             if (getParams.storageType) {
-                return _get(this, storageType[getParams.storageType])?.strategy.get(getParams.name);
+                return _get(this, storageType[getParams.storageType]).retrieve(getParams.name);
             } else {
                 return _get(this.global, getParams.name);
             }
@@ -105,9 +105,9 @@ export class ConfigService {
     public set<T>(setParams: ISetParams<T>): void {
         if (setParams.storageType || setParams.storageClear) {
             if (storageType[setParams.storageClear]) {
-                _get(this, storageType[setParams.storageClear]).remove(setParams.name);
+                _get(this, storageType[setParams.storageClear]).clear(setParams.name);
             } else if (storageType[setParams.storageType]) {
-                _get(this, storageType[setParams.storageType]).set(setParams.name, setParams.value);
+                _get(this, storageType[setParams.storageType]).store(setParams.name, setParams.value);
             }
             return;
         }
