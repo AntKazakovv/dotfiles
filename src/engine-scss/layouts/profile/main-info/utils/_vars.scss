@@ -3,7 +3,16 @@
 $customMainInfoThemeDefault: () !default;
 $mainInfoThemeDefault: map-merge((
     'sectionColGap': (
-        1024: ef.get('size', 'main') * 2,
+        375: ef.get('size', 'main'),
+        1366: ef.get('size', 'main') * 2
+    ),
+    'sectionFormColumns': (
+        375: 1fr,
+        1024: minmax(0, 1fr) 30%,
+        1200: minmax(675px, max-content) 270px,
+    ),
+    'sectionFormGap': (
+        375: ef.get('size', 'smaller'),
     ),
     'sectionRowGap': (
         1024: ef.get('size', 'smaller'),
@@ -15,19 +24,36 @@ $mainInfoThemeDefault: map-merge((
     'saveButtonShift': ef.get('size', 'main') - ef.get('size', 'smaller'),
     'saveButtonAlign': (
         375: center,
-        1024: end,
+        768: end,
     ),
     'formMaxWidth': (
         768: 768px,
     ),
     'inputWidth': (
-        768: 450px,
+        768: 400px,
+        1200: 450px,
     ),
+    'phoneInnerGap': 140px + ef.get('size', 'small'),
+    'phoneTemplateColumns': 100px minmax(0, 1fr),
+    'phoneSize': minmax(0, 1fr) 140px,
+    'phoneGap': 0,
+    'birthColumns': repeat(3, minmax(90px, 1fr)),
+    'birthSize': 1fr 140px,
+    'birthInnerGap': 140px + ef.get('size', 'small') * 2,
     'addBlockGap': ef.get('size', 'smaller'),
+    'addBlockHeight': max-content,
+    'addBlockColumns': 1fr auto,
+    'addBlockAreas':  'title switcher' 'link .',
+    'addBlockProfileColumns': (
+        375:  1fr,
+        640: 1fr 1fr,
+        1024: 1fr,
+    ),
     'addTitleFontSize': ef.get('font', 'smaller'),
     'addTitleFontWeight': 300,
-    'addTitleColor':  ef.get('mainColors', 'baseMain'),
+    'addTitleColor': ef.get('mainColors', 'baseMain'),
     'addItemGap': ef.get('size', 'smaller'),
+    'addItemWidth': max-content,
     'addItemTitleMainFontSize': ef.get('font', 'main'),
     'addItemTitleMainColor': ef.get('mainColors', 'baseMain'),
     'addItemTitleSecondFontSize': ef.get('font', 'smaller'),
@@ -46,4 +72,5 @@ $mainInfoThemeDefault: map-merge((
     'addItemTitleMainMargin': (
         375: 0 0 5px 0,
     ),
+    'switcherPadding': 0,
 ), $customMainInfoThemeDefault);

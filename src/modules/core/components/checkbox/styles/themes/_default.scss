@@ -114,12 +114,15 @@
     &.wlc-checkbox--type-toggle {
 
         .wlc-checkbox {
-            width: ef.get-value($themeDefault, 'toggleWidth');
-            height: ef.get-value($themeDefault, 'toggleHeight');
-            display: flex;
-            align-items: center;
-            flex-direction: row-reverse;
-            padding: ef.get-value($themeDefault, 'togglePadding');
+
+            &__label {
+                width: ef.get-value($themeDefault, 'toggleWidth');
+                height: ef.get-value($themeDefault, 'toggleHeight');
+                display: flex;
+                align-items: center;
+                flex-direction: row-reverse;
+                padding: ef.get-value($themeDefault, 'togglePadding');
+            }
 
             &__elem {
                 position: relative;
