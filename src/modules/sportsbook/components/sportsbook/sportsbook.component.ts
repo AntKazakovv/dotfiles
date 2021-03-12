@@ -53,7 +53,10 @@ export class SportsbookComponent extends AbstractComponent implements OnInit {
             if (settings.id === 'betradar') {
                 this.betradarService.setBetradarParams();
                 this.betradarService.initNavigation(this.$destroy, this.cdr);
+            } else if (settings.id === 'digitain') {
+                gameWrapperParams.gameParams.disableIframeAutoResize = true;
             }
+
             this.gameWrapperParams = gameWrapperParams;
         }
         this.cdr.detectChanges();

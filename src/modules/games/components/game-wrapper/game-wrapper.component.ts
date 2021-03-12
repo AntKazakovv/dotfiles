@@ -255,6 +255,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
                 const iframe = document.querySelector('#egamings_container iframe');
                 if (iframe) {
                     this.iframe = iframe as HTMLElement;
+                    this.iframe.setAttribute('scrolling', 'auto');
                     this.containerObserver.disconnect();
                     this.containerObserver = null;
                     this.setFullPageIframeSize();
@@ -283,7 +284,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
             let height: string = (globalThis.innerHeight - elem.offsetTop) + 'px';
 
             const iframeHeightAttr: string = iframe?.getAttribute('height');
-            if (_includes(iframeHeightAttr, 'px') && height) {
+            if (_includes(iframeHeightAttr, 'px') && height && !this.$params.gameParams?.disableIframeAutoResize) {
                 const iframeHeight: number = parseInt(iframeHeightAttr);
                 const calcHeight: number = parseInt(height);
                 if (iframeHeight > calcHeight) {

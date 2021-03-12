@@ -76,7 +76,7 @@ export class SportsbookService {
             id: 'tglab',
             merchantId: 903,
             launchCode: 'sports',
-        }
+        },
     ];
 
     constructor(
