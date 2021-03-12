@@ -32,7 +32,7 @@ export interface IInputCParams extends IComponentParams<ComponentTheme, Componen
     clipboard?: boolean;
     currency?: boolean;
     prohibitedPattern?: RegExp;
-    maskOptions?: IMaskOptions;
+    maskOptions?: IMaskOptions | string;
 }
 
 export const defaultParams: Partial<IInputCParams> = {

@@ -88,6 +88,9 @@ export class InputMaskDirective implements AfterViewInit,
                     };
                     break;
                 }
+                default:
+                    this.wlcInputMask = null;
+                    break;
             }
         }
         return;

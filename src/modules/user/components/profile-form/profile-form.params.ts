@@ -1,10 +1,10 @@
 import {CustomType, IComponentParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {
-    IFormComponent,
     IFormWrapperCParams,
-} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
-import {ISelectCParams} from 'wlc-engine/modules/core';
-import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
+    ISelectCParams,
+    IInputCParams,
+    IIndexing,
+} from 'wlc-engine/modules/core';
 
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;
@@ -31,7 +31,7 @@ export const defaultParams: IProfileFormCParams = {
         components: [
             {
                 name: 'core.wlc-input',
-                params: {
+                params: <IInputCParams>{
                     common: {
                         placeholder: gettext('Email'),
                     },
@@ -44,7 +44,7 @@ export const defaultParams: IProfileFormCParams = {
             },
             {
                 name: 'core.wlc-input',
-                params: {
+                params: <IInputCParams>{
                     common: {
                         placeholder: gettext('First name'),
                     },
@@ -58,15 +58,13 @@ export const defaultParams: IProfileFormCParams = {
                             options: 2,
                         },
                     ],
-                    maskOptions: {
-                        mask: 'textField',
-                    },
+                    maskOptions: 'textField',
                     exampleValue: 'Ivan',
                 },
             },
             {
                 name: 'core.wlc-input',
-                params: {
+                params: <IInputCParams>{
                     common: {
                         placeholder: gettext('Last name'),
                     },
@@ -80,9 +78,7 @@ export const defaultParams: IProfileFormCParams = {
                             options: 2,
                         },
                     ],
-                    maskOptions: {
-                        mask: 'textField',
-                    },
+                    maskOptions: 'textField',
                     exampleValue: 'Ivanov',
                 },
             },
@@ -124,21 +120,19 @@ export const defaultParams: IProfileFormCParams = {
             },
             {
                 name: 'core.wlc-input',
-                params: {
+                params: <IInputCParams>{
                     common: {
                         placeholder: gettext('City'),
                     },
                     wlcElement: 'block_city',
                     name: 'city',
                     validators: [],
-                    maskOptions: {
-                        mask: 'textField',
-                    },
+                    maskOptions: 'textField',
                 },
             },
             {
                 name: 'core.wlc-input',
-                params: {
+                params: <IInputCParams>{
                     common: {
                         placeholder: gettext('Address'),
                     },
@@ -149,7 +143,7 @@ export const defaultParams: IProfileFormCParams = {
             },
             {
                 name: 'core.wlc-input',
-                params: {
+                params: <IInputCParams>{
                     common: {
                         placeholder: gettext('Postal code'),
                     },
@@ -177,19 +171,19 @@ export const defaultParams: IProfileFormCParams = {
                 name: 'user.wlc-phone-field',
                 params: {
                     name: ['phoneCode', 'phoneNumber'],
-                    validators: [
-                        'required',
-                        {
-                            name: 'minLength',
-                            options: 6,
-                        },
-                    ],
+                    // validators: [
+                    //     'required',
+                    //     {
+                    //         name: 'minLength',
+                    //         options: 6,
+                    //     },
+                    // ],
                     locked: true,
                 },
             },
             {
                 name: 'core.wlc-input',
-                params: {
+                params: <IInputCParams>{
                     common: {
                         placeholder: gettext('Password'),
                         wlcElement: 'block_password',
