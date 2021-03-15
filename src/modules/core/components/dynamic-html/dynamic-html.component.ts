@@ -18,6 +18,8 @@ import {GlobalHelper} from 'wlc-engine/modules/core';
     templateUrl: './dynamic-html.component.html',
 })
 export class DynamicHtmlComponent implements AfterViewInit, OnDestroy {
+    @Input() public parseAsPlainHTML: boolean;
+    @Input() public tag: string;
     @Input() protected html: string;
 
     private componentReference: ComponentRef<any>;
@@ -31,13 +33,17 @@ export class DynamicHtmlComponent implements AfterViewInit, OnDestroy {
     }
 
     ngAfterViewInit(): void {
-        this.createComponentFromRaw(GlobalHelper.parseHtmlSafely(this.html));
+        this.createComponentFromRaw();
     }
 
-    private createComponentFromRaw(html: string) {
+    private createComponentFromRaw(): void {
+        const html = this.parseAsPlainHTML
+            ? GlobalHelper.parseHtmlSafely(this.html)
+            : this.html;
+
         const dynamicComponent = Component({
-            template: this.cleanHtml(html),
-            selector: '[wlc-dynamic]',
+            template: this.extractBodyFromString(html),
+            selector: `${this.tag || 'div'}[wlc-dynamic]`,
         })(class {
             public window = window;
 
@@ -62,34 +68,8 @@ export class DynamicHtmlComponent implements AfterViewInit, OnDestroy {
             });
     }
 
-    private cleanHtml(html: string): string {
-        const domParser = new DOMParser();
-        const parseHtml = domParser.parseFromString(html, 'text/html')?.querySelector('body');
-        // const elements = parseHtml.getElementsByTagName('*');
-        // let resultHtml = "";
-        // for (let i=0; i<elements.length; i++) {
-        //     if (!(elements[i] instanceof HTMLUnknownElement)) {
-        //         if (elements[i].childNodes) {
-        //             this.cleanChild(elements[i].childNodes);
-        //         }
-        //         resultHtml += elements[i].outerHTML;
-        //     }
-        // }
-        // return resultHtml;
-        return parseHtml.innerHTML;
-    }
-
-    protected cleanChild(elements: NodeListOf<ChildNode>): NodeListOf<ChildNode> {
-        for (let i=0; i<elements.length; i++) {
-            if (elements[i] instanceof HTMLUnknownElement) {
-                elements[i].remove();
-            } else {
-                if (elements[i].childNodes) {
-                    this.cleanChild(elements[i].childNodes);
-                }
-            }
-        }
-        return elements;
+    private extractBodyFromString(html: string): string {
+        return html.match(/<body.*?>(.*?)<\/body>/s)?.[1] || html;
     }
 
     ngOnDestroy() {

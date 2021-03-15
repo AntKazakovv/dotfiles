@@ -14,17 +14,17 @@ import {StateService, UIRouterGlobals} from '@uirouter/core';
 
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {StaticService, TextDataModel} from 'wlc-engine/modules/static';
-import {IPostComponentParams} from './post.interface';
-import {defaultParams} from './post.params';
-import {ConfigService, LogService, ActionService} from 'wlc-engine/modules/core';
+import {
+    ConfigService,
+    LogService,
+    ActionService,
+} from 'wlc-engine/modules/core';
+
+import * as PostParams from './post.params';
 
 import {
-    isFunction as _isFunction,
     get as _get,
 } from 'lodash-es';
-
-
-export * from './post.interface';
 
 @Component({
     selector: '[wlc-post]',
@@ -34,13 +34,20 @@ export * from './post.interface';
 })
 export class PostComponent extends AbstractComponent implements OnInit, AfterViewInit {
     @ViewChild('wrp', {read: ViewContainerRef, static: true}) wrp: ViewContainerRef;
+    /**
+     * Parses HTML safely, but may break angular template syntax.
+     *
+     * Use it if you **really** have to.
+     */
+    @Input() public parseAsPlainHTML: boolean;
     @Input() protected slug: string;
     public data: TextDataModel;
     public html: string;
     public isReady: boolean = false;
+    public $params: PostParams.IPostCParams;
 
     constructor(
-        @Inject('injectParams') protected params: IPostComponentParams,
+        @Inject('injectParams') protected params: PostParams.IPostCParams,
         protected staticService: StaticService,
         protected viewRef: ViewContainerRef,
         protected domSanitizer: DomSanitizer,
@@ -51,11 +58,12 @@ export class PostComponent extends AbstractComponent implements OnInit, AfterVie
         protected logService: LogService,
         protected actionService: ActionService,
     ) {
-        super({injectParams: params, defaultParams});
+        super({injectParams: params, defaultParams: PostParams.defaultParams});
     }
 
-    async ngOnInit(): Promise<void> {
+    public async ngOnInit(): Promise<void> {
         super.ngOnInit();
+        this.parseAsPlainHTML ??= this.$params.parseAsPlainHTML;
 
         try {
             const slug = this.slug || this.params.slug || this.uiRouter.params.slug;
@@ -69,9 +77,7 @@ export class PostComponent extends AbstractComponent implements OnInit, AfterVie
 
             this.html = this.domSanitizer.bypassSecurityTrustHtml(data.html)?.['changingThisBreaksApplicationSecurity'];
 
-            if (_isFunction(this.params.setTitle)) {
-                this.params.setTitle(data.title);
-            }
+            this.params.setTitle?.(data.title);
         } catch (error) {
             // TODO: add log service in static service metods
             this.logService.sendLog({code: '12.0.0', data: error});
@@ -90,7 +96,7 @@ export class PostComponent extends AbstractComponent implements OnInit, AfterVie
         }
     }
 
-    ngAfterViewInit() {
+    public ngAfterViewInit() {
         this.viewRef.remove();
     }
 }

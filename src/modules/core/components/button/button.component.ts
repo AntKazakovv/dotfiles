@@ -16,7 +16,7 @@ import {
     Optional,
     Self,
 } from '@angular/core';
-import {StateService} from '@uirouter/core';
+import {RawParams, StateService} from '@uirouter/core';
 import {Subject, fromEvent} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {IconComponent} from '../icon/icon.component';
@@ -55,6 +55,7 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
     @Input() public text: string;
     @Input() public event: {name: string, data?: unknown};
     @Input() public sref: string;
+    @Input() public srefParams: RawParams;
     @Input() protected type: BParams.Type;
     @Input() protected theme: BParams.Theme;
     @Input() protected themeMod: BParams.ThemeMod;
@@ -104,7 +105,7 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
                     if (this.$params?.common?.event) {
                         this.eventService.emit(this.$params.common.event);
                     } else if (this.$params.common?.sref) {
-                        this.stateService.go(this.$params.common.sref, this.$params.common?.srefParams);
+                        this.stateService.go(this.$params.common.sref, this.$params.common.srefParams);
                     }
                 });
         }
@@ -115,7 +116,17 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
             return this.inlineParams;
         }
 
-        const inputProperties: string[] = ['text', 'size', 'icon', 'index', 'event', 'type', 'theme', 'sref'];
+        const inputProperties: string[] = [
+            'text',
+            'size',
+            'icon',
+            'index',
+            'event',
+            'type',
+            'theme',
+            'sref',
+            'srefParams',
+        ];
         const inlineParams: BParams.IButtonCParams = {
             common: {},
         };
