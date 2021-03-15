@@ -50,7 +50,7 @@ export class VerificationComponent extends AbstractComponent implements OnInit {
         labelText: gettext('Type document'),
         theme: 'vertical',
         common: {},
-        name: 'docGroups',
+        name: undefined,
         items: [],
         control: new FormControl(''),
     };

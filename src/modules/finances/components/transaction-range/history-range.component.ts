@@ -57,8 +57,8 @@ export class HistoryRangeComponent extends AbstractComponent implements OnInit {
         this.historyFilterService.dateChanges$
             .pipe(filter(date => !!date))
             .subscribe((value) => {
-                this.startDate = value?.startDate.toFormat("y-LL-dd TT");
-                this.endDate = value?.endDate.toFormat("y-LL-dd TT");
+                this.startDate = value?.startDate.toFormat("dd-LL-yyyy");
+                this.endDate = value?.endDate.toFormat("dd-LL-yyyy");
                 this.ready = true;
                 this.cdr.detectChanges();
             });

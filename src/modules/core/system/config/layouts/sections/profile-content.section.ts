@@ -105,7 +105,7 @@ export namespace profileContent {
         container: true,
         components: [
             componentLib.wlcTitle.profileStore,
-            componentLib.wlcLoyaltyProgress.market,
+            componentLib.wlcUserStats.store,
             componentLib.wlcProfileMenu.submenu,
             componentLib.wlcStoreList.def,
         ],

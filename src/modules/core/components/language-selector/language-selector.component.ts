@@ -122,6 +122,7 @@ export class LanguageSelectorComponent
                 this.translate.use(lang)
                     .pipe(takeUntil(this.$destroy))
                     .subscribe(() => {
+                        this.configService.set({name: 'currentLanguage', value: this.translate.currentLang});
                         if (this.isModalOpen) {
                             this.modalService.closeModal('langSwitcherRef');
                         }

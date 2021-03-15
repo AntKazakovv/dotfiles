@@ -161,7 +161,7 @@ export class Game extends AbstractModel<IGame> {
             merchantId: this.merchantID,
             launchCode: this.launchCode,
             demo: options.demo,
-            locale: this.configService.get('appConfig.language'),
+            locale: this.configService.get('currentLanguage'),
         }, {
             reload: true,
         });

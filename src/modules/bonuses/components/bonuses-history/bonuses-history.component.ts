@@ -46,11 +46,8 @@ export class BonusesHistoryComponent extends AbstractComponent implements OnInit
     public $params: Params.IBonusesHistoryCParams;
 
     public filterSelect: ISelectCParams = {
-        name: 'status',
+        name: undefined,
         value: 'all',
-        common: {
-            placeholder: 'Status',
-        },
         control: new FormControl('all'),
         items: [
             {

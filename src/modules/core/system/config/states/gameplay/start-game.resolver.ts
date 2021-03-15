@@ -174,7 +174,7 @@ class StartGameHandler {
 
             if (reason === RejectReason.GameNotFounded) {
                 this.stateService.go('app.error', {
-                    locale: this.configService.get('appConfig.language'),
+                    locale: this.configService.get('currentLanguage'),
                 });
             }
         });
