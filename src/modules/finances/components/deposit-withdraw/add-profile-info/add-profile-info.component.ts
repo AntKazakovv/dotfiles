@@ -22,7 +22,7 @@ import * as Params from './add-profile-info.params';
 
 import {
     each as _each,
-} from 'lodash';
+} from 'lodash-es';
 
 @Component({
     selector: '[wlc-add-profile-info]',

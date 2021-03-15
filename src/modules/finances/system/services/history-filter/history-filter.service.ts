@@ -8,7 +8,7 @@ import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 
 import {
     assign as _assign,
-} from 'lodash';
+} from 'lodash-es';
 
 export interface IHistoryData {
     transaction: BehaviorSubject<IIndexing<any>>;

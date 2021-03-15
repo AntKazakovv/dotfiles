@@ -20,7 +20,7 @@ import {
     isUndefined as _isUndefined,
     compact as _compact,
     concat  as _concat,
-} from 'lodash';
+} from 'lodash-es';
 
 @Component({
     selector: '[wlc-radio-buttons]',
