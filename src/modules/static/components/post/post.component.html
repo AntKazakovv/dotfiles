@@ -1,5 +1,5 @@
 <div *ngIf="isReady; else preloader">
-    <div wlc-dynamic-html [html]="html" #wrp></div>
+    <div wlc-dynamic-html [html]="html" [parseAsPlainHTML]="parseAsPlainHTML" #wrp></div>
 </div>
 
 <ng-template #preloader>

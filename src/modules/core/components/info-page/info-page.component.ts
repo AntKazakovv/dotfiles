@@ -77,6 +77,7 @@ export class InfoPageComponent extends AbstractComponent implements OnInit {
                     name: 'static.wlc-post',
                     params: {
                         slug: this.uiRouter.params.slug,
+                        parseAsPlainHTML: true,
                         wlcElement: 'section_static-text_' + this.uiRouter.params.slug,
                     },
                 }];

@@ -48,7 +48,7 @@ export class CheckboxComponent extends AbstractComponent implements OnInit {
     }
 
     public showModal(name: string, slug: string): void {
-        this.modalService.showModal(name, {slug});
+        this.modalService.showModal(name, {slug, parseAsPlainHTML: true});
     }
 
     protected onChange(event: Event): void {

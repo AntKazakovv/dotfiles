@@ -4,12 +4,12 @@ export type ModifiersType = string;
 
 export interface IPostCParams extends IComponentParams<string, string, string> {
     modifiers?: ModifiersType[];
-    common?: {
-    };
+    slug?: string;
+    setTitle?: (title: string) => {},
+    parseAsPlainHTML?: boolean;
 }
 
 export const defaultParams: IPostCParams = {
     class: 'wlc-post',
-    common: {
-    },
+    parseAsPlainHTML: false,
 };

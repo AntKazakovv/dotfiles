@@ -49,6 +49,7 @@ export const defaultParams: IInfoPageCParams = {
                         common: {
                             categorySlug: 'legal',
                             state: 'app.contacts',
+                            parseAsPlainHTML: true,
                         },
                     },
                 },
