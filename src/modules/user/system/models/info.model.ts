@@ -13,6 +13,7 @@ import {
     reduce as _reduce,
     assign as _assign,
     isString as _isString,
+    cloneDeep as _cloneDeep,
 } from 'lodash-es';
 
 export class UserInfo extends AbstractModel<IUserInfo> {
@@ -83,7 +84,6 @@ export class UserInfo extends AbstractModel<IUserInfo> {
 
     public set loyalty(data: ILoyalty) {
         this.$loyaltyData = _assign({}, this.$loyaltyData, data);
-
         // TODO remove after bugfix in socket server
         if (_isString(this.$loyaltyData?.LevelName)) {
             try {
@@ -142,9 +142,10 @@ export class UserInfo extends AbstractModel<IUserInfo> {
     }
 
     public set data(data: IUserInfo) {
-        super.data = data;
+        super.data = _cloneDeep(data);
         if (this.separateLoyalty) {
             this.data.loyalty = this.$loyaltyData;
+            this.data.loyalty.BonusesBalance = data.loyalty.BonusesBalance;
         } else {
             this.$loyaltyData = this.data.loyalty;
         }
