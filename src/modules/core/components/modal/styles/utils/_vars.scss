@@ -97,12 +97,22 @@ $hostModal: map-merge((
     'titleColor': ef.get('mainColors', 'baseMain'),
     'titleMaxWidth': 100%,
     'titlePadding': 0 ef.get('size', 'smally') 0 ef.get('size', 'smally'),
-    'titlePaddingLeft':  ef.get('size', 'smally'),
+    'titlePaddingLeft': (
+        320:  ef.get('size', 'smally'),
+    ),
+    'titlePaddingRight': (
+        320: 45px,
+        900: 75px,
+    ),
+    'titleBackBtnWidth': 100%,
 
     'backBtnTopPostion' : 31px,
     'backBtnLeftPostion' : 26px,
-    'backBtnMaxWidth': ef.get('size', 'big'),
-    'backBtnSize': (
+    'backBtnWidth': (
+        320: 30px,
+        900: 60px,
+    ),
+    'backBtnHeight': (
         320: 30px,
         900: auto,
     ),
@@ -262,7 +272,10 @@ $themeDefault: map-merge((
     'restoreTitleStyle': 'PrimaryTextBold',
     'restoreTitleColor': ef.get('mainColors', 'baseMain'),
 
-    'restoreBodyPadding': 10px 30px 30px,
+    'restoreBodyPadding': (
+        320: ef.get('size', 'big') ef.get('size', 'less') ef.get('size', 'less'),
+        560: ef.get('size', 'small') ef.get('size', 'less') ef.get('size', 'less'),
+    ),
     // restore password modal modifier
 
     // login-sign-up

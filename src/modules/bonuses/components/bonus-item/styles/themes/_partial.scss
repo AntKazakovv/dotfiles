@@ -9,7 +9,6 @@
     .wlc-bonus-item {
 
         &__content {
-            cursor: pointer;
 
             &.chosen {
 
@@ -128,6 +127,15 @@
             background: ef.get-value($themePartial, 'iconSignBackground');
             @include em.get-mq-map('width', $themePartial, 'iconSignSize');
             @include em.get-mq-map('height', $themePartial, 'iconSignSize');
+            @include em.transition(border-color);
+            cursor: pointer;
+
+            @media (hover: hover) {
+
+                &:hover {
+                    border-color: ef.get-value($themePartial, 'blankIconSignBorderColor');
+                }
+            }
         }
 
         &__icon-text {

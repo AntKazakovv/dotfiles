@@ -5,18 +5,16 @@
 .wlc-restore-password-form--theme-default:host {
     max-width: ef.get-value($themeDefault, 'formMaxWidth');
     margin: ef.get-value($themeDefault, 'formMargin');
-    height: ef.get-value($themeDefault, 'formHeight');
 
     &::ng-deep {
-
-        .wlc-form-wrapper,
-        .wlc-form {
-            height: ef.get-value($themeDefault, 'formHeight');
-        }
 
         .wlc-form {
             display: flex;
             flex-direction: column;
+        }
+
+        .wlc-text-block__head {
+            @include em.get-mq-map('margin', $themeDefault, 'textBlockHeadMargin');
         }
 
         .wlc-text-block__subtitle {
