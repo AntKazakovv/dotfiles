@@ -136,18 +136,21 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
 
     private updateMetaTag(): void {
         const current = this.meta.getTag('name=\'viewport\'')?.attributes.getNamedItem('content').value;
-        if (window.matchMedia('(max-width: 375px)').matches && current === 'width=device-width, initial-scale=1') {
+
+        if (window.matchMedia('(max-width: 375px)').matches && _includes(current, 'width=device-width, initial-scale=1')) {
             this.meta.updateTag({
                 name: 'viewport',
                 content: this.isIOS ? 'width=375, maximum-scale=1' : 'width=375',
             });
             return;
         } else {
-            this.meta.updateTag({
-                name: 'viewport',
-                content: this.isIOS ? 'width=device-width, initial-scale=1, maximum-scale=1' : 'width=device-width, initial-scale=1',
-            });
-            return;
+            if (this.isIOS && !_includes(current, 'maximum-scale=1')) {
+                this.meta.updateTag({
+                    name: 'viewport',
+                    content: 'width=device-width, initial-scale=1, maximum-scale=1',
+                });
+                return;
+            }
         }
 
         if (_includes(current, 'width=375')) {
