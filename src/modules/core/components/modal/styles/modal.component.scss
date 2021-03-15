@@ -104,8 +104,9 @@
         color: ef.get-value($hostModal, 'titleColor');
 
         &--back-btn {
-            width: calc(100% - 40px - #{ef.get-value($hostModal, 'titlePaddingLeft')});
-            padding-left: ef.get-value($hostModal, 'titlePaddingLeft');
+            width: ef.get-value($hostModal, 'titleBackBtnWidth');
+            @include bm.get-mq-map('padding-left', $hostModal, 'titlePaddingLeft');
+            @include bm.get-mq-map('padding-right', $hostModal, 'titlePaddingRight');
         }
 
         @include mq.min(560) {
@@ -117,10 +118,10 @@
         display: flex;
         align-items: center;
 
-        max-width: ef.get-value($hostModal, 'backBtnMaxWidth');
         padding: ef.get-value($hostModal, 'backBtnPadding');
-        @include bm.get-mq-map('width', $hostModal, 'backBtnSize');
-        @include bm.get-mq-map('height', $hostModal, 'backBtnSize');
+        @include bm.get-mq-map('min-width', $hostModal, 'backBtnWidth');
+        @include bm.get-mq-map('max-width', $hostModal, 'backBtnWidth');
+        @include bm.get-mq-map('height', $hostModal, 'backBtnHeight');
 
         cursor: pointer;
 

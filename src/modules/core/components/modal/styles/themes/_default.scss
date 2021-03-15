@@ -106,15 +106,14 @@
             }
 
             &__body {
-                padding: ef.get-value($themeDefault, 'restoreBodyPadding');
+                @include em.get-mq-map('padding', $themeDefault, 'restoreBodyPadding');
             }
 
             &__title {
                 @include em.get-mq-map('display', $themeDefault, 'restoreTitleDisplay');
                 @include text.get-text-style(ef.get-value($themeDefault, 'restoreTitleStyle'), ef.get-value($themeDefault, 'restoreTitleColor'));
-                text-align: left;
 
-                @include mq.min(900) {
+                @include mq.min(640) {
                     text-align: center;
                     @include text.get-text-style(ef.get-value($themeDefault, 'restoreTitleStyleDesk'), ef.get-value($themeDefault, 'restoreTitleColor'));
                 }
