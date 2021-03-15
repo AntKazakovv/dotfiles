@@ -29,7 +29,7 @@
     ></div>
     <div class="{{$class}}-status">
         <span
-            *ngIf="control.untouched"
+            *ngIf="!$params.name || control.untouched"
             class="{{$class}}-status__arrow"
             wlc-icon iconName="arrow"
             (click)="toggleDropdown()"

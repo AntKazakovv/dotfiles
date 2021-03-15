@@ -16,7 +16,9 @@
     grid-gap: ef.get-value($themeDefault, 'labelGap');
 
     .wlc-textarea__label {
-        @include lib.get-text-style('PrimaryText', ef.get-value($themeDefault, 'labelColor'));
+        @include lib.get-text-style('SignText', ef.get-value($themeDefault, 'labelColor'));
+        margin: ef.get-value($themeDefault, 'labelMargin');
+        line-height: 1.9;
         cursor: pointer;
     }
 

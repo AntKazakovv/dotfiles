@@ -132,9 +132,11 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
             this.bets.next(this.filterTransaction());
         });
 
-        this.historyFilterService.dateChanges$.next({
-            startDate: this.startDate,
-            endDate: this.endDate,
+        this.bets.subscribe(() => {
+            this.historyFilterService.dateChanges$.next({
+                startDate: this.startDate,
+                endDate: this.endDate,
+            });
         });
 
         this.ready = true;

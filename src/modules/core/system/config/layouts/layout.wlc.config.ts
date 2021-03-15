@@ -187,6 +187,12 @@ export const $layouts: ILayoutsConfig = {
             'profile-content': sectionsLib.profileContent.empty,
         },
     },
+    'app.profile.loyalty-level': {
+        extends: 'app.profile',
+        sections: {
+            'profile-content': sectionsLib.profileContent.profileLoyaltyLevels,
+        },
+    },
     'app.profile.messages': {
         extends: 'app.profile',
         sections: {
@@ -221,12 +227,6 @@ export const $layouts: ILayoutsConfig = {
         extends: 'app.profile',
         sections: {
             'profile-content': sectionsLib.profileContent.empty,
-        },
-    },
-    'app.profile.loyalty-level': {
-        extends: 'app.profile',
-        sections: {
-            'profile-content': sectionsLib.profileContent.profileLoyaltyLevels,
         },
     },
     'app.profile.referrals': {

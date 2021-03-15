@@ -19,6 +19,7 @@ export const feedbackConfig: IFormWrapperCParams = {
                 common: {
                     placeholder: gettext('Your name'),
                 },
+                theme: 'vertical',
                 wlcElement: 'block_sender-name',
                 name: 'senderName',
                 validators: [
@@ -50,6 +51,7 @@ export const feedbackConfig: IFormWrapperCParams = {
                     type: 'email',
                 },
                 name: 'senderEmail',
+                theme: 'vertical',
                 wlcElement: 'block_email',
                 validators: [
                     'required',
@@ -70,6 +72,7 @@ export const feedbackConfig: IFormWrapperCParams = {
                     placeholder: gettext('Subject'),
                 },
                 name: 'subject',
+                theme: 'vertical',
                 wlcElement: 'block_subject',
                 validators: [
                     'required',
@@ -90,6 +93,7 @@ export const feedbackConfig: IFormWrapperCParams = {
                 },
                 name: 'message',
                 wlcElement: 'block_message',
+
                 validators: [
                     'required',
                     {
