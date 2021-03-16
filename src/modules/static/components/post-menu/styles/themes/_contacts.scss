@@ -31,5 +31,12 @@
                 }
             }
         }
+
+        &:last-child {
+
+            .wlc-post-menu__link {
+                border-bottom: 0;
+            }
+        }
     }
 }

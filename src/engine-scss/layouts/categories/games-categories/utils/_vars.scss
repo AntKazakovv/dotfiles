@@ -8,7 +8,7 @@ $gamesCategoriesDefault: map-merge((
         1630: 75px,
     ),
     'sectionMargin': (
-        375: -30px 0 20px,
+        375: -15px 0 20px,
         768: 0 0 ef.get-value(ef.get('size', 'sectionsGap'), 375),
         1630: 0 0 ef.get-value(ef.get('size', 'sectionsGap'), 1630),
     ),
@@ -47,7 +47,7 @@ $gamesCategoriesDefault: map-merge((
         375: ef.get('radius', 'biger'),
     ),
     'buttonSearchColor': ef.get('mainColors', 'baseMain'),
-    'buttonSearchBgHover': darken(ef.get('mainColors', 'baseMain'), 20%),
+    'buttonSearchBgHover': lighten(ef.get('mainColors', 'bg'), 5%),
     'buttonSearchIconFill': ef.get('mainColors', 'main'),
     'buttonSearchIconMargin': ef.get('size', 'small'),
     'buttonMerchMargin': ef.get('size', 'smally'),

@@ -57,9 +57,16 @@
             .wlc-user-stats {
                 margin-top: 20px;
             }
+        }
+
+        .wlc-burger-panel__user-stat {
 
             & > .wlc-btn {
                 margin: 0 auto;
+            }
+
+            .wlc-btn[wlc-button] {
+                min-width: 120px;
             }
         }
 
@@ -80,7 +87,8 @@
 
             &__link {
                 padding: ef.get-value($themeLeft, 'menuLinksPadding');
-                display: block;
+                display: flex;
+                align-items: center;
                 @include text.get-text-style('ThirdTitle', ef.get-value($themeLeft, 'menuLinksColor'));
                 text-decoration: ef.get-value($themeLeft, 'menuLinksDecoration');
 
@@ -96,8 +104,10 @@
             }
 
             &__icon {
+                margin-right: 10px;
 
                 svg {
+                    display: block;
                     width: ef.get-value($themeLeft, 'menuLinksIconWidth');
                     height: ef.get-value($themeLeft, 'menuLinksIconHeight');
                     fill: ef.get-value($themeLeft, 'menuLinksIconFill');

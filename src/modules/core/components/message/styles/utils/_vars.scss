@@ -5,7 +5,7 @@ $customThemeDefault: () !default;
 
 $themeDefault: map-merge((
     closeIconSize:          42px,
-    closeIconColor:         ef.get('mainColors', 'baseOpacity'),
+    closeIconColor:         ef.get('mainColors', 'baseMain'),
     closeIconHoverColor:    ef.get('mainColors', 'baseMain'),
     background:             ef.get('mainColors', 'bgModal'),
     border:                 null,

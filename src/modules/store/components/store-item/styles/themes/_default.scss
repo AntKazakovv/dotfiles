@@ -1,5 +1,6 @@
 @use 'engine-scss/mixins/mediaqueries' as mq;
 @use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/mixins/base.mixins' as em;
 @use 'engine-scss/functions' as ef;
 @import '../utils/vars';
 
@@ -217,6 +218,20 @@
                 svg {
                     width: 100%;
                     fill: ef.get-value($themeDefault, 'moreIconColor');
+                    @include em.transition(fill);
+                }
+            }
+
+            @media (hover: hover) {
+
+                &:hover {
+
+                    .icon-btn {
+
+                        svg {
+                            fill: ef.get-value($themeDefault, 'moreIconColorHover');
+                        }
+                    }
                 }
             }
         }

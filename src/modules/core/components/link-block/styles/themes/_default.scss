@@ -15,7 +15,7 @@
         &__title {
             @include text.get-text-style(ef.get-value($themeDefault, 'titleFontStyle'), ef.get-value($themeDefault, 'titleColor'));
 
-            margin: ef.get-value($themeDefault, 'titleMargin');
+            @include em.get-mq-map('margin', $themeDefault, 'titleMargin');
 
             &:last-child {
                 margin-bottom: 0;
@@ -36,6 +36,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            @include em.get-mq-map('min-height', $themeDefault, 'linkMinHeight');
 
             .wlc-btn {
                 @include text.get-text-style(ef.get-value($themeDefault, 'linkFontStyle'), ef.get-value($themeDefault, 'linkColor'));
@@ -104,4 +105,3 @@
         }
     }
 }
-

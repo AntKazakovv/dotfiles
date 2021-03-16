@@ -1,6 +1,6 @@
 @use 'engine-scss/functions' as ef;
 @use 'engine-scss/mixins/base.mixins' as em;
-
+@use 'engine-scss/mixins/text' as text;
 @import '../utils/vars';
 
 .app-profile-cash-deposit-state,
@@ -13,20 +13,46 @@
         }
 
         .wlc-menu {
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-start;
             margin: ef.get-value($cashPagesThemeDefault, 'menuMargin');
+            border-bottom: ef.get-value($cashPagesThemeDefault, 'menuBorder');
 
             .wlc-menu__item {
+                margin-right: 30px;
+                margin-bottom: -2px;
+
+                &:last-child {
+                    margin-right: 0;
+                }
 
                 .wlc-menu__link {
-                    @if ef.get-value($cashPagesThemeDefault, 'menuItemRedefine') {
-                        text-transform: ef.get-value($cashPagesThemeDefault, 'menuItemTextTransform');
-                        color: ef.get-value($cashPagesThemeDefault, 'menuItemColor');
+                    position: relative;
+                    display: block;
+                    padding: 0 0 10px;
+                    @include text.get-text-style(ef.get-value($cashPagesThemeDefault, 'menuItemFontName'), ef.get-value($cashPagesThemeDefault, 'menuItemColor'));
+                    text-align: center;
+                    text-decoration: none;
+                    text-transform: ef.get-value($cashPagesThemeDefault, 'menuItemTextTransform');
+
+                    &:before {
+                        content: '';
+                        z-index: 2;
+                        position: absolute;
+                        bottom: 0;
+                        width: 0;
+                        height: 2px;
+                        background: ef.get-value($cashPagesThemeDefault, 'menuItemActiveBorderBg');
+                        @include em.transition(width);
                     }
 
                     &.active {
-                        @if ef.get-value($cashPagesThemeDefault, 'menuItemRedefine') {
-                            font-weight: ef.get-value($cashPagesThemeDefault, 'menuItemActiveWheit');
-                            color: ef.get-value($cashPagesThemeDefault, 'menuItemActiveColor');
+                        font-weight: ef.get-value($cashPagesThemeDefault, 'menuItemActiveWheit');
+                        color: ef.get-value($cashPagesThemeDefault, 'menuItemActiveColor');
+
+                        &:before {
+                            width: 100%;
                         }
                     }
                 }

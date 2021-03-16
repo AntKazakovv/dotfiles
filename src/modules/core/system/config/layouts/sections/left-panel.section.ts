@@ -50,8 +50,16 @@ export namespace leftPanel {
                     components: [
                         componentLib.wlcUserName.def,
                         componentLib.wlcLogout.burgerPanelLeft,
-                        componentLib.wlcUserStats.def,
-                        componentLib.wlcButton.toProfileV2,
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-burger-panel__user-stat',
+                                components: [
+                                    componentLib.wlcUserStats.def,
+                                    componentLib.wlcButton.toProfileV2,
+                                ],
+                            },
+                        },
                     ],
                 },
             },
