@@ -35,6 +35,13 @@ export {ILanguageSelectorCParams} from './language-selector.params';
     changeDetection: ChangeDetectionStrategy.OnPush,
     animations: [
         trigger('toggle', [
+            state('openedHeight', style({
+                height: '*',
+            })),
+            state('closedHeight', style({
+                height: 0,
+                pointerEvents: 'none',
+            })),
             state('opened', style({
                 opacity: 1,
                 visibility: 'visible',

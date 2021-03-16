@@ -171,11 +171,6 @@
                     .wlc-language-selector__current-lang {
                         @include text.get-text-style(ef.get-value($themeDefaultModLog, 'langFontStyleActive'), ef.get-value($themeDefaultModLog, 'currentColorModLang'));
                     }
-
-                    ~ .wlc-language-selector__dropdown {
-                        transform: scaleY(1);
-                        position: relative;
-                    }
                 }
 
 
@@ -196,14 +191,11 @@
             }
 
             &__dropdown {
-                position: absolute;
-                top: calc(100% + 5px);
+                position: relative;
                 width: 100%;
                 margin-top: 5px;
-                transform: scaleY(0);
                 transform-origin: top;
                 overflow: hidden;
-                @include bm.transition(transform, 0.5s);
 
                 .wlc-language-selector__link-lang {
                     @include text.get-text-style('PrimaryText', ef.get-value($themeDefaultModLog, 'currentColorModLang'));

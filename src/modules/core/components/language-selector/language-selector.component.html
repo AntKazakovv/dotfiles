@@ -13,7 +13,7 @@
     <div *ngIf="!$params.currentLang?.hideArrow" class="{{$class}}__current-arrow" wlc-icon [iconName]="'arrow'"></div>
 </div>
 <div class="{{$class}}__dropdown"
-     [@toggle]="isOpened ? 'opened' : 'closed'"
+     [@toggle]="$params.themeMod !== 'long' ? (isOpened ? 'opened' : 'closed') : (isOpened ? 'openedHeight' : 'closedHeight')"
 >
     <ng-container [ngTemplateOutlet]="langList"
                   [ngTemplateOutletContext]="{list: availableLanguages, class: $class}"
