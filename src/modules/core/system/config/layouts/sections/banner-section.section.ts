@@ -10,10 +10,9 @@ export namespace bannerSection {
     };
 
     export const catalog: ILayoutSectionConfig = {
-        container: false,
+        container: true,
         components: [
-            componentLib.wlcSlider.catalog,
+            componentLib.wlcBannersSlider.catalog,
         ],
     };
 }
-

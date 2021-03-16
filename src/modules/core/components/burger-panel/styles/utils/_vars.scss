@@ -66,7 +66,7 @@ $themeDefault: map-merge((
     'panelHeaderFontWeight': 700,
     'panelHeaderColor':ef.get('mainColors', 'baseMain'),
     'panelContentBackground': transparent,
-    'closeIconColor': ef.get('mainColors', 'baseOpacity'),
+    'closeIconColor': ef.get('mainColors', 'baseMain'),
     'componentGap': ef.get('size', 'smaller'),
 ), $customThemeDefault);
 

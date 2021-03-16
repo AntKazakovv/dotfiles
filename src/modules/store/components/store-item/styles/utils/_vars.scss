@@ -37,6 +37,7 @@ $themeDefault: map-merge((
     'priceFontColor': ef.get('mainColors', 'baseMain'),
     'priceFontSize': ef.get('font', 'PrimaryText'),
     'moreIconColor': ef.get('mainColors', 'baseOpacity'),
+    'moreIconColorHover': ef.get('mainColors', 'baseMain'),
     // // Backgrounds
     'background': ef.get('mainColors', 'bg300'),
     'backgroundHover':  ef.get('mainColors', 'bg500'),

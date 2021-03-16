@@ -171,7 +171,6 @@
             }
         }
 
-
         &__more-icon {
             @include em.get-mq-map('display', $themePartial, 'moreIconDisplay');
             position: absolute;
@@ -215,6 +214,22 @@
             /* stylelint-enable */
             overflow: hidden;
             text-overflow: ellipsis;
+        }
+    }
+
+    @media (hover: hover) {
+
+        &:hover {
+
+            .wlc-bonus-item {
+
+                &__content {
+
+                    .wlc-bonus-item__icon-sign {
+                        border-color: ef.get-value($themePartial, 'blankIconSignBorderColor');
+                    }
+                }
+            }
         }
     }
 }

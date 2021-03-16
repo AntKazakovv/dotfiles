@@ -197,6 +197,20 @@
                 svg {
                     width: 100%;
                     fill: ef.get-value($themePromo, 'moreIconColor');
+                    @include em.transition(fill);
+                }
+            }
+
+            @media (hover: hover) {
+
+                &:hover {
+
+                    .icon-btn {
+
+                        svg {
+                            fill: ef.get-value($themePromo, 'moreIconColorHover');
+                        }
+                    }
                 }
             }
         }

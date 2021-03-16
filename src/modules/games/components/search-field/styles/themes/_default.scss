@@ -22,7 +22,6 @@
             color: ef.get-value($themeDefault, 'placeholderColor');
         }
 
-
         &:focus {
             outline: none;
             border-color: ef.get-value($themeDefault, 'borderColorActive');

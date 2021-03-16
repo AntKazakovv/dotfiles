@@ -43,6 +43,17 @@
             svg {
                 width: ef.get-value($themePreview, 'moreIconSvgWidth');
                 fill: ef.get-value($themePreview, 'moreIconSvgFill');
+                @include em.transition(fill);
+            }
+
+            @media (hover: hover) {
+
+                &:hover {
+
+                    svg {
+                        fill: ef.get-value($themePreview, 'moreIconSvgFillHover');
+                    }
+                }
             }
         }
 

@@ -79,6 +79,6 @@ $themeDefault: map-merge((
     'tableThPadding': 14px 0,
 
     'tableTdAlignment': right,
-    'tableTdColor': ef.get('color', 'textSecondary'),
+    'tableTdColor': inherit,
     'tableTdPadding': 14px 0 14px 8px,
 ), $customThemeDefault);

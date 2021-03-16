@@ -46,6 +46,7 @@ $themeDefault: map-merge((
     'activeBlockFontSecondaryColor': ef.get('mainColors', 'baseMain'),
     'activeBlockFontSecondarySize': ef.get('font', 'less'),
     'moreIconColor': ef.get('mainColors', 'baseOpacity'),
+    'moreIconColorHover': ef.get('mainColors', 'baseMain'),
     // // Backgrounds
     'backgroundExperience': ef.get('mainColors', 'bg300'),
     'backgroundExperienceHover': ef.get('mainColors', 'bg500'),
@@ -206,6 +207,7 @@ $themePromo: map-merge((
     //MoreIcon
     'moreIconSize': 24px,
     'moreIconColor': ef.get('mainColors', 'baseOpacity'),
+    'moreIconColorHover': ef.get('mainColors', 'baseMain'),
     'moreIconPosRight': (
         320: ef.get('size', 'small'),
         1200: ef.get('size', 'smaller'),
@@ -413,6 +415,7 @@ $themePreview: map-merge((
     'moreIconRightPos': 0,
     'moreIconSvgWidth': 100%,
     'moreIconSvgFill': ef.get('mainColors', 'baseOpacity'),
+    'moreIconSvgFillHover': ef.get('mainColors', 'baseMain'),
 
     'iconTextBottomPos': 13px,
     'iconTextLeftPos': 0,

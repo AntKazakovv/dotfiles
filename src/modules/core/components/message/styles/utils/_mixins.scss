@@ -86,17 +86,19 @@
         padding: 5px;
         cursor: pointer;
         background-color: transparent;
-
-        &:hover {
-
-            ::ng-deep line {
-                stroke: get('closeIconHoverColor');
-            }
-        }
+        opacity: 0.5;
+        @include bm.transition(opacity);
 
         ::ng-deep line {
             stroke: get('closeIconColor');
             transition: stroke 0.3s ease;
+        }
+
+        @media (hover: hover) {
+
+            &:hover {
+                opacity: 1;
+            }
         }
     }
 }
