@@ -8,7 +8,7 @@ export {
 export {LayoutService} from './layout/layout.service';
 export {FilesService, IFile} from './files/files.service';
 export {LogService} from './log/log.service';
-export {SentryService} from './sentry/sentry.service';
+// export {SentryService} from './sentry/sentry.service';
 export {ActionService} from './action/action.service';
 export {NotificationService} from './notification/notification.service';
 export {ModalService} from './modal/modal.service';

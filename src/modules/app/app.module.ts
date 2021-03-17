@@ -23,7 +23,6 @@ import {
 import {Location} from '@angular/common';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 import {NgxWebstorageModule} from 'ngx-webstorage';
-import * as Sentry from '@sentry/angular';
 import {ModalModule} from 'ngx-bootstrap/modal';
 
 export function loadConfig(config: ConfigService) {
@@ -78,12 +77,6 @@ export function loadConfig(config: ConfigService) {
             useFactory: (config: ConfigService) => () => config.load(),
             deps: [ConfigService],
             multi: true,
-        },
-        {
-            provide: ErrorHandler,
-            useValue: Sentry.createErrorHandler({
-                logErrors: true,
-            }),
         },
     ],
     exports: [

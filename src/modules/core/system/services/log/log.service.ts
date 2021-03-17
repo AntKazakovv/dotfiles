@@ -6,7 +6,6 @@ import {StateService, UIRouter} from '@uirouter/core';
 import {ConfigService} from 'wlc-engine/modules/core';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 import {logTypes} from 'wlc-engine/modules/core/system/config/log-types';
-import {SentryService} from 'wlc-engine/modules/core/system/services';
 
 import {
     get as _get,
@@ -57,7 +56,6 @@ export class LogService {
 
     constructor(
         private configService: ConfigService,
-        private sentryService: SentryService,
         private translateService: TranslateService,
         private stateService: StateService,
         private router: UIRouter,
@@ -232,25 +230,25 @@ export class LogService {
                 this.Flog.log(code, data).finally();
             }
         }
-        if (this.sentryService.isInstall) {
-            const tags: IIndexing<string> = _extend(logObj.tags || {},
-                (logObj.code) ? {code: logObj.code} : {},
-                (logObj.logger) ? {logger: logObj.logger} : {});
-            const extData: IIndexing<any> = _extend(_isObject(logObj.data) ? logObj.data : {data: logObj.data});
-
-            this.sentryService.sendMessage({
-                tags: tags,
-                level: logObj.level,
-                message: logObj.name,
-                data: extData,
-                userInfo: {
-                    // @TODO After creating of UserService
-                    id: '-1',
-                    //id: this.UserService.isAuthenticated() ? this.UserService.userProfile.idUser || 0 : '-1',
-                    country: this.configService.get<string>('appConfig.siteconfig.country'),
-                },
-            });
-        }
+        // if (this.sentryService.isInstall) {
+        //     const tags: IIndexing<string> = _extend(logObj.tags || {},
+        //         (logObj.code) ? {code: logObj.code} : {},
+        //         (logObj.logger) ? {logger: logObj.logger} : {});
+        //     const extData: IIndexing<any> = _extend(_isObject(logObj.data) ? logObj.data : {data: logObj.data});
+        //
+        //     this.sentryService.sendMessage({
+        //         tags: tags,
+        //         level: logObj.level,
+        //         message: logObj.name,
+        //         data: extData,
+        //         userInfo: {
+        //             // @TODO After creating of UserService
+        //             id: '-1',
+        //             //id: this.UserService.isAuthenticated() ? this.UserService.userProfile.idUser || 0 : '-1',
+        //             country: this.configService.get<string>('appConfig.siteconfig.country'),
+        //         },
+        //     });
+        // }
     }
 
 }
