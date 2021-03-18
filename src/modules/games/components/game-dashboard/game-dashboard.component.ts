@@ -51,6 +51,7 @@ import {
     assign as _assign,
     get as _get,
     find as _find,
+    filter as _filter,
 } from 'lodash-es';
 
 enum Direction {
@@ -139,19 +140,7 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
             this.cachingService.set<boolean>(this.dontShowInstructionKey, checked, true);
         },
     };
-    public bonusesListParams = {
-        common: {
-            restType: 'any',
-            filter: 'all',
-            title: 'My bonuses',
-            swiper: {
-                navigation: true,
-                slidesPerView: 1,
-                spaceBetween: 40,
-            },
-        },
-        type: 'swiper',
-    };
+    public tournamentsListParams = {};
     public depositBtnParams = componentLib.wlcButton.deposit.params;
     public lastPlayedSwiper: ISliderCParams;
     public landscapeOrientation: boolean = false;
@@ -189,6 +178,15 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
 
     public async ngOnInit(): Promise<void> {
         super.ngOnInit();
+
+        const useTournaments = this.configService.get<boolean>('$base.tournaments.use');
+
+        if (!useTournaments) {
+            this.tabs = _filter(this.tabs, (tab: Params.IGameDashboardTab) => tab.id !== 'tournaments');
+        } else {
+            this.tournamentsListParams = this.$params.common.tournamentsListParams;
+        }
+
         this.backdropLabelVisibility();
         this.loadLastPlayedGames();
         this.initLastPlayedSwiper();

@@ -25,6 +25,17 @@ export const wlcMobileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
             },
         },
     },
+    'mobile-menu:tournaments': {
+        name: gettext('Tournaments'),
+        type: 'sref',
+        class: 'tournaments',
+        icon: 'tournaments',
+        params: {
+            state: {
+                name: 'app.tournaments',
+            },
+        },
+    },
     'mobile-menu:info': {
         name: gettext('Info'),
         type: 'sref',

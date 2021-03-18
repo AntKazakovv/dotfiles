@@ -30,6 +30,7 @@ import {
     has as _has,
     sortBy as _sortBy,
     merge as _merge,
+    pull as _pull,
 } from 'lodash-es';
 
 @Component({
@@ -84,6 +85,11 @@ export class MainMenuComponent extends AbstractComponent implements OnInit {
 
     protected initConfig(): void {
         this.menuConfig = this.configService.get<MenuParams.MenuConfigItem[]>('$menu.mainMenu.items');
+
+        const useTournaments = this.configService.get<boolean>('$base.tournaments.use');
+        if (!useTournaments) {
+            this.menuConfig = _pull(this.menuConfig, 'main-menu:tournaments');
+        }
     }
 
     protected initMenu(): void {

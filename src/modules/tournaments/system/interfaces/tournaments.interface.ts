@@ -69,6 +69,7 @@ export interface ITournamentPlace {
     Points: string;
     UserLogin: string;
     Win: number;
+    points?: number;
 }
 
 export interface ITournamentUser {
@@ -113,3 +114,4 @@ export interface IQueryParams {
 }
 
 export type RestType = 'active' | 'history' | 'any';
+export type ThumbType = 'default' | 'dashboard' | 'banner' | 'active' | 'profile';

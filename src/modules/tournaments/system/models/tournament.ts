@@ -394,6 +394,7 @@ export class Tournament extends AbstractModel<ITournament> {
         }
 
         _each(topWin, (item: ITournamentPlace) => {
+            item.points = _toNumber(item.Points);
             if (!item.UserLogin?.length) {
                 item.UserLogin = this.getUserLogin(item);
             }

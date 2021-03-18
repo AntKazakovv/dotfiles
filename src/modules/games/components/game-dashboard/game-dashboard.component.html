@@ -50,7 +50,7 @@
                 <ng-container *ngFor="let tab of tabs">
                     <ng-container *ngIf="!tab.updateOnOpen">
                         <div [hidden]="activeTab?.id !== tab.id" class="{{$class}}__content-item">
-                            <div class="{{$class}}__title" *ngIf="!landscapeOrientation || !isMobile">
+                            <div class="{{$class}}__title" *ngIf="(!landscapeOrientation || !isMobile) && !tab.hideLabel">
                                 {{tab.label | translate}}
                             </div>
                             <ng-container [ngTemplateOutlet]="getTabContentTemplate(tab)">
@@ -59,7 +59,7 @@
                     </ng-container>
                     <ng-container *ngIf="tab.updateOnOpen">
                         <div *ngIf="activeTab?.id === tab.id" class="{{$class}}__content-item">
-                            <div class="{{$class}}__title" *ngIf="!landscapeOrientation || !isMobile">
+                            <div class="{{$class}}__title" *ngIf="(!landscapeOrientation || !isMobile) && !tab.hideLabel">
                                 {{tab.label | translate}}
                             </div>
                             <ng-container [ngTemplateOutlet]="getTabContentTemplate(tab)">
@@ -104,7 +104,7 @@
 </ng-template>
 
 <ng-template #tournaments>
-
+    <div wlc-tournament-list [inlineParams]="tournamentsListParams"></div>
 </ng-template>
 
 <ng-template #lastplayed>

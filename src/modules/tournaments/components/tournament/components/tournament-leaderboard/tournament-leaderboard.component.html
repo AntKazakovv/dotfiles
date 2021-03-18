@@ -1,0 +1,42 @@
+
+<div class="{{$class}}__container" *ngIf="wins?.length && isReady; else: noData">
+    <div class="{{$class}}__list">
+        <div class="{{$class}}__item {{$class}}__item--top {{$class}}__item--top-{{i + 1}}"
+            *ngFor="let win of winsTop; index as i"
+            [class.user]="userId === win.IDUser"
+            [class.first]="!i"
+            [class.last]="i === (winsTop.length - 1)">
+            <div class="{{$class}}__cell item-place">{{win.IDUserPlace}}</div>
+            <div class="{{$class}}__cell item-user">
+                <span wlc-icon iconName="cup"></span>
+                <span class="user-login">{{win.UserLogin}}</span>
+            </div>
+            <div class="{{$class}}__cell item-points">{{win.points | number: '.0-2'}}</div>
+        </div>
+        <div class="{{$class}}__item" *ngFor="let win of winsRest" [class.user]="userId === win.IDUser">
+            <div class="{{$class}}__cell item-place">{{win.IDUserPlace}}</div>
+            <div class="{{$class}}__cell item-user">
+                <span class="user-login">{{win.UserLogin}}</span>
+            </div>
+            <div class="{{$class}}__cell item-points">{{win.points | number: '.0-2'}}</div>
+        </div>
+    </div>
+    <button type="button"
+        class="{{$class}}__btn"
+        *ngIf="$params?.common?.showAllBtn && wins.length > $params?.common?.limit"
+        wlc-button
+        text="See all prizes"
+        icon="arrow"
+        theme="cleared"
+        (click)="showAllWins()"
+        [wlcElement]="'button_show_all_wins'">
+    </button>
+</div>
+<ng-template #noData>
+    <div class="{{$class}}__nocontent" *ngIf="isReady">{{'No tournament wins available' | translate}}</div>
+    <div class="{{$class}}__nocontent" *ngIf="!isReady">
+        <div wlc-loader></div>
+    </div>
+</ng-template>
+
+

@@ -1,5 +1,8 @@
-import {IComponentParams, CustomType} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
+import {
+    IComponentParams,
+    CustomType,
+} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {ITournamentListCParams} from 'wlc-engine/modules/tournaments/components/tournament-list/tournament-list.params';
 
 export type Type = 'default' | CustomType;
 export type Theme = 'default' | CustomType;
@@ -16,6 +19,7 @@ export interface IGameDashboardCParams extends IComponentParams<Theme, Type, The
     common?: {
         desktopSide: DashboardSide;
         themeMod?: ThemeMod;
+        tournamentsListParams?: ITournamentListCParams;
     }
 }
 
@@ -41,6 +45,23 @@ export const defaultParams: IGameDashboardCParams = {
     class: 'wlc-game-dashboard',
     common: {
         desktopSide: 'right',
+        tournamentsListParams: {
+            type: 'swiper',
+            theme: 'dashboard',
+            common: {
+                restType: 'any',
+                thumbType: 'dashboard',
+                sortByActive: true,
+                swiper: {
+                    navigation: {
+                        nextEl: '.wlc-swiper-button-next',
+                        prevEl: '.wlc-swiper-button-prev',
+                    },
+                    slidesPerView: 1,
+                    spaceBetween: 40,
+                },
+            },
+        },
     },
 };
 
@@ -50,6 +71,7 @@ export interface IGameDashboardTab {
     label?: string;
     auth?: boolean;
     updateOnOpen?: boolean;
+    hideLabel?: boolean;
 }
 
 export const dashboardTabs: IGameDashboardTab[] = [
@@ -65,11 +87,12 @@ export const dashboardTabs: IGameDashboardTab[] = [
         label: gettext('My bonuses'),
         updateOnOpen: true,
     },
-    // {
-    //     id: 'tournaments',
-    //     icon: 'game-dashboard/tournaments',
-    //     label: gettext('Tournaments'),
-    // },
+    {
+        id: 'tournaments',
+        icon: 'game-dashboard/tournaments',
+        hideLabel: true,
+        updateOnOpen: true,
+    },
     {
         id: 'lastplayed',
         icon: 'game-dashboard/last-played',

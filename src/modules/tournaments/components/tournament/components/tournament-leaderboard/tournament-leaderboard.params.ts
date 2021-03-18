@@ -14,21 +14,22 @@ export type AutoModifiers = ComponentTheme | ThemeMod;
 export type CustomMod = string;
 export type Modifiers = AutoModifiers | CustomMod | null;
 
-export interface ITournamentCParams extends IComponentParams<ComponentTheme, ComponentType, ThemeMod> {
+export interface ITournamentLeaderboardCParams extends IComponentParams<ComponentTheme, ComponentType, ThemeMod> {
     modifiers?: Modifiers[];
     theme?: ComponentTheme;
-    tournament?: Tournament;
     type?: ComponentType;
     common?: {
         themeMod?: ThemeMod;
         customMod?: CustomMod;
-        type?: ComponentType;
         tournament?: Tournament;
+        type?: ComponentType;
+        limit?: number;
+        showAllBtn?: boolean;
     };
 }
 
-export const defaultParams: ITournamentCParams = {
+export const defaultParams: ITournamentLeaderboardCParams = {
     moduleName: 'tournaments',
-    class: 'wlc-tournament',
-    componentName: 'wlc-tournament',
+    class: 'wlc-tournament-leaderboard',
+    componentName: 'wlc-tournament-leaderboard',
 };
