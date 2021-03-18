@@ -1,0 +1,38 @@
+<div class="{{$class}}__container">
+    <div class="{{$class}}__head">
+        <div class="{{$class}}__row">
+            <div class="{{$class}}__col">
+                <span class="{{$class}}__head-text">
+                {{'Place' | translate}}
+                </span>
+            </div>
+            <div class="{{$class}}__col">
+                <span class="{{$class}}__head-text">
+                    {{'Prize' | translate}}
+                    (<span
+                    wlc-currency
+                    [value]="$params.common.tournament?.feeCurrency"
+                    [showIconOnly]="true"></span>)
+                </span>
+            </div>
+            <div class="{{$class}}__col">
+                <span class="{{$class}}__head-text">
+                     {{'Percent' | translate}} (%)
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="{{$class}}__body">
+        <div
+            *ngFor="let value of prizesTable; let index = index"
+            class="{{$class}}__row">
+            <div class="{{$class}}__col">
+                <span class="{{$class}}__body-text">
+                    <span class="{{$class}}__body-place">{{index + 1}}</span> <span wlc-icon iconName="cup"></span>
+                </span>
+            </div>
+            <div class="{{$class}}__col">{{$params.common.tournament?.winningSpread[index]}}</div>
+            <div class="{{$class}}__col {{$class}}__col--percent">{{value}}</div>
+        </div>
+    </div>
+</div>

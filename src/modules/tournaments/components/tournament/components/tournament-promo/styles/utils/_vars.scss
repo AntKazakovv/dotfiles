@@ -1,0 +1,91 @@
+@use 'engine-scss/functions' as ef;
+
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'containerRadius': ef.get('radius', 'biger'),
+    'containerBackground': (
+        320: ef.get('mainColors', 'bg500'),
+        900: ef.get('mainColors', 'bg700'),
+    ),
+    'containerGridTemplateColumns': (
+        320: minmax(320px, 1fr),
+        900: minmax(320px, 1fr) 340px,
+    ),
+    'containerGridTemplateAreas': (
+        320: 'info' 'board' 'btns',
+        900: 'info board' 'btns board',
+    ),
+
+    'containerHeight': (
+        320: auto,
+        900: 400px,
+    ),
+
+    'infoPadding': (
+        320: ef.get('size', 'smaller') ef.get('size', 'smaller') ef.get('size', 'less'),
+        640: ef.get('size', 'less') ef.get('size', 'main') ef.get('size', 'main'),
+    ),
+
+    'boardPadding': (
+        320: ef.get('size', 'smaller') ef.get('size', 'less'),
+        640: ef.get('size', 'big') ef.get('size', 'main'),
+    ),
+
+    'imageDisplayDesk': (
+        320: none,
+        900: block,
+    ),
+    'imageDisplay': (
+        320: block,
+        900: none,
+    ),
+    'imageSize': 100%,
+    'imagePosition': 0,
+
+    'textAlign': (
+        320: center,
+        900: left,
+    ),
+
+    'tagFontStyle': 'SignText',
+    'tagFontStyleDesk': 'ThirdTitleBold',
+    'tagColor': ef.get('mainColors', 'baseMain'),
+    'tagColorDesk': ef.get('mainColors', 'secondary'),
+    'tagMargin': 0 0 ef.get('size', 'smaller'),
+    'tagTextPadding': (
+        320: ef.get('size', 'smallest') ef.get('size', 'smaller'),
+        900: 0,
+    ),
+    'tagTextBackground': (
+        320: ef.get('mainColors', 'secondary'),
+        900: transparent,
+    ),
+    'tagTextRadius': (
+        320: ef.get('radius', 'large'),
+        900: none,
+    ),
+
+    'titleFontStyle': 'PromoTitle',
+    'titleColor': ef.get('mainColors', 'baseMain'),
+    'titleMargin': 0 0 ef.get('size', 'less'),
+
+    'descriptionFontStyle': 'ThirdTitle',
+    'descriptionColor': ef.get('mainColors', 'baseMain'),
+    'descriptionMargin': 0 0 ef.get('size', 'main') ,
+
+    'btnsWrapAlign': (
+        320: center,
+        900: flex-start,
+    ),
+    'btnsWrapPadding': (
+        320: 0 ef.get('size', 'less') ef.get('size', 'smaller'),
+        640: 0 ef.get('size', 'main') ef.get('size', 'main'),
+    ),
+    'btnsMinWidth': 110px,
+    'btnsGridColumnGap': 0,
+    'btnsPadding': ef.get('size', 'smallest') ef.get('size', 'smally'),
+    'btnsMargin': 0 ef.get('size', 'smaller') 0 0,
+
+    'prizesMargin': ef.get('size', 'small') auto ef.get('size', 'smaller'),
+), $customThemeDefault);
+

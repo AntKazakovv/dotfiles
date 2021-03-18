@@ -51,6 +51,8 @@ export class LinkBlockComponent
     }
 
     public goTo(data: Params.IActionParams): void {
+        if (!data) return;
+
         if (data.modal) {
             this.modalService.showModal(data.modal.name);
             return;

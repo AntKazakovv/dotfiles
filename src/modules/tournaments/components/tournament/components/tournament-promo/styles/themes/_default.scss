@@ -1,0 +1,192 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/mixins/base.mixins' as em;
+@use 'engine-scss/mixins/mediaqueries' as mq;
+
+@import '../utils/vars';
+
+.wlc-tournament-promo--theme-default:host {
+
+    .wlc-tournament-promo {
+
+        &__container {
+            position: relative;
+
+            display: grid;
+            @include em.get-mq-map('grid-template-columns', $themeDefault, 'containerGridTemplateColumns');
+            @include em.get-mq-map('grid-template-areas', $themeDefault, 'containerGridTemplateAreas');
+
+            @include em.get-mq-map('height', $themeDefault, 'containerHeight');
+
+            @include em.get-mq-map('background', $themeDefault, 'containerBackground');
+
+            border-radius: ef.get-value($themeDefault, 'containerRadius');
+            overflow: hidden;
+        }
+
+        &__info {
+            grid-area: info;
+            position: relative;
+
+            @include em.get-mq-map('padding', $themeDefault, 'infoPadding');
+        }
+
+        &__board {
+            grid-area: board;
+            position: relative;
+
+            @include em.get-mq-map('padding', $themeDefault, 'boardPadding');
+        }
+
+        &__inner {
+            position: relative;
+        }
+
+        &__tag {
+            margin: ef.get-value($themeDefault, 'tagMargin');
+
+            line-height: 0;
+
+            &-text {
+                display: inline-block;
+                @include em.get-mq-map('padding', $themeDefault, 'tagTextPadding');
+                @include em.get-mq-map('background', $themeDefault, 'tagTextBackground');
+                @include em.get-mq-map('border-radius', $themeDefault, 'tagTextRadius');
+
+                @include text.get-text-style(ef.get-value($themeDefault, 'tagFontStyle'), ef.get-value($themeDefault, 'tagColor'));
+
+                @include mq.min(900) {
+                    @include text.get-text-style(ef.get-value($themeDefault, 'tagFontStyleDesk'), ef.get-value($themeDefault, 'tagColorDesk'));
+                }
+            }
+        }
+
+        &__title {
+            @include text.get-text-style(ef.get-value($themeDefault, 'titleFontStyle'), ef.get-value($themeDefault, 'titleColor'));
+            @include em.lineClamp(2);
+            margin: ef.get-value($themeDefault, 'titleMargin');
+        }
+
+        &__description {
+            @include text.get-text-style(ef.get-value($themeDefault, 'descriptionFontStyle'), ef.get-value($themeDefault, 'descriptionColor'));
+            @include em.lineClamp(3);
+            margin: ef.get-value($themeDefault, 'descriptionMargin');
+        }
+
+        &__tag,
+        &__title,
+        &__description {
+            @include em.get-mq-map('text-align', $themeDefault, 'textAlign');
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+
+        &__image {
+            position: absolute;
+            top: ef.get-value($themeDefault, 'imagePosition');
+            left: ef.get-value($themeDefault, 'imagePosition');
+
+            width: ef.get-value($themeDefault, 'imageSize');
+            height: ef.get-value($themeDefault, 'imageSize');
+
+            object-fit: fill;
+            object-position: center;
+
+            &--desk {
+                @include em.get-mq-map('display', $themeDefault, 'imageDisplayDesk');
+            }
+
+            &--mobile {
+                @include em.get-mq-map('display', $themeDefault, 'imageDisplay');
+            }
+        }
+
+        &__loader {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            z-index: 999;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(ef.get('mainColors', 'disabled'), 0.7);
+            border-radius: ef.get-value($themeDefault, 'containerRadius');
+
+            &:before {
+                content: '';
+
+                position: absolute;
+
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                margin: auto;
+
+                width: 60px;
+                height: 60px;
+
+                background: rgba(ef.get('mainColors', 'bg'), 0.9);
+
+                border-radius: 10px;
+            }
+
+            &:after {
+                content: '';
+
+                width: 50px;
+                height: 50px;
+
+                border: 4px solid ef.get('mainColors', 'main');
+                border-left-color: transparent;
+                border-radius: 50%;
+                animation: spin 1s infinite linear;
+            }
+        }
+    }
+
+    ::ng-deep {
+
+        .wlc-tournament-promo-prizes {
+            margin: ef.get-value($themeDefault, 'prizesMargin');
+        }
+
+        .buttons-wrap {
+            grid-area: btns;
+
+            display: flex;
+            margin-top: auto;
+
+            @include em.get-mq-map('justify-content', $themeDefault, 'btnsWrapAlign');
+            @include em.get-mq-map('padding', $themeDefault, 'btnsWrapPadding');
+
+            & > .wlc-btn {
+                min-width: ef.get-value($themeDefault, 'btnsMinWidth');
+                grid-column-gap: ef.get-value($themeDefault, 'btnsGridColumnGap');
+
+                padding: ef.get-value($themeDefault, 'btnsPadding');
+                margin: ef.get-value($themeDefault, 'btnsMargin');
+
+                &:last-child {
+                    margin-right: 0;
+                }
+            }
+        }
+    }
+}
+
+@keyframes spin {
+
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}

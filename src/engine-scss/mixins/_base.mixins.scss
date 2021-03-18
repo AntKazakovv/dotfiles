@@ -132,3 +132,21 @@
         }
     }
 }
+
+/// Property allows  to limit the content of the string
+///
+/// @name lineClamp
+///
+/// @param {number} $clamp - name of css property. By default 1
+
+@mixin lineClamp($clamp: 1) {
+    /* stylelint-disable */
+    display: -webkit-box;
+    line-clamp: $clamp;
+    box-orient: vertical;
+    -webkit-line-clamp: $clamp;
+    -webkit-box-orient: vertical;
+    /* stylelint-enable */
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

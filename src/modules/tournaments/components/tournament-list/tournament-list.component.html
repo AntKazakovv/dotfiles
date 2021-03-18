@@ -1,7 +1,16 @@
 <ng-template #default>
-    <div class="{{$class}}__content" data-wlc-element="block_tournaments-main">
-        <div class="{{$class}}__list" *ngIf="tournaments?.length && isReady; else: noData" data-wlc-element="block_tournament">
-            <div wlc-tournament [tournament]="tournament" [type]="$params.common?.thumbType" [theme]="$params.theme" *ngFor="let tournament of tournaments"></div>
+    <div class="{{$class}}__content"
+         data-wlc-element="block_tournaments-main">
+        <div class="{{$class}}__container"
+             *ngIf="tournaments?.length && isReady; else: noData"
+             data-wlc-element="block_tournament">
+            <div
+                wlc-tournament
+                *ngFor="let tournament of tournaments"
+                [tournament]="tournament"
+                [type]="$params.common?.thumbType"
+                [theme]="$params.theme">
+            </div>
         </div>
         <!-- TODO: add pagination -->
     </div>

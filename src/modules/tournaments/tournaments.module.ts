@@ -13,12 +13,16 @@ import {PromoModule} from '../promo/promo.module';
 import {TournamentListComponent} from './components/tournament-list/tournament-list.component';
 import {TournamentComponent} from './components/tournament/tournament.component';
 import {TournamentLeaderboardComponent} from './components/tournament/components/tournament-leaderboard/tournament-leaderboard.component';
+import {TournamentPromoComponent} from './components/tournament/components/tournament-promo/tournament-promo.component';
+import {TournamentPrizesComponent} from './components/tournament/components/tournament-prizes/tournament-prizes.component';
 
 export const components = {
     'wlc-tournament-detail': TournamentDetailComponent,
     'wlc-tournament-list': TournamentListComponent,
     'wlc-tournament-leaderboard': TournamentLeaderboardComponent,
     'wlc-tournament': TournamentComponent,
+    'wlc-tournament-promo': TournamentPromoComponent,
+    'wlc-tournament-prizes': TournamentPrizesComponent,
 };
 
 @NgModule({
@@ -27,6 +31,8 @@ export const components = {
         TournamentListComponent,
         TournamentComponent,
         TournamentLeaderboardComponent,
+        TournamentPromoComponent,
+        TournamentPrizesComponent,
     ],
     imports: [
         CommonModule,
@@ -36,7 +42,6 @@ export const components = {
         TranslateModule,
         UserModule,
         MenuModule,
-        GamesModule,
     ],
     providers: [
         TournamentsService,
@@ -45,6 +50,8 @@ export const components = {
         TournamentListComponent,
         TournamentComponent,
         TournamentLeaderboardComponent,
+        TournamentPromoComponent,
+        TournamentPrizesComponent,
     ],
 })
 
