@@ -101,6 +101,11 @@ export interface IModalConfig extends IModalBsOptions {
      */
     closeBtnVisibility?: boolean;
     /**
+     * Reject button visibility. Visible(true) by default
+     */
+    rejectBtnVisibility?: boolean,
+    /**
+     *
      * Show confirm button. `false` by default
      */
     showConfirmBtn?: boolean;

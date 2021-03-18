@@ -32,6 +32,7 @@ export const DEFAULT_MODAL_CONFIG: Partial<IModalConfig> = {
     useBackButton: false,
     backButtonText: '',
     closeBtnVisibility: true,
+    rejectBtnVisibility: true,
     textAlign: 'left',
     withoutPadding: false,
 };

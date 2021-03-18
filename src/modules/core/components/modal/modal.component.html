@@ -68,6 +68,7 @@
             <button wlc-button
                     typeAttr="button"
                     type="rejected"
+                    *ngIf="$params.config.rejectBtnVisibility"
                     [text]="$params.config.closeBtnText || 'Close'"
                     [wlcElement]="'button_close'"
                     [inlineParams]="$params.config.closeBtnParams"

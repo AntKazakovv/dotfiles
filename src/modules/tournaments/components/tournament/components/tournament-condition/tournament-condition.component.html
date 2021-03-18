@@ -1,0 +1,19 @@
+<ng-template #join>
+    <div>
+        <p>{{'You have' | translate}}: <span wlc-currency [value]="$params.common.userBalance"></span></p>
+        <p>{{'Entry fee' | translate}}: <span wlc-currency [value]="$params.common.feeAmount"></span></p>
+        <p>{{$params.common.text | translate}}</p>
+    </div>
+</ng-template>
+
+<ng-template #leave>
+    <div>
+        <p>{{$params.common.text | translate}}</p>
+    </div>
+</ng-template>
+
+
+<ng-container [ngSwitch]="$params.common.actionType">
+    <ng-container [ngTemplateOutlet]="leave" *ngSwitchCase="'leave'"></ng-container>
+    <ng-container [ngTemplateOutlet]="join" *ngSwitchDefault></ng-container>
+</ng-container>

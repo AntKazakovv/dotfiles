@@ -50,14 +50,14 @@
             *ngIf="!isTournamentSelected && $params.common.tournament.isTournamentStarts"
             wlc-button
             [text]="'Join now'"
-            (click)="joinToTournament($params.common.tournament)">
+            (click)="joinToTournament()">
         </button>
         <button
             *ngIf="$params.common.tournament.isSelected"
             wlc-button
             themeMod="secondary"
             [text]="'Leave'"
-            (click)="leaveFromTournament($params.common.tournament)"
+            (click)="leaveFromTournament()"
         >
         </button>
         <button

@@ -1,0 +1,7 @@
+@use 'engine-scss/functions' as ef;
+
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+
+), $customThemeDefault);
+
