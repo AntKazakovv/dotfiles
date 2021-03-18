@@ -1,10 +1,9 @@
 import {ChangeDetectorRef, Injectable} from '@angular/core';
 import {UIRouter} from '@uirouter/core';
+import {takeUntil} from 'rxjs/operators';
+import {Subject} from 'rxjs';
 import {SportsbookService} from 'wlc-engine/modules/sportsbook';
 import {ConfigService} from 'wlc-engine/modules/core';
-
-import {takeUntil} from 'rxjs/operators';
-import {Observable, Subject, Subscription} from 'rxjs';
 
 import {
     forEach as _forEach,

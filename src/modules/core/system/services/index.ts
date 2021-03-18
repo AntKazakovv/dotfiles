@@ -1,3 +1,5 @@
+import {HookHandler} from 'wlc-engine/modules/core/system/services/hooks/hooks.service';
+
 export {DataService, IData} from './data/data.service';
 export {EventService} from './event/event.service';
 export {
@@ -21,3 +23,8 @@ export {
 } from './validation/validation.service';
 export {CachingService} from './caching/caching.service';
 export {SelectValuesService} from './select-values/select-values.service';
+export {
+    HooksService,
+    HookHandler,
+    IHookHandlerDescriptor,
+} from './hooks/hooks.service';

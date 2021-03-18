@@ -12,13 +12,12 @@ import {
     OnDestroy,
     ComponentRef, AfterViewInit, Input,
 } from '@angular/core';
-import {RawParams} from '@uirouter/core';
 import {DomSanitizer} from '@angular/platform-browser';
+import {FormControl} from '@angular/forms';
 import {ResizedEvent} from 'angular-resize-event';
-import {UIRouter} from '@uirouter/core';
+import {UIRouter, RawParams} from '@uirouter/core';
 import {fromEvent} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
-
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {Game} from 'wlc-engine/modules/games/system/models/game.model';
 import {GamesCatalogService} from 'wlc-engine/modules/games';
@@ -26,30 +25,50 @@ import {
     ActionService,
     ConfigService,
     DeviceType,
+    HooksService,
     IPushMessageParams,
     NotificationEvents,
+    EventService,
+    LogService,
+    ModalService,
 } from 'wlc-engine/modules/core';
 import {defaultParams, IGameWrapperCParams} from './game-wrapper.params';
-import {IGameParams, ILaunchInfo} from '../../system/interfaces/games.interfaces';
+import {IGameParams, ILaunchInfo} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
 import {UserService} from 'wlc-engine/modules/user/system/services';
-import {EventService, LogService} from 'wlc-engine/modules/core/system/services';
-import {ModalService} from 'wlc-engine/modules/core/system/services';
 import {WlcModalComponent} from 'wlc-engine/modules/core/components/modal';
 import {IPlayGameForRealCParams} from 'wlc-engine/modules/games/components/play-game-for-real/play-game-for-real.params';
+import {ICustomGameParams} from 'wlc-engine/modules/games';
 import * as GameDashboardParams from 'wlc-engine/modules/games/components/game-dashboard/game-dashboard.params';
-import {FormControl} from '@angular/forms';
+
 import {
     includes as _includes,
     isObject as _isObject,
     isString as _isString,
     toNumber as _toNumber,
 } from 'lodash-es';
-import * as Params from 'wlc-engine/modules/bonuses/components/bonus-item/bonus-item.params';
 
 interface IError {
     msg: string;
     state?: string;
     stateParams?: RawParams;
+}
+
+export const hooks = {
+    launchInfo: 'launchInfo@GameWrapperComponent',
+    evalScript: 'evalScript@GameWtapperComponent',
+};
+
+export interface IHookLaunchInfo {
+    game: Game;
+    launchInfo: ILaunchInfo;
+    customGameParams: ICustomGameParams;
+    demo: boolean;
+}
+
+export interface IHookEvalScript {
+    game: Game;
+    customGameParams: ICustomGameParams;
+    disable: boolean;
 }
 
 @Component({
@@ -69,7 +88,6 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
     public $params: IGameWrapperCParams;
     public game: Game;
     public gameHtml: string | HTMLIFrameElement = '';
-    public isFavourite: boolean;
     public useMobileIframe: boolean = false;
     public mobileIframeLoaded: boolean = false;
     public isReady: boolean;
@@ -116,6 +134,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         protected cdr: ChangeDetectorRef,
         protected renderer: Renderer2,
         protected hostElement: ElementRef,
+        protected hooksService: HooksService,
     ) {
         super({injectParams, defaultParams});
     }
@@ -459,8 +478,11 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
                             return;
                         }
 
-                        // const result = // check disable
-                        const result = {disable: false};
+                        const result = await this.hooksService.run<IHookEvalScript>(hooks.evalScript, {
+                            game: this.game,
+                            customGameParams: this.$params?.gameParams,
+                            disable: false,
+                        });
                         if (!result.disable) {
                             eval(this.launchInfo.gameScript);
                         }
@@ -487,6 +509,16 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         const waiter = this.logService.waiter({code: '3.0.3'});
         try {
             const launchInfo: ILaunchInfo = await this.gamesCatalogService.getLaunchParams(this.gameParams);
+
+            const result = await this.hooksService.run<IHookLaunchInfo>(hooks.launchInfo, {
+                game: this.game,
+                launchInfo: launchInfo,
+                customGameParams: this.$params.gameParams,
+                demo: this.gameParams.demo,
+            });
+            this.game = result.game;
+            this.launchInfo = result.launchInfo;
+
             this.launchInfo = launchInfo;
             if (this.checkLaunch(launchInfo)) {
                 //this.launchInfo.gameScript = await this.getGameScript(this.launchInfo.gameScript);
@@ -525,7 +557,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
      */
     protected useOrNotMobileIframe(): void {
 
-        if (this.$params.theme !== 'fullscreen-game-frame') {
+        if (this.$params.theme !== 'fullscreen-game-frame' && this.isMobile) {
             this.useMobileIframe = true;
         }
         this.cdr.detectChanges();
