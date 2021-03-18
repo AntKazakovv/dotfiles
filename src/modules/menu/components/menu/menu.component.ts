@@ -38,6 +38,8 @@ import {
     forEach as _forEach,
     has as _has,
     find as _find,
+    isString as _isString,
+    reduce as _reduce,
 } from 'lodash-es';
 
 @Component({
@@ -90,8 +92,8 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
             spaceBetween: 10,
         },
     };
+    public iconsFallback: string = '';
 
-    protected iconsFallback: string = '';
     protected iconsExtension: string = 'svg';
 
     constructor(
@@ -113,8 +115,14 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
         );
     }
 
-    public isActive(state: string): boolean {
-        return this.stateService.includes(state);
+    public isActive(state: string | string[]): boolean {
+        if (_isString(state)) {
+            return this.stateService.includes(state);
+        } else {
+            return _reduce(state, (res, item) => {
+                return res || this.stateService.includes(item);
+            }, false);
+        }
     }
 
     public toggleDropdown(item: Params.IMenuItemsGroup): void {

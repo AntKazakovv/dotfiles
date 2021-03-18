@@ -1,11 +1,11 @@
 import {
     ApplicationRef,
     ComponentFactoryResolver,
-    ComponentRef,
     Injectable,
     Injector,
     Inject,
     RendererFactory2,
+    ComponentRef,
 } from '@angular/core';
 import {DOCUMENT} from '@angular/common';
 
@@ -31,7 +31,7 @@ import {
     find as _find,
     remove as _remove,
     forEach as _forEach,
-    last as _last,
+    get as _get,
 } from 'lodash-es';
 
 export type IModalParams = IModalConfig | IModalName;
@@ -252,13 +252,24 @@ export class ModalService {
                 },
             ],
         });
-        let windowCmptRef = windowFactory.create(injector);
-        this.appRef.attachView(windowCmptRef.hostView);
-        this.document.body.appendChild(windowCmptRef.location.nativeElement);
+        let windowCmptRef: ComponentRef<any> = windowFactory.create(injector);
+        const modalElement = windowCmptRef.location.nativeElement;
+        const backDropElement = _get(windowCmptRef, 'instance.modalRef.backdrop.location.nativeElement');
 
-        this.activeModals.push({
-            id: config.id,
-            ref: windowCmptRef,
+        this.appRef.attachView(windowCmptRef.hostView);
+        this.document.body.appendChild(modalElement);
+
+        setTimeout(() => {
+            if (backDropElement) {
+                const currentZIndex = +globalThis?.getComputedStyle(modalElement).zIndex;
+                modalElement.style.zIndex = currentZIndex + this.activeModals.length * 10;
+                backDropElement.style.zIndex = +modalElement.style.zIndex - 1;
+            }
+
+            this.activeModals.push({
+                id: config.id,
+                ref: windowCmptRef,
+            });
         });
     }
 }

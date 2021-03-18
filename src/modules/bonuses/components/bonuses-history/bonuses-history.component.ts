@@ -48,6 +48,8 @@ export class BonusesHistoryComponent extends AbstractComponent implements OnInit
     public filterSelect: ISelectCParams = {
         name: undefined,
         value: 'all',
+        labelText: 'Status',
+        theme: 'vertical',
         control: new FormControl('all'),
         items: [
             {

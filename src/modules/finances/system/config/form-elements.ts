@@ -63,7 +63,7 @@ export namespace FormElements {
         },
     };
 
-    export const withdrawButton ={
+    export const withdrawButton = {
         name: 'core.wlc-button',
         params: <IButtonCParams>{
             name: 'submit',
@@ -195,7 +195,7 @@ export namespace FormElements {
         },
     };
 
-    export const postalCode =  {
+    export const postalCode = {
         name: 'core.wlc-input',
         params: <IInputCParams>{
             theme: 'vertical',
@@ -233,7 +233,7 @@ export namespace FormElements {
 
     export const password = {
         name: 'core.wlc-input',
-        params: <IInputCParams> {
+        params: <IInputCParams>{
             theme: 'vertical',
             common: {
                 placeholder: gettext('Current password'),
@@ -275,6 +275,24 @@ export namespace FormElements {
         //     customMod: ['phone'],
         //     validators: ['required'],
         // },
+    };
+
+    export const mobilePhoneWithCode = {
+        name: 'user.wlc-phone-field',
+        params: {
+            phoneCode: {
+                labelText: gettext('Phone Code'),
+                theme: 'vertical',
+            },
+            phoneNumber: {
+                theme: 'vertical',
+            },
+            name: ['phoneCode', 'phoneNumber'],
+            validators: [
+                'required',
+            ],
+            locked: true,
+        },
     };
 
     export const bankNameText = {

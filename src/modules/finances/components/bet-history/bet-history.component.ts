@@ -54,7 +54,7 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
         control: new FormControl(''),
     }
     public filterSelect = {
-        name: 'type',
+        name: undefined,
         value: 'all',
         common: {
             placeholder: gettext('Merchants'),

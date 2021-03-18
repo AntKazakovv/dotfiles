@@ -102,6 +102,8 @@
             padding: ef.get-value($themeDefault, 'imagePadding');
             height: 100%;
             position: relative;
+            display: flex;
+            align-items: center;
 
             .wlc-bonus-image-other {
                 position: absolute;

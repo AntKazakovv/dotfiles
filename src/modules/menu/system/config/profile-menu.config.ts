@@ -23,7 +23,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         wlcElement: 'link_cc-profile-menu_account-settings',
         params: {
             state: {
-                parent: 'app.profile.main',
+                parent: ['app.profile.main', 'app.profile.verification', 'app.profile.limitations'],
                 name: 'app.profile.main.info',
                 params: {},
             },
@@ -209,7 +209,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         class: 'market',
         params: {
             state: {
-                parent: 'app.profile.loyalty-store.main',
+                parent: ['app.profile.loyalty-store', 'app.profile.loyalty-level'],
                 name: 'app.profile.loyalty-store.main',
                 params: {},
             },
@@ -234,7 +234,11 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         class: 'history',
         params: {
             state: {
-                parent: 'app.profile.loyalty-bonuses.history',
+                parent: [
+                    'app.profile.loyalty-bonuses.history',
+                    'app.profile.gamblings',
+                    'app.profile.cash.transactions',
+                ],
                 name: 'app.profile.loyalty-bonuses.history',
                 params: {},
             },

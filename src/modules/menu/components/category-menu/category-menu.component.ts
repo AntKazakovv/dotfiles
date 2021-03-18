@@ -64,6 +64,7 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
     protected iconsFolder: string;
     protected useIcons: boolean;
     protected useLobbyBtn: boolean;
+    protected fallBackIcon: string = 'plug.svg';
 
     constructor(
         @Inject('injectParams') protected params: Params.ICategoryMenuCParams,
@@ -97,7 +98,7 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
             : this.configService.get<boolean>('$menu.categoryMenu.icons.use');
 
         this.iconsFolder = this.$params.common?.icons?.folder || this.configService.get<string>('$menu.categoryMenu.icons.folder');
-        this.menuParams.common.icons.fallback = this.iconPath('plug.svg');
+        this.menuParams.common.icons.fallback = this.iconPath(this.fallBackIcon);
 
         this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
 
@@ -191,7 +192,6 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
                 },
             });
             this.menuParams.items = menuItems.concat(this.menuParams.items as MenuParams.IMenuItem[]);
-
             if (this.gamesCatalogService.catalogOpened()) {
                 this.menuParams.items.unshift(this.getAllGamesBtn());
             }
@@ -272,7 +272,7 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
                 lang: this.translate.currentLang,
                 icons: {
                     folder: this.iconsFolder,
-                    disable: !this.useIcons,
+                    disable: true,
                 },
             });
         }
@@ -283,7 +283,7 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
                 lang: this.translate.currentLang,
                 icons: {
                     folder: this.iconsFolder,
-                    disable: !this.useIcons,
+                    disable: true,
                 },
             });
             if (category.childCategories.length) {
@@ -293,6 +293,7 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
                     icons: {
                         folder: this.iconsFolder,
                         disable: !this.useIcons,
+                        fallback: this.fallBackIcon,
                     },
                 });
                 dropdownMenu.push({

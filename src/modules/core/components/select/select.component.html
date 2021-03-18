@@ -3,7 +3,7 @@
        class="{{$class}}__label"
 >{{$params.labelText | translate}}
     <ng-container *ngIf="isFieldRequired()">*</ng-container>
-    <div *ngIf="$params.common.tooltipText"
+    <div *ngIf="$params.common?.tooltipText"
          wlc-tooltip [inlineParams]="{inlineText: $params.common.tooltipText}">
     </div>
 </label>

@@ -7,7 +7,6 @@ import {
     IWrapperCParams,
 } from 'wlc-engine/modules/core';
 import {Type} from 'wlc-engine/modules/bonuses/components/bonus-item/bonus-item.params';
-import {Subject} from 'rxjs';
 import {ChosenBonusSetParams} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses.interface';
 
 export type ComponentTheme = 'default' | CustomType;
@@ -57,8 +56,10 @@ export const defaultParams: IStepsParams = {
                             {
                                 name: 'core.wlc-text-block',
                                 params: {
-                                    textBlockTitle: gettext('Register 1/2'),
-                                    textBlockSubtitle: gettext('Choose your Welcome Bonus'),
+                                    common: {
+                                        textBlockTitle: gettext('Register 1/2'),
+                                        textBlockSubtitle: gettext('Choose your Welcome Bonus'),
+                                    },
                                 },
                             },
                             {
@@ -179,17 +180,21 @@ export const defaultParams: IStepsParams = {
                                         {
                                             name: 'core.wlc-text-block',
                                             params: {
-                                                textBlockTitle: gettext('Register 2/2'),
-                                                textBlockSubtitle: gettext('Your adventure begins'),
+                                                common: {
+                                                    textBlockTitle: gettext('Register 2/2'),
+                                                    textBlockSubtitle: gettext('Your adventure begins'),
+                                                },
                                             },
                                         },
                                         {
                                             name: 'core.wlc-text-block',
                                             params: {
-                                                dynamicText: {
-                                                    text: gettext('The chosen bonus:'),
-                                                    textDefault: gettext('Without Bonus'),
-                                                    param: ChosenBonusSetParams.ChosenBonus + '.name',
+                                                common: {
+                                                    dynamicText: {
+                                                        text: gettext('The chosen bonus:'),
+                                                        textDefault: gettext('Without Bonus'),
+                                                        param: ChosenBonusSetParams.ChosenBonus + '.name',
+                                                    },
                                                 },
                                             },
                                         },

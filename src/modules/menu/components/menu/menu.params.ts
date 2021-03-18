@@ -14,7 +14,7 @@ export type IMenuTarget = '_blank' | '_self' | '_parent' | '_top';
 export type MenuTheme = string;
 
 export interface IMenuItemParamsState {
-    parent?: string;
+    parent?: string | string[];
     activeEq?: boolean;
     name: string;
     params?: {
