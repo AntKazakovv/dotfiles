@@ -92,6 +92,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
     public $params: IFormWrapperCParams;
     public form: FormGroup;
     private controls: IControls = {};
+    private allControls: IControls = {};
     private globalValidators:IGlobalValidators;
 
     private locked: string[] = [];
@@ -131,6 +132,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
     // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
     public ngOnChanges(changes: SimpleChanges): void {
         if (this.form && changes.config) {
+            this.controls = {};
             this.ngOnInit();
         }
     }
@@ -291,7 +293,8 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
 
             if (_isArray(component.params.name)) {
                 _each(component.params.name, (field: string) => {
-                    controls[field] = this.controls[field] || new FormControl(
+
+                    this.allControls[field] = this.allControls[field] || new FormControl(
                         {
                             value: _get(this.formData?.value, field, ''),
                             disabled: component.params.disabled,
@@ -300,12 +303,15 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
                         asyncValidators,
                     );
 
+                    controls[field] = this.allControls[field];
+
                     if (component.params.locked) {
                         this.locked.push(field);
                     }
                 });
             } else {
-                controls[component.params.name] = this.controls[component.params.name] || new FormControl(
+
+                this.allControls[component.params.name] = this.allControls[component.params.name] || new FormControl(
                     {
                         value: _get(this.formData?.value, component.params.name, component.params.value) || '',
                         disabled: component.params.disabled,
@@ -313,6 +319,8 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
                     validators,
                     asyncValidators,
                 );
+
+                controls[component.params.name] = this.allControls[component.params.name];
             }
 
             if (component.params.locked) {

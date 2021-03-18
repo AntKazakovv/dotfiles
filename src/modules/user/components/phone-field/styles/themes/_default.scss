@@ -9,3 +9,25 @@
         align-items: flex-end;
     }
 }
+
+.wlc-phone-field--theme-vertical {
+
+    &:host {
+        display: grid;
+        grid-template-columns: ef.get-value($themeDefault, 'templateColumnsVertical');
+        grid-gap: ef.get-value($themeDefault, 'gap');
+        align-items: flex-end;
+        padding: ef.get-value($themeDefault, 'paddingVertical');
+        margin: ef.get-value($themeDefault, 'marginVertical');
+
+        ::ng-deep {
+
+            .wlc-input[class] {
+
+                .wlc-input__label {
+                    display: none;
+                }
+            }
+        }
+    }
+}
