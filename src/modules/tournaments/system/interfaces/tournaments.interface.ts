@@ -115,3 +115,4 @@ export interface IQueryParams {
 
 export type RestType = 'active' | 'history' | 'any';
 export type ThumbType = 'default' | 'dashboard' | 'banner' | 'active' | 'profile';
+export type ActionType = 'join' | 'leave';
