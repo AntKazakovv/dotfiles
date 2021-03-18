@@ -4,6 +4,7 @@ import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.mode
 import {Game} from 'wlc-engine/modules/games/system/models/game.model';
 import {MerchantModel} from 'wlc-engine/modules/games/system/models/merchant.model';
 import {GamesHelper} from 'wlc-engine/modules/games/system/helpers/games.helpers';
+import {Deferred} from 'wlc-engine/modules/core/system/classes';
 
 import {
     toNumber as _toNumber,
@@ -15,6 +16,7 @@ import {
 
 export class CategoryModel extends AbstractModel<ICategory> {
 
+    private ready = new Deferred<void>();
     private gamesList: Game[] = [];
     private parent: CategoryModel;
     private childs: CategoryModel[] = [];
@@ -30,6 +32,10 @@ export class CategoryModel extends AbstractModel<ICategory> {
     ) {
         super();
         this.init(data);
+    }
+
+    public get isReady(): Promise<void> {
+        return this.ready.promise;
     }
 
     public get id(): number {
@@ -50,6 +56,10 @@ export class CategoryModel extends AbstractModel<ICategory> {
 
     public get isFavourites(): boolean {
         return this.slug === 'favourites';
+    }
+
+    public get isJackpots(): boolean {
+        return this.slug === 'jackpots';
     }
 
     public get isSpecial(): boolean {
@@ -148,14 +158,18 @@ export class CategoryModel extends AbstractModel<ICategory> {
         return false;
     }
 
+    public setDefaultSort(sort: number): void {
+        this.defaultSort = sort;
+    }
+
+    public setReady(): void {
+        this.ready.resolve();
+    }
+
     protected checkMerchants(): void {
         if (!this.merchantsList || this.updateMerchants) {
             this.setAvailableMerchants();
         }
-    }
-
-    public setDefaultSort(sort: number): void {
-        this.defaultSort = sort;
     }
 
     protected init(data: ICategory): void {

@@ -328,38 +328,13 @@ export class GamesGridComponent extends AbstractComponent
         }
 
         if (this.$params.byState) {
-            if (this.parentCategory?.slug == 'lastplayed') {
-                games = await this.gamesCatalogService.getLastGames();
-            } else if (this.parentCategory?.slug == 'favourites') {
-                games = await this.gamesCatalogService.getFavouriteGames();
-            } else {
-                if (this.childCategory) {
-                    games = this.childCategory.games;
-                } else if (this.parentCategory) {
-                    games = this.parentCategory.games;
-                }
-            }
+            games = await this.gamesCatalogService.getGamesByState();
         } else if (this.$params.filter) {
-
-            if (this.$params.filter.category == 'last-played') {
-                games = await this.gamesCatalogService.getLastGames();
-            } else if (this.$params.filter.category == 'favourites') {
-                games = await this.gamesCatalogService.getFavouriteGames();
-            } else {
-                // TODO: move to games service
-                const categories: CategoryModel[] = this.gamesCatalogService.getCategories();
-                const category = _find(categories, (item: CategoryModel) => {
-                    return item.slug === this.$params.filter.category;
-                });
-                if (!categories || !category) {
-                    return;
-                }
+            games = await this.gamesCatalogService.getGamesByCategorySlug(this.$params.filter.category);
+            const category = this.gamesCatalogService.getCategoryBySlug(this.$params.filter.category);
+            if (category) {
                 const currentLang = this.router.stateService.params?.locale || 'en';
-                this.categoryTitle = category.title[currentLang];
-
-                games = _filter(games, (item: Game) => {
-                    return _includes(item.categoryID, category.id);
-                });
+                this.categoryTitle = category.title[currentLang] || category.title['en'];
             }
         }
         return games;
