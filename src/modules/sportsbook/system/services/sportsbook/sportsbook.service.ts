@@ -1,11 +1,9 @@
-import { Injectable } from '@angular/core';
-import {ConfigService} from 'wlc-engine/modules/core/system/services';
-import {IIndexing} from 'wlc-engine/modules/core';
+import {Injectable} from '@angular/core';
+import {fromEvent, Subject, Observable} from 'rxjs';
+import {map, filter} from 'rxjs/operators';
+import {IIndexing, ConfigService} from 'wlc-engine/modules/core';
 import {GamesCatalogService} from 'wlc-engine/modules/games';
 import {Deferred} from 'wlc-engine/modules/core/system/classes';
-
-import {fromEvent, Subject, Observable} from 'rxjs';
-import {map, filter, tap, takeUntil} from 'rxjs/operators';
 
 import {
     find as _find,
