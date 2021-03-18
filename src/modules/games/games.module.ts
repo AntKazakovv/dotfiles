@@ -12,6 +12,7 @@ import {GameWrapperComponent} from './components/game-wrapper/game-wrapper.compo
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
 import {UserModule} from 'wlc-engine/modules/user/user.module';
 import {BonusesModule} from 'wlc-engine/modules/bonuses/bonuses.module';
+import {TournamentsModule} from 'wlc-engine/modules/tournaments/tournaments.module';
 import {PromoModule} from 'wlc-engine/modules/promo/promo.module';
 import {SearchFieldComponent} from './components/search-field/search-field.component';
 import {SearchComponent} from './components/search/search.component';
@@ -68,6 +69,7 @@ export const components = {
         CoreModule,
         UserModule,
         BonusesModule,
+        TournamentsModule,
         PromoModule,
         UIRouterModule,
         TranslateModule,

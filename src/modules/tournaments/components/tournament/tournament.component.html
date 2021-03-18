@@ -1,22 +1,32 @@
-<div [ngSwitch]="thumbType">
-    <ng-container *ngSwitchDefault>
-        <button
-            wlc-button
-            [text]="'default'">
-        </button>
-    </ng-container>
+<ng-template #promo>
+</ng-template>
 
-    <ng-container *ngSwitchCase="'main'">
-        <button
-            wlc-button
-            [text]="'Main'">
-        </button>
-    </ng-container>
+<ng-template #dashboard>
+    <div class="{{$class}}__container">
+        <div class="{{$class}}__more-icon">
+            <div
+                class="icon-btn"
+                wlc-icon
+                iconName="info"
+                (click)="openDescription()"
+                [wlcElement]="'button_terms'">
+            </div>
+        </div>
+        <h3 class="{{$class}}__title">{{tournament.name}}</h3>
+        <div wlc-timer
+            class="{{$class}}__timer"
+            [value]="tournament.endsLuxon"
+            text="Time remaining"></div>
+        <div wlc-tournament-leaderboard
+            class="{{$class}}__board"
+            [tournament]="tournament"
+            [limit]="8"
+            [showAllBtn]="true"></div>
+    </div>
+</ng-template>
 
-    <ng-container *ngSwitchCase="'sec'">
-        <button
-            wlc-button
-            [text]="'Sec'">
-        </button>
-    </ng-container>
-</div>
+<ng-container [ngSwitch]="$params?.type">
+    <ng-container [ngTemplateOutlet]="dashboard" *ngSwitchCase="'dashboard'"></ng-container>
+    <ng-container [ngTemplateOutlet]="promo" *ngSwitchDefault></ng-container>
+</ng-container>
+

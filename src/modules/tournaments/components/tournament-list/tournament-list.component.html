@@ -1,13 +1,40 @@
-<div *ngIf="tournaments?.length && isReady; else noData">
-    <div wlc-tournament
-         *ngFor="let tournament of tournaments"
-         [tournament]="tournament"
-    ></div>
-</div>
+<ng-template #default>
+    <div class="{{$class}}__content" data-wlc-element="block_tournaments-main">
+        <div class="{{$class}}__list" *ngIf="tournaments?.length && isReady; else: noData" data-wlc-element="block_tournament">
+            <div wlc-tournament [tournament]="tournament" [type]="$params.common?.thumbType" [theme]="$params.theme" *ngFor="let tournament of tournaments"></div>
+        </div>
+        <!-- TODO: add pagination -->
+    </div>
+</ng-template>
+
+<ng-template #dashboard>
+    <ng-container *ngIf="tournaments?.length && isReady && $params.type === 'swiper'; else: noData">
+        <div class="{{$class}}__slider"
+             wlc-slider
+             type="dashboard"
+             [slides]="slides"
+             [inlineParams]="sliderParams"
+        ></div>
+    </ng-container>
+    <div
+        slot-container-end
+        class="{{$class}}__slider-pagination-container"
+        *ngIf="tournaments?.length && isReady && $params.type === 'swiper'">
+        <div class="{{$class}}__slider-pagination">
+            <button class="wlc-swiper-button-prev" wlc-icon iconName="arrow"></button>
+            <button class="wlc-swiper-button-next" wlc-icon iconName="arrow"></button>
+        </div>
+    </div>
+</ng-template>
 
 <ng-template #noData>
-    <div *ngIf="isReady">{{'No tournaments available' | translate}}</div>
-    <div *ngIf="!isReady">
+    <div class="{{$class}}__nocontent" *ngIf="isReady">{{'No tournaments available' | translate}}</div>
+    <div class="{{$class}}__nocontent" *ngIf="!isReady">
         <div wlc-loader></div>
     </div>
 </ng-template>
+
+<ng-container [ngSwitch]="$params.theme">
+    <ng-container [ngTemplateOutlet]="dashboard" *ngSwitchCase="'dashboard'"></ng-container>
+    <ng-container [ngTemplateOutlet]="default" *ngSwitchDefault></ng-container>
+</ng-container>

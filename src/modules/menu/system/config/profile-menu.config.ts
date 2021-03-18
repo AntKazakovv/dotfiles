@@ -503,6 +503,10 @@ export const profileMenuFilter: ProfileMenuParams.IProfileMenuFilter[] = [
         item: 'profile-menu:tournaments',
     },
     {
+        config: '$base.tournaments.use',
+        item: 'profile-menu:tournaments-history',
+    },
+    {
         config: '$base.profile.bonuses.system.use',
         item: 'profile-menu:bonuses-system',
     },

@@ -1,0 +1,10 @@
+@use 'engine-scss/functions' as ef;
+
+$customThemeDashboard: () !default;
+$themeDashboard: map-merge((
+    'moreIconSize': 23px,
+    'moreIconColor': ef.get('mainColors', 'baseOpacity'),
+    'gap': ef.get('size', 'small'),
+    'timerFontSize': ef.get('font', 'PrimaryText'),
+    'headerFontSize': ef.get('font', 'ThirdTitle'),
+), $customThemeDashboard);

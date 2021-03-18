@@ -17,6 +17,7 @@ import {AbstractComponent, IMixedParams} from 'wlc-engine/modules/core/system/cl
 import {
     clone as _clone,
     has as _has,
+    pull as _pull,
 } from 'lodash-es';
 
 @Component({
@@ -55,6 +56,12 @@ export class MobileMenuComponent extends AbstractComponent implements OnInit {
 
     protected initConfig(): void {
         this.menuConfig = this.configService.get<MenuParams.MenuConfigItem[]>('$menu.mobileMenu.items');
+
+        const useTournaments = this.configService.get<boolean>('$base.tournaments.use');
+
+        if (!useTournaments) {
+            this.menuConfig = _pull(this.menuConfig, 'mobile-menu:tournaments');
+        }
     }
 
     protected initMenu(): void {

@@ -5,8 +5,8 @@ export const menuConfig: IMenuConfig = {
         items: [
             'main-menu:home',
             'main-menu:promotions',
-            'main-menu:contacts',
             'main-menu:tournaments',
+            'main-menu:contacts',
         ],
         icons: {
             folder: 'wlc/icons/european/v1',
@@ -26,6 +26,7 @@ export const menuConfig: IMenuConfig = {
         items: [
             'mobile-menu:sportsbook',
             'mobile-menu:promotions',
+            'mobile-menu:tournaments',
             {
                 parent: 'mobile-menu:info',
                 items: [
@@ -66,7 +67,7 @@ export const menuConfig: IMenuConfig = {
                     'profile-menu:bonuses-history',
                     'profile-menu:transaction-history',
                     'profile-menu:bets-history',
-                    // 'profile-menu:tournaments-history',
+                    'profile-menu:tournaments-history',
                 ],
             },
             {

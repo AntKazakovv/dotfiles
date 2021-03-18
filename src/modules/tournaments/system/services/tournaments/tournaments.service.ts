@@ -41,6 +41,7 @@ import {
     extend as _extend,
     isObject as _isObject,
     get as _get,
+    some as _some,
 } from 'lodash-es';
 
 interface ITournamentData extends IData {
@@ -78,6 +79,10 @@ export class TournamentsService {
     ) {
         this.registerMethods();
         this.setSubscribers();
+    }
+
+    public get isTournamentSelected(): boolean {
+        return _some(this.tournaments, tournament => tournament.isSelected);
     }
 
     public get hasTournaments(): boolean {

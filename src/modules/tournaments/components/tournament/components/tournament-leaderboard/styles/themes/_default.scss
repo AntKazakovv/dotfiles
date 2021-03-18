@@ -1,0 +1,157 @@
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/mixins/base.mixins' as em;
+@use 'engine-scss/functions' as ef;
+@import '../utils/vars';
+
+
+.wlc-tournament-leaderboard--theme-default:host {
+
+    .wlc-tournament-leaderboard {
+
+        &__list {
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-gap: ef.get-value($themeDefault, 'gridGap');
+        }
+
+        &__cell {
+            display: flex;
+            align-items: center;
+            height: ef.get-value($themeDefault, 'rowHeight');
+
+            &:first-child {
+                padding: ef.get-value($themeDefault, 'firstCellPadding');
+            }
+
+            &:last-child {
+                padding: ef.get-value($themeDefault, 'lastCellPadding');
+                justify-content: flex-end;
+            }
+        }
+
+        &__item {
+            display: grid;
+            grid-template-columns: ef.get-value($themeDefault, 'rowGrid');
+            font-size: ef.get-value($themeDefault, 'fontSize');
+            background-color: ef.get-value($themeDefault, 'rowBg');
+            border-radius: ef.get-value($themeDefault, 'borderRadius');
+
+            .item-user {
+                display: flex;
+                padding: ef.get-value($themeDefault, 'cellPadding');
+
+                .wlc-icon::ng-deep {
+                    margin: ef.get-value($themeDefault, 'iconMargin');
+                    width: ef.get-value($themeDefault, 'iconSize');
+
+                    svg {
+                        width: 100%;
+
+                        path {
+                            fill: ef.get-value($themeDefault, 'iconColor');
+                        }
+                    }
+                }
+            }
+
+            &.user {
+                background-color: ef.get-value($themeDefault, 'rowUserBg');
+
+                .item-user {
+
+                    .wlc-icon::ng-deep {
+
+                        svg {
+
+                            path {
+                                fill: ef.get-value($themeDefault, 'iconUserColor');
+                            }
+                        }
+                    }
+                }
+            }
+
+            .user-login {
+                /* stylelint-disable */
+                display: -webkit-box;
+                -webkit-line-clamp: 1;
+                -webkit-box-orient: vertical;
+                /* stylelint-enable */
+                overflow: hidden;
+                max-width: ef.get-value($themeDefault, 'loginMaxWidth');
+            }
+
+            &--top {
+                font-weight: bold;
+                grid-template-columns: ef.get-value($themeDefault, 'rowTopGrid');
+                margin-bottom: -1 * ef.get-value($themeDefault, 'gridGap');
+                border-radius: 0;
+
+                &.first {
+                    border-radius: ef.get-value($themeDefault, 'borderRadius') ef.get-value($themeDefault, 'borderRadius') 0 0;
+                    padding-top: ef.get-value($themeDefault, 'gridGap') / 2;
+                }
+
+                &.last {
+                    border-radius: 0 0 ef.get-value($themeDefault, 'borderRadius') ef.get-value($themeDefault, 'borderRadius');
+                    padding-bottom: ef.get-value($themeDefault, 'gridGap') / 2;
+                    margin-bottom: 0;
+                }
+
+                .wlc-tournament-leaderboard__cell {
+                    height: ef.get-value($themeDefault, 'rowHeight') + ef.get-value($themeDefault, 'gridGap');
+
+                    &:first-child {
+                        padding: ef.get-value($themeDefault, 'firstCellTopPadding');
+                    }
+                }
+            }
+        }
+
+        &__btn {
+            display: block;
+            margin: 0 auto;
+            padding: ef.get-value($themeDefault, 'btnPadding');
+
+            ::ng-deep {
+
+                .wlc-btn__text {
+                    font-size: ef.get-value($themeDefault, 'btnFontSize');
+                    color: ef.get-value($themeDefault, 'btnTextColor');
+                    font-weight: bold;
+
+                    .wlc-icon::ng-deep {
+                        width: ef.get-value($themeDefault, 'btnIconHeight');
+                        position: relative;
+                        bottom: 0;
+
+                        svg {
+                            width: ef.get-value($themeDefault, 'btnIconWidth');
+                            fill: ef.get-value($themeDefault, 'btnTextColor');
+                            transform: rotate(-90deg);
+                        }
+                    }
+                }
+            }
+        }
+
+        &__nocontent {
+            font-size: ef.get-value($themeDefault, 'fontSize');
+            text-align: center;
+            padding: ef.get-value($themeDefault, 'noContentPadding');
+            background-color: ef.get-value($themeDefault, 'rowBg');
+            border-radius: ef.get-value($themeDefault, 'borderRadius');
+        }
+    }
+
+    .wlc-modal__dialog & {
+
+        .wlc-tournament-leaderboard__item {
+
+            .user-login {
+                max-width: 90%;
+            }
+        }
+    }
+}

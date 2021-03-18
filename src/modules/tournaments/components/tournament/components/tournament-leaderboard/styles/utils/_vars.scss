@@ -1,0 +1,29 @@
+@use 'engine-scss/functions' as ef;
+
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'gridGap': ef.get('size', 'small'),
+    'rowHeight': 26px,
+    'firstCellPadding': 0 0 0 25px,
+    'firstCellTopPadding': 0 0 0 20px,
+    'lastCellPadding': 0 20px 0 0,
+    'rowGrid': 40px 2fr 1fr,
+    'rowTopGrid': 35px 2fr 1fr,
+    'borderRadius': ef.get('size', 'small'),
+    'cellPadding': 0 ef.get('size', 'smally'),
+    'iconMargin': 0 ef.get('size', 'small') 0 0,
+    'iconSize': 12px,
+    'loginMaxWidth': 80px,
+    'btnPadding': ef.get('size', 'smallest') 0 0 0,
+    'btnIconWidth': 10px,
+    'btnIconHeight': 12px,
+    'noContentPadding': ef.get('size', 'smaller'),
+
+    'fontSize': ef.get('font', 'PrimaryText'),
+    'btnFontSize': ef.get('font', 'PlaceholderText'),
+    'rowBg': ef.get('mainColors', 'bg'),
+    'rowUserBg': ef.get('mainColors', 'main'),
+    'iconColor': ef.get('mainColors', 'main'),
+    'iconUserColor': ef.get('mainColors', 'bg'),
+    'btnTextColor': ef.get('mainColors', 'main'),
+), $customThemeDefault);

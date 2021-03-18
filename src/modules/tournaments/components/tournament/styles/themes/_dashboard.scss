@@ -1,0 +1,65 @@
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/mixins/base.mixins' as em;
+@use 'engine-scss/functions' as ef;
+@import '../utils/vars';
+
+
+.wlc-tournament--theme-dashboard:host {
+
+    .wlc-tournament {
+
+        &__container {
+            position: relative;
+        }
+
+        &__more-icon {
+            position: absolute;
+            top: -2px;
+            right: 0;
+
+            .wlc-icon::ng-deep {
+                width: ef.get-value($themeDashboard, 'moreIconSize');
+                height: ef.get-value($themeDashboard, 'moreIconSize');
+                cursor: pointer;
+
+                svg {
+                    width: 100%;
+                    height: 100%;
+                    fill: ef.get-value($themeDashboard, 'moreIconColor');
+                }
+            }
+        }
+
+        &__title {
+            font-size: ef.get-value($themeDashboard, 'headerFontSize');
+            text-align: center;
+            line-height: 1.5;
+            margin-right: ef.get-value($themeDashboard, 'moreIconSize') + 5px;
+            margin-bottom: ef.get-value($themeDashboard, 'gap') + 5px;
+            font-weight: bold;
+
+            /* stylelint-disable */
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            /* stylelint-enable */
+            overflow: hidden;
+        }
+
+        &__timer {
+            padding-bottom: ef.get-value($themeDashboard, 'gap');
+
+            &.wlc-timer::ng-deep {
+
+                .wlc-timer__timer-text {
+                    font-size: ef.get-value($themeDashboard, 'timerFontSize');
+                }
+            }
+        }
+
+        &__board {
+            padding-bottom: ef.get-value($themeDashboard, 'gap');
+        }
+    }
+}
