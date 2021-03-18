@@ -11,6 +11,7 @@ export interface IGamesConfig {
 }
 
 export interface ICategories {
+    useFundistJackpots?: boolean;
     exclude?: IExcludeCategories;
     sort?: ISortCategories,
     parents?: string[];

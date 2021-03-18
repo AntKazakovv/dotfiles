@@ -270,6 +270,32 @@ export class GamesCatalogService {
     }
 
     /**
+     * Get games by state
+     *
+     * @returns {Promise<Game[]>}
+     */
+    public async getGamesByState(): Promise<Game[]> {
+        const parentCategory = this.getParentCategoryByState();
+        const childCategory = this.getChildCategoryByState();
+
+        let games = [];
+        if (parentCategory?.slug == 'lastplayed') {
+            games = await this.getLastGames();
+        } else if (parentCategory?.slug == 'favourites') {
+            games = await this.getFavouriteGames();
+        } else {
+            if (childCategory) {
+                await childCategory.isReady;
+                games = childCategory.games;
+            } else if (parentCategory) {
+                await parentCategory.isReady;
+                games = parentCategory.games;
+            }
+        }
+        return games;
+    }
+
+    /**
      * Get available categories by current state
      *
      * @returns {CategoryModel[]}
@@ -446,6 +472,21 @@ export class GamesCatalogService {
      */
     public getGamesByCategories(categories: CategoryModel[]): Game[] {
         return this.gamesCatalog.getGamesByCategories(categories);
+    }
+
+    public async getGamesByCategorySlug(slug: string): Promise<Game[]> {
+        if (slug == 'last-played') {
+            return await this.getLastGames();
+        } else if (slug == 'favourites') {
+            return await this.getFavouriteGames();
+        } else {
+            const category = this.getCategoryBySlug(slug);
+            if (!category) {
+                return;
+            }
+            const games = this.getGamesByCategories([category]);
+            return games;
+        }
     }
 
     /**

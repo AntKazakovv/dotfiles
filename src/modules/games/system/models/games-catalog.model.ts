@@ -108,6 +108,7 @@ export class GamesCatalog extends AbstractModel<IGames> {
             CSubSort: '0',
         },
     ];
+    protected overrideJackpots: boolean;
 
     constructor(
         data: IGames,
@@ -124,6 +125,7 @@ export class GamesCatalog extends AbstractModel<IGames> {
         this.configService = this.gamesCatalogService.configService;
         this.eventService = this.gamesCatalogService.eventService;
         this.router = this.gamesCatalogService.router;
+        this.overrideJackpots = !this.configService.get<boolean>('$games.categories.useFundistJackpots');
 
         this.processFetchedGamesCatalog(data);
     }
@@ -337,6 +339,12 @@ export class GamesCatalog extends AbstractModel<IGames> {
         return _find(this.games, {merchantID, launchCode});
     }
 
+    public getJackpotGames(): Game[] {
+        return _filter(this.games, (game: Game) => {
+            return !!game.jackpot;
+        });
+    }
+
     /**
      * Get games by categories
      *
@@ -405,17 +413,30 @@ export class GamesCatalog extends AbstractModel<IGames> {
      * @param {IJackpot[]} jackpots
      */
     public loadJackpots(jackpots: IJackpot[]): void {
-        const categoryId = GamesHelper.getCategoryIdByName('jackpot');
+        if (!this.overrideJackpots) {
+            return;
+        }
+
+        const categoryId = GamesHelper.getCategoryIdByName('jackpots');
 
         _forEach(jackpots, jackpot => {
             const game: Game = this.getGame(_toNumber(jackpot.MerchantID), jackpot.LaunchCode);
-            if (game) {
+            if (game && jackpot.amount > 0) {
                 game.jackpot = jackpot.amount;
                 if (!_includes(game.categoryID, categoryId)) {
                     game.categoryID.push(categoryId);
                 }
             }
         });
+
+        const games: Game[] = this.getJackpotGames();
+        const category: CategoryModel = _find(this.projectCategories, (category) => {
+            return category.slug === 'jackpots';
+        });
+        if (category) {
+            category.setGames(games);
+            category.setReady();
+        }
     }
 
     /**
@@ -711,6 +732,13 @@ export class GamesCatalog extends AbstractModel<IGames> {
         mainParentCategory.setChildCategories(availableChildCategories);
 
         this.projectCategories = this.sortCategories(_union(specialCategories, parentCategories, availableChildCategories));
+        _forEach(this.projectCategories, (category) => {
+            if (category.isJackpots && this.overrideJackpots) {
+                return;
+            } else {
+                category.setReady();
+            }
+        });
     }
 
     protected sortNameByRegExp(searchQuery: string, gamesList: Game[]): Game[] {

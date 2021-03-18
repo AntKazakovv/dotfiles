@@ -21,6 +21,7 @@ export const gamesConfig: IGamesConfig = {
         },
     },
     categories: {
+        useFundistJackpots: false,
         exclude: {
             bySlug: [
                 'casinogames',
