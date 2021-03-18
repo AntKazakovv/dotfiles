@@ -1,0 +1,191 @@
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/base.mixins' as em;
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/functions' as ef;
+@import '../utils/vars';
+
+.wlc-table--theme-tournaments:host {
+    display: flex;
+    flex-direction: column;
+    min-height: ef.get-value($themeTournaments, 'sectionLoaderHeight');
+
+    .wlc-table {
+
+        &__content {
+            display: table;
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        &__row {
+            position: relative;
+            display: table-row;
+            @include em.get-mq-map('border', $themeTournaments, 'rowBorder');
+            border-radius: ef.get-value($themeTournaments, 'rowBorderRadiusSizeMobile');
+            height: fit-content;
+            background: ef.get-value($themeTournaments, 'rowBackgroundMobile');
+            transition: all ef.get-value($themeTournaments, 'animationTime');
+            overflow: hidden;
+
+            &.wlc-show {
+                border: none;
+            }
+
+            &--head {
+                display: table-row;
+                background: ef.get-value($themeTournaments, 'rowTitleBackgroundDesktop');
+
+                .wlc-table__cell {
+                    @include text.get-text-style('PrimaryTextBold', ef.get-value($themeTournaments, 'textColor'));
+                }
+            }
+
+            &--odd {
+                background: ef.get-value($themeTournaments, 'rowOddBackgroundDesktop');
+            }
+
+            &--even {
+                background: ef.get-value($themeTournaments, 'rowEvenBackgroundDesktop');
+            }
+
+
+            &:nth-child(2) {
+
+                .wlc-table__cell {
+
+                    &:first-child {
+                        border-radius: ef.get-value($themeTournaments, 'rowBorderRadiusSizeDesktop') 0 0 0;
+                    }
+
+                    &:last-child {
+                        border-radius: 0 ef.get-value($themeTournaments, 'rowBorderRadiusSizeDesktop') 0 0;
+                    }
+                }
+            }
+
+            &:nth-child(3) {
+                background: ef.get-value($themeTournaments, 'rowOddBackgroundDesktop');
+
+                .wlc-table__cell {
+
+                    &:first-child {
+                        border-radius: 0;
+                    }
+
+                    &:last-child {
+                        border-radius: 0;
+                    }
+                }
+            }
+
+            &:nth-child(4) {
+
+                .wlc-table__cell {
+
+                    &:first-child {
+                        border-radius: 0 0 0 ef.get-value($themeTournaments, 'rowBorderRadiusSizeDesktop');
+                    }
+
+                    &:last-child {
+                        border-radius: 0 0 ef.get-value($themeTournaments, 'rowBorderRadiusSizeDesktop') 0;
+                    }
+                }
+            }
+        }
+
+        &__cell {
+            flex-grow: 1;
+            flex-basis: 100%;
+            padding: ef.get-value($themeTournaments, 'paddingCell');
+            // @include em.get-mq-map('padding', $themeTournaments, 'paddingCell');
+            @include text.get-text-style('PrimaryText', ef.get-value($themeTournaments, 'textColor'));
+
+            display: table-cell;
+            border: ef.get-value($themeTournaments, 'cellBorderDesktop');
+            text-align: ef.get-value($themeTournaments, 'textAlignDesktop');
+
+            &:first-child {
+                border-radius: ef.get-value($themeTournaments, 'rowBorderRadiusSizeDesktop') 0 0 ef.get-value($themeTournaments, 'rowBorderRadiusSizeDesktop');
+            }
+
+            &:last-child {
+                border-radius: 0 ef.get-value($themeTournaments, 'rowBorderRadiusSizeDesktop') ef.get-value($themeTournaments, 'rowBorderRadiusSizeDesktop') 0;
+            }
+
+            &--index {
+                width: 10%;
+            }
+
+            ::ng-deep p {
+                margin: 0;
+            }
+
+            &--first {
+                grid-template-columns: auto 1fr auto;
+                font-size: ef.get-value($themeTournaments, 'fontSizeTitleMobile');
+                transition: all ef.get-value($themeTournaments, 'animationTime');
+                background: transparent;
+                border-bottom: none;
+                font-weight: initial;
+                border-radius: initial;
+            }
+
+            &-label,
+            &-arrow {
+                display: none;
+            }
+
+            &--status {
+
+                ::ng-deep {
+
+                    .wlc-tooltip[wlc-tooltip] {
+
+                        .wlc-tooltip__content {
+
+                            @include mq.max(1024) {
+                                left: initial;
+                                right: ef.get-value($themeTournaments, 'tooltipOffset');
+                            }
+                        }
+                    }
+                }
+            }
+
+            &-content {
+                text-align: ef.get-value($themeTournaments, 'textAlignDesktop');
+                justify-self: ef.get-value($themeTournaments, 'textAlignDesktop');
+                font-weight: normal;
+
+                @include em.betweenClass('.wlc-table__cell--first') {
+                    text-align: ef.get-value($themeTournaments, 'textAlignDesktop');
+                    justify-self: ef.get-value($themeTournaments, 'textAlignDesktop');
+                }
+            }
+        }
+
+        &__empty {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            align-self: center;
+            grid-column-start: span 2;
+            margin: ef.get-value($themeTournaments, 'emptySectionMargin');
+            @include text.get-text-style('PrimaryText', ef.get-value($themeTournaments, 'textColor'));
+            text-align: center;
+
+            &-text {
+                align-self: center;
+            }
+
+            &-img {
+                display: block;
+                width: ef.get-value($themeTournaments, 'emptyImgWidth');
+                height: ef.get-value($themeTournaments, 'emptyImgHeight');
+                max-height: ef.get-value($themeTournaments, 'emptyImgMaxHeight');
+                max-width: ef.get-value($themeTournaments, 'emptyImgMaxWidth');
+            }
+        }
+    }
+}

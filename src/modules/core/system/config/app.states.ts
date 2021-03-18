@@ -35,6 +35,7 @@ const states = {
     'app.profile.loyalty-tournaments.main': States.profileTournamentsMainState,
     'app.profile.loyalty-tournaments.active': States.profileTournamentsActiveState,
     'app.profile.loyalty-tournaments.history': States.profileTournamentsHistoryState,
+    'app.profile.loyalty-tournaments.detail': States.profileTournamentsDetailState,
     'app.profile.loyalty-store': States.profileStoreState,
     'app.profile.loyalty-store.main': States.profileStoreMain,
     'app.profile.loyalty-store.orders': States.profileStoreOrders,

@@ -113,4 +113,14 @@
             }
         }
     }
+
+    &.wlc-games-grid--theme-mod-tournament-detail {
+
+        .wlc-games-grid {
+
+            &__list {
+                @include bm.get-mq-map('grid-template-columns', $themeDefault, 'gridColumnsTournamentDetail');
+            }
+        }
+    }
 }

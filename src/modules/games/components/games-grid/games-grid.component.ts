@@ -100,6 +100,7 @@ export class GamesGridComponent extends AbstractComponent
     protected deviceType: DeviceType;
 
     @Input() protected inlineParams: IGamesGridCParams;
+    @Input() protected gamesList: Game[];
 
     constructor(
         public router: UIRouter,
@@ -318,8 +319,14 @@ export class GamesGridComponent extends AbstractComponent
     protected async getFilteredGames(): Promise<Game[]> {
         this.parentCategory = this.gamesCatalogService.getParentCategoryByState();
         this.childCategory = this.gamesCatalogService.getChildCategoryByState();
+        let games:Game[] = [];
 
-        let games = this.gamesCatalogService.getGameList();
+        if (this.gamesList?.length) {
+            games = this.gamesList;
+        } else {
+            games = this.gamesCatalogService.getGameList();
+        }
+
         if (this.$params.byState) {
             if (this.parentCategory?.slug == 'lastplayed') {
                 games = await this.gamesCatalogService.getLastGames();

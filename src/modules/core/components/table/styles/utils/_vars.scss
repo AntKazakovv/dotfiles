@@ -53,3 +53,53 @@ $themeDefault: map-merge((
     'emptyImgMaxHeight': 330px,
 ), $customThemeDefault);
 
+$customThemeTournaments: () !default;
+$themeTournaments: map-merge((
+    'animationTime': ef.get('time', 'main'),
+    'textColor': ef.get('mainColors', 'baseMain'),
+    'openIconColor': ef.get('fieldColors', 'arrowColor'),
+    'openIconColorOpened':ef.get('mainColors', 'baseMain'),
+    'rowGapMobile': ef.get('size', 'smaller'),
+    'borderColorMobile': ef.get('mainColors', 'main'),
+    'fontSize': (
+        375: ef.get('font', 'main'),
+        1024: ef.get('font', 'main'),
+    ),
+    'fontSizeTitle': (
+        375: ef.get('font', 'main'),
+        1024: ef.get('font', 'biger'),
+    ),
+    'rowTemplateColumns': (
+        375: 1fr,
+        768: 1fr 1fr,
+    ),
+    'rowBorder': (
+        375: 1px solid transparent,
+        1024: none,
+    ),
+    'rowBorderMobile': 1px solid ef.get('mainColors', 'main'),
+    'rowBorderOpenedMobile': 1px solid ef.get('mainColors', 'main'),
+    'rowTitleBorderBottomMobile': 1px solid ef.get('mainColors', 'main'),
+    'rowTitleBorderBottomOpenedMobile': 1px solid ef.get('mainColors', 'main'),
+    'rowTitleBackgroundMobile': ef.get('mainColors', 'bg300'),
+    'rowBackgroundMobile': ef.get('mainColors', 'bg300'),
+    'rowBorderRadiusSizeMobile': ef.get('radius', 'biger'),
+    'paddingCell': ef.get('size', 'smallest'),
+    'cellGapMobile': ef.get('size', 'smallest'),
+    'borderColorDesktop': ef.get('color', 'divider'),
+    'rowTitleBackgroundDesktop': transparent,
+    'rowEvenBackgroundDesktop': transparent,
+    'rowOddBackgroundDesktop': ef.get('mainColors', 'bg'),
+    'rowBorderRadiusSizeDesktop': ef.get('radius', 'biger'),
+    // Cell
+    'cellBorderDesktop': none,
+    'textAlignDesktop': center, // start, end, center
+    'tooltipOffset': 9px,
+    'sectionLoaderHeight': 175px,
+    'emptySectionMargin': 45px auto 20px,
+    'emptyImgWidth': 20vw,
+    'emptyImgHeight': 20vw,
+    'emptyImgMaxWidth': 330px,
+    'emptyImgMaxHeight': 330px,
+), $customThemeTournaments);
+

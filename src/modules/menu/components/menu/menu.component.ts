@@ -9,6 +9,7 @@ import {
     SimpleChanges,
     ViewChild,
     TemplateRef,
+    AfterViewInit,
 } from '@angular/core';
 import {
     StateService,
@@ -69,7 +70,7 @@ import {
             ]),
         ])],
 })
-export class MenuComponent extends AbstractComponent implements OnInit, OnChanges {
+export class MenuComponent extends AbstractComponent implements OnInit, OnChanges, AfterViewInit {
     public items: Params.MenuItemObjectType[];
     public $params: Params.IMenuCParams;
     public inited: boolean = false;
@@ -137,16 +138,19 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
         this.initItems();
     }
 
-    public ngOnInit(): void {
+    public ngAfterViewInit(): void {
         this.inited = true;
-        super.ngOnInit(this.inlineParams);
-
-        this.iconsFallback = this.$params.common?.icons?.fallback;
         this.initItems();
 
         this.transitionService.onSuccess({}, () => {
             this.expandItems();
         });
+    }
+
+    public ngOnInit(): void {
+        super.ngOnInit(this.inlineParams);
+
+        this.iconsFallback = this.$params.common?.icons?.fallback;
     }
 
     public scrollTo(selector: string): void {
@@ -223,7 +227,7 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
                     templateParams: templateParams,
                 });
             });
-
+            
             if (this.slider && this.$params?.common?.swiper?.scrollToStart) {
                 this.slider.scrollToStart();
                 this.slider.update();

@@ -45,6 +45,9 @@ export class TableComponent extends AbstractComponent implements OnInit {
     public ready = false;
     public deviceType: DeviceType;
 
+    protected theme: Params.Theme;
+    protected toggled: boolean = false;
+
     constructor(
         @Inject('injectParams') protected params: Params.ITableCParams,
         protected layoutService: LayoutService,
@@ -63,6 +66,7 @@ export class TableComponent extends AbstractComponent implements OnInit {
     public async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
         this.itemPerPage = this.$params.pageCount;
+        this.theme = this.$params.theme;
         this.prepareHead();
         if (this.$params.rows instanceof BehaviorSubject) {
             this.$params.rows.pipe(takeUntil(this.$destroy)).subscribe((rows) => {
@@ -139,6 +143,15 @@ export class TableComponent extends AbstractComponent implements OnInit {
         const endItem = event.page * event.itemsPerPage;
         this.paginatedRows = this.rows.slice(startItem, endItem);
         this.cdr.markForCheck();
+    }
+
+    public toggleRows(): void {
+        if(this.toggled) {
+            this.paginatedRows = this.rows?.slice(0, this.itemPerPage);
+        } else {
+            this.paginatedRows = this.rows;
+        }
+        this.toggled = !this.toggled;
     }
 
     private createTableRow(rows: unknown[]): TableRowModel[] {

@@ -1,0 +1,274 @@
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/mixins/base.mixins' as em;
+@use 'engine-scss/functions' as ef;
+@import '../utils/vars';
+
+$selector: '.wlc-tournament-detail';
+
+#{$selector} {
+
+    &--theme-default {
+
+        #{$selector}__header-info {
+            position: relative;
+
+            display: grid;
+            @include em.get-mq-map('grid-template-columns', $themeDefault, 'headerColumnWidth');
+            grid-template-areas:
+                'Hstatus'
+                'Htitle'
+                'Hdesc'
+                'Htimer'
+                'Hbutton';
+            justify-content: center;
+            @include em.get-mq-map('padding', $themeDefault, 'headerPadding');
+
+            background: {
+                color: ef.get-value($themeDefault, 'headerBg');
+                position: center;
+                size: cover;
+            };
+
+            border: {
+                radius: ef.get-value($themeDefault, 'headerBorderRadius');
+                bottom: ef.get-value($themeDefault, 'headerBorderBottom');
+            }
+
+            &--back-link {
+                position: absolute;
+                top: ef.get-value($themeDefault, 'headerBackLinkTop');
+                @include em.get-mq-map('left', $themeDefault, 'headerBackLinkLeft');
+
+                @include text.get-text-style('PlaceholderTextBold', ef.get('mainColors', 'main'));
+                text-decoration: none;
+                cursor: pointer;
+
+                .wlc-icon {
+                    display: inline-block;
+                    transform: rotate(90deg);
+
+                    svg {
+                        fill: ef.get-value($themeDefault, 'headerBackLinkIconColor');
+                    }
+                }
+            }
+
+            &--status {
+                grid-area: Hstatus;
+                justify-self: center;
+                padding: ef.get-value($themeDefault, 'headerStatusPadding');
+                margin: ef.get-value($themeDefault, 'headerStatusMagrin');
+                @include text.get-text-style('SignText', ef.get('mainColors', 'baseMain'));
+                border-radius: ef.get-value($themeDefault, 'headerStatusRadius');
+
+                &.status-avaliable {
+                    background-color: ef.get-value($themeDefault, 'headerStatusBgAvaliable');
+                }
+
+                &.status-active {
+                    background-color: ef.get-value($themeDefault, 'headerStatusBgActive');
+                }
+            }
+
+            &--title {
+                grid-area: Htitle;
+                justify-self: center;
+                margin: ef.get-value($themeDefault, 'headerTitleMargin');
+                @include text.get-text-style('QoteTextBold', ef.get('mainColors', 'baseMain'));
+                text-align: center;
+            }
+
+            &--description {
+                grid-area: Hdesc;
+                justify-self: center;
+                margin: ef.get-value($themeDefault, 'headerDescriptionMargin');
+                @include text.get-text-style('PrimaryText', ef.get('mainColors', 'baseMain'));
+                text-align: center;
+            }
+
+            &--timer {
+                grid-area: Htimer;
+                display: flex;
+                align-items: center;
+                justify-self: center;
+                // padding: ef.get-value($themeDefault, 'headerTimerBlockPadding');
+                @include em.get-mq-map('padding', $themeDefault, 'headerTimerBlockPadding');
+                margin: ef.get-value($themeDefault, 'headerTimerBlockMargin');
+                background-color: ef.get-value($themeDefault, 'headerTimerBlockBg');
+                border-radius: ef.get-value($themeDefault, 'headerTimerBlockRadius');
+
+                .header-prize-block {
+                    display: flex;
+                    align-items: center;
+                    flex-grow: 1;
+                    justify-content: flex-end;
+                    padding: ef.get-value($themeDefault, 'headerTimerBlockPrizePadding');
+
+                    &__text {
+
+                        &--subtitle {
+                            @include text.get-text-style('PrimaryText', ef.get('mainColors', 'baseMain'));
+                        }
+
+                        &--value {
+                            @include text.get-text-style('PrimaryTextBold', ef.get('mainColors', 'baseMain'));
+                        }
+                    }
+
+                    .wlc-icon {
+                        margin: ef.get-value($themeDefault, 'headerTimerBlockPrizeIconMarin');
+
+                        svg {
+                            width: ef.get-value($themeDefault, 'headerTimerBlockPrizeIconSize');
+                            height: ef.get-value($themeDefault, 'headerTimerBlockPrizeIconSize');
+                            fill: ef.get-value($themeDefault, 'headerTimerBlockPrizeIconColor');
+                        }
+                    }
+                }
+
+                .delimiter {
+                    width: ef.get-value($themeDefault, 'headerTimerBlockBgDelimiterWidth');
+                    height: 100%;
+                    background-color: ef.get-value($themeDefault, 'headerTimerBlockBgDelimiterBg');
+                }
+
+                .wlc-timer {
+
+                    .time-text--countdown {
+                        @include text.get-text-style('PrimaryTextBold', ef.get('mainColors', 'baseMain'));
+                    }
+
+                    .secondary-text {
+                        @include text.get-text-style('PrimaryText', ef.get('mainColors', 'baseMain'));
+                    }
+                }
+            }
+
+            &--button {
+                grid-area: Hbutton;
+                justify-self: center;
+            }
+        }
+
+        #{$selector}__leaderboard {
+            padding: ef.get('size', 'less') 0 ef.get('size', 'smaller') 0;
+            background-color: ef.get('mainColors', 'bg');
+
+            &--title {
+                margin: 0 0 ef.get('size', 'smaller') 0;
+                @include text.get-text-style('QoteTextBold', ef.get('mainColors', 'baseMain'));
+                text-align: center;
+            }
+            display: none;
+        }
+
+        #{$selector}__prizepool {
+            display: grid;
+            @include em.get-mq-map('grid-template-columns', $themeDefault, 'prizepoolColumnWidth');
+            grid-template-areas:
+                'PPTitle'
+                'PPAmount'
+                'PPDescription';
+            justify-content: center;
+            @include em.get-mq-map('padding', $themeDefault, 'prizepoolPadding');
+            background-color: ef.get('mainColors', 'bg');
+
+            &--title {
+                grid-area: PPTitle;
+                justify-self: center;
+                margin: 0 0 ef.get('size', 'small') 0;
+
+                @include text.get-text-style('QoteTextBold', ef.get('mainColors', 'baseMain'));
+            }
+
+            &--amount {
+                grid-area: PPAmount;
+                justify-self: center;
+                margin: 0 0 ef.get('size', 'small') 0;
+
+                @include text.get-text-style('PromoTitle', ef.get('mainColors', 'main'));
+            }
+
+            &--description {
+                grid-area: PPDescription;
+                justify-self: center;
+                text-align: center;
+
+                @include text.get-text-style('PrimaryText', ef.get('mainColors', 'baseMain'));
+            }
+        }
+
+        #{$selector}__prizeboard {
+            display: grid;
+            @include em.get-mq-map('grid-template-columns', $themeDefault, 'prizeboardColumnWidth');
+            justify-content: center;
+            @include em.get-mq-map('padding', $themeDefault, 'prizeboardPadding');
+            background-color: ef.get('mainColors', 'bg500');
+
+            .wlc-btn {
+                margin-top: ef.get('size', 'smaller');
+                justify-self: center;
+            }
+        }
+
+        #{$selector}__games {
+            @include em.get-mq-map('padding', $themeDefault, 'gamesPadding');
+
+            &--title {
+                margin: 0 0 ef.get('size', 'small') 0;
+                @include text.get-text-style('QoteTextBold', ef.get('mainColors', 'baseMain'));
+                text-align: center;
+            }
+        }
+
+        #{$selector}__anchors {
+            border: {
+                bottom: ef.get-value($themeDefault, 'headerBorderBottom');
+            }
+
+            &.wlc-menu {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: ef.get('size', 'smally') 0;
+
+                a {
+                    @include text.get-text-style('PrimaryText', ef.get('mainColors', 'baseMain'));
+                    text-decoration: none;
+                    padding: 0 ef.get('size', 'smally');
+                    cursor: pointer;
+                }
+            }
+        }
+
+        #{$selector}__rules {
+            display: grid;
+            @include em.get-mq-map('grid-template-columns', $themeDefault, 'rulesColumnWidth');
+            justify-content: center;
+            @include em.get-mq-map('padding', $themeDefault, 'rulesPadding');
+            background-color: ef.get('mainColors', 'bg500');
+
+            &--title {
+                margin-bottom: ef.get('size', 'small');
+                @include text.get-text-style('QoteTextBold', ef.get('mainColors', 'baseMain'));
+                text-align: center;
+            }
+
+            &--terms {
+                @include text.get-text-style('PrimaryText', ef.get('mainColors', 'baseMain'));
+            }
+        }
+    }
+}
+
+
+.app-profile-loyalty-tournaments-detail-state {
+
+    .wlc-sections__profile-content > .container {
+
+        @include mq.max(768) {
+            padding: 0;
+        }
+    }
+}

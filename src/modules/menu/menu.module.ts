@@ -48,6 +48,7 @@ export const components = {
     ],
     exports: [
         ProfileMenuComponent,
+        MenuComponent,
     ],
 })
 export class MenuModule {

@@ -19,3 +19,7 @@ export const profileTournamentsHistoryState: Ng2StateDeclaration = {
     url: '/history',
 };
 
+export const profileTournamentsDetailState: Ng2StateDeclaration = {
+    url: '/:tournamentId',
+};
+

@@ -1,7 +1,7 @@
 import {IComponentParams, CustomType} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {BehaviorSubject} from 'rxjs';
 
-export type Theme = 'default' | CustomType;
+export type Theme = 'default' | 'tournaments' | CustomType;
 export type Type = 'default' | CustomType;
 export type ThemeMod = 'default' | CustomType;
 export type TableColType = 'text' | 'date' | 'index' | 'amount' | 'component';
