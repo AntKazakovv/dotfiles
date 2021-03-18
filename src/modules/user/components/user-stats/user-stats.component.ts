@@ -71,6 +71,7 @@ export class UserStatsComponent extends AbstractComponent implements OnInit, OnD
 
         if (!_isUndefined(this.$params.useDepositBtn)) {
             this.useDepositBtn = this.$params.useDepositBtn;
+            this.cdr.markForCheck();
         }
     }
 

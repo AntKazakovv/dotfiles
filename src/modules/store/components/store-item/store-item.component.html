@@ -3,7 +3,7 @@
         <div class="{{$class}}__image-block">
             <div class="{{$class}}__tag" data-wlc-element="store_item-title">{{storeItem.itemType | translate}}</div>
             <div class="{{$class}}__image" data-wlc-element="store_item-image" *ngIf="!storeItem.isBonus">
-                <img [src]="storeItem.image" alt="">
+                <img [src]="storeItem.image" [wlc-fallback]="$params.common.fallbackPath">
             </div>
             <div class="{{$class}}__bonus-icon" *ngIf="storeItem.isBonus">
                 <img class="icon-sign" [src]="$params.common?.bonusIconsPath + storeItem.bonus.viewTarget + '.svg'" alt="">

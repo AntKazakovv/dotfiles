@@ -78,9 +78,11 @@ export class MenuHelper {
             }
 
             let categoryIcon: string = '';
-            if (!params.icons?.disable && category.icon) {
+            const resolvedIcon = category.icon || params.icons.fallback;
+
+            if (!params.icons?.disable && resolvedIcon) {
                 const iconsFolder = _trim(params.icons?.folder, '/');
-                categoryIcon = iconsFolder ? `${iconsFolder}/${category.icon}` : category.icon;
+                categoryIcon = iconsFolder ? `${iconsFolder}/${resolvedIcon}` : resolvedIcon;
             }
 
             return {

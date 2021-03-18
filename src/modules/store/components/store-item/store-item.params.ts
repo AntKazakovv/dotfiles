@@ -16,6 +16,7 @@ export interface IStoreItemParams extends IComponentParams<Theme, Type, ThemeMod
         themeMod?: ThemeMod;
         customModifiers?: CustomMod;
         bonusIconsPath?: string;
+        fallbackPath?: string;
     };
 }
 
@@ -25,5 +26,6 @@ export const defaultParams: IStoreItemParams = {
     class: 'wlc-store-item',
     common: {
         bonusIconsPath: '/gstatic/bonuses/icons/',
+        fallbackPath: '/static/images/logo.svg',
     },
 };

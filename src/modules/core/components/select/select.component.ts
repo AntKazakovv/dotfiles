@@ -85,7 +85,7 @@ export class SelectComponent extends AbstractComponent implements OnInit,
             this.setOptions();
         }
 
-        if (!this.$params.common.placeholder) {
+        if (!this.$params.common?.placeholder) {
             this.control.setValue(this.$params.items[0]?.value || '');
         }
     }

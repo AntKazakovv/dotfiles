@@ -37,7 +37,10 @@
                [uiParams]="item.params?.state?.params"
                [uiOptions]="item.params?.state?.options"
                [attr.data-wlc-element]="item.wlcElement"
-               [class.active]="isActive(item.params?.state?.parent)">{{item.name | translate}} <span *ngIf="item?.counter" wlc-counter [counterType]="item?.counter"></span></a>
+               [class.active]="isActive(item.params?.state?.parent)">
+                {{item.name | translate}}
+                <span *ngIf="item?.counter" wlc-counter [counterType]="item?.counter"></span>
+            </a>
         </div>
     </ng-container>
 

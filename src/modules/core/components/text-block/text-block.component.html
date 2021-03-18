@@ -1,31 +1,31 @@
 <div
-    *ngIf="$params.textBlockTitle || $params.textBlockSubtitle || $params.dynamicText"
+    *ngIf="$params.common.textBlockTitle || $params.common.textBlockSubtitle || $params.common.dynamicText"
     class="wlc-text-block__head">
     <h2
-        *ngIf="$params.textBlockTitle"
+        *ngIf="$params.common.textBlockTitle"
         class="wlc-text-block__title">
-        {{$params.textBlockTitle | translate}}
+        {{$params.common.textBlockTitle | translate}}
     </h2>
     <h3
-        *ngIf="checkType($params.textBlockSubtitle) && $params.textBlockSubtitle; else textBlockSubtitle"
+        *ngIf="checkType($params.common.textBlockSubtitle) && $params.common.textBlockSubtitle; else textBlockSubtitle"
         class="wlc-text-block__subtitle">
-        {{$params.textBlockSubtitle | translate}}
+        {{$params.common.textBlockSubtitle | translate}}
     </h3>
     <h3
-        *ngIf="$params.dynamicText"
+        *ngIf="$params.common.dynamicText"
         class="wlc-text-block__dynamic">
-        {{$params.dynamicText.text | translate}} {{getDynamicText() | translate}}
+        {{$params.common.dynamicText.text | translate}} {{getDynamicText() | translate}}
     </h3>
 </div>
 <p
-    *ngIf="$params.textBlockText"
+    *ngIf="$params.common.textBlockText"
     class="wlc-text-block__text">
-    {{$params.textBlockText | translate}}
+    {{$params.common.textBlockText | translate}}
 </p>
 
 <ng-template #textBlockSubtitle>
     <h3 class="wlc-text-block__subtitle">
-        <ng-container *ngFor="let text of $params.textBlockSubtitle">
+        <ng-container *ngFor="let text of $params.common.textBlockSubtitle">
             {{text | translate}}
         </ng-container>
     </h3>
