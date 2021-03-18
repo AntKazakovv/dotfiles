@@ -1,5 +1,13 @@
 @use 'engine-scss/functions' as ef;
 
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'containerGridTemplateColumns': (
+        320: 1fr,
+        900: repeat(auto-fit, minmax(790px, 1fr)),
+    ),
+), $customThemeDefault);
+
 $customThemeDashboard: () !default;
 $themeDashboard: map-merge((
     // 'moreIconSize': 23px,

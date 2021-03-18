@@ -1,0 +1,94 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/mixins/base.mixins' as em;
+@use 'engine-scss/mixins/mediaqueries' as mq;
+
+@import '../utils/vars';
+
+.wlc-tournament-prizes--theme-default:host {
+
+    .wlc-tournament-prizes {
+
+        &__head {
+            padding: ef.get-value($themeDefault, 'headPadding');
+            margin: ef.get-value($themeDefault, 'headMargin');
+
+            &-text {
+                display: inline-block;
+                vertical-align: middle;
+
+                white-space: nowrap;
+                max-width: ef.get-value($themeDefault, 'headTextMaxWidth');
+                overflow: hidden;
+                text-overflow: ellipsis;
+
+                @include text.get-text-style(ef.get-value($themeDefault, 'headTextFontStyle'), ef.get-value($themeDefault, 'headTextColor'));
+            }
+        }
+
+        &__body {
+            padding: ef.get-value($themeDefault, 'bodyPadding');
+            margin: ef.get-value($themeDefault, 'bodyMargin');
+
+            background: ef.get-value($themeDefault, 'bodyBackground');
+            border-radius: ef.get-value($themeDefault, 'bodyRadius');
+
+            .wlc-tournament-prizes__row {
+                margin: ef.get-value($themeDefault, 'bodyRowMargin');
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+
+            .wlc-tournament-prizes__col {
+                @include text.get-text-style(ef.get-value($themeDefault, 'bodyColFontStyle'), ef.get-value($themeDefault, 'bodyColColor'));
+            }
+
+            &-text {
+                display: flex;
+                align-items: ef.get-value($themeDefault, 'bodyTextAlignItems');
+
+                ::ng-deep {
+
+                    .wlc-icon {
+                        line-height: 0;
+
+                        & * {
+                            display: inline-block;
+                            line-height: 0;
+                        }
+
+                        svg path {
+                            fill: ef.get-value($themeDefault, 'bodyIconFill');
+                        }
+                    }
+                }
+            }
+
+            &-place {
+                min-width: ef.get-value($themeDefault, 'bodyPlaceMinWidth');
+                margin: ef.get-value($themeDefault, 'bodyPlaceMargin');
+            }
+        }
+
+        &__row {
+            display: flex;
+            align-items: ef.get-value($themeDefault, 'rowAlignItems');
+        }
+
+        &__col {
+            flex: ef.get-value($themeDefault, 'colFlex');
+            min-width: ef.get-value($themeDefault, 'colMinWidth');
+            padding: ef.get-value($themeDefault, 'colPadding');
+
+            &--percent {
+                //@include em.get-mq-map('text-align', $themeDefault, 'colPercentTextAlign');
+            }
+        }
+
+        &__text {
+            text-align: ef.get-value($themeDefault, 'textAlign');
+        }
+    }
+}

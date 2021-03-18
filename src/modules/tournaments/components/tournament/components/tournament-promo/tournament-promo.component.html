@@ -1,0 +1,75 @@
+<div class="{{$class}}__container">
+    <div class="{{$class}}__info">
+        <img [src]="setDecorImage()"
+             class="{{$class}}__image {{$class}}__image--mobile"
+             alt="tournament image">
+        <div class="{{$class}}__inner">
+            <div class="{{$class}}__tag">
+                <span class="{{$class}}__tag-text">{{setTag($params.common.tournament) | translate}}</span>
+            </div>
+            <h3 class="{{$class}}__title"
+                [wlc-clamp]="2"
+                [title]="$params.common.tournament.name">{{$params.common.tournament.name}}</h3>
+            <div class="{{$class}}__description"
+                 [wlc-clamp]="3"
+                 [title]="$params.common.tournament.description">{{$params.common.tournament.description}}</div>
+        </div>
+    </div>
+    <div class="{{$class}}__board">
+        <img [src]="setDecorImage()"
+             class="{{$class}}__image {{$class}}__image--desk"
+             alt="tournament image">
+        <div class="{{$class}}__inner">
+
+            <!--TODO REMOVE true and add condition-->
+            <ng-container *ngIf="true; else: noData">
+                <div wlc-timer
+                     class="{{$class}}-timer"
+                     [value]="$params.common.tournament.isTournamentStarts
+                            ? $params.common.tournament.endsLuxon
+                            : $params.common.tournament.startsLuxon"
+                     [text]="$params.common.tournament.isTournamentStarts
+                             ? 'Time remaining'
+                             : 'Coming soon'">
+                </div>
+            </ng-container>
+            <div wlc-tournament-prizes
+                 class="{{$class}}-prizes"
+                 [tournament]="$params.common.tournament">
+            </div>
+
+            <span *ngIf="$params.common.tournament.winningSpreadByPercent.length > rowLimit"
+                  wlc-link-block
+                  link="See all prizes"
+                  (click)="showAllPrizes($params.common.tournament)"
+            ></span>
+        </div>
+    </div>
+    <div class="buttons-wrap">
+        <button
+            *ngIf="!isTournamentSelected && $params.common.tournament.isTournamentStarts"
+            wlc-button
+            [text]="'Join now'"
+            (click)="joinToTournament($params.common.tournament)">
+        </button>
+        <button
+            *ngIf="$params.common.tournament.isSelected"
+            wlc-button
+            themeMod="secondary"
+            [text]="'Leave'"
+            (click)="leaveFromTournament($params.common.tournament)"
+        >
+        </button>
+        <button
+            wlc-button
+            themeMod="secondary"
+            [text]="'Read more'">
+        </button>
+    </div>
+
+    <div *ngIf="pending" class="{{$class}}__loader"></div>
+</div>
+
+<ng-template #noData>
+    <div wlc-loader></div>
+</ng-template>

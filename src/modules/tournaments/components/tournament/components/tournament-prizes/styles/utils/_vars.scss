@@ -1,0 +1,42 @@
+@use 'engine-scss/functions' as ef;
+
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'headPadding': 0 ef.get('size', 'smally'),
+    'headMargin': 0 0 ef.get('size', 'smallest'),
+
+    'headTextFontStyle': 'PlaceholderText',
+    'headTextColor': ef.get('mainColors', 'baseMain'),
+    'headTextMaxWidth': 100%,
+
+    'bodyPadding': ef.get('size', 'smally'),
+    'bodyMargin': 0 0 ef.get('size', 'smaller'),
+    'bodyBackground': ef.get('mainColors', 'bg'),
+    'bodyRadius': ef.get('radius', 'biger'),
+
+    'bodyRowMargin':  0 0 ef.get('size', 'smally'),
+
+    'bodyColFontStyle': 'PrimaryTextBold',
+    'bodyColColor': ef.get('mainColors', 'baseMain'),
+
+    'bodyTextAlignItems': center,
+
+    'bodyIconFill': ef.get('mainColors', 'main'),
+
+    'bodyPlaceMinWidth': 15px,
+    'bodyPlaceMargin': 0 ef.get('size', 'smallest') 0 0,
+
+    'rowAlignItems': center,
+
+    'colFlex': 1 0 0%,
+    'colMinWidth': 0%,
+    'colPadding': 0 ef.get('size', 'smallest') 0 0,
+    'colPercentTextAlign': (
+        320: center,
+        480: left,
+        900: center,
+    ),
+
+    'textAlign': center,
+), $customThemeDefault);
+
