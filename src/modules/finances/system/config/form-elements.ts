@@ -257,16 +257,24 @@ export namespace FormElements {
     };
 
     export const mobilePhone = {
-        name: 'core.wlc-input',
-        params: <IInputCParams>{
+        name: 'user.wlc-phone-field',
+        params: {
+            name: ['phoneCode', 'phoneNumber'],
             theme: 'vertical',
-            common: {
-                placeholder: gettext('Mobile phone'),
-            },
-            name: 'phoneNumber',
-            customMod: ['phone'],
-            validators: ['required'],
+            validators: [
+                'required',
+            ],
         },
+        // name: 'core.wlc-input',
+        // params: <IInputCParams>{
+        //     theme: 'vertical',
+        //     common: {
+        //         placeholder: gettext('Mobile phone'),
+        //     },
+        //     name: 'phoneNumber',
+        //     customMod: ['phone'],
+        //     validators: ['required'],
+        // },
     };
 
     export const bankNameText = {

@@ -4,4 +4,7 @@ $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'gap': ef.get('size', 'small'),
     'templateColumns': minmax(0, 1fr),
+    'templateColumnsVertical': 1fr 2fr,
+    'paddingVertical': 0 10px,
+    'marginVertical': 0 0 15px 0,
 ), $customThemeDefault);
