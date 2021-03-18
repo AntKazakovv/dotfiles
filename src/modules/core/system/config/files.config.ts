@@ -50,5 +50,6 @@ export const localFiles: IIndexing<string> = {
     'failed-validation': 'icons/doc-icons/not-correct.svg',
     'question-mark': 'icons/question-mark.svg',
     'defCategoryIcon': 'icons/plug.svg',
+    'pool': 'icons/pool.svg',
     'cup': 'icons/cup.svg',
 };

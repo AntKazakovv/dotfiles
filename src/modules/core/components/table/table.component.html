@@ -1,48 +1,112 @@
-<div class="{{$class}}__content" *ngIf='ready'>
+<ng-template #default>
+    <div class="{{$class}}__content" *ngIf='ready'>
 
-    <div class="{{$class}}__row {{$class}}__row--head" *ngIf="rows.length">
-        <span *ngFor="let col of head" class="{{$class}}__cell {{$class}}__cell--{{col.key}}"
-              [attr.data-wlc-element]="col.wlcElement">
-            {{col.title | translate}}
-        </span>
+        <div class="{{$class}}__row {{$class}}__row--head" *ngIf="rows.length">
+            <span *ngFor="let col of head" class="{{$class}}__cell {{$class}}__cell--{{col.key}}"
+                [attr.data-wlc-element]="col.wlcElement">
+                {{col.title | translate}}
+            </span>
+        </div>
+
+        <div *ngFor="let item of paginatedRows; index as $index" class="{{$class}}__row"
+            [ngClass]="[$class + '__row--' + (($index % 2) ? 'even' : 'odd'), item.opened ? 'wlc-show':'']">
+            <div class="{{$class}}__cell {{$class}}__cell--{{col.key}}"
+                *ngFor="let col of head; let $first = first"
+                (click)="$first ? item.toggleRow() : null"
+                [ngClass]="[$first ? $class + '__cell--first' : '', (col.disableHideClass || $first) ? '' : 'wlc-cell-hide']"
+                [@toggle]="animationStatus(col, item, $first)"
+                [attr.data-wlc-element]="col.wlcElement"
+            >
+                <ng-container [ngSwitch]="col.type">
+                    <div class="{{$class}}__cell-label">{{col.title | translate}}:</div>
+
+                    <div class="{{$class}}__cell-content" *ngSwitchCase="'component'">
+                        <ng-container [ngComponentOutlet]="col.componentClass"
+                                    [ngComponentOutletInjector]="getComponentInjector(item, col)">
+                        </ng-container>
+                    </div>
+
+                    <div class="{{$class}}__cell-content" *ngSwitchDefault>
+                        {{item.getValue(col, $index) | translate}}
+                    </div>
+                </ng-container>
+
+                <div *ngIf="$first" class="{{$class}}__cell-arrow" wlc-icon [iconName]="'arrow'"></div>
+            </div>
+        </div>
+
+        <div *ngIf="!rows.length" class="{{$class}}__empty">
+            <div class="{{$class}}__empty-text">{{$params.noItemsText | translate}}</div>
+            <img class="{{$class}}__empty-img" src='/gstatic/wlc/icons/empty-table-bg.svg'>
+        </div>
     </div>
+    <div wlc-pagination
+        *ngIf="rows.length > itemPerPage"
+        [totalItems]="rows.length"
+        [itemPerPage]="itemPerPage"
+        [pageChanged]="pageChanged.bind(this)">
+    </div>
+</ng-template>
 
-    <div *ngFor="let item of paginatedRows; index as $index" class="{{$class}}__row"
-         [ngClass]="[$class + '__row--' + (($index % 2) ? 'even' : 'odd'), item.opened ? 'wlc-show':'']">
-        <div class="{{$class}}__cell {{$class}}__cell--{{col.key}}"
-             *ngFor="let col of head; let $first = first"
-             (click)="$first ? item.toggleRow() : null"
-             [ngClass]="[$first ? $class + '__cell--first' : '', (col.disableHideClass || $first) ? '' : 'wlc-cell-hide']"
-             [@toggle]="animationStatus(col, item, $first)"
-             [attr.data-wlc-element]="col.wlcElement"
-        >
-            <ng-container [ngSwitch]="col.type">
-                <div class="{{$class}}__cell-label">{{col.title | translate}}:</div>
+<ng-template #tournaments>
+    <div class="{{$class}}__content" *ngIf='ready'>
 
-                <div class="{{$class}}__cell-content" *ngSwitchCase="'component'">
-                    <ng-container [ngComponentOutlet]="col.componentClass"
-                                  [ngComponentOutletInjector]="getComponentInjector(item, col)">
-                    </ng-container>
-                </div>
+        <div class="{{$class}}__row {{$class}}__row--head" *ngIf="rows.length">
+            <span *ngFor="let col of head" class="{{$class}}__cell {{$class}}__cell--{{col.key}}"
+                [attr.data-wlc-element]="col.wlcElement">
+                {{col.title | translate}}
+            </span>
+        </div>
 
-                <div class="{{$class}}__cell-content" *ngSwitchDefault>
-                    {{item.getValue(col, $index) | translate}}
-                </div>
-            </ng-container>
+        <div *ngFor="let item of paginatedRows; index as $index" class="{{$class}}__row"
+            [ngClass]="[$class + '__row--' + (($index % 2) ? 'even' : 'odd')]">
+            <div class="{{$class}}__cell {{$class}}__cell--{{col.key}}"
+                *ngFor="let col of head; let $first = first"
+                [ngClass]="[$first ? $class + '__cell--first' : '']"
+                [attr.data-wlc-element]="col.wlcElement"
+            >
+                <ng-container [ngSwitch]="col.type">
+                    <div class="{{$class}}__cell-label">{{col.title | translate}}:</div>
 
-            <div *ngIf="$first" class="{{$class}}__cell-arrow" wlc-icon [iconName]="'arrow'"></div>
+                    <div class="{{$class}}__cell-content" *ngSwitchCase="'component'">
+                        <ng-container [ngComponentOutlet]="col.componentClass"
+                                    [ngComponentOutletInjector]="getComponentInjector(item, col)">
+                        </ng-container>
+                    </div>
+
+                    <div class="{{$class}}__cell-content" *ngSwitchDefault>
+                        {{item.getValue(col, $index) | translate}}
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+
+        <div *ngIf="!rows.length" class="{{$class}}__empty">
+            <div class="{{$class}}__empty-text">{{$params.noItemsText | translate}}</div>
+            <img class="{{$class}}__empty-img" src='/gstatic/wlc/icons/empty-table-bg.svg'>
         </div>
     </div>
 
-    <div *ngIf="!rows.length" class="{{$class}}__empty">
-        <div class="{{$class}}__empty-text">{{$params.noItemsText | translate}}</div>
-        <img class="{{$class}}__empty-img" src='/gstatic/wlc/icons/empty-table-bg.svg'>
-    </div>
-</div>
-<div wlc-pagination
-     *ngIf="rows.length > itemPerPage"
-     [totalItems]="rows.length"
-     [itemPerPage]="itemPerPage"
-     [pageChanged]="pageChanged.bind(this)">
-</div>
+    <button type="button" 
+        *ngIf="rows.length > itemPerPage && !toggled" 
+        wlc-button text="Show more" 
+        (click)="toggleRows()">
+    </button>
 
+    <button type="button" 
+        *ngIf="toggled" 
+        wlc-button text="Show less" 
+        (click)="toggleRows()">
+    </button>
+</ng-template>
+
+
+<ng-container [ngSwitch]="theme">
+
+    <ng-container *ngSwitchCase="'tournaments'" [ngTemplateOutlet]="tournaments">
+    </ng-container>
+
+    <ng-container *ngSwitchDefault [ngTemplateOutlet]="default">
+    </ng-container>
+
+</ng-container>

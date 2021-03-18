@@ -87,15 +87,15 @@ export class Tournament extends AbstractModel<ITournament> {
     }
 
     public get imagePromo(): string {
-        return this.data.Image_promo.length ? this.data.Image_promo : this.data.Image;
+        return this.data.Image_promo?.length ? this.data.Image_promo : this.data.Image;
     }
 
     public get imageDashboard(): string {
-        return this.data.Image_dashboard.length ? this.data.Image_dashboard : this.data.Image;
+        return this.data.Image_dashboard?.length ? this.data.Image_dashboard : this.data.Image;
     }
 
     public get imageDescription(): string {
-        return this.data.Image_description.length ? this.data.Image_description : this.data.Image;
+        return this.data.Image_description?.length ? this.data.Image_description : this.data.Image;
     }
 
     public get imageOther(): string {
@@ -188,7 +188,7 @@ export class Tournament extends AbstractModel<ITournament> {
     /**
      * @returns {number} tournament max Bet
      */
-    public get maxBet(): number{
+    public get maxBet(): number {
         return _toNumber(this.data.BetMax?.Currency) ||
             _toNumber(this.data.BetMax[this.userCurrency]) ||
             _toNumber(this.data.BetMax?.EUR);
@@ -301,19 +301,22 @@ export class Tournament extends AbstractModel<ITournament> {
      */
     public get games(): Game[] {
         let games: Game[] = [];
-        games = this.GamesCatalogService.getGameList({
-            categories: _map(this.data.Games.Categories, (id: number) => GamesHelper.getCategoryNameById(id)),
-            excludeCategories: _map(this.data.Games.CategoriesBL, (id: number) => GamesHelper.getCategoryNameById(id)),
-            merchants: this.data.Games.Merchants || [],
-            excludeMerchants: this.data.Games.MerchantsBL || [],
-        });
 
-        _each(this.data.Games.Games, (id) => {
-            const game = this.GamesCatalogService.getGameById(id);
-            if (game) {
-                games.push(game);
-            }
-        });
+        if (this.data.Games.Games?.length) {
+            _each(this.data.Games.Games, (id) => {
+                const game = this.GamesCatalogService.getGameById(id);
+                if (game) {
+                    games.push(game);
+                }
+            });
+        } else {
+            games = this.GamesCatalogService.getGameList({
+                categories: _map(this.data.Games.Categories, (id: number) => GamesHelper.getCategoryNameById(id)),
+                excludeCategories: _map(this.data.Games.CategoriesBL, (id: number) => GamesHelper.getCategoryNameById(id)),
+                merchants: this.data.Games.Merchants || [],
+                excludeMerchants: this.data.Games.MerchantsBL || [],
+            });
+        }
 
         games = _filter(games, (game: Game) => !this.data.Games.GamesBL.includes(game.ID));
 

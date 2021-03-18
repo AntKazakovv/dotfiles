@@ -136,13 +136,19 @@ export const $layouts: ILayoutsConfig = {
     'app.profile.loyalty-tournaments.active': {
         extends: 'app.profile',
         sections: {
-            'profile-content': sectionsLib.profileContent.empty,
+            'profile-content': sectionsLib.profileContent.profileTournamentsDetail,
         },
     },
     'app.profile.loyalty-tournaments.history': {
         extends: 'app.profile',
         sections: {
             content: sectionsLib.content.empty,
+        },
+    },
+    'app.profile.loyalty-tournaments.detail': {
+        extends: 'app.profile',
+        sections: {
+            'profile-content': sectionsLib.profileContent.profileTournamentsDetail,
         },
     },
     'app.profile.cash.deposit': {
