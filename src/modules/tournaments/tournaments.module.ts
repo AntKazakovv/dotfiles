@@ -45,6 +45,7 @@ export const components = {
         TranslateModule,
         UserModule,
         MenuModule,
+        GamesModule,
     ],
     providers: [
         TournamentsService,

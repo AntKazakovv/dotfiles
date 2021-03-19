@@ -1,6 +1,5 @@
-import {IComponentParams, CustomType} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
-import {ISliderCParams} from 'wlc-engine/modules/promo/components/slider/slider.params';
+import {IComponentParams, CustomType} from 'wlc-engine/modules/core';
+import {ISliderCParams} from 'wlc-engine/modules/promo';
 
 export type Type = 'default' | CustomType;
 export type Theme = 'default' | CustomType;
