@@ -5,5 +5,21 @@
 @import '../utils/vars';
 
 .wlc-tournament-condition--theme-default:host {
-    overflow: hidden;
+
+
+    .wlc-tournament-condition {
+
+        &__text {
+            margin-bottom: 5px;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+
+            .wlc-currency {
+                font-weight: 700;
+            }
+        }
+    }
+
 }

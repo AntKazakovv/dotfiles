@@ -285,4 +285,11 @@ $themeDefault: map-merge((
         900: auto,
     ),
     // login-sign-up
+
+    //tournament-details
+    'tournamentConditionPadding': (
+        320: 90px 15px,
+        560: 60px,
+    )
+    //tournament-details
 ), $customThemeDefault);

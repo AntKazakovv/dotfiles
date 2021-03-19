@@ -14,6 +14,7 @@ export type Modifiers = AutoModifiers | CustomMod | null;
 export interface ITournamentDetailCParams extends IComponentParams<Theme, Type, ThemeMod> {
     modifiers?: Modifiers[];
     common?: {
+        tournamentId?: number
         noTournamentText?: string;
         rulesSectionTitle?: string;
         gamesSectionTitle?: string;

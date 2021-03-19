@@ -109,43 +109,44 @@
             align-items: center;
             justify-content: center;
 
-            z-index: 999;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(ef.get('mainColors', 'disabled'), 0.7);
-            border-radius: ef.get-value($themeDefault, 'containerRadius');
+            z-index: ef.get-value($themeDefault, 'loaderZIndex');
+            top: ef.get-value($themeDefault, 'loaderPosition');
+            left: ef.get-value($themeDefault, 'loaderPosition');
+            right: ef.get-value($themeDefault, 'loaderPosition');
+            bottom: ef.get-value($themeDefault, 'loaderPosition');
+
+            background: ef.get-value($themeDefault, 'loaderBachround');
+            border-radius: ef.get-value($themeDefault, 'loaderRadius');
 
             &:before {
                 content: '';
 
                 position: absolute;
 
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
+                top: ef.get-value($themeDefault, 'loaderBeforePosition');
+                left: ef.get-value($themeDefault, 'loaderBeforePosition');
+                right: ef.get-value($themeDefault, 'loaderBeforePosition');
+                bottom: ef.get-value($themeDefault, 'loaderBeforePosition');
                 margin: auto;
 
-                width: 60px;
-                height: 60px;
+                width: ef.get-value($themeDefault, 'loaderBeforeSize');
+                height: ef.get-value($themeDefault, 'loaderBeforeSize');
 
-                background: rgba(ef.get('mainColors', 'bg'), 0.9);
+                background: ef.get-value($themeDefault, 'loaderBeforeBackground');
 
-                border-radius: 10px;
+                border-radius: ef.get-value($themeDefault, 'loaderBeforeRadius');
             }
 
             &:after {
                 content: '';
 
-                width: 50px;
-                height: 50px;
+                width: ef.get-value($themeDefault, 'loaderAfterSize');
+                height: ef.get-value($themeDefault, 'loaderAfterSize');
 
-                border: 4px solid ef.get('mainColors', 'main');
+                border: 4px solid ef.get-value($themeDefault, 'loaderAfterBorderColor');
                 border-left-color: transparent;
-                border-radius: 50%;
-                animation: spin 1s infinite linear;
+                border-radius: ef.get-value($themeDefault, 'loaderAfterRadius');
+                animation: ef.get-value($themeDefault, 'loaderAfterAnimation');
             }
         }
     }

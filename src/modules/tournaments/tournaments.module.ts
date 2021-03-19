@@ -8,7 +8,7 @@ import {TournamentsService} from 'wlc-engine/modules/tournaments';
 import {MenuModule} from 'wlc-engine/modules/menu/menu.module';
 import {GamesModule} from 'wlc-engine/modules/games/games.module';
 
-import {TournamentDetailComponent} from './components/tournament-detail/tournament-detail.component';
+import {TournamentDetailComponent} from './components/tournament/components/tournament-detail/tournament-detail.component';
 import {PromoModule} from '../promo/promo.module';
 import {TournamentListComponent} from './components/tournament-list/tournament-list.component';
 import {TournamentComponent} from './components/tournament/tournament.component';

@@ -8,32 +8,32 @@ import {
     OnDestroy,
     OnInit,
     ViewEncapsulation,
-} from "@angular/core";
+} from '@angular/core';
 
-import {UIRouterGlobals} from "@uirouter/core";
+import {UIRouterGlobals} from '@uirouter/core';
 
 import {
     AbstractComponent,
     IMixedParams,
     ConfigService,
     ITableCParams,
-} from "wlc-engine/modules/core";
+} from 'wlc-engine/modules/core';
 
-import {TournamentsService, Tournament} from "wlc-engine/modules/tournaments";
-import {IGamesGridCParams} from "wlc-engine/modules/games";
+import {TournamentsService, Tournament} from 'wlc-engine/modules/tournaments';
+import {IGamesGridCParams} from 'wlc-engine/modules/games';
 
-import * as MenuParams from "wlc-engine/modules/menu/components/menu/menu.params";
-import * as Params from "./tournament-detail.params";
+import * as MenuParams from 'wlc-engine/modules/menu/components/menu/menu.params';
+import * as Params from './tournament-detail.params';
 
 import {
     each as _each,
     filter as _filter,
-} from "lodash-es";
+} from 'lodash-es';
 
 @Component({
-    selector: "[wlc-tournament-detail]",
-    templateUrl: "./tournament-detail.component.html",
-    styleUrls: ["./styles/tournament-detail.component.scss"],
+    selector: '[wlc-tournament-detail]',
+    templateUrl: './tournament-detail.component.html',
+    styleUrls: ['./styles/tournament-detail.component.scss'],
     preserveWhitespaces: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
@@ -57,11 +57,11 @@ export class TournamentDetailComponent
         mobileSettings: {
             gamesRows: 3,
         },
-        themeMod: "tournament-detail",
+        themeMod: 'tournament-detail',
     };
 
     constructor(
-        @Inject("injectParams")
+        @Inject('injectParams')
         protected params: Params.ITournamentDetailCParams,
         protected configService: ConfigService,
         protected tournamentsService: TournamentsService,
@@ -79,6 +79,11 @@ export class TournamentDetailComponent
 
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
+
+        if (this.$params.common?.tournamentId) {
+            this.tournamentId = this.$params.common.tournamentId;
+        }
+
         this.getTournament();
     }
 
@@ -112,7 +117,7 @@ export class TournamentDetailComponent
         // -- tournament active state
         this.tournamentsService.getSubscribe({
             useQuery: !this.tournamentsService.hasTournaments,
-            type: "active",
+            type: 'active',
             observer: {
                 next: (tournaments: Tournament[]) => {
                     if (!tournaments) {
@@ -171,20 +176,20 @@ export class TournamentDetailComponent
                     scrollToStart: true,
                 },
             },
-            type: "main-menu",
+            type: 'main-menu',
             items: [
                 {
                     name: this.$params.common.prizepoolSectionTitle,
-                    type: "scroll",
+                    type: 'scroll',
                     params: {
-                        scroll: ".wlc-tournament-detail__prizepool",
+                        scroll: '.wlc-tournament-detail__prizepool',
                     },
                 },
                 {
                     name: this.$params.common.gamesSectionTitle,
-                    type: "scroll",
+                    type: 'scroll',
                     params: {
-                        scroll: ".wlc-tournament-detail__games",
+                        scroll: '.wlc-tournament-detail__games',
                     },
                 },
             ],
@@ -193,9 +198,9 @@ export class TournamentDetailComponent
         if (this.tournament.selected) {
             this.menuParams.items.unshift({
                 name: this.$params.common.leaderboardSectionTitle,
-                type: "scroll",
+                type: 'scroll',
                 params: {
-                    scroll: ".wlc-tournament-detail__leaderboard",
+                    scroll: '.wlc-tournament-detail__leaderboard',
                 },
             });
         }
@@ -203,9 +208,9 @@ export class TournamentDetailComponent
         if (this.tournament.terms) {
             this.menuParams.items.push({
                 name: this.$params.common.rulesSectionTitle,
-                type: "scroll",
+                type: 'scroll',
                 params: {
-                    scroll: ".wlc-tournament-detail__rules",
+                    scroll: '.wlc-tournament-detail__rules',
                 },
             });
         }
