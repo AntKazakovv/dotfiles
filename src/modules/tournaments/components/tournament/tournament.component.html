@@ -4,7 +4,7 @@
          [type]="$params.common.type"></div>
 </ng-template>
 <ng-template #dashboard>
-    <div class="{{$class}}__container">
+    <div class="{{$class}}__container" [class.selected]="isTournamentSelected">
         <div class="{{$class}}__more-icon">
             <div
                 class="icon-btn"
@@ -14,16 +14,40 @@
                 [wlcElement]="'button_terms'">
             </div>
         </div>
-        <h3 class="{{$class}}__title">{{tournament.name}}</h3>
+        <div class="{{$class}}__img-container" *ngIf="!isTournamentSelected">
+            <img [src]="getDashboardImage()"
+                class="{{$class}}__image"
+                alt="tournament image">
+            <h3 class="{{$class}}__title">
+                <span>{{tournament.name}}</span>
+            </h3>
+        </div>
         <div wlc-timer
-             class="{{$class}}__timer"
-             [value]="tournament.endsLuxon"
-             text="Time remaining"></div>
+            class="{{$class}}__timer"
+            [value]="tournament.isTournamentStarts
+                ? tournament.endsLuxon
+                : tournament.startsLuxon"
+            [text]="tournament.isTournamentStarts
+                    ? 'Time remaining'
+                    : 'Coming soon'">
+        </div>
+        <div class="{{$class}}__description" *ngIf="!isTournamentSelected">
+            <span>{{tournament.description}}</span>
+        </div>
+        <div class="{{$class}}__btns" *ngIf="!isTournamentSelected && tournament.isTournamentStarts">
+            <button
+                wlc-button
+                [text]="'Join now'"
+                (click)="join()"
+                [wlcElement]="'button_tournament_join'">
+            </button>
+        </div>
         <div wlc-tournament-leaderboard
-             class="{{$class}}__board"
-             [tournament]="tournament"
-             [limit]="8"
-             [showAllBtn]="true"></div>
+            *ngIf="isTournamentSelected"
+            class="{{$class}}__board"
+            [tournament]="tournament"
+            [limit]="8"
+            [showAllBtn]="true"></div>
     </div>
 </ng-template>
 

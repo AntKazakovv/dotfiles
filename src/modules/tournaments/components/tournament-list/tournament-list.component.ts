@@ -51,6 +51,7 @@ export class TournamentListComponent
 
     public $params: Params.ITournamentListCParams;
     public isTournamentSelected: boolean;
+    public activeTournament: Tournament;
     public tournaments: Tournament[] = [];
     public isReady: boolean = false;
     public sliderParams: ISliderCParams = {
@@ -91,8 +92,8 @@ export class TournamentListComponent
                     if (!tournaments) return;
 
                     this.tournaments = tournaments;
-                    this.prepareTournaments();
                     this.isTournamentSelected = _some(tournaments, tournament => tournament.isSelected);
+                    this.activeTournament = _find(tournaments, tournament => tournament.isSelected);
                     if (this.$params.type === 'swiper' && this.tournaments.length) {
                         this.tournamentsToSlides();
                     }
@@ -111,18 +112,6 @@ export class TournamentListComponent
             modifiers = _union(modifiers, this.$params.common.customMod.split(' '));
         }
         this.addModifiers(modifiers);
-    }
-
-    protected prepareTournaments(): void {
-        if (this.$params.common?.sortByActive) {
-            this.tournaments = _filter(this.tournaments, 'isTournamentStarts');
-
-            if(this.isAuth) {
-                const activeTournament = _find(this.tournaments, 'isSelected');
-                this.tournaments = _filter(this.tournaments, ['isSelected', false]);
-                this.tournaments.unshift(activeTournament);
-            }
-        }
     }
 
     protected tournamentsToSlides(scroll?: boolean): void {

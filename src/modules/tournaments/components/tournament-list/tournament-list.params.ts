@@ -19,7 +19,6 @@ export interface ITournamentListCParams extends IComponentParams<ComponentTheme,
         customMod?: CustomMod;
         restType?: RestType;
         thumbType?: ThumbType;
-        sortByActive?: boolean;
         swiper?: SwiperOptions;
     };
 }

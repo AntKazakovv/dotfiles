@@ -7,25 +7,54 @@
 
 .wlc-tournament-list--theme-dashboard:host {
     height: calc(100% - 60px);
-    margin-top: -10px;
     display: flex;
     flex-direction: column;
 
-    @media (min-width: 1025px) {
-        margin-top: 0;
-    }
-
     .wlc-tournament-list {
 
-        &__slider-pagination-container {
-            height: 100%;
+        &__header {
+            font-size: ef.get-value($themeDashboard, 'headerFontSize');
+            text-align: center;
+            line-height: 1.5;
+            font-weight: bold;
+            margin: ef.get-value($themeDashboard, 'headerMargin');
+
+            /* stylelint-disable */
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            /* stylelint-enable */
         }
 
-        &__slider-pagination {
+        &__slider {
             height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+
+            ::ng-deep {
+
+                .swiper-container {
+                    height: 100%;
+
+                    .swiper-slide {
+                        will-change: transform;
+                    }
+
+                    .swiper-wrapper {
+                        will-change: transform;
+                    }
+
+                    .swiper-button-prev {
+                        top: ef.get-value($themeDashboard, 'swiperNavTop');
+                        left: 0;
+                        @include em.transition(background);
+                    }
+
+                    .swiper-button-next {
+                        top: ef.get-value($themeDashboard, 'swiperNavTop');
+                        right: 0;
+                        @include em.transition(background);
+                    }
+                }
+            }
         }
     }
 }
