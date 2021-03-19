@@ -1,14 +1,20 @@
 <ng-template #join>
-    <div>
-        <p>{{'You have' | translate}}: <span wlc-currency [value]="$params.common.userBalance"></span></p>
-        <p>{{'Entry fee' | translate}}: <span wlc-currency [value]="$params.common.feeAmount"></span></p>
-        <p>{{$params.common.text | translate}}</p>
+    <div class="{{$class}}__container">
+        <div class="{{$class}}__text">
+            {{'You have' | translate}}: <span wlc-currency [value]="$params.common.userBalance"></span>
+        </div>
+        <div class="{{$class}}__text">
+            {{'Entry fee' | translate}}: <span wlc-currency [value]="$params.common.feeAmount"></span>
+        </div>
+        <div class="{{$class}}__text">
+            {{$params.common.text | translate}}
+        </div>
     </div>
 </ng-template>
 
 <ng-template #leave>
-    <div>
-        <p>{{$params.common.text | translate}}</p>
+    <div class="{{$class}}__text">
+        {{$params.common.text | translate}}
     </div>
 </ng-template>
 

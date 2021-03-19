@@ -13,9 +13,13 @@ import {
     IMixedParams,
     ModalService,
 } from 'wlc-engine/modules/core';
+
+import {takeUntil} from 'rxjs/operators';
+
 import {UserService} from 'wlc-engine/modules/user/system/services';
 
 import {
+    ITournamentDetailCParams,
     Tournament,
     TournamentsService,
 } from 'wlc-engine/modules/tournaments';
@@ -23,6 +27,9 @@ import {
 import {TournamentPrizesComponent} from 'wlc-engine/modules/tournaments/components/tournament/components/tournament-prizes/tournament-prizes.component';
 import {TournamentConditionComponent} from '../tournament-condition/tournament-condition.component';
 
+import {UserInfo} from 'wlc-engine/modules/user/system/models/info.model';
+import {ITournamentConditionCParams} from 'wlc-engine/modules/tournaments/components/tournament/components/tournament-condition/tournament-condition.params';
+import {TournamentDetailComponent} from 'wlc-engine/modules/tournaments/components/tournament/components/tournament-detail/tournament-detail.component';
 import {
     ITournamentPrizesCParams,
     PRIMARY_ROW_LIMIT,
@@ -30,9 +37,6 @@ import {
 
 import * as Params
     from 'wlc-engine/modules/tournaments/components/tournament/components/tournament-promo/tournament-promo.params';
-import {takeUntil} from 'rxjs/operators';
-import {UserInfo} from 'wlc-engine/modules/user/system/models/info.model';
-import {ITournamentConditionCParams} from 'wlc-engine/modules/tournaments/components/tournament/components/tournament-condition/tournament-condition.params';
 
 @Component({
     selector: '[wlc-tournament-promo]',
@@ -127,6 +131,21 @@ export class TournamentPromoComponent extends AbstractComponent implements OnIni
         );
     }
 
+    public readMore(): void {
+        this.modalService.showModal({
+            id: 'tournament-condition-modal',
+            modifier: 'tournament-condition',
+            component: TournamentDetailComponent,
+            componentParams: <ITournamentDetailCParams>{
+                common: {
+                    tournamentId: this.$params.common.tournament.id,
+                },
+            },
+            size: 'xl',
+            backdrop: 'static',
+        });
+    }
+
     protected getUserInfo(): void {
         this.userService.userInfo$
             .pipe(takeUntil(this.$destroy))
@@ -167,6 +186,7 @@ export class TournamentPromoComponent extends AbstractComponent implements OnIni
 
     protected checkSubscribeConditions(tournament: Tournament): void {
         if (tournament.feeAmount === 0) {
+            this.joinTournament();
             return;
         } else if (tournament.feeType === 'balance' && this.userInfo?.balance >= tournament.feeAmount) {
             this.showConditionModal(
@@ -219,8 +239,8 @@ export class TournamentPromoComponent extends AbstractComponent implements OnIni
         actionType: string,
     ): void {
         this.modalService.showModal({
-            id: 'some',
-            modifier: 'some',
+            id: 'tournament-condition-modal',
+            modifier: 'tournament-condition',
             component: TournamentConditionComponent,
             componentParams: <ITournamentConditionCParams>{
                 common: {

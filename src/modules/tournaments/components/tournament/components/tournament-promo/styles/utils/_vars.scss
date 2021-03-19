@@ -87,5 +87,22 @@ $themeDefault: map-merge((
     'btnsMargin': 0 ef.get('size', 'smaller') 0 0,
 
     'prizesMargin': ef.get('size', 'small') auto ef.get('size', 'smaller'),
+
+    'loaderZIndex': 10,
+    'loaderPosition': 0,
+    'loaderBachround': rgba(ef.get('mainColors', 'disabled'), 0.7),
+    'loaderRadius': ef.get('radius', 'biger'),
+
+    'loaderBeforePosition': 0,
+    'loaderBeforeSize': 60px,
+    'loaderBeforeBackground': rgba(ef.get('mainColors', 'bg'), 0.9),
+    'loaderBeforeRadius': 50%,
+
+    'loaderAfterSize': 50px,
+    'loaderAfterBorderColor': ef.get('mainColors', 'main'),
+    'loaderAfterRadius': 50%,
+    'loaderAfterAnimation': spin 1s infinite linear,
+
+
 ), $customThemeDefault);
 

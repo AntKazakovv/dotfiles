@@ -1,1 +1,1 @@
-export {ITournamentDetailCParams} from './tournament-detail/tournament-detail.params';
+export {ITournamentDetailCParams} from './tournament/components/tournament-detail/tournament-detail.params';

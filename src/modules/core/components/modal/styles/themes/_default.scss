@@ -141,6 +141,17 @@
         }
     }
 
+    &.wlc-modal--tournament-condition {
+
+        .wlc-modal__body {
+            @include em.get-mq-map('padding', $themeDefault, 'tournamentConditionPadding');
+        }
+
+        .wlc-tournament-detail__header-info--back-link {
+            display: none;
+        }
+    }
+
     &.wlc-modal--play-game-for-real,
     &.wlc-modal--new-password {
 
