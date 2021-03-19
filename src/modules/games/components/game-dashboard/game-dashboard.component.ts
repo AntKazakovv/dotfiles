@@ -28,9 +28,10 @@ import {
     ActionService,
     ConfigService,
     DeviceType,
-    DeviceModel,
     DeviceOrientation,
-    EventService, IIndexing,
+    EventService,
+    IIndexing,
+    IWrapperCParams,
 } from 'wlc-engine/modules/core';
 import {CachingService} from 'wlc-engine/modules/core/system/services/caching/caching.service';
 import * as Params from './game-dashboard.params';
@@ -140,7 +141,15 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
             this.cachingService.set<boolean>(this.dontShowInstructionKey, checked, true);
         },
     };
-    public tournamentsListParams = {};
+    public bonusesConfig: IWrapperCParams = {
+        class: 'wlc-dashboard-bonuses-wrapper',
+        components: [
+            {
+                name: 'bonuses.wlc-game-dashboard-bonuses',
+            },
+        ],
+    };
+    public tournamentsConfig: IWrapperCParams = {};
     public depositBtnParams = componentLib.wlcButton.deposit.params;
     public lastPlayedSwiper: ISliderCParams;
     public landscapeOrientation: boolean = false;
@@ -168,7 +177,6 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
         protected cachingService: CachingService,
         protected eventService: EventService,
         protected gamesCatalogService: GamesCatalogService,
-        private hostElem: ElementRef,
     ) {
         super({
             injectParams,
@@ -179,12 +187,18 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
     public async ngOnInit(): Promise<void> {
         super.ngOnInit();
 
-        const useTournaments = this.configService.get<boolean>('$base.tournaments.use');
-
-        if (!useTournaments) {
-            this.tabs = _filter(this.tabs, (tab: Params.IGameDashboardTab) => tab.id !== 'tournaments');
+        if (this.configService.get<boolean>('$base.tournaments.use')) {
+            this.tournamentsConfig = {
+                class: 'wlc-dashboard-tournaments-wrapper',
+                components: [
+                    {
+                        name: 'tournaments.wlc-tournament-list',
+                        params: this.$params.common.tournamentsListParams,
+                    },
+                ],
+            };
         } else {
-            this.tournamentsListParams = this.$params.common.tournamentsListParams;
+            this.tabs = _filter(this.tabs, (tab: Params.IGameDashboardTab) => tab.id !== 'tournaments');
         }
 
         this.backdropLabelVisibility();

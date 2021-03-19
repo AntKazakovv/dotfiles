@@ -100,11 +100,11 @@
 </ng-template>
 
 <ng-template #bonuses>
-    <div wlc-game-dashboard-bonuses></div>
+    <div wlc-wrapper [inlineParams]="bonusesConfig"></div>
 </ng-template>
 
 <ng-template #tournaments>
-    <div wlc-tournament-list [inlineParams]="tournamentsListParams"></div>
+    <div wlc-wrapper [inlineParams]="tournamentsConfig"></div>
 </ng-template>
 
 <ng-template #lastplayed>

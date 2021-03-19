@@ -465,4 +465,12 @@
             }
         }
     }
+
+    .wlc-dashboard-tournaments-wrapper::ng-deep {
+        height: 100%;
+    }
+
+    .wlc-dashboard-bonuses-wrapper::ng-deep {
+        height: 100%;
+    }
 }
