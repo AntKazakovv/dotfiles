@@ -51,12 +51,8 @@ export const defaultParams: IGameDashboardCParams = {
             common: {
                 restType: 'any',
                 thumbType: 'dashboard',
-                sortByActive: true,
                 swiper: {
-                    navigation: {
-                        nextEl: '.wlc-swiper-button-next',
-                        prevEl: '.wlc-swiper-button-prev',
-                    },
+                    navigation: true,
                     slidesPerView: 1,
                     spaceBetween: 40,
                 },

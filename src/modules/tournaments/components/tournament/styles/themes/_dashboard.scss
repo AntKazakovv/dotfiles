@@ -6,17 +6,15 @@
 
 
 .wlc-tournament--theme-dashboard:host {
+    height: 100%;
 
     .wlc-tournament {
 
-        &__container {
-            position: relative;
-        }
-
         &__more-icon {
             position: absolute;
-            top: -2px;
-            right: 0;
+            z-index: 2;
+            top: ef.get-value($themeDashboard, 'moreIconTop');
+            right: ef.get-value($themeDashboard, 'moreIconRight');
 
             .wlc-icon::ng-deep {
                 width: ef.get-value($themeDashboard, 'moreIconSize');
@@ -27,24 +25,87 @@
                     width: 100%;
                     height: 100%;
                     fill: ef.get-value($themeDashboard, 'moreIconColor');
+                    @include em.transition(fill);
+                }
+            }
+
+            @media (hover: hover) {
+
+                &:hover {
+
+                    .wlc-icon::ng-deep {
+
+                        svg {
+                            fill: ef.get-value($themeDashboard, 'moreIconColorHover');
+                        }
+                    }
                 }
             }
         }
 
-        &__title {
-            font-size: ef.get-value($themeDashboard, 'headerFontSize');
-            text-align: center;
-            line-height: 1.5;
-            margin-right: ef.get-value($themeDashboard, 'moreIconSize') + 5px;
-            margin-bottom: ef.get-value($themeDashboard, 'gap') + 5px;
-            font-weight: bold;
 
-            /* stylelint-disable */
-            display: -webkit-box;
-            -webkit-line-clamp: 1;
-            -webkit-box-orient: vertical;
-            /* stylelint-enable */
+        &__container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+
+            &.selected {
+                display: block;
+
+                .wlc-tournament__more-icon {
+                    top: ef.get-value($themeDashboard, 'moreIconSelectedTop');
+                    right: ef.get-value($themeDashboard, 'moreIconSelectedRight');
+                }
+            }
+        }
+
+        &__img-container {
+            width: ef.get-value($themeDashboard, 'imgWidth');
+            height: ef.get-value($themeDashboard, 'imgHeight');
+            min-height: ef.get-value($themeDashboard, 'imgHeight');
+            position: relative;
+            z-index: 1;
             overflow: hidden;
+            margin: 0 auto;
+            margin-bottom: ef.get-value($themeDashboard, 'gapNoSelect');
+            border-radius: ef.get-value($themeDashboard, 'borderRadius');
+        }
+
+        &__image {
+            position: absolute;
+            width: 100%;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+        }
+
+        &__title {
+            position: absolute;
+            bottom: -1px;
+            top: 33%;
+            left: 0;
+            right: 0;
+            background: ef.get-value($themeDashboard, 'titleBg');
+            width: 100%;
+            font-weight: bold;
+            padding: ef.get-value($themeDashboard, 'titlePadding');
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+
+            span {
+                width: 100%;
+                line-height: 1.5;
+                font-size: ef.get-value($themeDashboard, 'headerFontSize');
+                text-align: center;
+                /* stylelint-disable */
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                /* stylelint-enable */
+                overflow: hidden;
+            }
         }
 
         &__timer {
@@ -56,6 +117,32 @@
                     font-size: ef.get-value($themeDashboard, 'timerFontSize');
                 }
             }
+        }
+
+        &__description {
+            font-size: ef.get-value($themeDashboard, 'descrFontSize');
+            padding: ef.get-value($themeDashboard, 'descrPadding');
+            background-color: ef.get-value($themeDashboard, 'rowBg');
+            border-radius: ef.get-value($themeDashboard, 'borderRadius');
+            margin: ef.get-value($themeDashboard, 'descrMargin');
+
+            span {
+                width: 100%;
+                text-align: center;
+                /* stylelint-disable */
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                /* stylelint-enable */
+                overflow: hidden;
+            }
+        }
+
+        &__btns {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         &__board {
