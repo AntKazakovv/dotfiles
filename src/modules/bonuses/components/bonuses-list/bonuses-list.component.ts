@@ -131,7 +131,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
                             id: null,
                             type: 'blank',
                             isChoose: !this.chosenBonus,
-                            name: gettext('Proceed without'),
+                            name: gettext('Without bonus'),
                         };
                         this.bonuses.push(blankBonus);
                     }
