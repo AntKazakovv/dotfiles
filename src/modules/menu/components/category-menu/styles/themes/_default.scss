@@ -58,7 +58,7 @@
                 position: relative;
                 display: block;
                 padding: ef.get-value($themeDefault, 'linkPadding');
-                @include text.get-text-style('PrimaryText', ef.get-value($themeDefault, 'linkColor'));
+                @include text.get-text-style(ef.get-value($themeDefault, 'linkFont'), ef.get-value($themeDefault, 'linkColor'));
                 text-decoration: ef.get-value($themeDefault, 'linkDecoration');
 
                 &:before {

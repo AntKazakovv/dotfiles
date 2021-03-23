@@ -51,13 +51,17 @@
                 }
             }
         }
+    }
 
-        .wlc-menu--theme-mod-underline {
+    &.wlc-main-menu--theme-mod-underline {
+
+        ::ng-deep {
 
             .wlc-menu {
 
                 &__link {
                     position: relative;
+                    padding: ef.get-value($themeDefault, 'underlinePadding');
 
                     &:before {
                         content: '';
@@ -68,8 +72,9 @@
                         width: 100%;
                         height: 0;
                         background-color: ef.get-value($themeDefault, 'underlineColor');
-                        opacity: 0;
                         pointer-events: none;
+                        border-radius: ef.get-value($themeDefault, 'underlineRadius');
+                        @include bm.transition(height);
                     }
 
                     &:hover,
@@ -77,8 +82,6 @@
 
                         &:before {
                             height: ef.get-value($themeDefault, 'underlineHeight');
-                            opacity: 100%;
-                            @include bm.transition();
                         }
                     }
                 }
