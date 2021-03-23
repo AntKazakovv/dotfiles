@@ -51,7 +51,10 @@
             background: ef.get-value($themeDefault, 'backgroundSecondary');
             border: ef.get-value($themeDefault, 'borderSecondaryHover');
             box-shadow: ef.get-value($themeDefault, 'shadowHoverSecondary');
-            color: ef.get-value($themeDefault, 'fontColorActiveSecondary');
+
+            .wlc-btn__text {
+                color: ef.get-value($themeDefault, 'fontColorActiveSecondary');
+            }
         }
     }
 }
