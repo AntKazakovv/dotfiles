@@ -22,6 +22,7 @@ export * from './user/wlc-logout.config';
 export * from './user/wlc-loyalty-progress.config';
 export * from './user/wlc-user-stats.config';
 export * from './user/wlc-user-name.config';
+export * from './user/wlc-user-limitations.config';
 
 export * from './promo/wlc-banners-slider.config';
 export * from './promo/wlc-slider.config';

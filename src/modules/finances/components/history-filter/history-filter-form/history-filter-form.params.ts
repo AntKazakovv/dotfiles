@@ -1,11 +1,8 @@
 import {BehaviorSubject} from 'rxjs';
 import {FormGroup} from '@angular/forms';
-
 import {
-    IComponentParams,
     CustomType,
-} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {
+    IComponentParams,
     IFormWrapperCParams,
     IIndexing,
 } from 'wlc-engine/modules/core';

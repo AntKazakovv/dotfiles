@@ -15,6 +15,7 @@ export {
     IData,
 } from './system/services/data/data.service';
 export {GlobalHelper} from './system/helpers/global.helper';
+export {ISelectOptions} from './components/select/select.params';
 export {
     IPushMessageParams,
     NotificationEvents,

@@ -101,6 +101,15 @@ export namespace profileContent {
         ],
     };
 
+    export const profileLimitations: ILayoutSectionConfig = {
+        container: true,
+        components: [
+            componentLib.wlcTitle.profileLimitations,
+            componentLib.wlcProfileMenu.submenu,
+            componentLib.wlcLimitations.def,
+        ],
+    };
+
     export const profileStore: ILayoutSectionConfig = {
         container: true,
         components: [

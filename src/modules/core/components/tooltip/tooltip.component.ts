@@ -17,6 +17,7 @@ import {
     AbstractComponent,
     IMixedParams,
 } from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {ModalService} from 'wlc-engine/modules/core';
 
 import * as Params from './tooltip.params';
 
@@ -45,6 +46,7 @@ export class TooltipComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected params: Params.ITooltipCParams,
+        protected modalService: ModalService,
         protected cdr: ChangeDetectorRef,
     )
     {
@@ -73,5 +75,11 @@ export class TooltipComponent extends AbstractComponent implements OnInit {
 
     public hideTooltip(): void {
         this.isShow = false;
+    }
+
+    public openModal($event: MouseEvent): void {
+        $event.stopPropagation();
+        $event.preventDefault();
+        this.modalService.showModal(this.$params.modal, this.$params.modalParams);
     }
 }

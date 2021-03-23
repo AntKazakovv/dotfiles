@@ -7,15 +7,15 @@ import {IAppConfig} from './app.interface';
 export interface IBaseConfig {
     app?: IAppConfig;
     site?: {
-        name: string,
-        url: string,
+        name: string;
+        url: string;
     },
-    profile?: IProfileConfig,
-    tournaments?: ITournamentsConfig,
-    games?: IGamesConfig,
-    device?: IDeviceConfig,
+    profile?: IProfileConfig;
+    tournaments?: ITournamentsConfig;
+    games?: IGamesConfig;
+    device?: IDeviceConfig;
     contacts?: {
-        phone?: string,
-        email?: string,
+        phone?: string;
+        email?: string;
     };
 }

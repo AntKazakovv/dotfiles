@@ -5,6 +5,9 @@ export interface IProfileConfig {
     verification?: {
         use: boolean;
     },
+    limitations?: {
+        use: boolean;
+    },
     store?: {
         use: boolean;
     },

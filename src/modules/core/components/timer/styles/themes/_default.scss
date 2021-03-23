@@ -6,6 +6,30 @@
 
 .wlc-timer--theme-default:host {
 
+    &.wlc-timer--theme-mod-play-time {
+
+        .time-text__item {
+
+            .text:not(.text-days) {
+                display: none;
+            }
+        }
+
+        .wlc-timer {
+
+            &__content {
+                padding: ef.get-value($themeDefault, 'timerPaddingPlayTime');
+            }
+
+            &__timer-text {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                flex-direction: row-reverse;
+            }
+        }
+    }
+
     .wlc-timer {
 
         &__content {

@@ -6,13 +6,16 @@ export type ComponentTheme = 'default';
 export type ComponentType = 'default';
 export type AutoModifiersType = ComponentTheme | ModeType;
 export type ManualModifiersType = '';
+export type ThemeMod = 'default' | 'count-up' | string;
 export type ModifiersType = AutoModifiersType & ManualModifiersType & string;
 
-export interface ITimerCParams extends IComponentParams<ComponentTheme, ComponentType, string> {
+export interface ITimerCParams extends IComponentParams<ComponentTheme, ComponentType, ThemeMod> {
     common?: {
         noCountDown?: boolean;
         value?: string | DateTime;
         text?: string;
+        countUp?: boolean;
+        noDays?: boolean;
     };
 }
 

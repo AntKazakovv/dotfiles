@@ -1,0 +1,34 @@
+@use 'engine-scss/functions' as ef;
+
+$customThemeDefault: () !default;
+$themeDefault: map-merge(
+    (
+        'titleAlign': center,
+        'titleMargin': 0 0 ef.get('size', 'main') 0,
+
+        'timeMargin': 0 0 ef.get('size', 'small') 0,
+
+        'resultMargin': 0 0 ef.get('size', 'main') 0,
+        'resultHeadPadding': ef.get('size', 'small'),
+        'resultValueBorderRadius': 10px,
+        'resultValueBackground': ef.get('mainColors', 'bg500'),
+        'resultValuePadding': ef.get('size', 'smallest'),
+        'resultItemTextAlign': center,
+
+        'footerFlexDirection': column,
+        'footerJustifyContent': center,
+        'footerAlignItems': center,
+        'footerCheckboxMargin': 0 0 ef.get('size', 'main') 0,
+
+        'formColumnGap': 15px,
+        'formRowGap': 20px,
+        'formAlignItems': center,
+        'formJustifyContent': center,
+        'btnWidth': auto,
+        'btnMargin': 0 auto,
+        'actionPaddingCell': (
+            375: 1px ef.get('size', 'smally'),
+            1024: 5px ef.get('size', 'small'),
+        ),
+    ), $customThemeDefault
+);
