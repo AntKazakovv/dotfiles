@@ -12,7 +12,7 @@ export namespace header {
             componentLib.wlcMainMenu.header,
             componentLib.wlcLoginSignup.header,
             componentLib.wlcUserInfo.header,
-            componentLib.wlcButton.userIcon,
+            componentLib.wlcButton.userDepositIcon,
             componentLib.wlcButton.searchV2,
             componentLib.wlcButton.login,
         ],
