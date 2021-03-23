@@ -290,6 +290,8 @@ export class GamesCatalogService {
             } else if (parentCategory) {
                 await parentCategory.isReady;
                 games = parentCategory.games;
+            } else {
+                games = this.getGameList();
             }
         }
         return games;
