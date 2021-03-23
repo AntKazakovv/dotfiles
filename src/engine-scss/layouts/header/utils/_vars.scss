@@ -28,6 +28,10 @@ $theme1Header: map-merge((
     'headerGlobalPadding': ef.get('size', 'smally'),
     'headerSvgLogoWidth': 144px,
     'headerSvgBtn': ef.get('mainColors', 'baseOpacity'),
+    'headerSvgBtnSize': ef.get('size', 'main'),
+    'headerDepositBtnMargin': 0 ef.get('size', 'small') 0 0,
+    'headerDepositBtnFill': ef.get('mainColors', 'main'),
+    'headerUserBtnFill': ef.get('mainColors', 'secondary'),
     'headerSvgBtnHover': darken(ef.get('mainColors', 'baseOpacity'), 20%),
     'headerLoginBtnTabletPadding': ef.get('size', 'smallest') ef.get('size', 'small'),
 ), $customTheme1Header);

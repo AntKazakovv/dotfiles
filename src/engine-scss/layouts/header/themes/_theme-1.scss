@@ -85,7 +85,7 @@
                     fill: map-get($theme1Header, 'headerSvgBtn');
                 }
 
-                @media (hover: hover) {
+                @media (hover) {
 
                     &:hover {
 
@@ -100,16 +100,32 @@
 
             &-login,
             &-user {
+                display: flex;
                 margin-left: auto;
 
                 .wlc-icon {
-                    width: 37px;
-                    height: 37px;
+                    width: ef.get-value($theme1Header, 'headerSvgBtnSize');
+                    height: ef.get-value($theme1Header, 'headerSvgBtnSize');
 
                     svg {
-                        width: 37px;
-                        height: 37px;
+                        width: ef.get-value($theme1Header, 'headerSvgBtnSize');
+                        height: ef.get-value($theme1Header, 'headerSvgBtnSize');
                     }
+                }
+            }
+
+            &--deposit {
+                margin: ef.get-value($theme1Header, 'headerDepositBtnMargin');
+
+                svg {
+                    fill: ef.get-value($theme1Header, 'headerDepositBtnFill');
+                }
+            }
+
+            &--user {
+
+                svg {
+                    fill: ef.get-value($theme1Header, 'headerUserBtnFill');
                 }
             }
         }

@@ -104,6 +104,49 @@ export namespace wlcButton {
         },
     };
 
+    export const userDepositIcon: ILayoutComponent = {
+        name: 'core.wlc-wrapper',
+        display: {
+            auth: true,
+            before: 1023,
+        },
+        params: {
+            class: 'wlc-btn-user',
+            components: [
+                {
+                    name: 'core.wlc-button',
+                    display: {
+                        auth: true,
+                        before: 1023,
+                    },
+                    params: {
+                        class: 'wlc-btn wlc-btn--deposit',
+                        theme: 'cleared',
+                        common: {
+                            icon: 'deposit-icon',
+                            sref: 'app.profile.cash.deposit',
+                        },
+                    },
+                },
+                {
+                    name: 'core.wlc-button',
+                    class: 'wlc-btn ',
+                    params: {
+                        class: 'wlc-btn wlc-btn--user',
+                        theme: 'cleared',
+                        common: {
+                            icon: 'user-icon',
+                            event: {
+                                name: 'PANEL_OPEN',
+                                data: 'right',
+                            },
+                        },
+                    },
+                },
+            ],
+        },
+    };
+
     export const login: ILayoutComponent = {
         name: 'core.wlc-button',
         display: {
