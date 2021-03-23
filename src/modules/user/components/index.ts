@@ -14,3 +14,4 @@ export {ISignUpFormCParams} from './sign-up-form/sign-up-form.params';
 export {IUserInfoCParams} from './user-info/user-info.params';
 export {IUserNameCParams} from './user-name/user-name.params';
 export {IUserStatsCParams} from './user-stats/user-stats.params';
+export {ILimitationsCParams} from './limitations/limitations.params';

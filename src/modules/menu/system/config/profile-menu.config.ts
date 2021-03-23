@@ -391,6 +391,18 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
             },
         },
     },
+    'profile-menu:limitations': {
+        name: gettext('Responsible gaming'),
+        type: 'sref',
+        icon: 'limitations',
+        class: 'limitations',
+        params: {
+            state: {
+                name: 'app.profile.limitations',
+                params: {},
+            },
+        },
+    },
     'profile-menu:password': {
         name: gettext('Password'),
         type: 'sref',
@@ -501,6 +513,10 @@ export const profileMenuFilter: ProfileMenuParams.IProfileMenuFilter[] = [
     {
         config: '$base.profile.verification.use',
         item: 'profile-menu:verification',
+    },
+    {
+        config: '$base.profile.limitations.use',
+        item: 'profile-menu:limitations',
     },
     {
         config: '$base.tournaments.use',

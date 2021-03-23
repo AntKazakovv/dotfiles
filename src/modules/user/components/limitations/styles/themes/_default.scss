@@ -1,0 +1,35 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/base.mixins' as em;
+@import '../utils/vars';
+
+.wlc-limitations--theme-default:host {
+
+    .wlc-limitations-list {
+        margin-top: ef.get-value($themeDefault, 'marginTop');
+    }
+
+    ::ng-deep {
+
+        .wlc-form {
+            display: grid;
+            @include em.get-mq-map('grid-template-columns', $themeDefault, 'formTemplateColumns');
+            column-gap: ef.get-value($themeDefault, 'formColumnGap');
+            row-gap: ef.get-value($themeDefault, 'formRowGap');
+            align-items: ef.get-value($themeDefault, 'formAlignItems');
+            justify-content: ef.get-value($themeDefault, 'formJustifyContent');
+        }
+
+        .wlc-table--theme-default[class] {
+
+            .wlc-table__cell--type {
+                @include em.get-mq-map('padding', $themeDefault, 'actionPaddingCell');
+            }
+        }
+
+        .wlc-btn {
+            width: ef.get-value($themeDefault, 'btnWidth');
+            height: ef.get-value($themeDefault, 'btnHeight');
+            @include em.get-mq-map('margin', $themeDefault, 'btnMargin');
+        }
+    }
+}

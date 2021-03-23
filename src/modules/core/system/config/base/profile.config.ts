@@ -7,6 +7,9 @@ export const profileConfig: IProfileConfig = {
     verification: {
         use: true,
     },
+    limitations: {
+        use: false,
+    },
     store: {
         use: false,
     },

@@ -40,6 +40,9 @@ export class TimerComponent extends AbstractComponent implements OnInit {
     @Input() public value: string | DateTime;
     @Input() public text: string;
     @Input() public noCountDown: boolean;
+    @Input() public countUp: boolean;
+    @Input() public noDays: boolean;
+    @Input() public themeMod: Params.ThemeMod;
     @Input() protected inlineParams: Params.ITimerCParams;
     public $params: Params.ITimerCParams;
 
@@ -68,16 +71,21 @@ export class TimerComponent extends AbstractComponent implements OnInit {
     }
 
     public ngOnInit(): void {
-        const inputProperties: string[] = ['value', 'text', 'noCountDown'];
+        const inputProperties: string[] = ['value', 'text', 'noCountDown', 'countUp', 'noDays'];
         super.ngOnInit(GlobalHelper.prepareParams(this, inputProperties));
 
         if (this.checkValueFormat()) {
+            this.getTimeDifference();
             interval(this.milliSecondsInASecond).pipe(takeUntil(this.$destroy))
                 .subscribe(() => {
                     this.getTimeDifference();
                     this.cdr.markForCheck();
                 });
         }
+    }
+
+    public showDays(): boolean {
+        return !(this.noDays && this.daysToDday === 0);
     }
 
     public checkValueFormat(): boolean {
@@ -91,7 +99,13 @@ export class TimerComponent extends AbstractComponent implements OnInit {
     }
 
     private getTimeDifference(): void {
-        const timeDifference = this.valueFormat.toMillis() - DateTime.local().toMillis();
+
+        let timeDifference = this.valueFormat.toMillis() - DateTime.local().toMillis();
+
+        if (timeDifference < 0 && this.countUp) {
+            timeDifference *= -1;
+        }
+
         if (timeDifference > 0) {
             this.allocateTimeUnits(timeDifference);
         }

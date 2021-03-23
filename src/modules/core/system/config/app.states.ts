@@ -48,6 +48,7 @@ const states = {
     'app.profile.gamblings.bets': States.profileGamblingsBetsState,
     'app.profile.messages': States.profileMessagesState,
     'app.profile.verification': States.profileVerificationState,
+    'app.profile.limitations': States.profileLimitationsState,
     'app.profile.password': States.profilePasswordState,
     'app.profile.notifications': States.profileNotificationsState,
     'app.profile.payments': States.profilePaymentsState,

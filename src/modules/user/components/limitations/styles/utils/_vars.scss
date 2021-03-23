@@ -1,0 +1,31 @@
+@use 'engine-scss/functions' as ef;
+
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'color': ef.get('color', 'textSecondary'),
+    'marginTop': ef.get('size', 'main'),
+
+    'formTemplateColumns': (
+        375: minmax(auto, 1fr),
+        560: minmax(auto, 400px),
+        1024: repeat(3, minmax(auto, 240px)),
+        1630: repeat(4, minmax(auto, 240px)),
+    ),
+
+    'formColumnGap': 15px,
+    'formRowGap': 20px,
+    'formAlignItems': end,
+    'formJustifyContent': start,
+
+    'btnWidth': auto,
+    'btnHeight': 40px,
+    'btnMargin': (
+        375: 0 auto,
+        560: 0 auto 0 0,
+    ),
+
+    'actionPaddingCell': (
+        375: 1px ef.get('size', 'smally'),
+        1024: 5px ef.get('size', 'small'),
+    ),
+), $customThemeDefault);

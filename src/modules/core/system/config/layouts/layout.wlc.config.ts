@@ -211,6 +211,12 @@ export const $layouts: ILayoutsConfig = {
             'profile-content': sectionsLib.profileContent.profileVerification,
         },
     },
+    'app.profile.limitations': {
+        extends: 'app.profile',
+        sections: {
+            'profile-content': sectionsLib.profileContent.profileLimitations,
+        },
+    },
     'app.profile.password': {
         extends: 'app.profile',
         sections: {

@@ -1,0 +1,7 @@
+<ng-container *ngIf="$params.valueType === 'realityChecker'; else amount">
+    <span>{{timeText}}</span>
+</ng-container>
+
+<ng-template #amount>
+    <span wlc-currency [value]="$params.value"></span>
+</ng-template>

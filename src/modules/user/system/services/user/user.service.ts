@@ -1,35 +1,36 @@
-import {Injectable} from '@angular/core';
+import {Injectable, Injector} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {StateService} from '@uirouter/core';
+import {DateTime} from 'luxon';
 import {
     Subscription,
     BehaviorSubject,
 } from 'rxjs';
-import {filter} from 'rxjs/operators';
-
+import {
+    filter,
+} from 'rxjs/operators';
 import {
     DataService,
     EventService,
     LogService,
     ModalService,
-} from 'wlc-engine/modules/core/system/services';
-import {
     IIndexing,
     IUserProfile,
-} from 'wlc-engine/modules/core/system/interfaces';
-import {IData} from 'wlc-engine/modules/core/system/services/data/data.service';
+    IData,
+    IPushMessageParams,
+    NotificationEvents,
+    ConfigService,
+} from 'wlc-engine/modules/core';
 import {UserInfo} from 'wlc-engine/modules/user/system/models/info.model';
-import {UserProfile} from '../../models/profile.model';
-import {ConfigService} from 'wlc-engine/modules/core';
-import {IPushMessageParams, NotificationEvents} from 'wlc-engine/modules/core/system/services/notification';
+import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
+import {LimitationService} from 'wlc-engine/modules/user/system/services';
 
 import {
     each as _each,
     assign as _assign,
     keys as _keys,
+    set as _set,
 } from 'lodash-es';
-
-//данные для входа 'maksim.shahov@softgamings.com', 'Test123!'
 
 @Injectable({
     providedIn: 'root',
@@ -40,7 +41,6 @@ export class UserService {
     protected info: UserInfo;
     protected profile: UserProfile;
     protected userInfoHandler: Subscription;
-    private useSocketLoyalty: boolean = false;
 
     public get userInfo(): UserInfo {
         if (this.info.dataReady) {
@@ -68,9 +68,9 @@ export class UserService {
         private configService: ConfigService,
         private logService: LogService,
         private modalService: ModalService,
-        private stateService: StateService,
-    )
-    {
+        private injector: Injector,
+        stateService: StateService,
+    ) {
         this.isAuthenticated = this.configService.get('$user.isAuthenticated');
 
         this.registerMethods();
@@ -130,6 +130,7 @@ export class UserService {
             this.isAuthenticated = true;
             this.configService.set({name: '$user.isAuthenticated', value: true});
             this.fetchUserProfile().then(() => {
+                this.injector.get(LimitationService).initRealityChecker(this.userProfile$, true);
                 this.fetchUserInfo();
                 this.startUserInfoFetcher();
             });
@@ -156,13 +157,14 @@ export class UserService {
 
         if (this.isAuthenticated) {
             this.fetchUserProfile().then(() => {
+                this.injector.get(LimitationService).initRealityChecker(this.userProfile$);
                 this.fetchUserInfo();
                 this.startUserInfoFetcher();
             });
         }
     }
 
-    public setProfileData(formData): void {
+    public setProfileData(formData: IUserProfile): void {
         _each(_keys(formData), (field) => {
             if (field === 'password') {
                 this.profile.data.passwordRepeat = formData[field];
@@ -187,11 +189,17 @@ export class UserService {
         this.dataService.request('user/userLogout');
     }
 
-    public getLoyaltyLevels():  Promise<IData> {
+    public getLoyaltyLevels(): Promise<IData> {
         return this.dataService.request('loyalty/levels');
     }
 
     public createUserProfile(userProfile: IUserProfile): Promise<IIndexing<any>> {
+
+        if (this.configService.get('$base.profile.limitations.use')
+            && !userProfile.extProfile?.realityCheckTime) {
+            _set(userProfile, 'extProfile.realityCheckTime', 30);
+        }
+
         return this.dataService.request('user/createProfile', userProfile as any);
     }
 
@@ -202,7 +210,7 @@ export class UserService {
     public async updateProfile(profile: IUserProfile, updatePartial: boolean = false): Promise<true | IIndexing<any>> {
 
         try {
-            const response: any = await this.dataService.request({
+            const response: IData = await this.dataService.request({
                 name: 'updateProfile',
                 system: 'user',
                 url: '/profiles',
@@ -226,7 +234,7 @@ export class UserService {
     }
 
     public sendPasswordRestore(email: string, reCaptchaToken?: string): Promise<IIndexing<any>> {
-        const params: { email: string, reCaptchaToken?: string } = {
+        const params: {email: string, reCaptchaToken?: string} = {
             email: email,
         };
 
@@ -263,7 +271,7 @@ export class UserService {
     }
 
     public changeEmail(email: string, currentPassword?: string, code?: string): void {
-        const params: { email: string; currentPassword?: string; code?: string } = {email};
+        const params: {email: string; currentPassword?: string; code?: string} = {email};
 
         if (currentPassword) {
             params.currentPassword = currentPassword;

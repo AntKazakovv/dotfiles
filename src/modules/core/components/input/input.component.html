@@ -86,8 +86,9 @@
     >{{$params.common.placeholder | translate}}
         <ng-container *ngIf="isFieldRequired()">*</ng-container>
     </label>
-    <div *ngIf="$params.common?.tooltipText"
-         wlc-tooltip [inlineParams]="{inlineText: $params.common?.tooltipText}"
+    <div *ngIf="$params.common?.tooltipText || $params.common?.tooltipModal"
+         wlc-tooltip
+         [inlineParams]="{inlineText: $params.common?.tooltipText, modal: $params.common?.tooltipModal, modalParams: $params.common?.tooltipModalParams}"
     ></div>
 </ng-template>
 

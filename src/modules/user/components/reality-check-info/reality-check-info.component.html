@@ -1,0 +1,44 @@
+<div class="{{$class}}-title">{{'A kind reminder' | translate}}</div>
+<div class="{{$class}}-time">
+    <div wlc-timer [value]="$params.FromTime" [text]="'Play time' | translate" [countUp]="true" [noDays]="true"
+        [themeMod]="'play-time'"></div>
+</div>
+
+<div class="{{$class}}-result">
+    <div class="{{$class}}-result-head">
+        <div class="{{$class}}-result-item">{{'Wins' | translate}}</div>
+        <div class="{{$class}}-result-item">{{'Losses' | translate}}</div>
+        <div class="{{$class}}-result-item">{{'Deposits' | translate}}</div>
+    </div>
+    <div class="{{$class}}-result-value">
+        <div class="{{$class}}-result-item">
+            <span wlc-currency [value]="$params.Wins"></span>
+        </div>
+        <div class="{{$class}}-result-item">
+            <span wlc-currency [value]="$params.Losses"></span>
+        </div>
+        <div class="{{$class}}-result-item">
+            <span wlc-currency [value]="$params.Deposits"></span>
+        </div>
+    </div>
+</div>
+
+<div class="{{$class}}-footer">
+    <div wlc-checkbox [inlineParams]="checkBoxParams"></div>
+
+    <div *ngIf="showClose; else logout">
+        <button wlc-button
+            text="Close"
+            (click)="close()"
+            themeMod="secondary">
+        </button>
+    </div>
+</div>
+
+<ng-template #logout>
+    <button wlc-button
+        text="Logout"
+        (click)="logout()"
+        themeMod="secondary">
+    </button>
+</ng-template>

@@ -1,0 +1,16 @@
+
+<div class="{{$class}}__wrap"
+    wlc-form-wrapper
+    [config]="formConfig"
+    [formData]="formData"
+    (form$)="getForm($event)"
+    [ngSubmit]="onSubmit.bind(this)">
+</div>
+
+<div class="{{$class}}-list" *ngIf="!loading; else loader">
+    <div wlc-table [inlineParams]='tableData'></div>
+</div>
+
+<ng-template #loader>
+    <div wlc-loader></div>
+</ng-template>

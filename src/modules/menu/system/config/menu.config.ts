@@ -75,6 +75,7 @@ export const menuConfig: IMenuConfig = {
                 items: [
                     'profile-menu:edit-profile',
                     'profile-menu:verification',
+                    'profile-menu:limitations',
                     'profile-menu:messages',
                 ],
             },

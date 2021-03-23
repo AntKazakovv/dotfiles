@@ -71,6 +71,7 @@ export interface IExtProfile {
     sendEmail?: boolean;
     sendSMS?: boolean;
     paymentSystems?: IExtProfilePaymentSystems;
+    realityCheckTime?: string;
 }
 
 export interface IExtProfilePaymentSystems {

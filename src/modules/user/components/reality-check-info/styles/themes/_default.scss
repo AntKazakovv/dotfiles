@@ -1,0 +1,54 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/base.mixins' as em;
+@import '../utils/vars';
+
+.wlc-reality-check-info--theme-default:host {
+    padding: 0 38px 38px 38px;
+
+    .wlc-reality-check-info {
+
+        &-title {
+            text-align: ef.get-value($themeDefault, 'titleAlign');
+            margin: ef.get-value($themeDefault, 'titleMargin');
+        }
+
+        &-time {
+            margin: ef.get-value($themeDefault, 'timeMargin');
+        }
+
+        &-result {
+            margin: ef.get-value($themeDefault, 'resultMargin');
+
+            &-head,
+            &-value {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            &-head {
+                padding: ef.get-value($themeDefault, 'resultHeadPadding');
+            }
+
+            &-value {
+                border-radius: ef.get-value($themeDefault, 'resultValueBorderRadius');
+                background: ef.get-value($themeDefault, 'resultValueBackground');
+                padding: ef.get-value($themeDefault, 'resultValuePadding');
+            }
+
+            &-item {
+                text-align: ef.get-value($themeDefault, 'resultItemTextAlign');
+            }
+        }
+
+        &-footer {
+            display: flex;
+            justify-content: ef.get-value($themeDefault, 'footerJustifyContent');
+            flex-direction: ef.get-value($themeDefault, 'footerFlexDirection');
+            align-items: ef.get-value($themeDefault, 'footerAlignItems');
+
+            .wlc-checkbox {
+                margin: ef.get-value($themeDefault, 'footerCheckboxMargin');
+            }
+        }
+    }
+}

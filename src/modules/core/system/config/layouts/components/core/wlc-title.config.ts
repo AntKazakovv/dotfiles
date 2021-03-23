@@ -27,6 +27,15 @@ export namespace wlcTitle {
         },
     };
 
+    export const profileLimitations: ILayoutComponent = {
+        name: 'core.wlc-title',
+        params: {
+            customMod: ['profile'],
+            mainText: gettext('Responsible gaming'),
+            wlcElement: 'header_edit-limitations',
+        },
+    };
+
     export const profileHistory: ILayoutComponent = {
         name: 'core.wlc-title',
         params: {
