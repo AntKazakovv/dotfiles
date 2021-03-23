@@ -4,13 +4,17 @@ import {
     OnInit,
     Input,
     ViewEncapsulation,
-    AfterViewInit,
     ElementRef,
+    ChangeDetectorRef,
 } from '@angular/core';
+import {
+    DomSanitizer,
+    SafeResourceUrl,
+} from '@angular/platform-browser';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ConfigService} from 'wlc-engine/modules/core';
-import * as LParams from './license.params';
-export {IApgSealCParams} from './license.params';
+
+import * as Params from './license.params';
 
 @Component({
     selector: '[wlc-license]',
@@ -18,18 +22,21 @@ export {IApgSealCParams} from './license.params';
     styleUrls: ['./styles/license.component.scss'],
     encapsulation: ViewEncapsulation.None,
 })
-export class LicenseComponent extends AbstractComponent implements OnInit, AfterViewInit {
-    @Input() protected inlineParams: LParams.IApgSealCParams;
-    public $params: LParams.IApgSealCParams;
+export class LicenseComponent extends AbstractComponent implements OnInit {
+    @Input() protected inlineParams: Params.ILicenseCParams;
+    public $params: Params.ILicenseCParams;
+    public licenseType: Params.LicenseType;
 
     constructor(
-        @Inject('injectParams') protected injectParams: LParams.IApgSealCParams,
+        @Inject('injectParams') protected injectParams: Params.ILicenseCParams,
+        protected cdr: ChangeDetectorRef,
+        private sanitizer: DomSanitizer,
         private elRef: ElementRef,
         configService: ConfigService,
     ) {
         super({
             injectParams,
-            defaultParams: LParams.defaultParams,
+            defaultParams: Params.defaultParams,
         },
         configService,
         );
@@ -37,12 +44,22 @@ export class LicenseComponent extends AbstractComponent implements OnInit, After
 
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
+        if (this.$params.apgSeal?.sealId && this.$params.apgSeal.sealDomain) {
+            this.licenseType = 'apg';
+            this.initApgSeal();
+        } else if (this.$params.mga?.companyId) {
+            this.licenseType = 'mga';
+        } else if (this.$params.curacao?.code || this.$params.curacao?.url) {
+            this.licenseType = 'curacao';
+            this.$params.curacao.url  = this.$params.curacao.url ||
+                    `https://licensing.gaming-curacao.com/validator/?lh=${this.$params.curacao.code}&template=seal`;
+            this.addModifiers('curacao');
+        }
+        this.cdr.markForCheck();
     }
 
-    public ngAfterViewInit() {
-        if (this.$params.apgSeal?.sealId && this.$params.apgSeal.sealDomain) {
-            this.initApgSeal();
-        }
+    public safeUrl(url: string): SafeResourceUrl {
+        return this.sanitizer.bypassSecurityTrustResourceUrl(url);
     }
 
     protected initApgSeal(): void {

@@ -14,7 +14,7 @@ export {IIconListCParams} from './icon-list/icon-list.params';
 export {IInfoPageCParams} from './info-page/info-page.params';
 export {IInputCParams} from './input/input.params';
 export {ILanguageSelectorCParams} from './language-selector/language-selector.params';
-export {IApgSealCParams} from './license/license.params';
+export {ILicenseCParams} from './license/license.params';
 export {ILinkBlockCParams} from './link-block/link-block.params';
 export {ILoaderCParams} from './loader/loader.params';
 export {ILogoCParams} from './logo/logo.params';
