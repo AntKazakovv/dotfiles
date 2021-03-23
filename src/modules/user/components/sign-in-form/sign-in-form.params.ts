@@ -28,6 +28,7 @@ export const defaultParams: ISignInFormCParams = {
     class: 'wlc-sign-in-form',
     moduleName: 'user',
     componentName: 'wlc-sign-in-form',
+    wlcElement: 'modal_login',
 };
 
 export const signInFormConfig: IFormWrapperCParams = {
@@ -46,6 +47,7 @@ export const signInFormConfig: IFormWrapperCParams = {
             name: 'core.wlc-input',
             params: <IInputCParams>{
                 theme: 'vertical',
+                wlcElement: 'block_email-login',
                 common: {
                     placeholder: gettext('E-mail'),
                     type: 'email',
@@ -58,6 +60,7 @@ export const signInFormConfig: IFormWrapperCParams = {
             name: 'core.wlc-input',
             params: <IInputCParams>{
                 theme: 'vertical',
+                wlcElement: 'block_password',
                 common: {
                     placeholder: gettext('Password'),
                     type: 'password',
@@ -71,6 +74,7 @@ export const signInFormConfig: IFormWrapperCParams = {
         {
             name: 'user.wlc-restore-link',
             params: {
+                wlcElement: 'button_forgot-password',
                 common: {
                     typeAttr: 'button',
                 },
@@ -79,6 +83,7 @@ export const signInFormConfig: IFormWrapperCParams = {
         {
             name: 'core.wlc-button',
             params: <IButtonCParams>{
+                wlcElement: 'button_login-submit',
                 common: {
                     customModifiers: 'submit',
                     text: gettext('Sign in'),
@@ -90,6 +95,7 @@ export const signInFormConfig: IFormWrapperCParams = {
         {
             name: 'core.wlc-link-block',
             params: {
+                wlcElement: 'button_register',
                 common: {
                     subtitle: gettext('Don\'t have an account?'),
                     link: gettext('Sign up now'),
