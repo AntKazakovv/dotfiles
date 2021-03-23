@@ -1,11 +1,25 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnInit} from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    Inject,
+    OnInit,
+} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
-import {defaultParams, IPostMenuCParams} from './post-menu.params';
+import {
+    defaultParams,
+    IPostMenuCParams,
+} from './post-menu.params';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {StaticService, TextDataModel} from 'wlc-engine/modules/static';
+import {
+    StaticService,
+    TextDataModel,
+} from 'wlc-engine/modules/static';
 
 import {
     get as _get,
+    sortBy as _sortBy,
+    includes as _includes,
 } from 'lodash-es';
 
 export * from './post-menu.params';
@@ -37,19 +51,16 @@ export class PostMenuComponent extends AbstractComponent implements OnInit {
     public async ngOnInit(): Promise<void> {
         super.ngOnInit();
 
-        try {
-            await this.fetchPosts();
-        } catch (e) {
-            console.error(e);
-        }
+        const list = await this.staticService.getPostsListByCategorySlug(this.$params.common.categorySlug);
+        this.menuItems = _sortBy(list, (item) => item.sortOrder);
 
         this.isReady = true;
         this.prepareParams();
         this.cdr.markForCheck();
     }
 
-    protected async fetchPosts(): Promise<void> {
-        this.menuItems = await this.staticService.getPostsListByCategorySlug(this.$params.common.categorySlug);
+    public getFullOuterLink({outerLink}: TextDataModel): string {
+        return _includes(outerLink, '//') ? outerLink : '//' + outerLink;
     }
 
     protected prepareParams(): void {
@@ -61,8 +72,7 @@ export class PostMenuComponent extends AbstractComponent implements OnInit {
         }
     }
 
-    private setBasePath(): void {
-
+    protected setBasePath(): void {
         this.basePath = this.$params.common.basePath?.url;
 
         if (this.basePath[this.basePath.length - 1] !== '/') {

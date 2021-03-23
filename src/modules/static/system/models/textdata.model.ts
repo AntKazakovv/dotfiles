@@ -5,6 +5,7 @@ import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 import {
     get as _get,
     each as _each,
+    toNumber as _toNumber,
 } from 'lodash-es';
 
 export abstract class TextDataModel {
@@ -29,6 +30,14 @@ export abstract class TextDataModel {
     ) {
         this.prepareData(dataObject);
         this.introText = this.getIntroText();
+    }
+
+    public get outerLink(): string {
+        return this.extFields?.acf?.outer_link;
+    }
+
+    public get sortOrder(): number {
+        return _toNumber(this.extFields?.acf?.sort_weight) ?? 0;
     }
 
     public toJSON(): IIndexing<any> {

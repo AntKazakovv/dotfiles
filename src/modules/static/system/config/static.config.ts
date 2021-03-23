@@ -18,5 +18,7 @@ export const staticConfig: IStaticConfig = {
         tag: 120 * 60 * 1000,
         page: 120 * 60 * 1000,
     },
-    additionalFields: [],
+    additionalFields: [
+        'acf',
+    ],
 };
