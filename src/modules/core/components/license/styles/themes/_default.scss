@@ -2,18 +2,37 @@
 
 .wlc-license {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    width: fit-content;
+    width: ef.get-value($themeDefault, 'licenseWidth');
+    grid-template-columns: ef.get-value($themeDefault, 'licenseTemplateColumns');
     gap: ef.get-value($themeDefault, 'gap');
+
+    &--curacao {
+        grid-template-columns: ef.get-value($themeDefault, 'curacaoGridTemplate');
+    }
 
     &__apg-seal {
         width: ef.get-value($themeDefault, 'apgSealWidth');
     }
 
+    &__mga {
+        display: flex;
+        align-items: center;
+    }
+
+    &__curacao {
+        width: ef.get-value($themeDefault, 'curacaoWidth');
+        height: ef.get-value($themeDefault, 'curacaoHeight');
+
+        iframe {
+            width: 100%;
+            height: 100%;
+        }
+    }
+
     &__age-restrictions {
-        width: 45px;
-        margin: 0 auto;
         display: block;
+        width: ef.get-value($themeDefault, 'ageRestrictionsWidth');
+        margin: ef.get-value($themeDefault, 'ageRestrictionsMargin');
 
         svg {
             width: 100%;

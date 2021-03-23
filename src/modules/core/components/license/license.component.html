@@ -1,9 +1,34 @@
-<div class="{{$class}}__apg-seal"
-     id="apg-seal-container"
-     data-wlc-element="block_apg-seal"
-></div>
+
+<ng-container [ngSwitch]="licenseType">
+    <ng-container [ngTemplateOutlet]="apg" *ngSwitchCase="'apg'"></ng-container>
+    <ng-container [ngTemplateOutlet]="mga" *ngSwitchCase="'mga'"></ng-container>
+    <ng-container [ngTemplateOutlet]="curacao" *ngSwitchCase="'curacao'"></ng-container>
+</ng-container>
+
+<ng-template #mga>
+    <div class="{{$class}}__mga" data-wlc-element="block_mga-license">
+        <a href='https://www.authorisation.mga.org.mt/verification.aspx?lang=EN&company={{$params.mga.companyId}}&details=1'
+            rel="nofollow">
+            <img src="/gstatic/wlc/icons/mga-logo.png" alt="MGA">
+        </a>
+    </div>
+</ng-template>
+
+<ng-template #curacao>
+    <div class="{{$class}}__curacao" data-wlc-element="block_curacao-license">
+        <iframe [src]="safeUrl($params.curacao.url)"></iframe>
+    </div>
+</ng-template>
+
+<ng-template #apg>
+    <div class="{{$class}}__apg-seal"
+        id="apg-seal-container"
+        data-wlc-element="block_apg-seal"
+    ></div>
+</ng-template>
+
 <div class="{{$class}}__age-restrictions"
-      wlc-icon
-      [iconName]="'age-restrictions'"
-      [wlcElement]="'block_icon-18'"
-></div>
+    wlc-icon
+    [iconName]="'age-restrictions'"
+    [wlcElement]="'block_icon-18'">
+</div>

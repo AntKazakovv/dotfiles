@@ -7,16 +7,29 @@ export type AutoModifiersType = ComponentTheme | ModeType;
 export type ManualModifiersType = '';
 export type ModifiersType = AutoModifiersType & ManualModifiersType & string;
 
+export type LicenseType = 'apg' | 'mga' | 'curacao';
+
 export interface IApgSealConfig {
     sealId: string;
     sealDomain: string;
 }
 
-export interface IApgSealCParams extends IComponentParams<ComponentTheme, ComponentType, string> {
-    apgSeal?: IApgSealConfig;
+export interface IMGAConfig {
+    companyId: string;
 }
 
-export const defaultParams: IApgSealCParams = {
+export interface ICuracaoConfig {
+    code: string;
+    url?: string;
+}
+
+export interface ILicenseCParams extends IComponentParams<ComponentTheme, ComponentType, string> {
+    apgSeal?: IApgSealConfig;
+    mga?: IMGAConfig;
+    curacao?: ICuracaoConfig;
+}
+
+export const defaultParams: ILicenseCParams = {
     class: 'wlc-license',
     moduleName: 'core',
     componentName: 'wlc-license',
