@@ -22,8 +22,10 @@ $themeDefault: map-merge((
     'fontWeightActive': 700,
     'letterSpacing': 1px,
     'underlineHeight': 4px,
+    'underlinePadding': 0 0 ef.get('size', 'small'),
     'underlineColor': ef.get('mainColors', 'baseMain'),
-    'underlineOffset': -15px,
+    'underlineOffset': 0,
+    'underlineRadius': ef.get('radius', 'big'),
 ), $customThemeDefault);
 
 $customMenuThemeContacts: () !default;

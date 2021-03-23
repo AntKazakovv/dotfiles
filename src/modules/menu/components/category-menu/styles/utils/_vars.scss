@@ -13,6 +13,7 @@ $themeDefault: map-merge((
     'menuGag': ef.get('size', 'smallest'),
     'linkPadding': 12px 5px,
     'linkActiveWeight': bold,
+    'linkFont': PrimaryText,
     'linkColor': ef.get('mainColors', 'baseMain'),
     'linkColorHovered': darken(ef.get('mainColors', 'baseMain'), 20%),
     'linkDecoration': none,

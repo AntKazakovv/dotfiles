@@ -43,6 +43,7 @@
 
     .wlc-btn__text {
         color: ef.get-value($themeDefault, 'fontColorSecondary');
+        @include bm.transition(color);
     }
 
     @media (hover: hover) {

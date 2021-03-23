@@ -452,6 +452,7 @@ $buttonSettings: map-merge((
     'colorDefaultHover': darken(map-get($mainColors, 'baseMain'), 20),
     'fontColorActive': map-get($mainColors, 'baseMain'),
     'fontColorSecondary': map-get($mainColors, 'baseMain'),
+    'fontColorSecondaryHover': map-get($mainColors, 'baseMain'),
     'fontColorActiveSecondary': lighten(map-get($mainColors, 'baseMain'), 20%),
     // Transform
     'textTransform': initial,
