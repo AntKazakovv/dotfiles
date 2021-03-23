@@ -24,6 +24,7 @@ import {
     ISetParams,
 } from './config.interface';
 import {DeviceModel, IDeviceConfig} from 'wlc-engine/modules/core/system/models/device.model';
+import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
 
 export * from './app-config.model';
 export * from './config.interface';
@@ -64,6 +65,8 @@ export class ConfigService {
         private localStorageService: LocalStorageService,
         private sessionStorageService: SessionStorageService,
     ) {
+        this.setGlobals();
+
         setTimeout(() => {
             this.getCountries();
         }, 0);
@@ -123,6 +126,10 @@ export class ConfigService {
         if (setParams.freeze) {
             Object.freeze(_get(this.global, setParams.name));
         }
+    }
+
+    private setGlobals(): void {
+        this.set<BehaviorSubject<UserProfile>>({name: '$user.userProfile$', value: new BehaviorSubject(null)});
     }
 
     private prepareData(response: unknown): AppConfigModel {

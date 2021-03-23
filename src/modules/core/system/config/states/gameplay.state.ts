@@ -1,7 +1,7 @@
 'use strict';
 
 import {Ng2StateDeclaration} from '@uirouter/angular';
-import {startGameResolver} from './start-game.resolver';
+import {startGameResolver} from 'wlc-engine/modules/core/system/config/resolvers';
 import {StateHelper} from 'wlc-engine/modules/core/system/helpers/state.helper';
 import {ModalService} from 'wlc-engine/modules/core/system/services';
 

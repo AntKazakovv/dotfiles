@@ -7,10 +7,6 @@ import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 import {Injectable} from '@angular/core';
 import {ConfigService} from 'wlc-engine/modules/core';
 
-interface ISentryConfig {
-    project?: string;
-}
-
 interface ISentryMessage {
     message: string;
     tags?: IIndexing<string>;
@@ -19,20 +15,12 @@ interface ISentryMessage {
     userInfo?: Sentry.User;
 }
 
-interface IWindow extends Window {
-    WLC_ENV?: string;
-    WLC_VERSION?: string;
-    wlcSentryConfig?: ISentryConfig;
-    testSessionHash?: string;
-}
-
 @Injectable()
 export class SentryService {
     public isInstall: boolean = false;
 
-    private window: IWindow = window;
     private sessionKey: string = 'wlc-session-hash';
-    private prod: boolean = !this.window.WLC_ENV;
+    private prod: boolean = !window.WLC_ENV;
     private dsn: IIndexing<string> = {
         prod: 'https://4005578ccdcd422580f551621158d92d@sentry.egamings.com/68',
         dev: 'https://850fc7b0547d49db8d67c363bfdd844a@sentry.egamings.com/67',
@@ -46,7 +34,7 @@ export class SentryService {
     ) {
         this.autotest = Cookie.get('runautotest') === '7698155c459ee95063a26a7121b2b7916fa36004cbcfe787043d27692b249971';
         if (this.autotest) {
-            this.window.testSessionHash = this.sessionHash = this.generateHash();
+            window.testSessionHash = this.sessionHash = this.generateHash();
         } else {
             const hashFromStorage: string = this.configService.get<string>({
                 name: this.sessionKey,
@@ -103,16 +91,16 @@ export class SentryService {
      * @returns {boolean} Was inited or not
      */
     private initSentry(): boolean {
-        if ((this.window.WLC_ENV !== 'dev' || Cookie.get('allowSentry')) || this.autotest) {
+        if ((window.WLC_ENV !== 'dev' || Cookie.get('allowSentry')) || this.autotest) {
             Sentry.init({
                 dsn: this.autotest ? this.dsn.autotest : this.prod ? this.dsn.prod : this.dsn.dev,
-                release: '' + this.window.WLC_VERSION,
-                environment: this.window.WLC_ENV || 'prod',
+                release: '' + window.WLC_VERSION,
+                environment: window.WLC_ENV || 'prod',
                 blacklistUrls: [
                     /https?:\/\/((www)\.)?1x2nwh\.com/,
                 ],
                 beforeSend: (event: Event): Event => {
-                    const project = this.window.wlcSentryConfig?.project || 'unknown';
+                    const project = window.wlcSentryConfig?.project || 'unknown';
                     event.tags = event.tags || {};
                     event.tags.project = project;
                     event.tags.sessionHash = this.sessionHash;

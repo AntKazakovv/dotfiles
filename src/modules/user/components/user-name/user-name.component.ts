@@ -41,7 +41,7 @@ export class UserNameComponent extends AbstractComponent implements OnInit, OnDe
 
     ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
-        this.UserService.userProfile$.pipe(skipWhile(v => !v), first())
+        this.UserService.userProfile$.pipe(skipWhile(v => !v))
             .subscribe((userInfo) => {
                 this.email = userInfo.email;
                 this.firstName = userInfo.firstName;

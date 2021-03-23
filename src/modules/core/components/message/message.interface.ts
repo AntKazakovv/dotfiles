@@ -15,8 +15,9 @@ export interface IAction {
 }
 
 export interface IMessageData {
-    title?: string;
     message: string | string[];
+    title?: string;
+    displayAsHTML?: boolean;
     showCloseButton?: boolean;
     type?: Params.TMessageType;
     action?: IAction;

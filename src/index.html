@@ -25,7 +25,20 @@
     {% endif %}
     <link rel="stylesheet" href="/static/css/loader.css">
 
+    <style>
+        @font-face {
+            font-family: CryptocurrencySymbols;
+            src:
+                url('/gstatic/wlc/fonts/Cryptocurrencies/cryptocurrency-symbols.woff?ver={{projectVersion}}') format('woff'),
+                url('/gstatic/wlc/fonts/Cryptocurrencies/cryptocurrency-symbols.woff2?ver={{projectVersion}}') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+            font-display: block;
+        }
+    </style>
+
     <script type="text/javascript">
+        window.WLC_VERSION = {{projectVersion}};
         {% if env == 'dev' or env == 'qa' or env == 'test' %}
         window.WLC_ENV = '{{env}}';
         {% elseif GET['eg-debug'] == 1 and env != 'prod' %}

@@ -12,7 +12,7 @@ import {
 } from '@angular/core';
 import {DOCUMENT} from '@angular/common';
 import {from, Observable, Subject, Subscription, timer} from 'rxjs';
-import {concatMap, delay, map, scan, take} from 'rxjs/operators';
+import {concatMap, delay, first, map, scan} from 'rxjs/operators';
 
 import {
     EventService,
@@ -123,7 +123,7 @@ export class NotificationService {
             getNextState,
         }) => {
             return waiter.pipe(
-                take(1),
+                first(),
                 // Make Observable macrotask so Change detector could work appropriately
                 delay(0),
                 map((waiterResult) => {
@@ -172,12 +172,12 @@ export class NotificationService {
      */
     private async listenSyncEvents(): Promise<void> {
         const Events = NotificationEvents;
-        const eventStack: IEvent<any>[] = [];
+        const eventQueue: IEvent<any>[] = [];
 
         this.eventService.subscribe(
             {name: Events.PushMessage},
             (params: IPushMessageParams) => {
-                eventStack.push({
+                eventQueue.push({
                     name: Events.PushMessage,
                     data: params,
                 });
@@ -188,7 +188,7 @@ export class NotificationService {
         this.eventService.subscribe(
             {name: Events.PushComponent},
             (params: IPushComponentParams) => {
-                eventStack.push({
+                eventQueue.push({
                     name: Events.PushMessage,
                     data: params,
                 });
@@ -198,7 +198,7 @@ export class NotificationService {
 
         await this.$init.toPromise();
 
-        _each(eventStack, (event) => {
+        _each(eventQueue, (event) => {
             if (event.name === Events.PushMessage) {
                 this.pushMessage(event.data);
             } else if (event.name === Events.PushComponent) {

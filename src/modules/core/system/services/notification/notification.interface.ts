@@ -13,9 +13,7 @@ export interface IPushComponentParams extends INotificationOptions {
     componentParams?: unknown;
 }
 
-export interface IPushMessageParams extends IMessageData, INotificationOptions {
-    wlcElement?: string;
-}
+export interface IPushMessageParams extends IMessageData, INotificationOptions {}
 
 export interface INotificationMetadata {
     dismiss(): void;

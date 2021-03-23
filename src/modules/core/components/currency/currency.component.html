@@ -1,13 +1,29 @@
-<ng-container *ngIf="useIcon && displayIcon?.placement === 'left'">
-    <ng-container *ngIf="isNegative && displayIcon.minusBeforeCurrency">
-        -
+<ng-container *ngIf="loaded; else loading">
+    <ng-container *ngIf="icon">
+        <ng-container *ngIf="isNegative && icon.minusBeforeCurrency">
+            -
+        </ng-container>
+        <ng-container *ngIf="icon.placement === 'left'">
+            <ng-container *ngIf="icon.prefix">
+                {{icon.prefix}}
+            </ng-container>
+            <span class="wlc-currency__icon">{{icon.iconChar}}</span>
+        </ng-container>
+        <ng-container *ngIf="isNegative && !icon.minusBeforeCurrency">
+            -
+        </ng-container>
     </ng-container>
-    <span class="wlc-currency__icon">{{displayIcon.icon}}</span>
-    <ng-container *ngIf="isNegative && !displayIcon.minusBeforeCurrency">
-        -
+
+    {{displayValue}}
+
+    <ng-container *ngIf="icon?.placement === 'right'">
+        <ng-container *ngIf="icon.prefix">
+            {{icon.prefix}}
+        </ng-container>
+        <span class="wlc-currency__icon">{{icon.iconChar}}</span>
     </ng-container>
 </ng-container>
 
-{{displayValue}}
-
-<span *ngIf="useIcon && displayIcon?.placement === 'right'" class="wlc-currency__icon">{{displayIcon.icon}}</span>
+<ng-template #loading>
+    ...
+</ng-template>

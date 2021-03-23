@@ -10,7 +10,7 @@ import {
     FormGroup,
     Validators,
 } from '@angular/forms';
-import {CurrencyPipe} from '@angular/common';
+import {TranslateService} from '@ngx-translate/core';
 import {StateService} from '@uirouter/core';
 
 import {
@@ -30,6 +30,7 @@ import {
     IPushMessageParams,
     NotificationEvents,
 } from 'wlc-engine/modules/core';
+import {CurrencyModel} from 'wlc-engine/modules/core/system/models/currency.model';
 import {
     IPaymentAdditionalParam,
     PaymentSystem,
@@ -110,6 +111,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
         protected stateService: StateService,
         protected userService: UserService,
         protected cdr: ChangeDetectorRef,
+        protected translateService: TranslateService,
     ) {
         super(
             <IMixedParams<Params.IDepositWithdrawCParams>>{
@@ -256,7 +258,10 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
                 title: gettext('Withdraw'),
                 message: [
                     gettext('Withdraw request has been successfully sent!'),
-                    gettext('Withdraw sum') + ' ' + new CurrencyPipe('en-US', 'EUR').transform(form.value.amount),
+                    gettext('Withdraw sum') + ' ' + new CurrencyModel(form.value.amount, {
+                        currency: this.userService.userProfile.currency,
+                        language: this.translateService.currentLang,
+                    }),
                 ],
                 wlcElement: 'notification_withdraw-request-success',
             });
