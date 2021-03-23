@@ -13,15 +13,25 @@
     </div>
 
     <div class="wlc-notification-message__content">
-        <h4 class="wlc-notification-message__heading" [attr.data-wlc-element]="'notification-title'">{{title | translate}}</h4>
-        <span class="wlc-notification-message__message-container" [attr.data-wlc-element]="'notification-text'">
-            <span class="wlc-notification-message__message">
+        <h4 class="wlc-notification-message__heading"
+            [attr.data-wlc-element]="'notification-title'"
+        >{{title | translate}}</h4>
+        <div class="wlc-notification-message__message-container" [attr.data-wlc-element]="'notification-text'">
+            <div class="wlc-notification-message__message">
+
                 <ng-container *ngFor="let message of messages">
-                    <ng-container *ngIf="message">
-                        {{(message | translate) + '\n'}}
+                    <ng-container *ngIf="isHTML; else plainText">
+                        <div class="wlc-notification-message__html"
+                             wlc-dynamic-html
+                             [html]="message"
+                        ></div>
                     </ng-container>
+                    <ng-template #plainText>
+                        {{(message | translate) + '\n'}}
+                    </ng-template>
                 </ng-container>
-            </span>
+
+            </div>
             <button *ngIf="action"
                     wlc-button
                     theme="borderless"
@@ -29,7 +39,7 @@
                     [text]="action.label"
                     (click)="action.onClick()"
             ></button>
-        </span>
+        </div>
     </div>
 
     <button *ngIf="$params.showCloseButton"

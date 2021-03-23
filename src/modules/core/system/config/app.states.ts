@@ -4,6 +4,7 @@ import {StateHelper} from '../helpers/state.helper';
 import {AppComponent} from 'wlc-engine/modules/app/components/app/app.component';
 import {ConfigService} from 'wlc-engine/modules/core/system/services';
 import {LayoutComponent} from 'wlc-engine/modules/core/components/layout/layout.component';
+import {polyfillsResolver} from 'wlc-engine/modules/core/system/config/resolvers';
 import * as States from './states';
 
 import {
@@ -75,6 +76,7 @@ const appState: Ng2StateDeclaration = {
                 return config.get<string>('appConfig.language');
             },
         },
+        polyfillsResolver,
     ],
 };
 

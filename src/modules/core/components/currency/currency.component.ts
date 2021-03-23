@@ -6,65 +6,38 @@ import {
     Input,
     OnChanges,
     OnInit,
-    SimpleChanges,
+    Optional,
+    Self,
 } from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {
     BehaviorSubject,
-    Subscription,
+    combineLatest,
+    of,
 } from 'rxjs';
 import {
-    first,
+    filter,
+    map,
+    startWith,
     takeUntil,
 } from 'rxjs/operators';
 
 import {
-    ICurrencyFormat,
-    CRYPTOCURRENCIES,
-    ICryptocurrencies,
-} from 'wlc-engine/modules/core/constants/currency-formats.constant';
-import {
     ConfigService,
     AbstractComponent,
 } from 'wlc-engine/modules/core';
-import {UserService} from 'wlc-engine/modules/user/system/services';
+import {CurrencyModel, ICurrencyIcon} from 'wlc-engine/modules/core/system/models/currency.model';
 import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
 
 import * as Params from './currency.params';
 
 import {
-    findIndex as _findIndex,
-    toInteger as _toInteger,
-    toNumber as _toNumber,
-    includes as _includes,
-    toUpper as _toUpper,
-    padEnd as _padEnd,
-    concat as _concat,
-    reduce as _reduce,
-    split as _split,
-    merge as _merge,
+    filter as _filter,
     each as _each,
-    find as _find,
+    keys as _keys,
+    join as _join,
     map as _map,
-    get as _get,
 } from 'lodash-es';
-
-interface IParsedDigitsInfo {
-    minimumIntegerDigits: number;
-    minimumFractionDigits: number;
-    maximumFractionDigits: number;
-}
-
-interface IDisplayIcon {
-    icon: string;
-    placement: 'left' | 'right';
-    minusBeforeCurrency: boolean;
-}
-
-/**
- * @alias
- */
-type CurrencyPart = Intl.NumberFormatPart;
 
 /**
  * @ngModule CoreModule
@@ -108,18 +81,6 @@ export class CurrencyComponent
 
     /**
      * @description
-     * The format for the currency indicator. Options:
-     * - `code`: show the code;
-     * - `symbol`: show symbol with county-specific symbols (for example CA$ for canadian dollar);
-     * - `symbolNarrow`: show symbol without country-specific symbols.
-     * - `name`: show currency name in given locale (not supported by cryptocurrencies)
-     *
-     * @default 'symbol'
-     */
-    @Input() public indicatorFormat: Params.IndicatorFormatType;
-
-    /**
-     * @description
      * Display options in the following format:
      *
      * `{minIntegerDigits}.{minFractionDigits}-{maxFractionDigits}`.
@@ -134,14 +95,7 @@ export class CurrencyComponent
      */
     @Input() public digitsInfo: string;
 
-    @Input() public showIconOnly: boolean = false;
-
-    /**
-     * Whether currency value is negative
-     */
-    public get isNegative(): boolean {
-        return this.numericValue < 0;
-    }
+    @Input() public showIconOnly: boolean;
 
     /**
      * Result that would be displayed
@@ -149,64 +103,28 @@ export class CurrencyComponent
     public displayValue: string;
 
     /**
-     * Boolean that indicating whether the currency symbol will be displayed as an icon.
-     *
-     * Icon used in case the cryptocurrency symbol doesn't exist in UTF-16.
-     */
-    public useIcon: boolean = false;
-
-    /**
      * Object that template will take as a guidance in case currency symbol displays as an icon.
      *
-     * - `icon`: char for an icon;
+     * - `iconChar`: char for an icon;
      * - `placement`: where it should be placed, on the left side of the value or the right side;
      * - `minusBeforeCurrency`: whether should minus sign be placed before icon if the value is negative
      * and the currency icon is on the left side.
      */
-    public displayIcon: IDisplayIcon;
+    public icon: ICurrencyIcon;
     public $params: Params.ICurrencyCParams;
-
-    protected initiated: boolean = false;
-    protected valueSubscribe: Subscription;
-
-    protected numericValue: number;
-
-    /**
-     * Intl format for currency
-     */
-    protected intlCurrencyFormat: Intl.NumberFormat;
-
-    /**
-     * Array with cryptocurrency codes
-     */
-    protected cryptocurrenciesList: string[] = Object.keys(this.cryptocurrencies);
-
-    /**
-     * @returns {Object} format options for current currency or empty object
-     */
-    protected get currencyFormat(): ICurrencyFormat {
-        return this.cryptocurrencies[_toUpper(this.$params.currency).trim()]
-            || {};
-    }
-
-    /**
-     * @returns {boolean} indicator whether current currency is cryptocurrency
-     */
-    protected get isCryptocurrency(): boolean {
-        return _includes(
-            this.cryptocurrenciesList,
-            _toUpper(this.$params.currency).trim(),
-        );
-    }
+    public loaded: boolean = false;
+    public isNegative: boolean = false;
+    protected $init: boolean = false;
+    protected language: string = this.translateService.currentLang;
 
     constructor(
         protected changeDetectorRef: ChangeDetectorRef,
         protected translateService: TranslateService,
-        @Inject(CRYPTOCURRENCIES)
-        protected cryptocurrencies: ICryptocurrencies,
-        @Inject('injectParams') injectParams: Params.ICurrencyCParams,
         protected configService: ConfigService,
-        protected userService: UserService,
+        @Self()
+        @Optional()
+        @Inject('injectParams')
+        protected injectParams: Params.ICurrencyCParams,
     ) {
         super({
             injectParams,
@@ -214,252 +132,99 @@ export class CurrencyComponent
         }, configService);
     }
 
-    public ngOnInit(): void {
-        super.ngOnInit(this.getInlineParams());
-
-        this.getUserCurrency();
-        this.subscribeOnLanguageChange();
-        this.setIndicatorFormat();
-        this.setIntlCurrencyFormat(this.translateService.currentLang);
-        this.processValue();
-        this.initiated = true;
-    }
-
-    public ngOnChanges(changes: SimpleChanges): void {
-        if (this.initiated) {
-            this.updateComponent();
+    public ngOnChanges(): void {
+        if (this.$init) {
+            this.updateParams();
+            this.updateModel();
         }
     }
 
-    protected updateComponent(): void {
-        this.$params = _merge(this.$params, this.getInlineParams());
-        this.setIndicatorFormat();
-        this.setIntlCurrencyFormat(this.translateService.currentLang);
-        this.processValue();
-    }
+    public ngOnInit(): void {
+        super.ngOnInit(this.getInlineParams());
+        this.loaded = !!this.$params.currency;
 
-    protected subscribeOnLanguageChange(): void {
-        this.translateService.onLangChange
+        const languageObservable = this.translateService.onLangChange.pipe(
+            map((event) => event.lang),
+            startWith(this.translateService.currentLang),
+        );
+
+        const userProfile$ = this.configService.get<BehaviorSubject<UserProfile>>({name: '$user.userProfile$'});
+
+        const currencyObservable = this.$params.currency
+            ? of(this.$params.currency)
+            : userProfile$.pipe(
+                filter((profile) => !!profile),
+                map((profile) => profile.currency),
+            );
+
+        const valueObservable = this.value instanceof BehaviorSubject
+            ? this.value
+            : of(this.$params.value);
+
+        combineLatest([
+            languageObservable,
+            currencyObservable,
+            valueObservable,
+        ])
             .pipe(takeUntil(this.$destroy))
-            .subscribe(({lang}) => {
-                this.setIntlCurrencyFormat(lang);
-                this.setDisplayValue();
+            .subscribe(([language, currency, value]) => {
+                this.language = language;
+                this.loaded = true;
+
+                this.updateParams({
+                    value,
+                    currency,
+                });
+
+                this.updateModel();
                 this.changeDetectorRef.markForCheck();
             });
+
+        this.$init = true;
+    }
+
+    protected updateParams(currentParams: Params.ICurrencyCParams = null): void {
+        this.$params = {
+            ...this.$params,
+            ...currentParams,
+            ...this.injectParams,
+            ...this.getInlineParams(),
+        };
+    }
+
+    protected updateModel(): void {
+        const model = new CurrencyModel(this.$params.value, {
+            language: this.language,
+            currency: this.$params.currency || 'EUR',
+            digitsInfo: this.$params.digitsInfo,
+        });
+
+        this.isNegative = model.numericValue < 0;
+        let currencyParts = [...model.currencyParts];
+
+        if (model.icon) {
+            currencyParts = _filter(model.currencyParts,
+                (part) => part.type !== 'currency' && part.type !== 'minusSign',
+            );
+            this.icon = model.icon;
+        } else {
+            this.icon = null;
+        }
+
+        if (this.$params.showIconOnly) {
+            currencyParts = _filter(currencyParts, (part) => part.type === 'currency');
+        }
+
+        this.displayValue = _join(_map(currencyParts, (part) => part.value), '').trim();
     }
 
     protected getInlineParams(): Params.ICurrencyCParams {
         const inline = {};
-        _each(['value', 'currency', 'digitsInfo', 'indicatorFormat'], (key) => {
+        _each(['value', 'currency', 'digitsInfo', 'showIconOnly'], (key) => {
             if (this[key] !== undefined) {
                 inline[key] = this[key];
             }
         });
-        return Object.keys(inline).length ? inline : null;
-    }
-
-    protected getUserCurrency(): void {
-        if (!this.currency) {
-            if (this.userService.userProfile$.getValue()) {
-                this.currency = this.userService.userProfile$.getValue().currency;
-                this.updateComponent();
-            } else {
-                this.userService.userProfile$
-                    .pipe(first((profile) => !!profile))
-                    .subscribe((profile: UserProfile) => {
-                        this.currency = profile.currency;
-                        this.updateComponent();
-                    });
-            }
-        }
-    }
-
-    /**
-     * @description
-     * Evaluates value once if it is a number.
-     *
-     * If it's a behavior subject it subscribes on it and reevaluates display value on each update.
-     */
-    protected processValue(): void {
-        if (this.value instanceof BehaviorSubject) {
-            if (!this.valueSubscribe) {
-                this.valueSubscribe = this.value.pipe(
-                    takeUntil(this.$destroy),
-                ).subscribe((nextValue) => {
-                    this.numericValue = _toNumber(nextValue) || 0;
-                    this.setDisplayValue();
-                    this.changeDetectorRef.markForCheck();
-                });
-            }
-        } else {
-            this.numericValue = _toNumber(this.$params.value) || 0;
-            this.setDisplayValue();
-            this.changeDetectorRef.markForCheck();
-        }
-    }
-
-    /**
-     * Parses digitsInfo and transforms its values in safe range
-     *
-     * @param allowFractionDigits how long faction can be
-     * @returns {Object} parsed and secured digitsInfo
-     */
-    protected getParsedDigitsInfo(allowFractionDigits: number): IParsedDigitsInfo {
-        const [
-            minimumIntegerDigits,
-            minimumFractionDigits,
-            maximumFractionDigits,
-        ] = _map(
-            _split(this.$params.digitsInfo, '-'),
-            _toInteger,
-        );
-
-        return {
-            minimumIntegerDigits: this.putInRange(minimumIntegerDigits || 1, 1, 21),
-            minimumFractionDigits: this.putInRange(minimumFractionDigits ?? 2, 0, allowFractionDigits),
-            maximumFractionDigits: this.putInRange(maximumFractionDigits ?? 2, 0, allowFractionDigits),
-        };
-    }
-
-    protected setIntlCurrencyFormat(lang: string): void {
-        this.intlCurrencyFormat = Intl.NumberFormat(lang, {
-            style: 'currency',
-            // pass usd if this is cryptocurrency, otherwise Intl inserts literal
-            currency: this.isCryptocurrency ? 'USD' : _toUpper(this.$params.currency).trim(),
-            currencyDisplay: this.$params.indicatorFormat,
-            useGrouping: true,
-            ...this.getParsedDigitsInfo(2),
-        });
-    }
-
-    /**
-     * For cryptocurrencies it looks for desirable format first, if it isn't found
-     * it looks for the available one in the following order:
-     *
-     * symbol -> narrowSymbol -> code -> name.
-     *
-     * For other currencies it sets 'symbol' if indicator format wasn't specified
-     */
-    protected setIndicatorFormat(): void {
-        if (this.isCryptocurrency) {
-            this.$params.indicatorFormat = _find<Params.IndicatorFormatType>(
-                [this.$params.indicatorFormat, 'symbol', 'narrowSymbol', 'code', 'name'],
-                (indicator) => !!this.currencyFormat[indicator],
-            );
-        } else {
-            this.$params.indicatorFormat ||= 'symbol';
-        }
-    }
-
-    /**
-     * Sets icon display information
-     *
-     * @param intlParts parts from Intl
-     */
-    protected setIcon(intlParts: CurrencyPart[]): void {
-        const minusSignIndex: number = _findIndex(intlParts, {type: 'minusSign'});
-        const currencyIndex: number = _findIndex(intlParts, {type: 'currency'});
-        const integerIndex: number = _findIndex(intlParts, {type: 'integer'});
-
-        this.displayIcon = {
-            icon: this.currencyFormat.icon,
-            minusBeforeCurrency: minusSignIndex < currencyIndex,
-            placement: integerIndex < currencyIndex
-                ? 'right'
-                : 'left',
-        };
-    }
-
-    /**
-     * Gets value formatted by Intl and transforms it if it's cryptocurrency
-     */
-    protected setDisplayValue(): void {
-        this.useIcon = !!this.currencyFormat.icon;
-
-        let intlParts: CurrencyPart[] = this.getIntlParts();
-
-        if (this.showIconOnly) {
-            intlParts = intlParts.filter(({type}) => type === 'currency');
-        }
-
-        if (this.useIcon) {
-            this.setIcon(intlParts);
-        } else {
-            this.displayIcon = null;
-        }
-
-        if (this.isCryptocurrency) {
-            intlParts = this.formatToCryptocurrency(intlParts);
-        }
-
-        this.displayValue = _map(intlParts, (part) => part.value).join('');
-        this.changeDetectorRef.markForCheck();
-    }
-
-    /**
-     * Formats value according to ISO 4217
-     */
-    protected getIntlParts(): CurrencyPart[] {
-        return this.intlCurrencyFormat.formatToParts(this.numericValue);
-    }
-
-    /**
-     * Transforms Intl format to cryptocurrency
-     *
-     * @param intlParts parts from Intl
-     */
-    protected formatToCryptocurrency(
-        intlParts: CurrencyPart[],
-    ): CurrencyPart[] {
-
-        return _reduce(intlParts, (acc, part) => {
-            if (part.type === 'currency') {
-                part.value = this.getCryptocurrencyIndicator();
-            } else if (part.type === 'fraction') {
-                part.value = this.getCryptocurrencyFraction();
-            } else if (part.type === 'minusSign' && this.displayIcon.placement === 'left') {
-                return acc;
-            }
-
-            return _concat(acc, part);
-        }, []);
-    }
-
-    /**
-     * @returns {string} indicator in desired format or empty string if icon would be used
-     */
-    protected getCryptocurrencyIndicator(): string {
-        if (this.useIcon) {
-            return '';
-        }
-
-        const chars: readonly number[] = this.currencyFormat[this.$params.indicatorFormat];
-
-        if (!chars) {
-            return _toUpper(this.$params.currency).trim();
-        }
-
-        return String.fromCharCode(...chars);
-    }
-
-    /**
-     * Intl doesn't format fraction with more then 2 digits after decimal point, so it has to be done manually
-     */
-    protected getCryptocurrencyFraction(): string {
-        const digitsInfo = this.getParsedDigitsInfo(this.currencyFormat.precision ?? 2);
-
-        return _padEnd(
-            _toNumber(this.numericValue.toString())
-                .toFixed(digitsInfo.maximumFractionDigits)
-                .toString()
-                .split('.')[1],
-            digitsInfo.minimumFractionDigits,
-            '0',
-        );
-    }
-
-    protected putInRange(num: number, start: number, end?: number): number {
-        const min = Math.max(num, start);
-        return Number.isFinite(end) ? Math.min(min, end) : min;
+        return _keys(inline).length ? inline : null;
     }
 }

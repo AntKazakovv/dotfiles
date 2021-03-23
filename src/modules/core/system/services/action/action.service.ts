@@ -4,7 +4,7 @@ import {
     Renderer2,
     RendererFactory2,
 } from '@angular/core';
-import {CurrencyPipe} from '@angular/common';
+import {TranslateService} from '@ngx-translate/core';
 import {UIRouter} from '@uirouter/core';
 import {
     BehaviorSubject,
@@ -12,7 +12,7 @@ import {
     fromEvent,
 } from 'rxjs';
 import {Observable} from 'rxjs';
-import {takeWhile} from 'rxjs/operators';
+import {filter, first, takeWhile} from 'rxjs/operators';
 
 import {
     ConfigService,
@@ -29,6 +29,8 @@ import {
     GlobalHelper,
 } from 'wlc-engine/modules/core';
 import {UserService} from 'wlc-engine/modules/user/system/services';
+import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
+import {CurrencyModel} from 'wlc-engine/modules/core/system/models/currency.model';
 
 import {
     forEach as _forEach,
@@ -81,6 +83,7 @@ export class ActionService {
         private eventService: EventService,
         private layoutService: LayoutService,
         private modalService: ModalService,
+        private translateService: TranslateService,
         private rendererFactory: RendererFactory2,
         private router: UIRouter,
     ) {
@@ -114,22 +117,29 @@ export class ActionService {
 
     public async processMessages(initialPath: IIndexing<string>): Promise<void> {
         switch (initialPath?.message) {
-            case 'PAYMENT_SUCCESS':
-                this.eventService.emit({
-                    name: NotificationEvents.PushMessage,
-                    data: <IPushMessageParams>{
-                        type: 'success',
-                        title: gettext('Payment success'),
-                        message: [
-                            gettext('Deposit completed successfully'),
-                            new CurrencyPipe('en_US', 'EUR').transform(initialPath.amount)
-                                + ' ' + gettext('were successfully deposited in your account.'),
-                        ],
-                        wlcElement: 'notification_deposit-success',
-                    },
+            case 'PAYMENT_SUCCESS': {
+                await this.configService.ready;
+                const userProfile$ = this.configService.get<BehaviorSubject<UserProfile>>(
+                    {name: '$user.userProfile$'},
+                );
+
+                userProfile$.pipe(filter((profile) => !!profile), first()).subscribe((profile) => {
+                    this.eventService.emit({
+                        name: NotificationEvents.PushMessage,
+                        data: <IPushMessageParams>{
+                            type: 'success',
+                            title: gettext('Payment success'),
+                            message: [
+                                gettext('Deposit completed successfully'),
+                                `<span wlc-currency [value]="${initialPath.amount}" [currency]="'${profile.currency}'"></span> ` + gettext('were successfully deposited in your account.'),
+                            ],
+                            displayAsHTML: true,
+                            wlcElement: 'notification_deposit-success',
+                        },
+                    });
                 });
                 break;
-            case 'PAYMENT_FAIL':
+            } case 'PAYMENT_FAIL':
                 this.eventService.emit({
                     name: NotificationEvents.PushMessage,
                     data: <IPushMessageParams>{

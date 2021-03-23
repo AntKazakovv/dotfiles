@@ -25,7 +25,7 @@ const config: IPreloadConfig[] = [
 
 const wlcPreload: IPreloadResult = {};
 
-(window as any).wlcPreload = wlcPreload;
+window.wlcPreload = wlcPreload;
 config.forEach((request) => {
 
     const req: Promise<IData> = fetch(request.url)

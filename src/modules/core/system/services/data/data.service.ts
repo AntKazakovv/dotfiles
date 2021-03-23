@@ -258,6 +258,11 @@ export class DataService {
         return requestId;
     }
 
+    public closeSocket():void {
+        this.socket?.close();
+        this.socketUrl = null;
+    }
+
     protected init(): void {
         if (this.socketUrl) {
             this.socketConnect();
@@ -441,7 +446,7 @@ export class DataService {
     }
 
     private onSocketClose(): void {
-        setTimeout(() => {
+        this.socketUrl && setTimeout(() => {
             this.socketConnect();
         }, 5000);
     }

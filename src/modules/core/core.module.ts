@@ -97,10 +97,6 @@ import {AuthDirective} from './directives/auth.directive';
 import {TruncatePipe} from './pipes/truncate.pipe';
 //  -- PIPES IMPORTS END  --;
 
-//  -- CONSTANTS IMPORTS STARTS--;
-import {CRYPTOCURRENCIES, cryptocurrencies} from 'wlc-engine/modules/core/constants/currency-formats.constant';
-//  -- CONSTANTS IMPORTS END  --;
-
 //  -- CONFIGS IMPORTS STARTS--;
 import {HammerConfig} from 'wlc-engine/modules/core/system/config/hammer.config';
 import {GlobalHelper} from 'wlc-engine/modules/core/index';
@@ -181,7 +177,6 @@ export const components = {
         ActionService,
         ModalService,
         ContactsService,
-        {provide: CRYPTOCURRENCIES, useValue: cryptocurrencies},
         {
             provide: HAMMER_GESTURE_CONFIG,
             useClass: HammerConfig,

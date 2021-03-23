@@ -2,14 +2,6 @@
 
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
 
-interface IWindow extends Window {
-    WLC_ENV?: string;
-    WLC_VERSION?: string;
-    WLC_FORBIDDEN?: boolean;
-    Fingerprint2?: any;
-    requestIdleCallback?: any;
-}
-
 interface IData extends IIndexing<any> {
     code: string;
     level: string;
@@ -26,7 +18,6 @@ class WlcFlog {
 
     private fingerprint: string;
     private isReadyResolve: voidFunction;
-    private window: IWindow = window;
 
     private isReady: Promise<void> = new Promise((resolve: voidFunction, reject: voidFunction) => {
         this.isReadyResolve = resolve;
@@ -50,8 +41,8 @@ class WlcFlog {
     };
 
     constructor() {
-        this.enabled = !this.window.WLC_ENV || document.cookie.indexOf('flog=') !== -1;
-        if (this.window.Fingerprint2) {
+        this.enabled = !window.WLC_ENV || document.cookie.indexOf('flog=') !== -1;
+        if (window.Fingerprint2) {
             this.getHash().finally(() => {
                 this.isReadyResolve();
             });
@@ -132,9 +123,9 @@ class WlcFlog {
      * @returns {Promise<void>}
      */
     private async getHash(): Promise<void> {
-        await this.window.Fingerprint2.getPromise(this.FP2Options).then((components: any) => {
+        await window.Fingerprint2.getPromise(this.FP2Options).then((components: any) => {
             const values = components.map((component: any) => component.value.toString());
-            this.fingerprint = this.window.Fingerprint2.x64hash128(values.join(''), 31);
+            this.fingerprint = window.Fingerprint2.x64hash128(values.join(''), 31);
         });
     }
 

@@ -38,6 +38,7 @@ export class MessageComponent
     };
     public image: IImage;
     public icon: string;
+    public isHTML: boolean;
 
     constructor(
         @Inject(NOTIFICATION_METADATA)
@@ -63,11 +64,12 @@ export class MessageComponent
         this.params.wlcElement = `${(this.params.wlcElement || 'notification_status-' + this.params.type)}`;
         super.ngOnInit(this.params);
 
-        const {title, message, action, image} = this.params;
+        const {title, message, action, image, displayAsHTML} = this.params;
 
         _assign(this, {
             title: title || this.$params.defaultTitles[this.$params.type],
             messages: _isArray(message) ? message : _isObject(message) ? _values(message) : [message],
+            isHTML: displayAsHTML,
             image,
             icon: this.$params.typeIcons[this.$params.type],
         });

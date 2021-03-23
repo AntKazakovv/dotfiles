@@ -51,7 +51,7 @@ export class UserService {
     }
 
     public get userProfile(): UserProfile {
-        if (this.profile.dataReady) {
+        if (this.profile?.dataReady) {
             return this.profile;
         } else {
             return null;
@@ -60,6 +60,7 @@ export class UserService {
 
     public userProfile$: BehaviorSubject<UserProfile> = new BehaviorSubject(null);
     public userInfo$: BehaviorSubject<UserInfo> = new BehaviorSubject(null);
+    private configUserProfile$: BehaviorSubject<UserProfile> = this.configService.get({name: '$user.userProfile$'});
 
     constructor(
         public translate: TranslateService,
@@ -72,6 +73,9 @@ export class UserService {
         stateService: StateService,
     ) {
         this.isAuthenticated = this.configService.get('$user.isAuthenticated');
+        this.userProfile$.subscribe((profile) => {
+            this.configUserProfile$.next(profile);
+        });
 
         this.registerMethods();
         this.info = new UserInfo(translate, eventService);
@@ -92,7 +96,7 @@ export class UserService {
         this.eventService.subscribe([
             {name: 'USER_PROFILE'},
         ], (profile: IData) => {
-            this.profile.data = profile.data;
+            this.profile.data = profile?.data;
             this.userProfile$.next(this.profile);
         });
 
@@ -144,8 +148,10 @@ export class UserService {
             stateService.go('app.home', {
                 locale: this.translate.currentLang,
             });
+            this.dataService.closeSocket();
             this.userInfo$.next(null);
-            this.profile = null;
+            this.userProfile$.next(new UserProfile());
+            this.profile = new UserProfile();
             this.stopUserInfoFetcher();
         });
 

@@ -2,10 +2,12 @@
 
 @mixin currencyBase {
     display: inline-flex;
+    align-items: baseline;
     flex-wrap: nowrap;
     color: map-get($themeDefault, textColor);
 
     .wlc-currency__icon {
+        align-self: center;
         font-family: CryptocurrencySymbols;
         font-style: normal !important;
         font-weight: normal !important;
