@@ -91,4 +91,4 @@ $baseSettings: map-merge((
     errorsFontSize: ef.get('form', 'errorsFontSize'),
     errorsPadding: ef.get('form', 'errorsPadding'),
     iconRightShift: ef.get('form', 'iconRightShift')
-), $customThemeDefault);
+), $customBaseSettings);
