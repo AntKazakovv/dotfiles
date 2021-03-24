@@ -13,17 +13,12 @@
         }
 
         &__elems {
-            display: flex;
-            margin-right: ef.get-value($themeDefault, 'spaceBetweenButtons') / 2 * -1;
-            margin-left: ef.get-value($themeDefault, 'spaceBetweenButtons') / 2 * -1;
-            margin-bottom: ef.get-value($themeDefault, 'spaceBetweenButtons') / 2 * -1;
+            display: grid;
+            grid-template-columns: ef.get-value($themeDefault, 'elemsColumns');
+            grid-gap: ef.get-value($themeDefault, 'elemsGap');
         }
 
         &__group {
-            flex: 1 1 auto;
-            margin-right: ef.get-value($themeDefault, 'spaceBetweenButtons') / 2;
-            margin-left: ef.get-value($themeDefault, 'spaceBetweenButtons') / 2;
-            margin-bottom: ef.get-value($themeDefault, 'spaceBetweenButtons') / 2;
             cursor: pointer;
 
             &.active {

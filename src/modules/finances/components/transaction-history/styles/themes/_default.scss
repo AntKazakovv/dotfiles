@@ -27,6 +27,10 @@
                 margin: ef.get-value($themeDefault, 'filterMargin');
             }
 
+            .wlc-btn {
+                min-height: ef.get-value($themeDefault, 'btnMinHeight');
+            }
+
             .wlc-btn.active {
                 background: ef.get('mainColors', 'buttonColor');
                 border-color: ef.get('mainColors', 'buttonColor');

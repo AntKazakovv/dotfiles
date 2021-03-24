@@ -41,5 +41,4 @@ export class HistoryFilterFormComponent extends AbstractComponent implements OnI
         super.ngOnInit(this.inlineParams);
         this.formData = this.$params.formData;
     }
-
 }

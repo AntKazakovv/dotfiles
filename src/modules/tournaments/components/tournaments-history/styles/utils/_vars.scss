@@ -1,0 +1,11 @@
+@use 'engine-scss/functions' as ef;
+
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'sectionMargin': ef.get('size', 'smaller') 0 0,
+    'sectionLoaderMinHeight': 400px,
+    'filterMargin': ef.get('size', 'smaller') 0 0,
+    'filterGap': ef.get('size', 'smally'),
+    'filterMinWidth': 140px,
+    'firstCellColumns': 1fr auto
+), $customThemeDefault);

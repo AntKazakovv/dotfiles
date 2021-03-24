@@ -53,6 +53,13 @@
         }
     }
 
+    &--history-filter {
+
+        .wlc-modal__dialog {
+            overflow: initial;
+        }
+    }
+
     .show {
 
         &:focus {

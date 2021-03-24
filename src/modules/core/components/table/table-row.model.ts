@@ -15,8 +15,7 @@ export class TableRowModel {
     constructor(
         private data: unknown,
         private params: Params.ITableCommonParams,
-    )
-    {
+    ) {
     }
 
     public getValue(col: Params.ITableCol, index?: number): string {
@@ -31,11 +30,11 @@ export class TableRowModel {
                 if (_isString(value)) {
                     return value;
                 } else {
-                    return (col.format ? value?.toFormat(col.format) : value?.toFormat('dd-MM-yyyy HH:mm:ss')) || value.toString();
+                    return (col.format ? value?.toFormat(col.format) : value?.toFormat('dd-MM-yyyy HH:mm:ss')) || value?.toString();
                 }
 
             default:
-                return col.mapValue ? col.mapValue(this.data) : _get(this.data, col.key);
+                return col.mapValue ? col.mapValue(this.data, index) : _get(this.data, col.key);
         }
     }
 

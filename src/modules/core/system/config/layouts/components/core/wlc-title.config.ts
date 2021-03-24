@@ -49,8 +49,17 @@ export namespace wlcTitle {
         name: 'core.wlc-title',
         params: {
             customMod: ['profile'],
-            mainText: gettext('Bet history'),
+            mainText: gettext('Bets history'),
             wlcElement: 'header_bet-history',
+        },
+    };
+
+    export const tournamentsHistory: ILayoutComponent = {
+        name: 'core.wlc-title',
+        params: {
+            customMod: ['profile'],
+            mainText: gettext('Tournaments history'),
+            wlcElement: 'header_history',
         },
     };
 

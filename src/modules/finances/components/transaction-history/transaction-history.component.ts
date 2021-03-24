@@ -31,6 +31,7 @@ import * as Params from './transaction-history.params';
 
 import {
     filter as _filter,
+    clone as _clone,
 } from 'lodash-es';
 
 @Component({
@@ -84,7 +85,7 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
     protected endDate: DateTime;
 
     public tableData: ITableCParams = {
-        noItemsText: gettext('No transaction history'),
+        noItemsText: gettext('No transactions history'),
         head: Params.transactionTableHeadConfig,
         rows: this.transaction,
     };
@@ -97,8 +98,7 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
         protected financesService: FinancesService,
         protected eventService: EventService,
         protected historyFilterService: HistoryFilterService,
-    )
-    {
+    ) {
         super(
             <IMixedParams<Params.ITransactionHistoryCParams>>{
                 injectParams: params,
@@ -173,11 +173,22 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
         return result;
     }
 
-    protected setMinMaxDate(): void {
+    protected setMinMaxDate(min: boolean = true, max: boolean = true): void {
         const dates = this.allTransactions.map((transaction) => transaction.date).sort();
 
-        this.startDate = (dates[0] || DateTime.local()).startOf('day');
-        this.endDate = (dates[dates.length - 1] || DateTime.local()).endOf('day');
+        if (min) {
+            this.startDate = (dates[0] || DateTime.local()).startOf('day');
+            this.startDateInput.control.setValue(this.startDate.toFormat('dd.LL.yyyy'));
+            this.startDateInput = _clone(this.startDateInput);
+        }
+
+        if (max) {
+            this.endDate = (dates[dates.length - 1] || DateTime.local()).endOf('day');
+            this.endDateInput.control.setValue(this.endDate.toFormat('dd.LL.yyyy'));
+            this.endDateInput = _clone(this.endDateInput);
+        }
+
+        this.cdr.detectChanges();
     }
 
     protected historyFilter(): void {

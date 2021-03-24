@@ -1,5 +1,7 @@
 <ng-template #default>
-    <div class="{{$class}}__content" *ngIf='ready'>
+    <div class="{{$class}}__content"
+         [@tableAppearance]="paginatedRows.length"
+         *ngIf='ready'>
 
         <div class="{{$class}}__row {{$class}}__row--head" *ngIf="rows.length">
             <span *ngFor="let col of head" class="{{$class}}__cell {{$class}}__cell--{{col.key}}"
@@ -22,7 +24,7 @@
 
                     <div class="{{$class}}__cell-content" *ngSwitchCase="'component'">
                         <ng-container [ngComponentOutlet]="col.componentClass"
-                                    [ngComponentOutletInjector]="getComponentInjector(item, col)">
+                                    [ngComponentOutletInjector]="getComponentInjector(item, $index, col)">
                         </ng-container>
                     </div>
 
@@ -87,15 +89,15 @@
         </div>
     </div>
 
-    <button type="button" 
-        *ngIf="rows.length > itemPerPage && !toggled" 
-        wlc-button text="Show more" 
+    <button type="button"
+        *ngIf="rows.length > itemPerPage && !toggled"
+        wlc-button text="Show more"
         (click)="toggleRows()">
     </button>
 
-    <button type="button" 
-        *ngIf="toggled" 
-        wlc-button text="Show less" 
+    <button type="button"
+        *ngIf="toggled"
+        wlc-button text="Show less"
         (click)="toggleRows()">
     </button>
 </ng-template>

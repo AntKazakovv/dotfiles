@@ -49,7 +49,7 @@ $submenuProfileDefault: map-merge((
     'submenuBorderBottom': ef.get('mainColors', 'baseOpacity'),
     'submenuBorderBottomHeight': 2px,
     'submenuMargin': (
-        375: 20px 0,
+        375: ef.get('size', 'smally') 0,
         1024: 0 0 40px,
     ),
     'submenuItemPadding': (

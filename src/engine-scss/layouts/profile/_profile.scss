@@ -45,6 +45,7 @@
     position: relative;
 
     .wlc-history-range {
+        margin-bottom: ef.get-value($profileSettings, 'rangeMarginBottom');
 
         @include mq.min(1024) {
             position: absolute;

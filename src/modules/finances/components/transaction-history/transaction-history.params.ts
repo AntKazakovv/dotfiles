@@ -2,6 +2,7 @@ import {IComponentParams, CustomType} from 'wlc-engine/modules/core/system/class
 import {ITableCol} from 'wlc-engine/modules/core/components/table/table.params';
 import {TransactionStatusComponent} from 'wlc-engine/modules/finances/components/transaction-history/transaction-status/transaction-status.component';
 import {TransactionCancelComponent} from 'wlc-engine/modules/finances/components/transaction-history/transaction-cancel/transaction-cancel.component';
+import {TransactionPreviewComponent} from 'wlc-engine/modules/finances/components/transaction-history/transaction-preview/transaction-preview.component';
 import {Transaction} from 'wlc-engine/modules/finances/system/models/transaction-history.model';
 
 export type Theme = 'default' | CustomType;
@@ -21,8 +22,10 @@ export const transactionTableHeadConfig: ITableCol[] = [
     {
         key: 'index',
         title: '#',
-        type: 'index',
+        type: 'component',
         order: 10,
+        mapValue: (item: Transaction, index?) => {return {transaction: item, index};},
+        componentClass: TransactionPreviewComponent,
         wlcElement: 'wlc-profile-table__cell_num',
     },
     {

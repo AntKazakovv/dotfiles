@@ -29,7 +29,7 @@ export interface ITableCol {
     type: TableColType;
     format?: string;
     order?: number;
-    mapValue?: (v: unknown) => unknown;
+    mapValue?: (v: unknown, index?: number) => unknown;
     component?: string;
     componentClass?: unknown;
     disableHideClass?: boolean;

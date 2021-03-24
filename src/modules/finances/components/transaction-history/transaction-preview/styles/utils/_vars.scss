@@ -1,0 +1,9 @@
+@use 'engine-scss/functions' as ef;
+
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'justify': (
+        375: flex-start,
+        1024: center
+    )
+), $customThemeDefault);

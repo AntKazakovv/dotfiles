@@ -15,7 +15,7 @@
     .wlc-datepicker__label {
         @include lib.get-text-style('SignText', ef.get-value($themeDefault, 'labelColor'));
         padding: ef.get-value($themeDefault, 'labelPadding');
-        margin: ef.get-value($themeDefault, 'labelMargin');
+        line-height: ef.get-value($themeDefault, 'labelLineHeight');
         cursor: pointer;
     }
 

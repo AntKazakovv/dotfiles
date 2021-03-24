@@ -31,5 +31,16 @@
                 min-width: ef.get-value($themeDefault, 'filterMinWidth');
             }
         }
+
+        .wlc-table::ng-deep {
+
+            .wlc-table__cell--first {
+                grid-template-columns: ef.get-value($themeDefault, 'firstCellColumns');
+
+                .wlc-table__cell-label {
+                    display: none;
+                }
+            }
+        }
     }
 }

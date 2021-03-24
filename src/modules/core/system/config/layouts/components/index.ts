@@ -63,4 +63,7 @@ export * from './tournaments/wlc-tournament-detail.config';
 
 export * from './sportsbook/wlc-sportsbook.config';
 
+
+export * from './tournaments/wlc-tournaments-history';
+
 export * from './tournaments/wlc-tournament-list.config';

@@ -15,6 +15,7 @@ import {DepositWithdrawComponent} from './components/deposit-withdraw/deposit-wi
 import {TransactionHistoryComponent} from './components/transaction-history/transaction-history.component';
 import {TransactionStatusComponent} from './components/transaction-history/transaction-status/transaction-status.component';
 import {TransactionCancelComponent} from './components/transaction-history/transaction-cancel/transaction-cancel.component';
+import {TransactionPreviewComponent} from './components/transaction-history/transaction-preview/transaction-preview.component';
 import {HistoryFilterComponent} from './components/history-filter/history-filter.component';
 import {HistoryFilterFormComponent} from './components/history-filter/history-filter-form/history-filter-form.component';
 import {HistoryRangeComponent} from './components/transaction-range/history-range.component';
@@ -60,6 +61,7 @@ export const components = {
         TransactionHistoryComponent,
         TransactionStatusComponent,
         TransactionCancelComponent,
+        TransactionPreviewComponent,
         HistoryFilterComponent,
         HistoryFilterFormComponent,
         HistoryRangeComponent,

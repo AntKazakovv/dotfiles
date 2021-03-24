@@ -142,7 +142,7 @@ export const $layouts: ILayoutsConfig = {
     'app.profile.loyalty-tournaments.history': {
         extends: 'app.profile',
         sections: {
-            content: sectionsLib.content.empty,
+            'profile-content': sectionsLib.profileContent.profileTournamentsHistory,
         },
     },
     'app.profile.loyalty-tournaments.detail': {

@@ -48,7 +48,6 @@ import {
     filter as _filter,
     find as _find,
     includes as _includes,
-    extend as _extend,
     reduce as _reduce,
     keys as _keys,
     isUndefined as _isUndefined,

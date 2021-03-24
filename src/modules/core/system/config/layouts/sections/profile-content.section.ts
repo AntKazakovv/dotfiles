@@ -161,4 +161,13 @@ export namespace profileContent {
             componentLib.wlcTournamentList.def,
         ],
     };
+
+    export const profileTournamentsHistory: ILayoutSectionConfig = {
+        container: true,
+        components: [
+            componentLib.wlcTournamentsHistory.filter,
+            componentLib.wlcProfileMenu.submenu,
+            componentLib.wlcTournamentsHistory.def,
+        ],
+    };
 }

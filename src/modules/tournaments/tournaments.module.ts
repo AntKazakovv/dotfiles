@@ -16,6 +16,7 @@ import {TournamentLeaderboardComponent} from './components/tournament/components
 import {TournamentPromoComponent} from './components/tournament/components/tournament-promo/tournament-promo.component';
 import {TournamentPrizesComponent} from './components/tournament/components/tournament-prizes/tournament-prizes.component';
 import {TournamentConditionComponent} from './components/tournament/components/tournament-condition/tournament-condition.component';
+import {TournamentsHistoryComponent} from './components/tournaments-history/tournaments-history.component';
 
 export const components = {
     'wlc-tournament-detail': TournamentDetailComponent,
@@ -25,10 +26,12 @@ export const components = {
     'wlc-tournament-promo': TournamentPromoComponent,
     'wlc-tournament-prizes': TournamentPrizesComponent,
     'wlc-tournament-condition': TournamentConditionComponent,
+    'wlc-tournaments-history': TournamentsHistoryComponent,
 };
 
 @NgModule({
     declarations: [
+        TournamentsHistoryComponent,
         TournamentDetailComponent,
         TournamentListComponent,
         TournamentComponent,
@@ -56,6 +59,7 @@ export const components = {
         TournamentLeaderboardComponent,
         TournamentPromoComponent,
         TournamentPrizesComponent,
+        TournamentsHistoryComponent,
     ],
 })
 

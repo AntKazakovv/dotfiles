@@ -41,6 +41,7 @@
 
             &.wlc-show {
                 border: ef.get-value($themeDefault, 'rowBorderOpenedMobile');
+                overflow: initial;
 
                 @include mq.min(1024) {
                     border: none;
@@ -109,6 +110,10 @@
 
             ::ng-deep p {
                 margin: 0;
+            }
+
+            &--type {
+                position: relative;
             }
 
             &--first {
@@ -192,6 +197,7 @@
                 }
 
                 @include em.betweenClass('.wlc-table__cell--first') {
+                    width: 100%;
                     justify-self: start;
                     text-align: start;
 

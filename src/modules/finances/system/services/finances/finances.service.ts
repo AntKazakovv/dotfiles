@@ -10,6 +10,7 @@ import {
     find as _find,
 } from 'lodash-es';
 import {FinancesHelper} from '../../helpers/finances.helper';
+import {IBet} from "wlc-engine/modules/finances/system/interfaces";
 
 interface ICancelWithdrawParams {
     id: number;
@@ -108,7 +109,7 @@ export class FinancesService {
         return (await this.dataService.request<IData>('finances/transactions', params)).data as Transaction[];
     }
 
-    public async getBetsList(params: any= {}): Promise<Transaction[]> {
+    public async getBetsList(params: any= {}): Promise<IBet[]> {
         return (await this.dataService.request<IData>('finances/bets', params)).data;
     }
 
