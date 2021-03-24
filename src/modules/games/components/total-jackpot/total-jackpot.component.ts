@@ -106,7 +106,7 @@ export class TotalJackpotComponent extends AbstractComponent implements OnInit, 
     private getLastJackpots(): void {
 
         this.dataService.subscribe('games/jackpots', (req: IData): void => {
-            if (req?.data) {
+            if (req?.data?.length) {
                 this.calcAmount(req.data);
                 this.getCurrency(req.data[0].currency);
             }

@@ -23,4 +23,5 @@ export const defaultParams: ITextBlockCParams = {
     moduleName: 'user',
     componentName: 'wlc-text-block',
     class: 'wlc-text-block',
+    common: {},
 };
