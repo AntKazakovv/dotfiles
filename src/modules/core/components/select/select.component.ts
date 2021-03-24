@@ -147,6 +147,7 @@ export class SelectComponent extends AbstractComponent implements OnInit,
             birthDay: this.selectValues.dayList,
             birthYear: this.selectValues.getDateList('years'),
             pep: this.selectValues.getPepList(),
+            merchants: this.selectValues.getMerchantsList(),
         };
     }
 

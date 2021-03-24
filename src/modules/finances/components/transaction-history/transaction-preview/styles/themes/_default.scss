@@ -1,0 +1,43 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/base.mixins' as bm;
+
+.wlc-transaction-preview--theme-default:host {
+    display: flex;
+    width: 100%;
+    @include bm.get-mq-map('justify-content', $themeDefault, 'justify');
+
+    .wlc-transaction-preview {
+
+        &__index {
+            display: block;
+        }
+
+        &__time {
+            display: block;
+            margin: 0 10px;
+
+            @include mq.min(1024) {
+                display: none;
+            }
+        }
+
+        &__amount {
+            display: block;
+            margin-right: 5px;
+            margin-left: auto;
+
+            @include mq.min(1024) {
+                display: none;
+            }
+
+            &.success {
+                color: ef.get('mainColors', 'success');
+            }
+
+            &.danger {
+                color: ef.get('mainColors', 'error');
+            }
+        }
+    }
+}

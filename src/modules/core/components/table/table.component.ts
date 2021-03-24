@@ -7,14 +7,23 @@ import {
     ChangeDetectionStrategy,
     Injector,
 } from '@angular/core';
-
-import {AbstractComponent, IMixedParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {HeightToggleAnimation} from 'wlc-engine/modules/core/system/animations/height-toggle.animation';
-import {LayoutService} from 'wlc-engine/modules/core/system/services';
-import {ActionService, ConfigService, DeviceModel, IDeviceConfig, DeviceType} from 'wlc-engine/modules/core';
 import {BehaviorSubject} from 'rxjs';
-import {takeUntil, filter} from 'rxjs/operators';
+import {PageChangedEvent} from "ngx-bootstrap/pagination";
+import {
+    animate,
+    query,
+    stagger,
+    style,
+    transition,
+    trigger,
+} from "@angular/animations";
+import {takeUntil} from 'rxjs/operators';
+import {AbstractComponent, IMixedParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {LayoutService} from 'wlc-engine/modules/core/system/services';
+import {ActionService, ConfigService,  DeviceType} from 'wlc-engine/modules/core';
 import {TableRowModel} from './table-row.model';
+import {HeightToggleAnimation} from 'wlc-engine/modules/core/system/animations/height-toggle.animation';
+
 import * as Params from './table.params';
 
 import {
@@ -24,14 +33,25 @@ import {
     uniq as _uniq,
     sortBy as _sortBy,
 } from 'lodash-es';
-import {PageChangedEvent} from "ngx-bootstrap/pagination";
 
 @Component({
     selector: '[wlc-table]',
     templateUrl: './table.component.html',
     styleUrls: ['./styles/table.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    animations: HeightToggleAnimation,
+    animations: [
+        trigger('tableAppearance', [
+            transition('* <=> *', [
+                query(':enter', [
+                    style({opacity: 0, transform: 'translateX(-35px)'}),
+                    stagger('0.2s', animate('0.2s',
+                        style({opacity: 1, transform: 'translateX(0)'},
+                        ))),
+                ], {optional: true}),
+            ]),
+        ]),
+        ...HeightToggleAnimation,
+    ],
 })
 export class TableComponent extends AbstractComponent implements OnInit {
 
@@ -109,9 +129,9 @@ export class TableComponent extends AbstractComponent implements OnInit {
         this.subscribeDeviceChange();
     }
 
-    public getComponentInjector(item: TableRowModel, col: Params.ITableCol): Injector {
+    public getComponentInjector(item: TableRowModel, index: number, col: Params.ITableCol): Injector {
         if (!item.paramsInjector[col.key]) {
-            const value = item.getValue(col) || {};
+            const value = item.getValue(col, index) || {};
             item.paramsInjector[col.key] = Injector.create({
                 providers: [
                     {
@@ -141,6 +161,7 @@ export class TableComponent extends AbstractComponent implements OnInit {
     public pageChanged(event: PageChangedEvent): void {
         const startItem = (event.page - 1) * event.itemsPerPage;
         const endItem = event.page * event.itemsPerPage;
+        this.actionService.scrollTo('body');
         this.paginatedRows = this.rows.slice(startItem, endItem);
         this.cdr.markForCheck();
     }

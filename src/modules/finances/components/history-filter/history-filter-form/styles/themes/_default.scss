@@ -22,6 +22,20 @@
             }
         }
 
+        .wlc-bonuses-filters {
+
+            .wlc-form {
+                grid-template-areas: ef.get-value($themeDefault, 'formBonusesTemplateAreas');
+            }
+        }
+
+        .wlc-tournaments-filters {
+
+            .wlc-form {
+                grid-template-areas: ef.get-value($themeDefault, 'formTournamentsTemplateAreas');
+            }
+        }
+
         .wlc-text-block {
             grid-area: ef.get-value($themeDefault, 'textBlockGridArea');
             width: 100%;
@@ -36,25 +50,36 @@
                     }
 
                     &__title {
+                        margin: 0;
                         text-align: ef.get-value($themeDefault, 'textBlockAlignment');
                     }
                 }
             }
         }
 
+        .wlc-select {
+            grid-area: ef.get-value($themeDefault, 'selectGridArea');
+            max-width: ef.get-value($themeDefault, 'selectMaxWidth');
+        }
+
         .wlc-radio-buttons {
             grid-area: ef.get-value($themeDefault, 'radioButtonsGridArea');
             width: 100%;
+
+            &__elems[class] {
+                margin: 0;
+                display: grid;
+            }
         }
 
         .wlc-datepicker {
             max-width: 100%;
 
-            &:nth-of-type(1) {
+            &--start {
                 grid-area: ef.get-value($themeDefault, 'datePicker1GridArea');
             }
 
-            &:nth-of-type(2) {
+            &--end {
                 grid-area: ef.get-value($themeDefault, 'datePicker2GridArea');
             }
         }

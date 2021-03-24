@@ -33,6 +33,7 @@ import {
     clone as _clone,
     sortBy as _sortBy,
 } from 'lodash-es';
+import {IBet} from "wlc-engine/modules/finances/system/interfaces";
 
 @Component({
     selector: '[wlc-bet-history]',
@@ -54,7 +55,7 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
         control: new FormControl(''),
     }
     public filterSelect = {
-        name: undefined,
+        name: 'type',
         value: 'all',
         common: {
             placeholder: gettext('Merchants'),
@@ -62,25 +63,20 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
         theme: 'vertical',
         labelText: 'Merchants',
         control: new FormControl(''),
-        items: [
-            {
-                title: 'All',
-                value: '',
-            },
-        ],
+        options: 'merchants',
     };
 
-    protected bets: any = new BehaviorSubject([]);
+    protected bets: BehaviorSubject<IBet[]> = new BehaviorSubject([]);
     protected startDate: DateTime = DateTime.now().minus({month: 1});
     protected endDate: DateTime = DateTime.now();
 
     public tableData: ITableCParams = {
-        noItemsText: gettext('No bet history'),
+        noItemsText: gettext('No bets history'),
         head: Params.betHistoryTableHeadConfig,
         rows: this.bets,
     };
 
-    protected allBets: any[] = [];
+    protected allBets: IBet[] = [];
 
     constructor(
         @Inject('injectParams') protected params: Params.IBetHistoryCParams,
@@ -105,15 +101,8 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
         });
 
         this.historyFilter();
+        this.setMinMaxDate();
 
-        await this.gamesCatalogService.ready;
-        this.filterSelect.items = this.filterSelect.items.concat(
-            _sortBy(this.gamesCatalogService?.getAvailableMerchants(), 'name')?.map(el => {
-                return {
-                    title: el.name,
-                    value: el.name,
-                };
-            }));
         this.filterSelect = _clone(this.filterSelect);
 
         this.bets.next(this.filterTransaction());
@@ -143,14 +132,17 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
         this.cdr.detectChanges();
     }
 
-    protected filterTransaction(): Transaction[] {
+    protected filterTransaction(): IBet[] {
 
-        let result: any[] = this.allBets || [];
+        let result: IBet[] = this.allBets || [];
 
         if (this.filterSelect.control.value) {
-            result = _filter(result, el => {
-                return el.Merchant === this.filterSelect.control.value;
-            });
+
+            if (this.filterSelect.control.value !== 'all') {
+                result = _filter(result, el => {
+                    return el.Merchant === this.filterSelect.control.value;
+                });
+            }
         }
 
         result = _filter(result, (item) => {
@@ -159,6 +151,20 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
         });
 
         return result;
+    }
+
+    protected setMinMaxDate(): void {
+        const dates = this.allBets.sort((a, b) => {
+            return DateTime.fromSQL(a.DateISO).toSeconds() - DateTime.fromSQL(b.DateISO).toSeconds();
+        });
+
+        this.startDate = (DateTime.fromSQL(dates[0].DateISO) || DateTime.local()).startOf('day');
+        this.endDate = (DateTime.fromSQL(dates[dates.length - 1].DateISO) || DateTime.local()).endOf('day');
+        this.startDateInput.control.setValue(this.startDate.toFormat('dd.LL.yyyy'));
+        this.endDateInput.control.setValue(this.endDate.toFormat('dd.LL.yyyy'));
+        this.startDateInput = _clone(this.startDateInput);
+        this.endDateInput = _clone(this.endDateInput);
+        this.cdr.detectChanges();
     }
 
     protected historyFilter(): void {
@@ -175,6 +181,7 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
             .subscribe((data) => {
                 this.endDate = data.endDate;
                 this.startDate = data.startDate;
+                this.filterSelect.control.setValue(data.filterType);
                 this.bets.next(this.filterTransaction());
             });
     }

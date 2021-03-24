@@ -6,12 +6,12 @@ import {
     OnInit,
 } from '@angular/core';
 import {Validators} from '@angular/forms';
-import {BehaviorSubject} from "rxjs";
+import {BehaviorSubject} from 'rxjs';
 import {distinctUntilChanged} from 'rxjs/operators';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ConfigService, ICountry, IInputCParams, ISelectCParams, SelectValuesService} from 'wlc-engine/modules/core';
 import {ISelectOptions} from 'wlc-engine/modules/core/components/select/select.params';
-import {UserService} from "wlc-engine/modules/user/system/services";
+import {UserService} from 'wlc-engine/modules/user/system/services';
 
 import * as Params from './phone-field.params';
 
@@ -43,7 +43,7 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
         super({injectParams, defaultParams: Params.defaultParams});
     }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.user.userProfile$.subscribe((profile => {
             if (profile) {
@@ -56,9 +56,13 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
                         if (country) {
                             this.$params.phoneCode.control.setValue(`+${+(country.phoneCode)}`);
                             this.$params.phoneCode.control.updateValueAndValidity({onlySelf: true});
+
+                            setTimeout(() => {
+                                this.setValidators(`+${+(country.phoneCode)}`);
+                                this.cdr.detectChanges();
+                            });
                         }
                     });
-                    this.cdr.detectChanges();
                 }
             }
         }));
@@ -79,9 +83,9 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
         const min = lengths?.minLength || 6;
         const max = lengths?.maxLength || 13;
 
-        this.$params.phoneNumber.maskOptions = _assign(this.$params.phoneNumber.maskOptions, {
-            max: '0'.repeat(max),
-        });
+        this.$params.phoneNumber.maskOptions = {
+            mask: new RegExp(`^\\d{0,${max}}$`),
+        };
         this.$params.phoneNumber.control.clearValidators();
         this.$params.phoneNumber.control.setValidators([Validators.minLength(min), Validators.required]);
         this.$params.phoneNumber.control.updateValueAndValidity({

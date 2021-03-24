@@ -1,12 +1,19 @@
-import {Injectable} from '@angular/core';
-import {map} from "rxjs/operators";
-import {BehaviorSubject} from "rxjs";
-import {DateTime, Info} from "luxon";
-import {ConfigService} from 'wlc-engine/modules/core/system/services';
+import {
+    Injectable,
+    Injector,
+} from '@angular/core';
+import {map} from 'rxjs/operators';
+import {BehaviorSubject} from 'rxjs';
+import {
+    DateTime,
+    Info,
+} from 'luxon';
+import {ConfigService, LayoutService} from 'wlc-engine/modules/core/system/services';
 import {ICountry, IIndexing} from "wlc-engine/modules/core";
-import {ICurrency} from "wlc-engine/modules/finances/system/interfaces";
+import {ICurrency} from 'wlc-engine/modules/finances/system/interfaces';
+import {GamesCatalogService} from 'wlc-engine/modules/games';
 
-import * as Params from "wlc-engine/modules/core/components/select/select.params";
+import * as Params from 'wlc-engine/modules/core/components/select/select.params';
 
 import {
     filter as _filter,
@@ -30,10 +37,13 @@ export class SelectValuesService {
     public daysInMonth: BehaviorSubject<number> = new BehaviorSubject(31);
     public dayList: BehaviorSubject<Params.ISelectOptions[]> = this.getDateList('days');
 
+    protected GamesCatalogService: GamesCatalogService;
+
     constructor(
         protected configService: ConfigService,
-    )
-    {
+        protected layoutService: LayoutService,
+        protected injector: Injector,
+    ) {
         this.daysInMonth.subscribe(() => {
             this.dayList.next(this.getDateList('days').value);
         });
@@ -164,5 +174,35 @@ export class SelectValuesService {
                 minLength: 9,
             },
         };
+    }
+
+    public getMerchantsList(): BehaviorSubject<Params.ISelectOptions[]> {
+        const merchants$ = new BehaviorSubject<Params.ISelectOptions[]>([
+            {
+                title: gettext('All'),
+                value: '',
+            },
+        ]);
+
+        (async () => {
+            await this.configService.ready;
+            await this.layoutService.importModules(['games']);
+            this.GamesCatalogService = this.injector.get(GamesCatalogService);
+            await this.GamesCatalogService.ready;
+
+            merchants$.next([
+                {
+                    title: gettext('All'),
+                    value: '',
+                },
+            ].concat(_sortBy(this.GamesCatalogService?.getAvailableMerchants(), 'name')?.map(el => {
+                return {
+                    title: el.name,
+                    value: el.name,
+                };
+            })));
+        })();
+
+        return merchants$;
     }
 }

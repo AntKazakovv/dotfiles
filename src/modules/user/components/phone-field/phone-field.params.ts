@@ -3,7 +3,6 @@ import {
     IInputCParams,
     ISelectCParams,
 } from 'wlc-engine/modules/core';
-import IMask from "imask";
 
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;
@@ -42,9 +41,7 @@ export let defaultParams: Partial<IPhoneFieldCParams> = {
             'required',
         ],
         maskOptions: {
-            mask: /^\d+$/,
-            max: '0'.repeat(13),
-            overwrite: true,
+            mask: new RegExp(/^\d{0,13}$/),
         },
     },
 };

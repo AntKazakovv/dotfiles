@@ -13,3 +13,16 @@ export interface ICryptoMessage {
     translate: string;
     wallet_currency: string;
 }
+
+export interface IBet {
+    Action: string;
+    Amount: string;
+    Currency: string;
+    Date: string;
+    DateISO: string;
+    GameID: string;
+    GameName: string;
+    Merchant: string;
+}
+
+

@@ -7,6 +7,8 @@ import {
     ElementRef,
     ChangeDetectorRef,
     AfterViewInit,
+    OnChanges,
+    SimpleChanges,
 } from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {TranslateService} from '@ngx-translate/core';
@@ -20,7 +22,12 @@ import {DateTime} from 'luxon';
 
 import {ConfigService} from 'wlc-engine/modules/core';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes';
+
 import * as Params from './datepicker.params';
+
+import {
+    get as _get,
+} from 'lodash-es';
 
 /**
  * Component datepicker
@@ -38,7 +45,7 @@ import * as Params from './datepicker.params';
     styleUrls: ['./styles/datepicker.component.scss'],
 })
 export class DatepickerComponent extends AbstractComponent implements OnInit,
-    AfterViewInit {
+    AfterViewInit, OnChanges {
     @Input() protected inlineParams: Params.IDatepickerCParams;
     @ViewChild('mask') mask: ElementRef;
     @ViewChild(AngularMyDatePickerDirective) dp: AngularMyDatePickerDirective;
@@ -52,8 +59,7 @@ export class DatepickerComponent extends AbstractComponent implements OnInit,
         protected configService: ConfigService,
         protected translateService: TranslateService,
         protected cdr: ChangeDetectorRef,
-    )
-    {
+    ) {
         super({injectParams, defaultParams: Params.defaultParams});
     }
 
@@ -93,6 +99,15 @@ export class DatepickerComponent extends AbstractComponent implements OnInit,
             this.dp.writeValue({
                 singleDate: this.dateToSingleDPModel(this.control.value),
             });
+        }
+    }
+
+    public ngOnChanges(changes: SimpleChanges): void {
+        const value: unknown = _get(changes, 'inlineParams.currentValue.control.value');
+        if (value) {
+            this.control.setValue(DateTime.fromFormat(value as string, 'dd.LL.yyyy'));
+            this.mask.nativeElement.mask.value = value;
+            this.cdr.markForCheck();
         }
     }
 

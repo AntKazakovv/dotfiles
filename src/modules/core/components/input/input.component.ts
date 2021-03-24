@@ -24,7 +24,7 @@ import * as Params from './input.params';
 import {
     union as _union,
     kebabCase as _kebabCase,
-    isObject as _isObject,
+    clone as _clone,
 } from 'lodash-es';
 
 /**
@@ -67,7 +67,9 @@ export class InputComponent extends AbstractComponent implements OnInit, OnChang
     public ngOnChanges(changes: SimpleChanges): void {
         if (this.$params) {
             super.ngOnChanges(changes);
+            this.$params = _clone(this.$params);
             this.cdr.detectChanges();
+            this.cdr.markForCheck();
         }
     }
 

@@ -7,4 +7,5 @@ $themeDefault: map-merge((
     'filterMargin': ef.get('size', 'smaller') 0 0,
     'filterGap': ef.get('size', 'smally'),
     'filterMinWidth': 140px,
+    'btnMinHeight': 40px,
 ), $customThemeDefault);

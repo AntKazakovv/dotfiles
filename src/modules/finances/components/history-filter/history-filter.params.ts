@@ -30,7 +30,7 @@ export const defaultParams: Partial<IHistoryFilterCParams> = {
 export namespace formConfig {
 
     export const transaction: IFormWrapperCParams = {
-        class: 'wlc-form-wrapper',
+        class: 'wlc-transaction-wrapper',
         components: [
             {
                 name: 'core.wlc-text-block',
@@ -68,6 +68,7 @@ export namespace formConfig {
                 params: <IDatepickerCParams>{
                     name: 'startDate',
                     label: gettext('Start Date'),
+                    customMod: ['start'],
                 },
             },
             {
@@ -75,6 +76,7 @@ export namespace formConfig {
                 params: <IDatepickerCParams>{
                     name: 'endDate',
                     label: gettext('End Date'),
+                    customMod: ['end'],
                     datepickerOptions: {
                         alignSelectorRight: true,
                     },
@@ -93,7 +95,7 @@ export namespace formConfig {
     };
 
     export const bonus: IFormWrapperCParams = {
-        class: 'wlc-form-wrapper',
+        class: 'wlc-bonuses-filters',
         components: [
             {
                 name: 'core.wlc-text-block',
@@ -110,6 +112,60 @@ export namespace formConfig {
                     common: {
                         placeholder: gettext('Sort by'),
                     },
+                    theme: 'vertical',
+                    labelText: gettext('Sort by'),
+                    items: [
+                        {
+                            value: 'all',
+                            title: 'All',
+                        },
+                        {
+                            value: '-100',
+                            title: 'Expired',
+                        },
+                        {
+                            value: '-99',
+                            title: 'Canceled',
+                        },
+                        {
+                            value: '100',
+                            title: 'Wagered',
+                        },
+                    ],
+                },
+            },
+            {
+                name: 'core.wlc-button',
+                params: <IButtonCParams>{
+                    name: 'submit',
+                    common: {
+                        text: gettext('Save'),
+                    },
+                },
+            },
+        ],
+    };
+
+    export const tournaments: IFormWrapperCParams = {
+        class: 'wlc-tournaments-filters',
+        components: [
+            {
+                name: 'core.wlc-text-block',
+                params: <ITextBlockCParams>{
+                    common: {
+                        textBlockTitle: gettext('Filter'),
+                    },
+                },
+            },
+            {
+                name: 'core.wlc-select',
+                params: <ISelectCParams>{
+                    name: 'filterType',
+                    common: {
+                        placeholder: gettext('Sort by'),
+                    },
+                    theme: 'vertical',
+                    labelText: gettext('Sort by'),
                     items: [
                         {
                             value: 'all',
@@ -136,20 +192,6 @@ export namespace formConfig {
                             title: gettext('Ended'),
                         },
                     ],
-                },
-            },
-            {
-                name: 'core.wlc-datepicker',
-                params: <IDatepickerCParams>{
-                    name: 'startDate',
-                    label: gettext('Start Date'),
-                },
-            },
-            {
-                name: 'core.wlc-datepicker',
-                params: <IDatepickerCParams>{
-                    name: 'endDate',
-                    label: gettext('End Date'),
                 },
             },
             {
@@ -180,6 +222,7 @@ export namespace formConfig {
                 params: <IDatepickerCParams>{
                     name: 'startDate',
                     label: gettext('Start Date'),
+                    customMod: ['start'],
                     datepickerOptions: {
                         alignSelectorRight: true,
                     },
@@ -190,6 +233,19 @@ export namespace formConfig {
                 params: <IDatepickerCParams>{
                     name: 'endDate',
                     label: gettext('End Date'),
+                    customMod: ['end'],
+                },
+            },
+            {
+                name: 'core.wlc-select',
+                params: <ISelectCParams>{
+                    name: 'filterType',
+                    common: {
+                        placeholder: gettext('Merchants'),
+                    },
+                    theme: 'vertical',
+                    labelText: gettext('Merchants'),
+                    options: 'merchants',
                 },
             },
             {

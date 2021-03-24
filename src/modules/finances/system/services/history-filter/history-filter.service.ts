@@ -14,9 +14,10 @@ export interface IHistoryData {
     transaction: BehaviorSubject<IIndexing<any>>;
     bonus: BehaviorSubject<IIndexing<any>>;
     bet: BehaviorSubject<IIndexing<any>>;
+    tournaments: BehaviorSubject<IIndexing<any>>;
 };
 
-export type HistoryType = 'transaction' | 'bonus' | 'bet';
+export type HistoryType = 'transaction' | 'bonus' | 'bet' | 'tournaments';
 
 @Injectable({
     providedIn: 'root',
@@ -29,6 +30,7 @@ export class HistoryFilterService {
         transaction: new BehaviorSubject(null),
         bonus: new BehaviorSubject(null),
         bet: new BehaviorSubject(null),
+        tournaments: new BehaviorSubject(null),
     };
 
     protected historyDefault: IIndexing<IIndexing<any>> = {
@@ -37,15 +39,16 @@ export class HistoryFilterService {
             endDate: undefined,
             startDate: undefined,
         },
-        bonus: {
-            filterType: 'all',
-            endDate: undefined,
-            startDate: undefined,
-        },
         bet: {
             filterType: 'all',
             endDate: undefined,
             startDate: undefined,
+        },
+        tournaments: {
+            filterType: 'all',
+        },
+        bonus: {
+            filterType: 'all',
         },
     };
 

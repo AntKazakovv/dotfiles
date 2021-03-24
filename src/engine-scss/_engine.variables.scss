@@ -430,6 +430,7 @@ $profileSettings: map-merge((
         1024: map-get($size, 'small')
     ),
     'profileBtnWeight': 700,
+    'rangeMarginBottom': map-get($size, 'smally'),
 ), $customProfileSettings);
 
 $container-padding-x: 0;

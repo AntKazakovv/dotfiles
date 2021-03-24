@@ -56,9 +56,12 @@ export class InputMaskDirective implements AfterViewInit,
     public ngAfterViewInit(): void {
         this.getPattern(this.wlcInputMask);
 
-        if (this.wlcInputMask) {
-            this.mask = IMask(this.element.nativeElement, this.wlcInputMask);
-            _assign(this.element.nativeElement, {mask: this.mask});
+        if (this.wlcInputMask?.mask) {
+
+            if (!this.mask) {
+                this.mask = IMask(this.element.nativeElement, this.wlcInputMask);
+                _assign(this.element.nativeElement, {mask: this.mask});
+            }
 
             fromEvent(this.element.nativeElement, 'keyup').subscribe(() => {
                 this.element.nativeElement.value = this.mask.value;
@@ -68,11 +71,16 @@ export class InputMaskDirective implements AfterViewInit,
     }
 
     public ngOnChanges(changes: SimpleChanges): void {
-        if (this.mask && (changes.wlcInputMask?.currentValue?.mask || this.wlcInputMask)) {
-            this.getPattern(changes.wlcInputMask.currentValue.mask);
-            this.mask.updateOptions(this.wlcInputMask);
-            this.cdr.detectChanges();
+        this.getPattern(this.wlcInputMask);
+        if (!this.mask && this.wlcInputMask?.mask) {
+            this.mask = IMask(this.element.nativeElement, this.wlcInputMask);
+            _assign(this.element.nativeElement, {mask: this.mask});
         }
+
+        setTimeout(() => {
+            this.element.nativeElement?.mask?.updateOptions(changes.wlcInputMask?.currentValue);
+            this.cdr.detectChanges();
+        });
     }
 
     public ngOnDestroy(): void {
@@ -84,7 +92,7 @@ export class InputMaskDirective implements AfterViewInit,
             switch (pattern) {
                 case 'textField': {
                     this.wlcInputMask = {
-                        mask: /^[a-zA-zА-Яа-яёЁ][a-zA-zА-Яа-яёЁ\s\-]{0,50}$/,
+                        mask: /^[a-zA-zА-Яа-яёЁ][a-zA-zА-Яа-яёЁ\s\-]{0,49}$/,
                     };
                     break;
                 }

@@ -8,6 +8,7 @@ export const HeightToggleAnimation = [
             paddingBottom: '*',
             opacity: 1,
             overflow: 'initial',
+            offset: 0.8,
         })),
         state('closed', style({
             height: '0px',
@@ -16,10 +17,8 @@ export const HeightToggleAnimation = [
             opacity: 0,
             overflow: 'hidden',
         })),
-        transition('void => *', [
-            animate(0),
-        ]),
-        transition('* => *', [
+
+        transition('opened <=> closed', [
             animate((() => 300)()),
         ]),
     ]),

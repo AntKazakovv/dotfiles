@@ -3,10 +3,10 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'animationTime': ef.get('time', 'main'),
-    'textColor': ef.get('mainColors', 'bg100'),
+    'textColor': ef.get('mainColors', 'baseMain'),
     'openIconColor': ef.get('fieldColors', 'arrowColor'),
     'openIconColorOpened':ef.get('mainColors', 'baseMain'),
-    'rowGapMobile': ef.get('size', 'smaller'),
+    'rowGapMobile': ef.get('size', 'small'),
     'borderColorMobile': ef.get('mainColors', 'main'),
     'fontSize': (
         375: ef.get('font', 'main'),

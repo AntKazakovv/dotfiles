@@ -8,6 +8,7 @@ import {FormControl} from '@angular/forms';
 import {BehaviorSubject} from 'rxjs';
 import {
     takeUntil,
+    filter,
 } from 'rxjs/operators';
 import {DateTime} from 'luxon';
 
@@ -18,10 +19,7 @@ import {
     ITableCParams,
     ISelectCParams,
 } from 'wlc-engine/modules/core';
-import {
-    FinancesService,
-    HistoryFilterService,
-} from 'wlc-engine/modules/finances/system/services';
+import {HistoryFilterService} from 'wlc-engine/modules/finances/system/services';
 import {BonusesService} from 'wlc-engine/modules/bonuses/system/services';
 import {Transaction} from 'wlc-engine/modules/finances/system/models/transaction-history.model';
 import {HistoryItemModel} from 'wlc-engine/modules/bonuses/system/models/bonus-history-item.model';
@@ -46,10 +44,13 @@ export class BonusesHistoryComponent extends AbstractComponent implements OnInit
     public $params: Params.IBonusesHistoryCParams;
 
     public filterSelect: ISelectCParams = {
-        name: undefined,
+        name: 'bonuses',
         value: 'all',
-        labelText: 'Status',
+        common: {
+            placeholder: gettext('Status'),
+        },
         theme: 'vertical',
+        labelText: gettext('Status'),
         control: new FormControl('all'),
         items: [
             {
@@ -85,7 +86,6 @@ export class BonusesHistoryComponent extends AbstractComponent implements OnInit
     constructor(
         @Inject('injectParams') protected params: Params.IBonusesHistoryCParams,
         protected cdr: ChangeDetectorRef,
-        protected financesService: FinancesService,
         protected eventService: EventService,
         protected historyFilterService: HistoryFilterService,
         protected bonusesService: BonusesService,
@@ -114,6 +114,7 @@ export class BonusesHistoryComponent extends AbstractComponent implements OnInit
             this.bets.next(this.filterTransaction());
         });
 
+        this.historyFilter();
         this.ready = true;
         this.cdr.markForCheck();
     }
@@ -133,5 +134,21 @@ export class BonusesHistoryComponent extends AbstractComponent implements OnInit
         });
 
         return result;
+    }
+
+    protected historyFilter(): void {
+        this.historyFilterService.setDefaultFilter('bonus', {
+            filterType: this.filterSelect.value,
+        });
+
+        this.historyFilterService.getFilter('bonus')
+            .pipe(
+                takeUntil(this.$destroy),
+                filter((data) => !!data),
+            )
+            .subscribe((data) => {
+                this.filterType = data.filterType;
+                this.bets.next(this.filterTransaction());
+            });
     }
 }

@@ -4,10 +4,10 @@ $customThemeDefault: () !default;
 
 $themeDefault: map-merge((
     'hostMargin': 20px auto,
-    'pagginationPadding': 0,
+    'paginationPadding': 0,
     'activePaginationArrowColor': ef.get('mainColors', 'main'),
     'activePaginationArrowColorHover': darken(ef.get('mainColors', 'main'), 10%),
-    'pageItemMargin': 0 ef.get('size', 'smaller'),
+    'pageItemMargin': 0 ef.get('size', 'smaller') 0 0,
     'pageItemHeight': ef.get('size', 'main'),
     'pageItemWidth': ef.get('size', 'main'),
     'pageItemRadius': ef.get('radius', 'biger'),
