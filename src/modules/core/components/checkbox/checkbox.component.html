@@ -27,6 +27,7 @@
         <input
             type="checkbox"
             name="{{$params.name}}"
+            [attr.data-wlc-element]='fieldWlcElement'
             ngDefaultControl
             [formControl]="control"
             class="{{$class}}__checkbox"/>
