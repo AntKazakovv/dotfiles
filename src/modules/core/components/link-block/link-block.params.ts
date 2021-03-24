@@ -35,4 +35,5 @@ export const defaultParams: ILinkBlockCParams = {
     moduleName: 'core',
     componentName: 'wlc-link-block',
     class: 'wlc-link-block',
+    common: {},
 };

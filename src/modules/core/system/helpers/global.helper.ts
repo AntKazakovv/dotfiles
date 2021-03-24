@@ -158,7 +158,7 @@ export class GlobalHelper {
             }
         });
 
-        return _keys(inlineParams.common).length ? inlineParams : {common: {}};
+        return _keys(inlineParams.common).length ? inlineParams: null;
     }
 
     /**
