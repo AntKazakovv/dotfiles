@@ -1,31 +1,37 @@
 <ng-template #sref let-item="item">
     <a uiSref="app.contacts"
-        uiSrefActive="active"
-        [uiParams]="{slug: item.slug}"
-        class="{{$class}}__link"
-        [attr.data-wlc-element]="'left_link_' + item.slug">
+       uiSrefActive="active"
+       [uiParams]="{slug: item.slug}"
+       class="{{$class}}__link"
+       [attr.data-wlc-element]="'left_link_' + item.slug">
         <span>{{item.title | translate}}</span>
     </a>
 </ng-template>
 
 <ng-template #href let-item="item">
-    <a href="{{basePath + item.slug}}"
-        class="{{$class}}__link"
-        [attr.data-wlc-element]="'link_' + item.slug">
+    <a href="{{item.outerLink ? getFullOuterLink(item) : basePath + item.slug}}"
+       class="{{$class}}__link"
+       [target]="item.outerLink ? '_blank' : '_self'"
+       [attr.data-wlc-element]="'link_' + item.slug">
         <span>{{item.title | translate}}</span>
     </a>
 </ng-template>
 
-
 <div *ngIf="isReady; else preloader" class="{{$class}}__wrp">
     <div class="{{$class}}__title" *ngIf="title">{{title | translate}}</div>
     <div class="{{$class}}__items">
-        <div class="{{$class}}__item" *ngFor="let menuItem of menuItems" [ngSwitch]="type">
-            <ng-container *ngSwitchCase="'sref'" [ngTemplateOutlet]="sref" [ngTemplateOutletContext]="{item: menuItem}">
+        <div class="{{$class}}__item" *ngFor="let menuItem of menuItems">
+            <ng-container *ngIf="menuItem.outerLink" [ngTemplateOutlet]="href" [ngTemplateOutletContext]="{item: menuItem}">
             </ng-container>
 
-            <ng-container *ngSwitchCase="'href'" [ngTemplateOutlet]="href" [ngTemplateOutletContext]="{item: menuItem}">
+            <ng-container *ngIf="!menuItem.outerLink" [ngSwitch]="type">
+                <ng-container *ngSwitchCase="'sref'" [ngTemplateOutlet]="sref" [ngTemplateOutletContext]="{item: menuItem}">
+                </ng-container>
+
+                <ng-container *ngSwitchCase="'href'" [ngTemplateOutlet]="href" [ngTemplateOutletContext]="{item: menuItem}">
+                </ng-container>
             </ng-container>
+
         </div>
     </div>
 </div>
