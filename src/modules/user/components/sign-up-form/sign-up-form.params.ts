@@ -21,6 +21,7 @@ export interface ISignUpFormCParams extends IComponentParams<ComponentTheme, Com
 
 export const defaultParams: ISignUpFormCParams = {
     class: 'wlc-sign-up-form',
+    wlcElement: 'modal_signup',
 };
 
 export const signUpFormConfig: IFormWrapperCParams = {
@@ -30,6 +31,7 @@ export const signUpFormConfig: IFormWrapperCParams = {
             name: 'core.wlc-input',
             params: {
                 theme: 'vertical',
+                wlcElement: 'block_email',
                 common: {
                     placeholder: gettext('E-mail'),
                     type: 'email',
@@ -43,6 +45,7 @@ export const signUpFormConfig: IFormWrapperCParams = {
             name: 'core.wlc-input',
             params: {
                 theme: 'vertical',
+                wlcElement: 'block_password-current',
                 common: {
                     placeholder: gettext('Password'),
                     type: 'password',
@@ -68,6 +71,7 @@ export const signUpFormConfig: IFormWrapperCParams = {
                 labelText: gettext('Currency'),
                 options: 'currencies',
                 theme: 'vertical',
+                wlcElement: 'block_currency',
                 common: {
                     customModifiers: 'currency',
                 },
@@ -79,6 +83,7 @@ export const signUpFormConfig: IFormWrapperCParams = {
             name: 'core.wlc-input',
             params: {
                 theme: 'vertical',
+                wlcElement: 'block_promocode',
                 common: {
                     placeholder: gettext('Promocode'),
                     customModifiers: 'promocode',
@@ -91,6 +96,7 @@ export const signUpFormConfig: IFormWrapperCParams = {
             params: {
                 checkboxType: 'terms',
                 name: 'agreedWithTermsAndConditions',
+                wlcElement: 'block_rules',
                 common: {
                     customModifiers: 'terms',
                 },
@@ -101,6 +107,7 @@ export const signUpFormConfig: IFormWrapperCParams = {
             params: {
                 checkboxType: 'age',
                 name: 'ageConfirmed',
+                wlcElement: 'block_age-confirm',
                 common: {
                     customModifiers: 'age',
                 },
@@ -109,6 +116,7 @@ export const signUpFormConfig: IFormWrapperCParams = {
         {
             name: 'core.wlc-button',
             params: {
+                wlcElement: 'button_register-submit',
                 common: {
                     text: gettext('Sign up'),
                     type: 'submit',
@@ -118,6 +126,7 @@ export const signUpFormConfig: IFormWrapperCParams = {
         {
             name: 'core.wlc-link-block',
             params: {
+                wlcElement: 'button_login-modal',
                 common: {
                     subtitle: gettext('Already have an account?'),
                     link: gettext('Sign in now'),

@@ -104,6 +104,7 @@ export const defaultParams: IStepsParams = {
                             {
                                 name: 'core.wlc-button',
                                 params: {
+                                    wlcElement: 'button_next',
                                     common: {
                                         customModifiers: 'next-step',
                                         text: gettext('Next'),
@@ -116,6 +117,7 @@ export const defaultParams: IStepsParams = {
                             {
                                 name: 'core.wlc-link-block',
                                 params: {
+                                    wlcElement: 'login',
                                     common: {
                                         subtitle: gettext('Already have an account?'),
                                         link: gettext('Sign in now'),
@@ -167,6 +169,7 @@ export const defaultParams: IStepsParams = {
                                         {
                                             name: 'core.wlc-link-block',
                                             params: {
+                                                wlcElement: 'back',
                                                 common: {
                                                     link: gettext('Back'),
                                                     actionParams: {
