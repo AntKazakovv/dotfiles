@@ -26,7 +26,7 @@
              [ngClass]="[lang.code === currentLanguage.code ? $class + '__item--active': '']">
 
             <a href="/{{lang.code}}"
-               class="{{$class}}__link"
+               class="{{$class}}__link" [attr.data-wlc-element]="'link_' + lang.code"
                (click)="changeLanguage(lang.code, $event)">
 
                 <span *ngIf="!$params.dropdown?.hideFlag" class="{{$class}}__link-flag">
