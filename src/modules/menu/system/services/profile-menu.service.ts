@@ -81,6 +81,8 @@ export class ProfileMenuService {
                     menuItem = _cloneDeep(wlcProfileMenuItemsGlobal[item]);
                 } else if (_has(item, 'parent')) {
                     menuItem = _cloneDeep(wlcProfileMenuItemsGlobal[_get(item, 'parent')]);
+                } else if (_has(item, 'name')) {
+                    menuItem = _cloneDeep(item);
                 }
                 MenuHelper.setIcon(menuItem, iconsFolder, disbaleIcons);
                 return menuItem;
