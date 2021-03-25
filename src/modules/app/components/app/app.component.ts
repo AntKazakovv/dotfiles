@@ -8,9 +8,17 @@ import {
 import {TranslateService} from '@ngx-translate/core';
 import {StateService, TransitionService, UIRouter, UIRouterGlobals} from '@uirouter/core';
 import {Title, Meta} from '@angular/platform-browser';
+import {Deferred} from 'wlc-engine/modules/core/system/classes';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {SectionModel} from 'wlc-engine/modules/core/system/models/section.model';
-import {ConfigService, LayoutService, EventService, ILanguage, ActionService, DeviceModel} from 'wlc-engine/modules/core';
+import {
+    ConfigService,
+    LayoutService,
+    EventService,
+    ILanguage,
+    ActionService,
+    DeviceModel,
+} from 'wlc-engine/modules/core';
 
 import {fromEvent} from 'rxjs/internal/observable/fromEvent';
 import {takeUntil, filter} from 'rxjs/operators';
@@ -67,7 +75,7 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
         this.isIOS = this.actionService.device.osName === 'ios';
     }
 
-    public ngOnInit(): void {
+    public async ngOnInit(): Promise<void> {
         this.translate.onLangChange.pipe(takeUntil(this.$destroy)).subscribe((v) => {
             this.stateService.go(
                 this.stateService.current.name,
@@ -81,12 +89,23 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
 
         this.panels = _sortBy(this.layoutService
             .getAllSection('panels', this.uiRouter.current.name, this.uiRouter.params), 'order');
-
         this.sections = _sortBy(this.layoutService
             .getAllSection('pages', this.uiRouter.current.name, this.uiRouter.params), 'order');
 
+        let filteredPanels = [];
+        if (!this.configService.get<boolean>('isPanelsFiltered')) {
+            const deferred = new Deferred();
+            const handler = this.eventService.subscribe({name: 'FILTER_PANELS'}, (data: SectionModel[]) => {
+                filteredPanels = data;
+                deferred.resolve();
+                handler.unsubscribe();
+            });
+            await deferred.promise;
+        } else {
+            filteredPanels = this.sections;
+        }
         const sections = _union(
-            this.panels.map((item) => item.name),
+            filteredPanels.map((item) => item.name),
             this.sections.map((item) => item.name),
         );
         const ready = this.eventService.subscribe<{sectionName: string}>({name: 'SECTION_READY'}, (event) => {

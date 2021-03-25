@@ -84,7 +84,7 @@ export class FloatPanelsComponent extends AbstractComponent implements OnInit {
             this.panelIds = _map(this.sections, (section: SectionModel) => section.name);
             _each(this.sections, (section) => {
                 _each(this.sectionOptions, (param) => {
-                    if (!_isUndefined(section[param])  && !_get(this.$params, `panels.${section.name}.${param}`)) {
+                    if (!_isUndefined(section[param]) && !_get(this.$params, `panels.${section.name}.${param}`)) {
                         _set(this.$params, `panels.${section.name}.${param}`, section[param]);
                     }
                 });
@@ -173,6 +173,15 @@ export class FloatPanelsComponent extends AbstractComponent implements OnInit {
             },
             this.$destroy,
         );
+
+        this.eventService.emit({
+            name: 'FILTER_PANELS',
+            data: this.shownSections,
+        });
+        this.configService.set({
+            name: 'isPanelsFiltered',
+            value: true,
+        });
     }
 
     protected firstPanelNameByType(type: PanelsType): string {
