@@ -162,6 +162,30 @@
             }
         }
     }
+
+    &.wlc-modal--data-is-processing {
+        background: rgba($color: ef.get-value($hostModal, 'backdropBackground'), $alpha: 0.6);
+
+        .wlc-modal__wrapper {
+            @include mq.max(560) {
+                padding: 0;
+            }
+        }
+
+        .wlc-modal__dialog {
+            @include mq.max(560) {
+                height: 100%;
+                margin: auto;
+                box-shadow: 0 0 20px darken($color: ef.get-value($hostModal, 'backdropBackground'), $amount: 20%);
+
+                .wlc-modal__body {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                }
+            }
+        }
+    }
 }
 
 body.modal-open {

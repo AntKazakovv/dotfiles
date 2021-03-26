@@ -45,13 +45,19 @@
 
         .wlc-burger-panel__user-info {
             margin: 30px 20px 20px;
+            grid-template:
+                'name logout'
+                'stats stats';
+            display: grid;
+            align-items: center;
+            grid-template-columns: 1fr auto;
 
             .wlc-user-name {
-                display: inline-flex;
+                grid-area: name;
             }
 
             .wlc-logout {
-                display: inline-flex;
+                grid-area: logout;
             }
 
             .wlc-user-stats {
@@ -60,6 +66,7 @@
         }
 
         .wlc-burger-panel__user-stat {
+            grid-area: stats;
 
             & > .wlc-btn {
                 margin: 0 auto;

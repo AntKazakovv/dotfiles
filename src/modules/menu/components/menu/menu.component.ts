@@ -68,7 +68,8 @@ import {
             transition('* => *', [
                 animate('0.3s'),
             ]),
-        ])],
+        ]),
+    ],
 })
 export class MenuComponent extends AbstractComponent implements OnInit, OnChanges, AfterViewInit {
     public items: Params.MenuItemObjectType[];
@@ -227,7 +228,7 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
                     templateParams: templateParams,
                 });
             });
-            
+
             if (this.slider && this.$params?.common?.swiper?.scrollToStart) {
                 this.slider.scrollToStart();
                 this.slider.update();

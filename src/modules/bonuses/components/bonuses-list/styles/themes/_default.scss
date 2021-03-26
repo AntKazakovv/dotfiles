@@ -1,5 +1,6 @@
 @use 'engine-scss/mixins/mediaqueries' as mq;
 @use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/base.mixins' as bm;
 @import '../utils/vars';
 
 .wlc-bonuses-list--theme-default {
@@ -7,38 +8,13 @@
     &:host {
 
         .wlc-bonuses-list__list {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-
-            > div {
-                width: 100%;
-                margin-bottom: ef.get-value($themeDefault, 'gridGap');
-            }
-
-            @include mq.min(720) {
-                display: grid;
-                grid-gap: ef.get-value($themeDefault, 'gridGap');
-                //grid-template-columns: repeat(auto-fill, minmax(ef.get-value($themeDefault, 'minItemWidth'), 1fr));
-                grid-template-columns: 1fr 1fr;
-
-                > div {
-                    margin-bottom: 0;
-                }
-            }
-
-            @include mq.min(1200) {
-                //grid-template-columns: repeat(auto-fill, minmax(ef.get-value($themeDefault, 'minItemWidthDesktop'), 1fr));
-                grid-template-columns: 1fr 1fr;
-            }
+            display: grid;
+            grid-gap: ef.get-value($themeDefault, 'gridGap');
+            @include bm.get-mq-map('grid-template-columns', $themeDefault, 'gridColumn');
         }
 
         .wlc-bonuses-list__nocontent {
-            text-align: center;
-
-            @include mq.min(1024) {
-                text-align: left;
-            }
+            @include bm.get-mq-map('text-align', $themeDefault, 'alignNoContent');
         }
     }
 }
@@ -59,7 +35,7 @@
                 }
 
                 .swiper-slide {
-                    width: 300px;
+                    width: ef.get-value($themeDefault, 'swiperWidth');
                     will-change: transform;
                 }
 
@@ -69,20 +45,12 @@
 
                 .swiper-button-next {
                     right: 0;
-                    display: none;
-
-                    @include mq.min(720) {
-                        display: flex;
-                    }
+                    @include bm.get-mq-map('dispaly', $themeDefault, 'swiperButtonDisplay');
                 }
 
                 .swiper-button-prev {
                     left: 0;
-                    display: none;
-
-                    @include mq.min(720) {
-                        display: flex;
-                    }
+                    @include bm.get-mq-map('dispaly', $themeDefault, 'swiperButtonDisplay');
                 }
             }
         }

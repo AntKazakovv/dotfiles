@@ -1,5 +1,6 @@
 @use 'engine-scss/functions' as ef;
 @use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/base.mixins' as em;
 
 @import '../utils/vars';
 
@@ -30,10 +31,16 @@
         }
 
         .wlc-loyalty-progress {
-            grid-area: stats;
             max-width: 300px;
             width: 100%;
             margin-left: auto;
+        }
+
+        .wlc-loyalty-progress,
+        .wlc-user-stats {
+            position: absolute;
+            @include em.get-mq-map('top', $storeThemeDefault, 'statTop');
+            @include em.get-mq-map('right', $storeThemeDefault, 'statRight');
         }
 
         .wlc-loyalty-table,
@@ -45,7 +52,7 @@
             grid-area: submenu;
 
             @include mq.min(1024) {
-                margin: -20px 0 0;
+                margin: 0;
             }
         }
     }

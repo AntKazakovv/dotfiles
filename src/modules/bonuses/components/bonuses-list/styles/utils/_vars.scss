@@ -6,6 +6,22 @@ $themeDefault: map-merge((
     'minItemWidth': 280px,
     'minItemWidthDesktop': 320px,
     'swiperPadding': 0 ef.get('size', 'smaller') - 1px 0 ef.get('size', 'smaller') - 1px,
+    'swiperWidth': 300px,
+    'swiperButtonDisplay': (
+        375: none,
+        720: flex,
+    ),
+
+    'gridColumn': (
+        375: 1fr,
+        720: 1fr 1fr,
+        1200: 1fr 1fr 1fr,
+    ),
+    'alignNoContent': (
+        375: center,
+        1024: left,
+    )
+
 ), $customThemeDefault);
 
 $customThemePromo: () !default;

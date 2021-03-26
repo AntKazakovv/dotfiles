@@ -206,6 +206,7 @@ export class GamesGridComponent extends AbstractComponent
         setTimeout(() => {
             this.actionService.scrollTo(this.elementRef.nativeElement, {
                 position: 'end',
+                offsetY: 40,
             });
         }, 500);
         this.cdr.detectChanges();

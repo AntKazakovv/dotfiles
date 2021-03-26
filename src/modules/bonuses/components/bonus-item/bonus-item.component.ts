@@ -31,10 +31,6 @@ import * as Params from './bonus-item.params';
 
 import {
     union as _union,
-    get as _get,
-    isUndefined as _isUndefined,
-    keys as _keys,
-    forEach as _forEach,
 } from 'lodash-es';
 
 @Component({
@@ -123,11 +119,11 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
         this.isNoChooseBtn = this.$params.common?.hideChooseBtn && this.isTypeRegDeposit;
         this.isChooseBtn = !this.$params.common?.hideChooseBtn && this.isTypeRegDeposit;
 
-        if (!this.$params.common.bonus.description) {
+        if (!this.$params.common.bonus?.description) {
             this.addModifiers('no-description');
         }
 
-        if (this.$params.common.bonus.isActive) {
+        if (this.$params.common.bonus?.isActive) {
             this.addModifiers('is-active');
         }
 
@@ -162,13 +158,13 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
         });
     }
 
-    public chooseBonusNoBtn(bonus: Bonus, type: string): void {
+    public chooseBonusNoBtn(bonus: Bonus, type: Params.Type): void {
         if (!this.isChooseBtn) {
             this.chooseBonus(bonus, type);
         }
     }
 
-    public chooseBonus(bonus: Bonus, type: string): void {
+    public chooseBonus(bonus: Bonus, type: Params.Type): void {
         bonus.isChoose = this.$params.common.bonus.isChoose = true;
         this.eventService.emit({
             name: BonusItemComponentEvents[type],
