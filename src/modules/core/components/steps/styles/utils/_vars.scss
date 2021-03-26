@@ -6,7 +6,7 @@ $themeDefault: map-merge((
 
     'containerMinHeight': (
         320: auto,
-        900: 665px,
+        1630: 665px,
     ),
     'containerTemplateCol': (
         320: 1fr,
@@ -43,7 +43,8 @@ $themeDefault: map-merge((
 
     'bonusListMargin': (
         320: 0 auto ef.get('size', 'less'),
-        900: ef.get('size', 'main') auto ef.get('size', 'main') auto,
+        900: ef.get('size', 'small') auto ef.get('size', 'main') auto,
+        1630: ef.get('size', 'main') auto ef.get('size', 'main') auto,
     ),
 
     'swiperControlsTopPos': 117px,

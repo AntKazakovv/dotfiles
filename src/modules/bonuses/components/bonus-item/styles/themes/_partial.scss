@@ -36,15 +36,7 @@
                         .wlc-bonus-item__name {
                             display: block;
                             color: ef.get-value($themePartial, 'blankCheckNameColor');
-                            /* stylelint-disable */
-                            display: -webkit-box;
-                            line-clamp: 2;
-                            box-orient: vertical;
-                            -webkit-line-clamp: 2;
-                            -webkit-box-orient: vertical;
-                            /* stylelint-enable */
-                            overflow: hidden;
-                            text-overflow: ellipsis;
+                            @include em.lineClamp(2);
                         }
                     }
 
@@ -190,30 +182,14 @@
             font-weight: 700; // remove after add mobile styles
             //@include text.get-text-style(ef.get-value($themePartial, 'bonusNameStyle'), ef.get-value($themePartial, 'bonusNameColor'));
 
-            /* stylelint-disable */
-            display: -webkit-box;
-            line-clamp: 2;
-            box-orient: vertical;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            /* stylelint-enable */
-            overflow: hidden;
-            text-overflow: ellipsis;
+            @include em.lineClamp(2);
         }
 
         &__description {
             @include text.get-text-style(ef.get-value($themePartial, 'bonusDescriptionStyle'), ef.get-value($themePartial, 'bonusDescriptionColor'));
             text-align: justify;
 
-            /* stylelint-disable */
-            display: -webkit-box;
-            line-clamp: 4;
-            box-orient: vertical;
-            -webkit-line-clamp: 4;
-            -webkit-box-orient: vertical;
-            /* stylelint-enable */
-            overflow: hidden;
-            text-overflow: ellipsis;
+            @include em.lineClamp(4);
         }
     }
 
