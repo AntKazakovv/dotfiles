@@ -171,6 +171,11 @@
                 display: flex;
                 align-items: center;
                 height: 100%;
+                padding-bottom: 30px;
+            }
+
+            .swiper-pagination {
+                line-height: 0;
             }
 
             .wlc-bonus-item {
@@ -188,6 +193,11 @@
 
                     .wlc-btn {
                         padding: 5px;
+
+                        .wlc-btn__text {
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                        }
                     }
                 }
 

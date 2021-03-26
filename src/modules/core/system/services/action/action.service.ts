@@ -35,12 +35,14 @@ import {CurrencyModel} from 'wlc-engine/modules/core/system/models/currency.mode
 import {
     forEach as _forEach,
     isString as _isString,
+    toNumber as _toNumber,
 } from 'lodash-es';
 
 export type ScrollPositionType = 'start' | 'end';
 
 export interface IScrollOptions {
     position: ScrollPositionType;
+    offsetY?: number;
 }
 
 export interface IScrollSmoothlyOptions {
@@ -91,7 +93,7 @@ export class ActionService {
     }
 
     public lockBody(): void {
-        if(window.pageYOffset) {
+        if (window.pageYOffset) {
             this.scrollTop = window.pageYOffset;
         }
 
@@ -124,17 +126,19 @@ export class ActionService {
                 );
 
                 userProfile$.pipe(filter((profile) => !!profile), first()).subscribe((profile) => {
+
                     this.eventService.emit({
                         name: NotificationEvents.PushMessage,
                         data: <IPushMessageParams>{
                             type: 'success',
                             title: gettext('Payment success'),
-                            message: [
-                                gettext('Deposit completed successfully'),
-                                `<span wlc-currency [value]="${initialPath.amount}" [currency]="'${profile.currency}'"></span> ` + gettext('were successfully deposited in your account.'),
-                            ],
                             displayAsHTML: true,
                             wlcElement: 'notification_deposit-success',
+                            message: [
+                                this.translateService.instant(gettext('Deposit completed successfully')),
+                                `<span wlc-currency [value]="${initialPath.amount}" [currency]="'${profile.currency}'"></span> ` +
+                                this.translateService.instant(gettext('were successfully deposited in your account.')),
+                            ],
                         },
                     });
                 });
@@ -147,8 +151,8 @@ export class ActionService {
                         title: gettext('Payment failed'),
                         message: [
                             gettext('Unfortunately your payment didn\'t go through.'
-                                +' An e-mail with detailed information has been sent to your e-mail address.'
-                                +' If you have any questions, please don\'t hesitate to contact us.'),
+                                + ' An e-mail with detailed information has been sent to your e-mail address.'
+                                + ' If you have any questions, please don\'t hesitate to contact us.'),
                         ],
                         wlcElement: 'notification_deposit-error',
                     },
@@ -182,11 +186,19 @@ export class ActionService {
                 element = elem;
             }
 
+            if (options?.offsetY) {
+                element.style.paddingBottom = this.getStyleNumValue(element, 'paddingBottom') + options.offsetY + 'px';
+            }
+
             setTimeout(() => {
                 element.scrollIntoView({
                     behavior: 'smooth',
                     block: options?.position || 'start',
                 });
+
+                if (options?.offsetY) {
+                    element.style.paddingBottom = this.getStyleNumValue(element, 'paddingBottom') - options.offsetY + 'px';
+                }
             }, 100);
         }, 0);
     }
@@ -211,6 +223,10 @@ export class ActionService {
 
     public windowResize(): Observable<IResizeEvent> {
         return this.windowResizeSubject.asObservable();
+    }
+
+    private getStyleNumValue(elem: HTMLElement, style: string): number {
+        return _toNumber(globalThis.getComputedStyle(elem)[style].replace(/[^\d\.\-]/g, ''));
     }
 
     private async init(): Promise<void> {

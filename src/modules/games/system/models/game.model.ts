@@ -157,11 +157,12 @@ export class Game extends AbstractModel<IGame> {
      * @param {IStartGameOptions} options
      */
     public launch(options: IStartGameOptions): void {
+        const locale = this.configService.get('currentLanguage') ?? this.configService.get('appConfig.language');
         this.router.stateService.go('app.gameplay', {
             merchantId: this.merchantID,
             launchCode: this.launchCode,
             demo: options.demo,
-            locale: this.configService.get('currentLanguage'),
+            locale,
         }, {
             reload: true,
         });

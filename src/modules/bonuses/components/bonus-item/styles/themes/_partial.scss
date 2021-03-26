@@ -149,7 +149,6 @@
             right: ef.get-value($themePartial, 'iconTextRightPos');
             margin: ef.get-value($themePartial, 'iconTextMargin');
 
-
             @include em.get-mq-map('height', $themePartial, 'iconTextHeight');
             @include em.get-mq-map('max-width', $themePartial, 'iconTextMaxWidth');
 
@@ -161,6 +160,7 @@
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
+            cursor: pointer;
 
             &.wlc-small {
                 @include text.get-text-style(ef.get-value($themePartial, 'iconTextStyle'), ef.get-value($themePartial, 'iconTextColor'));

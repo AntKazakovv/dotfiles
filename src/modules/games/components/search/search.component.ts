@@ -51,12 +51,23 @@ import {
     animations: [
         trigger('openClose', [
             transition(':enter', [
-                style({opacity: 0, height: '0px', padding: 0}),
-                animate('0.2s', style({height: '*', padding: '*'})),
-                animate('0.2s', style({opacity: 1})),
+                style({
+                    opacity: 0,
+                    height: 0,
+                    paddingBottom: 0,
+                }),
+                animate('0.2s', style({
+                    height: '*',
+                    paddingBottom: '*',
+                    opacity: 1,
+                })),
             ]),
             transition(':leave', [
-                animate('0.2s', style({opacity: 0, height: '0px', padding: 0})),
+                animate('0.2s', style({
+                    opacity: 0,
+                    height: 0,
+                    paddingBottom: 0,
+                })),
             ]),
         ]),
     ],
@@ -74,7 +85,7 @@ export class SearchComponent extends AbstractComponent implements OnInit, OnDest
         excludeCategories: [],
         excludeMerchants: [],
     };
-    public currentLanguage: ILanguage;
+    public currentLanguage: string;
     public gamesGridParams: IGamesGridCParams;
     public searchQuery: string;
 
@@ -97,14 +108,11 @@ export class SearchComponent extends AbstractComponent implements OnInit, OnDest
             defaultParams: defaultParams,
         }, configService);
 
-        this.currentLanguage = _find(this.configService.get<ILanguage[]>('appConfig.languages'), {
-            code: this.translate.currentLang,
-        });
+        this.currentLanguage = this.translate.currentLang;
     }
 
     public ngOnInit(): void {
         super.ngOnInit();
-
         this.gamesGridParams = _assignIn(
             {},
             defaultGamesGridParams,
@@ -158,11 +166,11 @@ export class SearchComponent extends AbstractComponent implements OnInit, OnDest
                 return _includes(this.filters.categories, category.menuId);
             });
 
-            let merchnatsList: MerchantModel[] = [];
+            let merchantsList: MerchantModel[] = [];
             _forEach(this.selectedCategories, (category) => {
-                merchnatsList = merchnatsList.concat(category.merchants);
+                merchantsList = merchantsList.concat(category.merchants);
             });
-            this.merchants = _uniqBy(merchnatsList, 'id');
+            this.merchants = _uniqBy(merchantsList, 'id');
         } else {
             this.getMerchants();
         }
@@ -192,10 +200,9 @@ export class SearchComponent extends AbstractComponent implements OnInit, OnDest
             this.selectedMerchants = _filter(this.merchants, (merchant: MerchantModel) => {
                 return _includes(this.filters.merchants, merchant.id);
             });
-            const categoriesList: CategoryModel[] = _filter(this.gamesCatalogService.getCategoriesForFilter(), (category) => {
+            this.categories = _filter(this.gamesCatalogService.getCategoriesForFilter(), (category) => {
                 return category.hasSomeMerchant(this.selectedMerchants);
             });
-            this.categories = categoriesList;
         } else {
             this.getCategories();
         }
@@ -228,7 +235,7 @@ export class SearchComponent extends AbstractComponent implements OnInit, OnDest
     }
 
     protected getCategories(): void {
-        this.categories = this.gamesCatalogService.getCategoriesForFilter();
+        this.categories = _uniqBy(this.gamesCatalogService.getCategoriesForFilter(), (item) => item.id);
     }
 
     protected getMerchants(): void {

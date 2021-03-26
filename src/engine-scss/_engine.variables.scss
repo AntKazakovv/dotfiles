@@ -419,7 +419,7 @@ $profileSettings: map-merge((
     'titleColor': map-get($mainColors, 'baseMain'),
     'profilePadding': (
         375: map-get($size, 'smally'),
-        1024: 30px 40px,
+        1024: map-get($size, 'less') map-get($size, 'main'),
     ),
     'profileBg': (
         375: map-get($mainColors, 'bg700'),

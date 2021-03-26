@@ -34,7 +34,8 @@
             </div>
             <div class="{{$class}}__bottom" data-wlc-element="bonus_info">
                 <div class="{{$class}}__info-block">
-                    <h4 class="{{$class}}__name" [wlc-clamp]="$params.common?.nameClamp || 1" data-wlc-element="bonus_title-name">
+                    <h4 class="{{$class}}__name" [wlc-clamp]="$params.common?.nameClamp || 1"
+                        data-wlc-element="bonus_title-name">
                         {{$params.common.bonus?.name}}
                     </h4>
                     <p *ngIf="$params.common.bonus?.description"
@@ -226,23 +227,22 @@
 </ng-template>
 <ng-template #partial>
     <div class="{{$class}}__content"
-         [class.chosen]="bonus.isChoose"
+         [class.chosen]="chosen"
          [ngClass]="{'blank-bonus': bonus.type === 'blank'}"
     >
         <div class="{{$class}}__body">
             <div *ngIf="$params.common?.iconMoreBtn"
                  class="{{$class}}__more-icon">
-                <i
-                    class="icon-btn"
-                    wlc-icon
-                    iconName="info"
-                    (click)="openDescription($params.common.bonus)"
-                    [wlcElement]="'icon_info'">
+                <i class="icon-btn"
+                   wlc-icon
+                   iconName="info"
+                   (click)="openDescription($params.common.bonus)"
+                   [wlcElement]="'icon_info'">
                 </i>
             </div>
             <div *ngIf="$params.common?.useIconBonusImage"
                  class="{{$class}}__bonus-icon">
-                <span *ngIf="bonus.isChoose"
+                <span *ngIf="chosen"
                       class="{{$class}}__check-icon">
                     <i
                         class="icon-btn"
@@ -258,7 +258,7 @@
                      (click)="chooseBonusNoBtn($params.common.bonus, $params.type)">
                 <ng-template #without>
                     <div class="{{$class}}__icon-sign"
-                         [class.chosen]="bonus.isChoose"
+                         [class.chosen]="chosen"
                          (click)="chooseBlankBonus()">
                         <h4 *ngIf="$params.common.bonus?.name"
                             class="{{$class}}__name" data-wlc-element="bonus_title-name">
@@ -270,7 +270,8 @@
                     class="{{$class}}__icon-text"
                     [wlc-value-length]="$params.common.bonus?.value"
                     minLength="4"
-                    maxLength="6">
+                    maxLength="6"
+                    (click)="chooseBonusNoBtn($params.common.bonus, $params.type)">
                     {{$params.common.bonus?.value}}
                 </span>
             </div>
@@ -347,7 +348,8 @@
 
         <div class="{{$class}}__info-wrapper">
             <div class="{{$class}}__info-block">
-                <h4 class="{{$class}}__name" [wlc-clamp]="$params.common?.nameClamp || 2" data-wlc-element="bonus_title-name">
+                <h4 class="{{$class}}__name" [wlc-clamp]="$params.common?.nameClamp || 2"
+                    data-wlc-element="bonus_title-name">
                     {{$params.common.bonus.name}}
                 </h4>
                 <p *ngIf="$params.common.bonus.description"
@@ -360,15 +362,20 @@
             <div class="{{$class}}__image-block" data-wlc-element="bonus_image">
                 <div class="{{$class}}__image" *ngIf="!$params.common?.useIconBonusImage && $params.common.imageByType"
                      [style]="{backgroundImage: $params.common.bonus.getImageByType($params.common?.type)}">
-                    <img class="wlc-bonus-image-other" *ngIf="$params.common?.showAdditionalImage" [src]="$params.common.bonus.imageOther" loading="lazy">
+                    <img class="wlc-bonus-image-other" *ngIf="$params.common?.showAdditionalImage"
+                         [src]="$params.common.bonus.imageOther" loading="lazy">
                 </div>
                 <div class="{{$class}}__image" *ngIf="!$params.common?.useIconBonusImage && !$params.common.imageByType"
                      [style]="{backgroundImage: $params.common.bonus.image}">
-                    <img class="wlc-bonus-image-other" *ngIf="$params.common?.showAdditionalImage" [src]="$params.common.bonus.imageOther" loading="lazy">
+                    <img class="wlc-bonus-image-other" *ngIf="$params.common?.showAdditionalImage"
+                         [src]="$params.common.bonus.imageOther" loading="lazy">
                 </div>
                 <div class="{{$class}}__bonus-icon" *ngIf="$params.common?.useIconBonusImage">
-                    <img class="icon-sign" [src]="$params.common?.iconsPath + $params.common.bonus.viewTarget + '.svg'" alt="">
-                    <div class="icon-text" data-wlc-element="bonus_value-quantity" [wlc-value-length]="$params.common.bonus.value" minLength="4" maxLength="7">{{$params.common.bonus.value}}</div>
+                    <img class="icon-sign" [src]="$params.common?.iconsPath + $params.common.bonus.viewTarget + '.svg'"
+                         alt="">
+                    <div class="icon-text" data-wlc-element="bonus_value-quantity"
+                         [wlc-value-length]="$params.common.bonus.value" minLength="4"
+                         maxLength="7">{{$params.common.bonus.value}}</div>
                 </div>
             </div>
         </div>
@@ -456,7 +463,9 @@
                          [wlc-value-length]="$params.common.bonus?.value" minLength="4"
                          maxLength="7">{{$params.common.bonus?.value}}</div>
                 </div>
-                <h4 class="{{$class}}__name" [wlc-clamp]="$params.common?.nameClamp || 2" data-wlc-element="bonus_title-name">
+                <h4 class="{{$class}}__name"
+                    [wlc-clamp]="$params.common?.nameClamp || 2"
+                    data-wlc-element="bonus_title-name">
                     {{$params.common.bonus?.name}}
                 </h4>
             </div>
@@ -608,7 +617,8 @@
                          [wlc-value-length]="$params.common.bonus?.value" minLength="4"
                          maxLength="7">{{$params.common.bonus?.value}}</div>
                 </div>
-                <h4 class="{{$class}}__name" [wlc-clamp]="$params.common?.nameClamp || 2" data-wlc-element="bonus_title-name">
+                <h4 class="{{$class}}__name" [wlc-clamp]="$params.common?.nameClamp || 2"
+                    data-wlc-element="bonus_title-name">
                     {{$params.common.bonus?.name}}
                 </h4>
             </div>

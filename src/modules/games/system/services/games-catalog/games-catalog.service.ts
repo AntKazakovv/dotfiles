@@ -15,13 +15,9 @@ import {EventService, LayoutService} from 'wlc-engine/modules/core/system/servic
 import {UserService} from 'wlc-engine/modules/user/system/services';
 
 import {
-    ICategory,
-    IMerchant,
     IStartGameOptions,
     ILaunchInfo,
     IGameParams,
-    IJackpot,
-    IGames,
     gamesEvents,
     IFavourite,
     ILastPlayedGame,
@@ -31,7 +27,6 @@ import {ActionService, DeviceType} from 'wlc-engine/modules/core';
 
 import {
     find as _find,
-    get as _get,
     filter as _filter,
     includes as _includes,
     startsWith as _startsWith,
@@ -52,6 +47,7 @@ export class GamesCatalogService {
 
     public favoritesUpdated: Subject<void> = new Subject<void>();
 
+    private searchBySpecialCats: boolean = true;
     private gamesCatalog: GamesCatalog;
     private categoryMenus: string[] = [
         'main-menu',
@@ -265,8 +261,10 @@ export class GamesCatalogService {
      * @returns {Promise<ILaunchInfo>}
      */
     public async getLaunchParams(options: IGameParams): Promise<ILaunchInfo> {
-        const data: IData = await this.dataService.request('games/gameLaunchParams', options);
-        return data.data;
+        return (await this.dataService.request('games/gameLaunchParams', {
+            ...options,
+            demo: options.demo ? 1 : 0,
+        }) as IData).data;
     }
 
     /**
@@ -319,9 +317,11 @@ export class GamesCatalogService {
     }
 
     public getCategoriesForFilter(): CategoryModel[] {
-        return _filter(this.gamesCatalog.getAvailableCategories(), (category: CategoryModel) => {
-            return !category.isSpecial;
-        });
+        return this.searchBySpecialCats
+            ? this.gamesCatalog.getAvailableCategories()
+            : _filter(this.gamesCatalog.getAvailableCategories(), (category: CategoryModel) => {
+                return !category.isSpecial;
+            });
     }
 
     /**

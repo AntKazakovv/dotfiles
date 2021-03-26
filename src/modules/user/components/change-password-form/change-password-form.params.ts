@@ -64,7 +64,7 @@ export const defaultParams: IChangePasswordFormCParams = {
                     name: 'newPassword',
                     validators: [
                         'required',
-                        'newPassword',
+                        'password',
                         {
                             name: 'minLength',
                             options: 6,

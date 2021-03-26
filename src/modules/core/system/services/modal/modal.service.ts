@@ -254,12 +254,12 @@ export class ModalService {
         });
         let windowCmptRef: ComponentRef<any> = windowFactory.create(injector);
         const modalElement = windowCmptRef.location.nativeElement;
-        const backDropElement = _get(windowCmptRef, 'instance.modalRef.backdrop.location.nativeElement');
 
         this.appRef.attachView(windowCmptRef.hostView);
         this.document.body.appendChild(modalElement);
 
         setTimeout(() => {
+            const backDropElement = _get(windowCmptRef, 'instance.modalRef.backdrop.location.nativeElement');
             if (backDropElement) {
                 const currentZIndex = +globalThis?.getComputedStyle(modalElement).zIndex;
                 modalElement.style.zIndex = currentZIndex + this.activeModals.length * 10;

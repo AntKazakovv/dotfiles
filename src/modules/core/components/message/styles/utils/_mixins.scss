@@ -5,7 +5,7 @@
 @import './vars';
 
 @mixin messageBase {
-
+    position: relative;
     background: get('background');
 
     @include bm.get-mq-map('border', $themeDefault, 'border');

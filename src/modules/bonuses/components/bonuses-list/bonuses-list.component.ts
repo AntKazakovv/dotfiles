@@ -164,9 +164,9 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
             _each(this.bonuses, bonus => {
                 if (!isChosenBonus && bonus.type === 'blank') {
                     bonus.isChoose = true;
-                    this.cdr.markForCheck();
                 }
             });
+            this.cdr.markForCheck();
         }, 0);
 
         this.configService.set<ChosenBonusType>({
@@ -216,7 +216,6 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
 
         this.eventService.subscribe({name: 'CHOOSE_BLANK_BONUS'}, () => {
             this.chooseBlankBonus();
-            this.cdr.markForCheck();
 
             _each(this.bonuses, bonus => {
                 if (bonus.type === 'blank') {
@@ -226,8 +225,9 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
 
             if (this.slider) {
                 this.bonusesToSlides(this.bonuses, false);
-                this.cdr.markForCheck();
             }
+
+            this.cdr.markForCheck();
         }, this.$destroy);
 
         if (this.$params.type === 'swiper') {
