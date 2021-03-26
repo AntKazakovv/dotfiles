@@ -18,8 +18,14 @@ $themePromo: map-merge((
 
 $customThemePartial: () !default;
 $themePartial: map-merge((
-    'gridTemplateColumns': repeat(auto-fill, minmax(145px, 1fr)),
-    'gridGap': 17px,
+    'gridTemplateColumns': (
+        900: repeat(auto-fill, minmax(120px, max-content)),
+        1630: repeat(auto-fill, minmax(145px, 1fr)),
+    ),
+    'gridGap': (
+        900: 15px,
+        1630: 17px,
+    ),
 ), $customThemePartial);
 
 $customThemePromoHome: () !default;

@@ -322,7 +322,8 @@ $themePartial: map-merge((
     'checkIconRightPos': 12px,
     'checkIconTopPos': (
         320: 0,
-        900: 8px,
+        900: 5px,
+        1630: 8px,
     ),
     'checkIconSize': 25px,
     'checkIconBackground': ef.get('mainColors', 'success'),
@@ -344,7 +345,8 @@ $themePartial: map-merge((
     'iconSignBackground': ef.get('mainColors', 'baseMain'),
     'iconSignSize': (
         320: 120px,
-        900: 145px,
+        900: 130px,
+        1630: 145px,
     ),
 
     'iconTextBottomPos': (
@@ -403,12 +405,18 @@ $themePreview: map-merge((
     'tagFontColor': ef.get('mainColors', 'baseMain'),
 
     'bonusIconMaxWidht': 205px,
-    'bonusIconMargin': 70px auto,
+    'bonusIconMargin': (
+        900: ef.get('size', 'less') auto,
+        1630: 70px auto,
+    ),
 
     'iconSignBoreder': 3px solid transparent,
     'iconSignRadius': 50%,
     'iconSignBackground': ef.get('mainColors', 'baseMain'),
-    'iconSignSize': 205px,
+    'iconSignSize': (
+        900: 180px,
+        1630: 205px,
+    ),
     'iconSignShadow': 0 1px 14px 0 rgba(ef.get('fieldColors', 'textColor'), 0.15),
 
     'moreIconTopPos': 0,

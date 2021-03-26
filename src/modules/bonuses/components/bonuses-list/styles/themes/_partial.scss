@@ -1,4 +1,5 @@
 @use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/base.mixins' as em;
 @import '../utils/vars';
 
 .wlc-bonuses-list--theme-partial:host {
@@ -7,8 +8,9 @@
 
         &__list {
             display: grid;
-            grid-template-columns: ef.get-value($themePartial, 'gridTemplateColumns');
-            grid-gap: ef.get-value($themePartial, 'gridGap');
+            @include em.get-mq-map('grid-template-columns', $themePartial, 'gridTemplateColumns');
+            @include em.get-mq-map('grid-gap', $themePartial, 'gridGap');
+            justify-content: center;
         }
     }
 }
