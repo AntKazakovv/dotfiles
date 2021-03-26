@@ -97,6 +97,7 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
     public iconsFallback: string = '';
 
     protected iconsExtension: string = 'svg';
+    protected scrollDuration = 300;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IMenuCParams,
@@ -107,8 +108,7 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
         protected modalService: ModalService,
         protected stateService: StateService,
         protected transitionService: TransitionService,
-    )
-    {
+    ) {
         super(
             <IMixedParams<Params.IMenuCParams>>{
                 injectParams,
@@ -152,6 +152,12 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
         super.ngOnInit(this.inlineParams);
 
         this.iconsFallback = this.$params.common?.icons?.fallback;
+
+        if (this.$params.common?.scrollToSelector) {
+            setTimeout(() => {
+                this.scrollTo(this.$params.common.scrollToSelector);
+            }, this.scrollDuration);
+        }
     }
 
     public scrollTo(selector: string): void {

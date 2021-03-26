@@ -1,10 +1,18 @@
 import {
     ChangeDetectionStrategy,
-    Component, Inject,
+    Component,
+    Inject,
     Input,
     OnInit,
     ChangeDetectorRef,
 } from '@angular/core';
+
+import {BehaviorSubject} from 'rxjs';
+import {
+    skipWhile,
+    takeUntil,
+} from 'rxjs/operators';
+
 import {
     AbstractComponent,
     GlobalHelper,
@@ -22,11 +30,8 @@ import {
 import {TournamentConditionComponent} from './components/tournament-condition/tournament-condition.component';
 import {ITournamentConditionCParams} from './components/tournament-condition/tournament-condition.params';
 import {TournamentDetailComponent} from './components/tournament-detail/tournament-detail.component';
+
 import * as Params from 'wlc-engine/modules/tournaments/components/tournament/tournament.params';
-import {
-    skipWhile,
-    takeUntil,
-} from 'rxjs/operators';
 
 import {
     union as _union,
@@ -52,6 +57,8 @@ export class TournamentComponent
     public $params: Params.ITournamentCParams;
     public isAuth: boolean;
     public isTournamentSelected: boolean;
+    public instance: TournamentComponent;
+    public pending$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
     protected userInfo: UserInfo;
 
@@ -82,34 +89,21 @@ export class TournamentComponent
         if (this.type) {
             this.$params.type = this.type;
         }
+
         this.isAuth = this.ConfigService.get<boolean>('$user.isAuthenticated');
         this.isTournamentSelected = this.tournamentsService.isTournamentSelected;
         this.getUserInfo();
+
+        this.instance = this;
     }
 
     public getDashboardImage(): string {
         return this.tournament.imageDashboard || '/gstatic/wlc/tournaments/tournament-decor.png';
     }
 
-    public openDescription(): void {
-        this.modalService.showModal({
-            id: 'tournament-condition-modal',
-            modifier: 'tournament-condition',
-            component: TournamentDetailComponent,
-            componentParams: <ITournamentDetailCParams>{
-                common: {
-                    tournamentId: this.tournament.id,
-                },
-            },
-            size: 'xl',
-            backdrop: 'static',
-        });
-
-    }
-
     public join(): void {
         if (!this.isAuth) {
-            this.modalService.showModal('signup');
+            this.modalService.showModal('login');
             return;
         }
         this.checkSubscribeConditions(this.tournament);
@@ -119,8 +113,9 @@ export class TournamentComponent
         this.showConditionModal(
             undefined,
             undefined,
-            gettext('Unsubscribe'),
-            gettext('Tournament fee will not be returned to your account. Are you sure you want to unsubscribe?'),
+            undefined,
+            gettext('Leave'),
+            gettext('Tournament fee will not be returned to your account. Are you sure you want to leave?'),
             'leave',
         );
     }
@@ -147,6 +142,7 @@ export class TournamentComponent
     protected showConditionModal(
         tournament: Tournament,
         userBalance: number,
+        feeCurrency: string,
         modalTitle: string,
         modalMessage: string,
         actionType: string,
@@ -159,6 +155,7 @@ export class TournamentComponent
                 common: {
                     feeAmount: tournament?.feeAmount,
                     userBalance,
+                    feeCurrency,
                     text: modalMessage,
                     actionType,
                 },
@@ -177,7 +174,7 @@ export class TournamentComponent
         });
     }
 
-    protected checkSubscribeConditions(tournament: Tournament): void {
+    public checkSubscribeConditions(tournament: Tournament): void {
         if (tournament.feeAmount === 0) {
             this.joinTournament();
             return;
@@ -185,6 +182,7 @@ export class TournamentComponent
             this.showConditionModal(
                 tournament,
                 this.userInfo?.balance,
+                tournament.feeCurrency,
                 gettext('Subscribe'),
                 gettext('Let\'s play?'),
                 'join',
@@ -195,6 +193,7 @@ export class TournamentComponent
             this.showConditionModal(
                 tournament,
                 this.userInfo?.points,
+                tournament.feeCurrency,
                 gettext('Subscribe'),
                 gettext('Let\'s play?'),
                 'join',
@@ -205,6 +204,7 @@ export class TournamentComponent
             this.showConditionModal(
                 tournament,
                 this.userInfo?.balance,
+                tournament.feeCurrency,
                 gettext('You can`t subscribe'),
                 gettext('Sorry, not today. Deposit more money and join this tournament!'),
                 'deposit',
@@ -215,13 +215,30 @@ export class TournamentComponent
             this.showConditionModal(
                 tournament,
                 this.userInfo?.points,
+                tournament.feeCurrency,
                 gettext('You can`t subscribe'),
-                gettext('Sorry, not today. Deposit more money and join this tournament!'),
+                gettext('Sorry, not today. Bet more to earn betcoins and join this tournament!'),
                 'deposit',
             );
 
             return;
         }
+    }
+
+    public readMore(scrollToSelector: string = ''): void {
+        this.modalService.showModal({
+            id: 'tournament-detail-modal',
+            modifier: 'tournament-detail',
+            component: TournamentDetailComponent,
+            componentParams: <ITournamentDetailCParams>{
+                parentInstance: this.instance,
+                common: {
+                    tournamentId: this.$params.common?.tournament.id || this.$params.tournament.id,
+                    scrollToSelector,
+                },
+            },
+            size: 'xl',
+        });
     }
 
     protected onConfirm(actionType: string): void {
@@ -249,17 +266,36 @@ export class TournamentComponent
     }
 
     protected async joinTournament(): Promise<void> {
-        const tournament = await this.tournamentsService.joinTournament(this.tournament);
-        if (tournament) {
-            this.tournament = tournament;
+        try {
+            this.isTournamentSelected = false;
+            this.pending$.next(true);
+
+            const tournament = await this.tournamentsService.joinTournament(this.tournament);
+
+            if (tournament) {
+                this.tournament = tournament;
+                this.cdr.markForCheck();
+            }
+        } finally {
+            this.isTournamentSelected = true;
+            this.pending$.next(false);
             this.cdr.markForCheck();
         }
     }
 
     protected async leaveTournament(): Promise<void> {
-        const tournament = await this.tournamentsService.leaveTournament(this.tournament);
-        if (tournament) {
-            this.tournament = tournament;
+        try {
+            this.pending$.next(true);
+
+            const tournament = await this.tournamentsService.leaveTournament(this.tournament);
+
+            if (tournament) {
+                this.tournament = tournament;
+                this.cdr.markForCheck();
+                this.cdr.detectChanges();
+            }
+        } finally {
+            this.pending$.next(false);
             this.cdr.markForCheck();
         }
     }

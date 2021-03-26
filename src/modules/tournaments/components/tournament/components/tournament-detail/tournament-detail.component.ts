@@ -19,10 +19,14 @@ import {
     ITableCParams,
 } from 'wlc-engine/modules/core';
 
-import {TournamentsService, Tournament} from 'wlc-engine/modules/tournaments';
+import {
+    TournamentsService,
+    Tournament,
+} from 'wlc-engine/modules/tournaments';
+import {TournamentComponent} from 'wlc-engine/modules/tournaments/components/tournament/tournament.component';
 import {IGamesGridCParams} from 'wlc-engine/modules/games';
 
-import * as MenuParams from 'wlc-engine/modules/menu/components/menu/menu.params';
+import * as MenuParams from 'wlc-engine/modules/menu/components';
 import * as Params from './tournament-detail.params';
 
 import {
@@ -43,6 +47,7 @@ export class TournamentDetailComponent
     implements OnInit, OnDestroy, OnChanges {
     @Input() protected inlineParams: Params.ITournamentDetailCParams;
     @Input() protected tournamentId: number;
+    @Input() protected parentInstance: TournamentComponent;
 
 
     public $params: Params.ITournamentDetailCParams;
@@ -87,16 +92,16 @@ export class TournamentDetailComponent
         this.getTournament();
     }
 
-    public async joinTournament(): Promise<void> {
+    public joinTournament(): void {
         this.tournamentProcessing = true;
-        await this.tournamentsService.joinTournament(this.tournament);
+        this.$params.parentInstance.join();
         this.prepareMenu();
         this.tournamentProcessing = false;
     }
 
-    public async leaveTournament(): Promise<void> {
+    public leaveTournament(): void {
         this.tournamentProcessing = true;
-        await this.tournamentsService.leaveTournament(this.tournament);
+        this.$params.parentInstance.leave();
         this.prepareMenu();
         this.tournamentProcessing = false;
     }
@@ -161,7 +166,7 @@ export class TournamentDetailComponent
             rows.push({
                 Place: index + 1,
                 Prize: this.tournament.winningSpread[index],
-                Precent: percent,
+                Percent: percent,
             });
         });
 
@@ -175,6 +180,7 @@ export class TournamentDetailComponent
                 swiper: {
                     scrollToStart: true,
                 },
+                scrollToSelector: this.$params.common.scrollToSelector,
             },
             type: 'main-menu',
             items: [

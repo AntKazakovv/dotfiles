@@ -3,6 +3,7 @@ import {
     CustomType,
 } from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ITableCParams} from 'wlc-engine/modules/core';
+import {TournamentComponent} from 'wlc-engine/modules/tournaments/components/tournament/tournament.component';
 
 export type Type = 'default' | CustomType;
 export type Theme = 'default' | CustomType;
@@ -13,6 +14,7 @@ export type Modifiers = AutoModifiers | CustomMod | null;
 
 export interface ITournamentDetailCParams extends IComponentParams<Theme, Type, ThemeMod> {
     modifiers?: Modifiers[];
+    parentInstance?: TournamentComponent;
     common?: {
         tournamentId?: number
         noTournamentText?: string;
@@ -29,6 +31,7 @@ export interface ITournamentDetailCParams extends IComponentParams<Theme, Type, 
         statusActiveText?: string;
         prizePoolText?: string;
         tablePrizeboard: ITableCParams;
+        scrollToSelector?: string;
     };
 }
 
@@ -43,10 +46,10 @@ export const defaultParams: ITournamentDetailCParams = {
         prizepoolSectionTitle: gettext('Prize pool'),
         leaderboardSectionTitle: gettext('Leaderboard'),
         btnSubscribeText: gettext('Join now'),
-        btnUnsubscribeText: gettext('Leave now'),
+        btnUnsubscribeText: gettext('Leave'),
         backLinkText: gettext('Back'),
         timerTextAfterStart: gettext('Time remaining'),
-        timerTextBeforeStart: gettext('Comming soon'),
+        timerTextBeforeStart: gettext('Coming soon'),
         statusAvaliableText: gettext('Available'),
         statusActiveText: gettext('Active'),
         prizePoolText: gettext('Prize pool'),
@@ -70,11 +73,11 @@ export const defaultParams: ITournamentDetailCParams = {
                     wlcElement: "wlc-profile-table__cell_prize",
                 },
                 {
-                    key: "Precent",
-                    title: gettext("Precent"),
+                    key: "Percent",
+                    title: gettext("Percent"),
                     type: "text",
                     order: 10,
-                    wlcElement: "wlc-profile-table__cell_precent",
+                    wlcElement: "wlc-profile-table__cell_percent",
                 },
             ],
             rows: [],

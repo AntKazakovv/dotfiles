@@ -16,16 +16,13 @@ import {TournamentLeaderboardComponent} from './components/tournament/components
 import {TournamentPromoComponent} from './components/tournament/components/tournament-promo/tournament-promo.component';
 import {TournamentPrizesComponent} from './components/tournament/components/tournament-prizes/tournament-prizes.component';
 import {TournamentConditionComponent} from './components/tournament/components/tournament-condition/tournament-condition.component';
+import {TournamentBannerComponent} from './components/tournament/components/tournament-banner/tournament-banner.component';
 import {TournamentsHistoryComponent} from './components/tournaments-history/tournaments-history.component';
 
 export const components = {
-    'wlc-tournament-detail': TournamentDetailComponent,
     'wlc-tournament-list': TournamentListComponent,
     'wlc-tournament-leaderboard': TournamentLeaderboardComponent,
     'wlc-tournament': TournamentComponent,
-    'wlc-tournament-promo': TournamentPromoComponent,
-    'wlc-tournament-prizes': TournamentPrizesComponent,
-    'wlc-tournament-condition': TournamentConditionComponent,
     'wlc-tournaments-history': TournamentsHistoryComponent,
 };
 
@@ -39,6 +36,7 @@ export const components = {
         TournamentPromoComponent,
         TournamentPrizesComponent,
         TournamentConditionComponent,
+        TournamentBannerComponent,
     ],
     imports: [
         CommonModule,
@@ -57,8 +55,6 @@ export const components = {
         TournamentListComponent,
         TournamentComponent,
         TournamentLeaderboardComponent,
-        TournamentPromoComponent,
-        TournamentPrizesComponent,
         TournamentsHistoryComponent,
     ],
 })

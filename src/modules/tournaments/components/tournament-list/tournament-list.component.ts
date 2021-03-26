@@ -29,7 +29,9 @@ import {
     merge as _merge,
     filter as _filter,
     find as _find,
+    findIndex as _findIndex,
     some as _some,
+    each as _each,
 } from 'lodash-es';
 
 @Component({
@@ -59,6 +61,8 @@ export class TournamentListComponent
     };
     public slides: ISlide[] = [];
     public isAuth: boolean;
+
+    protected indexOfSelectedTournament: number;
 
     constructor(
         @Inject('injectParams') protected params: Params.ITournamentListCParams,
@@ -91,18 +95,41 @@ export class TournamentListComponent
                 next: (tournaments: Tournament[]) => {
                     if (!tournaments) return;
 
+                    this.indexOfSelectedTournament = null;
+
+                    this.saveDataOfSelectedTournament(tournaments);
+                    this.replaceTournaments(tournaments);
+
                     this.tournaments = tournaments;
-                    this.isTournamentSelected = _some(tournaments, tournament => tournament.isSelected);
-                    this.activeTournament = _find(tournaments, tournament => tournament.isSelected);
+
                     if (this.$params.type === 'swiper' && this.tournaments.length) {
-                        this.tournamentsToSlides();
+                        this.tournamentsToSlides(true);
                     }
+
                     this.isReady = true;
                     this.cdr.markForCheck();
                 },
             },
             type: this.$params.common?.restType,
             until: this.$destroy,
+        });
+    }
+
+    protected replaceTournaments(tournaments: Tournament[]): void {
+        if (this.indexOfSelectedTournament < 0) return;
+
+        tournaments.unshift(...tournaments.splice(this.indexOfSelectedTournament, 1));
+    }
+
+    protected saveDataOfSelectedTournament(tournaments: Tournament[]): void {
+        _each(tournaments, (tournament, index) => {
+            if (tournament.isSelected) {
+                this.isTournamentSelected = true;
+                this.activeTournament = tournament;
+                this.indexOfSelectedTournament = index;
+
+                return false;
+            }
         });
     }
 
@@ -115,13 +142,13 @@ export class TournamentListComponent
     }
 
     protected tournamentsToSlides(scroll?: boolean): void {
-        this.slides = this.tournaments?.map((item: Tournament) => {
+        this.slides = this.tournaments?.map((tournament: Tournament) => {
             return {
                 component: TournamentComponent,
                 componentParams: _merge(
                     {theme: this.$params.theme},
                     {type: this.$params.common?.thumbType},
-                    {tournament: item},
+                    {tournament},
                     {wlcElement: 'block_tournament'},
                 ),
             };

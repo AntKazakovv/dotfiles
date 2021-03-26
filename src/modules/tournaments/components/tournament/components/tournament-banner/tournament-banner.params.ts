@@ -15,23 +15,23 @@ export type AutoModifiers = ComponentTheme | ThemeMod;
 export type CustomMod = string;
 export type Modifiers = AutoModifiers | CustomMod | null;
 
-export interface ITournamentPromoCParams extends IComponentParams<ComponentTheme, ComponentType, ThemeMod> {
+export interface ITournamentBannerCParams extends IComponentParams<ComponentTheme, ComponentType, ThemeMod> {
     modifiers?: Modifiers[];
     theme?: ComponentTheme;
     type?: ComponentType;
     tournament?: Tournament;
     parentInstance?: TournamentComponent;
     common?: {
-        tournament?: Tournament;
         parentInstance?: TournamentComponent;
+        tournament?: Tournament;
         themeMod?: ThemeMod;
         customMod?: CustomMod;
         type?: ComponentType;
     }
 }
 
-export const defaultParams: ITournamentPromoCParams = {
+export const defaultParams: ITournamentBannerCParams = {
     moduleName: 'tournaments',
-    class: 'wlc-tournament-promo',
-    componentName: 'wlc-tournament-promo',
+    class: 'wlc-tournament-banner',
+    componentName: 'wlc-tournament-banner',
 };

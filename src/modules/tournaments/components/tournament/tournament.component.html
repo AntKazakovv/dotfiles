@@ -1,8 +1,15 @@
 <ng-template #promo>
     <div wlc-tournament-promo
          [tournament]="$params.common.tournament"
-         [type]="$params.common.type"></div>
+         [type]="$params.common.type"
+         [parentInstance]="instance"></div>
 </ng-template>
+
+<ng-template #banner>
+    <div wlc-tournament-banner
+         [parentInstance]="instance"></div>
+</ng-template>
+
 <ng-template #dashboard>
     <div class="{{$class}}__container" [class.selected]="isTournamentSelected">
         <div class="{{$class}}__more-icon">
@@ -10,24 +17,24 @@
                 class="icon-btn"
                 wlc-icon
                 iconName="info"
-                (click)="openDescription()"
+                (click)="readMore()"
                 [wlcElement]="'button_terms'">
             </div>
         </div>
         <div class="{{$class}}__img-container" *ngIf="!isTournamentSelected">
             <img [src]="getDashboardImage()"
-                class="{{$class}}__image"
-                alt="tournament image">
+                 class="{{$class}}__image"
+                 alt="tournament image">
             <h3 class="{{$class}}__title">
                 <span>{{tournament.name}}</span>
             </h3>
         </div>
         <div wlc-timer
-            class="{{$class}}__timer"
-            [value]="tournament.isTournamentStarts
+             class="{{$class}}__timer"
+             [value]="tournament.isTournamentStarts
                 ? tournament.endsLuxon
                 : tournament.startsLuxon"
-            [text]="tournament.isTournamentStarts
+             [text]="tournament.isTournamentStarts
                     ? 'Time remaining'
                     : 'Coming soon'">
         </div>
@@ -43,15 +50,16 @@
             </button>
         </div>
         <div wlc-tournament-leaderboard
-            *ngIf="isTournamentSelected"
-            class="{{$class}}__board"
-            [tournament]="tournament"
-            [limit]="8"
-            [showAllBtn]="true"></div>
+             *ngIf="isTournamentSelected"
+             class="{{$class}}__board"
+             [tournament]="tournament"
+             [limit]="8"
+             [showAllBtn]="true"></div>
     </div>
 </ng-template>
 
 <ng-container [ngSwitch]="$params?.type">
     <ng-container [ngTemplateOutlet]="dashboard" *ngSwitchCase="'dashboard'"></ng-container>
+    <ng-container [ngTemplateOutlet]="banner" *ngSwitchCase="'banner'"></ng-container>
     <ng-container [ngTemplateOutlet]="promo" *ngSwitchDefault></ng-container>
 </ng-container>

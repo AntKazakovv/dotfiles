@@ -25,11 +25,30 @@ $themeDefault: map-merge((
         320: ef.get('size', 'smaller') ef.get('size', 'smaller') ef.get('size', 'less'),
         640: ef.get('size', 'less') ef.get('size', 'main') ef.get('size', 'main'),
     ),
+    'infoPElementDisplay': (
+        320: block,
+        900: none,
+    ),
 
     'boardPadding': (
         320: ef.get('size', 'smaller') ef.get('size', 'less'),
-        640: ef.get('size', 'big') ef.get('size', 'main'),
+        640: ef.get('size', 'smaller') ef.get('size', 'main'),
     ),
+    'boardPElementDisplay': (
+        320: none,
+        900: block,
+    ),
+    'boardTitleFontStyle': 'ThirdTitleBold',
+    'boardTitleColor': ef.get('mainColors', 'baseMain'),
+
+    'priceFontStyle': 'QoteTextBold',
+    'priceColor': ef.get('mainColors', 'main'),
+
+    'pseudoElementPosition': 0,
+    'pseudoElementZIndex': 2,
+    'pseudoElementGradient': linear-gradient(0deg, #000 0%, rgba(#000, 0.2) 50%),
+
+    'innerBlockZIndex': 3,
 
     'imageDisplayDesk': (
         320: none,
@@ -41,35 +60,30 @@ $themeDefault: map-merge((
     ),
     'imageSize': 100%,
     'imagePosition': 0,
+    'imageZIndex': 1,
 
     'textAlign': (
         320: center,
         900: left,
     ),
 
-    'tagFontStyle': 'SignText',
-    'tagFontStyleDesk': 'ThirdTitleBold',
-    'tagColor': ef.get('mainColors', 'baseMain'),
-    'tagColorDesk': ef.get('mainColors', 'secondary'),
+    'tagFontStyle': 'ThirdTitleBold',
+    'tagFontStyleDesk': 'PrimaryTextBold',
+    'tagColor': ef.get('mainColors', 'secondary'),
     'tagMargin': 0 0 ef.get('size', 'smaller'),
     'tagTextPadding': (
         320: ef.get('size', 'smallest') ef.get('size', 'smaller'),
         900: 0,
     ),
-    'tagTextBackground': (
-        320: ef.get('mainColors', 'secondary'),
-        900: transparent,
-    ),
-    'tagTextRadius': (
-        320: ef.get('radius', 'large'),
-        900: none,
-    ),
+    'tagActiveColor': ef.get('mainColors', 'main'),
 
-    'titleFontStyle': 'PromoTitle',
+    'titleFontStyle': 'ThirdTitleBold',
+    'titleFontStyleDesk': 'PromoTitle',
     'titleColor': ef.get('mainColors', 'baseMain'),
     'titleMargin': 0 0 ef.get('size', 'less'),
 
-    'descriptionFontStyle': 'ThirdTitle',
+    'descriptionFontStyle': 'PrimaryText',
+    'descriptionFontStyleDesk': 'ThirdTitle',
     'descriptionColor': ef.get('mainColors', 'baseMain'),
     'descriptionMargin': 0 0 ef.get('size', 'main') ,
 
@@ -102,7 +116,5 @@ $themeDefault: map-merge((
     'loaderAfterBorderColor': ef.get('mainColors', 'main'),
     'loaderAfterRadius': 50%,
     'loaderAfterAnimation': spin 1s infinite linear,
-
-
 ), $customThemeDefault);
 

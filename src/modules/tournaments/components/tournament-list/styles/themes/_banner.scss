@@ -1,0 +1,38 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/mixins/base.mixins' as em;
+
+@import '../utils/vars';
+
+.wlc-tournament-list--theme-banner:host {
+    position: relative;
+    max-width: 100%;
+    height: 100%;
+
+    .swiper-button-container {
+        position: absolute;
+        z-index: 22;
+        width: auto;
+        right: ef.get-value($themeBanner, 'tournamentRightPosition');
+        bottom: ef.get-value($themeBanner, 'tournamentBottomPosition');
+
+        display: flex;
+        align-items: center;
+    }
+
+    .wlc-tournament-list {
+
+        &__wrapper,
+        &__slider {
+            height: 100%;
+
+            ::ng-deep {
+
+                .swiper-container,
+                .swiper-wrapper {
+                    height: 100%;
+                }
+            }
+        }
+    }
+}

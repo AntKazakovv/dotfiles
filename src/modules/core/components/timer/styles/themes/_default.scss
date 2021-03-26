@@ -40,7 +40,7 @@
             padding: ef.get-value($themeDefault, 'timerPadding');
 
             .time-text {
-                font-weight: bold;
+                @include text.get-text-style(ef.get-value($themeDefault, 'timerFontStyle'), ef.get-value($themeDefault, 'timerColor'));
 
                 &--countdown {
                     display: flex;
@@ -68,6 +68,10 @@
         &__timer-text {
             text-align: left;
             line-height: 1.3;
+
+            .secondary-text {
+                @include text.get-text-style(ef.get-value($themeDefault, 'secondaryTextFontStyle'), ef.get-value($themeDefault, 'secondaryTextColor'));
+            }
         }
     }
 }

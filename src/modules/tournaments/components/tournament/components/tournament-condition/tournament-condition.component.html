@@ -1,11 +1,21 @@
 <ng-template #join>
     <div class="{{$class}}__container">
-        <div class="{{$class}}__text">
+        <div class="{{$class}}__text" *ngIf="$params.common.feeCurrency !== 'LP'; else userPoints">
             {{'You have' | translate}}: <span wlc-currency [value]="$params.common.userBalance"></span>
         </div>
-        <div class="{{$class}}__text">
+        <ng-template #userPoints>
+            <div class="{{$class}}__text">
+                {{'You have' | translate}}: <span>{{$params.common.userBalance}} {{'points' | translate}}</span>
+            </div>
+        </ng-template>
+        <div class="{{$class}}__text" *ngIf="$params.common.feeCurrency !== 'LP'; else tournamentPoints">
             {{'Entry fee' | translate}}: <span wlc-currency [value]="$params.common.feeAmount"></span>
         </div>
+        <ng-template #tournamentPoints>
+            <div class="{{$class}}__text">
+                {{'Entry fee' | translate}}: <span>{{$params.common.feeAmount}} {{'points' | translate}}</span>
+            </div>
+        </ng-template>
         <div class="{{$class}}__text">
             {{$params.common.text | translate}}
         </div>

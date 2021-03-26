@@ -5,6 +5,7 @@ $themeDefault: map-merge((
     'containerGridTemplateColumns': (
         320: 1fr,
         900: repeat(auto-fit, minmax(790px, 1fr)),
+        1630: repeat(2, minmax(790px, 1fr)),
     ),
 ), $customThemeDefault);
 
@@ -14,3 +15,15 @@ $themeDashboard: map-merge((
     'headerMargin': 0 0 ef.get('size', 'smally') 0,
     'swiperNavTop': 117px,
 ), $customThemeDashboard);
+
+$customThemeBanner: () !default;
+$themeBanner: map-merge((
+    'tournamentMaxWidth': (
+        320: 100%,
+        1024: 490px,
+        1200: 690px,
+        1630: 1060px,
+    ),
+    'tournamentBottomPosition': ef.get('size', 'main'),
+    'tournamentRightPosition': ef.get('size', 'main'),
+), $customThemeBanner);

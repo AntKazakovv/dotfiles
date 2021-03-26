@@ -9,5 +9,10 @@ $themeDefault: map-merge((
     'timeIconMargin': -5px ef.get('size', 'small') 0 0,
     'timeIconSize': 18px,
     'timeIconFill': ef.get('mainColors', 'secondary'),
+    'timerFontStyle': 'PrimaryTextBold',
+    'timerColor': ef.get('mainColors', 'baseMain'),
+
+    'secondaryTextFontStyle': 'PrimaryText',
+    'secondaryTextColor': ef.get('mainColors', 'baseMain'),
 ), $customThemeDefault);
 

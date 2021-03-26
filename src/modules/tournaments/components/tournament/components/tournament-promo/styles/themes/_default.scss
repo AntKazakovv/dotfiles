@@ -29,17 +29,57 @@
             position: relative;
 
             @include em.get-mq-map('padding', $themeDefault, 'infoPadding');
+
+            &:before {
+                @include em.get-mq-map('display', $themeDefault, 'infoPElementDisplay');
+            }
         }
 
         &__board {
             grid-area: board;
             position: relative;
-
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
             @include em.get-mq-map('padding', $themeDefault, 'boardPadding');
+
+            &:before {
+                @include em.get-mq-map('display', $themeDefault, 'boardPElementDisplay');
+            }
+
+            &-title {
+                margin: 0 0 10px 0;
+                text-align: center;
+                @include text.get-text-style(ef.get-value($themeDefault, 'boardTitleFontStyle'), ef.get-value($themeDefault, 'boardTitleColor'));
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+
+
+            &-price {
+                display: block;
+                @include text.get-text-style(ef.get-value($themeDefault, 'priceFontStyle'), ef.get-value($themeDefault, 'priceColor'));
+            }
+        }
+
+        &__info:before,
+        &__board:before {
+            content: '';
+            position: absolute;
+            z-index: ef.get-value($themeDefault, 'pseudoElementZIndex');
+            top: ef.get-value($themeDefault, 'pseudoElementPosition');
+            left: ef.get-value($themeDefault, 'pseudoElementPosition');
+            right: ef.get-value($themeDefault, 'pseudoElementPosition');
+            bottom: ef.get-value($themeDefault, 'pseudoElementPosition');
+
+            background: ef.get-value($themeDefault, 'pseudoElementGradient');
         }
 
         &__inner {
             position: relative;
+            z-index: ef.get-value($themeDefault, 'innerBlockZIndex');
         }
 
         &__tag {
@@ -50,13 +90,15 @@
             &-text {
                 display: inline-block;
                 @include em.get-mq-map('padding', $themeDefault, 'tagTextPadding');
-                @include em.get-mq-map('background', $themeDefault, 'tagTextBackground');
-                @include em.get-mq-map('border-radius', $themeDefault, 'tagTextRadius');
 
                 @include text.get-text-style(ef.get-value($themeDefault, 'tagFontStyle'), ef.get-value($themeDefault, 'tagColor'));
 
                 @include mq.min(900) {
-                    @include text.get-text-style(ef.get-value($themeDefault, 'tagFontStyleDesk'), ef.get-value($themeDefault, 'tagColorDesk'));
+                    @include text.get-text-style(ef.get-value($themeDefault, 'tagFontStyleDesk'), ef.get-value($themeDefault, 'tagColor'));
+                }
+
+                &.active {
+                    color: ef.get-value($themeDefault, 'tagActiveColor');
                 }
             }
         }
@@ -65,12 +107,21 @@
             @include text.get-text-style(ef.get-value($themeDefault, 'titleFontStyle'), ef.get-value($themeDefault, 'titleColor'));
             @include em.lineClamp(2);
             margin: ef.get-value($themeDefault, 'titleMargin');
+            text-transform: uppercase;
+
+            @include mq.min(900) {
+                @include text.get-text-style(ef.get-value($themeDefault, 'titleFontStyleDesk'), ef.get-value($themeDefault, 'titleColor'));
+            }
         }
 
         &__description {
             @include text.get-text-style(ef.get-value($themeDefault, 'descriptionFontStyle'), ef.get-value($themeDefault, 'descriptionColor'));
             @include em.lineClamp(3);
             margin: ef.get-value($themeDefault, 'descriptionMargin');
+
+            @include mq.min(900) {
+                @include text.get-text-style(ef.get-value($themeDefault, 'descriptionFontStyleDesk'), ef.get-value($themeDefault, 'descriptionColor'));
+            }
         }
 
         &__tag,
@@ -85,6 +136,7 @@
 
         &__image {
             position: absolute;
+            z-index: ef.get-value($themeDefault, 'imageZIndex');
             top: ef.get-value($themeDefault, 'imagePosition');
             left: ef.get-value($themeDefault, 'imagePosition');
 

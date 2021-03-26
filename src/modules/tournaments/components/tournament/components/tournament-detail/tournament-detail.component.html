@@ -19,7 +19,7 @@
                 <div class="header-prize-block--icon" wlc-icon iconName="pool"></div>
                 <div class="header-prize-block__text">
                     <div class="header-prize-block__text--subtitle">{{$params.common?.prizePoolText}}</div>
-                    <div class="header-prize-block__text--value" wlc-currency [value]="tournament.totalFounds"></div>
+                    <div class="header-prize-block__text--value" wlc-currency [value]="tournament.totalFounds" digitsInfo="1-0-0" [currency]="'EUR'"></div>
                 </div>
             </div>
             <div class="delimiter"></div>
@@ -54,8 +54,7 @@
             <h4 class="{{$class}}__prizepool--title">
                 {{$params.common?.prizepoolSectionTitle| translate}}
             </h4>
-
-            <div class="{{$class}}__prizepool--amount" wlc-currency [value]="tournament.totalFounds"></div>
+            <div class="{{$class}}__prizepool--amount" wlc-currency [value]="tournament.totalFounds" digitsInfo="1-0-0" [currency]="'EUR'"></div>
 
             <p class="{{$class}}__prizepool--description">{{tournament.description}}</p>
         </div>
