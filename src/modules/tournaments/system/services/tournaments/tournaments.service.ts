@@ -53,6 +53,7 @@ interface ITournamentData extends IData {
 })
 export class TournamentsService {
     public tournaments: Tournament[] = [];
+    public isProcessed$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
     private subjects: { [key: string]: BehaviorSubject<Tournament[]> } = {
         tournaments$: new BehaviorSubject(null),
@@ -242,6 +243,7 @@ export class TournamentsService {
         const params = {ID: tournament.id, Selected: 1};
 
         try {
+            this.isProcessed$.next(true);
             const response: IData = await this.dataService.request({
                 name: 'tournamentSubscribe',
                 system: 'tournaments',
@@ -257,6 +259,8 @@ export class TournamentsService {
             return response.data;
         } catch (error) {
             this.showError(gettext('Tournament join failed'), error?.errors);
+        } finally {
+            this.isProcessed$.next(false);
         }
     }
 

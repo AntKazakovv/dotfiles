@@ -87,15 +87,15 @@ export class Tournament extends AbstractModel<ITournament> {
     }
 
     public get imagePromo(): string {
-        return this.data.Image_promo?.length ? this.data.Image_promo : this.data.Image;
+        return this.data.Image_promo || '';
     }
 
     public get imageDashboard(): string {
-        return this.data.Image_dashboard?.length ? this.data.Image_dashboard : this.data.Image;
+        return this.data.Image_dashboard || '';
     }
 
     public get imageDescription(): string {
-        return this.data.Image_description?.length ? this.data.Image_description : this.data.Image;
+        return this.data.Image_description || '';
     }
 
     public get imageOther(): string {
@@ -234,18 +234,14 @@ export class Tournament extends AbstractModel<ITournament> {
      * @returns {number} tournament total founds
      */
     public get totalFounds(): number {
-        return _toNumber(this.data.TotalFounds?.Currency) ||
-            _toNumber(this.data.TotalFounds[this.userCurrency]) ||
-            _toNumber(this.data.TotalFounds?.EUR);
+        return _toNumber(this.data.TotalFounds?.EUR);
     }
 
     /**
      * @returns {number[]} tournament winningSpread
      */
     public get winningSpread(): number[] {
-        const winningsArr = this.data.WinningSpread?.Currency ||
-            this.data.WinningSpread[this.userCurrency] ||
-            this.data.WinningSpread?.EUR;
+        const winningsArr = this.data.WinningSpread?.EUR;
         return _map(winningsArr, (item: string) => _toNumber(item));
     }
 

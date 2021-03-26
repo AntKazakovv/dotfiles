@@ -11,6 +11,7 @@ export interface ITournamentConditionCParams extends IComponentParams<ComponentT
     common?: {
         userBalance?: number;
         feeAmount?: number;
+        feeCurrency?: string,
         text: string;
         actionType?: ActionType;
     }

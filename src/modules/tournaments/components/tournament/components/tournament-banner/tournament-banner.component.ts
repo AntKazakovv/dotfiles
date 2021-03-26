@@ -1,6 +1,5 @@
 import {
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
+    ChangeDetectionStrategy, ChangeDetectorRef,
     Component,
     Inject,
     Input,
@@ -23,19 +22,19 @@ import {
 
 import {TournamentComponent} from 'wlc-engine/modules/tournaments/components/tournament/tournament.component';
 
-import {PRIMARY_ROW_LIMIT} from 'wlc-engine/modules/tournaments/components/tournament/components/tournament-prizes/tournament-prizes.params';
-
 import * as Params
-    from 'wlc-engine/modules/tournaments/components/tournament/components/tournament-promo/tournament-promo.params';
+    from 'wlc-engine/modules/tournaments/components/tournament/components/tournament-banner/tournament-banner.params';
 
 @Component({
-    selector: '[wlc-tournament-promo]',
-    templateUrl: './tournament-promo.component.html',
-    styleUrls: ['./styles/tournament-promo.component.scss'],
+    selector: '[wlc-tournament-banner]',
+    templateUrl: './tournament-banner.component.html',
+    styleUrls: ['./styles/tournament-banner.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TournamentPromoComponent extends AbstractComponent implements OnInit {
-    @Input() public inlineParams: Params.ITournamentPromoCParams;
+export class TournamentBannerComponent
+    extends AbstractComponent
+    implements OnInit {
+    @Input() public inlineParams: Params.ITournamentBannerCParams;
     @Input() public type: Params.ComponentType;
     @Input() public theme: Params.ComponentTheme;
     @Input() public themeMod: Params.ThemeMod;
@@ -43,21 +42,20 @@ export class TournamentPromoComponent extends AbstractComponent implements OnIni
     @Input() public tournament: Tournament;
     @Input() public parentInstance: TournamentComponent;
 
-    public $params: Params.ITournamentPromoCParams;
+    public $params: Params.ITournamentBannerCParams;
     public isTournamentSelected: boolean;
-    public rowLimit: number = PRIMARY_ROW_LIMIT;
-    public pending: boolean = false;
     public isProcessed: boolean = false;
+    public pending: boolean = false;
     public isAuth: boolean = false;
 
     constructor(
-        @Inject('injectParams') protected injectParams: Params.ITournamentPromoCParams,
+        @Inject('injectParams') protected injectParams: Params.ITournamentBannerCParams,
         protected cdr: ChangeDetectorRef,
         protected configService: ConfigService,
         protected tournamentsService: TournamentsService,
     ) {
         super(
-            <IMixedParams<Params.ITournamentPromoCParams>>{
+            <IMixedParams<Params.ITournamentBannerCParams>>{
                 injectParams,
                 defaultParams: Params.defaultParams,
             }, configService);
@@ -65,10 +63,10 @@ export class TournamentPromoComponent extends AbstractComponent implements OnIni
 
     public ngOnInit(): void {
         super.ngOnInit(GlobalHelper.prepareParams(this,
-            ['tournament', 'type', 'theme', 'themeMod', 'customMod']));
+            ['tournament', 'type', 'theme', 'themeMod', 'customMod', 'parentInstance']));
 
-        this.isTournamentSelected = this.tournamentsService.isTournamentSelected;
         this.isAuth = this.ConfigService.get<boolean>('$user.isAuthenticated');
+        this.isTournamentSelected = this.tournamentsService.isTournamentSelected;
 
         this.checkParentInstance();
 
@@ -80,30 +78,10 @@ export class TournamentPromoComponent extends AbstractComponent implements OnIni
             });
     }
 
-    public setTag(): string {
-        return this.$params.common.tournament.isSelected
-            ? 'Active'
-            : this.$params.common.tournament.isTournamentStarts
-                ? 'Available'
-                : 'Coming soon';
-    }
-
-    public setDecorImage(): string {
-        return this.$params.common.tournament?.imagePromo || '/gstatic/wlc/tournaments/tournament-decor.png';
-    }
-
-    public joinToTournament(): void {
-        this.parentInstance?.join();
-    }
-
-    public readMore(scrollToSelector: string = ''): void {
-        this.parentInstance?.readMore(scrollToSelector);
-    }
-
     protected checkParentInstance(): void {
         if (!this.parentInstance) return;
 
-        this.$params.common.tournament = this.parentInstance.tournament;
+        this.$params.tournament = this.parentInstance.tournament;
         this.setSubscription();
     }
 
@@ -115,6 +93,12 @@ export class TournamentPromoComponent extends AbstractComponent implements OnIni
                 this.cdr.markForCheck();
             });
     }
+
+    public readMore(scrollToSelector: string = ''): void {
+        this.parentInstance?.readMore(scrollToSelector);
+    }
+
+    public joinToTournament(): void {
+        this.parentInstance?.join();
+    }
 }
-
-

@@ -1,0 +1,59 @@
+<div class="{{$class}}"
+     [style]="{backgroundImage: 'linear-gradient(90deg, #2f2f2f 35.37%, rgba(47, 47, 47, 0) 77.35%, rgba(47, 47, 47, 0.71) 100%), ' +
+      'url(' + $params.tournament.imageOther + ')'}">
+    <div class="{{$class}}__header">
+        <h4 class="{{$class}}__header-title">{{'Tournaments' | translate}}</h4>
+    </div>
+    <div class="{{$class}}__body"
+         [style]="{backgroundImage: 'url(' + $params.tournament.image + ')'}">
+        <h2 class="{{$class}}__body-title"
+            [title]="$params.tournament.name"
+        >
+            {{$params.tournament.name}}
+        </h2>
+        <div class="{{$class}}__timer-block">
+            <div class="header-prize-block">
+                <i wlc-icon iconName="pool"></i>
+                <div class="header-prize-block__text">
+                    <div class="header-prize-block__text--subtitle">{{'Prize pool' | translate}}</div>
+                    <div wlc-currency
+                         [value]="$params.tournament.totalFounds"
+                         digitsInfo="1-0-0"
+                         [currency]="'EUR'"
+                    ></div>
+                </div>
+            </div>
+            <div class="delimiter"></div>
+            <div wlc-timer
+                 class="{{$class}}-timer"
+                 [value]="$params.tournament.isTournamentStarts
+                            ? $params.tournament.endsLuxon
+                            : $params.tournament.startsLuxon"
+                 [text]="$params.tournament.isTournamentStarts
+                             ? 'Time remaining'
+                             : 'Coming soon'">
+            </div>
+        </div>
+
+        <div class="{{$class}}__description"
+             [title]="$params.tournament.description">
+            {{$params.tournament.description}}
+        </div>
+
+        <div class="buttons-wrap">
+            <button
+                *ngIf="!isProcessed && !isTournamentSelected && $params.tournament.isTournamentStarts"
+                wlc-button
+                [text]="isAuth ? 'Join now' : 'Sign in'"
+                (click)="joinToTournament()">
+            </button>
+            <button
+                wlc-button
+                themeMod="secondary"
+                [text]="'Read more'"
+                (click)="readMore()">
+            </button>
+        </div>
+    </div>
+</div>
+<div *ngIf="pending" class="{{$class}}__loader"></div>

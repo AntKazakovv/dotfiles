@@ -9,13 +9,21 @@
 
     .wlc-tournament-prizes {
 
+        &__container {
+            background: ef.get-value($themeDefault, 'containerBackground');
+            border-radius: ef.get-value($themeDefault, 'bodyRadius');
+            padding: ef.get-value($themeDefault, 'containerPadding');
+        }
+
         &__head {
             padding: ef.get-value($themeDefault, 'headPadding');
             margin: ef.get-value($themeDefault, 'headMargin');
+            border-bottom: ef.get-value($themeDefault, 'headBorderBottom');
 
             &-text {
-                display: inline-block;
-                vertical-align: middle;
+                display: flex;
+                align-items: center;
+                justify-content: center;
 
                 white-space: nowrap;
                 max-width: ef.get-value($themeDefault, 'headTextMaxWidth');
@@ -48,6 +56,7 @@
             &-text {
                 display: flex;
                 align-items: ef.get-value($themeDefault, 'bodyTextAlignItems');
+                justify-content: ef.get-value($themeDefault, 'bodyTextAlignItems');
 
                 ::ng-deep {
 
@@ -75,16 +84,14 @@
         &__row {
             display: flex;
             align-items: ef.get-value($themeDefault, 'rowAlignItems');
+            text-align: center;
         }
 
         &__col {
             flex: ef.get-value($themeDefault, 'colFlex');
             min-width: ef.get-value($themeDefault, 'colMinWidth');
             padding: ef.get-value($themeDefault, 'colPadding');
-
-            &--percent {
-                //@include em.get-mq-map('text-align', $themeDefault, 'colPercentTextAlign');
-            }
+            line-height: 1;
         }
 
         &__text {

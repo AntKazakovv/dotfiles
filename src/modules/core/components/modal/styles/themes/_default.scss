@@ -141,10 +141,10 @@
         }
     }
 
-    &.wlc-modal--tournament-condition {
+    &.wlc-modal--tournament-detail {
 
         .wlc-modal__body {
-            @include em.get-mq-map('padding', $themeDefault, 'tournamentConditionPadding');
+            @include em.get-mq-map('padding', $themeDefault, 'tournamentDetailPadding');
         }
 
         .wlc-tournament-detail__header-info--back-link {

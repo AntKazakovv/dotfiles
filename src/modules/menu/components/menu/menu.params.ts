@@ -70,6 +70,7 @@ export interface IMenuCParams extends IComponentParams<MenuTheme, MenuType, stri
         icons?: {
             fallback?: string;
         };
+        scrollToSelector?: string;
     },
     items?: MenuItemType[];
 }

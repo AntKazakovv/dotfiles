@@ -26,6 +26,7 @@ export class TournamentConditionComponent
     @Input() public inlineParams: Params.ITournamentConditionCParams;
     @Input() public userBalance: number;
     @Input() public feeAmount: number;
+    @Input() public feeCurrency: string;
     @Input() public text: string;
     @Input() public actionType: ActionType;
 

@@ -25,6 +25,22 @@ export namespace contentGames {
         ],
     };
 
+    export const homeWinsTournament: ILayoutSectionConfig = {
+        container: true,
+        components: [
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-home-wins wlc-home-wins--tournament',
+                    components: [
+                        componentLib.wlcLastWinsSlider.def,
+                        componentLib.wlcTournamentBannersSlider.def,
+                    ],
+                },
+            },
+        ],
+    };
+
     export const homeBottom: ILayoutSectionConfig = {
         container: true,
         components: [

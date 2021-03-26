@@ -43,7 +43,7 @@ export const $layouts: ILayoutsConfig = {
             'banner-section': sectionsLib.bannerSection.home,
             'categories': sectionsLib.categories.catalog,
             'content-games-top': sectionsLib.contentGames.homeTop,
-            'content-wins': sectionsLib.contentGames.homeWins,
+            'content-wins': sectionsLib.contentGames.homeWinsTournament,
             'content-games-bottom': sectionsLib.contentGames.homeBottom,
             'total-jackpot': sectionsLib.totalJackpotSection.home,
         },

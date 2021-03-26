@@ -28,6 +28,7 @@ export * from './promo/wlc-banners-slider.config';
 export * from './promo/wlc-slider.config';
 export * from './promo/wlc-last-wins-slider.config';
 export * from './promo/wlc-biggest-wins-slider.config';
+export * from './promo/wlc-tournament-banners-slider.config';
 
 export * from './promotions/wlc-bonuses-list.config';
 
