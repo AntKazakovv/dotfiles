@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+import {TranslateService} from '@ngx-translate/core';
 import {Bonus} from '../../models/bonus';
 import {
     IData,
@@ -78,6 +79,7 @@ export class BonusesService {
         private configService: ConfigService,
         private userService: UserService,
         private logService: LogService,
+        private translate: TranslateService,
     ) {
         this.registerMethods();
         this.setSubscribers();
@@ -550,6 +552,10 @@ export class BonusesService {
                 this.promoBonus = bonus;
                 this.cachingService.set(this.dbPromoUrl, this.promoBonus.promoCode, true, 24 * 60 * 60 * 100);
             }
+        });
+
+        this.translate.onLangChange.subscribe(() => {
+            this.updateSubscribers();
         });
     }
 

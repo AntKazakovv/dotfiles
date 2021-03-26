@@ -129,7 +129,7 @@ export class Bonus extends AbstractModel<IBonus> {
     }
 
     public get description(): string {
-        return this.data.Description;
+        return this.data.Description || gettext('No bonus description');
     }
 
     public get disableCancel(): boolean {

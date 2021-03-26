@@ -38,9 +38,8 @@
                         data-wlc-element="bonus_title-name">
                         {{$params.common.bonus?.name}}
                     </h4>
-                    <p *ngIf="$params.common.bonus?.description"
-                       class="{{$class}}__description" [wlc-clamp]="2">
-                        {{$params.common.bonus?.description}}
+                    <p class="{{$class}}__description" [wlc-clamp]="2">
+                        {{$params.common.bonus?.description | translate}}
                     </p>
                     <button type="button"
                             wlc-button
@@ -149,9 +148,8 @@
                     <h4 class="{{$class}}__name" data-wlc-element="bonus_title-name">
                         {{$params.common.bonus?.name}}
                     </h4>
-                    <p *ngIf="$params.common.bonus?.description"
-                       class="{{$class}}__description">
-                        {{$params.common.bonus?.description}}
+                    <p class="{{$class}}__description">
+                        {{$params.common.bonus?.description | translate}}
                     </p>
                 </div>
                 <div class="{{$class}}__btns" *ngIf="!isAuth">
@@ -281,10 +279,9 @@
                 {{$params.common.bonus?.name}}
             </h4>
         </div>
-        <div *ngIf="$params.common.bonus?.description"
-             class="{{$class}}__footer">
+        <div class="{{$class}}__footer">
             <p class="{{$class}}__description">
-                {{$params.common.bonus?.description}}
+                {{$params.common.bonus?.description | translate}}
             </p>
         </div>
     </div>
@@ -321,9 +318,8 @@
         <h4 class="{{$class}}__name">
             {{$params.common.bonus?.name}}
         </h4>
-        <p *ngIf="$params.common.bonus?.description"
-           class="{{$class}}__description">
-            {{$params.common.bonus?.description}}
+        <p class="{{$class}}__description">
+            {{$params.common.bonus?.description | translate}}
         </p>
     </div>
 </ng-template>
@@ -352,11 +348,10 @@
                     data-wlc-element="bonus_title-name">
                     {{$params.common.bonus.name}}
                 </h4>
-                <p *ngIf="$params.common.bonus.description"
-                   class="{{$class}}__description"
+                <p class="{{$class}}__description"
                    [wlc-clamp]="3"
                    data-wlc-element="bonus_description-name"
-                >{{$params.common.bonus.description}}</p>
+                >{{$params.common.bonus.description | translate}}</p>
             </div>
 
             <div class="{{$class}}__image-block" data-wlc-element="bonus_image">
@@ -471,9 +466,8 @@
             </div>
             <div class="{{$class}}__bottom" data-wlc-element="bonus_info">
                 <div class="{{$class}}__info-block">
-                    <p *ngIf="$params.common.bonus?.description"
-                       class="{{$class}}__description" [wlc-clamp]="2">
-                        {{$params.common.bonus?.description}}
+                    <p class="{{$class}}__description" [wlc-clamp]="2">
+                        {{$params.common.bonus?.description | translate}}
                     </p>
                     <button type="button"
                             wlc-button
@@ -535,7 +529,7 @@
                             wlc-button
                             [themeMod]="'readmore'"
                             text="Read more"
-                            *ngIf="$params.common.bonus.description && !$params.common.bonus?.inventoried && $params.theme == 'grid'"
+                            *ngIf="!$params.common.bonus?.inventoried && $params.theme == 'grid'"
                             (click)="openDescription($params.common.bonus)">
                     </button>
                 </div>
@@ -549,7 +543,7 @@
                             wlc-button
                             [themeMod]="'readmore'"
                             text="Read more"
-                            *ngIf="$params.common.bonus.description && !$params.common.bonus?.inventoried"
+                            *ngIf="!$params.common.bonus?.inventoried"
                             (click)="openDescription($params.common.bonus)">
                     </button>
                 </div>
@@ -624,9 +618,8 @@
             </div>
             <div class="{{$class}}__bottom" data-wlc-element="bonus_info">
                 <div class="{{$class}}__info-block">
-                    <p *ngIf="$params.common.bonus?.description"
-                       class="{{$class}}__description" [wlc-clamp]="2">
-                        {{$params.common.bonus?.description}}
+                    <p class="{{$class}}__description" [wlc-clamp]="2">
+                        {{$params.common.bonus?.description | translate}}
                     </p>
                     <button type="button"
                             wlc-button
