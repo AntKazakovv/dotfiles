@@ -16,14 +16,14 @@ module.exports = function preBuildTask() {
         if (!fs.existsSync(this.params.paths.dist)) {
             fs.mkdirSync(this.params.paths.dist);
         }
-    }
+    };
 
     // Create Temp directory
     const makeTempDirectory = () => {
         if (!fs.existsSync(this.params.paths.temp)) {
             fs.mkdirSync(this.params.paths.temp);
         }
-    }
+    };
 
     // Create symlink to the index.html file in the dist directory
     const makeIndexHtmlSymlink = () => {
@@ -34,7 +34,7 @@ module.exports = function preBuildTask() {
                 fs.symlinkSync('../static/dist/index.html', this.params.paths.indexFile);
             }
         }
-    }
+    };
 
     // Create symlink to the index.html file in the src directory
     const makeSrcIndexHtmlSymlink = () => {
@@ -46,7 +46,7 @@ module.exports = function preBuildTask() {
         } catch {
             fs.symlinkSync('../wlc-engine/index.html', this.params.paths.srcIndexFile);
         }
-    }
+    };
 
     // Create symlink to the wlc-engine directory
     const makeWlcEngineSymlink = () => {
@@ -57,7 +57,7 @@ module.exports = function preBuildTask() {
             //
         }
         fs.symlinkSync('./node_modules/@egamings/wlc-engine/src', this.params.paths.engineLink);
-    }
+    };
 
     // Create symlink to the polyfills.ts file in the src directory
     const makePolyfillsSymlink = () => {
@@ -68,7 +68,41 @@ module.exports = function preBuildTask() {
             //
         }
         fs.symlinkSync('../wlc-engine/polyfills.ts', this.params.paths.polyfillsFile);
-    }
+    };
+
+    const makeCustomModule = () => {
+
+        const modulePath = 'custom/custom.module.ts';
+        const statesConfigPath = 'custom/system/config/custom.states.ts';
+
+        fs.access(`${this.params.paths.src}/${modulePath}`, (err) => {
+            if (err) {
+
+                const path = modulePath.split('/').slice(0, -1).join('/');
+                fs.mkdirSync(`${this.params.paths.src}/${path}/`, {recursive: true});
+
+                fs.copyFileSync(
+                    `${this.params.paths.engine}/wlc-src/${modulePath}`,
+                    `${this.params.paths.src}/${modulePath}`,
+                    (err) => {if (err) throw err;},
+                );
+            }
+        });
+
+        fs.access(`${this.params.paths.src}/${statesConfigPath}`, (err) => {
+            if (err) {
+
+                const path = statesConfigPath.split('/').slice(0, -1).join('/');
+                fs.mkdirSync(`${this.params.paths.src}/${path}/`, {recursive: true});
+
+                fs.copyFileSync(
+                    `${this.params.paths.engine}/wlc-src/${statesConfigPath}`,
+                    `${this.params.paths.src}/${statesConfigPath}`,
+                    (err) => {if (err) throw err;},
+                );
+            }
+        });
+    };
 
     task('prepare:build', (cb) => {
         makeDistDirectory();
@@ -77,6 +111,7 @@ module.exports = function preBuildTask() {
         makeWlcEngineSymlink();
         makeSrcIndexHtmlSymlink();
         makePolyfillsSymlink();
+        makeCustomModule();
 
         cb();
     });
@@ -87,4 +122,4 @@ module.exports = function preBuildTask() {
 
         cb();
     });
-}
+};
