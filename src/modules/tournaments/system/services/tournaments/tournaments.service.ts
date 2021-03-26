@@ -465,6 +465,7 @@ export class TournamentsService {
             data: <IPushMessageParams>{
                 type: 'success',
                 title,
+                message: '',
                 wlcElement: 'notifiсation_tournament-success',
             },
         });

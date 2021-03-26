@@ -5,6 +5,7 @@
             *ngFor="let win of winsTop; index as i"
             [class.user]="userId === win.IDUser"
             [class.first]="!i"
+            [class.single]="winsTop.length === 1"
             [class.last]="i === (winsTop.length - 1)">
             <div class="{{$class}}__cell item-place">{{win.IDUserPlace}}</div>
             <div class="{{$class}}__cell item-user">

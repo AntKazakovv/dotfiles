@@ -10,6 +10,28 @@
     display: flex;
     flex-direction: column;
 
+    .wlc-scrollbar {
+
+        ::ng-deep {
+            height: 100%;
+
+            .wlc-scrollbar__container {
+                width: auto;
+                padding-left: 20px;
+                padding-right: 20px;
+                margin-left: -20px;
+                margin-right: -20px;
+
+                ::ng-deep {
+
+                    .swiper-scrollbar {
+                        right: 9px;
+                    }
+                }
+            }
+        }
+    }
+
     .wlc-tournament-list {
 
         &__header {

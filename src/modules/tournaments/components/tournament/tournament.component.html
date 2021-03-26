@@ -31,7 +31,7 @@
                     ? 'Time remaining'
                     : 'Coming soon'">
         </div>
-        <div class="{{$class}}__description" *ngIf="!isTournamentSelected">
+        <div class="{{$class}}__description" *ngIf="!isTournamentSelected && tournament.description?.length">
             <span>{{tournament.description}}</span>
         </div>
         <div class="{{$class}}__btns" *ngIf="!isTournamentSelected && tournament.isTournamentStarts">

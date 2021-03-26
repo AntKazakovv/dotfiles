@@ -17,29 +17,31 @@
 </ng-template>
 
 <ng-template #dashboard>
-    <div class="{{$class}}__header">{{'Tournaments' | translate}}</div>
-    <ng-container *ngIf="tournaments?.length && isReady; else: noData">
-        <ng-container
-            *ngIf="!isTournamentSelected && $params.type === 'swiper'">
-            <div class="{{$class}}__slider"
-                wlc-slider
-                type="dashboard"
-                [slides]="slides"
-                [inlineParams]="sliderParams"
-            ></div>
-        </ng-container>
-        <ng-container *ngIf="isTournamentSelected">
-            <div class="{{$class}}__container-active"
-                data-wlc-element="block_tournament_active_dashboard">
-                <div
-                    wlc-tournament
-                    [tournament]="activeTournament"
+    <div class="{{$class}}__inner" wlc-scrollbar>
+        <div class="{{$class}}__header">{{'Tournaments' | translate}}</div>
+        <ng-container *ngIf="tournaments?.length && isReady; else: noData">
+            <ng-container
+                *ngIf="!isTournamentSelected && $params.type === 'swiper'">
+                <div class="{{$class}}__slider"
+                    wlc-slider
                     type="dashboard"
-                    theme="dashboard">
+                    [slides]="slides"
+                    [inlineParams]="sliderParams"
+                ></div>
+            </ng-container>
+            <ng-container *ngIf="isTournamentSelected">
+                <div class="{{$class}}__container-active"
+                    data-wlc-element="block_tournament_active_dashboard">
+                    <div
+                        wlc-tournament
+                        [tournament]="activeTournament"
+                        type="dashboard"
+                        theme="dashboard">
+                    </div>
                 </div>
-            </div>
+            </ng-container>
         </ng-container>
-    </ng-container>
+    </div>
 </ng-template>
 
 <ng-template #noData>
