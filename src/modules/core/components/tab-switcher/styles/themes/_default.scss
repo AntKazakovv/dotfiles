@@ -34,7 +34,7 @@
 
                 &.active {
                     background: ef.get-value($themeDefault, 'navItemActiveBackground');
-                    @include text.get-text-style(ef.get-value($themeDefault, 'navItemActiveStyle'), ef.get-value($themeDefault, 'navItemColor'));
+                    @include text.get-text-style(ef.get-value($themeDefault, 'navItemActiveStyle'), ef.get-value($themeDefault, 'navItemActiveColor'));
                 }
 
                 &:first-child {
