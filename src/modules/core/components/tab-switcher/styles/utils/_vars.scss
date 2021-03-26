@@ -18,6 +18,7 @@ $themeDefault: map-merge((
     'navItemPadding': ef.get('size', 'smally'),
     'navItemActiveBackground': ef.get('mainColors', 'bg700'),
     'navItemColor': ef.get('mainColors', 'baseMain'),
+    'navItemActiveColor': ef.get('mainColors', 'baseMain'),
     'navItemStyle': 'ThirdTitle',
     'navItemActiveStyle': 'ThirdTitleBold',
     'navItemFirstRadius': ef.get('radius', 'biger') 0 0 0,
