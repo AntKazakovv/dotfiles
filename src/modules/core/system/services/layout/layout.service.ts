@@ -445,6 +445,14 @@ export class LayoutService {
                     this.afterModuleLoad('sportsbook', m);
                     return m.SportsbookModule;
                 });
+            case 'custom':
+                if (this.loadedModules.custom) {
+                    return this.loadedModules.custom;
+                }
+                return import('wlc-src/custom/custom.module').then(m => {
+                    this.afterModuleLoad('custom', m);
+                    return m.CustomModule;
+                });
         }
     }
 

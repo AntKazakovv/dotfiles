@@ -5,13 +5,15 @@ import {AppComponent} from 'wlc-engine/modules/app/components/app/app.component'
 import {ConfigService} from 'wlc-engine/modules/core/system/services';
 import {LayoutComponent} from 'wlc-engine/modules/core/components/layout/layout.component';
 import {polyfillsResolver} from 'wlc-engine/modules/core/system/config/resolvers';
+import {customStates} from 'wlc-src/custom/system/config/custom.states';
 import * as States from './states';
 
 import {
     map as _map,
+    merge as _merge,
 } from 'lodash-es';
 
-const states = {
+let states = {
     'app.home': States.homeState,
     'app.catalog': States.catalogState,
     'app.catalog.child': States.catalogChildState,
@@ -79,6 +81,10 @@ const appState: Ng2StateDeclaration = {
         polyfillsResolver,
     ],
 };
+
+if (Object.keys(customStates).length) {
+    states = _merge(states, customStates);
+}
 
 export const APP_STATES: Ng2StateDeclaration[] = [
     appState,
