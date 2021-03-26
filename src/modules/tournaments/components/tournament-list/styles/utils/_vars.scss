@@ -10,7 +10,7 @@ $themeDefault: map-merge((
 
 $customThemeDashboard: () !default;
 $themeDashboard: map-merge((
-    'headerFontSize': ef.get('font', 'ThirdTitle'),
+    'headerFontSize': ef.get('font', 'base'),
     'headerMargin': 0 0 ef.get('size', 'smally') 0,
     'swiperNavTop': 117px,
 ), $customThemeDashboard);

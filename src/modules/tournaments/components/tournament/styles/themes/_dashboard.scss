@@ -19,6 +19,7 @@
             .wlc-icon::ng-deep {
                 width: ef.get-value($themeDashboard, 'moreIconSize');
                 height: ef.get-value($themeDashboard, 'moreIconSize');
+                position: relative;
                 cursor: pointer;
 
                 svg {
@@ -34,6 +35,20 @@
                 &:hover {
 
                     .wlc-icon::ng-deep {
+
+                        &:after {
+                            display: block;
+                            content: '';
+                            position: absolute;
+                            width: 90%;
+                            height: 90%;
+                            margin-top: 20%;
+                            top: 0;
+                            left: 5%;
+                            background-color: ef.get-value($themeDashboard, 'moreIconColor');
+                            border-radius: 50%;
+                            z-index: -1;
+                        }
 
                         svg {
                             fill: ef.get-value($themeDashboard, 'moreIconColorHover');
@@ -109,7 +124,6 @@
         }
 
         &__timer {
-            padding-bottom: ef.get-value($themeDashboard, 'gap');
 
             &.wlc-timer::ng-deep {
 
@@ -124,14 +138,14 @@
             padding: ef.get-value($themeDashboard, 'descrPadding');
             background-color: ef.get-value($themeDashboard, 'rowBg');
             border-radius: ef.get-value($themeDashboard, 'borderRadius');
-            margin: ef.get-value($themeDashboard, 'descrMargin');
+            margin-top: ef.get-value($themeDashboard, 'gapNoSelect');
 
             span {
                 width: 100%;
                 text-align: center;
                 /* stylelint-disable */
                 display: -webkit-box;
-                -webkit-line-clamp: 2;
+                -webkit-line-clamp: 4;
                 -webkit-box-orient: vertical;
                 /* stylelint-enable */
                 overflow: hidden;
@@ -139,14 +153,14 @@
         }
 
         &__btns {
-            height: 100%;
+            margin-top: ef.get-value($themeDashboard, 'gapNoSelect');
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
         &__board {
-            padding-bottom: ef.get-value($themeDashboard, 'gap');
+            padding: ef.get-value($themeDashboard, 'gap') 0 ef.get-value($themeDashboard, 'gap') 0;
         }
     }
 }

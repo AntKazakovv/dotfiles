@@ -3,11 +3,11 @@
 $customThemeDashboard: () !default;
 $themeDashboard: map-merge((
     'moreIconSize': 23px,
-    'moreIconColor': ef.get('mainColors', 'baseOpacity'),
-    'moreIconColorHover': ef.get('mainColors', 'baseMain'),
+    'moreIconColor': ef.get('mainColors', 'baseMain'),
+    'moreIconColorHover': ef.get('mainColors', 'main'),
     'moreIconTop': 20px,
     'moreIconRight': 32px,
-    'moreIconSelectedTop': -41px,
+    'moreIconSelectedTop': -44px,
     'moreIconSelectedRight': 0,
     'gap': ef.get('size', 'small'),
     'gapNoSelect': ef.get('size', 'smally'),
@@ -19,7 +19,6 @@ $themeDashboard: map-merge((
     'borderRadius': ef.get('size', 'small'),
     'titleBg': linear-gradient(180deg, transparentize(ef.get('mainColors', 'bg'), 1) 0%, ef.get('mainColors', 'bg') 67.3%),
     'titlePadding': ef.get('size', 'smaller') ef.get('size', 'smaller') + 5px,
-    'descrFontSize': 1.1rem,
+    'descrFontSize': 1.2rem,
     'descrPadding': ef.get('size', 'smally') ef.get('size', 'small'),
-    'descrMargin': ef.get('size', 'smallest') 0 ef.get('size', 'small') 0,
 ), $customThemeDashboard);
