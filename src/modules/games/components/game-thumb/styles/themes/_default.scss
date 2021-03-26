@@ -28,14 +28,16 @@
         }
     }
 
-    &:hover {
+    @media (hover: hover) {
 
-        .wlc-game-thumb__desc {
-            opacity: 1;
+        &:hover {
 
-            &:before {
-                transform: translateX(0) skewX(0);
-                @include bm.transition(all, 0.25s);
+            .wlc-game-thumb__desc {
+                opacity: 1;
+
+                &:before {
+                    transform: translateX(0) skewX(0);
+                }
             }
         }
     }
@@ -82,6 +84,7 @@
                 background: ef.get-value($themeDefault, 'thumbHoverBg');
                 border-radius: ef.get-value($themeDefault, 'thumbBorderRadius');
                 pointer-events: none;
+                @include bm.transition(all, 0.25s);
             }
         }
 
@@ -131,6 +134,7 @@
             border-radius: ef.get-value($themeDefault, 'favoriteBackRadius');
             background-color: ef.get-value($themeDefault, 'favoriteBackBg');
             box-shadow: ef.get-value($themeDefault, 'favoriteBoxShadow');
+            @include bm.transition;
 
             &.wlc-icon::ng-deep {
 
@@ -171,7 +175,6 @@
                 svg,
                 path {
                     fill: ef.get-value($themeDefault, 'favoriteActiveBg');
-                    @include bm.transition;
                 }
             }
         }

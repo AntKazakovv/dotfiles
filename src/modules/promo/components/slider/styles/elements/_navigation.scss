@@ -83,7 +83,7 @@
     height: ef.get-value($themeDefaultBanner, 'buttonSize');
     background: ef.get-value($themeDefaultBanner, 'buttonBg');
     border-radius: ef.get-value($themeDefaultBanner, 'buttonBorderRadius');
-    transition: ef.get-value($themeDefaultBanner, 'transition');
+    @include em.transition(background);
     outline: none;
     border: none;
 
@@ -91,11 +91,16 @@
 
         &:hover {
             background: ef.get-value($themeDefaultBanner, 'buttonBgHover');
+
+            svg {
+                fill: ef.get-value($themeDefaultBanner, 'iconFillHover');
+            }
         }
     }
 
     svg {
         fill: ef.get-value($themeDefaultBanner, 'iconFill');
+        @include em.transition(fill);
     }
 
     &.swiper-button-disabled {

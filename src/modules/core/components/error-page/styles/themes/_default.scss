@@ -1,33 +1,21 @@
 @use 'engine-scss/functions' as ef;
 @use 'engine-scss/mixins/mediaqueries' as mq;
 @use 'engine-scss/mixins/text' as text;
-@import '../utils/vars';
-@import '../utils/mixins';
+@use 'engine-scss/mixins/base.mixins' as bm;
 
 .wlc-error-page--theme-default:host {
-    max-width: 350px;
+    @include bm.get-mq-map('max-width', $themeDefault, 'pageMaxWidth');
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: minmax(0, 250px) repeat(2, 1fr);
-    grid-gap: ef.get-value($themeDefault, 'gap');
-    margin: ef.get-value($themeDefault, 'pageMarginMobile');
-
-    @include mq.min(768) {
-        max-width: 940px;
-        grid-template-columns: repeat(4, 1fr);
-        grid-template-rows: repeat(2, 1fr);
-        margin: ef.get-value($themeDefault, 'pageMargin');
-    }
+    @include bm.get-mq-map('grid-template-columns', $themeDefault, 'pageColumns');
+    @include bm.get-mq-map('grid-template-rows', $themeDefault, 'pageRows');
+    @include bm.get-mq-map('grid-gap', $themeDefault, 'pageGap');
+    @include bm.get-mq-map('margin', $themeDefault, 'pageMargin');
 
     .wlc-error-page__image {
-        grid-column: 1 / span 2;
-        grid-row: 1;
+        @include bm.get-mq-map('grid-column', $themeDefault, 'imageColunms');
+        @include bm.get-mq-map('grid-row', $themeDefault, 'imageRows');
         @include blockDecoration('backgroundImage');
-
-        @include mq.min(768) {
-            grid-column: 1 / span 2;
-            grid-row: 1 / span 2;
-        }
+        box-shadow: ef.get-value($themeDefault, 'boxShadow');
 
         &.wlc-icon::ng-deep {
 
@@ -45,64 +33,56 @@
     }
 
     .wlc-error-page__message {
-        grid-column: 1 / span 2;
-        grid-row: 2;
-        flex-direction: column;
+        @include bm.get-mq-map('grid-column', $themeDefault, 'messageColunms');
+        @include bm.get-mq-map('grid-row', $themeDefault, 'messageRows');
+        flex-direction: ef.get-value($themeDefault, 'messageDirection');
         @include blockDecoration('backgroundText');
-
-        @include mq.min(768) {
-            grid-column: 3 / span 2;
-            grid-row: 1;
-        }
+        box-shadow: ef.get-value($themeDefault, 'boxShadow');
 
         h2 {
-            @include text.get-text-style('QoteTextBold');
-            text-align: center;
-            margin-bottom: ef.get-value($themeDefault, 'padding');
+            @include text.get-text-style(ef.get-value($themeDefault, 'headerStyle'), ef.get-value($themeDefault, 'headerColor'));
+            text-align: ef.get-value($themeDefault, 'headerAlign');
+            margin: ef.get-value($themeDefault, 'headerMargin');
         }
 
         p {
-            @include text.get-text-style('ThirdTitle');
-            text-align: center;
+            @include text.get-text-style(ef.get-value($themeDefault, 'textStyle'), ef.get-value($themeDefault, 'textColor'));
+            text-align: ef.get-value($themeDefault, 'textAlign');
         }
     }
 
     .wlc-error-page__link {
-        grid-column: 1;
-        grid-row: 3;
-        text-decoration: none;
-        transition: 0.4s;
+        @include bm.get-mq-map('grid-column', $themeDefault, 'linkColunms');
+        @include bm.get-mq-map('grid-row', $themeDefault, 'linkRows');
+        text-decoration: ef.get-value($themeDefault, 'linkDecaration');
         @include blockDecoration('backgroundLink');
-
-        @include mq.min(768) {
-            grid-column: 3;
-            grid-row: 2;
-        }
+        box-shadow: ef.get-value($themeDefault, 'boxShadow');
+        @include bm.transition();
 
         &:last-child {
-            grid-column: 2;
-
-            @include mq.min(768) {
-                grid-column: 4;
-                grid-row: 2;
-            }
+            @include bm.get-mq-map('grid-column', $themeDefault, 'linkLastChildColunms');
+            @include bm.get-mq-map('grid-row', $themeDefault, 'linkLastChildRows');
         }
 
-        &:hover {
-            background: ef.get-value($themeDefault, 'backgroundLinkActive');
-            transition: 0.4s;
+        @media (hover: hover) {
 
-            span {
+            &:hover {
+                background: ef.get-value($themeDefault, 'backgroundLinkActive');
 
-                &:before {
-                    display: block;
+                span {
+                    color: ef.get-value($themeDefault, 'linkColorActive');
+
+                    &:before {
+                        display: block;
+                    }
                 }
             }
         }
 
         span {
             position: relative;
-            @include text.get-text-style('ThirdTitle');
+            @include bm.transition();
+            @include text.get-text-style(ef.get-value($themeDefault, 'linkStyle'), ef.get-value($themeDefault, 'linkColor'));
 
             &:before {
                 display: none;
@@ -114,7 +94,7 @@
                 bottom: - ef.get-value($themeDefault, 'underlineHeight');
                 height: ef.get-value($themeDefault, 'underlineHeight');
                 background: ef.get-value($themeDefault, 'underline');
-                border-radius: 4px;
+                border-radius: ef.get-value($themeDefault, 'underlineRadius');
             }
         }
     }

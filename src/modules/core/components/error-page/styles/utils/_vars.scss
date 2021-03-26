@@ -4,11 +4,17 @@ $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'headerSize': ef.get('font', 'big'),
     'headerColor': ef.get('mainColors', 'baseMain'),
+    'headerStyle': 'QoteTextBold',
+    'headerAlign': center,
+    'headerMargin': 0 0 ef.get('size', 'smally') 0,
 
     'textSize': ef.get('font', 'main'),
     'textColor': ef.get('mainColors', 'baseMain'),
+    'textStyle': 'ThirdTitle',
+    'textAlign': center,
 
     'linkSize': ef.get('font', 'main'),
+    'linkStyle': 'ThirdTitle',
     'linkColor': ef.get('mainColors', 'baseMain'),
     'linkColorActive': ef.get('mainColors', 'baseMain'),
 
@@ -19,10 +25,64 @@ $themeDefault: map-merge((
 
     'underline': ef.get('mainColors', 'main'),
     'underlineHeight': 4px,
-
-    'gap': ef.get('size', 'smally'),
+    'underlineRadius': ef.get('radius', 'small'),
     'radius': ef.get('radius', 'biger'),
     'padding': ef.get('size', 'smally'),
-    'pageMargin': ef.get('size', 'biger') * 3 auto,
-    'pageMarginMobile': ef.get('size', 'smally') auto,
+    'boxShadow': none,
+
+    'pageMaxWidth': (
+        320: 350px,
+        768: 940px,
+    ),
+    'pageMargin':(
+        320: ef.get('size', 'smally') auto,
+        768: ef.get('size', 'biger') * 3 auto,
+    ),
+    'pageColumns': (
+        320: repeat(2, 1fr),
+        768: repeat(4, 1fr),
+    ),
+    'pageRows': (
+        320: minmax(0, 250px) repeat(2, 1fr),
+        768: repeat(2, 1fr),
+    ),
+    'pageGap': (
+        320: ef.get('size', 'smally'),
+    ),
+
+    'imageColunms': (
+        320: 1 / span 2,
+        768: 1 / span 2,
+    ),
+    'imageRows': (
+        320: 1,
+        768: 1 / span 2,
+    ),
+
+    'messageDirection': column,
+    'messageColunms': (
+        320: 1 / span 2,
+        768: 3 / span 2,
+    ),
+    'messageRows': (
+        320: 2,
+        768: 1,
+    ),
+
+    'linkColunms': (
+        320: 1,
+        768: 3,
+    ),
+    'linkRows': (
+        320: 3,
+        768: 2,
+    ),
+    'linkDecaration': none,
+    'linkLastChildColunms': (
+        320: 2,
+        768: 4,
+    ),
+    'linkLastChildRows': (
+        768: 2,
+    ),
 ), $customThemeDefault);

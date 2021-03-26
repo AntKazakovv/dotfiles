@@ -65,7 +65,7 @@ $themeDefaultBanner: map-merge((
     'buttonBg': ef.get('mainColors', 'baseOpacity'),
     'buttonBgHover': ef.get('mainColors', 'main'),
     'iconFill': ef.get('mainColors', 'baseMain'),
-    'transition': 0.3s linear,
+    'iconFillHover': ef.get('mainColors', 'baseMain'),
     'buttonBorderRadius': ef.get('size', 'small'),
     'buttonSize': ef.get('size', 'main'),
     'containerPadding': 0 ef.get('size', 'main'),
