@@ -69,6 +69,9 @@ export interface IGlobalValidators {
 export interface IFormComponent {
     name: string;
     params: IInputCParams | ITextareaCParams | ISelectCParams | IButtonCParams | any;
+    alwaysNew?: {
+        saveValue?: boolean;
+    };
 }
 
 export interface IFormWrapperCParams extends IWrapperCParams {
@@ -94,6 +97,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
     private controls: IControls = {};
     private allControls: IControls = {};
     private globalValidators:IGlobalValidators;
+    private formDataStorage: IIndexing<any> = {};
 
     private locked: string[] = [];
 
@@ -132,6 +136,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
     // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
     public ngOnChanges(changes: SimpleChanges): void {
         if (this.form && changes.config) {
+            this.formDataStorage = _assign({}, this.formDataStorage, this.form.value);
             this.controls = {};
             this.ngOnInit();
         }
@@ -234,7 +239,6 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
 
     private prepareComponents(components: IFormComponent[]): void {
         const controls = {};
-
         _each(components, (component) => {
 
             if (component.params.components) {
@@ -277,6 +281,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
                 default:
                     break;
             }
+
             _each(component.params.validators, (validator) => {
                 const validationRule = this.getValidator(validator);
                 if (!validationRule) {
@@ -294,14 +299,21 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
             if (_isArray(component.params.name)) {
                 _each(component.params.name, (field: string) => {
 
-                    this.allControls[field] = this.allControls[field] || new FormControl(
-                        {
-                            value: _get(this.formData?.value, field, ''),
-                            disabled: component.params.disabled,
-                        },
-                        validators,
-                        asyncValidators,
-                    );
+                    if (!this.allControls[field] || component.alwaysNew) {
+                        this.allControls[field] = new FormControl(
+                            {
+                                value: _get(this.formData?.value, field, ''),
+                                disabled: component.params.disabled,
+                            },
+                            validators,
+                            asyncValidators,
+                        );
+
+                        if (component.alwaysNew?.saveValue && this.formDataStorage[field]) {
+                            this.allControls[field].setValue(this.formDataStorage[field]);
+                            this.allControls[field].markAsTouched();
+                        }
+                    }
 
                     controls[field] = this.allControls[field];
 
@@ -311,14 +323,21 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
                 });
             } else {
 
-                this.allControls[component.params.name] = this.allControls[component.params.name] || new FormControl(
-                    {
-                        value: _get(this.formData?.value, component.params.name, component.params.value) || '',
-                        disabled: component.params.disabled,
-                    },
-                    validators,
-                    asyncValidators,
-                );
+                if (!this.allControls[component.params.name] || component.alwaysNew) {
+                    this.allControls[component.params.name] = new FormControl(
+                        {
+                            value: _get(this.formData?.value, component.params.name, component.params.value) || '',
+                            disabled: component.params.disabled,
+                        },
+                        validators,
+                        asyncValidators,
+                    );
+
+                    if (component.alwaysNew?.saveValue && this.formDataStorage[component.params.name]) {
+                        this.allControls[component.params.name].setValue(this.formDataStorage[component.params.name]);
+                        this.allControls[component.params.name].markAsTouched();
+                    }
+                }
 
                 controls[component.params.name] = this.allControls[component.params.name];
             }
@@ -357,7 +376,9 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
         this.formData?.subscribe((data) => {
             _each(this.form.controls, (control, key) => {
                 const value = _get(data, key);
-                control.setValue(value);
+                if (!control.value) {
+                    control.setValue(value);
+                }
 
                 if (_includes(this.locked, key) && value) {
                     control.disable();

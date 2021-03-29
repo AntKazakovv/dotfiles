@@ -568,7 +568,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
 
         // amount
         if (!(mode === 'deposit' && this.disableAmount)) {
-            let amount = FormElements.amount;
+            let amount = _cloneDeep(FormElements.amount);
             let showLimits = false;
 
             if (this.currentSystem) {
