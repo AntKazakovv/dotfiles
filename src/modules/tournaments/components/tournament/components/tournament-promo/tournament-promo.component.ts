@@ -80,14 +80,6 @@ export class TournamentPromoComponent extends AbstractComponent implements OnIni
             });
     }
 
-    public setTag(): string {
-        return this.$params.common.tournament.isSelected
-            ? 'Active'
-            : this.$params.common.tournament.isTournamentStarts
-                ? 'Available'
-                : 'Coming soon';
-    }
-
     public setDecorImage(): string {
         return this.$params.common.tournament?.imagePromo || '/gstatic/wlc/tournaments/tournament-decor.png';
     }

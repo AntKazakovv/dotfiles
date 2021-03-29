@@ -79,7 +79,7 @@ export class TimerComponent extends AbstractComponent implements OnInit {
             interval(this.milliSecondsInASecond).pipe(takeUntil(this.$destroy))
                 .subscribe(() => {
                     this.getTimeDifference();
-                    this.cdr.markForCheck();
+                    this.cdr.detectChanges();
                 });
         }
     }
