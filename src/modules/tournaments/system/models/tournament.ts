@@ -402,6 +402,18 @@ export class Tournament extends AbstractModel<ITournament> {
         return _uniqBy(topWin, 'IDUser');
     }
 
+    /**
+     * @returns {string} tournament tag
+     */
+
+    public get tag(): string {
+        return this.isSelected
+            ? 'Active'
+            : this.isTournamentStarts
+                ? 'Available'
+                : 'Coming soon';
+    }
+
     protected getUserLogin(item: ITournamentPlace): string {
         if (item.FirstName?.length && item.LastName?.length) {
             return item.FirstName + ' ' + item.LastName.substring(0, 1);

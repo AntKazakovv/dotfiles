@@ -7,7 +7,7 @@
             <div class="{{$class}}__tag">
                 <span class="{{$class}}__tag-text"
                       [class.active]="$params.common.tournament?.isSelected"
-                >{{setTag($params.common.tournament) | translate}}</span>
+                >{{$params.common.tournament.tag | translate}}</span>
             </div>
             <h3 class="{{$class}}__title"
                 [title]="$params.common.tournament.name">{{$params.common.tournament.name}}</h3>

@@ -6,6 +6,8 @@ $themeDefault: map-merge((
     'tournamentRadius': ef.get('radius', 'biger'),
     'tournamentMaxWidth': 100%,
 
+    'tournamentGradient': linear-gradient(90deg, ef.get('mainColors', 'bg700') 35%, rgba(ef.get('mainColors', 'bg700'), 0) 77%, rgba(ef.get('mainColors', 'bg700'), 0.7) 100%),
+
     'timerPadding': (
         375: 0 0 0 ef.get('size', 'small'),
         1024: 0 ef.get('size', 'smally'),
