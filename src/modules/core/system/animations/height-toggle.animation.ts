@@ -8,7 +8,6 @@ export const HeightToggleAnimation = [
             paddingBottom: '*',
             opacity: 1,
             overflow: 'initial',
-            offset: 0.8,
         })),
         state('closed', style({
             height: '0px',
