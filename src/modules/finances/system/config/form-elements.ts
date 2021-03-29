@@ -11,6 +11,9 @@ import {
 export namespace FormElements {
     export const amount = {
         name: 'core.wlc-input',
+        alwaysNew: {
+            saveValue: true,
+        },
         params: <IInputCParams>{
             common: {
                 placeholder: gettext('Amount'),
