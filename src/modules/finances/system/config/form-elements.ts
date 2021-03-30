@@ -49,7 +49,7 @@ export namespace FormElements {
         params: <ICheckboxCParams>{
             name: 'paymentRules',
             checkboxType: 'payment-rules',
-            validators: ['required'],
+            validators: ['requiredTrue'],
             customMod: ['rules'],
         },
     };
