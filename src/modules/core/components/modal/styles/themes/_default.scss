@@ -163,12 +163,14 @@
         }
     }
 
+    &.wlc-modal--registration-success,
     &.wlc-modal--data-is-processing {
         background: rgba($color: ef.get-value($hostModal, 'backdropBackground'), $alpha: 0.6);
 
         .wlc-modal__wrapper {
             @include mq.max(560) {
                 padding: 0;
+                height: 100%;
             }
         }
 
