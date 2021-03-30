@@ -69,6 +69,9 @@ export class ValidationService {
         required: {
             validator: Validators.required,
         },
+        requiredTrue: {
+            validator: Validators.requiredTrue,
+        },
         minLength: {
             validator: Validators.minLength,
         },

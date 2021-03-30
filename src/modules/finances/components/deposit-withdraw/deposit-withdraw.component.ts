@@ -8,7 +8,6 @@ import {
 import {
     FormControl,
     FormGroup,
-    Validators,
 } from '@angular/forms';
 import {TranslateService} from '@ngx-translate/core';
 import {StateService} from '@uirouter/core';
@@ -23,7 +22,6 @@ import {
     ValidationService,
     ISelectCParams,
     IInputCParams,
-    ICheckboxCParams,
     IFormWrapperCParams,
     IExtProfilePaymentSystems,
     IValidatorSettings,
@@ -54,17 +52,13 @@ import {IFormComponent} from 'wlc-engine/modules/core/components/form-wrapper/fo
 import * as Params from './deposit-withdraw.params';
 
 import {
-    assign as _assign,
     camelCase as _camelCase,
     cloneDeep as _cloneDeep,
-    each as _each,
-    extend as _extend,
     forEach as _forEach,
     has as _has,
     isEmpty as _isEmpty,
     isEqual as _isEqual,
     isObject as _isObject,
-    isString as _isString,
     transform as _transform,
 } from 'lodash-es';
 
