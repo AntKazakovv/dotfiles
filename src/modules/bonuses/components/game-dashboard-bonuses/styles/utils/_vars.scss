@@ -3,9 +3,9 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'fontHeightDescription': (
-        375: 125px,
-        640: 150px
+        375: 100%
     ),
+    'imgHeightLandscape': 100%,
     'titlePadding': 0 ef.get('size', 'smally'),
     'fontStyleDescription': 'SignText',
     'fontColorDescription': ef.get('mainColors', 'baseMain'),
@@ -26,6 +26,7 @@ $themeDefault: map-merge((
     'bonusItem': 0 0 ef.get('size', 'smaller'),
 
     'imageBlockAreas': 36px 1fr 70px,
+    'imageBlockAreasLandskape': minmax(min-content, 36px) 1fr minmax(min-content, 70px),
     'imageBlockHeight': 200px,
 
     'iconTextMargin': 0,

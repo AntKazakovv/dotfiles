@@ -209,6 +209,11 @@
                     }
                 }
 
+                &__image-block {
+                    grid-template-rows: ef.get-value($themeDefault, 'imageBlockAreasLandskape');
+                    min-height: ef.get-value($themeDefault, 'imgHeightLandscape');
+                }
+
                 &__description {
                     @include bm.get-mq-map('height', $themeDefault, 'fontHeightDescription');
                     line-height: 1.2;
