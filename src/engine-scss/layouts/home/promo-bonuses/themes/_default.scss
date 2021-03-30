@@ -3,7 +3,7 @@
 
 .wlc-sections__promo-bonuses {
 
-    .container {
+    > .container {
         display: grid;
 
         @include bm.get-mq-map('grid-template-columns', $themePromoBonuses, 'columns');
