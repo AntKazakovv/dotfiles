@@ -21,7 +21,7 @@
             @include bm.get-mq-map('min-height', $theme1Header, 'headerMinHeight');
             @include bm.get-mq-map('padding', $theme1Header, 'headerPadding');
 
-            @include mq.min(1024) {
+            @include mq.min(1200) {
                 max-width: 1920px;
                 width: 100%;
                 margin: 0 auto;

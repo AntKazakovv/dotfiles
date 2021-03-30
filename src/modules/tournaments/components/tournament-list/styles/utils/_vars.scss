@@ -14,6 +14,7 @@ $themeDashboard: map-merge((
     'headerFontSize': ef.get('font', 'base'),
     'headerMargin': 0 0 ef.get('size', 'smally') 0,
     'swiperNavTop': 117px,
+    'fillColor': ef.get('mainColors', 'baseMain'),
 ), $customThemeDashboard);
 
 $customThemeBanner: () !default;

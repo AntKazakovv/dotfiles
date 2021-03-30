@@ -5,7 +5,7 @@ export namespace wlcUserInfo {
         name: 'user.wlc-user-info',
         display: {
             auth: true,
-            after: 1023,
+            after: 1200,
         },
     };
 }
