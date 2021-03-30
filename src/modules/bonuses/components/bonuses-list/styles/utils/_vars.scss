@@ -42,6 +42,17 @@ $themePartial: map-merge((
         900: 15px,
         1630: 17px,
     ),
+
+    'bonusBodyHeight': 235px,
+
+    'sliderZIndex': 2,
+    'sliderPosLeft': 0,
+    'sliderPosRight': 0,
+    'sliderButtonHeight': 40px,
+    'sliderMaxWidth': 270px,
+    'sliderMargin': auto,
+    'sliderAlignItems': center,
+    'sliderJustifyContent': space-between,
 ), $customThemePartial);
 
 $customThemePromoHome: () !default;

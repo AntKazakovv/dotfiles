@@ -225,7 +225,7 @@
 </ng-template>
 <ng-template #partial>
     <div class="{{$class}}__content"
-         [class.chosen]="chosen"
+         [class.chosen]="chosen || $params.common.bonus.isChoose"
          [ngClass]="{'blank-bonus': bonus.type === 'blank'}"
     >
         <div class="{{$class}}__body">
@@ -240,7 +240,7 @@
             </div>
             <div *ngIf="$params.common?.useIconBonusImage"
                  class="{{$class}}__bonus-icon">
-                <span *ngIf="chosen"
+                <span *ngIf="chosen || $params.common.bonus.isChoose"
                       class="{{$class}}__check-icon">
                     <i
                         class="icon-btn"
@@ -279,9 +279,10 @@
                 {{$params.common.bonus?.name}}
             </h4>
         </div>
-        <div class="{{$class}}__footer">
+        <div *ngIf="$params.common.bonus?.description"
+             class="{{$class}}__footer">
             <p class="{{$class}}__description">
-                {{$params.common.bonus?.description | translate}}
+                {{$params.common.bonus.description | translate}}
             </p>
         </div>
     </div>

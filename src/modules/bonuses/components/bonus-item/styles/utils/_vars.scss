@@ -373,12 +373,12 @@ $themePartial: map-merge((
     ),
 
     'moreIconDisplay': (
-        320: block,
+        320: inline-block,
         900: none,
     ),
     'moreIconTopPos': 20px,
     'moreIconRightPos': 20px,
-    'moreIconSvgWidth': 100%,
+    'moreIconSvgSize': 22px,
     'moreIconSvgFill': ef.get('mainColors', 'baseOpacity'),
 
     'bonusNameDisplay': (
@@ -421,7 +421,7 @@ $themePreview: map-merge((
 
     'moreIconTopPos': 0,
     'moreIconRightPos': 0,
-    'moreIconSvgWidth': 100%,
+    'moreIconSvgSize': 22px,
     'moreIconSvgFill': ef.get('mainColors', 'baseOpacity'),
     'moreIconSvgFillHover': ef.get('mainColors', 'baseMain'),
 

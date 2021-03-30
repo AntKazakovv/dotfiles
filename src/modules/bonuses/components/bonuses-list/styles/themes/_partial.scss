@@ -4,6 +4,28 @@
 
 .wlc-bonuses-list--theme-partial:host {
 
+    .swiper-button-container {
+        position: absolute;
+        z-index: ef.get-value($themePartial, 'sliderZIndex');
+        top: calc(#{ef.get-value($themePartial, 'bonusBodyHeight')} / 2 - #{ef.get-value($themePartial, 'sliderButtonHeight')} / 2);
+        right: ef.get-value($themePartial, 'sliderPosRight');
+        left: ef.get-value($themePartial, 'sliderPosLeft');
+
+        display: flex;
+        align-items: ef.get-value($themePartial, 'sliderAlignItems');
+        justify-content: ef.get-value($themePartial, 'sliderJustifyContent');
+
+        max-width: ef.get-value($themePartial, 'sliderMaxWidth');
+        margin: ef.get-value($themePartial, 'sliderMargin');
+
+        pointer-events: none;
+
+        .wlc-swiper-button-prev,
+        .wlc-swiper-button-next {
+            pointer-events: all;
+        }
+    }
+
     .wlc-bonuses-list {
 
         &__list {
@@ -11,6 +33,10 @@
             @include em.get-mq-map('grid-template-columns', $themePartial, 'gridTemplateColumns');
             @include em.get-mq-map('grid-gap', $themePartial, 'gridGap');
             justify-content: center;
+
+            &-wrapper {
+                position: relative;
+            }
         }
     }
 }

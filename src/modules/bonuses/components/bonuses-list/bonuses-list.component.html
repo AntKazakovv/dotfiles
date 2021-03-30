@@ -17,10 +17,10 @@
         <div class="{{$class}}__list-wrapper" *ngIf="$params.type === 'swiper'">
             <ng-container *ngIf="bonuses?.length && isReady; else: noBonuses">
                 <div class="{{$class}}__slider"
-                    wlc-slider
-                    type="dashboard"
-                    [slides]="slides"
-                    [inlineParams]="sliderParams">
+                     wlc-slider
+                     type="dashboard"
+                     [slides]="slides"
+                     [inlineParams]="sliderParams">
                 </div>
             </ng-container>
         </div>
@@ -52,7 +52,41 @@
     </div>
 </ng-template>
 
+<ng-template #partial>
+    <div class="{{$class}}__content" data-wlc-element="block_bonuses-main">
+        <div class="{{$class}}__list-wrapper"
+             *ngIf="$params.type !== 'swiper'">
+            <div class="{{$class}}__list"
+                 *ngIf="bonuses?.length && isReady; else: noBonuses"
+                 data-wlc-element="block_bonus">
+                <div wlc-bonus-item
+                     [bonus]="bonus"
+                     [chosen]="bonus.isChoose"
+                     [type]="$params.common.filter"
+                     [theme]="$params.theme"
+                     *ngFor="let bonus of bonuses"></div>
+            </div>
+        </div>
+        <div class="{{$class}}__list-wrapper" *ngIf="$params.type === 'swiper'">
+            <ng-container *ngIf="bonuses?.length && isReady; else: noBonuses">
+                <div class="{{$class}}__slider"
+                     wlc-slider
+                     [slides]="slides"
+                     [inlineParams]="sliderParams">
+                    <div slot-container-end *ngIf="bonuses.length">
+                        <div class="container swiper-button-container">
+                            <button class="wlc-swiper-button-prev" wlc-icon iconName="arrow"></button>
+                            <button class="wlc-swiper-button-next" wlc-icon iconName="arrow"></button>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</ng-template>
+
 <ng-container [ngSwitch]="$params.theme">
+    <ng-container [ngTemplateOutlet]="partial" *ngSwitchCase="'partial'"></ng-container>
     <ng-container [ngTemplateOutlet]="promoHome" *ngSwitchCase="'promo-home'"></ng-container>
     <ng-container [ngTemplateOutlet]="default" *ngSwitchDefault></ng-container>
 </ng-container>
