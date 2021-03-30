@@ -308,7 +308,7 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
     /**
      * Open tab by id
      *
-     * @param {string} id
+     * @param tab
      */
     public openTab(tab: Params.IGameDashboardTab): void {
         this.activeTab = tab;
@@ -569,13 +569,15 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
         this.actionService.windowResize()
             .pipe(takeUntil(this.$destroy))
             .subscribe((event: IResizeEvent) => {
-                this.backdropLabelVisibility();
-                this.initLastPlayedSwiper();
-
                 const currentOrientation = !event.device.isDesktop && event.device.orientation == DeviceOrientation.Landscape;
                 if (currentOrientation !== this.landscapeOrientation) {
                     this.landscapeOrientation = currentOrientation;
+                    this.close();
+                    return;
                 }
+
+                this.backdropLabelVisibility();
+                this.initLastPlayedSwiper();
 
                 this.initDashboardPosition();
 
