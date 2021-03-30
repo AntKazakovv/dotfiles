@@ -97,4 +97,11 @@
             }
         }
     }
+
+    &.wlc-select--currency {
+
+        .wlc-select__field {
+            color: ef.get-value($baseSettings, 'selectColor');
+        }
+    }
 }

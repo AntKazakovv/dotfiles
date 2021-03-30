@@ -168,9 +168,18 @@
             position: absolute;
             top: ef.get-value($themePartial, 'moreIconTopPos');
             right: ef.get-value($themePartial, 'moreIconRightPos');
+            left: auto;
+
+            line-height: 0;
+
+            .wlc-icon,
+            span {
+                display: inline-block;
+            }
 
             svg {
-                width: ef.get-value($themePartial, 'moreIconSvgWidth');
+                width: ef.get-value($themePartial, 'moreIconSvgSize');
+                height: ef.get-value($themePartial, 'moreIconSvgSize');
                 fill: ef.get-value($themePartial, 'moreIconSvgFill');
             }
         }
