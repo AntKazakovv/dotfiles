@@ -84,7 +84,6 @@ module.exports = function preBuildTask() {
                 fs.copyFileSync(
                     `${this.params.paths.engine}/wlc-src/${modulePath}`,
                     `${this.params.paths.src}/${modulePath}`,
-                    (err) => {if (err) throw err;},
                 );
             }
         });
@@ -98,7 +97,6 @@ module.exports = function preBuildTask() {
                 fs.copyFileSync(
                     `${this.params.paths.engine}/wlc-src/${statesConfigPath}`,
                     `${this.params.paths.src}/${statesConfigPath}`,
-                    (err) => {if (err) throw err;},
                 );
             }
         });
