@@ -65,7 +65,7 @@ export class ChangePasswordFormComponent extends AbstractComponent implements On
             });
 
             if (this.modalService.getActiveModal('change-password')) {
-                this.modalService.closeModal('change-password');
+                this.modalService.hideModal('change-password');
             }
         } catch (error) {
             this.eventService.emit({

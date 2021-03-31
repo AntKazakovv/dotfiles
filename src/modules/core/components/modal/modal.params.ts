@@ -195,7 +195,7 @@ export const MODALS_LIST: IModalList = {
             scrollable: true,
         },
     },
-    registrationSuccess: {
+    'registration-success': {
         config: {
             id: 'registration-success',
             modifier: 'registration-success',
@@ -219,7 +219,7 @@ export const MODALS_LIST: IModalList = {
             dismissAll: true,
         },
     },
-    dataIsProcessing: {
+    'data-is-processing': {
         config: {
             id: 'data-is-processing',
             modifier: 'data-is-processing',

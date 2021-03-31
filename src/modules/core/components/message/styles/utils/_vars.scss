@@ -19,17 +19,18 @@ $themeDefault: map-merge((
         warning: ef.get('mainColors', 'warning'),
         error:   ef.get('mainColors', 'error'),
     ),
-    paddings: (
+    padding: (
         // 42px - icon size
-        0:    15px (42px + 10px) 15px 10px,
+        375:  15px (42px + 10px) 15px 10px,
         900:  20px (42px + 15px) 20px 15px,
         1200: 25px (42px + 20px) 25px 20px,
     ),
-    imageMargins: (
-        0:    10px,
+    iconMargin: (
+        375:  10px,
         900:  15px,
         1200: 20px,
     ),
+    modalIconMargin: 40px,
     headingStyle: 'QoteTextBoldTight',
     headingColor: ef.get('mainColors', 'baseMain'),
     messageStyle: 'PrimaryText',

@@ -220,7 +220,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
                 message: FinancesHelper.errorToMessage(error),
             });
         } finally {
-            this.modalService.closeModal('data-is-processing');
+            this.modalService.hideModal('data-is-processing');
             this.inProgress = false;
             this.financesService.fetchPaymentSystems();
         }
@@ -269,7 +269,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
                 message: FinancesHelper.errorToMessage(error),
             });
         } finally {
-            this.modalService.closeModal('data-is-processing');
+            this.modalService.hideModal('data-is-processing');
             this.inProgress = false;
             this.financesService.fetchPaymentSystems();
         }

@@ -49,7 +49,7 @@ export class RealityCheckInfoComponent extends AbstractComponent implements OnIn
     }
 
     public close(): void {
-        this.modalService.closeModal('reality-check-info');
+        this.modalService.hideModal('reality-check-info');
     }
 
     public async logout(): Promise<void> {

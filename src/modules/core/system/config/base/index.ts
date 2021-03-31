@@ -4,6 +4,7 @@ import {profileConfig} from './profile.config';
 import {tournamentsConfig} from './tournaments.config';
 import {gamesConfig} from './games.config';
 import {appConfig} from './app.config';
+import {notificationsConfig} from './notifications.config';
 
 export const $base: IBaseConfig = {
     app: appConfig,
@@ -11,5 +12,5 @@ export const $base: IBaseConfig = {
     profile: profileConfig,
     tournaments: tournamentsConfig,
     games: gamesConfig,
+    notifications: notificationsConfig,
 };
-
