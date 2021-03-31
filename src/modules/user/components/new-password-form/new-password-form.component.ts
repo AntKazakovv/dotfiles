@@ -74,7 +74,7 @@ export class NewPasswordFormComponent extends AbstractComponent {
             });
 
             if (this.modalService.getActiveModal('new-password')) {
-                this.modalService.closeModal('new-password');
+                this.modalService.hideModal('new-password');
             }
 
         } catch (error) {

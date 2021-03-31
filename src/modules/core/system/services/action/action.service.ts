@@ -319,7 +319,7 @@ export class ActionService {
         const userService: UserService = this.injector.get(UserService);
 
         try {
-            this.modalService.showModal('registrationSuccess');
+            this.modalService.showModal('registration-success');
             await userService.registrationComplete(initialPath.code);
             this.eventService.emit({
                 name: NotificationEvents.PushMessage,
@@ -334,7 +334,7 @@ export class ActionService {
         } catch (error) {
             this.showErrorNotification(error.errors, gettext('Registration error'), 'register');
         } finally {
-            this.modalService.closeAllModals();
+            this.modalService.hideModal('registration-success');
         }
     }
 

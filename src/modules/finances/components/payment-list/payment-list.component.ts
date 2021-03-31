@@ -101,7 +101,7 @@ export class PaymentListComponent extends AbstractComponent implements OnInit {
         });
 
         if (this.$params.hideModalOnSelect) {
-            this.modalService.closeModal('payment-list');
+            this.modalService.hideModal('payment-list');
         }
 
         this.cdr.markForCheck();

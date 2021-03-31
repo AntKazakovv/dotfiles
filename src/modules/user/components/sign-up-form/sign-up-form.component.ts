@@ -111,6 +111,7 @@ export class SignUpFormComponent extends AbstractComponent {
     }
 
     protected registrationComplete(): void {
+
         this.eventService.emit({
             name: NotificationEvents.PushMessage,
             data: <IPushMessageParams>{
@@ -125,8 +126,9 @@ export class SignUpFormComponent extends AbstractComponent {
         });
 
         if (this.modalService.getActiveModal('signup')) {
-            this.modalService.closeModal('signup');
+            this.modalService.hideModal('signup');
         }
+
     }
 
     protected checkConfirmation(form: FormGroup): boolean {

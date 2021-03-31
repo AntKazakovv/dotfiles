@@ -11,10 +11,12 @@ export interface INotificationOptions {
 export interface IPushComponentParams extends INotificationOptions {
     Component: Type<unknown>;
     componentParams?: unknown;
+    modalTitle?: string;
 }
 
 export interface IPushMessageParams extends IMessageData, INotificationOptions {}
 
 export interface INotificationMetadata {
+    isModal: boolean;
     dismiss(): void;
 }

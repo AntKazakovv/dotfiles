@@ -252,10 +252,10 @@ export class BonusesService {
                     fail: 'BONUS_SUBSCRIBE_FAILED',
                 },
             }, params);
-            this.showSuccess(gettext('Bonus subscribe success'));
+            this.showSuccess(gettext('Bonus success'), gettext('Bonus subscribe success'));
             return response.data;
         } catch (error) {
-            this.showError(gettext('Bonus subscribe failed'), error?.errors);
+            this.showError(gettext('Bonus error'), error?.errors);
         }
     }
 
@@ -280,10 +280,10 @@ export class BonusesService {
                     fail: 'BONUS_UNSUBSCRIBE_FAILED',
                 },
             }, params);
-            this.showSuccess(gettext('Bonus unsubscribe success'));
+            this.showSuccess(gettext('Bonus success'), gettext('Bonus unsubscribe success'));
             return response.data;
         } catch (error) {
-            this.showError(gettext('Bonus unsubscribe failed'), error?.errors);
+            this.showError(gettext('Bonus error'), error?.errors);
         }
     }
 
@@ -306,10 +306,10 @@ export class BonusesService {
                     fail: 'BONUS_CANCEL_FAILED',
                 },
             });
-            this.showSuccess(gettext('Bonus cancel success'));
+            this.showSuccess(gettext('Bonus success'), gettext('Bonus cancel success'));
             return response.data;
         } catch (error) {
-            this.showError(gettext('Bonus cancel failed'), error?.errors);
+            this.showError(gettext('Bonus error'), error?.errors);
         }
     }
 
@@ -333,10 +333,10 @@ export class BonusesService {
                     fail: 'BONUS_TAKE_FAILED',
                 },
             }, params);
-            this.showSuccess(gettext('Bonus take success'));
+            this.showSuccess(gettext('Bonus success'), gettext('Bonus take success'));
             return response.data;
         } catch (error) {
-            this.showError(gettext('Bonus take failed'), error?.errors);
+            this.showError(gettext('Bonus error'), error?.errors);
         }
     }
 
@@ -571,12 +571,13 @@ export class BonusesService {
         });
     }
 
-    private showSuccess(title: string): void {
+    private showSuccess(title: string, message: string | string[]): void {
         this.eventService.emit({
             name: NotificationEvents.PushMessage,
             data: <IPushMessageParams>{
                 type: 'success',
                 title,
+                message,
                 wlcElement: 'notifiсation_bonus-success',
             },
         });

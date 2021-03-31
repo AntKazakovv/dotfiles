@@ -6,24 +6,49 @@
 
 @mixin messageBase {
     position: relative;
-    background: get('background');
-
-    @include bm.get-mq-map('border', $themeDefault, 'border');
-    @include bm.get-mq-map('border-radius', $themeDefault, 'borderRadius');
-    @include bm.get-mq-map('padding', $themeDefault, 'paddings');
-
-    filter: drop-shadow(get('shadow'));
-
     @include setMessageTypeColors;
+
+    &.wlc-notification-message--popup {
+        background: get('background');
+        filter: drop-shadow(get('shadow'));
+
+        @include bm.get-mq-map('border', $themeDefault, 'border');
+        @include bm.get-mq-map('border-radius', $themeDefault, 'borderRadius');
+        @include bm.get-mq-map('padding', $themeDefault, 'padding');
+
+        .wlc-notification-message__icon,
+        .wlc-notification-message__icon ::ng-deep svg {
+            width: 50px;
+        }
+
+        .wlc-notification-message__icon,
+        .wlc-notification-message__image-container {
+            @include bm.get-mq-map('margin-right', $themeDefault, 'iconMargin');
+        }
+    }
+
+    &.wlc-notification-message--modal {
+
+        .wlc-notification-message__inner {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .wlc-notification-message__icon,
+        .wlc-notification-message__icon ::ng-deep svg {
+            height: auto;
+            width: 120px;
+        }
+
+        .wlc-notification-message__icon,
+        .wlc-notification-message__image-container {
+            @include bm.get-mq-map('margin-bottom', $themeDefault, 'modalIconMargin');
+        }
+    }
 
     .wlc-notification-message__inner {
         display: flex;
         align-items: stretch;
-    }
-
-    .wlc-notification-message__icon,
-    .wlc-notification-message__image-container {
-        @include bm.get-mq-map('margin-right', $themeDefault, 'imageMargins');
     }
 
     .wlc-notification-message__icon {
@@ -38,7 +63,6 @@
     }
 
     .wlc-notification-message__image {
-        object-fit: cover;
         width: 100%;
         height: 100%;
     }

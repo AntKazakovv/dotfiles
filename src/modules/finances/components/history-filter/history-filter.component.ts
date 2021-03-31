@@ -67,7 +67,7 @@ export class HistoryFilterComponent extends AbstractComponent implements OnInit 
 
     public ngSubmit(form: FormGroup): void {
         this.historyFilterService.setFilter(this.$params.config, form.value);
-        this.modalService.closeModal('history-filter');
+        this.modalService.hideModal('history-filter');
     }
 
     public openFilter(): void {
