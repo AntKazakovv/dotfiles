@@ -4,7 +4,7 @@ export namespace wlcMainMenu {
     export const header: ILayoutComponent = {
         name: 'menu.wlc-main-menu',
         display: {
-            after: 1023,
+            after: 1200,
         },
         params: {
             type: 'main-menu',

@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
 import {UIRouter, UIRouterGlobals} from '@uirouter/core';
-import {Subject} from 'rxjs';
+import {TranslateService} from '@ngx-translate/core';
 
+import {Subject} from 'rxjs';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {
     DataService,
@@ -53,13 +54,11 @@ export class GamesCatalogService {
         'main-menu',
         'category-menu',
     ];
-    private $resolve: () => void;
-    private isMobile: boolean = false;
-
     constructor(
         public configService: ConfigService,
         public router: UIRouter,
         public eventService: EventService,
+        public translateService: TranslateService,
         protected dataService: DataService,
         protected userService: UserService,
         protected uiRouter: UIRouterGlobals,
@@ -68,6 +67,9 @@ export class GamesCatalogService {
     ) {
         this.init();
     }
+    private $resolve: () => void;
+
+    private isMobile: boolean = false;
 
     public async init(): Promise<void> {
         await this.configService.ready;

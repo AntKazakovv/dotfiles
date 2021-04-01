@@ -4,7 +4,7 @@ export namespace wlcLoginSignup {
     export const header: ILayoutComponent = {
         name: 'user.wlc-login-signup',
         display: {
-            after: 1023,
+            after: 1200,
             auth: false,
         },
         params: {

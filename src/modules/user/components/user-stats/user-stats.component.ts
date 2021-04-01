@@ -17,11 +17,7 @@ import {UserInfo} from 'wlc-engine/modules/user/system/models/info.model';
 import * as Params from './user-stats.params';
 
 import {
-    union as _union,
-    get as _get,
     isUndefined as _isUndefined,
-    keys as _keys,
-    forEach as _forEach,
 } from 'lodash-es';
 
 export interface IUserStatsItem {

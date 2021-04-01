@@ -208,6 +208,13 @@ export class DataService {
                 : observer);
     }
 
+    public reset(requestName: string): void {
+        if (!_get(this.apiList, requestName)) {
+            return;
+        }
+        this.apiList[requestName].subject.next(null);
+    }
+
     /**
      * Get Observable of api method
      *

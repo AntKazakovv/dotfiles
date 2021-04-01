@@ -354,7 +354,7 @@
                     display: grid;
                     //grid-template-columns: 1fr 60px;
                     grid-template-columns: minmax(0, 1fr) 60px;
-                    grid-template-rows: 1fr;
+                    grid-template-rows: 100%;
                     height: 100%;
                 }
 
