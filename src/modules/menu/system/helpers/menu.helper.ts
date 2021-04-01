@@ -90,6 +90,7 @@ export class MenuHelper {
                 type: 'sref',
                 icon: categoryIcon,
                 class: category.slug,
+                wlcElement: (`${params.wlcElementPrefix}-` || 'link_game-categories-') + category.slug,
                 params: itemParams,
             };
         });

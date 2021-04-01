@@ -88,6 +88,7 @@ export interface IHelperGetItemsParams {
 export interface IHelperGetItemsForCategories {
     openChildCatalog?: boolean;
     categories: CategoryModel[];
+    wlcElementPrefix?: string;
     lang: string;
     icons?: {
         folder?: string;

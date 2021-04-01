@@ -239,6 +239,7 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
             type: 'sref',
             icon: this.iconPath('allgames'),
             class: 'allgames',
+            wlcElement: 'link_game-categories-allgames',
             params: {
                 state: {
                     name: 'app.catalog',
@@ -264,6 +265,7 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
             type: 'sref',
             icon: this.iconPath('lobby'),
             class: 'lobby',
+            wlcElement: 'link_game-categories-lobby',
             params: {
                 state: {
                     name: 'app.home',
