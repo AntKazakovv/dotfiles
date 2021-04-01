@@ -1,5 +1,7 @@
 @use 'engine-scss/functions' as ef;
 @use 'engine-scss/mixins/base.mixins' as em;
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/text' as text;
 
 .wlc-add-profile-info--theme-default:host {
     position: relative;
@@ -29,7 +31,8 @@
                     max-width: ef.get-value($themeDefault, 'formMaxWidth');
 
                     & > .wlc-input,
-                    & > .wlc-select {
+                    & > .wlc-select,
+                    & > .wlc-phone-field {
                         margin-bottom: ef.get-value($themeDefault, 'formFieldMarginBottom');
                     }
                 }
@@ -39,45 +42,96 @@
                 }
 
                 .wlc-input.wlc-input--password {
-                    margin-top: ef.get-value($themeDefault, 'formFieldsGap');
+                    padding-top: ef.get-value($themeDefault, 'formFieldsGap');
+                    position: relative;
+
+                    &:before {
+                        content: '';
+                        position: absolute;
+                        display: ef.get-value($themeDefault, 'dividerDisplay');
+                        background: ef.get-value($themeDefault, 'dividerBg');
+                        width: ef.get-value($themeDefault, 'dividerWidth');
+                        height: ef.get-value($themeDefault, 'dividerHeight');
+                        top: ef.get-value($themeDefault, 'dividerPosTop');
+                        left: ef.get-value($themeDefault, 'dividerPosLeft');
+                        transform: ef.get-value($themeDefault, 'dividerTransform');
+                    }
+                }
+
+                .wlc-phone-field {
+                    padding: ef.get-value($themeDefault, 'phoneFieldPadding');
+
+                    // TODO: удалить это, когда можно будет пробрасывать параметры для селекта, входящего в состав phoneField (при .wlc-select--theme-vertical эти стили будут не нужны)
+                    .wlc-select--theme-default {
+                        grid-gap: ef.get-value($themeDefault, 'phoneSelectGap');
+
+                        .wlc-select {
+
+                            &__label {
+                                @include text.get-text-style('SignText', ef.get-value($themeDefault, 'phoneLabelColor'));
+                                margin: ef.get-value($themeDefault, 'phoneLabelMargin');
+                                line-height: ef.get-value($themeDefault, 'phoneLabelLineHeight');
+                            }
+                        }
+                    }
                 }
             }
         }
     }
+}
 
-    &.wlc-add-profile-info--theme-mod-overflow {
+.wlc-add-profile-info--theme-mod-overflow:host {
 
-        .wlc-add-profile-info {
+    .wlc-add-profile-info {
 
-            &__form {
+        &__form {
 
-                ::ng-deep {
+            ::ng-deep {
 
-                    .wlc-form {
-                        flex-direction: row;
-                        flex-wrap: wrap;
+                .wlc-form {
+                    display: grid;
+                    align-items: end;
+                    grid-column-gap: ef.get-value($themeModOverflow, 'formColumnGap');
+                    grid-row-gap: ef.get-value($themeModOverflow, 'formRowGap');
+                    @include em.get-mq-map('grid-template-columns', $themeModOverflow, 'formColumns');
 
-                        & > .wlc-input,
-                        & > .wlc-select {
-                            flex: 0 0 50%;
-                        }
-
-                        &:after {
-                            content: '';
-                            display: block;
-                            width: 100%;
-                        }
+                    & > .wlc-input,
+                    & > .wlc-select,
+                    & > .wlc-phone-field {
+                        margin: ef.get-value($themeModOverflow, 'fieldsMargn');
                     }
 
-                    .wlc-input.wlc-input--phone,
                     .wlc-input.wlc-input--password {
-                        flex: 1 1 100%;
+                        padding-top: ef.get-value($themeModOverflow, 'formRowGap');
                     }
+                }
 
-                    .wlc-btn.wlc-btn--submit {
-                        order: 1;
-                        align-self: center;
+                .form-control__errors {
+
+                    @include mq.min(560) {
+                        min-width: ef.get-value($themeModOverflow, 'errorNotifyWidth');
                     }
+                }
+
+                .wlc-input.wlc-input--phone,
+                .wlc-input.wlc-input--password {
+
+                    .form-control__errors {
+
+                        @include mq.min(560) {
+                            min-width: ef.get-value($themeModOverflow, 'wideErrorNotifyWidth');
+                        }
+                    }
+                }
+
+                .wlc-input.wlc-input--phone,
+                .wlc-input.wlc-input--password,
+                .wlc-btn--submit {
+                    @include em.get-mq-map('grid-column', $themeModOverflow, 'wideControlsGridColumns');
+                }
+
+                .wlc-btn.wlc-btn--submit {
+                    margin: ef.get-value($themeModOverflow, 'submitBtnMargin');
                 }
             }
         }
