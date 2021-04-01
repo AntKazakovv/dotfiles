@@ -152,14 +152,14 @@ export type IRestrictions = {
 }
 
 export type IJackpot = {
-    id: string;
-    game: string;
-    image: string;
+    LaunchCode: string;
     MerchantID: string;
     MerchantName: string;
-    LaunchCode: string;
     amount: number;
     currency: string;
+    game: string;
+    id: string;
+    image: string;
 }
 
 export type IFavourite = {

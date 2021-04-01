@@ -1,0 +1,12 @@
+@use 'engine-scss/functions' as ef;
+
+$customThemeWinnersSection: () !default;
+$themeWinnersSection: map-merge((
+    'titleMargin': 0 0 ef.get('size', 'smaller') 0,
+    'titleTextAlign': center,
+    'justifyContent': center,
+    'alignItems': flex-start,
+    'itemsMargin': 0 ef.get('size', 'small'),
+    // from first and last elements
+    'indentTop': 25px,
+), $customThemeWinnersSection);

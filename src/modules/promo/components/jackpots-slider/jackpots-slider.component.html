@@ -1,0 +1,22 @@
+<div class="{{$class}}__wrapper">
+    <h4 class="{{$class}}__title" *ngIf="$params.title">
+        {{$params.title | translate}}
+    </h4>
+    <ng-container *ngIf="ready; else loader">
+        <div
+            class="{{$class}}__slider"
+            *ngIf="slides.length; else noslides"
+            wlc-slider
+            [slides]="slides"
+            [inlineParams]="$params.sliderParams"
+        ></div>
+    </ng-container>
+</div>
+
+<ng-template #loader>
+    <div class="{{$class}}__loader" wlc-loader></div>
+</ng-template>
+
+<ng-template #noslides>
+    <div class="{{$class}}-no-data">{{'No data' | translate}}</div>
+</ng-template>

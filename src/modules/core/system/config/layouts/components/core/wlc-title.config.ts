@@ -159,4 +159,12 @@ export namespace wlcTitle {
             wlcElement: 'header_promo_tournaments',
         },
     };
+
+    export const winnersSection: ILayoutComponent = {
+        name: 'core.wlc-title',
+        params: {
+            mainText: gettext('Winners'),
+            wlcElement: 'header_winners',
+        },
+    };
 }

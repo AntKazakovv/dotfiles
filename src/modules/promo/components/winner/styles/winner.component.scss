@@ -1,4 +1,5 @@
 @import './utils/vars';
+@import './utils/mixins';
 
 :host {
     // requires to reset swiper component styles
@@ -16,3 +17,4 @@
 
 @import './themes/default';
 @import './themes/vertical';
+@import './themes/1';

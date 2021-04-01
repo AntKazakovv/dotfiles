@@ -15,12 +15,16 @@ import {
 import {TranslateService} from '@ngx-translate/core';
 import {DateTime} from 'luxon';
 
-import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ConfigService} from 'wlc-engine/modules/core';
-import {GamesCatalogService} from 'wlc-engine/modules/games';
+import {
+    AbstractComponent,
+    ConfigService,
+    EventService,
+    IPushMessageParams,
+    ModalService,
+    NotificationEvents,
+} from 'wlc-engine/modules/core';
+import {GamesCatalogService, IPlayGameForRealCParams} from 'wlc-engine/modules/games';
 import * as Params from './winner.params';
-
-export {IWinnerCParams} from './winner.params';
 
 @Component({
     selector: '[wlc-winner]',
@@ -47,6 +51,8 @@ export class WinnerComponent extends AbstractComponent implements OnInit {
         protected configService: ConfigService,
         protected translate: TranslateService,
         protected gamesCatalogService: GamesCatalogService,
+        protected modalService: ModalService,
+        protected eventService: EventService,
     ) {
         super(
             {injectParams, defaultParams: Params.defaultParams},
@@ -96,11 +102,12 @@ export class WinnerComponent extends AbstractComponent implements OnInit {
     }
 
     public startGame($event: Event): void {
-        $event.preventDefault();
-        this.gamesCatalogService.startGame(
-            this.$params.winner.game,
-            {demo: false},
-        );
-    }
+        $event.stopPropagation();
 
+        this.gamesCatalogService.launchGame(this.$params.winner.game, {
+            modal: {
+                show: true,
+            },
+        });
+    }
 }
