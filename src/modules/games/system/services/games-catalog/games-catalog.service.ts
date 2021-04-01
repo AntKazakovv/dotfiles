@@ -303,7 +303,26 @@ export class GamesCatalogService {
     public getCategoriesByState(): CategoryModel[] {
         if (this.catalogOpened()) {
             const parentCategory = this.getParentCategoryByState();
-            return this.getCategoriesByParentId(parentCategory.id);
+            const categoryList = this.getCategoriesByParentId(parentCategory.id);
+            const newCategory = this.getCategoryBySlug('new');
+            const popularCategory = this.getCategoryBySlug('popular');
+            if (newCategory) {
+                categoryList.push(newCategory);
+            }
+            if (popularCategory) {
+                categoryList.push(popularCategory);
+            }
+            if (this.configService.get<boolean>('$user.isAuthenticated')) {
+                const favouritesCategory = this.getCategoryBySlug('favourites');
+                const lastplayedCategory = this.getCategoryBySlug('lastplayed');
+                if (favouritesCategory) {
+                    categoryList.push(favouritesCategory);
+                }
+                if (lastplayedCategory) {
+                    categoryList.push(lastplayedCategory);
+                }
+            }
+            return this.sortCategories(categoryList);
         }
     }
 
@@ -344,7 +363,7 @@ export class GamesCatalogService {
 
     public getParentCategories(): CategoryModel[] {
         return _filter(this.gamesCatalog.getCategories(), (category: CategoryModel) => {
-            return category.isParent && !category.isLastPlayed && !category.isFavourites;
+            return category.isParent && !category.isLastPlayed && !category.isFavourites && !category.isNew && !category.isPopular;
         });
     }
 

@@ -21,6 +21,7 @@ export class CategoryModel extends AbstractModel<ICategory> {
     private parent: CategoryModel;
     private childs: CategoryModel[] = [];
     private specialCategories = ['casino', 'lastplayed', 'favourites', 'last-played'];
+    private defaultParents = ['new', 'popular'];
     private usedMenu: string;
     private tagsData: IIndexing<string> = {};
     private merchantsList: MerchantModel[];
@@ -58,6 +59,14 @@ export class CategoryModel extends AbstractModel<ICategory> {
         return this.slug === 'favourites';
     }
 
+    public get isPopular(): boolean {
+        return this.slug === 'popular';
+    }
+
+    public get isNew(): boolean {
+        return this.slug === 'new';
+    }
+
     public get isJackpots(): boolean {
         return this.slug === 'jackpots';
     }
@@ -67,7 +76,8 @@ export class CategoryModel extends AbstractModel<ICategory> {
     }
 
     public get isParent(): boolean {
-        return !this.parent && (this.menu === 'main-menu' || _includes(this.specialCategories, this.slug));
+        return !this.parent &&
+            (this.menu === 'main-menu' || _includes(this.specialCategories, this.slug) || _includes(this.defaultParents, this.slug));
     }
 
     public get parentId(): number {
