@@ -68,12 +68,38 @@
                         top: ef.get-value($themeDashboard, 'swiperNavTop');
                         left: 0;
                         @include em.transition(background);
+
+                        .wlc-icon-content {
+                            line-height: 0;
+                        }
+
+                        &:after {
+                            display: none;
+                        }
+
+                        svg {
+                            fill: ef.get-value($themeDefault, 'fillColor');
+                            transform: rotate(90deg);
+                        }
                     }
 
                     .swiper-button-next {
                         top: ef.get-value($themeDashboard, 'swiperNavTop');
                         right: 0;
                         @include em.transition(background);
+
+                        .wlc-icon-content {
+                            line-height: 0;
+                        }
+
+                        &:after {
+                            display: none;
+                        }
+
+                        svg {
+                            fill: ef.get-value($themeDefault, 'fillColor');
+                            transform: rotate(-90deg);
+                        }
                     }
                 }
             }

@@ -7,7 +7,7 @@ $footerCommon: map-merge((
     'elementMaxWidth': (
         375: 90%,
         560: 76.5%,
-        900: initial,
+        1024: initial,
     ),
     'gapMobile': ef.get('size', 'smally'),
     'gapTablet': ef.get('size', 'smaller'),
@@ -114,50 +114,51 @@ $theme2Footer: map-merge((
     'baseBackground': map-get($footerCommon, 'baseBackground'),
     // footer-menu
     'footerMenuFlexDirection': (
-        900: row,
+        1024: row,
     ),
     'footerMenuOrder': (
-        900: -1,
+        1024: -1,
     ),
     'footerMenuPadding': (
         375: 45px 25px,
-        900: 15px 25px,
+        1024: 15px 25px,
     ),
     'footerMenuMargin': (
         375: map-get($footerCommon, 'gapTablet') auto,
-        900: 0,
+        1024: 0,
     ),
     'footerMenuMaxWidth': map-get($footerCommon, 'elementMaxWidth'),
     'footerMenuBg': ef.get('mainColors', 'bg700'),
     'footerMenuRadius': 10px,
     // footer post menu
     'footerPostMenuMargin': (
-        900: 0 ef.get('size', 'less') 0 0,
+        900: 0 ef.get('size', 'smally') 0 0,
         1200: 0 ef.get('size', 'big') 0 0,
     ),
     'footerPostMenuWidth': (
         375: 100%,
-        900: auto,
+        1024: auto,
     ),
     'footerPostMenuFirstChildMarginBottom': (
         375: 20px,
-        900: 0,
+        1024: 0,
     ),
     //footer post menu title
     'footerPostMenuTitleDisplay': (
-        900: none,
+        1024: none,
     ),
     'footerPostMenuTitleTextTransform': initial,
     'footerPostMenuTitleColor': ef.get('mainColors', 'main'),
     'footerPostMenuAlignment': center,
     //footer post menu grid
     'footerPostMenuGridGap': (
-        375: ef.get('size', 'smaller'),
-        900: ef.get('size', 'less'),
-        1200: ef.get('size', 'big'),
+        375: ef.get('size', 'small'),
+        900: ef.get('size', 'smally'),
+        1200: ef.get('size', 'less'),
+        1630: ef.get('size', 'big'),
     ),
     'footerPostMenuGridAutoFlow': (
-        900: column,
+        1024: column,
     ),
     //footer post menu item
     'footerPostMenuItemAlignment': (
@@ -220,7 +221,7 @@ $theme2Footer: map-merge((
     ),
     // icon list merchants
     'iconListMerchantsOrder': (
-        900: 1,
+        1024: 1,
     ),
     'iconListMerchantsMargin': (
         375: initial,
@@ -250,7 +251,7 @@ $theme2Footer: map-merge((
     ),
     'iconListPaymentsOrder': (
         375: -1,
-        900: 0,
+        1024: 0,
     ),
     'iconListPaymentsMargin': (
         375: map-get($footerCommon, 'gapTablet') 0,

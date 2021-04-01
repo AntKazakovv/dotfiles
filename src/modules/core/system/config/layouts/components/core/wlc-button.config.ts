@@ -37,7 +37,7 @@ export namespace wlcButton {
     export const searchV2: ILayoutComponent = {
         name: 'core.wlc-button',
         display: {
-            after: 1023,
+            after: 1200,
         },
         params: {
             class: 'wlc-btn wlc-btn-search',
@@ -108,7 +108,7 @@ export namespace wlcButton {
         name: 'core.wlc-wrapper',
         display: {
             auth: true,
-            before: 1023,
+            before: 1200,
         },
         params: {
             class: 'wlc-btn-user',
@@ -150,7 +150,7 @@ export namespace wlcButton {
     export const login: ILayoutComponent = {
         name: 'core.wlc-button',
         display: {
-            before: 1023,
+            before: 1200,
             auth: false,
         },
         params: {

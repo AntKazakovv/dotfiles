@@ -1,32 +1,34 @@
-import {
-    IIndexing,
-} from 'wlc-engine/modules/core/system/interfaces';
+import {UIRouter} from '@uirouter/core';
+import {TranslateService} from '@ngx-translate/core';
 import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
-
 import {
-    IByCategory,
-    IByMerchant,
-    IMerchant,
     ICategory,
     ISupportedItem,
     ICatalogTreeItem,
     IGames,
-    IMapping,
-    IRestrictions, IJackpot,
-    gamesEvents,
+    IRestrictions,
+    IJackpot,
     IFavourite,
-    IGame,
     ISearchFilter,
 } from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
 import {GamesHelper} from 'wlc-engine/modules/games/system/helpers/games.helpers';
-import {ConfigService, EventService} from 'wlc-engine/modules/core/system/services';
+import {
+    ConfigService,
+    EventService,
+    ILanguage,
+    IIndexing,
+} from 'wlc-engine/modules/core';
 import {Game} from 'wlc-engine/modules/games/system/models/game.model';
 import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.model';
 import {MerchantModel} from 'wlc-engine/modules/games/system/models/merchant.model';
-import {UIRouter} from '@uirouter/core';
-import {GamesCatalogService, IExcludeCategories, ISortCategories} from 'wlc-engine/modules/games';
-import {IGamesFilterData} from 'wlc-engine/modules/games/system/interfaces/filters.interfaces';
-import {ILanguage} from 'wlc-engine/modules/core';
+
+import {
+    GamesCatalogService,
+    IExcludeCategories,
+    ISortCategories,
+    IGamesFilterData,
+} from 'wlc-engine/modules/games';
+
 import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
 
 import {
@@ -43,7 +45,6 @@ import {
     union as _union,
     cloneDeep as _cloneDeep,
     uniqBy as _uniqBy,
-    has as _has,
     isString as _isString,
     isNumber as _isNumber,
 } from 'lodash-es';
@@ -64,51 +65,8 @@ export class GamesCatalog extends AbstractModel<IGames> {
     protected eventService: EventService;
     protected router: UIRouter;
 
-    protected specialCategories: ICategory[] = [
-        {
-            ID: '-1',
-            Name: {
-                en: gettext('Last played'),
-            },
-            Trans: {
-                en: gettext('Last played'),
-            },
-            Tags: [],
-            menuId: 'lastplayed',
-            Slug: 'lastplayed',
-            CSort: '0',
-            CSubSort: '9999998',
-        },
-        {
-            ID: '-2',
-            Name: {
-                en: gettext('My favourites'),
-            },
-            Trans: {
-                en: gettext('My favourites'),
-            },
-            Tags: [],
-            menuId: 'favourites',
-            Slug: 'favourites',
-            CSort: '0',
-            CSubSort: '9999999',
-        },
-        {
-            ID: '-3',
-            Name: {
-                en: gettext('Casino'),
-            },
-            Trans: {
-                en: gettext('Casino'),
-            },
-            Tags: [''],
-            menuId: 'casino',
-            Slug: 'casino',
-            CSort: '0',
-            CSubSort: '0',
-        },
-    ];
     protected overrideJackpots: boolean;
+    protected ts: TranslateService;
 
     constructor(
         data: IGames,
@@ -123,6 +81,7 @@ export class GamesCatalog extends AbstractModel<IGames> {
         };
 
         this.configService = this.gamesCatalogService.configService;
+        this.ts = this.gamesCatalogService.translateService;
         this.eventService = this.gamesCatalogService.eventService;
         this.router = this.gamesCatalogService.router;
         this.overrideJackpots = !this.configService.get<boolean>('$games.categories.useFundistJackpots');
@@ -596,7 +555,7 @@ export class GamesCatalog extends AbstractModel<IGames> {
         /***********************************************************************************************************
          * COUNTRIES RESTRICTIONS
          **********************************************************************************************************/
-        // TODO а как надо по дефолту то????
+            // TODO а как надо по дефолту то????
         const enableCountryRestriction: boolean = this.configService.get<boolean>('appConfig.games.enableRestricted') || true;
         const authUserAppConfigCountry = this.configService.get<string>('appConfig.user.country') || null;
         // TODO надо дописать, когда будет UserService
@@ -772,5 +731,52 @@ export class GamesCatalog extends AbstractModel<IGames> {
             arrays.secondMatch.array,
             arrays.thirdMatch.array));
     }
+
+    protected get specialCategories(): ICategory[] {
+        return [
+            {
+                ID: '-1',
+                Name: {
+                    en: 'Last played',
+                },
+                Trans: {
+                    en: this.ts.instant(gettext('Last played')),
+                },
+                Tags: [],
+                menuId: 'lastplayed',
+                Slug: 'lastplayed',
+                CSort: '0',
+                CSubSort: '9999998',
+            },
+            {
+                ID: '-2',
+                Name: {
+                    en: 'My favourites',
+                },
+                Trans: {
+                    en: this.ts.instant(gettext('My favourites')),
+                },
+                Tags: [],
+                menuId: 'favourites',
+                Slug: 'favourites',
+                CSort: '0',
+                CSubSort: '9999999',
+            },
+            {
+                ID: '-3',
+                Name: {
+                    en: 'Casino',
+                },
+                Trans: {
+                    en: this.ts.instant(gettext('Casino')),
+                },
+                Tags: [''],
+                menuId: 'casino',
+                Slug: 'casino',
+                CSort: '0',
+                CSubSort: '0',
+            },
+        ];
+    };
 
 }
