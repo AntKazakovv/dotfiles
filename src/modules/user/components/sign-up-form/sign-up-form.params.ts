@@ -1,9 +1,8 @@
 import {
     CustomType,
     IComponentParams,
-} from 'wlc-engine/modules/core/system/classes/abstract.component';
-
-import {IFormWrapperCParams} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
+    IFormWrapperCParams,
+} from 'wlc-engine/modules/core';
 
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;
@@ -17,11 +16,14 @@ export interface ISignUpFormCParams extends IComponentParams<ComponentTheme, Com
         customModifiers?: CustomMod;
     };
     modifiers?: Modifiers[];
+    formConfig?: IFormWrapperCParams;
 }
 
 export const defaultParams: ISignUpFormCParams = {
     class: 'wlc-sign-up-form',
     wlcElement: 'modal_signup',
+    componentName: 'wlc-sign-up-form',
+    moduleName: 'user',
 };
 
 export const signUpFormConfig: IFormWrapperCParams = {
