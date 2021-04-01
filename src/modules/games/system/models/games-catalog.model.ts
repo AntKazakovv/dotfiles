@@ -599,9 +599,7 @@ export class GamesCatalog extends AbstractModel<IGames> {
         }
 
         this.availableCategories = this.sortCategories(this.availableCategories);
-
         this.games = _orderBy(resultGames, (game: Game) => _toNumber(game.sort), 'desc');
-
         this.prepareCategories();
     }
 
@@ -665,6 +663,7 @@ export class GamesCatalog extends AbstractModel<IGames> {
                     freeGames.push(game);
                 }
             }
+            category.sortGames();
             gamesList = freeGames;
         });
 
