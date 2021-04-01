@@ -38,7 +38,10 @@ export namespace wlcBonusesList {
                     slidesPerView: 2,
                     spaceBetween: 20,
                     loop: false,
-                    navigation: true,
+                    navigation: {
+                        nextEl: '.wlc-swiper-button-next',
+                        prevEl: '.wlc-swiper-button-prev',
+                    },
                     breakpoints: {
                         320: {
                             slidesPerView: 'auto',
