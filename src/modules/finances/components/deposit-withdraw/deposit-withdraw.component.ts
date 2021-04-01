@@ -324,7 +324,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
 
         if (this.requiredFieldsKeys.length) {
             const fields = _transform(this.requiredFields, (result, item) => {
-                const template = _camelCase(item['template']) === 'mobilePhone' ? 'mobilePhoneWithCode' : _camelCase(item['template']);
+                const template = _camelCase(item['template']);
 
                 if (FormElements[template]) {
                     result.push(FormElements[template]);
