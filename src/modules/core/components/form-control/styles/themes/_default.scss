@@ -1,12 +1,12 @@
 @use 'engine-scss/functions' as ef;
 @use 'engine-scss/mixins/text' as text;
-@import '../utils/vars';
+@use 'engine-scss/mixins/base.mixins' as bm;
 
 .form-control {
     $selector: &;
     $touch: '.ng-touched';
 
-    #{$touch}.ng-valid ~ & {
+    #{$touch}.ng-valid:not(.wlc-select__field) ~ & {
 
         #{$selector}__icon {
 
@@ -84,6 +84,7 @@
             #{$selector}__errors {
                 opacity: 1;
                 visibility: visible;
+                @include bm.transition();
             }
         }
     }
@@ -139,9 +140,10 @@
         opacity: 0;
         visibility: hidden;
         border-radius: ef.get-value($themeDefault, 'errorsBorderRadius');
-        z-index: 10;
+        z-index: 20;
         margin-left: 20px;
         list-style: none;
+        @include bm.transition();
 
         @include text.get-text-style('PrimaryText', ef.get-value($themeDefault, 'errorsColor'));
 

@@ -7,6 +7,7 @@ import {
     SimpleChanges,
     OnChanges,
 } from '@angular/core';
+import {animate, state, style, transition, trigger} from '@angular/animations';
 import {FormControl} from '@angular/forms';
 import {BehaviorSubject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
@@ -43,6 +44,18 @@ import {
     selector: '[wlc-select]',
     templateUrl: './select.component.html',
     styleUrls: ['./styles/select.component.scss'],
+    animations: [
+        trigger('openClose', [
+            transition(':enter', [
+                style({opacity: 0, height: 0}),
+                animate('150ms', style({opacity: 1, height: '*'})),
+            ]),
+            transition(':leave', [
+                style({ height: '*', opacity: 1}),
+                animate('100ms', style({opacity: 0, height: 0})),
+            ]),
+        ]),
+    ],
 })
 export class SelectComponent extends AbstractComponent implements OnInit,
     OnChanges {
@@ -68,8 +81,7 @@ export class SelectComponent extends AbstractComponent implements OnInit,
         protected cdr: ChangeDetectorRef,
         protected EventService: EventService,
         protected selectValues: SelectValuesService,
-    )
-    {
+    ) {
         super({injectParams, defaultParams: Params.defaultParams});
     }
 

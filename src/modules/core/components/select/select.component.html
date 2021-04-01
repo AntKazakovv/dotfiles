@@ -30,14 +30,15 @@
     ></div>
     <div class="{{$class}}-status">
         <span
-            *ngIf="!$params.name || control.untouched"
+            *ngIf="control.untouched || control.valid"
             class="{{$class}}-status__arrow"
+            [ngClass]="{'active': isOpened}"
             wlc-icon iconName="arrow"
             (click)="toggleDropdown()"
         ></span>
     </div>
 
-    <ul class="{{$class}}__dropdown" *ngIf="isOpened">
+    <ul class="{{$class}}__dropdown" *ngIf="isOpened" @openClose>
         <li class="{{$class}}__dropdown-item"
             *ngFor="let item of $params.items"
             (click)="selectOption(item)"
