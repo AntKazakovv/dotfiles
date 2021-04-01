@@ -90,45 +90,17 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
      *
      * @param {boolean} demo
      * @param {boolean} modal
+     * @param {boolean} forMobile
      * @param {Event} $event
      */
     public startGame(demo: boolean, modal: boolean, forMobile: boolean, $event: Event): void {
         $event.stopPropagation();
-        if (modal) {
-            if (forMobile && this.deviceType === DeviceType.Desktop) {
-                return;
-            }
 
-            if (!this.configService.get<boolean>('$user.isAuthenticated')) {
-                this.showRunGameModal();
-                return;
-            } else {
-                if (forMobile) {
-                    this.showRunGameModal();
-                    return;
-                }
-                this.modalService.closeAllModals();
-                this.game.launch({
-                    demo: demo,
-                });
-                return;
-            }
-        }
-
-        this.modalService.closeAllModals();
-        this.game.launch({
-            demo: demo,
-        });
-    }
-
-    public showRunGameModal(): void {
-        const disableDemo: boolean = this.configService.get<boolean>('$user.isAuthenticated') ?
-            this.configService.get<boolean>('$games.mobile.loginUser.disableDemo') : false;
-
-        this.modalService.showModal<IPlayGameForRealCParams>('runGame', {
-            common: {
-                game: this.game,
-                disableDemo: disableDemo,
+        this.gamesCatalogService.launchGame(this.game, {
+            demo,
+            modal: {
+                show: modal,
+                deviceType: forMobile ? [DeviceType.Mobile, DeviceType.Tablet] : undefined,
             },
         });
     }

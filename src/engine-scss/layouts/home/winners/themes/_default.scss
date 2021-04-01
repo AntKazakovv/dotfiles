@@ -1,0 +1,30 @@
+@use 'engine-scss/mixins/text' as lib;
+@use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/mediaqueries' as mq;
+
+.wlc-sections__winners-section {
+
+    .wlc-title--theme-default {
+        margin: ef.get-value($themeWinnersSection, 'titleMargin');
+
+        .wlc-title__main {
+            text-align: ef.get-value($themeWinnersSection, 'titleTextAlign');
+        }
+    }
+
+    .winners-wrapper {
+        display: flex;
+        justify-content: ef.get-value($themeWinnersSection, 'justifyContent');
+        align-items: ef.get-value($themeWinnersSection, 'alignItems');
+
+        & > div {
+            margin: ef.get-value($themeWinnersSection, 'itemsMargin');
+
+            &:first-child,
+            &:last-child {
+                margin-top: ef.get-value($themeWinnersSection, 'indentTop');
+            }
+        }
+    }
+}

@@ -78,3 +78,20 @@ $themeVertical: map-merge((
     'sliderShadowPadding': 10px, // `false` or [space between slides]px
 ), $customThemeVertical);
 
+$customTheme1: () !default;
+$theme1: map-merge((
+    'maxWidth': 330px,
+    'background': ef.get('mainColors', 'bg700'),
+    'borderRadius': ef.get('size', 'small'),
+    'titleColor': ef.get('mainColors', 'baseMain'),
+    'titleTextAlign': center,
+    'titleBg': ef.get('mainColors', 'bg500'),
+    'titlePadding': ef.get('size', 'smaller'),
+    'titleBoxShadow': 0 4px 4px rgba(0, 0, 0, 0.13),
+    'sliderHeight': 390px,
+    'sliderMargin': 25px ef.get('size', 'small') ef.get('size', 'smaller') ef.get('size', 'small'),
+    'noDataPadding': ef.get('size', 'smaller'),
+    'noDataTextAlign': center,
+    // line overlapping the border of the last element
+    'bottomLineHeight': 2px,
+), $customTheme1);
