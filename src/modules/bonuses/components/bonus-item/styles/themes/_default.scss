@@ -11,13 +11,27 @@
         &__content {
             position: relative;
             background: ef.get-value($themeDefault, 'background');
-            height: ef.get-value($themeDefault, 'height');
+            @include em.get-mq-map('height', $themeDefault, 'height');
             min-width: ef.get-value($themeDefault, 'minWidth');
             max-width: ef.get-value($themeDefault, 'maxWidth');
             border-radius: ef.get-value($themeDefault, 'radius');
             overflow: hidden;
             margin-left: auto;
             margin-right: auto;
+
+            @media (hover: none) {
+                @include em.get-mq-map('height', $themeDefault, 'heightMobile');
+
+                .wlc-bonus-item__wrapper {
+                    @include em.get-mq-map('grid-template-rows', $themeDefault, 'infoHeightMobile');
+                }
+
+                .wlc-bonus-item__btns {
+                    @include em.get-mq-map('bottom', $themeDefault, 'btnBottomPositionMobile');
+                    @include em.get-mq-map('opacity', $themeDefault, 'btnsOpacityMobile');
+                    @include em.get-mq-map('transform', $themeDefault, 'btnsTranslateYMobile');
+                }
+            }
 
             @media (hover: hover) {
 
@@ -26,7 +40,7 @@
                 }
             }
 
-            @include mq.min(1200) {
+            @include mq.min(1630) {
                 min-width: ef.get-value($themeDefault, 'minWidthDesktop');
             }
 
@@ -115,8 +129,8 @@
         }
 
         &__bonus-icon {
-            width: ef.get-value($themeDefault, 'bonusIconSize');
-            height: ef.get-value($themeDefault, 'bonusIconSize');
+            @include em.get-mq-map('width', $themeDefault, 'bonusIconSize');
+            @include em.get-mq-map('height', $themeDefault, 'bonusIconSize');
             background-repeat: no-repeat;
             background-size: cover;
             background-position: center center;
@@ -132,11 +146,11 @@
 
             .icon-text {
                 width: ef.get-value($themeDefault, 'bonusIconValueBlockWidth');
-                height: ef.get-value($themeDefault, 'bonusIconValueBlockHeight');
+                @include em.get-mq-map('height', $themeDefault, 'bonusIconValueBlockHeight');
+                @include em.get-mq-map('font-size', $themeDefault, 'bonusIconValueFontSize');
                 border-radius: ef.get-value($themeDefault, 'bonusIconValueBlockBorderRds');
                 background-color: ef.get-value($themeDefault, 'bonusIconValueBg');
                 color: ef.get-value($themeDefault, 'bonusIconValueFontColor');
-                font-size: ef.get-value($themeDefault, 'bonusIconValueFontSize');
                 font-weight: ef.get-value($themeDefault, 'bonusIconValueFontW');
                 position: absolute;
                 left: ef.get-value($themeDefault, 'bonusIconValueBlockPosL');
@@ -159,7 +173,7 @@
 
         &__tag {
             position: absolute;
-            padding: ef.get-value($themeDefault, 'tagPadding');
+            @include em.get-mq-map('padding', $themeDefault, 'tagPadding');
             background-color: ef.get-value($themeDefault, 'tagBg');
             border-radius: ef.get-value($themeDefault, 'tagRadius');
 
@@ -199,9 +213,16 @@
         }
 
         &__name {
-            @include text.get-text-style('QoteTextBold', ef.get-value($themeDefault, 'nameFontColor'));
+            font-size: ef.get-value($themeDefault, 'nameFontSize');
+            line-height: 1.4;
+            font-weight: bold;
+            color: ef.get-value($themeDefault, 'nameFontColor');
             text-align: ef.get-value($themeDefault, 'positionText');
             @include em.get-mq-map('width', $themeDefault, 'infoWidth');
+
+            @include mq.min(1630) {
+                @include text.get-text-style('QoteTextBold', ef.get-value($themeDefault, 'nameFontColor'));
+            }
         }
 
         &__description {
@@ -316,7 +337,14 @@
     .active {
 
         .wlc-bonus-item__wrapper {
-            grid-template-rows: 41px auto;
+            @include em.get-mq-map('grid-template-rows', $themeDefault, 'infoHeightActive');
+        }
+
+        @media (hover: none) {
+
+            .wlc-bonus-item__wrapper {
+                @include em.get-mq-map('grid-template-rows', $themeDefault, 'infoHeightActive');
+            }
         }
 
         .wlc-bonus-item__image,

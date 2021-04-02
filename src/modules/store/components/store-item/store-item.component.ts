@@ -43,7 +43,6 @@ export class StoreItemComponent extends AbstractComponent implements OnInit, OnD
 
     public $params: Params.IStoreItemParams;
     public isAuth: boolean;
-    public isMobile: boolean;
     public buyClick: boolean = false;
 
     constructor(
@@ -64,7 +63,6 @@ export class StoreItemComponent extends AbstractComponent implements OnInit, OnD
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.prepareModifiers();
-        this.isMobile = this.configService.get<boolean>('appConfig.mobile');
         this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
     }
 
