@@ -3,7 +3,9 @@ import {
     Injector,
     Renderer2,
     RendererFactory2,
+    Inject,
 } from '@angular/core';
+import {DOCUMENT} from '@angular/common';
 import {TranslateService} from '@ngx-translate/core';
 import {UIRouter} from '@uirouter/core';
 import {
@@ -30,7 +32,6 @@ import {
 } from 'wlc-engine/modules/core';
 import {UserService} from 'wlc-engine/modules/user/system/services';
 import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
-import {CurrencyModel} from 'wlc-engine/modules/core/system/models/currency.model';
 
 import {
     forEach as _forEach,
@@ -88,6 +89,7 @@ export class ActionService {
         private translateService: TranslateService,
         private rendererFactory: RendererFactory2,
         private router: UIRouter,
+        @Inject(DOCUMENT) protected document: HTMLDocument,
     ) {
         this.init();
     }
@@ -97,7 +99,7 @@ export class ActionService {
             this.scrollTop = window.pageYOffset;
         }
 
-        const elems = [document.documentElement, document.body];
+        const elems = [this.document.documentElement, this.document.body];
         _forEach(elems, (elem) => {
             this.renderer.setStyle(elem, 'height', '100%');
             this.renderer.setStyle(elem, 'overflow', 'hidden');
@@ -105,7 +107,7 @@ export class ActionService {
     }
 
     public unlockBody(): void {
-        const elems = [document.documentElement, document.body];
+        const elems = [this.document.documentElement, this.document.body];
         _forEach(elems, (elem) => {
             this.renderer.setStyle(elem, 'height', '');
             this.renderer.setStyle(elem, 'overflow', '');
@@ -181,7 +183,7 @@ export class ActionService {
             elem = elem || 'body';
             let element;
             if (_isString(elem)) {
-                element = document.querySelector(elem);
+                element = this.document.querySelector(elem);
             } else {
                 element = elem;
             }
