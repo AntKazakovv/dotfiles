@@ -5,7 +5,7 @@ $themeDefault: map-merge((
     'fontName': 'PlaceholderText',
     'color': ef.get('fieldColors', 'textColor'),
     'placeholderColor': ef.get('fieldColors', 'placeholderColor'),
-    'bgColor':  ef.get('fieldColors', 'inputBg'),
+    'bgColor': ef.get('fieldColors', 'inputBg'),
     'clearButtonSize': 12px,
     'searchIconSize': 18px,
     'searchIconColor': ef.get('mainColors', 'bg300'),
