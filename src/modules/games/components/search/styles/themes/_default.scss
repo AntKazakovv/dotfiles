@@ -172,9 +172,8 @@
 
             &.active {
                 background: ef.get-value($themeDefault, 'btnBackgroundActive');
-                color: ef.get-value($themeDefault, 'btnColorActive');
                 @include bm.get-mq-map('border', $themeDefault, 'btnBorderActive');
-                @include text.get-text-style(ef.get-value($themeDefault, 'btnFontActive'));
+                @include text.get-text-style(ef.get-value($themeDefault, 'btnFontActive'), ef.get-value($themeDefault, 'btnColorActive'));
 
                 &:after {
                     transform: translateY(-30%) rotate(45deg);
@@ -183,6 +182,20 @@
 
                 .icon {
                     color: ef.get-value($themeDefault, 'btnIconColorActive');
+
+                    ::ng-deep {
+
+                        svg {
+                            width: ef.get-value($themeDefault, 'btnIconSizeActive');
+                            height: ef.get-value($themeDefault, 'btnIconSizeActive');
+                            fill: ef.get-value($themeDefault, 'btnIconColorActive');
+
+                            path,
+                            mask {
+                                fill: ef.get-value($themeDefault, 'btnIconColorActive');
+                            }
+                        }
+                    }
                 }
             }
         }

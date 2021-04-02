@@ -37,6 +37,7 @@ $themeDefault: map-merge((
     'btnBackgroundActive': ef.get('mainColors', 'main'),
     'btnColorActive': ef.get('mainColors', 'baseMain'),
     'btnArrowColorActive': ef.get('mainColors', 'baseMain'),
+    'btnIconSizeActive': 18px,
     'btnIconColorActive': ef.get('mainColors', 'baseMain'),
 
     'btnCounterSize': 18px,
