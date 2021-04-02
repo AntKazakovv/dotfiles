@@ -78,11 +78,17 @@
 /// @param {variable} $map - theme variable with map of values
 /// @param {string} $name - name of value in the map
 
-@mixin get-mq-map($prop, $map, $name) {
+@mixin get-mq-map($prop, $map, $name, $mediaAlwaysOn: false) {
     @if (type-of(map-get($map, $name)) == map) {
         @each $bp, $el in map-get($map, $name) {
             @if $bp == 375 {
-                #{$prop}: ef.get-value($map, $name, $bp);
+                @if $mediaAlwaysOn {
+                    @include mq.min($bp) {
+                        #{$prop}: ef.get-value($map, $name, $bp);
+                    }
+                } @else {
+                    #{$prop}: ef.get-value($map, $name, $bp);
+                }
             } @else {
                 @include mq.min($bp) {
                     #{$prop}: ef.get-value($map, $name, $bp);
