@@ -27,4 +27,6 @@ $themeTotalJackpot: map-merge((
     'sectionPadding': (
         375: 20px,
     ),
+    'titleColor': ef.get('mainColors', 'baseMain'),
+    'titleTextStyle': 'ThirdTitleBold',
 ), $customThemeTotalJackpot);
