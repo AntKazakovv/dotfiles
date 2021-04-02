@@ -15,7 +15,9 @@ $themeDefault: map-merge((
     'gridColumn': (
         375: 1fr,
         720: 1fr 1fr,
-        1200: 1fr 1fr 1fr,
+        1024: 1fr 1fr 1fr,
+        1366: 1fr 1fr 1fr 1fr,
+        1630: 1fr 1fr 1fr,
     ),
     'alignNoContent': (
         375: center,
@@ -28,7 +30,8 @@ $customThemePromo: () !default;
 $themePromo: map-merge((
     'gridGap': ef.get('size', 'smaller'),
     'minItemWidth': 280px,
-    'minItemWidth900': 360px,
+    'minItemWidth900': 600px,
+    'minItemWidth1200': 400px,
     'minItemWidthDesktop': 600px,
 ), $customThemePromo);
 
