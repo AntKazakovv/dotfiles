@@ -45,4 +45,8 @@ export class TransactionPreviewComponent extends AbstractComponent implements On
             (this.$params.transaction as IBet).Action === 'bet';
         return className ? 'danger' : 'success';
     }
+
+    public get amount(): number {
+        return this.$params.transaction['amount'] || +this.$params.transaction['Amount'];
+    }
 }
