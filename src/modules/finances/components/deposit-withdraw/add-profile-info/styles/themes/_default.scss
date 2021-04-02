@@ -113,8 +113,11 @@
                     }
                 }
 
+                .wlc-phone-field,
+                .wlc-birth-field,
                 .wlc-input.wlc-input--phone,
                 .wlc-input.wlc-input--password {
+                    @include em.get-mq-map('grid-column', $themeModOverflow, 'wideControlsGridColumns');
 
                     .form-control__errors {
 
@@ -124,13 +127,8 @@
                     }
                 }
 
-                .wlc-input.wlc-input--phone,
-                .wlc-input.wlc-input--password,
-                .wlc-btn--submit {
-                    @include em.get-mq-map('grid-column', $themeModOverflow, 'wideControlsGridColumns');
-                }
-
                 .wlc-btn.wlc-btn--submit {
+                    @include em.get-mq-map('grid-column', $themeModOverflow, 'wideControlsGridColumns');
                     margin: ef.get-value($themeModOverflow, 'submitBtnMargin');
                 }
             }
