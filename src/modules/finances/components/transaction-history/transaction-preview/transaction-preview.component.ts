@@ -17,8 +17,8 @@ import * as Params from './transaction-preview.params';
 export class TransactionPreviewComponent extends AbstractComponent implements OnInit {
 
     public $params: Params.ITransactionPreviewParams;
-    public isTransaction: boolean = false;
-    protected inProgress: boolean = false;
+    public date: string;
+    public amount: number;
 
     constructor(
         @Inject('injectParams') protected params: Params.ITransactionPreviewParams,
@@ -35,18 +35,19 @@ export class TransactionPreviewComponent extends AbstractComponent implements On
 
     public async ngOnInit(): Promise<void> {
         super.ngOnInit();
-        this.isTransaction = !(this.$params.transaction as IBet).Action;
+        if (this.$params.transaction instanceof Transaction) {
+            this.date = this.$params.transaction.initialDate;
+            this.amount = this.$params.transaction.amount;
+        } else {
+            this.date = this.$params.transaction.Date;
+            this.amount = +this.$params.transaction.Amount;
+        }
     }
 
     public getPaymentStatus(): string {
-        let className: boolean;
-        className = this.isTransaction ?
-            (this.$params.transaction as Transaction).type === 'Debit' :
-            (this.$params.transaction as IBet).Action === 'bet';
+        const className = this.$params.transaction instanceof Transaction ?
+            this.$params.transaction.type === 'Debit' :
+            this.$params.transaction.Action === 'bet';
         return className ? 'danger' : 'success';
-    }
-
-    public get amount(): number {
-        return this.$params.transaction['amount'] || +this.$params.transaction['Amount'];
     }
 }
