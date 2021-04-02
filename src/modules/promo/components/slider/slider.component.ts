@@ -178,6 +178,10 @@ export class SliderComponent extends AbstractComponent
         this.swiper.setIndex(0, 0, true);
     }
 
+    public onResize(): void {
+        this.updateView();
+    }
+
     protected setSliderWrapper(): void {
         const swiperContainer: HTMLElement = _get(this.swiper, 'elementRef.nativeElement');
         if (!this.sliderWrap) {
@@ -187,10 +191,6 @@ export class SliderComponent extends AbstractComponent
 
     protected isAutoSlidesAndColumnMode(): boolean {
         return !!(this.$params.swiper?.slidesPerView === 'auto' && this.$params.swiper?.slidesPerColumn);
-    }
-
-    protected onResize(event): void {
-        this.updateView();
     }
 
     protected updateView(): void {

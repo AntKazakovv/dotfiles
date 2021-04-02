@@ -32,6 +32,7 @@ export class JackpotsSliderComponent extends AbstractComponent implements OnInit
     @Input() protected inlineParams: Params.IJackpotsSliderCParams;
     public slides: ISlide[] = [];
     public ready: boolean = false;
+    public $params: Params.IJackpotsSliderCParams;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IJackpotsSliderCParams,

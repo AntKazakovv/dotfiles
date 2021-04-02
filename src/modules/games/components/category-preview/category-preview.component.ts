@@ -33,7 +33,7 @@ interface ICategory {
 export class CategoryPreviewComponent extends AbstractComponent implements OnInit {
 
     public $params: Params.ICategoryPreviewCParams;
-    protected categories: ICategory[] = [];
+    public categories: ICategory[] = [];
     protected availableCategories: CategoryModel[];
     protected lang: string;
 

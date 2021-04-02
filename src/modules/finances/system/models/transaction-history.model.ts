@@ -11,7 +11,7 @@ import {
 
 export interface ITransaction {
     Amount: number;
-    Date: any;
+    Date: string;
     DateISO: string;
     ID: string;
     Note: string;
@@ -83,6 +83,10 @@ export class Transaction extends AbstractModel<ITransactionEx> {
 
     public get date(): DateTime {
         return DateTime.fromISO(this.data.DateISO);
+    }
+
+    public get initialDate(): string {
+        return this.data.Date;
     }
 
     public get id(): number {

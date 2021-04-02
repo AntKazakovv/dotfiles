@@ -1,7 +1,7 @@
 <span class="{{$class}}__index">{{$params.index + 1}}</span>
-<span class="{{$class}}__time">{{$params.transaction.data?.Date || $params.transaction?.Date}}</span>
+<span class="{{$class}}__time">{{$params.transaction?.initialDate || $params.transaction?.Date}}</span>
 <span class="{{$class}}__amount"
       [ngClass]="getPaymentStatus()"
       wlc-currency
-      value="{{$params.transaction.amount || $params.transaction.Amount}}"
+      value="{{amount}}"
 ></span>
