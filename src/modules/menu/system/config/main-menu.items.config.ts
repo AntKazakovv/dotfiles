@@ -13,6 +13,7 @@ export const wlcMainMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
                 params: {},
             },
         },
+        wlcElement: 'link_main-nav-home',
     },
     'main-menu:casino': {
         name: gettext('Casino'),
@@ -25,6 +26,7 @@ export const wlcMainMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
                 params: {category: ''},
             },
         },
+        wlcElement: 'link_main-nav-casino',
     },
     'main-menu:tablegames': {
         name: gettext('Table games'),
@@ -39,6 +41,7 @@ export const wlcMainMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
                 },
             },
         },
+        wlcElement: 'link_main-nav-table',
     },
     'main-menu:promotions': {
         name: gettext('Promotions'),
@@ -51,6 +54,7 @@ export const wlcMainMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
                 params: {},
             },
         },
+        wlcElement: 'link_main-nav-promo',
     },
     'main-menu:contacts': {
         name: gettext('Contact Us'),
@@ -65,6 +69,7 @@ export const wlcMainMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
                 },
             },
         },
+        wlcElement: 'link_main-nav-contuctus',
     },
     'main-menu:lottery': {
         name: gettext('Lottery'),
@@ -78,6 +83,7 @@ export const wlcMainMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
                 },
             },
         },
+        wlcElement: 'link_main-nav-lottery',
     },
     'main-menu:tournaments': {
         name: gettext('Tournaments'),
@@ -89,6 +95,7 @@ export const wlcMainMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
                 name: 'app.tournaments',
             },
         },
+        wlcElement: 'link_main-nav-tournaments',
     },
     'main-menu:sportsbook': {
         name: gettext('Sportsbook'),
@@ -102,5 +109,6 @@ export const wlcMainMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
                 },
             },
         },
+        wlcElement: 'link_main-nav-sports',
     },
 };

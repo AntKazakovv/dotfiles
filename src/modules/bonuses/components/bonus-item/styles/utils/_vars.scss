@@ -6,21 +6,45 @@ $themeDefault: map-merge((
     'minWidth': 250px,
     'minWidthDesktop': 320px,
     'maxWidth': 320px,
-    'height': 370px,
+    'height': (
+        320: 280px,
+        1630: 370px,
+    ),
+    'heightMobile': (
+        320: 330px,
+        1630: 430px,
+    ),
 
     'infoWidth': (
         320: 280px - 30px,
-        1200: 320px - 30px,
+        1630: 320px - 30px,
     ),
 
     'infoHeight': (
-        320: auto 160px,
-        1200: auto 132px,
+        320: auto 100px,
+        1630: auto 132px,
     ),
+
+    'infoHeightActive': (
+        320: 41px auto,
+        1630: 41px auto,
+    ),
+
+    'infoHeightMobile': (
+        320: auto 145px,
+        1630: auto 180px,
+    ),
+
     'relativeImageHeight': 70%,
-    'bonusIconSize': 144px,
+    'bonusIconSize': (
+        320: 120px,
+        1630: 144px,
+    ),
     'bonusIconValueBlockWidth': 60px,
-    'bonusIconValueBlockHeight': 25px,
+    'bonusIconValueBlockHeight': (
+        320: 20px,
+        1630: 25px,
+    ),
     'bonusIconValueBlockBorderRds': 12px,
     'bonusIconValueBlockPosL': 50%,
     'bonusIconValueBlockPosB': 10px,
@@ -31,7 +55,10 @@ $themeDefault: map-merge((
     // // Font
     'positionText': center,
     'descriptionFontColor': ef.get('mainColors', 'PrimaryText'),
-    'bonusIconValueFontSize': 2rem,
+    'bonusIconValueFontSize': (
+        320: 1.6rem,
+        1630: 2rem,
+    ),
     'bonusIconValueFontSizeSmall': 1.4rem,
     'bonusIconValueFontSizeSmaller': 1rem,
     'bonusIconValueFontW': 700,
@@ -39,7 +66,7 @@ $themeDefault: map-merge((
     'tagFontColor': ef.get('mainColors', 'baseMain'),
     'tagFontSize': ef.get('font', 'small'),
     'nameFontColor': ef.get('mainColors', 'baseMain'),
-    'nameFontSize': ef.get('font', 'biger'),
+    'nameFontSize': ef.get('font', 'big'),
     'descriptionFontSize': ef.get('font', 'less'),
     'activeBlockFontColor': ef.get('mainColors', 'baseMain'),
     'activeBlockFontSize': ef.get('font', 'less'),
@@ -73,20 +100,26 @@ $themeDefault: map-merge((
     //Padding
     'bonusIconMargin': (
         320: 55px auto 0 auto,
-        1200: 77px auto 0 auto,
+        1200: 50px auto 0 auto,
+        1630: 77px auto 0 auto,
     ),
-    'tagPadding': 4px 10px 3px,
+    'tagPadding': (
+        320: 2px 10px 1px,
+        1630: 4px 10px 3px,
+    ),
     'infoPadding': 0 ef.get('size', 'small'),
     'activeBlockPadding': (
         320: ef.get('size', 'smaller') 0 0 0,
-        1200: 30px 0 0 0,
+        1200: 20px 0 0 0,
+        1630: 30px 0 0 0,
     ),
     'activeBlockMargin': 0 auto,
     'activeBlockTimerMargin': 0,
     'activeBlockProgressPadding': 0,
     'activeBlockProgressMargin': (
         320: ef.get('size', 'smaller') 0 0 0,
-        1200: 37px 0 0 0
+        1200: 25px 0 0 0,
+        1630: 37px 0 0 0
     ),
 
     'progressBarMargin': ef.get('size', 'smallest') 0,
@@ -111,23 +144,29 @@ $themeDefault: map-merge((
 
     'infoBlockPadding': (
         320: ef.get('size', 'smaller') 0 0 0,
-        1200: 34px 0 0 0,
+        1630: 34px 0 0 0,
     ),
 
     'btnBottomPosition': (
         320: 6%,
-        1200: 40px,
+        1200: 20px,
+        1630: 40px,
     ),
-
+    'btnBottomPositionMobile': (
+        320: 6%,
+    ),
     'btnsOpacity': (
+        320: 0,
+    ),
+    'btnsOpacityMobile': (
         320: 1,
-        1200: 0,
     ),
     'btnsTranslateY': (
+        320: translateY(400%),
+    ),
+    'btnsTranslateYMobile': (
         320: translateY(0),
-        1200: translateY(400%),
-    )
-
+    ),
 ), $customThemeDefault);
 
 $customThemePromo: () !default;
@@ -135,43 +174,55 @@ $themePromo: map-merge((
     // Common
     'height': (
         320: 270px,
-        1200: 450px,
+        560: 350px,
+        900: 450px,
+        1200: 350px,
+        1630: 450px,
     ),
     'minWidth': (
         320: 250px,
-        900: 355px,
-        1200: 600px,
+        560: 400px,
+        900: 600px,
+        1200: 400px,
+        1630: 600px,
     ),
     'maxWidth': (
-        320: 355px,
-        900: 100%,
+        320: 400px,
+        560: 575px,
+        900: 790px,
         1200: 790px,
+        1630: 790px,
     ),
     'radius': ef.get('radius', 'biger'),
     //Info
     'infoPadding': (
         320: ef.get('size', 'smaller') ef.get('size', 'smaller') ef.get('size', 'less') ef.get('size', 'smaller'),
-        1200: ef.get('size', 'less') ef.get('size', 'main') ef.get('size', 'main') ef.get('size', 'main'),
+        560: ef.get('size', 'less') ef.get('size', 'main') ef.get('size', 'main') ef.get('size', 'main'),
     ),
     'nameFontColor': ef.get('mainColors', 'baseMain'),
     'nameFontSize': (
         320: ef.get('font', 'QoteTextBold'),
-        1200: ef.get('font', 'PromoTitle'),
+        560: 2.4rem,
+        900: ef.get('font', 'PromoTitle'),
+        1200: 2.4rem,
+        1630: ef.get('font', 'PromoTitle'),
     ),
     'nameMaxWidth': (
         320: 200px,
-        640: 150px,
-        768: 200px,
+        560: 100%,
         1024: 350px,
         1200: 100%,
     ),
     'nameHeight': (
         320: 72px,
-        1200: 108px,
+        560: 73px,
+        900: 108px,
+        1200: 73px,
+        1630: 108px,
     ),
     'nameMargin': (
         320: 0 0 ef.get('size', 'small') 0,
-        1200: 0 0 ef.get('size', 'smaller') 0,
+        560: 0 0 ef.get('size', 'smaller') 0,
     ),
     'descriptionFontColor': ef.get('mainColors', 'PrimaryText'),
     'btnMargin': 0,
@@ -180,29 +231,37 @@ $themePromo: map-merge((
     'tagFontColor2': ef.get('mainColors', 'main'),
     'tagMaxWidth': (
         320: 100%,
-        640: 150px,
-        768: 200px,
-        1024: 100%,
     ),
     //Image
     'imageBg': rgba(0, 0, 0, 0.3),
     'imgHeight': (
         320: 100px,
-        1200: 450px,
+        560: 350px,
+        900: 450px,
+        1200: 350px,
+        1630: 450px,
     ),
     'imgWidth': (
         320: 100px,
-        1200: 340px,
-        1366: 280px,
+        560: 250px,
+        900: 340px,
+        1200: 250px,
         1630: 340px,
+    ),
+    'gridTemplateCols': (
+        320: 1fr,
+        560: minmax(0, 1fr) 250px,
+        900: minmax(0, 1fr) 340px,
+        1200: minmax(0, 1fr) 250px,
+        1630: minmax(0, 1fr) 340px,
     ),
     'imgTop': (
         320: ef.get('size', 'smaller'),
-        1200: auto,
+        560: auto,
     ),
     'imgRight': (
         320: ef.get('size', 'smaller'),
-        1200: auto,
+        560: auto,
     ),
     //MoreIcon
     'moreIconSize': 24px,
@@ -210,56 +269,71 @@ $themePromo: map-merge((
     'moreIconColorHover': ef.get('mainColors', 'baseMain'),
     'moreIconPosRight': (
         320: ef.get('size', 'small'),
-        1200: ef.get('size', 'smaller'),
+        560: ef.get('size', 'smaller'),
     ),
     'moreIconPosTop': (
         320: ef.get('size', 'smallest'),
-        1200: ef.get('size', 'smally'),
+        560: ef.get('size', 'smally'),
     ),
     //Bonus icon
     'bonusIconShadow': 0 4px 9px rgba(0, 0, 0, 0.3),
     'bonusIconRadius': 50%,
     'bonusIconSize': (
         320: 100px,
-        1200: 144px,
+        560: 120px,
+        900: 144px,
+        1200: 120px,
+        1630: 144px,
     ),
     'bonusIconLeft': (
         320: 0,
-        1200: 35px,
+        560: 25px,
+        900: 35px,
+        1200: 25px,
+        1630: 35px,
     ),
     'bonusIconTop': (
         320: 0,
-        1200: 35px,
+        560: 25px,
+        900: 35px,
+        1200: 25px,
+        1630: 35px,
     ),
     'bonusIconValueBlockWidth': (
         320: 42px,
-        1200: 60px,
+        560: 60px,
     ),
     'bonusIconValueBlockHeight': (
         320: 18px,
-        1200: 25px,
+        560: 20px,
+        900: 25px,
+        1200: 20px,
+        1630: 25px,
     ),
     'bonusIconValueBlockPosB': (
         320: 5px,
-        1200: 10px,
+        560: 10px,
     ),
     'bonusIconValueBlockMagin': (
         320: 0 0 0 -21px,
-        1200: 0 0 0 -30px,
+        560: 0 0 0 -30px,
     ),
     'bonusIconValueBlockBorderRds': 12px,
     // // Font
     'bonusIconValueFontSize': (
         320: 1.2rem,
-        1200: 2rem,
+        560: 1.6rem,
+        900: 2rem,
+        1200: 1.6rem,
+        1630: 2rem,
     ),
     'bonusIconValueFontSizeSmall': (
         320: 1rem,
-        1200: 1.4rem,
+        560: 1.4rem,
     ),
     'bonusIconValueFontSizeSmaller': (
         320: 0.6rem,
-        1200: 1rem,
+        560: 1rem,
     ),
     'bonusIconValueFontW': 700,
     'bonusIconValueFontColor': ef.get('fieldColors', 'textColor'),
@@ -373,19 +447,19 @@ $themePartial: map-merge((
     ),
 
     'moreIconDisplay': (
-        320: block,
+        320: inline-block,
         900: none,
     ),
     'moreIconTopPos': 20px,
     'moreIconRightPos': 20px,
-    'moreIconSvgWidth': 100%,
+    'moreIconSvgSize': 22px,
     'moreIconSvgFill': ef.get('mainColors', 'baseOpacity'),
 
     'bonusNameDisplay': (
         320: block,
         900: none,
     ),
-    'bonusNameStyle': 'ThirdTitleBoldM',
+    'bonusNameStyle': 'ThirdTitleBold',
     'bonusNameColor': ef.get('mainColors', 'baseMain'),
 
     'bonusDescriptionStyle': 'PlaceholderText',
@@ -421,7 +495,7 @@ $themePreview: map-merge((
 
     'moreIconTopPos': 0,
     'moreIconRightPos': 0,
-    'moreIconSvgWidth': 100%,
+    'moreIconSvgSize': 22px,
     'moreIconSvgFill': ef.get('mainColors', 'baseOpacity'),
     'moreIconSvgFillHover': ef.get('mainColors', 'baseMain'),
 

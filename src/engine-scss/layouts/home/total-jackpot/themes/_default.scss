@@ -75,7 +75,7 @@
     .wlc-title[class] {
 
         .wlc-title__main[class] {
-            @include lib.get-text-style('ThirdTitleBold');
+            @include lib.get-text-style(ef.get-value($themeTotalJackpot, 'titleTextStyle'), ef.get-value($themeTotalJackpot, 'titleColor'));
         }
     }
 }

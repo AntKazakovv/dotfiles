@@ -176,6 +176,18 @@ export namespace wlcButton {
         },
     };
 
+    export const leftMenuDeposit: ILayoutComponent = {
+        name: 'core.wlc-button',
+        params: {
+            customMod: 'deposit',
+            themeMod: 'deposit',
+            common: {
+                text: gettext('Deposit'),
+                sref: 'app.profile.cash.deposit',
+            },
+        },
+    };
+
     export const toProfile: ILayoutComponent = {
         name: 'core.wlc-button',
         display: {

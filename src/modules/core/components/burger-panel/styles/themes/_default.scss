@@ -70,6 +70,7 @@
                 background-color: ef.get-value($themeDefault, 'panelUnderlineColor');
                 opacity: 0;
                 pointer-events: none;
+                border-radius: ef.get-value($themeDefault, 'panelUnderlineRadius');
             }
 
             &:hover,

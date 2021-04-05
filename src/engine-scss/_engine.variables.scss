@@ -502,24 +502,25 @@ $baseVariables: map-merge((
 /// @name customLayoutGap
 $customLayoutGap: () !default;
 $layoutGap: map-merge((
-    'all': [
-    '.wlc-sections__banner-section',
-    '.wlc-sections__categories',
-    '.wlc-sections__content-games-top',
-    '.wlc-sections__content-games-bottom',
-    '.wlc-sections__content-games',
-    '.wlc-sections__content-wins',
-    '.wlc-sections__total-jackpot',
-    '.wlc-sections__promo-categories',
-    '.wlc-sections__promo-bonuses',
-    ],
-    '.app-contacts-state': [
-    '.wlc-sections__info-page'
-    ],
-    '[class*=\'app-profile-\']': [
-    '.wlc-sections__header',
-    '.wlc-sections__profile-content'
-    ]
+    'all': (
+        '.wlc-sections__banner-section',
+        '.wlc-sections__categories',
+        '.wlc-sections__content-games-top',
+        '.wlc-sections__content-games-bottom',
+        '.wlc-sections__content-games',
+        '.wlc-sections__content-wins',
+        '.wlc-sections__total-jackpot',
+        '.wlc-sections__promo-categories',
+        '.wlc-sections__promo-bonuses',
+        '.wlc-sections__winners-section',
+    ),
+    '.app-contacts-state': (
+        '.wlc-sections__info-page'
+    ),
+    '[class*=\'app-profile-\']': (
+        '.wlc-sections__header',
+        '.wlc-sections__profile-content'
+    ),
 ), $customLayoutGap);
 
 $body-bg: map-get($mainColors, 'bg') !default;

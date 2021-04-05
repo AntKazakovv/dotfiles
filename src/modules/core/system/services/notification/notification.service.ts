@@ -19,6 +19,7 @@ import {
     ConfigService,
     LogService,
     GlobalHelper,
+    ModalService,
 } from 'wlc-engine/modules/core';
 import {
     DISMISS_ANIMATION_DURATION,
@@ -32,6 +33,7 @@ import {
     IPushMessageParams,
 } from 'wlc-engine/modules/core/system/services/notification/notification.interface';
 import {IEvent} from 'wlc-engine/modules/core/system/services/event/event.service';
+import {INotificationsConfig} from 'wlc-engine/modules/core/system/interfaces/base-config/notifications.interface';
 
 import * as Params from 'wlc-engine/modules/core/system/services/notification/notification.params';
 
@@ -69,8 +71,7 @@ export interface IThreadAction {
 }
 
 
-export const NOTIFICATION_METADATA: InjectionToken<INotificationMetadata>
-    = new InjectionToken('Notification meta functionality');
+export const NOTIFICATION_METADATA = new InjectionToken<INotificationMetadata>('Notification metadata');
 
 export enum NotificationEvents {
     PushComponent = 'PUSH_NOTIFICATION_COMPONENT',
@@ -134,19 +135,20 @@ export class NotificationService {
         scan((state, {waiterResult, displayItems, getNextState}) => {
             const nextState = getNextState(state, waiterResult);
 
-            this.notifications = _map(nextState, (notification, index) => {
+            return this.notifications = _map(nextState, (notification, index) => {
                 notification.hide = nextState.length - displayItems > index;
                 return notification;
             });
-            return this.notifications;
         }, <INotification[]>[]),
     );
 
+    private $config: INotificationsConfig;
     private $params: Params.INotificationParams;
     private $init: Subject<void> = new Subject();
 
     private appRef: ApplicationRef;
     private logService: LogService;
+    private modalService: ModalService;
 
     private notificationsCount: number = 0;
     private notifications: INotification[];
@@ -223,12 +225,18 @@ export class NotificationService {
             ...this.configService.get('$modules.core.services.notification'),
         };
 
+        this.$config = {
+            ...this.configService.get('$base.notifications'),
+        };
+
         this.injectDependencies();
-        this.bootstrapThread();
+        if (!this.$config.useModals) {
+            this.bootstrapThread();
+        }
         this.subscribeOnEvents();
         this.subscribeOnMedia();
 
-        // Wait for Thread Component to be initializer
+        // Wait for Thread Component to be initialized
         setTimeout(() => {
             this.$init.next();
             this.$init.complete();
@@ -246,6 +254,7 @@ export class NotificationService {
     private injectDependencies(): void {
         this.appRef = this.injector.get(ApplicationRef);
         this.logService = this.injector.get(LogService);
+        this.modalService = this.injector.get(ModalService);
     }
 
     /**
@@ -341,6 +350,7 @@ export class NotificationService {
             Component: MessageComponent,
             componentParams,
             dismissTime,
+            modalTitle: componentParams.title,
         });
     }
 
@@ -350,6 +360,11 @@ export class NotificationService {
      * Pushes any given component into notification thread
      */
     private pushComponent(params: IPushComponentParams): void {
+        if (this.$config.useModals) {
+            this.showAsModal(params);
+            return;
+        }
+
         const newNotification = this.createNotification(params);
 
         this.actions$.next([
@@ -385,6 +400,26 @@ export class NotificationService {
                 },
             },
         ]);
+    }
+
+    /**
+     * @description
+     *
+     * Opens notification as modal
+     */
+    private showAsModal(params: IPushComponentParams): void {
+        const id = this.notificationsCount++;
+        this.modalService.showModal({
+            id: `notification-${id}`,
+            component: params.Component,
+            injector: this.createNotificationInjector(
+                params.componentParams,
+                this.createNotificationMetadata(id),
+            ),
+            modalTitle: params.modalTitle,
+            closeBtnText: gettext('Ok'),
+            size: 'md',
+        });
     }
 
     /**
@@ -467,23 +502,13 @@ export class NotificationService {
 
     private createNotification(pushParams: IPushComponentParams): INotification {
         const id = this.notificationsCount++;
-        const metadata: INotificationMetadata = {
-            dismiss: (from: string = 'notification') => {
-                this.eventService.emit({
-                    name: NotificationEvents.Dismiss,
-                    data: id,
-                    from,
-                });
-            },
-        };
-
         const {
             Component,
             componentParams = null,
             dismissTime = this.$params.defaultDismissTime,
         } = pushParams;
 
-        const notification: INotification = {
+        return {
             id,
             Component,
             threadAnimationState: null,
@@ -492,13 +517,24 @@ export class NotificationService {
             hide: false,
             injector: this.createNotificationInjector(
                 componentParams,
-                metadata,
+                this.createNotificationMetadata(id),
             ),
             dismissTime,
             dismissTimer: this.createDismissTimer(id, dismissTime),
         };
+    }
 
-        return notification;
+    private createNotificationMetadata(id: number): INotificationMetadata {
+        return {
+            isModal: this.$config.useModals,
+            dismiss: (from: string = 'notification') => {
+                this.eventService.emit({
+                    name: NotificationEvents.Dismiss,
+                    data: id,
+                    from,
+                });
+            },
+        };
     }
 
     private createDismissTimer(id: number, dismissTime: number): Subscription {

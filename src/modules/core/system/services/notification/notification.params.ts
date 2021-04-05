@@ -8,6 +8,7 @@ export interface INotificationParams extends IComponentParams<TTheme, TType, TTh
 
     /**
      * @description
+     *
      * Defines notification thread z-index
      *
      * @default 1060
@@ -15,6 +16,8 @@ export interface INotificationParams extends IComponentParams<TTheme, TType, TTh
     zIndex?: number;
 
     /**
+     * @description
+     *
      * Record that determines number of notifications that
      * could be shown at once
      *
@@ -37,7 +40,7 @@ export interface INotificationParams extends IComponentParams<TTheme, TType, TTh
      * }
      * ```
      */
-    notificationsPerBreakpoint?: Record<number, number>;
+    notificationsPerBreakpoint?: {[breakpoint: number]: number};
 
     /**
      * Default dismiss time in ms

@@ -28,6 +28,7 @@ import {
     concat as _concat,
     has as _has,
     trim as _trim,
+    find as _find,
 } from 'lodash-es';
 
 
@@ -193,7 +194,12 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
             });
             this.menuParams.items = menuItems.concat(this.menuParams.items as MenuParams.IMenuItem[]);
             if (this.gamesCatalogService.catalogOpened()) {
-                this.menuParams.items.unshift(this.getAllGamesBtn());
+                const parentInMenu: boolean = !!_find(this.categories, (category) => {
+                    return this.parentCategory.slug === category.slug;
+                });
+                if (!parentInMenu) {
+                    this.menuParams.items.unshift(this.getAllGamesBtn());
+                }
             }
             if (this.useLobbyBtn) {
                 this.menuParams.items.unshift(this.getLobbyBtn());
@@ -208,8 +214,16 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
         if (this.isAuth) {
             specialCategories.push(this.gamesCatalogService.getCategoryBySlug('favourites'));
             specialCategories.push(this.gamesCatalogService.getCategoryBySlug('lastplayed'));
-            this.gamesCatalogService.sortCategories(specialCategories);
         }
+        const newCategory = this.gamesCatalogService.getCategoryBySlug('new');
+        const popularCategory = this.gamesCatalogService.getCategoryBySlug('popular');
+        if (newCategory) {
+            specialCategories.push(newCategory);
+        }
+        if (popularCategory) {
+            specialCategories.push(popularCategory);
+        }
+        this.gamesCatalogService.sortCategories(specialCategories);
         return specialCategories;
     }
 
@@ -225,6 +239,7 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
             type: 'sref',
             icon: this.iconPath('allgames'),
             class: 'allgames',
+            wlcElement: 'link_game-categories-allgames',
             params: {
                 state: {
                     name: 'app.catalog',
@@ -250,6 +265,7 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
             type: 'sref',
             icon: this.iconPath('lobby'),
             class: 'lobby',
+            wlcElement: 'link_game-categories-lobby',
             params: {
                 state: {
                     name: 'app.home',

@@ -1,6 +1,7 @@
 import {
     ChangeDetectionStrategy,
     Component,
+    HostBinding,
     Inject,
     OnInit,
 } from '@angular/core';
@@ -28,6 +29,12 @@ import {
 export class MessageComponent
     extends AbstractComponent
     implements OnInit {
+
+    @HostBinding('class.wlc-notification-message--modal')
+    public isModal: boolean = this.meta.isModal;
+
+    @HostBinding('class.wlc-notification-message--popup')
+    public isPopup: boolean = !this.meta.isModal;
 
     public $params: Params.IMessageParams;
     public title: string;

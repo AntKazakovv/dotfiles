@@ -34,6 +34,7 @@ $themeDefault: map-merge((
     'panelUnderlineHeight': 4px,
     'panelUnderlineColor': ef.get('mainColors', 'main'),
     'panelUnderlineOffset': -5px,
+    'panelUnderlineRadius': 0,
     'panelSearchColor': ef.get('mainColors', 'baseOpacity'),
     'panelSearchPositionTop': (
         900: 25px,

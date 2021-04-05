@@ -16,10 +16,6 @@
                 margin-bottom: ef.get-value($themeDefault, 'gridGap');
             }
 
-            @include mq.min(1200) {
-                grid-template-columns: repeat(auto-fill, minmax(ef.get-value($themeDefault, 'minItemWidthDesktop'), 1fr));
-            }
-
             @include mq.min(720) {
                 display: grid;
                 grid-gap: ef.get-value($themeDefault, 'gridGap');
@@ -28,6 +24,10 @@
                 > div {
                     margin-bottom: 0;
                 }
+            }
+
+            @include mq.min(1630) {
+                grid-template-columns: repeat(auto-fill, minmax(ef.get-value($themeDefault, 'minItemWidthDesktop'), 1fr));
             }
         }
 

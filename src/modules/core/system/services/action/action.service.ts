@@ -225,6 +225,16 @@ export class ActionService {
         return this.windowResizeSubject.asObservable();
     }
 
+    private getDeviceType(): DeviceType {
+        if (this.breakpoints.desktop.mq.matches) {
+            return DeviceType.Desktop;
+        } else if (this.breakpoints.tablet.mq.matches) {
+            return DeviceType.Tablet;
+        } else {
+            return DeviceType.Mobile;
+        }
+    }
+
     private getStyleNumValue(elem: HTMLElement, style: string): number {
         return _toNumber(globalThis.getComputedStyle(elem)[style].replace(/[^\d\.\-]/g, ''));
     }
@@ -247,16 +257,6 @@ export class ActionService {
         });
         await this.createBreakpoints();
         this.deviceTypeSubject.next(this.getDeviceType());
-    }
-
-    private getDeviceType(): DeviceType {
-        if (this.breakpoints.desktop.mq.matches) {
-            return DeviceType.Desktop;
-        } else if (this.breakpoints.tablet.mq.matches) {
-            return DeviceType.Tablet;
-        } else {
-            return DeviceType.Mobile;
-        }
     }
 
     private async createBreakpoints(): Promise<void> {
@@ -319,7 +319,7 @@ export class ActionService {
         const userService: UserService = this.injector.get(UserService);
 
         try {
-            this.modalService.showModal('registrationSuccess');
+            this.modalService.showModal('registration-success');
             await userService.registrationComplete(initialPath.code);
             this.eventService.emit({
                 name: NotificationEvents.PushMessage,
@@ -334,7 +334,7 @@ export class ActionService {
         } catch (error) {
             this.showErrorNotification(error.errors, gettext('Registration error'), 'register');
         } finally {
-            this.modalService.closeAllModals();
+            this.modalService.hideModal('registration-success');
         }
     }
 

@@ -57,7 +57,7 @@ import {
                 query(':enter', [
                     style({opacity: 0}),
                     stagger('0.03s', animate('0.8s', style({opacity: 1}))),
-                ]),
+                ], {optional: true}),
             ]),
         ]),
     ],
@@ -101,7 +101,7 @@ export class PaymentListComponent extends AbstractComponent implements OnInit {
         });
 
         if (this.$params.hideModalOnSelect) {
-            this.modalService.closeModal('payment-list');
+            this.modalService.hideModal('payment-list');
         }
 
         this.cdr.markForCheck();

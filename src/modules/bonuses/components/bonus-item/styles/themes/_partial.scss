@@ -2,7 +2,6 @@
 @use 'engine-scss/mixins/text' as text;
 @use 'engine-scss/mixins/base.mixins' as em;
 @use 'engine-scss/mixins/mediaqueries' as mq;
-@import '../utils/vars';
 
 .wlc-bonus-item--theme-partial {
 
@@ -168,19 +167,25 @@
             position: absolute;
             top: ef.get-value($themePartial, 'moreIconTopPos');
             right: ef.get-value($themePartial, 'moreIconRightPos');
+            left: auto;
+
+            line-height: 0;
+
+            .wlc-icon,
+            span {
+                display: inline-block;
+            }
 
             svg {
-                width: ef.get-value($themePartial, 'moreIconSvgWidth');
+                width: ef.get-value($themePartial, 'moreIconSvgSize');
+                height: ef.get-value($themePartial, 'moreIconSvgSize');
                 fill: ef.get-value($themePartial, 'moreIconSvgFill');
             }
         }
 
         &__name {
             @include em.get-mq-map('display', $themePartial, 'bonusNameDisplay');
-            font-size: 16px; // remove after add mobile styles
-            line-height: 20px; // remove after add mobile styles
-            font-weight: 700; // remove after add mobile styles
-            //@include text.get-text-style(ef.get-value($themePartial, 'bonusNameStyle'), ef.get-value($themePartial, 'bonusNameColor'));
+            @include text.get-text-style(ef.get-value($themePartial, 'bonusNameStyle'), ef.get-value($themePartial, 'bonusNameColor'));
 
             @include em.lineClamp(2);
         }

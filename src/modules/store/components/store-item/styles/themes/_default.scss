@@ -10,7 +10,7 @@
 
         &__content {
             position: relative;
-            height: ef.get-value($themeDefault, 'height');
+            @include em.get-mq-map('height', $themeDefault, 'height');
             min-width: ef.get-value($themeDefault, 'minWidth');
             max-width: ef.get-value($themeDefault, 'maxWidth');
             border-radius: ef.get-value($themeDefault, 'radius');
@@ -18,19 +18,23 @@
             margin-left: auto;
             margin-right: auto;
 
-            @include mq.min(1200) {
-                min-width: ef.get-value($themeDefault, 'minWidthDesktop');
-            }
-
             @include mq.min(720) {
                 max-width: 100%;
             }
 
-            &.mobile {
-                height: ef.get-value($themeDefault, 'heightMobile');
+            @include mq.min(1630) {
+                min-width: ef.get-value($themeDefault, 'minWidthDesktop');
+            }
+
+            @media (hover: none) {
+                @include em.get-mq-map('height', $themeDefault, 'heightMobile');
 
                 .wlc-store-item__wrapper {
                     grid-template-rows: ef.get-value($themeDefault, 'imageHeight') ef.get-value($themeDefault, 'infoHeightMobile') auto;
+
+                    @include mq.min(1630) {
+                        grid-template-rows: ef.get-value($themeDefault, 'imageHeight1630') ef.get-value($themeDefault, 'infoHeightMobile') auto;
+                    }
 
                     &:hover {
 
@@ -47,10 +51,14 @@
                 }
 
                 &.noauth {
-                    height: ef.get-value($themeDefault, 'height');
+                    @include em.get-mq-map('height', $themeDefault, 'height');
 
                     .wlc-store-item__wrapper {
                         grid-template-rows: auto ef.get-value($themeDefault, 'infoHeight');
+
+                        @include mq.min(1630) {
+                            grid-template-rows: auto ef.get-value($themeDefault, 'infoHeight1630');
+                        }
                     }
                 }
             }
@@ -78,6 +86,10 @@
             grid-template-rows: auto ef.get-value($themeDefault, 'infoHeight');
             transition: all ef.get-value($themeDefault, 'time') ease-in-out;
 
+            @include mq.min(1630) {
+                grid-template-rows: auto ef.get-value($themeDefault, 'infoHeight1630');
+            }
+
             &:hover {
                 background: ef.get-value($themeDefault, 'backgroundHover');
 
@@ -99,7 +111,7 @@
         &__image {
             width: 100%;
             background-color: ef.get-value($themeDefault, 'imageBg');
-            padding: ef.get-value($themeDefault, 'imagePadding');
+            @include em.get-mq-map('padding', $themeDefault, 'imagePadding');
             height: 100%;
             position: relative;
             display: flex;
@@ -112,19 +124,19 @@
             img {
                 display: block;
                 height: auto;
-                max-height: ef.get-value($themeDefault, 'maxImageHeight');
+                @include em.get-mq-map('max-height', $themeDefault, 'maxImageHeight');
                 max-width: 100%;
                 margin: 0 auto;
             }
         }
 
         &__bonus-icon {
-            width: ef.get-value($themeDefault, 'bonusIconSize');
-            height: ef.get-value($themeDefault, 'bonusIconSize');
+            @include em.get-mq-map('width', $themeDefault, 'bonusIconSize');
+            @include em.get-mq-map('height', $themeDefault, 'bonusIconSize');
+            @include em.get-mq-map('margin', $themeDefault, 'bonusIconMargin');
             background-repeat: no-repeat;
             background-size: cover;
             background-position: center center;
-            margin: ef.get-value($themeDefault, 'bonusIconMargin');
             position: relative;
 
             .icon-sign {
@@ -135,12 +147,12 @@
             }
 
             .icon-text {
+                @include em.get-mq-map('height', $themeDefault, 'bonusIconValueBlockHeight');
+                @include em.get-mq-map('font-size', $themeDefault, 'bonusIconValueFontSize');
                 width: ef.get-value($themeDefault, 'bonusIconValueBlockWidth');
-                height: ef.get-value($themeDefault, 'bonusIconValueBlockHeight');
                 border-radius: ef.get-value($themeDefault, 'bonusIconValueBlockBorderRds');
                 background-color: ef.get-value($themeDefault, 'bonusIconValueBg');
                 color: ef.get-value($themeDefault, 'bonusIconValueFontColor');
-                font-size: ef.get-value($themeDefault, 'bonusIconValueFontSize');
                 font-weight: ef.get-value($themeDefault, 'bonusIconValueFontW');
                 position: absolute;
                 left: ef.get-value($themeDefault, 'bonusIconValueBlockPosL');
@@ -163,7 +175,7 @@
 
         &__tag {
             position: absolute;
-            padding: ef.get-value($themeDefault, 'tagPadding');
+            @include em.get-mq-map('padding', $themeDefault, 'tagPadding');
             background-color: ef.get-value($themeDefault, 'tagBg');
             border-radius: ef.get-value($themeDefault, 'tagRadius');
 
@@ -185,12 +197,15 @@
         }
 
         &__name {
-            @include text.get-text-style('QoteTextBold', ef.get-value($themeDefault, 'nameFontColor'));
+            font-size: ef.get-value($themeDefault, 'nameFontSize');
+            line-height: 1.4;
+            font-weight: bold;
             text-align: center;
             width: ef.get-value($themeDefault, 'infoWidth');
 
-            @include mq.min(1200) {
+            @include mq.min(1630) {
                 width: ef.get-value($themeDefault, 'infoWidthDesktop');
+                @include text.get-text-style('QoteTextBold', ef.get-value($themeDefault, 'nameFontColor'));
             }
         }
 
@@ -200,8 +215,12 @@
             text-align: center;
             width: ef.get-value($themeDefault, 'infoWidth');
 
-            @include mq.min(1200) {
+            @include mq.min(1630) {
                 width: ef.get-value($themeDefault, 'infoWidthDesktop');
+            }
+
+            span {
+                margin: ef.get-value($themeDefault, 'priceSpanMargin');
             }
         }
 

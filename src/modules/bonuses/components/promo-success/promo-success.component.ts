@@ -49,7 +49,7 @@ export class PromoSuccessComponent
     }
 
     public goTo(path: string): void {
-        this.modalService.closeModal('promo-success');
+        this.modalService.hideModal('promo-success');
         this.router.stateService.go(path);
     }
 

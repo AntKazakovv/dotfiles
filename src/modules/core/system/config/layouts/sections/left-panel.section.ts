@@ -24,7 +24,7 @@ export namespace leftPanel {
                                 mainText: gettext('Do you want to top up your balance?'),
                             },
                         },
-                        componentLib.wlcButton.deposit,
+                        componentLib.wlcButton.leftMenuDeposit,
                     ],
                 },
             },

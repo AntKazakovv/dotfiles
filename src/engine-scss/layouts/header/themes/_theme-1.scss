@@ -110,6 +110,11 @@
                     svg {
                         width: ef.get-value($theme1Header, 'headerSvgBtnSize');
                         height: ef.get-value($theme1Header, 'headerSvgBtnSize');
+
+                        path,
+                        rect {
+                            fill: ef.get-value($theme1Header, 'headerDepositBtnFillColor');
+                        }
                     }
                 }
             }

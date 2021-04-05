@@ -319,7 +319,7 @@ export class UserService {
     public async loginRequest(loginParam: string, password: string): Promise<void> {
         try {
             await this.login(loginParam, password);
-            this.modalService.closeModal('login');
+            this.modalService.hideModal('login');
         } catch (error) {
             this.eventService.emit({
                 name: NotificationEvents.PushMessage,

@@ -8,6 +8,11 @@ import {
     ComponentRef,
 } from '@angular/core';
 import {DOCUMENT} from '@angular/common';
+import {BehaviorSubject, Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
+import {
+    BsModalService,
+} from 'ngx-bootstrap/modal';
 
 import {
     IModalConfig,
@@ -48,7 +53,8 @@ export class ModalService {
     };
 
     protected activeModals: IActiveModal[] = [];
-    protected closeQueue: IActiveModal[] = [];
+    protected closeQueue: string[] = [];
+    protected $closeObserver: BehaviorSubject<number> = new BehaviorSubject(0);
     protected modalParams: IModalOptions = this.configService.get('appConfig.siteconfig.modalParams') || {};
 
     constructor(
@@ -59,6 +65,7 @@ export class ModalService {
         @Inject(DOCUMENT) protected document: HTMLDocument,
         protected configService: ConfigService,
         protected logService: LogService,
+        protected BsModalService: BsModalService,
     ) {
         this.initListeners();
     }
@@ -111,33 +118,22 @@ export class ModalService {
             });
             return;
         }
-
-        if (modalConfig.dismissAll) {
-            if (this.activeModals.length) {
-                const subscription = this.eventService.subscribe(
-                    {name: this.events.MODAL_HIDDEN},
-                    () => {
-                        if (!this.activeModals.length) {
-                            subscription.unsubscribe();
-                            this.openModal(modalConfig);
-                        }
-                    },
-                );
-                this.closeAllModals();
-                return;
-            }
+        if (modalConfig.dismissAll && this.activeModals.length) {
+            this.closeAllModals();
         }
 
         if (this.closeQueue.length) {
-            const subscription = this.eventService.subscribe(
-                {name: this.events.MODAL_HIDDEN},
-                (id: string) => {
-                    if (!this.closeQueue.length) {
-                        subscription.unsubscribe();
-                    }
-                },
-            );
+            const $watcher = new Subject();
+            this.$closeObserver.pipe(takeUntil($watcher)).subscribe((val: number) => {
+                if (!val) {
+                    $watcher.next();
+                    $watcher.complete();
+                    this.openModal(modalConfig);
+                }
+            });
+            return;
         }
+
         this.openModal(modalConfig);
     }
 
@@ -174,7 +170,8 @@ export class ModalService {
             return;
         }
 
-        this.closeQueue.push(modal);
+        this.closeQueue.push(modal.id);
+        this.$closeObserver.next(this.closeQueue.length);
         modal.ref.instance.modalDirect.hide();
     }
 
@@ -190,28 +187,43 @@ export class ModalService {
     /**
      * Init listeners of modal events
      */
-    protected initListeners(): void {
+    private initListeners(): void {
         this.eventService.subscribe(
             {name: this.events.MODAL_HIDDEN},
             (id: string) => {
-                _remove(this.closeQueue, (item: IActiveModal) => item.id === id);
                 this.closeModal(id);
             },
         );
 
         this.eventService.subscribe(
             {name: 'SHOW_MODAL'},
-            (modalName: string) => {
-                this.showModal(modalName);
+            (modalId: string) => {
+                this.showModal(modalId);
             },
         );
 
         this.eventService.subscribe(
             {name: 'CLOSE_MODAL'},
-            (modalName: string) => {
-                this.closeModal(modalName);
+            (modalId: string) => {
+                this.hideModal(modalId);
             },
         );
+
+        this.$closeObserver.subscribe((val: number) => {
+            // fix nested modals
+            if (!val) {
+                if (!this.activeModals.length) {
+                    if (document.body.classList.contains('modal-open')) {
+                        this.BsModalService.removeBackdrop();
+                    }
+                } else {
+                    if (!document.body.classList.contains('modal-open')) {
+                        document.body.classList.add('modal-open');
+                        this.BsModalService.setScrollbar();
+                    }
+                }
+            }
+        });
     }
 
     /**
@@ -219,7 +231,7 @@ export class ModalService {
      *
      * @param id modal identifier
      */
-    public closeModal(id: string): void {
+    private closeModal(id: string): void {
         const modal: IActiveModal = _find(this.activeModals, (item: IActiveModal) => item.id === id);
 
         if (!modal) {
@@ -234,15 +246,19 @@ export class ModalService {
 
         this.appRef.detachView(modal.ref.hostView);
         modal.ref.destroy();
+
         _remove(this.activeModals, (item: IActiveModal) => item.id === id);
 
         const lastModal = this.activeModals[this.activeModals.length - 1];
         if (lastModal) {
             lastModal.ref.location.nativeElement.children[0].focus();
         }
+
+        _remove(this.closeQueue, (item: string) => item === id);
+        this.$closeObserver.next(this.closeQueue.length);
     }
 
-    protected openModal(config: IModalConfig): void {
+    private openModal(config: IModalConfig): void {
         let windowFactory = this.cfr.resolveComponentFactory(WlcModalComponent);
         let injector = Injector.create({
             providers: [
@@ -252,6 +268,7 @@ export class ModalService {
                 },
             ],
         });
+
         let windowCmptRef: ComponentRef<any> = windowFactory.create(injector);
         const modalElement = windowCmptRef.location.nativeElement;
 

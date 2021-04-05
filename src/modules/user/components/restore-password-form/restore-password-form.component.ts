@@ -61,7 +61,7 @@ export class RestorePasswordFormComponent extends AbstractComponent {
 
             const response = await this.userService.sendPasswordRestore(email);
 
-            this.modalService.closeModal('restore-password');
+            this.modalService.hideModal('restore-password');
 
             this.eventService.emit({
                 name: NotificationEvents.PushMessage,
