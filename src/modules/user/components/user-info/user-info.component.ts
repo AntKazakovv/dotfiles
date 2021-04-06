@@ -67,6 +67,6 @@ export class UserInfoComponent extends AbstractComponent implements OnInit {
     }
 
     public depositAction(): void {
-        this.stateService.go('app.profile.cash.deposit');
+        this.stateService.go(this.$params.button.sref);
     }
 }
