@@ -7,7 +7,6 @@ $themeDefault: map-merge(map-merge(ev.$buttonSettings, (
 
 $customThemeCircled: () !default;
 $themeCircled: map-merge(map-merge(ev.$buttonSettings, (
-    'backgroundHover': transparentize(ef.get-value($themeDefault, 'backgroundCircledHover'), 0.5),
 )), $customThemeCircled);
 
 $customThemeBorderless: () !default;

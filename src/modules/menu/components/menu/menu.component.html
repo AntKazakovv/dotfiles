@@ -126,7 +126,7 @@
 <ng-container *ngIf="$params.common?.useSwiper && slides.length">
     <div wlc-slider #slider
          [slides]="slides"
-         [inlineParams]="sliderParams">
+         [inlineParams]="$params.sliderParams">
     </div>
 </ng-container>
 

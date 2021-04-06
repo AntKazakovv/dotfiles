@@ -11,6 +11,7 @@ $themeDefault: map-merge((
     'currentArrowColorHover': ef.get('mainColors', 'main'),
     'currentColor': ef.get('mainColors', 'baseOpacity'),
     'currentFlagSize': ef.get('size', 'less'),
+    'currentFlagBorder': null,
     'currentHeight': ef.get('size', 'less'),
     'dropdownGap': ef.get('size', 'small'),
     'dropdownPadding': ef.get('size', 'small'),

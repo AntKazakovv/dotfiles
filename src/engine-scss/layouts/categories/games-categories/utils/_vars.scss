@@ -35,6 +35,13 @@ $gamesCategoriesDefault: map-merge((
         768: ef.get('mainColors', 'bg700'),
     ),
     'buttonSearchHeight': ef.get('buttonSettings', 'heightDefault'),
+    'buttonSearchWidth': (
+        375: 100%,
+        768: auto
+    ),
+    'buttonSearchMinWidth': (
+        375: 150px,
+    ),
     'buttonSearchBg': (
         375: ef.get('mainColors', 'bg500'),
         768: ef.get('mainColors', 'bg')
@@ -51,6 +58,7 @@ $gamesCategoriesDefault: map-merge((
     'buttonSearchIconFill': ef.get('mainColors', 'main'),
     'buttonSearchIconMargin': ef.get('size', 'small'),
     'buttonMerchMargin': ef.get('size', 'smally'),
+    'buttonSearchTextStyle': 'PlaceholderText',
 ), $customGamesCategoriesDefault);
 
 $customWithIcons: () !default;
@@ -70,8 +78,22 @@ $withIcons: map-merge((
     'buttonBorderRadius': (
         375: ef.get('radius', 'biger'),
     ),
+    'buttonColor': ef.get('mainColors', 'baseMain'),
+    'searchAlignSelf': end,
+    'merchAlignSelf': start,
+    'searchButtonMargin': null,
+    'merchButtonMargin': null,
     'gridColumns': (
         375: minmax(0, 1fr),
         900: minmax(0, 1fr) 250px,
     ),
+    'gridRows': (
+        375: 1fr,
+        900: 1fr 1fr
+    ),
+    'gridAreas': (
+        375: null,
+        900: 'category-menu btn-search' 'category-menu btn-merch',
+    ),
+    'gridAlignItems': center,
 ), $customWithIcons);
