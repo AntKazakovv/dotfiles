@@ -6,7 +6,7 @@ export const wlcMainMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         type: 'sref',
         class: 'home',
         icon: 'lobby',
-        sort: 100,
+        sort: 0,
         params: {
             state: {
                 name: 'app.home',
