@@ -118,7 +118,7 @@ export class CategoryModel extends AbstractModel<ICategory> {
     }
 
     public get initedWithDefaultSort(): boolean {
-        return !!this.data.CSubSort;
+        return !!+this.data.CSubSort;
     }
 
     public get icon(): string {
