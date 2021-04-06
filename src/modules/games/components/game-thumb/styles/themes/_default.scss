@@ -132,7 +132,7 @@
             width: ef.get-value($themeDefault, 'favoriteBackSize');
             height: ef.get-value($themeDefault, 'favoriteBackSize');
             border-radius: ef.get-value($themeDefault, 'favoriteBackRadius');
-            background-color: ef.get-value($themeDefault, 'favoriteBackBg');
+            background: ef.get-value($themeDefault, 'favoriteBackBg');
             box-shadow: ef.get-value($themeDefault, 'favoriteBoxShadow');
             @include bm.transition;
 

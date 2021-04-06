@@ -2,14 +2,12 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    // Sizes
     'gapSize': (
         375: ef.get('size', 'small'),
         1024: ef.get('size', 'less'),
         1420: ef.get('size', 'big')
     ),
     'paddingSize': ef.get('size', 'smaller'),
-    //dropdown variables
     'menuGag': ef.get('size', 'smallest'),
     'linkPadding': 12px 5px,
     'linkActiveWeight': bold,
@@ -21,13 +19,12 @@ $themeDefault: map-merge((
     'underlineColor': ef.get('mainColors', 'main'),
     'underlineHeight': 6px,
     'underlineRadius': ef.get('radius', 'large'),
-    'iconDirection': column,
     'swiperShadowColor': #867f7f63,
 ), $customThemeDefault);
 
 $customDropdownThemeDefault: () !default;
 $themeDropdownDefault: map-merge((
-    'menuGag': 5px,
+    'menuGag': ef.get('size', 'smallest'),
     'activeTabLinkColor': ef.get('mainColors', 'baseMain'),
     'activeTabLinkBg': ef.get('mainColors', 'main'),
     'linkPadding': 10px 12px,
@@ -44,6 +41,9 @@ $themeDropdownDefault: map-merge((
 
 $customWithIcons: () !default;
 $withIcons: map-merge((
+    'menuGag': ef.get('size', 'small'),
+    'iconDirection': column,
+    'iconAlign': center,
     'menuItemColor': ef.get('mainColors', 'baseMain'),
     'menuItemHoverColor': ef.get('mainColors', 'main'),
     'menuItemPadding': (
@@ -52,7 +52,14 @@ $withIcons: map-merge((
     'menuItemMargin': (
         375: 0 auto,
     ),
+    'menuIconOuterWidth': 86px,
+    'menuIconOuterHeight': 86px,
+    'menuIconInnerHeight': 100%,
+    'menuIconInnerWidth': 100%,
     'menuItemTextAlign': center,
     'transition': 0.5s ease-in,
     'iconColor': ef.get('mainColors', 'main'),
+    'menuIconInnerMaxWidth': initial,
+    'menuIconInnerMaxHeight': initial,
+    'menuIconInnerFill': null,
 ), $customWithIcons);

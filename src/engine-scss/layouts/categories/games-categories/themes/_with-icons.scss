@@ -7,19 +7,11 @@
 
     .games-categories {
         display: grid;
-        grid-template-rows: 1fr;
-        align-items: center;
-
+        align-items: ef.get-value($withIcons, 'gridAlignItems');
+        @include bm.get-mq-map('grid-template-areas', $withIcons, 'gridAreas');
         @include bm.get-mq-map('grid-template-columns', $withIcons, 'gridColumns');
+        @include bm.get-mq-map('grid-template-rows', $withIcons, 'gridRows');
         @include bm.get-mq-map('gap', $withIcons, 'sectionGap');
-
-        @include mq.min(900) {
-            grid-template-columns: minmax(0, 1fr) 250px;
-            grid-template-rows: 1fr 1fr;
-            grid-template-areas:
-                'category-menu btn-search'
-                'category-menu btn-merch';
-        }
     }
 
     .wlc-category-menu {
@@ -37,7 +29,7 @@
 
             .wlc-btn-search__text,
             .wlc-btn-merch__text {
-                @include lib.get-text-style('PlaceholderText');
+                @include lib.get-text-style('PlaceholderText', ef.get-value($withIcons, 'buttonColor'));
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
@@ -46,10 +38,11 @@
 
         &.wlc-btn-search {
             grid-area: btn-search;
+            align-self: ef.get-value($withIcons, 'searchAlignSelf');
+            margin: ef.get-value($withIcons, 'searchButtonMargin');
             background: ef.get-value($withIcons, 'searchButtonBg');
-            align-self: end;
 
-            @media (hover: hover) {
+            @media (hover) {
 
                 &:hover {
                     background: ef.get-value($withIcons, 'searchButtonBgHover');
@@ -63,10 +56,11 @@
 
         &.wlc-btn-merch {
             grid-area: btn-merch;
+            margin: ef.get-value($withIcons, 'merchButtonMargin');
+            align-self: ef.get-value($withIcons, 'merchAlignSelf');
             background: ef.get-value($withIcons, 'merchButtonBg');
-            align-self: start;
 
-            @media (hover: hover) {
+            @media (hover) {
 
                 &:hover {
                     background: ef.get-value($withIcons, 'merchButtonBgHover');

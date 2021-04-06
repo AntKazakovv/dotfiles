@@ -2,10 +2,16 @@
 
 $customThemeRingDefault: () !default;
 $themeRingDefault: map-merge((
-    color: ef.get('mainColors', main),
-    width: 6px,
-    duration: 3s,
-    size: 100px,
-    margin: 0 auto,
+    'color': ef.get('mainColors', main),
+    'width': 6px,
+    'duration': 3s,
+    'size': 100px,
+    'margin': 0 auto,
 ), $customThemeRingDefault);
 
+$customThemeLogo: () !default;
+$themeLogo: map-merge((
+    'width': 120px,
+    'height': 100px,
+    'animation': logo infinite 3s,
+), $customThemeLogo);

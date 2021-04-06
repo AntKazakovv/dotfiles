@@ -7,6 +7,9 @@ import {
 } from '@angular/core';
 
 import {AbstractComponent} from 'wlc-engine/modules/core';
+import {
+    ConfigService,
+} from 'wlc-engine/modules/core/system/services';
 import * as Params from './loader.params';
 
 @Component({
@@ -22,8 +25,9 @@ export class LoaderComponent extends AbstractComponent implements OnInit {
         @Optional()
         @Inject('injectParams')
         protected injectParams: Params.ILoaderCParams,
+        protected configService: ConfigService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams});
+        super({injectParams, defaultParams: Params.defaultParams}, configService);
     }
 
     public ngOnInit(): void {
