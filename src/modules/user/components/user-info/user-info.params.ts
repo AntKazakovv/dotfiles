@@ -4,15 +4,27 @@ import {ILayoutComponent} from 'wlc-engine/modules/core/system/interfaces';
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;
 
+export interface IUserInfoButton {
+    use?: boolean;
+    sref?: string;
+    text?: string;
+}
+
 export interface IUserInfoCParams extends IComponentParams<ComponentTheme, ComponentType, string> {
     dropdown: {
         components: ILayoutComponent[]
     }
+    button?: IUserInfoButton,
 }
 
 export const defaultParams: IUserInfoCParams = {
     class: 'wlc-user-info',
     wlcElement: 'block_user-stat',
+    button: {
+        use: true,
+        sref: 'app.profile.cash.deposit',
+        text: gettext('Deposit'),
+    },
     dropdown: {
         components: [
             {

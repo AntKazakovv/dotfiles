@@ -5,10 +5,11 @@
     </div>
 
     <button
-        [wlcElement]="'button_deposit'"
+        *ngIf="this.$params.button.use"
         wlc-button
         class="wlc-btn-deposit"
-        text="Deposit"
+        [wlcElement]="'button_deposit'"
+        [text]="this.$params.button.text"
         (click)="depositAction()"
     ></button>
 
