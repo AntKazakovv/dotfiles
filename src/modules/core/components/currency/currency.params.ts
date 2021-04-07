@@ -18,5 +18,4 @@ export const defaultParams: ICurrencyCParams = {
     value: 0,
     digitsInfo: '1-2-2',
     showIconOnly: false,
-    currency: 'EUR',
 };
