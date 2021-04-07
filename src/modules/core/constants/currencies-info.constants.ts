@@ -10,6 +10,8 @@ export namespace CurrenciesInfo {
         readonly narrowSymbol?: readonly number[];
         readonly iconPrefix?: number;
         readonly icon?: string;
+        readonly svg?: string;
+        readonly name?: string;
         readonly precision?: number;
     }
 
@@ -154,6 +156,14 @@ export namespace CurrenciesInfo {
             // weak OS support for char code
             // TODO
             icon: '',
+        },
+        LP: {
+            svg: '/currency/lp.svg',
+            name: gettext('LP'),
+        },
+        EXP: {
+            svg: '/currency/exp.svg',
+            name: gettext('EXP'),
         },
     };
 }

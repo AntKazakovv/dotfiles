@@ -20,6 +20,16 @@
                 font-weight: 700;
             }
         }
-    }
 
+        &__lpblock {
+
+            ::ng-deep {
+
+                .wlc-icon {
+                    position: relative;
+                    bottom: 2px;
+                }
+            }
+        }
+    }
 }

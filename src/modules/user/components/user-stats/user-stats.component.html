@@ -22,12 +22,10 @@
     <ng-template [ngSwitchCase]="'store'">
         <div class="{{$class}}-balance {{$class}}-balance--store" data-wlc-element="block_info">
             <div class="{{$class}}-balance__item {{$class}}-balance__item--points" [attr.data-wlc-element]="shownUserStats?.points?.wlcElement">
-                <span class="value">{{(shownUserStats?.points?.value | number: '.0-2') || 0}}</span>
-                <span class="name">{{shownUserStats?.points?.name | translate}}</span>
+                <span class="value" wlc-currency currency="LP" [value]="shownUserStats?.points?.value" digitsInfo="1-0-2"></span>
             </div>
             <div class="{{$class}}-balance__item {{$class}}-balance__item--exppoints" [attr.data-wlc-element]="shownUserStats?.expPoints?.wlcElement">
-                <span class="value">{{(shownUserStats?.expPoints?.value | number: '.0-2') || 0}}</span>
-                <span class="name">{{shownUserStats?.expPoints?.name | translate}}</span>
+                <span class="value" wlc-currency currency="EXP" [value]="shownUserStats?.expPoints?.value" digitsInfo="1-0-2"></span>
             </div>
         </div>
     </ng-template>
@@ -48,6 +46,9 @@
                     </span>
                     <span class="value" *ngSwitchCase="'amount'">
                         <span wlc-currency [value]="shownUserStats[item]?.value"></span>
+                    </span>
+                    <span class="value" *ngSwitchCase="'customCurrency'">
+                        <span wlc-currency [currency]="shownUserStats[item].currency" [value]="shownUserStats[item]?.value" digitsInfo="1-0-2" [hideSvgName]="true"></span>
                     </span>
                 </ng-container>
             </div>
