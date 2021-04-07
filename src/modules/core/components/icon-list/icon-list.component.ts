@@ -162,7 +162,7 @@ export class IconListComponent extends AbstractComponent implements OnInit, Afte
     protected setPaymentsLst(): void {
         let payments: IPaysystem[] = this.configService.get('appConfig.siteconfig.payment_systems') || [];
 
-        if (this.$params.common.payment?.exclude?.length) {
+        if (this.$params.common?.payment?.exclude?.length) {
 
             if (this.$params.common.payment.exclude[0] === 'all') {
                 payments = [];
@@ -173,7 +173,7 @@ export class IconListComponent extends AbstractComponent implements OnInit, Afte
             }
         }
 
-        if (this.$params.common.payment?.include?.length) {
+        if (this.$params.common?.payment?.include?.length) {
             this.$params.common.payment.include.forEach((item) => {
                 if (!_find(payments, (i) => i.Name.toLocaleLowerCase() === item)) {
                     payments.push({
