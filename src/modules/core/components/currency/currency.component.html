@@ -7,7 +7,13 @@
             <ng-container *ngIf="icon.prefix">
                 {{icon.prefix}}
             </ng-container>
-            <span class="wlc-currency__icon">{{icon.iconChar}}</span>
+            <span *ngIf="icon.iconChar" class="wlc-currency__icon">{{icon.iconChar}}</span>
+            <span *ngIf="showSvg"
+                wlc-icon
+                class="wlc-currency__svg wlc-currency__svg--left"
+                [iconUrl]="icon.svg">
+            </span>
+            <span *ngIf="showName" class="wlc-currency__name wlc-currency__name--left">{{icon.name | translate}}</span>
         </ng-container>
         <ng-container *ngIf="isNegative && !icon.minusBeforeCurrency">
             -
@@ -20,7 +26,13 @@
         <ng-container *ngIf="icon.prefix">
             {{icon.prefix}}
         </ng-container>
-        <span class="wlc-currency__icon">{{icon.iconChar}}</span>
+        <span *ngIf="icon.iconChar" class="wlc-currency__icon">{{icon.iconChar}}</span>
+        <span *ngIf="showSvg"
+            wlc-icon
+            class="wlc-currency__svg wlc-currency__svg--right"
+            [iconUrl]="icon.svg">
+        </span>
+        <span *ngIf="showName" class="wlc-currency__name wlc-currency__name--right">{{icon.name | translate}}</span>
     </ng-container>
 </ng-container>
 

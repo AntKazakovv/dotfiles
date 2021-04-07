@@ -16,4 +16,27 @@
         user-select: none;
         speak: never;
     }
+
+    .wlc-currency__svg {
+        line-height: 0;
+
+        &--left {
+            margin-right: map-get($themeDefault, iconIndent);
+        }
+
+        &--right {
+            margin-left: map-get($themeDefault, iconIndent);
+        }
+    }
+
+    .wlc-currency__name {
+
+        &--left {
+            margin-right: map-get($themeDefault, iconIndent);
+        }
+
+        &--right {
+            margin-left: map-get($themeDefault, iconIndent);
+        }
+    }
 }

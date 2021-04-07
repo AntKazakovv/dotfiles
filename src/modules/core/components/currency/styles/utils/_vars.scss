@@ -3,4 +3,5 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'textColor': inherit,
+    'iconIndent': 5px,
 ), $customThemeDefault);

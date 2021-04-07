@@ -44,6 +44,20 @@
                 padding-left: 5px;
                 @include lib.get-text-style('PlaceholderTextBold');
                 color: map-get($themeDefault, 'colorValue');
+
+                ::ng-deep {
+
+                    .wlc-icon {
+                        display: inline-block;
+                        position: relative;
+                        bottom: 1px;
+
+                        svg {
+                            width: map-get($themeDefault, 'loyaltyIconSize');
+                            height: map-get($themeDefault, 'loyaltyIconSize');
+                        }
+                    }
+                }
             }
 
             .name,
@@ -66,14 +80,22 @@
                     border-bottom: none;
                 }
 
-                .name {
-                    padding-left: 5px;
-                    @include lib.get-text-style('PrimaryTextBold');
-                }
-
                 .value {
+                    display: flex;
                     padding-left: 0;
-                    @include lib.get-text-style('PrimaryTextBold');
+                    @include lib.get-text-style('ThirdTitleBold');
+
+                    ::ng-deep {
+
+                        .wlc-icon {
+                            bottom: 2px;
+
+                            svg {
+                                width: map-get($themeDefault, 'loyaltyIconStoreSize');
+                                height: map-get($themeDefault, 'loyaltyIconStoreSize');
+                            }
+                        }
+                    }
                 }
             }
         }

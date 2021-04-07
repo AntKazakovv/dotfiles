@@ -22,7 +22,9 @@ interface IParsedDigitsInfo {
 
 export interface ICurrencyIcon {
     prefix?: string;
-    iconChar: string;
+    iconChar?: string;
+    svg?: string;
+    name?: string;
     placement: 'left' | 'right';
     minusBeforeCurrency: boolean;
 }
@@ -31,6 +33,7 @@ export interface ICurrencyOptions {
     language?: string;
     currency?: string;
     digitsInfo?: string;
+    svgPosition?: 'left' | 'right';
 }
 
 export class CurrencyModel {
@@ -55,8 +58,12 @@ export class CurrencyModel {
         );
 
         this.formatValue();
-        if (this.currencyFormat.icon) {
+        if (this.currencyFormat?.icon) {
             this.setIcon();
+        }
+
+        if (this.currencyFormat?.svg) {
+            this.setSvgIcon();
         }
     }
 
@@ -76,7 +83,7 @@ export class CurrencyModel {
         const parts = Intl.NumberFormat(this.formatOptions.language, {
             style: 'currency',
             // pass USD if this is cryptocurrency, otherwise Intl inserts literal
-            currency: this.isCryptocurrency ? 'USD' : _toUpper(this.formatOptions.currency).trim(),
+            currency: (this.isCryptocurrency || this.currencyFormat?.svg) ? 'USD' : _toUpper(this.formatOptions.currency).trim(),
             currencyDisplay: CurrenciesInfo.containingCountrySymbol.has(this.formatOptions.currency)
                 ? 'symbol'
                 : 'narrowSymbol',
@@ -160,6 +167,15 @@ export class CurrencyModel {
         if (this.currencyFormat.iconPrefix) {
             this.icon.prefix = String.fromCharCode(this.currencyFormat.iconPrefix);
         }
+    }
+
+    protected setSvgIcon(): void {
+        this.icon = {
+            svg: this.currencyFormat.svg,
+            minusBeforeCurrency: true,
+            placement: this.formatOptions.svgPosition,
+            name: this.currencyFormat?.name || '',
+        };
     }
 
     /**
