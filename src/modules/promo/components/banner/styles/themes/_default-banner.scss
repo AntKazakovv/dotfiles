@@ -102,7 +102,7 @@
                 .banner__title,
                 .banner__description {
                     @include em.get-mq-map('color', $themeDefaultBanner, 'banner1DefaultColor');
-                    text-shadow: 1px 1px 2px ef.get-value($themeDefaultBanner, 'banner1ColorShadow'), 0 0 1em ef.get-value($themeDefaultBanner, 'banner1ColorShadow');
+                    @include em.get-mq-map('text-shadow', $themeDefaultBanner, 'banner1ColorShadow');
                 }
             }
 
