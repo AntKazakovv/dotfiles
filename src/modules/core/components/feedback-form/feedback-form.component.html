@@ -17,4 +17,8 @@
 
 <hr>
 
-<div wlc-form-wrapper [config]="config" [ngSubmit]="ngSubmit.bind(this)"></div>
+<div wlc-form-wrapper
+     [config]="config"
+     [ngSubmit]="ngSubmit.bind(this)"
+     [formData]="formData$"
+></div>
