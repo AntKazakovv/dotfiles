@@ -69,6 +69,11 @@ export class TooltipComponent extends AbstractComponent implements OnInit {
         this.hideTooltip();
     }
 
+    public stopPropagation(e){
+        e.preventDefault();
+        e.stopPropagation();
+    }
+
     public showTooltip(): void {
         this.isShow = true;
     }
