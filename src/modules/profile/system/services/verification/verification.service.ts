@@ -20,7 +20,7 @@ export class VerificationService {
         maxSize: 4,
         fileTypes: ['jpg', 'png', 'jpeg'],
         maxDocsCount: 5,
-    };
+    }
 
     constructor(
         private dataService: DataService,
@@ -122,11 +122,28 @@ export class VerificationService {
         });
     }
 
+    public checkUploadLimit(docsCount: number): boolean {
+        if (docsCount >= this.params.maxDocsCount) {
+            this.eventService.emit({
+                name: NotificationEvents.PushMessage,
+                data: {
+                    type: 'error',
+                    title: gettext('Error'),
+                    message: gettext('You cannot upload more documents of this type'),
+                },
+            });
+        }
+
+        return docsCount >= this.params.maxDocsCount;
+    }
+
+
     private init() {
         this.dataService.registerMethod({
             name: 'docs-types',
             url: '/docs/types',
-            cache: 60 * 1000 * 120,
+            // TODO return cache
+            //cache: 60 * 1000 * 10, // 10 min
             type: 'GET',
             system: 'docs',
         });

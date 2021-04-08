@@ -12,10 +12,12 @@ export interface IVerificationCParams extends IComponentParams<Theme, Type, Them
     fileTypes: string[];
     maxDocsCount: number;
     selectModeFrom: number;
+    iconPath: string;
 }
 
 export const defaultParams: Partial<IVerificationCParams> = {
     class: 'wlc-verification',
     componentName: 'wlc-verification',
     selectModeFrom: 4,
+    iconPath: 'wlc/icons/doc-icons/',
 };

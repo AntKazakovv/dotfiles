@@ -70,6 +70,9 @@ export class VerificationGroupComponent extends AbstractComponent implements OnI
         if (this.currentDocGroup.pending || !files.length) {
             return;
         }
+
+        if (this.verificationService.checkUploadLimit(this.currentDocGroup.docs.length)) return;
+
         this.switchLoader(LoaderStatus.Loading);
 
         try {
