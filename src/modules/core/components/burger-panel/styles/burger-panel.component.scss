@@ -62,7 +62,7 @@
             min-height: 1px;
             height: 100%;
             background: ef.get-value($themeDefault, 'panelContentBackground');
-            overflow-y: auto;
+            overflow: hidden;
         }
     }
 }

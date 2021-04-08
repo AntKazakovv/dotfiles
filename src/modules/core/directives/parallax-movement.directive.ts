@@ -2,8 +2,11 @@ import {
     Directive,
     Input,
     ElementRef,
-    AfterViewInit, OnInit,
+    AfterViewInit,
+    OnInit,
+    Inject,
 } from '@angular/core';
+import {DOCUMENT} from '@angular/common';
 import {fromEvent} from "rxjs/internal/observable/fromEvent";
 
 import {
@@ -23,9 +26,10 @@ export class ParallaxMovementDirective implements OnInit,
     protected elementsParallaxImg: HTMLElement[] = [];
     protected bg: HTMLElement;
 
-    constructor(private elementRef: ElementRef) {
-
-    }
+    constructor(
+        private elementRef: ElementRef,
+        @Inject(DOCUMENT) protected document: HTMLDocument,
+    ) { }
 
     public ngOnInit(): void {
         if (!window.matchMedia('hover:hover')) {
@@ -36,12 +40,12 @@ export class ParallaxMovementDirective implements OnInit,
     public ngAfterViewInit(): void {
         this.getElements();
 
-        fromEvent(document.querySelector(`${this.parentElement}`), 'mousemove')
+        fromEvent(this.document.querySelector(`${this.parentElement}`), 'mousemove')
             .subscribe((e: MouseEvent) => {
                 this.mouseMovement(e);
             });
 
-        fromEvent(document.querySelector(`${this.parentElement}`), 'mouseleave')
+        fromEvent(this.document.querySelector(`${this.parentElement}`), 'mouseleave')
             .subscribe((e: MouseEvent) => {
                 this.mouseLeave();
             });

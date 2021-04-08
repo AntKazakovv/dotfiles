@@ -8,7 +8,7 @@
 
         .wlc-post-menu__link {
             display: block;
-            @include text.get-text-style('ThridTitleBold', ef.get-value($menuThemeContacts, 'textColor'));
+            @include text.get-text-style('ThirdTitleBold', ef.get-value($menuThemeContacts, 'textColor'));
             padding: ef.get-value($menuThemeContacts, 'padding');
             text-decoration: ef.get-value($menuThemeContacts, 'textDecoration');
             border-bottom: ef.get-value($menuThemeContacts, 'border');

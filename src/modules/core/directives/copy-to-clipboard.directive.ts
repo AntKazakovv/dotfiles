@@ -5,6 +5,7 @@ import {
     HostListener,
     Output,
     EventEmitter,
+    Inject,
 } from '@angular/core';
 
 import {ConfigService} from 'wlc-engine/modules/core';
@@ -23,6 +24,7 @@ export class CopyToClipboardDirective {
 
     constructor(
         protected configService: ConfigService,
+        @Inject(DOCUMENT) protected document: HTMLDocument,
     ) {}
 
     @HostListener('click', ['$event'])
@@ -46,7 +48,7 @@ export class CopyToClipboardDirective {
 
         textarea.setAttribute('aria-hidden' ,'true');
         textarea.value = this.payload;
-        document.body.appendChild(textarea);
+        this.document.body.appendChild(textarea);
     }
 
     private copy(): void {
@@ -57,11 +59,11 @@ export class CopyToClipboardDirective {
 
         try {
             if (textarea) {
-                const currentFocus = document.activeElement as HTMLElement;
+                const currentFocus = this.document.activeElement as HTMLElement;
 
                 textarea.select();
                 textarea.setSelectionRange(0, textarea.value.length);
-                successful = document.execCommand('copy');
+                successful = this.document.execCommand('copy');
 
                 if (currentFocus) {
                     currentFocus.focus();

@@ -255,7 +255,7 @@ $theme2Footer: map-merge((
     ),
     'iconListPaymentsMargin': (
         375: map-get($footerCommon, 'gapTablet') 0,
-        900: map-get($footerCommon, 'gapTablet') auto,
+        900: 0 auto map-get($footerCommon, 'gapTablet'),
         1200: map-get($footerCommon, 'gapDesktop') auto,
     ),
     'iconListPaymentsMaxWidth': (

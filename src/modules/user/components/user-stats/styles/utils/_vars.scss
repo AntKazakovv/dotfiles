@@ -15,4 +15,6 @@ $themeDefault: map-merge((
     'balanceItemPadding': 4px 0,
     'balanceItemBorder': 2px solid ef.get('mainColors', 'baseOpacity'),
     'btnMargin': 10px auto,
+    'loyaltyIconSize': 12px,
+    'loyaltyIconStoreSize': 16px,
 ), $customThemeDefault);

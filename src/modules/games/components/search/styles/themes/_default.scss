@@ -31,10 +31,10 @@
     .wlc-search {
 
         &__title {
-            padding: ef.get-value($themeDefault, 'searchModalHeaderPadding');
+            @include bm.get-mq-map('padding', $themeDefault, 'searchModalHeaderPadding');
             margin: ef.get-value($themeDefault, 'searchModalHeaderMargin');
+            @include bm.get-mq-map('text-align', $themeDefault, 'searchModalHeaderPositionText');
             @include text.get-text-style(ef.get-value($themeDefault, 'searchModalHeaderFont'), ef.get-value($themeDefault, 'searchModalHeaderFontColor'));
-            @include bm.get-mq-map('border-bottom', $themeDefault, 'searchModalHeaderBorderBottom');
 
             @include mq.min(560) {
                 @include text.get-text-style(ef.get-value($themeDefault, 'searchModalHeaderFont', 560));
@@ -57,14 +57,6 @@
 
                 @include mq.min(900) {
                     grid-column-start: initial;
-                }
-            }
-
-            &--panel {
-                grid-column-start: span 2;
-
-                @include mq.min(900) {
-                    grid-column-start: span 3;
                 }
             }
 
@@ -227,6 +219,7 @@
         &__list {
             display: grid;
             padding: 0;
+            @include bm.get-mq-map('grid-column-start', $themeDefault, 'searchPanelGridColumnStart');
             @include bm.get-mq-map('gap', $themeDefault, 'listGap');
             @include bm.get-mq-map('margin', $themeDefault, 'listMargin');
             list-style-type: none;

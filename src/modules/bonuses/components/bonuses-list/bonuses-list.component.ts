@@ -2,6 +2,7 @@ import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
+    HostBinding,
     Inject,
     Input,
     OnDestroy,
@@ -59,6 +60,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
     @Input() protected customMod: Params.CustomMod;
     @Input() protected inlineParams: Params.IBonusesListCParams;
     @ViewChild(SliderComponent) public slider: SliderComponent;
+    @HostBinding('class.single-bonus-swiper') isSingleBonus: boolean = false;
 
     public $params: Params.IBonusesListCParams;
     public bonuses: Bonus[] = [];
@@ -137,9 +139,19 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
                     }
 
                     this.prepareBonuses();
-                    if (this.$params.type === 'swiper' && this.bonuses.length) {
 
+                    if (this.$params.type === 'swiper' && this.bonuses.length) {
                         this.bonusesToSlides(this.bonuses);
+
+                        if (this.bonuses.length <= 1) {
+                            _merge(this.sliderParams.swiper, {
+                                navigation: false,
+                                slidesPerView: 'auto',
+                                spaceBetween: 0,
+                                allowTouchMove: false,
+                            });
+                            this.isSingleBonus = true;
+                        }
                     }
                     this.cdr.markForCheck();
                 },

@@ -94,6 +94,7 @@
 
         &__description {
             @include em.lineClamp(3);
+            @include text.get-text-style(ef.get-value($themePreview, 'bonusDescriptionStyle'), ef.get-value($themePreview, 'bonusDescriptionColor'));
         }
 
         &__blank {

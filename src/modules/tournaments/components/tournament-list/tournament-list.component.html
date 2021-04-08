@@ -26,8 +26,14 @@
                     wlc-slider
                     type="dashboard"
                     [slides]="slides"
-                    [inlineParams]="sliderParams"
-                ></div>
+                    [inlineParams]="sliderParams">
+                </div>
+                <div slot-container-end *ngIf="slides.length" class="{{$class}}__nav">
+                    <div class="container swiper-button-container">
+                        <button class="wlc-swiper-button-prev" wlc-icon iconName="arrow"></button>
+                        <button class="wlc-swiper-button-next" wlc-icon iconName="arrow"></button>
+                    </div>
+                </div>
             </ng-container>
             <ng-container *ngIf="isTournamentSelected">
                 <div class="{{$class}}__container-active"

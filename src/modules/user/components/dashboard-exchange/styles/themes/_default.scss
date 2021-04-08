@@ -36,9 +36,14 @@
             align-items: flex-end;
 
             &__value {
-                @include lib.get-text-style('QoteTextBold');
+                display: flex;
+                align-items: center;
+
                 margin: ef.get-value($themeDefault, 'pointsValueMargin');
+
+                @include lib.get-text-style('QoteTextBold');
                 line-height: 1;
+
                 color: ef.get-value($themeDefault, 'pointsValueColor');
             }
 
@@ -46,6 +51,19 @@
                 @include lib.get-text-style('PlaceholderText');
                 line-height: 1;
                 color: ef.get-value($themeDefault, 'pointsCurrencyColor');
+
+                ::ng-deep {
+
+                    .wlc-icon {
+                        position: relative;
+                        top: 2px;
+
+                        svg {
+                            width: ef.get-value($themeDefault, 'pointsCurrencySvgSize');
+                            height: ef.get-value($themeDefault, 'pointsCurrencySvgSize');
+                        }
+                    }
+                }
             }
 
             &__desc {
