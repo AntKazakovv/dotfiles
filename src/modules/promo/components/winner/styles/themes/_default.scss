@@ -93,7 +93,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            @include text.get-text-style('ThridTitleBold', ef.get-value($themeDefault, 'gameColor'));
+            @include text.get-text-style('ThirdTitleBold', ef.get-value($themeDefault, 'gameColor'));
             text-decoration: none;
 
             &:hover {
@@ -137,7 +137,7 @@
 
         &__amount {
             grid-area: amount;
-            @include text.get-text-style('ThridTitleBold', ef.get-value($themeDefault, 'amountColor'));
+            @include text.get-text-style('ThirdTitleBold', ef.get-value($themeDefault, 'amountColor'));
             white-space: nowrap;
             text-align: right;
         }

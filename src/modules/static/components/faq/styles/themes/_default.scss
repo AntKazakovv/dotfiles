@@ -65,7 +65,7 @@
 
             &-text {
                 flex-grow: 1;
-                @include text.get-text-style('ThridTitleBold', ef.get-value($themeDefault, 'titleColor'));
+                @include text.get-text-style('ThirdTitleBold', ef.get-value($themeDefault, 'titleColor'));
                 transition: all ef.get-value($themeDefault, 'time');
                 padding-right: ef.get-value($themeDefault, 'paddingSize');
             }
