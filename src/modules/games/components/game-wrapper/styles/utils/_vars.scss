@@ -12,10 +12,10 @@ $themeDefault: map-merge((
     'btnLeftMargin': 0 auto 0 30px,
     'titleWidth': 50%,
     'iconsColor': ef.get('mainColors', 'bg700'),
+    'iconsColorHover': ef.get('mainColors', 'baseMain'),
     'iconsColorActive': ef.get('mainColors', 'main'),
     'iconsGap': ef.get('size', 'smaller'),
     'iconsStroke': 3px,
     'iconsSize': 24px,
     'iconsOpacity': 0.8,
 ), $customThemeDefault);
-
