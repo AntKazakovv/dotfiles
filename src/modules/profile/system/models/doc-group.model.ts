@@ -22,18 +22,33 @@ export class DocGroupModel extends AbstractDocModel implements IDocGroup {
     public readonly docs;
     public preview;
     private readonly twoStepLoading;
+    private readonly iconPath: string;
 
-    constructor(docType: IDocTypeResponse, docs: DocModel[] = [], twoStepLoading: boolean = false) {
+    constructor(
+        docType: IDocTypeResponse,
+        docs: DocModel[] = [],
+        twoStepLoading: boolean = false,
+        iconPath: string = '',
+    ) {
         super();
         _merge(this, docType, {
             preview: {},
             docs,
             twoStepLoading,
+            iconPath,
         });
     }
 
     public get iconName(): string {
-        return _kebabCase(this.TypeKey);
+        return `${this.iconPath}${_kebabCase(this.TypeKey).trim()}.svg`;
+    }
+
+    public get defaultIcon(): string {
+        return `${this.iconPath}default.svg`;
+    }
+
+    public get docList(): string {
+        return `${this.iconPath}doc-common.svg`;
     }
 
     public get previewString(): string {
@@ -44,19 +59,19 @@ export class DocGroupModel extends AbstractDocModel implements IDocGroup {
         const {Validated, Awaiting, Failed} = ValidationStatus;
 
         if (!this.docs.length) {
-            return _kebabCase(Awaiting);
+            return `${this.iconPath}${_kebabCase(Awaiting).trim()}.svg`;
         }
         if (_every(this.docs, ({Status}) => Status === Validated)) {
-            return _kebabCase(Validated);
+            return `${this.iconPath}${_kebabCase(Validated).trim()}.svg`;
         }
         if (_some(this.docs, ({Status}) => Status === Failed)) {
-            return _kebabCase(Failed);
+            return `${this.iconPath}${_kebabCase(Failed).trim()}.svg`;
         }
         if (_some(this.docs, ({Status}) => Status === Awaiting)) {
-            return _kebabCase(Awaiting);
+            return `${this.iconPath}${_kebabCase(Awaiting).trim()}.svg`;
         }
 
-        return _kebabCase(Awaiting);
+        return `${this.iconPath}${_kebabCase(Awaiting).trim()}.svg`;
     }
 
     public get isSelected(): boolean {
@@ -64,7 +79,7 @@ export class DocGroupModel extends AbstractDocModel implements IDocGroup {
     }
 
     public get buttonText(): string {
-        if(this.twoStepLoading
+        if (this.twoStepLoading
             && !this.previewString
             && this.loadingStatus === LoaderStatus.Ready) {
             return gettext('Select File');

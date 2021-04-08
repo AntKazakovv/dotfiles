@@ -24,14 +24,15 @@ export class DocModel extends AbstractDocModel implements IDoc {
     public readonly Description: string;
     public readonly Link: string;
     public readonly DownloadLink: string;
+    private readonly iconPath: string;
 
-    constructor(docResponse: IDocResponse) {
+    constructor(docResponse: IDocResponse, iconPath: string = '') {
         super();
-        _merge(this, docResponse);
+        _merge(this, docResponse, {iconPath});
     }
 
     public get iconName(): string {
-        return _kebabCase(this.Status);
+        return `${this.iconPath}${_kebabCase(this.Status).trim()}.svg`;
     }
 
     public get className(): string {
