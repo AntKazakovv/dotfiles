@@ -1,4 +1,5 @@
 @use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/base.mixins' as em;
 @import '../utils/mixins';
 @import '../utils/vars';
 
@@ -66,7 +67,6 @@
 
             .wlc-icon {
                 margin-left: map-get($themeDefault, 'iconsGap');
-                opacity: map-get($themeDefault, 'iconsOpacity');
                 cursor: pointer;
 
                 svg {
@@ -76,16 +76,30 @@
                     stroke: map-get($themeDefault, 'iconsColor');
                     stroke-width: map-get($themeDefault, 'iconsStroke');
 
+                    @include em.transition(all);
+
                     line {
                         stroke: map-get($themeDefault, 'iconsColor');
+
+                        @include em.transition(all);
                     }
                 }
 
-                &:hover {
-                    opacity: 1;
+                @media (hover: hover) {
+
+                    &:hover {
+
+                        svg {
+                            stroke: map-get($themeDefault, 'iconsColorHover');
+
+                            line {
+                                stroke: map-get($themeDefault, 'iconsColorHover');
+                            }
+                        }
+                    }
                 }
 
-                &--favourite {
+                &.wlc-icon--favourite {
 
                     path {
                         fill: none;
@@ -124,10 +138,6 @@
                 width: 100% !important;
             }
         }
-
-        //&__game-container {
-        //    height: 100%;
-        //}
     }
 
     &.wlc-game-wrapper--mobile {
@@ -184,5 +194,3 @@
         }
     }
 }
-
-
