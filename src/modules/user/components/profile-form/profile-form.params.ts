@@ -33,7 +33,7 @@ export const defaultParams: IProfileFormCParams = {
                 name: 'core.wlc-input',
                 params: <IInputCParams>{
                     common: {
-                        placeholder: gettext('Email'),
+                        placeholder: gettext('E-mail'),
                     },
                     wlcElement: 'block_email',
                     locked: true,

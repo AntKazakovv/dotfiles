@@ -1,7 +1,5 @@
 import {ILayoutComponent} from 'wlc-engine/modules/core';
-import {ITournamentListCParams} from 'wlc-engine/modules/tournaments';
 import {SwiperOptions} from 'swiper';
-import * as componentLib from 'wlc-engine/modules/core/system/config/layouts/components';
 
 export namespace wlcTournamentBannersSlider {
     export const def: ILayoutComponent = {
@@ -22,8 +20,8 @@ export namespace wlcTournamentBannersSlider {
                                 slidesPerView: 1,
                                 spaceBetween: 5,
                                 navigation: {
-                                    nextEl: '.wlc-swiper-button-next',
-                                    prevEl: '.wlc-swiper-button-prev',
+                                    nextEl: '.wlc-tournament-list .wlc-swiper-button-next',
+                                    prevEl: '.wlc-tournament-list .wlc-swiper-button-prev',
                                 },
                                 pagination: false,
                                 lazy: true,
