@@ -11,7 +11,7 @@ $themeDefault: map-merge((
     'pendingIconColor': ef.get('fieldColors', 'textColor'),
     'errorsBgColor': ef.get('mainColors', 'error'),
     'errorsColor': ef.get('fieldColors', 'textColor'),
-    'errorsMinWidth': 300px,
+    'errorsMinWidth': 100px,
     'errorsMaxWidth': 100%,
     'errorsBorderRadius': 10px,
     'errorsPadding': 10px,

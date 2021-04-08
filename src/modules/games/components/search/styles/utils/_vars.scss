@@ -20,7 +20,7 @@ $themeDefault: map-merge((
     'btnIconColor': ef.get('mainColors', 'baseMain'),
     'btnIconRightMargin': 10px,
     'btnBackground': (
-        375: ef.get('mainColors', 'bg500'),
+        375: ef.get('mainColors', 'bg700'),
         560: ef.get('mainColors', 'bg'),
     ),
     'btnBackgroundHover': (
@@ -28,8 +28,7 @@ $themeDefault: map-merge((
         560: ef.get('mainColors', 'main'),
     ),
     'btnBorder': (
-        375: 2px solid ef.get('fieldColors', 'borderColor'),
-        560: none,
+        375: none,
     ),
     'btnBorderActive': (
         320: none,
@@ -154,13 +153,21 @@ $themeDefault: map-merge((
     ),
     'searchModalHeaderMargin': 0,
     'searchModalHeaderFont': (
-        375: 'ButtonText',
+        375: 'PrimaryTextBold' ,
         560: 'QoteTextBold',
     ),
     'searchModalHeaderFontColor': ef.get('mainColors', 'baseMain'),
     'searchModalHeaderBorderBottom': (
         375: 2px solid ef.get('mainColors', 'baseOpacity'),
         560: none,
+    ),
+    'searchModalHeaderPositionText': (
+        375: center,
+        900: left,
+    ),
+    'searchPanelGridColumnStart': (
+        375: span 2,
+        900: span 3,
     ),
     'searchPanelColumns': (
         375: 1fr 1fr,

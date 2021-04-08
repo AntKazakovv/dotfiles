@@ -43,7 +43,7 @@ export interface IPanelSectionConfig extends ILayoutSectionConfig {
     hide?: boolean;
     showHeader?: boolean;
     useScroll?: boolean;
-    container?: string;
+    container?: string | boolean;
     display?: {
         /** display component after this window width */
         after?: number;

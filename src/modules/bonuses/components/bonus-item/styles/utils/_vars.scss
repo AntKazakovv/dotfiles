@@ -167,6 +167,12 @@ $themeDefault: map-merge((
     'btnsTranslateYMobile': (
         320: translateY(0),
     ),
+
+    'remaningText': 'ButtonText',
+    'remaningTextColor': ef.get('mainColors', 'baseMain'),
+
+    'progressbarText': 'PrimaryText',
+    'progressbarTextColor': ef.get('mainColors', 'baseMain'),
 ), $customThemeDefault);
 
 $customThemePromo: () !default;
@@ -427,7 +433,7 @@ $themePartial: map-merge((
         320: 9px,
         900: 11px
     ),
-    'iconTextleftPos': 0,
+    'iconTextLeftPos': 0,
     'iconTextRightPos': 0,
     'iconTextHeight': (
         320: 20px,
@@ -513,6 +519,9 @@ $themePreview: map-merge((
     'bonusNameMargin': 0 0 ef.get('size', 'small') 0,
     'bonusNameStyle': 'PromoTitle',
     'bonusNameColor': ef.get('mainColors', 'baseMain'),
+
+    'bonusDescriptionStyle': 'ThirdTitle',
+    'bonusDescriptionColor': ef.get('mainColors', 'baseMain'),
 
     'bonusHeight': 100%,
     'bonusBackround': rgba(ef.get('fieldColors', 'textColor'), 0.4),
@@ -693,4 +702,5 @@ $themeLong: map-merge((
 
     'nameFontColor': ef.get('mainColors', 'baseMain'),
     'descriptionFontColor': ef.get('mainColors', 'PrimaryText'),
+
 ), $customThemeLong);

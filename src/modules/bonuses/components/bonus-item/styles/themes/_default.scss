@@ -2,7 +2,6 @@
 @use 'engine-scss/mixins/text' as text;
 @use 'engine-scss/mixins/base.mixins' as em;
 @use 'engine-scss/functions' as ef;
-@import '../utils/vars';
 
 .wlc-bonus-item--theme-default {
 
@@ -260,10 +259,6 @@
             padding: ef.get-value($themeDefault, 'activeBlockProgressPadding');
             @include em.get-mq-map('margin', $themeDefault, 'activeBlockProgressMargin');
             transition: all ef.get-value($themeDefault, 'time') ease-in-out;
-        }
-
-        &__remaning {
-            font-weight: bold;
         }
 
         &__progressbar {

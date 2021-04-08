@@ -41,5 +41,6 @@ $themeDefault: map-merge((
     'swiperSlideHeight': 90%,
 
     'bonusWrpHeight': 350px,
+    'bonusBtnPadding':   ef.get('size', 'smaller') 0 0,
 ), $customThemeDefault);
 
