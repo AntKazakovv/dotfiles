@@ -1,10 +1,13 @@
 'use strict';
 
-import {Injectable} from '@angular/core';
+import {
+    Injectable,
+    Inject,
+} from '@angular/core';
+import {DOCUMENT} from '@angular/common';
 import {TranslateService} from '@ngx-translate/core';
 import {StateService, UIRouter} from '@uirouter/core';
 import {ConfigService} from 'wlc-engine/modules/core';
-import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 import {logTypes} from 'wlc-engine/modules/core/system/config/log-types';
 
 import {
@@ -59,6 +62,7 @@ export class LogService {
         private translateService: TranslateService,
         private stateService: StateService,
         private router: UIRouter,
+        @Inject(DOCUMENT) protected document: HTMLDocument,
     ) {
     }
 
@@ -122,10 +126,9 @@ export class LogService {
      * @param {number} timeout Timeout in milliseconds
      * @returns {() => void} Handler to prevent send log
      */
-    public waiter(log: ILogObj, timeout: number = 3000): () => void {
+    public waiter(log: ILogObj, timeout: number = 3000): (v?: unknown) => void {
         const start = () => {
-            let res = () => {
-            };
+            let res = (v: unknown) => {};
             new Promise((resolve, reject) => {
                 res = resolve;
                 setTimeout(() => {
@@ -148,7 +151,7 @@ export class LogService {
      */
     public waitForElement(params: IWaitElementParams): () => void {
         const timeoutHandler = setTimeout(() => {
-            const element = document.querySelector(params.selector);
+            const element = this.document.querySelector(params.selector);
             if (!element) {
                 this.sendLog(params.logObj);
             } else {

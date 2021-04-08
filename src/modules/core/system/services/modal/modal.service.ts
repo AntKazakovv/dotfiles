@@ -213,12 +213,12 @@ export class ModalService {
             // fix nested modals
             if (!val) {
                 if (!this.activeModals.length) {
-                    if (document.body.classList.contains('modal-open')) {
+                    if (this.document.body.classList.contains('modal-open')) {
                         this.BsModalService.removeBackdrop();
                     }
                 } else {
-                    if (!document.body.classList.contains('modal-open')) {
-                        document.body.classList.add('modal-open');
+                    if (!this.document.body.classList.contains('modal-open')) {
+                        this.document.body.classList.add('modal-open');
                         this.BsModalService.setScrollbar();
                     }
                 }

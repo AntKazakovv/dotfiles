@@ -11,6 +11,7 @@ import {
     DomSanitizer,
     SafeResourceUrl,
 } from '@angular/platform-browser';
+import {DOCUMENT} from '@angular/common';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ConfigService} from 'wlc-engine/modules/core';
 
@@ -29,6 +30,7 @@ export class LicenseComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ILicenseCParams,
+        @Inject(DOCUMENT) protected document: HTMLDocument,
         protected cdr: ChangeDetectorRef,
         private sanitizer: DomSanitizer,
         private elRef: ElementRef,
@@ -63,7 +65,7 @@ export class LicenseComponent extends AbstractComponent implements OnInit {
     }
 
     protected initApgSeal(): void {
-        let script = document.createElement('script');
+        let script = this.document.createElement('script');
         script.type = 'text/javascript';
         script.src = `https://${this.$params.apgSeal.sealId}.snippet.antillephone.com/apg-seal.js`;
 
@@ -73,7 +75,7 @@ export class LicenseComponent extends AbstractComponent implements OnInit {
             };
         }
 
-        document.querySelector('body').append(script);
+        this.document.querySelector('body').append(script);
     }
 
     protected replaceHost(): void {
