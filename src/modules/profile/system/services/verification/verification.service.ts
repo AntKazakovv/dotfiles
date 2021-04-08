@@ -20,7 +20,7 @@ export class VerificationService {
         maxSize: 4,
         fileTypes: ['jpg', 'png', 'jpeg'],
         maxDocsCount: 5,
-    }
+    };
 
     constructor(
         private dataService: DataService,
@@ -42,31 +42,60 @@ export class VerificationService {
         formData.append('file1', file);
         formData.append('Description', docLabel);
         formData.append('DocType', docLabel);
-        return await this.dataService.request<IData>('docs/send-file', formData);
+
+        try {
+            const result = await this.dataService.request<IData>('docs/send-file', formData);
+            this.showSuccess(gettext('Document uploaded successfully'));
+
+            return result;
+        } catch (result) {
+            this.showError(result.errors);
+            return Promise.reject(result);
+        }
     }
 
     public async deleteDoc(doc: DocModel): Promise<IData> {
-        return  await this.dataService.request<IData>({
-            name: 'docs-delete',
-            url: `/docs/${doc.ID}`,
-            type: 'DELETE',
-            system: 'docs',
-        });
+        try {
+            const result = await this.dataService.request<IData>({
+                name: 'docs-delete',
+                url: `/docs/${doc.ID}`,
+                type: 'DELETE',
+                system: 'docs',
+            });
+            this.showSuccess(gettext('Document deleted successfully'));
+
+            return result;
+        } catch (result) {
+            this.showError(result.errors);
+            return Promise.reject(result);
+        }
+
     }
 
-    public showError(modalMessage: string): void {
+    public showError(message: string | string[]): void {
         this.eventService.emit({
             name: NotificationEvents.PushMessage,
             data: {
                 type: 'error',
                 title: gettext('Verification Error'),
-                message: modalMessage,
+                message,
+            },
+        });
+    }
+
+    public showSuccess(message: string | string[]): void {
+        this.eventService.emit({
+            name: NotificationEvents.PushMessage,
+            data: {
+                type: 'success',
+                title: gettext('Verification'),
+                message,
             },
         });
     }
 
     public checkFormat(file: File): boolean {
-        if(file.size > this.params.maxSize * 1000000) {
+        if (file.size > this.params.maxSize * 1000000) {
             this.showError('No valid size');
             return false;
         }
@@ -86,7 +115,7 @@ export class VerificationService {
     public async getPreview(file: File): Promise<string> {
         const reader = new FileReader();
         return new Promise((done) => {
-            reader.onload = function(evt) {
+            reader.onload = function (evt) {
                 done(evt.target.result as string);
             };
             reader.readAsDataURL(file);
@@ -115,6 +144,5 @@ export class VerificationService {
             type: 'POST',
             system: 'docs',
         });
-
     }
 }

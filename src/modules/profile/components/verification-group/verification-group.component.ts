@@ -75,8 +75,7 @@ export class VerificationGroupComponent extends AbstractComponent implements OnI
         try {
             await this.verificationService.uploadFile(files[0], docLabel);
             this.needUpdate.emit();
-        } catch (result) {
-            this.verificationService.showError(result.errors[0]);
+        } catch (error) {
             this.switchLoader();
         }
     }
@@ -90,8 +89,7 @@ export class VerificationGroupComponent extends AbstractComponent implements OnI
         try {
             await this.verificationService.deleteDoc(doc);
             this.needUpdate.emit();
-        } catch (result) {
-            this.verificationService.showError(result.errors[0]);
+        } catch (error) {
             doc.switchLoader(LoaderStatus.Ready);
             this.switchLoader();
         }

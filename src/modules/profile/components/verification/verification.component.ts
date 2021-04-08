@@ -144,8 +144,6 @@ export class VerificationComponent extends AbstractComponent implements OnInit {
         try {
             await this.verificationService.uploadFile(this.currentDocGroup.preview.file, this.currentDocGroup.ID);
             await this.updateDocItems();
-        } catch (result) {
-            this.verificationService.showError(result.errors[0]);
         } finally {
             this.switchLoader();
             this.clearPreview();
@@ -164,8 +162,7 @@ export class VerificationComponent extends AbstractComponent implements OnInit {
         try {
             await this.verificationService.deleteDoc(doc);
             await this.updateDocItems();
-        } catch (result) {
-            this.verificationService.showError(result.errors[0]);
+        } catch (error) {
         }
     }
 
