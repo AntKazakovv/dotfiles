@@ -1,5 +1,6 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import {UIRouter} from '@uirouter/core';
+import {TranslateService} from '@ngx-translate/core';
 import {AbstractComponent, IMixedParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ConfigService, HooksService, IHookHandlerDescriptor} from 'wlc-engine/modules/core';
 import {ISportsbookSettings, SportsbookService} from 'wlc-engine/modules/sportsbook/system/services/sportsbook/sportsbook.service';
@@ -35,6 +36,7 @@ export class SportsbookComponent extends AbstractComponent implements OnInit, On
         protected configService: ConfigService,
         protected hooksService: HooksService,
         protected router: UIRouter,
+        protected translate: TranslateService,
     ) {
         super(
             <IMixedParams<Params.ISportsbookCParams>>{
@@ -99,6 +101,13 @@ export class SportsbookComponent extends AbstractComponent implements OnInit, On
 
             data.launchInfo.gameScript = data.launchInfo.gameScript.replace('SportFrame.frame',
                 `_sp.push(["currentPage", "${pageCode}"]); ${eventId} SportFrame.frame`);
+        } else if (this.settings.id === 'tglab') {
+            data.launchInfo.gameScript = data.launchInfo.gameScript.replace('var js',
+                `window.__SB_INIT__.config['live_path'] = '${this.translate.currentLang}/sportsbook/inplay'; window.__SB_INIT__.config['pre_path'] = '${this.translate.currentLang}/sportsbook'; var js`);
+
+            const countryCode: string = this.configService.get<string>('appConfig.country2');
+            data.launchInfo.gameScript = data.launchInfo.gameScript.replace('country: \'\'',
+                `country: '${countryCode}'`);
         }
         return data;
     }
