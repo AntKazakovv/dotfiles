@@ -47,7 +47,7 @@
                 }
 
                 &__divider {
-                    margin: 0 2px;
+                    margin: ef.get-value($themeDefault, 'timerNumbersOffset');
                 }
             }
         }
