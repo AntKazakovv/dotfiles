@@ -48,6 +48,28 @@
             /* stylelint-enable */
         }
 
+        &__nav {
+
+            ::ng-deep {
+
+                .wlc-swiper-button {
+
+                    &-prev,
+                    &-next {
+                        position: absolute;
+                        left: 0;
+                        top: ef.get-value($themeDashboard, 'swiperNavTop');
+                        z-index: 100;
+                    }
+
+                    &-next {
+                        right: 0;
+                        left: auto;
+                    }
+                }
+            }
+        }
+
         &__slider {
             height: 100%;
 
@@ -62,44 +84,6 @@
 
                     .swiper-wrapper {
                         will-change: transform;
-                    }
-
-                    .swiper-button-prev {
-                        top: ef.get-value($themeDashboard, 'swiperNavTop');
-                        left: 0;
-                        @include em.transition(background);
-
-                        .wlc-icon-content {
-                            line-height: 0;
-                        }
-
-                        &:after {
-                            display: none;
-                        }
-
-                        svg {
-                            fill: ef.get-value($themeDefault, 'fillColor');
-                            transform: rotate(90deg);
-                        }
-                    }
-
-                    .swiper-button-next {
-                        top: ef.get-value($themeDashboard, 'swiperNavTop');
-                        right: 0;
-                        @include em.transition(background);
-
-                        .wlc-icon-content {
-                            line-height: 0;
-                        }
-
-                        &:after {
-                            display: none;
-                        }
-
-                        svg {
-                            fill: ef.get-value($themeDefault, 'fillColor');
-                            transform: rotate(-90deg);
-                        }
                     }
                 }
             }

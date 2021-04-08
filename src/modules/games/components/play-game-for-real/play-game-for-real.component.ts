@@ -22,10 +22,6 @@ import {UserService} from 'wlc-engine/modules/user/system/services';
 import {IFormWrapperCParams} from 'wlc-engine/modules/core';
 import * as Params from './play-game-for-real.params';
 
-import {
-    union as _union,
-} from 'lodash-es';
-
 /**
  * Play game for real form component.
  *

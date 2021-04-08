@@ -20,7 +20,7 @@ export namespace FormElements {
                 customModifiers: 'right-shift',
                 type: 'number',
             },
-            exampleValue: gettext('Amount'),
+            exampleValue: gettext('Enter amount'),
             theme: 'vertical',
             locked: true,
             name: 'amount',
