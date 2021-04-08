@@ -49,10 +49,10 @@
         </button>
     </div>
 
-    <div class="{{$class}}__col {{$class}}__col--panel" [ngSwitch]="openPanel">
+    <ng-container [ngSwitch]="openPanel">
         <ng-template *ngSwitchCase="'merchants'" [ngTemplateOutlet]="merchantsList"></ng-template>
         <ng-template *ngSwitchCase="'categories'" [ngTemplateOutlet]="categoriesList"></ng-template>
-    </div>
+    </ng-container>
 </div>
 
 <div class="{{$class}}__content">

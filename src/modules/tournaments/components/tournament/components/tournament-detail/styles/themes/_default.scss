@@ -59,7 +59,7 @@ $selector: '.wlc-tournament-detail';
                 justify-self: center;
                 padding: ef.get-value($themeDefault, 'headerStatusPadding');
                 margin: ef.get-value($themeDefault, 'headerStatusMagrin');
-                @include text.get-text-style('SignText', ef.get('mainColors', 'baseMain'));
+                @include text.get-text-style(ef.get-value($themeDefault, 'headerStatusText'), ef.get-value($themeDefault, 'headerStatusTextColor'));
                 border-radius: ef.get-value($themeDefault, 'headerStatusRadius');
 
                 &.status-avaliable {
@@ -95,7 +95,7 @@ $selector: '.wlc-tournament-detail';
                 // padding: ef.get-value($themeDefault, 'headerTimerBlockPadding');
                 @include em.get-mq-map('padding', $themeDefault, 'headerTimerBlockPadding');
                 margin: ef.get-value($themeDefault, 'headerTimerBlockMargin');
-                background-color: ef.get-value($themeDefault, 'headerTimerBlockBg');
+                background: ef.get-value($themeDefault, 'headerTimerBlockBg');
                 border-radius: ef.get-value($themeDefault, 'headerTimerBlockRadius');
 
                 .header-prize-block {
@@ -172,7 +172,7 @@ $selector: '.wlc-tournament-detail';
                 'PPDescription';
             justify-content: center;
             @include em.get-mq-map('padding', $themeDefault, 'prizepoolPadding');
-            background-color: ef.get('mainColors', 'bg');
+            background: ef.get-value($themeDefault, 'prizepoolBg');
 
             &--title {
                 grid-area: PPTitle;
@@ -204,7 +204,7 @@ $selector: '.wlc-tournament-detail';
             @include em.get-mq-map('grid-template-columns', $themeDefault, 'prizeboardColumnWidth');
             justify-content: center;
             @include em.get-mq-map('padding', $themeDefault, 'prizeboardPadding');
-            background-color: ef.get('mainColors', 'bg500');
+            background: ef.get-value($themeDefault, 'prizeboardBg');
 
             .wlc-btn {
                 margin-top: ef.get('size', 'smaller');
@@ -234,7 +234,7 @@ $selector: '.wlc-tournament-detail';
                 padding: ef.get('size', 'smally') 0;
 
                 a {
-                    @include text.get-text-style('PrimaryText', ef.get('mainColors', 'baseMain'));
+                    @include text.get-text-style(ef.get-value($themeDefault, 'textAnchorsMenu'), ef.get-value($themeDefault, 'textColorAnchorsMenu'));
                     text-decoration: none;
                     padding: 0 ef.get('size', 'smally');
                     cursor: pointer;

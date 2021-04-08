@@ -63,7 +63,7 @@
                                  [ngStyle]="{width: ($params.common.bonus?.getProgress() || 0)+'%'}"
                             ></div>
                         </div>
-                        <div class="secondary-text">
+                        <div class="{{$class}}__secondary">
                             {{$params.common.bonus?.getProgress() | number: '.0-2'}}% {{'Cleared' | translate}}
                         </div>
                     </div>
@@ -492,7 +492,7 @@
                                  [ngStyle]="{width: ($params.common.bonus?.getProgress() || 0)+'%'}"
                             ></div>
                         </div>
-                        <div class="secondary-text">
+                        <div class="{{$class}}__secondary">
                             {{$params.common.bonus?.getProgress() | number: '.0-2'}}% {{'Cleared' | translate}}
                         </div>
                     </div>
@@ -644,7 +644,7 @@
                                  [ngStyle]="{width: ($params.common.bonus?.getProgress() || 0)+'%'}"
                             ></div>
                         </div>
-                        <div class="secondary-text">
+                        <div class="{{$class}}__secondary">
                             {{$params.common.bonus?.getProgress() | number: '.0-2'}}% {{'Cleared' | translate}}
                         </div>
                     </div>
