@@ -56,5 +56,6 @@ $themeDefault: map-merge((
     'fontStylePoints': 'SignText',
 
     'paddingBonuses': ef.get('size', 'smaller'),
+    'scrollbarPadding': 0 15px 0 0,
 
 ), $customThemeDefault);
