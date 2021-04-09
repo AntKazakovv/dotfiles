@@ -5,7 +5,7 @@
 <ng-template #tooltip>
     <div (click)="stopPropagation($event)" class="{{$class}}__icon" wlc-icon iconName="info">
     </div>
-    <div class="{{$class}}__content" *ngIf="isShow" [@showTooltip]>
+    <div (click)="stopPropagation($event)" class="{{$class}}__content" *ngIf="isShow" [@showTooltip]>
         {{$params.inlineText | translate}}
     </div>
 </ng-template>
