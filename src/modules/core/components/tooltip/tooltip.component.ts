@@ -66,11 +66,11 @@ export class TooltipComponent extends AbstractComponent implements OnInit {
         e.stopPropagation();
     }
 
-    @HostListener("mouseover") onMouseEnter() {
+    @HostListener('mouseover') onMouseEnter() {
         this.showTooltip();
     }
 
-    @HostListener("mouseleave") onMouseLeave() {
+    @HostListener('mouseleave') onMouseLeave() {
         this.hideTooltip();
     }
 
