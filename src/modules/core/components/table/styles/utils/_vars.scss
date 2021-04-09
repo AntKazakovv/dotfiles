@@ -51,6 +51,7 @@ $themeDefault: map-merge((
     'emptyImgHeight': 20vw,
     'emptyImgMaxWidth': 330px,
     'emptyImgMaxHeight': 330px,
+    'emptyImgColor': ef.get('mainColors', 'bg500'),
 ), $customThemeDefault);
 
 $customThemeTournaments: () !default;

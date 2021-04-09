@@ -14,13 +14,15 @@ export interface ITableCommonParams {
 export interface ITableCParams extends IComponentParams<Theme, Type, ThemeMod>, ITableCommonParams {
     head?: ITableCol[],
     rows?: unknown[] | BehaviorSubject<unknown[]>,
-    pageCount?: number
+    pageCount?: number,
+    iconPath?: string,
 }
 
 export const defaultParams: ITableCParams = {
     class: 'wlc-table',
     noItemsText: gettext('No items available'),
     pageCount: 10,
+    iconPath: '/wlc/icons/empty-table-bg.svg',
 };
 
 export interface ITableCol {
