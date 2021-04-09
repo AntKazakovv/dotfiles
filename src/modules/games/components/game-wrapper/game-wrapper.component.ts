@@ -359,6 +359,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
 
         const el = this.wrp?.element?.nativeElement;
         const maxHeight: number = this.getMaxHeight();
+        const minHeight: number = this.$params.gameParams?.minGameWindowHeight || 0;
         if (!width) {
             width = this.wrp?.element?.nativeElement.parentElement.getBoundingClientRect().width;
         }
@@ -367,20 +368,23 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
             let elementHeight: number = width / this.aspectRatioCoefficient,
                 elementNewWidth: number = 0;
 
+            elementHeight = elementHeight > maxHeight ? maxHeight : minHeight;
+
             if (elementHeight > maxHeight) {
                 elementHeight = maxHeight;
+            }
+            if (elementHeight < minHeight) {
+                elementHeight = minHeight;
             }
 
             elementNewWidth = elementHeight * this.aspectRatioCoefficient;
 
             this.renderer.setStyle(el, 'height', elementHeight + 'px');
             this.renderer.setStyle(el, 'maxWidth', elementNewWidth + 'px');
-            // this.renderer.setStyle(this.header.nativeElement, 'maxWidth', elementNewWidth + 'px');
             this.renderer.setStyle(this.footer.nativeElement, 'maxWidth', elementNewWidth + 'px');
         } else {
             this.renderer.setStyle(el, 'height', '100%');
             this.renderer.setStyle(el, 'maxWidth', '100%');
-            // this.renderer.setStyle(this.header.nativeElement, 'maxWidth', '100%');
             this.renderer.setStyle(this.footer.nativeElement, 'maxWidth', '100%');
         }
 

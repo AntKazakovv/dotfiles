@@ -40,6 +40,11 @@
 
         &__container {
             height: 100%;
+
+            &--lastplayed {
+                display: grid;
+                grid-template-rows: auto minmax(0, 1fr);
+            }
         }
 
         &__tutorial {
@@ -242,6 +247,10 @@
 
         &__game {
             margin-bottom: 15px;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
         }
     }
 
@@ -303,7 +312,7 @@
             height: 90%;
 
             &__container {
-                padding-right: 15px;
+                padding: ef.get-value($themeDefault, 'scrollbarPadding');
             }
         }
     }
