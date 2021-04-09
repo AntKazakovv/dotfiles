@@ -223,16 +223,26 @@
             &-text {
                 align-self: center;
             }
+        }
 
-            &-img {
-                display: none;
+        &__img {
+            display: none;
 
-                @include mq.min(1024) {
-                    display: block;
-                    width: ef.get-value($themeDefault, 'emptyImgWidth');
-                    height: ef.get-value($themeDefault, 'emptyImgHeight');
-                    max-height: ef.get-value($themeDefault, 'emptyImgMaxHeight');
-                    max-width: ef.get-value($themeDefault, 'emptyImgMaxWidth');
+            @include mq.min(1024) {
+                display: block;
+
+                ::ng-deep {
+
+                    svg {
+                        width: ef.get-value($themeDefault, 'emptyImgWidth');
+                        height: ef.get-value($themeDefault, 'emptyImgHeight');
+                        max-height: ef.get-value($themeDefault, 'emptyImgMaxHeight');
+                        max-width: ef.get-value($themeDefault, 'emptyImgMaxWidth');
+
+                        path {
+                            fill: ef.get-value($themeDefault, 'emptyImgColor');
+                        }
+                    }
                 }
             }
         }

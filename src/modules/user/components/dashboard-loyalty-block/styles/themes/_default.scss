@@ -58,7 +58,8 @@
             ::ng-deep {
 
                 svg {
-                    margin-left: 5px;
+                    width: ef.get-value($themeDefault, 'userIconWidth');
+                    margin: ef.get-value($themeDefault, 'userIconMargin');
                 }
             }
         }
