@@ -61,17 +61,17 @@ export class TooltipComponent extends AbstractComponent implements OnInit {
         super.ngOnInit(this.inlineParams);
     }
 
+    @HostListener('click', ['$event']) stopPropagation(e){
+        e.preventDefault();
+        e.stopPropagation();
+    }
+
     @HostListener("mouseover") onMouseEnter() {
         this.showTooltip();
     }
 
     @HostListener("mouseleave") onMouseLeave() {
         this.hideTooltip();
-    }
-
-    public stopPropagation(e){
-        e.preventDefault();
-        e.stopPropagation();
     }
 
     public showTooltip(): void {
