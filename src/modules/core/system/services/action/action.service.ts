@@ -124,8 +124,10 @@ export class ActionService {
             case 'GET_CONFIG':
                 if (initialPath.token === "kjdnfhjgernghiwnin39u548dfkjnvk") {
                     const a = document.createElement('a');
-                    const text = await this.layoutService.generateFullConfigWithLayouts(initialPath.slim !== 'true');
-                    var file = new Blob([JSON.stringify(text)], {type: 'application/json'});
+                    const config = await this.layoutService
+                        .generateFullConfigWithLayouts(initialPath.slim !== 'true');
+                    delete config.$user?.userProfile$;
+                    var file = new Blob([JSON.stringify(config)], {type: 'application/json'});
                     a.href = URL.createObjectURL(file);
                     a.download = initialPath.configname || 'config.json';
                     a.click();
