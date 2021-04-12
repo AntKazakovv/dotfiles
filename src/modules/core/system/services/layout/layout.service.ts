@@ -10,7 +10,7 @@ import {
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {SectionModel, ISectionData} from 'wlc-engine/modules/core/system/models/section.model';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
-import {GlobalHelper} from 'wlc-engine/modules/core';
+import {GlobalHelper, IGlobalConfig} from 'wlc-engine/modules/core';
 
 import {
     cloneDeep as _cloneDeep,
@@ -244,6 +244,40 @@ export class LayoutService {
         }
 
         return mediaQuery.join(' and ');
+    }
+
+    public async generateFullConfigWithLayouts(full: boolean = false): Promise<Partial<IGlobalConfig>> {
+        await this.configService.ready;
+        await this.importModules(['core', 'menu', 'games', 'static', 'promo', 'user', 'finances', 'bonuses', 'store', 'profile', 'sportsbook']);
+        const config = _cloneDeep(this.configService.globalConfig);
+
+        if (full) {
+            const layout = {};
+            const panel = {};
+            const promises = [];
+
+            _each(config.$layouts, async (_, state) => {
+                promises.push(new Promise(async (resolve) => {
+                    layout[state] = await this.getLayout('pages', state);
+                    resolve(true);
+                }));
+            });
+            _each(config.$panelsLayouts, async (_, state) => {
+                promises.push(new Promise(async (resolve) => {
+                    panel[state] = await this.getLayout('panels', state);
+                    resolve(true);
+                }));
+            });
+
+            await Promise.all(promises);
+            config.$layouts = layout;
+            config.$panelsLayouts = panel;
+
+        } else {
+            config.$layouts = _cloneDeep(this.configService.get<ILayoutsConfig>('$layouts'));
+            config.$panelsLayouts = _cloneDeep(this.configService.get<IPanelsConfig>('$panelsLayouts'));
+        }
+        return config;
     }
 
     private async prepareLayouts(): Promise<void> {

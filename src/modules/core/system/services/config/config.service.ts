@@ -128,6 +128,10 @@ export class ConfigService {
         }
     }
 
+    public get globalConfig(): Partial<IGlobalConfig> {
+        return _cloneDeep(this.global);
+    }
+
     private setGlobals(): void {
         this.set<BehaviorSubject<UserProfile>>({name: '$user.userProfile$', value: new BehaviorSubject(null)});
     }
