@@ -19,6 +19,7 @@
 
                 path {
                     stroke: ef.get-value($themeDefault, 'iconColor');
+                    fill: ef.get-value($themeDefault, 'iconColor');
                 }
             }
         }

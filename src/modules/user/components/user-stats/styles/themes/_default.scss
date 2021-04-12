@@ -1,5 +1,6 @@
 @use 'engine-scss/mixins/text' as lib;
 @use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/base.mixins' as bm;
 
 .wlc-user-stats--theme-default:host {
 
@@ -11,7 +12,8 @@
             width: 100%;
             padding: map-get($themeDefault, 'balancePadding');
             border-radius: map-get($themeDefault, 'balanceBorderRadius');
-            background: map-get($themeDefault, 'balanceBg');
+
+            @include bm.get-mq-map('background', $themeDefault, 'balanceBg');
 
             &--short {
                 padding: map-get($themeDefault, 'balanceShortPadding');
@@ -28,7 +30,8 @@
                 align-items: center;
                 justify-content: space-between;
                 padding: map-get($themeDefault, 'balanceItemPadding');
-                border-bottom: map-get($themeDefault, 'balanceItemBorder');
+
+                @include bm.get-mq-map('border-bottom', $themeDefault, 'balanceItemBorder');
 
                 &:last-child {
                     border-bottom: none;
@@ -44,6 +47,20 @@
                 padding-left: 5px;
                 @include lib.get-text-style('PlaceholderTextBold');
                 color: map-get($themeDefault, 'colorValue');
+
+                ::ng-deep {
+
+                    .wlc-icon {
+                        display: inline-block;
+                        position: relative;
+                        bottom: 1px;
+
+                        svg {
+                            width: map-get($themeDefault, 'loyaltyIconSize');
+                            height: map-get($themeDefault, 'loyaltyIconSize');
+                        }
+                    }
+                }
             }
 
             .name,
@@ -66,14 +83,22 @@
                     border-bottom: none;
                 }
 
-                .name {
-                    padding-left: 5px;
-                    @include lib.get-text-style('PrimaryTextBold');
-                }
-
                 .value {
+                    display: flex;
                     padding-left: 0;
-                    @include lib.get-text-style('PrimaryTextBold');
+                    @include lib.get-text-style('ThirdTitleBold');
+
+                    ::ng-deep {
+
+                        .wlc-icon {
+                            bottom: 2px;
+
+                            svg {
+                                width: map-get($themeDefault, 'loyaltyIconStoreSize');
+                                height: map-get($themeDefault, 'loyaltyIconStoreSize');
+                            }
+                        }
+                    }
                 }
             }
         }

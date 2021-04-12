@@ -1,4 +1,4 @@
-import {Injectable, Injector} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Tournament} from '../../models/tournament';
 import {
     IData,
@@ -11,7 +11,6 @@ import {
     IForbidBanned,
     IPushMessageParams,
     NotificationEvents,
-    LayoutService,
 } from 'wlc-engine/modules/core';
 import {UserService} from 'wlc-engine/modules/user/system/services';
 import {
@@ -75,8 +74,6 @@ export class TournamentsService {
         private configService: ConfigService,
         private userService: UserService,
         private logService: LogService,
-        private layoutService: LayoutService,
-        private injector: Injector,
     ) {
         this.registerMethods();
         this.setSubscribers();
@@ -223,8 +220,11 @@ export class TournamentsService {
                 type: 'GET',
             });
             if (_isObject(data.data)) {
-                const tournament: Tournament = new Tournament(data.data, this.configService, this.cachingService, this, this.layoutService, this.injector);
-                return tournament;
+                return new Tournament(
+                    data.data,
+                    this.configService,
+                    this,
+                );
             } else {
                 this.logService.sendLog({code: '13.0.1', data: data.data});
             }
@@ -291,7 +291,6 @@ export class TournamentsService {
             this.showError(gettext('Tournament leave failed'), error?.errors);
         }
     }
-
 
     /**
      * Get tournaments
@@ -405,11 +404,15 @@ export class TournamentsService {
 
         if (data?.length) {
             for (const tournamentData of data) {
-                const tournament: Tournament = new Tournament(tournamentData, this.configService, this.cachingService, this, this.layoutService, this.injector);
+                const tournament: Tournament = new Tournament(
+                    tournamentData,
+                    this.configService,
+                    this,
+                );
                 queryTournaments.push(tournament);
             }
         }
-        return  _filter(queryTournaments, (item: Tournament) => item.status !== -1);;
+        return  _filter(queryTournaments, (item: Tournament) => item.status !== -1);
     }
 
     private setSubscribers() {

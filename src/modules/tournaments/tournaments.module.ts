@@ -6,7 +6,6 @@ import {CoreModule} from '../core/core.module';
 import {UserModule} from 'wlc-engine/modules/user/user.module';
 import {TournamentsService} from 'wlc-engine/modules/tournaments';
 import {MenuModule} from 'wlc-engine/modules/menu/menu.module';
-import {GamesModule} from 'wlc-engine/modules/games/games.module';
 
 import {TournamentDetailComponent} from './components/tournament/components/tournament-detail/tournament-detail.component';
 import {PromoModule} from '../promo/promo.module';
@@ -44,9 +43,7 @@ export const components = {
         UserModule,
         PromoModule,
         TranslateModule,
-        UserModule,
         MenuModule,
-        GamesModule,
     ],
     providers: [
         TournamentsService,

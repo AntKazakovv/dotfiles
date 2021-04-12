@@ -20,8 +20,20 @@
             grid-gap: ef.get-value($themeDefault, 'currentGap');
             cursor: pointer;
 
+            @media (hover) {
+
+                &:hover {
+
+                    .wlc-language-selector__current-flag {
+
+                        box-shadow: ef.get-value($themeModal, 'flagBoxShadowHover');
+                    }
+                }
+            }
+
             &-flag {
                 @include flag(ef.get-value($themeDefault, 'currentFlagSize'), ef.get-value($themeDefault, 'currentFlagSize'), 50%);
+                @include bm.transition(box-shadow);
             }
 
             &--opened {
@@ -107,7 +119,7 @@
             .wlc-language-selector__link {
 
                 &-flag {
-                    box-shadow: 0 0 0 4px ef.get-value($themeModal, 'flagBoxShadowHover'), 0 0 7px 7px rgba(0, 0, 0, 0.67);
+                    box-shadow: ef.get-value($themeModal, 'flagBoxShadowHover'), 0 0 7px 7px rgba(0, 0, 0, 0.67);
                 }
             }
         }
@@ -167,7 +179,7 @@
                     }
 
                     .wlc-language-selector__current-lang {
-                        @include text.get-text-style(ef.get-value($themeDefaultModLog, 'langFontStyleActive'), ef.get-value($themeDefaultModLog, 'currentColorModLang'));
+                        @include text.get-text-style(ef.get-value($themeDefaultModLog, 'langFontStyleActive'), ef.get-value($themeDefaultModLog, 'currentColorModLangOpened'));
                     }
                 }
 
@@ -211,7 +223,7 @@
                 &:hover {
 
                     .wlc-language-selector__link-flag {
-                        box-shadow: 0 0 0 3px ef.get-value($themeDefault, 'flagBoxShadowHover'), 0 0 3px 3px rgba(0, 0, 0, 0.67);
+                        box-shadow: ef.get-value($themeDefault, 'flagBoxShadowHover'), 0 0 3px 3px rgba(0, 0, 0, 0.67);
                     }
                 }
 
@@ -219,7 +231,7 @@
                 &-flag {
                     width: ef.get-value($themeDefaultModLog, 'currentFlagSize');
                     height: ef.get-value($themeDefaultModLog, 'currentFlagSize');
-                    box-shadow: 0 0 0 3px ef.get-value($themeDefault, 'flagBoxShadow');
+                    box-shadow: ef.get-value($themeDefault, 'flagBoxShadow');
 
                     img {
                         width: 100%;
@@ -284,7 +296,7 @@
             .wlc-language-modal__link {
 
                 &-flag {
-                    box-shadow: 0 0 0 4px ef.get-value($themeModal, 'flagBoxShadowHover'), 0 0 7px 7px rgba(0, 0, 0, 0.67);
+                    box-shadow: ef.get-value($themeModal, 'flagBoxShadowHover'), 0 0 7px 7px rgba(0, 0, 0, 0.67);
                 }
             }
         }

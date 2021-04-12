@@ -43,10 +43,12 @@ import {
 import {GamesFilterServiceEvents} from 'wlc-engine/modules/games';
 import {gamesEvents} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
 import {IGamesFilterData} from 'wlc-engine/modules/games/system/interfaces/filters.interfaces';
+import {ITournamentGames} from 'wlc-engine/modules/tournaments';
+import {GamesHelper} from 'wlc-engine/modules/games/system/helpers/games.helpers';
 
 import {
     filter as _filter,
-    find as _find,
+    map as _map,
     includes as _includes,
     reduce as _reduce,
     keys as _keys,
@@ -323,6 +325,8 @@ export class GamesGridComponent extends AbstractComponent
 
         if (this.gamesList?.length) {
             games = this.gamesList;
+        } else if (this.$params.tournamentGamesFilter) {
+            return this.gamesCatalogService.getTournamentGames(this.$params.tournamentGamesFilter);
         } else {
             games = this.gamesCatalogService.getGameList();
         }

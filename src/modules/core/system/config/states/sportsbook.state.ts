@@ -4,7 +4,7 @@ import {Ng2StateDeclaration} from '@uirouter/angular';
 import {StateHelper} from 'wlc-engine/modules/core/system/helpers/state.helper';
 
 export const sportsbookState: Ng2StateDeclaration = {
-    url: '/sportsbook/:page/:page2/:page3/:page4/:page5',
+    url: '/sportsbook/:page/:page2/:page3/:page4/:page5/:page6/:page7',
     params: {
         page: {
             value: '',
@@ -23,6 +23,14 @@ export const sportsbookState: Ng2StateDeclaration = {
             squash: true,
         },
         page5: {
+            value: '',
+            squash: true,
+        },
+        page6: {
+            value: '',
+            squash: true,
+        },
+        page7: {
             value: '',
             squash: true,
         },

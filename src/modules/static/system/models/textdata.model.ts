@@ -78,7 +78,7 @@ export abstract class TextDataModel {
 
     protected decodeHtml(text: string): string {
         return text;
-        // const elem = document.createElement('pre');
+        // const elem = this.document.createElement('pre');
         // elem.innerHTML = text.replace(/</g, '&lt;');
         // return elem.innerText || elem.textContent || '';
     }

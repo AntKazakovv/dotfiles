@@ -96,12 +96,12 @@
 
                 .swiper-button-next {
                     right: 0;
-                    @include bm.get-mq-map('dispaly', $themeDefault, 'swiperButtonDisplay');
+                    @include bm.get-mq-map('display', $themeDefault, 'swiperButtonDisplay');
                 }
 
                 .swiper-button-prev {
                     left: 0;
-                    @include bm.get-mq-map('dispaly', $themeDefault, 'swiperButtonDisplay');
+                    @include bm.get-mq-map('display', $themeDefault, 'swiperButtonDisplay');
                 }
             }
         }

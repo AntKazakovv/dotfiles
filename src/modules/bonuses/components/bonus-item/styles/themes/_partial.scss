@@ -136,7 +136,7 @@
 
             position: absolute;
             @include em.get-mq-map('bottom', $themePartial, 'iconTextBottomPos');
-            left: ef.get-value($themePartial, 'iconTextleftPos');
+            left: ef.get-value($themePartial, 'iconTextLeftPos');
             right: ef.get-value($themePartial, 'iconTextRightPos');
             margin: ef.get-value($themePartial, 'iconTextMargin');
 

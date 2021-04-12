@@ -10,7 +10,7 @@
 
         .wlc-menu__link {
             display: block;
-            @include text.get-text-style('ThridTitleBold', ef.get-value($menuThemeContacts, 'textColor'));
+            @include text.get-text-style('ThirdTitleBold', ef.get-value($menuThemeContacts, 'textColor'));
             padding: ef.get-value($menuThemeContacts, 'padding');
             text-decoration: ef.get-value($menuThemeContacts, 'textDecoration');
             border-bottom: 2px solid ef.get-value($menuThemeContacts, 'borderColor');

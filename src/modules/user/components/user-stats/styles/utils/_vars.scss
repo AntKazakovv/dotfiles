@@ -7,12 +7,18 @@ $themeDefault: map-merge((
     'colorValue': ef.get('mainColors', 'baseMain'),
     'balancePadding': 11px 15px,
     'balanceBorderRadius': ef.get('radius', 'biger'),
-    'balanceBg': ef.get('mainColors', 'bg'),
+    'balanceBg': (
+        375: ef.get('mainColors', 'bg'),
+    ),
     'balanceShortPadding': 0,
     'balanceShortMinWidth': 180px,
     'balanceShortBg': none,
     'balanceShortBorderColor': ef.get('mainColors', 'baseOpacity'),
     'balanceItemPadding': 4px 0,
-    'balanceItemBorder': 2px solid ef.get('mainColors', 'baseOpacity'),
+    'balanceItemBorder': (
+        375: 2px solid ef.get('mainColors', 'baseOpacity'),
+    ),
     'btnMargin': 10px auto,
+    'loyaltyIconSize': 12px,
+    'loyaltyIconStoreSize': 16px,
 ), $customThemeDefault);

@@ -26,6 +26,8 @@ $themeDefault: map-merge((
     'headerStatusBgActive': ef.get('mainColors', 'secondary'),
     'headerStatusPadding': ef.get('size', 'smallest') ef.get('size', 'smaller'),
     'headerStatusMagrin': 0 0 ef.get('size', 'small') 0,
+    'headerStatusText': 'SignText',
+    'headerStatusTextColor':  ef.get('mainColors', 'baseMain'),
 
     'headerTitleMargin': 0 0 ef.get('size', 'less') 0,
 
@@ -65,6 +67,9 @@ $themeDefault: map-merge((
         640: 350px,
     ),
 
+    'prizeboardBg': ef.get('mainColors', 'bg500'),
+    'prizepoolBg': ef.get('mainColors', 'bg'),
+
     'gamesPadding': (
         375: ef.get('size', 'less') ef.get('size', 'smally'),
         640: ef.get('size', 'less') ef.get('size', 'main'),
@@ -80,4 +85,8 @@ $themeDefault: map-merge((
         375: ef.get('size', 'less') ef.get('size', 'smally'),
         640: ef.get('size', 'smaller') 0 ef.get('size', 'less'),
     ),
+
+    'textAnchorsMenu': 'PrimaryText',
+    'textColorAnchorsMenu': ef.get('mainColors', 'baseMain'),
+
 ), $customThemeDefault);

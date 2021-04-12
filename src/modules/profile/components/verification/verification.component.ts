@@ -117,7 +117,11 @@ export class VerificationComponent extends AbstractComponent implements OnInit {
             const userDocs: IDoc[] = _filter(docs, (userDoc: IDoc) => {
                 return docType.TypeKey === userDoc.DocType;
             });
-            return new DocGroupModel(docType, _map(userDocs, (doc) => new DocModel(doc)), this.isSelectMode);
+            return new DocGroupModel(
+                docType,
+                _map(userDocs, (doc) => new DocModel(doc, this.$params.iconPath)),
+                this.isSelectMode,
+                this.$params.iconPath);
         });
         if (this.currentDocGroup) {
             this.setCurrentDocGroup(this.currentDocGroup.ID);
@@ -139,13 +143,14 @@ export class VerificationComponent extends AbstractComponent implements OnInit {
         if (this.currentDocGroup.pending) {
             return;
         }
+
+        if (this.verificationService.checkUploadLimit(this.currentDocGroup.docs.length)) return;
+
         this.switchLoader(LoaderStatus.Loading);
 
         try {
             await this.verificationService.uploadFile(this.currentDocGroup.preview.file, this.currentDocGroup.ID);
             await this.updateDocItems();
-        } catch (result) {
-            this.verificationService.showError(result.errors[0]);
         } finally {
             this.switchLoader();
             this.clearPreview();
@@ -164,8 +169,7 @@ export class VerificationComponent extends AbstractComponent implements OnInit {
         try {
             await this.verificationService.deleteDoc(doc);
             await this.updateDocItems();
-        } catch (result) {
-            this.verificationService.showError(result.errors[0]);
+        } catch (error) {
         }
     }
 

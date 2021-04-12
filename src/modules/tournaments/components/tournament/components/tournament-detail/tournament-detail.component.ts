@@ -24,14 +24,13 @@ import {
     Tournament,
 } from 'wlc-engine/modules/tournaments';
 import {TournamentComponent} from 'wlc-engine/modules/tournaments/components/tournament/tournament.component';
-import {IGamesGridCParams} from 'wlc-engine/modules/games';
 
 import * as MenuParams from 'wlc-engine/modules/menu/components';
 import * as Params from './tournament-detail.params';
 
 import {
     each as _each,
-    filter as _filter,
+    set as _set,
 } from 'lodash-es';
 
 @Component({
@@ -56,14 +55,7 @@ export class TournamentDetailComponent
     public tournament: Tournament = null;
     public tablePrizeboard: ITableCParams = {};
     public menuParams: MenuParams.IMenuCParams = {};
-    public gamesGridParams: IGamesGridCParams = {
-        gamesRows: 3,
-        usePlaceholders: true,
-        mobileSettings: {
-            gamesRows: 3,
-        },
-        themeMod: 'tournament-detail',
-    };
+    public gamesGridConfig = Params.gamesGridConfig;
 
     constructor(
         @Inject('injectParams')
@@ -152,8 +144,8 @@ export class TournamentDetailComponent
         if (this.tournament) {
             this.preparePrizeboard();
             this.prepareMenu();
+            _set(this.gamesGridConfig, 'components[0].params.tournamentGamesFilter', this.tournament.gamesFilterData);
         }
-
         this.isReady = true;
         this.cdr.markForCheck();
     }

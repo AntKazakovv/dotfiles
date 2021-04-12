@@ -9,6 +9,7 @@ export namespace leftPanel {
             after: 900,
         },
         useScroll: false,
+        container: true,
         components: [
             componentLib.wlcMainMenu.burgerPanel,
             componentLib.wlcPostMenu.burgerPanelInfo,

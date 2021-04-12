@@ -110,10 +110,6 @@
             padding: ef.get-value($themeDefault, 'thumbNamePadding');
             @include text.get-text-style('ThirdTitleBold', ef.get-value($themeDefault, 'thumbNameColor'));
             text-align: ef.get-value($themeDefault, 'thumbNamePosition');
-
-            @include mq.min(1420) {
-                padding-top: 0;
-            }
         }
 
         &__merchant {
@@ -336,5 +332,3 @@
         }
     }
 }
-
-

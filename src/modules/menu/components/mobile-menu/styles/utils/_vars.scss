@@ -7,6 +7,7 @@ $themeDropdownDefault: map-merge((
     'activeTabLinkBg': ef.get('mainColors', 'main'),
     'linkPadding': ef.get('size', 'small') ef.get('size', 'smally'),
     'linkColor': ef.get('mainColors', 'baseMain'),
+    'activeLinkColor': ef.get('mainColors', 'baseMain'),
     'linkBg': ef.get('mainColors', 'bg700'),
     'activeLinkBg': ef.get('mainColors', 'bg500'),
     'linkFill': ef.get('mainColors', 'baseMain'),
@@ -15,4 +16,5 @@ $themeDropdownDefault: map-merge((
     'submenuPadding': ef.get('size', 'smallest') ef.get('size', 'smallest'),
     'arrowFillColor': ef.get('mainColors', 'baseOpacity'),
     'arrowFillColorActive': ef.get('mainColors', 'baseMain'),
+
 ), $customDropdownThemeDefault);

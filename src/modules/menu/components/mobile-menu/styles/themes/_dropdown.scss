@@ -60,8 +60,7 @@
                     align-items: center;
                     padding: ef.get-value($themeDropdownDefault, 'linkPadding');
                     width: 100%;
-                    @include text.get-text-style('PrimaryText');
-                    color: ef.get-value($themeDropdownDefault, 'linkColor');
+                    @include text.get-text-style('PrimaryText', ef.get-value($themeDropdownDefault, 'linkColor'));
                     cursor: pointer;
                     text-decoration: none;
                     background: ef.get-value($themeDropdownDefault, 'linkBg');
@@ -78,13 +77,22 @@
 
                     &.active {
                         background: ef.get-value($themeDropdownDefault, 'activeLinkBg');
+                        color: ef.get-value($themeDropdownDefault, 'activeLinkColor');
                     }
 
                     @media (hover) {
 
                         &:hover {
                             background: ef.get-value($themeDropdownDefault, 'activeLinkBg');
+                            color: ef.get-value($themeDropdownDefault, 'activeLinkColor');
                             @include bm.transition(background);
+
+                            .wlc-menu__icon-arrow {
+
+                                svg {
+                                    fill: ef.get-value($themeDropdownDefault, 'arrowFillColorActive');
+                                }
+                            }
                         }
                     }
 

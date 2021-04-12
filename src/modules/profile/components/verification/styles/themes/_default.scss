@@ -3,8 +3,6 @@
 @use 'engine-scss/mixins/mediaqueries' as mq;
 @use 'engine-scss/mixins/base.mixins' as em;
 
-@import '../utils/vars';
-
 .wlc-verification--theme-default:host {
 
     .wlc-verification__content {
@@ -19,10 +17,10 @@
 
             &__drag {
                 display: flex;
-                flex-direction: column;
+                flex-direction: ef.get-value($themeDefault, 'dragDirection');
 
                 & > div {
-                    margin-top: ef.get-value($themeDefault, 'dragOffset');
+                    margin: ef.get-value($themeDefault, 'dragInnerMargin');
 
                     &:first-of-type {
                         margin-top: 0;
@@ -31,9 +29,9 @@
 
                 @include mq.min(1024) {
                     display: grid;
-                    gap: ef.get-value($themeDefault, 'dragOffset');
+                    gap: ef.get-value($themeDefault, 'dragGap');
                     @include em.get-mq-map('grid-template-areas', $themeDefault, 'gridAreas');
-                    grid-template-columns: 1fr minmax(320px, 1fr);
+                    grid-template-columns: ef.get-value($themeDefault, 'dragGridTemplateColumns');
                     column-gap: ef.get-value($themeDefault, 'docsOffsetDesctop');
 
                     & > div {
@@ -44,39 +42,50 @@
 
             &__doc-select {
                 display: flex;
-                flex-direction: column;
+                flex-direction: ef.get-value($themeDefault, 'docSelectDirection');
                 grid-area: select;
 
-                ::ng-deep .wlc-select__field {
-                    color: ef.get-value($themeDefault, 'selectTextColor');
-                }
+                ::ng-deep {
 
-                ::ng-deep .wlc-select__dropdown {
-                    overflow: hidden auto;
+                    .wlc-select__field {
+                        color: ef.get-value($themeDefault, 'selectTextColor');
+                    }
+
+                    .wlc-select__dropdown {
+                        overflow: hidden auto;
+                    }
                 }
             }
 
             &__dropzone {
-                min-height: 200px;
-                grid-area: dropzone;
-                align-self: start;
+                position: relative;
+
                 display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
+                flex-direction: ef.get-value($themeDefault, 'dropzoneDirection');
+                align-items: ef.get-value($themeDefault, 'dropzoneAlignItems');
+                align-self: ef.get-value($themeDefault, 'dropzoneAlignSelf');
+                justify-content: ef.get-value($themeDefault, 'dropzoneJustifyContent');
+                grid-area: dropzone;
+
+                width: ef.get-value($themeDefault, 'dropzoneWidth');
+                min-height: ef.get-value($themeDefault, 'dropzoneMinHeight');
+
+                padding: ef.get-value($themeDefault, 'paddingItem');
+
+                border: ef.get-value($themeDefault, 'borderDropdown');
                 border-radius: ef.get-value($themeDefault, 'borderRadius');
                 background-color: ef.get-value($themeDefault, 'dropzoneBg');
-                padding: ef.get-value($themeDefault, 'paddingItem');
                 background-repeat: no-repeat;
                 background-size: cover;
                 background-position: center;
-                cursor: pointer;
-                position: relative;
-                border: ef.get-value($themeDefault, 'borderDropdown');
-                width: 100%;
 
-                &:hover {
-                    border-color: ef.get-value($themeDefault, 'borderColorDrag');
+                cursor: pointer;
+
+                @media (hover) {
+
+                    &:hover {
+                        border-color: ef.get-value($themeDefault, 'borderColorDrag');
+                    }
                 }
 
                 .wlc-btn-upload {
@@ -100,10 +109,14 @@
                 .wlc-verification__text {
 
                     span {
+                        display: inline-block;
+                    }
+
+                    .wlc-verification__text-inner {
                         display: none;
 
                         @include mq.min(1024) {
-                            display: inline;
+                            display: inline-block;
                         }
                     }
                 }
@@ -111,8 +124,8 @@
 
             &__dropzone-clear {
                 position: absolute;
-                top: 10px;
-                right: 10px;
+                top: ef.get-value($themeDefault, 'clearPosition');
+                right: ef.get-value($themeDefault, 'clearPosition');
 
                 ::ng-deep .wlc-icon-content {
 
@@ -139,25 +152,30 @@
             }
 
             &__text {
+                align-self: ef.get-value($themeDefault, 'verificationTextAlignSelf');
+                text-align: ef.get-value($themeDefault, 'verificationTextAlign');
+
                 @include text.get-text-style(ef.get-value($themeDefault, 'subTitleFont'), ef.get-value($themeDefault, 'color'));
-                align-self: center;
             }
 
             &__upload-docs {
-                border-top: 1px solid ef.get-value($themeDefault, 'borderTopUploadDocs');
-                padding-top: ef.get-value($themeDefault, 'offset');
                 grid-area: docs-list;
 
+                padding-top: ef.get-value($themeDefault, 'offset');
+
+                border-top: 1px solid ef.get-value($themeDefault, 'borderTopUploadDocs');
+
                 @include mq.min(1024) {
-                    border-top: none;
                     padding-left: ef.get-value($themeDefault, 'docsOffsetDesctop');
+
                     border-left: ef.get-value($themeDefault, 'borderDocList');
+                    border-top: none;
                 }
             }
 
             &__title {
                 @include text.get-text-style(ef.get-value($themeDefault, 'titleFontUploadDocs'), ef.get-value($themeDefault, 'color'));
-                text-align: center;
+                text-align: ef.get-value($themeDefault, 'verificationTitleAlign');
 
                 @include mq.min(1024) {
                     text-align: left;
@@ -166,43 +184,51 @@
 
             &-requirements {
                 grid-area: req-list;
-                list-style-type: none;
+
                 padding-left: 0;
+
+                list-style-type: none;
 
                 &__item {
                     position: relative;
+
                     padding-left: ef.get-value($themeDefault, 'offset');
+
                     @include text.get-text-style(ef.get-value($themeDefault, 'textFont'), ef.get-value($themeDefault, 'dropZoneBg'));
 
                     &:before {
                         content: '';
                         position: absolute;
-                        top: 6px;
-                        left: 0;
-                        //transform: translateY(-50%);
-                        width: 8px;
-                        height: 8px;
-                        border-radius: 100%;
+                        top: ef.get-value($themeDefault, 'requirementsBeforeTop');
+                        left: ef.get-value($themeDefault, 'requirementsBeforeLeft');
+
+                        width: ef.get-value($themeDefault, 'requirementsBeforeSize');
+                        height: ef.get-value($themeDefault, 'requirementsBeforeSize');
+
                         background: ef.get-value($themeDefault, 'reqListStyleColor');
+                        border-radius: ef.get-value($themeDefault, 'requirementsBeforeRadius');
                     }
                 }
             }
 
             &-docs {
-                list-style-type: none;
-                padding: 0;
-                margin: 0;
                 display: flex;
-                flex-direction: column;
-                margin-top: ef.get-value($themeDefault, 'gapDocList');
+                flex-direction: ef.get-value($themeDefault, 'docsDirection');
+
+                margin: ef.get-value($themeDefault, 'docsMargin');
+                padding: ef.get-value($themeDefault, 'docsPadding');
+
+                list-style-type: none;
 
                 &__item {
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
-                    border-bottom: ef.get-value($themeDefault, 'borderDocList');
-                    padding-bottom: ef.get-value($themeDefault, 'gapDocList');
+
                     margin-bottom: ef.get-value($themeDefault, 'gapDocList');
+                    padding-bottom: ef.get-value($themeDefault, 'gapDocList');
+
+                    border-bottom: ef.get-value($themeDefault, 'borderDocList');
 
                     &:last-child {
                         border-bottom: none;
@@ -265,71 +291,87 @@
                 &__doc-icon {
                     width: ef.get-value($themeDefault, 'bigIconDocsDemensitons');
                     height: ef.get-value($themeDefault, 'bigIconDocsDemensitons');
+
+                    padding: ef.get-value($themeDefault, 'docIconOffset');
+
                     background: ef.get-value($themeDefault, 'docIconBg');
                     border-radius: ef.get-value($themeDefault, 'docIconRadius');
-                    padding: ef.get-value($themeDefault, 'docIconOffset');
 
                     ::ng-deep .wlc-icon-content {
 
                         svg {
                             display: block;
-                            width: 100%;
-                            height: 100%;
+
+                            width: ef.get-value($themeDefault, 'docIconSvgSize');
+                            height: ef.get-value($themeDefault, 'docIconSvgSize');
                         }
                     }
                 }
 
                 &__doc-info-wrp {
-                    margin: 0 ef.get-value($themeDefault, 'gapDocList');
-                    min-width: 0;
-                    flex: 1 1 0%;
+                    flex: ef.get-value($themeDefault, 'docInfoFlex');
+
+                    min-width: ef.get-value($themeDefault, 'docInfoMinWidth');
+
+                    margin: ef.get-value($themeDefault, 'docInfoMargin');
                 }
 
                 &__doc-status {
-                    @include text.get-text-style(ef.get-value($themeDefault, 'titleFont'), ef.get-value($themeDefault, 'color'));
                     grid-area: doc-status;
-                    width: 100%;
+
+                    width: ef.get-value($themeDefault, 'docStatusWidth');
+
+                    @include text.get-text-style(ef.get-value($themeDefault, 'titleFont'), ef.get-value($themeDefault, 'color'));
                 }
 
                 &__doc-title {
-                    @include text.get-text-style(ef.get-value($themeDefault, 'titleFontUploadDocs'), ef.get-value($themeDefault, 'color'));
-                    grid-area: doc-title;
-                    display: flex;
-                    flex-direction: row;
-                    justify-items: flex-start;
-                    align-items: center;
                     position: relative;
-                    padding-right: 25px;
-                    justify-self: stretch;
-                    white-space: nowrap;
-                    //word-break: break-word;
-                    // overflow: hidden;
-                    text-overflow: ellipsis;
-                    z-index: 5;
+                    z-index: ef.get-value($themeDefault, 'docTitleZIndex');
+
+                    display: flex;
+                    flex-direction: ef.get-value($themeDefault, 'docTitleDirection');
+                    justify-items: ef.get-value($themeDefault, 'docTitleJustifyItems');
+                    justify-self: ef.get-value($themeDefault, 'docTitleJustifySelf');
+                    align-items: ef.get-value($themeDefault, 'docTitleAlignItems');
+                    grid-area: doc-title;
+
+                    max-width: ef.get-value($themeDefault, 'docTitleMaxWidth');
+
+                    @include text.get-text-style(ef.get-value($themeDefault, 'titleFontUploadDocs'), ef.get-value($themeDefault, 'color'));
 
                     a {
-                        text-decoration: none;
-                        overflow: hidden;
-                        text-overflow: ellipsis;
-                        max-width: 100%;
-                        @include text.get-text-style(ef.get-value($themeDefault, 'titleFontUploadDocs'), ef.get-value($themeDefault, 'color'));
+                        display: inline-block;
 
-                        &:hover {
-                            text-decoration: underline;
+                        max-width: ef.get-value($themeDefault, 'docTitleLinkMaxWidth');
+
+                        padding: ef.get-value($themeDefault, 'docTitlePadding');
+
+                        @include text.get-text-style(ef.get-value($themeDefault, 'titleFontUploadDocs'), ef.get-value($themeDefault, 'color'));
+                        text-overflow: ellipsis;
+                        text-decoration: ef.get-value($themeDefault, 'docTitleLinkDecoration');
+
+                        overflow: hidden;
+
+                        @media (hover) {
+
+                            &:hover {
+                                text-decoration: ef.get-value($themeDefault, 'docTitleLinkDecorationHover');
+                            }
                         }
                     }
 
                     &:hover {
 
                         .wlc-verification-docs__remove {
-                            display: block;
+                            opacity: 1;
+                            visibility: visible;
                         }
                     }
                 }
 
                 &__check-wrp {
                     display: flex;
-                    flex-direction: row;
+                    flex-direction: ef.get-value($themeDefault, 'checkWrpDirection');
                 }
 
                 &__check-icon {
@@ -338,6 +380,7 @@
 
                 &__info {
                     margin-right: ef.get-value($themeDefault, 'docOffset');
+
                     cursor: pointer;
 
                     &.info-icon {
@@ -355,14 +398,18 @@
                 }
 
                 &__remove {
+                    opacity: 1;
+                    visibility: visible;
+
+                    margin: ef.get-value($themeDefault, 'docRemoveMargin');
+
                     cursor: pointer;
-                    position: absolute;
-                    right: 0;
-                    top: -50%;
-                    // transform: translateY(-50%);
+
+                    @include em.transition(opacity);
 
                     @include mq.min(1024) {
-                        display: none;
+                        opacity: 0;
+                        visibility: hidden;
                     }
 
                     ::ng-deep .wlc-icon-content {
@@ -370,6 +417,10 @@
                         svg {
                             width: ef.get-value($themeDefault, 'removeIconDocsDemensitons');
                             height: ef.get-value($themeDefault, 'removeIconDocsDemensitons');
+
+                            line {
+                                @include em.transition(stroke);
+                            }
                         }
                     }
 
@@ -388,14 +439,15 @@
                 }
 
                 &__preload {
-                    position: absolute;
-                    right: 0;
-                    top: -25%;
                     width: ef.get-value($themeDefault, 'preloaderDementions');
                     height: ef.get-value($themeDefault, 'preloaderDementions');
+
+                    margin: ef.get-value($themeDefault, 'docProloadMargin');
+
                     border: ef.get-value($themeDefault, 'preloaderBg');
                     border-top: ef.get-value($themeDefault, 'preloaderColor');
-                    border-radius: 100%;
+                    border-radius: ef.get-value($themeDefault, 'preloadRadius');
+
                     animation: spin 1s infinite linear;
                 }
 
@@ -432,9 +484,10 @@
     .wlc-verification__tooltip {
 
         .tooltip-inner {
+            padding: ef.get-value($themeDefault, 'tooltipOffset');
+
             border-radius: ef.get-value($themeDefault, 'borderRadius');
             background: ef.get-value($themeDefault, 'tooltipBg');
-            padding: ef.get-value($themeDefault, 'tooltipOffset');
         }
 
         &.top {

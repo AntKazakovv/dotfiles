@@ -11,6 +11,7 @@ $themeDefault: map-merge((
     'timeIconFill': ef.get('mainColors', 'secondary'),
     'timerFontStyle': 'PrimaryTextBold',
     'timerColor': ef.get('mainColors', 'baseMain'),
+    'timerNumbersOffset': 0 5px,
 
     'secondaryTextFontStyle': 'PrimaryText',
     'secondaryTextColor': ef.get('mainColors', 'baseMain'),

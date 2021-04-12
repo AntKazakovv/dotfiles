@@ -9,4 +9,6 @@ $themeDefault: map-merge((
     'allLinkSize': 12px,
     'allLinkWeight': bold,
     'allLinkColor': ef.get('mainColors', 'main'),
+    'userIconWidth': 12px,
+    'userIconMargin': 0 0 0 ef.get('size', 'smallest'),
 ), $customThemeDefault);
