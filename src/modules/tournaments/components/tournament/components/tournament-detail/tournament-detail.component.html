@@ -66,8 +66,10 @@
         <h4 class="{{$class}}__games--title">
             {{$params.common?.gamesSectionTitle | translate}}
         </h4>
-        <div class="{{$class}}__games-list" *ngIf="tournament.games" wlc-games-grid [gamesList]="tournament.games"
-            [inlineParams]="gamesGridParams">
+        <div class="{{$class}}__games-list"
+             *ngIf="tournament.hasGames"
+             wlc-wrapper
+             [inlineParams]="gamesGridConfig">
         </div>
     </div>
 
@@ -76,7 +78,9 @@
             {{$params.common?.rulesSectionTitle | translate}}
         </h4>
 
-        <div class="{{$class}}__rules--terms" wlc-dynamic-html [html]="tournament.terms">
+        <div class="{{$class}}__rules--terms"
+             wlc-dynamic-html
+             [html]="tournament.terms">
         </div>
     </div>
 </div>

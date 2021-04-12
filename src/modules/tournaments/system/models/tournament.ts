@@ -1,17 +1,12 @@
-import {Injector} from '@angular/core';
 import {
     AbstractModel,
     ConfigService,
-    CachingService,
-    LayoutService,
 } from 'wlc-engine/modules/core';
-import {GamesCatalogService} from 'wlc-engine/modules/games';
-import {Game} from 'wlc-engine/modules/games/system/models/game.model';
-import {GamesHelper} from 'wlc-engine/modules/games/system/helpers/games.helpers';
 import {
     ITournament,
     ITopTournamentUsers,
     ITournamentPlace,
+    ITournamentGames,
 } from '../interfaces/tournaments.interface';
 import {TournamentsService} from '../services';
 import {
@@ -29,32 +24,26 @@ import {
     map as _map,
     each as _each,
     uniqBy as _uniqBy,
-    remove as _remove,
-    filter as _filter,
 } from 'lodash-es';
 
 export class Tournament extends AbstractModel<ITournament> {
     public topWin: ITournamentPlace[];
+    public hasGames: boolean = false;
     protected userCurrency: string;
-    protected GamesCatalogService: GamesCatalogService;
 
     constructor(
         data: ITournament,
-        protected ConfigService: ConfigService,
-        protected cachingService: CachingService,
+        protected configService: ConfigService,
         protected tournamentsService: TournamentsService,
-        protected layoutService: LayoutService,
-        protected injector: Injector,
     ) {
         super();
         this.data = data;
-        this.userCurrency = this.ConfigService.get<string>('appConfig.user.currency') || 'EUR';
-        this.layoutService.importModules(['games']);
-        this.GamesCatalogService = this.injector.get(GamesCatalogService);
+        this.userCurrency = this.configService.get<string>('appConfig.user.currency') || 'EUR';
     }
 
     public set data(data: ITournament) {
         super.data = data;
+        this.setHasGames();
     }
 
     public get data(): ITournament {
@@ -292,31 +281,8 @@ export class Tournament extends AbstractModel<ITournament> {
         return timeDifference < 0;
     }
 
-    /**
-     * @returns {Game[]} tournament games array
-     */
-    public get games(): Game[] {
-        let games: Game[] = [];
-
-        if (this.data.Games.Games?.length) {
-            _each(this.data.Games.Games, (id) => {
-                const game = this.GamesCatalogService.getGameById(id);
-                if (game) {
-                    games.push(game);
-                }
-            });
-        } else {
-            games = this.GamesCatalogService.getGameList({
-                categories: _map(this.data.Games.Categories, (id: number) => GamesHelper.getCategoryNameById(id)),
-                excludeCategories: _map(this.data.Games.CategoriesBL, (id: number) => GamesHelper.getCategoryNameById(id)),
-                merchants: this.data.Games.Merchants || [],
-                excludeMerchants: this.data.Games.MerchantsBL || [],
-            });
-        }
-
-        games = _filter(games, (game: Game) => !this.data.Games.GamesBL.includes(game.ID));
-
-        return _uniqBy(games, 'ID');
+    public get gamesFilterData(): ITournamentGames {
+        return this.data.Games;
     }
 
     /**
@@ -379,14 +345,14 @@ export class Tournament extends AbstractModel<ITournament> {
         if (result?.user) {
             if (_toNumber(result.user.Place) > topWin.length || !result.user.Place) {
                 topWin.push({
-                    Email: this.ConfigService.get<string>('appConfig.user.Email')?.substring(0, 6) + '***',
-                    FirstName: this.ConfigService.get<string>('appConfig.user.first_name'),
+                    Email: this.configService.get<string>('appConfig.user.Email')?.substring(0, 6) + '***',
+                    FirstName: this.configService.get<string>('appConfig.user.first_name'),
                     IDUser: result.user.IDUser,
                     IDUserPlace: result.user.Place || '-',
-                    LastName: this.ConfigService.get<string>('appConfig.user.last_name'),
-                    Login: this.ConfigService.get<string>('appConfig.user.user_id'),
+                    LastName: this.configService.get<string>('appConfig.user.last_name'),
+                    Login: this.configService.get<string>('appConfig.user.user_id'),
                     Points: _toString(result.user.Points),
-                    UserLogin: this.ConfigService.get<string>('appConfig.user.login'),
+                    UserLogin: this.configService.get<string>('appConfig.user.login'),
                     Win: _toNumber(result.user.Win),
                 });
             }
@@ -412,6 +378,11 @@ export class Tournament extends AbstractModel<ITournament> {
             : this.isTournamentStarts
                 ? 'Available'
                 : 'Coming soon';
+    }
+
+    protected setHasGames(): void {
+        const {Games, Categories, Merchants} = this.data.Games;
+        this.hasGames = !!(Games.length || Categories.length || Merchants.length);
     }
 
     protected getUserLogin(item: ITournamentPlace): string {
