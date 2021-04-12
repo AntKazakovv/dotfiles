@@ -123,9 +123,11 @@ export class PlayGameForRealComponent extends AbstractComponent implements OnIni
         }, () => {
             if (this.$params.common?.game) {
                 this.modalService.hideModal('play-game-for-real');
-                this.$params.common.game.launch({
-                    demo: false,
-                });
+                setTimeout(() => {
+                    this.$params.common.game.launch({
+                        demo: false,
+                    });
+                }, 500);
             }
         }, this.$destroy);
     }
