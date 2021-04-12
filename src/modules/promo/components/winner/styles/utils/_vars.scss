@@ -118,6 +118,9 @@ $themeVertical: map-merge((
     'gameHoverBorderColor': currentColor,
     'gameHoverArrowColor': currentColor,
 
+    'winnerNameFontStyle': 'PlaceholderText',
+    'winnerGameFontStyle': 'ThirdTitleBold',
+
     // amount
     'amountFontSize': ef.get('font', 'main'),
     'amountColor': ef.get('color', 'text'),
