@@ -65,6 +65,12 @@ $theme1Footer: map-merge((
         560: ef.get('size', 'small'),
         900: ef.get('size', 'smaller'),
     ),
+    'iconListPaymentsWrapperBg': (
+        375: transparent
+    ),
+    'iconListPaymentsWrapperRadius': (
+        375: 0
+    ),
     'iconListPaymentsItemWidth': (
         375: 120px,
     ),

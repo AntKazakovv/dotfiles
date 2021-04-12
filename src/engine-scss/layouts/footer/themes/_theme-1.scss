@@ -37,6 +37,8 @@
 
                 .wlc-icon-list__wrapper {
                     @include em.get-mq-map('padding', $theme1Footer, 'iconListPaymentsWrapperPadding');
+                    @include em.get-mq-map('background', $theme1Footer, 'iconListPaymentsWrapperBg');
+                    @include em.get-mq-map('border-radius', $theme1Footer, 'iconListPaymentsWrapperRadius');
                 }
 
                 .wlc-icon-list__item {

@@ -63,7 +63,7 @@ export class ScrollbarComponent extends AbstractComponent implements OnInit, Aft
         if (elem) {
             elem.onwheel = (event) => {
                 event.preventDefault();
-            }
+            };
         }
 
         this.swiper.s_progress.subscribe((swiper) => {
