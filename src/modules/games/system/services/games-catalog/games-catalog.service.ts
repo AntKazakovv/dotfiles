@@ -37,6 +37,8 @@ import {
     gamesEvents,
 } from 'wlc-engine/modules/games';
 import {UserService} from 'wlc-engine/modules/user';
+import {ITournamentGames} from 'wlc-engine/modules/tournaments';
+import {GamesHelper} from 'wlc-engine/modules/games/system/helpers/games.helpers';
 
 import {
     find as _find,
@@ -517,6 +519,24 @@ export class GamesCatalogService {
      */
     public getGameList(filter?: IGamesFilterData): Game[] {
         return this.gamesCatalog?.getGameList(filter);
+    }
+
+    public getTournamentGames(data: ITournamentGames): Game[] {
+        const games = this.getGameList({
+            ids: data.Games,
+            categories: _map(data.Categories, (id) => {
+                return GamesHelper.getCategoryById(id)?.menuId;
+            }),
+            excludeCategories: _map(data.CategoriesBL, (id) => {
+                return GamesHelper.getCategoryById(id)?.menuId;
+            }),
+            merchants: data.Merchants,
+            excludeMerchants: data.MerchantsBL,
+        });
+
+        return data.GamesBL.length ? _filter(games, ({ID}) => {
+            return !_includes(data.GamesBL, ID);
+        }) : games;
     }
 
     // public getGameById(id: string): Game {

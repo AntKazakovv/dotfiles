@@ -2,8 +2,12 @@ import {
     IComponentParams,
     CustomType,
 } from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ITableCParams} from 'wlc-engine/modules/core';
+import {
+    ITableCParams,
+    IWrapperCParams,
+} from 'wlc-engine/modules/core';
 import {TournamentComponent} from 'wlc-engine/modules/tournaments/components/tournament/tournament.component';
+import {IGamesGridCParams} from 'wlc-engine/modules/games';
 
 export type Type = 'default' | CustomType;
 export type Theme = 'default' | CustomType;
@@ -83,4 +87,21 @@ export const defaultParams: ITournamentDetailCParams = {
             rows: [],
         },
     },
+};
+
+export const gamesGridConfig: IWrapperCParams = {
+    class: '',
+    components: [
+        {
+            name: 'games.wlc-games-grid',
+            params:<IGamesGridCParams> {
+                gamesRows: 3,
+                usePlaceholders: true,
+                mobileSettings: {
+                    gamesRows: 3,
+                },
+                themeMod: 'tournament-detail',
+            },
+        },
+    ],
 };
