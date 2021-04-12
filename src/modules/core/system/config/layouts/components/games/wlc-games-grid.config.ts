@@ -5,7 +5,7 @@ export namespace wlcGamesGrid {
         name: 'games.wlc-games-grid',
         params: {
             gamesRows: 2,
-            title: 'Popular games',
+            title: gettext('Popular games'),
             usePlaceholders: true,
             filter: {
                 category: 'popular',
@@ -32,7 +32,7 @@ export namespace wlcGamesGrid {
         name: 'games.wlc-games-grid',
         params: {
             gamesRows: 2,
-            title: 'New games',
+            title: gettext('New games'),
             filter: {
                 category: 'new',
             },
@@ -59,7 +59,7 @@ export namespace wlcGamesGrid {
         name: 'games.wlc-games-grid',
         params: {
             gamesRows: 3,
-            title: 'All games',
+            title: gettext('All games'),
             filter: undefined,
             showAllLink: {
                 use: false,
@@ -80,7 +80,7 @@ export namespace wlcGamesGrid {
     export const catalogGamesWithLoadMoreBtn: ILayoutComponent = {
         name: 'games.wlc-games-grid',
         params: {
-            title: 'All games',
+            title: gettext('All games'),
             filter: undefined,
             showAllLink: {
                 use: false,
@@ -101,7 +101,7 @@ export namespace wlcGamesGrid {
     export const catalogGamesWithLazyLoad: ILayoutComponent = {
         name: 'games.wlc-games-grid',
         params: {
-            title: 'All games',
+            title: gettext('All games'),
             filter: undefined,
             showAllLink: {
                 use: false,
@@ -115,6 +115,29 @@ export namespace wlcGamesGrid {
             mobileSettings: {
                 gamesRows: 3,
                 showLoadButton: true,
+            },
+        },
+    };
+
+    export const vertical: ILayoutComponent = {
+        name: 'games.wlc-games-grid',
+        params: {
+            gamesRows: 1,
+            title: gettext('Vertical games'),
+            usePlaceholders: true,
+            filter: {
+                category: 'vertical',
+            },
+            thumbParams: {
+                theme: 'vertical',
+                type: 'vertical',
+            },
+            showAllLink: {
+                use: true,
+                link: 'app.catalog',
+                params: {
+                    category: 'vertical',
+                },
             },
         },
     };

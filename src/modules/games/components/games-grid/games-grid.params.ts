@@ -38,6 +38,7 @@ export interface IGamesGridCParams extends IComponentParams<string, GGType, stri
         showLoadButton?: boolean;
         gamesRows?: number;
     };
+    thumbParams?: string,
 }
 
 export const defaultParams: IGamesGridCParams = {

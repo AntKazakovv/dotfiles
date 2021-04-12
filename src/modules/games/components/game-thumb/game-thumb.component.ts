@@ -1,47 +1,55 @@
 import {
+    AfterViewInit,
+    ChangeDetectorRef,
     Component,
+    ElementRef,
+    HostBinding,
     Inject,
     Input,
     OnInit,
-    ChangeDetectorRef,
-    HostBinding,
-    Self,
-    Optional,
+    ViewChild,
 } from '@angular/core';
-import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {Game} from 'wlc-engine/modules/games/system/models/game.model';
-import {GamesCatalogService} from 'wlc-engine/modules/games';
-import {ConfigService} from 'wlc-engine/modules/core';
-import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
-import * as Params from './game-thumb.params';
-import {EventService, ModalService} from 'wlc-engine/modules/core/system/services';
-import {IPlayGameForRealCParams} from 'wlc-engine/modules/games/components/play-game-for-real/play-game-for-real.params';
-import {UserService} from 'wlc-engine/modules/user/system/services';
+import {takeUntil} from 'rxjs/operators';
 import {
+    AbstractComponent,
     ActionService,
+    ConfigService,
     DeviceType,
+    EventService,
+    IIndexing,
+    ModalService,
 } from 'wlc-engine/modules/core';
-
-import {
-    takeUntil,
-} from 'rxjs/operators';
+import {GamesCatalogService, Game} from 'wlc-engine/modules/games';
+import {UserService} from 'wlc-engine/modules/user';
+import * as Params from './game-thumb.params';
 
 import {
     assign as _assign,
+    get as _get,
+    isArray as _isArray,
+    map as _map,
 } from 'lodash-es';
+
+export type MediaType = 'background' | 'foreground' | 'logo' | 'video';
+export interface IMediaContent {
+    src: string;
+    type: string;
+}
 
 @Component({
     selector: '[wlc-game-thumb]',
     templateUrl: './game-thumb.component.html',
     styleUrls: ['./styles/game-thumb.component.scss'],
 })
-export class GameThumbComponent extends AbstractComponent implements OnInit {
+export class GameThumbComponent extends AbstractComponent implements OnInit, AfterViewInit {
 
     @Input() public game: Game;
     @Input() protected inlineParams: Params.IGameThumbCParams;
     @HostBinding('attr.data-wlc-element') protected wlcElement;
     @HostBinding('class.no-demo') protected noDemoClass;
-    @HostBinding('class.not-desktop') protected notDesktop;
+    @ViewChild('video') video: ElementRef;
+
+    public thumbParams: Params.IGameThumbCParams;
     public gameThumbSettings: IIndexing<IIndexing<string> | string> = {
         buttons: {
             demoThemeMode: 'secondary',
@@ -51,16 +59,18 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
     public $params: Params.IGameThumbCParams;
 
     protected deviceType: DeviceType;
+    protected idVerticalVideos: number[];
+    protected mediaFormatTypes: IIndexing<string>;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IGameThumbCParams,
-        protected gamesCatalogService: GamesCatalogService,
+        protected actionService: ActionService,
         protected cdr: ChangeDetectorRef,
         protected configService: ConfigService,
+        protected eventService: EventService,
+        protected gamesCatalogService: GamesCatalogService,
         protected modalService: ModalService,
         protected userService: UserService,
-        protected actionService: ActionService,
-        protected eventService: EventService,
     ) {
         super({
             injectParams,
@@ -70,19 +80,35 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
 
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
+
         if (!this.game && this.$params.common?.game) {
             this.game = this.$params.common.game;
+        }
+
+        if (this.$params.type === 'vertical') {
+            this.idVerticalVideos = this.configService.get<number[]>('$games.idVerticalVideos');
+            this.mediaFormatTypes = this.configService.get<IIndexing<string>>('$games.mediaFormatTypes');
         }
 
         this.wlcElement = `block_game-thumb-id-${this.game.ID}`;
         this.noDemoClass = !!this.game.hasDemo;
         const buttonParams = this.configService
             .get<string>('$modules.games.components.wlc-game-thumb.buttons');
+
         if (buttonParams) {
             _assign(this.gameThumbSettings.buttons, buttonParams);
         }
+
         this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
         this.initEventHandlers();
+    }
+
+    public ngAfterViewInit(): void {
+
+        if (this.video) {
+            this.video.nativeElement.muted = true;
+            this.video.nativeElement.play();
+        }
     }
 
     /**
@@ -93,14 +119,13 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
      * @param {boolean} forMobile
      * @param {Event} $event
      */
-    public startGame(demo: boolean, modal: boolean, forMobile: boolean, $event: Event): void {
+    public startGame(demo: boolean, modal: boolean, $event: Event): void {
         $event.stopPropagation();
 
         this.gamesCatalogService.launchGame(this.game, {
             demo,
             modal: {
                 show: modal,
-                deviceType: forMobile ? [DeviceType.Mobile, DeviceType.Tablet] : undefined,
             },
         });
     }
@@ -114,6 +139,30 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
         }
     }
 
+    public get hasVideo(): boolean {
+        return this.idVerticalVideos.includes(this.game.ID);
+    }
+
+
+    public getVerticalContent(type: MediaType, format: string[] | string): IMediaContent[] | string {
+
+        const verticalImagesPath = this.$params.verticalImagesPath;
+        const gameName = this.game.name?.en;
+
+        if (!gameName) return;
+
+        const path = verticalImagesPath + gameName.toLowerCase().replace(/\s/g, '-');
+
+        if (_isArray(format)) {
+            return _map(format, el => ({
+                src: `${path}/${type}.${el}`,
+                type: _get(this.mediaFormatTypes, el),
+            }));
+        } else {
+            return `${path}/${type}.${format}`;
+        }
+    }
+
     /**
      * Init event handlers
      */
@@ -122,7 +171,6 @@ export class GameThumbComponent extends AbstractComponent implements OnInit {
             .pipe(takeUntil(this.$destroy))
             .subscribe((type: DeviceType) => {
                 this.deviceType = type;
-                this.notDesktop = this.deviceType !== 'desktop';
                 this.cdr.markForCheck();
             });
 

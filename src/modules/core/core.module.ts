@@ -6,29 +6,29 @@ import {
     HAMMER_GESTURE_CONFIG,
     HammerModule,
 } from '@angular/platform-browser';
-import {TranslateModule} from '@ngx-translate/core';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {UIRouterModule} from '@uirouter/angular';
-import {SwiperModule} from 'swiper/angular';
-import {AngularResizedEventModule} from 'angular-resize-event';
-import {ModalModule} from 'ngx-bootstrap/modal';
-import {TooltipModule} from 'ngx-bootstrap/tooltip';
-import {PaginationModule} from 'ngx-bootstrap/pagination';
 import {AngularMyDatePickerModule} from 'angular-mydatepicker';
+import {AngularResizedEventModule} from 'angular-resize-event';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {ModalModule} from 'ngx-bootstrap/modal';
+import {PaginationModule} from 'ngx-bootstrap/pagination';
+import {SwiperModule} from 'swiper/angular';
+import {TooltipModule} from 'ngx-bootstrap/tooltip';
+import {TranslateModule} from '@ngx-translate/core';
+import {UIRouterModule} from '@uirouter/angular';
 // -- MODULES IMPORTS END --;
 
 // -- SERVICES IMPORTS START --;
 import {
+    ActionService,
+    CachingService,
     ConfigService,
+    ContactsService,
     DataService,
     EventService,
     FilesService,
     LogService,
-    ActionService,
-    NotificationService,
     ModalService,
-    ContactsService,
-    CachingService,
+    NotificationService,
 } from './system/services';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 // -- SERVICES IMPORTS END  --;
@@ -37,47 +37,46 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AmountLimitComponent} from './components/amount-limit/amount-limit.component';
 import {BirthdayFieldComponent} from './components/birthday-field/birthday-field.component';
 import {BurgerPanelComponent} from './components/burger-panel/burger-panel.component';
-import {FloatPanelsComponent} from './components/float-panels/float-panels.component';
-import {WrapperComponent} from 'wlc-engine/modules/core/components';
-import {FormWrapperComponent} from './components/form-wrapper/form-wrapper.component';
-import {LogoComponent} from './components/logo/logo.component';
-import {LanguageSelectorComponent} from './components/language-selector/language-selector.component';
-import {IconComponent} from './components/icon/icon.component';
-import {CounterComponent} from './components/counter/counter.component';
-import {DynamicHtmlComponent} from './components/dynamic-html/dynamic-html.component';
-import {WlcModalComponent} from './components/modal';
-import {IconListComponent} from './components/icon-list/icon-list.component';
-import {DisclaimerComponent} from './components/disclaimer/disclaimer.component';
-import {ScrollbarComponent} from './components/scrollbar/scrollbar.component';
-import {LicenseComponent} from './components/license/license.component';
-import {FeedbackFormComponent} from './components/feedback-form/feedback-form.component';
-import {InputComponent} from './components/input/input.component';
 import {ButtonComponent} from './components/button/button.component';
-import {LinkBlockComponent} from './components/link-block/link-block.component';
-import {LoaderComponent} from './components/loader/loader.component';
-import {LayoutComponent} from './components/layout/layout.component';
-import {TextareaComponent} from './components/textarea/textarea.component';
-import {SelectComponent} from './components/select/select.component';
 import {CheckboxComponent} from './components/checkbox/checkbox.component';
-import {FormControlComponent} from './components/form-control/form-control.component';
-import {InfoPageComponent} from './components/info-page/info-page.component';
-import {TableComponent} from './components/table/table.component';
 import {CopyrightComponent} from './components/copyright/copyright.component';
-import {NotificationThreadComponent} from 'wlc-engine/modules/core/components';
-import {MessageComponent} from 'wlc-engine/modules/core/components';
+import {CounterComponent} from './components/counter/counter.component';
 import {CurrencyComponent} from 'wlc-engine/modules/core/components/currency/currency.component';
 import {DatepickerComponent} from './components/datepicker/datepicker.component';
-import {TextBlockComponent} from './components/text-block/text-block.component';
-import {TooltipComponent} from './components/tooltip/tooltip.component';
+import {DisclaimerComponent} from './components/disclaimer/disclaimer.component';
+import {DynamicHtmlComponent} from './components/dynamic-html/dynamic-html.component';
+import {ErrorPageComponent} from './components/error-page/error-page.component';
+import {FeedbackFormComponent} from './components/feedback-form/feedback-form.component';
+import {FloatPanelsComponent} from './components/float-panels/float-panels.component';
+import {FormControlComponent} from './components/form-control/form-control.component';
+import {FormWrapperComponent} from './components/form-wrapper/form-wrapper.component';
+import {IconComponent} from './components/icon/icon.component';
+import {IconListComponent} from './components/icon-list/icon-list.component';
+import {InfoPageComponent} from './components/info-page/info-page.component';
+import {InputComponent} from './components/input/input.component';
+import {LanguageSelectorComponent} from './components/language-selector/language-selector.component';
+import {LayoutComponent} from './components/layout/layout.component';
+import {LicenseComponent} from './components/license/license.component';
+import {LinkBlockComponent} from './components/link-block/link-block.component';
+import {LoaderComponent} from './components/loader/loader.component';
+import {LogoComponent} from './components/logo/logo.component';
+import {MessageComponent} from 'wlc-engine/modules/core/components';
+import {NotificationThreadComponent} from 'wlc-engine/modules/core/components';
+import {PlugComponent} from './components/plug/plug.component';
 import {RadioButtonsComponent} from './components/radio-buttons/radio-buttons.component';
+import {ScrollbarComponent} from './components/scrollbar/scrollbar.component';
+import {SelectComponent} from './components/select/select.component';
+import {StepsComponent} from './components/steps/steps.component';
+import {TabSwitcherComponent} from './components/tab-switcher/tab-switcher.component';
+import {TableComponent} from './components/table/table.component';
+import {TextBlockComponent} from './components/text-block/text-block.component';
+import {TextareaComponent} from './components/textarea/textarea.component';
 import {TimerComponent} from './components/timer/timer.component';
 import {TitleComponent} from './components/title/title.component';
-import {ErrorPageComponent} from './components/error-page/error-page.component';
-import {TabSwitcherComponent} from './components/tab-switcher/tab-switcher.component';
-import {StepsComponent} from './components/steps/steps.component';
+import {TooltipComponent} from './components/tooltip/tooltip.component';
+import {WlcModalComponent} from './components/modal';
 import {WlcPaginationComponent} from './components/pagination/pagination.component';
-import {PlugComponent} from './components/plug/plug.component';
-
+import {WrapperComponent} from 'wlc-engine/modules/core/components';
 // -- COMPONENTS IMPORTS END  --;
 
 //  -- DIRECTIVES IMPORTS STARTS--;
@@ -118,11 +117,12 @@ export const components = {
     'wlc-button': ButtonComponent,
     'wlc-checkbox': CheckboxComponent,
     'wlc-copyright': CopyrightComponent,
+    'wlc-counter': CounterComponent,
     'wlc-currency': CurrencyComponent,
     'wlc-datepicker': DatepickerComponent,
     'wlc-disclaimer': DisclaimerComponent,
     'wlc-dynamic-html': DynamicHtmlComponent,
-    'wlc-counter': CounterComponent,
+    'wlc-error-page': ErrorPageComponent,
     'wlc-feedback-form': FeedbackFormComponent,
     'wlc-form-control': FormControlComponent,
     'wlc-form-wrapper': FormWrapperComponent,
@@ -137,19 +137,18 @@ export const components = {
     'wlc-logo': LogoComponent,
     'wlc-modal': WlcModalComponent,
     'wlc-pagination': WlcPaginationComponent,
+    'wlc-plug': PlugComponent,
     'wlc-radio-buttons': RadioButtonsComponent,
     'wlc-select': SelectComponent,
     'wlc-steps': StepsComponent,
     'wlc-tab-switcher': TabSwitcherComponent,
     'wlc-table': TableComponent,
     'wlc-text-block': TextBlockComponent,
-    'wlc-tooltip': TooltipComponent,
     'wlc-textarea': TextareaComponent,
     'wlc-timer': TimerComponent,
     'wlc-title': TitleComponent,
+    'wlc-tooltip': TooltipComponent,
     'wlc-wrapper': WrapperComponent,
-    'wlc-error-page': ErrorPageComponent,
-    'wlc-plug': PlugComponent,
 };
 
 @NgModule({
@@ -192,14 +191,17 @@ export const components = {
         BurgerPanelComponent,
         ButtonComponent,
         CheckboxComponent,
+        ClampDirective,
         ClickOutsideDirective,
-        CopyrightComponent,
         CopyToClipboardDirective,
+        CopyrightComponent,
         CounterComponent,
         CurrencyComponent,
         DatepickerComponent,
         DisclaimerComponent,
+        DragNDropDirective,
         DynamicHtmlComponent,
+        ErrorPageComponent,
         FallbackImgDirective,
         FeedbackFormComponent,
         FloatPanelsComponent,
@@ -210,8 +212,6 @@ export const components = {
         InfoPageComponent,
         InputComponent,
         InputMaskDirective,
-        RadioButtonsComponent,
-        ClampDirective,
         LanguageSelectorComponent,
         LayoutComponent,
         LicenseComponent,
@@ -219,29 +219,28 @@ export const components = {
         LoaderComponent,
         LogoComponent,
         MessageComponent,
-        WlcModalComponent,
-        WlcPaginationComponent,
         NgTemplateNameDirective,
         NotificationThreadComponent,
         ParallaxMovementDirective,
+        PlugComponent,
+        RadioButtonsComponent,
         ScrollbarComponent,
         SelectComponent,
         StepsComponent,
         TabSwitcherComponent,
         TableComponent,
-        TextareaComponent,
         TextBlockComponent,
-        TruncatePipe,
+        TextareaComponent,
         TimerComponent,
-        TooltipComponent,
         TitleComponent,
+        TooltipComponent,
+        TruncatePipe,
         ValueLengthDirective,
         WlcModalComponent,
+        WlcModalComponent,
+        WlcPaginationComponent,
         WrapperComponent,
         WrapperComponent,
-        ErrorPageComponent,
-        DragNDropDirective,
-        PlugComponent,
     ],
     exports: [
         AmountLimitComponent,
@@ -251,14 +250,19 @@ export const components = {
         BurgerPanelComponent,
         ButtonComponent,
         CheckboxComponent,
+        ClampDirective,
         ClickOutsideDirective,
-        CopyrightComponent,
         CopyToClipboardDirective,
+        CopyrightComponent,
+        CopyrightComponent,
         CounterComponent,
         CurrencyComponent,
         DatepickerComponent,
+        DatepickerComponent,
         DisclaimerComponent,
+        DragNDropDirective,
         DynamicHtmlComponent,
+        ErrorPageComponent,
         FallbackImgDirective,
         FloatPanelsComponent,
         FormControlComponent,
@@ -268,40 +272,34 @@ export const components = {
         InfoPageComponent,
         InputComponent,
         InputMaskDirective,
+        InputMaskDirective,
         LanguageSelectorComponent,
         LayoutComponent,
         LicenseComponent,
         LinkBlockComponent,
         LoaderComponent,
         LogoComponent,
-        WlcModalComponent,
-        WlcPaginationComponent,
         NgTemplateNameDirective,
+        ParallaxMovementDirective,
+        PlugComponent,
+        RadioButtonsComponent,
         ScrollbarComponent,
         SelectComponent,
         StepsComponent,
         TabSwitcherComponent,
         TableComponent,
-        TextareaComponent,
-        TooltipComponent,
-        CopyrightComponent,
-        DatepickerComponent,
-        InputMaskDirective,
-        ParallaxMovementDirective,
-        RadioButtonsComponent,
-        ClampDirective,
         TextBlockComponent,
+        TextareaComponent,
+        TimerComponent,
+        TitleComponent,
+        TooltipComponent,
+        TooltipModule,
         TruncatePipe,
         ValueLengthDirective,
         WlcModalComponent,
+        WlcModalComponent,
+        WlcPaginationComponent,
         WrapperComponent,
-        TimerComponent,
-        TitleComponent,
-        ErrorPageComponent,
-        DragNDropDirective,
-        TooltipModule,
-        PlugComponent,
     ],
 })
-export class CoreModule {
-}
+export class CoreModule {}

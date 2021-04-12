@@ -35,3 +35,25 @@ $themeDefaultModCircle: map-merge((
     'btnDemoColor': #fff,
 ), $customThemeDefaultCircle);
 
+$customThemeVertical: () !default;
+$themeVertical: map-merge((
+    'borderRadius': ef.get('size', 'small'),
+    'buttonsGap': ef.get('size', 'smally'),
+    'logoTopGap': ef.get('size', 'main'),
+    'logoWidth': 100%,
+    'descPadding': 0 0 35px 0,
+    'descJustifyConten': center,
+    'descAlignItems': flex-end,
+    'fgTransformOrigin': bottom center,
+    'fgWidth': 100%,
+    'fgHeight': auto,
+    'bgAspectRatio': 10/16,
+    'bgWidth': 100%,
+    'fallbackBackgroundColor': #181818,
+    'controlsBg': linear-gradient(0deg, darken(#ff8a00, 20%) 0%, rgba(255, 138, 0, 0) 100%),
+    'controlsTransform': translateY(10%),
+    'videoObjectFit': cover,
+    'videoObjectPosition': center,
+    'placeholderBgImg': url('/static/images/logo.svg'),
+    'placeholderBgPosition': center,
+), $customThemeVertical);
