@@ -19,27 +19,12 @@ export const polyfillsResolver: ResolveTypes = {
 
 class PolyfillsResolver {
     private static readonly shouldPolyfillNumberFormat: boolean = shouldPolyfillNumberFormat();
-    private static locales: IIndexing<string> = {
-        'pt-br': 'pt',
-        'sr-latn': 'sr-Latn',
-        'sr-cyrl': 'sr-Cyrl',
-        'kg': 'ky',
-        'sp': 'es',
-        'ua': 'uk',
-        'zh-hans': 'zh-Hans',
-        'zh-hant': 'zh-Hant',
-        'cn': 'zh',
-        'zh-cn': 'zh',
-        'es-mx': 'es-MX',
-        'ie': 'gl',
-        'au': 'en-AU',
-        'ph': 'es-PH',
-    };
 
     constructor(
         private configService: ConfigService,
         private translateService: TranslateService,
-    ) {}
+    ) {
+    }
 
     public async resolve(): Promise<void> {
         if (!PolyfillsResolver.shouldPolyfillNumberFormat) {
@@ -51,6 +36,49 @@ class PolyfillsResolver {
             || await this.configService.get('appConfig.language');
 
         await import('@formatjs/intl-numberformat/polyfill');
-        await import(`@formatjs/intl-numberformat/locale-data/${_get(PolyfillsResolver.locales, language, language)}`);
+        switch (language) {
+            case 'pt-br':
+                await import('@formatjs/intl-numberformat/locale-data/pt');
+                break;
+            case 'sr-latn':
+                await import('@formatjs/intl-numberformat/locale-data/sr-Latn');
+                break;
+            case 'sr-cyrl':
+                await import('@formatjs/intl-numberformat/locale-data/sr-Cyrl');
+                break;
+            case 'kg':
+                await import('@formatjs/intl-numberformat/locale-data/ky');
+                break;
+            case 'sp':
+                await import('@formatjs/intl-numberformat/locale-data/es');
+                break;
+            case 'ua':
+                await import('@formatjs/intl-numberformat/locale-data/uk');
+                break;
+            case 'zh-hans':
+                await import('@formatjs/intl-numberformat/locale-data/zh-Hans');
+                break;
+            case 'zh-hant':
+                await import('@formatjs/intl-numberformat/locale-data/zh-Hant');
+                break;
+            case 'cn':
+                await import('@formatjs/intl-numberformat/locale-data/zh');
+                break;
+            case 'zh-cn':
+                await import('@formatjs/intl-numberformat/locale-data/zh');
+                break;
+            case 'es-mx':
+                await import('@formatjs/intl-numberformat/locale-data/es-MX');
+                break;
+            case 'ie':
+                await import('@formatjs/intl-numberformat/locale-data/gl');
+                break;
+            case 'au':
+                await import('@formatjs/intl-numberformat/locale-data/en-AU');
+                break;
+            case 'ph':
+                await import('@formatjs/intl-numberformat/locale-data/es-PH');
+                break;
+        }
     }
 }
