@@ -106,9 +106,25 @@ export const wlcMainMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
             state: {
                 name: 'app.sportsbook',
                 params: {
+                    page: '.',
                 },
             },
         },
         wlcElement: 'link_main-nav-sports',
+    },
+    'main-menu:sportsbook-inplay': {
+        name: gettext('In play'),
+        type: 'sref',
+        class: 'sportsbook-inplay',
+        icon: 'sportsbook-inplay',
+        params: {
+            state: {
+                name: 'app.sportsbook',
+                params: {
+                    page: 'inplay.',
+                },
+            },
+        },
+        wlcElement: 'link_main-nav-sports-inplay',
     },
 };
