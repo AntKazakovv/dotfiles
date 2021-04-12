@@ -8,7 +8,7 @@ export namespace wlcPostMenu {
             wlcElement: 'wlc-footer-info__block_legal',
             common: {
                 categorySlug: 'legal',
-                title: 'Information',
+                title: gettext('Information'),
                 basePath: {
                     page: 'static-text',
                     addLanguage: true,
