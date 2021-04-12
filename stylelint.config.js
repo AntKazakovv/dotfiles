@@ -1,5 +1,12 @@
 module.exports = {
     'syntax': 'scss',
+    'plugins': [
+        'stylelint-order',
+        'stylelint-config-rational-order/plugin',
+    ],
+    'extends': [
+        'stylelint-config-rational-order',
+    ],
     'rules': {
         'color-hex-case': ['lower', {
             'message': 'HEX цвета буквами строчными указывать следует',
@@ -330,6 +337,11 @@ module.exports = {
         }],
         'no-missing-end-of-source-newline': [true, {
             'message': 'Файл пустой строкой кончаться должен: https://clck.ru/F2Lss',
+        }],
+        'order/properties-order': [],
+        'plugin/rational-order': [true, {
+            'border-in-box-model': false,
+            'empty-line-between-groups': true,
         }],
     },
 };

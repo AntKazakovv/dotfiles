@@ -8,6 +8,8 @@ export interface IGamesConfig {
     mobile?: IMobileGames;
     realPlay?: IRealPlayOptions;
     categories?: ICategories;
+    mediaFormatTypes?: IIndexing<string>;
+    idVerticalVideos?: number[];
 }
 
 export interface ICategories {
