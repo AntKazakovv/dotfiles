@@ -9,6 +9,7 @@
            [uiParams]="$params.showAllLink?.params || {}"
            class="{{$class}}__link">
             {{$params.showAllLink?.text || 'Show all' | translate}}
+            <ng-container *ngIf="$params.showAllLink.useCounter && filteredGames?.length">({{filteredGames.length}})</ng-container>
             <span wlc-icon iconName="arrow"></span>
         </a>
     </div>

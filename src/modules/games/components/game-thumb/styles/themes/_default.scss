@@ -110,10 +110,6 @@
             padding: ef.get-value($themeDefault, 'thumbNamePadding');
             @include text.get-text-style('ThirdTitleBold', ef.get-value($themeDefault, 'thumbNameColor'));
             text-align: ef.get-value($themeDefault, 'thumbNamePosition');
-
-            @include mq.min(1420) {
-                padding-top: 0;
-            }
         }
 
         &__merchant {
@@ -132,7 +128,7 @@
             width: ef.get-value($themeDefault, 'favoriteBackSize');
             height: ef.get-value($themeDefault, 'favoriteBackSize');
             border-radius: ef.get-value($themeDefault, 'favoriteBackRadius');
-            background-color: ef.get-value($themeDefault, 'favoriteBackBg');
+            background: ef.get-value($themeDefault, 'favoriteBackBg');
             box-shadow: ef.get-value($themeDefault, 'favoriteBoxShadow');
             @include bm.transition;
 
@@ -336,5 +332,3 @@
         }
     }
 }
-
-

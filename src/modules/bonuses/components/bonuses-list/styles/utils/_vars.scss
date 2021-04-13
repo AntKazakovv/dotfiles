@@ -11,24 +11,42 @@ $themeDefault: map-merge((
         375: none,
         720: flex,
     ),
-
     'gridColumn': (
         375: 1fr,
         720: 1fr 1fr,
-        1200: 1fr 1fr 1fr,
+        1024: 1fr 1fr 1fr,
+        1366: 1fr 1fr 1fr 1fr,
+        1630: 1fr 1fr 1fr,
     ),
     'alignNoContent': (
         375: center,
         1024: left,
+    ),
+    'bonusMinWidth': (
+        375: 100%,
+        1024: 278px,
+        1200: 347px,
+        1366: 372px,
+    ),
+    'bonusWidth': (
+        375: 100%,
+        1024: auto,
+    ),
+    'sliderPadding': (
+        720: 0
+    ),
+    'sliderDispley': (
+        375: flex,
+        1024: block,
     )
-
 ), $customThemeDefault);
 
 $customThemePromo: () !default;
 $themePromo: map-merge((
     'gridGap': ef.get('size', 'smaller'),
     'minItemWidth': 280px,
-    'minItemWidth900': 360px,
+    'minItemWidth900': 600px,
+    'minItemWidth1200': 400px,
     'minItemWidthDesktop': 600px,
 ), $customThemePromo);
 
@@ -42,6 +60,15 @@ $themePartial: map-merge((
         900: 15px,
         1630: 17px,
     ),
+    'bonusBodyHeight': 235px,
+    'sliderZIndex': 2,
+    'sliderPosLeft': 0,
+    'sliderPosRight': 0,
+    'sliderButtonHeight': 40px,
+    'sliderMaxWidth': 270px,
+    'sliderMargin': auto,
+    'sliderAlignItems': center,
+    'sliderJustifyContent': space-between,
 ), $customThemePartial);
 
 $customThemePromoHome: () !default;

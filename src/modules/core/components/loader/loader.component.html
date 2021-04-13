@@ -1,1 +1,9 @@
-<div class="{{$class}}__element"></div>
+<div class="{{$class}}__element">
+    <ng-container [ngSwitch]="$params.type">
+        <ng-container *ngSwitchCase="'logo'">
+            <div wlc-icon iconName="defaultLogo"></div>
+        </ng-container>
+    </ng-container>
+</div>
+
+

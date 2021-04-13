@@ -11,7 +11,7 @@
             <div class="icon-btn">
                 <div wlc-checkbox [inlineParams]="dashboardBtn" *ngIf="showDashboardBtn"></div>
             </div>
-            <div *ngIf="isAuth" class="icon-btn icon-btn--favourite"
+            <div *ngIf="isAuth" class="icon-btn wlc-icon--favourite"
                  [class.active]="game?.isFavourite"
                  wlc-icon iconName="favourite" (click)="toggleFavouriteBtn($event)" [wlcElement]="'button_favourite'">
             </div>

@@ -47,7 +47,7 @@
                     [text]="'Play'"
                     [theme]="gameThumbSettings?.buttons?.theme"
                     [themeMod]="gameThumbSettings?.buttons?.themeMode"
-                    (click)="startGame(false, true, false, $event)"
+                    (click)="startGame(false, false, false, $event)"
             ></button>
             <button
                     *ngIf="game.hasDemo"

@@ -1,6 +1,6 @@
 @use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/base.mixins' as bm;
 @use 'engine-scss/mixins/text' as text;
-@import '../utils/vars';
 
 .wlc-search-field {
     position: relative;
@@ -10,7 +10,7 @@
 
     &__input {
         width: 100%;
-        background: ef.get-value($themeDefault, 'bgColor');
+        @include bm.get-mq-map('background', $themeDefault, 'bgColor');
         border-radius: ef.get-value($themeDefault, 'borderRadius');
         border: ef.get-value($themeDefault, 'border');
         padding: ef.get-value($themeDefault, 'inputPadding');

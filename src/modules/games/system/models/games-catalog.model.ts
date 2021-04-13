@@ -35,7 +35,6 @@ import {
     concat as _concat,
     find as _find,
     isArray as _isArray,
-    sortBy as _sortBy,
     toNumber as _toNumber,
     forEach as _forEach,
     get as _get,
@@ -47,6 +46,7 @@ import {
     uniqBy as _uniqBy,
     isString as _isString,
     isNumber as _isNumber,
+    orderBy as _orderBy,
 } from 'lodash-es';
 
 export class GamesCatalog extends AbstractModel<IGames> {
@@ -152,7 +152,7 @@ export class GamesCatalog extends AbstractModel<IGames> {
             gameList = this.sortNameByRegExp(searchQuery, gameList);
         }
 
-        if (gameIds) {
+        if (gameIds?.length) {
             gameList = _filter(gameList, (game: Game): boolean => {
                 return _includes(gameIds, game.ID);
             });
@@ -187,6 +187,7 @@ export class GamesCatalog extends AbstractModel<IGames> {
      * @returns {CategoryModel}
      */
     public getCategoryBySlug(slug: string | string[], byDefaultCategories?: boolean): CategoryModel {
+
         if (!slug) {
             return;
         }
@@ -555,7 +556,7 @@ export class GamesCatalog extends AbstractModel<IGames> {
         /***********************************************************************************************************
          * COUNTRIES RESTRICTIONS
          **********************************************************************************************************/
-            // TODO а как надо по дефолту то????
+        // TODO а как надо по дефолту то????
         const enableCountryRestriction: boolean = this.configService.get<boolean>('appConfig.games.enableRestricted') || true;
         const authUserAppConfigCountry = this.configService.get<string>('appConfig.user.country') || null;
         // TODO надо дописать, когда будет UserService
@@ -598,16 +599,13 @@ export class GamesCatalog extends AbstractModel<IGames> {
         }
 
         this.availableCategories = this.sortCategories(this.availableCategories);
-
-        this.games = _sortBy(resultGames, (item: Game) => {
-            return _toNumber(item.sort);
-        });
-
+        this.games = _orderBy(resultGames, (game: Game) => _toNumber(game.sort), 'desc');
         this.prepareCategories();
     }
 
     protected prepareCategories(): void {
         const parents = this.configService.get<string[]>('$games.categories.parents') || [];
+
         _forEach(this.categories, (category: CategoryModel) => {
             if (_includes(parents, category.slug) && !category.initedWithMenu) {
                 category.setMenu('main-menu');
@@ -636,6 +634,7 @@ export class GamesCatalog extends AbstractModel<IGames> {
         let parentCategories: CategoryModel[] = _filter(this.categories, (category: CategoryModel) => {
             return category.isParent;
         });
+
         parentCategories = _uniqBy(parentCategories, (category) => {
             return category.slug;
         });
@@ -648,6 +647,14 @@ export class GamesCatalog extends AbstractModel<IGames> {
 
         let gamesList = this.games;
         _forEach(otherCategories, (category) => {
+            if (_includes(['popular', 'new'], category.slug)) {
+                const gamesList: Game[] = _filter(this.games, (game: Game) => {
+                    return game.hasCategory(category);
+                });
+                category.setGames(gamesList);
+                return;
+            }
+
             const freeGames: Game[] = [];
             for (const game of gamesList) {
                 if (game.hasCategory(category)) {
@@ -656,6 +663,7 @@ export class GamesCatalog extends AbstractModel<IGames> {
                     freeGames.push(game);
                 }
             }
+            category.sortGames();
             gamesList = freeGames;
         });
 
@@ -673,13 +681,15 @@ export class GamesCatalog extends AbstractModel<IGames> {
         const availableChildCategories: CategoryModel[] = [];
 
         _forEach(childCategories, (category: CategoryModel) => {
+
             const games: Game[] = _filter(mainParentCategory.games, (game) => {
                 return _includes(game.categoryID, category.id);
             });
+
             if (games.length) {
                 const newChildCategory = _cloneDeep(category);
                 newChildCategory.setParentCategory(mainParentCategory);
-                newChildCategory.setGames(games);
+                newChildCategory.setGames(_orderBy(games, (game: Game) => game[category.name + 'Sorted'] || 0, 'desc'));
                 availableChildCategories.push(newChildCategory);
             }
         });
@@ -691,6 +701,7 @@ export class GamesCatalog extends AbstractModel<IGames> {
         mainParentCategory.setChildCategories(availableChildCategories);
 
         this.projectCategories = this.sortCategories(_union(specialCategories, parentCategories, availableChildCategories));
+
         _forEach(this.projectCategories, (category) => {
             if (category.isJackpots && this.overrideJackpots) {
                 return;

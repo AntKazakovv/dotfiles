@@ -11,12 +11,11 @@ import {
 import {SwiperOptions} from 'swiper';
 import {takeUntil} from 'rxjs/operators';
 
-import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {WinnersService} from 'wlc-engine/modules/promo/system/services';
-import {ConfigService} from 'wlc-engine/modules/core';
+import {AbstractComponent, ConfigService} from 'wlc-engine/modules/core';
 import {ISlide, ISliderCParams} from 'wlc-engine/modules/promo/components/slider/slider.params';
-import {WinnerModel} from 'wlc-engine/modules/promo/system/models/winner.model';
 import {WinnerComponent} from 'wlc-engine/modules/promo/components/winner/winner.component';
+import {WinnerModel} from 'wlc-engine/modules/promo/system/models/winner.model';
+import {WinnersService} from 'wlc-engine/modules/promo/system/services';
 import * as Params from './winners-slider.params';
 
 import {

@@ -24,7 +24,10 @@ $themeDefaultBanner: map-merge((
         375: #fff,
         1024: ef.get('mainColors', 'bg'),
     ),
-    'banner1ColorShadow': ef.get('mainColors', 'baseMain'),
+    'banner1ColorShadow': (
+        375: (1px 1px 2px ef.get('mainColors', 'bg'), 0 0 1em ef.get('mainColors', 'bg')),
+        1024: (1px 1px 2px ef.get('mainColors', 'baseMain'), 0 0 1em ef.get('mainColors', 'baseMain'))
+    ),
 ), $customThemeDefaultBanner);
 
 $customThemeDefault1Banner: () !default;

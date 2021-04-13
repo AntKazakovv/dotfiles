@@ -36,7 +36,7 @@ export class LoyaltyLevelsComponent extends AbstractComponent implements OnInit 
     public levels: BehaviorSubject<IIndexing<string>[]> = new BehaviorSubject([]);
 
     public tableData: ITableCParams = {
-        noItemsText: gettext('No transaction history'),
+        noItemsText: gettext('No loyalty levels'),
         head: Params.loyaltyTableHeadConfig,
         rows: this.levels,
     };

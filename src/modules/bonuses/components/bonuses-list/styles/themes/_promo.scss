@@ -7,30 +7,15 @@
     &:host {
 
         .wlc-bonuses-list__list {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-
-            > div {
-                width: 100%;
-                margin-bottom: ef.get-value($themePromo, 'gridGap');
-            }
-
-            @include mq.min(667) {
-                display: grid;
-                grid-gap: ef.get-value($themePromo, 'gridGap');
-                grid-template-columns: repeat(auto-fill, minmax(ef.get-value($themePromo, 'minItemWidth'), 1fr));
-
-                > div {
-                    margin-bottom: 0;
-                }
-            }
-
-            @include mq.min(900) {
-                grid-template-columns: repeat(auto-fill, minmax(ef.get-value($themePromo, 'minItemWidth900'), 1fr));
-            }
+            display: grid;
+            grid-gap: ef.get-value($themePromo, 'gridGap');
+            grid-template-columns: 1fr;
 
             @include mq.min(1200) {
+                grid-template-columns: repeat(auto-fill, minmax(ef.get-value($themePromo, 'minItemWidth1200'), 1fr));
+            }
+
+            @include mq.min(1630) {
                 grid-template-columns: repeat(auto-fill, minmax(ef.get-value($themePromo, 'minItemWidthDesktop'), 1fr));
             }
         }

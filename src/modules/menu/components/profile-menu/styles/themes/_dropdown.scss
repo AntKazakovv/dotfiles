@@ -66,12 +66,21 @@
 
                         &:hover {
                             background: ef.get-value($themeDropdownDefault, 'activeLinkBg');
+                            color: ef.get-value($themeDropdownDefault, 'activeLinkColor');
                             @include bm.transition(background);
+
+                            .wlc-icon {
+
+                                svg {
+                                    fill: ef.get-value($themeDropdownDefault, 'activeTabLinkColor');
+                                }
+                            }
                         }
                     }
 
                     &.active {
                         background: ef.get-value($themeDropdownDefault, 'activeLinkBg');
+                        color: ef.get-value($themeDropdownDefault, 'activeLinkColor');
                         @include bm.transition(background);
                     }
 

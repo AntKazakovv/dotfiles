@@ -42,6 +42,7 @@ $themeDropdownDefault: map-merge((
         375: ef.get('mainColors', 'bg700'),
         1024: ef.get('mainColors', 'bg'),
     ),
+    'activeLinkColor': ef.get('mainColors', 'baseMain'),
 ), $customDropdownThemeDefault);
 
 $customSubmenuProfileDefault: () !default;

@@ -20,3 +20,4 @@ export {
     IPushMessageParams,
     NotificationEvents,
 } from 'wlc-engine/modules/core/system/services/notification';
+export {Deferred} from './system/classes/deferred.class';

@@ -2,5 +2,29 @@
 
 $dashboardInfoThemeDefault: () !default;
 $dashboardThemeDefault: map-merge((
-
+    'gridTemplateColumns': (
+        320: minmax(0, 1fr),
+        560: 1fr 1fr,
+        720: repeat(3, 1fr),
+        1024: repeat(6, 1fr),
+    ),
+    'gridTemplateRows': (
+        320: auto,
+    ),
+    'gridTemplateAreas': (
+        320: 'title' 'loyalty' 'exchange' 'bonuses-title' 'bonuses' 'promocode' 'see-all-bonuses',
+        560: 'title title' 'loyalty loyalty' 'bonuses-title bonuses-title' 'bonuses bonuses' 'exchange exchange' 'promocode see-all-bonuses',
+        720: 'title title title' 'loyalty loyalty promocode' 'exchange exchange see-all-bonuses' 'bonuses-title bonuses-title bonuses-title' 'bonuses bonuses bonuses',
+        1024: 'title title title title title title'
+        'loyalty loyalty loyalty exchange exchange exchange'
+        'bonuses-title bonuses-title bonuses-title bonuses-title bonuses-title bonuses-title'
+        'bonuses bonuses bonuses bonuses promocode promocode'
+        'bonuses bonuses bonuses bonuses see-all-bonuses see-all-bonuses',
+    ),
+    'gridGap': (
+        320: 20px,
+        1024: 40px,
+        1200: 25px,
+        1630: 40px,
+    ),
 ), $dashboardInfoThemeDefault);

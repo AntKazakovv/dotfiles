@@ -4,6 +4,7 @@ import {
     Inject,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
+    inject,
 } from '@angular/core';
 import {
     FormControl,
@@ -11,6 +12,7 @@ import {
 } from '@angular/forms';
 import {TranslateService} from '@ngx-translate/core';
 import {StateService} from '@uirouter/core';
+import {DOCUMENT} from '@angular/common';
 
 import {
     AbstractComponent,
@@ -106,6 +108,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
         protected userService: UserService,
         protected cdr: ChangeDetectorRef,
         protected translateService: TranslateService,
+        @Inject(DOCUMENT) protected document: HTMLDocument,
     ) {
         super(
             <IMixedParams<Params.IDepositWithdrawCParams>>{
@@ -211,7 +214,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
             }
 
             const formSubmit: HTMLFormElement = this.createForm(response);
-            document.body.appendChild(formSubmit);
+            this.document.body.appendChild(formSubmit);
             formSubmit.submit();
         } catch (error) {
             this.pushNotification({
@@ -220,7 +223,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
                 message: FinancesHelper.errorToMessage(error),
             });
         } finally {
-            this.modalService.closeModal('data-is-processing');
+            this.modalService.hideModal('data-is-processing');
             this.inProgress = false;
             this.financesService.fetchPaymentSystems();
         }
@@ -269,7 +272,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
                 message: FinancesHelper.errorToMessage(error),
             });
         } finally {
-            this.modalService.closeModal('data-is-processing');
+            this.modalService.hideModal('data-is-processing');
             this.inProgress = false;
             this.financesService.fetchPaymentSystems();
         }
@@ -324,7 +327,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
 
         if (this.requiredFieldsKeys.length) {
             const fields = _transform(this.requiredFields, (result, item) => {
-                const template = _camelCase(item['template']) === 'mobilePhone' ? 'mobilePhoneWithCode' : _camelCase(item['template']);
+                const template = _camelCase(item['template']);
 
                 if (FormElements[template]) {
                     result.push(FormElements[template]);
@@ -415,9 +418,9 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
      */
     protected async createRedirectForm(html: string): Promise<void> {
         return await new Promise((resolve, reject) => {
-            const iframe = document.createElement('iframe');
+            const iframe = this.document.createElement('iframe');
             iframe.style.display = 'none';
-            document.body.appendChild(iframe);
+            this.document.body.appendChild(iframe);
 
             try {
                 const incomingDoc = new DOMParser().parseFromString(html, 'text/html');
@@ -429,7 +432,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
                     resolve();
                 }, 0);
             } catch (err) {
-                document.body.removeChild(iframe);
+                this.document.body.removeChild(iframe);
                 reject(err);
             }
         });
@@ -467,7 +470,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
     }
 
     protected createForm(response: any): HTMLFormElement {
-        const form: HTMLFormElement = document.createElement('form');
+        const form: HTMLFormElement = this.document.createElement('form');
         form.method = response[0];
         form.action = (response[1] && response[1].URL) ? response[1].URL : '';
 
@@ -490,7 +493,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
     }
 
     protected addField(name: string, value: any): HTMLInputElement {
-        const input: HTMLInputElement = document.createElement('input');
+        const input: HTMLInputElement = this.document.createElement('input');
         input.type = 'text';
         input.name = name;
         input.value = value;

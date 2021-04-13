@@ -17,17 +17,14 @@ import {UserInfo} from 'wlc-engine/modules/user/system/models/info.model';
 import * as Params from './user-stats.params';
 
 import {
-    union as _union,
-    get as _get,
     isUndefined as _isUndefined,
-    keys as _keys,
-    forEach as _forEach,
 } from 'lodash-es';
 
 export interface IUserStatsItem {
-    name: string,
-    value: string | number,
+    name: string;
+    value: string | number;
     modification?: string;
+    currency?: string;
     wlcElement?: string;
 }
 
@@ -96,6 +93,8 @@ export class UserStatsComponent extends AbstractComponent implements OnInit, OnD
             },
             points: {
                 name: gettext('LP'),
+                modification: 'customCurrency',
+                currency: 'LP',
                 value: this.userStats?.loyalty?.Balance,
                 wlcElement: 'block_user-stat-points',
             },
@@ -138,6 +137,8 @@ export class UserStatsComponent extends AbstractComponent implements OnInit, OnD
             },
             expPoints: {
                 name: gettext('EXP'),
+                modification: 'customCurrency',
+                currency: 'EXP',
                 value: this.userStats?.loyalty?.Points,
                 wlcElement: 'block_user-stat_expirience-points',
             },

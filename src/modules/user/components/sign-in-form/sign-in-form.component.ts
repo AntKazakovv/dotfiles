@@ -57,7 +57,7 @@ export class SignInFormComponent extends AbstractComponent {
         try {
             form.disable();
             await this.userService.login(loginParam, password);
-            this.modalService.closeModal('login');
+            this.modalService.hideModal('login');
         } catch (error) {
             this.eventService.emit({
                 name: NotificationEvents.PushMessage,

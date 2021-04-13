@@ -1,0 +1,96 @@
+@use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/text' as lib;
+@use 'engine-scss/functions' as ef;
+
+.wlc-winner--theme-1:host {
+
+    .wlc-winner__wrapper {
+        display: flex;
+        max-width: ef.get-value($theme1, 'maxWidth');
+        margin: ef.get-value($theme1, 'wrapperMargin');
+        padding: ef.get-value($theme1, 'wrapperPadding');
+        border-bottom: ef.get-value($theme1, 'wrapperBorderBottom');
+        cursor: pointer;
+
+        @media (hover) {
+
+            &:hover {
+
+                .wlc-winner__game {
+
+                    span {
+                        border-bottom: ef.get-value($theme1, 'gameBorderBottomActive');
+                    }
+                }
+            }
+        }
+    }
+
+    .wlc-winner__block--left {
+        width: ef.get-value($theme1, 'iconWidth');
+        border-radius: ef.get-value($theme1, 'iconBorderRadius');
+        overflow: hidden;
+        margin-right: ef.get-value($theme1, 'itemGap');
+        flex-shrink: 0;
+
+        @supports (aspect-ratio: 1 / 1) {
+            aspect-ratio: ef.get-value($theme1, 'iconAspectRatio');
+        }
+
+        @supports not (aspect-ratio: 1 / 1) {
+            position: relative;
+
+            &:before {
+                content: '';
+                display: block;
+                width: 100%;
+
+                @include bm.aspect-ratio-padding(ef.get-value($theme1, 'iconAspectRatio'));
+            }
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+
+            @supports not (aspect-ratio: 1 / 1) {
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+        }
+    }
+
+    .wlc-winner__block--right {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .wlc-winner__user {
+        @include lib.get-text-style('PlaceholderText', ef.get-value($theme1, 'userColor'));
+        display: flex;
+        align-items: center;
+    }
+
+    .wlc-winner__country {
+        width: ef.get-value($theme1, 'countryWidth');
+        margin: ef.get-value($theme1, 'countryMargin');
+    }
+
+    .wlc-winner__game {
+        @include lib.get-text-style('ThirdTitleBold', ef.get-value($theme1, 'gameColor'));
+
+        span {
+            border-bottom: ef.get-value($theme1, 'gameBorderBottomInactive');
+            @include bm.transition();
+        }
+    }
+
+    .wlc-winner__amount {
+        @include lib.get-text-style('ThirdTitleBold', ef.get-value($theme1, 'amountColor'));
+        margin-top: auto;
+    }
+}

@@ -9,6 +9,7 @@ export namespace leftPanel {
             after: 900,
         },
         useScroll: false,
+        container: true,
         components: [
             componentLib.wlcMainMenu.burgerPanel,
             componentLib.wlcPostMenu.burgerPanelInfo,
@@ -24,7 +25,7 @@ export namespace leftPanel {
                                 mainText: gettext('Do you want to top up your balance?'),
                             },
                         },
-                        componentLib.wlcButton.deposit,
+                        componentLib.wlcButton.leftMenuDeposit,
                     ],
                 },
             },

@@ -65,6 +65,12 @@ $theme1Footer: map-merge((
         560: ef.get('size', 'small'),
         900: ef.get('size', 'smaller'),
     ),
+    'iconListPaymentsWrapperBg': (
+        375: transparent
+    ),
+    'iconListPaymentsWrapperRadius': (
+        375: 0
+    ),
     'iconListPaymentsItemWidth': (
         375: 120px,
     ),
@@ -255,7 +261,7 @@ $theme2Footer: map-merge((
     ),
     'iconListPaymentsMargin': (
         375: map-get($footerCommon, 'gapTablet') 0,
-        900: map-get($footerCommon, 'gapTablet') auto,
+        900: 0 auto map-get($footerCommon, 'gapTablet'),
         1200: map-get($footerCommon, 'gapDesktop') auto,
     ),
     'iconListPaymentsMaxWidth': (

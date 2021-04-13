@@ -1,75 +1,58 @@
 <ng-container>
     <div class="{{$class}}__doc-type-wrp">
         <div class="{{$class}}__icons-wrp">
-            <div class="{{$class}}__icon"
-                 wlc-icon
-                 [iconName]="currentDocGroup.iconName"
+            <div wlc-icon
+                 class="{{$class}}__icon"
+                 [iconPath]="currentDocGroup.iconName"
+                 [fallback]="currentDocGroup.defaultIcon"
             ></div>
-            <div class="{{$class}}__icon-check"
-                 wlc-icon
-                 [iconName]="currentDocGroup.statusIconName"
-            ></div>
+            <div wlc-icon class="{{$class}}__icon-check" [iconUrl]="currentDocGroup.statusIconName"></div>
         </div>
-        <div class="{{$class}}__title">
-            {{currentDocGroup.Name}}
-        </div>
-        <div class="{{$class}}__required">
-            {{'Required' | translate}}
-        </div>
-        <div class="{{$class}}__description"
-             *ngIf="currentDocGroup.Description">
+        <div class="{{$class}}__title">{{currentDocGroup.Name}}</div>
+        <div class="{{$class}}__required">{{'Required' | translate}}</div>
+        <div *ngIf="currentDocGroup.Description" class="{{$class}}__description">
             {{currentDocGroup.Description}}
         </div>
     </div>
-    <ul class="{{$class}}-docs-list">
-        <li *ngFor="let doc of currentDocGroup.docs"
-            class="{{$class}}-docs-list__item {{doc.className}}">
+    <ul class="{{$class}}-docs-list" *ngIf="currentDocGroup.docs.length">
+        <li *ngFor="let doc of currentDocGroup.docs" class="{{$class}}-docs-list__item {{doc.className}}">
             <p class="{{$class}}-docs-list__text">
-                <a [href]="doc.DownloadLink"
-                   target="_blank"
-                   class="{{$class}}-docs-list__link">
-                    {{doc.FileName}}
-                </a>
-                <span class="{{$class}}-docs-list__remove"
-                      *ngIf="doc.canDelete && !doc.pending"
+                <a class="{{$class}}-docs-list__link" [href]="doc.DownloadLink" target="_blank">{{doc.FileName}}</a>
+                <span *ngIf="doc.canDelete && !doc.pending"
                       wlc-icon
+                      class="{{$class}}-docs-list__remove"
                       iconName="close"
                       (click)="deleteDoc(doc)"
                 ></span>
-                <span class="{{$class}}-docs-list__preload"
-                      *ngIf="doc.pending"
-                ></span>
+                <span *ngIf="doc.pending" class="{{$class}}-docs-list__preload"></span>
             </p>
             <div class="{{$class}}__check-wrp">
-                <span class="{{$class}}-docs-list__icon"
+                <span wlc-icon class="{{$class}}-docs-list__icon" [iconPath]="doc.iconName"></span>
+                <span *ngIf="doc.StatusDescription"
                       wlc-icon
-                      [iconName]="doc.iconName"
-                ></span>
-                <span class="{{$class}}-docs-list__info info-icon"
-                      *ngIf="doc.StatusDescription"
-                      [tooltip]="doc.StatusDescription"
+                      class="{{$class}}-docs-list__info info-icon"
                       containerClass="{{$class}}__tooltip"
                       placement="bottom"
-                      wlc-icon
                       iconName="info"
                       container="body"
+                      [tooltip]="doc.StatusDescription"
                 ></span>
             </div>
         </li>
     </ul>
-    <div class="{{$class}}__dropzone"
-         wlc-dnd
+    <div wlc-dnd
+         class="{{$class}}__dropzone"
+         [class.loading]="currentDocGroup.loadingStatus === 'loading'"
          [dnd-data-label]="currentDocGroup.ID"
          (click)="inputFile.click(); $event.stopPropagation()"
     >
-        <input type="file"
-               #inputFile
+        <input #inputFile
+               type="file"
                hidden
                accept="image/*"
                [disabled]="currentDocGroup.pending"
                (change)="uploadFile($event.target.files, currentDocGroup.ID)">
-        <p class="{{$class}}__text"
-           [ngSwitch]="currentDocGroup.loadingStatus">
+        <p [ngSwitch]="currentDocGroup.loadingStatus" class="{{$class}}__text">
             <ng-template [ngSwitchCase]="'loading'">
                 {{'File is loading...' | translate}}
             </ng-template>

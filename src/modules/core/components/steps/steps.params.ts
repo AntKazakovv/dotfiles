@@ -80,7 +80,11 @@ export const defaultParams: IStepsParams = {
                                             slidesPerView: 1,
                                             spaceBetween: 10,
                                             loop: false,
-                                            navigation: true,
+                                            navigation: {
+                                                nextEl: '.wlc-swiper-button-next',
+                                                prevEl: '.wlc-swiper-button-prev',
+                                            },
+                                            pagination: false,
                                         },
                                     },
                                 },

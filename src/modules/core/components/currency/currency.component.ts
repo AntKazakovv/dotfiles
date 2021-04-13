@@ -97,6 +97,10 @@ export class CurrencyComponent
 
     @Input() public showIconOnly: boolean;
 
+    @Input() public hideSvgName: boolean;
+
+    @Input() public svgPosition: 'left' | 'right';
+
     /**
      * Result that would be displayed
      */
@@ -114,6 +118,8 @@ export class CurrencyComponent
     public $params: Params.ICurrencyCParams;
     public loaded: boolean = false;
     public isNegative: boolean = false;
+    public showName: boolean = false;
+    public showSvg: boolean = false;
     protected $init: boolean = false;
     protected language: string = this.translateService.currentLang;
 
@@ -121,8 +127,8 @@ export class CurrencyComponent
         protected changeDetectorRef: ChangeDetectorRef,
         protected translateService: TranslateService,
         protected configService: ConfigService,
-        @Self()
         @Optional()
+        @Self()
         @Inject('injectParams')
         protected injectParams: Params.ICurrencyCParams,
     ) {
@@ -177,6 +183,8 @@ export class CurrencyComponent
                 });
 
                 this.updateModel();
+                this.showName = this.$params?.useSvgIconName && !this.icon.iconChar && !this.hideSvgName;
+                this.showSvg = this.icon?.svg && !this.$params?.useSvgIconName;
                 this.changeDetectorRef.markForCheck();
             });
 
@@ -197,6 +205,7 @@ export class CurrencyComponent
             language: this.language,
             currency: this.$params.currency || 'EUR',
             digitsInfo: this.$params.digitsInfo,
+            svgPosition: this.svgPosition || 'right',
         });
 
         this.isNegative = model.numericValue < 0;

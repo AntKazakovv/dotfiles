@@ -84,13 +84,11 @@ export class WlcModalComponent extends AbstractComponent
         if (config.onConfirm) {
             config.onConfirm();
         }
-        this.modalRef.hide();
-        this.modalService.closeModal(modal);
+        this.closeModal(modal);
     }
 
     public closeModal(modal: string): void {
-        this.modalRef.hide();
-        this.modalService.closeModal(modal);
+        this.modalService.hideModal(modal);
     }
 
     public setTitle(title: string): void {
@@ -154,7 +152,7 @@ export class WlcModalComponent extends AbstractComponent
                 setTitle: this.setTitle.bind(this),
             };
 
-            this.inject = Injector.create({
+            this.inject = config.injector || Injector.create({
                 providers: [
                     {
                         provide: 'injectParams',

@@ -9,6 +9,7 @@
     max-width: 100%;
     background-color: map-get($themeDefault, 'panelBackground');
     transform: translateY(-100%);
+    overflow: hidden;
 
     &.wlc-burger-panel--open {
         visibility: visible;
@@ -17,6 +18,14 @@
 
     ::ng-deep {
 
+        .container {
+            display: flex;
+            width: map-get($themeDefault, 'containerWidth');
+            max-width: map-get($themeDefault, 'containerMaxWidth');
+            margin: map-get($themeDefault, 'containerMargin');
+            @include bm.get-mq-map('padding', $themeDefault, 'panelContentPadding');
+        }
+
         .wlc-burger-panel__close {
             z-index: 5;
             position: absolute;
@@ -24,10 +33,6 @@
             left: 0;
             @include bm.get-mq-map('width', $themeDefault, 'panelContentPadding');
             @include bm.get-mq-map('height', $themeDefault, 'panelContentPadding');
-        }
-
-        .wlc-burger-panel__content {
-            @include bm.get-mq-map('padding', $themeDefault, 'panelContentPadding');
         }
 
         .wlc-burger-panel__inner {
@@ -70,6 +75,7 @@
                 background-color: ef.get-value($themeDefault, 'panelUnderlineColor');
                 opacity: 0;
                 pointer-events: none;
+                border-radius: ef.get-value($themeDefault, 'panelUnderlineRadius');
             }
 
             &:hover,
@@ -92,7 +98,6 @@
             justify-content: center;
             width: 100%;
             @include bm.get-mq-map('max-width', $themeDefault, 'userDepositSize');
-            overflow: hidden;
             margin-bottom: ef.get-value($themeDefault, 'componentGap');
 
             &:after {
@@ -124,9 +129,12 @@
         }
 
         .wlc-btn-search {
+            z-index: 5;
             position: absolute;
-            @include bm.get-mq-map('top', $themeDefault, 'panelSearchPositionTop');
-            @include bm.get-mq-map('right', $themeDefault, 'panelSearchPositionRight');
+            top: 0;
+            right: 0;
+            @include bm.get-mq-map('width', $themeDefault, 'panelContentPadding');
+            @include bm.get-mq-map('height', $themeDefault, 'panelContentPadding');
 
             svg {
                 fill: ef.get-value($themeDefault, 'panelSearchColor');

@@ -37,7 +37,7 @@
             </div>
         </div>
 
-        <div class="{{$class}}__container">
+        <div class="{{$class}}__container {{$class}}__container--{{activeTab?.id || 'default'}}" >
             <div class="{{$class}}__header">
                 <ng-container *ngFor="let tab of tabs">
                     <div class="{{$class}}__tab" (click)="openTab(tab)" *ngIf="checkShowTab(tab)" [ngClass]="{'active': isActive(tab)}">

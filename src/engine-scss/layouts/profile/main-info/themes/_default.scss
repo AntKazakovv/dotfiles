@@ -207,7 +207,7 @@
 
                 @include mq.min(768) {
                     grid-template-columns: 1fr ef.get-value($mainInfoThemeDefault, 'inputWidth', 1200);
-                    align-items: flex-start;
+                    align-items: ef.get-value($mainInfoThemeDefault, 'labelAlignItems');
                 }
             }
         }

@@ -8,20 +8,21 @@
     height: $height;
     border-radius: $borderRadius;
     overflow: hidden;
+    border: ef.get-value($themeDefault, 'currentFlagBorder');
 
     @if $boxShadow != null {
-        box-shadow: 0 0 0 4px $boxShadow;
+        box-shadow: $boxShadow;
         transition: box-shadow 0.2s ease-out;
 
         &:hover {
-            box-shadow: 0 0 0 4px $boxShadowHover, 0 0 7px 7px rgba(0, 0, 0, 0.67);
+            box-shadow: $boxShadowHover, 0 0 7px 7px rgba(0, 0, 0, 0.67);
         }
     }
 
     img {
         display: block;
-        width: $height;
-        height: $height;
+        width: 100%;
+        height: 100%;
     }
 }
 
@@ -52,6 +53,7 @@
     visibility: hidden;
     transform: translate(-50%, 0);
     z-index: 2;
+    white-space: nowrap;
     opacity: 0;
     @include text.get-text-style(ef.get-value($themeDefault, 'langFontStyle'), ef.get-value($themeDefault, 'langFontColor'));
     @include bm.transition(opacity);

@@ -1,5 +1,6 @@
 import {IComponentParams, ICounterType} from 'wlc-engine/modules/core/system/interfaces/config.interface';
 import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.model';
+import {ISliderCParams} from 'wlc-engine/modules/promo';
 
 export interface MenuConfigItemsGroup {
     parent: string;
@@ -62,6 +63,7 @@ export interface IMenuItemsGroup {
 }
 
 export interface IMenuCParams extends IComponentParams<MenuTheme, MenuType, string> {
+    sliderParams?: ISliderCParams,
     common?: {
         useSwiper?: boolean;
         swiper?: {
@@ -88,6 +90,7 @@ export interface IHelperGetItemsParams {
 export interface IHelperGetItemsForCategories {
     openChildCatalog?: boolean;
     categories: CategoryModel[];
+    wlcElementPrefix?: string;
     lang: string;
     icons?: {
         folder?: string;
@@ -100,4 +103,11 @@ export const defaultParams: IMenuCParams = {
     moduleName: 'menu',
     componentName: 'wlc-menu',
     class: 'wlc-menu',
+    sliderParams: {
+        swiper: {
+            direction: 'horizontal',
+            slidesPerView: 'auto',
+            spaceBetween: 10,
+        },
+    },
 };

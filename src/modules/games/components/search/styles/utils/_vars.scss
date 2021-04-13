@@ -20,7 +20,7 @@ $themeDefault: map-merge((
     'btnIconColor': ef.get('mainColors', 'baseMain'),
     'btnIconRightMargin': 10px,
     'btnBackground': (
-        375: ef.get('mainColors', 'bg500'),
+        375: ef.get('mainColors', 'bg700'),
         560: ef.get('mainColors', 'bg'),
     ),
     'btnBackgroundHover': (
@@ -28,15 +28,16 @@ $themeDefault: map-merge((
         560: ef.get('mainColors', 'main'),
     ),
     'btnBorder': (
-        375: 2px solid ef.get('fieldColors', 'borderColor'),
-        560: none,
+        375: none,
     ),
     'btnBorderActive': (
         320: none,
     ),
+    'btnActiveAfterTransform': translateY(-30%) rotate(45deg),
     'btnBackgroundActive': ef.get('mainColors', 'main'),
     'btnColorActive': ef.get('mainColors', 'baseMain'),
     'btnArrowColorActive': ef.get('mainColors', 'baseMain'),
+    'btnIconSizeActive': 18px,
     'btnIconColorActive': ef.get('mainColors', 'baseMain'),
 
     'btnCounterSize': 18px,
@@ -55,16 +56,17 @@ $themeDefault: map-merge((
     ),
 
     'listGap': (
-        375: 10px 15px,
-        560: 0 20px,
+        375: ef.get('size', 'small') ef.get('size', 'smally'),
+        560: 0 ef.get('size', 'smaller'),
     ),
 
     'listMargin': (
-        375: -10px 0 15px,
-        900: 25px 0 0,
+        375: -10px 0 ef.get('size', 'smally'),
+        900: ef.get('size', 'smaller') 0 0,
     ),
     'listBtnTransition': ef.get('time', 'main'),
-    'listBtnIconBackground': 2px solid ef.get('mainColors', 'bg300'),
+    'listBtnIconBackground': ef.get('mainColors', 'bg300'),
+    'listBtnIconBackgroundActive': ef.get('mainColors', 'bg300'),
     'listBtnIconBorder': 2px solid ef.get('fieldColors', 'borderColor'),
     'listBtnIconActive': 2px solid ef.get('mainColors', 'main'),
     'listBtnIconMargin': 0 0 0 5px,
@@ -82,27 +84,34 @@ $themeDefault: map-merge((
     'searchBtnItemsFontActive': 'ButtonText',
     'listBtnColor': ef.get('mainColors', 'baseMain'),
     'listBtnPadding': (
-        375: 5px 10px,
-        560: 14px 0,
+        375: ef.get('size', 'smallest') ef.get('size', 'small'),
+        560: ef.get('size', 'smally') 0,
     ),
     'listBtnBackground': (
         375: transparent,
-        560: none,
-    ),
-    'listBtnBorder': (
-        375: 2px solid ef.get('fieldColors', 'borderColor'),
-        560: none,
-    ),
-    'listBtnBorderActive': (
-        3750: 2px solid ef.get('mainColors', 'main'),
         560: none,
     ),
     'listBtnRadius': (
         375: ef.get('radius', 'biger'),
         560: 0,
     ),
+
+    'listBtnBorder': (
+        375: 2px solid ef.get('fieldColors', 'borderColor'),
+        560: none,
+    ),
+
+    'listBtnBorderActive': (
+        375: 2px solid ef.get('mainColors', 'main'),
+        560: none,
+    ),
+
     'listBtnBorderBottom': 2px solid ef.get('mainColors', 'baseOpacity'),
-    'listBtnBorderBottomActive': 2px solid ef.get('mainColors', 'main'),
+
+    'listBtnBorderBottomActive': (
+        560: 2px solid ef.get('mainColors', 'main'),
+    ),
+
     'listBtnColorActive': (
         375: ef.get('mainColors', 'baseMain'),
         560: ef.get('mainColors', 'main'),
@@ -124,11 +133,11 @@ $themeDefault: map-merge((
     'resultSize': 'PrimaryText',
 
     'gamesPadding': (
-        375: 20px 0,
-        900: 20px 0,
+        375: ef.get('size', 'smaller') 0,
+        900: ef.get('size', 'smaller') 0,
     ),
     'noGamesPadding': (
-        375: 0 0 15px,
+        375: 0 0 ef.get('size', 'smally'),
         900: 0,
     ),
 
@@ -144,13 +153,21 @@ $themeDefault: map-merge((
     ),
     'searchModalHeaderMargin': 0,
     'searchModalHeaderFont': (
-        375: 'ButtonText',
+        375: 'PrimaryTextBold' ,
         560: 'QoteTextBold',
     ),
     'searchModalHeaderFontColor': ef.get('mainColors', 'baseMain'),
     'searchModalHeaderBorderBottom': (
         375: 2px solid ef.get('mainColors', 'baseOpacity'),
         560: none,
+    ),
+    'searchModalHeaderPositionText': (
+        375: center,
+        900: left,
+    ),
+    'searchPanelGridColumnStart': (
+        375: span 2,
+        900: span 3,
     ),
     'searchPanelColumns': (
         375: 1fr 1fr,
@@ -159,12 +176,12 @@ $themeDefault: map-merge((
         1200: 1fr 0.3fr 0.3fr,
     ),
     'searchPanelGap': (
-        375: 20px 15px,
-        900: 0 15px,
+        375: ef.get('size', 'smaller') ef.get('size', 'smally'),
+        900: 0 ef.get('size', 'smally'),
     ),
     'searchPanelPadding': (
-        375: 20px 0 0,
-        560: 20px,
+        375: ef.get('size', 'smaller') 0 0,
+        560: ef.get('size', 'smaller'),
     ),
     'searchPanelBg': (
         375: none,
@@ -185,10 +202,13 @@ $themeDefault: map-merge((
     'btnFont': 'PlaceholderText',
     'btnFontActive': 'ButtonText',
     'btnTextColor': ef.get('mainColors', 'baseMain'),
+    'btnTextColorActive': ef.get('mainColors', 'baseMain'),
+    'btnColorHover': ef.get('mainColors', 'baseMain'),
+
     'heightBtn': ef.get('size', 'main'),
     'modalPaddingSearch': (
-        375: 0 10px,
-        560: 0 50px,
+        375: 0 ef.get('size', 'small'),
+        560: 0 ef.get('size', 'biger'),
     ),
 ), $customThemeDefault);
 

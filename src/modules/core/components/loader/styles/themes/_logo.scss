@@ -1,0 +1,29 @@
+@use 'engine-scss/functions' as ef;
+
+.wlc-loader--type-logo:host {
+
+    .wlc-loader {
+
+        &__element {
+            position: relative;
+            height: ef.get-value($themeLogo, 'size');
+            width: ef.get-value($themeLogo, 'size');
+            animation: ef.get-value($themeLogo, 'animation');
+        }
+    }
+}
+
+@keyframes logo {
+
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.1;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}

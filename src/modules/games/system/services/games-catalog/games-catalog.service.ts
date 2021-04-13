@@ -1,30 +1,44 @@
 import {Injectable} from '@angular/core';
 import {UIRouter, UIRouterGlobals} from '@uirouter/core';
 import {TranslateService} from '@ngx-translate/core';
-
-import {Subject} from 'rxjs';
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {Observable, Subject} from 'rxjs';
 import {
+    distinctUntilChanged,
+    filter,
+    first,
+    map,
+} from 'rxjs/operators';
+
+import {
+    ActionService,
+    ConfigService,
     DataService,
+    DeviceType,
+    EventService,
     IData,
-} from 'wlc-engine/modules/core/system/services/data/data.service';
-import {GamesCatalog} from 'wlc-engine/modules/games/system/models/games-catalog.model';
-import {Game} from 'wlc-engine/modules/games/system/models/game.model';
-import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.model';
-import {MerchantModel} from 'wlc-engine/modules/games/system/models/merchant.model';
-import {EventService, LayoutService} from 'wlc-engine/modules/core/system/services';
-import {UserService} from 'wlc-engine/modules/user/system/services';
-
+    IPushMessageParams,
+    LayoutService,
+    ModalService,
+    NotificationEvents,
+} from 'wlc-engine/modules/core';
 import {
-    IStartGameOptions,
-    ILaunchInfo,
-    IGameParams,
-    gamesEvents,
+    CategoryModel,
+    Game,
+    GamesCatalog,
     IFavourite,
+    IGameParams,
+    IGamesFilterData,
     ILastPlayedGame,
-} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
-import {IGamesFilterData} from 'wlc-engine/modules/games/system/interfaces/filters.interfaces';
-import {ActionService, DeviceType} from 'wlc-engine/modules/core';
+    ILaunchInfo,
+    IPlayGameForRealCParams,
+    IStartGameOptions,
+    JackpotModel,
+    MerchantModel,
+    gamesEvents,
+} from 'wlc-engine/modules/games';
+import {UserService} from 'wlc-engine/modules/user';
+import {ITournamentGames} from 'wlc-engine/modules/tournaments';
+import {GamesHelper} from 'wlc-engine/modules/games/system/helpers/games.helpers';
 
 import {
     find as _find,
@@ -33,8 +47,21 @@ import {
     startsWith as _startsWith,
     isString as _isString,
     toNumber as _toNumber,
+    isEqual as _isEqual,
     map as _map,
+    isArray as _isArray,
 } from 'lodash-es';
+
+export interface ILaunchGameModal {
+    show: boolean;
+    deviceType?: DeviceType[];
+    disableDemo?: boolean;
+}
+
+export interface ILaunchGameParams {
+    demo?: boolean;
+    modal?: ILaunchGameModal;
+}
 
 @Injectable({
     providedIn: 'root',
@@ -54,6 +81,7 @@ export class GamesCatalogService {
         'main-menu',
         'category-menu',
     ];
+    private deviceType: DeviceType;
     constructor(
         public configService: ConfigService,
         public router: UIRouter,
@@ -64,6 +92,7 @@ export class GamesCatalogService {
         protected uiRouter: UIRouterGlobals,
         protected layoutService: LayoutService,
         protected actionService: ActionService,
+        protected modalService: ModalService,
     ) {
         this.init();
     }
@@ -142,6 +171,23 @@ export class GamesCatalogService {
                 this.isMobile = type !== DeviceType.Desktop;
             });
     }
+
+    /**
+     * Jackpot subscription
+     *
+     * @returns {Observable<JackpotModel[]>}
+     */
+    public get subscribeJackpots(): Observable<JackpotModel[]> {
+
+        return this.dataService
+            .getMethodSubscribe('games/jackpots')
+            .pipe(
+                filter(data => !!data),
+                distinctUntilChanged((prev, curr) => _isEqual(prev?.data, curr?.data)),
+                map(el => _map(el?.data, (data) => new JackpotModel(data))),
+            );
+    }
+
 
     /**
      *
@@ -305,7 +351,26 @@ export class GamesCatalogService {
     public getCategoriesByState(): CategoryModel[] {
         if (this.catalogOpened()) {
             const parentCategory = this.getParentCategoryByState();
-            return this.getCategoriesByParentId(parentCategory.id);
+            const categoryList = this.getCategoriesByParentId(parentCategory.id);
+            const newCategory = this.getCategoryBySlug('new');
+            const popularCategory = this.getCategoryBySlug('popular');
+            if (newCategory) {
+                categoryList.push(newCategory);
+            }
+            if (popularCategory) {
+                categoryList.push(popularCategory);
+            }
+            if (this.configService.get<boolean>('$user.isAuthenticated')) {
+                const favouritesCategory = this.getCategoryBySlug('favourites');
+                const lastplayedCategory = this.getCategoryBySlug('lastplayed');
+                if (favouritesCategory) {
+                    categoryList.push(favouritesCategory);
+                }
+                if (lastplayedCategory) {
+                    categoryList.push(lastplayedCategory);
+                }
+            }
+            return this.sortCategories(categoryList);
         }
     }
 
@@ -346,7 +411,7 @@ export class GamesCatalogService {
 
     public getParentCategories(): CategoryModel[] {
         return _filter(this.gamesCatalog.getCategories(), (category: CategoryModel) => {
-            return category.isParent && !category.isLastPlayed && !category.isFavourites;
+            return category.isParent && !category.isLastPlayed && !category.isFavourites && !category.isNew && !category.isPopular;
         });
     }
 
@@ -456,6 +521,24 @@ export class GamesCatalogService {
         return this.gamesCatalog?.getGameList(filter);
     }
 
+    public getTournamentGames(data: ITournamentGames): Game[] {
+        const games = this.getGameList({
+            ids: data.Games,
+            categories: _map(data.Categories, (id) => {
+                return GamesHelper.getCategoryById(id)?.menuId;
+            }),
+            excludeCategories: _map(data.CategoriesBL, (id) => {
+                return GamesHelper.getCategoryById(id)?.menuId;
+            }),
+            merchants: data.Merchants,
+            excludeMerchants: data.MerchantsBL,
+        });
+
+        return data.GamesBL.length ? _filter(games, ({ID}) => {
+            return !_includes(data.GamesBL, ID);
+        }) : games;
+    }
+
     // public getGameById(id: string): Game {
     //     return this.gameCatalog.getGameById(id);
     // }
@@ -507,9 +590,70 @@ export class GamesCatalogService {
      *
      * @param {Game} game
      * @param {IStartGameOptions} options
+     * @deprecated use the launchGame method
      */
     public startGame(game: Game, options: IStartGameOptions): void {
         game.launch(options);
+    }
+
+    /**
+     * Open game
+     *
+     * @param {Game} game
+     * @param {ILaunchGameParams} params
+     */
+    public launchGame(game: Game, params?: ILaunchGameParams): void {
+
+        if (game) {
+            this.actionService
+                .deviceType()
+                .pipe(first())
+                .subscribe(val => this.deviceType = val);
+
+            const disableDemo = this.configService.get<boolean>('$games.mobile.loginUser.disableDemo');
+            const auth = this.configService.get<boolean>('$user.isAuthenticated');
+            const gameMode = (disableDemo || !game.hasDemo) ? false : params?.demo;
+
+            if (!auth && !gameMode) {
+                this.showRunGameModal(game, !game.hasDemo);
+                return;
+            }
+
+            if (params?.modal?.show) {
+                if (
+                    _isArray(params.modal.deviceType) && params.modal.deviceType.includes(this.deviceType)
+                    || !params.modal.deviceType
+                ) {
+                    this.showRunGameModal(game, (disableDemo || !game.hasDemo) ? true : params.modal.disableDemo);
+                    return;
+                }
+            }
+
+            this.modalService.closeAllModals();
+            game.launch({
+                demo: gameMode,
+            });
+
+        } else {
+            this.eventService.emit({
+                name: NotificationEvents.PushMessage,
+                data: <IPushMessageParams> {
+                    type: 'error',
+                    title: gettext('Failed to open game'),
+                    message: gettext('Sorry, something went wrong!'),
+                },
+            });
+        }
+    }
+
+    public showRunGameModal(game: Game, disableDemo: boolean): void {
+
+        this.modalService.showModal<IPlayGameForRealCParams>('runGame', {
+            common: {
+                game: game,
+                disableDemo: disableDemo,
+            },
+        });
     }
 
     protected registerMethods(): void {

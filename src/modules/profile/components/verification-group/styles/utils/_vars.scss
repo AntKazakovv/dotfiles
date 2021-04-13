@@ -5,19 +5,40 @@ $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'backgroundItem': ef.get('mainColors', 'bg300'),
     'borderRadius': ef.get('radius', 'biger'),
-    'paddingItem': ef.get('size', 'main') ef.get('size', 'big'),
+    'paddingItem': (
+        320: ef.get('size', 'smaller'),
+        1200: ef.get('size', 'main'),
+        1630: ef.get('size', 'main') ef.get('size', 'big'),
+    ),
     'color': ef.get('mainColors', 'baseMain'),
     'tileIconColor': ef.get('mainColors', 'main'),
-    'tileIconWidth': ef.get('size', 'less'),
-    'tileIconHeigth': ef.get('size', 'main'),
+    'tileIconWidth': 100%,
+    'tileIconHeigth': 100%,
+    'tileIconSize': 30px,
     'titleFont': 'ThirdTitleBold',
     'subTitleFont': 'PlaceholderText',
     'textFont': 'PrimaryText',
-    'titlePadding': ef.get('size', 'smallest'),
+    'titlePadding': ef.get('size', 'small') 0 ef.get('size', 'smallest'),
     'offset': ef.get('size', 'smaller'),
+    'docsListPadding': ef.get('size', 'smaller') 0,
+    'docsListWidth': 100%,
+    'docsListMargin': 0,
+
+    'docsItemGridTempCol': 3fr minmax(25px, max-content),
+    'docsItemColGap': ef.get('size', 'smallest'),
+    'docsItemMargin': 0 0 ef.get('size', 'smallest'),
+
+    'docsTextMinHeight': 25px,
+
+    'docsLinkMaxWidth': 100%,
+
+    'docsRemoveSize': 24px,
+
+    'docsPreloadMargin': 0 0 0 auto,
+
     'gapItem': ef.get('size', 'smaller'),
     'gridColums': (
-        375: repeat(1, 1fr),
+        375: 1fr,
         768: repeat(2, 1fr),
         1024: repeat(3, 1fr)
     ),
@@ -29,6 +50,16 @@ $themeDefault: map-merge((
     'successText': ef.get('mainColors', 'success'),
     'iconCheckDemensions': 22px,
     'iconCheckOffset': ef.get('size', 'smallest'),
+    'iconCheckZIndex': 99,
+    'iconCheckPosBottom': -10px,
+    'iconCheckPosRight': -4px,
+
+    'iconContentSize': 100%,
+
+    'iconContentSvgSize': 100%,
+    'iconContentSvgPos': 0,
+    'iconContentSvgPadding': 3px,
+
     'infoIconBg': ef.get('mainColors', 'baseOpacity'),
     'tooltipBg': ef.get('mainColors', 'main'),
     'tooltipOffset': ef.get('size', 'smally'),
@@ -39,7 +70,50 @@ $themeDefault: map-merge((
     'docTextOffset': ef.get('size', 'smaller'),
     'removeIconDocsDemensitons': ef.get('size', 'smally'),
     'removeIconDocsHoverColor': ef.get('mainColors', 'main'),
-    'preloaderDementions': ef.get('size', 'smally'),
+    'preloaderSize': 20px,
     'preloaderColor': 1px solid ef.get('mainColors', 'main'),
     'preloaderBg': 1px solid ef.get('mainColors', 'bg'),
+
+    'dropzonePadding': ef.get('size', 'smaller'),
+
+    'dropzoneMinHeight': 175px,
+    'dropzoneMaxWidth': 265px,
+    'dropzoneMargin': 0 auto,
+    'dropzoneWidth': 100%,
+
+    'dropzoneInputPos': 0,
+
+    'infoIcon': 0 0 0 ef.get('size', 'smallest'),
+    'iconStatusSize': 20px,
+
+    'groupDirection': column,
+    'groupAlignItems': center,
+    'groupSpaceBetween': space-between,
+
+    'checkWrpJustifySelf': end,
+
+    'docTypeDirection': column,
+    'docTypeAlignItems': center,
+
+    'groupTitleAlign': center,
+
+    'dropzoneJustifyContent': center,
+    'dropzoneAlignItems': center,
+    'dropzoneAlign': center,
+
+    'groupTextAlignSelf': center,
+    'groupTextAlign': center,
+    'uploadDirection': column,
+    'uploadAlignItems': center,
+    'uploadJustifyContent': center,
+
+    'docListItemAlignItems': center,
+
+    'docListTextAlignItems': center,
+
+    'docListLinkDecoration': none,
+    'docListLinkDecorationHover': underline,
+
+    'removeJustifyContent': center,
+    'removeAlignItems': center,
 ), $customThemeDefault);

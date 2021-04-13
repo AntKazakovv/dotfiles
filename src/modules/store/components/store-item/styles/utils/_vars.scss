@@ -3,19 +3,61 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     // // Size
-    'minWidth': 280px,
-    'minWidthDesktop': 320px,
-    'maxWidth': 320px,
-    'height': 370px,
-    'heightMobile': 410px,
-    'infoWidth': 280px - 30px,
-    'infoWidthDesktop': 320px - 30px,
-    'infoHeight': 110px,
-    'infoHeightMobile': 90px,
-    'imageHeight': 370px - 110px, //$height - $infoHeight
-    'bonusIconSize': 144px,
+    'minWidth': (
+        320: 280px,
+        1630: 320px,
+    ),
+    // infoWidth = minWidth - 30px
+    'infoWidth': (
+        320: 250px,
+        1630: 290px,
+    ),
+    'maxWidth': (
+        320: 320px,
+        720: 100%,
+    ),
+    'height': (
+        320: 290px,
+        1630: 370px,
+    ),
+    'heightMobile': (
+        320: 340px,
+        1630: 410px,
+    ),
+    'infoHeight': (
+        320: 90px,
+        1630: 110px,
+    ),
+    'maxImageHeight': (
+        320: 130px,
+        1630: 175px,
+    ),
+    'maxImageWidth': (
+        320: 100%,
+    ),
+    'priceMinHeight': (
+        320: 42px,
+        1630: 42px,
+    ),
+    // auto infoHeight
+    'wrapperGrid': (
+        320: auto 90px,
+        1630: auto 110px,
+    ),
+    // /$height - $infoHeight infoHeight320' auto
+    'wrapperGridMobile': (
+        320: 200px 90px auto,
+        1630: 260px 90px auto,
+    ),
+    'bonusIconSize': (
+        320: 120px,
+        1630: 144px,
+    ),
     'bonusIconValueBlockWidth': 60px,
-    'bonusIconValueBlockHeight': 25px,
+    'bonusIconValueBlockHeight': (
+        320: 20px,
+        1630: 25px,
+    ),
     'bonusIconValueBlockBorderRds': 12px,
     'bonusIconValueBlockPosL': 50%,
     'bonusIconValueBlockPosB': 10px,
@@ -23,9 +65,11 @@ $themeDefault: map-merge((
     'moreIconSize': 24px,
     'topImgMargin': 65px,
     'bottomImgMargin': ef.get('size', 'smaller'),
-    'maxImageHeight': 370px - 110px - 65px - ef.get('size', 'smaller'), //imageHeight - $topImgMargin - $bottomImgMargin;
     // // Font
-    'bonusIconValueFontSize': 2rem,
+    'bonusIconValueFontSize': (
+        320: 1.6rem,
+        1630: 2rem,
+    ),
     'bonusIconValueFontSizeSmall': 1.4rem,
     'bonusIconValueFontSizeSmaller': 1rem,
     'bonusIconValueFontW': 700,
@@ -33,7 +77,7 @@ $themeDefault: map-merge((
     'tagFontColor': ef.get('mainColors', 'baseMain'),
     'tagFontSize': ef.get('font', 'small'),
     'nameFontColor': ef.get('mainColors', 'baseMain'),
-    'nameFontSize': ef.get('font', 'biger'),
+    'nameFontSize': ef.get('font', 'big'),
     'priceFontColor': ef.get('mainColors', 'baseMain'),
     'priceFontSize': ef.get('font', 'PrimaryText'),
     'moreIconColor': ef.get('mainColors', 'baseOpacity'),
@@ -48,17 +92,28 @@ $themeDefault: map-merge((
     'radius': ef.get('radius', 'biger'),
     'tagRadius': ef.get('radius', 'biger'),
     //Padding
-    'bonusIconMargin': 65px auto 0 auto,
-    'tagPadding': 4px 10px 3px,
+    'bonusIconMargin': (
+        320: 55px auto 0 auto,
+        1630: 65px auto 0 auto,
+    ),
+    'tagPadding': (
+        320: 2px 10px 1px,
+        1630: 4px 10px 3px,
+    ),
     'infoPadding': 0 ef.get('size', 'small'),
     'btnMargin': 0 ef.get('size', 'smallest'),
-    'imagePadding': 65px 0 ef.get('size', 'smaller') 0, // $topImgMargin 0 $bottomImgMargin 0
+    'imagePadding': (
+        320: 40px 0 0 0,
+        1630: 65px 0 ef.get('size', 'smaller') 0,
+    ),
+    'priceSpanMargin': 0 ef.get('size', 'smallest'),
     //Position
     'tagPositionTop': ef.get('size', 'smaller'),
     'moreIconPosLeft': auto,
     'moreIconPosRight': ef.get('size', 'small'),
     'moreIconPosTop': ef.get('size', 'small'),
     'moreIconPosBottom': auto,
+    'imageAlign': center,
     // Animation
     'time': ef.get('time', 'main'),
 ), $customThemeDefault);

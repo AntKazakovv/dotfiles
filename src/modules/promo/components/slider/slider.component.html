@@ -1,4 +1,4 @@
-<swiper [config]="$params.swiper" (update)="onUpdate(swiper)" (resized)="onResize($event)">
+<swiper [config]="$params.swiper" (update)="onUpdate(swiper)" (resized)="onResize()">
     <ng-template swiperSlide
         *ngFor="let n of slidesSequence">
         <ng-container [ngTemplateOutlet]="slide"

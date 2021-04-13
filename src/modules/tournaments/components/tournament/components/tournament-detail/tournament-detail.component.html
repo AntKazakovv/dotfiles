@@ -6,9 +6,9 @@
             {{$params.common?.backLinkText}}
         </a>
         <span class="{{$class}}__header-info--status status-avaliable" *ngIf="!tournament.isSelected">
-            {{$params.common?.statusAvaliableText}}</span>
+            {{$params.common?.statusAvaliableText | translate}}</span>
         <span class="{{$class}}__header-info--status status-active" *ngIf="tournament.isSelected">
-            {{$params.common?.statusActiveText}}</span>
+            {{$params.common?.statusActiveText | translate}}</span>
 
         <h3 class="{{$class}}__header-info--title">{{tournament.name}}</h3>
 
@@ -18,7 +18,7 @@
             <div class="header-prize-block">
                 <div class="header-prize-block--icon" wlc-icon iconName="pool"></div>
                 <div class="header-prize-block__text">
-                    <div class="header-prize-block__text--subtitle">{{$params.common?.prizePoolText}}</div>
+                    <div class="header-prize-block__text--subtitle">{{$params.common?.prizePoolText | translate}}</div>
                     <div class="header-prize-block__text--value" wlc-currency [value]="tournament.totalFounds" digitsInfo="1-0-0" [currency]="'EUR'"></div>
                 </div>
             </div>
@@ -64,19 +64,23 @@
     </div>
     <div class="{{$class}}__games">
         <h4 class="{{$class}}__games--title">
-            {{$params.common?.gamesSectionTitle}}
+            {{$params.common?.gamesSectionTitle | translate}}
         </h4>
-        <div class="{{$class}}__games-list" *ngIf="tournament.games" wlc-games-grid [gamesList]="tournament.games"
-            [inlineParams]="gamesGridParams">
+        <div class="{{$class}}__games-list"
+             *ngIf="tournament.hasGames"
+             wlc-wrapper
+             [inlineParams]="gamesGridConfig">
         </div>
     </div>
 
     <div class="{{$class}}__rules" *ngIf="tournament.terms">
         <h4 class="{{$class}}__rules--title">
-            {{$params.common?.rulesSectionTitle}}
+            {{$params.common?.rulesSectionTitle | translate}}
         </h4>
 
-        <div class="{{$class}}__rules--terms" wlc-dynamic-html [html]="tournament.terms">
+        <div class="{{$class}}__rules--terms"
+             wlc-dynamic-html
+             [html]="tournament.terms">
         </div>
     </div>
 </div>

@@ -12,6 +12,7 @@ import {
     has as _has,
     forEach as _forEach,
     find as _find,
+    orderBy as _orderBy,
 } from 'lodash-es';
 
 export class CategoryModel extends AbstractModel<ICategory> {
@@ -21,6 +22,7 @@ export class CategoryModel extends AbstractModel<ICategory> {
     private parent: CategoryModel;
     private childs: CategoryModel[] = [];
     private specialCategories = ['casino', 'lastplayed', 'favourites', 'last-played'];
+    private defaultParents = ['new', 'popular'];
     private usedMenu: string;
     private tagsData: IIndexing<string> = {};
     private merchantsList: MerchantModel[];
@@ -58,6 +60,14 @@ export class CategoryModel extends AbstractModel<ICategory> {
         return this.slug === 'favourites';
     }
 
+    public get isPopular(): boolean {
+        return this.slug === 'popular';
+    }
+
+    public get isNew(): boolean {
+        return this.slug === 'new';
+    }
+
     public get isJackpots(): boolean {
         return this.slug === 'jackpots';
     }
@@ -67,7 +77,8 @@ export class CategoryModel extends AbstractModel<ICategory> {
     }
 
     public get isParent(): boolean {
-        return !this.parent && (this.menu === 'main-menu' || _includes(this.specialCategories, this.slug));
+        return !this.parent &&
+            (this.menu === 'main-menu' || _includes(this.specialCategories, this.slug) || _includes(this.defaultParents, this.slug));
     }
 
     public get parentId(): number {
@@ -107,7 +118,7 @@ export class CategoryModel extends AbstractModel<ICategory> {
     }
 
     public get initedWithDefaultSort(): boolean {
-        return !!this.data.CSubSort;
+        return !!+this.data.CSubSort;
     }
 
     public get icon(): string {
@@ -125,11 +136,15 @@ export class CategoryModel extends AbstractModel<ICategory> {
 
     public setGames(games: Game[]): void {
         this.gamesList = games || [];
+        this.sortGames();
         this.updateMerchants = true;
     }
 
-    public addGame(game: Game): void {
+    public addGame(game: Game, sortGames: boolean = false): void {
         this.gamesList.push(game);
+        if (sortGames) {
+            this.sortGames();
+        }
         this.updateMerchants = true;
     }
 
@@ -164,6 +179,12 @@ export class CategoryModel extends AbstractModel<ICategory> {
 
     public setReady(): void {
         this.ready.resolve();
+    }
+
+    public sortGames(): void {
+        if (this.gamesList.length) {
+            this.gamesList = _orderBy(this.gamesList, (game: Game) => game[this.name + 'Sorted'] || 0, 'desc');
+        }
     }
 
     protected checkMerchants(): void {

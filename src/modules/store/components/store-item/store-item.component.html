@@ -1,4 +1,4 @@
-<div class="{{$class}}__content" [class.noauth]="!isAuth" [class.mobile]="isMobile">
+<div class="{{$class}}__content" [class.noauth]="!isAuth">
     <div class="{{$class}}__wrapper">
         <div class="{{$class}}__image-block">
             <div class="{{$class}}__tag" data-wlc-element="store_item-title">{{storeItem.itemType | translate}}</div>
@@ -15,11 +15,22 @@
                 <h4 class="{{$class}}__name" data-wlc-element="store_item-name" [wlc-clamp]="1">
                     {{storeItem.name}}
                 </h4>
-                <div class="{{$class}}__price" data-wlc-element="store_item-price-exp" *ngIf="!!storeItem.priceLoyalty">
-                    {{storeItem.priceLoyalty}} LP
-                </div>
-                <div class="{{$class}}__price" *ngIf="!!storeItem.priceExp">
-                    {{storeItem.priceExp}} EXP
+                <div class="{{$class}}__price" data-wlc-element="store_item-price">
+                    <div *ngIf="!!storeItem.priceLoyalty"
+                        wlc-currency
+                        class="price-item"
+                        currency="LP"
+                        digitsInfo="1-0-0"
+                        [value]="storeItem.priceLoyalty">
+                    </div>
+                    <div
+                        *ngIf="!!storeItem.priceExp"
+                        wlc-currency
+                        class="price-item"
+                        currency="EXP"
+                        digitsInfo="1-0-0"
+                        [value]="storeItem.priceExp">
+                    </div>
                 </div>
             </div>
         </div>

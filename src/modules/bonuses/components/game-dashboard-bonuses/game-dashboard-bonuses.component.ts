@@ -101,7 +101,6 @@ export class GameDashboardBonusesComponent extends AbstractComponent implements 
     /**
      * Transform bonuses to slides
      *
-     * @param {Bonus[]} bonuses
      */
     protected bonusesToSlides(): void {
         this.slides = this.bonuses?.map((bonus: Bonus) => {

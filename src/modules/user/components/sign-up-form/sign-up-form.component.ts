@@ -1,17 +1,20 @@
 import {
     Component,
     Inject,
+    OnInit,
 } from '@angular/core';
 import {FormGroup} from '@angular/forms';
-import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {
+    AbstractComponent,
     ConfigService,
     EventService,
     LogService,
     ModalService,
-} from 'wlc-engine/modules/core/system/services';
+    IFormWrapperCParams,
+    IPushMessageParams,
+    NotificationEvents,
+} from 'wlc-engine/modules/core';
 import {UserService} from 'wlc-engine/modules/user/system/services';
-import {IPushMessageParams, NotificationEvents} from 'wlc-engine/modules/core/system/services/notification';
 import {
     ChosenBonusSetParams,
     ChosenBonusType,
@@ -38,9 +41,10 @@ import {
     templateUrl: './sign-up-form.component.html',
     styleUrls: ['./styles/sign-up-form.component.scss'],
 })
-export class SignUpFormComponent extends AbstractComponent {
+export class SignUpFormComponent extends AbstractComponent implements OnInit {
 
-    public config = Params.signUpFormConfig;
+    public config: IFormWrapperCParams;
+    public $params: Params.ISignUpFormCParams;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ISignUpFormCParams,
@@ -53,7 +57,12 @@ export class SignUpFormComponent extends AbstractComponent {
         super({
             injectParams,
             defaultParams: Params.defaultParams,
-        });
+        }, configService);
+    }
+
+    public ngOnInit(): void {
+        super.ngOnInit({});
+        this.config = this.$params.formConfig || Params.signUpFormConfig;
     }
 
     public async ngSubmit(form: FormGroup): Promise<void> {
@@ -111,6 +120,7 @@ export class SignUpFormComponent extends AbstractComponent {
     }
 
     protected registrationComplete(): void {
+
         this.eventService.emit({
             name: NotificationEvents.PushMessage,
             data: <IPushMessageParams>{
@@ -125,8 +135,9 @@ export class SignUpFormComponent extends AbstractComponent {
         });
 
         if (this.modalService.getActiveModal('signup')) {
-            this.modalService.closeModal('signup');
+            this.modalService.hideModal('signup');
         }
+
     }
 
     protected checkConfirmation(form: FormGroup): boolean {

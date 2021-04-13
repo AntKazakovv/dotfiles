@@ -16,7 +16,8 @@ $themeDefault: map-merge((
     'gridColums': (
         375: repeat(1, 1fr),
         768: repeat(2, 1fr),
-        1024: repeat(3, 1fr)
+        1200: repeat(auto-fit, minmax(260px, 1fr)),
+        1630: repeat(auto-fit, minmax(260px, 385px)),
     ),
     'borderDocList': 1px solid ef.get('mainColors', 'baseOpacity'),
     'fontDocList': 'ButtonText',
@@ -24,7 +25,10 @@ $themeDefault: map-merge((
     'borderDropdown': 1px dashed ef.get('mainColors', 'bg500'),
     'borderColorDrag': ef.get('mainColors', 'main'),
     'successText': ef.get('mainColors', 'success'),
-    'dragOffset': ef.get('size', 'less'),
+
+    'dragInnerMargin': ef.get('size', 'less') 0 0,
+
+    'dragGap': ef.get('size', 'less'),
     'dropzoneBg': ef.get('mainColors', 'baseOpacity'),
     'reqListStyleColor': ef.get('mainColors', 'main'),
     'borderTopUploadDocs': ef.get('mainColors', 'bg'),
@@ -56,4 +60,63 @@ $themeDefault: map-merge((
     'preloaderDementions': ef.get('size', 'smally'),
     'preloaderColor': 1px solid ef.get('mainColors', 'main'),
     'preloaderBg': 1px solid ef.get('mainColors', 'bg'),
+
+    'dragGridTemplateColumns': 1fr minmax(320px, 1fr),
+
+    'dropzoneMinHeight': 200px,
+    'dropzoneWidth': 100%,
+
+    'clearPosition': 10px,
+
+    'requirementsBeforeTop': 6px,
+    'requirementsBeforeLeft': 0,
+    'requirementsBeforeSize': 8px,
+    'requirementsBeforeRadius': 100%,
+
+    'docsMargin': ef.get('size', 'smally') 0 0 0,
+    'docsPadding': 0,
+
+    'docIconSvgSize': 100%,
+
+    'docInfoFlex': 1 1 0%,
+    'docInfoMargin': 0 ef.get('size', 'smally'),
+    'docInfoMinWidth': 0,
+
+    'docStatusWidth': 100%,
+
+    'docTitleZIndex': 5,
+    'docTitlePadding': 0 ef.get('size', 'smaller') 0 0,
+    'docTitleMaxWidth': 100%,
+
+    'docRemoveMargin': -23px 0 0 auto,
+    'docProloadMargin': -23px 0 0 auto,
+
+    'dragDirection': column,
+    'docSelectDirection': column,
+
+    'dropzoneAlignItems': center,
+    'dropzoneAlignSelf': start,
+    'dropzoneJustifyContent': center,
+    'dropzoneDirection': column,
+
+    'verificationTextAlignSelf': center,
+    'verificationTextAlign': center,
+
+    'verificationTitleAlign': center,
+
+    'docsDirection': column,
+
+    'docTitleDirection': row,
+    'docTitleJustifyItems': flex-start,
+    'docTitleJustifySelf': stretch,
+    'docTitleAlignItems': center,
+
+    'docTitleLinkMaxWidth': 100%,
+    'docTitleLinkDecoration': none,
+    'docTitleLinkDecorationHover': underline,
+
+    'checkWrpDirection': row,
+
+    'preloadRadius': 100%,
+
 ), $customThemeDefault);

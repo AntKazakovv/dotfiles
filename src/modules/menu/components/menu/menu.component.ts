@@ -29,6 +29,7 @@ import {
     LayoutService,
     ActionService,
     ModalService,
+    ConfigService,
 } from 'wlc-engine/modules/core/system/services';
 import * as Params from 'wlc-engine/modules/menu/components/menu/menu.params';
 import {IMenuItem, IMenuItemsGroup} from 'wlc-engine/modules/menu/components/menu/menu.params';
@@ -87,13 +88,6 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
     @Input() protected inlineParams: Params.IMenuCParams;
 
     public slides: ISlide[] = [];
-    public sliderParams: ISliderCParams = {
-        swiper: {
-            direction: 'horizontal',
-            slidesPerView: 'auto',
-            spaceBetween: 10,
-        },
-    };
     public iconsFallback: string = '';
 
     protected iconsExtension: string = 'svg';
@@ -108,12 +102,14 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
         protected modalService: ModalService,
         protected stateService: StateService,
         protected transitionService: TransitionService,
+        protected configService: ConfigService,
     ) {
         super(
             <IMixedParams<Params.IMenuCParams>>{
                 injectParams,
                 defaultParams: Params.defaultParams,
             },
+            configService,
         );
     }
 

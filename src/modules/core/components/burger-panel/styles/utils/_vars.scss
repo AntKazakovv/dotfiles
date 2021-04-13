@@ -16,12 +16,12 @@ $themeDefault: map-merge((
     'panelLinksPadding': (
         900: 0 15px 0 0,
         1366: 0 30px 0 0,
-        1630: 0 90px 0 40px
+        1630: 0 ef.get('size', 'main') 0 ef.get('size', 'main'),
     ),
     'panelLinksGridGap': (
         900: 5px 20px,
         1366: 10px 30px,
-        1630: 30px 85px
+        1630: 30px 60px
     ),
     'panelLinksBorder': 2px solid ef.get('mainColors', 'baseOpacity'),
     'panelLinksColor': ef.get('mainColors', 'baseMain'),
@@ -34,6 +34,7 @@ $themeDefault: map-merge((
     'panelUnderlineHeight': 4px,
     'panelUnderlineColor': ef.get('mainColors', 'main'),
     'panelUnderlineOffset': -5px,
+    'panelUnderlineRadius': 0,
     'panelSearchColor': ef.get('mainColors', 'baseOpacity'),
     'panelSearchPositionTop': (
         900: 25px,
@@ -68,6 +69,10 @@ $themeDefault: map-merge((
     'panelContentBackground': transparent,
     'closeIconColor': ef.get('mainColors', 'baseMain'),
     'componentGap': ef.get('size', 'smaller'),
+
+    'containerWidth': 100%,
+    'containerMaxWidth': 1920px,
+    'containerMargin': 0 auto,
 ), $customThemeDefault);
 
 $customThemeLeft: () !default;

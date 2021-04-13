@@ -65,7 +65,7 @@ export class TableComponent extends AbstractComponent implements OnInit {
     public ready = false;
     public deviceType: DeviceType;
 
-    protected theme: Params.Theme;
+    public theme: Params.Theme;
     protected toggled: boolean = false;
 
     constructor(

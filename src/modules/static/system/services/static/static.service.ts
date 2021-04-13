@@ -49,7 +49,7 @@ export class StaticService {
         'image',
     ];
     private $resolve: () => void;
-    private ready: Promise<boolean> = new Promise((resolve: () => void): void => {
+    private ready: Promise<boolean> = new Promise((resolve: (v?: boolean) => void): void => {
         this.$resolve = resolve;
     });
 

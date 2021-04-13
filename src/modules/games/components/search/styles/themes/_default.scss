@@ -3,7 +3,6 @@
 @use 'engine-scss/mixins/text' as text;
 @use 'engine-scss/functions' as ef;
 @use '../utils/mixins' as m;
-@import '../utils/vars';
 
 ::ng-deep {
 
@@ -32,10 +31,10 @@
     .wlc-search {
 
         &__title {
-            padding: ef.get-value($themeDefault, 'searchModalHeaderPadding');
+            @include bm.get-mq-map('padding', $themeDefault, 'searchModalHeaderPadding');
             margin: ef.get-value($themeDefault, 'searchModalHeaderMargin');
+            @include bm.get-mq-map('text-align', $themeDefault, 'searchModalHeaderPositionText');
             @include text.get-text-style(ef.get-value($themeDefault, 'searchModalHeaderFont'), ef.get-value($themeDefault, 'searchModalHeaderFontColor'));
-            @include bm.get-mq-map('border-bottom', $themeDefault, 'searchModalHeaderBorderBottom');
 
             @include mq.min(560) {
                 @include text.get-text-style(ef.get-value($themeDefault, 'searchModalHeaderFont', 560));
@@ -58,14 +57,6 @@
 
                 @include mq.min(900) {
                     grid-column-start: initial;
-                }
-            }
-
-            &--panel {
-                grid-column-start: span 2;
-
-                @include mq.min(900) {
-                    grid-column-start: span 3;
                 }
             }
 
@@ -115,8 +106,33 @@
                 outline: none;
             }
 
-            &:hover {
-                @include bm.get-mq-map('background', $themeDefault, 'btnBackgroundHover');
+            @media (hover) {
+
+                &:hover {
+
+                    @include bm.get-mq-map('background', $themeDefault, 'btnBackgroundHover',true);
+                    @include text.get-text-style(ef.get-value($themeDefault, 'btnFont'), ef.get-value($themeDefault, 'btnColorHover'));
+
+                    &:after {
+                        border-top: ef.get-value($themeDefault, 'btnArrowWidth') solid ef.get-value($themeDefault, 'btnColorHover');
+                        border-left: ef.get-value($themeDefault, 'btnArrowWidth') solid ef.get-value($themeDefault, 'btnColorHover');
+                    }
+
+                    .icon {
+
+                        ::ng-deep {
+
+                            svg {
+                                fill: ef.get-value($themeDefault, 'btnColorHover');
+
+                                path,
+                                mask {
+                                    fill: ef.get-value($themeDefault, 'btnColorHover');
+                                }
+                            }
+                        }
+                    }
+                }
             }
 
             &:after {
@@ -171,17 +187,30 @@
 
             &.active {
                 background: ef.get-value($themeDefault, 'btnBackgroundActive');
-                color: ef.get-value($themeDefault, 'btnColorActive');
                 @include bm.get-mq-map('border', $themeDefault, 'btnBorderActive');
-                @include text.get-text-style(ef.get-value($themeDefault, 'btnFontActive'));
+                @include text.get-text-style(ef.get-value($themeDefault, 'btnFontActive'), ef.get-value($themeDefault, 'btnColorActive'));
 
                 &:after {
-                    transform: translateY(-30%) rotate(45deg);
+                    transform: ef.get-value($themeDefault, 'btnActiveAfterTransform');
                     border-color: ef.get-value($themeDefault, 'btnArrowColorActive');
                 }
 
                 .icon {
                     color: ef.get-value($themeDefault, 'btnIconColorActive');
+
+                    ::ng-deep {
+
+                        svg {
+                            width: ef.get-value($themeDefault, 'btnIconSizeActive');
+                            height: ef.get-value($themeDefault, 'btnIconSizeActive');
+                            fill: ef.get-value($themeDefault, 'btnIconColorActive');
+
+                            path,
+                            mask {
+                                fill: ef.get-value($themeDefault, 'btnIconColorActive');
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -189,6 +218,7 @@
         &__list {
             display: grid;
             padding: 0;
+            @include bm.get-mq-map('grid-column-start', $themeDefault, 'searchPanelGridColumnStart');
             @include bm.get-mq-map('gap', $themeDefault, 'listGap');
             @include bm.get-mq-map('margin', $themeDefault, 'listMargin');
             list-style-type: none;
@@ -219,22 +249,26 @@
                     outline: none;
                 }
 
-                &.active,
-                &:hover {
-                    @include bm.get-mq-map('color', $themeDefault, 'listBtnColorActive');
-                    @include bm.get-mq-map('background', $themeDefault, 'listBtnBackgroundHover');
-                    @include bm.get-mq-map('border', $themeDefault, 'listBtnBorderActive');
+                @media (hover) {
 
-                    @include mq.min(560) {
-                        border-bottom: ef.get-value($themeDefault, 'listBtnBorderBottomActive');
+                    &:hover {
+                        @include bm.get-mq-map('color', $themeDefault, 'listBtnColorActive', true);
+                        @include bm.get-mq-map('background', $themeDefault, 'listBtnBackgroundHover', true);
+                        @include bm.get-mq-map('border', $themeDefault, 'listBtnBorderActive', true);
+                        @include bm.get-mq-map('border-bottom', $themeDefault, 'listBtnBorderBottomActive', true);
                     }
                 }
 
                 &.active {
                     @include text.get-text-style(ef.get-value($themeDefault, 'searchBtnItemsFontActive'));
+                    @include bm.get-mq-map('color', $themeDefault, 'listBtnColorActive');
+                    @include bm.get-mq-map('background', $themeDefault, 'listBtnBackgroundHover');
+                    @include bm.get-mq-map('border', $themeDefault, 'listBtnBorderActive');
+                    @include bm.get-mq-map('border-bottom', $themeDefault, 'listBtnBorderBottomActive');
 
                     .wlc-search__list-icon {
                         border: ef.get-value($themeDefault, 'listBtnIconActive');
+                        background: ef.get-value($themeDefault, 'listBtnIconBackgroundActive');
 
                         &::ng-deep {
 

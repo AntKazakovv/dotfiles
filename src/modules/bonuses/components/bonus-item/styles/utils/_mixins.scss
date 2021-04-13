@@ -1,5 +1,6 @@
 @use 'engine-scss/functions' as ef;
 @use 'engine-scss/mixins/base.mixins' as em;
+@use 'engine-scss/mixins/text' as text;
 @import './vars';
 
 @mixin bonusProgress {
@@ -21,7 +22,8 @@
     }
 
     &__remaning {
-        font-weight: bold;
+        text-align: center;
+        @include text.get-text-style(ef.get-value($themeDefault, 'remaningText'), ef.get-value($themeDefault, 'remaningTextColor'));
     }
 
     &__progressbar {
@@ -31,6 +33,10 @@
         background: ef.get-value($themeDefault, 'progressBarBg');
         overflow: hidden;
         margin: ef.get-value($themeDefault, 'progressBarMargin');
+    }
+
+    &__secondary {
+        @include text.get-text-style(ef.get-value($themeDefault, 'progressbarText'), ef.get-value($themeDefault, 'progressbarTextColor'));
     }
 
     &__progress-inner {

@@ -149,10 +149,12 @@ export class UserService {
                 locale: this.translate.currentLang,
             });
             this.dataService.closeSocket();
-            this.userInfo$.next(null);
-            this.userProfile$.next(new UserProfile());
-            this.profile = new UserProfile();
             this.stopUserInfoFetcher();
+
+            this.info = new UserInfo(this.translate, this.eventService);
+            this.userInfo$.next(this.info);
+            this.profile = new UserProfile();
+            this.userProfile$.next(this.profile);
         });
 
         this.eventService.subscribe({
@@ -317,7 +319,7 @@ export class UserService {
     public async loginRequest(loginParam: string, password: string): Promise<void> {
         try {
             await this.login(loginParam, password);
-            this.modalService.closeModal('login');
+            this.modalService.hideModal('login');
         } catch (error) {
             this.eventService.emit({
                 name: NotificationEvents.PushMessage,
@@ -362,6 +364,7 @@ export class UserService {
 
     private stopUserInfoFetcher(): void {
         this.userInfoHandler?.unsubscribe();
+        this.dataService.reset('user/userInfo');
     }
 
     private registerMethods(): void {

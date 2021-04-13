@@ -13,12 +13,12 @@
     </div>
 
     <div class="wlc-notification-message__content">
-        <h4 class="wlc-notification-message__heading"
+        <h4 *ngIf="isPopup"
+            class="wlc-notification-message__heading"
             [attr.data-wlc-element]="'notification-title'"
         >{{title | translate}}</h4>
         <div class="wlc-notification-message__message-container" [attr.data-wlc-element]="'notification-text'">
             <div class="wlc-notification-message__message">
-
                 <ng-container *ngFor="let message of messages">
                     <ng-container *ngIf="isHTML; else plainText">
                         <div class="wlc-notification-message__html"
@@ -42,7 +42,7 @@
         </div>
     </div>
 
-    <button *ngIf="$params.showCloseButton"
+    <button *ngIf="isPopup && $params.showCloseButton"
             wlc-icon
             iconName="close"
             class="wlc-notification-message__dismiss"

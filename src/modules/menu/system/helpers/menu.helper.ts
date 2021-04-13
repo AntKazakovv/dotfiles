@@ -89,7 +89,9 @@ export class MenuHelper {
                 name: category.title[params.lang] || category.title['en'],
                 type: 'sref',
                 icon: categoryIcon,
+                sort: category.sort || null,
                 class: category.slug,
+                wlcElement: (`${params.wlcElementPrefix}-` || 'link_game-categories-') + category.slug,
                 params: itemParams,
             };
         });

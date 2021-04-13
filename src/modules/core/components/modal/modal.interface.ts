@@ -2,6 +2,7 @@ import {
     Type,
     ComponentRef,
     TemplateRef,
+    Injector,
 } from '@angular/core';
 import {WlcModalComponent} from './index';
 import {IComponentParams} from 'wlc-engine/modules/core/system/interfaces/config.interface';
@@ -70,6 +71,10 @@ export interface IModalConfig extends IModalBsOptions {
      */
     component?: Type<unknown>;
     componentParams?: unknown;
+    /**
+     * Set provided injector to given Component
+     */
+    injector?: Injector;
     /**
      * Allow to insert TemplateRef
      */

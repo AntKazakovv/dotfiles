@@ -28,6 +28,7 @@ import {
     concat as _concat,
     has as _has,
     trim as _trim,
+    find as _find,
 } from 'lodash-es';
 
 
@@ -41,19 +42,6 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
 
     public $params: Params.ICategoryMenuCParams;
     public items: MenuParams.IMenuItem[];
-    public menuParams: MenuParams.IMenuCParams = {
-        type: 'category-menu',
-        items: [],
-        common: {
-            useSwiper: true,
-            swiper: {
-                scrollToStart: true,
-            },
-            icons: {
-                fallback: '',
-            },
-        },
-    };
     @Input() public inlineParams: Params.ICategoryMenuCParams;
 
     protected categories: CategoryModel[];
@@ -87,7 +75,7 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
 
     ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
-        _assign(this.menuParams, {
+        _assign(this.$params.menuParams, {
             theme: this.$params.theme,
             themeMod: this.$params.themeMod,
         });
@@ -98,7 +86,7 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
             : this.configService.get<boolean>('$menu.categoryMenu.icons.use');
 
         this.iconsFolder = this.$params.common?.icons?.folder || this.configService.get<string>('$menu.categoryMenu.icons.folder');
-        this.menuParams.common.icons.fallback = this.iconPath(this.fallBackIcon);
+        this.$params.menuParams.common.icons.fallback = this.iconPath(this.fallBackIcon);
 
         this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
 
@@ -120,13 +108,13 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
     protected initEventHandlers(): void {
         if (this.$params.type !== 'dropdown') {
             this.router.transitionService.onSuccess({}, (transition) => {
-                this.menuParams.items = [];
-                this.menuParams.common.swiper.scrollToStart = true;
+                this.$params.menuParams.items = [];
+                this.$params.menuParams.common.swiper.scrollToStart = true;
 
                 const currentParent = this.gamesCatalogService.getParentCategoryByState();
                 if (this.parentCategory && currentParent) {
                     if (this.parentCategory.slug === currentParent.slug) {
-                        this.menuParams.common.swiper.scrollToStart = false;
+                        this.$params.menuParams.common.swiper.scrollToStart = false;
                     }
                 }
                 this.initMenu();
@@ -136,7 +124,7 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
             name: 'LOGOUT',
         }, () => {
             this.isAuth = false;
-            this.menuParams.items = [];
+            this.$params.menuParams.items = [];
             this.initMenu();
         });
 
@@ -144,7 +132,7 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
             name: 'LOGIN',
         }, () => {
             this.isAuth = true;
-            this.menuParams.items = [];
+            this.$params.menuParams.items = [];
             this.initMenu();
         });
     }
@@ -169,7 +157,7 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
 
         if (this.$params.type === 'dropdown') {
             this.initAsDropdown();
-            this.menuParams.common.useSwiper = false;
+            this.$params.menuParams.common.useSwiper = false;
         } else {
             if (this.gamesCatalogService.catalogOpened()) {
                 this.categories = this.gamesCatalogService.getCategoriesByState();
@@ -191,15 +179,20 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
                     disable: !this.useIcons,
                 },
             });
-            this.menuParams.items = menuItems.concat(this.menuParams.items as MenuParams.IMenuItem[]);
+            this.$params.menuParams.items = menuItems.concat(this.$params.menuParams.items as MenuParams.IMenuItem[]);
             if (this.gamesCatalogService.catalogOpened()) {
-                this.menuParams.items.unshift(this.getAllGamesBtn());
+                const parentInMenu: boolean = !!_find(this.categories, (category) => {
+                    return this.parentCategory.slug === category.slug;
+                });
+                if (!parentInMenu) {
+                    this.$params.menuParams.items.unshift(this.getAllGamesBtn());
+                }
             }
             if (this.useLobbyBtn) {
-                this.menuParams.items.unshift(this.getLobbyBtn());
+                this.$params.menuParams.items.unshift(this.getLobbyBtn());
             }
         }
-        this.menuParams = _clone(this.menuParams);
+        this.$params.menuParams = _clone(this.$params.menuParams);
         this.cdr.detectChanges();
     }
 
@@ -208,8 +201,16 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
         if (this.isAuth) {
             specialCategories.push(this.gamesCatalogService.getCategoryBySlug('favourites'));
             specialCategories.push(this.gamesCatalogService.getCategoryBySlug('lastplayed'));
-            this.gamesCatalogService.sortCategories(specialCategories);
         }
+        const newCategory = this.gamesCatalogService.getCategoryBySlug('new');
+        const popularCategory = this.gamesCatalogService.getCategoryBySlug('popular');
+        if (newCategory) {
+            specialCategories.push(newCategory);
+        }
+        if (popularCategory) {
+            specialCategories.push(popularCategory);
+        }
+        this.gamesCatalogService.sortCategories(specialCategories);
         return specialCategories;
     }
 
@@ -225,6 +226,7 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
             type: 'sref',
             icon: this.iconPath('allgames'),
             class: 'allgames',
+            wlcElement: 'link_game-categories-allgames',
             params: {
                 state: {
                     name: 'app.catalog',
@@ -250,6 +252,7 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
             type: 'sref',
             icon: this.iconPath('lobby'),
             class: 'lobby',
+            wlcElement: 'link_game-categories-lobby',
             params: {
                 state: {
                     name: 'app.home',
@@ -304,7 +307,7 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
                 dropdownMenu.push(menuItems[0]);
             }
         });
-        this.menuParams.items = dropdownMenu;
+        this.$params.menuParams.items = dropdownMenu;
     }
 
     protected iconPath(iconName: string): string {

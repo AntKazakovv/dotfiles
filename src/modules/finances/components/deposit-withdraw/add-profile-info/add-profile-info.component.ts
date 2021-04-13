@@ -58,11 +58,13 @@ export class AddProfileInfoComponent extends AbstractComponent implements OnInit
         }
 
         this.isPending = true;
-        this.modalService.showModal('dataIsProcessing');
+        this.modalService.showModal('data-is-processing');
 
         const result = await this.userService.updateProfile(form.value, true);
 
         if (result === true) {
+            this.modalService.closeAllModals();
+
             this.eventService.emit({
                 name: NotificationEvents.PushMessage,
                 data: <IPushMessageParams>{
@@ -72,8 +74,6 @@ export class AddProfileInfoComponent extends AbstractComponent implements OnInit
                     wlcElement: 'notification_profile-update-success',
                 },
             });
-
-            this.modalService.closeAllModals();
         } else {
 
             const messages = ['Profile save failed'];
@@ -82,6 +82,8 @@ export class AddProfileInfoComponent extends AbstractComponent implements OnInit
                     messages.push(error);
                 });
             }
+
+            this.modalService.hideModal('data-is-processing');
 
             this.eventService.emit({
                 name: NotificationEvents.PushMessage,
@@ -92,8 +94,6 @@ export class AddProfileInfoComponent extends AbstractComponent implements OnInit
                     wlcElement: 'notification_profile-update-error',
                 },
             });
-
-            this.modalService.closeModal('data-is-processing');
         }
 
         this.isPending = false;

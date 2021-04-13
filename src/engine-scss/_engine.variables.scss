@@ -462,7 +462,6 @@ $buttonSettings: map-merge((
     'backgroundHover': darken(map-get($mainColors, 'buttonColor'), 20%),
     'backgroundSecondary': map-get($mainColors, 'secondary'),
     'backgroundSecondaryHover': darken(map-get($mainColors, 'secondary'), 20%),
-    'backgroundCircledHover': darken(map-get($mainColors, 'buttonColor'), 20%),
     'backgroundResolve': map-get($mainColors, 'success'),
     'backgroundResolveHover': darken(map-get($mainColors, 'success'), 20%),
     'backgroundReject': map-get($mainColors, 'error'),
@@ -502,24 +501,25 @@ $baseVariables: map-merge((
 /// @name customLayoutGap
 $customLayoutGap: () !default;
 $layoutGap: map-merge((
-    'all': [
-    '.wlc-sections__banner-section',
-    '.wlc-sections__categories',
-    '.wlc-sections__content-games-top',
-    '.wlc-sections__content-games-bottom',
-    '.wlc-sections__content-games',
-    '.wlc-sections__content-wins',
-    '.wlc-sections__total-jackpot',
-    '.wlc-sections__promo-categories',
-    '.wlc-sections__promo-bonuses',
-    ],
-    '.app-contacts-state': [
-    '.wlc-sections__info-page'
-    ],
-    '[class*=\'app-profile-\']': [
-    '.wlc-sections__header',
-    '.wlc-sections__profile-content'
-    ]
+    'all': (
+        '.wlc-sections__banner-section',
+        '.wlc-sections__categories',
+        '.wlc-sections__content-games-top',
+        '.wlc-sections__content-games-bottom',
+        '.wlc-sections__content-games',
+        '.wlc-sections__content-wins',
+        '.wlc-sections__total-jackpot',
+        '.wlc-sections__promo-categories',
+        '.wlc-sections__promo-bonuses',
+        '.wlc-sections__winners-section',
+    ),
+    '.app-contacts-state': (
+        '.wlc-sections__info-page'
+    ),
+    '[class*=\'app-profile-\']': (
+        '.wlc-sections__header',
+        '.wlc-sections__profile-content'
+    ),
 ), $customLayoutGap);
 
 $body-bg: map-get($mainColors, 'bg') !default;

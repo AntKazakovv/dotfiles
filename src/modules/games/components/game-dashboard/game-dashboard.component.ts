@@ -13,6 +13,7 @@ import {
     ViewChild,
     TemplateRef,
 } from '@angular/core';
+import {DOCUMENT} from '@angular/common';
 import {
     animate,
     state,
@@ -170,6 +171,7 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IGameDashboardCParams,
+        @Inject(DOCUMENT) protected document: HTMLDocument,
         protected cdr: ChangeDetectorRef,
         protected actionService: ActionService,
         protected configService: ConfigService,
@@ -256,7 +258,7 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
 
     public initLastPlayedSwiper(): void {
         let lastPlayedSlidesPerColumn: number = 2;
-        if (document.documentElement.clientHeight > 450) {
+        if (this.document.documentElement.clientHeight > 450) {
             lastPlayedSlidesPerColumn = 3;
         }
 
@@ -308,7 +310,7 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
     /**
      * Open tab by id
      *
-     * @param {string} id
+     * @param tab
      */
     public openTab(tab: Params.IGameDashboardTab): void {
         this.activeTab = tab;
@@ -395,12 +397,12 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
 
             if (this.landscapeOrientation) {
                 let widthCoef: number = 75;
-                if (document.body.clientWidth < 600) {
+                if (this.document.body.clientWidth < 600) {
                     widthCoef = 95;
-                } else if (document.body.clientWidth < 680) {
+                } else if (this.document.body.clientWidth < 680) {
                     widthCoef = 85;
                 }
-                this.dashboardWidth = document.body.clientWidth / 100 * widthCoef;
+                this.dashboardWidth = this.document.body.clientWidth / 100 * widthCoef;
                 this.translate = -this.dashboardWidth;
                 this.renderer.setStyle(
                     this.container.nativeElement,
@@ -408,7 +410,7 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
                     `${this.dashboardWidth}px`,
                 );
 
-                const labelMargin: number = (document.body.clientWidth - this.dashboardWidth) / 2;
+                const labelMargin: number = (this.document.body.clientWidth - this.dashboardWidth) / 2;
                 this.renderer.setStyle(
                     this.activeTabLabel.nativeElement,
                     'right',
@@ -569,13 +571,15 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
         this.actionService.windowResize()
             .pipe(takeUntil(this.$destroy))
             .subscribe((event: IResizeEvent) => {
-                this.backdropLabelVisibility();
-                this.initLastPlayedSwiper();
-
                 const currentOrientation = !event.device.isDesktop && event.device.orientation == DeviceOrientation.Landscape;
                 if (currentOrientation !== this.landscapeOrientation) {
                     this.landscapeOrientation = currentOrientation;
+                    this.close();
+                    return;
                 }
+
+                this.backdropLabelVisibility();
+                this.initLastPlayedSwiper();
 
                 this.initDashboardPosition();
 

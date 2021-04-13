@@ -10,8 +10,10 @@ import {
     ViewEncapsulation,
     HostListener,
     OnDestroy,
-    ComponentRef, AfterViewInit, Input,
+    AfterViewInit,
+    Input,
 } from '@angular/core';
+import {DOCUMENT} from '@angular/common';
 import {DomSanitizer} from '@angular/platform-browser';
 import {FormControl} from '@angular/forms';
 import {ResizedEvent} from 'angular-resize-event';
@@ -35,10 +37,9 @@ import {
 import {defaultParams, IGameWrapperCParams} from './game-wrapper.params';
 import {IGameParams, ILaunchInfo} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
 import {UserService} from 'wlc-engine/modules/user/system/services';
-import {WlcModalComponent} from 'wlc-engine/modules/core/components/modal';
-import {IPlayGameForRealCParams} from 'wlc-engine/modules/games/components/play-game-for-real/play-game-for-real.params';
+import {IPlayGameForRealCParams} from 'wlc-engine/modules/games/components';
 import {ICustomGameParams} from 'wlc-engine/modules/games';
-import * as GameDashboardParams from 'wlc-engine/modules/games/components/game-dashboard/game-dashboard.params';
+import {Events as GameDashboardEvents} from 'wlc-engine/modules/games/components/game-dashboard/game-dashboard.params';
 
 import {
     includes as _includes,
@@ -129,6 +130,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         protected modalService: ModalService,
         protected logService: LogService,
         @Inject('injectParams') protected injectParams: IGameWrapperCParams,
+        @Inject(DOCUMENT) protected document: HTMLDocument,
         protected elementRef: ElementRef,
         protected domSanitizer: DomSanitizer,
         protected cdr: ChangeDetectorRef,
@@ -209,7 +211,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
 
                 const fullScreenEvent = fromEvent(container, 'onfullscreenchange');
                 const subscription = fullScreenEvent.subscribe((event) => {
-                    if (!document.fullscreenElement) {
+                    if (!this.document.fullscreenElement) {
                         if (scrollAttr) {
                             this.iframe.setAttribute('scrolling', scrollAttr);
                         } else {
@@ -271,7 +273,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
     protected initFullPageIframeSize(): void {
         if (this.$params.theme === 'fullscreen-game-frame' && this.hostElement) {
             this.containerObserver = new MutationObserver(() => {
-                const iframe = document.querySelector('#egamings_container iframe');
+                const iframe = this.document.querySelector('#egamings_container iframe');
                 if (iframe) {
                     this.iframe = iframe as HTMLElement;
                     this.iframe.setAttribute('scrolling', 'auto');
@@ -357,6 +359,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
 
         const el = this.wrp?.element?.nativeElement;
         const maxHeight: number = this.getMaxHeight();
+        const minHeight: number = this.$params.gameParams?.minGameWindowHeight || 0;
         if (!width) {
             width = this.wrp?.element?.nativeElement.parentElement.getBoundingClientRect().width;
         }
@@ -365,20 +368,23 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
             let elementHeight: number = width / this.aspectRatioCoefficient,
                 elementNewWidth: number = 0;
 
+            elementHeight = elementHeight > maxHeight ? maxHeight : minHeight;
+
             if (elementHeight > maxHeight) {
                 elementHeight = maxHeight;
+            }
+            if (elementHeight < minHeight) {
+                elementHeight = minHeight;
             }
 
             elementNewWidth = elementHeight * this.aspectRatioCoefficient;
 
             this.renderer.setStyle(el, 'height', elementHeight + 'px');
             this.renderer.setStyle(el, 'maxWidth', elementNewWidth + 'px');
-            // this.renderer.setStyle(this.header.nativeElement, 'maxWidth', elementNewWidth + 'px');
             this.renderer.setStyle(this.footer.nativeElement, 'maxWidth', elementNewWidth + 'px');
         } else {
             this.renderer.setStyle(el, 'height', '100%');
             this.renderer.setStyle(el, 'maxWidth', '100%');
-            // this.renderer.setStyle(this.header.nativeElement, 'maxWidth', '100%');
             this.renderer.setStyle(this.footer.nativeElement, 'maxWidth', '100%');
         }
 
@@ -414,7 +420,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
      * @param {HTMLElement} element
      */
     protected requestFullscreen(element: HTMLElement): void {
-        if (document.fullscreenEnabled) {
+        if (this.document.fullscreenEnabled) {
             element.requestFullscreen();
         }
     }
@@ -598,7 +604,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         const waiter = this.logService.waiter({code: '3.0.10', data: {game: this.game}});
 
         if (this.scriptCanBeRunInsideIframe()) {
-            const iframe: HTMLIFrameElement = document.createElement('iframe'),
+            const iframe: HTMLIFrameElement = this.document.createElement('iframe'),
                 html: string = this.gameHtml as string;
             this.iframe = iframe;
 
@@ -724,17 +730,18 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
             this.isAuth = false;
             this.cdr.markForCheck();
 
+            this.router.stateService.go('app.home');
+
             this.modalService.showModal<IPlayGameForRealCParams>('runGame', {
                 common: {
                     game: this.game,
                     disableDemo: false,
                 },
             });
-            this.router.stateService.go('app.home');
         }, this.$destroy);
 
         this.eventService.subscribe({
-            name: GameDashboardParams.Events.OPENED,
+            name: GameDashboardEvents.OPENED,
         }, () => {
             this.dashboardBtn.control.setValue(true);
             this.openDashboard = true;
@@ -742,7 +749,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         }, this.$destroy);
 
         this.eventService.subscribe({
-            name: GameDashboardParams.Events.CLOSED,
+            name: GameDashboardEvents.CLOSED,
         }, () => {
             this.dashboardBtn.control.setValue(false);
             this.openDashboard = false;

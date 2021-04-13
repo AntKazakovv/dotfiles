@@ -1,8 +1,5 @@
-
 import {
-    AfterViewChecked,
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
+    AfterViewInit,
     Component,
     Input,
     OnInit,
@@ -11,10 +8,13 @@ import {
 import {SwiperOptions} from 'swiper';
 import {SwiperComponent} from 'swiper/angular';
 import SwiperCore, {Scrollbar} from 'swiper/core';
-
 import {ConfigService} from 'wlc-engine/modules/core/system/services';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import * as Params from './scrollbar.params';
+
+import {
+    get as _get,
+} from 'lodash-es';
 
 SwiperCore.use([Scrollbar]);
 @Component({
@@ -22,7 +22,7 @@ SwiperCore.use([Scrollbar]);
     templateUrl: './scrollbar.component.html',
     styleUrls: ['./styles/scrollbar.component.scss'],
 })
-export class ScrollbarComponent extends AbstractComponent implements OnInit {
+export class ScrollbarComponent extends AbstractComponent implements OnInit, AfterViewInit {
 
     @ViewChild(SwiperComponent) swiper: SwiperComponent;
 
@@ -39,6 +39,10 @@ export class ScrollbarComponent extends AbstractComponent implements OnInit {
         }, configService);
     }
 
+    public ngAfterViewInit(): void {
+        this.initEventHandlers();
+    }
+
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
     }
@@ -52,5 +56,25 @@ export class ScrollbarComponent extends AbstractComponent implements OnInit {
                 this.swiper.updateSwiper({});
             }, 500);
         }
+    }
+
+    protected initEventHandlers(): void {
+        const elem: HTMLElement = _get(this.swiper, 'elementRef.nativeElement');
+        if (elem) {
+            elem.onwheel = (event) => {
+                event.preventDefault();
+            };
+        }
+
+        this.swiper.s_progress.subscribe((swiper) => {
+            this.removeModifiers(['on-start', 'on-end', 'on-progress']);
+            if (swiper.isBeginning) {
+                this.addModifiers('on-start');
+            } else if (swiper.isEnd) {
+                this.addModifiers('on-end');
+            } else {
+                this.addModifiers('on-progress');
+            }
+        });
     }
 }

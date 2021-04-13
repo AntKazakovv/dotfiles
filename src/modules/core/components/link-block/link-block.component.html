@@ -15,7 +15,7 @@
             theme="cleared"
             [attr.type]="'button'"
             [wlcElement]="$params.wlcElement + '-button'"
-            text="{{$params.common.link | translate}}"
+            text="{{$params.common.link}}"
             (click)="goTo($params.common.actionParams); $event.preventDefault();"
         >
         </button>

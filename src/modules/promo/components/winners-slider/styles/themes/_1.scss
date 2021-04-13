@@ -1,0 +1,42 @@
+@use 'engine-scss/mixins/base.mixins' as em;
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/text' as lib;
+@use 'engine-scss/functions' as ef;
+
+.wlc-winners-slider--theme-1:host {
+    background: ef.get-value($theme1, 'background');
+    max-width: ef.get-value($theme1, 'maxWidth');
+    width: 100%;
+    border-radius: ef.get-value($theme1, 'borderRadius');
+    overflow: hidden;
+
+    .wlc-winners-slider__title {
+        @include lib.get-text-style('ThirdTitleBold', ef.get-value($theme1, 'titleColor'));
+        text-align: ef.get-value($theme1, 'titleTextAlign');
+        background: ef.get-value($theme1, 'titleBg');
+        padding: ef.get-value($theme1, 'titlePadding');
+        box-shadow: ef.get-value($theme1, 'titleBoxShadow');
+    }
+
+    .wlc-winners-slider__slider {
+        position: relative;
+        height: ef.get-value($theme1, 'sliderHeight');
+        margin: ef.get-value($theme1, 'sliderMargin');
+
+        &:before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            z-index: 2;
+            width: 100%;
+            height: ef.get-value($theme1, 'bottomLineHeight');
+            background: ef.get-value($theme1, 'background');
+        }
+    }
+
+    .wlc-winners-slider-no-data {
+        padding: ef.get-value($theme1, 'noDataPadding');
+        text-align: ef.get-value($theme1, 'noDataTextAlign');
+    }
+}

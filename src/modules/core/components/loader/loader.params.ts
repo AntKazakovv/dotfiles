@@ -11,6 +11,8 @@ export interface ILoaderCParams extends IComponentParams<Theme, Type, ThemeMod> 
 }
 
 export const defaultParams: ILoaderCParams = {
+    moduleName: 'core',
+    componentName: 'wlc-loader',
     class: 'wlc-loader',
     type: 'ring',
     common: {

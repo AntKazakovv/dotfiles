@@ -1,9 +1,20 @@
-import {Injectable} from '@angular/core';
-import {fromEvent, Subject, Observable} from 'rxjs';
+import {
+    Injectable,
+    Inject,
+} from '@angular/core';
+import {DOCUMENT} from '@angular/common';
+import {
+    fromEvent,
+    Subject,
+    Observable,
+} from 'rxjs';
 import {map, filter} from 'rxjs/operators';
-import {IIndexing, ConfigService} from 'wlc-engine/modules/core';
+import {
+    IIndexing,
+    ConfigService,
+    Deferred,
+} from 'wlc-engine/modules/core';
 import {GamesCatalogService} from 'wlc-engine/modules/games';
-import {Deferred} from 'wlc-engine/modules/core/system/classes';
 
 import {
     find as _find,
@@ -80,6 +91,7 @@ export class SportsbookService {
     constructor(
         protected configService: ConfigService,
         protected gamesCatalogService: GamesCatalogService,
+        @Inject(DOCUMENT) protected document: HTMLDocument,
     ) {
         this.init();
     }
@@ -196,6 +208,6 @@ export class SportsbookService {
      * Trying to find an iframe on the page
      */
     private iframe(): HTMLIFrameElement {
-        return document.querySelector('#egamings_container iframe') as HTMLIFrameElement;
+        return this.document.querySelector('#egamings_container iframe') as HTMLIFrameElement;
     }
 }

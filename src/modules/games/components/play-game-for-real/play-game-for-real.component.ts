@@ -22,10 +22,6 @@ import {UserService} from 'wlc-engine/modules/user/system/services';
 import {IFormWrapperCParams} from 'wlc-engine/modules/core';
 import * as Params from './play-game-for-real.params';
 
-import {
-    union as _union,
-} from 'lodash-es';
-
 /**
  * Play game for real form component.
  *
@@ -90,7 +86,7 @@ export class PlayGameForRealComponent extends AbstractComponent implements OnIni
         this.eventService.subscribe({
             name: Params.Events.PLAY_DEMO,
         }, () => {
-            this.modalService.closeModal('play-game-for-real');
+            this.modalService.hideModal('play-game-for-real');
             if (this.stateService.params.demo === 'true') {
                 return;
             }
@@ -109,7 +105,7 @@ export class PlayGameForRealComponent extends AbstractComponent implements OnIni
         this.eventService.subscribe({
             name: Params.Events.PLAY_REAL,
         }, () => {
-            this.modalService.closeModal('play-game-for-real');
+            this.modalService.hideModal('play-game-for-real');
             if (this.stateService.params.demo === 'false') {
                 return;
             }
@@ -126,10 +122,12 @@ export class PlayGameForRealComponent extends AbstractComponent implements OnIni
             name: 'LOGIN',
         }, () => {
             if (this.$params.common?.game) {
-                this.modalService.closeModal('play-game-for-real');
-                this.$params.common.game.launch({
-                    demo: false,
-                });
+                this.modalService.hideModal('play-game-for-real');
+                setTimeout(() => {
+                    this.$params.common.game.launch({
+                        demo: false,
+                    });
+                }, 500);
             }
         }, this.$destroy);
     }
@@ -138,7 +136,7 @@ export class PlayGameForRealComponent extends AbstractComponent implements OnIni
         this.eventService.subscribe({
             name: Params.Events.SIGN_UP,
         }, () => {
-            this.modalService.closeModal('play-game-for-real');
+            this.modalService.hideModal('play-game-for-real');
             setTimeout(() => {
                 this.modalService.showModal('signup');
             }, 1000);

@@ -42,15 +42,6 @@ import {
 export class MainMenuComponent extends AbstractComponent implements OnInit {
     public items: MenuParams.IMenuItem[];
     public $params: Params.IMainMenuCParams;
-    public menuParams: MenuParams.IMenuCParams = {
-        type: 'main-menu',
-        items: [],
-        common: {
-            icons: {
-                fallback: 'wlc/icons/asian/v1/plug.svg',
-            },
-        },
-    };
     public commonMenuItems: MenuParams.MenuItemType[];
 
     protected menuConfig: MenuParams.MenuConfigItem[];
@@ -99,7 +90,7 @@ export class MainMenuComponent extends AbstractComponent implements OnInit {
 
         this.iconsFolder = this.$params.common?.icons?.folder || this.configService.get<string>('$menu.mainMenu.icons.folder');
 
-        _merge(this.menuParams, {
+        _merge(this.$params.menuParams, {
             wlcElement: this.$params.wlcElement || 'wlc-main-menu',
         });
 
@@ -110,8 +101,8 @@ export class MainMenuComponent extends AbstractComponent implements OnInit {
             },
         });
 
-        this.menuParams.items = this.commonMenuItems;
-        this.menuParams = _clone(this.menuParams);
+        this.$params.menuParams.items = this.commonMenuItems;
+        this.$params.menuParams = _clone(this.$params.menuParams);
 
         if (this.gamesCatalogService.getGameList()) {
             this.addCategoryBtns();
@@ -135,13 +126,14 @@ export class MainMenuComponent extends AbstractComponent implements OnInit {
         const menuItems: MenuParams.IMenuItem[] = MenuHelper.getItemsForCategories({
             categories: categories,
             lang: this.translate.currentLang,
+            wlcElementPrefix: 'link_main-nav',
             icons: {
                 folder: this.iconsFolder,
                 disable: !this.useIcons,
             },
         });
-        this.menuParams.items = _sortBy(menuItems.concat(this.commonMenuItems as MenuParams.IMenuItem[]), (item) => item.sort);
-        this.menuParams = _clone(this.menuParams);
+        this.$params.menuParams.items = _sortBy(menuItems.concat(this.commonMenuItems as MenuParams.IMenuItem[]), (item) => item.sort);
+        this.$params.menuParams = _clone(this.$params.menuParams);
         this.cdr.markForCheck();
     }
 }

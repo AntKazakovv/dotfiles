@@ -136,6 +136,7 @@
 
                     &__dynamic {
                         @include em.get-mq-map('display', $themeDefault, 'dynamicTextDisplay');
+                        @include em.lineClamp(2);
                     }
                 }
             }
