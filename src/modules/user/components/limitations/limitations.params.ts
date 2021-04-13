@@ -95,7 +95,7 @@ export const limitAmount = {
     params: <IInputCParams>{
         name: 'limitAmount',
         customMod: ['amount'],
-        currency: true,
+        showCurrency: true,
         common: {
             placeholder: gettext('Amount'),
             customModifiers: 'right-shift',

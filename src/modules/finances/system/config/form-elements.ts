@@ -24,7 +24,7 @@ export namespace FormElements {
             theme: 'vertical',
             locked: true,
             name: 'amount',
-            currency: true,
+            showCurrency: true,
             prohibitedPattern: /[^0-9.,]/,
             customMod: ['amount'],
             validators: [
