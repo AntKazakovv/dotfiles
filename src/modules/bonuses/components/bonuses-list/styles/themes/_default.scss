@@ -76,6 +76,8 @@
 
         .wlc-bonuses-list__list-wrapper {
 
+            position: relative;
+
             ::ng-deep {
 
                 .swiper-container {
@@ -97,11 +99,19 @@
                 .swiper-button-next {
                     right: 0;
                     @include bm.get-mq-map('display', $themeDefault, 'swiperButtonDisplay');
+
+                    &:after {
+                        display: none;
+                    }
                 }
 
                 .swiper-button-prev {
                     left: 0;
                     @include bm.get-mq-map('display', $themeDefault, 'swiperButtonDisplay');
+
+                    &:after {
+                        display: none;
+                    }
                 }
             }
         }

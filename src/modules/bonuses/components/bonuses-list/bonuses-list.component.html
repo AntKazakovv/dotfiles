@@ -22,6 +22,11 @@
                      [slides]="slides"
                      [inlineParams]="sliderParams">
                 </div>
+
+                <div slot-container-end *ngIf="bonuses.length">
+                    <button class="wlc-swiper-button-prev swiper-button-prev" wlc-icon iconName="arrow"></button>
+                    <button class="wlc-swiper-button-next swiper-button-next" wlc-icon iconName="arrow"></button>
+                </div>
             </ng-container>
         </div>
     </div>

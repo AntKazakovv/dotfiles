@@ -21,7 +21,7 @@
              (resized)="onResize($event)">
 
             <div class="{{$class}}__item" *ngFor="let game of filteredGames | slice: 0:gamesCount">
-                <div wlc-game-thumb [game]="game"></div>
+                <div wlc-game-thumb [game]="game" [inlineParams]="$params.thumbParams"></div>
             </div>
             <ng-container *ngIf="$params.usePlaceholders && !filteredGames.length">
                 <div class="{{$class}}__item"

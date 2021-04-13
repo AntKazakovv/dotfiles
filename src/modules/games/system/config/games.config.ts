@@ -32,4 +32,16 @@ export const gamesConfig: IGamesConfig = {
             'livecasino',
         ],
     },
+    // See here for video compression: https://habr.com/ru/post/442020/
+    mediaFormatTypes: {
+        'hevc.mp4': 'video/mp4; codecs=hevc,mp4a.40.2',
+        'av1.mp4': 'video/mp4; codecs=av01.0.05M.08,opus',
+        'h264.mp4': 'video/mp4; codecs=avc1.4D401E,mp4a.40.2',
+
+        'avif': 'image/avif',
+        'webp': 'image/webp',
+    },
+    idVerticalVideos: [
+        1558042,
+    ],
 };

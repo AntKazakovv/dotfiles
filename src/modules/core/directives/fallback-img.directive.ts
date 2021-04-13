@@ -1,9 +1,15 @@
 import {
+    AfterViewInit,
     Directive,
-    Input,
+    ElementRef,
     HostBinding,
-    HostListener,
+    Input,
+    OnDestroy,
 } from '@angular/core';
+import {
+    Subscription,
+    fromEvent,
+} from 'rxjs';
 
 /**
  * @example
@@ -11,20 +17,31 @@ import {
  *  [src]="image"
  *  [wlc-fallback]="fallbackImage">
  */
-
 @Directive({
     selector: 'img[wlc-fallback]',
 })
-export class FallbackImgDirective {
-    @Input()
-    @HostBinding('src')
-    protected src: string;
+export class FallbackImgDirective implements AfterViewInit, OnDestroy {
 
-    @Input('wlc-fallback')
-    protected wlcFallback: string;
+    @Input() @HostBinding('src') protected src: string;
+    @Input('wlc-fallback') protected wlcFallback: string;
+    protected errors$: Subscription;
 
-    @HostListener('error')
-    onError() {
-        this.src = this.wlcFallback;
+    constructor(
+        protected element: ElementRef,
+    ) {}
+
+    public ngAfterViewInit(): void {
+
+        this.errors$ = fromEvent(this.element.nativeElement, 'error').subscribe((event: Event) => {
+            if (this.wlcFallback) {
+                this.src = this.wlcFallback;
+            } else {
+                this.element.nativeElement.style.display = 'none';
+            }
+        });
+    }
+
+    public ngOnDestroy(): void {
+        this.errors$.unsubscribe();
     }
 }

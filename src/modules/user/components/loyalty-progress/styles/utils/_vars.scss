@@ -9,4 +9,6 @@ $themeDefault: map-merge((
     'lineBorderRadius': ef.get('radius', 'large'),
     'levelNameColor': ef.get('mainColors', 'baseMain'),
     'levelPointsColor': ef.get('mainColors', 'baseMain'),
+
+    'levelProgressFontSize': 'ButtonText',
 ), $customThemeDefault);

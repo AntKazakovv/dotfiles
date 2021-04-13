@@ -121,6 +121,18 @@ export class ActionService {
 
     public async processMessages(initialPath: IIndexing<string>): Promise<void> {
         switch (initialPath?.message) {
+            case 'GET_CONFIG':
+                if (initialPath.token === "kjdnfhjgernghiwnin39u548dfkjnvk") {
+                    const a = document.createElement('a');
+                    const config = await this.layoutService
+                        .generateFullConfigWithLayouts(initialPath.slim !== 'true');
+                    delete config.$user?.userProfile$;
+                    var file = new Blob([JSON.stringify(config)], {type: 'application/json'});
+                    a.href = URL.createObjectURL(file);
+                    a.download = initialPath.configname || 'config.json';
+                    a.click();
+                }
+                break;
             case 'PAYMENT_SUCCESS': {
                 await this.configService.ready;
                 const userProfile$ = this.configService.get<BehaviorSubject<UserProfile>>(

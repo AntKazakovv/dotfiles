@@ -8,26 +8,20 @@
         "declaration": false,
         "downlevelIteration": true,
         "experimentalDecorators": true,
-        "allowSyntheticDefaultImports":true,
+        "allowSyntheticDefaultImports": true,
         "module": "esnext",
         "moduleResolution": "node",
         "importHelpers": true,
         "target": "es2016",
         "skipLibCheck": true,
-        "lib": [
-            "es2018",
-            "dom"
-        ],
+        "lib": ["es2018", "dom"],
         "paths": {
-            "wlc-engine/*": [
-                "src/*"
-            ]
+            "wlc-engine/*": ["src/*"]
         }
     },
-    "exclude": [
-        "node_modules"
-    ],
+    "exclude": ["node_modules"],
     "angularCompilerOptions": {
+        "strictTemplates": true,
         "enableIvy": true,
         "fullTemplateTypeCheck": false,
         "strictInjectionParameters": true,

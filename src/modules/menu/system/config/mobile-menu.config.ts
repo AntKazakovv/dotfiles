@@ -9,9 +9,26 @@ export const wlcMobileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         params: {
             state: {
                 name: 'app.sportsbook',
-                params: {},
+                params: {
+                    'page': '.',
+                },
             },
         },
+    },
+    'mobile-menu:sportsbook-inplay': {
+        name: gettext('In play'),
+        type: 'sref',
+        class: 'sportsbook-inplay',
+        icon: 'sportsbook-inplay',
+        params: {
+            state: {
+                name: 'app.sportsbook',
+                params: {
+                    page: 'inplay.',
+                },
+            },
+        },
+        wlcElement: 'link_main-nav-sports-inplay',
     },
     'mobile-menu:promotions': {
         name: gettext('Promotions'),

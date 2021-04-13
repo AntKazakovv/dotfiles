@@ -39,6 +39,7 @@ import {
 } from 'wlc-engine/modules/core';
 import {
     GamesCatalogService,
+    IGameThumbCParams,
 } from 'wlc-engine/modules/games';
 import {GamesFilterServiceEvents} from 'wlc-engine/modules/games';
 import {gamesEvents} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
@@ -63,7 +64,7 @@ import {
     animations: [
         trigger('appearance', [
             transition('*<=>*', [
-                query(':enter', [
+                query(':enter',[
                     style({opacity: 0}),
                     stagger('0.03s', animate('0.8s', style({opacity: 1}))),
                 ], {optional: true}),
@@ -78,7 +79,7 @@ export class GamesGridComponent extends AbstractComponent
     public isReady: boolean = false;
     public filteredGames: Game[]; // TODO temporary: until gameService will be able to back category
     public title: string;
-    public gamesCount: number = this.configService.get<number>('$games.components.wlc-games-grid.defaultCount') || 12;
+    public gamesCount: number = this.configService.get<number>('$games.components.wlc-games-grid.defaultCount') || 1;
     public placeHolders: number[];
     public placeHolderStyles: object = {};
     public hideShowMoreBtn: boolean = false;

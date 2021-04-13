@@ -8,7 +8,9 @@
 
         &__wrapper {
             position: relative;
+
             display: flex;
+
             line-height: ef.get-value($themeVertical, 'lineHeight');
         }
 
@@ -19,70 +21,89 @@
             }
 
             &--right {
-                flex: 1 1 auto;
-                min-width: 0;
                 display: grid;
                 grid-template-columns: ef.get-value($themeVertical, 'rightGridTemplateColumns');
                 grid-template-areas: ef.get-value($themeVertical, 'rightGridTemplateAreas');
                 column-gap: ef.get-value($themeVertical, 'rightColumbGap');
                 row-gap: ef.get-value($themeVertical, 'rightRowGap');
+
+                flex: 1 1 auto;
+
+                min-width: 0;
+
                 margin-left: ef.get-value($themeVertical, 'leftMarginLevtVertival');
+                padding: ef.get-value($themeVertical, 'leftPadding');
+
                 background-color: ef.get-value($themeVertical, 'leftBackground');
                 border-radius: ef.get-value($themeVertical, 'rightBorderRadius');
-                padding: ef.get-value($themeVertical, 'leftPadding');
             }
         }
 
         &__image {
             display: block;
+
             width: ef.get-value($themeVertical, 'imageSize');
             height: ef.get-value($themeVertical, 'imageSize');
+
             max-width: ef.get-value($themeVertical, 'imageSize');
             max-height: ef.get-value($themeVertical, 'imageSize');
+
+            border: ef.get-value($themeVertical, 'imageBorder');
             border-radius: ef.get-value($themeVertical, 'imageBorderRadius');
+
             object-fit: cover;
             object-position: center;
-            border: ef.get-value($themeVertical, 'imageBorder');
+
             box-shadow: ef.get-value($themeVertical, 'imageShadow');
         }
 
         &__user {
-            grid-area: user;
             display: flex;
-            min-width: 1px;
             align-items: center;
+            grid-area: user;
+
+            min-width: 1px;
+
             text-transform: ef.get-value($themeVertical, 'userTextTransform');
         }
 
         &__name {
             flex: 1 1 auto;
+            white-space: nowrap;
+
+            @include text.get-text-style(ef.get-value($themeVertical, 'winnerNameFontStyle'), ef.get-value($themeVertical, 'userColor'));
+
             overflow-x: hidden;
             overflow-y: visible;
-            white-space: nowrap;
-            @include text.get-text-style('PlaceholderText', ef.get-value($themeDefault, 'userColor'));
         }
 
         &__country {
             flex: 0 0 auto;
             object-fit: cover;
             object-position: center;
+
             width: ef.get-value($themeVertical, 'countryWidth');
             height: ef.get-value($themeVertical, 'countryHeight');
+
             margin-right: ef.get-value($themeVertical, 'countryMarginRight');
+
             border: ef.get-value($themeVertical, 'countryBorder');
             box-shadow: ef.get-value($themeVertical, 'countryShadow');
         }
 
         &__game {
-            padding: 0;
-            background: transparent;
-            border: none;
-
-            grid-area: game;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            @include text.get-text-style('ThirdTitleBold', ef.get-value($themeDefault, 'gameColor'));
+
+            grid-area: game;
+
+            padding: 0;
+
+            background: transparent;
+            border: none;
+
+            @include text.get-text-style(ef.get-value($themeVertical, 'winnerGameFontStyle'), ef.get-value($themeVertical, 'gameColor'));
             text-decoration: none;
 
             &:hover {
@@ -104,8 +125,11 @@
 
         &__game-name {
             flex: 0 1 auto;
+
             min-width: 0;
+
             border-bottom: 1px solid ef.get-value($themeVertical, 'gameBorderColor');
+
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -114,21 +138,29 @@
 
         &__game-arrow {
             flex: 0 1 auto;
+
             min-width: 0;
+
+            margin-left: ef.get-value($themeVertical, 'gameArrowMarginLeft');
+
+            color: ef.get-value($themeVertical, 'gameArrowColor');
+
             border-bottom: 1px solid ef.get-value($themeVertical, 'gameBorderColor');
+
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            color: ef.get-value($themeVertical, 'gameArrowColor');
-            margin-left: ef.get-value($themeVertical, 'gameArrowMarginLeft');
+
             transition: ef.get-value($themeVertical, 'transition');
         }
 
         &__amount {
             grid-area: amount;
+
             @include text.get-text-style('ThirdTitleBold', ef.get-value($themeDefault, 'amountColor'));
-            white-space: nowrap;
             text-align: right;
+
+            white-space: nowrap;
         }
     }
 }

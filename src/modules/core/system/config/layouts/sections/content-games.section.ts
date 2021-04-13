@@ -54,4 +54,11 @@ export namespace contentGames {
             componentLib.wlcGamesGrid.catalogGamesWithLoadMoreBtn,
         ],
     };
+
+    export const vertical: ILayoutSectionConfig = {
+        container: true,
+        components: [
+            componentLib.wlcGamesGrid.vertical,
+        ],
+    };
 }
