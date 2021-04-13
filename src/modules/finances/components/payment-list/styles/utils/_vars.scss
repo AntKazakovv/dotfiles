@@ -55,7 +55,7 @@ $themeDefault: map-merge((
     'btnTextPadding': 15px,
     'btnTextFontSize': inherit,
 
-    'btnImageBg': ef.get('mainColors', 'baseMain'),
+    'btnImageBg': ef.get('mainColors', 'bg300'),
     'btnImagePadding': 15px,
     'btnImageWidth': 100px,
     'btnImageHeight': 65px,
