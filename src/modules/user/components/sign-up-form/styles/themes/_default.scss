@@ -63,10 +63,21 @@
 
         .wlc-checkbox--terms {
             grid-area: terms;
+            padding: ef.get-value($themeDefault, 'checkboxPadding');
+
+            .wlc-checkbox__label {
+                position: relative;
+            }
         }
 
         .wlc-checkbox--age {
             grid-area: age;
+            padding: ef.get-value($themeDefault, 'checkboxPadding');
+            margin: ef.get-value($themeDefault, 'checkboxAgeMargin');
+
+            .wlc-checkbox__label {
+                position: relative;
+            }
         }
 
         .wlc-link-block {

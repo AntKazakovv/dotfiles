@@ -1,6 +1,7 @@
 @use 'engine-scss/functions' as ef;
 @use 'engine-scss/mixins/text' as text;
 @use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/base.mixins' as bm;
 
 .wlc-user-info--theme-default:host {
 
@@ -79,14 +80,9 @@
     }
 
     .wlc-btn-deposit {
-        padding: ef.get-value($themeDefault, 'userInfoDepositBtnPaddingMobile');
-        margin: ef.get-value($themeDefault, 'userInfoDepositBtnMarginMobile');
+        @include bm.get-mq-map('padding', $themeDefault, 'userInfoDepositBtnPadding');
+        @include bm.get-mq-map('margin', $themeDefault, 'userInfoDepositBtnMargin');
         min-width: auto;
-
-        @include mq.min(1200) {
-            padding: ef.get-value($themeDefault, 'userInfoDepositBtnPaddingDesktop');
-            margin: ef.get-value($themeDefault, 'userInfoDepositBtnMarginDesktop');
-        }
     }
 
     ::ng-deep {

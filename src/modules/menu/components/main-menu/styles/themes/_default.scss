@@ -12,6 +12,8 @@
             display: grid;
             grid-auto-columns: auto;
             grid-auto-flow: column;
+            @include bm.get-mq-map('grid-gap', $themeDefault, 'gapSize');
+
             width: ef.get-value($themeDefault, 'width');
             align-items: center;
 
@@ -24,8 +26,6 @@
                     max-width: 25px;
                 }
             }
-
-            @include bm.get-mq-map('grid-gap', $themeDefault, 'gapSize');
 
             .wlc-menu {
 

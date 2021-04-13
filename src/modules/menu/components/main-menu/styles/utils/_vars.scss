@@ -5,7 +5,6 @@ $themeDefault: map-merge((
     'width': max-content,
     'gapSize': (
         375: ef.get('size', 'small'),
-        1200: ef.get('size', 'smaller'),
         1420: ef.get('size', 'less'),
         1630: ef.get('size', 'main'),
     ),
