@@ -33,7 +33,7 @@ export interface IInputCParams extends IComponentParams<ComponentTheme, Componen
     modifiers?: Modifiers[];
     icon?: string;
     clipboard?: boolean;
-    currency?: boolean;
+    showCurrency?: boolean;
     prohibitedPattern?: RegExp;
     maskOptions?: IMaskOptions | string;
 }

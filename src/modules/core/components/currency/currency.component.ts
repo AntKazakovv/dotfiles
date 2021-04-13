@@ -7,7 +7,6 @@ import {
     OnChanges,
     OnInit,
     Optional,
-    Self,
 } from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {
@@ -128,7 +127,6 @@ export class CurrencyComponent
         protected translateService: TranslateService,
         protected configService: ConfigService,
         @Optional()
-        @Self()
         @Inject('injectParams')
         protected injectParams: Params.ICurrencyCParams,
     ) {
