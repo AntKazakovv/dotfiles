@@ -1,7 +1,7 @@
 import {
     IFormWrapperCParams,
 } from 'wlc-engine/modules/core';
-import {FormElements} from './form-elements';
+import {FormElements} from 'wlc-engine/modules/core/system/config/form-elements';
 
 export const depositForm: IFormWrapperCParams = {
     class: 'wlc-form-wrapper wlc-amount-form',

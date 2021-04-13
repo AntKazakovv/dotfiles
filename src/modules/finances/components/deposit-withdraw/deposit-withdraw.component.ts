@@ -37,11 +37,11 @@ import {
 } from 'wlc-engine/modules/finances/system/models/payment-system.model';
 import {FinancesService} from 'wlc-engine/modules/finances/system/services';
 import {IPaymentListCParams} from 'wlc-engine/modules/finances/components/payment-list/payment-list.params';
-import {FormElements} from 'wlc-engine/modules/finances/system/config';
+import {FormElements} from 'wlc-engine/modules/core/system/config/form-elements';
 import {
     AddProfileInfoComponent,
     IAddProfileInfoCParams,
-} from './add-profile-info';
+} from 'wlc-engine/modules/user/components/add-profile-info';
 import {UserService} from 'wlc-engine/modules/user/system/services';
 import {IModalConfig} from 'wlc-engine/modules/core/components/modal';
 import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';

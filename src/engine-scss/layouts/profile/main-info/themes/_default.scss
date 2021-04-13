@@ -24,7 +24,7 @@
             &__add {
                 display: grid;
                 grid-template-columns: 1fr;
-                grid-gap: ef.get-value($mainInfoThemeDefault, 'addBlockGap');
+                grid-row-gap: ef.get-value($size, 'main');
                 height: ef.get-value($mainInfoThemeDefault, 'addBlockHeight');
             }
 
@@ -32,6 +32,13 @@
                 display: grid;
                 @include bm.get-mq-map('grid-template-columns', $mainInfoThemeDefault, 'addBlockProfileColumns');
                 grid-row-gap: ef.get-value($mainInfoThemeDefault, 'addItemGap');
+
+                &-notification {
+
+                    .wlc-profile-form__item {
+                        grid-row-gap: unset;
+                    }
+                }
             }
 
             &__title {
@@ -49,7 +56,7 @@
             &__item {
                 display: grid;
                 grid-template-columns: ef.get-value($mainInfoThemeDefault, 'addBlockColumns');
-                grid-gap: ef.get-value($mainInfoThemeDefault, 'addBlockGap');
+                grid-row-gap: ef.get-value($mainInfoThemeDefault, 'addItemGap');
                 grid-template-areas: ef.get-value($mainInfoThemeDefault, 'addBlockAreas');
 
                 &-title {

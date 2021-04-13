@@ -1,3 +1,4 @@
+export {IAddProfileInfoCParams} from './add-profile-info/add-profile-info.params';
 export {IChangePasswordFormCParams} from './change-password-form/change-password-form.params';
 export {IDashboardExchangeCParams} from './dashboard-exchange/exchange.params';
 export {ILoyaltyBlockCParams} from './dashboard-loyalty-block/dashboard-loyalty-block.params';

@@ -16,6 +16,7 @@ import {
 } from './system/services';
 
 // Components
+import {AddProfileInfoComponent} from './components/add-profile-info/add-profile-info.component';
 import {ChangePasswordFormComponent} from './components/change-password-form/change-password-form.component';
 import {DashboardLoyaltyBlockComponent} from 'wlc-engine/modules/user/components/dashboard-loyalty-block/dashboard-loyalty-block.component';
 import {ExchangeComponent} from './components/dashboard-exchange/exchange.component';
@@ -39,6 +40,7 @@ import {UserNameComponent} from './components/user-name/user-name.component';
 
 
 export const components = {
+    'wlc-add-profile-info': AddProfileInfoComponent,
     'wlc-change-password-form': ChangePasswordFormComponent,
     'wlc-exchange': ExchangeComponent,
     'wlc-limitations': LimitationsComponent,
@@ -61,6 +63,7 @@ export const components = {
 
 @NgModule({
     declarations: [
+        AddProfileInfoComponent,
         ChangePasswordFormComponent,
         DashboardLoyaltyBlockComponent,
         ExchangeComponent,
@@ -96,6 +99,7 @@ export const components = {
         LimitationService,
     ],
     exports: [
+        AddProfileInfoComponent,
         ChangePasswordFormComponent,
         DashboardLoyaltyBlockComponent,
         ExchangeComponent,

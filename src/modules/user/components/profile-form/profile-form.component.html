@@ -6,7 +6,7 @@
 ></div>
 
 <div class="{{$class}}__add">
-    <div class="{{$class}}__block">
+    <div class="{{$class}}__block {{$class}}__block-notification">
         <div
             class="{{$class}}__title"
             wlc-title [mainText]="$params.additionalBlocks.subscriptions.title"
@@ -43,21 +43,24 @@
                     (click)="changePasswordModal()"
                     text="Change"></button>
         </div>
+    </div>
 
-       <!-- <div class="{{$class}}__item" data-wlc-element="block_banking-info">
+    <div *ngIf="$params.additionalBlocks.banking.use" class="{{$class}}__block">
+        <div class="{{$class}}__item" data-wlc-element="block_banking-info">
             <div class="{{$class}}__item-title">
                 <div class="{{$class}}__item-title-main">
-                    {{'Banking information' | translate}}
+                    {{$params.additionalBlocks.banking.title | translate}}
                 </div>
                 <div class="{{$class}}__item-title-description">
                     {{'You can add your banking information here.' | translate}}
                 </div>
             </div>
             <button wlc-button
+                    [text]="'Add info'"
                     [wlcElement]="'button_add-banking-info'"
                     [icon]="'arrow'"
-                    (click)="addBankingInformation()"
-                    text="Add info"></button>
-        </div>-->
+                    (click)="addBankingInformation()">
+            </button>
+        </div>
     </div>
 </div>

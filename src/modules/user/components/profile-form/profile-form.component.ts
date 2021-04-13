@@ -6,19 +6,28 @@ import {
     ChangeDetectorRef,
 } from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
-import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ConfigService, EventService, ModalService} from 'wlc-engine/modules/core/system/services';
+import {
+    AbstractComponent,
+    ConfigService,
+    EventService,
+    ModalService,
+    ValidatorType,
+    ICheckboxCParams,
+} from 'wlc-engine/modules/core';
 import {UserService} from 'wlc-engine/modules/user/system/services';
 import {IPushMessageParams, NotificationEvents} from 'wlc-engine/modules/core/system/services/notification';
-import {ICheckboxCParams} from 'wlc-engine/modules/core';
+import {FormElements} from 'wlc-engine/modules/core/system/config/form-elements';
 import {IFormComponent} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
+import {
+    AddProfileInfoComponent,
+    IAddProfileInfoCParams,
+} from 'wlc-engine/modules/user/components/add-profile-info/';
 
 import * as Params from './profile-form.params';
 
 import {
     find as _find,
 } from 'lodash-es';
-
 
 /**
  * Profile form component.
@@ -122,6 +131,33 @@ export class ProfileFormComponent extends AbstractComponent implements OnInit {
         this.modalService.showModal('changePassword');
     }
 
+    public addBankingInformation(): void {
+        this.modalService.showModal({
+            id: 'add-profile-info',
+            modifier: 'add-profile-info',
+            component: AddProfileInfoComponent,
+            componentParams: <IAddProfileInfoCParams>{
+                title: gettext('Banking information'),
+                formConfig: {
+                    class: 'wlc-form-wrapper',
+                    components: [
+                        this.changeValidators(FormElements.bankNameText, []),
+                        this.changeValidators(FormElements.branchCode, []),
+                        this.changeValidators(FormElements.swift, []),
+                        this.changeValidators(FormElements.ibanNumber, []),
+                        FormElements.password,
+                        FormElements.submit,
+                    ],
+                },
+                formData: this.userProfile,
+            },
+            showFooter: false,
+            dismissAll: true,
+            backdrop: 'static',
+        });
+
+    }
+
     public async notificationToggle(checked: boolean): Promise<void> {
 
         try {
@@ -136,5 +172,13 @@ export class ProfileFormComponent extends AbstractComponent implements OnInit {
         } catch (e) {
             //
         }
+    }
+
+    private changeValidators(
+        componentParams: Params.IFieldComponentParams,
+        newValidators: ValidatorType[],
+    ): Params.IFieldComponentParams {
+        componentParams.params.validators = newValidators;
+        return componentParams;
     }
 }

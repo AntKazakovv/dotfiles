@@ -1,8 +1,5 @@
 import {
-    IComponentParams,
-    CustomType,
     IInputCParams,
-    IFormWrapperCParams,
     ICheckboxCParams,
     IButtonCParams,
     ISelectCParams,
