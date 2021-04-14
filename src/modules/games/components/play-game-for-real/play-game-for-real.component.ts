@@ -119,15 +119,13 @@ export class PlayGameForRealComponent extends AbstractComponent implements OnIni
 
     protected onLoginSuccess(): void {
         this.eventService.subscribe({
-            name: 'LOGIN',
+            name: 'USER_PROFILE',
         }, () => {
             if (this.$params.common?.game) {
                 this.modalService.hideModal('play-game-for-real');
-                setTimeout(() => {
-                    this.$params.common.game.launch({
-                        demo: false,
-                    });
-                }, 500);
+                this.$params.common.game.launch({
+                    demo: false,
+                });
             }
         }, this.$destroy);
     }
