@@ -1,0 +1,20 @@
+[
+    {
+        "title": "Introduction",
+        "file": "./introduction/introduction.md",
+        "children": [
+            {
+                "title": "Global components",
+                "file": "./introduction/components.md"
+            },
+            {
+                "title": "Technology",
+                "file": "./introduction/technology.md"
+            }
+        ]
+    },
+    {
+        "title": "Structure",
+        "file": "./structure/structure.md"
+    }
+]
