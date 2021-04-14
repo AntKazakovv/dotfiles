@@ -115,10 +115,6 @@ export namespace wlcButton {
             components: [
                 {
                     name: 'core.wlc-button',
-                    display: {
-                        auth: true,
-                        before: 1023,
-                    },
                     params: {
                         class: 'wlc-btn wlc-btn--deposit',
                         theme: 'cleared',
