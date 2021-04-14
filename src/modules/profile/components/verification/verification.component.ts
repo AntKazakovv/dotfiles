@@ -27,11 +27,9 @@ import {
 } from 'wlc-engine/modules/profile';
 import * as Params from './verification.params';
 
-import {
-    map as _map,
-    filter as _filter,
-    find as _find,
-} from 'lodash-es';
+import _map from 'lodash-es/map';
+import _filter from 'lodash-es/filter';
+import _find from 'lodash-es/find';
 
 @Component({
     selector: '[wlc-verification]',

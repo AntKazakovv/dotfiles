@@ -1,18 +1,16 @@
 import {CurrenciesInfo} from 'wlc-engine/modules/core/constants/currencies-info.constants';
 
-import {
-    findIndex as _findIndex,
-    toInteger as _toInteger,
-    toNumber as _toNumber,
-    toUpper as _toUpper,
-    padEnd as _padEnd,
-    concat as _concat,
-    reduce as _reduce,
-    split as _split,
-    find as _find,
-    join as _join,
-    map as _map,
-} from 'lodash-es';
+import _findIndex from 'lodash-es/findIndex';
+import _toInteger from 'lodash-es/toInteger';
+import _toUpper from 'lodash-es/toUpper';
+import _padEnd from 'lodash-es/padEnd';
+import _reduce from 'lodash-es/reduce';
+import _split from 'lodash-es/split';
+import _join from 'lodash-es/join';
+import _map from 'lodash-es/map';
+import _concat from 'lodash-es/concat';
+import _find from 'lodash-es/find';
+import _toNumber from 'lodash-es/toNumber';
 
 interface IParsedDigitsInfo {
     minimumIntegerDigits: number;

@@ -32,12 +32,10 @@ import {
 } from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
-import {
-    filter as _filter,
-    find as _find,
-    get as _get,
-    toString as _toString,
-} from 'lodash-es';
+import _filter from 'lodash-es/filter';
+import _get from 'lodash-es/get';
+import _toString from 'lodash-es/toString';
+import _find from 'lodash-es/find';
 
 interface IRequestParams {
     type?: string;

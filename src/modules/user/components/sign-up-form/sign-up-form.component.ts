@@ -21,9 +21,7 @@ import {
 } from 'wlc-engine/modules/bonuses';
 import * as Params from './sign-up-form.params';
 
-import {
-    keys as _keys,
-} from 'lodash-es';
+import _keys from 'lodash-es/keys';
 
 /**
  * Sign-up form component.

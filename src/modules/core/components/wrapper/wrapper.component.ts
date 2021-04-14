@@ -20,9 +20,9 @@ import {
     LayoutService,
 } from 'wlc-engine/modules/core';
 
-import {
-    merge as _merge,
-} from 'lodash-es';
+import _merge from 'lodash-es/merge';
+
+
 
 export interface IWrapperCParams {
     components?: ILayoutComponent[];

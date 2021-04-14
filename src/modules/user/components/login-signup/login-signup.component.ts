@@ -9,13 +9,10 @@ import {
     ConfigService,
     ModalService,
 } from 'wlc-engine/modules/core/system/services';
-import {TabSwitcherComponent} from 'wlc-engine/modules/core/components/tab-switcher/tab-switcher.component';
 
 import * as Params from './login-signup.params';
 
-import {
-    get as _get,
-} from 'lodash-es';
+import _get from 'lodash-es/get';
 
 
 @Component({

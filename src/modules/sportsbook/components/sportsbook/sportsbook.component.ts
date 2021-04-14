@@ -12,9 +12,7 @@ import {
 } from 'wlc-engine/modules/games/components/game-wrapper/game-wrapper.component';
 import * as Params from './sportsbook.params';
 
-import {
-    includes as _includes,
-} from 'lodash-es';
+import _includes from 'lodash-es/includes';
 
 @Component({
     selector: '[wlc-sportsbook]',

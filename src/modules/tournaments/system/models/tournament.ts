@@ -18,13 +18,11 @@ import {
 import {takeUntil} from 'rxjs/operators';
 import {DateTime} from 'luxon';
 
-import {
-    toNumber as _toNumber,
-    toString as _toString,
-    map as _map,
-    each as _each,
-    uniqBy as _uniqBy,
-} from 'lodash-es';
+import _toNumber from 'lodash-es/toNumber';
+import _toString from 'lodash-es/toString';
+import _map from 'lodash-es/map';
+import _each from 'lodash-es/each';
+import _uniqBy from 'lodash-es/uniqBy';
 
 export class Tournament extends AbstractModel<ITournament> {
     public topWin: ITournamentPlace[];

@@ -4,9 +4,8 @@ import {
     AfterViewInit,
     Input,
 } from '@angular/core';
-import {
-    isString as _isString,
-} from 'lodash-es';
+
+import _isString from 'lodash-es/isString';
 
 @Directive({
     selector: '[wlc-value-length]',

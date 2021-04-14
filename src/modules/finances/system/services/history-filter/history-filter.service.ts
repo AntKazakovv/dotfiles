@@ -6,9 +6,7 @@ import {BehaviorSubject} from 'rxjs';
 import {EventService} from 'wlc-engine/modules/core';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 
-import {
-    assign as _assign,
-} from 'lodash-es';
+import _assign from 'lodash-es/assign';
 
 export interface IHistoryData {
     transaction: BehaviorSubject<IIndexing<any>>;

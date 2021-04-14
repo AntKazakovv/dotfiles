@@ -22,9 +22,7 @@ import * as Params from './language-selector.params';
 import {fromEvent, merge} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
-import {
-    find as _find,
-} from 'lodash-es';
+import _find from 'lodash-es/find';
 
 export {ILanguageSelectorCParams} from './language-selector.params';
 

@@ -2,16 +2,12 @@ import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, Injector,
 import {
     AbstractComponent, LayoutService, ModalService,
 } from 'wlc-engine/modules/core';
+import {ITab} from 'wlc-engine/modules/core/components/tab-switcher/tab-switcher.params';
 
 import * as Params from 'wlc-engine/modules/core/components/tab-switcher/tab-switcher.params';
 
-import {
-    values as _values,
-    each as _each,
-    replace as _replace,
-    find as _find,
-} from 'lodash-es';
-import {ITab} from 'wlc-engine/modules/core/components/tab-switcher/tab-switcher.params';
+import _values from 'lodash-es/values';
+import _each from 'lodash-es/each';
 
 @Component({
     selector: '[wlc-tab-switcher]',

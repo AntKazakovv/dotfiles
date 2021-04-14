@@ -8,10 +8,8 @@ import {polyfillsResolver} from 'wlc-engine/modules/core/system/config/resolvers
 import {customStates} from 'wlc-src/custom/system/config/custom.states';
 import * as States from './states';
 
-import {
-    map as _map,
-    merge as _merge,
-} from 'lodash-es';
+import _map from 'lodash-es/map';
+import _merge from 'lodash-es/merge';
 
 let states = {
     'app.home': States.homeState,

@@ -32,18 +32,16 @@ import {
 import {BonusItemComponent} from '../bonus-item/bonus-item.component';
 import * as Params from './bonuses-list.params';
 
-import {
-    merge as _merge,
-    isNumber as _isNumber,
-    union as _union,
-    unionBy as _unionBy,
-    each as _each,
-    reduce as _reduce,
-    filter as _filter,
-    find as _find,
-    concat as _concat,
-    isObject as _isObject,
-} from 'lodash-es';
+import _find from 'lodash-es/find';
+import _merge from 'lodash-es/merge';
+import _isNumber from 'lodash-es/isNumber';
+import _union from 'lodash-es/union';
+import _unionBy from 'lodash-es/unionBy';
+import _each from 'lodash-es/each';
+import _reduce from 'lodash-es/reduce';
+import _filter from 'lodash-es/filter';
+import _concat from 'lodash-es/concat';
+import _isObject from 'lodash-es/isObject';
 
 @Component({
     selector: '[wlc-bonuses-list]',

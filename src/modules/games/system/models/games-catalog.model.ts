@@ -31,23 +31,21 @@ import {
 
 import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
 
-import {
-    concat as _concat,
-    find as _find,
-    isArray as _isArray,
-    toNumber as _toNumber,
-    forEach as _forEach,
-    get as _get,
-    includes as _includes,
-    filter as _filter,
-    uniq as _uniq,
-    union as _union,
-    cloneDeep as _cloneDeep,
-    uniqBy as _uniqBy,
-    isString as _isString,
-    isNumber as _isNumber,
-    orderBy as _orderBy,
-} from 'lodash-es';
+import _cloneDeep from 'lodash-es/cloneDeep';
+import _isString from 'lodash-es/isString';
+import _isNumber from 'lodash-es/isNumber';
+import _get from 'lodash-es/get';
+import _includes from 'lodash-es/includes';
+import _isArray from 'lodash-es/isArray';
+import _union from 'lodash-es/union';
+import _filter from 'lodash-es/filter';
+import _concat from 'lodash-es/concat';
+import _find from 'lodash-es/find';
+import _toNumber from 'lodash-es/toNumber';
+import _forEach from 'lodash-es/forEach';
+import _uniq from 'lodash-es/uniq';
+import _uniqBy from 'lodash-es/uniqBy';
+import _orderBy from 'lodash-es/orderBy';
 
 export class GamesCatalog extends AbstractModel<IGames> {
     public currentLanguage: ILanguage;

@@ -27,14 +27,12 @@ import {
 } from 'wlc-engine/modules/core/system/services';
 import * as BParams from './button.params';
 
-import {
-    forEach as _forEach,
-    union as _union,
-    keys as _keys,
-    isUndefined as _isUndefined,
-    get as _get,
-    merge as _merge,
-} from 'lodash-es';
+import _get from 'lodash-es/get';
+import _forEach from 'lodash-es/forEach';
+import _union from 'lodash-es/union';
+import _keys from 'lodash-es/keys';
+import _isUndefined from 'lodash-es/isUndefined';
+import _merge from 'lodash-es/merge';
 
 export {IButtonCParams} from './button.params';
 

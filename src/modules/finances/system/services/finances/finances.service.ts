@@ -5,12 +5,10 @@ import {PaymentSystem, IPaymentSystem, FilterType} from 'wlc-engine/modules/fina
 import {Transaction, ITransaction, ITransactionRequestParams} from 'wlc-engine/modules/finances/system/models/transaction-history.model';
 import {UserService} from 'wlc-engine/modules/user/system/services';
 import {BehaviorSubject} from 'rxjs';
-
-import {
-    find as _find,
-} from 'lodash-es';
 import {FinancesHelper} from '../../helpers/finances.helper';
-import {IBet} from "wlc-engine/modules/finances/system/interfaces";
+import {IBet} from 'wlc-engine/modules/finances/system/interfaces';
+
+import _find from 'lodash-es/find';
 
 interface ICancelWithdrawParams {
     id: number;

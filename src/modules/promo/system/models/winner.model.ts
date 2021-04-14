@@ -5,9 +5,7 @@ import {IWinnerData} from 'wlc-engine/modules/promo/system/services';
 import {Game} from 'wlc-engine/modules/games/system/models/game.model';
 import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
 
-import {
-    toString as _toString,
-} from 'lodash-es';
+import _toString from 'lodash-es/toString';
 
 export class WinnerModel extends AbstractModel<IWinnerData> {
 

@@ -24,13 +24,12 @@ import {
     EventService,
     LogService,
 } from 'wlc-engine/modules/core/system/services';
-import {
-    isString as _isString,
-    get as _get,
-    assign as _assign,
-    isFunction as _isFunction,
-    has as _has,
-} from 'lodash-es';
+
+import _assign from 'lodash-es/assign';
+import _isString from 'lodash-es/isString';
+import _isFunction from 'lodash-es/isFunction';
+import _get from 'lodash-es/get';
+import _has from 'lodash-es/has';
 
 import {ISocketsData} from 'wlc-engine/modules/core/system/interfaces';
 

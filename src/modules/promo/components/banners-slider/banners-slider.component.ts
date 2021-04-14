@@ -18,9 +18,7 @@ import {BannerComponent} from 'wlc-engine/modules/promo/components/banner/banner
 
 import * as Params from './banners-slider.params';
 
-import {
-    merge as _merge,
-} from 'lodash-es';
+import _merge from 'lodash-es/merge';
 
 @Component({
     selector: '[wlc-banners-slider]',

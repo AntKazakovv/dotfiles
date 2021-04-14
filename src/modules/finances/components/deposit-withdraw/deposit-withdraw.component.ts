@@ -53,16 +53,14 @@ import {IFormComponent} from 'wlc-engine/modules/core/components/form-wrapper/fo
 
 import * as Params from './deposit-withdraw.params';
 
-import {
-    camelCase as _camelCase,
-    cloneDeep as _cloneDeep,
-    forEach as _forEach,
-    has as _has,
-    isEmpty as _isEmpty,
-    isEqual as _isEqual,
-    isObject as _isObject,
-    transform as _transform,
-} from 'lodash-es';
+import _camelCase from 'lodash-es/camelCase';
+import _cloneDeep from 'lodash-es/cloneDeep';
+import _forEach from 'lodash-es/forEach';
+import _has from 'lodash-es/has';
+import _isEmpty from 'lodash-es/isEmpty';
+import _isEqual from 'lodash-es/isEqual';
+import _isObject from 'lodash-es/isObject';
+import _transform from 'lodash-es/transform';
 
 @Component({
     selector: '[wlc-deposit-withdraw]',

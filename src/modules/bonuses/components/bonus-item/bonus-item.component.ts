@@ -29,9 +29,7 @@ import {
 } from 'wlc-engine/modules/bonuses';
 import * as Params from './bonus-item.params';
 
-import {
-    union as _union,
-} from 'lodash-es';
+import _union from 'lodash-es/union';
 
 @Component({
     selector: '[wlc-bonus-item]',

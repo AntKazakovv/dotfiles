@@ -12,26 +12,25 @@ import {SectionModel, ISectionData} from 'wlc-engine/modules/core/system/models/
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 import {GlobalHelper, IGlobalConfig} from 'wlc-engine/modules/core';
 
-import {
-    cloneDeep as _cloneDeep,
-    each as _each,
-    extend as _extend,
-    get as _get,
-    isArray as _isArray,
-    isString as _isString,
-    isNumber as _isNumber,
-    mergeWith as _mergeWith,
-    reduce as _reduce,
-    union as _union,
-    map as _map,
-    filter as _filter,
-    findIndex as _findIndex,
-    includes as _includes,
-    toSafeInteger as _toSafeInteger,
-    min as _min,
-    max as _max,
-    isUndefined as _isUndefined,
-} from 'lodash-es';
+import _cloneDeep from 'lodash-es/cloneDeep';
+import _each from 'lodash-es/each';
+import _extend from 'lodash-es/extend';
+import _isString from 'lodash-es/isString';
+import _isNumber from 'lodash-es/isNumber';
+import _get from 'lodash-es/get';
+import _includes from 'lodash-es/includes';
+import _mergeWith from 'lodash-es/mergeWith';
+import _reduce from 'lodash-es/reduce';
+import _isArray from 'lodash-es/isArray';
+import _union from 'lodash-es/union';
+import _map from 'lodash-es/map';
+import _filter from 'lodash-es/filter';
+import _findIndex from 'lodash-es/findIndex';
+import _toSafeInteger from 'lodash-es/toSafeInteger';
+import _min from 'lodash-es/min';
+import _max from 'lodash-es/max';
+import _isUndefined from 'lodash-es/isUndefined';
+
 
 export type LayoutsType = 'pages' | 'panels';
 

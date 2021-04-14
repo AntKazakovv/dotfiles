@@ -12,25 +12,19 @@ import {IComponentParams} from 'wlc-engine/modules/core/system/interfaces/config
 import {
     ActionService,
     ConfigService,
-    DeviceType,
 } from 'wlc-engine/modules/core';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
-import {takeUntil} from "rxjs/operators";
 
-import {
-    filter as _filter,
-    get as _get,
-    isArray as _isArray,
-    map as _map,
-    merge as _merge,
-    assign as _assign,
-    union as _union,
-    forEach as _forEach,
-    cloneDeep as _cloneDeep,
-    has as _has,
-    split as _split,
-    mergeWith as _mergeWith,
-} from 'lodash-es';
+import _filter from 'lodash-es/filter';
+import _get from 'lodash-es/get';
+import _isArray from 'lodash-es/isArray';
+import _map from 'lodash-es/map';
+import _union from 'lodash-es/union';
+import _forEach from 'lodash-es/forEach';
+import _cloneDeep from 'lodash-es/cloneDeep';
+import _split from 'lodash-es/split';
+import _has from 'lodash-es/has';
+import _mergeWith from 'lodash-es/mergeWith';
 
 export {IComponentParams, CustomType} from 'wlc-engine/modules/core/system/interfaces/config.interface';
 

@@ -12,9 +12,7 @@ import {ConfigService} from 'wlc-engine/modules/core/system/services';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import * as Params from './scrollbar.params';
 
-import {
-    get as _get,
-} from 'lodash-es';
+import _get from 'lodash-es/get';
 
 SwiperCore.use([Scrollbar]);
 @Component({

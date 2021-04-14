@@ -40,17 +40,15 @@ import {UserService} from 'wlc-engine/modules/user';
 import {ITournamentGames} from 'wlc-engine/modules/tournaments';
 import {GamesHelper} from 'wlc-engine/modules/games/system/helpers/games.helpers';
 
-import {
-    find as _find,
-    filter as _filter,
-    includes as _includes,
-    startsWith as _startsWith,
-    isString as _isString,
-    toNumber as _toNumber,
-    isEqual as _isEqual,
-    map as _map,
-    isArray as _isArray,
-} from 'lodash-es';
+import _startsWith from 'lodash-es/startsWith';
+import _isString from 'lodash-es/isString';
+import _isEqual from 'lodash-es/isEqual';
+import _map from 'lodash-es/map';
+import _includes from 'lodash-es/includes';
+import _isArray from 'lodash-es/isArray';
+import _filter from 'lodash-es/filter';
+import _find from 'lodash-es/find';
+import _toNumber from 'lodash-es/toNumber';
 
 export interface ILaunchGameModal {
     show: boolean;

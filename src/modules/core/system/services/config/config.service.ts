@@ -34,13 +34,11 @@ export enum storageType {
     'sessionStorage' = 'sessionStorageService'
 }
 
-import {
-    mergeWith as _mergeWith,
-    get as _get,
-    set as _set,
-    isObject as _isObject,
-    cloneDeep as _cloneDeep,
-} from 'lodash-es';
+import _mergeWith from 'lodash-es/mergeWith';
+import _get from 'lodash-es/get';
+import _set from 'lodash-es/set';
+import _isObject from 'lodash-es/isObject';
+import _cloneDeep from 'lodash-es/cloneDeep';
 
 /**
  * Examples of getter and setter:

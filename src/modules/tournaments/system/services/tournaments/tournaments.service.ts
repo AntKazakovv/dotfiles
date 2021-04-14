@@ -35,13 +35,11 @@ import {
     tap as rxTap,
 } from 'rxjs/operators';
 
-import {
-    filter as _filter,
-    extend as _extend,
-    isObject as _isObject,
-    get as _get,
-    some as _some,
-} from 'lodash-es';
+import _filter from 'lodash-es/filter';
+import _extend from 'lodash-es/extend';
+import _isObject from 'lodash-es/isObject';
+import _get from 'lodash-es/get';
+import _some from 'lodash-es/some';
 
 interface ITournamentData extends IData {
     data?: ITournament;

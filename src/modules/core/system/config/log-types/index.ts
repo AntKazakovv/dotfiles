@@ -2,9 +2,7 @@
 
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 
-import {
-    assign as _assign,
-} from 'lodash-es';
+import _assign from 'lodash-es/assign';
 
 import * as commonLogs from './0.common';
 import * as authLogs from './1.auth';

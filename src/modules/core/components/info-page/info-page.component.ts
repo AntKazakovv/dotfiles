@@ -15,9 +15,8 @@ import {
 } from 'wlc-engine/modules/core';
 import * as Params from './info-page.params';
 
-import {
-    cloneDeep as _cloneDeep,
-} from 'lodash-es';
+import _cloneDeep from 'lodash-es/cloneDeep';
+
 
 /**
  * Outputs disclaimer text

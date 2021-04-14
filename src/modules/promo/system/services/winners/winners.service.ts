@@ -23,12 +23,10 @@ import {
 import {WinnerModel} from 'wlc-engine/modules/promo/system/models/winner.model';
 import {GamesCatalogService} from 'wlc-engine/modules/games';
 
-import {
-    merge as _merge,
-    differenceWith as _differenceWith,
-    isEqual as _isEqual,
-    map as _map,
-} from 'lodash-es';
+import _merge from 'lodash-es/merge';
+import _differenceWith from 'lodash-es/differenceWith';
+import _isEqual from 'lodash-es/isEqual';
+import _map from 'lodash-es/map';
 
 /**
  * Params for request

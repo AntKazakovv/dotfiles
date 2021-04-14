@@ -13,10 +13,8 @@ import * as MenuParams from 'wlc-engine/modules/menu/components/menu/menu.params
 import * as Params from './profile-menu.params';
 import {UIRouter} from '@uirouter/core';
 
-import {
-    clone as _clone,
-    has as _has,
-} from 'lodash-es';
+import _clone from 'lodash-es/clone';
+import _has from 'lodash-es/has';
 
 @Component({
     selector: '[wlc-profile-menu]',

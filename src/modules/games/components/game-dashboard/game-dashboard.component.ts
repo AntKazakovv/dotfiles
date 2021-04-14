@@ -49,12 +49,9 @@ import {
     takeUntil,
 } from 'rxjs/operators';
 
-import {
-    assign as _assign,
-    get as _get,
-    find as _find,
-    filter as _filter,
-} from 'lodash-es';
+import _get from 'lodash-es/get';
+import _filter from 'lodash-es/filter';
+import _find from 'lodash-es/find';
 
 enum Direction {
     Left = 'left',

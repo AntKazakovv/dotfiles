@@ -16,13 +16,11 @@ import {
     IRestrictions,
 } from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
 
-import {
-    each as _each,
-    isArray as _isArray,
-    toNumber as _toNumber,
-    get as _get,
-    set as _set,
-} from 'lodash-es';
+import _get from 'lodash-es/get';
+import _isArray from 'lodash-es/isArray';
+import _toNumber from 'lodash-es/toNumber';
+import _each from 'lodash-es/each';
+import _set from 'lodash-es/set';
 
 export class GamesHelper {
 

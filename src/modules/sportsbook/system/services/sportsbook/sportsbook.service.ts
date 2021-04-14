@@ -16,14 +16,12 @@ import {
 } from 'wlc-engine/modules/core';
 import {GamesCatalogService} from 'wlc-engine/modules/games';
 
-import {
-    find as _find,
-    get as _get,
-    set as _set,
-    isString as _isString,
-    isEmpty as _isEmpty,
-    forEach as _forEach,
-} from 'lodash-es';
+import _get from 'lodash-es/get';
+import _find from 'lodash-es/find';
+import _set from 'lodash-es/set';
+import _isString from 'lodash-es/isString';
+import _isEmpty from 'lodash-es/isEmpty';
+import _forEach from 'lodash-es/forEach';
 
 interface IMessage {
     eventType: string;

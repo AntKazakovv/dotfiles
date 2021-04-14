@@ -15,9 +15,7 @@ import {menuConfig} from './system/config/menu.config';
 import {IMenuConfig} from './system/interfaces/menu.interface';
 import * as $config from 'wlc-config/index';
 
-import {
-    get as _get,
-} from 'lodash-es';
+import _get from 'lodash-es/get';
 
 export const moduleConfig =
     GlobalHelper.mergeConfig<IMenuConfig>(menuConfig, _get($config, '$menu', {}));

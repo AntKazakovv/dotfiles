@@ -33,19 +33,14 @@ import {
 } from 'rxjs/operators';
 import {LayoutsType} from 'wlc-engine/modules/core/system/services/layout/layout.service';
 
-
-import {
-    each as _each,
-    reduce as _reduce,
-    filter as _filter,
-    isObject as _isObject,
-    isUndefined as _isUndefined,
-    assign as _assign,
-    isEqual as _isEqual,
-    findIndex as _findIndex,
-    min as _min,
-    max as _max,
-} from 'lodash-es';
+import _assign from 'lodash-es/assign';
+import _each from 'lodash-es/each';
+import _reduce from 'lodash-es/reduce';
+import _filter from 'lodash-es/filter';
+import _isObject from 'lodash-es/isObject';
+import _isUndefined from 'lodash-es/isUndefined';
+import _isEqual from 'lodash-es/isEqual';
+import _findIndex from 'lodash-es/findIndex';
 
 @Component({
     selector: '[wlc-layout]',

@@ -20,11 +20,9 @@ import {
 import {ITournamentLeaderboardCParams} from './tournament-leaderboard.params';
 import * as Params from './tournament-leaderboard.params';
 
-import {
-    findIndex as _findIndex,
-    isNumber as _isNumber,
-    union as _union,
-} from 'lodash-es';
+import _findIndex from 'lodash-es/findIndex';
+import _isNumber from 'lodash-es/isNumber';
+import _union from 'lodash-es/union';
 
 @Component({
     selector: '[wlc-tournament-leaderboard]',

@@ -25,13 +25,11 @@ import {TranslateService} from '@ngx-translate/core';
 import {ConfigService} from 'wlc-engine/modules/core';
 import * as Config from 'wlc-engine/modules/menu/system/config/main-menu.items.config';
 
-import {
-    clone as _clone,
-    has as _has,
-    sortBy as _sortBy,
-    merge as _merge,
-    pull as _pull,
-} from 'lodash-es';
+import _clone from 'lodash-es/clone';
+import _has from 'lodash-es/has';
+import _sortBy from 'lodash-es/sortBy';
+import _merge from 'lodash-es/merge';
+import _pull from 'lodash-es/pull';
 
 @Component({
     selector: '[wlc-main-menu]',

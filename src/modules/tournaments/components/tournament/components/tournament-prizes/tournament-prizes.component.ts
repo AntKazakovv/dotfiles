@@ -14,9 +14,7 @@ import {Tournament} from 'wlc-engine/modules/tournaments';
 import * as Params
     from 'wlc-engine/modules/tournaments/components/tournament/components/tournament-prizes/tournament-prizes.params';
 
-import {
-    slice as _slice,
-} from 'lodash-es';
+import _slice from 'lodash-es/slice';
 
 @Component({
     selector: '[wlc-tournament-prizes]',

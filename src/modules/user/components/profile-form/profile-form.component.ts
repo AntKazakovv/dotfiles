@@ -15,9 +15,7 @@ import {IFormComponent} from 'wlc-engine/modules/core/components/form-wrapper/fo
 
 import * as Params from './profile-form.params';
 
-import {
-    find as _find,
-} from 'lodash-es';
+import _find from 'lodash-es/find';
 
 
 /**

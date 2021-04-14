@@ -4,15 +4,12 @@ import {UserService} from 'wlc-engine/modules/user/system/services';
 import {ConfigService} from 'wlc-engine/modules/core/system/services';
 import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
 
-import {
-    get as _get,
-    concat as _concat,
-    isArray as _isArray,
-    sortedUniq as _sortedUniq,
-    forEach as _forEach,
-    includes as _includes,
-    filter as _filter,
-} from 'lodash-es';
+import _get from 'lodash-es/get';
+import _includes from 'lodash-es/includes';
+import _sortedUniq from 'lodash-es/sortedUniq';
+import _filter from 'lodash-es/filter';
+import _concat from 'lodash-es/concat';
+import _forEach from 'lodash-es/forEach';
 
 @Injectable({
     providedIn: 'root',

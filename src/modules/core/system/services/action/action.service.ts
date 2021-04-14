@@ -33,11 +33,9 @@ import {
 import {UserService} from 'wlc-engine/modules/user/system/services';
 import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
 
-import {
-    forEach as _forEach,
-    isString as _isString,
-    toNumber as _toNumber,
-} from 'lodash-es';
+import _isString from 'lodash-es/isString';
+import _toNumber from 'lodash-es/toNumber';
+import _forEach from 'lodash-es/forEach';
 
 export type ScrollPositionType = 'start' | 'end';
 

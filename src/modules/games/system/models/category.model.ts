@@ -6,14 +6,12 @@ import {MerchantModel} from 'wlc-engine/modules/games/system/models/merchant.mod
 import {GamesHelper} from 'wlc-engine/modules/games/system/helpers/games.helpers';
 import {Deferred} from 'wlc-engine/modules/core/system/classes';
 
-import {
-    toNumber as _toNumber,
-    includes as _includes,
-    has as _has,
-    forEach as _forEach,
-    find as _find,
-    orderBy as _orderBy,
-} from 'lodash-es';
+import _includes from 'lodash-es/includes';
+import _toNumber from 'lodash-es/toNumber';
+import _has from 'lodash-es/has';
+import _forEach from 'lodash-es/forEach';
+import _find from 'lodash-es/find';
+import _orderBy from 'lodash-es/orderBy';
 
 export class CategoryModel extends AbstractModel<ICategory> {
 

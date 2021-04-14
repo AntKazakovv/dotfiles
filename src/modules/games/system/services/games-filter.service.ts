@@ -8,11 +8,9 @@ import {
     IIndexingFilter,
 } from 'wlc-engine/modules/games/system/interfaces/filters.interfaces';
 
-import {
-    extend as _extend,
-    get as _get,
-    merge as _merge,
-} from 'lodash-es';
+import _extend from 'lodash-es/extend';
+import _get from 'lodash-es/get';
+import _merge from 'lodash-es/merge';
 
 export const GamesFilterServiceEvents: IGamesFilterServiceEvents = {
     FILTER_CHANGED: 'FILTER_CHANGED',

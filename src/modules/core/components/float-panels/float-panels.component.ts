@@ -24,19 +24,17 @@ import {SectionModel} from 'wlc-engine/modules/core/system/models/section.model'
 import {IBurgerPanelCParams} from 'wlc-engine/modules/core';
 import * as Params from './float-panels.params';
 
-import {
-    get as _get,
-    set as _set,
-    filter as _filter,
-    find as _find,
-    findKey as _findKey,
-    isUndefined as _isUndefined,
-    map as _map,
-    each as _each,
-    assign as _assign,
-} from 'lodash-es';
+import _set from 'lodash-es/set';
+import _findKey from 'lodash-es/findKey';
+import _isUndefined from 'lodash-es/isUndefined';
+import _get from 'lodash-es/get';
+import _map from 'lodash-es/map';
+import _each from 'lodash-es/each';
+import _assign from 'lodash-es/assign';
+import _filter from 'lodash-es/filter';
+import _find from 'lodash-es/find';
 
-type PanelsType = 'left' | 'right';
+export type PanelsType = 'left' | 'right';
 
 @Component({
     selector: '[wlc-float-panels]',

@@ -22,9 +22,7 @@ import {
 
 import * as PostParams from './post.params';
 
-import {
-    get as _get,
-} from 'lodash-es';
+import _get from 'lodash-es/get';
 
 @Component({
     selector: '[wlc-post]',

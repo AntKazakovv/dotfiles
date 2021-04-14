@@ -1,10 +1,8 @@
 import {IBanner} from 'wlc-engine/modules/core/system/interfaces';
-import {
-    filter as _filter,
-    map as _map,
-    isObject as _isObject,
-    assign as _assign,
-} from 'lodash-es';
+
+import _filter from 'lodash-es/filter';
+import _map from 'lodash-es/map';
+import _assign from 'lodash-es/assign';
 
 export class BannerModel {
     public readonly html: string;
@@ -17,7 +15,7 @@ export class BannerModel {
     constructor(data: IBanner) {
         _assign(this, data);
 
-        this.geo = _map( _filter(this.tags, (tag) => tag.includes('geo:')), (tag) => tag.split(':')[1]);
+        this.geo = _map(_filter(this.tags, (tag) => tag.includes('geo:')), (tag) => tag.split(':')[1]);
         this.tags = _filter(this.tags, (tag) => !tag.includes('geo:'));
     }
 

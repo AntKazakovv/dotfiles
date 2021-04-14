@@ -17,9 +17,8 @@ import {StoreItem} from '../../system/models/store-item';
 import {IStore} from '../../system/interfaces/store.interface';
 import * as Params from './store-list.params';
 
-import {
-    union as _union,
-} from 'lodash-es';
+import _union from 'lodash-es/union';
+
 
 export {IStoreListCParams} from './store-list.params';
 

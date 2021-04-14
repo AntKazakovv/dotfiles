@@ -12,15 +12,13 @@ import {
 
 import {NgTemplateNameDirective} from 'wlc-engine/modules/core/directives/template-name/template-name.directive';
 
-import {
-    get as _get,
-    size as _size,
-    each as _each,
-    mergeWith as _mergeWith,
-    isArray as _isArray,
-    isUndefined as _isUndefined,
-    keys as _keys,
-} from 'lodash-es';
+import _size from 'lodash-es/size';
+import _each from 'lodash-es/each';
+import _get from 'lodash-es/get';
+import _isArray from 'lodash-es/isArray';
+import _mergeWith from 'lodash-es/mergeWith';
+import _isUndefined from 'lodash-es/isUndefined';
+import _keys from 'lodash-es/keys';
 
 export class GlobalHelper {
 

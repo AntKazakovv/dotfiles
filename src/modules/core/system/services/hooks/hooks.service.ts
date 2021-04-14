@@ -1,10 +1,8 @@
 import {Injectable} from '@angular/core';
 import {IIndexing} from 'wlc-engine/modules/core';
 
-import {
-    bind as _bind,
-    forEach as _forEach,
-} from 'lodash-es';
+import _bind from 'lodash-es/bind';
+import _forEach from 'lodash-es/forEach';
 
 export type HookHandler<T> = (data: T) => T;
 

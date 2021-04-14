@@ -14,10 +14,8 @@ import {Subject} from 'rxjs';
 import {TranslateService} from '@ngx-translate/core';
 import {IValidatorSettings} from 'wlc-engine/modules/core';
 
-import {
-    find as _find,
-    isObject as _isObject,
-} from 'lodash-es';
+import _isObject from 'lodash-es/isObject';
+import _find from 'lodash-es/find';
 
 @Component({
     selector: '[wlc-form-control]',

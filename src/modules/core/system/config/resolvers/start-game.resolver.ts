@@ -21,13 +21,11 @@ import {IPushMessageParams, NotificationEvents} from 'wlc-engine/modules/core/sy
 
 import {skipWhile} from 'rxjs/operators';
 
-import {
-    includes as _includes,
-    clone as _clone,
-    union as _union,
-    reduce as _reduce,
-    toNumber as _toNumber,
-} from 'lodash-es';
+import _clone from 'lodash-es/clone';
+import _reduce from 'lodash-es/reduce';
+import _includes from 'lodash-es/includes';
+import _union from 'lodash-es/union';
+import _toNumber from 'lodash-es/toNumber';
 
 export enum RejectReason {
     RealPlayDisabled,
