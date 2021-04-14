@@ -15,4 +15,11 @@ export namespace bannerSection {
             componentLib.wlcBannersSlider.catalog,
         ],
     };
+
+    export const affiliates: ILayoutSectionConfig = {
+        container: false,
+        components: [
+            componentLib.wlcBannersSlider.affiliates,
+        ],
+    };
 }

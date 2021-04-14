@@ -1,0 +1,86 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/text' as text;
+@use 'modules/core/components/button/styles/utils/mixins' as button;
+
+.wlc-sections {
+
+    &__anchors-menu {
+        padding: ef.get-value($affSectionsDefault, 'anchorsPadding');
+        background: ef.get-value($affSectionsDefault, 'anchorsBg');
+    }
+
+    &__benefits-section {
+        padding: ef.get-value($affSectionsDefault, 'benefitsPadding');
+        background: ef.get-value($affSectionsDefault, 'benefitsBg');
+    }
+
+    &__comission-section {
+        padding: ef.get-value($affSectionsDefault, 'comissionPadding');
+        background: ef.get-value($affSectionsDefault, 'comissionBg');
+    }
+
+    &__description-section {
+        padding: ef.get-value($affSectionsDefault, 'descrPadding');
+        background: ef.get-value($affSectionsDefault, 'descrBg');
+    }
+
+    &__faq-section {
+        padding: ef.get-value($affSectionsDefault, 'faqPadding');
+        background: ef.get-value($affSectionsDefault, 'fqaBg');
+
+        .container {
+            max-width: ef.get-value($affSectionsDefault, 'faqContainerMaxWidth');
+            padding: ef.get-value($affSectionsDefault, 'faqContainerPadding');
+        }
+    }
+}
+
+.wlc-aff-content {
+    width: 100%;
+
+    margin: ef.get-value($affContentDefault, 'contentMargin');
+
+    text-align: ef.get-value($affContentDefault, 'contentTextAlign');
+
+    &:first-child {
+        margin-top: 0;
+    }
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+    &__title {
+        @include text.get-text-style(ef.get-value($affContentDefault, 'titleTextStyle'));
+    }
+
+    &__subtitle {
+        max-width: ef.get-value($affContentDefault, 'subtitleMaxWidth');
+
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    p,
+    ul,
+    ol {
+
+        &:not(.wlc-aff-content__subtitle) {
+            max-width: ef.get-value($affContentDefault, 'paragraphMaxWidth');
+
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+
+    .wlc-btn {
+        @include button.buttonBase();
+        display: inline-grid;
+
+        text-decoration: none;
+
+        &--theme-rounding {
+            border-radius: ef.get('radius', 'big');
+        }
+    }
+}

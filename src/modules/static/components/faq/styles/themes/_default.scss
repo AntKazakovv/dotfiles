@@ -1,6 +1,7 @@
 @use 'engine-scss/mixins/text' as text;
 @use 'engine-scss/functions' as ef;
-@import '../utils/vars';
+@use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/mixins/mediaqueries' as mq;
 
 .wlc-faq--theme-default:host {
     display: grid;
@@ -23,18 +24,15 @@
             border-radius: ef.get-value($themeDefault, 'itemBorderRadius');
             transition: all ef.get-value($themeDefault, 'time');
 
-            @media (hover: hover) {
+            @include bm.desktopHover {
+                background: ef.get-value($themeDefault, 'itemBackgroundActive');
 
-                &:hover {
-                    background: ef.get-value($themeDefault, 'itemBackgroundActive');
+                .wlc-faq__title-text {
+                    color: ef.get-value($themeDefault, 'titleIconColorActive');
+                }
 
-                    .wlc-faq__title-text {
-                        color: ef.get-value($themeDefault, 'titleIconColorActive');
-                    }
-
-                    .wlc-faq__title-icon ::ng-deep svg path {
-                        fill: ef.get-value($themeDefault, 'titleIconColorActive');
-                    }
+                .wlc-faq__title-icon ::ng-deep svg path {
+                    fill: ef.get-value($themeDefault, 'titleIconColorActive');
                 }
             }
 
@@ -65,35 +63,30 @@
 
             &-text {
                 flex-grow: 1;
-                @include text.get-text-style('ThirdTitleBold', ef.get-value($themeDefault, 'titleColor'));
                 transition: all ef.get-value($themeDefault, 'time');
                 padding-right: ef.get-value($themeDefault, 'paddingSize');
+
+                @include mq.min(768) {
+                    @include text.get-text-style('ThirdTitleBold', ef.get-value($themeDefault, 'titleColor'));
+                }
             }
 
             &-icon {
+                @include bm.get-mq-map('width', $themeDefault, 'titleIconSize');
+                @include bm.get-mq-map('heght', $themeDefault, 'titleIconSize');
                 flex-grow: 0;
-                width: ef.get-value($themeDefault, 'titleIconSize');
-                height: ef.get-value($themeDefault, 'titleIconSize');
                 min-width: ef.get-value($themeDefault, 'titleIconSize');
                 transition: all ef.get-value($themeDefault, 'time');
 
                 ::ng-deep {
 
-                    .wlc-icon {
+                    svg {
                         width: 100%;
-                        height: 100%;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
+                        height: auto;
 
-                        svg {
-                            width: 100%;
-                            height: auto;
-
-                            path {
-                                transition: all ef.get-value($themeDefault, 'time');
-                                fill: ef.get-value($themeDefault, 'titleColor');
-                            }
+                        path {
+                            transition: all ef.get-value($themeDefault, 'time');
+                            fill: ef.get-value($themeDefault, 'titleIconColor');
                         }
                     }
                 }
@@ -107,12 +100,16 @@
             };
 
             &-wrp {
-                @include text.get-text-style('ThirdTitle', ef.get-value($themeDefault, 'titleColor'));
                 border-top: 1px solid ef.get-value($themeDefault, 'contentFontColor');
                 padding: {
                     top: ef.get-value($themeDefault, 'paddingSize');
                     bottom: ef.get-value($themeDefault, 'paddingSize');
                 };
+                color: ef.get-value($themeDefault, 'contentFontColor');
+
+                @include mq.min(768) {
+                    @include text.get-text-style('ThirdTitle', ef.get-value($themeDefault, 'contentFontColor'));
+                }
             }
         }
     }

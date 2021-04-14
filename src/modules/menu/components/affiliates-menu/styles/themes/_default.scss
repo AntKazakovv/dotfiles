@@ -1,0 +1,33 @@
+@use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/functions' as ef;
+
+.wlc-affiliates-menu--theme-default:host {
+
+    ::ng-deep {
+
+        .wlc-menu {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: ef.get-value($themeDefault, 'menuJustify');
+
+            &__item {
+                @include bm.get-mq-map('padding', $themeDefault, 'itemPadding');
+
+                @include bm.get-mq-map('font-size', $themeDefault, 'itemFontSize');
+                font-weight: ef.get-value($themeDefault, 'itemFontWeight');
+                text-transform: ef.get-value($themeDefault, 'itemTextTransform');
+            }
+
+            &__link {
+                text-decoration: ef.get-value($themeDefault, 'linkDecoration');
+                color: ef.get-value($themeDefault, 'linkColor');
+                cursor: pointer;
+
+                @include bm.desktopHover {
+                    text-decoration: ef.get-value($themeDefault, 'linkDecorationHover');
+                    color: ef.get-value($themeDefault, 'linkColorHover');
+                }
+            }
+        }
+    }
+}
