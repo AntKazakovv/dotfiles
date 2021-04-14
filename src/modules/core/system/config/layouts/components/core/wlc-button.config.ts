@@ -108,7 +108,7 @@ export namespace wlcButton {
         name: 'core.wlc-wrapper',
         display: {
             auth: true,
-            before: 1200,
+            before: 1199,
         },
         params: {
             class: 'wlc-btn-user',
@@ -150,7 +150,7 @@ export namespace wlcButton {
     export const login: ILayoutComponent = {
         name: 'core.wlc-button',
         display: {
-            before: 1200,
+            before: 1199,
             auth: false,
         },
         params: {

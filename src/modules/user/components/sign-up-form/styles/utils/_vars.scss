@@ -23,4 +23,7 @@ $themeDefault: map-merge((
     ),
 
     'checkboxLinkColor': ef.get('mainColors', 'main'),
+
+    'checkboxPadding': 0 ef.get('size', 'small'),
+    'checkboxAgeMargin': -10px 0 0,
 ), $customThemeDefault);
