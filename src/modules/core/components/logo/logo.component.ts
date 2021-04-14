@@ -41,8 +41,8 @@ export class LogoComponent extends AbstractComponent implements OnInit {
     }
 
     protected getLogoImageSource(): string {
-        const customLogoName = this.$params.image.name;
-        const customLogoUrl = this.$params.image.url;
+        const customLogoName = this.$params.image?.name;
+        const customLogoUrl = this.$params.image?.url;
         const customMainConfigLogoName = this.configService.get<string>({name: '$base.customLogoName'});
 
         if (customLogoUrl) {

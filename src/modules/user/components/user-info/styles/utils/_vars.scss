@@ -17,9 +17,16 @@ $themeDefault: map-merge((
     'userInfoDropdownBg': ef.get('mainColors', 'bg700'),
     'userInfoDropdownBorderRadius': ef.get('radius', 'biger'),
     'userInfoGap': 10px,
-    'userInfoDepositBtnMarginMobile': 0 16px 0 0,
-    'userInfoDepositBtnMarginDesktop': 0 32px 0 0,
-    'userInfoDepositBtnPaddingMobile': 5px 7px,
-    'userInfoDepositBtnPaddingDesktop': 5px 20px,
+
+    'userInfoDepositBtnMargin': (
+        375:  0 ef.get('size', 'smally') 0 0,
+        1200: 0 ef.get('size', 'smaller') 0 0,
+        1420: 0 ef.get('size', 'less') 0 0,
+    ),
+
+    'userInfoDepositBtnPadding': (
+        375: ef.get('size', 'smallest'),
+        1200: ef.get('size', 'smallest') ef.get('size', 'smaller'),
+    ),
     'userInfoDropdownIconFill': ef.get('mainColors', 'secondary'),
 ), $customThemeDefault);
