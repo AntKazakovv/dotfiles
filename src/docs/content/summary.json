@@ -1,20 +1,52 @@
 [
     {
         "title": "Introduction",
-        "file": "./introduction/introduction.md",
+        "file": "./000.basic/000.introduction.md",
         "children": [
             {
                 "title": "Global components",
-                "file": "./introduction/components.md"
+                "file": "./000.basic/010.components.md"
             },
             {
                 "title": "Technology",
-                "file": "./introduction/technology.md"
+                "file": "./000.basic/020.technology.md"
+            },
+            {
+                "title": "Implementation",
+                "file": "./000.basic/030.implementation.md"
+            },
+            {
+                "title": "Build",
+                "file": "./000.basic/040.build.md"
             }
         ]
     },
     {
-        "title": "Structure",
-        "file": "./structure/structure.md"
+        "title": "Global structure",
+        "file": "./010.structure/000.structure.md"
+    },
+    {
+        "title": "Config",
+        "file": "./020.config/000.config.md",
+        "children": [
+            {
+                "title": "Layouts",
+                "file": "./020.config/010.layouts.md"
+            }
+        ]
+    },
+    {
+        "title": "Modules",
+        "file": "./030.modules/000.modules.md",
+        "children": [
+            {
+                "title": "Structure",
+                "file": "./030.modules/010.structure.md"
+            }
+        ]
+    },
+    {
+        "title": "Components",
+        "file": "./040.components/000.components.md"
     }
 ]
