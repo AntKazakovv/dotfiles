@@ -1,0 +1,112 @@
+@use 'engine-scss/functions' as ef;
+
+$customAffSectionsDefault: () !default;
+$affSectionsDefault: map-merge((
+    'anchorsBg': ef.get('mainColors', 'bg100'),
+    'anchorsPadding': ef.get('size', 'small') 0,
+
+    'benefitsBg': null,
+    'benefitsPadding': ef.get('size', 'main') 0,
+
+    'comissionBg': null,
+    'comissionPadding': 0 0 ef.get('size', 'main'),
+
+    'descrBg': ef.get('mainColors', 'bg300'),
+    'descrPadding': ef.get('size', 'main') 0,
+
+    'faqBg': null,
+    'faqPadding': ef.get('size', 'main') 0,
+    'faqContainerMaxWidth': 1050px,
+    'faqContainerPadding': 0 ef.get('size', 'smally'),
+), $customAffSectionsDefault);
+
+
+$customAffContentDefault: () !default;
+$affContentDefault: map-merge((
+    'contentTextAlign': center,
+    'contentMargin': ef.get('size', 'main') auto,
+    'titleTextStyle': 'QoteTextBold',
+    'subtitleMaxWidth': 55ch,
+    'paragraphMaxWidth': 98ch,
+), $customAffContentDefault);
+
+
+$customThemeDefaultBenefits: () !default;
+$themeDefaultBenefits: map-merge((
+    'wrapperGridColumns': (
+        375: repeat(3, 1fr),
+        1024: repeat(6, 1fr),
+    ),
+    'wrapperGridGap': (
+        375: ef.get('size', 'smaller'),
+        1024: 0,
+    ),
+
+    'itemGridGap': 10px,
+    'itemGridColumns': 1fr,
+    'itemGridRows': (
+        375: 54px auto,
+        1630: 64px auto,
+    ),
+    'itemPadding': (
+        375: 0,
+        1024: 0 ef.get('size', 'small'),
+        1630: 0 ef.get('size', 'smaller'),
+    ),
+
+    'iconSize': (
+        375: 54px,
+        1630: 64px,
+    ),
+
+    'captionTextStyleMobile': 'PlaceholderText',
+    'captionTextStyle': 'PrimaryTextBold',
+    'captionMaxWidth': 21ch,
+
+    'separatorWidth': 2px,
+    'separatorHeight': 50%,
+    'separatorBg': ef.get('mainColors', 'baseOpacity'),
+    'separatorOpacity': (
+        375: 0,
+        1024: 1
+    )
+), $customThemeDefaultBenefits);
+
+
+$customThemeDefaultDigits: () !default;
+$themeDefaultDigits: map-merge((
+    'wrapperGridColumns': (
+        375: repeat(2, 1fr),
+        768: repeat(4, 1fr),
+    ),
+    'wrapperGridGap': (
+        375: ef.get('size', 'smaller'),
+    ),
+
+    'itemGridGap': (
+        375: ef.get('size', 'small'),
+    ),
+    'itemBg': ef.get('mainColors', 'bg300'),
+    'itemRadius': ef.get('radius', 'biger'),
+    'itemTextAlign': center,
+    'itemPadding': (
+        375: ef.get('size', 'small'),
+        768: ef.get('size', 'smaller'),
+        1200: ef.get('size', 'smaller') ef.get('size', 'less'),
+    ),
+
+    'separatorWidth': 100%,
+    'separatorHeight': 2px,
+    'separatorBg': ef.get('mainColors', 'baseOpacity'),
+
+    'mainTextFontSize': (
+        375: ef.get('font', 'PromoTitle'),
+        1200: ef.get('font', 'ScreamTitle'),
+        1630: 7.2rem,
+    ),
+    'mainTextFontWeight': bold,
+    'mainTextLineHeight': 1,
+
+    'descriptionTextMobile': 'PrimaryTextBold',
+    'descriptionText': 'QoteTextBold',
+), $customThemeDefaultDigits);

@@ -33,7 +33,7 @@ import {
 } from 'wlc-engine/modules/core/system/services';
 import * as Params from 'wlc-engine/modules/menu/components/menu/menu.params';
 import {IMenuItem, IMenuItemsGroup} from 'wlc-engine/modules/menu/components/menu/menu.params';
-import {ISlide, ISliderCParams} from 'wlc-engine/modules/promo/components/slider/slider.params';
+import {ISlide} from 'wlc-engine/modules/promo/components/slider/slider.params';
 import {SliderComponent} from 'wlc-engine/modules/promo/components/slider/slider.component';
 
 import {
@@ -168,19 +168,9 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
     }
 
     public async openModal(item: Params.IMenuItemParamsModal) {
-        const component: any = await this.layoutService.loadComponent(item.params.modal.name);
-        if (component) {
-            this.modalService.showModal({
-                id: 'static-text',
-                component: component,
-                componentParams: {
-                    slug: item.params.modal.params.slug,
-                },
-                modifier: 'info',
-                modalTitle: 'Loading...',
-                scrollable: true,
-                size: 'lg',
-            });
+        const {name, params} = item.params.modal;
+        if (name) {
+            this.modalService.showModal(name, params || {});
         }
     }
 

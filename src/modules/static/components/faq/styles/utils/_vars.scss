@@ -2,7 +2,7 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'paddingSize': ef.get('size', 'small'),
+    'paddingSize': ef.get('size', 'smally'),
     'contentMinHeight': ef.get('size', 'big'),
     'itemsGapSize': ef.get('size', 'small'),
     'headerFontSize': ef.get('font', 'biger'),
@@ -13,7 +13,10 @@ $themeDefault: map-merge((
     'titleFontWeight': bold,
     'titleColor': ef.get('mainColors', 'baseMain'),
     'titleColorActive': ef.get('mainColors', 'baseMain'),
-    'titleIconSize': ef.get('size', 'smaller'),
+    'titleIconSize': (
+        375: ef.get('size', 'smally'),
+        768: ef.get('size', 'smaller'),
+    ),
     'titleIconColor': ef.get('mainColors', 'baseMain'),
     'titleIconColorActive': ef.get('mainColors', 'baseMain'),
     'titleMinHeight': ef.get('size', 'biger'),
@@ -23,7 +26,7 @@ $themeDefault: map-merge((
     'contentPadding': ef.get('size', 'small'),
     'itemBackground': ef.get('mainColors', 'bg300'),
     'itemBackgroundActive': ef.get('mainColors', 'main'),
-    'itemBorderRadius': ef.get('radius', 'small'),
+    'itemBorderRadius': ef.get('radius', 'biger'),
     'time': ef.get('time', 'main'),
 ), $customThemeDefault);
 

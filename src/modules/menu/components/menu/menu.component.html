@@ -74,7 +74,7 @@
 </ng-template>
 
 <ng-template #modal let-item="item">
-    <div class="{{$class}}__item {{$class}}__item--modal" (click)="showModal(item?.params?.modal?.name)">
+    <div class="{{$class}}__item {{$class}}__item--modal">
         <span class="{{$class}}__icon" *ngIf="item.icon" wlc-icon [iconPath]="getIcon(item)" [fallback]="iconsFallback">
         </span>
         <a class="{{$class}}__link"

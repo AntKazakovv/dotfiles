@@ -6,7 +6,7 @@ export const wlcAffiliatesMenuItemsGlobal: Params.IMenuItemsGlobal = {
         type: 'scroll',
         class: 'why-us',
         params: {
-            scroll: '.description-block',
+            scroll: '.wlc-sections__description-section',
         },
     },
     'affiliates-menu:commission': {
@@ -14,7 +14,7 @@ export const wlcAffiliatesMenuItemsGlobal: Params.IMenuItemsGlobal = {
         type: 'scroll',
         class: 'commission',
         params: {
-            scroll: '.commission-block',
+            scroll: '.wlc-sections__comission-section',
         },
     },
     'affiliates-menu:faq': {
@@ -22,7 +22,7 @@ export const wlcAffiliatesMenuItemsGlobal: Params.IMenuItemsGlobal = {
         type: 'scroll',
         class: 'faq',
         params: {
-            scroll: '.wlc-sections__content-faq',
+            scroll: '.wlc-sections__faq-section',
         },
     },
     'affiliates-menu:tc': {
@@ -31,9 +31,10 @@ export const wlcAffiliatesMenuItemsGlobal: Params.IMenuItemsGlobal = {
         class: 'tc',
         params: {
             modal: {
-                name: 'static.wlc-post',
+                name: 'staticText',
                 params: {
-                    slug: 'terms_and_conditions',
+                    slug: 'terms-and-conditions',
+                    parseAsPlainHTML: true,
                 },
             },
         },
