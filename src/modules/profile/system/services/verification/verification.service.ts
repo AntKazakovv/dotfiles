@@ -10,7 +10,9 @@ import {
     IDoc,
     IDocTypeResponse,
 } from 'wlc-engine/modules/profile';
-import {find as _find, includes as _includes} from 'lodash-es';
+
+import _includes from 'lodash-es/includes';
+import _find from 'lodash-es/find';
 
 @Injectable({
     providedIn: 'root',

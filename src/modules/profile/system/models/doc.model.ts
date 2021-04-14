@@ -5,10 +5,8 @@ import {
 } from 'wlc-engine/modules/profile';
 import {AbstractDocModel} from './abstract.doc.model';
 
-import {
-    kebabCase as _kebabCase,
-    merge as _merge,
-} from 'lodash-es';
+import _kebabCase from 'lodash-es/kebabCase';
+import _merge from 'lodash-es/merge';
 
 export class DocModel extends AbstractDocModel implements IDoc {
     public readonly ID: number;

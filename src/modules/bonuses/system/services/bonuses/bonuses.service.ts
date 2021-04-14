@@ -30,19 +30,17 @@ import {
 } from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
-import {
-    filter as _filter,
-    includes as _includes,
-    extend as _extend,
-    each as _each,
-    isObject as _isObject,
-    get as _get,
-    isArray as _isArray,
-    map as _map,
-    size as _size,
-    unset as _unset,
-    sortBy as _sortBy,
-} from 'lodash-es';
+import _map from 'lodash-es/map';
+import _size from 'lodash-es/size';
+import _unset from 'lodash-es/unset';
+import _includes from 'lodash-es/includes';
+import _each from 'lodash-es/each';
+import _isArray from 'lodash-es/isArray';
+import _isObject from 'lodash-es/isObject';
+import _filter from 'lodash-es/filter';
+import _extend from 'lodash-es/extend';
+import _get from 'lodash-es/get';
+import _sortBy from 'lodash-es/sortBy';
 
 interface IBonusData extends IData {
     data?: IBonus;

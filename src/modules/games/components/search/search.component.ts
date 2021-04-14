@@ -34,14 +34,11 @@ import {
 } from 'wlc-engine/modules/games/system/services/games-filter.service';
 import {IGamesFilterData} from 'wlc-engine/modules/games/system/interfaces/filters.interfaces';
 
-import {
-    filter as _filter,
-    find as _find,
-    assignIn as _assignIn,
-    includes as _includes,
-    forEach as _forEach,
-    uniqBy as _uniqBy,
-} from 'lodash-es';
+import _includes from 'lodash-es/includes';
+import _filter from 'lodash-es/filter';
+import _forEach from 'lodash-es/forEach';
+import _uniqBy from 'lodash-es/uniqBy';
+import _assignIn from 'lodash-es/assignIn';
 
 @Component({
     selector: '[wlc-search]',

@@ -14,9 +14,7 @@ import {CategoryModel} from "wlc-engine/modules/games/system/models/category.mod
 import {Game} from "wlc-engine/modules/games/system/models/game.model";
 import * as Params from './category-preview.params';
 
-import {
-    includes as _includes,
-} from 'lodash-es';
+import _includes from 'lodash-es/includes';
 
 interface ICategory {
     game: Game;

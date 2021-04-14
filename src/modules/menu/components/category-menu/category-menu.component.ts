@@ -21,16 +21,13 @@ import * as Params from 'wlc-engine/modules/menu/components/category-menu/catego
 import {MenuHelper} from 'wlc-engine/modules/menu/system/helpers/menu.helper';
 import {ConfigService} from 'wlc-engine/modules/core';
 
-import {
-    clone as _clone,
-    assign as _assign,
-    forEach as _forEach,
-    concat as _concat,
-    has as _has,
-    trim as _trim,
-    find as _find,
-} from 'lodash-es';
-
+import _clone from 'lodash-es/clone';
+import _assign from 'lodash-es/assign';
+import _forEach from 'lodash-es/forEach';
+import _has from 'lodash-es/has';
+import _trim from 'lodash-es/trim';
+import _concat from 'lodash-es/concat';
+import _find from 'lodash-es/find';
 
 @Component({
     selector: '[wlc-category-menu]',

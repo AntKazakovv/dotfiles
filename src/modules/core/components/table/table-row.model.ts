@@ -2,10 +2,8 @@ import {Injector} from '@angular/core';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 import * as Params from './table.params';
 
-import {
-    get as _get,
-    isString as _isString,
-} from 'lodash-es';
+import _get from 'lodash-es/get';
+import _isString from 'lodash-es/isString';
 
 export class TableRowModel {
 

@@ -21,11 +21,9 @@ import {
 
 import * as Params from './input.params';
 
-import {
-    union as _union,
-    kebabCase as _kebabCase,
-    clone as _clone,
-} from 'lodash-es';
+import _kebabCase from 'lodash-es/kebabCase';
+import _clone from 'lodash-es/clone';
+import _union from 'lodash-es/union';
 
 /**
  * Component input

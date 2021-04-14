@@ -41,12 +41,10 @@ import {IPlayGameForRealCParams} from 'wlc-engine/modules/games/components';
 import {ICustomGameParams} from 'wlc-engine/modules/games';
 import {Events as GameDashboardEvents} from 'wlc-engine/modules/games/components/game-dashboard/game-dashboard.params';
 
-import {
-    includes as _includes,
-    isObject as _isObject,
-    isString as _isString,
-    toNumber as _toNumber,
-} from 'lodash-es';
+import _isString from 'lodash-es/isString';
+import _isObject from 'lodash-es/isObject';
+import _includes from 'lodash-es/includes';
+import _toNumber from 'lodash-es/toNumber';
 
 interface IError {
     msg: string;

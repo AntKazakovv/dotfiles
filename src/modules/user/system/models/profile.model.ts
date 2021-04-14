@@ -1,9 +1,7 @@
 import {IExtProfile, ISocketsData, IUserProfile} from 'wlc-engine/modules/core/system/interfaces';
 import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
 
-import {
-    get as _get,
-} from 'lodash-es';
+import _get from 'lodash-es/get';
 
 export class UserProfile extends AbstractModel<IUserProfile> {
 

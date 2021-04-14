@@ -23,13 +23,11 @@ import {
 import {fromEvent} from 'rxjs/internal/observable/fromEvent';
 import {takeUntil, filter} from 'rxjs/operators';
 
-import {
-    sortBy as _sortBy,
-    get as _get,
-    includes as _includes,
-    union as _union,
-    remove as _remove,
-} from 'lodash-es';
+import _sortBy from 'lodash-es/sortBy';
+import _get from 'lodash-es/get';
+import _includes from 'lodash-es/includes';
+import _union from 'lodash-es/union';
+import _remove from 'lodash-es/remove';
 
 const defaultParams = {
     class: 'wlc-sections',

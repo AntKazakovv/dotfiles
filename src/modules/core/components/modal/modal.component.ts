@@ -30,10 +30,8 @@ import {
     defaultParams,
 } from './index';
 
-import {
-    assign as _assign,
-    isString as _isString,
-} from 'lodash-es';
+import _isString from 'lodash-es/isString';
+import _assign from 'lodash-es/assign';
 
 @Component({
     selector: '[wlc-modal-window]',

@@ -44,19 +44,17 @@ import {
     NotificationEvents,
 } from 'wlc-engine/modules/core';
 
-import {
-    assign as _assign,
-    merge as _merge,
-    find as _find,
-    isObject as _isObject,
-    each as _each,
-    get as _get,
-    includes as _includes,
-    clone as _clone,
-    some as _some,
-    isArray as _isArray,
-    set as _set,
-} from 'lodash-es';
+import _assign from 'lodash-es/assign';
+import _each from 'lodash-es/each';
+import _isObject from 'lodash-es/isObject';
+import _merge from 'lodash-es/merge';
+import _find from 'lodash-es/find';
+import _get from 'lodash-es/get';
+import _includes from 'lodash-es/includes';
+import _clone from 'lodash-es/clone';
+import _some from 'lodash-es/some';
+import _isArray from 'lodash-es/isArray';
+import _set from 'lodash-es/set';
 
 export interface IControls extends IIndexing<FormControl> {
 }

@@ -13,10 +13,6 @@ import {ModalService} from 'wlc-engine/modules/core/system/services';
 import {IUserInfo} from 'wlc-engine/modules/core/system/interfaces';
 import * as Params from './dashboard-loyalty-block.params';
 
-import {
-    reduce as _reduce,
-    assign as _assign,
-} from 'lodash-es';
 
 @Component({
     selector: '[wlc-dashboard-loyalty-block]',

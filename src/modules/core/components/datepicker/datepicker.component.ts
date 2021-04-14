@@ -25,9 +25,8 @@ import {AbstractComponent} from 'wlc-engine/modules/core/system/classes';
 
 import * as Params from './datepicker.params';
 
-import {
-    get as _get,
-} from 'lodash-es';
+import _get from 'lodash-es/get';
+
 
 /**
  * Component datepicker

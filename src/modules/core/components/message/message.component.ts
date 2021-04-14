@@ -13,12 +13,10 @@ import {INotificationMetadata} from 'wlc-engine/modules/core/system/services/not
 import {IImage, IMessageData} from './message.interface';
 import * as Params from './message.params';
 
-import {
-    assign as _assign,
-    isArray as _isArray,
-    isObject as _isObject,
-    values as _values,
-} from 'lodash-es';
+import _assign from 'lodash-es/assign';
+import _isArray from 'lodash-es/isArray';
+import _isObject from 'lodash-es/isObject';
+import _values from 'lodash-es/values';
 
 @Component({
     selector: '[wlc-notification-message]',

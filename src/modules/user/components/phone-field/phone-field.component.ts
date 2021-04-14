@@ -15,11 +15,8 @@ import {UserService} from 'wlc-engine/modules/user/system/services';
 
 import * as Params from './phone-field.params';
 
-import {
-    clone as _clone,
-    find as _find,
-    assign as _assign,
-} from 'lodash-es';
+import _find from 'lodash-es/find';
+import _clone from 'lodash-es/clone';
 
 @Component({
     selector: '[wlc-phone-field]',

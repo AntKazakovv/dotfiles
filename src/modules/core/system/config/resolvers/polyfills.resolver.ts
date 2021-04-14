@@ -3,11 +3,6 @@ import {shouldPolyfill as shouldPolyfillNumberFormat} from '@formatjs/intl-numbe
 import {TranslateService} from "@ngx-translate/core";
 import {ResolveTypes} from "@uirouter/core";
 import {ConfigService} from "wlc-engine/modules/core";
-import {IIndexing} from "wlc-engine/modules/core/system/interfaces";
-
-import {
-    get as _get,
-} from 'lodash-es';
 
 export const polyfillsResolver: ResolveTypes = {
     token: new InjectionToken('Empty token'),

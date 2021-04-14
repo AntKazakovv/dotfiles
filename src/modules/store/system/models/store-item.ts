@@ -8,11 +8,9 @@ import {
 import {StoreService} from '../services';
 import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus';
 
-import {
-    toNumber as _toNumber,
-    map as _map,
-    has as _has,
-} from 'lodash-es';
+import _toNumber from 'lodash-es/toNumber';
+import _map from 'lodash-es/map';
+import _has from 'lodash-es/has';
 
 export class StoreItem extends AbstractModel<IStoreItem> {
     public bonus: Bonus;

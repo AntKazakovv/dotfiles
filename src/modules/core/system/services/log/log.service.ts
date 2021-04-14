@@ -10,20 +10,8 @@ import {StateService, UIRouter} from '@uirouter/core';
 import {ConfigService} from 'wlc-engine/modules/core';
 import {logTypes} from 'wlc-engine/modules/core/system/config/log-types';
 
-import {
-    get as _get,
-    set as _set,
-    find as _find,
-    findIndex as _findIndex,
-    map as _map,
-    reduce as _reduce,
-    concat as _concat,
-    isArray as _isArray,
-    forEach as _forEach,
-    isObject as _isObject,
-    isString as _isString,
-    extend as _extend,
-} from 'lodash-es';
+import _get from 'lodash-es/get';
+import _set from 'lodash-es/set';
 
 interface ILogTags {
     type: string;

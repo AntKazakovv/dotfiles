@@ -16,9 +16,7 @@ import {takeUntil} from 'rxjs/operators';
 import {AbstractComponent, IMixedParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import * as Params from './title.params';
 
-import {
-    isString as _isString,
-} from 'lodash-es';
+import _isString from 'lodash-es/isString';
 
 @Component({
     selector: '[wlc-title]',

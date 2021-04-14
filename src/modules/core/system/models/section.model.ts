@@ -5,12 +5,10 @@ import {
     IPanelSectionConfig,
 } from 'wlc-engine/modules/core/system/interfaces';
 
-import {
-    assign as _assign,
-    map as _map,
-    union as _union,
-    isUndefined as _isUndefined,
-} from 'lodash-es';
+import _assign from 'lodash-es/assign';
+import _map from 'lodash-es/map';
+import _isUndefined from 'lodash-es/isUndefined';
+import _union from 'lodash-es/union';
 
 export interface ISectionData {
     section: ILayoutSectionConfig | IPanelSectionConfig;

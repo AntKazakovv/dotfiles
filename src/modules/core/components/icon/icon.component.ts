@@ -21,9 +21,7 @@ import {AbstractComponent} from 'wlc-engine/modules/core/system/classes';
 
 import * as Params from './icon.params';
 
-import {
-    keys as _keys,
-} from 'lodash-es';
+import _keys from 'lodash-es/keys';
 
 @Component({
     selector: '[wlc-icon]',

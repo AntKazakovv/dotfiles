@@ -29,11 +29,9 @@ import {
 
 import * as Params from './history-filter.params';
 
-import {
-    isEqual as _isEqual,
-    keys as _keys,
-    merge as _merge,
-} from 'lodash-es';
+import _isEqual from 'lodash-es/isEqual';
+import _keys from 'lodash-es/keys';
+import _merge from 'lodash-es/merge';
 
 @Component({
     selector: '[wlc-history-filter]',

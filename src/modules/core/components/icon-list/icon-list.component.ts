@@ -30,13 +30,11 @@ import {IPaysystem} from 'wlc-engine/modules/core/system/services/config/app-con
 
 import * as Params from './icon-list.params';
 
-import {
-    map as _map,
-    sortedUniqBy as _sortedUniqBy,
-    find as _find,
-    filter as _filter,
-    includes as _includes,
-} from 'lodash-es';
+import _includes from 'lodash-es/includes';
+import _filter from 'lodash-es/filter';
+import _find from 'lodash-es/find';
+import _map from 'lodash-es/map';
+import _sortedUniqBy from 'lodash-es/sortedUniqBy';
 
 /**
  *  Component to display an icon list.

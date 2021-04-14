@@ -17,20 +17,18 @@ import {
     ICacheExpiry,
 } from 'wlc-engine/modules/static';
 
-import {
-    filter as _filter,
-    find as _find,
-    includes as _includes,
-    merge as _merge,
-    union as _union,
-    extend as _extend,
-    isArray as _isArray,
-    map as _map,
-    replace as _replace,
-    join as _join,
-    isNumber as _isNumber,
-    forEach as _forEach,
-} from 'lodash-es';
+import _filter from 'lodash-es/filter';
+import _union from 'lodash-es/union';
+import _extend from 'lodash-es/extend';
+import _merge from 'lodash-es/merge';
+import _find from 'lodash-es/find';
+import _map from 'lodash-es/map';
+import _includes from 'lodash-es/includes';
+import _replace from 'lodash-es/replace';
+import _join from 'lodash-es/join';
+import _isArray from 'lodash-es/isArray';
+import _isNumber from 'lodash-es/isNumber';
+import _forEach from 'lodash-es/forEach';
 
 @Injectable({
     providedIn: 'root',

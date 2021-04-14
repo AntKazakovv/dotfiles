@@ -16,11 +16,9 @@ import {
     TextDataModel,
 } from 'wlc-engine/modules/static';
 
-import {
-    get as _get,
-    sortBy as _sortBy,
-    includes as _includes,
-} from 'lodash-es';
+import _get from 'lodash-es/get';
+import _sortBy from 'lodash-es/sortBy';
+import _includes from 'lodash-es/includes';
 
 export * from './post-menu.params';
 

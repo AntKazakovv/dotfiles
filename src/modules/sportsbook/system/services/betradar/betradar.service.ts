@@ -5,12 +5,10 @@ import {Subject} from 'rxjs';
 import {SportsbookService} from 'wlc-engine/modules/sportsbook';
 import {ConfigService} from 'wlc-engine/modules/core';
 
-import {
-    forEach as _forEach,
-    get as _get,
-    set as _set,
-    merge as _merge,
-} from 'lodash-es';
+import _get from 'lodash-es/get';
+import _forEach from 'lodash-es/forEach';
+import _set from 'lodash-es/set';
+import _merge from 'lodash-es/merge';
 
 export interface IMessageDataLocationChange {
     path: string;

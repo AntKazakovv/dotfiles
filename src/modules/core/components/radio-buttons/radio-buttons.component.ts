@@ -16,11 +16,9 @@ import {IButtonCParams} from 'wlc-engine/modules/core/components/button/button.p
 
 import * as Params from './radio-buttons.params';
 
-import {
-    isUndefined as _isUndefined,
-    compact as _compact,
-    concat  as _concat,
-} from 'lodash-es';
+import _compact from 'lodash-es/compact';
+import _isUndefined from 'lodash-es/isUndefined';
+import _concat from 'lodash-es/concat';
 
 @Component({
     selector: '[wlc-radio-buttons]',

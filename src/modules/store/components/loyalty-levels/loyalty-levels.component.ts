@@ -4,6 +4,7 @@ import {
     ChangeDetectorRef,
     Inject,
 } from '@angular/core';
+import {BehaviorSubject} from 'rxjs';
 import {UserService} from 'wlc-engine/modules/user/system/services';
 import {
     AbstractComponent,
@@ -16,11 +17,8 @@ import {
 
 import * as Params from './loyalty-levels.params';
 
+import _values from 'lodash-es/values';
 
-import {
-    values as _values,
-} from 'lodash-es';
-import {BehaviorSubject} from "rxjs";
 
 
 @Component({

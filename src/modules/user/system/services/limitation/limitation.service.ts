@@ -15,9 +15,7 @@ import {
 import {RealityCheckInfoComponent} from 'wlc-engine/modules/user/components/reality-check-info/reality-check-info.component';
 import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
 
-import {
-    isArray as _isArray,
-} from 'lodash-es';
+import _isArray from 'lodash-es/isArray';
 
 export interface ISelfExclusion {
     Currency: string;

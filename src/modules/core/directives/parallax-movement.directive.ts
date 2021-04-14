@@ -9,9 +9,7 @@ import {
 import {DOCUMENT} from '@angular/common';
 import {fromEvent} from "rxjs/internal/observable/fromEvent";
 
-import {
-    each as _each,
-} from 'lodash-es';
+import _each from 'lodash-es/each';
 
 @Directive({
     selector: '[wlc-parallax]',

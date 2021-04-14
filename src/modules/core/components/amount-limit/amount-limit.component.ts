@@ -8,10 +8,7 @@ import {
 } from 'wlc-engine/modules/core';
 import * as Params from 'wlc-engine/modules/core/components/amount-limit/amount-limit.params';
 
-
-import {
-    isObject as _isObject,
-} from 'lodash-es';
+import _isObject from 'lodash-es/isObject';
 
 @Component({
     selector: '[wlc-amount-limit]',

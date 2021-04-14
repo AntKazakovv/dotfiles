@@ -40,10 +40,8 @@ import {PaymentSystem} from 'wlc-engine/modules/finances/system/models/payment-s
 
 import * as Params from './payment-list.params';
 
-import {
-    isUndefined as _isUndefined,
-    isString as _isString,
-} from 'lodash-es';
+import _isUndefined from 'lodash-es/isUndefined';
+import _isString from 'lodash-es/isString';
 
 
 @Component({

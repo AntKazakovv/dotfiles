@@ -13,11 +13,6 @@ import {UserService} from 'wlc-engine/modules/user/system/services';
 import {ModalService} from 'wlc-engine/modules/core/system/services';
 import * as Params from './exchange-modal.params';
 
-import {
-    reduce as _reduce,
-    assign as _assign,
-} from 'lodash-es';
-
 @Component({
     selector: '[wlc-exchange-modal]',
     templateUrl: './exchange-modal.component.html',

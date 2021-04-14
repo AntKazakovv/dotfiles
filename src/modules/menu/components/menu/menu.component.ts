@@ -36,13 +36,11 @@ import {IMenuItem, IMenuItemsGroup} from 'wlc-engine/modules/menu/components/men
 import {ISlide} from 'wlc-engine/modules/promo/components/slider/slider.params';
 import {SliderComponent} from 'wlc-engine/modules/promo/components/slider/slider.component';
 
-import {
-    forEach as _forEach,
-    has as _has,
-    find as _find,
-    isString as _isString,
-    reduce as _reduce,
-} from 'lodash-es';
+import _isString from 'lodash-es/isString';
+import _has from 'lodash-es/has';
+import _reduce from 'lodash-es/reduce';
+import _find from 'lodash-es/find';
+import _forEach from 'lodash-es/forEach';
 
 @Component({
     selector: '[wlc-menu]',

@@ -25,9 +25,7 @@ import {
 
 import * as Params from './profile-form.params';
 
-import {
-    find as _find,
-} from 'lodash-es';
+import _find from 'lodash-es/find';
 
 /**
  * Profile form component.

@@ -24,15 +24,9 @@ import {
 import {TournamentComponent} from '../tournament/tournament.component';
 import * as Params from 'wlc-engine/modules/tournaments/components/tournament-list/tournament-list.params';
 
-import {
-    union as _union,
-    merge as _merge,
-    filter as _filter,
-    find as _find,
-    findIndex as _findIndex,
-    some as _some,
-    each as _each,
-} from 'lodash-es';
+import _union from 'lodash-es/union';
+import _merge from 'lodash-es/merge';
+import _each from 'lodash-es/each';
 
 @Component({
     selector: '[wlc-tournament-list]',

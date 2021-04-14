@@ -27,9 +27,7 @@ import {financesConfig} from './system/config/finances.config';
 import {IFinancesConfig} from './system/interfaces/finances.interface';
 import * as $config from 'wlc-config/index';
 
-import {
-    get as _get,
-} from 'lodash-es';
+import _get from 'lodash-es/get';
 
 export const moduleConfig =
     GlobalHelper.mergeConfig<IFinancesConfig>(financesConfig, _get($config, '$finances', {}));

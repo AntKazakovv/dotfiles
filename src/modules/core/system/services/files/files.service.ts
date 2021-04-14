@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+﻿import {Injectable} from '@angular/core';
 import {localFiles} from '../../config/files.config';
 import {getFileBody} from 'wlc-src/svg';
 import imagesList from 'wlc-src/staticImagesList.json';
@@ -7,15 +7,13 @@ import {ConfigService} from 'wlc-engine/modules/core/system/services';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 import {HttpClient, HttpResponse} from '@angular/common/http';
 
-import {
-    find as _find,
-    findIndex as _findIndex,
-    map as _map,
-    reduce as _reduce,
-    unionBy as _unionBy,
-    flatten as _flatten,
-    includes as _includes,
-} from 'lodash-es';
+import _find from 'lodash-es/find';
+import _findIndex from 'lodash-es/findIndex';
+import _map from 'lodash-es/map';
+import _reduce from 'lodash-es/reduce';
+import _unionBy from 'lodash-es/unionBy';
+import _flatten from 'lodash-es/flatten';
+import _includes from 'lodash-es/includes';
 
 type LocationFileType =
     'local-wlc'

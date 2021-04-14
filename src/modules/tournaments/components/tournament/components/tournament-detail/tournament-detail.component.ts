@@ -28,10 +28,8 @@ import {TournamentComponent} from 'wlc-engine/modules/tournaments/components/tou
 import * as MenuParams from 'wlc-engine/modules/menu/components';
 import * as Params from './tournament-detail.params';
 
-import {
-    each as _each,
-    set as _set,
-} from 'lodash-es';
+import _each from 'lodash-es/each';
+import _set from 'lodash-es/set';
 
 @Component({
     selector: '[wlc-tournament-detail]',

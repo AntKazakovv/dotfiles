@@ -25,9 +25,7 @@ import {IGamesConfig} from './system/interfaces/games.interfaces';
 import {gamesConfig} from './system/config/games.config';
 import * as $config from 'wlc-config/index';
 
-import {
-    get as _get,
-} from 'lodash-es';
+import _get from 'lodash-es/get';
 
 
 export const moduleConfig =

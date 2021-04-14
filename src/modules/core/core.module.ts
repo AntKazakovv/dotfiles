@@ -104,9 +104,7 @@ import {ICoreConfig} from './system/interfaces/core.interface';
 //  -- CONFIGS IMPORTS STARTS--;
 import * as $config from 'wlc-config/index';
 
-import {
-    get as _get,
-} from 'lodash-es';
+import _get from 'lodash-es/get';
 
 export const moduleConfig =
     GlobalHelper.mergeConfig<ICoreConfig>(coreConfig, _get($config, '$core', {}));

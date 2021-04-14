@@ -20,9 +20,7 @@ import {UserService} from 'wlc-engine/modules/user/system/services';
 
 import * as Params from './add-profile-info.params';
 
-import {
-    each as _each,
-} from 'lodash-es';
+import _each from 'lodash-es/each';
 
 @Component({
     selector: '[wlc-add-profile-info]',

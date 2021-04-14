@@ -39,22 +39,14 @@ import {
 } from 'wlc-engine/modules/core';
 import {
     GamesCatalogService,
-    IGameThumbCParams,
 } from 'wlc-engine/modules/games';
 import {GamesFilterServiceEvents} from 'wlc-engine/modules/games';
 import {gamesEvents} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
 import {IGamesFilterData} from 'wlc-engine/modules/games/system/interfaces/filters.interfaces';
-import {ITournamentGames} from 'wlc-engine/modules/tournaments';
-import {GamesHelper} from 'wlc-engine/modules/games/system/helpers/games.helpers';
 
-import {
-    filter as _filter,
-    map as _map,
-    includes as _includes,
-    reduce as _reduce,
-    keys as _keys,
-    isUndefined as _isUndefined,
-} from 'lodash-es';
+import _reduce from 'lodash-es/reduce';
+import _keys from 'lodash-es/keys';
+import _isUndefined from 'lodash-es/isUndefined';
 
 @Component({
     selector: '[wlc-games-grid]',
