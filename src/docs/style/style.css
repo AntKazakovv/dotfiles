@@ -28,3 +28,9 @@
     font-size: 14px;
     line-height: 1.5;
 }
+
+.content-data hr {
+    width: 100%;
+
+    border-top-color: #a6a6a6;
+}
