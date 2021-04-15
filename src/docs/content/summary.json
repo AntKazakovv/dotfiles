@@ -1,52 +1,56 @@
 [
     {
-        "title": "Introduction",
-        "file": "./000.basic/000.introduction.md",
+        "title": "1. Introduction",
+        "file": "./100.basic/100.introduction.md",
         "children": [
             {
-                "title": "Global components",
-                "file": "./000.basic/010.components.md"
+                "title": "1.1. Base",
+                "file": "./100.basic/110.base.md"
             },
             {
-                "title": "Technology",
-                "file": "./000.basic/020.technology.md"
+                "title": "1.2. Global components",
+                "file": "./100.basic/120.components.md"
             },
             {
-                "title": "Implementation",
-                "file": "./000.basic/030.implementation.md"
+                "title": "1.3. Technology",
+                "file": "./100.basic/130.technology.md"
             },
             {
-                "title": "Build",
-                "file": "./000.basic/040.build.md"
+                "title": "1.4. Implementation",
+                "file": "./100.basic/140.implementation.md"
+            },
+            {
+                "title": "1.5. Build",
+                "file": "./100.basic/150.build.md"
             }
         ]
     },
     {
-        "title": "Global structure",
-        "file": "./010.structure/000.structure.md"
+        "title": "2. Global structure",
+        "file": "./200.structure/200.structure.md"
     },
     {
-        "title": "Config",
-        "file": "./020.config/000.config.md",
+        "title": "3. Config",
+        "file": "./300.config/300.config.md",
         "children": [
             {
-                "title": "Layouts",
-                "file": "./020.config/010.layouts.md"
+                "title": "3.1. Layouts",
+                "file": "./300.config/310.layouts.md"
             }
         ]
     },
     {
-        "title": "Modules",
-        "file": "./030.modules/000.modules.md",
+        "title": "4. Modules",
+        "file": "./400.modules/400.modules.md",
         "children": [
             {
-                "title": "Structure",
-                "file": "./030.modules/010.structure.md"
+                "title": "4.1. Structure",
+                "file": "./400.modules/410.structure.md"
             }
         ]
     },
     {
-        "title": "Components",
-        "file": "./040.components/000.components.md"
+        "title": "5. Components",
+        "file": "./500.components/500.components.md"
     }
 ]

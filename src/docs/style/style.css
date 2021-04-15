@@ -6,21 +6,41 @@
 @import "./compodoc.css";
 @import "./tablesort.css";
 
-.content-data h1 {
+body .content-data a:visited {
+    color: inherit;
+}
+
+body .content-data a,
+body .content-data a:visited {
+    color: #2980b9;
+    text-decoration: underline;
+}
+
+body .content-data a:hover {
+    text-decoration: none;
+}
+
+body .content-data h1,
+body .content-data h1 a,
+body .content-data h1 a:visited {
     color: rgb(255, 102, 0);
     font-weight: normal;
     font-size: 24px;
     line-height: 1.25;
 }
 
-.content-data h2 {
+body .content-data h2,
+body .content-data h2 a,
+body .content-data h2 a:visited {
     color: rgb(51, 153, 102);
     font-weight: normal;
     font-size: 20px;
     line-height: 1.5;
 }
 
-.content-data h3 {
+body .content-data h3,
+body .content-data h3 a,
+body .content-data h3 a:visited {
     margin-top: 0;
 
     color: rgb(153, 51, 102);
@@ -33,4 +53,10 @@
     width: 100%;
 
     border-top-color: #a6a6a6;
+}
+
+.content-data em {
+    color: #8e8e8e;
+    font-size: 90%;
+    font-style: italic;
 }

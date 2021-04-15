@@ -8,6 +8,5 @@
     "theme": "readthedocs",
     "extTheme": "./src/docs/style",
     "assetsFolder": "./src/docs/assets",
-    "disableGraph": false,
-    "silent": true
+    "disableGraph": true
 }
