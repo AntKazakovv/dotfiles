@@ -20,7 +20,7 @@ $themeDefault: map-merge((
     'itemHeight': 100%,
     'itemBorder': 2px solid transparent,
     'itemBg': ef.get('mainColors', 'bg'),
-    'itemBorderRadius': ef.get('radius', 'big'),
+    'itemBorderRadius': ef.get('radius', 'biger'),
     'itemPadding': 6px,
     'itemTransition': all ef.get('time', 'main'),
     'itemSvgColor': ef.get('mainColors', 'baseMain'),
