@@ -51,6 +51,7 @@ export class GamesCatalog extends AbstractModel<IGames> {
     public currentLanguage: ILanguage;
 
     protected games: Game[];
+    protected sportsbooks: Game[] = [];
     protected categories: CategoryModel[] = [];
     protected projectCategories: CategoryModel[] = [];
     protected merchants: MerchantModel[];
@@ -105,7 +106,6 @@ export class GamesCatalog extends AbstractModel<IGames> {
         const excludeMerchants = filter?.excludeMerchants || [];
         const searchQuery = filter?.searchQuery || '';
         const gameIds = filter?.ids;
-
         let gameList: Game[] = _concat([], this.games);
 
         if (includeCategories.length) {
@@ -141,8 +141,7 @@ export class GamesCatalog extends AbstractModel<IGames> {
 
         if (excludeMerchants.length) {
             gameList = gameList.filter((item: Game) => {
-                return !_includes(excludeMerchants, item.merchantID)
-                    && !_includes(excludeMerchants, item.subMerchantID);
+                return !this.isExcludeMerchant(excludeMerchants, item.merchantID, item.subMerchantID);
             });
         }
 
@@ -574,6 +573,7 @@ export class GamesCatalog extends AbstractModel<IGames> {
          * GAMES
          **********************************************************************************************************/
         const resultGames: Game[] = [];
+        const sportsbookMerchants: number[] = this.configService.get<number[]>('$games.sportsbookMerchants');
 
         for (const item of response.games) {
             const game = new Game(item, this.router, this.configService);
@@ -593,12 +593,21 @@ export class GamesCatalog extends AbstractModel<IGames> {
             game.isFavourite = _includes(this.gamesCatalogService.favourites, game.ID);
             game.setSortedCategoryFields();
             GamesHelper.fillGamesByCategoriesMerchants(game, this.availableCategories);
-            resultGames.push(game);
+
+            if (this.isExcludeMerchant(sportsbookMerchants, game.merchantID, game.subMerchantID)) {
+                this.sportsbooks.push(game);
+            } else {
+                resultGames.push(game);
+            }
         }
 
         this.availableCategories = this.sortCategories(this.availableCategories);
         this.games = _orderBy(resultGames, (game: Game) => _toNumber(game.sort), 'desc');
         this.prepareCategories();
+    }
+
+    protected isExcludeMerchant(excludeMerchants: number[], id: number, subID: number): boolean {
+        return _includes(excludeMerchants, id) || _includes(excludeMerchants, subID);
     }
 
     protected prepareCategories(): void {
