@@ -1,0 +1,35 @@
+@use 'engine-scss/functions' as ef;
+
+$customThemeDefault: () !default;
+
+$themeDefault: map-merge((
+    'background': ef.get('mainColors', 'bg'),
+    'radius': ef.get('radius', 'biger'),
+    'padding': ef.get('size', 'small') ef.get('size', 'smaller'),
+    'width': (
+        320: 100%,
+        375: 350px,
+    ),
+
+    'prizeIconMargin': -5px  ef.get('size', 'small') 0 0,
+    'prizeIconColor': ef.get('mainColors', 'main'),
+    'prizeTextStyle': 'PrimaryText',
+    'prizeTextColor': ef.get('mainColors', 'baseMain'),
+    'prizeNumStyle': 'ButtonText',
+    'prizeNumColor': ef.get('mainColors', 'baseMain'),
+
+    'delimiterColor': ef.get('mainColors', 'baseOpacity'),
+    'delimiterWidth': 2px,
+    'delimiterHeight': 100%,
+    'delimiterMargin': 0 ef.get('size', 'small'),
+
+    'timerResetBg': transparent,
+    'timerResetPadding': 0,
+    'timerResetRadius': 0,
+    'timerResetWidth': 180px,
+
+    'timerTextStyle': 'PrimaryText',
+    'timerTextColor': ef.get('mainColors', 'baseMain'),
+    'timerNumStyle': 'ButtonText',
+    'timerNumColor': ef.get('mainColors', 'baseMain'),
+), $customThemeDefault);

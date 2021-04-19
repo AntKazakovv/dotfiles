@@ -293,6 +293,7 @@ export class TournamentComponent
                 this.cdr.detectChanges();
             }
         } finally {
+            this.isTournamentSelected = false;
             this.pending$.next(false);
             this.cdr.markForCheck();
         }

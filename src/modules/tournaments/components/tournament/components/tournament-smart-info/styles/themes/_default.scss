@@ -1,0 +1,89 @@
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/functions' as ef;
+
+.wlc-tournament-smart-info--theme-default:host {
+
+    .wlc-tournament-smart-info {
+
+        &__content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            @include bm.get-mq-map('min-width', $themeDefault, 'width');
+            @include bm.get-mq-map('padding', $themeDefault, 'padding');
+            @include bm.get-mq-map('background', $themeDefault, 'background');
+            @include bm.get-mq-map('border-radius', $themeDefault, 'radius');
+        }
+
+        &__prize-block {
+            display: flex;
+            align-items: center;
+
+            &--icon {
+                @include bm.get-mq-map('margin', $themeDefault, 'prizeIconMargin');
+                @include bm.get-mq-map('color', $themeDefault, 'prizeIconColor');
+            }
+
+            &__text {
+                line-height: 0;
+
+                &--subtitle{
+                    @include text.get-text-style(
+                        ef.get-value($themeDefault, 'prizeTextStyle'),
+                        ef.get-value($themeDefault, 'prizeTextColor')
+                    );
+                }
+
+                &--value{
+                    @include text.get-text-style(
+                        ef.get-value($themeDefault, 'prizeNumStyle'),
+                        ef.get-value($themeDefault, 'prizeNumColor')
+                    );
+                }
+            }
+        }
+
+        &__delimiter {
+            @include bm.get-mq-map('background', $themeDefault, 'delimiterColor');
+            @include bm.get-mq-map('width', $themeDefault, 'delimiterWidth');
+            @include bm.get-mq-map('height', $themeDefault, 'delimiterHeight');
+            @include bm.get-mq-map('margin', $themeDefault, 'delimiterMargin');
+        }
+
+        &__timer-block {
+            ::ng-deep {
+
+                .wlc-timer {
+
+                    &__content {
+                        @include bm.get-mq-map('padding', $themeDefault, 'timerResetPadding');
+                        @include bm.get-mq-map('background', $themeDefault, 'timerResetBg');
+                        @include bm.get-mq-map('border-radius', $themeDefault, 'timerResetRadius');
+                        @include bm.get-mq-map('min-width', $themeDefault, 'timerResetWidth');
+                    }
+
+                    &__timer-text {
+                        line-height: 0;
+
+                        &--countdown {
+                            @include text.get-text-style(
+                                ef.get-value($themeDefault, 'timerNumStyle'),
+                                ef.get-value($themeDefault, 'timerNumColor')
+                            );
+                        }
+
+                        .secondary-text {
+                            @include text.get-text-style(
+                                ef.get-value($themeDefault, 'timerTextStyle'),
+                                ef.get-value($themeDefault, 'timerTextColor')
+                            );
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

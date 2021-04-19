@@ -1,43 +1,59 @@
-
 <div class="{{$class}}__container" *ngIf="wins?.length && isReady; else: noData">
+    <div class="{{$class}}__item head" *ngIf="$params.common?.useListHead">
+        <div class="{{$class}}__cell item-place">{{'Place' | translate}}</div>
+        <div class="{{$class}}__cell item-user">
+            <span class="user-login">{{'Player' | translate}}</span>
+        </div>
+        <div class="{{$class}}__cell item-points">{{'Points' | translate}}</div>
+    </div>
+
     <div class="{{$class}}__list">
-        <div class="{{$class}}__item {{$class}}__item--top {{$class}}__item--top-{{i + 1}}"
-            *ngFor="let win of winsTop; index as i"
-            [class.user]="userId === win.IDUser"
-            [class.first]="!i"
-            [class.single]="winsTop.length === 1"
-            [class.last]="i === (winsTop.length - 1)">
-            <div class="{{$class}}__cell item-place">{{win.IDUserPlace}}</div>
+        <div class="{{$class}}__item {{$class}}__item--top {{$class}}__item--top-{{index + 1}}"
+             *ngFor="let win of winsTop"
+             [class.user]="userId === win.IDUser"
+             [class.first]="!index"
+             [class.single]="winsTop.length === 1"
+             [class.last]="index === (winsTop.length - 1)">
+            <div class="{{$class}}__cell item-place">
+                {{win.IDUserPlace}}
+                <span *ngIf="$params.common?.themeMod === 'tournament-detail'" wlc-icon [iconName]="cup"></span>
+            </div>
             <div class="{{$class}}__cell item-user">
-                <span wlc-icon iconName="cup"></span>
-                <span class="user-login">{{win.UserLogin}}</span>
+                <span *ngIf="$params.common?.themeMod !== 'tournament-detail'" wlc-icon [iconName]="cup"></span>
+                <span *ngIf="win.IDUser !== userId; else: userThee" class="user-login">{{win.UserLogin}}</span>
             </div>
             <div class="{{$class}}__cell item-points">{{win.points | number: '.0-2'}}</div>
         </div>
-        <div class="{{$class}}__item" *ngFor="let win of winsRest" [class.user]="userId === win.IDUser">
-            <div class="{{$class}}__cell item-place">{{win.IDUserPlace}}</div>
+        <div *ngIf="winsRest.length && $params.common?.themeMod === 'tournament-detail'" class="delimetr"></div>
+        <div *ngFor="let win of winsRest" class="{{$class}}__item" [class.user]="userId === win.IDUser">
+            <div class="{{$class}}__cell item-place">
+                {{win.IDUserPlace}}
+            </div>
             <div class="{{$class}}__cell item-user">
-                <span class="user-login">{{win.UserLogin}}</span>
+                <span *ngIf="win.IDUser !== userId; else: userThee" class="user-login">{{win.UserLogin}}</span>
             </div>
             <div class="{{$class}}__cell item-points">{{win.points | number: '.0-2'}}</div>
         </div>
     </div>
-    <button type="button"
-        class="{{$class}}__btn"
-        *ngIf="$params?.common?.showAllBtn && wins.length > $params?.common?.limit"
-        wlc-button
-        text="See all prizes"
-        icon="arrow"
-        theme="cleared"
-        (click)="showAllWins()"
-        [wlcElement]="'button_show_all_wins'">
+
+    <button *ngIf="needShowBtn"
+            wlc-button
+            [wlcElement]="'button_show_all_wins'"
+            type="button"
+            class="{{$class}}__btn"
+            text="See all prizes"
+            icon="arrow"
+            theme="cleared"
+            (click)="showAllWins()">
     </button>
 </div>
 <ng-template #noData>
-    <div class="{{$class}}__nocontent" *ngIf="isReady">{{'No tournament wins available' | translate}}</div>
-    <div class="{{$class}}__nocontent" *ngIf="!isReady">
+    <div *ngIf="isReady" class="{{$class}}__nocontent">{{'No tournament wins available' | translate}}</div>
+    <div *ngIf="!isReady" class="{{$class}}__nocontent">
         <div wlc-loader></div>
     </div>
 </ng-template>
 
-
+<ng-template #userThee>
+    <span class="user-login">{{'You' | translate}}</span>
+</ng-template>

@@ -1,0 +1,26 @@
+<div class="{{$class}}__content" *ngIf="tournament; else: noData">
+
+    <div class="{{$class}}__prize-block">
+        <div class="{{$class}}__prize-block--icon" wlc-icon iconName="pool">
+        </div>
+        <div class="{{$class}}__prize-block__text">
+            <div class="{{$class}}__prize-block__text--subtitle">
+                {{$params.common?.prizePoolText | translate}}
+            </div>
+            <div class="{{$class}}__prize-block__text--value" wlc-currency digitsInfo="1-0-0"
+                [value]="tournament.totalFounds" [currency]="'EUR'">
+            </div>
+        </div>
+    </div>
+    <div class="{{$class}}__delimiter"></div>
+    <div class="{{$class}}__timer-block" wlc-timer
+        [value]="(tournament.isTournamentStarts) ? tournament.endsLuxon : tournament.startsLuxon"
+        [text]="(tournament.isTournamentStarts) ? $params.common?.timerTextAfterStart : $params.common?.timerTextBeforeStart">
+    </div>
+</div>
+
+<ng-template #noData>
+    <div class="{{$class}}__nocontent">
+        <div wlc-loader></div>
+    </div>
+</ng-template>

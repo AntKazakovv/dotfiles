@@ -147,6 +147,17 @@
             @include em.get-mq-map('padding', $themeDefault, 'tournamentDetailPadding');
         }
 
+        .wlc-modal__footer {
+            @include em.get-mq-map('padding', $themeDefault, 'tournamentDetailFooterPadding');
+        }
+
+        .wlc-modal__header--headless {
+
+            .wlc-modal__close {
+                @include em.get-mq-map('top', $themeDefault, 'tournamentDetailIconCloseTop');
+            }
+        }
+
         .wlc-tournament-detail__header-info--back-link {
             display: none;
         }

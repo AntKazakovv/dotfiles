@@ -92,77 +92,8 @@
         @include em.lineClamp(1);
     }
 
-    &__timer-block::ng-deep {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-
-        padding: ef.get-value($themeDefault, 'timerBlockPaddding');
+    &__timer-block {
         margin: ef.get-value($themeDefault, 'timerBlockMargin');
-        background-color: ef.get-value($themeDefault, 'timerBlockBg');
-        border-radius: ef.get-value($themeDefault, 'timerBlockRadius');
-
-        @include mq.min(480) {
-            flex-direction: row;
-            align-items: stretch;
-
-            width: auto;
-        }
-
-        .header-prize-block {
-            display: flex;
-            position: relative;
-            align-items: center;
-            justify-content: flex-start;
-
-            @include em.get-mq-map('padding', $themeDefault, 'prizeBlockPaddding');
-            @include em.get-mq-map('margin', $themeDefault, 'prizeBlockMargin');
-
-            &:last-child {
-                margin-bottom: 0;
-            }
-
-            &:before {
-                content: '';
-                position: absolute;
-                left: 0;
-                right: 0;
-                bottom: 0;
-
-                background-color: ef.get-value($themeDefault, 'prizeBlockBeforeBg');
-                height: ef.get-value($themeDefault, 'prizeBlockBeforeSize');
-                width: auto;
-
-                @include mq.min(480) {
-                    left: auto;
-                    right: ef.get-value($themeDefault, 'prizeBlockBeforeRight');
-                    top: ef.get-value($themeDefault, 'prizeBlockBeforeTop');
-                    bottom: ef.get-value($themeDefault, 'prizeBlockBeforeBottom');
-                    width: ef.get-value($themeDefault, 'prizeBlockBeforeSize');
-                    height: auto;
-                }
-            }
-
-            .wlc-icon {
-                margin: ef.get-value($themeDefault, 'prizeBlockIconMargin');
-
-                svg {
-                    fill: ef.get-value($themeDefault, 'prizeBlockIconColor');
-                }
-            }
-
-            &__text--subtitle {
-                @include text.get-text-style(ef.get-value($themeDefault, 'prizeBlockSubtitleFont'), ef.get-value($themeDefault, 'prizeBlockSubtitleColor'));
-            }
-
-            &__text--value {
-                @include text.get-text-style(ef.get-value($themeDefault, 'prizeBlockValueFont'), ef.get-value($themeDefault, 'prizeBlockValueColor'));
-            }
-
-            @include mq.min(480) {
-                justify-content: flex-end;
-            }
-        }
     }
 
     &__description {

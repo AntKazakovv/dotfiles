@@ -9,8 +9,9 @@ import {
     OnInit,
     ViewEncapsulation,
 } from '@angular/core';
-
 import {UIRouterGlobals} from '@uirouter/core';
+
+import {takeUntil} from 'rxjs/operators';
 
 import {
     AbstractComponent,
@@ -19,10 +20,7 @@ import {
     ITableCParams,
 } from 'wlc-engine/modules/core';
 
-import {
-    TournamentsService,
-    Tournament,
-} from 'wlc-engine/modules/tournaments';
+import {TournamentsService, Tournament} from 'wlc-engine/modules/tournaments';
 import {TournamentComponent} from 'wlc-engine/modules/tournaments/components/tournament/tournament.component';
 
 import * as MenuParams from 'wlc-engine/modules/menu/components';
@@ -39,17 +37,15 @@ import _set from 'lodash-es/set';
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
 })
-export class TournamentDetailComponent
-    extends AbstractComponent
-    implements OnInit, OnDestroy, OnChanges {
+export class TournamentDetailComponent extends AbstractComponent implements OnInit, OnDestroy, OnChanges {
     @Input() protected inlineParams: Params.ITournamentDetailCParams;
     @Input() protected tournamentId: number;
     @Input() protected parentInstance: TournamentComponent;
 
-
     public $params: Params.ITournamentDetailCParams;
     public isReady: boolean = false;
     public tournamentProcessing: boolean = false;
+    public isTournamentSelected: boolean = false;
     public tournament: Tournament = null;
     public tablePrizeboard: ITableCParams = {};
     public menuParams: MenuParams.IMenuCParams = {};
@@ -79,27 +75,28 @@ export class TournamentDetailComponent
             this.tournamentId = this.$params.common.tournamentId;
         }
 
-        this.getTournament();
+        this.$params.parentInstance.pending$
+            .pipe(takeUntil(this.$destroy))
+            .subscribe((pending) => {
+                this.tournamentProcessing = pending;
+                this.isTournamentSelected = this.$params.parentInstance.isTournamentSelected;
+                this.getTournament();
+                this.cdr.markForCheck();
+            });
     }
 
     public joinTournament(): void {
-        this.tournamentProcessing = true;
         this.$params.parentInstance.join();
-        this.prepareMenu();
-        this.tournamentProcessing = false;
     }
 
     public leaveTournament(): void {
-        this.tournamentProcessing = true;
         this.$params.parentInstance.leave();
-        this.prepareMenu();
-        this.tournamentProcessing = false;
     }
 
     protected getTournament(): void {
         // -- attribute [tournamentID]
-        if (this.tournamentId) {
-            this.getTournamentById(this.tournamentId);
+        if (this.$params.common.tournamentId) {
+            this.getTournamentById(this.$params.common.tournamentId);
             return;
         }
 
@@ -126,15 +123,11 @@ export class TournamentDetailComponent
             },
             until: this.$destroy,
         });
+
     }
 
     protected async getTournamentById(tournamentId: number): Promise<void> {
-        if (this.tournament) {
-            return;
-        }
-
         this.tournament = await this.tournamentsService.getTournament(tournamentId) as Tournament;
-
         this.prepareTournament();
     }
 
