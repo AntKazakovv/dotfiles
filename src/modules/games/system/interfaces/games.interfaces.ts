@@ -4,7 +4,7 @@ import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.mod
 import {MerchantModel} from 'wlc-engine/modules/games/system/models/merchant.model';
 
 export interface IGamesConfig {
-    sportsbookMerchants: number[];
+    sportsbookMerchants?: number[];
     run?: IRunGameOptions;
     mobile?: IMobileGames;
     realPlay?: IRealPlayOptions;
