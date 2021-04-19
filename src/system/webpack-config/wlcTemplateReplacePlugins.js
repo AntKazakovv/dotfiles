@@ -23,7 +23,7 @@ class WlcTemplateReplacePlugins {
         } else {
             createDir.sync(customStyleDir);
             const fileData =
-                `@import '${originStylePath.replace(/^.*wlc-engine\//i, 'wlc-engine/')}'; \n\n` +
+                '// Set custom variables before @import \n\n' + `@import '${originStylePath.replace(/^.*wlc-engine\//i, 'wlc-engine/')}'; \n\n` +
                 '// Component\'s custom styles';
 
             fs.writeFileSync(customStyleDir + '/~' + styleName, fileData);
