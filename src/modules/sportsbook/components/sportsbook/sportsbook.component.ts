@@ -1,11 +1,26 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnDestroy, OnInit} from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    Inject,
+    OnDestroy,
+    OnInit,
+} from '@angular/core';
 import {UIRouter} from '@uirouter/core';
 import {TranslateService} from '@ngx-translate/core';
-import {AbstractComponent, IMixedParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ConfigService, HooksService, IHookHandlerDescriptor} from 'wlc-engine/modules/core';
-import {ISportsbookSettings, SportsbookService} from 'wlc-engine/modules/sportsbook/system/services/sportsbook/sportsbook.service';
+import {
+    AbstractComponent,
+    IMixedParams,
+    ConfigService,
+    HooksService,
+    IHookHandlerDescriptor,
+} from 'wlc-engine/modules/core';
+import {
+    SportsbookService,
+    BetradarService,
+    ISportsbookSettings,
+} from 'wlc-engine/modules/sportsbook';
 import {IGameWrapperCParams} from 'wlc-engine/modules/games';
-import {BetradarService} from 'wlc-engine/modules/sportsbook/system/services/betradar/betradar.service';
 import {
     hooks as gameWrapperHooks,
     IHookLaunchInfo,
