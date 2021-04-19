@@ -47,36 +47,7 @@ $themeDefault: map-merge((
         1630: 83% center,
     ),
 
-    'timerBlockPaddding': ef.get('size', 'small'),
     'timerBlockMargin': 0 0 ef.get('size', 'smally'),
-    'timerBlockBg': ef.get('mainColors', 'bg'),
-    'timerBlockRadius': ef.get('radius', 'biger'),
-
-    'prizeBlockPaddding': (
-        375: 0 0 ef.get('size', 'small'),
-        480: 0 ef.get('size', 'small') 0 0,
-        1024: 0 ef.get('size', 'smally'),
-    ),
-    'prizeBlockMargin': (
-        375: 0 0 ef.get('size', 'small'),
-        480: 0,
-    ),
-    'prizeBlockTextLine': 0,
-    'prizeBlockBeforeSize': 1px,
-    'prizeBlockBeforeBg': ef.get('mainColors', 'baseOpacity'),
-    'prizeBlockBeforeTop': 0,
-    'prizeBlockBeforeRight': 0,
-    'prizeBlockBeforeBottom': 0,
-    'prizeBlockIconMargin': 0 ef.get('size', 'small') 0 0,
-    'prizeBlockIconLine': 0,
-    'prizeBlockIconColor': ef.get('mainColors', 'main'),
-
-    'prizeBlockSubtitleFont': 'PrimaryText',
-    'prizeBlockSubtitleColor': ef.get('mainColors', 'baseMain'),
-
-    'prizeBlockValueFont': 'ButtonText',
-    'prizeBlockValueColor': ef.get('mainColors', 'baseMain'),
-
     'tournamentDescriptionFont': 'PrimaryText',
     'tournamentDescriptionColor': ef.get('mainColors', 'baseMain'),
     'tournamentDescriptionMargin': 0 0 ef.get('size', 'biger') 0,

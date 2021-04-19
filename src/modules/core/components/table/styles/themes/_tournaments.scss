@@ -1,13 +1,16 @@
 @use 'engine-scss/mixins/mediaqueries' as mq;
-@use 'engine-scss/mixins/base.mixins' as em;
+@use 'engine-scss/mixins/base.mixins' as bm;
 @use 'engine-scss/mixins/text' as text;
 @use 'engine-scss/functions' as ef;
-@import '../utils/vars';
 
 .wlc-table--theme-tournaments:host {
     display: flex;
     flex-direction: column;
-    min-height: ef.get-value($themeTournaments, 'sectionLoaderHeight');
+    @include bm.get-mq-map('min-height', $themeTournaments, 'sectionLoaderHeight');
+
+    .wlc-btn--theme-default {
+        @include bm.get-mq-map('margin', $themeTournaments, 'btnShowMoreMargin');
+    }
 
     .wlc-table {
 
@@ -15,16 +18,55 @@
             display: table;
             width: 100%;
             border-collapse: collapse;
+
+            &.content-small {
+
+                .wlc-table__row {
+
+                    &:last-child {
+
+                        .wlc-table__cell {
+
+                            &:first-child {
+                                @include bm.get-mq-map('border-radius', $themeTournaments, 'smallCellRadiusFirstChild');
+                            }
+
+                            &:last-child {
+                                @include bm.get-mq-map('border-radius', $themeTournaments, 'smallCellRadiusLastChild');
+                            }
+                        }
+                    }
+                }
+            }
+
+            &.content-one {
+
+                .wlc-table__row {
+
+                    &:last-child {
+
+                        .wlc-table__cell {
+
+                            &:first-child {
+                                @include bm.get-mq-map('border-radius', $themeTournaments, 'oneCellRadiusFirstChild');
+                            }
+
+                            &:last-child {
+                                @include bm.get-mq-map('border-radius', $themeTournaments, 'oneCellRadiusLastChild');
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         &__row {
             position: relative;
             display: table-row;
-            @include em.get-mq-map('border', $themeTournaments, 'rowBorder');
-            border-radius: ef.get-value($themeTournaments, 'rowBorderRadiusSizeMobile');
             height: fit-content;
-            background: ef.get-value($themeTournaments, 'rowBackgroundMobile');
-            transition: all ef.get-value($themeTournaments, 'animationTime');
+            @include bm.get-mq-map('border', $themeTournaments, 'rowBorder');
+            @include bm.get-mq-map('border-radius', $themeTournaments, 'rowRadiusSize');
+            @include bm.get-mq-map('background', $themeTournaments, 'rowBg');
             overflow: hidden;
 
             &.wlc-show {
@@ -33,19 +75,22 @@
 
             &--head {
                 display: table-row;
-                background: ef.get-value($themeTournaments, 'rowTitleBackgroundDesktop');
+                @include bm.get-mq-map('background', $themeTournaments, 'headBg');
 
                 .wlc-table__cell {
-                    @include text.get-text-style('PrimaryTextBold', ef.get-value($themeTournaments, 'textColor'));
+                    @include text.get-text-style(
+                        ef.get-value($themeTournaments, 'headTextStyle'),
+                        ef.get-value($themeTournaments, 'headTextColor')
+                    );
                 }
             }
 
             &--odd {
-                background: ef.get-value($themeTournaments, 'rowOddBackgroundDesktop');
+                @include bm.get-mq-map('background', $themeTournaments, 'rowBgOdd');
             }
 
             &--even {
-                background: ef.get-value($themeTournaments, 'rowEvenBackgroundDesktop');
+                @include bm.get-mq-map('background', $themeTournaments, 'rowBgEven');
             }
 
 
@@ -54,17 +99,17 @@
                 .wlc-table__cell {
 
                     &:first-child {
-                        border-radius: ef.get-value($themeTournaments, 'rowBorderRadiusSizeDesktop') 0 0 0;
+                        @include bm.get-mq-map('border-radius', $themeTournaments, 'cellTopRadiusFirstChild');
                     }
 
                     &:last-child {
-                        border-radius: 0 ef.get-value($themeTournaments, 'rowBorderRadiusSizeDesktop') 0 0;
+                        @include bm.get-mq-map('border-radius', $themeTournaments, 'cellTopRadiusLastChild');
                     }
                 }
             }
 
             &:nth-child(3) {
-                background: ef.get-value($themeTournaments, 'rowOddBackgroundDesktop');
+                @include bm.get-mq-map('background', $themeTournaments, 'rowBgOdd');
 
                 .wlc-table__cell {
 
@@ -83,33 +128,32 @@
                 .wlc-table__cell {
 
                     &:first-child {
-                        border-radius: 0 0 0 ef.get-value($themeTournaments, 'rowBorderRadiusSizeDesktop');
+                        @include bm.get-mq-map('border-radius', $themeTournaments, 'cellBottomRadiusFirstChild');
                     }
 
                     &:last-child {
-                        border-radius: 0 0 ef.get-value($themeTournaments, 'rowBorderRadiusSizeDesktop') 0;
+                        @include bm.get-mq-map('border-radius', $themeTournaments, 'cellBottomRadiusLastChild');
                     }
                 }
             }
         }
 
         &__cell {
-            flex-grow: 1;
-            flex-basis: 100%;
-            padding: ef.get-value($themeTournaments, 'paddingCell');
-            // @include em.get-mq-map('padding', $themeTournaments, 'paddingCell');
-            @include text.get-text-style('PrimaryText', ef.get-value($themeTournaments, 'textColor'));
-
             display: table-cell;
-            border: ef.get-value($themeTournaments, 'cellBorderDesktop');
-            text-align: ef.get-value($themeTournaments, 'textAlignDesktop');
+            @include bm.get-mq-map('padding', $themeTournaments, 'cellPadding');
+            @include text.get-text-style(
+                ef.get-value($themeTournaments, 'cellTextStyle'),
+                ef.get-value($themeTournaments, 'cellTextColor')
+            );
+            @include bm.get-mq-map('border', $themeTournaments, 'cellBorder');
+            @include bm.get-mq-map('text-align', $themeTournaments, 'cellTextAlign');
 
             &:first-child {
-                border-radius: ef.get-value($themeTournaments, 'rowBorderRadiusSizeDesktop') 0 0 ef.get-value($themeTournaments, 'rowBorderRadiusSizeDesktop');
+                @include bm.get-mq-map('border-radius', $themeTournaments, 'cellRadiusFirstChild');
             }
 
             &:last-child {
-                border-radius: 0 ef.get-value($themeTournaments, 'rowBorderRadiusSizeDesktop') ef.get-value($themeTournaments, 'rowBorderRadiusSizeDesktop') 0;
+                @include bm.get-mq-map('border-radius', $themeTournaments, 'cellRadiusLastChild');
             }
 
             &--index {
@@ -120,71 +164,15 @@
                 margin: 0;
             }
 
-            &--first {
-                grid-template-columns: auto 1fr auto;
-                font-size: ef.get-value($themeTournaments, 'fontSizeTitleMobile');
-                transition: all ef.get-value($themeTournaments, 'animationTime');
-                background: transparent;
-                border-bottom: none;
-                font-weight: initial;
-                border-radius: initial;
-            }
-
             &-label,
             &-arrow {
                 display: none;
             }
 
-            &--status {
-
-                ::ng-deep {
-
-                    .wlc-tooltip[wlc-tooltip] {
-
-                        .wlc-tooltip__content {
-
-                            @include mq.max(1024) {
-                                left: initial;
-                                right: ef.get-value($themeTournaments, 'tooltipOffset');
-                            }
-                        }
-                    }
-                }
-            }
-
             &-content {
-                text-align: ef.get-value($themeTournaments, 'textAlignDesktop');
-                justify-self: ef.get-value($themeTournaments, 'textAlignDesktop');
+                @include bm.get-mq-map('text-align', $themeTournaments, 'cellTextAlign');
+                @include bm.get-mq-map('justify-self', $themeTournaments, 'cellTextAlign');
                 font-weight: normal;
-
-                @include em.betweenClass('.wlc-table__cell--first') {
-                    text-align: ef.get-value($themeTournaments, 'textAlignDesktop');
-                    justify-self: ef.get-value($themeTournaments, 'textAlignDesktop');
-                }
-            }
-        }
-
-        &__empty {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            align-self: center;
-            grid-column-start: span 2;
-            margin: ef.get-value($themeTournaments, 'emptySectionMargin');
-            @include text.get-text-style('PrimaryText', ef.get-value($themeTournaments, 'textColor'));
-            text-align: center;
-
-            &-text {
-                align-self: center;
-            }
-
-            &-img {
-                display: block;
-                width: ef.get-value($themeTournaments, 'emptyImgWidth');
-                height: ef.get-value($themeTournaments, 'emptyImgHeight');
-                max-height: ef.get-value($themeTournaments, 'emptyImgMaxHeight');
-                max-width: ef.get-value($themeTournaments, 'emptyImgMaxWidth');
             }
         }
     }

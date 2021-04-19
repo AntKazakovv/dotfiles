@@ -10,28 +10,9 @@
         >
             {{$params.tournament.name}}
         </h2>
-        <div class="{{$class}}__timer-block">
-            <div class="header-prize-block">
-                <i wlc-icon iconName="pool"></i>
-                <div class="header-prize-block__text">
-                    <div class="header-prize-block__text--subtitle">{{'Prize pool' | translate}}</div>
-                    <div wlc-currency
-                         [value]="$params.tournament.totalFounds"
-                         digitsInfo="1-0-0"
-                         [currency]="'EUR'"
-                    ></div>
-                </div>
-            </div>
-            <div class="delimiter"></div>
-            <div wlc-timer
-                 class="{{$class}}-timer"
-                 [value]="$params.tournament.isTournamentStarts
-                            ? $params.tournament.endsLuxon
-                            : $params.tournament.startsLuxon"
-                 [text]="$params.tournament.isTournamentStarts
-                             ? 'Time remaining'
-                             : 'Coming soon'">
-            </div>
+        <div class="{{$class}}__timer-block"
+             wlc-tournament-smart-info
+             [tournament]="$params.tournament">
         </div>
 
         <div class="{{$class}}__description"

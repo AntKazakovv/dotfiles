@@ -42,6 +42,8 @@ export class TournamentLeaderboardComponent
     @Input() public tournament: Tournament;
     @Input() public limit: number;
     @Input() public showAllBtn: boolean;
+    @Input() public useUserLogin: boolean;
+    @Input() public useListHead: boolean;
 
     public $params: Params.ITournamentLeaderboardCParams;
     public isAuth: boolean;
@@ -68,7 +70,7 @@ export class TournamentLeaderboardComponent
 
     public ngOnInit(): void {
         super.ngOnInit(GlobalHelper.prepareParams(this,
-            ['tournament', 'type', 'theme', 'themeMod', 'customMod', 'limit', 'showAllBtn']));
+            ['tournament', 'type', 'theme', 'themeMod', 'customMod', 'limit', 'showAllBtn', 'useListHead']));
         this.prepareModifiers();
         this.isAuth = this.ConfigService.get<boolean>('$user.isAuthenticated');
         this.restLimit = this.limit - 3 || 0;
@@ -90,6 +92,10 @@ export class TournamentLeaderboardComponent
             until: this.$destroy,
             limit: 0,
         });
+    }
+
+    public get needShowBtn(): boolean {
+        return this.$params.common?.showAllBtn && this.wins.length > this.$params.common?.limit;
     }
 
     public showAllWins(): void {

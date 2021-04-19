@@ -288,8 +288,14 @@ $themeDefault: map-merge((
 
     //tournament-details
     'tournamentDetailPadding': (
-        320: 90px 15px,
-        560: 60px,
-    )
+        320: 0,
+    ),
+    'tournamentDetailFooterPadding': (
+        320: ef.get('size', 'smaller') 0,
+    ),
+    'tournamentDetailIconCloseTop': (
+        320: ef.get('size', 'smally'),
+        768: ef.get('size', 'smaller'),
+    ),
     //tournament-details
 ), $customThemeDefault);

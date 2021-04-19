@@ -4,7 +4,6 @@
 @use 'engine-scss/functions' as ef;
 @import '../utils/vars';
 
-
 .wlc-tournament-leaderboard--theme-default:host {
 
     .wlc-tournament-leaderboard {
@@ -179,6 +178,114 @@
 
             .user-login {
                 max-width: 90%;
+            }
+        }
+    }
+
+    &.wlc-tournament-leaderboard--theme-mod-tournament-detail {
+
+        .delimetr {
+            @include em.get-mq-map('width', $themeDefaultModTournamentDetail, 'delimetrwidth');
+            @include em.get-mq-map('height', $themeDefaultModTournamentDetail, 'delimetrheight');
+            @include em.get-mq-map('background', $themeDefaultModTournamentDetail, 'delimetrBg');
+        }
+
+        .wlc-tournament-leaderboard {
+
+            &__list {
+                @include em.get-mq-map('grid-gap', $themeDefaultModTournamentDetail, 'listGap');
+                @include em.get-mq-map('padding', $themeDefaultModTournamentDetail, 'listPadding');
+                @include em.get-mq-map('background', $themeDefaultModTournamentDetail, 'listBg');
+                @include em.get-mq-map('border-radius', $themeDefaultModTournamentDetail, 'listRadius');
+            }
+
+            &__item {
+                @include em.get-mq-map('grid-template-columns', $themeDefaultModTournamentDetail, 'itemGridTemplate');
+                @include em.get-mq-map('margin', $themeDefaultModTournamentDetail, 'itemMargin');
+
+                .wlc-icon::ng-deep {
+                    display: none;
+                }
+
+                .item-user {
+                    @include em.get-mq-map('padding', $themeDefaultModTournamentDetail, 'itemPaddingUser');
+                }
+
+                &:not(.user) {
+                    @include em.get-mq-map('background', $themeDefaultModTournamentDetail, 'itemBg');
+                    @include em.get-mq-map('border-radius', $themeDefaultModTournamentDetail, 'itemRadius');
+                }
+
+                &.user {
+                    @include em.get-mq-map('margin-bottom', $themeDefaultModTournamentDetail, 'itemUserMarginBottom');
+                    @include em.get-mq-map('border-radius', $themeDefaultModTournamentDetail, 'itemUserRadius');
+
+                    .item-place {
+                        @include em.get-mq-map('border-radius', $themeDefaultModTournamentDetail, 'itemUserRadiusPlace');
+                    }
+
+                    .item-points {
+                        @include em.get-mq-map('border-radius', $themeDefaultModTournamentDetail, 'itemUserRadiusPoints');
+                    }
+
+                    .wlc-tournament-leaderboard__cell {
+                        @include text.get-text-style(
+                            ef.get-value($themeDefaultModTournamentDetail, 'itemUserCellTextStyle'),
+                            ef.get-value($themeDefaultModTournamentDetail, 'itemUserCellTextColor')
+                        );
+                    }
+                }
+
+                &.head {
+                    @include em.get-mq-map('padding', $themeDefaultModTournamentDetail, 'headPadding');
+                    @include em.get-mq-map('background', $themeDefaultModTournamentDetail, 'headBg');
+                }
+
+                &--top {
+
+                    .wlc-tournament-leaderboard__cell {
+                        @include em.get-mq-map('height', $themeDefaultModTournamentDetail, 'topCellHeight');
+                    }
+
+                    .wlc-icon::ng-deep {
+                        display: block;
+                        @include em.get-mq-map('width', $themeDefaultModTournamentDetail, 'topIconWidth');
+                        @include em.get-mq-map('margin', $themeDefaultModTournamentDetail, 'topIconMargin');
+
+                        svg {
+                            width: 100%;
+
+                            path {
+                                @include em.get-mq-map('fill', $themeDefaultModTournamentDetail, 'topIconColor');
+                            }
+                        }
+                    }
+
+                    .item-user {
+                        @include em.get-mq-map('padding', $themeDefaultModTournamentDetail, 'topCellUserPadding');
+                    }
+
+                    &.first,
+                    &.single,
+                    &.last {
+                        padding-top: 0;
+                        padding-bottom: 0;
+                    }
+
+                    &.user {
+                        margin-bottom: 0;
+
+                        .wlc-icon::ng-deep {
+
+                            svg {
+
+                                path {
+                                    @include em.get-mq-map('fill', $themeDefaultModTournamentDetail, 'topIconUserColor');
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     }

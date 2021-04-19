@@ -34,8 +34,6 @@ $themeDefault: map-merge((
 
     'gridColumnsTournamentDetail': (
         375: repeat(auto-fill, minmax(150px, 1fr)),
-        900: repeat(auto-fill, minmax(225px, 1fr)),
-        1024: repeat(auto-fill, minmax(200px, 1fr)),
-        1630: repeat(auto-fill, minmax(220px, 1fr)),
+        900: repeat(auto-fill, minmax(200px, 1fr)),
     ),
 ), $customThemeDefault);
