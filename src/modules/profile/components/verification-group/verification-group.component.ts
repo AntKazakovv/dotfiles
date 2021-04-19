@@ -24,6 +24,11 @@ import {
 } from 'wlc-engine/modules/profile';
 import * as Params from './verification-group.params';
 
+import {
+    map as _map,
+    join as _join,
+} from 'lodash-es';
+
 @Component({
     selector: '[wlc-verification-group]',
     templateUrl: './verification-group.component.html',
@@ -35,6 +40,7 @@ export class VerificationGroupComponent extends AbstractComponent implements OnI
     @Input('doc-group') public currentDocGroup: DocGroupModel;
     @Output() protected needUpdate = new EventEmitter<void>();
     public $params: Params.IVerificationGroupCParams;
+    public acceptFormat: string;
 
     constructor(
         protected configService: ConfigService,
@@ -60,6 +66,8 @@ export class VerificationGroupComponent extends AbstractComponent implements OnI
                 this.uploadFile(data.files, data.label);
             }
         });
+
+        this.acceptFormat = this.verificationService.acceptFormat();
     }
 
     public ngOnChanges() {

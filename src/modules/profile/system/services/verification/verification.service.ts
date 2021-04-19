@@ -11,8 +11,10 @@ import {
     IDocTypeResponse,
 } from 'wlc-engine/modules/profile';
 
-import _includes from 'lodash-es/includes';
 import _find from 'lodash-es/find';
+import _includes from 'lodash-es/includes';
+import _join from 'lodash-es/join';
+import _map from 'lodash-es/map';
 
 @Injectable({
     providedIn: 'root',
@@ -29,6 +31,10 @@ export class VerificationService {
         private eventService: EventService,
     ) {
         this.init();
+    }
+
+    public acceptFormat(): string {
+        return _join(_map(this.params.fileTypes, (type) => `image/${type}`), ', ');
     }
 
     public async getDocsTypes(): Promise<IDocTypeResponse[]> {

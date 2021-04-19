@@ -54,6 +54,7 @@ export class VerificationComponent extends AbstractComponent implements OnInit {
     };
 
     private docTypes: IDocTypeResponse[];
+    public acceptFormat: string;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IVerificationCParams,
@@ -100,6 +101,8 @@ export class VerificationComponent extends AbstractComponent implements OnInit {
                 this.preloadFile(data.files);
             }
         });
+
+        this.acceptFormat = this.verificationService.acceptFormat();
 
         this.selectParams.items = this.selectItems;
         this.selectParams.control.setValue(this.docTypes[0].ID);
