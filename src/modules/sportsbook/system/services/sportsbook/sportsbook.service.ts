@@ -8,13 +8,20 @@ import {
     Subject,
     Observable,
 } from 'rxjs';
-import {map, filter} from 'rxjs/operators';
+import {
+    map,
+    filter,
+} from 'rxjs/operators';
 import {
     IIndexing,
     ConfigService,
     Deferred,
 } from 'wlc-engine/modules/core';
 import {GamesCatalogService} from 'wlc-engine/modules/games';
+import {
+    ISportsbookSettings,
+    ISportsbookSettingsFilter,
+} from 'wlc-engine/modules/sportsbook';
 
 import _get from 'lodash-es/get';
 import _find from 'lodash-es/find';
@@ -26,12 +33,6 @@ import _forEach from 'lodash-es/forEach';
 interface IMessage {
     eventType: string;
     eventData?: IIndexing<any>;
-}
-
-export interface ISportsbookSettings {
-    id: string;
-    merchantId: number,
-    launchCode: string,
 }
 
 @Injectable({
@@ -95,16 +96,16 @@ export class SportsbookService {
     }
 
     /**
-     * Get sportsbook settings (by id or for first available)
+     * Get sportsbook settings (by id,merchantId or for first available)
      *
-     * @param {string} sportsbookId
+     * @param {ISportsbookSettingsFilter} filter
      * @returns {ISportsbookSettings}
      */
-    public getSportsbookSettings(sportsbookId?: string): ISportsbookSettings {
-        if (sportsbookId) {
-            return this.settings[sportsbookId];
-        }
+    public getSportsbookSettings(filter?: ISportsbookSettingsFilter): ISportsbookSettings {
         return _find(this.settings, (settings) => {
+            if ((filter?.id && settings.id !== filter.id) || (filter?.merchantId && settings.merchantId !== filter.merchantId)) {
+                return;
+            }
             return !!this.gamesCatalogService.getGame(settings.merchantId, settings.launchCode);
         });
     }
