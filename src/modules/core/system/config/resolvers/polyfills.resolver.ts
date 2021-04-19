@@ -1,6 +1,7 @@
 import {InjectionToken} from "@angular/core";
 import {shouldPolyfill as shouldPolyfillNumberFormat} from '@formatjs/intl-numberformat/should-polyfill';
 import {shouldPolyfill as shouldPolyfillLocale} from '@formatjs/intl-locale/should-polyfill';
+import {shouldPolyfill as shouldPolyfillPluralRules} from '@formatjs/intl-pluralrules/should-polyfill';
 import {TranslateService} from "@ngx-translate/core";
 import {ResolveTypes} from "@uirouter/core";
 import {ConfigService} from "wlc-engine/modules/core";
@@ -35,6 +36,10 @@ class PolyfillsResolver {
 
         if (shouldPolyfillLocale()) {
             await import('@formatjs/intl-locale/polyfill');
+        }
+
+        if (shouldPolyfillPluralRules()) {
+            await import('@formatjs/intl-pluralrules/polyfill');
         }
 
         switch (language) {
