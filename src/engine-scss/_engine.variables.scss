@@ -524,6 +524,21 @@ $layoutGap: map-merge((
     ),
 ), $customLayoutGap);
 
+$customAppLoader: () !default;
+$appLoader: (
+    'background': linear-gradient(315deg, map-get($mainColors, 'bg700') 0%, map-get($mainColors, 'bg') 75%),
+    'imgBlockPadding': 80px,
+    'imgBlockWidth': 300px,
+    'imgBgUrl': url('/static/images/logo.svg'),
+    'imgBgRepeat': no-repeat,
+    'imgBgPosition': center,
+    'imgBgSize': cover,
+    'loaderBlockMargin': 35px 0 0,
+    'loaderWidth': 50px,
+    'loaderHeight': 50px,
+    'loaderBorder': 2px solid map-get($mainColors, 'baseMain'),
+);
+
 $body-bg: map-get($mainColors, 'bg') !default;
 $body-color: map-get($mainColors, 'baseMain') !default;
 $font-size-root: 10px !default;
@@ -536,4 +551,3 @@ $link-decoration: underline !default;
 $link-hover-color: darken($link-color, 15%) !default;
 $link-hover-decoration: none !default;
 $enable-rfs: false;
-

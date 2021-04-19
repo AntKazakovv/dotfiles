@@ -1,5 +1,5 @@
-const {watch, series, task} = require('gulp');
-const liveReload = require('gulp-livereload');
+const {watch, series, task, dest, src} = require('gulp');
+const liveReload = require('gulp-livereload'), fs = require('fs'), sass = require('gulp-dart-sass');
 
 module.exports = function watchTask() {
 
@@ -31,6 +31,27 @@ module.exports = function watchTask() {
         cb();
     };
 
+    const createSitePreloader = () => {
+        fs.access(`${this.params.paths.src}/app-styles/app.loader.scss`, (err) => {
+            if (err) {
+                fs.writeFileSync(`${this.params.paths.src}/app-styles/app.loader.scss`,
+                    `@import 'node_modules/@egamings/wlc-engine/src/engine-scss/_engine.loader.scss';\n\n`);
+            }
+
+            compileLoaderStyles();
+        });
+    };
+
+    const compileLoaderStyles = () => {
+        src(`${this.params.paths.src}/app-styles/app.loader.scss`)
+            .pipe(sass.sync().on('error', sass.logError))
+            .pipe(dest(`${this.params.paths.static}/css/`));
+    };
+
+    const watchForPreloader = () => {
+        watch(`${this.params.paths.src}/app-styles/app.loader.scss`).on('change',  () => compileLoaderStyles());
+    };
+
     task('liveReload:reload', (cb) => {
         liveReload.reload();
         cb();
@@ -40,6 +61,9 @@ module.exports = function watchTask() {
         if (this.params.isEngineBundle) {
             return;
         }
+
+        createSitePreloader();
+        watchForPreloader();
 
         this.execShell(
             'LRPID=$(fuser -vn tcp 35729 | awk \'{print $1}\'); if [ $LRPID ]; then kill -9 $LRPID; fi',
