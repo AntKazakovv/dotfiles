@@ -52,11 +52,19 @@
             left: 0;
 
             width: 100%;
+            height: 100%;
+
+            border-radius: inherit;
+
+            overflow: hidden;
 
             img {
                 display: block;
                 width: 100%;
                 height: 100%;
+
+                object-fit: cover;
+                object-position: center;
             }
         }
 
@@ -87,7 +95,6 @@
                 height: 100%;
 
                 background: ef.get-value($themeDefault, 'thumbHoverBg');
-                border-radius: ef.get-value($themeDefault, 'thumbBorderRadius');
                 transform: translateX(-100%) skewX(35deg);
 
                 content: '';
