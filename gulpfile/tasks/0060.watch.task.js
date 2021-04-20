@@ -1,5 +1,6 @@
 const {watch, series, task, dest, src} = require('gulp');
-const liveReload = require('gulp-livereload'), fs = require('fs'), sass = require('gulp-dart-sass');
+const liveReload = require('gulp-livereload');
+const fs = require('fs');
 
 module.exports = function watchTask() {
 
@@ -39,18 +40,14 @@ module.exports = function watchTask() {
                     `@import 'wlc-engine/engine-scss/_engine.loader.scss';\n`);
             }
 
-            compileLoaderStyles();
+            series('build:loader-css')();
         });
     };
 
-    const compileLoaderStyles = () => {
-        src(`${this.params.paths.src}/app-styles/app.loader.scss`)
-            .pipe(sass.sync().on('error', sass.logError))
-            .pipe(dest(`${this.params.paths.static}/css/`));
-    };
-
     const watchForPreloader = () => {
-        watch(`${this.params.paths.src}/app-styles/app.loader.scss`).on('change',  () => compileLoaderStyles());
+        watch(`${this.params.paths.src}/app-styles/app.loader.scss`).on('change',  () => {
+            series('build:loader-css', 'liveReload:reload')();
+        });
     };
 
     task('liveReload:reload', (cb) => {
