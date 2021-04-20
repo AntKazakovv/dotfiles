@@ -157,7 +157,7 @@ export class ConfigService {
 
     private addSiteConfig(): void {
         wlcConfig.$base.app.type = appConfig.$base.app.type || 'wlc';
-        wlcConfig.$base.profile.type = appConfig.$base.profile.type || 'default';
+        wlcConfig.$base.profile.type = appConfig.$base.profile?.type || 'default';
 
         const layoutConfig = this.addLayoutConfig({
             appType: wlcConfig.$base.app.type,

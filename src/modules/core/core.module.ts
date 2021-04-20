@@ -29,6 +29,7 @@ import {
     LogService,
     ModalService,
     NotificationService,
+    LayoutService,
 } from './system/services';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 // -- SERVICES IMPORTS END  --;
@@ -174,6 +175,7 @@ export const components = {
         ActionService,
         ModalService,
         ContactsService,
+        LayoutService,
         {
             provide: HAMMER_GESTURE_CONFIG,
             useClass: HammerConfig,
