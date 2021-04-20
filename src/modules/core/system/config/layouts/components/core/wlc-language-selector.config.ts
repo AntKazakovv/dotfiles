@@ -34,4 +34,14 @@ export namespace wlcLanguageSelector {
             themeMod: 'long',
         },
     };
+    export const footerThemeFirst: ILayoutComponent = {
+        name: 'core.wlc-language-selector',
+        params: <ILanguageSelectorCParams>{
+            themeMod: 'top-left',
+            currentLang: {
+                hideLang: false,
+            },
+            toggleOnScroll: 'bottom-left',
+        },
+    };
 }

@@ -20,12 +20,20 @@ export namespace footer {
                     wlcElement: 'block_footer-menu',
                     components: [
                         componentLib.wlcPostMenu.footerAbout,
-                        componentLib.wlcLicense.def,
+                        {
+                            name: 'core.wlc-license',
+                            display: {
+                                after: 481,
+                            },
+                        },
                     ],
                 },
             },
             {
                 name: 'core.wlc-wrapper',
+                display: {
+                    after: 1025,
+                },
                 params: {
                     class: 'wlc-footer-disclaimer',
                     components: [
@@ -34,7 +42,26 @@ export namespace footer {
                     ],
                 },
             },
-            componentLib.wlcLanguageSelector.topLeft,
+            componentLib.wlcLanguageSelector.footerThemeFirst,
+            {
+                name: 'core.wlc-wrapper',
+                display: {
+                    before: 1024,
+                },
+                params: {
+                    class: 'wlc-footer-disclaimer',
+                    components: [
+                        componentLib.wlcDisclaimer.def,
+                        componentLib.wlcCopyright.def,
+                        {
+                            name: 'core.wlc-license',
+                            display: {
+                                before: 480,
+                            },
+                        },
+                    ],
+                },
+            },
         ],
     };
     export const themeSecond: ILayoutSectionConfig = {

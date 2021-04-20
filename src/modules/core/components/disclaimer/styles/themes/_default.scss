@@ -1,6 +1,7 @@
-@use 'engine-scss/mixins/mediaqueries' as mq;
-@use 'engine-scss/mixins/text' as text;
 @use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/base.mixins' as em;
+@use 'engine-scss/mixins/text' as text;
 @import '../utils/vars';
 
 .wlc-disclaimer--theme-default:host {
@@ -12,6 +13,10 @@
         @include mq.min(900) {
             @include text.get-text-style('PlaceholderText', map-get($themeDefault, 'textColor'));
             text-align: ef.get-value($themeDefault, 'textAlign', 900);
+        }
+
+        .wlc-sections__footer--theme-1 & {
+            @include em.get-mq-map('text-align', $themeDefault, 'footerFirstTextAlign');
         }
     }
 }
