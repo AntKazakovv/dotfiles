@@ -525,7 +525,7 @@ $layoutGap: map-merge((
 ), $customLayoutGap);
 
 $customAppLoader: () !default;
-$appLoader: (
+$appLoader: map-merge((
     'background': linear-gradient(315deg, map-get($mainColors, 'bg700') 0%, map-get($mainColors, 'bg') 75%),
     'imgBlockPadding': 80px,
     'imgBlockWidth': 300px,
@@ -537,7 +537,7 @@ $appLoader: (
     'loaderWidth': 50px,
     'loaderHeight': 50px,
     'loaderBorder': 2px solid map-get($mainColors, 'baseMain'),
-);
+), $customAppLoader);
 
 $body-bg: map-get($mainColors, 'bg') !default;
 $body-color: map-get($mainColors, 'baseMain') !default;

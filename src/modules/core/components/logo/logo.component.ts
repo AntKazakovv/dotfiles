@@ -26,7 +26,7 @@ export class LogoComponent extends AbstractComponent implements OnInit {
         super({
             injectParams: componentParams,
             defaultParams: Params.defaultParams,
-        });
+        }, configService);
     }
 
     public ngOnInit(): void {

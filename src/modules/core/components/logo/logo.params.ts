@@ -23,4 +23,6 @@ export const defaultParams: ILogoCParams = {
     image: {
         name: 'defaultLogo',
     },
+    moduleName: 'core',
+    componentName: 'wlc-logo',
 };

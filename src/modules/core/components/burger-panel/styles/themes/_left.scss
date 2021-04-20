@@ -21,9 +21,10 @@
 
         .wlc-logo {
             display: block;
+            margin: 0 auto;
+            max-width: ef.get-value($themeLeft, 'logoMaxWidth');
 
             &__image {
-                margin: 0 auto;
 
                 svg {
                     max-height: 40px;

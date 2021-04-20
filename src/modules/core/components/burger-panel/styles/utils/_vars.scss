@@ -96,6 +96,7 @@ $themeLeft: map-merge((
     'menuLinksIconHeight': auto,
     'menuLinksIconFill': ef.get('mainColors', 'main'),
     'languageSelectorBg': ef.get('mainColors', 'bg500'),
+    'logoMaxWidth': 90%,
 ), $customThemeLeft);
 
 $customThemeMobile: () !default;
