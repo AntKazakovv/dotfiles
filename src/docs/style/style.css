@@ -6,6 +6,14 @@
 @import "./compodoc.css";
 @import "./tablesort.css";
 
+body {
+    font-size: 18px;
+}
+
+body pre code {
+    font-size: 16px;
+}
+
 body .content-data a:visited {
     color: inherit;
 }
@@ -25,7 +33,7 @@ body .content-data h1 a,
 body .content-data h1 a:visited {
     color: rgb(255, 102, 0);
     font-weight: normal;
-    font-size: 24px;
+    font-size: 26px;
     line-height: 1.25;
 }
 
@@ -34,7 +42,7 @@ body .content-data h2 a,
 body .content-data h2 a:visited {
     color: rgb(51, 153, 102);
     font-weight: normal;
-    font-size: 20px;
+    font-size: 22px;
     line-height: 1.5;
 }
 
@@ -45,7 +53,7 @@ body .content-data h3 a:visited {
 
     color: rgb(153, 51, 102);
     font-weight: bold;
-    font-size: 14px;
+    font-size: 18px;
     line-height: 1.5;
 }
 
