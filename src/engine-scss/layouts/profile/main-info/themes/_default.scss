@@ -6,7 +6,6 @@
 @import '../utils/vars';
 
 .app-profile-main-info-state .wlc-sections {
-
     &__profile-content--theme-default {
 
         > .container {
@@ -15,6 +14,10 @@
                 template-columns: 1fr;
             }
         }
+    }
+
+    &__profile-content--theme-first,
+    &__profile-content--theme-default {
 
         .wlc-profile-form {
             display: grid;
@@ -220,3 +223,71 @@
         }
     }
 }
+
+/// TODO start
+/// Убирать стейт, когда готов раздел. Сейчас это нужно чтобы меню v1 не разваливалось, при тестах
+.app-profile-main-info-state,
+.app-profile-loyalty-bonuses-main-state,
+.app-profile-loyalty-bonuses-active-state,
+.app-profile-loyalty-bonuses-history-state,
+.app-profile-loyalty-tournaments-main-state,
+.app-profile-loyalty-tournaments-active-state,
+.app-profile-loyalty-tournaments-history-state,
+.app-profile-cash-deposit-state,
+.app-profile-cash-withdraw-state,
+.app-profile-cash-transactions-state,
+.app-profile-gamblings-bets-state,
+.app-profile-loyalty-store-main-state,
+.app-profile-loyalty-level-state,
+.app-profile-verification-state {
+
+    .wlc-sections {
+
+        &__profile-content--theme-first {
+
+            > .container {
+                display: grid;
+                grid: {
+                    template-columns: 1fr;
+                }
+                border-radius: ef.get('radius', 'biger');
+
+                @include mq.min(1024) {
+                    grid: {
+                        template-columns: 285px 1fr;
+                    }
+                    padding: 0;
+
+                    .wlc-profile-content {
+                        padding: ef.get('size', 'smaller');
+                    }
+                }
+            }
+        }
+    }
+}
+
+.app-profile-loyalty-store-main-state,
+.app-profile-loyalty-level-state {
+
+    .wlc-sections__profile-content--theme-first {
+
+        > .wlc-profile-content {
+            position: relative;
+            display: grid;
+            grid: {
+                template-columns: minmax(0, 1fr) minmax(0, 1fr);
+                template-rows: auto;
+                template-areas: 'title stats' 'submenu submenu' 'store store';
+            }
+
+            @include mq.min(720) {
+                grid: {
+                    template-columns: repeat(2, 1fr);
+                    template-areas: 'title stats' 'submenu submenu' 'store store';
+                }
+            }
+        }
+    }
+}
+/// TODO finish

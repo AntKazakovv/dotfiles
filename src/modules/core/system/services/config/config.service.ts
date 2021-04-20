@@ -7,9 +7,11 @@ import * as wlcConfig from 'wlc-engine/modules/core/system/config/default.config
 import {
     $layoutsAff,
     $panelsLayouts,
+    $profileLayouts,
+    $profileFirstLayouts,
     $layouts,
 } from 'wlc-engine/modules/core/system/config/layouts';
-import {AppType, ILayoutsConfig} from 'wlc-engine/modules/core/system/interfaces';
+import {ILayoutsConfig, IParamsLayoutConfig} from 'wlc-engine/modules/core/system/interfaces';
 import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
 import {
     LocalStorageService,
@@ -154,25 +156,32 @@ export class ConfigService {
     }
 
     private addSiteConfig(): void {
-        if (appConfig.$base?.app.type) {
-            wlcConfig.$base.app.type = appConfig.$base.app.type;
-        }
+        wlcConfig.$base.app.type = appConfig.$base.app.type || 'wlc';
+        wlcConfig.$base.profile.type = appConfig.$base.profile.type || 'default';
 
-        const layoutConfig = this.addLayoutConfig(wlcConfig.$base.app.type);
+        const layoutConfig = this.addLayoutConfig({
+            appType: wlcConfig.$base.app.type,
+            profileType: wlcConfig.$base.profile.type,
+        });
         _mergeWith(this.global, wlcConfig, layoutConfig, (target, source) => (source?.replaceConfig) ? _cloneDeep(source) : undefined);
         _mergeWith(this.global, appConfig, (target, source) => (source?.replaceConfig) ? _cloneDeep(source) : undefined);
         GlobalHelper.deepFreeze(this.global.appConfig);
     }
 
-    private addLayoutConfig(appType: AppType): ILayoutsConfig {
-        switch (appType) {
+    private addLayoutConfig(params: IParamsLayoutConfig): ILayoutsConfig {
+        const mergedLayouts: ILayoutsConfig =
+            params.profileType === 'first'
+                ? _mergeWith($layouts, $profileFirstLayouts)
+                : _mergeWith($layouts, $profileLayouts);
+
+        switch (params.appType) {
             case 'aff':
                 return {
                     $layouts: $layoutsAff,
                 };
             default:
                 return {
-                    $layouts,
+                    $layouts: mergedLayouts,
                     $panelsLayouts,
                 };
         }

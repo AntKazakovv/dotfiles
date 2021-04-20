@@ -7,6 +7,17 @@ export namespace wlcProfileMenu {
         },
     };
 
+    export const defTypeFirst: ILayoutComponent = {
+        name: 'menu.wlc-profile-menu',
+        display: {
+            after: 1024,
+        },
+        params: {
+            theme: 'first',
+            type: 'full',
+        },
+    };
+
     export const submenu: ILayoutComponent = {
         name: 'menu.wlc-profile-menu',
         params: {

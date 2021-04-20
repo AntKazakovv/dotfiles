@@ -9,7 +9,7 @@ export interface IProfileMenuFilter {
     item: string;
 }
 
-export type Type = 'tabs' | 'submenu' | 'dropdown' | CustomType;
+export type Type = 'tabs' | 'submenu' | 'dropdown' | 'full' | CustomType;
 export type Theme = 'default' | CustomType;
 export type ThemeMod = 'default' | CustomType;
 export type AutoModifiers = Theme | ThemeMod;

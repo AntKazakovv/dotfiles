@@ -1,4 +1,6 @@
 import {Injector} from '@angular/core';
+import {AppType} from 'wlc-engine/modules/core';
+import {ProfileType} from 'wlc-engine/modules/core/system/interfaces/base-config/profile.interface';
 import {IDefaultConfig} from 'wlc-engine/modules/core/system/interfaces/config.interface';
 
 export interface ILayoutsConfig {
@@ -83,4 +85,9 @@ export interface IComponentDisplayConfig {
     mobile?: boolean;
     /** display component only auth user when true, anon user when false */
     auth?: boolean;
+}
+
+export interface IParamsLayoutConfig {
+    appType: AppType;
+    profileType: ProfileType;
 }
