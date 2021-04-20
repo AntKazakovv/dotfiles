@@ -63,4 +63,29 @@ export class StateHelper {
             },
         };
     }
+
+    public static profileTypeResolver(type:string = 'default'): ResolveTypes {
+        return {
+            token: 'forProfile',
+            deps: [
+                ConfigService,
+                StateService,
+                Transition,
+            ],
+            resolveFn: async (
+                configService: ConfigService,
+                stateService: StateService,
+                transition: Transition,
+            ) => {
+                await configService.ready;
+
+                if (configService.get('$base.profile.type') === type) {
+                    return Promise.resolve();
+                } else {
+                    stateService.go('app.error', transition.params());
+                    return Promise.reject();
+                }
+            },
+        };
+    }
 }

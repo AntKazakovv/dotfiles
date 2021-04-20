@@ -30,4 +30,5 @@ export const profileConfig: IProfileConfig = {
     wallet: {
         use: false,
     },
+    type: 'default',
 };

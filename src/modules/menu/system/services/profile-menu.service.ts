@@ -140,7 +140,9 @@ export class ProfileMenuService {
      * Init config of menu
      */
     protected initConfig(): void {
-        this.profileMenuConfig = this.configService.get<MenuParams.MenuConfigItem[]>('$menu.profileMenu.items');
+        this.profileMenuConfig = this.configService.get<string>('$base.profile.type') === 'first'
+            ? this.configService.get<MenuParams.MenuConfigItem[]>('$menu.profileFirstMenu.items')
+            : this.configService.get<MenuParams.MenuConfigItem[]>('$menu.profileMenu.items');
         this.filterConfig();
         GlobalHelper.deepFreeze(this.profileMenuConfig);
     }

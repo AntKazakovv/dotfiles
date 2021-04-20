@@ -1,0 +1,103 @@
+@use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/functions' as ef;
+
+.wlc-profile-menu--theme-first.wlc-profile-menu--type-full:host {
+    @include bm.get-mq-map('padding', $fullProfileFirstDefault, 'menuPadding');
+    @include bm.get-mq-map('background', $fullProfileFirstDefault, 'menuBg');
+    @include bm.get-mq-map('border-radius', $fullProfileFirstDefault, 'menuRadius');
+
+    ::ng-deep {
+
+        .wlc-menu--theme-first.wlc-menu--type-profile-first-menu {
+
+            .wlc-menu__icon-active {
+                display: none;
+
+                position: absolute;
+                @include bm.get-mq-map('left', $fullProfileFirstDefault, 'activeIconLeft');
+                @include bm.get-mq-map('top', $fullProfileFirstDefault, 'activeIconTop');
+                @include bm.get-mq-map('transform', $fullProfileFirstDefault, 'activeIconTransform');
+                line-height: 0;
+
+                svg {
+                    @include bm.get-mq-map('width', $fullProfileFirstDefault, 'activeIconWidth');
+                    @include bm.get-mq-map('height', $fullProfileFirstDefault, 'activeIconHeight');
+                }
+            }
+
+            .wlc-menu__item--dropdown {
+                @include bm.get-mq-map('padding', $fullProfileFirstDefault, 'menuItemDropdownPadding');
+
+                &:not(:last-child) {
+                    @include bm.get-mq-map('border-bottom', $fullProfileFirstDefault, 'menuItemDropdownBorder');
+                }
+
+                & > .wlc-menu__link {
+                    display: block;
+                    @include bm.get-mq-map('margin', $fullProfileFirstDefault, 'menuTitleMargin');
+                    @include text.get-text-style(
+                        ef.get-value($fullProfileFirstDefault, 'menuTitleFontStyle'),
+                        ef.get-value($fullProfileFirstDefault, 'menuTitleFontColor')
+                    );
+                    @include bm.get-mq-map('line-height', $fullProfileFirstDefault, 'menuTitleLineHeight');
+                    @include bm.get-mq-map('text-decoration', $fullProfileFirstDefault, 'menuTitleTextDecoration');
+
+                    .wlc-icon {
+                        display: none;
+                    }
+                }
+
+                .wlc-menu__submenu {
+
+                    .wlc-menu__link {
+                        display: block;
+                        @include bm.get-mq-map('margin', $fullProfileFirstDefault, 'menuLinkMargin');
+                        @include text.get-text-style(
+                            ef.get-value($fullProfileFirstDefault, 'menuLinkFontStyle'),
+                            ef.get-value($fullProfileFirstDefault, 'menuLinkFontColor')
+                        );
+                        @include bm.get-mq-map('text-decoration', $fullProfileFirstDefault, 'menuLinkTextDecoration');
+                        @include bm.transition(color);
+
+                        &.active {
+                            position: relative;
+                            @include text.get-text-style(
+                                ef.get-value($fullProfileFirstDefault, 'menuLinkActiveFontStyle'),
+                                ef.get-value($fullProfileFirstDefault, 'menuLinkActiveFontColor')
+                            );
+
+                            .wlc-menu__icon-active {
+                                display: block;
+                                @include bm.get-mq-map('color', $fullProfileFirstDefault, 'activeIconColor');
+                            }
+
+                            @media(hover) {
+                                &:hover {
+                                    color: ef.get-value($fullProfileFirstDefault, 'menuLinkActiveFontColor');
+                                }
+                            }
+                        }
+
+                        @media(hover) {
+                            &:hover {
+                                color: ef.get-value($fullProfileFirstDefault, 'menuLinkHoverFontColor');
+                            }
+                        }
+                    }
+
+                    .wlc-menu__item {
+
+                        &:last-child {
+
+                            .wlc-menu__link {
+                                margin-bottom: 0;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
