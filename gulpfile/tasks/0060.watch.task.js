@@ -18,6 +18,7 @@ module.exports = function watchTask() {
 
     const distWatcher = (cb) => {
 
+        // eslint-disable-next-line no-console
         console.log(series('watch:inline')());
 
         const watcher = watch(
@@ -35,7 +36,7 @@ module.exports = function watchTask() {
         fs.access(`${this.params.paths.src}/app-styles/app.loader.scss`, (err) => {
             if (err) {
                 fs.writeFileSync(`${this.params.paths.src}/app-styles/app.loader.scss`,
-                    `@import 'node_modules/@egamings/wlc-engine/src/engine-scss/_engine.loader.scss';\n\n`);
+                    `@import 'wlc-engine/engine-scss/_engine.loader.scss';\n`);
             }
 
             compileLoaderStyles();
