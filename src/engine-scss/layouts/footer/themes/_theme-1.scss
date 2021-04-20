@@ -13,10 +13,22 @@
         @include em.get-mq-map('margin-top', $theme1Footer, 'baseMarginTop');
 
         .container {
-            display: grid;
+            @include em.get-mq-map('display', $theme1Footer, 'footerContainerDisplay');
             @include em.get-mq-map('grid-template-columns', $theme1Footer, 'footerContainerGridColumns');
             @include em.get-mq-map('grid-template-areas', $theme1Footer, 'footerContainerGridAreas');
             @include em.get-mq-map('gap', $theme1Footer, 'footerContainerGridGap');
+
+            @include mq.min(560) {
+                flex-direction: row;
+                align-items: stretch;
+            }
+
+            @include mq.min(375) {
+                flex-direction: column;
+                flex-wrap: wrap;
+                align-items: center;
+                justify-content: center;
+            }
         }
 
         .wlc-icon-list {
@@ -54,8 +66,8 @@
         }
 
         .wlc-logo {
-            grid-area: logo;
             display: none;
+            grid-area: logo;
 
             @include mq.min(640) {
                 display: block;
@@ -90,8 +102,6 @@
 
         .wlc-disclaimer {
             grid-area: disclaimer;
-            @include em.get-mq-map('font-size', $theme1Footer, 'disclamerFontSize');
-            @include em.get-mq-map('text-align', $theme1Footer, 'disclamerTextAlign');
         }
 
         .wlc-language-selector {

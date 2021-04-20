@@ -29,17 +29,14 @@ $theme1Footer: map-merge((
         1024: auto,
     ),
     // footer container
+    'footerContainerDisplay': (
+        375: flex,
+        1200: grid
+    ),
     'footerContainerGridColumns': (
-        375: 1fr,
-        560: repeat(3, 1fr),
-        720: repeat(4, 1fr),
         1200: 130px 200px 120px 1fr 130px,
-        1366: 130px 200px 120px 1fr 130px,
     ),
     'footerContainerGridAreas': (
-        375: 'merchants' 'payments' 'info' 'about-us' 'language' 'disclaimer',
-        560: 'merchants merchants merchants' 'payments payments payments' 'info about-us language' 'disclaimer disclaimer disclaimer',
-        640: 'merchants merchants merchants merchants' 'payments payments payments payments' 'logo info about-us language' 'disclaimer disclaimer disclaimer disclaimer',
         1200: 'merchants merchants merchants merchants merchants' 'payments payments payments payments payments' 'logo info about-us disclaimer language',
     ),
     'footerContainerGridGap': (
