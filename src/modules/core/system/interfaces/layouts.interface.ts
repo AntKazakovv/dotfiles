@@ -37,6 +37,7 @@ export interface ILayoutSectionConfig {
     theme?: string;
     order?: number;
     wlcElement?: string;
+    display?: IDisplayConfig;
 }
 
 export interface IPanelSectionConfig extends ILayoutSectionConfig {
@@ -69,12 +70,12 @@ export interface ILayoutComponent {
      * @param mobile {boolean} display component only on mobile when true, on desktop when false
      * @param auth {boolean} display component only auth user when true, anon user when false
     */
-    display?: IComponentDisplayConfig;
+    display?: IDisplayConfig;
     exclude?: string[];
     include?: string[];
 }
 
-export interface IComponentDisplayConfig {
+export interface IDisplayConfig {
     /** display component after this window width */
     after?: number;
     /** display component before this window width */

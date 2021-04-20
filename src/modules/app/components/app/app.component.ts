@@ -18,8 +18,10 @@ import {
     ILanguage,
     ActionService,
     DeviceModel,
+    GlobalHelper,
 } from 'wlc-engine/modules/core';
 
+import {Subscription} from 'rxjs';
 import {fromEvent} from 'rxjs/internal/observable/fromEvent';
 import {takeUntil, filter} from 'rxjs/operators';
 
@@ -28,6 +30,9 @@ import _get from 'lodash-es/get';
 import _includes from 'lodash-es/includes';
 import _union from 'lodash-es/union';
 import _remove from 'lodash-es/remove';
+import _isEqual from 'lodash-es/isEqual';
+import _findIndex from 'lodash-es/findIndex';
+import _each from 'lodash-es/each';
 
 const defaultParams = {
     class: 'wlc-sections',
@@ -48,6 +53,9 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
     private testViewPort = false;
     private isIOS: boolean = false;
     private additionalHostClass = [];
+    private allSections: SectionModel[] = [];
+    private resize$: Subscription;
+    private auth$: Subscription;
 
     constructor(
         public router: UIRouter,
@@ -76,7 +84,7 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
     public async ngOnInit(): Promise<void> {
         this.translate.onLangChange.pipe(takeUntil(this.$destroy)).subscribe((v) => {
             this.stateService.go(
-                this.stateService.current.name,
+                this.uiRouter.current.name,
                 {locale: v.lang},
             );
         });
@@ -87,8 +95,9 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
 
         this.panels = _sortBy(this.layoutService
             .getAllSection('panels', this.uiRouter.current.name, this.uiRouter.params), 'order');
-        this.sections = _sortBy(this.layoutService
+        this.allSections = _sortBy(this.layoutService
             .getAllSection('pages', this.uiRouter.current.name, this.uiRouter.params), 'order');
+        this.sections = this.layoutService.filterDisplayElements(this.allSections);
 
         let filteredPanels = [];
         if (!this.configService.get<boolean>('isPanelsFiltered')) {
@@ -117,15 +126,11 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
 
         this.transition.onSuccess({}, async (transition) => {
             this.setHostClass();
-            const sections = _sortBy(this.layoutService
-                .getAllSection('pages', this.uiRouter.transition?.targetState().name(),
-                    this.uiRouter.transition?.targetState().params()), 'order');
-
-            if (this.sections.length) {
-                this.sections.length = 0;
-            }
-            this.sections.push(...sections);
+            this.getAllSections();
+            this.updateSections();
         });
+
+        this.setWatcher();
         this.setHostClass();
         this.updateMetaTag();
         this.cdr.markForCheck();
@@ -137,6 +142,68 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
 
     public trackBySectionName(index: number, section: SectionModel): string {
         return section.name;
+    }
+
+    private updateSections(): void {
+        if (this.sections) {
+            this.sections.length = 0;
+        }
+        this.sections.push(...this.layoutService.filterDisplayElements(this.allSections));
+        this.cdr.markForCheck();
+    }
+
+    private setWatcher(): void {
+        if (GlobalHelper.hasDisplayResize(this.allSections)) {
+            GlobalHelper.overrideDisplayResize(this.allSections);
+
+            if (!this.resize$) {
+                this.resize$ = fromEvent(window, 'resize').pipe(takeUntil(this.$destroy)).subscribe({
+                    next: () => {
+                        this.updateSections();
+                    },
+                });
+            }
+        }
+
+        const auth = GlobalHelper.hasDisplayAuth(this.allSections);
+
+        if (auth && !this.auth$) {
+            this.auth$ = this.eventService.filter(
+                [{name: 'LOGIN'}, {name: 'LOGOUT'}],
+                this.$destroy)
+                .subscribe({
+                    next: () => {
+                        setTimeout(() => {
+                            this.updateSections();
+                        }, 0);
+                    },
+                });
+        }
+    }
+
+    private getAllSections(): void {
+        const allSections = _sortBy(this.layoutService
+            .getAllSection('pages', this.uiRouter.transition?.targetState().name(),
+                this.uiRouter.transition?.targetState().params()), 'order');
+
+        if (this.allSections.length) {
+            const oldList = this.allSections.slice();
+
+            _each(allSections, (section, key) => {
+                const index = _findIndex(oldList, (item: SectionModel) => {
+                    return section.name === item.name && _isEqual(section, item);
+                });
+                if (index !== -1) {
+                    allSections[key] = oldList[index];
+                    oldList.splice(index, 1);
+                }
+            });
+        }
+
+        if (this.allSections.length) {
+            this.allSections.length = 0;
+        }
+        this.allSections.push(...allSections);
     }
 
     private setHostClass(): void {

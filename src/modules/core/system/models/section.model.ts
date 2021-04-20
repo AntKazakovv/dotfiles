@@ -1,4 +1,5 @@
 import {
+    IDisplayConfig,
     ILayoutComponent,
     ILayoutModifyItem,
     ILayoutSectionConfig,
@@ -25,10 +26,7 @@ export class SectionModel { // implements ILayoutSectionConfig | IPanelSectionCo
     public readonly modifiers: string[];
     public readonly theme: string;
     public readonly wlcElement: string;
-    public display: {
-        after?: number;
-        before?: number;
-    }
+    public display: IDisplayConfig;
     public useScroll: boolean;
     protected preparedModifiers: string[] = [];
 

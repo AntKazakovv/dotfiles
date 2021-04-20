@@ -6,11 +6,13 @@ import {
     ILayoutStateConfig,
     ILayoutModifyItem,
     IPanelsConfig,
-} from 'wlc-engine/modules/core/system/interfaces/layouts.interface';
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+    ConfigService,
+    IDisplayConfig,
+    IIndexing,
+    GlobalHelper,
+    IGlobalConfig,
+} from 'wlc-engine/modules/core';
 import {SectionModel, ISectionData} from 'wlc-engine/modules/core/system/models/section.model';
-import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
-import {GlobalHelper, IGlobalConfig} from 'wlc-engine/modules/core';
 
 import _cloneDeep from 'lodash-es/cloneDeep';
 import _each from 'lodash-es/each';
@@ -30,7 +32,7 @@ import _toSafeInteger from 'lodash-es/toSafeInteger';
 import _min from 'lodash-es/min';
 import _max from 'lodash-es/max';
 import _isUndefined from 'lodash-es/isUndefined';
-
+import _isObject from 'lodash-es/isObject';
 
 export type LayoutsType = 'pages' | 'panels';
 
@@ -227,7 +229,13 @@ export class LayoutService {
             ),
         );
     }
-
+    /**
+     * Return media query string
+     *
+     * @param display media query params
+     *
+     * @returns string with media query
+     */
     public createMediaQuery(display: {before?: number, after?: number}): string {
         const mediaQuery: string[] = [];
         const queries = [display.after, display.before];
@@ -245,6 +253,41 @@ export class LayoutService {
         return mediaQuery.join(' and ');
     }
 
+    /**
+     * Return list of filtred element by display params
+     *
+     * @param elementList - List of element with display params
+     *
+     * @returns filtered elements
+     */
+    public filterDisplayElements<T>(elementList: ({display?: IDisplayConfig} & T)[]): T[] {
+        return _filter(elementList, (element) => {
+            let result = true;
+            if (_isObject(element)) {
+                if (!_isUndefined(element.display?.mobile)
+                    && element.display?.mobile !== this.configService.get<boolean>('appConfig.mobile')
+                ) {
+                    result = false;
+                }
+
+                if (result && (element.display?.after || element.display?.before)) {
+                    result = result && window.matchMedia(this.createMediaQuery(element.display)).matches;
+                }
+
+                if (result && !_isUndefined(element.display?.auth)) {
+                    result = result
+                        && element.display.auth === this.configService.get<boolean>('$user.isAuthenticated');
+                }
+            }
+            return result;
+        });
+    }
+
+    /**
+     * Generate full config for autotests. Not use for general reason.
+     * @param full - full or slim mode generation
+     * @returns project config
+     */
     public async generateFullConfigWithLayouts(full: boolean = false): Promise<Partial<IGlobalConfig>> {
         await this.configService.ready;
         await this.importModules(['core', 'menu', 'games', 'static', 'promo', 'user', 'finances', 'bonuses', 'store', 'profile', 'sportsbook']);
