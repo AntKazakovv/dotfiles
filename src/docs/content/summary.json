@@ -44,13 +44,47 @@
         "file": "./400.modules/400.modules.md",
         "children": [
             {
-                "title": "4.1. Structure",
-                "file": "./400.modules/410.structure.md"
+                "title": "4.1. Modules implementation",
+                "file": "./400.modules/410.modules-implementation.md"
             }
         ]
     },
     {
         "title": "5. Components",
-        "file": "./500.components/500.components.md"
+        "file": "./500.components/500.components.md",
+        "children": [
+            {
+                "title": "5.1. Standard component",
+                "file": "./500.components/510.standard-component.md"
+            },
+            {
+                "title": "5.2. Params",
+                "file": "./500.components/520.component-params.md"
+            },
+            {
+                "title": "5.3. Template",
+                "file": "./500.components/530.component-template.md"
+            },
+            {
+                "title": "5.4. Styles",
+                "file": "./500.components/540.component-styles.md"
+            },
+            {
+                "title": "5.5. Customization",
+                "file": "./500.components/550.component-customization.md"
+            },
+            {
+                "title": "5.6. Core components",
+                "file": "./500.components/560.core-components.md"
+            }
+        ]
+    },
+    {
+        "title": "6. Services",
+        "file": "./600.services/600.services.md"
+    },
+    {
+        "title": "7. Styles",
+        "file": "./700.styles/700.styles.md"
     }
 ]
