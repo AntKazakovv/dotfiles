@@ -541,8 +541,8 @@ export class GamesCatalogService {
     //     return this.gameCatalog.getGameById(id);
     // }
 
-    public getGame(merchantId: number, launchCode: string): Game {
-        return this.gamesCatalog.getGame(merchantId, launchCode);
+    public getGame(merchantId: number, launchCode: string, isSportsbook: boolean = false): Game {
+        return this.gamesCatalog.getGame(merchantId, launchCode, isSportsbook);
     }
 
     public getGameById(id: number): Game {

@@ -152,7 +152,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         this.gameParams = this.getGameParams();
         this.initEventHandlers();
 
-        this.game = this.gamesCatalogService.getGame(_toNumber(this.gameParams.merchantId), this.gameParams.launchCode);
+        this.game = this.getGame();
         if (this.game) {
             // TODO: this.LocalCacheService.set('lastGameParams', this.gameParams);
             this.gamesCatalogService.loadFavourites();
@@ -248,6 +248,11 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         if (this.iframeObserver) {
             this.iframeObserver?.disconnect();
         }
+    }
+
+    protected getGame(): Game {
+        return this.gamesCatalogService.getGame(_toNumber(this.gameParams.merchantId), this.gameParams.launchCode,
+            !!this.$params.gameParams?.isSportsbook);
     }
 
     /**
@@ -718,7 +723,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         this.gamesCatalogService.favoritesUpdated.pipe(
             takeUntil(this.$destroy),
         ).subscribe(() => {
-            this.game = this.gamesCatalogService.getGame(this.gameParams.merchantId, this.gameParams.launchCode);
+            this.game = this.getGame();
             this.cdr.detectChanges();
         });
 
