@@ -5,9 +5,13 @@ import {
     Input,
     ChangeDetectorRef,
 } from '@angular/core';
-import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ModalService} from 'wlc-engine/modules/core/system/services';
-import {UserService} from 'wlc-engine/modules/user/system/services';
+import {
+    AbstractComponent,
+    ModalService,
+} from 'wlc-engine/modules/core';
+import {
+    UserService,
+} from 'wlc-engine/modules/user';
 import * as Params from './logout.params';
 
 @Component({
@@ -39,15 +43,22 @@ export class LogoutComponent extends AbstractComponent implements OnInit {
             id: 'logout-confirm',
             modalTitle: gettext('Confirmation'),
             modifier: 'confirmation',
+            wlcElement: 'modal_logout',
             modalMessage: gettext('Are you sure?'),
             showConfirmBtn: true,
             closeBtnParams: {
                 themeMod: 'secondary',
+                wlcElement: 'button_no',
                 common: {
                     text: gettext('No'),
                 },
             },
-            confirmBtnText: gettext('Yes'),
+            confirmBtnParams: {
+                wlcElement: 'button_yes',
+                common: {
+                    text: gettext('Yes'),
+                },
+            },
             textAlign: 'center',
             onConfirm: () => {
                 this.userService.logout();
