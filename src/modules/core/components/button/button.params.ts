@@ -2,7 +2,7 @@ import {RawParams} from '@uirouter/core';
 import {IComponentParams, CustomType} from 'wlc-engine/modules/core/system/classes/abstract.component';
 
 export type Type = 'default' | 'resolved' | 'rejected' | 'pending' | 'disabled' | CustomType;
-export type Theme = 'default' | 'skew' | 'rounding' | 'circled' | 'borderless' | CustomType;
+export type Theme = 'default' | 'skew' | 'rounding' | 'circled' | 'borderless' | 'icon' | CustomType;
 export type Size = 'default' | 'small' | 'big' | CustomType;
 export type ThemeMod = 'default' | 'secondary' | CustomType;
 export type Index = number | string | null;
