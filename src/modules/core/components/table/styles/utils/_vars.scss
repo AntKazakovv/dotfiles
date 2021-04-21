@@ -57,7 +57,9 @@ $themeDefault: map-merge((
 $customThemeTournaments: () !default;
 $themeTournaments: map-merge((
     'sectionLoaderHeight': 0,
-    'btnShowMoreMargin': 20px 0 0 0,
+    'btnShowMoreGap': (
+        320: 20px 0,
+    ),
 
     'rowRadiusSize': ef.get('radius', 'biger'),
     'rowBg': ef.get('mainColors', 'bg300'),
