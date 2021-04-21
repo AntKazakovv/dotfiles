@@ -53,7 +53,11 @@
         <a class="{{$class}}__link"
            [target]="item?.params?.target || '_self'"
            [href]="item?.params?.href"
-        >{{item.name | translate}}</a>
+        >
+            <span class="{{$class}}__icon-active" *ngIf="$params.theme === 'first'" wlc-icon [iconUrl]="'/wlc/icons/menu-active.svg'"></span>
+            <span class="{{$class}}__icon" wlc-icon [iconPath]="getIcon(item)" [fallback]="iconsFallback"></span>
+            <span>{{item.name | translate}}</span>
+        </a>
     </div>
 </ng-template>
 
