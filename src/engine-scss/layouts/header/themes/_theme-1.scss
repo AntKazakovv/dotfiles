@@ -97,7 +97,26 @@
                 }
             }
 
-            &-login,
+            &-login {
+                display: flex;
+                margin-left: auto;
+
+                .wlc-icon {
+                    width: ef.get-value($theme1Header, 'headerSvgBtnSize');
+                    height: ef.get-value($theme1Header, 'headerSvgBtnSize');
+
+                    svg {
+                        width: ef.get-value($theme1Header, 'headerSvgBtnSize');
+                        height: ef.get-value($theme1Header, 'headerSvgBtnSize');
+
+                        path,
+                        rect {
+                            fill: ef.get-value($theme1Header, 'headerLoginBtnFillColor');
+                        }
+                    }
+                }
+            }
+
             &-user {
                 display: flex;
                 margin-left: auto;

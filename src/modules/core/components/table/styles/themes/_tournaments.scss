@@ -6,6 +6,10 @@
 .wlc-table--theme-tournaments:host {
     display: flex;
     flex-direction: column;
+    align-items: center;
+
+    @include bm.get-mq-map('gap', $themeTournaments, 'btnShowMoreGap');
+
     @include bm.get-mq-map('min-height', $themeTournaments, 'sectionLoaderHeight');
 
     .wlc-btn--theme-default {

@@ -109,6 +109,8 @@ $themeDefault: map-merge((
     'prizeboardJustifyContent': center,
     'prizeboardButtonSelf': center,
 
+    'prizeboardButtonTransition': width 0s,
+
     'gamesPadding': (
         320: ef.get('size', 'smaller') ef.get('size', 'smally'),
         768: ef.get('size', 'smaller') ef.get('size', 'main'),

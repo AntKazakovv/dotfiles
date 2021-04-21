@@ -168,6 +168,7 @@ $selector: '.wlc-tournament-detail';
 
             .wlc-btn {
                 @include em.get-mq-map('justify-self', $themeDefault, 'prizeboardButtonSelf');
+                transition: ef.get-value($themeDefault, 'prizeboardButtonTransition');
             }
         }
 
