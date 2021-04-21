@@ -261,6 +261,11 @@ class StartGameHandler {
 
         if (!this.game) {
             this.logService.sendLog({code: '3.0.1', data: this.stateService.params});
+            this.showErrorNotification(
+                gettext('For some reason the game is no longer available'),
+                gettext('Game not found'),
+            );
+            this.stateService.go('app.home', this.transition.params());
             this.result.reject(RejectReason.GameNotFounded);
             return false;
         }

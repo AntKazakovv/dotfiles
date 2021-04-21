@@ -75,6 +75,7 @@ export class SportsbookComponent extends AbstractComponent implements OnInit, On
                 gameParams: {
                     merchantId: this.settings.merchantId,
                     launchCode: this.settings.launchCode,
+                    isSportsbook: true,
                 },
                 wlcElement: 'section_sportsbook_game-play',
                 theme: 'fullscreen-game-frame',

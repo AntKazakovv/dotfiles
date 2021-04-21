@@ -10,7 +10,8 @@ import {
     IJackpot,
     IFavourite,
     ISearchFilter,
-} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
+} from 'wlc-engine/modules/games/system/interfaces';
+
 import {GamesHelper} from 'wlc-engine/modules/games/system/helpers/games.helpers';
 import {
     ConfigService,
@@ -292,8 +293,9 @@ export class GamesCatalog extends AbstractModel<IGames> {
      * @param {string} launchCode
      * @returns {Game}
      */
-    public getGame(merchantID: number, launchCode: string): Game {
-        return _find(this.games, {merchantID, launchCode});
+    public getGame(merchantID: number, launchCode: string, isSportsbook: boolean = false): Game {
+        const gamesList: Game[] = isSportsbook ? this.sportsbooks : this.games;
+        return _find(gamesList, {merchantID, launchCode});
     }
 
     public getJackpotGames(): Game[] {

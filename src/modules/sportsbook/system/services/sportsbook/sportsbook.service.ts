@@ -106,7 +106,7 @@ export class SportsbookService {
             if ((filter?.id && settings.id !== filter.id) || (filter?.merchantId && settings.merchantId !== filter.merchantId)) {
                 return;
             }
-            return !!this.gamesCatalogService.getGame(settings.merchantId, settings.launchCode);
+            return !!this.gamesCatalogService.getGame(settings.merchantId, settings.launchCode, true);
         });
     }
 

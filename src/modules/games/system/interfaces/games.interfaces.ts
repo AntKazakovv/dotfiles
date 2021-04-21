@@ -207,6 +207,7 @@ export interface ICustomGameParams {
     gameId?: number;
     hideTitle?: boolean;
     autoresize?: boolean;
+    isSportsbook?: boolean;
     sportsbookPage?: string;
     disableIframeAutoResize?: boolean;
     minGameWindowHeight?: number;
