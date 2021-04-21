@@ -5,8 +5,12 @@ $themeDefault: map-merge((
     'formMaxWidth': 285px,
     'formMargin': 0 auto,
     'formHeight': 100%,
+    'formFlexDirection': column,
+
+    'formWraperHeight': 100%,
 
     'gridColumns': 100px 1fr,
+    'gridRows': repeat(5, max-content) minmax(auto, 1fr) max-content,
     'gridGap': 20px 15px,
     'templateAreas': 'email email' 'password password' 'currency promocode' 'terms terms' 'age age' 'btn btn' 'account account',
 
@@ -16,13 +20,18 @@ $themeDefault: map-merge((
     'fieldMargin': 0 0 ef.get('size', 'smaller'),
     'inputBackground': ef.get('fieldColors', 'inputBg'),
     'inputColor': ef.get('fieldColors', 'textColor'),
+    'inputOpacity': 1,
 
     'btnMargin': (
         320: 0 auto,
         900: auto auto ef.get('size', 'small'),
     ),
 
+    'checkboxLinkTransition': color 0.3s linear#{','} border-bottom-color 0.3s linear,
     'checkboxLinkColor': ef.get('mainColors', 'main'),
+    'checkboxLinkBorder': 1px solid ef.get('mainColors', 'main'),
+    'checkboxLinkColorHover': lighten(ef.get('mainColors', 'main'), 20%),
+    'checkboxLinkBorderColorHover': lighten(ef.get('mainColors', 'main'), 20%),
 
     'checkboxPadding': 0 ef.get('size', 'small'),
     'checkboxAgeMargin': -10px 0 0,

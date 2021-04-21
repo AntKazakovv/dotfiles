@@ -14,6 +14,9 @@ $themeDefault: map-merge((
     'containerShadow': 0 4px 9px 0 rgba(ef.get('mainColors', 'bg'), 0.07),
     'containerRadius': ef.get('radius', 'biger'),
     'containerHeight': 100%,
+    'containerFlexDirection': column,
+    'containerAlignItems': center,
+    'containerJustifyContent': center,
 
     'titleFontStyle': 'ThirdTitleBold',
     'titleColor': ef.get('mainColors', 'baseMain'),
@@ -38,7 +41,20 @@ $themeDefault: map-merge((
     'btnIconFill': ef.get('mainColors', 'baseMain'),
 
     'btnTextSize': 16px,
-    'btnTextBorderColor': ef.get('mainColors', 'baseMain'),
-    'btnTextRadius': 50px
+    'btnTextBorder': 2px solid ef.get('mainColors', 'baseMain'),
+    'btnTextRadius': 50px,
+    'btnTextLineHeight': 0,
+
+    'btnAlignItems': center,
+    'btnJustifyContent': center,
+    'btnMargin': auto,
+
+    'btnPendingAlignItems': center,
+    'btnPendingJustifyContent': center,
+
+    'inputBackground': ef.get('fieldColors', 'inputBg'),
+    'inputColor': ef.get('fieldColors', 'textColor'),
+    'inputTextTransform': uppercase,
+    'inputOpacity': 1,
 
 ), $customThemeDefault);

@@ -5,24 +5,27 @@
 
 .wlc-sign-up-form--theme-default:host {
     display: flex;
-    flex-direction: column;
+    flex-direction: ef.get-value($themeDefault, 'formFlexDirection');
+
     max-width: ef.get-value($themeDefault, 'formMaxWidth');
-    margin: ef.get-value($themeDefault, 'formMargin');
     height: ef.get-value($themeDefault, 'formHeight');
+
+    margin: ef.get-value($themeDefault, 'formMargin');
 
     &::ng-deep {
 
         .wlc-form-wrapper {
-            height: 100%;
+            height: ef.get-value($themeDefault, 'formWraperHeight');
         }
 
         .wlc-form {
             display: grid;
-            grid-template-areas: ef.get-value($themeDefault, 'templateAreas');
-            grid-template-columns: ef.get-value($themeDefault, 'gridColumns');
             grid-gap: ef.get-value($themeDefault, 'gridGap');
+            grid-template-areas: ef.get-value($themeDefault, 'templateAreas');
+            grid-template-rows: ef.get-value($themeDefault, 'gridRows');
+            grid-template-columns: ef.get-value($themeDefault, 'gridColumns');
+
             height: ef.get-value($themeDefault, 'formHeight');
-            grid-template-rows: repeat(5, max-content) minmax(auto, 1fr) max-content;
 
             > .wlc-btn {
                 grid-area: btn;
@@ -31,15 +34,30 @@
             }
         }
 
-        .wlc-input {
+        ::ng-deep {
 
-            ::ng-deep {
+            .wlc-input {
 
                 .wlc-input__container {
 
                     .wlc-input__input:disabled {
-                        background: ef.get-value($themeDefault, 'inputBackground');
                         color: ef.get-value($themeDefault, 'inputColor');
+
+                        background: ef.get-value($themeDefault, 'inputBackground');
+
+                        opacity: ef.get-value($themeDefault, 'inputOpacity'); // for ios
+                    }
+                }
+            }
+
+            .wlc-select {
+
+                .wlc-select__group {
+
+                    .wlc-select__field:disabled {
+                        color: ef.get-value($themeDefault, 'inputColor');
+
+                        background: ef.get-value($themeDefault, 'inputBackground');
                     }
                 }
             }
@@ -72,8 +90,9 @@
 
         .wlc-checkbox--age {
             grid-area: age;
-            padding: ef.get-value($themeDefault, 'checkboxPadding');
+
             margin: ef.get-value($themeDefault, 'checkboxAgeMargin');
+            padding: ef.get-value($themeDefault, 'checkboxPadding');
 
             .wlc-checkbox__label {
                 position: relative;
@@ -93,6 +112,7 @@
             .wlc-select__field,
             .wlc-select__dropdown-item {
                 padding: ef.get-value($themeDefault, 'selectPadding');
+
                 font-size: ef.get-value($themeDefault, 'selectFontSize');
             }
         }
@@ -101,12 +121,15 @@
 
             .wlc-checkbox__link {
                 color: ef.get-value($themeDefault, 'checkboxLinkColor');
-                border-bottom: 1px solid ef.get-value($themeDefault, 'checkboxLinkColor');
-                transition: color 0.3s linear, border-bottom-color 0.3s linear;
+
+                border-bottom: ef.get-value($themeDefault, 'checkboxLinkBorder');
+
+                transition: ef.get-value($themeDefault, 'checkboxLinkTransition');
 
                 &:hover {
-                    color: lighten(ef.get-value($themeDefault, 'checkboxLinkColor'), 20%);
-                    border-bottom-color: lighten(ef.get-value($themeDefault, 'checkboxLinkColor'), 20%);
+                    color: ef.get-value($themeDefault, 'checkboxLinkColorHover');
+
+                    border-bottom-color: ef.get-value($themeDefault, 'checkboxLinkColorHover');
                 }
             }
         }
