@@ -87,8 +87,11 @@ export class CategoryModel extends AbstractModel<ICategory> {
         return this.data.Trans;
     }
 
+    /**
+     * @deprecated
+     */
     public get name(): string {
-        return this.slug || this.data.menuId;
+        return this.slug;
     }
 
     public get sort(): number {
@@ -100,7 +103,7 @@ export class CategoryModel extends AbstractModel<ICategory> {
     }
 
     public get slug(): string {
-        return this.data.Slug.toLowerCase();
+        return this.data.Slug.toLowerCase() || this.data.menuId.toLowerCase();
     }
 
     public get menuId(): string {
