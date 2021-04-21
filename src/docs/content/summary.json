@@ -22,6 +22,14 @@
             {
                 "title": "1.5. Build",
                 "file": "./100.basic/150.build.md"
+            },
+            {
+                "title": "1.6. Languages",
+                "file": "./100.basic/160.languages.md"
+            },
+            {
+                "title": "1.7. Images",
+                "file": "./100.basic/170.images.md"
             }
         ]
     },
@@ -34,8 +42,22 @@
         "file": "./300.config/300.config.md",
         "children": [
             {
-                "title": "3.1. Layouts",
-                "file": "./300.config/310.layouts.md"
+                "title": "3.1. Backend config",
+                "file": "./300.config/310.backend-config.md"
+            },
+            {
+                "title": "3.2. Frontend config",
+                "file": "./300.config/320.frontend-config.md",
+                "children": [
+                    {
+                        "title": "3.2.1. Base config",
+                        "file": "./300.config/321.base-config.md"
+                    },
+                    {
+                        "title": "3.2.2. Layouts config",
+                        "file": "./300.config/322.layouts-config.md"
+                    }
+                ]
             }
         ]
     },
