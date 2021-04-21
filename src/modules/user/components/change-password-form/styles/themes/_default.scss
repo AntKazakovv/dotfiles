@@ -1,17 +1,35 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/base.mixins' as em;
 @import '../utils/vars';
 
 .wlc-change-password-form--theme-default:host {
-    max-width: $formMaxWidth;
-    margin: $formMargin;
+    max-width: ef.get-value($themeDefault, 'formMaxWidth');
+    margin: ef.get-value($themeDefault, 'formMargin');
 
     &::ng-deep {
 
         .wlc-input {
-            margin: $fieldMargin;
+            margin: ef.get-value($themeDefault, 'fieldMargin');
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+
+            .wlc-input__container {
+
+                .wlc-input__input:disabled {
+                    color: ef.get-value($themeDefault, 'inputColor');
+                    -webkit-text-fill-color: ef.get-value($themeDefault, 'inputColor');
+
+                    background: ef.get-value($themeDefault, 'inputBackground');
+
+                    opacity: ef.get-value($themeDefault, 'inputOpacity'); // for ios
+                }
+            }
         }
 
         .wlc-btn {
-            margin: $btnMargin;
+            @include em.get-mq-map('margin', $themeDefault, 'btnMargin');
         }
     }
 }
