@@ -57,7 +57,7 @@
 
             &:disabled {
                 background: ef.get-value($themeDefault, 'selectDisabledBg');
-                border-color: ef.get-value($themeDefault, 'selectDisabledBgBorder');
+                border-color: ef.get-value($themeDefault, 'selectDisabledBorder');
                 color: ef.get-value($themeDefault, 'selectDisabledColor');
             }
         }
