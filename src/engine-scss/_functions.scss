@@ -9,6 +9,8 @@
         @return map-get(ev.$radius, $name);
     } @else if ($map == 'font') {
         @return map-get(ev.$font, $name);
+    } @else if ($map == 'fontWeight') {
+        @return map-get(ev.$fontWeight, $name);
     } @else if ($map == 'breakpoint') {
         @return map-get(ev.$grid-breakpoints, $name);
     } @else if ($map == 'time') {
