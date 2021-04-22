@@ -236,7 +236,8 @@ $theme2Footer: map-merge((
     ),
     'iconListMerchantsWrapperGap': (
         375: map-get($footerCommon, 'gapMobile'),
-        1200: map-get($footerCommon, 'gapDesktop'),
+        1200: 5px 10px,
+        1630: map-get($footerCommon, 'gapDesktop')
     ),
     'iconListMerchantsWrapperGridColumn': (
         560: repeat(6, 1fr),
@@ -272,6 +273,11 @@ $theme2Footer: map-merge((
     ),
     'iconListPaymentsWrapperWrap': (
         900: wrap,
+    ),
+    'iconListPaymentsWrapperGap': (
+        375: map-get($footerCommon, 'gapMobile'),
+        1200: 5px 10px,
+        1630: map-get($footerCommon, 'gapDesktop')
     ),
     'iconListPaymentsItemMargin': (
         375: 0 ef.get('size', 'small'),

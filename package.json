@@ -110,6 +110,8 @@
         "sassdoc": "^2.7.3",
         "stream-combiner2": "^1.1.1",
         "stylelint": "^13.9.0",
+        "stylelint-config-rational-order": "^0.1.2",
+        "stylelint-order": "^4.1.0",
         "stylelint-webpack-plugin": "^2.1.1",
         "swiper": "6.4.10",
         "text-overflow-clamp": "^1.0.0",
@@ -124,8 +126,6 @@
         "zone.js": "0.11.3"
     },
     "devDependencies": {
-        "@compodoc/compodoc": "^1.1.11",
-        "stylelint-config-rational-order": "^0.1.2",
-        "stylelint-order": "^4.1.0"
+        "@compodoc/compodoc": "^1.1.11"
     }
 }
