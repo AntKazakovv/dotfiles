@@ -327,7 +327,7 @@ export class ActionService {
         }
 
         await this.configService.ready;
-        await this.layoutService.importModules(['games']);
+        await this.layoutService.importModules(['user']);
         const userService: UserService = this.injector.get(UserService);
 
         try {
