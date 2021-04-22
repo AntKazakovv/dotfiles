@@ -45,6 +45,7 @@ export interface ILayoutSectionConfig {
 export interface IPanelSectionConfig extends ILayoutSectionConfig {
     hide?: boolean;
     showHeader?: boolean;
+    showClose?: boolean;
     useScroll?: boolean;
     container?: string | boolean;
     display?: {

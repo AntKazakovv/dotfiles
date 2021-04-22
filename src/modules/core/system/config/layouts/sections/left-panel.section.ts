@@ -5,17 +5,34 @@ export namespace leftPanel {
     export const def: IPanelSectionConfig = {
         theme: 'default',
         showHeader: false,
+        showClose: false,
         display: {
             after: 900,
         },
         useScroll: false,
         container: true,
         components: [
+            {
+                name: 'core.wlc-button',
+                params: {
+                    class: 'wlc-burger-panel__close',
+                    wlcElement: 'wlc-btn-close',
+                    common: {
+                        icon: 'close',
+                        event: {
+                            name: 'PANEL_CLOSE',
+                        },
+                    },
+                },
+            },
             componentLib.wlcMainMenu.burgerPanel,
             componentLib.wlcPostMenu.burgerPanelInfo,
-            componentLib.wlcLanguageSelector.topLeftTheme2,
+            componentLib.wlcLanguageSelector.bottomLeft,
             {
                 name: 'core.wlc-wrapper',
+                display: {
+                    auth: true,
+                },
                 params: {
                     class: 'wlc-burger-panel__user-deposit',
                     components: [
@@ -26,6 +43,24 @@ export namespace leftPanel {
                             },
                         },
                         componentLib.wlcButton.leftMenuDeposit,
+                    ],
+                },
+            },
+            {
+                name: 'core.wlc-wrapper',
+                display: {
+                    auth: false,
+                },
+                params: {
+                    class: 'wlc-burger-panel__user-deposit',
+                    components: [
+                        {
+                            name: 'core.wlc-title',
+                            params: {
+                                mainText: gettext('Choose your special bonus!'),
+                            },
+                        },
+                        componentLib.wlcButton.leftMenuSignup,
                     ],
                 },
             },

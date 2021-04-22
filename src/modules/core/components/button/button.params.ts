@@ -9,6 +9,10 @@ export type Index = number | string | null;
 export type AutoModifiers = Theme | Size | ThemeMod | 'loading';
 export type CustomMod = string;
 export type Modifiers = AutoModifiers | CustomMod | null;
+export type EventType = {
+    name: string;
+    data?: unknown;
+}
 
 export interface IButtonCParams extends IComponentParams<Theme, Type, ThemeMod> {
     modifiers?: Modifiers[];
@@ -18,10 +22,7 @@ export interface IButtonCParams extends IComponentParams<Theme, Type, ThemeMod> 
         index?: Index;
         text?: string;
         customModifiers?: CustomMod;
-        event?: {
-            name: string;
-            data?: unknown;
-        };
+        event?: EventType | EventType[];
         sref?: string;
         srefParams?: RawParams;
         typeAttr?: string;

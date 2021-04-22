@@ -4,21 +4,25 @@
     position: fixed;
     top: 0;
     left: 0;
+
     width: 100%;
     height: 100%;
     overflow: hidden;
+
     background-image: map-get($appLoader, 'background');
 
     &-content {
         position: absolute;
         top: 50%;
         left: 50%;
+
         transform: translate(-50%, -50%);
     }
 
     &-img {
-        padding-bottom: map-get($appLoader, 'imgBlockPadding');
         width: map-get($appLoader, 'imgBlockWidth');
+        padding-bottom: map-get($appLoader, 'imgBlockPadding');
+
         background-image: map-get($appLoader, 'imgBgUrl');
         background-repeat: map-get($appLoader, 'imgBgRepeat');
         background-position: map-get($appLoader, 'imgBgPosition');
@@ -27,28 +31,33 @@
 
     &-loader {
         position: relative;
-        margin: map-get($appLoader, 'loaderBlockMargin');
+
         height: map-get($appLoader, 'loaderHeight');
+        margin: map-get($appLoader, 'loaderBlockMargin');
 
         &:before,
         &:after {
-            content: '';
-            display: block;
             position: absolute;
             right: 0;
             bottom: 0;
             left: 0;
-            margin: auto;
+
+            display: block;
             width: map-get($appLoader, 'loaderWidth');
             height: map-get($appLoader, 'loaderHeight');
+            margin: auto;
+
             border: map-get($appLoader, 'loaderBorder');
             border-radius: 50%;
             opacity: 0;
+
             animation: loader-6-1 1.5s cubic-bezier(0.075, 0.82, 0.165, 1) infinite;
+
+            content: '';
         }
 
         &:after {
-            animation: loader-6-2 1.5s cubic-bezier(0.075, 0.820, 0.165, 1.000) .1s infinite;
+            animation: loader-6-2 1.5s cubic-bezier(0.075, 0.82, 0.165, 1) 0.1s infinite;
         }
     }
 }

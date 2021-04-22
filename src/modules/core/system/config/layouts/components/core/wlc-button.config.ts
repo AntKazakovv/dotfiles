@@ -44,10 +44,15 @@ export namespace wlcButton {
             wlcElement: 'wlc-btn-search',
             common: {
                 icon: 'search',
-                event: {
-                    name: 'SHOW_MODAL',
-                    data: 'search',
-                },
+                event: [
+                    {
+                        name: 'PANEL_CLOSE',
+                    },
+                    {
+                        name: 'SHOW_MODAL',
+                        data: 'search',
+                    },
+                ],
             },
         },
     };
@@ -180,6 +185,19 @@ export namespace wlcButton {
             common: {
                 text: gettext('Deposit'),
                 sref: 'app.profile.cash.deposit',
+            },
+        },
+    };
+
+    export const leftMenuSignup: ILayoutComponent = {
+        name: 'core.wlc-button',
+        params: {
+            common: {
+                text: gettext('Register'),
+                event: {
+                    name: 'SHOW_MODAL',
+                    data: 'signup',
+                },
             },
         },
     };
