@@ -59,6 +59,7 @@ export class FloatPanelsComponent extends AbstractComponent implements OnInit {
         'showHeader',
         'useScroll',
         'display',
+        'showClose',
     ];
 
     constructor(
@@ -111,8 +112,6 @@ export class FloatPanelsComponent extends AbstractComponent implements OnInit {
         if (!this.panelIds.includes(panelName)) {
             const error = `Panel ${panelName} doesn't exist! Add panel in $panelsLayouts config.`;
             this.logService.sendLog({code: '0.4.0', data: error});
-            // this error for developers
-            console.error(error);
             return;
         }
         this.openedPanel = '';

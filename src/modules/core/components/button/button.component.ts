@@ -33,6 +33,7 @@ import _union from 'lodash-es/union';
 import _keys from 'lodash-es/keys';
 import _isUndefined from 'lodash-es/isUndefined';
 import _merge from 'lodash-es/merge';
+import _isArray from 'lodash-es/isArray';
 
 export {IButtonCParams} from './button.params';
 
@@ -101,7 +102,13 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
                 .pipe(takeUntil(this.$destroy))
                 .subscribe(() => {
                     if (this.$params?.common?.event) {
-                        this.eventService.emit(this.$params.common.event);
+                        if (!_isArray(this.$params.common.event)) {
+                            this.eventService.emit(this.$params.common.event);
+                        } else {
+                            _forEach(this.$params.common.event, (event) => {
+                                this.eventService.emit(event);
+                            });
+                        }
                     } else if (this.$params.common?.sref) {
                         this.stateService.go(this.$params.common.sref, this.$params.common.srefParams);
                     }

@@ -5,16 +5,18 @@
 
 .wlc-burger-panel--theme-left:host {
     left: 0;
+
     width: ef.get-value($themeLeft, 'panelWidth');
     max-width: ef.get-value($themeLeft, 'panelWidth');
     height: 100%;
     max-height: 100%;
+
     background-color: map-get($themeLeft, 'panelBackground');
     transform: translateX(-100%);
 
     &.wlc-burger-panel--open {
-        visibility: visible;
         transform: none;
+        visibility: visible;
     }
 
     ::ng-deep {
@@ -33,10 +35,11 @@
         }
 
         .wlc-login-signup {
-            justify-content: center;
             grid-auto-flow: initial;
+            justify-content: center;
             margin: ef.get-value($themeLeft, 'loginBtnMargin');
             padding: ef.get-value($themeLeft, 'loginBtnPadding');
+
             background: ef.get-value($themeLeft, 'loginBtnBg');
 
             .wlc-btn {
@@ -45,16 +48,23 @@
         }
 
         .wlc-burger-panel__user-info {
-            margin: 30px 20px 20px;
+            display: grid;
             grid-template:
                 'name logout'
                 'stats stats';
-            display: grid;
-            align-items: center;
             grid-template-columns: 1fr auto;
+            align-items: center;
+            margin: 30px 20px 20px;
 
-            .wlc-user-name {
+            .wlc-user-name[wlc-user-name] {
                 grid-area: name;
+
+                .wlc-user-name__email-icon {
+                    display: flex;
+
+                    width: 25px;
+                    height: 30px;
+                }
             }
 
             .wlc-logout {
@@ -63,6 +73,10 @@
 
             .wlc-user-stats {
                 margin-top: 20px;
+
+                &-balance {
+                    margin-bottom: 20px;
+                }
             }
         }
 
@@ -82,11 +96,13 @@
         .wlc-post-menu {
 
             &:after {
-                content: '';
-                margin: ef.get-value($themeLeft, 'separatorMargin');
                 display: block;
                 height: ef.get-value($themeLeft, 'separatorHeight');
+                margin: ef.get-value($themeLeft, 'separatorMargin');
+
                 background: ef.get-value($themeLeft, 'separatorColor');
+
+                content: '';
             }
         }
 
@@ -94,15 +110,17 @@
         .wlc-post-menu {
 
             &__link {
-                padding: ef.get-value($themeLeft, 'menuLinksPadding');
                 display: flex;
                 align-items: center;
-                @include text.get-text-style('ThirdTitle', ef.get-value($themeLeft, 'menuLinksColor'));
+                padding: ef.get-value($themeLeft, 'menuLinksPadding');
+
                 text-decoration: ef.get-value($themeLeft, 'menuLinksDecoration');
+                @include text.get-text-style('ThirdTitle', ef.get-value($themeLeft, 'menuLinksColor'));
 
                 &.active,
                 &:hover {
                     color: ef.get-value($themeLeft, 'menuLinksHoverColor');
+
                     background: ef.get-value($themeLeft, 'menuLinksHoverBg');
                 }
 
@@ -118,6 +136,7 @@
                     display: block;
                     width: ef.get-value($themeLeft, 'menuLinksIconWidth');
                     height: ef.get-value($themeLeft, 'menuLinksIconHeight');
+
                     fill: ef.get-value($themeLeft, 'menuLinksIconFill');
 
                     path {
@@ -128,12 +147,13 @@
         }
 
         .wlc-burger-panel__user-deposit {
-            margin: 0 25px;
-            padding: 20px 0 0;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            margin: 0 25px;
+            padding: 20px 0 60px;
+
             border-top: ef.get-value($themeLeft, 'separatorHeight') solid ef.get-value($themeLeft, 'separatorColor');
 
             .wlc-title[wlc-title] {
@@ -144,11 +164,6 @@
                     text-align: center;
                 }
             }
-        }
-
-        .wlc-language-selector[wlc-language-selector] {
-            max-width: 240px;
-            margin: 20px auto;
         }
     }
 }

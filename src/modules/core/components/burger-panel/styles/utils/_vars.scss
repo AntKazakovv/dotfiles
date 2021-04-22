@@ -9,14 +9,14 @@ $themeDefault: map-merge((
         1366: 55px
     ),
     'panelLinksMargin': (
-        900: 15px,
-        1366: 30px,
-        1630: 60px
+        900: 6px 0 0 15px,
+        1366: 6px 0 0 30px,
+        1630: 6px ef.get('size', 'main') 0 0
     ),
     'panelLinksPadding': (
         900: 0 15px 0 0,
         1366: 0 30px 0 0,
-        1630: 0 ef.get('size', 'main') 0 ef.get('size', 'main'),
+        1630: 0 80px 0 35px,
     ),
     'panelLinksGridGap': (
         900: 5px 20px,
@@ -24,6 +24,7 @@ $themeDefault: map-merge((
         1630: 30px 60px
     ),
     'panelLinksBorder': 2px solid ef.get('mainColors', 'baseOpacity'),
+    'panelLinksItemPadding': 0 5px 5px,
     'panelLinksColor': ef.get('mainColors', 'baseMain'),
     'panelLinkDecoration': none,
     'panelFontSize': (
@@ -34,7 +35,7 @@ $themeDefault: map-merge((
     'panelUnderlineHeight': 4px,
     'panelUnderlineColor': ef.get('mainColors', 'main'),
     'panelUnderlineOffset': -5px,
-    'panelUnderlineRadius': 0,
+    'panelUnderlineRadius': 100px,
     'panelSearchColor': ef.get('mainColors', 'baseOpacity'),
     'panelSearchPositionTop': (
         900: 25px,
@@ -45,13 +46,15 @@ $themeDefault: map-merge((
         1366: 40px
     ),
     'userDepositMargin': (
-        900: -30px 30px -30px auto,
+        900: -30px 0 -30px 30px,
+        1024:  -30px 30px -30px auto,
         1366: -55px 0 -55px 105px
     ),
     'userDepositBg': ef.get('mainColors', 'baseOpacity'),
     'userDepositSize': (
-        900: 355px,
-        1366: 465px
+        900: 270px,
+        1366: 365px,
+        1630: 465px
     ),
     'userDepositHeight': 465px,
     'userDepositTitleSize': (
@@ -62,13 +65,18 @@ $themeDefault: map-merge((
     'panelTextSize': ef.get('font', 'size'),
     'transition': ef.get('time', 'main') linear,
     'panelHeaderBackground': transparent,
-    'panelHeaderPadding': ef.get('size', 'smaller'),
+    'panelHeaderPadding': 20px 20px 30px,
     'panelHeaderFontSize': ef.get('font', 'PrimaryText'),
     'panelHeaderFontWeight': 700,
     'panelHeaderColor':ef.get('mainColors', 'baseMain'),
     'panelContentBackground': transparent,
     'closeIconColor': ef.get('mainColors', 'baseMain'),
     'componentGap': ef.get('size', 'smaller'),
+    'langMargin': (
+        375: 12px 0 0 30px,
+    ),
+    'langDropdownRight': 10px,
+    'langListBg': ef.get('mainColors', 'bg'),
 
     'containerWidth': 100%,
     'containerMaxWidth': 1920px,

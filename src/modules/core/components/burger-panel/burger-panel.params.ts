@@ -7,8 +7,9 @@ export interface IBurgerPanelCParams extends IComponentParams<string, BurgerPane
     title?: string;
     showHeader?: boolean;
     useScroll?: boolean;
+    showClose?: boolean;
     touchEvents?: {
-        use?: true;
+        use?: boolean;
         onlyMobile?: boolean;
     };
 }
@@ -18,6 +19,7 @@ export const defaultParams: IBurgerPanelCParams = {
     type: 'left',
     showHeader: true,
     useScroll: true,
+    showClose: true,
     touchEvents: {
         use: true,
     },
