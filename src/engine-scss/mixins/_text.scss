@@ -35,75 +35,75 @@
 // Base text styles
 
 @mixin SignText {
-    font-weight: normal;
-    font-size: map-get(ev.$font, 'SignText');
+    font-weight: ef.get('fontWeight', 'SignText');
+    font-size: ef.get('font', 'SignText');
     line-height: 1.45;
 }
 
 @mixin PlaceholderText {
-    font-weight: normal;
-    font-size: map-get(ev.$font, 'PlaceholderText');
+    font-weight: ef.get('fontWeight', 'PlaceholderText');
+    font-size: ef.get('font', 'PlaceholderText');
     line-height: 1.45;
 }
 
 @mixin PrimaryText {
-    font-weight: normal;
-    font-size: map-get(ev.$font, 'PrimaryText');
+    font-weight: ef.get('fontWeight', 'PrimaryText');
+    font-size: ef.get('font', 'PrimaryText');
     line-height: 1.45;
 }
 
 @mixin ButtonText {
-    font-weight: bold;
-    font-size: map-get(ev.$font, 'ButtonText');
+    font-weight: ef.get('fontWeight', 'ButtonText');
+    font-size: ef.get('font', 'ButtonText');
     line-height: 1.45;
 }
 
 @mixin ThirdTitle {
-    font-weight: normal;
-    font-size: map-get(ev.$font, 'ThirdTitle');
+    font-weight: ef.get('fontWeight', 'ThirdTitle');
+    font-size: ef.get('font', 'ThirdTitle');
     line-height: 1.45;
 }
 
 @mixin PromoTitle {
-    font-weight: bold;
-    font-size: map-get(ev.$font, 'PromoTitle');
+    font-weight: ef.get('fontWeight', 'PromoTitle');
+    font-size: ef.get('font', 'PromoTitle');
     line-height: 1.45;
 }
 
 @mixin ScreamTitle {
-    font-weight: bold;
-    font-size: map-get(ev.$font, 'ScreamTitle');
+    font-weight: ef.get('fontWeight', 'ScreamTitle');
+    font-size: ef.get('font', 'ScreamTitle');
     line-height: 1.45;
 }
 
 // Bold weight styles
 
 @mixin PrimaryTextBold {
-    font-weight: bold;
-    font-size: map-get(ev.$font, 'PrimaryTextBold');
+    font-weight: ef.get('fontWeight', 'PrimaryTextBold');
+    font-size: ef.get('font', 'PrimaryTextBold');
     line-height: 1.45;
 }
 
 @mixin ThirdTitleBold {
-    font-weight: bold;
-    font-size: map-get(ev.$font, 'ThirdTitleBold');
+    font-weight: ef.get('fontWeight', 'ThirdTitleBold');
+    font-size: ef.get('font', 'ThirdTitleBold');
     line-height: 1.45;
 }
 
 @mixin QoteTextBold {
-    font-weight: bold;
-    font-size: map-get(ev.$font, 'QoteTextBold');
+    font-weight: ef.get('fontWeight', 'QoteTextBold');
+    font-size: ef.get('font', 'QoteTextBold');
     line-height: 1.45;
 }
 
 @mixin QoteTextBoldTight {
-    font-weight: bold;
-    font-size: map-get(ev.$font, 'QoteTextBoldTight');
+    font-weight: ef.get('fontWeight', 'QoteTextBoldTight');
+    font-size: ef.get('font', 'QoteTextBoldTight');
     line-height: 1.25;
 }
 
 @mixin PlaceholderTextBold {
-    font-weight: bold;
-    font-size: map-get(ev.$font, 'PlaceholderTextBold');
+    font-weight: ef.get('fontWeight', 'PlaceholderTextBold');
+    font-size: ef.get('font', 'PlaceholderTextBold');
     line-height: 1.25;
 }

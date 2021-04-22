@@ -244,6 +244,26 @@ $font: map-merge((
     'PlaceholderTextBold': 1.2rem,
 ), $customFont);
 
+/// Font weight for text mixins.
+///
+/// @name fontWeight
+///
+$customFontWeight: () !default;
+$fontWeight: map-merge((
+    'SignText': normal,
+    'PlaceholderText': normal,
+    'PrimaryText': normal,
+    'ButtonText': bold,
+    'ThirdTitle': normal,
+    'PromoTitle': bold,
+    'ScreamTitle': bold,
+    'PrimaryTextBold': bold,
+    'ThirdTitleBold': bold,
+    'QoteTextBold': bold,
+    'QoteTextBoldTight': bold,
+    'PlaceholderTextBold': bold,
+), $customFontWeight);
+
 /// Значения длительности анимации.
 /// В основном используются в свойстве `transition`.
 ///
