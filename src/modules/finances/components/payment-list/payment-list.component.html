@@ -16,8 +16,13 @@
             [iconUrl]="getIcon(currentSystem.name)"
             [fallback]="currentSystem.image"></span>
         </ng-container>
-        <span class="{{$class}}__btn-modal-text">{{$params.buttonText | translate}}</span>
-        <span class="{{$class}}__btn-modal-arrow" wlc-icon [iconName]="$params.arrowIcon"></span>
+        <span class="{{$class}}__btn-modal-wrap">
+            <span class="{{$class}}__btn-modal-arrow"
+                wlc-icon
+                [iconName]="$params.arrowIcon">
+            </span>
+            <span class="{{$class}}__btn-modal-text">{{$params.buttonText | translate}}</span>
+        </span>
     </button>
 </ng-template>
 
