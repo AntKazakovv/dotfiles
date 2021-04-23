@@ -13,8 +13,8 @@ export namespace wlcSlider {
                 swiper: {
                     slidesPerView: 1,
                     navigation: {
-                        nextEl: '.wlc-swiper-button-next',
-                        prevEl: '.wlc-swiper-button-prev',
+                        nextEl: 'wlc-banners-slider .wlc-swiper-button-next',
+                        prevEl: 'wlc-banners-slider .wlc-swiper-button-prev',
                     },
                     pagination: false,
                 },

@@ -148,7 +148,7 @@ export class SearchComponent extends AbstractComponent implements OnInit, OnDest
             return;
         }
 
-        const catId = category.menuId;
+        const catId = category.slug;
         if (_includes(this.filters.categories, catId)) {
             this.filters.categories = _filter(
                 this.filters.categories,
@@ -160,7 +160,7 @@ export class SearchComponent extends AbstractComponent implements OnInit, OnDest
 
         if (this.filters.categories.length) {
             this.selectedCategories = _filter(this.categories, (category: CategoryModel) => {
-                return _includes(this.filters.categories, category.menuId);
+                return _includes(this.filters.categories, category.slug);
             });
 
             let merchantsList: MerchantModel[] = [];
@@ -240,7 +240,7 @@ export class SearchComponent extends AbstractComponent implements OnInit, OnDest
         if (category && this.selectedCategories.length) {
             this.merchants = category.merchants;
         } else {
-            this.merchants = this.gamesCatalogService.getAvailableMerchants();
+            this.merchants = this.gamesCatalogService.getFilteredMerchants();
         }
     }
 

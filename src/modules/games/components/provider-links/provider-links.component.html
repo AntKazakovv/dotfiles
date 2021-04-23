@@ -1,0 +1,62 @@
+<h2 class="{{$class}}__title"
+    wlc-title
+    mainText="Merchants"></h2>
+
+<ng-container [ngSwitch]="$params.type">
+    <ng-container *ngSwitchCase="'slider'" [ngTemplateOutlet]="slider"></ng-container>
+    <ng-container *ngSwitchDefault  [ngTemplateOutlet]="providersList"></ng-container>
+</ng-container>
+
+<ng-template #slider>
+    <ng-container *ngIf="ready; else loader">
+        <ng-container *ngIf="items.length; else noSlides">
+            <button class="{{$class}}__btn"
+                wlc-button
+                type="button"
+                text="See all"
+                (click)="showModal()">
+            </button>
+
+            <div slot-container-start class="{{$class}}__slider-navigation">
+                <button wlc-icon
+                    class="wlc-swiper-button-prev"
+                    iconName="arrow">
+                </button>
+                <button wlc-icon
+                    class="wlc-swiper-button-next"
+                    iconName="arrow">
+                </button>
+            </div>
+
+            <div class="{{$class}}__slider"
+                wlc-slider
+                [inlineParams]="sliderParams">
+            </div>
+        </ng-container>
+    </ng-container>
+</ng-template>
+
+<ng-template #providersList>
+    <div class="{{$class}}__wrapper">
+        <ng-container *ngFor="let item of items"
+            [ngTemplateOutlet]="iconItem"
+            [ngTemplateOutletContext]="{item: item}"
+        ></ng-container>
+    </div>
+</ng-template>
+
+<ng-template #iconItem let-item="item">
+    <div class="{{$class}}__item {{item.modifier}} {{$params.iconsType}}"
+        [attr.data-wlc-element]="item.wlcElement"
+        wlc-icon-list-item
+        [inlineParams]='{icon: item, class: $class + "-item"}'>
+    </div>
+</ng-template>
+
+<ng-template #loader>
+    <div class="{{$class}}__loader" wlc-loader></div>
+</ng-template>
+
+<ng-template #noSlides>
+    <div class="{{$class}}__empty">{{'No data' | translate}}</div>
+</ng-template>

@@ -19,8 +19,11 @@ import {PlayGameForRealComponent} from './components/play-game-for-real/play-gam
 import {GameDashboardComponent} from './components/game-dashboard/game-dashboard.component';
 import {RandomGameComponent} from  'wlc-engine/modules/games/components/random-game/random-game.component';
 import {CategoryPreviewComponent} from 'wlc-engine/modules/games/components/category-preview/category-preview.component';
-import {GlobalHelper} from 'wlc-engine/modules/core';
+import {ProviderLinksComponent} from './components/provider-links/provider-links.component';
+import {ProviderGamesComponent} from './components/provider-games/provider-games.component';
+import {ProgressBarComponent} from './components/progress-bar/progress-bar.component';
 
+import {GlobalHelper} from 'wlc-engine/modules/core';
 import {IGamesConfig} from './system/interfaces/games.interfaces';
 import {gamesConfig} from './system/config/games.config';
 import * as $config from 'wlc-config/index';
@@ -41,6 +44,8 @@ export const components = {
     'wlc-random-game': RandomGameComponent,
     'wlc-search-field': SearchFieldComponent,
     'wlc-total-jackpot': TotalJackpotComponent,
+    'wlc-provider-links': ProviderLinksComponent,
+    'wlc-provider-games': ProviderGamesComponent,
 };
 
 @NgModule({
@@ -55,6 +60,9 @@ export const components = {
         GameDashboardComponent,
         RandomGameComponent,
         CategoryPreviewComponent,
+        ProviderLinksComponent,
+        ProviderGamesComponent,
+        ProgressBarComponent,
     ],
     id: 'GamesModule',
     imports: [
@@ -81,6 +89,8 @@ export const components = {
         GameDashboardComponent,
         RandomGameComponent,
         CategoryPreviewComponent,
+        ProviderLinksComponent,
+        ProviderGamesComponent,
     ],
 })
 export class GamesModule {

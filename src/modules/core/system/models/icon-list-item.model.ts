@@ -1,3 +1,4 @@
+import {RawParams} from '@uirouter/core';
 
 /** Input params for an icon in an icon list [IconListComponent]{@link IconListComponent}. */
 export interface IIconParams {
@@ -7,13 +8,15 @@ export interface IIconParams {
     iconUrl?: string;
     /** Path to image which be displayed by hover. */
     iconHoverUrl?: string;
-    /** Potfix for image resolutions (2x supported). */
+    /** Postfix for image resolutions (2x supported). */
     postfix?: IPostfix;
     /** Class modifier for the list item.  */
     modifier?: string;
-    /** Inside link. Only one parametr available `sref` or `href` */
+    /** Inside link. Only one parameter available `sref` or `href` */
     sref?: string;
-    /** Outside link. Only one parametr available `sref` or `href`. */
+    /** Params for sref */
+    srefParams?: RawParams;
+    /** Outside link. Only one parameter available `sref` or `href`. */
     href?: string;
     /** If not defined, uses `_self` for `sref` and `_blank` for `href`. */
     target?: string;
@@ -37,6 +40,7 @@ export class IconModel {
     readonly showAs: IconType;
     readonly modifier: string;
     readonly sref: string;
+    readonly srefParams: RawParams;
     readonly href: string;
     readonly target: string;
     readonly alt: string;
@@ -48,6 +52,7 @@ export class IconModel {
     ) {
         this.modifier = icon.modifier;
         this.sref = icon.sref;
+        this.srefParams = icon.srefParams;
         this.href = icon.href;
         this.alt = icon.alt;
         this.title = icon.title;

@@ -1,0 +1,9 @@
+<div class="{{$class}}__text">{{'You viewed' | translate}} {{currentValue}} {{'of' | translate}} {{maxValue}} {{'games' | translate}}</div>
+<div class="{{$class}}__progress">
+    <div class="{{$class}}__bar"
+        role="progressbar"
+        [attr.aria-valuemin]="minValue"
+        [attr.aria-valuemax]="maxValue"
+        [attr.aria-valuenow]="currentValue"
+        [style.width]="progressPercent"></div>
+</div>

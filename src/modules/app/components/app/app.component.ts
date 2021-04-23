@@ -18,6 +18,7 @@ import {
     ILanguage,
     ActionService,
     DeviceModel,
+    ModalService,
     GlobalHelper,
 } from 'wlc-engine/modules/core';
 
@@ -67,6 +68,7 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
         protected uiRouter: UIRouterGlobals,
         protected cdr: ChangeDetectorRef,
         protected actionService: ActionService,
+        protected modalService: ModalService,
         private transition: TransitionService,
         private titleService: Title,
         private meta: Meta,
@@ -90,6 +92,7 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
         });
 
         this.router.transitionService.onStart({}, () => {
+            this.modalService.closeAllModals();
             window.scrollTo(0, 0);
         });
 

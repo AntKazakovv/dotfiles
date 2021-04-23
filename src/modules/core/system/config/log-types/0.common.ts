@@ -246,4 +246,11 @@ export const errorTypes: ILogTypes = {
         level: 'error',
         group: 'Common',
     },
+    '0.7.0': {
+        description: 'Error loading flag image',
+        name: 'Error loading flag image',
+        type: 'image',
+        level: 'log',
+        group: 'Common',
+    },
 };

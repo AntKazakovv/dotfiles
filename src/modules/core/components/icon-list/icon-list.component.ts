@@ -10,15 +10,20 @@ import {
     HostBinding,
     AfterViewChecked,
     ViewChild,
+    Injector,
 } from '@angular/core';
-import {fromEvent, Observable} from 'rxjs';
-import {debounceTime, takeUntil} from 'rxjs/operators';
+import {fromEvent} from 'rxjs';
+import {
+    debounceTime,
+    takeUntil,
+} from 'rxjs/operators';
 
 import {
-    AbstractComponent,
     ConfigService,
     EventService,
     LogService,
+    ActionService,
+    LayoutService,
 } from 'wlc-engine/modules/core';
 import {GamesCatalogService} from 'wlc-engine/modules/games';
 import {
@@ -27,6 +32,7 @@ import {
 } from 'wlc-engine/modules/core/system/models/icon-list-item.model';
 import {MerchantModel} from 'wlc-engine/modules/games/system/models/merchant.model';
 import {IPaysystem} from 'wlc-engine/modules/core/system/services/config/app-config.model';
+import {IconListAbstract} from 'wlc-engine/modules/core/system/classes/icon-list-abstract.class';
 
 import * as Params from './icon-list.params';
 
@@ -47,12 +53,13 @@ import _sortedUniqBy from 'lodash-es/sortedUniqBy';
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
 })
-export class IconListComponent extends AbstractComponent implements OnInit, AfterViewChecked {
+export class IconListComponent extends IconListAbstract<Params.IIconListCParams> implements OnInit, AfterViewChecked {
     /** List of items being rendered. */
     public items: IconModel[];
     public $params: Params.IIconListCParams;
-    protected resize$: Observable<Event>;
     protected wrapper: HTMLElement;
+    protected resized: boolean = false;
+    protected gamesCatalogService: GamesCatalogService;
 
     @Input() protected inlineParams: Params.IIconListCParams;
     @HostBinding('class.scrollable--left') protected scrollableLeft: boolean = false;
@@ -62,49 +69,42 @@ export class IconListComponent extends AbstractComponent implements OnInit, Afte
     constructor(
         @Inject('injectParams') protected injectParams: Params.IIconListCParams,
         protected logService: LogService,
-        protected gamesCatalogService: GamesCatalogService,
         protected cdr: ChangeDetectorRef,
         protected configService: ConfigService,
         protected eventService: EventService,
-        protected hostElement: ElementRef,
+        protected actionService: ActionService,
+        protected layoutService: LayoutService,
+        private injector: Injector,
+        private hostElement: ElementRef,
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService);
     }
 
     /** Calls method based on the component theme */
-    public async ngOnInit(): Promise<void> {
+    public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
-
-        switch (this.$params.theme) {
-            case ('merchants'):
-                await this.setMerchantsList();
-                break;
-            case ('payments'):
-                this.setPaymentsLst();
-                break;
-            default:
-                this.setCustomLst();
-                break;
-        }
-
-        this.cdr.markForCheck();
+        this.runWithThemeParam();
     }
 
     public ngAfterViewChecked(): void {
-        this.scrollingCheck();
+        if (this.$params.watchForScroll) {
+            this.scrollingCheck();
+        }
     }
 
-    public scrollingCheck(): void {
+    protected scrollingCheck(): void {
 
-        if (!this.resize$) {
-            this.resize$ = fromEvent<Event>(window, 'resize')
+        if (!this.resized) {
+            this.resized = true;
+
+            this.actionService.windowResize()
                 .pipe(takeUntil(this.$destroy))
-                .pipe(debounceTime(300));
-
-            this.resize$.subscribe(() => {
-                this.scrollingCheck();
-            });
+                .pipe(debounceTime(300))
+                .subscribe(() => {
+                    this.scrollingCheck();
+                });
         }
+
 
         if (!this.wrapper) {
             this.wrapper = this.wrapperElement.nativeElement
@@ -125,28 +125,44 @@ export class IconListComponent extends AbstractComponent implements OnInit, Afte
         this.cdr.markForCheck();
     }
 
+    protected async runWithThemeParam(): Promise<void> {
+        switch (this.$params.theme) {
+            case ('merchants'):
+                await this.setMerchantsList();
+                break;
+            case ('payments'):
+                this.setPaymentsLst();
+                break;
+            default:
+                this.setCustomLst();
+                break;
+        }
+
+        this.cdr.markForCheck();
+    }
+
     /** Creates the icon list.
      * Calls if `theme` is `merchants`.
      * Based on games request data.
      **/
     protected async setMerchantsList(): Promise<void> {
+        const {theme} = this.$params;
+        const showIconAs = this.$params.type == 'svg' ? 'svg' : 'img';
+
+        await this.configService.ready;
+        await this.layoutService.importModules(['games']);
+        this.gamesCatalogService = this.injector.get(GamesCatalogService);
 
         this.gamesCatalogService.ready.then(() => {
-            const merchants: MerchantModel[] = _sortedUniqBy(this.gamesCatalogService.getMerchants(),
+            const merchants: MerchantModel[] = _sortedUniqBy(this.gamesCatalogService.getAvailableMerchants(),
                 (item: MerchantModel) => item.alias);
 
-            const showAs = this.$params.type == 'svg' ? 'svg' : 'img';
-            this.items = _map<MerchantModel, IconModel>(merchants, (item: MerchantModel): IconModel => {
-
-                const itemParams: IIconParams = {
-                    showAs: showAs,
-                    iconUrl: this.getPath(item.alias),
-                    alt: item.name,
-                    modifier: this.getItemModifier(this.toSnakeCase(item.alias)),
-                    wlcElement: item.wlcElement,
-                };
-                return new IconModel(itemParams);
-            });
+            this.setItemsList<MerchantModel>(merchants, (item) => this.merchantsPaymentsIterator(theme, {
+                showAs: showIconAs,
+                wlcElement: item.wlcElement,
+                nameForPath: item.alias,
+                alt: item.name,
+            }));
 
             this.cdr.markForCheck();
         });
@@ -158,6 +174,9 @@ export class IconListComponent extends AbstractComponent implements OnInit, Afte
      * Based on bootstrap request data.
      **/
     protected setPaymentsLst(): void {
+        const {theme} = this.$params;
+        const showIconAs = this.$params.type == 'svg' ? 'svg' : 'img';
+
         let payments: IPaysystem[] = this.configService.get('appConfig.siteconfig.payment_systems') || [];
 
         if (this.$params.common?.payment?.exclude?.length) {
@@ -183,18 +202,11 @@ export class IconListComponent extends AbstractComponent implements OnInit, Afte
             });
         }
 
-        const showAs = this.$params.type == 'svg' ? 'svg' : 'img';
-        this.items = _map<IPaysystem, IconModel>(payments, (item: IPaysystem): IconModel => {
-
-            const itemParams: IIconParams = {
-                showAs: showAs,
-                iconUrl: this.getPath(item.Name),
-                alt: item.Name,
-                modifier: this.getItemModifier(this.toSnakeCase(item.Name)),
-                wlcElement: 'block_payment-' + item.Name.toLowerCase().replace(/\s/g, '-').replace(/[^a-zA-Z0-9-]/g, ''),
-            };
-            return new IconModel(itemParams);
-        });
+        this.setItemsList<IPaysystem>(payments, (item) =>this.merchantsPaymentsIterator(theme, {
+            showAs: showIconAs,
+            wlcElement: 'block_payment-' + this.wlcElementTail(item.Name),
+            nameForPath: item.Name,
+        }));
     }
 
     /**
@@ -204,51 +216,10 @@ export class IconListComponent extends AbstractComponent implements OnInit, Afte
      **/
     protected setCustomLst(): void {
         if (this.$params.items?.length) {
-            this.createItemsList(this.$params.items);
+            this.setItemsList<IIconParams>(this.$params.items, (item) => item);
         } else {
-            console.error('[wlc-icon-list] component requires "items" param on the custo theme');
+            console.error('[wlc-icon-list] component requires "items" param on the custom theme');
         }
     }
 
-    /** @ignore */
-    protected createItemsList(items: IIconParams[]): void {
-        this.items = _map<IIconParams, IconModel>(items, (item: IIconParams): IconModel => {
-            return new IconModel(item);
-        });
-    }
-
-    /**
-     * Creates modifier for thee item.
-     * @param {string} mod - The item modifier
-     * @returns The class-modifier for the item.
-     */
-    protected getItemModifier(mod: string): string {
-        return mod ? `${this.$class}__item--${mod.replace(' ', '-')}` : '';
-    }
-
-    /**
-     * Converts string to snakeCase. One or multiple spaces are replaced with underscores, parentheses are removed.
-     * @param {strign} name - The string to convert.
-     * @returns The snake cased string.
-     */
-    protected toSnakeCase(name: string): string {
-        return name.toLowerCase().replace(/\s+|\s/g, '_').replace(/[()]/g, '');
-    }
-
-    /**
-     * Creates path to paysystem or merchant images.
-     * @param {string} name - Name of paysystem or alias of merchant
-     * @returns The path to image.
-     */
-    protected getPath(name: string): string {
-        const {type, theme} = this.$params;
-        const rootPath = type === 'svg' ? '' : '/gstatic';
-        const color = type === 'svg' ? 'black' : 'color';
-
-        if (theme === 'payments') {
-            return `${rootPath}/paysystems/V2/svg/${color}/${this.toSnakeCase(name)}.svg`;
-        } else {
-            return `${rootPath}/merchants/svg/${color}/${this.toSnakeCase(name)}.svg`;
-        }
-    }
 }

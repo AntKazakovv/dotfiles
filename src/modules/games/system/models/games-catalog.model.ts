@@ -110,7 +110,7 @@ export class GamesCatalog extends AbstractModel<IGames> {
         let gameList: Game[] = _concat([], this.games);
 
         if (includeCategories.length) {
-            const categories: CategoryModel[] = this.getCategoriesByMenuIds(includeCategories);
+            const categories: CategoryModel[] = this.getCategoriesBySlugs(includeCategories);
             gameList = this.getGamesByCategories(categories);
         }
 
@@ -172,9 +172,9 @@ export class GamesCatalog extends AbstractModel<IGames> {
      * @param {string[]} menuIds
      * @returns {CategoryModel[]}
      */
-    public getCategoriesByMenuIds(menuIds: string[]): CategoryModel[] {
+    public getCategoriesBySlugs(slug: string[]): CategoryModel[] {
         return _filter(this.getCategories(), (category: CategoryModel) => {
-            return _includes(menuIds, category.menuId);
+            return _includes(slug, category.slug);
         });
     }
 

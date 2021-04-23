@@ -44,6 +44,7 @@ export const $layouts: ILayoutsConfig = {
             'categories': sectionsLib.categories.catalog,
             'content-games-top': sectionsLib.contentGames.homeTop,
             'content-wins': sectionsLib.contentGames.homeWinsTournament,
+            'providers': sectionsLib.providers.slider,
             'content-games-bottom': sectionsLib.contentGames.homeBottom,
             'total-jackpot': sectionsLib.totalJackpotSection.home,
         },
@@ -107,6 +108,13 @@ export const $layouts: ILayoutsConfig = {
         extends: 'app',
         sections: {
             'tournaments': sectionsLib.promoTournaments.def,
+        },
+    },
+    'app.providers': {
+        extends: 'app',
+        sections: {
+            'providers-games': sectionsLib.providers.games,
+            'providers': sectionsLib.providers.slider,
         },
     },
 };

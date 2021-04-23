@@ -14,8 +14,8 @@ export namespace wlcBannersSlider {
                 swiper: {
                     slidesPerView: 1,
                     navigation: {
-                        nextEl: '.wlc-swiper-button-next',
-                        prevEl: '.wlc-swiper-button-prev',
+                        nextEl: '.wlc-slider--theme-default-banner .wlc-swiper-button-next',
+                        prevEl: '.wlc-slider--theme-default-banner .wlc-swiper-button-prev',
                     },
                     pagination: false,
                     autoplay: {
@@ -40,8 +40,8 @@ export namespace wlcBannersSlider {
                 swiper: {
                     slidesPerView: 1,
                     navigation: {
-                        nextEl: '.wlc-swiper-button-next',
-                        prevEl: '.wlc-swiper-button-prev',
+                        nextEl: '.wlc-slider--theme-default-banner .wlc-swiper-button-next',
+                        prevEl: '.wlc-slider--theme-default-banner .wlc-swiper-button-prev',
                     },
                     pagination: false,
                     autoplay: {

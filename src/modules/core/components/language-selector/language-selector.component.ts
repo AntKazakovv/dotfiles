@@ -17,6 +17,7 @@ import {
     ILanguage,
     ModalService,
     AbstractComponent,
+    LogService,
 } from 'wlc-engine/modules/core';
 import * as Params from './language-selector.params';
 import {fromEvent, merge} from 'rxjs';
@@ -80,6 +81,7 @@ export class LanguageSelectorComponent
         protected configService: ConfigService,
         protected elementRef: ElementRef,
         protected modalService: ModalService,
+        protected logService: LogService,
     ) {
         super({injectParams, defaultParams: Params.defaultParams});
     }
@@ -143,8 +145,8 @@ export class LanguageSelectorComponent
         return `${this.$params.common.flags.path}${replaceList[lang] || lang}.${this.$params.common.flags.dim}`;
     }
 
-    public onImageError(name: string): void {
-        // TODO add something for error logging.
+    public imageError(langCode: string): void {
+        this.logService.sendLog({code: '0.7.0', data: {langCode}});
     }
 
     public toggle(): void {
