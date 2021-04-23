@@ -1,4 +1,5 @@
 import {SwiperOptions} from 'swiper';
+import {IBonusItemCParams} from 'wlc-engine/modules/bonuses/components/bonus-item/bonus-item.params';
 
 import {
     IComponentParams,
@@ -29,6 +30,7 @@ export interface IBonusesListCParams extends IComponentParams<Theme, Type, Theme
         useBlankBonus?: boolean;
         selectFirstBonus?: boolean;
     };
+    itemsParams?: IBonusItemCParams,
 }
 
 

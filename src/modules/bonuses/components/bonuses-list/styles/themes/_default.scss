@@ -11,6 +11,10 @@
             display: grid;
             grid-gap: ef.get-value($themeDefault, 'gridGap');
             @include bm.get-mq-map('grid-template-columns', $themeDefault, 'gridColumn');
+
+            .wlc-sections__profile-content--theme-first & {
+                @include bm.get-mq-map('grid-template-columns', $themeDefault, 'gridColumnProfileThemeFirst');
+            }
         }
 
         .wlc-bonuses-list__nocontent {

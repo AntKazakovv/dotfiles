@@ -16,12 +16,12 @@
                      *ngIf="$params.common?.showBonusTag && !!getBonusTag()">{{getBonusTag() | translate}}</div>
                 <div class="{{$class}}__image" *ngIf="!$params.common?.useIconBonusImage && $params.common.imageByType"
                      [style]="{backgroundImage: $params.common.bonus?.getImageByType($params.common?.type)}">
-                    <img class="wlc-bonus-image-other" *ngIf="$params.common?.showAdditionalImage"
+                    <img class="wlc-bonus-image-other" *ngIf="$params.common?.showAdditionalImage && $params.common.bonus?.imageOther"
                          [src]="$params.common.bonus?.imageOther" loading="lazy">
                 </div>
                 <div class="{{$class}}__image" *ngIf="!$params.common?.useIconBonusImage && !$params.common.imageByType"
                      [style]="{backgroundImage: $params.common.bonus?.image}">
-                    <img class="wlc-bonus-image-other" *ngIf="$params.common?.showAdditionalImage"
+                    <img class="wlc-bonus-image-other" *ngIf="$params.common?.showAdditionalImage && $params.common.bonus?.imageOther"
                          [src]="$params.common.bonus?.imageOther" loading="lazy">
                 </div>
                 <div class="{{$class}}__bonus-icon" *ngIf="$params.common?.useIconBonusImage">

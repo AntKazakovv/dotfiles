@@ -1,0 +1,91 @@
+@mixin enterPromocodeButton(
+    $position: absolute,
+    $btnBasePosition: ef.get-value($themePromocodeBtn, 'btnBasePosition'),
+    $btnRightPosition: ef.get-value($themePromocodeBtn, 'btnRightPosition'),
+    $btnAlignItems: ef.get-value($themePromocodeBtn, 'btnAlignItems'),
+    $btnJustifyContent: ef.get-value($themePromocodeBtn, 'btnJustifyContent'),
+    $btnSize: ef.get-value($themePromocodeBtn, 'btnSize'),
+    $margin: ef.get-value($themePromocodeBtn, 'btnMargin'),
+    $background: ef.get-value($themePromocodeBtn, 'btnBackground'),
+    $borderRadius: ef.get-value($themePromocodeBtn, 'btnRadius'),
+    $btnTextLineHeight: ef.get-value($themePromocodeBtn, 'btnTextLineHeight'),
+    $btnIconSize: ef.get-value($themePromocodeBtn, 'btnIconSize'),
+    $btnIconFill: ef.get-value($themePromocodeBtn, 'btnIconFill'),
+    $btnBackgroundHover: ef.get-value($themePromocodeBtn, 'btnBackgroundHover'),
+    $btnPendingAlignItems: ef.get-value($themePromocodeBtn, 'btnPendingAlignItems'),
+    $btnPendingJustifyContent: ef.get-value($themePromocodeBtn, 'btnPendingJustifyContent'),
+    $btnBackgroundPending: ef.get-value($themePromocodeBtn, 'btnBackgroundPending'),
+    $btnTextBorder: ef.get-value($themePromocodeBtn, 'btnTextBorder'),
+    $btnTextRadius: ef.get-value($themePromocodeBtn, 'btnTextRadius')
+) {
+    position: $position;
+
+    @if ($position == 'absolute') {
+        top: $btnBasePosition;
+        right: $btnRightPosition;
+        bottom: $btnBasePosition;
+    }
+
+    display: flex;
+    align-items: $btnAlignItems;
+    justify-content: $btnJustifyContent;
+
+    width: $btnSize;
+    height: $btnSize;
+
+    margin: $margin;
+
+    background: $background;
+    border-radius: $borderRadius;
+
+    @include em.transition(background);
+
+    ::ng-deep {
+
+        .wlc-btn__text,
+        .wlc-btn__text * {
+            display: inline-block;
+
+            line-height: $btnTextLineHeight;
+        }
+
+        svg {
+            width: $btnIconSize;
+            height: $btnIconSize;
+
+            * {
+                fill: $btnIconFill;
+            }
+        }
+    }
+
+    &:hover {
+        background: $btnBackgroundHover;
+    }
+
+    &.pending {
+        display: flex;
+        align-items: $btnPendingAlignItems;
+        justify-content: $btnPendingJustifyContent;
+
+        background: $btnBackgroundPending;
+
+        ::ng-deep {
+
+            .wlc-btn__text {
+                width: $btnIconSize;
+                height: $btnIconSize;
+
+                border: $btnTextBorder;
+                border-left-color: transparent;
+                border-radius: $btnTextRadius;
+
+                animation: spin 1s infinite linear;
+            }
+
+            svg {
+                display: none;
+            }
+        }
+    }
+}

@@ -10,6 +10,8 @@
                      [chosen]="bonus.isChoose"
                      [type]="$params.common.filter"
                      [theme]="$params.theme"
+                     [inlineParams]="$params.itemsParams"
+                     [themeMod]="$params.themeMod"
                      *ngFor="let bonus of bonuses"></div>
             </div>
             <!-- TODO: add pagination -->
@@ -67,6 +69,7 @@
                 <div wlc-bonus-item
                      [bonus]="bonus"
                      [chosen]="bonus.isChoose"
+                     [inlineParams]="$params.itemsParams"
                      [type]="$params.common.filter"
                      [theme]="$params.theme"
                      *ngFor="let bonus of bonuses"></div>

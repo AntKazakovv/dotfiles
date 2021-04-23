@@ -2,6 +2,7 @@
 @use 'engine-scss/mixins/base.mixins' as em;
 @use 'engine-scss/mixins/text' as text;
 @import '../utils/vars';
+@import '../utils/mixins';
 
 .wlc-enter-promocode--theme-default:host {
 
@@ -37,73 +38,7 @@
         }
 
         &__btn {
-            position: absolute;
-            top: ef.get-value($themeDefault, 'btnBasePosition');
-            right: ef.get-value($themeDefault, 'btnRightPosition');
-            bottom: ef.get-value($themeDefault, 'btnBasePosition');
-
-            display: flex;
-            align-items: ef.get-value($themeDefault, 'btnAlignItems');
-            justify-content: ef.get-value($themeDefault, 'btnJustifyContent');
-
-            width: ef.get-value($themeDefault, 'btnSize');
-            height: ef.get-value($themeDefault, 'btnSize');
-
-            margin: ef.get-value($themeDefault, 'btnMargin');
-
-            background: ef.get-value($themeDefault, 'btnBackground');
-            border-radius: ef.get-value($themeDefault, 'btnRadius');
-
-            @include em.transition(background);
-
-            ::ng-deep {
-
-                .wlc-btn__text,
-                .wlc-btn__text * {
-                    display: inline-block;
-
-                    line-height: ef.get-value($themeDefault, 'btnTextLineHeight');
-                }
-
-                svg {
-                    width: ef.get-value($themeDefault, 'btnIconSize');
-                    height: ef.get-value($themeDefault, 'btnIconSize');
-
-                    * {
-                        fill: ef.get-value($themeDefault, 'btnIconFill');
-                    }
-                }
-            }
-
-            &:hover {
-                background: ef.get-value($themeDefault, 'btnBackgroundHover');
-            }
-
-            &.pending {
-                display: flex;
-                align-items: ef.get-value($themeDefault, 'btnPendingAlignItems');
-                justify-content: ef.get-value($themeDefault, 'btnPendingJustifyContent');
-
-                background: ef.get-value($themeDefault, 'btnBackgroundPending');
-
-                ::ng-deep {
-
-                    .wlc-btn__text {
-                        width: ef.get-value($themeDefault, 'btnIconSize');
-                        height: ef.get-value($themeDefault, 'btnIconSize');
-
-                        border: ef.get-value($themeDefault, 'btnTextBorder');
-                        border-left-color: transparent;
-                        border-radius: ef.get-value($themeDefault, 'btnTextRadius');
-
-                        animation: spin 1s infinite linear;
-                    }
-
-                    svg {
-                        display: none;
-                    }
-                }
-            }
+            @include enterPromocodeButton();
         }
     }
 
