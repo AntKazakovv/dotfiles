@@ -16,7 +16,7 @@ $themeDefault: map-merge((
     'userInfoDropdownPadding': 10px,
     'userInfoDropdownBg': ef.get('mainColors', 'bg700'),
     'userInfoDropdownBorderRadius': ef.get('radius', 'biger'),
-    'userInfoGap': 10px,
+    'userInfoGap': ef.get('size', 'small'),
 
     'userInfoDepositBtnMargin': (
         375:  0 ef.get('size', 'smally') 0 0,
@@ -29,4 +29,5 @@ $themeDefault: map-merge((
         1200: ef.get('size', 'smallest') ef.get('size', 'smaller'),
     ),
     'userInfoDropdownIconFill': ef.get('mainColors', 'secondary'),
+    'userInfoDropdownIconInnerFill': ef.get('mainColors', 'bg'),
 ), $customThemeDefault);
