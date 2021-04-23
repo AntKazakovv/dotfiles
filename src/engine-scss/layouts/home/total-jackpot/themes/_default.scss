@@ -7,14 +7,17 @@
 
     .container {
         position: relative;
+
         display: flex;
         flex-direction: column;
         align-items: center;
+
         background: ef.get-value($themeTotalJackpot, 'sectionBackground');
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center;
         border-radius: ef.get-value($themeTotalJackpot, 'sectionBorderRadius');
+
         overflow: hidden;
 
         @include bm.get-mq-map('padding', $themeTotalJackpot, 'sectionPadding');
@@ -22,10 +25,12 @@
 
         &:before {
             content: '';
+
             position: absolute;
             bottom: 0;
             left: 0;
             right: 0;
+
             background: ef.get-value($themeTotalJackpot, 'secondaryBackground');
             background-size: auto 100%;
             background-repeat: no-repeat;
@@ -38,7 +43,8 @@
     .wlc-total-jackpot[class] {
         width: 100%;
         @include bm.get-mq-map('height', $themeTotalJackpot, 'jackpotFontSize');
-        @include bm.get-mq-map('margin', $themeTotalJackpot, 'gap');
+
+        @include bm.get-mq-map('margin', $themeTotalJackpot, 'jackpotMargin');
 
         svg {
 
@@ -52,12 +58,17 @@
         }
 
         .wlc-total-jackpot__text[class] {
-            transform: scale(0.95);
-            transform-origin: center;
             @include bm.get-mq-map('font-size', $themeTotalJackpot, 'jackpotFontSize');
             @include textStroke(3, ef.get-value($themeTotalJackpot, 'textStrokeColor'));
 
+            transform: scale(0.95);
+            transform-origin: center;
+
             @include mq.min(768) {
+                @include textStroke(4, ef.get-value($themeTotalJackpot, 'textStrokeColor'));
+            }
+
+            @include mq.min(1630) {
                 @include textStroke(6, ef.get-value($themeTotalJackpot, 'textStrokeColor'));
             }
 
