@@ -154,8 +154,8 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
             return DateTime.fromSQL(a.DateISO).toSeconds() - DateTime.fromSQL(b.DateISO).toSeconds();
         });
 
-        this.startDate = (DateTime.fromSQL(dates[0].DateISO) || DateTime.local()).startOf('day');
-        this.endDate = (DateTime.fromSQL(dates[dates.length - 1].DateISO) || DateTime.local()).endOf('day');
+        this.startDate = (DateTime.fromSQL(dates[0]?.DateISO) || DateTime.local()).startOf('day');
+        this.endDate = (DateTime.fromSQL(dates[dates.length - 1]?.DateISO) || DateTime.local()).endOf('day');
         this.startDateInput.control.setValue(this.startDate.toFormat('dd.LL.yyyy'));
         this.endDateInput.control.setValue(this.endDate.toFormat('dd.LL.yyyy'));
         this.startDateInput = _clone(this.startDateInput);
