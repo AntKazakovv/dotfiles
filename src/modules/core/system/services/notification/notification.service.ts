@@ -20,6 +20,7 @@ import {
     LogService,
     GlobalHelper,
     ModalService,
+    IEvent,
 } from 'wlc-engine/modules/core';
 import {
     DISMISS_ANIMATION_DURATION,
@@ -32,7 +33,6 @@ import {
     IPushComponentParams,
     IPushMessageParams,
 } from 'wlc-engine/modules/core/system/services/notification/notification.interface';
-import {IEvent} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {INotificationsConfig} from 'wlc-engine/modules/core/system/interfaces/base-config/notifications.interface';
 
 import * as Params from 'wlc-engine/modules/core/system/services/notification/notification.params';

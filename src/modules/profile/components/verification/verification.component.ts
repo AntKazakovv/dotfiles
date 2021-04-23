@@ -8,13 +8,18 @@ import {
     ViewChild,
 } from '@angular/core';
 import {FormControl} from '@angular/forms';
+
+import {takeUntil} from 'rxjs/operators';
+
 import {
     AbstractComponent,
     ConfigService,
     EventService,
     IMixedParams,
     ISelectCParams,
+    IEvent,
 } from 'wlc-engine/modules/core';
+
 import {
     IDoc,
     IDocTypeResponse,
@@ -25,6 +30,7 @@ import {
     LoaderStatus,
     ISelectOptions,
 } from 'wlc-engine/modules/profile';
+
 import * as Params from './verification.params';
 
 import _map from 'lodash-es/map';
@@ -94,13 +100,15 @@ export class VerificationComponent extends AbstractComponent implements OnInit {
             return this.cdr.markForCheck();
         }
 
-        this.eventService.subscribe({
+        this.eventService.filter([{
             name: 'DROP_FILES',
-        }, (data: IDroppedFiles) => {
-            if (data.label === this.currentDocGroup.ID) {
-                this.preloadFile(data.files);
-            }
-        });
+        }])
+            .pipe(takeUntil(this.$destroy))
+            .subscribe(({data}: IEvent<IDroppedFiles>) => {
+                if (data.label === this.currentDocGroup.ID) {
+                    this.preloadFile(data.files);
+                }
+            });
 
         this.acceptFormat = this.verificationService.acceptFormat();
 
@@ -131,7 +139,7 @@ export class VerificationComponent extends AbstractComponent implements OnInit {
     }
 
     public async preloadFile(files: FileList): Promise<void> {
-        if (files[0] && this.verificationService.checkFormat(files[0])) {
+        if (files[0] && this.verificationService.checkFile(files[0])) {
             this.currentDocGroup.preview = {
                 base64: await this.verificationService.getPreview(files[0]),
                 file: files[0],
