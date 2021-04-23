@@ -460,8 +460,8 @@ $buttonSettings: map-merge((
     // Background
     'background': map-get($mainColors, 'buttonColor'),
     'backgroundHover': darken(map-get($mainColors, 'buttonColor'), 20%),
-    'backgroundSecondary': map-get($mainColors, 'secondary'),
-    'backgroundSecondaryHover': darken(map-get($mainColors, 'secondary'), 20%),
+    'backgroundSecondary': transparent,
+    'backgroundSecondaryHover': map-get($mainColors, 'secondary'),
     'backgroundResolve': map-get($mainColors, 'success'),
     'backgroundResolveHover': darken(map-get($mainColors, 'success'), 20%),
     'backgroundReject': map-get($mainColors, 'error'),
