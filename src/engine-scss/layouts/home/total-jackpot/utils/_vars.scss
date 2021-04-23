@@ -4,29 +4,38 @@ $customThemeTotalJackpot: () !default;
 $themeTotalJackpot: map-merge((
     'sectionBackground': url('/gstatic/wlc/jackpots/total-jackpot-bg.jpg'),
     'sectionBorderRadius': ef.get('size', 'small'),
-    'textStrokeColor': #683c14,
+    'sectionHeight': (
+        375: 250px,
+        720: 260px,
+        768: 270px,
+        900: 300px,
+        1630: 400px,
+    ),
+    'sectionPadding': (
+        375: 20px,
+    ),
+
     'secondaryBackground': url('/gstatic/wlc/jackpots/total-jackpot-coins.png'),
     'secondaryBackgroundHeight': (
         375: 120px,
         720: 175px,
     ),
+
+    'titleColor': ef.get('mainColors', 'baseMain'),
+    'titleTextStyle': 'ThirdTitleBold',
+
     'jackpotFontSize': (
         375: 4rem,
         640: 6rem,
-        1024: 8rem,
-        1200: 12rem,
+        900: 8rem,
+        1200: 9rem,
+        1630: 12rem,
     ),
-    'gap': (
+    'jackpotMargin': (
         375: 30px 0,
-        720: 60px 0,
+        720: 40px 0,
+        1630: 60px 0,
     ),
-    'sectionHeight': (
-        375: 250px,
-        720: 400px,
-    ),
-    'sectionPadding': (
-        375: 20px,
-    ),
-    'titleColor': ef.get('mainColors', 'baseMain'),
-    'titleTextStyle': 'ThirdTitleBold',
+
+    'textStrokeColor': #683c14,
 ), $customThemeTotalJackpot);
