@@ -102,7 +102,7 @@ export class VerificationService {
         });
     }
 
-    public checkFormat(file: File): boolean {
+    public checkFile(file: File): boolean {
         if (file.size > this.params.maxSize * 1000000) {
             this.showError('No valid size');
             return false;

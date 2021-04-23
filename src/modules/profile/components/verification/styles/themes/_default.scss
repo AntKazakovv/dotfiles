@@ -29,9 +29,9 @@
 
                 @include mq.min(1024) {
                     display: grid;
+                    grid-template-columns: ef.get-value($themeDefault, 'dragGridTemplateColumns');
                     gap: ef.get-value($themeDefault, 'dragGap');
                     @include em.get-mq-map('grid-template-areas', $themeDefault, 'gridAreas');
-                    grid-template-columns: ef.get-value($themeDefault, 'dragGridTemplateColumns');
                     column-gap: ef.get-value($themeDefault, 'docsOffsetDesctop');
 
                     & > div {
@@ -62,22 +62,23 @@
 
                 display: flex;
                 flex-direction: ef.get-value($themeDefault, 'dropzoneDirection');
+                grid-area: dropzone;
                 align-items: ef.get-value($themeDefault, 'dropzoneAlignItems');
                 align-self: ef.get-value($themeDefault, 'dropzoneAlignSelf');
                 justify-content: ef.get-value($themeDefault, 'dropzoneJustifyContent');
-                grid-area: dropzone;
 
                 width: ef.get-value($themeDefault, 'dropzoneWidth');
                 min-height: ef.get-value($themeDefault, 'dropzoneMinHeight');
 
                 padding: ef.get-value($themeDefault, 'paddingItem');
 
-                border: ef.get-value($themeDefault, 'borderDropdown');
-                border-radius: ef.get-value($themeDefault, 'borderRadius');
                 background-color: ef.get-value($themeDefault, 'dropzoneBg');
                 background-repeat: no-repeat;
-                background-size: cover;
                 background-position: center;
+                background-size: cover;
+
+                border: ef.get-value($themeDefault, 'borderDropdown');
+                border-radius: ef.get-value($themeDefault, 'borderRadius');
 
                 cursor: pointer;
 
@@ -153,6 +154,7 @@
 
             &__text {
                 align-self: ef.get-value($themeDefault, 'verificationTextAlignSelf');
+
                 text-align: ef.get-value($themeDefault, 'verificationTextAlign');
 
                 @include text.get-text-style(ef.get-value($themeDefault, 'subTitleFont'), ef.get-value($themeDefault, 'color'));
@@ -168,8 +170,8 @@
                 @include mq.min(1024) {
                     padding-left: ef.get-value($themeDefault, 'docsOffsetDesctop');
 
-                    border-left: ef.get-value($themeDefault, 'borderDocList');
                     border-top: none;
+                    border-left: ef.get-value($themeDefault, 'borderDocList');
                 }
             }
 
@@ -197,7 +199,6 @@
                     @include text.get-text-style(ef.get-value($themeDefault, 'textFont'), ef.get-value($themeDefault, 'dropZoneBg'));
 
                     &:before {
-                        content: '';
                         position: absolute;
                         top: ef.get-value($themeDefault, 'requirementsBeforeTop');
                         left: ef.get-value($themeDefault, 'requirementsBeforeLeft');
@@ -207,6 +208,8 @@
 
                         background: ef.get-value($themeDefault, 'reqListStyleColor');
                         border-radius: ef.get-value($themeDefault, 'requirementsBeforeRadius');
+
+                        content: '';
                     }
                 }
             }
@@ -222,8 +225,8 @@
 
                 &__item {
                     display: flex;
-                    justify-content: space-between;
                     align-items: center;
+                    justify-content: space-between;
 
                     margin-bottom: ef.get-value($themeDefault, 'gapDocList');
                     padding-bottom: ef.get-value($themeDefault, 'gapDocList');
@@ -232,6 +235,18 @@
 
                     &:last-child {
                         border-bottom: none;
+                    }
+
+                    @media (hover) {
+
+                        &:hover {
+
+                            .wlc-verification-docs__remove {
+                                visibility: visible;
+
+                                opacity: 1;
+                            }
+                        }
                     }
 
                     &.awaiting-validation {
@@ -330,10 +345,10 @@
 
                     display: flex;
                     flex-direction: ef.get-value($themeDefault, 'docTitleDirection');
+                    grid-area: doc-title;
+                    align-items: ef.get-value($themeDefault, 'docTitleAlignItems');
                     justify-items: ef.get-value($themeDefault, 'docTitleJustifyItems');
                     justify-self: ef.get-value($themeDefault, 'docTitleJustifySelf');
-                    align-items: ef.get-value($themeDefault, 'docTitleAlignItems');
-                    grid-area: doc-title;
 
                     max-width: ef.get-value($themeDefault, 'docTitleMaxWidth');
 
@@ -347,24 +362,18 @@
                         padding: ef.get-value($themeDefault, 'docTitlePadding');
 
                         @include text.get-text-style(ef.get-value($themeDefault, 'titleFontUploadDocs'), ef.get-value($themeDefault, 'color'));
-                        text-overflow: ellipsis;
-                        text-decoration: ef.get-value($themeDefault, 'docTitleLinkDecoration');
 
                         overflow: hidden;
+
+                        white-space: nowrap;
+                        text-decoration: ef.get-value($themeDefault, 'docTitleLinkDecoration');
+                        text-overflow: ellipsis;
 
                         @media (hover) {
 
                             &:hover {
                                 text-decoration: ef.get-value($themeDefault, 'docTitleLinkDecorationHover');
                             }
-                        }
-                    }
-
-                    &:hover {
-
-                        .wlc-verification-docs__remove {
-                            opacity: 1;
-                            visibility: visible;
                         }
                     }
                 }
@@ -398,18 +407,19 @@
                 }
 
                 &__remove {
-                    opacity: 1;
-                    visibility: visible;
-
                     margin: ef.get-value($themeDefault, 'docRemoveMargin');
+
+                    visibility: visible;
 
                     cursor: pointer;
 
+                    opacity: 1;
+
                     @include em.transition(opacity);
 
-                    @include mq.min(1024) {
-                        opacity: 0;
+                    @include mq.min(1200) {
                         visibility: hidden;
+                        opacity: 0;
                     }
 
                     ::ng-deep .wlc-icon-content {
@@ -486,8 +496,8 @@
         .tooltip-inner {
             padding: ef.get-value($themeDefault, 'tooltipOffset');
 
-            border-radius: ef.get-value($themeDefault, 'borderRadius');
             background: ef.get-value($themeDefault, 'tooltipBg');
+            border-radius: ef.get-value($themeDefault, 'borderRadius');
         }
 
         &.top {
