@@ -473,7 +473,8 @@ export namespace profileContent {
                 params: {
                     class: 'wlc-profile-content',
                     components: [
-                        componentLib.wlcTournamentList.def,
+                        componentLib.wlcTitle.profileAvailableTournaments,
+                        componentLib.wlcTournamentList.available,
                     ],
                 },
             },

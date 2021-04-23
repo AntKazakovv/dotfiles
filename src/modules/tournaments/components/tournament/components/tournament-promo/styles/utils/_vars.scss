@@ -8,7 +8,7 @@ $themeDefault: map-merge((
         900: ef.get('mainColors', 'bg700'),
     ),
     'containerGridTemplateColumns': (
-        320: minmax(320px, 1fr),
+        320: minmax(290px, 1fr),
         900: minmax(320px, 1fr) 340px,
     ),
     'containerGridTemplateAreas': (
