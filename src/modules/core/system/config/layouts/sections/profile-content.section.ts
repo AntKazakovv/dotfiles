@@ -83,8 +83,8 @@ export namespace profileContent {
                     class: 'wlc-profile-content',
                     components: [
                         componentLib.wlcTitle.bonuses,
-                        componentLib.wlcCounter.bonuses,
-                        componentLib.wlcBonusesList.main,
+                        componentLib.wlcEnterPromocode.hideTitle,
+                        componentLib.wlcBonusesList.mainFirst,
                     ],
                 },
             },
@@ -117,7 +117,7 @@ export namespace profileContent {
             },
         ],
     };
-    
+
     export const profileBonusesInventory: ILayoutSectionConfig = {
         container: true,
         components: [

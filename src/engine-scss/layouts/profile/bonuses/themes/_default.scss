@@ -6,16 +6,18 @@
 
 .app-profile-loyalty-bonuses-main-state {
 
-    .wlc-sections__profile-content {
+    .wlc-sections__profile-content--theme-default {
 
         > .container {
             position: relative;
+
             display: grid;
             grid: {
                 template-columns: minmax(0, max-content) 1fr;
                 template-areas: 'title counter'
                     'bonuses-list bonuses-list';
                 template-rows: auto;
+
                 gap: ef.get-value($bonusesThemeDefault, 'sectionGap');
             }
         }
@@ -31,6 +33,36 @@
 
         .wlc-bonuses-list {
             grid-area: bonuses-list;
+        }
+    }
+
+    .wlc-sections__profile-content--theme-first {
+
+        .wlc-profile-content {
+            display: grid;
+            grid: {
+                template-columns: minmax(0, max-content) minmax(150px, 1fr);
+                template-rows: min-content min-content;
+                template-areas:
+                    'title promocode'
+                    'bonuses-list bonuses-list';
+
+                gap: ef.get-value($bonusesThemeFirst, 'sectionGap');
+            }
+
+            .wlc-title {
+                grid-area: title;
+                align-self: center;
+            }
+
+            .wlc-enter-promocode {
+                grid-area: promocode;
+                justify-self: end;
+            }
+
+            .wlc-bonuses-list {
+                grid-area: bonuses-list;
+            }
         }
     }
 }

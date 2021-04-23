@@ -10,6 +10,22 @@ export namespace wlcBonusesList {
             },
         },
     };
+    export const mainFirst: ILayoutComponent = {
+        name: 'bonuses.wlc-bonuses-list',
+        params: {
+            themeMod: 'with-image',
+            common: {
+                filter: 'main',
+                sortOrder: ['active', 'subscribe', 'inventory'],
+            },
+            itemsParams: {
+                common: {
+                    useIconBonusImage: false,
+                    showAdditionalImage: true,
+                },
+            },
+        },
+    };
     export const active: ILayoutComponent = {
         name: 'bonuses.wlc-bonuses-list',
         params: {

@@ -15,6 +15,7 @@ $customFont: () !default;
 $customForm: () !default;
 $customModalSize: () !default;
 $customProfileSettings: () !default;
+$customProfileSettingsThemeFirst: () !default;
 
 $customVars: () !default;
 $customButtonSettings: () !default;
@@ -452,6 +453,15 @@ $profileSettings: map-merge((
     'profileBtnWeight': 700,
     'rangeMarginBottom': map-get($size, 'smally'),
 ), $customProfileSettings);
+
+/// Глобальные настройки профиля (первая тема):
+///
+/// @name customProfileSettings
+$profileSettingsThemeFirst: map-merge((
+    'profileWidth': (
+        1630: 1370px
+    )
+), $customProfileSettingsThemeFirst);
 
 $container-padding-x: 0;
 

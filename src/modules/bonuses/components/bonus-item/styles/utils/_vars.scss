@@ -20,6 +20,11 @@ $themeDefault: map-merge((
         1630: 320px - 30px,
     ),
 
+    'infoWidthProfileThemeFirst': (
+        320: 200px,
+        1630: 290px,
+    ),
+
     'infoHeight': (
         320: auto 100px,
         1630: auto 132px,
@@ -33,6 +38,21 @@ $themeDefault: map-merge((
     'infoHeightMobile': (
         320: auto 145px,
         1630: auto 180px,
+    ),
+
+    'infoHeightWithImg': (
+        320: (minmax(auto, 150px) 130px),
+        1630: (minmax(auto, 225px) 145px),
+    ),
+    'infoHeightWithImgMobile': (
+        320: (minmax(auto, 150px) 130px)
+    ),
+    'infoBtmPaddingWithImg': (
+        320: 25px 0 0,
+    ),
+    'btnBottomPositionWithImg': (
+        320: 30px,
+        1630: 35px,
     ),
 
     'relativeImageHeight': 70%,
