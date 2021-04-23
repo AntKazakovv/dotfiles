@@ -38,7 +38,7 @@
                         data-wlc-element="bonus_title-name">
                         {{$params.common.bonus?.name}}
                     </h4>
-                    <p class="{{$class}}__description" [wlc-clamp]="2" *ngIf="!$params.common.bonus?.isActive">
+                    <p class="{{$class}}__description" [wlc-clamp]="2">
                         {{$params.common.bonus?.description | translate}}
                     </p>
                     <button type="button"

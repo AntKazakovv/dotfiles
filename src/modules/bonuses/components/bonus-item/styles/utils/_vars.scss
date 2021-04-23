@@ -129,16 +129,15 @@ $themeDefault: map-merge((
     ),
     'infoPadding': 0 ef.get('size', 'small'),
     'activeBlockPadding': (
-        320: ef.get('size', 'smaller') 0 0 0,
-        1200: 20px 0 0 0,
+        320: 0,
         1630: 30px 0 0 0,
     ),
     'activeBlockMargin': 0 auto,
     'activeBlockTimerMargin': 0,
     'activeBlockProgressPadding': 0,
     'activeBlockProgressMargin': (
-        320: ef.get('size', 'smaller') 0 0 0,
-        1200: 25px 0 0 0,
+        320: 15px 0 0 0,
+        1200: 15px 0 0 0,
         1630: 37px 0 0 0
     ),
 

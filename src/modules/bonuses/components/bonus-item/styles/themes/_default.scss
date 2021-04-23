@@ -250,11 +250,14 @@
             max-width: ef.get-value($themeDefault, 'activeBlockMaxWidth');
             border-radius: ef.get-value($themeDefault, 'activeBlockRadius');
             text-align: ef.get-value($themeDefault, 'positionText');
-            @include text.get-text-style('PrimaryTextBold', ef.get-value($themeDefault, 'activeBlockFontColor'));
+        }
 
-            .secondary-text {
-                @include text.get-text-style('PrimaryText', ef.get-value($themeDefault, 'activeBlockFontSecondaryColor'));
-            }
+        &__remaning {
+            @include text.get-text-style('PrimaryTextBold', ef.get-value($themeDefault, 'activeBlockFontColor'));
+        }
+
+        &__secondary {
+            @include text.get-text-style('PrimaryText', ef.get-value($themeDefault, 'activeBlockFontSecondaryColor'));
         }
 
         &__timer {
