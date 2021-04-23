@@ -1,0 +1,124 @@
+.wlc-provider-games--theme-default:host {
+    @include bm.get-mq-map('padding', $themeDefault, 'containerPadding');
+
+    .wlc-provider-games {
+
+        &__header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            @include bm.get-mq-map('margin', $themeDefault, 'headerMargin');
+        }
+
+        &__subtitle {
+            color: ef.get-value($themeDefault, 'subtitleColor');
+            font-weight: ef.get-value($themeDefault, 'subtitleFontWeight');
+            font-style: ef.get-value($themeDefault, 'subtitleFontStyle');
+            @include bm.get-mq-map('font-size', $themeDefault, 'subtitleFontSize');
+            @include bm.get-mq-map('margin', $themeDefault, 'subtitleMargin');
+        }
+
+        &__title {
+            color: ef.get-value($themeDefault, 'titleColor');
+            font-weight: ef.get-value($themeDefault, 'titleFontWeight');
+            font-style: ef.get-value($themeDefault, 'titleStyle');
+            @include bm.get-mq-map('font-size', $themeDefault, 'titleFontSize');
+            @include bm.get-mq-map('margin', $themeDefault, 'titleMargin');
+        }
+
+        &__games {
+            @include bm.get-mq-map('margin-bottom', $themeDefault, 'gamesGridMarginBottom');
+        }
+
+        &__empty {
+            text-align: ef.get-value($themeDefault, 'emptyAlignment');
+            font-weight: ef.get-value($themeDefault, 'emptyFontWeight');
+            font-style: ef.get-value($themeDefault, 'emptyFontStyle');
+            @include bm.get-mq-map('padding', $themeDefault, 'emptyPadding');
+            @include bm.get-mq-map('font-size', $themeDefault, 'emptyFontSize');
+        }
+    }
+
+    ::ng-deep {
+
+        .wlc-provider-games-logo {
+            position: relative;
+            background: ef.get-value($themeDefault, 'logoBackground');
+            @include bm.get-mq-map('width', $themeDefault, 'logoWidth');
+            @include bm.get-mq-map('margin', $themeDefault, 'logoMargin');
+            @include bm.get-mq-map('border-radius', $themeDefault, 'logoBorderRadius');
+
+            &:before {
+                content: '';
+                display: block;
+                width: 100%;
+                padding-top: ef.get-value($themeDefault, 'logoPseudoPaddingTop');
+            }
+
+            // TODO remove after come up with color icons
+            &.color {
+                background: ef.get-value($themeDefault, 'logoColorBackground');
+
+                .wlc-provider-links-item__image,
+                .wlc-icon img {
+                    filter: ef.get-value($themeDefault, 'logoColorFilter');
+                }
+            }
+
+            &__wrp {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: ef.get-value($themeDefault, 'logoIconColor');
+                @include bm.get-mq-map('padding', $themeDefault, 'logoWrapPadding');
+            }
+
+            &__error {
+                max-width: 100%;
+                overflow: hidden;
+            }
+
+            &__image,
+            .wlc-icon-content {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                max-width: 80%;
+                height: 100%;
+                max-height: 100%;
+                object-fit: contain;
+                object-position: center;
+                @include bm.get-mq-map('width', $themeDefault, 'logoIconWidth');
+                @include bm.get-mq-map('max-width', $themeDefault, 'logoIconMaxWidth');
+                @include bm.get-mq-map('height', $themeDefault, 'logoIconHeight');
+                @include bm.get-mq-map('max-height', $themeDefault, 'logoIconMaxHeight');
+            }
+
+            .wlc-icon {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                height: 100%;
+            }
+
+            .wlc-icon svg {
+                display: block;
+                width: 100%;
+                max-width: 100%;
+                height: 100%;
+                max-height: 100%;
+
+                path {
+                    fill: currentColor;
+                }
+            }
+        }
+    }
+}

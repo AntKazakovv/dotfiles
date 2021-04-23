@@ -79,7 +79,8 @@
             @include em.get-mq-map('gap', $themePayments, 'gridGap');
         }
 
-        &__item {
+        &__item,
+        &-item {
             margin: ef.get-value($themePayments, 'iconMargin');
 
             img,

@@ -116,6 +116,7 @@ export class SliderComponent extends AbstractComponent
         setTimeout(() => {
             this.updateView();
         }, 0);
+
         this.ready = true;
     }
 

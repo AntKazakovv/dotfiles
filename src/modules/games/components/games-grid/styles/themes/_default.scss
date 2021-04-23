@@ -91,11 +91,15 @@
             @include bm.get-mq-map('grid-template-columns', $themeDefault, 'gridColumns');
         }
 
+        &__progressbar {
+            @include bm.get-mq-map('margin', $themeDefault, 'progressBarMargin');
+        }
+
         &__more {
             display: flex;
             justify-content: center;
             align-items: center;
-            margin: ef.get-value($themeDefault, 'moreButtonMargin');
+            @include bm.get-mq-map('margin', $themeDefault, 'moreButtonMargin');
         }
 
         &__placeholder {

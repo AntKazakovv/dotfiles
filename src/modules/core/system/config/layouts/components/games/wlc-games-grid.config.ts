@@ -8,7 +8,7 @@ export namespace wlcGamesGrid {
             title: gettext('Popular games'),
             usePlaceholders: true,
             filter: {
-                category: 'popular',
+                categories: ['popular'],
             },
             showAllLink: {
                 use: true,
@@ -34,7 +34,7 @@ export namespace wlcGamesGrid {
             gamesRows: 2,
             title: gettext('New games'),
             filter: {
-                category: 'new',
+                categories: ['new'],
             },
             usePlaceholders: true,
             showAllLink: {
@@ -60,7 +60,7 @@ export namespace wlcGamesGrid {
         params: {
             gamesRows: 3,
             title: gettext('All games'),
-            filter: undefined,
+            filter: null,
             showAllLink: {
                 use: false,
             },
@@ -81,7 +81,7 @@ export namespace wlcGamesGrid {
         name: 'games.wlc-games-grid',
         params: {
             title: gettext('All games'),
-            filter: undefined,
+            filter: null,
             showAllLink: {
                 use: false,
             },
@@ -102,7 +102,7 @@ export namespace wlcGamesGrid {
         name: 'games.wlc-games-grid',
         params: {
             title: gettext('All games'),
-            filter: undefined,
+            filter: null,
             showAllLink: {
                 use: false,
             },

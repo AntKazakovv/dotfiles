@@ -499,12 +499,27 @@ export class GamesCatalogService {
         });
     }
 
+    /**
+     * Gets merchant model by merchant name
+     * @param name - `menuId` parameter of merchant
+     * @returns MerchantModel
+     */
+    public getMerchantByName(name: string): MerchantModel {
+        return this.gamesCatalog.getMerchantByName(name);
+    }
+
     public getAvailableCategories(): CategoryModel[] {
         return this.gamesCatalog.getAvailableCategories();
     }
 
     public getAvailableMerchants(): MerchantModel[] {
         return this.gamesCatalog.getAvailableMerchants();
+    }
+
+    public getFilteredMerchants(): MerchantModel[] {
+        const sportsbookMerchants: number[] = this.configService.get<number[]>('$games.sportsbookMerchants');
+        return _filter(this.gamesCatalog.getAvailableMerchants(),
+            (merchant: MerchantModel) => !sportsbookMerchants.includes(merchant.id));
     }
 
     /**

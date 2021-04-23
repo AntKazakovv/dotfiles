@@ -14,6 +14,7 @@ import {
     IIndexingMerchants,
     IMerchant,
     IRestrictions,
+    IByMerchantItemCategory,
 } from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
 
 import _get from 'lodash-es/get';
@@ -132,9 +133,17 @@ export class GamesHelper {
                 availableCategories.push(category);
             }
 
-            this.mapping.byCategory[categoryName].games.push(game);
-            this.mapping.byCategory[categoryName].merchants[merchantName] = true;
-            this.mapping.byMerchant[merchantName].categories[categoryName] = true;
+            if (category) {
+                this.mapping.byCategory[categoryName].games.push(game);
+                this.mapping.byCategory[categoryName].merchants[merchantName] = true;
+                this.mapping.byMerchant[merchantName].categories[category.id] = {
+                    menuId: category.menuId,
+                    slug: category.slug,
+                    id: category.id,
+                    sort: category.sort,
+                };
+            }
+
         });
     }
 
@@ -241,7 +250,7 @@ export class GamesHelper {
      * @param {string} merchantName
      * @returns {IByMerchant}
      */
-    public static getCategoriesByMerchant(merchantName: string): IByMerchant {
+    public static getCategoriesByMerchant(merchantName: string): IIndexing<IByMerchantItemCategory> {
         return _get(this.mapping, `byMerchant[${merchantName}].categories`, {});
     }
 

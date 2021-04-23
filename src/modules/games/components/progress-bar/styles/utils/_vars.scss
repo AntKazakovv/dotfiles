@@ -1,0 +1,18 @@
+$customThemeDefault: () !default;
+
+$themeDefault: map-merge((
+    'margin': ef.get('size', 'main') auto 0,
+
+    'textMargin': 0 0 ef.get('size', 'small'),
+    'textFontStyle': 'PrimaryText',
+    'textFontColor': inherit,
+
+    'progressHeight': 4px,
+    'progressBackground':  ef.get('mainColors', 'baseOpacity'),
+    'progressBorderRadius': 4px,
+    'progressWidth': 182px,
+
+    'barBackground': ef.get('mainColors', 'main'),
+    'barBorderRadius': ef.get('radius', 'small'),
+    'barTransition': width 0.4s ease-in-out,
+), $customThemeDefault);

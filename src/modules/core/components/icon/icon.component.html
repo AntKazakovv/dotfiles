@@ -5,4 +5,5 @@
 <img class="{{$class}}-content"
      *ngIf="imagePath"
      [src]="imagePath"
-     [wlc-fallback]="fallback">
+     [wlc-fallback]="fallback"
+     (imageError)="imageErrorHolder()">

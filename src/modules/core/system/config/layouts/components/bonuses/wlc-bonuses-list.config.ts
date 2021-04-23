@@ -111,8 +111,8 @@ export namespace wlcBonusesList {
                 swiper: {
                     slidesPerView: 1,
                     navigation: {
-                        nextEl: '.wlc-swiper-button-next',
-                        prevEl: '.wlc-swiper-button-prev',
+                        nextEl: '.wlc-bonuses-list .wlc-swiper-button-next',
+                        prevEl: '.wlc-bonuses-list .wlc-swiper-button-prev',
                     },
                     pagination: false,
                     lazy: true,

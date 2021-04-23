@@ -1,63 +1,8 @@
-<ng-container>
-    <div class="{{$class}}__wrapper" #wrapper>
-        <div *ngFor="let item of items"
-             class="{{$class}}__item {{item.modifier}}"
-             [attr.data-wlc-element]="item.wlcElement"
-             [ngSwitch]="item.template">
-
-            <a class="{{$class}}__wrp" *ngSwitchCase="'sref'"
-               [uiSref]="item.sref"
-               [attr.target]="item.target"
-               [attr.title]="item.title">
-               <ng-container
-                    [ngTemplateOutlet]="itemTemplate"
-                    [ngTemplateOutletContext]="{item: item}">
-                </ng-container>
-            </a>
-
-            <a class="{{$class}}__wrp" *ngSwitchCase="'href'"
-               [attr.href]="item.href"
-               [attr.target]="item.target"
-               [attr.title]="item.title">
-                <ng-container
-                    [ngTemplateOutlet]="itemTemplate"
-                    [ngTemplateOutletContext]="{item: item}">
-                </ng-container>
-            </a>
-
-            <span class="{{$class}}__wrp" *ngSwitchDefault>
-                <ng-container
-                    [ngTemplateOutlet]="itemTemplate"
-                    [ngTemplateOutletContext]="{item: item}">
-                </ng-container>
-            </span>
-        </div>
+<div class="{{$class}}__wrapper" #wrapper>
+    <div *ngFor="let item of items"
+            class="{{$class}}__item {{item.modifier}}"
+            [attr.data-wlc-element]="item.wlcElement"
+            wlc-icon-list-item
+            [inlineParams]='{icon: item, class: $class + "-item"}'>
     </div>
-</ng-container>
-
-<ng-template #itemTemplate let-item="item">
-    <ng-container [ngSwitch]="item.showAs">
-        <ng-container *ngSwitchCase="'img'">
-            <img class="{{$class}}__image"
-                [src]="item.image"
-                [alt]="item.alt"
-                [srcset]="item.image2x"
-                [wlc-fallback]="$params.imgPlaceholder">
-            <img class="{{$class}}__image {{$class}}__image--hovered"
-                *ngIf="item.imageHover"
-                [src]="item.imageHover"
-                [alt]="item.alt"
-                [srcset]="item.imageHover2x"
-                [wlc-fallback]="$params.imgPlaceholder">
-        </ng-container>
-
-        <ng-container *ngSwitchCase="'svg'">
-            <span class="{{$class}}__svg"
-                wlc-icon
-                [iconUrl]="item.image"
-                [fallback]="$params.imgPlaceholder">
-            </span>
-
-        </ng-container>
-    </ng-container>
-</ng-template>
+</div>

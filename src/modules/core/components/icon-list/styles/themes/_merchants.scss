@@ -20,7 +20,8 @@
             @include em.get-mq-map('padding', $themeMerchants, 'padding');
         }
 
-        &__item {
+        &__item, // TODO remove this line after fix in projects
+        &-item {
             margin: ef.get-value($themeMerchants, 'iconMargin');
 
             img,

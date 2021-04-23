@@ -1,14 +1,18 @@
 import {IIndexing} from 'wlc-engine/modules/core';
 import {IComponentParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {IGamesFilterData} from 'wlc-engine/modules/games/system/interfaces';
 import {ITournamentGames} from 'wlc-engine/modules/tournaments';
 
 export type GGType = 'default' | 'search';
 
+//TODO remove this interface after fix in GamesGrid configuration in project layouts
+export interface IGamesFilterEasy {
+    category?: string;
+}
+
 export interface IGamesGridCParams extends IComponentParams<string, GGType, string> {
     gamesRows: number;
-    filter?: {
-        category: string;
-    };
+    filter?: IGamesFilterData | IGamesFilterEasy;
     byState?: boolean;
     title?: string;
     usePlaceholders: boolean;
@@ -31,6 +35,7 @@ export interface IGamesGridCParams extends IComponentParams<string, GGType, stri
         hide?: boolean;
         lazy?: boolean;
         lazyTimeout?: number;
+        scrollToEnd?: boolean;
     };
     hideOnEmptySearch?: boolean;
     searchFilterName?: string; // search param searchFrom must has the same name
@@ -38,6 +43,8 @@ export interface IGamesGridCParams extends IComponentParams<string, GGType, stri
         showLoadButton?: boolean;
         gamesRows?: number;
     };
+    hideEmpty?: boolean;
+    showProgressBar?: boolean;
     thumbParams?: string,
 }
 
@@ -53,5 +60,6 @@ export const defaultParams: IGamesGridCParams = {
         hide: false,
         lazy: false,
         lazyTimeout: 1000,
+        scrollToEnd: true,
     },
 };

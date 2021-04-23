@@ -3,6 +3,9 @@ import {
     Directive,
     ElementRef,
     HostBinding,
+    HostListener,
+    Output,
+    EventEmitter,
     Input,
     OnDestroy,
 } from '@angular/core';
@@ -24,6 +27,8 @@ export class FallbackImgDirective implements AfterViewInit, OnDestroy {
 
     @Input() @HostBinding('src') protected src: string;
     @Input('wlc-fallback') protected wlcFallback: string;
+    @Output() imageError = new EventEmitter<void>();
+
     protected errors$: Subscription;
 
     constructor(
@@ -33,6 +38,8 @@ export class FallbackImgDirective implements AfterViewInit, OnDestroy {
     public ngAfterViewInit(): void {
 
         this.errors$ = fromEvent(this.element.nativeElement, 'error').subscribe((event: Event) => {
+            this.imageError.emit();
+
             if (this.wlcFallback) {
                 this.src = this.wlcFallback;
             } else {

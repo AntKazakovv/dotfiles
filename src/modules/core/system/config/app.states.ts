@@ -59,6 +59,7 @@ let states = {
     'app.profile.dashboard': States.profileDashboardState,
     'app.error': States.errorPageState,
     'app.tournaments': States.tournamentsState,
+    'app.providers': States.providersState,
 };
 
 const appState: Ng2StateDeclaration = {

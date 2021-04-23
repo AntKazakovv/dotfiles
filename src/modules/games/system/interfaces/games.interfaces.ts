@@ -86,9 +86,16 @@ export type IByMerchant = {
     [key: string]: IByMerchantItem;
 }
 
-export type IByMerchantItem = {
+export interface IByMerchantItem {
     games: Game[];
-    categories: IIndexing<boolean>;
+    categories: IIndexing<IByMerchantItemCategory>;
+}
+
+export interface IByMerchantItemCategory {
+    menuId: string,
+    slug: string,
+    id: number,
+    sort: number,
 }
 
 export type IByCategory = {

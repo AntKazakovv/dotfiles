@@ -33,6 +33,14 @@
                 </div>
             </ng-container>
         </div>
+
+        <div class="{{$class}}__progressbar"
+            *ngIf="$params.showProgressBar && gamesCount < filteredGames?.length"
+            wlc-progress-bar
+            [maxValue]="filteredGames?.length"
+            [currentValue]="gamesCount">
+        </div>
+
         <div class="{{$class}}__more"
              *ngIf="gamesCount < filteredGames?.length">
             <button wlc-button
