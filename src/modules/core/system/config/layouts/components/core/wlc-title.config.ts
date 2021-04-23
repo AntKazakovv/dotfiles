@@ -176,4 +176,13 @@ export namespace wlcTitle {
             wlcElement: 'header_winners',
         },
     };
+
+    export const profileAvailableTournaments: ILayoutComponent = {
+        name: 'core.wlc-title',
+        params: {
+            customMod: ['available-tournaments'],
+            mainText: gettext('Available tournaments'),
+            wlcElement: 'header_tournaments',
+        },
+    };
 }

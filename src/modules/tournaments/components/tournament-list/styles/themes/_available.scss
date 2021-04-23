@@ -1,0 +1,31 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/mixins/base.mixins' as em;
+
+@import '../utils/vars';
+
+.wlc-tournament-list--theme-available:host {
+    // TODO Remove this after add margin to wlc-title
+    padding: ef.get-value($themeAvailable, 'listPadding');
+
+    .wlc-tournament-list {
+
+        &__item {
+            margin: ef.get-value($themeAvailable, 'itemMargin');
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+
+            ::ng-deep {
+
+                .wlc-tournament-promo {
+
+                    &__container {
+                        @include em.get-mq-map('background', $themeAvailable, 'promoContainerBackground');
+                    }
+                }
+            }
+        }
+    }
+}
