@@ -1139,11 +1139,11 @@ export const profileMenuFilter: ProfileMenuParams.IProfileMenuFilter[] = [
     },
     {
         config: '$base.profile.store.use',
-        item: 'profile-menu:store',
+        item: 'profile-menu:market',
     },
     {
         config: '$base.profile.store.use',
-        item: 'profile-first-menu:store',
+        item: 'profile-first-menu:market',
     },
     {
         config: '$base.profile.referrals.use',
