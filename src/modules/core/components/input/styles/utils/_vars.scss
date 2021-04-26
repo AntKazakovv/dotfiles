@@ -16,7 +16,7 @@ $themeDefault: map-merge((
     'inputMaxWidth': ef.get('form', 'inputMaxWidth'),
     'inputBorder': ef.get('form', 'inputBorder'),
     'inputBorderFocusColor': ef.get('form', 'inputBorderFocusColor'),
-    'inputBorderRadius': ef.get('radius', 'main'),
+    'inputBorderRadius': ef.get('form', 'inputBorderRadius'),
     'inputPadding': ef.get('form', 'inputPadding'),
     'inputDisabledBg': ef.get('fieldColors', 'disableBg'),
     'inputDisabledBorder': ef.get('fieldColors', 'disableBorder'),
@@ -48,7 +48,7 @@ $themePlaceholderShown: map-merge((
     'inputFontSize': ef.get('form', 'inputFontSize'),
     'inputBorder': ef.get('form', 'inputBorder'),
     'inputBorderFocusColor': ef.get('form', 'inputBorderFocusColor'),
-    'inputBorderRadius': ef.get('radius', 'main'),
+    'inputBorderRadius': ef.get('form', 'inputBorderRadius'),
     'inputPadding': ef.get('form', 'inputPadding'),
 
     'placeholderFontSize': ef.get('form', 'placeholderFontSize'),
@@ -78,7 +78,7 @@ $themeVertical: map-merge((
     'inputColor': ef.get('fieldColors', 'textColor'),
     'inputPlaceholderColor': ef.get('fieldColors', 'placeholderColor'),
     'inputBorder': 2px solid ef.get('fieldColors', 'borderColor'),
-    'inputBorderRadius': ef.get('radius', 'main'),
+    'inputBorderRadius': ef.get('form', 'inputBorderRadius'),
 
     'iconEyeTop': 50%,
     'iconEyeRight': ef.get('size', 'smallest'),
