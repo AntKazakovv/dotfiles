@@ -1,0 +1,88 @@
+@use 'engine-scss/functions' as ef;
+
+$customThemeFirst: () !default;
+$themeFirst: map-merge((
+    // // Size
+    'minWidth': (
+        320: 250px,
+        1630: 320px,
+    ),
+    // infoWidth = minWidth - 30px
+    'infoWidth': (
+        320: 220px,
+        1630: 290px,
+    ),
+    'maxWidth': (
+        320: 340px,
+        1630: 320px,
+    ),
+    'infoHeight': (
+        320: 106px,
+        1630: 146px,
+    ),
+    'infoHeightMobile': (
+        320: 106px,
+        1630: 106px,
+    ),
+    'priceMinHeight': (
+        320: 42px,
+        1630: 50px,
+    ),
+    'moreIconSize': 24px,
+    'topImgMargin': 65px,
+    'bottomImgMargin': ef.get('size', 'smaller'),
+    // // Font
+    'tagFontColor': ef.get('mainColors', 'baseMain'),
+    'tagFontSize': ef.get('font', 'small'),
+    'nameFontColor': ef.get('mainColors', 'baseMain'),
+    'nameFontSize': ef.get('font', 'big'),
+    'priceFontColor': ef.get('mainColors', 'baseMain'),
+    'priceFontSize': ef.get('font', 'PrimaryText'),
+    'moreIconColor': ef.get('mainColors', 'baseOpacity'),
+    'moreIconColorHover': ef.get('mainColors', 'baseMain'),
+    // // Backgrounds
+    'background': ef.get('mainColors', 'bg300'),
+    'backgroundHover': ef.get('mainColors', 'bg500'),
+    'imageBg': ef.get('mainColors', 'bg500'),
+    'imageGradient': linear-gradient(180deg, #000000 0%, rgba(0, 0, 0, 0) 26.77%),
+    'tagBg': ef.get('mainColors', 'secondary'),
+    // // Radius
+    'radius': ef.get('radius', 'biger'),
+    'tagRadius': ef.get('radius', 'biger'),
+    //Padding
+    'tagPadding': (
+        320: 2px 10px 1px,
+        1630: 4px 10px 3px,
+    ),
+    'infoPadding': 0 ef.get('size', 'small'),
+    'btnMargin': 0 ef.get('size', 'smallest'),
+    'btnMarginMobile': 0 ef.get('size', 'smallest') ef.get('size', 'smaller') ef.get('size', 'smallest'),
+    'imagePadding': (
+        320: 70% 0 0 0,
+        1630: 70% 0 0 0,
+    ),
+    'priceMargin': (
+        320: 0,
+        1630: 2px 0,
+    ),
+    //Position
+    'tagPositionTop': ef.get('size', 'smaller'),
+    'moreIconPosLeft': auto,
+    'moreIconPosRight': ef.get('size', 'smaller'),
+    'moreIconPosTop': ef.get('size', 'smaller'),
+    'moreIconPosBottom': auto,
+    // Animation
+    'time': ef.get('time', 'main'),
+    'bottomHoverTranslate': (
+        320: translateY(-74px),
+        1630: translateY(-74px),
+    ),
+    'imageHoverTranslate': (
+        320: translateY(-35px),
+        1630: translateY(-35px),
+    ),
+    'imageHoverGradientTranslate': (
+        320: translateY(35px),
+        1630: translateY(35px),
+    ),
+), $customThemeFirst);

@@ -1,22 +1,50 @@
-<div class="{{$class}}__content" [class.noauth]="!isAuth">
-    <div class="{{$class}}__wrapper">
-        <div class="{{$class}}__image-block">
-            <div class="{{$class}}__tag" data-wlc-element="store_item-title">{{storeItem.itemType | translate}}</div>
-            <div class="{{$class}}__image" data-wlc-element="store_item-image" *ngIf="!storeItem.isBonus">
-                <img [src]="storeItem.image" [wlc-fallback]="$params.common.fallbackPath">
-            </div>
-            <div class="{{$class}}__bonus-icon" *ngIf="storeItem.isBonus">
-                <img class="icon-sign" [src]="$params.common?.bonusIconsPath + storeItem.bonus.viewTarget + '.svg'" alt="">
-                <div class="icon-text" [wlc-value-length]="storeItem.bonus.value" minLength="4" maxLength="7">{{storeItem.bonus.value}}</div>
+<ng-template #default>
+    <div class="{{$class}}__image-block">
+        <div class="{{$class}}__tag" data-wlc-element="store_item-title">{{storeItem.itemType | translate}}</div>
+        <div
+            *ngIf="!storeItem.isBonus"
+            class="{{$class}}__image"
+            data-wlc-element="store_item-image">
+            <img [src]="storeImage">
+        </div>
+        <div *ngIf="storeItem.isBonus" class="{{$class}}__bonus-icon">
+            <img class="icon-sign" [src]="$params.common?.bonusIconsPath + storeItem.bonus.viewTarget + '.svg'">
+            <div
+                class="icon-text"
+                minLength="4"
+                maxLength="7"
+                [wlc-value-length]="storeItem.bonus.value">
+                {{storeItem.bonus.value}}
             </div>
         </div>
+    </div>
+</ng-template>
+<ng-template #first>
+    <div class="{{$class}}__image-block">
+        <div class="{{$class}}__tag" data-wlc-element="store_item-title">{{storeItem.itemType | translate}}</div>
+        <div
+            class="{{$class}}__image"
+            data-wlc-element="store_item-image"
+            [style]="{backgroundImage: 'url(' + storeImage + ')'}">
+        </div>
+    </div>
+</ng-template>
+<div class="{{$class}}__content" [class.noauth]="!isAuth">
+    <div class="{{$class}}__wrapper">
+        <ng-container [ngSwitch]="$params?.theme">
+            <ng-container [ngTemplateOutlet]="first" *ngSwitchCase="'first'"></ng-container>
+            <ng-container [ngTemplateOutlet]="default" *ngSwitchDefault></ng-container>
+        </ng-container>
         <div class="{{$class}}__bottom">
             <div class="{{$class}}__info-block">
-                <h4 class="{{$class}}__name" data-wlc-element="store_item-name" [wlc-clamp]="1">
+                <div class="{{$class}}__name"
+                    data-wlc-element="store_item-name"
+                    [wlc-clamp]="1">
                     {{storeItem.name}}
-                </h4>
+                </div>
                 <div class="{{$class}}__price" data-wlc-element="store_item-price">
-                    <div *ngIf="!!storeItem.priceLoyalty"
+                    <div
+                        *ngIf="!!storeItem.priceLoyalty"
                         wlc-currency
                         class="price-item"
                         currency="LP"
@@ -34,12 +62,12 @@
                 </div>
             </div>
         </div>
-        <div class="{{$class}}__btns" *ngIf="isAuth">
-            <button type="button"
+        <div *ngIf="isAuth" class="{{$class}}__btns">
+            <button *ngIf="storeItem.canBuy"
                     wlc-button
+                    type="button"
                     text="Buy now"
                     [disabled]="buyClick"
-                    *ngIf="storeItem.canBuy"
                     [wlcElement]="'button_buy'"
                     (click)="buyItem()">
             </button>
@@ -47,8 +75,8 @@
     </div>
     <div class="{{$class}}__more-icon">
         <div
-            class="icon-btn"
             wlc-icon
+            class="icon-btn"
             iconName="info"
             [wlcElement]="'button_terms'"
             (click)="openDescription(storeItem)">

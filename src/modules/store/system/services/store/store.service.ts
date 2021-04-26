@@ -251,8 +251,10 @@ export class StoreService {
 
         this.eventService.subscribe([
             {name: 'STORE_ITEM_BUY_SUCCEEDED'},
-        ], () => {
-            this.updateSubscribers();
+        ], (data: IData) => {
+            if (!(data.data as IStoreBuyResponse).ItemsLeft) {
+                this.updateSubscribers();
+            }
         });
     }
 

@@ -42,6 +42,8 @@ export class StoreItemComponent extends AbstractComponent implements OnInit, OnD
     public $params: Params.IStoreItemParams;
     public isAuth: boolean;
     public buyClick: boolean = false;
+    public storeImage: string;
+    protected isProfileFirst: boolean;
 
     constructor(
         @Inject('injectParams') protected params: Params.IStoreItemParams,
@@ -61,7 +63,12 @@ export class StoreItemComponent extends AbstractComponent implements OnInit, OnD
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.prepareModifiers();
+        this.isProfileFirst = this.configService.get<string>('$base.profile.type') === 'first';
         this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
+        this.storeImage = this.storeItem.image ||
+            (
+                this.isProfileFirst ? this.$params.common?.defaultPicPathFirst : this.$params.common?.defaultPicPath
+            );
     }
 
     public openDescription(storeItem: StoreItem): void {
