@@ -1,0 +1,10 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/base.mixins' as bm;
+
+.wlc-sections__header--theme-2 {
+    @include headerBase($theme2Header);
+
+    .container {
+        @include bm.get-mq-map('grid-template-columns', $theme2Header, 'headerGridColumns');
+    }
+}
