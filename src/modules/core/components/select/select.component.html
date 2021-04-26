@@ -1,6 +1,7 @@
 <label for="{{$params.name}}"
        *ngIf="$params.labelText"
        class="{{$class}}__label"
+       [class.tooltipped]="$params.common?.tooltipText"
 >{{$params.labelText | translate}}
     <ng-container *ngIf="isFieldRequired()">*</ng-container>
     <div *ngIf="$params.common?.tooltipText || $params.common?.tooltipModal"

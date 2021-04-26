@@ -42,6 +42,8 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
 
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
+        this.provideParams();
+
         this.user.userProfile$.subscribe((profile => {
             if (profile) {
 
@@ -93,5 +95,10 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
         this.$params.phoneNumber = _clone(this.$params.phoneNumber);
 
         this.cdr.detectChanges();
+    }
+
+    protected provideParams(): void {
+        this.$params.phoneCode['theme'] = this.$params.theme;
+        this.$params.phoneNumber['theme'] = this.$params.theme;
     }
 }

@@ -3,6 +3,7 @@
 @use 'engine-scss/mixins/base.mixins' as bm;
 @use 'engine-scss/mixins/text' as text;
 @import './main-info/themes/default';
+@import './main-info/themes/v1';
 @import './dashboard/themes/default';
 @import './cash/themes/_default';
 @import './store/themes/default';
@@ -12,10 +13,7 @@
 .wlc-sections__profile-menu--theme-default {
 
     > .container {
-
-        @include mq.min(1366) {
-            max-width: ef.get-value($profileSettings, 'profileWidth');
-        }
+        @include bm.get-mq-map('max-width', $profileSettings, 'profileWidth');
     }
 }
 
@@ -34,17 +32,20 @@
         @include bm.get-mq-map('border-radius', $profileSettings, 'profileBorderRadius');
     }
 
-    .wlc-title.wlc-title--profile[wlc-title] {
+    &.wlc-sections__profile-content--theme-default {
 
-        .wlc-title__main {
-            @include text.get-text-style(ThirdTitleBold, ef.get-value($profileSettings, 'titleColor'));
+        .wlc-title.wlc-title--profile[wlc-title] {
+
+            .wlc-title__main {
+                @include text.get-text-style(ThirdTitleBold, ef.get-value($profileSettings, 'titleColor'));
+            }
         }
-    }
 
-    .profile-history-filter {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+        .profile-history-filter {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
     }
 }
 

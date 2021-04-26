@@ -81,11 +81,14 @@ export namespace FormElements {
             theme: 'vertical',
             common: {
                 placeholder: gettext('Email'),
+                autocomplete: 'email',
             },
             locked: true,
             name: 'email',
             validators: ['required', 'email'],
             exampleValue: 'dasha.kot@egamings.com',
+            wlcElement: 'block_email',
+            customMod: ['email'],
         },
     };
 
@@ -112,6 +115,9 @@ export namespace FormElements {
                     options: /[^0-9_!,.¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]"№^]/,
                 },
             ],
+            wlcElement: 'block_Name',
+            locked: true,
+            customMod: ['first-name'],
         },
     };
 
@@ -138,6 +144,9 @@ export namespace FormElements {
                     options: /[^0-9_!,.¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]"№^]/,
                 },
             ],
+            wlcElement: 'block_last-name',
+            locked: true,
+            customMod: ['last-name'],
         },
     };
 
@@ -153,6 +162,8 @@ export namespace FormElements {
             name: 'gender',
             validators: ['required'],
             options: 'genders',
+            wlcElement: 'block_gender',
+            customMod: ['gender'],
         },
     };
 
@@ -168,6 +179,8 @@ export namespace FormElements {
             name: 'countryCode',
             validators: ['required'],
             options: 'countries',
+            wlcElement: 'block_country',
+            customMod: ['country'],
         },
     };
 
@@ -180,6 +193,8 @@ export namespace FormElements {
             },
             name: 'city',
             validators: ['required'],
+            wlcElement: 'block_city',
+            customMod: ['city'],
         },
     };
 
@@ -192,6 +207,8 @@ export namespace FormElements {
             },
             name: 'address',
             validators: ['required'],
+            wlcElement: 'block_address',
+            customMod: ['address'],
         },
     };
 
@@ -204,18 +221,26 @@ export namespace FormElements {
             },
             name: 'postalCode',
             validators: ['required'],
+            wlcElement: 'block_postalcode',
+            customMod: ['postal-code'],
         },
     };
 
     export const pep = {
-        name: 'core.wlc-input',
+        name: 'core.wlc-select',
         params: <IInputCParams>{
             theme: 'vertical',
+            labelText: gettext('PEP'),
+            wlcElement: 'block_pep',
             common: {
                 placeholder: gettext('PEP'),
+                tooltipText: gettext('Politically Exposed Person'),
             },
+            locked: true,
             name: 'pep',
+            options: 'pep',
             validators: ['required'],
+            customMod: ['pep'],
         },
     };
 
@@ -228,6 +253,7 @@ export namespace FormElements {
             },
             name: 'ibanNumber',
             validators: ['required'],
+            customMod: ['iban-number'],
         },
     };
 
@@ -240,6 +266,7 @@ export namespace FormElements {
                 type: 'password',
                 customModifiers: 'right-shift',
                 usePasswordVisibilityBtn: true,
+                autocomplete: 'current-password',
             },
             customMod: ['password'],
             name: 'currentPassword',
@@ -253,6 +280,7 @@ export namespace FormElements {
                     options: 50,
                 },
             ],
+            wlcElement: 'block_password-current',
         },
     };
 
@@ -261,20 +289,9 @@ export namespace FormElements {
         params: {
             name: ['phoneCode', 'phoneNumber'],
             theme: 'vertical',
-            validators: [
-                'required',
-            ],
+            locked: true,
+            validators: ['required'],
         },
-        // name: 'core.wlc-input',
-        // params: <IInputCParams>{
-        //     theme: 'vertical',
-        //     common: {
-        //         placeholder: gettext('Mobile phone'),
-        //     },
-        //     name: 'phoneNumber',
-        //     customMod: ['phone'],
-        //     validators: ['required'],
-        // },
     };
 
     export const mobilePhoneWithCode = {
@@ -305,6 +322,7 @@ export namespace FormElements {
             name: 'bankName',
             customMod: ['bank-name'],
             validators: ['required'],
+            wlcElement: 'block_bankName',
         },
     };
 
@@ -345,4 +363,71 @@ export namespace FormElements {
             },
         },
     };
+
+    export const birthDate = {
+        name: 'core.wlc-birth-field',
+        params: {
+            theme:'vertical',
+            name: ['birthDay', 'birthMonth', 'birthYear'],
+            validators: ['required'],
+            locked: true,
+        },
+    };
+
+    export const passwordNew = {
+        name: 'core.wlc-input',
+        params: {
+            theme: 'vertical',
+            wlcElement: 'block_password-new',
+            common: {
+                placeholder: gettext('New password'),
+                type: 'password',
+                customModifiers: 'right-shift',
+                usePasswordVisibilityBtn: true,
+                autocomplete: 'new-password',
+            },
+            name: 'newPassword',
+            validators: [
+                'password',
+                {
+                    name: 'minLength',
+                    options: 6,
+                },
+                {
+                    name: 'maxLength',
+                    options: 50,
+                },
+            ],
+            customMod: ['password-new'],
+        },
+    };
+
+    export const passwordConfirm = {
+        name: 'core.wlc-input',
+        params: {
+            theme: 'vertical',
+            wlcElement: 'block_password-confirm',
+            common: {
+                placeholder: gettext('Confirm password'),
+                type: 'password',
+                customModifiers: 'right-shift',
+                usePasswordVisibilityBtn: true,
+                autocomplete: 'new-password',
+            },
+            name: 'confirmPassword',
+            validators: [
+                'password',
+                {
+                    name: 'minLength',
+                    options: 6,
+                },
+                {
+                    name: 'maxLength',
+                    options: 50,
+                },
+            ],
+            customMod: ['password-confirm'],
+        },
+    };
+
 }

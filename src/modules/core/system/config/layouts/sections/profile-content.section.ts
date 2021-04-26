@@ -28,7 +28,8 @@ export namespace profileContent {
                     class: 'wlc-profile-content',
                     components: [
                         componentLib.wlcTitle.profileV1,
-                        componentLib.wlcProfileForm.def,
+                        componentLib.wlcProfileMenu.subMenuV1,
+                        componentLib.wlcProfileForm.one,
                     ],
                 },
             },
@@ -284,6 +285,7 @@ export namespace profileContent {
                     class: 'wlc-profile-content',
                     components: [
                         componentLib.wlcTitle.profileV1,
+                        componentLib.wlcProfileMenu.subMenuV1,
                         componentLib.wlcVerification.def,
                     ],
                 },
