@@ -6,6 +6,7 @@
 @import '../utils/vars';
 
 .app-profile-main-info-state .wlc-sections {
+
     &__profile-content--theme-default {
 
         > .container {
@@ -14,10 +15,6 @@
                 template-columns: 1fr;
             }
         }
-    }
-
-    &__profile-content--theme-first,
-    &__profile-content--theme-default {
 
         .wlc-profile-form {
             display: grid;
@@ -26,8 +23,8 @@
 
             &__add {
                 display: grid;
-                grid-template-columns: 1fr;
                 grid-row-gap: ef.get-value($size, 'main');
+                grid-template-columns: 1fr;
                 height: ef.get-value($mainInfoThemeDefault, 'addBlockHeight');
             }
 
@@ -58,9 +55,9 @@
 
             &__item {
                 display: grid;
-                grid-template-columns: ef.get-value($mainInfoThemeDefault, 'addBlockColumns');
                 grid-row-gap: ef.get-value($mainInfoThemeDefault, 'addItemGap');
                 grid-template-areas: ef.get-value($mainInfoThemeDefault, 'addBlockAreas');
+                grid-template-columns: ef.get-value($mainInfoThemeDefault, 'addBlockColumns');
 
                 &-title {
                     grid-area: title;
@@ -94,6 +91,7 @@
 
                     .wlc-btn__text {
                         display: flex;
+
                         color: ef.get-value($mainInfoThemeDefault, 'addItemLinkColor', 375);
 
                         @include mq.min(1024) {
@@ -106,9 +104,10 @@
                         min-width: auto;
                         height: auto;
                         padding: 0;
+
+                        background: none;
                         border: none;
                         border-radius: 0;
-                        background: none;
                         box-shadow: none;
                     }
 
@@ -122,8 +121,9 @@
                         }
 
                         svg {
-                            fill: ef.get-value($mainInfoThemeDefault, 'addItemLinkColor', 1024);
                             transform: rotate(-90deg);
+
+                            fill: ef.get-value($mainInfoThemeDefault, 'addItemLinkColor', 1024);
                         }
                     }
                 }
@@ -184,8 +184,8 @@
                 .wlc-select[class] {
 
                     @include mq.min(768) {
-                        grid-template-columns: ef.get-value($mainInfoThemeDefault, 'phoneSize');
                         grid-gap: ef.get-value($mainInfoThemeDefault, 'phoneGap');
+                        grid-template-columns: ef.get-value($mainInfoThemeDefault, 'phoneSize');
                     }
                 }
 

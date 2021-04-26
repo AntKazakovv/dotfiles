@@ -5,7 +5,7 @@
      [ngSubmit]="ngSubmit.bind(this)"
 ></div>
 
-<div class="{{$class}}__add">
+<div class="{{$class}}__add" *ngIf="$params.additionalBlocks">
     <div class="{{$class}}__block {{$class}}__block-notification">
         <div
             class="{{$class}}__title"
@@ -22,7 +22,7 @@
         </div>
     </div>
 
-    <div class="{{$class}}__block">
+    <div class="{{$class}}__block" *ngIf="$params.additionalBlocks">
         <div
             class="{{$class}}__title"
             wlc-title [mainText]="$params.additionalBlocks.security.title"
@@ -45,7 +45,7 @@
         </div>
     </div>
 
-    <div *ngIf="$params.additionalBlocks.banking.use" class="{{$class}}__block">
+    <div *ngIf="$params.additionalBlocks?.banking.use" class="{{$class}}__block">
         <div class="{{$class}}__item" data-wlc-element="block_banking-info">
             <div class="{{$class}}__item-title">
                 <div class="{{$class}}__item-title-main">

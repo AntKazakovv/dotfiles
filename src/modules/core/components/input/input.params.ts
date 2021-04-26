@@ -27,6 +27,7 @@ export interface IInputCParams extends IComponentParams<ComponentTheme, Componen
         tooltipText?: string;
         tooltipModal?: string;
         tooltipModalParams?: IIndexing<string>;
+        autocomplete?: string;
     }
     validators?: ValidatorType[];
     control?: FormControl;

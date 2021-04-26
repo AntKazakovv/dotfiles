@@ -25,6 +25,16 @@ export namespace wlcProfileMenu {
         },
     };
 
+    export const subMenuV1: ILayoutComponent = {
+        name: 'menu.wlc-profile-menu',
+        params: {
+            type: 'submenu',
+        },
+        display: {
+            before: 1023,
+        },
+    };
+
     export const submenuHistory: ILayoutComponent = {
         name: 'core.wlc-wrapper',
         params: {

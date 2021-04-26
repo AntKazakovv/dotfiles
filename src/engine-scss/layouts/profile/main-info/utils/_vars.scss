@@ -75,3 +75,72 @@ $mainInfoThemeDefault: map-merge((
     'switcherPadding': 0,
     'labelAlignItems': center,
 ), $customMainInfoThemeDefault);
+
+
+$customMainInfoThemeV1: () !default;
+$mainInfoThemeV1: map-merge((
+    'contentBackground': ef.get('mainColors', 'bg700'),
+    'contentPadding': (
+        375: ef.get('size', 'smaller') ef.get('size', 'smaller') ef.get('size', 'main'),
+        1024: ef.get('size', 'smally') ef.get('size', 'less') ef.get('size', 'less'),
+        1630: ef.get('size', 'smaller') ef.get('size', 'main') ef.get('size', 'main'),
+    ),
+    'contentBorderRadius': (
+        375: ef.get('radius', 'biger'),
+        1024: 0 ef.get('radius', 'biger') ef.get('radius', 'biger') 0,
+    ),
+
+    'dividerHeight': 2px,
+    'dividerBackground': ef.get('mainColors', 'baseOpacity'),
+    'dividerWidth': 100%,
+
+    'profileTitlePadding': (
+        1024: 0 0 ef.get('size', 'small'),
+        1630: 0 0 ef.get('size', 'small'),
+    ),
+    'profileTitlePaddingAddDividerOn': 1024,
+
+    'profileFormBlockMargin': (
+        375: ef.get('size', 'small') -#{ef.get('size', 'small')} 0,
+        1630: ef.get('size', 'smaller') -#{ef.get('size', 'small')} 0,
+    ),
+    'profileFormBlockPadding': (
+        375: 0 0 ef.get('size', 'smallest'),
+        1630: 0,
+    ),
+    'profileFormBlockDividerWidth': calc(100% - #{ef.get('size', 'smaller')}),
+
+    'profileFormBlockSubmitPadding': (
+        375: ef.get('size', 'smallest') 0 0,
+        1630: 0,
+    ),
+
+    'profileFormTitleFlex': 1 1 100%,
+    'profileFormTitlePadding': 0 ef.get('size', 'small'),
+    'profileFormTitleMargin': (
+        375: 0 0 ef.get('size', 'small'),
+        1630: 0 0 ef.get('size', 'smaller'),
+    ),
+    'profileFormTitleFontSize': ef.get('font', 'ThirdTitleBold'),
+    'profileFormTitleFontWeight': 700,
+    'profileFormTitleFontLineHeight': 1.1,
+
+    'profileFormFieldsMargin': (
+        375: 0 0 ef.get('size', 'small'),
+        1630: 0 0 ef.get('size', 'smaller'),
+    ),
+    'profileFormFieldsPadding': 0 ef.get('size', 'small'),
+    'profileFormFieldsBaseFlex': (
+        375: 0 1 100%,
+        768: 0 1 50%,
+        900: 0 1 25%,
+    ),
+    'profileFormFieldsWideFlexBasis': (
+        375: 100%,
+        900: 50%,
+    ),
+
+    'profileFormComposedFieldGap': (
+        1630: ef.get('size', 'smaller'),
+    ),
+), $customMainInfoThemeV1);

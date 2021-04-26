@@ -3,9 +3,12 @@
 </ng-container>
 
 <ng-template #tooltip>
-    <div class="{{$class}}__icon" wlc-icon iconName="info">
-    </div>
-    <div class="{{$class}}__content" *ngIf="isShow" [@showTooltip]>
-        {{$params.inlineText | translate}}
+    <div class="{{$class}}__icon"
+        wlc-icon
+        iconName="info"
+        containerClass="{{$class}}__bs-tooltip"
+        placement="bottom"
+        container="body"
+        [tooltip]="$params.inlineText | translate">
     </div>
 </ng-template>

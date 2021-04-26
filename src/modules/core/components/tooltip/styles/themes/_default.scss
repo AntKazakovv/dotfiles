@@ -42,19 +42,41 @@
                 }
             }
         }
+    }
+}
 
-        .wlc-tooltip__content {
-            z-index: 101;
-            position: absolute;
-            left: ef.get-value($themeDefault, 'contentOffsetLeft');
-            top: ef.get-value($themeDefault, 'contentOffsetTop');
-            padding: ef.get-value($themeDefault, 'contentPadding');
-            width: max-content;
-            max-width: ef.get-value($themeDefault, 'contentMaxWidth');
-            max-height: ef.get-value($themeDefault, 'tooltipMaxHeight');
-            overflow: auto;
-            background: ef.get-value($themeDefault, 'contentBg');
+::ng-deep body {
+
+    .wlc-tooltip__bs-tooltip {
+
+        &.show {
+            opacity: 1;
+        }
+
+        &.top {
+
+            .tooltip-arrow {
+
+                &:before {
+                    border-top-color: ef.get-value($themeDefault, 'contentBg');
+                }
+            }
+        }
+
+        &.bottom {
+
+            .tooltip-arrow {
+
+                &:before {
+                    border-bottom-color: ef.get-value($themeDefault, 'contentBg');
+                }
+            }
+        }
+
+        .tooltip-inner {
+            background-color: ef.get-value($themeDefault, 'contentBg');
             border-radius: ef.get-value($themeDefault, 'contentBorderRadius');
+            padding: ef.get-value($themeDefault, 'contentPadding');
             @include text.get-text-style(ef.get-value($themeDefault, 'textStyle'), ef.get-value($themeDefault, 'contentColor'));
         }
     }

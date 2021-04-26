@@ -175,17 +175,18 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
                 this.form.markAsUntouched();
             }
         } else {
-            _each(this.form.controls, (control) => {
+            let errorFound = false;
+
+            for (const controlName in this.form.controls) {
+                const control = this.form.controls[controlName];
                 control.markAsTouched();
-            });
+                control.updateValueAndValidity();
 
-            _some(this.config.components, (component) => {
-                if (!!component.params.control?.errors) {
-                    this.elRef.nativeElement.querySelector(`#${component.params.name}`)?.focus();
+                if (!errorFound && control.errors) {
+                    this.elRef.nativeElement.querySelector(`#${controlName}`)?.focus();
+                    errorFound = true;
                 }
-
-                return !!component.params.control?.errors;
-            });
+            }
 
             if (this.hasRequiredError) {
                 this.eventService.emit({

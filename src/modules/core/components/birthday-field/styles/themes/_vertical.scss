@@ -1,0 +1,9 @@
+.wlc-birth-field--theme-vertical {
+
+    &:host {
+        display: grid;
+        grid-template-columns: ef.get-value($themeVertical, 'templateColumns');
+        gap: ef.get-value($themeVertical, 'gap');
+        align-items: flex-end;
+    }
+}
