@@ -262,29 +262,12 @@
                         padding: ef.get('size', 'smaller');
                     }
                 }
-            }
-        }
-    }
-}
 
-.app-profile-loyalty-store-main-state,
-.app-profile-loyalty-level-state {
+                @include mq.min(1366) {
 
-    .wlc-sections__profile-content--theme-first {
-
-        > .wlc-profile-content {
-            position: relative;
-            display: grid;
-            grid: {
-                template-columns: minmax(0, 1fr) minmax(0, 1fr);
-                template-rows: auto;
-                template-areas: 'title stats' 'submenu submenu' 'store store';
-            }
-
-            @include mq.min(720) {
-                grid: {
-                    template-columns: repeat(2, 1fr);
-                    template-areas: 'title stats' 'submenu submenu' 'store store';
+                    .wlc-profile-content {
+                        padding: ef.get('size', 'smaller') ef.get('size', 'main');
+                    }
                 }
             }
         }

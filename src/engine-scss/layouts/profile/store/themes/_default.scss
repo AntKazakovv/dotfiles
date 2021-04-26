@@ -57,3 +57,39 @@
         }
     }
 }
+
+.app-profile-loyalty-store-main-state {
+
+    .wlc-sections__profile-content--theme-first {
+
+        .wlc-profile-content {
+            position: relative;
+            display: grid;
+            grid: {
+                template-columns: minmax(0, 1fr) minmax(0, 1fr);
+                template-rows: auto;
+                template-areas: 'title stats' 'store store';
+            }
+            grid-gap: 20px;
+
+            @include mq.min(720) {
+                grid: {
+                    template-columns: repeat(2, 1fr);
+                    template-areas: 'title stats' 'store store';
+                }
+            }
+        }
+
+        .wlc-title {
+            grid-area: title;
+        }
+
+        .wlc-user-stats {
+            grid-area: stats;
+        }
+
+        .wlc-store-list {
+            grid-area: store;
+        }
+    }
+}

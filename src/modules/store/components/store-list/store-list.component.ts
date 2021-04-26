@@ -40,8 +40,10 @@ export class StoreListComponent extends AbstractComponent implements OnInit, OnD
     public $params: Params.IStoreListCParams;
     public storeItems: StoreItem[] = [];
     public isReady: boolean = false;
+    public isProfileFirst: boolean;
     public userPoints: number = 0;
     public userExpPoints: number = 0;
+    public itemTheme: string = 'default';
 
     constructor(
         @Inject('injectParams') protected params: Params.IStoreListCParams,
@@ -57,6 +59,8 @@ export class StoreListComponent extends AbstractComponent implements OnInit, OnD
         super.ngOnInit(this.inlineParams);
         this.prepareModifiers();
         this.isReady = false;
+        this.isProfileFirst = this.ConfigService.get<string>('$base.profile.type') === 'first';
+        this.itemTheme = this.isProfileFirst ? 'first' : 'default';
 
         this.storeService.getSubscribe({
             useQuery: true,

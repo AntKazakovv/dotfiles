@@ -1,0 +1,240 @@
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/mixins/base.mixins' as em;
+@use 'engine-scss/functions' as ef;
+@import '../utils/vars-default';
+
+.wlc-store-item--theme-first {
+
+    .wlc-store-item {
+
+        &__content {
+            position: relative;
+
+            @include em.get-mq-map('min-width', $themeFirst, 'minWidth');
+            @include em.get-mq-map('max-width', $themeFirst, 'maxWidth');
+            margin-left: auto;
+            margin-right: auto;
+
+            border-radius: ef.get-value($themeFirst, 'radius');
+            overflow: hidden;
+
+            @media (hover: hover) {
+
+                &:hover {
+
+                    .wlc-store-item__wrapper {
+                        background: ef.get-value($themeFirst, 'backgroundHover');
+                    }
+
+                    .wlc-store-item__bottom {
+                        background: ef.get-value($themeFirst, 'backgroundHover');
+                        @include em.get-mq-map('transform', $themeFirst, 'bottomHoverTranslate');
+                    }
+
+                    .wlc-store-item__image {
+                        @include em.get-mq-map('transform', $themeFirst, 'imageHoverTranslate');
+
+                        &:before {
+                            @include em.get-mq-map('transform', $themeFirst, 'imageHoverGradientTranslate');
+                        }
+                    }
+
+                    .wlc-store-item__btns {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                }
+            }
+
+            @media (hover: none) {
+
+                .wlc-store-item__btns {
+                    position: static;
+
+                    opacity: 1;
+                    transform: translateY(0);
+
+                    button {
+                        margin: ef.get-value($themeFirst, 'btnMarginMobile');
+                    }
+                }
+
+                .wlc-store-item__bottom {
+                    @include em.get-mq-map('height', $themeFirst, 'infoHeightMobile');
+                }
+            }
+        }
+
+        &__wrapper {
+            position: relative;
+
+            background: ef.get-value($themeFirst, 'background');
+
+            transition: background ef.get-value($themeFirst, 'time') ease-in-out;
+        }
+
+        &__image-block {
+            position: relative;
+        }
+
+        &__image {
+            position: relative;
+            width: 100%;
+            @include em.get-mq-map('padding', $themeFirst, 'imagePadding');
+
+            background-color: ef.get-value($themeFirst, 'imageBg');
+            background-repeat: no-repeat;
+            background-size: auto 100%;
+            background-position: center center;
+
+            transition: all ef.get-value($themeFirst, 'time') ease-in-out;
+            transform: translateY(0);
+
+            &:before {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+
+                width: 100%;
+
+                background: ef.get-value($themeFirst, 'imageGradient');
+
+                transition: all ef.get-value($themeFirst, 'time') ease-in-out;
+                transform: translateY(0);
+                content: '';
+            }
+        }
+
+        &__tag {
+            position: absolute;
+            z-index: 2;
+            top: ef.get-value($themeFirst, 'tagPositionTop');
+            left: 50%;
+
+            @include em.get-mq-map('padding', $themeFirst, 'tagPadding');
+
+            @include text.get-text-style('SignText', ef.get-value($themeFirst, 'tagFontColor'));
+
+            background-color: ef.get-value($themeFirst, 'tagBg');
+
+            border-radius: ef.get-value($themeFirst, 'tagRadius');
+
+            transform: translateX(-50%);
+        }
+
+        &__bottom {
+            @include em.get-mq-map('height', $themeFirst, 'infoHeight');
+
+            background: ef.get-value($themeFirst, 'background');
+
+            transition: all ef.get-value($themeFirst, 'time') ease-in-out;
+            transform: translateY(0);
+        }
+
+        &__info-block {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            height: 100%;
+            padding: ef.get-value($themeFirst, 'infoPadding');
+        }
+
+        &__name {
+            @include em.get-mq-map('width', $themeFirst, 'infoWidth');
+
+            font-size: ef.get-value($themeFirst, 'nameFontSize');
+            font-weight: bold;
+            line-height: 1.4;
+            text-align: center;
+
+            transition: opacity ef.get-value($themeFirst, 'time') ease-in-out;
+
+            @include mq.min(1630) {
+                @include text.get-text-style('QoteTextBold', ef.get-value($themeFirst, 'nameFontColor'));
+            }
+        }
+
+        &__price {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            @include em.get-mq-map('width', $themeFirst, 'infoWidth');
+            @include em.get-mq-map('min-height', $themeFirst, 'priceMinHeight');
+
+            font-size: ef.get-value($themeFirst, 'priceFontSize');
+            text-align: center;
+
+            color: ef.get-value($themeFirst, 'priceFontColor');
+
+            transition: transform ef.get-value($themeFirst, 'time') ease-in-out;
+            will-change: transform;
+
+            .price-item {
+                display: flex;
+                align-items: center;
+                @include em.get-mq-map('margin', $themeFirst, 'priceMargin');
+            }
+        }
+
+        &__more-icon {
+            position: absolute;
+            top: ef.get-value($themeFirst, 'moreIconPosTop');
+            bottom: ef.get-value($themeFirst, 'moreIconPosBottom');
+            left: ef.get-value($themeFirst, 'moreIconPosLeft');
+            right: ef.get-value($themeFirst, 'moreIconPosRight');
+
+            line-height: 0;
+
+            .icon-btn {
+                width: ef.get-value($themeFirst, 'moreIconSize');
+                height: ef.get-value($themeFirst, 'moreIconSize');
+
+                cursor: pointer;
+
+                svg {
+                    width: 100%;
+
+                    fill: ef.get-value($themeFirst, 'moreIconColor');
+
+                    @include em.transition(fill);
+                }
+            }
+
+            @media (hover: hover) {
+
+                &:hover {
+
+                    .icon-btn {
+
+                        svg {
+                            fill: ef.get-value($themeFirst, 'moreIconColorHover');
+                        }
+                    }
+                }
+            }
+        }
+
+        &__btns {
+            position: absolute;
+            bottom: 10%;
+
+            display: flex;
+            justify-content: center;
+
+            width: 100%;
+
+            opacity: 0;
+            transition: all ef.get-value($themeFirst, 'time') ease-in-out;
+            transform: translateY(400%);
+
+            button {
+                margin: ef.get-value($themeFirst, 'btnMargin');
+            }
+        }
+    }
+}

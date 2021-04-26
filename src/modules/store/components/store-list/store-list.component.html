@@ -1,6 +1,9 @@
 <div class="{{$class}}__content" data-wlc-element="wlc-store">
-    <div class="{{$class}}__list" *ngIf="storeItems?.length && isReady; else: noItems">
-        <div wlc-store-item [storeItem]="item" *ngFor="let item of storeItems"></div>
+    <div
+        *ngIf="storeItems?.length && isReady; else: noItems"
+        class="{{$class}}__list"
+        [class.first]="isProfileFirst">
+        <div *ngFor="let item of storeItems" wlc-store-item [storeItem]="item" [theme]="itemTheme"></div>
     </div>
     <!-- TODO: add pagination -->
     <ng-template #noItems>
