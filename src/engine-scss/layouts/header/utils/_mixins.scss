@@ -1,0 +1,144 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@import './vars';
+
+@mixin headerBase($theme) {
+
+    background: ef.get-value($theme, 'headerBackground');
+
+    .container {
+        position: relative;
+        z-index: 10;
+
+        display: grid;
+
+        align-items: center;
+
+        @include bm.get-mq-map('min-height', $theme, 'headerMinHeight');
+        @include bm.get-mq-map('grid-gap', $theme, 'headerGridGap');
+        @include bm.get-mq-map('padding', $theme, 'headerPadding');
+
+        @include mq.min(1200) {
+            width: ef.get-value($theme, 'headerContainerDesktopWidth');
+            max-width: ef.get-value($theme, 'headerContainerDesktopMaxWidth');
+
+            margin: ef.get-value($theme, 'headerContainerDesktopMargin');
+        }
+    }
+
+    .wlc-logo {
+        max-width: ef.get-value($theme, 'headerLogoMaxWidth');
+        margin: ef.get-value($theme, 'headerLogoMargin');
+
+        img,
+        svg {
+            width: ef.get-value($theme, 'headerSvgLogoWidth');
+            height: ef.get-value($theme, 'headerSvgLogoHeight');
+            max-height: ef.get-value($theme, 'headerSvgLogoMaxHeight');
+
+            margin: ef.get-value($theme, 'headerSvgLogoMargin');
+        }
+    }
+
+    .wlc-login-signup {
+        justify-content: ef.get-value($theme, 'headerLoginJustifyContent');
+
+        .wlc-btn {
+
+            @include mq.max(1200) {
+                padding: map-get($theme, 'headerLoginBtnTabletPadding');
+            }
+        }
+    }
+
+    .wlc-btn {
+
+        &-burger {
+            width: map-get($theme, 'headerBurgerBtnWidth');
+            margin-right: auto;
+
+            @include mq.min(1024) {
+                text-align: center;
+            }
+        }
+
+        &-search {
+            width: map-get($theme, 'headerSearchBtnWidth');
+            margin-left: auto;
+            will-change: transform;
+
+            @media (hover: hover) {
+
+                &:hover {
+                    transform: rotate(30deg);
+                    @include bm.transition(transform);
+                }
+            }
+        }
+
+        &-burger,
+        &-search {
+
+            svg,
+            rect {
+                fill: map-get($theme, 'headerSvgBtn');
+            }
+
+            @media (hover) {
+
+                &:hover {
+
+                    svg,
+                    rect {
+                        fill: map-get($theme, 'headerSvgBtnHover');
+                        @include bm.transition(fill);
+                    }
+                }
+            }
+        }
+
+        &-login,
+        &-user {
+            display: flex;
+            margin-left: auto;
+
+            .wlc-icon {
+                width: ef.get-value($theme, 'headerSvgBtnSize');
+                height: ef.get-value($theme, 'headerSvgBtnSize');
+
+                svg {
+                    width: ef.get-value($theme, 'headerSvgBtnSize');
+                    height: ef.get-value($theme, 'headerSvgBtnSize');
+
+                    path,
+                    rect {
+                        fill: ef.get-value($theme, 'headerDepositBtnFillColor');
+                    }
+                }
+            }
+        }
+
+        &--deposit {
+            margin: ef.get-value($theme, 'headerDepositBtnMargin');
+
+            svg {
+                fill: ef.get-value($theme, 'headerDepositBtnFill');
+            }
+        }
+
+        &--user {
+
+            svg {
+                fill: ef.get-value($theme, 'headerUserBtnFill');
+            }
+        }
+    }
+
+    .wlc-user-info {
+
+        &__content {
+            justify-content: ef.get-value($theme, 'headerUserInfoJustifyContent');
+        }
+    }
+}

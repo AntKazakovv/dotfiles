@@ -41,6 +41,19 @@ export namespace wlcLanguageSelector {
             after: 900,
         },
     };
+    export const bottomLeft2: ILayoutComponent = {
+        name: 'core.wlc-language-selector',
+        params: <ILanguageSelectorCParams>{
+            themeMod: 'bottom-left',
+            currentLang: {
+                hideLang: true,
+            },
+            toggleOnScroll: null,
+        },
+        display: {
+            after: 1200,
+        },
+    };
     export const long: ILayoutComponent = {
         name: 'core.wlc-language-selector',
         params: <ILanguageSelectorCParams>{
