@@ -52,7 +52,7 @@ export class UserInfoComponent extends AbstractComponent implements OnInit {
         protected transitionService: TransitionService,
         protected stateService: StateService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams});
+        super({injectParams, defaultParams: Params.defaultParams}, configService);
     }
 
     ngOnInit(): void {

@@ -49,10 +49,9 @@ export class UserStatsComponent extends AbstractComponent implements OnInit, OnD
         protected modalService: ModalService,
         private translate: TranslateService,
         private stateService: StateService,
-        protected ConfigService: ConfigService,
     ) {
         super(
-            <IMixedParams<Params.IUserStatsCParams>>{injectParams: injectParams, defaultParams: Params.defaultParams}, ConfigService);
+            <IMixedParams<Params.IUserStatsCParams>>{injectParams: injectParams, defaultParams: Params.defaultParams}, configService);
     }
 
     ngOnInit(): void {
