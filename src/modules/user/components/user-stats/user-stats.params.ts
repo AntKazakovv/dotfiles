@@ -12,6 +12,8 @@ export interface IUserStatsCParams extends IComponentParams<ComponentTheme, Comp
 
 export const defaultParams: IUserStatsCParams = {
     class: 'wlc-user-stats',
+    moduleName: 'user',
+    componentName: 'wlc-user-stats',
     fields: [
         'balance',
         'bonusBalance',

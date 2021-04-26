@@ -19,6 +19,8 @@ export interface IUserInfoCParams extends IComponentParams<ComponentTheme, Compo
 
 export const defaultParams: IUserInfoCParams = {
     class: 'wlc-user-info',
+    moduleName: 'user',
+    componentName: 'wlc-user-info',
     wlcElement: 'block_user-stat',
     button: {
         use: true,
