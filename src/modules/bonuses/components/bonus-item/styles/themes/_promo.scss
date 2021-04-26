@@ -103,8 +103,8 @@
                 @include em.get-mq-map('font-size', $themePromo, 'bonusIconValueFontSize');
                 @include em.get-mq-map('bottom', $themePromo, 'bonusIconValueBlockPosB');
                 @include em.get-mq-map('margin', $themePromo, 'bonusIconValueBlockMagin');
+                @include em.get-mq-map('left', $themePromo, 'bonusIconValueBlockPosL');
 
-                left: 50%;
                 border-radius: ef.get-value($themePromo, 'bonusIconValueBlockBorderRds');
                 background-color: ef.get-value($themePromo, 'bonusIconValueBg');
                 color: ef.get-value($themePromo, 'bonusIconValueFontColor');
