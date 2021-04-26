@@ -44,7 +44,6 @@ export const $layouts: ILayoutsConfig = {
             'categories': sectionsLib.categories.catalog,
             'content-games-top': sectionsLib.contentGames.homeTop,
             'content-wins': sectionsLib.contentGames.homeWinsTournament,
-            'providers': sectionsLib.providers.slider,
             'content-games-bottom': sectionsLib.contentGames.homeBottom,
             'total-jackpot': sectionsLib.totalJackpotSection.home,
         },
