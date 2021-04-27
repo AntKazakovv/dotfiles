@@ -68,11 +68,13 @@ export interface IRequestMethod {
     preload?: string;
     /** method that transform request data */
     mapFunc?: (data: unknown) => unknown;
+    /** don't use GET parameter lang for request */
+    noUseLang?: boolean;
     /** event for data request*/
     events?: {
         success?: string;
         fail?: string;
-    }
+    };
 }
 
 interface IRegisteredMethod extends IRequestMethod {
@@ -308,6 +310,10 @@ export class DataService {
             method.params,
             method.type === 'GET' ? params : {},
         );
+
+        if (method.noUseLang) {
+            delete requestParams.lang;
+        }
 
         const requestBody = method.type !== 'GET' ? this.checkFormData(params) || '' : undefined;
 
