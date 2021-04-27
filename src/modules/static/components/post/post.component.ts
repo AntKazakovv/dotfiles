@@ -79,10 +79,11 @@ export class PostComponent extends AbstractComponent implements OnInit, AfterVie
         } catch (error) {
             // TODO: add log service in static service metods
             this.logService.sendLog({code: '12.0.0', data: error});
-            this.stateService.go('app.error', {
-                locale: this.configService.get('currentLanguage'),
-            });
-            console.error(error);
+            if (this.uiRouter.params.slug) {
+                this.stateService.go('app.error', {
+                    locale: this.configService.get('currentLanguage'),
+                });
+            }
         } finally {
             this.isReady = true;
             this.cdr.markForCheck();
