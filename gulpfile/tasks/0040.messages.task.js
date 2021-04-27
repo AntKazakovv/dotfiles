@@ -217,6 +217,18 @@ module.exports = function messagesTask() {
         cb();
     });
 
+    task('message:merge_engine_pot', async (cb) => {
+        const commands = [
+            `mv ${this.params.paths.temp}/front.pot ${this.params.paths.temp}/engine.pot \n`,
+            `msgcat ${this.params.paths.temp}/engine.pot `
+                + `${this.params.paths.src}/system/languages/messages.pot > ${this.params.paths.temp}/front.pot\n`,
+        ];
+
+        await this.execShell(commands, true);
+
+        cb();
+    });
+
     task('messages', series(
         'clean:temp',
         'message:tpl_to_pot',
@@ -233,6 +245,7 @@ module.exports = function messagesTask() {
     task('engineMessages', series(
         'clean:temp',
         'message:front_to_pot',
+        'message:merge_engine_pot',
         'message:front_pot_to_po',
         'message:temp_front_po',
         'clean:temp',
