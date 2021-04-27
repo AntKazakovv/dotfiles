@@ -119,6 +119,20 @@
             }
         }
 
+        &-login {
+
+            .wlc-icon {
+
+                svg {
+
+                    path,
+                    rect {
+                        fill: ef.get-value($theme, 'headerSvgBtn');
+                    }
+                }
+            }
+        }
+
         &--deposit {
             margin: ef.get-value($theme, 'headerDepositBtnMargin');
 
