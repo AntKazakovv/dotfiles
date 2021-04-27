@@ -82,6 +82,7 @@ export class ConfigService {
             url: '/bootstrap',
             type: 'GET',
             preload: 'bootstrap',
+            noUseLang: true,
             mapFunc: (res) => this.prepareData(res),
             events: {
                 success: 'LOAD_BOOTSTRAP_SUCCESS',
