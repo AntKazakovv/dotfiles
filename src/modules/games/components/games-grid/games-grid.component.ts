@@ -241,7 +241,7 @@ export class GamesGridComponent extends AbstractComponent
         this.moreButtonChangeState(false);
         const itemWidth = this.gameItem?.nativeElement?.getBoundingClientRect().width;
         const bannerWidth = this.gameBanner?.nativeElement?.getBoundingClientRect().width || 0;
-        width = this.$params.banner ? width - bannerWidth : width;
+        width = this.$params.bannerSettings ? width - bannerWidth : width;
         this.prevPlaceHoldersCount = Math.floor(width / itemWidth) || 1;
         this.paginate = this.prevPlaceHoldersCount * this.$params.gamesRows;
         this.placeHoldersCount = this.prevPlaceHoldersCount;

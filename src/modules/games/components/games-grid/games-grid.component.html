@@ -22,11 +22,11 @@
              class="{{$class}}__list"
              (resized)="onResize($event)">
 
-            <div *ngIf="$params.banner"
+            <div *ngIf="$params.bannerSettings"
                  #gameBanner
                  class="{{$class}}__banner wlc-games-banner">
                 <div wlc-banners-slider
-                     [inlineParams]="$params.banner"></div>
+                     [inlineParams]="$params.bannerSettings"></div>
             </div>
 
             <div *ngFor="let game of filteredGames | slice: 0:gamesCount"

@@ -22,7 +22,7 @@ export interface IGamesGridCParams extends IComponentParams<string, GGType, stri
         byCategory?: boolean;
         folder?: string;
     };
-    banner?: IBannersSliderCParams;
+    bannerSettings?: IBannersSliderCParams;
     tournamentGamesFilter?: ITournamentGames;
     titleIconByCategory?: boolean;
     showAllLink?: {
