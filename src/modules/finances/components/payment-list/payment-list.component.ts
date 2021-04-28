@@ -14,19 +14,6 @@ import {
     filter,
     takeUntil,
 } from 'rxjs/operators';
-import {
-    Observable,
-    fromEvent,
-    fromEventPattern,
-} from 'rxjs';
-import {
-    animate,
-    style,
-    transition,
-    trigger,
-    query,
-    stagger,
-} from '@angular/animations';
 
 import {
     AbstractComponent,
@@ -34,6 +21,7 @@ import {
     EventService,
     ModalService,
     GlobalHelper,
+    ListAppearanceAnimation,
 } from 'wlc-engine/modules/core';
 import {FinancesService} from 'wlc-engine/modules/finances/system/services';
 import {PaymentSystem} from 'wlc-engine/modules/finances/system/models/payment-system.model';
@@ -50,14 +38,7 @@ import _isString from 'lodash-es/isString';
     styleUrls: ['./styles/payment-list.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
     animations: [
-        trigger('appearance', [
-            transition('*<=>*', [
-                query(':enter', [
-                    style({opacity: 0}),
-                    stagger('0.03s', animate('0.8s', style({opacity: 1}))),
-                ], {optional: true}),
-            ]),
-        ]),
+        ...ListAppearanceAnimation,
     ],
 })
 export class PaymentListComponent extends AbstractComponent implements OnInit {
