@@ -149,11 +149,15 @@ export class LayoutService {
 
         const modules = _reduce(res.sections, (sRes: string[], section: ILayoutSectionConfig) =>
             _union(sRes, section.components?.reduce((cRes: string[], component: (ILayoutComponent | string)) => {
-                const splitComponent = (_isString(component) ? component : component.name).split('.');
-                if (splitComponent.length >= 2) {
-                    return _union(cRes, [splitComponent[0]]);
+                try {
+                    const splitComponent = (_isString(component) ? component : component.name).split('.');
+                    if (splitComponent.length >= 2) {
+                        return _union(cRes, [splitComponent[0]]);
+                    }
+                    return cRes;
+                } catch (error) {
+                    console.error('Wrong layout config', error);
                 }
-                return cRes;
             }, [])), []);
         await this.importModules(modules);
 
