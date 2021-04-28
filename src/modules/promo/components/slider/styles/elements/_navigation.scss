@@ -19,6 +19,10 @@
     border-radius: ef.get-value($themeDefaultNavigation, 'swiperNaviButtonBorderRadius');
     transition: ef.get-value($themeDefaultNavigation, 'swiperNaviButtonTransition');
 
+    svg {
+        fill: ef.get-value($themeDefaultNavigation, 'swiperNaviArrowColor');
+    }
+
     @media (hover) {
 
         &:hover {
