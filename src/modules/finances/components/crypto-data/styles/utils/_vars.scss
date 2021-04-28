@@ -3,7 +3,7 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     // wrapper
-    'wrapperMargin': 0 auto 20px,
+    'wrapperMargin': 0 auto ef.get('size', 'smaller'),
     'wrapperMaxWidth': (
         375: 370px,
         640: none,
@@ -15,8 +15,8 @@ $themeDefault: map-merge((
         640: auto 1fr,
     ),
     'wrapperGridGap': (
-        640: 20px,
-        768: 50px,
+        640: ef.get('size', 'smaller'),
+        768: ef.get('size', 'biger'),
     ),
 
     'wrapperModalDisplay': block,
@@ -30,19 +30,18 @@ $themeDefault: map-merge((
         640: left,
     ),
     'textColor': ef.get('mainColors', 'baseMain'),
-    'textRowMargin': 0 0 20px,
+    'textRowMargin': 0 0 ef.get('size', 'smaller'),
 
     'textModalMaxWidth': none,
     'textModalAlignment': center,
 
     // clipboard
-    'clipboardMargin': 0 0 20px,
+    'clipboardMargin': 0 0 ef.get('size', 'smaller'),
 
     // qr
-    'qrDisplay': (
-        375: flex,
-        640: block,
-    ),
+    'qrGridColumns': 1fr,
+    'qrGridRows': auto 1fr,
+    'qrBlockMinHeight': 140px,
     'qrJustifyContent': (
         375: center,
         640: flex-start,
@@ -51,20 +50,40 @@ $themeDefault: map-merge((
         375: none,
         640: block,
     ),
-    'qrTextMargin': (
-        640: 0 0 20px,
+    'qrGridGap': (
+        640: ef.get('size', 'smaller'),
     ),
-    'qrWrapperWidth': 250px,
-    'qrWrapperBackground': #fff,
+    'qrWrapperWidth': (
+        375: initial,
+        640: 100%
+    ),
+
+    //qr image
+    'qrImgMaxHeight': 280px,
+    'qrImgObjectPos': left,
+    'qrImgPosTop': 0,
+    'qrImgPosLeft': 0,
+    'qrImgTransform': null,
+    'qrImgWidth': 100%,
+    'qrImgHeight': 100%,
+    'qrImgPos': (
+        375: static,
+        640: absolute,
+    ),
+    'qrImgMaxWidth': (
+        375: 250px,
+        640: initial,
+    ),
 
     'qrModalDisplay': flex,
     'qrModalJustifyContent': center,
     'qrTextModalDisplay': none,
+    'qrModalImgMargin': 0 auto,
 
     // warning
     'warningMargin': (
-        375: 20px 0,
-        640: 20px 0 0
+        375: ef.get('size', 'smaller') 0,
+        640: ef.get('size', 'smaller') 0 0
     ),
     'warningAlignment': (
         375: center,
