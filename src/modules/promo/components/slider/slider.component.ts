@@ -5,7 +5,6 @@ import {
     OnInit,
     ViewChild,
     AfterViewInit,
-    ElementRef,
     Renderer2,
     ViewEncapsulation,
     OnChanges,
@@ -14,6 +13,8 @@ import {
 } from '@angular/core';
 import SwiperCore, {
     EffectFade,
+    EffectCube,
+    EffectFlip,
     Navigation,
     Pagination,
     Autoplay,
@@ -23,7 +24,7 @@ import SwiperCore, {
 import {SwiperComponent} from 'swiper/angular';
 
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ActionService, ConfigService, DeviceModel, DeviceOrientation} from 'wlc-engine/modules/core';
+import {ActionService, ConfigService} from 'wlc-engine/modules/core';
 import {
     BannersService,
     WinnersService,
@@ -44,6 +45,8 @@ import _forEach from 'lodash-es/forEach';
 
 SwiperCore.use([
     EffectFade,
+    EffectCube,
+    EffectFlip,
     Navigation,
     Pagination,
     Autoplay,
