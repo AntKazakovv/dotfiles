@@ -9,7 +9,8 @@
            [uiParams]="$params.showAllLink?.params || {}"
            class="{{$class}}__link">
             {{$params.showAllLink?.text || 'Show all' | translate}}
-            <ng-container *ngIf="$params.showAllLink.useCounter && filteredGames?.length">({{filteredGames.length}})</ng-container>
+            <ng-container *ngIf="$params.showAllLink.useCounter && filteredGames?.length">({{filteredGames.length}})
+            </ng-container>
             <span wlc-icon iconName="arrow"></span>
         </a>
     </div>
@@ -17,36 +18,47 @@
     <ng-container *ngIf="isReady; else : preloader">
         <div *ngIf="filteredGames?.length; else: noGames"
              [@appearance]="filteredGames.length"
+             #gameList
              class="{{$class}}__list"
              (resized)="onResize($event)">
 
-            <div class="{{$class}}__item" *ngFor="let game of filteredGames | slice: 0:gamesCount">
-                <div wlc-game-thumb [game]="game" [inlineParams]="$params.thumbParams"></div>
+            <div *ngIf="$params.banner"
+                 #gameBanner
+                 class="{{$class}}__banner wlc-games-banner">
+                <div wlc-banners-slider
+                     [inlineParams]="$params.banner"></div>
+            </div>
+
+            <div *ngFor="let game of filteredGames | slice: 0:gamesCount"
+                 #gameItem
+                 class="{{$class}}__item">
+                <div wlc-game-thumb
+                     [game]="game"
+                     [inlineParams]="$params.thumbParams"></div>
             </div>
             <ng-container *ngIf="$params.usePlaceholders && !filteredGames.length">
                 <div class="{{$class}}__item"
                      *ngFor="let item of placeHolders">
                     <div class="{{$class}}__placeholder" [ngStyle]="placeHolderStyles">
-                        <!-- TODO: add loader -->
                         <span *ngIf="$params.moreBtn.lazy && !lazyReady">Loading...</span>
                     </div>
                 </div>
             </ng-container>
         </div>
 
-        <div class="{{$class}}__progressbar"
-            *ngIf="$params.showProgressBar && gamesCount < filteredGames?.length"
-            wlc-progress-bar
-            [maxValue]="filteredGames?.length"
-            [currentValue]="gamesCount">
+        <div *ngIf="$params.showProgressBar && gamesCount < filteredGames?.length"
+             wlc-progress-bar
+             class="{{$class}}__progressbar"
+             [maxValue]="filteredGames?.length"
+             [currentValue]="gamesCount">
         </div>
 
-        <div class="{{$class}}__more"
-             *ngIf="gamesCount < filteredGames?.length">
-            <button wlc-button
+        <div *ngIf="gamesCount < filteredGames?.length"
+             class="{{$class}}__more">
+            <button *ngIf="!hideShowMoreBtn && !$params.showAllLink?.use && !useLazy"
+                    wlc-button
                     [wlcElement]="'button_load-more-games'"
                     [text]="'Load more games'"
-                    *ngIf="!hideShowMoreBtn && !$params.showAllLink?.use && !useLazy"
                     (click)="loadMore()"></button>
             <button *ngIf="$params.showAllLink?.use && !isDesktop"
                     wlc-button

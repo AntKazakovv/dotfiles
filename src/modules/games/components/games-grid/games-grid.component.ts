@@ -1,47 +1,43 @@
 import {
-    Component,
-    OnInit,
-    Inject,
-    ElementRef,
-    AfterViewInit,
-    ChangeDetectorRef,
+    AfterViewChecked,
     ChangeDetectionStrategy,
-    Renderer2,
-    Input,
-    HostBinding,
-    Output,
+    ChangeDetectorRef,
+    Component,
+    ElementRef,
     EventEmitter,
+    HostBinding,
+    Inject,
+    Input,
+    OnInit,
+    Output,
+    Renderer2,
+    ViewChild,
 } from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {
     UIRouter,
     TransitionService,
 } from '@uirouter/core';
-import {
-    animate, query, stagger,
-    style,
-    transition,
-    trigger,
-} from '@angular/animations';
 import {fromEvent} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
-
-import {ActionService, EventService} from 'wlc-engine/modules/core/system/services';
-import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ResizedEvent} from 'angular-resize-event';
-import {Game} from 'wlc-engine/modules/games/system/models/game.model';
-import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.model';
 import {
+    AbstractComponent,
     ConfigService,
     ILanguage,
     DeviceType,
+    ActionService,
+    EventService,
+    ListAppearanceAnimation,
 } from 'wlc-engine/modules/core';
 import {
+    Game,
+    CategoryModel,
+    IGamesFilterData,
+    gamesEvents,
     GamesCatalogService,
+    GamesFilterServiceEvents,
 } from 'wlc-engine/modules/games';
-import {GamesFilterServiceEvents} from 'wlc-engine/modules/games';
-import {gamesEvents, IGames} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
-import {IGamesFilterData} from 'wlc-engine/modules/games/system/interfaces/filters.interfaces';
 
 import * as Params from './games-grid.params';
 
@@ -55,18 +51,11 @@ import _isUndefined from 'lodash-es/isUndefined';
     styleUrls: ['./styles/games-grid.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
     animations: [
-        trigger('appearance', [
-            transition('*<=>*', [
-                query(':enter',[
-                    style({opacity: 0}),
-                    stagger('0.03s', animate('0.8s', style({opacity: 1}))),
-                ], {optional: true}),
-            ]),
-        ]),
+        ...ListAppearanceAnimation,
     ],
 })
 export class GamesGridComponent extends AbstractComponent
-    implements OnInit, AfterViewInit {
+    implements OnInit, AfterViewChecked {
 
     public $params: Params.IGamesGridCParams;
     public isReady: boolean = false;
@@ -94,6 +83,9 @@ export class GamesGridComponent extends AbstractComponent
     protected childCategory: CategoryModel;
     protected deviceType: DeviceType;
 
+    @ViewChild('gameList') gameListElement: ElementRef;
+    @ViewChild('gameItem') gameItem: ElementRef;
+    @ViewChild('gameBanner') gameBanner: ElementRef;
     @Input() protected inlineParams: Params.IGamesGridCParams;
     @Input() protected gamesList: Game[];
 
@@ -157,6 +149,16 @@ export class GamesGridComponent extends AbstractComponent
         }
     }
 
+    public ngAfterViewChecked(): void {
+        if (this.gameListElement) {
+            this.setGridParams(this.gameListElement, this.gameListElement.nativeElement.getBoundingClientRect().width);
+            this.setPlaceHolders();
+            if (this.useLazy) {
+                this.tryLoadingGames();
+            }
+        }
+    }
+
     public async prepareGrid(): Promise<void> {
         this.games = await this.getGames();
         const lang: string = this.translate.currentLang;
@@ -176,17 +178,6 @@ export class GamesGridComponent extends AbstractComponent
         }
 
         this.cdr.detectChanges();
-    }
-
-    public ngAfterViewInit(): void {
-        const listElement = this.elementRef.nativeElement.querySelector('.' + this.$class + '__list');
-        if (listElement) {
-            this.setGridParams(listElement, listElement.getBoundingClientRect().width);
-            this.setPlaceHolders();
-            if (this.useLazy) {
-                this.tryLoadingGames();
-            }
-        }
     }
 
     public onResize(event: ResizedEvent): void {
@@ -248,14 +239,14 @@ export class GamesGridComponent extends AbstractComponent
      */
     protected setGridParams(el: any, width: number): void {
         this.moreButtonChangeState(false);
-        const itemElement = el.querySelector('.' + this.$class + '__item')?.firstChild;
-        const itemWidth = itemElement?.getBoundingClientRect().width;
-        this.prevPlaceHoldersCount = Math.floor(width / itemWidth);
+        const itemWidth = this.gameItem?.nativeElement?.getBoundingClientRect().width;
+        const bannerWidth = this.gameBanner?.nativeElement?.getBoundingClientRect().width || 0;
+        width = this.$params.banner ? width - bannerWidth : width;
+        this.prevPlaceHoldersCount = Math.floor(width / itemWidth) || 1;
         this.paginate = this.prevPlaceHoldersCount * this.$params.gamesRows;
         this.placeHoldersCount = this.prevPlaceHoldersCount;
 
         if (this.gamesCount > this.paginate) {
-
             while (this.gamesCount % this.prevPlaceHoldersCount !== 0) {
                 this.gamesCount++;
             }
@@ -284,8 +275,7 @@ export class GamesGridComponent extends AbstractComponent
             return;
         }
         this.placeHolders = Array(this.placeHoldersCount).fill(1);
-        const imgElement = this.elementRef.nativeElement.querySelector('.' + this.$class + '__item')?.firstChild;
-        const imgSize = imgElement?.getBoundingClientRect();
+        const imgSize = this.gameItem?.nativeElement?.getBoundingClientRect().width;
         if (imgSize) {
             this.placeHolderStyles = {
                 width: imgSize.width + 'px',

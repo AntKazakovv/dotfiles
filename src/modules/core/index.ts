@@ -21,3 +21,5 @@ export {
     NotificationEvents,
 } from 'wlc-engine/modules/core/system/services/notification';
 export {Deferred} from './system/classes/deferred.class';
+export {ListAppearanceAnimation} from './system/animations/list-appearance.animation';
+export * from './system/animations/height-toggle.animation';

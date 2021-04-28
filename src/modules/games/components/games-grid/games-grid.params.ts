@@ -1,7 +1,7 @@
-import {IIndexing} from 'wlc-engine/modules/core';
-import {IComponentParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {IGamesFilterData} from 'wlc-engine/modules/games/system/interfaces';
+import {IIndexing, IComponentParams} from 'wlc-engine/modules/core';
+import {IGamesFilterData} from 'wlc-engine/modules/games';
 import {ITournamentGames} from 'wlc-engine/modules/tournaments';
+import {IBannersSliderCParams} from 'wlc-engine/modules/promo';
 
 export type GGType = 'default' | 'search';
 
@@ -22,6 +22,7 @@ export interface IGamesGridCParams extends IComponentParams<string, GGType, stri
         byCategory?: boolean;
         folder?: string;
     };
+    banner?: IBannersSliderCParams;
     tournamentGamesFilter?: ITournamentGames;
     titleIconByCategory?: boolean;
     showAllLink?: {
