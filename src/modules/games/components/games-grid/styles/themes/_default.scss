@@ -58,7 +58,7 @@
 
                 [class*='wlc-banners'],
                 .swiper-container,
-                .ng-star-inserted {
+                .ng-star-inserted[wlc-dynamic] {
                     height: 100%;
                 }
 
