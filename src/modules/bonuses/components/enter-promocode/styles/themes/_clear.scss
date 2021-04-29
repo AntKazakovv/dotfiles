@@ -6,7 +6,7 @@
 
 .wlc-enter-promocode--theme-clear:host {
     width: ef.get-value($themeClear, 'width');
-    max-width: ef.get-value($themeClear, 'maxWidth');
+    @include em.get-mq-map('max-width', $themeClear, 'maxWidth');
 
     .wlc-enter-promocode {
 

@@ -1,6 +1,7 @@
 @use 'engine-scss/functions' as ef;
 @use 'engine-scss/mixins/text' as lib;
 @use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/base.mixins' as bm;
 
 @import '../utils/vars';
 
@@ -40,15 +41,10 @@
 
         .wlc-profile-content {
             display: grid;
-            grid: {
-                template-columns: minmax(0, max-content) minmax(150px, 1fr);
-                template-rows: min-content min-content;
-                template-areas:
-                    'title promocode'
-                    'bonuses-list bonuses-list';
-
-                gap: ef.get-value($bonusesThemeFirst, 'sectionGap');
-            }
+            @include bm.get-mq-map('grid-template-columns', $bonusesThemeFirst, 'gridColumns');
+            @include bm.get-mq-map('grid-template-rows', $bonusesThemeFirst, 'gridRows');
+            @include bm.get-mq-map('grid-template-areas', $bonusesThemeFirst, 'gridArea');
+            @include bm.get-mq-map('gap', $bonusesThemeFirst, 'gridGap');
 
             .wlc-title {
                 grid-area: title;
@@ -58,6 +54,10 @@
             .wlc-enter-promocode {
                 grid-area: promocode;
                 justify-self: end;
+            }
+
+            .wlc-profile-menu {
+                grid-area: menu;
             }
 
             .wlc-bonuses-list {
