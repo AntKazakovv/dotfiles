@@ -44,5 +44,5 @@ export const gamesConfig: IGamesConfig = {
     idVerticalVideos: [
         1558042,
     ],
-    sportsbookMerchants: [958, 972, 993, 962, 937, 903],
+    sportsbookMerchants: [958, 972, 993, 962, 937, 903, 922, 908],
 };
