@@ -1,12 +1,13 @@
-import {CustomType, IComponentParams} from 'wlc-engine/modules/core/system/interfaces/config.interface';
-import {BannerModel} from 'wlc-engine/modules/promo/system/models/banner.model';
+import {CustomType, IComponentParams} from 'wlc-engine/modules/core';
+import {BannerModel, IBannersFilter} from 'wlc-engine/modules/promo';
 
 export type ComponentTheme = 'default' | 'default-banner' | 'game-banner' | CustomType;
+export type ComponentMod = 'default' | 'signin' | CustomType;
 export type ComponentType = 'default' | CustomType;
 
-export interface IBannerCParams extends IComponentParams<ComponentTheme, ComponentType, string> {
+export interface IBannerCParams extends IComponentParams<ComponentTheme, ComponentType, ComponentMod> {
     banner?: BannerModel;
-    class?: string;
+    filter?: IBannersFilter;
 }
 
 export const defaultParams: IBannerCParams = {

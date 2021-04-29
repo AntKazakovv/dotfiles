@@ -1,13 +1,11 @@
 import {
     CustomType,
     IComponentParams,
-} from 'wlc-engine/modules/core/system/classes/abstract.component';
-
-import {
     IFormWrapperCParams,
     IInputCParams,
     IButtonCParams,
     ITextBlockCParams,
+    IWrapperCParams,
 } from 'wlc-engine/modules/core';
 
 export type ComponentTheme = 'default' | CustomType;
@@ -21,6 +19,7 @@ export interface ISignInFormCParams extends IComponentParams<ComponentTheme, Com
     common?: {
         customModifiers?: CustomMod;
     };
+    wrapperConfig?: IWrapperCParams;
     modifiers?: Modifiers[];
 }
 

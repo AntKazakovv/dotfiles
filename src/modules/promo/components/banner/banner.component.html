@@ -1,1 +1,1 @@
-<div wlc-dynamic-html [html]="$params.banner.getHtml()"></div>
+<div *ngIf="$params.banner" wlc-dynamic-html [html]="$params.banner.getHtml()"></div>

@@ -33,6 +33,7 @@ $themeDefault: map-merge((
 
     // modifiers
     'bodyItemLoginPadding': ef.get('size', 'smaller') ef.get('size', 'smally') ef.get('size', 'main'),
+    'bodyItemLoginWithBannerPadding': 0 0 ef.get('size', 'main'),
     // modifiers
 
     'loginBodyWidth': (

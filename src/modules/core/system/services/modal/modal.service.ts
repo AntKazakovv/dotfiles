@@ -89,7 +89,11 @@ export class ModalService {
 
         if (_isString(config)) {
             if (MODALS_LIST[config]) {
-                modalConfig = _assignIn({}, DEFAULT_MODAL_CONFIG, MODALS_LIST[config].config);
+                modalConfig = _assignIn(
+                    {},
+                    DEFAULT_MODAL_CONFIG,
+                    MODALS_LIST[config].config,
+                    this.configService.get(`$base.modals.${config}.config`));
             } else {
                 this.logService.sendLog({
                     code: '0.3.0',

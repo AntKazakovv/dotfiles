@@ -61,4 +61,27 @@
             }
         }
     }
+    
+    &.wlc-sign-in-form--theme-mod-with-banner {
+        max-width: 100%;
+
+        ::ng-deep {
+
+            .banner {
+                @include em.get-mq-map('padding', $themeDefaultModWithBanner, 'bannerPadding');
+                @include em.get-mq-map('max-height', $themeDefaultModWithBanner, 'bannerHeight');
+                min-height: unset;
+
+                img {
+                    @include em.get-mq-map('width', $themeDefaultModWithBanner, 'bannerImgWidth');
+                }
+            }
+        }
+
+        .wlc-form-wrapper {
+            @include em.get-mq-map('max-width', $themeDefaultModWithBanner, 'formMaxWidth');
+            @include em.get-mq-map('margin', $themeDefaultModWithBanner, 'formMargin');
+            @include em.get-mq-map('height', $themeDefaultModWithBanner, 'formHeight');
+        }
+    }
 }
