@@ -2,31 +2,37 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'paddingSize': ef.get('size', 'smally'),
-    'contentMinHeight': ef.get('size', 'big'),
-    'itemsGapSize': ef.get('size', 'small'),
     'headerFontSize': ef.get('font', 'biger'),
     'headerFontWeight': bold,
     'headerFontColor': ef.get('mainColors', 'baseMain'),
     'headerPadding': 0 0 ef.get('size', 'smaller') 0,
+
     'titleFontSize': ef.get('font', 'main'),
     'titleFontWeight': bold,
     'titleColor': ef.get('mainColors', 'baseMain'),
     'titleColorActive': ef.get('mainColors', 'baseMain'),
+    'titleIconColor': ef.get('mainColors', 'baseMain'),
+    'titleIconColorActive': ef.get('mainColors', 'baseMain'),
+    'titleMinHeight': ef.get('size', 'biger'),
+    'titleFontWeightActive': bold,
     'titleIconSize': (
         375: ef.get('size', 'smally'),
         768: ef.get('size', 'smaller'),
     ),
-    'titleIconColor': ef.get('mainColors', 'baseMain'),
-    'titleIconColorActive': ef.get('mainColors', 'baseMain'),
-    'titleMinHeight': ef.get('size', 'biger'),
+
+    'contentMinHeight': ef.get('size', 'big'),
     'contentFontSize': ef.get('font', 'main'),
     'contentFontColor': ef.get('mainColors', 'baseMain'),
     'contentFontWeight': normal,
     'contentPadding': ef.get('size', 'small'),
+    'contentTopBorder': 2px solid ef.get('mainColors', 'baseMain'),
+
+    'itemsGapSize': ef.get('size', 'small'),
     'itemBackground': ef.get('mainColors', 'bg300'),
     'itemBackgroundActive': ef.get('mainColors', 'main'),
     'itemBorderRadius': ef.get('radius', 'biger'),
+
+    'paddingSize': ef.get('size', 'smally'),
     'time': ef.get('time', 'main'),
 ), $customThemeDefault);
 

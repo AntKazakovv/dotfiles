@@ -34,13 +34,14 @@ export const $layoutsAff: ILayoutsConfig = {
                     },
                 ],
             },
-            'comission-section': {
+            'commission-section': {
                 container: true,
                 components: [
                     {
                         name: 'static.wlc-post',
                         params: {
-                            slug: 'partners-comission',
+                            theme: 'affiliates',
+                            slug: 'partners-commission',
                             parseAsPlainHTML: true,
                         },
                     },
@@ -52,6 +53,7 @@ export const $layoutsAff: ILayoutsConfig = {
                     {
                         name: 'static.wlc-post',
                         params: {
+                            theme: 'affiliates',
                             slug: 'partners-why-us',
                             parseAsPlainHTML: true,
                         },
