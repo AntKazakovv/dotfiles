@@ -255,7 +255,7 @@ export class GamesGridComponent extends AbstractComponent
         }
 
         this.checkGamesLength();
-        this.cdr.markForCheck();
+        this.cdr.detectChanges();
     }
 
     protected checkGamesLength(): void {
