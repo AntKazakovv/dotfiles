@@ -51,7 +51,8 @@ $submenuProfileDefault: map-merge((
     'submenuBorderBottomHeight': 2px,
     'submenuMargin': (
         375: ef.get('size', 'smally') 0,
-        1024: 0 0 40px,
+        900: 0 0 ef.get('size', 'smaller'),
+        1630: 0 0 ef.get('size', 'main'),
     ),
     'submenuItemPadding': (
         375: 10px 0,

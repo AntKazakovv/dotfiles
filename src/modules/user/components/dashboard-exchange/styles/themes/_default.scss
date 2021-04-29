@@ -1,6 +1,7 @@
 @use 'engine-scss/mixins/text' as lib;
 @use 'engine-scss/mixins/mediaqueries' as mq;
 @use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/base.mixins' as bm;
 
 .wlc-exchange:host {
     display: grid;
@@ -8,10 +9,13 @@
         template-columns: 1fr;
         gap: ef.get-value($themeDefault, 'contentGap');
     };
+
     width: 100%;
-    padding: ef.get-value($themeDefault, 'outerPadding');
+    @include bm.get-mq-map('padding', $themeDefault, 'outerPadding');
+
     background: ef.get-value($themeDefault, 'bg');
     border-radius: ef.get-value($themeDefault, 'contentRadius');
+
     overflow: hidden;
 
     @include mq.min(640) {
@@ -20,11 +24,6 @@
             auto-flow: column;
             gap: ef.get-value($themeDefault, 'contentGap', 640);
         };
-        padding: ef.get-value($themeDefault, 'outerPadding', 640);
-    }
-
-    @include mq.min(1024) {
-        padding: ef.get-value($themeDefault, 'outerPadding', 1024);
     }
 
     .wlc-exchange {
@@ -112,11 +111,7 @@
     }
 
     .wlc-btn {
-        margin: ef.get-value($themeDefault, 'exchangeBtnMargin');
-
-        @include mq.min(640) {
-            margin: ef.get-value($themeDefault, 'exchangeBtnMargin', 375);
-        }
+        @include bm.get-mq-map('margin', $themeDefault, 'exchangeBtnMargin');
     }
 
     ::ng-deep {

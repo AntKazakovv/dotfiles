@@ -18,9 +18,11 @@ $themeDefault: map-merge((
     'titleFontStyle': 'ThirdTitleBold',
     'titleColor': ef.get('mainColors', 'baseMain'),
     'titleMargin': (
-        375: 0 0 ef.get('size', 'smaller') 0,
-        560: 0 0 ef.get('size', 'less') 0,
-        720: 0 0 ef.get('size', 'smaller') 0,
+        375: 0 0 ef.get('size', 'smaller'),
+        560: 0 0 ef.get('size', 'less'),
+        720: 0 0 ef.get('size', 'smaller'),
+        900: 0 0 ef.get('size', 'smally'),
+        1630: 0 0 ef.get('size', 'smaller'),
     ),
 
     'subtitleFontStyle': 'PlaceholderText',

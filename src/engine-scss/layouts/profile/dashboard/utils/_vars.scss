@@ -22,9 +22,12 @@ $dashboardThemeDefault: map-merge((
         'bonuses bonuses bonuses bonuses see-all-bonuses see-all-bonuses',
     ),
     'gridGap': (
-        320: 20px,
-        1024: 40px,
-        1200: 25px,
-        1630: 40px,
+        320: ef.get('size', 'smally'),
+        1630: ef.get('size', 'main'),
+    ),
+
+    'titleMargin': (
+        1024: 0 0 -5px,
+        1630: 0 0 -20px,
     ),
 ), $dashboardInfoThemeDefault);

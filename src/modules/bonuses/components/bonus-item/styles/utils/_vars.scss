@@ -58,6 +58,7 @@ $themeDefault: map-merge((
     'relativeImageHeight': 70%,
     'bonusIconSize': (
         320: 120px,
+        900: 100px,
         1630: 144px,
     ),
     'bonusIconValueBlockWidth': 60px,
@@ -120,7 +121,7 @@ $themeDefault: map-merge((
     //Padding
     'bonusIconMargin': (
         320: 55px auto 0 auto,
-        1200: 50px auto 0 auto,
+        900: 50px auto 0 auto,
         1630: 77px auto 0 auto,
     ),
     'tagPadding': (
@@ -130,7 +131,8 @@ $themeDefault: map-merge((
     'infoPadding': 0 ef.get('size', 'small'),
     'activeBlockPadding': (
         320: 0,
-        1630: 30px 0 0 0,
+        900: ef.get('size', 'smally') 0 0,
+        1630: ef.get('size', 'less') 0 0,
     ),
     'activeBlockMargin': 0 auto,
     'activeBlockTimerMargin': 0,
@@ -162,8 +164,8 @@ $themeDefault: map-merge((
     'time': ef.get('time', 'main'),
 
     'infoBlockPadding': (
-        320: ef.get('size', 'smaller') 0 0 0,
-        1630: 34px 0 0 0,
+        320: ef.get('size', 'small') 0 0,
+        1630: ef.get('size', 'less') 0 0,
     ),
 
     'btnBottomPosition': (

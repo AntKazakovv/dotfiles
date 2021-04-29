@@ -46,7 +46,11 @@ $themeDefault: map-merge((
 
     'titleFontStyle': 'ThirdTitleBold',
     'titleColor': ef.get('mainColors', 'baseMain'),
-    'titleMargin': 0 0 ef.get('size', 'less') 0,
+    'titleMargin': (
+        375: 0 0 ef.get('size', 'less'),
+        900: 0 0 ef.get('size', 'smaller'),
+        1630: 0 0 ef.get('size', 'less'),
+    ),
 
     'controlWidth': 100%,
 

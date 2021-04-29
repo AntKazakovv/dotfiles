@@ -176,6 +176,7 @@ $size: map-merge((
     'big': 60px,
     'sectionsGap': (
         375: 30px,
+        900: 20px,
         1630: 40px,
     ),
 ), $customSize);
@@ -440,7 +441,8 @@ $profileSettings: map-merge((
     'titleColor': map-get($mainColors, 'baseMain'),
     'profilePadding': (
         375: map-get($size, 'smally'),
-        1024: map-get($size, 'less') map-get($size, 'main'),
+        1024: map-get($size, 'smally') map-get($size, 'main') map-get($size, 'less'),
+        1630: map-get($size, 'less') map-get($size, 'main'),
     ),
     'profileBg': (
         375: map-get($mainColors, 'bg700'),

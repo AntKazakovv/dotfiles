@@ -26,8 +26,8 @@
         }
 
         &__title {
+            @include em.get-mq-map('margin', $themeDefault, 'titleMargin');
             @include text.get-text-style(ef.get-value($themeDefault, 'titleFontStyle'), ef.get-value($themeDefault, 'titleColor'));
-            margin: ef.get-value($themeDefault, 'titleMargin');
         }
 
         &__control {
