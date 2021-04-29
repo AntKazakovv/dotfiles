@@ -24,6 +24,13 @@
     }
 }
 
+.wlc-sections__profile-content--theme-first {
+
+    > .container {
+        @include bm.get-mq-map('max-width', $profileSettingsThemeFirst, 'profileWidth');
+    }
+}
+
 .wlc-sections__profile-content {
 
     > .container {

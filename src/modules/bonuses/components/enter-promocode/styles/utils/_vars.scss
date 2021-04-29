@@ -65,7 +65,13 @@ $themeDefault: map-merge((
 $customThemeClear: () !default;
 $themeClear: map-merge((
     'width': 100%,
-    'maxWidth': 320px,
+    'maxWidth': (
+        375: 100%,
+        560: 320px
+    ),
     'controlWidth': 100%,
-    'controlMaxWidth': 320px,
+    'controlMaxWidth': (
+        375: 100%,
+        560: 320px
+    ),
 ), $customThemeClear);

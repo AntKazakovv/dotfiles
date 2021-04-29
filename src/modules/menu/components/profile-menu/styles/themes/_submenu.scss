@@ -90,6 +90,10 @@
                 }
             }
         }
+
+        .wlc-sections__profile-content--theme-first & {
+            margin: 0;
+        }
     }
 
     .wlc-menu--theme-default.wlc-menu--type-profile-menu::-webkit-scrollbar {

@@ -85,6 +85,7 @@ export namespace profileContent {
                     components: [
                         componentLib.wlcTitle.bonuses,
                         componentLib.wlcEnterPromocode.hideTitle,
+                        componentLib.wlcProfileMenu.subMenuV1,
                         componentLib.wlcBonusesList.mainFirst,
                     ],
                 },
@@ -112,6 +113,7 @@ export namespace profileContent {
                     class: 'wlc-profile-content',
                     components: [
                         componentLib.wlcTitle.activeBonuses,
+                        componentLib.wlcProfileMenu.subMenuV1,
                         componentLib.wlcBonusesList.active,
                     ],
                 },
