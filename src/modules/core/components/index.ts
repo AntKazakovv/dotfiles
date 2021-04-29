@@ -29,3 +29,4 @@ export {ITextareaCParams} from './textarea/textarea.params';
 export {ITimerCParams} from './timer/timer.params';
 export {ITitleCParams} from './title/title.params';
 export {IWrapperCParams, WrapperComponent} from './wrapper/wrapper.component';
+export {IModalList} from './modal/modal.interface';

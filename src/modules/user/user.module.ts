@@ -1,8 +1,4 @@
 import {NgModule} from '@angular/core';
-import {
-    FormsModule,
-    ReactiveFormsModule,
-} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 import {UIRouterModule} from '@uirouter/angular';
 import {TranslateModule} from '@ngx-translate/core';
@@ -88,8 +84,6 @@ export const components = {
     imports: [
         CommonModule,
         CoreModule,
-        FormsModule,
-        ReactiveFormsModule,
         TranslateModule,
         UIRouterModule,
     ],

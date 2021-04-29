@@ -20,3 +20,15 @@ $themeDefault: map-merge((
         900: auto auto ef.get('size', 'less'),
     ),
 ), $customThemeDefault);
+
+$customThemeDefaultModWithBanner: () !default;
+$themeDefaultModWithBanner: map-merge((
+    'formMaxWidth': 285px,
+    'formMargin': ef.get('size', 'smaller') auto auto,
+    'formHeight': 100%,
+
+    'bannerPadding': 0,
+    'bannerHeight': 200px,
+    'bannerImgWidth': 100%,
+
+), $customThemeDefaultModWithBanner);
