@@ -62,8 +62,8 @@
             left: ef.get-value($themeDefault, 'qrImgPosLeft');
 
             display: block;
-            width: ef.get-value($themeDefault, 'qrImgPosWidth');
-            height: ef.get-value($themeDefault, 'qrImgPosHeight');
+            width: ef.get-value($themeDefault, 'qrImgWidth');
+            height: ef.get-value($themeDefault, 'qrImgHeight');
             max-height: ef.get-value($themeDefault, 'qrImgMaxHeight');
             @include em.get-mq-map('max-width', $themeDefault, 'qrImgMaxWidth');
 
