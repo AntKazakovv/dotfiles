@@ -41,6 +41,7 @@
 
                 .wlc-faq__title-text {
                     color: ef.get-value($themeDefault, 'titleIconColorActive');
+                    font-weight: ef.get-value($themeDefault, 'titleFontWeightActive');
                 }
 
                 .wlc-faq__title-icon ::ng-deep svg path {
@@ -100,7 +101,7 @@
             };
 
             &-wrp {
-                border-top: 1px solid ef.get-value($themeDefault, 'contentFontColor');
+                border-top: ef.get-value($themeDefault, 'contentTopBorder');
                 padding: {
                     top: ef.get-value($themeDefault, 'paddingSize');
                     bottom: ef.get-value($themeDefault, 'paddingSize');

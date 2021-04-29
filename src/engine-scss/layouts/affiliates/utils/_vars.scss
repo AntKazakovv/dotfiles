@@ -2,19 +2,23 @@
 
 $customAffSectionsDefault: () !default;
 $affSectionsDefault: map-merge((
-    'anchorsBg': ef.get('mainColors', 'bg100'),
+    'anchorsBg': (
+        375:  ef.get('mainColors', 'bg100'),
+    ),
     'anchorsPadding': ef.get('size', 'small') 0,
 
-    'benefitsBg': null,
+    'benefitsBg': null, //single color or map value
     'benefitsPadding': ef.get('size', 'main') 0,
 
-    'comissionBg': null,
+    'comissionBg': null, //single color or map value
     'comissionPadding': 0 0 ef.get('size', 'main'),
 
-    'descrBg': ef.get('mainColors', 'bg300'),
+    'descrBg': (
+        375: ef.get('mainColors', 'bg300'),
+    ),
     'descrPadding': ef.get('size', 'main') 0,
 
-    'faqBg': null,
+    'faqBg': null, //single color or map value
     'faqPadding': ef.get('size', 'main') 0,
     'faqContainerMaxWidth': 1050px,
     'faqContainerPadding': 0 ef.get('size', 'smally'),
@@ -25,9 +29,6 @@ $customAffContentDefault: () !default;
 $affContentDefault: map-merge((
     'contentTextAlign': center,
     'contentMargin': ef.get('size', 'main') auto,
-    'titleTextStyle': 'QoteTextBold',
-    'subtitleMaxWidth': 55ch,
-    'paragraphMaxWidth': 98ch,
 ), $customAffContentDefault);
 
 
@@ -85,6 +86,7 @@ $themeDefaultDigits: map-merge((
 
     'itemGridGap': (
         375: ef.get('size', 'small'),
+        1200: ef.get('size', 'smally'),
     ),
     'itemBg': ef.get('mainColors', 'bg300'),
     'itemRadius': ef.get('radius', 'biger'),
@@ -93,6 +95,7 @@ $themeDefaultDigits: map-merge((
         375: ef.get('size', 'small'),
         768: ef.get('size', 'smaller'),
         1200: ef.get('size', 'smaller') ef.get('size', 'less'),
+        1420: ef.get('size', 'less'),
     ),
 
     'separatorWidth': 100%,
