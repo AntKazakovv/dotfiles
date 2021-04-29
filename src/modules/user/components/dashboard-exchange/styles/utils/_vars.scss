@@ -9,7 +9,8 @@ $themeDefault: map-merge((
     'outerPadding': (
         375: ef.get('size', 'smally') ef.get('size', 'smaller'),
         640: ef.get('size', 'smally') 0,
-        1024: ef.get('size', 'smaller') 0,
+        900: ef.get('size', 'smally') 0,
+        1630: ef.get('size', 'smaller') 0,
     ),
     'contentGap': (
         375: ef.get('size', 'smaller'),
@@ -44,5 +45,6 @@ $themeDefault: map-merge((
     'pointsDescSize': 12px,
     'exchangeBtnMargin': (
         375: ef.get('size', 'smaller') 0 0,
+        900: ef.get('size', 'smally') 0 0,
     ),
 ), $customThemeDefault);

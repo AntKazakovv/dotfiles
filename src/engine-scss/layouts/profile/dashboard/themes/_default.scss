@@ -30,12 +30,9 @@
 
     .wlc-title {
         grid-area: title;
+        @include em.get-mq-map('margin', $dashboardThemeDefault, 'titleMargin');
 
-        @include mq.min(1024) {
-            margin-bottom: -20px;
-        }
-
-        &--profile-bonuses {
+        &.wlc-title--profile-bonuses {
             grid-area: bonuses-title;
 
             @include mq.min(1024) {
