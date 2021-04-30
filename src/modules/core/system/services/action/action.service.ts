@@ -33,6 +33,11 @@ import {
 import {UserService} from 'wlc-engine/modules/user/system/services';
 import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
 
+import {
+    ILivechatConfig,
+    CommonChatService,
+} from 'wlc-engine/modules/livechat';
+
 import _isString from 'lodash-es/isString';
 import _toNumber from 'lodash-es/toNumber';
 import _forEach from 'lodash-es/forEach';
@@ -263,6 +268,7 @@ export class ActionService {
                     });
                 },
             });
+            this.addLivechat();
         });
         this.router.transitionService.onSuccess({}, () => {
             this.scrollTo();
@@ -360,5 +366,14 @@ export class ActionService {
                 wlcElement: id ? `notification_${id}-error` : null,
             },
         });
+    }
+
+    private async addLivechat(): Promise<void> {
+        const liveChatConfig = this.configService.get<ILivechatConfig>('$base.livechat');
+        if (!liveChatConfig) {
+            return;
+        }
+        await this.layoutService.importModules(['livechat']);
+        this.injector.get(CommonChatService);
     }
 }

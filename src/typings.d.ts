@@ -17,4 +17,10 @@ declare interface Window {
     wlcPreload: any;
     Fingerprint2?: any;
     requestIdleCallback?: any;
+    Chatra?: any;
+    ChatraSetup?: any;
+    ChatraID?: string;
+    ChatraGroupID?: string;
+    __lc?: any;
+    LC_API?: any;
 }
