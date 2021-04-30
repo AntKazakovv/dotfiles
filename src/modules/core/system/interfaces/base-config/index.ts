@@ -4,6 +4,7 @@ import {IProfileConfig} from './profile.interface';
 import {ITournamentsConfig} from './tournaments.interface';
 import {IAppConfig} from './app.interface';
 import {INotificationsConfig} from './notifications.interface';
+import {ILivechatConfig} from 'wlc-engine/modules/livechat';
 import {IModalList} from 'wlc-engine/modules/core';
 
 export interface IBaseConfig {
@@ -22,4 +23,5 @@ export interface IBaseConfig {
         phone?: string;
         email?: string;
     };
+    livechat?: ILivechatConfig;
 }

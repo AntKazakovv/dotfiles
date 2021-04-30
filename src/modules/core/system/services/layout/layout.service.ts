@@ -294,7 +294,7 @@ export class LayoutService {
      */
     public async generateFullConfigWithLayouts(full: boolean = false): Promise<Partial<IGlobalConfig>> {
         await this.configService.ready;
-        await this.importModules(['core', 'menu', 'games', 'static', 'promo', 'user', 'finances', 'bonuses', 'store', 'profile', 'sportsbook']);
+        await this.importModules(['core', 'menu', 'games', 'static', 'promo', 'user', 'finances', 'bonuses', 'store', 'profile', 'sportsbook', 'livechat']);
         const config = _cloneDeep(this.configService.globalConfig);
 
         if (full) {
@@ -524,6 +524,14 @@ export class LayoutService {
                 return import('wlc-engine/modules/sportsbook/sportsbook.module').then(m => {
                     this.afterModuleLoad('sportsbook', m);
                     return m.SportsbookModule;
+                });
+            case 'livechat':
+                if (this.loadedModules.livechat) {
+                    return this.loadedModules.livechat;
+                }
+                return import('wlc-engine/modules/livechat/livechat.module').then(m => {
+                    this.afterModuleLoad('livechat', m);
+                    return m.LivechatModule;
                 });
             case 'custom':
                 if (this.loadedModules.custom) {
