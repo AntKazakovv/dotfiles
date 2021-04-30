@@ -116,6 +116,7 @@ export namespace wlcBonusesList {
                     },
                     pagination: false,
                     lazy: true,
+                    spaceBetween: 20,
                 },
             },
         },
