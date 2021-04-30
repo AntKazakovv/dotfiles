@@ -64,3 +64,8 @@
         ></button>
     </ng-template>
 </div>
+
+<span *ngIf="$params.showTooltipDescriptionModal"
+       wlc-tooltip
+       class="{{$class}}-description-currency"
+       [inlineParams]="{modal: 'descriptionCasinosСurrency'}"></span>

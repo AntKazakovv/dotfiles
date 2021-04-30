@@ -1,7 +1,13 @@
 <div class="{{$class}}__content">
     <div class="{{$class}}-points" data-wlc-element="exchange-points">
         <div class="{{$class}}-points__value">{{(points | number: '.0-2') || 'Unknown' | translate}}
-            <span class="{{$class}}-points__currency" wlc-currency currency="LP" [showIconOnly]="true"></span>
+            <span wlc-currency
+                  class="{{$class}}-points__currency"
+                  currency="LP"
+                  [showIconOnly]="true"></span>
+            <span wlc-tooltip
+                  class="{{$class}}-icon__description-currency"
+                  [inlineParams]="{modal: 'descriptionCasinosСurrency'}"></span>
         </div>
 
         <div class="{{$class}}-points__desc">{{'Available for exchange' | translate}}</div>
@@ -12,7 +18,7 @@
             themeMod="secondary"
             [wlcElement]="'button_exchange-to-cash'"></button>
 </div>
-<div class="{{$class}}__info"
-     wlc-user-stats
+<div wlc-user-stats
+     class="{{$class}}__info"
      [useDepositBtn]="false"
 ></div>

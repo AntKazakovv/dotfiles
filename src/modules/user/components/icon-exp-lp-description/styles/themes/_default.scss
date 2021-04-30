@@ -1,0 +1,23 @@
+@use 'engine-scss/functions' as ef;
+
+.wlc-icon-exp-lp {
+
+    &-description {
+        margin: ef.get-value($themeDefault, 'descriptionMargin');
+        text-align: ef.get-value($themeDefault, 'textAlign');
+
+        &:last-child {
+            margin: ef.get-value($themeDefault, 'descriptionMarginLastChild');
+        }
+
+        &__text {
+            margin: ef.get-value($themeDefault, 'descriptionTextMargin');
+        }
+
+        .wlc-currency svg {
+            height: ef.get-value($themeDefault, 'descriptionIconHeight');
+            width: ef.get-value($themeDefault, 'descriptionIconWidth');
+            vertical-align: ef.get-value($themeDefault, 'verticalAlignIcon');
+        }
+    }
+}
