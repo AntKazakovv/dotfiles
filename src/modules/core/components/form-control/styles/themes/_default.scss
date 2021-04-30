@@ -11,7 +11,7 @@
         #{$selector}__icon {
 
             .icon {
-                background: darken(ef.get-value($themeDefault, 'successColor'), 20%);
+                background: ef.get-value($themeDefault, 'successColor');
 
                 &:before {
                     width: 4px;
