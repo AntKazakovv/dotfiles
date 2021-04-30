@@ -27,37 +27,38 @@ $customFieldColors: () !default;
 ///
 /// @name mainColors
 ///
-/// @prop {Color} main [#ff8a00] - main color
-/// @prop {Color} secondary [#00d5bb] - secondary color
-/// @prop {Color} baseMain [#ffffff] - base main color
-/// @prop {color} baseOpacity [rgba(255, 255, 255, 0.4)] - base color with transparency
-/// @prop {color} bg100 [#e3e3e3] - background color gradation 100
-/// @prop {color} bg300 [#a3a3a3] - background color gradation 300
-/// @prop {color} bg500 [#5b5b5b] - background color gradation 500
-/// @prop {color} bg700 [#2f2f2f] - background color gradation 700
-/// @prop {color} bg [#1c1c1c] - background color
-/// @prop {color} bgModal [#3d3d3d] - modal background color
+/// @prop {Color} main [#7f7cff] - main color
+/// @prop {Color} secondary [#1dc0c0] - secondary color
+/// @prop {Color} baseMain [#fff] - base main color
+/// @prop {Color} buttonColor [#7f7cff] - button color
+/// @prop {color} baseOpacity [rgba(147, 158, 183, 0.5)] - base color with transparency
+/// @prop {color} bg100 [#515f84] - background color gradation 100
+/// @prop {color} bg300 [#50566c] - background color gradation 300
+/// @prop {color} bg500 [#50566c] - background color gradation 500
+/// @prop {color} bg700 [#3d4150] - background color gradation 700
+/// @prop {color} bg [#1f1f26] - background color
+/// @prop {color} bgModal [#3d4150] - modal background color
 /// @prop {color} elementsColor [#c4c4c4] - elements color
-/// @prop {color} error [#ffbcd5] - error color
-/// @prop {color} success [#acf7d3] - success color
-/// @prop {color} warning [#fdce70] - warning color
+/// @prop {color} error [#d96969] - error color
+/// @prop {color} success [#45c195] - success color
+/// @prop {color} warning [#ffa756] - warning color
 /// @prop {color} disabled [#c4c4c4] - disabled color
 $mainColors: map-merge((
-    'main': #ff8a00,
-    'secondary': #00d4bb,
+    'main': #7f7cff,
+    'secondary': #1dc0c0,
     'baseMain': #fff,
-    'buttonColor': #f94b00,
-    'baseOpacity': rgba(255, 255, 255, 0.4),
-    'bg100': #e3e3e3,
-    'bg300': #4d4d4d,
-    'bg500': #5b5b5b,
-    'bg700': #2f2f2f,
-    'bg': #1c1c1c,
-    'bgModal': #3d3d3d,
+    'buttonColor': #7f7cff,
+    'baseOpacity': rgba(147, 158, 183, 0.5),
+    'bg100': #515f84,
+    'bg300': #50566c,
+    'bg500': #50566c,
+    'bg700': #3d4150,
+    'bg': #1f1f26,
+    'bgModal': #3d4150,
     'elementsColor': #c4c4c4,
-    'error': #ffbcd5,
-    'success': #33ff9d,
-    'warning': #fdce70,
+    'error': #d96969,
+    'success': #45c195,
+    'warning': #ffa756,
     'disabled': #c4c4c4,
 ), $customMainColors);
 
@@ -65,34 +66,35 @@ $mainColors: map-merge((
 ///
 /// @name fieldColors
 ///
-/// @prop {Color} main [#ff8a00] - main color
-/// @prop {color} labelColor [#898989] - label color
-/// @prop {color} inputBg [#ffffff] - input background color
-/// @prop {color} borderColor [#f2f2f2] - border color
-/// @prop {color} textColor [#000000] - text color
-/// @prop {color} placeholderColor [#9d9d9d] - placeholder color
-/// @prop {color} arrowColor [#b9b9b9] - arrow color
-/// @prop {color} iconColor [#b1b1b1] - icon color
-/// @prop {color} disableBg [#414141] - disable background color
-/// @prop {color} disableBorder [#3e3e3e] - disable border
+/// @prop {color} labelColor [#8693c4] - label color
+/// @prop {color} inputBg [#fff] - input background color
+/// @prop {color} borderColor [#5d6476] - border color
+/// @prop {color} textColor [#000] - text color
+/// @prop {color} placeholderColor [#5d6476] - placeholder color
+/// @prop {color} arrowColor [#5d6476] - arrow color
+/// @prop {color} iconColor [#5d6476] - icon color
+/// @prop {color} disableBg [#1f1f26] - disable background color
+/// @prop {color} disableBorder [#2f3141] - disable border
 /// @prop {color} errorBackground [#ffebf2] - error background
 /// @prop {color} errorBorder [#f5e2e8] - error border
 /// @prop {color} errorArrow [#ffbcd5] - error arrow
-/// @prop {color} successElement [#acf7d3] - success element
+/// @prop {color} successElement [#45c195] - success element
+/// @prop {color} successBorder [#acf6d3] - success border
 $fieldColors: map-merge((
-    'labelColor': #898989,
+    'labelColor': #8693c4,
     'inputBg': #fff,
-    'borderColor': #f2f2f2,
+    'borderColor': #5d6476,
     'textColor': #000,
-    'placeholderColor': #9d9d9d,
-    'arrowColor': #b9b9b9,
-    'iconColor': #b1b1b1,
-    'disableBg': #414141,
-    'disableBorder': #3e3e3e,
+    'placeholderColor': #5d6476,
+    'arrowColor': #5d6476,
+    'iconColor': #5d6476,
+    'disableBg': #1f1f26,
+    'disableBorder': #2f3141,
     'errorBackground': #ffebf2,
     'errorBorder': #f5e2e8,
     'errorArrow': #ffbcd5,
-    'successElement': #acf7d3,
+    'successElement': #45c195,
+    'successBorder': #acf6d3,
 ), $customFieldColors);
 
 /// Основная палитра цветов
