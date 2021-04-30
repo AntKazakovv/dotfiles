@@ -1,3 +1,4 @@
+@use 'engine-scss/functions' as ef;
 @use 'engine-scss/mixins/text' as lib;
 @use 'engine-scss/mixins/mediaqueries' as mq;
 @use 'engine-scss/mixins/base.mixins' as bm;
@@ -6,22 +7,41 @@
 
     .wlc-user-stats {
         width: 100%;
-        max-width: map-get($themeDefault, 'maxWidth');
+        max-width: ef.get-value($themeDefault, 'maxWidth');
+
+        &-description-currency {
+            position: ef.get-value($themeDefault, 'iconDescriptionCurrencyPosition');
+            z-index: ef.get-value($themeDefault, 'zIndex');
+            top: ef.get-value($themeDefault, 'iconTop');
+            right: ef.get-value($themeDefault, 'iconRigth');
+            transform: ef.get-value($themeDefault, 'translateY');
+
+            ::ng-deep {
+
+                .wlc-tooltip__icon .wlc-icon-content {
+
+                    svg {
+                        width: ef.get-value($themeDefault, 'svgIconInfoSize');
+                        height: ef.get-value($themeDefault, 'svgIconInfoSize');
+                    }
+                }
+            }
+        }
 
         &-balance {
             width: 100%;
-            padding: map-get($themeDefault, 'balancePadding');
-            border-radius: map-get($themeDefault, 'balanceBorderRadius');
+            padding: ef.get-value($themeDefault, 'balancePadding');
+            border-radius: ef.get-value($themeDefault, 'balanceBorderRadius');
 
             @include bm.get-mq-map('background', $themeDefault, 'balanceBg');
 
             &--short {
-                padding: map-get($themeDefault, 'balanceShortPadding');
-                min-width: map-get($themeDefault, 'balanceShortMinWidth');
-                background: map-get($themeDefault, 'balanceShortBg');
+                padding: ef.get-value($themeDefault, 'balanceShortPadding');
+                min-width: ef.get-value($themeDefault, 'balanceShortMinWidth');
+                background: ef.get-value($themeDefault, 'balanceShortBg');
 
                 > div {
-                    border-bottom-color: map-get($themeDefault, 'balanceShortBorderColor');
+                    border-bottom-color: ef.get-value($themeDefault, 'balanceShortBorderColor');
                 }
             }
 
@@ -29,7 +49,7 @@
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-                padding: map-get($themeDefault, 'balanceItemPadding');
+                padding: ef.get-value($themeDefault, 'balanceItemPadding');
 
                 @include bm.get-mq-map('border-bottom', $themeDefault, 'balanceItemBorder');
 
@@ -40,13 +60,13 @@
 
             .name {
                 @include lib.get-text-style('PlaceholderText');
-                color: map-get($themeDefault, 'colorName');
+                color: ef.get-value($themeDefault, 'colorName');
             }
 
             .value {
                 padding-left: 5px;
                 @include lib.get-text-style('PlaceholderTextBold');
-                color: map-get($themeDefault, 'colorValue');
+                color: ef.get-value($themeDefault, 'colorValue');
 
                 ::ng-deep {
 
@@ -56,8 +76,8 @@
                         bottom: 1px;
 
                         svg {
-                            width: map-get($themeDefault, 'loyaltyIconSize');
-                            height: map-get($themeDefault, 'loyaltyIconSize');
+                            width: ef.get-value($themeDefault, 'loyaltyIconSize');
+                            height: ef.get-value($themeDefault, 'loyaltyIconSize');
                         }
                     }
                 }
@@ -72,8 +92,8 @@
             }
 
             &--store {
-                padding: 0;
-                display: flex;
+                padding: ef.get-value($themeDefault, 'storePadding');
+                display: ef.get-value($themeDefault, 'storeDisplay');
                 flex-direction: column;
                 align-items: flex-end;
                 background: none;
@@ -84,7 +104,7 @@
                 }
 
                 .value {
-                    display: flex;
+                    display: ef.get-value($themeDefault, 'storeValueDisplay');
                     padding-left: 0;
                     @include lib.get-text-style('ThirdTitleBold');
 
@@ -94,8 +114,8 @@
                             bottom: 2px;
 
                             svg {
-                                width: map-get($themeDefault, 'loyaltyIconStoreSize');
-                                height: map-get($themeDefault, 'loyaltyIconStoreSize');
+                                width: ef.get-value($themeDefault, 'loyaltyIconStoreSize');
+                                height: ef.get-value($themeDefault, 'loyaltyIconStoreSize');
                             }
                         }
                     }
@@ -106,7 +126,7 @@
         &__content {
 
             .wlc-btn-deposit {
-                margin: map-get($themeDefault, 'btnMargin');
+                margin: ef.get-value($themeDefault, 'btnMargin');
             }
         }
     }

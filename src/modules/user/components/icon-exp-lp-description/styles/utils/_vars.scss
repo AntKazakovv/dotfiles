@@ -1,0 +1,10 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'descriptionMargin': 0 0 15px 0,
+    'descriptionMarginLastChild': 0,
+    'descriptionTextMargin': 3px 0 0 0,
+    'textAlign': center,
+    'descriptionIconWidth': 22px,
+    'descriptionIconHeight': 22px,
+    'verticalAlignIcon': sub,
+), $customThemeDefault);

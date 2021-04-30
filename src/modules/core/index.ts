@@ -23,3 +23,4 @@ export {
 export {Deferred} from './system/classes/deferred.class';
 export {ListAppearanceAnimation} from './system/animations/list-appearance.animation';
 export * from './system/animations/height-toggle.animation';
+export * from './components/modal';

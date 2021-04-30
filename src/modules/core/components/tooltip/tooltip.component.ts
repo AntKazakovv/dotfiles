@@ -36,7 +36,7 @@ export class TooltipComponent extends AbstractComponent implements OnInit {
     protected resized: boolean = false;
 
     constructor(
-        @Inject('injectParams') protected params: Params.ITooltipCParams,
+        @Inject('injectParams') protected injectParams: Params.ITooltipCParams,
         protected modalService: ModalService,
         protected cdr: ChangeDetectorRef,
         protected actionService: ActionService,
@@ -44,7 +44,7 @@ export class TooltipComponent extends AbstractComponent implements OnInit {
     {
         super(
             <IMixedParams<Params.ITooltipCParams>>{
-                injectParams: params,
+                injectParams: injectParams,
                 defaultParams: Params.defaultParams,
             });
     }

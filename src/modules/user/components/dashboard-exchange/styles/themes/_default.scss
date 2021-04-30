@@ -27,17 +27,22 @@
     }
 
     .wlc-exchange {
+        display: ef.get-value($themeDefault, 'exchangeDisplay');
+        justify-content: ef.get-value($themeDefault, 'exchangeJustifyContent');
+        align-items: ef.get-value($themeDefault, 'exchangeAlignItems');
 
         &-points {
-            position: relative;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: flex-end;
+            position: ef.get-value($themeDefault, 'pointsPosition');
+            flex-wrap: ef.get-value($themeDefault, 'pointsFlexWrap');
+            align-items: ef.get-value($themeDefault, 'pointsAlignItems');
+            display: ef.get-value($themeDefault, 'pointsDisplay');
+            justify-content: ef.get-value($themeDefault, 'pointsJustifyContent');
 
             &__value {
-                display: flex;
-                align-items: center;
-
+                position: ef.get-value($themeDefault, 'exchangeValuePosition');
+                display: ef.get-value($themeDefault, 'exchangeValueDisplay');
+                align-items: ef.get-value($themeDefault, 'exchangeValueAligntItems');
+                max-width: ef.get-value($themeDefault, 'exchangeValueMaxWidth');
                 margin: ef.get-value($themeDefault, 'pointsValueMargin');
 
                 @include lib.get-text-style('QoteTextBold');
@@ -68,13 +73,35 @@
             &__desc {
                 @include lib.get-text-style('PlaceholderText');
                 width: 100%;
+                text-align: ef.get-value($themeDefault, 'descTextAlign');
                 margin: ef.get-value($themeDefault, 'pointsDescMargin');
-                color: ef.get-value($themeDefault, 'pointsDescColor');
+            }
+        }
+
+        &-icon {
+
+            &__description-currency {
+                position: ef.get-value($themeDefault, 'iconExpLpDescriptionPosition');
+                top: ef.get-value($themeDefault, 'iconExpLpDescriptionTop');
+                right: ef.get-value($themeDefault, 'iconExpLpDescriptionRigth');
+                transform: ef.get-value($themeDefault, 'iconExpLpDescriptionTransform');
+
+                &.wlc-tooltip {
+
+                    ::ng-deep {
+
+                        .wlc-icon svg {
+                            width: ef.get-value($themeDefault, 'svgSize');
+                            height: ef.get-value($themeDefault, 'svgSize');
+                        }
+                    }
+                }
             }
         }
 
         &__content {
-            display: flex;
+            display: ef.get-value($themeDefault, 'contentDisplay');
+            position: relative;
             flex-direction: column;
             justify-content: center;
             align-items: center;

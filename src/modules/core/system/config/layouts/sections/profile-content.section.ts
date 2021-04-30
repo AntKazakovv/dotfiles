@@ -327,7 +327,7 @@ export namespace profileContent {
         container: true,
         components: [
             componentLib.wlcTitle.profileStore,
-            componentLib.wlcUserStats.store,
+            componentLib.wlcUserStats.storeWithDescriptionIcon,
             componentLib.wlcProfileMenu.submenu,
             componentLib.wlcStoreList.def,
         ],

@@ -25,4 +25,13 @@ $themeDefault: map-merge((
 
     'loyaltyIconSize': 12px,
     'loyaltyIconStoreSize': 16px,
+    'svgIconInfoSize': 17px,
+    'storePadding': 0 25px 0 0,
+    'storeDisplay': flex,
+    'storeValueDisplay': flex,
+    'translateY': translateY(-50%),
+    'zIndex': 1,
+    'iconTop': 50%,
+    'iconRigth': 0,
+    'iconDescriptionCurrencyPosition': absolute,
 ), $customThemeDefault);

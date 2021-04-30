@@ -33,12 +33,14 @@ import {SignUpFormComponent} from './components/sign-up-form/sign-up-form.compon
 import {UserInfoComponent} from './components/user-info/user-info.component';
 import {UserStatsComponent} from './components/user-stats/user-stats.component';
 import {UserNameComponent} from './components/user-name/user-name.component';
+import {IconExpLpDescriptionComponent} from './components/icon-exp-lp-description/icon-exp-lp.description.component';
 
 
 export const components = {
     'wlc-add-profile-info': AddProfileInfoComponent,
     'wlc-change-password-form': ChangePasswordFormComponent,
     'wlc-exchange': ExchangeComponent,
+    'wlc-icon-exp-lp': IconExpLpDescriptionComponent,
     'wlc-limitations': LimitationsComponent,
     'wlc-login-signup': LoginSignupComponent,
     'wlc-logout': LogoutComponent,
@@ -63,6 +65,7 @@ export const components = {
         ChangePasswordFormComponent,
         DashboardLoyaltyBlockComponent,
         ExchangeComponent,
+        IconExpLpDescriptionComponent,
         LimitationsComponent,
         LimitCancelComponent,
         LimitValueComponent,
@@ -97,6 +100,7 @@ export const components = {
         ChangePasswordFormComponent,
         DashboardLoyaltyBlockComponent,
         ExchangeComponent,
+        IconExpLpDescriptionComponent,
         LimitationsComponent,
         LoginSignupComponent,
         LogoutComponent,

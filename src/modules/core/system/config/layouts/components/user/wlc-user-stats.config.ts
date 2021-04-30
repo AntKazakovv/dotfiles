@@ -11,4 +11,12 @@ export namespace wlcUserStats {
             type: 'store',
         },
     };
+
+    export const storeWithDescriptionIcon: ILayoutComponent = {
+        name: 'user.wlc-user-stats',
+        params: {
+            type: 'store',
+            showTooltipDescriptionModal: true,
+        },
+    };
 }

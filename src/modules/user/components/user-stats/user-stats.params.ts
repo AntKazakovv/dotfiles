@@ -8,6 +8,7 @@ export interface IUserStatsCParams extends IComponentParams<ComponentTheme, Comp
     type?: ComponentType;
     theme?: ComponentTheme;
     useDepositBtn?: boolean;
+    showTooltipDescriptionModal?: boolean;
 }
 
 export const defaultParams: IUserStatsCParams = {
@@ -20,4 +21,5 @@ export const defaultParams: IUserStatsCParams = {
         'points',
         'level',
     ],
+    showTooltipDescriptionModal: false,
 };
