@@ -52,7 +52,7 @@
     <div class="{{$class}}__item {{$class}}__item--href">
         <a class="{{$class}}__link"
            [target]="item?.params?.target || '_self'"
-           [href]="item?.params?.href"
+           [href]="getHref(item?.params?.href)"
         >
             <span class="{{$class}}__icon-active" *ngIf="$params.theme === 'first'" wlc-icon [iconUrl]="'/wlc/icons/menu-active.svg'"></span>
             <span class="{{$class}}__icon" wlc-icon [iconPath]="getIcon(item)" [fallback]="iconsFallback"></span>

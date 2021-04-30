@@ -8,4 +8,8 @@ export const $base: IBaseConfig= {
         url: '',
         name: 'default name',
     },
+    affiliate: {
+        affiliateUrl: '',
+        siteUrl: '',
+    }
 };

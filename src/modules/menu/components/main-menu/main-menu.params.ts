@@ -1,5 +1,8 @@
 import {IMenuItem} from 'wlc-engine/modules/menu/components/menu/menu.params';
-import {IComponentParams, CustomType} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {
+    IComponentParams,
+    CustomType,
+} from 'wlc-engine/modules/core';
 import * as MenuParams from 'wlc-engine/modules/menu/components/menu/menu.params';
 
 export type Type = 'default' | CustomType;

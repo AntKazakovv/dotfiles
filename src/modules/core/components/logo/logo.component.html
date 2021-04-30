@@ -1,19 +1,44 @@
 <div class="{{$class}}-wrp">
-    <ng-container *ngIf="logoName; else logoUrl">
-        <a [uiSref]="$params.link"
-           [uiOptions]="$params.uiOptions"
-           class="{{$class}}__image"
-           wlc-icon
-           [iconName]="logoImageSource"
-        ></a>
-    </ng-container>
+    <ng-container *ngIf="isAffiliate; then href; else sref"></ng-container>
 </div>
 
+<ng-template #sref>
+    <ng-container *ngIf="logoName; else logoUrl">
+        <a wlc-icon
+            class="{{$class}}__image"
+            [uiSref]="$params.link"
+            [uiOptions]="$params.uiOptions"
+            [iconName]="logoImageSource"
+        ></a>
+    </ng-container>
+</ng-template>
+
+<ng-template #href>
+    <ng-container *ngIf="logoName; else logoUrlAffHref">
+        <a wlc-icon
+            class="{{$class}}__image"
+            [href]="siteLink"
+            [target]="$params.target"
+            [iconName]="logoImageSource"
+        ></a>
+    </ng-container>
+</ng-template>
+
 <ng-template #logoUrl>
-    <a [uiSref]="$params.link"
-       [uiOptions]="$params.uiOptions"
-       class="{{$class}}__image"
-       wlc-icon
-       [iconUrl]="logoImageSource"
+    <a wlc-icon
+        class="{{$class}}__image"
+        [uiSref]="$params.link"
+        [uiOptions]="$params.uiOptions"
+        [iconUrl]="logoImageSource"
     ></a>
 </ng-template>
+
+<ng-template #logoUrlAffHref>
+    <a wlc-icon
+        class="{{$class}}__image"
+        [href]="siteLink"
+        [target]="$params.target"
+        [iconUrl]="logoImageSource"
+    ></a>
+</ng-template>
+

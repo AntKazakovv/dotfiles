@@ -18,6 +18,8 @@ export class LogoComponent extends AbstractComponent implements OnInit {
     public $params: Params.ILogoCParams;
     public logoImageSource: string;
     public logoName: boolean = true;
+    public isAffiliate: boolean = false;
+    public siteLink: string = '';
 
     constructor(
         @Inject('injectParams') protected componentParams: Params.ILogoCParams,
@@ -38,6 +40,10 @@ export class LogoComponent extends AbstractComponent implements OnInit {
         }
 
         this.logoImageSource = this.getLogoImageSource();
+        this.isAffiliate = this.configService.get('$base.app.type') === 'aff';
+        if (this.isAffiliate) {
+            this.siteLink = this.configService.get<string>('$base.affiliate.siteUrl') + this.configService.get<string>('currentLanguage');
+        }
     }
 
     protected getLogoImageSource(): string {

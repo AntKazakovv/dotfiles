@@ -62,7 +62,12 @@ export class MenuHelper {
                         category: category.slug,
                     },
                 },
+                href: {
+                    url: `/catalog/${category.slug}`,
+                    baseSiteUrl: true,
+                },
             };
+
             if (category.parentCategory) {
                 itemParams = {
                     state: {
@@ -71,6 +76,10 @@ export class MenuHelper {
                             category: category.parentCategory.slug,
                             childCategory: category.slug,
                         },
+                    },
+                    href: {
+                        url: `/catalog/${category.parentCategory.slug}/${category.slug}`,
+                        baseSiteUrl: true,
                     },
                 };
             }

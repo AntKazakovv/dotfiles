@@ -166,6 +166,22 @@ export namespace wlcButton {
         },
     };
 
+    export const affLogin: ILayoutComponent = {
+        name: 'core.wlc-button',
+        display: {
+            before: 1199,
+        },
+        params: {
+            class: 'wlc-btn wlc-btn-login',
+            common: {
+                icon: 'login',
+                event: {
+                    name: 'AFFILIATE_LOGIN',
+                },
+            },
+        },
+    };
+
     export const deposit: ILayoutComponent = {
         name: 'core.wlc-button',
         params: {

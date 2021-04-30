@@ -304,6 +304,7 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
                 dropdownMenu.push(menuItems[0]);
             }
         });
+
         this.$params.menuParams.items = dropdownMenu;
     }
 
