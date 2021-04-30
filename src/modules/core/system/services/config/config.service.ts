@@ -160,6 +160,11 @@ export class ConfigService {
         wlcConfig.$base.app.type = appConfig.$base.app.type || 'wlc';
         wlcConfig.$base.profile.type = appConfig.$base.profile?.type || 'default';
 
+        if (appConfig.$base.app.type === 'aff') {
+            appConfig.$base.affiliate.affiliateUrl += appConfig.$base.affiliate.affiliateUrl.endsWith('/') ? '' : '/';
+            appConfig.$base.affiliate.siteUrl += appConfig.$base.affiliate.siteUrl.endsWith('/') ? '' : '/';
+        }
+
         const layoutConfig = this.addLayoutConfig({
             appType: wlcConfig.$base.app.type,
             profileType: wlcConfig.$base.profile.type,

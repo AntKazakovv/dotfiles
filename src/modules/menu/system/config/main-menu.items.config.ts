@@ -12,6 +12,10 @@ export const wlcMainMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
                 name: 'app.home',
                 params: {},
             },
+            href: {
+                url: '/',
+                baseSiteUrl: true,
+            },
         },
         wlcElement: 'link_main-nav-home',
     },
@@ -24,6 +28,10 @@ export const wlcMainMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
             state: {
                 name: 'app.catalog',
                 params: {category: ''},
+            },
+            href: {
+                url: '/catalog/casino/',
+                baseSiteUrl: true,
             },
         },
         wlcElement: 'link_main-nav-casino',
@@ -40,6 +48,10 @@ export const wlcMainMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
                     category: 'table',
                 },
             },
+            href: {
+                url: '/catalog/tablegames/',
+                baseSiteUrl: true,
+            },
         },
         wlcElement: 'link_main-nav-table',
     },
@@ -52,6 +64,10 @@ export const wlcMainMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
             state: {
                 name: 'app.promotions',
                 params: {},
+            },
+            href: {
+                url: '/promotions/',
+                baseSiteUrl: true,
             },
         },
         wlcElement: 'link_main-nav-promo',
@@ -68,6 +84,10 @@ export const wlcMainMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
                     slug: 'feedback',
                 },
             },
+            href: {
+                url: '/contacts/feedback/',
+                baseSiteUrl: true,
+            },
         },
         wlcElement: 'link_main-nav-contuctus',
     },
@@ -82,6 +102,10 @@ export const wlcMainMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
                 params: {
                 },
             },
+            href: {
+                url: '/lottery/',
+                baseSiteUrl: true,
+            },
         },
         wlcElement: 'link_main-nav-lottery',
     },
@@ -93,6 +117,10 @@ export const wlcMainMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         params: {
             state: {
                 name: 'app.tournaments',
+            },
+            href: {
+                url: '/tournaments/',
+                baseSiteUrl: true,
             },
         },
         wlcElement: 'link_main-nav-tournaments',
@@ -109,6 +137,10 @@ export const wlcMainMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
                     page: '.',
                 },
             },
+            href: {
+                url: '/sportsbook/',
+                baseSiteUrl: true,
+            },
         },
         wlcElement: 'link_main-nav-sports',
     },
@@ -123,6 +155,10 @@ export const wlcMainMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
                 params: {
                     page: 'inplay.',
                 },
+            },
+            href: {
+                url: '/sportsbook/inplay/',
+                baseSiteUrl: true,
             },
         },
         wlcElement: 'link_main-nav-sports-inplay',

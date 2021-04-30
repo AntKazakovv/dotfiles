@@ -13,6 +13,10 @@ export interface IBaseConfig {
         name: string;
         url: string;
     },
+    affiliate?: {
+        affiliateUrl: string;
+        siteUrl: string;
+    },
     profile?: IProfileConfig,
     tournaments?: ITournamentsConfig,
     games?: IGamesConfig,

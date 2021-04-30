@@ -35,12 +35,17 @@ export interface IMenuItemParamsModal {
     params?: any;
 }
 
+export interface IMenuItemParamsHref {
+    url: string;
+    baseSiteUrl?: boolean;
+}
+
 export interface IMenuItemParams {
     state?: IMenuItemParamsState;
     anchor?: IMenuItemParamsAnchor;
     scroll?: string;
     modal?: IMenuItemParamsModal;
-    href?: string;
+    href?: string | IMenuItemParamsHref;
     target?: IMenuTarget;
     blockExpand?: boolean;
 }
@@ -76,6 +81,7 @@ export interface IMenuCParams extends IComponentParams<MenuTheme, MenuType, stri
         scrollToSelector?: string;
     },
     items?: MenuItemType[];
+    scrollDuration?: number;
 }
 
 export interface IMenuItemsGlobal {
@@ -104,6 +110,7 @@ export const defaultParams: IMenuCParams = {
     moduleName: 'menu',
     componentName: 'wlc-menu',
     class: 'wlc-menu',
+    scrollDuration: 300,
     sliderParams: {
         swiper: {
             direction: 'horizontal',

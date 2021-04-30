@@ -14,7 +14,11 @@ import {
     fromEvent,
 } from 'rxjs';
 import {Observable} from 'rxjs';
-import {filter, first, takeWhile} from 'rxjs/operators';
+import {
+    filter,
+    first,
+    takeWhile,
+} from 'rxjs/operators';
 
 import {
     ConfigService,
@@ -29,6 +33,7 @@ import {
     IPushMessageParams,
     NotificationEvents,
     GlobalHelper,
+    AppType,
 } from 'wlc-engine/modules/core';
 import {UserService} from 'wlc-engine/modules/user/system/services';
 import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
@@ -270,6 +275,9 @@ export class ActionService {
             });
             this.addLivechat();
         });
+
+        this.runAffiliatesListener();
+
         this.router.transitionService.onSuccess({}, () => {
             this.scrollTo();
         });
@@ -365,6 +373,51 @@ export class ActionService {
                 message,
                 wlcElement: id ? `notification_${id}-error` : null,
             },
+        });
+    }
+
+    private get lang(): string {
+        return this.configService.get<string>('currentLanguage') || 'en';
+    }
+
+    private async runAffiliatesListener(): Promise<void> {
+        await this.configService.ready;
+
+        if (this.configService.get<AppType>('$base.app.type') === 'wlc') {
+            return;
+        };
+
+        const address = this.configService.get<string>('$base.affiliate.siteUrl');
+
+        this.router.transitionService.onBefore({}, (trans) => {
+            const url = trans.to().url.split(':');
+            const params = trans.params('to');
+            if (!trans.paramsChanged()['locale'] && trans.to().name !== 'app.home') {
+                trans.abort();
+                const newUrl = `${params['locale'] || this.lang}${url[0]}${params[url[1]] || ''}`;
+                this.document.defaultView.open(address + newUrl, '_self', null, true);
+            }
+        });
+
+        const current = this.router.globals.transition.to();
+
+        if (current.name !== 'app.home') {
+            const locale = current.params?.['locale'] || this.lang;
+            this.document.defaultView.open(`${address}${locale}/error`);
+        }
+
+        const affAddress = this.configService.get<string>('$base.affiliate.affiliateUrl');
+
+        this.eventService.subscribe({
+            name: 'AFFILIATE_LOGIN',
+        }, () => {
+            this.document.defaultView.open(affAddress + this.lang, '_self');
+        });
+
+        this.eventService.subscribe({
+            name: 'AFFILIATE_SIGNIN',
+        }, () => {
+            this.document.defaultView.open(affAddress + this.lang + '/register', '_self');
         });
     }
 

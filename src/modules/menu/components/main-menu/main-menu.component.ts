@@ -6,23 +6,24 @@ import {
     Injector,
     OnInit,
 } from '@angular/core';
+import {TranslateService} from '@ngx-translate/core';
 
-import * as MenuParams from 'wlc-engine/modules/menu/components/menu/menu.params';
-import * as Params from 'wlc-engine/modules/menu/components/main-menu/main-menu.params';
 import {
     AbstractComponent,
     IMixedParams,
-} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {
+    ConfigService,
     LayoutService,
     EventService,
-} from 'wlc-engine/modules/core/system/services';
-import {gamesEvents} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
-import {GamesCatalogService} from 'wlc-engine/modules/games/system/services';
-import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.model';
+} from 'wlc-engine/modules/core';
+import {
+    gamesEvents,
+    GamesCatalogService,
+    CategoryModel,
+} from 'wlc-engine/modules/games';
 import {MenuHelper} from 'wlc-engine/modules/menu/system/helpers/menu.helper';
-import {TranslateService} from '@ngx-translate/core';
-import {ConfigService} from 'wlc-engine/modules/core';
+
+import * as MenuParams from 'wlc-engine/modules/menu/components/menu/menu.params';
+import * as Params from 'wlc-engine/modules/menu/components/main-menu/main-menu.params';
 import * as Config from 'wlc-engine/modules/menu/system/config/main-menu.items.config';
 
 import _clone from 'lodash-es/clone';
@@ -121,7 +122,7 @@ export class MainMenuComponent extends AbstractComponent implements OnInit {
             return;
         }
 
-        const menuItems: MenuParams.IMenuItem[] = MenuHelper.getItemsForCategories({
+        let menuItems: MenuParams.IMenuItem[] = MenuHelper.getItemsForCategories({
             categories: categories,
             lang: this.translate.currentLang,
             wlcElementPrefix: 'link_main-nav',
@@ -130,7 +131,9 @@ export class MainMenuComponent extends AbstractComponent implements OnInit {
                 disable: !this.useIcons,
             },
         });
+
         this.$params.menuParams.items = _sortBy(menuItems.concat(this.commonMenuItems as MenuParams.IMenuItem[]), (item) => item.sort);
+
         this.$params.menuParams = _clone(this.$params.menuParams);
         this.cdr.markForCheck();
     }

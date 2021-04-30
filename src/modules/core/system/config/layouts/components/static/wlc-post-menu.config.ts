@@ -10,7 +10,7 @@ export namespace wlcPostMenu {
                 categorySlug: 'legal',
                 title: gettext('Information'),
                 basePath: {
-                    page: 'static-text',
+                    page: 'contacts',
                     addLanguage: true,
                 },
             },
@@ -25,6 +25,10 @@ export namespace wlcPostMenu {
             common: {
                 categorySlug: 'about-us',
                 title: 'About Us',
+                basePath: {
+                    page: 'contacts',
+                    addLanguage: true,
+                },
             },
         },
     };
@@ -38,7 +42,7 @@ export namespace wlcPostMenu {
             common: {
                 categorySlug: 'legal',
                 basePath: {
-                    page: 'static-text',
+                    page: 'contacts',
                     addLanguage: true,
                 },
             },

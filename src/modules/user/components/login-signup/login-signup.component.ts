@@ -13,6 +13,7 @@ import {
 import * as Params from './login-signup.params';
 
 import _get from 'lodash-es/get';
+import {DOCUMENT} from '@angular/common';
 
 
 @Component({
@@ -22,9 +23,12 @@ import _get from 'lodash-es/get';
 })
 export class LoginSignupComponent extends AbstractComponent implements OnInit {
     public $params: Params.ILoginSignupCParams;
+    protected isAffiliate: boolean = false;
+    protected affiliateUrl: string = '';
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ILoginSignupCParams,
+        @Inject(DOCUMENT) protected document: Document,
         protected ModalService: ModalService,
         protected configService: ConfigService,
     ) {
@@ -33,6 +37,10 @@ export class LoginSignupComponent extends AbstractComponent implements OnInit {
 
     public ngOnInit(): void {
         super.ngOnInit();
+        this.isAffiliate = this.configService.get('$base.app.type') === 'aff';
+        if (this.isAffiliate) {
+            this.affiliateUrl = this.configService.get<string>('$base.affiliate.affiliateUrl');
+        }
     }
 
     public get loginText(): string {
@@ -53,20 +61,27 @@ export class LoginSignupComponent extends AbstractComponent implements OnInit {
                 const url = _get(this.$params, `${actionButton}.url`);
                 if (!url) return;
                 if (_get(this.$params, `${actionButton}.target`) === 'blank') {
-                    window.open(url);
+                    this.document.defaultView.open(url);
                 } else {
                     location.href = url;
                 }
                 break;
             }
-            case 'login': {
-                this.ModalService.showModal('login');
-                break;
-            }
+            case 'login':
             case 'signup': {
-                this.ModalService.showModal('signup');
+                this.setAction((actionButton as Params.IActionNameType));
                 break;
             }
+        }
+    }
+
+    protected setAction(action: Params.IActionNameType): void {
+        if (this.isAffiliate) {
+            const lang = this.configService.get<string>('currentLanguage');
+            const url = this.affiliateUrl + lang + (action === 'signup' ? '/Register' : '');
+            this.document.defaultView.open(url, '_self');
+        } else {
+            this.ModalService.showModal(action);
         }
     }
 }

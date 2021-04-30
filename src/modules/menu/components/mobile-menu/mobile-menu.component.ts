@@ -60,6 +60,7 @@ export class MobileMenuComponent extends AbstractComponent implements OnInit {
         if (!useTournaments) {
             this.menuConfig = _pull(this.menuConfig, 'mobile-menu:tournaments');
         }
+
     }
 
     protected initMenu(): void {
@@ -93,6 +94,7 @@ export class MobileMenuComponent extends AbstractComponent implements OnInit {
                 disable: !useIcons,
             },
         });
+
         this.menuParams = _clone(this.menuParams);
         this.cdr.markForCheck();
     }
