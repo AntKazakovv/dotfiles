@@ -1,0 +1,168 @@
+
+.wlc-provider-links--theme-default:host {
+    display: grid;
+    align-items: ef.get-value($themeDefault, 'gridTemplateAlignment');
+    min-width: 0;
+    max-width: 100%;
+    @include bm.get-mq-map('grid-template-columns', $themeDefault, 'gridTemplateColumns');
+    @include bm.get-mq-map('grid-template-areas', $themeDefault, 'gridTemplateAreas');
+
+    &.wlc-provider-links--theme-mod-inside-modal {
+
+        .wlc-provider-links {
+
+            &__title {
+                text-align: ef.get-value($themeDefault, 'titleAlignmentInsideModal');
+            }
+        }
+    }
+
+    .wlc-provider-links {
+
+        &__loader {
+            @include bm.get-mq-map('grid-column', $themeDefault, 'loaderColumn');
+        }
+
+        &__title {
+            text-align: ef.get-value($themeDefault, 'titleAlignment');
+        }
+
+        &__slider,
+        &__wrapper {
+            grid-area: ef.get-value($themeDefault, 'wrapperSliderGridArea');
+            min-width: 0;
+            max-width: 100%;
+        }
+
+        &__wrapper {
+            display: grid;
+            @include bm.get-mq-map('grid-template-columns', $themeDefault, 'wrapperTemplateColumns');
+            @include bm.get-mq-map('gap', $themeDefault, 'wrapperGap');
+            @include bm.get-mq-map('margin', $themeDefault, 'wrapperMargin');
+        }
+
+        &__slider {
+            @include bm.get-mq-map('margin', $themeDefault, 'sliderMargin');
+
+            ::ng-deep {
+
+                .swiper-container {
+                    @include bm.get-mq-map('margin', $themeDefault, 'sliderContainerMargin');
+                    @include bm.get-mq-map('padding', $themeDefault, 'sliderContainerPadding');
+
+                    &:before {
+                        content: '';
+                        position: absolute;
+                        z-index: 2;
+                        top: ef.get-value($themeDefault, 'sliderPseudoTop');
+                        right: ef.get-value($themeDefault, 'sliderPseudoRight');
+                        bottom: ef.get-value($themeDefault, 'sliderPseudoBottom');
+                        left: ef.get-value($themeDefault, 'sliderPseudoLeft');
+                        width: ef.get-value($themeDefault, 'sliderPseudoWidth');
+                        background: ef.get-value($themeDefault, 'sliderPseudoBackground');
+                        pointer-events: none;
+                        @include bm.get-mq-map('display', $themeDefault, 'sliderPseudoDisplay');
+                    }
+                }
+            }
+        }
+
+        &__slider-navigation {
+            grid-area: ef.get-value($themeDefault, 'sliderNavigationGridArea');
+            @include bm.get-mq-map('display', $themeDefault, 'sliderNavigationDisplay');
+        }
+
+        &__btn {
+            grid-area: ef.get-value($themeDefault, 'sliderButtonGridArea');
+            @include bm.get-mq-map('margin', $themeDefault, 'sliderButtonMargin');
+        }
+    }
+
+    ::ng-deep {
+
+        .wlc-provider-links-item {
+            position: relative;
+            background: ef.get-value($themeDefault, 'iconBackground');
+            border-radius: ef.get-value($themeDefault, 'iconBorderRadius');
+            transition: ef.get-value($themeDefault, 'iconTransition');
+
+            &:before {
+                content: '';
+                display: block;
+                width: 100%;
+                padding-top: ef.get-value($themeDefault, 'iconPseudoPaddingTop');
+            }
+
+            &.color {
+                background-color: ef.get-value($themeDefault, 'iconColorBackground');
+
+                // TODO remove after come up with color icons
+                .wlc-provider-links-item__image,
+                .wlc-icon img {
+                    filter: ef.get-value($themeDefault, 'iconColorFilter');
+                }
+            }
+
+            @media (hover: hover) {
+
+                &:hover,
+                &:focus-within {
+                    box-shadow: ef.get-value($themeDefault, 'iconHoverBoxShadow');
+                    transform: ef.get-value($themeDefault, 'iconHoverTransform');
+                    transition: ef.get-value($themeDefault, 'iconHoverTransition');
+                }
+            }
+
+            &__wrp {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                text-decoration: none;
+                font-weight: ef.get-value($themeDefault, 'iconWrapFontWeight');
+                color: ef.get-value($themeDefault, 'iconColor');
+                @include bm.get-mq-map('font-size', $themeDefault, 'iconWrapFontSize');
+                @include bm.get-mq-map('padding', $themeDefault, 'iconWrapPadding');
+            }
+
+            &__image,
+            .wlc-icon-content {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: ef.get-value($themeDefault, 'iconWidth');
+                max-width: ef.get-value($themeDefault, 'iconMaxWidth');
+                height: ef.get-value($themeDefault, 'iconHeight');
+                max-height: ef.get-value($themeDefault, 'iconMaxHeight');
+                object-fit: contain;
+                object-position: center;
+            }
+
+            .wlc-icon {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                height: 100%;
+            }
+
+            .wlc-icon svg {
+                display: block;
+                width: 100%;
+                max-width: 100%;
+                height: 100%;
+                max-height: 100%;
+                object-fit: contain;
+                object-position: center;
+
+                path {
+                    fill: currentColor;
+                }
+            }
+        }
+    }
+}

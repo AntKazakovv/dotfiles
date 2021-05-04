@@ -13,16 +13,14 @@ interface IParseConfigOptions {
     }
 }
 
-import {
-    isString as _isString,
-    get as _get,
-    isArray as _isArray,
-    isObject as _isObject,
-    map as _map,
-    has as _has,
-    trim as _trim,
-    cloneDeep as _cloneDeep,
-} from 'lodash-es';
+import _isString from 'lodash-es/isString';
+import _map from 'lodash-es/map';
+import _isObject from 'lodash-es/isObject';
+import _has from 'lodash-es/has';
+import _trim from 'lodash-es/trim';
+import _get from 'lodash-es/get';
+import _cloneDeep from 'lodash-es/cloneDeep';
+import _isArray from 'lodash-es/isArray';
 
 export class MenuHelper {
 
@@ -64,7 +62,12 @@ export class MenuHelper {
                         category: category.slug,
                     },
                 },
+                href: {
+                    url: `/catalog/${category.slug}`,
+                    baseSiteUrl: true,
+                },
             };
+
             if (category.parentCategory) {
                 itemParams = {
                     state: {
@@ -73,6 +76,10 @@ export class MenuHelper {
                             category: category.parentCategory.slug,
                             childCategory: category.slug,
                         },
+                    },
+                    href: {
+                        url: `/catalog/${category.parentCategory.slug}/${category.slug}`,
+                        baseSiteUrl: true,
                     },
                 };
             }

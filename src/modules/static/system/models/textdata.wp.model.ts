@@ -1,10 +1,8 @@
 import {TextDataModel} from './textdata.model';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 
-import {
-    get as _get,
-    each as _each,
-} from 'lodash-es';
+import _get from 'lodash-es/get';
+import _each from 'lodash-es/each';
 
 export class WpTextData extends TextDataModel {
     protected prepareData(data: any): void {

@@ -2,91 +2,150 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'headerBorderRadius': ef.get('radius', 'biger') ef.get('radius', 'biger') 0 0,
-    'headerPadding': (
-        375: ef.get('size', 'smally') ef.get('size', 'small') ef.get('size', 'less'),
-        640: ef.get('size', 'smaller') 0 ef.get('size', 'main') 0,
+    'defaultRowGap': (
+        320: ef.get('size', 'smally'),
+        768: ef.get('size', 'smaller')
     ),
+    'defaultPadding': (
+        320: ef.get('size', 'smally'),
+        768: ef.get('size', 'smaller') 0,
+    ),
+
+    'headerTemplateAreas': (
+        320: 'Hstatus' 'Htitle' 'Hdesc' 'Htimer' 'Hbutton',
+    ),
+    'headerTemplateAreasComing': (
+        320: 'Hstatus' 'Htitle' 'Hdesc' 'Htimer',
+    ),
+    'headerJustifyContent': (
+        320: center,
+    ),
+    'headerBorderRadius': ef.get('radius', 'biger') ef.get('radius', 'biger') 0 0,
     'headerBg': ef.get('mainColors', 'bg500'),
+    'headerBgPosition': center,
+    'headerBgSize': cover,
     'headerColumnWidth': (
-        375: 100%,
-        640: 490px,
+        320: 100%,
+        768: 490px,
     ),
     'headerBorderBottom': 2px solid ef.get('mainColors', 'baseOpacity'),
 
     'headerBackLinkTop': ef.get('size', 'smaller'),
     'headerBackLinkLeft': (
-        375: ef.get('size', 'smally'),
-        640: ef.get('size', 'less'),
+        320: ef.get('size', 'smally'),
+        768: ef.get('size', 'less'),
     ),
+    'headerBackLinkTextStyle': 'PlaceholderTextBold',
+    'headerBackLinkTextColor': ef.get('mainColors', 'main'),
+    'headerBackLinkDecoration': none,
+    'headerBackLinkIconTransform': rotate(90deg),
     'headerBackLinkIconColor': ef.get('mainColors', 'main'),
 
     'headerStatusRadius': ef.get('radius', 'large'),
-    'headerStatusBgAvaliable': ef.get('mainColors', 'main'),
-    'headerStatusBgActive': ef.get('mainColors', 'secondary'),
+    'headerStatusBgAvaliable': transparent,
+    'headerStatusBgActive': transparent,
+    'headerStatusColorAvaliable': ef.get('mainColors', 'secondary'),
+    'headerStatusColorActive': ef.get('mainColors', 'main'),
     'headerStatusPadding': ef.get('size', 'smallest') ef.get('size', 'smaller'),
-    'headerStatusMagrin': 0 0 ef.get('size', 'small') 0,
-    'headerStatusText': 'SignText',
-    'headerStatusTextColor':  ef.get('mainColors', 'baseMain'),
+    'headerStatusTextStyle':'ThirdTitleBold',
+    'headerStatusTextColor':ef.get('mainColors', 'baseMain'),
 
-    'headerTitleMargin': 0 0 ef.get('size', 'less') 0,
+    'headerTitleJustifySelf': center,
+    'headerTitleTextAlign': center,
+    'headerTitleTextStyle': 'QoteTextBold',
+    'headerTitleTextColor': ef.get('mainColors', 'baseMain'),
 
-    'headerDescriptionMargin': 0 0 ef.get('size', 'less') 0,
+    'headerDescriptionJustifySelf': center,
+    'headerDescriptionTextAlign': center,
+    'headerDescriptionTextStyle': 'PrimaryText',
+    'headerDescriptionTextColor': ef.get('mainColors', 'baseMain'),
 
-    'headerTimerBlockBg': ef.get('mainColors', 'bg'),
-    'headerTimerBlockRadius': ef.get('radius', 'biger'),
-    'headerTimerBlockPadding': (
-        375: ef.get('size', 'small') 0,
-        480: ef.get('size', 'small'),
+    'headerTimerBlockTimerSelf': center,
+    'headerTimerBlockButtonSelf': center,
+
+    'anchorsBg': ef.get('mainColors', 'bg'),
+    'anchorsMenuAlignItems': center,
+    'anchorsMenuJustifyContent': center,
+    'anchorsMenuLinkTextStyle': 'PrimaryText',
+    'anchorsMenuLinkTextColor': ef.get('mainColors', 'baseMain'),
+    'anchorsMenuLinkTextColorHover': ef.get('mainColors', 'main'),
+    'anchorsMenuLinkTextDecoration': none,
+    'anchorsMenuLinkPadding': 0 ef.get('size', 'smally'),
+
+    'leaderboardBg': ef.get('mainColors', 'bg'),
+    'leaderboardJustifyContent': center,
+    'leaderboardPadding': (
+        320: ef.get('size', 'less') ef.get('size', 'smally'),
+        768: ef.get('size', 'smaller') 0,
     ),
-    'headerTimerBlockMargin': 0 0 ef.get('size', 'main') 0,
-
-    'headerTimerBlockPrizePadding': 0 ef.get('size', 'smally'),
-    'headerTimerBlockPrizeIconMarin': -5px ef.get('size', 'small') 0 0,
-    'headerTimerBlockPrizeIconSize': 18px,
-    'headerTimerBlockPrizeIconColor': ef.get('mainColors', 'main'),
-
-    'headerTimerBlockBgDelimiterWidth': 1px,
-    'headerTimerBlockBgDelimiterBg': ef.get('mainColors', 'baseMain'),
-
-    'prizepoolPadding': (
-        375: ef.get('size', 'less') ef.get('size', 'smally'),
-        640: ef.get('size', 'smaller') 0,
+    'leaderboardColumnWidth': (
+        320: 100%,
+        768: 530px,
     ),
-    'prizepoolColumnWidth': (
-        375: 100%,
-        640: 530px,
-    ),
+    'leaderboardTitleStyle':'QoteTextBold',
+    'leaderboardTitleColor': ef.get('mainColors', 'baseMain'),
+    'leaderboardTitleAlign': center,
 
-    'prizeboardPadding': (
-        375: ef.get('size', 'less') ef.get('size', 'smally'),
-        640: ef.get('size', 'smaller') 0 ef.get('size', 'less'),
+    'prizepoolTemplateAreas': (
+        320: 'PPTitle' 'PPAmount',
     ),
-    'prizeboardColumnWidth': (
-        375: 100%,
-        640: 350px,
-    ),
-
-    'prizeboardBg': ef.get('mainColors', 'bg500'),
+    'prizepoolJustifyContent': center,
     'prizepoolBg': ef.get('mainColors', 'bg'),
+    'prizepoolTitleStyle': 'QoteTextBold',
+    'prizepoolTitleColor': ef.get('mainColors', 'baseMain'),
+    'prizepoolTitleSelf': center,
+    'prizepoolAmoutTitleStyle': 'PromoTitle',
+    'prizepoolAmoutTitleColor': ef.get('mainColors', 'main'),
+    'prizepoolAmoutTitleSelf': center,
+    'prizepoolColumnWidth': (
+        320: 100%,
+        768: 530px,
+    ),
+
+    'prizeboardColumnWidth': (
+        320: 100%,
+        768: 350px,
+    ),
+    'prizeboardJustifyContent': center,
+    'prizeboardButtonSelf': center,
+
+    'prizeboardButtonTransition': width 0s,
 
     'gamesPadding': (
-        375: ef.get('size', 'less') ef.get('size', 'smally'),
-        640: ef.get('size', 'less') ef.get('size', 'main'),
-        1024: ef.get('size', 'less') ef.get('size', 'big'),
+        320: ef.get('size', 'smaller') ef.get('size', 'smally'),
+        768: ef.get('size', 'smaller') ef.get('size', 'main'),
+        1024: ef.get('size', 'smaller') ef.get('size', 'big'),
     ),
+    'gamesTitleStyle': 'QoteTextBold',
+    'gamesTitleColor': ef.get('mainColors', 'baseMain'),
+    'gamesTitleAlign': center,
 
     'rulesColumnWidth': (
-        375: 100%,
-        640: 600px,
+        320: 100%,
+        768: 600px,
     ),
 
-    'rulesPadding': (
-        375: ef.get('size', 'less') ef.get('size', 'smally'),
-        640: ef.get('size', 'smaller') 0 ef.get('size', 'less'),
-    ),
+    'rulesJustifyContent': center,
+    'rulesBg': ef.get('mainColors', 'bg500'),
+    'rulesTitleStyle': 'QoteTextBold',
+    'rulesTitleColor': ef.get('mainColors', 'baseMain'),
+    'rulesTitleAlign': center,
+    'rulesTermsStyle': 'PrimaryText',
+    'rulesTermsColor': ef.get('mainColors', 'baseMain'),
+    'rulesTermsAlign': left,
 
-    'textAnchorsMenu': 'PrimaryText',
-    'textColorAnchorsMenu': ef.get('mainColors', 'baseMain'),
+    'loaderZIndex': 10,
+    'loaderPosition': 0,
+    'loaderBachround': rgba(ef.get('mainColors', 'disabled'), 0.7),
+    'loaderRadius': ef.get('radius', 'biger'),
 
+    'loaderBeforePosition': 0,
+    'loaderBeforeSize': 60px,
+    'loaderBeforeBackground': rgba(ef.get('mainColors', 'bg'), 0.9),
+    'loaderBeforeRadius': 50%,
+
+    'loaderAfterSize': 50px,
+    'loaderAfterBorderColor': ef.get('mainColors', 'main'),
+    'loaderAfterRadius': 50%,
+    'loaderAfterAnimation': spin 1s infinite linear,
 ), $customThemeDefault);

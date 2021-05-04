@@ -1,0 +1,44 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/text' as text;
+
+.wlc-digits {
+    display: grid;
+    @include bm.get-mq-map('grid-template-columns', $themeDefaultDigits, 'wrapperGridColumns');
+    @include bm.get-mq-map('grid-gap', $themeDefaultDigits, 'wrapperGridGap');
+
+    &__item {
+        display: grid;
+        @include bm.get-mq-map('grid-gap', $themeDefaultDigits, 'itemGridGap');
+
+        @include bm.get-mq-map('padding', $themeDefaultDigits, 'itemPadding');
+
+        text-align: ef.get-value($themeDefaultDigits, 'itemTextAlign');
+
+        background: ef.get-value($themeDefaultDigits, 'itemBg');
+        border-radius: ef.get-value($themeDefaultDigits, 'itemRadius');
+    }
+
+
+    &__main {
+        @include bm.get-mq-map('font-size', $themeDefaultDigits, 'mainTextFontSize');
+        font-weight: ef.get-value($themeDefaultDigits, 'mainTextFontWeight');
+        line-height: ef.get-value($themeDefaultDigits, 'mainTextLineHeight');
+    }
+
+    &__separator {
+        width: ef.get-value($themeDefaultDigits, 'separatorWidth');
+        height: ef.get-value($themeDefaultDigits, 'separatorHeight');
+
+        background: ef.get-value($themeDefaultDigits, 'separatorBg');
+    }
+
+    &__description {
+        @include text.get-text-style(ef.get-value($themeDefaultDigits, 'descriptionTextMobile'));
+
+        @include mq.min(1200) {
+            @include text.get-text-style(ef.get-value($themeDefaultDigits, 'descriptionText'));
+        }
+    }
+}

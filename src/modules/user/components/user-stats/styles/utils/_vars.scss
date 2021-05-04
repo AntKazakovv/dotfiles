@@ -3,9 +3,11 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'maxWidth': 270px,
+
     'colorName': ef.get('mainColors', 'baseMain'),
     'colorValue': ef.get('mainColors', 'baseMain'),
-    'balancePadding': 11px 15px,
+
+    'balancePadding': ef.get('size', 'small') ef.get('size', 'smally'),
     'balanceBorderRadius': ef.get('radius', 'biger'),
     'balanceBg': (
         375: ef.get('mainColors', 'bg'),
@@ -18,7 +20,18 @@ $themeDefault: map-merge((
     'balanceItemBorder': (
         375: 2px solid ef.get('mainColors', 'baseOpacity'),
     ),
-    'btnMargin': 10px auto,
+
+    'btnMargin': ef.get('size', 'small') auto,
+
     'loyaltyIconSize': 12px,
     'loyaltyIconStoreSize': 16px,
+    'svgIconInfoSize': 17px,
+    'storePadding': 0 25px 0 0,
+    'storeDisplay': flex,
+    'storeValueDisplay': flex,
+    'translateY': translateY(-50%),
+    'zIndex': 1,
+    'iconTop': 50%,
+    'iconRigth': 0,
+    'iconDescriptionCurrencyPosition': absolute,
 ), $customThemeDefault);

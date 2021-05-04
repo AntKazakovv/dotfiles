@@ -17,10 +17,7 @@ import {DateTime} from 'luxon';
 import {interval} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
-import {
-    isString as _isString,
-    each as _each,
-} from 'lodash-es';
+import _isString from 'lodash-es/isString';
 
 /**
  * timer value format 'yyyy-MM-dd HH:mm:ss' or luxon format

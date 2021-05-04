@@ -14,11 +14,9 @@ import {ConfigService} from 'wlc-engine/modules/core';
 import {MenuHelper} from 'wlc-engine/modules/menu/system/helpers/menu.helper';
 import {AbstractComponent, IMixedParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
 
-import {
-    clone as _clone,
-    has as _has,
-    pull as _pull,
-} from 'lodash-es';
+import _clone from 'lodash-es/clone';
+import _has from 'lodash-es/has';
+import _pull from 'lodash-es/pull';
 
 @Component({
     selector: '[wlc-mobile-menu]',
@@ -62,6 +60,7 @@ export class MobileMenuComponent extends AbstractComponent implements OnInit {
         if (!useTournaments) {
             this.menuConfig = _pull(this.menuConfig, 'mobile-menu:tournaments');
         }
+
     }
 
     protected initMenu(): void {
@@ -95,6 +94,7 @@ export class MobileMenuComponent extends AbstractComponent implements OnInit {
                 disable: !useIcons,
             },
         });
+
         this.menuParams = _clone(this.menuParams);
         this.cdr.markForCheck();
     }

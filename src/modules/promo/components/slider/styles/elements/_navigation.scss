@@ -19,9 +19,20 @@
     border-radius: ef.get-value($themeDefaultNavigation, 'swiperNaviButtonBorderRadius');
     transition: ef.get-value($themeDefaultNavigation, 'swiperNaviButtonTransition');
 
-    &:hover {
-        background: ef.get-value($themeDefaultNavigation, 'swiperNaviButtonBgHover');
-        color: ef.get-value($themeDefaultNavigation, 'swiperNaviArrowColorHover');
+    svg {
+        fill: ef.get-value($themeDefaultNavigation, 'swiperNaviArrowColor');
+    }
+
+    @media (hover) {
+
+        &:hover {
+            background: ef.get-value($themeDefaultNavigation, 'swiperNaviButtonBgHover');
+            color: ef.get-value($themeDefaultNavigation, 'swiperNaviArrowColorHover');
+
+            svg {
+                fill: ef.get-value($themeDefaultNavigation, 'swiperNaviArrowColorHover');
+            }
+        }
     }
 
     &.swiper-button-disabled {

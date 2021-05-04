@@ -18,6 +18,12 @@ $themeDefault: map-merge((
         1366: 1fr 1fr 1fr 1fr,
         1630: 1fr 1fr 1fr,
     ),
+    'gridColumnProfileThemeFirst': (
+        375: 1fr,
+        640: 1fr 1fr,
+        1024: 1fr 1fr,
+        1200: 1fr 1fr 1fr
+    ),
     'alignNoContent': (
         375: center,
         1024: left,

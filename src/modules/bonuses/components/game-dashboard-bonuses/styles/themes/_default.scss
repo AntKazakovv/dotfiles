@@ -21,7 +21,6 @@
             }
 
             svg {
-                fill: ef.get-value($themeDefault, 'fillColor');
                 transform: rotate(-90deg);
             }
         }
@@ -39,7 +38,6 @@
             }
 
             svg {
-                fill: ef.get-value($themeDefault, 'fillColor');
                 transform: rotate(90deg);
             }
         }

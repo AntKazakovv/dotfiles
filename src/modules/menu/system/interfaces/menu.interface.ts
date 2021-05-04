@@ -30,4 +30,5 @@ export interface IMenuConfig {
     categoryMenu?: ICategoryMenuSettings;
     mobileMenu?: IMobileMenuSettings;
     profileMenu?: IProfileMenuSettings;
+    profileFirstMenu?: IProfileMenuSettings;
 }

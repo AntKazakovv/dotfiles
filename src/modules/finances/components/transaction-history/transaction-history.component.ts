@@ -28,11 +28,8 @@ import {Transaction} from 'wlc-engine/modules/finances/system/models/transaction
 
 import * as Params from './transaction-history.params';
 
-
-import {
-    filter as _filter,
-    clone as _clone,
-} from 'lodash-es';
+import _filter from 'lodash-es/filter';
+import _clone from 'lodash-es/clone';
 
 @Component({
     selector: '[wlc-transaction-history]',

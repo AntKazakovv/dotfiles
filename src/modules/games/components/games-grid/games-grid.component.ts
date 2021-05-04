@@ -1,60 +1,49 @@
 import {
-    Component,
-    OnInit,
-    Inject,
-    ElementRef,
-    AfterViewInit,
-    ChangeDetectorRef,
+    AfterViewChecked,
     ChangeDetectionStrategy,
-    Renderer2,
+    ChangeDetectorRef,
+    Component,
+    ElementRef,
+    EventEmitter,
+    HostBinding,
+    Inject,
     Input,
+    OnInit,
+    Output,
+    Renderer2,
+    ViewChild,
 } from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {
     UIRouter,
     TransitionService,
 } from '@uirouter/core';
-import {
-    animate, query, stagger,
-    style,
-    transition,
-    trigger,
-} from '@angular/animations';
 import {fromEvent} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
-
-import {ActionService, EventService} from 'wlc-engine/modules/core/system/services';
-import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {
-    defaultParams,
-    IGamesGridCParams,
-} from './games-grid.params';
 import {ResizedEvent} from 'angular-resize-event';
-import {Game} from 'wlc-engine/modules/games/system/models/game.model';
-import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.model';
 import {
+    AbstractComponent,
     ConfigService,
     ILanguage,
     DeviceType,
+    ActionService,
+    EventService,
+    ListAppearanceAnimation,
 } from 'wlc-engine/modules/core';
 import {
+    Game,
+    CategoryModel,
+    IGamesFilterData,
+    gamesEvents,
     GamesCatalogService,
-    IGameThumbCParams,
+    GamesFilterServiceEvents,
 } from 'wlc-engine/modules/games';
-import {GamesFilterServiceEvents} from 'wlc-engine/modules/games';
-import {gamesEvents} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
-import {IGamesFilterData} from 'wlc-engine/modules/games/system/interfaces/filters.interfaces';
-import {ITournamentGames} from 'wlc-engine/modules/tournaments';
-import {GamesHelper} from 'wlc-engine/modules/games/system/helpers/games.helpers';
 
-import {
-    filter as _filter,
-    map as _map,
-    includes as _includes,
-    reduce as _reduce,
-    keys as _keys,
-    isUndefined as _isUndefined,
-} from 'lodash-es';
+import * as Params from './games-grid.params';
+
+import _reduce from 'lodash-es/reduce';
+import _keys from 'lodash-es/keys';
+import _isUndefined from 'lodash-es/isUndefined';
 
 @Component({
     selector: '[wlc-games-grid]',
@@ -62,20 +51,13 @@ import {
     styleUrls: ['./styles/games-grid.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
     animations: [
-        trigger('appearance', [
-            transition('*<=>*', [
-                query(':enter',[
-                    style({opacity: 0}),
-                    stagger('0.03s', animate('0.8s', style({opacity: 1}))),
-                ], {optional: true}),
-            ]),
-        ]),
+        ...ListAppearanceAnimation,
     ],
 })
 export class GamesGridComponent extends AbstractComponent
-    implements OnInit, AfterViewInit {
+    implements OnInit, AfterViewChecked {
 
-    public $params: IGamesGridCParams;
+    public $params: Params.IGamesGridCParams;
     public isReady: boolean = false;
     public filteredGames: Game[]; // TODO temporary: until gameService will be able to back category
     public title: string;
@@ -101,13 +83,19 @@ export class GamesGridComponent extends AbstractComponent
     protected childCategory: CategoryModel;
     protected deviceType: DeviceType;
 
-    @Input() protected inlineParams: IGamesGridCParams;
+    @ViewChild('gameList') gameListElement: ElementRef;
+    @ViewChild('gameItem') gameItem: ElementRef;
+    @ViewChild('gameBanner') gameBanner: ElementRef;
+    @Input() protected inlineParams: Params.IGamesGridCParams;
     @Input() protected gamesList: Game[];
+
+    @Output() public gridHidden = new EventEmitter<void>();
+    @HostBinding('class.d-none') protected hideComponent: boolean = false;
 
     constructor(
         public router: UIRouter,
         protected gamesCatalogService: GamesCatalogService,
-        @Inject('injectParams') protected injectParams: IGamesGridCParams,
+        @Inject('injectParams') protected injectParams: Params.IGamesGridCParams,
         protected elementRef: ElementRef,
         protected cdr: ChangeDetectorRef,
         protected eventService: EventService,
@@ -117,7 +105,7 @@ export class GamesGridComponent extends AbstractComponent
         protected transition: TransitionService,
         protected actionService: ActionService,
     ) {
-        super({injectParams, defaultParams}, configService, actionService);
+        super({injectParams, defaultParams: Params.defaultParams}, configService, actionService);
     }
 
     public async ngOnInit(): Promise<void> {
@@ -125,9 +113,10 @@ export class GamesGridComponent extends AbstractComponent
         this.$params.wlcElement = this.$params.wlcElement || 'wlc-games-grid-' + this.getWlcSuffics();
         this.setWlcElementOnHost();
 
-        if (this.$params.titleIcon?.byCategory && this.$params.filter.category) {
+        const category: string = this.$params.filter?.['categories']?.[0] || this.$params.filter?.['category'];
+        if (this.$params.titleIcon?.byCategory && category) {
             const folder = this.$params.titleIcon.folder || this.configService.get<string>('$menu.categoryMenu.icons.folder');
-            const icon = folder ? `${folder}/${this.$params.filter.category}` : this.$params.filter.category;
+            const icon = folder ? `${folder}/${category}` : category;
             this.$params.titleIcon.name = icon.split('.').length > 1 ? icon : `${icon}.svg`;
         }
 
@@ -160,6 +149,16 @@ export class GamesGridComponent extends AbstractComponent
         }
     }
 
+    public ngAfterViewChecked(): void {
+        if (this.gameListElement) {
+            this.setGridParams(this.gameListElement, this.gameListElement.nativeElement.getBoundingClientRect().width);
+            this.setPlaceHolders();
+            if (this.useLazy) {
+                this.tryLoadingGames();
+            }
+        }
+    }
+
     public async prepareGrid(): Promise<void> {
         this.games = await this.getGames();
         const lang: string = this.translate.currentLang;
@@ -173,18 +172,12 @@ export class GamesGridComponent extends AbstractComponent
         this.filteredGames = this.games;
         this.isReady = true;
 
-        this.cdr.detectChanges();
-    }
-
-    public ngAfterViewInit(): void {
-        const listElement = this.elementRef.nativeElement.querySelector('.' + this.$class + '__list');
-        if (listElement) {
-            this.setGridParams(listElement, listElement.getBoundingClientRect().width);
-            this.setPlaceHolders();
-            if (this.useLazy) {
-                this.tryLoadingGames();
-            }
+        if (!this.filteredGames.length && this.$params.hideEmpty) {
+            this.hideComponent = true;
+            this.gridHidden.emit();
         }
+
+        this.cdr.detectChanges();
     }
 
     public onResize(event: ResizedEvent): void {
@@ -206,12 +199,15 @@ export class GamesGridComponent extends AbstractComponent
         this.setPlaceHolders();
         this.lazyReady = true;
 
-        setTimeout(() => {
-            this.actionService.scrollTo(this.elementRef.nativeElement, {
-                position: 'end',
-                offsetY: 40,
-            });
-        }, 500);
+        if (this.$params.moreBtn?.scrollToEnd) {
+            setTimeout(() => {
+                this.actionService.scrollTo(this.elementRef.nativeElement, {
+                    position: 'end',
+                    offsetY: 40,
+                });
+            }, 500);
+        }
+
         this.cdr.detectChanges();
     }
 
@@ -243,14 +239,14 @@ export class GamesGridComponent extends AbstractComponent
      */
     protected setGridParams(el: any, width: number): void {
         this.moreButtonChangeState(false);
-        const itemElement = el.querySelector('.' + this.$class + '__item')?.firstChild;
-        const itemWidth = itemElement?.getBoundingClientRect().width;
-        this.prevPlaceHoldersCount = Math.floor(width / itemWidth);
+        const itemWidth = this.gameItem?.nativeElement?.getBoundingClientRect().width;
+        const bannerWidth = this.gameBanner?.nativeElement?.getBoundingClientRect().width || 0;
+        width = this.$params.bannerSettings ? width - bannerWidth : width;
+        this.prevPlaceHoldersCount = Math.floor(width / itemWidth) || 1;
         this.paginate = this.prevPlaceHoldersCount * this.$params.gamesRows;
         this.placeHoldersCount = this.prevPlaceHoldersCount;
 
         if (this.gamesCount > this.paginate) {
-
             while (this.gamesCount % this.prevPlaceHoldersCount !== 0) {
                 this.gamesCount++;
             }
@@ -259,7 +255,7 @@ export class GamesGridComponent extends AbstractComponent
         }
 
         this.checkGamesLength();
-        this.cdr.markForCheck();
+        this.cdr.detectChanges();
     }
 
     protected checkGamesLength(): void {
@@ -279,8 +275,7 @@ export class GamesGridComponent extends AbstractComponent
             return;
         }
         this.placeHolders = Array(this.placeHoldersCount).fill(1);
-        const imgElement = this.elementRef.nativeElement.querySelector('.' + this.$class + '__item')?.firstChild;
-        const imgSize = imgElement?.getBoundingClientRect();
+        const imgSize = this.gameItem?.nativeElement?.getBoundingClientRect().width;
         if (imgSize) {
             this.placeHolderStyles = {
                 width: imgSize.width + 'px',
@@ -322,26 +317,40 @@ export class GamesGridComponent extends AbstractComponent
     protected async getFilteredGames(): Promise<Game[]> {
         this.parentCategory = this.gamesCatalogService.getParentCategoryByState();
         this.childCategory = this.gamesCatalogService.getChildCategoryByState();
-        let games:Game[] = [];
+        let games: Game[] = [];
 
         if (this.gamesList?.length) {
             games = this.gamesList;
-        } else if (this.$params.tournamentGamesFilter) {
-            return this.gamesCatalogService.getTournamentGames(this.$params.tournamentGamesFilter);
-        } else {
-            games = this.gamesCatalogService.getGameList();
-        }
 
-        if (this.$params.byState) {
+        } else if (this.$params.tournamentGamesFilter) {
+            games = this.gamesCatalogService.getTournamentGames(this.$params.tournamentGamesFilter);
+
+        } else if (this.$params.byState) {
             games = await this.gamesCatalogService.getGamesByState();
+
         } else if (this.$params.filter) {
-            games = await this.gamesCatalogService.getGamesByCategorySlug(this.$params.filter.category);
-            const category = this.gamesCatalogService.getCategoryBySlug(this.$params.filter.category);
+            const filter: IGamesFilterData = {
+                categories: this.$params.filter['categories'] || [this.$params.filter['category']] || [],
+                merchants: this.$params.filter['merchants'] || [],
+                excludeCategories: this.$params.filter['excludeCategories'] || [],
+                excludeMerchants: this.$params.filter['excludeMerchants'] || [],
+                ids: this.$params.filter['ids'] || [],
+                searchQuery: this.$params.filter['searchQuery'] || '',
+            };
+
+            const cat = this.$params.filter['categories']?.[0] || this.$params.filter['category'] || '';
+
+            games = this.gamesCatalogService.getGameList(filter);
+            const category = this.gamesCatalogService.getCategoryBySlug(cat);
+
             if (category) {
                 const currentLang = this.router.stateService.params?.locale || 'en';
                 this.categoryTitle = category.title[currentLang] || category.title['en'];
             }
+        } else {
+            games = this.gamesCatalogService.getGameList();
         }
+
         return games;
     }
 

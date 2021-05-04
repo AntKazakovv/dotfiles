@@ -51,7 +51,8 @@ $submenuProfileDefault: map-merge((
     'submenuBorderBottomHeight': 2px,
     'submenuMargin': (
         375: ef.get('size', 'smally') 0,
-        1024: 0 0 40px,
+        900: 0 0 ef.get('size', 'smaller'),
+        1630: 0 0 ef.get('size', 'main'),
     ),
     'submenuItemPadding': (
         375: 10px 0,
@@ -61,6 +62,47 @@ $submenuProfileDefault: map-merge((
     'menuGap': (
         375: 30px
     ),
+    'linkBeforeHeight': 2px,
 ), $customSubmenuProfileDefault);
 
 
+$customFullProfileFirstDefault: () !default;
+$fullProfileFirstDefault: map-merge((
+    'menuBg': ef.get('mainColors', 'bg300'),
+    'menuPadding': ef.get('size', 'smallest') 0,
+    'menuRadius': ef.get('radius', 'biger') 0 0 ef.get('radius', 'biger'),
+    'menuItemDropdownPadding': (
+        320: ef.get('size', 'small') ef.get('size', 'less'),
+        1630: ef.get('size', 'smally') ef.get('size', 'less'),
+    ),
+    'menuItemDropdownBorder': 2px solid ef.get('mainColors', 'baseOpacity'),
+    'menuTitleFontStyle': 'QoteTextBold',
+    'menuTitleFontColor': ef.get('mainColors', 'baseMain'),
+    'menuTitleLineHeight': (
+        320: 1.1,
+        1630: 1.2,
+    ),
+    'menuTitleTextDecoration': none,
+    'menuTitleMargin': (
+        320: 0 0 ef.get('size', 'small') 0,
+    ),
+    'menuLinkFontStyle': 'ThirdTitle',
+    'menuLinkFontColor': ef.get('mainColors', 'baseMain'),
+    'menuLinkTextDecoration': none,
+    'menuLinkMargin': (
+        320: 0 0 ef.get('size', 'smallest') 0,
+        1630: 0 0 ef.get('size', 'small') 0,
+    ),
+    'menuLinkActiveFontStyle': 'ThirdTitleBold',
+    'menuLinkActiveFontColor': ef.get('mainColors', 'baseMain'),
+    'menuLinkHoverFontColor': ef.get('mainColors', 'main'),
+    'activeIconLeft': -45px,
+    'activeIconTop': 50%,
+    'activeIconTransform': translateY(-50%),
+    'activeIconWidth': 40px,
+    'activeIconHeight': (
+        320: 16px,
+        1630: 17px,
+    ),
+    'activeIconColor': ef.get('mainColors', 'main'),
+), $customFullProfileFirstDefault);

@@ -1,12 +1,12 @@
 {
     "name": "@egamings/wlc-engine",
-    "version": "1.1.4",
+    "version": "1.1.22",
     "scripts": {
         "ng": "ng",
         "start": "ng serve",
         "build": "ng build",
-        "docs": "npm run build:docs -- --serve",
-        "build:docs": "compodoc -p ./tsconfig.docs.json -d docs/compodoc",
+        "dev:docs": "compodoc --serve --port=4201 --watch",
+        "build:docs": "compodoc --silent",
         "build:sassdocs": "npm run gulp sassdoc",
         "dist": "git submodule update --init && ng build --project wlc-engine --prod && npm run build:docs && npm run build:sassdocs",
         "test": "ng test",
@@ -41,7 +41,9 @@
         "@angular/service-worker": "11.1.1",
         "@biesbjerg/ngx-translate-extract": "^7.0.3",
         "@egjs/hammerjs": "^2.0.17",
+        "@formatjs/intl-locale": "^2.4.22",
         "@formatjs/intl-numberformat": "^6.2.2",
+        "@formatjs/intl-pluralrules": "^4.0.14",
         "@nguniversal/builders": "11.1.1",
         "@nguniversal/express-engine": "11.1.1",
         "@ngx-translate/core": "^13.0.0",
@@ -74,6 +76,7 @@
         "glob": "^7.1.6",
         "gulp": "^4.0.2",
         "gulp-angular-gettext": "^2.3.0",
+        "gulp-dart-sass": "^1.0.2",
         "gulp-if": "^3.0.0",
         "gulp-json-editor": "^2.5.4",
         "gulp-livereload": "^4.0.2",
@@ -103,9 +106,12 @@
         "protractor": "~7.0.0",
         "reset-css": "^5.0.1",
         "rxjs": "~6.6.3",
+        "sass": "^1.32.8",
         "sassdoc": "^2.7.3",
         "stream-combiner2": "^1.1.1",
         "stylelint": "^13.9.0",
+        "stylelint-config-rational-order": "^0.1.2",
+        "stylelint-order": "^4.1.0",
         "stylelint-webpack-plugin": "^2.1.1",
         "swiper": "6.4.10",
         "text-overflow-clamp": "^1.0.0",
@@ -120,8 +126,6 @@
         "zone.js": "0.11.3"
     },
     "devDependencies": {
-        "@compodoc/compodoc": "^1.1.11",
-        "stylelint-config-rational-order": "^0.1.2",
-        "stylelint-order": "^4.1.0"
+        "@compodoc/compodoc": "^1.1.11"
     }
 }

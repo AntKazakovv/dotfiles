@@ -1,7 +1,7 @@
 import {
     Component,
     Inject,
-    Input,
+    OnInit,
 } from '@angular/core';
 import {FormGroup} from '@angular/forms';
 
@@ -12,6 +12,7 @@ import {
     ModalService,
 } from 'wlc-engine/modules/core/system/services';
 import {
+    ConfigService,
     IPushMessageParams,
     NotificationEvents,
 } from 'wlc-engine/modules/core';
@@ -35,7 +36,7 @@ import * as Params from './sign-in-form.params';
     templateUrl: './sign-in-form.component.html',
     styleUrls: ['./styles/sign-in-form.component.scss'],
 })
-export class SignInFormComponent extends AbstractComponent {
+export class SignInFormComponent extends AbstractComponent implements OnInit {
 
     public $params: Params.ISignInFormCParams;
     public config = Params.signInFormConfig;
@@ -44,10 +45,18 @@ export class SignInFormComponent extends AbstractComponent {
         @Inject('injectParams') protected injectParams: Params.ISignInFormCParams,
         protected eventService: EventService,
         protected logService: LogService,
+        protected configService: ConfigService,
         protected modalService: ModalService,
         protected userService: UserService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams});
+        super({
+            injectParams,
+            defaultParams: Params.defaultParams,
+        }, configService);
+    }
+
+    public ngOnInit(): void {
+        super.ngOnInit();
     }
 
     public async ngSubmit(form: FormGroup): Promise<void> {

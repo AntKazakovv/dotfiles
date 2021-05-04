@@ -30,14 +30,12 @@ import {
     LogService,
 } from 'wlc-engine/modules/core/system/services';
 
-import {
-    assignIn as _assignIn,
-    isString as _isString,
-    find as _find,
-    remove as _remove,
-    forEach as _forEach,
-    get as _get,
-} from 'lodash-es';
+import _assignIn from 'lodash-es/assignIn';
+import _isString from 'lodash-es/isString';
+import _find from 'lodash-es/find';
+import _remove from 'lodash-es/remove';
+import _forEach from 'lodash-es/forEach';
+import _get from 'lodash-es/get';
 
 export type IModalParams = IModalConfig | IModalName;
 
@@ -91,7 +89,11 @@ export class ModalService {
 
         if (_isString(config)) {
             if (MODALS_LIST[config]) {
-                modalConfig = _assignIn({}, DEFAULT_MODAL_CONFIG, MODALS_LIST[config].config);
+                modalConfig = _assignIn(
+                    {},
+                    DEFAULT_MODAL_CONFIG,
+                    MODALS_LIST[config].config,
+                    this.configService.get(`$base.modals.${config}.config`));
             } else {
                 this.logService.sendLog({
                     code: '0.3.0',

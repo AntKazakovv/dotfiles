@@ -72,4 +72,20 @@
             }
         }
     }
+
+    &.wlc-tab-switcher--theme-mod-with-banner {
+
+        .wlc-tab-switcher {
+
+            &-body {
+
+                &__item {
+
+                    &--login {
+                        @include em.get-mq-map('padding', $themeDefault, 'bodyItemLoginWithBannerPadding');
+                    }
+                }
+            }
+        }
+    }
 }

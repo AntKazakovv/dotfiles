@@ -41,12 +41,10 @@ import {IPlayGameForRealCParams} from 'wlc-engine/modules/games/components';
 import {ICustomGameParams} from 'wlc-engine/modules/games';
 import {Events as GameDashboardEvents} from 'wlc-engine/modules/games/components/game-dashboard/game-dashboard.params';
 
-import {
-    includes as _includes,
-    isObject as _isObject,
-    isString as _isString,
-    toNumber as _toNumber,
-} from 'lodash-es';
+import _isString from 'lodash-es/isString';
+import _isObject from 'lodash-es/isObject';
+import _includes from 'lodash-es/includes';
+import _toNumber from 'lodash-es/toNumber';
 
 interface IError {
     msg: string;
@@ -154,7 +152,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         this.gameParams = this.getGameParams();
         this.initEventHandlers();
 
-        this.game = this.gamesCatalogService.getGame(_toNumber(this.gameParams.merchantId), this.gameParams.launchCode);
+        this.game = this.getGame();
         if (this.game) {
             // TODO: this.LocalCacheService.set('lastGameParams', this.gameParams);
             this.gamesCatalogService.loadFavourites();
@@ -250,6 +248,11 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         if (this.iframeObserver) {
             this.iframeObserver?.disconnect();
         }
+    }
+
+    protected getGame(): Game {
+        return this.gamesCatalogService.getGame(_toNumber(this.gameParams.merchantId), this.gameParams.launchCode,
+            !!this.$params.gameParams?.isSportsbook);
     }
 
     /**
@@ -720,7 +723,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         this.gamesCatalogService.favoritesUpdated.pipe(
             takeUntil(this.$destroy),
         ).subscribe(() => {
-            this.game = this.gamesCatalogService.getGame(this.gameParams.merchantId, this.gameParams.launchCode);
+            this.game = this.getGame();
             this.cdr.detectChanges();
         });
 
@@ -730,14 +733,15 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
             this.isAuth = false;
             this.cdr.markForCheck();
 
-            this.router.stateService.go('app.home');
-
-            this.modalService.showModal<IPlayGameForRealCParams>('runGame', {
-                common: {
-                    game: this.game,
-                    disableDemo: false,
-                },
-            });
+            if (this.router.globals.current.name === 'app.gameplay') {
+                this.router.stateService.go('app.home');
+                this.modalService.showModal<IPlayGameForRealCParams>('runGame', {
+                    common: {
+                        game: this.game,
+                        disableDemo: false,
+                    },
+                });
+            }
         }, this.$destroy);
 
         this.eventService.subscribe({

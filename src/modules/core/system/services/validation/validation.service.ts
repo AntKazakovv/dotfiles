@@ -15,6 +15,7 @@ import {
     map,
     switchMap,
 } from 'rxjs/operators';
+
 import {
     DataService,
     EventService,
@@ -135,6 +136,10 @@ export class ValidationService {
     }
 
     public passwordRule(ctrl: AbstractControl): Promise<IIndexing<boolean>> {
+        if (!ctrl.value) {
+            return of(null).toPromise();
+        }
+
         return this.dataService.request<IIndexing<string>>({
             name: 'passwordValidation',
             system: 'user',

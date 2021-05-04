@@ -3,19 +3,31 @@
 @use 'engine-scss/mixins/base.mixins' as bm;
 @use 'engine-scss/mixins/text' as text;
 @import './main-info/themes/default';
+@import './main-info/themes/v1';
 @import './dashboard/themes/default';
 @import './cash/themes/_default';
 @import './store/themes/default';
 @import './bonuses/themes/default';
 
-.wlc-sections__profile-content,
-.wlc-sections__profile-menu {
+.wlc-sections__profile-content--theme-default,
+.wlc-sections__profile-menu--theme-default {
 
     > .container {
+        @include bm.get-mq-map('max-width', $profileSettings, 'profileWidth');
+    }
+}
 
-        @include mq.min(1366) {
-            max-width: ef.get-value($profileSettings, 'profileWidth');
-        }
+.wlc-sections__profile-content--theme-first {
+
+    > .container {
+        @include bm.get-mq-map('max-width', $profileSettingsThemeFirst, 'profileWidth');
+    }
+}
+
+.wlc-sections__profile-content--theme-first {
+
+    > .container {
+        @include bm.get-mq-map('max-width', $profileSettingsThemeFirst, 'profileWidth');
     }
 }
 
@@ -27,17 +39,20 @@
         @include bm.get-mq-map('border-radius', $profileSettings, 'profileBorderRadius');
     }
 
-    .wlc-title.wlc-title--profile[wlc-title] {
+    &.wlc-sections__profile-content--theme-default {
 
-        .wlc-title__main {
-            @include text.get-text-style(ThirdTitleBold, ef.get-value($profileSettings, 'titleColor'));
+        .wlc-title.wlc-title--profile[wlc-title] {
+
+            .wlc-title__main {
+                @include text.get-text-style(ThirdTitleBold, ef.get-value($profileSettings, 'titleColor'));
+            }
         }
-    }
 
-    .profile-history-filter {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+        .profile-history-filter {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
     }
 }
 
@@ -49,11 +64,10 @@
 
         @include mq.min(1024) {
             position: absolute;
-            right: 0;
             top: 50%;
+            right: 0;
+
             transform: translateY(-50%);
         }
     }
 }
-
-

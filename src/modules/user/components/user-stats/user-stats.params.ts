@@ -8,14 +8,18 @@ export interface IUserStatsCParams extends IComponentParams<ComponentTheme, Comp
     type?: ComponentType;
     theme?: ComponentTheme;
     useDepositBtn?: boolean;
+    showTooltipDescriptionModal?: boolean;
 }
 
 export const defaultParams: IUserStatsCParams = {
     class: 'wlc-user-stats',
+    moduleName: 'user',
+    componentName: 'wlc-user-stats',
     fields: [
         'balance',
         'bonusBalance',
         'points',
         'level',
     ],
+    showTooltipDescriptionModal: false,
 };

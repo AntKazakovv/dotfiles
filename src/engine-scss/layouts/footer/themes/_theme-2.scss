@@ -19,6 +19,7 @@
         align-items: center;
         justify-content: center;
         width: 100%;
+
         background: ef.get-value($theme2Footer, 'footerMenuBg');
         border-radius: ef.get-value($theme2Footer, 'footerMenuRadius');
         @include em.get-mq-map('padding', $theme2Footer, 'footerMenuPadding');
@@ -42,9 +43,9 @@
             .wlc-post-menu {
 
                 &__title {
-                    text-transform: ef.get-value($theme2Footer, 'footerPostMenuTitleTextTransform');
                     color: ef.get-value($theme2Footer, 'footerPostMenuTitleColor');
                     text-align: ef.get-value($theme2Footer, 'footerPostMenuAlignment');
+                    text-transform: ef.get-value($theme2Footer, 'footerPostMenuTitleTextTransform');
                     @include em.get-mq-map('display', $theme2Footer, 'footerPostMenuTitleDisplay');
                 }
 
@@ -67,8 +68,8 @@
 
     .footer-bottom {
         flex-direction: column;
-        justify-content: center;
         align-items: center;
+        justify-content: center;
 
         @include em.get-mq-map('display', $theme2Footer, 'footerBottomDisplay');
         @include em.get-mq-map('grid-template-areas', $theme2Footer, 'footerBottomGridArea');
@@ -137,6 +138,7 @@
 
     .wlc-icon-list--theme-payments {
         position: relative;
+
         background: ef.get-value($theme2Footer, 'iconListPaymentsBg');
         @include em.get-mq-map('padding', $theme2Footer, 'iconListPaymentsPadding');
         @include em.get-mq-map('order', $theme2Footer, 'iconListPaymentsOrder');
@@ -149,6 +151,7 @@
 
             @include em.get-mq-map('justify-content', $theme2Footer, 'iconListPaymentsWrapperJustify');
             @include em.get-mq-map('flex-wrap', $theme2Footer, 'iconListPaymentsWrapperWrap');
+            @include em.get-mq-map('gap', $theme2Footer, 'iconListPaymentsWrapperGap');
         }
 
         .wlc-icon-list__item {

@@ -1,7 +1,3 @@
-import {
-    keys as _keys,
-} from 'lodash-es';
-
 export namespace CurrenciesInfo {
 
     export interface ICurrencyFormat {

@@ -15,6 +15,7 @@ export namespace wlcIconList {
         params: {
             theme: 'payments',
             type: 'svg',
+            watchForScroll: true,
             wlcElement: 'block_payments',
         },
     };

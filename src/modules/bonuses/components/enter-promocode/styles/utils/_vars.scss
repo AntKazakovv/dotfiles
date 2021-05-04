@@ -1,5 +1,31 @@
 @use 'engine-scss/functions' as ef;
 
+$customThemePromocodeBtn: () !default;
+$themePromocodeBtn: map-merge((
+    'btnBasePosition': 0,
+    'btnRightPosition': 4px,
+    'btnSize': 32px,
+    'btnBackground': ef.get('mainColors', 'main'),
+    'btnBackgroundHover': lighten(ef.get('mainColors', 'main'), 10%),
+    'btnBackgroundPending': lighten(ef.get('mainColors', 'main'), 10%),
+    'btnRadius': ef.get('radius', 'main'),
+
+    'btnIconSize': 13px,
+    'btnIconFill': ef.get('mainColors', 'baseMain'),
+
+    'btnTextSize': 16px,
+    'btnTextBorder': 2px solid ef.get('mainColors', 'baseMain'),
+    'btnTextRadius': 50px,
+    'btnTextLineHeight': 0,
+
+    'btnAlignItems': center,
+    'btnJustifyContent': center,
+    'btnMargin': auto,
+
+    'btnPendingAlignItems': center,
+    'btnPendingJustifyContent': center,
+), $customThemePromocodeBtn);
+
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'baseHeight': 100%,
@@ -14,10 +40,17 @@ $themeDefault: map-merge((
     'containerShadow': 0 4px 9px 0 rgba(ef.get('mainColors', 'bg'), 0.07),
     'containerRadius': ef.get('radius', 'biger'),
     'containerHeight': 100%,
+    'containerFlexDirection': column,
+    'containerAlignItems': center,
+    'containerJustifyContent': center,
 
     'titleFontStyle': 'ThirdTitleBold',
     'titleColor': ef.get('mainColors', 'baseMain'),
-    'titleMargin': 0 0 ef.get('size', 'less') 0,
+    'titleMargin': (
+        375: 0 0 ef.get('size', 'less'),
+        900: 0 0 ef.get('size', 'smaller'),
+        1630: 0 0 ef.get('size', 'less'),
+    ),
 
     'controlWidth': 100%,
 
@@ -26,19 +59,23 @@ $themeDefault: map-merge((
         560: none,
     ),
 
-    'btnBasePosition': 0,
-    'btnRightPosition': 4px,
-    'btnSize': 32px,
-    'btnBackground': ef.get('mainColors', 'main'),
-    'btnBackgroundHover': lighten(ef.get('mainColors', 'main'), 10%),
-    'btnBackgroundPending': lighten(ef.get('mainColors', 'main'), 10%),
-    'btnRadius': ef.get('radius', 'main'),
-
-    'btnIconSize': 13px,
-    'btnIconFill': ef.get('mainColors', 'baseMain'),
-
-    'btnTextSize': 16px,
-    'btnTextBorderColor': ef.get('mainColors', 'baseMain'),
-    'btnTextRadius': 50px
+    'inputBackground': ef.get('fieldColors', 'inputBg'),
+    'inputColor': ef.get('fieldColors', 'textColor'),
+    'inputTextTransform': uppercase,
+    'inputOpacity': 1,
 
 ), $customThemeDefault);
+
+$customThemeClear: () !default;
+$themeClear: map-merge((
+    'width': 100%,
+    'maxWidth': (
+        375: 100%,
+        560: 320px
+    ),
+    'controlWidth': 100%,
+    'controlMaxWidth': (
+        375: 100%,
+        560: 320px
+    ),
+), $customThemeClear);

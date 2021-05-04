@@ -10,7 +10,8 @@ import {
     IJackpot,
     IFavourite,
     ISearchFilter,
-} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
+} from 'wlc-engine/modules/games/system/interfaces';
+
 import {GamesHelper} from 'wlc-engine/modules/games/system/helpers/games.helpers';
 import {
     ConfigService,
@@ -31,28 +32,27 @@ import {
 
 import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
 
-import {
-    concat as _concat,
-    find as _find,
-    isArray as _isArray,
-    toNumber as _toNumber,
-    forEach as _forEach,
-    get as _get,
-    includes as _includes,
-    filter as _filter,
-    uniq as _uniq,
-    union as _union,
-    cloneDeep as _cloneDeep,
-    uniqBy as _uniqBy,
-    isString as _isString,
-    isNumber as _isNumber,
-    orderBy as _orderBy,
-} from 'lodash-es';
+import _cloneDeep from 'lodash-es/cloneDeep';
+import _isString from 'lodash-es/isString';
+import _isNumber from 'lodash-es/isNumber';
+import _get from 'lodash-es/get';
+import _includes from 'lodash-es/includes';
+import _isArray from 'lodash-es/isArray';
+import _union from 'lodash-es/union';
+import _filter from 'lodash-es/filter';
+import _concat from 'lodash-es/concat';
+import _find from 'lodash-es/find';
+import _toNumber from 'lodash-es/toNumber';
+import _forEach from 'lodash-es/forEach';
+import _uniq from 'lodash-es/uniq';
+import _uniqBy from 'lodash-es/uniqBy';
+import _orderBy from 'lodash-es/orderBy';
 
 export class GamesCatalog extends AbstractModel<IGames> {
     public currentLanguage: ILanguage;
 
     protected games: Game[];
+    protected sportsbooks: Game[] = [];
     protected categories: CategoryModel[] = [];
     protected projectCategories: CategoryModel[] = [];
     protected merchants: MerchantModel[];
@@ -107,11 +107,10 @@ export class GamesCatalog extends AbstractModel<IGames> {
         const excludeMerchants = filter?.excludeMerchants || [];
         const searchQuery = filter?.searchQuery || '';
         const gameIds = filter?.ids;
-
         let gameList: Game[] = _concat([], this.games);
 
         if (includeCategories.length) {
-            const categories: CategoryModel[] = this.getCategoriesByMenuIds(includeCategories);
+            const categories: CategoryModel[] = this.getCategoriesBySlugs(includeCategories);
             gameList = this.getGamesByCategories(categories);
         }
 
@@ -143,8 +142,7 @@ export class GamesCatalog extends AbstractModel<IGames> {
 
         if (excludeMerchants.length) {
             gameList = gameList.filter((item: Game) => {
-                return !_includes(excludeMerchants, item.merchantID)
-                    && !_includes(excludeMerchants, item.subMerchantID);
+                return !this.isExcludeMerchant(excludeMerchants, item.merchantID, item.subMerchantID);
             });
         }
 
@@ -174,9 +172,9 @@ export class GamesCatalog extends AbstractModel<IGames> {
      * @param {string[]} menuIds
      * @returns {CategoryModel[]}
      */
-    public getCategoriesByMenuIds(menuIds: string[]): CategoryModel[] {
+    public getCategoriesBySlugs(slug: string[]): CategoryModel[] {
         return _filter(this.getCategories(), (category: CategoryModel) => {
-            return _includes(menuIds, category.menuId);
+            return _includes(slug, category.slug);
         });
     }
 
@@ -295,8 +293,9 @@ export class GamesCatalog extends AbstractModel<IGames> {
      * @param {string} launchCode
      * @returns {Game}
      */
-    public getGame(merchantID: number, launchCode: string): Game {
-        return _find(this.games, {merchantID, launchCode});
+    public getGame(merchantID: number, launchCode: string, isSportsbook: boolean = false): Game {
+        const gamesList: Game[] = isSportsbook ? this.sportsbooks : this.games;
+        return _find(gamesList, {merchantID, launchCode});
     }
 
     public getJackpotGames(): Game[] {
@@ -576,6 +575,7 @@ export class GamesCatalog extends AbstractModel<IGames> {
          * GAMES
          **********************************************************************************************************/
         const resultGames: Game[] = [];
+        const sportsbookMerchants: number[] = this.configService.get<number[]>('$games.sportsbookMerchants');
 
         for (const item of response.games) {
             const game = new Game(item, this.router, this.configService);
@@ -595,12 +595,21 @@ export class GamesCatalog extends AbstractModel<IGames> {
             game.isFavourite = _includes(this.gamesCatalogService.favourites, game.ID);
             game.setSortedCategoryFields();
             GamesHelper.fillGamesByCategoriesMerchants(game, this.availableCategories);
-            resultGames.push(game);
+
+            if (this.isExcludeMerchant(sportsbookMerchants, game.merchantID, game.subMerchantID)) {
+                this.sportsbooks.push(game);
+            } else {
+                resultGames.push(game);
+            }
         }
 
         this.availableCategories = this.sortCategories(this.availableCategories);
         this.games = _orderBy(resultGames, (game: Game) => _toNumber(game.sort), 'desc');
         this.prepareCategories();
+    }
+
+    protected isExcludeMerchant(excludeMerchants: number[], id: number, subID: number): boolean {
+        return _includes(excludeMerchants, id) || _includes(excludeMerchants, subID);
     }
 
     protected prepareCategories(): void {

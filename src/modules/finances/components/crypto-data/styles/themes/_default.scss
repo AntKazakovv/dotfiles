@@ -37,43 +37,40 @@
         }
 
         &__qr {
-            @include em.get-mq-map('display', $themeDefault, 'qrDisplay');
-            @include em.get-mq-map('justify-content', $themeDefault, 'qrJustifyContent');
+            display: grid;
+            grid-template-rows: ef.get-value($themeDefault, 'qrGridRows');
+            grid-template-columns: ef.get-value($themeDefault, 'qrGridColumns');
+            @include em.get-mq-map('grid-gap', $themeDefault, 'qrGridGap');
+            @include em.get-mq-map('justify-items', $themeDefault, 'qrJustifyContent');
+
+            min-height: ef.get-value($themeDefault, 'qrBlockMinHeight');
         }
 
         &__qr-text {
             @include text.get-text-style('PrimaryText', ef.get-value($themeDefault, 'textColor'));
             @include em.get-mq-map('display', $themeDefault, 'qrTextDisplay');
-            @include em.get-mq-map('margin', $themeDefault, 'qrTextMargin');
         }
 
         &__qr-wrapper {
-            width: ef.get-value($themeDefault, 'qrWrapperWidth');
-            background: ef.get-value($themeDefault, 'qrWrapperBackground');
             position: relative;
-
-            &:before {
-                content: '';
-                display: block;
-                padding-top: 100%;
-            }
-        }
-
-        &__loader {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            @include em.get-mq-map('width', $themeDefault, 'qrWrapperWidth');
         }
 
         &__qr-image {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            @include em.get-mq-map('position', $themeDefault, 'qrImgPos');
+            top: ef.get-value($themeDefault, 'qrImgPosTop');
+            left: ef.get-value($themeDefault, 'qrImgPosLeft');
+
+            display: block;
+            width: ef.get-value($themeDefault, 'qrImgWidth');
+            height: ef.get-value($themeDefault, 'qrImgHeight');
+            max-height: ef.get-value($themeDefault, 'qrImgMaxHeight');
+            @include em.get-mq-map('max-width', $themeDefault, 'qrImgMaxWidth');
+
             object-fit: contain;
+            object-position: ef.get-value($themeDefault, 'qrImgObjectPos');
+
+            transform: ef.get-value($themeDefault, 'qrImgTransform');
         }
 
         &__warning {
@@ -106,6 +103,12 @@
             &__qr {
                 display: ef.get-value($themeDefault, 'qrModalDisplay');
                 justify-content: ef.get-value($themeDefault, 'qrModalJustifyContent');
+            }
+
+            &__qr-image {
+                position: static;
+                max-width: ef.get-value($themeDefault, 'qrImgMaxWidth', 375);
+                margin: ef.get-value($themeDefault, 'qrModalImgMargin');
             }
 
             &__warning {

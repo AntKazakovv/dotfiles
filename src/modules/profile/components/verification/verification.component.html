@@ -23,8 +23,8 @@
                  (click)="inputFile.click()">
                 <input #inputFile
                        type="file"
-                       accept="image/*"
                        hidden
+                       [accept]="acceptFormat"
                        [disabled]="currentDocGroup.pending"
                        (change)="preloadFile($event.target.files)">
                 <button wlc-button
@@ -75,7 +75,7 @@
                             </p>
                         </div>
                         <div class="{{$class}}-docs__check-wrp">
-                            <div wlc-icon class="{{$class}}-docs__check-icon" [iconName]="doc.iconName"></div>
+                            <div wlc-icon class="{{$class}}-docs__check-icon" [iconUrl]="doc.iconName"></div>
                             <span *ngIf="doc.StatusDescription"
                                   wlc-icon
                                   class="{{$class}}-docs__info info-icon"

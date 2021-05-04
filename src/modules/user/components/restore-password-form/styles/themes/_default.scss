@@ -10,7 +10,7 @@
 
         .wlc-form {
             display: flex;
-            flex-direction: column;
+            flex-direction: ef.get-value($themeDefault, 'formFlexDirection');
         }
 
         .wlc-text-block__head {
@@ -34,8 +34,12 @@
                 .wlc-input__container {
 
                     .wlc-input__input:disabled {
-                        background: ef.get-value($themeDefault, 'inputBackground');
                         color: ef.get-value($themeDefault, 'inputColor');
+                        -webkit-text-fill-color: ef.get-value($themeDefault, 'inputColor');
+
+                        background: ef.get-value($themeDefault, 'inputBackground');
+
+                        opacity: ef.get-value($themeDefault, 'inputOpacity'); // for ios
                     }
                 }
             }

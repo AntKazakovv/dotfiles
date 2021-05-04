@@ -2,6 +2,7 @@
 @use 'engine-scss/mixins/base.mixins' as em;
 @use 'engine-scss/mixins/text' as text;
 @import '../utils/vars';
+@import '../utils/mixins';
 
 .wlc-enter-promocode--theme-default:host {
 
@@ -13,102 +14,49 @@
             @include em.get-mq-map('padding', $themeDefault, 'containerPadding');
 
             display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            flex-direction: ef.get-value($themeDefault, 'containerFlexDirection');
+            align-items: ef.get-value($themeDefault, 'containerAlignItems');
+            justify-content: ef.get-value($themeDefault, 'containerJustifyContent');
 
             height: ef.get-value($themeDefault, 'containerHeight');
 
             background: ef.get-value($themeDefault, 'containerBackground');
-            box-shadow: ef.get-value($themeDefault, 'containerShadow');
-
             border-radius: ef.get-value($themeDefault, 'containerRadius');
+            box-shadow: ef.get-value($themeDefault, 'containerShadow');
         }
 
         &__title {
+            @include em.get-mq-map('margin', $themeDefault, 'titleMargin');
             @include text.get-text-style(ef.get-value($themeDefault, 'titleFontStyle'), ef.get-value($themeDefault, 'titleColor'));
-            margin: ef.get-value($themeDefault, 'titleMargin');
         }
 
         &__control {
             position: relative;
+
             width: ef.get-value($themeDefault, 'controlWidth');
             @include em.get-mq-map('max-width', $themeDefault, 'controlMaxWidth');
         }
 
         &__btn {
-            position: absolute;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            top: ef.get-value($themeDefault, 'btnBasePosition');
-            bottom: ef.get-value($themeDefault, 'btnBasePosition');
-            right: ef.get-value($themeDefault, 'btnRightPosition');
-            margin: auto;
-
-            width: ef.get-value($themeDefault, 'btnSize');
-            height: ef.get-value($themeDefault, 'btnSize');
-
-            background: ef.get-value($themeDefault, 'btnBackground');
-            border-radius: ef.get-value($themeDefault, 'btnRadius');
-
-            @include em.transition(background);
-
-            ::ng-deep {
-
-                .wlc-btn__text,
-                .wlc-btn__text * {
-                    display: inline-block;
-                    line-height: 0;
-                }
-
-                svg {
-                    width: ef.get-value($themeDefault, 'btnIconSize');
-                    height: ef.get-value($themeDefault, 'btnIconSize');
-
-                    * {
-                        fill: ef.get-value($themeDefault, 'btnIconFill');
-                    }
-                }
-            }
-
-            &:hover {
-                background: ef.get-value($themeDefault, 'btnBackgroundHover');
-            }
-
-            &.pending {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-
-                background: ef.get-value($themeDefault, 'btnBackgroundPending');
-
-                ::ng-deep {
-
-                    .wlc-btn__text {
-                        width: ef.get-value($themeDefault, 'btnIconSize');
-                        height: ef.get-value($themeDefault, 'btnIconSize');
-
-                        border: 2px solid ef.get-value($themeDefault, 'btnTextBorderColor');
-                        border-left-color: transparent;
-                        border-radius: ef.get-value($themeDefault, 'btnTextRadius');
-                        animation: spin 1s infinite linear;
-                    }
-
-                    svg {
-                        display: none;
-                    }
-                }
-            }
+            @include enterPromocodeButton();
         }
     }
 
-    .wlc-input {
+    ::ng-deep {
 
-        ::ng-deep {
+        .wlc-input.wlc-input--promocode {
+
+            .wlc-input__input input[id]:disabled {
+                color: ef.get-value($themeDefault, 'inputColor');
+
+                background: ef.get-value($themeDefault, 'inputBackground');
+                -webkit-text-fill-color: ef.get-value($themeDefault, 'inputColor');
+
+                opacity: ef.get-value($themeDefault, 'inputOpacity'); // for ios
+            }
 
             input {
-                text-transform: uppercase;
+                text-transform: ef.get-value($themeDefault, 'inputTextTransform');
 
                 &::placeholder {
                     text-transform: none;

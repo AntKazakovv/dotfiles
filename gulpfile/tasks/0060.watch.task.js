@@ -1,5 +1,6 @@
-const {watch, series, task} = require('gulp');
+const {watch, series, task, dest, src} = require('gulp');
 const liveReload = require('gulp-livereload');
+const fs = require('fs');
 
 module.exports = function watchTask() {
 
@@ -18,6 +19,7 @@ module.exports = function watchTask() {
 
     const distWatcher = (cb) => {
 
+        // eslint-disable-next-line no-console
         console.log(series('watch:inline')());
 
         const watcher = watch(
@@ -31,6 +33,23 @@ module.exports = function watchTask() {
         cb();
     };
 
+    const createSitePreloader = () => {
+        fs.access(`${this.params.paths.src}/app-styles/app.loader.scss`, (err) => {
+            if (err) {
+                fs.writeFileSync(`${this.params.paths.src}/app-styles/app.loader.scss`,
+                    `@import 'wlc-engine/engine-scss/_engine.loader.scss';\n`);
+            }
+
+            series('build:loader-css')();
+        });
+    };
+
+    const watchForPreloader = () => {
+        watch(`${this.params.paths.src}/app-styles/app.loader.scss`).on('change',  () => {
+            series('build:loader-css', 'liveReload:reload')();
+        });
+    };
+
     task('liveReload:reload', (cb) => {
         liveReload.reload();
         cb();
@@ -40,6 +59,9 @@ module.exports = function watchTask() {
         if (this.params.isEngineBundle) {
             return;
         }
+
+        createSitePreloader();
+        watchForPreloader();
 
         this.execShell(
             'LRPID=$(fuser -vn tcp 35729 | awk \'{print $1}\'); if [ $LRPID ]; then kill -9 $LRPID; fi',

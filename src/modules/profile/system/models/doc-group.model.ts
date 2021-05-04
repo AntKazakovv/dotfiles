@@ -7,12 +7,10 @@ import {
 } from 'wlc-engine/modules/profile';
 import {AbstractDocModel} from './abstract.doc.model';
 
-import {
-    every as _every,
-    kebabCase as _kebabCase,
-    merge as _merge,
-    some as _some,
-} from 'lodash-es';
+import _every from 'lodash-es/every';
+import _kebabCase from 'lodash-es/kebabCase';
+import _merge from 'lodash-es/merge';
+import _some from 'lodash-es/some';
 
 export class DocGroupModel extends AbstractDocModel implements IDocGroup {
     public readonly ID;

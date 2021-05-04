@@ -18,10 +18,8 @@ import {WinnerModel} from 'wlc-engine/modules/promo/system/models/winner.model';
 import {WinnersService} from 'wlc-engine/modules/promo/system/services';
 import * as Params from './winners-slider.params';
 
-import {
-    merge as _merge,
-    clone as _clone,
-} from 'lodash-es';
+import _merge from 'lodash-es/merge';
+import _clone from 'lodash-es/clone';
 
 @Component({
     selector: '[wlc-winners-slider]',

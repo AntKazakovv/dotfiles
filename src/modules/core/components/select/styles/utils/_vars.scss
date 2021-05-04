@@ -59,6 +59,8 @@ $themeVertical: map-merge((
     'selectGroupSize': 100%,
     'selectDropdownItemColor': ef.get('form', 'inputColor'),
     'selectBorderRadius': ef.get('radius', 'main'),
+    'tooltipTransform': translateY(-4px),
+    'tooltipMargin': 0 0 0 ef.get('size', 'smallest'),
 ), $customThemeVertical);
 
 $customBaseSettings: () !default;

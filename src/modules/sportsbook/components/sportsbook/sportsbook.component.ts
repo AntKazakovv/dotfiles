@@ -1,20 +1,33 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnDestroy, OnInit} from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    Inject,
+    OnDestroy,
+    OnInit,
+} from '@angular/core';
 import {UIRouter} from '@uirouter/core';
 import {TranslateService} from '@ngx-translate/core';
-import {AbstractComponent, IMixedParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ConfigService, HooksService, IHookHandlerDescriptor} from 'wlc-engine/modules/core';
-import {ISportsbookSettings, SportsbookService} from 'wlc-engine/modules/sportsbook/system/services/sportsbook/sportsbook.service';
+import {
+    AbstractComponent,
+    IMixedParams,
+    ConfigService,
+    HooksService,
+    IHookHandlerDescriptor,
+} from 'wlc-engine/modules/core';
+import {
+    SportsbookService,
+    BetradarService,
+    ISportsbookSettings,
+} from 'wlc-engine/modules/sportsbook';
 import {IGameWrapperCParams} from 'wlc-engine/modules/games';
-import {BetradarService} from 'wlc-engine/modules/sportsbook/system/services/betradar/betradar.service';
 import {
     hooks as gameWrapperHooks,
     IHookLaunchInfo,
 } from 'wlc-engine/modules/games/components/game-wrapper/game-wrapper.component';
 import * as Params from './sportsbook.params';
 
-import {
-    includes as _includes,
-} from 'lodash-es';
+import _includes from 'lodash-es/includes';
 
 @Component({
     selector: '[wlc-sportsbook]',
@@ -62,6 +75,7 @@ export class SportsbookComponent extends AbstractComponent implements OnInit, On
                 gameParams: {
                     merchantId: this.settings.merchantId,
                     launchCode: this.settings.launchCode,
+                    isSportsbook: true,
                 },
                 wlcElement: 'section_sportsbook_game-play',
                 theme: 'fullscreen-game-frame',

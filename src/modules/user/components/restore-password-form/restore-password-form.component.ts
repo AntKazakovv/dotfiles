@@ -12,10 +12,6 @@ import {IPushMessageParams, NotificationEvents} from 'wlc-engine/modules/core/sy
 
 import * as Params from './restore-password-form.params';
 
-import {
-    union as _union,
-} from 'lodash-es';
-
 /**
  * Restore-password form component.
  *

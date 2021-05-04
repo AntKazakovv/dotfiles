@@ -6,5 +6,9 @@ $themeDefault: map-merge((
         375: center,
         900: left,
     ),
+    'footerFirstTextAlign': (
+        375: center,
+        1200: left,
+    ),
     'textColor': ef.get('mainColors', 'baseMain'),
 ), $customThemeDefault);

@@ -29,6 +29,7 @@ import {
     LogService,
     ModalService,
     NotificationService,
+    LayoutService,
 } from './system/services';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 // -- SERVICES IMPORTS END  --;
@@ -62,7 +63,6 @@ import {LoaderComponent} from './components/loader/loader.component';
 import {LogoComponent} from './components/logo/logo.component';
 import {MessageComponent} from 'wlc-engine/modules/core/components';
 import {NotificationThreadComponent} from 'wlc-engine/modules/core/components';
-import {PlugComponent} from './components/plug/plug.component';
 import {RadioButtonsComponent} from './components/radio-buttons/radio-buttons.component';
 import {ScrollbarComponent} from './components/scrollbar/scrollbar.component';
 import {SelectComponent} from './components/select/select.component';
@@ -76,6 +76,8 @@ import {TitleComponent} from './components/title/title.component';
 import {TooltipComponent} from './components/tooltip/tooltip.component';
 import {WlcModalComponent} from './components/modal';
 import {WlcPaginationComponent} from './components/pagination/pagination.component';
+import {PlugComponent} from './components/plug/plug.component';
+import {IconListItemComponent} from './components/icon-list-item/icon-list-item.component';
 import {WrapperComponent} from 'wlc-engine/modules/core/components';
 // -- COMPONENTS IMPORTS END  --;
 
@@ -104,9 +106,7 @@ import {ICoreConfig} from './system/interfaces/core.interface';
 //  -- CONFIGS IMPORTS STARTS--;
 import * as $config from 'wlc-config/index';
 
-import {
-    get as _get,
-} from 'lodash-es';
+import _get from 'lodash-es/get';
 
 export const moduleConfig =
     GlobalHelper.mergeConfig<ICoreConfig>(coreConfig, _get($config, '$core', {}));
@@ -176,6 +176,7 @@ export const components = {
         ActionService,
         ModalService,
         ContactsService,
+        LayoutService,
         {
             provide: HAMMER_GESTURE_CONFIG,
             useClass: HammerConfig,
@@ -209,6 +210,7 @@ export const components = {
         FormWrapperComponent,
         IconComponent,
         IconListComponent,
+        IconListItemComponent,
         InfoPageComponent,
         InputComponent,
         InputMaskDirective,
@@ -237,9 +239,7 @@ export const components = {
         TruncatePipe,
         ValueLengthDirective,
         WlcModalComponent,
-        WlcModalComponent,
         WlcPaginationComponent,
-        WrapperComponent,
         WrapperComponent,
     ],
     exports: [
@@ -254,10 +254,8 @@ export const components = {
         ClickOutsideDirective,
         CopyToClipboardDirective,
         CopyrightComponent,
-        CopyrightComponent,
         CounterComponent,
         CurrencyComponent,
-        DatepickerComponent,
         DatepickerComponent,
         DisclaimerComponent,
         DragNDropDirective,
@@ -269,9 +267,9 @@ export const components = {
         FormWrapperComponent,
         IconComponent,
         IconListComponent,
+        IconListItemComponent,
         InfoPageComponent,
         InputComponent,
-        InputMaskDirective,
         InputMaskDirective,
         LanguageSelectorComponent,
         LayoutComponent,
@@ -296,7 +294,6 @@ export const components = {
         TooltipModule,
         TruncatePipe,
         ValueLengthDirective,
-        WlcModalComponent,
         WlcModalComponent,
         WlcPaginationComponent,
         WrapperComponent,

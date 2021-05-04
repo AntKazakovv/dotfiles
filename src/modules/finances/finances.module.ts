@@ -25,12 +25,9 @@ import {CryptoDataComponent} from './components/crypto-data/crypto-data.componen
 import {GlobalHelper} from 'wlc-engine/modules/core';
 import {financesConfig} from './system/config/finances.config';
 import {IFinancesConfig} from './system/interfaces/finances.interface';
-import {AddProfileInfoComponent} from 'wlc-engine/modules/finances/components/deposit-withdraw/add-profile-info';
 import * as $config from 'wlc-config/index';
 
-import {
-    get as _get,
-} from 'lodash-es';
+import _get from 'lodash-es/get';
 
 export const moduleConfig =
     GlobalHelper.mergeConfig<IFinancesConfig>(financesConfig, _get($config, '$finances', {}));
@@ -53,7 +50,6 @@ export const components = {
         ReactiveFormsModule,
     ],
     declarations: [
-        AddProfileInfoComponent,
         BetHistoryComponent,
         CryptoDataComponent,
         DepositWithdrawComponent,

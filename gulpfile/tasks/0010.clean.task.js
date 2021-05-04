@@ -13,4 +13,4 @@ module.exports = function cleanTask() {
         fs.mkdirSync(this.params.paths.dist);
         cb();
     });
-}
+};

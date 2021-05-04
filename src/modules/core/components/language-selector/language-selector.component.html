@@ -5,7 +5,7 @@
     <div *ngIf="!$params.currentLang?.hideFlag" class="{{$class}}__current-flag">
         <img src="{{getFlagUrl(currentLanguage.code)}}"
              alt="{{currentLanguage.label}}"
-             (error)="onImageError(currentLanguage.code)">
+             (error)="imageError(currentLanguage.code)">
     </div>
     <div *ngIf="!$params.currentLang?.hideLang" class="{{$class}}__current-lang">
         {{$params.themeMod !== 'long' ? this.currentLanguage.code : this.currentLanguage.label | translate}}
@@ -32,7 +32,7 @@
                 <span *ngIf="!$params.dropdown?.hideFlag" class="{{$class}}__link-flag">
                     <img src="{{getFlagUrl(lang.code)}}"
                          alt="{{lang.label}}"
-                         (error)="onImageError(lang.code)">
+                         (error)="imageError(lang.code)">
                 </span>
 
                 <span *ngIf="!$params.dropdown?.hideLang" class="{{$class}}__link-lang">{{lang.label}}</span>

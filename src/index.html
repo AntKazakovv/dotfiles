@@ -23,7 +23,7 @@
     {% else %}
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
     {% endif %}
-    <link rel="stylesheet" href="/static/css/loader.css">
+    <link rel="stylesheet" href="/static/css/app.loader.css">
 
     <style>
         @font-face {
@@ -49,8 +49,9 @@
 <body>
 <div ui-view class="wlc-app">
     <div class="wlc-app__preload">
-        <div class="wlc-app__preload-img">
-            <img src="/static/images/logo.svg">
+        <div class="wlc-app__preload-content">
+            <div class="wlc-app__preload-img"></div>
+            <div class="wlc-app__preload-loader"></div>
         </div>
     </div>
 </div>

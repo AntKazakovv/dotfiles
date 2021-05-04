@@ -25,12 +25,11 @@ import {UserInfo} from 'wlc-engine/modules/user/system/models/info.model';
 import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
 import {LimitationService} from 'wlc-engine/modules/user/system/services';
 
-import {
-    each as _each,
-    assign as _assign,
-    keys as _keys,
-    set as _set,
-} from 'lodash-es';
+import _assign from 'lodash-es/assign';
+import _each from 'lodash-es/each';
+import _keys from 'lodash-es/keys';
+import _set from 'lodash-es/set';
+
 
 @Injectable({
     providedIn: 'root',

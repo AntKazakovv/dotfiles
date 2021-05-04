@@ -111,7 +111,7 @@
             *ngFor="let category of categories"
             [attr.data-wlc-element]="'button_filter-' + category.name + '_' + category.id">
             <button class="{{$class}}__list-btn"
-                    [class.active]="isActive('categories', category.menuId)"
+                    [class.active]="isActive('categories', category.slug)"
                     (click)="chooseCategory(category)">
                     <span class="{{$class}}__list-text">
                         {{category.title[currentLanguage] || category.title['en']}}

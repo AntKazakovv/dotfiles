@@ -15,11 +15,8 @@ import {UserService} from 'wlc-engine/modules/user/system/services';
 
 import * as Params from './phone-field.params';
 
-import {
-    clone as _clone,
-    find as _find,
-    assign as _assign,
-} from 'lodash-es';
+import _find from 'lodash-es/find';
+import _clone from 'lodash-es/clone';
 
 @Component({
     selector: '[wlc-phone-field]',
@@ -45,6 +42,8 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
 
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
+        this.provideParams();
+
         this.user.userProfile$.subscribe((profile => {
             if (profile) {
 
@@ -96,5 +95,10 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
         this.$params.phoneNumber = _clone(this.$params.phoneNumber);
 
         this.cdr.detectChanges();
+    }
+
+    protected provideParams(): void {
+        this.$params.phoneCode['theme'] = this.$params.theme;
+        this.$params.phoneNumber['theme'] = this.$params.theme;
     }
 }

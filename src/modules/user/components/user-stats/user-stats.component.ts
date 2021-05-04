@@ -16,9 +16,7 @@ import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 import {UserInfo} from 'wlc-engine/modules/user/system/models/info.model';
 import * as Params from './user-stats.params';
 
-import {
-    isUndefined as _isUndefined,
-} from 'lodash-es';
+import _isUndefined from 'lodash-es/isUndefined';
 
 export interface IUserStatsItem {
     name: string;
@@ -51,10 +49,9 @@ export class UserStatsComponent extends AbstractComponent implements OnInit, OnD
         protected modalService: ModalService,
         private translate: TranslateService,
         private stateService: StateService,
-        protected ConfigService: ConfigService,
     ) {
         super(
-            <IMixedParams<Params.IUserStatsCParams>>{injectParams: injectParams, defaultParams: Params.defaultParams}, ConfigService);
+            <IMixedParams<Params.IUserStatsCParams>>{injectParams: injectParams, defaultParams: Params.defaultParams}, configService);
     }
 
     ngOnInit(): void {

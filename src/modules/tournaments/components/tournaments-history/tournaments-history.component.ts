@@ -27,10 +27,8 @@ import {Tournament, TournamentsService} from 'wlc-engine/modules/tournaments';
 
 import * as Params from './tournaments-history.params';
 
-import {
-    sortBy as _sortBy,
-    filter as _filter,
-} from 'lodash-es';
+import _filter from 'lodash-es/filter';
+import _sortBy from 'lodash-es/sortBy';
 
 @Component({
     selector: '[wlc-tournaments-history]',

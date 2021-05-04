@@ -18,6 +18,8 @@ export interface IInfoPageCParams extends IComponentParams<ComponentTheme, Compo
 
 export const defaultParams: IInfoPageCParams = {
     class: 'wlc-info-page',
+    moduleName: 'core',
+    componentName: 'wlc-info-page',
     config: {
         menu: {
             class: 'wlc-info-page__menu',

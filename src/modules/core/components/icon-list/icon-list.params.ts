@@ -30,6 +30,7 @@ export interface IIconListCParams extends IComponentParams<ComponentTheme, Compo
     items?: IIconParams[];
     /** Placeholder for error images */
     imgPlaceholder?: string;
+    watchForScroll?: boolean;
     /** Common component parametrs */
     common?: {
         /**
@@ -51,6 +52,8 @@ export interface IIconListCParams extends IComponentParams<ComponentTheme, Compo
  */
 export const defaultParams: IIconListCParams = {
     class: 'wlc-icon-list',
+    componentName: 'wlc-icon-list',
+    moduleName: 'core',
     theme: 'merchants',
     imgPlaceholder: '/static/images/placeholder.png',
 };

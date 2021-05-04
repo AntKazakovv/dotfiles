@@ -6,32 +6,33 @@ import {
     ILayoutStateConfig,
     ILayoutModifyItem,
     IPanelsConfig,
-} from 'wlc-engine/modules/core/system/interfaces/layouts.interface';
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+    ConfigService,
+    IDisplayConfig,
+    IIndexing,
+    GlobalHelper,
+    IGlobalConfig,
+} from 'wlc-engine/modules/core';
 import {SectionModel, ISectionData} from 'wlc-engine/modules/core/system/models/section.model';
-import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
-import {GlobalHelper, IGlobalConfig} from 'wlc-engine/modules/core';
 
-import {
-    cloneDeep as _cloneDeep,
-    each as _each,
-    extend as _extend,
-    get as _get,
-    isArray as _isArray,
-    isString as _isString,
-    isNumber as _isNumber,
-    mergeWith as _mergeWith,
-    reduce as _reduce,
-    union as _union,
-    map as _map,
-    filter as _filter,
-    findIndex as _findIndex,
-    includes as _includes,
-    toSafeInteger as _toSafeInteger,
-    min as _min,
-    max as _max,
-    isUndefined as _isUndefined,
-} from 'lodash-es';
+import _cloneDeep from 'lodash-es/cloneDeep';
+import _each from 'lodash-es/each';
+import _extend from 'lodash-es/extend';
+import _isString from 'lodash-es/isString';
+import _isNumber from 'lodash-es/isNumber';
+import _get from 'lodash-es/get';
+import _includes from 'lodash-es/includes';
+import _mergeWith from 'lodash-es/mergeWith';
+import _reduce from 'lodash-es/reduce';
+import _isArray from 'lodash-es/isArray';
+import _union from 'lodash-es/union';
+import _map from 'lodash-es/map';
+import _filter from 'lodash-es/filter';
+import _findIndex from 'lodash-es/findIndex';
+import _toSafeInteger from 'lodash-es/toSafeInteger';
+import _min from 'lodash-es/min';
+import _max from 'lodash-es/max';
+import _isUndefined from 'lodash-es/isUndefined';
+import _isObject from 'lodash-es/isObject';
 
 export type LayoutsType = 'pages' | 'panels';
 
@@ -148,11 +149,15 @@ export class LayoutService {
 
         const modules = _reduce(res.sections, (sRes: string[], section: ILayoutSectionConfig) =>
             _union(sRes, section.components?.reduce((cRes: string[], component: (ILayoutComponent | string)) => {
-                const splitComponent = (_isString(component) ? component : component.name).split('.');
-                if (splitComponent.length >= 2) {
-                    return _union(cRes, [splitComponent[0]]);
+                try {
+                    const splitComponent = (_isString(component) ? component : component.name).split('.');
+                    if (splitComponent.length >= 2) {
+                        return _union(cRes, [splitComponent[0]]);
+                    }
+                    return cRes;
+                } catch (error) {
+                    console.error('Wrong layout config', error);
                 }
-                return cRes;
             }, [])), []);
         await this.importModules(modules);
 
@@ -228,7 +233,13 @@ export class LayoutService {
             ),
         );
     }
-
+    /**
+     * Return media query string
+     *
+     * @param display media query params
+     *
+     * @returns string with media query
+     */
     public createMediaQuery(display: {before?: number, after?: number}): string {
         const mediaQuery: string[] = [];
         const queries = [display.after, display.before];
@@ -246,9 +257,44 @@ export class LayoutService {
         return mediaQuery.join(' and ');
     }
 
+    /**
+     * Return list of filtred element by display params
+     *
+     * @param elementList - List of element with display params
+     *
+     * @returns filtered elements
+     */
+    public filterDisplayElements<T>(elementList: ({display?: IDisplayConfig} & T)[]): T[] {
+        return _filter(elementList, (element) => {
+            let result = true;
+            if (_isObject(element)) {
+                if (!_isUndefined(element.display?.mobile)
+                    && element.display?.mobile !== this.configService.get<boolean>('appConfig.mobile')
+                ) {
+                    result = false;
+                }
+
+                if (result && (element.display?.after || element.display?.before)) {
+                    result = result && window.matchMedia(this.createMediaQuery(element.display)).matches;
+                }
+
+                if (result && !_isUndefined(element.display?.auth)) {
+                    result = result
+                        && element.display.auth === this.configService.get<boolean>('$user.isAuthenticated');
+                }
+            }
+            return result;
+        });
+    }
+
+    /**
+     * Generate full config for autotests. Not use for general reason.
+     * @param full - full or slim mode generation
+     * @returns project config
+     */
     public async generateFullConfigWithLayouts(full: boolean = false): Promise<Partial<IGlobalConfig>> {
         await this.configService.ready;
-        await this.importModules(['core', 'menu', 'games', 'static', 'promo', 'user', 'finances', 'bonuses', 'store', 'profile', 'sportsbook']);
+        await this.importModules(['core', 'menu', 'games', 'static', 'promo', 'user', 'finances', 'bonuses', 'store', 'profile', 'sportsbook', 'livechat']);
         const config = _cloneDeep(this.configService.globalConfig);
 
         if (full) {
@@ -478,6 +524,14 @@ export class LayoutService {
                 return import('wlc-engine/modules/sportsbook/sportsbook.module').then(m => {
                     this.afterModuleLoad('sportsbook', m);
                     return m.SportsbookModule;
+                });
+            case 'livechat':
+                if (this.loadedModules.livechat) {
+                    return this.loadedModules.livechat;
+                }
+                return import('wlc-engine/modules/livechat/livechat.module').then(m => {
+                    this.afterModuleLoad('livechat', m);
+                    return m.LivechatModule;
                 });
             case 'custom':
                 if (this.loadedModules.custom) {

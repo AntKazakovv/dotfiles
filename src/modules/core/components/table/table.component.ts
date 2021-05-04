@@ -26,13 +26,11 @@ import {HeightToggleAnimation} from 'wlc-engine/modules/core/system/animations/h
 
 import * as Params from './table.params';
 
-import {
-    each as _each,
-    filter as _filter,
-    isObject as _isObject,
-    uniq as _uniq,
-    sortBy as _sortBy,
-} from 'lodash-es';
+import _each from 'lodash-es/each';
+import _filter from 'lodash-es/filter';
+import _isObject from 'lodash-es/isObject';
+import _uniq from 'lodash-es/uniq';
+import _sortBy from 'lodash-es/sortBy';
 
 @Component({
     selector: '[wlc-table]',

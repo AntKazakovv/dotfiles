@@ -15,13 +15,11 @@ import {GamesCatalogService} from 'wlc-engine/modules/games';
 
 import * as Params from 'wlc-engine/modules/core/components/select/select.params';
 
-import {
-    filter as _filter,
-    map as _map,
-    range as _range,
-    sortBy as _sortBy,
-    uniqBy as _uniqBy,
-} from 'lodash-es';
+import _filter from 'lodash-es/filter';
+import _map from 'lodash-es/map';
+import _range from 'lodash-es/range';
+import _sortBy from 'lodash-es/sortBy';
+import _uniqBy from 'lodash-es/uniqBy';
 
 export interface IPhoneLimits {
     [key: string]: {

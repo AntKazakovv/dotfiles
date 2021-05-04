@@ -52,11 +52,19 @@
             left: 0;
 
             width: 100%;
+            height: 100%;
+
+            border-radius: inherit;
+
+            overflow: hidden;
 
             img {
                 display: block;
                 width: 100%;
                 height: 100%;
+
+                object-fit: cover;
+                object-position: center;
             }
         }
 
@@ -87,7 +95,6 @@
                 height: 100%;
 
                 background: ef.get-value($themeDefault, 'thumbHoverBg');
-                border-radius: ef.get-value($themeDefault, 'thumbBorderRadius');
                 transform: translateX(-100%) skewX(35deg);
 
                 content: '';
@@ -148,6 +155,7 @@
             background: ef.get-value($themeDefault, 'favoriteBackBg');
             border-radius: ef.get-value($themeDefault, 'favoriteBackRadius');
             box-shadow: ef.get-value($themeDefault, 'favoriteBoxShadow');
+            cursor: pointer;
             @include bm.transition;
 
             &.wlc-icon::ng-deep {
@@ -168,16 +176,17 @@
                     fill: ef.get-value($themeDefault, 'favoriteBg');
                     @include bm.transition;
                 }
+            }
 
-                @media (hover: hover) {
+            @media (hover) {
 
-                    &:hover {
-                        cursor: pointer;
+                &:not(.active):hover {
+
+                    &.wlc-icon::ng-deep {
 
                         svg,
                         path {
                             fill: ef.get-value($themeDefault, 'favoriteHoverBg');
-                            @include bm.transition;
                         }
                     }
                 }
@@ -188,6 +197,8 @@
 
                 svg,
                 path {
+                    transform: rotateX(180deg);
+                    transform-origin: center;
                     fill: ef.get-value($themeDefault, 'favoriteActiveBg');
                 }
             }
@@ -272,7 +283,6 @@
                         overflow: initial;
 
                         opacity: 1;
-                        @include bm.transition;
                     }
 
                     &__name,
@@ -282,7 +292,6 @@
 
                     &__desc {
                         background: ef.get-value($themeDefault, 'thumbHoverBg');
-                        @include bm.transition(background);
                     }
                 }
             }

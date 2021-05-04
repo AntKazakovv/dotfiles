@@ -5,9 +5,8 @@ import {
     Input,
 } from '@angular/core';
 import * as clampLib from 'text-overflow-clamp';
-import {
-    ceil as _ceil,
-} from 'lodash-es';
+
+import _ceil from 'lodash-es/ceil';
 
 @Directive({
     selector: '[wlc-clamp]',

@@ -37,11 +37,11 @@ import {
 } from 'wlc-engine/modules/finances/system/models/payment-system.model';
 import {FinancesService} from 'wlc-engine/modules/finances/system/services';
 import {IPaymentListCParams} from 'wlc-engine/modules/finances/components/payment-list/payment-list.params';
-import {FormElements} from 'wlc-engine/modules/finances/system/config';
+import {FormElements} from 'wlc-engine/modules/core/system/config/form-elements';
 import {
     AddProfileInfoComponent,
     IAddProfileInfoCParams,
-} from './add-profile-info';
+} from 'wlc-engine/modules/user/components/add-profile-info';
 import {UserService} from 'wlc-engine/modules/user/system/services';
 import {IModalConfig} from 'wlc-engine/modules/core/components/modal';
 import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
@@ -53,16 +53,14 @@ import {IFormComponent} from 'wlc-engine/modules/core/components/form-wrapper/fo
 
 import * as Params from './deposit-withdraw.params';
 
-import {
-    camelCase as _camelCase,
-    cloneDeep as _cloneDeep,
-    forEach as _forEach,
-    has as _has,
-    isEmpty as _isEmpty,
-    isEqual as _isEqual,
-    isObject as _isObject,
-    transform as _transform,
-} from 'lodash-es';
+import _camelCase from 'lodash-es/camelCase';
+import _cloneDeep from 'lodash-es/cloneDeep';
+import _forEach from 'lodash-es/forEach';
+import _has from 'lodash-es/has';
+import _isEmpty from 'lodash-es/isEmpty';
+import _isEqual from 'lodash-es/isEqual';
+import _isObject from 'lodash-es/isObject';
+import _transform from 'lodash-es/transform';
 
 @Component({
     selector: '[wlc-deposit-withdraw]',

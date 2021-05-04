@@ -16,12 +16,10 @@ import * as Params from './faq.params';
 
 export {IFaqCParams} from './faq.params';
 
-import {
-    map as _map,
-    get as _get,
-    forEach as _forEach,
-    isUndefined as _isUndefined,
-} from 'lodash-es';
+import _map from 'lodash-es/map';
+import _forEach from 'lodash-es/forEach';
+import _isUndefined from 'lodash-es/isUndefined';
+import _get from 'lodash-es/get';
 
 @Component({
     selector: '[wlc-faq]',

@@ -4,11 +4,9 @@ import {filter} from 'rxjs/internal/operators/filter';
 import {map} from 'rxjs/internal/operators/map';
 import {takeUntil} from 'rxjs/internal/operators';
 
-import {
-    get as _get,
-    assign as _assign,
-    isArray as _isArray,
-} from 'lodash-es';
+import _get from 'lodash-es/get';
+import _assign from 'lodash-es/assign';
+import _isArray from 'lodash-es/isArray';
 
 export type EventType = 'event' | 'error' | 'system';
 

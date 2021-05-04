@@ -9,12 +9,17 @@ import {
     OnInit,
     Output,
 } from '@angular/core';
+
+import {takeUntil} from 'rxjs/operators';
+
 import {
     AbstractComponent,
     ConfigService,
     EventService,
     IMixedParams,
+    IEvent,
 } from 'wlc-engine/modules/core';
+
 import {
     DocGroupModel,
     DocModel,
@@ -22,6 +27,7 @@ import {
     LoaderStatus,
     VerificationService,
 } from 'wlc-engine/modules/profile';
+
 import * as Params from './verification-group.params';
 
 @Component({
@@ -35,6 +41,7 @@ export class VerificationGroupComponent extends AbstractComponent implements OnI
     @Input('doc-group') public currentDocGroup: DocGroupModel;
     @Output() protected needUpdate = new EventEmitter<void>();
     public $params: Params.IVerificationGroupCParams;
+    public acceptFormat: string;
 
     constructor(
         protected configService: ConfigService,
@@ -53,13 +60,15 @@ export class VerificationGroupComponent extends AbstractComponent implements OnI
             ...this.verificationService.params,
         } as Params.IVerificationGroupCParams);
 
-        this.eventService.subscribe({
+        this.eventService.filter([{
             name: 'DROP_FILES',
-        }, (data: IDroppedFiles) => {
-            if (data.label === this.currentDocGroup.ID) {
-                this.uploadFile(data.files, data.label);
-            }
-        });
+        }])
+            .pipe(takeUntil(this.$destroy))
+            .subscribe(({data}: IEvent<IDroppedFiles>) => {
+                if (data.label === this.currentDocGroup.ID) {
+                    this.uploadFile(data.files, data.label);
+                }
+            });
     }
 
     public ngOnChanges() {
@@ -70,6 +79,8 @@ export class VerificationGroupComponent extends AbstractComponent implements OnI
         if (this.currentDocGroup.pending || !files.length) {
             return;
         }
+
+        if (!this.verificationService.checkFile(files[0])) return;
 
         if (this.verificationService.checkUploadLimit(this.currentDocGroup.docs.length)) return;
 

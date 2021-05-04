@@ -4,6 +4,8 @@ import {IProfileConfig} from './profile.interface';
 import {ITournamentsConfig} from './tournaments.interface';
 import {IAppConfig} from './app.interface';
 import {INotificationsConfig} from './notifications.interface';
+import {ILivechatConfig} from 'wlc-engine/modules/livechat';
+import {IModalList} from 'wlc-engine/modules/core';
 
 export interface IBaseConfig {
     app?: IAppConfig;
@@ -11,13 +13,19 @@ export interface IBaseConfig {
         name: string;
         url: string;
     },
+    affiliate?: {
+        affiliateUrl: string;
+        siteUrl: string;
+    },
     profile?: IProfileConfig,
     tournaments?: ITournamentsConfig,
     games?: IGamesConfig,
     device?: IDeviceConfig,
     notifications?: INotificationsConfig,
+    modals?: IModalList,
     contacts?: {
         phone?: string;
         email?: string;
     };
+    livechat?: ILivechatConfig;
 }

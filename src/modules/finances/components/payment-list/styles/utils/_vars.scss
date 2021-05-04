@@ -20,7 +20,7 @@ $themeDefault: map-merge((
     'itemHeight': 100%,
     'itemBorder': 2px solid transparent,
     'itemBg': ef.get('mainColors', 'bg'),
-    'itemBorderRadius': ef.get('radius', 'big'),
+    'itemBorderRadius': ef.get('radius', 'biger'),
     'itemPadding': 6px,
     'itemTransition': all ef.get('time', 'main'),
     'itemSvgColor': ef.get('mainColors', 'baseMain'),
@@ -38,27 +38,30 @@ $themeDefault: map-merge((
     'imageHeight': 75px,
 
     // Button Modal
-    'btnBorder': 2px solid ef.get('mainColors', 'main'),
-    'btnBorderRadius': 50px,
-    'btnBg': transparent,
-    'btnColor': ef.get('mainColors', 'baseMain'),
+    'btnBorder': none,
+    'btnBorderRadius': ef.get('radius', 'biger'),
+    'btnBg': ef.get('mainColors', 'bg'),
+    'btnColor': ef.get('mainColors', 'main'),
     'btnPadding': 0,
-    'btnJustifyContent': space-between,
+    'btnJustifyContent': center,
     'btnWidth': 100%,
-    'btnMaxWidth': 288px,
-    'btnHeight': 65px,
+    'btnMaxWidth': 330px,
+    'btnHeight': 100px,
     'btnMargin': 0,
 
     'btnArrowColor': ef.get('mainColors', 'main'),
-    'btnArrowMargin': 0 15px 0 0,
+    'btnArrowMargin': 0 4px 0 0,
+    'btnArrowTransform': rotate(90deg),
 
-    'btnTextPadding': 15px,
-    'btnTextFontSize': inherit,
+    'btnWrapPadding': 15px,
 
-    'btnImageBg': ef.get('mainColors', 'bg300'),
+    'btnTextFontSize': ef.get('font', 'ButtonText'),
+
+    'btnImageBg': transparent,
+    'btnImageBorderRight': 1px dashed ef.get('mainColors', 'baseOpacity'),
     'btnImagePadding': 15px,
-    'btnImageWidth': 100px,
-    'btnImageHeight': 65px,
+    'btnImageWidth': 145px,
+    'btnImageHeight': 100px,
     'btnImageSvgColor': ef.get('mainColors', 'baseMain'),
 
     // Title
@@ -69,7 +72,7 @@ $themeDefault: map-merge((
 
     // Table
     'tableWidth': 100%,
-    'tableMaxWidth': 288px,
+    'tableMaxWidth': 330px,
     'tableMargin': 28px 0 0,
     'tableColor': rgba($color: ef.get('mainColors', 'baseMain'), $alpha: 0.5),
     'tableTrBorderTop': 2px solid ef.get('color', 'divider'),

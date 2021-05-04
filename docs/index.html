@@ -2,12 +2,70 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WLC Engine documentation</title>
+    <style type="text/css">
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .links-list {
+            margin: 0 auto;
+            padding: 0;
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: calc(100vh - 20px);
+        }
+
+        @media screen and (min-height: 600px) {
+            .links-list {
+                height: 580px;
+            }
+        }
+
+        .links-list li {
+            margin: 5px;
+            width: 250px;
+            height: 250px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        @media screen and (max-width: 500px) {
+            .links-list {
+                flex-direction: column;
+            }
+        }
+
+        .links-list li a {
+            font-size: 28px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            width: 100%;
+            border: 2px solid #ccc;
+            border-radius: 20px;
+            color: #000;
+            text-decoration: none;
+        }
+
+        @media (hover: hover) {
+            .links-list li a:hover {
+                background: linear-gradient(145deg, rgba(255,255,255,1) 0%, rgba(0,0,0,0.5) 90%);
+            }
+        }
+    </style>
 </head>
 <body>
-<ul>
-    <li><a href="compodoc/index.html">Compodoc</a></li>
-    <li><a href="sassdoc/index.html">Sassdoc</a></li>
+<ul class="links-list">
+    <li><a href="compodoc/">Compodoc</a></li>
+    <li><a href="sassdoc/">Sassdoc</a></li>
 </ul>
 </body>
 </html>

@@ -17,9 +17,7 @@ import {Game} from 'wlc-engine/modules/games/system/models/game.model';
 import {IPushMessageParams, NotificationEvents} from 'wlc-engine/modules/core/system/services/notification';
 import * as Params from './random-game.params';
 
-import {
-    filter as _filter,
-} from 'lodash-es';
+import _filter from 'lodash-es/filter';
 
 @Component({
     selector: '[wlc-random-game]',

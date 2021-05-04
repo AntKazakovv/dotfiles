@@ -6,6 +6,8 @@ import {
     ChangeDetectorRef,
     ElementRef,
     OnChanges,
+    Output,
+    EventEmitter,
 } from '@angular/core';
 import {
     DomSanitizer,
@@ -21,9 +23,7 @@ import {AbstractComponent} from 'wlc-engine/modules/core/system/classes';
 
 import * as Params from './icon.params';
 
-import {
-    keys as _keys,
-} from 'lodash-es';
+import _keys from 'lodash-es/keys';
 
 @Component({
     selector: '[wlc-icon]',
@@ -41,6 +41,8 @@ export class IconComponent extends AbstractComponent implements OnInit, OnChange
     @Input() protected iconUrl: string;
     @Input() protected iconName: string;
     @Input() protected iconPath: string;
+
+    @Output() imageError = new EventEmitter<void>();
 
     constructor(
         protected sanitizer: DomSanitizer,
@@ -62,8 +64,14 @@ export class IconComponent extends AbstractComponent implements OnInit, OnChange
 
     public ngOnChanges(): void {
         if (this.ready) {
+            this.imageHtml = null;
+            this.imagePath = null;
             this.getIconHtml();
         }
+    }
+
+    public imageErrorHolder(): void {
+        this.imageError.emit();
     }
 
     protected async getIconHtml() {
@@ -78,6 +86,7 @@ export class IconComponent extends AbstractComponent implements OnInit, OnChange
 
             if (!file?.htmlString && !file?.url && this.fallback) {
                 file = await this.fileService.getFile(this.fallback);
+                this.imageErrorHolder();
             }
         } else {
             file = {

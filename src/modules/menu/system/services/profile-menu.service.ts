@@ -32,21 +32,16 @@ export interface IMenuOptions {
     }
 }
 
-import {
-    get as _get,
-    forEach as _forEach,
-    cloneDeep as _cloneDeep,
-    filter as _filter,
-    isObject as _isObject,
-    isString as _isString,
-    startsWith as _startsWith,
-    findKey as _findKey,
-    reduce as _reduce,
-    includes as _includes,
-    find as _find,
-    map as _map,
-    has as _has,
-} from 'lodash-es';
+import _cloneDeep from 'lodash-es/cloneDeep';
+import _isString from 'lodash-es/isString';
+import _reduce from 'lodash-es/reduce';
+import _get from 'lodash-es/get';
+import _includes from 'lodash-es/includes';
+import _map from 'lodash-es/map';
+import _has from 'lodash-es/has';
+import _filter from 'lodash-es/filter';
+import _find from 'lodash-es/find';
+import _forEach from 'lodash-es/forEach';
 
 @Injectable({
     providedIn: 'root',
@@ -145,7 +140,9 @@ export class ProfileMenuService {
      * Init config of menu
      */
     protected initConfig(): void {
-        this.profileMenuConfig = this.configService.get<MenuParams.MenuConfigItem[]>('$menu.profileMenu.items');
+        this.profileMenuConfig = this.configService.get<string>('$base.profile.type') === 'first'
+            ? this.configService.get<MenuParams.MenuConfigItem[]>('$menu.profileFirstMenu.items')
+            : this.configService.get<MenuParams.MenuConfigItem[]>('$menu.profileMenu.items');
         this.filterConfig();
         GlobalHelper.deepFreeze(this.profileMenuConfig);
     }

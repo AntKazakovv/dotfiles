@@ -1,8 +1,6 @@
 import {PaymentSystem} from '../models/payment-system.model';
 
-import {
-    isString as _isString,
-} from 'lodash-es';
+import _isString from 'lodash-es/isString';
 
 
 type FilterType = 'deposit' | 'Deposits' | 'withdraw' | 'Withdraws' | 'all' | 'All';

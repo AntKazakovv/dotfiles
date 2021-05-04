@@ -20,6 +20,7 @@ import {
     LogService,
     GlobalHelper,
     ModalService,
+    IEvent,
 } from 'wlc-engine/modules/core';
 import {
     DISMISS_ANIMATION_DURATION,
@@ -32,22 +33,18 @@ import {
     IPushComponentParams,
     IPushMessageParams,
 } from 'wlc-engine/modules/core/system/services/notification/notification.interface';
-import {IEvent} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {INotificationsConfig} from 'wlc-engine/modules/core/system/interfaces/base-config/notifications.interface';
 
 import * as Params from 'wlc-engine/modules/core/system/services/notification/notification.params';
 
-import {
-    findIndex as _findIndex,
-    assign as _assign,
-    reduce as _reduce,
-    concat as _concat,
-    last as _last,
-    keys as _keys,
-    find as _find,
-    each as _each,
-    map as _map,
-} from 'lodash-es';
+import _concat from 'lodash-es/concat';
+import _find from 'lodash-es/find';
+import _findIndex from 'lodash-es/findIndex';
+import _assign from 'lodash-es/assign';
+import _reduce from 'lodash-es/reduce';
+import _last from 'lodash-es/last';
+import _each from 'lodash-es/each';
+import _map from 'lodash-es/map';
 
 export type TAnimationState = 'shift' | 'dismiss';
 

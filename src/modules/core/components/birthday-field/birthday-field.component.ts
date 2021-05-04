@@ -32,6 +32,7 @@ export class BirthdayFieldComponent extends AbstractComponent implements OnInit 
 
     ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
+        this.provideParams();
 
         this.$params.birthMonth.control.valueChanges.subscribe((value) => {
             if (value) {
@@ -39,5 +40,11 @@ export class BirthdayFieldComponent extends AbstractComponent implements OnInit 
                 this.cdr.detectChanges();
             }
         });
+    }
+
+    protected provideParams(): void {
+        this.$params.birthDay['theme'] = this.$params.theme;
+        this.$params.birthMonth['theme'] = this.$params.theme;
+        this.$params.birthYear['theme'] = this.$params.theme;
     }
 }

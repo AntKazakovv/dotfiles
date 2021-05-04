@@ -8,13 +8,18 @@ import {
     ViewChild,
 } from '@angular/core';
 import {FormControl} from '@angular/forms';
+
+import {takeUntil} from 'rxjs/operators';
+
 import {
     AbstractComponent,
     ConfigService,
     EventService,
     IMixedParams,
     ISelectCParams,
+    IEvent,
 } from 'wlc-engine/modules/core';
+
 import {
     IDoc,
     IDocTypeResponse,
@@ -25,13 +30,12 @@ import {
     LoaderStatus,
     ISelectOptions,
 } from 'wlc-engine/modules/profile';
+
 import * as Params from './verification.params';
 
-import {
-    map as _map,
-    filter as _filter,
-    find as _find,
-} from 'lodash-es';
+import _map from 'lodash-es/map';
+import _filter from 'lodash-es/filter';
+import _find from 'lodash-es/find';
 
 @Component({
     selector: '[wlc-verification]',
@@ -56,6 +60,7 @@ export class VerificationComponent extends AbstractComponent implements OnInit {
     };
 
     private docTypes: IDocTypeResponse[];
+    public acceptFormat: string;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IVerificationCParams,
@@ -95,13 +100,17 @@ export class VerificationComponent extends AbstractComponent implements OnInit {
             return this.cdr.markForCheck();
         }
 
-        this.eventService.subscribe({
+        this.eventService.filter([{
             name: 'DROP_FILES',
-        }, (data: IDroppedFiles) => {
-            if (data.label === this.currentDocGroup.ID) {
-                this.preloadFile(data.files);
-            }
-        });
+        }])
+            .pipe(takeUntil(this.$destroy))
+            .subscribe(({data}: IEvent<IDroppedFiles>) => {
+                if (data.label === this.currentDocGroup.ID) {
+                    this.preloadFile(data.files);
+                }
+            });
+
+        this.acceptFormat = this.verificationService.acceptFormat();
 
         this.selectParams.items = this.selectItems;
         this.selectParams.control.setValue(this.docTypes[0].ID);
@@ -130,7 +139,7 @@ export class VerificationComponent extends AbstractComponent implements OnInit {
     }
 
     public async preloadFile(files: FileList): Promise<void> {
-        if (files[0] && this.verificationService.checkFormat(files[0])) {
+        if (files[0] && this.verificationService.checkFile(files[0])) {
             this.currentDocGroup.preview = {
                 base64: await this.verificationService.getPreview(files[0]),
                 file: files[0],

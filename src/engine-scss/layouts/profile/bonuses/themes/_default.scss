@@ -1,21 +1,24 @@
 @use 'engine-scss/functions' as ef;
 @use 'engine-scss/mixins/text' as lib;
 @use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/base.mixins' as bm;
 
 @import '../utils/vars';
 
 .app-profile-loyalty-bonuses-main-state {
 
-    .wlc-sections__profile-content {
+    .wlc-sections__profile-content--theme-default {
 
         > .container {
             position: relative;
+
             display: grid;
             grid: {
                 template-columns: minmax(0, max-content) 1fr;
                 template-areas: 'title counter'
                     'bonuses-list bonuses-list';
                 template-rows: auto;
+
                 gap: ef.get-value($bonusesThemeDefault, 'sectionGap');
             }
         }
@@ -31,6 +34,35 @@
 
         .wlc-bonuses-list {
             grid-area: bonuses-list;
+        }
+    }
+
+    .wlc-sections__profile-content--theme-first {
+
+        .wlc-profile-content {
+            display: grid;
+            @include bm.get-mq-map('grid-template-columns', $bonusesThemeFirst, 'gridColumns');
+            @include bm.get-mq-map('grid-template-rows', $bonusesThemeFirst, 'gridRows');
+            @include bm.get-mq-map('grid-template-areas', $bonusesThemeFirst, 'gridArea');
+            @include bm.get-mq-map('gap', $bonusesThemeFirst, 'gridGap');
+
+            .wlc-title {
+                grid-area: title;
+                align-self: center;
+            }
+
+            .wlc-enter-promocode {
+                grid-area: promocode;
+                justify-self: end;
+            }
+
+            .wlc-profile-menu {
+                grid-area: menu;
+            }
+
+            .wlc-bonuses-list {
+                grid-area: bonuses-list;
+            }
         }
     }
 }

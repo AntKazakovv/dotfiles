@@ -5,6 +5,7 @@ $themeDefault: map-merge((
     'formMaxWidth': 285px,
     'formMargin': auto,
     'formHeight': 100%,
+    'formFlexDirection': column,
 
     'restoreLineHeight': 0,
     'restoreMargin':  0 0 ef.get('size', 'biger'),
@@ -12,9 +13,22 @@ $themeDefault: map-merge((
     'fieldMargin': 0 0 ef.get('size', 'smaller'),
     'inputBackground': ef.get('fieldColors', 'inputBg'),
     'inputColor': ef.get('fieldColors', 'textColor'),
+    'inputOpacity': 1,
 
     'btnMargin': (
         320: auto auto ef.get('size', 'smaller'),
         900: auto auto ef.get('size', 'less'),
     ),
 ), $customThemeDefault);
+
+$customThemeDefaultModWithBanner: () !default;
+$themeDefaultModWithBanner: map-merge((
+    'formMaxWidth': 285px,
+    'formMargin': ef.get('size', 'smaller') auto auto,
+    'formHeight': 100%,
+
+    'bannerPadding': 0,
+    'bannerHeight': 200px,
+    'bannerImgWidth': 100%,
+
+), $customThemeDefaultModWithBanner);

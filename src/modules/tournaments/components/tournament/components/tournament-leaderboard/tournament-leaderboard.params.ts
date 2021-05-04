@@ -25,6 +25,7 @@ export interface ITournamentLeaderboardCParams extends IComponentParams<Componen
         type?: ComponentType;
         limit?: number;
         showAllBtn?: boolean;
+        useListHead?: boolean;
     };
 }
 

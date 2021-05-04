@@ -14,9 +14,7 @@ import {sportsbookConfig} from './system/config/sportsbook.config';
 import {ISportsbookConfig} from './system/interfaces/sportsbook.interface';
 import * as $config from 'wlc-config/index';
 
-import {
-    get as _get,
-} from 'lodash-es';
+import _get from 'lodash-es/get';
 
 export const moduleConfig =
     GlobalHelper.mergeConfig<ISportsbookConfig>(sportsbookConfig, _get($config, '$sportsbook', {}));

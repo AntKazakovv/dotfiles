@@ -42,6 +42,10 @@
                     circle {
                         fill: ef.get-value($themeDefault, 'userInfoDropdownIconFill');
                     }
+
+                    path {
+                        fill: ef.get-value($themeDefault, 'userInfoDropdownIconInnerFill');
+                    }
                 }
 
                 .arrow::ng-deep {

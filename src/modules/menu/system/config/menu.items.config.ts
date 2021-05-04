@@ -12,8 +12,8 @@ export const wlcDefaultMenuItems = {
         'main-menu:promotions',
     ],
     'affiliates-menu': [
-        'affiliates-menu:why-us',
         'affiliates-menu:commission',
+        'affiliates-menu:why-us',
         'affiliates-menu:faq',
         'affiliates-menu:tc',
     ],

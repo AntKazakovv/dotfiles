@@ -1,0 +1,22 @@
+@use 'engine-scss/functions' as ef;
+
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'menuJustify': center,
+
+    'itemPadding': (
+        375: ef.get('size', 'small'),
+        1200: ef.get('size', 'small') ef.get('size', 'less'),
+    ),
+    'itemTextTransform': uppercase,
+    'itemFontWeight': bold,
+    'itemFontSize': (
+        375: ef.get('font', 'ButtonText'),
+        1630: ef.get('font', 'ThirdTitle'),
+    ),
+
+    'linkColor': ef.get('mainColors', 'bg'),
+    'linkColorHover': ef.get('mainColors', 'main'),
+    'linkDecoration': none,
+    'linkDecorationHover': underline,
+), $customThemeDefault);

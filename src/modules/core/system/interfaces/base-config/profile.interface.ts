@@ -28,4 +28,7 @@ export interface IProfileConfig {
     wallet?: {
         use: boolean;
     },
+    type?: ProfileType,
 }
+
+export type ProfileType = 'default' | 'first';

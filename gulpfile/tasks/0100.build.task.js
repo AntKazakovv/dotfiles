@@ -74,6 +74,7 @@ module.exports = function buildTask() {
         parallel(
             'build:inline',
             'build:sw-fix',
+            'build:loader-css',
         ),
     ));
 

@@ -13,6 +13,7 @@ import {
     IModalOptions,
 } from './index';
 import {TabSwitcherComponent} from 'wlc-engine/modules/core/components/tab-switcher/tab-switcher.component';
+import {IconExpLpDescriptionComponent} from 'wlc-engine/modules/user/components/icon-exp-lp-description/icon-exp-lp.description.component';
 
 export const defaultParams: IModalOptions = {
     moduleName: 'core',
@@ -230,6 +231,14 @@ export const MODALS_LIST: IModalList = {
             showFooter: false,
             modalMessage: gettext('Please, wait. Data processing in progress...'),
             textAlign: 'center',
+        },
+    },
+    descriptionCasinosСurrency: {
+        config: {
+            id: 'descriptionCasinosСurrency',
+            modalTitle: gettext('Loyalty Program'),
+            closeBtnVisibility: true,
+            component: IconExpLpDescriptionComponent,
         },
     },
 };

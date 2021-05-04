@@ -1,6 +1,9 @@
 import {FormControl} from '@angular/forms';
-import {CustomType, IComponentParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ValidatorType} from 'wlc-engine/modules/core/system/services/validation/validation.service';
+import {
+    CustomType,
+    IComponentParams,
+    ValidatorType,
+} from 'wlc-engine/modules/core';
 
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;

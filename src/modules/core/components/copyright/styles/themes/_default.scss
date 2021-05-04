@@ -32,5 +32,9 @@
                 color: ef.get-value($themeDefault, 'linkHoverColor');
             }
         }
+
+        .wlc-sections__footer--theme-1 & {
+            @include em.get-mq-map('text-align', $themeDefault, 'footerFirstTextAlign');
+        }
     }
 }

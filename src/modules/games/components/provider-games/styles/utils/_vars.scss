@@ -1,0 +1,44 @@
+$customThemeDefault: () !default;
+
+$themeDefault: map-merge((
+    'containerPadding': ef.get('size', 'main') 0 0,
+
+    'headerMargin': 0 0 ef.get('size', 'main'),
+
+    'subtitleColor': ef.get('mainColors', 'main'),
+    'subtitleFontWeight': 400,
+    'subtitleFontStyle': normal,
+    'subtitleFontSize': inherit,
+    'subtitleMargin': 0 0 ef.get('size', 'smallest'),
+
+    'titleFontWeight': 700,
+    'titleFontSize': ef.get('font', 'QoteTextBold'),
+    'titleStyle': normal,
+    'titleColor': inherit,
+    'titleMargin': 0,
+
+    'gamesGridMarginBottom': ef.get('size', 'sectionsGap'),
+
+    'emptyAlignment': center,
+    'emptyPadding': 0 0 ef.get('size', 'main'),
+    'emptyFontSize': ef.get('font', 'PromoTitle'),
+    'emptyFontWeight': 700,
+    'emptyFontStyle': normal,
+    'emptyFontColor': inherit,
+
+    'logoWidth': 140px,
+    'logoMargin': 0 0 ef.get('size', 'main'),
+    'logoBorderRadius': 50%,
+    'logoPseudoPaddingTop': 100%,
+    'logoWrapPadding': ef.get('size', 'smaller'),
+    'logoBackground': ef.get('mainColors', 'bg700'),
+    'logoIconColor': ef.get('mainColors', 'bg100'),
+    'logoIconWidth': 100%,
+    'logoIconMaxWidth': 100%,
+    'logoIconHeight': 100%,
+    'logoIconMaxHeight': 100%,
+
+    // TODO remove after come up with color icons
+    'logoColorBackground': #777,
+    'logoColorFilter': contrast(1.5),
+), $customThemeDefault);

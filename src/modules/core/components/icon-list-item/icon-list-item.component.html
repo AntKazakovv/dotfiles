@@ -1,0 +1,69 @@
+<ng-container [ngSwitch]="icon.template">
+    <a class="{{$class}}__wrp"
+        *ngSwitchCase="'sref'"
+        [uiSref]="icon.sref"
+        [uiParams]="icon.srefParams"
+        [attr.target]="icon.target"
+        [attr.title]="icon.title">
+        <ng-container
+            [ngTemplateOutlet]="itemTemplate"
+            [ngTemplateOutletContext]="{item: icon}">
+        </ng-container>
+    </a>
+
+    <a class="{{$class}}__wrp"
+        *ngSwitchCase="'href'"
+        [attr.href]="icon.href"
+        [attr.target]="icon.target"
+        [attr.title]="icon.title">
+        <ng-container
+            [ngTemplateOutlet]="itemTemplate"
+            [ngTemplateOutletContext]="{item: icon}">
+        </ng-container>
+    </a>
+
+    <span class="{{$class}}__wrp"
+        *ngSwitchDefault>
+        <ng-container
+            [ngTemplateOutlet]="itemTemplate"
+            [ngTemplateOutletContext]="{item: icon}">
+        </ng-container>
+    </span>
+</ng-container>
+
+
+<ng-template #itemTemplate let-item="item">
+    <ng-container [ngSwitch]="item.showAs">
+        <ng-container *ngSwitchCase="'svg'">
+            <ng-container *ngIf="!error, else imageError">
+                <span class="{{$class}}__svg"
+                    wlc-icon
+                    [iconUrl]="item.image"
+                    (imageError)="errorHandler(item)">
+                </span>
+            </ng-container>
+        </ng-container>
+
+        <ng-container *ngSwitchDefault>
+            <ng-container *ngIf="!error, else imageError">
+                <img class="{{$class}}__image"
+                    [src]="item.image"
+                    [alt]="item.alt"
+                    [srcset]="item.image2x"
+                    [wlc-fallback]
+                    (imageError)="errorHandler()">
+                <img class="{{$class}}__image {{$class}}__image--hovered"
+                    *ngIf="item.imageHover"
+                    [src]="item.imageHover"
+                    [alt]="item.alt"
+                    [srcset]="item.imageHover2x"
+                    [wlc-fallback]
+                    (imageError)="errorHandler(item)">
+            </ng-container>
+        </ng-container>
+    </ng-container>
+
+    <ng-template #imageError>
+        <div class="{{$class}}__error">{{item.alt}}</div>
+    </ng-template>
+</ng-template>

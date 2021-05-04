@@ -10,6 +10,22 @@ export namespace wlcBonusesList {
             },
         },
     };
+    export const mainFirst: ILayoutComponent = {
+        name: 'bonuses.wlc-bonuses-list',
+        params: {
+            themeMod: 'with-image',
+            common: {
+                filter: 'main',
+                sortOrder: ['active', 'subscribe', 'inventory'],
+            },
+            itemsParams: {
+                common: {
+                    useIconBonusImage: false,
+                    showAdditionalImage: true,
+                },
+            },
+        },
+    };
     export const active: ILayoutComponent = {
         name: 'bonuses.wlc-bonuses-list',
         params: {
@@ -95,11 +111,12 @@ export namespace wlcBonusesList {
                 swiper: {
                     slidesPerView: 1,
                     navigation: {
-                        nextEl: '.wlc-swiper-button-next',
-                        prevEl: '.wlc-swiper-button-prev',
+                        nextEl: '.wlc-bonuses-list .wlc-swiper-button-next',
+                        prevEl: '.wlc-bonuses-list .wlc-swiper-button-prev',
                     },
                     pagination: false,
                     lazy: true,
+                    spaceBetween: 20,
                 },
             },
         },

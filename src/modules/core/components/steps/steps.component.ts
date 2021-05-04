@@ -12,12 +12,10 @@ import {
 } from 'wlc-engine/modules/core';
 import * as Params from 'wlc-engine/modules/core/components/steps/steps.params';
 
-import {
-    entries as _entries,
-    find as _find,
-    findIndex as _findIndex,
-    map as _map,
-} from 'lodash-es';
+import _entries from 'lodash-es/entries';
+import _findIndex from 'lodash-es/findIndex';
+import _map from 'lodash-es/map';
+import _find from 'lodash-es/find';
 
 @Component({
     selector: '[wlc-steps]',

@@ -6,21 +6,22 @@ import {
     OnInit,
 } from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
+
 import {
-    defaultParams,
-    IPostMenuCParams,
-} from './post-menu.params';
-import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
+    AbstractComponent,
+    ConfigService,
+} from 'wlc-engine/modules/core';
 import {
     StaticService,
     TextDataModel,
 } from 'wlc-engine/modules/static';
 
-import {
-    get as _get,
-    sortBy as _sortBy,
-    includes as _includes,
-} from 'lodash-es';
+import * as Params from './post-menu.params';
+
+import _get from 'lodash-es/get';
+import _sortBy from 'lodash-es/sortBy';
+import _includes from 'lodash-es/includes';
+import _merge from 'lodash-es/merge';
 
 export * from './post-menu.params';
 
@@ -37,19 +38,28 @@ export class PostMenuComponent extends AbstractComponent implements OnInit {
     public type = 'sref';
     public basePath: string;
 
-    public $params: IPostMenuCParams;
+    public $params: Params.IPostMenuCParams;
 
     constructor(
         protected staticService: StaticService,
-        @Inject('injectParams') protected injectParams: IPostMenuCParams,
+        @Inject('injectParams') protected injectParams: Params.IPostMenuCParams,
         protected cdr: ChangeDetectorRef,
+        protected configService: ConfigService,
         private translate: TranslateService,
     ) {
-        super({injectParams, defaultParams});
+        super({injectParams, defaultParams: Params.defaultParams});
     }
 
     public async ngOnInit(): Promise<void> {
         super.ngOnInit();
+
+        if (this.configService.get('$base.app.type') === 'aff') {
+            const basePath: Params.IBasePath = {
+                url: this.configService.get<string>('$base.affiliate.siteUrl'),
+                addLanguage: true,
+            };
+            _merge(this.$params.common, {basePath});
+        }
 
         const list = await this.staticService.getPostsListByCategorySlug(this.$params.common.categorySlug);
         this.menuItems = _sortBy(list, (item) => item.sortOrder);
@@ -75,7 +85,7 @@ export class PostMenuComponent extends AbstractComponent implements OnInit {
     protected setBasePath(): void {
         this.basePath = this.$params.common.basePath?.url;
 
-        if (this.basePath[this.basePath.length - 1] !== '/') {
+        if (!this.basePath.endsWith('/')) {
             this.basePath += '/';
         }
 

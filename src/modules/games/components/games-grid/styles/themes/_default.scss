@@ -26,8 +26,9 @@
 
         &__header {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            align-items: ef.get-value($themeDefault, 'headerAlignItems');
+            justify-content: ef.get-value($themeDefault, 'headerJustifyContent');
+            width: ef.get-value($themeDefault, 'headerWidth');
             margin: ef.get-value($themeDefault, 'headerMargin');
 
             ::ng-deep {
@@ -38,6 +39,34 @@
                         @include text.get-text-style(ef.get-value($themeDefault, 'headerFontStyle'), ef.get-value($themeDefault, 'headerColor'));
                         line-height: 1;
                     }
+                }
+            }
+        }
+
+        &__banner {
+            align-self: stretch;
+            width: 100%;
+            @include bm.get-mq-map('grid-row', $themeDefault, 'gridBannerRow');
+            @include bm.get-mq-map('grid-column', $themeDefault, 'gridBannerColumn');
+            @include bm.get-mq-map('margin-right', $themeDefault, 'gridGap');
+
+            [class*='wlc-banners'] {
+                height: 100%;
+            }
+
+            ::ng-deep {
+
+                [class*='wlc-banners'],
+                .swiper-container,
+                .ng-star-inserted[wlc-dynamic] {
+                    height: 100%;
+                }
+
+                .wlc-banner {
+                    height: 100%;
+                    overflow: hidden;
+
+                    border-radius: ef.get-value($themeDefault, 'bannerBorderRadius');
                 }
             }
         }
@@ -61,7 +90,8 @@
                     }
 
                     svg {
-                        transform: rotate(-90deg);
+                        transform: ef.get-value($themeDefault, 'allLinkTransform');
+
                         fill: ef.get-value($themeDefault, 'allLinkColor');
                     }
                 }
@@ -87,21 +117,27 @@
 
         &__list {
             display: grid;
+            flex-grow: 1;
+            grid-auto-rows: 1fr;
             @include bm.get-mq-map('grid-gap', $themeDefault, 'gridGap');
             @include bm.get-mq-map('grid-template-columns', $themeDefault, 'gridColumns');
         }
 
+        &__progressbar {
+            @include bm.get-mq-map('margin', $themeDefault, 'progressBarMargin');
+        }
+
         &__more {
             display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: ef.get-value($themeDefault, 'moreButtonMargin');
+            align-items: ef.get-value($themeDefault, 'moreButtonAlignItems');
+            justify-content: ef.get-value($themeDefault, 'moreButtonJustifyContent');
+            @include bm.get-mq-map('margin', $themeDefault, 'moreButtonMargin');
         }
 
         &__placeholder {
             display: flex;
-            justify-content: center;
-            align-items: center;
+            align-items: ef.get-value($themeDefault, 'placeholderAlignItems');
+            justify-content: ef.get-value($themeDefault, 'placeholderJustifyContent');
 
             color: ef.get-value($themeDefault, 'placeholderTextColor');
 
@@ -121,6 +157,14 @@
             &__list {
                 @include bm.get-mq-map('grid-template-columns', $themeDefault, 'gridColumnsTournamentDetail');
             }
+        }
+    }
+
+    &.wlc-games-grid--theme-mod-banner-right {
+
+
+        .wlc-games-grid__banner {
+            @include bm.get-mq-map('grid-column', $themeDefault, 'gridBannerColumnRight');
         }
     }
 }

@@ -21,13 +21,11 @@ import {IPushMessageParams, NotificationEvents} from 'wlc-engine/modules/core/sy
 
 import {skipWhile} from 'rxjs/operators';
 
-import {
-    includes as _includes,
-    clone as _clone,
-    union as _union,
-    reduce as _reduce,
-    toNumber as _toNumber,
-} from 'lodash-es';
+import _clone from 'lodash-es/clone';
+import _reduce from 'lodash-es/reduce';
+import _includes from 'lodash-es/includes';
+import _union from 'lodash-es/union';
+import _toNumber from 'lodash-es/toNumber';
 
 export enum RejectReason {
     RealPlayDisabled,
@@ -263,6 +261,11 @@ class StartGameHandler {
 
         if (!this.game) {
             this.logService.sendLog({code: '3.0.1', data: this.stateService.params});
+            this.showErrorNotification(
+                gettext('For some reason the game is no longer available'),
+                gettext('Game not found'),
+            );
+            this.stateService.go('app.home', this.transition.params());
             this.result.reject(RejectReason.GameNotFounded);
             return false;
         }

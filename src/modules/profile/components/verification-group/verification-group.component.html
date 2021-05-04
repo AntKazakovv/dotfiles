@@ -49,7 +49,7 @@
         <input #inputFile
                type="file"
                hidden
-               accept="image/*"
+               [accept]="acceptFormat"
                [disabled]="currentDocGroup.pending"
                (change)="uploadFile($event.target.files, currentDocGroup.ID)">
         <p [ngSwitch]="currentDocGroup.loadingStatus" class="{{$class}}__text">
@@ -62,7 +62,7 @@
             <ng-template ngSwitchDefault>
                 {{'Drop file here or' | translate}}
                 <span>{{'browse' | translate}}</span>
-                {{$params.fileTypes?.join(', ')}}.
+                {{$params.fileTypes.join(', ')}}.
                 {{'Max size' | translate}}
                 {{$params.maxSize}} MB
             </ng-template>

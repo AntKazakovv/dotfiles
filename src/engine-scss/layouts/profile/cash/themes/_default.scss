@@ -12,7 +12,7 @@
             margin: ef.get-value($cashPagesThemeDefault, 'userStatsMargin');
         }
 
-        .wlc-menu {
+        .wlc-menu.wlc-menu--theme-default {
             display: flex;
             align-items: flex-start;
             justify-content: flex-start;

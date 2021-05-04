@@ -58,6 +58,7 @@ export class EnterPromocodeComponent
     public enterPromocodeInput: IInputCParams = {
         name: 'promoCode',
         theme: 'default',
+        customMod: 'promocode',
         common: {
             placeholder: gettext('Enter promo code'),
             useLabel: false,

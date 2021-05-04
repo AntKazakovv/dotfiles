@@ -12,12 +12,12 @@ import {
 import {
     IWrapperCParams,
     AbstractComponent,
+    ConfigService,
 } from 'wlc-engine/modules/core';
 import * as Params from './info-page.params';
 
-import {
-    cloneDeep as _cloneDeep,
-} from 'lodash-es';
+import _cloneDeep from 'lodash-es/cloneDeep';
+
 
 /**
  * Outputs disclaimer text
@@ -45,8 +45,9 @@ export class InfoPageComponent extends AbstractComponent implements OnInit {
         private uiRouter: UIRouterGlobals,
         private transition: TransitionService,
         protected cdr: ChangeDetectorRef,
+        protected configService: ConfigService,
     ) {
-        super({injectParams: params, defaultParams: Params.defaultParams});
+        super({injectParams: params, defaultParams: Params.defaultParams}, configService);
     }
 
     public ngOnInit(): void {

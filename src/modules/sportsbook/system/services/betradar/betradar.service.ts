@@ -1,20 +1,20 @@
-import {ChangeDetectorRef, Injectable} from '@angular/core';
+import {
+    ChangeDetectorRef,
+    Injectable,
+} from '@angular/core';
 import {UIRouter} from '@uirouter/core';
 import {takeUntil} from 'rxjs/operators';
 import {Subject} from 'rxjs';
-import {SportsbookService} from 'wlc-engine/modules/sportsbook';
+import {
+    SportsbookService,
+    IMessageDataLocationChange,
+} from 'wlc-engine/modules/sportsbook';
 import {ConfigService} from 'wlc-engine/modules/core';
 
-import {
-    forEach as _forEach,
-    get as _get,
-    set as _set,
-    merge as _merge,
-} from 'lodash-es';
-
-export interface IMessageDataLocationChange {
-    path: string;
-}
+import _get from 'lodash-es/get';
+import _forEach from 'lodash-es/forEach';
+import _set from 'lodash-es/set';
+import _merge from 'lodash-es/merge';
 
 @Injectable({
     providedIn: 'root',

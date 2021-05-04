@@ -1,22 +1,18 @@
 import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
 import {UserService} from 'wlc-engine/modules/user/system/services';
-
-import {
-    get as _get,
-    includes as _includes,
-    has as _has,
-    pickBy as _pickBy,
-    reduce as _reduce,
-    map as _map,
-    uniq as _uniq,
-    cloneDeep as _cloneDeep,
-    isArray as _isArray,
-    findIndex as _findIndex,
-} from 'lodash-es';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
 import {FinancesHelper} from '../helpers/finances.helper';
 import {ICryptoMessage} from 'wlc-engine/modules/finances/system/interfaces/finances.interface';
+
+import _get from 'lodash-es/get';
+import _includes from 'lodash-es/includes';
+import _isArray from 'lodash-es/isArray';
+import _pickBy from 'lodash-es/pickBy';
+import _reduce from 'lodash-es/reduce';
+import _map from 'lodash-es/map';
+import _findIndex from 'lodash-es/findIndex';
+import _uniq from 'lodash-es/uniq';
 
 export type FilterType = 'deposit' | 'Deposits' | 'withdraw' | 'Withdraws' | 'all' | 'All';
 

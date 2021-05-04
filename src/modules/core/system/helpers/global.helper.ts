@@ -11,16 +11,17 @@ import {
 } from 'rxjs';
 
 import {NgTemplateNameDirective} from 'wlc-engine/modules/core/directives/template-name/template-name.directive';
+import {IDisplayConfig} from 'wlc-engine/modules/core/system/interfaces';
 
-import {
-    get as _get,
-    size as _size,
-    each as _each,
-    mergeWith as _mergeWith,
-    isArray as _isArray,
-    isUndefined as _isUndefined,
-    keys as _keys,
-} from 'lodash-es';
+import _size from 'lodash-es/size';
+import _each from 'lodash-es/each';
+import _get from 'lodash-es/get';
+import _isArray from 'lodash-es/isArray';
+import _mergeWith from 'lodash-es/mergeWith';
+import _isUndefined from 'lodash-es/isUndefined';
+import _keys from 'lodash-es/keys';
+import _reduce from 'lodash-es/reduce';
+import _assign from 'lodash-es/assign';
 
 export class GlobalHelper {
 
@@ -183,5 +184,45 @@ export class GlobalHelper {
                 mql.addListener.bind(mql),
                 mql.removeListener.bind(mql),
             );
+    }
+
+    /**
+     * Return true if list of elements has resize display params
+     *
+     * @param elementList - List of elements with display params
+     * @returns boolean flag
+     */
+    public static hasDisplayResize<T>(elementList: ({display?: IDisplayConfig} & T)[]): boolean {
+        return _reduce(elementList, (res, element): boolean => {
+            return res || (!!element.display?.after || !!element.display?.before);
+        }, false);
+    }
+
+    /**
+     * Override list of elements with usettled before/after display params
+     *
+     * @param elementList - List of elements with display params
+     */
+    public static overrideDisplayResize<T>(elementList: ({display?: IDisplayConfig} & T)[]): void {
+        _each(elementList, (component, key) => {
+            if (_isUndefined(component.display?.before)) {
+                _assign(elementList[key].display, {before: 999999999});
+            }
+
+            if (_isUndefined(component.display?.after)) {
+                _assign(elementList[key].display, {after: 0});
+            }
+        });
+    }
+    /**
+     * Return true if list of elements has auth display params
+     *
+     * @param elementList - List of elements with display params
+     * @returns boolean flag
+     */
+    public static hasDisplayAuth<T>(elementList: ({display?: IDisplayConfig} & T)[]): boolean {
+        return _reduce(elementList, (res, element): boolean => {
+            return res || !_isUndefined(element.display?.auth);
+        }, false);
     }
 }

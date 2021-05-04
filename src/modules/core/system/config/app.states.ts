@@ -8,10 +8,8 @@ import {polyfillsResolver} from 'wlc-engine/modules/core/system/config/resolvers
 import {customStates} from 'wlc-src/custom/system/config/custom.states';
 import * as States from './states';
 
-import {
-    map as _map,
-    merge as _merge,
-} from 'lodash-es';
+import _map from 'lodash-es/map';
+import _merge from 'lodash-es/merge';
 
 let states = {
     'app.home': States.homeState,
@@ -61,6 +59,7 @@ let states = {
     'app.profile.dashboard': States.profileDashboardState,
     'app.error': States.errorPageState,
     'app.tournaments': States.tournamentsState,
+    'app.providers': States.providersState,
 };
 
 const appState: Ng2StateDeclaration = {

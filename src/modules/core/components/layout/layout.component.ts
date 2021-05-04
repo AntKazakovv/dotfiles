@@ -16,13 +16,13 @@ import {
     ILayoutComponent,
     ILayoutStateConfig,
     ILayoutSectionConfig,
-} from 'wlc-engine/modules/core/system/interfaces/layouts.interface';
-import {
     ConfigService,
     EventService,
     LayoutService,
-} from 'wlc-engine/modules/core/system/services';
-import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
+    GlobalHelper,
+    IIndexing,
+    LayoutsType,
+} from 'wlc-engine/modules/core';
 import {
     fromEvent,
     Subject,
@@ -31,21 +31,10 @@ import {
 import {
     takeUntil,
 } from 'rxjs/operators';
-import {LayoutsType} from 'wlc-engine/modules/core/system/services/layout/layout.service';
 
-
-import {
-    each as _each,
-    reduce as _reduce,
-    filter as _filter,
-    isObject as _isObject,
-    isUndefined as _isUndefined,
-    assign as _assign,
-    isEqual as _isEqual,
-    findIndex as _findIndex,
-    min as _min,
-    max as _max,
-} from 'lodash-es';
+import _each from 'lodash-es/each';
+import _isEqual from 'lodash-es/isEqual';
+import _findIndex from 'lodash-es/findIndex';
 
 @Component({
     selector: '[wlc-layout]',
@@ -122,46 +111,10 @@ export class LayoutComponent implements OnInit, OnDestroy {
         this.updateComponents();
     }
 
-    protected filterComponents(): ILayoutComponent[] {
-        return _filter(this.allComponents$, (component) => {
-
-            let result = true;
-            if (_isObject(component)) {
-                if (!_isUndefined(component.display?.mobile)
-                    && component.display?.mobile !== this.ConfigService.get<boolean>('appConfig.mobile')
-                ) {
-                    result = false;
-                }
-
-                if (result && (component.display?.after || component.display?.before)) {
-                    result = result && window.matchMedia(this.layoutService.createMediaQuery(component.display)).matches;
-                }
-
-                if (result && !_isUndefined(component.display?.auth)) {
-                    result = result &&
-                        component.display.auth === this.ConfigService.get<boolean>('$user.isAuthenticated');
-                }
-            }
-            return result;
-        });
-    }
-
     protected setWatcher(): void {
-        const resize = _reduce(this.allComponents$, (res, component): boolean => {
-            return res || (!!component.display?.after || !!component.display?.before);
-        }, false);
+        if (GlobalHelper.hasDisplayResize(this.allComponents$)) {
 
-        if (resize) {
-            _each(this.allComponents$, (component, key) => {
-                if (_isUndefined(component.display?.before)) {
-                    // 999999999 - highest number supported by matchMedia in safari
-                    _assign(this.allComponents$[key].display, {before: 999999999});
-                }
-
-                if (_isUndefined(component.display?.after)) {
-                    _assign(this.allComponents$[key].display, {after: 0});
-                }
-            });
+            GlobalHelper.overrideDisplayResize(this.allComponents$);
 
             if (!this.resize$) {
                 this.resize$ = fromEvent(window, 'resize').pipe(takeUntil(this.$destroy)).subscribe({
@@ -172,9 +125,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
             }
         }
 
-        const auth = _reduce(this.allComponents$, (res, component): boolean => {
-            return res || !_isUndefined(component.display?.auth);
-        }, false);
+        const auth = GlobalHelper.hasDisplayAuth(this.allComponents$);
 
         if (auth && !this.auth$) {
             this.auth$ = this.eventService.filter(
@@ -211,14 +162,15 @@ export class LayoutComponent implements OnInit, OnDestroy {
             this.allComponents$.length = 0;
         }
         this.allComponents$.push(...allComponents);
-
     }
 
     protected updateComponents(): void {
         if (this.components) {
             this.components.length = 0;
         }
-        this.components.push(...this.filterComponents());
+        this.components.push(
+            ...this.layoutService.filterDisplayElements(this.allComponents$),
+        );
         this.cdr.markForCheck();
     }
 }

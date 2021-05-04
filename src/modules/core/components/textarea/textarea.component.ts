@@ -8,9 +8,8 @@ import {FormControl} from '@angular/forms';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import * as Params from 'wlc-engine/modules/core/components/textarea/textarea.params';
 import {ConfigService} from 'wlc-engine/modules/core';
-import {
-    kebabCase as _kebabCase,
-} from 'lodash-es';
+
+import _kebabCase from 'lodash-es/kebabCase';
 
 /**
  * Component textarea

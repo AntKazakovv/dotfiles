@@ -27,6 +27,15 @@ export namespace wlcTitle {
         },
     };
 
+    export const profileV1: ILayoutComponent = {
+        name: 'core.wlc-title',
+        params: {
+            customMod: ['profile'],
+            mainText: gettext('Profile'),
+            wlcElement: 'header_edit-profile',
+        },
+    };
+
     export const profileLimitations: ILayoutComponent = {
         name: 'core.wlc-title',
         params: {
@@ -165,6 +174,15 @@ export namespace wlcTitle {
         params: {
             mainText: gettext('Winners'),
             wlcElement: 'header_winners',
+        },
+    };
+
+    export const profileAvailableTournaments: ILayoutComponent = {
+        name: 'core.wlc-title',
+        params: {
+            customMod: ['available-tournaments'],
+            mainText: gettext('Available tournaments'),
+            wlcElement: 'header_tournaments',
         },
     };
 }

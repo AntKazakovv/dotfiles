@@ -1,8 +1,4 @@
 import {NgModule} from '@angular/core';
-import {
-    FormsModule,
-    ReactiveFormsModule,
-} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 import {UIRouterModule} from '@uirouter/angular';
 import {TranslateModule} from '@ngx-translate/core';
@@ -16,6 +12,7 @@ import {
 } from './system/services';
 
 // Components
+import {AddProfileInfoComponent} from './components/add-profile-info/add-profile-info.component';
 import {ChangePasswordFormComponent} from './components/change-password-form/change-password-form.component';
 import {DashboardLoyaltyBlockComponent} from 'wlc-engine/modules/user/components/dashboard-loyalty-block/dashboard-loyalty-block.component';
 import {ExchangeComponent} from './components/dashboard-exchange/exchange.component';
@@ -36,11 +33,14 @@ import {SignUpFormComponent} from './components/sign-up-form/sign-up-form.compon
 import {UserInfoComponent} from './components/user-info/user-info.component';
 import {UserStatsComponent} from './components/user-stats/user-stats.component';
 import {UserNameComponent} from './components/user-name/user-name.component';
+import {IconExpLpDescriptionComponent} from './components/icon-exp-lp-description/icon-exp-lp.description.component';
 
 
 export const components = {
+    'wlc-add-profile-info': AddProfileInfoComponent,
     'wlc-change-password-form': ChangePasswordFormComponent,
     'wlc-exchange': ExchangeComponent,
+    'wlc-icon-exp-lp': IconExpLpDescriptionComponent,
     'wlc-limitations': LimitationsComponent,
     'wlc-login-signup': LoginSignupComponent,
     'wlc-logout': LogoutComponent,
@@ -61,9 +61,11 @@ export const components = {
 
 @NgModule({
     declarations: [
+        AddProfileInfoComponent,
         ChangePasswordFormComponent,
         DashboardLoyaltyBlockComponent,
         ExchangeComponent,
+        IconExpLpDescriptionComponent,
         LimitationsComponent,
         LimitCancelComponent,
         LimitValueComponent,
@@ -85,8 +87,6 @@ export const components = {
     imports: [
         CommonModule,
         CoreModule,
-        FormsModule,
-        ReactiveFormsModule,
         TranslateModule,
         UIRouterModule,
     ],
@@ -96,9 +96,11 @@ export const components = {
         LimitationService,
     ],
     exports: [
+        AddProfileInfoComponent,
         ChangePasswordFormComponent,
         DashboardLoyaltyBlockComponent,
         ExchangeComponent,
+        IconExpLpDescriptionComponent,
         LimitationsComponent,
         LoginSignupComponent,
         LogoutComponent,

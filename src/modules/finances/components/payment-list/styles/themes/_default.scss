@@ -96,9 +96,18 @@
                 }
             }
 
+            &__btn-modal-wrap {
+                flex: 1 1 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: ef.get-value($themeDefault, 'btnWrapPadding');
+            }
+
             &__btn-modal-arrow {
                 margin: ef.get-value($themeDefault, 'btnArrowMargin');
                 color: ef.get-value($themeDefault, 'btnArrowColor');
+                transform: ef.get-value($themeDefault, 'btnArrowTransform');
 
                 svg {
                     fill: currentColor;
@@ -107,16 +116,17 @@
 
             &__btn-modal-text {
                 display: block;
-                padding: ef.get-value($themeDefault, 'btnTextPadding');
                 font-size: ef.get-value($themeDefault, 'btnTextFontSize');
             }
 
             &__btn-modal-image {
+                flex: 0 0 auto;
                 background: ef.get-value($themeDefault, 'btnImageBg');
                 padding: ef.get-value($themeDefault, 'btnImagePadding');
                 width: ef.get-value($themeDefault, 'btnImageWidth');
                 height: ef.get-value($themeDefault, 'btnImageHeight');
                 color: ef.get-value($themeDefault, 'btnImageSvgColor');
+                border-right: ef.get-value($themeDefault, 'btnImageBorderRight');
                 @include iconInside();
             }
 

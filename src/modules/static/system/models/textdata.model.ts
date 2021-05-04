@@ -2,11 +2,9 @@ import {ConfigService} from 'wlc-engine/modules/core';
 import {IPostResponse} from 'wlc-engine/modules/static';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 
-import {
-    get as _get,
-    each as _each,
-    toNumber as _toNumber,
-} from 'lodash-es';
+import _get from 'lodash-es/get';
+import _each from 'lodash-es/each';
+import _toNumber from 'lodash-es/toNumber';
 
 export abstract class TextDataModel {
     public id: number;

@@ -7,4 +7,14 @@ export namespace wlcTournamentList {
             theme: 'default',
         },
     };
+
+    export const available: ILayoutComponent = {
+        name: 'tournaments.wlc-tournament-list',
+        params: {
+            theme: 'available',
+            common: {
+                thumbType: 'available',
+            },
+        },
+    };
 }

@@ -1,0 +1,11 @@
+<div wlc-text-block
+     [textBlockTitle]="$params.title"
+></div>
+
+<div class="{{$class}}__form"
+     wlc-form-wrapper
+     [ngSubmit]="onSubmit.bind(this)"
+     [formData]="$params.formData"
+     [config]="$params.formConfig">
+</div>
+

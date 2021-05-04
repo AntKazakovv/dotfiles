@@ -24,13 +24,12 @@ import {
     EventService,
     LogService,
 } from 'wlc-engine/modules/core/system/services';
-import {
-    isString as _isString,
-    get as _get,
-    assign as _assign,
-    isFunction as _isFunction,
-    has as _has,
-} from 'lodash-es';
+
+import _assign from 'lodash-es/assign';
+import _isString from 'lodash-es/isString';
+import _isFunction from 'lodash-es/isFunction';
+import _get from 'lodash-es/get';
+import _has from 'lodash-es/has';
 
 import {ISocketsData} from 'wlc-engine/modules/core/system/interfaces';
 
@@ -69,11 +68,13 @@ export interface IRequestMethod {
     preload?: string;
     /** method that transform request data */
     mapFunc?: (data: unknown) => unknown;
+    /** don't use GET parameter lang for request */
+    noUseLang?: boolean;
     /** event for data request*/
     events?: {
         success?: string;
         fail?: string;
-    }
+    };
 }
 
 interface IRegisteredMethod extends IRequestMethod {
@@ -309,6 +310,10 @@ export class DataService {
             method.params,
             method.type === 'GET' ? params : {},
         );
+
+        if (method.noUseLang) {
+            delete requestParams.lang;
+        }
 
         const requestBody = method.type !== 'GET' ? this.checkFormData(params) || '' : undefined;
 

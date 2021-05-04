@@ -23,26 +23,30 @@ import {
     trigger,
 } from '@angular/animations';
 
-import {AbstractComponent, IMixedParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {MenuHelper} from 'wlc-engine/modules/menu/system/helpers/menu.helper';
 import {
+    AbstractComponent,
+    IMixedParams,
     LayoutService,
     ActionService,
     ModalService,
     ConfigService,
-} from 'wlc-engine/modules/core/system/services';
-import * as Params from 'wlc-engine/modules/menu/components/menu/menu.params';
-import {IMenuItem, IMenuItemsGroup} from 'wlc-engine/modules/menu/components/menu/menu.params';
-import {ISlide, ISliderCParams} from 'wlc-engine/modules/promo/components/slider/slider.params';
+} from 'wlc-engine/modules/core';
+import {
+    IMenuItem,
+    IMenuItemsGroup,
+} from 'wlc-engine/modules/menu/components/menu/menu.params';
+import {ISlide} from 'wlc-engine/modules/promo/components/slider/slider.params';
 import {SliderComponent} from 'wlc-engine/modules/promo/components/slider/slider.component';
 
-import {
-    forEach as _forEach,
-    has as _has,
-    find as _find,
-    isString as _isString,
-    reduce as _reduce,
-} from 'lodash-es';
+import * as Params from 'wlc-engine/modules/menu/components/menu/menu.params';
+
+import _isString from 'lodash-es/isString';
+import _has from 'lodash-es/has';
+import _reduce from 'lodash-es/reduce';
+import _find from 'lodash-es/find';
+import _forEach from 'lodash-es/forEach';
+import _map from 'lodash-es/map';
 
 @Component({
     selector: '[wlc-menu]',
@@ -91,7 +95,9 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
     public iconsFallback: string = '';
 
     protected iconsExtension: string = 'svg';
-    protected scrollDuration = 300;
+    protected baseUrl: string = '';
+    protected lang: string = '';
+    protected isAffiliate: boolean = false;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IMenuCParams,
@@ -152,8 +158,17 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
         if (this.$params.common?.scrollToSelector) {
             setTimeout(() => {
                 this.scrollTo(this.$params.common.scrollToSelector);
-            }, this.scrollDuration);
+            }, this.$params.scrollDuration);
         }
+
+        this.isAffiliate = this.configService.get<string>('$base.app.type') === 'aff';
+
+        if (this.isAffiliate) {
+            this.baseUrl = this.configService.get<string>('$base.affiliate.siteUrl');
+        }
+
+        this.lang = this.configService.get<string>('currentLanguage') || 'en';
+
     }
 
     public scrollTo(selector: string): void {
@@ -168,19 +183,19 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
     }
 
     public async openModal(item: Params.IMenuItemParamsModal) {
-        const component: any = await this.layoutService.loadComponent(item.params.modal.name);
-        if (component) {
-            this.modalService.showModal({
-                id: 'static-text',
-                component: component,
-                componentParams: {
-                    slug: item.params.modal.params.slug,
-                },
-                modifier: 'info',
-                modalTitle: 'Loading...',
-                scrollable: true,
-                size: 'lg',
-            });
+        const {name, params} = item.params.modal;
+        if (name) {
+            this.modalService.showModal(name, params || {});
+        }
+    }
+
+    public getHref(data: string | Params.IMenuItemParamsHref): string {
+        if (_isString(data)) {
+            return data;
+        } else if (data.baseSiteUrl) {
+            return this.baseUrl + this.lang + data.url;
+        } else {
+            return data.url;
         }
     }
 
@@ -248,5 +263,26 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
                 });
             }
         });
+
+        if (this.isAffiliate) {
+            this.items = this.changeLinkForAffiliate(this.items);
+        }
+    }
+
+    protected changeLinkForAffiliate(items: Params.MenuItemObjectType[]): Params.MenuItemObjectType[] {
+        return _map(
+            items,
+            (item: Params.MenuItemObjectType) => {
+                if (item['type'] === 'sref' && item['params']?.['href']) {
+                    (item as Params.IMenuItem).type = 'href';
+                }
+
+                if (item['items']) {
+                    (item as Params.IMenuItemsGroup).items =
+                        (this.changeLinkForAffiliate((item as Params.IMenuItemsGroup).items) as Params.IMenuItem[]);
+                }
+
+                return item;
+            });
     }
 }

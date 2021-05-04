@@ -5,20 +5,25 @@
 
 .wlc-burger-panel--theme-default:host {
     left: 0;
+
     width: 100%;
     max-width: 100%;
-    background-color: map-get($themeDefault, 'panelBackground');
-    transform: translateY(-100%);
     overflow: hidden;
 
+    background-color: map-get($themeDefault, 'panelBackground');
+
+    transform: translateY(-100%);
+
     &.wlc-burger-panel--open {
-        visibility: visible;
         transform: none;
+        visibility: visible;
     }
 
     ::ng-deep {
 
         .container {
+            position: relative;
+
             display: flex;
             width: map-get($themeDefault, 'containerWidth');
             max-width: map-get($themeDefault, 'containerMaxWidth');
@@ -26,11 +31,28 @@
             @include bm.get-mq-map('padding', $themeDefault, 'panelContentPadding');
         }
 
+        .wlc-language-selector[wlc-language-selector] {
+            @include bm.get-mq-map('margin', $themeDefault, 'langMargin');
+
+            .wlc-language-selector__dropdown {
+                right: ef.get-value($themeDefault, 'langDropdownRight');
+            }
+
+            .wlc-language-selector__list {
+                background: ef.get-value($themeDefault, 'langListBg');
+
+                &:before {
+                    border-bottom-color: ef.get-value($themeDefault, 'langListBg');
+                }
+            }
+        }
+
         .wlc-burger-panel__close {
-            z-index: 5;
             position: absolute;
             top: 0;
             left: 0;
+            z-index: 5;
+
             @include bm.get-mq-map('width', $themeDefault, 'panelContentPadding');
             @include bm.get-mq-map('height', $themeDefault, 'panelContentPadding');
         }
@@ -44,8 +66,9 @@
 
         .wlc-main-menu,
         .wlc-post-menu {
-            @include bm.get-mq-map('margin-right', $themeDefault, 'panelLinksMargin');
+            @include bm.get-mq-map('margin', $themeDefault, 'panelLinksMargin');
             @include bm.get-mq-map('padding', $themeDefault, 'panelLinksPadding');
+
             border-right: ef.get-value($themeDefault, 'panelLinksBorder');
         }
 
@@ -59,23 +82,31 @@
         .wlc-post-menu__link,
         .wlc-menu__link {
             position: relative;
-            text-decoration: ef.get-value($themeDefault, 'panelLinkDecoration');
+
+            @include bm.get-mq-map('padding', $themeDefault, 'panelLinksItemPadding');
+
             color: ef.get-value($themeDefault, 'panelLinksColor');
             @include bm.get-mq-map('font-size', $themeDefault, 'panelFontSize');
+            white-space: nowrap;
+            text-decoration: ef.get-value($themeDefault, 'panelLinkDecoration');
+
             cursor: pointer;
 
             &:before {
-                content: '';
                 position: absolute;
                 bottom: ef.get-value($themeDefault, 'panelUnderlineOffset');
                 left: 0;
+
                 display: block;
                 width: 100%;
                 height: 0;
+
                 background-color: ef.get-value($themeDefault, 'panelUnderlineColor');
-                opacity: 0;
-                pointer-events: none;
                 border-radius: ef.get-value($themeDefault, 'panelUnderlineRadius');
+                opacity: 0;
+
+                content: '';
+                pointer-events: none;
             }
 
             &:hover,
@@ -83,6 +114,7 @@
 
                 &:before {
                     height: ef.get-value($themeDefault, 'panelUnderlineHeight');
+
                     opacity: 1;
                     @include bm.transition();
                 }
@@ -91,7 +123,7 @@
 
         .wlc-burger-panel__user-deposit {
             position: relative;
-            @include bm.get-mq-map('margin', $themeDefault, 'userDepositMargin');
+
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -99,27 +131,31 @@
             width: 100%;
             @include bm.get-mq-map('max-width', $themeDefault, 'userDepositSize');
             margin-bottom: ef.get-value($themeDefault, 'componentGap');
+            @include bm.get-mq-map('margin', $themeDefault, 'userDepositMargin');
 
             &:after {
-                content: '';
                 position: absolute;
                 top: -80px;
                 right: 0;
                 bottom: -80px;
                 left: 0;
+
                 background: ef.get-value($themeDefault, 'userDepositBg');
                 border-radius: 100%;
+
+                content: '';
             }
 
             .wlc-title,
             .wlc-btn {
-                z-index: 2;
                 position: relative;
+                z-index: 2;
             }
 
             .wlc-title {
-                margin-bottom: 20px;
                 max-width: 255px;
+                margin-bottom: 20px;
+
                 text-align: center;
 
                 .wlc-title__main {
@@ -129,10 +165,11 @@
         }
 
         .wlc-btn-search {
-            z-index: 5;
             position: absolute;
             top: 0;
             right: 0;
+            z-index: 5;
+
             @include bm.get-mq-map('width', $themeDefault, 'panelContentPadding');
             @include bm.get-mq-map('height', $themeDefault, 'panelContentPadding');
 
@@ -143,8 +180,8 @@
 
         .wlc-user-info__wrp {
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            justify-content: space-between;
             margin: 0 0 ef.get-value($themeDefault, 'componentGap') 0;
         }
     }

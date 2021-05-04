@@ -63,7 +63,7 @@
 
         &:disabled {
             background: ef.get-value($themeDefault, 'inputDisabledBg');
-            border-color: ef.get-value($themeDefault, 'inputDisabledBgBorder');
+            border-color: ef.get-value($themeDefault, 'inputDisabledBorder');
             color: ef.get-value($themeDefault, 'inputDisabledColor');
         }
 

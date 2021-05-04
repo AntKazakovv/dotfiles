@@ -63,8 +63,8 @@
 
                 svg {
                     width: ef.get-value($themeDefault, 'tileIconWidth');
-                    height: ef.get-value($themeDefault, 'tileIconHeigth');
                     max-width: ef.get-value($themeDefault, 'tileIconSize');
+                    height: ef.get-value($themeDefault, 'tileIconHeigth');
                     max-height: ef.get-value($themeDefault, 'tileIconSize');
 
                     fill: ef.get-value($themeDefault, 'tileIconColor');
@@ -74,9 +74,9 @@
 
         &__icon-check {
             position: absolute;
-            z-index: ef.get-value($themeDefault, 'iconCheckZIndex');
             right: ef.get-value($themeDefault, 'iconCheckPosRight');
             bottom: ef.get-value($themeDefault, 'iconCheckPosBottom');
+            z-index: ef.get-value($themeDefault, 'iconCheckZIndex');
 
             width: ef.get-value($themeDefault, 'iconCheckDemensions');
             height: ef.get-value($themeDefault, 'iconCheckDemensions');
@@ -128,25 +128,28 @@
             position: relative;
 
             display: none;
-            justify-content: ef.get-value($themeDefault, 'dropzoneJustifyContent');
             align-items: ef.get-value($themeDefault, 'dropzoneAlignItems');
+            justify-content: ef.get-value($themeDefault, 'dropzoneJustifyContent');
+
+            width: ef.get-value($themeDefault, 'dropzoneWidth');
+            max-width: ef.get-value($themeDefault, 'dropzoneMaxWidth');
+            min-height: ef.get-value($themeDefault, 'dropzoneMinHeight');
+
+            margin: ef.get-value($themeDefault, 'dropzoneMargin');
+            padding: ef.get-value($themeDefault, 'dropzonePadding');
+
+            overflow: hidden;
+
             text-align: ef.get-value($themeDefault, 'dropzoneAlign');
 
-            min-height: ef.get-value($themeDefault, 'dropzoneMinHeight');
-            max-width: ef.get-value($themeDefault, 'dropzoneMaxWidth');
-            width: ef.get-value($themeDefault, 'dropzoneWidth');
-
-            padding: ef.get-value($themeDefault, 'dropzonePadding');
-            margin: ef.get-value($themeDefault, 'dropzoneMargin');
 
             background: ef.get-value($themeDefault, 'backgroundDropdown');
             border: ef.get-value($themeDefault, 'borderDropdown');
             border-radius: ef.get-value($themeDefault, 'borderRadius');
             @include em.transition(border-color);
 
-            cursor: pointer;
 
-            overflow: hidden;
+            cursor: pointer;
 
             @include mq.min(768) {
                 display: flex;
@@ -161,19 +164,20 @@
             input {
                 position: absolute;
                 top: ef.get-value($themeDefault, 'dropzoneInputPos');
-                left: ef.get-value($themeDefault, 'dropzoneInputPos');
                 right: ef.get-value($themeDefault, 'dropzoneInputPos');
                 bottom: ef.get-value($themeDefault, 'dropzoneInputPos');
-
-                opacity: 0;
+                left: ef.get-value($themeDefault, 'dropzoneInputPos');
 
                 cursor: pointer;
+
+                opacity: 0;
             }
         }
 
         &__text {
             @include text.get-text-style(ef.get-value($themeDefault, 'subTitleFont'), ef.get-value($themeDefault, 'color'));
             align-self: ef.get-value($themeDefault, 'groupTextAlignSelf');
+
             text-align: ef.get-value($themeDefault, 'groupTextAlign');
 
             span {
@@ -199,8 +203,8 @@
         &-docs-list {
             width: ef.get-value($themeDefault, 'docsListWidth');
 
-            padding: ef.get-value($themeDefault, 'docsListPadding');
             margin: ef.get-value($themeDefault, 'docsListMargin');
+            padding: ef.get-value($themeDefault, 'docsListPadding');
 
             list-style-type: none;
             border-top: ef.get-value($themeDefault, 'borderDocList');
@@ -211,10 +215,11 @@
                 display: grid;
                 grid-template-areas: 'doc-name doc-icons';
                 grid-template-columns: ef.get-value($themeDefault, 'docsItemGridTempCol');
-                column-gap: ef.get-value($themeDefault, 'docsItemColGap');
                 align-items: ef.get-value($themeDefault, 'docListItemAlignItems');
 
                 margin: ef.get-value($themeDefault, 'docsItemMargin');
+
+                column-gap: ef.get-value($themeDefault, 'docsItemColGap');
 
                 &:last-child {
                     margin-bottom: 0;
@@ -264,23 +269,24 @@
                 position: relative;
 
                 display: flex;
-                align-items: ef.get-value($themeDefault, 'docListTextAlignItems');
                 grid-area: doc-name;
+                align-items: ef.get-value($themeDefault, 'docListTextAlignItems');
 
                 min-height: ef.get-value($themeDefault, 'docsTextMinHeight');
 
-                text-overflow: ellipsis;
-                white-space: nowrap;
-
                 overflow: hidden;
+
+                white-space: nowrap;
+                text-overflow: ellipsis;
+
 
                 @include mq.min(768) {
 
                     &:hover {
 
                         .wlc-verification-group-docs-list__remove {
-                            opacity: 1;
                             visibility: visible;
+                            opacity: 1;
                         }
                     }
                 }
@@ -288,15 +294,15 @@
 
             &__link {
                 @include text.get-text-style(ef.get-value($themeDefault, 'fontDocList'), ef.get-value($themeDefault, 'color'));
+                max-width: ef.get-value($themeDefault, 'docsLinkMaxWidth');
                 padding-right: ef.get-value($themeDefault, 'docOffset');
 
-                max-width: ef.get-value($themeDefault, 'docsLinkMaxWidth');
+                overflow: hidden;
 
                 white-space: nowrap;
-                text-overflow: ellipsis;
                 text-decoration: ef.get-value($themeDefault, 'docListLinkDecoration');
+                text-overflow: ellipsis;
 
-                overflow: hidden;
 
                 @media (hover) {
 
@@ -308,8 +314,8 @@
 
             &__remove {
                 display: flex;
-                justify-content: ef.get-value($themeDefault, 'removeJustifyContent');
                 align-items: ef.get-value($themeDefault, 'removeAlignItems');
+                justify-content: ef.get-value($themeDefault, 'removeJustifyContent');
 
                 @include em.transition(opacity);
 
@@ -322,9 +328,9 @@
 
                 cursor: pointer;
 
-                @include mq.min(1024) {
-                    opacity: 0;
+                @include mq.min(1200) {
                     visibility: hidden;
+                    opacity: 0;
                 }
 
                 ::ng-deep .wlc-icon-content {
@@ -360,10 +366,10 @@
             }
 
             &__preload {
-                max-width: ef.get-value($themeDefault, 'preloaderSize');
-                max-height: ef.get-value($themeDefault, 'preloaderSize');
                 min-width: ef.get-value($themeDefault, 'preloaderSize');
+                max-width: ef.get-value($themeDefault, 'preloaderSize');
                 min-height: ef.get-value($themeDefault, 'preloaderSize');
+                max-height: ef.get-value($themeDefault, 'preloaderSize');
 
                 margin: ef.get-value($themeDefault, 'docsPreloadMargin');
 

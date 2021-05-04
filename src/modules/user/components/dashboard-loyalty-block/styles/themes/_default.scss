@@ -6,17 +6,18 @@
 .wlc-loyalty-block {
 
     &:host {
-        padding: ef.get-value($themeDefault, 'padding');
+        @include bm.get-mq-map('padding', $themeDefault, 'padding');
+
         background: ef.get-value($themeDefault, 'bg');
         border-radius: ef.get-value($themeDefault, 'borderRadius');
     }
 
-    &__loyalty {
-        margin: ef.get-value($themeDefault, 'loyaltyMargin');
+    &__loyalty,
+    &__all {
+        @include bm.get-mq-map('margin', $themeDefault, 'loyaltyMargin');
     }
 
     &__all {
-        margin: ef.get-value($themeDefault, 'loyaltyMargin');
         @include text.get-text-style('PlaceholderTextBold');
         text-align: center;
 
@@ -60,6 +61,20 @@
                 svg {
                     width: ef.get-value($themeDefault, 'userIconWidth');
                     margin: ef.get-value($themeDefault, 'userIconMargin');
+                }
+            }
+        }
+
+        ::ng-deep {
+
+            .wlc-user-name--theme-default {
+
+                .wlc-icon {
+
+                    &.wlc-user-name__email-icon {
+                        @include bm.get-mq-map('width', $themeDefault, 'userIconSize');
+                        @include bm.get-mq-map('height', $themeDefault, 'userIconSize');
+                    }
                 }
             }
         }

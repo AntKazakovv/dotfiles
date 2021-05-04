@@ -1,0 +1,64 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/mixins/base.mixins' as bm;
+@use 'modules/core/components/button/styles/utils/mixins' as button;
+
+.wlc-sections {
+
+    &__anchors-menu {
+        padding: ef.get-value($affSectionsDefault, 'anchorsPadding');
+        @include bm.get-mq-map('background', $affSectionsDefault, 'anchorsBg');
+    }
+
+    &__benefits-section {
+        padding: ef.get-value($affSectionsDefault, 'benefitsPadding');
+        @include bm.get-mq-map('background', $affSectionsDefault, 'benefitsBg');
+    }
+
+    &__commission-section {
+        padding: ef.get-value($affSectionsDefault, 'comissionPadding');
+        @include bm.get-mq-map('background', $affSectionsDefault, 'bencomissionBgefitsBg');
+    }
+
+    &__description-section {
+        padding: ef.get-value($affSectionsDefault, 'descrPadding');
+        @include bm.get-mq-map('background', $affSectionsDefault, 'descrBg');
+    }
+
+    &__faq-section {
+        padding: ef.get-value($affSectionsDefault, 'faqPadding');
+        @include bm.get-mq-map('background', $affSectionsDefault, 'faqBg');
+
+        .container {
+            max-width: ef.get-value($affSectionsDefault, 'faqContainerMaxWidth');
+            padding: ef.get-value($affSectionsDefault, 'faqContainerPadding');
+        }
+    }
+}
+
+.wlc-aff-content {
+    width: 100%;
+
+    margin: ef.get-value($affContentDefault, 'contentMargin');
+
+    text-align: ef.get-value($affContentDefault, 'contentTextAlign');
+
+    &:first-child {
+        margin-top: 0;
+    }
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+    .wlc-btn {
+        @include button.buttonBase();
+        display: inline-grid;
+
+        text-decoration: none;
+
+        &--theme-rounding {
+            border-radius: ef.get('radius', 'big');
+        }
+    }
+}

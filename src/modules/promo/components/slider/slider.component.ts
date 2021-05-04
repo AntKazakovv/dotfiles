@@ -5,7 +5,6 @@ import {
     OnInit,
     ViewChild,
     AfterViewInit,
-    ElementRef,
     Renderer2,
     ViewEncapsulation,
     OnChanges,
@@ -14,6 +13,8 @@ import {
 } from '@angular/core';
 import SwiperCore, {
     EffectFade,
+    EffectCube,
+    EffectFlip,
     Navigation,
     Pagination,
     Autoplay,
@@ -23,7 +24,7 @@ import SwiperCore, {
 import {SwiperComponent} from 'swiper/angular';
 
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ActionService, ConfigService, DeviceModel, DeviceOrientation} from 'wlc-engine/modules/core';
+import {ActionService, ConfigService} from 'wlc-engine/modules/core';
 import {
     BannersService,
     WinnersService,
@@ -32,19 +33,20 @@ import {IResizeEvent} from 'wlc-engine/modules/core/system/services/action/actio
 import * as Params from './slider.params';
 
 import {takeUntil} from 'rxjs/operators';
-import {
-    assign as _assign,
-    isNumber as _isNumber,
-    times as _times,
-    ceil as _ceil,
-    floor as _floor,
-    toNumber as _toNumber,
-    get as _get,
-    forEach as _forEach,
-} from 'lodash-es';
+
+import _isNumber from 'lodash-es/isNumber';
+import _assign from 'lodash-es/assign';
+import _times from 'lodash-es/times';
+import _ceil from 'lodash-es/ceil';
+import _floor from 'lodash-es/floor';
+import _get from 'lodash-es/get';
+import _toNumber from 'lodash-es/toNumber';
+import _forEach from 'lodash-es/forEach';
 
 SwiperCore.use([
     EffectFade,
+    EffectCube,
+    EffectFlip,
     Navigation,
     Pagination,
     Autoplay,
@@ -117,6 +119,7 @@ export class SliderComponent extends AbstractComponent
         setTimeout(() => {
             this.updateView();
         }, 0);
+
         this.ready = true;
     }
 

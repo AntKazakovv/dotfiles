@@ -1,13 +1,10 @@
 import {InjectionToken} from "@angular/core";
 import {shouldPolyfill as shouldPolyfillNumberFormat} from '@formatjs/intl-numberformat/should-polyfill';
+import {shouldPolyfill as shouldPolyfillLocale} from '@formatjs/intl-locale/should-polyfill';
+import {shouldPolyfill as shouldPolyfillPluralRules} from '@formatjs/intl-pluralrules/should-polyfill';
 import {TranslateService} from "@ngx-translate/core";
 import {ResolveTypes} from "@uirouter/core";
 import {ConfigService} from "wlc-engine/modules/core";
-import {IIndexing} from "wlc-engine/modules/core/system/interfaces";
-
-import {
-    get as _get,
-} from 'lodash-es';
 
 export const polyfillsResolver: ResolveTypes = {
     token: new InjectionToken('Empty token'),
@@ -36,6 +33,15 @@ class PolyfillsResolver {
             || await this.configService.get('appConfig.language');
 
         await import('@formatjs/intl-numberformat/polyfill');
+
+        if (shouldPolyfillLocale()) {
+            await import('@formatjs/intl-locale/polyfill');
+        }
+
+        if (shouldPolyfillPluralRules()) {
+            await import('@formatjs/intl-pluralrules/polyfill');
+        }
+
         switch (language) {
             case 'pt-br':
                 await import('@formatjs/intl-numberformat/locale-data/pt');
@@ -78,6 +84,9 @@ class PolyfillsResolver {
                 break;
             case 'ph':
                 await import('@formatjs/intl-numberformat/locale-data/es-PH');
+                break;
+            default:
+                await import('@formatjs/intl-numberformat/locale-data/en');
                 break;
         }
     }

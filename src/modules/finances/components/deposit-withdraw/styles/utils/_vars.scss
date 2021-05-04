@@ -23,22 +23,13 @@ $themeDefault: map-merge((
     'dividerCryptoMargin': ef.get('size', 'less') 0,
 
     // Step
-    'step1Bg': (
-        375: ef.get('mainColors', 'bg300'),
-        480: transparent,
-    ),
+    'step1Bg': transparent,
     'step1BorderRadius': (
         375: ef.get('radius', 'biger'),
         480: 0,
     ),
-    'step1Padding': (
-        375: ef.get('size', 'smally'),
-        480: 0,
-    ),
-    'step1Margin': (
-        375: 0 0 ef.get('size', 'smaller'),
-        480: 0,
-    ),
+    'step1Padding': 0,
+    'step1Margin': 0,
 
     // Subtitle
     'subtitleFontStyle': 'ThirdTitle',

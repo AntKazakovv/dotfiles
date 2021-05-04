@@ -7,3 +7,29 @@ $themeDefault: map-merge((
     'contentHeaderMargin': ef.get('size', 'small') 0,
     'contentMargin': 0 0 ef.get('size', 'smallest'),
 ), $customThemeDefault);
+
+$customThemeAffiliates: () !default;
+$themeAffiliates: map-merge((
+    'contentTextStyle': (
+        375: 'PlaceholderText',
+        768: 'ThirdTitle'
+    ),
+    'contentColor': ef.get('mainColors', 'baseMain'),
+
+    'titleTextStyle': (
+        375: 'ThirdTitleBold',
+        768: 'QoteTextBold',
+    ),
+    'titleTextTransform': uppercase,
+    'titleColor': ef.get('mainColors', 'baseMain'),
+    'titleMargin': (
+        375: ef.get('size', 'smaller') 0 ef.get('size', 'smally'),
+        1200: ef.get('size', 'less') 0 ef.get('size', 'smally'),
+    ),
+
+    'subtitleMaxWidth': 55ch,
+    'subtitleMargin': 0 auto,
+
+    'baseTextMaxWidth': 98ch,
+    'baseTextMargin': 0 auto ef.get('size', 'small'),
+), $customThemeAffiliates);

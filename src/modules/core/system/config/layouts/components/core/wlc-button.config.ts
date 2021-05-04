@@ -44,10 +44,15 @@ export namespace wlcButton {
             wlcElement: 'wlc-btn-search',
             common: {
                 icon: 'search',
-                event: {
-                    name: 'SHOW_MODAL',
-                    data: 'search',
-                },
+                event: [
+                    {
+                        name: 'PANEL_CLOSE',
+                    },
+                    {
+                        name: 'SHOW_MODAL',
+                        data: 'search',
+                    },
+                ],
             },
         },
     };
@@ -115,10 +120,6 @@ export namespace wlcButton {
             components: [
                 {
                     name: 'core.wlc-button',
-                    display: {
-                        auth: true,
-                        before: 1023,
-                    },
                     params: {
                         class: 'wlc-btn wlc-btn--deposit',
                         theme: 'cleared',
@@ -165,6 +166,22 @@ export namespace wlcButton {
         },
     };
 
+    export const affLogin: ILayoutComponent = {
+        name: 'core.wlc-button',
+        display: {
+            before: 1199,
+        },
+        params: {
+            class: 'wlc-btn wlc-btn-login',
+            common: {
+                icon: 'login',
+                event: {
+                    name: 'AFFILIATE_LOGIN',
+                },
+            },
+        },
+    };
+
     export const deposit: ILayoutComponent = {
         name: 'core.wlc-button',
         params: {
@@ -184,6 +201,19 @@ export namespace wlcButton {
             common: {
                 text: gettext('Deposit'),
                 sref: 'app.profile.cash.deposit',
+            },
+        },
+    };
+
+    export const leftMenuSignup: ILayoutComponent = {
+        name: 'core.wlc-button',
+        params: {
+            common: {
+                text: gettext('Register'),
+                event: {
+                    name: 'SHOW_MODAL',
+                    data: 'signup',
+                },
             },
         },
     };

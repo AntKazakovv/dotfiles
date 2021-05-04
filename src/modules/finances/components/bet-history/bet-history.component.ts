@@ -23,17 +23,13 @@ import {
     FinancesService,
     HistoryFilterService,
 } from 'wlc-engine/modules/finances/system/services';
-import {Transaction} from 'wlc-engine/modules/finances/system/models/transaction-history.model';
-import {GamesCatalogService} from "wlc-engine/modules/games";
+import {GamesCatalogService} from 'wlc-engine/modules/games';
+import {IBet} from 'wlc-engine/modules/finances/system/interfaces';
 
 import * as Params from './bet-history.params';
 
-import {
-    filter as _filter,
-    clone as _clone,
-    sortBy as _sortBy,
-} from 'lodash-es';
-import {IBet} from "wlc-engine/modules/finances/system/interfaces";
+import _clone from 'lodash-es/clone';
+import _filter from 'lodash-es/filter';
 
 @Component({
     selector: '[wlc-bet-history]',
@@ -158,8 +154,8 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
             return DateTime.fromSQL(a.DateISO).toSeconds() - DateTime.fromSQL(b.DateISO).toSeconds();
         });
 
-        this.startDate = (DateTime.fromSQL(dates[0].DateISO) || DateTime.local()).startOf('day');
-        this.endDate = (DateTime.fromSQL(dates[dates.length - 1].DateISO) || DateTime.local()).endOf('day');
+        this.startDate = (DateTime.fromSQL(dates[0]?.DateISO) || DateTime.local()).startOf('day');
+        this.endDate = (DateTime.fromSQL(dates[dates.length - 1]?.DateISO) || DateTime.local()).endOf('day');
         this.startDateInput.control.setValue(this.startDate.toFormat('dd.LL.yyyy'));
         this.endDateInput.control.setValue(this.endDate.toFormat('dd.LL.yyyy'));
         this.startDateInput = _clone(this.startDateInput);

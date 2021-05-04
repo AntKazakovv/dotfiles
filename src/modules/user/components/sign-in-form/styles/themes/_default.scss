@@ -5,8 +5,9 @@
 
 .wlc-sign-in-form--theme-default:host {
     max-width: ef.get-value($themeDefault, 'formMaxWidth');
-    margin: ef.get-value($themeDefault, 'formMargin');
     height: ef.get-value($themeDefault, 'formHeight');
+
+    margin: ef.get-value($themeDefault, 'formMargin');
 
     &::ng-deep {
 
@@ -17,12 +18,13 @@
 
         .wlc-form {
             display: flex;
-            flex-direction: column;
+            flex-direction: ef.get-value($themeDefault, 'formFlexDirection');
         }
 
         .wlc-restore-link {
-            line-height: ef.get-value($themeDefault, 'restoreLineHeight');
             margin: ef.get-value($themeDefault, 'restoreMargin');
+
+            line-height: ef.get-value($themeDefault, 'restoreLineHeight');
 
             &:last-child {
                 margin-bottom: 0;
@@ -41,8 +43,12 @@
                 .wlc-input__container {
 
                     .wlc-input__input:disabled {
-                        background: ef.get-value($themeDefault, 'inputBackground');
                         color: ef.get-value($themeDefault, 'inputColor');
+                        -webkit-text-fill-color: ef.get-value($themeDefault, 'inputColor');
+
+                        background: ef.get-value($themeDefault, 'inputBackground');
+
+                        opacity: ef.get-value($themeDefault, 'inputOpacity'); // for ios
                     }
                 }
             }
@@ -53,6 +59,29 @@
             &--submit {
                 @include em.get-mq-map('margin', $themeDefault, 'btnMargin');
             }
+        }
+    }
+    
+    &.wlc-sign-in-form--theme-mod-with-banner {
+        max-width: 100%;
+
+        ::ng-deep {
+
+            .banner {
+                @include em.get-mq-map('padding', $themeDefaultModWithBanner, 'bannerPadding');
+                @include em.get-mq-map('max-height', $themeDefaultModWithBanner, 'bannerHeight');
+                min-height: unset;
+
+                img {
+                    @include em.get-mq-map('width', $themeDefaultModWithBanner, 'bannerImgWidth');
+                }
+            }
+        }
+
+        .wlc-form-wrapper {
+            @include em.get-mq-map('max-width', $themeDefaultModWithBanner, 'formMaxWidth');
+            @include em.get-mq-map('margin', $themeDefaultModWithBanner, 'formMargin');
+            @include em.get-mq-map('height', $themeDefaultModWithBanner, 'formHeight');
         }
     }
 }

@@ -13,25 +13,20 @@ import {
 import {BonusesService} from '../../system/services';
 import {DateTime} from 'luxon';
 
-import {
-    get as _get,
-    toNumber as _toNumber,
-    isNumber as _isNumber,
-    isString as _isString,
-    toString as _toString,
-    isObject as _isObject,
-    isArray as _isArray,
-    floor as _floor,
-    each as _each,
-    filter as _filter,
-    includes as _includes,
-    extend as _extend,
-    unset as _unset,
-    remove as _remove,
-    size as _size,
-    keys as _keys,
-    map as _map,
-} from 'lodash-es';
+import _map from 'lodash-es/map';
+import _keys from 'lodash-es/keys';
+import _size from 'lodash-es/size';
+import _remove from 'lodash-es/remove';
+import _unset from 'lodash-es/unset';
+import _includes from 'lodash-es/includes';
+import _each from 'lodash-es/each';
+import _floor from 'lodash-es/floor';
+import _isArray from 'lodash-es/isArray';
+import _isObject from 'lodash-es/isObject';
+import _toString from 'lodash-es/toString';
+import _isString from 'lodash-es/isString';
+import _isNumber from 'lodash-es/isNumber';
+import _toNumber from 'lodash-es/toNumber';
 
 export class Bonus extends AbstractModel<IBonus> {
     public isReady: boolean = true;

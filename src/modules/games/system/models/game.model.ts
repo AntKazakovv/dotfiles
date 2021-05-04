@@ -6,16 +6,14 @@ import {GamesHelper} from 'wlc-engine/modules/games/system/helpers/games.helpers
 import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
-
-import {
-    isObject as _isObject,
-    each as _each,
-    toNumber as _toNumber,
-    intersection as _intersection,
-    includes as _includes,
-    map as _map,
-} from 'lodash-es';
 import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.model';
+
+import _isObject from 'lodash-es/isObject';
+import _each from 'lodash-es/each';
+import _intersection from 'lodash-es/intersection';
+import _includes from 'lodash-es/includes';
+import _toNumber from 'lodash-es/toNumber';
+import _map from 'lodash-es/map';
 
 export class Game extends AbstractModel<IGame> {
     public ID: number;

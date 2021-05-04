@@ -23,12 +23,10 @@ import {GamesCatalogService, Game} from 'wlc-engine/modules/games';
 import {UserService} from 'wlc-engine/modules/user';
 import * as Params from './game-thumb.params';
 
-import {
-    assign as _assign,
-    get as _get,
-    isArray as _isArray,
-    map as _map,
-} from 'lodash-es';
+import _assign from 'lodash-es/assign';
+import _map from 'lodash-es/map';
+import _get from 'lodash-es/get';
+import _isArray from 'lodash-es/isArray';
 
 export type MediaType = 'background' | 'foreground' | 'logo' | 'video';
 export interface IMediaContent {

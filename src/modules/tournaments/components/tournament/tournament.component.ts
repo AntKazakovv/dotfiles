@@ -33,9 +33,7 @@ import {TournamentDetailComponent} from './components/tournament-detail/tourname
 
 import * as Params from 'wlc-engine/modules/tournaments/components/tournament/tournament.params';
 
-import {
-    union as _union,
-} from 'lodash-es';
+import _union from 'lodash-es/union';
 
 @Component({
     selector: '[wlc-tournament]',
@@ -295,6 +293,7 @@ export class TournamentComponent
                 this.cdr.detectChanges();
             }
         } finally {
+            this.isTournamentSelected = false;
             this.pending$.next(false);
             this.cdr.markForCheck();
         }

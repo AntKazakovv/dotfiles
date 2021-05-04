@@ -10,6 +10,10 @@ export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;
 export type AdditionalBlockItemsType = 'emailNotification' | 'passwordRestore' | 'bankingInfo';
 
+export interface IFieldComponentParams {
+    params: IInputCParams | ISelectCParams;
+}
+
 export interface IAdditionalBlock {
     title: string;
     use: boolean;
@@ -214,6 +218,10 @@ export const defaultParams: IProfileFormCParams = {
         },
         security: {
             title: gettext('Security'),
+            use: true,
+        },
+        banking: {
+            title: gettext('Banking information'),
             use: true,
         },
     },

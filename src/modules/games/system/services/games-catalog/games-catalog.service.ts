@@ -40,17 +40,15 @@ import {UserService} from 'wlc-engine/modules/user';
 import {ITournamentGames} from 'wlc-engine/modules/tournaments';
 import {GamesHelper} from 'wlc-engine/modules/games/system/helpers/games.helpers';
 
-import {
-    find as _find,
-    filter as _filter,
-    includes as _includes,
-    startsWith as _startsWith,
-    isString as _isString,
-    toNumber as _toNumber,
-    isEqual as _isEqual,
-    map as _map,
-    isArray as _isArray,
-} from 'lodash-es';
+import _startsWith from 'lodash-es/startsWith';
+import _isString from 'lodash-es/isString';
+import _isEqual from 'lodash-es/isEqual';
+import _map from 'lodash-es/map';
+import _includes from 'lodash-es/includes';
+import _isArray from 'lodash-es/isArray';
+import _filter from 'lodash-es/filter';
+import _find from 'lodash-es/find';
+import _toNumber from 'lodash-es/toNumber';
 
 export interface ILaunchGameModal {
     show: boolean;
@@ -501,12 +499,27 @@ export class GamesCatalogService {
         });
     }
 
+    /**
+     * Gets merchant model by merchant name
+     * @param name - `menuId` parameter of merchant
+     * @returns MerchantModel
+     */
+    public getMerchantByName(name: string): MerchantModel {
+        return this.gamesCatalog.getMerchantByName(name);
+    }
+
     public getAvailableCategories(): CategoryModel[] {
         return this.gamesCatalog.getAvailableCategories();
     }
 
     public getAvailableMerchants(): MerchantModel[] {
         return this.gamesCatalog.getAvailableMerchants();
+    }
+
+    public getFilteredMerchants(): MerchantModel[] {
+        const sportsbookMerchants: number[] = this.configService.get<number[]>('$games.sportsbookMerchants');
+        return _filter(this.gamesCatalog.getAvailableMerchants(),
+            (merchant: MerchantModel) => !sportsbookMerchants.includes(merchant.id));
     }
 
     /**
@@ -543,8 +556,8 @@ export class GamesCatalogService {
     //     return this.gameCatalog.getGameById(id);
     // }
 
-    public getGame(merchantId: number, launchCode: string): Game {
-        return this.gamesCatalog.getGame(merchantId, launchCode);
+    public getGame(merchantId: number, launchCode: string, isSportsbook: boolean = false): Game {
+        return this.gamesCatalog.getGame(merchantId, launchCode, isSportsbook);
     }
 
     public getGameById(id: number): Game {

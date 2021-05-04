@@ -37,7 +37,7 @@
 }
 
 @mixin buttonTransparency {
-    background: transparent;
+    background: ef.get-value($themeDefault, 'backgroundSecondary');
     border: ef.get-value($themeDefault, 'borderSecondary');
     box-shadow: ef.get-value($themeDefault, 'shadowSecondary');
 
@@ -49,7 +49,7 @@
     @media (hover: hover) {
 
         &:hover {
-            background: ef.get-value($themeDefault, 'backgroundSecondary');
+            background: ef.get-value($themeDefault, 'backgroundSecondaryHover');
             border: ef.get-value($themeDefault, 'borderSecondaryHover');
             box-shadow: ef.get-value($themeDefault, 'shadowHoverSecondary');
 

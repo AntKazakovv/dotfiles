@@ -7,9 +7,11 @@ import * as wlcConfig from 'wlc-engine/modules/core/system/config/default.config
 import {
     $layoutsAff,
     $panelsLayouts,
+    $profileLayouts,
+    $profileFirstLayouts,
     $layouts,
 } from 'wlc-engine/modules/core/system/config/layouts';
-import {AppType, ILayoutsConfig} from 'wlc-engine/modules/core/system/interfaces';
+import {ILayoutsConfig, IParamsLayoutConfig} from 'wlc-engine/modules/core/system/interfaces';
 import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
 import {
     LocalStorageService,
@@ -34,13 +36,11 @@ export enum storageType {
     'sessionStorage' = 'sessionStorageService'
 }
 
-import {
-    mergeWith as _mergeWith,
-    get as _get,
-    set as _set,
-    isObject as _isObject,
-    cloneDeep as _cloneDeep,
-} from 'lodash-es';
+import _mergeWith from 'lodash-es/mergeWith';
+import _get from 'lodash-es/get';
+import _set from 'lodash-es/set';
+import _isObject from 'lodash-es/isObject';
+import _cloneDeep from 'lodash-es/cloneDeep';
 
 /**
  * Examples of getter and setter:
@@ -82,6 +82,7 @@ export class ConfigService {
             url: '/bootstrap',
             type: 'GET',
             preload: 'bootstrap',
+            noUseLang: true,
             mapFunc: (res) => this.prepareData(res),
             events: {
                 success: 'LOAD_BOOTSTRAP_SUCCESS',
@@ -156,25 +157,37 @@ export class ConfigService {
     }
 
     private addSiteConfig(): void {
-        if (appConfig.$base?.app.type) {
-            wlcConfig.$base.app.type = appConfig.$base.app.type;
+        wlcConfig.$base.app.type = appConfig.$base.app.type || 'wlc';
+        wlcConfig.$base.profile.type = appConfig.$base.profile?.type || 'default';
+
+        if (appConfig.$base.app.type === 'aff') {
+            appConfig.$base.affiliate.affiliateUrl += appConfig.$base.affiliate.affiliateUrl.endsWith('/') ? '' : '/';
+            appConfig.$base.affiliate.siteUrl += appConfig.$base.affiliate.siteUrl.endsWith('/') ? '' : '/';
         }
 
-        const layoutConfig = this.addLayoutConfig(wlcConfig.$base.app.type);
+        const layoutConfig = this.addLayoutConfig({
+            appType: wlcConfig.$base.app.type,
+            profileType: wlcConfig.$base.profile.type,
+        });
         _mergeWith(this.global, wlcConfig, layoutConfig, (target, source) => (source?.replaceConfig) ? _cloneDeep(source) : undefined);
         _mergeWith(this.global, appConfig, (target, source) => (source?.replaceConfig) ? _cloneDeep(source) : undefined);
         GlobalHelper.deepFreeze(this.global.appConfig);
     }
 
-    private addLayoutConfig(appType: AppType): ILayoutsConfig {
-        switch (appType) {
+    private addLayoutConfig(params: IParamsLayoutConfig): ILayoutsConfig {
+        const mergedLayouts: ILayoutsConfig =
+            params.profileType === 'first'
+                ? _mergeWith($layouts, $profileFirstLayouts)
+                : _mergeWith($layouts, $profileLayouts);
+
+        switch (params.appType) {
             case 'aff':
                 return {
                     $layouts: $layoutsAff,
                 };
             default:
                 return {
-                    $layouts,
+                    $layouts: mergedLayouts,
                     $panelsLayouts,
                 };
         }

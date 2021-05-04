@@ -8,13 +8,11 @@ import {TranslateService} from '@ngx-translate/core';
 import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
 import {EventService} from 'wlc-engine/modules/core/system/services';
 
-import {
-    get as _get,
-    reduce as _reduce,
-    assign as _assign,
-    isString as _isString,
-    cloneDeep as _cloneDeep,
-} from 'lodash-es';
+import _reduce from 'lodash-es/reduce';
+import _get from 'lodash-es/get';
+import _assign from 'lodash-es/assign';
+import _isString from 'lodash-es/isString';
+import _cloneDeep from 'lodash-es/cloneDeep';
 
 export class UserInfo extends AbstractModel<IUserInfo> {
 

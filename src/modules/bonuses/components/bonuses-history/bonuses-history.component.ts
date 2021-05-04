@@ -26,11 +26,9 @@ import {HistoryItemModel} from 'wlc-engine/modules/bonuses/system/models/bonus-h
 
 import * as Params from './bonuses-history.params';
 
-import {
-    sortBy as _sortBy,
-    map as _map,
-    filter as _filter,
-} from 'lodash-es';
+import _sortBy from 'lodash-es/sortBy';
+import _map from 'lodash-es/map';
+import _filter from 'lodash-es/filter';
 
 @Component({
     selector: '[wlc-bonuses-history]',

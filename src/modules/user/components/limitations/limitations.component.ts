@@ -23,9 +23,7 @@ import {
 
 import * as Params from './limitations.params';
 
-import {
-    each as _each,
-} from 'lodash-es';
+import _each from 'lodash-es/each';
 
 @Component({
     selector: '[wlc-limitations]',

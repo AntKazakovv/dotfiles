@@ -1,16 +1,13 @@
 import {Injectable} from '@angular/core';
+import {TranslateService} from '@ngx-translate/core';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {EventService} from 'wlc-engine/modules/core/system/services';
 import {BannerModel} from 'wlc-engine/modules/promo/system/models/banner.model';
 import {UserService} from 'wlc-engine/modules/user/system/services';
 
-import {
-    filter as _filter,
-    intersection as _intersection,
-    startsWith as _startsWith,
-} from 'lodash-es';
-import {TranslateService} from "@ngx-translate/core";
-import {takeUntil} from "rxjs/operators";
+import _intersection from 'lodash-es/intersection';
+import _startsWith from 'lodash-es/startsWith';
+import _filter from 'lodash-es/filter';
 
 declare type IPlatform = 'any' | 'desktop' | 'mobile';
 declare type IVisibility = 'anyone' | 'anonymous' | 'authenticated';

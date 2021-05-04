@@ -23,10 +23,10 @@
             <ng-container
                 *ngIf="!isTournamentSelected && $params.type === 'swiper'">
                 <div class="{{$class}}__slider"
-                    wlc-slider
-                    type="dashboard"
-                    [slides]="slides"
-                    [inlineParams]="sliderParams">
+                     wlc-slider
+                     type="dashboard"
+                     [slides]="slides"
+                     [inlineParams]="sliderParams">
                 </div>
                 <div slot-container-end *ngIf="slides.length" class="{{$class}}__nav">
                     <div class="container swiper-button-container">
@@ -37,7 +37,7 @@
             </ng-container>
             <ng-container *ngIf="isTournamentSelected">
                 <div class="{{$class}}__container-active"
-                    data-wlc-element="block_tournament_active_dashboard">
+                     data-wlc-element="block_tournament_active_dashboard">
                     <div
                         wlc-tournament
                         [tournament]="activeTournament"
@@ -72,6 +72,24 @@
     </ng-container>
 </ng-template>
 
+<ng-template #available>
+    <div
+        *ngIf="tournaments?.length && isReady; else: noData"
+        class="{{$class}}__container"
+        data-wlc-element="block_tournament">
+        <div
+            *ngFor="let tournament of tournaments"
+            class="{{$class}}__item">
+            <div
+                wlc-tournament
+                [tournament]="tournament"
+                [type]="$params.common?.thumbType"
+                [theme]="$params.theme">
+            </div>
+        </div>
+    </div>
+</ng-template>
+
 <ng-template #noData>
     <div class="{{$class}}__nocontent" *ngIf="isReady">{{'No tournaments available' | translate}}</div>
     <div class="{{$class}}__nocontent" *ngIf="!isReady">
@@ -80,6 +98,7 @@
 </ng-template>
 <ng-container [ngSwitch]="$params.theme">
     <ng-container [ngTemplateOutlet]="dashboard" *ngSwitchCase="'dashboard'"></ng-container>
+    <ng-container [ngTemplateOutlet]="available" *ngSwitchCase="'available'"></ng-container>
     <ng-container [ngTemplateOutlet]="banner" *ngSwitchCase="'banner'"></ng-container>
     <ng-container [ngTemplateOutlet]="default" *ngSwitchDefault></ng-container>
 </ng-container>

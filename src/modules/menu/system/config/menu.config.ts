@@ -93,4 +93,66 @@ export const menuConfig: IMenuConfig = {
             use: false,
         },
     },
+    profileFirstMenu: {
+        items: [
+            {
+                parent: 'profile-first-menu:account-settings',
+                items: [
+                    'profile-first-menu:edit-profile',
+                    'profile-first-menu:verification',
+                    'profile-first-menu:limitations',
+                    'profile-first-menu:messages',
+                ],
+            },
+            {
+                parent: 'profile-first-menu:bonuses',
+                items: [
+                    'profile-first-menu:bonuses-as-offers',
+                    'profile-first-menu:bonuses-active',
+                    'profile-first-menu:bonuses-history',
+                ],
+            },
+            {
+                parent: 'profile-first-menu:tournaments',
+                items: [
+                    'profile-first-menu:tournaments-current',
+                    'profile-first-menu:tournaments-active',
+                    'profile-first-menu:tournaments-history',
+                ],
+            },
+            {
+                parent: 'profile-first-menu:cash',
+                items: [
+                    'profile-first-menu:cash-deposit',
+                    'profile-first-menu:cash-withdrawal',
+                    'profile-first-menu:transaction-history',
+                ],
+            },
+            {
+                parent: 'profile-first-menu:gamblings',
+                items: [
+                    'profile-first-menu:bets-history',
+                ],
+            },
+            {
+                parent: 'profile-first-menu:market',
+                items: [
+                    'profile-first-menu:store',
+                    'profile-first-menu:loyalty-level',
+                ],
+            },
+        ],
+        icons: {
+            folder: 'wlc/icons/european/v1',
+            use: false,
+        },
+        subMenuIcons: {
+            folder: 'wlc/icons/european/v1',
+            use: false,
+        },
+        dropdownMenuIcons: {
+            folder: 'wlc/icons/european/v1',
+            use: false,
+        },
+    },
 };

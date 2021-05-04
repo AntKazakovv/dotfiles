@@ -1,0 +1,24 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/base.mixins' as em;
+@use 'engine-scss/mixins/text' as text;
+@import '../utils/vars';
+@import '../utils/mixins';
+
+.wlc-enter-promocode--theme-clear:host {
+    width: ef.get-value($themeClear, 'width');
+    @include em.get-mq-map('max-width', $themeClear, 'maxWidth');
+
+    .wlc-enter-promocode {
+
+        &__control {
+            position: relative;
+
+            width: ef.get-value($themeClear, 'controlWidth');
+            @include em.get-mq-map('max-width', $themeClear, 'controlMaxWidth');
+        }
+
+        &__btn {
+            @include enterPromocodeButton();
+        }
+    }
+}

@@ -7,7 +7,6 @@ import {
     OnChanges,
     OnInit,
     Optional,
-    Self,
 } from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {
@@ -31,13 +30,11 @@ import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
 
 import * as Params from './currency.params';
 
-import {
-    filter as _filter,
-    each as _each,
-    keys as _keys,
-    join as _join,
-    map as _map,
-} from 'lodash-es';
+import _filter from 'lodash-es/filter';
+import _each from 'lodash-es/each';
+import _keys from 'lodash-es/keys';
+import _join from 'lodash-es/join';
+import _map from 'lodash-es/map';
 
 /**
  * @ngModule CoreModule
@@ -128,7 +125,6 @@ export class CurrencyComponent
         protected translateService: TranslateService,
         protected configService: ConfigService,
         @Optional()
-        @Self()
         @Inject('injectParams')
         protected injectParams: Params.ICurrencyCParams,
     ) {

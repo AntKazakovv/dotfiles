@@ -21,11 +21,9 @@ import {
 
 import * as Params from './select.params';
 
-import {
-    find as _find,
-    union as _union,
-    kebabCase as _kebabCase,
-} from 'lodash-es';
+import _union from 'lodash-es/union';
+import _find from 'lodash-es/find';
+import _kebabCase from 'lodash-es/kebabCase';
 
 /**
  * Component select

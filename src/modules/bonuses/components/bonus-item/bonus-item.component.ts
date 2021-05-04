@@ -29,9 +29,9 @@ import {
 } from 'wlc-engine/modules/bonuses';
 import * as Params from './bonus-item.params';
 
-import {
-    union as _union,
-} from 'lodash-es';
+import _union from 'lodash-es/union';
+import _merge from 'lodash-es/merge';
+import _isEmpty from 'lodash-es/isEmpty';
 
 @Component({
     selector: '[wlc-bonus-item]',
@@ -80,8 +80,14 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
     }
 
     public ngOnInit(): void {
-        super.ngOnInit(this.inlineParams || GlobalHelper.prepareParams(this,
-            ['bonus', 'type', 'theme', 'themeMod', 'customMod', 'view', 'chosen']));
+
+        const inlineParams = _merge(
+            this.inlineParams || {},
+            GlobalHelper.prepareParams(this,
+                ['bonus', 'type', 'theme', 'themeMod', 'customMod', 'view', 'chosen']) || {},
+        );
+
+        super.ngOnInit(_isEmpty(inlineParams) ? null : inlineParams);
 
         if (this.$params.bonus) {
             this.$params.common.bonus = this.$params.bonus;

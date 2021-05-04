@@ -17,6 +17,7 @@ import {TournamentPrizesComponent} from './components/tournament/components/tour
 import {TournamentConditionComponent} from './components/tournament/components/tournament-condition/tournament-condition.component';
 import {TournamentBannerComponent} from './components/tournament/components/tournament-banner/tournament-banner.component';
 import {TournamentsHistoryComponent} from './components/tournaments-history/tournaments-history.component';
+import {TournamentSmartInfoComponent} from './components/tournament/components/tournament-smart-info/tournament-smart-info.component';
 
 export const components = {
     'wlc-tournament-list': TournamentListComponent,
@@ -36,6 +37,7 @@ export const components = {
         TournamentPrizesComponent,
         TournamentConditionComponent,
         TournamentBannerComponent,
+        TournamentSmartInfoComponent,
     ],
     imports: [
         CommonModule,

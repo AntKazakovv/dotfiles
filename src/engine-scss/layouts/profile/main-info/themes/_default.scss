@@ -23,8 +23,8 @@
 
             &__add {
                 display: grid;
+                grid-row-gap: ef.get-value($size, 'main');
                 grid-template-columns: 1fr;
-                grid-gap: ef.get-value($mainInfoThemeDefault, 'addBlockGap');
                 height: ef.get-value($mainInfoThemeDefault, 'addBlockHeight');
             }
 
@@ -32,6 +32,13 @@
                 display: grid;
                 @include bm.get-mq-map('grid-template-columns', $mainInfoThemeDefault, 'addBlockProfileColumns');
                 grid-row-gap: ef.get-value($mainInfoThemeDefault, 'addItemGap');
+
+                &-notification {
+
+                    .wlc-profile-form__item {
+                        grid-row-gap: unset;
+                    }
+                }
             }
 
             &__title {
@@ -48,9 +55,9 @@
 
             &__item {
                 display: grid;
-                grid-template-columns: ef.get-value($mainInfoThemeDefault, 'addBlockColumns');
-                grid-gap: ef.get-value($mainInfoThemeDefault, 'addBlockGap');
+                grid-row-gap: ef.get-value($mainInfoThemeDefault, 'addItemGap');
                 grid-template-areas: ef.get-value($mainInfoThemeDefault, 'addBlockAreas');
+                grid-template-columns: ef.get-value($mainInfoThemeDefault, 'addBlockColumns');
 
                 &-title {
                     grid-area: title;
@@ -84,6 +91,7 @@
 
                     .wlc-btn__text {
                         display: flex;
+
                         color: ef.get-value($mainInfoThemeDefault, 'addItemLinkColor', 375);
 
                         @include mq.min(1024) {
@@ -96,9 +104,10 @@
                         min-width: auto;
                         height: auto;
                         padding: 0;
+
+                        background: none;
                         border: none;
                         border-radius: 0;
-                        background: none;
                         box-shadow: none;
                     }
 
@@ -112,8 +121,9 @@
                         }
 
                         svg {
-                            fill: ef.get-value($mainInfoThemeDefault, 'addItemLinkColor', 1024);
                             transform: rotate(-90deg);
+
+                            fill: ef.get-value($mainInfoThemeDefault, 'addItemLinkColor', 1024);
                         }
                     }
                 }
@@ -174,8 +184,8 @@
                 .wlc-select[class] {
 
                     @include mq.min(768) {
-                        grid-template-columns: ef.get-value($mainInfoThemeDefault, 'phoneSize');
                         grid-gap: ef.get-value($mainInfoThemeDefault, 'phoneGap');
+                        grid-template-columns: ef.get-value($mainInfoThemeDefault, 'phoneSize');
                     }
                 }
 
@@ -213,3 +223,54 @@
         }
     }
 }
+
+/// TODO start
+/// Убирать стейт, когда готов раздел. Сейчас это нужно чтобы меню v1 не разваливалось, при тестах
+.app-profile-main-info-state,
+.app-profile-loyalty-bonuses-main-state,
+.app-profile-loyalty-bonuses-active-state,
+.app-profile-loyalty-bonuses-history-state,
+.app-profile-loyalty-tournaments-main-state,
+.app-profile-loyalty-tournaments-active-state,
+.app-profile-loyalty-tournaments-history-state,
+.app-profile-cash-deposit-state,
+.app-profile-cash-withdraw-state,
+.app-profile-cash-transactions-state,
+.app-profile-gamblings-bets-state,
+.app-profile-loyalty-store-main-state,
+.app-profile-loyalty-level-state,
+.app-profile-verification-state {
+
+    .wlc-sections {
+
+        &__profile-content--theme-first {
+
+            > .container {
+                display: grid;
+                grid: {
+                    template-columns: 1fr;
+                }
+                border-radius: ef.get('radius', 'biger');
+
+                @include mq.min(1024) {
+                    grid: {
+                        template-columns: 285px 1fr;
+                    }
+                    padding: 0;
+
+                    .wlc-profile-content {
+                        padding: ef.get('size', 'smaller');
+                    }
+                }
+
+                @include mq.min(1366) {
+
+                    .wlc-profile-content {
+                        padding: ef.get('size', 'smaller') ef.get('size', 'main');
+                    }
+                }
+            }
+        }
+    }
+}
+/// TODO finish

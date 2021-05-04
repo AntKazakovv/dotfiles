@@ -4,6 +4,7 @@ import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.mod
 import {MerchantModel} from 'wlc-engine/modules/games/system/models/merchant.model';
 
 export interface IGamesConfig {
+    sportsbookMerchants?: number[];
     run?: IRunGameOptions;
     mobile?: IMobileGames;
     realPlay?: IRealPlayOptions;
@@ -85,9 +86,16 @@ export type IByMerchant = {
     [key: string]: IByMerchantItem;
 }
 
-export type IByMerchantItem = {
+export interface IByMerchantItem {
     games: Game[];
-    categories: IIndexing<boolean>;
+    categories: IIndexing<IByMerchantItemCategory>;
+}
+
+export interface IByMerchantItemCategory {
+    menuId: string,
+    slug: string,
+    id: number,
+    sort: number,
 }
 
 export type IByCategory = {
@@ -206,6 +214,7 @@ export interface ICustomGameParams {
     gameId?: number;
     hideTitle?: boolean;
     autoresize?: boolean;
+    isSportsbook?: boolean;
     sportsbookPage?: string;
     disableIframeAutoResize?: boolean;
     minGameWindowHeight?: number;

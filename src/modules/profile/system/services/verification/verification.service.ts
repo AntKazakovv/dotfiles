@@ -10,7 +10,11 @@ import {
     IDoc,
     IDocTypeResponse,
 } from 'wlc-engine/modules/profile';
-import {find as _find, includes as _includes} from 'lodash-es';
+
+import _find from 'lodash-es/find';
+import _includes from 'lodash-es/includes';
+import _join from 'lodash-es/join';
+import _map from 'lodash-es/map';
 
 @Injectable({
     providedIn: 'root',
@@ -27,6 +31,10 @@ export class VerificationService {
         private eventService: EventService,
     ) {
         this.init();
+    }
+
+    public acceptFormat(): string {
+        return _join(_map(this.params.fileTypes, (type) => `image/${type}`), ', ');
     }
 
     public async getDocsTypes(): Promise<IDocTypeResponse[]> {
@@ -94,7 +102,7 @@ export class VerificationService {
         });
     }
 
-    public checkFormat(file: File): boolean {
+    public checkFile(file: File): boolean {
         if (file.size > this.params.maxSize * 1000000) {
             this.showError('No valid size');
             return false;

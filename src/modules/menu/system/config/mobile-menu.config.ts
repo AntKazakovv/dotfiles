@@ -13,6 +13,10 @@ export const wlcMobileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
                     'page': '.',
                 },
             },
+            href: {
+                url: '/sportsbook/',
+                baseSiteUrl: true,
+            },
         },
     },
     'mobile-menu:sportsbook-inplay': {
@@ -27,6 +31,10 @@ export const wlcMobileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
                     page: 'inplay.',
                 },
             },
+            href: {
+                url: '/sportsbook/inplay/',
+                baseSiteUrl: true,
+            },
         },
         wlcElement: 'link_main-nav-sports-inplay',
     },
@@ -40,6 +48,10 @@ export const wlcMobileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
                 name: 'app.promotions',
                 params: {},
             },
+            href: {
+                url: '/promotions/',
+                baseSiteUrl: true,
+            },
         },
     },
     'mobile-menu:tournaments': {
@@ -50,6 +62,10 @@ export const wlcMobileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         params: {
             state: {
                 name: 'app.tournaments',
+            },
+            href: {
+                url: '/tournaments/',
+                baseSiteUrl: true,
             },
         },
     },
@@ -62,6 +78,10 @@ export const wlcMobileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
             state: {
                 name: 'app.promotions',
                 params: {},
+            },
+            href: {
+                url: '/promotions/',
+                baseSiteUrl: true,
             },
         },
     },
@@ -77,6 +97,10 @@ export const wlcMobileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
                     slug: 'privacy-policy',
                 },
             },
+            href: {
+                url: '/contacts/privacy-policy/',
+                baseSiteUrl: true,
+            },
         },
     },
     'mobile-menu:responsible-game': {
@@ -90,6 +114,10 @@ export const wlcMobileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
                 params: {
                     slug: 'responsible-game',
                 },
+            },
+            href: {
+                url: '/contacts/responsible-game/',
+                baseSiteUrl: true,
             },
         },
     },
@@ -105,6 +133,10 @@ export const wlcMobileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
                     slug: 'fair-play',
                 },
             },
+            href: {
+                url: '/contacts/fair-play/',
+                baseSiteUrl: true,
+            },
         },
     },
     'mobile-menu:games-rules': {
@@ -118,6 +150,10 @@ export const wlcMobileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
                 params: {
                     slug: 'games-rules',
                 },
+            },
+            href: {
+                url: '/contacts/games-rules/',
+                baseSiteUrl: true,
             },
         },
     },
@@ -133,6 +169,10 @@ export const wlcMobileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
                     slug: 'terms-and-conditions',
                 },
             },
+            href: {
+                url: '/contacts/terms-and-conditions/',
+                baseSiteUrl: true,
+            },
         },
     },
     'mobile-menu:contact-us': {
@@ -146,6 +186,10 @@ export const wlcMobileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
                 params: {
                     slug: 'feedback',
                 },
+            },
+            href: {
+                url: '/contacts/feedback',
+                baseSiteUrl: true,
             },
         },
     },

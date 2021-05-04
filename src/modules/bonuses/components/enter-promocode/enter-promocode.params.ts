@@ -9,6 +9,7 @@ export type ComponentType = 'default' | CustomType;
 export interface IEnterPromocodeCParams extends IComponentParams<ComponentTheme, ComponentType, string> {
     common?: {
         title?: string,
+        showTitle?: boolean,
     };
 }
 
@@ -17,6 +18,7 @@ export const defaultParams: IEnterPromocodeCParams = {
     class: 'wlc-enter-promocode',
     componentName: 'wlc-enter-promocode',
     common: {
+        showTitle: true,
         title: gettext('Have a promo code?'),
     },
 };

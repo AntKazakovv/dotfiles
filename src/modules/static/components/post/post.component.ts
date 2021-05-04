@@ -10,21 +10,25 @@ import {
     ChangeDetectorRef,
 } from '@angular/core';
 import {DomSanitizer} from '@angular/platform-browser';
-import {StateService, UIRouterGlobals} from '@uirouter/core';
-
-import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {StaticService, TextDataModel} from 'wlc-engine/modules/static';
 import {
+    StateService,
+    UIRouterGlobals,
+} from '@uirouter/core';
+
+import {
+    StaticService,
+    TextDataModel,
+} from 'wlc-engine/modules/static';
+import {
+    AbstractComponent,
     ConfigService,
     LogService,
     ActionService,
 } from 'wlc-engine/modules/core';
 
-import * as PostParams from './post.params';
+import * as Params from './post.params';
 
-import {
-    get as _get,
-} from 'lodash-es';
+import _get from 'lodash-es/get';
 
 @Component({
     selector: '[wlc-post]',
@@ -44,10 +48,10 @@ export class PostComponent extends AbstractComponent implements OnInit, AfterVie
     public data: TextDataModel;
     public html: string;
     public isReady: boolean = false;
-    public $params: PostParams.IPostCParams;
+    public $params: Params.IPostCParams;
 
     constructor(
-        @Inject('injectParams') protected params: PostParams.IPostCParams,
+        @Inject('injectParams') protected params: Params.IPostCParams,
         protected staticService: StaticService,
         protected viewRef: ViewContainerRef,
         protected domSanitizer: DomSanitizer,
@@ -58,7 +62,7 @@ export class PostComponent extends AbstractComponent implements OnInit, AfterVie
         protected logService: LogService,
         protected actionService: ActionService,
     ) {
-        super({injectParams: params, defaultParams: PostParams.defaultParams});
+        super({injectParams: params, defaultParams: Params.defaultParams});
     }
 
     public async ngOnInit(): Promise<void> {
@@ -81,10 +85,11 @@ export class PostComponent extends AbstractComponent implements OnInit, AfterVie
         } catch (error) {
             // TODO: add log service in static service metods
             this.logService.sendLog({code: '12.0.0', data: error});
-            this.stateService.go('app.error', {
-                locale: this.configService.get('currentLanguage'),
-            });
-            console.error(error);
+            if (this.uiRouter.params.slug) {
+                this.stateService.go('app.error', {
+                    locale: this.configService.get('currentLanguage'),
+                });
+            }
         } finally {
             this.isReady = true;
             this.cdr.markForCheck();

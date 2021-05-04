@@ -12,10 +12,8 @@ import {fromEvent} from 'rxjs';
 import IMask, {InputMask} from 'imask';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 
-import {
-    assign as _assign,
-    isString as _isString,
-} from 'lodash-es';
+import _isString from 'lodash-es/isString';
+import _assign from 'lodash-es/assign';
 
 /**
  * See more: [imask docs]{@link https://imask.js.org/}.

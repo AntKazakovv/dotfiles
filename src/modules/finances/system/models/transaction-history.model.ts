@@ -1,13 +1,10 @@
 import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
 import {DateTime} from 'luxon';
 
-import {
-    find as _find,
-    toNumber as _toNumber,
-    isString as _isString,
-    isUndefined as _isUndefined,
-    cloneDeep as _cloneDeep,
-} from 'lodash-es';
+import _toNumber from 'lodash-es/toNumber';
+import _isString from 'lodash-es/isString';
+import _isUndefined from 'lodash-es/isUndefined';
+import _find from 'lodash-es/find';
 
 export interface ITransaction {
     Amount: number;

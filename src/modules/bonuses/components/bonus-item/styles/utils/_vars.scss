@@ -20,6 +20,11 @@ $themeDefault: map-merge((
         1630: 320px - 30px,
     ),
 
+    'infoWidthProfileThemeFirst': (
+        320: 200px,
+        1630: 290px,
+    ),
+
     'infoHeight': (
         320: auto 100px,
         1630: auto 132px,
@@ -35,9 +40,25 @@ $themeDefault: map-merge((
         1630: auto 180px,
     ),
 
+    'infoHeightWithImg': (
+        320: (minmax(auto, 150px) 130px),
+        1630: (minmax(auto, 225px) 145px),
+    ),
+    'infoHeightWithImgMobile': (
+        320: (minmax(auto, 150px) 130px)
+    ),
+    'infoBtmPaddingWithImg': (
+        320: 25px 0 0,
+    ),
+    'btnBottomPositionWithImg': (
+        320: 30px,
+        1630: 35px,
+    ),
+
     'relativeImageHeight': 70%,
     'bonusIconSize': (
         320: 120px,
+        900: 100px,
         1630: 144px,
     ),
     'bonusIconValueBlockWidth': 60px,
@@ -100,7 +121,7 @@ $themeDefault: map-merge((
     //Padding
     'bonusIconMargin': (
         320: 55px auto 0 auto,
-        1200: 50px auto 0 auto,
+        900: 50px auto 0 auto,
         1630: 77px auto 0 auto,
     ),
     'tagPadding': (
@@ -109,16 +130,16 @@ $themeDefault: map-merge((
     ),
     'infoPadding': 0 ef.get('size', 'small'),
     'activeBlockPadding': (
-        320: ef.get('size', 'smaller') 0 0 0,
-        1200: 20px 0 0 0,
-        1630: 30px 0 0 0,
+        320: 0,
+        900: ef.get('size', 'smally') 0 0,
+        1630: ef.get('size', 'less') 0 0,
     ),
     'activeBlockMargin': 0 auto,
     'activeBlockTimerMargin': 0,
     'activeBlockProgressPadding': 0,
     'activeBlockProgressMargin': (
-        320: ef.get('size', 'smaller') 0 0 0,
-        1200: 25px 0 0 0,
+        320: 15px 0 0 0,
+        1200: 15px 0 0 0,
         1630: 37px 0 0 0
     ),
 
@@ -143,8 +164,8 @@ $themeDefault: map-merge((
     'time': ef.get('time', 'main'),
 
     'infoBlockPadding': (
-        320: ef.get('size', 'smaller') 0 0 0,
-        1630: 34px 0 0 0,
+        320: ef.get('size', 'small') 0 0,
+        1630: ef.get('size', 'less') 0 0,
     ),
 
     'btnBottomPosition': (
@@ -319,6 +340,9 @@ $themePromo: map-merge((
     'bonusIconValueBlockPosB': (
         320: 5px,
         560: 10px,
+    ),
+    'bonusIconValueBlockPosL': (
+        320: 50%,
     ),
     'bonusIconValueBlockMagin': (
         320: 0 0 0 -21px,

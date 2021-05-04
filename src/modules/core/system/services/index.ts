@@ -1,13 +1,13 @@
 import {HookHandler} from 'wlc-engine/modules/core/system/services/hooks/hooks.service';
 
 export {DataService, IData} from './data/data.service';
-export {EventService} from './event/event.service';
+export {EventService, IEvent} from './event/event.service';
 export {
     ConfigService,
     ILanguage,
     AppConfigModel,
 } from './config/config.service';
-export {LayoutService} from './layout/layout.service';
+export {LayoutService, LayoutsType} from './layout/layout.service';
 export {FilesService, IFile} from './files/files.service';
 export {LogService} from './log/log.service';
 // export {SentryService} from './sentry/sentry.service';

@@ -51,7 +51,7 @@
 </ng-template>
 
 <ng-template #tournaments>
-    <div class="{{$class}}__content" *ngIf='ready'>
+    <div class="{{$class}}__content" *ngIf='ready' [ngClass]="{'content-one': paginatedRows.length === 1,'content-small': paginatedRows.length < 4}">
 
         <div class="{{$class}}__row {{$class}}__row--head" *ngIf="rows.length">
             <span *ngFor="let col of head" class="{{$class}}__cell {{$class}}__cell--{{col.key}}"

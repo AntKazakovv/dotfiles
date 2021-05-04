@@ -132,13 +132,14 @@
                 margin: 0;
                 background: ef.get-value($themeDefault, 'toggleBackground');
                 border-radius: ef.get-value($themeDefault, 'toggleRadius');
-                border: none;
+                border: ef.get-value($themeDefault, 'toggleElemBorder');
                 width: ef.get-value($themeDefault, 'toggleElemWidth');
                 height: ef.get-value($themeDefault, 'toggleHeight');
                 @include bm.transition(background);
 
                 &.checked {
                     background: ef.get-value($themeDefault, 'toggleBackgroundActive');
+                    border: ef.get-value($themeDefault, 'toggleElemBorderActive');
                     opacity: 1;
                 }
 
@@ -152,7 +153,8 @@
 
                 &.checked:before {
                     left: calc(100% - #{ef.get-value($themeDefault, 'toggleCircleSize')} - #{ef.get-value($themeDefault, 'toggleCircleOffset')});
-                    background-color: ef.get-value($themeDefault, 'toggleCircleBgActive');
+                    background: ef.get-value($themeDefault, 'toggleCircleBgActive');
+                    border: ef.get-value($themeDefault, 'toggleCircleBorderActive');
                 }
 
                 &:before {
@@ -164,7 +166,8 @@
                     transform: translateY(-50%);
                     height: ef.get-value($themeDefault, 'toggleCircleSize');
                     width: ef.get-value($themeDefault, 'toggleCircleSize');
-                    background-color: ef.get-value($themeDefault, 'toggleCircleBg');
+                    background: ef.get-value($themeDefault, 'toggleCircleBg');
+                    border: ef.get-value($themeDefault, 'toggleCircleBorder');
                     border-radius: 50%;
                     @include bm.transition();
                 }

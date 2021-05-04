@@ -1,0 +1,12 @@
+{
+    "$schema": "./node_modules/@compodoc/compodoc/src/config/schema.json",
+    "name": "WLC Engine",
+    "output": "./docs/compodoc",
+    "tsconfig": "./tsconfig.docs.json",
+    "includes": "./src/docs/content",
+    "includesName": "Description",
+    "theme": "readthedocs",
+    "extTheme": "./src/docs/style",
+    "assetsFolder": "./src/docs/assets",
+    "disableGraph": true
+}

@@ -18,7 +18,7 @@ $themeDefault: map-merge((
     'thumbBtnPosition': horizontal,
     'favoritePosition': left,
     'favoriteBg': ef.get('mainColors', 'baseOpacity'),
-    'favoriteHoverBg': ef.get('fieldColors', 'inputBg'),
+    'favoriteHoverBg': darken(ef.get('mainColors', 'baseOpacity'), 20),
     'favoriteActiveBg': ef.get('fieldColors', 'inputBg'),
     'favoriteSize': 24px,
     'favoriteBackBg': ef.get('mainColors', 'baseOpacity'),

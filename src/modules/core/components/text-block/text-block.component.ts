@@ -10,14 +10,6 @@ import {ConfigService, GlobalHelper} from 'wlc-engine/modules/core';
 
 import * as Params from './text-block.params';
 
-import {
-    each as _each,
-    get as _get,
-    keys as _keys,
-    isUndefined as _isUndefined,
-} from 'lodash-es';
-
-
 /**
  * text-block component. Use for header of component.
  *

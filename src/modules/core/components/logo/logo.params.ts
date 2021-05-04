@@ -1,7 +1,11 @@
 import {TransitionOptions} from '@uirouter/core';
-import {IComponentParams} from 'wlc-engine/modules/core/system/interfaces/config.interface';
+import {
+    CustomType,
+    IComponentParams,
+} from 'wlc-engine/modules/core';
 
-export interface ILogoCParams extends IComponentParams<string, string, string> {
+export type ComponentType= 'default' | 'affiliate' | CustomType;
+export interface ILogoCParams extends IComponentParams<string, ComponentType, string> {
     link: string;
     uiOptions?: TransitionOptions;
     disableLink?: boolean;
@@ -9,6 +13,7 @@ export interface ILogoCParams extends IComponentParams<string, string, string> {
         name?: string;
         url?: string;
     };
+    target?: '_self' | '_blank';
 }
 
 export const defaultParams: ILogoCParams = {
@@ -23,4 +28,7 @@ export const defaultParams: ILogoCParams = {
     image: {
         name: 'defaultLogo',
     },
+    moduleName: 'core',
+    componentName: 'wlc-logo',
+    target: '_self',
 };

@@ -15,11 +15,7 @@ import {JackpotModel} from 'wlc-engine/modules/games/system/models/jackpot.model
 import {JackpotComponent} from 'wlc-engine/modules/promo/components/jackpot/jackpot.component';
 import * as Params from './jackpots-slider.params';
 
-import {
-    merge as _merge,
-    clone as _clone,
-    map as _map,
-} from 'lodash-es';
+import _map from 'lodash-es/map';
 
 @Component({
     selector: '[wlc-jackpots-slider]',
