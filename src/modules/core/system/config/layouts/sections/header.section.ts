@@ -44,9 +44,6 @@ export namespace header {
             componentLib.wlcLogo.header,
             componentLib.wlcMainMenu.header,
             componentLib.wlcLoginSignup.header,
-            componentLib.wlcUserInfo.header,
-            componentLib.wlcButton.userDepositIcon,
-            componentLib.wlcButton.searchV2,
             componentLib.wlcButton.affLogin,
         ],
     };

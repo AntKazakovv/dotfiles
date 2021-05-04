@@ -93,6 +93,12 @@ export class FeedbackFormComponent extends AbstractComponent implements OnInit, 
                     },
                 });
 
+                if (this.configService.get<BehaviorSubject<UserProfile>>('$user.isAuthenticated')) {
+                    this.setUser(this.configService.get<BehaviorSubject<UserProfile>>('$user.userProfile$').getValue());
+                } else {
+                    this.formData$.next({});
+                }
+
             })
             .catch(() => {
                 this.eventService.emit({
