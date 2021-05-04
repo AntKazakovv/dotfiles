@@ -1,7 +1,13 @@
 import {Injectable} from '@angular/core';
-import {UIRouter, UIRouterGlobals} from '@uirouter/core';
+import {
+    UIRouter,
+    UIRouterGlobals,
+} from '@uirouter/core';
 import {TranslateService} from '@ngx-translate/core';
-import {Observable, Subject} from 'rxjs';
+import {
+    Observable,
+    Subject,
+} from 'rxjs';
 import {
     distinctUntilChanged,
     filter,
@@ -75,11 +81,13 @@ export class GamesCatalogService {
 
     private searchBySpecialCats: boolean = true;
     private gamesCatalog: GamesCatalog;
+    private onlyAuthSpecial: string[] = ['lastplayed', 'favourites', 'last-played'];
     private categoryMenus: string[] = [
         'main-menu',
         'category-menu',
     ];
     private deviceType: DeviceType;
+
     constructor(
         public configService: ConfigService,
         public router: UIRouter,
@@ -94,6 +102,7 @@ export class GamesCatalogService {
     ) {
         this.init();
     }
+
     private $resolve: () => void;
 
     private isMobile: boolean = false;
@@ -382,11 +391,14 @@ export class GamesCatalogService {
     }
 
     public getCategoriesForFilter(): CategoryModel[] {
-        return this.searchBySpecialCats
-            ? this.gamesCatalog.getAvailableCategories()
-            : _filter(this.gamesCatalog.getAvailableCategories(), (category: CategoryModel) => {
+        const isAuth = this.configService.get<boolean>('$user.isAuthenticated');
+        return _filter(this.gamesCatalog.getAvailableCategories(), (category: CategoryModel) => {
+            if (this.searchBySpecialCats) {
+                return !isAuth ? !_includes(this.onlyAuthSpecial, category.slug) : true;
+            } else {
                 return !category.isSpecial;
-            });
+            }
+        });
     }
 
     /**
@@ -650,7 +662,7 @@ export class GamesCatalogService {
         } else {
             this.eventService.emit({
                 name: NotificationEvents.PushMessage,
-                data: <IPushMessageParams> {
+                data: <IPushMessageParams>{
                     type: 'error',
                     title: gettext('Failed to open game'),
                     message: gettext('Sorry, something went wrong!'),
