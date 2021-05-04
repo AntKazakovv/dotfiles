@@ -13,7 +13,7 @@ import {
     IModalOptions,
 } from './index';
 import {TabSwitcherComponent} from 'wlc-engine/modules/core/components/tab-switcher/tab-switcher.component';
-import {IconExpLpDescriptionComponent} from 'wlc-engine/modules/user/components/icon-exp-lp-description/icon-exp-lp.description.component';
+import {IconExpLpDescriptionComponent} from 'wlc-engine/modules/user/components/icon-exp-lp-description/icon-exp-lp-description.component';
 
 export const defaultParams: IModalOptions = {
     moduleName: 'core',
