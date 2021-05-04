@@ -338,9 +338,26 @@ module.exports = {
             [
                 'custom-properties',
                 'dollar-variables',
+                {
+                    'type': 'at-rule',
+                    'name': 'extend',
+                },
+                {
+                    'type': 'at-rule',
+                    'name': 'include',
+                },
                 'declarations',
                 'rules',
-                'at-rules',
+                {
+                    'type': 'at-rule',
+                    'name': 'include',
+                    'parameter': /[min|max]+\(.{1,}\)/,
+                    'hasBlock': true,
+                },
+                {
+                    'type': 'at-rule',
+                    'name': 'media',
+                },
             ],
         ],
         'order/properties-order': [
