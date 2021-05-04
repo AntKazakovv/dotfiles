@@ -184,6 +184,7 @@ export class ConfigService {
             case 'aff':
                 return {
                     $layouts: $layoutsAff,
+                    $panelsLayouts,
                 };
             default:
                 return {
