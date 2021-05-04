@@ -1,0 +1,91 @@
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/functions' as ef;
+
+.wlc-game-thumb--theme-promo-widget:host {
+    position: relative;
+
+    ::ng-deep {
+
+        .wlc-loader {
+            @include bm.absoluteCentering;
+        }
+    }
+
+    .wlc-game-thumb {
+
+        &__error {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+
+            background: ef.get-value($themePromoWidget, 'backgroundColor');
+        }
+
+        &__content {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+
+            overflow: hidden;
+
+            border-radius: ef.get-value($themePromoWidget, 'borderRadius');
+
+            &:before {
+                position: absolute;
+
+                width: 100%;
+                height: 100%;
+
+                background:
+                    ef.get-value($themePromoWidget, 'shadowLayoutTop'),
+                    ef.get-value($themePromoWidget, 'shadowLayoutBottom');
+
+                content: '';
+            }
+        }
+
+        &__img {
+            height: 100%;
+
+            img {
+                display: block;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: center;
+            }
+        }
+
+        &__title {
+            position: absolute;
+            top: 0;
+
+            padding: ef.get-value($themePromoWidget, 'titlePadding');
+
+            @include text.get-text-style(ef.get-value($themePromoWidget, 'titleStyle'), ef.get-value($themePromoWidget, 'titleColor'));
+            text-align: center;
+        }
+
+        &__buttons {
+            position: absolute;
+            bottom: ef.get-value($themePromoWidget, 'buttonsBottom');
+
+            display: grid;
+            grid-template-columns: ef.get-value($themePromoWidget, 'buttonsGridColumns');
+            gap: ef.get-value($themePromoWidget, 'buttonsGap');
+
+            margin: ef.get-value($themePromoWidget, 'buttonsMargin');
+        }
+    }
+}

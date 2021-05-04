@@ -1,10 +1,12 @@
-import {ICategory} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
-import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
-import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
+import {ICategory} from 'wlc-engine/modules/games';
+import {
+    AbstractModel,
+    IIndexing,
+    Deferred,
+} from 'wlc-engine/modules/core';
 import {Game} from 'wlc-engine/modules/games/system/models/game.model';
 import {MerchantModel} from 'wlc-engine/modules/games/system/models/merchant.model';
 import {GamesHelper} from 'wlc-engine/modules/games/system/helpers/games.helpers';
-import {Deferred} from 'wlc-engine/modules/core/system/classes';
 
 import _includes from 'lodash-es/includes';
 import _toNumber from 'lodash-es/toNumber';

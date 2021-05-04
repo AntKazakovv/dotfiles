@@ -1,0 +1,37 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/engine.variables' as ev;
+
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'minHeight': 380px,
+    'backgroundColor': ef.get('mainColors', 'bg700'),
+    'borderRadius': ef.get('radius', 'biger'),
+    'headerTextStyle': 'ThirdTitleBold',
+    'headerTextColor': ef.get('mainColors', 'baseMain'),
+    'headerPadding': ef.get('size', 'smaller'),
+    'imageShadowLayout': linear-gradient(180deg, #000000 5.56%, #171717e6 20%, rgba(0, 0, 0, 0) 39.22%),
+
+    'titleEventPadding': (
+        375: 15px 10px 25px,
+        900: 25px 10px 35px,
+    ),
+    'titleBackground': ef.get('mainColors', 'bg700'),
+    'titleTextStyle': 'ThirdTitleBold',
+    'titleTextColor': ef.get('mainColors', 'baseMain'),
+    'delimiterMargin': 0 ef.get('size', 'smallest'),
+
+    'footerMaxHeight': 80px,
+    'footerBackground': ef.get('mainColors', 'bg700'),
+
+    'betsPadding': 0 ef.get('size', 'small'),
+    'betItemBackground': ef.get('mainColors', 'bg500'),
+    'betMaxWidth': 153px,
+    'betTextStyle': 'ThirdTitleBold',
+    'betTextColor': ef.get('mainColors', 'baseMain'),
+    'betPadding': 8px 16px,
+    'betMargin': 0 ef.get('size', 'smallest'),
+    'betRadius': ef.get('radius', 'biger'),
+    'betItemHoverBackground': ef.get('mainColors', 'buttonColor'),
+    'betDataStyle': 'ThirdTitleBold',
+    'betDataColor': ef.get('mainColors', 'baseMain'),
+), $customThemeDefault);

@@ -1,6 +1,12 @@
 import {UIRouter} from '@uirouter/core';
 import {TranslateService} from '@ngx-translate/core';
-import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
+import {
+    AbstractModel,
+    ConfigService,
+    EventService,
+    ILanguage,
+    IIndexing,
+} from 'wlc-engine/modules/core';
 import {
     ICategory,
     ISupportedItem,
@@ -10,15 +16,8 @@ import {
     IJackpot,
     IFavourite,
     ISearchFilter,
-} from 'wlc-engine/modules/games/system/interfaces';
-
+} from 'wlc-engine/modules/games';
 import {GamesHelper} from 'wlc-engine/modules/games/system/helpers/games.helpers';
-import {
-    ConfigService,
-    EventService,
-    ILanguage,
-    IIndexing,
-} from 'wlc-engine/modules/core';
 import {Game} from 'wlc-engine/modules/games/system/models/game.model';
 import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.model';
 import {MerchantModel} from 'wlc-engine/modules/games/system/models/merchant.model';

@@ -1,11 +1,17 @@
 import {UIRouter} from '@uirouter/core';
-
-import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
-import {IGame, IRestrictions, IStartGameOptions} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
+import {
+    AbstractModel,
+    ConfigService,
+    IIndexing,
+} from 'wlc-engine/modules/core';
+import {
+    IGame,
+    IRestrictions,
+    IStartGameOptions,
+    TGameImageSize,
+} from 'wlc-engine/modules/games';
 import {GamesHelper} from 'wlc-engine/modules/games/system/helpers/games.helpers';
 import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus';
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
-import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
 import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.model';
 
 import _isObject from 'lodash-es/isObject';
@@ -189,5 +195,19 @@ export class Game extends AbstractModel<IGame> {
             }
         }
         return false;
+    }
+
+    /**
+     * Get image path
+     *
+     * @param {TGameImageSize} size Image size
+     * @returns {string} Image path
+     */
+    public getImage(size?: TGameImageSize): string {
+        if (size) {
+            const replaceVal: string = (size === 640) ? '$1' : `${size}/$1`;
+            return this.image.replace(/\d+\/(.+)$/, replaceVal);
+        }
+        return this.image;
     }
 }

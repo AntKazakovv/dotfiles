@@ -1,0 +1,159 @@
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/functions' as ef;
+
+.wlc-betradar-daily-match--theme-default:host {
+    position: relative;
+
+    overflow: hidden;
+
+    border-radius: ef.get-value($themeDefault, 'borderRadius');
+
+    ::ng-deep {
+
+        .wlc-loader {
+            @include bm.absoluteCentering;
+        }
+    }
+
+    .wlc-betradar-daily-match {
+
+        &__error {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+
+            background-color: ef.get-value($themeDefault, 'backgroundColor');
+        }
+
+        &__content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100%;
+            padding: ef.get-value($themeDefault, 'padding');
+
+            background-color: ef.get-value($themeDefault, 'backgroundColor');
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        &__header {
+            @include text.get-text-style(ef.get-value($themeDefault, 'headerTextStyle'), ef.get-value($themeDefault, 'headerTextColor'));
+            text-align: center;
+
+            @include bm.get-mq-map('margin', $themeDefault, 'headerMargin');
+        }
+
+        &__title-match {
+            position: relative;
+
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+
+            @include text.get-text-style(ef.get-value($themeDefault, 'matchTitleStyle'), ef.get-value($themeDefault, 'matchTitleColor'));
+
+            width: 100%;
+            padding: ef.get-value($themeDefault, 'matchPadding');
+            @include bm.get-mq-map('margin', $themeDefault, 'matchMargin');
+
+            &:after {
+                position: absolute;
+                bottom: 0;
+
+                width: ef.get-value($themeDefault, 'matchBorderWidth');
+                height: ef.get-value($themeDefault, 'matchBorderHeight');
+
+                background: ef.get-value($themeDefault, 'matchBorderColor');
+                border-radius: ef.get-value($themeDefault, 'matchBorderRadius');
+
+                content: '';
+            }
+        }
+
+        &__title-team {
+            max-width: 90%;
+            overflow: hidden;
+
+            white-space: nowrap;
+            text-align: center;
+            text-overflow: ellipsis;
+
+            &:first-child {
+                width: 100%;
+                max-width: 100%;
+            }
+        }
+
+        &__delimiter {
+            margin: ef.get-value($themeDefault, 'delimiterMargin');
+        }
+
+        &__teams {
+            display: grid;
+            @include bm.get-mq-map('grid-template-columns',$themeDefault, 'teamsGridColumns');
+            @include bm.get-mq-map('gap', $themeDefault, 'teamsGridGap');
+            justify-items: center;
+
+            @include bm.get-mq-map('margin', $themeDefault, 'teamsMargin');
+        }
+
+        &__team {
+            display: none;
+            @include bm.get-mq-map('width', $themeDefault, 'teamCircleSize');
+            @include bm.get-mq-map('height', $themeDefault, 'teamCircleSize');
+
+            align-items: center;
+            justify-content: center;
+
+            background: ef.get-value($themeDefault, 'teamCircleColor');
+            border-radius: ef.get-value($themeDefault, 'teamCircleRadius');
+
+            @include mq.min(900) {
+                display: flex;
+            }
+
+            img {
+                @include bm.get-mq-map('max-height', $themeDefault, 'teamImgMaxHeight');
+            }
+
+            span {
+                @include text.get-text-style(ef.get-value($themeDefault, 'teamTextStyle'), ef.get-value($themeDefault, 'teamTextColor'));
+            }
+
+            @include mq.min(900) {
+                display: flex;
+            }
+        }
+
+        &__info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+        }
+
+        &__info-block--day {
+            @include text.get-text-style(ef.get-value($themeDefault, 'matchInfoTextStyle'), ef.get-value($themeDefault, 'matchInfoTextColor'));
+        }
+
+        &__info-block--time {
+            @include text.get-text-style(ef.get-value($themeDefault, 'matchInfoTextStyle'), ef.get-value($themeDefault, 'matchInfoTextColor'));
+        }
+
+        &__info-icon {
+            margin: ef.get-value($themeDefault, 'matchInfoIconMargin');
+
+            ::ng-deep {
+
+                svg {
+                    fill: ef.get-value($themeDefault, 'matchInfoIconFill');
+                }
+            }
+        }
+    }
+}

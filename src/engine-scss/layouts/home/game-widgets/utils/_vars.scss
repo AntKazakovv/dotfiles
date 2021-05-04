@@ -1,0 +1,24 @@
+@use 'engine-scss/functions' as ef;
+
+$customThemeGameWidgets: () !default;
+$themeGameWidgets: map-merge((
+    'columns': (
+        375: minmax(0, 1fr),
+        720: minmax(0, 1fr) minmax(0, 1fr),
+        1630: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr),
+    ),
+    'rows': (
+        375: minmax(240px, 1fr) minmax(240px, 1fr) minmax(320px, 360px),
+        720: minmax(290px, 1fr) minmax(320px, 440px),
+        1630: minmax(370px, 1fr),
+    ),
+    'popularEventsGridColumn': (
+        375: unset,
+        720: span 2,
+        1630: unset,
+    ),
+    'gap': (
+        375: ef.get('size', 'small'),
+        1200: ef.get('size', 'smaller'),
+    )
+), $customThemeGameWidgets);

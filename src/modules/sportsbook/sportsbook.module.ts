@@ -1,12 +1,11 @@
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
-import {SwiperModule} from 'swiper/angular';
-import {UserModule} from 'wlc-engine/modules/user/user.module';
-import {GamesModule} from 'wlc-engine/modules/games/games.module';
 import {TranslateModule} from '@ngx-translate/core';
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
 import {AngularResizedEventModule} from 'angular-resize-event';
 import {SportsbookComponent} from './components/sportsbook/sportsbook.component';
+import {BetradarDailyMatchComponent} from './components/betradar-daily-match/betradar-daily-match.component';
+import {BetradarPopularEventsComponent} from './components/betradar-popular-events/betradar-popular-events.component';
 import {SportsbookService} from './system/services/sportsbook/sportsbook.service';
 
 import {GlobalHelper} from 'wlc-engine/modules/core';
@@ -22,17 +21,18 @@ export const moduleConfig =
 
 export const components = {
     'wlc-sportsbook': SportsbookComponent,
+    'wlc-betradar-daily-match': BetradarDailyMatchComponent,
+    'wlc-betradar-popular-events': BetradarPopularEventsComponent,
 };
 
 @NgModule({
     declarations: [
         SportsbookComponent,
+        BetradarDailyMatchComponent,
+        BetradarPopularEventsComponent,
     ],
     imports: [
         CommonModule,
-        SwiperModule,
-        UserModule,
-        GamesModule,
         TranslateModule,
         CoreModule,
         AngularResizedEventModule,
@@ -42,6 +42,8 @@ export const components = {
     ],
     exports: [
         SportsbookComponent,
+        BetradarDailyMatchComponent,
+        BetradarPopularEventsComponent,
     ],
 })
 export class SportsbookModule {}
