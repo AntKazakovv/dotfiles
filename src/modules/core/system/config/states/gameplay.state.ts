@@ -10,7 +10,7 @@ export const gamePlayState: Ng2StateDeclaration = {
     resolve: [
         startGameResolver,
     ],
-    lazyLoad: StateHelper.lazyLoadModules(['games', 'finances']),
+    lazyLoad: StateHelper.lazyLoadModules(['games']),
     onEnter: ($transition) => {
         const modalService: ModalService = $transition.injector().get(ModalService);
         modalService.closeAllModals();
