@@ -10,6 +10,7 @@ import _sortedUniq from 'lodash-es/sortedUniq';
 import _filter from 'lodash-es/filter';
 import _concat from 'lodash-es/concat';
 import _forEach from 'lodash-es/forEach';
+import _isArray from 'lodash-es/isArray';
 
 @Injectable({
     providedIn: 'root',
@@ -91,12 +92,16 @@ export class MerchantFieldsService {
      */
     public getMerchantRequiredFields(merchantId: number): string[] {
         const fields = this.configService.get<string[]>(`appConfig.siteconfig.systemsGamePlayInfo[${merchantId}].Fields`) || [];
-        const requiredFields: string[] = [];
+        let requiredFields: string[] = [];
 
         _forEach(fields, (field: string) => {
             const realField: string = _get(this.fieldsByAlias, field);
             if (realField) {
-                requiredFields.push(realField);
+                if (_isArray(realField)) {
+                    requiredFields = _concat(requiredFields, realField);
+                } else {
+                    requiredFields.push(realField);
+                }
             }
         });
         return requiredFields;

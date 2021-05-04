@@ -1,25 +1,43 @@
 'use strict';
 
-import {StateService, UIRouter, Transition, RawParams, ResolveTypes} from '@uirouter/core';
-import {TranslateService} from '@ngx-translate/core';
+import {Injector} from '@angular/core';
+import {
+    StateService,
+    UIRouter,
+    Transition,
+    RawParams,
+    ResolveTypes,
+} from '@uirouter/core';
+import {
+    first,
+} from 'rxjs/operators';
 
-import {ConfigService, EventService} from 'wlc-engine/modules/core/system/services';
-import {LogService} from 'wlc-engine/modules/core/system/services';
-import {GamesCatalogService} from 'wlc-engine/modules/games/system/services';
-import {Deferred} from 'wlc-engine/modules/core/system/classes';
-import {Game} from 'wlc-engine/modules/games/system/models/game.model';
-import {ModalService} from 'wlc-engine/modules/core/system/services';
-import {UserService} from 'wlc-engine/modules/user/system/services';
-import {IModalConfig} from 'wlc-engine/modules/core/components/modal';
-import {MerchantFieldsService} from 'wlc-engine/modules/games/system/services';
-import {BonusesService} from 'wlc-engine/modules/bonuses/system/services/bonuses/bonuses.service';
-import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus';
-import {IRedirect} from 'wlc-engine/modules/core/system/interfaces/core.interface';
-import {IDisablePlayRealByCountry} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
-import {IPlayGameForRealCParams} from 'wlc-engine/modules/games/components/play-game-for-real/play-game-for-real.params';
-import {IPushMessageParams, NotificationEvents} from 'wlc-engine/modules/core/system/services/notification';
-
-import {skipWhile} from 'rxjs/operators';
+import {
+    ConfigService,
+    EventService,
+    LayoutService,
+    LogService,
+    ModalService,
+    IPushMessageParams,
+    NotificationEvents,
+    IRedirect,
+    Deferred,
+} from 'wlc-engine/modules/core';
+import {
+    Bonus,
+    BonusesService,
+} from 'wlc-engine/modules/bonuses';
+import {
+    GamesCatalogService,
+    Game,
+    IDisablePlayRealByCountry,
+    IPlayGameForRealCParams,
+    MerchantFieldsService,
+} from 'wlc-engine/modules/games';
+import {
+    UserService,
+    UserInfo,
+} from 'wlc-engine/modules/user';
 
 import _clone from 'lodash-es/clone';
 import _reduce from 'lodash-es/reduce';
@@ -42,46 +60,40 @@ export enum RejectReason {
 export const startGameResolver: ResolveTypes = {
     token: 'startGame',
     deps: [
+        Injector,
         ConfigService,
         LogService,
         StateService,
-        TranslateService,
-        GamesCatalogService,
         UIRouter,
-        Transition,
         ModalService,
-        UserService,
-        BonusesService,
+        Transition,
         MerchantFieldsService,
         EventService,
+        LayoutService,
     ],
     resolveFn: (
+        injector: Injector,
         configService: ConfigService,
         logService: LogService,
         stateService: StateService,
-        translateService: TranslateService,
-        gamesCatalogService: GamesCatalogService,
         router: UIRouter,
-        transition: Transition,
         modalService: ModalService,
-        userService: UserService,
-        bonusesService: BonusesService,
+        transition: Transition,
         merchantFieldsService: MerchantFieldsService,
         eventService: EventService,
+        layoutService: LayoutService,
     ) => {
         return new StartGameHandler(
+            injector,
             configService,
             logService,
             stateService,
             router,
-            translateService,
-            gamesCatalogService,
             modalService,
             transition,
-            userService,
-            bonusesService,
             merchantFieldsService,
             eventService,
+            layoutService,
         ).result.promise;
     },
 };
@@ -89,35 +101,38 @@ export const startGameResolver: ResolveTypes = {
 class StartGameHandler {
     public result = new Deferred();
 
-    private mobile: boolean = false;
     private isDemo: boolean = false;
     private authenticated: boolean = false;
     private realPlayDisabled: boolean = false;
     private realPlayDisabledByCountry: boolean = false;
     private checkProfileRequiredFields: boolean = false;
     private merchantId: number;
-    private zeroBalanceRedirect: IRedirect;
     private game: Game;
 
+    private gamesCatalogService: GamesCatalogService;
+
     constructor(
+        private injector: Injector,
         private configService: ConfigService,
         private logService: LogService,
         private stateService: StateService,
         private router: UIRouter,
-        private translateService: TranslateService,
-        private gamesCatalogService: GamesCatalogService,
         private modalService: ModalService,
         private transition: Transition,
-        private userService: UserService,
-        private bonusesService: BonusesService,
         private merchantFieldsService: MerchantFieldsService,
         private eventService: EventService,
+        private layoutService: LayoutService,
     ) {
         this.init();
     }
 
     private async init(): Promise<void> {
         const waiter = this.logService.waiter({code: '3.0.11'}, 7000);
+
+        await this.configService.ready;
+        await this.layoutService.importModules(['games']);
+        this.gamesCatalogService = this.injector.get(GamesCatalogService);
+
         try {
             await this.gamesCatalogService.ready;
         } catch (err) {
@@ -194,13 +209,11 @@ class StartGameHandler {
             stateChangeHandler();
         });
 
-        this.authenticated = this.userService.isAuthenticated;
-        this.mobile = this.configService.get<boolean>('appConfig.siteconfig.mobile');
+        this.authenticated = this.configService.get<boolean>('$user.isAuthenticated');
         this.isDemo = this.transition.params().demo === 'true';
         this.realPlayDisabled = this.configService.get<boolean>('$games.realPlay.disable');
         this.checkProfileRequiredFields = this.configService.get<boolean>('$games.run.checkProfileRequiredFields');
         this.merchantId = _toNumber(this.transition.params().merchantId);
-        this.zeroBalanceRedirect = this.configService.get<IRedirect>('$core.redirects.zeroBalance');
 
         this.setRealPlayDisabledByCountry();
     }
@@ -298,7 +311,11 @@ class StartGameHandler {
             return;
         }
 
-        const activeBonuses: Bonus[] = await this.bonusesService.queryBonuses(true, 'active');
+        await this.configService.ready;
+        await this.layoutService.importModules(['bonuses']);
+        const bonusesService: BonusesService = this.injector.get(BonusesService);
+
+        const activeBonuses: Bonus[] = await bonusesService.queryBonuses(true, 'active');
 
         if (activeBonuses && this.gameRestrictedByActiveBonuses(this.game, activeBonuses)) {
             this.showErrorNotification(gettext('Sorry, this game is disabled with an active bonus'));
@@ -335,51 +352,6 @@ class StartGameHandler {
         } else {
             this.result.resolve();
         }
-
-
-        // if (this.mobile) {
-        //     this.result.resolve();
-        //     return;
-        // }
-
-        // let authOk = false;
-        // const authHandler = this.messagingService.subscribe(this.userService.events.AUTH_SUCCEEDED, () => {
-        //     authOk = true;
-        //     this.wlcStateService.setRedirect('app.games.play', this.stateService.params);
-        // });
-        //
-        // this.modalService.showDialog({
-        //     game: this.game,
-        //     dismissAll: true,
-        //     size: 'sm',
-        //     windowClass: 'wlc-modal-game-login',
-        //     templateUrl: '/static/js/templates/dialogs/play-for-free.html',
-        // }).result.then((result) => {
-        //     result = result || 'close';
-        //
-        //     this.wlcStateService.clearRedirect();
-        //     switch (result) {
-        //         case 'close':
-        //             if (!this.wlcStateService.get(0)) {
-        //                 this.stateService.go('app.home');
-        //             }
-        //             break;
-        //     }
-        // }, () => {
-        //     if (this.wlcStateService.getRedirect()) {
-        //         this.wlcStateService.redirect()
-        //     } else if (!this.wlcStateService.get(0)) {
-        //         this.stateService.go('app.home');
-        //     }
-        // }).catch(() => {
-        //     this.messagingService.unsubscribe(authHandler);
-        //     if (!authOk) {
-        //         this.wlcStateService.clearRedirect();
-        //     }
-        // });
-        // this.result.reject({
-        //     type: 'AUTH_REQUIRED',
-        // });
     }
 
     /**
@@ -396,15 +368,13 @@ class StartGameHandler {
             return deferred.promise;
         }
 
-        const userInfo = new Deferred<void>();
-        const subscription = this.userService.userInfo$.pipe(skipWhile(v => !v))
-            .subscribe(() => {
-                userInfo.resolve();
-                subscription.unsubscribe();
-            });
-        await userInfo.promise;
+        await this.configService.ready;
+        await this.layoutService.importModules(['user']);
+        const userService: UserService = this.injector.get(UserService);
 
-        if (this.userService.userInfo?.balance > 0) {
+        await userService.userInfo$.pipe(first((v: UserInfo) => v?.dataReady)).toPromise();
+
+        if (userService.userInfo?.balance > 0) {
             deferred.resolve();
             return deferred.promise;
         }
