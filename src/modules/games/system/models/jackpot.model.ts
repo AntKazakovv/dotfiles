@@ -1,4 +1,6 @@
-import {AbstractModel} from 'wlc-engine/modules/core';
+import {
+    AbstractModel,
+} from 'wlc-engine/modules/core';
 import {IJackpot} from 'wlc-engine/modules/games';
 
 export class JackpotModel extends AbstractModel<IJackpot> {

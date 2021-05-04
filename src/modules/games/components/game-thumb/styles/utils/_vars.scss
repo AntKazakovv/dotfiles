@@ -28,6 +28,21 @@ $themeDefault: map-merge((
     'favoriteBoxShadow': none,
 ), $customThemeDefault);
 
+$customThemePromoWidget: () !default;
+$themePromoWidget: map-merge((
+    'titleStyle': 'ThirdTitleBold',
+    'titleColor': ef.get('mainColors', 'baseMain'),
+    'titlePadding': ef.get('size', 'smaller') 0,
+    'backgroundColor': ef.get('mainColors', 'bg700'),
+    'buttonsGridColumns': minmax(0, 1fr) minmax(0, 1fr),
+    'buttonsBottom': 0,
+    'buttonsGap': 0 ef.get('size', 'small'),
+    'buttonsMargin': 0 0 ef.get('size', 'main'),
+    'borderRadius': ef.get('radius', 'biger'),
+    'shadowLayoutTop': linear-gradient(180deg, #000000 2.93%, rgba(0, 0, 0, 0) 37.11%),
+    'shadowLayoutBottom': linear-gradient(0deg, #000000 0%, rgba(0, 0, 0, 0) 29.76%),
+), $customThemePromoWidget);
+
 $customThemeDefaultCircle: () !default;
 $themeDefaultModCircle: map-merge((
     'btnSize': 86px,

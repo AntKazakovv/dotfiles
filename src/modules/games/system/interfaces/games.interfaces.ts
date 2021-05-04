@@ -286,6 +286,8 @@ export interface IGame {
     Freeround?: string;
 }
 
+export type TGameImageSize = 196 | 208 | 232 | 250 | 315 | 640;
+
 /**
  * CONSTANTS
  */

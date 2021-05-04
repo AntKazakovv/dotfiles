@@ -1,0 +1,32 @@
+<ng-container *ngIf="inited; else preloader">
+    <div *ngIf="!initFailed" class="{{$class}}__content" wlc-wrapper [inlineParams]="sliderConfig"></div>
+</ng-container>
+
+<div *ngIf="initFailed" class="{{$class}}__error">
+    {{'Popular events load error' | translate}}
+</div>
+
+<ng-template #popularEventsSlide let-game="game" let-image="imagePath">
+    <div class="{{$class}}__slide">
+        <div class="{{$class}}__header">{{$params.common?.title | translate}}</div>
+        <div [ngStyle]="{'background-image':'url('+image+')'}" class="{{$class}}__image"></div>
+        <div class="{{$class}}__title-event">
+            <span class="{{$class}}__title-team">{{game.teamHomeName}}</span>
+            <span class="{{$class}}__delimiter">vs</span>
+            <span class="{{$class}}__title-team">{{game.teamAwayName}}</span>
+        </div>
+        <div class="{{$class}}__footer">
+            <div class="{{$class}}__bets">
+                <div *ngFor="let bet of game.market.items" (click)="openGame(game)" class="{{$class}}__bet">
+                    <span class="{{$class}}__bet-name">{{bet.name}}</span>
+                    <span class="{{$class}}__bet-coef">{{bet.value}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #preloader>
+    <div wlc-loader></div>
+</ng-template>
+

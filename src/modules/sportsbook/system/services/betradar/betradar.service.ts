@@ -6,10 +6,21 @@ import {UIRouter} from '@uirouter/core';
 import {takeUntil} from 'rxjs/operators';
 import {Subject} from 'rxjs';
 import {
+    ConfigService,
+    DataService,
+    EventService,
+    IData,
+} from 'wlc-engine/modules/core';
+import {
+    IBetradarGame,
+    IPopularEventsData,
+    IDailyMatchData,
+} from 'wlc-engine/modules/sportsbook/system/interfaces';
+import {
     SportsbookService,
+    BetradarGameModel,
     IMessageDataLocationChange,
 } from 'wlc-engine/modules/sportsbook';
-import {ConfigService} from 'wlc-engine/modules/core';
 
 import _get from 'lodash-es/get';
 import _forEach from 'lodash-es/forEach';
@@ -37,8 +48,10 @@ export class BetradarService {
         protected router: UIRouter,
         protected sportsbookService: SportsbookService,
         protected configService: ConfigService,
+        protected eventService: EventService,
+        protected dataService: DataService,
     ) {
-
+        this.registerMethods();
     }
 
     /**
@@ -104,5 +117,65 @@ export class BetradarService {
                     cdr.detectChanges();
                 }
             });
+    }
+
+    /**
+     * Get daily match
+     *
+     * @returns {Promise<BetradarGameModel>}
+     */
+    public async getDailyMatch(): Promise<BetradarGameModel> {
+        const response: IData = await this.dataService.request('betradarWidgets/dailyMatch');
+        const data: IDailyMatchData = response.data;
+        const game: BetradarGameModel = new BetradarGameModel(
+            data,
+            this.configService,
+            this.eventService,
+        );
+        return game;
+    }
+
+    /**
+     * Get popular events
+     *
+     * @returns {Promise<BetradarGameModel[]>}
+     */
+    public async getPopularEvents(): Promise<BetradarGameModel[]> {
+        const response: IData = await this.dataService.request('betradarWidgets/popularEvents');
+        const data: IPopularEventsData  = response.data;
+        const games: BetradarGameModel[] = [];
+
+        _forEach(data.games, (game: IBetradarGame) => {
+            games.push(new BetradarGameModel(
+                game,
+                this.configService,
+                this.eventService,
+            ));
+        });
+        return games;
+    }
+
+    protected registerMethods(): void {
+        this.dataService.registerMethod({
+            name: 'dailyMatch',
+            url: '/sportsbook/widgets',
+            type: 'GET',
+            system: 'betradarWidgets',
+            params: {
+                widget: 'daily-match',
+                action: 'widgets',
+            },
+        });
+
+        this.dataService.registerMethod({
+            name: 'popularEvents',
+            url: '/sportsbook/widgets',
+            type: 'GET',
+            system: 'betradarWidgets',
+            params: {
+                widget: 'popular-events',
+                action: 'widgets',
+            },
+        });
     }
 }

@@ -54,7 +54,7 @@
     transition: $type $speed $mode;
 }
 
-/// Hide element but keep it accessible
+/// Hides element but keeps it accessible
 @mixin visuallyHidden {
     clip: rect(0 0 0 0);
     clip-path: inset(100%);
@@ -139,7 +139,7 @@
     }
 }
 
-/// Property allows  to limit the content of the string
+/// Property allows to limit the content of the string
 ///
 /// @name lineClamp
 ///
@@ -170,4 +170,15 @@
     } @else if ($value == 8 / 5) {
         padding-top: 62.5%;
     }
+}
+
+///Absolute centering
+
+@mixin absoluteCentering {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    margin: 0 auto;
 }

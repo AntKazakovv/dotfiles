@@ -55,6 +55,9 @@ export class GameThumbComponent extends AbstractComponent implements OnInit, Aft
     };
     public isAuth: boolean;
     public $params: Params.IGameThumbCParams;
+    public promoWidgetTitle: string;
+    public inited: boolean = false;
+    public initFailed: boolean = false;
 
     protected deviceType: DeviceType;
     protected idVerticalVideos: number[];
@@ -78,14 +81,41 @@ export class GameThumbComponent extends AbstractComponent implements OnInit, Aft
 
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
+        this.init();
+    }
 
+    public async init(): Promise<void> {
         if (!this.game && this.$params.common?.game) {
             this.game = this.$params.common.game;
+        }
+
+        if (this.$params.type === 'promo-widget') {
+
+            if (this.$params.common?.promoWidget?.title) {
+                this.promoWidgetTitle = this.$params.common.promoWidget.title;
+            }
+
+            try {
+                await this.gamesCatalogService.ready;
+                const gameList: Game[] = await this.gamesCatalogService.getGamesByCategorySlug(this.$params.common?.promoWidget?.gameCategory);
+                if (gameList.length) {
+                    this.game = gameList[0];
+                }
+            } catch (err) {
+                this.initFailed = true;
+            }
+        }
+
+        if (!this.game) {
+            this.initFailed = true;
+            this.inited = true;
+            return;
         }
 
         if (this.$params.type === 'vertical') {
             this.idVerticalVideos = this.configService.get<number[]>('$games.idVerticalVideos');
             this.mediaFormatTypes = this.configService.get<IIndexing<string>>('$games.mediaFormatTypes');
+
         }
 
         this.wlcElement = `block_game-thumb-id-${this.game.ID}`;
@@ -99,6 +129,7 @@ export class GameThumbComponent extends AbstractComponent implements OnInit, Aft
 
         this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
         this.initEventHandlers();
+        this.inited = true;
     }
 
     public ngAfterViewInit(): void {

@@ -2,13 +2,48 @@
 <ng-container [ngSwitch]="$params.type">
     <ng-container [ngTemplateOutlet]="typeVertical" *ngSwitchCase="'vertical'"></ng-container>
     <ng-container [ngTemplateOutlet]="typeModal" *ngSwitchCase="'modal'"></ng-container>
+    <ng-container [ngTemplateOutlet]="typePromoWidget" *ngSwitchCase="'promo-widget'"></ng-container>
     <ng-container [ngTemplateOutlet]="typeDefault" *ngSwitchDefault></ng-container>
 </ng-container>
+
+<ng-template #typePromoWidget>
+    <ng-container *ngIf="inited; else preloader">
+        <div *ngIf="!initFailed" class="{{$class}}__content">
+                <div class="{{$class}}__img">
+                    <img [src]="game.getImage(640)" loading="lazy">
+                </div>
+                <div class="{{$class}}__title">
+                    {{promoWidgetTitle | translate}}
+                </div>
+                <div class="{{$class}}__buttons">
+                    <button wlc-button
+                            wlcElement="button_game-play"
+                            [icon]="'wlc-game-play'"
+                            [text]="'Play'"
+                            (click)="startGame(false, false, $event)"
+                            class="wlc-btn wlc-btn--play"
+                    ></button>
+                    <button
+                            *ngIf="game.hasDemo"
+                            wlc-button
+                            wlcElement="button_game-demo"
+                            [text]="'Demo'"
+                            (click)="startGame(true, false, $event)"
+                            class="wlc-btn wlc-btn--demo wlc-btn--theme-mod-secondary"
+                    ></button>
+                </div>
+        </div>
+    </ng-container>
+
+    <div *ngIf="initFailed" class="{{$class}}__error">
+        {{'Game load error' | translate}}
+    </div>
+</ng-template>
 
 <ng-template #typeModal>
     <picture class="{{$class}}__img"
             data-wlc-element="block_game-thumb-img">
-        <img [src]="game.image" loading="lazy" alt="">
+        <img [src]="game.image" loading="lazy">
     </picture>
     <div *ngIf="isAuth"
          wlc-icon
@@ -93,7 +128,7 @@
     <picture class="{{$class}}__img"
             data-wlc-element="block_game-thumb-img"
             (click)="startGame(false, true, $event)">
-        <img [src]="game.image" loading="lazy" alt="">
+        <img [src]="game.image" loading="lazy">
     </picture>
     <div class="{{$class}}__desc">
         <div class="{{$class}}__title">
@@ -132,5 +167,9 @@
             ></button>
         </div>
     </div>
+</ng-template>
+
+<ng-template #preloader>
+    <div wlc-loader></div>
 </ng-template>
 
