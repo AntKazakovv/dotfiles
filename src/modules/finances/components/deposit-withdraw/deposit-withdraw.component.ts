@@ -117,10 +117,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
 
 
     public get showPayCryptosV2Text(): boolean {
-        if (this.currentSystem?.isPayCryptosV2 && !this.cryptoCheck && this.$params.mode === 'deposit') {
-            return  true;
-        }
-        return false;
+        return this.currentSystem?.isPayCryptosV2 && !this.cryptoCheck && this.$params.mode === 'deposit';
     }
 
     public ngOnInit(): void {
