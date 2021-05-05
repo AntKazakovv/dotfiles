@@ -105,6 +105,12 @@
                         "styles": [
                             "src/styles.scss"
                         ],
+                        "stylePreprocessorOptions": {
+                            "includePaths": [
+                                "src",
+                                "src/engine-scss/dummy"
+                            ]
+                        },
                         "scripts": [
                             "./src/gettext.js"
                         ]

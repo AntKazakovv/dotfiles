@@ -1,19 +1,19 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {LoyaltyBlockComponent} from './dashboard-loyalty-block.component';
+import {DashboardLoyaltyBlockComponent} from './dashboard-loyalty-block.component';
 
-describe('LoyaltyBlockComponent', () => {
-    let component: LoyaltyBlockComponent;
-    let fixture: ComponentFixture<LoyaltyBlockComponent>;
+describe('DashboardLoyaltyBlockComponent', () => {
+    let component: DashboardLoyaltyBlockComponent;
+    let fixture: ComponentFixture<DashboardLoyaltyBlockComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [ LoyaltyBlockComponent ],
+            declarations: [ DashboardLoyaltyBlockComponent ],
         })
             .compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(LoyaltyBlockComponent);
+        fixture = TestBed.createComponent(DashboardLoyaltyBlockComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

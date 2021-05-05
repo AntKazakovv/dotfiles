@@ -2,18 +2,18 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {UserStatsComponent} from 'wlc-engine/modules/user/components/user-stats/user-stats.component';
 
 describe('UserStatsComponent', () => {
-    let component: UserNameComponent;
-    let fixture: ComponentFixture<UserNameComponent>;
+    let component: UserStatsComponent;
+    let fixture: ComponentFixture<UserStatsComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [ UserNameComponent ],
+            declarations: [ UserStatsComponent ],
         })
             .compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(UserNameComponent);
+        fixture = TestBed.createComponent(UserStatsComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
