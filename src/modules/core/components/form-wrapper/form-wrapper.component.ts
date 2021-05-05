@@ -52,7 +52,7 @@ import _find from 'lodash-es/find';
 import _get from 'lodash-es/get';
 import _includes from 'lodash-es/includes';
 import _clone from 'lodash-es/clone';
-import _some from 'lodash-es/some';
+import _isUndefined from 'lodash-es/isUndefined';
 import _isArray from 'lodash-es/isArray';
 import _set from 'lodash-es/set';
 
@@ -76,6 +76,7 @@ export interface IFormWrapperCParams extends IWrapperCParams {
     components: IFormComponent[];
     validators?: ValidatorType[];
 }
+
 @Component({
     selector: '[wlc-form-wrapper]',
     templateUrl: './form-wrapper.component.html',
@@ -94,7 +95,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
     public form: FormGroup;
     private controls: IControls = {};
     private allControls: IControls = {};
-    private globalValidators:IGlobalValidators;
+    private globalValidators: IGlobalValidators;
     private formDataStorage: IIndexing<any> = {};
 
     private locked: string[] = [];
@@ -375,7 +376,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
         this.formData?.subscribe((data) => {
             _each(this.form.controls, (control, key) => {
                 const value = _get(data, key);
-                if (!control.value) {
+                if (!_isUndefined(value)) {
                     control.setValue(value);
                 }
 

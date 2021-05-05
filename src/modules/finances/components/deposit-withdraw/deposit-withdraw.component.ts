@@ -4,7 +4,7 @@ import {
     Inject,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
-    inject,
+    inject, ViewChild,
 } from '@angular/core';
 import {
     FormControl,
@@ -49,7 +49,9 @@ import {Deferred} from 'wlc-engine/modules/core/system/classes';
 import {CryptoDataComponent} from '../crypto-data/crypto-data.component';
 import {ICryptoMessage} from 'wlc-engine/modules/finances/system/interfaces/finances.interface';
 import {FinancesHelper} from '../../system/helpers/finances.helper';
-import {IFormComponent} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
+import {
+    IFormComponent,
+} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
 
 import * as Params from './deposit-withdraw.params';
 
@@ -61,6 +63,7 @@ import _isEmpty from 'lodash-es/isEmpty';
 import _isEqual from 'lodash-es/isEqual';
 import _isObject from 'lodash-es/isObject';
 import _transform from 'lodash-es/transform';
+import {BehaviorSubject} from "rxjs";
 
 @Component({
     selector: '[wlc-deposit-withdraw]',
@@ -83,6 +86,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
     public requiredFields: Object = {};
     public requiredFieldsKeys: string[] = [];
     public additionalParams: IIndexing<IPaymentAdditionalParam> = {};
+    public formData$: BehaviorSubject<IIndexing<any>> = new BehaviorSubject(null);
 
     public listConfig: IPaymentListCParams = {
         paymentType: 'deposit',
@@ -531,6 +535,9 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
             this.disableAmount = false;
             this.additionalParams = {};
             this.updateFormConfig();
+            this.formData$.next({
+                amount: null,
+            });
             this.cdr.markForCheck();
             return;
         }
