@@ -49,9 +49,7 @@ import {Deferred} from 'wlc-engine/modules/core/system/classes';
 import {CryptoDataComponent} from '../crypto-data/crypto-data.component';
 import {ICryptoMessage} from 'wlc-engine/modules/finances/system/interfaces/finances.interface';
 import {FinancesHelper} from '../../system/helpers/finances.helper';
-import {
-    IFormComponent,
-} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
+import {IFormComponent} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
 
 import * as Params from './deposit-withdraw.params';
 
@@ -85,7 +83,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
     public requiredFields: Object = {};
     public requiredFieldsKeys: string[] = [];
     public additionalParams: IIndexing<IPaymentAdditionalParam> = {};
-    public formData$: BehaviorSubject<IIndexing<any>> = new BehaviorSubject(null);
+    public formData$: BehaviorSubject<IIndexing<string | number>> = new BehaviorSubject(null);
 
     public listConfig: IPaymentListCParams = {
         paymentType: 'deposit',
@@ -120,10 +118,8 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
 
 
     public get showPayCryptosV2Text(): boolean {
-        if (this.currentSystem?.isPayCryptosV2 && !this.cryptoCheck && this.$params.mode === 'deposit') {
-            return  true;
-        }
-        return false;
+        return this.currentSystem?.isPayCryptosV2 && !this.cryptoCheck && this.$params.mode === 'deposit';
+
     }
 
     public ngOnInit(): void {
