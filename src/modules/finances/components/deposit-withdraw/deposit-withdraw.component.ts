@@ -4,7 +4,6 @@ import {
     Inject,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
-    inject,
 } from '@angular/core';
 import {
     FormControl,
@@ -13,6 +12,7 @@ import {
 import {TranslateService} from '@ngx-translate/core';
 import {StateService} from '@uirouter/core';
 import {DOCUMENT} from '@angular/common';
+import {BehaviorSubject} from 'rxjs';
 
 import {
     AbstractComponent,
@@ -83,6 +83,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
     public requiredFields: Object = {};
     public requiredFieldsKeys: string[] = [];
     public additionalParams: IIndexing<IPaymentAdditionalParam> = {};
+    public formData$: BehaviorSubject<IIndexing<string | number>> = new BehaviorSubject(null);
 
     public listConfig: IPaymentListCParams = {
         paymentType: 'deposit',
@@ -117,10 +118,8 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
 
 
     public get showPayCryptosV2Text(): boolean {
-        if (this.currentSystem?.isPayCryptosV2 && !this.cryptoCheck && this.$params.mode === 'deposit') {
-            return  true;
-        }
-        return false;
+        return this.currentSystem?.isPayCryptosV2 && !this.cryptoCheck && this.$params.mode === 'deposit';
+
     }
 
     public ngOnInit(): void {
@@ -531,6 +530,9 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
             this.disableAmount = false;
             this.additionalParams = {};
             this.updateFormConfig();
+            this.formData$.next({
+                amount: null,
+            });
             this.cdr.markForCheck();
             return;
         }
