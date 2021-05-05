@@ -16,6 +16,8 @@ export interface IGameWrapperCParams extends IComponentParams<Theme, Type, Theme
 }
 
 export const defaultParams: IGameWrapperCParams = {
+    moduleName: 'games',
+    componentName: 'wlc-game-wrapper',
     class: 'wlc-game-wrapper',
     theme: 'default',
     themeMod: 'default',
