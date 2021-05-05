@@ -4,7 +4,6 @@ import {
     Inject,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
-    inject, ViewChild,
 } from '@angular/core';
 import {
     FormControl,
@@ -13,6 +12,7 @@ import {
 import {TranslateService} from '@ngx-translate/core';
 import {StateService} from '@uirouter/core';
 import {DOCUMENT} from '@angular/common';
+import {BehaviorSubject} from 'rxjs';
 
 import {
     AbstractComponent,
@@ -63,7 +63,6 @@ import _isEmpty from 'lodash-es/isEmpty';
 import _isEqual from 'lodash-es/isEqual';
 import _isObject from 'lodash-es/isObject';
 import _transform from 'lodash-es/transform';
-import {BehaviorSubject} from "rxjs";
 
 @Component({
     selector: '[wlc-deposit-withdraw]',
