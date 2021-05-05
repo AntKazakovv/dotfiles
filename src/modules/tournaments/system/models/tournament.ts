@@ -41,7 +41,7 @@ export class Tournament extends AbstractModel<ITournament> {
 
     public set data(data: ITournament) {
         super.data = data;
-        this.setHasGames();
+        this.setAvailabilityGames();
     }
 
     public get data(): ITournament {
@@ -61,6 +61,9 @@ export class Tournament extends AbstractModel<ITournament> {
         return this.data.Ends;
     }
 
+    public get end(): string {
+        return this.data.End;
+    }
     public get feeType(): string {
         return this.data.FeeType || null;
     }
@@ -101,6 +104,10 @@ export class Tournament extends AbstractModel<ITournament> {
         return _toNumber(this.data.PointsLimitMin);
     }
 
+    public get points(): number {
+        return _toNumber(this.data.Points);
+    }
+
     public get pointsTotal(): number {
         return _toNumber(this.data.PointsTotal);
     }
@@ -132,7 +139,9 @@ export class Tournament extends AbstractModel<ITournament> {
     public get starts(): string {
         return this.data.Starts;
     }
-
+    public get start(): string {
+        return this.data.Start;
+    }
     public get status(): number {
         return _toNumber(this.data.Status);
     }
@@ -151,6 +160,18 @@ export class Tournament extends AbstractModel<ITournament> {
 
     public get value(): number {
         return _toNumber(this.data.Value);
+    }
+
+    public get place(): string {
+        return _toNumber(this.data.Place) ? this.data.Place : '#';
+    }
+
+    public get statusName(): string {
+        return this.data.StatusText;
+    }
+
+    public get win(): string {
+        return this.data.Win || '-';
     }
 
     public get winnerBy(): string {
@@ -378,8 +399,8 @@ export class Tournament extends AbstractModel<ITournament> {
                 : 'Coming soon';
     }
 
-    protected setHasGames(): void {
-        const {Games, Categories, Merchants} = this.data.Games;
+    protected setAvailabilityGames(): void {
+        const {Games = [], Categories = [], Merchants = []} = this.data.Games ?? {};
         this.hasGames = !!(Games.length || Categories.length || Merchants.length);
     }
 
