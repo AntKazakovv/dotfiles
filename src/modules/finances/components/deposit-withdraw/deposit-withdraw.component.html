@@ -2,12 +2,16 @@
      [ngSwitch]="$params.mode">
 
     <ng-container *ngSwitchCase="'deposit'">
-        <div class="wlc-title--profile" wlc-title [mainText]="'Deposit'"
+        <div wlc-title
+             class="wlc-title--profile"
+             [mainText]="'Deposit'"
              [inlineParams]="{wlcElement: 'header_deposit'}"></div>
     </ng-container>
 
     <ng-container *ngSwitchCase="'withdraw'">
-        <div class="wlc-title--profile" wlc-title [mainText]="'Withdrawal'"
+        <div wlc-title
+             class="wlc-title--profile"
+             [mainText]="'Withdrawal'"
              [inlineParams]="{wlcElement: 'header_withdraw'}"></div>
     </ng-container>
 </div>
@@ -33,14 +37,14 @@
         <div class="{{$class}}__subtitle-name"><span>2.</span> {{'Payment information' | translate}}</div>
     </div>
 
-    <div class="{{$class}}__fields-error"
-         *ngIf="requiredFieldsKeys.length"
+    <div *ngIf="requiredFieldsKeys.length"
+         class="{{$class}}__fields-error"
          data-wlc-element="add_required_fields">
         <p class="{{$class}}__fields-message">{{'Payment method is not available. Please, add the following info' | translate}}
             :</p>
         <ul class="{{$class}}__fields-ul">
-            <li class="{{$class}}__fields-li"
-                *ngFor="let item of requiredFieldsKeys"
+            <li *ngFor="let item of requiredFieldsKeys"
+                class="{{$class}}__fields-li"
                 [attr.data-wlc-element]="requiredFields[item].template">
                 {{requiredFields[item].label | translate}}
             </li>
