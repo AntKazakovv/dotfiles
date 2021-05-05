@@ -436,7 +436,9 @@ $container-max-widths: (
 /// @name customProfileSettings
 $dummy: map-merge((), $customProfileSettings);
 $profileSettings: map-merge((
-    'profileWidth': 1275px,
+    'profileWidth': (
+        1366: 1275px
+    ),
     'titleColor': map-get($mainColors, 'baseMain'),
     'profilePadding': (
         375: map-get($size, 'smally'),
