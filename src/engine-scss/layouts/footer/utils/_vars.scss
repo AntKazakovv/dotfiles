@@ -97,6 +97,9 @@ $theme1Footer: map-merge((
         375: center,
         1200: left,
     ),
+    'disclamerMargin': (
+        375: 0 0 ef.get('size', 'smaller'),
+    ),
     // language selector
     'languageJustifySelf': (
         375: center,
