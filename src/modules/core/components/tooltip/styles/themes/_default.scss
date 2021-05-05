@@ -34,10 +34,17 @@
                     svg {
                         @include em.get-mq-map('width', $themeDefault, 'iconSize');
                         @include em.get-mq-map('height', $themeDefault, 'iconSize');
+
+                        @include em.desktopHover {
+                            path {
+                                fill: ef.get-value($themeDefault, 'iconColorOnHover');
+                            }
+                        }
                     }
 
                     path {
                         fill: ef.get-value($themeDefault, 'iconFill');
+                        @include em.transition(fill);
                     }
                 }
             }

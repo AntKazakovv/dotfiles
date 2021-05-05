@@ -7,7 +7,7 @@ $themeDefault: map-merge((
         1024: 18px,
     ),
     'iconFill': ef.get('mainColors', 'baseOpacity'),
-
+    'iconColorOnHover': ef.get('mainColors', 'baseMain'),
     'contentPadding': ef.get('size', 'small') ef.get('size', 'smaller'),
     'contentBg': ef.get('mainColors', 'main'),
     'contentBorderRadius': ef.get('radius', 'biger'),
