@@ -86,7 +86,7 @@ export namespace FormElements {
             locked: true,
             name: 'email',
             validators: ['required', 'email'],
-            exampleValue: 'dasha.kot@egamings.com',
+            exampleValue: 'example@mail.com',
             wlcElement: 'block_email',
             customMod: ['email'],
         },

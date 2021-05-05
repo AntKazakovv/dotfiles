@@ -33,7 +33,7 @@ import {SignUpFormComponent} from './components/sign-up-form/sign-up-form.compon
 import {UserInfoComponent} from './components/user-info/user-info.component';
 import {UserStatsComponent} from './components/user-stats/user-stats.component';
 import {UserNameComponent} from './components/user-name/user-name.component';
-import {IconExpLpDescriptionComponent} from './components/icon-exp-lp-description/icon-exp-lp.description.component';
+import {IconExpLpDescriptionComponent} from './components/icon-exp-lp-description/icon-exp-lp-description.component';
 
 
 export const components = {

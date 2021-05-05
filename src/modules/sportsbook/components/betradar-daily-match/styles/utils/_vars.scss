@@ -1,0 +1,62 @@
+@use 'engine-scss/functions' as ef;
+
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'padding': ef.get('size', 'smaller') ef.get('size', 'smaller') ef.get('size', 'main'),
+    'backgroundColor': ef.get('mainColors', 'bg700'),
+    'borderRadius': ef.get('radius', 'biger'),
+    'headerTextStyle': 'ThirdTitleBold',
+    'headerTextColor': ef.get('mainColors', 'baseMain'),
+    'headerMargin': (
+        375: 0 0 25px,
+        900: 0 0 35px,
+    ),
+
+    'matchTitleStyle': 'ThirdTitle',
+    'matchTitleColor': ef.get('mainColors', 'baseMain'),
+    'matchPadding': 0 0 ef.get('size', 'smaller'),
+    'matchMargin': (
+        375: 0 0 25px,
+        900: 0 0 35px,
+    ),
+    'matchBorderHeight': 2px,
+    'matchBorderRadius': ef.get('radius', 'smaller'),
+    'matchBorderColor': ef.get('mainColors', 'main'),
+    'matchBorderWidth': 158px,
+    'delimiterMargin': 0 ef.get('size', 'smallest'),
+
+    'teamsGridColumns': (
+        375: minmax(0, 1fr),
+        900: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr),
+    ),
+    'teamsGridGap': (
+        375: 10px,
+        1024: 25px,
+        1630: 35px,
+    ),
+    'teamsMargin': (
+        375: 0 0 25px,
+        900: 0 0 35px,
+    ),
+
+    'teamCircleSize': (
+        375: 85px,
+        560: 105px,
+        1200: 90px,
+        1630: 105px,
+    ),
+    'teamCircleColor': ef.get('mainColors', 'bg300'),
+    'teamCircleRadius': ef.get('radius', 'large'),
+    'teamImgMaxHeight': (
+        375: 54px,
+        900: 67px,
+        1200: 54px,
+        1630: 67px,
+    ),
+    'teamTextStyle': 'ThirdTitle',
+    'teamTextColor': ef.get('mainColors', 'baseMain'),
+    'matchInfoTextStyle': 'ThirdTitleBold',
+    'matchInfoTextColor': ef.get('mainColors', 'baseMain'),
+    'matchInfoIconFill': ef.get('mainColors', 'main'),
+    'matchInfoIconMargin': 7px,
+), $customThemeDefault);

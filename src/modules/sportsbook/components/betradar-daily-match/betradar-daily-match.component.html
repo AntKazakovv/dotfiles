@@ -1,0 +1,51 @@
+<ng-container *ngIf="inited; else preloader">
+    <div *ngIf="!initFailed" [ngStyle]="{'background-image':'url('+imagePath+')'}" class="{{$class}}__content">
+        <div class="{{$class}}__header">{{$params.common?.title | translate}}</div>
+        <div class="{{$class}}__title-match">
+            <span class="{{$class}}__title-team">{{dailyMatch.teamHomeName}}</span>
+            <span class="{{$class}}__delimiter">vs</span>
+            <span class="{{$class}}__title-team">{{dailyMatch.teamAwayName}}</span>
+        </div>
+        <div class="{{$class}}__teams">
+            <div class="{{$class}}__team">
+                <img *ngIf="dailyMatch.issetTeamHomeLogo" src="{{dailyMatch.teamHomeLogo}}">
+                <span *ngIf="!dailyMatch.issetTeamHomeLogo" title="{{dailyMatch.teamHomeName}}">{{dailyMatch.teamHomeNameAbbr}}</span>
+            </div>
+            <div class="{{$class}}__info">
+                <div class="{{$class}}__info-block {{$class}}__info-block--day">
+                    <span wlc-icon
+                          [iconUrl]="'/wlc/icons/date.svg'"
+                          class="{{$class}}__info-icon">
+                    </span>
+                    <span>{{dailyMatch.startTimeLabel | translate}}</span>
+                </div>
+                <div class="{{$class}}__info-block {{$class}}__info-block--time">
+                    <span wlc-icon
+                          [iconUrl]="'/wlc/icons/time.svg'"
+                          class="{{$class}}__info-icon">
+                    </span>
+                    <span>{{dailyMatch.startTime()}}</span>
+                </div>
+            </div>
+            <div class="{{$class}}__team">
+                <img *ngIf="dailyMatch.issetTeamAwayLogo" src="{{dailyMatch.teamAwayLogo}}">
+                <span *ngIf="!dailyMatch.issetTeamAwayLogo" title="{{dailyMatch.teamAwayName}}">{{dailyMatch.teamAwayNameAbbr}}</span>
+            </div>
+        </div>
+        <div class="{{$class}}__footer">
+            <button wlc-button
+                    [text]="$params.common?.openMatchText"
+                    (click)="openGame(dailyMatch)"
+                    class="wlc-btn">
+            </button>
+        </div>
+    </div>
+</ng-container>
+
+<div *ngIf="initFailed" class="{{$class}}__error">
+    {{'Match of the day load error' | translate}}
+</div>
+
+<ng-template #preloader>
+    <div wlc-loader></div>
+</ng-template>

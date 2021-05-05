@@ -14,5 +14,6 @@ export * from './total-jackpot.section';
 export * from './promo-categories.section';
 export * from './promo-bonuses.section';
 export * from './promo-tournaments.section';
+export * from './game-widgets.section';
 export * from './winners.section';
 export * from './providers-section';

@@ -7,4 +7,12 @@ export namespace wlcSportsbook {
         params: {
         },
     };
+
+    export const betradarDailyMatch: ILayoutComponent = {
+        name: 'sportsbook.wlc-betradar-daily-match',
+    };
+
+    export const betradarPopularEvents: ILayoutComponent = {
+        name: 'sportsbook.wlc-betradar-popular-events',
+    };
 }

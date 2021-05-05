@@ -1,4 +1,7 @@
-export {GamesCatalogService} from './system/services';
+export {
+    GamesCatalogService,
+    MerchantFieldsService,
+} from './system/services';
 export {
     GamesFilterService,
     GamesFilterServiceEvents,

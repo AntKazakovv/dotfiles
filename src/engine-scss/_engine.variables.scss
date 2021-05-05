@@ -439,7 +439,9 @@ $container-max-widths: (
 /// @name customProfileSettings
 $dummy: map-merge((), $customProfileSettings);
 $profileSettings: map-merge((
-    'profileWidth': 1275px,
+    'profileWidth': (
+        1366: 1275px
+    ),
     'titleColor': map-get($mainColors, 'baseMain'),
     'profilePadding': (
         375: map-get($size, 'smally'),
@@ -546,6 +548,7 @@ $layoutGap: map-merge((
         '.wlc-sections__promo-categories',
         '.wlc-sections__promo-bonuses',
         '.wlc-sections__winners-section',
+        '.wlc-sections__game-widgets',
         '.wlc-sections__providers',
         '.wlc-sections__content-games-vertical',
     ),

@@ -3,6 +3,7 @@ import {
     Inject,
 } from '@angular/core';
 import {DOCUMENT} from '@angular/common';
+import {UIRouter} from '@uirouter/core';
 import {
     fromEvent,
     Subject,
@@ -90,6 +91,7 @@ export class SportsbookService {
     constructor(
         protected configService: ConfigService,
         protected gamesCatalogService: GamesCatalogService,
+        protected router: UIRouter,
         @Inject(DOCUMENT) protected document: HTMLDocument,
     ) {
         this.init();
@@ -137,6 +139,16 @@ export class SportsbookService {
                 eventData: data,
             }), '*');
         }
+    }
+
+    /**
+     * Go to page by link
+     *
+     * @param {string} locationPath
+     */
+    public goToPageByLink(locationPath: string): void {
+        const stateParams = this.generateStateParams(locationPath);
+        this.router.stateService.go('app.sportsbook', stateParams);
     }
 
     /**

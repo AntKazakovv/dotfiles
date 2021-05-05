@@ -14,6 +14,7 @@ export interface IBannersSliderCParams extends IComponentParams<ComponentTheme, 
     filter?: IBannersFilter;
     banner?: IBannerCParams,
     sliderParams?: ISliderCParams;
+    hideNavigation?: boolean;
 };
 
 export const defaultParams: IBannersSliderCParams = {
@@ -29,4 +30,5 @@ export const defaultParams: IBannersSliderCParams = {
             preventClicks: true,
         },
     },
+    hideNavigation: false,
 };

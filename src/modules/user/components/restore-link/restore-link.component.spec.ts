@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PseudoLinkComponent } from './pseudo-link.component';
+import { RestoreLinkComponent } from 'wlc-engine/modules/user/components/restore-link/restore-link.component';
 
-describe('PseudoLinkComponent', () => {
-    let component: PseudoLinkComponent;
-    let fixture: ComponentFixture<PseudoLinkComponent>;
+describe('RestoreLinkComponent', () => {
+    let component: RestoreLinkComponent;
+    let fixture: ComponentFixture<RestoreLinkComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [ PseudoLinkComponent ],
+            declarations: [ RestoreLinkComponent ],
         })
             .compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(PseudoLinkComponent);
+        fixture = TestBed.createComponent(RestoreLinkComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

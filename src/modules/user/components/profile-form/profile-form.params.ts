@@ -43,7 +43,7 @@ export const defaultParams: IProfileFormCParams = {
                     locked: true,
                     name: 'email',
                     validators: ['required', 'email'],
-                    exampleValue: 'dasha.kot@egamings.com',
+                    exampleValue: 'example@mail.com',
                 },
             },
             {

@@ -33,6 +33,10 @@ $mainInfoThemeDefault: map-merge((
         768: 400px,
         1200: 450px,
     ),
+    'formLabelColor': (
+        375: ef.get('fieldColors', 'labelColor'),
+        768: ef.get('mainColors', 'baseMain')
+    ),
     'phoneInnerGap': 140px + ef.get('size', 'small'),
     'phoneTemplateColumns': 100px minmax(0, 1fr),
     'phoneSize': minmax(0, 1fr) 140px,
@@ -51,13 +55,19 @@ $mainInfoThemeDefault: map-merge((
     ),
     'addTitleFontSize': ef.get('font', 'smaller'),
     'addTitleFontWeight': 300,
-    'addTitleColor': ef.get('mainColors', 'baseMain'),
+    'addTitleColor': (
+        375: ef.get('mainColors', 'baseOpacity'),
+        768: ef.get('mainColors', 'baseMain')
+    ),
     'addItemGap': ef.get('size', 'smaller'),
     'addItemWidth': max-content,
     'addItemTitleMainFontSize': ef.get('font', 'main'),
     'addItemTitleMainColor': ef.get('mainColors', 'baseMain'),
     'addItemTitleSecondFontSize': ef.get('font', 'smaller'),
-    'addItemTitleSecondColor': ef.get('mainColors', 'baseMain'),
+    'addItemTitleSecondColor': (
+        375: ef.get('mainColors', 'baseOpacity'),
+        768: ef.get('mainColors', 'baseMain')
+    ),
     'addItemLinkFontSize': (
         375: ef.get('font', 'less'),
         1024: ef.get('font', 'smaller')

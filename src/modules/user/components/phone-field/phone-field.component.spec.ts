@@ -1,5 +1,5 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {PhoneFieldComponent} from 'wlc-engine/modules/core/components/phone-field/phone-field.component';
+import {PhoneFieldComponent} from 'wlc-engine/modules/user/components/phone-field/phone-field.component';
 
 describe('PhoneField', () => {
     let component: PhoneFieldComponent;
