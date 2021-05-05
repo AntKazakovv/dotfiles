@@ -42,7 +42,8 @@
             }
 
             &__title {
-                @include text.get-text-style('PlaceholderText', ef.get-value($mainInfoThemeDefault, 'addTitleColor'));
+                @include bm.get-mq-map('color', $mainInfoThemeDefault, 'addTitleColor');
+                @include text.get-text-style('PlaceholderText', null);
 
                 @include mq.min(640) {
                     grid-column-start: span 2;
@@ -68,7 +69,8 @@
                     }
 
                     &-description {
-                        @include text.get-text-style('PlaceholderText', ef.get-value($mainInfoThemeDefault, 'addItemTitleSecondColor'));
+                        @include bm.get-mq-map('color', $mainInfoThemeDefault, 'addItemTitleSecondColor');
+                        @include text.get-text-style('PrimaryText', null);
                     }
                 }
 
@@ -206,11 +208,12 @@
 
                 .wlc-input__label,
                 .wlc-select__label {
-                    @include text.get-text-style('SignText', ef.get('form', 'labelColor'));
+                    @include bm.get-mq-map('color', $mainInfoThemeDefault, 'formLabelColor');
+                    @include text.get-text-style('SignText', null);
                     margin-left: 5px;
 
                     @include mq.min(768) {
-                        @include text.get-text-style('PrimaryText', ef.get('form', 'labelColor'));
+                        @include text.get-text-style('PrimaryText', null);
                         margin: 0;
                     }
                 }
