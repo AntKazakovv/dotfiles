@@ -6,6 +6,10 @@
 
 .wlc-title--theme-default:host {
 
+    &.wlc-title--mb {
+        margin-bottom: 15px;
+    }
+
     div.wlc-title,
     h1.wlc-title {
 
