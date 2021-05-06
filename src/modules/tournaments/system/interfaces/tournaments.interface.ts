@@ -22,6 +22,7 @@ export interface ITournament {
     CurrentTime: number;
     Description: string;
     Ends: string;
+    End: string;
     FeeAmount: IIndexing<string> | string;
     FeeType: 'balance' | 'loyalty';
     Games: ITournamentGames;
@@ -32,6 +33,8 @@ export interface ITournament {
     Image_promo: string;
     Image_other: string;
     Name: string;
+    Place: string;
+    Points: string;
     PointsLimit: string;
     PointsLimitMin: string;
     PointsTotal: string;
@@ -41,13 +44,16 @@ export interface ITournament {
     Repeat: string;
     Selected: number;
     Series: string;
+    Start: string;
     Starts: string;
     Status: string;
+    StatusText: string;
     Target: 'balance' | 'loyalty';
     Terms: string;
     TotalFounds: IIndexing<string>;
     Type: 'absolute' | 'relative';
     Value: string;
+    Win: string;
     WinnerBy: 'bets' | 'wins' | 'turnovers' | 'turnovers_loose' | 'max_win' | 'fr';
     WinningSpread: IIndexing<string[]>;
 }

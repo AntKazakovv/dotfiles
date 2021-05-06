@@ -33,6 +33,10 @@ export class FinancesService {
     ) {
         this.registerMethods();
         this.fetchPaymentSystems();
+
+        this.eventService.subscribe({name: 'LOGIN'},() => {
+            this.fetchPaymentSystems();
+        });
     }
 
     public get paymentSystems(): PaymentSystem[] {

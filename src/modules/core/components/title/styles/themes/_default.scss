@@ -6,6 +6,10 @@
 
 .wlc-title--theme-default:host {
 
+    &.wlc-title--mb {
+        margin-bottom: ef.get-value($themeDefault, 'titleMargin');
+    }
+
     div.wlc-title,
     h1.wlc-title {
 

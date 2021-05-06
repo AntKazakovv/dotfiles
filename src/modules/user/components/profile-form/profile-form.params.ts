@@ -62,7 +62,7 @@ export const defaultParams: IProfileFormCParams = {
                             options: 2,
                         },
                     ],
-                    maskOptions: 'textField',
+                    exampleValue: gettext('Enter your name'),
                 },
             },
             {
@@ -81,7 +81,7 @@ export const defaultParams: IProfileFormCParams = {
                             options: 2,
                         },
                     ],
-                    maskOptions: 'textField',
+                    exampleValue: gettext('Enter your last name'),
                 },
             },
             {
