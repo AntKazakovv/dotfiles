@@ -3,6 +3,26 @@
 $customThemeDefault: () !default;
 
 $themeDefault: map-merge((
+    'color': ef.get('mainColors', 'baseMain'),
+
+    'groupDisplay': flex,
+    'groupDirection': column,
+    'groupAlignItems': center,
+    'groupSpaceBetween': space-between,
+
+    'checkWrpJustifySelf': end,
+    'checkWrpDisplay': inline-block,
+    'checkWrpLineHeight': 0,
+
+    'docTypeDisplay': flex,
+    'docTypeDirection': column,
+    'docTypeAlignItems': center,
+    'docTypeMinHeight': 130px,
+
+    'iconsWrpPosition': relative,
+    'iconsWrpMargin': 0 0 ef.get('size', 'smally') 0,
+    'iconsWrpContentDisplay': inline-block,
+
     'backgroundItem': ef.get('mainColors', 'bg300'),
     'borderRadius': ef.get('radius', 'biger'),
     'paddingItem': (
@@ -10,23 +30,40 @@ $themeDefault: map-merge((
         1200: ef.get('size', 'main'),
         1630: ef.get('size', 'main') ef.get('size', 'big'),
     ),
-    'color': ef.get('mainColors', 'baseMain'),
+
     'tileIconColor': ef.get('mainColors', 'main'),
     'tileIconWidth': 100%,
     'tileIconHeigth': 100%,
     'tileIconSize': 30px,
+
+    'iconCheckPosition': absolute,
+    'iconCheckDemensions': 22px,
+    'iconCheckOffset': ef.get('size', 'smallest'),
+    'iconCheckZIndex': 99,
+    'iconCheckPosBottom': -10px,
+    'iconCheckPosRight': -4px,
+    'iconCheckContentPosition': relative,
+    'iconCheckContentDisplay': block,
+    'iconCheckContentSvgPosition': absolute,
+    'iconCheckRadius': 100%,
+
     'titleFont': 'ThirdTitleBold',
     'subTitleFont': 'PlaceholderText',
     'textFont': 'PrimaryText',
-    'titlePadding': ef.get('size', 'small') 0 ef.get('size', 'smallest'),
-    'offset': ef.get('size', 'smaller'),
+    'titlePadding': 0 0 ef.get('size', 'smallest') 0,
+    'requiredPadding': 0,
+    //'offset': ef.get('size', 'smaller'),
+    'descriptionPadding':  0 0 ef.get('size', 'smaller') 0,
     'docsListPadding': ef.get('size', 'smaller') 0,
     'docsListWidth': 100%,
     'docsListMargin': 0,
 
+    'docsItemPosition': relative,
+    'docsItemDisplay': grid,
     'docsItemGridTempCol': 3fr minmax(25px, max-content),
     'docsItemColGap': ef.get('size', 'smallest'),
     'docsItemMargin': 0 0 ef.get('size', 'smallest'),
+    'docsItemMarginLast': 0 0 0,
 
     'docsTextMinHeight': 25px,
 
@@ -48,11 +85,6 @@ $themeDefault: map-merge((
     'borderDropdown': 1px dashed ef.get('mainColors', 'bg500'),
     'borderColorDrag': ef.get('mainColors', 'main'),
     'successText': ef.get('mainColors', 'success'),
-    'iconCheckDemensions': 22px,
-    'iconCheckOffset': ef.get('size', 'smallest'),
-    'iconCheckZIndex': 99,
-    'iconCheckPosBottom': -10px,
-    'iconCheckPosRight': -4px,
 
     'iconContentSize': 100%,
 
@@ -70,30 +102,30 @@ $themeDefault: map-merge((
     'docTextOffset': ef.get('size', 'smaller'),
     'removeIconDocsDemensitons': ef.get('size', 'smally'),
     'removeIconDocsHoverColor': ef.get('mainColors', 'main'),
+
     'preloaderSize': 20px,
     'preloaderColor': 1px solid ef.get('mainColors', 'main'),
     'preloaderBg': 1px solid ef.get('mainColors', 'bg'),
+    'preloaderRadius': 100%,
 
+    'dropzonePosition': relative,
+    'dropzoneDisplay': (
+        320: none,
+        768: flex
+    ),
     'dropzonePadding': ef.get('size', 'smaller'),
-
     'dropzoneMinHeight': 175px,
-    'dropzoneMaxWidth': 265px,
     'dropzoneMargin': 0 auto,
     'dropzoneWidth': 100%,
+    'dropzoneHeight': 100%,
+    'dropzoneOverflow': hidden,
 
+    'dropzoneInputPosition': absolute,
     'dropzoneInputPos': 0,
+    'dropzoneInputOpacity': 0,
 
     'infoIcon': 0 0 0 ef.get('size', 'smallest'),
     'iconStatusSize': 20px,
-
-    'groupDirection': column,
-    'groupAlignItems': center,
-    'groupSpaceBetween': space-between,
-
-    'checkWrpJustifySelf': end,
-
-    'docTypeDirection': column,
-    'docTypeAlignItems': center,
 
     'groupTitleAlign': center,
 
@@ -103,17 +135,38 @@ $themeDefault: map-merge((
 
     'groupTextAlignSelf': center,
     'groupTextAlign': center,
+
+    'uploadDisplay': (
+        320: flex,
+        768: none
+    ),
     'uploadDirection': column,
     'uploadAlignItems': center,
     'uploadJustifyContent': center,
+    'uploadMargin': 0 0 ef.get('size', 'smaller') 0,
 
-    'docListItemAlignItems': center,
+    'docsListItemAlignItems': center,
 
-    'docListTextAlignItems': center,
+    'docsListTextPosition': relative,
+    'docsListTextDisplay': flex,
+    'docsListTextAlignItems': center,
+    'docsListTextOverflow': hidden,
+    'docsListTextWhiteSpace': nowrap,
+    'docsListTextOverflowText': ellipsis,
+    'docsListTextHoverVisibility': visible,
+    'docsListTextHoverOpacity': 1,
 
     'docListLinkDecoration': none,
     'docListLinkDecorationHover': underline,
 
+    'removeDisplay': flex,
+    'removeMargin': 0 0 0 auto,
+    'removeLineHeight': 0,
     'removeJustifyContent': center,
     'removeAlignItems': center,
+    'removeVisibility': hidden,
+    'removeOpacity': 0,
+
+    'removeIconDisplay': inline-block,
+    'removeIconLineHeight': 0,
 ), $customThemeDefault);
