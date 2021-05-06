@@ -23,7 +23,6 @@ import {
 import {ConfigService} from 'wlc-engine/modules/core/system/services';
 import {GamesCatalogService} from 'wlc-engine/modules/games/system/services';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
-import {ILanguage} from 'wlc-engine/modules/core';
 import {TranslateService} from '@ngx-translate/core';
 import {IGamesGridCParams} from 'wlc-engine/modules/games/components/games-grid/games-grid.params';
 import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.model';

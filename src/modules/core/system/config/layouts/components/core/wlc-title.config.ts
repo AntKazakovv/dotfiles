@@ -185,4 +185,16 @@ export namespace wlcTitle {
             wlcElement: 'header_tournaments',
         },
     };
+
+    export const profileCash: ILayoutComponent = {
+        name: 'core.wlc-title',
+        display: {
+            before: 899,
+        },
+        params: {
+            customMod: ['profile', 'mb'],
+            mainText: gettext('Cash'),
+            wlcElement: 'header_cash',
+        },
+    };
 }
