@@ -84,7 +84,49 @@
                 wlc-tournament
                 [tournament]="tournament"
                 [type]="$params.common?.thumbType"
-                [theme]="$params.theme">
+                [theme]="$params.theme"
+                [customMod]="$params.common?.customMod"
+            >
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #active>
+    <div
+        *ngIf="tournaments?.length && isReady; else: noData"
+        class="{{$class}}__container"
+        data-wlc-element="block_tournament">
+        <div
+            *ngFor="let tournament of tournaments"
+            class="{{$class}}__item">
+            <div
+                wlc-tournament
+                [tournament]="tournament"
+                [type]="$params.common?.thumbType"
+                [theme]="$params.theme"
+                [customMod]="$params.common?.customMod"
+            >
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #detail>
+    <div
+        *ngIf="tournaments?.length && isReady; else: noData"
+        class="{{$class}}__container"
+        data-wlc-element="block_tournament">
+        <div
+            *ngFor="let tournament of tournaments"
+            class="{{$class}}__item">
+            <div
+                wlc-tournament
+                [tournament]="tournament"
+                [type]="$params.common?.thumbType"
+                [theme]="$params.theme"
+                [customMod]="$params.common?.customMod"
+            >
             </div>
         </div>
     </div>
@@ -97,8 +139,10 @@
     </div>
 </ng-template>
 <ng-container [ngSwitch]="$params.theme">
-    <ng-container [ngTemplateOutlet]="dashboard" *ngSwitchCase="'dashboard'"></ng-container>
+    <ng-container [ngTemplateOutlet]="active" *ngSwitchCase="'active'"></ng-container>
     <ng-container [ngTemplateOutlet]="available" *ngSwitchCase="'available'"></ng-container>
+    <ng-container [ngTemplateOutlet]="dashboard" *ngSwitchCase="'dashboard'"></ng-container>
     <ng-container [ngTemplateOutlet]="banner" *ngSwitchCase="'banner'"></ng-container>
+    <ng-container [ngTemplateOutlet]="detail" *ngSwitchCase="'detail'"></ng-container>
     <ng-container [ngTemplateOutlet]="default" *ngSwitchDefault></ng-container>
 </ng-container>

@@ -29,6 +29,8 @@
 .wlc-sections__profile-content--theme-first {
 
     .wlc-profile-content {
+        overflow: hidden;
+
         background: ef.get-value($mainInfoThemeV1, 'contentBackground');
         @include bm.get-mq-map('padding', $mainInfoThemeV1, 'contentPadding');
         @include bm.get-mq-map('border-radius', $mainInfoThemeV1, 'contentBorderRadius');

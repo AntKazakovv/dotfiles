@@ -20,13 +20,16 @@
 
             @include em.get-mq-map('background', $themeDefault, 'containerBackground');
 
-            border-radius: ef.get-value($themeDefault, 'containerRadius');
             overflow: hidden;
+
+            border-radius: ef.get-value($themeDefault, 'containerRadius');
+
         }
 
         &__info {
-            grid-area: info;
             position: relative;
+
+            grid-area: info;
 
             @include em.get-mq-map('padding', $themeDefault, 'infoPadding');
 
@@ -36,12 +39,14 @@
         }
 
         &__board {
-            grid-area: board;
             position: relative;
+
             display: flex;
             flex-direction: column;
+            grid-area: board;
             justify-content: center;
             @include em.get-mq-map('padding', $themeDefault, 'boardPadding');
+
 
             &:before {
                 @include em.get-mq-map('display', $themeDefault, 'boardPElementDisplay');
@@ -49,8 +54,10 @@
 
             &-title {
                 margin: 0 0 10px 0;
-                text-align: center;
+
                 @include text.get-text-style(ef.get-value($themeDefault, 'boardTitleFontStyle'), ef.get-value($themeDefault, 'boardTitleColor'));
+
+                text-align: center;
 
                 &:last-child {
                     margin-bottom: 0;
@@ -67,14 +74,16 @@
         &__info:before,
         &__board:before {
             content: '';
+
             position: absolute;
-            z-index: ef.get-value($themeDefault, 'pseudoElementZIndex');
             top: ef.get-value($themeDefault, 'pseudoElementPosition');
-            left: ef.get-value($themeDefault, 'pseudoElementPosition');
             right: ef.get-value($themeDefault, 'pseudoElementPosition');
             bottom: ef.get-value($themeDefault, 'pseudoElementPosition');
+            left: ef.get-value($themeDefault, 'pseudoElementPosition');
+            z-index: ef.get-value($themeDefault, 'pseudoElementZIndex');
 
             background: ef.get-value($themeDefault, 'pseudoElementGradient');
+
         }
 
         &__inner {
@@ -107,6 +116,7 @@
             @include text.get-text-style(ef.get-value($themeDefault, 'titleFontStyle'), ef.get-value($themeDefault, 'titleColor'));
             @include em.lineClamp(2);
             margin: ef.get-value($themeDefault, 'titleMargin');
+
             text-transform: uppercase;
 
             @include mq.min(900) {
@@ -136,15 +146,15 @@
 
         &__image {
             position: absolute;
-            z-index: ef.get-value($themeDefault, 'imageZIndex');
             top: ef.get-value($themeDefault, 'imagePosition');
             left: ef.get-value($themeDefault, 'imagePosition');
+            z-index: ef.get-value($themeDefault, 'imageZIndex');
 
             width: ef.get-value($themeDefault, 'imageSize');
             height: ef.get-value($themeDefault, 'imageSize');
 
-            object-fit: fill;
-            object-position: center;
+            object-fit: ef.get-value($themeDefault, 'imageObjectFit');
+            object-position: ef.get-value($themeDefault, 'imageObjectPosition');
 
             &--desk {
                 @include em.get-mq-map('display', $themeDefault, 'imageDisplayDesk');
@@ -157,48 +167,49 @@
 
         &__loader {
             position: absolute;
+            top: ef.get-value($themeDefault, 'loaderPosition');
+            right: ef.get-value($themeDefault, 'loaderPosition');
+            bottom: ef.get-value($themeDefault, 'loaderPosition');
+            left: ef.get-value($themeDefault, 'loaderPosition');
+            z-index: ef.get-value($themeDefault, 'loaderZIndex');
+
             display: flex;
             align-items: center;
             justify-content: center;
-
-            z-index: ef.get-value($themeDefault, 'loaderZIndex');
-            top: ef.get-value($themeDefault, 'loaderPosition');
-            left: ef.get-value($themeDefault, 'loaderPosition');
-            right: ef.get-value($themeDefault, 'loaderPosition');
-            bottom: ef.get-value($themeDefault, 'loaderPosition');
 
             background: ef.get-value($themeDefault, 'loaderBachround');
             border-radius: ef.get-value($themeDefault, 'loaderRadius');
 
             &:before {
-                content: '';
-
                 position: absolute;
-
                 top: ef.get-value($themeDefault, 'loaderBeforePosition');
-                left: ef.get-value($themeDefault, 'loaderBeforePosition');
                 right: ef.get-value($themeDefault, 'loaderBeforePosition');
                 bottom: ef.get-value($themeDefault, 'loaderBeforePosition');
-                margin: auto;
+                left: ef.get-value($themeDefault, 'loaderBeforePosition');
 
                 width: ef.get-value($themeDefault, 'loaderBeforeSize');
                 height: ef.get-value($themeDefault, 'loaderBeforeSize');
 
+                margin: auto;
+
                 background: ef.get-value($themeDefault, 'loaderBeforeBackground');
 
                 border-radius: ef.get-value($themeDefault, 'loaderBeforeRadius');
+
+                content: '';
             }
 
             &:after {
-                content: '';
-
                 width: ef.get-value($themeDefault, 'loaderAfterSize');
                 height: ef.get-value($themeDefault, 'loaderAfterSize');
 
                 border: 4px solid ef.get-value($themeDefault, 'loaderAfterBorderColor');
                 border-left-color: transparent;
                 border-radius: ef.get-value($themeDefault, 'loaderAfterRadius');
+
                 animation: ef.get-value($themeDefault, 'loaderAfterAnimation');
+
+                content: '';
             }
         }
     }
@@ -207,27 +218,60 @@
 
         .wlc-tournament-promo-prizes {
             margin: ef.get-value($themeDefault, 'prizesMargin');
+
+            &:last-child {
+                margin-bottom: 0;
+            }
         }
 
         .buttons-wrap {
-            grid-area: btns;
 
             display: flex;
-            margin-top: auto;
+            grid-area: btns;
 
             @include em.get-mq-map('justify-content', $themeDefault, 'btnsWrapAlign');
             @include em.get-mq-map('padding', $themeDefault, 'btnsWrapPadding');
 
+            margin: ef.get-value($themeDefault, 'btnsWrapMargin');
+
             & > .wlc-btn {
-                min-width: ef.get-value($themeDefault, 'btnsMinWidth');
                 grid-column-gap: ef.get-value($themeDefault, 'btnsGridColumnGap');
 
-                padding: ef.get-value($themeDefault, 'btnsPadding');
+                min-width: ef.get-value($themeDefault, 'btnsMinWidth');
+
                 margin: ef.get-value($themeDefault, 'btnsMargin');
+                padding: ef.get-value($themeDefault, 'btnsPadding');
 
                 &:last-child {
                     margin-right: 0;
                 }
+            }
+        }
+    }
+
+    &.wlc-tournament-promo--available {
+
+        .wlc-tournament-promo {
+
+            &__container {
+                @include em.get-mq-map('grid-template-columns', $modAvailable, 'containerGridTemplateColumns');
+                @include em.get-mq-map('height', $modAvailable, 'containerHeight');
+                @include em.get-mq-map('background', $modAvailable, 'containerBackground');
+            }
+
+            &__info {
+                @include em.get-mq-map('padding', $modAvailable, 'infoPadding');
+            }
+
+            &__board {
+                @include em.get-mq-map('padding', $modAvailable, 'boardPadding');
+            }
+        }
+
+        ::ng-deep {
+
+            .buttons-wrap {
+                @include em.get-mq-map('padding', $modAvailable, 'btnsWrapPadding');
             }
         }
     }

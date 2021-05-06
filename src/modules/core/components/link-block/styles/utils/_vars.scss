@@ -32,11 +32,6 @@ $themeDefault: map-merge((
     'linkFontStyle': 'ButtonText',
     'linkColor': ef.get('mainColors', 'main'),
     'linkColorHover': lighten(ef.get('mainColors', 'main'), 20%),
-    'linkMinHeight': (
-        375: auto,
-        560: 40px,
-        720: auto,
-    ),
 
     'iconFill': ef.get('mainColors', 'main'),
     'iconMargin': 0 0 0 ef.get('size', 'smallest'),

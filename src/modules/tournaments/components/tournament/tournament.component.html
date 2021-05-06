@@ -1,13 +1,36 @@
 <ng-template #promo>
     <div wlc-tournament-promo
          [tournament]="$params.common.tournament"
+         [actionParams]="{modal: {}, selector: '.wlc-tournament-detail__prizepool'}"
          [type]="$params.common.type"
          [parentInstance]="instance"></div>
 </ng-template>
 
 <ng-template #banner>
     <div wlc-tournament-banner
+         [actionParams]="{modal: {}, selector: '.wlc-tournament-detail__prizepool'}"
          [parentInstance]="instance"></div>
+</ng-template>
+
+<ng-template #available>
+    <div wlc-tournament-promo
+         [actionParams]="actionParams"
+         [customMod]="$params.common?.customMod"
+         [parentInstance]="instance"></div>
+</ng-template>
+
+<ng-template #active>
+    <div wlc-tournament-detail
+         [tournament]="$params.common.tournament"
+         [parentInstance]="instance">
+    </div>
+</ng-template>
+
+<ng-template #detail>
+    <div wlc-tournament-detail
+         [tournament]="$params.common.tournament"
+         [parentInstance]="instance">
+    </div>
 </ng-template>
 
 <ng-template #dashboard>
@@ -17,7 +40,7 @@
                 class="icon-btn"
                 wlc-icon
                 iconName="info"
-                (click)="readMore()"
+                (click)="readMore({modal: {selector: ''}})"
                 [wlcElement]="'button_terms'">
             </div>
         </div>
@@ -59,7 +82,10 @@
 </ng-template>
 
 <ng-container [ngSwitch]="$params?.type">
-    <ng-container [ngTemplateOutlet]="dashboard" *ngSwitchCase="'dashboard'"></ng-container>
+    <ng-container [ngTemplateOutlet]="active" *ngSwitchCase="'active'"></ng-container>
+    <ng-container [ngTemplateOutlet]="available" *ngSwitchCase="'available'"></ng-container>
+    <ng-container [ngTemplateOutlet]="detail" *ngSwitchCase="'detail'"></ng-container>
     <ng-container [ngTemplateOutlet]="banner" *ngSwitchCase="'banner'"></ng-container>
+    <ng-container [ngTemplateOutlet]="dashboard" *ngSwitchCase="'dashboard'"></ng-container>
     <ng-container [ngTemplateOutlet]="promo" *ngSwitchDefault></ng-container>
 </ng-container>

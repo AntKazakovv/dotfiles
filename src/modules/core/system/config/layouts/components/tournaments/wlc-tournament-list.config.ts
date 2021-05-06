@@ -14,6 +14,31 @@ export namespace wlcTournamentList {
             theme: 'available',
             common: {
                 thumbType: 'available',
+                customMod: 'available',
+            },
+        },
+    };
+
+    export const active: ILayoutComponent = {
+        name: 'tournaments.wlc-tournament-list',
+        params: {
+            theme: 'active',
+            common: {
+                thumbType: 'active',
+                customMod: 'active',
+                restType: 'active',
+            },
+        },
+    };
+
+    export const detail: ILayoutComponent = {
+        name: 'tournaments.wlc-tournament-list',
+        params: {
+            theme: 'detail',
+            common: {
+                thumbType: 'detail',
+                customMod: 'detail',
+                restType: 'any',
             },
         },
     };

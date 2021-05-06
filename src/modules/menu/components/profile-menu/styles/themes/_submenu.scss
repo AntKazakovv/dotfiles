@@ -8,6 +8,10 @@
 
     .wlc-profile-menu__content {
         position: relative;
+
+        ::-webkit-scrollbar {
+            display: none;
+        }
     }
 
     .wlc-menu--theme-default.wlc-menu--type-profile-first-menu,

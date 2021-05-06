@@ -8,6 +8,7 @@ import {
 } from 'wlc-engine/modules/core';
 import {TournamentComponent} from 'wlc-engine/modules/tournaments/components/tournament/tournament.component';
 import {IGamesGridCParams} from 'wlc-engine/modules/games';
+import {Tournament} from 'wlc-engine/modules/tournaments';
 
 export type Type = 'default' | CustomType;
 export type Theme = 'default' | CustomType;
@@ -20,7 +21,7 @@ export interface ITournamentDetailCParams extends IComponentParams<Theme, Type, 
     modifiers?: Modifiers[];
     parentInstance?: TournamentComponent;
     common?: {
-        tournamentId?: number
+        tournament?: Tournament,
         noTournamentText?: string;
         rulesSectionTitle?: string;
         gamesSectionTitle?: string;
@@ -34,7 +35,7 @@ export interface ITournamentDetailCParams extends IComponentParams<Theme, Type, 
         statusAvaliableText?: string;
         statusActiveText?: string;
         prizePoolText?: string;
-        tablePrizeboard: ITableCParams;
+        tablePrizeboard?: ITableCParams;
         scrollToSelector?: string;
     };
 }

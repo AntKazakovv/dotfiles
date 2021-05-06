@@ -95,6 +95,7 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
     public iconsFallback: string = '';
 
     protected iconsExtension: string = 'svg';
+    protected scrollDuration = 400;
     protected baseUrl: string = '';
     protected lang: string = '';
     protected isAffiliate: boolean = false;
