@@ -1,7 +1,7 @@
 <ng-template #join>
     <div class="{{$class}}__container">
         <div class="{{$class}}__text" *ngIf="$params.common.feeCurrency !== 'LP'; else userPoints">
-            {{'You have' | translate}}: <span wlc-currency [value]="$params.common.userBalance"></span>
+            {{'Real balance' | translate}}: <span wlc-currency [value]="$params.common.userBalance"></span>
         </div>
         <ng-template #userPoints>
             <div class="{{$class}}__text">
