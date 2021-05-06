@@ -36,6 +36,7 @@ export class Bonus extends AbstractModel<IBonus> {
     private depEvents = ['deposit', 'deposit first', 'deposit repeated', 'deposit sum'];
     private $isReg: boolean;
     private $isDep: boolean;
+    private readonly _imageUrl: string;
 
     constructor(
         data: IBonus,
@@ -46,6 +47,7 @@ export class Bonus extends AbstractModel<IBonus> {
         super();
         this.data = this.modifyData(data);
         this.userCurrency = this.ConfigService.get<string>('appConfig.user.currency') || 'EUR';
+        this._imageUrl = this.image.length ? `url(${this.image})` : '';
     }
 
     public set data(data: IBonus) {
@@ -215,6 +217,10 @@ export class Bonus extends AbstractModel<IBonus> {
 
     public get image(): string {
         return this.data.Image;
+    }
+
+    public get imageUrl(): string {
+        return this._imageUrl;
     }
 
     public get imageOther(): string {

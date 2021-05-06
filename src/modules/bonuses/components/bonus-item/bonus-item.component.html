@@ -10,7 +10,9 @@
          [class.disabled]="$params.common.bonus?.isDisabled"
          data-wlc-element="block_bonus">
 
-        <div class="{{$class}}__wrapper" (click)="chooseBonusNoBtn($params.common.bonus, $params.common?.type)">
+        <div class="{{$class}}__wrapper"
+             [ngStyle]="{'background-image': bonus.imageUrl}"
+             (click)="chooseBonusNoBtn($params.common.bonus, $params.common?.type)">
             <div class="{{$class}}__image-block" data-wlc-element="bonus_image">
                 <div *ngIf="$params.common?.showBonusTag && !!getBonusTag()"
                      class="{{$class}}__tag"
@@ -195,6 +197,7 @@
         </div>
     </div>
 </ng-template>
+
 <ng-template #partial>
     <div class="{{$class}}__content"
          [class.chosen]="chosen || $params.common.bonus.isChoose"
@@ -252,6 +255,7 @@
         </div>
     </div>
 </ng-template>
+
 <ng-template #preview>
     <div *ngIf="$params.common.bonus; else blank"
          class="{{$class}}__content">
@@ -279,10 +283,11 @@
         </p>
     </div>
 </ng-template>
+
 <ng-template #promoHome>
     <div class="{{$class}}__wrapper"
+         [ngStyle]="{'background-image': bonus.imageUrl}"
          (click)="chooseBonusNoBtn($params.common.bonus, $params.common?.type)"
-         style="background-image: {{bonus.data?.Image}};"
     >
 
         <div *ngIf="$params.common?.showBonusTag && !!getBonusTag()"
@@ -355,6 +360,7 @@
         </div>
     </div>
 </ng-template>
+
 <ng-template #blank>
     <div class="{{$class}}__blank">
         <h4 class="{{$class}}__blank-subtitle">{{'Without Bonus' | translate}}</h4>
