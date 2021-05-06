@@ -23,4 +23,7 @@ declare interface Window {
     ChatraGroupID?: string;
     __lc?: any;
     LC_API?: any;
+    affiliate: string;
+    WlcFlog: any;
+    affCookie: any;
 }
