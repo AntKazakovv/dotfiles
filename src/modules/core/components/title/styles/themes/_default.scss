@@ -7,7 +7,7 @@
 .wlc-title--theme-default:host {
 
     &.wlc-title--mb {
-        margin-bottom: 15px;
+        margin-bottom: ef.get-value($themeDefault, 'titleMargin');
     }
 
     div.wlc-title,
