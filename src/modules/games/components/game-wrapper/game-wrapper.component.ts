@@ -274,6 +274,10 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
     }
 
     protected initFullPageIframeSize(): void {
+        if (this.$params.gameParams?.disableIframeDefaultResize) {
+            return;
+        }
+
         if (this.$params.theme === 'fullscreen-game-frame' && this.hostElement) {
             this.containerObserver = new MutationObserver(() => {
                 const iframe = this.document.querySelector('#egamings_container iframe');
@@ -308,7 +312,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
             let height: string = (globalThis.innerHeight - elem.offsetTop) + 'px';
 
             const iframeHeightAttr: string = iframe?.getAttribute('height');
-            if (_includes(iframeHeightAttr, 'px') && height && !this.$params.gameParams?.disableIframeAutoResize) {
+            if (_includes(iframeHeightAttr, 'px') && height && !this.$params.gameParams?.disableIframeSelfResize) {
                 const iframeHeight: number = parseInt(iframeHeightAttr);
                 const calcHeight: number = parseInt(height);
                 if (iframeHeight > calcHeight) {
