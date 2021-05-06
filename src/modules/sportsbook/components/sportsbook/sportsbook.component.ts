@@ -14,6 +14,7 @@ import {
     ConfigService,
     HooksService,
     IHookHandlerDescriptor,
+    IWrapperCParams,
 } from 'wlc-engine/modules/core';
 import {
     SportsbookService,
@@ -37,7 +38,8 @@ import _includes from 'lodash-es/includes';
 })
 export class SportsbookComponent extends AbstractComponent implements OnInit, OnDestroy {
 
-    public gameWrapperParams: IGameWrapperCParams;
+    public gameConfig: IWrapperCParams;
+
     protected settings: ISportsbookSettings;
     protected hookDescriptors: IHookHandlerDescriptor[] = [];
 
@@ -87,7 +89,15 @@ export class SportsbookComponent extends AbstractComponent implements OnInit, On
             } else if (this.settings.id === 'digitain') {
                 gameWrapperParams.gameParams.disableIframeAutoResize = true;
             }
-            this.gameWrapperParams = gameWrapperParams;
+
+            this.gameConfig = {
+                components: [
+                    {
+                        name: 'games.wlc-game-wrapper',
+                        params: gameWrapperParams,
+                    },
+                ],
+            };
         }
         this.cdr.detectChanges();
     }

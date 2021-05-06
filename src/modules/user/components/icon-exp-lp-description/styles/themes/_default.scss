@@ -14,10 +14,13 @@
             margin: ef.get-value($themeDefault, 'descriptionTextMargin');
         }
 
-        .wlc-currency svg {
-            height: ef.get-value($themeDefault, 'descriptionIconHeight');
-            width: ef.get-value($themeDefault, 'descriptionIconWidth');
-            vertical-align: ef.get-value($themeDefault, 'verticalAlignIcon');
+        ::ng-deep {
+
+            .wlc-currency svg {
+                height: ef.get-value($themeDefault, 'descriptionIconHeight');
+                width: ef.get-value($themeDefault, 'descriptionIconWidth');
+                vertical-align: ef.get-value($themeDefault, 'verticalAlignIcon');
+            }
         }
     }
 }
