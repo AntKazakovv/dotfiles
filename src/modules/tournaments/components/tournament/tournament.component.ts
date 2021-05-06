@@ -311,7 +311,7 @@ export class TournamentComponent
             componentParams: <ITournamentDetailCParams>{
                 parentInstance: this.instance,
                 common: {
-                    tournament: this.$params.common?.tournament || this.$params.tournament,
+                    tournament: this.tournament,
                     scrollToSelector,
                 },
             },
@@ -327,7 +327,7 @@ export class TournamentComponent
         this.actionParams = {
             url: {
                 path: 'app.profile.loyalty-tournaments.detail',
-                params: {tournamentId: this.$params.common.tournament.id},
+                params: {tournamentId: this.tournament.id},
             },
             selector: '.wlc-tournament-detail__prizepool',
         };
