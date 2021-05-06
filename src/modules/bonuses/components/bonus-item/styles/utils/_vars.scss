@@ -96,6 +96,8 @@ $themeDefault: map-merge((
     'moreIconColor': ef.get('mainColors', 'baseOpacity'),
     'moreIconColorHover': ef.get('mainColors', 'baseMain'),
     // // Backgrounds
+    'backgroundDefault': null,
+    'backgroundDefaultSize': cover,
     'backgroundExperience': ef.get('mainColors', 'bg300'),
     'backgroundExperienceHover': ef.get('mainColors', 'bg500'),
     'backgroundLoyalty': ef.get('mainColors', 'bg300'),
