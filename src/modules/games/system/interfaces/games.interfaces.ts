@@ -216,7 +216,8 @@ export interface ICustomGameParams {
     autoresize?: boolean;
     isSportsbook?: boolean;
     sportsbookPage?: string;
-    disableIframeAutoResize?: boolean;
+    disableIframeDefaultResize?: boolean;
+    disableIframeSelfResize?: boolean;
     minGameWindowHeight?: number;
     lang?: string;
 }

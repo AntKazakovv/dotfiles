@@ -87,7 +87,9 @@ export class SportsbookComponent extends AbstractComponent implements OnInit, On
                 this.betradarService.setBetradarParams();
                 this.betradarService.initNavigation(this.$destroy, this.cdr);
             } else if (this.settings.id === 'digitain') {
-                gameWrapperParams.gameParams.disableIframeAutoResize = true;
+                gameWrapperParams.gameParams.disableIframeSelfResize = true;
+            } else if (this.settings.id === 'tglab') {
+                gameWrapperParams.gameParams.disableIframeDefaultResize = true;
             }
 
             this.gameConfig = {
