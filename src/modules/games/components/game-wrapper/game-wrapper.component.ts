@@ -305,6 +305,10 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
     }
 
     protected setFullPageIframeSize(): void {
+        if (this.$params.gameParams?.disableIframeDefaultResize) {
+            return;
+        }
+
         if (this.hostElement?.nativeElement) {
             const elem = this.hostElement.nativeElement;
             const iframe = this.wrp?.element?.nativeElement.querySelector('iframe');
@@ -359,7 +363,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
     }
 
     protected setGameWindowSize(width?: number): void {
-        if (this.$params.theme !== 'default') {
+        if (this.$params.theme === 'fullscreen-game-frame') {
             this.setFullPageIframeSize();
             return;
         }
