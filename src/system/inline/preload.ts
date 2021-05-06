@@ -1,4 +1,12 @@
-import {IData} from 'wlc-engine/modules/core/system/services/data/data.service';
+interface IData {
+    status: 'success' | 'error';
+    name: string;
+    system: string;
+    code?: number | string;
+    errors?: string[];
+    source?: string;
+    data?: any;
+}
 
 interface IPreloadConfig {
     url: string;

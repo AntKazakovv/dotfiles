@@ -23,7 +23,7 @@
     ],
     "include": [
         "./src/system/inline/**/*",
-        "./src/modules/core/system/interfaces/global.interface.ts",
-        "./node_modules/@sentry/**/*"
+        "./node_modules/@sentry/**/*",
+        "./src/typings.d.ts"
     ]
 }
