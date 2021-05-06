@@ -176,10 +176,10 @@ export class TournamentComponent
         if (tournament.feeAmount === 0) {
             this.joinTournament();
             return;
-        } else if (tournament.feeType === 'balance' && this.userInfo?.balance >= tournament.feeAmount) {
+        } else if (tournament.feeType === 'balance' && this.userInfo?.realBalance >= tournament.feeAmount) {
             this.showConditionModal(
                 tournament,
-                this.userInfo?.balance,
+                this.userInfo?.realBalance,
                 tournament.feeCurrency,
                 gettext('Subscribe'),
                 gettext('Let\'s play?'),
@@ -187,10 +187,10 @@ export class TournamentComponent
             );
 
             return;
-        } else if (tournament.feeType === 'loyalty' && this.userInfo?.points >= tournament.feeAmount) {
+        } else if (tournament.feeType === 'loyalty' && +this.userInfo?.loyalty.Balance >= tournament.feeAmount) {
             this.showConditionModal(
                 tournament,
-                this.userInfo?.points,
+                +this.userInfo?.loyalty.Balance,
                 tournament.feeCurrency,
                 gettext('Subscribe'),
                 gettext('Let\'s play?'),
@@ -198,10 +198,10 @@ export class TournamentComponent
             );
 
             return;
-        } else if (tournament.feeType === 'balance' && this.userInfo?.balance < tournament.feeAmount) {
+        } else if (tournament.feeType === 'balance' && this.userInfo?.realBalance < tournament.feeAmount) {
             this.showConditionModal(
                 tournament,
-                this.userInfo?.balance,
+                this.userInfo?.realBalance,
                 tournament.feeCurrency,
                 gettext('You can`t subscribe'),
                 gettext('Sorry, not today. Deposit more money and join this tournament!'),
@@ -209,10 +209,10 @@ export class TournamentComponent
             );
 
             return;
-        } else if (tournament.feeType === 'loyalty' && this.userInfo?.points < tournament.feeAmount) {
+        } else if (tournament.feeType === 'loyalty' && +this.userInfo?.loyalty.Balance < tournament.feeAmount) {
             this.showConditionModal(
                 tournament,
-                this.userInfo?.points,
+                +this.userInfo?.loyalty.Balance,
                 tournament.feeCurrency,
                 gettext('You can`t subscribe'),
                 gettext('Sorry, not today. Bet more to earn betcoins and join this tournament!'),
