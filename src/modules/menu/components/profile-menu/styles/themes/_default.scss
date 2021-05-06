@@ -4,6 +4,22 @@
 @use 'engine-scss/functions' as ef;
 @use '../utils/mixins' as mixin;
 
+.wlc-profile-menu--theme-default:host {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    .wlc-profile-menu__content {
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+}
+
 .wlc-profile-menu--theme-default.wlc-profile-menu--type-tabs:host {
 
     .wlc-menu--theme-default.wlc-menu--type-profile-menu {

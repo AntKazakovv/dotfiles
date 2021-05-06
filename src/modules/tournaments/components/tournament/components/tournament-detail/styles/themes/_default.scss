@@ -8,12 +8,13 @@ $selector: '.wlc-tournament-detail';
 #{$selector} {
 
     &--theme-default {
+        position: relative;
 
         #{$selector}__header-info {
             position: relative;
+
             display: grid;
             @include em.get-mq-map('grid-template-columns', $themeDefault, 'headerColumnWidth');
-            @include em.get-mq-map('grid-template-areas', $themeDefault, 'headerTemplateAreas');
             @include em.get-mq-map('row-gap', $themeDefault, 'defaultRowGap');
             @include em.get-mq-map('justify-content', $themeDefault, 'headerJustifyContent');
             @include em.get-mq-map('padding', $themeDefault, 'defaultPadding');
@@ -23,12 +24,32 @@ $selector: '.wlc-tournament-detail';
             @include em.get-mq-map('border-radius', $themeDefault, 'headerBorderRadius');
             @include em.get-mq-map('border-bottom', $themeDefault, 'headerBorderBottom');
 
+            &-wrap {
+                position: relative;
+                text-align: center;
+            }
+
+            &-wrap,
+            &-inner {
+                display: grid;
+                @include em.get-mq-map('grid-template-columns', $themeDefault, 'headerColumnInnerWidth');
+                @include em.get-mq-map('row-gap', $themeDefault, 'defaultRowGap');
+                @include em.get-mq-map('justify-content', $themeDefault, 'headerJustifyContent');
+            }
+
             &--back-link {
                 position: absolute;
                 @include em.get-mq-map('top', $themeDefault, 'headerBackLinkTop');
                 @include em.get-mq-map('left', $themeDefault, 'headerBackLinkLeft');
                 @include text.get-text-style(ef.get-value($themeDefault, 'headerBackLinkTextStyle'), ef.get-value($themeDefault, 'headerBackLinkTextColor'));
                 @include em.get-mq-map('text-decoration', $themeDefault, 'headerBackLinkDecoration');
+
+                max-width: ef.get-value($themeDefault, 'headerBackLinkMaxWidth');
+
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+
                 cursor: pointer;
 
                 .wlc-icon {
@@ -42,7 +63,6 @@ $selector: '.wlc-tournament-detail';
             }
 
             &--status {
-                grid-area: Hstatus;
                 justify-self: center;
                 @include em.get-mq-map('padding', $themeDefault, 'headerStatusPadding');
                 @include em.get-mq-map('border-radius', $themeDefault, 'headerStatusRadius');
@@ -60,27 +80,23 @@ $selector: '.wlc-tournament-detail';
             }
 
             &--title {
-                grid-area: Htitle;
                 @include em.get-mq-map('justify-self', $themeDefault, 'headerTitleJustifySelf');
                 @include em.get-mq-map('text-align', $themeDefault, 'headerTitleTextAlign');
                 @include text.get-text-style(ef.get-value($themeDefault, 'headerTitleTextStyle'), ef.get-value($themeDefault, 'headerTitleTextColor'));
             }
 
             &--description {
-                grid-area: Hdesc;
                 @include em.get-mq-map('justify-self', $themeDefault, 'headerDescriptionJustifySelf');
                 @include em.get-mq-map('text-align', $themeDefault, 'headerDescriptionTextAlign');
                 @include text.get-text-style(ef.get-value($themeDefault, 'headerDescriptionTextStyle'), ef.get-value($themeDefault, 'headerDescriptionTextColor'));
             }
 
             &--timer {
-                grid-area: Htimer;
                 display: flex;
                 @include em.get-mq-map('justify-self', $themeDefault, 'headerTimerBlockTimerSelf');
             }
 
             &--buttons {
-                grid-area: Hbutton;
                 @include em.get-mq-map('justify-self', $themeDefault, 'headerTimerBlockButtonSelf');
             }
         }
@@ -101,7 +117,7 @@ $selector: '.wlc-tournament-detail';
 
             &.wlc-menu {
                 display: flex;
-                @include em.get-mq-map('padding', $themeDefault, 'defaultPadding');
+                @include em.get-mq-map('padding', $themeDefault, 'anchorsMenuPadding');
                 @include em.get-mq-map('align-items', $themeDefault, 'anchorsMenuAlignItems');
                 @include em.get-mq-map('justify-content', $themeDefault, 'anchorsMenuJustifyContent');
 
@@ -110,6 +126,7 @@ $selector: '.wlc-tournament-detail';
                     @include text.get-text-style(ef.get-value($themeDefault, 'anchorsMenuLinkTextStyle'), ef.get-value($themeDefault, 'anchorsMenuLinkTextColor'));
                     @include em.get-mq-map('text-decoration', $themeDefault, 'anchorsMenuLinkTextDecoration');
                     @include em.transition();
+
                     cursor: pointer;
 
                     @media (hover) {
@@ -168,6 +185,7 @@ $selector: '.wlc-tournament-detail';
 
             .wlc-btn {
                 @include em.get-mq-map('justify-self', $themeDefault, 'prizeboardButtonSelf');
+
                 transition: ef.get-value($themeDefault, 'prizeboardButtonTransition');
             }
         }
@@ -179,6 +197,10 @@ $selector: '.wlc-tournament-detail';
                 @include text.get-text-style(ef.get-value($themeDefault, 'gamesTitleStyle'), ef.get-value($themeDefault, 'gamesTitleColor'));
                 @include em.get-mq-map('text-align', $themeDefault, 'gamesTitleAlign');
             }
+
+            &:last-child {
+                padding-bottom: 0;
+            }
         }
 
         #{$selector}__rules {
@@ -187,8 +209,11 @@ $selector: '.wlc-tournament-detail';
             @include em.get-mq-map('justify-content', $themeDefault, 'rulesJustifyContent');
             @include em.get-mq-map('padding', $themeDefault, 'defaultPadding');
             @include em.get-mq-map('background', $themeDefault, 'rulesBg');
+            @include em.get-mq-map('border-radius', $themeDefault, 'rulesBorderRadius');
 
             &--title {
+                position: relative;
+
                 @include text.get-text-style(ef.get-value($themeDefault, 'rulesTitleStyle'), ef.get-value($themeDefault, 'rulesTitleColor'));
                 @include em.get-mq-map('text-align', $themeDefault, 'rulesTitleAlign');
             }
@@ -203,48 +228,67 @@ $selector: '.wlc-tournament-detail';
 
     &__loader {
         position: absolute;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        z-index: ef.get-value($themeDefault, 'loaderZIndex');
         top: ef.get-value($themeDefault, 'loaderPosition');
-        left: ef.get-value($themeDefault, 'loaderPosition');
         right: ef.get-value($themeDefault, 'loaderPosition');
         bottom: ef.get-value($themeDefault, 'loaderPosition');
+        left: ef.get-value($themeDefault, 'loaderPosition');
+        z-index: ef.get-value($themeDefault, 'loaderZIndex');
 
         background: ef.get-value($themeDefault, 'loaderBachround');
         border-radius: ef.get-value($themeDefault, 'loaderRadius');
 
-        &:before {
-            content: '';
-
+        &-elem {
             position: absolute;
+            top: ef.get-value($themeDefault, 'loaderElemTopPosition');
+            right: ef.get-value($themeDefault, 'loaderElemPosition');
+            left: ef.get-value($themeDefault, 'loaderElemPosition');
 
-            top: ef.get-value($themeDefault, 'loaderBeforePosition');
-            left: ef.get-value($themeDefault, 'loaderBeforePosition');
-            right: ef.get-value($themeDefault, 'loaderBeforePosition');
-            bottom: ef.get-value($themeDefault, 'loaderBeforePosition');
-            margin: auto;
+            display: ef.get-value($themeDefault, 'loaderElemDisplay');
+            align-items: ef.get-value($themeDefault, 'loaderElemAlignItems');
+            justify-content: ef.get-value($themeDefault, 'loaderElemJustifyContent');
 
-            width: ef.get-value($themeDefault, 'loaderBeforeSize');
-            height: ef.get-value($themeDefault, 'loaderBeforeSize');
+            margin: ef.get-value($themeDefault, 'loaderElemMargin');
 
-            background: ef.get-value($themeDefault, 'loaderBeforeBackground');
+            &:before {
+                content: '';
 
-            border-radius: ef.get-value($themeDefault, 'loaderBeforeRadius');
+                position: absolute;
+                top: ef.get-value($themeDefault, 'loaderBeforePosition');
+                right: ef.get-value($themeDefault, 'loaderBeforePosition');
+                bottom: ef.get-value($themeDefault, 'loaderBeforePosition');
+                left: ef.get-value($themeDefault, 'loaderBeforePosition');
+
+                width: ef.get-value($themeDefault, 'loaderBeforeSize');
+                height: ef.get-value($themeDefault, 'loaderBeforeSize');
+
+                margin: auto;
+
+                background: ef.get-value($themeDefault, 'loaderBeforeBackground');
+                border-radius: ef.get-value($themeDefault, 'loaderBeforeRadius');
+            }
+
+            &:after {
+                content: '';
+
+                width: ef.get-value($themeDefault, 'loaderAfterSize');
+                height: ef.get-value($themeDefault, 'loaderAfterSize');
+
+                border: 4px solid ef.get-value($themeDefault, 'loaderAfterBorderColor');
+                border-left-color: transparent;
+                border-radius: ef.get-value($themeDefault, 'loaderAfterRadius');
+
+
+                animation: ef.get-value($themeDefault, 'loaderAfterAnimation');
+            }
         }
+    }
 
-        &:after {
-            content: '';
 
-            width: ef.get-value($themeDefault, 'loaderAfterSize');
-            height: ef.get-value($themeDefault, 'loaderAfterSize');
+    .wlc-games-grid--theme-default.wlc-games-grid {
 
-            border: 4px solid ef.get-value($themeDefault, 'loaderAfterBorderColor');
-            border-left-color: transparent;
-            border-radius: ef.get-value($themeDefault, 'loaderAfterRadius');
-            animation: ef.get-value($themeDefault, 'loaderAfterAnimation');
+
+        .wlc-games-grid__list + .wlc-games-grid__more {
+            margin: ef.get-value($themeDefault, 'gamesMoreBtn');
         }
     }
 }

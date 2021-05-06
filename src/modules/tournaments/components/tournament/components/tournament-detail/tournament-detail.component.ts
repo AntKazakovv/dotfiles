@@ -9,7 +9,7 @@ import {
     OnInit,
     ViewEncapsulation,
 } from '@angular/core';
-import {UIRouterGlobals} from '@uirouter/core';
+import {UIRouter} from '@uirouter/core';
 
 import {takeUntil} from 'rxjs/operators';
 
@@ -17,7 +17,7 @@ import {
     AbstractComponent,
     IMixedParams,
     ConfigService,
-    ITableCParams,
+    ITableCParams, IIndexing, GlobalHelper,
 } from 'wlc-engine/modules/core';
 
 import {TournamentsService, Tournament} from 'wlc-engine/modules/tournaments';
@@ -38,30 +38,29 @@ import _set from 'lodash-es/set';
     encapsulation: ViewEncapsulation.None,
 })
 export class TournamentDetailComponent extends AbstractComponent implements OnInit, OnDestroy, OnChanges {
-    @Input() protected inlineParams: Params.ITournamentDetailCParams;
-    @Input() protected tournamentId: number;
-    @Input() protected parentInstance: TournamentComponent;
+    @Input() public tournament: Tournament;
+    @Input() public inlineParams: Params.ITournamentDetailCParams;
+    @Input() public parentInstance: TournamentComponent;
 
     public $params: Params.ITournamentDetailCParams;
     public isReady: boolean = false;
     public tournamentProcessing: boolean = false;
     public isTournamentSelected: boolean = false;
-    public tournament: Tournament = null;
     public tablePrizeboard: ITableCParams = {};
     public menuParams: MenuParams.IMenuCParams = {};
     public gamesGridConfig = Params.gamesGridConfig;
 
     constructor(
         @Inject('injectParams')
-        protected params: Params.ITournamentDetailCParams,
+        protected injectParams: Params.ITournamentDetailCParams,
         protected configService: ConfigService,
         protected tournamentsService: TournamentsService,
-        protected uiRouter: UIRouterGlobals,
+        protected router: UIRouter,
         protected cdr: ChangeDetectorRef,
     ) {
         super(
             <IMixedParams<Params.ITournamentDetailCParams>>{
-                injectParams: params,
+                injectParams,
                 defaultParams: Params.defaultParams,
             },
             configService,
@@ -69,10 +68,11 @@ export class TournamentDetailComponent extends AbstractComponent implements OnIn
     }
 
     public ngOnInit(): void {
-        super.ngOnInit(this.inlineParams);
+        super.ngOnInit(GlobalHelper.prepareParams(this,
+            ['tournament', 'type', 'theme', 'themeMod', 'customMod']));
 
-        if (this.$params.common?.tournamentId) {
-            this.tournamentId = this.$params.common.tournamentId;
+        if (this.parentInstance) {
+            this.$params.parentInstance = this.parentInstance;
         }
 
         this.$params.parentInstance.pending$
@@ -80,9 +80,14 @@ export class TournamentDetailComponent extends AbstractComponent implements OnIn
             .subscribe((pending) => {
                 this.tournamentProcessing = pending;
                 this.isTournamentSelected = this.$params.parentInstance.isTournamentSelected;
-                this.getTournament();
+                this.tournament = this.$params.common.tournament;
+                this.prepareTournament();
                 this.cdr.markForCheck();
             });
+    }
+
+    public goTo(path: string, params: IIndexing<string> = {}): void {
+        this.router.stateService.go(path, params);
     }
 
     public joinTournament(): void {
@@ -91,44 +96,6 @@ export class TournamentDetailComponent extends AbstractComponent implements OnIn
 
     public leaveTournament(): void {
         this.$params.parentInstance.leave();
-    }
-
-    protected getTournament(): void {
-        // -- attribute [tournamentID]
-        if (this.$params.common.tournamentId) {
-            this.getTournamentById(this.$params.common.tournamentId);
-            return;
-        }
-
-        // -- tournament detail state
-        if (this.uiRouter.params.tournamentId) {
-            this.getTournamentById(this.uiRouter.params.tournamentId);
-            return;
-        }
-
-        // -- tournament active state
-        this.tournamentsService.getSubscribe({
-            useQuery: !this.tournamentsService.hasTournaments,
-            type: 'active',
-            observer: {
-                next: (tournaments: Tournament[]) => {
-                    if (!tournaments) {
-                        this.prepareTournament();
-                        return;
-                    }
-
-                    this.tournament = tournaments.shift();
-                    this.prepareTournament();
-                },
-            },
-            until: this.$destroy,
-        });
-
-    }
-
-    protected async getTournamentById(tournamentId: number): Promise<void> {
-        this.tournament = await this.tournamentsService.getTournament(tournamentId) as Tournament;
-        this.prepareTournament();
     }
 
     private prepareTournament(): void {

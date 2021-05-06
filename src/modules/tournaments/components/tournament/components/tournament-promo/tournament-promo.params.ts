@@ -7,6 +7,7 @@ import {
     Tournament,
 } from 'wlc-engine/modules/tournaments';
 import {TournamentComponent} from 'wlc-engine/modules/tournaments/components/tournament/tournament.component';
+import {IIndexing} from 'wlc-engine/modules/core';
 
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = ThumbType | CustomType;
@@ -27,11 +28,24 @@ export interface ITournamentPromoCParams extends IComponentParams<ComponentTheme
         themeMod?: ThemeMod;
         customMod?: CustomMod;
         type?: ComponentType;
+        actionParams?: IActionParams
     }
+}
+
+export interface IActionParams {
+    modal?: {
+        name?: string;
+    },
+    url?: {
+        path?: string;
+        params?: IIndexing<string | number>;
+    },
+    selector?: string;
 }
 
 export const defaultParams: ITournamentPromoCParams = {
     moduleName: 'tournaments',
     class: 'wlc-tournament-promo',
     componentName: 'wlc-tournament-promo',
+    common: {},
 };

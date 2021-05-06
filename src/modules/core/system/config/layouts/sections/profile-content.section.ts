@@ -455,7 +455,26 @@ export namespace profileContent {
                 params: {
                     class: 'wlc-profile-content',
                     components: [
-                        componentLib.wlcTournamentDetail.def,
+                        componentLib.wlcTournamentList.detail,
+                    ],
+                },
+            },
+        ],
+    };
+
+    export const profileTournamentsActiveTypeFirst: ILayoutSectionConfig = {
+        container: true,
+        theme: 'first',
+        components: [
+            componentLib.wlcProfileMenu.defTypeFirst,
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content',
+                    components: [
+                        componentLib.wlcTitle.profileActiveTournaments,
+                        componentLib.wlcProfileMenu.subMenuV1,
+                        componentLib.wlcTournamentList.active,
                     ],
                 },
             },
@@ -480,6 +499,7 @@ export namespace profileContent {
                     class: 'wlc-profile-content',
                     components: [
                         componentLib.wlcTitle.profileAvailableTournaments,
+                        componentLib.wlcProfileMenu.subMenuV1,
                         componentLib.wlcTournamentList.available,
                     ],
                 },

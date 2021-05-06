@@ -7,6 +7,9 @@ import {
     Input,
     ViewChild,
 } from '@angular/core';
+
+import {UIRouterGlobals} from '@uirouter/core';
+
 import {
     AbstractComponent,
     IMixedParams,
@@ -22,11 +25,13 @@ import {
     TournamentsService,
 } from 'wlc-engine/modules/tournaments';
 import {TournamentComponent} from '../tournament/tournament.component';
+
 import * as Params from 'wlc-engine/modules/tournaments/components/tournament-list/tournament-list.params';
 
 import _union from 'lodash-es/union';
 import _merge from 'lodash-es/merge';
 import _each from 'lodash-es/each';
+import _filter from 'lodash-es/filter';
 
 @Component({
     selector: '[wlc-tournament-list]',
@@ -63,6 +68,7 @@ export class TournamentListComponent
         protected tournamentsService: TournamentsService,
         protected configService: ConfigService,
         protected cdr: ChangeDetectorRef,
+        protected uiRouter: UIRouterGlobals,
     ) {
         super(
             <IMixedParams<Params.ITournamentListCParams>>{
@@ -84,7 +90,9 @@ export class TournamentListComponent
 
     protected getTournaments(): void {
         this.tournamentsService.getSubscribe({
-            useQuery: !this.tournamentsService.hasTournaments,
+            // TODO Fix it. This is not working correctly.
+            // useQuery: !this.tournamentsService.hasTournaments,
+            useQuery: this.tournamentsService.updateData,
             observer: {
                 next: (tournaments: Tournament[]) => {
                     if (!tournaments) return;
@@ -93,6 +101,10 @@ export class TournamentListComponent
 
                     this.saveDataOfSelectedTournament(tournaments);
                     this.replaceTournaments(tournaments);
+
+                    if (this.uiRouter.params.tournamentId) {
+                        tournaments = _filter(tournaments, tournament => tournament.id === +this.uiRouter.params.tournamentId);
+                    }
 
                     this.tournaments = tournaments;
 

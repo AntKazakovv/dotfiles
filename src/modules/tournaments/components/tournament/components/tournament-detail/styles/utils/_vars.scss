@@ -25,28 +25,38 @@ $themeDefault: map-merge((
     'headerBgPosition': center,
     'headerBgSize': cover,
     'headerColumnWidth': (
+        320: 1fr,
+    ),
+    'headerColumnInnerWidth': (
         320: 100%,
         768: 490px,
     ),
     'headerBorderBottom': 2px solid ef.get('mainColors', 'baseOpacity'),
 
-    'headerBackLinkTop': ef.get('size', 'smaller'),
+    'headerBackLinkTop': (
+        320: 4px,
+        768: 9px,
+    ),
     'headerBackLinkLeft': (
-        320: ef.get('size', 'smally'),
-        768: ef.get('size', 'less'),
+        320: 0,
+        768: 20px,
     ),
     'headerBackLinkTextStyle': 'PlaceholderTextBold',
     'headerBackLinkTextColor': ef.get('mainColors', 'main'),
     'headerBackLinkDecoration': none,
     'headerBackLinkIconTransform': rotate(90deg),
     'headerBackLinkIconColor': ef.get('mainColors', 'main'),
+    'headerBackLinkMaxWidth': 60px,
 
     'headerStatusRadius': ef.get('radius', 'large'),
     'headerStatusBgAvaliable': transparent,
     'headerStatusBgActive': transparent,
     'headerStatusColorAvaliable': ef.get('mainColors', 'secondary'),
     'headerStatusColorActive': ef.get('mainColors', 'main'),
-    'headerStatusPadding': ef.get('size', 'smallest') ef.get('size', 'smaller'),
+    'headerStatusPadding': (
+        320: 0 60px,
+        768: ef.get('size', 'smallest') ef.get('size', 'smaller'),
+    ),
     'headerStatusTextStyle':'ThirdTitleBold',
     'headerStatusTextColor':ef.get('mainColors', 'baseMain'),
 
@@ -63,16 +73,19 @@ $themeDefault: map-merge((
     'headerTimerBlockTimerSelf': center,
     'headerTimerBlockButtonSelf': center,
 
-    'anchorsBg': ef.get('mainColors', 'bg'),
+    'anchorsBg': ef.get('mainColors', 'bg700'),
     'anchorsMenuAlignItems': center,
+    'anchorsMenuPadding': (
+        320: ef.get('size', 'smaller') 0,
+    ),
     'anchorsMenuJustifyContent': center,
     'anchorsMenuLinkTextStyle': 'PrimaryText',
     'anchorsMenuLinkTextColor': ef.get('mainColors', 'baseMain'),
     'anchorsMenuLinkTextColorHover': ef.get('mainColors', 'main'),
     'anchorsMenuLinkTextDecoration': none,
-    'anchorsMenuLinkPadding': 0 ef.get('size', 'smally'),
+    'anchorsMenuLinkPadding': 0 ef.get('size', 'small'),
 
-    'leaderboardBg': ef.get('mainColors', 'bg'),
+    'leaderboardBg': ef.get('mainColors', 'bg500'),
     'leaderboardJustifyContent': center,
     'leaderboardPadding': (
         320: ef.get('size', 'less') ef.get('size', 'smally'),
@@ -90,7 +103,7 @@ $themeDefault: map-merge((
         320: 'PPTitle' 'PPAmount',
     ),
     'prizepoolJustifyContent': center,
-    'prizepoolBg': ef.get('mainColors', 'bg'),
+    'prizepoolBg': ef.get('mainColors', 'bg700'),
     'prizepoolTitleStyle': 'QoteTextBold',
     'prizepoolTitleColor': ef.get('mainColors', 'baseMain'),
     'prizepoolTitleSelf': center,
@@ -110,6 +123,7 @@ $themeDefault: map-merge((
     'prizeboardButtonSelf': center,
 
     'prizeboardButtonTransition': width 0s,
+    'prizeboardBg': ef.get('mainColors', 'bg500'),
 
     'gamesPadding': (
         320: ef.get('size', 'smaller') ef.get('size', 'smally'),
@@ -133,11 +147,19 @@ $themeDefault: map-merge((
     'rulesTermsStyle': 'PrimaryText',
     'rulesTermsColor': ef.get('mainColors', 'baseMain'),
     'rulesTermsAlign': left,
+    'rulesBorderRadius': 0 0 ef.get('radius', 'biger') ef.get('radius', 'biger'),
 
     'loaderZIndex': 10,
     'loaderPosition': 0,
     'loaderBachround': rgba(ef.get('mainColors', 'disabled'), 0.7),
     'loaderRadius': ef.get('radius', 'biger'),
+
+    'loaderElemPosition': 0,
+    'loaderElemTopPosition': 200px,
+    'loaderElemDisplay': flex,
+    'loaderElemAlignItems': center,
+    'loaderElemJustifyContent': center,
+    'loaderElemMargin': 0 auto,
 
     'loaderBeforePosition': 0,
     'loaderBeforeSize': 60px,
@@ -148,4 +170,6 @@ $themeDefault: map-merge((
     'loaderAfterBorderColor': ef.get('mainColors', 'main'),
     'loaderAfterRadius': 50%,
     'loaderAfterAnimation': spin 1s infinite linear,
+
+    'gamesMoreBtn': ef.get('size', 'smaller') 0 0,
 ), $customThemeDefault);
