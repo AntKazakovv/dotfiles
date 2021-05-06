@@ -62,7 +62,7 @@ export const defaultParams: IProfileFormCParams = {
                             options: 2,
                         },
                     ],
-                    exampleValue: 'Enter your name',
+                    exampleValue: gettext('Enter your name'),
                 },
             },
             {
