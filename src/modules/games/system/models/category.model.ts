@@ -28,6 +28,7 @@ export class CategoryModel extends AbstractModel<ICategory> {
     private merchantsList: MerchantModel[];
     private updateMerchants: boolean = false;
     private defaultSort: number = 0;
+    private _slug: string;
 
     constructor(
         data: ICategory,
@@ -105,7 +106,7 @@ export class CategoryModel extends AbstractModel<ICategory> {
     }
 
     public get slug(): string {
-        return this.data.Slug.toLowerCase() || this.data.menuId.toLowerCase();
+        return this._slug;
     }
 
     public get menuId(): string {
@@ -198,6 +199,8 @@ export class CategoryModel extends AbstractModel<ICategory> {
 
     protected init(data: ICategory): void {
         this.data = data;
+        this._slug = (this.data.Slug.toLowerCase() || this.data.menuId.toLowerCase()).replace(/\./, '-')
+            .replace(/\./g, '-');
         this.defaultSort = _toNumber(this.data.CSubSort) || 0;
         try {
             this.tagsData = JSON.parse(this.data.Tags.join(','));
