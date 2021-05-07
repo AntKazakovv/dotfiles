@@ -17,6 +17,10 @@
         @include blockDecoration('backgroundImage');
         box-shadow: ef.get-value($themeDefault, 'boxShadow');
 
+        &.wlc-icon--img {
+            padding: ef.get-value($themeDefault, 'paddingImage');
+        }
+
         &.wlc-icon::ng-deep {
 
             .wlc-icon-content {
@@ -28,6 +32,13 @@
                     width: 100%;
                     height: 100%;
                 }
+            }
+        }
+
+        &.wlc-icon--img::ng-deep {
+
+            .wlc-icon-content {
+                padding: ef.get-value($themeDefault, 'paddingImage');
             }
         }
     }

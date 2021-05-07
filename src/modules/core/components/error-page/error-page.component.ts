@@ -20,7 +20,7 @@ export class ErrorPageComponent extends AbstractComponent implements OnInit {
         super(<IMixedParams<any>>{
             injectParams: params,
             defaultParams: Params.defaultParams,
-        });
+        }, configService);
     }
 
     public ngOnInit(): void {
