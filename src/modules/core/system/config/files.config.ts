@@ -6,7 +6,6 @@ export const localFiles: IIndexing<string> = {
     'status/confirm': 'icons/status/confirm.svg',
     'defaultLogo': 'icons/default-logo.svg',
     'defaultFooterLogo': 'icons/default-logo.svg',
-    '404-error': 'icons/404-error.svg',
     'poweroff': 'icons/poweroff.svg',
     'loading': 'icons/loading.svg',
     'arrow': 'icons/arrow.svg',

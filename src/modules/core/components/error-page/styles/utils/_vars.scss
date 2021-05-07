@@ -28,6 +28,7 @@ $themeDefault: map-merge((
     'underlineRadius': ef.get('radius', 'small'),
     'radius': ef.get('radius', 'biger'),
     'padding': ef.get('size', 'smally'),
+    'paddingImage': 0,
     'boxShadow': none,
 
     'pageMaxWidth': (

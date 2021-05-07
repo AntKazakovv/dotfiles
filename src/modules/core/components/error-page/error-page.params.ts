@@ -18,14 +18,19 @@ export interface IErrorPageCParams extends IComponentParams<Theme, Type, ThemeMo
     modifiers?: Modifiers[];
     common?: {
         themeMod?: ThemeMod;
-    }
-    links?: LinkType[],
+    };
+    /**
+     * Path to image
+     */
+    image?: string;
+    links?: LinkType[];
 }
 
 export const defaultParams: IErrorPageCParams = {
     moduleName: 'core',
     componentName: 'wlc-error-page',
     class: 'wlc-error-page',
+    image: '/wlc/icons/404-error.svg',
     links: [
         {
             title: gettext('Casino'),
