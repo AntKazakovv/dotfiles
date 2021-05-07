@@ -65,7 +65,10 @@ export class ProfileFormComponent extends AbstractComponent implements OnInit {
         protected eventService: EventService,
         protected configService: ConfigService,
     ) {
-        super({injectParams: params, defaultParams: Params.defaultParams});
+        super(
+            {injectParams: params, defaultParams: Params.defaultParams},
+            configService,
+        );
     }
 
     public async ngOnInit(): Promise<void> {
