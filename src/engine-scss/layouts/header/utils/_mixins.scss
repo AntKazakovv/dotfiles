@@ -110,11 +110,6 @@
                 svg {
                     width: ef.get-value($theme, 'headerSvgBtnSize');
                     height: ef.get-value($theme, 'headerSvgBtnSize');
-
-                    path,
-                    rect {
-                        fill: ef.get-value($theme, 'headerDepositBtnFillColor');
-                    }
                 }
             }
         }
@@ -138,6 +133,11 @@
 
             svg {
                 fill: ef.get-value($theme, 'headerDepositBtnFill');
+
+                path,
+                rect {
+                    fill: ef.get-value($theme, 'headerDepositBtnInnerFillColor');
+                }
             }
         }
 
@@ -145,6 +145,11 @@
 
             svg {
                 fill: ef.get-value($theme, 'headerUserBtnFill');
+
+                path,
+                rect {
+                    fill: ef.get-value($theme, 'headerUserBtnInnerFillColor');
+                }
             }
         }
     }
