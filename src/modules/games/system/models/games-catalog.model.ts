@@ -58,9 +58,6 @@ export class GamesCatalog extends AbstractModel<IGames> {
     protected availableCategories: CategoryModel[];
     protected supportedCategories: ISupportedItem[];
     protected supportedMerchants: ISupportedItem[];
-    protected configService: ConfigService;
-    protected eventService: EventService;
-    protected router: UIRouter;
     protected overrideJackpots: boolean;
     protected specialCategories: ICategory[] = [
         {
