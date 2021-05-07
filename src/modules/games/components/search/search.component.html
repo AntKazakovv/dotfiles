@@ -114,7 +114,7 @@
                     [class.active]="isActive('categories', category.slug)"
                     (click)="chooseCategory(category)">
                     <span class="{{$class}}__list-text">
-                        {{category.title[currentLanguage] || category.title['en']}}
+                        {{category.title[currentLanguage] || category.title['en'] | translate}}
                     </span>
                 <span class="{{$class}}__list-icon" wlc-icon iconName="tick">
                 </span>

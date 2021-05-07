@@ -48,7 +48,6 @@ import _uniqBy from 'lodash-es/uniqBy';
 import _orderBy from 'lodash-es/orderBy';
 
 export class GamesCatalog extends AbstractModel<IGames> {
-    public currentLanguage: ILanguage;
 
     protected games: Game[];
     protected sportsbooks: Game[] = [];
@@ -59,32 +58,65 @@ export class GamesCatalog extends AbstractModel<IGames> {
     protected availableCategories: CategoryModel[];
     protected supportedCategories: ISupportedItem[];
     protected supportedMerchants: ISupportedItem[];
-
     protected configService: ConfigService;
     protected eventService: EventService;
     protected router: UIRouter;
-
     protected overrideJackpots: boolean;
-    protected ts: TranslateService;
+    protected specialCategories: ICategory[] = [
+        {
+            ID: '-1',
+            Name: {
+                en: gettext('Last played'),
+            },
+            Trans: {
+                en: gettext('Last played'),
+            },
+            Tags: [],
+            menuId: 'lastplayed',
+            Slug: 'lastplayed',
+            CSort: '0',
+            CSubSort: '9999998',
+        },
+        {
+            ID: '-2',
+            Name: {
+                en: gettext('My favourites'),
+            },
+            Trans: {
+                en: gettext('My favourites'),
+            },
+            Tags: [],
+            menuId: 'favourites',
+            Slug: 'favourites',
+            CSort: '0',
+            CSubSort: '9999999',
+        },
+        {
+            ID: '-3',
+            Name: {
+                en: gettext('Casino'),
+            },
+            Trans: {
+                en: gettext('Casino'),
+            },
+            Tags: [''],
+            menuId: 'casino',
+            Slug: 'casino',
+            CSort: '0',
+            CSubSort: '0',
+        },
+    ];
 
     constructor(
         data: IGames,
         protected gamesCatalogService: GamesCatalogService,
+        protected translateService: TranslateService,
+        protected configService: ConfigService,
+        protected router: UIRouter,
+        protected eventService: EventService,
     ) {
         super();
-
-        // TODO
-        this.currentLanguage = {
-            code: 'en',
-            label: '',
-        };
-
-        this.configService = this.gamesCatalogService.configService;
-        this.ts = this.gamesCatalogService.translateService;
-        this.eventService = this.gamesCatalogService.eventService;
-        this.router = this.gamesCatalogService.router;
         this.overrideJackpots = !this.configService.get<boolean>('$games.categories.useFundistJackpots');
-
         this.processFetchedGamesCatalog(data);
     }
 
@@ -411,81 +443,6 @@ export class GamesCatalog extends AbstractModel<IGames> {
         });
     }
 
-    // TODO не понятно, надо оно или нет
-
-    /*public getMerchantCategories(merchantName: string, categoryList: string[] = []): string[] {
-
-        if (!categoryList.length) {
-            return Object.keys(this.byMerchant[merchantName].categories).sort();
-        }
-
-        const gamesList = this.byMerchant[merchantName].games;
-        const categoryIds: string[] = [];
-        const result: string[] = [];
-        const merchantCategories = {};
-
-        categoryList.filter((categoryName: string) => {
-            const fcategoryId = this.getCategoryIdByName(categoryName);
-            if (!fcategoryId) {
-                return false;
-            }
-            categoryIds.push(fcategoryId);
-        });
-
-        gamesList.filter((game: Game) => {
-            let include = true;
-
-            for (const id of categoryIds) {
-                include = include && (game.CategoryID?.indexOf(id) >= 0);
-            }
-
-            if (include) {
-                for (const id of game.CategoryID) {
-                    merchantCategories[id] = true;
-                }
-            }
-        });
-
-        for (const id of categoryIds) {
-            if (merchantCategories[id]) {
-                delete merchantCategories[id];
-            }
-        }
-
-        for (const categoryId of Object.keys(merchantCategories)) {
-            result.push(this.getCategoryNameById(categoryId));
-        }
-
-        return result.sort();
-    }*/
-
-
-    // TODO не понятно, надо оно или нет
-    /* public getGameCategoryTitle(game: Game, language: string): string {
-         const categoryCount = game.CategoryID.length;
-         let currentCategoryId: string = null;
-         const virtualCategories = [
-             this.categoryNameToIdMapping.jackpots,
-             this.categoryNameToIdMapping.mainPage,
-             this.categoryNameToIdMapping.new,
-             this.categoryNameToIdMapping.popular
-         ];
-
-         for (let i = 0; i < categoryCount; i++) {
-             currentCategoryId = game.CategoryID[i];
-
-             if (virtualCategories.indexOf(currentCategoryId) === -1 &&
-                 this.categoryIdToTitleMapping[currentCategoryId]) {
-                 return this.categoryIdToTitleMapping[currentCategoryId].hasOwnProperty(language) ?
-                     this.categoryIdToTitleMapping[currentCategoryId][language] :
-                     this.categoryIdToTitleMapping[currentCategoryId].en;
-             }
-         }
-
-         return null;
-     }*/
-
-
     /**
      *
      * @param {string} categoryName
@@ -750,52 +707,4 @@ export class GamesCatalog extends AbstractModel<IGames> {
             arrays.secondMatch.array,
             arrays.thirdMatch.array));
     }
-
-    protected get specialCategories(): ICategory[] {
-        return [
-            {
-                ID: '-1',
-                Name: {
-                    en: 'Last played',
-                },
-                Trans: {
-                    en: this.ts.instant(gettext('Last played')),
-                },
-                Tags: [],
-                menuId: 'lastplayed',
-                Slug: 'lastplayed',
-                CSort: '0',
-                CSubSort: '9999998',
-            },
-            {
-                ID: '-2',
-                Name: {
-                    en: 'My favourites',
-                },
-                Trans: {
-                    en: this.ts.instant(gettext('My favourites')),
-                },
-                Tags: [],
-                menuId: 'favourites',
-                Slug: 'favourites',
-                CSort: '0',
-                CSubSort: '9999999',
-            },
-            {
-                ID: '-3',
-                Name: {
-                    en: 'Casino',
-                },
-                Trans: {
-                    en: this.ts.instant(gettext('Casino')),
-                },
-                Tags: [''],
-                menuId: 'casino',
-                Slug: 'casino',
-                CSort: '0',
-                CSubSort: '0',
-            },
-        ];
-    };
-
 }

@@ -141,7 +141,14 @@ export class GamesCatalogService {
         this.eventService.subscribe({
             name: gamesEvents.FETCH_GAME_CATALOG_SUCCEEDED,
         }, (data: IData) => {
-            this.gamesCatalog = new GamesCatalog(data.data, this);
+            this.gamesCatalog = new GamesCatalog(
+                data.data,
+                this,
+                this.translateService,
+                this.configService,
+                this.router,
+                this.eventService,
+            );
             this.$resolve();
             this.loadJackpots();
             this.loadFavourites();
