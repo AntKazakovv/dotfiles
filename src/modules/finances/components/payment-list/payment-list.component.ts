@@ -8,6 +8,9 @@ import {
     ViewChild,
     TemplateRef,
     ElementRef,
+    AfterViewInit,
+    OnChanges,
+    SimpleChanges,
 } from '@angular/core';
 import {
     map,
@@ -16,21 +19,23 @@ import {
 } from 'rxjs/operators';
 
 import {
-    AbstractComponent,
     ActionService,
     EventService,
     ModalService,
     GlobalHelper,
     ListAppearanceAnimation,
+    ConfigService,
 } from 'wlc-engine/modules/core';
 import {FinancesService} from 'wlc-engine/modules/finances/system/services';
 import {PaymentSystem} from 'wlc-engine/modules/finances/system/models/payment-system.model';
+import {IconListAbstract} from 'wlc-engine/modules/core/system/classes/icon-list-abstract.class';
+import {IconModel} from 'wlc-engine/modules/core/system/models/icon-list-item.model';
 
 import * as Params from './payment-list.params';
 
 import _isUndefined from 'lodash-es/isUndefined';
 import _isString from 'lodash-es/isString';
-
+import _findIndex from 'lodash-es/findIndex';
 
 @Component({
     selector: '[wlc-payment-list]',
@@ -41,13 +46,17 @@ import _isString from 'lodash-es/isString';
         ...ListAppearanceAnimation,
     ],
 })
-export class PaymentListComponent extends AbstractComponent implements OnInit {
+export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCParams>
+    implements OnInit, AfterViewInit, OnChanges {
 
     public systems: PaymentSystem[] = [];
+    public items: IconModel[] = [];
     public $params: Params.IPaymentListCParams;
     public ready: boolean = false;
     public asModal: boolean;
     public showTable: boolean;
+    public classList: string = '';
+    public activeIcon: IconModel;
 
     @Input() public currentSystem: PaymentSystem;
     @Input() protected inlineParams: Params.IPaymentListCParams;
@@ -55,21 +64,36 @@ export class PaymentListComponent extends AbstractComponent implements OnInit {
     @ViewChild('list') protected list: TemplateRef<any>;
 
     constructor(
-        @Inject('injectParams') protected params: Params.IPaymentListCParams,
+        @Inject('injectParams') protected injectParams: Params.IPaymentListCParams,
         protected cdr: ChangeDetectorRef,
         protected financesService: FinancesService,
         protected eventService: EventService,
         protected modalService: ModalService,
         protected actionService: ActionService,
-        protected hostRef: ElementRef,
+        protected configService: ConfigService,
+        private hostRef: ElementRef,
     ) {
-        super({injectParams: params, defaultParams: Params.defaultParams});
+        super({injectParams, defaultParams: Params.defaultParams}, configService);
     }
 
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.getPaymentSystems();
         this.followBreakpoints();
+
+        if (this.currentSystem) {
+            this.setActiveIcon();
+        }
+    }
+
+    public ngAfterViewInit(): void {
+        this.classList = this.hostRef.nativeElement.classList.value;
+    }
+
+    public ngOnChanges(changes: SimpleChanges): void {
+        if (changes['currentSystem']) {
+            this.setActiveIcon();
+        }
     }
 
     public selectPayment(system: PaymentSystem): void {
@@ -94,12 +118,9 @@ export class PaymentListComponent extends AbstractComponent implements OnInit {
         });
     }
 
-    public getIcon(name: string): string {
-        const snakeName = GlobalHelper.toSnakeCase(name);
-        if (this.$params.iconsType === 'svg') {
-            return `/paysystems/V2/svg/black/${snakeName}.svg`;
-        }
-        return `/paysystems/V2/png/color/${snakeName}.png`;
+    protected setActiveIcon(): void {
+        const index = _findIndex(this.systems, (item) => item.id === this.currentSystem.id);
+        this.activeIcon = this.items[index];
     }
 
     protected getPaymentSystems(): void {
@@ -114,6 +135,7 @@ export class PaymentListComponent extends AbstractComponent implements OnInit {
         ).subscribe((systems) => {
             this.ready = true;
             this.systems = systems;
+            this.setPaymentsIconsList();
 
             if (this.currentSystem && !this.systems.some((s) => s.id === this.currentSystem.id)) {
                 this.eventService.emit({
@@ -125,9 +147,19 @@ export class PaymentListComponent extends AbstractComponent implements OnInit {
         });
     }
 
-    /**
-     *
-     */
+
+    protected setPaymentsIconsList(): void {
+        const {iconsType, colorIconBg} = this.$params;
+        const showAs = iconsType === 'black' ? 'svg' : 'img';
+
+        this.setItemsList<PaymentSystem>(this.systems, (item) => this.merchantsPaymentsIterator('payments', {
+            showAs: showAs,
+            wlcElement: 'block_payment-' + this.wlcElementTail(item.name),
+            nameForPath: item.name,
+            colorIconBg: colorIconBg,
+        }));
+    }
+
     protected followBreakpoints(): void {
         const {asModal, showTable} = this.$params;
 

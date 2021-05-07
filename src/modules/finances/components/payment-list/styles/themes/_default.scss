@@ -56,20 +56,61 @@
                 }
             }
 
-            &__image {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                padding: ef.get-value($themeDefault, 'itemPadding');
+            &__button,
+            &__btn-modal {
 
                 ::ng-deep {
 
-                    @include iconInside();
+                    .wlc-payment-list-item {
+
+                        &__wrp {
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            width: 100%;
+                            height: 100%;
+                            padding: ef.get-value($themeDefault, 'itemPadding');
+                            font-size: ef.get-value($themeDefault, 'itemIconFontSize');
+                            color: ef.get-value($themeDefault, 'itemIconColor');
+                        }
+
+                        &__error {
+                            max-height: 100%;
+                            width: 100%;
+                            word-break: break-word;
+                            overflow: hidden;
+                        }
+
+                        &__image {
+                            width: 100%;
+                            height: 100%;
+                            object-fit: contain;
+                            object-position: center;
+                        }
+                        &__svg {
+                            display: block;
+                            width: 100%;
+                            height: 100%;
+
+                            ::ng-deep {
+
+                                .wlc-icon-content svg {
+                                    width: 100%;
+                                    height: 100%;
+                                    max-width: 100%;
+                                    max-height: 100%;
+                                    fill: currentColor;
+
+                                    path {
+                                        fill: inherit;
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
 
@@ -120,6 +161,7 @@
             }
 
             &__btn-modal-image {
+                position: relative;
                 flex: 0 0 auto;
                 background: ef.get-value($themeDefault, 'btnImageBg');
                 padding: ef.get-value($themeDefault, 'btnImagePadding');
@@ -127,7 +169,6 @@
                 height: ef.get-value($themeDefault, 'btnImageHeight');
                 color: ef.get-value($themeDefault, 'btnImageSvgColor');
                 border-right: ef.get-value($themeDefault, 'btnImageBorderRight');
-                @include iconInside();
             }
 
             &__title {

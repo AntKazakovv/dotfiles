@@ -55,16 +55,6 @@
                 padding-top: ef.get-value($themeDefault, 'logoPseudoPaddingTop');
             }
 
-            // TODO remove after come up with color icons
-            &.color {
-                background: ef.get-value($themeDefault, 'logoColorBackground');
-
-                .wlc-provider-links-item__image,
-                .wlc-icon img {
-                    filter: ef.get-value($themeDefault, 'logoColorFilter');
-                }
-            }
-
             &__wrp {
                 position: absolute;
                 top: 0;

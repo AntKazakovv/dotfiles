@@ -46,6 +46,7 @@ export class IconModel {
     readonly alt: string;
     readonly title: string;
     readonly wlcElement: string;
+    public isError: boolean = false;
 
     constructor (
         protected icon: IIconParams,

@@ -1,11 +1,15 @@
-import {IComponentParams, CustomType} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {DeviceType} from 'wlc-engine/modules/core';
+import {
+    IComponentParams,
+    CustomType,
+    DeviceType,
+} from 'wlc-engine/modules/core';
+import {ColorIconBgType} from 'wlc-engine/modules/core/system/classes/icon-list-abstract.class';
 
 export type Theme = 'default' | CustomType;
 export type Type = 'default' | CustomType;
 export type ThemeMod = 'default'  | CustomType;
 
-export type IconsType = 'default' | 'svg';
+export type IconsType = 'color' | 'black';
 /**
  * @variation `mobile` - show button mode only on mobile
  * @variation `tablet` - show button mode only on tablet
@@ -25,12 +29,17 @@ export interface IPaymentListCParams extends IComponentParams<Theme, Type, Theme
     modalSize?: string;
     modalTitle?: string;
     hideModalOnSelect?: boolean;
+    /** Apply one of two types of colored icons (works only with colored) */
+    colorIconBg?: ColorIconBgType;
 }
 
 export const defaultParams: IPaymentListCParams = {
-    paymentType: 'deposit',
     class: 'wlc-payment-list',
-    iconsType: 'default',
+    componentName: 'wlc-payment-list',
+    moduleName: 'finances',
+    paymentType: 'deposit',
+    iconsType: 'color',
+    colorIconBg: 'dark',
     buttonText: 'Show all methods',
     arrowIcon: 'arrow',
     asModal: '(max-width: 479px)',

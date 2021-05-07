@@ -85,7 +85,8 @@ export class ProviderLinksComponent extends IconListAbstract<Params.IProviderLin
      * Based on games request data.
      **/
     protected setMerchantsList(): void {
-        const showIconAs = this.$params.iconsType == 'black' ? 'svg' : 'img';
+        const {iconsType, colorIconBg} = this.$params;
+        const showIconAs = iconsType == 'black' ? 'svg' : 'img';
 
         const merchants: MerchantModel[] = _sortedUniqBy(this.gamesCatalogService.getFilteredMerchants(),
             (item: MerchantModel) => item.alias);
@@ -98,6 +99,7 @@ export class ProviderLinksComponent extends IconListAbstract<Params.IProviderLin
             title: gettext('See all games of') + ' ' + item.name,
             sref: 'app.providers',
             srefParams: {provider: item.menuId},
+            colorIconBg: colorIconBg,
         }));
 
         this.cdr.markForCheck();
