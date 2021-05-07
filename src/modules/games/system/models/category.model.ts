@@ -199,7 +199,7 @@ export class CategoryModel extends AbstractModel<ICategory> {
 
     protected init(data: ICategory): void {
         this.data = data;
-        this._slug = (this.data.Slug.toLowerCase() || this.data.menuId.toLowerCase()).replace(/\./, '-')
+        this._slug = (this.data.Slug.toLowerCase() || this.data.menuId.toLowerCase())
             .replace(/\./g, '-');
         this.defaultSort = _toNumber(this.data.CSubSort) || 0;
         try {
