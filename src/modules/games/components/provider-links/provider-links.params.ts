@@ -1,8 +1,10 @@
+import {SwiperOptions} from 'swiper';
+
 import {
     IComponentParams,
     CustomType,
 } from 'wlc-engine/modules/core';
-import {SwiperOptions} from 'swiper';
+import {ColorIconBgType} from 'wlc-engine/modules/core/system/classes/icon-list-abstract.class';
 
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | 'slider' | CustomType;
@@ -24,6 +26,8 @@ export type ComponentThemeMod = 'default' | 'inside-modal' | CustomType;
 export interface IProviderLinksCParams extends IComponentParams<ComponentTheme, ComponentType, ComponentThemeMod> {
     sliderParams?: SwiperOptions;
     iconsType?: 'color' | 'black';
+    /** Apply one of two types of colored icons (works only with colored) */
+    colorIconBg?: ColorIconBgType;
 };
 
 export const defaultParams: IProviderLinksCParams = {

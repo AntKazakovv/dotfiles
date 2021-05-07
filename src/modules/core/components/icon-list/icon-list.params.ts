@@ -1,7 +1,8 @@
 import {
     IComponentParams,
     CustomType,
-} from 'wlc-engine/modules/core/system/classes/abstract.component';
+} from 'wlc-engine/modules/core';
+import {ColorIconBgType} from 'wlc-engine/modules/core/system/classes/icon-list-abstract.class';
 import {IIconParams} from 'wlc-engine/modules/core/system/models/icon-list-item.model';
 
 /** Available component themes */
@@ -30,6 +31,7 @@ export interface IIconListCParams extends IComponentParams<ComponentTheme, Compo
     items?: IIconParams[];
     /** Placeholder for error images */
     imgPlaceholder?: string;
+    /** If true - scroll overflow icons in row */
     watchForScroll?: boolean;
     /** Common component parametrs */
     common?: {
@@ -45,6 +47,10 @@ export interface IIconListCParams extends IComponentParams<ComponentTheme, Compo
             exclude?: string[],
         },
     }
+    /** Apply one of two types of colored icons (works only with colored) */
+    colorIconBg?: ColorIconBgType;
+    /** `false` - by default, show alt of image instead of image. If `true` - block with image will be hidden */
+    hideImgOnError?: boolean;
 }
 
 /**

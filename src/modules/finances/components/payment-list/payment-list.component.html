@@ -11,10 +11,11 @@
         [attr.title]="$params.buttonText | translate"
         [attr.aria-label]="$params.buttonText | translate">
         <ng-container *ngIf="currentSystem && $params.showSelectedInButton">
-            <span wlc-icon
-            class="{{$class}}__btn-modal-image"
-            [iconUrl]="getIcon(currentSystem.name)"
-            [fallback]="currentSystem.image"></span>
+            <span wlc-icon-list-item
+                class="{{$class}}__btn-modal-image"
+                [icon]="activeIcon"
+                [inlineParams]="{class: $class + '-item'}">
+            </span>
         </ng-container>
         <span class="{{$class}}__btn-modal-wrap">
             <span class="{{$class}}__btn-modal-arrow"
@@ -57,26 +58,22 @@
 </ng-template>
 
 <ng-template #list>
-    <div class="{{$class}}__list"  [ngClass]="asModal && hostRef.nativeElement.classList.value">
+    <div class="{{$class}}__list"  [ngClass]="asModal && classList">
         <h3 class="{{$class}}__title" *ngIf="asModal">{{$params.modalTitle | translate}}</h3>
 
         <ul class="{{$class}}__ul" [@appearance]="systems.length">
-            <li *ngFor="let system of systems"
+            <li *ngFor="let system of systems; index as $index"
                 class="{{$class}}__item" [attr.data-wlc-element]="'block_payment-item-' + system.id">
 
                 <button type="button"
                     class="{{$class}}__button"
+                    wlc-icon-list-item
                     [ngClass]="{'active': system.id === currentSystem?.id}"
                     (click)='selectPayment(system)'
                     [attr.aria-label]="system.name"
                     [attr.data-wlc-element]="'block_payment-item-name'"
-                    [attr.title]="system.name">
-
-                    <span wlc-icon
-                        class="{{$class}}__image"
-                        [iconUrl]="getIcon(system.name)"
-                        [wlcElement]="'block_payment-item-img'"
-                        [fallback]="system.image"></span>
+                    [attr.title]="system.name"
+                    [inlineParams]='{icon: items[$index], class: $class + "-item"}'>
                 </button>
             </li>
         </ul>

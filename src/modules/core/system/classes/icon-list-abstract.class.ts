@@ -21,7 +21,10 @@ export interface IMerchantsPaymentsIterator {
     sref?: string,
     srefParams?: RawParams,
     title?: string,
+    colorIconBg?: ColorIconBgType;
 }
+
+export type ColorIconBgType = 'dark' | 'light';
 
 enum ThemeToDirectory {
     payments = 'paysystems/V2/svg',
@@ -30,7 +33,7 @@ enum ThemeToDirectory {
 
 export abstract class IconListAbstract<T> extends AbstractComponent {
 
-    public items: IconModel[];
+    abstract items: IconModel[];
 
     constructor(
         protected componentParams: IMixedParams<T>,
@@ -57,10 +60,10 @@ export abstract class IconListAbstract<T> extends AbstractComponent {
      * @returns IIconParams
      */
     protected merchantsPaymentsIterator(pathDirectory: string, params: IMerchantsPaymentsIterator): IIconParams {
-        const {showAs, wlcElement, nameForPath, alt, sref, srefParams, title} = params;
+        const {showAs, wlcElement, nameForPath, alt, sref, srefParams, title, colorIconBg} = params;
         return {
             showAs: showAs,
-            iconUrl: this.getPath(nameForPath, pathDirectory, showAs),
+            iconUrl: this.getPath(nameForPath, pathDirectory, showAs, colorIconBg),
             alt: alt ? alt : nameForPath,
             modifier: this.getItemModifier(GlobalHelper.toSnakeCase(nameForPath)),
             wlcElement: wlcElement,
@@ -84,11 +87,12 @@ export abstract class IconListAbstract<T> extends AbstractComponent {
      * @param {string} name - Name of paysystem or alias of merchant
      * @returns The path to image.
      */
-    protected getPath(name: string, pathDirectory: string, showAs: 'svg' | string): string {
+    protected getPath(name: string, pathDirectory: string, showAs: 'svg' | string, colorIconBg?: ColorIconBgType): string {
         const rootPath = showAs === 'svg' ? '' : '/gstatic';
         const color = showAs === 'svg' ? 'black' : 'color';
+        const colorBg = (color === 'color' && colorIconBg) ? 'color/' + colorIconBg : null;
 
-        return `${rootPath}/${ThemeToDirectory[pathDirectory]}/${color}/${GlobalHelper.toSnakeCase(name)}.svg`;
+        return `${rootPath}/${ThemeToDirectory[pathDirectory]}/${colorBg || color}/${GlobalHelper.toSnakeCase(name)}.svg`;
     }
 
     protected wlcElementTail(name: string): string {

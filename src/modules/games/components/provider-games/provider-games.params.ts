@@ -3,6 +3,7 @@ import {
     CustomType,
 } from 'wlc-engine/modules/core';
 import {IGamesGridCParams} from 'wlc-engine/modules/games/components/games-grid/games-grid.params';
+import {ColorIconBgType} from 'wlc-engine/modules/core/system/classes/icon-list-abstract.class';
 
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;
@@ -16,6 +17,7 @@ export type ComponentThemeMod = 'default' | CustomType;
  *      components: {
  *          'wlc-provider-games': {
  *              iconType: 'color',
+ *              colorIconBg: 'dark',
  *          }
  *      }
  *  }
@@ -26,6 +28,8 @@ export interface IProviderGamesCParams extends IComponentParams<ComponentTheme, 
     gamesGridCategoryParams?: IGamesGridCParams;
     gamesGridAllParams?: IGamesGridCParams;
     iconType?: 'color' | 'black';
+    /** Apply one of two types of colored icons (works only with colored) */
+    colorIconBg?: ColorIconBgType;
 };
 
 export const defaultParams: IProviderGamesCParams = {

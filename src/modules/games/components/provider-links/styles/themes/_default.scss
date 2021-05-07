@@ -93,16 +93,6 @@
                 padding-top: ef.get-value($themeDefault, 'iconPseudoPaddingTop');
             }
 
-            &.color {
-                background-color: ef.get-value($themeDefault, 'iconColorBackground');
-
-                // TODO remove after come up with color icons
-                .wlc-provider-links-item__image,
-                .wlc-icon img {
-                    filter: ef.get-value($themeDefault, 'iconColorFilter');
-                }
-            }
-
             @media (hover: hover) {
 
                 &:hover,
