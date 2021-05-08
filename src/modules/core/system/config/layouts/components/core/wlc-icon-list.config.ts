@@ -1,10 +1,10 @@
 import {ILayoutComponent} from 'wlc-engine/modules/core';
-import {IIconCParams} from 'wlc-engine/modules/core/components';
+import {IIconListCParams} from 'wlc-engine/modules/core/components';
 
 export namespace wlcIconList {
     export const merchants: ILayoutComponent = {
         name: 'core.wlc-icon-list',
-        params: <IIconCParams>{
+        params: <IIconListCParams>{
             theme: 'merchants',
             type: 'svg',
             wlcElement: 'block_merchants',
@@ -14,7 +14,7 @@ export namespace wlcIconList {
 
     export const payments: ILayoutComponent = {
         name: 'core.wlc-icon-list',
-        params: <IIconCParams>{
+        params: <IIconListCParams>{
             theme: 'payments',
             watchForScroll: true,
             wlcElement: 'block_payments',
