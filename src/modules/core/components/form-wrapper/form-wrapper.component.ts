@@ -196,7 +196,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
                         type: 'error',
                         title: gettext('Error filling form'),
                         message: gettext('Fill required fields'),
-                        wlcElement: 'notifiсation_form-filling-error',
+                        wlcElement: 'notification_form-filling-error',
                     },
                 });
             } else if (this.hasAnyError) {
@@ -206,7 +206,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
                         type: 'error',
                         title: gettext('Error filling form'),
                         message: gettext('Check the correctness of filling out the form fields'),
-                        wlcElement: 'notifiсation_form-fields-error',
+                        wlcElement: 'notification_form-fields-error',
                     },
                 });
             }

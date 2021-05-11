@@ -460,7 +460,7 @@ export class TournamentsService {
                 type: 'error',
                 title,
                 message: errors,
-                wlcElement: 'notifiсation_tournament-error',
+                wlcElement: 'notification_tournament-error',
             },
         });
     }
@@ -472,7 +472,7 @@ export class TournamentsService {
                 type: 'success',
                 title,
                 message: '',
-                wlcElement: 'notifiсation_tournament-success',
+                wlcElement: 'notification_tournament-success',
             },
         });
     }

@@ -98,11 +98,11 @@ export interface IModalConfig extends IModalBsOptions {
     closeBtnText?: string;
 
     /**
-     * Сlose button params
+     * Close button params
      */
     closeBtnParams?: IButtonCParams;
     /**
-     * Сlose button visibility. Visible(true) by default
+     * Close button visibility. Visible(true) by default
      */
     closeBtnVisibility?: boolean;
     /**
