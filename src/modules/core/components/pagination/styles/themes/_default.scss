@@ -62,6 +62,18 @@
 
                         .wlc-icon {
                             background: ef.get-value($themeDefault, 'pageItemDisabled');
+                            cursor: auto;
+
+                            svg {
+                                fill: ef.get-value($themeDefault, 'pageItemInnerFillDisabled');
+                            }
+
+                            @media (hover) {
+
+                                &:hover {
+                                    background: ef.get-value($themeDefault, 'pageItemDisabled');
+                                }
+                            }
                         }
                     }
                 }
