@@ -85,8 +85,12 @@ export class GameThumbComponent extends AbstractComponent implements OnInit, Aft
     }
 
     public async init(): Promise<void> {
-        if (!this.game && this.$params.common?.game) {
+        await this.gamesCatalogService.ready;
+
+        if (this.$params.common?.game) {
             this.game = this.$params.common.game;
+        } else if (this.$params.common?.gameId) {
+            this.game = this.gamesCatalogService.getGameById(this.$params.common.gameId);
         }
 
         if (this.$params.type === 'promo-widget') {
@@ -96,10 +100,11 @@ export class GameThumbComponent extends AbstractComponent implements OnInit, Aft
             }
 
             try {
-                await this.gamesCatalogService.ready;
-                const gameList: Game[] = await this.gamesCatalogService.getGamesByCategorySlug(this.$params.common?.promoWidget?.gameCategory);
-                if (gameList.length) {
-                    this.game = gameList[0];
+                if (this.$params.common?.promoWidget?.gameCategory) {
+                    const gameList: Game[] = await this.gamesCatalogService.getGamesByCategorySlug(this.$params.common.promoWidget.gameCategory);
+                    if (gameList.length) {
+                        this.game = gameList[0];
+                    }
                 }
             } catch (err) {
                 this.initFailed = true;

@@ -12,7 +12,7 @@
                 <div class="{{$class}}__img">
                     <img [src]="game.getImage(640)" loading="lazy">
                 </div>
-                <div class="{{$class}}__title">
+                <div *ngIf="promoWidgetTitle" class="{{$class}}__title">
                     {{promoWidgetTitle | translate}}
                 </div>
                 <div class="{{$class}}__buttons">
