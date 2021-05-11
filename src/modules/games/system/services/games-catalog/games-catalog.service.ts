@@ -358,6 +358,23 @@ export class GamesCatalogService {
     }
 
     /**
+     * Get games title by state
+     * @returns {string}
+     */
+    public getGamesTitleByState(): string {
+        const childCategory = this.getChildCategoryByState();
+        const parentCategory = this.getParentCategoryByState();
+        const lang: string = this.translateService.currentLang;
+
+        if (childCategory) {
+            return childCategory.title[lang] || childCategory.title['en'];
+        } else if (parentCategory) {
+            return parentCategory.title[lang] || parentCategory.title['en'];
+        }
+        return;
+    }
+
+    /**
      * Get available categories by current state
      *
      * @returns {CategoryModel[]}

@@ -17,22 +17,23 @@
 
     <ng-container *ngIf="isReady; else : preloader">
         <div *ngIf="filteredGames?.length; else: noGames"
-             [@appearance]="filteredGames.length"
              #gameList
              class="{{$class}}__list"
              (resized)="onResize($event)">
 
             <div *ngIf="$params.bannerSettings"
+                 [@appearance]
                  #gameBanner
                  class="{{$class}}__banner wlc-games-banner">
                 <div wlc-banners-slider
                      [inlineParams]="$params.bannerSettings"></div>
             </div>
 
-            <div *ngFor="let game of filteredGames | slice: 0:gamesCount"
+            <div *ngFor="let game of filteredGames | slice: 0:gamesCount; trackBy: trackGames"
                  #gameItem
                  class="{{$class}}__item">
                 <div wlc-game-thumb
+                     [@appearance]
                      [game]="game"
                      [inlineParams]="$params.thumbParams"></div>
             </div>
