@@ -233,9 +233,9 @@ export const MODALS_LIST: IModalList = {
             textAlign: 'center',
         },
     },
-    descriptionCasinosСurrency: {
+    descriptionCasinosCurrency: {
         config: {
-            id: 'descriptionCasinosСurrency',
+            id: 'descriptionCasinosCurrency',
             modalTitle: gettext('Loyalty Program'),
             closeBtnVisibility: true,
             component: IconExpLpDescriptionComponent,
