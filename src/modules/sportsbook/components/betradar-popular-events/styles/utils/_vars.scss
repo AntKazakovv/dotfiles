@@ -26,12 +26,11 @@ $themeDefault: map-merge((
     'betsPadding': 0 ef.get('size', 'small'),
     'betItemBackground': ef.get('mainColors', 'bg500'),
     'betMaxWidth': 153px,
-    'betTextStyle': 'ThirdTitleBold',
-    'betTextColor': ef.get('mainColors', 'baseMain'),
     'betPadding': 8px 16px,
     'betMargin': 0 ef.get('size', 'smallest'),
     'betRadius': ef.get('radius', 'biger'),
     'betItemHoverBackground': ef.get('mainColors', 'buttonColor'),
     'betDataStyle': 'ThirdTitleBold',
     'betDataColor': ef.get('mainColors', 'baseMain'),
+    'betDataColorHover': ef.get('mainColors', 'baseMain'),
 ), $customThemeDefault);
