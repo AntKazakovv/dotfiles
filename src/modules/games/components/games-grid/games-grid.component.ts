@@ -28,7 +28,7 @@ import {
     DeviceType,
     ActionService,
     EventService,
-    ListAppearanceAnimation,
+    ItemAppearanceAnimation,
 } from 'wlc-engine/modules/core';
 import {
     Game,
@@ -51,7 +51,7 @@ import _isUndefined from 'lodash-es/isUndefined';
     styleUrls: ['./styles/games-grid.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
     animations: [
-        ...ListAppearanceAnimation,
+        ...ItemAppearanceAnimation,
     ],
 })
 export class GamesGridComponent extends AbstractComponent
@@ -59,7 +59,8 @@ export class GamesGridComponent extends AbstractComponent
 
     public $params: Params.IGamesGridCParams;
     public isReady: boolean = false;
-    public filteredGames: Game[]; // TODO temporary: until gameService will be able to back category
+    public filteredGames: Game[];
+    public filterChangedCounter: number = 0;
     public title: string;
     public gamesCount: number = this.configService.get<number>('$games.components.wlc-games-grid.defaultCount') || 1;
     public placeHolders: number[];
@@ -106,6 +107,11 @@ export class GamesGridComponent extends AbstractComponent
         protected actionService: ActionService,
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService, actionService);
+        this.trackGames = this.trackGames.bind(this);
+    }
+
+    public trackGames(index, item): string {
+        return `${this.filterChangedCounter}.${item.ID}`;
     }
 
     public async ngOnInit(): Promise<void> {
@@ -160,15 +166,9 @@ export class GamesGridComponent extends AbstractComponent
     }
 
     public async prepareGrid(): Promise<void> {
+        this.isReady = false;
+        this.title = this.gamesCatalogService.getGamesTitleByState() || this.$params.title || this.categoryTitle;
         this.games = await this.getGames();
-        const lang: string = this.translate.currentLang;
-        if (this.childCategory) {
-            this.title = this.childCategory.title[lang] || this.childCategory.title['en'];
-        } else if (this.parentCategory) {
-            this.title = this.parentCategory.title[lang] || this.parentCategory.title['en'];
-        } else {
-            this.title = this.$params.title || this.categoryTitle;
-        }
         this.filteredGames = this.games;
         this.isReady = true;
 
@@ -176,7 +176,6 @@ export class GamesGridComponent extends AbstractComponent
             this.hideComponent = true;
             this.gridHidden.emit();
         }
-
         this.cdr.detectChanges();
     }
 
@@ -207,7 +206,6 @@ export class GamesGridComponent extends AbstractComponent
                 });
             }, 500);
         }
-
         this.cdr.detectChanges();
     }
 
@@ -223,7 +221,7 @@ export class GamesGridComponent extends AbstractComponent
             this.elementRef.nativeElement.getBoundingClientRect().top
             + window.scrollY + this.elementRef.nativeElement.getBoundingClientRect().height
         );
-        if (currentPosition > elemBottom && this.lazyReady && this.gamesCount < this.games?.length) {
+        if (currentPosition > elemBottom && this.lazyReady && this.gamesCount < this.filteredGames?.length) {
             this.lazyReady = false;
             setTimeout(() => {
                 this.loadMore();
@@ -259,9 +257,9 @@ export class GamesGridComponent extends AbstractComponent
     }
 
     protected checkGamesLength(): void {
-        if (this.games?.length && this.gamesCount >= this.games?.length) {
+        if (this.filteredGames?.length && this.gamesCount >= this.filteredGames?.length) {
             this.moreButtonChangeState(true);
-            this.gamesCount = this.games.length;
+            this.gamesCount = this.filteredGames.length;
             if (this.gamesCount % this.prevPlaceHoldersCount) {
                 this.placeHoldersCount = this.prevPlaceHoldersCount - this.gamesCount % this.prevPlaceHoldersCount;
             } else {
@@ -315,8 +313,6 @@ export class GamesGridComponent extends AbstractComponent
      * @returns {Game[]}
      */
     protected async getFilteredGames(): Promise<Game[]> {
-        this.parentCategory = this.gamesCatalogService.getParentCategoryByState();
-        this.childCategory = this.gamesCatalogService.getChildCategoryByState();
         let games: Game[] = [];
 
         if (this.gamesList?.length) {
@@ -371,12 +367,13 @@ export class GamesGridComponent extends AbstractComponent
             from: this.filterName,
         }, (filter: IGamesFilterData) => {
             this.changeFilter(filter);
-            this.cdr.markForCheck();
+            this.cdr.detectChanges();
         }, this.$destroy);
     }
 
     protected changeFilter(filter: IGamesFilterData): void {
         this.filteredGames = this.gamesCatalogService.getGameList(filter);
+        this.filterChangedCounter++;
     }
 
     protected changeSearch(search: string): void {
@@ -389,8 +386,7 @@ export class GamesGridComponent extends AbstractComponent
 
         this.gamesCount = this.paginate;
         this.moreButtonChangeState();
-
-        this.cdr.markForCheck();
+        this.cdr.detectChanges();
     }
 
     protected moreButtonChangeState(state?: boolean): void {
@@ -412,9 +408,9 @@ export class GamesGridComponent extends AbstractComponent
             .pipe(takeUntil(this.$destroy))
             .subscribe((type: DeviceType) => {
                 this.deviceType = type;
-                this.isDesktop = this.deviceType === 'desktop';
+                this.isDesktop = this.deviceType === DeviceType.Desktop;
                 this.setupMobileSettings();
-                this.cdr.markForCheck();
+                this.cdr.detectChanges();
             });
     }
 

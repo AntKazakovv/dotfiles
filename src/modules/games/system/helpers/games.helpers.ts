@@ -143,7 +143,6 @@ export class GamesHelper {
                     sort: category.sort,
                 };
             }
-
         });
     }
 

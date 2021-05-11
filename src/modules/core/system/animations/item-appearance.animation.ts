@@ -7,10 +7,10 @@ import {
     stagger,
 } from '@angular/animations';
 
-export const ListAppearanceAnimation = [
+export const ItemAppearanceAnimation = [
     trigger('appearance', [
-        transition('*<=>*', [
-            query(':enter', [
+        transition('void => *', [
+            query(':self', [
                 style({opacity: 0}),
                 stagger('0.03s', animate('0.8s', style({opacity: 1}))),
             ], {optional: true}),

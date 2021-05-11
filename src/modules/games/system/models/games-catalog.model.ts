@@ -46,6 +46,7 @@ import _forEach from 'lodash-es/forEach';
 import _uniq from 'lodash-es/uniq';
 import _uniqBy from 'lodash-es/uniqBy';
 import _orderBy from 'lodash-es/orderBy';
+import _reduce from 'lodash-es/reduce';
 
 export class GamesCatalog extends AbstractModel<IGames> {
 
@@ -339,19 +340,10 @@ export class GamesCatalog extends AbstractModel<IGames> {
      * @returns {Game[]} Filtered games list
      */
     public getGamesByCategories(categories: CategoryModel[]): Game[] {
-        const categoryIds = categories.map((category: CategoryModel) => {
-            return category.id;
-        });
-
-        const games = _filter(this.getGameList(), (game: Game) => {
-            for (const categoryId of categoryIds) {
-                if (_includes(game.categoryID, categoryId)) {
-                    return true;
-                }
-            }
-            return false;
-        });
-        return games;
+        const games: Game[] = _reduce(categories, (acc: Game[], category: CategoryModel) => {
+            return acc.concat(category.games);
+        }, []);
+        return _uniqBy(games, 'ID');
     }
 
     /**

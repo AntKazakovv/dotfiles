@@ -6,6 +6,7 @@ export * from './system/services/files/files.service';
 export * from './system/services/caching/caching.service';
 export * from './system/services/action/action.service';
 export * from './system/services';
+export * from './system/animations';
 export * from './components';
 export {
     AbstractComponent,
@@ -21,6 +22,4 @@ export {
     NotificationEvents,
 } from 'wlc-engine/modules/core/system/services/notification';
 export {Deferred} from './system/classes/deferred.class';
-export {ListAppearanceAnimation} from './system/animations/list-appearance.animation';
-export * from './system/animations/height-toggle.animation';
 export * from './components/modal';
