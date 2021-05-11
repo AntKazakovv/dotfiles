@@ -49,7 +49,8 @@
 
         a,
         span:nth-child(2) {
-            @include text.get-text-style('QoteTextBold', ef.get-value($themeDefault, 'contactsContentColor'));
+            @include text.get-text-style(ef.get-value($themeDefault, 'contactsTextStyle'), ef.get-value($themeDefault, 'contactsContentColor'));
+
             max-width: 100%;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -58,6 +59,10 @@
 
             &:hover {
                 color: ef.get-value($themeDefault, 'contactsContentColorHover');
+            }
+
+            @include mq.min(560) {
+                @include text.get-text-style(ef.get-value($themeDefault, 'contactsTextStyle', 560), ef.get-value($themeDefault, 'contactsContentColor'));
             }
         }
     }
