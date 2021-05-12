@@ -140,8 +140,12 @@ export class GamesGridComponent extends AbstractComponent
         this.filterName = this.$params.searchFilterName || 'page';
 
         await this.prepareGrid();
-        this.transition.onSuccess({}, async (transition) => {
+        const hookDeregister = this.transition.onSuccess({}, () => {
             this.prepareGrid();
+        });
+
+        this.$destroy.subscribe(() => {
+            hookDeregister();
         });
 
         if (this.$params.type === 'search') {
