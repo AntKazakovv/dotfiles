@@ -4,63 +4,58 @@
 @use 'engine-scss/mixins/base.mixins' as bm;
 
 .wlc-exchange:host {
+    @include bm.get-mq-map('padding', $themeDefault, 'outerPadding');
     display: grid;
-    grid: {
-        template-columns: 1fr;
-        gap: ef.get-value($themeDefault, 'contentGap');
-    };
 
     width: 100%;
-    @include bm.get-mq-map('padding', $themeDefault, 'outerPadding');
 
     background: ef.get-value($themeDefault, 'bg');
     border-radius: ef.get-value($themeDefault, 'contentRadius');
 
     overflow: hidden;
-
-    @include mq.min(640) {
-        grid: {
-            template-columns: 1fr 1fr;
-            auto-flow: column;
-            gap: ef.get-value($themeDefault, 'contentGap', 640);
-        };
-    }
+    grid: {
+        template-columns: 1fr;
+        gap: ef.get-value($themeDefault, 'contentGap');
+    };
 
     .wlc-exchange {
         display: ef.get-value($themeDefault, 'exchangeDisplay');
-        justify-content: ef.get-value($themeDefault, 'exchangeJustifyContent');
         align-items: ef.get-value($themeDefault, 'exchangeAlignItems');
+        justify-content: ef.get-value($themeDefault, 'exchangeJustifyContent');
 
         &-points {
             position: ef.get-value($themeDefault, 'pointsPosition');
+            display: ef.get-value($themeDefault, 'pointsDisplay');
             flex-wrap: ef.get-value($themeDefault, 'pointsFlexWrap');
             align-items: ef.get-value($themeDefault, 'pointsAlignItems');
-            display: ef.get-value($themeDefault, 'pointsDisplay');
             justify-content: ef.get-value($themeDefault, 'pointsJustifyContent');
+            width: 100%;
 
             &__value {
-                position: ef.get-value($themeDefault, 'exchangeValuePosition');
+                @include bm.get-mq-map('position', $themeDefault, 'exchangeValuePosition');
+                @include lib.get-text-style('QoteTextBold');
+
                 display: ef.get-value($themeDefault, 'exchangeValueDisplay');
                 align-items: ef.get-value($themeDefault, 'exchangeValueAligntItems');
-                max-width: ef.get-value($themeDefault, 'exchangeValueMaxWidth');
                 margin: ef.get-value($themeDefault, 'pointsValueMargin');
 
-                @include lib.get-text-style('QoteTextBold');
-                line-height: 1;
+                padding: ef.get-value($themeDefault, 'pointsValuePadding');
 
                 color: ef.get-value($themeDefault, 'pointsValueColor');
+
+                line-height: 1;
             }
 
             &__currency {
                 @include lib.get-text-style('PlaceholderText');
-                line-height: 1;
                 color: ef.get-value($themeDefault, 'pointsCurrencyColor');
+                line-height: 1;
 
                 ::ng-deep {
 
                     .wlc-icon {
                         position: relative;
-                        top: 2px;
+                        top: ef.get-value($themeDefault, 'pointsCurrencyIconPosTop');
 
                         svg {
                             width: ef.get-value($themeDefault, 'pointsCurrencySvgSize');
@@ -73,8 +68,8 @@
             &__desc {
                 @include lib.get-text-style('PlaceholderText');
                 width: 100%;
-                text-align: ef.get-value($themeDefault, 'descTextAlign');
                 margin: ef.get-value($themeDefault, 'pointsDescMargin');
+                text-align: ef.get-value($themeDefault, 'descTextAlign');
             }
         }
 
@@ -91,8 +86,8 @@
                     ::ng-deep {
 
                         .wlc-icon svg {
-                            width: ef.get-value($themeDefault, 'svgSize');
-                            height: ef.get-value($themeDefault, 'svgSize');
+                            @include bm.get-mq-map('width', $themeDefault, 'svgSize');
+                            @include bm.get-mq-map('height', $themeDefault, 'svgSize');
                         }
                     }
                 }
@@ -100,40 +95,36 @@
         }
 
         &__content {
-            display: ef.get-value($themeDefault, 'contentDisplay');
+            @include bm.get-mq-map('padding', $themeDefault, 'contentPadding');
             position: relative;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+
+            display: ef.get-value($themeDefault, 'contentDisplay');
+            flex-direction: ef.get-value($themeDefault, 'contentDirection');
+            align-items: ef.get-value($themeDefault, 'contentAlign');
+            justify-content: ef.get-value($themeDefault, 'contentJustify');
+
             width: 100%;
-            max-width: ef.get-value($themeDefault, 'contentMaxWidth');
-            padding: ef.get-value($themeDefault, 'contentPadding');
-            margin: ef.get-value($themeDefault, 'contentMargin');
-            border-bottom: ef.get-value($themeDefault, 'contentBorder');
 
-            @include mq.min(640) {
-                max-width: ef.get-value($themeDefault, 'contentMaxWidth', 640);
-                margin: ef.get-value($themeDefault, 'contentMargin', 640);
-                padding: ef.get-value($themeDefault, 'contentPadding', 640);
-                border: 0;
-                border-right: ef.get-value($themeDefault, 'contentBorder');
-            }
+            &:before {
+                @include bm.get-mq-map('left', $themeDefault, 'separatorPosLeft');
+                @include bm.get-mq-map('top', $themeDefault, 'separatorPosTop');
+                @include bm.get-mq-map('width', $themeDefault, 'separatorWidth');
+                @include bm.get-mq-map('height', $themeDefault, 'separatorHeight');
 
-            @include mq.min(1420) {
-                padding: ef.get-value($themeDefault, 'contentPadding', 1420);
+                @include bm.get-mq-map('transform', $themeDefault, 'separatorTransform');
+                @include bm.get-mq-map('background', $themeDefault, 'separatorBg');
+                content: '';
+
+                position: absolute;
+
+                display: block;
+                max-width: ef.get-value($themeDefault, 'separatorMaxWidth');
             }
         }
 
         &__info {
-            padding: ef.get-value($themeDefault, 'contentInfoPadding');
-
-            @include mq.min(640) {
-                padding: ef.get-value($themeDefault, 'contentInfoPadding', 640);
-            }
-
-            @include mq.min(1420) {
-                padding: ef.get-value($themeDefault, 'contentInfoPadding', 1420);
-            }
+            @include bm.get-mq-map('padding', $themeDefault, 'contentInfoPadding');
+            align-self: ef.get-value($themeDefault, 'contentInfoAlignSelf');
         }
     }
 
@@ -149,5 +140,13 @@
                 background: none;
             }
         }
+    }
+
+    @include mq.min(640) {
+        grid: {
+            template-columns: 1fr 1fr;
+            auto-flow: column;
+            gap: ef.get-value($themeDefault, 'contentGap', 640);
+        };
     }
 }

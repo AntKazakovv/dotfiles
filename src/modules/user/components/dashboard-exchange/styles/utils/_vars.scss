@@ -2,18 +2,23 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'pointsValueColor': ef.get('mainColors', 'baseMain'),
-    'pointsCurrencyColor': ef.get('mainColors', 'baseMain'),
-    'pointsCurrencySvgSize': 16px,
-    'pointsDescColor': ef.get('mainColors', 'baseMain'),
+    'bg': ef.get('mainColors', 'bg300'),
+
     'outerPadding': (
-        375: ef.get('size', 'smally') ef.get('size', 'smaller'),
+        375: ef.get('size', 'smaller') ef.get('size', 'smaller') ef.get('size', 'smallest'),
         640: ef.get('size', 'smally') 0,
         900: ef.get('size', 'smally') 0,
         1630: ef.get('size', 'smaller') 0,
     ),
+
+    'contentDisplay': flex,
+    'contentDirection': column,
+    'contentJustify': center,
+    'contentAlign': center,
+    'contentInfoAlignSelf': center,
+    'contentRadius': ef.get('radius', 'biger'),
     'contentGap': (
-        375: ef.get('size', 'smaller'),
+        375: ef.get('size', 'small'),
         640: 0,
     ),
     'contentPadding': (
@@ -26,45 +31,71 @@ $themeDefault: map-merge((
         640: 0 ef.get('size', 'smaller'),
         1420: 0 ef.get('size', 'main'),
     ),
-    'contentMaxWidth': (
-        375: 80%,
+
+    'separatorPosLeft': (
+        375: 50%,
         640: 100%,
     ),
-    'contentMargin': (
-        375: 0 auto,
-        640: 0,
+    'separatorPosTop': (
+        375: 100%,
+        640: 50%,
     ),
-    'contentRadius': ef.get('radius', 'biger'),
-    'bg': ef.get('mainColors', 'bg300'),
-    'contentBorder': 1px solid transparentize(ef.get('color', 'main'), 0.6),
-    'contentDisplay': flex,
+    'separatorTransform': (
+        375: translate(-50%, 0),
+        640: translate(0, -50%),
+    ),
+    'separatorWidth': (
+        375: 100%,
+        640: 1px,
+    ),
+    'separatorHeight': (
+        375: 1px,
+        640: 100%,
+    ),
+    'separatorBg': (
+        375: ef.get('mainColors', 'baseOpacity'),
+    ),
+    'separatorMaxWidth': 215px,
+
+    'pointsValueColor': ef.get('mainColors', 'baseMain'),
+    'pointsCurrencyColor': ef.get('mainColors', 'baseMain'),
+    'pointsCurrencySvgSize': 16px,
+    'pointsCurrencyIconPosTop': 2px,
+    'pointsDescColor': ef.get('mainColors', 'baseMain'),
     'pointsValueSize': 24px,
     'pointsValueWeight': bold,
-    'pointsValueMargin': 0 5px 0 0,
+    'pointsValueMargin': 0,
+    'pointsValuePadding': ef.get('size', 'smallest') ef.get('size', 'smaller') 0,
     'pointsValueCurrencySize': 12px,
     'pointsDescMargin': 5px 0 0,
     'pointsDescSize': 12px,
-    'exchangeBtnMargin': (
-        375: ef.get('size', 'smaller') 0 0,
-        900: ef.get('size', 'smally') 0 0,
-    ),
     'pointsDisplay': flex,
     'pointsPosition': relative,
     'pointsJustifyContent': center,
     'pointsFlexWrap': wrap,
     'pointsAlignItems': flex-end,
-    'posAbs': absolute,
-    'svgSize': 17px,
+    'svgSize': (
+        375: 21px,
+        640: 17px,
+    ),
     'descTextAlign': center,
-    'exchangeDisplay': flex,
-    'exchangeValuePosition': relative,
-    'exchangeValueMaxWidth': 150px,
+
     'exchangeValueDisplay': flex,
     'exchangeValueAligntItems': center,
     'exchangeAlignItems': center,
     'exchangeJustifyContent': center,
+    'exchangeBtnMargin': (
+        375: ef.get('size', 'smaller') 0 0,
+        900: ef.get('size', 'smally') 0 0,
+    ),
+    'exchangeDisplay': flex,
+    'exchangeValuePosition': (
+        375: static,
+        640: relative,
+    ),
+
     'iconExpLpDescriptionTop': 0,
     'iconExpLpDescriptionRigth': 0,
-    'iconExpLpDescriptionTransform': translate(20px, -5px),
+    'iconExpLpDescriptionTransform': none,
     'iconExpLpDescriptionPosition': absolute,
 ), $customThemeDefault);

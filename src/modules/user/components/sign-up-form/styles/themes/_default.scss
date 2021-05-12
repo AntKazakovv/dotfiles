@@ -1,8 +1,6 @@
 @use 'engine-scss/functions' as ef;
 @use 'engine-scss/mixins/base.mixins' as em;
 
-@import '../utils/vars';
-
 .wlc-sign-up-form--theme-default:host {
     display: flex;
     flex-direction: ef.get-value($themeDefault, 'formFlexDirection');
@@ -22,8 +20,8 @@
             display: grid;
             grid-gap: ef.get-value($themeDefault, 'gridGap');
             grid-template-areas: ef.get-value($themeDefault, 'templateAreas');
-            grid-template-rows: ef.get-value($themeDefault, 'gridRows');
             grid-template-columns: ef.get-value($themeDefault, 'gridColumns');
+            align-content: ef.get-value($themeDefault, 'gridAlignContent');
 
             height: ef.get-value($themeDefault, 'formHeight');
 

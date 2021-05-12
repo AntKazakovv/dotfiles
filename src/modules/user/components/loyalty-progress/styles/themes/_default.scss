@@ -1,5 +1,6 @@
 @use 'engine-scss/mixins/text' as lib;
 @use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/base.mixins' as bm;
 
 .wlc-loyalty-progress--theme-default:host {
 
@@ -38,12 +39,18 @@
         &__title {
             @include lib.get-text-style(ef.get-value($themeDefault, 'levelProgressFontSize'));
             color: ef.get-value($themeDefault, 'levelNameColor');
+            @include bm.inlineLayoutShiftFix();
         }
 
         &__points {
             display: flex;
             justify-content: space-between;
             @include lib.get-text-style(ef.get-value($themeDefault, 'levelProgressFontSize'), ef.get-value($themeDefault, 'levelPointsColor'));
+
+            &-start,
+            &-end {
+                @include bm.inlineLayoutShiftFix();
+            }
         }
     }
 }
