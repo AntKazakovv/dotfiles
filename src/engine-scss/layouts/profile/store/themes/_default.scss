@@ -1,6 +1,6 @@
 @use 'engine-scss/functions' as ef;
 @use 'engine-scss/mixins/mediaqueries' as mq;
-@use 'engine-scss/mixins/base.mixins' as em;
+@use 'engine-scss/mixins/base.mixins' as bm;
 
 @import '../utils/vars';
 
@@ -10,37 +10,34 @@
     .wlc-sections__profile-content--theme-default {
 
         > .container {
-            position: relative;
-            display: grid;
-            grid: {
-                template-columns: minmax(0, 1fr) minmax(0, 1fr);
-                template-rows: auto;
-                template-areas: 'title stats' 'submenu submenu' 'store store';
-            }
+            @include bm.get-mq-map('grid-template-columns', $storeThemeDefault, 'containerColumns');
+            @include bm.get-mq-map('grid-template-areas', $storeThemeDefault, 'containerAreas');
 
-            @include mq.min(720) {
-                grid: {
-                    template-columns: repeat(2, 1fr);
-                    template-areas: 'title stats' 'submenu submenu' 'store store';
-                }
-            }
+            position: relative;
+
+            display: grid;
+            grid-template-rows: auto;
+        }
+
+        .wlc-loyalty-progress {
+            @include bm.get-mq-map('position',$storeThemeDefault, 'loyaltyProgressPosition');
+            @include bm.get-mq-map('top', $storeThemeDefault, 'statTop');
+            @include bm.get-mq-map('right', $storeThemeDefault, 'statRight');
+
+            @include bm.get-mq-map('max-width',$storeThemeDefault, 'loyaltyProgressMaxWidth');
+            @include bm.get-mq-map('margin',$storeThemeDefault, 'loyaltyProgressMargin');
+            grid-area: progress;
+            width: 100%;
+        }
+
+        .wlc-user-stats {
+            @include bm.get-mq-map('top', $storeThemeDefault, 'statTop');
+            @include bm.get-mq-map('right', $storeThemeDefault, 'statRight');
+            position: absolute;
         }
 
         .wlc-title {
             grid-area: title;
-        }
-
-        .wlc-loyalty-progress {
-            max-width: 300px;
-            width: 100%;
-            margin-left: auto;
-        }
-
-        .wlc-loyalty-progress,
-        .wlc-user-stats {
-            position: absolute;
-            @include em.get-mq-map('top', $storeThemeDefault, 'statTop');
-            @include em.get-mq-map('right', $storeThemeDefault, 'statRight');
         }
 
         .wlc-loyalty-table,
@@ -49,11 +46,8 @@
         }
 
         .wlc-profile-menu {
+            @include bm.get-mq-map('margin', $storeThemeDefault, 'submenuMargin');
             grid-area: submenu;
-
-            @include mq.min(1024) {
-                margin: 0;
-            }
         }
     }
 }
@@ -63,21 +57,14 @@
     .wlc-sections__profile-content--theme-first {
 
         .wlc-profile-content {
-            position: relative;
-            display: grid;
-            grid: {
-                template-columns: minmax(0, 1fr) minmax(0, 1fr);
-                template-rows: auto;
-                template-areas: 'title stats' 'store store';
-            }
-            grid-gap: 20px;
+            @include bm.get-mq-map('grid-gap', $storeThemeFirst, 'gap');
+            @include bm.get-mq-map('grid-template-columns', $storeThemeFirst, 'containerColumns');
+            @include bm.get-mq-map('grid-template-areas', $storeThemeFirst, 'containerAreas');
 
-            @include mq.min(720) {
-                grid: {
-                    template-columns: repeat(2, 1fr);
-                    template-areas: 'title stats' 'store store';
-                }
-            }
+            position: relative;
+
+            display: grid;
+            grid-template-rows: auto;
         }
 
         .wlc-title {
