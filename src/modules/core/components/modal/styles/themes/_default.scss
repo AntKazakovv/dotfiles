@@ -161,6 +161,10 @@
         .wlc-tournament-detail__header-info--back-link {
             display: none;
         }
+
+        .wlc-tournament-detail__rules {
+            border-radius: 0;
+        }
     }
 
     &.wlc-modal--play-game-for-real,
