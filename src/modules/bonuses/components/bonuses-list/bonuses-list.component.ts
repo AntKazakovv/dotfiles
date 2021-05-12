@@ -42,6 +42,7 @@ import _reduce from 'lodash-es/reduce';
 import _filter from 'lodash-es/filter';
 import _concat from 'lodash-es/concat';
 import _isObject from 'lodash-es/isObject';
+import _cloneDeep from 'lodash-es/cloneDeep';
 
 @Component({
     selector: '[wlc-bonuses-list]',
@@ -99,7 +100,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
 
         this.isReady = false;
         if (this.$params.type === 'swiper') {
-            this.sliderParams.swiper = this.$params.common?.swiper;
+            this.sliderParams.swiper = _cloneDeep(this.$params.common.swiper);
         }
 
         this.bonusesService.getSubscribe({
@@ -149,6 +150,14 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
                                 allowTouchMove: false,
                             });
                             this.isSingleBonus = true;
+                        } else {
+                            this.sliderParams.swiper = _merge({
+                                navigation: true,
+                                slidesPerView: 1,
+                                spaceBetween: 0,
+                                allowTouchMove: true,
+                            }, this.$params.common.swiper);
+                            this.isSingleBonus = false;
                         }
                     }
                     this.cdr.markForCheck();
