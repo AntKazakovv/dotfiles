@@ -133,23 +133,17 @@
             margin: ef.get-value($themeDefault, 'betMargin');
             padding: ef.get-value($themeDefault, 'betPadding');
 
-
             @include bm.transition;
-            @include text.get-text-style(ef.get-value($themeDefault, 'betTextStyle'), ef.get-value($themeDefault, 'betTextColor'));
-
+            @include text.get-text-style(ef.get-value($themeDefault, 'betDataStyle'), ef.get-value($themeDefault, 'betDataColor'));
             background: ef.get-value($themeDefault, 'betItemBackground');
             border-radius: ef.get-value($themeDefault, 'betRadius');
 
             @media (hover) {
 
                 &:hover {
+                    color: ef.get-value($themeDefault, 'betDataColorHover');
                     background: ef.get-value($themeDefault, 'betItemHoverBackground');
                 }
-            }
-
-            &-name,
-            &-coef {
-                @include text.get-text-style(ef.get-value($themeDefault, 'betDataStyle'), ef.get-value($themeDefault, 'betDataColor'));
             }
         }
     }
