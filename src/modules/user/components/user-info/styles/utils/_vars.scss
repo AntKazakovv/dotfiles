@@ -8,7 +8,7 @@ $themeDefault: map-merge((
     'userInfoDropdownBtnBorderRadius': ef.get('radius', 'biger'),
     'userInfoDropdownArrowMargin': 0 0 0 32px,
     'userInfoDropdownArrowFill': ef.get('fieldColors', 'arrowColor'),
-    'userInfoDropdownBtnIconSize': 27px,
+    'userInfoDropdownBtnIconSize': 25px,
     'userInfoDropdownTop': calc(100% + 10px),
     'userInfoDropdownRight': 0,
     'userInfoDropdownMinWidth': 270px,
@@ -29,5 +29,5 @@ $themeDefault: map-merge((
         1200: ef.get('size', 'smallest') ef.get('size', 'smaller'),
     ),
     'userInfoDropdownIconFill': ef.get('mainColors', 'secondary'),
-    'userInfoDropdownIconInnerFill': ef.get('mainColors', 'bg'),
+    'userInfoDropdownIconInnerFill': ef.get('mainColors', 'baseMain'),
 ), $customThemeDefault);

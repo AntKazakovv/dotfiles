@@ -2,6 +2,7 @@
 @use 'engine-scss/mixins/text' as text;
 
 .wlc-user-name--theme-default:host {
+    min-width: 0;
 
     .wlc-user-name {
 
@@ -15,6 +16,7 @@
                 flex-shrink: 0;
 
                 svg {
+                    display: block;
                     width: 100%;
                     height: 100%;
 
@@ -31,7 +33,6 @@
             &-value {
                 margin: ef.get-value($themeDefault, 'userStatsEmailValueMargin');
                 @include text.get-text-style('PrimaryText', ef.get-value($themeDefault, 'userStatsEmailValueColor'));
-                max-width: ef.get-value($themeDefault, 'userStatsEmailValueWidth');
                 overflow: hidden;
                 white-space: nowrap;
                 text-overflow: ellipsis;

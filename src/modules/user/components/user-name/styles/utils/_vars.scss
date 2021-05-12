@@ -2,12 +2,11 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'userStatsEmailValueMargin': 0 15px,
-    'userStatsEmailValueWidth': 160px,
+    'userStatsEmailValueMargin': 0 ef.get('size', 'small'),
     'userStatsEmailValueColor': ef.get('mainColors', 'baseMain'),
     'userStatsIconSize': (
-        375: 39px,
+        375: 25px,
     ),
-    'iconFill': ef.get('mainColors', 'bg'),
+    'iconFill': ef.get('mainColors', 'baseMain'),
     'iconFillBg': ef.get('mainColors', 'secondary'),
 ), $customThemeDefault);

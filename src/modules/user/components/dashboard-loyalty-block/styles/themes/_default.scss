@@ -18,7 +18,6 @@
     }
 
     &__all {
-        @include text.get-text-style('PlaceholderTextBold');
         text-align: center;
 
         @include mq.min(900) {
@@ -26,10 +25,11 @@
         }
 
         a {
-            color: ef.get-value($themeDefault, 'allLinkColor');
             text-decoration: none;
+            @include text.get-text-style(ef.get-value($themeDefault, 'allLinkTextStyle'), ef.get-value($themeDefault, 'allLinkColor'));
 
-            &:hover {
+            @include bm.desktopHover() {
+                color: ef.get-value($themeDefault, 'allLinkColorHover');
                 text-decoration: underline;
             }
 
@@ -44,9 +44,8 @@
     }
 
     &__user-name {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+        display: grid;
+        grid-template-columns: ef.get-value($themeDefault, 'userGridColumns');
 
         .wlc-logout {
             display: none;
@@ -61,20 +60,6 @@
                 svg {
                     width: ef.get-value($themeDefault, 'userIconWidth');
                     margin: ef.get-value($themeDefault, 'userIconMargin');
-                }
-            }
-        }
-
-        ::ng-deep {
-
-            .wlc-user-name--theme-default {
-
-                .wlc-icon {
-
-                    &.wlc-user-name__email-icon {
-                        @include bm.get-mq-map('width', $themeDefault, 'userIconSize');
-                        @include bm.get-mq-map('height', $themeDefault, 'userIconSize');
-                    }
                 }
             }
         }

@@ -68,6 +68,7 @@
                 align-items: center;
                 box-shadow: ef.get-value($themeDefault, 'userInfoDropdownBoxShadow');
                 min-width: ef.get-value($themeDefault, 'userInfoDropdownMinWidth');
+                width: ef.get-value($themeDefault, 'userInfoDropdownMinWidth');
                 padding: ef.get-value($themeDefault, 'userInfoDropdownPadding');
                 background: ef.get-value($themeDefault, 'userInfoDropdownBg');
                 border-radius: ef.get-value($themeDefault, 'userInfoDropdownBorderRadius');

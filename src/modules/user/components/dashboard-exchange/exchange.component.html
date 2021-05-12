@@ -1,6 +1,6 @@
 <div class="{{$class}}__content">
     <div class="{{$class}}-points" data-wlc-element="exchange-points">
-        <div class="{{$class}}-points__value">{{(points | number: '.0-2') || 'Unknown' | translate}}
+        <div class="{{$class}}-points__value">{{(points | number: '.2-2') || 'Unknown' | translate}}
             <span wlc-currency
                   class="{{$class}}-points__currency"
                   currency="LP"

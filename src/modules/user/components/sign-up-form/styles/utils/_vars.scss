@@ -10,7 +10,7 @@ $themeDefault: map-merge((
     'formWraperHeight': 100%,
 
     'gridColumns': 100px 1fr,
-    'gridRows': repeat(5, max-content) minmax(auto, 1fr) max-content,
+    'gridAlignContent': start,
     'gridGap': 20px 15px,
     'templateAreas': 'email email' 'password password' 'currency promocode' 'terms terms' 'age age' 'btn btn' 'account account',
 
@@ -23,8 +23,7 @@ $themeDefault: map-merge((
     'inputOpacity': 1,
 
     'btnMargin': (
-        320: 0 auto,
-        900: auto auto ef.get('size', 'small'),
+        375: 0 auto ef.get('size', 'smallest'),
     ),
 
     'checkboxLinkTransition': color 0.3s linear#{','} border-bottom-color 0.3s linear,
