@@ -29,6 +29,7 @@ import {
 import * as Params from './post.params';
 
 import _get from 'lodash-es/get';
+import _forEach from 'lodash-es/forEach';
 
 @Component({
     selector: '[wlc-post]',
@@ -79,6 +80,10 @@ export class PostComponent extends AbstractComponent implements OnInit, AfterVie
                 data = await this.staticService.getPost(slug);
             }
 
+            if (this.configService.get<string[]>({name: '$static.normalizeInternalLinks'})) {
+                data = this.replaceLinkPaths(data);
+            }
+
             this.html = this.domSanitizer.bypassSecurityTrustHtml(data.html)?.['changingThisBreaksApplicationSecurity'];
 
             this.params.setTitle?.(data.title);
@@ -103,5 +108,18 @@ export class PostComponent extends AbstractComponent implements OnInit, AfterVie
 
     public ngAfterViewInit() {
         this.viewRef.remove();
+    }
+
+    protected replaceLinkPaths(data: TextDataModel): TextDataModel {
+        const parser: DOMParser = new DOMParser();
+        try {
+            const doc: Document = parser.parseFromString(data.html, 'text/html');
+            _forEach(doc.links, (link) => {
+                link.href = link.href.replace('/static-texts/', '/contacts/');
+            });
+            data.html = doc.body.innerHTML;
+        } finally {
+            return data;
+        }
     }
 }
