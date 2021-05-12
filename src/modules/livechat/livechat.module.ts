@@ -4,6 +4,7 @@ import {CoreModule} from '../core/core.module';
 
 import {ChatraService} from './system/services/chatra/chatra.service';
 import {LivechatincService} from './system/services/livechatinc/livechatinc.service';
+import {VerboxService} from './system/services/verbox/verbox.service';
 import {CommonChatService} from './system/services/common/common-chat.service';
 
 export const components = {};
@@ -17,6 +18,7 @@ export const components = {};
     providers: [
         ChatraService,
         LivechatincService,
+        VerboxService,
         CommonChatService,
     ],
     exports: [],

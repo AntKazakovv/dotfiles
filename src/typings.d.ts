@@ -8,6 +8,13 @@ declare interface ISentryConfig {
     project?: string;
 }
 
+declare interface IVerboxSetup {
+    domain?: string;
+    language?: string;
+    clientId?: number;
+    returnMobileTriggerTimeout?: number;
+}
+
 declare interface Window {
     WLC_VERSION: number;
     WLC_ENV?: string;
@@ -21,6 +28,9 @@ declare interface Window {
     ChatraSetup?: any;
     ChatraID?: string;
     ChatraGroupID?: string;
+    Verbox?: any;
+    supportAPIMethod?: string;
+    VerboxSetup?: IVerboxSetup;
     __lc?: any;
     LC_API?: any;
     affiliate: string;
