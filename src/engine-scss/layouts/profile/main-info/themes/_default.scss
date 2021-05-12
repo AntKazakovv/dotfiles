@@ -236,6 +236,8 @@
 .app-profile-loyalty-tournaments-main-state,
 .app-profile-loyalty-tournaments-active-state,
 .app-profile-loyalty-tournaments-history-state,
+.app-profile-loyalty-tournaments-detail-state,
+.app-profile-loyalty-tournaments-active-state,
 .app-profile-cash-deposit-state,
 .app-profile-cash-withdraw-state,
 .app-profile-cash-transactions-state,
@@ -263,6 +265,7 @@
 
                     .wlc-profile-content {
                         padding: ef.get('size', 'smaller');
+                        overflow: hidden;
                     }
                 }
 
@@ -276,4 +279,46 @@
         }
     }
 }
+
+.app-profile-loyalty-tournaments-detail-state {
+
+    .wlc-sections {
+
+        &__profile-content--theme-first {
+
+            > .container {
+
+                @include mq.min(1366) {
+
+                    .wlc-profile-content {
+                        padding: ef.get('size', 'main');
+                    }
+                }
+            }
+        }
+    }
+}
+
+.app-profile-loyalty-tournaments-active-state,
+.app-profile-loyalty-tournaments-main-state {
+
+    .wlc-sections {
+
+        &__profile-content--theme-first {
+
+            > .container {
+                padding: 0;
+            }
+        }
+    }
+}
+
+.app-profile-loyalty-tournaments-active-state {
+
+    .wlc-tournament-detail__header-info--back-link {
+        display: none;
+    }
+}
+
+
 /// TODO finish

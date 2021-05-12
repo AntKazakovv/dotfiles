@@ -29,6 +29,8 @@ export interface IProfileFormCParams extends IComponentParams<ComponentTheme, Co
 
 export const defaultParams: IProfileFormCParams = {
     class: 'wlc-profile-form',
+    componentName: 'wlc-profile-form',
+    moduleName: 'user',
     common: {},
     config: {
         class: 'wlc-form-wrapper',

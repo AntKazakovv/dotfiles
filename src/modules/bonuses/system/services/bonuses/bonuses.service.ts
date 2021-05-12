@@ -564,7 +564,7 @@ export class BonusesService {
                 type: 'error',
                 title,
                 message: errors,
-                wlcElement: 'notifiсation_bonus-error',
+                wlcElement: 'notification_bonus-error',
             },
         });
     }
@@ -576,7 +576,7 @@ export class BonusesService {
                 type: 'success',
                 title,
                 message,
-                wlcElement: 'notifiсation_bonus-success',
+                wlcElement: 'notification_bonus-success',
             },
         });
     }

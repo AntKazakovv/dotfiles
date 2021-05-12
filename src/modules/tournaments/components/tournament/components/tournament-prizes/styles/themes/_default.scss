@@ -10,23 +10,23 @@
     .wlc-tournament-prizes {
 
         &__container {
+            padding: ef.get-value($themeDefault, 'containerPadding');
+
             background: ef.get-value($themeDefault, 'containerBackground');
             border-radius: ef.get-value($themeDefault, 'bodyRadius');
-            padding: ef.get-value($themeDefault, 'containerPadding');
+
         }
 
         &__head {
-            padding: ef.get-value($themeDefault, 'headPadding');
             margin: ef.get-value($themeDefault, 'headMargin');
+            padding: ef.get-value($themeDefault, 'headPadding');
+
             border-bottom: ef.get-value($themeDefault, 'headBorderBottom');
 
             &-text {
-                display: flex;
-                align-items: center;
-                justify-content: center;
+                display: block;
 
                 white-space: nowrap;
-                max-width: ef.get-value($themeDefault, 'headTextMaxWidth');
                 overflow: hidden;
                 text-overflow: ellipsis;
 
@@ -35,8 +35,8 @@
         }
 
         &__body {
-            padding: ef.get-value($themeDefault, 'bodyPadding');
             margin: ef.get-value($themeDefault, 'bodyMargin');
+            padding: ef.get-value($themeDefault, 'bodyPadding');
 
             background: ef.get-value($themeDefault, 'bodyBackground');
             border-radius: ef.get-value($themeDefault, 'bodyRadius');

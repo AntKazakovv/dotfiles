@@ -51,6 +51,7 @@ interface ITournamentData extends IData {
 export class TournamentsService {
     public tournaments: Tournament[] = [];
     public isProcessed$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+    public updateData: boolean = true;
 
     private subjects: { [key: string]: BehaviorSubject<Tournament[]> } = {
         tournaments$: new BehaviorSubject(null),
@@ -459,7 +460,7 @@ export class TournamentsService {
                 type: 'error',
                 title,
                 message: errors,
-                wlcElement: 'notifiсation_tournament-error',
+                wlcElement: 'notification_tournament-error',
             },
         });
     }
@@ -471,7 +472,7 @@ export class TournamentsService {
                 type: 'success',
                 title,
                 message: '',
-                wlcElement: 'notifiсation_tournament-success',
+                wlcElement: 'notification_tournament-success',
             },
         });
     }

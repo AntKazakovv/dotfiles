@@ -1,8 +1,10 @@
 'use strict';
 
-import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
+interface IIndexing<T> {
+    [key: string]: T;
+}
 
-interface IData extends IIndexing<any> {
+interface IFlogData extends IIndexing<any> {
     code: string;
     level: string;
 }
@@ -132,10 +134,10 @@ class WlcFlog {
     /**
      * Get data as JSOn string
      *
-     * @param {IData} data Log data
+     * @param {IFlogData} data Log data
      * @returns {string}
      */
-    private getDataString(data: IData): string {
+    private getDataString(data: IFlogData): string {
         if (!data || !data.code || !data.level) {
             return '';
         }
@@ -152,10 +154,10 @@ class WlcFlog {
     /**
      * Send log
      *
-     * @param {IData} data Log data
+     * @param {IFlogData} data Log data
      * @returns {Promise<string>}
      */
-    private async send(data: IData): Promise<string> {
+    private async send(data: IFlogData): Promise<string> {
         await this.isReady;
         const dataString = this.getDataString(data),
             abortController = new window['AbortController']();

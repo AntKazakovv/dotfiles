@@ -25,6 +25,8 @@ $themeDefault: map-merge((
     'itemTransition': all ef.get('time', 'main'),
     'itemSvgColor': ef.get('mainColors', 'baseMain'),
     'itemBeforePaddingTop': 62%,
+    'itemIconColor': inherit,
+    'itemIconFontSize': inherit,
 
     'itemBoxShadowHover': 0 1px 5px ef.get('color', 'main'),
     'itemSvgColorHover': ef.get('mainColors', 'baseMain'),

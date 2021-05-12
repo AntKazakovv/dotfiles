@@ -146,8 +146,8 @@ export class IconListComponent extends IconListAbstract<Params.IIconListCParams>
      * Based on games request data.
      **/
     protected async setMerchantsList(): Promise<void> {
-        const {theme} = this.$params;
-        const showIconAs = this.$params.type == 'svg' ? 'svg' : 'img';
+        const {theme, type, colorIconBg} = this.$params;
+        const showIconAs = type === 'svg' ? 'svg' : 'img';
 
         await this.configService.ready;
         await this.layoutService.importModules(['games']);
@@ -162,6 +162,7 @@ export class IconListComponent extends IconListAbstract<Params.IIconListCParams>
                 wlcElement: item.wlcElement,
                 nameForPath: item.alias,
                 alt: item.name,
+                colorIconBg: colorIconBg,
             }));
 
             this.cdr.markForCheck();
@@ -174,8 +175,8 @@ export class IconListComponent extends IconListAbstract<Params.IIconListCParams>
      * Based on bootstrap request data.
      **/
     protected setPaymentsLst(): void {
-        const {theme} = this.$params;
-        const showIconAs = this.$params.type == 'svg' ? 'svg' : 'img';
+        const {theme, type, colorIconBg} = this.$params;
+        const showIconAs = type === 'svg' ? 'svg' : 'img';
 
         let payments: IPaysystem[] = this.configService.get('appConfig.siteconfig.payment_systems') || [];
 
@@ -206,6 +207,7 @@ export class IconListComponent extends IconListAbstract<Params.IIconListCParams>
             showAs: showIconAs,
             wlcElement: 'block_payment-' + this.wlcElementTail(item.Name),
             nameForPath: item.Name,
+            colorIconBg: colorIconBg,
         }));
     }
 

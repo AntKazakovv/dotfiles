@@ -19,6 +19,7 @@ export interface IGameThumbCParams extends IComponentParams<Theme, Type, ThemeMo
     common?: {
         themeMod?: ThemeMod;
         game?: Game,
+        gameId?: number;
         useMerchantName?: boolean,
         promoWidget?: IGamePromoWidget;
     }

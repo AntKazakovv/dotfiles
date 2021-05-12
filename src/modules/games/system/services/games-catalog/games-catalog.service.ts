@@ -141,7 +141,14 @@ export class GamesCatalogService {
         this.eventService.subscribe({
             name: gamesEvents.FETCH_GAME_CATALOG_SUCCEEDED,
         }, (data: IData) => {
-            this.gamesCatalog = new GamesCatalog(data.data, this);
+            this.gamesCatalog = new GamesCatalog(
+                data.data,
+                this,
+                this.translateService,
+                this.configService,
+                this.router,
+                this.eventService,
+            );
             this.$resolve();
             this.loadJackpots();
             this.loadFavourites();
@@ -348,6 +355,23 @@ export class GamesCatalogService {
             }
         }
         return games;
+    }
+
+    /**
+     * Get games title by state
+     * @returns {string}
+     */
+    public getGamesTitleByState(): string {
+        const childCategory = this.getChildCategoryByState();
+        const parentCategory = this.getParentCategoryByState();
+        const lang: string = this.translateService.currentLang;
+
+        if (childCategory) {
+            return childCategory.title[lang] || childCategory.title['en'];
+        } else if (parentCategory) {
+            return parentCategory.title[lang] || parentCategory.title['en'];
+        }
+        return;
     }
 
     /**

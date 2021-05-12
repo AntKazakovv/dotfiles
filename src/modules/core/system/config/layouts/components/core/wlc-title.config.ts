@@ -181,7 +181,16 @@ export namespace wlcTitle {
         name: 'core.wlc-title',
         params: {
             customMod: ['available-tournaments'],
-            mainText: gettext('Available tournaments'),
+            mainText: gettext('Current tournaments'),
+            wlcElement: 'header_tournaments',
+        },
+    };
+
+    export const profileActiveTournaments: ILayoutComponent = {
+        name: 'core.wlc-title',
+        params: {
+            customMod: ['available-tournaments'],
+            mainText: gettext('Active tournaments'),
             wlcElement: 'header_tournaments',
         },
     };

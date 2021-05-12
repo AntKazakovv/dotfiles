@@ -9,9 +9,12 @@
 
         &__content {
             display: flex;
-            align-items: center;
-            justify-content: center;
+            @include bm.get-mq-map('flex-wrap', $themeDefault, 'contentFlexWrap');
+            align-items: ef.get-value($themeDefault, 'contentAlignItems');
+            justify-content: ef.get-value($themeDefault, 'contentJustifyContent');
+
             height: 100%;
+
             @include bm.get-mq-map('min-width', $themeDefault, 'width');
             @include bm.get-mq-map('padding', $themeDefault, 'padding');
             @include bm.get-mq-map('background', $themeDefault, 'background');
@@ -22,6 +25,8 @@
             display: flex;
             align-items: center;
 
+            @include bm.get-mq-map('min-width', $themeDefault, 'prizeBlockMinWidth');
+
             &--icon {
                 @include bm.get-mq-map('margin', $themeDefault, 'prizeIconMargin');
                 @include bm.get-mq-map('color', $themeDefault, 'prizeIconColor');
@@ -30,14 +35,14 @@
             &__text {
                 line-height: 0;
 
-                &--subtitle{
+                &--subtitle {
                     @include text.get-text-style(
                         ef.get-value($themeDefault, 'prizeTextStyle'),
                         ef.get-value($themeDefault, 'prizeTextColor')
                     );
                 }
 
-                &--value{
+                &--value {
                     @include text.get-text-style(
                         ef.get-value($themeDefault, 'prizeNumStyle'),
                         ef.get-value($themeDefault, 'prizeNumColor')
@@ -54,6 +59,7 @@
         }
 
         &__timer-block {
+
             ::ng-deep {
 
                 .wlc-timer {

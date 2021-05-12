@@ -1,8 +1,11 @@
 <div class="{{$class}}__wrapper" #wrapper>
-    <div *ngFor="let item of items"
+    <ng-container *ngFor="let item of items">
+        <div *ngIf="!(item.isError && $params.hideImgOnError)"
+            wlc-icon-list-item
             class="{{$class}}__item {{item.modifier}}"
             [attr.data-wlc-element]="item.wlcElement"
-            wlc-icon-list-item
             [inlineParams]='{icon: item, class: $class + "-item"}'>
-    </div>
+        </div>
+    </ng-container>
+
 </div>

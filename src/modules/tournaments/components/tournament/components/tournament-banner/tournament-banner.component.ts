@@ -41,6 +41,7 @@ export class TournamentBannerComponent
     @Input() public customMod: Params.CustomMod;
     @Input() public tournament: Tournament;
     @Input() public parentInstance: TournamentComponent;
+    @Input() public actionParams: Params.IActionParams;
 
     public $params: Params.ITournamentBannerCParams;
     public isTournamentSelected: boolean;
@@ -63,7 +64,7 @@ export class TournamentBannerComponent
 
     public ngOnInit(): void {
         super.ngOnInit(GlobalHelper.prepareParams(this,
-            ['tournament', 'type', 'theme', 'themeMod', 'customMod', 'parentInstance']));
+            ['tournament', 'type', 'theme', 'themeMod', 'customMod', 'parentInstance', 'actionParams']));
 
         this.isAuth = this.ConfigService.get<boolean>('$user.isAuthenticated');
         this.isTournamentSelected = this.tournamentsService.isTournamentSelected;
@@ -94,8 +95,9 @@ export class TournamentBannerComponent
             });
     }
 
-    public readMore(scrollToSelector: string = ''): void {
-        this.parentInstance?.readMore(scrollToSelector);
+    public readMore(useSelector: boolean = false): void {
+        const selector = useSelector ? this.$params.common.actionParams.selector : '';
+        this.parentInstance?.readMore(this.$params.common.actionParams, selector);
     }
 
     public joinToTournament(): void {

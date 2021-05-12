@@ -66,11 +66,11 @@ export class ProviderGamesComponent extends AbstractComponent implements OnInit 
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
 
-        this.getProvider();
+        this.getProviderByState();
         this.initListeners();
     }
 
-    protected async getProvider(): Promise<void> {
+    protected async getProviderByState(): Promise<void> {
         await this.gamesCatalogService.ready;
 
         if (this.provider) {
@@ -81,10 +81,11 @@ export class ProviderGamesComponent extends AbstractComponent implements OnInit 
 
         this.provider = slug ? this.gamesCatalogService.getMerchantByName(slug) : null;
 
-        if (!this.provider) {
+        if (!slug || !this.provider) {
             this.stateService.go('app.error', {
                 locale: this.configService.get('currentLanguage'),
             });
+            return;
         }
 
         this.setIconModel();
@@ -120,21 +121,25 @@ export class ProviderGamesComponent extends AbstractComponent implements OnInit 
 
     protected setIconModel(): void {
         const {name, alias, wlcElement} = this.provider;
-        const {iconType} = this.$params;
+        const {iconType, colorIconBg} = this.$params;
         const showAs = iconType === 'black' ? 'svg' : 'img';
+        const iconColor = (iconType === 'color' && colorIconBg) ? '/' + colorIconBg : null;
+
         this.icon = new IconModel({
             showAs: showAs,
             alt: name,
             wlcElement: wlcElement,
-            iconUrl: `${showAs === 'img' ? '/gstatic' : ''}/merchants/svg/${iconType}/${GlobalHelper.toSnakeCase(alias)}.svg`,
+            iconUrl: `${showAs === 'img' ? '/gstatic' : ''}/merchants/svg/${iconType}${iconColor || ''}/${GlobalHelper.toSnakeCase(alias)}.svg`,
         });
     }
 
     protected initListeners(): void {
-        this.router.transitionService.onSuccess({}, () => {
+        this.router.transitionService.onSuccess({}, (trans) => {
             this.ready = false;
             this.cdr.markForCheck();
-            this.getProvider();
+            if (trans.params().provider) {
+                this.getProviderByState();
+            }
         });
     }
 

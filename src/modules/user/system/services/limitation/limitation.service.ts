@@ -157,7 +157,7 @@ export class LimitationService {
                     type: 'error',
                     title: gettext('Error'),
                     message: gettext('Error getting user self exclusion'),
-                    wlcElement: 'notifiсation_get-self-exclusion-error',
+                    wlcElement: 'notification_get-self-exclusion-error',
                 },
             });
         }
@@ -180,7 +180,7 @@ export class LimitationService {
                     type: 'error',
                     title: gettext('Error'),
                     message: gettext('Error setting user self exclusion'),
-                    wlcElement: 'notifiсation_set-self-exclusion-error',
+                    wlcElement: 'notification_set-self-exclusion-error',
                 },
             });
         }
@@ -209,7 +209,7 @@ export class LimitationService {
                     type: 'error',
                     title: gettext('Error'),
                     message: gettext('Error remove user self exclusion'),
-                    wlcElement: 'notifiсation_remove-self-exclusion-error',
+                    wlcElement: 'notification_remove-self-exclusion-error',
                 },
             });
         } finally {

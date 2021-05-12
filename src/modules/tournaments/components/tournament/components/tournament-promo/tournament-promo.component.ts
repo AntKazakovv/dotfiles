@@ -42,6 +42,7 @@ export class TournamentPromoComponent extends AbstractComponent implements OnIni
     @Input() public customMod: Params.CustomMod;
     @Input() public tournament: Tournament;
     @Input() public parentInstance: TournamentComponent;
+    @Input() public actionParams: Params.IActionParams;
 
     public $params: Params.ITournamentPromoCParams;
     public isTournamentSelected: boolean;
@@ -65,7 +66,7 @@ export class TournamentPromoComponent extends AbstractComponent implements OnIni
 
     public ngOnInit(): void {
         super.ngOnInit(GlobalHelper.prepareParams(this,
-            ['tournament', 'type', 'theme', 'themeMod', 'customMod']));
+            ['tournament', 'type', 'theme', 'themeMod', 'customMod', 'actionParams']));
 
         this.isTournamentSelected = this.tournamentsService.isTournamentSelected;
         this.isAuth = this.ConfigService.get<boolean>('$user.isAuthenticated');
@@ -88,8 +89,9 @@ export class TournamentPromoComponent extends AbstractComponent implements OnIni
         this.parentInstance?.join();
     }
 
-    public readMore(scrollToSelector: string = ''): void {
-        this.parentInstance?.readMore(scrollToSelector);
+    public readMore(useSelector: boolean = false): void {
+        const selector = useSelector ? this.$params.common.actionParams.selector : '';
+        this.parentInstance?.readMore(this.$params.common.actionParams, selector);
     }
 
     protected checkParentInstance(): void {

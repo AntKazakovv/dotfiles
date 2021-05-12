@@ -30,7 +30,6 @@ export class IconListItemComponent extends AbstractComponent implements OnInit, 
     @Input() public icon: IconModel;
 
     public $params: Params.IIconListItemCParams;
-    public error: boolean = false;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IIconListItemCParams,
@@ -51,12 +50,12 @@ export class IconListItemComponent extends AbstractComponent implements OnInit, 
 
     public ngOnChanges(changes: SimpleChanges): void {
         if (changes['icon']) {
-            this.error = false;
+            this.icon.isError = false;
         }
     }
 
     public errorHandler(): void {
-        this.error = true;
+        this.icon.isError = true;
     }
 
 }

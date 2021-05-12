@@ -61,6 +61,8 @@ $themeDefault: map-merge((
     'imageSize': 100%,
     'imagePosition': 0,
     'imageZIndex': 1,
+    'imageObjectFit': fill,
+    'imageObjectPosition': center,
 
     'textAlign': (
         320: center,
@@ -87,6 +89,7 @@ $themeDefault: map-merge((
     'descriptionColor': ef.get('mainColors', 'baseMain'),
     'descriptionMargin': 0 0 ef.get('size', 'main') ,
 
+    'btnsWrapMargin': auto 0 0 0,
     'btnsWrapAlign': (
         320: center,
         900: flex-start,
@@ -100,7 +103,7 @@ $themeDefault: map-merge((
     'btnsPadding': ef.get('size', 'smallest') ef.get('size', 'smally'),
     'btnsMargin': 0 ef.get('size', 'smaller') 0 0,
 
-    'prizesMargin': ef.get('size', 'small') auto ef.get('size', 'smaller'),
+    'prizesMargin': ef.get('size', 'small') auto,
 
     'loaderZIndex': 10,
     'loaderPosition': 0,
@@ -117,4 +120,42 @@ $themeDefault: map-merge((
     'loaderAfterRadius': 50%,
     'loaderAfterAnimation': spin 1s infinite linear,
 ), $customThemeDefault);
+
+$customModAvailable: () !default;
+$modAvailable: map-merge((
+    'containerGridTemplateColumns': (
+        320: minmax(290px, 1fr),
+        900: minmax(320px, 1fr) 290px,
+        1200: minmax(320px, 1fr) 340px,
+    ),
+    'containerBackground': (
+        320: ef.get('mainColors', 'bg500'),
+    ),
+
+    'containerHeight': (
+        320: auto,
+        900: 380px,
+        1630: 400px,
+    ),
+
+    'infoPadding': (
+        320: ef.get('size', 'smaller'),
+        640: ef.get('size', 'smally'),
+        1024: ef.get('size', 'smaller') ef.get('size', 'smally'),
+        1630: ef.get('size', 'less') ef.get('size', 'main') ef.get('size', 'main'),
+    ),
+
+    'btnsWrapPadding': (
+        320: 0 ef.get('size', 'less') ef.get('size', 'smaller'),
+        640: 0 ef.get('size', 'smally') ef.get('size', 'smally'),
+        1024: 0 ef.get('size', 'smally') ef.get('size', 'smaller'),
+        1630: 0 ef.get('size', 'main') ef.get('size', 'main'),
+    ),
+
+    'boardPadding': (
+        320:ef.get('size', 'small') ef.get('size', 'smaller') ef.get('size', 'smaller'),
+        640: ef.get('size', 'smally'),
+        1630: ef.get('size', 'smaller') ef.get('size', 'main'),
+    ),
+), $customModAvailable);
 

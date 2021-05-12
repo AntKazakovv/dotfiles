@@ -35,7 +35,7 @@
 <ng-template #itemTemplate let-item="item">
     <ng-container [ngSwitch]="item.showAs">
         <ng-container *ngSwitchCase="'svg'">
-            <ng-container *ngIf="!error, else imageError">
+            <ng-container *ngIf="!item.isError, else imageError">
                 <span class="{{$class}}__svg"
                     wlc-icon
                     [iconUrl]="item.image"
@@ -45,7 +45,7 @@
         </ng-container>
 
         <ng-container *ngSwitchDefault>
-            <ng-container *ngIf="!error, else imageError">
+            <ng-container *ngIf="!item.isError, else imageError">
                 <img class="{{$class}}__image"
                     [src]="item.image"
                     [alt]="item.alt"

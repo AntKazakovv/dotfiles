@@ -8,15 +8,38 @@
     .wlc-bonus-item {
 
         &__content {
-            position: relative;
-            background: ef.get-value($themeDefault, 'background');
             @include em.get-mq-map('height', $themeDefault, 'height');
+            position: relative;
             min-width: ef.get-value($themeDefault, 'minWidth');
             max-width: ef.get-value($themeDefault, 'maxWidth');
+            margin-right: auto;
+            margin-left: auto;
+            background: ef.get-value($themeDefault, 'background');
             border-radius: ef.get-value($themeDefault, 'radius');
             overflow: hidden;
-            margin-left: auto;
-            margin-right: auto;
+
+            &.disabled {
+                cursor: not-allowed;
+                opacity: 0.5;
+                filter: grayscale(100%);
+
+                .wlc-bonus-item__wrapper,
+                .wlc-bonus-item__more-icon {
+                    pointer-events: none;
+                }
+            }
+
+            .wlc-sections__profile-content--theme-first & {
+                max-width: 100%;
+            }
+
+            @include mq.min(1630) {
+                min-width: ef.get-value($themeDefault, 'minWidthDesktop');
+            }
+
+            @include mq.min(768) {
+                max-width: 100%;
+            }
 
             @media (hover: none) {
                 @include em.get-mq-map('height', $themeDefault, 'heightMobile');
@@ -38,56 +61,37 @@
                     background: ef.get-value($themeDefault, 'backgroundHover');
                 }
             }
-
-            @include mq.min(1630) {
-                min-width: ef.get-value($themeDefault, 'minWidthDesktop');
-            }
-
-            @include mq.min(768) {
-                max-width: 100%;
-            }
-
-            &.disabled {
-                filter: grayscale(100%);
-                opacity: 0.5;
-                cursor: not-allowed;
-
-                .wlc-bonus-item__wrapper,
-                .wlc-bonus-item__more-icon {
-                    pointer-events: none;
-                }
-            }
-
-            .wlc-sections__profile-content--theme-first & {
-                max-width: 100%;
-            }
         }
 
         &__wrapper {
+            @include em.get-mq-map('grid-template-rows', $themeDefault, 'infoHeight');
             position: relative;
+            display: grid;
             width: 100%;
             height: 100%;
-            display: grid;
-            @include em.get-mq-map('grid-template-rows', $themeDefault, 'infoHeight');
+            background: {
+                image: ef.get-value($themeDefault, 'backgroundDefault');
+                size: ef.get-value($themeDefault, 'backgroundDefaultSize');
+            }
         }
 
         &__check-icon {
             position: absolute;
-            background-color: ef.get-value($themeDefault, 'chosenIconBg');
-            border-radius: ef.get-value($themeDefault, 'chosenIconBdRds');
+            top: ef.get-value($themeDefault, 'chosenIconPosT');
+            left: ef.get-value($themeDefault, 'chosenIconPosL');
+            display: none;
+            align-items: center;
+            justify-content: center;
             width: ef.get-value($themeDefault, 'chosenIconWidth');
             height: ef.get-value($themeDefault, 'chosenIconHeight');
-            left: ef.get-value($themeDefault, 'chosenIconPosL');
-            top: ef.get-value($themeDefault, 'chosenIconPosT');
-            display: none;
-            justify-content: center;
-            align-items: center;
+            background-color: ef.get-value($themeDefault, 'chosenIconBg');
+            border-radius: ef.get-value($themeDefault, 'chosenIconBdRds');
 
             svg {
                 width: ef.get-value($themeDefault, 'chosenIconSvgSize');
                 height: ef.get-value($themeDefault, 'chosenIconSvgSize');
-                stroke: ef.get-value($themeDefault, 'chosenIconSvgColor');
                 fill: none;
+                stroke: ef.get-value($themeDefault, 'chosenIconSvgColor');
             }
         }
 
@@ -101,8 +105,8 @@
                     & + .wlc-bonus-item__bottom {
 
                         .wlc-bonus-item__btns {
-                            opacity: 1;
                             transform: translateY(0);
+                            opacity: 1;
                         }
 
                         .wlc-bonus-item__description {
@@ -118,13 +122,13 @@
         }
 
         &__image {
-            width: 100%;
-            background-size: cover;
-            background-position: center center;
-            background-repeat: no-repeat;
-            background-color: ef.get-value($themeDefault, 'imageBg');
-            padding-bottom: ef.get-value($themeDefault, 'relativeImageHeight');
             position: relative;
+            width: 100%;
+            padding-bottom: ef.get-value($themeDefault, 'relativeImageHeight');
+            background-color: ef.get-value($themeDefault, 'imageBg');
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: cover;
 
             .wlc-bonus-image-other {
                 position: absolute;
@@ -134,35 +138,35 @@
         &__bonus-icon {
             @include em.get-mq-map('width', $themeDefault, 'bonusIconSize');
             @include em.get-mq-map('height', $themeDefault, 'bonusIconSize');
-            background-repeat: no-repeat;
-            background-size: cover;
-            background-position: center center;
             @include em.get-mq-map('margin', $themeDefault, 'bonusIconMargin');
             position: relative;
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: cover;
 
             .icon-sign {
                 position: absolute;
-                width: 100%;
-                left: 0;
                 top: 0;
+                left: 0;
+                width: 100%;
             }
 
             .icon-text {
-                width: ef.get-value($themeDefault, 'bonusIconValueBlockWidth');
                 @include em.get-mq-map('height', $themeDefault, 'bonusIconValueBlockHeight');
                 @include em.get-mq-map('font-size', $themeDefault, 'bonusIconValueFontSize');
-                border-radius: ef.get-value($themeDefault, 'bonusIconValueBlockBorderRds');
-                background-color: ef.get-value($themeDefault, 'bonusIconValueBg');
-                color: ef.get-value($themeDefault, 'bonusIconValueFontColor');
-                font-weight: ef.get-value($themeDefault, 'bonusIconValueFontW');
                 position: absolute;
-                left: ef.get-value($themeDefault, 'bonusIconValueBlockPosL');
                 bottom: ef.get-value($themeDefault, 'bonusIconValueBlockPosB');
-                margin: ef.get-value($themeDefault, 'bonusIconValueBlockMagin');
+                left: ef.get-value($themeDefault, 'bonusIconValueBlockPosL');
                 display: flex;
                 align-items: center;
                 justify-content: center;
+                width: ef.get-value($themeDefault, 'bonusIconValueBlockWidth');
+                margin: ef.get-value($themeDefault, 'bonusIconValueBlockMagin');
+                color: ef.get-value($themeDefault, 'bonusIconValueFontColor');
+                font-weight: ef.get-value($themeDefault, 'bonusIconValueFontW');
                 line-height: 1;
+                background-color: ef.get-value($themeDefault, 'bonusIconValueBg');
+                border-radius: ef.get-value($themeDefault, 'bonusIconValueBlockBorderRds');
 
                 &.wlc-small {
                     font-size: ef.get-value($themeDefault, 'bonusIconValueFontSizeSmall');
@@ -175,18 +179,18 @@
         }
 
         &__tag {
-            position: absolute;
             @include em.get-mq-map('padding', $themeDefault, 'tagPadding');
-            background-color: ef.get-value($themeDefault, 'tagBg');
-            border-radius: ef.get-value($themeDefault, 'tagRadius');
 
             @include text.get-text-style('SignText', ef.get-value($themeDefault, 'tagFontColor'));
+            position: absolute;
+            top: ef.get-value($themeDefault, 'tagPositionTop');
 
             left: 50%;
-            transform: translateX(-50%);
-            top: ef.get-value($themeDefault, 'tagPositionTop');
             z-index: 2;
+            background-color: ef.get-value($themeDefault, 'tagBg');
+            transform: translateX(-50%);
             will-change: transform;
+            border-radius: ef.get-value($themeDefault, 'tagRadius');
         }
 
         &__bottom {
@@ -196,8 +200,8 @@
                 &:hover {
 
                     .wlc-bonus-item__btns {
-                        opacity: 1;
                         transform: translateY(0);
+                        opacity: 1;
                     }
 
                     .wlc-bonus-item__description {
@@ -216,27 +220,27 @@
         }
 
         &__name {
+            @include em.get-mq-map('width', $themeDefault, 'infoWidth');
+            color: ef.get-value($themeDefault, 'nameFontColor');
+            font-weight: bold;
             font-size: ef.get-value($themeDefault, 'nameFontSize');
             line-height: 1.4;
-            font-weight: bold;
-            color: ef.get-value($themeDefault, 'nameFontColor');
             text-align: ef.get-value($themeDefault, 'positionText');
-            @include em.get-mq-map('width', $themeDefault, 'infoWidth');
-
-            @include mq.min(1630) {
-                @include text.get-text-style('QoteTextBold', ef.get-value($themeDefault, 'nameFontColor'));
-            }
 
             .wlc-sections__profile-content--theme-first & {
                 @include em.get-mq-map('width', $themeDefault, 'infoWidthProfileThemeFirst');
+            }
+
+            @include mq.min(1630) {
+                @include text.get-text-style('QoteTextBold', ef.get-value($themeDefault, 'nameFontColor'));
             }
         }
 
         &__description {
             @include text.get-text-style('PrimaryText', ef.get-value($themeDefault, 'descriptionFontColor'));
-            text-align: ef.get-value($themeDefault, 'positionText');
             @include em.get-mq-map('width', $themeDefault, 'infoWidth');
             @include em.transition(opacity);
+            text-align: ef.get-value($themeDefault, 'positionText');
 
             .wlc-sections__profile-content--theme-first & {
                 @include em.get-mq-map('width', $themeDefault, 'infoWidthProfileThemeFirst');
@@ -244,12 +248,12 @@
         }
 
         &__active-block {
-            display: grid;
             @include em.get-mq-map('padding', $themeDefault, 'activeBlockPadding');
-            margin: ef.get-value($themeDefault, 'activeBlockMargin');
+            display: grid;
             max-width: ef.get-value($themeDefault, 'activeBlockMaxWidth');
-            border-radius: ef.get-value($themeDefault, 'activeBlockRadius');
+            margin: ef.get-value($themeDefault, 'activeBlockMargin');
             text-align: ef.get-value($themeDefault, 'positionText');
+            border-radius: ef.get-value($themeDefault, 'activeBlockRadius');
         }
 
         &__remaning {
@@ -265,24 +269,24 @@
         }
 
         &__progress {
+            @include em.get-mq-map('margin', $themeDefault, 'activeBlockProgressMargin');
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
-            background-color: ef.get-value($themeDefault, 'activeBlockProgressBg');
-            border-radius: ef.get-value($themeDefault, 'activeBlockProgressRadius');
+            justify-content: center;
             padding: ef.get-value($themeDefault, 'activeBlockProgressPadding');
-            @include em.get-mq-map('margin', $themeDefault, 'activeBlockProgressMargin');
+            background-color: ef.get-value($themeDefault, 'activeBlockProgressBg');
             transition: all ef.get-value($themeDefault, 'time') ease-in-out;
+            border-radius: ef.get-value($themeDefault, 'activeBlockProgressRadius');
         }
 
         &__progressbar {
             width: 100%;
             height: ef.get-value($themeDefault, 'progressBarSize');
-            border-radius: ef.get-value($themeDefault, 'progressBarRadius');
-            background-color: ef.get-value($themeDefault, 'progressBarBg');
-            overflow: hidden;
             margin: ef.get-value($themeDefault, 'progressBarMargin');
+            background-color: ef.get-value($themeDefault, 'progressBarBg');
+            border-radius: ef.get-value($themeDefault, 'progressBarRadius');
+            overflow: hidden;
         }
 
         &__progress-inner {
@@ -293,20 +297,20 @@
 
         &__more-icon {
             position: absolute;
-            left: ef.get-value($themeDefault, 'moreIconPosLeft');
-            right: ef.get-value($themeDefault, 'moreIconPosRight');
             top: ef.get-value($themeDefault, 'moreIconPosTop');
+            right: ef.get-value($themeDefault, 'moreIconPosRight');
             bottom: ef.get-value($themeDefault, 'moreIconPosBottom');
+            left: ef.get-value($themeDefault, 'moreIconPosLeft');
 
             .icon-btn {
-                cursor: pointer;
                 width: ef.get-value($themeDefault, 'moreIconSize');
                 height: ef.get-value($themeDefault, 'moreIconSize');
+                cursor: pointer;
 
                 svg {
+                    @include em.transition(fill);
                     width: 100%;
                     fill: ef.get-value($themeDefault, 'moreIconColor');
-                    @include em.transition(fill);
                 }
             }
 
@@ -325,20 +329,20 @@
         }
 
         &__btns {
-            width: 100%;
-            position: absolute;
             @include em.get-mq-map('bottom', $themeDefault, 'btnBottomPosition');
-            display: flex;
-            justify-content: center;
             @include em.get-mq-map('opacity', $themeDefault, 'btnsOpacity');
             @include em.get-mq-map('transform', $themeDefault, 'btnsTranslateY');
-
-            @include mq.min(1200) {
-                @include em.transition(transform);
-            }
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            width: 100%;
 
             button {
                 margin: ef.get-value($themeDefault, 'btnMargin');
+            }
+
+            @include mq.min(1200) {
+                @include em.transition(transform);
             }
         }
     }
@@ -354,8 +358,8 @@
         }
 
         .wlc-bonus-item__image {
-            padding-bottom: 0;
             height: 100%;
+            padding-bottom: 0;
 
             .wlc-bonus-image-other {
                 position: relative;
@@ -380,13 +384,6 @@
 
         .wlc-bonus-item__wrapper {
             @include em.get-mq-map('grid-template-rows', $themeDefault, 'infoHeightActive');
-        }
-
-        @media (hover: none) {
-
-            .wlc-bonus-item__wrapper {
-                @include em.get-mq-map('grid-template-rows', $themeDefault, 'infoHeightActive');
-            }
         }
 
         .wlc-bonus-item__image,
@@ -439,6 +436,13 @@
         .wlc-bonus-item__info-block {
             @include em.get-mq-map('padding', $themeDefault, 'infoBlockPadding');
         }
+
+        @media (hover: none) {
+
+            .wlc-bonus-item__wrapper {
+                @include em.get-mq-map('grid-template-rows', $themeDefault, 'infoHeightActive');
+            }
+        }
     }
 
     .wlc-bonus-item__content.nochoosebtn,
@@ -488,11 +492,11 @@
     }
 
     .wlc-bonus-item__content.nochoosebtn {
-        cursor: pointer;
-        transform-origin: 50% 50%;
         transform: scale(1);
-        will-change: transform;
+        transform-origin: 50% 50%;
+        cursor: pointer;
         transition: all ef.get-value($themeDefault, 'time') ease-in-out;
+        will-change: transform;
 
         @media (hover: hover) {
 

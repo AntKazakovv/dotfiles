@@ -364,7 +364,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         },
     },
     'profile-first-menu:tournaments-current': {
-        name: gettext('Current tournaments'),
+        name: gettext('Current'),
         type: 'sref',
         icon: 'current-tournaments',
         class: 'tournaments-current',
@@ -390,7 +390,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         wlcElement: 'block_profile-menu-tournaments-active"',
     },
     'profile-first-menu:tournaments-active': {
-        name: gettext('Active tournaments'),
+        name: gettext('Active'),
         type: 'sref',
         icon: 'active-tournaments',
         class: 'tournaments-active',
@@ -416,7 +416,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         },
     },
     'profile-first-menu:tournaments-history': {
-        name: gettext('Tournaments history'),
+        name: gettext('History'),
         type: 'sref',
         icon: 'tournaments-history',
         class: 'tournaments-history',

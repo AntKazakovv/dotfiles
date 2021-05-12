@@ -7,6 +7,8 @@ import {
     ChangeDetectorRef,
 } from '@angular/core';
 
+import {UIRouter} from '@uirouter/core';
+
 import {BehaviorSubject} from 'rxjs';
 import {
     skipWhile,
@@ -28,8 +30,9 @@ import {
     ITournamentDetailCParams,
 } from 'wlc-engine/modules/tournaments';
 import {TournamentConditionComponent} from './components/tournament-condition/tournament-condition.component';
-import {ITournamentConditionCParams} from './components/tournament-condition/tournament-condition.params';
 import {TournamentDetailComponent} from './components/tournament-detail/tournament-detail.component';
+import {ITournamentConditionCParams} from 'wlc-engine/modules/tournaments';
+import {IActionParams} from 'wlc-engine/modules/tournaments/components/tournament/components/tournament-promo/tournament-promo.params';
 
 import * as Params from 'wlc-engine/modules/tournaments/components/tournament/tournament.params';
 
@@ -57,6 +60,8 @@ export class TournamentComponent
     public isTournamentSelected: boolean;
     public instance: TournamentComponent;
     public pending$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+    public detailParams: ITournamentDetailCParams;
+    public actionParams: IActionParams = null;
 
     protected userInfo: UserInfo;
 
@@ -67,6 +72,7 @@ export class TournamentComponent
         protected cdr: ChangeDetectorRef,
         protected configService: ConfigService,
         protected userService: UserService,
+        protected router: UIRouter,
     ) {
         super(
             <IMixedParams<Params.ITournamentCParams>>{
@@ -90,9 +96,15 @@ export class TournamentComponent
 
         this.isAuth = this.ConfigService.get<boolean>('$user.isAuthenticated');
         this.isTournamentSelected = this.tournamentsService.isTournamentSelected;
-        this.getUserInfo();
-
         this.instance = this;
+
+        if (this.type === 'active') {
+            this.isTournamentSelected = true;
+        }
+
+        this.prepareActionParams();
+
+        this.getUserInfo();
     }
 
     public getDashboardImage(): string {
@@ -176,10 +188,10 @@ export class TournamentComponent
         if (tournament.feeAmount === 0) {
             this.joinTournament();
             return;
-        } else if (tournament.feeType === 'balance' && this.userInfo?.balance >= tournament.feeAmount) {
+        } else if (tournament.feeType === 'balance' && this.userInfo?.realBalance >= tournament.feeAmount) {
             this.showConditionModal(
                 tournament,
-                this.userInfo?.balance,
+                this.userInfo?.realBalance,
                 tournament.feeCurrency,
                 gettext('Subscribe'),
                 gettext('Let\'s play?'),
@@ -187,10 +199,10 @@ export class TournamentComponent
             );
 
             return;
-        } else if (tournament.feeType === 'loyalty' && this.userInfo?.points >= tournament.feeAmount) {
+        } else if (tournament.feeType === 'loyalty' && +this.userInfo?.loyalty.Balance >= tournament.feeAmount) {
             this.showConditionModal(
                 tournament,
-                this.userInfo?.points,
+                +this.userInfo?.loyalty.Balance,
                 tournament.feeCurrency,
                 gettext('Subscribe'),
                 gettext('Let\'s play?'),
@@ -198,10 +210,10 @@ export class TournamentComponent
             );
 
             return;
-        } else if (tournament.feeType === 'balance' && this.userInfo?.balance < tournament.feeAmount) {
+        } else if (tournament.feeType === 'balance' && this.userInfo?.realBalance < tournament.feeAmount) {
             this.showConditionModal(
                 tournament,
-                this.userInfo?.balance,
+                this.userInfo?.realBalance,
                 tournament.feeCurrency,
                 gettext('You can`t subscribe'),
                 gettext('Sorry, not today. Deposit more money and join this tournament!'),
@@ -209,10 +221,10 @@ export class TournamentComponent
             );
 
             return;
-        } else if (tournament.feeType === 'loyalty' && this.userInfo?.points < tournament.feeAmount) {
+        } else if (tournament.feeType === 'loyalty' && +this.userInfo?.loyalty.Balance < tournament.feeAmount) {
             this.showConditionModal(
                 tournament,
-                this.userInfo?.points,
+                +this.userInfo?.loyalty.Balance,
                 tournament.feeCurrency,
                 gettext('You can`t subscribe'),
                 gettext('Sorry, not today. Bet more to earn betcoins and join this tournament!'),
@@ -223,20 +235,12 @@ export class TournamentComponent
         }
     }
 
-    public readMore(scrollToSelector: string = ''): void {
-        this.modalService.showModal({
-            id: 'tournament-detail-modal',
-            modifier: 'tournament-detail',
-            component: TournamentDetailComponent,
-            componentParams: <ITournamentDetailCParams>{
-                parentInstance: this.instance,
-                common: {
-                    tournamentId: this.$params.common?.tournament.id || this.$params.tournament.id,
-                    scrollToSelector,
-                },
-            },
-            size: 'xl',
-        });
+    public readMore(actionParams: IActionParams, selector: string): void {
+        if (actionParams.modal) {
+            this.showDetailModal(selector);
+        } else if (actionParams.url) {
+            this.goTo(actionParams);
+        }
     }
 
     protected onConfirm(actionType: string): void {
@@ -297,5 +301,35 @@ export class TournamentComponent
             this.pending$.next(false);
             this.cdr.markForCheck();
         }
+    }
+
+    protected showDetailModal(scrollToSelector): void {
+        this.modalService.showModal({
+            id: 'tournament-detail-modal',
+            modifier: 'tournament-detail',
+            component: TournamentDetailComponent,
+            componentParams: <ITournamentDetailCParams>{
+                parentInstance: this.instance,
+                common: {
+                    tournament: this.tournament,
+                    scrollToSelector,
+                },
+            },
+            size: 'xl',
+        });
+    }
+
+    protected goTo(actionParams: IActionParams): void {
+        this.router.stateService.go(actionParams.url.path, actionParams.url.params);
+    }
+
+    protected prepareActionParams(): void {
+        this.actionParams = {
+            url: {
+                path: 'app.profile.loyalty-tournaments.detail',
+                params: {tournamentId: this.tournament.id},
+            },
+            selector: '.wlc-tournament-detail__prizepool',
+        };
     }
 }
