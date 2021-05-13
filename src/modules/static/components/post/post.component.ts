@@ -111,15 +111,7 @@ export class PostComponent extends AbstractComponent implements OnInit, AfterVie
     }
 
     protected replaceLinkPaths(data: TextDataModel): TextDataModel {
-        const parser: DOMParser = new DOMParser();
-        try {
-            const doc: Document = parser.parseFromString(data.html, 'text/html');
-            _forEach(doc.links, (link) => {
-                link.href = link.href.replace('/static-texts/', '/contacts/');
-            });
-            data.html = doc.body.innerHTML;
-        } finally {
-            return data;
-        }
+        data.html = data.html.replace(/\/static-texts\//g, '/contacts/');
+        return data;
     }
 }
