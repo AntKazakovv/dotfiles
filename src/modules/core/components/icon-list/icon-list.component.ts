@@ -39,8 +39,8 @@ import * as Params from './icon-list.params';
 import _includes from 'lodash-es/includes';
 import _filter from 'lodash-es/filter';
 import _find from 'lodash-es/find';
-import _map from 'lodash-es/map';
 import _sortedUniqBy from 'lodash-es/sortedUniqBy';
+import _uniqBy from  'lodash-es/uniqBy';
 
 /**
  *  Component to display an icon list.
@@ -178,7 +178,8 @@ export class IconListComponent extends IconListAbstract<Params.IIconListCParams>
         const {theme, type, colorIconBg} = this.$params;
         const showIconAs = type === 'svg' ? 'svg' : 'img';
 
-        let payments: IPaysystem[] = this.configService.get('appConfig.siteconfig.payment_systems') || [];
+        let payments: IPaysystem[] = _uniqBy(this.configService.get('appConfig.siteconfig.payment_systems') || [],
+            (item) => item.Name.toLowerCase());
 
         if (this.$params.common?.payment?.exclude?.length) {
 
