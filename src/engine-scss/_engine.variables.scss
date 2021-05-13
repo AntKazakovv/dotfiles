@@ -569,7 +569,7 @@ $appLoader: map-merge((
     'imgBgUrl': url('/static/images/logo.svg'),
     'imgBgRepeat': no-repeat,
     'imgBgPosition': center,
-    'imgBgSize': cover,
+    'imgBgSize': contain,
     'loaderBlockMargin': 35px 0 0,
     'loaderWidth': 50px,
     'loaderHeight': 50px,
