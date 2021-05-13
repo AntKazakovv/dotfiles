@@ -9,6 +9,7 @@ import {
     OnInit,
     ViewChild,
 } from '@angular/core';
+
 import {
     AbstractComponent,
     IMixedParams,
@@ -17,11 +18,10 @@ import {
     EventService,
     IData,
 } from 'wlc-engine/modules/core';
-import {
-    ISliderCParams,
-    ISlide,
-} from 'wlc-engine/modules/promo/components/slider/slider.params';
+
 import {SliderComponent} from 'wlc-engine/modules/promo/components/slider/slider.component';
+import {BonusItemComponent} from 'wlc-engine/modules/bonuses/components/bonus-item/bonus-item.component';
+
 import {
     Bonus,
     BonusesService,
@@ -29,7 +29,11 @@ import {
     ChosenBonusSetParams,
     ChosenBonusType,
 } from 'wlc-engine/modules/bonuses';
-import {BonusItemComponent} from '../bonus-item/bonus-item.component';
+import {
+    ISliderCParams,
+    ISlide,
+} from 'wlc-engine/modules/promo/components/slider/slider.params';
+
 import * as Params from './bonuses-list.params';
 
 import _find from 'lodash-es/find';
@@ -148,6 +152,20 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
                                 slidesPerView: 'auto',
                                 spaceBetween: 0,
                                 allowTouchMove: false,
+                                breakpoints: {
+                                    320: {
+                                        spaceBetween: 0,
+                                    },
+                                    720: {
+                                        spaceBetween: 0,
+                                    },
+                                    1024: {
+                                        spaceBetween: 0,
+                                    },
+                                    1200: {
+                                        spaceBetween: 0,
+                                    },
+                                },
                             });
                             this.isSingleBonus = true;
                         } else {

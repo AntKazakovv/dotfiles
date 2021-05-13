@@ -17,12 +17,12 @@
             @include em.get-mq-map('grid-gap', $dashboardThemeDefault, 'gridGap');
 
             > .wlc-logout {
-                position: absolute;
-                top: 15px;
-                right: 10px;
+                position: ef.get-value($dashboardThemeDefault, 'logoutPosition');
+                top: ef.get-value($dashboardThemeDefault, 'logoutTop');
+                right: ef.get-value($dashboardThemeDefault, 'logoutRight');
 
                 svg {
-                    margin-left: 5px;
+                    margin: ef.get-value($dashboardThemeDefault, 'logoutSvgMargin');
                 }
             }
         }
@@ -34,10 +34,6 @@
 
         &.wlc-title--profile-bonuses {
             grid-area: bonuses-title;
-
-            @include mq.min(1024) {
-                margin-left: 20px;
-            }
         }
     }
 
@@ -58,37 +54,44 @@
     }
 
     .wlc-bonuses-list {
-        max-width: 100%;
         grid-area: bonuses;
+        max-width: ef.get-value($dashboardThemeDefault, 'bonusesListMaxWidth');
 
-        @include mq.min(1024) {
-            margin-left: -20px;
-            margin-right: -20px;
-        }
-    }
+        &.wlc-bonuses-list--type-swiper {
 
-    .wlc-bonuses-list--type-swiper {
+            .wlc-bonuses-list__list-wrapper {
 
-        &.single-bonus-swiper {
-            @include mq.min(1024) {
+                .swiper-container[class] {
+                    @include em.get-mq-map('padding', $dashboardThemeDefault, 'swiperContainerPadding');
+                }
 
-                grid-area: unset;
-                grid-row: 4/6;
-                grid-column: 1/3;
-                margin: 0;
+                .swiper-button-prev[class] {
+                    @include em.get-mq-map('left', $dashboardThemeDefault, 'swiperButtonLeft');
+                }
 
-                ::ng-deep {
+                .swiper-button-next[class] {
+                    @include em.get-mq-map('right', $dashboardThemeDefault, 'swiperButtonRight');
+                }
+            }
 
-                    & + .wlc-enter-promocode {
-                        grid-area: unset;
-                        grid-row: 4/5;
-                        grid-column: 3/5;
+            &.single-bonus-swiper {
 
-                        & + .wlc-link-block {
-                            grid-area: unset;
-                            grid-column: 3/5;
-                            grid-row: 5/6;
-                        }
+                @include mq.min(1024) {
+                    grid-area: ef.get-value($dashboardThemeDefault, 'singleBonusGridArea');
+                    grid-row: ef.get-value($dashboardThemeDefault, 'singleBonusGridRow');
+                    grid-column: ef.get-value($dashboardThemeDefault, 'singleBonusGridColumn');
+                    margin: ef.get-value($dashboardThemeDefault, 'singleBonusGridMargin');
+
+                    & ~ .wlc-enter-promocode {
+                        grid-area: ef.get-value($dashboardThemeDefault, 'singleBonusPromocodeGridArea');
+                        grid-row: ef.get-value($dashboardThemeDefault, 'singleBonusPromocodeGridRow');
+                        grid-column: ef.get-value($dashboardThemeDefault, 'singleBonusPromocodeGridColumn');
+                    }
+
+                    & ~ .wlc-link-block {
+                        grid-area: ef.get-value($dashboardThemeDefault, 'singleBonusLinkGridArea');
+                        grid-row: ef.get-value($dashboardThemeDefault, 'singleBonusLinkGridRow');
+                        grid-column: ef.get-value($dashboardThemeDefault, 'singleBonusLinkGridColumn');
                     }
                 }
             }

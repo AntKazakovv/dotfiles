@@ -1,33 +1,36 @@
 <ng-template #default>
     <div class="{{$class}}__content" data-wlc-element="block_bonuses-main">
-        <div class="{{$class}}__list-wrapper"
-             *ngIf="$params.type !== 'swiper'">
-            <div class="{{$class}}__list"
-                 *ngIf="bonuses?.length && isReady; else: noBonuses"
+        <div *ngIf="$params.type !== 'swiper'" class="{{$class}}__list-wrapper">
+            <div *ngIf="bonuses?.length && isReady; else: noBonuses"
+                 class="{{$class}}__list"
                  data-wlc-element="block_bonus">
-                <div wlc-bonus-item
+                <div *ngFor="let bonus of bonuses"
+                     wlc-bonus-item
                      [bonus]="bonus"
                      [chosen]="bonus.isChoose"
                      [type]="$params.common.filter"
                      [theme]="$params.theme"
                      [inlineParams]="$params.itemsParams"
-                     [themeMod]="$params.themeMod"
-                     *ngFor="let bonus of bonuses"></div>
+                     [themeMod]="$params.themeMod"></div>
             </div>
             <!-- TODO: add pagination -->
         </div>
-        <div class="{{$class}}__list-wrapper" *ngIf="$params.type === 'swiper'">
+        <div *ngIf="$params.type === 'swiper'" class="{{$class}}__list-wrapper">
             <ng-container *ngIf="bonuses?.length && isReady; else: noBonuses">
-                <div class="{{$class}}__slider"
-                     wlc-slider
+                <div wlc-slider
+                     class="{{$class}}__slider"
                      type="dashboard"
                      [slides]="slides"
                      [inlineParams]="sliderParams">
                 </div>
 
-                <div slot-container-end *ngIf="bonuses.length">
-                    <button class="wlc-swiper-button-prev swiper-button-prev" wlc-icon iconName="arrow"></button>
-                    <button class="wlc-swiper-button-next swiper-button-next" wlc-icon iconName="arrow"></button>
+                <div *ngIf="bonuses.length && !isSingleBonus" slot-container-end>
+                    <button wlc-icon
+                            class="wlc-swiper-button-prev swiper-button-prev"
+                            iconName="arrow"></button>
+                    <button wlc-icon
+                            class="wlc-swiper-button-next swiper-button-next"
+                            iconName="arrow"></button>
                 </div>
             </ng-container>
         </div>
@@ -35,56 +38,63 @@
 </ng-template>
 
 <ng-template #noBonuses>
-    <div class="{{$class}}__nocontent" *ngIf="isReady">{{'No bonuses available' | translate}}</div>
-    <div class="{{$class}}__nocontent" *ngIf="!isReady">
+    <div *ngIf="isReady" class="{{$class}}__nocontent">{{'No bonuses available' | translate}}</div>
+    <div *ngIf="!isReady" class="{{$class}}__nocontent">
         <div wlc-loader></div>
     </div>
 </ng-template>
 
 <ng-template #promoHome>
     <ng-container *ngIf="bonuses?.length && isReady; else: noBonuses">
-        <div class="{{$class}}__slider"
-             wlc-slider
+        <div wlc-slider
+             class="{{$class}}__slider"
              type="dashboard"
              [slides]="slides"
              [inlineParams]="sliderParams"
         ></div>
     </ng-container>
 
-    <div slot-container-end *ngIf="bonuses.length">
+    <div *ngIf="bonuses.length && !isSingleBonus" slot-container-end>
         <div class="{{$class}}__slider-pagination">
-            <button class="wlc-swiper-button-prev" wlc-icon iconName="arrow"></button>
-            <button class="wlc-swiper-button-next" wlc-icon iconName="arrow"></button>
+            <button wlc-icon
+                    class="wlc-swiper-button-prev"
+                    iconName="arrow"></button>
+            <button wlc-icon
+                    class="wlc-swiper-button-next"
+                    iconName="arrow"></button>
         </div>
     </div>
 </ng-template>
 
 <ng-template #partial>
     <div class="{{$class}}__content" data-wlc-element="block_bonuses-main">
-        <div class="{{$class}}__list-wrapper"
-             *ngIf="$params.type !== 'swiper'">
-            <div class="{{$class}}__list"
-                 *ngIf="bonuses?.length && isReady; else: noBonuses"
+        <div *ngIf="$params.type !== 'swiper'" class="{{$class}}__list-wrapper">
+            <div *ngIf="bonuses?.length && isReady; else: noBonuses"
+                 class="{{$class}}__list"
                  data-wlc-element="block_bonus">
-                <div wlc-bonus-item
+                <div *ngFor="let bonus of bonuses"
+                     wlc-bonus-item
                      [bonus]="bonus"
                      [chosen]="bonus.isChoose"
                      [inlineParams]="$params.itemsParams"
                      [type]="$params.common.filter"
-                     [theme]="$params.theme"
-                     *ngFor="let bonus of bonuses"></div>
+                     [theme]="$params.theme"></div>
             </div>
         </div>
-        <div class="{{$class}}__list-wrapper" *ngIf="$params.type === 'swiper'">
+        <div *ngIf="$params.type === 'swiper'" class="{{$class}}__list-wrapper">
             <ng-container *ngIf="bonuses?.length && isReady; else: noBonuses">
-                <div class="{{$class}}__slider"
-                     wlc-slider
+                <div wlc-slider
+                     class="{{$class}}__slider"
                      [slides]="slides"
                      [inlineParams]="sliderParams">
-                    <div slot-container-end *ngIf="bonuses.length">
+                    <div *ngIf="bonuses.length && !isSingleBonus" slot-container-end>
                         <div class="container swiper-button-container">
-                            <button class="wlc-swiper-button-prev" wlc-icon iconName="arrow"></button>
-                            <button class="wlc-swiper-button-next" wlc-icon iconName="arrow"></button>
+                            <button wlc-icon
+                                    class="wlc-swiper-button-prev"
+                                    iconName="arrow"></button>
+                            <button wlc-icon
+                                    class="wlc-swiper-button-next"
+                                    iconName="arrow"></button>
                         </div>
                     </div>
                 </div>
@@ -94,7 +104,7 @@
 </ng-template>
 
 <ng-container [ngSwitch]="$params.theme">
-    <ng-container [ngTemplateOutlet]="partial" *ngSwitchCase="'partial'"></ng-container>
-    <ng-container [ngTemplateOutlet]="promoHome" *ngSwitchCase="'promo-home'"></ng-container>
-    <ng-container [ngTemplateOutlet]="default" *ngSwitchDefault></ng-container>
+    <ng-container *ngSwitchCase="'partial'" [ngTemplateOutlet]="partial"></ng-container>
+    <ng-container *ngSwitchCase="'promo-home'" [ngTemplateOutlet]="promoHome"></ng-container>
+    <ng-container *ngSwitchDefault [ngTemplateOutlet]="default"></ng-container>
 </ng-container>

@@ -69,10 +69,9 @@
             display: grid;
             width: 100%;
             height: 100%;
-            background: {
-                image: ef.get-value($themeDefault, 'backgroundDefault');
-                size: ef.get-value($themeDefault, 'backgroundDefaultSize');
-            }
+            background-image: ef.get-value($themeDefault, 'backgroundDefault');
+            background-repeat: ef.get-value($themeDefault, 'backgroundDefaultRepeat');
+            background-size: ef.get-value($themeDefault, 'backgroundDefaultSize');
         }
 
         &__check-icon {
