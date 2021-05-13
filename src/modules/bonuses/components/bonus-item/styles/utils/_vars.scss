@@ -98,6 +98,7 @@ $themeDefault: map-merge((
     // // Backgrounds
     'backgroundDefault': null,
     'backgroundDefaultSize': cover,
+    'backgroundDefaultRepeat': no-repeat,
     'backgroundExperience': ef.get('mainColors', 'bg300'),
     'backgroundExperienceHover': ef.get('mainColors', 'bg500'),
     'backgroundLoyalty': ef.get('mainColors', 'bg300'),
