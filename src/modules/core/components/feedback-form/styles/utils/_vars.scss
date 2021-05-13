@@ -15,6 +15,7 @@ $themeDefault: map-merge((
     'contactsContentColor': ef.get('mainColors', 'secondary'),
     'contactsContentColorHover': darken(ef.get('mainColors', 'secondary'), 10%),
     'detailsHeaderColor': #898989,
+    'btnMinWidth': 180px,
     'contactsTextStyle': (
         375: 'ThirdTitle',
         560: 'QoteTextBold',

@@ -12,8 +12,22 @@
 
 .wlc-textarea--theme-default:host {
     display: grid;
-    grid-template-columns: 1fr;
     grid-gap: ef.get-value($themeDefault, 'labelGap');
+    grid-template-columns: 1fr;
+
+    &.wlc-textarea--theme-mod-feedback-form {
+
+        .wlc-textarea__textarea {
+
+            textarea {
+                border: ef.get-value($themeDefault, 'textareaBorderFeedbackForm');
+
+                &:focus {
+                    border-color: ef.get-value($themeDefault, 'textareaBorderFocusColorFeedbackForm');
+                }
+            }
+        }
+    }
 
     .wlc-textarea__label {
         @include lib.get-text-style('SignText', ef.get-value($themeDefault, 'labelColor'));
@@ -23,19 +37,23 @@
     }
 
     .wlc-textarea__textarea {
+        position: relative;
         width: ef.get-value($themeDefault, 'textareaWidth');
         max-width: ef.get-value($themeDefault, '$textareaMaxWidth');
-        position: relative;
 
         textarea {
-            width: 100%;
-            border: ef.get-value($themeDefault, 'textareaBorder');
-            border-radius: ef.get-value($themeDefault, 'textareaBorderRadius');
-            padding: ef.get-value($themeDefault, 'textareaPadding');
-            resize: vertical;
 
             @include lib.get-text-style('PrimaryText', ef.get-value($themeDefault, 'textareaColor'));
             @include bm.get-mq-map('min-height', $themeDefault, 'textareaMinHeight');
+            width: 100%;
+            padding: ef.get-value($themeDefault, 'textareaPadding');
+            resize: vertical;
+            border: ef.get-value($themeDefault, 'textareaBorder');
+            border-radius: ef.get-value($themeDefault, 'textareaBorderRadius');
+
+            &::placeholder {
+                color: ef.get-value($themeDefault, 'textareaPlaceholderColor');
+            }
 
             &:focus {
                 outline: none;
@@ -49,7 +67,8 @@
             &.ng-touched {
 
                 &.ng-invalid {
-                    border-color: ef.get-value($themeDefault, 'errorColor');
+                    background: ef.get-value($themeDefault, 'errorsBgColor');
+                    border-color: ef.get-value($themeDefault, 'errorsBorderColor');
                 }
             }
         }
