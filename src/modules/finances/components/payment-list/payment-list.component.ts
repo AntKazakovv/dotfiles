@@ -28,14 +28,18 @@ import {
 } from 'wlc-engine/modules/core';
 import {FinancesService} from 'wlc-engine/modules/finances/system/services';
 import {PaymentSystem} from 'wlc-engine/modules/finances/system/models/payment-system.model';
-import {IconListAbstract} from 'wlc-engine/modules/core/system/classes/icon-list-abstract.class';
-import {IconModel} from 'wlc-engine/modules/core/system/models/icon-list-item.model';
+import {IconListAbstract, IMerchantsPaymentsIterator} from 'wlc-engine/modules/core/system/classes/icon-list-abstract.class';
+import {IconModel, IIconParams} from 'wlc-engine/modules/core/system/models/icon-list-item.model';
 
 import * as Params from './payment-list.params';
 
 import _isUndefined from 'lodash-es/isUndefined';
 import _isString from 'lodash-es/isString';
 import _findIndex from 'lodash-es/findIndex';
+
+interface IPaymentsIterator extends IMerchantsPaymentsIterator {
+    imgPath: string;
+}
 
 @Component({
     selector: '[wlc-payment-list]',
@@ -157,7 +161,19 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
             wlcElement: 'block_payment-' + this.wlcElementTail(item.name),
             nameForPath: item.name,
             colorIconBg: colorIconBg,
+            imgPath: this.$params.paymentType === 'deposit' ? item.image : (item.imageWithdraw || item.image),
         }));
+    }
+
+    protected merchantsPaymentsIterator(pathDirectory: string, params: IPaymentsIterator): IIconParams {
+
+        const res = super.merchantsPaymentsIterator(pathDirectory, params);
+
+        if (params.imgPath.indexOf('static.egamings.com') === -1) {
+            res.iconUrl = params.imgPath;
+        }
+
+        return res;
     }
 
     protected followBreakpoints(): void {
