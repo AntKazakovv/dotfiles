@@ -154,13 +154,11 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
 
         this.game = this.getGame();
         if (this.game) {
-            // TODO: this.LocalCacheService.set('lastGameParams', this.gameParams);
-            this.gamesCatalogService.loadFavourites();
+            this.gamesCatalogService.getFavouriteGames();
             await this.openActiveGame();
             this.cdr.detectChanges();
             this.initStartResizeParams();
         } else {
-            // TODO:  this.LocalCacheService.remove('lastGameParams');
             this.logService.sendLog({code: '3.0.4', data: {gameParams: this.gameParams}});
             this.setError({
                 msg: gettext('The game does not exist or the game settings are incorrect'),
@@ -454,7 +452,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
             return;
         }
         try {
-            this.gamesCatalogService.loadFavourites();
+            this.gamesCatalogService.getFavouriteGames();
         } catch (error) {
             this.logService.sendLog({code: '3.0.13', data: {error}});
         }

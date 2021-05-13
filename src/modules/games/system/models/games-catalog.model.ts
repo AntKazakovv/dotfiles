@@ -537,7 +537,6 @@ export class GamesCatalog extends AbstractModel<IGames> {
             if (!merchantName) {
                 continue;
             }
-            game.isFavourite = _includes(this.gamesCatalogService.favourites, game.ID);
             game.setSortedCategoryFields();
             GamesHelper.fillGamesByCategoriesMerchants(game, this.availableCategories);
 
