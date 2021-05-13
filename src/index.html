@@ -6,61 +6,59 @@
     <base href="/">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    {% if 'favicon/' is ondisk %}
-    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="/favicon/android-chrome-192x192.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
-    <link rel="manifest" href="/favicon/site.webmanifest">
-    <link rel="shortcut icon" href="/favicon/favicon.ico" type="image/x-icon"/>
-    <meta name="msapplication-TileColor" content="#f17105">
-    <meta name="msapplication-TileImage" content="mstile-144x144.png">
-    <meta name="theme-color" content="#000000">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="#000000">
-    <meta name="msapplication-TileColor" content="#000000">
-    <meta name="msapplication-config" content="/favicon/browserconfig.xml" />
+    {% if 'template/additional-header.html' is ondisk %}
+        {% include 'additional-header.html' %}
     {% else %}
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
+        {% if 'favicon/' is ondisk %}
+            <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+            <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+            <link rel="icon" type="image/png" sizes="192x192" href="/favicon/android-chrome-192x192.png">
+            <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+            <link rel="manifest" href="/favicon/site.webmanifest">
+            <link rel="shortcut icon" href="/favicon/favicon.ico" type="image/x-icon"/>
+            <meta name="msapplication-TileColor" content="#f17105">
+            <meta name="msapplication-TileImage" content="mstile-144x144.png">
+            <meta name="theme-color" content="#000000">
+            <meta name="apple-mobile-web-app-capable" content="yes">
+            <meta name="apple-mobile-web-app-status-bar-style" content="#000000">
+            <meta name="msapplication-TileColor" content="#000000">
+            <meta name="msapplication-config" content="/favicon/browserconfig.xml" />
+        {% else %}
+            <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
+        {% endif %}
     {% endif %}
-    <link rel="stylesheet" href="/static/css/app.loader.css">
 
-    <style>
-        @font-face {
-            font-family: CryptocurrencySymbols;
-            src:
-                url('/gstatic/wlc/fonts/Cryptocurrencies/cryptocurrency-symbols.woff?ver={{projectVersion}}') format('woff'),
-                url('/gstatic/wlc/fonts/Cryptocurrencies/cryptocurrency-symbols.woff2?ver={{projectVersion}}') format('woff2');
-            font-weight: normal;
-            font-style: normal;
-            font-display: block;
-        }
-    </style>
+    <link rel="stylesheet" href="/static/css/app.loader.css">
 
     <script type="text/javascript">
         window.WLC_VERSION = {{projectVersion}};
         {% if env == 'dev' or env == 'qa' or env == 'test' %}
-        window.WLC_ENV = '{{env}}';
+            window.WLC_ENV = '{{env}}';
         {% elseif GET['eg-debug'] == 1 and env != 'prod' %}
-        window.WLC_ENV = 'dev';
+            window.WLC_ENV = 'dev';
         {% endif %}
     </script>
 </head>
 <body>
 <div ui-view class="wlc-app">
-    <div class="wlc-app__preload">
-        <div class="wlc-app__preload-content">
-            <div class="wlc-app__preload-img"></div>
-            <div class="wlc-app__preload-loader"></div>
+
+    {% if 'template/preloader.html' is ondisk %}
+        {% include 'preloader.html' %}
+    {% else %}
+        <div class="wlc-app__preload">
+            <div class="wlc-app__preload-content">
+                <div class="wlc-app__preload-img"></div>
+                <div class="wlc-app__preload-loader"></div>
+            </div>
         </div>
-    </div>
+    {% endif %}
 </div>
 <noscript>Please enable JavaScript to continue using this application.</noscript>
 
 {% if 'static/dist/inline.js' is ondisk %}
     <script src="/static/dist/inline.js"></script>
 {% endif %}
-
+{% include 'additional-footer.html' ignore missing %}
 
 </body>
 </html>
