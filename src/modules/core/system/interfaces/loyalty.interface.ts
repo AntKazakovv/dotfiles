@@ -28,7 +28,7 @@ export interface ILoyalty {
 export interface IFreeRound {
     IDMerchant: string;
     Count: string;
-    Games: string;
+    Games: string[];
     ExpireDate: string;
     BetLevel: string;
     Coins: any;
