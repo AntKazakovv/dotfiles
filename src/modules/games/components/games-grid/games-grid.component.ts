@@ -38,12 +38,12 @@ import {
     GamesCatalogService,
     GamesFilterServiceEvents,
 } from 'wlc-engine/modules/games';
-
 import * as Params from './games-grid.params';
 
 import _reduce from 'lodash-es/reduce';
 import _keys from 'lodash-es/keys';
 import _isUndefined from 'lodash-es/isUndefined';
+import _includes from 'lodash-es/includes';
 
 @Component({
     selector: '[wlc-games-grid]',
@@ -60,7 +60,6 @@ export class GamesGridComponent extends AbstractComponent
     public $params: Params.IGamesGridCParams;
     public isReady: boolean = false;
     public filteredGames: Game[];
-    public filterChangedCounter: number = 0;
     public title: string;
     public gamesCount: number = this.configService.get<number>('$games.components.wlc-games-grid.defaultCount') || 1;
     public placeHolders: number[];
@@ -74,6 +73,7 @@ export class GamesGridComponent extends AbstractComponent
     public isDesktop: boolean;
 
     protected games: Game[];
+    protected filterChangedCounter: number = 0;
     protected lazyTimeout: number;
     protected paginate: number;
     protected placeHoldersCount: number;
@@ -83,6 +83,8 @@ export class GamesGridComponent extends AbstractComponent
     protected parentCategory: CategoryModel;
     protected childCategory: CategoryModel;
     protected deviceType: DeviceType;
+    protected lastPlayedLoaded: boolean = false;
+    protected favouritesLoaded: boolean = false;
 
     @ViewChild('gameList') gameListElement: ElementRef;
     @ViewChild('gameItem') gameItem: ElementRef;
@@ -94,9 +96,9 @@ export class GamesGridComponent extends AbstractComponent
     @HostBinding('class.d-none') protected hideComponent: boolean = false;
 
     constructor(
-        public router: UIRouter,
-        protected gamesCatalogService: GamesCatalogService,
         @Inject('injectParams') protected injectParams: Params.IGamesGridCParams,
+        protected router: UIRouter,
+        protected gamesCatalogService: GamesCatalogService,
         protected elementRef: ElementRef,
         protected cdr: ChangeDetectorRef,
         protected eventService: EventService,
@@ -130,33 +132,15 @@ export class GamesGridComponent extends AbstractComponent
             this.addModifiers('title-icon');
         }
 
-        this.initDeviceTypeListener();
-        this.setupMobileSettings();
-
         this.hideSearchBlock = this.$params.hideOnEmptySearch;
         this.useLazy = this.$params.moreBtn?.lazy || false;
         this.lazyTimeout = this.$params.moreBtn?.lazyTimeout || 1000;
         this.placeHolders = Array(6).fill(1);
         this.filterName = this.$params.searchFilterName || 'page';
 
+        this.initEventListeners();
+        this.setupMobileSettings();
         await this.prepareGrid();
-        const hookDeregister = this.transition.onSuccess({}, () => {
-            this.prepareGrid();
-        });
-
-        this.$destroy.subscribe(() => {
-            hookDeregister();
-        });
-
-        if (this.$params.type === 'search') {
-            this.initSearchListener();
-        }
-
-        this.initFilterListener();
-
-        if (this.useLazy) {
-            this.initScrollListener();
-        }
     }
 
     public ngAfterViewChecked(): void {
@@ -213,10 +197,49 @@ export class GamesGridComponent extends AbstractComponent
         this.cdr.detectChanges();
     }
 
-    protected initScrollListener(): void {
-        fromEvent(window, 'scroll')
+    /**
+     * Init event listeners
+     */
+    protected initEventListeners(): void {
+        this.actionService.deviceType()
             .pipe(takeUntil(this.$destroy))
-            .subscribe((event: Event) => this.tryLoadingGames());
+            .subscribe((type: DeviceType) => {
+                this.deviceType = type;
+                this.isDesktop = this.deviceType === DeviceType.Desktop;
+                this.setupMobileSettings();
+                this.cdr.detectChanges();
+            });
+
+        this.eventService.subscribe({
+            name: GamesFilterServiceEvents.FILTER_CHANGED,
+            from: this.filterName,
+        }, (filter: IGamesFilterData) => {
+            this.onFilterChanged(filter);
+        }, this.$destroy);
+
+        if (this.$params.type === 'search') {
+            this.eventService.subscribe({
+                name: GamesFilterServiceEvents.FILTER_SEARCH,
+                from: this.filterName,
+            }, (filter: IGamesFilterData) => {
+                this.changeFilter(filter);
+                this.changeSearch(filter.searchQuery);
+            }, this.$destroy);
+        }
+
+        if (this.useLazy) {
+            fromEvent(window, 'scroll')
+                .pipe(takeUntil(this.$destroy))
+                .subscribe((event: Event) => this.tryLoadingGames());
+        }
+
+        const successTransitionListener = this.transition.onSuccess({}, (transition) => {
+            this.prepareGrid();
+        });
+
+        this.$destroy.subscribe(() => {
+            successTransitionListener();
+        });
     }
 
     protected tryLoadingGames(): void {
@@ -339,6 +362,7 @@ export class GamesGridComponent extends AbstractComponent
             };
 
             const cat = this.$params.filter['categories']?.[0] || this.$params.filter['category'] || '';
+            await this.preloadSpecialGames(filter);
 
             games = this.gamesCatalogService.getGameList(filter);
             const category = this.gamesCatalogService.getCategoryBySlug(cat);
@@ -350,29 +374,38 @@ export class GamesGridComponent extends AbstractComponent
         } else {
             games = this.gamesCatalogService.getGameList();
         }
-
         return games;
     }
 
-    protected initSearchListener(): void {
-        this.eventService.subscribe({
-            name: GamesFilterServiceEvents.FILTER_SEARCH,
-            from: this.filterName,
-        }, (filter: IGamesFilterData) => {
-            this.changeFilter(filter);
-            this.changeSearch(filter.searchQuery);
-        }, this.$destroy,
-        );
+    /**
+     * Preload special games (favourites, last played)
+     *
+     * @param {IGamesFilterData} filter
+     * @returns {Promise<void>}
+     */
+    protected async preloadSpecialGames(filter?: IGamesFilterData): Promise<void> {
+        if (_includes(filter?.categories, 'favourites') && !this.favouritesLoaded) {
+            await this.gamesCatalogService.getFavouriteGames();
+            this.favouritesLoaded = true;
+        }
+        if (_includes(filter?.categories, 'lastplayed') && !this.lastPlayedLoaded) {
+            await this.gamesCatalogService.getLastGames();
+            this.lastPlayedLoaded = true;
+        }
     }
 
-    protected initFilterListener(): void {
-        this.eventService.subscribe({
-            name: GamesFilterServiceEvents.FILTER_CHANGED,
-            from: this.filterName,
-        }, (filter: IGamesFilterData) => {
-            this.changeFilter(filter);
-            this.cdr.detectChanges();
-        }, this.$destroy);
+    /**
+     * Handler for filter change
+     *
+     * @param {IGamesFilterData} filter
+     * @returns {Promise<void>}
+     */
+    protected async onFilterChanged(filter: IGamesFilterData): Promise<void> {
+        this.isReady = false;
+        await this.preloadSpecialGames(filter);
+        this.changeFilter(filter);
+        this.isReady = true;
+        this.cdr.detectChanges();
     }
 
     protected changeFilter(filter: IGamesFilterData): void {
@@ -405,17 +438,6 @@ export class GamesGridComponent extends AbstractComponent
         }
 
         this.hideShowMoreBtn = this.filteredGames?.length < this.paginate;
-    }
-
-    protected initDeviceTypeListener(): void {
-        this.actionService.deviceType()
-            .pipe(takeUntil(this.$destroy))
-            .subscribe((type: DeviceType) => {
-                this.deviceType = type;
-                this.isDesktop = this.deviceType === DeviceType.Desktop;
-                this.setupMobileSettings();
-                this.cdr.detectChanges();
-            });
     }
 
     protected setupMobileSettings(): void {

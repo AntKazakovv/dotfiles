@@ -75,7 +75,7 @@ export class GamesCatalogService {
     public ready: Promise<void> = new Promise((resolve: () => void): void => {
         this.$resolve = resolve;
     });
-    public favourites: number[] = [];
+    public favourites: Game[] = [];
 
     public favoritesUpdated: Subject<void> = new Subject<void>();
 
@@ -87,6 +87,7 @@ export class GamesCatalogService {
         'category-menu',
     ];
     private deviceType: DeviceType;
+    private lastPlayed: Game[];
 
     constructor(
         public configService: ConfigService,
@@ -163,7 +164,6 @@ export class GamesCatalogService {
         this.eventService.subscribe({
             name: gamesEvents.FETCH_FAVOURITES_SUCCEEDED,
         }, (data: IData) => {
-            this.favourites = data.data.map((fav: IFavourite) => _toNumber(fav.game_id));
             this.gamesCatalog?.loadFavourites(data.data);
             this.favoritesUpdated.next();
         });
@@ -213,14 +213,56 @@ export class GamesCatalogService {
     }
 
     /**
+     * Load last played games
      *
      * @returns {Promise<void>}
      */
     private async loadLastGames(): Promise<ILastPlayedGame[]> {
         if (this.configService.get('$user.isAuthenticated')) {
             const data: IData = await this.dataService.request('games/lastGames');
+            const gameIds: number[] = _map(data.data, (gameInfo: ILastPlayedGame) => {
+                return _toNumber(gameInfo.ID);
+            });
+            this.lastPlayed = this.getGameList({
+                ids: gameIds,
+            });
+            const category: CategoryModel = this.getCategoryBySlug('lastplayed');
+            if (category && this.lastPlayed.length) {
+                category.setGames(this.lastPlayed);
+            }
             return data.data;
         }
+    }
+
+    /**
+     * Load favourite games
+     *
+     * @returns {Promise<void>}
+     */
+    private async loadFavourites(): Promise<IFavourite[]> {
+        if (this.configService.get('$user.isAuthenticated')) {
+            const data: IData = await this.dataService.request('games/favorites');
+            const gameIds: number[] = _map(data.data, (gameInfo: IFavourite) => {
+                return _toNumber(gameInfo.game_id);
+            });
+            this.favourites = this.getGameList({
+                ids: gameIds,
+            });
+            const category: CategoryModel = this.getCategoryBySlug('favourites');
+            if (category && this.favourites.length) {
+                category.setGames(this.favourites);
+            }
+            return data.data;
+        }
+    }
+
+    /**
+     * Load jackpot games
+     *
+     * @returns {Promise<void>}
+     */
+    private async loadJackpots(): Promise<void> {
+        this.dataService.request('games/jackpots');
     }
 
     /**
@@ -229,32 +271,8 @@ export class GamesCatalogService {
      * @returns {Promise<Game[]>} Last games list
      */
     public async getLastGames(): Promise<Game[]> {
-        const lastPlayed: ILastPlayedGame[] = await this.loadLastGames();
-        const lastPlayedIds: number[] = _map(lastPlayed, (gameInfo: ILastPlayedGame) => {
-            return _toNumber(gameInfo.ID);
-        });
-        return this.getGameList({
-            ids: lastPlayedIds,
-        });
-    }
-
-    /**
-     *
-     * @returns {Promise<void>}
-     */
-    public async loadJackpots(): Promise<void> {
-        this.dataService.request('games/jackpots');
-    }
-
-    /**
-     *
-     * @returns {Promise<void>}
-     */
-    public async loadFavourites(): Promise<IFavourite[]> {
-        if (this.configService.get('$user.isAuthenticated')) {
-            const data: IData = await this.dataService.request('games/favorites');
-            return data.data;
-        }
+        await this.loadLastGames();
+        return this.lastPlayed;
     }
 
     /**
@@ -263,13 +281,8 @@ export class GamesCatalogService {
      * @returns {Promise<Game[]>}
      */
     public async getFavouriteGames(): Promise<Game[]> {
-        const favoriteGames: IFavourite[] = await this.loadFavourites();
-        this.favourites = _map(favoriteGames, (gameInfo: IFavourite) => {
-            return _toNumber(gameInfo.game_id);
-        });
-        return this.getGameList({
-            ids: this.favourites,
-        });
+        await this.loadFavourites();
+        return this.favourites;
     }
 
     /**
@@ -293,9 +306,9 @@ export class GamesCatalogService {
         if (game) {
             game.isFavourite = !!response.data.favorite;
             if (game.isFavourite) {
-                this.favourites.push(game.ID);
+                this.favourites.push(game);
             } else {
-                this.favourites = this.favourites.filter((item) => item !== game.ID);
+                this.favourites = this.favourites.filter((item) => item.ID !== game.ID);
             }
         }
         this.favoritesUpdated.next();
