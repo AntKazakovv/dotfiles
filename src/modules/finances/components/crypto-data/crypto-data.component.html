@@ -8,7 +8,10 @@
             {{'This is your private depositing address.' | translate}}
         </div>
         <div class="{{$class}}__text-row">
-            {{'Please note, that minimum deposit amount for this method is' | translate}} {{system.depositMin}}, {{'maximum one is' | translate}} {{system.depositMax}}.
+            {{'Please note, that minimum deposit amount for this method is' | translate}}
+             <span wlc-currency [value]="system.depositMin"></span>,
+              {{'maximum one is' | translate}}
+              <span wlc-currency [value]="system.depositMax"></span>.
         </div>
         <div class="{{$class}}__text-row">
             {{'To make a deposit you need to replenish a wallet for a specified amount.' | translate}}
@@ -17,7 +20,6 @@
             <span class="stress">{{'Attention!' | translate}}</span> {{'Payments through contracts are not supported.' | translate}}
         </div>
     </div>
-
 
     <div class="{{$class}}__qr">
         <div class="{{$class}}__qr-text">{{'QR code' | translate}}</div>
