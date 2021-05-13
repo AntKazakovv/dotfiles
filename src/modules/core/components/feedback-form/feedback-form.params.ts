@@ -93,7 +93,7 @@ export const feedbackConfig: IFormWrapperCParams = {
                 },
                 name: 'message',
                 wlcElement: 'block_message',
-
+                themeMod: 'feedback-form',
                 validators: [
                     'required',
                     {

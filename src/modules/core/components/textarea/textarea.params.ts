@@ -7,9 +7,9 @@ import {
 
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;
+export type ComponentThemeMod = 'default' | 'feedback-form' | CustomType;
 
-
-export interface ITextareaCParams extends IComponentParams<ComponentTheme, ComponentType, string> {
+export interface ITextareaCParams extends IComponentParams<ComponentTheme, ComponentType, ComponentThemeMod> {
     name: string;
     value?: string;
     placeholder?: string;

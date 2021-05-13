@@ -80,5 +80,9 @@
         .wlc-textarea {
             margin-bottom: ef.get-value($themeDefault, 'formElementsGap');
         }
+
+        .wlc-btn {
+            min-width: ef.get-value($themeDefault, 'btnMinWidth');
+        }
     }
 }
