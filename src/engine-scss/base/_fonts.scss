@@ -42,14 +42,24 @@
             }
 
             @font-face {
-                font-family: map-get($font, name);
                 font-weight: $weight;
+                font-family: map-get($font, name);
                 font-style: $style;
-                font-display: swap;
                 src: join($src, (), comma);
+                font-display: swap;
             }
         }
     }
+}
+
+@font-face {
+    font-weight: normal;
+    font-family: CryptocurrencySymbols;
+    font-style: normal;
+    src:
+        url('/gstatic/wlc/fonts/Cryptocurrencies/cryptocurrency-symbols.woff2') format('woff2'),
+        url('/gstatic/wlc/fonts/Cryptocurrencies/cryptocurrency-symbols.woff') format('woff');
+    font-display: block;
 }
 
 // Config font from https://google-webfonts-helper.herokuapp.com/
