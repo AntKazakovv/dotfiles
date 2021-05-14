@@ -83,7 +83,7 @@ export class LanguageSelectorComponent
         protected modalService: ModalService,
         protected logService: LogService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams});
+        super({injectParams, defaultParams: Params.defaultParams}, configService);
     }
 
     public ngOnInit(): void {
