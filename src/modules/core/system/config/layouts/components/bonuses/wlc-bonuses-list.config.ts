@@ -1,3 +1,4 @@
+import { IBonusesListCParams } from 'wlc-engine/modules/bonuses';
 import {ILayoutComponent} from 'wlc-engine/modules/core';
 
 export namespace wlcBonusesList {
@@ -82,7 +83,7 @@ export namespace wlcBonusesList {
     };
     export const promoHome: ILayoutComponent = {
         name: 'bonuses.wlc-bonuses-list',
-        params: {
+        params: <IBonusesListCParams>{
             type: 'swiper',
             theme: 'promo-home',
             wlcElement: 'block_bonuses-main',
@@ -97,6 +98,11 @@ export namespace wlcBonusesList {
                     pagination: false,
                     lazy: true,
                     spaceBetween: 20,
+                },
+            },
+            itemsParams: {
+                common: {
+                    nameClamp: 2,
                 },
             },
         },
