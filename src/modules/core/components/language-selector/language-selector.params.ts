@@ -29,6 +29,8 @@ export interface ILanguageSelectorCParams extends IComponentParams<ThemeType, Co
 }
 
 export const defaultParams: ILanguageSelectorCParams = {
+    componentName: 'wlc-language-selector',
+    moduleName: 'core',
     class: 'wlc-language-selector',
     themeMod: 'bottom-left',
     type: 'click',
