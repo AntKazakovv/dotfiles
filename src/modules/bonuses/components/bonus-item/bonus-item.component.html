@@ -299,16 +299,14 @@
                 class="{{$class}}__more-info"
                 type="button"
                 text="{{'More info' | translate}}"
-                (click)="openDescription($params.common.bonus.id)"
+                (click)="openDescription($params.common.bonus)"
         ></button>
 
         <div class="{{$class}}__info-wrapper">
             <div class="{{$class}}__info-block">
                 <h4 class="{{$class}}__name"
                     data-wlc-element="bonus_title-name"
-                    [wlc-clamp]="$params.common?.nameClamp || 2">
-                    {{$params.common.bonus.name}}
-                </h4>
+                    [wlc-clamp]="$params.common?.nameClamp || 2"> {{$params.common.bonus.name}} </h4>
                 <p class="{{$class}}__description"
                    data-wlc-element="bonus_description-name"
                    [wlc-clamp]="3"
@@ -348,6 +346,16 @@
         <ng-container [ngTemplateOutlet]="moreIcon"></ng-container>
 
         <ng-container [ngTemplateOutlet]="userIsAuth"></ng-container>
+
+        <div *ngIf="!isAuth" class="{{$class}}__btns">
+            <button *ngIf="$params.common.bonus?.isDeposit"
+                    wlc-button
+                    type="button"
+                    text="Deposit"
+                    (click)="action('deposit')"
+                    [wlcElement]="'button_deposit'">
+            </button>
+        </div>
 
         <div *ngIf="isChooseBtn" class="{{$class}}__btns">
             <button wlc-button
