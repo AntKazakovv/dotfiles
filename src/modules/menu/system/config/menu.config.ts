@@ -155,4 +155,12 @@ export const menuConfig: IMenuConfig = {
             use: false,
         },
     },
+    affiliatesMenu: {
+        items: [
+            'affiliates-menu:commission',
+            'affiliates-menu:why-us',
+            'affiliates-menu:faq',
+            'affiliates-menu:tc',
+        ],
+    },
 };

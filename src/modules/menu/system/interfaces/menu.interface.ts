@@ -25,10 +25,15 @@ export interface ICategoryMenuSettings extends IMenuSettings {
     }
 };
 
+export interface IAffiliatesMenuSettings {
+    items?: MenuConfigItem[];
+}
+
 export interface IMenuConfig {
     mainMenu?: IMenuSettings;
     categoryMenu?: ICategoryMenuSettings;
     mobileMenu?: IMobileMenuSettings;
     profileMenu?: IProfileMenuSettings;
     profileFirstMenu?: IProfileMenuSettings;
+    affiliatesMenu?: IAffiliatesMenuSettings;
 }
