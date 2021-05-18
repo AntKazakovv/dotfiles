@@ -12,6 +12,7 @@ export interface IMenuSettings {
 
 export interface IMobileMenuSettings extends IMenuSettings {
     categoryIcons?: IMenuIcons;
+    disableCategories?: boolean;
 }
 
 export interface IProfileMenuSettings extends IMenuSettings {
