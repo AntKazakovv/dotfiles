@@ -266,7 +266,7 @@ export class ModalService {
     }
 
     private openModal(config: IModalConfig): void {
-        if(_find(this.activeModals, ({id}) => id === config.id)) {
+        if (_find(this.activeModals, ({id}) => id === config.id)) {
             return;
         }
 
