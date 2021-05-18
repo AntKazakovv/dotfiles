@@ -19,13 +19,14 @@
             <div wlc-dnd
                  class="{{$class}}__dropzone"
                  [ngStyle]="{'backgroundImage': 'url(' + currentDocGroup.previewString + ')'}"
+                 [ngClass]="{'preloaded': currentDocGroup.previewString}"
                  [dnd-data-label]="currentDocGroup.ID"
                  (click)="inputFile.click()">
                 <input #inputFile
                        type="file"
                        hidden
                        [accept]="acceptFormat"
-                       [disabled]="currentDocGroup.pending"
+                       [disabled]="currentDocGroup.pending || currentDocGroup.previewString"
                        (change)="preloadFile($event.target.files)">
                 <button wlc-button
                         class="wlc-btn-upload"
