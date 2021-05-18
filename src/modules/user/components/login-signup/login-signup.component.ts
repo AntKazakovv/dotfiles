@@ -32,7 +32,7 @@ export class LoginSignupComponent extends AbstractComponent implements OnInit {
         protected ModalService: ModalService,
         protected configService: ConfigService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams});
+        super({injectParams, defaultParams: Params.defaultParams}, configService);
     }
 
     public ngOnInit(): void {

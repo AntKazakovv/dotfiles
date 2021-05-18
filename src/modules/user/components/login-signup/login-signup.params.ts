@@ -22,6 +22,8 @@ export interface ILoginSignupCParams extends IComponentParams<ThemeType, Compone
 
 export const defaultParams: ILoginSignupCParams = {
     class: 'wlc-login-signup',
+    moduleName: 'user',
+    componentName: 'wlc-login-signup',
     changePassword: {
         action: 'changePassword',
     },
