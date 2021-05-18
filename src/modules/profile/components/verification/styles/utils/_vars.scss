@@ -12,6 +12,8 @@ $themeDefault: map-merge((
     'textFont': 'PrimaryText',
     'titlePadding': ef.get('size', 'smallest'),
     'offset': ef.get('size', 'smaller'),
+    'btnOffset': 0 0 ef.get('size', 'smaller'),
+    'btnSelectedOffset': 0,
     'gapItem': ef.get('size', 'smaller'),
     'gridColums': (
         375: repeat(1, 1fr),

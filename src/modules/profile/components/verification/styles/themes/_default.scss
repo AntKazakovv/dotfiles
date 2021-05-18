@@ -90,9 +90,11 @@
                 }
 
                 .wlc-btn-upload {
-                    margin-bottom: ef.get-value($themeDefault, 'offset');
+                    margin: ef.get-value($themeDefault, 'btnOffset');
 
                     &.selected {
+                        margin-bottom: ef.get-value($themeDefault, 'btnSelectedOffset');
+
                         @include mq.min(1024) {
                             display: grid;
                         }
@@ -105,6 +107,10 @@
 
                 &.dragovered {
                     border-color: ef.get-value($themeDefault, 'borderColorDrag');
+                }
+
+                &.preloaded {
+                    cursor: default;
                 }
 
                 .wlc-verification__text {
@@ -127,6 +133,7 @@
                 position: absolute;
                 top: ef.get-value($themeDefault, 'clearPosition');
                 right: ef.get-value($themeDefault, 'clearPosition');
+                cursor: pointer;
 
                 ::ng-deep .wlc-icon-content {
 
