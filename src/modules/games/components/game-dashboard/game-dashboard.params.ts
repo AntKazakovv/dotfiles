@@ -83,7 +83,7 @@ export const dashboardTabs: IGameDashboardTab[] = [
     {
         id: 'bonuses',
         icon: 'game-dashboard/bonuses',
-        label: gettext('My bonuses'),
+        label: gettext('My Bonuses'),
         updateOnOpen: true,
     },
     {
