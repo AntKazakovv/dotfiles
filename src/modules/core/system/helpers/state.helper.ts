@@ -22,7 +22,7 @@ export class StateHelper {
         const config = trans.injector().get(ConfigService);
 
         await config.ready;
-        const redirects: IIndexing<IRedirect> = config.get('$base.redirects.states');
+        const redirects: IIndexing<IRedirect> = config.get('$base.redirects.states') || {};
 
         const locale = {
             locale: trans.injector().get('lang') || 'en',
