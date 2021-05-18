@@ -7,7 +7,7 @@ import {
 import {
     IBonus,
     IBonusConditions,
-    IBonusImageType,
+    IBonusType,
     ActionType,
 } from '../interfaces/bonuses.interface';
 import {BonusesService} from '../../system/services';
@@ -582,7 +582,7 @@ export class Bonus extends AbstractModel<IBonus> {
      * @param type image type ('default' | 'reg' | 'deposit' | 'promo' | 'store' | 'other')
      * @returns {string} bonus image url
      */
-    public getImageByType(type: IBonusImageType = 'default'): string {
+    public getImageByType(type: IBonusType = 'default'): string {
         switch (type) {
             case 'reg':
                 return this.imageReg;

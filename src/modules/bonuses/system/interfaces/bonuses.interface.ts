@@ -131,7 +131,7 @@ export interface IGetSubscribeParams {
     until?: Observable<unknown>;
 }
 
-export type IBonusImageType = 'default' | 'reg' | 'deposit' | 'promo' | 'store' | 'other';
+export type IBonusType = 'default' | 'reg' | 'deposit' | 'promo' | 'store' | 'other' | 'blank';
 export type BonusesFilterType = 'all' | 'reg' | 'deposit' | 'promocode' | 'inventory' | 'main' | 'active' | 'default';
 export type RestType = 'active' | 'history' | 'store' | 'any';
 export type ActionType = 'inventory' | 'cancel' | 'subscribe' | 'unsubscribe';
@@ -150,4 +150,5 @@ export enum BonusItemComponentEvents {
     reg = 'CHOOSE_REG_BONUS_SUCCEEDED',
     blank = 'UNCHOOSE_ANY_BONUS',
     deposit = 'CHOOSE_DEPOSIT_BONUS_SUCCEEDED',
+    other = 'CHOOSE_OTHER_BONUS_SUCCEEDED',
 }

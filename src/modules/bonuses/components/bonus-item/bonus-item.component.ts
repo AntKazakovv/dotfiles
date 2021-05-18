@@ -26,12 +26,14 @@ import {
     BonusItemComponentEvents,
     ChosenBonusSetParams,
     ChosenBonusType,
+    IBonusType,
 } from 'wlc-engine/modules/bonuses';
 import * as Params from './bonus-item.params';
 
 import _union from 'lodash-es/union';
 import _merge from 'lodash-es/merge';
 import _isEmpty from 'lodash-es/isEmpty';
+
 
 @Component({
     selector: '[wlc-bonus-item]',
@@ -164,16 +166,16 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
         });
     }
 
-    public chooseBonusNoBtn(bonus: Bonus, type: Params.Type): void {
+    public chooseBonusNoBtn(bonus: Bonus, type: IBonusType): void {
         if (!this.isChooseBtn) {
             this.chooseBonus(bonus, type);
         }
     }
 
-    public chooseBonus(bonus: Bonus, type: Params.Type): void {
+    public chooseBonus(bonus: Bonus, type: IBonusType): void {
         bonus.isChoose = this.$params.common.bonus.isChoose = true;
         this.eventService.emit({
-            name: BonusItemComponentEvents[type],
+            name: BonusItemComponentEvents[type] || BonusItemComponentEvents['other'],
             data: bonus,
         });
         this.cdr.markForCheck();
