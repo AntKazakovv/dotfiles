@@ -458,6 +458,7 @@ $profileSettings: map-merge((
     ),
     'profileBtnWeight': 700,
     'rangeMarginBottom': map-get($size, 'smally'),
+    'historyFilterMargin': 0 0 map-get($size, 'smallest'),
 ), $customProfileSettings);
 
 /// Глобальные настройки профиля (первая тема):

@@ -62,9 +62,10 @@ export class TableComponent extends AbstractComponent implements OnInit {
     public head: Params.ITableCol[] = [];
     public ready = false;
     public deviceType: DeviceType;
+    public indexFactor: number = 0;
 
     public theme: Params.Theme;
-    protected toggled: boolean = false;
+    public toggled: boolean = false;
 
     constructor(
         @Inject('injectParams') protected params: Params.ITableCParams,
@@ -89,6 +90,7 @@ export class TableComponent extends AbstractComponent implements OnInit {
         if (this.$params.rows instanceof BehaviorSubject) {
             this.$params.rows.pipe(takeUntil(this.$destroy)).subscribe((rows) => {
                 this.rows = this.createTableRow(rows);
+                this.indexFactor = 0;
                 this.paginatedRows = this.rows?.slice(0, this.itemPerPage);
                 this.cdr.markForCheck();
             });
@@ -161,6 +163,7 @@ export class TableComponent extends AbstractComponent implements OnInit {
         const endItem = event.page * event.itemsPerPage;
         this.actionService.scrollTo('body');
         this.paginatedRows = this.rows.slice(startItem, endItem);
+        this.indexFactor = startItem;
         this.cdr.markForCheck();
     }
 

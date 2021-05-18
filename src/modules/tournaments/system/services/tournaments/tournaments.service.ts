@@ -321,6 +321,7 @@ export class TournamentsService {
                     this.tournaments = tournaments;
                     break;
             }
+
             return tournaments;
         } catch (error) {
             this.logService.sendLog({code: '13.0.0', data: error});
