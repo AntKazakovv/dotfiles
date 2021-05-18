@@ -2,7 +2,7 @@ import {Injectable, Injector} from '@angular/core';
 import {
     StateService,
     Transition,
-    UIRouter,
+    TransitionService,
 } from '@uirouter/core';
 
 import {DataService, IData} from '../data/data.service';
@@ -76,7 +76,7 @@ export class ConfigService {
         private injector: Injector,
         private localStorageService: LocalStorageService,
         private sessionStorageService: SessionStorageService,
-        private router: UIRouter,
+        private transitionService: TransitionService,
         private stateService: StateService,
     ) {
         this.setGlobals();
@@ -227,7 +227,7 @@ export class ConfigService {
         const redirects = this.get<IIndexing<IRedirect>>('$base.redirects.states');
         if (_keys(redirects).length) {
             _each(redirects, (redirect, state) => {
-                this.router.transitionService.onEnter({to: state}, (transition: Transition) => {
+                this.transitionService.onEnter({to: state}, (transition: Transition) => {
                     this.stateService.go(redirect.state, redirect?.params || transition.params());
                 });
             });
