@@ -63,9 +63,9 @@
                     border-radius: ef.get-value($themeDropdownDefault, 'linkBorderRadius');
 
                     &.active {
+                        @include bm.get-mq-map('background', $themeDropdownDefault, 'activeLinkBg');
                         @include bm.transition(background);
                         color: ef.get-value($themeDropdownDefault, 'activeLinkColor');
-                        background: ef.get-value($themeDropdownDefault, 'activeLinkBg');
                     }
 
                     .wlc-icon {
@@ -117,13 +117,13 @@
 
                         &.active {
                             @include bm.transition(background);
-                            background: ef.get-value($themeDropdownDefault, 'activeLinkBg');
+                            @include bm.get-mq-map('background', $themeDropdownDefault, 'activeLinkBg');
                             border-radius: 0;
                         }
 
                         @include bm.hover {
                             @include bm.transition(background);
-                            background: ef.get-value($themeDropdownDefault, 'activeLinkBg');
+                            @include bm.get-mq-map('background', $themeDropdownDefault, 'activeLinkBg');
                         }
 
                         @media (hover: hover) {
