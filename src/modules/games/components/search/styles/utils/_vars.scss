@@ -48,6 +48,11 @@ $themeDefault: map-merge((
     'btnCounterColor': ef.get('color', 'textSecondary'),
     'btnCounterLineHeight': 12px,
 
+    'alignItemsBtn': center,
+    'justifyBtn': flex-start,
+
+    'widthBtn': 100%,
+
     'listGrid': (
         320: 2,
         900: 4,
@@ -200,7 +205,7 @@ $themeDefault: map-merge((
     ),
     'btnBorderRadius': ef.get('radius', 'biger'),
     'btnFont': 'PlaceholderText',
-    'btnFontActive': 'ButtonText',
+    'btnFontActive': 'PlaceholderText',
     'btnTextColor': ef.get('mainColors', 'baseMain'),
     'btnTextColorActive': ef.get('mainColors', 'baseMain'),
     'btnColorHover': ef.get('mainColors', 'baseMain'),
