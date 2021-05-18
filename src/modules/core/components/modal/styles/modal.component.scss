@@ -466,3 +466,10 @@ body.modal-open {
         @include bm.get-mq-map('width', $themeDefault, 'loginSignupWidth');
     }
 }
+
+.wlc-modal--loyalty-info-modal {
+
+    .wlc-modal__body {
+        padding: ef.get-value($themeDefault, 'loyaltyInfoBodyPadding');
+    }
+}

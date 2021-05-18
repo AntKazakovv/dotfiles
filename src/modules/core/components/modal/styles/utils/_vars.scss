@@ -298,4 +298,8 @@ $themeDefault: map-merge((
         768: ef.get('size', 'smaller'),
     ),
     //tournament-details
+
+    //loyalty-info-modal
+    'loyaltyInfoBodyPadding': 0,
+    //loyalty-info-modal
 ), $customThemeDefault);

@@ -196,10 +196,6 @@ export class UserService {
         this.dataService.request('user/userLogout');
     }
 
-    public getLoyaltyLevels(): Promise<IData> {
-        return this.dataService.request('loyalty/levels');
-    }
-
     public createUserProfile(userProfile: IUserProfile): Promise<IIndexing<any>> {
 
         if (this.configService.get('$base.profile.limitations.use')
@@ -577,11 +573,5 @@ export class UserService {
             // },
         });
 
-        this.dataService.registerMethod({
-            name: 'levels',
-            system: 'loyalty',
-            url: '/loyalty/levels',
-            type: 'GET',
-        });
     }
 }

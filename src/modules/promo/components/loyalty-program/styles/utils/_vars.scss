@@ -1,0 +1,103 @@
+@use 'engine-scss/functions' as ef;
+
+$customThemeDefault: () !default;
+
+$themeDefault: map-merge((
+    'wrapperMargin': (
+        320: 0,
+    ),
+    'wrapperDisplay': grid,
+    'wrapperDirection': column,
+    'wrapperAlignItems': center,
+
+    'containerPadding': (
+        320: ef.get('size', 'main') 0,
+    ),
+    'containerBackground': ef.get('mainColors', 'bg700'),
+    'containerPosition': relative,
+    'containerWidth': 100%,
+    'containerOverflow': hidden,
+
+    'containerDecorPosition': absolute,
+    'containerDecorTop': 0,
+    'containerDecorLeft': 50%,
+    'containerDecorWidth': 1920px,
+    'containerDecorHeight': 100%,
+
+    'decorLeftPosition': absolute,
+    'decorLeftZindex': 0,
+    'decorLeftBgRepeat': no-repeat,
+    'decorLeftBgPosition': center -60px,
+    'decorLeftBottom': 0,
+    'decorLeftLeft': -443px,
+    'decorLeftWidth': 887px,
+    'decorLeftHeight': 400px,
+
+    'decorRightPosition': absolute,
+    'decorRightZindex': 0,
+    'decorRightBgRepeat': no-repeat,
+    'decorRightBgPosition': center -420px,
+    'decorRightTop': 0,
+    'decorRightRight': -443px,
+    'decorRightWidth': 887px,
+    'decorRightHeight': 400px,
+
+    'titleFont': 'QoteTextBold',
+    'titleFontColor': ef.get('mainColors', 'baseMain'),
+    'titleMargin': (
+        320: 0 auto ef.get('size', 'smaller') auto,
+    ),
+
+    'itemsWrapperPosition': relative,
+    'itemsWrapperZindex': 5,
+    'itemsWrapperDisplay': flex,
+    'itemsWrapperWrap': wrap,
+    'itemsWrapperJustifyContent': center,
+    'itemsWrapperWidth': (
+        320: 100%,
+        900: 800px,
+        1024: 100%,
+    ),
+    'itemsWrapperMargin': (
+        320: 0 auto,
+    ),
+
+    'itemDisplay': flex,
+    'itemDirection': column,
+    'itemAlign': center,
+    'itemWidth': (
+        320: 100%,
+        720: 50%,
+        1024: auto,
+    ),
+    'itemMargin': (
+        320: 0,
+        1024: 0 ef.get('size', 'less'),
+        1200: 0 ef.get('size', 'main'),
+    ),
+    'itemPadding': (
+        320: ef.get('size', 'smaller') 0,
+        1024: 0,
+    ),
+    'itemRadius': ef.get('radius', 'biger'),
+    'itemBackground': (
+        320: ef.get('mainColors', 'bg700'),
+        768: transparent,
+    ),
+
+    'itemImageWidth': 100%,
+
+    'itemTitleFont': 'QoteTextBold',
+    'itemTitleFontColor': ef.get('mainColors', 'baseMain'),
+
+    'itemPointsDisplay': flex,
+    'itemPointsAlign': center,
+
+    'btnWrappPosition': relative,
+    'btnWrappZindex': 5,
+    'btnWrappDisplay': flex,
+    'btnWrappJustify': center,
+    'btnWrappMargin': (
+        320: ef.get('size', 'smaller') 0 0 0,
+    ),
+), $customThemeDefault);

@@ -1,37 +1,36 @@
 import {
-    Component,
-    OnInit,
+    ChangeDetectionStrategy,
     ChangeDetectorRef,
+    Component,
     Inject,
+    OnInit,
 } from '@angular/core';
+
 import {BehaviorSubject} from 'rxjs';
-import {UserService} from 'wlc-engine/modules/user/system/services';
+
 import {
     AbstractComponent,
     IMixedParams,
-    EventService,
     ITableCParams,
-    IIndexing,
-    IData,
 } from 'wlc-engine/modules/core';
 
+import {
+    LoyaltyLevelModel,
+    LoyaltyLevelsService,
+} from 'wlc-engine/modules/promo/';
+
 import * as Params from './loyalty-levels.params';
-
-import _values from 'lodash-es/values';
-
-
 
 @Component({
     selector: '[wlc-loyalty-levels]',
     templateUrl: './loyalty-levels.component.html',
     styleUrls: ['./styles/loyalty-levels.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoyaltyLevelsComponent extends AbstractComponent implements OnInit {
-
     public ready = false;
-
     public $params: Params.ILoyaltyLevelTableCParams;
-    public levels: BehaviorSubject<IIndexing<string>[]> = new BehaviorSubject([]);
+    public levels: BehaviorSubject<LoyaltyLevelModel[]> = new BehaviorSubject([]);
 
     public tableData: ITableCParams = {
         noItemsText: gettext('No loyalty levels'),
@@ -40,22 +39,21 @@ export class LoyaltyLevelsComponent extends AbstractComponent implements OnInit 
     };
 
     constructor(
-        @Inject('injectParams') protected params: Params.ILoyaltyLevelTableCParams,
+        @Inject('injectParams') protected injectParams: Params.ILoyaltyLevelTableCParams,
         protected cdr: ChangeDetectorRef,
-        protected eventService: EventService,
-        protected userService: UserService,
+        protected loyaltyLevelsService: LoyaltyLevelsService,
     )
     {
         super(
             <IMixedParams<Params.ILoyaltyLevelTableCParams>>{
-                injectParams: params,
+                injectParams,
                 defaultParams: Params.defaultParams,
             });
     }
 
     public async ngOnInit(): Promise<void> {
         super.ngOnInit();
-        this.levels.next(_values((await this.userService.getLoyaltyLevels() as IData).data));
+        this.levels.next(await this.loyaltyLevelsService.getLoyaltyLevels());
         this.ready = true;
         this.cdr.detectChanges();
     }

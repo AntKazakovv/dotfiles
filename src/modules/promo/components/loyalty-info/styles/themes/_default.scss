@@ -1,0 +1,41 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/base.mixins' as em;
+
+.wlc-loyalty-info--theme-default:host {
+
+    .wlc-loyalty-info {
+
+        &__content {
+            padding: ef.get-value($themeDefault, 'paddingContent');
+        }
+
+        &__image {
+
+            img {
+                width: ef.get-value($themeDefault, 'infoImageWidth');
+            }
+        }
+
+        &__title {
+            padding: ef.get-value($themeDefault, 'titlePadding');
+            text-align: ef.get-value($themeDefault, 'infoTitleTextAlign');
+            @include text.get-text-style(ef.get-value($themeDefault, 'titleFont'), ef.get-value($themeDefault, 'titleFontColor'));
+        }
+
+        &__description {
+            padding: ef.get-value($themeDefault, 'descriptionPadding');
+            text-align: ef.get-value($themeDefault, 'infoTextAlign');
+            @include text.get-text-style(ef.get-value($themeDefault, 'descFont'), ef.get-value($themeDefault, 'descFontColor'));
+        }
+
+        &__levels-table {
+
+            ::ng-deep .wlc-table {
+                min-height: ef.get-value($themeDefault, 'wlcTableMinHeight');
+                padding: ef.get-value($themeDefault, 'wlcTablePadding');
+            }
+        }
+    }
+}
