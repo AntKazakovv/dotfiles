@@ -45,7 +45,10 @@ export class PostComponent extends AbstractComponent implements OnInit, AfterVie
      * Use it if you **really** have to.
      */
     @Input() public parseAsPlainHTML: boolean;
+    @Input() public useTitle: boolean = true;
     @Input() protected slug: string;
+    @Input() protected inlineParams: Params.IPostCParams;
+
     public data: TextDataModel;
     public html: string;
     public isReady: boolean = false;
@@ -67,11 +70,10 @@ export class PostComponent extends AbstractComponent implements OnInit, AfterVie
     }
 
     public async ngOnInit(): Promise<void> {
-        super.ngOnInit();
+        super.ngOnInit(this.inlineParams);
         this.parseAsPlainHTML ??= this.$params.parseAsPlainHTML;
-
         try {
-            const slug = this.slug || this.params.slug || this.uiRouter.params.slug;
+            const slug = this.slug || this.$params.slug || this.uiRouter.params.slug;
 
             let data: TextDataModel;
             if (this.configService.get<string[]>({name: '$static.pages'}).includes(slug)) {
@@ -86,7 +88,9 @@ export class PostComponent extends AbstractComponent implements OnInit, AfterVie
 
             this.html = this.domSanitizer.bypassSecurityTrustHtml(data.html)?.['changingThisBreaksApplicationSecurity'];
 
-            this.params.setTitle?.(data.title);
+            if (this.useTitle) {
+                this.params.setTitle?.(data.title);
+            }
         } catch (error) {
             // TODO: add log service in static service metods
             this.logService.sendLog({code: '12.0.0', data: error});
@@ -106,7 +110,7 @@ export class PostComponent extends AbstractComponent implements OnInit, AfterVie
         }
     }
 
-    public ngAfterViewInit() {
+    public ngAfterViewInit(): void {
         this.viewRef.remove();
     }
 

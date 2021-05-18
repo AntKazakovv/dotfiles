@@ -13,6 +13,7 @@ import {
     IModalOptions,
 } from './index';
 import {TabSwitcherComponent} from 'wlc-engine/modules/core/components/tab-switcher/tab-switcher.component';
+import {LoyaltyInfoComponent} from 'wlc-engine/modules/promo/components/loyalty-info/loyalty-info.component';
 import {IconExpLpDescriptionComponent} from 'wlc-engine/modules/user/components/icon-exp-lp-description/icon-exp-lp-description.component';
 
 export const defaultParams: IModalOptions = {
@@ -239,6 +240,22 @@ export const MODALS_LIST: IModalList = {
             modalTitle: gettext('Loyalty Program'),
             closeBtnVisibility: true,
             component: IconExpLpDescriptionComponent,
+        },
+    },
+    loyaltyInfo: {
+        config: {
+            id: 'loyalty-info',
+            modifier: 'loyalty-info-modal',
+            component: LoyaltyInfoComponent,
+            size: 'lg',
+            backdrop: true,
+            dismissAll: true,
+            closeBtnParams: {
+                themeMod: 'secondary',
+                common: {
+                    text: gettext('Close'),
+                },
+            },
         },
     },
 };

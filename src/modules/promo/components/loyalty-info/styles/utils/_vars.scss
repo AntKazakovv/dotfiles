@@ -1,0 +1,31 @@
+@use 'engine-scss/functions' as ef;
+
+$customThemeDefault: () !default;
+
+$themeDefault: map-merge((
+    'titleFont': 'QoteTextBold',
+    'titleFontColor': ef.get('mainColors', 'baseMain'),
+
+    'descFont': 'ThirdTitle',
+    'descFontColor': ef.get('mainColors', 'baseMain'),
+
+    'infoImageWidth': 100%,
+
+    'infoTitleFont': 'ThirdTitleBold',
+    'infoTitleFontColor': ef.get('mainColors', 'baseMain'),
+    'infoTitlePadding': 0 0 ef.get('size', 'smaller') 0,
+    'infoTitleTextAlign': center,
+
+    'infoTextFont': 'PrimaryText',
+    'infoTextFontColor': ef.get('mainColors', 'baseMain'),
+    'infoTextPadding': 0 0 ef.get('size', 'smaller') 0,
+    'infoTextAlign': center,
+
+    'titlePadding': 0 0 ef.get('size', 'smaller') 0,
+    'descriptionPadding': 0 0 ef.get('size', 'smaller') 0,
+    'paddingContent': ef.get('size', 'smaller') ef.get('size', 'less'),
+
+    'wlcTableMinHeight': auto,
+    'wlcTablePadding':0 0 ef.get('size', 'main') 0,
+
+), $customThemeDefault);

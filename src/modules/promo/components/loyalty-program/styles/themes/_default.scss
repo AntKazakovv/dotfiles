@@ -1,0 +1,123 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/base.mixins' as em;
+
+.wlc-loyalty-program--theme-default:host {
+
+    .wlc-loyalty-program__wrapper {
+        display: ef.get-value($themeDefault, 'wrapperDisplay');
+        flex-direction: ef.get-value($themeDefault, 'wrapperDirection');
+        align-items: ef.get-value($themeDefault, 'wrapperAlignItems');
+
+        @include em.get-mq-map('margin', $themeDefault, 'wrapperMargin');
+    }
+
+    .wlc-loyalty-program {
+
+        &__title {
+            @include em.get-mq-map('margin', $themeDefault, 'titleMargin');
+            @include text.get-text-style(ef.get-value($themeDefault, 'titleFont'), ef.get-value($themeDefault, 'titleFontColor'));
+        }
+
+        &__container {
+            position: ef.get-value($themeDefault, 'containerPosition');
+
+            width: ef.get-value($themeDefault, 'containerWidth');
+
+            overflow: ef.get-value($themeDefault, 'containerOverflow');
+
+            background: ef.get-value($themeDefault, 'containerBackground');
+
+            @include em.get-mq-map('padding', $themeDefault, 'containerPadding');
+        }
+
+        &__container-decor {
+            position: ef.get-value($themeDefault, 'containerDecorPosition');
+            top: ef.get-value($themeDefault, 'containerDecorTop');
+            left: ef.get-value($themeDefault, 'containerDecorLeft');
+
+            width: ef.get-value($themeDefault, 'containerDecorWidth');
+            height: ef.get-value($themeDefault, 'containerDecorHeight');
+
+            transform: translate(-50%, 0);
+        }
+
+        &__decor-left {
+            position: ef.get-value($themeDefault, 'decorLeftPosition');
+            bottom: ef.get-value($themeDefault, 'decorLeftBottom');
+            left: ef.get-value($themeDefault, 'decorLeftLeft');
+            z-index: ef.get-value($themeDefault, 'decorLeftZindex');
+
+            width: ef.get-value($themeDefault, 'decorLeftWidth');
+            height: ef.get-value($themeDefault, 'decorLeftHeight');
+
+            background-repeat: ef.get-value($themeDefault, 'decorLeftBgRepeat');
+            background-position: ef.get-value($themeDefault, 'decorLeftBgPosition');
+        }
+
+        &__decor-right {
+            position: ef.get-value($themeDefault, 'decorRightPosition');
+            top: ef.get-value($themeDefault, 'decorRightTop');
+            right: ef.get-value($themeDefault, 'decorRightRight');
+            z-index: ef.get-value($themeDefault, 'decorRightZindex');
+
+            width: ef.get-value($themeDefault, 'decorRightWidth');
+            height: ef.get-value($themeDefault, 'decorRightHeight');
+
+            background-repeat: ef.get-value($themeDefault, 'decorRightBgRepeat');
+            background-position: ef.get-value($themeDefault, 'decorRightBgPosition');
+        }
+
+        &__items-wrapper {
+            position: ef.get-value($themeDefault, 'itemsWrapperPosition');
+            z-index: ef.get-value($themeDefault, 'itemsWrapperZindex');
+
+            display: ef.get-value($themeDefault, 'itemsWrapperDisplay');
+            flex-wrap: ef.get-value($themeDefault, 'itemsWrapperWrap');
+            justify-content: ef.get-value($themeDefault, 'itemsWrapperJustifyContent');
+
+            @include em.get-mq-map('width', $themeDefault, 'itemsWrapperWidth');
+            @include em.get-mq-map('margin', $themeDefault, 'itemsWrapperMargin');
+        }
+
+        &__item {
+            display: ef.get-value($themeDefault, 'itemDisplay');
+            flex-direction: ef.get-value($themeDefault, 'itemDirection');
+            align-items: ef.get-value($themeDefault, 'itemAlign');
+
+            border-radius: ef.get-value($themeDefault, 'itemRadius');
+
+            @include em.get-mq-map('width', $themeDefault, 'itemWidth');
+            @include em.get-mq-map('margin', $themeDefault, 'itemMargin');
+            @include em.get-mq-map('padding', $themeDefault, 'itemPadding');
+            @include em.get-mq-map('background', $themeDefault, 'itemBackground');
+        }
+
+        &__item-image {
+
+            img {
+                width: ef.get-value($themeDefault, 'itemImageWidth');
+            }
+        }
+
+        &__item-title {
+            @include text.get-text-style(ef.get-value($themeDefault, 'itemTitleFont'), ef.get-value($themeDefault, 'itemTitleFontColor'));
+        }
+
+        &__item-points {
+            display: ef.get-value($themeDefault, 'itemPointsDisplay');
+            align-items: ef.get-value($themeDefault, 'itemPointsAlign');
+        }
+
+        &__btn-wrapper {
+            position: ef.get-value($themeDefault, 'btnWrappPosition');
+            z-index: ef.get-value($themeDefault, 'btnWrappZindex');
+
+            display: ef.get-value($themeDefault, 'btnWrappDisplay');
+            justify-content: ef.get-value($themeDefault, 'btnWrappJustify');
+
+            @include em.get-mq-map('margin', $themeDefault, 'btnWrappMargin');
+        }
+    }
+}

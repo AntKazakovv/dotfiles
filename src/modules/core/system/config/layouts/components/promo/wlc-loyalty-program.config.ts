@@ -1,7 +1,8 @@
 import {ILayoutComponent} from 'wlc-engine/modules/core';
 
-export namespace wlcLoyaltyLevels {
+export namespace wlcLoyaltyProgram {
+
     export const def: ILayoutComponent = {
-        name: 'store.wlc-loyalty-levels',
+        name: 'promo.wlc-loyalty-program',
     };
 }

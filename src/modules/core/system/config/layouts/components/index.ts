@@ -30,6 +30,8 @@ export * from './promo/wlc-last-wins-slider.config';
 export * from './promo/wlc-biggest-wins-slider.config';
 export * from './promo/wlc-tournament-banners-slider.config';
 export * from './promo/wlc-jackpots-slider.config';
+export * from './promo/wlc-loyalty-program.config';
+export * from './promo/wlc-loyalty-levels.config';
 
 export * from './promotions/wlc-bonuses-list.config';
 
@@ -59,7 +61,6 @@ export * from './bonuses/wlc-bonuses-history.config';
 export * from './profile/wlc-verification.config';
 
 export * from './store/wlc-store-list.config';
-export * from './store/wlc-loyalty-levels.config';
 
 export * from './tournaments/wlc-tournament-detail.config';
 
