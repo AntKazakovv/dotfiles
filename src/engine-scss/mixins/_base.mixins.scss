@@ -56,13 +56,13 @@
 
 /// Hides element but keeps it accessible
 @mixin visuallyHidden {
-    clip: rect(0 0 0 0);
-    clip-path: inset(100%);
+    position: absolute;
     width: 1px;
     height: 1px;
-    overflow: hidden;
-    position: absolute;
     white-space: nowrap;
+    clip: rect(0 0 0 0);
+    clip-path: inset(100%);
+    overflow: hidden;
 }
 
 /// Creates css which depends on values for media-queries.
@@ -118,6 +118,7 @@
         @if ($page == 'all') {
             @include init-indent($classes);
         } @else {
+
             #{$page} {
                 @include init-indent($classes);
             }
@@ -132,8 +133,8 @@
         &:hover {
 
             .wlc-icon {
-                transform: rotateX(360deg) translateX(10px);
                 @include transition(transform, 0.3s);
+                transform: rotateX(360deg) translateX(10px);
             }
         }
     }
@@ -178,9 +179,9 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
 
     margin: 0 auto;
+    transform: translate(-50%, -50%);
 }
 
 // Fix layout shift problem for inline elements

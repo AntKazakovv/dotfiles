@@ -24,12 +24,12 @@
 
                     <div class="{{$class}}__cell-content" *ngSwitchCase="'component'">
                         <ng-container [ngComponentOutlet]="col.componentClass"
-                                    [ngComponentOutletInjector]="getComponentInjector(item, $index, col)">
+                                    [ngComponentOutletInjector]="getComponentInjector(item, $index + indexFactor, col)">
                         </ng-container>
                     </div>
 
                     <div class="{{$class}}__cell-content" *ngSwitchDefault>
-                        {{item.getValue(col, $index) | translate}}
+                        {{item.getValue(col, $index + indexFactor) | translate}}
                     </div>
                 </ng-container>
 

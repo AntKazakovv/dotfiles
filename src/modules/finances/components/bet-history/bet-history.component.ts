@@ -3,6 +3,7 @@ import {
     OnInit,
     ChangeDetectorRef,
     Inject,
+    ViewChild,
 } from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {BehaviorSubject} from 'rxjs';
@@ -18,13 +19,14 @@ import {
     EventService,
     ITableCParams,
     IDatepickerCParams,
+    DatepickerComponent,
 } from 'wlc-engine/modules/core';
 import {
     FinancesService,
     HistoryFilterService,
-} from 'wlc-engine/modules/finances/system/services';
+    IBet,
+} from 'wlc-engine/modules/finances';
 import {GamesCatalogService} from 'wlc-engine/modules/games';
-import {IBet} from 'wlc-engine/modules/finances/system/interfaces';
 
 import * as Params from './bet-history.params';
 
@@ -38,6 +40,7 @@ import _filter from 'lodash-es/filter';
 })
 export class BetHistoryComponent extends AbstractComponent implements OnInit {
 
+    @ViewChild('datepickerEndComponent') public datepickerEndComponent: DatepickerComponent;
     public ready = false;
     public $params: Params.IBetHistoryCParams;
     public startDateInput: IDatepickerCParams = {
@@ -56,7 +59,6 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
         common: {
             placeholder: gettext('Merchants'),
         },
-        theme: 'vertical',
         labelText: 'Merchants',
         control: new FormControl(''),
         options: 'merchants',
@@ -109,6 +111,7 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
 
         this.startDateInput.control.valueChanges.pipe(takeUntil(this.$destroy)).subscribe((value) => {
             this.startDate = value.set({hour: 0, minute: 0, second: 0});
+            this.setDisableDate();
             this.bets.next(this.filterTransaction());
         });
 
@@ -150,16 +153,21 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
     }
 
     protected setMinMaxDate(): void {
-        const dates = this.allBets.sort((a, b) => {
-            return DateTime.fromSQL(a.DateISO).toSeconds() - DateTime.fromSQL(b.DateISO).toSeconds();
+        const dates = this.allBets.sort((bet, nextBet) => {
+            return DateTime.fromSQL(bet.DateISO).toSeconds() - DateTime.fromSQL(nextBet.DateISO).toSeconds();
         });
 
+        if (!dates.length) {
+            return;
+        }
         this.startDate = (DateTime.fromSQL(dates[0]?.DateISO) || DateTime.local()).startOf('day');
         this.endDate = (DateTime.fromSQL(dates[dates.length - 1]?.DateISO) || DateTime.local()).endOf('day');
         this.startDateInput.control.setValue(this.startDate.toFormat('dd.LL.yyyy'));
         this.endDateInput.control.setValue(this.endDate.toFormat('dd.LL.yyyy'));
         this.startDateInput = _clone(this.startDateInput);
         this.endDateInput = _clone(this.endDateInput);
+
+        this.setDisableDate();
         this.cdr.detectChanges();
     }
 
@@ -180,5 +188,15 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
                 this.filterSelect.control.setValue(data.filterType);
                 this.bets.next(this.filterTransaction());
             });
+    }
+
+    protected setDisableDate(): void {
+        this.datepickerEndComponent.dp.options.disableUntil = {
+            day: this.startDate.day,
+            month: this.startDate.month,
+            year: this.startDate.year,
+        };
+        this.datepickerEndComponent.dp.parseOptions(this.datepickerEndComponent.dp.options);
+        this.cdr.markForCheck();
     }
 }

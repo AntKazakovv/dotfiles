@@ -1,8 +1,10 @@
 <div class="{{$class}}-filter">
     <div wlc-datepicker [inlineParams]='startDateInput'></div>
-    <div wlc-datepicker [inlineParams]='endDateInput'></div>
+    <div wlc-datepicker #datepickerEndComponent [inlineParams]='endDateInput' ></div>
 
-    <div wlc-select [inlineParams]='filterSelect' *ngIf="$params.filterType==='select'; else buttons"></div>
+    <div *ngIf="$params.filterType==='select'; else buttons"
+         wlc-select
+         [inlineParams]='filterSelect'></div>
 </div>
 
 <div *ngIf="ready; else preloader" class="{{$class}}">

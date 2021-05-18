@@ -223,9 +223,6 @@ export namespace formConfig {
                     name: 'startDate',
                     label: gettext('Start Date'),
                     customMod: ['start'],
-                    datepickerOptions: {
-                        alignSelectorRight: true,
-                    },
                 },
             },
             {
@@ -234,6 +231,9 @@ export namespace formConfig {
                     name: 'endDate',
                     label: gettext('End Date'),
                     customMod: ['end'],
+                    datepickerOptions: {
+                        alignSelectorRight: true,
+                    },
                 },
             },
             {
@@ -260,7 +260,3 @@ export namespace formConfig {
         ],
     };
 }
-
-
-
-

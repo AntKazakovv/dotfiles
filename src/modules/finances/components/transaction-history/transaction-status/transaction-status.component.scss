@@ -2,9 +2,9 @@
 @use 'engine-scss/mixins/text' as text;
 
 :host {
+    position: relative;
     display: inline-flex;
     align-items: center;
-    position: relative;
 
     .wlc-tooltip {
         margin-left: 4px;

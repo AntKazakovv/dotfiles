@@ -3,6 +3,7 @@ import {
     OnInit,
     ChangeDetectorRef,
     Inject,
+    ViewChild,
 } from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {BehaviorSubject} from 'rxjs';
@@ -19,12 +20,13 @@ import {
     ISelectCParams,
     ITableCParams,
     IDatepickerCParams,
+    DatepickerComponent,
 } from 'wlc-engine/modules/core';
 import {
     FinancesService,
     HistoryFilterService,
-} from 'wlc-engine/modules/finances/system/services';
-import {Transaction} from 'wlc-engine/modules/finances/system/models/transaction-history.model';
+    Transaction,
+} from 'wlc-engine/modules/finances';
 
 import * as Params from './transaction-history.params';
 
@@ -38,6 +40,7 @@ import _clone from 'lodash-es/clone';
 })
 export class TransactionHistoryComponent extends AbstractComponent implements OnInit {
 
+    @ViewChild('datepickerEndComponent') public datepickerEndComponent: DatepickerComponent;
     public ready = false;
     public filterSelect: ISelectCParams = {
         name: 'type',
@@ -118,6 +121,7 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
 
         this.startDateInput.control.valueChanges.pipe(takeUntil(this.$destroy)).subscribe((value) => {
             this.startDate = value.set({hour: 0, minute: 0, second: 0});
+            this.setDisableDate();
             this.transaction.next(this.filterTransaction());
         });
 
@@ -185,6 +189,7 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
             this.endDateInput = _clone(this.endDateInput);
         }
 
+        this.setDisableDate();
         this.cdr.detectChanges();
     }
 
@@ -205,5 +210,15 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
                 this.startDate = data.startDate;
                 this.transaction.next(this.filterTransaction());
             });
+    }
+
+    protected setDisableDate(): void {
+        this.datepickerEndComponent.dp.options.disableUntil = {
+            day: this.startDate.day,
+            month: this.startDate.month,
+            year: this.startDate.year,
+        };
+        this.datepickerEndComponent.dp.parseOptions(this.datepickerEndComponent.dp.options);
+        this.cdr.markForCheck();
     }
 }

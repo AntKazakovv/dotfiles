@@ -116,7 +116,7 @@
             }
 
             &--first {
-                grid-template-columns: auto 1fr auto;
+                grid-template-columns: ef.get-value($themeDefault, 'firstColumnColumns');
                 font-size: ef.get-value($themeDefault, 'fontSizeTitleMobile');
                 font-weight: bold;
                 background: ef.get-value($themeDefault, 'rowTitleBackgroundMobile');

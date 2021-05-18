@@ -16,20 +16,22 @@
 
     .wlc-menu--theme-default.wlc-menu--type-profile-first-menu,
     .wlc-menu--theme-default.wlc-menu--type-profile-menu {
+        @include bm.get-mq-map('margin', $submenuProfileDefault, 'submenuMargin');
         display: grid;
+        overflow: auto hidden;
+
+        -ms-overflow-style: none;
+        scrollbar-width: none;
         grid: {
             auto-columns: max-content;
             auto-flow: column;
 
             gap: ef.get-value($submenuProfileDefault, 'menuGap');
         }
-        @include bm.get-mq-map('margin', $submenuProfileDefault, 'submenuMargin');
-        overflow: auto hidden;
-
-        -ms-overflow-style: none;
-        scrollbar-width: none;
 
         &:before {
+
+            content: '';
             position: absolute;
             bottom: 0;
             left: 0;
@@ -38,15 +40,35 @@
             height: ef.get-value($submenuProfileDefault, 'submenuBorderBottomHeight');
 
             background: ef.get-value($submenuProfileDefault, 'submenuBorderBottom');
-
-            content: '';
         }
 
         ::ng-deep {
 
             .wlc-menu {
 
+                &__item:last-child {
+
+                    .wlc-menu__link {
+
+                        @include bm.desktopHover {
+
+                            &:before {
+                                width: 100%;
+                            }
+                        }
+                    }
+                }
+
                 &__link {
+                    @include text.get-text-style('PrimaryText');
+                    @include bm.transition(color);
+
+                    @include bm.desktopHover {
+
+                        &:before {
+                            width: ef.get-value($submenuProfileDefault, 'submenuItemHoverUnderlineWidth');
+                        }
+                    }
                     position: relative;
                     z-index: 2;
 
@@ -54,14 +76,11 @@
                     padding: ef.get-value($submenuProfileDefault, 'submenuItemPadding');
 
                     text-decoration: none;
-                    @include text.get-text-style('PrimaryText');
-                    @include bm.transition(color);
-
-                    @include mq.min(1024) {
-                        padding: ef.get-value($submenuProfileDefault, 'submenuItemPadding', 1024);
-                    }
 
                     &:before {
+                        @include bm.transition(width);
+
+                        content: '';
                         position: absolute;
                         bottom: 0;
                         left: 0;
@@ -70,19 +89,6 @@
                         height: ef.get-value($submenuProfileDefault, 'linkBeforeHeight');
 
                         background: ef.get-value($submenuProfileDefault, 'submenuItemActiveBorder');
-                        @include bm.transition(width);
-
-                        content: '';
-                    }
-
-                    &:hover {
-
-                        @media (hover: hover) {
-
-                            &:before {
-                                width: 100%;
-                            }
-                        }
                     }
 
                     &.active {
@@ -90,6 +96,10 @@
                         &:before {
                             width: 100%;
                         }
+                    }
+
+                    @include mq.min(1024) {
+                        padding: ef.get-value($submenuProfileDefault, 'submenuItemPadding', 1024);
                     }
                 }
             }

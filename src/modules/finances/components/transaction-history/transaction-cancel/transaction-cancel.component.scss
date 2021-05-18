@@ -1,3 +1,5 @@
+@use 'engine-scss/mixins/mediaqueries' as mq;
+
 :host {
     display: inline-flex;
     align-items: center;
@@ -8,12 +10,22 @@
             display: block;
         }
     }
+
+    @media (hover: none) {
+
+        .cancel-btn {
+            display: block;
+        }
+    }
 }
 
 .cancel-btn {
     display: none;
-    position: absolute;
-    z-index: 10;
-    left: 50%;
-    transform: translateX(-50%);
+
+    @include mq.min(1024) {
+        position: absolute;
+        left: 50%;
+        z-index: 10;
+        transform: translateX(-50%);
+    }
 }
