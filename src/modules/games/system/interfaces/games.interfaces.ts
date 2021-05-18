@@ -39,9 +39,9 @@ export interface IDisablePlayRealByCountry {
 }
 
 export interface IRunGameOptions {
-    skipCheckBalance: boolean;
-    checkProfileRequiredFields: boolean;
-    checkActiveBonusRestriction: boolean;
+    skipCheckBalance?: boolean;
+    checkProfileRequiredFields?: boolean;
+    checkActiveBonusRestriction?: boolean;
 }
 
 export interface IMobileGames {

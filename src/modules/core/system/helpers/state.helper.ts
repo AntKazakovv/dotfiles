@@ -5,18 +5,44 @@ import {
     StateService,
 } from '@uirouter/core';
 
-import {ConfigService, LayoutService, ModalService} from 'wlc-engine/modules/core/system/services';
+import {
+    ConfigService,
+    LayoutService,
+    ModalService,
+} from 'wlc-engine/modules/core/system/services';
 import {LazyLoadResult} from '@uirouter/core/lib/state/interface';
 import {Deferred} from 'wlc-engine/modules/core/system/classes';
+import {IRedirect, IIndexing} from 'wlc-engine/modules/core';
+
+import _merge from 'lodash-es/merge';
 
 export class StateHelper {
-    public static onStateEnter(trans: Transition) {
+    public static async onStateEnter(trans: Transition) {
         const params = trans.params();
-        if (!params.locale) {
+        const config = trans.injector().get(ConfigService);
+
+        await config.ready;
+        const redirects: IIndexing<IRedirect> = config.get('$base.redirects.states');
+
+        const locale = {
+            locale: trans.injector().get('lang') || 'en',
+        };
+
+        const redirect = redirects[trans.to().name];
+
+        if (redirect) {
             trans.abort();
-            trans.router.stateService.go('app.home', {
-                locale: trans.injector().get('lang') || 'en',
-            });
+            const redirectParams = _merge(locale, redirect.params);
+            trans.router.stateService.go(
+                redirect.state,
+                redirectParams,
+            );
+        } else if (!params.locale) {
+            trans.abort();
+            trans.router.stateService.go(
+                redirects['app.home']?.state || 'app.home',
+                _merge(locale, redirects['app.home']?.params),
+            );
         }
     }
 
@@ -64,7 +90,7 @@ export class StateHelper {
         };
     }
 
-    public static profileTypeResolver(type:string = 'default'): ResolveTypes {
+    public static profileTypeResolver(type: string = 'default'): ResolveTypes {
         return {
             token: 'forProfile',
             deps: [

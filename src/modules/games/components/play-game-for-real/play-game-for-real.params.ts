@@ -186,6 +186,7 @@ export const playGameForRealConfig = (params: IPlayForRealParams): IFormWrapperC
                 common: {
                     text: gettext('Play'),
                     type: 'button',
+                    typeAttr: 'button',
                     event: {
                         name: Events.PLAY_REAL,
                     },

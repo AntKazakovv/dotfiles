@@ -5,6 +5,7 @@ import {tournamentsConfig} from './tournaments.config';
 import {gamesConfig} from './games.config';
 import {appConfig} from './app.config';
 import {notificationsConfig} from './notifications.config';
+import {redirectsConfig} from './redirect.config';
 
 export const $base: IBaseConfig = {
     app: appConfig,
@@ -13,4 +14,5 @@ export const $base: IBaseConfig = {
     tournaments: tournamentsConfig,
     games: gamesConfig,
     notifications: notificationsConfig,
+    redirects: redirectsConfig,
 };

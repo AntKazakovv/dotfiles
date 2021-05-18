@@ -325,7 +325,6 @@ class StartGameHandler {
             return;
         }
 
-        const redirect: IRedirect = this.configService.get<IRedirect>('$core.redirects.zeroBalance');
         try {
             if (this.checkProfileRequiredFields) {
                 await this.checkUserFields();
@@ -386,7 +385,7 @@ class StartGameHandler {
         );
 
         deferred.reject(RejectReason.LowBalance);
-        const redirect: IRedirect = this.configService.get<IRedirect>('$core.redirects.zeroBalance');
+        const redirect: IRedirect = this.configService.get<IRedirect>('$base.redirects.zeroBalance');
         if (this.configService.get('$finances.fastDeposit.use')) {
             //@TODO After ready fast deposit
             //this.modalService.showModal('fastDeposit');
