@@ -6,21 +6,21 @@
 .wlc-category-preview--theme-default:host {
 
     .wlc-category-preview__wrapper {
-        display: grid;
-        grid-template-columns: ef.get-value($themeDefault, 'wraperGridColumns');
 
         @include bm.get-mq-map('gap', $themeDefault, 'gap');
+        display: grid;
+        grid-template-columns: ef.get-value($themeDefault, 'wraperGridColumns');
     }
 
     .wlc-category-preview-item__category {
+
+        @include bm.get-mq-map('margin-bottom', $themeDefault, 'gap');
         position: relative;
         height: 0;
         padding-top: 75%;
         background: ef.get-value($themeDefault, 'categoryBg');
         background-repeat: no-repeat;
         border-radius: ef.get-value($themeDefault, 'categoryBorderRadius');
-
-        @include bm.get-mq-map('margin-bottom', $themeDefault, 'gap');
 
         .wrapper {
             position: absolute;
@@ -35,27 +35,24 @@
         position: relative;
 
         .wrapper {
+
+            @include bm.get-mq-map('padding', $themeDefault, 'categoryPadding');
             display: flex;
             flex-direction: ef.get-value($themeDefault, 'categoryFlexDirection');
             justify-content: ef.get-value($themeDefault, 'categoryJustifyContent');
             text-decoration: none;
 
-            @include bm.get-mq-map('padding', $themeDefault, 'categoryPadding');
+            @include bm.hover {
+                text-decoration: none;
 
-            @media (hover) {
+                .category-card__link {
 
-                &:hover {
-                    text-decoration: none;
+                    ::ng-deep {
 
-                    .category-card__link {
+                        .wlc-icon {
 
-                        ::ng-deep {
-
-                            .wlc-icon {
-
-                                svg {
-                                    transform: rotate(270deg);
-                                }
+                            svg {
+                                transform: rotate(270deg);
                             }
                         }
                     }

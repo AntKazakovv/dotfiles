@@ -44,11 +44,11 @@
         }
 
         &__banner {
-            align-self: stretch;
-            width: 100%;
             @include bm.get-mq-map('grid-row', $themeDefault, 'gridBannerRow');
             @include bm.get-mq-map('grid-column', $themeDefault, 'gridBannerColumn');
             @include bm.get-mq-map('margin-right', $themeDefault, 'gridGap');
+            align-self: stretch;
+            width: 100%;
 
             [class*='wlc-banners'] {
                 height: 100%;
@@ -72,18 +72,18 @@
         }
 
         &__link {
-            display: flex;
-            align-items: center;
             @include text.get-text-style('PlaceholderTextBold', ef.get-value($themeDefault, 'allLinkColor'));
-            text-decoration: none;
             @include bm.transition(color);
             @include bm.arrowIconAnimation;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
 
             ::ng-deep {
 
                 .wlc-icon {
-                    margin-left: ef.get-value($themeDefault, 'allLinkIconMargin');
                     @include bm.transition(transform, 0.3s);
+                    margin-left: ef.get-value($themeDefault, 'allLinkIconMargin');
 
                     &-content {
                         display: flex;
@@ -97,18 +97,15 @@
                 }
             }
 
-            @media (hover: hover) {
+            @include bm.hover {
+                color: ef.get-value($themeDefault, 'allLinkColorHover');
 
-                &:hover {
-                    color: ef.get-value($themeDefault, 'allLinkColorHover');
+                ::ng-deep {
 
-                    ::ng-deep {
+                    .wlc-icon {
 
-                        .wlc-icon {
-
-                            svg {
-                                fill: ef.get-value($themeDefault, 'allLinkColorHover');
-                            }
+                        svg {
+                            fill: ef.get-value($themeDefault, 'allLinkColorHover');
                         }
                     }
                 }
@@ -116,11 +113,11 @@
         }
 
         &__list {
+            @include bm.get-mq-map('grid-gap', $themeDefault, 'gridGap');
+            @include bm.get-mq-map('grid-template-columns', $themeDefault, 'gridColumns');
             display: grid;
             flex-grow: 1;
             grid-auto-rows: 1fr;
-            @include bm.get-mq-map('grid-gap', $themeDefault, 'gridGap');
-            @include bm.get-mq-map('grid-template-columns', $themeDefault, 'gridColumns');
         }
 
         &__progressbar {
@@ -128,10 +125,10 @@
         }
 
         &__more {
+            @include bm.get-mq-map('margin', $themeDefault, 'moreButtonMargin');
             display: flex;
             align-items: ef.get-value($themeDefault, 'moreButtonAlignItems');
             justify-content: ef.get-value($themeDefault, 'moreButtonJustifyContent');
-            @include bm.get-mq-map('margin', $themeDefault, 'moreButtonMargin');
         }
 
         &__placeholder {

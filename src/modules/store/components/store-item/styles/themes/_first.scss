@@ -9,51 +9,48 @@
     .wlc-store-item {
 
         &__content {
-            position: relative;
 
             @include em.get-mq-map('min-width', $themeFirst, 'minWidth');
             @include em.get-mq-map('max-width', $themeFirst, 'maxWidth');
-            margin-left: auto;
+            position: relative;
             margin-right: auto;
+            margin-left: auto;
 
             border-radius: ef.get-value($themeFirst, 'radius');
             overflow: hidden;
 
-            @media (hover: hover) {
+            @include em.hover {
 
-                &:hover {
+                .wlc-store-item__wrapper {
+                    background: ef.get-value($themeFirst, 'backgroundHover');
+                }
 
-                    .wlc-store-item__wrapper {
-                        background: ef.get-value($themeFirst, 'backgroundHover');
+                .wlc-store-item__bottom {
+                    @include em.get-mq-map('transform', $themeFirst, 'bottomHoverTranslate');
+                    background: ef.get-value($themeFirst, 'backgroundHover');
+                }
+
+                .wlc-store-item__image {
+                    @include em.get-mq-map('transform', $themeFirst, 'imageHoverTranslate');
+
+                    &:before {
+                        @include em.get-mq-map('transform', $themeFirst, 'imageHoverGradientTranslate');
                     }
+                }
 
-                    .wlc-store-item__bottom {
-                        background: ef.get-value($themeFirst, 'backgroundHover');
-                        @include em.get-mq-map('transform', $themeFirst, 'bottomHoverTranslate');
-                    }
-
-                    .wlc-store-item__image {
-                        @include em.get-mq-map('transform', $themeFirst, 'imageHoverTranslate');
-
-                        &:before {
-                            @include em.get-mq-map('transform', $themeFirst, 'imageHoverGradientTranslate');
-                        }
-                    }
-
-                    .wlc-store-item__btns {
-                        opacity: 1;
-                        transform: translateY(0);
-                    }
+                .wlc-store-item__btns {
+                    transform: translateY(0);
+                    opacity: 1;
                 }
             }
 
-            @media (hover: none) {
+            @include em.hover(false) {
 
                 .wlc-store-item__btns {
                     position: static;
+                    transform: translateY(0);
 
                     opacity: 1;
-                    transform: translateY(0);
 
                     button {
                         margin: ef.get-value($themeFirst, 'btnMarginMobile');
@@ -79,19 +76,20 @@
         }
 
         &__image {
+            @include em.get-mq-map('padding', $themeFirst, 'imagePadding');
             position: relative;
             width: 100%;
-            @include em.get-mq-map('padding', $themeFirst, 'imagePadding');
 
             background-color: ef.get-value($themeFirst, 'imageBg');
             background-repeat: no-repeat;
-            background-size: auto 100%;
             background-position: center center;
-
-            transition: all ef.get-value($themeFirst, 'time') ease-in-out;
+            background-size: auto 100%;
             transform: translateY(0);
 
+            transition: all ef.get-value($themeFirst, 'time') ease-in-out;
+
             &:before {
+                content: '';
                 position: absolute;
                 top: 0;
                 bottom: 0;
@@ -99,37 +97,36 @@
                 width: 100%;
 
                 background: ef.get-value($themeFirst, 'imageGradient');
+                transform: translateY(0);
 
                 transition: all ef.get-value($themeFirst, 'time') ease-in-out;
-                transform: translateY(0);
-                content: '';
             }
         }
 
         &__tag {
-            position: absolute;
-            z-index: 2;
-            top: ef.get-value($themeFirst, 'tagPositionTop');
-            left: 50%;
 
             @include em.get-mq-map('padding', $themeFirst, 'tagPadding');
 
             @include text.get-text-style('SignText', ef.get-value($themeFirst, 'tagFontColor'));
+            position: absolute;
+            top: ef.get-value($themeFirst, 'tagPositionTop');
+            left: 50%;
+            z-index: 2;
 
             background-color: ef.get-value($themeFirst, 'tagBg');
 
-            border-radius: ef.get-value($themeFirst, 'tagRadius');
-
             transform: translateX(-50%);
+
+            border-radius: ef.get-value($themeFirst, 'tagRadius');
         }
 
         &__bottom {
             @include em.get-mq-map('height', $themeFirst, 'infoHeight');
 
             background: ef.get-value($themeFirst, 'background');
+            transform: translateY(0);
 
             transition: all ef.get-value($themeFirst, 'time') ease-in-out;
-            transform: translateY(0);
         }
 
         &__info-block {
@@ -144,9 +141,9 @@
 
         &__name {
             @include em.get-mq-map('width', $themeFirst, 'infoWidth');
+            font-weight: bold;
 
             font-size: ef.get-value($themeFirst, 'nameFontSize');
-            font-weight: bold;
             line-height: 1.4;
             text-align: center;
 
@@ -158,35 +155,35 @@
         }
 
         &__price {
+
+            @include em.get-mq-map('width', $themeFirst, 'infoWidth');
+            @include em.get-mq-map('min-height', $themeFirst, 'priceMinHeight');
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
 
-            @include em.get-mq-map('width', $themeFirst, 'infoWidth');
-            @include em.get-mq-map('min-height', $themeFirst, 'priceMinHeight');
+            color: ef.get-value($themeFirst, 'priceFontColor');
 
             font-size: ef.get-value($themeFirst, 'priceFontSize');
             text-align: center;
-
-            color: ef.get-value($themeFirst, 'priceFontColor');
 
             transition: transform ef.get-value($themeFirst, 'time') ease-in-out;
             will-change: transform;
 
             .price-item {
+                @include em.get-mq-map('margin', $themeFirst, 'priceMargin');
                 display: flex;
                 align-items: center;
-                @include em.get-mq-map('margin', $themeFirst, 'priceMargin');
             }
         }
 
         &__more-icon {
             position: absolute;
             top: ef.get-value($themeFirst, 'moreIconPosTop');
+            right: ef.get-value($themeFirst, 'moreIconPosRight');
             bottom: ef.get-value($themeFirst, 'moreIconPosBottom');
             left: ef.get-value($themeFirst, 'moreIconPosLeft');
-            right: ef.get-value($themeFirst, 'moreIconPosRight');
 
             line-height: 0;
 
@@ -197,23 +194,20 @@
                 cursor: pointer;
 
                 svg {
+
+                    @include em.transition(fill);
                     width: 100%;
 
                     fill: ef.get-value($themeFirst, 'moreIconColor');
-
-                    @include em.transition(fill);
                 }
             }
 
-            @media (hover: hover) {
+            @include em.hover {
 
-                &:hover {
+                .icon-btn {
 
-                    .icon-btn {
-
-                        svg {
-                            fill: ef.get-value($themeFirst, 'moreIconColorHover');
-                        }
+                    svg {
+                        fill: ef.get-value($themeFirst, 'moreIconColorHover');
                     }
                 }
             }
@@ -227,10 +221,10 @@
             justify-content: center;
 
             width: 100%;
+            transform: translateY(400%);
 
             opacity: 0;
             transition: all ef.get-value($themeFirst, 'time') ease-in-out;
-            transform: translateY(400%);
 
             button {
                 margin: ef.get-value($themeFirst, 'btnMargin');

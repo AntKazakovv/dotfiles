@@ -142,20 +142,17 @@
                 }
             }
 
-            @media (hover: hover) {
+            @include em.hover {
 
-                &:hover {
+                ::ng-deep {
 
-                    ::ng-deep {
+                    .wlc-btn__text {
+                        color: lighten(ef.get-value($themeDefault, 'btnTextColor'), 20%);
 
-                        .wlc-btn__text {
-                            color: lighten(ef.get-value($themeDefault, 'btnTextColor'), 20%);
+                        .wlc-icon::ng-deep {
 
-                            .wlc-icon::ng-deep {
-
-                                svg {
-                                    fill: lighten(ef.get-value($themeDefault, 'btnTextColor'), 20%);
-                                }
+                            svg {
+                                fill: lighten(ef.get-value($themeDefault, 'btnTextColor'), 20%);
                             }
                         }
                     }

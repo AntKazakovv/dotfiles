@@ -20,18 +20,9 @@
     &__all {
         text-align: center;
 
-        @include mq.min(900) {
-            text-align: left;
-        }
-
         a {
-            text-decoration: none;
             @include text.get-text-style(ef.get-value($themeDefault, 'allLinkTextStyle'), ef.get-value($themeDefault, 'allLinkColor'));
-
-            @include bm.desktopHover() {
-                color: ef.get-value($themeDefault, 'allLinkColorHover');
-                text-decoration: underline;
-            }
+            text-decoration: none;
 
             .wlc-icon::ng-deep {
 
@@ -40,6 +31,15 @@
                     fill: ef.get-value($themeDefault, 'allLinkColor');
                 }
             }
+
+            @include bm.hover {
+                color: ef.get-value($themeDefault, 'allLinkColorHover');
+                text-decoration: underline;
+            }
+        }
+
+        @include mq.min(900) {
+            text-align: left;
         }
     }
 
@@ -51,16 +51,16 @@
             display: none;
             align-self: flex-start;
 
-            @include mq.min(900) {
-                display: block;
-            }
-
             ::ng-deep {
 
                 svg {
                     width: ef.get-value($themeDefault, 'userIconWidth');
                     margin: ef.get-value($themeDefault, 'userIconMargin');
                 }
+            }
+
+            @include mq.min(900) {
+                display: block;
             }
         }
     }

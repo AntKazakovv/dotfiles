@@ -9,18 +9,45 @@
     .wlc-store-item {
 
         &__content {
-            position: relative;
 
             @include em.get-mq-map('height', $themeDefault, 'height');
             @include em.get-mq-map('min-width', $themeDefault, 'minWidth');
             @include em.get-mq-map('max-width', $themeDefault, 'maxWidth');
-            margin-left: auto;
+            position: relative;
             margin-right: auto;
+            margin-left: auto;
 
             border-radius: ef.get-value($themeDefault, 'radius');
             overflow: hidden;
 
-            @media (hover: none) {
+            &.noauth {
+
+                .wlc-store-item__wrapper {
+
+                    @include em.hover {
+
+                        .wlc-store-item__price {
+                            transform: translateY(0);
+                        }
+
+                        .wlc-store-item__name {
+                            opacity: 1;
+                        }
+
+                        .wlc-store-item__info-block {
+
+                            .wlc-store-item__price {
+
+                                @include mq.min(1630) {
+                                    transform: translateY(0);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            @include em.hover(false) {
                 @include em.get-mq-map('height', $themeDefault, 'heightMobile');
 
                 .wlc-store-item__wrapper {
@@ -30,9 +57,9 @@
                 .wlc-store-item__btns {
                     position: static;
                     bottom: 10%;
+                    transform: translateY(0);
 
                     opacity: 1;
-                    transform: translateY(0);
                 }
 
                 &.noauth {
@@ -43,43 +70,13 @@
                     }
                 }
             }
-
-            &.noauth {
-
-                .wlc-store-item__wrapper {
-
-                    @media (hover: hover) {
-
-                        &:hover {
-
-                            .wlc-store-item__price {
-                                transform: translateY(0);
-                            }
-
-                            .wlc-store-item__name {
-                                opacity: 1;
-                            }
-
-                            .wlc-store-item__info-block {
-
-                                .wlc-store-item__price {
-
-                                    @include mq.min(1630) {
-                                        transform: translateY(0);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
         }
 
         &__wrapper {
+            @include em.get-mq-map('grid-template-rows', $themeDefault, 'wrapperGrid');
             position: relative;
 
             display: grid;
-            @include em.get-mq-map('grid-template-rows', $themeDefault, 'wrapperGrid');
 
             width: 100%;
             height: 100%;
@@ -88,33 +85,30 @@
 
             transition: all ef.get-value($themeDefault, 'time') ease-in-out;
 
-            @media (hover: hover) {
+            @include em.hover {
+                background: ef.get-value($themeDefault, 'backgroundHover');
 
-                &:hover {
-                    background: ef.get-value($themeDefault, 'backgroundHover');
+                .wlc-store-item__btns {
+                    transform: translateY(0);
+                    opacity: 1;
+                }
 
-                    .wlc-store-item__btns {
-                        opacity: 1;
-                        transform: translateY(0);
-                    }
+                .wlc-store-item__price {
+                    transform: translateY(-100%);
+                }
+
+                .wlc-store-item__info-block {
 
                     .wlc-store-item__price {
-                        transform: translateY(-100%);
-                    }
 
-                    .wlc-store-item__info-block {
-
-                        .wlc-store-item__price {
-
-                            @include mq.min(1630) {
-                                transform: translateY(-130%);
-                            }
+                        @include mq.min(1630) {
+                            transform: translateY(-130%);
                         }
                     }
+                }
 
-                    .wlc-store-item__name {
-                        opacity: 0;
-                    }
+                .wlc-store-item__name {
+                    opacity: 0;
                 }
             }
         }
@@ -124,6 +118,7 @@
         }
 
         &__image {
+            @include em.get-mq-map('padding', $themeDefault, 'imagePadding');
             position: relative;
 
             display: flex;
@@ -131,7 +126,6 @@
 
             width: 100%;
             height: 100%;
-            @include em.get-mq-map('padding', $themeDefault, 'imagePadding');
 
             background-color: ef.get-value($themeDefault, 'imageBg');
 
@@ -140,53 +134,53 @@
             }
 
             img {
+                @include em.get-mq-map('max-height', $themeDefault, 'maxImageHeight');
+                @include em.get-mq-map('max-width', $themeDefault, 'maxImageWidth');
                 display: block;
 
                 height: auto;
-                @include em.get-mq-map('max-height', $themeDefault, 'maxImageHeight');
-                @include em.get-mq-map('max-width', $themeDefault, 'maxImageWidth');
                 margin: 0 auto;
             }
         }
 
         &__bonus-icon {
-            position: relative;
 
             @include em.get-mq-map('width', $themeDefault, 'bonusIconSize');
             @include em.get-mq-map('height', $themeDefault, 'bonusIconSize');
             @include em.get-mq-map('margin', $themeDefault, 'bonusIconMargin');
+            position: relative;
 
             background-repeat: no-repeat;
-            background-size: cover;
             background-position: center center;
+            background-size: cover;
 
             .icon-sign {
                 position: absolute;
-                left: 0;
                 top: 0;
+                left: 0;
 
                 width: 100%;
             }
 
             .icon-text {
+                @include em.get-mq-map('height', $themeDefault, 'bonusIconValueBlockHeight');
+
+                @include em.get-mq-map('font-size', $themeDefault, 'bonusIconValueFontSize');
                 position: absolute;
-                left: ef.get-value($themeDefault, 'bonusIconValueBlockPosL');
                 bottom: ef.get-value($themeDefault, 'bonusIconValueBlockPosB');
+                left: ef.get-value($themeDefault, 'bonusIconValueBlockPosL');
 
                 display: flex;
                 align-items: center;
                 justify-content: center;
 
                 width: ef.get-value($themeDefault, 'bonusIconValueBlockWidth');
-                @include em.get-mq-map('height', $themeDefault, 'bonusIconValueBlockHeight');
                 margin: ef.get-value($themeDefault, 'bonusIconValueBlockMagin');
-
-                @include em.get-mq-map('font-size', $themeDefault, 'bonusIconValueFontSize');
+                color: ef.get-value($themeDefault, 'bonusIconValueFontColor');
                 font-weight: ef.get-value($themeDefault, 'bonusIconValueFontW');
                 line-height: 1;
 
                 background-color: ef.get-value($themeDefault, 'bonusIconValueBg');
-                color: ef.get-value($themeDefault, 'bonusIconValueFontColor');
 
                 border-radius: ef.get-value($themeDefault, 'bonusIconValueBlockBorderRds');
 
@@ -201,20 +195,20 @@
         }
 
         &__tag {
-            position: absolute;
-            z-index: 2;
-            top: ef.get-value($themeDefault, 'tagPositionTop');
-            left: 50%;
 
             @include em.get-mq-map('padding', $themeDefault, 'tagPadding');
 
             @include text.get-text-style('SignText', ef.get-value($themeDefault, 'tagFontColor'));
+            position: absolute;
+            top: ef.get-value($themeDefault, 'tagPositionTop');
+            left: 50%;
+            z-index: 2;
 
             background-color: ef.get-value($themeDefault, 'tagBg');
 
-            border-radius: ef.get-value($themeDefault, 'tagRadius');
-
             transform: translateX(-50%);
+
+            border-radius: ef.get-value($themeDefault, 'tagRadius');
         }
 
         &__info-block {
@@ -227,9 +221,9 @@
 
         &__name {
             @include em.get-mq-map('width', $themeDefault, 'infoWidth');
+            font-weight: bold;
 
             font-size: ef.get-value($themeDefault, 'nameFontSize');
-            font-weight: bold;
             line-height: 1.4;
             text-align: center;
 
@@ -241,18 +235,18 @@
         }
 
         &__price {
+
+            @include em.get-mq-map('width', $themeDefault, 'infoWidth');
+            @include em.get-mq-map('min-height', $themeDefault, 'priceMinHeight');
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
 
-            @include em.get-mq-map('width', $themeDefault, 'infoWidth');
-            @include em.get-mq-map('min-height', $themeDefault, 'priceMinHeight');
+            color: ef.get-value($themeDefault, 'priceFontColor');
 
             font-size: ef.get-value($themeDefault, 'priceFontSize');
             text-align: center;
-
-            color: ef.get-value($themeDefault, 'priceFontColor');
 
             transition: transform ef.get-value($themeDefault, 'time') ease-in-out;
             will-change: transform;
@@ -266,9 +260,9 @@
         &__more-icon {
             position: absolute;
             top: ef.get-value($themeDefault, 'moreIconPosTop');
+            right: ef.get-value($themeDefault, 'moreIconPosRight');
             bottom: ef.get-value($themeDefault, 'moreIconPosBottom');
             left: ef.get-value($themeDefault, 'moreIconPosLeft');
-            right: ef.get-value($themeDefault, 'moreIconPosRight');
 
             .icon-btn {
                 width: ef.get-value($themeDefault, 'moreIconSize');
@@ -277,23 +271,20 @@
                 cursor: pointer;
 
                 svg {
+
+                    @include em.transition(fill);
                     width: 100%;
 
                     fill: ef.get-value($themeDefault, 'moreIconColor');
-
-                    @include em.transition(fill);
                 }
             }
 
-            @media (hover: hover) {
+            @include em.hover {
 
-                &:hover {
+                .icon-btn {
 
-                    .icon-btn {
-
-                        svg {
-                            fill: ef.get-value($themeDefault, 'moreIconColorHover');
-                        }
+                    svg {
+                        fill: ef.get-value($themeDefault, 'moreIconColorHover');
                     }
                 }
             }
@@ -307,17 +298,17 @@
             justify-content: center;
 
             width: 100%;
+            transform: translateY(400%);
 
             opacity: 0;
             transition: all ef.get-value($themeDefault, 'time') ease-in-out;
-            transform: translateY(400%);
-
-            @include mq.min(1630) {
-                bottom: 8%;
-            }
 
             button {
                 margin: ef.get-value($themeDefault, 'btnMargin');
+            }
+
+            @include mq.min(1630) {
+                bottom: 8%;
             }
         }
     }

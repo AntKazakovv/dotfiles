@@ -33,15 +33,7 @@
                 max-width: 100%;
             }
 
-            @include mq.min(1630) {
-                min-width: ef.get-value($themeDefault, 'minWidthDesktop');
-            }
-
-            @include mq.min(768) {
-                max-width: 100%;
-            }
-
-            @media (hover: none) {
+            @include em.hover(false) {
                 @include em.get-mq-map('height', $themeDefault, 'heightMobile');
 
                 .wlc-bonus-item__wrapper {
@@ -53,6 +45,14 @@
                     @include em.get-mq-map('opacity', $themeDefault, 'btnsOpacityMobile');
                     @include em.get-mq-map('transform', $themeDefault, 'btnsTranslateYMobile');
                 }
+            }
+
+            @include mq.min(1630) {
+                min-width: ef.get-value($themeDefault, 'minWidthDesktop');
+            }
+
+            @include mq.min(768) {
+                max-width: 100%;
             }
 
             @media (hover: hover) {
@@ -97,24 +97,21 @@
         &__image-block {
             position: relative;
 
-            @media (hover: hover) {
+            @include em.hover {
 
-                &:hover {
+                & + .wlc-bonus-item__bottom {
 
-                    & + .wlc-bonus-item__bottom {
+                    .wlc-bonus-item__btns {
+                        transform: translateY(0);
+                        opacity: 1;
+                    }
 
-                        .wlc-bonus-item__btns {
-                            transform: translateY(0);
-                            opacity: 1;
-                        }
+                    .wlc-bonus-item__description {
+                        opacity: 0;
+                    }
 
-                        .wlc-bonus-item__description {
-                            opacity: 0;
-                        }
-
-                        .wlc-bonus-item__progress {
-                            opacity: 0;
-                        }
+                    .wlc-bonus-item__progress {
+                        opacity: 0;
                     }
                 }
             }
@@ -194,18 +191,15 @@
 
         &__bottom {
 
-            @media (hover: hover) {
+            @include em.hover {
 
-                &:hover {
+                .wlc-bonus-item__btns {
+                    transform: translateY(0);
+                    opacity: 1;
+                }
 
-                    .wlc-bonus-item__btns {
-                        transform: translateY(0);
-                        opacity: 1;
-                    }
-
-                    .wlc-bonus-item__description {
-                        opacity: 0;
-                    }
+                .wlc-bonus-item__description {
+                    opacity: 0;
                 }
             }
         }
@@ -313,15 +307,12 @@
                 }
             }
 
-            @media (hover: hover) {
+            @include em.hover {
 
-                &:hover {
+                .icon-btn {
 
-                    .icon-btn {
-
-                        svg {
-                            fill: ef.get-value($themeDefault, 'moreIconColorHover');
-                        }
+                    svg {
+                        fill: ef.get-value($themeDefault, 'moreIconColorHover');
                     }
                 }
             }
@@ -351,7 +342,7 @@
         .wlc-bonus-item__wrapper {
             @include em.get-mq-map('grid-template-rows', $themeDefault, 'infoHeightWithImg');
 
-            @media (hover: none) {
+            @include em.hover(false) {
                 @include em.get-mq-map('grid-template-rows', $themeDefault, 'infoHeightWithImgMobile');
             }
         }
@@ -397,37 +388,31 @@
 
         .wlc-bonus-item__bottom {
 
-            @media (hover: hover) {
+            @include em.hover {
 
-                &:hover {
+                .wlc-bonus-item__description {
+                    opacity: 1;
+                }
 
-                    .wlc-bonus-item__description {
-                        opacity: 1;
-                    }
-
-                    .wlc-bonus-item__progress {
-                        opacity: 0;
-                    }
+                .wlc-bonus-item__progress {
+                    opacity: 0;
                 }
             }
         }
 
         .wlc-bonus-item__image-block {
 
-            @media (hover: hover) {
+            @include em.hover {
 
-                &:hover {
+                & + .wlc-bonus-item__bottom {
 
-                    & + .wlc-bonus-item__bottom {
-
-                        .wlc-bonus-item__description {
-                            opacity: 1;
-                        }
+                    .wlc-bonus-item__description {
+                        opacity: 1;
                     }
+                }
 
-                    .wlc-bonus-item__progress {
-                        opacity: 0;
-                    }
+                .wlc-bonus-item__progress {
+                    opacity: 0;
                 }
             }
         }
@@ -436,7 +421,7 @@
             @include em.get-mq-map('padding', $themeDefault, 'infoBlockPadding');
         }
 
-        @media (hover: none) {
+        @include em.hover(false) {
 
             .wlc-bonus-item__wrapper {
                 @include em.get-mq-map('grid-template-rows', $themeDefault, 'infoHeightActive');
@@ -449,28 +434,22 @@
 
         .wlc-bonus-item__bottom {
 
-            @media (hover: hover) {
+            @include em.hover {
 
-                &:hover {
-
-                    .wlc-bonus-item__description {
-                        opacity: 1;
-                    }
+                .wlc-bonus-item__description {
+                    opacity: 1;
                 }
             }
         }
 
         .wlc-bonus-item__image-block {
 
-            @media (hover: hover) {
+            @include em.hover {
 
-                &:hover {
+                & + .wlc-bonus-item__bottom {
 
-                    & + .wlc-bonus-item__bottom {
-
-                        .wlc-bonus-item__description {
-                            opacity: 1;
-                        }
+                    .wlc-bonus-item__description {
+                        opacity: 1;
                     }
                 }
             }
@@ -481,7 +460,7 @@
 
         .wlc-bonus-item__bottom {
 
-            &:hover {
+            @include em.hover {
 
                 .wlc-bonus-item__description {
                     opacity: 0;
@@ -497,11 +476,8 @@
         transition: all ef.get-value($themeDefault, 'time') ease-in-out;
         will-change: transform;
 
-        @media (hover: hover) {
-
-            &:hover {
-                transform: scale(1.05);
-            }
+        @include em.hover {
+            transform: scale(1.05);
         }
     }
 

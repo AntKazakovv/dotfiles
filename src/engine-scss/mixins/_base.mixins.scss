@@ -40,9 +40,33 @@
     }
 }
 
+/// TODO: delete
+/// Left because it can be used on projects
+/// @deprecated This mixin is deprecated. Use mixin hover.
 @mixin desktopHover {
+    @warn 'This mixin is deprecated. Use mixin hover.';
 
     @media (hover: hover) {
+
+        &:hover {
+            @content;
+        }
+    }
+}
+
+/// Сhecking for hover on the device.
+/// Mixin was written due to a problem with "@media (hover: hover)" on android.
+///
+/// Tests:
+/// @media (pointer: coarse) // work on: android, ios
+/// @media (pointer: fine) // work on: desktop
+/// @media (hover: hover) // work on: desktop, android
+/// @media (hover: none) // work on: ios
+///
+/// @param {type} $type [true] - true - if there is a hover, false - if not
+@mixin hover($type: true) {
+
+    @media (pointer: if($type, fine, coarse)) {
 
         &:hover {
             @content;

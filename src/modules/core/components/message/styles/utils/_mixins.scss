@@ -5,16 +5,16 @@
 @import './vars';
 
 @mixin messageBase {
-    position: relative;
     @include setMessageTypeColors;
+    position: relative;
 
     &.wlc-notification-message--popup {
-        background: get('background');
-        filter: drop-shadow(get('shadow'));
 
         @include bm.get-mq-map('border', $themeDefault, 'border');
         @include bm.get-mq-map('border-radius', $themeDefault, 'borderRadius');
         @include bm.get-mq-map('padding', $themeDefault, 'padding');
+        background: get('background');
+        filter: drop-shadow(get('shadow'));
 
         .wlc-notification-message__icon,
         .wlc-notification-message__icon ::ng-deep svg {
@@ -36,8 +36,8 @@
 
         .wlc-notification-message__icon,
         .wlc-notification-message__icon ::ng-deep svg {
-            height: auto;
             width: 120px;
+            height: auto;
         }
 
         .wlc-notification-message__icon,
@@ -68,16 +68,16 @@
     }
 
     .wlc-notification-message__heading {
-        display: inline-block;
-        width: 100%;
-        max-width: 100%;
-        word-break: break-word;
-        overflow: hidden;
-        text-overflow: ellipsis;
         @include text.get-text-style(
             ef.get-value($themeDefault, 'headingStyle'),
             ef.get-value($themeDefault, 'headingColor'),
         );
+        display: inline-block;
+        width: 100%;
+        max-width: 100%;
+        text-overflow: ellipsis;
+        word-break: break-word;
+        overflow: hidden;
 
         &:empty {
             margin: 0;
@@ -85,45 +85,42 @@
     }
 
     .wlc-notification-message__message-container {
-        display: inline-block;
-        width: 100%;
-        max-width: 100%;
-        margin: 0;
         @include text.get-text-style(
             ef.get-value($themeDefault, 'messageStyle'),
             ef.get-value($themeDefault, 'messageColor'),
         );
+        display: inline-block;
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
     }
 
     .wlc-notification-message__message {
         display: inline-block;
-        word-break: break-word;
         white-space: pre-line;
+        word-break: break-word;
     }
 
     .wlc-notification-message__dismiss {
+        @include bm.transition(opacity);
         position: absolute;
         top: 20px;
         right: 20px;
         max-height: get('closeIconSize');
-        border: none;
-        outline: none;
         padding: 5px;
-        cursor: pointer;
         background-color: transparent;
+        outline: none;
+        cursor: pointer;
         opacity: 0.5;
-        @include bm.transition(opacity);
+        border: none;
 
         ::ng-deep line {
-            stroke: get('closeIconColor');
             transition: stroke 0.3s ease;
+            stroke: get('closeIconColor');
         }
 
-        @media (hover: hover) {
-
-            &:hover {
-                opacity: 1;
-            }
+        @include bm.hover {
+            opacity: 1;
         }
     }
 }

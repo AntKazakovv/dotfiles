@@ -8,34 +8,31 @@
     .wlc-post-menu {
 
         &__title {
-            padding: map-get($themeDefault, 'titlePadding');
             @include text.get-text-style('ThirdTitleBold', map-get($themeDefault, 'titleColor'));
+            padding: map-get($themeDefault, 'titlePadding');
         }
 
         &__items {
             display: grid;
-            grid-template-columns: 1fr;
             grid-gap: map-get($themeDefault, 'linksGap');
+            grid-template-columns: 1fr;
         }
 
         &__link {
             @include text.get-text-style('PrimaryText', map-get($themeDefault, 'linkColor'));
-
-            @include mq.min(900) {
-                @include text.get-text-style('ButtonText', map-get($themeDefault, 'linkColor'));
-            }
             text-decoration: map-get($themeDefault, 'linkDecoration');
-
-            @media (hover: hover) {
-
-                &:hover {
-                    color: map-get($themeDefault, 'linkColorHover');
-                    @include bm.transition(color);
-                }
-            }
 
             &.active {
                 color: map-get($themeDefault, 'linkColorHover');
+            }
+
+            @include bm.hover {
+                @include bm.transition(color);
+                color: map-get($themeDefault, 'linkColorHover');
+            }
+
+            @include mq.min(900) {
+                @include text.get-text-style('ButtonText', map-get($themeDefault, 'linkColor'));
             }
         }
     }

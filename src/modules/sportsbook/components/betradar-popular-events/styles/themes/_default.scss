@@ -44,6 +44,8 @@
             background-size: cover;
 
             &:after {
+
+                content: '';
                 position: absolute;
                 top: 0;
 
@@ -52,8 +54,6 @@
                 height: 100%;
 
                 background: ef.get-value($themeDefault, 'imageShadowLayout');
-
-                content: '';
             }
         }
 
@@ -68,6 +68,8 @@
         }
 
         &__header {
+
+            @include text.get-text-style(ef.get-value($themeDefault, 'headerTextStyle'), ef.get-value($themeDefault, 'headerTextColor'));
             position: fixed;
             z-index: 1;
 
@@ -75,23 +77,21 @@
             justify-content: center;
             width: 100%;
             padding: ef.get-value($themeDefault, 'headerPadding');
-
-            @include text.get-text-style(ef.get-value($themeDefault, 'headerTextStyle'), ef.get-value($themeDefault, 'headerTextColor'));
             text-align: center;
         }
 
         &__title-event {
+
+            @include bm.get-mq-map('padding', $themeDefault, 'titleEventPadding');
+
+            @include text.get-text-style(ef.get-value($themeDefault, 'titleTextStyle'), ef.get-value($themeDefault, 'titleTextColor'));
             display: flex;
             flex-wrap: wrap;
             align-items: center;
             justify-content: center;
             width: 100%;
 
-            @include bm.get-mq-map('padding', $themeDefault, 'titleEventPadding');
-
             background: ef.get-value($themeDefault, 'titleBackground');
-
-            @include text.get-text-style(ef.get-value($themeDefault, 'titleTextStyle'), ef.get-value($themeDefault, 'titleTextColor'));
         }
 
         &__title-team {
@@ -126,24 +126,21 @@
         }
 
         &__bet {
+
+            @include bm.transition;
+            @include text.get-text-style(ef.get-value($themeDefault, 'betDataStyle'), ef.get-value($themeDefault, 'betDataColor'));
             display: flex;
             flex-grow: 1;
             justify-content: space-between;
             max-width: ef.get-value($themeDefault, 'betMaxWidth');
             margin: ef.get-value($themeDefault, 'betMargin');
             padding: ef.get-value($themeDefault, 'betPadding');
-
-            @include bm.transition;
-            @include text.get-text-style(ef.get-value($themeDefault, 'betDataStyle'), ef.get-value($themeDefault, 'betDataColor'));
             background: ef.get-value($themeDefault, 'betItemBackground');
             border-radius: ef.get-value($themeDefault, 'betRadius');
 
-            @media (hover) {
-
-                &:hover {
-                    color: ef.get-value($themeDefault, 'betDataColorHover');
-                    background: ef.get-value($themeDefault, 'betItemHoverBackground');
-                }
+            @include bm.hover {
+                color: ef.get-value($themeDefault, 'betDataColorHover');
+                background: ef.get-value($themeDefault, 'betItemHoverBackground');
             }
         }
     }

@@ -11,9 +11,6 @@ $selector: '.wlc-tournament-detail';
         position: relative;
 
         #{$selector}__header-info {
-            position: relative;
-
-            display: grid;
             @include em.get-mq-map('grid-template-columns', $themeDefault, 'headerColumnWidth');
             @include em.get-mq-map('row-gap', $themeDefault, 'defaultRowGap');
             @include em.get-mq-map('justify-content', $themeDefault, 'headerJustifyContent');
@@ -23,6 +20,9 @@ $selector: '.wlc-tournament-detail';
             @include em.get-mq-map('background-size', $themeDefault, 'headerBgSize');
             @include em.get-mq-map('border-radius', $themeDefault, 'headerBorderRadius');
             @include em.get-mq-map('border-bottom', $themeDefault, 'headerBorderBottom');
+            position: relative;
+
+            display: grid;
 
             &-wrap {
                 position: relative;
@@ -31,18 +31,18 @@ $selector: '.wlc-tournament-detail';
 
             &-wrap,
             &-inner {
-                display: grid;
                 @include em.get-mq-map('grid-template-columns', $themeDefault, 'headerColumnInnerWidth');
                 @include em.get-mq-map('row-gap', $themeDefault, 'defaultRowGap');
                 @include em.get-mq-map('justify-content', $themeDefault, 'headerJustifyContent');
+                display: grid;
             }
 
             &--back-link {
-                position: absolute;
                 @include em.get-mq-map('top', $themeDefault, 'headerBackLinkTop');
                 @include em.get-mq-map('left', $themeDefault, 'headerBackLinkLeft');
                 @include text.get-text-style(ef.get-value($themeDefault, 'headerBackLinkTextStyle'), ef.get-value($themeDefault, 'headerBackLinkTextColor'));
                 @include em.get-mq-map('text-decoration', $themeDefault, 'headerBackLinkDecoration');
+                position: absolute;
 
                 max-width: ef.get-value($themeDefault, 'headerBackLinkMaxWidth');
 
@@ -53,8 +53,8 @@ $selector: '.wlc-tournament-detail';
                 cursor: pointer;
 
                 .wlc-icon {
-                    display: inline-block;
                     @include em.get-mq-map('transform', $themeDefault, 'headerBackLinkIconTransform');
+                    display: inline-block;
 
                     svg {
                         fill: ef.get-value($themeDefault, 'headerBackLinkIconColor');
@@ -63,10 +63,10 @@ $selector: '.wlc-tournament-detail';
             }
 
             &--status {
-                justify-self: center;
                 @include em.get-mq-map('padding', $themeDefault, 'headerStatusPadding');
                 @include em.get-mq-map('border-radius', $themeDefault, 'headerStatusRadius');
                 @include text.get-text-style(ef.get-value($themeDefault, 'headerStatusTextStyle'), ef.get-value($themeDefault, 'headerStatusTextColor'));
+                justify-self: center;
 
                 &.status-avaliable {
                     @include em.get-mq-map('background', $themeDefault, 'headerStatusBgAvaliable');
@@ -92,8 +92,8 @@ $selector: '.wlc-tournament-detail';
             }
 
             &--timer {
-                display: flex;
                 @include em.get-mq-map('justify-self', $themeDefault, 'headerTimerBlockTimerSelf');
+                display: flex;
             }
 
             &--buttons {
@@ -116,10 +116,10 @@ $selector: '.wlc-tournament-detail';
             @include em.get-mq-map('background', $themeDefault, 'anchorsBg');
 
             &.wlc-menu {
-                display: flex;
                 @include em.get-mq-map('padding', $themeDefault, 'anchorsMenuPadding');
                 @include em.get-mq-map('align-items', $themeDefault, 'anchorsMenuAlignItems');
                 @include em.get-mq-map('justify-content', $themeDefault, 'anchorsMenuJustifyContent');
+                display: flex;
 
                 a {
                     @include em.get-mq-map('padding', $themeDefault, 'anchorsMenuLinkPadding');
@@ -129,23 +129,20 @@ $selector: '.wlc-tournament-detail';
 
                     cursor: pointer;
 
-                    @media (hover) {
-
-                        &:hover {
-                            color: ef.get-value($themeDefault, 'anchorsMenuLinkTextColorHover');
-                        }
+                    @include em.hover {
+                        color: ef.get-value($themeDefault, 'anchorsMenuLinkTextColorHover');
                     }
                 }
             }
         }
 
         #{$selector}__leaderboard {
-            display: grid;
             @include em.get-mq-map('padding', $themeDefault, 'defaultPadding');
             @include em.get-mq-map('justify-content', $themeDefault, 'leaderboardJustifyContent');
             @include em.get-mq-map('grid-template-columns', $themeDefault, 'leaderboardColumnWidth');
             @include em.get-mq-map('row-gap', $themeDefault, 'defaultRowGap');
             @include em.get-mq-map('background', $themeDefault, 'leaderboardBg');
+            display: grid;
 
             &--title {
                 @include text.get-text-style(ef.get-value($themeDefault, 'leaderboardTitleStyle'), ef.get-value($themeDefault, 'leaderboardTitleColor'));
@@ -154,34 +151,34 @@ $selector: '.wlc-tournament-detail';
         }
 
         #{$selector}__prizepool {
-            display: grid;
             @include em.get-mq-map('grid-template-columns', $themeDefault, 'prizepoolColumnWidth');
             @include em.get-mq-map('grid-template-areas', $themeDefault, 'prizepoolTemplateAreas');
             @include em.get-mq-map('row-gap', $themeDefault, 'defaultRowGap');
             @include em.get-mq-map('justify-content', $themeDefault, 'prizepoolJustifyContent');
             @include em.get-mq-map('padding', $themeDefault, 'defaultPadding');
             @include em.get-mq-map('background', $themeDefault, 'prizepoolBg');
+            display: grid;
 
             &--title {
-                grid-area: PPTitle;
                 @include em.get-mq-map('justify-self', $themeDefault, 'prizepoolTitleSelf');
                 @include text.get-text-style(ef.get-value($themeDefault, 'prizepoolTitleStyle'), ef.get-value($themeDefault, 'prizepoolTitleColor'));
+                grid-area: PPTitle;
             }
 
             &--amount {
-                grid-area: PPAmount;
                 @include em.get-mq-map('justify-self', $themeDefault, 'prizepoolAmoutTitleSelf');
                 @include text.get-text-style(ef.get-value($themeDefault, 'prizepoolAmoutTitleStyle'), ef.get-value($themeDefault, 'prizepoolAmoutTitleColor'));
+                grid-area: PPAmount;
             }
         }
 
         #{$selector}__prizeboard {
-            display: grid;
             @include em.get-mq-map('grid-template-columns', $themeDefault, 'prizeboardColumnWidth');
             @include em.get-mq-map('padding', $themeDefault, 'defaultPadding');
             @include em.get-mq-map('row-gap', $themeDefault, 'defaultRowGap');
             @include em.get-mq-map('justify-content', $themeDefault, 'prizeboardJustifyContent');
             @include em.get-mq-map('background', $themeDefault, 'prizeboardBg');
+            display: grid;
 
             .wlc-btn {
                 @include em.get-mq-map('justify-self', $themeDefault, 'prizeboardButtonSelf');
@@ -204,18 +201,18 @@ $selector: '.wlc-tournament-detail';
         }
 
         #{$selector}__rules {
-            display: grid;
             @include em.get-mq-map('grid-template-columns', $themeDefault, 'rulesColumnWidth');
             @include em.get-mq-map('justify-content', $themeDefault, 'rulesJustifyContent');
             @include em.get-mq-map('padding', $themeDefault, 'defaultPadding');
             @include em.get-mq-map('background', $themeDefault, 'rulesBg');
             @include em.get-mq-map('border-radius', $themeDefault, 'rulesBorderRadius');
+            display: grid;
 
             &--title {
-                position: relative;
 
                 @include text.get-text-style(ef.get-value($themeDefault, 'rulesTitleStyle'), ef.get-value($themeDefault, 'rulesTitleColor'));
                 @include em.get-mq-map('text-align', $themeDefault, 'rulesTitleAlign');
+                position: relative;
             }
 
             &--terms {

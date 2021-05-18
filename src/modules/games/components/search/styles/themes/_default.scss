@@ -14,8 +14,8 @@
         }
 
         .wlc-modal__dialog {
-            min-height: 900px;
             max-width: 1433px;
+            min-height: 900px;
             margin: -30px auto 0;
         }
 
@@ -32,9 +32,9 @@
 
         &__title {
             @include bm.get-mq-map('padding', $themeDefault, 'searchModalHeaderPadding');
-            margin: ef.get-value($themeDefault, 'searchModalHeaderMargin');
             @include bm.get-mq-map('text-align', $themeDefault, 'searchModalHeaderPositionText');
             @include text.get-text-style(ef.get-value($themeDefault, 'searchModalHeaderFont'), ef.get-value($themeDefault, 'searchModalHeaderFontColor'));
+            margin: ef.get-value($themeDefault, 'searchModalHeaderMargin');
 
             @include mq.min(560) {
                 @include text.get-text-style(ef.get-value($themeDefault, 'searchModalHeaderFont', 560));
@@ -42,11 +42,11 @@
         }
 
         &__panel {
-            display: grid;
             @include bm.get-mq-map('gap', $themeDefault, 'searchPanelGap');
             @include bm.get-mq-map('grid-template-columns', $themeDefault, 'searchPanelColumns');
             @include bm.get-mq-map('padding', $themeDefault, 'searchPanelPadding');
             @include bm.get-mq-map('background', $themeDefault, 'searchPanelBg');
+            display: grid;
             border-radius: ef.get-value($themeDefault, 'searchPanelBorderRadius');
         }
 
@@ -67,15 +67,15 @@
 
             .title {
                 display: block;
+                font-size: ef.get-value($themeDefault, 'searchColSize');
+                white-space: nowrap;
                 text-overflow: ellipsis;
                 overflow: hidden;
-                white-space: nowrap;
-                font-size: ef.get-value($themeDefault, 'searchColSize');
 
                 &-wrap {
                     display: flex;
-                    align-items: center;
                     flex: 1 1 0%;
+                    align-items: center;
                     min-width: 0;
                 }
             }
@@ -106,47 +106,18 @@
                 outline: none;
             }
 
-            @media (hover) {
-
-                &:hover {
-
-                    @include bm.get-mq-map('background', $themeDefault, 'btnBackgroundHover',true);
-                    @include text.get-text-style(ef.get-value($themeDefault, 'btnFont'), ef.get-value($themeDefault, 'btnColorHover'));
-
-                    &:after {
-                        border-top: ef.get-value($themeDefault, 'btnArrowWidth') solid ef.get-value($themeDefault, 'btnColorHover');
-                        border-left: ef.get-value($themeDefault, 'btnArrowWidth') solid ef.get-value($themeDefault, 'btnColorHover');
-                    }
-
-                    .icon {
-
-                        ::ng-deep {
-
-                            svg {
-                                fill: ef.get-value($themeDefault, 'btnColorHover');
-
-                                path,
-                                mask {
-                                    fill: ef.get-value($themeDefault, 'btnColorHover');
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
             &:after {
                 content: '';
-                display: block;
                 position: absolute;
-                right: 13px;
                 top: 50%;
-                transform: translateY(-50%) rotate(225deg);
+                right: 13px;
+                display: block;
                 width: ef.get-value($themeDefault, 'btnArrowSize');
                 height: ef.get-value($themeDefault, 'btnArrowSize');
+                transform: translateY(-50%) rotate(225deg);
+                transition: ef.get-value($themeDefault, 'btnTransition') linear;
                 border-top: ef.get-value($themeDefault, 'btnArrowWidth') solid ef.get-value($themeDefault, 'btnArrowColor');
                 border-left: ef.get-value($themeDefault, 'btnArrowWidth') solid ef.get-value($themeDefault, 'btnArrowColor');
-                transition: ef.get-value($themeDefault, 'btnTransition') linear;
             }
 
             .icon {
@@ -174,21 +145,21 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                margin-left: ef.get-value($themeDefault, 'btnCounterMarginLeft');
-                background: ef.get-value($themeDefault, 'btnCounterBackground');
                 width: ef.get-value($themeDefault, 'btnCounterSize');
                 min-width: ef.get-value($themeDefault, 'btnCounterSize');
                 height: ef.get-value($themeDefault, 'btnCounterSize');
-                font-size: ef.get-value($themeDefault, 'btnCounterFontSize');
-                border-radius: ef.get-value($themeDefault, 'btnCounterBorderRadius');
+                margin-left: ef.get-value($themeDefault, 'btnCounterMarginLeft');
                 color: ef.get-value($themeDefault, 'btnCounterColor');
+                font-size: ef.get-value($themeDefault, 'btnCounterFontSize');
                 line-height: ef.get-value($themeDefault, 'btnCounterLineHeight');
+                background: ef.get-value($themeDefault, 'btnCounterBackground');
+                border-radius: ef.get-value($themeDefault, 'btnCounterBorderRadius');
             }
 
             &.active {
-                background: ef.get-value($themeDefault, 'btnBackgroundActive');
                 @include bm.get-mq-map('border', $themeDefault, 'btnBorderActive');
                 @include text.get-text-style(ef.get-value($themeDefault, 'btnFontActive'), ef.get-value($themeDefault, 'btnColorActive'));
+                background: ef.get-value($themeDefault, 'btnBackgroundActive');
 
                 &:after {
                     transform: ef.get-value($themeDefault, 'btnActiveAfterTransform');
@@ -213,50 +184,60 @@
                     }
                 }
             }
+
+            @include bm.hover {
+                @include bm.get-mq-map('background', $themeDefault, 'btnBackgroundHover',true);
+                @include text.get-text-style(ef.get-value($themeDefault, 'btnFont'), ef.get-value($themeDefault, 'btnColorHover'));
+
+                &:after {
+                    border-top: ef.get-value($themeDefault, 'btnArrowWidth') solid ef.get-value($themeDefault, 'btnColorHover');
+                    border-left: ef.get-value($themeDefault, 'btnArrowWidth') solid ef.get-value($themeDefault, 'btnColorHover');
+                }
+
+                .icon {
+
+                    ::ng-deep {
+
+                        svg {
+                            fill: ef.get-value($themeDefault, 'btnColorHover');
+
+                            path,
+                            mask {
+                                fill: ef.get-value($themeDefault, 'btnColorHover');
+                            }
+                        }
+                    }
+                }
+            }
+
+            @include mq.min(900) {
+                justify-content: flex-start;
+            }
         }
 
         &__list {
-            display: grid;
-            padding: 0;
             @include bm.get-mq-map('grid-column-start', $themeDefault, 'searchPanelGridColumnStart');
             @include bm.get-mq-map('gap', $themeDefault, 'listGap');
             @include bm.get-mq-map('margin', $themeDefault, 'listMargin');
+            display: grid;
+            padding: 0;
             list-style-type: none;
-            @if ef.get-value($themeDefault, 'listGrid') {
-                @include m.list-grid(ef.get-value($themeDefault, 'listGrid'));
-            } @else {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-            }
 
             &-btn {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                width: 100%;
                 @include text.get-text-style(ef.get-value($themeDefault, 'searchBtnItemsFont'), ef.get-value($themeDefault, 'listBtnColor'));
                 @include bm.get-mq-map('padding', $themeDefault, 'listBtnPadding');
                 @include bm.get-mq-map('background', $themeDefault, 'listBtnBackground');
                 @include bm.get-mq-map('border-radius', $themeDefault, 'listBtnRadius');
                 @include bm.get-mq-map('border', $themeDefault, 'listBtnBorder');
                 @include bm.get-mq-map('height', $themeDefault, 'listBtnHeight');
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
                 transition: border-color, color ef.get-value($themeDefault, 'listBtnTransition') linear;
-
-                @include mq.min(560) {
-                    border-bottom: ef.get-value($themeDefault, 'listBtnBorderBottom');
-                }
 
                 &:focus {
                     outline: none;
-                }
-
-                @media (hover) {
-
-                    &:hover {
-                        @include bm.get-mq-map('color', $themeDefault, 'listBtnColorActive', true);
-                        @include bm.get-mq-map('background', $themeDefault, 'listBtnBackgroundHover', true);
-                        @include bm.get-mq-map('border', $themeDefault, 'listBtnBorderActive', true);
-                        @include bm.get-mq-map('border-bottom', $themeDefault, 'listBtnBorderBottomActive', true);
-                    }
                 }
 
                 &.active {
@@ -273,29 +254,36 @@
                         &::ng-deep {
 
                             .wlc-icon-content {
-                                opacity: 1;
                                 @include bm.transition(opacity);
+                                opacity: 1;
                             }
                         }
                     }
                 }
+
+                @include bm.hover {
+                    @include bm.get-mq-map('color', $themeDefault, 'listBtnColorActive', true);
+                    @include bm.get-mq-map('background', $themeDefault, 'listBtnBackgroundHover', true);
+                    @include bm.get-mq-map('border', $themeDefault, 'listBtnBorderActive', true);
+                    @include bm.get-mq-map('border-bottom', $themeDefault, 'listBtnBorderBottomActive', true);
+                }
+
+                @include mq.min(560) {
+                    border-bottom: ef.get-value($themeDefault, 'listBtnBorderBottom');
+                }
             }
 
             &-icon {
-                display: none;
                 position: relative;
+                display: none;
                 width: ef.get-value($themeDefault, 'listBtnIconSize');
                 min-width: ef.get-value($themeDefault, 'listBtnIconSize');
                 height: ef.get-value($themeDefault, 'listBtnIconSize');
-                border-radius: ef.get-value($themeDefault, 'listBtnIconRadius');
-                background: ef.get-value($themeDefault, 'listBtnIconBackground');
-                border: ef.get-value($themeDefault, 'listBtnIconBorder');
                 margin: ef.get-value($themeDefault, 'listBtnIconMargin');
+                background: ef.get-value($themeDefault, 'listBtnIconBackground');
                 transition: ef.get-value($themeDefault, 'listBtnTransition') linear;
-
-                @include mq.min(560) {
-                    display: block;
-                }
+                border-radius: ef.get-value($themeDefault, 'listBtnIconRadius');
+                border: ef.get-value($themeDefault, 'listBtnIconBorder');
 
                 &::ng-deep {
 
@@ -307,25 +295,34 @@
                         opacity: 0;
 
                         svg {
+                            width: ef.get-value($themeDefault, 'listBtnCheckWidth');
                             stroke: ef.get-value($themeDefault, 'listBtnCheckColor');
                             stroke-width: 3px;
-                            width: ef.get-value($themeDefault, 'listBtnCheckWidth');
                         }
                     }
+                }
+
+                @include mq.min(560) {
+                    display: block;
                 }
             }
 
             &-text {
                 display: block;
+                width: 95%;
                 white-space: nowrap;
+                text-align: center;
                 text-overflow: ellipsis;
                 overflow: hidden;
-                text-align: center;
-                width: 95%;
 
                 @include mq.min(560) {
                     text-align: left;
                 }
+            }
+            @if ef.get-value($themeDefault, 'listGrid') {
+                @include m.list-grid(ef.get-value($themeDefault, 'listGrid'));
+            } @else {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
             }
         }
 

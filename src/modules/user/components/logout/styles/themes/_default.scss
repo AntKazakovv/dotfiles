@@ -10,37 +10,34 @@
         ::ng-deep {
 
             .wlc-btn__text {
+                @include text.get-text-style('PlaceholderTextBold', ef.get-value($themeDefault, 'textColor'));
                 display: flex;
                 align-items: center;
-                @include text.get-text-style('PlaceholderTextBold', ef.get-value($themeDefault, 'textColor'));
             }
 
             .wlc-icon {
 
                 path {
-                    stroke: ef.get-value($themeDefault, 'iconColor');
                     fill: ef.get-value($themeDefault, 'iconColor');
+                    stroke: ef.get-value($themeDefault, 'iconColor');
                 }
             }
         }
 
-        @media (hover: hover) {
+        @include em.hover {
 
-            &:hover {
+            ::ng-deep {
+
+                .wlc-btn__text {
+                    @include em.transition(color);
+                    color: ef.get-value($themeDefault, 'textColorHover');
+                }
 
                 ::ng-deep {
 
-                    .wlc-btn__text {
-                        color: ef.get-value($themeDefault, 'textColorHover');
-                        @include em.transition(color);
-                    }
-
-                    ::ng-deep {
-
-                        path {
-                            stroke: ef.get-value($themeDefault, 'textColorHover');
-                            @include em.transition(stroke);
-                        }
+                    path {
+                        @include em.transition(stroke);
+                        stroke: ef.get-value($themeDefault, 'textColorHover');
                     }
                 }
             }

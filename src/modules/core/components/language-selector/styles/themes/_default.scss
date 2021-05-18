@@ -22,16 +22,6 @@
 
             cursor: pointer;
 
-            @media (hover) {
-
-                &:hover {
-
-                    .wlc-language-selector__current-flag {
-                        box-shadow: ef.get-value($themeModal, 'flagBoxShadowHover');
-                    }
-                }
-            }
-
             &-flag {
                 @include flag(ef.get-value($themeDefault, 'currentFlagSize'), ef.get-value($themeDefault, 'currentFlagSize'), 50%);
                 @include bm.transition(box-shadow);
@@ -60,11 +50,16 @@
                     }
                 }
             }
+
+            @include bm.hover {
+
+                .wlc-language-selector__current-flag {
+                    box-shadow: ef.get-value($themeModal, 'flagBoxShadowHover');
+                }
+            }
         }
 
         &__dropdown {
-            position: absolute;
-            z-index: 2;
 
             @include mod('default', 'bottom-left') {
                 top: 100%;
@@ -79,6 +74,8 @@
 
                 padding-bottom: ef.get-value($themeDefault, 'dropdownArrowSize');
             }
+            position: absolute;
+            z-index: 2;
         }
 
         &__list {
@@ -93,16 +90,6 @@
             }
 
             &:before {
-                position: absolute;
-
-                display: block;
-                width: 0;
-                height: 0;
-
-                border-right: ef.get-value($themeDefault, 'dropdownArrowSize') solid transparent;
-                border-left: ef.get-value($themeDefault, 'dropdownArrowSize') solid transparent;
-
-                content: '';
 
                 @include mod('default', 'bottom-left') {
                     top: ef.get-value($themeDefault, 'dropdownArrowSize') * -1;
@@ -119,6 +106,16 @@
                     border-top: ef.get-value($themeDefault, 'dropdownArrowSize') solid ef.get-value($themeDefault, 'dropdownBackgroundColor');
                     border-bottom: 0;
                 }
+
+                content: '';
+                position: absolute;
+
+                display: block;
+                width: 0;
+                height: 0;
+
+                border-right: ef.get-value($themeDefault, 'dropdownArrowSize') solid transparent;
+                border-left: ef.get-value($themeDefault, 'dropdownArrowSize') solid transparent;
             }
         }
 
@@ -158,13 +155,10 @@
                     display: none;
                 }
 
-                @media (hover: hover) {
+                @include bm.hover {
 
-                    &:hover {
-
-                        .wlc-language-selector__current-flag {
-                            box-shadow: ef.get-value($themeDefault, 'burgerPanelFlagBoxShadowHover');
-                        }
+                    .wlc-language-selector__current-flag {
+                        box-shadow: ef.get-value($themeDefault, 'burgerPanelFlagBoxShadowHover');
                     }
                 }
             }
@@ -183,22 +177,12 @@
         .wlc-language-selector {
 
             &__current {
+                @include bm.transition(background);
                 grid-template-columns: auto 1fr auto;
                 padding: ef.get-value($themeDefaultModLog, 'currentPaddingModLong');
 
                 background: ef.get-value($themeDefaultModLog, 'currentBgModLong');
                 border-radius: ef.get-value($themeDefaultModLog, 'currentBorderRadiusModLong');
-                @include bm.transition(background);
-
-                @media (hover: hover) {
-
-                    &:hover {
-
-                        @include mq.min(1024) {
-                            background: ef.get-value($themeDefaultModLog, 'currentBgModLongHover');
-                        }
-                    }
-                }
 
                 &--opened {
                     background: ef.get-value($themeDefaultModLog, 'currentBgModLongActive');
@@ -240,11 +224,14 @@
                 .wlc-burger-panel--theme-left & {
                     background: ef.get-value($themeDefaultModLog, 'burgerPanelCurrentBgModLong');
 
-                    @media (hover: hover) {
+                    @include bm.hover {
+                        background: ef.get-value($themeDefaultModLog, 'burgerPanelCurrentBgModLongHover');
+                    }
+                }
 
-                        &:hover {
-                            background: ef.get-value($themeDefaultModLog, 'burgerPanelCurrentBgModLongHover');
-                        }
+                @include bm.hover {
+                    @include mq.min(1024) {
+                        background: ef.get-value($themeDefaultModLog, 'currentBgModLongHover');
                     }
                 }
             }

@@ -19,11 +19,9 @@
             margin-left: auto;
             margin-right: auto;
 
-            @media (hover: hover) {
 
-                &:hover {
-                    background: ef.get-value($themePromo, 'backgroundHover');
-                }
+            @include em.hover {
+                background: ef.get-value($themePromo, 'backgroundHover');
             }
 
             &.subscribed,
@@ -188,15 +186,12 @@
                 }
             }
 
-            @media (hover: hover) {
+            @include em.hover {
 
-                &:hover {
+                .icon-btn {
 
-                    .icon-btn {
-
-                        svg {
-                            fill: ef.get-value($themePromo, 'moreIconColorHover');
-                        }
+                    svg {
+                        fill: ef.get-value($themePromo, 'moreIconColorHover');
                     }
                 }
             }
@@ -215,11 +210,8 @@
         .wlc-bonus-item__content {
             background: ef.get-value($themePromo, 'backgroundExperience');
 
-            @media (hover: hover) {
-
-                &:hover {
-                    background: ef.get-value($themePromo, 'backgroundExperienceHover');
-                }
+            @include em.hover {
+                background: ef.get-value($themePromo, 'backgroundExperienceHover');
             }
         }
     }
@@ -229,11 +221,8 @@
         .wlc-bonus-item__content {
             background: ef.get-value($themePromo, 'backgroundLoyalty');
 
-            @media (hover: hover) {
-
-                &:hover {
-                    background: ef.get-value($themePromo, 'backgroundLoyaltyHover');
-                }
+            @include em.hover {
+                background: ef.get-value($themePromo, 'backgroundLoyaltyHover');
             }
         }
     }
@@ -243,11 +232,8 @@
         .wlc-bonus-item__content {
             background: ef.get-value($themePromo, 'backgroundBalance');
 
-            @media (hover: hover) {
-
-                &:hover {
-                    background: ef.get-value($themePromo, 'backgroundBalanceHover');
-                }
+            @include em.hover {
+                background: ef.get-value($themePromo, 'backgroundBalanceHover');
             }
         }
     }
@@ -257,11 +243,8 @@
         .wlc-bonus-item__content {
             background: ef.get-value($themePromo, 'backgroundFreerounds');
 
-            @media (hover: hover) {
-
-                &:hover {
-                    background: ef.get-value($themePromo, 'backgroundFreeroundsHover');
-                }
+            @include em.hover {
+                background: ef.get-value($themePromo, 'backgroundFreeroundsHover');
             }
         }
     }
@@ -271,11 +254,8 @@
         .wlc-bonus-item__content {
             background: ef.get-value($themePromo, 'backgroundRelative');
 
-            @media (hover: hover) {
-
-                &:hover {
-                    background: ef.get-value($themePromo, 'backgroundRelativeHover');
-                }
+            @include em.hover {
+                background: ef.get-value($themePromo, 'backgroundRelativeHover');
             }
         }
     }

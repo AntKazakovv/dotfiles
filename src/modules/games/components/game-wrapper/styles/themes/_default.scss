@@ -30,11 +30,11 @@
         }
 
         &__preloader {
-            margin: 0 auto;
             position: absolute;
             top: 50%;
-            transform: translate(-50%, -50%);
             left: 50%;
+            margin: 0 auto;
+            transform: translate(-50%, -50%);
         }
 
         &__header {
@@ -45,11 +45,11 @@
 
             h2 {
                 max-width: 50%;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                color: map-get($themeDefault, 'headerColor');
                 margin: map-get($themeDefault, 'headerMargin');
+                color: map-get($themeDefault, 'headerColor');
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
             }
         }
 
@@ -70,32 +70,18 @@
                 cursor: pointer;
 
                 svg {
+
+                    @include em.transition(all);
                     width: map-get($themeDefault, 'iconsSize');
                     height: map-get($themeDefault, 'iconsSize');
                     fill: none;
                     stroke: map-get($themeDefault, 'iconsColor');
                     stroke-width: map-get($themeDefault, 'iconsStroke');
 
-                    @include em.transition(all);
-
                     line {
-                        stroke: map-get($themeDefault, 'iconsColor');
 
                         @include em.transition(all);
-                    }
-                }
-
-                @media (hover: hover) {
-
-                    &:hover {
-
-                        svg {
-                            stroke: map-get($themeDefault, 'iconsColorHover');
-
-                            line {
-                                stroke: map-get($themeDefault, 'iconsColorHover');
-                            }
-                        }
+                        stroke: map-get($themeDefault, 'iconsColor');
                     }
                 }
 
@@ -116,13 +102,24 @@
                         }
                     }
                 }
+
+                @include em.hover {
+
+                    svg {
+                        stroke: map-get($themeDefault, 'iconsColorHover');
+
+                        line {
+                            stroke: map-get($themeDefault, 'iconsColorHover');
+                        }
+                    }
+                }
             }
         }
 
         &__game-area {
-            margin-left: auto;
-            margin-right: auto;
             position: relative;
+            margin-right: auto;
+            margin-left: auto;
             overflow: hidden;
 
             div[wlc-dynamic] {
@@ -150,22 +147,22 @@
             }
 
             &__content {
-                z-index: 15;
-                margin: 0;
-                max-width: 100%;
                 position: fixed !important;
-                background: #000;
                 top: 0;
-                left: 0;
-                bottom: 0;
                 right: 0;
+                bottom: 0;
+                left: 0;
+                z-index: 15;
                 display: grid;
-                height: 100%;
-                width: 100%;
-                grid-template-columns: 1fr;
                 grid-template-rows: 1fr;
+                grid-template-columns: 1fr;
                 align-content: center;
                 align-items: center;
+                width: 100%;
+                max-width: 100%;
+                height: 100%;
+                margin: 0;
+                background: #000;
             }
 
             &__game-area {

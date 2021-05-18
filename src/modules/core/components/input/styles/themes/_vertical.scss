@@ -149,15 +149,11 @@
                 }
             }
 
-            @media (hover: hover) {
+            @include bm.hover {
+                ::ng-deep {
 
-                &:hover {
-
-                    ::ng-deep {
-
-                        svg path {
-                            fill: ef.get-value($themeVertical, 'fieldIconSvgFillHover');
-                        }
+                    svg path {
+                        fill: ef.get-value($themeVertical, 'fieldIconSvgFillHover');
                     }
                 }
             }

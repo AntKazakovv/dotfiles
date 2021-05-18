@@ -6,60 +6,57 @@
 .swiper-button-next {
     position: absolute;
     top: ef.get-value($themeDefaultNavigation, 'swiperNaviTop');
-    margin-top: calc(-1 * #{ef.get-value($themeDefaultNavigation, 'swiperNaviButtonSize')} / 2);
     z-index: ef.get-value($themeDefaultNavigation, 'swiperNaviZindex');
-    width: ef.get-value($themeDefaultNavigation, 'swiperNaviButtonSize');
-    height: ef.get-value($themeDefaultNavigation, 'swiperNaviButtonSize');
-    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: ef.get-value($themeDefaultNavigation, 'swiperNaviButtonBg');
+    width: ef.get-value($themeDefaultNavigation, 'swiperNaviButtonSize');
+    height: ef.get-value($themeDefaultNavigation, 'swiperNaviButtonSize');
+    margin-top: calc(-1 * #{ef.get-value($themeDefaultNavigation, 'swiperNaviButtonSize')} / 2);
     color: ef.get-value($themeDefaultNavigation, 'swiperNaviArrowColor');
-    border-radius: ef.get-value($themeDefaultNavigation, 'swiperNaviButtonBorderRadius');
+    background: ef.get-value($themeDefaultNavigation, 'swiperNaviButtonBg');
+    cursor: pointer;
     transition: ef.get-value($themeDefaultNavigation, 'swiperNaviButtonTransition');
+    border-radius: ef.get-value($themeDefaultNavigation, 'swiperNaviButtonBorderRadius');
 
     svg {
         fill: ef.get-value($themeDefaultNavigation, 'swiperNaviArrowColor');
     }
 
-    @media (hover) {
-
-        &:hover {
-            background: ef.get-value($themeDefaultNavigation, 'swiperNaviButtonBgHover');
-            color: ef.get-value($themeDefaultNavigation, 'swiperNaviArrowColorHover');
-
-            svg {
-                fill: ef.get-value($themeDefaultNavigation, 'swiperNaviArrowColorHover');
-            }
-        }
-    }
-
     &.swiper-button-disabled {
-        opacity: ef.get-value($themeDefaultNavigation, 'swiperNaviButtonDisabledOpacity');
         cursor: auto;
+        opacity: ef.get-value($themeDefaultNavigation, 'swiperNaviButtonDisabledOpacity');
         pointer-events: none;
     }
 
     &:after {
-        font-family: swiper-icons;
         font-size: ef.get-value($themeDefaultNavigation, 'swiperNaviArrowSize');
-        letter-spacing: 0;
-        text-transform: none;
+        font-family: swiper-icons;
         font-variant: initial;
         line-height: 1;
+        letter-spacing: 0;
+        text-transform: none;
+    }
+
+    @include em.hover {
+        color: ef.get-value($themeDefaultNavigation, 'swiperNaviArrowColorHover');
+        background: ef.get-value($themeDefaultNavigation, 'swiperNaviButtonBgHover');
+
+        svg {
+            fill: ef.get-value($themeDefaultNavigation, 'swiperNaviArrowColorHover');
+        }
     }
 }
 
 .swiper-button-prev,
 .swiper-container-rtl .swiper-button-next {
+    right: auto;
+
+    left: ef.get-value($themeDefaultNavigation, 'swiperNaviAside');
 
     &:after {
         content: 'prev';
     }
-
-    left: ef.get-value($themeDefaultNavigation, 'swiperNaviAside');
-    right: auto;
 
     .wlc-slider--type-dashboard & {
         left: 0;
@@ -69,12 +66,12 @@
 .swiper-button-next,
 .swiper-container-rtl .swiper-button-prev {
 
+    right: ef.get-value($themeDefaultNavigation, 'swiperNaviAside');
+    left: auto;
+
     &:after {
         content: 'next';
     }
-
-    right: ef.get-value($themeDefaultNavigation, 'swiperNaviAside');
-    left: auto;
 
     .wlc-slider--type-dashboard & {
         right: 0;
@@ -87,36 +84,33 @@
 
 .wlc-swiper-button-prev,
 .wlc-swiper-button-next {
+    @include em.transition(background);
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     width: ef.get-value($themeDefaultBanner, 'buttonSize');
     height: ef.get-value($themeDefaultBanner, 'buttonSize');
     background: ef.get-value($themeDefaultBanner, 'buttonBg');
-    border-radius: ef.get-value($themeDefaultBanner, 'buttonBorderRadius');
-    @include em.transition(background);
     outline: none;
+    border-radius: ef.get-value($themeDefaultBanner, 'buttonBorderRadius');
     border: none;
 
-    @media (hover) {
-
-        &:hover {
-            background: ef.get-value($themeDefaultBanner, 'buttonBgHover');
-
-            svg {
-                fill: ef.get-value($themeDefaultBanner, 'iconFillHover');
-            }
-        }
-    }
-
     svg {
-        fill: ef.get-value($themeDefaultBanner, 'iconFill');
         @include em.transition(fill);
+        fill: ef.get-value($themeDefaultBanner, 'iconFill');
     }
 
     &.swiper-button-disabled {
-        opacity: 0.5;
         cursor: auto;
+        opacity: 0.5;
+    }
+
+    @include em.hover {
+        background: ef.get-value($themeDefaultBanner, 'buttonBgHover');
+
+        svg {
+            fill: ef.get-value($themeDefaultBanner, 'iconFillHover');
+        }
     }
 }
 
