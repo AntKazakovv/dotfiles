@@ -9,44 +9,41 @@
     ::ng-deep {
 
         .wlc-menu {
+            @include bm.get-mq-map('grid-gap', $themeDefault, 'gapSize');
             display: grid;
             grid-auto-columns: auto;
             grid-auto-flow: column;
-            @include bm.get-mq-map('grid-gap', $themeDefault, 'gapSize');
+            align-items: center;
 
             width: ef.get-value($themeDefault, 'width');
-            align-items: center;
 
             &__icon {
                 display: inline-block;
                 margin-right: 7px;
 
                 svg {
-                    max-height: 25px;
                     max-width: 25px;
+                    max-height: 25px;
                 }
             }
 
             .wlc-menu {
 
                 &__link {
+                    @include text.get-text-style('ThirdTitle', ef.get-value($themeDefault, 'textColor'));
+                    @include bm.get-mq-map('font-size', $themeDefault, 'fontSize');
                     display: flex;
                     align-items: center;
                     text-decoration: ef.get-value($themeDefault, 'textDecoration');
-                    @include text.get-text-style('ThirdTitle', ef.get-value($themeDefault, 'textColor'));
-                    @include bm.get-mq-map('font-size', $themeDefault, 'fontSize');
                     cursor: pointer;
-
-                    @media (hover: hover) {
-
-                        &:hover {
-                            color: ef.get-value($themeDefault, 'textColorHover');
-                        }
-                    }
 
                     &.active {
                         color: ef.get-value($themeDefault, 'textColorHover');
                         font-weight: ef.get-value($themeDefault, 'fontWeightActive');
+                    }
+
+                    @include bm.hover {
+                        color: ef.get-value($themeDefault, 'textColorHover');
                     }
                 }
             }
@@ -64,6 +61,7 @@
                     padding: ef.get-value($themeDefault, 'underlinePadding');
 
                     &:before {
+                        @include bm.transition(height);
                         content: '';
                         position: absolute;
                         bottom: ef.get-value($themeDefault, 'underlineOffset');
@@ -74,7 +72,6 @@
                         background-color: ef.get-value($themeDefault, 'underlineColor');
                         pointer-events: none;
                         border-radius: ef.get-value($themeDefault, 'underlineRadius');
-                        @include bm.transition(height);
                     }
 
                     &:hover,

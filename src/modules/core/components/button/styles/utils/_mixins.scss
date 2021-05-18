@@ -5,18 +5,18 @@
 @import './vars';
 
 @mixin buttonBase {
+    @include bm.get-mq-map('height', $themeDefault, 'heightDefault');
     display: grid;
-    grid-template-columns: auto 1fr auto;
     grid-column-gap: ef.get-value($themeDefault, 'gap');
+    grid-template-columns: auto 1fr auto;
     align-items: center;
 
     min-width: ef.get-value($themeDefault, 'minWidth');
-    @include bm.get-mq-map('height', $themeDefault, 'heightDefault');
-    border: ef.get-value($themeDefault, 'borderDefault');
-    border-radius: ef.get-value($themeDefault, 'borderRadiusDefault');
     padding: ef.get-value($themeDefault, 'padding');
     background: ef.get-value($themeDefault, 'background');
     box-shadow: ef.get-value($themeDefault, 'shadow');
+    border: ef.get-value($themeDefault, 'borderDefault');
+    border-radius: ef.get-value($themeDefault, 'borderRadiusDefault');
 
     .wlc-btn__text {
         @include text.get-text-style('ButtonText', ef.get-value($themeDefault, 'fontColor'));
@@ -24,15 +24,12 @@
         text-transform: ef.get-value($themeDefault, 'textTransform');
     }
 
-    @media (hover: hover) {
-
-        &:hover {
-            color: ef.get-value($themeDefault, 'colorDefaultHover');
-            border: ef.get-value($themeDefault, 'borderDefaultHover');
-            background: ef.get-value($themeDefault, 'backgroundHover');
-            box-shadow: ef.get-value($themeDefault, 'shadowHover');
-            @include bm.transition;
-        }
+    @include bm.hover {
+        @include bm.transition;
+        color: ef.get-value($themeDefault, 'colorDefaultHover');
+        background: ef.get-value($themeDefault, 'backgroundHover');
+        box-shadow: ef.get-value($themeDefault, 'shadowHover');
+        border: ef.get-value($themeDefault, 'borderDefaultHover');
     }
 }
 
@@ -42,20 +39,17 @@
     box-shadow: ef.get-value($themeDefault, 'shadowSecondary');
 
     .wlc-btn__text {
-        color: ef.get-value($themeDefault, 'fontColorSecondary');
         @include bm.transition(color);
+        color: ef.get-value($themeDefault, 'fontColorSecondary');
     }
 
-    @media (hover: hover) {
+    @include bm.hover {
+        background: ef.get-value($themeDefault, 'backgroundSecondaryHover');
+        border: ef.get-value($themeDefault, 'borderSecondaryHover');
+        box-shadow: ef.get-value($themeDefault, 'shadowHoverSecondary');
 
-        &:hover {
-            background: ef.get-value($themeDefault, 'backgroundSecondaryHover');
-            border: ef.get-value($themeDefault, 'borderSecondaryHover');
-            box-shadow: ef.get-value($themeDefault, 'shadowHoverSecondary');
-
-            .wlc-btn__text {
-                color: ef.get-value($themeDefault, 'fontColorActiveSecondary');
-            }
+        .wlc-btn__text {
+            color: ef.get-value($themeDefault, 'fontColorActiveSecondary');
         }
     }
 }
@@ -63,12 +57,8 @@
 @mixin buttonReadMore {
     background: unset;
     border-color: ef.get-value($themeDefault, 'borderColorRead');
-
-    @media (hover: hover) {
-
-        &:hover {
-            background: unset;
-            border-color: ef.get-value($themeDefault, 'borderColorRead');
-        }
+    @include bm.hover {
+        background: unset;
+        border-color: ef.get-value($themeDefault, 'borderColorRead');
     }
 }

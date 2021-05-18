@@ -11,8 +11,8 @@
         &__content {
             height: ef.get-value($themePreview, 'contentHeigh');
             padding: ef.get-value($themePreview, 'bonusPadding');
-            background: ef.get-value($themePreview, 'bonusBackground');
             text-align: center;
+            background: ef.get-value($themePreview, 'bonusBackground');
         }
 
         &__tag {
@@ -20,17 +20,17 @@
         }
 
         &__bonus-icon {
+            @include em.get-mq-map('margin', $themePreview, 'bonusIconMargin');
             position: relative;
             max-width: ef.get-value($themePreview, 'bonusIconMaxWidht');
-            @include em.get-mq-map('margin', $themePreview, 'bonusIconMargin');
         }
 
         &__icon-sign {
+            @include em.get-mq-map('width', $themePreview, 'iconSignSize');
+            @include em.get-mq-map('height', $themePreview, 'iconSignSize');
             border: ef.get-value($themePreview, 'iconSignBoreder');
             border-radius: ef.get-value($themePreview, 'iconSignRadius');
             background: ef.get-value($themePreview, 'iconSignBackground');
-            @include em.get-mq-map('width', $themePreview, 'iconSignSize');
-            @include em.get-mq-map('height', $themePreview, 'iconSignSize');
             box-shadow: ef.get-value($themePreview, 'iconSignShadow');
         }
 
@@ -41,31 +41,29 @@
             cursor: pointer;
 
             svg {
+                @include em.transition(fill);
                 width: ef.get-value($themePreview, 'moreIconSvgWidth');
                 fill: ef.get-value($themePreview, 'moreIconSvgFill');
-                @include em.transition(fill);
             }
 
-            @media (hover: hover) {
+            @include em.hover {
 
-                &:hover {
-
-                    svg {
-                        fill: ef.get-value($themePreview, 'moreIconSvgFillHover');
-                    }
+                svg {
+                    fill: ef.get-value($themePreview, 'moreIconSvgFillHover');
                 }
             }
         }
 
         &__icon-text {
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            @include text.get-text-style(ef.get-value($themePreview, 'iconTextStyle'), ef.get-value($themePreview, 'iconTextColor'));
 
             position: absolute;
+            right: ef.get-value($themePreview, 'iconTextRightPos');
             bottom: ef.get-value($themePreview, 'iconTextBottomPos');
             left: ef.get-value($themePreview, 'iconTextLeftPos');
-            right: ef.get-value($themePreview, 'iconTextRightPos');
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
             width: ef.get-value($themePreview, 'iconTextWidth');
             height: ef.get-value($themePreview, 'iconTextHeight');
@@ -73,7 +71,6 @@
 
             background: ef.get-value($themePreview, 'iconTextBackground');
             border-radius: ef.get-value($themePreview, 'iconTextRadius');
-            @include text.get-text-style(ef.get-value($themePreview, 'iconTextStyle'), ef.get-value($themePreview, 'iconTextColor'));
 
             &.wlc-small {
                 @include text.get-text-style(ef.get-value($themePreview, 'iconTextStyle'), ef.get-value($themePreview, 'iconTextColor'));
@@ -86,10 +83,10 @@
 
         &__name {
             @include text.get-text-style(ef.get-value($themePreview, 'bonusNameStyle'), ef.get-value($themePreview, 'bonusNameColor'));
+            @include em.lineClamp(2);
+            max-width: 100%;
             margin: ef.get-value($themePreview, 'bonusNameMargin');
             cursor: pointer;
-            max-width: 100%;
-            @include em.lineClamp(2);
         }
 
         &__description {
@@ -100,11 +97,11 @@
         &__blank {
             display: flex;
             flex-direction: column;
-            padding: ef.get-value($themePreview, 'bonusPadding');
             height: ef.get-value($themePreview, 'bonusHeight');
+            padding: ef.get-value($themePreview, 'bonusPadding');
+            text-align: center;
             background: url('/gstatic/wlc/bonuses/blank-bonus-decor.png') no-repeat center top, linear-gradient(180deg, #8dacc9 0%, #003d5f 100%);
             background-size: contain;
-            text-align: center;
 
             &-title {
                 @include text.get-text-style(ef.get-value($themePreview, 'bonusTitleStyle'));

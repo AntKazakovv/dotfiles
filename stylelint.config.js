@@ -351,6 +351,12 @@ module.exports = {
                 {
                     'type': 'at-rule',
                     'name': 'include',
+                    'parameter': /[.]hover/,
+                    'hasBlock': true,
+                },
+                {
+                    'type': 'at-rule',
+                    'name': 'include',
                     'parameter': /[min|max]+\(.{1,}\)/,
                     'hasBlock': true,
                 },

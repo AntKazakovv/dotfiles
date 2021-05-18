@@ -30,29 +30,26 @@
                 }
             }
 
-            @media (hover: hover) {
+            @include em.hover {
 
-                &:hover {
+                .wlc-icon::ng-deep {
 
-                    .wlc-icon::ng-deep {
+                    &:after {
+                        display: block;
+                        content: '';
+                        position: absolute;
+                        width: 90%;
+                        height: 90%;
+                        margin-top: 20%;
+                        top: 0;
+                        left: 5%;
+                        background-color: ef.get-value($themeDashboard, 'moreIconColor');
+                        border-radius: 50%;
+                        z-index: -1;
+                    }
 
-                        &:after {
-                            display: block;
-                            content: '';
-                            position: absolute;
-                            width: 90%;
-                            height: 90%;
-                            margin-top: 20%;
-                            top: 0;
-                            left: 5%;
-                            background-color: ef.get-value($themeDashboard, 'moreIconColor');
-                            border-radius: 50%;
-                            z-index: -1;
-                        }
-
-                        svg {
-                            fill: ef.get-value($themeDashboard, 'moreIconColorHover');
-                        }
+                    svg {
+                        fill: ef.get-value($themeDashboard, 'moreIconColorHover');
                     }
                 }
             }

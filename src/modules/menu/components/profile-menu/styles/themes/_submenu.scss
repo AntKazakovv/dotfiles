@@ -62,13 +62,6 @@
                 &__link {
                     @include text.get-text-style('PrimaryText');
                     @include bm.transition(color);
-
-                    @include bm.desktopHover {
-
-                        &:before {
-                            width: ef.get-value($submenuProfileDefault, 'submenuItemHoverUnderlineWidth');
-                        }
-                    }
                     position: relative;
                     z-index: 2;
 
@@ -92,6 +85,20 @@
                     }
 
                     &.active {
+
+                        &:before {
+                            width: 100%;
+                        }
+                    }
+
+                    @include bm.hover {
+
+                        &:before {
+                            width: ef.get-value($submenuProfileDefault, 'submenuItemHoverUnderlineWidth');
+                        }
+                    }
+
+                    @include bm.hover {
 
                         &:before {
                             width: 100%;

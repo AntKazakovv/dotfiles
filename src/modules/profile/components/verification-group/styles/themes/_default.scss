@@ -4,12 +4,12 @@
 @use 'engine-scss/mixins/base.mixins' as em;
 
 .wlc-verification-group--theme-default:host {
+
+    @include em.get-mq-map('padding', $themeDefault, 'paddingItem');
     display: ef.get-value($themeDefault, 'groupDisplay');
     flex-direction: ef.get-value($themeDefault, 'groupDirection');
     align-items: ef.get-value($themeDefault, 'groupAlignItems');
     justify-content: ef.get-value($themeDefault, 'groupSpaceBetween');
-
-    @include em.get-mq-map('padding', $themeDefault, 'paddingItem');
 
     background: ef.get-value($themeDefault, 'backgroundItem');
     border-radius: ef.get-value($themeDefault, 'borderRadius');
@@ -107,16 +107,16 @@
         }
 
         &__title {
-            padding: ef.get-value($themeDefault, 'titlePadding');
 
             @include text.get-text-style(ef.get-value($themeDefault, 'titleFont'), ef.get-value($themeDefault, 'color'));
+            padding: ef.get-value($themeDefault, 'titlePadding');
             text-align: ef.get-value($themeDefault, 'groupTitleAlign');
         }
 
         &__required {
-            padding: ef.get-value($themeDefault, 'requiredPadding');
 
             @include text.get-text-style(ef.get-value($themeDefault, 'subTitleFont'), ef.get-value($themeDefault, 'color'));
+            padding: ef.get-value($themeDefault, 'requiredPadding');
         }
 
         &__description {
@@ -126,9 +126,10 @@
         }
 
         &__dropzone {
-            position: ef.get-value($themeDefault, 'dropzonePosition');
 
             @include em.get-mq-map('display', $themeDefault, 'dropzoneDisplay');
+            @include em.transition(border-color);
+            position: ef.get-value($themeDefault, 'dropzonePosition');
 
             align-items: ef.get-value($themeDefault, 'dropzoneAlignItems');
             justify-content: ef.get-value($themeDefault, 'dropzoneJustifyContent');
@@ -147,7 +148,6 @@
             background: ef.get-value($themeDefault, 'backgroundDropdown');
             border: ef.get-value($themeDefault, 'borderDropdown');
             border-radius: ef.get-value($themeDefault, 'borderRadius');
-            @include em.transition(border-color);
 
             cursor: pointer;
 
@@ -274,14 +274,11 @@
 
                 @include mq.min(768) {
 
-                    @media (hover) {
+                    @include em.hover {
 
-                        &:hover {
-
-                            .wlc-verification-group-docs-list__remove {
-                                visibility: ef.get-value($themeDefault, 'docsListTextHoverVisibility');
-                                opacity: ef.get-value($themeDefault, 'docsListTextHoverOpacity');
-                            }
+                        .wlc-verification-group-docs-list__remove {
+                            visibility: ef.get-value($themeDefault, 'docsListTextHoverVisibility');
+                            opacity: ef.get-value($themeDefault, 'docsListTextHoverOpacity');
                         }
                     }
                 }
@@ -299,20 +296,17 @@
                 text-overflow: ellipsis;
 
 
-                @media (hover) {
-
-                    &:hover {
-                        text-decoration: ef.get-value($themeDefault, 'docListLinkDecorationHover');
-                    }
+                @include em.hover {
+                    text-decoration: ef.get-value($themeDefault, 'docListLinkDecorationHover');
                 }
             }
 
             &__remove {
+
+                @include em.transition(opacity);
                 display: ef.get-value($themeDefault, 'removeDisplay');
                 align-items: ef.get-value($themeDefault, 'removeAlignItems');
                 justify-content: ef.get-value($themeDefault, 'removeJustifyContent');
-
-                @include em.transition(opacity);
 
                 width: ef.get-value($themeDefault, 'docsRemoveSize');
                 height: ef.get-value($themeDefault, 'docsRemoveSize');
@@ -322,11 +316,6 @@
                 line-height: ef.get-value($themeDefault, 'removeLineHeight');
 
                 cursor: pointer;
-
-                @include mq.min(1200) {
-                    visibility: ef.get-value($themeDefault, 'removeVisibility');
-                    opacity: ef.get-value($themeDefault, 'removeOpacity');
-                }
 
                 ::ng-deep .wlc-icon-content {
                     display: ef.get-value($themeDefault, 'removeIconDisplay');
@@ -343,20 +332,22 @@
                     }
                 }
 
-                @media (hover) {
+                @include em.hover {
 
-                    &:hover {
+                    &::ng-deep .wlc-icon-content {
 
-                        &::ng-deep .wlc-icon-content {
+                        svg {
 
-                            svg {
-
-                                line {
-                                    stroke: ef.get-value($themeDefault, 'removeIconDocsHoverColor');
-                                }
+                            line {
+                                stroke: ef.get-value($themeDefault, 'removeIconDocsHoverColor');
                             }
                         }
                     }
+                }
+
+                @include mq.min(1200) {
+                    visibility: ef.get-value($themeDefault, 'removeVisibility');
+                    opacity: ef.get-value($themeDefault, 'removeOpacity');
                 }
             }
 

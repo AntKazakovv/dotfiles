@@ -13,26 +13,23 @@
         border-bottom: ef.get-value($theme1, 'wrapperBorderBottom');
         cursor: pointer;
 
-        @media (hover) {
+        @include bm.hover {
 
-            &:hover {
+            .wlc-winner__game {
 
-                .wlc-winner__game {
-
-                    span {
-                        border-bottom: ef.get-value($theme1, 'gameBorderBottomActive');
-                    }
+                span {
+                    border-bottom: ef.get-value($theme1, 'gameBorderBottomActive');
                 }
             }
         }
     }
 
     .wlc-winner__block--left {
+        flex-shrink: 0;
         width: ef.get-value($theme1, 'iconWidth');
+        margin-right: ef.get-value($theme1, 'itemGap');
         border-radius: ef.get-value($theme1, 'iconBorderRadius');
         overflow: hidden;
-        margin-right: ef.get-value($theme1, 'itemGap');
-        flex-shrink: 0;
 
         @supports (aspect-ratio: 1 / 1) {
             aspect-ratio: ef.get-value($theme1, 'iconAspectRatio');
@@ -42,11 +39,11 @@
             position: relative;
 
             &:before {
+
+                @include bm.aspect-ratio-padding(ef.get-value($theme1, 'iconAspectRatio'));
                 content: '';
                 display: block;
                 width: 100%;
-
-                @include bm.aspect-ratio-padding(ef.get-value($theme1, 'iconAspectRatio'));
             }
         }
 
@@ -84,8 +81,8 @@
         @include lib.get-text-style('ThirdTitleBold', ef.get-value($theme1, 'gameColor'));
 
         span {
-            border-bottom: ef.get-value($theme1, 'gameBorderBottomInactive');
             @include bm.transition();
+            border-bottom: ef.get-value($theme1, 'gameBorderBottomInactive');
         }
     }
 

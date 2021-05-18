@@ -1,4 +1,6 @@
 @use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/base.mixins' as bm;
+
 @import '../utils/vars';
 @import '../utils/mixins';
 
@@ -6,31 +8,25 @@
 
     &:host {
         @include buttonBase;
+        background-image: linear-gradient(to right, ef.get-value($themeDefault, 'background'), ef.get-value($themeDefault, 'backgroundSecondary'));
         transform: skew(-20deg, 0);
         border-image-source: linear-gradient(to right, ef.get-value($themeDefault, 'backgroundSecondary'), ef.get-value($themeDefault, 'background'));
         border-image-slice: 1;
         border-image-width: 6px;
-        background-image: linear-gradient(to right, ef.get-value($themeDefault, 'background'), ef.get-value($themeDefault, 'backgroundSecondary'));
 
-        @media (hover: hover) {
+        &.wlc-btn--theme-mod-secondary {
+            background-image: unset;
+            border-image-width: 0;
 
-            &:hover {
-                background: transparent;
+            @include bm.hover {
+                background-image: linear-gradient(to right, ef.get-value($themeDefault, 'background'), ef.get-value($themeDefault, 'backgroundSecondary'));
+                border-image-width: 6px;
+                border-image-source: linear-gradient(to right, ef.get-value($themeDefault, 'backgroundSecondary'), ef.get-value($themeDefault, 'background'));
             }
         }
 
-        &.wlc-btn--theme-mod-secondary {
-            border-image-width: 0;
-            background-image: unset;
-
-            @media (hover: hover) {
-
-                &:hover {
-                    border-image-width: 6px;
-                    border-image-source: linear-gradient(to right, ef.get-value($themeDefault, 'backgroundSecondary'), ef.get-value($themeDefault, 'background'));
-                    background-image: linear-gradient(to right, ef.get-value($themeDefault, 'background'), ef.get-value($themeDefault, 'backgroundSecondary'));
-                }
-            }
+        @include bm.hover {
+            background: transparent;
         }
     }
 }

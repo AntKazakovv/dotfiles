@@ -19,14 +19,13 @@
             }
 
             &__link {
-                text-decoration: ef.get-value($themeDefault, 'linkDecoration');
-                color: ef.get-value($themeDefault, 'linkColor');
-                cursor: pointer;
-
-                @include bm.desktopHover {
-                    text-decoration: ef.get-value($themeDefault, 'linkDecorationHover');
+                @include bm.hover {
                     color: ef.get-value($themeDefault, 'linkColorHover');
+                    text-decoration: ef.get-value($themeDefault, 'linkDecorationHover');
                 }
+                color: ef.get-value($themeDefault, 'linkColor');
+                text-decoration: ef.get-value($themeDefault, 'linkDecoration');
+                cursor: pointer;
             }
         }
     }

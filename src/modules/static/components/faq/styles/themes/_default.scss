@@ -5,36 +5,24 @@
 
 .wlc-faq--theme-default:host {
     display: grid;
-    grid-template-columns: 1fr;
     grid-gap: ef.get-value($themeDefault, 'itemsGapSize');
+    grid-template-columns: 1fr;
 
     .wlc-faq {
 
         &__header {
+            @include text.get-text-style('QoteTextBold', ef.get-value($themeDefault, 'headerFontColor'));
             display: flex;
             align-items: center;
             justify-content: center;
-            @include text.get-text-style('QoteTextBold', ef.get-value($themeDefault, 'headerFontColor'));
             padding: ef.get-value($themeDefault, 'headerPadding');
         }
 
         &__item {
             background: ef.get-value($themeDefault, 'itemBackground');
+            transition: all ef.get-value($themeDefault, 'time');
             overflow: hidden;
             border-radius: ef.get-value($themeDefault, 'itemBorderRadius');
-            transition: all ef.get-value($themeDefault, 'time');
-
-            @include bm.desktopHover {
-                background: ef.get-value($themeDefault, 'itemBackgroundActive');
-
-                .wlc-faq__title-text {
-                    color: ef.get-value($themeDefault, 'titleIconColorActive');
-                }
-
-                .wlc-faq__title-icon ::ng-deep svg path {
-                    fill: ef.get-value($themeDefault, 'titleIconColorActive');
-                }
-            }
 
             &.expanded {
                 background: ef.get-value($themeDefault, 'itemBackgroundActive');
@@ -52,6 +40,18 @@
                     transform: rotateZ(180deg);
                 }
             }
+
+            @include bm.hover {
+                background: ef.get-value($themeDefault, 'itemBackgroundActive');
+
+                .wlc-faq__title-text {
+                    color: ef.get-value($themeDefault, 'titleIconColorActive');
+                }
+
+                .wlc-faq__title-icon ::ng-deep svg path {
+                    fill: ef.get-value($themeDefault, 'titleIconColorActive');
+                }
+            }
         }
 
         &__title {
@@ -64,8 +64,8 @@
 
             &-text {
                 flex-grow: 1;
-                transition: all ef.get-value($themeDefault, 'time');
                 padding-right: ef.get-value($themeDefault, 'paddingSize');
+                transition: all ef.get-value($themeDefault, 'time');
 
                 @include mq.min(768) {
                     @include text.get-text-style('ThirdTitleBold', ef.get-value($themeDefault, 'titleColor'));
@@ -96,17 +96,17 @@
 
         &__content {
             padding: {
-                left: ef.get-value($themeDefault, 'paddingSize');
                 right: ef.get-value($themeDefault, 'paddingSize');
+                left: ef.get-value($themeDefault, 'paddingSize');
             };
 
             &-wrp {
+                color: ef.get-value($themeDefault, 'contentFontColor');
                 border-top: ef.get-value($themeDefault, 'contentTopBorder');
                 padding: {
                     top: ef.get-value($themeDefault, 'paddingSize');
                     bottom: ef.get-value($themeDefault, 'paddingSize');
                 };
-                color: ef.get-value($themeDefault, 'contentFontColor');
 
                 @include mq.min(768) {
                     @include text.get-text-style('ThirdTitle', ef.get-value($themeDefault, 'contentFontColor'));

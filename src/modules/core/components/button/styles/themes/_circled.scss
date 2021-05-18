@@ -1,4 +1,5 @@
 @use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/base.mixins' as em;
 @import '../utils/vars';
 @import '../utils/mixins';
 
@@ -6,28 +7,22 @@
 
     &:host {
         @include buttonBase;
+        grid-column-gap: unset;
         width: ef.get-value($themeDefault, 'minWidth');
         height: ef.get-value($themeDefault, 'minWidth');
-        grid-column-gap: unset;
         border-radius: 50%;
         border: ef.get-value($themeDefault, 'borderSecondary');
-
-        @media (hover: hover) {
-
-            &:hover {
-                background: ef.get-value($themeDefault, 'backgroundHover');
-            }
-        }
 
         &.wlc-btn--theme-mod-secondary {
             @include buttonTransparency;
 
-            @media (hover: hover) {
-
-                &:hover {
-                    background: ef.get-value($themeCircled, 'backgroundHover');
-                }
+            @include em.hover {
+                background: ef.get-value($themeCircled, 'backgroundHover');
             }
+        }
+
+        @include em.hover {
+            background: ef.get-value($themeDefault, 'backgroundHover');
         }
     }
 }

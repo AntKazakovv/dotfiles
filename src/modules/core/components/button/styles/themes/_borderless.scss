@@ -4,35 +4,47 @@
 @import '../utils/mixins';
 
 .wlc-btn--theme-borderless:host {
-    display: inline-grid;
+
+    @include bm.hover {
+        color: ef.get-value($borderlessTheme, 'fontColor');
+
+        background: none;
+        border: 0;
+
+        &:after {
+            right: -(ef.get-value($borderlessTheme, 'underlineExtraSize'));
+            left: -(ef.get-value($borderlessTheme, 'underlineExtraSize'));
+        }
+    }
     position: relative;
-    border-radius: 4px;
-    font-size: inherit;
-    line-height: inherit;
+    display: inline-grid;
 
     grid-column-gap: 0;
     grid-template-columns: 1fr;
-    overflow: initial;
     min-width: auto;
     height: auto;
-    border: none;
-    background: none;
-    padding: 0;
     margin: 0;
+    padding: 0;
+    font-size: inherit;
+    line-height: inherit;
+    background: none;
+    border-radius: 4px;
+    overflow: initial;
+    border: none;
 
     .wlc-btn__text {
-        text-transform: capitalize;
         font-size: inherit;
         line-height: inherit;
+        text-transform: capitalize;
     }
 
     &:after {
         content: '';
-        display: block;
         position: absolute;
+        right: 50%;
         bottom: 0;
         left: 50%;
-        right: 50%;
+        display: block;
         height: 1px;
         background-color: ef.get-value($borderlessTheme, 'fontColor');
         transition:
@@ -40,23 +52,11 @@
             right ef.get-value($borderlessTheme, 'transition');
     }
 
-    @include bm.desktopHover {
-
-        background: none;
-        border: 0;
-        color: ef.get-value($borderlessTheme, 'fontColor');
-
-        &:after {
-            left: -(ef.get-value($borderlessTheme, 'underlineExtraSize'));
-            right: -(ef.get-value($borderlessTheme, 'underlineExtraSize'));
-        }
-    }
-
     &:active {
 
         &:after {
-            left: 50%;
             right: 50%;
+            left: 50%;
         }
     }
 }

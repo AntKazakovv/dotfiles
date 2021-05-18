@@ -15,9 +15,9 @@
             .pagination {
                 display: flex;
                 align-items: center;
-                list-style-type: none;
                 margin: 0;
                 padding: ef.get-value($themeDefault, 'paginationPadding');
+                list-style-type: none;
 
                 .page-item {
                     margin: ef.get-value($themeDefault, 'pageItemMargin');
@@ -36,16 +36,8 @@
                         justify-content: center;
                         width: ef.get-value($themeDefault, 'pageItemWidth');
                         height: ef.get-value($themeDefault, 'pageItemHeight');
-                        border-radius: ef.get-value($themeDefault, 'pageItemRadius');
                         background: ef.get-value($themeDefault, 'activePaginationArrowColor');
-
-                        @media (hover) {
-
-                            &:hover {
-                                background: ef.get-value($themeDefault, 'activePaginationArrowColorHover');
-                                @include bm.transition(background);
-                            }
-                        }
+                        border-radius: ef.get-value($themeDefault, 'pageItemRadius');
 
                         &-content {
                             display: flex;
@@ -55,6 +47,11 @@
                         svg {
                             transform: rotate(-90deg);
                             fill: ef.get-value($themeDefault, 'pageItemInnerFill');
+                        }
+
+                        @include bm.hover {
+                            @include bm.transition(background);
+                            background: ef.get-value($themeDefault, 'activePaginationArrowColorHover');
                         }
                     }
 
@@ -68,11 +65,8 @@
                                 fill: ef.get-value($themeDefault, 'pageItemInnerFillDisabled');
                             }
 
-                            @media (hover) {
-
-                                &:hover {
-                                    background: ef.get-value($themeDefault, 'pageItemDisabled');
-                                }
+                            @include bm.hover {
+                                background: ef.get-value($themeDefault, 'pageItemDisabled');
                             }
                         }
                     }
@@ -91,8 +85,8 @@
                 &-page {
 
                     .page-link {
-                        display: block;
                         @include text.get-text-style('ButtonText', ef.get-value($themeDefault, 'pageItemColor'));
+                        display: block;
                         text-decoration: none;
                     }
 

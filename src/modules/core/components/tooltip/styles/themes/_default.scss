@@ -6,21 +6,21 @@
 .wlc-tooltip--theme-default {
 
     &:host {
+        @include em.get-mq-map('width', $themeDefault, 'iconSize');
+        @include em.get-mq-map('height', $themeDefault, 'iconSize');
         position: relative;
         display: flex;
         align-items: center;
         justify-content: center;
-        @include em.get-mq-map('width', $themeDefault, 'iconSize');
-        @include em.get-mq-map('height', $themeDefault, 'iconSize');
 
         .wlc-tooltip__icon {
+            @include em.get-mq-map('width', $themeDefault, 'iconSize');
+            @include em.get-mq-map('height', $themeDefault, 'iconSize');
             display: flex;
             align-items: center;
             justify-content: center;
             border-radius: 50%;
             cursor: pointer;
-            @include em.get-mq-map('width', $themeDefault, 'iconSize');
-            @include em.get-mq-map('height', $themeDefault, 'iconSize');
 
             &.wlc-icon {
 
@@ -35,7 +35,8 @@
                         @include em.get-mq-map('width', $themeDefault, 'iconSize');
                         @include em.get-mq-map('height', $themeDefault, 'iconSize');
 
-                        @include em.desktopHover {
+                        @include em.hover {
+
                             path {
                                 fill: ef.get-value($themeDefault, 'iconColorOnHover');
                             }
@@ -43,8 +44,8 @@
                     }
 
                     path {
-                        fill: ef.get-value($themeDefault, 'iconFill');
                         @include em.transition(fill);
+                        fill: ef.get-value($themeDefault, 'iconFill');
                     }
                 }
             }
@@ -81,10 +82,10 @@
         }
 
         .tooltip-inner {
+            @include text.get-text-style(ef.get-value($themeDefault, 'textStyle'), ef.get-value($themeDefault, 'contentColor'));
+            padding: ef.get-value($themeDefault, 'contentPadding');
             background-color: ef.get-value($themeDefault, 'contentBg');
             border-radius: ef.get-value($themeDefault, 'contentBorderRadius');
-            padding: ef.get-value($themeDefault, 'contentPadding');
-            @include text.get-text-style(ef.get-value($themeDefault, 'textStyle'), ef.get-value($themeDefault, 'contentColor'));
         }
     }
 }

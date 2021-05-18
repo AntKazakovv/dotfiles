@@ -8,16 +8,16 @@
     background: ef.get-value($theme, 'headerBackground');
 
     .container {
+
+        @include bm.get-mq-map('min-height', $theme, 'headerMinHeight');
+        @include bm.get-mq-map('grid-gap', $theme, 'headerGridGap');
+        @include bm.get-mq-map('padding', $theme, 'headerPadding');
         position: relative;
         z-index: 10;
 
         display: grid;
 
         align-items: center;
-
-        @include bm.get-mq-map('min-height', $theme, 'headerMinHeight');
-        @include bm.get-mq-map('grid-gap', $theme, 'headerGridGap');
-        @include bm.get-mq-map('padding', $theme, 'headerPadding');
 
         @include mq.min(1200) {
             width: ef.get-value($theme, 'headerContainerDesktopWidth');
@@ -68,12 +68,9 @@
             margin-left: auto;
             will-change: transform;
 
-            @media (hover: hover) {
-
-                &:hover {
-                    transform: rotate(30deg);
-                    @include bm.transition(transform);
-                }
+            @include bm.hover {
+                @include bm.transition(transform);
+                transform: rotate(30deg);
             }
         }
 
@@ -85,15 +82,12 @@
                 fill: map-get($theme, 'headerSvgBtn');
             }
 
-            @media (hover) {
+            @include bm.hover {
 
-                &:hover {
-
-                    svg,
-                    rect {
-                        fill: map-get($theme, 'headerSvgBtnHover');
-                        @include bm.transition(fill);
-                    }
+                svg,
+                rect {
+                    @include bm.transition(fill);
+                    fill: map-get($theme, 'headerSvgBtnHover');
                 }
             }
         }
