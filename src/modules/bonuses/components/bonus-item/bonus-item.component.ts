@@ -186,15 +186,17 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
     }
 
     public async getInventory(): Promise<void> {
-        this.bonus = await this.bonusesService.takeInventory(this.bonus);
-        if (this.bonus) {
+        const bonus = await this.bonusesService.takeInventory(this.bonus);
+        if (bonus) {
+            this.bonus = bonus;
             this.cdr.markForCheck();
         }
     }
 
     public async join(): Promise<void> {
-        this.bonus = await this.bonusesService.subscribeBonus(this.bonus);
-        if (this.bonus) {
+        const bonus = await this.bonusesService.subscribeBonus(this.bonus);
+        if (bonus) {
+            this.bonus = bonus;
             this.bonusesService.clearPromoBonus();
             this.cdr.markForCheck();
         }
@@ -216,8 +218,9 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
             confirmBtnText: gettext('Yes'),
             textAlign: 'center',
             onConfirm: async () => {
-                this.bonus = await this.bonusesService.cancelBonus(this.bonus);
-                if (this.bonus) {
+                const bonus = await this.bonusesService.cancelBonus(this.bonus);
+                if (bonus) {
+                    this.bonus = bonus;
                     this.cdr.markForCheck();
                 }
             },
@@ -226,9 +229,10 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
     }
 
     public async unsubscribe(): Promise<void> {
-        this.bonus = await this.bonusesService.unsubscribeBonus(this.bonus);
+        const bonus = await this.bonusesService.unsubscribeBonus(this.bonus);
 
-        if (this.bonus) {
+        if (bonus) {
+            this.bonus = bonus;
             this.cdr.markForCheck();
         }
     }
