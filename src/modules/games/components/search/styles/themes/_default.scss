@@ -82,25 +82,25 @@
         }
 
         &__btn {
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: ef.get-value($themeDefault, 'heightBtn');
-            width: 100%;
-            @include bm.get-mq-map('padding', $themeDefault, 'btnPadding');
-            appearance: none;
-            @include bm.get-mq-map('background-color', $themeDefault, 'btnBackground');
-            border-radius: ef.get-value($themeDefault, 'btnBorderRadius');
             @include text.get-text-style(ef.get-value($themeDefault, 'btnFont'), ef.get-value($themeDefault, 'btnTextColor'));
+            @include bm.get-mq-map('padding', $themeDefault, 'btnPadding');
+            @include bm.get-mq-map('background-color', $themeDefault, 'btnBackground');
+            @include bm.get-mq-map('border', $themeDefault, 'btnBorder');
+
+            position: relative;
+
+            display: flex;
+            align-items: ef.get-value($themeDefault, 'alignItemsBtn');
+            justify-content: ef.get-value($themeDefault, 'justifyBtn');
+
+            width: ef.get-value($themeDefault, 'widthBtn');
+            height: ef.get-value($themeDefault, 'heightBtn');
+
+            border-radius: ef.get-value($themeDefault, 'btnBorderRadius');
+
             transition:
                 background-color ef.get-value($themeDefault, 'btnTransition') linear,
                 border ef.get-value($themeDefault, 'btnTransition') linear;
-            @include bm.get-mq-map('border', $themeDefault, 'btnBorder');
-
-            @include mq.min(900) {
-                justify-content: flex-start;
-            }
 
             &:focus {
                 outline: none;

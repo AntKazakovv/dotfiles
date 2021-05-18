@@ -28,11 +28,13 @@ import {
     EventService,
     ConfigService,
     LogService,
-} from 'wlc-engine/modules/core/system/services';
+} from 'wlc-engine/modules/core';
 
 import _assignIn from 'lodash-es/assignIn';
 import _isString from 'lodash-es/isString';
 import _find from 'lodash-es/find';
+import _map from 'lodash-es/map';
+import _filter from 'lodash-es/filter';
 import _remove from 'lodash-es/remove';
 import _forEach from 'lodash-es/forEach';
 import _get from 'lodash-es/get';
@@ -82,6 +84,7 @@ export class ModalService {
      * Show modal with params.
      *
      * @param config if string, search by id on MODALS_LIST.
+     * @param componentParams
      * @returns Reference on component
      */
     public showModal<T>(config: IModalParams, componentParams?: T): void {
@@ -107,10 +110,6 @@ export class ModalService {
             modalConfig = _assignIn({}, DEFAULT_MODAL_CONFIG, config);
         }
 
-        if (componentParams) {
-            modalConfig.componentParams = componentParams;
-        }
-
         if (!modalConfig.id) {
             this.logService.sendLog({
                 code: '0.3.1',
@@ -119,6 +118,10 @@ export class ModalService {
                 },
             });
             return;
+        }
+
+        if (componentParams) {
+            modalConfig.componentParams = componentParams;
         }
         if (modalConfig.dismissAll && this.activeModals.length) {
             this.closeAllModals();
@@ -160,9 +163,9 @@ export class ModalService {
      * @returns void
      */
     public hideModal(id: string): void {
-        const modal: IActiveModal = _find(this.activeModals, (item: IActiveModal) => item.id === id);
+        const modals: IActiveModal[] = _filter(this.activeModals, (item: IActiveModal) => item.id === id);
 
-        if (!modal) {
+        if (!modals.length) {
             this.logService.sendLog({
                 code: '0.3.0',
                 data: {
@@ -172,9 +175,11 @@ export class ModalService {
             return;
         }
 
-        this.closeQueue.push(modal.id);
+        this.closeQueue.push(..._map(modals, ({id}) => id));
         this.$closeObserver.next(this.closeQueue.length);
-        modal.ref.instance.modalDirect.hide();
+        _forEach(modals, (modal) => {
+            modal.ref.instance.modalDirect.hide();
+        });
     }
 
     /**
@@ -261,6 +266,10 @@ export class ModalService {
     }
 
     private openModal(config: IModalConfig): void {
+        if(_find(this.activeModals, ({id}) => id === config.id)) {
+            return;
+        }
+
         let windowFactory = this.cfr.resolveComponentFactory(WlcModalComponent);
         let injector = Injector.create({
             providers: [
@@ -271,11 +280,16 @@ export class ModalService {
             ],
         });
 
-        let windowCmptRef: ComponentRef<any> = windowFactory.create(injector);
+        const windowCmptRef: ComponentRef<any> = windowFactory.create(injector);
         const modalElement = windowCmptRef.location.nativeElement;
 
         this.appRef.attachView(windowCmptRef.hostView);
         this.document.body.appendChild(modalElement);
+
+        this.activeModals.push({
+            id: config.id,
+            ref: windowCmptRef,
+        });
 
         setTimeout(() => {
             const backDropElement = _get(windowCmptRef, 'instance.modalRef.backdrop.location.nativeElement');
@@ -284,11 +298,6 @@ export class ModalService {
                 modalElement.style.zIndex = currentZIndex + this.activeModals.length * 10;
                 backDropElement.style.zIndex = +modalElement.style.zIndex - 1;
             }
-
-            this.activeModals.push({
-                id: config.id,
-                ref: windowCmptRef,
-            });
         });
     }
 }
