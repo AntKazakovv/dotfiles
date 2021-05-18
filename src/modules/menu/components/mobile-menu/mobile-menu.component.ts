@@ -76,17 +76,19 @@ export class MobileMenuComponent extends AbstractComponent implements OnInit {
 
         const iconsFolder: string = this.$params.common?.icons?.folder || this.configService.get<string>('$menu.mobileMenu.icons.folder');
 
-        this.categoryMenuParams = {
-            type: 'dropdown',
-            theme: 'dropdown',
-            themeMod: 'vertical',
-            common: {
-                icons: {
-                    folder: this.configService.get<string>('$menu.mobileMenu.categoryIcons.folder'),
-                    use: this.configService.get<boolean>('$menu.mobileMenu.categoryIcons.use'),
+        if (!this.configService.get<boolean>('$menu.mobileMenu.disableCategories')) {
+            this.categoryMenuParams = {
+                type: 'dropdown',
+                theme: 'dropdown',
+                themeMod: 'vertical',
+                common: {
+                    icons: {
+                        folder: this.configService.get<string>('$menu.mobileMenu.categoryIcons.folder'),
+                        use: this.configService.get<boolean>('$menu.mobileMenu.categoryIcons.use'),
+                    },
                 },
-            },
-        };
+            };
+        }
 
         this.menuParams.items = MenuHelper.parseMenuConfig(this.menuConfig, Config.wlcMobileMenuItemsGlobal, {
             icons: {
