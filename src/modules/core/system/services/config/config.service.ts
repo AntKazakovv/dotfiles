@@ -1,10 +1,4 @@
 import {Injectable, Injector} from '@angular/core';
-import {
-    StateService,
-    Transition,
-    TransitionService,
-} from '@uirouter/core';
-
 import {DataService, IData} from '../data/data.service';
 import {AppConfigModel} from './app-config.model';
 import * as appConfig from 'wlc-config/index';
@@ -19,9 +13,7 @@ import {
 import {
     ILayoutsConfig,
     IParamsLayoutConfig,
-    IRedirect,
     GlobalHelper,
-    IIndexing,
 } from 'wlc-engine/modules/core';
 import {
     LocalStorageService,
@@ -51,8 +43,6 @@ import _get from 'lodash-es/get';
 import _set from 'lodash-es/set';
 import _isObject from 'lodash-es/isObject';
 import _cloneDeep from 'lodash-es/cloneDeep';
-import _each from 'lodash-es/each';
-import _keys from 'lodash-es/keys';
 
 /**
  * Examples of getter and setter:
@@ -76,8 +66,6 @@ export class ConfigService {
         private injector: Injector,
         private localStorageService: LocalStorageService,
         private sessionStorageService: SessionStorageService,
-        private transitionService: TransitionService,
-        private stateService: StateService,
     ) {
         this.setGlobals();
 
@@ -166,8 +154,6 @@ export class ConfigService {
             value: new DeviceModel(this.get<IDeviceConfig>('$base.device')),
         });
 
-        this.initStateRedirect();
-
         this.$resolve();
         return this.appConfig;
     }
@@ -221,16 +207,5 @@ export class ConfigService {
             await this.ready;
             this.get<BehaviorSubject<any>>('countries').next(data.data.countries);
         });
-    }
-
-    private initStateRedirect(): void {
-        const redirects = this.get<IIndexing<IRedirect>>('$base.redirects.states');
-        if (_keys(redirects).length) {
-            _each(redirects, (redirect, state) => {
-                this.transitionService.onEnter({to: state}, (transition: Transition) => {
-                    this.stateService.go(redirect.state, redirect?.params || transition.params());
-                });
-            });
-        }
     }
 }
