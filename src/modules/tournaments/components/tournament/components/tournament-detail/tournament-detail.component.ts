@@ -22,8 +22,8 @@ import {
 
 import {TournamentsService, Tournament} from 'wlc-engine/modules/tournaments';
 import {TournamentComponent} from 'wlc-engine/modules/tournaments/components/tournament/tournament.component';
+import {MenuParams} from 'wlc-engine/modules/menu';
 
-import * as MenuParams from 'wlc-engine/modules/menu/components';
 import * as Params from './tournament-detail.params';
 
 import _each from 'lodash-es/each';

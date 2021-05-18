@@ -14,7 +14,7 @@ export const wlcAffiliatesMenuItemsGlobal: Params.IMenuItemsGlobal = {
         type: 'scroll',
         class: 'commission',
         params: {
-            scroll: '.wlc-sections__comission-section',
+            scroll: '.wlc-sections__commission-section',
         },
     },
     'affiliates-menu:faq': {
