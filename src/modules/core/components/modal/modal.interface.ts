@@ -43,6 +43,10 @@ export interface IModalConfig extends IModalBsOptions {
      */
     id: string;
     /**
+     * Image or gradient (background) for modal's backdrop
+     */
+    modalBg?: string;
+    /**
      * Type of modal window, also uses as mofificator for class `modal`
      */
     modifier?: 'info' | 'confirmation' | 'error' | string;

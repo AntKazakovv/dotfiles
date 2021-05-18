@@ -8,6 +8,8 @@ import {
     OnInit,
     ViewEncapsulation,
     ViewChild,
+    ElementRef,
+    Renderer2,
 } from '@angular/core';
 
 import {
@@ -57,6 +59,8 @@ export class WlcModalComponent extends AbstractComponent
         protected injector: Injector,
         protected ConfigService: ConfigService,
         protected modalService: ModalService,
+        protected element: ElementRef,
+        protected renderer: Renderer2,
     ) {
         super(<IMixedParams<IModalOptions>>{
             injectParams: params,
@@ -159,6 +163,10 @@ export class WlcModalComponent extends AbstractComponent
                 ],
                 parent: this.injector,
             });
+        }
+
+        if (this.$params.config.modalBg) {
+            this.renderer.setStyle(this.element.nativeElement, 'background', this.$params.config.modalBg);
         }
     }
 
