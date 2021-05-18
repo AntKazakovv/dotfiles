@@ -56,6 +56,7 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
     @Input() public sref: string;
     @Input() public srefParams: RawParams;
     @Input() protected type: BParams.Type;
+    @Input() protected typeAttr: string;
     @Input() protected theme: BParams.Theme;
     @Input() protected themeMod: BParams.ThemeMod;
     @Input() protected customMod: BParams.CustomMod;
@@ -67,7 +68,7 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
 
     public $params: BParams.IButtonCParams;
     protected $loading = new Subject<boolean>();
-    @HostBinding('attr.type') typeAttr = this.params?.common?.typeAttr;
+    @HostBinding('attr.type') get typeAttrValue() {return this.params?.common?.typeAttr || this.typeAttr;}
 
     constructor(
         @Inject('injectParams')
@@ -131,6 +132,7 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
             'theme',
             'sref',
             'srefParams',
+            'typeAttr',
         ];
         const inlineParams: BParams.IButtonCParams = {
             common: {},

@@ -1,10 +1,12 @@
 import {
     IComponentParams,
     CustomType,
-} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus';
-import {IIndexing} from 'wlc-engine/modules/core';
-
+    IIndexing,
+} from 'wlc-engine/modules/core';
+import {
+    Bonus,
+    IBonusType,
+} from 'wlc-engine/modules/bonuses';
 export type Type = 'default' | 'reg' | 'deposit' | 'promo' | 'store' | 'active' | 'inventory' | CustomType;
 export type Theme = 'default' | 'long' | 'grid' | 'partial' | 'preview' | CustomType;
 export type ThemeMod = 'default' | CustomType;
@@ -23,7 +25,7 @@ export interface IBonusItemCParams extends IComponentParams<Theme, Type, ThemeMo
     common?: {
         themeMod?: ThemeMod;
         customModifiers?: CustomMod;
-        type?: Type;
+        type?: IBonusType;
         imageByType?: boolean;
         useIconBonusImage?: boolean;
         showAdditionalImage?: boolean;
@@ -34,10 +36,11 @@ export interface IBonusItemCParams extends IComponentParams<Theme, Type, ThemeMo
         iconsPath?: string;
         bonus?: Bonus;
         nameClamp?: number;
-        usePreviewBonus?: boolean,
+        usePreviewBonus?: boolean;
+        useActionButtons?: boolean;
         promoLinks?: {
-            deposit?: ILinkParams,
-            play?: ILinkParams,
+            deposit?: ILinkParams;
+            play?: ILinkParams;
         };
     };
 }
@@ -57,6 +60,7 @@ export const defaultParams: IBonusItemCParams = {
         iconsPath: '/gstatic/bonuses/icons/',
         nameClamp: 1,
         usePreviewBonus: false,
+        useActionButtons: true,
         promoLinks: {
             deposit: {
                 state: 'app.profile.cash.deposit',

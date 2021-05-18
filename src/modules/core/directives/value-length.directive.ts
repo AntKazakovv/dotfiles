@@ -12,8 +12,8 @@ import _isString from 'lodash-es/isString';
 })
 export class ValueLengthDirective implements AfterViewInit {
     @Input('wlc-value-length') text: unknown;
-    @Input() minLength: number;
-    @Input() maxLength: number;
+    @Input() minLength: string;
+    @Input() maxLength: string;
 
     constructor(
         protected element: ElementRef,
@@ -24,9 +24,9 @@ export class ValueLengthDirective implements AfterViewInit {
         if (this.text) {
             const strLength =  _isString(this.text) ? this.text.length : this.text.toString().length;
 
-            if (strLength > this.minLength && strLength < this.maxLength) {
+            if (strLength > +this.minLength && strLength < +this.maxLength) {
                 nativeElem.classList.add('wlc-small');
-            } else if (strLength >= this.maxLength) {
+            } else if (strLength >= +this.maxLength) {
                 nativeElem.classList.add('wlc-smaller');
             }
         }
