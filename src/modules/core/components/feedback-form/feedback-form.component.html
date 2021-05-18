@@ -18,6 +18,7 @@
 <hr>
 
 <div wlc-form-wrapper
+     (form$)="getForm($event)"
      [config]="config"
      [ngSubmit]="ngSubmit.bind(this)"
      [formData]="formData$"

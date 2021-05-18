@@ -43,6 +43,7 @@ export class FeedbackFormComponent extends AbstractComponent implements OnInit, 
     public email: string;
     public formData$: BehaviorSubject<IIndexing<any>> = new BehaviorSubject(null);
     protected userProfile$: BehaviorSubject<UserProfile>;
+    protected form: FormGroup;
 
     constructor(
         @Inject('injectParams') protected params: Params.IFeedbackFormCParams,
@@ -93,10 +94,10 @@ export class FeedbackFormComponent extends AbstractComponent implements OnInit, 
                     },
                 });
 
+                this.form.reset();
+
                 if (this.configService.get<BehaviorSubject<UserProfile>>('$user.isAuthenticated')) {
                     this.setUser(this.configService.get<BehaviorSubject<UserProfile>>('$user.userProfile$').getValue());
-                } else {
-                    this.formData$.next({});
                 }
 
             })
@@ -111,6 +112,10 @@ export class FeedbackFormComponent extends AbstractComponent implements OnInit, 
                     },
                 });
             });
+    }
+
+    public getForm(form: FormGroup): void {
+        this.form = form;
     }
 
     protected setUser(userProfile: UserProfile): void {
