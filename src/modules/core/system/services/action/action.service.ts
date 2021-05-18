@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import {DOCUMENT} from '@angular/common';
 import {TranslateService} from '@ngx-translate/core';
-import {UIRouter} from '@uirouter/core';
+import {StateService, UIRouter} from '@uirouter/core';
 import {
     BehaviorSubject,
     Subject,
@@ -34,6 +34,7 @@ import {
     NotificationEvents,
     GlobalHelper,
     AppType,
+    IRedirect,
 } from 'wlc-engine/modules/core';
 import {UserService} from 'wlc-engine/modules/user/system/services';
 import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
@@ -97,6 +98,7 @@ export class ActionService {
         private translateService: TranslateService,
         private rendererFactory: RendererFactory2,
         private router: UIRouter,
+        private stateService: StateService,
         @Inject(DOCUMENT) protected document: HTMLDocument,
     ) {
         this.init();
@@ -361,6 +363,10 @@ export class ActionService {
             this.showErrorNotification(error.errors, gettext('Registration error'), 'register');
         } finally {
             this.modalService.hideModal('registration-success');
+            const redirect: IRedirect = this.configService.get<IRedirect>('$base.redirects.registration');
+            if (redirect) {
+                this.stateService.go(redirect.state, redirect?.params || {});
+            }
         }
     }
 

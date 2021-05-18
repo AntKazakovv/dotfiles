@@ -5,7 +5,10 @@ import {ITournamentsConfig} from './tournaments.interface';
 import {IAppConfig} from './app.interface';
 import {INotificationsConfig} from './notifications.interface';
 import {ILivechatConfig} from 'wlc-engine/modules/livechat';
-import {IModalList} from 'wlc-engine/modules/core';
+import {
+    IModalList,
+    IRedirectConfig,
+} from 'wlc-engine/modules/core';
 
 export interface IBaseConfig {
     app?: IAppConfig;
@@ -28,4 +31,8 @@ export interface IBaseConfig {
         email?: string;
     };
     livechat?: ILivechatConfig;
+    /**
+     * Config redirection by event or state
+     */
+    redirects?: IRedirectConfig;
 }
