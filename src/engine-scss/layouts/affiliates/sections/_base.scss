@@ -6,28 +6,28 @@
 .wlc-sections {
 
     &__anchors-menu {
-        padding: ef.get-value($affSectionsDefault, 'anchorsPadding');
         @include bm.get-mq-map('background', $affSectionsDefault, 'anchorsBg');
+        padding: ef.get-value($affSectionsDefault, 'anchorsPadding');
     }
 
     &__benefits-section {
-        padding: ef.get-value($affSectionsDefault, 'benefitsPadding');
         @include bm.get-mq-map('background', $affSectionsDefault, 'benefitsBg');
+        padding: ef.get-value($affSectionsDefault, 'benefitsPadding');
     }
 
     &__commission-section {
-        padding: ef.get-value($affSectionsDefault, 'comissionPadding');
         @include bm.get-mq-map('background', $affSectionsDefault, 'bencomissionBgefitsBg');
+        padding: ef.get-value($affSectionsDefault, 'comissionPadding');
     }
 
     &__description-section {
-        padding: ef.get-value($affSectionsDefault, 'descrPadding');
         @include bm.get-mq-map('background', $affSectionsDefault, 'descrBg');
+        padding: ef.get-value($affSectionsDefault, 'descrPadding');
     }
 
     &__faq-section {
-        padding: ef.get-value($affSectionsDefault, 'faqPadding');
         @include bm.get-mq-map('background', $affSectionsDefault, 'faqBg');
+        padding: ef.get-value($affSectionsDefault, 'faqPadding');
 
         .container {
             max-width: ef.get-value($affSectionsDefault, 'faqContainerMaxWidth');
@@ -38,9 +38,7 @@
 
 .wlc-aff-content {
     width: 100%;
-
     margin: ef.get-value($affContentDefault, 'contentMargin');
-
     text-align: ef.get-value($affContentDefault, 'contentTextAlign');
 
     &:first-child {
@@ -54,11 +52,11 @@
     .wlc-btn {
         @include button.buttonBase();
         display: inline-grid;
-
+        min-width: ef.get-value($affContentDefault, 'btnMinWidth');
         text-decoration: none;
 
         &--theme-rounding {
-            border-radius: ef.get('radius', 'big');
+            border-radius: ef.get('radius', 'biger');
         }
     }
 }

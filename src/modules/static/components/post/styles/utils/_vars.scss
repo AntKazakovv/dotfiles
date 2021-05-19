@@ -11,7 +11,7 @@ $themeDefault: map-merge((
 $customThemeAffiliates: () !default;
 $themeAffiliates: map-merge((
     'contentTextStyle': (
-        375: 'PlaceholderText',
+        375: 'PrimaryText',
         768: 'ThirdTitle'
     ),
     'contentColor': ef.get('mainColors', 'baseMain'),

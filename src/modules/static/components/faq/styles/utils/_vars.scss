@@ -2,11 +2,19 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
+    'headerTextStyle': (
+        375: 'ThirdTitleBold',
+        768: 'QoteTextBold',
+    ),
     'headerFontSize': ef.get('font', 'biger'),
     'headerFontWeight': bold,
     'headerFontColor': ef.get('mainColors', 'baseMain'),
     'headerPadding': 0 0 ef.get('size', 'smaller') 0,
 
+    'titleTextStyle': (
+        375: 'PrimaryText',
+        768: 'ThirdTitle',
+    ),
     'titleFontSize': ef.get('font', 'main'),
     'titleFontWeight': bold,
     'titleColor': ef.get('mainColors', 'baseMain'),
@@ -20,6 +28,10 @@ $themeDefault: map-merge((
         768: ef.get('size', 'smaller'),
     ),
 
+    'contentTextStyle': (
+        375: 'PrimaryText',
+        768: 'ThirdTitle',
+    ),
     'contentMinHeight': ef.get('size', 'big'),
     'contentFontSize': ef.get('font', 'main'),
     'contentFontColor': ef.get('mainColors', 'baseMain'),

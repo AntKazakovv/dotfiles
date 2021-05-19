@@ -16,6 +16,14 @@
             align-items: center;
             justify-content: center;
             padding: ef.get-value($themeDefault, 'headerPadding');
+
+            @include mq.min(375) {
+                @include text.get-text-style(ef.get-value($themeDefault, 'headerTextStyle', 375), ef.get-value($themeDefault, 'headerFontColor'));
+            }
+
+            @include mq.min(768) {
+                @include text.get-text-style(ef.get-value($themeDefault, 'headerTextStyle', 768), ef.get-value($themeDefault, 'headerFontColor'));
+            }
         }
 
         &__item {
@@ -67,8 +75,12 @@
                 padding-right: ef.get-value($themeDefault, 'paddingSize');
                 transition: all ef.get-value($themeDefault, 'time');
 
+                @include mq.min(375) {
+                    @include text.get-text-style(ef.get-value($themeDefault, 'titleTextStyle', 375), ef.get-value($themeDefault, 'titleColor'));
+                }
+
                 @include mq.min(768) {
-                    @include text.get-text-style('ThirdTitleBold', ef.get-value($themeDefault, 'titleColor'));
+                    @include text.get-text-style(ef.get-value($themeDefault, 'titleTextStyle', 768), ef.get-value($themeDefault, 'titleColor'));
                 }
             }
 
@@ -108,8 +120,12 @@
                     bottom: ef.get-value($themeDefault, 'paddingSize');
                 };
 
+                @include mq.min(375) {
+                    @include text.get-text-style(ef.get-value($themeDefault, 'contentTextStyle', 375), ef.get-value($themeDefault, 'contentFontColor'));
+                }
+
                 @include mq.min(768) {
-                    @include text.get-text-style('ThirdTitle', ef.get-value($themeDefault, 'contentFontColor'));
+                    @include text.get-text-style(ef.get-value($themeDefault, 'contentTextStyle', 768), ef.get-value($themeDefault, 'contentFontColor'));
                 }
             }
         }
