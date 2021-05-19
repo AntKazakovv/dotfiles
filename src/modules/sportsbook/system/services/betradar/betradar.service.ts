@@ -127,12 +127,15 @@ export class BetradarService {
     public async getDailyMatch(): Promise<BetradarGameModel> {
         const response: IData = await this.dataService.request('betradarWidgets/dailyMatch');
         const data: IDailyMatchData = response.data;
-        const game: BetradarGameModel = new BetradarGameModel(
-            data,
-            this.configService,
-            this.eventService,
-        );
-        return game;
+
+        if (data.id) {
+            const game: BetradarGameModel = new BetradarGameModel(
+                data,
+                this.configService,
+                this.eventService,
+            );
+            return game;
+        }
     }
 
     /**
