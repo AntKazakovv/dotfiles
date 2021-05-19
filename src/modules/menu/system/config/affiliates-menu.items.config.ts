@@ -33,7 +33,7 @@ export const wlcAffiliatesMenuItemsGlobal: Params.IMenuItemsGlobal = {
             modal: {
                 name: 'staticText',
                 params: {
-                    slug: 'terms-and-conditions',
+                    slug: 'partners-terms-and-conditions',
                     parseAsPlainHTML: true,
                 },
             },
