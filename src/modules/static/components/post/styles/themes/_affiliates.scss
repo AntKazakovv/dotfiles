@@ -6,10 +6,6 @@
 .wlc-post--theme-affiliates:host {
     @include text.get-text-style(ef.get-value($themeAffiliates, 'contentTextStyle', 375), ef.get-value($themeAffiliates, 'contentColor'));
 
-    @include mq.min(768) {
-        @include text.get-text-style(ef.get-value($themeAffiliates, 'contentTextStyle', 768), ef.get-value($themeAffiliates, 'contentColor'));
-    }
-
     table {
         width: 100%;
     }
@@ -27,12 +23,12 @@
             @include text.get-text-style(ef.get-value($themeAffiliates, 'titleTextStyle', 375), ef.get-value($themeAffiliates, 'titleColor'));
             text-transform: ef.get-value($themeAffiliates, 'titleTextTransform');
 
-            @include mq.min(900) {
-                @include text.get-text-style(ef.get-value($themeAffiliates, 'titleTextStyle', 768), ef.get-value($themeAffiliates, 'titleColor'));
-            }
-
             &:first-child {
                 margin-top: 0;
+            }
+
+            @include mq.min(768) {
+                @include text.get-text-style(ef.get-value($themeAffiliates, 'titleTextStyle', 768), ef.get-value($themeAffiliates, 'titleColor'));
             }
         }
 
@@ -47,5 +43,9 @@
             max-width: ef.get-value($themeAffiliates, 'subtitleMaxWidth');
             margin: ef.get-value($themeAffiliates, 'subtitleMargin');
         }
+    }
+
+    @include mq.min(768) {
+        @include text.get-text-style(ef.get-value($themeAffiliates, 'contentTextStyle', 768), ef.get-value($themeAffiliates, 'contentColor'));
     }
 }

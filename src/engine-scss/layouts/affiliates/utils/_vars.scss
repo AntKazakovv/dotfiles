@@ -29,6 +29,7 @@ $customAffContentDefault: () !default;
 $affContentDefault: map-merge((
     'contentTextAlign': center,
     'contentMargin': ef.get('size', 'main') auto,
+    'btnMinWidth': 180px,
 ), $customAffContentDefault);
 
 
@@ -61,7 +62,11 @@ $themeDefaultBenefits: map-merge((
     ),
 
     'captionTextStyleMobile': 'PlaceholderText',
-    'captionTextStyle': 'PrimaryTextBold',
+    'captionTextStyle': (
+        375: 'SignText',
+        768: 'PlaceholderText',
+        1200: 'PrimaryTextBold',
+    ),
     'captionMaxWidth': 21ch,
 
     'separatorWidth': 2px,

@@ -4,31 +4,28 @@
 @use 'engine-scss/functions' as ef;
 
 .wlc-benefits--theme-default {
-    display: grid;
     @include bm.get-mq-map('grid-template-columns', $themeDefaultBenefits, 'wrapperGridColumns');
     @include bm.get-mq-map('grid-gap', $themeDefaultBenefits, 'wrapperGridGap');
+    display: grid;
 
     .wlc-benefits {
 
         &__item {
+            @include bm.get-mq-map('grid-template-rows', $themeDefaultBenefits, 'itemGridRows');
+            @include bm.get-mq-map('padding', $themeDefaultBenefits, 'itemPadding');
             position: relative;
-
             display: grid;
             grid-gap: ef.get-value($themeDefaultBenefits, 'itemGridGap');
             grid-template-columns: ef.get-value($themeDefaultBenefits, 'itemGridColumns');
-            @include bm.get-mq-map('grid-template-rows', $themeDefaultBenefits, 'itemGridRows');
-
-            @include bm.get-mq-map('padding', $themeDefaultBenefits, 'itemPadding');
-
             text-align: center;
 
             &:after {
+                @include bm.get-mq-map('opacity', $themeDefaultBenefits, 'separatorOpacity');
                 content: '';
 
                 position: absolute;
-                right: 0;
                 top: 50%;
-                transform: translate(50%, -50%);
+                right: 0;
 
                 display: block;
 
@@ -36,7 +33,7 @@
                 height: ef.get-value($themeDefaultBenefits, 'separatorHeight');
 
                 background: ef.get('mainColors', 'baseOpacity');
-                @include bm.get-mq-map('opacity', $themeDefaultBenefits, 'separatorOpacity');
+                transform: translate(50%, -50%);
             }
 
             &:last-child {
@@ -48,11 +45,10 @@
         }
 
         &__item-icon {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
             @include bm.get-mq-map('height', $themeDefaultBenefits, 'iconSize');
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
             img {
                 max-height: 100%;
@@ -64,14 +60,16 @@
         }
 
         &__item-caption {
+            @include text.get-text-style(ef.get-value($themeDefaultBenefits, 'captionTextStyle', 375));
             display: inline-block;
-
             max-width: ef.get-value($themeDefaultBenefits, 'captionMaxWidth');
 
-            @include text.get-text-style(ef.get-value($themeDefaultBenefits, 'captionTextStyleMobile'));
+            @include mq.min(768) {
+                @include text.get-text-style(ef.get-value($themeDefaultBenefits, 'captionTextStyle', 768));
+            }
 
             @include mq.min(1200) {
-                @include text.get-text-style(ef.get-value($themeDefaultBenefits, 'captionTextStyle'));
+                @include text.get-text-style(ef.get-value($themeDefaultBenefits, 'captionTextStyle', 1200));
             }
         }
     }
