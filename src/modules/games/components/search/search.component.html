@@ -87,7 +87,7 @@
             <button class="{{$class}}__list-btn"
                     [class.active]="isActive('merchants', merchant.id)"
                     (click)="chooseMerchant(merchant)">
-                <span class="{{$class}}__list-text">{{merchant.name}}</span>
+                <span class="{{$class}}__list-text">{{merchant.name | translate}}</span>
                 <span class="{{$class}}__list-icon" wlc-icon iconName="tick">
                 </span>
             </button>
