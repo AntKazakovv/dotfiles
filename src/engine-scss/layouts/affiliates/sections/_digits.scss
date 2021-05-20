@@ -7,6 +7,7 @@
     display: grid;
     @include bm.get-mq-map('grid-template-columns', $themeDefaultDigits, 'wrapperGridColumns');
     @include bm.get-mq-map('grid-gap', $themeDefaultDigits, 'wrapperGridGap');
+    justify-content: center;
 
     &__item {
         display: grid;
@@ -30,7 +31,7 @@
     &__separator {
         width: ef.get-value($themeDefaultDigits, 'separatorWidth');
         height: ef.get-value($themeDefaultDigits, 'separatorHeight');
-
+        border-radius: ef.get-value($themeDefaultDigits, 'separatorRadius');
         background: ef.get-value($themeDefaultDigits, 'separatorBg');
     }
 
