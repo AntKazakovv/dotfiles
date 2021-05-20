@@ -25,7 +25,6 @@
     }
 
     @include bm.hover {
-        @include bm.transition;
         color: ef.get-value($themeDefault, 'colorDefaultHover');
         background: ef.get-value($themeDefault, 'backgroundHover');
         box-shadow: ef.get-value($themeDefault, 'shadowHover');
