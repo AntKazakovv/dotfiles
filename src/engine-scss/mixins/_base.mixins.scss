@@ -66,9 +66,17 @@
 /// @param {type} $type [true] - true - if there is a hover, false - if not
 @mixin hover($type: true) {
 
-    @media (pointer: if($type, fine, coarse)) {
+    @if ($type) {
 
-        &:hover {
+        @media (pointer: fine) {
+
+            &:hover {
+                @content;
+            }
+        }
+    } @else {
+
+        @media (pointer: coarse) {
             @content;
         }
     }
