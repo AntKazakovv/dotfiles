@@ -6,7 +6,7 @@ $themeDefault: map-merge((
     'breakpoint': 900,
 
     // Grid
-    'gridTemplateColumns': 1fr,
+    'gridTemplateColumns': minmax(0, 1fr),
     'gridGap': ef.get('size', 'smaller'),
     'commonColor': ef.get('mainColors', 'baseMain'),
 
