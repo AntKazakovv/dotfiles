@@ -3,16 +3,16 @@
 @use 'engine-scss/mixins/base.mixins' as em;
 
 .wlc-icon-list--theme-payments {
-    grid-area: payments;
-    background-color: ef.get-value($themePayments, 'wrapperBackground');
-    border-radius: ef.get-value($themePayments, 'wrapperBorderRadius');
-    width: 100%;
-    @include em.get-mq-map('max-width', $themePayments, 'wrapperMaxWidth');
-    @include em.get-mq-map('padding', $themePayments, 'wrapperPadding');
+    @include em.get-mq-map('max-width', $themePayments, 'paymentsMaxWidth');
+    @include em.get-mq-map('padding', $themePayments, 'paymentsPadding');
 
-    @include mq.min(900) {
-        overflow-x: initial;
-    }
+    grid-area: payments;
+    width: ef.get-value($themePayments, 'paymentsWidth');
+
+    background-color: ef.get-value($themePayments, 'paymentsBackground');
+    border-radius: ef.get-value($themePayments, 'paymentsBorderRadius');
+
+    overflow: hidden;
 
     &.scrollable {
 
@@ -22,29 +22,32 @@
             scrollbar-width: none;
 
             &::-webkit-scrollbar {
-                width: 0;
+                width: ef.get-value($themePayments, 'scrollableWidth');
             }
 
             &:before,
             &:after {
-                z-index: 10;
+                @include em.transition();
+
                 content: '';
                 position: absolute;
-                top: 50%;
-                transform: translateY(-50%);
-                height: calc(100% + 20px);
+                top: ef.get-value($themePayments, 'scrollableTop');
+                z-index: ef.get-value($themePayments, 'scrollableZindex');
+
                 width: ef.get-value($themePayments, 'scrollableShadowWidth');
-                opacity: 0;
-                transition: 0.5s ease-in;
+                height: ef.get-value($themePayments, 'scrollableHeight');
+
+                transform: ef.get-value($themePayments, 'scrollableTransform');
+                opacity: ef.get-value($themePayments, 'scrollableOpacity');
             }
 
             &:after {
-                left: -100px;
+                left: ef.get-value($themePayments, 'scrollableLeft');
                 background: ef.get-value($themePayments, 'scrollableShadowBgLeft');
             }
 
             &:before {
-                right: -100px;
+                right: ef.get-value($themePayments, 'scrollableRight');
                 background: ef.get-value($themePayments, 'scrollableShadowBgRight');
             }
         }
@@ -67,25 +70,29 @@
     .wlc-icon-list {
 
         &__wrapper {
-            z-index: 1;
+            @include em.get-mq-map('flex-wrap', $themePayments, 'wrapperFlexWrap');
+            @include em.get-mq-map('margin', $themePayments, 'wrapperMargin');
+            @include em.get-mq-map('justify-content', $themePayments, 'wrapperFlexJustify');
+
             position: relative;
-            overflow-x: auto;
-            max-width: 100%;
-            display: ef.get-value($themePayments, 'gridDisplay');
-            align-items: ef.get-value($themePayments, 'gridAlignItems');
-            margin: ef.get-value($themePayments, 'margin');
-            @include em.get-mq-map('grid', $themePayments, 'gridTemplate');
-            @include em.get-mq-map('width', $themePayments, 'gridWidth');
-            @include em.get-mq-map('gap', $themePayments, 'gridGap');
+            z-index: ef.get-value($themePayments, 'wrapperZIndex');
+
+            display: ef.get-value($themePayments, 'wrapperDisplay');
+
+            align-items: ef.get-value($themePayments, 'wrapperAlignItems');
+            max-width: ef.get-value($themePayments, 'wrapperMaxWidth');
+
+            overflow-x: ef.get-value($themePayments, 'wrapperOverflow');
         }
 
         &__item,
         &-item {
-            margin: ef.get-value($themePayments, 'iconMargin');
+            @include em.get-mq-map('margin', $themePayments, 'iconMargin');
 
             img,
             .wlc-icon img,
             .wlc-icon svg {
+                @include em.get-mq-map('width', $themePayments, 'iconWidth');
                 @include em.get-mq-map('max-width', $themePayments, 'iconMaxWidth');
                 @include em.get-mq-map('max-height', $themePayments, 'iconMaxHeight');
                 @include em.get-mq-map('fill', $themePayments, 'iconFill');

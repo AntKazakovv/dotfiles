@@ -45,35 +45,12 @@ $theme1Footer: map-merge((
         1024: map-get($footerCommon, 'gapDesktop'),
     ),
     // icon list merchants
-    'iconListMerchantsGridGap': (
-        375: ef.get('size', 'smaller'),
-        560: ef.get('size', 'smallest') ef.get('size', 'smaller'),
-        1024: ef.get('size', 'less') ef.get('size', 'smaller'),
-    ),
-    'iconListMerchantsGridColumns': (
-        560: repeat(10, 1fr),
+    'iconListMerchantsMaxWidth': (
+        375: calc(100vw - 30px),
     ),
     // list icon payments
     'iconListPaymentsMaxWidth': (
         375: calc(100vw - 30px),
-    ),
-    'iconListPaymentsWrapperPadding': (
-        375: 10px,
-        560: ef.get('size', 'small'),
-        900: ef.get('size', 'smaller'),
-    ),
-    'iconListPaymentsWrapperBg': (
-        375: transparent
-    ),
-    'iconListPaymentsWrapperRadius': (
-        375: 0
-    ),
-    'iconListPaymentsItemWidth': (
-        375: 120px,
-    ),
-    'iconListPaymentsItemImageMaxHeight': (
-        375: ef.get('size', 'less'),
-        1024: ef.get('size', 'biger'),
     ),
     // post menu
     'postMenuJustify': (
@@ -230,32 +207,10 @@ $theme2Footer: map-merge((
         1024: 1,
     ),
     'iconListMerchantsMargin': (
-        375: initial,
-        1420: 0 auto,
-    ),
-    'iconListMerchantsMaxWidth': (
-        375: 100%,
-        1420: 1420px,
-    ),
-    'iconListMerchantsWrapperGap': (
-        375: map-get($footerCommon, 'gapMobile'),
-        1200: 5px 10px,
-        1630: map-get($footerCommon, 'gapDesktop')
-    ),
-    'iconListMerchantsWrapperGridColumn': (
-        560: repeat(6, 1fr),
-        900: repeat(8, 1fr),
-        1200: repeat(10, 1fr),
-    ),
-    'iconMerchantsImageMaxWidth': (
-        375: 80%,
+        375: map-get($footerCommon, 'gapTablet') auto,
+        1200: 0 auto,
     ),
     // icon list payments
-    'iconListPaymentsBg': none,
-    'iconListPaymentsPadding': (
-        375: 0,
-        900: 0,
-    ),
     'iconListPaymentsOrder': (
         375: -1,
         1024: 0,
@@ -263,40 +218,13 @@ $theme2Footer: map-merge((
     'iconListPaymentsMargin': (
         375: map-get($footerCommon, 'gapTablet') 0,
         900: 0 auto map-get($footerCommon, 'gapTablet'),
+        1024: map-get($footerCommon, 'gapTablet') auto,
         1200: map-get($footerCommon, 'gapDesktop') auto,
     ),
-    'iconListPaymentsMaxWidth': (
-        375: 100%,
-        1420: 1420px,
-    ),
-    'iconListPaymentsWrapperDisplay': flex,
-    'iconListPaymentsWrapperAlignItems': center,
-    'iconListPaymentsWrapperJustify': (
-        640: center
-    ),
-    'iconListPaymentsWrapperWrap': (
-        900: wrap,
-    ),
-    'iconListPaymentsWrapperGap': (
-        375: map-get($footerCommon, 'gapMobile'),
-        1200: 5px 10px,
-        1630: map-get($footerCommon, 'gapDesktop')
-    ),
-    'iconListPaymentsItemMargin': (
-        375: 0 ef.get('size', 'small'),
-        900: 0 ef.get('size', 'smaller') 5px,
-    ),
-    'iconListPaymentsImageMaxWidth': (
-        375: 90px,
-    ),
-    'iconListPaymentsImageMaxHeight': (
-        375: ef.get('size', 'less'),
-        900: ef.get('size', 'less') * 1.2,
-    ),
+
     // language selector
     'languageMarginTop': (
         375: 20px,
         900: 0,
     ),
-    'iconListPaymentsBoxShadow': linear-gradient(270deg, rgba(0, 0, 0, 1) 0%, rgba(82, 82, 82, 1) 0%, rgba(17, 12, 12, 0.7) 52%, rgba(0, 0, 0, 0) 91%),
 ), $customTheme2Footer);

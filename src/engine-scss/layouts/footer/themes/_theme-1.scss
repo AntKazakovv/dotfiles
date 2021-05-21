@@ -34,34 +34,11 @@
         .wlc-icon-list {
 
             &--theme-merchants {
-
-                .wlc-icon-list {
-
-                    &__wrapper {
-                        @include em.get-mq-map('gap', $theme1Footer, 'iconListMerchantsGridGap');
-                        @include em.get-mq-map('grid-template-columns', $theme1Footer, 'iconListMerchantsGridColumns');
-                    }
-                }
+                @include em.get-mq-map('max-width', $theme1Footer, 'iconListMerchantsMaxWidth');
             }
 
             &--theme-payments {
                 @include em.get-mq-map('max-width', $theme1Footer, 'iconListPaymentsMaxWidth');
-
-                .wlc-icon-list__wrapper {
-                    @include em.get-mq-map('padding', $theme1Footer, 'iconListPaymentsWrapperPadding');
-                    @include em.get-mq-map('background', $theme1Footer, 'iconListPaymentsWrapperBg');
-                    @include em.get-mq-map('border-radius', $theme1Footer, 'iconListPaymentsWrapperRadius');
-                }
-
-                .wlc-icon-list__item {
-                    @include em.get-mq-map('width', $theme1Footer, 'iconListPaymentsItemWidth');
-
-                    img,
-                    .wlc-icon img,
-                    .wlc-icon svg {
-                        @include em.get-mq-map('max-height', $theme1Footer, 'iconListPaymentsItemImageMaxHeight');
-                    }
-                }
             }
         }
 

@@ -113,67 +113,15 @@
 
     .wlc-icon-list--theme-merchants {
         @include em.get-mq-map('order', $theme2Footer, 'iconListMerchantsOrder');
-        @include em.get-mq-map('max-width', $theme2Footer, 'iconListMerchantsMaxWidth');
         @include em.get-mq-map('margin', $theme2Footer, 'iconListMerchantsMargin');
-
-        .wlc-icon-list__wrapper {
-            @include em.get-mq-map('gap', $theme2Footer, 'iconListMerchantsWrapperGap');
-            @include em.get-mq-map('grid-template-columns', $theme2Footer, 'iconListMerchantsWrapperGridColumn');
-        }
-
-        .wlc-icon-list__item {
-
-            .wlc-icon-list__wrp {
-                text-align: center;
-            }
-
-            img,
-            .wlc-icon img,
-            .wlc-icon svg {
-                max-height: none;
-                @include em.get-mq-map('max-width', $theme2Footer, 'iconMerchantsImageMaxWidth');
-            }
-        }
     }
 
     .wlc-icon-list--theme-payments {
-        position: relative;
-
-        background: ef.get-value($theme2Footer, 'iconListPaymentsBg');
-        @include em.get-mq-map('padding', $theme2Footer, 'iconListPaymentsPadding');
         @include em.get-mq-map('order', $theme2Footer, 'iconListPaymentsOrder');
         @include em.get-mq-map('margin', $theme2Footer, 'iconListPaymentsMargin');
-        @include em.get-mq-map('max-width', $theme2Footer, 'iconListPaymentsMaxWidth');
-
-        .wlc-icon-list__wrapper {
-            display: ef.get-value($theme2Footer, 'iconListPaymentsWrapperDisplay');
-            align-items: ef.get-value($theme2Footer, 'iconListPaymentsWrapperAlignItems');
-
-            @include em.get-mq-map('justify-content', $theme2Footer, 'iconListPaymentsWrapperJustify');
-            @include em.get-mq-map('flex-wrap', $theme2Footer, 'iconListPaymentsWrapperWrap');
-            @include em.get-mq-map('gap', $theme2Footer, 'iconListPaymentsWrapperGap');
-        }
-
-        .wlc-icon-list__item {
-            @include em.get-mq-map('margin', $theme2Footer, 'iconListPaymentsItemMargin');
-
-            img,
-            .wlc-icon img,
-            .wlc-icon svg {
-                @include em.get-mq-map('max-width', $theme2Footer, 'iconListPaymentsImageMaxWidth');
-                @include em.get-mq-map('max-height', $theme2Footer, 'iconListPaymentsImageMaxHeight');
-            }
-        }
     }
 
     .wlc-language-selector {
         @include em.get-mq-map('margin-top', $theme2Footer, 'languageMarginTop');
-
-        // .wlc-language-selector__current {
-
-        //     &-lang {
-        //         display: none;
-        //     }
-        // }
     }
 }
