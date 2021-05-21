@@ -5,9 +5,10 @@ $customThemeDefault: () !default;
 
 $themeDefault: map-merge((
     'modalPadding': (
-        375: 0,
-        560: ef.get('size', 'less') ef.get('size', 'small'),
+        375: ef.get('size', 'less') ef.get('size', 'small'),
     ),
+    'modalDialogMaxWidth': 1433px,
+    'modalDialogMinHeight': 900px,
     'btnPaddingVertical': 8px,
     'btnPaddingLeft': 10px,
     'btnArrowColor': ef.get('mainColors', 'baseOpacity'),
@@ -66,7 +67,7 @@ $themeDefault: map-merge((
     ),
 
     'listMargin': (
-        375: -10px 0 ef.get('size', 'smally'),
+        375: -10px 0 ef.get('size', 'less'),
         900: ef.get('size', 'smaller') 0 0,
     ),
     'listBtnTransition': ef.get('time', 'main'),
@@ -138,7 +139,7 @@ $themeDefault: map-merge((
     'resultSize': 'PrimaryText',
 
     'gamesPadding': (
-        375: ef.get('size', 'smaller') 0,
+        375: ef.get('size', 'smaller') 0 ef.get('size', 'main'),
         900: ef.get('size', 'smaller') 0,
     ),
     'noGamesPadding': (
@@ -216,4 +217,3 @@ $themeDefault: map-merge((
         560: 0 ef.get('size', 'biger'),
     ),
 ), $customThemeDefault);
-
