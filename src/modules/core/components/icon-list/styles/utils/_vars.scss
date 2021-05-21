@@ -3,60 +3,109 @@
 // ~~ theme MERCHANTS
 $customThemeMerchants: () !default;
 $themeMerchants: map-merge((
-    //grid
-    'gridDisplay': grid,
-    'gridAlignItems': center,
-    'gridJustifyContent': center,
-    'gridWidth': (
+    // payments
+    'paymentsWidth': 100%,
+    'paymentsMaxWidth': (
+        375: 100%,
+        1420: 1420px,
+    ),
+    'paymentsPadding': (
+        375: 0,
+    ),
+    'paymentsBorderRadius': ef.get('radius', 'main'),
+    'paymentsBackground': none,
+    // wrapper
+    'wrapperDisplay': flex,
+    'wrapperZIndex': 1,
+    'wrapperFlexWrap': (
+        375: wrap,
+    ),
+    'wrapperFlexJustify': (
+        375: center
+    ),
+    'wrapperMargin': (
+        375: 0 -#{ef.get('size', 'smaller')} -#{ef.get('size', 'small')},
+        900: 0 -#{ef.get('size', 'smaller')} -#{ef.get('size', 'small')},
+        1630: 0 -#{ef.get('size', 'smaller')} -#{ef.get('size', 'main')},
+    ),
+    'wrapperAlignItems': center,
+    'wrapperOverflow': auto,
+    // icon
+    'iconWidth': (
         375: 100%,
     ),
-    'gridTemplateColumns': (
-        375: repeat(4, 1fr),
+    'iconMaxWidth': (
+        375: 105px,
     ),
-    'gridGap': (
-        375: ef.get('size', 'smaller'),
+    'iconMaxHeight': (
+        375: ef.get('size', 'less'),
+        900: ef.get('size', 'less') * 1.2,
     ),
-    'padding': (
-        375: initial,
+    'iconMargin': (
+        375: 0 ef.get('size', 'smaller') ef.get('size', 'smaller'),
+        900: 0 ef.get('size', 'smaller') ef.get('size', 'smaller'),
+        1630: 0 ef.get('size', 'smaller') ef.get('size', 'main'),
     ),
-
-    // icon
-    'iconMaxWidth': 100%,
-    'iconMaxHeight': ef.get('size', 'biger'),
-    'iconMargin': 0 auto,
     'iconFill': ef.get('mainColors', 'bg100'),
 ), $customThemeMerchants);
 
 // ~~ theme PAYMENTS
 $customThemePayments: () !default;
 $themePayments: map-merge((
-
-    'wrapperMaxWidth': (
-        375: calc(100vw - 30px),
+    // payments
+    'paymentsWidth': 100%,
+    'paymentsMaxWidth': (
+        375: 100%,
+        1420: 1420px,
     ),
-    'wrapperPadding': (
-        375: initial,
+    'paymentsPadding': (
+        375: 0,
     ),
-    'wrapperBorderRadius': ef.get('radius', 'main'),
-    'wrapperBackground': ef.get('mainColors', 'bg'),
-
-    'gridDisplay': grid,
-    'gridTemplate': (
-        375: auto/auto-flow auto,
+    'paymentsBorderRadius': ef.get('radius', 'main'),
+    'paymentsBackground': none,
+    // wrapper
+    'wrapperDisplay': flex,
+    'wrapperZIndex': 1,
+    'wrapperFlexWrap': (
+        900: wrap,
     ),
-    'gridAlignItems': center,
-    'margin': 0 auto,
-    'gridGap': (
-        375: ef.get('size', 'smaller'),
+    'wrapperFlexJustify': (
+        900: center
     ),
-
-    'iconMaxWidth': 120px,
-    'iconMaxHeight': none,
-    'iconMargin': 0 auto,
+    'wrapperMargin': (
+        375: 0,
+        900: 0 -#{ef.get('size', 'smaller')} -#{ef.get('size', 'small')},
+        1630: 0 -#{ef.get('size', 'smaller')} -#{ef.get('size', 'smaller')},
+    ),
+    'wrapperAlignItems': center,
+    'wrapperOverflow': auto,
+    // icon
+    'iconWidth': (
+        900: 100%,
+    ),
+    'iconMaxWidth': (
+        375: 105px,
+    ),
+    'iconMaxHeight': (
+        375: ef.get('size', 'less'),
+        900: ef.get('size', 'less') * 1.2,
+    ),
+    'iconMargin': (
+        375: 0 ef.get('size', 'smally'),
+        900: 0 ef.get('size', 'smaller') ef.get('size', 'smaller'),
+        1630: 0 ef.get('size', 'smaller') ef.get('size', 'main'),
+    ),
     'iconFill': ef.get('mainColors', 'bg100'),
+    // scrollable
+    'scrollableWidth': 0,
+    'scrollableTop': 50%,
+    'scrollableZindex': 10,
+    'scrollableHeight': calc(100% + 20px),
+    'scrollableTransform': translateY(-50%),
+    'scrollableOpacity': 0,
+    'scrollableLeft': -100px,
+    'scrollableRight': -100px,
     'scrollableShadowWidth': 150px,
-    'scrollableShadowBgLeft':
-        linear-gradient(-90deg, transparentize(ef.get('mainColors', 'bg'), 1) 0, ef.get('mainColors', 'bg') 35%),
-    'scrollableShadowBgRight':
-        linear-gradient(90deg, transparentize(ef.get('mainColors', 'bg'), 1) 0, ef.get('mainColors', 'bg') 35%),
+    'scrollableShadowBgLeft': linear-gradient(-90deg, transparentize(ef.get('mainColors', 'bg'), 1) 0, ef.get('mainColors', 'bg') 35%),
+    'scrollableShadowBgRight': linear-gradient(90deg, transparentize(ef.get('mainColors', 'bg'), 1) 0, ef.get('mainColors', 'bg') 35%),
 ), $customThemePayments);
