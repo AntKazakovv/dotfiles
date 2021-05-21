@@ -10,6 +10,7 @@ export interface IVerboxSetup {
 export interface ILivechatConfig {
     type?: TLiveChat;
     code?: string;
+    subCode?: string; // for Tawk chat
     onlyProd?: boolean;
     hidden?: boolean;
     setUserDetails?: boolean; // livechatinc set user email and name to chat
@@ -19,4 +20,4 @@ export interface ILivechatConfig {
     autocomplete?: boolean;
 }
 
-export type TLiveChat = 'chatra' | 'livechatinc' | 'verbox';
+export type TLiveChat = 'chatra' | 'livechatinc' | 'verbox' | 'tawkChat';
