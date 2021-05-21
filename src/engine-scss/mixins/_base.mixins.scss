@@ -58,11 +58,12 @@
 /// Mixin was written due to a problem with "@media (hover: hover)" on android.
 ///
 /// Tests:
-/// @media (pointer: coarse) // work on: android, ios
-/// @media (pointer: fine) // work on: desktop
-/// @media (hover: hover) // work on: desktop, android
-/// @media (hover: none) // work on: ios
+/// "@media (pointer: coarse)" // work on: android, ios
+/// "@media (pointer: fine)" // work on: desktop
+/// "@media (hover: hover)" // work on: desktop, android
+/// "@media (hover: none)" // work on: ios
 ///
+/// @name hover
 /// @param {type} $type [true] - true - if there is a hover, false - if not
 @mixin hover($type: true) {
 
