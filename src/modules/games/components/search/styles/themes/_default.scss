@@ -7,16 +7,18 @@
 ::ng-deep {
 
     .wlc-modal--search.wlc-modal--theme-default {
-        @include bm.get-mq-map('padding', $themeDefault, 'modalPadding');
+
+        .wlc-modal__wrapper {
+            @include bm.get-mq-map('padding', $themeDefault, 'modalPadding');
+        }
 
         .wlc-modal__body {
             @include bm.get-mq-map('padding', $themeDefault, 'modalPaddingSearch');
         }
 
         .wlc-modal__dialog {
-            max-width: 1433px;
-            min-height: 900px;
-            margin: -30px auto 0;
+            max-width: ef.get-value($themeDefault, 'modalDialogMaxWidth');
+            min-height: ef.get-value($themeDefault, 'modalDialogMinHeight');
         }
 
         .wlc-modal__close {
@@ -84,7 +86,7 @@
         &__btn {
             @include text.get-text-style(ef.get-value($themeDefault, 'btnFont'), ef.get-value($themeDefault, 'btnTextColor'));
             @include bm.get-mq-map('padding', $themeDefault, 'btnPadding');
-            @include bm.get-mq-map('background-color', $themeDefault, 'btnBackground');
+            @include bm.get-mq-map('background', $themeDefault, 'btnBackground');
             @include bm.get-mq-map('border', $themeDefault, 'btnBorder');
 
             position: relative;
@@ -333,17 +335,17 @@
 
         &__content::ng-deep {
 
-            .wlc-games-grid__content {
+            .wlc-games-grid {
                 @include bm.get-mq-map('padding', $themeDefault, 'gamesPadding');
-            }
 
-            .wlc-games-grid__nocontent {
-                @include bm.get-mq-map('padding', $themeDefault, 'noGamesPadding');
-                @include bm.get-mq-map('margin', $themeDefault, 'noGamesMargin');
-            }
+                &__nocontent {
+                    @include bm.get-mq-map('padding', $themeDefault, 'noGamesPadding');
+                    @include bm.get-mq-map('margin', $themeDefault, 'noGamesMargin');
+                }
 
-            .wlc-games-grid__list {
-                margin: ef.get-value($themeDefault, 'gamesMargin');
+                &__list {
+                    margin: ef.get-value($themeDefault, 'gamesMargin');
+                }
             }
         }
     }
