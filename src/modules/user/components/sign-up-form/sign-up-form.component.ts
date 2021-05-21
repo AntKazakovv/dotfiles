@@ -4,6 +4,7 @@ import {
     OnInit,
 } from '@angular/core';
 import {FormGroup} from '@angular/forms';
+
 import {
     AbstractComponent,
     ConfigService,
@@ -14,11 +15,12 @@ import {
     IPushMessageParams,
     NotificationEvents,
 } from 'wlc-engine/modules/core';
-import {UserService} from 'wlc-engine/modules/user/system/services';
+import {UserService} from 'wlc-engine/modules/user';
 import {
     ChosenBonusSetParams,
     ChosenBonusType,
 } from 'wlc-engine/modules/bonuses';
+
 import * as Params from './sign-up-form.params';
 
 import _keys from 'lodash-es/keys';
@@ -77,8 +79,14 @@ export class SignUpFormComponent extends AbstractComponent implements OnInit {
 
             if (this.isFastRegistration) {
                 this.eventService.emit({name: 'LOGIN'});
+                this.registrationComplete(gettext('Your account has been registered.'));
             } else {
-                this.registrationComplete();
+                this.registrationComplete(
+                    [
+                        gettext('Your account has been registered.'),
+                        gettext('Please complete registration using link in e-mail'),
+                    ],
+                );
             }
         } catch (error) {
             this.eventService.emit({
@@ -117,17 +125,14 @@ export class SignUpFormComponent extends AbstractComponent implements OnInit {
         return this.configService.get<number>('appConfig.siteconfig.fastRegistration');
     }
 
-    protected registrationComplete(): void {
+    protected registrationComplete(message: string | string[]): void {
 
         this.eventService.emit({
             name: NotificationEvents.PushMessage,
             data: <IPushMessageParams>{
                 type: 'success',
                 title: gettext('Registration success'),
-                message: [
-                    gettext('Your account has been registered.'),
-                    gettext('Please complete registration using link in e-mail'),
-                ],
+                message,
                 wlcElement: 'notification_registration-success',
             },
         });
