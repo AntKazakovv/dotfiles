@@ -27,6 +27,7 @@ import {
     EventService,
     ConfigService,
     LogService,
+    GlobalHelper,
 } from 'wlc-engine/modules/core';
 
 import _assignIn from 'lodash-es/assignIn';
@@ -92,12 +93,11 @@ export class ModalService {
         let modalConfig: IModalConfig;
 
         if (_isString(config)) {
-            if (MODALS_LIST[config]) {
+            if (this.modalList[config]) {
                 modalConfig = _assignIn(
                     {},
                     DEFAULT_MODAL_CONFIG,
-                    MODALS_LIST[config].config,
-                    this.configService.get(`$base.modals.${config}.config`));
+                    this.modalList[config].config);
             } else {
                 this.logService.sendLog({
                     code: '0.3.0',
@@ -146,7 +146,7 @@ export class ModalService {
     /**
      * Show error modal with params.
      *
-     * @param config if string, search by id on MODALS_LIST.
+     * @param config if string, search by id on modalList.
      * @returns Reference on component
      */
     public showError(config: Partial<IModalConfig>): void {
@@ -307,6 +307,6 @@ export class ModalService {
      */
     private async mergeModalConfig(): Promise<void> {
         await this.configService.ready;
-        this.modalList = _assignIn(this.modalList, this.configService.get<IModalList>('$modals.customModals'));
+        this.modalList = GlobalHelper.mergeConfig(this.modalList, this.configService.get<IModalList>('$modals.customModals'));
     }
 }

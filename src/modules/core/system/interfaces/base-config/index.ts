@@ -25,7 +25,6 @@ export interface IBaseConfig {
     games?: IGamesConfig,
     device?: IDeviceConfig,
     notifications?: INotificationsConfig,
-    modals?: IModalList,
     contacts?: {
         phone?: string;
         email?: string;
