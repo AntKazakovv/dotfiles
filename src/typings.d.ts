@@ -31,6 +31,7 @@ declare interface Window {
     Verbox?: any;
     supportAPIMethod?: string;
     VerboxSetup?: IVerboxSetup;
+    Tawk_API?: any,
     __lc?: any;
     LC_API?: any;
     affiliate: string;

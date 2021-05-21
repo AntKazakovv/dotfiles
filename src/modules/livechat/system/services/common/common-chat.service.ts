@@ -5,6 +5,7 @@ import {
     ILivechatConfig,
     LivechatincService,
     VerboxService,
+    TawkChatService,
 } from 'wlc-engine/modules/livechat';
 
 @Injectable({
@@ -17,6 +18,7 @@ export class CommonChatService {
         protected livechatincService: LivechatincService,
         protected verboxService: VerboxService,
         protected chatraService: ChatraService,
+        protected tawkChatService: TawkChatService,
     ) {
         this.init();
     }
@@ -32,6 +34,9 @@ export class CommonChatService {
                 break;
             case 'verbox':
                 this.verboxService.init();
+                break;
+            case 'tawkChat':
+                this.tawkChatService.init();
                 break;
         }
     }
