@@ -10,3 +10,4 @@ export {DeviceType} from 'wlc-engine/modules/core/system/models/device.model';
 export * from './config.interface';
 export * from './core.interface';
 export {AppType} from './base-config/app.interface';
+export * from './modals.interface';
