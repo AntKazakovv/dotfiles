@@ -23,8 +23,7 @@ import {
     MODALS_LIST,
     DEFAULT_MODAL_CONFIG,
     WlcModalComponent,
-} from 'wlc-engine/modules/core/components/modal';
-import {
+    IModalList,
     EventService,
     ConfigService,
     LogService,
@@ -52,10 +51,11 @@ export class ModalService {
         MODAL_HIDE_PREVENTED: 'hidePrevented.bs.modal',
     };
 
+    protected modalList: IModalList = MODALS_LIST;
     protected activeModals: IActiveModal[] = [];
     protected closeQueue: string[] = [];
     protected $closeObserver: BehaviorSubject<number> = new BehaviorSubject(0);
-    protected modalParams: IModalOptions = this.configService.get('appConfig.siteconfig.modalParams') || {};
+    protected readonly modalParams: IModalOptions = this.configService.get('$modals.modalParams') || {};
 
     constructor(
         protected appRef: ApplicationRef,
@@ -68,6 +68,7 @@ export class ModalService {
         protected BsModalService: BsModalService,
     ) {
         this.initListeners();
+        this.mergeModalConfig();
     }
 
     /**
@@ -299,5 +300,13 @@ export class ModalService {
                 backDropElement.style.zIndex = +modalElement.style.zIndex - 1;
             }
         });
+    }
+
+    /**
+     * Add custom modals via project's settings. Use '$modals' constant in frontend config, same as $base, $modules and etc;
+     */
+    private async mergeModalConfig(): Promise<void> {
+        await this.configService.ready;
+        this.modalList = _assignIn(this.modalList, this.configService.get<IModalList>('$modals.customModals'));
     }
 }
