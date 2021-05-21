@@ -116,7 +116,8 @@
                 .wlc-phone-field,
                 .wlc-birth-field,
                 .wlc-input.wlc-input--phone,
-                .wlc-input.wlc-input--password {
+                .wlc-input.wlc-input--password,
+                .wlc-input.wlc-input--iban-number {
                     @include em.get-mq-map('grid-column', $themeModOverflow, 'wideControlsGridColumns');
 
                     .form-control__errors {
