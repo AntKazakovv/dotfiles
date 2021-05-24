@@ -20,6 +20,7 @@ import {
     DeviceModel,
     ModalService,
     GlobalHelper,
+    SeoService,
 } from 'wlc-engine/modules/core';
 
 import {Subscription} from 'rxjs';
@@ -69,6 +70,7 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
         protected cdr: ChangeDetectorRef,
         protected actionService: ActionService,
         protected modalService: ModalService,
+        protected seo: SeoService,
         private transition: TransitionService,
         private titleService: Title,
         private meta: Meta,
