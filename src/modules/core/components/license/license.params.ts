@@ -7,7 +7,7 @@ export type AutoModifiersType = ComponentTheme | ModeType;
 export type ManualModifiersType = '';
 export type ModifiersType = AutoModifiersType & ManualModifiersType & string;
 
-export type LicenseType = 'apg' | 'mga' | 'curacao';
+export type LicenseType = 'apg' | 'mga' | 'curacao' | 'curacao-icon';
 
 export interface IApgSealConfig {
     sealId: string;
@@ -21,6 +21,7 @@ export interface IMGAConfig {
 export interface ICuracaoConfig {
     code: string;
     url?: string;
+    icon?: string | true;
 }
 
 export interface ILicenseCParams extends IComponentParams<ComponentTheme, ComponentType, string> {
