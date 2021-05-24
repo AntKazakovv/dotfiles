@@ -7,6 +7,7 @@ import {CommonModule} from '@angular/common';
 import {
     FinancesService,
     HistoryFilterService,
+    PIQCashierService,
 } from './system/services';
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
 import {TranslateModule} from '@ngx-translate/core';
@@ -21,6 +22,7 @@ import {HistoryFilterFormComponent} from './components/history-filter/history-fi
 import {HistoryRangeComponent} from './components/transaction-range/history-range.component';
 import {PaymentListComponent} from './components/payment-list/payment-list.component';
 import {CryptoDataComponent} from './components/crypto-data/crypto-data.component';
+import {PIQCashierComponent} from './components/piq-cashier/piq-cashier.component';
 
 import {GlobalHelper} from 'wlc-engine/modules/core';
 import {financesConfig} from './system/config/finances.config';
@@ -54,6 +56,7 @@ export const components = {
         CryptoDataComponent,
         DepositWithdrawComponent,
         PaymentListComponent,
+        PIQCashierComponent,
         TransactionHistoryComponent,
         TransactionStatusComponent,
         TransactionCancelComponent,
@@ -65,6 +68,7 @@ export const components = {
     providers: [
         FinancesService,
         HistoryFilterService,
+        PIQCashierService,
     ],
     exports: [
         BetHistoryComponent,

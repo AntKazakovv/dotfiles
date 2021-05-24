@@ -15,6 +15,10 @@ declare interface IVerboxSetup {
     returnMobileTriggerTimeout?: number;
 }
 
+declare interface IPaymentIQCashier {
+    new (el: string, cashierConfig: IPiqCashierConfig, callback?: Function);
+}
+
 declare interface Window {
     WLC_VERSION: number;
     WLC_ENV?: string;
@@ -37,4 +41,6 @@ declare interface Window {
     affiliate: string;
     WlcFlog: any;
     affCookie: any;
+    _PaymentIQCashier?: IPaymentIQCashier;
+    _PaymentIQCashierReset?: any;
 }

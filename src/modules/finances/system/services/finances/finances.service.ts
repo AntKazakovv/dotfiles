@@ -1,14 +1,32 @@
-import {Injectable} from '@angular/core';
-import {IData, IRequestMethod, RestMethodType} from 'wlc-engine/modules/core/system/services/data/data.service';
-import {DataService, EventService} from 'wlc-engine/modules/core/system/services';
-import {PaymentSystem, IPaymentSystem, FilterType} from 'wlc-engine/modules/finances/system/models/payment-system.model';
-import {Transaction, ITransaction, ITransactionRequestParams} from 'wlc-engine/modules/finances/system/models/transaction-history.model';
-import {UserService} from 'wlc-engine/modules/user/system/services';
+import {Injectable, Injector} from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
+
+import {
+    DataService,
+    IData,
+    EventService,
+} from 'wlc-engine/modules/core/system/services';
+import {
+    IBet,
+    PIQCashierConvertedMethod,
+    PIQCashierResponse,
+} from 'wlc-engine/modules/finances/system/interfaces';
+import {
+    PaymentSystem,
+    IPaymentSystem,
+    FilterType,
+} from 'wlc-engine/modules/finances/system/models/payment-system.model';
+import {
+    Transaction,
+    ITransaction,
+    ITransactionRequestParams,
+} from 'wlc-engine/modules/finances/system/models/transaction-history.model';
+import {PIQCashierService} from 'wlc-engine/modules/finances/system/services';
+import {UserService} from 'wlc-engine/modules/user/system/services';
 import {FinancesHelper} from '../../helpers/finances.helper';
-import {IBet} from 'wlc-engine/modules/finances/system/interfaces';
 
 import _find from 'lodash-es/find';
+import _startsWith from 'lodash-es/startsWith';
 
 interface ICancelWithdrawParams {
     id: number;
@@ -30,6 +48,7 @@ export class FinancesService {
         protected dataService: DataService,
         protected eventService: EventService,
         protected userService: UserService,
+        protected injector: Injector,
     ) {
         this.registerMethods();
         this.fetchPaymentSystems();
@@ -49,6 +68,9 @@ export class FinancesService {
 
     public async deposit(systemId: number, amount: number, additionalFields: object): Promise<any> {
         try {
+            if (await this.checkPIQCashier(systemId, amount, PIQCashierConvertedMethod.deposit)) {
+                return [PIQCashierResponse];
+            }
             const res = await this.dataService.request<IData>('finances/deposits', {
                 systemId,
                 amount,
@@ -62,6 +84,9 @@ export class FinancesService {
 
     public async withdraw(systemId: number, amount: number, additionalFields: object): Promise<any> {
         try {
+            if (await this.checkPIQCashier(systemId, amount, PIQCashierConvertedMethod.withdraw)) {
+                return [PIQCashierResponse];
+            }
             const res = await this.dataService.request<IData>('finances/postWithdrawal', {
                 systemId,
                 amount,
@@ -147,6 +172,30 @@ export class FinancesService {
 
     public filterSystemsPipe(system: PaymentSystem, filterType: FilterType = 'all'): boolean {
         return FinancesHelper.checkSystemType(system, filterType);
+    }
+
+    /**
+     * Check payment system if it is PaymentIQ Cashier and init
+     * deposit/withdraw via cashier if yes
+     *
+     * @param {number} systemId - payment system object
+     * @param {number} amount - deposit/withdraw amount
+     * @param {PIQCashierConvertedMethod} method - type of payment method
+     *
+     * @return {Promise<boolean>} true if paysystem is PIQCashier system
+     */
+
+    public async checkPIQCashier(
+        systemId: number,
+        amount: number,
+        method: PIQCashierConvertedMethod,
+    ): Promise<boolean> {
+        const currentSystem = this.getSystemById(systemId);
+        if (_startsWith(currentSystem.alias, 'paymentiq_cashier')) {
+            await this.injector.get(PIQCashierService).openPIQCashier(method, currentSystem, amount);
+            return true;
+        }
+        return false;
     }
 
     protected createPaymentSystems(data: IPaymentSystem[]): PaymentSystem[] {

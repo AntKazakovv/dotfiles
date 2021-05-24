@@ -22,6 +22,7 @@ export interface IPaymentSystem {
     alias: string;
     allowiframe: number;
     appearance: string;
+    customParams?: IPaymentSystemCustomParams;
     description: string;
     description_withdraw?: string;
     disable_amount: boolean;
@@ -73,6 +74,11 @@ export interface IHostedField {
     required?: string;
 }
 
+export interface IPaymentSystemCustomParams {
+    provider?: string; // PaymentIQ Cashier provider
+    merchant_id?: string; // PaymentIQ Cashier merchant ID
+}
+
 const fieldTemplatesNames = {
     firstName: {
         template: 'first-name',
@@ -85,7 +91,7 @@ const fieldTemplatesNames = {
         label: 'Last name',
     },
     birthDay: {
-        template: 'birthdate',
+        template: 'birthDate',
         dbName: 'DateOfBirth',
         label: 'Date of birth',
     },
@@ -199,6 +205,10 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
             return true;
         }
         return false;
+    }
+
+    public get customParams(): IPaymentSystemCustomParams {
+        return this.data.customParams;
     }
 
     public get depositMax(): number {

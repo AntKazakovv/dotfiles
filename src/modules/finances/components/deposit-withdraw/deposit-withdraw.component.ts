@@ -35,7 +35,11 @@ import {
     IPaymentAdditionalParam,
     PaymentSystem,
 } from 'wlc-engine/modules/finances/system/models/payment-system.model';
-import {FinancesService} from 'wlc-engine/modules/finances/system/services';
+import {
+    FinancesService,
+    PIQCashierService,
+    PIQCashierServiceEvents,
+} from 'wlc-engine/modules/finances/system/services';
 import {IPaymentListCParams} from 'wlc-engine/modules/finances/components/payment-list/payment-list.params';
 import {FormElements} from 'wlc-engine/modules/core/system/config/form-elements';
 import {
@@ -47,7 +51,10 @@ import {IModalConfig} from 'wlc-engine/modules/core/components/modal';
 import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
 import {Deferred} from 'wlc-engine/modules/core/system/classes';
 import {CryptoDataComponent} from '../crypto-data/crypto-data.component';
-import {ICryptoMessage} from 'wlc-engine/modules/finances/system/interfaces/finances.interface';
+import {
+    ICryptoMessage,
+    PIQCashierResponse,
+} from 'wlc-engine/modules/finances/system/interfaces/';
 import {FinancesHelper} from '../../system/helpers/finances.helper';
 import {IFormComponent} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
 
@@ -60,6 +67,7 @@ import _has from 'lodash-es/has';
 import _isEmpty from 'lodash-es/isEmpty';
 import _isEqual from 'lodash-es/isEqual';
 import _isObject from 'lodash-es/isObject';
+import _startsWith from 'lodash-es/startsWith';
 import _transform from 'lodash-es/transform';
 
 @Component({
@@ -107,6 +115,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
         protected userService: UserService,
         protected cdr: ChangeDetectorRef,
         protected translateService: TranslateService,
+        protected piqCashierService: PIQCashierService,
         @Inject(DOCUMENT) protected document: HTMLDocument,
     ) {
         super(
@@ -207,6 +216,8 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
 
                     await this.createRedirectForm(response[1]?.html);
                     return;
+                } else if (response[0] === PIQCashierResponse) {
+                    return;
                 }
             }
 
@@ -244,6 +255,8 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
 
             if (response[0] === 'redirect') {
                 window.location.replace(response[1]);
+                return;
+            } else if (response[0] === PIQCashierResponse) {
                 return;
             }
 
@@ -511,6 +524,18 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
         this.eventService.subscribe(
             {name: 'PROFILE_UPDATE'},
             () => this.onProfileUpdate(),
+            this.$destroy,
+        );
+
+        this.eventService.subscribe(
+            {
+                name: PIQCashierServiceEvents.closed,
+                from: 'piq-cashier',
+            },
+            () => {
+                this.inProgress = false;
+                this.financesService.fetchPaymentSystems();
+            },
             this.$destroy,
         );
     }
