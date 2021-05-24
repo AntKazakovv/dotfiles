@@ -34,4 +34,8 @@ export interface IBaseConfig {
      * Config redirection by event or state
      */
     redirects?: IRedirectConfig;
+    /**
+     * Use seo service; Service gets information from wordpress plugin 'Seo Softgamings';
+     */
+    useSeo?: boolean;
 }

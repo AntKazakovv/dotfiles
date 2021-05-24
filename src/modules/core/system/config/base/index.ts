@@ -15,4 +15,5 @@ export const $base: IBaseConfig = {
     games: gamesConfig,
     notifications: notificationsConfig,
     redirects: redirectsConfig,
+    useSeo: false,
 };

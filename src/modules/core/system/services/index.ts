@@ -14,6 +14,7 @@ export {LogService} from './log/log.service';
 export {ActionService} from './action/action.service';
 export {NotificationService} from './notification/notification.service';
 export {ModalService} from './modal/modal.service';
+export {SeoService} from './seo/seo.service';
 export {ContactsService} from './contacts/contacts.service';
 export {
     ValidationService,
