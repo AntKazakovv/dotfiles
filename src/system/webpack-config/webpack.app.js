@@ -4,6 +4,7 @@ const WlcTemplateReplacePlugins = require('./wlcTemplateReplacePlugins');
 const WlcStructureInfoPlugin = require('./wlcStructureInfoPlugin');
 const WlcStaticImagePlugin = require('./wlcStaticImagePlugin');
 const WlcWatchExtFilesPlugin = require('./wlcWatchExtFilesPlugin');
+const sortMqList = require('./wlcMqSortingPlugin');
 
 module.exports = (config, schema, env) => {
     const isDev = env.configuration === 'dev';
@@ -61,7 +62,7 @@ module.exports = (config, schema, env) => {
                     annotation: true,
                 },
                 plugins: [
-                    require('css-mqpacker')({sort: true}),
+                    require('css-mqpacker')({sort: sortMqList}),
                 ],
             },
         };
