@@ -4,7 +4,7 @@
         <div class="{{$class}}__items-wrapper">
             <div *ngFor="let level of levels; index as $index;" class="{{$class}}__item">
                 <div class="{{$class}}__item-image">
-                    <img [src]="imageLevel(level.level)" alt="">
+                    <img class="{{$class}}--icon {{$class}}--icon--{{level.level}}" [src]="imageLevel(level.level)">
                 </div>
                 <div class="{{$class}}__item-title">
                     {{level.level}} {{'Level' | translate}}

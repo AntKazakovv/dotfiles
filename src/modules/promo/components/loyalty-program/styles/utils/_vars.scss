@@ -23,6 +23,7 @@ $themeDefault: map-merge((
     'containerDecorLeft': 50%,
     'containerDecorWidth': 1920px,
     'containerDecorHeight': 100%,
+    'containerDecorTranslate': translate(-50%, 0),
 
     'decorLeftPosition': absolute,
     'decorLeftZindex': 0,
@@ -85,10 +86,41 @@ $themeDefault: map-merge((
         768: transparent,
     ),
 
-    'itemImageWidth': 100%,
+    'itemImageBgPosition': relative,
+    'itemImageBgDisplay': flex,
+    'itemImageBgAlign': center,
+    'itemImageBgJustify': center,
+    'itemImageBgColor': ef.get('mainColors', 'bg'),
+    'itemImageBgWidth': 170px,
+    'itemImageBgHeight': 170px,
+    'itemImageBgBorderRadius': 100%,
 
+    'itemIconDisplay': block,
+
+    'itemIconMargin-1': 0 0 9px 12px,
+    'itemIconWidth-1': 160px,
+    'itemIconHeight-1': 181px,
+
+    'itemIconMargin-2': 0 0 6px 12px,
+    'itemIconWidth-2': 164px,
+    'itemIconHeight-2': 179px,
+
+    'itemIconMargin-3': 0 0 12px 9px,
+    'itemIconWidth-3': 171px,
+    'itemIconHeight-3': 184px,
+
+    'itemIconMargin-4': 0 0 16px 9px,
+    'itemIconWidth-4': 199px,
+    'itemIconHeight-4': 185px,
+
+    'itemTitlePadding': (
+        320: ef.get('size', 'smallest') 0 ef.get('size', 'smally') 0,
+    ),
     'itemTitleFont': 'QoteTextBold',
     'itemTitleFontColor': ef.get('mainColors', 'baseMain'),
+
+    'itemPointsFont': 'PrimaryText',
+    'itemPointsFontColor': ef.get('mainColors', 'baseMain'),
 
     'itemPointsDisplay': flex,
     'itemPointsAlign': center,

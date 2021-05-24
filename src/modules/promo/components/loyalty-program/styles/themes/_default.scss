@@ -6,11 +6,11 @@
 .wlc-loyalty-program--theme-default:host {
 
     .wlc-loyalty-program__wrapper {
+        @include em.get-mq-map('margin', $themeDefault, 'wrapperMargin');
+
         display: ef.get-value($themeDefault, 'wrapperDisplay');
         flex-direction: ef.get-value($themeDefault, 'wrapperDirection');
         align-items: ef.get-value($themeDefault, 'wrapperAlignItems');
-
-        @include em.get-mq-map('margin', $themeDefault, 'wrapperMargin');
     }
 
     .wlc-loyalty-program {
@@ -21,6 +21,8 @@
         }
 
         &__container {
+            @include em.get-mq-map('padding', $themeDefault, 'containerPadding');
+
             position: ef.get-value($themeDefault, 'containerPosition');
 
             width: ef.get-value($themeDefault, 'containerWidth');
@@ -28,8 +30,6 @@
             overflow: ef.get-value($themeDefault, 'containerOverflow');
 
             background: ef.get-value($themeDefault, 'containerBackground');
-
-            @include em.get-mq-map('padding', $themeDefault, 'containerPadding');
         }
 
         &__container-decor {
@@ -40,7 +40,7 @@
             width: ef.get-value($themeDefault, 'containerDecorWidth');
             height: ef.get-value($themeDefault, 'containerDecorHeight');
 
-            transform: translate(-50%, 0);
+            transform: ef.get-value($themeDefault, 'containerDecorTranslate');
         }
 
         &__decor-left {
@@ -70,54 +70,76 @@
         }
 
         &__items-wrapper {
+            @include em.get-mq-map('width', $themeDefault, 'itemsWrapperWidth');
+            @include em.get-mq-map('margin', $themeDefault, 'itemsWrapperMargin');
+
             position: ef.get-value($themeDefault, 'itemsWrapperPosition');
             z-index: ef.get-value($themeDefault, 'itemsWrapperZindex');
 
             display: ef.get-value($themeDefault, 'itemsWrapperDisplay');
             flex-wrap: ef.get-value($themeDefault, 'itemsWrapperWrap');
             justify-content: ef.get-value($themeDefault, 'itemsWrapperJustifyContent');
-
-            @include em.get-mq-map('width', $themeDefault, 'itemsWrapperWidth');
-            @include em.get-mq-map('margin', $themeDefault, 'itemsWrapperMargin');
         }
 
         &__item {
+            @include em.get-mq-map('width', $themeDefault, 'itemWidth');
+            @include em.get-mq-map('margin', $themeDefault, 'itemMargin');
+            @include em.get-mq-map('padding', $themeDefault, 'itemPadding');
+            @include em.get-mq-map('background', $themeDefault, 'itemBackground');
+
             display: ef.get-value($themeDefault, 'itemDisplay');
             flex-direction: ef.get-value($themeDefault, 'itemDirection');
             align-items: ef.get-value($themeDefault, 'itemAlign');
 
             border-radius: ef.get-value($themeDefault, 'itemRadius');
-
-            @include em.get-mq-map('width', $themeDefault, 'itemWidth');
-            @include em.get-mq-map('margin', $themeDefault, 'itemMargin');
-            @include em.get-mq-map('padding', $themeDefault, 'itemPadding');
-            @include em.get-mq-map('background', $themeDefault, 'itemBackground');
         }
 
         &__item-image {
+            @include em.get-mq-map('width', $themeDefault, 'itemImageBgWidth');
+            @include em.get-mq-map('height', $themeDefault, 'itemImageBgHeight');
 
-            img {
-                width: ef.get-value($themeDefault, 'itemImageWidth');
+            position: ef.get-value($themeDefault, 'itemImageBgPosition');
+
+            display: ef.get-value($themeDefault, 'itemImageBgDisplay');
+            align-items: ef.get-value($themeDefault, 'itemImageBgAlign');
+            justify-content: ef.get-value($themeDefault, 'itemImageBgJustify');
+
+            background: ef.get-value($themeDefault, 'itemImageBgColor');
+            border-radius: ef.get-value($themeDefault, 'itemImageBgBorderRadius');
+        }
+
+        &--icon {
+            display: ef.get-value($themeDefault, 'itemIconDisplay');
+
+            @for $i from 1 through 4 {
+                &--#{$i} {
+                    width: ef.get-value($themeDefault, 'itemIconWidth-#{$i}');
+                    height: ef.get-value($themeDefault, 'itemIconHeight-#{$i}');
+                    margin: ef.get-value($themeDefault, 'itemIconMargin-#{$i}');
+                }
             }
         }
 
         &__item-title {
+            @include em.get-mq-map('padding', $themeDefault, 'itemTitlePadding');
             @include text.get-text-style(ef.get-value($themeDefault, 'itemTitleFont'), ef.get-value($themeDefault, 'itemTitleFontColor'));
         }
 
         &__item-points {
+            @include text.get-text-style(ef.get-value($themeDefault, 'itemPointsFont'), ef.get-value($themeDefault, 'itemPointsFontColor'));
+
             display: ef.get-value($themeDefault, 'itemPointsDisplay');
             align-items: ef.get-value($themeDefault, 'itemPointsAlign');
         }
 
         &__btn-wrapper {
+            @include em.get-mq-map('margin', $themeDefault, 'btnWrappMargin');
+
             position: ef.get-value($themeDefault, 'btnWrappPosition');
             z-index: ef.get-value($themeDefault, 'btnWrappZindex');
 
             display: ef.get-value($themeDefault, 'btnWrappDisplay');
             justify-content: ef.get-value($themeDefault, 'btnWrappJustify');
-
-            @include em.get-mq-map('margin', $themeDefault, 'btnWrappMargin');
         }
     }
 }
