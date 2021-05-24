@@ -10,7 +10,6 @@ import {
     ConfigService,
     EventService,
     LogService,
-    ModalService,
     IFormWrapperCParams,
     IPushMessageParams,
     NotificationEvents,
@@ -51,7 +50,6 @@ export class SignUpFormComponent extends AbstractComponent implements OnInit {
         protected userService: UserService,
         protected logService: LogService,
         protected configService: ConfigService,
-        protected modalService: ModalService,
         protected eventService: EventService,
     ) {
         super({
@@ -77,17 +75,8 @@ export class SignUpFormComponent extends AbstractComponent implements OnInit {
 
             await this.userService.createUserProfile(this.userService.userProfile.data);
 
-            if (this.isFastRegistration) {
-                this.eventService.emit({name: 'LOGIN'});
-                this.registrationComplete(gettext('Your account has been registered.'));
-            } else {
-                this.registrationComplete(
-                    [
-                        gettext('Your account has been registered.'),
-                        gettext('Please complete registration using link in e-mail'),
-                    ],
-                );
-            }
+            this.userService.finishRegistration();
+
         } catch (error) {
             this.eventService.emit({
                 name: NotificationEvents.PushMessage,
@@ -119,28 +108,6 @@ export class SignUpFormComponent extends AbstractComponent implements OnInit {
             formData.fields.push('registrationBonus');
         }
         return formData;
-    }
-
-    protected get isFastRegistration(): number {
-        return this.configService.get<number>('appConfig.siteconfig.fastRegistration');
-    }
-
-    protected registrationComplete(message: string | string[]): void {
-
-        this.eventService.emit({
-            name: NotificationEvents.PushMessage,
-            data: <IPushMessageParams>{
-                type: 'success',
-                title: gettext('Registration success'),
-                message,
-                wlcElement: 'notification_registration-success',
-            },
-        });
-
-        if (this.modalService.getActiveModal('signup')) {
-            this.modalService.hideModal('signup');
-        }
-
     }
 
     protected checkConfirmation(form: FormGroup): boolean {

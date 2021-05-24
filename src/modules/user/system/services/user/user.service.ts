@@ -9,6 +9,7 @@ import {
 import {
     filter,
 } from 'rxjs/operators';
+
 import {
     DataService,
     EventService,
@@ -21,9 +22,12 @@ import {
     NotificationEvents,
     ConfigService,
 } from 'wlc-engine/modules/core';
-import {UserInfo} from 'wlc-engine/modules/user/system/models/info.model';
-import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
-import {LimitationService} from 'wlc-engine/modules/user/system/services';
+
+import {
+    UserInfo,
+    UserProfile,
+    LimitationService,
+} from 'wlc-engine/modules/user';
 
 import _assign from 'lodash-es/assign';
 import _each from 'lodash-es/each';
@@ -327,6 +331,34 @@ export class UserService {
             });
 
             this.logService.sendLog({code: '1.2.0', data: error});
+        }
+    }
+
+    public finishRegistration(): void {
+
+        const isFastRegistration = this.configService.get<number>('appConfig.siteconfig.fastRegistration');
+        const message = [
+            gettext('Your account has been registered.'),
+        ];
+
+        if (isFastRegistration) {
+            this.eventService.emit({name: 'LOGIN'});
+        } else {
+            message.push(gettext('Please complete registration using link in e-mail'));
+        }
+
+        this.eventService.emit({
+            name: NotificationEvents.PushMessage,
+            data: <IPushMessageParams>{
+                type: 'success',
+                title: gettext('Registration success'),
+                message,
+                wlcElement: 'notification_registration-success',
+            },
+        });
+
+        if (this.modalService.getActiveModal('signup')) {
+            this.modalService.hideModal('signup');
         }
     }
 
