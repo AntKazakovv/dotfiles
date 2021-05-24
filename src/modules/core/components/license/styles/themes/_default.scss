@@ -19,6 +19,13 @@
         align-items: center;
     }
 
+    &__curacao-icon {
+
+        img {
+            max-height: ef.get-value($themeDefault, 'curacaoIconMaxHeight');
+        }
+    }
+
     &__curacao {
         width: ef.get-value($themeDefault, 'curacaoWidth');
         height: ef.get-value($themeDefault, 'curacaoHeight');

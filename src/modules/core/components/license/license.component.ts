@@ -17,6 +17,8 @@ import {ConfigService} from 'wlc-engine/modules/core';
 
 import * as Params from './license.params';
 
+import _isString from 'lodash-es/isString';
+
 @Component({
     selector: '[wlc-license]',
     templateUrl: './license.component.html',
@@ -56,6 +58,11 @@ export class LicenseComponent extends AbstractComponent implements OnInit {
             this.$params.curacao.url  = this.$params.curacao.url ||
                     `https://licensing.gaming-curacao.com/validator/?lh=${this.$params.curacao.code}&template=seal`;
             this.addModifiers('curacao');
+        } else if (this.$params.curacao?.icon) {
+            this.licenseType = 'curacao-icon';
+            this.addModifiers('curacao-icon');
+            this.$params.curacao.icon = _isString(this.$params.curacao?.icon)
+                ? this.$params.curacao?.icon : '/gstatic/wlc/icons/curacao-egaming-logo.png';
         }
         this.cdr.markForCheck();
     }
