@@ -4,108 +4,110 @@
 
 @import '../utils/vars';
 
-.wlc-sections__footer--theme {
+.wlc-sections__footer--theme-1 {
+    @include em.get-mq-map('padding-top', $theme1Footer, 'basePaddingTopBottom');
+    @include em.get-mq-map('padding-bottom', $theme1Footer, 'basePaddingTopBottom');
+    @include em.get-mq-map('margin-top', $theme1Footer, 'baseMarginTop');
 
-    &-1 {
-        background: ef.get-value($theme1Footer, 'baseBackground');
-        @include em.get-mq-map('padding-top', $theme1Footer, 'basePaddingTopBottom');
-        @include em.get-mq-map('padding-bottom', $theme1Footer, 'basePaddingTopBottom');
-        @include em.get-mq-map('margin-top', $theme1Footer, 'baseMarginTop');
+    background: ef.get-value($theme1Footer, 'baseBackground');
 
-        .container {
-            @include em.get-mq-map('display', $theme1Footer, 'footerContainerDisplay');
-            @include em.get-mq-map('grid-template-columns', $theme1Footer, 'footerContainerGridColumns');
-            @include em.get-mq-map('grid-template-areas', $theme1Footer, 'footerContainerGridAreas');
-            @include em.get-mq-map('gap', $theme1Footer, 'footerContainerGridGap');
+    .container {
+        @include em.get-mq-map('display', $theme1Footer, 'footerContainerDisplay');
 
-            @include mq.min(560) {
-                flex-direction: row;
-                align-items: stretch;
-            }
+        @include em.get-mq-map('grid-template-columns', $theme1Footer, 'footerContainerGridColumns');
+        @include em.get-mq-map('grid-template-areas', $theme1Footer, 'footerContainerGridAreas');
+        @include em.get-mq-map('gap', $theme1Footer, 'footerContainerGridGap');
 
-            @include mq.min(375) {
-                flex-direction: column;
-                flex-wrap: wrap;
-                align-items: center;
-                justify-content: center;
-            }
+        @include em.get-mq-map('flex-direction', $theme1Footer, 'footerContainerFlexDirection');
+        @include em.get-mq-map('align-items', $theme1Footer, 'footerContainerAlineItems');
+        @include em.get-mq-map('flex-wrap', $theme1Footer, 'footerContainerFlexWrap');
+        @include em.get-mq-map('justify-content', $theme1Footer, 'footerContainerJustifyContent');
+    }
+
+    .wlc-icon-list {
+
+        &--theme-merchants {
+            @include em.get-mq-map('max-width', $theme1Footer, 'iconListMerchantsMaxWidth');
+            @include em.get-mq-map('margin', $theme1Footer, 'iconListMerchantsMargin');
         }
 
-        .wlc-icon-list {
+        &--theme-payments {
+            @include em.get-mq-map('max-width', $theme1Footer, 'iconListPaymentsMaxWidth');
+            @include em.get-mq-map('margin', $theme1Footer, 'iconListPaymentsMargin');
+        }
+    }
 
-            &--theme-merchants {
-                @include em.get-mq-map('max-width', $theme1Footer, 'iconListMerchantsMaxWidth');
-            }
+    .wlc-logo {
+        @include em.get-mq-map('display', $theme1Footer, 'footerLogoDisplay');
 
-            &--theme-payments {
-                @include em.get-mq-map('max-width', $theme1Footer, 'iconListPaymentsMaxWidth');
-            }
+        grid-area: logo;
+
+        svg {
+            @include em.get-mq-map('max-width', $theme1Footer, 'footerLogoSvgWidth');
+        }
+    }
+
+    .wlc-post-menu {
+        @include em.get-mq-map('justify-content', $theme1Footer, 'postMenuJustify');
+
+        display: flex;
+
+        &__item,
+        &__title {
+            @include em.get-mq-map('text-align', $theme1Footer, 'postMenuTextAlign');
         }
 
-        .wlc-logo {
-            display: none;
-            grid-area: logo;
-
-            @include mq.min(640) {
-                display: block;
-            }
-
-            svg {
-                max-width: 100%;
-            }
+        &__title {
+            @include em.get-mq-map('font-size', $theme1Footer, 'postMenuTitleFontSize');
         }
 
-        .wlc-post-menu {
-            display: flex;
-            @include em.get-mq-map('justify-content', $theme1Footer, 'postMenuJustify');
-
-            &__item,
-            &__title {
-                @include em.get-mq-map('text-align', $theme1Footer, 'postMenuTextAlign');
-            }
-
-            &__title {
-                @include em.get-mq-map('font-size', $theme1Footer, 'postMenuTitleFontSize');
-            }
-
-            &--theme-mod-footer-info {
-                grid-area: info;
-            }
-
-            &--theme-mod-footer-about {
-                grid-area: about-us;
-            }
+        &--theme-mod-footer-info {
+            @include em.get-mq-map('margin', $theme1Footer, 'postMenuInfoMargin');
+            grid-area: info;
         }
 
-        .wlc-disclaimer {
-            grid-area: disclaimer;
-            margin-bottom: 20px;
-        }
-
-        .wlc-language-selector {
-            grid-area: language;
-            @include em.get-mq-map('justify-self', $theme1Footer, 'languageJustifySelf');
-        }
-
-        .wlc-about-us {
-
-            .wlc-license {
-                @include em.get-mq-map('margin', $theme1Footer, 'licenseAboutUsMargin');
-            }
-        }
-
-        .wlc-license {
-            display: flex;
-            flex-direction: row-reverse;
-            @include em.get-mq-map('margin', $theme1Footer, 'licenseMargin');
-        }
-
-        .wlc-footer-menu {
+        &--theme-mod-footer-about {
             grid-area: about-us;
         }
+    }
 
-        .wlc-footer-disclaimer {
-            grid-area: disclaimer;
+    .wlc-footer-menu {
+        @include em.get-mq-map('margin', $theme1Footer, 'postMenuAboutMargin');
+
+        grid-area: about-us;
+    }
+
+    .wlc-disclaimer {
+        @include em.get-mq-map('margin', $theme1Footer, 'disclaimerMargin');
+
+        grid-area: disclaimer;
+    }
+
+    .wlc-copyright {
+        @include em.get-mq-map('margin', $theme1Footer, 'copyrightMargin');
+    }
+
+    .wlc-language-selector {
+        @include em.get-mq-map('justify-self', $theme1Footer, 'languageJustifySelf');
+
+        grid-area: language;
+    }
+
+    .wlc-about-us {
+
+        .wlc-license {
+            @include em.get-mq-map('margin', $theme1Footer, 'licenseAboutUsMargin');
         }
+    }
+
+    .wlc-license {
+        @include em.get-mq-map('flex-direction', $theme1Footer, 'licenseFlexDirection');
+        @include em.get-mq-map('margin', $theme1Footer, 'licenseMargin');
+
+        display: flex;
+    }
+
+    .wlc-footer-disclaimer {
+        grid-area: disclaimer;
     }
 }
