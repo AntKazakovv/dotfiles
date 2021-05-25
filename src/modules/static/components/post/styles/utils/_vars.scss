@@ -30,6 +30,6 @@ $themeAffiliates: map-merge((
     'subtitleMaxWidth': 55ch,
     'subtitleMargin': 0 auto,
 
-    'baseTextMaxWidth': 98ch,
+    'baseTextMaxWidth': 108ch,
     'baseTextMargin': 0 auto ef.get('size', 'small'),
 ), $customThemeAffiliates);
