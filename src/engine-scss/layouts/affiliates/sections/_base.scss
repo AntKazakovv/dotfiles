@@ -59,4 +59,10 @@
             border-radius: ef.get('radius', 'biger');
         }
     }
+
+    p {
+        .wlc-btn {
+            display: inline-grid;
+        }
+    }
 }
