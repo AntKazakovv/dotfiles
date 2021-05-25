@@ -131,7 +131,7 @@ export const signUpFormConfig: IFormWrapperCParams = {
                 wlcElement: 'button_login-modal',
                 common: {
                     subtitle: gettext('Already have an account?'),
-                    link: gettext('Sign in now'),
+                    link: gettext('Login now'),
                     actionParams: {
                         modal: {
                             name: 'login',

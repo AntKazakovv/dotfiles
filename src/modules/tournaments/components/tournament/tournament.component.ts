@@ -113,7 +113,7 @@ export class TournamentComponent
 
     public join(): void {
         if (!this.isAuth) {
-            this.modalService.showModal('login');
+            this.modalService.showModal('signup');
             return;
         }
         this.checkSubscribeConditions(this.tournament);

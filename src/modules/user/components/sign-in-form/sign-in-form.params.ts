@@ -37,7 +37,7 @@ export const signInFormConfig: IFormWrapperCParams = {
             name: 'core.wlc-text-block',
             params: <ITextBlockCParams>{
                 common: {
-                    textBlockTitle: gettext('Sign in'),
+                    textBlockTitle: gettext('Login'),
                     textBlockSubtitle: gettext('Welcome back!'),
                 },
             },
@@ -85,7 +85,7 @@ export const signInFormConfig: IFormWrapperCParams = {
                 wlcElement: 'button_login-submit',
                 common: {
                     customModifiers: 'submit',
-                    text: gettext('Sign in'),
+                    text: gettext('Login'),
                     typeAttr: 'submit',
                 },
                 themeMod: 'secondary',

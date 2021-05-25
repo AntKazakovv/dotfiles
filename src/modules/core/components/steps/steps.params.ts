@@ -124,7 +124,7 @@ export const defaultParams: IStepsParams = {
                                     wlcElement: 'login',
                                     common: {
                                         subtitle: gettext('Already have an account?'),
-                                        link: gettext('Sign in now'),
+                                        link: gettext('Login now'),
                                         actionParams: {
                                             modal: {
                                                 name: 'login',

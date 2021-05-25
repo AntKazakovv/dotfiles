@@ -65,7 +65,7 @@ export const MODALS_LIST: IModalList = {
         config: {
             id: 'login',
             modifier: 'login-sign-up',
-            modalTitle: gettext('Sign in now!'),
+            modalTitle: gettext('Login now!'),
             component: TabSwitcherComponent,
             size: 'as',
             showFooter: false,
@@ -73,7 +73,7 @@ export const MODALS_LIST: IModalList = {
             componentParams: {
                 tabs: {
                     'signIn': {
-                        name: gettext('Sign in'),
+                        name: gettext('Login'),
                         startTab: 'signIn',
                         component: 'user.wlc-sign-in-form',
                         modifier: 'login',
@@ -103,7 +103,7 @@ export const MODALS_LIST: IModalList = {
             componentParams: {
                 tabs: {
                     'signIn': {
-                        name: gettext('Sign in'),
+                        name: gettext('Login'),
                         component: 'user.wlc-sign-in-form',
                         modifier: 'login',
                         modalId: 'login',
