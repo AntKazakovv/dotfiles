@@ -3,7 +3,7 @@ import {UserService} from 'wlc-engine/modules/user/system/services';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
 import {FinancesHelper} from '../helpers/finances.helper';
-import {ICryptoMessage} from 'wlc-engine/modules/finances/system/interfaces/finances.interface';
+import {IPaymentMessage} from 'wlc-engine/modules/finances/system/interfaces/finances.interface';
 
 import _get from 'lodash-es/get';
 import _includes from 'lodash-es/includes';
@@ -33,7 +33,7 @@ export interface IPaymentSystem {
     image: string;
     image_withdraw?: string;
     lastAccounts: string[];
-    message: string | IIndexing<string> | ICryptoMessage;
+    message: string | IIndexing<string> | IPaymentMessage;
     name: string;
     name_withdraw?: string;
     required: string[];
@@ -247,11 +247,11 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
         return this.data.lastAccounts || [];
     }
 
-    public get message(): string | IIndexing<string> | ICryptoMessage {
+    public get message(): string | IIndexing<string> | IPaymentMessage {
         return this.data.message;
     }
 
-    public set message(data: string | IIndexing<string> | ICryptoMessage) {
+    public set message(data: string | IIndexing<string> | IPaymentMessage) {
         this.data.message = data;
     }
 
