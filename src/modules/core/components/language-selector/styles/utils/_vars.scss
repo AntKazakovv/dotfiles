@@ -6,7 +6,6 @@ $themeDefault: map-merge((
     'burgerPanelCurrentGap': 10px,
     'currentPadding': ef.get('size', 'smallest'),
     'currentBorderRadius': ef.get('size', 'smaller'),
-    'currentBorder': 1px solid ef.get('color', 'divider'),
     'currentBackground': ef.get('mainColors', bg700),
     'currentArrowColor': ef.get('mainColors', 'baseOpacity'),
     'currentArrowColorHover': ef.get('mainColors', 'main'),
@@ -19,9 +18,7 @@ $themeDefault: map-merge((
     'dropdownBackgroundColor': ef.get('mainColors', bg700),
     'dropdownBorderRadius': ef.get('radius', 'less'),
     'dropdownArrowSize': ef.get('size', 'small'),
-    'dropdownItemHover': darken(ef.get('color', 'backgroundSecondary'), 5%),
     'dropdownFlagSize': ef.get('size', 'less'),
-    'dropdownLinkColor': ef.get('color', 'text'),
     'flagBoxShadow': 0 0 0 4px ef.get('mainColors', 'bg300'),
     'flagBoxShadowHover': 0 0 0 4px ef.get('mainColors', 'main'),
     'burgerPanelFlagBoxShadow': 0 0 0 6px ef.get('mainColors', 'baseOpacity'),
@@ -45,7 +42,6 @@ $themeDefault: map-merge((
 $customThemeModal: () !default;
 $themeModal: map-merge((
     'dropdownFlagSize': 55px,
-    'dropdownLinkColor': ef.get('color', 'text'),
     'flagBoxShadow': 0 0 0 4px ef.get('mainColors', 'bg300'),
     'flagBoxShadowHover': 0 0 0 4px ef.get('mainColors', 'main'),
     'listGap': ef.get('size', 'smaller'),

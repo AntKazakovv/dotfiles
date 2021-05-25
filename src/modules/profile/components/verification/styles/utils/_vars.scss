@@ -56,7 +56,7 @@ $themeDefault: map-merge((
     'tooltipBg': ef.get('mainColors', 'main'),
     'tooltipOffset': ef.get('size', 'smally'),
     'clearDropzoneColor': ef.get('mainColors', 'main'),
-    'clearDropzoneColorHoover': ef.get('color', 'error'),
+    'clearDropzoneColorHoover': ef.get('mainColors', 'error'),
     'selectTextColor': ef.get('fieldColors', 'textColor'),
     'docTextOffset': ef.get('size', 'smaller'),
     'preloaderDementions': ef.get('size', 'smally'),

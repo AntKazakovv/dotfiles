@@ -25,8 +25,8 @@ $themeDefaultPagination: map-merge((
     'swiperPagiVerticalAside': 10px,
     'swiperPagiBulletWidth': 8px,
     'swiperPagiBulletHeight': 8px,
-    'swiperPagiBulletColor': ef.get('color', 'secondary'),
-    'swiperPagiBulletColorActive': ef.get('color', 'main'),
+    'swiperPagiBulletColor': ef.get('mainColors', 'buttonColor'),
+    'swiperPagiBulletColorActive': ef.get('mainColors', 'baseOpacity'),
     'swiperPagiBulletWidthActive': 8px,
     'swiperPagiBulletHeightActive': 8px,
     'swiperPagiBulletBorderRadius': 50%,
@@ -34,25 +34,11 @@ $themeDefaultPagination: map-merge((
     'swiperPagiBulletDynamicSize': 12px,
     'swiperPagiBulletMarginHorizontal': 0 4px,
     'swiperPagiBulletMarginVertical': 6px 0,
-    'swiperPagiProgressbarBg': ef.get('color', 'secondary'),
+    'swiperPagiProgressbarBg': ef.get('mainColors', 'buttonColor'),
     'swiperPagiProgressbarBorderRadius': 4px,
-    'swiperPagiProgressbarBgFill': ef.get('color', 'main'),
+    'swiperPagiProgressbarBgFill': ef.get('mainColors', 'baseOpacity'),
     'swiperPagiProgressbarHeight': 4px,
 ), $customThemeDefaultPagination);
-
-$customThemeDefaultScrollbar: () !default;
-// Scrollbar
-$themeDefaultScrollbar: map-merge((
-    'swiperScrollbarZindex': 50,
-    'swiperScrollbarAside': 3px,
-    'swiperScrollbarWidth': 4px,
-    'swiperScrollbarHeight': 98%,
-    'swiperScrollbarTopLeft': 1%,
-    'swiperScrollbarBg': ef.get('color', 'secondary'),
-    'swiperScrollbarBorderRadius': 10px,
-    'swiperScrollbarDragBg': ef.get('color', 'main'),
-    'swiperScrollbarDragBorderRadius': 10px,
-), $customThemeDefaultScrollbar);
 
 $customThemeDefaultBanner: () !default;
 $themeDefaultBanner: map-merge((

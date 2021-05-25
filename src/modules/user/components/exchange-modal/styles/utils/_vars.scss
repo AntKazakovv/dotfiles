@@ -2,16 +2,5 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'background': darken(ef.get('color', 'backgroundSecondary'), 20),
-    'contentMargin': 0 0 ef.get('size', 'small') 0,
-    'lineHeight': 6px,
-    'lineEmptyBg': #fff,
-    'lineFillBg': ef.get('color', 'main'),
-    'lineBorderRadius': 100px,
-    'levelNameSize': 14px,
-    'levelNameWeight': 700,
-    'levelNameColor': ef.get('color', 'text'),
-    'levelPointsSize': 14px,
-    'levelPointsWeight': 700,
-    'levelPointsColor': ef.get('color', 'text'),
+    'background': ef.get('mainColors', 'bgModal'),
 ), $customThemeDefault);

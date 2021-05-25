@@ -76,7 +76,6 @@
     grid-auto-flow: column;
     align-items: center;
     grid-gap: ef.get-value($themeDefault, 'dropdownGap');
-    color: ef.get-value($themeDefault, 'dropdownLinkColor');
     text-decoration: none;
     position: relative;
 

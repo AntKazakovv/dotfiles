@@ -2,7 +2,6 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'color': ef.get('color', 'textSecondary'),
     'marginTop': ef.get('size', 'main'),
 
     'formTemplateColumns': (
