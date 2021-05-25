@@ -9,57 +9,68 @@ import {
 } from '@angular/core';
 import {FormControl} from '@angular/forms';
 
-import {PaymentSystem} from 'wlc-engine/modules/finances/system/models/payment-system.model';
+import {
+    PaymentSystem,
+    IPaymentMessage,
+} from 'wlc-engine/modules/finances';
 import {
     AbstractComponent,
     ConfigService,
     IInputCParams,
     IMixedParams,
 } from 'wlc-engine/modules/core';
-import {ICryptoMessage} from 'wlc-engine/modules/finances/system/interfaces/finances.interface';
 
-import * as Params from './crypto-data.params';
+import * as Params from './payment-message.params';
 
 @Component({
-    selector: '[wlc-crypto-data]',
-    templateUrl: './crypto-data.component.html',
-    styleUrls: ['./styles/crypto-data.component.scss'],
+    selector: '[wlc-payment-message]',
+    templateUrl: './payment-message.component.html',
+    styleUrls: ['./styles/payment-message.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CryptoDataComponent extends AbstractComponent implements OnInit, OnChanges {
+export class PaymentMessageComponent extends AbstractComponent implements OnInit, OnChanges {
 
     @Input() public system: PaymentSystem;
 
-    public $params: Params.ICryptoDataCParams;
+    public $params: Params.IPaymentMessageCParams;
     public error: boolean = false;
+    public type: 'pay_to_address' | 'pay_to_bank';
 
     public inputParams: IInputCParams;
     public imageLoaded: boolean = false;
 
     constructor(
-        @Inject('injectParams') protected injectParams: Params.ICryptoDataCParams,
+        @Inject('injectParams') protected injectParams: Params.IPaymentMessageCParams,
         protected configService: ConfigService,
         protected cdr: ChangeDetectorRef,
     ) {
         super(
-            <IMixedParams<Params.ICryptoDataCParams>>{
+            <IMixedParams<Params.IPaymentMessageCParams>>{
                 injectParams,
                 defaultParams: Params.defaultParams,
             }, configService);
     }
 
-    public get message(): ICryptoMessage {
-        return (this.system.message as ICryptoMessage);
+    public get message(): IPaymentMessage {
+        return (this.system.message as IPaymentMessage);
     }
 
     public get imgUrl(): string {
         return 'https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl=' + 'bitcoin:' + this.message.address;
     }
 
+    public get details(): string {
+        return this.message.details || '';
+    }
+
     public ngOnInit(): void {
         super.ngOnInit();
         this.system = this.$params?.system ? this.$params.system : this.system;
         this.error = !this.system;
+
+        if (this.system) {
+            this.type = this.system.message['translate'];
+        }
 
         this.inputParams = {
             name: 'address',

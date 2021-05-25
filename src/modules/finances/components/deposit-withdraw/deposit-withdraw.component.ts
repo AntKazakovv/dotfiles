@@ -50,9 +50,9 @@ import {UserService} from 'wlc-engine/modules/user/system/services';
 import {IModalConfig} from 'wlc-engine/modules/core/components/modal';
 import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
 import {Deferred} from 'wlc-engine/modules/core/system/classes';
-import {CryptoDataComponent} from '../crypto-data/crypto-data.component';
+import {PaymentMessageComponent} from '../payment-message/payment-message.component';
 import {
-    ICryptoMessage,
+    IPaymentMessage,
     PIQCashierResponse,
 } from 'wlc-engine/modules/finances/system/interfaces/';
 import {FinancesHelper} from '../../system/helpers/finances.helper';
@@ -448,23 +448,22 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
         });
     }
 
-    protected showDepositResponse(params: ICryptoMessage, type: string): void {
+    protected showDepositResponse(params: IPaymentMessage, type: string): void {
         this.currentSystem.message = params;
 
-        const messageData: IModalConfig = {
-            id: 'payment-message',
-            modalTitle: gettext('Payment'),
-            modifier: 'info',
-            component: CryptoDataComponent,
-            componentParams: {
-                themeMod: 'modal',
-                system: this.currentSystem,
-            },
-            dismissAll: true,
-            backdrop: 'static',
-        };
-
         if (this.showModalCryptoPayment) {
+            const messageData: IModalConfig = {
+                id: 'payment-message',
+                modalTitle: gettext('Payment'),
+                modifier: 'info',
+                component: PaymentMessageComponent,
+                componentParams: {
+                    themeMod: 'modal',
+                    system: this.currentSystem,
+                },
+                dismissAll: true,
+                backdrop: 'static',
+            };
             this.modalService.showModal(messageData);
         }
 

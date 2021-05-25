@@ -21,7 +21,7 @@ import {HistoryFilterComponent} from './components/history-filter/history-filter
 import {HistoryFilterFormComponent} from './components/history-filter/history-filter-form/history-filter-form.component';
 import {HistoryRangeComponent} from './components/transaction-range/history-range.component';
 import {PaymentListComponent} from './components/payment-list/payment-list.component';
-import {CryptoDataComponent} from './components/crypto-data/crypto-data.component';
+import {PaymentMessageComponent} from './components/payment-message/payment-message.component';
 import {PIQCashierComponent} from './components/piq-cashier/piq-cashier.component';
 
 import {GlobalHelper} from 'wlc-engine/modules/core';
@@ -53,7 +53,7 @@ export const components = {
     ],
     declarations: [
         BetHistoryComponent,
-        CryptoDataComponent,
+        PaymentMessageComponent,
         DepositWithdrawComponent,
         PaymentListComponent,
         PIQCashierComponent,

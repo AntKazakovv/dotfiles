@@ -8,11 +8,11 @@ export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;
 export type ComponentThemeMod = 'default' | 'modal' | CustomType;
 
-export interface ICryptoDataCParams extends IComponentParams<ComponentTheme, ComponentType, ComponentThemeMod> {
+export interface IPaymentMessageCParams extends IComponentParams<ComponentTheme, ComponentType, ComponentThemeMod> {
     class: string;
     system?: PaymentSystem;
 };
 
-export const defaultParams: ICryptoDataCParams = {
-    class: 'wlc-crypto-data',
+export const defaultParams: IPaymentMessageCParams = {
+    class: 'wlc-payment-message',
 };

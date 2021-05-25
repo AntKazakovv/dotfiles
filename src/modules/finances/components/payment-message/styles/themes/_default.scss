@@ -13,14 +13,14 @@
     }
 }
 
-.wlc-crypto-data--theme-default:host {
+.wlc-payment-message--theme-default:host {
     @include em.get-mq-map('margin', $themeDefault, 'wrapperMargin');
     @include em.get-mq-map('max-width', $themeDefault, 'wrapperMaxWidth');
     @include em.get-mq-map('display', $themeDefault, 'wrapperDisplay');
     @include em.get-mq-map('gap', $themeDefault, 'wrapperGridGap');
     @include em.get-mq-map('grid-template-columns', $themeDefault, 'wrapperGridTemplateColumn');
 
-    .wlc-crypto-data {
+    .wlc-payment-message {
 
         &__text {
             @include em.get-mq-map('max-width', $themeDefault, 'textMaxWidth');
@@ -84,12 +84,12 @@
         }
     }
 
-    &.wlc-crypto-data--theme-mod-modal {
+    &.wlc-payment-message--theme-mod-modal {
         display: ef.get-value($themeDefault, 'wrapperModalDisplay');
         max-width: ef.get-value($themeDefault, 'wrapperModalMaxWidth');
         margin: ef.get-value($themeDefault, 'wrapperModalMargin');
 
-        .wlc-crypto-data {
+        .wlc-payment-message {
 
             &__text {
                 max-width: ef.get-value($themeDefault, 'textModalMaxWidth');

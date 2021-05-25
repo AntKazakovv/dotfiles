@@ -7,11 +7,12 @@ export interface IFastDeposit {
     use: boolean;
 }
 
-export interface ICryptoMessage {
-    address: string;
-    qrlink: string;
+export interface IPaymentMessage {
     translate: string;
-    wallet_currency: string;
+    address?: string;
+    qrlink?: string;
+    wallet_currency?: string;
+    details?: string;
 }
 
 export interface IBet {
@@ -24,5 +25,3 @@ export interface IBet {
     GameName: string;
     Merchant: string;
 }
-
-
