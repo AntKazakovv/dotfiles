@@ -2,9 +2,6 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'errorColor': ef.get('form', 'errorColor'),
-    'successColor': ef.get('form', 'successColor'),
-
     'maxWidth': ef.get('form', 'maxWidth'),
 
     'labelFontWeight': ef.get('form', 'labelFontWeight'),

@@ -37,7 +37,6 @@ $themeDefault: map-merge((
         1024: ef.get('size', 'smally') ef.get('size', 'small'),
     ),
     'cellGapMobile': ef.get('size', 'smallest'),
-    'borderColorDesktop': ef.get('color', 'divider'),
     'rowTitleBackgroundDesktop': transparent,
     'rowEvenBackgroundDesktop': transparent,
     'rowOddBackgroundDesktop': ef.get('mainColors', 'bg300'),

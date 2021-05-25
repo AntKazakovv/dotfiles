@@ -28,10 +28,10 @@ $themeDefault: map-merge((
     'itemIconColor': inherit,
     'itemIconFontSize': inherit,
 
-    'itemBoxShadowHover': 0 1px 5px ef.get('color', 'main'),
+    'itemBoxShadowHover': 0 0 5px ef.get('mainColors', 'main'),
     'itemSvgColorHover': ef.get('mainColors', 'baseMain'),
 
-    'itemBoxShadowActive': 0 1px 14px ef.get('mainColors', 'main'),
+    'itemBoxShadowActive': 0 0 14px ef.get('mainColors', 'main'),
     'itemSvgColorActive': ef.get('mainColors', 'baseMain'),
     'itemBorderColorActive': ef.get('mainColors', 'main'),
 
@@ -77,7 +77,7 @@ $themeDefault: map-merge((
     'tableMaxWidth': 330px,
     'tableMargin': 28px 0 0,
     'tableColor': rgba($color: ef.get('mainColors', 'baseMain'), $alpha: 0.5),
-    'tableTrBorderTop': 2px solid ef.get('color', 'divider'),
+    'tableTrBorderTop': 2px solid ef.get('mainColors', 'baseOpacity'),
 
     'tableThFontWeight': normal,
     'tableThColor': inherit,

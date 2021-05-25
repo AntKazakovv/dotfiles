@@ -43,7 +43,7 @@ $themeDefault: map-merge((
     'subtitleStepMargin': 0 0 ef.get('size', 'small'),
 
     // Errors
-    'errorsColor': ef.get('color', 'error'),
+    'errorsColor': ef.get('mainColors', 'error'),
     'errorsMargin': 0 0 ef.get('size', 'smaller'),
 
     'errorsMessageMargin': 0 0 ef.get('size', 'small'),

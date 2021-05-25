@@ -26,9 +26,9 @@ $themeDefault: map-merge((
         1024: repeat(auto-fill, minmax(200px, 1fr)),
         1630: repeat(auto-fill, minmax(220px, 1fr)),
     ),
-    'placeholderBackground': ef.get('color', 'backgroundSecondary'),
+    'placeholderBackground': ef.get('mainColors', 'bg'),
     'placeholderBorderRadius': ef.get('radius', 'less'),
-    'placeholderTextColor': ef.get('color', 'textSecondary'),
+    'placeholderTextColor': ef.get('mainColors', 'baseMain'),
     'placeholderAlignItems': center,
     'placeholderJustifyContent': center,
     'moreButtonMargin': (
