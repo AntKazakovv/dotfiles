@@ -72,8 +72,8 @@
                 svg {
 
                     @include em.transition(all);
-                    width: map-get($themeDefault, 'iconsSize');
-                    height: map-get($themeDefault, 'iconsSize');
+                    width: map-get($themeDefault, 'iconsWidth');
+                    height: map-get($themeDefault, 'iconsHeight');
                     fill: none;
                     stroke: map-get($themeDefault, 'iconsColor');
                     stroke-width: map-get($themeDefault, 'iconsStroke');

@@ -52,6 +52,7 @@ import {
 import _get from 'lodash-es/get';
 import _filter from 'lodash-es/filter';
 import _find from 'lodash-es/find';
+import _map from 'lodash-es/map';
 
 enum Direction {
     Left = 'left',
@@ -312,7 +313,7 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
     public openTab(tab: Params.IGameDashboardTab): void {
         this.activeTab = tab;
         this.eventService.emit({
-            name : Params.Events.CHANED_TAB,
+            name: Params.Events.CHANED_TAB,
             data: {
                 tab: tab,
             },
@@ -360,7 +361,7 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
 
     protected async loadLastPlayedGames(): Promise<void> {
         this.lastPlayedGames = await this.gamesCatalogService.getLastGames();
-        this.lastPlayedGamesSlides = this.lastPlayedGames.map((game: Game) => {
+        this.lastPlayedGamesSlides = _map(this.lastPlayedGames, (game: Game) => {
             return {
                 component: GameThumbComponent,
                 componentParams: {
