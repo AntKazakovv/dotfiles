@@ -1,6 +1,7 @@
 @use 'engine-scss/functions' as ef;
 @use 'engine-scss/mixins/text' as text;
 @use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/base.mixins' as em;
 @import '../utils/vars';
 
 .wlc-play-for-real--theme-default:host {
@@ -16,20 +17,6 @@
                 @include text.get-text-style(ef.get-value($themeDefault, 'titleFontSizeMobile'));
                 @include text.get-text-style(ef.get-value($themeDefault, 'titleFontSize'));
                 margin: ef.get-value($themeDefault, 'titleMargin');
-            }
-        }
-
-        .wlc-game-thumb {
-
-            &:before {
-                content: '';
-                width: 100%;
-                height: 100%;
-                background: radial-gradient(transparent, #000000 105%);
-                position: absolute;
-                left: 0;
-                top: 0;
-                z-index: 1;
             }
         }
 
@@ -50,13 +37,17 @@
 
         .wlc-btn {
             margin: ef.get-value($themeDefault, 'btnMargin');
+
+            &:last-of-type {
+                margin-bottom: 0;
+            }
         }
 
         .wlc-text-block--theme-mod-game-title {
             margin: ef.get-value($themeDefault, 'gameTitleMargin');
 
             .wlc-text-block__subtitle {
-                @include text.get-text-style('ThirdTitleBold');
+                @include text.get-text-style(ef.get-value($themeDefault, 'textBlockSubtitleFont'), ef.get-value($themeDefault, 'textBlockSubtitleFontColor'));
             }
         }
 
@@ -67,6 +58,20 @@
 
                 .wlc-btn {
                     margin: ef.get-value($themeDefault, 'linkBlockBtnMargin');
+                }
+            }
+        }
+
+        .wlc-text-block--theme-default {
+
+            .wlc-text-block {
+
+                &__head {
+                    @include em.get-mq-map('margin', $themeDefault, 'textBlockHeadMargin');
+                }
+
+                &__subtitle {
+                    @include text.get-text-style(ef.get-value($themeDefault, 'textBlockSubtitleFont'), ef.get-value($themeDefault, 'textBlockSubtitleFontColor'));
                 }
             }
         }
