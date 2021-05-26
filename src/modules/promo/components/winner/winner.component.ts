@@ -101,12 +101,20 @@ export class WinnerComponent extends AbstractComponent implements OnInit {
         super.ngOnInit(this.inlineParams);
     }
 
-    public startGame($event: Event): void {
+    /**
+     * Start game
+     *
+     * @param {Event} $event
+     * @param {boolean} demo
+     * @param {boolean} modal
+     */
+    public startGame($event: Event, demo: boolean = false, modal: boolean = false): void {
         $event.stopPropagation();
 
         this.gamesCatalogService.launchGame(this.$params.winner.game, {
+            demo,
             modal: {
-                show: true,
+                show: modal,
             },
         });
     }

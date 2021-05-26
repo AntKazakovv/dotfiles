@@ -17,17 +17,20 @@
             </div>
 
             <div class="{{$class}}__amount" [attr.data-wlc-element]="'amount_item-' + $params.winnerType + '-wins'">
-                <span wlc-currency [value]="amount" [currency]="currency" [digitsInfo]="0-0-0"></span>
+                <span wlc-currency
+                      [value]="amount"
+                      [currency]="currency"
+                      [digitsInfo]="0-0-0"></span>
             </div>
 
-            <button type="button"
-                    (click)="startGame($event)"
-                    class="{{$class}}__game"
-                    [attr.title]="[gameName]">
+            <button class="{{$class}}__game"
+                    type="button"
+                    [attr.title]="[gameName]"
+                    (click)="startGame($event, true, true)">
                 <span class="{{$class}}__game-name" [attr.data-wlc-element]="'name_game_item-' + $params.winnerType + '-wins'">{{gameName}}</span>
                 <span *ngIf="!$params.hideGameIcon"
-                      class="{{$class}}__game-arrow"
                       wlc-icon
+                      class="{{$class}}__game-arrow"
                       [wlcElement]="'button_game_play_item-'+ $params.winnerType + '-wins'"
                       [iconName]="'winner-arrow'">
                 </span>
@@ -57,7 +60,10 @@
             <div class="{{$class}}__game"><span>{{gameName}}</span></div>
 
             <div class="{{$class}}__amount" [attr.data-wlc-element]="'amount_item-' + $params.winnerType + '-wins'">
-                <span wlc-currency [value]="amount" [currency]="currency" [digitsInfo]="0-0-0"></span>
+                <span wlc-currency
+                      [value]="amount"
+                      [currency]="currency"
+                      [digitsInfo]="0-0-0"></span>
             </div>
         </div>
     </div>

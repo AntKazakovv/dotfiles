@@ -13,13 +13,20 @@ $themeDefault: map-merge((
     'titleFontSizeMobile': 'ThirdTitleBold',
     'restoreLinkMargin': 0 0 ef.get('size', 'main') 0,
     'gameTitleMargin': ef.get('size', 'main') 0,
-    'linkBlockMargin': 20px 0 0 0,
+    'linkBlockMargin': ef.get('size', 'smaller') 0 0 0,
 
     'modalBg': ef.get('mainColors', 'bgModal'),
-    'modalBorderRadius': 15px,
+    'modalBorderRadius': ef.get('size', 'smally'),
     'colorTitle': ef.get('mainColors', 'BaseMain'),
     'subtitleMargin': ef.get('size', 'small') 0 0,
     'widthGameThumbImg': 100%,
 
-    'linkBlockBtnMargin': 0 auto 10px auto
+    'linkBlockBtnMargin': 0 auto ef.get('size', 'small') auto,
+
+    'textBlockHeadMargin': (
+        320: ef.get('size', 'main') 0 ef.get('size', 'less') 0,
+    ),
+
+    'textBlockSubtitleFont': 'ThirdTitleBold',
+    'textBlockSubtitleFontColor': ef.get('mainColors', 'baseMain'),
 ), $customThemeDefault);
