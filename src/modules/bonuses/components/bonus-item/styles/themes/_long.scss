@@ -156,4 +156,28 @@
 
         @include bonusProgress;
     }
+
+    &.wlc-bonus-item--theme-mod-chip-v2 {
+
+        .wlc-bonus-item {
+
+            &__bonus-icon {
+
+                .icon-text {
+                    @include text.get-text-style(ef.get-value($chipV2, 'bonusIconValTextStyle'), ef.get-value($chipV2, 'bonusIconValTextColor'));
+
+                    bottom: ef.get-value($chipV2, 'longBonusIconValPosB');
+                    left: ef.get-value($chipV2, 'longBonusIconValPosL');
+
+                    width: ef.get-value($chipV2, 'bonusIconValWidth');
+                    min-width: ef.get-value($chipV2, 'longBonusIconValMinWidth');
+                    height: ef.get-value($chipV2, 'longBonusIconValHeight');
+
+                    margin: ef.get-value($chipV2, 'bonusIconValMargin');
+
+                    border-radius: ef.get-value($chipV2, 'bonusIconValRadius');
+                }
+            }
+        }
+    }
 }

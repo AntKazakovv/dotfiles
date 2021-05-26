@@ -9,7 +9,7 @@ import {
 } from 'wlc-engine/modules/bonuses';
 export type Type = 'default' | 'reg' | 'deposit' | 'promo' | 'store' | 'active' | 'inventory' | CustomType;
 export type Theme = 'default' | 'long' | 'grid' | 'partial' | 'preview' | CustomType;
-export type ThemeMod = 'default' | CustomType;
+export type ThemeMod = 'default' | 'chip-v2' |CustomType;
 export type AutoModifiers = Theme | ThemeMod;
 export type CustomMod = string;
 export type Modifiers = AutoModifiers | CustomMod | null;
@@ -22,8 +22,8 @@ export interface IBonusItemCParams extends IComponentParams<Theme, Type, ThemeMo
     modifiers?: Modifiers[];
     bonus?: Bonus,
     theme?: Theme,
+    themeMod?: ThemeMod;
     common?: {
-        themeMod?: ThemeMod;
         customModifiers?: CustomMod;
         type?: IBonusType;
         imageByType?: boolean;

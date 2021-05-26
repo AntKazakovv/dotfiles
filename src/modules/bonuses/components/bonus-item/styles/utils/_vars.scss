@@ -731,3 +731,99 @@ $themeLong: map-merge((
     'descriptionFontColor': ef.get('mainColors', 'PrimaryText'),
 
 ), $customThemeLong);
+
+$customChipV2: () !default;
+$chipV2: map-merge((
+    'bonusIconValWidth': unset,
+    'bonusIconValMaxWidth': unset,
+    'bonusIconValMinWidth': (
+        375: 35px,
+        900: 30px,
+        1630: 39px,
+    ),
+    'longBonusIconValMinWidth': 32px,
+    'promoBonusIconValMinWidth': (
+        375: 30px,
+        560: 35px,
+        900: 39px,
+        1200: 35px,
+        1630: 39px,
+    ),
+    'partialBonusIconValMinWidth': (
+        375: 35px,
+        1630: 39px,
+    ),
+    'previewBonusIconValMinWidth': (
+        900: 50px,
+        1630: 56px,
+    ),
+    'bonusIconValHeight': (
+        375: 35px,
+        900: 30px,
+        1630: 39px,
+    ),
+    'longBonusIconValHeight': 32px,
+    'promoBonusIconValHeight': (
+        375: 29px,
+        560: 34px,
+        900: 38px,
+        1200: 34px,
+        1630: 38px,
+    ),
+    'partialBonusIconValHeight': (
+        375: 34px,
+        1630: 38px,
+    ),
+    'previewBonusIconValHeight': (
+        900: 49px,
+        1630: 56px,
+    ),
+    'bonusIconValRadius': 19px,
+    'previewBonusIconValRadius': 28px,
+    'bonusIconValTextStyle': 'ThirdTitleBold',
+    'previewBonusIconValTextStyle': 'QoteTextBoldTight',
+    'bonusIconValTextColor': ef.get('mainColors', 'dark'),
+    'bonusIconValMargin': 0,
+    'bonusIconValPosB': (
+        375: 18px,
+        900: 16px,
+        1630: 22px,
+    ),
+    'longBonusIconValPosB': 16px,
+    'promoBonusIconValPosB': (
+        375: 16px,
+        560: 18px,
+        900: 22px,
+        1200: 16px,
+        1630: 22px,
+    ),
+    'partialBonusIconValPosB': (
+        375: 18px,
+        900: 22px,
+    ),
+    'previewBonusIconValPosB': (
+        375: 18px,
+        900: 29px,
+        1630: 34px,
+    ),
+    'bonusIconValPosL': (
+        375: 50%,
+        1630: 53%,
+    ),
+    'longBonusIconValPosL': 65%,
+    'promoBonusIconValPosL': (
+        375: 50%,
+        900: 53%,
+        1200: 51%,
+        1630: 53%,
+    ),
+    'partialBonusIconValPosL': (
+        375: 50%,
+        900: 53%,
+    ),
+    'previewBonusIconValPosL': (
+        375: 50%,
+        900: 53%,
+    ),
+    'bonusIconValPosR': unset,
+), $customChipV2);

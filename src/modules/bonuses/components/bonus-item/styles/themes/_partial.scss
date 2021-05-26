@@ -207,4 +207,22 @@
             }
         }
     }
+
+    &.wlc-bonus-item--theme-mod-chip-v2 {
+
+        .wlc-bonus-item__icon-text {
+            @include text.get-text-style(ef.get-value($chipV2, 'bonusIconValTextStyle'), ef.get-value($chipV2, 'bonusIconValTextColor'));
+            @include em.get-mq-map('min-width', $chipV2, 'partialBonusIconValMinWidth');
+            @include em.get-mq-map('height', $chipV2, 'partialBonusIconValHeight');
+            @include em.get-mq-map('bottom', $chipV2, 'partialBonusIconValPosB');
+            @include em.get-mq-map('left', $chipV2, 'partialBonusIconValPosL');
+
+            right: ef.get-value($chipV2, 'bonusIconValPosR');
+            width: ef.get-value($chipV2, 'bonusIconValWidth');
+            max-width: ef.get-value($chipV2, 'bonusIconValMaxWidth');
+
+            margin: ef.get-value($chipV2, 'bonusIconValMargin');
+            border-radius: ef.get-value($chipV2, 'bonusIconValRadius');
+        }
+    }
 }
