@@ -67,14 +67,6 @@
                     cursor: pointer;
                     border-radius: ef.get-value($themeDropdownDefault, 'linkBorderRadius');
 
-                    &:hover {
-                        background: ef.get-value($themeDropdownDefault, 'linkBg');
-
-                        @include mq.min(1024) {
-                            background: ef.get-value($themeDropdownDefault, 'activeLinkBg');
-                        }
-                    }
-
                     &.active {
                         color: ef.get-value($themeDropdownDefault, 'activeLinkColor');
                         background: ef.get-value($themeDropdownDefault, 'activeLinkBg');
@@ -90,9 +82,7 @@
                         }
                     }
 
-                    // TODO: at the top of the hover and here
                     @include bm.hover {
-                        @include bm.transition(background);
                         color: ef.get-value($themeDropdownDefault, 'activeLinkColor');
                         background: ef.get-value($themeDropdownDefault, 'activeLinkBg');
 
@@ -153,4 +143,3 @@
         }
     }
 }
-
