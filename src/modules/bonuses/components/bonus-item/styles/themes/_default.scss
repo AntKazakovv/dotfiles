@@ -558,4 +558,25 @@
             }
         }
     }
+
+    &.wlc-bonus-item--theme-mod-chip-v2 {
+
+        .wlc-bonus-item {
+
+            &__bonus-icon {
+
+                .icon-text {
+                    @include text.get-text-style(ef.get-value($chipV2, 'bonusIconValTextStyle'), ef.get-value($chipV2, 'bonusIconValTextColor'));
+                    @include em.get-mq-map('min-width', $chipV2, 'bonusIconValMinWidth');
+                    @include em.get-mq-map('height', $chipV2, 'bonusIconValHeight');
+                    @include em.get-mq-map('bottom', $chipV2, 'bonusIconValPosB');
+                    @include em.get-mq-map('left', $chipV2, 'bonusIconValPosL');
+
+                    width: ef.get-value($chipV2, 'bonusIconValWidth');
+                    margin: ef.get-value($chipV2, 'bonusIconValMargin');
+                    border-radius: ef.get-value($chipV2, 'bonusIconValRadius');
+                }
+            }
+        }
+    }
 }
