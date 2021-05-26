@@ -24,7 +24,7 @@
             <button
                 *ngIf="!isProcessed && !isTournamentSelected && $params.tournament.isTournamentStarts"
                 wlc-button
-                [text]="isAuth ? 'Join now' : 'Sign in'"
+                [text]="isAuth ? 'Join now' : 'Login'"
                 (click)="joinToTournament()">
             </button>
             <button
