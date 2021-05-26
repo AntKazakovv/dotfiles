@@ -16,6 +16,7 @@ $themeDefault: map-merge((
     'iconsColorActive': ef.get('mainColors', 'main'),
     'iconsGap': ef.get('size', 'smaller'),
     'iconsStroke': 3px,
-    'iconsSize': 24px,
+    'iconsWidth': 26px,
+    'iconsHeight': 26px,
     'iconsOpacity': 0.8,
 ), $customThemeDefault);
