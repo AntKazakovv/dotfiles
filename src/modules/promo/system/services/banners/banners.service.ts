@@ -7,7 +7,6 @@ import {
 } from 'wlc-engine/modules/core';
 import {EventService} from 'wlc-engine/modules/core';
 import {BannerModel} from 'wlc-engine/modules/promo';
-import {UserService} from 'wlc-engine/modules/user';
 
 import _intersection from 'lodash-es/intersection';
 import _startsWith from 'lodash-es/startsWith';
@@ -32,7 +31,6 @@ export class BannersService {
     constructor(
         protected eventService: EventService,
         protected configService: ConfigService,
-        protected userService: UserService,
         protected translate: TranslateService,
     ) {
         this.prepareBanners();
@@ -54,7 +52,12 @@ export class BannersService {
             }
 
             if (!visibility?.length) {
-                visibility = ['anyone', this.userService.isAuthenticated ? 'authenticated' : 'anonymous'];
+                visibility = [
+                    'anyone',
+                    this.configService.get<boolean>('$user.isAuthenticated')
+                        ? 'authenticated'
+                        : 'anonymous',
+                ];
             }
 
             banners = _filter(banners, (banner): boolean => {
