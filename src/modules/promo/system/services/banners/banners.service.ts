@@ -1,13 +1,18 @@
 import {Injectable} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
-import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
-import {EventService} from 'wlc-engine/modules/core/system/services';
-import {BannerModel} from 'wlc-engine/modules/promo/system/models/banner.model';
-import {UserService} from 'wlc-engine/modules/user/system/services';
+
+import {
+    ConfigService,
+    IBanner,
+} from 'wlc-engine/modules/core';
+import {EventService} from 'wlc-engine/modules/core';
+import {BannerModel} from 'wlc-engine/modules/promo';
+import {UserService} from 'wlc-engine/modules/user';
 
 import _intersection from 'lodash-es/intersection';
 import _startsWith from 'lodash-es/startsWith';
 import _filter from 'lodash-es/filter';
+import _map from 'lodash-es/map';
 
 declare type IPlatform = 'any' | 'desktop' | 'mobile';
 declare type IVisibility = 'anyone' | 'anonymous' | 'authenticated';
@@ -71,8 +76,17 @@ export class BannersService {
     }
 
     protected prepareBanners(): void {
-        const banners = this.configService.get<any>(`appConfig.banners[${this.translate.currentLang}]`);
-        this.banners = banners?.map((banner: BannerModel): BannerModel => new BannerModel(banner));
+        const banners = this.configService.get<IBanner[]>(`appConfig.banners[${this.translate.currentLang}]`);
+        const defaultBanners = this.configService.get<IBanner[]>('appConfig.banners[en]');
+
+        this.banners = _map(banners || defaultBanners, (banner: IBanner, i: number): BannerModel => {
+            if (!banner.html) {
+                banner = {...defaultBanners[i]};
+            }
+
+            return new BannerModel(banner);
+        });
+
         this.banners = this.filterByGeo(this.banners, '-');
         this.banners = this.filterByGeo(this.banners, '+');
     }
