@@ -142,7 +142,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
         }
     }
 
-    public formBeforeSubmit(): boolean {
+    public formBeforeSubmit(form: FormGroup): boolean {
         const notificationTitle = this.$params.mode === 'deposit' ? gettext('Deposit') : gettext('Withdraw');
         if (!this.currentSystem) {
             this.pushNotification({
@@ -158,6 +158,14 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
                 title: notificationTitle,
                 message: gettext('You must fill required profile fields'),
                 wlcElement: 'notification_deposit-fields-error',
+            });
+            return false;
+        } else if (this.$params.mode === 'deposit' && !form.value.paymentRules) {
+            this.pushNotification({
+                type: 'error',
+                title: notificationTitle,
+                message: gettext('You must agree to the payment system terms'),
+                wlcElement: 'notification_deposit-terms-error',
             });
             return false;
         } else {
