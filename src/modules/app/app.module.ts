@@ -67,7 +67,7 @@ export function loadConfig(config: ConfigService) {
         }),
         CoreModule,
         NgxWebstorageModule.forRoot(),
-        ServiceWorkerModule.register('/static/dist/ngsw-worker.js', {enabled: environment.production}), // environment.production
+        ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
         ModalModule.forRoot(),
     ],
     providers: [
