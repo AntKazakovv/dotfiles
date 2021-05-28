@@ -12,6 +12,7 @@ export interface IStaticConfig {
     cacheExpiry?: ICacheExpiry,
     additionalFields?: string[],
     normalizeInternalLinks?: boolean,
+    rewritingLanguages?: IIndexing<string>,
 }
 
 export interface ICacheExpiry {

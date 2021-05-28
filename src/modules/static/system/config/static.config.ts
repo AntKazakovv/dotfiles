@@ -22,4 +22,7 @@ export const staticConfig: IStaticConfig = {
         'acf',
     ],
     normalizeInternalLinks: true,
+    rewritingLanguages: {
+        'pt-br': 'pb',
+    },
 };
