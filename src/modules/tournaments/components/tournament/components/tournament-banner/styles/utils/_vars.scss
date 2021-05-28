@@ -2,11 +2,20 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
+    'baseHeight': 100%,
+
     'tournamentBg': ef.get('mainColors', 'bg700'),
     'tournamentRadius': ef.get('radius', 'biger'),
     'tournamentMaxWidth': 100%,
+    'tournamentFlexDirection': column,
 
-    'tournamentGradient': linear-gradient(90deg, ef.get('mainColors', 'bg700') 35%, rgba(ef.get('mainColors', 'bg700'), 0) 77%, rgba(ef.get('mainColors', 'bg700'), 0.7) 100%),
+    'tournamentGradient': (
+        320: linear-gradient(360deg, ef.get('mainColors', 'bg700') 55%, rgba(ef.get('mainColors', 'bg700'), 0) 101%, rgba(ef.get('mainColors', 'bg700'), 0.7) 155%),
+        768: linear-gradient(90deg, ef.get('mainColors', 'bg700') 35%, rgba(ef.get('mainColors', 'bg700'), 0) 77%, rgba(ef.get('mainColors', 'bg700'), 0.7) 100%),
+    ),
+
+    'tournamentBeforePosition': 0,
+    'tournamentBeforeZIndex': 1,
 
     'timerPadding': (
         375: 0 0 0 ef.get('size', 'small'),
@@ -18,47 +27,57 @@ $themeDefault: map-merge((
     'timerSecondaryFont': PrimaryText,
     'timerSecondaryColor': ef.get('mainColors', 'baseMain'),
 
-    'tournamentHeaderPadding': 0 ef.get('size', 'smally'),
-    'tournamentHeaderFont': ThirdTitleBold,
-    'tournamentHeaderColor': ef.get('mainColors', 'baseMain'),
-    'tournamentHeaderBg': ef.get('mainColors', 'main'),
-    'tournamentHeaderRadius': ef.get('radius', 'biger') 0 ef.get('radius', 'biger') 0,
-    'tournamentHeaderMargin': 0 0 0 -15px,
-    'tournamentHeaderTitlePadding': ef.get('size', 'small') ef.get('size', 'smally'),
+    'headerPadding': 0 ef.get('size', 'smally'),
+    'headerFont': ThirdTitleBold,
+    'headerColor': ef.get('mainColors', 'baseMain'),
+    'headerBg': ef.get('mainColors', 'main'),
+    'headerRadius': ef.get('radius', 'biger') 0 ef.get('radius', 'biger') 0,
+    'headerMargin': 0 0 0 -#{ef.get('size', 'smally')},
+    'headerTitlePadding': ef.get('size', 'small') ef.get('size', 'smally'),
+    'headerAlignItems': center,
+    'headerJustifyContent': space-between,
+    'headerZIndex': 2,
 
-    'tournamentMoreIconColor': ef.get('mainColors', 'baseOpacity'),
+    'moreIconColor': ef.get('mainColors', 'baseOpacity'),
 
-    'tournamentBodyPadding': (
-        375: ef.get('size', 'small') ef.get('size', 'smally') ef.get('size', 'main'),
+    'bodyPadding': (
+        320: ef.get('size', 'small') ef.get('size', 'smally') ef.get('size', 'less'),
         1024: ef.get('size', 'small') ef.get('size', 'main') ef.get('size', 'main'),
     ),
-    'tournamentBodyFont': 'PromoTitle',
-    'tournamentBodyColor': ef.get('fieldColors', 'inputBg'),
-    'tournamentBodyMargin': 0 0 ef.get('size', 'smally'),
-    'tournamentBodyBgSize': (
-        720: 300px,
-        900: auto,
-        1200: 300px,
-        1630: auto,
+    'bodyFont': 'PromoTitle',
+    'bodyFontM': 'QoteTextBold',
+    'bodyColor': ef.get('fieldColors', 'inputBg'),
+    'bodyMargin': 0 0 ef.get('size', 'smally'),
+    'bodyBgSize': (
+        768: auto,
+        900: 250px,
     ),
-
-    'tournamentBodyBgPosition': (
-        720: right center,
+    'bodyBgPosition': (
+        768: 90% center,
         1630: 83% center,
     ),
+    'bodyFlexDirection': column,
+    'bodyAlignItems': flex-start,
+    'bodyZIndex': 2,
+    'bodyBgRepeat': no-repeat,
 
     'timerBlockMargin': 0 0 ef.get('size', 'smally'),
-    'tournamentDescriptionFont': 'PrimaryText',
-    'tournamentDescriptionColor': ef.get('mainColors', 'baseMain'),
-    'tournamentDescriptionMargin': 0 0 ef.get('size', 'biger') 0,
-    'tournamentDescriptionWidth': (
+    'descriptionFont': 'PrimaryText',
+    'descriptionColor': ef.get('mainColors', 'baseMain'),
+    'descriptionMargin': (
+        320: 0 0 ef.get('size', 'smaller') 0,
+        768: 0 0 ef.get('size', 'biger') 0,
+    ),
+    'descriptionWidth': (
         375: 100%,
-        720: 50%,
+        768: 50%,
         1024: 450px,
         1200: 50%,
     ),
 
     'btnsWrapAlign': flex-start,
+    'btnsWrapMaxWidth': 50%,
+    'btnsWrapMargin': auto 0 0,
     'btnsMinWidth': 110px,
     'btnsGridColumnGap': 0,
     'btnsPadding': ef.get('size', 'smallest') ef.get('size', 'smally'),
@@ -68,9 +87,12 @@ $themeDefault: map-merge((
     'loaderPosition': 0,
     'loaderBachround': rgba(ef.get('mainColors', 'disabled'), 0.7),
     'loaderRadius': ef.get('radius', 'biger'),
+    'loaderAlignItems': center,
+    'loaderJustifyContent': center,
 
     'loaderBeforePosition': 0,
     'loaderBeforeSize': 60px,
+    'loaderBeforeMargin': auto,
     'loaderBeforeBackground': rgba(ef.get('mainColors', 'bg'), 0.9),
     'loaderBeforeRadius': 50%,
 
@@ -78,5 +100,7 @@ $themeDefault: map-merge((
     'loaderAfterBorderColor': ef.get('mainColors', 'main'),
     'loaderAfterRadius': 50%,
     'loaderAfterAnimation': spin 1s infinite linear,
+
+    'timerContentPadding': 0,
 ), $customThemeDefault);
 
