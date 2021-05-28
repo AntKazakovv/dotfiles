@@ -269,11 +269,11 @@
                 .icon-text {
                     @include text.get-text-style(ef.get-value($chipV2, 'bonusIconValTextStyle'), ef.get-value($chipV2, 'bonusIconValTextColor'));
                     @include em.get-mq-map('min-width', $chipV2, 'promoBonusIconValMinWidth');
-                    @include em.get-mq-map('height', $chipV2, 'promoBonusIconValkHeight');
+                    @include em.get-mq-map('height', $chipV2, 'promoBonusIconValHeight');
                     @include em.get-mq-map('bottom', $chipV2, 'promoBonusIconValPosB');
                     @include em.get-mq-map('left', $chipV2, 'promoBonusIconValPosL');
 
-                    width: ef.get-value($chipV2, 'bonusIconValkWidth');
+                    width: ef.get-value($chipV2, 'bonusIconValWidth');
                     margin: ef.get-value($chipV2, 'bonusIconValMargin');
                     border-radius: ef.get-value($chipV2, 'bonusIconValRadius');
                 }
