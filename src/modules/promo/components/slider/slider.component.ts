@@ -175,7 +175,6 @@ export class SliderComponent extends AbstractComponent
 
     public update(): void {
         this.swiper.updateSwiper({});
-        this.updateProgressModifiers(this.swiper?.swiperRef);
     }
 
     public scrollToStart(): void {
@@ -245,13 +244,6 @@ export class SliderComponent extends AbstractComponent
             }
             this.fixSlidesSequence();
         }
-
-        if (_get(this.swiper.swiperRef, 'virtualSize', 0) > _get(this.swiper.swiperRef, 'size', 0)) {
-            this.addModifiers('overflow');
-        } else if (this.hasModifier('overflow')){
-            this.removeModifiers('overflow');
-        }
-
         this.cdr.detectChanges();
         this.update();
     }
@@ -301,25 +293,17 @@ export class SliderComponent extends AbstractComponent
             });
 
         this.swiper.s_progress.subscribe((swiper) => {
-            this.updateProgressModifiers(swiper);
+            this.removeModifiers('on-start');
+            this.removeModifiers('on-end');
+            this.removeModifiers('on-progress');
+
+            if (swiper.isBeginning) {
+                this.addModifiers('on-start');
+            } else if (swiper.isEnd) {
+                this.addModifiers('on-end');
+            } else {
+                this.addModifiers('on-progress');
+            }
         });
-    }
-
-    protected updateProgressModifiers(swiper): void {
-        if (!swiper) {
-            return;
-        }
-
-        this.removeModifiers('on-start');
-        this.removeModifiers('on-end');
-        this.removeModifiers('on-progress');
-
-        if (swiper.isBeginning) {
-            this.addModifiers('on-start');
-        } else if (swiper.isEnd) {
-            this.addModifiers('on-end');
-        } else {
-            this.addModifiers('on-progress');
-        }
     }
 }

@@ -33,7 +33,6 @@ export const defaultParams: IMainMenuCParams = {
         type: 'main-menu',
         items: [],
         common: {
-            useSwiper: true,
             icons: {
                 fallback: 'wlc/icons/asian/v1/plug.svg',
             },

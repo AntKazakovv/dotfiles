@@ -254,11 +254,6 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
         }
 
         this.cdr.detectChanges();
-
-        // if (this.slider) {
-        //     console.log('SWIPER UPDATE');
-        //     this.slider.update();
-        // }
     }
 
     protected expandItems(): void {
