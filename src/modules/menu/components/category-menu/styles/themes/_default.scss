@@ -10,7 +10,7 @@
 
         .wlc-slider {
 
-            &--on-start {
+            &--on-start.wlc-slider--overflow {
                 box-shadow: 5px 0 5px -5px ef.get-value($themeDefault, 'swiperShadowColor');
             }
 
