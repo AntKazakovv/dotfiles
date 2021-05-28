@@ -4,9 +4,6 @@ import {SwiperOptions} from 'swiper';
 export namespace wlcTournamentBannersSlider {
     export const def: ILayoutComponent = {
         name: 'core.wlc-wrapper',
-        display: {
-            after: 720,
-        },
         params: {
             components: [
                 {

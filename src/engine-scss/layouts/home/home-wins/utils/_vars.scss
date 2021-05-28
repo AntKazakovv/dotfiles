@@ -1,0 +1,36 @@
+@use 'engine-scss/functions' as ef;
+
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'homeWinsGridTemplateColumns': (
+        320: 1fr,
+        720: repeat(2, 1fr),
+    ),
+    'homeWinsGap': (
+        320: ef.get('size', 'smaller'),
+    ),
+    'homeWinsSliderWrapMaxWidth': 100%,
+
+    'tournamentGridTemplateColumns': (
+        320: minmax(250px, max-content),
+        1200: calc((100% - #{ef.get('size', 'smaller')} * 4) / 5 * 2 + #{ef.get('size', 'smaller')}) minmax(250px, max-content),
+        1630: calc((100% - #{ef.get('size', 'smaller')} * 5) / 6 * 2 + #{ef.get('size', 'smaller')}) minmax(250px, max-content),
+    ),
+    'tournamentGap': (
+        320: ef.get('size', 'smaller'),
+    ),
+    'tournamentSliderWrapMaxWidth': 100%,
+    'tournamentSliderButtonDisplay': (
+        320: none,
+        768: flex,
+    ),
+    'tournamentSmartJustifyContent': (
+        320: left,
+        480: center,
+    ),
+    'tournamentBannerHeight': (
+        320: 385px,
+        480: 325px,
+        768: 100%,
+    ),
+), $customThemeDefault);
