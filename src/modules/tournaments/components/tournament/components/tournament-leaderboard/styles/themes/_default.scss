@@ -10,8 +10,8 @@
 
         &__list {
             display: grid;
-            grid-template-columns: 1fr;
             grid-gap: ef.get-value($themeDefault, 'gridGap');
+            grid-template-columns: ef.get-value($themeDefault, 'gridTemplateColumns');
         }
 
         &__cell {
@@ -24,8 +24,13 @@
             }
 
             &:last-child {
-                padding: ef.get-value($themeDefault, 'lastCellPadding');
                 justify-content: flex-end;
+
+                padding: ef.get-value($themeDefault, 'lastCellPadding');
+            }
+
+            &-place {
+                min-width: ef.get-value($themeDefault, 'cellPlaceMinWidth');
             }
         }
 
@@ -41,8 +46,9 @@
                 padding: ef.get-value($themeDefault, 'cellPadding');
 
                 .wlc-icon::ng-deep {
-                    margin: ef.get-value($themeDefault, 'iconMargin');
                     width: ef.get-value($themeDefault, 'iconSize');
+
+                    margin: ef.get-value($themeDefault, 'iconMargin');
 
                     svg {
                         width: 100%;
@@ -55,6 +61,7 @@
             }
 
             &.user {
+                font-weight: ef.get-value($themeDefault, 'rowUserFontWeight');
                 background-color: ef.get-value($themeDefault, 'rowUserBg');
 
                 .item-user {
@@ -82,9 +89,10 @@
             }
 
             &--top {
-                font-weight: bold;
                 margin-bottom: -1 * ef.get-value($themeDefault, 'gridGap');
-                border-radius: 0;
+
+                font-weight: ef.get-value($themeDefault, 'fontWeight');
+                border-radius: ef.get-value($themeDefault, 'itemTopRadius');
 
                 &.first {
                     border-radius: ef.get-value($themeDefault, 'borderRadius') ef.get-value($themeDefault, 'borderRadius') 0 0;
@@ -92,16 +100,18 @@
                 }
 
                 &.last {
-                    border-radius: 0 0 ef.get-value($themeDefault, 'borderRadius') ef.get-value($themeDefault, 'borderRadius');
-                    padding-bottom: ef.get-value($themeDefault, 'gridGap') / 2;
                     margin-bottom: 0;
+                    padding-bottom: ef.get-value($themeDefault, 'gridGap') / 2;
+
+                    border-radius: 0 0 ef.get-value($themeDefault, 'borderRadius') ef.get-value($themeDefault, 'borderRadius');
                 }
 
                 &.single {
-                    border-radius: ef.get-value($themeDefault, 'borderRadius');
+                    margin-bottom: 0;
                     padding-top: ef.get-value($themeDefault, 'gridGap') / 2;
                     padding-bottom: ef.get-value($themeDefault, 'gridGap') / 2;
-                    margin-bottom: 0;
+
+                    border-radius: ef.get-value($themeDefault, 'borderRadius');
                 }
 
                 .wlc-tournament-leaderboard__cell {
@@ -122,21 +132,26 @@
             ::ng-deep {
 
                 .wlc-btn__text {
-                    font-size: ef.get-value($themeDefault, 'btnFontSize');
-                    color: ef.get-value($themeDefault, 'btnTextColor');
-                    font-weight: bold;
                     @include em.transition(color);
 
+                    color: ef.get-value($themeDefault, 'btnTextColor');
+
+                    font-weight: ef.get-value($themeDefault, 'fontWeight');
+                    font-size: ef.get-value($themeDefault, 'btnFontSize');
+
                     .wlc-icon::ng-deep {
-                        width: ef.get-value($themeDefault, 'btnIconHeight');
                         position: relative;
                         bottom: 0;
 
+                        width: ef.get-value($themeDefault, 'btnIconHeight');
+
                         svg {
-                            width: ef.get-value($themeDefault, 'btnIconWidth');
-                            fill: ef.get-value($themeDefault, 'btnTextColor');
-                            transform: rotate(-90deg);
                             @include em.transition(fill);
+
+                            width: ef.get-value($themeDefault, 'btnIconWidth');
+                            transform: rotate(-90deg);
+
+                            fill: ef.get-value($themeDefault, 'btnTextColor');
                         }
                     }
                 }
@@ -161,9 +176,11 @@
         }
 
         &__nocontent {
+            padding: ef.get-value($themeDefault, 'noContentPadding');
+
             font-size: ef.get-value($themeDefault, 'fontSize');
             text-align: center;
-            padding: ef.get-value($themeDefault, 'noContentPadding');
+
             background-color: ef.get-value($themeDefault, 'rowBg');
             border-radius: ef.get-value($themeDefault, 'borderRadius');
         }
@@ -245,9 +262,10 @@
                     }
 
                     .wlc-icon::ng-deep {
-                        display: block;
                         @include em.get-mq-map('width', $themeDefaultModTournamentDetail, 'topIconWidth');
                         @include em.get-mq-map('margin', $themeDefaultModTournamentDetail, 'topIconMargin');
+
+                        display: block;
 
                         svg {
                             width: 100%;

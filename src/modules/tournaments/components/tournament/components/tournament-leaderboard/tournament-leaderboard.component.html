@@ -1,5 +1,5 @@
-<div class="{{$class}}__container" *ngIf="wins?.length && isReady; else: noData">
-    <div class="{{$class}}__item head" *ngIf="$params.common?.useListHead">
+<div *ngIf="wins?.length && isReady; else: noData" class="{{$class}}__container">
+    <div *ngIf="$params.common?.useListHead" class="{{$class}}__item head">
         <div class="{{$class}}__cell item-place">{{'Place' | translate}}</div>
         <div class="{{$class}}__cell item-user">
             <span class="user-login">{{'Player' | translate}}</span>
@@ -8,27 +8,29 @@
     </div>
 
     <div class="{{$class}}__list">
-        <div class="{{$class}}__item {{$class}}__item--top {{$class}}__item--top-{{index + 1}}"
-             *ngFor="let win of winsTop"
+        <div *ngFor="let win of winsTop; index as $index"
+             class="{{$class}}__item {{$class}}__item--top {{$class}}__item--top-{{$index + 1}}"
              [class.user]="userId === win.IDUser"
-             [class.first]="!index"
+             [class.first]="!$index"
              [class.single]="winsTop.length === 1"
-             [class.last]="index === (winsTop.length - 1)">
+             [class.last]="$index === (winsTop.length - 1)">
             <div class="{{$class}}__cell item-place">
-                {{win.IDUserPlace}}
-                <span *ngIf="$params.common?.themeMod === 'tournament-detail'" wlc-icon [iconName]="cup"></span>
+                <span class="{{$class}}__cell-place">{{win.IDUserPlace}}</span>
+                <span *ngIf="$params.common?.themeMod === 'tournament-detail'"
+                      wlc-icon
+                      iconName="cup"></span>
             </div>
             <div class="{{$class}}__cell item-user">
-                <span *ngIf="$params.common?.themeMod !== 'tournament-detail'" wlc-icon [iconName]="cup"></span>
+                <span *ngIf="$params.common?.themeMod !== 'tournament-detail'"
+                      wlc-icon
+                      iconName="cup"></span>
                 <span *ngIf="win.IDUser !== userId; else: userThee" class="user-login">{{win.UserLogin}}</span>
             </div>
             <div class="{{$class}}__cell item-points">{{win.points | number: '.0-2'}}</div>
         </div>
         <div *ngIf="winsRest.length && $params.common?.themeMod === 'tournament-detail'" class="delimetr"></div>
         <div *ngFor="let win of winsRest" class="{{$class}}__item" [class.user]="userId === win.IDUser">
-            <div class="{{$class}}__cell item-place">
-                {{win.IDUserPlace}}
-            </div>
+            <div class="{{$class}}__cell item-place">{{win.IDUserPlace}}</div>
             <div class="{{$class}}__cell item-user">
                 <span *ngIf="win.IDUser !== userId; else: userThee" class="user-login">{{win.UserLogin}}</span>
             </div>
@@ -38,12 +40,12 @@
 
     <button *ngIf="needShowBtn"
             wlc-button
-            [wlcElement]="'button_show_all_wins'"
-            type="button"
             class="{{$class}}__btn"
             text="See all prizes"
             icon="arrow"
             theme="cleared"
+            [attr.type]="'button'"
+            [wlcElement]="'button_show_all_wins'"
             (click)="showAllWins()">
     </button>
 </div>
