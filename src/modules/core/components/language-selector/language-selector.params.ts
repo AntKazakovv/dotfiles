@@ -46,6 +46,7 @@ export const defaultParams: ILanguageSelectorCParams = {
                 'sp': 'es',
                 'pt-br': 'pt',
                 'da': 'dk',
+                'sv': 'se',
             },
         },
     },
