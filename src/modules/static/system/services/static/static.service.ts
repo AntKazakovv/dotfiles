@@ -66,12 +66,10 @@ export class StaticService {
     }
 
     public getPage(slug: string): Promise<TextDataModel> {
-        // TODO: check it
         return this.getStaticData('page', {slug});
     }
 
     public getTag(slug: string): Promise<TextDataModel> {
-        // TODO: check it
         return this.getStaticData('tag', {slug});
     }
 
@@ -179,7 +177,6 @@ export class StaticService {
         }
 
         const response: HttpResponse<IPostResponse[]> = await this.requestData<IPostResponse[]>(type, params);
-        // TODO: check if not exist in current lang and load in English
 
         if (cacheExpiry) {
             this.cachingService.set<IPostResponse>(httpRequestUrl, response.body, false, cacheExpiry);
@@ -259,7 +256,7 @@ export class StaticService {
 
     private getHttpRequestParams<T>(type: StaticTextType, params: IStaticParams = {}): HttpRequest<T> {
         const url = this.getWpApiUrl(type);
-        const lang = params.lang || this.translateService.currentLang;
+        const lang = this.getLanguageCode(params.lang || this.translateService.currentLang);
 
         let httpParams = new HttpParams({
             fromObject: _merge({}, this.params, params, {
@@ -361,5 +358,14 @@ export class StaticService {
         return _map(posts, (item) => {
             return new WpTextData(this.normalizeContent(item), this.configService);
         });
+    }
+
+    /**
+     * Method allows to request data from wordpress with custom language code.
+     * Some of fundist's languages have code like 'pt-br' which doesn't support by wordpress,
+     * so you can change it for 'pt' code via $static config.
+     */
+    private getLanguageCode(lang: string): string {
+        return this.configService.get<string>(`$static.rewritingLanguages[${lang}]`) || lang.split('-').shift();
     }
 }
