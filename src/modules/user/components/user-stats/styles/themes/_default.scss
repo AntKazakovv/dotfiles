@@ -36,9 +36,9 @@
             @include bm.get-mq-map('background', $themeDefault, 'balanceBg');
 
             &--short {
+                @include bm.get-mq-map('background', $themeDefault, 'balanceShortBg');
                 padding: ef.get-value($themeDefault, 'balanceShortPadding');
                 min-width: ef.get-value($themeDefault, 'balanceShortMinWidth');
-                background: ef.get-value($themeDefault, 'balanceShortBg');
 
                 > div {
                     border-bottom-color: ef.get-value($themeDefault, 'balanceShortBorderColor');
