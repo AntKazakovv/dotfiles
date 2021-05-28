@@ -1,10 +1,12 @@
 import {
     ChangeDetectionStrategy,
-    Component, Inject,
+    Component,
+    Inject,
     Input,
     OnInit,
     ChangeDetectorRef,
 } from '@angular/core';
+
 import {
     AbstractComponent,
     GlobalHelper,
@@ -16,8 +18,9 @@ import {
     Tournament,
     ITournamentPlace,
     ITopTournamentUsers,
+    ITournamentLeaderboardCParams,
 } from 'wlc-engine/modules/tournaments';
-import {ITournamentLeaderboardCParams} from './tournament-leaderboard.params';
+
 import * as Params from './tournament-leaderboard.params';
 
 import _findIndex from 'lodash-es/findIndex';
