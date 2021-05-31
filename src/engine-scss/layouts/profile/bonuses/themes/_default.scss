@@ -10,17 +10,14 @@
     .wlc-sections__profile-content--theme-default {
 
         > .container {
+            @include bm.get-mq-map('grid-template-columns', $bonusesThemeDefault, 'gridColumns');
+            @include bm.get-mq-map('grid-template-areas', $bonusesThemeDefault, 'gridArea');
+            @include bm.get-mq-map('grid-template-rows', $bonusesThemeDefault, 'gridRows');
+            @include bm.get-mq-map('gap', $bonusesThemeDefault, 'gridGap');
+
             position: relative;
 
             display: grid;
-            grid: {
-                template-columns: minmax(0, max-content) 1fr;
-                template-areas: 'title counter'
-                    'bonuses-list bonuses-list';
-                template-rows: auto;
-
-                gap: ef.get-value($bonusesThemeDefault, 'sectionGap');
-            }
         }
 
         .wlc-title {
@@ -28,8 +25,9 @@
         }
 
         .wlc-counter {
-            grid-area: counter;
             @include lib.get-text-style('ThirdTitleBold');
+
+            grid-area: counter;
         }
 
         .wlc-bonuses-list {
@@ -40,11 +38,12 @@
     .wlc-sections__profile-content--theme-first {
 
         .wlc-profile-content {
-            display: grid;
             @include bm.get-mq-map('grid-template-columns', $bonusesThemeFirst, 'gridColumns');
             @include bm.get-mq-map('grid-template-rows', $bonusesThemeFirst, 'gridRows');
             @include bm.get-mq-map('grid-template-areas', $bonusesThemeFirst, 'gridArea');
             @include bm.get-mq-map('gap', $bonusesThemeFirst, 'gridGap');
+
+            display: grid;
 
             .wlc-title {
                 grid-area: title;
@@ -62,6 +61,29 @@
 
             .wlc-bonuses-list {
                 grid-area: bonuses-list;
+            }
+        }
+    }
+}
+
+.app-profile-loyalty-bonuses-active-state {
+
+    .wlc-sections__profile-content--theme-first {
+
+        .wlc-profile-content {
+            @include bm.get-mq-map('grid-template-columns', $bonusesThemeFirst, 'activeGridColumns');
+            @include bm.get-mq-map('grid-template-rows', $bonusesThemeFirst, 'activeGridRows');
+            @include bm.get-mq-map('gap', $bonusesThemeFirst, 'activeGridGap');
+
+            display: grid;
+            overflow: visible;
+
+            .wlc-bonuses-list__list-wrapper {
+
+                .wlc-bonuses-list__nocontent {
+                    @include bm.get-mq-map('text-align', $bonusesThemeFirst, 'nocontentTextAlign');
+                    @include lib.get-text-style(ef.get-value($bonusesThemeFirst, 'nocontentFontStyle'), ef.get-value($bonusesThemeFirst, 'nocontentColor'));
+                }
             }
         }
     }

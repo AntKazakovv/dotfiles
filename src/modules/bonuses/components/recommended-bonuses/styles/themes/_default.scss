@@ -1,0 +1,61 @@
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/mixins/text' as text;
+@import '../utils/vars';
+
+.wlc-recommended-bonuses--theme-default:host {
+
+    .wlc-recommended-bonuses {
+
+        &__item {
+            @include bm.get-mq-map('margin', $themeDefault, 'itemMargin');
+        }
+
+        &__title {
+            @include text.get-text-style(ef.get-value($themeDefault, 'titleFontStyle'), ef.get-value($themeDefault, 'titleColor'));
+            @include bm.get-mq-map('margin', $themeDefault, 'titleMargin');
+            @include bm.get-mq-map('text-align', $themeDefault, 'titleTextAlign');
+        }
+    }
+
+    ::ng-deep {
+
+        .wlc-bonuses-list.wlc-bonuses-list--type-swiper {
+
+            .wlc-bonus-item--theme-default .wlc-bonus-item__content {
+                min-width: ef.get-value($themeDefault, 'baseSliderWidth');
+            }
+
+            .wlc-bonuses-list__list-wrapper .swiper-slide {
+                width: ef.get-value($themeDefault, 'baseSliderWidth');
+            }
+
+            .wlc-bonuses-list__content .wlc-bonuses-list__list-wrapper
+            .swiper-container.swiper-container-initialized {
+                @include bm.get-mq-map('margin', $themeDefault, 'swiperContainerMargin');
+                @include bm.get-mq-map('padding', $themeDefault, 'swiperContainerPadding');
+
+
+                .swiper-wrapper[class] {
+                    justify-content: ef.get-value($themeDefault, 'swiperContainerJustifyContent');
+                }
+            }
+        }
+
+        .wlc-bonuses-list--theme-default.wlc-bonuses-list--type-swiper .wlc-bonuses-list__list-wrapper {
+
+            .swiper-container {
+                @include bm.get-mq-map('padding', $themeDefault, 'swiperContainerPadding');
+            }
+
+            .swiper-button-prev {
+                @include bm.get-mq-map('left', $themeDefault, 'swiperBtnsPos');
+            }
+
+            .swiper-button-next {
+                @include bm.get-mq-map('right', $themeDefault, 'swiperBtnsPos');
+            }
+        }
+    }
+}

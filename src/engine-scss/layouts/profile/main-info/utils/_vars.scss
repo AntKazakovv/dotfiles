@@ -91,7 +91,6 @@ $customMainInfoThemeV1: () !default;
 $mainInfoThemeV1: map-merge((
     'contentBackground': ef.get('mainColors', 'bg700'),
     'contentPadding': (
-        375: ef.get('size', 'smaller') ef.get('size', 'smaller') ef.get('size', 'main'),
         1024: ef.get('size', 'smally') ef.get('size', 'less') ef.get('size', 'less'),
         1630: ef.get('size', 'smaller') ef.get('size', 'main') ef.get('size', 'main'),
     ),

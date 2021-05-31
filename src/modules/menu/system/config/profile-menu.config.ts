@@ -156,7 +156,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         wlcElement: 'link_cc-profile-menu_loyalty-bonuses',
     },
     'profile-first-menu:bonuses-as-offers': {
-        name: gettext('Bonuses'),
+        name: gettext('Offers'),
         type: 'sref',
         class: 'bonuses',
         icon: 'bonuses',
