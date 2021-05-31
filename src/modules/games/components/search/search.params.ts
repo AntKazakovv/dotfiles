@@ -35,4 +35,12 @@ export const defaultGamesGridParams: IGamesGridCParams = {
         hide: false,
         lazy: false,
     },
+    breakpoints: {
+        375 : {
+            gamesRows: 2,
+        },
+        1630 : {
+            gamesRows: 3,
+        },
+    },
 };
