@@ -12,6 +12,7 @@ export interface ISportsbookCParams extends IComponentParams<Theme, Type, ThemeM
     theme?: Theme;
     themeMod?: ThemeMod;
     common?: {
+        sportsbookId?: string,
     };
     type?: Type,
 }

@@ -66,6 +66,43 @@ export const $layouts: ILayoutsConfig = {
             content: sectionsLib.content.sportsbook,
         },
     },
+    'app.betradar': {
+        extends: 'app',
+        sections: {
+            content: sectionsLib.content.sportsbookBetradar,
+        },
+    },
+    'app.digitain': {
+        extends: 'app',
+        sections: {
+            content: sectionsLib.content.sportsbookDigitain,
+        },
+    },
+    'app.pinnacle': {
+        extends: 'app',
+        sections: {
+            content: sectionsLib.content.sportsbookPinnacleSW,
+        },
+    },
+    'app.altenar': {
+        extends: 'app',
+        sections: {
+            content: sectionsLib.content.sportsbookAltenar,
+        },
+    },
+    'app.tglab': {
+        extends: 'app',
+        sections: {
+            content: sectionsLib.content.sportsbookTglab,
+        },
+    },
+    'app.bti': {
+        extends: 'app',
+        sections: {
+            content: sectionsLib.content.sportsbookBti,
+        },
+    },
+
     'app.contacts': {
         extends: 'app',
         sections: {

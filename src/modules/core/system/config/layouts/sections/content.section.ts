@@ -33,6 +33,54 @@ export namespace content {
         ],
     };
 
+    export const sportsbookBetradar: ILayoutSectionConfig = {
+        order: 2,
+        container: false,
+        components: [
+            componentLib.wlcSportsbook.betradar,
+        ],
+    };
+
+    export const sportsbookDigitain: ILayoutSectionConfig = {
+        order: 2,
+        container: false,
+        components: [
+            componentLib.wlcSportsbook.digitain,
+        ],
+    };
+
+    export const sportsbookPinnacleSW: ILayoutSectionConfig = {
+        order: 2,
+        container: false,
+        components: [
+            componentLib.wlcSportsbook.pinnacleSW,
+        ],
+    };
+
+    export const sportsbookAltenar: ILayoutSectionConfig = {
+        order: 2,
+        container: false,
+        components: [
+            componentLib.wlcSportsbook.altenar,
+        ],
+    };
+
+    export const sportsbookTglab: ILayoutSectionConfig = {
+        order: 2,
+        container: false,
+        components: [
+            componentLib.wlcSportsbook.tglab,
+        ],
+    };
+
+    export const sportsbookBti: ILayoutSectionConfig = {
+        order: 2,
+        container: false,
+        components: [
+            componentLib.wlcSportsbook.bti,
+        ],
+    };
+
     export const error: ILayoutSectionConfig = {
         container: true,
         components: [
