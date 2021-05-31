@@ -11,14 +11,14 @@ export interface ISportsbookSettings {
 }
 
 export interface ISportsbookSettingsFilter {
-    id: string,
-    merchantId: number,
+    id?: string,
+    merchantId?: number,
 }
 
 export interface IBetradar {
     cssFile?: string;
     configFile?: string;
-    widgets: {
+    widgets?: {
         env: IIndexing<IBetradarWidgetEnvironment>;
         dailyMatch?: IBetradarDailyMatch;
         popularEvents?: IBetradarPopularEvents;

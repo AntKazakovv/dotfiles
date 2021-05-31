@@ -20,6 +20,7 @@ import {
     SportsbookService,
     BetradarService,
     ISportsbookSettings,
+    ISportsbookSettingsFilter,
 } from 'wlc-engine/modules/sportsbook';
 import {IGameWrapperCParams} from 'wlc-engine/modules/games';
 import {
@@ -38,6 +39,7 @@ import _includes from 'lodash-es/includes';
 })
 export class SportsbookComponent extends AbstractComponent implements OnInit, OnDestroy {
 
+    public $params: Params.ISportsbookCParams;
     public gameConfig: IWrapperCParams;
 
     protected settings: ISportsbookSettings;
@@ -63,13 +65,19 @@ export class SportsbookComponent extends AbstractComponent implements OnInit, On
     }
 
     public ngOnInit(): void {
+        super.ngOnInit();
         this.init();
     }
 
     protected async init(): Promise<void> {
         await this.sportsbookService.ready;
 
-        this.settings = this.sportsbookService.getSportsbookSettings();
+        const filter: ISportsbookSettingsFilter = {};
+        if (this.$params.common?.sportsbookId) {
+            filter.id = this.$params.common.sportsbookId;
+        }
+        this.settings = this.sportsbookService.getSportsbookSettings(filter);
+
         if (this.settings) {
             this.hookDescriptors.push(this.hooksService.set<IHookLaunchInfo>(gameWrapperHooks.launchInfo, this.launchInfoHook, this));
 

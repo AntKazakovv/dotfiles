@@ -8,6 +8,60 @@ export namespace wlcSportsbook {
         },
     };
 
+    export const betradar: ILayoutComponent = {
+        name: 'sportsbook.wlc-sportsbook',
+        params: {
+            common: {
+                sportsbookId: 'betradar',
+            },
+        },
+    };
+
+    export const digitain: ILayoutComponent = {
+        name: 'sportsbook.wlc-sportsbook',
+        params: {
+            common: {
+                sportsbookId: 'digitain',
+            },
+        },
+    };
+
+    export const pinnacleSW: ILayoutComponent = {
+        name: 'sportsbook.wlc-sportsbook',
+        params: {
+            common: {
+                sportsbookId: 'pinnacleSW',
+            },
+        },
+    };
+
+    export const altenar: ILayoutComponent = {
+        name: 'sportsbook.wlc-sportsbook',
+        params: {
+            common: {
+                sportsbookId: 'altenar',
+            },
+        },
+    };
+
+    export const tglab: ILayoutComponent = {
+        name: 'sportsbook.wlc-sportsbook',
+        params: {
+            common: {
+                sportsbookId: 'tglab',
+            },
+        },
+    };
+
+    export const bti: ILayoutComponent = {
+        name: 'sportsbook.wlc-sportsbook',
+        params: {
+            common: {
+                sportsbookId: 'bti',
+            },
+        },
+    };
+
     export const betradarDailyMatch: ILayoutComponent = {
         name: 'sportsbook.wlc-betradar-daily-match',
     };
