@@ -93,7 +93,7 @@
         background-repeat: ef.get-value($themeDefault, 'bodyBgRepeat');
 
         @include mq.max(768) {
-            background-image: url('') !important;
+            background-image: unset !important;
         }
     }
 
