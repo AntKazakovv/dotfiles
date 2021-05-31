@@ -24,6 +24,7 @@ import {
     ModalService,
     GlobalHelper,
     ListAppearanceAnimation,
+    HeightToggleAnimation,
     ConfigService,
 } from 'wlc-engine/modules/core';
 import {FinancesService} from 'wlc-engine/modules/finances/system/services';
@@ -48,6 +49,7 @@ interface IPaymentsIterator extends IMerchantsPaymentsIterator {
     changeDetection: ChangeDetectionStrategy.OnPush,
     animations: [
         ...ListAppearanceAnimation,
+        ...HeightToggleAnimation,
     ],
 })
 export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCParams>

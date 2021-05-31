@@ -86,4 +86,14 @@ $themeDefault: map-merge((
     'tableTdAlignment': right,
     'tableTdColor': inherit,
     'tableTdPadding': 14px 0 14px 8px,
+
+    // Description
+    'descriptionFont': 'PrimaryText',
+    'descriptionColor': ef.get('mainColors', 'baseMain'),
+    'descriptionPadding': ef.get('size', 'smaller') 0 0,
+    'descriptionWhiteSpace': pre-line,
+    'descriptionDesktopDisplay': (
+        320: none,
+        480: block,
+    ),
 ), $customThemeDefault);
