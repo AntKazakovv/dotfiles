@@ -2,6 +2,7 @@
 @use 'engine-scss/mixins/base.mixins' as bm;
 @use 'engine-scss/mixins/text' as text;
 @use 'engine-scss/functions' as ef;
+@use 'engine-scss/engine.variables' as ev;
 
 .wlc-games-grid--theme-default:host {
 
@@ -67,6 +68,12 @@
                     overflow: hidden;
 
                     border-radius: ef.get-value($themeDefault, 'bannerBorderRadius');
+
+                    img {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                    }
                 }
             }
         }
@@ -75,9 +82,9 @@
             @include text.get-text-style('PlaceholderTextBold', ef.get-value($themeDefault, 'allLinkColor'));
             @include bm.transition(color);
             @include bm.arrowIconAnimation;
-            display: flex;
-            align-items: center;
-            text-decoration: none;
+            @include bm.get-mq-map('display', $themeDefault, 'allLinkDisplay');
+            @include bm.get-mq-map('align-items', $themeDefault, 'allLinkAlign');
+            @include bm.get-mq-map('text-decoration', $themeDefault, 'allLinkDecoration');
 
             ::ng-deep {
 
@@ -162,6 +169,60 @@
 
         .wlc-games-grid__banner {
             @include bm.get-mq-map('grid-column', $themeDefault, 'gridBannerColumnRight');
+        }
+    }
+
+    &.wlc-games-grid--theme-mod-header-inline {
+
+        .wlc-games-grid {
+
+            &__header {
+                @include bm.get-mq-map('flex-direction', $modHeaderInline, 'flexDirection');
+                @include bm.get-mq-map('margin', $modHeaderInline, 'margin');
+                @include bm.get-mq-map('padding', $modHeaderInline, 'padding');
+
+                @include bm.get-mq-map('background', $modHeaderInline, 'background');
+
+                @include bm.get-mq-map('border-radius', $modHeaderInline, 'borderRadius');
+                @include bm.get-mq-map('text-decoration', $modHeaderInline, 'textDecoration');
+
+                .wlc-title {
+                    @include bm.get-mq-map('margin', $modHeaderInline, 'titleMargin');
+                    @include bm.get-mq-map('text-align', $modHeaderInline, 'titleAlign');
+                    width: 100%;
+
+                    ::ng-deep {
+
+                        .wlc-title__main {
+                            @include text.get-text-style(ef.get-value($modHeaderInline, 'headerFontStyle'), ef.get-value($modHeaderInline, 'headerColor'));
+                            @include bm.lineClamp();
+                            max-width: 100%;
+                        }
+                    }
+                }
+
+                .wlc-icon {
+                    @include bm.get-mq-map('margin', $modHeaderInline, 'iconMargin');
+                }
+
+                .wlc-games-grid__link {
+
+                    .wlc-icon {
+                        @include bm.get-mq-map('margin', $modHeaderInline, 'linkIconMargin');
+                    }
+                }
+            }
+
+            &__more {
+                @include bm.get-mq-map('margin', $modHeaderInline, 'moreButtonMargin');
+            }
+        }
+
+        .container & {
+
+            &:not(:first-child) {
+                @include bm.get-mq-map('margin-top', ev.$size, 'sectionsGap');
+            }
         }
     }
 }

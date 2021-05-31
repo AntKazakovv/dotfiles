@@ -1,5 +1,5 @@
 import {IIndexing, IComponentParams} from 'wlc-engine/modules/core';
-import {IGamesFilterData} from 'wlc-engine/modules/games';
+import {IGamesFilterData, IGameThumbCParams} from 'wlc-engine/modules/games';
 import {ITournamentGames} from 'wlc-engine/modules/tournaments';
 import {IBannersSliderCParams} from 'wlc-engine/modules/promo';
 
@@ -10,6 +10,12 @@ export interface IGamesFilterEasy {
     category?: string;
 }
 
+export interface IGamesGridBreakpoints {
+    [key: number]: {
+        gamesRows: number;
+    };
+}
+
 export interface IGamesGridCParams extends IComponentParams<string, GGType, string> {
     gamesRows: number;
     filter?: IGamesFilterData | IGamesFilterEasy;
@@ -18,13 +24,12 @@ export interface IGamesGridCParams extends IComponentParams<string, GGType, stri
     usePlaceholders: boolean;
     showTitle?: boolean;
     titleIcon?: {
-        name?: string,
+        name?: string;
         byCategory?: boolean;
         folder?: string;
     };
     bannerSettings?: IBannersSliderCParams;
     tournamentGamesFilter?: ITournamentGames;
-    titleIconByCategory?: boolean;
     showAllLink?: {
         use?: boolean;
         useCounter?: boolean;
@@ -44,9 +49,14 @@ export interface IGamesGridCParams extends IComponentParams<string, GGType, stri
         showLoadButton?: boolean;
         gamesRows?: number;
     };
+    tabletSettings?: {
+        showLoadButton?: boolean;
+        gamesRows?: number;
+    };
     hideEmpty?: boolean;
     showProgressBar?: boolean;
-    thumbParams?: string,
+    thumbParams?: IGameThumbCParams;
+    breakpoints?: IGamesGridBreakpoints;
 }
 
 export const defaultParams: IGamesGridCParams = {
@@ -56,6 +66,7 @@ export const defaultParams: IGamesGridCParams = {
     showTitle: true,
     showAllLink: {
         use: false,
+        text: gettext('Show all'),
     },
     moreBtn: {
         hide: false,

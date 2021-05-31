@@ -29,6 +29,7 @@ import {
     ActionService,
     EventService,
     ItemAppearanceAnimation,
+    GlobalHelper,
 } from 'wlc-engine/modules/core';
 import {
     Game,
@@ -43,6 +44,7 @@ import * as Params from './games-grid.params';
 import _reduce from 'lodash-es/reduce';
 import _keys from 'lodash-es/keys';
 import _isUndefined from 'lodash-es/isUndefined';
+import _each from 'lodash-es/each';
 import _includes from 'lodash-es/includes';
 
 @Component({
@@ -61,7 +63,7 @@ export class GamesGridComponent extends AbstractComponent
     public isReady: boolean = false;
     public filteredGames: Game[];
     public title: string;
-    public gamesCount: number = this.configService.get<number>('$games.components.wlc-games-grid.defaultCount') || 1;
+    public gamesCount: number = 1;
     public placeHolders: number[];
     public placeHolderStyles: object = {};
     public hideShowMoreBtn: boolean = false;
@@ -78,6 +80,9 @@ export class GamesGridComponent extends AbstractComponent
     protected paginate: number;
     protected placeHoldersCount: number;
     protected prevPlaceHoldersCount: number;
+    protected gamesRows: number;
+    protected gamesRowsLoaded: number = 0;
+    protected gamesRowsMedia: number = 1;
     protected categoryTitle: string;
     protected filterName: string;
     protected parentCategory: CategoryModel;
@@ -85,6 +90,7 @@ export class GamesGridComponent extends AbstractComponent
     protected deviceType: DeviceType;
     protected lastPlayedLoaded: boolean = false;
     protected favouritesLoaded: boolean = false;
+    protected jackpotsLoaded: boolean = false;
 
     @ViewChild('gameList') gameListElement: ElementRef;
     @ViewChild('gameItem') gameItem: ElementRef;
@@ -138,8 +144,8 @@ export class GamesGridComponent extends AbstractComponent
         this.placeHolders = Array(6).fill(1);
         this.filterName = this.$params.searchFilterName || 'page';
 
+        this.followBreakpoints();
         this.initEventListeners();
-        this.setupMobileSettings();
         await this.prepareGrid();
     }
 
@@ -155,6 +161,7 @@ export class GamesGridComponent extends AbstractComponent
 
     public async prepareGrid(): Promise<void> {
         this.isReady = false;
+        this.gamesRowsLoaded = 0;
         this.title = this.gamesCatalogService.getGamesTitleByState() || this.$params.title || this.categoryTitle;
         this.games = await this.getGames();
         this.filteredGames = this.games;
@@ -181,7 +188,8 @@ export class GamesGridComponent extends AbstractComponent
         if (this.gamesCount === this.games?.length) {
             return;
         }
-        this.gamesCount += this.paginate;
+        this.resetGamesRows();
+        this.gamesRowsLoaded += this.gamesRows;
         this.checkGamesLength();
         this.setPlaceHolders();
         this.lazyReady = true;
@@ -197,6 +205,10 @@ export class GamesGridComponent extends AbstractComponent
         this.cdr.detectChanges();
     }
 
+    public get showDefaultHeader() {
+        return (this.$params.showTitle || this.$params.showAllLink.use) && this.$params.themeMod !== 'header-inline';
+    }
+
     /**
      * Init event listeners
      */
@@ -206,7 +218,8 @@ export class GamesGridComponent extends AbstractComponent
             .subscribe((type: DeviceType) => {
                 this.deviceType = type;
                 this.isDesktop = this.deviceType === DeviceType.Desktop;
-                this.setupMobileSettings();
+                this.applyMobileSettings();
+                this.applyTabletSettings();
                 this.cdr.detectChanges();
             });
 
@@ -264,11 +277,16 @@ export class GamesGridComponent extends AbstractComponent
      */
     protected setGridParams(el: any, width: number): void {
         this.moreButtonChangeState(false);
+        this.resetGamesCount();
+        this.resetGamesRows();
         const itemWidth = this.gameItem?.nativeElement?.getBoundingClientRect().width;
         const bannerWidth = this.gameBanner?.nativeElement?.getBoundingClientRect().width || 0;
+
         width = this.$params.bannerSettings ? width - bannerWidth : width;
+
         this.prevPlaceHoldersCount = Math.floor(width / itemWidth) || 1;
-        this.paginate = this.prevPlaceHoldersCount * this.$params.gamesRows;
+        this.gamesRows += this.gamesRowsLoaded;
+        this.paginate = this.prevPlaceHoldersCount * this.gamesRows;
         this.placeHoldersCount = this.prevPlaceHoldersCount;
 
         if (this.gamesCount > this.paginate) {
@@ -277,6 +295,14 @@ export class GamesGridComponent extends AbstractComponent
             }
         } else {
             this.gamesCount = this.paginate;
+        }
+
+        if (this.$params.themeMod === 'header-inline') {
+            this.gamesCount--;
+        }
+
+        if (this.$params.bannerSettings) {
+            this.gamesCount += Math.floor(bannerWidth / itemWidth) * this.gamesRowsLoaded;
         }
 
         this.checkGamesLength();
@@ -384,13 +410,20 @@ export class GamesGridComponent extends AbstractComponent
      * @returns {Promise<void>}
      */
     protected async preloadSpecialGames(filter?: IGamesFilterData): Promise<void> {
-        if (_includes(filter?.categories, 'favourites') && !this.favouritesLoaded) {
+        if (!this.favouritesLoaded && _includes(filter?.categories, 'favourites')) {
             await this.gamesCatalogService.getFavouriteGames();
             this.favouritesLoaded = true;
         }
-        if (_includes(filter?.categories, 'lastplayed') && !this.lastPlayedLoaded) {
+        if (!this.lastPlayedLoaded && _includes(filter?.categories, 'lastplayed')) {
             await this.gamesCatalogService.getLastGames();
             this.lastPlayedLoaded = true;
+        }
+        if (!this.jackpotsLoaded && _includes(filter?.categories, 'jackpots')) {
+            const category = this.gamesCatalogService.getCategoryBySlug('jackpots');
+            if (category) {
+                await category.isReady;
+            }
+            this.jackpotsLoaded = true;
         }
     }
 
@@ -440,13 +473,15 @@ export class GamesGridComponent extends AbstractComponent
         this.hideShowMoreBtn = this.filteredGames?.length < this.paginate;
     }
 
-    protected setupMobileSettings(): void {
-        if (this.deviceType === DeviceType.Mobile) {
-            if (this.$params.mobileSettings?.showLoadButton) {
-                this.$params.moreBtn.hide = false;
-            }
+    protected applyMobileSettings(): void {
+        if (this.deviceType === DeviceType.Mobile && this.$params.mobileSettings?.showLoadButton) {
+            this.$params.moreBtn.hide = false;
+        }
+    }
 
-            this.$params.gamesRows = this.$params.mobileSettings?.gamesRows || this.$params.gamesRows;
+    protected applyTabletSettings(): void {
+        if (this.deviceType === DeviceType.Tablet && this.$params.tabletSettings?.showLoadButton) {
+            this.$params.moreBtn.hide = false;
         }
     }
 
@@ -460,5 +495,66 @@ export class GamesGridComponent extends AbstractComponent
         } else {
             return 'all-games';
         }
+    }
+
+    protected resetGamesCount(): void {
+        this.gamesCount = this.configService.get<number>('$games.components.wlc-games-grid.defaultCount') || 1;
+    }
+
+    protected resetGamesRows(): void {
+        if (this.$params.breakpoints) {
+            this.gamesRows = this.gamesRowsMedia;
+            return;
+        }
+
+        switch (this.deviceType) {
+            case 'mobile':
+                this.gamesRows = this.$params.mobileSettings?.gamesRows || this.$params.gamesRows;
+                break;
+            case 'tablet':
+                this.gamesRows = this.$params.tabletSettings?.gamesRows || this.$params.gamesRows;
+                break;
+            default:
+                this.gamesRows = this.$params.gamesRows;
+                break;
+        }
+    }
+
+    protected followBreakpoints(): void {
+        const breakpoints: string[] = _keys(this.$params.breakpoints);
+
+        _each(breakpoints, (breakpoint: string, index: number) => {
+            const mediaQuery = window.matchMedia(`(min-width: ${breakpoint}px)`);
+
+            if (mediaQuery.matches) {
+                this.gamesRowsMedia = this.$params.breakpoints[breakpoint].gamesRows;
+            }
+
+            GlobalHelper.mediaQueryObserver(mediaQuery)
+                .pipe(takeUntil(this.$destroy))
+                .subscribe((event: MediaQueryListEvent) => {
+                    const key = breakpoints[index];
+                    const keyPrev = breakpoints[index - 1];
+
+                    if (event.matches) {
+                        this.gamesRowsMedia = this.$params.breakpoints[key].gamesRows;
+                    } else if (keyPrev) {
+                        this.gamesRowsMedia = this.$params.breakpoints[keyPrev].gamesRows;
+                    } else {
+                        this.gamesRowsMedia = this.$params.gamesRows;
+                    }
+
+                    if (this.gameListElement) {
+                        this.setGridParams(this.gameListElement, this.gameListElement.nativeElement.getBoundingClientRect().width);
+                        this.setPlaceHolders();
+
+                        if (this.useLazy) {
+                            this.tryLoadingGames();
+                        }
+                    }
+
+                    this.cdr.markForCheck();
+                });
+        });
     }
 }
