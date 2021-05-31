@@ -16,12 +16,14 @@ export interface ITableCParams extends IComponentParams<Theme, Type, ThemeMod>, 
     rows?: unknown[] | BehaviorSubject<unknown[]>,
     pageCount?: number,
     iconPath?: string,
+    switchWidth?: number;
 }
 
 export const defaultParams: ITableCParams = {
     class: 'wlc-table',
     noItemsText: gettext('No items available'),
     pageCount: 10,
+    switchWidth: 1024,
     iconPath: '/wlc/icons/empty-table-bg.svg',
 };
 

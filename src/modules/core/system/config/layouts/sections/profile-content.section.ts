@@ -166,8 +166,9 @@ export namespace profileContent {
                 params: {
                     class: 'wlc-profile-content',
                     components: [
+                        componentLib.wlcTitle.cashV1Mobile,
                         componentLib.wlcDepositWithdraw.balance,
-                        componentLib.wlcDepositWithdraw.submenu,
+                        componentLib.wlcProfileMenu.submenuHistoryV1,
                         componentLib.wlcDepositWithdraw.deposit,
                     ],
                 },
@@ -195,8 +196,9 @@ export namespace profileContent {
                 params: {
                     class: 'wlc-profile-content',
                     components: [
+                        componentLib.wlcTitle.cashV1Mobile,
                         componentLib.wlcDepositWithdraw.balance,
-                        componentLib.wlcDepositWithdraw.submenu,
+                        componentLib.wlcProfileMenu.submenuHistoryV1,
                         componentLib.wlcDepositWithdraw.withdraw,
                     ],
                 },
@@ -223,8 +225,8 @@ export namespace profileContent {
                 params: {
                     class: 'wlc-profile-content',
                     components: [
-                        componentLib.wlcTransactionHistory.filter,
-                        componentLib.wlcProfileMenu.submenuHistory,
+                        componentLib.wlcTransactionHistory.filterTypeFirst,
+                        componentLib.wlcProfileMenu.submenuHistoryV1,
                         componentLib.wlcTransactionHistory.def,
                     ],
                 },
@@ -288,7 +290,8 @@ export namespace profileContent {
                 params: {
                     class: 'wlc-profile-content',
                     components: [
-                        componentLib.wlcTitle.profileV1,
+                        componentLib.wlcTitle.profileV1Mobile,
+                        componentLib.wlcTitle.verification,
                         componentLib.wlcProfileMenu.subMenuV1,
                         componentLib.wlcVerification.def,
                     ],
@@ -372,9 +375,9 @@ export namespace profileContent {
                 params: {
                     class: 'wlc-profile-content',
                     components: [
-                        componentLib.wlcTitle.profileStore,
+                        componentLib.wlcTitle.profileLoyalty,
                         componentLib.wlcLoyaltyProgress.market,
-                        componentLib.wlcProfileMenu.submenu,
+                        componentLib.wlcProfileMenu.subMenuV1,
                         componentLib.wlcLoyaltyLevels.def,
                     ],
                 },
@@ -402,7 +405,6 @@ export namespace profileContent {
                     class: 'wlc-profile-content',
                     components: [
                         componentLib.wlcBetHistory.filter,
-                        componentLib.wlcProfileMenu.submenuBetHistory,
                         componentLib.wlcBetHistory.def,
                     ],
                 },
@@ -430,7 +432,7 @@ export namespace profileContent {
                     class: 'wlc-profile-content',
                     components: [
                         componentLib.wlcBonusesHistory.filter,
-                        componentLib.wlcProfileMenu.submenu,
+                        componentLib.wlcProfileMenu.subMenuV1,
                         componentLib.wlcBonusesHistory.def,
                     ],
                 },
@@ -527,7 +529,7 @@ export namespace profileContent {
                     class: 'wlc-profile-content',
                     components: [
                         componentLib.wlcTournamentsHistory.filter,
-                        componentLib.wlcProfileMenu.submenu,
+                        componentLib.wlcProfileMenu.subMenuV1,
                         componentLib.wlcTournamentsHistory.def,
                     ],
                 },

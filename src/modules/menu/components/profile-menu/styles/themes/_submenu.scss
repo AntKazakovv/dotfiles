@@ -50,7 +50,7 @@
 
                     .wlc-menu__link {
 
-                        @include bm.desktopHover {
+                        @include bm.hover {
 
                             &:before {
                                 width: 100%;

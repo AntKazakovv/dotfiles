@@ -1,5 +1,6 @@
 @use 'engine-scss/mixins/mediaqueries' as mq;
 @use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/base.mixins' as bm;
 @use 'modules/core/components/button/styles/utils/mixins' as button;
 
 .wlc-transaction-history--theme-default {
@@ -11,7 +12,12 @@
         }
 
         .wlc-transaction-history-filter {
-            display: none;
+            @include bm.get-mq-map('display', $themeDefault, 'sectionDisplay');
+            @include bm.get-mq-map('align-items', $themeDefault, 'filterAlignItems');
+            @include bm.get-mq-map('margin', $themeDefault, 'filterMargin');
+            @include bm.get-mq-map('grid-auto-flow', $themeDefault, 'filterGridAutoFlow');
+            @include bm.get-mq-map('grid-auto-columns', $themeDefault, 'filterGridAutoColumns');
+            @include bm.get-mq-map('gap', $themeDefault, 'filterGap');
 
             .wlc-btn {
                 min-height: ef.get-value($themeDefault, 'btnMinHeight');
@@ -25,15 +31,8 @@
                 min-width: ef.get-value($themeDefault, 'filterMinWidth');
             }
 
-            @include mq.min(1024) {
-                display: grid;
-                align-items: flex-end;
-                margin: ef.get-value($themeDefault, 'filterMargin');
-                grid: {
-                    auto-flow: column;
-                    auto-columns: max-content;
-                    gap: ef.get-value($themeDefault, 'filterGap');
-                };
+            .wlc-sections__profile-content--theme-first & {
+                @include bm.get-mq-map('display', $themeDefault, 'sectionDisplayTypeFirst');
             }
         }
     }

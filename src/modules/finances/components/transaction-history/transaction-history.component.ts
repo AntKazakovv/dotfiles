@@ -21,6 +21,7 @@ import {
     ITableCParams,
     IDatepickerCParams,
     DatepickerComponent,
+    ConfigService,
 } from 'wlc-engine/modules/core';
 import {
     FinancesService,
@@ -88,6 +89,7 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
         noItemsText: gettext('No transactions history'),
         head: Params.transactionTableHeadConfig,
         rows: this.transaction,
+        switchWidth: (this.configService.get('$base.profile.type') === 'first') ? 1200 : 1024,
     };
 
     protected allTransactions: Transaction[] = [];
@@ -98,12 +100,13 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
         protected financesService: FinancesService,
         protected eventService: EventService,
         protected historyFilterService: HistoryFilterService,
+        protected configService: ConfigService,
     ) {
         super(
             <IMixedParams<Params.ITransactionHistoryCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            });
+            }, configService);
     }
 
     public async ngOnInit(): Promise<void> {

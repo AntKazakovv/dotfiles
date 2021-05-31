@@ -1,4 +1,5 @@
 import {ILayoutComponent} from 'wlc-engine/modules/core';
+import {ITitleCParams} from 'wlc-engine/modules/core/components';
 
 export namespace wlcTitle {
     export const promotions: ILayoutComponent = {
@@ -29,10 +30,47 @@ export namespace wlcTitle {
 
     export const profileV1: ILayoutComponent = {
         name: 'core.wlc-title',
-        params: {
+        params: <ITitleCParams>{
             customMod: ['profile'],
             mainText: gettext('Profile'),
             wlcElement: 'header_edit-profile',
+        },
+    };
+
+    export const profileV1Mobile: ILayoutComponent = {
+        name: 'core.wlc-title',
+        display: {
+            before: 1023,
+        },
+        params: <ITitleCParams>{
+            customMod: ['profile'],
+            mainText: gettext('Profile'),
+            wlcElement: 'header_edit-profile',
+        },
+    };
+
+    export const cashV1Mobile: ILayoutComponent = {
+        name: 'core.wlc-title',
+        display: {
+            before: 1023,
+        },
+        params: <ITitleCParams>{
+            customMod: ['profile'],
+            mainText: gettext('Cash'),
+            wlcElement: 'header_edit-profile',
+        },
+    };
+
+    export const verification: ILayoutComponent = {
+        name: 'core.wlc-title',
+        display: {
+            after: 1024,
+        },
+        params: <ITitleCParams>{
+            customMod: ['profile'],
+            mainText: gettext('Verification'),
+            secondText: gettext('Necessary documents to make your withdrawal as fast as possible:'),
+            wlcElement: 'header_verification',
         },
     };
 
@@ -148,6 +186,15 @@ export namespace wlcTitle {
         params: {
             customMod: ['profile'],
             mainText: gettext('Market'),
+            wlcElement: 'header_store',
+        },
+    };
+
+    export const profileLoyalty: ILayoutComponent = {
+        name: 'core.wlc-title',
+        params: {
+            customMod: ['profile'],
+            mainText: gettext('Loyalty'),
             wlcElement: 'header_store',
         },
     };

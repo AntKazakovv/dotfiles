@@ -86,7 +86,8 @@ export class VerificationComponent extends AbstractComponent implements OnInit {
     }
 
     public get isSelectMode(): boolean {
-        return this.docTypes.length >= this.$params.selectModeFrom;
+        return this.docTypes.length >= this.$params.selectModeFrom
+            || this.configService.get('$base.profile.type') === 'first';
     }
 
     public async ngOnInit(): Promise<void> {

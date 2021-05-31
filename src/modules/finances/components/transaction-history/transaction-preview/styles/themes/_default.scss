@@ -3,9 +3,10 @@
 @use 'engine-scss/mixins/base.mixins' as bm;
 
 .wlc-transaction-preview--theme-default:host {
+    @include bm.get-mq-map('justify-content', $themeDefault, 'justify');
+
     display: flex;
     width: 100%;
-    @include bm.get-mq-map('justify-content', $themeDefault, 'justify');
 
     > span {
         display: block;
@@ -21,22 +22,17 @@
         }
 
         &__time {
-            display: block;
-            margin: 0 10px;
+            @include bm.get-mq-map('display', $themeDefault, 'timeDisplay');
+            @include bm.get-mq-map('margin', $themeDefault, 'timeMargin');
 
-            @include mq.min(1024) {
-                display: none;
+            .wlc-sections__profile-content--theme-first & {
+                @include bm.get-mq-map('display', $themeDefault, 'timeDisplayTypeFirst');
             }
         }
 
         &__amount {
-            display: block;
-            margin-right: 5px;
-            margin-left: auto;
-
-            @include mq.min(1024) {
-                display: none;
-            }
+            @include bm.get-mq-map('display', $themeDefault, 'amountDisplay');
+            @include bm.get-mq-map('margin', $themeDefault, 'amountMargin');
 
             &.success {
                 color: ef.get('mainColors', 'success');
@@ -44,6 +40,10 @@
 
             &.danger {
                 color: ef.get('mainColors', 'error');
+            }
+
+            .wlc-sections__profile-content--theme-first & {
+                @include bm.get-mq-map('display', $themeDefault, 'amountDisplayTypeFirst');
             }
         }
     }

@@ -1,11 +1,16 @@
-import {Component, OnInit, ChangeDetectorRef, Inject} from '@angular/core';
+import {
+    Component,
+    OnInit,
+    ChangeDetectorRef,
+    Inject,
+} from '@angular/core';
+import {DateTime} from 'luxon';
 import {
     EventService,
 } from 'wlc-engine/modules/core';
 import {AbstractComponent, IMixedParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {FinancesService} from 'wlc-engine/modules/finances/system/services/finances/finances.service';
 import {Transaction} from 'wlc-engine/modules/finances/system/models/transaction-history.model';
-import {IBet} from 'wlc-engine/modules/finances/system/interfaces';
 
 import * as Params from './transaction-preview.params';
 
@@ -39,7 +44,9 @@ export class TransactionPreviewComponent extends AbstractComponent implements On
             this.date = this.$params.transaction.initialDate;
             this.amount = this.$params.transaction.amount;
         } else {
-            this.date = this.$params.transaction.Date;
+            this.date = (window.innerWidth < 480) ?
+                DateTime.fromSQL(this.$params.transaction.DateISO).toFormat('HH:mm dd-MM')
+                : DateTime.fromSQL(this.$params.transaction.DateISO).toFormat('dd-MM-yyyy HH:mm:ss');
             this.amount = +this.$params.transaction.Amount;
         }
     }

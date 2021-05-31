@@ -268,10 +268,10 @@ export class ActionService {
         this.configService.ready.then(() => {
             this.device = this.configService.get<DeviceModel>('device');
             fromEvent(window, 'resize').subscribe({
-                next: (data: Event) => {
+                next: (event: Event) => {
                     this.windowResizeSubject.next({
                         device: this.device,
-                        event: event,
+                        event,
                     });
                 },
             });
