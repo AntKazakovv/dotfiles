@@ -8,22 +8,18 @@ $themeDefault: map-merge((
     'openIconColorOpened':ef.get('mainColors', 'baseMain'),
     'rowGapMobile': ef.get('size', 'small'),
     'borderColorMobile': ef.get('mainColors', 'main'),
-    'fontSize': (
-        375: ef.get('font', 'main'),
-        1024: ef.get('font', 'main'),
-    ),
-    'fontSizeTitle': (
-        375: ef.get('font', 'main'),
-        1024: ef.get('font', 'biger'),
-    ),
+    'tableContentMargin': 0 0 auto,
     'rowTemplateColumns': (
         375: 1fr,
         768: 1fr 1fr,
     ),
-    'rowBorder': (
-        375: 2px solid transparent,
-        1024: none,
+    'rowTemplateColumnsFirstProfile': (
+        375: 1fr,
     ),
+    'rowColumns': 1fr,
+    'rowBorderGrid': 2px solid transparent,
+    'rowBorderTable': none,
+    'rowHeight': fit-content,
     'firstColumnColumns': auto minmax(0, 1fr) auto,
     'rowBorderMobile': 2px solid ef.get('mainColors', 'main'),
     'rowBorderOpenedMobile': 2px solid ef.get('mainColors', 'main'),
@@ -32,10 +28,8 @@ $themeDefault: map-merge((
     'rowTitleBackgroundMobile': ef.get('mainColors', 'bg300'),
     'rowBackgroundMobile': ef.get('mainColors', 'bg300'),
     'rowBorderRadiusSizeMobile': ef.get('radius', 'biger'),
-    'paddingCell': (
-        375: ef.get('size', 'small') ef.get('size', 'smally'),
-        1024: ef.get('size', 'smally') ef.get('size', 'small'),
-    ),
+    'paddingCellGrid': ef.get('size', 'small') ef.get('size', 'smally'),
+    'paddingCellTable': ef.get('size', 'smally') ef.get('size', 'small'),
     'cellGapMobile': ef.get('size', 'smallest'),
     'rowTitleBackgroundDesktop': transparent,
     'rowEvenBackgroundDesktop': transparent,
@@ -52,6 +46,14 @@ $themeDefault: map-merge((
     'emptyImgMaxWidth': 330px,
     'emptyImgMaxHeight': 330px,
     'emptyImgColor': ef.get('mainColors', 'bg500'),
+    'cellBgFirst': transparent,
+    'cellBorderBottomFirst': none,
+    'cellFontWeightFirst': initial,
+    'cellBorderRadiusFirst': initial,
+    'cellContentFontWeight': normal,
+    'cellJustifyContent': space-between,
+    'cellAutoColumns': auto,
+    'cellAutoFlow': column,
 ), $customThemeDefault);
 
 $customThemeTournaments: () !default;

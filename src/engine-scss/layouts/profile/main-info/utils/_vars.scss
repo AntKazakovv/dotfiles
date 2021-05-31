@@ -38,11 +38,28 @@ $mainInfoThemeDefault: map-merge((
         768: ef.get('mainColors', 'baseMain')
     ),
     'phoneInnerGap': 140px + ef.get('size', 'small'),
-    'phoneTemplateColumns': 100px minmax(0, 1fr),
-    'phoneSize': minmax(0, 1fr) 140px,
-    'phoneGap': 0,
-    'birthColumns': repeat(3, minmax(90px, 1fr)),
-    'birthSize': 1fr 140px,
+    'phoneTemplateColumns': (
+        375: 100px minmax(0, 1fr),
+        768: minmax(0, 1fr) 300px,
+    ),
+    'phoneSize': (
+        768: minmax(0, 1fr) 140px,
+    ),
+    'phoneGap': (
+        768: 0,
+    ),
+    'phoneInputDisplay': (
+        768: none,
+    ),
+    'phoneInputColumns': minmax(0, 1fr),
+    'birthColumns': (
+        375: repeat(3, minmax(90px, 1fr)),
+        768: 1fr 145px 145px
+    ),
+    'birthSelectSize': (
+        768: 1fr 140px,
+    ),
+    'birthSelectColumns': minmax(0, 1fr),
     'birthInnerGap': 140px + ef.get('size', 'small') * 2,
     'addBlockGap': ef.get('size', 'smaller'),
     'addBlockHeight': max-content,
@@ -61,6 +78,11 @@ $mainInfoThemeDefault: map-merge((
     ),
     'addItemGap': ef.get('size', 'smaller'),
     'addItemWidth': max-content,
+    'addItemBtnIconDisplay': (
+        375: none,
+        1024: flex,
+    ),
+    'addItemBtnIconMargin': 0 0 0 3px,
     'addItemTitleMainFontSize': ef.get('font', 'main'),
     'addItemTitleMainColor': ef.get('mainColors', 'baseMain'),
     'addItemTitleSecondFontSize': ef.get('font', 'smaller'),

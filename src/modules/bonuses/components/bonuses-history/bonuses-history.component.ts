@@ -18,6 +18,7 @@ import {
     EventService,
     ITableCParams,
     ISelectCParams,
+    ConfigService,
 } from 'wlc-engine/modules/core';
 import {HistoryFilterService} from 'wlc-engine/modules/finances/system/services';
 import {BonusesService} from 'wlc-engine/modules/bonuses/system/services';
@@ -77,6 +78,7 @@ export class BonusesHistoryComponent extends AbstractComponent implements OnInit
         noItemsText: gettext('No bonuses history'),
         head: Params.betHistoryTableHeadConfig,
         rows: this.bets,
+        switchWidth: (this.configService.get('$base.profile.type') === 'first') ? 1200 : 1024,
     };
 
     protected allBets: any[] = [];
@@ -87,6 +89,7 @@ export class BonusesHistoryComponent extends AbstractComponent implements OnInit
         protected eventService: EventService,
         protected historyFilterService: HistoryFilterService,
         protected bonusesService: BonusesService,
+        protected configService: ConfigService,
     ) {
         super(
             <IMixedParams<Params.IBonusesHistoryCParams>>{

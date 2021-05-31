@@ -18,11 +18,17 @@ import {
     trigger,
 } from "@angular/animations";
 import {takeUntil} from 'rxjs/operators';
-import {AbstractComponent, IMixedParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {LayoutService} from 'wlc-engine/modules/core/system/services';
-import {ActionService, ConfigService,  DeviceType} from 'wlc-engine/modules/core';
+import {
+    AbstractComponent,
+    IMixedParams,
+    IResizeEvent,
+    LayoutService,
+    ActionService,
+    ConfigService,
+    DeviceType,
+    HeightToggleAnimation,
+} from 'wlc-engine/modules/core';
 import {TableRowModel} from './table-row.model';
-import {HeightToggleAnimation} from 'wlc-engine/modules/core/system/animations/height-toggle.animation';
 
 import * as Params from './table.params';
 
@@ -63,6 +69,7 @@ export class TableComponent extends AbstractComponent implements OnInit {
     public ready = false;
     public deviceType: DeviceType;
     public indexFactor: number = 0;
+    public tableType: 'grid' | 'table' = 'grid';
 
     public theme: Params.Theme;
     public toggled: boolean = false;
@@ -84,6 +91,24 @@ export class TableComponent extends AbstractComponent implements OnInit {
 
     public async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
+
+        if (window.innerWidth >= this.$params.switchWidth) {
+            this.tableType = 'table';
+            this.addModifiers('table');
+        }
+
+        this.actionService.windowResize().pipe(takeUntil(this.$destroy)).subscribe({
+            next: (event: IResizeEvent) => {
+                if (window.innerWidth >= this.$params.switchWidth) {
+                    this.tableType = 'table';
+                    this.addModifiers('table');
+                } else {
+                    this.tableType = 'grid';
+                    this.removeModifiers('table');
+                }
+            },
+        });
+
         this.itemPerPage = this.$params.pageCount;
         this.theme = this.$params.theme;
         this.prepareHead();
@@ -146,7 +171,7 @@ export class TableComponent extends AbstractComponent implements OnInit {
     }
 
     public animationStatus(col: Params.ITableCol, item: TableRowModel, first: boolean): string {
-        return (col.disableHideClass || first) || item.opened || this.deviceType === DeviceType.Desktop ? 'opened' : 'closed';
+        return (col.disableHideClass || first) || item.opened || this.tableType === 'table' ? 'opened' : 'closed';
     }
 
     protected subscribeDeviceChange(): void {

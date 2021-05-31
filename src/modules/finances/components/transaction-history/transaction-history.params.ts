@@ -14,6 +14,8 @@ export interface ITransactionHistoryCParams extends IComponentParams<Theme, Type
 }
 
 export const defaultParams: ITransactionHistoryCParams = {
+    moduleName: 'finances',
+    componentName: 'wlc-transaction-history',
     class: 'wlc-transaction-history',
     filterType: 'button',
 };

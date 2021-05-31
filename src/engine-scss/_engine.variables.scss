@@ -409,6 +409,7 @@ $profileSettings: map-merge((
 /// @name customProfileSettings
 $profileSettingsThemeFirst: map-merge((
     'profileWidth': (
+        1366: 1200px,
         1630: 1370px
     )
 ), $customProfileSettingsThemeFirst);

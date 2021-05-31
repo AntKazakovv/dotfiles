@@ -50,6 +50,24 @@ export namespace wlcProfileMenu {
         },
     };
 
+    export const submenuHistoryV1: ILayoutComponent = {
+        name: 'core.wlc-wrapper',
+        display: {
+            before: 1023,
+        },
+        params: {
+            class: 'wlc-submenu-history',
+            components: [
+                {
+                    name: 'menu.wlc-profile-menu',
+                    params: {
+                        type: 'submenu',
+                    },
+                },
+            ],
+        },
+    };
+
     export const submenuBetHistory: ILayoutComponent = {
         name: 'core.wlc-wrapper',
         params: {

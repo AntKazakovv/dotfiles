@@ -17,9 +17,9 @@
         }
 
         .wlc-profile-form {
-            display: grid;
             @include bm.get-mq-map('grid-template-columns', $mainInfoThemeDefault, 'sectionFormColumns');
             @include bm.get-mq-map('grid-gap', $mainInfoThemeDefault, 'sectionColGap');
+            display: grid;
 
             &__add {
                 display: grid;
@@ -29,8 +29,8 @@
             }
 
             &__block {
-                display: grid;
                 @include bm.get-mq-map('grid-template-columns', $mainInfoThemeDefault, 'addBlockProfileColumns');
+                display: grid;
                 grid-row-gap: ef.get-value($mainInfoThemeDefault, 'addItemGap');
 
                 &-notification {
@@ -64,8 +64,8 @@
                     grid-area: title;
 
                     &-main {
-                        margin: ef.get-value($mainInfoThemeDefault, 'addItemTitleMainMargin');
                         @include text.get-text-style('ThirdTitleBold', ef.get-value($mainInfoThemeDefault, 'addItemTitleMainColor'));
+                        margin: ef.get-value($mainInfoThemeDefault, 'addItemTitleMainMargin');
                     }
 
                     &-description {
@@ -86,10 +86,10 @@
                 }
 
                 .wlc-btn[wlc-button] {
+                    @include bm.arrowIconAnimation;
                     grid-area: link;
                     width: ef.get-value($mainInfoThemeDefault, 'addItemWidth');
                     overflow: initial;
-                    @include bm.arrowIconAnimation;
 
                     .wlc-btn__text {
                         display: flex;
@@ -98,6 +98,18 @@
 
                         @include mq.min(1024) {
                             @include text.get-text-style('PlaceholderTextBold', ef.get-value($mainInfoThemeDefault, 'addItemLinkColor', 1024));
+                        }
+                    }
+
+                    .wlc-icon {
+                        @include bm.get-mq-map('display', $mainInfoThemeDefault, 'addItemBtnIconDisplay');
+                        @include bm.transition();
+
+                        margin: ef.get-value($mainInfoThemeDefault, 'addItemBtnIconMargin');
+
+                        svg {
+                            transform: rotate(-90deg);
+                            fill: ef.get-value($mainInfoThemeDefault, 'addItemLinkColor', 1024);
                         }
                     }
 
@@ -112,22 +124,6 @@
                         border-radius: 0;
                         box-shadow: none;
                     }
-
-                    .wlc-icon {
-                        display: none;
-                        margin-left: 3px;
-                        @include bm.transition();
-
-                        @include mq.min(1024) {
-                            display: flex;
-                        }
-
-                        svg {
-                            transform: rotate(-90deg);
-
-                            fill: ef.get-value($mainInfoThemeDefault, 'addItemLinkColor', 1024);
-                        }
-                    }
                 }
             }
         }
@@ -140,10 +136,6 @@
                 grid-auto-columns: 1fr;
                 grid-row-gap: ef.get-value($mainInfoThemeDefault, 'formRowGap');
 
-                @include mq.min(768) {
-                    grid-gap: ef.get-value($mainInfoThemeDefault, 'formRowGap', 768);
-                }
-
                 .wlc-btn[wlc-button] {
                     @include bm.get-mq-map('justify-self', $mainInfoThemeDefault, 'saveButtonAlign');
 
@@ -151,55 +143,35 @@
                         margin-top: ef.get-value($mainInfoThemeDefault, 'saveButtonShift');
                     }
                 }
+
+                @include mq.min(768) {
+                    grid-gap: ef.get-value($mainInfoThemeDefault, 'formRowGap', 768);
+                }
             }
 
             .wlc-birth-field {
-                $gapWidth: ef.get-value($mainInfoThemeDefault, 'birthInnerGap');
-                $inputWidth: ef.get-value($mainInfoThemeDefault, 'inputWidth', 1200);
-                grid-template-columns: ef.get-value($mainInfoThemeDefault, 'birthColumns');
-
-                @include mq.min(768) {
-                    grid-template-columns: 1fr calc(#{$inputWidth / 2} - #{$gapWidth / 2}) calc(#{$inputWidth / 2} - #{$gapWidth / 2});
-                }
+                @include bm.get-mq-map('grid-template-columns', $mainInfoThemeDefault, 'birthColumns');
 
                 .wlc-select[class] {
-                    grid-template-columns: minmax(0, 1fr);
+                    grid-template-columns: ef.get-value($mainInfoThemeDefault, 'birthSelectColumns');
 
                     &:first-child {
-
-                        @include mq.min(768) {
-                            grid-template-columns: ef.get-value($mainInfoThemeDefault, 'birthSize');
-                        }
+                        @include bm.get-mq-map('grid-template-columns', $mainInfoThemeDefault, 'birthSelectSize');
                     }
                 }
             }
 
             .wlc-phone-field {
-                $gapWidth: ef.get-value($mainInfoThemeDefault, 'phoneInnerGap');
-                $inputWidth: ef.get-value($mainInfoThemeDefault, 'inputWidth', 1200);
-                grid-template-columns: ef.get-value($mainInfoThemeDefault, 'phoneTemplateColumns');
-
-                @include mq.min(768) {
-                    grid-template-columns: minmax(0, 1fr) calc(#{$inputWidth} - #{$gapWidth});
-                }
+                @include bm.get-mq-map('grid-template-columns', $mainInfoThemeDefault, 'phoneTemplateColumns');
 
                 .wlc-select[class] {
-
-                    @include mq.min(768) {
-                        grid-gap: ef.get-value($mainInfoThemeDefault, 'phoneGap');
-                        grid-template-columns: ef.get-value($mainInfoThemeDefault, 'phoneSize');
-                    }
+                    @include bm.get-mq-map('grid-gap', $mainInfoThemeDefault, 'phoneGap');
+                    @include bm.get-mq-map('grid-template-columns', $mainInfoThemeDefault, 'phoneSize');
                 }
 
                 .wlc-input[class] {
-                    grid-template-columns: minmax(0, 1fr);
-
-                    @include mq.min(768) {
-
-                        .wlc-input__label {
-                            display: none;
-                        }
-                    }
+                    @include bm.get-mq-map('display', $mainInfoThemeDefault, 'phoneInputDisplay');
+                    @include bm.get-mq-map('grid-template-columns', $mainInfoThemeDefault, 'phoneInputColumns');
                 }
             }
 
@@ -237,7 +209,6 @@
 .app-profile-loyalty-tournaments-active-state,
 .app-profile-loyalty-tournaments-history-state,
 .app-profile-loyalty-tournaments-detail-state,
-.app-profile-loyalty-tournaments-active-state,
 .app-profile-cash-deposit-state,
 .app-profile-cash-withdraw-state,
 .app-profile-cash-transactions-state,
@@ -252,16 +223,16 @@
 
             > .container {
                 display: grid;
+                border-radius: ef.get('radius', 'biger');
                 grid: {
                     template-columns: 1fr;
                 }
-                border-radius: ef.get('radius', 'biger');
 
                 @include mq.min(1024) {
+                    padding: 0;
                     grid: {
                         template-columns: 285px 1fr;
                     }
-                    padding: 0;
 
                     .wlc-profile-content {
                         padding: ef.get('size', 'smaller');
@@ -320,5 +291,107 @@
     }
 }
 
+.app-profile-gamblings-bets-state,
+.app-profile-loyalty-bonuses-history-state,
+.app-profile-loyalty-tournaments-history-state,
+.app-profile-cash-transactions-state {
+
+    .wlc-sections__profile-content--theme-first[class] {
+
+        .profile-history-filter {
+            position: relative;
+
+            .wlc-history-filter {
+                position: absolute;
+                top: -2px;
+                right: 0;
+            }
+        }
+    }
+}
+
+.app-profile-cash-transactions-state {
+
+    .wlc-sections__profile-content--theme-first[class] {
+
+        .wlc-table__cell--type {
+            min-width: 100px;
+        }
+    }
+}
+
+.app-profile-loyalty-level-state,
+.app-profile-cash-deposit-state,
+.app-profile-cash-withdraw-state,
+.app-profile-cash-transactions-state,
+.app-profile-loyalty-bonuses-history-state,
+.app-profile-loyalty-tournaments-history-state,
+.app-profile-gamblings-bets-state,
+.app-profile-verification-state {
+
+    .wlc-sections__profile-content--theme-first[class] {
+
+        .wlc-profile-menu--type-submenu {
+            margin-bottom: ef.get('size', 'smaller');
+        }
+
+        .wlc-menu.wlc-menu--theme-default {
+
+            .wlc-menu__item {
+                margin-right: 0;
+            }
+        }
+
+        .wlc-title--profile[class] {
+
+            &:after {
+                display: none;
+
+                @include mq.min(1024) {
+                    display: block;
+                }
+            }
+
+            @include mq.min(1024) {
+                margin-bottom: ef.get('size', 'smaller');
+            }
+        }
+    }
+}
+
+.app-profile-gamblings-bets-state {
+
+    .wlc-sections__profile-content--theme-first[class] {
+
+        .wlc-title--profile[class] {
+
+            margin-bottom: ef.get('size', 'smaller');
+        }
+    }
+}
+
+.app-profile-loyalty-level-state,
+.app-profile-verification-state {
+
+    .wlc-sections__profile-content--theme-first[class] {
+
+        .wlc-title--profile[class] {
+
+            .wlc-title__main {
+
+                @include mq.min(1024) {
+                    margin-bottom: ef.get('size', 'smaller');
+                }
+            }
+
+            .wlc-title__second {
+
+                @include mq.min(1024) {
+                    margin-bottom: ef.get('size', 'small');
+                }
+            }
+        }
+    }
+}
 
 /// TODO finish

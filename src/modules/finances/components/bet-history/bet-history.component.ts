@@ -20,6 +20,7 @@ import {
     ITableCParams,
     IDatepickerCParams,
     DatepickerComponent,
+    ISelectCParams,
 } from 'wlc-engine/modules/core';
 import {
     FinancesService,
@@ -53,9 +54,10 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
         label: 'End date',
         control: new FormControl(''),
     }
-    public filterSelect = {
+    public filterSelect: ISelectCParams ={
         name: 'type',
         value: 'all',
+        theme: 'vertical',
         common: {
             placeholder: gettext('Merchants'),
         },

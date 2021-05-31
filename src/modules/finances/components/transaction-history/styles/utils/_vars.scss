@@ -2,10 +2,35 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
+    'sectionDisplay': (
+        375: none,
+        1024: grid,
+    ),
+
+    'sectionDisplayTypeFirst': (
+        375: none,
+        1200: grid,
+    ),
+
     'sectionMargin': ef.get('size', 'smaller') 0 0,
     'sectionLoaderMinHeight': 400px,
-    'filterMargin': ef.get('size', 'smaller') 0,
-    'filterGap': ef.get('size', 'smally'),
+
+    'filterAlignItems': (
+        1024: flex-end,
+    ),
+    'filterMargin': (
+        1024: ef.get('size', 'smaller') 0,
+    ),
+    'filterGridAutoFlow': (
+        1024: column
+    ),
+    'filterGridAutoColumns': (
+        1024: max-content
+    ),
+    'filterGap': (
+        1024: ef.get('size', 'smally')
+    ),
     'filterMinWidth': 140px,
+
     'btnMinHeight': 40px,
 ), $customThemeDefault);
