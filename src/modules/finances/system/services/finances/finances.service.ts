@@ -1,28 +1,37 @@
-import {Injectable, Injector} from '@angular/core';
+import {
+    Injectable,
+    Injector,
+} from '@angular/core';
+import {TranslateService} from '@ngx-translate/core';
+
 import {BehaviorSubject} from 'rxjs';
 
 import {
-    DataService,
     IData,
-    EventService,
-} from 'wlc-engine/modules/core/system/services';
+    IRequestMethod,
+    RestMethodType,
+} from 'wlc-engine/modules/core';
 import {
-    IBet,
-    PIQCashierConvertedMethod,
-    PIQCashierResponse,
-} from 'wlc-engine/modules/finances/system/interfaces';
+    DataService,
+    EventService,
+} from 'wlc-engine/modules/core';
 import {
     PaymentSystem,
     IPaymentSystem,
     FilterType,
-} from 'wlc-engine/modules/finances/system/models/payment-system.model';
-import {
+    IBet,
     Transaction,
     ITransaction,
     ITransactionRequestParams,
-} from 'wlc-engine/modules/finances/system/models/transaction-history.model';
-import {PIQCashierService} from 'wlc-engine/modules/finances/system/services';
-import {UserService} from 'wlc-engine/modules/user/system/services';
+    PIQCashierConvertedMethod,
+    PIQCashierResponse,
+    PIQCashierService,
+} from 'wlc-engine/modules/finances';
+import {
+    LanguageChangeEvents,
+    UserService,
+} from 'wlc-engine/modules/user';
+
 import {FinancesHelper} from '../../helpers/finances.helper';
 
 import _find from 'lodash-es/find';
@@ -49,13 +58,24 @@ export class FinancesService {
         protected eventService: EventService,
         protected userService: UserService,
         protected injector: Injector,
+        protected translateService: TranslateService,
     ) {
         this.registerMethods();
         this.fetchPaymentSystems();
 
-        this.eventService.subscribe({name: 'LOGIN'},() => {
+        this.translateService.onLangChange.subscribe(() => {
+            this.paymentSystems$.next(undefined);
+            this.systems = [];
+        });
+
+        this.eventService.subscribe({name: 'LOGIN'}, () => {
             this.fetchPaymentSystems();
         });
+
+        this.eventService.subscribe({name: LanguageChangeEvents.ChangeLanguage}, () => {
+            this.fetchPaymentSystems();
+        });
+
     }
 
     public get paymentSystems(): PaymentSystem[] {
@@ -136,7 +156,7 @@ export class FinancesService {
         return (await this.dataService.request<IData>('finances/transactions', params)).data as Transaction[];
     }
 
-    public async getBetsList(params: any= {}): Promise<IBet[]> {
+    public async getBetsList(params: any = {}): Promise<IBet[]> {
         return (await this.dataService.request<IData>('finances/bets', params)).data;
     }
 

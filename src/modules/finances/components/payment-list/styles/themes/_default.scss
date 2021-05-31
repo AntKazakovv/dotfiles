@@ -212,6 +212,17 @@
                 padding: ef.get-value($themeDefault, 'tableTdPadding');
             }
         }
+
+        .payments-description {
+            @include text.get-text-style(ef.get-value($themeDefault, 'descriptionFont'), ef.get-value($themeDefault, 'descriptionColor'));
+
+            padding: ef.get-value($themeDefault, 'descriptionPadding');
+            white-space: ef.get-value($themeDefault, 'descriptionWhiteSpace');
+
+            &--desktop {
+                @include em.get-mq-map('display', $themeDefault, 'descriptionDesktopDisplay');
+            }
+        }
     }
 }
 

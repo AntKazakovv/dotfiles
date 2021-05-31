@@ -2,10 +2,12 @@ import {Injectable, Injector} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {StateService} from '@uirouter/core';
 import {DateTime} from 'luxon';
+
 import {
     Subscription,
     BehaviorSubject,
 } from 'rxjs';
+
 import {
     filter,
 } from 'rxjs/operators';
@@ -22,7 +24,6 @@ import {
     NotificationEvents,
     ConfigService,
 } from 'wlc-engine/modules/core';
-
 import {
     UserInfo,
     UserProfile,
@@ -33,6 +34,10 @@ import _assign from 'lodash-es/assign';
 import _each from 'lodash-es/each';
 import _keys from 'lodash-es/keys';
 import _set from 'lodash-es/set';
+
+export enum LanguageChangeEvents {
+    ChangeLanguage = "CHANGE_LANGUAGE"
+}
 
 
 @Injectable({
@@ -75,6 +80,11 @@ export class UserService {
         private injector: Injector,
         stateService: StateService,
     ) {
+
+        this.translate.onLangChange.subscribe(async () => {
+            await this.updateLanguage();
+            this.eventService.emit({name: LanguageChangeEvents.ChangeLanguage});
+        });
         this.isAuthenticated = this.configService.get('$user.isAuthenticated');
         this.userProfile$.subscribe((profile) => {
             this.configUserProfile$.next(profile);
@@ -303,8 +313,8 @@ export class UserService {
         this.dataService.request('user/updateLogin', {login});
     }
 
-    public updateLanguage(): void {
-        this.dataService.request('user/updateLanguage');
+    public async updateLanguage(): Promise<IData> {
+        return this.dataService.request('user/updateLanguage');
     }
 
     public disableProfile(): void {
