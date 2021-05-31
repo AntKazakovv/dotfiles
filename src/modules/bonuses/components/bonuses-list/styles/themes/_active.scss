@@ -1,0 +1,33 @@
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/mixins/text' as text;
+@import '../utils/vars';
+
+.wlc-bonuses-list--theme-active {
+
+    &:host {
+
+        .wlc-bonuses-list__nocontent {
+            padding: ef.get-value($themeActive, 'noContentPadding');
+
+            background: ef.get-value($themeActive, 'noContentBg');
+            border-radius: ef.get-value($themeActive, 'noContentRadius');
+
+            @include text.get-text-style('PrimaryText', ef.get-value($themeDefault, 'activeBlockFontColor'));
+
+            a {
+                @include bm.transition(color);
+            }
+        }
+
+        .wlc-bonuses-list__list {
+            display: ef.get-value($themeActive, 'display');
+
+            @if (ef.get-value($themeActive, 'display') == 'grid') {
+                grid-template-columns: ef.get-value($themeActive, 'gridColumns');
+                gap: ef.get-value($themeActive, 'gridGap');
+            }
+        }
+    }
+}

@@ -732,6 +732,193 @@ $themeLong: map-merge((
 
 ), $customThemeLong);
 
+$customThemeActive: () !default;
+$themeActive: map-merge((
+    'background': ef.get('mainColors', 'bg500'),
+    'backgroundHover': ef.get('mainColors', 'bg100'),
+    'radius': ef.get('size', 'small'),
+
+    'wrapperDisplay': grid,
+    'wrapperGridColumns': (
+        560: 250px minmax(0, 1fr),
+        640: 300px minmax(0, 1fr),
+        720: 350px minmax(0, 1fr),
+        1200: 300px minmax(0, 1fr),
+        1630: 350px minmax(0, 1fr),
+    ),
+    'wrapperHeight': (
+        560: 260px,
+    ),
+
+    'imgBlockBg': ef.get('mainColors', 'bg300'),
+    'imgBlockHeight': (
+        375: 200px,
+        560: auto
+    ),
+    'imgAfterDisplay': (
+        375: block,
+        1200: none,
+    ),
+    'imgBlockFlexDirection': column,
+    'imgAfterPosTop': 0,
+    'imgAfterPosLeft': 0,
+    'imgAfterBg': rgba(#000, 0.6),
+    'imgSize': 100%,
+    'imgObjectFit': cover,
+    'imgObjectPosition': center,
+
+    'tagPositionTop': ef.get('size', 'smaller'),
+    'tagPositionLeft': 50%,
+    'tagPositionTransform': translateX(-50%),
+    'tagFontSize': ef.get('font', 'small'),
+    'tagFontColor': ef.get('mainColors', 'baseMain'),
+    'tagPadding': (
+        320: 2px ef.get('size', 'small') 1px,
+        1630: 4px ef.get('size', 'small') 3px,
+    ),
+    'tagBg': ef.get('mainColors', 'secondary'),
+    'tagRadius': ef.get('radius', 'biger'),
+
+    'moreIconPosTop': ef.get('size', 'smally'),
+    'moreIconPosLeft': (
+        375: calc(100% - 40px),
+        560: 205px,
+        640: 255px,
+        720: 305px,
+        1200: 255px,
+        1630: 305px
+    ),
+    'moreIconSize': 24px,
+    'moreIconColor': ef.get('mainColors', 'baseOpacity'),
+    'moreIconColorHover': ef.get('mainColors', 'baseMain'),
+    'moreIconSvgSize': 100%,
+
+    'infoPadding': ef.get('size', 'smally'),
+    'infoDisplay': grid,
+    'infoGridArea': (
+        375: ('active-block' 'btns'),
+        560: ('info-block' 'btns'),
+        1200: ('info-block active-block' 'btns active-block')
+    ),
+    'infoGridRows': 1fr min-content,
+    'infoGridColumns': (
+        480: 1fr,
+        1200: 1fr 250px
+    ),
+    'infoGridGap': (
+        375: ef.get('size', 'smally') 0,
+        560: 0
+    ),
+
+    'nameColor': ef.get('mainColors', 'baseMain'),
+    'nameTextAlign': (
+        375: center,
+        560: left
+    ),
+    'nameWidth': (
+        375: 280px,
+        560: 205px,
+        720: 275px,
+        900: 350px,
+        1024: 205px,
+        1200: 230px,
+        1630: calc(100% - 15px)
+    ),
+
+    'descriptionColor': ef.get('mainColors', 'baseMain'),
+    'descriptionTextAlign': (
+        375: center,
+        560: left
+    ),
+    'descriptionWidth': (
+        375: 280px,
+        560: 205px,
+        720: 275px,
+        900: 350px,
+        1024: 205px,
+        1200: 230px,
+        1630: 300px
+    ),
+
+    'infoBlockDisplay': (
+        375: flex,
+        560: block,
+    ),
+    'infoBlockFlexDirection': column,
+    'infoBlockJustifyContent': center,
+    'infoBlockMinWidth': 0,
+    'infoBlockPos': (
+        375: absolute,
+        560: relative
+    ),
+    'infoBlockPosTop': (
+        375: 50px,
+        560: auto
+    ),
+    'infoBlockPosLeft': (
+        375: 50%,
+        560: auto,
+    ),
+    'infoBlockTransform': (
+        375: translateX(-50%),
+        560: none
+    ),
+
+    'activeBlockPos': (
+        560: absolute,
+        1200: relative
+    ),
+    'activeBlockPosTop': (
+        560: 50%,
+        1200: 0
+    ),
+    'activeBlockPosLeft': (
+        560: 15px,
+        640: 25px,
+        720: 50px,
+        1200: 0
+    ),
+    'activeBlockWidth': (
+        560: 220px,
+        640: 250px,
+        1200: auto
+    ),
+    'activeBlockTemplateColumns': 1fr,
+    'activeBlockTemplateRows': min-content 1fr,
+    'activeBlockGap': 10px 0,
+    'activeBlockTransform': (
+        560: translateY(-50%),
+        1200: none
+    ),
+
+    'btnsBlockMargin': (
+        375: 0 auto,
+        560: 0,
+    ),
+
+    'progressPadding': ef.get('size', 'small'),
+    'progressBg': (
+        320: ef.get('mainColors', 'bg'),
+    ),
+    'progressFlexDirection': column,
+    'progressJustifyContent': center,
+    'progressBorderRadius': ef.get('radius', 'biger'),
+    'progressBarHeight': 7px,
+    'progressBarMargin': ef.get('size', 'small') 0,
+    'progressBarBg': ef.get('mainColors', 'baseMain'),
+    'progressBarBorderRadius': ef.get('radius', 'large'),
+    'progressBarBoxShadow': inset 0 0 4px rgba(#000, 0.25),
+    'progressBarInnerBg': ef.get('mainColors', 'bg'),
+    'progressBarInnerPosTop': 0,
+    'progressBarInnerPosLeft': 0,
+    'progressBarInnerHeight': 100%,
+    'progressFontColor': ef.get('mainColors', 'baseMain'),
+    'progressFontSecondaryColor': ef.get('mainColors', 'baseMain'),
+    'progressFontAlign': center,
+
+    'timerBg': ef.get('mainColors', 'bg'),
+), $customThemeActive);
+
 $customChipV2: () !default;
 $chipV2: map-merge((
     'bonusIconValWidth': unset,

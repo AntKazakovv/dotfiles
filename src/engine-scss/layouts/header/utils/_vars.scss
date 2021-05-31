@@ -3,11 +3,22 @@
 
 $customTheme1Header: () !default;
 $theme1Header: map-merge((
+    'headerBurgerBtnMargin': 0 auto 0 0,
     'headerBurgerBtnWidth': ef.get('size', 'less'),
+    'headerBurgerBtnTextAlign': (
+        1024: center
+    ),
     'headerSearchBtnWidth': ef.get('size', 'less'),
-    'headerContainerDesktopWidth': 100%,
-    'headerContainerDesktopMaxWidth': 1920px,
-    'headerContainerDesktopMargin': 0 auto,
+    'headerSearchBtnMargin': 0 0 0 auto,
+    'headerContainerDesktopWidth': (
+        1200: 100%
+    ),
+    'headerContainerDesktopMaxWidth': (
+        1200: 1920px
+    ),
+    'headerContainerDesktopMargin': (
+        1200: 0 auto
+    ),
     'headerGapColumns': ef.get('size', 'main'),
     'headerGridColumns': (
         375: 0.5fr 1fr 0.5fr,
@@ -44,18 +55,32 @@ $theme1Header: map-merge((
     'headerLoginBtnFillColor': ef.get('mainColors', 'baseOpacity'),
     'headerUserBtnFill': ef.get('mainColors', 'secondary'),
     'headerSvgBtnHover': darken(ef.get('mainColors', 'baseOpacity'), 20%),
-    'headerLoginBtnTabletPadding': ef.get('size', 'smallest') ef.get('size', 'small'),
+    'headerLoginBtnTabletPadding': (
+        1200: ef.get('size', 'smallest') ef.get('size', 'small'),
+        1366: ef.get('size', 'smallest') ef.get('size', 'smaller')
+    ),
     'headerLoginJustifyContent': flex-end,
     'headerUserInfoJustifyContent': flex-end,
 ), $customTheme1Header);
 
 $customTheme2Header: () !default;
 $theme2Header: map-merge((
+    'headerBurgerBtnMargin': 0 auto 0 0,
     'headerBurgerBtnWidth': ef.get('size', 'less'),
+    'headerBurgerBtnTextAlign': (
+        1024: center
+    ),
     'headerSearchBtnWidth': ef.get('size', 'less'),
-    'headerContainerDesktopWidth': 100%,
-    'headerContainerDesktopMaxWidth': 1920px,
-    'headerContainerDesktopMargin': 0 auto,
+    'headerSearchBtnMargin': 0 0 0 auto,
+    'headerContainerDesktopWidth': (
+        1200: 100%
+    ),
+    'headerContainerDesktopMaxWidth': (
+        1200: 1920px
+    ),
+    'headerContainerDesktopMargin': (
+        1200: 0 auto
+    ),
     'headerGapColumns': ef.get('size', 'main'),
     'headerGridColumns': (
         375: 0.5fr 1fr 0.5fr,
@@ -90,7 +115,10 @@ $theme2Header: map-merge((
     'headerUserBtnInnerFillColor': ef.get('mainColors', 'baseMain'),
     'headerUserBtnFill': ef.get('mainColors', 'secondary'),
     'headerSvgBtnHover': darken(ef.get('mainColors', 'baseOpacity'), 20%),
-    'headerLoginBtnTabletPadding': ef.get('size', 'smallest') ef.get('size', 'small'),
+    'headerLoginBtnTabletPadding': (
+        1200: ef.get('size', 'smallest') ef.get('size', 'small'),
+        1366: ef.get('size', 'smallest') ef.get('size', 'smaller')
+    ),
     'headerLoginJustifyContent': flex-end,
     'headerUserInfoJustifyContent': flex-end,
 ), $customTheme2Header);

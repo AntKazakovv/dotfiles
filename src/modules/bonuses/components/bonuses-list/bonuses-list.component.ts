@@ -18,21 +18,20 @@ import {
     EventService,
     IData,
 } from 'wlc-engine/modules/core';
-
-import {SliderComponent} from 'wlc-engine/modules/promo/components/slider/slider.component';
-import {BonusItemComponent} from 'wlc-engine/modules/bonuses/components/bonus-item/bonus-item.component';
-
+import {
+    ISliderCParams,
+    ISlide,
+    SliderComponent,
+} from 'wlc-engine/modules/promo';
 import {
     Bonus,
     BonusesService,
     BonusItemComponentEvents,
+    BonusItemComponent,
     ChosenBonusSetParams,
     ChosenBonusType,
+    RecommendedListEvents,
 } from 'wlc-engine/modules/bonuses';
-import {
-    ISliderCParams,
-    ISlide,
-} from 'wlc-engine/modules/promo/components/slider/slider.params';
 
 import * as Params from './bonuses-list.params';
 
@@ -104,11 +103,11 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
 
         this.isReady = false;
         if (this.$params.type === 'swiper') {
-            this.sliderParams.swiper = _cloneDeep(this.$params.common.swiper);
+            this.sliderParams.swiper = _cloneDeep(this.$params.common?.swiper);
         }
 
         this.bonusesService.getSubscribe({
-            useQuery: !this.bonusesService.hasBonuses,
+            useQuery: this.$params.common.useQuery || !this.bonusesService.hasBonuses,
             observer: {
                 next: (bonuses: Bonus[]) => {
                     if (bonuses) {
@@ -355,7 +354,20 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
     protected prepareBonuses(): void {
         this.bonuses = this.sortBonuses();
         this.checkBonuses();
+
+        if (this.$params.common?.restType === 'active') {
+            this.eventService.emit({
+                name: RecommendedListEvents.RecommendedListVisibility,
+                data: this.bonuses.length,
+            });
+        }
+
         if (this.$params.common?.filterByGroup) {
+            if (this.$params.common.useRecommendedBonuses) {
+                this.prepareRecommendedBonuses();
+                return;
+            }
+
             this.bonuses = _filter(this.bonuses, (bonus) => bonus.data.Group === this.$params.common.filterByGroup);
         }
     }
@@ -401,5 +413,23 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
         });
 
         this.cdr.markForCheck();
+    }
+
+    protected prepareRecommendedBonuses(): void {
+        let bonuses = _filter(this.bonuses, (bonus) =>
+            bonus.data.Group.toLocaleLowerCase() === this.$params.common.filterByGroup.toLocaleLowerCase()
+            && bonus.status > 0
+            && !bonus.isActive
+            && !bonus.isSubscribed
+            && !bonus.isInventory);
+
+        if (!bonuses.length) {
+            bonuses = _filter(this.bonuses, (bonus) => bonus.status > 0
+                && !bonus.isActive
+                && !bonus.isSubscribed
+                && !bonus.isInventory);
+        }
+
+        this.bonuses = bonuses;
     }
 }

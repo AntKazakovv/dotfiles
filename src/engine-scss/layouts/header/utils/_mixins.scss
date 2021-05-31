@@ -8,23 +8,18 @@
     background: ef.get-value($theme, 'headerBackground');
 
     .container {
-
+        @include bm.get-mq-map('width', $theme, 'headerContainerDesktopWidth');
+        @include bm.get-mq-map('max-width', $theme, 'headerContainerDesktopMaxWidth');
         @include bm.get-mq-map('min-height', $theme, 'headerMinHeight');
         @include bm.get-mq-map('grid-gap', $theme, 'headerGridGap');
+        @include bm.get-mq-map('margin', $theme, 'headerContainerDesktopMargin');
         @include bm.get-mq-map('padding', $theme, 'headerPadding');
+
         position: relative;
         z-index: 10;
 
         display: grid;
-
         align-items: center;
-
-        @include mq.min(1200) {
-            width: ef.get-value($theme, 'headerContainerDesktopWidth');
-            max-width: ef.get-value($theme, 'headerContainerDesktopMaxWidth');
-
-            margin: ef.get-value($theme, 'headerContainerDesktopMargin');
-        }
     }
 
     .wlc-logo {
@@ -45,31 +40,28 @@
         justify-content: ef.get-value($theme, 'headerLoginJustifyContent');
 
         .wlc-btn {
-
-            @include mq.max(1200) {
-                padding: map-get($theme, 'headerLoginBtnTabletPadding');
-            }
+            @include bm.get-mq-map('padding', $theme, 'headerLoginBtnTabletPadding');
         }
     }
 
     .wlc-btn {
 
         &-burger {
-            width: map-get($theme, 'headerBurgerBtnWidth');
-            margin-right: auto;
+            @include bm.get-mq-map('text-align', $theme, 'headerBurgerBtnTextAlign');
 
-            @include mq.min(1024) {
-                text-align: center;
-            }
+            width: ef.get-value($theme, 'headerBurgerBtnWidth');
+            margin: ef.get-value($theme, 'headerBurgerBtnMargin');
         }
 
         &-search {
-            width: map-get($theme, 'headerSearchBtnWidth');
-            margin-left: auto;
+            @include bm.transition(transform);
+
+            width: ef.get-value($theme, 'headerSearchBtnWidth');
+            margin: ef.get-value($theme, 'headerSearchBtnMargin');
+
             will-change: transform;
 
             @include bm.hover {
-                @include bm.transition(transform);
                 transform: rotate(30deg);
             }
         }
@@ -79,15 +71,17 @@
 
             svg,
             rect {
-                fill: map-get($theme, 'headerSvgBtn');
+                @include bm.transition(fill);
+
+                fill: ef.get-value($theme, 'headerSvgBtn');
             }
 
             @include bm.hover {
 
                 svg,
                 rect {
-                    @include bm.transition(fill);
-                    fill: map-get($theme, 'headerSvgBtnHover');
+
+                    fill: ef.get-value($theme, 'headerSvgBtnHover');
                 }
             }
         }

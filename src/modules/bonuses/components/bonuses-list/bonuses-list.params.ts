@@ -1,17 +1,17 @@
 import {SwiperOptions} from 'swiper';
-import {IBonusItemCParams} from 'wlc-engine/modules/bonuses/components/bonus-item/bonus-item.params';
 
 import {
     IComponentParams,
     CustomType,
-} from 'wlc-engine/modules/core/system/classes/abstract.component';
+} from 'wlc-engine/modules/core';
 import {
+    IBonusItemCParams,
     RestType,
     BonusesFilterType,
-} from '../../system/interfaces/bonuses.interface';
+} from 'wlc-engine/modules/bonuses';
 
 export type Type = 'default' | 'swiper' | CustomType;
-export type Theme = 'default' | 'partial' | 'promo-home' | CustomType;
+export type Theme = 'default' | 'partial' | 'promo-home' | 'active' | CustomType;
 export type ThemeMod = 'default' | CustomType;
 export type AutoModifiers = Theme | ThemeMod;
 export type CustomMod = string;
@@ -29,6 +29,9 @@ export interface IBonusesListCParams extends IComponentParams<Theme, Type, Theme
         swiper?: SwiperOptions;
         useBlankBonus?: boolean;
         selectFirstBonus?: boolean;
+        useRecommendedBonuses?: boolean;
+        useNoDataText?: boolean;
+        useQuery?: boolean;
     };
     itemsParams?: IBonusItemCParams,
 }
@@ -44,5 +47,8 @@ export const defaultParams: IBonusesListCParams = {
         filter: 'all',
         useBlankBonus: false,
         selectFirstBonus: false,
+        useRecommendedBonuses: false,
+        useQuery: false,
+        useNoDataText: false,
     },
 };

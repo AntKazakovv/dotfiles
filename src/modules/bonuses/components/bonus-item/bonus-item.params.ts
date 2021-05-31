@@ -7,9 +7,10 @@ import {
     Bonus,
     IBonusType,
 } from 'wlc-engine/modules/bonuses';
+
 export type Type = 'default' | 'reg' | 'deposit' | 'promo' | 'store' | 'active' | 'inventory' | CustomType;
-export type Theme = 'default' | 'long' | 'grid' | 'partial' | 'preview' | CustomType;
-export type ThemeMod = 'default' | 'chip-v2' |CustomType;
+export type Theme = 'default' | 'long' | 'grid' | 'partial' | 'preview' | 'active' | CustomType;
+export type ThemeMod = 'default' | 'active' | 'chip-v2' | CustomType;
 export type AutoModifiers = Theme | ThemeMod;
 export type CustomMod = string;
 export type Modifiers = AutoModifiers | CustomMod | null;
@@ -38,6 +39,7 @@ export interface IBonusItemCParams extends IComponentParams<Theme, Type, ThemeMo
         nameClamp?: number;
         usePreviewBonus?: boolean;
         useActionButtons?: boolean;
+        descriptionClamp?: number,
         promoLinks?: {
             deposit?: ILinkParams;
             play?: ILinkParams;
@@ -59,6 +61,7 @@ export const defaultParams: IBonusItemCParams = {
         hideChooseBtn: true,
         iconsPath: '/gstatic/bonuses/icons/',
         nameClamp: 1,
+        descriptionClamp: 2,
         usePreviewBonus: false,
         useActionButtons: true,
         promoLinks: {

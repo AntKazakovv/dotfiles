@@ -1,0 +1,33 @@
+@use 'engine-scss/functions' as ef;
+
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'itemMargin': (
+        320: ef.get('size', 'smaller') ef.get('size', 'smally') 0,
+        1024: ef.get('size', 'smaller') 0 0,
+    ),
+
+    'titleFontStyle': 'ThirdTitleBold',
+    'titleColor': ef.get('mainColors', 'baseMain'),
+    'titleMargin': (
+        320: ef.get('size', 'main') 0 ef.get('size', 'smaller'),
+    ),
+    'titleTextAlign': (
+        320: left,
+    ),
+
+    'baseSliderWidth': 270px,
+
+    'swiperContainerPadding': 0,
+    'swiperContainerMargin': (
+        320: 0,
+        1024: 0 ef.get('size', 'smaller'),
+        1366: 0,
+    ),
+    'swiperContainerJustifyContent': left,
+    'swiperBtnsPos': (
+        320: -20px,
+        1024: 0,
+        1366: -20px,
+    ),
+), $customThemeDefault);

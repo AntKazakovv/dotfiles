@@ -114,7 +114,7 @@ export namespace profileContent {
                     components: [
                         componentLib.wlcTitle.activeBonuses,
                         componentLib.wlcProfileMenu.subMenuV1,
-                        componentLib.wlcBonusesList.active,
+                        componentLib.wlcRecommendedBonuses.def,
                     ],
                 },
             },

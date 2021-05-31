@@ -7,10 +7,10 @@ $themeDefault: map-merge((
     'minItemWidthDesktop': 320px,
     'swiperPadding': 0 ef.get('size', 'smaller') - 1px 0 ef.get('size', 'smaller') - 1px,
     'swiperWidth': 300px,
-    'swiperButtonDisplay': (
-        375: none,
-        720: flex,
-    ),
+    //'swiperButtonDisplay': (
+    //    375: none,
+    //    720: flex,
+    //),
     'gridColumn': (
         375: 1fr,
         720: 1fr 1fr,
@@ -88,3 +88,13 @@ $themePromoHome: map-merge((
         640: ef.get('size', 'main'),
     ),
 ), $customThemePromoHome);
+
+$customThemeActive: () !default;
+$themeActive: map-merge((
+    'noContentPadding': ef.get('size', 'less') ef.get('size', 'smaller'),
+    'noContentBg': ef.get('mainColors', 'bg500'),
+    'noContentRadius': ef.get('size', 'small'),
+    'display': grid,
+    'gridColumns': 1fr,
+    'gridGap': ef.get('size', 'smaller') 0,
+), $customThemeActive);

@@ -36,6 +36,24 @@ export namespace wlcBonusesList {
             },
         },
     };
+    export const activeFirst: ILayoutComponent = {
+        name: 'bonuses.wlc-bonuses-list',
+        params: {
+            theme: 'active',
+            common: {
+                restType: 'active',
+                filter: 'active',
+            },
+            itemsParams: {
+                common: {
+                    themeMod: 'active',
+                    useIconBonusImage: false,
+                    showAdditionalImage: true,
+                    descriptionClamp: 3,
+                },
+            },
+        },
+    };
     export const inventory: ILayoutComponent = {
         name: 'bonuses.wlc-bonuses-list',
         params: {
