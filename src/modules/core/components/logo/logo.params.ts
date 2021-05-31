@@ -1,4 +1,4 @@
-import {TransitionOptions} from '@uirouter/core';
+import {RawParams, TransitionOptions} from '@uirouter/core';
 import {
     CustomType,
     IComponentParams,
@@ -8,6 +8,7 @@ export type ComponentType= 'default' | 'affiliate' | CustomType;
 export interface ILogoCParams extends IComponentParams<string, ComponentType, string> {
     link: string;
     uiOptions?: TransitionOptions;
+    uiParams?: RawParams;
     disableLink?: boolean;
     image?: {
         name?: string;
