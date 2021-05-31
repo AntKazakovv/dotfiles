@@ -24,7 +24,10 @@
             <span class="{{$class}}__btn-modal-text">{{$params.buttonText | translate}}</span>
         </span>
     </button>
-    <div *ngIf="currentSystem?.description" class="payments-description">{{currentSystem?.description}}</div>
+    <div *ngIf="currentSystem?.description" class="payments-description">
+        {{$params.paymentType === 'deposit' ? currentSystem.description : currentSystem.descriptionWithdraw}}
+    </div>
+
 </ng-template>
 
 <ng-template #table>
@@ -78,7 +81,9 @@
             </li>
         </ul>
         <div [@toggle]="currentSystem?.description ? 'opened' : 'closed'"
-             class="payments-description payments-description--desktop">{{currentSystem?.description}}</div>
+             class="payments-description payments-description--desktop">
+            {{$params.paymentType === 'deposit' ? currentSystem?.description : currentSystem?.descriptionWithdraw}}
+        </div>
     </div>
 </ng-template>
 
