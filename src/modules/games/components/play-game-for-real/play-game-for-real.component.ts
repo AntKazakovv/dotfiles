@@ -4,6 +4,7 @@ import {
     OnInit,
     Input,
     ChangeDetectorRef,
+    HostBinding,
 } from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {TranslateService} from '@ngx-translate/core';
@@ -12,14 +13,14 @@ import {StateService} from '@uirouter/core';
 import {
     AbstractComponent,
     IMixedParams,
-} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {
+    ConfigService,
     EventService,
     LogService,
     ModalService,
-} from 'wlc-engine/modules/core/system/services';
+    IFormWrapperCParams,
+} from 'wlc-engine/modules/core';
 import {UserService} from 'wlc-engine/modules/user/system/services';
-import {IFormWrapperCParams} from 'wlc-engine/modules/core';
+
 import * as Params from './play-game-for-real.params';
 
 /**
@@ -39,6 +40,7 @@ import * as Params from './play-game-for-real.params';
 })
 export class PlayGameForRealComponent extends AbstractComponent implements OnInit {
     @Input() public inlineParams: Params.IPlayGameForRealCParams;
+    @HostBinding('class.is-auth') protected isAuth: boolean;
     public $params: Params.IPlayGameForRealCParams;
     public config: IFormWrapperCParams;
 
@@ -51,6 +53,7 @@ export class PlayGameForRealComponent extends AbstractComponent implements OnIni
         protected eventService: EventService,
         protected translateService: TranslateService,
         protected stateService: StateService,
+        protected configService: ConfigService,
     ) {
         super(<IMixedParams<Params.IPlayGameForRealCParams>>{
             injectParams: params,
@@ -70,6 +73,7 @@ export class PlayGameForRealComponent extends AbstractComponent implements OnIni
         this.onPlayDemo();
         this.onPlayReal();
         this.onSignUp();
+        this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
     }
 
     public ngSubmit(form: FormGroup): void {

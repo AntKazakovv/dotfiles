@@ -37,10 +37,6 @@
 
         .wlc-btn {
             margin: ef.get-value($themeDefault, 'btnMargin');
-
-            &:last-of-type {
-                margin-bottom: 0;
-            }
         }
 
         .wlc-text-block--theme-mod-game-title {
@@ -61,17 +57,30 @@
                 }
             }
         }
+    }
 
-        .wlc-text-block--theme-default {
+    &.is-auth {
 
-            .wlc-text-block {
+        &::ng-deep {
 
-                &__head {
-                    @include em.get-mq-map('margin', $themeDefault, 'textBlockHeadMargin');
+            .wlc-text-block--theme-default {
+
+                .wlc-text-block {
+
+                    &__head {
+                        @include em.get-mq-map('margin', $themeDefault, 'textBlockHeadMargin');
+                    }
+
+                    &__subtitle {
+                        @include text.get-text-style(ef.get-value($themeDefault, 'textBlockSubtitleFont'), ef.get-value($themeDefault, 'textBlockSubtitleFontColor'));
+                    }
                 }
+            }
 
-                &__subtitle {
-                    @include text.get-text-style(ef.get-value($themeDefault, 'textBlockSubtitleFont'), ef.get-value($themeDefault, 'textBlockSubtitleFontColor'));
+            .wlc-btn {
+
+                &:last-of-type {
+                    margin-bottom: 0;
                 }
             }
         }

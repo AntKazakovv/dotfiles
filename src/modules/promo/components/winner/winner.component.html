@@ -26,7 +26,7 @@
             <button class="{{$class}}__game"
                     type="button"
                     [attr.title]="[gameName]"
-                    (click)="startGame($event, true, true)">
+                    (click)="startGame($event)">
                 <span class="{{$class}}__game-name" [attr.data-wlc-element]="'name_game_item-' + $params.winnerType + '-wins'">{{gameName}}</span>
                 <span *ngIf="!$params.hideGameIcon"
                       wlc-icon
