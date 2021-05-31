@@ -24,7 +24,7 @@ $themeDefault: map-merge((
     'linkBlockBtnMargin': 0 auto ef.get('size', 'small') auto,
 
     'textBlockHeadMargin': (
-        320: ef.get('size', 'main') 0 ef.get('size', 'less') 0,
+        320: ef.get('size', 'less') 0,
     ),
 
     'textBlockSubtitleFont': 'ThirdTitleBold',
