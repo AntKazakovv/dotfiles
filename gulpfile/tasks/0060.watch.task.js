@@ -63,8 +63,12 @@ module.exports = function watchTask() {
         createSitePreloader();
         watchForPreloader();
 
+        const liveReloadCommand = process.platform === 'darwin' ?
+            'lsof -P | grep \':35729\' | awk \'{print $2}\' | xargs kill -9' :
+            'LRPID=$(fuser -vn tcp 35729 | awk \'{print $1}\'); if [ $LRPID ]; then kill -9 $LRPID; fi';
+
         this.execShell(
-            'LRPID=$(fuser -vn tcp 35729 | awk \'{print $1}\'); if [ $LRPID ]; then kill -9 $LRPID; fi',
+            liveReloadCommand,
             true,
         ).then(() => {
             liveReload.listen({
