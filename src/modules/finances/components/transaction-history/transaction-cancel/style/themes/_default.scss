@@ -1,0 +1,38 @@
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/base.mixins' as em;
+@use 'engine-scss/functions' as ef;
+
+.wlc-transaction-cancel--theme-default:host {
+    @include em.get-mq-map('align-items', $themeDefault, 'cancelAlign');
+    @include em.get-mq-map('min-width', $themeDefault, 'cancelBlockMinWidth');
+
+    display: inline-flex;
+    justify-content: ef.get-value($themeDefault, 'cancelJustify');
+
+    &.allow-cancelation {
+        @include em.get-mq-map('padding', $themeDefault, 'cancelPadding');
+    }
+
+    .cancel-btn {
+        @include em.get-mq-map('bottom', $themeDefault, 'cancelBottom');
+
+        position: absolute;
+        left: ef.get-value($themeDefault, 'cancelLeft');
+        z-index: ef.get-value($themeDefault, 'cancelZIndex');
+
+        display: none;
+
+        transform: ef.get-value($themeDefault, 'cancelTransform');
+
+        @include em.hover {
+            color: ef.get-value($themeButton, 'colorDefault');
+            background: ef.get-value($themeButton, 'background');
+            box-shadow: ef.get-value($themeButton, 'shadow');
+            border: ef.get-value($themeButton, 'borderDefault');
+        }
+
+        @include em.hover(false) {
+            display: block;
+        }
+    }
+}

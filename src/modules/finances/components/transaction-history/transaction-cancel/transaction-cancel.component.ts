@@ -1,21 +1,33 @@
-import {Component, OnInit, ChangeDetectorRef, Inject} from '@angular/core';
 import {
+    Component,
+    OnInit,
+    ChangeDetectorRef,
+    Inject,
+    HostBinding,
+} from '@angular/core';
+
+import {
+    AbstractComponent,
+    IMixedParams,
     EventService,
     IPushMessageParams,
     NotificationEvents,
 } from 'wlc-engine/modules/core';
-import {AbstractComponent, IMixedParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {FinancesService} from 'wlc-engine/modules/finances/system/services/finances/finances.service';
-import {FinancesHelper} from 'wlc-engine/modules/finances/system/helpers/finances.helper';
+
+import {
+    FinancesService,
+    FinancesHelper,
+} from 'wlc-engine/modules/finances';
+
 import * as Params from './transaction-cancel.params';
 
 @Component({
     selector: '[wlc-transaction-cancel]',
     templateUrl: './transaction-cancel.component.html',
-    styleUrls: ['./transaction-cancel.component.scss'],
+    styleUrls: ['./style/transaction-cancel.component.scss'],
 })
 export class TransactionCancelComponent extends AbstractComponent implements OnInit {
-
+    @HostBinding('class.allow-cancelation') protected allowCancelation: boolean;
     public $params: Params.ITransactionCancelParams;
     protected inProgress: boolean = false;
 
@@ -34,6 +46,8 @@ export class TransactionCancelComponent extends AbstractComponent implements OnI
 
     public async ngOnInit(): Promise<void> {
         super.ngOnInit();
+
+        this.allowCancelation = this.$params.transaction.allowCancelation;
     }
 
     public async cancel(): Promise<void> {
