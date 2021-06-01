@@ -74,7 +74,7 @@ class gulpTask {
         const file = `${block}/${type}/${path}`;
         let ignore = fs.readFileSync(this.params.paths.root + '/.gitignore').toString();
 
-        if (ignoreStr.indexOf(file) !== -1) {
+        if (ignore.indexOf(file) !== -1) {
             return;
         }
 
