@@ -19,11 +19,11 @@ class gulpTask {
 
     registerTasks() {
         glob
-          .sync(`${__dirname}/tasks/*.js`)
-          .map((file) => require(path.resolve(file)))
-          .forEach((task) => {
-            task.apply(this);
-          });
+            .sync(`${__dirname}/tasks/*.js`)
+            .map((file) => require(path.resolve(file)))
+            .forEach((task) => {
+                task.apply(this);
+            });
     }
 
     deleteFolderRecursive(path) {
@@ -69,6 +69,41 @@ class gulpTask {
             this.execShell(command, hideOutput);
         }));
     }
+
+    addToGitIgnore(block, type, path) {
+        const file = `${block}/${type}/${path}`;
+        let ignore = fs.readFileSync(this.params.paths.root + '/.gitignore').toString();
+
+        if (ignoreStr.indexOf(file) !== -1) {
+            return;
+        }
+
+        ignore = ignore.split('\n');
+        const ignoreBlock = `# ${block}`;
+        let isBlock = false;
+        const newIgnore = [];
+        for (const str of ignore) {
+
+            if (!isBlock && str === ignoreBlock) {
+                isBlock = true;
+            }
+
+            if (isBlock) {
+                if (str === file) {
+                    newIgnore.push(str);
+                    isBlock = false;
+                } else if (str.length === 0) {
+                    newIgnore.push(file, str);
+                    isBlock = false;
+                } else {
+                    newIgnore.push(str);
+                }
+            } else {
+                newIgnore.push(str);
+            }
+        }
+        fs.writeFileSync(this.params.paths.root + '/.gitignore', newIgnore.join('\n'));
+    };
 
 }
 

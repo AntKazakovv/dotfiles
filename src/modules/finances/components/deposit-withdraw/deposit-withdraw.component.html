@@ -68,6 +68,18 @@
         {{'Before you can proceed with the deposit, you must read and accept the terms.' | translate}}
     </div>
 
+    <div *ngIf="currentSystem && currentSystem.isHosted"
+        class="wlc-hosted-fields">
+        <div id="wlc-hosted-fields"
+            class="wlc-hosted-fields__container"
+            [hidden]="!currentSystem.hostedFields.loaded">
+        </div>
+        <span *ngIf="currentSystem.hostedFields.errors"
+            class="wlc-hosted-fields__error">
+            {{'An error has occurred. Check the entered data and try again' | translate}}
+        </span>
+    </div>
+
     <div *ngIf="!requiredFieldsKeys.length"
          wlc-form-wrapper
          class="{{$class}}__form"

@@ -12,6 +12,7 @@ import {
 import {TranslateService} from '@ngx-translate/core';
 import {StateService} from '@uirouter/core';
 import {DOCUMENT} from '@angular/common';
+import {HttpClient} from '@angular/common/http';
 import {BehaviorSubject} from 'rxjs';
 
 import {
@@ -32,6 +33,9 @@ import {
 } from 'wlc-engine/modules/core';
 import {CurrencyModel} from 'wlc-engine/modules/core/system/models/currency.model';
 import {
+    IHostedField,
+    IHostedFieldsParams,
+    IHostedFormData,
     IPaymentAdditionalParam,
     PaymentSystem,
 } from 'wlc-engine/modules/finances/system/models/payment-system.model';
@@ -69,6 +73,7 @@ import _isEqual from 'lodash-es/isEqual';
 import _isObject from 'lodash-es/isObject';
 import _startsWith from 'lodash-es/startsWith';
 import _transform from 'lodash-es/transform';
+import _extend from 'lodash-es/extend';
 
 @Component({
     selector: '[wlc-deposit-withdraw]',
@@ -103,6 +108,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
 
     protected profileForm: IFormWrapperCParams;
     protected inProgress: boolean = false;
+    private isLoadHostedFields: boolean = false;
 
     constructor(
         @Inject('injectParams') protected params: Params.IDepositWithdrawCParams,
@@ -115,6 +121,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
         protected userService: UserService,
         protected cdr: ChangeDetectorRef,
         protected translateService: TranslateService,
+        protected httpClient: HttpClient,
         protected piqCashierService: PIQCashierService,
         @Inject(DOCUMENT) protected document: HTMLDocument,
     ) {
@@ -180,68 +187,21 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
         this.formObject = form;
 
         if (this.$params.mode === 'deposit') {
-            this.deposit(this.formObject);
+            this.deposit();
         } else if (this.$params.mode === 'withdraw') {
             this.withdraw(this.formObject);
         }
     }
 
-    public async deposit(form: FormGroup, saveProfile: boolean = false): Promise<void> {
+    public deposit(saveProfile: boolean = false): void {
 
         this.inProgress = true;
         this.modalService.showModal('dataIsProcessing');
 
-        try {
-            const response = await this.financesService.deposit(
-                this.currentSystem.id,
-                this.currentSystem.disableAmount ? this.currentSystem.depositMin : form.value.amount,
-                this.getAdditionalParams(),
-            );
-
-            if (saveProfile) {
-                await this.saveProfile();
-            }
-
-            if (response.length) {
-
-                if (response[0] === 'message' || response[0] === 'markup') {
-                    this.showDepositResponse(response[1], response[0]);
-                    return;
-                } else if (response[0] === 'redirect') {
-                    if (this.currentSystem?.appearance === 'newtab') {
-                        window.open(response[1], '_blank');
-                    } else {
-                        window.location.replace(response[1]);
-                    }
-                    return;
-                } else if (response[0] === 'markup_redirect') {
-                    this.pushNotification({
-                        type: 'warning',
-                        title: gettext('Deposit'),
-                        message: gettext('You will be redirected in a moment!'),
-                        wlcElement: 'notification_deposit-redirection-warning',
-                    });
-
-                    await this.createRedirectForm(response[1]?.html);
-                    return;
-                } else if (response[0] === PIQCashierResponse) {
-                    return;
-                }
-            }
-
-            const formSubmit: HTMLFormElement = this.createForm(response);
-            this.document.body.appendChild(formSubmit);
-            formSubmit.submit();
-        } catch (error) {
-            this.pushNotification({
-                type: 'error',
-                title: gettext('Deposit'),
-                message: FinancesHelper.errorToMessage(error),
-            });
-        } finally {
-            this.modalService.hideModal('data-is-processing');
-            this.inProgress = false;
-            this.financesService.fetchPaymentSystems();
+        if (this.currentSystem.isHosted) {
+            this.currentSystem.hostedFieldService.get();
+        } else {
+            this.depositAction(this.formObject.value.amount, this.getAdditionalParams(), saveProfile);
         }
     }
 
@@ -379,6 +339,61 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
             dismissAll: true,
             backdrop: 'static',
         });
+    }
+
+    private async depositAction(amount: number, params: IIndexing<string>, saveProfile: boolean = false): Promise<void> {
+        try {
+            const response = await this.financesService.deposit(
+                this.currentSystem.id,
+                this.currentSystem.disableAmount ? this.currentSystem.depositMin : amount,
+                params,
+            );
+
+            if (saveProfile) {
+                await this.saveProfile();
+            }
+
+            if (response.length) {
+
+                if (response[0] === 'message' || response[0] === 'markup') {
+                    this.showDepositResponse(response[1], response[0]);
+                    return;
+                } else if (response[0] === 'redirect') {
+                    if (this.currentSystem?.appearance === 'newtab') {
+                        window.open(response[1], '_blank');
+                    } else {
+                        window.location.replace(response[1]);
+                    }
+                    return;
+                } else if (response[0] === 'markup_redirect') {
+                    this.pushNotification({
+                        type: 'warning',
+                        title: gettext('Deposit'),
+                        message: gettext('You will be redirected in a moment!'),
+                        wlcElement: 'notification_deposit-redirection-warning',
+                    });
+
+                    await this.createRedirectForm(response[1]?.html);
+                    return;
+                } else if (response[0] === PIQCashierResponse) {
+                    return;
+                }
+            }
+
+            const formSubmit: HTMLFormElement = this.createForm(response);
+            this.document.body.appendChild(formSubmit);
+            formSubmit.submit();
+        } catch (error) {
+            this.pushNotification({
+                type: 'error',
+                title: gettext('Deposit'),
+                message: FinancesHelper.errorToMessage(error),
+            });
+        } finally {
+            this.modalService.hideModal('data-is-processing');
+            this.inProgress = false;
+            this.financesService.fetchPaymentSystems();
+        }
     }
 
     protected getAdditionalParams(): IIndexing<string> {
@@ -569,18 +584,77 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
             return;
         }
 
+        if (this.currentSystem?.isHosted) {
+            this.currentSystem.hostedFieldService.reset();
+            this.currentSystem.dropHostedFields();
+            this.isLoadHostedFields = false;
+        }
+
         this.currentSystem = system;
         this.setAdditionalValues();
-
         this.cryptoCheck = this.currentSystem.cryptoCheck && this.$params.mode === 'deposit';
         this.disableAmount = this.currentSystem.disableAmount;
-
         this.additionalParams = this.listConfig.paymentType === 'deposit' ?
             system.additionalParamsDeposit : system.additionalParamsWithdraw;
 
         this.checkUserProfileForPayment();
-
         this.updateFormConfig();
+
+        if (this.currentSystem.isHosted) {
+            if (!this.isLoadHostedFields || !this.currentSystem.hostedFields.loaded) {
+                this.isLoadHostedFields = true;
+                this.loadHostedFields();
+            }
+        }
+    }
+
+    protected loadHostedFields(): void {
+
+        this.currentSystem.hostedFieldService.reset();
+        const formCallbackHandler = (formData: IHostedFormData) => {
+            if (!formData.errors || _isEmpty(formData.errors)) {
+                this.currentSystem.validateHostedFields();
+                this.currentSystem.hostedFields.errors = null;
+                this.depositAction(this.formObject.value.amount, formData as IIndexing<string>);
+            } else {
+                this.currentSystem.invalidateHostedFields();
+                this.inProgress = false;
+                this.cdr.markForCheck();
+            }
+        };
+
+        const formHasLoadedCallbackHandler = () => {
+            this.currentSystem.hostedFields.invalid = true;
+            this.isLoadHostedFields = false;
+            this.currentSystem.hostedFields.loaded = true;
+            this.cdr.markForCheck();
+        };
+
+        this.httpClient.get('/static/css/hosted.fields.css', {responseType: 'text'}).subscribe((data:any) => {
+            const params: IHostedFieldsParams = {
+                merchantId: this.currentSystem.hostedFields?.merchantId,
+                hostedfieldsurl: this.currentSystem.hostedFields?.url,
+                fields: this.currentSystem.hostedFields.fields,
+                onLoadCallback: () => formHasLoadedCallbackHandler,
+                styles: data,
+                callback: () => formCallbackHandler,
+                el: '#wlc-hosted-fields',
+            };
+
+            params.fields = params.fields.map((conf: IHostedField) => {
+                return new this.currentSystem.hostedField(
+                    conf.type,
+                    conf.name,
+                    conf.name,
+                    conf.label,
+                    conf.error,
+                    conf.helpKey,
+                    conf.visible,
+                    conf.required,
+                );
+            });
+            this.currentSystem.hostedFieldService.setup(params);
+        });
     }
 
     protected pushNotification(params: IPushMessageParams): void {

@@ -2,15 +2,6 @@ const {task} = require('gulp'),
     fs = require('fs');
 
 module.exports = function preBuildTask() {
-    task('prepare:build', (cb) => {
-        makeDistDirectory();
-        makeTempDirectory();
-        makeIndexHtmlSymlink();
-        makeWlcEngineSymlink();
-
-        cb();
-    });
-
     // Create Dist directory
     const makeDistDirectory = () => {
         if (!fs.existsSync(this.params.paths.dist)) {
@@ -70,6 +61,26 @@ module.exports = function preBuildTask() {
         fs.symlinkSync('../wlc-engine/polyfills.ts', this.params.paths.polyfillsFile);
     };
 
+    // Create site preloader scss
+    const createSitePreloader = () => {
+        fs.access(`${this.params.paths.src}/app-styles/app.loader.scss`, (err) => {
+            if (err) {
+                fs.writeFileSync(`${this.params.paths.src}/app-styles/app.loader.scss`,
+                    `@import 'wlc-engine/engine-scss/_engine.loader.scss';\n`);
+            }
+        });
+    };
+
+    // Create hosted fields scss
+    const createHostedFields = () => {
+        fs.access(`${this.params.paths.src}/app-styles/hosted.fields.scss`, (err) => {
+            if (err) {
+                fs.writeFileSync(`${this.params.paths.src}/app-styles/hosted.fields.scss`,
+                    `@import 'wlc-engine/engine-scss/_hosted.fields.scss';\n`);
+            }
+        });
+    };
+
     const makeCustomModule = () => {
 
         const modulePath = 'custom/custom.module.ts';
@@ -110,6 +121,8 @@ module.exports = function preBuildTask() {
         makeSrcIndexHtmlSymlink();
         makePolyfillsSymlink();
         makeCustomModule();
+        createSitePreloader();
+        createHostedFields();
 
         cb();
     });

@@ -1,4 +1,4 @@
-const {watch, series, task, dest, src} = require('gulp');
+const {watch, series, task, parallel} = require('gulp');
 const liveReload = require('gulp-livereload');
 const fs = require('fs');
 
@@ -33,20 +33,15 @@ module.exports = function watchTask() {
         cb();
     };
 
-    const createSitePreloader = () => {
-        fs.access(`${this.params.paths.src}/app-styles/app.loader.scss`, (err) => {
-            if (err) {
-                fs.writeFileSync(`${this.params.paths.src}/app-styles/app.loader.scss`,
-                    `@import 'wlc-engine/engine-scss/_engine.loader.scss';\n`);
-            }
-
-            series('build:loader-css')();
-        });
-    };
-
     const watchForPreloader = () => {
         watch(`${this.params.paths.src}/app-styles/app.loader.scss`).on('change',  () => {
             series('build:loader-css', 'liveReload:reload')();
+        });
+    };
+
+    const watchForHostedFields = () => {
+        watch(`${this.params.paths.src}/app-styles/hosted.fields.scss`).on('change',  () => {
+            series('build:hosted-fields-css', 'liveReload:reload')();
         });
     };
 
@@ -59,9 +54,10 @@ module.exports = function watchTask() {
         if (this.params.isEngineBundle) {
             return;
         }
+        parallel(['build:hosted-fields-css', 'build:loader-css'])();
 
-        createSitePreloader();
         watchForPreloader();
+        watchForHostedFields();
 
         const liveReloadCommand = process.platform === 'darwin' ?
             'lsof -P | grep \':35729\' | awk \'{print $2}\' | xargs kill -9' :

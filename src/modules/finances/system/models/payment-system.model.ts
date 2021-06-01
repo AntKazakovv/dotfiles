@@ -74,6 +74,26 @@ export interface IHostedField {
     required?: string;
 }
 
+export interface IHostedFieldsParams {
+    merchantId: string;
+    hostedfieldsurl: string;
+    fields: IHostedField[];
+    styles: any;
+    callback: () => void;
+    onLoadCallback: () => void;
+    el: string;
+}
+
+export interface IHostedFieldService {
+    setup: (params: IHostedFieldsParams) => void;
+    get: () => void;
+    reset: () => void;
+}
+
+export interface IHostedFormData extends IIndexing<string | IIndexing<string>> {
+    errors?: IIndexing<string>;
+}
+
 export interface IPaymentSystemCustomParams {
     provider?: string; // PaymentIQ Cashier provider
     merchant_id?: string; // PaymentIQ Cashier merchant ID
@@ -156,10 +176,19 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
 
     public cardFields: boolean;
     public isPayCryptosV2: boolean;
+    public isHosted: boolean = false;
+    public hostedFieldService: IHostedFieldService;
+    public hostedField: any;
 
     constructor(data: IPaymentSystem, protected UserService: UserService) {
         super();
         this.init(data);
+
+        if (this.data.hostedFields.fields?.length) {
+            this.isHosted = true;
+            this.importPackage();
+        }
+
         // TODO: remove when finished tiket #181785
         if (this.alias.includes('paycryptos') && this.alias.includes('v2')) {
             this.data.lastAccounts = [];
@@ -305,6 +334,28 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
             return _includes(this.required, value.dbName) &&
                 GlobalHelper.getOwnProperty(this.UserService.userProfile as any, key) &&
                 !_get(this.UserService.userProfile, [key, 'length'], false);
+        });
+    }
+
+    public dropHostedFields(): void {
+        this.hostedFields.errors = null;
+        this.hostedFields.loaded = false;
+    }
+
+    public validateHostedFields(): void {
+        this.hostedFields.invalid = false;
+        this.hostedFields.errors = null;
+    }
+
+    public invalidateHostedFields(): void {
+        this.hostedFields.invalid = true;
+        this.hostedFields.errors = true;
+    }
+
+    private async importPackage(): Promise<void> {
+        await import('hosted-fields-sdk').then((m: any) => {
+            this.hostedFieldService = m['HostedFields'];
+            this.hostedField = m['Field'];
         });
     }
 

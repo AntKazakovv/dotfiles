@@ -75,6 +75,7 @@ module.exports = function buildTask() {
             'build:inline',
             'build:sw-fix',
             'build:loader-css',
+            'build:hosted-fields-css',
         ),
     ));
 
