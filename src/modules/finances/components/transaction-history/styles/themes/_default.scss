@@ -35,6 +35,19 @@
                 @include bm.get-mq-map('display', $themeDefault, 'sectionDisplayTypeFirst');
             }
         }
+
+        ::ng-deep {
+
+            .wlc-table__row {
+
+                @include bm.hover {
+
+                    .cancel-btn {
+                        display: block;
+                    }
+                }
+            }
+        }
     }
 
     @include mq.min(1024) {

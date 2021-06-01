@@ -1,0 +1,29 @@
+@use 'engine-scss/engine.variables' as ev;
+@use 'engine-scss/functions' as ef;
+
+$customThemeButton: () !default;
+$themeButton: map-merge(map-merge(ev.$buttonSettings, (
+)), $customThemeButton);
+
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'cancelLeft': 50%,
+    'cancelZIndex': 10,
+    'cancelTransform': translateX(-50%),
+    'cancelJustify': center,
+    'cancelAlign': (
+        375: flex-start,
+        1024: center,
+    ),
+    'cancelBlockMinWidth': (
+        1024: 110px,
+    ),
+    'cancelPadding': (
+        375: 0 0 45px,
+        1024: 0,
+    ),
+    'cancelBottom': (
+        375: ef.get('size', 'small'),
+        1024: auto,
+    ),
+), $customThemeDefault);
