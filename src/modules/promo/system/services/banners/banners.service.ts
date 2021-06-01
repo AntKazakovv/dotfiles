@@ -82,7 +82,7 @@ export class BannersService {
         const banners = this.configService.get<IBanner[]>(`appConfig.banners[${this.translate.currentLang}]`);
         const defaultBanners = this.configService.get<IBanner[]>('appConfig.banners[en]');
 
-        this.banners = _map(banners || defaultBanners, (banner: IBanner, i: number): BannerModel => {
+        this.banners = _map(banners.length ? banners : defaultBanners, (banner: IBanner, i: number): BannerModel => {
             if (!banner.html) {
                 banner = {...defaultBanners[i]};
             }
