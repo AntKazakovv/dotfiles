@@ -2,7 +2,7 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'linkFontSize': 'PlaceholderText',
+    'linkFontSize': 'PrimaryText',
     'linkColor': ef.get('mainColors', 'main'),
     'alignText': right,
 ), $customThemeDefault);
