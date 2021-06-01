@@ -170,8 +170,11 @@
                 }
 
                 .wlc-input[class] {
-                    @include bm.get-mq-map('display', $mainInfoThemeDefault, 'phoneInputDisplay');
                     @include bm.get-mq-map('grid-template-columns', $mainInfoThemeDefault, 'phoneInputColumns');
+
+                    .wlc-input__label {
+                        @include bm.get-mq-map('display', $mainInfoThemeDefault, 'phoneInputLabelDisplay');
+                    }
                 }
             }
 
