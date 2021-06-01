@@ -6,16 +6,20 @@
 .wlc-sections__categories--theme-2 {
 
     .games-categories {
-        @include bm.get-mq-map('grid-template-areas', $withIcons, 'gridAreas');
+        display: grid;
+        align-items: ef.get-value($withIcons, 'gridAlignItems');
         @include bm.get-mq-map('grid-template-columns', $withIcons, 'gridColumns');
         @include bm.get-mq-map('grid-template-rows', $withIcons, 'gridRows');
         @include bm.get-mq-map('gap', $withIcons, 'sectionGap');
-        display: grid;
-        align-items: ef.get-value($withIcons, 'gridAlignItems');
+
+        &__wrapper {
+            display: grid;
+            @include bm.get-mq-map('gap', $withIcons, 'wrapperGridGap');
+            @include bm.get-mq-map('padding', $withIcons, 'wrapperPadding');
+        }
     }
 
     .wlc-category-menu {
-        grid-area: category-menu;
         overflow: hidden;
     }
 
@@ -25,19 +29,18 @@
         &.wlc-btn-merch {
             @include bm.get-mq-map('border-radius', $withIcons, 'buttonBorderRadius');
             @include bm.get-mq-map('padding', $withIcons, 'buttonPadding');
-            width: 100%;
+            width: ef.get-value($withIcons, 'buttonWidth');
 
             .wlc-btn-search__text,
             .wlc-btn-merch__text {
                 @include lib.get-text-style('PlaceholderText', ef.get-value($withIcons, 'buttonColor'));
                 display: flex;
-                align-items: center;
-                justify-content: space-between;
+                align-items: ef.get-value($withIcons, 'buttonAlignItems');
+                justify-content: ef.get-value($withIcons, 'buttonJustifyContent');
             }
         }
 
         &.wlc-btn-search {
-            grid-area: btn-search;
             align-self: ef.get-value($withIcons, 'searchAlignSelf');
             margin: ef.get-value($withIcons, 'searchButtonMargin');
             background: ef.get-value($withIcons, 'searchButtonBg');
@@ -52,7 +55,6 @@
         }
 
         &.wlc-btn-merch {
-            grid-area: btn-merch;
             align-self: ef.get-value($withIcons, 'merchAlignSelf');
             margin: ef.get-value($withIcons, 'merchButtonMargin');
             background: ef.get-value($withIcons, 'merchButtonBg');

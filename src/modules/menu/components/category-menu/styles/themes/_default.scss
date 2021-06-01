@@ -11,20 +11,21 @@
         .wlc-slider {
 
             &--on-start {
-                box-shadow: 5px 0 5px -5px ef.get-value($themeDefault, 'swiperShadowColor');
+                box-shadow:  ef.get-value($themeDefault, 'swiperBoxShadowStart');
             }
 
             &--on-end {
-                box-shadow: -5px 0 5px -5px ef.get-value($themeDefault, 'swiperShadowColor');
+                box-shadow:  ef.get-value($themeDefault, 'swiperBoxShadowEnd');
             }
 
             &--on-progress {
-                box-shadow: 5px 0 5px -5px ef.get-value($themeDefault, 'swiperShadowColor'), -5px 0 5px -5px ef.get-value($themeDefault, 'swiperShadowColor');
+                box-shadow: ef.get-value($themeDefault, 'swiperBoxShadowStart'), ef.get-value($themeDefault, 'swiperBoxShadowEnd');
             }
         }
 
         .wlc-menu {
             @include bm.get-mq-map('grid-gap', $themeDefault, 'gapSize');
+
             display: block;
             grid-auto-columns: auto;
             grid-auto-flow: column;
@@ -89,9 +90,15 @@
                 }
 
                 &__icon {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
                     width: ef.get-value($withIcons, 'menuIconOuterWidth');
                     height: ef.get-value($withIcons, 'menuIconOuterHeight');
                     margin-bottom: ef.get-value($withIcons, 'menuGag');
+
+                    background: ef.get-value($withIcons, 'menuIconBackground');
+                    border-radius: ef.get-value($withIcons, 'menuIconBorderRadius');
 
                     svg {
                         width: ef.get-value($withIcons, 'menuIconInnerWidth');
