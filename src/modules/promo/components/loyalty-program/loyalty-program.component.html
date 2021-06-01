@@ -1,7 +1,11 @@
 <div *ngIf="ready; else preloader" class="{{$class}}__wrapper">
     <div class="{{$class}}__title">{{'Loyalty Program' | translate}}</div>
     <div class="{{$class}}__container">
-        <div class="{{$class}}__items-wrapper">
+        <div class="{{$class}}__container-decor">
+            <div class="{{$class}}__decor-left" [ngStyle]="{backgroundImage: 'url(' + $params.decorLeftPath + ')'}"></div>
+            <div class="{{$class}}__decor-right" [ngStyle]="{backgroundImage: 'url(' + $params.decorRightPath + ')'}"></div>
+        </div>
+        <div class="{{$class}}__items-wrapper container">
             <div *ngFor="let level of levels; index as $index;" class="{{$class}}__item">
                 <div class="{{$class}}__item-image">
                     <img class="{{$class}}--icon {{$class}}--icon--{{level.level}}" [src]="imageLevel(level.level)">
@@ -22,10 +26,6 @@
                     [text]="'Read more'"
                     [themeMod]="'secondary'"
                     (click)="readMore()"></button>
-        </div>
-        <div class="{{$class}}__container-decor">
-            <div class="{{$class}}__decor-left" [ngStyle]="{backgroundImage: 'url(' + $params.decorLeftPath + ')'}"></div>
-            <div class="{{$class}}__decor-right" [ngStyle]="{backgroundImage: 'url(' + $params.decorRightPath + ')'}"></div>
         </div>
     </div>
 </div>
