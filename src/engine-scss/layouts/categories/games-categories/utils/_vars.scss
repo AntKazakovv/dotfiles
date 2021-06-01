@@ -70,7 +70,7 @@ $withIcons: map-merge((
     'merchButtonBgHover': ef.get('mainColors', 'bg300'),
     'merchButtonIconFill': ef.get('mainColors', 'main'),
     'sectionGap': (
-        900: ef.get('size', 'small'),
+        768: ef.get('size', 'smaller'),
     ),
     'buttonPadding': (
         375: ef.get('size', 'small') ef.get('size', 'smally'),
@@ -78,7 +78,10 @@ $withIcons: map-merge((
     'buttonBorderRadius': (
         375: ef.get('radius', 'biger'),
     ),
+    'buttonWidth': 100%,
     'buttonColor': ef.get('mainColors', 'baseMain'),
+    'buttonAlignItems': center,
+    'buttonJustifyContent': space-between,
     'searchAlignSelf': end,
     'merchAlignSelf': start,
     'searchButtonMargin': null,
@@ -89,11 +92,15 @@ $withIcons: map-merge((
     ),
     'gridRows': (
         375: 1fr,
-        900: 1fr 1fr
+        768: 1fr auto,
+        900: 1fr
     ),
-    'gridAreas': (
-        375: null,
-        900: 'category-menu btn-search' 'category-menu btn-merch',
+    'gridAlignItems': start,
+    'wrapperGridGap': (
+        375: 8px,
     ),
-    'gridAlignItems': center,
+    'wrapperPadding': (
+        375: 0,
+        900: 12px 0 0,
+    ),
 ), $customWithIcons);

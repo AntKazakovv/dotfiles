@@ -19,7 +19,8 @@ $themeDefault: map-merge((
     'underlineColor': ef.get('mainColors', 'main'),
     'underlineHeight': 6px,
     'underlineRadius': ef.get('radius', 'large'),
-    'swiperShadowColor': #867f7f63,
+    'swiperBoxShadowStart': 5px 0 5px -5px #867f7f63,
+    'swiperBoxShadowEnd': -5px 0 5px -5px #867f7f63,
 ), $customThemeDefault);
 
 $customDropdownThemeDefault: () !default;
@@ -45,7 +46,6 @@ $withIcons: map-merge((
     'iconDirection': column,
     'iconAlign': center,
     'menuItemColor': ef.get('mainColors', 'baseMain'),
-    'menuItemHoverColor': ef.get('mainColors', 'main'),
     'menuItemPadding': (
         375: 0 ef.get('size', 'smaller') 0 0,
     ),
@@ -54,9 +54,12 @@ $withIcons: map-merge((
     ),
     'menuIconOuterWidth': 86px,
     'menuIconOuterHeight': 86px,
-    'menuIconInnerHeight': 100%,
-    'menuIconInnerWidth': 100%,
+    'menuIconInnerHeight': initial,
+    'menuIconInnerWidth': initial,
     'menuItemTextAlign': center,
+    'menuIconBackground': ef.get('mainColors', 'bg700'),
+    'menuIconBorderRadius': ef.get('radius', 'biger'),
+    'menuIconHoverBackground': ef.get('mainColors', 'main'),
     'transition': 0.5s ease-in,
     'iconColor': ef.get('mainColors', 'main'),
     'menuIconInnerMaxWidth': initial,

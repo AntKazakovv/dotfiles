@@ -29,8 +29,16 @@ export namespace categories {
                     class: 'games-categories',
                     components: [
                         componentLib.wlcCategoryMenu.categoriesWithIcons,
-                        componentLib.wlcButton.searchV3,
-                        componentLib.wlcButton.searchMerchants,
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'games-categories__wrapper',
+                                components: [
+                                    componentLib.wlcButton.searchV3,
+                                    componentLib.wlcButton.searchMerchants,
+                                ],
+                            },
+                        },
                     ],
                 },
             },
