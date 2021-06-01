@@ -11,6 +11,18 @@ export interface IGamesConfig {
     categories?: ICategories;
     mediaFormatTypes?: IIndexing<string>;
     idVerticalVideos?: number[];
+    /**
+     * exclude required fields
+     *
+     * @example
+     * <pre>
+     * excludeRequiredFields: {
+     *   992: ["DateOfBirth", "Gender"],
+     *   944: ["DateOfBirth", "Gender"],
+     * },
+     * </pre>
+     */
+    excludeRequiredFields?: IIndexing<string[]>;
 }
 
 export interface ICategories {

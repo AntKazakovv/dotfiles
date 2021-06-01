@@ -80,7 +80,6 @@ export class MerchantFieldsService {
         const merchantFields: string[] = this.getMerchantRequiredFields(merchantId);
         const profileFields: string[] = this.getProfileRequiedFields();
 
-        const res = _sortedUniq<string>(merchantFields.concat(profileFields).sort());
         return _sortedUniq<string>(merchantFields.concat(profileFields).sort());
     }
 
@@ -91,7 +90,13 @@ export class MerchantFieldsService {
      * @returns {string[]} Fields names
      */
     public getMerchantRequiredFields(merchantId: number): string[] {
-        const fields = this.configService.get<string[]>(`appConfig.siteconfig.systemsGamePlayInfo[${merchantId}].Fields`) || [];
+        const excludeFields = this.configService.get<string[]>(`$games.excludeRequiredFields.${merchantId}`) || [];
+
+        const fields = _filter(this.configService.get<string[]>(`appConfig.siteconfig.systemsGamePlayInfo[${merchantId}].Fields`),
+            (item) => {
+                return !excludeFields.includes(item);
+            });
+
         let requiredFields: string[] = [];
 
         _forEach(fields, (field: string) => {
