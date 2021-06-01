@@ -1,0 +1,29 @@
+@import 'engine.variables';
+
+html,
+body,
+.hosted-input-container {
+    background: map-get($mainColors, 'bg700');
+}
+
+.hosted-input-container {
+    margin-top: 0;
+
+    .input-container {
+        font-size: 10px;
+
+        label {
+            color: map-get($fieldColors, 'labelColor');
+            margin-left: 10px;
+            font-weight: normal;
+        }
+
+        input {
+            max-width: 288px;
+            height: 40px;
+            font-size: 1.4rem;
+            color: map-get($fieldColors, 'textColor');
+            background: map-get($fieldColors, 'inputBg');
+        }
+    }
+}

@@ -37,6 +37,23 @@
 
         &__step {
 
+            .wlc-hosted-fields {
+
+                &__container {
+
+                    ::ng-deep {
+
+                        .hosted-field-container {
+
+                            iframe {
+                                height: 65px;
+                                overflow: hidden;
+                            }
+                        }
+                    }
+                }
+            }
+
             &--1 {
                 @include em.get-mq-map('background', $themeDefault, 'step1Bg');
                 @include em.get-mq-map('padding', $themeDefault, 'step1Padding');
