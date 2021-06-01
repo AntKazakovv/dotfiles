@@ -11,19 +11,28 @@ $themeDefault: map-merge((
     'wrapperAlignItems': center,
 
     'containerPadding': (
-        320: ef.get('size', 'main') 0,
+        320: 0 0 ef.get('size', 'main') 0,
+        1200: ef.get('size', 'main') 0,
     ),
-    'containerBackground': ef.get('mainColors', 'bg700'),
+    'containerBackground': (
+        320: transparent,
+        1200: ef.get('mainColors', 'bg700'),
+    ),
     'containerPosition': relative,
     'containerWidth': 100%,
     'containerOverflow': hidden,
 
     'containerDecorPosition': absolute,
+    'containerDecorZindex': 0,
     'containerDecorTop': 0,
     'containerDecorLeft': 50%,
     'containerDecorWidth': 1920px,
     'containerDecorHeight': 100%,
     'containerDecorTranslate': translate(-50%, 0),
+    'containerDecorDisplay': (
+        320: none,
+        1200: block,
+    ),
 
     'decorLeftPosition': absolute,
     'decorLeftZindex': 0,
@@ -51,13 +60,18 @@ $themeDefault: map-merge((
 
     'itemsWrapperPosition': relative,
     'itemsWrapperZindex': 5,
-    'itemsWrapperDisplay': flex,
-    'itemsWrapperWrap': wrap,
-    'itemsWrapperJustifyContent': center,
+    'itemsWrapperDisplay': grid,
+    'itemsWrapperTemplateColumns': (
+        320: 1fr,
+        640: repeat(2, 1fr),
+        1024: repeat(4, 1fr),
+    ),
+    'itemsWrapperGap': (
+        320: ef.get('size', 'small'),
+        1200: ef.get('size', 'main'),
+    ),
     'itemsWrapperWidth': (
-        320: 100%,
-        900: 800px,
-        1024: 100%,
+        1200: 1170px,
     ),
     'itemsWrapperMargin': (
         320: 0 auto,
@@ -66,24 +80,14 @@ $themeDefault: map-merge((
     'itemDisplay': flex,
     'itemDirection': column,
     'itemAlign': center,
-    'itemWidth': (
-        320: 100%,
-        720: 50%,
-        1024: auto,
-    ),
-    'itemMargin': (
-        320: 0,
-        1024: 0 ef.get('size', 'less'),
-        1200: 0 ef.get('size', 'main'),
-    ),
     'itemPadding': (
-        320: ef.get('size', 'smaller') 0,
-        1024: 0,
+        320: ef.get('size', 'less') 0,
+        1200: 0,
     ),
     'itemRadius': ef.get('radius', 'biger'),
     'itemBackground': (
         320: ef.get('mainColors', 'bg700'),
-        768: transparent,
+        1200: transparent,
     ),
 
     'itemImageBgPosition': relative,
@@ -126,7 +130,7 @@ $themeDefault: map-merge((
     'itemPointsAlign': center,
 
     'btnWrappPosition': relative,
-    'btnWrappZindex': 5,
+    'btnWrappZindex': 1,
     'btnWrappDisplay': flex,
     'btnWrappJustify': center,
     'btnWrappMargin': (

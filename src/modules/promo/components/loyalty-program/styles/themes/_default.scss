@@ -22,20 +22,22 @@
 
         &__container {
             @include em.get-mq-map('padding', $themeDefault, 'containerPadding');
+            @include em.get-mq-map('background', $themeDefault, 'containerBackground');
 
             position: ef.get-value($themeDefault, 'containerPosition');
 
             width: ef.get-value($themeDefault, 'containerWidth');
 
             overflow: ef.get-value($themeDefault, 'containerOverflow');
-
-            background: ef.get-value($themeDefault, 'containerBackground');
         }
 
         &__container-decor {
+            @include em.get-mq-map('display', $themeDefault, 'containerDecorDisplay');
+
             position: ef.get-value($themeDefault, 'containerDecorPosition');
             top: ef.get-value($themeDefault, 'containerDecorTop');
             left: ef.get-value($themeDefault, 'containerDecorLeft');
+            z-index: ef.get-value($themeDefault, 'containerDecorZindex');
 
             width: ef.get-value($themeDefault, 'containerDecorWidth');
             height: ef.get-value($themeDefault, 'containerDecorHeight');
@@ -70,6 +72,9 @@
         }
 
         &__items-wrapper {
+            @include em.get-mq-map('grid-template-columns', $themeDefault, 'itemsWrapperTemplateColumns');
+            @include em.get-mq-map('gap', $themeDefault, 'itemsWrapperGap');
+
             @include em.get-mq-map('width', $themeDefault, 'itemsWrapperWidth');
             @include em.get-mq-map('margin', $themeDefault, 'itemsWrapperMargin');
 
@@ -77,13 +82,9 @@
             z-index: ef.get-value($themeDefault, 'itemsWrapperZindex');
 
             display: ef.get-value($themeDefault, 'itemsWrapperDisplay');
-            flex-wrap: ef.get-value($themeDefault, 'itemsWrapperWrap');
-            justify-content: ef.get-value($themeDefault, 'itemsWrapperJustifyContent');
         }
 
         &__item {
-            @include em.get-mq-map('width', $themeDefault, 'itemWidth');
-            @include em.get-mq-map('margin', $themeDefault, 'itemMargin');
             @include em.get-mq-map('padding', $themeDefault, 'itemPadding');
             @include em.get-mq-map('background', $themeDefault, 'itemBackground');
 
