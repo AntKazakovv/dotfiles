@@ -63,6 +63,7 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
     public showTable: boolean;
     public classList: string = '';
     public activeIcon: IconModel;
+    public paymentDescription: string = '';
 
     @Input() public currentSystem: PaymentSystem;
     @Input() protected inlineParams: Params.IPaymentListCParams;
@@ -112,6 +113,10 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
         if (this.$params.hideModalOnSelect) {
             this.modalService.hideModal('payment-list');
         }
+
+        this.paymentDescription = this.$params.paymentType === 'deposit'
+            ? system.description
+            : system.descriptionWithdraw;
 
         this.cdr.markForCheck();
     }
