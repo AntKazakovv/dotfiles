@@ -9,7 +9,10 @@
         </div>
         <div class="{{$class}}__btn-right">
             <div class="icon-btn">
-                <div wlc-checkbox [inlineParams]="dashboardBtn" *ngIf="showDashboardBtn"></div>
+                <div *ngIf="showDashboardBtn"
+                     wlc-checkbox
+                     [inlineParams]="dashboardBtn">
+                </div>
             </div>
             <div *ngIf="isAuth" class="icon-btn wlc-icon--favourite"
                  [class.active]="game?.isFavourite"
@@ -27,7 +30,13 @@
 
         <ng-container *ngIf="isReady">
             <ng-container *ngIf="!useMobileIframe">
-                <div #gameContainer class="{{$class}}__game-container" wlc-dynamic-html [html]="gameHtml" *ngIf="isReady; else preloader"></div>
+                <div *ngIf="isReady; else preloader"
+                     wlc-dynamic-html
+                     #gameContainer
+                     class="{{$class}}__game-container"
+                     [html]="gameHtml"
+                     [canUseScriptTag]="true">
+                </div>
             </ng-container>
 
             <ng-container *ngIf="useMobileIframe">
