@@ -11,7 +11,8 @@ $themeDefault: map-merge((
 
 $customThemeDashboard: () !default;
 $themeDashboard: map-merge((
-    'headerFontSize': ef.get('font', 'base'),
+    'titleTextStyle': 'ThirdTitleBold',
+    'titleColor': ef.get('mainColors', 'baseMain'),
     'headerMargin': 0 0 ef.get('size', 'smally') 0,
     'swiperNavTop': 140px,
     'fillColor': ef.get('mainColors', 'baseMain'),

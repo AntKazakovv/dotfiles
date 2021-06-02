@@ -17,12 +17,22 @@ $themeDefault: map-merge((
     'itemWidth': 250px,
     'imgMargin': 0 0 15px 0,
 
+    'titleMarginBottom': ef.get('size', 'smally'),
+    'titleColor': ef.get('mainColors', 'baseMain'),
+
+    'desktopUserInfoDisplay': flex,
+    'desktopUserAlignItems': center,
+    'desktopUserInfoJustifyContent': space-between,
+    'desktopUserInfoWidth': 100%,
+    'desktopUserInfoMargin': 0 0 ef.get('size', 'smaller') 0,
+
     'tutorialArrowTop': 135px,
     'tutorialArrowRight': unset,
     'tutorialArrowLeft': 20px,
     'tutorialColor': ef.get('mainColors', 'baseMain'),
+    'tutorialMargin': 0 0 ef.get('size', 'big') 0,
     'tutorialArrowTextMargin': 8px 0 0 20px,
-    'tutorialDontShowColor': #fff,
+    'tutorialDontShowColor': ef.get('mainColors', 'baseMain'),
     'tutorialDontShowMargin': 0 0 0 0,
     'tutorialCheckTop': 2px,
     'tutorialCheckMargin': 2px 0 0,

@@ -35,11 +35,9 @@
     .wlc-tournament-list {
 
         &__header {
-            font-size: ef.get-value($themeDashboard, 'headerFontSize');
-            text-align: center;
-            line-height: 1.5;
-            font-weight: bold;
+            @include text.get-text-style(ef.get-value($themeDashboard, 'titleTextStyle'), ef.get-value($themeDashboard, 'titleColor'));
             margin: ef.get-value($themeDashboard, 'headerMargin');
+            text-align: center;
 
             /* stylelint-disable */
             display: -webkit-box;

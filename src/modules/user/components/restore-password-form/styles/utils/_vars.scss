@@ -27,6 +27,6 @@ $themeDefault: map-merge((
 
     'btnMargin': (
         320: ef.get('size', 'less') auto ef.get('size', 'main'),
-        560: ef.get('size', 'smaller') auto ef.get('size', 'biger'),
+        560: ef.get('size', 'smaller') auto ef.get('size', 'main'),
     ),
 ), $customThemeDefault);

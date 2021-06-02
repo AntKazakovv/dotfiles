@@ -7,11 +7,7 @@
 
 
 .wlc-modal--theme-default {
-    background: ef.get-value($themeDefault, 'dialogBackground');
-
-    @include mq.min(560) {
-        background: none;
-    }
+    @include em.get-mq-map('background', $themeDefault, 'dialogBackground');
 
     .wlc-modal {
 
@@ -25,7 +21,6 @@
 
         &__title {
             @include text.get-text-style(ef.get-value($themeDefault, 'titleFontSizeMobile'), ef.get-value($themeDefault, 'titleColor'));
-            font-weight: bold;
             margin: ef.get-value($themeDefault, 'titleMargin');
 
             @include mq.min(560) {
@@ -114,8 +109,8 @@
                 @include text.get-text-style(ef.get-value($themeDefault, 'restoreTitleStyle'), ef.get-value($themeDefault, 'restoreTitleColor'));
 
                 @include mq.min(640) {
-                    text-align: center;
                     @include text.get-text-style(ef.get-value($themeDefault, 'restoreTitleStyleDesk'), ef.get-value($themeDefault, 'restoreTitleColor'));
+                    text-align: center;
                 }
             }
 
@@ -184,8 +179,8 @@
 
         .wlc-modal__wrapper {
             @include mq.max(560) {
-                padding: 0;
-                height: 100%;
+                height: ef.get-value($hostModal, 'dataIsProcessingHeight');
+                padding: ef.get-value($hostModal, 'dataIsProcessingPadding');
             }
         }
 
@@ -200,6 +195,20 @@
                     flex-direction: column;
                     justify-content: center;
                 }
+            }
+        }
+    }
+
+    &.wlc-modal--bonus-info {
+
+        .wlc-modal {
+
+            &__body {
+                padding: ef.get-value($themeDefault, 'bonusInfoBodyPadding');
+            }
+
+            &__wrapper {
+                padding: ef.get-value($themeDefault, 'bonusInfoWrapperPadding');
             }
         }
     }

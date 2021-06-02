@@ -92,22 +92,12 @@
 
     &__title {
         @include text.get-text-style(ef.get-value($hostModal, 'titleFontSizeMobile'), ef.get-value($hostModal, 'titleColor'));
-        font-weight: bold;
+        @include bm.lineClamp(2);
+        width: ef.get-value($hostModal, 'titleWidth');
         margin: ef.get-value($hostModal, 'titleMargin');
-
         max-width: ef.get-value($hostModal, 'titleMaxWidth');
         padding: ef.get-value($hostModal, 'titlePadding');
-        //width: calc(100% - 40px);
-        width: calc(100%);
         text-align: center;
-
-        /* stylelint-disable */
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        /* stylelint-enable */
-        overflow: hidden;
-
         color: ef.get-value($hostModal, 'titleColor');
 
         &--back-btn {
@@ -265,12 +255,8 @@
             will-change: transform;
 
             .wlc-modal__body {
-                height: ef.get-value($hostModal, 'staticMaxHeightMobile');
+                @include bm.get-mq-map('height', $hostModal, 'staticMaxHeightMobile');
                 overflow-y: auto;
-
-                @include mq.min(560) {
-                    height: ef.get-value($hostModal, 'staticMaxHeight');
-                }
 
                 /* stylelint-disable */
                 &::-webkit-scrollbar {
@@ -443,15 +429,14 @@ body.modal-open {
 // fixes for ios
 .ios {
 
-    .wlc-modal__dialog--scrollable {
+    .wlc-modal__dialog {
+        margin: ef.get-value($hostModal, 'modalOffsetIosMobile');
 
-        .wlc-modal__body {
-            will-change: contents;
-            height: ef.get-value($hostModal, 'staticMaxHeightMobileIos');
-            overflow-y: auto;
+        &--scrollable {
 
-            @include mq.min(560) {
-                height: ef.get-value($hostModal, 'staticMaxHeight');
+            .wlc-modal__body {
+                @include bm.get-mq-map('height', $hostModal, 'staticMaxHeightMobileIos');
+                overflow-y: auto;
             }
         }
     }

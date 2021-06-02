@@ -73,6 +73,14 @@
 
 <ng-template #profile>
     <ng-container *ngIf="isAuth && (!isMobile || !landscapeOrientation)">
+        <div class="{{$class}}__profile-user">
+            <div class="{{$class}}__user-info">
+                <div wlc-user-name>
+                </div>
+                <div wlc-logout>
+                </div>
+            </div>
+        </div>
         <div wlc-user-stats>
         </div>
         <div wlc-loyalty-progress>

@@ -16,40 +16,52 @@
             top: ef.get-value($themeDashboard, 'moreIconTop');
             right: ef.get-value($themeDashboard, 'moreIconRight');
 
-            .wlc-icon::ng-deep {
+            .wlc-icon {
+                position: relative;
+                display: ef.get-value($themeDashboard, 'moreIconDisplay');
+                align-items: ef.get-value($themeDashboard, 'moreIconAlignItems');
+                justify-content: ef.get-value($themeDashboard, 'moreIconJustifyContent');
                 width: ef.get-value($themeDashboard, 'moreIconSize');
                 height: ef.get-value($themeDashboard, 'moreIconSize');
-                position: relative;
                 cursor: pointer;
 
-                svg {
-                    width: 100%;
-                    height: 100%;
-                    fill: ef.get-value($themeDashboard, 'moreIconColor');
-                    @include em.transition(fill);
+                &:after {
+                    display: none;
+                    content: '';
+                    position: absolute;
+                    width: ef.get-value($themeDashboard, 'moreIconAfterSize');
+                    height: ef.get-value($themeDashboard, 'moreIconAfterSize');
+                    background-color: ef.get-value($themeDashboard, 'moreIconColor');
+                    border-radius: ef.get-value($themeDashboard, 'moreIconAfterRadius');
+                    z-index: -1;
                 }
-            }
 
-            @include em.hover {
+                ::ng-deep {
 
-                .wlc-icon::ng-deep {
-
-                    &:after {
-                        display: block;
-                        content: '';
-                        position: absolute;
-                        width: 90%;
-                        height: 90%;
-                        margin-top: 20%;
-                        top: 0;
-                        left: 5%;
-                        background-color: ef.get-value($themeDashboard, 'moreIconColor');
-                        border-radius: 50%;
-                        z-index: -1;
+                    .wlc-icon-content {
+                        display: flex;
+                        width: ef.get-value($themeDashboard, 'moreIconContent');
                     }
 
                     svg {
-                        fill: ef.get-value($themeDashboard, 'moreIconColorHover');
+                        width: 100%;
+                        height: 100%;
+                        fill: ef.get-value($themeDashboard, 'moreIconColor');
+                        @include em.transition(fill);
+                    }
+                }
+
+                @include em.hover {
+
+                    &:after {
+                        display: block;
+                    }
+
+                    ::ng-deep {
+
+                        svg {
+                            fill: ef.get-value($themeDashboard, 'moreIconColorHover');
+                        }
                     }
                 }
             }
@@ -68,6 +80,15 @@
                 .wlc-tournament__more-icon {
                     top: ef.get-value($themeDashboard, 'moreIconSelectedTop');
                     right: ef.get-value($themeDashboard, 'moreIconSelectedRight');
+
+                    ::ng-deep {
+                        
+                        .wlc-icon-content {
+                            display: flex;
+                            width: 100%;
+                            height: 100%;
+                        }
+                    }
                 }
             }
         }
