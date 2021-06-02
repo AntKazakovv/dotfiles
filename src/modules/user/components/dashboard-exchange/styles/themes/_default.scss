@@ -10,6 +10,7 @@
     width: 100%;
 
     background: ef.get-value($themeDefault, 'bg');
+    box-shadow: ef.get-value($themeDefault, 'boxShadow');
     border-radius: ef.get-value($themeDefault, 'contentRadius');
 
     overflow: hidden;
