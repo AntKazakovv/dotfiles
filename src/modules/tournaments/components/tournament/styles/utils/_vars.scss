@@ -2,13 +2,19 @@
 
 $customThemeDashboard: () !default;
 $themeDashboard: map-merge((
+    'moreIconDisplay': flex,
+    'moreIconAlignItems': center,
+    'moreIconJustifyContent': center,
     'moreIconSize': 23px,
     'moreIconColor': ef.get('mainColors', 'baseMain'),
     'moreIconColorHover': ef.get('mainColors', 'main'),
     'moreIconTop': 20px,
     'moreIconRight': 32px,
-    'moreIconSelectedTop': -44px,
+    'moreIconSelectedTop': -38px,
     'moreIconSelectedRight': 0,
+    'moreIconAfterSize': 90%,
+    'moreIconAfterRadius': 50%,
+    'moreIconContent': 100%,
     'gap': ef.get('size', 'small'),
     'gapNoSelect': ef.get('size', 'smally'),
     'timerFontSize': ef.get('font', 'PrimaryText'),

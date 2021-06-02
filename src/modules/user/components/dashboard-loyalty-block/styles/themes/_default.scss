@@ -26,8 +26,13 @@
 
             .wlc-icon::ng-deep {
 
+                .wlc-icon-content {
+                    display: inline-flex;
+                }
+
                 svg {
                     transform: rotate(-90deg);
+
                     fill: ef.get-value($themeDefault, 'allLinkColor');
                 }
             }

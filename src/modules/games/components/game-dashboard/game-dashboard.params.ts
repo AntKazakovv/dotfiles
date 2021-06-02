@@ -79,6 +79,7 @@ export const dashboardTabs: IGameDashboardTab[] = [
         icon: 'game-dashboard/profile',
         label: gettext('Profile'),
         auth: true,
+        hideLabel: true,
     },
     {
         id: 'bonuses',

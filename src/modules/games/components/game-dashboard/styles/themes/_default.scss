@@ -21,10 +21,25 @@
 
     .wlc-game-dashboard {
 
+        &__user-info {
+            display: ef.get-value($themeDefault, 'desktopUserInfoDisplay');
+            align-items: ef.get-value($themeDefault, 'desktopUserAlignItems');
+            justify-content: ef.get-value($themeDefault, 'desktopUserInfoJustifyContent');
+            width: ef.get-value($themeDefault, 'desktopUserInfoWidth');
+            margin: ef.get-value($themeDefault, 'desktopUserInfoMargin');
+
+            ::ng-deep {
+
+                .wlc-user-name__email-value {
+                    @include text.get-text-style('ThirdTitle');
+                }
+            }
+        }
+
         &__title {
-            font-weight: bold;
+            @include text.get-text-style('ThirdTitleBold', ef.get-value($themeDefault, 'titleColor'));
+            margin-bottom: ef.get-value($themeDefault, 'titleMarginBottom');
             text-align: center;
-            margin-bottom: 13px;
         }
 
         &__backdrop {
@@ -110,7 +125,7 @@
         }
 
         &__tutorial-text {
-            margin-bottom: 59px;
+            margin: ef.get-value($themeDefault, 'tutorialMargin');
             @include text.get-text-style('ThirdTitle', ef.get-value($themeDefault, 'tutorialColor'));
         }
 
