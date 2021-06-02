@@ -33,6 +33,7 @@ import {
     EventService,
     LogService,
     ModalService,
+    ICheckboxCParams,
 } from 'wlc-engine/modules/core';
 import {defaultParams, IGameWrapperCParams} from './game-wrapper.params';
 import {IGameParams, ILaunchInfo} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
@@ -86,7 +87,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
 
     public $params: IGameWrapperCParams;
     public game: Game;
-    public gameHtml: string | HTMLIFrameElement = '';
+    public gameHtml: string = '';
     public useMobileIframe: boolean = false;
     public mobileIframeLoaded: boolean = false;
     public isReady: boolean;
@@ -95,7 +96,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
     public isAuth: boolean;
     public openDashboard: boolean = true;
     public showDashboardBtn: boolean = false;
-    public dashboardBtn = {
+    public dashboardBtn: ICheckboxCParams = {
         name: 'game-dashboard',
         type: 'toggle',
         text: gettext('Dashboard'),

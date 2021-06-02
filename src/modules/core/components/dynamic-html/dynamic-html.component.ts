@@ -3,6 +3,8 @@ import {
     Compiler,
     Component,
     ComponentRef,
+    ElementRef,
+    Inject,
     Injector,
     Input,
     NgModule,
@@ -10,30 +12,54 @@ import {
     OnDestroy,
     ViewContainerRef,
 } from '@angular/core';
+import {DOCUMENT} from '@angular/common';
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
 import {GlobalHelper} from 'wlc-engine/modules/core';
+
+import _each from 'lodash-es/each';
 
 @Component({
     selector: '[wlc-dynamic-html]',
     templateUrl: './dynamic-html.component.html',
 })
 export class DynamicHtmlComponent implements AfterViewInit, OnDestroy {
+    /**
+     * if true - enable sanitize dom by DomParser
+     */
     @Input() public parseAsPlainHTML: boolean;
+    /**
+     * change wrapper html tag, by default - div
+     */
     @Input() public tag: string;
+    /**
+     * if true - enable manual script tag add to component
+     */
+    @Input() public canUseScriptTag: boolean = false;
+    /**
+     * html to compile
+     */
     @Input() protected html: string;
 
     private componentReference: ComponentRef<any>;
 
     constructor(
         public viewRef: ViewContainerRef,
+        @Inject(DOCUMENT) private document: HTMLDocument,
         private compiler: Compiler,
         private injector: Injector,
-        private moduleRef: NgModuleRef<any>,
+        private moduleRef: NgModuleRef<CoreModule>,
+        private elementRef: ElementRef,
     ) {
     }
 
-    ngAfterViewInit(): void {
+    public ngAfterViewInit(): void {
         this.createComponentFromRaw();
+    }
+
+    public ngOnDestroy(): void {
+        if (this.componentReference) {
+            this.componentReference.destroy();
+        }
     }
 
     private createComponentFromRaw(): void {
@@ -65,16 +91,28 @@ export class DynamicHtmlComponent implements AfterViewInit, OnDestroy {
                 this.viewRef.clear();
                 this.viewRef.insert(this.componentReference.hostView);
                 this.componentReference.changeDetectorRef.markForCheck();
+            }).then(() => {
+                if (this.canUseScriptTag) {
+                    this.createScriptElements();
+                }
             });
+    }
+
+    private createScriptElements(): void {
+        const html = new DOMParser().parseFromString(this.html, 'text/html');
+
+        _each(html.querySelectorAll('script'), (script) => {
+            const element = this.document.createElement('script');
+            _each(script.attributes, (attribute) => {
+                element.attributes.setNamedItem(<Attr>attribute.cloneNode());
+            });
+            const content = this.document.createTextNode(script.textContent);
+            element.appendChild(content);
+            this.elementRef.nativeElement.appendChild(element);
+        });
     }
 
     private extractBodyFromString(html: string): string {
         return html.match(/<body.*?>(.*?)<\/body>/s)?.[1] || html;
-    }
-
-    ngOnDestroy() {
-        if (this.componentReference) {
-            this.componentReference.destroy();
-        }
     }
 }
