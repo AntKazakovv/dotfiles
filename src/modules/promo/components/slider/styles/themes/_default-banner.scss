@@ -16,6 +16,7 @@
     }
 
     .swiper-button-container {
+        @include em.get-mq-map('bottom', $themeDefaultBanner, 'bottomGap');
 
         display: none;
 
@@ -26,15 +27,20 @@
             left: 50%;
             transform: translateX(-50%);
             z-index: 1;
+            pointer-events: none;
+
+            * {
+                pointer-events: initial;
+            }
         }
 
-        @include em.get-mq-map('bottom', $themeDefaultBanner, 'bottomGap');
     }
 }
 
 .container > .wlc-slider--theme-default-banner {
     border-radius: ef.get-value($themeDefaultBanner, 'containerBorderRadius');
     overflow: hidden;
+    transform: scale3d(1, 1, 1); //fix border radius bug on ios
 
     .banner,
     .swiper-button-container {
