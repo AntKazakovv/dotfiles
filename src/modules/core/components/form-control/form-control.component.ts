@@ -12,7 +12,7 @@ import {FormControl} from '@angular/forms';
 import {takeUntil} from 'rxjs/operators';
 import {Subject} from 'rxjs';
 import {TranslateService} from '@ngx-translate/core';
-import {IValidatorSettings} from 'wlc-engine/modules/core';
+import {ValidatorType} from 'wlc-engine/modules/core';
 
 import _isObject from 'lodash-es/isObject';
 import _find from 'lodash-es/find';
@@ -28,7 +28,7 @@ export class FormControlComponent implements OnInit, OnDestroy {
     @Input() control: FormControl;
     @Input() className: string;
     @Input() fieldName: string;
-    @Input() validators: IValidatorSettings[];
+    @Input() validators: ValidatorType[];
     @HostBinding('class') protected $hostClass: string = 'form-control';
 
     public errors: string[] = [];
@@ -66,7 +66,7 @@ export class FormControlComponent implements OnInit, OnDestroy {
                 return (_isObject(validator) ? validator['name'] : validator).toLowerCase() === item.toLowerCase();
             });
 
-            if (validator?.text) {
+            if (_isObject(validator) && validator?.text) {
                 return gettext(validator.text);
             } else if (this.translate.instant(key) !== key) {
                 return key;
