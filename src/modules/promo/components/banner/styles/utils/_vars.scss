@@ -9,15 +9,28 @@ $themeDefaultBanner: map-merge((
         1630: 400px,
     ),
     'colorTitle': ef.get('mainColors', 'baseMain'),
-    'colorShadow': ef.get('mainColors', 'bg'),
     'colorDescription': ef.get('mainColors', 'baseMain'),
+    'containerZindex': 12,
+    'decorZindex': 11,
+    'textContentShadow': #{1px 1px 2px ef.get('mainColors', 'bg'), 0 0 1em ef.get('mainColors', 'bg')},
     'buttonMargin': (
-        375: ef.get('size', 'less') auto 0 auto,
+        375: ef.get('size', 'less') auto 0,
         768: ef.get('size', 'main') auto 0 0,
+    ),
+    'centerButtonMargin': (
+        375: ef.get('size', 'less') auto 0,
+    ),
+    'rightButtonMargin': (
+        375: ef.get('size', 'less') auto 0,
+        768: ef.get('size', 'main') 0 0 auto,
     ),
     'textAlign': (
         375: center,
         768: start,
+    ),
+    'rightBannerTextAlign': (
+        375: center,
+        768: right,
     ),
     'backdropColor': linear-gradient(to bottom, #000000, transparent),
     'banner1DefaultColor': (
@@ -28,10 +41,15 @@ $themeDefaultBanner: map-merge((
         375: (1px 1px 2px ef.get('mainColors', 'bg'), 0 0 1em ef.get('mainColors', 'bg')),
         1024: (1px 1px 2px ef.get('mainColors', 'baseMain'), 0 0 1em ef.get('mainColors', 'baseMain'))
     ),
+    'backdropZindex': 1,
 ), $customThemeDefaultBanner);
 
 $customThemeDefault1Banner: () !default;
 $themeDefault1Banner: map-merge((
+    'bgShadowDisplay': (
+        375: block,
+        1024: none,
+    ),
     'bannerDecorCenterLeft': (
         375: 2%,
         768: 35%,
@@ -44,8 +62,230 @@ $themeDefault1Banner: map-merge((
         1420: 20vw,
         1630: 15vw,
     ),
+    'bannerDecorCenterHeight': (
+        1420: 320px,
+    ),
     'bannerDecorCenterBottom': (
         375: 3%,
         1420: 7%,
-    )
+    ),
+    'rightDecorPosRight': (
+        375: 2%,
+        1420: 5%,
+    ),
+    'rightDecorPosBottom': (
+        375: 3%,
+        1420: 5%,
+    ),
+    'rightDecorPosLeft': 65%,
+    'rightDecorMaxWidth': (
+        375: 30vw,
+        768: 35vw,
+        1200: 30vw,
+        1420: 25vw,
+        1630: 20vw,
+    ),
+    'rightDecorMaxHeight': (
+        1420: 355px,
+    ),
 ), $customThemeDefault1Banner);
+
+$customThemeDefault2Banner: () !default;
+$themeDefault2Banner: map-merge((
+    'leftDecorPosLeft': (
+        375: -1%,
+    ),
+    'leftDecorPosBottom': (
+        375: 0,
+        768: -15%,
+        1420: -40%,
+    ),
+    'leftDecorMaxWidth': (
+        375: 30vw,
+    ),
+    'rightDecorPosRight': (
+        375: 2%,
+    ),
+    'rightDecorPosTop': (
+        375: 2%,
+    ),
+    'rightDecorMaxWidth': (
+        375: 30vw,
+    ),
+), $customThemeDefault2Banner);
+
+$customThemeDefault3Banner: () !default;
+$themeDefault3Banner: map-merge((
+    'leftDecorAnimDelay': 250ms,
+    'leftDecorDisplay': (
+        768: none,
+        1200: block,
+    ),
+    'leftDecorPosLeft': (
+        375: 1%,
+        768: 40%,
+        1200: calc(50% - 150px),
+    ),
+    'leftDecorPosTop': (
+        375: 0,
+        1200: -5%,
+        1630: 0,
+    ),
+    'leftDecorPosBottom': (
+        375: 0,
+        1200: -5%,
+        1630: 0,
+    ),
+    'leftDecorMaxWidth': (
+        375: 200px,
+        1200: 350px,
+    ),
+    'leftDecorZindex': 5,
+
+    'centerDecorAnimDelay': 500ms,
+    'centerDecorDisplay': (
+        375: none,
+        1024: block,
+    ),
+    'centerDecorPosTop': (
+        375: -15px,
+    ),
+    'centerDecorPosRight': (
+        375: 0,
+        1200: 10%,
+    ),
+    'centerDecorPosLeft': (
+        375: 45%,
+        1200: 50%,
+    ),
+    'centerDecorHeight': (
+        375: calc(100% + 30px),
+    ),
+    'centerDecorMaxWidth': (
+        375: 660px,
+    ),
+    'centerDecorZindex': 15,
+    'centerDecorObjPosition': 100% 45%,
+
+    'rightDecorAnimDelay': 750ms,
+    'rightDecorZindex': 10,
+    'rightDecorPosRight': (
+        375: 0,
+        768: initial,
+    ),
+    'rightDecorPosLeft': (
+        768: 60%,
+        1024: 75%,
+        1200: calc(50% + 300px),
+        1630: calc(50% + 420px),
+    ),
+    'rightDecorPosTop': (
+        375: 0,
+        768: -20px,
+        1200: 0,
+    ),
+    'rightDecorMaxWidth': (
+        375: 32vw,
+        768: 420px,
+    ),
+    'rightDecorHeight': (
+        768: calc(100% + 40px),
+        1200: auto,
+    ),
+    'rightDecorDisplay': (
+        375: none,
+        560: block,
+    ),
+), $customThemeDefault3Banner);
+
+
+
+$customThemeDefault4Banner: () !default;
+$themeDefault4Banner: map-merge((
+    'bgShadowDisplay': none,
+    'fixedBgPosTop': (
+        375: 0,
+    ),
+    'fixedBgPosLeft': (
+        375: 0,
+    ),
+    'fixedBgWidth': (
+        375: 100%,
+    ),
+    'fixedBgHeight': (
+        375: 100%,
+    ),
+    'fixedBgDisplay': (
+        375: none,
+        768: block,
+    ),
+    'fixedBgImages': (
+        375: #{url('/gstatic/wlc/new-banners/banner-4/left-fixed.svg'), url('/gstatic/wlc/new-banners/banner-4/right-fixed.svg')},
+    ),
+    'fixedBgPos': (
+        375: #{-375% 0, 110% 0},
+        900: #{-125% 0, 110% 0},
+        1024: #{-75% 0, 125% 0},
+        1200: #{-50% 0, 110% 0},
+        1630: #{top left, top right},
+    ),
+
+    'fixedDecorPosTop': (
+        375: 0,
+    ),
+    'fixedDecorPosBottom': (
+        375: 0,
+    ),
+    'fixedDecorPosLeft': (
+        375: 0,
+    ),
+    'fixedDecorDisplay': (
+        375: none,
+        768: block,
+    ),
+    'fixedDecorMaxWidth': 30%,
+    'fixedDecorBlendMode': color-dodge,
+
+    'decorImgTop': 0,
+    'decorImgLeft': 0,
+    'decorImgWidth': 100%,
+    'decorImgHeight': 100%,
+    'decorDisplay': (
+        375: flex,
+    ),
+    'decorAlignItems': (
+        375: flex-end,
+    ),
+
+    'leftDecorObjPos': bottom left,
+    'leftDecorPosTop': (
+        375: 30%,
+        1024: -1%,
+    ),
+    'leftDecorPosLeft': (
+        375: 0,
+        1630: 3%,
+    ),
+    'leftDecorPosBottom': (
+        375: -10px,
+    ),
+
+    'rightDecorObjPos': bottom right,
+    'rightDecorPosTop': (
+        375: 30%,
+        1024: -7%,
+    ),
+    'rightDecorPosRight': (
+        375: 0,
+        1630: 5%,
+    ),
+    'rightDecorPosBottom': (
+        375: -10px,
+    ),
+    'leftDecorWidth': (
+        375: 33%,
+    ),
+    'rightDecorWidth': (
+        375: 33%,
+    ),
+), $customThemeDefault4Banner);

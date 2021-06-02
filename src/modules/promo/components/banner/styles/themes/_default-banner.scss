@@ -8,28 +8,29 @@
     ::ng-deep {
 
         .banner {
-            overflow: hidden;
+            @include em.get-mq-map('min-height', $themeDefaultBanner, 'height');
+
             position: relative;
             display: flex;
             align-items: center;
             background: ef.get-value($themeDefaultBanner, 'background');
-            background-size: cover;
+            overflow: hidden;
             background-repeat: no-repeat;
+            background-size: cover;
 
-            @include em.get-mq-map('min-height', $themeDefaultBanner, 'height');
 
             .wlc-btn {
                 @include em.get-mq-map('margin', $themeDefaultBanner, 'buttonMargin');
             }
 
             .container {
-                z-index: 12;
                 position: relative;
+                z-index: ef.get-value($themeDefaultBanner, 'containerZindex');
             }
 
             &__decor {
-                z-index: 11;
                 position: absolute;
+                z-index: ef.get-value($themeDefaultBanner, 'decorZindex');
                 object-position: initial;
 
                 img {
@@ -37,6 +38,7 @@
                     width: 100%;
                     object-fit: contain;
                     object-position: inherit;
+                    will-change: transform;
                 }
             }
 
@@ -45,11 +47,7 @@
                 .banner_bg {
 
                     &:before {
-                        display: block;
-
-                        @include mq.min(1024) {
-                            display: none;
-                        }
+                        @include em.get-mq-map('display', $themeDefault1Banner, 'bgShadowDisplay');
                     }
                 }
 
@@ -60,6 +58,7 @@
                         @include em.get-mq-map('left', $themeDefault1Banner, 'bannerDecorCenterLeft');
                         @include em.get-mq-map('bottom', $themeDefault1Banner, 'bannerDecorCenterBottom');
                         @include em.get-mq-map('max-width', $themeDefault1Banner, 'bannerDecorCenterMaxWidth');
+                        @include em.get-mq-map('max-height', $themeDefault1Banner, 'bannerDecorCenterHeight');
 
                         @include mq.min(1420) {
                             max-height: 320px;
@@ -67,34 +66,13 @@
                     }
 
                     &--right {
-                        right: 2%;
-                        bottom: 3%;
-                        max-width: 30vw;
+                        @include em.get-mq-map('right', $themeDefault1Banner, 'rightDecorPosRight');
+                        @include em.get-mq-map('bottom', $themeDefault1Banner, 'rightDecorPosBottom');
+                        @include em.get-mq-map('max-width', $themeDefault1Banner, 'rightDecorMaxWidth');
+                        @include em.get-mq-map('max-height', $themeDefault1Banner, 'rightDecorMaxHeight');
 
-                        @include mq.min(768) {
-                            max-width: 35vw;
-                        }
-
-                        @include mq.min(1200) {
-                            max-width: 30vw;
-                        }
-
-                        @include mq.min(1420) {
-                            bottom: 5%;
-                            right: 5%;
-                            max-height: 355px;
-                            max-width: 25vw;
-                        }
-
-                        @include mq.min(1630) {
-                            max-width: 20vw;
-                        }
-
-                        @media (min-width: 2540px) {
-
-                            @include mq.min(2500) {
-                                left: 65%;
-                            }
+                        @media (min-width: 2500px) {
+                            left: ef.get-value($themeDefault1Banner, 'rightDecorPosLeft');
                         }
                     }
                 }
@@ -111,23 +89,15 @@
                 .banner__decor {
 
                     &--left {
-                        left: -1%;
-                        bottom: 0;
-                        max-width: 30vw;
-
-                        @include mq.min(768) {
-                            bottom: -15%;
-                        }
-
-                        @include mq.min(1420) {
-                            bottom: -40%;
-                        }
+                        @include em.get-mq-map('left', $themeDefault2Banner, 'leftDecorPosLeft');
+                        @include em.get-mq-map('bottom', $themeDefault2Banner, 'leftDecorPosBottom');
+                        @include em.get-mq-map('max-width', $themeDefault2Banner, 'leftDecorMaxWidth');
                     }
 
                     &--right {
-                        right: 2%;
-                        top: 2%;
-                        max-width: 30vw;
+                        @include em.get-mq-map('right', $themeDefault2Banner, 'rightDecorPosRight');
+                        @include em.get-mq-map('top', $themeDefault2Banner, 'rightDecorPosTop');
+                        @include em.get-mq-map('max-width', $themeDefault2Banner, 'rightDecorMaxWidth');
                     }
                 }
             }
@@ -142,72 +112,114 @@
                     }
 
                     &--left {
-                        z-index: 8;
-                        left: 1%;
-                        bottom: 2%;
-                        max-width: 200px;
-                        animation-delay: 0.5s;
+                        @include em.get-mq-map('top', $themeDefault3Banner, 'leftDecorPosTop');
+                        @include em.get-mq-map('bottom', $themeDefault3Banner, 'leftDecorPosBottom');
+                        @include em.get-mq-map('left', $themeDefault3Banner, 'leftDecorPosLeft');
+                        @include em.get-mq-map('display', $themeDefault3Banner, 'leftDecorDisplay');
+                        @include em.get-mq-map('max-width', $themeDefault3Banner, 'leftDecorMaxWidth');
 
-                        @include mq.min(768) {
-                            z-index: 10;
-                            left: 40%;
-                            max-width: 350px;
-                            display: none;
-                        }
-
-                        @include mq.min(1200) {
-                            display: block;
-                            left: calc(50% - 150px);
-                        }
+                        z-index: ef.get-value($themeDefault3Banner, 'leftDecorZindex');
+                        animation-delay: ef.get-value($themeDefault3Banner, 'leftDecorAnimDelay');
                     }
 
                     &--center {
-                        display: none;
-                        z-index: 11;
-                        top: 0;
-                        left: 45%;
-                        height: 105%;
-                        max-width: 660px;
-                        animation-delay: 1s;
+                        @include em.get-mq-map('top', $themeDefault3Banner, 'centerDecorPosTop');
+                        @include em.get-mq-map('right', $themeDefault3Banner, 'centerDecorPosRight');
+                        @include em.get-mq-map('left', $themeDefault3Banner, 'centerDecorPosLeft');
+                        @include em.get-mq-map('display', $themeDefault3Banner, 'centerDecorDisplay');
+                        @include em.get-mq-map('max-width', $themeDefault3Banner, 'centerDecorMaxWidth');
+                        @include em.get-mq-map('height', $themeDefault3Banner, 'centerDecorHeight');
 
-                        img {
-                            object-position: 100% 45%;
-                        }
-
-                        @include mq.min(1024) {
-                            display: block;
-                        }
-
-                        @include mq.min(1200) {
-                            left: 50%;
-                        }
+                        z-index: ef.get-value($themeDefault3Banner, 'centerDecorZindex');
+                        animation-delay: ef.get-value($themeDefault3Banner, 'centerDecorAnimDelay');
                     }
 
                     &--right {
-                        z-index: 10;
-                        right: 0;
-                        display: none;
-                        max-width: 32vw;
-                        animation-delay: 1.5s;
+                        @include em.get-mq-map('top', $themeDefault3Banner, 'rightDecorPosTop');
+                        @include em.get-mq-map('right', $themeDefault3Banner, 'rightDecorPosRight');
+                        @include em.get-mq-map('left', $themeDefault3Banner, 'rightDecorPosLeft');
+                        @include em.get-mq-map('display', $themeDefault3Banner, 'rightDecorDisplay');
+                        @include em.get-mq-map('max-width', $themeDefault3Banner, 'rightDecorMaxWidth');
+                        @include em.get-mq-map('height', $themeDefault3Banner, 'rightDecorHeight');
 
-                        @include mq.min(560) {
-                            display: block;
+                        z-index: ef.get-value($themeDefault3Banner, 'rightDecorZindex');
+                        animation-delay: ef.get-value($themeDefault3Banner, 'rightDecorAnimDelay');
+                    }
+                }
+            }
+
+            &-4 {
+
+                .banner {
+
+                    &_bg {
+
+                        &:before {
+                            display: ef.get-value($themeDefault4Banner, 'bgShadowDisplay');
+                        }
+                    }
+
+                    &__fixed-bg {
+                        @include em.get-mq-map('top', $themeDefault4Banner, 'fixedBgPosTop');
+                        @include em.get-mq-map('left', $themeDefault4Banner, 'fixedBgPosLeft');
+                        @include em.get-mq-map('display', $themeDefault4Banner, 'fixedBgDisplay');
+                        @include em.get-mq-map('width', $themeDefault4Banner, 'fixedBgWidth');
+                        @include em.get-mq-map('height', $themeDefault4Banner, 'fixedBgHeight');
+                        @include em.get-mq-map('background-image', $themeDefault4Banner, 'fixedBgImages');
+                        @include em.get-mq-map('background-position', $themeDefault4Banner, 'fixedBgPos');
+
+                        position: absolute;
+                        background-repeat: no-repeat;
+                    }
+
+                    &__decor,
+                    &__decor-fixed {
+
+                        img {
+                            position: absolute;
+                            top: ef.get-value($themeDefault4Banner, 'decorImgTop');
+                            left: ef.get-value($themeDefault4Banner, 'decorImgLeft');
+
+                            width: ef.get-value($themeDefault4Banner, 'decorImgWidth');
+                            height: ef.get-value($themeDefault4Banner, 'decorImgHeight');
+                        }
+                    }
+
+                    &__decor-fixed {
+                        @include em.get-mq-map('display', $themeDefault4Banner, 'fixedDecorDisplay');
+                        @include em.get-mq-map('top', $themeDefault4Banner, 'fixedDecorPosTop');
+                        @include em.get-mq-map('left', $themeDefault4Banner, 'fixedDecorPosLeft');
+                        @include em.get-mq-map('bottom', $themeDefault4Banner, 'fixedDecorPosBottom');
+
+                        position: absolute;
+                        width: ef.get-value($themeDefault4Banner, 'fixedDecorMaxWidth');
+                        mix-blend-mode: ef.get-value($themeDefault4Banner, 'fixedDecorBlendMode');
+                    }
+
+                    &__decor {
+                        @include em.get-mq-map('display', $themeDefault4Banner, 'decorDisplay');
+                        @include em.get-mq-map('align-items', $themeDefault4Banner, 'decorAlignItems');
+
+                        &--left {
+                            @include em.get-mq-map('top', $themeDefault4Banner, 'leftDecorPosTop');
+                            @include em.get-mq-map('bottom', $themeDefault4Banner, 'leftDecorPosBottom');
+                            @include em.get-mq-map('left', $themeDefault4Banner, 'leftDecorPosLeft');
+                            @include em.get-mq-map('width', $themeDefault4Banner, 'leftDecorWidth');
+
+                            img {
+                                object-position: ef.get-value($themeDefault4Banner, 'leftDecorObjPos');
+                            }
                         }
 
-                        @include mq.min(768) {
-                            right: initial;
-                            left: 60%;
-                            height: 100%;
-                            max-width: 420px;
-                        }
+                        &--right {
+                            @include em.get-mq-map('top', $themeDefault4Banner, 'rightDecorPosTop');
+                            @include em.get-mq-map('right', $themeDefault4Banner, 'rightDecorPosRight');
+                            @include em.get-mq-map('bottom', $themeDefault4Banner, 'rightDecorPosBottom');
+                            @include em.get-mq-map('width', $themeDefault4Banner, 'rightDecorWidth');
 
-                        @include mq.min(1024) {
-                            left: 75%;
-                        }
-
-                        @include mq.min(1200) {
-                            left: calc(50% + 470px);
-                            height: auto;
+                            img {
+                                object-position: ef.get-value($themeDefault4Banner, 'rightDecorObjPos');
+                            }
                         }
                     }
                 }
@@ -221,23 +233,26 @@
                 height: 100%;
 
                 &:before {
-                    z-index: 9;
                     content: '';
+
                     position: absolute;
                     top: 0;
                     left: 0;
+                    z-index: ef.get-value($themeDefaultBanner, 'backdropZindex');
+
                     width: 100%;
                     height: 100%;
                     background: ef.get-value($themeDefaultBanner, 'backdropColor');
                 }
 
                 img {
+                    @include em.transition(transform, 0.1s);
+
                     display: block;
                     width: 100%;
                     height: 100%;
                     object-fit: cover;
                     object-position: right;
-                    @include em.transition(all, 0.1s);
 
                     @include mq.min(1630) {
                         object-position: bottom;
@@ -247,8 +262,9 @@
 
             &__title {
                 @include lib.get-text-style('QoteTextBold', ef.get-value($themeDefaultBanner, 'colorTitle'));
-                text-shadow: 1px 1px 2px ef.get-value($themeDefaultBanner, 'colorShadow'), 0 0 1em ef.get-value($themeDefaultBanner, 'colorShadow');
                 @include em.get-mq-map('text-align', $themeDefaultBanner, 'textAlign');
+
+                text-shadow: ef.get-value($themeDefaultBanner, 'textContentShadow');
 
                 @include mq.min(768) {
                     @include lib.get-text-style('PromoTitle', ef.get-value($themeDefaultBanner, 'colorTitle'));
@@ -261,8 +277,9 @@
 
             &__description {
                 @include lib.get-text-style('PrimaryText', ef.get-value($themeDefaultBanner, 'colorDescription'));
-                text-shadow: 1px 1px 2px ef.get-value($themeDefaultBanner, 'colorShadow'), 0 0 20px ef.get-value($themeDefaultBanner, 'colorShadow');
                 @include em.get-mq-map('text-align', $themeDefaultBanner, 'textAlign');
+
+                text-shadow: ef.get-value($themeDefaultBanner, 'textContentShadow');
 
                 @include mq.min(768) {
                     @include lib.get-text-style('ThirdTitleBold', ef.get-value($themeDefaultBanner, 'colorDescription'));
@@ -281,8 +298,7 @@
                 }
 
                 .wlc-btn[wlc-button] {
-                    margin-left: auto;
-                    margin-right: auto;
+                    @include em.get-mq-map('margin', $themeDefaultBanner, 'centerButtonMargin');
                 }
             }
 
@@ -290,12 +306,11 @@
 
                 .banner__title,
                 .banner__description {
-                    text-align: right;
+                    @include em.get-mq-map('text-align', $themeDefaultBanner, 'rightBannerTextAlign');
                 }
 
                 .wlc-btn[wlc-button] {
-                    margin-left: auto;
-                    margin-right: 0;
+                    @include em.get-mq-map('margin', $themeDefaultBanner, 'rightButtonMargin');
                 }
             }
         }
