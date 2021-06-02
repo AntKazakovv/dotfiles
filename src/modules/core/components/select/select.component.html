@@ -1,25 +1,27 @@
 <label for="{{$params.name}}"
        *ngIf="$params.labelText"
        class="{{$class}}__label"
-       [class.tooltipped]="$params.common?.tooltipText"
->{{$params.labelText | translate}}
+       [class.tooltipped]="$params.common?.tooltipText">
+    {{$params.labelText | translate}}
     <ng-container *ngIf="isFieldRequired()">*</ng-container>
     <div *ngIf="$params.common?.tooltipText || $params.common?.tooltipModal"
          wlc-tooltip
-         [inlineParams]="{inlineText: $params.common.tooltipText, modal: $params.common?.tooltipModal, modalParams: $params.common?.tooltipModalParams}">
+         [inlineParams]="tooltipParams">
     </div>
 </label>
-<div class="{{$class}}__group"
-     wlc-click-outside (clickOutside)="closeDropdown()">
-    <button class="{{$class}}__field"
-            type="button"
+
+<div wlc-click-outside
+     class="{{$class}}__group"
+     (clickOutside)="closeDropdown()">
+    <button ngDefaultControl
             id="{{$params.name}}"
+            [attr.data-wlc-element]="fieldWlcElement"
+            class="{{$class}}__field"
             name="{{$params.name}}"
-            [attr.data-wlc-element]='fieldWlcElement'
-            (click)="toggleDropdown()"
+            [attr.type]="'button'"
             [formControl]="control"
-            ngDefaultControl
-    >{{selectedItem || $params.common.placeholder || $params.items[0]?.title | translate}}
+            (click)="toggleDropdown()">
+        {{buttonText | translate}}
     </button>
     <div class="{{$class}}-status"
          wlc-form-control
@@ -27,24 +29,24 @@
          [className]="$class"
          [control]="control"
          [validators]="$params.validators"
-         [fieldName]="$params.name.toLowerCase()"
-    ></div>
+         [fieldName]="$params.name.toLowerCase()">
+    </div>
     <div class="{{$class}}-status">
-        <span
-            *ngIf="control.untouched || control.valid"
-            class="{{$class}}-status__arrow"
-            [ngClass]="{'active': isOpened}"
-            wlc-icon iconName="arrow"
-            (click)="toggleDropdown()"
-        ></span>
+        <span *ngIf="control.untouched || control.valid"
+              wlc-icon
+              class="{{$class}}-status__arrow"
+              [ngClass]="{'active': isOpened}"
+              [iconName]="'arrow'"
+              (click)="toggleDropdown()">
+        </span>
     </div>
 
     <ul class="{{$class}}__dropdown" *ngIf="isOpened" @openClose>
-        <li class="{{$class}}__dropdown-item"
-            *ngFor="let item of $params.items"
-            (click)="selectOption(item)"
-        >
-            {{item.title | translate}}
+        <li *ngFor="let item of $params.items"
+            class="{{$class}}__dropdown-item"
+            [attr.data-wlc-element]="fieldWlcElement + '_' + (item.value || 'null')"
+            (click)="selectOption(item)">
+            {{item.title.toString() | translate}}
         </li>
     </ul>
 </div>

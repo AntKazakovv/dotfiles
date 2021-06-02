@@ -7,16 +7,22 @@ import {
     SimpleChanges,
     OnChanges,
 } from '@angular/core';
-import {animate, state, style, transition, trigger} from '@angular/animations';
+import {
+    animate,
+    style,
+    transition,
+    trigger,
+} from '@angular/animations';
 import {FormControl} from '@angular/forms';
 import {BehaviorSubject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
-import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {
+    AbstractComponent,
     ConfigService,
     EventService,
     SelectValuesService,
     IIndexing,
+    ITooltipCParams,
 } from 'wlc-engine/modules/core';
 
 import * as Params from './select.params';
@@ -24,6 +30,7 @@ import * as Params from './select.params';
 import _union from 'lodash-es/union';
 import _find from 'lodash-es/find';
 import _kebabCase from 'lodash-es/kebabCase';
+import _get from 'lodash-es/get';
 
 /**
  * Component select
@@ -69,6 +76,28 @@ export class SelectComponent extends AbstractComponent implements OnInit,
         });
         return selected?.title;
     };
+
+    /**
+     * Get text on selector button
+     */
+    public get buttonText(): string {
+        return (
+            this.selectedItem
+            || this.$params.common?.placeholder
+            || _get(this.$params, 'items[0].title')
+        ).toString();
+    }
+
+    /**
+     * get wlc-tooltip inline parameters
+     */
+    public get tooltipParams(): ITooltipCParams {
+        return {
+            inlineText: this.$params.common.tooltipText,
+            modal: this.$params.common?.tooltipModal,
+            modalParams: this.$params.common?.tooltipModalParams,
+        };
+    }
 
     protected constantValues: IIndexing<BehaviorSubject<Params.ISelectOptions[]>> = {};
     protected dayList = this.selectValues.getDateList('days');
