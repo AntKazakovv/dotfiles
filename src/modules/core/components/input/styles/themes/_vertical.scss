@@ -107,6 +107,7 @@
         }
 
         .field-icon--currency {
+            @include text.get-text-style(ef.get-value($themeVertical, 'iconTextStyle'), ef.get-value($themeVertical, 'iconTextColor'));
             position: absolute;
             top: ef.get-value($themeVertical, 'iconEyeTop');
             right: ef.get-value($themeVertical, 'iconEyeRight');

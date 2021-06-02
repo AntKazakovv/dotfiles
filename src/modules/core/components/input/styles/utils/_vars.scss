@@ -77,12 +77,14 @@ $themeVertical: map-merge((
     'inputBorder': 2px solid ef.get('fieldColors', 'borderColor'),
     'inputBorderRadius': ef.get('form', 'inputBorderRadius'),
 
+    'iconTextStyle': 'PrimaryText',
+    'iconTextColor': ef.get('fieldColors', 'iconColor'),
     'iconEyeTop': 50%,
-    'iconEyeRight': ef.get('size', 'smallest'),
+    'iconEyeRight': ef.get('size', 'small'),
     'iconEyeTransform': translateY(-50%),
 
-    'controlIconRight': 25px,
-    'controlErrorRight': 25px,
+    'controlIconRight': ef.get('size', 'less'),
+    'controlErrorRight': ef.get('size', 'less'),
 
     'fieldIconSize': 30px,
     'fieldIconLineHeight': 0,
