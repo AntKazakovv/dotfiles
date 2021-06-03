@@ -1,29 +1,78 @@
-@import 'engine.variables';
+@use 'engine.variables' as ev;
+@use 'functions' as ef;
+@use 'mixins/text' as text;
+
+$customHostedFields: () !default;
+$hostedFields: map-merge((
+    'containerBg': ef.get('mainColors', 'bg700'),
+    'containerMargin': 0,
+
+    'inputHeight': ef.get('form', 'inputHeight'),
+    'inputTextStyle': 'PrimaryText',
+    'inputPadding': ef.get('form', 'inputPadding'),
+    'inputColor': ef.get('form', 'inputColor'),
+    'inputBg': ef.get('form', 'inputBackground'),
+    'inputBorder': ef.get('form', 'inputBorder'),
+    'inputRadius': ef.get('form', 'inputBorderRadius'),
+    'inputDisabledBg': ef.get('fieldColors', 'disableBg'),
+    'inputDisabledBorderColor': ef.get('fieldColors', 'disableBorder'),
+    'inputDisabledColor': ef.get('fieldColors', 'placeholderColor'),
+    'inputBorderFocusColor': ef.get('form', 'inputBorderFocusColor'),
+    'inputShadow': none,
+
+    'labelTextStyle': 'SignText',
+    'labelColor': ef.get('form', 'labelColor'),
+    'labelLineHeight': 1.9,
+    'labelMargin': 0 0 0 ef.get('size', 'small'),
+    'rootFontSize': ev.$font-size-root,
+), $customHostedFields);
+
 
 html,
 body,
 .hosted-input-container {
-    background: map-get($mainColors, 'bg700');
+    min-width: initial;
+    font-size: ef.get-value($hostedFields, 'rootFontSize');
+    background: ef.get-value($hostedFields, 'containerBg');
 }
 
 .hosted-input-container {
-    margin-top: 0;
+    margin: ef.get-value($hostedFields, 'containerMargin');
 
     .input-container {
-        font-size: 10px;
 
         label {
-            color: map-get($fieldColors, 'labelColor');
-            margin-left: 10px;
-            font-weight: normal;
+            @include text.get-text-style(ef.get-value($hostedFields, 'labelTextStyle'), ef.get-value($hostedFields, 'labelColor'));
+
+            margin: ef.get-value($hostedFields, 'labelMargin');
+            line-height: ef.get-value($hostedFields, 'labelLineHeight');
         }
 
         input {
-            max-width: 288px;
-            height: 40px;
-            font-size: 1.4rem;
-            color: map-get($fieldColors, 'textColor');
-            background: map-get($fieldColors, 'inputBg');
+            @include text.get-text-style(ef.get-value($hostedFields, 'inputTextStyle'), ef.get-value($hostedFields, 'inputColor'));
+
+            width: 100%;
+            height: ef.get-value($hostedFields, 'inputHeight');
+            padding: ef.get-value($hostedFields, 'inputPadding');
+            background: ef.get-value($hostedFields, 'inputBg');
+            box-shadow: ef.get-value($hostedFields, 'inputShadow');
+            border: ef.get-value($hostedFields, 'inputBorder');
+            border-radius: ef.get-value($hostedFields, 'inputRadius');
+
+            &:focus {
+                outline: none;
+                border-color: ef.get-value($hostedFields, 'inputBorderFocusColor');
+
+                &::placeholder {
+                    color: transparent;
+                }
+            }
+
+            &:disabled {
+                color: ef.get-value($hostedFields, 'inputDisabledColor');
+                background: ef.get-value($hostedFields, 'inputDisabledBg');
+                border-color: ef.get-value($hostedFields, 'inputDisabledBorderColor');
+            }
         }
     }
 }
