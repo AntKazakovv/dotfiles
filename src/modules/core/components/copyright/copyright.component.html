@@ -1,5 +1,5 @@
 <div class="{{$class}}__text" data-wlc-element="block_copyright">© {{siteName}}. {{'All rights reserved.' | translate}}
-    <span>{{'Developed by' | translate}}
+    <span *ngIf="!removeCreds">{{'Developed by' | translate}}
         <a href="https://www.softgamings.com/"
            target="_blank"
            rel="nofollow noopener"

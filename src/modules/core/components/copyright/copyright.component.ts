@@ -27,16 +27,18 @@ export class CopyrightComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams: Params.ICopyrightCParams;
     public $params: Params.ICopyrightCParams;
     public siteName: string;
+    public removeCreds: boolean;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ICopyrightCParams,
         protected configService: ConfigService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams});
+        super({injectParams, defaultParams: Params.defaultParams}, configService);
     }
 
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.siteName = this.configService.get<string>('$base.site.name');
+        this.removeCreds = this.configService.get<boolean>('$base.site.removeCreds');
     }
 }
