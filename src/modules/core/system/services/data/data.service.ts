@@ -17,7 +17,7 @@ import {
     tap,
     filter,
     catchError,
-} from 'rxjs/internal/operators';
+} from 'rxjs/operators';
 import {TranslateService} from '@ngx-translate/core';
 import {
     CachingService,
@@ -45,7 +45,7 @@ export interface IData {
 
 export type RestMethodType = 'GET' | 'POST' | 'PATCH' | 'PUT' | 'DELETE';
 
-export type RequestParamsType = HttpParams | {[key: string]: string | string[] | any} | FormData;
+export type RequestParamsType = HttpParams | {[key: string]: string | string[] | any};
 
 export interface IRequestMethod {
     /** name of method */

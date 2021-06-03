@@ -3,7 +3,6 @@ import {
     Directive,
     ElementRef,
     HostBinding,
-    HostListener,
     Output,
     EventEmitter,
     Input,
@@ -13,6 +12,7 @@ import {
     Subscription,
     fromEvent,
 } from 'rxjs';
+import {IMediaContent} from 'wlc-engine/modules/games';
 
 /**
  * @example
@@ -25,7 +25,7 @@ import {
 })
 export class FallbackImgDirective implements AfterViewInit, OnDestroy {
 
-    @Input() @HostBinding('src') protected src: string;
+    @Input() @HostBinding('src') protected src: string | IMediaContent[];
     @Input('wlc-fallback') protected wlcFallback: string;
     @Output() imageError = new EventEmitter<void>();
 

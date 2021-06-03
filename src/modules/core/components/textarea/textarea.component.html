@@ -1,19 +1,19 @@
 <ng-template #default>
-    <label for="{{$params.name}}"
+    <label [attr.for]="$params.name"
            class="{{$class}}__label"
     >{{$params.common.placeholder | translate}}
         <ng-container *ngIf="isFieldRequired()">*</ng-container>
     </label>
     <div class="{{$class}}__textarea">
         <textarea name="{{$params.name}}"
-                  id="{{$params.name}}"
+                  [attr.id]="$params.name"
                   [attr.data-wlc-element]='fieldWlcElement'
                   placeholder="{{$params.exampleValue || $params.common.placeholder | translate}}"
                   [formControl]="control"
         ></textarea>
-        <div class="{{$class}}-status form-control"
+        <div *ngIf="$params.name"
              wlc-form-control
-             *ngIf="$params.name"
+             class="{{$class}}-status form-control"
              [className]="$class"
              [control]="control"
              [validators]="$params?.validators"
@@ -23,17 +23,17 @@
 </ng-template>
 
 <ng-template #placeholderShown>
-    <textarea id="{{$params.name}}"
+    <textarea [attr.id]="$params.name"
               placeholder="{{$params.exampleValue || $params.common.placeholder | translate}}"
               [formControl]="control"
               class="{{$class}}__textarea"
     ></textarea>
-    <label for="{{$params.name}}"
+    <label [attr.for]="$params.name"
            class="{{$class}}__label"
     >{{$params.common.placeholder | translate}}</label>
-    <div class="{{$class}}-status"
+    <div *ngIf="$params.name"
          wlc-form-control
-         *ngIf="$params.name"
+         class="{{$class}}-status"
          [className]="$class"
          [control]="control"
          [validators]="$params?.validators"

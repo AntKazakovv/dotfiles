@@ -5,9 +5,9 @@ import {
     Input,
 } from '@angular/core';
 import {FormControl} from '@angular/forms';
-import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import * as Params from 'wlc-engine/modules/core/components/textarea/textarea.params';
-import {ConfigService} from 'wlc-engine/modules/core';
+import {AbstractComponent, ConfigService} from 'wlc-engine/modules/core';
+
+import * as Params from './textarea.params';
 
 import _kebabCase from 'lodash-es/kebabCase';
 
@@ -39,13 +39,13 @@ export class TextareaComponent extends AbstractComponent implements OnInit {
         super({injectParams, defaultParams: Params.defaultParams});
     }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.control = this.$params?.control;
         this.fieldWlcElement = 'textarea_' + _kebabCase(this.$params.name);
     }
 
-    protected isFieldRequired(): boolean {
+    public isFieldRequired(): boolean {
         return this.$params.validators?.includes('required');
     }
 }

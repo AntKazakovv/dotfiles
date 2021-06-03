@@ -23,7 +23,7 @@
                     <div class="{{$class}}__cell-label">{{col.title | translate}}:</div>
 
                     <div class="{{$class}}__cell-content" *ngSwitchCase="'component'">
-                        <ng-container [ngComponentOutlet]="col.componentClass"
+                        <ng-container [ngComponentOutlet]="$any(col.componentClass)"
                                     [ngComponentOutletInjector]="getComponentInjector(item, $index + indexFactor, col)">
                         </ng-container>
                     </div>
@@ -71,7 +71,7 @@
                     <div class="{{$class}}__cell-label">{{col.title | translate}}:</div>
 
                     <div class="{{$class}}__cell-content" *ngSwitchCase="'component'">
-                        <ng-container [ngComponentOutlet]="col.componentClass"
+                        <ng-container [ngComponentOutlet]="$any(col.componentClass)"
                                     [ngComponentOutletInjector]="getComponentInjector(item, $index, col)">
                         </ng-container>
                     </div>

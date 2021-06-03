@@ -21,6 +21,7 @@ export namespace leftPanel {
                         icon: 'close',
                         event: {
                             name: 'PANEL_CLOSE',
+                            data: 'left-def',
                         },
                     },
                 },

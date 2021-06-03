@@ -4,9 +4,11 @@ import {
     Inject,
     OnInit,
 } from '@angular/core';
-
-import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ConfigService, GlobalHelper} from 'wlc-engine/modules/core';
+import {
+    AbstractComponent,
+    ConfigService,
+    GlobalHelper,
+} from 'wlc-engine/modules/core';
 
 import * as Params from './text-block.params';
 
@@ -28,9 +30,9 @@ import * as Params from './text-block.params';
 })
 export class TextBlockComponent extends AbstractComponent implements OnInit {
     @Input() public inlineParams: Params.ITextBlockCParams;
-    @Input() public textBlockTitle: string | string[];
+    @Input() public textBlockTitle: string;
     @Input() public textBlockSubtitle: string | string[];
-    @Input() public textBlockText: string | string[];
+    @Input() public textBlockText: string;
 
     public $params: Params.ITextBlockCParams;
 

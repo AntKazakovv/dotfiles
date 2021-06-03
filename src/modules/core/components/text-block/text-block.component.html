@@ -9,7 +9,7 @@
     <h3
         *ngIf="checkType($params.common.textBlockSubtitle) && $params.common.textBlockSubtitle; else textBlockSubtitle"
         class="wlc-text-block__subtitle">
-        {{$params.common.textBlockSubtitle | translate}}
+        {{$any($params.common.textBlockSubtitle) | translate}}
     </h3>
     <h3
         *ngIf="$params.common.dynamicText"

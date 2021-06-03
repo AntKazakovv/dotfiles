@@ -47,7 +47,7 @@ export class MessageComponent
 
     constructor(
         @Inject(NOTIFICATION_METADATA)
-        protected meta: INotificationMetadata,
+        public meta: INotificationMetadata,
         @Inject('injectParams')
         protected params: IMessageData,
         configService: ConfigService,

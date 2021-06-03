@@ -1,5 +1,6 @@
+export * from './game-thumb/game-thumb.params';
+export * from './game-thumb/game-thumb.component';
 export {IGameDashboardCParams} from './game-dashboard/game-dashboard.params';
-export {IGameThumbCParams} from './game-thumb/game-thumb.params';
 export {IGameWrapperCParams} from './game-wrapper/game-wrapper.params';
 export {IGamesGridCParams} from './games-grid/games-grid.params';
 export {IPlayGameForRealCParams} from './play-game-for-real/play-game-for-real.params';

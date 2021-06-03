@@ -14,10 +14,9 @@
              [class.active]="tab.active"
         >
             <ng-container *ngIf="tab.active"
-                          [ngComponentOutlet]="tab.componentClass"
+                          [ngComponentOutlet]="$any(tab.componentClass)"
                           [ngComponentOutletInjector]="tab.injector"
             ></ng-container>
         </div>
     </div>
 </div>
-

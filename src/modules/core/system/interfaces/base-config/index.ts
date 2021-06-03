@@ -6,9 +6,11 @@ import {IAppConfig} from './app.interface';
 import {INotificationsConfig} from './notifications.interface';
 import {ILivechatConfig} from 'wlc-engine/modules/livechat';
 import {
-    IModalList,
     IRedirectConfig,
 } from 'wlc-engine/modules/core';
+
+export * from './games.interface';
+export * from './tournaments.interface';
 
 export interface IBaseConfig {
     app?: IAppConfig;
