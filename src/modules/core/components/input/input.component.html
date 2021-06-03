@@ -3,7 +3,7 @@
     <div class="{{$class}}__input">
         <input type="{{$params.common?.type}}"
                id="{{$params.name}}"
-               [wlc-input-mask]="$params.maskOptions"
+               [wlc-input-mask]="$any($params.maskOptions)"
                [attr.data-wlc-element]='fieldWlcElement'
                [attr.autocomplete]="$params.common?.autocomplete"
                placeholder="{{$params.exampleValue || $params.common?.placeholder | translate}}"
@@ -29,7 +29,7 @@
 <ng-template #placeholderShown>
     <input type="{{$params.common?.type}}"
            id="{{$params.name}}"
-           [wlc-input-mask]="$params.maskOptions"
+           [wlc-input-mask]="$any($params.maskOptions)"
            placeholder="{{$params.exampleValue || $params.common?.placeholder | translate}}"
            [formControl]="control"
            [attr.data-wlc-element]='fieldWlcElement'
@@ -50,7 +50,7 @@
             type="{{$params.common?.type}}"
             id="{{$params.name}}"
             [value]="$params.value"
-            [wlc-input-mask]="$params.maskOptions"
+            [wlc-input-mask]="$any($params.maskOptions)"
             [readOnly]="$params.common?.readonly"
             placeholder="{{$params.exampleValue || $params.common?.placeholder | translate}}"
             [formControl]="control"
@@ -111,7 +111,7 @@
         class="field-icon field-icon--copy"
         wlc-icon [iconName]="'copy'"
         [wlc-copy-to-clipboard]="control.value"
-        (copied)="onClipboardCopied($event)"
+        (copied)="onClipboardCopied()"
     ></button>
 </ng-template>
 

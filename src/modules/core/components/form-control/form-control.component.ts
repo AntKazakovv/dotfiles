@@ -41,7 +41,7 @@ export class FormControlComponent implements OnInit, OnDestroy {
     ) {
     }
 
-    ngOnInit() {
+    public ngOnInit(): void {
         if (!this.control) {
             return;
         }
@@ -52,7 +52,7 @@ export class FormControlComponent implements OnInit, OnDestroy {
         });
     }
 
-    ngOnDestroy() {
+    public ngOnDestroy(): void {
         this.ngUnsubscribe.next();
         this.ngUnsubscribe.complete();
     }

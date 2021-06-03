@@ -39,7 +39,7 @@
                 <span class="{{$class}}__svg"
                     wlc-icon
                     [iconUrl]="item.image"
-                    (imageError)="errorHandler(item)">
+                    (imageError)="errorHandler()">
                 </span>
             </ng-container>
         </ng-container>
@@ -58,7 +58,7 @@
                     [alt]="item.alt"
                     [srcset]="item.imageHover2x"
                     [wlc-fallback]
-                    (imageError)="errorHandler(item)">
+                    (imageError)="errorHandler()">
             </ng-container>
         </ng-container>
     </ng-container>

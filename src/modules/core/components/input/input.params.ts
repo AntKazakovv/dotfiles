@@ -1,11 +1,11 @@
 import {FormControl} from '@angular/forms';
+import IMask from 'imask';
 import {
     CustomType,
     IComponentParams,
     ValidatorType,
     IIndexing,
 } from 'wlc-engine/modules/core';
-import {IMaskOptions} from 'wlc-engine/modules/core/directives/input-mask.directive';
 
 export type ComponentTheme = 'default'| 'placeholder-shown' | 'vertical' | CustomType;
 export type ComponentType = 'default' | CustomType;
@@ -39,7 +39,7 @@ export interface IInputCParams extends IComponentParams<ComponentTheme, Componen
     clipboard?: boolean;
     showCurrency?: boolean;
     prohibitedPattern?: RegExp;
-    maskOptions?: IMaskOptions | string;
+    maskOptions?: IMask.AnyMaskedOptions | string;
 }
 
 export const defaultParams: Partial<IInputCParams> = {
