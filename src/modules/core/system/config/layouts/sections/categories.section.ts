@@ -34,7 +34,7 @@ export namespace categories {
                             params: {
                                 class: 'games-categories__wrapper',
                                 components: [
-                                    componentLib.wlcButton.searchV3,
+                                    componentLib.wlcButton.search,
                                     componentLib.wlcButton.searchMerchants,
                                 ],
                             },
