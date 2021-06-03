@@ -34,6 +34,11 @@
         &--theme-payments {
             @include em.get-mq-map('max-width', $theme1Footer, 'iconListPaymentsMaxWidth');
             @include em.get-mq-map('margin', $theme1Footer, 'iconListPaymentsMargin');
+
+            .wlc-icon-list__wrapper {
+                @include em.get-mq-map('background', $theme1Footer, 'iconListPaymentsWrapperBg');
+                @include em.get-mq-map('border-radius', $theme1Footer, 'iconListPaymentsWrapperRadius');
+            }
         }
     }
 
