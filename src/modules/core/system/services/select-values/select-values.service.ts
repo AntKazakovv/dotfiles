@@ -69,7 +69,7 @@ export class SelectValuesService {
                 break;
             }
             case 'months': {
-                list = _map(Info.months(), (month: string, index: number) => {
+                list = _map(Info.months('long', {locale: 'en'}), (month: string, index: number) => {
                     return {title: month, value: `${++index}`};
                 });
                 break;
