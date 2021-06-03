@@ -18,6 +18,7 @@ $themeDefault: map-merge((
     'inputDisabledBg': ef.get('fieldColors', 'disableBg'),
     'inputDisabledBorder': ef.get('fieldColors', 'disableBorder'),
     'inputDisabledColor': ef.get('fieldColors', 'placeholderColor'),
+    'inputDisabledOpacity': 1,
 
     'iconWidth': ef.get('form', 'iconWidth'),
     'iconHeight': ef.get('form', 'iconHeight'),

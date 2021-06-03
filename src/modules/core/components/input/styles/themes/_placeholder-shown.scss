@@ -59,6 +59,7 @@
             background: ef.get-value($themeDefault, 'inputDisabledBg');
             border-color: ef.get-value($themeDefault, 'inputDisabledBgBorder');
             color: ef.get-value($themeDefault, 'inputDisabledColor');
+            opacity: ef.get-value($themeDefault, 'inputDisabledOpacity');
         }
     }
 

@@ -65,6 +65,7 @@
             background: ef.get-value($themeDefault, 'inputDisabledBg');
             border-color: ef.get-value($themeDefault, 'inputDisabledBorder');
             color: ef.get-value($themeDefault, 'inputDisabledColor');
+            opacity: ef.get-value($themeDefault, 'inputDisabledOpacity');
         }
 
         &[type='number'] {
