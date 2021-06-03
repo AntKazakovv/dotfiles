@@ -12,11 +12,15 @@ export type ComponentThemeMod = 'default' | 'feedback-form' | CustomType;
 export interface ITextareaCParams extends IComponentParams<ComponentTheme, ComponentType, ComponentThemeMod> {
     name: string;
     value?: string;
-    placeholder?: string;
+    common: {
+        placeholder?: string;
+    }
+    exampleValue?: string;
     validators?: ValidatorType[];
     control?: FormControl;
 }
 
 export const defaultParams: Partial<ITextareaCParams> = {
     class: 'wlc-textarea',
+    common: {},
 };

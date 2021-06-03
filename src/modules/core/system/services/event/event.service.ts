@@ -1,8 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Subject, Observable, pipe, UnaryFunction, Subscription, PartialObserver} from 'rxjs';
-import {filter} from 'rxjs/internal/operators/filter';
-import {map} from 'rxjs/internal/operators/map';
-import {takeUntil} from 'rxjs/internal/operators';
+import {filter, map, takeUntil} from 'rxjs/operators';
 
 import _get from 'lodash-es/get';
 import _assign from 'lodash-es/assign';

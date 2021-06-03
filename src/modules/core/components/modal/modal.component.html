@@ -31,7 +31,7 @@
             <button *ngIf="$params.config.closeBtnVisibility"
                     wlc-button
                     class="wlc-modal__close"
-                    theme="none"
+                    theme="cleared"
                     icon="close"
                     wlcElement="button_close"
                     (click)="closeModal($params.config.id)"
@@ -116,4 +116,3 @@
         [ngComponentOutletInjector]="inject"
     ></ng-container>
 </ng-template>
-
