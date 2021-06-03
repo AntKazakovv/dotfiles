@@ -85,6 +85,12 @@ $theme1Footer: map-merge((
     'iconListPaymentsMaxWidth': (
         375: calc(100vw - 30px),
     ),
+    'iconListPaymentsWrapperBg': (
+        375: transparent
+    ),
+    'iconListPaymentsWrapperRadius': (
+        375: 0
+    ),
 
     // post menu
     'postMenuJustify': (
