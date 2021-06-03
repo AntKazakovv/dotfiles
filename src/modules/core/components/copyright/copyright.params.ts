@@ -11,4 +11,6 @@ export interface ICopyrightCParams extends IComponentParams<ComponentTheme, Comp
 
 export const defaultParams: ICopyrightCParams = {
     class: 'wlc-copyright',
+    moduleName: 'core',
+    componentName: 'wlc-copyright',
 };

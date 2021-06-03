@@ -15,6 +15,7 @@ export interface IBaseConfig {
     site?: {
         name: string;
         url: string;
+        removeCreds?: boolean;
     },
     affiliate?: {
         affiliateUrl: string;
