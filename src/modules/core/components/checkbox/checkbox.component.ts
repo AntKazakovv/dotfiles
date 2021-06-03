@@ -49,7 +49,7 @@ export class CheckboxComponent extends AbstractComponent implements OnInit {
         this.modalService.showModal(name, {slug, parseAsPlainHTML: true});
     }
 
-    protected onChange(event: Event): void {
+    public onChange(event: Event): void {
         this.control?.markAllAsTouched();
         const checked: boolean = (event.target as HTMLInputElement).checked;
         if (this.$params.onChange) {

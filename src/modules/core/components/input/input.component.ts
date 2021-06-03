@@ -98,16 +98,20 @@ export class InputComponent extends AbstractComponent implements OnInit, OnChang
     /**
      * If params contains `prohibitedPattern` regular expression, prohibited symbols will be replaced
      */
-    public onInput(event: InputEvent): void {
+    public onInput(event: Event): void {
         if (!(this.$params.prohibitedPattern && this.control)) {
             return;
         }
 
         let value = this.control.value;
-        if (this.$params.prohibitedPattern.test(event.data)) {
+        if (this.$params.prohibitedPattern.test((event as InputEvent).data)) {
             value = value.replace(this.$params.prohibitedPattern, '');
             this.control.patchValue(value, {emitEvent: false, emitModelToViewChange: true});
         }
+    }
+
+    public isFieldRequired(): boolean {
+        return this.$params.validators?.includes('required');
     }
 
     protected prepareModifiers(): void {
@@ -119,9 +123,5 @@ export class InputComponent extends AbstractComponent implements OnInit, OnChang
 
         modifiers = _union(modifiers, this.$params.common.customModifiers.split(' '));
         this.addModifiers(modifiers);
-    }
-
-    protected isFieldRequired(): boolean {
-        return this.$params.validators?.includes('required');
     }
 }

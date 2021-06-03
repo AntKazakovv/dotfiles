@@ -7,7 +7,7 @@
                angular-mydatepicker
                name="{{$params.name}}"
                [options]="$params.datepickerOptions"
-               [wlc-input-mask]="$params.maskOptions"
+               [wlc-input-mask]="$any($params.maskOptions)"
                (dateChanged)="onDateChanged($event)"
                (change)="onDateChanged()"
                [locale]="locale"

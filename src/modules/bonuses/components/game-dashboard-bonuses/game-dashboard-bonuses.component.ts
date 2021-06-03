@@ -46,6 +46,7 @@ export class GameDashboardBonusesComponent extends AbstractComponent implements 
     public isMobile: boolean;
     public isReady: boolean = false;
     public slides: ISlide[] = [];
+    public $params: Params.IGameDashboardBonusesCParams;
 
     protected filter: BonusesFilterType = 'all';
 

@@ -76,7 +76,7 @@ export class DatepickerComponent extends AbstractComponent implements OnInit,
         };
     }
 
-    public onDateChanged(date: IMyDateModel): void {
+    public onDateChanged(date?: IMyDateModel): void {
         this.mask?.nativeElement?.mask.updateValue();
         let dateTime;
         if (date) {

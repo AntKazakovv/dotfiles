@@ -23,7 +23,6 @@
     "angularCompilerOptions": {
         "strictTemplates": true,
         "enableIvy": true,
-        "fullTemplateTypeCheck": false,
         "strictInjectionParameters": true,
         "disableTypeScriptVersionCheck": true
     }
