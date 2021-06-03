@@ -26,7 +26,9 @@ import {
     ISelectCParams,
     IInputCParams,
     IFormWrapperCParams,
+    IExtProfile,
     IExtProfilePaymentSystems,
+    IExtPaymentSystem,
     IValidatorSettings,
     IPushMessageParams,
     NotificationEvents,
@@ -52,8 +54,6 @@ import {
 } from 'wlc-engine/modules/user/components/add-profile-info';
 import {UserService} from 'wlc-engine/modules/user/system/services';
 import {IModalConfig} from 'wlc-engine/modules/core/components/modal';
-import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
-import {Deferred} from 'wlc-engine/modules/core/system/classes';
 import {PaymentMessageComponent} from '../payment-message/payment-message.component';
 import {
     IPaymentMessage,
@@ -73,7 +73,7 @@ import _isEqual from 'lodash-es/isEqual';
 import _isObject from 'lodash-es/isObject';
 import _startsWith from 'lodash-es/startsWith';
 import _transform from 'lodash-es/transform';
-import _extend from 'lodash-es/extend';
+import _assign from 'lodash-es/assign';
 
 @Component({
     selector: '[wlc-deposit-withdraw]',
@@ -193,7 +193,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
         }
     }
 
-    public deposit(saveProfile: boolean = false): void {
+    public deposit(saveProfile: boolean = true): void {
 
         this.inProgress = true;
         this.modalService.showModal('dataIsProcessing');
@@ -256,24 +256,14 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
         }
     }
 
-    public async saveProfile(): Promise<boolean> {
-        const deferred = new Deferred<boolean>(),
-            profile: UserProfile = this.userService.userProfile,
-            paymentSystems: IExtProfilePaymentSystems = profile.extProfile.paymentSystems || {},
-            alias: string = this.currentSystem?.alias;
-
-        paymentSystems[alias] = paymentSystems[alias] || {};
-        paymentSystems[alias].additionalParams = this.checkSkipSaving();
-
-        /* if (_has(this.action.additional, 'currentPassword')) {
-            (profile as any).currentPassword = this.action.additional.currentPassword;
-            delete this.action.additional.currentPassword;
-        } */
-
-        profile.extProfile.paymentSystems = paymentSystems;
+    public async saveProfile(): Promise<true | IIndexing<any>> {
+        const extProfile: IExtProfile = this.userService.userProfile.extProfile,
+            alias: string = this.currentSystem?.alias,
+            additionalParams: IExtPaymentSystem = {additionalParams: this.checkSkipSaving()};
+        extProfile.paymentSystems =  _assign({}, extProfile.paymentSystems, {[alias]: additionalParams});
 
         try {
-            this.userService.updateProfile(profile);
+            return await this.userService.updateProfile({extProfile}, true);
         } catch (error) {
             this.eventService.emit({
                 name: NotificationEvents.PushMessage,
@@ -284,8 +274,6 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
                 },
             });
         }
-
-        return deferred.promise;
     }
 
     public checkUserProfileForPayment(): boolean {
@@ -341,7 +329,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
         });
     }
 
-    private async depositAction(amount: number, params: IIndexing<string>, saveProfile: boolean = false): Promise<void> {
+    private async depositAction(amount: number, params: IIndexing<string>, saveProfile: boolean = true): Promise<void> {
         try {
             const response = await this.financesService.deposit(
                 this.currentSystem.id,
@@ -591,12 +579,12 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
         }
 
         this.currentSystem = system;
-        this.setAdditionalValues();
         this.cryptoCheck = this.currentSystem.cryptoCheck && this.$params.mode === 'deposit';
         this.disableAmount = this.currentSystem.disableAmount;
         this.additionalParams = this.listConfig.paymentType === 'deposit' ?
             system.additionalParamsDeposit : system.additionalParamsWithdraw;
 
+        this.setAdditionalValues();
         this.checkUserProfileForPayment();
         this.updateFormConfig();
 
@@ -726,6 +714,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
                         name: 'core.wlc-input',
                         params: <IInputCParams>{
                             name: key,
+                            value: field.value || '',
                             theme: 'vertical',
                             common: {
                                 placeholder: field.name,
