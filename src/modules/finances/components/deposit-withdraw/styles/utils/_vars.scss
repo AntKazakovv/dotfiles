@@ -97,4 +97,11 @@ $themeDefault: map-merge((
     ),
     'additionalFieldsGap': ef.get('size', 'smally'),
 
+    'hostedFieldsJustifyItems': (
+        375: center,
+        720: start,
+    ),
+    'hostedFieldsIframeWidth': 100%,
+    'hostedFieldsIframeHeight': 65px,
+
 ), $customThemeDefault);

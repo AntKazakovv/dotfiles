@@ -38,15 +38,22 @@
         &__step {
 
             .wlc-hosted-fields {
+                @include em.get-mq-map('justify-items', $themeDefault, 'hostedFieldsJustifyItems');
+
+                display: grid;
 
                 &__container {
+                    @include em.get-mq-map('max-width', $themeDefault, 'fieldContaninerMaxWidth');
+
+                    width: 100%;
 
                     ::ng-deep {
 
                         .hosted-field-container {
 
                             iframe {
-                                height: 65px;
+                                width: ef.get-value($themeDefault, 'hostedFieldsIframeWidth');
+                                height: ef.get-value($themeDefault, 'hostedFieldsIframeHeight');
                                 overflow: hidden;
                             }
                         }
