@@ -21,7 +21,16 @@ export interface IMGAConfig {
 export interface ICuracaoConfig {
     code: string;
     url?: string;
+    /**
+     * use curacao shield icon
+     * if true, then use '/gstatic/wlc/icons/curacao-egaming-logo.png' as image
+     */
     icon?: string | true;
+    /**
+     * add to shield icon link to pdf certificate
+     * if true, then use '/static/curacao_license.pdf' in link
+     */
+    pdf?: string | true;
 }
 
 export interface ILicenseCParams extends IComponentParams<ComponentTheme, ComponentType, string> {

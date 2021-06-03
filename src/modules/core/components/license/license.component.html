@@ -23,8 +23,16 @@
 
 <ng-template #curacaoIcon>
     <div class="{{$class}}__curacao-icon" data-wlc-element="block_curacao-icon-license">
-        <img [src]="this.$params.curacao.icon" alt="Curacao">
+        <ng-container *ngIf="this.$params.curacao.pdf; else curacaoIconImg">
+            <a href="{{this.$params.curacao.pdf}}" target="_blank">
+                <ng-container [ngTemplateOutlet]="curacaoIconImg"></ng-container>
+            </a>
+        </ng-container>
     </div>
+</ng-template>
+
+<ng-template #curacaoIconImg>
+    <img [src]="this.$params.curacao.icon" alt="Curacao">
 </ng-template>
 
 <ng-template #apg>

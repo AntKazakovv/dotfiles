@@ -61,8 +61,13 @@ export class LicenseComponent extends AbstractComponent implements OnInit {
         } else if (this.$params.curacao?.icon) {
             this.licenseType = 'curacao-icon';
             this.addModifiers('curacao-icon');
-            this.$params.curacao.icon = _isString(this.$params.curacao?.icon)
-                ? this.$params.curacao?.icon : '/gstatic/wlc/icons/curacao-egaming-logo.png';
+            this.$params.curacao.icon = _isString(this.$params.curacao.icon)
+                ? this.$params.curacao.icon : '/gstatic/wlc/icons/curacao-egaming-logo.png';
+
+            if (this.$params.curacao?.pdf) {
+                this.$params.curacao.pdf = _isString(this.$params.curacao.pdf)
+                    ? this.$params.curacao.pdf : '/static/curacao_license.pdf';
+            }
         }
         this.cdr.markForCheck();
     }
