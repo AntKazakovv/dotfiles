@@ -10,10 +10,10 @@ import {TranslateService} from '@ngx-translate/core';
 import {StateService, UIRouter} from '@uirouter/core';
 import {
     BehaviorSubject,
+    Observable,
     Subject,
     fromEvent,
 } from 'rxjs';
-import {Observable} from 'rxjs';
 import {
     filter,
     first,
@@ -36,13 +36,7 @@ import {
     AppType,
     IRedirect,
 } from 'wlc-engine/modules/core';
-import {UserService} from 'wlc-engine/modules/user/system/services';
-import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
-
-import {
-    ILivechatConfig,
-    CommonChatService,
-} from 'wlc-engine/modules/livechat';
+import {UserService, UserProfile} from 'wlc-engine/modules/user';
 
 import _isString from 'lodash-es/isString';
 import _toNumber from 'lodash-es/toNumber';
@@ -275,7 +269,6 @@ export class ActionService {
                     });
                 },
             });
-            this.addLivechat();
         });
 
         this.runAffiliatesListener();
@@ -425,14 +418,5 @@ export class ActionService {
         }, () => {
             this.document.defaultView.open(affAddress + this.lang + '/register', '_self');
         });
-    }
-
-    private async addLivechat(): Promise<void> {
-        const liveChatConfig = this.configService.get<ILivechatConfig>('$base.livechat');
-        if (!liveChatConfig) {
-            return;
-        }
-        await this.layoutService.importModules(['livechat']);
-        this.injector.get(CommonChatService);
     }
 }

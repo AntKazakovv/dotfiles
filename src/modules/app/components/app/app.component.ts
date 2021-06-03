@@ -2,39 +2,49 @@ import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
+    Injector,
     OnDestroy,
     OnInit,
 } from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
-import {StateService, TransitionService, UIRouter, UIRouterGlobals} from '@uirouter/core';
-import {Title, Meta} from '@angular/platform-browser';
-import {Deferred} from 'wlc-engine/modules/core/system/classes';
-import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {SectionModel} from 'wlc-engine/modules/core/system/models/section.model';
 import {
-    ConfigService,
-    LayoutService,
-    EventService,
-    ILanguage,
-    ActionService,
-    DeviceModel,
-    ModalService,
-    GlobalHelper,
-    SeoService,
-} from 'wlc-engine/modules/core';
-
+    StateService,
+    TransitionService,
+    UIRouter,
+    UIRouterGlobals,
+} from '@uirouter/core';
+import {Title, Meta} from '@angular/platform-browser';
 import {Subscription} from 'rxjs';
 import {fromEvent} from 'rxjs/internal/observable/fromEvent';
 import {takeUntil, filter} from 'rxjs/operators';
 
-import _sortBy from 'lodash-es/sortBy';
+import {
+    AbstractComponent,
+    ActionService,
+    ConfigService,
+    Deferred,
+    DeviceModel,
+    EventService,
+    GlobalHelper,
+    ILanguage,
+    LayoutService,
+    ModalService,
+    SectionModel,
+    SeoService,
+} from 'wlc-engine/modules/core';
+import {
+    ILivechatConfig,
+    CommonChatService,
+} from 'wlc-engine/modules/livechat';
+
+import _each from 'lodash-es/each';
+import _findIndex from 'lodash-es/findIndex';
 import _get from 'lodash-es/get';
 import _includes from 'lodash-es/includes';
-import _union from 'lodash-es/union';
-import _remove from 'lodash-es/remove';
 import _isEqual from 'lodash-es/isEqual';
-import _findIndex from 'lodash-es/findIndex';
-import _each from 'lodash-es/each';
+import _remove from 'lodash-es/remove';
+import _sortBy from 'lodash-es/sortBy';
+import _union from 'lodash-es/union';
 
 const defaultParams = {
     class: 'wlc-sections',
@@ -74,6 +84,7 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
         private transition: TransitionService,
         private titleService: Title,
         private meta: Meta,
+        private injector: Injector,
     ) {
         super({injectParams: {}, defaultParams}, configService);
         this.resolveLang();
@@ -126,6 +137,7 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
                 ready.unsubscribe();
                 this.additionalHostClass.push('app-ready');
                 this.setHostClass();
+                this.addLivechat();
             }
         });
 
@@ -275,5 +287,14 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
                 locale: 'en',
             });
         }
+    }
+
+    private async addLivechat(): Promise<void> {
+        await this.configService.ready;
+        if (!this.configService.get<ILivechatConfig>('$base.livechat')) {
+            return;
+        };
+        await this.layoutService.importModules(['livechat']);
+        this.injector.get(CommonChatService);
     }
 }
