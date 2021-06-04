@@ -9,6 +9,7 @@ import {
     OnInit,
     ViewChild,
 } from '@angular/core';
+import Swiper from 'swiper';
 
 import {
     AbstractComponent,
@@ -36,6 +37,7 @@ import {
 import * as Params from './bonuses-list.params';
 
 import _find from 'lodash-es/find';
+import _findIndex from 'lodash-es/findIndex';
 import _merge from 'lodash-es/merge';
 import _isNumber from 'lodash-es/isNumber';
 import _union from 'lodash-es/union';
@@ -117,16 +119,25 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
                         const chosenBonus = this.configService.get<ChosenBonusType>(ChosenBonusSetParams.ChosenBonus);
 
                         if (chosenBonus?.id) {
-                            _find(this.bonuses, (item: Bonus) => {
-                                if (item.id === chosenBonus.id) {
-                                    item.isChoose = true;
-                                    return true;
+                            const chosenBonusIndex = _findIndex(this.bonuses,
+                                (item: Bonus) => item.id === chosenBonus.id,
+                            );
+                            if (chosenBonusIndex !== -1) {
+                                this.bonuses[chosenBonusIndex].isChoose = true;
+
+                                if (this.$params.type === 'swiper') {
+                                    setTimeout(() => {
+                                        this.slider?.swiper.swiperRef.slideTo(
+                                            chosenBonusIndex,
+                                            this.$params.common.swiperManualTransitionDuration,
+                                        );
+                                    });
                                 }
-                            });
+                            }
                         } else if (!this.selectFirstBonus && chosenBonus?.id === null) {
                             this.chooseBlankBonus();
                         } else if (this.selectFirstBonus && !this.chosenBonus) {
-                            this.chooseFirstBonus();
+                            this.chooseBonusByPosition(0);
                         }
                     }
 
@@ -213,6 +224,12 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
         this.eventService.emit({name: BonusItemComponentEvents.blank});
     }
 
+    public onSlideChangeTransitionEnd(swiper: Swiper): void {
+        if (swiper.params.slidesPerView === 1) {
+            this.chooseBonusByPosition(swiper.activeIndex);
+        }
+    }
+
     protected setSubscription(): void {
         this.eventService.subscribe([
             {name: BonusItemComponentEvents.reg},
@@ -233,7 +250,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
             const allowedBonus: boolean = !!_find(this.bonuses, ({id}: Bonus) => id === bonus.id);
 
             if (!allowedBonus && this.selectFirstBonus) {
-                return this.chooseFirstBonus();
+                return this.chooseBonusByPosition(0);
             } else if (!allowedBonus && !this.selectFirstBonus) {
                 return this.chooseBlankBonus();
             }
@@ -392,16 +409,16 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
         this.bonuses = _filter(this.bonuses, (bonus: Bonus) => _isObject(bonus));
     }
 
-    protected chooseFirstBonus(): void {
+    protected chooseBonusByPosition(pos: number): void {
         if (this.bonuses.length) {
-            this.bonuses[0].isChoose = true;
+            this.bonuses[pos].isChoose = true;
             this.eventService.emit({
                 name: BonusItemComponentEvents.reg,
-                data: this.bonuses[0],
+                data: this.bonuses[pos],
             });
             this.configService.set<ChosenBonusType>({
                 name: ChosenBonusSetParams.ChosenBonus,
-                value: this.bonuses[0],
+                value: this.bonuses[pos],
             });
             this.cdr.markForCheck();
         }
