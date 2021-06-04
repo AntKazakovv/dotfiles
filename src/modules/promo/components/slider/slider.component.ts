@@ -24,6 +24,7 @@ import SwiperCore, {
     Mousewheel,
     Scrollbar,
     Swiper,
+    SwiperOptions,
 } from 'swiper/core';
 import {SwiperComponent} from 'swiper/angular';
 
@@ -39,6 +40,7 @@ import * as Params from './slider.params';
 
 import _assign from 'lodash-es/assign';
 import _ceil from 'lodash-es/ceil';
+import _cloneDeep from 'lodash-es/cloneDeep';
 import _floor from 'lodash-es/floor';
 import _forEach from 'lodash-es/forEach';
 import _get from 'lodash-es/get';
@@ -82,6 +84,8 @@ export class SliderComponent extends AbstractComponent
     public emptySlidesCount: number = 0;
     public slideMaxWidth: number = 0;
 
+    private frozenSwiperParams: SwiperOptions;
+
     constructor(
         @Inject('injectParams') protected injectParams: Params.ISliderCParams,
         protected configService: ConfigService,
@@ -101,6 +105,8 @@ export class SliderComponent extends AbstractComponent
         if (this.$params.slides && !this.slides) {
             this.slides = this.$params.slides;
         }
+
+        this.frozenSwiperParams = _cloneDeep(this.$params.swiper);
 
         this.initEmptySlidesCount();
         // for fix loop
@@ -281,6 +287,12 @@ export class SliderComponent extends AbstractComponent
             return;
         }
         this.slidesSequence = realSequence;
+
+        if (this.slidesSequence.length <= 1) {
+            swiper.slidesPerView = 'auto';
+        } else {
+            swiper.slidesPerView = this.frozenSwiperParams.slidesPerView;
+        }
     }
 
     protected fillSequence(realSequence: number[], slides: number) {
