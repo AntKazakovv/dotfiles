@@ -1,116 +1,87 @@
-@use 'engine-scss/functions' as ef;
-@use 'engine-scss/mixins/text' as text;
-@use 'engine-scss/mixins/mediaqueries' as mq;
-@use 'engine-scss/mixins/base.mixins' as bm;
-
 @import '../utils/vars';
 
 @mixin blocksDivider($width: #{ef.get-value($mainInfoThemeV1, 'dividerWidth')}) {
     position: relative;
-
     border-bottom: ef.get-value($mainInfoThemeV1, 'dividerHeight') solid transparent;
 
     &:after {
+        content: '';
         position: absolute;
-        right: 0;
-        bottom: -#{ef.get-value($mainInfoThemeV1, 'dividerHeight')};
-        left: 0;
-
         width: $width;
         height: ef.get-value($mainInfoThemeV1, 'dividerHeight');
-        margin: 0 auto;
-
+        left: ef.get-value($mainInfoThemeV1, 'dividerLeft');
+        right: ef.get-value($mainInfoThemeV1, 'dividerRight');
+        bottom: ef.get-value($mainInfoThemeV1, 'dividerBottom');
+        margin: ef.get-value($mainInfoThemeV1, 'dividerMargin');
         background: ef.get-value($mainInfoThemeV1, 'dividerBackground');
-
-        content: '';
     }
 }
 
-.wlc-sections__profile-content--theme-first {
+.app-profile-main-info-state {
 
-    .wlc-profile-content {
-        overflow: hidden;
+    .wlc-sections__profile-content--theme-first {
 
-        background: ef.get-value($mainInfoThemeV1, 'contentBackground');
-        @include bm.get-mq-map('padding', $mainInfoThemeV1, 'contentPadding');
-        @include bm.get-mq-map('border-radius', $mainInfoThemeV1, 'contentBorderRadius');
-    }
+        .wlc-profile-form {
 
-    .wlc-title.wlc-title--profile[wlc-title] {
-        @include bm.get-mq-map('padding', $mainInfoThemeV1, 'profileTitlePadding');
+            &__block {
+                @include bm.get-mq-map('margin', $mainInfoThemeV1, 'profileFormBlockMargin');
+                @include bm.get-mq-map('padding', $mainInfoThemeV1, 'profileFormBlockPadding');
+                display: ef.get-value($mainInfoThemeV1, 'profileFormBlockDisplay');
+                flex-wrap: ef.get-value($mainInfoThemeV1, 'profileFormBlockFlexWrap');
+                align-items: ef.get-value($mainInfoThemeV1, 'profileFormBlockAlignItems');
 
-        @include mq.min(#{ef.get-value($mainInfoThemeV1, 'profileTitlePaddingAddDividerOn')}) {
-            @include blocksDivider();
-        }
-
-        .app-profile-loyalty-bonuses-main-state &,
-        .app-profile-loyalty-bonuses-active-state & {
-            padding: 0;
-
-            border-bottom: 0;
-
-            &:after {
-                display: none;
-            }
-        }
-    }
-
-    .wlc-profile-form {
-
-        &__block {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            @include bm.get-mq-map('margin', $mainInfoThemeV1, 'profileFormBlockMargin');
-            @include bm.get-mq-map('padding', $mainInfoThemeV1, 'profileFormBlockPadding');
-
-            &--main,
-            &--banking,
-            &--location {
-                @include blocksDivider(#{ef.get-value($mainInfoThemeV1, 'profileFormBlockDividerWidth')});
-            }
-
-            &--submit {
-                display: flex;
-                justify-content: center;
-                @include bm.get-mq-map('padding', $mainInfoThemeV1, 'profileFormBlockSubmitPadding');
-            }
-
-            .wlc-title {
-                flex: ef.get-value($mainInfoThemeV1, 'profileFormTitleFlex');
-                @include bm.get-mq-map('padding', $mainInfoThemeV1, 'profileFormTitlePadding');
-                @include bm.get-mq-map('margin', $mainInfoThemeV1, 'profileFormTitleMargin');
-
-                .wlc-title__main {
-                    font-weight: ef.get-value($mainInfoThemeV1, 'profileFormTitleFontWeight');
-                    line-height: ef.get-value($mainInfoThemeV1, 'profileFormTitleFontLineHeight');
-                    @include bm.get-mq-map('font-size', $mainInfoThemeV1, 'profileFormTitleFontSize');
+                &:first-child {
+                    padding-top: 0;
                 }
-            }
 
-            & > .wlc-phone-field,
-            & > .wlc-birth-field,
-            & > .wlc-select,
-            & > .wlc-input {
-                @include bm.get-mq-map('margin', $mainInfoThemeV1, 'profileFormFieldsMargin');
-                @include bm.get-mq-map('padding', $mainInfoThemeV1, 'profileFormFieldsPadding');
-                @include bm.get-mq-map('flex', $mainInfoThemeV1, 'profileFormFieldsBaseFlex');
-            }
+                &--main,
+                &--banking,
+                &--location {
+                    @include blocksDivider(#{ef.get-value($mainInfoThemeV1, 'profileFormBlockDividerWidth')});
+                }
 
-            & > .wlc-phone-field,
-            & > .wlc-birth-field {
-                @include bm.get-mq-map('gap', $mainInfoThemeV1, 'profileFormComposedFieldGap');
-            }
+                &--submit {
+                    @include bm.get-mq-map('padding', $mainInfoThemeV1, 'profileFormBlockSubmitPadding');
+                    display: ef.get-value($mainInfoThemeV1, 'profileFormBlockSubmitDisplay');
+                    justify-content: ef.get-value($mainInfoThemeV1, 'profileFormBlockSubmitJustify');
+                }
 
-            & > .wlc-input--password-confirm,
-            & > .wlc-input--password-new,
-            & > .wlc-input--password,
-            & > .wlc-input--first-name,
-            & > .wlc-input--last-name,
-            & > .wlc-input--email,
-            & > .wlc-birth-field,
-            & > .wlc-phone-field {
-                @include bm.get-mq-map('flex-basis', $mainInfoThemeV1, 'profileFormFieldsWideFlexBasis');
+                .wlc-title {
+                    @include bm.get-mq-map('padding', $mainInfoThemeV1, 'profileFormTitlePadding');
+                    @include bm.get-mq-map('margin', $mainInfoThemeV1, 'profileFormTitleMargin');
+                    flex: ef.get-value($mainInfoThemeV1, 'profileFormTitleFlex');
+
+                    .wlc-title__main {
+                        @include bm.get-mq-map('font-size', $mainInfoThemeV1, 'profileFormTitleFontSize');
+                        font-weight: ef.get-value($mainInfoThemeV1, 'profileFormTitleFontWeight');
+                        line-height: ef.get-value($mainInfoThemeV1, 'profileFormTitleFontLineHeight');
+                    }
+                }
+
+                & > .wlc-phone-field,
+                & > .wlc-birth-field,
+                & > .wlc-select,
+                & > .wlc-input {
+                    @include bm.get-mq-map('margin', $mainInfoThemeV1, 'profileFormFieldsMargin');
+                    @include bm.get-mq-map('padding', $mainInfoThemeV1, 'profileFormFieldsPadding');
+                    @include bm.get-mq-map('flex', $mainInfoThemeV1, 'profileFormFieldsBaseFlex');
+                }
+
+                & > .wlc-phone-field,
+                & > .wlc-birth-field {
+                    @include bm.get-mq-map('gap', $mainInfoThemeV1, 'profileFormComposedFieldGap');
+                }
+
+                & > .wlc-input--password-confirm,
+                & > .wlc-input--password-new,
+                & > .wlc-input--password,
+                & > .wlc-input--first-name,
+                & > .wlc-input--last-name,
+                & > .wlc-input--email,
+                & > .wlc-birth-field,
+                & > .wlc-phone-field {
+                    @include bm.get-mq-map('flex-basis', $mainInfoThemeV1, 'profileFormFieldsWideFlexBasis');
+                }
             }
         }
     }

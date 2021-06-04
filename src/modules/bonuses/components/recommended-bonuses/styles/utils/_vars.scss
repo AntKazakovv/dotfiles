@@ -3,8 +3,8 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'itemMargin': (
-        320: ef.get('size', 'smaller') ef.get('size', 'smally') 0,
-        1024: ef.get('size', 'smaller') 0 0,
+        320: 0 ef.get('size', 'smally') 0,
+        1024: 0,
     ),
 
     'titleFontStyle': 'ThirdTitleBold',

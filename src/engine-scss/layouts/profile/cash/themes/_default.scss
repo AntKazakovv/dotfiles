@@ -1,12 +1,9 @@
-@use 'engine-scss/functions' as ef;
-@use 'engine-scss/mixins/base.mixins' as em;
-@use 'engine-scss/mixins/text' as text;
 @import '../utils/vars';
 
 .app-profile-cash-deposit-state,
 .app-profile-cash-withdraw-state {
 
-    .wlc-sections__profile-content {
+    .wlc-sections__profile-content--theme-default {
 
         .wlc-user-stats {
             margin: ef.get-value($cashPagesThemeDefault, 'userStatsMargin');
@@ -22,10 +19,6 @@
             .wlc-menu__item {
                 margin-right: 30px;
                 margin-bottom: -2px;
-
-                .wlc-sections__profile-content--theme-first[class] & {
-                    margin-right: 0;
-                }
 
                 &:last-child {
                     margin-right: 0;
@@ -48,7 +41,7 @@
                         width: 0;
                         height: 2px;
                         background: ef.get-value($cashPagesThemeDefault, 'menuItemActiveBorderBg');
-                        @include em.transition(width);
+                        @include bm.transition(width);
                     }
 
                     &.active {

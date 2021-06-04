@@ -40,4 +40,14 @@ export namespace wlcDepositWithdraw {
             useDepositBtn: false,
         },
     };
+
+    export const balanceV1: ILayoutComponent = {
+        name: 'user.wlc-user-stats',
+        display: {
+            before: 1023,
+        },
+        params: {
+            useDepositBtn: false,
+        },
+    };
 };

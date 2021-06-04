@@ -1,0 +1,14 @@
+@import '../utils/vars';
+
+.app-profile-loyalty-bonuses-main-state {
+
+    .wlc-sections__profile-content--theme-first[class] {
+
+        .wlc-profile-content {
+
+            .wlc-enter-promocode[class] {
+                @include bm.get-mq-map('margin-bottom', $bonusesThemeFirst, 'promocodeMarginBottom');
+            }
+        }
+    }
+}

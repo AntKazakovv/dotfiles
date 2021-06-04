@@ -12,28 +12,8 @@ $bonusesThemeDefault: map-merge((
 
 $customBonusesThemeFirst: () !default;
 $bonusesThemeFirst: map-merge((
-    'gridColumns': (
-        375: minmax(0, 1fr),
-        560: (minmax(0, max-content) minmax(150px, 1fr))
-    ),
-    'gridRows': (
-        375: repeat(4, min-content),
-        560: repeat(3, min-content)
-    ),
-    'gridArea': (
-        375: ('title' 'menu' 'promocode' 'bonuses-list'),
-        560: ('title promocode' 'menu menu' 'bonuses-list bonuses-list'),
-        1024: ('title promocode' 'bonuses-list bonuses-list'),
-    ),
-    'gridGap': (
-        375: 15px,
-        1024: ef.get('size', 'smaller') 15px,
-    ),
-    'nocontentFontStyle': 'PrimaryText',
-    'nocontentColor':  ef.get('mainColors', 'baseMain'),
-    'nocontentTextAlign': (
-        320: left,
-    ),
-    'activeGridColumns': minmax(0, 1fr),
-    'activeGridRows': min-content min-content,
+    'promocodeMarginBottom': (
+        320: ef.get('size', 'smaller'),
+        560: 0,
+    )
 ), $customBonusesThemeFirst);

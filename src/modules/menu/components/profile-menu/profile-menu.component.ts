@@ -81,7 +81,7 @@ export class ProfileMenuComponent extends AbstractComponent implements OnInit {
         };
 
         this.router.transitionService.onSuccess({}, (transition) => {
-            if(this.profileType !== 'profileFirstMenu') {
+            if(this.profileType !== 'profileFirstMenu' || this.$params.type === 'submenu') {
                 this.menuParams.items = [];
                 this.initMenu();
             }

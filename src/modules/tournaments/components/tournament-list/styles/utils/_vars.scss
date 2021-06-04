@@ -32,14 +32,10 @@ $themeBanner: map-merge((
 
 $customThemeAvailable: () !default;
 $themeAvailable: map-merge((
-    // TODO Remove this after add margin to wlc-title
-    'listPadding':  ef.get('size', 'smaller') 0 0 0,
-
     'itemMargin': 0 0 ef.get('size', 'smaller') 0,
 ), $customThemeAvailable);
 
 $customThemeActive: () !default;
 $themeActive: map-merge((
-    // TODO Remove this after add margin to wlc-title
-    'listPadding':  ef.get('size', 'smaller') 0 0 0,
+
 ), $customThemeActive);

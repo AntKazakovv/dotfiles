@@ -24,4 +24,11 @@ export namespace wlcBonusesHistory {
             ],
         },
     };
+
+    export const filterOnly: ILayoutComponent = {
+        name: 'finances.wlc-history-filter',
+        params: {
+            config: 'bonus',
+        },
+    };
 }

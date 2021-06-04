@@ -37,6 +37,15 @@ export namespace wlcTitle {
         },
     };
 
+    export const myAccountV1: ILayoutComponent = {
+        name: 'core.wlc-title',
+        params: {
+            customMod: ['profile'],
+            mainText: gettext('My account'),
+            wlcElement: 'header_my-account',
+        },
+    };
+
     export const profileV1Mobile: ILayoutComponent = {
         name: 'core.wlc-title',
         display: {
@@ -54,6 +63,15 @@ export namespace wlcTitle {
         display: {
             before: 1023,
         },
+        params: <ITitleCParams>{
+            customMod: ['profile'],
+            mainText: gettext('Cash'),
+            wlcElement: 'header_edit-profile',
+        },
+    };
+
+    export const cash: ILayoutComponent = {
+        name: 'core.wlc-title',
         params: <ITitleCParams>{
             customMod: ['profile'],
             mainText: gettext('Cash'),
@@ -118,6 +136,28 @@ export namespace wlcTitle {
             wlcElement: 'header_bonuses',
         },
     };
+
+    export const bonusesV1Mobile: ILayoutComponent = {
+        name: 'core.wlc-title',
+        display: {
+            before: 1023,
+        },
+        params: {
+            customMod: ['profile'],
+            mainText: gettext('Bonuses'),
+            wlcElement: 'header_bonuses',
+        },
+    };
+
+    export const offers: ILayoutComponent = {
+        name: 'core.wlc-title',
+        params: {
+            customMod: ['profile'],
+            mainText: gettext('Offers'),
+            wlcElement: 'header_bonuses',
+        },
+    };
+
     export const activeBonuses: ILayoutComponent = {
         name: 'core.wlc-title',
         params: {
@@ -190,7 +230,16 @@ export namespace wlcTitle {
         },
     };
 
-    export const profileLoyalty: ILayoutComponent = {
+    export const profileStoreV1: ILayoutComponent = {
+        name: 'core.wlc-title',
+        params: {
+            customMod: ['profile'],
+            mainText: gettext('Store'),
+            wlcElement: 'header_store',
+        },
+    };
+
+    export const profileLoyaltyV1: ILayoutComponent = {
         name: 'core.wlc-title',
         params: {
             customMod: ['profile'],
