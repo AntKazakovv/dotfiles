@@ -7,12 +7,17 @@ import {
 } from '@angular/core';
 import {DOCUMENT} from '@angular/common';
 import {TranslateService} from '@ngx-translate/core';
-import {StateService, UIRouter} from '@uirouter/core';
+
+import {
+    StateService,
+    UIRouter,
+} from '@uirouter/core';
+
 import {
     BehaviorSubject,
-    Observable,
     Subject,
     fromEvent,
+    Observable,
 } from 'rxjs';
 import {
     filter,
@@ -36,7 +41,15 @@ import {
     AppType,
     IRedirect,
 } from 'wlc-engine/modules/core';
-import {UserService, UserProfile} from 'wlc-engine/modules/user';
+import {
+    UserService,
+    UserProfile,
+} from 'wlc-engine/modules/user';
+
+import {
+    ILivechatConfig,
+    CommonChatService,
+} from 'wlc-engine/modules/livechat';
 
 import _isString from 'lodash-es/isString';
 import _toNumber from 'lodash-es/toNumber';
@@ -126,8 +139,8 @@ export class ActionService {
     public async processMessages(initialPath: IIndexing<string>): Promise<void> {
         switch (initialPath?.message) {
             case 'GET_CONFIG':
-                if (initialPath.token === "kjdnfhjgernghiwnin39u548dfkjnvk") {
-                    const a = document.createElement('a');
+                if (initialPath.token === 'kjdnfhjgernghiwnin39u548dfkjnvk') {
+                    const a = this.document.createElement('a');
                     const config = await this.layoutService
                         .generateFullConfigWithLayouts(initialPath.slim !== 'true');
                     delete config.$user?.userProfile$;
@@ -161,7 +174,8 @@ export class ActionService {
                     });
                 });
                 break;
-            } case 'PAYMENT_FAIL':
+            }
+            case 'PAYMENT_FAIL':
                 this.eventService.emit({
                     name: NotificationEvents.PushMessage,
                     data: <IPushMessageParams>{
@@ -384,7 +398,7 @@ export class ActionService {
 
         if (this.configService.get<AppType>('$base.app.type') === 'wlc') {
             return;
-        };
+        }
 
         const address = this.configService.get<string>('$base.affiliate.siteUrl');
 

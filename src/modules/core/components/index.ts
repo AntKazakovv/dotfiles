@@ -16,6 +16,7 @@ export {IInputCParams} from './input/input.params';
 export {ILanguageSelectorCParams} from './language-selector/language-selector.params';
 export {ILicenseCParams} from './license/license.params';
 export {ILinkBlockCParams} from './link-block/link-block.params';
+export {IActionParams} from './link-block/link-block.params';
 export {ILoaderCParams} from './loader/loader.params';
 export {ILogoCParams} from './logo/logo.params';
 export {IScrollbarCParams} from './scrollbar/scrollbar.params';
@@ -28,6 +29,10 @@ export {ITextBlockCParams} from './text-block/text-block.params';
 export {ITextareaCParams} from './textarea/textarea.params';
 export {ITimerCParams} from './timer/timer.params';
 export {ITitleCParams} from './title/title.params';
-export {IWrapperCParams, WrapperComponent} from './wrapper/wrapper.component';
+export {
+    IWrapperCParams,
+    WrapperComponent,
+} from './wrapper/wrapper.component';
 export {IModalList} from './modal/modal.interface';
 export {DatepickerComponent} from './datepicker/datepicker.component';
+export {IconComponent} from './icon/icon.component';

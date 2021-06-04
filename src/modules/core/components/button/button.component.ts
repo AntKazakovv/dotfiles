@@ -16,16 +16,26 @@ import {
     Optional,
     Self,
 } from '@angular/core';
-import {RawParams, StateService} from '@uirouter/core';
-import {Subject, fromEvent} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
-import {IconComponent} from '../icon/icon.component';
-import {AbstractComponent, IMixedParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {
+    RawParams,
+    StateService,
+} from '@uirouter/core';
+
+import {
+    Subject,
+    fromEvent,
+} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
+
+import {
+    AbstractComponent,
+    IMixedParams,
     ConfigService,
     EventService,
-} from 'wlc-engine/modules/core/system/services';
-import * as BParams from './button.params';
+    IconComponent,
+} from 'wlc-engine/modules/core';
+
+import * as Params from './button.params';
 
 import _get from 'lodash-es/get';
 import _forEach from 'lodash-es/forEach';
@@ -55,24 +65,25 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
     @Input() public event: {name: string, data?: unknown};
     @Input() public sref: string;
     @Input() public srefParams: RawParams;
-    @Input() protected type: BParams.Type;
-    @Input() protected typeAttr: string;
-    @Input() protected theme: BParams.Theme;
-    @Input() protected themeMod: BParams.ThemeMod;
-    @Input() protected customMod: BParams.CustomMod;
-    @Input() protected size: BParams.Size;
-    @Input() protected icon: string;
-    @Input() protected index: BParams.Index;
-    @Input() protected wlcElement: string;
-    @Input() protected inlineParams: BParams.IButtonCParams;
 
-    public $params: BParams.IButtonCParams;
+    @Input() protected type: Params.Type;
+    @Input() protected typeAttr: string;
+    @Input() protected theme: Params.Theme;
+    @Input() protected themeMod: Params.ThemeMod;
+    @Input() protected customMod: Params.CustomMod;
+    @Input() protected size: Params.Size;
+    @Input() protected icon: string;
+    @Input() protected index: Params.Index;
+    @Input() protected wlcElement: string;
+    @Input() protected inlineParams: Params.IButtonCParams;
+
+    public $params: Params.IButtonCParams;
     protected $loading = new Subject<boolean>();
     @HostBinding('attr.type') get typeAttrValue() {return this.params?.common?.typeAttr || this.typeAttr;}
 
     constructor(
         @Inject('injectParams')
-        protected params: BParams.IButtonCParams,
+        protected params: Params.IButtonCParams,
         protected elementRef: ElementRef,
         protected cdr: ChangeDetectorRef,
         protected ConfigService: ConfigService,
@@ -80,18 +91,18 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
         protected eventService: EventService,
     ) {
         super(
-            <IMixedParams<BParams.IButtonCParams>>{
+            <IMixedParams<Params.IButtonCParams>>{
                 injectParams: params,
-                defaultParams: BParams.defaultParams,
+                defaultParams: Params.defaultParams,
             }, ConfigService);
     }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         super.ngOnInit(this.prepareParams());
         this.prepareModifiers();
     }
 
-    ngOnChanges(changes) {
+    public ngOnChanges(changes) {
         if (_get(changes, 'text') && _get(this, '$params.common.text')) {
             this.$params.common.text = this.text;
         }
@@ -117,7 +128,7 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
         }
     }
 
-    protected prepareParams(): BParams.IButtonCParams {
+    protected prepareParams(): Params.IButtonCParams {
         if (this.inlineParams) {
             return this.inlineParams;
         }
@@ -134,7 +145,7 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
             'srefParams',
             'typeAttr',
         ];
-        const inlineParams: BParams.IButtonCParams = {
+        const inlineParams: Params.IButtonCParams = {
             common: {},
         };
 
@@ -151,7 +162,7 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
     }
 
     protected prepareModifiers(): void {
-        let modifiers: BParams.Modifiers[] = [];
+        let modifiers: Params.Modifiers[] = [];
         if (this.$params?.common?.size) {
             modifiers.push(`size-${this.$params.common.size}`);
         }

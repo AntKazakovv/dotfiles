@@ -1,5 +1,8 @@
-import {IComponentParams, CustomType} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {BehaviorSubject} from 'rxjs';
+import {
+    IComponentParams,
+    CustomType,
+} from 'wlc-engine/modules/core';
 
 export type Theme = 'default' | CustomType;
 export type Type = 'default' | 'modal' | CustomType;

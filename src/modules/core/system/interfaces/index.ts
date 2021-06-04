@@ -11,3 +11,4 @@ export * from './config.interface';
 export * from './core.interface';
 export {AppType} from './base-config/app.interface';
 export * from './modals.interface';
+export {IInteractiveText} from './base-config/interactiveText.interface';

@@ -47,20 +47,45 @@ $themeDefault: map-merge((
     ),
     'userDepositMargin': (
         900: -30px 0 -30px 30px,
-        1024:  -30px 30px -30px auto,
+        1024:  -30px -20px -30px auto,
+        1200:  -30px 55px -30px auto,
         1366: -55px 0 -55px 105px
     ),
-    'userDepositBg': ef.get('mainColors', 'baseOpacity'),
-    'userDepositSize': (
-        900: 270px,
-        1366: 365px,
-        1630: 465px
+    'userDepositPadding': (
+        320: 0 25px,
+        1024: 0 80px,
+        1200: 0 90px,
+        1366: 0 80px,
+        1630: 0 40px,
     ),
+    'userDepositBg': ef.get('mainColors', 'baseOpacity'),
+
+    'userDepositSize': (
+        320: 280px,
+        1366: 300px,
+        1630: 330px
+    ),
+
+    'userDepositTitleMargin': 0 0 ef.get('size', 'smaller'),
+    'userDepositPositionText': center,
+
+    'userDepositSizeAfter': (
+        320: 330px,
+        1366: 390px,
+        1630: 430px
+    ),
+
+    'userDepositTopAfter': 50%,
+    'userDepositRadiusAfter': 100%,
+    'userDepositTransformAfter': translate(0, -50%),
+
     'userDepositHeight': 465px,
     'userDepositTitleSize': (
         900: ef.get('font', 'ThirdTitle'),
-        1366: ef.get('font', 'QoteTextBold')
+        1630: ef.get('font', 'QoteTextBold'),
     ),
+    'userDepositBtnHeight': auto,
+    'userDepositBtnMinHeight': 40px,
     'panelTextColor': ef.get('mainColors', 'baseMain'),
     'panelTextSize': ef.get('font', 'size'),
     'transition': ef.get('time', 'main') linear,
@@ -105,6 +130,8 @@ $themeLeft: map-merge((
     'menuLinksIconFill': ef.get('mainColors', 'main'),
     'languageSelectorBg': ef.get('mainColors', 'bg500'),
     'logoMaxWidth': 90%,
+    'userDepositBtnHeight': auto,
+    'userDepositBtnMinHeight': 40px,
 ), $customThemeLeft);
 
 $customThemeMobile: () !default;
