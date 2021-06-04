@@ -5,7 +5,6 @@ $themeFirst: map-merge((
     // // Size
     'minWidth': (
         320: 250px,
-        1630: 320px,
     ),
     // infoWidth = minWidth - 30px
     'infoWidth': (
@@ -40,6 +39,7 @@ $themeFirst: map-merge((
     'priceFontSize': ef.get('font', 'PrimaryText'),
     'moreIconColor': ef.get('mainColors', 'baseOpacity'),
     'moreIconColorHover': ef.get('mainColors', 'baseMain'),
+    'moreIconPadding': ef.get('size', 'smallest'),
     // // Backgrounds
     'background': ef.get('mainColors', 'bg300'),
     'backgroundHover': ef.get('mainColors', 'bg500'),
@@ -68,8 +68,8 @@ $themeFirst: map-merge((
     //Position
     'tagPositionTop': ef.get('size', 'smaller'),
     'moreIconPosLeft': auto,
-    'moreIconPosRight': ef.get('size', 'smaller'),
-    'moreIconPosTop': ef.get('size', 'smaller'),
+    'moreIconPosRight': ef.get('size', 'smally'),
+    'moreIconPosTop': ef.get('size', 'smally'),
     'moreIconPosBottom': auto,
     // Animation
     'time': ef.get('time', 'main'),
