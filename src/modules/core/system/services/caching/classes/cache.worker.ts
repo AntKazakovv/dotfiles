@@ -7,7 +7,6 @@ import {
     clear,
     createStore,
 } from 'idb-keyval';
-import {DateTime} from 'luxon';
 
 const store = createStore('wlc-cache-db', 'cache');
 addEventListener('message', async ({data}) => {
@@ -35,7 +34,7 @@ addEventListener('message', async ({data}) => {
                 if (!cacheData) {
                     throw new Error('no cache data for key: ' + data.key);
                 }
-                if (cacheData.expiration < DateTime.local().toMillis()) {
+                if (cacheData.expiration < Date.now()) {
                     set(data.key, null);
                     throw new Error('cache data for key: ' + data.key + ' expired');
                 }
