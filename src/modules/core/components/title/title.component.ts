@@ -10,10 +10,15 @@ import {
     TemplateRef,
     ViewChild,
 } from '@angular/core';
+
 import {BehaviorSubject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
-import {AbstractComponent, IMixedParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {
+    AbstractComponent,
+    IMixedParams,
+} from 'wlc-engine/modules/core';
+
 import * as Params from './title.params';
 
 import _isString from 'lodash-es/isString';
@@ -123,5 +128,4 @@ export class TitleComponent extends AbstractComponent implements OnInit, AfterVi
         }
         return;
     }
-
 }

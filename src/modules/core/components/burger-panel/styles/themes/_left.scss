@@ -164,6 +164,15 @@
                     text-align: center;
                 }
             }
+
+
+            .wlc-link-block {
+
+                .wlc-btn {
+                    height: ef.get-value($themeLeft, 'userDepositBtnHeight');
+                    min-height: ef.get-value($themeLeft, 'userDepositBtnMinHeight');
+                }
+            }
         }
     }
 }

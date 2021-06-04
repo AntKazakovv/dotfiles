@@ -7,7 +7,7 @@ export namespace leftPanel {
         showHeader: false,
         showClose: false,
         display: {
-            after: 900,
+            after: 1024,
         },
         useScroll: false,
         container: true,
@@ -38,12 +38,14 @@ export namespace leftPanel {
                     class: 'wlc-burger-panel__user-deposit',
                     components: [
                         {
-                            name: 'core.wlc-title',
+                            name: 'core.wlc-link-block',
                             params: {
-                                mainText: gettext('Do you want to top up your balance?'),
+                                common: {
+                                    useInteractiveText: true,
+                                    useLinkButton: false,
+                                },
                             },
                         },
-                        componentLib.wlcButton.leftMenuDeposit,
                     ],
                 },
             },
@@ -65,14 +67,14 @@ export namespace leftPanel {
                     ],
                 },
             },
-            componentLib.wlcButton.searchV2,
+            componentLib.wlcButton.searchDef,
         ],
     };
 
     export const left: IPanelSectionConfig = {
         theme: 'left',
         display: {
-            after: 900,
+            after: 1024,
         },
         components: [
             componentLib.wlcLogo.header,
@@ -112,12 +114,14 @@ export namespace leftPanel {
                     class: 'wlc-burger-panel__user-deposit',
                     components: [
                         {
-                            name: 'core.wlc-title',
+                            name: 'core.wlc-link-block',
                             params: {
-                                mainText: gettext('Do you want to top up your balance?'),
+                                common: {
+                                    useInteractiveText: true,
+                                    useLinkButton: false,
+                                },
                             },
                         },
-                        componentLib.wlcButton.deposit,
                     ],
                 },
             },
@@ -127,7 +131,7 @@ export namespace leftPanel {
     export const mobile: IPanelSectionConfig = {
         theme: 'mobile',
         display: {
-            before: 899,
+            before: 1023,
         },
         components: [
             componentLib.wlcLoginSignup.burgerPanel,

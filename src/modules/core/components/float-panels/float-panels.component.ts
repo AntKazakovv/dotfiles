@@ -5,23 +5,24 @@ import {
     Input,
     ChangeDetectorRef,
 } from '@angular/core';
+
 import {
     debounceTime,
     takeUntil,
 } from 'rxjs/operators';
+
 import {
-    IResizeEvent,
-    LayoutService,
-} from 'wlc-engine/modules/core';
-import {
+    AbstractComponent,
     ActionService,
     ConfigService,
     EventService,
+    IBurgerPanelCParams,
+    IResizeEvent,
+    LayoutService,
     LogService,
-} from 'wlc-engine/modules/core/system/services';
-import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {SectionModel} from 'wlc-engine/modules/core/system/models/section.model';
-import {IBurgerPanelCParams} from 'wlc-engine/modules/core';
+    SectionModel,
+} from 'wlc-engine/modules/core';
+
 import * as Params from './float-panels.params';
 
 import _set from 'lodash-es/set';

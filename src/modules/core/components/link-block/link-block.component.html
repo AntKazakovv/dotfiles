@@ -11,8 +11,8 @@
          class="{{$class}}__text">
         <button
             wlc-button
-            icon="arrow"
-            theme="cleared"
+            [icon]="$params.common.useLinkButton ? 'arrow' : 'default'"
+            [theme]="$params.common.useLinkButton ? 'cleared' : 'default'"
             [attr.type]="'button'"
             [wlcElement]="$params.wlcElement + '-button'"
             text="{{$params.common.link}}"

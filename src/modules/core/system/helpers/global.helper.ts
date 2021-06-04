@@ -102,7 +102,7 @@ export class GlobalHelper {
      *
      * prepare module config helper
      */
-    public static mergeConfig<T>(engineConfig: T , projectConfig: Partial<T>): T {
+    public static mergeConfig<T>(engineConfig: T, projectConfig: Partial<T>): T {
         return _mergeWith(engineConfig, projectConfig, (objValue, srcValue) => {
             if (_isArray(objValue)) {
                 return srcValue;
@@ -159,7 +159,7 @@ export class GlobalHelper {
             }
         });
 
-        return _keys(inlineParams.common).length ? inlineParams: null;
+        return _keys(inlineParams.common).length ? inlineParams : null;
     }
 
     /**

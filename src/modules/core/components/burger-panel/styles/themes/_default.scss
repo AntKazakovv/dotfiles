@@ -128,22 +128,23 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            width: 100%;
-            @include bm.get-mq-map('max-width', $themeDefault, 'userDepositSize');
             margin-bottom: ef.get-value($themeDefault, 'componentGap');
             @include bm.get-mq-map('margin', $themeDefault, 'userDepositMargin');
+            @include bm.get-mq-map('padding', $themeDefault, 'userDepositPadding');
 
             &:after {
+                content: '';
+
                 position: absolute;
-                top: -80px;
-                right: 0;
-                bottom: -80px;
-                left: 0;
+                top: ef.get-value($themeDefault, 'userDepositTopAfter');
 
                 background: ef.get-value($themeDefault, 'userDepositBg');
-                border-radius: 100%;
+                border-radius: ef.get-value($themeDefault, 'userDepositRadiusAfter');
 
-                content: '';
+                transform: ef.get-value($themeDefault, 'userDepositTransformAfter');
+
+                @include bm.get-mq-map('width', $themeDefault, 'userDepositSizeAfter');
+                @include bm.get-mq-map('height', $themeDefault, 'userDepositSizeAfter');
             }
 
             .wlc-title,
@@ -153,13 +154,21 @@
             }
 
             .wlc-title {
-                max-width: 255px;
-                margin-bottom: 20px;
+                @include bm.get-mq-map('width', $themeDefault, 'userDepositSize');
+                margin: ef.get-value($themeDefault, 'userDepositTitleMargin');
 
-                text-align: center;
+                text-align: ef.get-value($themeDefault, 'userDepositPositionText');
 
                 .wlc-title__main {
                     @include bm.get-mq-map('font-size', $themeDefault, 'userDepositTitleSize');
+                }
+            }
+
+            .wlc-link-block {
+
+                .wlc-btn {
+                    height: ef.get-value($themeDefault, 'userDepositBtnHeight');
+                    min-height: ef.get-value($themeDefault, 'userDepositBtnMinHeight');
                 }
             }
         }

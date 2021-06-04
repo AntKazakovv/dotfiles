@@ -1,5 +1,8 @@
 import {RawParams} from '@uirouter/core';
-import {IComponentParams, CustomType} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {
+    IComponentParams,
+    CustomType,
+} from 'wlc-engine/modules/core';
 
 export type Type = 'default' | 'resolved' | 'rejected' | 'pending' | 'disabled' | CustomType;
 export type Theme = 'default' | 'skew' | 'rounding' | 'circled' | 'borderless' | 'icon' | 'cleared' | CustomType;

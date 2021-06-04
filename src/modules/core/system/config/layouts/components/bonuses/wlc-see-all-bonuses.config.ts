@@ -7,14 +7,8 @@ export namespace wlcSeeAllBonuses {
             wlcElement: 'block_all-bonuses',
             themeMod: 'secondary',
             common: {
-                title: gettext('Want more promo content?'),
-                link: gettext('See all bonuses'),
-                actionParams: {
-                    url: {
-                        path: 'app.profile.loyalty-bonuses.main',
-                    },
-                },
+                useInteractiveText: true,
             },
         },
     };
-}
+};

@@ -29,3 +29,7 @@ export {
     HookHandler,
     IHookHandlerDescriptor,
 } from './hooks/hooks.service';
+export {
+    InteractiveTextService,
+    InteractiveTextEvents,
+} from './interactive-text/interactive-text.service';

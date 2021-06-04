@@ -4,6 +4,7 @@ import {IProfileConfig} from './profile.interface';
 import {ITournamentsConfig} from './tournaments.interface';
 import {IAppConfig} from './app.interface';
 import {INotificationsConfig} from './notifications.interface';
+import {IInteractiveText} from './interactiveText.interface';
 import {ILivechatConfig} from 'wlc-engine/modules/livechat';
 import {
     IRedirectConfig,
@@ -32,6 +33,7 @@ export interface IBaseConfig {
         phone?: string;
         email?: string;
     };
+    interactiveText?: IInteractiveText[];
     livechat?: ILivechatConfig;
     /**
      * Config redirection by event or state
