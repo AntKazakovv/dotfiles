@@ -27,6 +27,7 @@ export interface IBonusesListCParams extends IComponentParams<Theme, Type, Theme
         filterByGroup?: string;
         sortOrder?: ('active' | 'subscribe' | 'inventory' | number)[];
         swiper?: SwiperOptions;
+        swiperManualTransitionDuration?: number;
         useBlankBonus?: boolean;
         selectFirstBonus?: boolean;
         useRecommendedBonuses?: boolean;
@@ -47,6 +48,7 @@ export const defaultParams: IBonusesListCParams = {
         filter: 'all',
         useBlankBonus: false,
         selectFirstBonus: false,
+        swiperManualTransitionDuration: 750,
         useRecommendedBonuses: false,
         useQuery: false,
         useNoDataText: false,

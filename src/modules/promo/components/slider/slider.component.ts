@@ -1,16 +1,19 @@
 import {
-    Component,
-    Inject,
-    Input,
-    OnInit,
-    ViewChild,
     AfterViewInit,
-    Renderer2,
-    ViewEncapsulation,
-    OnChanges,
-    Injector,
     ChangeDetectorRef,
+    Component,
+    EventEmitter,
+    Inject,
+    Injector,
+    Input,
+    OnChanges,
+    OnInit,
+    Output,
+    Renderer2,
+    ViewChild,
+    ViewEncapsulation,
 } from '@angular/core';
+import {takeUntil} from 'rxjs/operators';
 import SwiperCore, {
     EffectFade,
     EffectCube,
@@ -20,6 +23,7 @@ import SwiperCore, {
     Autoplay,
     Mousewheel,
     Scrollbar,
+    Swiper,
 } from 'swiper/core';
 import {SwiperComponent} from 'swiper/angular';
 
@@ -32,16 +36,16 @@ import {
 import {IResizeEvent} from 'wlc-engine/modules/core/system/services/action/action.service';
 import * as Params from './slider.params';
 
-import {takeUntil} from 'rxjs/operators';
 
-import _isNumber from 'lodash-es/isNumber';
 import _assign from 'lodash-es/assign';
-import _times from 'lodash-es/times';
 import _ceil from 'lodash-es/ceil';
 import _floor from 'lodash-es/floor';
-import _get from 'lodash-es/get';
-import _toNumber from 'lodash-es/toNumber';
 import _forEach from 'lodash-es/forEach';
+import _get from 'lodash-es/get';
+import _includes from 'lodash-es/includes';
+import _isNumber from 'lodash-es/isNumber';
+import _times from 'lodash-es/times';
+import _toNumber from 'lodash-es/toNumber';
 
 SwiperCore.use([
     EffectFade,
@@ -67,6 +71,8 @@ export class SliderComponent extends AbstractComponent
 
     @Input() public slides: Params.ISlide[];
     @Input() protected inlineParams: Params.ISliderCParams;
+
+    @Output() public slideChangeTransitionEnd$ = new EventEmitter<Swiper>();
 
     public sliderWrap: Element;
     public $params: Params.ISliderCParams;
@@ -305,5 +311,10 @@ export class SliderComponent extends AbstractComponent
                 this.addModifiers('on-progress');
             }
         });
+
+        this.swiper.s_slideChangeTransitionEnd.pipe(takeUntil(this.$destroy))
+            .subscribe(() => {
+                this.slideChangeTransitionEnd$.emit(this.swiper.swiperRef);
+            });
     }
 }
