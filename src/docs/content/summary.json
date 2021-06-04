@@ -30,6 +30,14 @@
             {
                 "title": "1.7. Images",
                 "file": "./100.basic/170.images.md"
+            },
+            {
+                "title": "1.8. Project Customization",
+                "file": "./100.basic/180.project-customization.md"
+            },
+            {
+                "title": "1.9. Banners",
+                "file": "./100.basic/190.banners.md"
             }
         ]
     },
@@ -56,6 +64,36 @@
                     {
                         "title": "3.2.2. Layouts config",
                         "file": "./300.config/322.layouts-config.md"
+                    }
+                ]
+            },
+            {
+                "title": "3.3. Menu",
+                "file": "./300.config/330.menu-config.md",
+                "children": [
+                    {
+                        "title": "3.3.1. Main Menu",
+                        "file": "./300.config/331.main-menu.md"
+                    },
+                    {
+                        "title": "3.3.2. Categories Menu",
+                        "file": "./300.config/332.menu-category.md"
+                    },
+                    {
+                        "title": "3.3.3. Mobile Menu",
+                        "file": "./300.config/333.mobile-menu.md"
+                    },
+                    {
+                        "title": "3.3.4. Customizing Menu Icons",
+                        "file": "./300.config/334.menu-icons-setup.md"
+                    },
+                    {
+                        "title": "3.3.5. Post Menu",
+                        "file": "./300.config/335.post-menu.md"
+                    },
+                    {
+                        "title": "3.3.6. Profile Menu",
+                        "file": "./300.config/336.profile-menu.md"
                     }
                 ]
             }
@@ -98,15 +136,47 @@
             {
                 "title": "5.6. Core components",
                 "file": "./500.components/560.core-components.md"
+            },
+            {
+                "title": "5.7. Wrapper",
+                "file": "./500.components/570.component-wrapper.md"
+            },
+            {
+                "title": "5.8. Form Wrapper",
+                "file": "./500.components/580.component-form-wrapper.md"
             }
         ]
     },
     {
         "title": "6. Services",
-        "file": "./600.services/600.services.md"
+        "file": "./600.services/600.services.md",
+        "children": [
+            {
+                "title": "6.1. Form Wrapper",
+                "file": "./600.services/610.config-servece.md"
+            }
+        ]
     },
     {
         "title": "7. Styles",
         "file": "./700.styles/700.styles.md"
+    },
+    {
+        "title": "8. Misc",
+        "file": "./800.misc/800.misc.md",
+        "children": [
+            {
+                "title": "8.1. About Engine",
+                "file": "./800.misc/810.about-engine.md"
+            },
+            {
+                "title": "8.2. Add Fonts",
+                "file": "./800.misc/820.add-fonts.md"
+            },
+            {
+                "title": "8.3. IDE Settings",
+                "file": "./800.misc/830.ide-conf.md"
+            }
+        ]
     }
 ]
