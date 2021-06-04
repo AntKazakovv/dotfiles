@@ -2,6 +2,7 @@
     <div class="{{$class}}__info">
         <img [src]="setDecorImage()"
              class="{{$class}}__image {{$class}}__image--mobile"
+             loading="lazy"
              alt="tournament image">
         <div class="{{$class}}__inner">
             <div class="{{$class}}__tag">
@@ -18,6 +19,7 @@
     <div class="{{$class}}__board">
         <img [src]="setDecorImage()"
              class="{{$class}}__image {{$class}}__image--desk"
+             loading="lazy"
              alt="tournament image">
         <div class="{{$class}}__inner">
             <h4 class="{{$class}}__board-title">

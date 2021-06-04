@@ -7,6 +7,7 @@
 
     <div *ngIf="image" class="wlc-notification-message__image-container">
         <img class="wlc-notification-message__image"
+             loading="lazy"
              [style.object-fit]="$params.imageFit"
              [src]="image.src"
              [alt]="image.alt">

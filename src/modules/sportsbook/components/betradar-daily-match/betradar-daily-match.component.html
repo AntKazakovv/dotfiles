@@ -8,8 +8,10 @@
         </div>
         <div class="{{$class}}__teams">
             <div class="{{$class}}__team">
-                <img *ngIf="dailyMatch.issetTeamHomeLogo" src="{{dailyMatch.teamHomeLogo}}">
-                <span *ngIf="!dailyMatch.issetTeamHomeLogo" title="{{dailyMatch.teamHomeName}}">{{dailyMatch.teamHomeNameAbbr}}</span>
+                <img *ngIf="dailyMatch.issetTeamHomeLogo" src="{{dailyMatch.teamHomeLogo}}" loading="lazy">
+                <span *ngIf="!dailyMatch.issetTeamHomeLogo" title="{{dailyMatch.teamHomeName}}" loading="lazy">
+                    {{dailyMatch.teamHomeNameAbbr}}
+                </span>
             </div>
             <div class="{{$class}}__info">
                 <div class="{{$class}}__info-block {{$class}}__info-block--day">
@@ -28,8 +30,10 @@
                 </div>
             </div>
             <div class="{{$class}}__team">
-                <img *ngIf="dailyMatch.issetTeamAwayLogo" src="{{dailyMatch.teamAwayLogo}}">
-                <span *ngIf="!dailyMatch.issetTeamAwayLogo" title="{{dailyMatch.teamAwayName}}">{{dailyMatch.teamAwayNameAbbr}}</span>
+                <img *ngIf="dailyMatch.issetTeamAwayLogo" src="{{dailyMatch.teamAwayLogo}}" loading="lazy">
+                <span *ngIf="!dailyMatch.issetTeamAwayLogo" title="{{dailyMatch.teamAwayName}}" loading="lazy">
+                    {{dailyMatch.teamAwayNameAbbr}}
+                </span>
             </div>
         </div>
         <div class="{{$class}}__footer">

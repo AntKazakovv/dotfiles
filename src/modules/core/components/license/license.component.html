@@ -10,7 +10,7 @@
     <div class="{{$class}}__mga" data-wlc-element="block_mga-license">
         <a href='https://www.authorisation.mga.org.mt/verification.aspx?lang=EN&company={{$params.mga.companyId}}&details=1'
             rel="nofollow">
-            <img src="/gstatic/wlc/icons/mga-logo.png" alt="MGA">
+            <img src="/gstatic/wlc/icons/mga-logo.png" alt="MGA" loading="lazy">
         </a>
     </div>
 </ng-template>
@@ -32,7 +32,7 @@
 </ng-template>
 
 <ng-template #curacaoIconImg>
-    <img [src]="this.$params.curacao.icon" alt="Curacao">
+    <img [src]="this.$params.curacao.icon" alt="Curacao" loading="lazy">
 </ng-template>
 
 <ng-template #apg>

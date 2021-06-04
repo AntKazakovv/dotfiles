@@ -8,7 +8,9 @@
         <div class="{{$class}}__items-wrapper container">
             <div *ngFor="let level of levels; index as $index;" class="{{$class}}__item">
                 <div class="{{$class}}__item-image">
-                    <img class="{{$class}}--icon {{$class}}--icon--{{level.level}}" [src]="imageLevel(level.level)">
+                    <img class="{{$class}}--icon {{$class}}--icon--{{level.level}}"
+                         loading="lazy"
+                         [src]="imageLevel(level.level)">
                 </div>
                 <div class="{{$class}}__item-title">
                     {{level.level}} {{'Level' | translate}}

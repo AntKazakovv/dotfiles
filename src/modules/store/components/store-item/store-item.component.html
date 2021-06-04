@@ -5,10 +5,12 @@
             *ngIf="!storeItem.isBonus"
             class="{{$class}}__image"
             data-wlc-element="store_item-image">
-            <img [src]="storeImage">
+            <img [src]="storeImage" loading="lazy">
         </div>
         <div *ngIf="storeItem.isBonus" class="{{$class}}__bonus-icon">
-            <img class="icon-sign" [src]="$params.common?.bonusIconsPath + storeItem.bonus.viewTarget + '.svg'">
+            <img class="icon-sign"
+                 loading="lazy"
+                 [src]="$params.common?.bonusIconsPath + storeItem.bonus.viewTarget + '.svg'">
             <div
                 class="icon-text"
                 minLength="4"
