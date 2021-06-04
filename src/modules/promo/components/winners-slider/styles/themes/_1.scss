@@ -1,9 +1,7 @@
-@use 'engine-scss/mixins/base.mixins' as em;
-@use 'engine-scss/mixins/mediaqueries' as mq;
-@use 'engine-scss/mixins/text' as lib;
-@use 'engine-scss/functions' as ef;
-
 .wlc-winners-slider--theme-1:host {
+    --wlc-winner-slider-slide-height: #{ef.get-value($theme1, 'slideHeight')};
+    --wlc-winner-slider-slide-inner-gap: #{ef.get-value($theme1, 'slideInnerGap')};
+
     background: ef.get-value($theme1, 'background');
     max-width: ef.get-value($theme1, 'maxWidth');
     width: 100%;
@@ -11,7 +9,7 @@
     overflow: hidden;
 
     .wlc-winners-slider__title {
-        @include lib.get-text-style('ThirdTitleBold', ef.get-value($theme1, 'titleColor'));
+        @include text.get-text-style('ThirdTitleBold', ef.get-value($theme1, 'titleColor'));
         text-align: ef.get-value($theme1, 'titleTextAlign');
         background: ef.get-value($theme1, 'titleBg');
         padding: ef.get-value($theme1, 'titlePadding');
@@ -20,8 +18,8 @@
 
     .wlc-winners-slider__slider {
         position: relative;
-        height: ef.get-value($theme1, 'sliderHeight');
-        margin: ef.get-value($theme1, 'sliderMargin');
+        @include em.get-mq-map('margin', $theme1, 'sliderMargin');
+        @include em.get-mq-map('height', $theme1, 'sliderHeight');
 
         &:before {
             content: '';

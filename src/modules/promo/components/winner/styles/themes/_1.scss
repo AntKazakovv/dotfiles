@@ -1,25 +1,29 @@
-@use 'engine-scss/mixins/base.mixins' as bm;
-@use 'engine-scss/mixins/mediaqueries' as mq;
-@use 'engine-scss/mixins/text' as lib;
-@use 'engine-scss/functions' as ef;
-
 .wlc-winner--theme-1:host {
 
     .wlc-winner__wrapper {
+        position: relative;
         display: flex;
         max-width: ef.get-value($theme1, 'maxWidth');
         margin: ef.get-value($theme1, 'wrapperMargin');
         padding: ef.get-value($theme1, 'wrapperPadding');
-        border-bottom: ef.get-value($theme1, 'wrapperBorderBottom');
         cursor: pointer;
 
-        @include bm.hover {
+        &:after {
+            content: '';
+            position: absolute;
+            right: 0;
+            bottom: -1 * ef.get-value($theme1, 'wrapperPseudoBorderHeight') / 2;
+            left: 0;
+            width: ef.get-value($theme1, 'wrapperPseudoBorderWidth');
+            height: ef.get-value($theme1, 'wrapperPseudoBorderHeight');
+            margin: 0 auto;
+            background: ef.get-value($theme1, 'wrapperPseudoBorderBg');
+        }
+
+        @include em.hover {
 
             .wlc-winner__game {
-
-                span {
-                    border-bottom: ef.get-value($theme1, 'gameBorderBottomActive');
-                }
+                border-bottom: ef.get-value($theme1, 'gameBorderBottomActive');
             }
         }
     }
@@ -39,8 +43,6 @@
             position: relative;
 
             &:before {
-
-                @include bm.aspect-ratio-padding(ef.get-value($theme1, 'iconAspectRatio'));
                 content: '';
                 display: block;
                 width: 100%;
@@ -64,10 +66,11 @@
     .wlc-winner__block--right {
         display: flex;
         flex-direction: column;
+        min-width: 0;
     }
 
     .wlc-winner__user {
-        @include lib.get-text-style('PlaceholderText', ef.get-value($theme1, 'userColor'));
+        @include text.get-text-style('PlaceholderText', ef.get-value($theme1, 'userColor'));
         display: flex;
         align-items: center;
     }
@@ -78,16 +81,17 @@
     }
 
     .wlc-winner__game {
-        @include lib.get-text-style('ThirdTitleBold', ef.get-value($theme1, 'gameColor'));
-
-        span {
-            @include bm.transition();
-            border-bottom: ef.get-value($theme1, 'gameBorderBottomInactive');
-        }
+        @include text.get-text-style('ThirdTitleBold', ef.get-value($theme1, 'gameColor'));
+        @include em.transition();
+        max-width: 100%;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow-x: hidden;
+        border-bottom: ef.get-value($theme1, 'gameBorderBottomInactive');
     }
 
     .wlc-winner__amount {
-        @include lib.get-text-style('ThirdTitleBold', ef.get-value($theme1, 'amountColor'));
+        @include text.get-text-style('ThirdTitleBold', ef.get-value($theme1, 'amountColor'));
         margin-top: auto;
     }
 }

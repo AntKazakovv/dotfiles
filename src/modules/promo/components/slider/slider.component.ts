@@ -27,14 +27,19 @@ import SwiperCore, {
     SwiperOptions,
 } from 'swiper/core';
 import {SwiperComponent} from 'swiper/angular';
+import {ResizedEvent} from 'angular-resize-event';
 
-import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ActionService, ConfigService} from 'wlc-engine/modules/core';
+import {
+    AbstractComponent,
+    ActionService,
+    ConfigService,
+} from 'wlc-engine/modules/core';
 import {
     BannersService,
     WinnersService,
 } from 'wlc-engine/modules/promo/system/services';
 import {IResizeEvent} from 'wlc-engine/modules/core/system/services/action/action.service';
+
 import * as Params from './slider.params';
 
 
@@ -74,6 +79,7 @@ export class SliderComponent extends AbstractComponent
     @Input() public slides: Params.ISlide[];
     @Input() protected inlineParams: Params.ISliderCParams;
 
+    @Output() protected handleBeforeResize: EventEmitter<SwiperCore> = new EventEmitter();
     @Output() public slideChangeTransitionEnd$ = new EventEmitter<Swiper>();
 
     public sliderWrap: Element;
@@ -193,8 +199,12 @@ export class SliderComponent extends AbstractComponent
         this.swiper.setIndex(0, 0, true);
     }
 
-    public onResize(): void {
+    public onResize(event: ResizedEvent): void {
         this.updateView();
+    }
+
+    public onBeforeResize(swiper): void {
+        this.handleBeforeResize.emit(this.swiper.swiperRef);
     }
 
     protected setSliderWrapper(): void {

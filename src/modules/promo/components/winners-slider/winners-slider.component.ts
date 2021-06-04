@@ -7,19 +7,34 @@ import {
     ChangeDetectorRef,
     ViewChild,
     TemplateRef,
+    ElementRef,
+    Renderer2,
+    AfterViewInit,
 } from '@angular/core';
 import {SwiperOptions} from 'swiper';
+import SwiperCore from 'swiper/core';
 import {takeUntil} from 'rxjs/operators';
 
-import {AbstractComponent, ConfigService} from 'wlc-engine/modules/core';
-import {ISlide, ISliderCParams} from 'wlc-engine/modules/promo/components/slider/slider.params';
-import {WinnerComponent} from 'wlc-engine/modules/promo/components/winner/winner.component';
-import {WinnerModel} from 'wlc-engine/modules/promo/system/models/winner.model';
-import {WinnersService} from 'wlc-engine/modules/promo/system/services';
+import {
+    AbstractComponent,
+    ConfigService,
+} from 'wlc-engine/modules/core';
+import {
+    ISlide,
+    ISliderCParams,
+    WinnersService,
+    WinnerComponent,
+    WinnerModel,
+    SliderHelper,
+    ISliderCssProps,
+} from 'wlc-engine/modules/promo';
+
 import * as Params from './winners-slider.params';
 
 import _merge from 'lodash-es/merge';
 import _clone from 'lodash-es/clone';
+import _forEach from 'lodash-es/forEach';
+import _assign from 'lodash-es/assign';
 
 @Component({
     selector: '[wlc-winners-slider]',
@@ -27,24 +42,31 @@ import _clone from 'lodash-es/clone';
     styleUrls: ['./styles/winners-slider.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class WinnersSliderComponent extends AbstractComponent implements OnInit {
+export class WinnersSliderComponent extends AbstractComponent implements OnInit, AfterViewInit {
 
     @Input() protected inlineParams: Params.IWinnersSliderCParams;
-    public $params: Params.IWinnersSliderCParams;
+    @ViewChild('winner') winner: TemplateRef<WinnerModel>;
 
+    public $params: Params.IWinnersSliderCParams;
     public sliderParams: ISliderCParams = {
         swiper: {},
     };
     public slides: ISlide[] = [];
-
     public ready: boolean = false;
-    @ViewChild('winner') winner: TemplateRef<WinnerModel>;
+
+    protected useCssProps: boolean = false;
+    protected cssProps: ISliderCssProps = {
+        slidesPerView: '--wlc-winner-slider-slides-per-view',
+        spaceBetween: '--wlc-winner-slider-slide-gap',
+    };
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IWinnersSliderCParams,
         protected configService: ConfigService,
         protected winnersService: WinnersService,
         protected cdr: ChangeDetectorRef,
+        protected renderer: Renderer2,
+        private element: ElementRef,
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService);
     }
@@ -58,6 +80,36 @@ export class WinnersSliderComponent extends AbstractComponent implements OnInit 
         }
 
         this.initSubscribers();
+    }
+
+    public ngAfterViewInit(): void {
+        this.initBreakpoints();
+    }
+
+    public onSliderResize(swiper: SwiperCore): void {
+        if (this.useCssProps) {
+            this.setCssProperties(swiper.params);
+        }
+    }
+
+    protected setCssProperties(swiperProps: SwiperOptions): void {
+        SliderHelper.setPropsByBreakpoints(
+            swiperProps,
+            this.cssProps,
+            this.element.nativeElement,
+            this.renderer,
+        );
+    }
+
+    protected initBreakpoints(): void {
+        if (this.sliderParams.swiper.direction === 'vertical') {
+            this.useCssProps = true;
+            const activeBreakpoint = SliderHelper.getActiveBreakpoint(this.sliderParams.swiper);
+            this.setCssProperties({
+                ...this.sliderParams.swiper,
+                ...this.sliderParams.swiper.breakpoints?.[activeBreakpoint],
+            });
+        }
     }
 
     protected initSubscribers(): void {
@@ -107,7 +159,14 @@ export class WinnersSliderComponent extends AbstractComponent implements OnInit 
                                         || _clone(Params.swiperParamsDefault.default);
 
         if (this.$params.swiper) {
-            swiper = _merge({}, swiper, this.$params.swiper);
+            swiper = _assign({}, swiper, this.$params.swiper);
+        }
+
+        if (swiper.spaceBetween) {
+            (this.element.nativeElement as HTMLElement).style.setProperty(
+                `--wlc-winner-slider-slide-gap`,
+                swiper.spaceBetween + 'px',
+            );
         }
 
         this.sliderParams.swiper = swiper;

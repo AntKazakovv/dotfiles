@@ -1,7 +1,3 @@
-@use 'engine-scss/functions' as ef;
-@use 'engine-scss/mixins/text' as text;
-@import './../utils/mixins';
-
 .wlc-winner--theme-vertical:host {
 
     .wlc-winner {
@@ -12,49 +8,60 @@
             display: flex;
 
             line-height: ef.get-value($themeVertical, 'lineHeight');
+            height: ef.get-value($themeVertical, 'imageSize');
         }
 
         &__block {
 
             &--left {
                 flex: 0 0 auto;
+                display: flex;
+                align-items: center;
             }
 
             &--right {
                 display: grid;
                 grid-template-columns: ef.get-value($themeVertical, 'rightGridTemplateColumns');
                 grid-template-areas: ef.get-value($themeVertical, 'rightGridTemplateAreas');
-                column-gap: ef.get-value($themeVertical, 'rightColumbGap');
+                column-gap: ef.get-value($themeVertical, 'rightColumnGap');
                 row-gap: ef.get-value($themeVertical, 'rightRowGap');
 
                 flex: 1 1 auto;
 
                 min-width: 0;
 
-                margin-left: ef.get-value($themeVertical, 'leftMarginLevtVertival');
-                padding: ef.get-value($themeVertical, 'leftPadding');
+                margin: ef.get-value($themeVertical, 'rightMargin');
+                padding: ef.get-value($themeVertical, 'rightPadding');
 
-                background-color: ef.get-value($themeVertical, 'leftBackground');
+                background-color: ef.get-value($themeVertical, 'rightBackground');
                 border-radius: ef.get-value($themeVertical, 'rightBorderRadius');
+            }
+        }
+
+        &__picture {
+            position: relative;
+            width: ef.get-value($themeVertical, 'imageSize');
+            border: ef.get-value($themeVertical, 'imageBorder');
+            box-shadow: ef.get-value($themeVertical, 'imageShadow');
+            border-radius: ef.get-value($themeVertical, 'imageBorderRadius');
+            overflow: hidden;
+
+            &:before {
+                content: '';
+                display: block;
+                padding-top: ef.get-value($themeVertical, 'imagePseudoPaddingTop');
             }
         }
 
         &__image {
             display: block;
-
-            width: ef.get-value($themeVertical, 'imageSize');
-            height: ef.get-value($themeVertical, 'imageSize');
-
-            max-width: ef.get-value($themeVertical, 'imageSize');
-            max-height: ef.get-value($themeVertical, 'imageSize');
-
-            border: ef.get-value($themeVertical, 'imageBorder');
-            border-radius: ef.get-value($themeVertical, 'imageBorderRadius');
-
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             object-fit: cover;
             object-position: center;
-
-            box-shadow: ef.get-value($themeVertical, 'imageShadow');
         }
 
         &__user {
@@ -137,8 +144,9 @@
         }
 
         &__game-arrow {
-            flex: 0 1 auto;
+            flex: ef.get-value($themeVertical, 'gameArrowFlex');
 
+            width: ef.get-value($themeVertical, 'gameArrowWidth');
             min-width: 0;
 
             margin-left: ef.get-value($themeVertical, 'gameArrowMarginLeft');

@@ -4,10 +4,11 @@ import {
     Injector,
 } from '@angular/core';
 import {SwiperOptions} from 'swiper';
+
 import {
     CustomType,
     IComponentParams,
-} from 'wlc-engine/modules/core/system/interfaces/config.interface';
+} from 'wlc-engine/modules/core';
 
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;

@@ -1,15 +1,11 @@
-@use 'engine-scss/mixins/base.mixins' as em;
-@use 'engine-scss/mixins/mediaqueries' as mq;
-@use 'engine-scss/mixins/text' as text;
-@use 'engine-scss/functions' as ef;
-@import './../utils/vars';
-
 .wlc-winners-slider--theme-vertical:host {
+    --wlc-winner-slider-slide-height: #{ef.get-value($themeVertical, 'slideHeight')};
 
     .wlc-winners-slider {
 
         &__wrapper {
             max-width: ef.get-value($themeVertical, 'wrapperMaxWidth');
+
             background: ef.get-value($themeVertical, 'wrapperBackground');
             border-radius: ef.get-value($themeVertical, 'wrapperBorderRadius');
             @include em.get-mq-map('padding', $themeVertical, 'wrapperPadding');
@@ -19,12 +15,19 @@
             }
         }
 
+        &__container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
         &__loader {
             @include em.get-mq-map('height', $themeVertical, 'loaderHeight');
         }
 
         &__title {
             display: inline-block;
+            align-self: flex-start;
             @include text.get-text-style('ThirdTitleBold', ef.get-value($themeVertical, 'titleColor'));
             background: ef.get-value($themeVertical, 'titleBackground');
             border-radius: ef.get-value($themeVertical, 'titleBorderRadius');
@@ -37,7 +40,8 @@
         }
 
         &__slider {
-            height: ef.get-value($themeVertical, 'sliderHeight');
+            margin: auto 0;
+            @include em.get-mq-map('height', $themeVertical, 'sliderHeight');
 
             ::ng-deep {
 
@@ -48,8 +52,8 @@
                     @if ef.get-value($themeVertical, 'sliderShadowPadding') {
                         height: calc(100% + #{ef.get-value($themeVertical, 'sliderShadowPadding')});
                         margin-bottom: -1 * ef.get-value($themeVertical, 'sliderShadowPadding');
-                        padding-bottom: ef.get-value($themeVertical, 'sliderShadowPadding');
                         margin-left: -1 * ef.get-value($themeVertical, 'sliderShadowPadding');
+                        padding-bottom: ef.get-value($themeVertical, 'sliderShadowPadding');
                         padding-left: ef.get-value($themeVertical, 'sliderShadowPadding');
                     }
                 }

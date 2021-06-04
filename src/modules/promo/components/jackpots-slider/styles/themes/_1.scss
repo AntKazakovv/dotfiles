@@ -4,6 +4,9 @@
 @use 'engine-scss/functions' as ef;
 
 .wlc-jackpots-slider--theme-1:host {
+    --wlc-jackpot-slider-slide-height: #{ef.get-value($theme1, 'slideHeight')};
+    --wlc-jackpot-slider-slide-inner-gap: #{ef.get-value($theme1, 'slideInnerGap')};
+
     background: ef.get-value($theme1, 'background');
     max-width: ef.get-value($theme1, 'maxWidth');
     width: 100%;

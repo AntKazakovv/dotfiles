@@ -1,12 +1,13 @@
 import {SwiperOptions} from 'swiper';
-import {IIndexing} from 'wlc-engine/modules/core';
+
 import {
     CustomType,
     IComponentParams,
-} from 'wlc-engine/modules/core/system/interfaces/config.interface';
+    IIndexing,
+} from 'wlc-engine/modules/core';
 
 export type JackpotsSliderType = CustomType;
-export type JackpotsSliderTheme =  '1' | CustomType;
+export type JackpotsSliderTheme =  'default' | '1' | CustomType;
 export type JackpotsSliderThemeMod = CustomType;
 
 export interface IJackpotsSliderCParams
@@ -32,6 +33,14 @@ export const defaultParams: Partial<IJackpotsSliderCParams> = {
             observer: true,
             observeParents: true,
             preventClicks: false,
+            breakpoints: {
+                320: {
+                    slidesPerView: 3,
+                },
+                1630: {
+                    slidesPerView: 4,
+                },
+            },
         },
     },
 };

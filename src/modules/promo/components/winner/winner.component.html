@@ -1,10 +1,12 @@
 <ng-template #default>
     <div class="{{$class}}__wrapper">
         <div class="{{$class}}__block {{$class}}__block--left">
-            <img class="{{$class}}__image"
-                 [attr.src]="[gameImage]"
-                 [attr.alt]="[gameName]"
-                 [attr.data-wlc-element]="'img_item-' + $params.winnerType + '-wins'">
+            <div class="{{$class}}__picture">
+                <img class="{{$class}}__image"
+                     [attr.src]="[gameImage]"
+                     [attr.alt]="[gameName]"
+                     [attr.data-wlc-element]="'img_item-' + $params.winnerType + '-wins'">
+            </div>
         </div>
 
         <div class="{{$class}}__block {{$class}}__block--right">
@@ -40,7 +42,9 @@
 </ng-template>
 
 <ng-template #one>
-    <div class="{{$class}}__wrapper" (click)="startGame($event)">
+    <div class="{{$class}}__wrapper"
+        (click)="startGame($event)"
+        [attr.title]="[gameName]">
         <div class="{{$class}}__block {{$class}}__block--left">
             <img class="{{$class}}__image"
                  [attr.src]="[gameImage]"
@@ -57,7 +61,7 @@
                 <div class="{{$class}}__name" [attr.data-wlc-element]="'name_user_item-' + $params.winnerType + '-wins'">{{name}}</div>
             </div>
 
-            <div class="{{$class}}__game"><span>{{gameName}}</span></div>
+            <div class="{{$class}}__game">{{gameName}}</div>
 
             <div class="{{$class}}__amount" [attr.data-wlc-element]="'amount_item-' + $params.winnerType + '-wins'">
                 <span wlc-currency
