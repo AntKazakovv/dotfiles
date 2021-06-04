@@ -4,6 +4,7 @@
 >
     <div *ngIf="!$params.currentLang?.hideFlag" class="{{$class}}__current-flag">
         <img src="{{getFlagUrl(currentLanguage.code)}}"
+             loading="lazy"
              alt="{{currentLanguage.label}}"
              (error)="imageError(currentLanguage.code)">
     </div>
@@ -31,6 +32,7 @@
 
                 <span *ngIf="!$params.dropdown?.hideFlag" class="{{$class}}__link-flag">
                     <img src="{{getFlagUrl(lang.code)}}"
+                         loading="lazy"
                          alt="{{lang.label}}"
                          (error)="imageError(lang.code)">
                 </span>

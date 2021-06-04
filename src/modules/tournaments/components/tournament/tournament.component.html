@@ -47,6 +47,7 @@
         <div class="{{$class}}__img-container" *ngIf="!isTournamentSelected">
             <img [src]="getDashboardImage()"
                  class="{{$class}}__image"
+                 loading="lazy"
                  alt="tournament image">
             <h3 class="{{$class}}__title">
                 <span>{{tournament.name}}</span>

@@ -2,6 +2,7 @@
     <div class="{{$class}}__wrapper" (click)="startGame($event)">
         <div class="{{$class}}__block {{$class}}__block--left">
             <img class="{{$class}}__image"
+                 loading="lazy"
                  [attr.src]="$params.data.gameImage"
                  [attr.alt]="$params.data.gameName">
         </div>

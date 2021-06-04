@@ -36,6 +36,7 @@
                 <div *ngIf="$params.common?.useIconBonusImage" class="{{$class}}__bonus-icon">
                     <img class="icon-sign"
                          alt=""
+                         loading="lazy"
                          [src]="$params.common?.iconsPath + $params.common.bonus?.viewTarget + '.svg'">
                     <div class="icon-text" data-wlc-element="bonus_value-quantity"
                          [wlc-value-length]="$params.common.bonus?.value"
@@ -179,6 +180,7 @@
                 <div *ngIf="$params.common?.useIconBonusImage" class="{{$class}}__bonus-icon">
                     <img class="icon-sign"
                          alt=""
+                         loading="lazy"
                          [src]="$params.common?.iconsPath + $params.common.bonus?.viewTarget + '.svg'">
                     <div class="icon-text"
                          data-wlc-element="bonus_value-quantity"
@@ -221,6 +223,7 @@
                      class="{{$class}}__icon-sign"
                      draggable="false"
                      alt="bonus icon"
+                     loading="lazy"
                      [src]="$params.common?.iconsPath + $params.common.bonus?.viewTarget + '.svg'"
                      [@chosenImage]="chosen"
                      (click)="chooseBonusNoBtn($params.common.bonus, $params.common?.type)">
@@ -268,6 +271,7 @@
             <img
                 class="{{$class}}__icon-sign"
                 draggable="false"
+                loading="lazy"
                 [src]="$params.common?.iconsPath + $params.common.bonus?.viewTarget + '.svg'"
                 alt="bonus icon">
             <span
@@ -336,6 +340,7 @@
                 </div>
                 <div *ngIf="$params.common?.useIconBonusImage" class="{{$class}}__bonus-icon">
                     <img class="icon-sign"
+                         loading="lazy"
                          [src]="$params.common?.iconsPath + $params.common.bonus.viewTarget + '.svg'"
                          alt="">
                     <div class="icon-text"
@@ -418,6 +423,7 @@
                 <div *ngIf="$params.common?.useIconBonusImage" class="{{$class}}__bonus-icon">
                     <img class="icon-sign"
                          alt=""
+                         loading="lazy"
                          [src]="$params.common?.iconsPath + $params.common.bonus?.viewTarget + '.svg'">
                     <div class="icon-text" data-wlc-element="bonus_value-quantity"
                          [wlc-value-length]="$params.common.bonus?.value"
@@ -576,6 +582,7 @@
                 <div *ngIf="$params.common?.useIconBonusImage" class="{{$class}}__bonus-icon">
                     <img class="icon-sign"
                          [src]="$params.common?.iconsPath + $params.common.bonus?.viewTarget + '.svg'"
+                         loading="lazy"
                          alt="">
                     <div class="icon-text"
                          data-wlc-element="bonus_value-quantity"

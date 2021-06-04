@@ -3,6 +3,7 @@
         <div class="{{$class}}__block {{$class}}__block--left">
             <div class="{{$class}}__picture">
                 <img class="{{$class}}__image"
+                     loading="lazy"
                      [attr.src]="[gameImage]"
                      [attr.alt]="[gameName]"
                      [attr.data-wlc-element]="'img_item-' + $params.winnerType + '-wins'">
@@ -13,6 +14,7 @@
             <div class="{{$class}}__user">
                 <img *ngIf="countryIso2 && !$params.hideCountry"
                      class="{{$class}}__country"
+                     loading="lazy"
                      [attr.src]="[countryUrl]"
                      [attr.alt]="[countryIso3]">
                 <div class="{{$class}}__name" [attr.data-wlc-element]="'name_user_item-' + $params.winnerType + '-wins'">{{name}}</div>
@@ -47,6 +49,7 @@
         [attr.title]="[gameName]">
         <div class="{{$class}}__block {{$class}}__block--left">
             <img class="{{$class}}__image"
+                 loading="lazy"
                  [attr.src]="[gameImage]"
                  [attr.alt]="[gameName]"
                  [attr.data-wlc-element]="'img_item-' + $params.winnerType + '-wins'">
@@ -55,6 +58,7 @@
         <div class="{{$class}}__block {{$class}}__block--right">
             <div class="{{$class}}__user">
                 <img *ngIf="countryIso2 && !$params.hideCountry"
+                     loading="lazy"
                      class="{{$class}}__country"
                      [attr.src]="[countryUrl]"
                      [attr.alt]="[countryIso3]">

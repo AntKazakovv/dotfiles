@@ -47,12 +47,14 @@
         <ng-container *ngSwitchDefault>
             <ng-container *ngIf="!item.isError, else imageError">
                 <img class="{{$class}}__image"
+                    loading="lazy"
                     [src]="item.image"
                     [alt]="item.alt"
                     [srcset]="item.image2x"
                     [wlc-fallback]
                     (imageError)="errorHandler()">
                 <img class="{{$class}}__image {{$class}}__image--hovered"
+                    loading="lazy"
                     *ngIf="item.imageHover"
                     [src]="item.imageHover"
                     [alt]="item.alt"
