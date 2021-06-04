@@ -5,10 +5,11 @@ $customTheme1: () !default;
 $theme1: map-merge((
     'maxWidth': 260px,
     'itemGap': 20px,
-    'wrapperPadding': 0 0 ef.get('size', 'smally') 0,
+    'wrapperPadding': 0 0 var(--wlc-jackpot-slider-slide-inner-gap, #{ef.get('size', 'smally')}) 0,
     'wrapperBorderBottom': 2px solid ef.get('mainColors', 'baseOpacity'),
     'wrapperMargin': 0 auto,
-    'iconWidth': 70px,
+    'slideHeight': var(--wlc-jackpot-slider-slide-height, 70px),
+    'iconWidth': var(--wlc-jackpot-slider-slide-height, 70px),
     'iconAspectRatio': 1 / 1,
     'iconBorderRadius': ef.get('size', 'small'),
     'userColor': ef.get('mainColors', 'baseMain'),

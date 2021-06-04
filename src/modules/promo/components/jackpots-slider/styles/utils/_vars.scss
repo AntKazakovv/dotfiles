@@ -11,10 +11,13 @@ $theme1: map-merge((
     'titleBg': ef.get('mainColors', 'bg500'),
     'titlePadding': ef.get('size', 'smaller'),
     'titleBoxShadow': 0 4px 4px rgba(0, 0, 0, 0.13),
-    'sliderHeight': 390px,
+    'sliderHeight': calc((var(--wlc-jackpot-slider-slide-height, 70px) + var(--wlc-jackpot-slider-slide-gap, 15px) + var(--wlc-jackpot-slider-slide-inner-gap, 15px)) * var(--wlc-jackpot-slider-slides-per-view, 4) - var(--wlc-jackpot-slider-slide-inner-gap, 15px)),
     'sliderMargin': 25px ef.get('size', 'small') ef.get('size', 'smaller') ef.get('size', 'small'),
     'noDataPadding': ef.get('size', 'smaller'),
     'noDataTextAlign': center,
     // line overlapping the border of the last element
     'bottomLineHeight': 2px,
+
+    'slideHeight': 70px,
+    'slideInnerGap': ef.get('size', 'smally'),
 ), $customTheme1);

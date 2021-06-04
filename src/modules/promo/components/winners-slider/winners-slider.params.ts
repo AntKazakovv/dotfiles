@@ -1,9 +1,10 @@
 import {SwiperOptions} from 'swiper';
+
 import {
     CustomType,
     IComponentParams,
-} from 'wlc-engine/modules/core/system/interfaces/config.interface';
-import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
+    IIndexing,
+} from 'wlc-engine/modules/core';
 import {IWinnerCParams} from 'wlc-engine/modules/promo/components/winner/winner.params';
 
 export type WinnersSliderType = 'latest' | 'biggest';
@@ -57,7 +58,7 @@ export const swiperParamsDefault: IIndexing<SwiperOptions> = {
     vertical: {
         direction: 'vertical',
         slidesPerView: 4,
-        spaceBetween: 15,
+        spaceBetween: 10,
         loop: true,
         autoplay: {
             disableOnInteraction: false,
@@ -66,6 +67,14 @@ export const swiperParamsDefault: IIndexing<SwiperOptions> = {
         observer: true,
         observeParents: true,
         preventClicks: false,
+        breakpoints: {
+            320: {
+                slidesPerView: 3,
+            },
+            1630: {
+                slidesPerView: 4,
+            },
+        },
     },
     1: {
         direction: 'vertical',
@@ -79,5 +88,13 @@ export const swiperParamsDefault: IIndexing<SwiperOptions> = {
         observer: true,
         observeParents: true,
         preventClicks: false,
+        breakpoints: {
+            320: {
+                slidesPerView: 3,
+            },
+            1630: {
+                slidesPerView: 4,
+            },
+        },
     },
 };

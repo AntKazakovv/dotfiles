@@ -1,4 +1,5 @@
 import {ILayoutSectionConfig} from 'wlc-engine/modules/core';
+import {IWinnersSliderCParams} from 'wlc-engine/modules/promo';
 import * as componentLib from '../components';
 
 export namespace contentGames {
@@ -33,7 +34,7 @@ export namespace contentGames {
                 params: {
                     class: 'wlc-home-wins wlc-home-wins--tournament',
                     components: [
-                        componentLib.wlcLastWinsSlider.def,
+                        componentLib.wlcLastWinsSlider.alongWithTournament,
                         componentLib.wlcTournamentBannersSlider.def,
                     ],
                 },

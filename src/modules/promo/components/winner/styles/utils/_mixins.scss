@@ -1,8 +1,3 @@
-@use 'engine-scss/mixins/base.mixins' as em;
-@use 'engine-scss/mixins/mediaqueries' as mq;
-@use 'engine-scss/functions' as ef;
-@import './vars';
-
 @mixin mod($theme, $mod) {
     @include em.themeMod('wlc-language-selector', $theme, $mod) {
         @content;

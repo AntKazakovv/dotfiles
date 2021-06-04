@@ -4,11 +4,12 @@
     </h4>
     <ng-container *ngIf="ready; else loader">
         <div
-            class="{{$class}}__slider"
             *ngIf="slides.length; else noslides"
             wlc-slider
+            class="{{$class}}__slider"
             [slides]="slides"
             [inlineParams]="$params.sliderParams"
+            (handleBeforeResize)="onSliderResize($event)"
         ></div>
     </ng-container>
 </div>

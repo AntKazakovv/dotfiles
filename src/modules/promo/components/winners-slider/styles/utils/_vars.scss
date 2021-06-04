@@ -42,6 +42,7 @@ $themeDefault: map-merge((
 $customThemeVertical: () !default;
 $themeVertical: map-merge((
     'breakpoint': 1200,
+    'slideHeight': 60px,
 
     // wrapper
     'wrapperBorderRadius': ef.get('radius', 'biger'),
@@ -74,7 +75,7 @@ $themeVertical: map-merge((
     'titleBorderRadius': ef.get('radius', 'biger') 0 ef.get('radius', 'biger') 0,
 
     // slider
-    'sliderHeight': 320px,
+    'sliderHeight': calc((var(--wlc-winner-slider-slide-height, 60px) + var(--wlc-winner-slider-slide-gap, 10px)) * var(--wlc-winner-slider-slides-per-view, 4)),
     'sliderShadowPadding': 10px, // `false` or [space between slides]px
 ), $customThemeVertical);
 
@@ -83,13 +84,19 @@ $theme1: map-merge((
     'maxWidth': 330px,
     'background': ef.get('mainColors', 'bg700'),
     'borderRadius': ef.get('size', 'small'),
+
+    'slideHeight': 70px,
+    'slideInnerGap': 15px,
+
     'titleColor': ef.get('mainColors', 'baseMain'),
     'titleTextAlign': center,
     'titleBg': ef.get('mainColors', 'bg500'),
     'titlePadding': ef.get('size', 'smaller'),
     'titleBoxShadow': 0 4px 4px rgba(0, 0, 0, 0.13),
-    'sliderHeight': 390px,
+
+    'sliderHeight': calc((var(--wlc-winner-slider-slide-height, 70px) + var(--wlc-winner-slider-slide-gap, 15px) + var(--wlc-winner-slider-slide-inner-gap, 15px)) * var(--wlc-winner-slider-slides-per-view, 4) - var(--wlc-winner-slider-slide-inner-gap, 15px)),
     'sliderMargin': 25px ef.get('size', 'small') ef.get('size', 'smaller') ef.get('size', 'small'),
+
     'noDataPadding': ef.get('size', 'smaller'),
     'noDataTextAlign': center,
     // line overlapping the border of the last element
