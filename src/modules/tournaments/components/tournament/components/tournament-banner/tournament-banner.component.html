@@ -1,10 +1,9 @@
 <div class="{{$class}}"
-     [style]="{backgroundImage: 'url(' + $params.tournament.imageOther + ')'}">
+     [style]="{backgroundImage: 'url(' + $params.tournament.image + ')'}">
     <div class="{{$class}}__header">
         <h4 class="{{$class}}__header-title">{{'Tournaments' | translate}}</h4>
     </div>
-    <div class="{{$class}}__body"
-         [style]="{backgroundImage: 'url(' + $params.tournament.image + ')'}">
+    <div class="{{$class}}__body">
         <h2 class="{{$class}}__body-title"
             [title]="$params.tournament.name"
         >
@@ -34,6 +33,9 @@
                 (click)="readMore()">
             </button>
         </div>
+        <div class="{{$class}}__body-decor"
+             [style]="{backgroundImage: 'url(' + $params.tournament.imageOther + ')'}"
+        ></div>
     </div>
 </div>
 <div *ngIf="pending" class="{{$class}}__loader"></div>

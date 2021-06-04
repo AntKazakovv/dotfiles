@@ -11,9 +11,6 @@
 .wlc-tournament-banner {
     position: relative;
 
-    display: flex;
-    flex-direction: ef.get-value($themeDefault, 'tournamentFlexDirection');
-
     max-width: ef.get-value($themeDefault, 'tournamentMaxWidth');
     height: ef.get-value($themeDefault, 'baseHeight');
 
@@ -39,12 +36,16 @@
     }
 
     &__header {
-        position: relative;
+        position: absolute;
+        top: ef.get-value($themeDefault, 'headerPosition');
+        left: ef.get-value($themeDefault, 'headerPosition');
         z-index: ef.get-value($themeDefault, 'headerZIndex');
 
         display: flex;
         align-items: ef.get-value($themeDefault, 'headerAlignItems');
         justify-content: ef.get-value($themeDefault, 'headerJustifyContent');
+
+        max-height: ef.get-value($themeDefault, 'headerMaxHeight');
 
         padding: ef.get-value($themeDefault, 'headerPadding');
     }
@@ -79,8 +80,6 @@
 
     &__body {
         @include em.get-mq-map('padding', $themeDefault, 'bodyPadding');
-        @include em.get-mq-map('background-position', $themeDefault, 'bodyBgPosition');
-        @include em.get-mq-map('background-size', $themeDefault, 'bodyBgSize');
 
         position: relative;
         z-index: ef.get-value($themeDefault, 'bodyZIndex');
@@ -90,10 +89,24 @@
 
         height: ef.get-value($themeDefault, 'baseHeight');
 
-        background-repeat: ef.get-value($themeDefault, 'bodyBgRepeat');
+        > *:not(.wlc-tournament-banner__body-decor) {
+            position: relative;
+            z-index: ef.get-value($themeDefault, 'bodyNestedZIindex');
+        }
 
-        @include mq.max(768) {
-            background-image: unset !important;
+        &-decor {
+            @include em.get-mq-map('display', $themeDefault, 'bodyDecorDisplay');
+            @include em.get-mq-map('background-position', $themeDefault, 'bodyBgPosition');
+            @include em.get-mq-map('background-size', $themeDefault, 'bodyBgSize');
+
+            position: absolute;
+            top: ef.get-value($themeDefault, 'bodyDecorPositionTop');
+            right: ef.get-value($themeDefault, 'bodyDecorPositionRight');
+            bottom: ef.get-value($themeDefault, 'bodyDecorPositionBottom');
+            z-index: ef.get-value($themeDefault, 'bodyDecorZIindex');
+
+            width: ef.get-value($themeDefault, 'bodyDecorWidth');
+            background-repeat: ef.get-value($themeDefault, 'bodyBgRepeat');
         }
     }
 
@@ -145,8 +158,6 @@
 
         display: flex;
         justify-content: ef.get-value($themeDefault, 'btnsWrapAlign');
-
-        max-width: ef.get-value($themeDefault, 'btnsWrapMaxWidth');
 
         margin: ef.get-value($themeDefault, 'btnsWrapMargin');
 
