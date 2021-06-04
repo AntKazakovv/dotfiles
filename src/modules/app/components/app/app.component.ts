@@ -276,7 +276,7 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
 
     private resolveLang(): void {
         this.translate.addLangs(this.configService.get<ILanguage[]>('appConfig.languages').map((lang) => lang.code));
-        const {locale} = this.stateService.params;
+        const {locale} = this.uiRouter.params;
 
         if (_includes(this.translate.langs, locale)) {
             this.translate.setDefaultLang(locale);

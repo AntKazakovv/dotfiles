@@ -2,7 +2,10 @@ import {Ng2StateDeclaration} from '@uirouter/angular';
 import {StateHelper} from '../helpers/state.helper';
 
 import {AppComponent} from 'wlc-engine/modules/app/components/app/app.component';
-import {ConfigService} from 'wlc-engine/modules/core/system/services';
+import {
+    ConfigService,
+    ILanguage,
+} from 'wlc-engine/modules/core';
 import {LayoutComponent} from 'wlc-engine/modules/core/components/layout/layout.component';
 import {polyfillsResolver} from 'wlc-engine/modules/core/system/config/resolvers';
 import {customStates} from 'wlc-src/custom/system/config/custom.states';
@@ -10,6 +13,8 @@ import * as States from './states';
 
 import _map from 'lodash-es/map';
 import _merge from 'lodash-es/merge';
+import _find from 'lodash-es/find';
+import _keys from 'lodash-es/keys';
 
 let states = {
     'app.home': States.homeState,
@@ -80,14 +85,22 @@ const appState: Ng2StateDeclaration = {
             deps: [ConfigService],
             resolveFn: async (config: ConfigService) => {
                 await config.ready;
-                return config.get<string>('appConfig.language');
+
+                const bootstrapLang = config.get<string>('appConfig.language');
+                const languages = config.get<ILanguage[]>('appConfig.languages') || [];
+
+                if (_find(languages, (lang) => lang.code === bootstrapLang)) {
+                    return bootstrapLang;
+                } else {
+                    return languages[0]?.code || 'en';
+                }
             },
         },
         polyfillsResolver,
     ],
 };
 
-if (Object.keys(customStates).length) {
+if (_keys(customStates).length) {
     states = _merge(states, customStates);
 }
 
