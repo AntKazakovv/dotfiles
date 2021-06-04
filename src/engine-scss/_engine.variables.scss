@@ -385,23 +385,59 @@ $profileSettings: map-merge((
     'profileWidth': (
         1366: 1275px
     ),
+    'profileWidthV1': (
+        1366: 1200px,
+        1630: 1370px,
+    ),
     'titleColor': map-get($mainColors, 'baseMain'),
     'profilePadding': (
         375: map-get($size, 'smally') map-get($size, 'smally') map-get($size, 'less'),
         1024: map-get($size, 'smally') map-get($size, 'main') map-get($size, 'less'),
         1630: map-get($size, 'less') map-get($size, 'main'),
     ),
+    'profilePaddingV1': (
+        375: map-get($size, 'smaller') map-get($size, 'smaller') map-get($size, 'main'),
+        1024: 0,
+    ),
     'profileBg': (
         375: map-get($mainColors, 'bg700'),
         1024: map-get($mainColors, 'bg700'),
     ),
+    'profileBgV1': map-get($mainColors, 'bg700'),
     'profileBorderRadius': (
         375: map-get($size, 'small'),
         1024: map-get($size, 'small')
     ),
+    'profileBorderRadiusV1': map-get($radius, 'biger'),
     'profileBtnWeight': 700,
     'rangeMarginBottom': map-get($size, 'smally'),
+    'historyFilterDisplay': flex,
+    'historyFilterAlign': center,
+    'historyFilterJustify': space-between,
     'historyFilterMargin': 0 0 map-get($size, 'smallest'),
+    'profileDisplayV1': (
+        320: grid,
+    ),
+    'profileGridTemplateColumnsV1': (
+        1024: 285px auto,
+    ),
+    'contentPaddingV1': (
+        375: map-get($size, 'smaller') 0 0,
+        1024: map-get($size, 'smally') map-get($size, 'less') map-get($size, 'less'),
+        1630: map-get($size, 'smaller') map-get($size, 'main') map-get($size, 'main'),
+    ),
+    'contentHeaderInsideMarginTopV1': (
+        375: -#{map-get($size, 'smaller')},
+        1024: 0,
+    ),
+    'contentHeaderDisplayV1': flex,
+    'contentHeaderJustifyV1': space-between,
+    'contentHeaderBorderBottomV1': (
+        1024: 2px solid map-get($mainColors, 'baseOpacity'),
+    ),
+    'contentHeaderMarginV1': 0 0 map-get($size, 'small') 0,
+    'contentHeaderUnderlinedMarginV1':  0 0 map-get($size, 'smaller') 0,
+    'contentHeaderPaddingV1': 0 0 map-get($size, 'small') 0,
 ), $customProfileSettings);
 
 /// Глобальные настройки профиля (первая тема):

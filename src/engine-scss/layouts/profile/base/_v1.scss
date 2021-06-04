@@ -1,0 +1,44 @@
+.wlc-sections__profile-content--theme-first {
+
+    > .container {
+        @include bm.get-mq-map('background', $profileSettings, 'profileBgV1');
+        @include bm.get-mq-map('border-radius', $profileSettings, 'profileBorderRadiusV1');
+        @include bm.get-mq-map('padding', $profileSettings, 'profilePaddingV1');
+        @include bm.get-mq-map('display', $profileSettings, 'profileDisplayV1');
+        @include bm.get-mq-map('grid-template-columns', $profileSettings, 'profileGridTemplateColumnsV1');
+        @include bm.get-mq-map('max-width', $profileSettings, 'profileWidthV1');
+    }
+
+
+    .wlc-profile-content {
+        @include bm.get-mq-map('padding', $profileSettings, 'contentPaddingV1');
+        width: 100%;
+        min-width: 0;
+
+        &.header-inside {
+            @include bm.get-mq-map('margin-top', $profileSettings, 'contentHeaderInsideMarginTopV1');
+        }
+
+        .wlc-profile-content__header {
+            @include bm.get-mq-map('margin', $profileSettings, 'contentHeaderMarginV1');
+        }
+    }
+
+    .wlc-profile-content__body,
+    .wlc-profile-content__header,
+    .wlc-profile-menu {
+        min-width: 0;
+    }
+
+    .wlc-profile-content__header {
+        @include bm.get-mq-map('padding', $profileSettings, 'contentHeaderPaddingV1');
+        display: ef.get-value($profileSettings, 'contentHeaderDisplayV1');
+        justify-content: ef.get-value($profileSettings, 'contentHeaderJustifyV1');
+        min-width: 0;
+
+        &.underlined {
+            @include bm.get-mq-map('border-bottom', $profileSettings, 'contentHeaderBorderBottomV1');
+            @include bm.get-mq-map('margin', $profileSettings, 'contentHeaderUnderlinedMarginV1');
+        }
+    }
+}

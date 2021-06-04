@@ -1,0 +1,23 @@
+$customLoyaltyThemeV1: () !default;
+$loyaltyThemeV1: map-merge((
+    'headerPadding': (
+        1024: 0 0 ef.get('size', 'small') 0,
+    ),
+    'headerDisplay': (
+        1024: flex,
+    ),
+    'headerJustifyContent': (
+        1024: space-between,
+    ),
+
+    'progressHeaderWidth': (
+        1024: 100%,
+    ),
+    'progressHeaderMaxWidth': (
+        1024: 300px,
+    ),
+
+    'progressBodyWidth': 100%,
+    'progressBodyMargin': 0 0 ef.get('size', 'smaller') 0,
+
+), $customLoyaltyThemeV1);

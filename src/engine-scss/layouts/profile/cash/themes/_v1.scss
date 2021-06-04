@@ -1,0 +1,36 @@
+@import '../utils/vars';
+
+.app-profile-cash-deposit-state,
+.app-profile-cash-withdraw-state {
+
+    .wlc-sections__profile-content--theme-first[class] {
+
+        .wlc-profile-content {
+
+            .wlc-user-stats {
+                margin: ef.get-value($cashPagesThemeV1, 'submenuMargin');
+            }
+
+            .wlc-cash {
+
+                .wlc-cash__title[class] {
+                    @include bm.get-mq-map('display', $cashPagesThemeV1, 'cashTitleDisplay');
+                }
+            }
+        }
+    }
+}
+
+.app-profile-cash-transactions-state {
+
+    .wlc-sections__profile-content--theme-first[class] {
+
+        .wlc-table__cell--type {
+            min-width: ef.get-value($cashPagesThemeV1, 'transactionTableCellTypeMaxWidth');
+        }
+
+        .wlc-profile-content__header {
+            @include bm.get-mq-map('margin', $cashPagesThemeV1, 'transactionsHeaderMargin');
+        }
+    }
+}

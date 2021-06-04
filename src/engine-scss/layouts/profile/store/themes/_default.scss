@@ -51,32 +51,3 @@
         }
     }
 }
-
-.app-profile-loyalty-store-main-state {
-
-    .wlc-sections__profile-content--theme-first {
-
-        .wlc-profile-content {
-            @include bm.get-mq-map('grid-gap', $storeThemeFirst, 'gap');
-            @include bm.get-mq-map('grid-template-columns', $storeThemeFirst, 'containerColumns');
-            @include bm.get-mq-map('grid-template-areas', $storeThemeFirst, 'containerAreas');
-
-            position: relative;
-
-            display: grid;
-            grid-template-rows: auto;
-        }
-
-        .wlc-title {
-            grid-area: title;
-        }
-
-        .wlc-user-stats {
-            grid-area: stats;
-        }
-
-        .wlc-store-list {
-            grid-area: store;
-        }
-    }
-}

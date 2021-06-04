@@ -55,4 +55,14 @@ export namespace wlcTransactionHistory {
             ],
         },
     };
+
+    export const filterOnly: ILayoutComponent = {
+        name: 'finances.wlc-history-filter',
+        params: {
+            config: 'transaction',
+        },
+        display: {
+            before: 1199,
+        },
+    };
 }

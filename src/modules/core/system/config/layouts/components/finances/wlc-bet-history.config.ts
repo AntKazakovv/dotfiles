@@ -24,4 +24,14 @@ export namespace wlcBetHistory {
             ],
         },
     };
+
+    export const filterOnly: ILayoutComponent = {
+        name: 'finances.wlc-history-filter',
+        params: {
+            config: 'bet',
+        },
+        display: {
+            before: 1023,
+        },
+    };
 };

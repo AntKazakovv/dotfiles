@@ -1,0 +1,7 @@
+$customVerificationV1: () !default;
+$verificationV1: map-merge((
+    'headerMargin': 0 0 ef.get('size', 'smaller') 0,
+    'titleMainMargin': (
+        1024: 0 0 ef.get('size', 'smaller') 0,
+    ),
+), $customVerificationV1);

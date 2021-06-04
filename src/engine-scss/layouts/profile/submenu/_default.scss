@@ -1,0 +1,15 @@
+.wlc-submenu-history {
+    position: relative;
+
+    .wlc-history-range {
+        margin-bottom: ef.get-value($profileSettings, 'rangeMarginBottom');
+
+        @include mq.min(1024) {
+            position: absolute;
+            top: 50%;
+            right: 0;
+
+            transform: translateY(-50%);
+        }
+    }
+}

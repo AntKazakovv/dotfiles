@@ -36,6 +36,7 @@
 
             .wlc-table__cell--first {
                 grid-template-columns: ef.get-value($themeDefault, 'firstCellColumns');
+                word-break: break-word;
 
                 .wlc-table__cell-label {
                     display: none;

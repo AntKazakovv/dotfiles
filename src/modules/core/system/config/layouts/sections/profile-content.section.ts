@@ -25,11 +25,42 @@ export namespace profileContent {
             {
                 name: 'core.wlc-wrapper',
                 params: {
+                    class: 'wlc-profile-content__header',
+                    components: [
+                        componentLib.wlcTitle.myAccountV1,
+                    ],
+                },
+                display: {
+                    before: 1023,
+                },
+            },
+            componentLib.wlcProfileMenu.subMenuV1,
+            {
+                name: 'core.wlc-wrapper',
+                params: {
                     class: 'wlc-profile-content',
                     components: [
-                        componentLib.wlcTitle.profileV1,
-                        componentLib.wlcProfileMenu.subMenuV1,
-                        componentLib.wlcProfileForm.one,
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-profile-content__header underlined',
+                                components: [
+                                    componentLib.wlcTitle.profileV1,
+                                ],
+                            },
+                            display: {
+                                after: 1024,
+                            },
+                        },
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-profile-content__body',
+                                components: [
+                                    componentLib.wlcProfileForm.one,
+                                ],
+                            },
+                        },
                     ],
                 },
             },
@@ -53,11 +84,27 @@ export namespace profileContent {
             {
                 name: 'core.wlc-wrapper',
                 params: {
-                    class: 'wlc-profile-content',
+                    class: 'wlc-profile-content header-inside',
                     components: [
-                        componentLib.wlcTransactionHistory.filter,
-                        componentLib.wlcProfileMenu.submenuHistory,
-                        componentLib.wlcTransactionHistory.def,
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-profile-content__header underlined',
+                                components: [
+                                    componentLib.wlcTitle.history,
+                                    componentLib.wlcTransactionHistory.filterOnly,
+                                ],
+                            },
+                        },
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-profile-content__body',
+                                components: [
+                                    componentLib.wlcTransactionHistory.def,
+                                ],
+                            },
+                        },
                     ],
                 },
             },
@@ -81,12 +128,56 @@ export namespace profileContent {
             {
                 name: 'core.wlc-wrapper',
                 params: {
-                    class: 'wlc-profile-content',
+                    class: 'wlc-profile-content__header',
                     components: [
                         componentLib.wlcTitle.bonuses,
-                        componentLib.wlcEnterPromocode.hideTitle,
-                        componentLib.wlcProfileMenu.subMenuV1,
-                        componentLib.wlcBonusesList.mainFirst,
+                        componentLib.wlcEnterPromocode.hideTitleV1,
+                    ],
+                },
+                display: {
+                    before: 1023,
+                },
+            },
+            componentLib.wlcProfileMenu.subMenuV1,
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content',
+                    components: [
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-profile-content__header',
+                                components: [
+                                    componentLib.wlcTitle.offers,
+                                    componentLib.wlcEnterPromocode.hideTitle,
+                                ],
+                            },
+                            display: {
+                                after: 1024,
+                            },
+                        },
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-profile-content__body',
+                                components: [
+                                    {
+                                        name: 'core.wlc-wrapper',
+                                        params: {
+                                            class: 'wlc-profile-content__promocode',
+                                            components: [
+                                                componentLib.wlcEnterPromocode.hideTitle,
+                                            ],
+                                        },
+                                        display: {
+                                            before: 559,
+                                        },
+                                    },
+                                    componentLib.wlcBonusesList.mainFirst,
+                                ],
+                            },
+                        },
                     ],
                 },
             },
@@ -110,11 +201,42 @@ export namespace profileContent {
             {
                 name: 'core.wlc-wrapper',
                 params: {
+                    class: 'wlc-profile-content__header',
+                    components: [
+                        componentLib.wlcTitle.bonusesV1Mobile,
+                    ],
+                },
+                display: {
+                    before: 1023,
+                },
+            },
+            componentLib.wlcProfileMenu.subMenuV1,
+            {
+                name: 'core.wlc-wrapper',
+                params: {
                     class: 'wlc-profile-content',
                     components: [
-                        componentLib.wlcTitle.activeBonuses,
-                        componentLib.wlcProfileMenu.subMenuV1,
-                        componentLib.wlcRecommendedBonuses.def,
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-profile-content__header',
+                                components: [
+                                    componentLib.wlcTitle.activeBonuses,
+                                ],
+                            },
+                            display: {
+                                after: 1024,
+                            },
+                        },
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-profile-content__body',
+                                components: [
+                                    componentLib.wlcRecommendedBonuses.def,
+                                ],
+                            },
+                        },
                     ],
                 },
             },
@@ -128,6 +250,7 @@ export namespace profileContent {
             componentLib.wlcBonusesList.inventory,
         ],
     };
+
     export const profileBonusesInventoryTypeFirst: ILayoutSectionConfig = {
         container: true,
         theme: 'first',
@@ -136,10 +259,26 @@ export namespace profileContent {
             {
                 name: 'core.wlc-wrapper',
                 params: {
-                    class: 'wlc-profile-content',
+                    class: 'wlc-profile-content header-inside',
                     components: [
-                        componentLib.wlcTitle.inventory,
-                        componentLib.wlcBonusesList.inventory,
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-profile-content__header underlined',
+                                components: [
+                                    componentLib.wlcTitle.inventory,
+                                ],
+                            },
+                        },
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-profile-content__body',
+                                components: [
+                                    componentLib.wlcBonusesList.inventory,
+                                ],
+                            },
+                        },
                     ],
                 },
             },
@@ -164,12 +303,31 @@ export namespace profileContent {
             {
                 name: 'core.wlc-wrapper',
                 params: {
+                    class: 'wlc-profile-content__header',
+                    components: [
+                        componentLib.wlcTitle.cash,
+                    ],
+                },
+                display: {
+                    before: 1023,
+                },
+            },
+            componentLib.wlcProfileMenu.subMenuV1,
+            {
+                name: 'core.wlc-wrapper',
+                params: {
                     class: 'wlc-profile-content',
                     components: [
-                        componentLib.wlcTitle.cashV1Mobile,
-                        componentLib.wlcDepositWithdraw.balance,
-                        componentLib.wlcProfileMenu.submenuHistoryV1,
-                        componentLib.wlcDepositWithdraw.deposit,
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-profile-content__body',
+                                components: [
+                                    componentLib.wlcDepositWithdraw.balanceV1,
+                                    componentLib.wlcDepositWithdraw.deposit,
+                                ],
+                            },
+                        },
                     ],
                 },
             },
@@ -194,11 +352,22 @@ export namespace profileContent {
             {
                 name: 'core.wlc-wrapper',
                 params: {
+                    class: 'wlc-profile-content__header',
+                    components: [
+                        componentLib.wlcTitle.cash,
+                    ],
+                },
+                display: {
+                    before: 1023,
+                },
+            },
+            componentLib.wlcProfileMenu.subMenuV1,
+            {
+                name: 'core.wlc-wrapper',
+                params: {
                     class: 'wlc-profile-content',
                     components: [
-                        componentLib.wlcTitle.cashV1Mobile,
-                        componentLib.wlcDepositWithdraw.balance,
-                        componentLib.wlcProfileMenu.submenuHistoryV1,
+                        componentLib.wlcDepositWithdraw.balanceV1,
                         componentLib.wlcDepositWithdraw.withdraw,
                     ],
                 },
@@ -223,11 +392,44 @@ export namespace profileContent {
             {
                 name: 'core.wlc-wrapper',
                 params: {
+                    class: 'wlc-profile-content__header',
+                    components: [
+                        componentLib.wlcTitle.cash,
+                        componentLib.wlcTransactionHistory.filterOnly,
+                    ],
+                },
+                display: {
+                    before: 1023,
+                },
+            },
+            componentLib.wlcProfileMenu.subMenuV1,
+            {
+                name: 'core.wlc-wrapper',
+                params: {
                     class: 'wlc-profile-content',
                     components: [
-                        componentLib.wlcTransactionHistory.filterTypeFirst,
-                        componentLib.wlcProfileMenu.submenuHistoryV1,
-                        componentLib.wlcTransactionHistory.def,
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-profile-content__header underlined',
+                                components: [
+                                    componentLib.wlcTitle.history,
+                                    componentLib.wlcTransactionHistory.filterOnly,
+                                ],
+                            },
+                            display: {
+                                after: 1024,
+                            },
+                        },
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-profile-content__body',
+                                components: [
+                                    componentLib.wlcTransactionHistory.def,
+                                ],
+                            },
+                        },
                     ],
                 },
             },
@@ -280,6 +482,7 @@ export namespace profileContent {
             componentLib.wlcVerification.def,
         ],
     };
+
     export const profileVerificationTypeFirst: ILayoutSectionConfig = {
         container: true,
         theme: 'first',
@@ -288,12 +491,42 @@ export namespace profileContent {
             {
                 name: 'core.wlc-wrapper',
                 params: {
+                    class: 'wlc-profile-content__header',
+                    components: [
+                        componentLib.wlcTitle.myAccountV1,
+                    ],
+                },
+                display: {
+                    before: 1023,
+                },
+            },
+            componentLib.wlcProfileMenu.subMenuV1,
+            {
+                name: 'core.wlc-wrapper',
+                params: {
                     class: 'wlc-profile-content',
                     components: [
-                        componentLib.wlcTitle.profileV1Mobile,
-                        componentLib.wlcTitle.verification,
-                        componentLib.wlcProfileMenu.subMenuV1,
-                        componentLib.wlcVerification.def,
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-profile-content__header underlined',
+                                components: [
+                                    componentLib.wlcTitle.verification,
+                                ],
+                            },
+                            display: {
+                                after: 1024,
+                            },
+                        },
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-profile-content__body',
+                                components: [
+                                    componentLib.wlcVerification.def,
+                                ],
+                            },
+                        },
                     ],
                 },
             },
@@ -317,11 +550,42 @@ export namespace profileContent {
             {
                 name: 'core.wlc-wrapper',
                 params: {
-                    class: 'wlc-profile-content',
+                    class: 'wlc-profile-content__header',
                     components: [
                         componentLib.wlcTitle.profileLimitations,
-                        componentLib.wlcProfileMenu.submenu,
-                        componentLib.wlcLimitations.def,
+                    ],
+                },
+                display: {
+                    before: 1023,
+                },
+            },
+            componentLib.wlcProfileMenu.subMenuV1,
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content',
+                    components: [
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-profile-content__header',
+                                components: [
+                                    componentLib.wlcTitle.profileLimitations,
+                                ],
+                            },
+                            display: {
+                                after: 1023,
+                            },
+                        },
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-profile-content__body',
+                                components: [
+                                    componentLib.wlcLimitations.def,
+                                ],
+                            },
+                        },
                     ],
                 },
             },
@@ -346,16 +610,50 @@ export namespace profileContent {
             {
                 name: 'core.wlc-wrapper',
                 params: {
-                    class: 'wlc-profile-content',
+                    class: 'wlc-profile-content__header',
                     components: [
                         componentLib.wlcTitle.profileStore,
                         componentLib.wlcUserStats.store,
-                        componentLib.wlcStoreList.def,
+                    ],
+                },
+                display: {
+                    before: 1023,
+                },
+            },
+            componentLib.wlcProfileMenu.subMenuV1,
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content parent',
+                    components: [
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-profile-content__header',
+                                components: [
+                                    componentLib.wlcTitle.profileStoreV1,
+                                    componentLib.wlcUserStats.store,
+                                ],
+                            },
+                            display: {
+                                after: 1023,
+                            },
+                        },
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-profile-content__body',
+                                components: [
+                                    componentLib.wlcStoreList.def,
+                                ],
+                            },
+                        },
                     ],
                 },
             },
         ],
     };
+
     export const profileLoyaltyLevels: ILayoutSectionConfig = {
         container: true,
         components: [
@@ -365,6 +663,7 @@ export namespace profileContent {
             componentLib.wlcLoyaltyLevels.def,
         ],
     };
+
     export const profileLoyaltyLevelsTypeFirst: ILayoutSectionConfig = {
         container: true,
         theme: 'first',
@@ -373,12 +672,44 @@ export namespace profileContent {
             {
                 name: 'core.wlc-wrapper',
                 params: {
-                    class: 'wlc-profile-content',
+                    class: 'wlc-profile-content__header',
                     components: [
-                        componentLib.wlcTitle.profileLoyalty,
-                        componentLib.wlcLoyaltyProgress.market,
-                        componentLib.wlcProfileMenu.subMenuV1,
-                        componentLib.wlcLoyaltyLevels.def,
+                        componentLib.wlcTitle.profileStore,
+                    ],
+                },
+                display: {
+                    before: 1023,
+                },
+            },
+            componentLib.wlcProfileMenu.subMenuV1,
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-profile-content parent',
+                    components: [
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-profile-content__header underlined',
+                                components: [
+                                    componentLib.wlcTitle.profileLoyaltyV1,
+                                    componentLib.wlcLoyaltyProgress.def,
+                                ],
+                            },
+                            display: {
+                                after: 1024,
+                            },
+                        },
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-profile-content__body',
+                                components: [
+                                    componentLib.wlcLoyaltyProgress.market,
+                                    componentLib.wlcLoyaltyLevels.def,
+                                ],
+                            },
+                        },
                     ],
                 },
             },
@@ -402,10 +733,27 @@ export namespace profileContent {
             {
                 name: 'core.wlc-wrapper',
                 params: {
-                    class: 'wlc-profile-content',
+                    class: 'wlc-profile-content header-inside',
                     components: [
-                        componentLib.wlcBetHistory.filter,
-                        componentLib.wlcBetHistory.def,
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-profile-content__header underlined',
+                                components: [
+                                    componentLib.wlcTitle.betHistory,
+                                    componentLib.wlcBetHistory.filterOnly,
+                                ],
+                            },
+                        },
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-profile-content__body',
+                                components: [
+                                    componentLib.wlcBetHistory.def,
+                                ],
+                            },
+                        },
                     ],
                 },
             },
@@ -429,11 +777,43 @@ export namespace profileContent {
             {
                 name: 'core.wlc-wrapper',
                 params: {
+                    class: 'wlc-profile-content__header',
+                    components: [
+                        componentLib.wlcTitle.bonuses,
+                        componentLib.wlcBonusesHistory.filterOnly,
+                    ],
+                },
+                display: {
+                    before: 1023,
+                },
+            },
+            componentLib.wlcProfileMenu.subMenuV1,
+            {
+                name: 'core.wlc-wrapper',
+                params: {
                     class: 'wlc-profile-content',
                     components: [
-                        componentLib.wlcBonusesHistory.filter,
-                        componentLib.wlcProfileMenu.subMenuV1,
-                        componentLib.wlcBonusesHistory.def,
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-profile-content__header underlined',
+                                components: [
+                                    componentLib.wlcTitle.bonusesHistory,
+                                ],
+                            },
+                            display: {
+                                after: 1024,
+                            },
+                        },
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-profile-content__body',
+                                components: [
+                                    componentLib.wlcBonusesHistory.def,
+                                ],
+                            },
+                        },
                     ],
                 },
             },
@@ -472,11 +852,42 @@ export namespace profileContent {
             {
                 name: 'core.wlc-wrapper',
                 params: {
+                    class: 'wlc-profile-content__header',
+                    components: [
+                        componentLib.wlcTitle.tournaments,
+                    ],
+                },
+                display: {
+                    before: 1023,
+                },
+            },
+            componentLib.wlcProfileMenu.subMenuV1,
+            {
+                name: 'core.wlc-wrapper',
+                params: {
                     class: 'wlc-profile-content',
                     components: [
-                        componentLib.wlcTitle.profileActiveTournaments,
-                        componentLib.wlcProfileMenu.subMenuV1,
-                        componentLib.wlcTournamentList.active,
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-profile-content__header',
+                                components: [
+                                    componentLib.wlcTitle.profileActiveTournaments,
+                                ],
+                            },
+                            display: {
+                                after: 1024,
+                            },
+                        },
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-profile-content__body',
+                                components: [
+                                    componentLib.wlcTournamentList.active,
+                                ],
+                            },
+                        },
                     ],
                 },
             },
@@ -498,11 +909,42 @@ export namespace profileContent {
             {
                 name: 'core.wlc-wrapper',
                 params: {
+                    class: 'wlc-profile-content__header',
+                    components: [
+                        componentLib.wlcTitle.tournaments,
+                    ],
+                },
+                display: {
+                    before: 1023,
+                },
+            },
+            componentLib.wlcProfileMenu.subMenuV1,
+            {
+                name: 'core.wlc-wrapper',
+                params: {
                     class: 'wlc-profile-content',
                     components: [
-                        componentLib.wlcTitle.profileAvailableTournaments,
-                        componentLib.wlcProfileMenu.subMenuV1,
-                        componentLib.wlcTournamentList.available,
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-profile-content__header',
+                                components: [
+                                    componentLib.wlcTitle.profileAvailableTournaments,
+                                ],
+                            },
+                            display: {
+                                after: 1024,
+                            },
+                        },
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-profile-content__body',
+                                components: [
+                                    componentLib.wlcTournamentList.available,
+                                ],
+                            },
+                        },
                     ],
                 },
             },
@@ -526,11 +968,43 @@ export namespace profileContent {
             {
                 name: 'core.wlc-wrapper',
                 params: {
+                    class: 'wlc-profile-content__header',
+                    components: [
+                        componentLib.wlcTitle.tournaments,
+                        componentLib.wlcBonusesHistory.filterOnly,
+                    ],
+                },
+                display: {
+                    before: 1023,
+                },
+            },
+            componentLib.wlcProfileMenu.subMenuV1,
+            {
+                name: 'core.wlc-wrapper',
+                params: {
                     class: 'wlc-profile-content',
                     components: [
-                        componentLib.wlcTournamentsHistory.filter,
-                        componentLib.wlcProfileMenu.subMenuV1,
-                        componentLib.wlcTournamentsHistory.def,
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-profile-content__header underlined',
+                                components: [
+                                    componentLib.wlcTitle.tournamentsHistory,
+                                ],
+                            },
+                            display: {
+                                after: 1024,
+                            },
+                        },
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-profile-content__body',
+                                components: [
+                                    componentLib.wlcTournamentsHistory.def,
+                                ],
+                            },
+                        },
                     ],
                 },
             },

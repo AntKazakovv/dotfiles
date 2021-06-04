@@ -14,4 +14,18 @@ export namespace wlcEnterPromocode {
             },
         },
     };
+
+    export const hideTitleV1: ILayoutComponent = {
+        name: 'bonuses.wlc-enter-promocode',
+        display: {
+            after: 560,
+        },
+        params: {
+            theme: 'clear',
+            common: {
+                showTitle: false,
+            },
+        },
+    };
+
 };
