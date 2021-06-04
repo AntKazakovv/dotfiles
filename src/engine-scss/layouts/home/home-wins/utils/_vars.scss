@@ -33,4 +33,8 @@ $themeDefault: map-merge((
         480: 325px,
         768: 100%,
     ),
+    'tournamentBannerMinHeight': (
+        320: auto,
+        1630: 380px,
+    ),
 ), $customThemeDefault);

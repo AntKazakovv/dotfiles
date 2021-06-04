@@ -21,14 +21,14 @@ $themeDefault: map-merge((
         375: 0 0 0 ef.get('size', 'small'),
         1024: 0 ef.get('size', 'smally'),
     ),
-    'timerCountdownFont': PrimaryTextBold,
+    'timerCountdownFont': 'PrimaryTextBold',
     'timerCountdownColor': ef.get('mainColors', 'baseMain'),
 
-    'timerSecondaryFont': PrimaryText,
+    'timerSecondaryFont': 'PrimaryText',
     'timerSecondaryColor': ef.get('mainColors', 'baseMain'),
 
     'headerPadding': 0 ef.get('size', 'smally'),
-    'headerFont': ThirdTitleBold,
+    'headerFont': 'ThirdTitleBold',
     'headerColor': ef.get('mainColors', 'baseMain'),
     'headerBg': ef.get('mainColors', 'main'),
     'headerRadius': ef.get('radius', 'biger') 0 ef.get('radius', 'biger') 0,
@@ -37,29 +37,41 @@ $themeDefault: map-merge((
     'headerAlignItems': center,
     'headerJustifyContent': space-between,
     'headerZIndex': 2,
+    'headerMaxHeight': 45px,
+    'headerPosition': 0,
 
     'moreIconColor': ef.get('mainColors', 'baseOpacity'),
 
     'bodyPadding': (
-        320: ef.get('size', 'small') ef.get('size', 'smally') ef.get('size', 'less'),
-        1024: ef.get('size', 'small') ef.get('size', 'main') ef.get('size', 'main'),
+        320: 55px ef.get('size', 'smally') ef.get('size', 'less'),
+        1024: 55px ef.get('size', 'main') ef.get('size', 'main'),
     ),
     'bodyFont': 'PromoTitle',
     'bodyFontM': 'QoteTextBold',
     'bodyColor': ef.get('fieldColors', 'inputBg'),
     'bodyMargin': 0 0 ef.get('size', 'smally'),
     'bodyBgSize': (
-        768: auto,
-        900: 250px,
+        320: contain,
     ),
     'bodyBgPosition': (
-        768: 90% center,
-        1630: 83% center,
+        320: right bottom,
     ),
     'bodyFlexDirection': column,
     'bodyAlignItems': flex-start,
     'bodyZIndex': 2,
     'bodyBgRepeat': no-repeat,
+
+    'bodyNestedZIindex': 2,
+
+    'bodyDecorDisplay': (
+        320: none,
+        768: block,
+    ),
+    'bodyDecorWidth': 50%,
+    'bodyDecorPositionTop': 0,
+    'bodyDecorPositionRight': 0,
+    'bodyDecorPositionBottom': 0,
+    'bodyDecorZIindex': 1,
 
     'timerBlockMargin': 0 0 ef.get('size', 'smally'),
     'descriptionFont': 'PrimaryText',
@@ -76,7 +88,6 @@ $themeDefault: map-merge((
     ),
 
     'btnsWrapAlign': flex-start,
-    'btnsWrapMaxWidth': 50%,
     'btnsWrapMargin': auto 0 0,
     'btnsMinWidth': 110px,
     'btnsGridColumnGap': 0,

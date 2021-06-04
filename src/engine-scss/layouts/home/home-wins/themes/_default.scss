@@ -41,6 +41,7 @@
 
         .wlc-tournament-banner {
             @include em.get-mq-map('height', $themeDefault, 'tournamentBannerHeight');
+            @include em.get-mq-map('min-height', $themeDefault, 'tournamentBannerMinHeight');
         }
     }
 }
