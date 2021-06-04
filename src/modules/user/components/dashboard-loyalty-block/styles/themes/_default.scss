@@ -9,6 +9,7 @@
         @include bm.get-mq-map('padding', $themeDefault, 'padding');
 
         background: ef.get-value($themeDefault, 'bg');
+        box-shadow: ef.get-value($themeDefault, 'boxShadow');
         border-radius: ef.get-value($themeDefault, 'borderRadius');
     }
 

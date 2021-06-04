@@ -3,6 +3,7 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'bg': ef.get('mainColors', 'bg300'),
+    'boxShadow': null,
 
     'outerPadding': (
         375: ef.get('size', 'smaller') ef.get('size', 'smaller') ef.get('size', 'smallest'),

@@ -8,6 +8,7 @@ $themeDefault: map-merge((
         1630: ef.get('size', 'smaller'),
     ),
     'bg': ef.get('mainColors', 'bg300'),
+    'boxShadow': null,
     'borderRadius': ef.get('radius', 'biger'),
     'loyaltyMargin': (
         375: 12px 0 0,
