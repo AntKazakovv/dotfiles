@@ -3,9 +3,14 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     // // Size
-    'minWidth': 250px,
-    'minWidthDesktop': 320px,
-    'maxWidth': 320px,
+    'minWidth': (
+        320: 250px,
+        1630: 320px,
+    ),
+    'maxWidth': (
+        320: 320px,
+        768: 100%,
+    ),
     'height': (
         320: 280px,
         1630: 370px,
@@ -54,7 +59,7 @@ $themeDefault: map-merge((
         320: 30px,
         1630: 35px,
     ),
-
+    'imageWidth': 100%,
     'relativeImageHeight': 70%,
     'bonusIconSize': (
         320: 120px,
@@ -73,6 +78,8 @@ $themeDefault: map-merge((
     'activeBlockMaxWidth': 250px,
     'progressBarSize': 7px,
     'moreIconSize': 24px,
+    'wrapperWidth': 100%,
+    'wrapperHeight': 100%,
     // // Font
     'positionText': center,
     'descriptionFontColor': ef.get('mainColors', 'PrimaryText'),
@@ -85,9 +92,7 @@ $themeDefault: map-merge((
     'bonusIconValueFontW': 700,
     'bonusIconValueFontColor': ef.get('fieldColors', 'textColor'),
     'tagFontColor': ef.get('mainColors', 'baseMain'),
-    'tagFontSize': ef.get('font', 'small'),
     'nameFontColor': ef.get('mainColors', 'baseMain'),
-    'nameFontSize': ef.get('font', 'big'),
     'descriptionFontSize': ef.get('font', 'less'),
     'activeBlockFontColor': ef.get('mainColors', 'baseMain'),
     'activeBlockFontSize': ef.get('font', 'less'),
@@ -110,6 +115,9 @@ $themeDefault: map-merge((
     'backgroundRelative': ef.get('mainColors', 'bg300'),
     'backgroundRelativeHover': ef.get('mainColors', 'bg500'),
     'imageBg': rgba(0, 0, 0, 0.3),
+    'imageBgRepeat': no-repeat,
+    'imageBgPos': center center,
+    'imageBgSize': cover,
     'bonusIconValueBg': ef.get('mainColors', 'baseMain'),
     'tagBg': ef.get('mainColors', 'secondary'),
     'activeBlockProgressBg': transparent,
@@ -128,10 +136,12 @@ $themeDefault: map-merge((
         1630: 77px auto 0 auto,
     ),
     'tagPadding': (
-        320: 2px 10px 1px,
-        1630: 4px 10px 3px,
+        320: 2px 10px,
+        1630: 4px 10px,
     ),
     'infoPadding': 0 ef.get('size', 'small'),
+    'infoDirection': column,
+    'infoAlignItems': center,
     'activeBlockPadding': (
         320: 0,
         900: ef.get('size', 'smally') 0 0,
@@ -150,6 +160,9 @@ $themeDefault: map-merge((
     'btnMargin': 0 ef.get('size', 'smallest'),
     //Position
     'tagPositionTop': ef.get('size', 'smaller'),
+    'tagPositionLeft': 50%,
+    'tagZIndex': 2,
+    'tagTransform': translateX(-50%),
     'moreIconPosLeft': auto,
     'moreIconPosRight': ef.get('size', 'smaller'),
     'moreIconPosTop': ef.get('size', 'smally'),

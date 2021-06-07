@@ -106,11 +106,17 @@
                 </div>
             </ng-container>
         </div>
+        <div *ngIf="$params.theme === 'reg-first' && bonuses?.length" class="{{$class}}__checkbox-wrapper">
+            <div wlc-checkbox
+                class="{{$class}}__checkbox"
+                [inlineParams]="checkBoxParams"></div>
+        </div>
     </div>
 </ng-template>
 
 <ng-container [ngSwitch]="$params.theme">
     <ng-container *ngSwitchCase="'partial'" [ngTemplateOutlet]="partial"></ng-container>
+    <ng-container *ngSwitchCase="'reg-first'" [ngTemplateOutlet]="partial"></ng-container>
     <ng-container *ngSwitchCase="'promo-home'" [ngTemplateOutlet]="promoHome"></ng-container>
     <ng-container *ngSwitchDefault [ngTemplateOutlet]="default"></ng-container>
 </ng-container>

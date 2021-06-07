@@ -190,6 +190,7 @@ $font: map-merge((
     'PrimaryTextBold': 1.4rem,
     'ThirdTitleBold': 1.6rem,
     'QoteTextBold': 2.4rem,
+    'QoteTextBoldSmaller': 2rem,
     'QoteTextBoldTight': 2.4rem,
     'PlaceholderTextBold': 1.2rem,
 ), $customFont);
@@ -210,6 +211,7 @@ $fontWeight: map-merge((
     'PrimaryTextBold': bold,
     'ThirdTitleBold': bold,
     'QoteTextBold': bold,
+    'QoteTextBoldSmaller': bold,
     'QoteTextBoldTight': bold,
     'PlaceholderTextBold': bold,
 ), $customFontWeight);

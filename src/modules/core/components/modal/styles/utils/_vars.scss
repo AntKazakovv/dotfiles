@@ -230,6 +230,7 @@ $themeDefault: map-merge((
 
     'loginSignUpTitleStyle': 'PrimaryTextBold',
     'loginSignUpTitleColor': ef.get('mainColors', 'baseMain'),
+    'loginSignUpTitleAlign': center,
 
     'loginSignUpDialogHeight': (
         320: 100%,

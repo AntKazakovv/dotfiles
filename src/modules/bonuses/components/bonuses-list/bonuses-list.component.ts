@@ -9,6 +9,7 @@ import {
     OnInit,
     ViewChild,
 } from '@angular/core';
+import {FormControl} from '@angular/forms';
 import Swiper from 'swiper';
 
 import {
@@ -18,6 +19,7 @@ import {
     ConfigService,
     EventService,
     IData,
+    ICheckboxCParams,
 } from 'wlc-engine/modules/core';
 import {
     ISliderCParams,
@@ -73,6 +75,15 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
         swiper: {},
     };
     public slides: ISlide[] = [];
+    public checkBoxParams: ICheckboxCParams = {
+        name: 'choose-no-bonus',
+        text: gettext('Proceed without welcome bonus'),
+        textSide: 'right',
+        control: new FormControl(),
+        onChange: (checked: boolean) => {
+            checked ? this.chooseBlankBonus(true) : this.chooseBonusByPosition(0);
+        },
+    };
 
     protected promocode: string = '';
 
@@ -203,7 +214,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
         this.unchooseBonuses();
     }
 
-    public chooseBlankBonus(): void {
+    public chooseBlankBonus(upSlider?: boolean): void {
         this.unchooseBonuses();
         setTimeout(() => {
             const isChosenBonus = _find(this.bonuses, ({isChoose}) => isChoose);
@@ -215,6 +226,10 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
             });
             this.cdr.markForCheck();
         }, 0);
+
+        if (this.slider && upSlider) {
+            this.bonusesToSlides(this.bonuses, false);
+        }
 
         this.configService.set<ChosenBonusType>({
             name: ChosenBonusSetParams.ChosenBonus,
@@ -243,6 +258,10 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
 
             if (this.slider) {
                 this.bonusesToSlides(this.bonuses, false);
+            }
+
+            if (this.checkBoxParams.control.touched) {
+                this.checkBoxParams.control.setValue(false);
             }
 
             this.prepareBonuses();

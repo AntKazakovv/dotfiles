@@ -70,7 +70,7 @@
             &__title {
                 @include em.get-mq-map('display', $themeDefault, 'loginSignUpTitleDisplay');
                 @include text.get-text-style(ef.get-value($themeDefault, 'loginSignUpTitleStyle'), ef.get-value($themeDefault, 'loginSignUpTitleColor'));
-                text-align: left;
+                text-align: ef.get-value($themeDefault, 'loginSignUpTitleAlign');
             }
 
             &__body {

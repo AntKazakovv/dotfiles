@@ -2,7 +2,7 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'formMaxWidth': 285px,
+    'formMaxWidth': 290px,
     'formMargin': 0 auto,
     'formHeight': 100%,
     'formFlexDirection': column,
@@ -32,6 +32,7 @@ $themeDefault: map-merge((
     'checkboxLinkColorHover': lighten(ef.get('mainColors', 'main'), 20%),
     'checkboxLinkBorderColorHover': lighten(ef.get('mainColors', 'main'), 20%),
 
-    'checkboxPadding': 0 ef.get('size', 'small'),
-    'checkboxAgeMargin': -10px 0 0,
+    'checkboxPadding': 25px ef.get('size', 'small') 0 ef.get('size', 'small'),
+    'checkboxAgeMargin': -17px 0 0,
+    'checkboxAgePadding': 0 ef.get('size', 'small') ef.get('size', 'main') ef.get('size', 'small'),
 ), $customThemeDefault);

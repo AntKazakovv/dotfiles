@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import {
     AbstractComponent,
+    ConfigService,
     EventService,
 } from 'wlc-engine/modules/core';
 import * as Params from 'wlc-engine/modules/core/components/steps/steps.params';
@@ -26,6 +27,7 @@ import _find from 'lodash-es/find';
 export class StepsComponent extends AbstractComponent implements OnInit {
 
     @Input() public inlineParams: Params.IStepsParams;
+    @Input() public themeMod: Params.ThemeMod;
     public $params: Params.IStepsParams;
     public currentStep: Params.IStep;
     public stepList: Params.IStep[];
@@ -33,6 +35,7 @@ export class StepsComponent extends AbstractComponent implements OnInit {
     constructor(
         @Inject('injectParams') protected injectParams: Params.IStepsParams,
         protected eventService: EventService,
+        protected configService: ConfigService,
         protected cdr: ChangeDetectorRef,
     ) {
         super({
@@ -42,6 +45,7 @@ export class StepsComponent extends AbstractComponent implements OnInit {
     }
 
     public ngOnInit(): void {
+        this.themeMod = this.configService.get<string>('$base.profile.type') === 'first' ? 'first' : this.themeMod;
         super.ngOnInit();
         this.stepList = this.prepareSteps();
 
@@ -87,7 +91,9 @@ export class StepsComponent extends AbstractComponent implements OnInit {
     }
 
     protected prepareSteps(): Params.IStep[] {
-        return _map(_entries(this.$params.stepsConfig), ([key, value]) => {
+        const stepsConfig = this.configService.get<string>('$base.profile.type') === 'first' ?
+            this.$params.stepsConfigFirst : this.$params.stepsConfig;
+        return _map(_entries(stepsConfig), ([key, value]) => {
             return {
                 name: key,
                 config: value,
