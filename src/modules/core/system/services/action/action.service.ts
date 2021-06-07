@@ -257,7 +257,11 @@ export class ActionService {
         return this.windowResizeSubject.asObservable();
     }
 
-    private getDeviceType(): DeviceType {
+    /**
+     * get device type
+     * @returns {DeviceType} - device type
+     */
+    public getDeviceType(): DeviceType {
         if (this.breakpoints.desktop.mq.matches) {
             return DeviceType.Desktop;
         } else if (this.breakpoints.tablet.mq.matches) {

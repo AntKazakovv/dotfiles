@@ -6,6 +6,7 @@ import {CoreModule} from 'wlc-engine/modules/core/core.module';
 import {PostComponent} from './components/post/post.component';
 import {FaqComponent} from './components/faq/faq.component';
 import {PostMenuComponent} from './components/post-menu/post-menu.component';
+import {PromoStepsComponent} from './components/promo-steps/promo-steps.component';
 import {GlobalHelper} from 'wlc-engine/modules/core';
 import {StaticService} from 'wlc-engine/modules/static/system/services';
 import {IStaticConfig} from './system/interfaces/static.interface';
@@ -21,6 +22,7 @@ export const components = {
     'wlc-post': PostComponent,
     'wlc-faq': FaqComponent,
     'wlc-post-menu': PostMenuComponent,
+    'wlc-promo-steps': PromoStepsComponent,
 };
 
 @NgModule({
@@ -28,6 +30,7 @@ export const components = {
         PostComponent,
         FaqComponent,
         PostMenuComponent,
+        PromoStepsComponent,
     ],
     id: 'StaticModule',
     imports: [
@@ -40,6 +43,7 @@ export const components = {
         PostComponent,
         FaqComponent,
         PostMenuComponent,
+        PromoStepsComponent,
     ],
     providers: [
         StaticService,
