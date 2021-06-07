@@ -212,8 +212,7 @@
             <div *ngIf="$params.common?.useIconBonusImage"
                  class="{{$class}}__bonus-icon">
                 <span *ngIf="chosen || $params.common.bonus.isChoose"
-                      class="{{$class}}__check-icon"
-                      [@chosenIcon]="chosen">
+                      class="{{$class}}__check-icon">
                     <i wlc-icon
                        class="icon-btn"
                        iconName="check">
@@ -225,7 +224,6 @@
                      alt="bonus icon"
                      loading="lazy"
                      [src]="$params.common?.iconsPath + $params.common.bonus?.viewTarget + '.svg'"
-                     [@chosenImage]="chosen"
                      (click)="chooseBonusNoBtn($params.common.bonus, $params.common?.type)">
                 <ng-template #without>
                     <div class="{{$class}}__icon-sign"
