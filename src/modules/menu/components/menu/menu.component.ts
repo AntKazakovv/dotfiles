@@ -10,6 +10,7 @@ import {
     ViewChild,
     TemplateRef,
     AfterViewInit,
+    ElementRef,
 } from '@angular/core';
 import {
     StateService,
@@ -22,6 +23,7 @@ import {
     transition,
     trigger,
 } from '@angular/animations';
+import {NgIfContext} from '@angular/common';
 
 import {MenuHelper} from 'wlc-engine/modules/menu/system/helpers/menu.helper';
 import {
@@ -82,12 +84,13 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
     public inited: boolean = false;
 
     @ViewChild('slider') slider: SliderComponent;
-    @ViewChild('anchor') tplAnchor: TemplateRef<any>;
-    @ViewChild('sref') tplSref: TemplateRef<any>;
-    @ViewChild('title') tplTitle: TemplateRef<any>;
-    @ViewChild('modal') tplModal: TemplateRef<any>;
-    @ViewChild('href') tplHref: TemplateRef<any>;
-    @ViewChild('scroll') tplScroll: TemplateRef<any>;
+    @ViewChild('anchor') tplAnchor: TemplateRef<ElementRef>;
+    @ViewChild('sref') tplSref: TemplateRef<ElementRef>;
+    @ViewChild('title') tplTitle: TemplateRef<ElementRef>;
+    @ViewChild('modal') tplModal: TemplateRef<ElementRef>;
+    @ViewChild('href') tplHref: TemplateRef<ElementRef>;
+    @ViewChild('scroll') tplScroll: TemplateRef<ElementRef>;
+    @ViewChild('srefWithParent') srefWithParent: TemplateRef<NgIfContext<boolean>>
 
     @Input() protected inlineParams: Params.IMenuCParams;
 

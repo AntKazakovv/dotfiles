@@ -32,8 +32,8 @@ export class CategoryPreviewComponent extends AbstractComponent implements OnIni
 
     public $params: Params.ICategoryPreviewCParams;
     public categories: ICategory[] = [];
+    public lang: string;
     protected availableCategories: CategoryModel[];
-    protected lang: string;
 
     @Input() protected inlineParams: Params.ICategoryPreviewCParams;
 

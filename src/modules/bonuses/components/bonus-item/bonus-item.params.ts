@@ -8,8 +8,27 @@ import {
     IBonusType,
 } from 'wlc-engine/modules/bonuses';
 
-export type Type = 'active' | 'all' | 'default' |'deposit' | 'inventory'| 'main' | 'promo' | 'promocode' | 'reg' | 'store'  | CustomType;
-export type Theme = 'active'| 'default' | 'grid' | 'long' | 'partial' | 'preview' | 'promo' | 'promocode' | CustomType;
+export type Type = 'active'
+    | 'all'
+    | 'default'
+    | 'deposit'
+    | 'inventory'
+    | 'main'
+    | 'promo'
+    | 'promocode'
+    | 'reg'
+    | 'store'
+    | CustomType;
+export type Theme = 'active'
+    | 'default'
+    | 'grid'
+    | 'long'
+    | 'partial'
+    | 'preview'
+    | 'promo'
+    | 'promocode'
+    | 'promo-home'
+    | CustomType;
 export type ThemeMod = 'default' | 'active' | 'chip-v2' | CustomType;
 export type AutoModifiers = Theme | ThemeMod;
 export type CustomMod = string;
@@ -19,6 +38,7 @@ export interface ILinkParams {
     state: string;
     params?: IIndexing<string>;
 }
+
 export interface IBonusItemCParams extends IComponentParams<Theme, Type, ThemeMod> {
     modifiers?: Modifiers[];
     bonus?: Bonus,
