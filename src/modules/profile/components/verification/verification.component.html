@@ -27,7 +27,7 @@
                        hidden
                        [accept]="acceptFormat"
                        [disabled]="currentDocGroup.pending || currentDocGroup.previewString"
-                       (change)="preloadFile($event.target.files)">
+                       (change)="preloadFile($any($event.target.files))">
                 <button wlc-button
                         class="wlc-btn-upload"
                         [ngClass]="{selected: currentDocGroup.isSelected}"

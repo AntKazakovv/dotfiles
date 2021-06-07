@@ -1,6 +1,6 @@
 <ng-container *ngIf="ready; else preloader">
     <ng-container [ngTemplateOutlet]="asModal ? button : list"></ng-container>
-    <ng-container [ngTemplateOutlet]="showTable ? table : false"></ng-container>
+    <ng-container *ngIf="showTable" [ngTemplateOutlet]="table"></ng-container>
 </ng-container>
 
 <ng-template #button>

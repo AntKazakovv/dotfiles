@@ -33,6 +33,7 @@ import {
     EventService,
     IIndexing,
     IWrapperCParams,
+    ICheckboxCParams,
 } from 'wlc-engine/modules/core';
 import {CachingService} from 'wlc-engine/modules/core/system/services/caching/caching.service';
 import * as Params from './game-dashboard.params';
@@ -130,7 +131,7 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
     public showMobileInstruction: boolean = false;
     public showPanchBtn: boolean = false;
     public decorAnimationState: string = 'hidden';
-    public dontShowAgainBtn = {
+    public dontShowAgainBtn: ICheckboxCParams = {
         themeMod: 'bg-transparent',
         name: 'dont-show',
         text: gettext('Don\'t show again'),
@@ -357,6 +358,24 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
 
     public getTabContentTemplate(tab: Params.IGameDashboardTab): TemplateRef<any> {
         return _get(this, `${tab.id}Tpl`);
+    }
+
+    public onDashboardBtnClick(): void {
+        if (this.disableOpenOnClick) {
+            this.disableOpenOnClick = false;
+            return;
+        }
+
+        this.addModifiers('animate');
+        if (!this.opened) {
+            if (this.showMobileInstruction) {
+                this.showMobileInstruction = false;
+            }
+            this.open();
+        } else {
+            this.close();
+        }
+        this.cdr.markForCheck();
     }
 
     protected async loadLastPlayedGames(): Promise<void> {
@@ -691,23 +710,5 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
         fromEvent(hammer$, 'panend').pipe(
             takeUntil(this.$destroy),
         ).subscribe((event: HammerInput) => this.panendHandler(event, options));
-    }
-
-    protected onDashboardBtnClick(): void {
-        if (this.disableOpenOnClick) {
-            this.disableOpenOnClick = false;
-            return;
-        }
-
-        this.addModifiers('animate');
-        if (!this.opened) {
-            if (this.showMobileInstruction) {
-                this.showMobileInstruction = false;
-            }
-            this.open();
-        } else {
-            this.close();
-        }
-        this.cdr.markForCheck();
     }
 }

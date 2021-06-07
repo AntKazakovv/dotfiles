@@ -4,7 +4,7 @@ import {
 } from 'wlc-engine/modules/core/system/classes/abstract.component';
 
 export type Type = 'default' | CustomType;
-export type Theme = 'default' | CustomType;
+export type Theme = 'default' | 'first' | CustomType;
 export type ThemeMod = 'default' | CustomType;
 export type AutoModifiers = Theme | ThemeMod;
 export type CustomMod = string;

@@ -51,7 +51,7 @@
                hidden
                [accept]="acceptFormat"
                [disabled]="currentDocGroup.pending"
-               (change)="uploadFile($event.target.files, currentDocGroup.ID)">
+               (change)="uploadFile($any($event.target).files, currentDocGroup.ID)">
         <p [ngSwitch]="currentDocGroup.loadingStatus" class="{{$class}}__text">
             <ng-template [ngSwitchCase]="'loading'">
                 {{'File is loading...' | translate}}

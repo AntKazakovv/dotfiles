@@ -12,7 +12,7 @@
         <ng-container *ngIf="items.length; else noSlides">
             <button class="{{$class}}__btn"
                 wlc-button
-                type="button"
+                [attr.type]="'button'"
                 text="See all"
                 (click)="showModal()">
             </button>

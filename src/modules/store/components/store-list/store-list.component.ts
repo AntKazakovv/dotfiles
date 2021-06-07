@@ -43,7 +43,7 @@ export class StoreListComponent extends AbstractComponent implements OnInit, OnD
     public isProfileFirst: boolean;
     public userPoints: number = 0;
     public userExpPoints: number = 0;
-    public itemTheme: string = 'default';
+    public itemTheme: Params.Theme = "default";
 
     constructor(
         @Inject('injectParams') protected params: Params.IStoreListCParams,
