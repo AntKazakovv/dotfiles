@@ -1,0 +1,176 @@
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/base.mixins' as bm;
+
+.wlc-promo-steps--theme-default:host {
+    background: ef.get-value($themeDefault, 'promoStepsBackground');
+
+    .wlc-promo-steps {
+
+        &--desktop {
+            @include bm.get-mq-map('padding', $themeDefault, 'desktopStepsPadding');
+
+            .wlc-promo-steps {
+
+                &__content {
+                    @include bm.get-mq-map('grid-template-columns', $themeDefault, 'desktopStepsCols');
+                    @include bm.get-mq-map('gap', $themeDefault, 'desktopStepsGap');
+                    display: ef.get-value($themeDefault, 'desktopStepsDisplay');
+                    align-items: ef.get-value($themeDefault, 'desktopStepsAlignItems');
+                    justify-content: ef.get-value($themeDefault, 'desktopStepsJustifyContent');
+                }
+
+                &__step {
+                    @include bm.get-mq-map('max-width', $themeDefault, 'desktopStepsMaxWidth');
+                    display: ef.get-value($themeDefault, 'desktopStepDisplay');
+                    grid-template-columns: ef.get-value($themeDefault, 'desktopStepColumns');
+                    text-decoration: ef.get-value($themeDefault, 'desktopStepTextDecoration');
+                }
+            }
+        }
+
+        &--mobile,
+        &--tablet {
+            @include bm.get-mq-map('padding', $themeDefault, 'mobileStepsPadding');
+            display: ef.get-value($themeDefault, 'mobileStepsDisplay');
+            grid-template-columns: ef.get-value($themeDefault, 'mobileStepsColumns');
+            text-align: ef.get-value($themeDefault, 'mobileTitleTextAlign');
+
+            .wlc-promo-steps {
+
+                &__step-title {
+                    text-align: center;
+                }
+
+                &__step-desc {
+                    justify-content: ef.get-value($themeDefault, 'stepActiveDescJustifyContent');
+                }
+
+                &__tabs-head {
+                    display: ef.get-value($themeDefault, 'tabsHeadDisplay');
+                    grid-auto-flow: ef.get-value($themeDefault, 'tabsHeadFlow');
+                    grid-template-columns: ef.get-value($themeDefault, 'tabsHeadCols');
+                    gap: ef.get-value($themeDefault, 'tabsHeadGap');
+                    justify-content: ef.get-value($themeDefault, 'tabsHeadJustifyContent');
+                    margin: ef.get-value($themeDefault, 'tabsHeadMargin');
+                }
+
+                &__tab {
+                    position: relative;
+                    padding-top: ef.get-value($themeDefault, 'tabPaddingTop');
+                    background: ef.get-value($themeDefault, 'tabBackground');
+                    border-radius: ef.get-value($themeDefault, 'tabRadius');
+
+                    &.active {
+                        background: ef.get-value($themeDefault, 'tabBackgroundActive');
+                    }
+                }
+
+                &__tab-number {
+                    @include text.get-text-style(ef.get-value($themeDefault, 'tabNumberTextStyle'), ef.get-value($themeDefault, 'tabNumberColor'));
+                    position: absolute;
+                    top: ef.get-value($themeDefault, 'tabNumberTop');
+                    left: ef.get-value($themeDefault, 'tabNumberLeft');
+                    display: ef.get-value($themeDefault, 'tabNumberDisplay');
+                    align-items: ef.get-value($themeDefault, 'tabNumberAlignItems');
+                    justify-content: ef.get-value($themeDefault, 'tabNumberJustifyContent');
+                    width: ef.get-value($themeDefault, 'tabNumberSize');
+                    height: ef.get-value($themeDefault, 'tabNumberSize');
+                }
+
+                &__step {
+                    display: none;
+                    min-height: ef.get-value($themeDefault, 'mobileMinHeightSteps');
+
+                    &.active {
+                        display: ef.get-value($themeDefault, 'stepActiveDisplay');
+                        grid-template-columns: ef.get-value($themeDefault, 'stepActiveColumns');
+                        justify-content: ef.get-value($themeDefault, 'stepActiveJustifyContent');
+                        text-align: ef.get-value($themeDefault, 'stepActiveTextAlign');
+                    }
+                }
+            }
+        }
+
+        &__step-desc-wrap {
+            line-height: ef.get-value($themeDefault, 'stepDescWrapLineHeight');
+        }
+
+        &__step {
+            width: ef.get-value($themeDefault, 'stepWidth');
+
+            &--link {
+                text-decoration: none;
+
+                .wlc-promo-steps__step-desc {
+                    @include bm.transition;
+                    color: ef.get-value($themeDefault, 'linkDescColor');
+                    border-bottom: ef.get-value($themeDefault, 'linkDescBorderBottom');
+                }
+
+                @include bm.hover {
+
+                    .wlc-promo-steps__step-desc {
+                        color: ef.get-value($themeDefault, 'linkDescHoverColor');
+                        border-bottom: ef.get-value($themeDefault, 'linkDescHoverBorderBottom');
+                    }
+                }
+            }
+
+            &--modal {
+                padding: ef.get-value($themeDefault, 'modalBtnPadding');
+                background: ef.get-value($themeDefault, 'modalBtnBackground');
+                border: ef.get-value($themeDefault, 'modalBtnBorder');
+
+                .wlc-promo-steps__step-desc-wrap {
+                    @include bm.get-mq-map('display', $themeDefault, 'modalBtnWrapDisplay');
+                    @include bm.get-mq-map('justify-content', $themeDefault, 'modalBtnWrapJustifyContent');
+                }
+
+                .wlc-promo-steps__step-desc {
+                    @include text.get-text-style(ef.get-value($themeDefault, 'modalBtnTextStyle'), ef.get-value($themeDefault, 'modalBtnColor'));
+                    @include bm.transition(color);
+                    display: ef.get-value($themeDefault, 'modalBtnDescDisplay');
+                    font-size: ef.get-value($themeDefault, 'modalBtnTextSize');
+
+                    ::ng-deep {
+
+                        .wlc-icon {
+                            margin-left: ef.get-value($themeDefault, 'modalBtnIconMarginLeft');
+
+                            svg {
+                                @include bm.transition(fill);
+                                transform: ef.get-value($themeDefault, 'modalBtnIconTransform');
+                                fill: ef.get-value($themeDefault, 'modalBtnColor');
+                            }
+                        }
+                    }
+                }
+
+                @include bm.hover {
+
+                    .wlc-promo-steps__step-desc {
+                        color: ef.get-value($themeDefault, 'modalBtnHoverColor');
+
+                        ::ng-deep {
+
+                            svg {
+                                fill: ef.get-value($themeDefault, 'modalBtnHoverColor');
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        &__step-title {
+            @include bm.get-mq-map('margin', $themeDefault, 'titleMargin');
+            @include text.get-text-style(ef.get-value($themeDefault, 'titleTextStyle'), ef.get-value($themeDefault, 'titleColor'));
+            text-align: ef.get-value($themeDefault, 'titleTextAlign');
+        }
+
+        &__step-desc {
+            @include text.get-text-style(ef.get-value($themeDefault, 'descTextStyle'), ef.get-value($themeDefault, 'descColor'));
+        }
+    }
+}

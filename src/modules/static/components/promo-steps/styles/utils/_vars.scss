@@ -1,0 +1,101 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/engine.variables' as ev;
+
+// ~~ theme DEFAULT
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'promoStepsBackground': ef.get('mainColors', 'bg300'),
+
+    'desktopStepsDisplay': grid,
+    'desktopStepsCols': (
+        375: repeat(3, 1fr),
+        1200: repeat(3, max-content),
+    ),
+    'desktopStepsAlignItems': start,
+    'desktopStepsJustifyContent': center,
+    'desktopStepsGap': (
+        1024: ef.get('size', 'big'),
+        1420: 120px,
+        1630: 160px,
+    ),
+    'desktopStepsMaxWidth': (
+        1024: 300px,
+        1200: 340px,
+        1420: 380px,
+    ),
+    'desktopStepsPadding': (
+        375: ef.get('size', 'smally') 0,
+        1024: ef.get('size', 'smaller') 0,
+    ),
+    'desktopStepDisplay': grid,
+    'desktopStepColumns': 1fr,
+    'desktopStepTextDecoration': none,
+
+    'mobileStepsDisplay': grid,
+    'mobileStepsColumns': 1fr,
+    'mobileMinHeightSteps': 70px,
+    'mobileStepsPadding': (
+        375: ef.get('size', 'smally') 0,
+        1024: ef.get('size', 'smaller') 0,
+    ),
+    'mobileTitleTextAlign': center,
+
+    'stepWidth': 100%,
+    'stepDescWrapLineHeight': normal,
+    'stepActiveDisplay': grid,
+    'stepActiveColumns': 1fr,
+    'stepActiveJustifyContent': center,
+    'stepActiveTextAlign': center,
+    'stepActiveDescJustifyContent': center,
+
+    'titleTextStyle': 'QoteTextBold',
+    'titleColor': ef.get('mainColors', 'baseMain'),
+    'titleTextAlign': left,
+    'titleMargin': (
+        375: 0 0 ef.get('size', 'smallest') 0,
+    ),
+
+    'descTextStyle': 'ThirdTitle',
+    'descColor': ef.get('mainColors', 'baseMain'),
+
+    'linkDescColor': ef.get('mainColors', 'main'),
+    'linkDescHoverColor': lighten(ef.get('mainColors', 'main'), 20%),
+    'linkDescBorderBottom': 1px solid ef.get('mainColors', 'main'),
+    'linkDescHoverBorderBottom': 1px solid lighten(ef.get('mainColors', 'main'), 20%),
+
+    'modalBtnWrapDisplay': flex,
+    'modalBtnWrapJustifyContent': (
+        375: center,
+        1024: flex-start
+    ),
+    'modalBtnPadding': 0,
+    'modalBtnBackground': transparent,
+    'modalBtnBorder': none,
+    'modalBtnDescDisplay': inline-flex,
+    'modalBtnIconMarginLeft': 5px,
+    'modalBtnIconTransform': rotateZ(-90deg),
+    'modalBtnTextStyle': 'ButtonText',
+    'modalBtnTextSize': ef.get('font', 'ThirdTitle'),
+    'modalBtnColor': ef.get('mainColors', 'main'),
+    'modalBtnHoverColor': lighten(ef.get('mainColors', 'main'), 20%),
+
+    'tabsHeadDisplay': grid,
+    'tabsHeadFlow': column,
+    'tabsHeadCols': repeat(3, 40px),
+    'tabsHeadGap': ef.get('size', 'smaller'),
+    'tabsHeadJustifyContent': center,
+    'tabsHeadMargin': 0 auto ef.get('size', 'small') auto,
+
+    'tabPaddingTop': 100%,
+    'tabBackground': ef.get('mainColors', 'bg500'),
+    'tabBackgroundActive': ef.get('mainColors', 'main'),
+    'tabRadius': ef.get('radius', 'large'),
+    'tabNumberTextStyle': 'QoteTextBold',
+    'tabNumberColor': ef.get('mainColors', 'baseMain'),
+    'tabNumberTop': 0,
+    'tabNumberLeft': 0,
+    'tabNumberDisplay': flex,
+    'tabNumberAlignItems': center,
+    'tabNumberJustifyContent': center,
+    'tabNumberSize': 100%,
+), $customThemeDefault);

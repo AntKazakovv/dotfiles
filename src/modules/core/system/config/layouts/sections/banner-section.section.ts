@@ -22,4 +22,12 @@ export namespace bannerSection {
             componentLib.wlcBannersSlider.affiliates,
         ],
     };
+
+    export const steps: ILayoutSectionConfig = {
+        container: false,
+        components: [
+            componentLib.wlcBannersSlider.home,
+            componentLib.wlcPromoSteps.def,
+        ],
+    };
 }
