@@ -1,0 +1,73 @@
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/functions' as ef;
+
+.wlc-bonus-item--theme-reg-first {
+
+    @include backgrounds;
+
+    .wlc-bonus-item {
+
+        &__content {
+            @include contentCommonStyles;
+            @include bm.get-mq-map('max-width', $themeRegFirst, 'maxWidth');
+            min-width: ef.get-value($themeRegFirst, 'minWidth');
+            border: ef.get-value($themeRegFirst, 'chosenNoBorder');
+            cursor: pointer;
+        }
+
+        &__wrapper {
+            @include wrapperCommonStyles;
+            @include bm.get-mq-map('grid-template-rows', $themeRegFirst, 'infoHeight');
+        }
+
+        &__image-block {
+            position: relative;
+        }
+
+        &__image {
+            @include imageCommonStyles;
+            height: ef.get-value($themeRegFirst, 'imageHeight');
+            padding: ef.get-value($themeRegFirst, 'imagePadding');
+
+            .wlc-bonus-image-other {
+                position: relative;
+                width: ef.get-value($themeRegFirst, 'imageOtherWidth');
+                height: ef.get-value($themeRegFirst, 'imageOtherHeight');
+                object-fit: ef.get-value($themeRegFirst, 'imageOtherObjectFit');
+                object-position: ef.get-value($themeRegFirst, 'imageOtherObjectPos');
+            }
+        }
+
+        &__tag {
+            @include tagCommonStyles;
+        }
+
+        &__bottom {
+            @include bm.get-mq-map('padding', $themeDefault, 'infoBtmPaddingWithImg');
+        }
+
+        &__info-block {
+            @include infoBlockCommonStyles;
+        }
+
+        &__name {
+            @include nameCommonStyles;
+            @include bm.get-mq-map('width', $themeRegFirst, 'infoWidth');
+        }
+
+        &__description {
+            @include descriptionCommonStyles;
+            @include bm.get-mq-map('width', $themeRegFirst, 'infoWidth');
+        }
+
+        &__more-icon {
+            @include moreIconCommonStyles;
+        }
+    }
+
+    .wlc-bonus-item__content.chosen {
+        border: ef.get-value($themeRegFirst, 'chosenBorder');
+    }
+}

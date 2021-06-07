@@ -1,18 +1,18 @@
 @use 'engine-scss/functions' as ef;
 @use 'engine-scss/mixins/text' as text;
 @use 'engine-scss/mixins/base.mixins' as em;
-@import '../utils/vars';
+@import '../utils/vars-default';
 
 .wlc-tab-switcher--theme-default:host {
-    height: 100%;
+    height: ef.get-value($themeDefault, 'height');
 
     .wlc-tab-switcher {
 
         &__container {
             @include em.get-mq-map('padding', $themeDefault, 'containerPadding');
+            height: ef.get-value($themeDefault, 'height');
             border-radius: ef.get-value($themeDefault, 'containerRadius');
             overflow: hidden;
-            height: 100%;
         }
 
         &-nav {
@@ -20,21 +20,20 @@
             min-height: ef.get-value($themeDefault, 'navMinHeight');
 
             &__item {
-                flex: ef.get-value($themeDefault, 'navItemFlex');
-                padding: ef.get-value($themeDefault, 'navItemPadding');
-                text-align: center;
-                background: ef.get-value($themeDefault, 'navItemBackground');
                 @include text.get-text-style(ef.get-value($themeDefault, 'navItemStyle'), ef.get-value($themeDefault, 'navItemColor'));
-
-                max-width: 100%;
-                overflow: hidden;
+                flex: ef.get-value($themeDefault, 'navItemFlex');
+                max-width: ef.get-value($themeDefault, 'navItemMaxWidth');
+                padding: ef.get-value($themeDefault, 'navItemPadding');
+                text-align: ef.get-value($themeDefault, 'navItemTextAlign');
                 text-overflow: ellipsis;
+                background: ef.get-value($themeDefault, 'navItemBackground');
 
+                overflow: hidden;
                 cursor: pointer;
 
                 &.active {
-                    background: ef.get-value($themeDefault, 'navItemActiveBackground');
                     @include text.get-text-style(ef.get-value($themeDefault, 'navItemActiveStyle'), ef.get-value($themeDefault, 'navItemActiveColor'));
+                    background: ef.get-value($themeDefault, 'navItemActiveBackground');
                 }
 
                 &:first-child {
@@ -49,25 +48,41 @@
 
         &-body {
             @include em.get-mq-map('background', $themeDefault, 'bodyBackground');
-            border-radius: ef.get-value($themeDefault, 'bodyRadius');
             height: calc(#{ef.get-value($themeDefault, 'bodyHeight')} - #{ef.get-value($themeDefault, 'navMinHeight')});
+            border-radius: ef.get-value($themeDefault, 'bodyRadius');
 
             &__item {
                 display: none;
-                height: 100%;
+                height: ef.get-value($themeDefault, 'bodyItemHeight');
 
                 &.active {
                     display: block;
                 }
 
                 &--login {
-                    padding: ef.get-value($themeDefault, 'bodyItemLoginPadding');
                     @include em.get-mq-map('width', $themeDefault, 'loginBodyWidth');
-                    margin: auto;
+                    margin: ef.get-value($themeDefault, 'bodyItemLoginMargin');
+                    padding: ef.get-value($themeDefault, 'bodyItemLoginPadding');
                 }
 
                 &--signup {
                     @include em.get-mq-map('width', $themeDefault, 'signupBodyWidth');
+                }
+            }
+        }
+    }
+
+    &.wlc-tab-switcher--theme-mod-first {
+
+        .wlc-tab-switcher {
+
+            &-body {
+
+                &__item {
+
+                    &--signup {
+                        @include em.get-mq-map('width', $themeDefault, 'signupBodyWidthFirst');
+                    }
                 }
             }
         }

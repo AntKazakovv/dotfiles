@@ -1,6 +1,17 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, Injector, Input, OnInit} from '@angular/core';
 import {
-    AbstractComponent, LayoutService, ModalService,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    Inject,
+    Injector,
+    Input,
+    OnInit,
+} from '@angular/core';
+import {
+    AbstractComponent,
+    LayoutService,
+    ModalService,
+    ConfigService,
 } from 'wlc-engine/modules/core';
 import {ITab} from 'wlc-engine/modules/core/components/tab-switcher/tab-switcher.params';
 
@@ -8,7 +19,6 @@ import * as Params from 'wlc-engine/modules/core/components/tab-switcher/tab-swi
 
 import _values from 'lodash-es/values';
 import _each from 'lodash-es/each';
-
 @Component({
     selector: '[wlc-tab-switcher]',
     templateUrl: './tab-switcher.component.html',
@@ -20,6 +30,8 @@ export class TabSwitcherComponent
     implements OnInit {
 
     @Input() public inlineParams: Params.ITabSwitcherParams;
+    @Input() public theme: Params.ComponentTheme;
+    @Input() public themeMod: Params.ThemeMod;
     public $params: Params.ITabSwitcherParams;
     public activeTab: Params.ITab;
     public component: unknown;
@@ -30,6 +42,7 @@ export class TabSwitcherComponent
         protected layoutService: LayoutService,
         protected cdr: ChangeDetectorRef,
         protected modalService: ModalService,
+        protected configService: ConfigService,
     ) {
         super({
             injectParams,
@@ -38,6 +51,7 @@ export class TabSwitcherComponent
     }
 
     public ngOnInit(): void {
+        this.themeMod = this.configService.get<string>('$base.profile.type') === 'first' ? 'first' : this.themeMod;
         super.ngOnInit();
         this.applyConfig();
         this.tabs[0].active = true;

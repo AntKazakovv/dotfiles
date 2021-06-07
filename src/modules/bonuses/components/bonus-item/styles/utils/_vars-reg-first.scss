@@ -1,0 +1,27 @@
+@use 'engine-scss/functions' as ef;
+
+$customThemeRegFirst: () !default;
+$themeRegFirst: map-merge((
+    // // Size
+    'minWidth': 250px,
+    'maxWidth': (
+        320: 260px,
+        1630: 320px,
+    ),
+    'infoWidth': (
+        320: 230px,
+        1630: 290px,
+    ),
+    'infoHeight': (
+        320: (minmax(auto, 150px) 130px),
+        1630: (minmax(auto, 225px) 145px),
+    ),
+    'chosenNoBorder': 2px solid transparent,
+    'chosenBorder': 2px solid ef.get('mainColors', 'success'),
+    'imageHeight': 100%,
+    'imageOtherWidth': 100%,
+    'imageOtherHeight': 100%,
+    'imageOtherObjectFit': cover,
+    'imageOtherObjectPos': center,
+    'imagePadding': 0,
+), $customThemeRegFirst);

@@ -90,7 +90,7 @@
             grid-area: age;
 
             margin: ef.get-value($themeDefault, 'checkboxAgeMargin');
-            padding: ef.get-value($themeDefault, 'checkboxPadding');
+            padding: ef.get-value($themeDefault, 'checkboxAgePadding');
 
             .wlc-checkbox__label {
                 position: relative;

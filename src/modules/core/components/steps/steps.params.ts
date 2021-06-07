@@ -12,7 +12,7 @@ import {ChosenBonusSetParams} from 'wlc-engine/modules/bonuses/system/interfaces
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;
 export type Theme = 'default' | 'signInUp' | CustomType;
-export type ThemeMod = 'default' | CustomType;
+export type ThemeMod = 'default' | 'first' | CustomType;
 export type AutoModifiers = Theme | ThemeMod;
 export type CustomMod = string;
 export type Modifiers = AutoModifiers | CustomMod | null;
@@ -33,9 +33,110 @@ export enum StepsEvents {
 
 export interface IStepsParams extends IComponentParams<Theme, Type, ThemeMod> {
     theme?: Theme,
-    stepsConfig: IIndexing<IStepConfig>,
+    themeMod?: ThemeMod,
+    stepsConfig?: IIndexing<IStepConfig>,
     startStepName: string,
+    stepsConfigFirst?: IIndexing<IStepConfig>,
 }
+
+const textBlockHeader = {
+    name: 'core.wlc-text-block',
+    params: {
+        common: {
+            textBlockTitle: gettext('Register 1/2'),
+            textBlockSubtitle: gettext('Choose your Welcome Bonus'),
+        },
+    },
+};
+
+const bonusesSwiperParams = {
+    slidesPerView: 1,
+    spaceBetween: 10,
+    loop: false,
+    navigation: {
+        nextEl: '.wlc-bonuses-list .wlc-swiper-button-next',
+        prevEl: '.wlc-bonuses-list .wlc-swiper-button-prev',
+    },
+    pagination: false,
+};
+
+const bonusesStepButton = {
+    name: 'core.wlc-button',
+    params: {
+        wlcElement: 'button_next',
+        common: {
+            customModifiers: 'next-step',
+            text: gettext('Next'),
+            event: {
+                name: StepsEvents.Next,
+            },
+        },
+    },
+};
+
+const linkBlock = {
+    name: 'core.wlc-link-block',
+    params: {
+        wlcElement: 'login',
+        common: {
+            subtitle: gettext('Already have an account?'),
+            link: gettext('Login now'),
+            actionParams: {
+                modal: {
+                    name: 'login',
+                },
+            },
+        },
+    },
+};
+
+const regFormStepTopComponents = {
+    name: 'core.wlc-wrapper',
+    params: {
+        class: 'wlc-steps__head',
+        components: [
+            {
+                name: 'core.wlc-link-block',
+                params: {
+                    wlcElement: 'back',
+                    common: {
+                        link: gettext('Back'),
+                        actionParams: {
+                            event: {
+                                name: StepsEvents.Prev,
+                            },
+                        },
+                    },
+                },
+            },
+            {
+                name: 'core.wlc-text-block',
+                params: {
+                    common: {
+                        textBlockTitle: gettext('Register 2/2'),
+                        textBlockSubtitle: gettext('Your adventure begins'),
+                    },
+                },
+            },
+            {
+                name: 'core.wlc-text-block',
+                params: {
+                    common: {
+                        dynamicText: {
+                            text: gettext('The chosen bonus:'),
+                            textDefault: gettext('Without Bonus'),
+                            param: ChosenBonusSetParams.ChosenBonus + '.name',
+                        },
+                    },
+                },
+            },
+        ],
+    },
+};
+
+const regFormComponent = {
+    name: 'user.wlc-sign-up-form',
+};
 
 export const defaultParams: IStepsParams = {
     moduleName: 'core',
@@ -53,15 +154,7 @@ export const defaultParams: IStepsParams = {
                     params: {
                         class: 'wlc-steps__main',
                         components: [
-                            {
-                                name: 'core.wlc-text-block',
-                                params: {
-                                    common: {
-                                        textBlockTitle: gettext('Register 1/2'),
-                                        textBlockSubtitle: gettext('Choose your Welcome Bonus'),
-                                    },
-                                },
-                            },
+                            textBlockHeader,
                             {
                                 name: 'bonuses.wlc-bonuses-list',
                                 display: {
@@ -76,16 +169,7 @@ export const defaultParams: IStepsParams = {
                                         filter: 'reg',
                                         selectFirstBonus: true,
                                         useBlankBonus: true,
-                                        swiper: {
-                                            slidesPerView: 1,
-                                            spaceBetween: 10,
-                                            loop: false,
-                                            navigation: {
-                                                nextEl: '.wlc-bonuses-list .wlc-swiper-button-next',
-                                                prevEl: '.wlc-bonuses-list .wlc-swiper-button-prev',
-                                            },
-                                            pagination: false,
-                                        },
+                                        swiper: bonusesSwiperParams,
                                     },
                                 },
                             },
@@ -105,34 +189,8 @@ export const defaultParams: IStepsParams = {
                                     },
                                 },
                             },
-                            {
-                                name: 'core.wlc-button',
-                                params: {
-                                    wlcElement: 'button_next',
-                                    common: {
-                                        customModifiers: 'next-step',
-                                        text: gettext('Next'),
-                                        event: {
-                                            name: StepsEvents.Next,
-                                        },
-                                    },
-                                },
-                            },
-                            {
-                                name: 'core.wlc-link-block',
-                                params: {
-                                    wlcElement: 'login',
-                                    common: {
-                                        subtitle: gettext('Already have an account?'),
-                                        link: gettext('Login now'),
-                                        actionParams: {
-                                            modal: {
-                                                name: 'login',
-                                            },
-                                        },
-                                    },
-                                },
-                            },
+                            bonusesStepButton,
+                            linkBlock,
                         ],
                     },
                 },
@@ -165,52 +223,8 @@ export const defaultParams: IStepsParams = {
                     params: {
                         class: 'wlc-steps__main',
                         components: [
-                            {
-                                name: 'core.wlc-wrapper',
-                                params: {
-                                    class: 'wlc-steps__head',
-                                    components: [
-                                        {
-                                            name: 'core.wlc-link-block',
-                                            params: {
-                                                wlcElement: 'back',
-                                                common: {
-                                                    link: gettext('Back'),
-                                                    actionParams: {
-                                                        event: {
-                                                            name: StepsEvents.Prev,
-                                                        },
-                                                    },
-                                                },
-                                            },
-                                        },
-                                        {
-                                            name: 'core.wlc-text-block',
-                                            params: {
-                                                common: {
-                                                    textBlockTitle: gettext('Register 2/2'),
-                                                    textBlockSubtitle: gettext('Your adventure begins'),
-                                                },
-                                            },
-                                        },
-                                        {
-                                            name: 'core.wlc-text-block',
-                                            params: {
-                                                common: {
-                                                    dynamicText: {
-                                                        text: gettext('The chosen bonus:'),
-                                                        textDefault: gettext('Without Bonus'),
-                                                        param: ChosenBonusSetParams.ChosenBonus + '.name',
-                                                    },
-                                                },
-                                            },
-                                        },
-                                    ],
-                                },
-                            },
-                            {
-                                name: 'user.wlc-sign-up-form',
-                            },
+                            regFormStepTopComponents,
+                            regFormComponent,
                         ],
                     },
                 },
@@ -229,6 +243,56 @@ export const defaultParams: IStepsParams = {
                                     after: 899,
                                 },
                             },
+                        ],
+                    },
+                },
+            ],
+        },
+    },
+    stepsConfigFirst: {
+        'signUpBonuses': {
+            name: 'core.wlc-wrapper',
+            class: 'wlc-steps__container',
+            components: [
+                {
+                    name: 'core.wlc-wrapper',
+                    params: {
+                        class: 'wlc-steps__main',
+                        components: [
+                            textBlockHeader,
+                            {
+                                name: 'bonuses.wlc-bonuses-list',
+                                params: {
+                                    wlcElement: 'block_bonuses',
+                                    type: 'swiper',
+                                    theme: 'reg-first',
+                                    common: {
+                                        restType: 'any',
+                                        filter: 'reg',
+                                        selectFirstBonus: true,
+                                        useBlankBonus: false,
+                                        swiper: bonusesSwiperParams,
+                                    },
+                                },
+                            },
+                            bonusesStepButton,
+                            linkBlock,
+                        ],
+                    },
+                },
+            ],
+        },
+        'signUpForm': {
+            name: 'core.wlc-wrapper',
+            class: 'wlc-steps__container wlc-steps__container--sign-up',
+            components: [
+                {
+                    name: 'core.wlc-wrapper',
+                    params: {
+                        class: 'wlc-steps__main',
+                        components: [
+                            regFormStepTopComponents,
+                            regFormComponent,
                         ],
                     },
                 },
