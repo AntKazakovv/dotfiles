@@ -11,6 +11,7 @@ import {
     TemplateRef,
     AfterViewInit,
     ElementRef,
+    ViewContainerRef,
 } from '@angular/core';
 import {
     StateService,
@@ -23,7 +24,6 @@ import {
     transition,
     trigger,
 } from '@angular/animations';
-import {NgIfContext} from '@angular/common';
 
 import {MenuHelper} from 'wlc-engine/modules/menu/system/helpers/menu.helper';
 import {
@@ -90,7 +90,7 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
     @ViewChild('modal') tplModal: TemplateRef<ElementRef>;
     @ViewChild('href') tplHref: TemplateRef<ElementRef>;
     @ViewChild('scroll') tplScroll: TemplateRef<ElementRef>;
-    @ViewChild('srefWithParent') srefWithParent: TemplateRef<NgIfContext<boolean>>
+    @ViewChild('srefWithParent') srefWithParent: ViewContainerRef;
 
     @Input() protected inlineParams: Params.IMenuCParams;
 
