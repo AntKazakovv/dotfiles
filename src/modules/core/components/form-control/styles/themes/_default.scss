@@ -54,7 +54,7 @@
         #{$selector}__icon {
 
             .icon {
-                background: darken(ef.get-value($themeDefault, 'errorColor'), 20%);
+                background: ef.get-value($themeDefault, 'errorColor');
                 transform: rotate(45deg);
 
                 &:before {
