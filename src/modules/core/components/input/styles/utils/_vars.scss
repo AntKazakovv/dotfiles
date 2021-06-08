@@ -76,7 +76,7 @@ $themeVertical: map-merge((
     'inputBackground': ef.get('fieldColors', 'inputBg'),
     'inputColor': ef.get('fieldColors', 'textColor'),
     'inputPlaceholderColor': ef.get('fieldColors', 'placeholderColor'),
-    'inputBorder': 2px solid ef.get('fieldColors', 'borderColor'),
+    'inputBorder': ef.get('form', 'inputBorder'),
     'inputBorderRadius': ef.get('form', 'inputBorderRadius'),
 
     'iconTextStyle': 'PrimaryText',

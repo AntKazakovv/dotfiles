@@ -26,6 +26,8 @@
         position: relative;
 
         input {
+            @include resetAppearance();
+
             width: 100%;
             border: ef.get-value($themeDefault, 'inputBorder');
             border-radius: ef.get-value($themeDefault, 'inputBorderRadius');

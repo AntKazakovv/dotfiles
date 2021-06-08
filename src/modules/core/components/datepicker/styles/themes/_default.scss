@@ -21,13 +21,15 @@
 
     .wlc-datepicker__input {
         @include lib.get-text-style('PrimaryText', ef.get-value($themeDefault, 'PrimaryText'));
+
         width: 100%;
+        height: ef.get-value($themeDefault, 'inputHeight');
         padding: ef.get-value($themeDefault, 'inputPadding');
         border-radius: ef.get-value($themeDefault, 'inputBorderRadius');
         border: ef.get-value($themeDefault, 'inputBorder');
         color: ef.get-value($themeDefault, 'inputColor');
+        background: ef.get-value($themeDefault, 'inputBg');
         transition: ef.get-value($themeDefault, 'transition');
-        height: ef.get-value($themeDefault, 'inputHeight');
 
         &.ng-untouched {
             color: ef.get-value($themeDefault, 'inputPlaceholderColor');

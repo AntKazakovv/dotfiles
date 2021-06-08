@@ -6,3 +6,9 @@
     grid-template-columns: 1fr;
     gap: map-get($theme, 'labelGap');
 }
+
+@mixin resetAppearance() {
+    // stylelint-disable-next-line
+    -webkit-appearance: none;
+    appearance: none;
+}
