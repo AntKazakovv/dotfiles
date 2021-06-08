@@ -9,12 +9,6 @@ import {
     OnInit,
     ViewEncapsulation,
 } from '@angular/core';
-import {
-    animate,
-    style,
-    trigger,
-    transition,
-} from '@angular/animations';
 import {UIRouter} from '@uirouter/core';
 import {
     AbstractComponent,
@@ -47,28 +41,6 @@ import _isEmpty from 'lodash-es/isEmpty';
     preserveWhitespaces: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    animations: [
-        trigger('chosenImage', [
-            transition('* => *', [
-                style({
-                    borderColor: '*',
-                }),
-                animate('0.3s ease-in-out', style({
-                    borderColor: '*',
-                })),
-            ]),
-        ]),
-        trigger('chosenIcon', [
-            transition('* => *', [
-                style({
-                    opacity: '0',
-                }),
-                animate('0.3s ease-in-out', style({
-                    opacity: '*',
-                })),
-            ]),
-        ]),
-    ],
 })
 export class BonusItemComponent extends AbstractComponent implements OnInit, OnDestroy, OnChanges {
     @Input() public inlineParams: Params.IBonusItemCParams;
