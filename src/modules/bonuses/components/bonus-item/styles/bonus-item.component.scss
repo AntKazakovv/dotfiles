@@ -1,4 +1,6 @@
 @import './utils/vars';
+@import './utils/vars-reg-first';
+@import './utils/mixins';
 @import './themes/default';
 @import './themes/promo';
 @import './themes/long';
@@ -6,4 +8,5 @@
 @import './themes/partial';
 @import './themes/preview';
 @import './themes/promo-home';
+@import './themes/reg-first';
 @import './themes/active';

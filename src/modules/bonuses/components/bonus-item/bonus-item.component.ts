@@ -140,15 +140,22 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
     }
 
     public getBonusTag(): string {
-        if (this.$params.common.bonus?.isActive) {
+        if (!this.$params.common.bonus) {
+            return gettext('Unknown');
+        }
+        if (this.$params.common.bonus.isActive) {
             return gettext('Active');
         }
-        if (this.$params.common.bonus?.isSubscribed) {
+        if (this.$params.common.bonus.isSubscribed) {
             return gettext('Subscribed');
         }
 
-        if (this.$params.common.bonus?.inventoried) {
+        if (this.$params.common.bonus.inventoried) {
             return gettext('Inventoried');
+        }
+
+        if (this.$params.theme === 'reg-first' && this.$params.common.bonus.isChoose) {
+            return gettext('Selected');
         }
         return this.$params.common.bonus?.group;
     }

@@ -47,6 +47,7 @@ import _uniq from 'lodash-es/uniq';
 import _uniqBy from 'lodash-es/uniqBy';
 import _orderBy from 'lodash-es/orderBy';
 import _reduce from 'lodash-es/reduce';
+import _size from 'lodash-es/size';
 
 export class GamesCatalog extends AbstractModel<IGames> {
 
@@ -179,7 +180,7 @@ export class GamesCatalog extends AbstractModel<IGames> {
             gameList = this.sortNameByRegExp(searchQuery, gameList);
         }
 
-        if (gameIds?.length) {
+        if (_size(gameIds)) {
             gameList = _filter(gameList, (game: Game): boolean => {
                 return _includes(gameIds, game.ID);
             });
@@ -595,7 +596,7 @@ export class GamesCatalog extends AbstractModel<IGames> {
         const mainParentCategory: CategoryModel = this.getCategoryBySlug(['casino', 'livecasino', 'tablegames'], true);
 
         const otherCategories: CategoryModel[] = _filter(parentCategories, (category) => {
-            return category.slug !== mainParentCategory?.slug;
+            return category.slug !== mainParentCategory?.slug && !category.isSpecial;
         });
 
         let gamesList = this.games;
@@ -647,13 +648,9 @@ export class GamesCatalog extends AbstractModel<IGames> {
             }
         });
 
-        let specialCategories: CategoryModel[] = _filter(this.categories, (category: CategoryModel) => {
-            return category.isLastPlayed || category.isFavourites;
-        });
-        specialCategories = specialCategories.slice(0, 2);
         mainParentCategory.setChildCategories(availableChildCategories);
 
-        this.projectCategories = this.sortCategories(_union(specialCategories, parentCategories, availableChildCategories));
+        this.projectCategories = this.sortCategories(_union(parentCategories, availableChildCategories));
 
         _forEach(this.projectCategories, (category) => {
             if (category.isJackpots && this.overrideJackpots) {

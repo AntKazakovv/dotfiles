@@ -25,6 +25,8 @@
         @include ThirdTitleBold;
     } @else if ($style == 'QoteTextBold') {
         @include QoteTextBold;
+    } @else if ($style == 'QoteTextBoldSmaller') {
+        @include QoteTextBoldSmaller;
     } @else if ($style == 'QoteTextBoldTight') {
         @include QoteTextBoldTight;
     } @else if ($style == 'PlaceholderTextBold') {
@@ -94,6 +96,12 @@
     font-weight: ef.get('fontWeight', 'QoteTextBold');
     font-size: ef.get('font', 'QoteTextBold');
     line-height: 1.45;
+}
+
+@mixin QoteTextBoldSmaller {
+    font-weight: ef.get('fontWeight', 'QoteTextBoldSmaller');
+    font-size: ef.get('font', 'QoteTextBoldSmaller');
+    line-height: 1.4;
 }
 
 @mixin QoteTextBoldTight {

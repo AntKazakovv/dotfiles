@@ -1,0 +1,52 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/base.mixins' as bm;
+
+.wlc-bonuses-list--theme-reg-first:host {
+
+    .swiper-button-container {
+        @include bm.get-mq-map('top', $themeRegFirst, 'sliderTopPos');
+        @include bm.get-mq-map('max-width', $themeRegFirst, 'sliderMaxWidth');
+
+        position: absolute;
+        right: ef.get-value($themeRegFirst, 'sliderRight');
+        left: ef.get-value($themeRegFirst, 'sliderLeft');
+        z-index: ef.get-value($themeRegFirst, 'sliderZIndex');
+
+        display: flex;
+        align-items: ef.get-value($themeRegFirst, 'sliderAlignItems');
+        justify-content: ef.get-value($themeRegFirst, 'sliderJustifyContent');
+
+        margin: ef.get-value($themeRegFirst, 'sliderMargin');
+
+        pointer-events: none;
+
+        .wlc-swiper-button-prev,
+        .wlc-swiper-button-next {
+            pointer-events: all;
+        }
+    }
+
+    .wlc-bonuses-list {
+
+        &__list {
+
+            &-wrapper {
+                position: relative;
+
+                .swiper-slide,
+                .swiper-wrapper {
+                    will-change: transform;
+                }
+            }
+        }
+
+        &__checkbox-wrapper {
+            margin: ef.get-value($themeRegFirst, 'checkBoxMargin');
+            text-align: ef.get-value($themeRegFirst, 'checkBoxAlign');
+        }
+
+        &__checkbox {
+            display: inline-block;
+        }
+    }
+}

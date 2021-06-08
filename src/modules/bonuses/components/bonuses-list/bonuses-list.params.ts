@@ -11,7 +11,7 @@ import {
 } from 'wlc-engine/modules/bonuses';
 
 export type Type = 'default' | 'swiper' | CustomType;
-export type Theme = 'active'| 'default' | 'partial' | 'promo' | 'promo-home'  | CustomType;
+export type Theme = 'active'| 'default' | 'partial' | 'promo' | 'promo-home' | 'reg-first' | CustomType;
 export type ThemeMod = 'default' | CustomType;
 export type AutoModifiers = Theme | ThemeMod;
 export type CustomMod = string;

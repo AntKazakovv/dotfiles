@@ -232,7 +232,7 @@ export class Bonus extends AbstractModel<IBonus> {
     }
 
     public get imageReg(): string {
-        return this.data.Image_reg;
+        return this.data.Image_reg || this.data.Image;
     }
 
     public get imageStore(): string {

@@ -19,7 +19,7 @@
                      data-wlc-element="bonus_type-title">{{getBonusTag() | translate}}</div>
                 <div *ngIf="!$params.common?.useIconBonusImage && $params.common.imageByType"
                      class="{{$class}}__image"
-                     [style]="{backgroundImage: $params.common.bonus?.getImageByType($params.common?.type)}">
+                     [style]="{backgroundImage: 'url(' + $params.common.bonus?.getImageByType($params.common?.type) + ')'}">
                     <img *ngIf="$params.common?.showAdditionalImage && $params.common.bonus?.imageOther"
                          class="wlc-bonus-image-other"
                          [src]="$params.common.bonus?.imageOther"
@@ -27,7 +27,7 @@
                 </div>
                 <div *ngIf="!$params.common?.useIconBonusImage && !$params.common.imageByType"
                      class="{{$class}}__image"
-                     [style]="{backgroundImage: $params.common.bonus?.image}">
+                     [style]="{backgroundImage: 'url(' + $params.common.bonus?.image + ')'}">
                     <img *ngIf="$params.common?.showAdditionalImage && $params.common.bonus?.imageOther"
                          class="wlc-bonus-image-other"
                          [src]="$params.common.bonus?.imageOther"
@@ -260,7 +260,46 @@
         </div>
     </div>
 </ng-template>
-
+<ng-template #regFirst>
+    <div class="{{$class}}__content"
+         [class.chosen]="chosen || $params.common.bonus.isChoose">
+         <div class="{{$class}}__wrapper" (click)="chooseBonusNoBtn($params.common.bonus, $params.common.type)">
+            <div class="{{$class}}__image-block" data-wlc-element="bonus_image">
+                <div *ngIf="!!getBonusTag()"
+                     class="{{$class}}__tag"
+                     data-wlc-element="bonus_type-title">{{getBonusTag() | translate}}</div>
+                <div *ngIf="$params.common.imageByType"
+                     class="{{$class}}__image"
+                     [style]="{backgroundImage: 'url(' + $params.common.bonus?.getImageByType($params.common.type) + ')'}">
+                    <img *ngIf="$params.common?.showAdditionalImage && $params.common.bonus?.imageOther"
+                         class="wlc-bonus-image-other"
+                         [src]="$params.common.bonus?.imageOther"
+                         loading="lazy">
+                </div>
+                <div *ngIf="!$params.common.imageByType"
+                     class="{{$class}}__image"
+                     [style]="{backgroundImage: 'url(' + $params.common.bonus?.image + ')'}">
+                    <img *ngIf="$params.common?.showAdditionalImage && $params.common.bonus?.imageOther"
+                         class="wlc-bonus-image-other"
+                         [src]="$params.common.bonus?.imageOther"
+                         loading="lazy">
+                </div>
+            </div>
+            <div class="{{$class}}__bottom" data-wlc-element="bonus_info">
+                <div class="{{$class}}__info-block">
+                    <h4 class="{{$class}}__name" [wlc-clamp]="$params.common?.nameClamp || 1"
+                        data-wlc-element="bonus_title-name">
+                        {{$params.common.bonus?.name}}
+                    </h4>
+                    <p class="{{$class}}__description" [wlc-clamp]="2">
+                        {{$params.common.bonus?.description | translate}}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <ng-container [ngTemplateOutlet]="moreIcon"></ng-container>
+    </div>
+</ng-template>
 <ng-template #preview>
     <div *ngIf="$params.common.bonus; else blank"
          class="{{$class}}__content">
@@ -322,7 +361,7 @@
             <div class="{{$class}}__image-block" data-wlc-element="bonus_image">
                 <div *ngIf="!$params.common?.useIconBonusImage && $params.common.imageByType"
                      class="{{$class}}__image"
-                     [style]="{backgroundImage: $params.common.bonus.getImageByType($params.common?.type)}">
+                     [style]="{backgroundImage: 'url(' + $params.common.bonus.getImageByType($params.common?.type) + ')'}">
                     <img *ngIf="$params.common?.showAdditionalImage"
                          class="wlc-bonus-image-other"
                          [src]="$params.common.bonus.imageOther"
@@ -330,7 +369,7 @@
                 </div>
                 <div *ngIf="!$params.common?.useIconBonusImage && !$params.common.imageByType"
                      class="{{$class}}__image"
-                     [style]="{backgroundImage: $params.common.bonus.image}">
+                     [style]="{backgroundImage: 'url(' + $params.common.bonus.image + ')'}">
                     <img *ngIf="$params.common?.showAdditionalImage"
                          class="wlc-bonus-image-other"
                          [src]="$params.common.bonus.imageOther"
@@ -404,7 +443,7 @@
                      >{{getBonusTag() | translate}}</div>
                 <div *ngIf="!$params.common?.useIconBonusImage && $params.common.imageByType"
                      class="{{$class}}__image"
-                     [style]="{backgroundImage: $params.common.bonus?.getImageByType($params.common?.type)}">
+                     [style]="{backgroundImage: 'url(' + $params.common.bonus?.getImageByType($params.common?.type) + ')'}">
                     <img *ngIf="$params.common?.showAdditionalImage"
                          class="wlc-bonus-image-other"
                          [src]="$params.common.bonus?.imageOther"
@@ -412,7 +451,7 @@
                 </div>
                 <div *ngIf="!$params.common?.useIconBonusImage && !$params.common.imageByType"
                      class="{{$class}}__image"
-                     [style]="{backgroundImage: $params.common.bonus?.image}">
+                     [style]="{backgroundImage: 'url(' + $params.common.bonus?.image + ')'}">
                     <img *ngIf="$params.common?.showAdditionalImage"
                          class="wlc-bonus-image-other"
                          [src]="$params.common.bonus?.imageOther"
@@ -563,7 +602,7 @@
                     {{getBonusTag() | translate}}</div>
                 <div *ngIf="!$params.common?.useIconBonusImage && $params.common.imageByType"
                      class="{{$class}}__image"
-                     [style]="{backgroundImage: $params.common.bonus?.getImageByType($params.common?.type)}">
+                     [style]="{backgroundImage: 'url(' + $params.common.bonus?.getImageByType($params.common?.type) + ')'}">
                     <img *ngIf="$params.common?.showAdditionalImage"
                          class="wlc-bonus-image-other"
                          [src]="$params.common.bonus?.imageOther"
@@ -571,7 +610,7 @@
                 </div>
                 <div *ngIf="!$params.common?.useIconBonusImage && !$params.common.imageByType"
                      class="{{$class}}__image"
-                     [style]="{backgroundImage: $params.common.bonus?.image}">
+                     [style]="{backgroundImage: 'url(' + $params.common.bonus?.image + ')'}">
                     <img *ngIf="$params.common?.showAdditionalImage"
                          class="wlc-bonus-image-other"
                          [src]="$params.common.bonus?.imageOther"
@@ -664,6 +703,7 @@
 
 <ng-container [ngSwitch]="$params.theme">
     <ng-container [ngTemplateOutlet]="partial" *ngSwitchCase="'partial'"></ng-container>
+    <ng-container [ngTemplateOutlet]="regFirst" *ngSwitchCase="'reg-first'"></ng-container>
     <ng-container [ngTemplateOutlet]="preview" *ngSwitchCase="'preview'"></ng-container>
     <ng-container [ngTemplateOutlet]="promo" *ngSwitchCase="'promo'"></ng-container>
     <ng-container [ngTemplateOutlet]="promoHome" *ngSwitchCase="'promo-home'"></ng-container>

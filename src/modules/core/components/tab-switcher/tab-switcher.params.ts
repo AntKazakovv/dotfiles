@@ -9,6 +9,7 @@ import {
 
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;
+export type ThemeMod = 'default' | 'with-banner' | 'first' | CustomType;
 
 export interface ITab {
     name?: string;
@@ -22,8 +23,10 @@ export interface ITab {
     modalId?: string;
 };
 
-export interface ITabSwitcherParams extends IComponentParams<ComponentTheme, ComponentType, string> {
-    tabs?: ITab[]
+export interface ITabSwitcherParams extends IComponentParams<ComponentTheme, ComponentType, ThemeMod> {
+    tabs?: ITab[];
+    theme?: ComponentTheme;
+    themeMod?: ThemeMod;
 }
 
 export const defaultParams: ITabSwitcherParams = {

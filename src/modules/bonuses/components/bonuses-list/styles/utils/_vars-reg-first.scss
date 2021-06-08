@@ -1,0 +1,21 @@
+@use 'engine-scss/functions' as ef;
+
+$customThemeRegFirst: () !default;
+$themeRegFirst: map-merge((
+    'sliderRight': 0,
+    'sliderLeft': 0,
+    'sliderZIndex': 2,
+    'sliderTopPos': (
+        320: 120px,
+        1630: 179px,
+    ),
+    'sliderMaxWidth': (
+        320: 300px,
+        1630: 360px,
+    ),
+    'sliderMargin': auto,
+    'sliderAlignItems': center,
+    'sliderJustifyContent': space-between,
+    'checkBoxMargin': ef.get('size', 'main') 0 0 0,
+    'checkBoxAlign': center,
+), $customThemeRegFirst);

@@ -57,7 +57,7 @@
 
             &.ng-invalid {
                 background: ef.get-value($themeDefault, 'errorsBgColor');
-                border-color: darken(ef.get-value($themeDefault, 'errorsBgColor'), 10%);
+                border-color: ef.get-value($themeDefault, 'errorsBorderColor');
             }
         }
 
