@@ -5,6 +5,7 @@ $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'contentMargin': 0 auto 40px auto,
     'contentPaddings': ef.get('size', 'big'),
+    'mobileZIndex': 1020,
     'headerPaddings': ef.get('size', 'main'),
     'headerBg': transparent,
     'headerColor': ef.get('mainColors', 'baseMain'),
