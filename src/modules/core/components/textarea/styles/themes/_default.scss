@@ -42,14 +42,16 @@
         max-width: ef.get-value($themeDefault, '$textareaMaxWidth');
 
         textarea {
-
             @include lib.get-text-style('PrimaryText', ef.get-value($themeDefault, 'textareaColor'));
             @include bm.get-mq-map('min-height', $themeDefault, 'textareaMinHeight');
+
             width: 100%;
             padding: ef.get-value($themeDefault, 'textareaPadding');
-            resize: vertical;
+
+            background: ef.get-value($themeDefault, 'textareaBg');
             border: ef.get-value($themeDefault, 'textareaBorder');
             border-radius: ef.get-value($themeDefault, 'textareaBorderRadius');
+            resize: vertical;
 
             &::placeholder {
                 color: ef.get-value($themeDefault, 'textareaPlaceholderColor');

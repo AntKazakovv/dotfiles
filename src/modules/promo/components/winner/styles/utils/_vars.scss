@@ -50,12 +50,17 @@ $themeDefault: map-merge((
     'countryShadow': none,
 
     // game
-    'gameFontSize': ef.get('font', 'main'),
-    'gameFontWeight': 700,
+    'gameTextStyle': 'ThirdTitleBold',
+    'gameTextAlign': left,
     'gameColor': ef.get('mainColors', 'baseMain'),
     'gameBorderColor': transparent,
+    'gameArrowWidth': 16px,
     'gameArrowColor': ef.get('mainColors', 'main'),
-    'gameArrowMarginLeft': 10px,
+    'gameArrowMarginLeft': ef.get('size', 'small'),
+    'gameColumns': 1fr auto,
+    'gameAlignItems': center,
+    'gameJustifyItems': start,
+    'gamePadding': 0,
 
     'gameHoverColor': currentColor,
     'gameHoverBorderColor': currentColor,
@@ -70,7 +75,6 @@ $themeDefault: map-merge((
 // ~~ theme VERTICAL
 $customThemeVertical: () !default;
 $themeVertical: map-merge((
-    'transition': ef.get('time', 'main') linear,
     'lineHeight': 1.3,
 
     // winner left block
@@ -107,14 +111,16 @@ $themeVertical: map-merge((
     'countryShadow': none,
 
     // game
-    'gameFontSize': ef.get('font', 'main'),
-    'gameFontWeight': 700,
     'gameColor': ef.get('mainColors', 'baseMain'),
     'gameBorderColor': transparent,
     'gameArrowColor': ef.get('mainColors', 'secondary'),
     'gameArrowMarginLeft': ef.get('size', 'small'),
     'gameArrowWidth': 16px,
-    'gameArrowFlex': 0 1 auto,
+    'gameTextAlign': left,
+    'gameColumns': 1fr auto,
+    'gameAlignItems': center,
+    'gameJustifyItems': flex-start,
+    'gamePadding': 0,
 
     'gameHoverColor': currentColor,
     'gameHoverBorderColor': currentColor,

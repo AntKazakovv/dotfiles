@@ -90,11 +90,19 @@
             }
 
             &--odd {
-                @include bm.get-mq-map('background', $themeTournaments, 'rowBgOdd');
+                background: none;
+
+                .wlc-table__cell {
+                    @include bm.get-mq-map('background', $themeTournaments, 'rowBgOdd');
+                }
             }
 
             &--even {
-                @include bm.get-mq-map('background', $themeTournaments, 'rowBgEven');
+                background: none;
+
+                .wlc-table__cell {
+                    @include bm.get-mq-map('background', $themeTournaments, 'rowBgEven');
+                }
             }
 
 
@@ -113,9 +121,9 @@
             }
 
             &:nth-child(3) {
-                @include bm.get-mq-map('background', $themeTournaments, 'rowBgOdd');
 
                 .wlc-table__cell {
+                    @include bm.get-mq-map('background', $themeTournaments, 'rowBgOdd');
 
                     &:first-child {
                         border-radius: 0;

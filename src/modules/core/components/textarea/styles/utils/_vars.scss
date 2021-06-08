@@ -7,6 +7,7 @@ $themeDefault: map-merge((
     'labelMargin': 0 0 0 ef.get('size', 'small'),
 
     'textareaColor': ef.get('fieldColors', 'textColor'),
+    'textareaBg': ef.get('fieldColors', 'inputBg'),
     'textareaPlaceholderColor': ef.get('fieldColors', 'placeholderColor'),
     'textareaWidth': ef.get('form', 'inputMaxWidth'),
     'textareaMaxWidth': ef.get('form', 'inputMaxWidth'),

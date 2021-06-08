@@ -19,14 +19,6 @@
             @include bm.get-mq-map('grid-auto-columns', $themeDefault, 'filterGridAutoColumns');
             @include bm.get-mq-map('gap', $themeDefault, 'filterGap');
 
-            .wlc-btn {
-                min-height: ef.get-value($themeDefault, 'btnMinHeight');
-            }
-
-            .wlc-btn.active {
-                @include button.buttonBase();
-            }
-
             .wlc-select[wlc-select] {
                 min-width: ef.get-value($themeDefault, 'filterMinWidth');
             }

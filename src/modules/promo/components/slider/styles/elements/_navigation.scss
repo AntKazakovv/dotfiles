@@ -24,9 +24,8 @@
     }
 
     &.swiper-button-disabled {
-        cursor: auto;
+        cursor: default;
         opacity: ef.get-value($themeDefaultNavigation, 'swiperNaviButtonDisabledOpacity');
-        pointer-events: none;
     }
 
     &:after {
@@ -39,11 +38,14 @@
     }
 
     @include em.hover {
-        color: ef.get-value($themeDefaultNavigation, 'swiperNaviArrowColorHover');
-        background: ef.get-value($themeDefaultNavigation, 'swiperNaviButtonBgHover');
 
-        svg {
-            fill: ef.get-value($themeDefaultNavigation, 'swiperNaviArrowColorHover');
+        &:not(.swiper-button-disabled) {
+            color: ef.get-value($themeDefaultNavigation, 'swiperNaviArrowColorHover');
+            background: ef.get-value($themeDefaultNavigation, 'swiperNaviButtonBgHover');
+
+            svg {
+                fill: ef.get-value($themeDefaultNavigation, 'swiperNaviArrowColorHover');
+            }
         }
     }
 }
@@ -101,15 +103,18 @@
     }
 
     &.swiper-button-disabled {
-        cursor: auto;
+        cursor: default;
         opacity: 0.5;
     }
 
     @include em.hover {
-        background: ef.get-value($themeDefaultBanner, 'buttonBgHover');
 
-        svg {
-            fill: ef.get-value($themeDefaultBanner, 'iconFillHover');
+        &:not(.swiper-button-disabled) {
+            background: ef.get-value($themeDefaultBanner, 'buttonBgHover');
+
+            svg {
+                fill: ef.get-value($themeDefaultBanner, 'iconFillHover');
+            }
         }
     }
 }

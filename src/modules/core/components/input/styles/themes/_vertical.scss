@@ -35,6 +35,8 @@
     }
 
     .wlc-input__input {
+        @include resetAppearance();
+
         position: relative;
         display: block;
         width: ef.get-value($themeVertical, 'inputWidth');

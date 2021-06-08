@@ -9,6 +9,10 @@
 
         &.wlc-btn--theme-mod-secondary {
             @include buttonTransparency;
+
+            &.active {
+                @include secondaryActiveState;
+            }
         }
 
         &.wlc-btn--theme-mod-readmore {

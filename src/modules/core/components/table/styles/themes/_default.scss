@@ -38,11 +38,19 @@ $selector: '.wlc-table';
                 }
 
                 &--odd {
-                    background: ef.get-value($themeDefault, 'rowOddBackgroundDesktop');
+                    background: none;
+
+                    .wlc-table__cell {
+                        background: ef.get-value($themeDefault, 'rowOddBackgroundDesktop');
+                    }
                 }
 
                 &--even {
-                    background: ef.get-value($themeDefault, 'rowEvenBackgroundDesktop');
+                    background: none;
+
+                    .wlc-table__cell {
+                        background: ef.get-value($themeDefault, 'rowEvenBackgroundDesktop');
+                    }
                 }
             }
 

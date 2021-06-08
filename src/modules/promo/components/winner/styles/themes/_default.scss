@@ -83,18 +83,44 @@
         }
 
         &__game {
-            padding: 0;
+            @include text.get-text-style(ef.get-value($themeDefault, 'gameTextStyle'), ef.get-value($themeDefault, 'gameColor'));
+
+            display: grid;
+            grid-area: game;
+            grid-gap: ef.get-value($themeDefault, 'gameArrowMarginLeft');
+            grid-template-columns: ef.get-value($themeDefault, 'gameColumns');
+            align-items: ef.get-value($themeDefault, 'gameAlignItems');
+            justify-items: ef.get-value($themeDefault, 'gameJustifyItems');
+            padding: ef.get-value($themeDefault, 'gamePadding');
+
+            text-align: ef.get-value($themeDefault, 'gameTextAlign');
+            text-decoration: none;
+
             background: transparent;
             border: none;
 
-            grid-area: game;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            @include text.get-text-style('ThirdTitleBold', ef.get-value($themeDefault, 'gameColor'));
-            text-decoration: none;
+            &:focus {
+                outline: none;
+            }
 
-            &:hover {
+            &-name {
+                @include em.transition(border-color);
+                @include gameNameOverflow();
+
+                border-bottom: 1px solid ef.get-value($themeDefault, 'gameBorderColor');
+            }
+
+            &-arrow {
+                @include em.transition(color);
+
+                width: ef.get-value($themeDefault, 'gameArrowWidth');
+                min-width: 0;
+
+                color: ef.get-value($themeDefault, 'gameArrowColor');
+                border-bottom: 1px solid ef.get-value($themeDefault, 'gameBorderColor');
+            }
+
+            @include em.hover() {
                 color: ef.get-value($themeDefault, 'gameHoverColor');
 
                 .wlc-winner__game-name {
@@ -102,35 +128,9 @@
                 }
 
                 .wlc-winner__game-arrow {
-                    fill: ef.get-value($themeDefault, 'gameHoverArrowColor');
+                    color: ef.get-value($themeDefault, 'gameHoverArrowColor');
                 }
             }
-
-            &:focus {
-                outline: none;
-            }
-        }
-
-        &__game-name {
-            flex: 0 1 auto;
-            min-width: 0;
-            border-bottom: 1px solid ef.get-value($themeDefault, 'gameBorderColor');
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            transition: ef.get-value($themeDefault, 'transition');
-        }
-
-        &__game-arrow {
-            flex: 0 1 auto;
-            min-width: 0;
-            border-bottom: 1px solid ef.get-value($themeDefault, 'gameBorderColor');
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            color: ef.get-value($themeDefault, 'gameArrowColor');
-            margin-left: ef.get-value($themeDefault, 'gameArrowMarginLeft');
-            transition: ef.get-value($themeDefault, 'transition');
         }
 
         &__amount {
