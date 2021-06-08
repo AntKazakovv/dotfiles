@@ -383,7 +383,7 @@ export class GamesGridComponent extends AbstractComponent
                 merchants: this.$params.filter['merchants'] || [],
                 excludeCategories: this.$params.filter['excludeCategories'] || [],
                 excludeMerchants: this.$params.filter['excludeMerchants'] || [],
-                ids: this.$params.filter['ids'] || [],
+                ids: this.$params.filter['ids'],
                 searchQuery: this.$params.filter['searchQuery'] || '',
             };
 
