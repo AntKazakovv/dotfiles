@@ -47,6 +47,7 @@ import _uniq from 'lodash-es/uniq';
 import _uniqBy from 'lodash-es/uniqBy';
 import _orderBy from 'lodash-es/orderBy';
 import _reduce from 'lodash-es/reduce';
+import _size from 'lodash-es/size';
 
 export class GamesCatalog extends AbstractModel<IGames> {
 
@@ -179,7 +180,7 @@ export class GamesCatalog extends AbstractModel<IGames> {
             gameList = this.sortNameByRegExp(searchQuery, gameList);
         }
 
-        if (_isArray(gameIds)) {
+        if (_size(gameIds)) {
             gameList = _filter(gameList, (game: Game): boolean => {
                 return _includes(gameIds, game.ID);
             });
