@@ -1,16 +1,21 @@
 import {InjectionToken} from "@angular/core";
+import {DOCUMENT} from "@angular/common";
+import {TranslateService} from "@ngx-translate/core";
+import {ResolveTypes} from "@uirouter/core";
 import {shouldPolyfill as shouldPolyfillNumberFormat} from '@formatjs/intl-numberformat/should-polyfill';
 import {shouldPolyfill as shouldPolyfillLocale} from '@formatjs/intl-locale/should-polyfill';
 import {shouldPolyfill as shouldPolyfillPluralRules} from '@formatjs/intl-pluralrules/should-polyfill';
-import {TranslateService} from "@ngx-translate/core";
-import {ResolveTypes} from "@uirouter/core";
 import {ConfigService} from "wlc-engine/modules/core";
 
 export const polyfillsResolver: ResolveTypes = {
-    token: new InjectionToken('Empty token'),
-    deps: [ConfigService, TranslateService],
-    async resolveFn(configService: ConfigService, translateService: TranslateService) {
-        return new PolyfillsResolver(configService, translateService).resolve();
+    token: new InjectionToken('Polyfills resolver'),
+    deps: [ConfigService, TranslateService, DOCUMENT],
+    async resolveFn(
+        configService: ConfigService,
+        translateService: TranslateService,
+        document: HTMLDocument,
+    ) {
+        return new PolyfillsResolver(configService, translateService, document).resolve();
     },
 };
 
@@ -20,10 +25,19 @@ class PolyfillsResolver {
     constructor(
         private configService: ConfigService,
         private translateService: TranslateService,
+        private document: HTMLDocument,
     ) {
     }
 
     public async resolve(): Promise<void> {
+        await this.smoothScroll();
+        await this.formatjs();
+    }
+
+    /**
+     * load formatjs polyfills
+     */
+    private async formatjs(): Promise<void> {
         if (!PolyfillsResolver.shouldPolyfillNumberFormat) {
             return;
         }
@@ -89,5 +103,17 @@ class PolyfillsResolver {
                 await import('@formatjs/intl-numberformat/locale-data/en');
                 break;
         }
+    }
+
+    /**
+     * load smoothScroll polyfill
+     */
+    private async smoothScroll(): Promise<void> {
+        if ('scrollBehavior' in this.document.documentElement.style) {
+            return;
+        }
+        return await import('wlc-engine/system/polyfills/smoothscroll').then(m => {
+            m.polyfill(this.document);
+        });
     }
 }

@@ -21,7 +21,7 @@ export const gamesConfig: IGamesConfig = {
             "942": {},
             "912": {},
             "987": {},
-        }
+        },
     },
     run: {
         skipCheckBalance: false,
