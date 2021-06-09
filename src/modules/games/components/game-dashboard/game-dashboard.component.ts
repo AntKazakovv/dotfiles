@@ -314,7 +314,7 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
     public openTab(tab: Params.IGameDashboardTab): void {
         this.activeTab = tab;
         this.eventService.emit({
-            name: Params.Events.CHANED_TAB,
+            name: Params.GameDashboardEvents.CHANED_TAB,
             data: {
                 tab: tab,
             },
@@ -685,7 +685,7 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
             `translateX(${translate}px)`,
         );
         this.eventService.emit({
-            name: open ? Params.Events.OPENED : Params.Events.CLOSED,
+            name: open ? Params.GameDashboardEvents.OPENED : Params.GameDashboardEvents.CLOSED,
         });
     }
 

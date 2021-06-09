@@ -29,7 +29,7 @@ interface IEvents {
     CHANED_TAB: string,
 };
 
-export const Events: IEvents = {
+export const GameDashboardEvents: IEvents = {
     OPENED: 'opened@GameDashboard',
     CLOSED: 'closed@GameDashboard',
     CHANED_TAB: 'changedTab@GameDashboard',

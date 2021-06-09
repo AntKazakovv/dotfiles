@@ -1,7 +1,6 @@
+@use 'engine-scss/functions' as ef;
 @use 'engine-scss/mixins/mediaqueries' as mq;
 @use 'engine-scss/mixins/base.mixins' as em;
-@import '../utils/mixins';
-@import '../utils/vars';
 
 .wlc-game-wrapper--theme-default {
 
@@ -26,7 +25,7 @@
     .wlc-game-wrapper {
 
         &__content {
-            margin: map-get($themeDefault, 'contentMargin');
+            margin: ef.get-value($themeDefault, 'contentMargin');
         }
 
         &__preloader {
@@ -40,13 +39,13 @@
         &__header {
             @include flexBlock;
 
-            padding: map-get($themeDefault, 'headerPaddings') 0;
-            background: map-get($themeDefault, 'headerBg');
+            padding: ef.get-value($themeDefault, 'headerPaddings') 0;
+            background: ef.get-value($themeDefault, 'headerBg');
 
             h2 {
                 max-width: 50%;
-                margin: map-get($themeDefault, 'headerMargin');
-                color: map-get($themeDefault, 'headerColor');
+                margin: ef.get-value($themeDefault, 'headerMargin');
+                color: ef.get-value($themeDefault, 'headerColor');
                 white-space: nowrap;
                 text-overflow: ellipsis;
                 overflow: hidden;
@@ -58,7 +57,7 @@
         }
 
         &__btn-left {
-            margin: map-get($themeDefault, 'btnLeftMargin');
+            margin: ef.get-value($themeDefault, 'btnLeftMargin');
         }
 
         &__btn-right {
@@ -66,22 +65,22 @@
             align-items: center;
 
             .wlc-icon {
-                margin-left: map-get($themeDefault, 'iconsGap');
+                margin-left: ef.get-value($themeDefault, 'iconsGap');
                 cursor: pointer;
 
                 svg {
 
                     @include em.transition(all);
-                    width: map-get($themeDefault, 'iconsWidth');
-                    height: map-get($themeDefault, 'iconsHeight');
+                    width: ef.get-value($themeDefault, 'iconsWidth');
+                    height: ef.get-value($themeDefault, 'iconsHeight');
                     fill: none;
-                    stroke: map-get($themeDefault, 'iconsColor');
-                    stroke-width: map-get($themeDefault, 'iconsStroke');
+                    stroke: ef.get-value($themeDefault, 'iconsColor');
+                    stroke-width: ef.get-value($themeDefault, 'iconsStroke');
 
                     line {
 
                         @include em.transition(all);
-                        stroke: map-get($themeDefault, 'iconsColor');
+                        stroke: ef.get-value($themeDefault, 'iconsColor');
                     }
                 }
 
@@ -94,10 +93,10 @@
                     &.active {
 
                         svg {
-                            stroke: map-get($themeDefault, 'iconsColorActive');
+                            stroke: ef.get-value($themeDefault, 'iconsColorActive');
 
                             path {
-                                fill: map-get($themeDefault, 'iconsColorActive');
+                                fill: ef.get-value($themeDefault, 'iconsColorActive');
                             }
                         }
                     }
@@ -106,10 +105,10 @@
                 @include em.hover {
 
                     svg {
-                        stroke: map-get($themeDefault, 'iconsColorHover');
+                        stroke: ef.get-value($themeDefault, 'iconsColorHover');
 
                         line {
-                            stroke: map-get($themeDefault, 'iconsColorHover');
+                            stroke: ef.get-value($themeDefault, 'iconsColorHover');
                         }
                     }
                 }
