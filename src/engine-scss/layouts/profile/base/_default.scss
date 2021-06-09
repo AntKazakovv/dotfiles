@@ -19,7 +19,6 @@
             display: ef.get-value($profileSettings, 'historyFilterDisplay');
             align-items: ef.get-value($profileSettings, 'historyFilterAlign');
             justify-content: ef.get-value($profileSettings, 'historyFilterJustify');
-            margin: ef.get-value($profileSettings, 'historyFilterMargin');
         }
     }
 }
