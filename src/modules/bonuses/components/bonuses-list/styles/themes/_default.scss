@@ -70,7 +70,6 @@
 
                 .swiper-slide {
                     width: ef.get-value($themeDefault, 'swiperWidth');
-                    will-change: transform;
                 }
 
                 .swiper-wrapper {
