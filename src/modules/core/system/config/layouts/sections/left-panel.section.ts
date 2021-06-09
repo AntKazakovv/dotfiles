@@ -3,6 +3,7 @@ import * as componentLib from '../components';
 
 export namespace leftPanel {
     export const def: IPanelSectionConfig = {
+        replaceConfig: true,
         theme: 'default',
         showHeader: false,
         showClose: false,
@@ -72,6 +73,7 @@ export namespace leftPanel {
     };
 
     export const left: IPanelSectionConfig = {
+        replaceConfig: true,
         theme: 'left',
         display: {
             after: 1024,
@@ -128,7 +130,22 @@ export namespace leftPanel {
         ],
     };
 
+    export const option3: IPanelSectionConfig = {
+        replaceConfig: true,
+        theme: 'option3',
+        display: {
+            after: 1024,
+        },
+        components: [
+            componentLib.wlcLogo.header,
+            componentLib.wlcMainMenu.burgerPanelIconsOption3,
+            componentLib.wlcPostMenu.burgerPanelInfo,
+            componentLib.wlcLanguageSelector.topLeftTheme2,
+        ],
+    };
+
     export const mobile: IPanelSectionConfig = {
+        replaceConfig: true,
         theme: 'mobile',
         display: {
             before: 1023,

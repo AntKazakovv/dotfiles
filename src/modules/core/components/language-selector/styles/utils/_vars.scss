@@ -3,7 +3,6 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'currentGap': ef.get('size', 'smallest'),
-    'burgerPanelCurrentGap': 10px,
     'currentPadding': ef.get('size', 'smallest'),
     'currentBorderRadius': ef.get('size', 'smaller'),
     'currentBackground': ef.get('mainColors', bg700),
@@ -21,8 +20,6 @@ $themeDefault: map-merge((
     'dropdownFlagSize': ef.get('size', 'less'),
     'flagBoxShadow': 0 0 0 4px ef.get('mainColors', 'bg300'),
     'flagBoxShadowHover': 0 0 0 4px ef.get('mainColors', 'main'),
-    'burgerPanelFlagBoxShadow': 0 0 0 6px ef.get('mainColors', 'baseOpacity'),
-    'burgerPanelFlagBoxShadowHover': (0 0 0 6px ef.get('mainColors', 'main') , 0 0 7px 7px rgba(0, 0, 0, 0.67)),
 
     'langLeft': 50%,
     'langBottom': -30px,
@@ -77,8 +74,4 @@ $themeDefaultModLog: map-merge((
     'dropdownPaddingLong': ef.get('size', 'smaller') ef.get('size', 'smally'),
     'langFontStyleActive': 'PrimaryText',
     'langFontStyle': 'PrimaryText',
-    'burgerPanelMaxWidthModLong': 240px,
-    'burgerPanelCurrentMarginModLong': 20px auto,
-    'burgerPanelCurrentBgModLong': ef.get('mainColors', 'baseOpacity'),
-    'burgerPanelCurrentBgModLongHover': rgba(ef.get('mainColors', 'baseMain'), 0.1),
 ), $customThemeDefaultModLog);

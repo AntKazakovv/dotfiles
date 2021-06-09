@@ -34,6 +34,24 @@
         .wlc-language-selector[wlc-language-selector] {
             @include bm.get-mq-map('margin', $themeDefault, 'langMargin');
 
+            .wlc-language-selector__current {
+
+                @include bm.hover {
+
+                    .wlc-language-selector__current-flag {
+                        box-shadow: ef.get-value($themeDefault, 'langFlagBoxShadowHover');
+                    }
+                }
+            }
+
+            .wlc-language-selector__current-flag {
+                box-shadow: ef.get-value($themeDefault, 'langFlagBoxShadow');
+            }
+
+            .wlc-language-selector__current-arrow {
+                display: none;
+            }
+
             .wlc-language-selector__dropdown {
                 right: ef.get-value($themeDefault, 'langDropdownRight');
             }
@@ -93,6 +111,8 @@
             cursor: pointer;
 
             &:before {
+                content: '';
+
                 position: absolute;
                 bottom: ef.get-value($themeDefault, 'panelUnderlineOffset');
                 left: 0;
@@ -105,7 +125,6 @@
                 border-radius: ef.get-value($themeDefault, 'panelUnderlineRadius');
                 opacity: 0;
 
-                content: '';
                 pointer-events: none;
             }
 
