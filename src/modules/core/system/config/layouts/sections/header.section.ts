@@ -3,6 +3,7 @@ import * as componentLib from '../components';
 
 export namespace header {
     export const def: ILayoutSectionConfig = {
+        replaceConfig: true,
         order: 0,
         theme: '1',
         container: true,
@@ -19,6 +20,7 @@ export namespace header {
     };
 
     export const theme2: ILayoutSectionConfig = {
+        replaceConfig: true,
         order: 0,
         theme: '2',
         container: true,
@@ -36,6 +38,7 @@ export namespace header {
     };
 
     export const aff: ILayoutSectionConfig = {
+        replaceConfig: true,
         order: 0,
         theme: '1',
         container: true,
@@ -48,4 +51,3 @@ export namespace header {
         ],
     };
 }
-
