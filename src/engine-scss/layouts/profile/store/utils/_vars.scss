@@ -19,6 +19,15 @@ $storeThemeDefault: map-merge((
         375: static,
         768: absolute,
     ),
+    'loyaltyProgressTop': (
+        375: ef.get('size', 'small'),
+        1630: ef.get('size', 'less'),
+    ),
+    'loyaltyProgressRight': (
+        375: ef.get('size', 'smally'),
+        1024: ef.get('size', 'main'),
+    ),
+
     'loyaltyProgressMaxWidth': (
         375: 100%,
         768: 300px,
