@@ -8,10 +8,11 @@ import {
 import {EventService} from 'wlc-engine/modules/core';
 import {BannerModel} from 'wlc-engine/modules/promo';
 
-import _intersection from 'lodash-es/intersection';
-import _startsWith from 'lodash-es/startsWith';
+import _every from 'lodash-es/every';
 import _filter from 'lodash-es/filter';
+import _intersection from 'lodash-es/intersection';
 import _map from 'lodash-es/map';
+import _startsWith from 'lodash-es/startsWith';
 
 declare type IPlatform = 'any' | 'desktop' | 'mobile';
 declare type IVisibility = 'anyone' | 'anonymous' | 'authenticated';
@@ -82,13 +83,12 @@ export class BannersService {
         const banners = this.configService.get<IBanner[]>(`appConfig.banners[${this.translate.currentLang}]`);
         const defaultBanners = this.configService.get<IBanner[]>('appConfig.banners[en]');
 
-        this.banners = _map(banners.length ? banners : defaultBanners, (banner: IBanner, i: number): BannerModel => {
-            if (!banner.html) {
-                banner = {...defaultBanners[i]};
-            }
+        this.banners = _map(banners, (banner: IBanner): BannerModel => new BannerModel(banner));
 
-            return new BannerModel(banner);
-        });
+        _every(this.banners, banner => banner.html === '')
+            ? this.banners = _map(defaultBanners,
+                (banner: IBanner): BannerModel => banner.html !== '' && new BannerModel(banner))
+            : this.banners;
 
         this.banners = this.filterByGeo(this.banners, '-');
         this.banners = this.filterByGeo(this.banners, '+');

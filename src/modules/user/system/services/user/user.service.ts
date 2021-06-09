@@ -78,16 +78,18 @@ export class UserService {
         private logService: LogService,
         private modalService: ModalService,
         private injector: Injector,
-        stateService: StateService,
+        private stateService: StateService,
     ) {
-
-        this.translate.onLangChange.subscribe(async () => {
-            await this.updateLanguage();
-            this.eventService.emit({name: LanguageChangeEvents.ChangeLanguage});
-        });
         this.isAuthenticated = this.configService.get('$user.isAuthenticated');
         this.userProfile$.subscribe((profile) => {
             this.configUserProfile$.next(profile);
+        });
+
+        this.translate.onLangChange.subscribe(async () => {
+            if (!this.isAuthenticated) return;
+
+            await this.updateLanguage();
+            this.eventService.emit({name: LanguageChangeEvents.ChangeLanguage});
         });
 
         this.registerMethods();
