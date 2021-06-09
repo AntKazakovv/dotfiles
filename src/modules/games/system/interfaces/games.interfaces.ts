@@ -58,10 +58,19 @@ export interface IRunGameOptions {
 
 export interface IMobileGames {
     loginUser?: IMobileLoginUser;
+    notRunInIframe?: INotRunInIframe;
 }
 
 export interface IMobileLoginUser {
     disableDemo?: boolean;
+}
+
+export interface INotRunInIframe {
+    [key: string]: IExcludeMerchantSettings;
+}
+
+export interface IExcludeMerchantSettings {
+    launchCodes?: string[];
 }
 
 /**

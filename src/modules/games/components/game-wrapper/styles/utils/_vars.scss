@@ -1,7 +1,6 @@
 @use 'engine-scss/functions' as ef;
 
 $customThemeDefault: () !default;
-
 $themeDefault: map-merge((
     'contentMargin': 0 auto 40px auto,
     'contentPaddings': ef.get('size', 'big'),
@@ -21,3 +20,9 @@ $themeDefault: map-merge((
     'iconsHeight': 26px,
     'iconsOpacity': 0.8,
 ), $customThemeDefault);
+
+$customThemeFullscreenGameFrame: () !default;
+$themeFullscreenGameFrame: map-merge((
+    'margin': 0 0 30px 0,
+    'contentMinHeight': 300px,
+), $customThemeFullscreenGameFrame);

@@ -1,10 +1,13 @@
+@use 'engine-scss/functions' as ef;
 @use 'engine-scss/mixins/mediaqueries' as mq;
-@import '../utils/mixins';
-@import '../utils/vars';
 
 .wlc-game-wrapper--theme-fullscreen-game-frame {
-    margin-bottom: 30px;
+    margin: ef.get-value($themeFullscreenGameFrame, 'margin');
     overflow: hidden;
+
+    iframe {
+        width: 100%;
+    }
 
     .wlc-game-wrapper {
 
@@ -14,15 +17,15 @@
         }
 
         &__content {
-            min-height: 300px;
+            min-height: ef.get-value($themeFullscreenGameFrame, 'contentMinHeight');
         }
 
         &__preloader {
-            margin: 0 auto;
             position: absolute;
             top: 50%;
-            transform: translate(-50%, -50%);
             left: 50%;
+            margin: 0 auto;
+            transform: translate(-50%, -50%);
         }
     }
 }

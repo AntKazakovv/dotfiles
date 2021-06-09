@@ -173,7 +173,7 @@ export class GameDashboardBonusesComponent extends AbstractComponent implements 
         });
 
         this.eventService.subscribe({
-            name: DashboardParams.Events.CHANED_TAB,
+            name: DashboardParams.GameDashboardEvents.CHANED_TAB,
         }, (data: IChangedTabEvent) => {
             if (data.tab.id === 'bonuses') {
                 setTimeout(() => {

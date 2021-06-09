@@ -20,10 +20,18 @@ import {ResizedEvent} from 'angular-resize-event';
 import {UIRouter, RawParams} from '@uirouter/core';
 import {fromEvent} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
-import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {Game} from 'wlc-engine/modules/games/system/models/game.model';
-import {GamesCatalogService} from 'wlc-engine/modules/games';
 import {
+    Game,
+    GamesCatalogService,
+    IExcludeMerchantSettings,
+    ICustomGameParams,
+    IGameParams,
+    ILaunchInfo,
+    IPlayGameForRealCParams,
+    GameDashboardEvents,
+} from 'wlc-engine/modules/games';
+import {
+    AbstractComponent,
     ActionService,
     ConfigService,
     DeviceType,
@@ -35,17 +43,16 @@ import {
     ModalService,
     ICheckboxCParams,
 } from 'wlc-engine/modules/core';
-import {defaultParams, IGameWrapperCParams} from './game-wrapper.params';
-import {IGameParams, ILaunchInfo} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
-import {UserService} from 'wlc-engine/modules/user/system/services';
-import {IPlayGameForRealCParams} from 'wlc-engine/modules/games/components';
-import {ICustomGameParams} from 'wlc-engine/modules/games';
-import {Events as GameDashboardEvents} from 'wlc-engine/modules/games/components/game-dashboard/game-dashboard.params';
+import {
+    defaultParams,
+    IGameWrapperCParams,
+} from './game-wrapper.params';
 
 import _isString from 'lodash-es/isString';
 import _isObject from 'lodash-es/isObject';
 import _includes from 'lodash-es/includes';
 import _toNumber from 'lodash-es/toNumber';
+import _find from 'lodash-es/find';
 
 interface IError {
     msg: string;
@@ -120,16 +127,15 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
     protected isIframeHeight: boolean = false;
 
     constructor(
-        public router: UIRouter,
-        public userService: UserService,
+        @Inject('injectParams') protected injectParams: IGameWrapperCParams,
+        @Inject(DOCUMENT) protected document: HTMLDocument,
+        protected router: UIRouter,
         protected eventService: EventService,
         protected gamesCatalogService: GamesCatalogService,
         protected configService: ConfigService,
         protected actionService: ActionService,
         protected modalService: ModalService,
         protected logService: LogService,
-        @Inject('injectParams') protected injectParams: IGameWrapperCParams,
-        @Inject(DOCUMENT) protected document: HTMLDocument,
         protected elementRef: ElementRef,
         protected domSanitizer: DomSanitizer,
         protected cdr: ChangeDetectorRef,
@@ -572,34 +578,22 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
      * Set use or not mobile iframe
      */
     protected useOrNotMobileIframe(): void {
-
-        if (this.$params.theme !== 'fullscreen-game-frame' && this.isMobile) {
+        if (this.realMobile) {
             this.useMobileIframe = true;
+
+            const excludeOptions: IExcludeMerchantSettings = this.configService.get(
+                `$games.mobile.notRunInIframe.${this.game.merchantID}`) as IExcludeMerchantSettings;
+
+            if (excludeOptions) {
+                if (excludeOptions.launchCodes) {
+                    this.useMobileIframe = !_find(excludeOptions.launchCodes, (code: string) => {
+                        return this.gameParams.launchCode === code;
+                    });
+                } else {
+                    this.useMobileIframe = false;
+                }
+            }
         }
-        this.cdr.detectChanges();
-        // const runInIframeOnly: boolean = this.configService.get('siteconfig.game.mobile.runInIframeOnly');
-        // if (runInIframeOnly) {
-        //     this.useMobileIframe = true;
-        //
-        //     const excludeOptions: IExcludeMerchantSettings = this.configService.get(
-        //         `siteconfig.game.mobile.notRunInIframe.${this.game.merchantID}`) as IExcludeMerchantSettings;
-        //     if (!excludeOptions) {
-        //         return;
-        //     }
-        //
-        //     if (excludeOptions.launchCodes) {
-        //         for (const launchCode of excludeOptions.launchCodes) {
-        //             if (this.gameParams.launchCode == launchCode) {
-        //                 this.useMobileIframe = false;
-        //                 return;
-        //             }
-        //         }
-        //     } else {
-        //         this.useMobileIframe = false;
-        //     }
-        //     return;
-        // }
-        // this.useMobileIframe = false;
     }
 
     /**

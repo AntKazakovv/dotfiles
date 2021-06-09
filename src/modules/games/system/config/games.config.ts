@@ -5,6 +5,23 @@ export const gamesConfig: IGamesConfig = {
         loginUser: {
             disableDemo: false,
         },
+        /**
+         * Which providers don't need to use a mobile iframe
+         * Can be enabled for all games of the provider or for a specific one using the launchCodes parameter
+         *
+         * Example:
+         * notRunInIframe: {
+         *     "944": {
+         *         launchCodes: ['killSoft', 'slotWS']
+         *     },
+         * }
+         */
+        notRunInIframe: {
+            "944": {},
+            "942": {},
+            "912": {},
+            "987": {},
+        }
     },
     run: {
         skipCheckBalance: false,
