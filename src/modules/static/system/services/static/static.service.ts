@@ -138,7 +138,7 @@ export class StaticService {
         if (cacheExpiry) {
             await this.cachingService.set<ICategoryStaticText>(
                 httpRequestUrl,
-                response.body,
+                response?.body,
                 false,
                 cacheExpiry,
             );
