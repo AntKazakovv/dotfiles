@@ -38,6 +38,22 @@ export namespace wlcMainMenu {
         },
     };
 
+    export const burgerPanelIconsOption3: ILayoutComponent = {
+        name: 'menu.wlc-main-menu',
+        params: {
+            theme: 'burger-panel',
+            themeMod: 'underline',
+            type: 'main-menu',
+            wlcElement: 'block_main-nav-panel',
+            common: {
+                icons: {
+                    folder: 'wlc/icons/burger-panel/1',
+                    use: true,
+                },
+            },
+        },
+    };
+
     export const affiliates: ILayoutComponent = {
         name: 'menu.wlc-affiliates-menu',
         params: {

@@ -141,28 +141,6 @@
                 @include flag(ef.get-value($themeDefault, 'dropdownFlagSize'), ef.get-value($themeDefault, 'dropdownFlagSize'), 50%, ef.get-value($themeDefault, 'flagBoxShadow'), ef.get-value($themeModal, 'flagBoxShadowHover'));
             }
         }
-
-        .wlc-burger-panel--theme-default & {
-
-            &__current {
-                grid-gap: ef.get-value($themeDefault, 'burgerPanelCurrentGap');
-
-                .wlc-language-selector__current-flag {
-                    box-shadow: ef.get-value($themeDefault, 'burgerPanelFlagBoxShadow');
-                }
-
-                .wlc-language-selector__current-arrow {
-                    display: none;
-                }
-
-                @include bm.hover {
-
-                    .wlc-language-selector__current-flag {
-                        box-shadow: ef.get-value($themeDefault, 'burgerPanelFlagBoxShadowHover');
-                    }
-                }
-            }
-        }
     }
 
     &.wlc-language-selector--theme-mod-long {
@@ -218,14 +196,6 @@
                     img {
                         width: 100%;
                         height: 100%;
-                    }
-                }
-
-                .wlc-burger-panel--theme-left & {
-                    background: ef.get-value($themeDefaultModLog, 'burgerPanelCurrentBgModLong');
-
-                    @include bm.hover {
-                        background: ef.get-value($themeDefaultModLog, 'burgerPanelCurrentBgModLongHover');
                     }
                 }
 
@@ -294,11 +264,6 @@
                     }
                 }
             }
-        }
-
-        .wlc-burger-panel--theme-left & {
-            max-width: ef.get-value($themeDefaultModLog, 'burgerPanelMaxWidthModLong');
-            margin: ef.get-value($themeDefaultModLog, 'burgerPanelCurrentMarginModLong');
         }
     }
 

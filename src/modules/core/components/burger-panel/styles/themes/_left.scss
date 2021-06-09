@@ -23,8 +23,8 @@
 
         .wlc-logo {
             display: block;
-            margin: 0 auto;
             max-width: ef.get-value($themeLeft, 'logoMaxWidth');
+            margin: 0 auto;
 
             &__image {
 
@@ -96,13 +96,13 @@
         .wlc-post-menu {
 
             &:after {
+                content: '';
+
                 display: block;
                 height: ef.get-value($themeLeft, 'separatorHeight');
                 margin: ef.get-value($themeLeft, 'separatorMargin');
 
                 background: ef.get-value($themeLeft, 'separatorColor');
-
-                content: '';
             }
         }
 
@@ -114,8 +114,8 @@
                 align-items: center;
                 padding: ef.get-value($themeLeft, 'menuLinksPadding');
 
-                text-decoration: ef.get-value($themeLeft, 'menuLinksDecoration');
                 @include text.get-text-style('ThirdTitle', ef.get-value($themeLeft, 'menuLinksColor'));
+                text-decoration: ef.get-value($themeLeft, 'menuLinksDecoration');
 
                 &.active,
                 &:hover {
@@ -171,6 +171,22 @@
                 .wlc-btn {
                     height: ef.get-value($themeLeft, 'userDepositBtnHeight');
                     min-height: ef.get-value($themeLeft, 'userDepositBtnMinHeight');
+                }
+            }
+        }
+
+        .wlc-language-selector[wlc-language-selector] {
+
+            &.wlc-language-selector--theme-mod-long {
+                max-width: ef.get-value($themeLeft, 'langMaxWidthModLong');
+                margin: ef.get-value($themeLeft, 'langCurrentMarginModLong');
+
+                .wlc-language-selector__current {
+                    background: ef.get-value($themeLeft, 'langCurrentBgModLong');
+
+                    @include bm.hover {
+                        background: ef.get-value($themeLeft, 'langCurrentBgModLongHover');
+                    }
                 }
             }
         }
