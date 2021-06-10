@@ -90,6 +90,10 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
 
         super.ngOnInit(_isEmpty(inlineParams) ? null : inlineParams);
 
+        if (this.configService.get<string>("$base.profile.type") === "first") {
+            this.$params.common.useIconBonusImage = false;
+        }
+
         if (this.$params.bonus) {
             this.$params.common.bonus = this.$params.bonus;
         }
@@ -102,8 +106,7 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
         this.eventService.subscribe([
             {name: BonusItemComponentEvents.reg},
             {name: BonusItemComponentEvents.blank},
-        ],
-        (bonus: Bonus) => {
+        ], (bonus: Bonus) => {
             if (this.isPreviewTheme) {
                 this.$params.common.bonus = bonus;
                 this.cdr.markForCheck();

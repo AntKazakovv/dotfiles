@@ -23,6 +23,13 @@ export namespace wlcRecommendedBonuses {
                 type: 'swiper',
                 theme: 'default',
                 wlcElement: 'block_bonuses-main',
+                itemsParams: {
+                    themeMod: 'with-image',
+                    common: {
+                        useIconBonusImage: false,
+                        showAdditionalImage: true,
+                    },
+                },
                 common: {
                     useQuery: true,
                     useRecommendedBonuses: true,
