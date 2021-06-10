@@ -1,6 +1,7 @@
 @use 'engine-scss/functions' as ef;
 @use 'engine-scss/mixins/text' as text;
 @use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/mixins/mediaqueries' as mq;
 @import '../utils/vars';
 @import '../utils/mixins';
 
@@ -20,14 +21,20 @@
     }
 
     .wlc-input__label {
-        display: block;
-        margin: ef.get-value($themeVertical, 'labelMargin');
+        @include text.get-text-style(ef.get-value($themeVertical, 'labelFont'), ef.get-value($themeVertical, 'labelColor'));
 
-        @include text.get-text-style('SignText', ef.get-value($themeVertical, 'labelColor'));
-        line-height: 1.9;
+        display: flex;
+        align-items: ef.get-value($themeVertical, 'labelAlignItems');
+
+        margin: ef.get-value($themeVertical, 'labelMargin');
+        min-height: ef.get-value($themeVertical, 'labelMinHeight');
 
         cursor: pointer;
         user-select: none;
+
+        @include mq.min(1630) {
+            @include text.get-text-style(ef.get-value($themeVertical, 'labelFontBig'), ef.get-value($themeVertical, 'labelColor'));
+        }
     }
 
     .wlc-input__container {
@@ -36,6 +43,7 @@
 
     .wlc-input__input {
         @include resetAppearance();
+        @include text.get-text-style('PrimaryText', ef.get-value($themeVertical, 'inputColor'));
 
         position: relative;
         display: block;
@@ -48,8 +56,6 @@
         outline: none;
         border: ef.get-value($themeVertical, 'inputBorder');
         border-radius: ef.get-value($themeVertical, 'inputBorderRadius');
-
-        @include text.get-text-style('PrimaryText', ef.get-value($themeVertical, 'inputColor'));
 
         &::placeholder {
             color: ef.get-value($themeVertical, 'inputPlaceholderColor');
@@ -99,18 +105,21 @@
         }
 
         .field-icon--copy {
-            border: none;
-            appearance: none;
-            background: none;
             position: absolute;
             top: ef.get-value($themeVertical, 'iconEyeTop');
             right: ef.get-value($themeVertical, 'iconEyeRight');
 
+            background: none;
+            border: none;
+
             transform: ef.get-value($themeVertical, 'iconEyeTransform');
+
+            appearance: none;
         }
 
         .field-icon--currency {
             @include text.get-text-style(ef.get-value($themeVertical, 'iconTextStyle'), ef.get-value($themeVertical, 'iconTextColor'));
+
             position: absolute;
             top: ef.get-value($themeVertical, 'iconEyeTop');
             right: ef.get-value($themeVertical, 'iconEyeRight');
@@ -148,17 +157,9 @@
             ::ng-deep {
 
                 svg path {
-                    fill: ef.get-value($themeVertical, 'fieldIconSvgFill');
                     @include bm.transition(fill);
-                }
-            }
 
-            @include bm.hover {
-                ::ng-deep {
-
-                    svg path {
-                        fill: ef.get-value($themeVertical, 'fieldIconSvgFillHover');
-                    }
+                    fill: ef.get-value($themeVertical, 'fieldIconSvgFill');
                 }
             }
 
@@ -169,6 +170,16 @@
                     svg path {
 
                         fill: ef.get-value($themeVertical, 'fieldIconSvgFillActive');
+                    }
+                }
+            }
+
+            @include bm.hover {
+
+                ::ng-deep {
+
+                    svg path {
+                        fill: ef.get-value($themeVertical, 'fieldIconSvgFillHover');
                     }
                 }
             }

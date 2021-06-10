@@ -46,11 +46,6 @@ import {
     UserProfile,
 } from 'wlc-engine/modules/user';
 
-import {
-    ILivechatConfig,
-    CommonChatService,
-} from 'wlc-engine/modules/livechat';
-
 import _isString from 'lodash-es/isString';
 import _toNumber from 'lodash-es/toNumber';
 import _forEach from 'lodash-es/forEach';
@@ -291,9 +286,6 @@ export class ActionService {
 
         this.runAffiliatesListener();
 
-        this.router.transitionService.onSuccess({}, () => {
-            this.scrollTo();
-        });
         await this.createBreakpoints();
         this.deviceTypeSubject.next(this.getDeviceType());
     }

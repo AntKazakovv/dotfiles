@@ -38,6 +38,7 @@ import _filter from 'lodash-es/filter';
 import _forEach from 'lodash-es/forEach';
 import _uniqBy from 'lodash-es/uniqBy';
 import _assignIn from 'lodash-es/assignIn';
+import _sortBy from 'lodash-es/sortBy';
 
 @Component({
     selector: '[wlc-search]',
@@ -166,7 +167,9 @@ export class SearchComponent extends AbstractComponent implements OnInit, OnDest
             _forEach(this.selectedCategories, (category) => {
                 merchantsList = merchantsList.concat(category.merchants);
             });
-            this.merchants = _uniqBy(merchantsList, 'id');
+            this.merchants = _sortBy(_uniqBy(merchantsList, 'id'), (merchant) => {
+                return merchant.name;
+            });
         } else {
             this.getMerchants();
         }
@@ -236,11 +239,16 @@ export class SearchComponent extends AbstractComponent implements OnInit, OnDest
 
     protected getMerchants(): void {
         const category = this.childCategory || this.parentCategory;
+        let merchants;
         if (category && this.selectedCategories.length) {
-            this.merchants = category.merchants;
+            merchants = category.merchants;
         } else {
-            this.merchants = this.gamesCatalogService.getFilteredMerchants();
+            merchants = this.gamesCatalogService.getFilteredMerchants();
         }
+
+        this.merchants = _sortBy(merchants, (merchant) => {
+            return merchant.name;
+        });
     }
 
     protected setFilter(): void {

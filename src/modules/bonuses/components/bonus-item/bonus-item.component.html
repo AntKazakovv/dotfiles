@@ -14,9 +14,9 @@
         <div class="{{$class}}__wrapper"
              (click)="chooseBonusNoBtn($params.common.bonus, $params.common?.type)">
             <div class="{{$class}}__image-block" data-wlc-element="bonus_image">
-                <div *ngIf="$params.common?.showBonusTag && !!getBonusTag()"
+                <div *ngIf="$params.common?.showBonusTag && !!$params.common.bonus.tag"
                      class="{{$class}}__tag"
-                     data-wlc-element="bonus_type-title">{{getBonusTag() | translate}}</div>
+                     data-wlc-element="bonus_type-title">{{$params.common.bonus.tag | translate}}</div>
                 <div *ngIf="!$params.common?.useIconBonusImage && $params.common.imageByType"
                      class="{{$class}}__image"
                      [style]="{backgroundImage: 'url(' + $params.common.bonus?.getImageByType($params.common?.type) + ')'}">
@@ -123,7 +123,7 @@
             <div class="{{$class}}__info-block" data-wlc-element="bonus_info">
                 <div *ngIf="$params.common?.showBonusTag"
                      class="{{$class}}__tag"
-                     data-wlc-element="bonus_type-title">{{getBonusTag() | translate}}</div>
+                     data-wlc-element="bonus_type-title">{{$params.common.bonus.tag | translate}}</div>
                 <div class="{{$class}}__info">
                     <h4 class="{{$class}}__name" data-wlc-element="bonus_title-name">
                         {{$params.common.bonus?.name}}
@@ -265,9 +265,9 @@
          [class.chosen]="chosen || $params.common.bonus.isChoose">
          <div class="{{$class}}__wrapper" (click)="chooseBonusNoBtn($params.common.bonus, $params.common.type)">
             <div class="{{$class}}__image-block" data-wlc-element="bonus_image">
-                <div *ngIf="!!getBonusTag()"
+                <div *ngIf="!!selectedTag"
                      class="{{$class}}__tag"
-                     data-wlc-element="bonus_type-title">{{getBonusTag() | translate}}</div>
+                     data-wlc-element="bonus_type-title">{{selectedTag | translate}}</div>
                 <div *ngIf="$params.common.imageByType"
                      class="{{$class}}__image"
                      [style]="{backgroundImage: 'url(' + $params.common.bonus?.getImageByType($params.common.type) + ')'}">
@@ -335,9 +335,9 @@
          (click)="chooseBonusNoBtn($params.common.bonus, $params.common?.type)"
     >
 
-        <div *ngIf="$params.common?.showBonusTag && !!getBonusTag()"
+        <div *ngIf="$params.common?.showBonusTag && !!$params.common.bonus.tag"
              class="{{$class}}__tag"
-             data-wlc-element="bonus_type-title">{{getBonusTag() | translate}}</div>
+             data-wlc-element="bonus_type-title">{{$params.common.bonus.tag | translate}}</div>
 
         <button *ngIf="!$params.common?.iconMoreBtn"
                 wlc-button
@@ -437,10 +437,10 @@
 
         <div class="{{$class}}__wrapper" (click)="chooseBonusNoBtn($params.common.bonus, $params.common?.type)">
             <div class="{{$class}}__image-block" data-wlc-element="bonus_image">
-                <div *ngIf="$params.common?.showBonusTag && !!getBonusTag()"
+                <div *ngIf="$params.common?.showBonusTag && !!$params.common.bonus.tag"
                      class="{{$class}}__tag"
                      data-wlc-element="bonus_type-title"
-                     >{{getBonusTag() | translate}}</div>
+                     >{{$params.common.bonus.tag | translate}}</div>
                 <div *ngIf="!$params.common?.useIconBonusImage && $params.common.imageByType"
                      class="{{$class}}__image"
                      [style]="{backgroundImage: 'url(' + $params.common.bonus?.getImageByType($params.common?.type) + ')'}">
@@ -596,10 +596,10 @@
 
         <div class="{{$class}}__wrapper" (click)="chooseBonusNoBtn($params.common.bonus, $params.common?.type)">
             <div class="{{$class}}__image-block" data-wlc-element="bonus_image">
-                <div *ngIf="$params.common?.showBonusTag && !!getBonusTag()"
+                <div *ngIf="$params.common?.showBonusTag && !!$params.common.bonus.tag"
                      class="{{$class}}__tag"
                      data-wlc-element="bonus_type-title">
-                    {{getBonusTag() | translate}}</div>
+                    {{$params.common.bonus.tag | translate}}</div>
                 <div *ngIf="!$params.common?.useIconBonusImage && $params.common.imageByType"
                      class="{{$class}}__image"
                      [style]="{backgroundImage: 'url(' + $params.common.bonus?.getImageByType($params.common?.type) + ')'}">

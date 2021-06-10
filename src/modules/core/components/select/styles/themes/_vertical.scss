@@ -11,27 +11,35 @@
     .wlc-select {
 
         &__label {
+            @include text.get-text-style(ef.get-value($themeVertical, 'labelFont'), ef.get-value($themeVertical, 'labelColor'));
+
             display: flex;
-            align-items: center;
+            align-items: ef.get-value($themeVertical, 'labelAlignItems');
+
+            max-width: ef.get-value($themeVertical, 'labelMaxWidth');
+            min-height: ef.get-value($themeVertical, 'labelMinHeight');
+
             margin: ef.get-value($themeVertical, 'labelMargin');
             overflow-x: hidden;
-            max-width: ef.get-value($themeVertical, 'labelMaxWidth');
 
-            @include text.get-text-style('SignText', ef.get-value($themeVertical, 'labelColor'));
+
             text-overflow: ellipsis;
 
             cursor: pointer;
             user-select: none;
-            line-height: 1.9;
 
             &.tooltipped {
                 overflow: visible;
             }
 
             .wlc-tooltip {
-                transform: ef.get-value($themeVertical, 'tooltipTransform');
-                margin: ef.get-value($themeVertical, 'tooltipMargin');
                 display: inline-block;
+                margin: ef.get-value($themeVertical, 'tooltipMargin');
+                transform: ef.get-value($themeVertical, 'tooltipTransform');
+            }
+
+            @include mq.min(1630) {
+                @include text.get-text-style(ef.get-value($themeVertical, 'labelFontBig'), ef.get-value($themeVertical, 'labelColor'));
             }
         }
 

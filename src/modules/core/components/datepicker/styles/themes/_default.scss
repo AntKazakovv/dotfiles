@@ -1,5 +1,6 @@
 @use 'engine-scss/mixins/text' as lib;
 @use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/mediaqueries' as mq;
 
 
 .wlc-datepicker--theme-default:host {
@@ -13,10 +14,18 @@
     }
 
     .wlc-datepicker__label {
-        @include lib.get-text-style('SignText', ef.get-value($themeDefault, 'labelColor'));
+        @include lib.get-text-style(ef.get-value($themeDefault, 'labelFont'), ef.get-value($themeDefault, 'labelColor'));
+
+        display: flex;
+        align-items: ef.get-value($themeDefault, 'labelAlignItems');
+
+        min-height: ef.get-value($themeDefault, 'labelMinHeight');
         padding: ef.get-value($themeDefault, 'labelPadding');
-        line-height: ef.get-value($themeDefault, 'labelLineHeight');
         cursor: pointer;
+
+        @include mq.min(1630) {
+            @include lib.get-text-style(ef.get-value($themeDefault, 'labelFontBig'), ef.get-value($themeDefault, 'labelColor'));
+        }
     }
 
     .wlc-datepicker__input {

@@ -1,8 +1,9 @@
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
-import {StateParams} from '@uirouter/core/lib/params/stateParams';
 
 export interface ICoreConfig {
 }
+
+export type profileRedirectType = 'default' | 'first';
 
 export interface IRedirectConfig {
     /**
@@ -17,6 +18,7 @@ export interface IRedirectConfig {
      * redirect by state name
      */
     states?: IIndexing<IRedirect>;
+    profileRedirects?: IIndexing<profileRedirectType>
 }
 
 export interface IRedirect {

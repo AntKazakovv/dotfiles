@@ -11,7 +11,13 @@ import {
     HostListener,
 } from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
-import {trigger, state, style, transition, animate} from '@angular/animations';
+import {
+    trigger,
+    state,
+    style,
+    transition,
+    animate,
+} from '@angular/animations';
 import {
     ConfigService,
     ILanguage,
@@ -20,7 +26,10 @@ import {
     LogService,
 } from 'wlc-engine/modules/core';
 import * as Params from './language-selector.params';
-import {fromEvent, merge} from 'rxjs';
+import {
+    fromEvent,
+    merge,
+} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
 import _find from 'lodash-es/find';
@@ -68,6 +77,7 @@ export class LanguageSelectorComponent
     public currentLanguage: ILanguage;
     public isOpened: boolean;
     public isModalOpen: boolean;
+    public hasSingleLang: boolean = false;
 
     private modToggled: boolean = false;
     private defaultThemeMod: 'default' | Params.ThemeModType;
@@ -107,11 +117,14 @@ export class LanguageSelectorComponent
                         code: lang,
                     }),
             );
+
         this.currentLanguage = _find(this.configService.get<ILanguage[]>('appConfig.languages'), {
             code: this.translate.currentLang,
         });
 
-        if (this.availableLanguages.length <= 6 && this.$params.toggleOnScroll) {
+        if (this.availableLanguages.length <= 1) {
+            this.hasSingleLang = true;
+        } else if (this.availableLanguages.length <= 6 && this.$params.toggleOnScroll) {
             this.defaultThemeMod = this.$params.themeMod;
             merge(
                 fromEvent(window, 'scroll'),
@@ -150,7 +163,9 @@ export class LanguageSelectorComponent
     }
 
     public toggle(): void {
-        if (this.availableLanguages.length <= 6 || this.$params.themeMod === 'long') {
+        if (this.hasSingleLang) {
+            return;
+        } else if (this.availableLanguages.length <= 6 || this.$params.themeMod === 'long') {
             this.isOpened = !this.isOpened;
         } else {
             this.modalService.showModal({

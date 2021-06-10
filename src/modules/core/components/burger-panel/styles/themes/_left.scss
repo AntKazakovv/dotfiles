@@ -110,11 +110,12 @@
         .wlc-post-menu {
 
             &__link {
+                @include text.get-text-style('ThirdTitle', ef.get-value($themeLeft, 'menuLinksColor'));
+
                 display: flex;
                 align-items: center;
                 padding: ef.get-value($themeLeft, 'menuLinksPadding');
 
-                @include text.get-text-style('ThirdTitle', ef.get-value($themeLeft, 'menuLinksColor'));
                 text-decoration: ef.get-value($themeLeft, 'menuLinksDecoration');
 
                 &.active,
@@ -186,6 +187,10 @@
 
                     @include bm.hover {
                         background: ef.get-value($themeLeft, 'langCurrentBgModLongHover');
+
+                        &.single-lang {
+                            background: ef.get-value($themeLeft, 'langCurrentBgModLong');
+                        }
                     }
                 }
             }

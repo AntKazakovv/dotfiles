@@ -3,6 +3,7 @@ import {
     StateDeclaration,
     ResolveTypes,
     StateService,
+    TransitionStateHookFn,
 } from '@uirouter/core';
 
 import {
@@ -15,6 +16,7 @@ import {Deferred} from 'wlc-engine/modules/core/system/classes';
 import {IRedirect, IIndexing} from 'wlc-engine/modules/core';
 
 import _merge from 'lodash-es/merge';
+import _includes from 'lodash-es/includes';
 
 export class StateHelper {
     public static async onStateEnter(trans: Transition) {
@@ -86,31 +88,6 @@ export class StateHelper {
                     modalService.showModal('login');
                 }
                 return result.promise;
-            },
-        };
-    }
-
-    public static profileTypeResolver(type: string = 'default'): ResolveTypes {
-        return {
-            token: 'forProfile',
-            deps: [
-                ConfigService,
-                StateService,
-                Transition,
-            ],
-            resolveFn: async (
-                configService: ConfigService,
-                stateService: StateService,
-                transition: Transition,
-            ) => {
-                await configService.ready;
-
-                if (configService.get('$base.profile.type') === type) {
-                    return Promise.resolve();
-                } else {
-                    stateService.go('app.error', transition.params());
-                    return Promise.reject();
-                }
             },
         };
     }
