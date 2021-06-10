@@ -34,8 +34,10 @@ export class Bonus extends AbstractModel<IBonus> {
     protected userCurrency: string;
     private regEvents = ['deposit first', 'registration', 'verification'];
     private depEvents = ['deposit', 'deposit first', 'deposit repeated', 'deposit sum'];
+    private welcomeEvents = ['registration', 'deposit first'];
     private $isReg: boolean;
     private $isDep: boolean;
+    private readonly _tag: string;
     private readonly _imageUrl: string;
 
     constructor(
@@ -48,6 +50,7 @@ export class Bonus extends AbstractModel<IBonus> {
         this.data = this.modifyData(data);
         this.userCurrency = this.ConfigService.get<string>('appConfig.user.currency') || 'EUR';
         this._imageUrl = this.image.length ? `url(${this.image})` : '';
+        this._tag = this.getTag();
     }
 
     public set data(data: IBonus) {
@@ -373,6 +376,13 @@ export class Bonus extends AbstractModel<IBonus> {
     }
 
     /**
+     * @returns {boolean} whether bonus has welcome events
+     */
+    public get isWelcomeBonus(): boolean {
+        return _includes(this.welcomeEvents, this.data.Event);
+    }
+
+    /**
      * @returns {boolean} is bonus subscribed
      */
     public get isSubscribed(): boolean {
@@ -574,6 +584,13 @@ export class Bonus extends AbstractModel<IBonus> {
     public get expirationTimeLuxon(): DateTime {
         const defaultTime = DateTime.fromSQL(this.data.Expire);
         return defaultTime.plus({minutes: defaultTime.offset});
+    }
+
+    /**
+     * @returns {string} bonus tag
+     */
+    public get tag(): string {
+        return this._tag;
     }
 
     /**
@@ -782,5 +799,35 @@ export class Bonus extends AbstractModel<IBonus> {
 
         bonus.ExpireDays = bonus.ExpireDays || bonus.Expire;
         return bonus;
+    }
+
+    /**
+     * Compute bonus tag
+     *
+     * @returns {string} bonus tag
+     */
+    protected getTag(): string {
+
+        if (this.isActive) {
+            return gettext('Active');
+        }
+
+        if (this.isSubscribed) {
+            return gettext('Subscribed');
+        }
+
+        if (this.inventoried) {
+            return gettext('Inventoried');
+        }
+
+        if (this.hasPromoCode) {
+            return gettext('Promo code');
+        }
+
+        if (this.isWelcomeBonus) {
+            return gettext('Welcome');
+        }
+
+        return '';
     }
 }

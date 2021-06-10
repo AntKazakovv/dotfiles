@@ -104,10 +104,7 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
             );
         });
 
-        this.router.transitionService.onStart({}, () => {
-            this.modalService.closeAllModals();
-            window.scrollTo(0, 0);
-        });
+        this.setTransitionHooks();
 
         this.panels = _sortBy(this.layoutService
             .getAllSection('panels', this.uiRouter.current.name, this.uiRouter.params), 'order');
@@ -139,12 +136,6 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
                 this.setHostClass();
                 this.addLivechat();
             }
-        });
-
-        this.transition.onSuccess({}, async (transition) => {
-            this.setHostClass();
-            this.getAllSections();
-            this.updateSections();
         });
 
         this.setWatcher();
@@ -296,5 +287,18 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
         };
         await this.layoutService.importModules(['livechat']);
         this.injector.get(CommonChatService);
+    }
+
+    private setTransitionHooks() {
+        this.transition.onSuccess({}, async () => {
+            this.setHostClass();
+            this.getAllSections();
+            this.updateSections();
+            this.actionService.scrollTo();
+        });
+
+        this.transition.onStart({}, () => {
+            this.modalService.closeAllModals();
+        });
     }
 }

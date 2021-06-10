@@ -1,6 +1,7 @@
 <div class="{{$class}}__current" [attr.data-wlc-element]="'selected_link_' + currentLanguage.code"
      (click)="toggle()"
      [ngClass]="[(isOpened || isModalOpen) ? $class + '__current--opened': '']"
+     [class.single-lang]="hasSingleLang"
 >
     <div *ngIf="!$params.currentLang?.hideFlag" class="{{$class}}__current-flag">
         <img src="{{getFlagUrl(currentLanguage.code)}}"

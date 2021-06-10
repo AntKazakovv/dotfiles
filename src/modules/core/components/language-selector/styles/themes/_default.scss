@@ -51,10 +51,25 @@
                 }
             }
 
+            &.single-lang {
+                cursor: auto;
+
+                .wlc-language-selector__current-arrow {
+                    visibility: hidden;
+                }
+            }
+
             @include bm.hover {
 
                 .wlc-language-selector__current-flag {
                     box-shadow: ef.get-value($themeModal, 'flagBoxShadowHover');
+                }
+
+                &.single-lang {
+
+                    .wlc-language-selector__current-flag {
+                        box-shadow: none;
+                    }
                 }
             }
         }
@@ -89,22 +104,28 @@
                 transform: translateY(ef.get-value($themeDefault, 'dropdownArrowSize') * -1);
             }
 
+            box-shadow: ef.get-value($themeDefault, 'dropdownListShadow');
+
             &:before {
 
                 @include mod('default', 'bottom-left') {
-                    top: ef.get-value($themeDefault, 'dropdownArrowSize') * -1;
+                    top: -#{ef.get-value($themeDefault, 'dropdownArrowSize')};
                     right: ef.get-value($themeDefault, 'dropdownArrowSize');
 
                     border-top: 0;
                     border-bottom: ef.get-value($themeDefault, 'dropdownArrowSize') solid ef.get-value($themeDefault, 'dropdownBackgroundColor');
+
+                    filter: ef.get-value($themeDefault, 'dropdownArrowShadowBottom');
                 }
 
                 @include mod('default', 'top-left') {
                     right: ef.get-value($themeDefault, 'dropdownArrowSize');
-                    bottom: ef.get-value($themeDefault, 'dropdownArrowSize') * -1;
+                    bottom: -#{ef.get-value($themeDefault, 'dropdownArrowSize')};
 
                     border-top: ef.get-value($themeDefault, 'dropdownArrowSize') solid ef.get-value($themeDefault, 'dropdownBackgroundColor');
                     border-bottom: 0;
+
+                    filter: ef.get-value($themeDefault, 'dropdownArrowShadowTop');
                 }
 
                 content: '';
@@ -200,8 +221,13 @@
                 }
 
                 @include bm.hover {
+
                     @include mq.min(1024) {
                         background: ef.get-value($themeDefaultModLog, 'currentBgModLongHover');
+
+                        &.single-lang {
+                            background: ef.get-value($themeDefaultModLog, 'currentBgModLong');
+                        }
                     }
                 }
             }

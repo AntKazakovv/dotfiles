@@ -33,7 +33,6 @@ import _union from 'lodash-es/union';
 import _merge from 'lodash-es/merge';
 import _isEmpty from 'lodash-es/isEmpty';
 
-
 @Component({
     selector: '[wlc-bonus-item]',
     templateUrl: './bonus-item.component.html',
@@ -78,6 +77,12 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
 
     public get isPreviewTheme(): boolean {
         return this.$params.theme === 'preview';
+    }
+
+    public get selectedTag(): string {
+        if (this.$params.theme === 'reg-first' && this.$params.common.bonus.isChoose) {
+            return gettext('Selected');
+        }
     }
 
     public ngOnInit(): void {
@@ -134,30 +139,9 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
             this.addModifiers('is-active');
         }
 
-        if (!this.getBonusTag()) {
+        if (!this.$params.common.bonus?.tag && !this.selectedTag) {
             this.addModifiers('no-tag');
         }
-    }
-
-    public getBonusTag(): string {
-        if (!this.$params.common.bonus) {
-            return gettext('Unknown');
-        }
-        if (this.$params.common.bonus.isActive) {
-            return gettext('Active');
-        }
-        if (this.$params.common.bonus.isSubscribed) {
-            return gettext('Subscribed');
-        }
-
-        if (this.$params.common.bonus.inventoried) {
-            return gettext('Inventoried');
-        }
-
-        if (this.$params.theme === 'reg-first' && this.$params.common.bonus.isChoose) {
-            return gettext('Selected');
-        }
-        return this.$params.common.bonus?.group;
     }
 
     public openDescription(bonus: Bonus): void {
