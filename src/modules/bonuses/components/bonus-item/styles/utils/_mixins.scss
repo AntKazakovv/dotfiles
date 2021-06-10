@@ -147,9 +147,13 @@
 
         .wlc-bonus-item__content {
             background: ef.get-value($themeDefault, 'backgroundExperience');
+            background-size: ef.get-value($themeDefault, 'imageBgSize');
 
-            @include em.hover {
-                background: ef.get-value($themeDefault, 'backgroundExperienceHover');
+            .wlc-bonus-item__wrapper {
+
+                @include em.hover {
+                    background: ef.get-value($themeDefault, 'backgroundExperienceHover');
+                }
             }
         }
     }
@@ -158,9 +162,13 @@
 
         .wlc-bonus-item__content {
             background: ef.get-value($themeDefault, 'backgroundLoyalty');
+            background-size: ef.get-value($themeDefault, 'imageBgSize');
 
-            @include em.hover {
-                background: ef.get-value($themeDefault, 'backgroundLoyaltyHover');
+            .wlc-bonus-item__wrapper {
+
+                @include em.hover {
+                    background: ef.get-value($themeDefault, 'backgroundLoyaltyHover');
+                }
             }
         }
     }
@@ -169,9 +177,13 @@
 
         .wlc-bonus-item__content {
             background: ef.get-value($themeDefault, 'backgroundBalance');
+            background-size: ef.get-value($themeDefault, 'imageBgSize');
 
-            @include em.hover {
-                background: ef.get-value($themeDefault, 'backgroundBalanceHover');
+            .wlc-bonus-item__wrapper {
+
+                @include em.hover {
+                    background: ef.get-value($themeDefault, 'backgroundBalanceHover');
+                }
             }
         }
     }
@@ -180,9 +192,13 @@
 
         .wlc-bonus-item__content {
             background: ef.get-value($themeDefault, 'backgroundFreerounds');
+            background-size: ef.get-value($themeDefault, 'imageBgSize');
 
-            @include em.hover {
-                background: ef.get-value($themeDefault, 'backgroundFreeroundsHover');
+            .wlc-bonus-item__wrapper {
+
+                @include em.hover {
+                    background: ef.get-value($themeDefault, 'backgroundFreeroundsHover');
+                }
             }
         }
     }
@@ -191,9 +207,13 @@
 
         .wlc-bonus-item__content {
             background: ef.get-value($themeDefault, 'backgroundRelative');
+            background-size: ef.get-value($themeDefault, 'imageBgSize');
 
-            @include em.hover {
-                background: ef.get-value($themeDefault, 'backgroundRelativeHover');
+            .wlc-bonus-item__wrapper {
+
+                @include em.hover {
+                    background: ef.get-value($themeDefault, 'backgroundRelativeHover');
+                }
             }
         }
     }

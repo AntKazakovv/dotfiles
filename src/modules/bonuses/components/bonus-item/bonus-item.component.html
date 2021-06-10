@@ -1,5 +1,6 @@
 <ng-template #default>
     <div class="{{$class}}__content"
+         [ngStyle]="{'background-image': bonus.imageUrl}"
          [class.subscribed]="$params.common.bonus?.isSubscribed"
          [class.chosen]="chosen"
          [class.noauth]="!isAuth"
@@ -11,7 +12,6 @@
          data-wlc-element="block_bonus">
 
         <div class="{{$class}}__wrapper"
-             [ngStyle]="{'background-image': bonus.imageUrl}"
              (click)="chooseBonusNoBtn($params.common.bonus, $params.common?.type)">
             <div class="{{$class}}__image-block" data-wlc-element="bonus_image">
                 <div *ngIf="$params.common?.showBonusTag && !!getBonusTag()"
