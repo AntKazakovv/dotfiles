@@ -25,4 +25,7 @@ $themeDefault: map-merge((
     'underlineColor': ef.get('mainColors', 'baseMain'),
     'underlineOffset': 0,
     'underlineRadius': ef.get('radius', 'big'),
+    'iconMargin': 0 7px 0 0,
+    'iconWidth': ef.get('size', 'main'),
+    'iconHeight': ef.get('size', 'main')
 ), $customThemeDefault);

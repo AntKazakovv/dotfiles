@@ -52,6 +52,9 @@ $withIcons: map-merge((
     'menuItemMargin': (
         375: 0 auto,
     ),
+    'menuIconFlexDirection': column,
+    'menuIconAlignItems': stretch,
+    'menuIconJustifyContent': center,
     'menuIconOuterWidth': 86px,
     'menuIconOuterHeight': 86px,
     'menuIconInnerHeight': initial,

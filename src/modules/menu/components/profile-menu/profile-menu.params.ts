@@ -1,4 +1,7 @@
-import {IComponentParams, CustomType} from 'wlc-engine/modules/core/system/classes';
+import {
+    IComponentParams,
+    CustomType,
+} from 'wlc-engine/modules/core';
 
 export interface IProfileMenuItemsGroup<T> {
     parent: T;

@@ -16,5 +16,7 @@ $themeDropdownDefault: map-merge((
     'submenuPadding': ef.get('size', 'smallest') ef.get('size', 'smallest'),
     'arrowFillColor': ef.get('mainColors', 'baseOpacity'),
     'arrowFillColorActive': ef.get('mainColors', 'baseMain'),
-
+    'iconMargin': 0 7px 0 0,
+    'iconWidth': 20px,
+    'iconHeight': 20px,
 ), $customDropdownThemeDefault);

@@ -24,8 +24,6 @@ import {
     transition,
     trigger,
 } from '@angular/animations';
-
-import {MenuHelper} from 'wlc-engine/modules/menu/system/helpers/menu.helper';
 import {
     AbstractComponent,
     IMixedParams,
@@ -35,13 +33,14 @@ import {
     ConfigService,
 } from 'wlc-engine/modules/core';
 import {
-    IMenuItem,
-    IMenuItemsGroup,
-} from 'wlc-engine/modules/menu/components/menu/menu.params';
-import {ISlide} from 'wlc-engine/modules/promo/components/slider/slider.params';
-import {SliderComponent} from 'wlc-engine/modules/promo/components/slider/slider.component';
-
-import * as Params from 'wlc-engine/modules/menu/components/menu/menu.params';
+    ISlide,
+    SliderComponent,
+} from 'wlc-engine/modules/promo';
+import {
+    TIconExtension,
+    MenuHelper,
+} from 'wlc-engine/modules/menu';
+import * as Params from './menu.params';
 
 import _isString from 'lodash-es/isString';
 import _has from 'lodash-es/has';
@@ -97,7 +96,7 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
     public slides: ISlide[] = [];
     public iconsFallback: string = '';
 
-    protected iconsExtension: string = 'svg';
+    protected iconsExtension: TIconExtension = 'svg';
     protected scrollDuration = 400;
     protected baseUrl: string = '';
     protected lang: string = '';
@@ -157,7 +156,8 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
 
-        this.iconsFallback = this.$params.common?.icons?.fallback;
+        this.iconsExtension = this.$params.common.icons.extension;
+        this.iconsFallback = this.setExtension(this.$params.common.icons.fallback);
 
         if (this.$params.common?.scrollToSelector) {
             setTimeout(() => {
@@ -179,9 +179,9 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
         this.actionService.scrollTo(selector);
     }
 
-    public getIcon(item: IMenuItem): string {
+    public getIcon(item: Params.IMenuItem): string {
         if (item.icon) {
-            return item.icon.split('.').length > 1 ? item.icon : `${item.icon}.${this.iconsExtension}`;
+            return this.setExtension(item.icon);
         }
         return '';
     }
@@ -201,6 +201,10 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
         } else {
             return data.url;
         }
+    }
+
+    protected setExtension(iconPath: string): string {
+        return iconPath.replace(/\.[\da-z]+$/i, '') + `.${this.iconsExtension}`;
     }
 
     protected initItems(): void {
@@ -224,7 +228,7 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
                     return;
                 }
 
-                const menuItem: IMenuItem = item as IMenuItem;
+                const menuItem: Params.IMenuItem = item as Params.IMenuItem;
                 switch (menuItem.type) {
                     case 'anchor':
                         template = this.tplAnchor;
@@ -261,7 +265,7 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
     }
 
     protected expandItems(): void {
-        _forEach(this.items, (item: IMenuItemsGroup) => {
+        _forEach(this.items, (item: Params.IMenuItemsGroup) => {
             if (item.parent) {
                 item.expand = !!_find(item.items, (subItem) => {
                     return this.isActive(subItem.params?.state?.name);

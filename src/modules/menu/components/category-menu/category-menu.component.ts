@@ -11,16 +11,24 @@ import {
 } from '@angular/core';
 import {UIRouter} from '@uirouter/core';
 import {TranslateService} from '@ngx-translate/core';
+import {
+    AbstractComponent,
+    IMixedParams,
+    EventService,
+    ConfigService,
+} from 'wlc-engine/modules/core';
+import {
+    GamesCatalogService,
+    CategoryModel,
+} from 'wlc-engine/modules/games';
+import {
+    MenuHelper,
+    MenuParams,
+    TIconExtension,
+} from 'wlc-engine/modules/menu';
+import * as Params from './category-menu.params';
 
-import {AbstractComponent, IMixedParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {GamesCatalogService} from 'wlc-engine/modules/games/system/services';
-import {EventService} from 'wlc-engine/modules/core/system/services';
-import * as MenuParams from 'wlc-engine/modules/menu/components/menu/menu.params';
-import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.model';
-import * as Params from 'wlc-engine/modules/menu/components/category-menu/category-menu.params';
-import {MenuHelper} from 'wlc-engine/modules/menu/system/helpers/menu.helper';
-import {ConfigService} from 'wlc-engine/modules/core';
-
+import _set from 'lodash-es/set';
 import _clone from 'lodash-es/clone';
 import _assign from 'lodash-es/assign';
 import _forEach from 'lodash-es/forEach';
@@ -49,7 +57,7 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
     protected iconsFolder: string;
     protected useIcons: boolean;
     protected useLobbyBtn: boolean;
-    protected fallBackIcon: string = 'plug.svg';
+    protected fallBackIcon: string = 'plug';
 
     constructor(
         @Inject('injectParams') protected params: Params.ICategoryMenuCParams,
@@ -81,6 +89,14 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
         this.useIcons = _has(this.$params, 'common.icons.use')
             ? this.$params.common.icons.use
             : this.configService.get<boolean>('$menu.categoryMenu.icons.use');
+
+        const extension: TIconExtension = _has(this.$params, 'common.icons.extension')
+            ? this.$params.common.icons.extension
+            : this.configService.get<TIconExtension>('$menu.categoryMenu.icons.extension');
+
+        if (extension) {
+            _set(this.$params, 'menuParams.common.icons.extension', extension);
+        }
 
         this.iconsFolder = this.$params.common?.icons?.folder || this.configService.get<string>('$menu.categoryMenu.icons.folder');
         this.$params.menuParams.common.icons.fallback = this.iconPath(this.fallBackIcon);

@@ -1,4 +1,8 @@
-import {IComponentParams, CustomType} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {
+    IComponentParams,
+    CustomType,
+} from 'wlc-engine/modules/core';
+import {TIconExtension} from 'wlc-engine/modules/menu';
 import * as MenuParams from 'wlc-engine/modules/menu/components/menu/menu.params';
 
 export type Type = 'default' | 'dropdown' | CustomType;
@@ -16,6 +20,7 @@ export interface ICategoryMenuCParams extends IComponentParams<Theme, Type, Them
         icons?: {
             folder?: string;
             use?: boolean,
+            extension?: TIconExtension;
         }
     };
     type?: Type,

@@ -1,6 +1,7 @@
 import {IComponentParams, ICounterType} from 'wlc-engine/modules/core/system/interfaces/config.interface';
 import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.model';
 import {ISliderCParams} from 'wlc-engine/modules/promo';
+import {TIconExtension} from 'wlc-engine/modules/menu';
 
 export interface MenuConfigItemsGroup {
     parent: string;
@@ -79,6 +80,7 @@ export interface IMenuCParams extends IComponentParams<MenuTheme, MenuType, stri
         },
         icons?: {
             fallback?: string;
+            extension?: TIconExtension;
         };
         scrollToSelector?: string;
     },
@@ -112,6 +114,12 @@ export const defaultParams: IMenuCParams = {
     moduleName: 'menu',
     componentName: 'wlc-menu',
     class: 'wlc-menu',
+    common: {
+        icons: {
+            extension: 'svg',
+            fallback: '',
+        },
+    },
     scrollDuration: 300,
     sliderParams: {
         swiper: {

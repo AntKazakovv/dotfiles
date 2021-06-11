@@ -1,4 +1,7 @@
-import {IComponentParams, CustomType} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {
+    IComponentParams,
+    CustomType,
+} from 'wlc-engine/modules/core';
 
 export type Type = CustomType;
 export type Theme = 'default' | CustomType;

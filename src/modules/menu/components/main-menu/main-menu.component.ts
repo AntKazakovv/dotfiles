@@ -6,8 +6,9 @@ import {
     Injector,
     OnInit,
 } from '@angular/core';
-import {TranslateService} from '@ngx-translate/core';
-
+import {
+    TranslateService,
+} from '@ngx-translate/core';
 import {
     AbstractComponent,
     IMixedParams,
@@ -20,12 +21,16 @@ import {
     GamesCatalogService,
     CategoryModel,
 } from 'wlc-engine/modules/games';
-import {MenuHelper} from 'wlc-engine/modules/menu/system/helpers/menu.helper';
+import {
+    TIconExtension,
+    MenuHelper,
+} from 'wlc-engine/modules/menu';
 
+import * as Config from 'wlc-engine/modules/menu/system/config/main-menu.items.config';
 import * as MenuParams from 'wlc-engine/modules/menu/components/menu/menu.params';
 import * as Params from 'wlc-engine/modules/menu/components/main-menu/main-menu.params';
-import * as Config from 'wlc-engine/modules/menu/system/config/main-menu.items.config';
 
+import _set from 'lodash-es/set';
 import _clone from 'lodash-es/clone';
 import _has from 'lodash-es/has';
 import _sortBy from 'lodash-es/sortBy';
@@ -88,6 +93,11 @@ export class MainMenuComponent extends AbstractComponent implements OnInit {
             : this.configService.get<boolean>('$menu.mainMenu.icons.use');
 
         this.iconsFolder = this.$params.common?.icons?.folder || this.configService.get<string>('$menu.mainMenu.icons.folder');
+
+        const extension: TIconExtension = this.configService.get<TIconExtension>('$menu.mainMenu.icons.extension');
+        if (extension) {
+            _set(this.$params, 'menuParams.common.icons.extension', extension);
+        }
 
         _merge(this.$params.menuParams, {
             wlcElement: this.$params.wlcElement || 'wlc-main-menu',
