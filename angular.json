@@ -22,7 +22,7 @@
                         "main": "src/main.ts",
                         "polyfills": "src/polyfills.ts",
                         "tsConfig": "tsconfig.engine.json",
-                        "aot": false,
+                        "aot": true,
                         "preserveSymlinks": true,
                         "assets": [
                             "src/favicon.ico",
@@ -57,7 +57,7 @@
                             "namedChunks": false,
                             "extractLicenses": true,
                             "vendorChunk": false,
-                            "aot": false,
+                            "aot": true,
                             "budgets": [
                                 {
                                     "type": "initial",

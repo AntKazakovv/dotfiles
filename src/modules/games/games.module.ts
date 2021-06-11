@@ -22,6 +22,7 @@ import {CategoryPreviewComponent} from 'wlc-engine/modules/games/components/cate
 import {ProviderLinksComponent} from './components/provider-links/provider-links.component';
 import {ProviderGamesComponent} from './components/provider-games/provider-games.component';
 import {ProgressBarComponent} from './components/progress-bar/progress-bar.component';
+import {CompilerModule} from 'wlc-engine/modules/compiler';
 
 import {GlobalHelper} from 'wlc-engine/modules/core';
 import {IGamesConfig} from './system/interfaces/games.interfaces';
@@ -29,7 +30,6 @@ import {gamesConfig} from './system/config/games.config';
 import * as $config from 'wlc-config/index';
 
 import _get from 'lodash-es/get';
-
 
 export const moduleConfig =
     GlobalHelper.mergeConfig<IGamesConfig>(gamesConfig, _get($config, '$games', {}));
@@ -75,6 +75,7 @@ export const components = {
         CoreModule,
         UserModule,
         PromoModule,
+        CompilerModule,
     ],
     providers: [
         GamesCatalogService,

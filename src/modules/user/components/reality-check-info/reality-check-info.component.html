@@ -26,7 +26,7 @@
 <div class="{{$class}}-footer">
     <div wlc-checkbox [inlineParams]="checkBoxParams"></div>
 
-    <div *ngIf="showClose; else logout">
+    <div *ngIf="showClose; else logoutTemplate">
         <button wlc-button
             text="Close"
             (click)="close()"
@@ -35,7 +35,7 @@
     </div>
 </div>
 
-<ng-template #logout>
+<ng-template #logoutTemplate>
     <button wlc-button
         text="Logout"
         (click)="logout()"

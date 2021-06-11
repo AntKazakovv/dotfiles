@@ -5,15 +5,15 @@ import {
     OnInit,
     OnChanges,
     SimpleChanges,
+    Directive,
 } from '@angular/core';
 import {Subject} from 'rxjs';
-import {IComponentParams} from 'wlc-engine/modules/core/system/interfaces/config.interface';
-
 import {
     ActionService,
     ConfigService,
+    IComponentParams,
+    IIndexing,
 } from 'wlc-engine/modules/core';
-import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 
 import _filter from 'lodash-es/filter';
 import _get from 'lodash-es/get';
@@ -26,7 +26,7 @@ import _split from 'lodash-es/split';
 import _has from 'lodash-es/has';
 import _mergeWith from 'lodash-es/mergeWith';
 
-export {IComponentParams, CustomType} from 'wlc-engine/modules/core/system/interfaces/config.interface';
+export {IComponentParams, CustomType} from 'wlc-engine/modules/core';
 
 interface IAbstractConfig {
     moduleName?: string;
@@ -41,11 +41,8 @@ export interface IMixedParams<T extends IComponentParams<unknown, unknown, unkno
     componentName?: string;
 }
 
-function EmptyDecorator(c) {
-    return null;
-}
-
-@EmptyDecorator
+@Directive()
+// eslint-disable-next-line @angular-eslint/directive-class-suffix
 export class AbstractComponent implements OnDestroy, OnInit, OnChanges {
     @HostBinding('class') protected $hostClass: string;
     @HostBinding('attr.data-wlc-element') protected $hostWlcElement: string;

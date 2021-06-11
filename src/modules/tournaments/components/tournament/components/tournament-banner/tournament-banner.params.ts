@@ -5,8 +5,8 @@ import {
 import {
     ThumbType,
     Tournament,
+    TournamentComponent,
 } from 'wlc-engine/modules/tournaments';
-import {TournamentComponent} from 'wlc-engine/modules/tournaments/components/tournament/tournament.component';
 import {IIndexing} from 'wlc-engine/modules/core';
 
 export type ComponentTheme = 'default' | CustomType;

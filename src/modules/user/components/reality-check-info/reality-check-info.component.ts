@@ -6,11 +6,11 @@ import {
 } from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {DateTime} from 'luxon';
-import {ModalService} from 'wlc-engine/modules/core';
+import {ICheckboxCParams, ModalService} from 'wlc-engine/modules/core';
+import {UserService} from 'wlc-engine/modules/user';
 import {
     AbstractComponent,
 } from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {UserService} from 'wlc-engine/modules/user/system/services';
 
 import * as Params from './reality-check-info.params';
 
@@ -24,7 +24,7 @@ export class RealityCheckInfoComponent extends AbstractComponent implements OnIn
     public $params: Params.IRealityCheckInfoCParams;
     public playTime: string;
     public showClose: boolean = false;
-    public checkBoxParams = {
+    public checkBoxParams: ICheckboxCParams = {
         name: 'i-have-seen',
         text: gettext('I have seen this message'),
         textSide: 'right',

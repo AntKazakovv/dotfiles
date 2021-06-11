@@ -533,6 +533,14 @@ export class LayoutService {
                     this.afterModuleLoad('livechat', m);
                     return m.LivechatModule;
                 });
+            case 'compiler':
+                if (this.loadedModules.compiler) {
+                    return this.loadedModules.compiler;
+                }
+                return import('wlc-engine/modules/compiler/compiler.module').then(m => {
+                    this.afterModuleLoad('compiler', m);
+                    return m.CompilerModule;
+                });
             case 'custom':
                 if (this.loadedModules.custom) {
                     return this.loadedModules.custom;

@@ -1,14 +1,14 @@
 import {
     CustomType,
     IComponentParams,
-} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {RestType, ThumbType} from '../../system/interfaces/tournaments.interface';
+} from 'wlc-engine/modules/core';
+import {RestType, ThumbType} from 'wlc-engine/modules/tournaments';
 import {SwiperOptions} from 'swiper';
 
-export type ComponentTheme = 'default' | 'dashboard' | CustomType;
+export type ComponentTheme = 'default' | 'dashboard' | 'active' | 'available' | 'banner' | 'detail' | CustomType;
 export type ComponentType = 'default' | 'swiper' | CustomType;
 export type ThemeMod = 'default' | CustomMod;
-export type AutoModifiers = ComponentTheme| ThemeMod;
+export type AutoModifiers = ComponentTheme | ThemeMod;
 export type CustomMod = string;
 export type Modifiers = AutoModifiers | CustomMod | null;
 

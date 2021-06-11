@@ -30,7 +30,7 @@
 
         <ng-container *ngIf="isReady">
             <ng-container *ngIf="!useMobileIframe">
-                <div *ngIf="isReady; else preloader"
+                <div *ngIf="isReady;"
                      wlc-dynamic-html
                      #gameContainer
                      class="{{$class}}__game-container"
@@ -53,7 +53,11 @@
         </div>
         <ng-container *ngIf="isReady">
             <ng-container *ngIf="!useMobileIframe">
-                <div #gameContainer class="{{$class}}__game-container" wlc-dynamic-html [html]="gameHtml" *ngIf="isReady; else preloader"></div>
+                <div *ngIf="isReady;"
+                     wlc-dynamic-html
+                     #gameContainer
+                     class="{{$class}}__game-container"
+                     [html]="gameHtml"></div>
             </ng-container>
 
             <ng-container *ngIf="useMobileIframe">
@@ -62,5 +66,3 @@
         </ng-container>
     </div>
 </div>
-
-

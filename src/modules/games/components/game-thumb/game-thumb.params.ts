@@ -1,5 +1,6 @@
 import {IComponentParams, CustomType} from 'wlc-engine/modules/core';
 import {Game} from 'wlc-engine/modules/games';
+import * as ButtonParams from 'wlc-engine/modules/core/components/button/button.params';
 
 export type Type = 'default' | 'modal' | 'vertical' | 'promo-widget' | CustomType;
 export type Theme = 'default' | 'vertical' | 'promo-widget' | CustomType;
@@ -11,6 +12,13 @@ export type Modifiers = AutoModifiers | CustomMod | null;
 export interface IGamePromoWidget {
     title?: string;
     gameCategory?: string;
+}
+
+export interface IGameThumbButtonsSettings {
+    theme?: ButtonParams.Theme,
+    themeMode?: ButtonParams.ThemeMod,
+    demoTheme?: ButtonParams.Theme,
+    demoThemeMode?: ButtonParams.ThemeMod,
 }
 
 export interface IGameThumbCParams extends IComponentParams<Theme, Type, ThemeMod> {

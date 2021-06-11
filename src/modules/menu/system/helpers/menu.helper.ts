@@ -139,6 +139,7 @@ export class MenuHelper {
                     const menuItem: Params.IMenuItemsGroup = {
                         parent: parent,
                         items: items,
+                        type: 'group',
                     };
                     return menuItem;
                 } else {

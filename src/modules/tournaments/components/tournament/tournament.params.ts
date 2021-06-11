@@ -7,7 +7,7 @@ import {
     ThumbType,
 } from 'wlc-engine/modules/tournaments';
 
-export type ComponentTheme = 'default' | CustomType;
+export type ComponentTheme = 'default' | 'dashboard' | 'active' | 'available' | 'banner' | 'detail' | CustomType;
 export type ComponentType = ThumbType | CustomType;
 export type ThemeMod = 'default' | CustomMod;
 export type AutoModifiers = ComponentTheme | ThemeMod;

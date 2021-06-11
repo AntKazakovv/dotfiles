@@ -5,25 +5,22 @@ import {
     Input,
     OnInit,
 } from '@angular/core';
-
 import {takeUntil} from 'rxjs/operators';
-
 import {
     AbstractComponent,
     ConfigService,
     GlobalHelper,
     IMixedParams,
 } from 'wlc-engine/modules/core';
-
 import {
     Tournament,
     TournamentsService,
+    TournamentComponent,
 } from 'wlc-engine/modules/tournaments';
 
-import {TournamentComponent} from 'wlc-engine/modules/tournaments/components/tournament/tournament.component';
+import * as Params from './tournament-banner.params';
 
-import * as Params
-    from 'wlc-engine/modules/tournaments/components/tournament/components/tournament-banner/tournament-banner.params';
+import _set from 'lodash-es/set';
 
 @Component({
     selector: '[wlc-tournament-banner]',
@@ -96,8 +93,10 @@ export class TournamentBannerComponent
     }
 
     public readMore(useSelector: boolean = false): void {
-        const selector = useSelector ? this.$params.common.actionParams.selector : '';
-        this.parentInstance?.readMore(this.$params.common.actionParams, selector);
+        if (!useSelector) {
+            _set(this.$params, 'common.actionParams.selector', '');
+        }
+        this.parentInstance?.readMore(this.$params.common.actionParams);
     }
 
     public joinToTournament(): void {

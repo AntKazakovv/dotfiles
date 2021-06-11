@@ -4,13 +4,14 @@ import {ISliderCParams} from 'wlc-engine/modules/promo';
 
 export interface MenuConfigItemsGroup {
     parent: string;
+    type: string;
     items: string[];
 }
 export type MenuConfigItem = MenuConfigItemsGroup | IMenuItem | string;
 export type MenuItemObjectType = IMenuItem | IMenuItemsGroup;
 export type MenuItemType = string | IMenuItem | IMenuItemsGroup;
 export type MenuType = 'main-menu' | 'category-menu' | 'profile-menu' | 'profile-first-menu' | 'mobile-menu' | 'footer:tc' | 'footer:about' | 'affiliates-menu';
-export type ItemType = 'sref' | 'anchor' | 'modal' | 'href' | 'scroll' | 'title' | 'dropdown';
+export type ItemType = 'sref' | 'anchor' | 'modal' | 'href' | 'scroll' | 'title' | 'dropdown' | 'group';
 export type IMenuTarget = '_blank' | '_self' | '_parent' | '_top';
 export type MenuTheme = string;
 
@@ -63,8 +64,9 @@ export interface IMenuItem {
 
 export interface IMenuItemsGroup {
     parent: IMenuItem,
-    counter?: ICounterType;
     items: IMenuItem[],
+    type?: ItemType,
+    counter?: ICounterType;
     expand?: boolean;
 }
 

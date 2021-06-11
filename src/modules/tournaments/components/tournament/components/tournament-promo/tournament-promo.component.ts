@@ -19,14 +19,13 @@ import {
 import {
     Tournament,
     TournamentsService,
+    PRIMARY_ROW_LIMIT,
+    TournamentComponent,
 } from 'wlc-engine/modules/tournaments';
 
-import {TournamentComponent} from 'wlc-engine/modules/tournaments/components/tournament/tournament.component';
+import * as Params from './tournament-promo.params';
 
-import {PRIMARY_ROW_LIMIT} from 'wlc-engine/modules/tournaments/components/tournament/components/tournament-prizes/tournament-prizes.params';
-
-import * as Params
-    from 'wlc-engine/modules/tournaments/components/tournament/components/tournament-promo/tournament-promo.params';
+import _set from 'lodash-es/set';
 
 @Component({
     selector: '[wlc-tournament-promo]',
@@ -90,8 +89,10 @@ export class TournamentPromoComponent extends AbstractComponent implements OnIni
     }
 
     public readMore(useSelector: boolean = false): void {
-        const selector = useSelector ? this.$params.common.actionParams.selector : '';
-        this.parentInstance?.readMore(this.$params.common.actionParams, selector);
+        if (!useSelector) {
+            _set(this.$params, 'common.actionParams.selector', '');
+        }
+        this.parentInstance?.readMore(this.$params.common.actionParams);
     }
 
     protected checkParentInstance(): void {
@@ -110,5 +111,3 @@ export class TournamentPromoComponent extends AbstractComponent implements OnIni
             });
     }
 }
-
-

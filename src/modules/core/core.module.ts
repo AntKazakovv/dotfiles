@@ -15,6 +15,7 @@ import {SwiperModule} from 'swiper/angular';
 import {TooltipModule} from 'ngx-bootstrap/tooltip';
 import {TranslateModule} from '@ngx-translate/core';
 import {UIRouterModule} from '@uirouter/angular';
+import {CompilerModule} from 'wlc-engine/modules/compiler';
 // -- MODULES IMPORTS END --;
 
 // -- SERVICES IMPORTS START --;
@@ -46,7 +47,6 @@ import {CounterComponent} from './components/counter/counter.component';
 import {CurrencyComponent} from 'wlc-engine/modules/core/components/currency/currency.component';
 import {DatepickerComponent} from './components/datepicker/datepicker.component';
 import {DisclaimerComponent} from './components/disclaimer/disclaimer.component';
-import {DynamicHtmlComponent} from './components/dynamic-html/dynamic-html.component';
 import {ErrorPageComponent} from './components/error-page/error-page.component';
 import {FeedbackFormComponent} from './components/feedback-form/feedback-form.component';
 import {FloatPanelsComponent} from './components/float-panels/float-panels.component';
@@ -122,7 +122,6 @@ export const components = {
     'wlc-currency': CurrencyComponent,
     'wlc-datepicker': DatepickerComponent,
     'wlc-disclaimer': DisclaimerComponent,
-    'wlc-dynamic-html': DynamicHtmlComponent,
     'wlc-error-page': ErrorPageComponent,
     'wlc-feedback-form': FeedbackFormComponent,
     'wlc-form-control': FormControlComponent,
@@ -167,6 +166,7 @@ export const components = {
         TooltipModule.forRoot(),
         PaginationModule.forRoot(),
         AngularMyDatePickerModule,
+        CompilerModule,
     ],
     providers: [
         DataService,
@@ -203,7 +203,6 @@ export const components = {
         DatepickerComponent,
         DisclaimerComponent,
         DragNDropDirective,
-        DynamicHtmlComponent,
         ErrorPageComponent,
         FallbackImgDirective,
         FeedbackFormComponent,
@@ -261,7 +260,6 @@ export const components = {
         DatepickerComponent,
         DisclaimerComponent,
         DragNDropDirective,
-        DynamicHtmlComponent,
         ErrorPageComponent,
         FallbackImgDirective,
         FloatPanelsComponent,

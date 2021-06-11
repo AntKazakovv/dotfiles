@@ -42,7 +42,7 @@
                         {{(shownUserStats[item]?.value | number: '.0-2') || 'Unknown' | translate}}
                     </span>
                     <span class="value" *ngSwitchCase="'string'">
-                        {{this.shownUserStats[item]?.value || 'Unknown' | translate}}
+                        {{this.shownUserStats[item]?.value?.toString() || 'Unknown' | translate}}
                     </span>
                     <span class="value" *ngSwitchCase="'amount'">
                         <span wlc-currency [value]="shownUserStats[item]?.value"></span>
