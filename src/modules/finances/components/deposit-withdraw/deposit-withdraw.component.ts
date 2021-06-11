@@ -588,11 +588,9 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
         this.checkUserProfileForPayment();
         this.updateFormConfig();
 
-        if (this.currentSystem.isHosted) {
-            if (!this.isLoadHostedFields || !this.currentSystem.hostedFields.loaded) {
-                this.isLoadHostedFields = true;
-                this.loadHostedFields();
-            }
+        if (this.currentSystem.isHosted && (!this.isLoadHostedFields || !this.currentSystem.hostedFields.loaded)) {
+            this.isLoadHostedFields = true;
+            this.loadHostedFields();
         }
     }
 

@@ -107,7 +107,6 @@ export class WlcModalComponent extends AbstractComponent
         } else if (this.$params.config.component) {
             return 'component';
         }
-        return;
     }
 
     public goBack(name): void {

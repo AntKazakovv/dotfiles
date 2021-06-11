@@ -384,7 +384,6 @@ export class GamesCatalogService {
         } else if (parentCategory) {
             return parentCategory.title[lang] || parentCategory.title['en'];
         }
-        return;
     }
 
     /**
@@ -633,8 +632,7 @@ export class GamesCatalogService {
             if (!category) {
                 return;
             }
-            const games = this.getGamesByCategories([category]);
-            return games;
+            return this.getGamesByCategories([category]);
         }
     }
 
@@ -681,14 +679,16 @@ export class GamesCatalogService {
                 return;
             }
 
-            if (params?.modal?.show) {
-                if (
-                    _isArray(params.modal.deviceType) && params.modal.deviceType.includes(this.deviceType)
-                    || !params.modal.deviceType
-                ) {
-                    this.showRunGameModal(game, (disableDemo || !game.hasDemo) ? true : params.modal.disableDemo);
-                    return;
-                }
+            if (
+                params?.modal?.show &&
+                (
+                    !params.modal.deviceType ||
+                    _isArray(params.modal.deviceType) &&
+                    params.modal.deviceType.includes(this.deviceType)
+                )
+            ) {
+                this.showRunGameModal(game, (disableDemo || !game.hasDemo) ? true : params.modal.disableDemo);
+                return;
             }
 
             this.modalService.closeAllModals();

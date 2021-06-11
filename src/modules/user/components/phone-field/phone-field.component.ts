@@ -45,24 +45,21 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
         this.provideParams();
 
         this.user.userProfile$.subscribe((profile => {
-            if (profile) {
-
-                if (!profile.countryCode && !this.$params.phoneCode.control.value) {
-                    this.configService.get<BehaviorSubject<ICountry[]>>('countries').subscribe(data => {
-                        const country = _find(data, (item) => {
-                            return this.configService.get<string>('appConfig.country') === item?.value;
-                        });
-                        if (country) {
-                            this.$params.phoneCode.control.setValue(`+${+(country.phoneCode)}`);
-                            this.$params.phoneCode.control.updateValueAndValidity({onlySelf: true});
-
-                            setTimeout(() => {
-                                this.setValidators(`+${+(country.phoneCode)}`);
-                                this.cdr.detectChanges();
-                            });
-                        }
+            if (!profile?.countryCode && !this.$params.phoneCode.control.value) {
+                this.configService.get<BehaviorSubject<ICountry[]>>('countries').subscribe(data => {
+                    const country = _find(data, (item) => {
+                        return this.configService.get<string>('appConfig.country') === item?.value;
                     });
-                }
+                    if (country) {
+                        this.$params.phoneCode.control.setValue(`+${+(country.phoneCode)}`);
+                        this.$params.phoneCode.control.updateValueAndValidity({onlySelf: true});
+
+                        setTimeout(() => {
+                            this.setValidators(`+${+(country.phoneCode)}`);
+                            this.cdr.detectChanges();
+                        });
+                    }
+                });
             }
         }));
 

@@ -11,31 +11,38 @@ import {
     Type,
 } from '@angular/core';
 import {DOCUMENT} from '@angular/common';
-import {from, Observable, Subject, Subscription, timer} from 'rxjs';
-import {concatMap, delay, first, map, scan} from 'rxjs/operators';
-
 import {
-    EventService,
+    Observable,
+    Subject,
+    Subscription,
+    from,
+    timer,
+} from 'rxjs';
+import {
+    concatMap,
+    delay,
+    first,
+    map,
+    scan,
+} from 'rxjs/operators';
+import {
     ConfigService,
-    LogService,
-    GlobalHelper,
-    ModalService,
-    IEvent,
-} from 'wlc-engine/modules/core';
-import {
     DISMISS_ANIMATION_DURATION,
-    SHIFT_ANIMATION_DURATION,
-    NotificationThreadComponent,
-} from 'wlc-engine/modules/core/components/notification-thread/notification-thread.component';
-import {MessageComponent} from 'wlc-engine/modules/core/components/message/message.component';
-import {
+    EventService,
+    GlobalHelper,
+    IEvent,
     INotificationMetadata,
+    INotificationsConfig,
     IPushComponentParams,
     IPushMessageParams,
-} from 'wlc-engine/modules/core/system/services/notification/notification.interface';
-import {INotificationsConfig} from 'wlc-engine/modules/core/system/interfaces/base-config/notifications.interface';
+    LogService,
+    MessageComponent,
+    ModalService,
+    NotificationThreadComponent,
+    SHIFT_ANIMATION_DURATION,
+} from 'wlc-engine/modules/core';
 
-import * as Params from 'wlc-engine/modules/core/system/services/notification/notification.params';
+import * as Params from './notification.params';
 
 import _concat from 'lodash-es/concat';
 import _find from 'lodash-es/find';
@@ -173,20 +180,13 @@ export class NotificationService {
         const Events = NotificationEvents;
         const eventQueue: IEvent<any>[] = [];
 
-        this.eventService.subscribe(
-            {name: Events.PushMessage},
-            (params: IPushMessageParams) => {
-                eventQueue.push({
-                    name: Events.PushMessage,
-                    data: params,
-                });
-            },
-            this.$init,
-        );
 
         this.eventService.subscribe(
-            {name: Events.PushComponent},
-            (params: IPushComponentParams) => {
+            [
+                {name: Events.PushComponent},
+                {name: Events.PushMessage},
+            ],
+            (params: IPushComponentParams | IPushMessageParams) => {
                 eventQueue.push({
                     name: Events.PushMessage,
                     data: params,

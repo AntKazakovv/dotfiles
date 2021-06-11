@@ -126,6 +126,5 @@ export class TitleComponent extends AbstractComponent implements OnInit, AfterVi
         } else if (text instanceof BehaviorSubject) {
             return text.getValue();
         }
-        return;
     }
 }

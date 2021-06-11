@@ -90,7 +90,7 @@ export class InputMaskDirective implements AfterViewInit,
             switch (pattern) {
                 case 'textField': {
                     this.wlcInputMask = {
-                        mask: /^[a-zA-zА-Яа-яёЁ][a-zA-zА-Яа-яёЁ\s\-]{0,49}$/,
+                        mask: /^[A-zЁА-яё][\sA-zЁА-яё\-]{0,49}$/,
                     };
                     break;
                 }
@@ -99,6 +99,5 @@ export class InputMaskDirective implements AfterViewInit,
                     break;
             }
         }
-        return;
     }
 }

@@ -1,5 +1,3 @@
-import {HookHandler} from 'wlc-engine/modules/core/system/services/hooks/hooks.service';
-
 export {DataService, IData} from './data/data.service';
 export {EventService, IEvent} from './event/event.service';
 export {
@@ -10,7 +8,6 @@ export {
 export {LayoutService, LayoutsType} from './layout/layout.service';
 export {FilesService, IFile} from './files/files.service';
 export {LogService} from './log/log.service';
-// export {SentryService} from './sentry/sentry.service';
 export {ActionService} from './action/action.service';
 export {NotificationService} from './notification/notification.service';
 export {ModalService} from './modal/modal.service';
@@ -33,3 +30,8 @@ export {
     InteractiveTextService,
     InteractiveTextEvents,
 } from './interactive-text/interactive-text.service';
+export {
+    INotificationMetadata,
+    IPushComponentParams,
+    IPushMessageParams,
+} from './notification/notification.interface';

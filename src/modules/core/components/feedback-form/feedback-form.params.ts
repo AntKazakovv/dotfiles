@@ -37,7 +37,7 @@ export const feedbackConfig: IFormWrapperCParams = {
                     {
                         name: 'regExp',
                         text: gettext('Enter a valid username'),
-                        options: /[@#$%&<>^*'"\/\\\/!№()\d]+/,
+                        options: /[\d!"#$%&'()*\/<>@\\^№]+/,
                     },
                 ],
                 exampleValue: gettext('Enter your name'),

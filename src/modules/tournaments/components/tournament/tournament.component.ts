@@ -187,7 +187,6 @@ export class TournamentComponent
     public checkSubscribeConditions(tournament: Tournament): void {
         if (tournament.feeAmount === 0) {
             this.joinTournament();
-            return;
         } else if (tournament.feeType === 'balance' && this.userInfo?.realBalance >= tournament.feeAmount) {
             this.showConditionModal(
                 tournament,
@@ -197,8 +196,6 @@ export class TournamentComponent
                 gettext('Let\'s play?'),
                 'join',
             );
-
-            return;
         } else if (tournament.feeType === 'loyalty' && +this.userInfo?.loyalty.Balance >= tournament.feeAmount) {
             this.showConditionModal(
                 tournament,
@@ -208,8 +205,6 @@ export class TournamentComponent
                 gettext('Let\'s play?'),
                 'join',
             );
-
-            return;
         } else if (tournament.feeType === 'balance' && this.userInfo?.realBalance < tournament.feeAmount) {
             this.showConditionModal(
                 tournament,
@@ -219,8 +214,6 @@ export class TournamentComponent
                 gettext('Sorry, not today. Deposit more money and join this tournament!'),
                 'deposit',
             );
-
-            return;
         } else if (tournament.feeType === 'loyalty' && +this.userInfo?.loyalty.Balance < tournament.feeAmount) {
             this.showConditionModal(
                 tournament,
@@ -230,8 +223,6 @@ export class TournamentComponent
                 gettext('Sorry, not today. Bet more to earn bitcoins and join this tournament!'),
                 'deposit',
             );
-
-            return;
         }
     }
 

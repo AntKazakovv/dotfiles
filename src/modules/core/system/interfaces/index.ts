@@ -6,6 +6,7 @@ export * from './layouts.interface';
 export * from './fundist.interface';
 export * from './base-config';
 export * from './loyalty-config.interface';
+export * from './base-config/notifications.interface';
 export {DeviceType} from 'wlc-engine/modules/core/system/models/device.model';
 export * from './config.interface';
 export * from './core.interface';

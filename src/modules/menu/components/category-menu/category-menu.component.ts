@@ -109,10 +109,8 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
                 this.$params.menuParams.common.swiper.scrollToStart = true;
 
                 const currentParent = this.gamesCatalogService.getParentCategoryByState();
-                if (this.parentCategory && currentParent) {
-                    if (this.parentCategory.slug === currentParent.slug) {
-                        this.$params.menuParams.common.swiper.scrollToStart = false;
-                    }
+                if (this.parentCategory && currentParent && this.parentCategory.slug === currentParent.slug) {
+                    this.$params.menuParams.common.swiper.scrollToStart = false;
                 }
                 this.initMenu();
             });

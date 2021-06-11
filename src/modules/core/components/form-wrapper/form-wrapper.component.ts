@@ -163,10 +163,8 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
     }
 
     public async submit(): Promise<void> {
-        if (this.beforeSubmit) {
-            if (!this.beforeSubmit(this.form)) {
-                return;
-            }
+        if (this.beforeSubmit && !this.beforeSubmit(this.form)) {
+            return;
         }
 
         if (this.form.valid) {

@@ -361,20 +361,18 @@ export class Tournament extends AbstractModel<ITournament> {
     public getTopArray(result: ITopTournamentUsers): ITournamentPlace[] {
         const topWin = result?.results || [];
 
-        if (result?.user) {
-            if (_toNumber(result.user.Place) > topWin.length || !result.user.Place) {
-                topWin.push({
-                    Email: this.configService.get<string>('appConfig.user.Email')?.substring(0, 6) + '***',
-                    FirstName: this.configService.get<string>('appConfig.user.first_name'),
-                    IDUser: result.user.IDUser,
-                    IDUserPlace: result.user.Place || '-',
-                    LastName: this.configService.get<string>('appConfig.user.last_name'),
-                    Login: this.configService.get<string>('appConfig.user.user_id'),
-                    Points: _toString(result.user.Points),
-                    UserLogin: this.configService.get<string>('appConfig.user.login'),
-                    Win: _toNumber(result.user.Win),
-                });
-            }
+        if (result?.user && (_toNumber(result.user.Place) > topWin.length || !result.user.Place)) {
+            topWin.push({
+                Email: this.configService.get<string>('appConfig.user.Email')?.substring(0, 6) + '***',
+                FirstName: this.configService.get<string>('appConfig.user.first_name'),
+                IDUser: result.user.IDUser,
+                IDUserPlace: result.user.Place || '-',
+                LastName: this.configService.get<string>('appConfig.user.last_name'),
+                Login: this.configService.get<string>('appConfig.user.user_id'),
+                Points: _toString(result.user.Points),
+                UserLogin: this.configService.get<string>('appConfig.user.login'),
+                Win: _toNumber(result.user.Win),
+            });
         }
 
         _each(topWin, (item: ITournamentPlace) => {

@@ -141,7 +141,6 @@ export class AbstractComponent implements OnDestroy, OnInit, OnChanges {
     protected setModifiers(mods: string[] | string): any {
         this.modifiers = _isArray(mods) ? mods : [mods];
         this.prepareHostClass();
-        return;
     }
 
     protected clearModifiers(): void {

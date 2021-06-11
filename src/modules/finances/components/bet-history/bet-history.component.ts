@@ -137,13 +137,10 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
 
         let result: IBet[] = this.allBets || [];
 
-        if (this.filterSelect.control.value) {
-
-            if (this.filterSelect.control.value !== 'all') {
-                result = _filter(result, el => {
-                    return el.Merchant === this.filterSelect.control.value;
-                });
-            }
+        if (this.filterSelect.control.value && this.filterSelect.control.value !== 'all') {
+            result = _filter(result, el => {
+                return el.Merchant === this.filterSelect.control.value;
+            });
         }
 
         result = _filter(result, (item) => {

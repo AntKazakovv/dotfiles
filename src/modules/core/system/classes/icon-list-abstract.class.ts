@@ -96,7 +96,7 @@ export abstract class IconListAbstract<T> extends AbstractComponent {
     }
 
     protected wlcElementTail(name: string): string {
-        return name.toLowerCase().replace(/\s/g, '-').replace(/[^a-zA-Z0-9-]/g, '');
+        return name.toLowerCase().replace(/\s/g, '-').replace(/[^\dA-Za-z-]/g, '');
     }
 
 }

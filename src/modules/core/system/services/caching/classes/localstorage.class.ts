@@ -32,37 +32,33 @@ export class LocalStorageCache extends AbstractCache {
         });
     }
 
-    public delete(key: string): Promise<void> {
+    public async delete(key: string): Promise<void> {
         this.removeKey(key);
         this.storage.clear(this.getKey(key));
-        return;
     }
 
-    public clear(): Promise<void> {
+    public async clear(): Promise<void> {
         const keys: string[] = this.getKeys();
         keys.forEach((item) => {
             this.storage.clear(this.getKey(item));
         });
         this.storage.store(this.getKey('$keys'), []);
-        return;
     }
 
     private getKey(key: string): string {
         return `${this.cachePrefix}:${key}`;
     }
 
-    private addKey(key: string): Promise<void> {
+    private async addKey(key: string): Promise<void> {
         const keys: string[] = this.getKeys();
         keys.push(key);
         this.storage.store(this.getKey('$keys'), keys);
-        return;
     }
 
-    private removeKey(key: string): Promise<void> {
+    private async removeKey(key: string): Promise<void> {
         const keys: string[] = this.getKeys();
         this.storage.store(this.getKey('$keys'),
             keys.filter((item: string) => item !== key));
-        return;
     }
 
     private getKeys(): string[] {

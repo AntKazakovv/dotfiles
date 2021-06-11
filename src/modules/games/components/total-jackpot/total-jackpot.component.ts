@@ -91,9 +91,9 @@ export class TotalJackpotComponent extends AbstractComponent implements OnInit, 
         }).format(0);
 
         this.currency = {
-            currency: format.replace(/[0-9\,\.\s]/g, ''),
+            currency: format.replace(/[\d\s\,\.]/g, ''),
             delimiter: /./.test(format) ? '.' : ',',
-            position: /[0-9]/g.test(format[0]) ? 'right' : 'left',
+            position: /\d/g.test(format[0]) ? 'right' : 'left',
             lang: this.translateService.currentLang,
         };
 

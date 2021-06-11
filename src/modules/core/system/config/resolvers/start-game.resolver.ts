@@ -403,9 +403,7 @@ class StartGameHandler {
      * @returns {boolean}
      */
     private gameRestrictedByActiveBonuses(game: Game, activeBonuses: Bonus[]): boolean {
-        if (this.isDemo) {
-            return false;
-        } else if (!this.configService.get<boolean>('$games.run.checkActiveBonusRestriction')) {
+        if (this.isDemo || !this.configService.get<boolean>('$games.run.checkActiveBonusRestriction')) {
             return false;
         }
         return game.restrictedByBonuses(activeBonuses);

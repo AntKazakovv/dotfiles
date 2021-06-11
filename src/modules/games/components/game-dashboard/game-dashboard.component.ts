@@ -524,12 +524,11 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
         const leftDirection = this.checkDirection(Direction.Left, event);
         const rightDirection = this.checkDirection(Direction.Right, event);
 
-        if (options?.disableDirection) {
-            if (leftDirection && options.disableDirection === Direction.Left ||
-                rightDirection && options.disableDirection === Direction.Right
-            ) {
-                return;
-            }
+        if (options?.disableDirection && (
+            leftDirection && options.disableDirection === Direction.Left ||
+            rightDirection && options.disableDirection === Direction.Right
+        )) {
+            return;
         }
 
         if (leftDirection || rightDirection) {

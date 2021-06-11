@@ -119,7 +119,7 @@ export class MenuHelper {
         const disableIcons: boolean = options?.icons?.disable;
         const iconsFolder: string = _trim(options?.icons?.folder, '/');
 
-        const menuItems: Params.MenuItemObjectType[] = _map(config, (configMenuItem: Params.MenuConfigItem) => {
+        return _map(config, (configMenuItem: Params.MenuConfigItem) => {
             if (_isString(configMenuItem)) {
                 const menuItem: Params.IMenuItem = _cloneDeep(globalItemsConfig[configMenuItem]);
                 MenuHelper.setIcon(menuItem, iconsFolder, disableIcons);
@@ -136,12 +136,11 @@ export class MenuHelper {
                         return itemData;
                     }) || [];
 
-                    const menuItem: Params.IMenuItemsGroup = {
+                    return {
                         parent: parent,
                         items: items,
                         type: 'group',
                     };
-                    return menuItem;
                 } else {
                     const item: Params.IMenuItem = _cloneDeep(configMenuItem as Params.IMenuItem);
                     MenuHelper.setIcon(item, iconsFolder, disableIcons);
@@ -149,7 +148,6 @@ export class MenuHelper {
                 }
             }
         });
-        return menuItems;
     }
 
     public static setIcon(item: Params.IMenuItem, iconsFolder: string, disable: boolean): void {

@@ -219,7 +219,7 @@ export class StaticService {
     private cleanText(text: string): string {
         return _replace(
             text,
-            /&#([0-9]*);/,
+            /&#(\d*);/,
             (match: string, p1: number) => String.fromCharCode(p1),
         );
     }

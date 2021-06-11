@@ -22,7 +22,7 @@ export namespace FormElements {
             locked: true,
             name: 'amount',
             showCurrency: true,
-            prohibitedPattern: /[^0-9.,]/,
+            prohibitedPattern: /[^\d,.]/,
             customMod: ['amount'],
             validators: [
                 'required',
@@ -99,7 +99,7 @@ export namespace FormElements {
             common: {
                 placeholder: gettext('First name'),
             },
-            prohibitedPattern: /[0-9_!,.¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]"№^]/,
+            prohibitedPattern: /[\d!"#$%&()*+,./:;<=>?@[\\\]^_{|}~¡¿÷ˆ№]/,
             name: 'firstName',
             validators: ['required',
                 {
@@ -112,7 +112,7 @@ export namespace FormElements {
                 },
                 {
                     name: 'pattern',
-                    options: /[^0-9_!,.¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]"№^]/,
+                    options: /[^\d!"#$%&()*+,./:;<=>?@[\\\]^_{|}~¡¿÷ˆ№]/,
                 },
             ],
             wlcElement: 'block_Name',
@@ -128,7 +128,7 @@ export namespace FormElements {
             common: {
                 placeholder: gettext('Last name'),
             },
-            prohibitedPattern: /[0-9_!,.¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]"№^]/,
+            prohibitedPattern: /[\d!"#$%&()*+,./:;<=>?@[\\\]^_{|}~¡¿÷ˆ№]/,
             name: 'lastName',
             validators: ['required',
                 {
@@ -141,7 +141,7 @@ export namespace FormElements {
                 },
                 {
                     name: 'pattern',
-                    options: /[^0-9_!,.¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]"№^]/,
+                    options: /[^\d!"#$%&()*+,./:;<=>?@[\\\]^_{|}~¡¿÷ˆ№]/,
                 },
             ],
             wlcElement: 'block_last-name',
