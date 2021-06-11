@@ -18,12 +18,17 @@
             width: ef.get-value($themeDefault, 'width');
 
             &__icon {
-                display: inline-block;
-                margin-right: 7px;
+                @include bm.get-mq-map('width', $themeDefault, 'iconWidth');
+                @include bm.get-mq-map('height', $themeDefault, 'iconHeight');
 
+                display: inline-block;
+                margin: ef.get-value($themeDefault, 'iconMargin');
+
+                img,
                 svg {
-                    max-width: 25px;
-                    max-height: 25px;
+                    display: block;
+                    max-width: 100%;
+                    max-height: 100%;
                 }
             }
 
@@ -32,6 +37,7 @@
                 &__link {
                     @include text.get-text-style('ThirdTitle', ef.get-value($themeDefault, 'textColor'));
                     @include bm.get-mq-map('font-size', $themeDefault, 'fontSize');
+
                     display: flex;
                     align-items: center;
                     text-decoration: ef.get-value($themeDefault, 'textDecoration');
@@ -62,6 +68,7 @@
 
                     &:before {
                         @include bm.transition(height);
+
                         content: '';
                         position: absolute;
                         bottom: ef.get-value($themeDefault, 'underlineOffset');

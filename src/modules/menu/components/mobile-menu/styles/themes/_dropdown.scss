@@ -19,10 +19,25 @@
 
                 .wlc-menu__item {
 
-                    .wlc-menu__link span {
-                        white-space: normal;
-                    }
+                    .wlc-menu__link {
 
+                        span {
+                            white-space: normal;
+
+                            &.wlc-menu__icon {
+                                @include bm.get-mq-map('width', $themeDropdownDefault, 'iconWidth');
+                                @include bm.get-mq-map('height', $themeDropdownDefault, 'iconHeight');
+                                @include bm.get-mq-map('margin', $themeDropdownDefault, 'iconMargin');
+
+                                img,
+                                svg {
+                                    display: block;
+                                    max-width: 100%;
+                                    max-height: 100%;
+                                }
+                            }
+                        }
+                    }
 
                     &.active {
 
@@ -56,6 +71,7 @@
                 .wlc-menu__link {
                     @include text.get-text-style('PrimaryText', ef.get-value($themeDropdownDefault, 'linkColor'));
                     @include bm.transition(background);
+
                     z-index: 2;
                     display: flex;
                     align-items: center;
@@ -102,17 +118,6 @@
 
                     .wlc-menu__item {
 
-                        &:hover {
-
-                            .wlc-menu__link {
-                                border-radius: 0;
-
-                                @include mq.min(1024) {
-                                    background: ef.get-value($themeDropdownDefault, 'activeLinkBg');
-                                }
-                            }
-                        }
-
                         &:last-child {
 
                             .wlc-menu__link {
@@ -128,6 +133,17 @@
                                 border-top-right-radius: ef.get-value($themeDropdownDefault, 'linkBorderRadius');
                             }
                         }
+
+                        @include bm.hover {
+
+                            .wlc-menu__link {
+                                border-radius: 0;
+
+                                @include mq.min(1024) {
+                                    background: ef.get-value($themeDropdownDefault, 'activeLinkBg');
+                                }
+                            }
+                        }
                     }
 
                     .wlc-menu__link {
@@ -135,6 +151,7 @@
 
                         &.active {
                             @include bm.transition(background);
+
                             background: ef.get-value($themeDropdownDefault, 'activeLinkBg');
                         }
                     }

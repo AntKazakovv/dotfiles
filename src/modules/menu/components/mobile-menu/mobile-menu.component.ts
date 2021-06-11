@@ -5,14 +5,19 @@ import {
     OnInit,
     ChangeDetectorRef,
 } from '@angular/core';
-
-import * as Params from './mobile-menu.params';
-import * as MenuParams from 'wlc-engine/modules/menu/components/menu/menu.params';
-import * as CategoryMenuParams from 'wlc-engine/modules/menu/components/category-menu/category-menu.params';
+import {
+    AbstractComponent,
+    IMixedParams,
+    ConfigService,
+} from 'wlc-engine/modules/core';
+import {
+    TIconExtension,
+    MenuHelper,
+    MenuParams,
+    ICategoryMenuCParams,
+} from 'wlc-engine/modules/menu';
 import * as Config from 'wlc-engine/modules/menu/system/config/mobile-menu.config';
-import {ConfigService} from 'wlc-engine/modules/core';
-import {MenuHelper} from 'wlc-engine/modules/menu/system/helpers/menu.helper';
-import {AbstractComponent, IMixedParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import * as Params from './mobile-menu.params';
 
 import _clone from 'lodash-es/clone';
 import _has from 'lodash-es/has';
@@ -28,7 +33,7 @@ export class MobileMenuComponent extends AbstractComponent implements OnInit {
 
     public $params: Params.IMobileMenuCParams;
     public menuParams: MenuParams.IMenuCParams;
-    public categoryMenuParams: CategoryMenuParams.ICategoryMenuCParams;
+    public categoryMenuParams: ICategoryMenuCParams;
 
     protected menuConfig: MenuParams.MenuConfigItem[];
 
@@ -68,6 +73,11 @@ export class MobileMenuComponent extends AbstractComponent implements OnInit {
             type: 'mobile-menu',
             theme: this.$params.theme,
             themeMod: this.$params.themeMod,
+            common: {
+                icons: {
+                    extension: this.configService.get<TIconExtension>('$menu.mobileMenu.icons.extension'),
+                },
+            },
         };
 
         const useIcons: boolean = _has(this.$params, 'common.icons.use')
@@ -85,6 +95,7 @@ export class MobileMenuComponent extends AbstractComponent implements OnInit {
                     icons: {
                         folder: this.configService.get<string>('$menu.mobileMenu.categoryIcons.folder'),
                         use: this.configService.get<boolean>('$menu.mobileMenu.categoryIcons.use'),
+                        extension: this.configService.get<TIconExtension>('$menu.mobileMenu.categoryIcons.extension'),
                     },
                 },
             };
@@ -98,7 +109,7 @@ export class MobileMenuComponent extends AbstractComponent implements OnInit {
         });
 
         this.menuParams = _clone(this.menuParams);
-        this.cdr.markForCheck();
+        this.cdr.detectChanges();
     }
 
 }

@@ -2,6 +2,7 @@ import {MenuConfigItem} from 'wlc-engine/modules/menu/components/menu/menu.param
 
 export interface IMenuIcons {
     folder?: string;
+    extension?: TIconExtension;
     use?: boolean;
 }
 
@@ -24,7 +25,7 @@ export interface ICategoryMenuSettings extends IMenuSettings {
     lobbyBtn?: {
         use?: boolean;
     }
-};
+}
 
 export interface IAffiliatesMenuSettings {
     items?: MenuConfigItem[];
@@ -38,3 +39,5 @@ export interface IMenuConfig {
     profileFirstMenu?: IProfileMenuSettings;
     affiliatesMenu?: IAffiliatesMenuSettings;
 }
+
+export type TIconExtension = 'jpeg' | 'jpg' | 'gif' | 'png' | 'svg' | 'webp' | 'avif';

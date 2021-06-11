@@ -6,16 +6,23 @@ import {
     Inject,
 } from '@angular/core';
 
-import {AbstractComponent, IMixedParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ConfigService} from 'wlc-engine/modules/core';
-import {IMenuOptions, ProfileMenuService} from 'wlc-engine/modules/menu/system/services';
-import * as MenuParams from 'wlc-engine/modules/menu/components/menu/menu.params';
-import * as Params from './profile-menu.params';
+import {
+    AbstractComponent,
+    IMixedParams,
+} from 'wlc-engine/modules/core';
 import {UIRouter} from '@uirouter/core';
+import {ConfigService} from 'wlc-engine/modules/core';
+import {
+    TIconExtension,
+    IMenuOptions,
+    ProfileMenuService,
+    MenuParams,
+} from 'wlc-engine/modules/menu';
+import * as Params from './profile-menu.params';
 
 import _clone from 'lodash-es/clone';
 import _has from 'lodash-es/has';
-import _concat from 'lodash-es/concat';
+import _set from 'lodash-es/set';
 
 @Component({
     selector: '[wlc-profile-menu]',
@@ -99,21 +106,28 @@ export class ProfileMenuComponent extends AbstractComponent implements OnInit {
                 disable: !this.useIcons,
             },
         };
+        let iconsKey: string;
 
         switch (this.$params.type) {
             case 'tabs':
                 this.menuParams.items = this.profileMenuService.getTabsMenu(menuOptions);
+                iconsKey = 'icons';
                 break;
             case 'submenu':
                 this.menuParams.items = this.profileMenuService.getSubMenu(menuOptions);
+                iconsKey = 'subMenuIcons';
                 break;
             case 'full':
             case 'dropdown':
                 this.menuParams.items = this.profileMenuService.getDropdownMenu(menuOptions);
+                iconsKey = 'dropdownMenuIcons';
                 break;
         }
 
+        const extension: TIconExtension = this.configService.get<TIconExtension>(`$menu.${this.profileType}.${iconsKey}.extension`);
+        _set(this.menuParams, 'common.icons.extension', extension);
+
         this.menuParams = _clone(this.menuParams);
-        this.cdr.markForCheck();
+        this.cdr.detectChanges();
     }
 }
