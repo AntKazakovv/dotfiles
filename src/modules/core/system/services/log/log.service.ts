@@ -7,8 +7,7 @@ import {
 import {DOCUMENT} from '@angular/common';
 import {TranslateService} from '@ngx-translate/core';
 import {StateService, UIRouter} from '@uirouter/core';
-import {ConfigService} from 'wlc-engine/modules/core';
-import {logTypes} from 'wlc-engine/modules/core/system/config/log-types';
+import {ConfigService, logTypes} from 'wlc-engine/modules/core';
 
 import _get from 'lodash-es/get';
 import _set from 'lodash-es/set';
@@ -202,14 +201,19 @@ export class LogService {
             const codeData = _get(logTypes, code, null);
 
             if (_get(codeData, 'method') === 'Flog' || _get(codeData, 'method') === 'Both') {
-                const codeName = _get(logTypes, [code, 'name'], 'unknown error');
                 const data = {
-                    error: codeName,
                     data: _get(logObj, 'data', {}),
+                    logger: logObj.logger,
+                    tags: logObj.tags,
+                    name: logObj.name || 'unknown error',
                 };
+
                 switch (_get(codeData, 'level', 'log')) {
-                    case 'log':
-                        this.Flog.log(code, data).finally();
+                    case 'duration':
+                        this.Flog.logDuration(code, data).finally();
+                        break;
+                    case 'info':
+                        this.Flog.info(code, data).finally();
                         break;
                     case 'error':
                         this.Flog.error(code, data).finally();
@@ -217,8 +221,9 @@ export class LogService {
                     case 'fatal':
                         this.Flog.fatal(code, data).finally();
                         break;
+                    default:
+                        this.Flog.log(code, data).finally();
                 }
-                this.Flog.log(code, data).finally();
             }
         }
         // if (this.sentryService.isInstall) {
