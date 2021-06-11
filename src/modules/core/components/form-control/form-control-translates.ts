@@ -7,3 +7,4 @@ gettext('validator-minlength');
 gettext('validator-maxlength');
 gettext('validator-password');
 gettext('validator-newPasswordReg');
+gettext('validator-onlyLetters');
