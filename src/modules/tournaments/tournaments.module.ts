@@ -18,6 +18,7 @@ import {TournamentConditionComponent} from './components/tournament/components/t
 import {TournamentBannerComponent} from './components/tournament/components/tournament-banner/tournament-banner.component';
 import {TournamentsHistoryComponent} from './components/tournaments-history/tournaments-history.component';
 import {TournamentSmartInfoComponent} from './components/tournament/components/tournament-smart-info/tournament-smart-info.component';
+import {CompilerModule} from 'wlc-engine/modules/compiler';
 
 export const components = {
     'wlc-tournament-list': TournamentListComponent,
@@ -46,6 +47,7 @@ export const components = {
         PromoModule,
         TranslateModule,
         MenuModule,
+        CompilerModule,
     ],
     providers: [
         TournamentsService,

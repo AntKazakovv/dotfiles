@@ -9,19 +9,21 @@ import {
     LoyaltyLevelsService,
     WinnersService,
 } from './system/services';
-
-import {BannerComponent} from 'wlc-engine/modules/promo/components/banner/banner.component';
-import {BannersSliderComponent} from 'wlc-engine/modules/promo/components/banners-slider/banners-slider.component';
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
-import {JackpotComponent} from 'wlc-engine/modules/promo/components/jackpot/jackpot.component';
-import {JackpotsSliderComponent} from 'wlc-engine/modules/promo/components/jackpots-slider/jackpots-slider.component';
-import {LoyaltyInfoComponent} from 'wlc-engine/modules/promo/components/loyalty-info/loyalty-info.component';
-import {LoyaltyLevelsComponent} from 'wlc-engine/modules/promo/components/loyalty-levels/loyalty-levels.component';
-import {LoyaltyProgramComponent} from 'wlc-engine/modules/promo/components/loyalty-program/loyalty-program.component';
-import {SliderComponent} from 'wlc-engine/modules/promo/components/slider/slider.component';
 import {StaticModule} from 'wlc-engine/modules/static/static.module';
-import {WinnerComponent} from 'wlc-engine/modules/promo/components/winner/winner.component';
-import {WinnersSliderComponent} from 'wlc-engine/modules/promo/components/winners-slider/winners-slider.component';
+import {
+    WinnersSliderComponent,
+    WinnerComponent,
+    SliderComponent,
+    LoyaltyProgramComponent,
+    LoyaltyLevelsComponent,
+    LoyaltyInfoComponent,
+    JackpotsSliderComponent,
+    JackpotComponent,
+    BannersSliderComponent,
+    BannerComponent,
+} from 'wlc-engine/modules/promo';
+import {CompilerModule} from 'wlc-engine/modules/compiler';
 
 export const components = {
     'wlc-banner': BannerComponent,
@@ -55,6 +57,7 @@ export const components = {
         StaticModule,
         SwiperModule,
         TranslateModule,
+        CompilerModule,
     ],
     providers: [
         BannersService,

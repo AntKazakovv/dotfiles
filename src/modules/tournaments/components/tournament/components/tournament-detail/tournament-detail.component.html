@@ -33,14 +33,14 @@
                 <button *ngIf="!isTournamentSelected"
                         wlc-button
                         class="{{$class}}__header-info--button"
-                        type="button"
+                        [attr.type]="'button'"
                         [text]="$params.common?.btnSubscribeText"
                         (click)="joinTournament()"></button>
 
                 <button *ngIf="isTournamentSelected && tournament.selected"
                         wlc-button
                         class="{{$class}}__header-info--button"
-                        type="button"
+                        [attr.type]="'button'"
                         themeMod="secondary"
                         [text]="$params.common?.btnUnsubscribeText"
                         (click)="leaveTournament()">

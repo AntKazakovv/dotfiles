@@ -1,11 +1,11 @@
-<button type="button"
-    wlc-button
-    themeMod="secondary"
-    [type]="pending ? 'pending' : 'default'"
-    text="Cancel"
-    *ngIf="cancelable; else noCancel"
-    (click)="cancel()"
-    [wlcElement]="'button_cancel'">
+<button *ngIf="cancelable; else noCancel"
+        wlc-button
+        [attr.type]="'button'"
+        themeMod="secondary"
+        text="Cancel"
+        [type]="pending ? 'pending' : 'default'"
+        [wlcElement]="'button_cancel'"
+        (click)="cancel()">
 </button>
 
 <ng-template #noCancel>

@@ -227,7 +227,7 @@ export class TournamentComponent
                 +this.userInfo?.loyalty.Balance,
                 tournament.feeCurrency,
                 gettext('You can`t subscribe'),
-                gettext('Sorry, not today. Bet more to earn betcoins and join this tournament!'),
+                gettext('Sorry, not today. Bet more to earn bitcoins and join this tournament!'),
                 'deposit',
             );
 
@@ -235,11 +235,11 @@ export class TournamentComponent
         }
     }
 
-    public readMore(actionParams: IActionParams, selector: string): void {
-        if (actionParams.modal) {
-            this.showDetailModal(selector);
-        } else if (actionParams.url) {
+    public readMore(actionParams: IActionParams): void {
+        if (actionParams.url) {
             this.goTo(actionParams);
+        } else {
+            this.showDetailModal(actionParams.selector);
         }
     }
 

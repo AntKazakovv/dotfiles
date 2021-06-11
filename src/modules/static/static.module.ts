@@ -8,9 +8,9 @@ import {FaqComponent} from './components/faq/faq.component';
 import {PostMenuComponent} from './components/post-menu/post-menu.component';
 import {PromoStepsComponent} from './components/promo-steps/promo-steps.component';
 import {GlobalHelper} from 'wlc-engine/modules/core';
-import {StaticService} from 'wlc-engine/modules/static/system/services';
-import {IStaticConfig} from './system/interfaces/static.interface';
+import {StaticService, IStaticConfig} from 'wlc-engine/modules/static';
 import {staticConfig} from './system/config/static.config';
+import {CompilerModule} from 'wlc-engine/modules/compiler';
 import * as $config from 'wlc-config/index';
 
 import _get from 'lodash-es/get';
@@ -38,6 +38,7 @@ export const components = {
         TranslateModule,
         UIRouterModule,
         CoreModule,
+        CompilerModule,
     ],
     exports: [
         PostComponent,

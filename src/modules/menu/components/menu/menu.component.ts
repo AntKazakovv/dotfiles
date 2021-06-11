@@ -210,6 +210,7 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
                 type: this.$params.type,
             },
         );
+
         this.expandItems();
 
         if (this.$params.common?.useSwiper) {

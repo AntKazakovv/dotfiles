@@ -48,10 +48,8 @@ export class GameThumbComponent extends AbstractComponent implements OnInit, Aft
     @ViewChild('video') video: ElementRef;
 
     public thumbParams: Params.IGameThumbCParams;
-    public gameThumbSettings: IIndexing<IIndexing<string> | string> = {
-        buttons: {
-            demoThemeMode: 'secondary',
-        },
+    public gameThumbSettings: Params.IGameThumbButtonsSettings = {
+        demoThemeMode: 'secondary',
     };
     public isAuth: boolean;
     public $params: Params.IGameThumbCParams;
@@ -129,7 +127,7 @@ export class GameThumbComponent extends AbstractComponent implements OnInit, Aft
             .get<string>('$modules.games.components.wlc-game-thumb.buttons');
 
         if (buttonParams) {
-            _assign(this.gameThumbSettings.buttons, buttonParams);
+            _assign(this.gameThumbSettings, buttonParams);
         }
 
         this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');

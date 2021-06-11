@@ -11,8 +11,7 @@ import {
 } from 'wlc-engine/modules/core';
 import {Tournament} from 'wlc-engine/modules/tournaments';
 
-import * as Params
-    from 'wlc-engine/modules/tournaments/components/tournament/components/tournament-prizes/tournament-prizes.params';
+import * as Params from './tournament-prizes.params';
 
 import _slice from 'lodash-es/slice';
 

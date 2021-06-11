@@ -2,6 +2,7 @@ import {IComponentParams, CustomType} from 'wlc-engine/modules/core/system/class
 
 export interface IProfileMenuItemsGroup<T> {
     parent: T;
+    type: string;
     items: T[];
 }
 export interface IProfileMenuFilter {

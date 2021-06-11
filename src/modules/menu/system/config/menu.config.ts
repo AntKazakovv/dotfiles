@@ -29,6 +29,7 @@ export const menuConfig: IMenuConfig = {
             'mobile-menu:tournaments',
             {
                 parent: 'mobile-menu:info',
+                type: 'group',
                 items: [
                     'mobile-menu:privacy-policy',
                     'mobile-menu:responsible-game',
@@ -54,6 +55,7 @@ export const menuConfig: IMenuConfig = {
             'profile-menu:bonuses-as-offers',
             {
                 parent: 'profile-menu:market',
+                type: 'group',
                 items: [
                     'profile-menu:store',
                     'profile-menu:loyalty-level',
@@ -63,6 +65,7 @@ export const menuConfig: IMenuConfig = {
             'profile-menu:cash-withdrawal',
             {
                 parent: 'profile-menu:history',
+                type: 'group',
                 items: [
                     'profile-menu:bonuses-history',
                     'profile-menu:bets-history',
@@ -72,6 +75,7 @@ export const menuConfig: IMenuConfig = {
             },
             {
                 parent: 'profile-menu:account-settings',
+                type: 'group',
                 items: [
                     'profile-menu:edit-profile',
                     'profile-menu:verification',
@@ -97,6 +101,7 @@ export const menuConfig: IMenuConfig = {
         items: [
             {
                 parent: 'profile-first-menu:account-settings',
+                type: 'group',
                 items: [
                     'profile-first-menu:edit-profile',
                     'profile-first-menu:verification',
@@ -106,6 +111,7 @@ export const menuConfig: IMenuConfig = {
             },
             {
                 parent: 'profile-first-menu:bonuses',
+                type: 'group',
                 items: [
                     'profile-first-menu:bonuses-as-offers',
                     'profile-first-menu:bonuses-active',
@@ -114,6 +120,7 @@ export const menuConfig: IMenuConfig = {
             },
             {
                 parent: 'profile-first-menu:tournaments',
+                type: 'group',
                 items: [
                     'profile-first-menu:tournaments-current',
                     'profile-first-menu:tournaments-active',
@@ -122,6 +129,7 @@ export const menuConfig: IMenuConfig = {
             },
             {
                 parent: 'profile-first-menu:cash',
+                type: 'group',
                 items: [
                     'profile-first-menu:cash-deposit',
                     'profile-first-menu:cash-withdrawal',
@@ -130,12 +138,14 @@ export const menuConfig: IMenuConfig = {
             },
             {
                 parent: 'profile-first-menu:gamblings',
+                type: 'group',
                 items: [
                     'profile-first-menu:bets-history',
                 ],
             },
             {
                 parent: 'profile-first-menu:market',
+                type: 'group',
                 items: [
                     'profile-first-menu:store',
                     'profile-first-menu:loyalty-level',

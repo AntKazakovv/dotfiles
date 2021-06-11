@@ -61,7 +61,7 @@
             <picture class="{{$class}}-media__bg"
                      data-wlc-element="block_game-thumb-media">
 
-                <ng-container *ngFor="let image of getVerticalContent('background', ['avif', 'webp'])">
+                <ng-container *ngFor="let image of $any(getVerticalContent('background', ['avif', 'webp']))">
                     <source [srcset]="image.src" [type]="image.type">
                 </ng-container>
 
@@ -71,7 +71,7 @@
             <picture class="{{$class}}-media__fg"
                      data-wlc-element="block_game-thumb-media">
 
-                <ng-container *ngFor="let image of getVerticalContent('foreground', ['avif', 'webp'])">
+                <ng-container *ngFor="let image of $any(getVerticalContent('foreground', ['avif', 'webp']))">
                     <source [srcset]="image.src" [type]="image.type">
                 </ng-container>
 
@@ -81,7 +81,7 @@
             <picture class="{{$class}}-media__logo"
                      data-wlc-element="block_game-thumb-media">
 
-                <ng-container *ngFor="let image of getVerticalContent('logo', ['avif', 'webp'])">
+                <ng-container *ngFor="let image of $any(getVerticalContent('logo', ['avif', 'webp']))">
                     <source [srcset]="image.src" [type]="image.type">
                 </ng-container>
 
@@ -92,7 +92,7 @@
         <ng-template #videoTemplate>
             <video autoplay playsinline muted loop class="{{$class}}-media__video" #video>
 
-                <ng-container *ngFor="let video of getVerticalContent('video', ['av1.mp4', 'hevc.mp4', 'h264.mp4'])">
+                <ng-container *ngFor="let video of $any(getVerticalContent('video', ['av1.mp4', 'hevc.mp4', 'h264.mp4']))">
                     <source [src]="video.src" [type]="video.type">
                 </ng-container>
             </video>
@@ -105,8 +105,8 @@
                     wlcElement="button_game-play"
                     [icon]="'wlc-game-play'"
                     [text]="'Play'"
-                    [theme]="gameThumbSettings?.buttons?.theme"
-                    [themeMod]="gameThumbSettings?.buttons?.themeMode"
+                    [theme]="gameThumbSettings.theme"
+                    [themeMod]="gameThumbSettings.themeMode"
                     (click)="startGame(false, false, $event)"
             ></button>
             <button *ngIf="game.hasDemo"
@@ -114,8 +114,8 @@
                     class="wlc-btn wlc-btn--demo"
                     wlcElement="button_game-demo"
                     [text]="'Demo'"
-                    [theme]="gameThumbSettings?.buttons?.theme"
-                    [themeMod]="gameThumbSettings?.buttons?.demoThemeMode"
+                    [theme]="gameThumbSettings.demoTheme"
+                    [themeMod]="gameThumbSettings.demoThemeMode"
                     (click)="startGame(true, false, $event)"
             ></button>
         </div>
@@ -149,8 +149,8 @@
                     wlcElement="button_game-play"
                     [icon]="'wlc-game-play'"
                     [text]="'Play'"
-                    [theme]="gameThumbSettings?.buttons?.theme"
-                    [themeMod]="gameThumbSettings?.buttons?.themeMode"
+                    [theme]="gameThumbSettings.theme"
+                    [themeMod]="gameThumbSettings.themeMode"
                     (click)="startGame(false, false, $event)"
             ></button>
             <button
@@ -159,8 +159,8 @@
                     class="wlc-btn wlc-btn--demo"
                     wlcElement="button_game-demo"
                     [text]="'Demo'"
-                    [theme]="gameThumbSettings?.buttons?.theme"
-                    [themeMod]="gameThumbSettings?.buttons?.demoThemeMode"
+                    [theme]="gameThumbSettings.theme"
+                    [themeMod]="gameThumbSettings.demoThemeMode"
                     (click)="startGame(true, false, $event)"
             ></button>
         </div>
@@ -170,4 +170,3 @@
 <ng-template #preloader>
     <div wlc-loader></div>
 </ng-template>
-

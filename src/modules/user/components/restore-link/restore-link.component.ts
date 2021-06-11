@@ -1,6 +1,5 @@
 import {
     Component,
-    Input,
     OnInit,
     Inject,
 } from '@angular/core';

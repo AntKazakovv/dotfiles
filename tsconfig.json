@@ -21,8 +21,8 @@
     },
     "exclude": ["node_modules"],
     "angularCompilerOptions": {
-        "strictTemplates": true,
         "enableIvy": true,
+        "strictTemplates": true,
         "strictInjectionParameters": true,
         "disableTypeScriptVersionCheck": true
     }
