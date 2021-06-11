@@ -104,11 +104,12 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
     };
 
     public formConfig: IFormWrapperCParams;
+    public isShowHostedBlock: boolean = false;
     protected formObject: FormGroup;
 
     protected profileForm: IFormWrapperCParams;
     protected inProgress: boolean = false;
-    private isLoadHostedFields: boolean = false;
+    private isLoadingHostedFields: boolean = false;
 
     constructor(
         @Inject('injectParams') protected params: Params.IDepositWithdrawCParams,
@@ -557,6 +558,8 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
     }
 
     protected onPaymentSystemChange(system: PaymentSystem): void {
+        this.isShowHostedBlock = false;
+
         if (!system) {
             this.currentSystem = undefined;
             this.requiredFields = {};
@@ -575,7 +578,8 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
         if (this.currentSystem?.isHosted) {
             this.currentSystem.hostedFieldService.reset();
             this.currentSystem.dropHostedFields();
-            this.isLoadHostedFields = false;
+            this.isLoadingHostedFields = false;
+            this.cdr.detectChanges();
         }
 
         this.currentSystem = system;
@@ -588,8 +592,9 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
         this.checkUserProfileForPayment();
         this.updateFormConfig();
 
-        if (this.currentSystem.isHosted && (!this.isLoadHostedFields || !this.currentSystem.hostedFields.loaded)) {
-            this.isLoadHostedFields = true;
+        if (this.currentSystem.isHosted && (!this.isLoadingHostedFields || !this.currentSystem.hostedFields.loaded)) {
+            this.isLoadingHostedFields = true;
+            this.isShowHostedBlock = true;
             this.loadHostedFields();
         }
     }
@@ -611,7 +616,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
 
         const formHasLoadedCallbackHandler = () => {
             this.currentSystem.hostedFields.invalid = true;
-            this.isLoadHostedFields = false;
+            this.isLoadingHostedFields = false;
             this.currentSystem.hostedFields.loaded = true;
             this.cdr.markForCheck();
         };
