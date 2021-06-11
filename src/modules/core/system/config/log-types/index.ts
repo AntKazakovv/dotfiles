@@ -4,21 +4,21 @@ import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 
 import _assign from 'lodash-es/assign';
 
-import * as commonLogs from './0.common';
-import * as authLogs from './1.auth';
-import * as validationLogs from './2.validation';
-import * as gamesLogs from './3.games';
-import * as licenseLogs from './4.license';
-import * as wordpressLogs from './5.wordpress';
-import * as pageNotFoundLogs from './6.page-not-found';
-import * as chatLogs from './7.chat';
-import * as verifyIdentityLogs from './8.verify-identity';
-import * as verificationLogs from './9.verification';
-import * as bonusesLogs from './10.bonuses';
-import * as storeLogs from './11.store';
-import * as postsLogs from './12.posts';
-import * as tournamentsLogs from './13.tournaments';
-import * as livechatLogs from './14.livechat';
+import {errorTypes as commonLogs} from './0.common';
+import {errorTypes as authLogs} from './1.auth';
+import {errorTypes as validationLogs} from './2.validation';
+import {errorTypes as gamesLogs} from './3.games';
+import {errorTypes as licenseLogs} from './4.license';
+import {errorTypes as wordpressLogs} from './5.wordpress';
+import {errorTypes as pageNotFoundLogs} from './6.page-not-found';
+import {errorTypes as chatLogs} from './7.chat';
+import {errorTypes as verifyIdentityLogs} from './8.verify-identity';
+import {errorTypes as verificationLogs} from './9.verification';
+import {errorTypes as bonusesLogs} from './10.bonuses';
+import {errorTypes as storeLogs} from './11.store';
+import {errorTypes as postsLogs} from './12.posts';
+import {errorTypes as tournamentsLogs} from './13.tournaments';
+import {errorTypes as livechatLogs} from './14.livechat';
 
 type LogGroupType = 'Common' | 'Sign Up' | 'Bonus' | '404 not found' | 'AutoTest' | 'Load' | 'Livechat' | 'Hellosoda';
 type LogMethodsType = 'Flog' | 'Sentry' | 'Both';

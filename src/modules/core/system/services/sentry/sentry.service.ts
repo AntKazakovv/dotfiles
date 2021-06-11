@@ -5,7 +5,10 @@ import {Event, Severity, Scope} from '@sentry/angular';
 import {Cookie} from 'ng2-cookies';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 import {Injectable} from '@angular/core';
-import {ConfigService} from 'wlc-engine/modules/core';
+import {
+    ConfigService,
+    LogService,
+} from 'wlc-engine/modules/core';
 
 interface ISentryMessage {
     message: string;
@@ -31,6 +34,7 @@ export class SentryService {
 
     constructor(
         private configService: ConfigService,
+        private logService: LogService,
     ) {
         this.autotest = Cookie.get('runautotest') === '7698155c459ee95063a26a7121b2b7916fa36004cbcfe787043d27692b249971';
         if (this.autotest) {
@@ -116,6 +120,7 @@ export class SentryService {
                         group: 'Common',
                     });
                     Sentry.captureMessage('Autotest Start', Severity.fromString('info'));
+                    this.logService.sendLog({code: '0.0.2'});
                 });
             }
             this.isInstall = true;

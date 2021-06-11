@@ -27,3 +27,4 @@ export {
 } from 'wlc-engine/modules/core/system/services/notification';
 export {Deferred} from './system/classes/deferred.class';
 export * from './components/modal';
+export * from './system/config/log-types';

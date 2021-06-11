@@ -68,7 +68,7 @@ export const errorTypes: ILogTypes = {
         description: 'Site compilation time',
         name: 'Site compile',
         type: 'site_compile',
-        level: 'log',
+        level: 'duration',
         method: 'Flog',
     },
     '0.0.10': {

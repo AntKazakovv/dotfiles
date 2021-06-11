@@ -31,6 +31,7 @@ import {
     ModalService,
     SectionModel,
     SeoService,
+    LogService,
 } from 'wlc-engine/modules/core';
 import {
     ILivechatConfig,
@@ -85,6 +86,7 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
         private titleService: Title,
         private meta: Meta,
         private injector: Injector,
+        private logService: LogService,
     ) {
         super({injectParams: {}, defaultParams}, configService);
         this.resolveLang();
@@ -135,6 +137,8 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
                 this.additionalHostClass.push('app-ready');
                 this.setHostClass();
                 this.addLivechat();
+                this.logService.sendLog({code: '0.0.9'});
+                window.WlcFlog.setCompileSuccess(true);
             }
         });
 

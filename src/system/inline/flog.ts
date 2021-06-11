@@ -17,6 +17,7 @@ type voidFunction = () => void;
 
 class WlcFlog {
     public readonly enabled: boolean = false;
+    public compileSuccess: boolean;
 
     private fingerprint: string;
     private isReadyResolve: voidFunction;
@@ -44,6 +45,21 @@ class WlcFlog {
 
     constructor() {
         this.enabled = !window.WLC_ENV || document.cookie.indexOf('flog=') !== -1;
+
+        if (!this.enabled) {
+            return;
+        }
+
+        window.addEventListener('beforeunload', () => {
+            if (this.compileSuccess) {
+                return;
+            }
+
+            this.log('0.0.10', {name: 'User left the site'});
+        });
+
+        this.sendInitLog();
+
         if (window.Fingerprint2) {
             this.getHash().finally(() => {
                 this.isReadyResolve();
@@ -51,6 +67,31 @@ class WlcFlog {
         } else {
             this.isReadyResolve();
         }
+    }
+
+    /**
+     * Set сompileSuccess variable
+     *
+     * @param {boolean} value Value
+     * @returns {void}
+     */
+    public setCompileSuccess(value: boolean): void {
+        this.compileSuccess = value;
+    }
+
+    /**
+     * Log info
+     *
+     * @param {string} code Event code
+     * @param {IIndexing<any>} data Event data
+     * @returns {Promise<string>}
+     */
+    public async info(code: string, data: IIndexing<any>): Promise<string> {
+        return this.send({
+            level: 'info',
+            code: code,
+            ...data,
+        });
     }
 
     /**
@@ -62,7 +103,7 @@ class WlcFlog {
      */
     public async log(code: string, data: IIndexing<any>): Promise<string> {
         return this.send({
-            level: 'log',
+            level: data.duration ? 'duration' : 'log',
             code: code,
             ...data,
         });
@@ -74,9 +115,10 @@ class WlcFlog {
      * @param {string} code Error code
      * @returns {Promise<string>}
      */
-    public async logDuration(code: string): Promise<string> {
+    public async logDuration(code: string, data?: IIndexing<unknown>): Promise<string> {
         return this.log(code, {
             duration: this.timeFromStart(),
+            ...data,
         });
     }
 
@@ -107,6 +149,18 @@ class WlcFlog {
             level: 'fatal',
             code: code,
             ...data,
+        });
+    }
+
+    /**
+     * Send init log
+     *
+     * @returns {Promise<void>}
+     */
+    private async sendInitLog(): Promise<void> {
+        await this.log(!window.WLC_FORBIDDEN ? '0.0.0' : '0.0.11', {
+            referrer: document.referrer,
+            duration: this.timeFromStart(),
         });
     }
 
