@@ -86,7 +86,7 @@ export class ValidationService {
             validator: Validators.min,
         },
         numberDecimal: {
-            validator: Validators.pattern(/^[0-9]+(\.[0-9]{1,2})*$/),
+            validator: Validators.pattern(/^\d+(\.\d{1,2})*$/),
         },
         pattern: {
             validator: Validators.pattern,

@@ -789,10 +789,9 @@ export class Bonus extends AbstractModel<IBonus> {
         }
 
         if (bonus.Target && _isString(bonus.Target)) {
-            _each(bonusTargetsOrder, (value: any) => {
+            _each(bonusTargetsOrder, (value: string) => {
                 if (bonus.Target.indexOf(value) !== -1) {
                     bonus.Target = value;
-                    return;
                 }
             });
         }

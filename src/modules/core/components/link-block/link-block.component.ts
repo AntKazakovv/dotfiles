@@ -73,10 +73,8 @@ export class LinkBlockComponent
 
         if (data.modal) {
             this.modalService.showModal(data.modal.name);
-            return;
         } else if (data.url) {
             this.router.stateService.go(data.url.path, data.url.params);
-            return;
         } else if (data.event) {
             this.eventService.emit({
                 name: data.event.name,

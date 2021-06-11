@@ -129,12 +129,11 @@ export class BetradarService {
         const data: IDailyMatchData = response.data;
 
         if (data.id) {
-            const game: BetradarGameModel = new BetradarGameModel(
+            return new BetradarGameModel(
                 data,
                 this.configService,
                 this.eventService,
             );
-            return game;
         }
     }
 

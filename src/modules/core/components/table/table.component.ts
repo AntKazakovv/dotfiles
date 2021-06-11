@@ -136,7 +136,6 @@ export class TableComponent extends AbstractComponent implements OnInit {
                                 item.componentClass = componentClass;
                             }
                         });
-                        return;
                     })(),
                 );
                 Promise.all(componentsLoadPromises).finally(() => {

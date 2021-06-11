@@ -1,15 +1,17 @@
 module.exports = {
     root: true,
-    extends: ['plugin:@angular-eslint/recommended'],
+    extends: [
+        'plugin:@angular-eslint/recommended',
+        'plugin:sonarjs/recommended',
+    ],
     plugins: [
         '@typescript-eslint',
+        'optimize-regex',
+        'sonarjs',
     ],
     rules: {
-        "no-console": ["error", { allow: ["warn", "error"] }],
-        "no-debugger": "error",
         '@angular-eslint/no-input-rename': 'off',
         '@typescript-eslint/no-inferrable-types': 'off',
-        'quote-props': 'off',
         '@angular-eslint/directive-selector': [
             'error',
             {type: 'attribute', prefix: 'wlc', style: 'kebab-case'},
@@ -18,6 +20,16 @@ module.exports = {
             'error',
             {type: 'attribute', prefix: 'wlc', style: 'kebab-case'},
         ],
+        'optimize-regex/optimize-regex': ['warn', {
+            'blacklist': ['charEscapeUnescape']
+        }],
+        'sonarjs/cognitive-complexity': ['error', 140],
+        'sonarjs/no-duplicate-string': 'off',
+        'sonarjs/no-small-switch': 'off',
+        'sonarjs/no-inverted-boolean-check': 'off',
+        'quote-props': 'off',
+        'no-console': ['error', { allow: ['warn', 'error'] }],
+        'no-debugger': 'error',
         'semi': ['error', 'always'],
         'comma-dangle': ['error', 'always-multiline'],
         'indent': ['error', 4, {'SwitchCase': 1}],

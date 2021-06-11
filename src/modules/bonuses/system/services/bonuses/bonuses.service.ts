@@ -1,34 +1,34 @@
 import {Injectable} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
-import {Bonus} from '../../models/bonus';
-import {
-    IData,
-    ConfigService,
-    EventService,
-    LogService,
-    DataService,
-    CachingService,
-    IIndexing,
-    IForbidBanned,
-    IPushMessageParams,
-    NotificationEvents,
-} from 'wlc-engine/modules/core';
-import {UserService} from 'wlc-engine/modules/user/system/services';
-import {
-    IBonus,
-    RestType,
-    BonusesFilterType,
-    IQueryParams,
-    ActionType,
-    IGetSubscribeParams,
-} from '../../interfaces/bonuses.interface';
 import {
     BehaviorSubject,
-    Subscription,
     Observable,
+    Subscription,
     pipe,
 } from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
+import {
+    ActionType,
+    Bonus,
+    BonusesFilterType,
+    IBonus,
+    IGetSubscribeParams,
+    IQueryParams,
+    RestType,
+} from 'wlc-engine/modules/bonuses';
+import {UserService} from 'wlc-engine/modules/user';
+import {
+    CachingService,
+    ConfigService,
+    DataService,
+    EventService,
+    IData,
+    IForbidBanned,
+    IIndexing,
+    IPushMessageParams,
+    LogService,
+    NotificationEvents,
+} from 'wlc-engine/modules/core';
 
 import _map from 'lodash-es/map';
 import _size from 'lodash-es/size';
@@ -218,8 +218,7 @@ export class BonusesService {
                 type: 'GET',
             });
             if (_isObject(data.data)) {
-                const bonus: Bonus = new Bonus(data.data, this.configService, this.cachingService, this);
-                return bonus;
+                return new Bonus(data.data, this.configService, this.cachingService, this);
             } else {
                 this.logService.sendLog({code: '10.0.1', data: data.data});
             }

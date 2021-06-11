@@ -111,16 +111,8 @@ export class LanguageSelectorComponent
                     return true;
                 },
             )
-            .map(
-                (lang: string): ILanguage =>
-                    _find(this.configService.get<ILanguage[]>('appConfig.languages'), {
-                        code: lang,
-                    }),
-            );
-
-        this.currentLanguage = _find(this.configService.get<ILanguage[]>('appConfig.languages'), {
-            code: this.translate.currentLang,
-        });
+            .map(this.findLanguage.bind(this));
+        this.currentLanguage = this.findLanguage(this.translate.currentLang);
 
         if (this.availableLanguages.length <= 1) {
             this.hasSingleLang = true;
@@ -149,7 +141,7 @@ export class LanguageSelectorComponent
                     });
             }
         } catch (error) {
-            throw error;
+            //
         }
     }
 
@@ -190,12 +182,7 @@ export class LanguageSelectorComponent
                 templateRefParams: {
                     list: this.translate
                         .getLangs()
-                        .map(
-                            (lang: string): ILanguage =>
-                                _find(this.configService.get<ILanguage[]>('appConfig.languages'), {
-                                    code: lang,
-                                }),
-                        ),
+                        .map(this.findLanguage.bind(this)),
                     class: 'wlc-language-modal',
                 },
             });
@@ -227,5 +214,11 @@ export class LanguageSelectorComponent
             }
             this.prepareHostClass();
         }
+    }
+
+    protected findLanguage(lang: string): ILanguage {
+        return _find(this.configService.get<ILanguage[]>('appConfig.languages'), {
+            code: lang,
+        });
     }
 }

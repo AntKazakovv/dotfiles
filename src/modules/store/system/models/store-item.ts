@@ -105,10 +105,9 @@ export class StoreItem extends AbstractModel<IStoreItem> {
      * @returns {number} money value of store item
      */
     public get moneyValue(): number {
-        const value = !!_toNumber(this.data.Price[this.userCurrency]) ?
+        return !!_toNumber(this.data.Price[this.userCurrency]) ?
             _toNumber(this.data.Price[this.userCurrency]) :
             _toNumber(this.data.Price.EUR);
-        return value;
     }
 
     /**

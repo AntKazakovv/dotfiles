@@ -106,7 +106,6 @@ export class FloatPanelsComponent extends AbstractComponent implements OnInit {
         if (this.$params.panels) {
             return _get(this.$params.panels, name);
         }
-        return;
     }
 
     public closePanel(panelName?: string): void {

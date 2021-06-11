@@ -16,7 +16,7 @@ export class WinnerModel extends AbstractModel<IWinnerData> {
     }
 
     public get id(): string {
-        return _toString(this.data.ID) || this.data.Date.replace(/[\D]/g, '');
+        return _toString(this.data.ID) || this.data.Date.replace(/\D/g, '');
     }
 
     public get amount(): number {

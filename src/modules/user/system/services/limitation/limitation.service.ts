@@ -282,12 +282,7 @@ export class LimitationService {
             url: '/userSelfExclusion',
             type: 'GET',
             system: 'limit',
-            mapFunc: (data: unknown) => {
-                if (_isArray(data) && data.length === 1) {
-                    return data[0];
-                }
-                return data;
-            },
+            mapFunc: this.mapFunc,
             // events: {
             //     success: 'SELF_EXCLUSION',
             //     fail: 'SELF_EXCLUSION_ERROR',
@@ -312,12 +307,14 @@ export class LimitationService {
             url: '/realityCheck',
             type: 'GET',
             system: 'limit',
-            mapFunc: (data: unknown) => {
-                if (_isArray(data) && data.length === 1) {
-                    return data[0];
-                }
-                return data;
-            },
+            mapFunc: this.mapFunc,
         });
+    }
+
+    private mapFunc(data: unknown): unknown {
+        if (_isArray(data) && data.length === 1) {
+            return data[0];
+        }
+        return data;
     }
 }

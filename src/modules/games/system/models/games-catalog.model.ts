@@ -1,53 +1,50 @@
 import {UIRouter} from '@uirouter/core';
 import {TranslateService} from '@ngx-translate/core';
+
 import {
     AbstractModel,
     ConfigService,
     EventService,
-    ILanguage,
     IIndexing,
+    GlobalHelper,
 } from 'wlc-engine/modules/core';
 import {
-    ICategory,
-    ISupportedItem,
-    ICatalogTreeItem,
-    IGames,
-    IRestrictions,
-    IJackpot,
-    IFavourite,
-    ISearchFilter,
-} from 'wlc-engine/modules/games';
-import {GamesHelper} from 'wlc-engine/modules/games/system/helpers/games.helpers';
-import {Game} from 'wlc-engine/modules/games/system/models/game.model';
-import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.model';
-import {MerchantModel} from 'wlc-engine/modules/games/system/models/merchant.model';
-
-import {
+    CategoryModel,
+    Game,
     GamesCatalogService,
+    GamesHelper,
+    ICatalogTreeItem,
+    ICategory,
     IExcludeCategories,
-    ISortCategories,
+    IFavourite,
+    IGames,
     IGamesFilterData,
+    IJackpot,
+    IRestrictions,
+    ISearchFilter,
+    ISortCategories,
+    ISupportedItem,
+    MerchantModel,
 } from 'wlc-engine/modules/games';
-
-import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
 
 import _cloneDeep from 'lodash-es/cloneDeep';
-import _isString from 'lodash-es/isString';
-import _isNumber from 'lodash-es/isNumber';
+import _concat from 'lodash-es/concat';
+import _filter from 'lodash-es/filter';
+import _find from 'lodash-es/find';
+import _forEach from 'lodash-es/forEach';
 import _get from 'lodash-es/get';
 import _includes from 'lodash-es/includes';
 import _isArray from 'lodash-es/isArray';
-import _union from 'lodash-es/union';
-import _filter from 'lodash-es/filter';
-import _concat from 'lodash-es/concat';
-import _find from 'lodash-es/find';
-import _toNumber from 'lodash-es/toNumber';
-import _forEach from 'lodash-es/forEach';
-import _uniq from 'lodash-es/uniq';
-import _uniqBy from 'lodash-es/uniqBy';
+import _isNumber from 'lodash-es/isNumber';
+import _isString from 'lodash-es/isString';
+import _isUndefined from 'lodash-es/isUndefined';
 import _orderBy from 'lodash-es/orderBy';
 import _reduce from 'lodash-es/reduce';
 import _size from 'lodash-es/size';
+import _toNumber from 'lodash-es/toNumber';
+import _union from 'lodash-es/union';
+import _uniq from 'lodash-es/uniq';
+import _uniqBy from 'lodash-es/uniqBy';
 
 export class GamesCatalog extends AbstractModel<IGames> {
 
@@ -234,7 +231,6 @@ export class GamesCatalog extends AbstractModel<IGames> {
                 return category;
             }
         }
-        return;
     }
 
     /**
@@ -282,12 +278,14 @@ export class GamesCatalog extends AbstractModel<IGames> {
         language?: string,
     ): string | IIndexing<string> {
         if (type === 'merchant') {
-            if (typeof subcategory !== 'undefined' && !!subcategory) {
-                if (GamesHelper.mapping.byCategory.hasOwnProperty(subcategory)) {
-                    return GamesHelper.mapping.byCategory[subcategory].title.hasOwnProperty(language) ?
-                        GamesHelper.mapping.byCategory[subcategory].title[language] :
-                        GamesHelper.mapping.byCategory[subcategory].title.en;
-                }
+            if (
+                !_isUndefined(subcategory) &&
+                !!subcategory &&
+                GamesHelper.mapping.byCategory.hasOwnProperty(subcategory)
+            ) {
+                return GamesHelper.mapping.byCategory[subcategory].title.hasOwnProperty(language) ?
+                    GamesHelper.mapping.byCategory[subcategory].title[language] :
+                    GamesHelper.mapping.byCategory[subcategory].title.en;
             }
 
             if (GamesHelper.mapping.merchantNameToTitleMapping.hasOwnProperty(category)) {
@@ -296,10 +294,12 @@ export class GamesCatalog extends AbstractModel<IGames> {
         }
 
         if (type === 'category') {
-            if (typeof subcategory !== 'undefined' && !!subcategory) {
-                if (GamesHelper.mapping.categoryNameToTitleMapping.hasOwnProperty(subcategory)) {
-                    return GamesHelper.mapping.categoryNameToTitleMapping[subcategory];
-                }
+            if (
+                !_isUndefined(subcategory) &&
+                !!subcategory &&
+                GamesHelper.mapping.categoryNameToTitleMapping.hasOwnProperty(subcategory)
+            ) {
+                return GamesHelper.mapping.categoryNameToTitleMapping[subcategory];
             }
 
             if (GamesHelper.mapping.byCategory.hasOwnProperty(category)) {
@@ -625,10 +625,8 @@ export class GamesCatalog extends AbstractModel<IGames> {
             gamesList = freeGames;
         });
 
-        if (mainParentCategory) {
-            if (mainParentCategory.slug !== 'casino') {
-                gamesList = this.getGamesByCategories([mainParentCategory]);
-            }
+        if (mainParentCategory && mainParentCategory.slug !== 'casino') {
+            gamesList = this.getGamesByCategories([mainParentCategory]);
         }
         mainParentCategory.setGames(gamesList);
 

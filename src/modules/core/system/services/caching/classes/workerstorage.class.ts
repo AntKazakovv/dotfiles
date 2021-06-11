@@ -93,7 +93,6 @@ export class WorkerStorageCache extends AbstractCache {
         } catch (error) {
             //
         }
-        return;
     }
 
     public async clear(): Promise<void> {
@@ -104,7 +103,6 @@ export class WorkerStorageCache extends AbstractCache {
         } catch (error) {
             //
         }
-        return;
     }
 
     private async workerRequest<T>(request: IWorkerRequest<T>): Promise<T> {

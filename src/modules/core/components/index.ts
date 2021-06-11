@@ -23,7 +23,12 @@ export {IScrollbarCParams} from './scrollbar/scrollbar.params';
 export {ISelectCParams} from './select/select.params';
 export {ITableCParams} from './table/table.params';
 export {ITooltipCParams} from './tooltip/tooltip.params';
-export {NotificationThreadComponent} from './notification-thread/notification-thread.component';
+export {
+    NotificationThreadComponent,
+    HIDE_ANIMATION_DURATION,
+    SHIFT_ANIMATION_DURATION,
+    DISMISS_ANIMATION_DURATION,
+} from './notification-thread/notification-thread.component';
 export {MessageComponent} from './message/message.component';
 export {ITextBlockCParams} from './text-block/text-block.params';
 export {ITextareaCParams} from './textarea/textarea.params';
