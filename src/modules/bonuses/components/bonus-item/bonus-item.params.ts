@@ -30,7 +30,7 @@ export type Theme = 'active'
     | 'promo-home'
     | 'reg-first'
     | CustomType;
-export type ThemeMod = 'default' | 'active' | 'chip-v2' | CustomType;
+export type ThemeMod = 'default' | 'active' | 'chip-v2' | 'with-image' | CustomType;
 export type AutoModifiers = Theme | ThemeMod;
 export type CustomMod = string;
 export type Modifiers = AutoModifiers | CustomMod | null;
