@@ -4,27 +4,28 @@
 
 @mixin selectBase($theme) {
     display: grid;
-    grid-template-columns: 1fr;
     grid-gap: ef.get-value($theme, 'labelGap');
+    grid-template-columns: 1fr;
     width: 100%;
     max-width: 100%;
 }
 
 @mixin dropdownBase {
-    z-index: 15;
     position: absolute;
     top: calc(100% + 5px);
     left: 0;
-    width: 100%;
-    padding: 0;
+    z-index: 15;
 
+    width: 100%;
     max-height: ef.get-value($baseSettings, 'selectDropdownHeight');
+
+    padding: 0;
     border: ef.get-value($baseSettings, 'selectDropdownBorder');
     border-radius: ef.get-value($baseSettings, 'selectDropdownBorderRadius');
+    list-style: none;
     background: ef.get-value($baseSettings, 'selectDropdownBackground');
     box-shadow: ef.get-value($baseSettings, 'selectDropdownBoxShadow');
     overflow: hidden auto;
-    list-style: none;
 }
 
 @mixin dropdownItemBase {
@@ -34,18 +35,20 @@
     width: 100%;
     min-height: ef.get-value($baseSettings, 'selectHeight');
     padding: ef.get-value($baseSettings, 'selectDropdownItemPadding');
+    text-overflow: ellipsis;
     cursor: pointer;
     overflow: hidden;
-    text-overflow: ellipsis;
 }
 
 @mixin baseStatusIcon {
     position: absolute;
     top: 50%;
     right: ef.get-value($baseSettings, 'iconRightShift');
-    transform: translateY(-50%);
+
     width: ef.get-value($baseSettings, 'iconWidth');
     height: ef.get-value($baseSettings, 'iconHeight');
+
+    transform: translateY(-50%);
     border-radius: 50%;
 
     &:before {
@@ -55,16 +58,16 @@
 }
 
 @mixin baseStatusArrow {
+    @include bm.transition(transform);
     position: absolute;
-    right: ef.get-value($themeDefault, 'iconRightShift');
     top: 50%;
+    right: ef.get-value($themeDefault, 'iconRightShift');
     transform: translateY(-50%);
     cursor: pointer;
-    @include bm.transition(transform);
 
     &.active {
-        transform: translateY(-50%) rotate(180deg);
         @include bm.transition(transform);
+        transform: translateY(-50%) rotate(180deg);
     }
 
     ::ng-deep {
@@ -77,19 +80,23 @@
 
 @mixin baseStatusErrors {
     position: absolute;
-    background: ef.get-value($baseSettings, 'errorsBgColor');
     top: calc(100% - 5px);
     right: 0;
+    z-index: 10;
+
     width: fit-content;
     min-width: ef.get-value($baseSettings, 'errorsMinWidth');
     max-width: ef.get-value($baseSettings, 'errorsMaxWidth');
-    opacity: 0;
-    visibility: hidden;
-    color: ef.get-value($baseSettings, 'errorsColor');
-    border-radius: ef.get-value($baseSettings, 'errorsBorderRadius');
-    font-size: ef.get-value($baseSettings, 'errorsFontSize');
+
     padding: ef.get-value($baseSettings, 'errorsPadding');
-    z-index: 10;
+
+    color: ef.get-value($baseSettings, 'errorsColor');
+    font-size: ef.get-value($baseSettings, 'errorsFontSize');
+
+    background: ef.get-value($baseSettings, 'errorsBgColor');
+    visibility: hidden;
+    opacity: 0;
+    border-radius: ef.get-value($baseSettings, 'errorsBorderRadius');
 
     &:before {
         content: '';

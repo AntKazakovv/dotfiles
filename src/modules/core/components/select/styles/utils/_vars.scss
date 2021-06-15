@@ -4,8 +4,6 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'maxWidth': ef.get('form', 'maxWidth'),
-    'labelFontWeight': ef.get('form', 'labelFontWeight'),
     'labelColor': ef.get('form', 'labelColor'),
     'labelFontSize': ef.get('form', 'labelFontSize'),
     'labelGap': ef.get('size', 'small'),
@@ -19,7 +17,7 @@ $themeDefault: map-merge((
     'selectPadding': ef.get('form', 'inputPadding'),
     'selectDisabledBg': ef.get('fieldColors', 'disableBg'),
     'selectDisabledBorder': ef.get('fieldColors', 'disableBorder'),
-    'selectDisabledColor': ef.get('fieldColors', 'placeholderColor'),
+    'selectDisabledColor': ef.get('fieldColors', 'disabledPlaceholderColor'),
     'selectTextAlign': ef.get('form', 'inputTextAlign'),
     'selectDropdownHeight': ef.get('form', 'selectDropdownHeight'),
     'selectDropdownBorder': ef.get('form', 'inputBorder'),
@@ -32,9 +30,6 @@ $themeDefault: map-merge((
     'iconWidth': ef.get('form', 'iconWidth'),
     'iconHeight': ef.get('form', 'iconHeight'),
     'iconRightShift': ef.get('form', 'iconRightShift'),
-    'successIconColor': ef.get('form', 'successIconColor'),
-    'errorIconColor': ef.get('form', 'errorIconColor'),
-    'pendingIconColor': ef.get('form', 'pendingIconColor'),
     'errorsBgColor': ef.get('form', 'errorsBgColor'),
     'errorsColor': ef.get('form', 'errorsColor'),
     'errorsMinWidth': ef.get('form', 'errorsMinWidth'),
@@ -43,7 +38,14 @@ $themeDefault: map-merge((
     'errorsBorderColor': ef.get('form', 'errorsBorderColor'),
     'errorsFontSize': ef.get('form', 'errorsFontSize'),
     'errorsPadding': ef.get('form', 'errorsPadding'),
-    'inputPlaceholderColor': ef.get('fieldColors', placeholderColor),
+    'inputPlaceholderColor': ef.get('fieldColors', 'placeholderColor'),
+
+    'tooltipMargin': (
+        320: 0 0 0 ef.get('size', 'smallest'),
+    ),
+    'groupWidth': 100%,
+    'groupMinWidth': 0,
+    'fieldWidth': 100%,
 ), $customThemeDefault);
 
 $customThemeVertical: () !default;
@@ -54,8 +56,6 @@ $themeVertical: map-merge((
     'labelMaxWidth': 100%,
     'labelMargin': 0 0 0 ef.get('size', 'small'),
     'labelFontSize': ef.get('font', 'small'),
-    'labelFontWeight': 500,
-    'labelLineHeight': 1,
     'labelAlignItems': center,
     'labelColor': ef.get('form', 'labelColor'),
     'labelMinHeight': 20px,

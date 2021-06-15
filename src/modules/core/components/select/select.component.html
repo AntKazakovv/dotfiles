@@ -12,6 +12,7 @@
 
 <div wlc-click-outside
      class="{{$class}}__group"
+     [ngClass] = "{'field-disabled': control.disabled}"
      (clickOutside)="closeDropdown()">
     <button ngDefaultControl
             id="{{$params.name}}"
@@ -23,9 +24,9 @@
             (click)="toggleDropdown()">
         {{buttonText | translate}}
     </button>
-    <div class="{{$class}}-status"
+    <div *ngIf="control.touched && !control.valid && $params.name"
          wlc-form-control
-         *ngIf="$params.name"
+         class="{{$class}}-status"
          [className]="$class"
          [control]="control"
          [validators]="$params.validators"
