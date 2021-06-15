@@ -3,7 +3,7 @@ import {
 } from '@angular/forms';
 
 export function onlyLetters(control: FormControl) {
-    return /^[a-zA-Z]+$/.test(control.value) ? null : {
+    return /^[A-Za-z]+$/.test(control.value) ? null : {
         'onlyLetters': true,
     };
 }
