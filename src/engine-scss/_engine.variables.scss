@@ -70,6 +70,7 @@ $mainColors: map-merge((
 /// @prop {color} borderColor [#5d6476] - border color
 /// @prop {color} textColor [#000] - text color
 /// @prop {color} placeholderColor [#5d6476] - placeholder color
+/// @prop {color} disabledPlaceholderColor [#5d6476] - disabled placeholder color
 /// @prop {color} arrowColor [#5d6476] - arrow color
 /// @prop {color} iconColor [#5d6476] - icon color
 /// @prop {color} disableBg [#1f1f26] - disable background color
@@ -85,6 +86,7 @@ $fieldColors: map-merge((
     'borderColor': #5d6476,
     'textColor': #000,
     'placeholderColor': #5d6476,
+    'disabledPlaceholderColor': #5d6476,
     'arrowColor': #5d6476,
     'iconColor': #5d6476,
     'disableBg': #1f1f26,

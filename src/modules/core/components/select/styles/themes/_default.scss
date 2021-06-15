@@ -1,6 +1,7 @@
 @use 'engine-scss/functions' as ef;
 @use 'engine-scss/mixins/mediaqueries' as mq;
 @use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/mixins/base.mixins' as em;
 
 @import '../utils/vars';
 @import '../utils/mixins';
@@ -11,36 +12,53 @@
     .wlc-select {
 
         &__label {
+            @include text.get-text-style('PrimaryText', ef.get-value($themeDefault, 'labelColor'));
             display: flex;
             align-items: center;
             cursor: pointer;
-            @include text.get-text-style('PrimaryText', ef.get-value($themeDefault, 'labelColor'));
 
             .wlc-tooltip {
-                margin-left: 5px;
+                @include em.get-mq-map('margin', $themeDefault, 'tooltipMargin');
             }
         }
 
         &__group {
             position: relative;
-            width: 100%;
-            min-width: 0;
+            width: ef.get-value($themeDefault, 'groupWidth');
+            min-width: ef.get-value($themeDefault, 'groupMinWidth');
+
+            &.field-disabled {
+
+                .wlc-select-status {
+
+                    &__arrow {
+                        cursor: default;
+
+                        ::ng-deep {
+
+                            svg {
+                                fill: ef.get-value($themeDefault, 'selectDisabledColor');
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         &__field {
-            width: 100%;
+            @include text.get-text-style('PrimaryText', ef.get-value($themeDefault, 'selectColor'));
+            width: ef.get-value($themeDefault, 'fieldWidth');
+            height: ef.get-value($themeDefault, 'selectHeight');
+            padding: ef.get-value($themeDefault, 'selectPadding');
+            white-space: nowrap;
+            background: ef.get-value($themeDefault, 'selectBackground');
             border: ef.get-value($themeDefault, 'selectBorder');
             border-radius: ef.get-value($themeDefault, 'selectBorderRadius');
-            padding: ef.get-value($themeDefault, 'selectPadding');
             overflow: hidden;
-            white-space: nowrap;
             text: {
                 overflow: ellipsis;
                 align: ef.get-value($themeDefault, 'selectTextAlign');
             }
-            background: ef.get-value($themeDefault, 'selectBackground');
-            @include text.get-text-style('PrimaryText', ef.get-value($themeDefault, 'selectColor'));
-            height: ef.get-value($themeDefault, 'selectHeight');
 
             &:focus {
                 outline: none;
@@ -56,9 +74,9 @@
             }
 
             &:disabled {
+                color: ef.get-value($themeDefault, 'selectDisabledColor');
                 background: ef.get-value($themeDefault, 'selectDisabledBg');
                 border-color: ef.get-value($themeDefault, 'selectDisabledBorder');
-                color: ef.get-value($themeDefault, 'selectDisabledColor');
             }
         }
 

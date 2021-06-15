@@ -22,7 +22,6 @@
             margin: ef.get-value($themeVertical, 'labelMargin');
             overflow-x: hidden;
 
-
             text-overflow: ellipsis;
 
             cursor: pointer;
@@ -46,22 +45,40 @@
         &__group {
             position: relative;
             width: ef.get-value($themeVertical, 'selectGroupSize');
-            max-width: ef.get-value($themeVertical, 'selectGroupSize');
             min-width: 0;
+            max-width: ef.get-value($themeVertical, 'selectGroupSize');
+
+            &.field-disabled {
+
+                .wlc-select-status {
+
+                    &__arrow {
+                        cursor: default;
+
+                        ::ng-deep {
+
+                            svg {
+                                fill: ef.get-value($themeDefault, 'selectDisabledColor');
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         &__field {
-            width: 100%;
+            @include text.get-text-style('PrimaryText', ef.get-value($baseSettings, 'selectColor'));
+            width: ef.get-value($themeDefault, 'fieldWidth');
+            height: ef.get-value($baseSettings, 'selectHeight');
+
             border: ef.get-value($baseSettings, 'selectBorder');
             border-radius: ef.get-value($baseSettings, 'selectBorderRadius');
             padding: ef.get-value($baseSettings, 'selectPadding');
             overflow: hidden;
-            text-overflow: ellipsis;
             white-space: nowrap;
-            background: ef.get-value($baseSettings, 'selectBackground');
             text-align: ef.get-value($baseSettings, 'selectTextAlign');
-            @include text.get-text-style('PrimaryText', ef.get-value($baseSettings, 'selectColor'));
-            height: ef.get-value($baseSettings, 'selectHeight');
+            text-overflow: ellipsis;
+            background: ef.get-value($baseSettings, 'selectBackground');
 
             &:focus {
                 outline: none;
@@ -81,9 +98,9 @@
             }
 
             &:disabled {
+                color: ef.get-value($themeDefault, 'selectDisabledColor');
                 background: ef.get-value($themeDefault, 'selectDisabledBg');
                 border-color: ef.get-value($themeDefault, 'selectDisabledBorder');
-                color: ef.get-value($themeDefault, 'selectDisabledColor');
             }
         }
 
