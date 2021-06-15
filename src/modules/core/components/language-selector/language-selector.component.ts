@@ -114,7 +114,7 @@ export class LanguageSelectorComponent
             .map(this.findLanguage.bind(this));
         this.currentLanguage = this.findLanguage(this.translate.currentLang);
 
-        if (this.availableLanguages.length <= 1) {
+        if (this.languagesCount() <= 1) {
             this.hasSingleLang = true;
         } else if (this.availableLanguages.length <= 6 && this.$params.toggleOnScroll) {
             this.defaultThemeMod = this.$params.themeMod;
@@ -220,5 +220,13 @@ export class LanguageSelectorComponent
         return _find(this.configService.get<ILanguage[]>('appConfig.languages'), {
             code: lang,
         });
+    }
+
+    protected languagesCount(): number {
+        const isInclude = !!_find(this.availableLanguages, ({code}) => this.currentLanguage.code === code);
+
+        return isInclude
+            ? this.availableLanguages.length
+            : this.availableLanguages.length + 1;
     }
 }
