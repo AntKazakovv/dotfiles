@@ -185,7 +185,7 @@
                 .wlc-select__label {
                     @include bm.get-mq-map('color', $mainInfoThemeDefault, 'formLabelColor');
                     @include text.get-text-style('SignText', null);
-                    margin-left: 5px;
+                    margin: ef.get-value($mainInfoThemeDefault, 'labelMargin');
 
                     @include mq.min(768) {
                         @include text.get-text-style('PrimaryText', null);

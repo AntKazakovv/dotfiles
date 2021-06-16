@@ -67,6 +67,11 @@ export interface ILaunchGameParams {
     modal?: ILaunchGameModal;
 }
 
+export enum SpecialCategoriesGamesSlug {
+    favorites = 'favourites',
+    lastGames = 'lastplayed',
+}
+
 @Injectable({
     providedIn: 'root',
 })
@@ -87,7 +92,7 @@ export class GamesCatalogService {
         'category-menu',
     ];
     private deviceType: DeviceType;
-    private lastPlayed: Game[];
+    private lastPlayed: Game[] = [];
 
     constructor(
         public configService: ConfigService,
@@ -152,7 +157,7 @@ export class GamesCatalogService {
             );
             this.$resolve();
             this.loadJackpots();
-            this.loadFavourites();
+            this.getFavouriteGames();
         });
 
         this.eventService.subscribe({
@@ -213,66 +218,15 @@ export class GamesCatalogService {
     }
 
     /**
-     * Load last played games
-     *
-     * @returns {Promise<void>}
-     */
-    private async loadLastGames(): Promise<ILastPlayedGame[]> {
-        if (this.configService.get('$user.isAuthenticated')) {
-            const data: IData = await this.dataService.request('games/lastGames');
-            const gameIds: number[] = _map(data.data, (gameInfo: ILastPlayedGame) => {
-                return _toNumber(gameInfo.ID);
-            });
-            this.lastPlayed = this.getGameList({
-                ids: gameIds,
-            });
-            const category: CategoryModel = this.getCategoryBySlug('lastplayed');
-            if (category && this.lastPlayed.length) {
-                category.setGames(this.lastPlayed);
-            }
-            return data.data;
-        }
-    }
-
-    /**
-     * Load favourite games
-     *
-     * @returns {Promise<void>}
-     */
-    private async loadFavourites(): Promise<IFavourite[]> {
-        if (this.configService.get('$user.isAuthenticated')) {
-            const data: IData = await this.dataService.request('games/favorites');
-            const gameIds: number[] = _map(data.data, (gameInfo: IFavourite) => {
-                return _toNumber(gameInfo.game_id);
-            });
-            this.favourites = this.getGameList({
-                ids: gameIds,
-            });
-            const category: CategoryModel = this.getCategoryBySlug('favourites');
-            if (category && this.favourites.length) {
-                category.setGames(this.favourites);
-            }
-            return data.data;
-        }
-    }
-
-    /**
-     * Load jackpot games
-     *
-     * @returns {Promise<void>}
-     */
-    private async loadJackpots(): Promise<void> {
-        this.dataService.request('games/jackpots');
-    }
-
-    /**
      * Get last games
      *
      * @returns {Promise<Game[]>} Last games list
      */
     public async getLastGames(): Promise<Game[]> {
-        await this.loadLastGames();
-        return this.lastPlayed;
+        return this.lastPlayed = await this.loadSpecialCategoryGames<ILastPlayedGame>(
+            'lastGames',
+            (item: ILastPlayedGame) => item.ID,
+        );
     }
 
     /**
@@ -281,8 +235,10 @@ export class GamesCatalogService {
      * @returns {Promise<Game[]>}
      */
     public async getFavouriteGames(): Promise<Game[]> {
-        await this.loadFavourites();
-        return this.favourites;
+        return this.favourites = await this.loadSpecialCategoryGames<IFavourite>(
+            'favorites',
+            (item: IFavourite) => item.game_id,
+        );
     }
 
     /**
@@ -777,5 +733,40 @@ export class GamesCatalogService {
                 fail: gamesEvents.FETCH_FAVOURITES_FAILED,
             },
         });
+    }
+
+    /**
+    * Load lastPlayed or favorites games
+    *
+    * @returns {Promise<void>}
+    */
+    private async loadSpecialCategoryGames<T>(
+        requestUrl: 'favorites' | 'lastGames',
+        getterProperty: (item: T) => string,
+    ): Promise<Game[]> {
+        if (this.configService.get('$user.isAuthenticated')) {
+            let games: Game[] = [];
+            const data: IData = await this.dataService.request(`games/${requestUrl}`);
+
+            const gameIds: number[] = _map(data.data, (gameInfo: T) => {
+                return _toNumber(getterProperty(gameInfo));
+            });
+
+            if (gameIds.length) {
+                games = this.getGameList({ids: gameIds});
+            }
+            const category: CategoryModel = this.getCategoryBySlug(SpecialCategoriesGamesSlug[requestUrl]);
+            category?.setGames(games);
+            return games;
+        }
+    }
+
+    /**
+     * Load jackpot games
+     *
+     * @returns {Promise<void>}
+     */
+    private async loadJackpots(): Promise<void> {
+        this.dataService.request('games/jackpots');
     }
 }

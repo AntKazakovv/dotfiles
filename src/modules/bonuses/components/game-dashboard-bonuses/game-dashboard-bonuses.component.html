@@ -9,7 +9,7 @@
          [slides]="slides"
          [inlineParams]="$params.common?.landscapeSliderParams">
     </div>
-    <div slot-container-end *ngIf="!landscapeOrientation || !isMobile">
+    <div slot-container-end *ngIf="isDesktopAndSlidesLength">
         <div class="swiper-button-prev" wlc-icon iconName="arrow"></div>
         <div class="swiper-button-next" wlc-icon iconName="arrow"></div>
     </div>

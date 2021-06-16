@@ -19,7 +19,7 @@
 <ng-template #dashboard>
     <div class="{{$class}}__inner" wlc-scrollbar>
         <div class="{{$class}}__header">{{'Tournaments' | translate}}</div>
-        <ng-container *ngIf="tournaments?.length && isReady; else: noData">
+        <ng-container *ngIf="readyTournamentsAndSlides; else: noData">
             <ng-container
                 *ngIf="!isTournamentSelected && $params.type === 'swiper'">
                 <div class="{{$class}}__slider"
@@ -28,7 +28,7 @@
                      [slides]="slides"
                      [inlineParams]="sliderParams">
                 </div>
-                <div slot-container-end *ngIf="slides.length" class="{{$class}}__nav">
+                <div slot-container-end *ngIf="slides.length > 1" class="{{$class}}__nav">
                     <div class="container swiper-button-container">
                         <button class="wlc-swiper-button-prev" wlc-icon iconName="arrow"></button>
                         <button class="wlc-swiper-button-next" wlc-icon iconName="arrow"></button>
@@ -63,7 +63,7 @@
             </ng-container>
         </div>
 
-        <div slot-container-end *ngIf="slides.length">
+        <div slot-container-end *ngIf="slides.length > 1">
             <div class="container swiper-button-container">
                 <button class="wlc-swiper-button-prev" wlc-icon iconName="arrow"></button>
                 <button class="wlc-swiper-button-next" wlc-icon iconName="arrow"></button>

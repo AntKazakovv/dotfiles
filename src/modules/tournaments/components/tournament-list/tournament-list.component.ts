@@ -6,6 +6,7 @@ import {
     OnInit,
     Input,
     ViewChild,
+    AfterViewInit,
 } from '@angular/core';
 
 import {UIRouterGlobals} from '@uirouter/core';
@@ -41,7 +42,7 @@ import _filter from 'lodash-es/filter';
 })
 export class TournamentListComponent
     extends AbstractComponent
-    implements OnInit {
+    implements OnInit, AfterViewInit {
 
     @Input() protected type: Params.ComponentType;
     @Input() protected theme: Params.ComponentTheme;
@@ -85,7 +86,14 @@ export class TournamentListComponent
         if (this.$params.type === 'swiper') {
             this.sliderParams.swiper = this.$params.common?.swiper;
         }
+    }
+
+    public ngAfterViewInit(): void {
         this.getTournaments();
+    }
+
+    public get readyTournamentsAndSlides(): boolean {
+        return !!(this.tournaments?.length && this.isReady && this.slides?.length);
     }
 
     protected getTournaments(): void {
