@@ -17,12 +17,9 @@ $themeDefault: map-merge((
     'dropdownBackgroundColor': ef.get('mainColors', bg700),
     'dropdownBorderRadius': ef.get('radius', 'less'),
     'dropdownFlagSize': ef.get('size', 'less'),
+    'listShadow': 0 0 3px #000000,
 
     'dropdownArrowSize': ef.get('size', 'small'),
-    'dropdownArrowShadowTop': drop-shadow(0 2px 1px ef.get('mainColors', 'bg')),
-    'dropdownArrowShadowBottom': drop-shadow(0 -2px 1px ef.get('mainColors', 'bg')),
-
-    'dropdownListShadow': 0 0 3px ef.get('mainColors', 'bg'),
 
     'flagBoxShadow': 0 0 0 4px ef.get('mainColors', 'bg300'),
     'flagBoxShadowHover': 0 0 0 4px ef.get('mainColors', 'main'),
