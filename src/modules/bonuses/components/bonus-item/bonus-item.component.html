@@ -50,8 +50,9 @@
                         data-wlc-element="bonus_title-name">
                         {{$params.common.bonus?.name}}
                     </h4>
-                    <p class="{{$class}}__description" [wlc-clamp]="$params.common?.descriptionClamp || 2">
-                        {{$params.common.bonus?.description | translate}}
+                    <p class="{{$class}}__description"
+                       [innerHtml]="$params.common.bonus?.description"
+                       [wlc-clamp]="2">
                     </p>
                     <button *ngIf="!$params.common?.iconMoreBtn"
                             wlc-button
@@ -128,9 +129,7 @@
                     <h4 class="{{$class}}__name" data-wlc-element="bonus_title-name">
                         {{$params.common.bonus?.name}}
                     </h4>
-                    <p class="{{$class}}__description">
-                        {{$params.common.bonus?.description | translate}}
-                    </p>
+                    <p class="{{$class}}__description" [innerHtml]="$params.common.bonus?.description"></p>
                 </div>
                 <div *ngIf="!isAuth" class="{{$class}}__btns">
                     <button wlc-button
@@ -254,9 +253,7 @@
         </div>
         <div *ngIf="$params.common.bonus?.description"
              class="{{$class}}__footer">
-            <p class="{{$class}}__description">
-                {{$params.common.bonus.description | translate}}
-            </p>
+            <div class="{{$class}}__description" [innerHtml]="$params.common.bonus.description"></div>
         </div>
     </div>
 </ng-template>
@@ -323,9 +320,7 @@
         <h4 class="{{$class}}__name">
             {{$params.common.bonus?.name}}
         </h4>
-        <p class="{{$class}}__description">
-            {{$params.common.bonus?.description | translate}}
-        </p>
+        <p class="{{$class}}__description" [innerHtml]="$params.common.bonus?.description"></p>
     </div>
 </ng-template>
 
@@ -354,8 +349,9 @@
                     [wlc-clamp]="$params.common?.nameClamp || 2"> {{$params.common.bonus.name}} </h4>
                 <p class="{{$class}}__description"
                    data-wlc-element="bonus_description-name"
+                   [innerHtml]="$params.common.bonus?.description"
                    [wlc-clamp]="3"
-                >{{$params.common.bonus.description | translate}}</p>
+                ></p>
             </div>
 
             <div class="{{$class}}__image-block" data-wlc-element="bonus_image">
@@ -475,8 +471,9 @@
             </div>
             <div class="{{$class}}__bottom" data-wlc-element="bonus_info">
                 <div class="{{$class}}__info-block">
-                    <p class="{{$class}}__description" [wlc-clamp]="2">
-                        {{$params.common.bonus?.description | translate}}
+                    <p class="{{$class}}__description"
+                       [wlc-clamp]="2"
+                       [innerHtml]="$params.common.bonus?.description">
                     </p>
                     <button *ngIf="!$params.common?.iconMoreBtn"
                             wlc-button
@@ -594,15 +591,15 @@
          [class.disabled]="$params.common.bonus?.isDisabled"
          data-wlc-element="block_bonus">
 
-        <div class="{{$class}}__wrapper" (click)="chooseBonusNoBtn($params.common.bonus, $params.common?.type)">
+        <div class="{{$class}}__wrapper" (click)="chooseBonusNoBtn($params.common.bonus, $params.common.type)">
             <div class="{{$class}}__image-block" data-wlc-element="bonus_image">
-                <div *ngIf="$params.common?.showBonusTag && !!$params.common.bonus.tag"
+                <div *ngIf="$params.common.showBonusTag && !!$params.common.bonus.tag"
                      class="{{$class}}__tag"
                      data-wlc-element="bonus_type-title">
                     {{$params.common.bonus.tag | translate}}</div>
-                <div *ngIf="!$params.common?.useIconBonusImage && $params.common.imageByType"
+                <div *ngIf="!$params.common.useIconBonusImage && $params.common.imageByType"
                      class="{{$class}}__image"
-                     [style]="{backgroundImage: 'url(' + $params.common.bonus?.getImageByType($params.common?.type) + ')'}">
+                     [style]="{backgroundImage: $params.common.bonus?.getImageByType($params.common.type)}">
                     <img *ngIf="$params.common?.showAdditionalImage"
                          class="wlc-bonus-image-other"
                          [src]="$params.common.bonus?.imageOther"
@@ -616,10 +613,9 @@
                          [src]="$params.common.bonus?.imageOther"
                          loading="lazy">
                 </div>
-                <div *ngIf="$params.common?.useIconBonusImage" class="{{$class}}__bonus-icon">
+                <div *ngIf="$params.common.useIconBonusImage" class="{{$class}}__bonus-icon">
                     <img class="icon-sign"
-                         [src]="$params.common?.iconsPath + $params.common.bonus?.viewTarget + '.svg'"
-                         loading="lazy"
+                         [src]="$params.common.iconsPath + $params.common.bonus?.viewTarget + '.svg'"
                          alt="">
                     <div class="icon-text"
                          data-wlc-element="bonus_value-quantity"
@@ -635,8 +631,9 @@
             </div>
             <div class="{{$class}}__bottom" data-wlc-element="bonus_info">
                 <div class="{{$class}}__info-block">
-                    <p class="{{$class}}__description" [wlc-clamp]="2">
-                        {{$params.common.bonus?.description | translate}}
+                    <p class="{{$class}}__description"
+                       [innerHtml]="$params.common.bonus?.description"
+                       [wlc-clamp]="$params.common.descriptionClamp || 2">
                     </p>
                     <button *ngIf="!$params.common?.iconMoreBtn"
                             wlc-button
@@ -683,7 +680,7 @@
                             typeAttr="button"
                             text="Choose"
                             [disabled]="$params.common.bonus?.isChoose"
-                            (click)="chooseBonus($params.common.bonus, $params.common?.type)"
+                            (click)="chooseBonus($params.common.bonus, $params.common.type)"
                             [wlcElement]="'button_choose'">
                     </button>
                 </div>

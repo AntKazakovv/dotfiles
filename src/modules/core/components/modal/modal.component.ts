@@ -106,6 +106,8 @@ export class WlcModalComponent extends AbstractComponent
             return 'message';
         } else if (this.$params.config.component) {
             return 'component';
+        } else if (this.$params.config.html) {
+            return 'html';
         }
     }
 

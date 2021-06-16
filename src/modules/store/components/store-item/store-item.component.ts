@@ -77,9 +77,7 @@ export class StoreItemComponent extends AbstractComponent implements OnInit, OnD
             modalTitle: storeItem.name,
             wlcElement: 'store_modal-info',
             modifier: 'info',
-            modalMessage: [
-                storeItem.description,
-            ],
+            html: storeItem.description,
             dismissAll: true,
         });
     }
