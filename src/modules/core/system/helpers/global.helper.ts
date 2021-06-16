@@ -22,6 +22,7 @@ import _isUndefined from 'lodash-es/isUndefined';
 import _keys from 'lodash-es/keys';
 import _reduce from 'lodash-es/reduce';
 import _assign from 'lodash-es/assign';
+import _reverse from 'lodash-es/reverse';
 
 export class GlobalHelper {
 
@@ -87,6 +88,31 @@ export class GlobalHelper {
             return orderByAsc ? _get(a, attr, 0) - _get(b, attr, 0) : _get(b, attr, 0) - _get(a, attr, 0);
         });
     }
+
+    /**
+     * Sort items by order of their some property
+     *
+     * @param {T[]} items Items for sort.
+     * @param {A[]} order Order for sorting.
+     * @param {string} attr Get access for object props if it is necessary.
+     * @returns {T[]} Sorted items
+     */
+    public static sortByOrder<T, A>(items: T[] = [], order: A[], attr?: string): T[] {
+        if (!_size(items) || !_size(order)) {
+            return items;
+        }
+
+        const orderReverse = _reverse(order.slice());
+
+        return items.sort((a: T | A, b: T | A): number => {
+            if (attr) {
+                b = _get(b, attr);
+                a = _get(a, attr);
+            }
+            return orderReverse.indexOf(b as A) - orderReverse.indexOf(a as A);
+        });
+    }
+
 
     public static getOwnProperty(object: any, key: string): any {
         return Object.getOwnPropertyDescriptor((object).__proto__, key);
