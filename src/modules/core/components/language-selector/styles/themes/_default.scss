@@ -103,8 +103,7 @@
             @include mod('default', 'top-left') {
                 transform: translateY(ef.get-value($themeDefault, 'dropdownArrowSize') * -1);
             }
-
-            box-shadow: ef.get-value($themeDefault, 'dropdownListShadow');
+            filter: drop-shadow(ef.get-value($themeDefault, 'listShadow'));
 
             &:before {
 
@@ -114,8 +113,6 @@
 
                     border-top: 0;
                     border-bottom: ef.get-value($themeDefault, 'dropdownArrowSize') solid ef.get-value($themeDefault, 'dropdownBackgroundColor');
-
-                    filter: ef.get-value($themeDefault, 'dropdownArrowShadowBottom');
                 }
 
                 @include mod('default', 'top-left') {
@@ -124,8 +121,6 @@
 
                     border-top: ef.get-value($themeDefault, 'dropdownArrowSize') solid ef.get-value($themeDefault, 'dropdownBackgroundColor');
                     border-bottom: 0;
-
-                    filter: ef.get-value($themeDefault, 'dropdownArrowShadowTop');
                 }
 
                 content: '';
