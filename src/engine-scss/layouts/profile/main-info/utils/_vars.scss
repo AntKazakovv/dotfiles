@@ -106,6 +106,7 @@ $mainInfoThemeDefault: map-merge((
     ),
     'switcherPadding': 0,
     'labelAlignItems': center,
+    'labelMargin': 0 0 0 ef.get('size', 'small'),
 ), $customMainInfoThemeDefault);
 
 

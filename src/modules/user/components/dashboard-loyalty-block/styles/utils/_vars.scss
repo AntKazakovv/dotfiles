@@ -20,6 +20,7 @@ $themeDefault: map-merge((
     'allLinkColorHover': ef.get('mainColors', 'main'),
 
     'userGridColumns': 1fr auto,
+    'userGridAlignItems': center,
     'userIconWidth': 12px,
     'userIconMargin': 0 0 0 ef.get('size', 'smallest'),
 ), $customThemeDefault);

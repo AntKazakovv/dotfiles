@@ -52,10 +52,10 @@
     &__user-name {
         display: grid;
         grid-template-columns: ef.get-value($themeDefault, 'userGridColumns');
+        align-items: ef.get-value($themeDefault, 'userGridAlignItems');
 
         .wlc-logout {
             display: none;
-            align-self: flex-start;
 
             ::ng-deep {
 

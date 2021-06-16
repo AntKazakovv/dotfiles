@@ -201,4 +201,7 @@ export class GameDashboardBonusesComponent extends AbstractComponent implements 
         }
     }
 
+    public get isDesktopAndSlidesLength(): boolean {
+        return (!this.landscapeOrientation || !this.isMobile) && this.slides.length > 1;
+    }
 }

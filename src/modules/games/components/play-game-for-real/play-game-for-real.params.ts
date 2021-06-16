@@ -94,7 +94,7 @@ export const playGameForRealConfig = (params: IPlayForRealParams): IFormWrapperC
             params: <IInputCParams>{
                 theme: 'vertical',
                 common: {
-                    placeholder: gettext('Email'),
+                    placeholder: gettext('E-mail'),
                     type: 'email',
                 },
                 name: 'email',

@@ -8,7 +8,7 @@ $themeDefault: map-merge((
     'labelFontWeight': ef.get('form', 'labelFontWeight'),
     'labelColor': ef.get('form', 'labelColor'),
     'labelFontSize': ef.get('form', 'labelFontSize'),
-    'labelGap': ef.get('size', 'small'),
+    'labelGap': ef.get('size', 'smallest'),
     'selectColor': ef.get('form', 'inputColor'),
     'selectBackground': ef.get('form', 'inputBackground'),
     'selectMaxWidth': ef.get('form', 'inputMaxWidth'),

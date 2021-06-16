@@ -1,10 +1,9 @@
 @use 'engine-scss/functions' as ef;
 @use 'engine-scss/mixins/base.mixins' as bm;
 @use 'engine-scss/mixins/mediaqueries' as mq;
-@import './vars';
 
 @mixin headerBase($theme) {
-
+    margin: ef.get-value($theme, 'headerMargin');
     background: ef.get-value($theme, 'headerBackground');
 
     .container {
