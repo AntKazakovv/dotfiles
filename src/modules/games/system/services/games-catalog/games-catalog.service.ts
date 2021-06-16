@@ -55,6 +55,7 @@ import _isArray from 'lodash-es/isArray';
 import _filter from 'lodash-es/filter';
 import _find from 'lodash-es/find';
 import _toNumber from 'lodash-es/toNumber';
+import _size from 'lodash-es/size';
 
 export interface ILaunchGameModal {
     show: boolean;
@@ -540,7 +541,7 @@ export class GamesCatalogService {
 
     public getTournamentGames(data: ITournamentGames): Game[] {
         const games = this.getGameList({
-            ids: data.Games,
+            ids: _size(data.Games) ? data.Games : null,
             categories: _map(data.Categories, (id) => {
                 return GamesHelper.getCategoryById(id)?.menuId;
             }),
