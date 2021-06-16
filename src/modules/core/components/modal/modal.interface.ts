@@ -71,6 +71,10 @@ export interface IModalConfig extends IModalBsOptions {
      */
     modalTitle?: string;
     /**
+     * Allow to insert HTML
+     */
+    html?: string;
+    /**
      * Allow to insert Component
      */
     component?: Type<unknown>;

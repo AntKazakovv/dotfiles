@@ -13,7 +13,9 @@
             <h3 class="{{$class}}__title"
                 [title]="$params.common.tournament.name">{{$params.common.tournament.name}}</h3>
             <div class="{{$class}}__description"
-                 [title]="$params.common.tournament.description">{{$params.common.tournament.description}}</div>
+                 [title]="$params.common.tournament.description"
+                 [innerHtml]="$params.common.tournament.description"
+            ></div>
         </div>
     </div>
     <div class="{{$class}}__board">

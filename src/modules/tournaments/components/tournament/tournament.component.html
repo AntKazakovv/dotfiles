@@ -62,19 +62,20 @@
                     ? 'Time remaining'
                     : 'Coming soon'">
         </div>
-        <div class="{{$class}}__description" *ngIf="!isTournamentSelected && tournament.description?.length">
-            <span>{{tournament.description}}</span>
-        </div>
-        <div class="{{$class}}__btns" *ngIf="!isTournamentSelected && tournament.isTournamentStarts">
+        <div *ngIf="!isTournamentSelected && tournament.description?.length"
+             class="{{$class}}__description"
+             [innerHtml]="tournament.description"
+        ></div>
+        <div *ngIf="!isTournamentSelected && tournament.isTournamentStarts" class="{{$class}}__btns">
             <button
                 wlc-button
                 [text]="'Join now'"
-                (click)="join()"
-                [wlcElement]="'button_tournament_join'">
+                [wlcElement]="'button_tournament_join'"
+                (click)="join()">
             </button>
         </div>
-        <div wlc-tournament-leaderboard
-             *ngIf="isTournamentSelected"
+        <div *ngIf="isTournamentSelected"
+             wlc-tournament-leaderboard
              class="{{$class}}__board"
              [tournament]="tournament"
              [limit]="8"

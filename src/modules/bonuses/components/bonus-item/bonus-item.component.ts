@@ -152,9 +152,7 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
             id: 'bonus-info',
             modalTitle: bonus.name,
             modifier: 'info',
-            modalMessage: [
-                bonus.description,
-            ],
+            html: bonus.description,
             dismissAll: false,
         });
     }

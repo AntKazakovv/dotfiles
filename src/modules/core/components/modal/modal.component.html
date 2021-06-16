@@ -52,6 +52,9 @@
             <ng-container *ngSwitchCase="'message'"
                           [ngTemplateOutlet]="message">
             </ng-container>
+            <ng-container *ngSwitchCase="'html'"
+                          [ngTemplateOutlet]="html">
+            </ng-container>
             <ng-container *ngSwitchCase="'message-and-component'"
                           [ngTemplateOutlet]="messageAndComponent">
             </ng-container>
@@ -94,7 +97,11 @@
 </ng-template>
 
 <ng-template #message>
-    <div class="modal-icon modal-icon--confirm" *ngIf="$params?.config?.modifier === 'confirmation' && !$params?.config?.hideIcon" wlc-icon iconName="status/confirm"></div>
+    <div *ngIf="$params.config?.modifier === 'confirmation' && !$params.config.hideIcon"
+         wlc-icon
+         class="modal-icon modal-icon--confirm"
+         iconName="status/confirm"
+    ></div>
     <div
         *ngFor="let msg of $params.config.modalMessage"
         [attr.data-wlc-element]="$params.wlcElement + '-message'"
@@ -102,6 +109,20 @@
         class="modal-message">
         {{msg | translate}}
     </div>
+</ng-template>
+<ng-template #html>
+    <div *ngIf="$params.config?.modifier === 'confirmation' && !$params.config.hideIcon"
+         wlc-icon
+         class="modal-icon modal-icon--confirm"
+         iconName="status/confirm"
+    ></div>
+    <div wlc-dynamic-html
+         class="modal-message"
+         [attr.data-wlc-element]="$params.wlcElement + '-message'"
+         [style]="{'text-align': $params.config.textAlign}"
+         [html]="$params.config.html"
+         [parseAsPlainHTML]="true"
+    ></div>
 </ng-template>
 <ng-template #messageAndComponent>
     <div
