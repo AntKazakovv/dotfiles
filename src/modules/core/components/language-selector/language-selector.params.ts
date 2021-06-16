@@ -26,6 +26,10 @@ export interface ILanguageSelectorCParams extends IComponentParams<ThemeType, Co
         hideLang?: boolean;
     };
     toggleOnScroll?: ThemeModType;
+    /**
+     *  Accepts language codes; Example: ['ru', 'en', 'pt-br'];
+     */
+    order?: string[];
 }
 
 export const defaultParams: ILanguageSelectorCParams = {

@@ -19,18 +19,19 @@ import {
     animate,
 } from '@angular/animations';
 import {
+    fromEvent,
+    merge,
+} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
+import {
     ConfigService,
     ILanguage,
     ModalService,
     AbstractComponent,
     LogService,
+    GlobalHelper,
 } from 'wlc-engine/modules/core';
 import * as Params from './language-selector.params';
-import {
-    fromEvent,
-    merge,
-} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
 
 import _find from 'lodash-es/find';
 
@@ -112,6 +113,11 @@ export class LanguageSelectorComponent
                 },
             )
             .map(this.findLanguage.bind(this));
+        this.availableLanguages = GlobalHelper.sortByOrder<ILanguage, string>(
+            this.availableLanguages,
+            this.$params.order,
+            'code',
+        );
         this.currentLanguage = this.findLanguage(this.translate.currentLang);
 
         if (this.languagesCount() <= 1) {
