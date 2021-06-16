@@ -115,7 +115,7 @@ export class TournamentDetailComponent extends AbstractComponent implements OnIn
         _each(this.tournament.winningSpreadByPercent, (percent, index) => {
             rows.push({
                 Place: index + 1,
-                Prize: this.tournament.winningSpread[index],
+                Prize: {value: this.tournament.winningSpread[index], currency: 'EUR'},
                 Percent: percent,
             });
         });
