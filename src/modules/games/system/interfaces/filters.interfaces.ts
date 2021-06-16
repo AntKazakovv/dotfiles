@@ -3,7 +3,7 @@ import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 import {ICategory} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
 
 export type IGamesFilterData = {
-    ids?: number[];
+    ids?: number[] | null;
     searchQuery?: string;
     categories?: string[];
     merchants?: number[];
