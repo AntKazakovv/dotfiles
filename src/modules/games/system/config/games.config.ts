@@ -18,6 +18,7 @@ export const gamesConfig: IGamesConfig = {
          */
         notRunInIframe: {
             "944": {},
+            "945": {},
             "942": {},
             "912": {},
             "987": {},
