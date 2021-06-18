@@ -6,8 +6,8 @@ import {
     Input,
     ChangeDetectorRef,
 } from '@angular/core';
-import {filter} from "rxjs/operators";
-import {TransitionService} from "@uirouter/core";
+import {filter} from 'rxjs/operators';
+import {TransitionService} from '@uirouter/core';
 
 import {
     AbstractComponent,
@@ -57,8 +57,8 @@ export class HistoryRangeComponent extends AbstractComponent implements OnInit {
         this.historyFilterService.dateChanges$
             .pipe(filter(date => !!date))
             .subscribe((value) => {
-                this.startDate = value?.startDate.toFormat("dd-LL-yyyy");
-                this.endDate = value?.endDate.toFormat("dd-LL-yyyy");
+                this.startDate = value?.startDate.toFormat('dd-LL-yyyy');
+                this.endDate = value?.endDate.toFormat('dd-LL-yyyy');
                 this.ready = true;
                 this.cdr.detectChanges();
             });

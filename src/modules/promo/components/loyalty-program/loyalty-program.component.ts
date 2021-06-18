@@ -16,7 +16,7 @@ import {
 import {
     LoyaltyLevelModel,
     LoyaltyLevelsService,
-} from "wlc-engine/modules/promo/";
+} from 'wlc-engine/modules/promo/';
 
 import * as Params from './loyalty-program.params';
 

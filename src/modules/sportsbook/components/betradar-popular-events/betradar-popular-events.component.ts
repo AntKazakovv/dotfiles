@@ -131,11 +131,11 @@ export class BetradarPopularEventsComponent extends AbstractComponent implements
      * Init dir of background images for slides
      */
     protected initImagesDir(): void {
-        const imagesDir: string = this.configService.get<string>(`$sportsbook.betradar.widgets.popularEvents.imagesDir`);
+        const imagesDir: string = this.configService.get<string>('$sportsbook.betradar.widgets.popularEvents.imagesDir');
         if (imagesDir) {
             this.imagesDir = _trim(imagesDir, '/') + '/';
         }
-        const env: string = this.configService.get(`appConfig.env`);
+        const env: string = this.configService.get('appConfig.env');
         const domain: string = this.configService.get(`$sportsbook.betradar.widgets.env.${env}.serverUrl`) || '';
         this.fallbackImagesDir =  `${domain}/static/widgets/images/popular-events/`;
     }

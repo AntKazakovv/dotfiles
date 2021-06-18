@@ -17,11 +17,11 @@ export const gamesConfig: IGamesConfig = {
          * }
          */
         notRunInIframe: {
-            "944": {},
-            "945": {},
-            "942": {},
-            "912": {},
-            "987": {},
+            '944': {},
+            '945': {},
+            '942': {},
+            '912': {},
+            '987': {},
         },
     },
     run: {
@@ -34,7 +34,7 @@ export const gamesConfig: IGamesConfig = {
         disableByCountry: {
             default: [],
             forMerchant: {
-                "992": ['usa', 'fra', 'cuw', 'gbr', 'esp', 'ita'],
+                '992': ['usa', 'fra', 'cuw', 'gbr', 'esp', 'ita'],
             },
         },
     },

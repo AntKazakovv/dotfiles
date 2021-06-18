@@ -164,7 +164,7 @@ export class WinnersSliderComponent extends AbstractComponent implements OnInit,
 
         if (swiper.spaceBetween) {
             (this.element.nativeElement as HTMLElement).style.setProperty(
-                `--wlc-winner-slider-slide-gap`,
+                '--wlc-winner-slider-slide-gap',
                 swiper.spaceBetween + 'px',
             );
         }

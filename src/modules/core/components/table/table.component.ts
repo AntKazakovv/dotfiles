@@ -8,7 +8,7 @@ import {
     Injector,
 } from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
-import {PageChangedEvent} from "ngx-bootstrap/pagination";
+import {PageChangedEvent} from 'ngx-bootstrap/pagination';
 import {
     animate,
     query,
@@ -16,7 +16,7 @@ import {
     style,
     transition,
     trigger,
-} from "@angular/animations";
+} from '@angular/animations';
 import {takeUntil} from 'rxjs/operators';
 import {
     AbstractComponent,

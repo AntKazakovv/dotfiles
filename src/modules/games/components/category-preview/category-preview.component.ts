@@ -10,8 +10,8 @@ import {TranslateService} from '@ngx-translate/core';
 import {ConfigService, GlobalHelper, IIndexing} from 'wlc-engine/modules/core';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {GamesCatalogService} from 'wlc-engine/modules/games';
-import {CategoryModel} from "wlc-engine/modules/games/system/models/category.model";
-import {Game} from "wlc-engine/modules/games/system/models/game.model";
+import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.model';
+import {Game} from 'wlc-engine/modules/games/system/models/game.model';
 import * as Params from './category-preview.params';
 
 import _includes from 'lodash-es/includes';
