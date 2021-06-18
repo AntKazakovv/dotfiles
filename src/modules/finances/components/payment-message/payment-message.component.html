@@ -1,5 +1,5 @@
 <ng-container *ngIf="error; else error" [ngSwitch]="type">
-    <div *ngSwitchCase="'pay_to_address'">
+    <ng-container *ngSwitchCase="'pay_to_address'">
         <div class="{{$class}}__text">
             <div class="{{$class}}__clipboard">
                 <div wlc-input [inlineParams]="inputParams"></div>
@@ -34,7 +34,7 @@
         <div class="{{$class}}__warning" *ngIf="this.$params.themeMod?.includes('modal')">
             <span class="stress">{{'Attention!' | translate}}</span> {{'Payments through contracts are not supported.' | translate}}
         </div>
-    </div>
+    </ng-container>
     <div *ngSwitchCase="'pay_to_bank'" class="{{$class}}__text">
         {{details}}
     </div>
