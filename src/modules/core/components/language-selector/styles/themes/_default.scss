@@ -246,6 +246,8 @@
                 padding: ef.get-value($themeDefaultModLog, 'dropdownPaddingLong');
 
                 background: ef.get-value($themeDefaultModLog, 'dropdownBgModLong');
+
+                filter: (ef.get-value($themeDefaultModLog, 'listShadow'));
             }
 
             &__link {

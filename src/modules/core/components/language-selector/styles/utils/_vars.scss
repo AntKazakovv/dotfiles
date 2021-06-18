@@ -71,6 +71,7 @@ $themeDefaultModLog: map-merge((
     'currentColorModLang': ef.get('mainColors', 'baseMain'),
     'currentColorModLangOpened': ef.get('mainColors', 'baseMain'),
     'dropdownBgModLong': ef.get('mainColors', 'bg700'),
+    'listShadow': null,
     'currentFlagSize': ef.get('size', 'smaller'),
     'currentFlagMargin': 5px,
     'dropdownFlagSize': ef.get('size', 'smaller'),
