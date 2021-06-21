@@ -3,14 +3,16 @@ import {
     Inject,
     OnInit,
     Input,
-    ChangeDetectorRef, ChangeDetectionStrategy, OnDestroy,
+    ChangeDetectorRef,
+    ChangeDetectionStrategy,
+    OnDestroy,
 } from '@angular/core';
-import {first, skipWhile} from 'rxjs/operators';
-import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ConfigService, ILoyalty} from 'wlc-engine/modules/core';
-import {UserService} from 'wlc-engine/modules/user/system/services';
-import {ModalService} from 'wlc-engine/modules/core/system/services';
-import {UserInfo} from 'wlc-engine/modules/user/system/models/info.model';
+
+import {skipWhile, takeUntil} from 'rxjs/operators';
+
+import {AbstractComponent, ConfigService, ModalService} from 'wlc-engine/modules/core';
+import {UserService} from 'wlc-engine/modules/user';
+
 import * as Params from './loyalty-progress.params';
 
 @Component({
@@ -21,7 +23,12 @@ import * as Params from './loyalty-progress.params';
 })
 export class LoyaltyProgressComponent extends AbstractComponent implements OnInit, OnDestroy {
     @Input() protected inlineParams: Params.ILoyaltyProgressCParams;
-    public userLoyalty: UserInfo;
+
+    public $params: Params.ILoyaltyProgressCParams;
+    public nextLevelPoints: number;
+    public percentProgress: number;
+    public userPoints: number;
+    public levelName: string;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ILoyaltyProgressCParams,
@@ -30,14 +37,34 @@ export class LoyaltyProgressComponent extends AbstractComponent implements OnIni
         protected cdr: ChangeDetectorRef,
         protected modalService: ModalService,
     ) {
-        super({injectParams, defaultParams: Params.defaultParams});
+        super({injectParams, defaultParams: Params.defaultParams}, configService);
     }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
-        this.UserService.userInfo$.pipe(skipWhile(v => !v))
+        this.subscribeUserInfo();
+    }
+
+    /**
+     * Subscribe user info to get loyalty progress
+     * @method subscribeUserInfo
+     * @returns {void} void
+     */
+    public subscribeUserInfo(): void {
+        this.UserService.userInfo$
+            .pipe(
+                skipWhile(v => !v),
+                takeUntil(this.$destroy),
+            )
             .subscribe((userInfo) => {
-                this.userLoyalty = userInfo;
+                this.levelName = userInfo.levelName;
+                this.userPoints = userInfo.points || 0;
+                this.nextLevelPoints = userInfo.nextLevelPoints || 0;
+
+                this.percentProgress = !this.nextLevelPoints || !this.userPoints
+                    ? 100
+                    : this.userPoints / this.nextLevelPoints * 100;
+
                 this.cdr.markForCheck();
             });
     }
