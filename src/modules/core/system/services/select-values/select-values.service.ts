@@ -63,7 +63,7 @@ export class SelectValuesService {
         let list: Params.ISelectOptions[] = [];
         switch (value) {
             case 'days': {
-                for (let day = 1; day < this.daysInMonth.value; day++) {
+                for (let day = 1; day <= this.daysInMonth.value; day++) {
                     list.push({title: day, value: `${day}`});
                 }
                 break;
@@ -90,8 +90,7 @@ export class SelectValuesService {
         let phoneCodes: Params.ISelectOptions[] = [];
         this.configService.get<BehaviorSubject<ICountry[]>>('countries')
             .pipe(map(data => {
-                return _map(_sortBy(_filter(_uniqBy(data, (country) => country.phoneCode),
-                    (country) => !!country.phoneCode), (country) => +country.phoneCode), (country) => {
+                return _map(_sortBy(_filter(_uniqBy(data, (country) => country.phoneCode), (country) => !!country.phoneCode), (country) => +country.phoneCode), (country) => {
                     return {
                         title: `+${+country.phoneCode}`,
                         value: `+${+country.phoneCode}`,
