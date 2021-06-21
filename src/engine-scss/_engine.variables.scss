@@ -513,6 +513,8 @@ $customBaseVariables: () !default;
 $baseVariables: map-merge((
     // Possible to add image background to body:
     //imageBackground: url('xxx'),
+    //baseSize used in @function size
+    'baseSize': 5,
 ), $customBaseVariables);
 
 /// Глобальные настройки лейаута. В качестве параметров принимает map,
