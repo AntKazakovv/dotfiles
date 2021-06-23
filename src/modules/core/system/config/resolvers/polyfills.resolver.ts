@@ -1,11 +1,11 @@
-import {InjectionToken} from "@angular/core";
-import {DOCUMENT} from "@angular/common";
-import {TranslateService} from "@ngx-translate/core";
-import {ResolveTypes} from "@uirouter/core";
+import {InjectionToken} from '@angular/core';
+import {DOCUMENT} from '@angular/common';
+import {TranslateService} from '@ngx-translate/core';
+import {ResolveTypes} from '@uirouter/core';
 import {shouldPolyfill as shouldPolyfillNumberFormat} from '@formatjs/intl-numberformat/should-polyfill';
 import {shouldPolyfill as shouldPolyfillLocale} from '@formatjs/intl-locale/should-polyfill';
 import {shouldPolyfill as shouldPolyfillPluralRules} from '@formatjs/intl-pluralrules/should-polyfill';
-import {ConfigService} from "wlc-engine/modules/core";
+import {ConfigService} from 'wlc-engine/modules/core';
 
 export const polyfillsResolver: ResolveTypes = {
     token: new InjectionToken('Polyfills resolver'),

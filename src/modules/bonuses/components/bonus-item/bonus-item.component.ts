@@ -95,7 +95,7 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
 
         super.ngOnInit(_isEmpty(inlineParams) ? null : inlineParams);
 
-        if (this.configService.get<string>("$base.profile.type") === "first") {
+        if (this.configService.get<string>('$base.profile.type') === 'first') {
             this.$params.common.useIconBonusImage = false;
         }
 

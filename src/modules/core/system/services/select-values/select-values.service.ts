@@ -9,7 +9,7 @@ import {
     Info,
 } from 'luxon';
 import {ConfigService, LayoutService} from 'wlc-engine/modules/core/system/services';
-import {ICountry, IIndexing} from "wlc-engine/modules/core";
+import {ICountry, IIndexing} from 'wlc-engine/modules/core';
 import {ICurrency} from 'wlc-engine/modules/finances/system/interfaces';
 import {GamesCatalogService} from 'wlc-engine/modules/games';
 

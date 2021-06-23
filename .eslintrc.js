@@ -28,11 +28,12 @@ module.exports = {
         'sonarjs/no-small-switch': 'off',
         'sonarjs/no-inverted-boolean-check': 'off',
         'quote-props': 'off',
-        'no-console': ['error', { allow: ['warn', 'error'] }],
+        'no-console': ['error', {allow: ['warn', 'error']}],
         'no-debugger': 'error',
         'semi': ['error', 'always'],
         'comma-dangle': ['error', 'always-multiline'],
         'indent': ['error', 4, {'SwitchCase': 1}],
+        'quotes': ['error', 'single'],
     },
     overrides: [
         {

@@ -26,7 +26,7 @@
 //     apiBaseUrl: string;
 // }
 
-import {IIndexing} from "wlc-engine/modules/core/system/interfaces";
+import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 
 export interface ILanguage {
     code: string;

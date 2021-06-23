@@ -28,7 +28,7 @@ export class DeviceModel {
     }
 
     public get orientation(): DeviceOrientation {
-        return window.matchMedia("(orientation:portrait)").matches ? DeviceOrientation.Portrait : DeviceOrientation.Landscape;
+        return window.matchMedia('(orientation:portrait)').matches ? DeviceOrientation.Portrait : DeviceOrientation.Landscape;
     }
 
     public get isReady(): boolean {

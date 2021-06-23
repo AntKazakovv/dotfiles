@@ -113,11 +113,11 @@ export class BetradarDailyMatchComponent extends AbstractComponent implements On
      * Init dir of background images
      */
     protected initImagesDir(): void {
-        const imagesDir: string = this.configService.get<string>(`$sportsbook.betradar.widgets.dailyMatch.imagesDir`);
+        const imagesDir: string = this.configService.get<string>('$sportsbook.betradar.widgets.dailyMatch.imagesDir');
         if (imagesDir) {
             this.imagesDir = _trim(imagesDir, '/') + '/';
         } else {
-            const env: string = this.configService.get(`appConfig.env`);
+            const env: string = this.configService.get('appConfig.env');
             const domain: string = this.configService.get(`$sportsbook.betradar.widgets.env.${env}.serverUrl`) || '';
             this.fallbackImagesDir =  `${domain}/static/widgets/images/daily-match/`;
         }

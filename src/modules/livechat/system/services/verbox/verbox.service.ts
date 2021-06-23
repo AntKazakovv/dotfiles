@@ -121,14 +121,14 @@ export class VerboxService extends LivechatAbstract {
         this.eventService.subscribe({name: 'LOGIN'}, () => {
             this.userService.userProfile$.pipe(filter((v) => !!v))
                 .subscribe((userProfile) => {
-                    window.Verbox("setClientInfo", {
+                    window.Verbox('setClientInfo', {
                         email: userProfile.email,
                     });
                     this.reloadChat();
                 });
         });
 
-        this.eventService.subscribe({name: "LOGOUT"}, () => {
+        this.eventService.subscribe({name: 'LOGOUT'}, () => {
             for (const key in localStorage) {
                 if (key.indexOf('/Client/email')) {
                     localStorage.removeItem(key);
