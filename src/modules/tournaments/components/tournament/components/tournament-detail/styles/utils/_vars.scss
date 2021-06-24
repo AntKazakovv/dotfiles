@@ -20,7 +20,10 @@ $themeDefault: map-merge((
     'headerJustifyContent': (
         320: center,
     ),
-    'headerBorderRadius': ef.get('radius', 'biger') ef.get('radius', 'biger') 0 0,
+    'headerBorderRadius': (
+        320: 0,
+        560: ef.get('radius', 'biger') ef.get('radius', 'biger') 0 0,
+    ),
     'headerBg': ef.get('mainColors', 'bg500'),
     'headerBgPosition': center,
     'headerBgSize': cover,
