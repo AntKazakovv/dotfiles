@@ -24,6 +24,7 @@ import {
     IData,
     IPushMessageParams,
     LayoutService,
+    LogService,
     ModalService,
     NotificationEvents,
 } from 'wlc-engine/modules/core';
@@ -44,7 +45,10 @@ import {
 } from 'wlc-engine/modules/games';
 import {UserService} from 'wlc-engine/modules/user';
 import {ITournamentGames} from 'wlc-engine/modules/tournaments';
-import {GamesHelper} from 'wlc-engine/modules/games/system/helpers/games.helpers';
+import {
+    GamesHelper,
+    SpecialCategoriesGamesSlug,
+} from 'wlc-engine/modules/games';
 
 import _startsWith from 'lodash-es/startsWith';
 import _isString from 'lodash-es/isString';
@@ -66,11 +70,6 @@ export interface ILaunchGameModal {
 export interface ILaunchGameParams {
     demo?: boolean;
     modal?: ILaunchGameModal;
-}
-
-export enum SpecialCategoriesGamesSlug {
-    favorites = 'favourites',
-    lastGames = 'lastplayed',
 }
 
 @Injectable({
@@ -106,6 +105,7 @@ export class GamesCatalogService {
         protected layoutService: LayoutService,
         protected actionService: ActionService,
         protected modalService: ModalService,
+        protected logService: LogService,
     ) {
         this.init();
     }
@@ -746,19 +746,21 @@ export class GamesCatalogService {
         getterProperty: (item: T) => string,
     ): Promise<Game[]> {
         if (this.configService.get('$user.isAuthenticated')) {
-            let games: Game[] = [];
-            const data: IData = await this.dataService.request(`games/${requestUrl}`);
-
-            const gameIds: number[] = _map(data.data, (gameInfo: T) => {
-                return _toNumber(getterProperty(gameInfo));
-            });
-
-            if (gameIds.length) {
-                games = this.getGameList({ids: gameIds});
+            try {
+                const data: IData = await this.dataService.request(`games/${requestUrl}`);
+                const gameIds: number[] = _map(data.data, (gameInfo: T) => {
+                    return _toNumber(getterProperty(gameInfo));
+                });
+                const games: Game[] = (gameIds.length) ? this.getGameList({ids: gameIds}) : [];
+                const category: CategoryModel = this.getCategoryBySlug(SpecialCategoriesGamesSlug[requestUrl]);
+                category?.setGames(games);
+                return games;
+            } catch (error) {
+                this.logService.sendLog({
+                    code: '3.0.0',
+                    data: error,
+                });
             }
-            const category: CategoryModel = this.getCategoryBySlug(SpecialCategoriesGamesSlug[requestUrl]);
-            category?.setGames(games);
-            return games;
         }
     }
 

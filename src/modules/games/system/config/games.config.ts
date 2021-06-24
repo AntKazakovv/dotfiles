@@ -1,5 +1,10 @@
 import {IGamesConfig} from '../interfaces/games.interfaces';
 
+export enum SpecialCategoriesGamesSlug {
+    favorites = 'favourites',
+    lastGames = 'lastplayed',
+}
+
 export const gamesConfig: IGamesConfig = {
     mobile: {
         loginUser: {
