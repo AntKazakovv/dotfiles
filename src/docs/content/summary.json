@@ -176,6 +176,10 @@
             {
                 "title": "8.3. IDE Settings",
                 "file": "./800.misc/830.ide-conf.md"
+            },
+            {
+                "title": "8.4. Favicon",
+                "file": "./800.misc/840.favicon.md"
             }
         ]
     }
