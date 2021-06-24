@@ -18,7 +18,6 @@
 
         .wlc-modal__dialog {
             max-width: ef.get-value($themeDefault, 'modalDialogMaxWidth');
-            min-height: ef.get-value($themeDefault, 'modalDialogMinHeight');
         }
 
         .wlc-modal__close {
@@ -345,6 +344,10 @@
 
                 &__list {
                     margin: ef.get-value($themeDefault, 'gamesMargin');
+                }
+
+                &__more {
+                    @include bm.get-mq-map('margin', $themeDefault, 'gamesMoreMargin');
                 }
             }
         }
