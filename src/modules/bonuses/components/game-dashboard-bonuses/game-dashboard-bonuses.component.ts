@@ -79,6 +79,13 @@ export class GameDashboardBonusesComponent extends AbstractComponent implements 
     }
 
     /**
+     * Check that bonuses more than 1 and check that device is not mobile and not landscape orientation
+     */
+    public get isDesktopAndSlidesLength(): boolean {
+        return (!this.landscapeOrientation || !this.isMobile) && this.slides.length > 1;
+    }
+
+    /**
      * Init bonuses
      */
     protected initBonuses(): void {
@@ -199,9 +206,5 @@ export class GameDashboardBonusesComponent extends AbstractComponent implements 
         } else {
             this.removeModifiers('mobile');
         }
-    }
-
-    public get isDesktopAndSlidesLength(): boolean {
-        return (!this.landscapeOrientation || !this.isMobile) && this.slides.length > 1;
     }
 }
