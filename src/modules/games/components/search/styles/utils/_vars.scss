@@ -8,7 +8,6 @@ $themeDefault: map-merge((
         375: ef.get('size', 'less') ef.get('size', 'small'),
     ),
     'modalDialogMaxWidth': 1433px,
-    'modalDialogMinHeight': 900px,
     'btnPaddingVertical': 8px,
     'btnPaddingLeft': 10px,
     'btnArrowColor': ef.get('mainColors', 'baseOpacity'),
@@ -138,9 +137,13 @@ $themeDefault: map-merge((
     'resultColor': ef.get('mainColors', 'baseMain'),
     'resultSize': 'PrimaryText',
 
+    'gamesMoreMargin': (
+        375: ef.get('size', 'less') 0 0,
+        1200: ef.get('size', 'main') 0 0,
+    ),
     'gamesPadding': (
-        375: ef.get('size', 'smaller') 0 ef.get('size', 'main'),
-        900: ef.get('size', 'smaller') 0,
+        375: ef.get('size', 'smaller') 0 ef.get('size', 'less'),
+        1200: ef.get('size', 'smaller') 0 ef.get('size', 'main'),
     ),
     'noGamesPadding': (
         375: 0 0 ef.get('size', 'smally'),
@@ -151,7 +154,7 @@ $themeDefault: map-merge((
         375: -5px 0 0,
     ),
 
-    'gamesMargin': 0 0 ef.get('size', 'less'),
+    'gamesMargin': 0,
 
     'searchModalHeaderPadding': (
         375: ef.get('size', 'less') 0 ef.get('size', 'smally'),
@@ -214,6 +217,7 @@ $themeDefault: map-merge((
     'heightBtn': ef.get('size', 'main'),
     'modalPaddingSearch': (
         375: 0 ef.get('size', 'small'),
-        560: 0 ef.get('size', 'biger'),
+        560: 0 ef.get('size', 'smally'),
+        1200: 0 ef.get('size', 'biger'),
     ),
 ), $customThemeDefault);
