@@ -58,10 +58,10 @@ export class LoyaltyProgressComponent extends AbstractComponent implements OnIni
             )
             .subscribe((userInfo) => {
                 this.levelName = userInfo.levelName;
-                this.userPoints = userInfo.points || 0;
-                this.nextLevelPoints = userInfo.nextLevelPoints || 0;
+                this.userPoints = userInfo.points;
+                this.nextLevelPoints = userInfo.nextLevelPoints;
 
-                this.percentProgress = !this.nextLevelPoints || !this.userPoints
+                this.percentProgress = !this.nextLevelPoints
                     ? 100
                     : this.userPoints / this.nextLevelPoints * 100;
 

@@ -6,7 +6,7 @@
         <div class="{{$class}}__line-sum"></div>
     </div>
     <div class="{{$class}}__points" data-wlc-element="user-loyalty-points">
-        <div class="{{$class}}__points-start">{{userPoints}}</div>
+        <div class="{{$class}}__points-start">{{userPoints | number: '.2-2'}}</div>
         <div class="{{$class}}__points-end">
             <ng-container *ngIf="percentProgress == 100">{{$params.common.maxProgressText | translate}}</ng-container>
             <ng-container *ngIf="percentProgress !== 100">{{nextLevelPoints}}</ng-container>
