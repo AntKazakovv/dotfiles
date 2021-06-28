@@ -177,15 +177,12 @@ export class GamesCatalog extends AbstractModel<IGames> {
             gameList = this.sortNameByRegExp(searchQuery, gameList);
         }
 
-        if (_isArray(gameIds)) {
-            if (!_size(gameIds)) {
-                return [];
-            }
-
+        if (_size(gameIds)) {
             gameList = _filter(gameList, (game: Game): boolean => {
                 return _includes(gameIds, game.ID);
             });
         }
+
         return gameList;
     }
 

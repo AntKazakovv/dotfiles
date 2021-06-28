@@ -27,6 +27,7 @@ import _assign from 'lodash-es/assign';
 import _map from 'lodash-es/map';
 import _get from 'lodash-es/get';
 import _isArray from 'lodash-es/isArray';
+import _isEmpty from 'lodash-es/isEmpty';
 
 export type MediaType = 'background' | 'foreground' | 'logo' | 'video';
 export interface IMediaContent {
@@ -79,6 +80,12 @@ export class GameThumbComponent extends AbstractComponent implements OnInit, Aft
 
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
+
+        if (_isEmpty(this.game)) {
+            this.inited = true;
+            return;
+        }
+
         this.init();
     }
 

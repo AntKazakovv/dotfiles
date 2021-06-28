@@ -5,7 +5,6 @@ export interface IGamesGridCParamsPartial extends IGamesGridCParams {
     type: never,
     byState: never,
     showAllLink: never,
-    hideOnEmptySearch: never,
     searchFilterName: never,
 };
 

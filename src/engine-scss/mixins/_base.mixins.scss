@@ -203,6 +203,8 @@
         padding-top: 66.66%;
     } @else if ($value == 8 / 5) {
         padding-top: 62.5%;
+    } @else if ($value == 10 / 16) {
+        padding-top: 162.5%;
     }
 }
 
