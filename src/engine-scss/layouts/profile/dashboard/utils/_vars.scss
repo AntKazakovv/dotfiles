@@ -4,31 +4,34 @@ $dashboardInfoThemeDefault: () !default;
 $dashboardThemeDefault: map-merge((
     'gridTemplateColumns': (
         320: minmax(0, 1fr),
-        560: 1fr 1fr,
-        720: 1fr 1fr minmax(250px, 1fr),
+        768: 1fr 1fr,
         1024: repeat(6, 1fr),
     ),
     'gridTemplateRows': (
         320: auto,
-        1024: repeat(3, auto) repeat(2, 1fr),
     ),
     'gridTemplateAreas': (
         320: 'title' 'loyalty' 'exchange' 'bonuses-title' 'bonuses' 'promocode' 'see-all-bonuses',
-        560: 'title title' 'loyalty loyalty' 'bonuses-title bonuses-title' 'bonuses bonuses' 'exchange exchange' 'promocode see-all-bonuses',
-        720: 'title title title' 'loyalty loyalty promocode' 'exchange exchange see-all-bonuses' 'bonuses-title bonuses-title bonuses-title' 'bonuses bonuses bonuses',
+        768: 'title title'
+        'loyalty loyalty'
+        'exchange exchange'
+        'bonuses-title bonuses-title'
+        'bonuses bonuses'
+        'promocode see-all-bonuses',
         1024: 'title title title title title title'
-        'loyalty loyalty loyalty exchange exchange exchange'
+        'loyalty loyalty exchange exchange exchange exchange'
+        'promocode promocode see-all-bonuses see-all-bonuses see-all-bonuses see-all-bonuses'
         'bonuses-title bonuses-title bonuses-title bonuses-title bonuses-title bonuses-title'
-        'bonuses bonuses bonuses promocode promocode promocode'
-        'bonuses bonuses bonuses see-all-bonuses see-all-bonuses see-all-bonuses',
-        1200: 'title title title title title title'
+        'bonuses bonuses bonuses bonuses bonuses bonuses',
+        1366: 'title title title title title title'
         'loyalty loyalty loyalty exchange exchange exchange'
         'bonuses-title bonuses-title bonuses-title bonuses-title bonuses-title bonuses-title'
         'bonuses bonuses bonuses bonuses promocode promocode'
         'bonuses bonuses bonuses bonuses see-all-bonuses see-all-bonuses',
     ),
     'gridGap': (
-        320: ef.get('size', 'smally'),
+        320: ef.get('size', 'small'),
+        1200: ef.get('size', 'smally'),
         1630: ef.get('size', 'main'),
     ),
 
