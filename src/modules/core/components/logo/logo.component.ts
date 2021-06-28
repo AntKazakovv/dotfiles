@@ -42,7 +42,7 @@ export class LogoComponent extends AbstractComponent implements OnInit {
         this.logoImageSource = this.getLogoImageSource();
         this.isAffiliate = this.configService.get('$base.app.type') === 'aff';
         if (this.isAffiliate) {
-            this.siteLink = this.configService.get<string>('$base.affiliate.siteUrl') + this.configService.get<string>('currentLanguage');
+            this.siteLink = this.configService.get<string>('currentLanguage');
         }
     }
 
