@@ -393,9 +393,9 @@
 
         .tooltip-inner {
             padding: ef.get-value($themeDefault, 'tooltipOffset');
-
             background: ef.get-value($themeDefault, 'tooltipBg');
             border-radius: ef.get-value($themeDefault, 'borderRadius');
+            box-shadow: ef.get-value($themeDefault, 'tooltipShadow');
         }
 
         &.top {

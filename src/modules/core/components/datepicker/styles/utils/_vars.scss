@@ -29,6 +29,7 @@ $themeDefault: map-merge((
     'datepickerBg': ef.get('fieldColors', 'inputBg'),
     'datepickerHoverBg': darken(ef.get('mainColors', 'main'), 10%),
     'datepickerColor': ef.get('fieldColors', 'textColor'),
+    'datepickerHoverColor': ef.get('mainColors', 'baseMain'),
     'datepickerCurrentColor': ef.get('fieldColors', 'textColor'),
     'datepickerActiveColor': ef.get('mainColors', 'main'),
     'datepickerBorderRadius': ef.get('radius', 'biger'),

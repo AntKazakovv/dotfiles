@@ -86,6 +86,7 @@
             padding: ef.get-value($themeDefault, 'contentPadding');
             background-color: ef.get-value($themeDefault, 'contentBg');
             border-radius: ef.get-value($themeDefault, 'contentBorderRadius');
+            box-shadow: ef.get-value($themeDefault, 'contentBoxShadow');
         }
     }
 }

@@ -11,6 +11,7 @@ $themeDefault: map-merge((
     'subTitleFont': 'PlaceholderText',
     'textFont': 'PrimaryText',
     'titlePadding': ef.get('size', 'smallest'),
+    'tooltipShadow': 0 4px 4px rgba(0, 0, 0, 0.25),
     'offset': ef.get('size', 'smaller'),
     'btnOffset': 0 0 ef.get('size', 'smaller'),
     'btnSelectedOffset': 0,

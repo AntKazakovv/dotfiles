@@ -1,6 +1,7 @@
 @use 'engine-scss/mixins/text' as lib;
 @use 'engine-scss/functions' as ef;
 @use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/base.mixins' as bm;
 
 
 .wlc-datepicker--theme-default:host {
@@ -113,7 +114,7 @@
                 background-color: ef.get-value($themeDefault, 'datepickerActiveColor');
             }
 
-            &:hover {
+            @include bm.hover {
                 background-color: ef.get-value($themeDefault, 'datepickerHoverBg');
             }
         }
@@ -160,12 +161,15 @@
         }
 
         .myDpCurrMonth,
-        .myDpDaycell,
-        .myDpWeekDayTitle {
+        .myDpDaycell {
             background: ef.get-value($themeDefault, 'datepickerBg');
 
-            &:hover {
+            @include bm.hover {
                 background: ef.get-value($themeDefault, 'datepickerHoverBg');
+
+                .myDpDayValue {
+                    color: ef.get-value($themeDefault, 'datepickerHoverColor');
+                }
             }
         }
 
