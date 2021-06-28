@@ -27,8 +27,8 @@
                 .wlc-form {
                     display: flex;
                     flex-direction: column;
-                    margin: auto;
                     max-width: ef.get-value($themeDefault, 'formMaxWidth');
+                    margin: auto;
 
                     & > .wlc-input,
                     & > .wlc-select,
@@ -42,18 +42,18 @@
                 }
 
                 .wlc-input.wlc-input--password {
-                    padding-top: ef.get-value($themeDefault, 'formFieldsGap');
                     position: relative;
+                    padding-top: ef.get-value($themeDefault, 'formFieldsGap');
 
                     &:before {
                         content: '';
                         position: absolute;
-                        display: ef.get-value($themeDefault, 'dividerDisplay');
-                        background: ef.get-value($themeDefault, 'dividerBg');
-                        width: ef.get-value($themeDefault, 'dividerWidth');
-                        height: ef.get-value($themeDefault, 'dividerHeight');
                         top: ef.get-value($themeDefault, 'dividerPosTop');
                         left: ef.get-value($themeDefault, 'dividerPosLeft');
+                        display: ef.get-value($themeDefault, 'dividerDisplay');
+                        width: ef.get-value($themeDefault, 'dividerWidth');
+                        height: ef.get-value($themeDefault, 'dividerHeight');
+                        background: ef.get-value($themeDefault, 'dividerBg');
                         transform: ef.get-value($themeDefault, 'dividerTransform');
                     }
                 }
@@ -85,52 +85,42 @@
     .wlc-add-profile-info {
 
         &__form {
+            display: flex;
+            place-content: ef.get-value($themeModOverflow, 'formPlaceContent');
 
             ::ng-deep {
 
                 .wlc-form {
-                    display: grid;
-                    align-items: end;
-                    grid-column-gap: ef.get-value($themeModOverflow, 'formColumnGap');
-                    grid-row-gap: ef.get-value($themeModOverflow, 'formRowGap');
-                    @include em.get-mq-map('grid-template-columns', $themeModOverflow, 'formColumns');
+                    $wideFields: ();
 
-                    & > .wlc-input,
-                    & > .wlc-select,
-                    & > .wlc-phone-field {
-                        margin: ef.get-value($themeModOverflow, 'fieldsMargn');
+                    @each $class in ef.get-value($themeModOverflow, 'wideFields') {
+                        $wideFields: append($wideFields, $class);
                     }
 
-                    .wlc-input.wlc-input--password {
-                        padding-top: ef.get-value($themeModOverflow, 'formRowGap');
+                    display: flex;
+                    flex-direction: ef.get-value($themeModOverflow, 'formFlexDirection');
+                    flex-wrap: ef.get-value($themeModOverflow, 'formFlexWrap');
+                    margin: 0 -#{ef.get-value($themeModOverflow, 'columnGap') / 2};
+
+                    & > *[class] {
+                        flex-basis: calc(#{ef.get-value($themeModOverflow, 'fieldFlexBasis')} - #{ef.get-value($themeModOverflow, 'columnGap')});
+                        flex-grow: ef.get-value($themeModOverflow, 'fieldFlexGrow');
+                        margin: 0 ef.get-value($themeModOverflow, 'columnGap') / 2 ef.get-value($themeModOverflow, 'rowGap');
                     }
-                }
 
-                .form-control__errors {
-
-                    @include mq.min(560) {
-                        min-width: ef.get-value($themeModOverflow, 'errorNotifyWidth');
+                    #{zip($wideFields)} {
+                        flex-basis: ef.get-value($themeModOverflow, 'wideFieldsFlexBasis');
                     }
-                }
 
-                .wlc-phone-field,
-                .wlc-birth-field,
-                .wlc-input.wlc-input--phone,
-                .wlc-input.wlc-input--password,
-                .wlc-input.wlc-input--iban-number {
-                    @include em.get-mq-map('grid-column', $themeModOverflow, 'wideControlsGridColumns');
+                    .wlc-btn--submit {
+                        flex-basis: ef.get-value($themeModOverflow, 'btnFlexBasis');
+                        flex-grow: ef.get-value($themeModOverflow, 'btnFlexGrow');
+                        margin: ef.get-value($themeModOverflow, 'btnMargin');
+                    }
 
                     .form-control__errors {
-
-                        @include mq.min(560) {
-                            min-width: ef.get-value($themeModOverflow, 'wideErrorNotifyWidth');
-                        }
+                        @include em.get-mq-map('min-width', $themeModOverflow, 'errorNotifyWidth');
                     }
-                }
-
-                .wlc-btn.wlc-btn--submit {
-                    @include em.get-mq-map('grid-column', $themeModOverflow, 'wideControlsGridColumns');
-                    margin: ef.get-value($themeModOverflow, 'submitBtnMargin');
                 }
             }
         }

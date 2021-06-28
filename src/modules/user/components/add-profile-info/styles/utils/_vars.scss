@@ -35,17 +35,30 @@ $themeDefault: map-merge((
 
 $customThemeModOverflow: () !default;
 $themeModOverflow: map-merge((
-    'formColumnGap': ef.get('size', 'smaller'),
-    'formRowGap': ef.get('size', 'smaller'),
-    'formColumns': (
-        375: 1fr,
-        560: repeat(2, 1fr),
+    'btnMargin': ef.get('size', 'small') auto 0,
+    'btnFlexGrow': 0,
+    'btnFlexBasis': auto,
+
+    'columnGap': 10px,
+    'rowGap': 10px,
+
+    'formPlaceContent': center,
+    'formFlexDirection': row,
+    'formFlexWrap': wrap,
+
+    'fieldFlexGrow': 1,
+    'fieldFlexBasis': 50%,
+
+    'wideFields': (
+        '.wlc-phone-field',
+        '.wlc-birth-field',
+        '.wlc-input--phone',
+        '.wlc-input--password',
+        '.wlc-input--iban-number',
     ),
-    'wideControlsGridColumns': (
-        560: #{1} / #{3},
+    'wideFieldsFlexBasis': 100%,
+
+    'errorNotifyWidth': (
+        375: 100%,
     ),
-    'submitBtnMargin': ef.get('size', 'small') auto 0,
-    'fieldsMargn': 0,
-    'errorNotifyWidth': 220px,
-    'wideErrorNotifyWidth': 300px,
 ), $customThemeModOverflow);
