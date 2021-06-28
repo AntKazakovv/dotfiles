@@ -12,7 +12,7 @@ export interface ITransaction {
     DateISO: string;
     ID: string;
     Note: string;
-    Status: number;
+    Status: number | string;
     System: string;
     Canceled: boolean;
     AllowCancelation: string;
@@ -48,6 +48,7 @@ export const transactionsStatuses: ITransactionStatus[] = [
     {value: 1, code: 'updated', title: gettext('Updated')},
     {value: 50, code: 'confirmed', title: gettext('Confirmed')},
     {value: 75, code: 'in-payment-queue', title: gettext('In payment queue')},
+    {value: 95, code: 'pending', title: gettext('Pending')},
     {value: 99, code: 'finalize-failed', title: gettext('Finalize failed')},
     {value: 100, code: 'complete', title: gettext('Complete')},
     {value: 101, code: 'autopayment', title: gettext('Autopayment')},
@@ -99,7 +100,7 @@ export class Transaction extends AbstractModel<ITransactionEx> {
     }
 
     public get statusCode(): number {
-        return this.data.Status;
+        return _toNumber(this.data.Status);
     }
 
     public get system(): string {
@@ -115,7 +116,7 @@ export class Transaction extends AbstractModel<ITransactionEx> {
     }
 
     public get allowCancelation(): boolean {
-        return this.data.AllowCancelation === '1' && this.amount < 0;
+        return this.data.AllowCancelation === '1' && this.amount < 0 && this.statusCode !== 95;
     }
 
     public setStatus(status?: number | string): void {
