@@ -475,11 +475,12 @@ export class GamesCatalog extends AbstractModel<IGames> {
      *
      * @param {IGames} response
      */
-    protected processFetchedGamesCatalog(response: IGames): void {
+    protected processFetchedGamesCatalog(data: IGames): void {
         this.merchants = [];
         this.categories = [];
         this.availableCategories = [];
 
+        const response: IGames = _cloneDeep(data);
         if (!_get(response, 'games.length')) {
             return;
         }
@@ -589,12 +590,8 @@ export class GamesCatalog extends AbstractModel<IGames> {
             });
         }
 
-        let parentCategories: CategoryModel[] = _filter(this.categories, (category: CategoryModel) => {
+        const parentCategories: CategoryModel[] = _filter(this.categories, (category: CategoryModel) => {
             return category.isParent;
-        });
-
-        parentCategories = _uniqBy(parentCategories, (category) => {
-            return category.slug;
         });
 
         const mainParentCategory: CategoryModel = this.getCategoryBySlug(['casino', 'livecasino', 'tablegames'], true);
@@ -603,34 +600,21 @@ export class GamesCatalog extends AbstractModel<IGames> {
             return category.slug !== mainParentCategory?.slug && !category.isSpecial;
         });
 
-        let gamesList = this.games;
         _forEach(otherCategories, (category) => {
-            if (_includes(['popular', 'new'], category.slug)) {
-                const gamesList: Game[] = _filter(this.games, (game: Game) => {
-                    return game.hasCategory(category);
-                });
-                category.setGames(gamesList);
-                return;
-            }
-
-            const freeGames: Game[] = [];
-            for (const game of gamesList) {
-                if (game.hasCategory(category)) {
-                    category.addGame(game);
-                } else {
-                    freeGames.push(game);
-                }
-            }
+            const gamesList: Game[] = _filter(this.games, (game: Game) => {
+                return game.hasCategory(category);
+            });
+            category.setGames(gamesList);
             category.sortGames();
-            gamesList = freeGames;
         });
 
+        let gamesList: Game[] = this.games;
         if (mainParentCategory && mainParentCategory.slug !== 'casino') {
             gamesList = this.getGamesByCategories([mainParentCategory]);
         }
         mainParentCategory.setGames(gamesList);
 
-        const childCategories = _filter(this.categories, (category: CategoryModel) => {
+        const childCategories: CategoryModel[] = _filter(this.categories, (category: CategoryModel) => {
             return !category.isParent;
         });
 
@@ -638,12 +622,12 @@ export class GamesCatalog extends AbstractModel<IGames> {
 
         _forEach(childCategories, (category: CategoryModel) => {
 
-            const games: Game[] = _filter(mainParentCategory.games, (game) => {
+            const games: Game[] = _filter(this.games, (game: Game) => {
                 return _includes(game.categoryID, category.id);
             });
 
             if (games.length) {
-                const newChildCategory = _cloneDeep(category);
+                const newChildCategory: CategoryModel = _cloneDeep(category);
                 newChildCategory.setParentCategory(mainParentCategory);
                 newChildCategory.setGames(_orderBy(games, (game: Game) => game[category.name + 'Sorted'] || 0, 'desc'));
                 availableChildCategories.push(newChildCategory);
@@ -657,9 +641,8 @@ export class GamesCatalog extends AbstractModel<IGames> {
         _forEach(this.projectCategories, (category) => {
             if (category.isJackpots && this.overrideJackpots) {
                 return;
-            } else {
-                category.setReady();
             }
+            category.setReady();
         });
     }
 
