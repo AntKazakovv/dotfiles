@@ -1,7 +1,7 @@
+@use 'engine-scss/functions' as ef;
 @use 'engine-scss/mixins/mediaqueries' as mq;
 @use 'engine-scss/mixins/base.mixins' as bm;
 @use 'engine-scss/mixins/text' as text;
-@use 'engine-scss/functions' as ef;
 
 .wlc-table--theme-tournaments:host {
     display: flex;
@@ -82,10 +82,9 @@
                 @include bm.get-mq-map('background', $themeTournaments, 'headBg');
 
                 .wlc-table__cell {
-                    @include text.get-text-style(
-                        ef.get-value($themeTournaments, 'headTextStyle'),
-                        ef.get-value($themeTournaments, 'headTextColor')
-                    );
+                    padding: ef.get-value($themeTournaments, 'headCellPadding');
+                    font-weight: ef.get-value($themeTournaments, 'headTextStyle');
+                    font-size: ef.get-value($themeTournaments, 'headTextSize');
                 }
             }
 
@@ -109,6 +108,8 @@
             &:nth-child(2) {
 
                 .wlc-table__cell {
+                    padding: ef.get-value($themeTournaments, 'cellPadding')*2 0 ef.get-value($themeTournaments, 'cellPadding');
+                    font-weight: ef.get-value($themeTournaments, 'cellTextStyleBold');
 
                     &:first-child {
                         @include bm.get-mq-map('border-radius', $themeTournaments, 'cellTopRadiusFirstChild');
@@ -124,6 +125,7 @@
 
                 .wlc-table__cell {
                     @include bm.get-mq-map('background', $themeTournaments, 'rowBgOdd');
+                    font-weight: ef.get-value($themeTournaments, 'cellTextStyleBold');
 
                     &:first-child {
                         border-radius: 0;
@@ -138,6 +140,8 @@
             &:nth-child(4) {
 
                 .wlc-table__cell {
+                    padding: ef.get-value($themeTournaments, 'cellPadding') 0 ef.get-value($themeTournaments, 'cellPadding')*2;
+                    font-weight: ef.get-value($themeTournaments, 'cellTextStyleBold');
 
                     &:first-child {
                         @include bm.get-mq-map('border-radius', $themeTournaments, 'cellBottomRadiusFirstChild');
@@ -152,13 +156,14 @@
 
         &__cell {
             display: table-cell;
-            @include bm.get-mq-map('padding', $themeTournaments, 'cellPadding');
             @include text.get-text-style(
                 ef.get-value($themeTournaments, 'cellTextStyle'),
                 ef.get-value($themeTournaments, 'cellTextColor')
             );
             @include bm.get-mq-map('border', $themeTournaments, 'cellBorder');
             @include bm.get-mq-map('text-align', $themeTournaments, 'cellTextAlign');
+            height: 25px;
+            vertical-align: middle;
 
             &:first-child {
                 @include bm.get-mq-map('border-radius', $themeTournaments, 'cellRadiusFirstChild');
@@ -184,7 +189,6 @@
             &-content {
                 @include bm.get-mq-map('text-align', $themeTournaments, 'cellTextAlign');
                 @include bm.get-mq-map('justify-self', $themeTournaments, 'cellTextAlign');
-                font-weight: normal;
             }
         }
     }

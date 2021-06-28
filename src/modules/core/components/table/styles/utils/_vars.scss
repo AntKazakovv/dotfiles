@@ -81,7 +81,8 @@ $themeTournaments: map-merge((
     'oneCellRadiusLastChild': 0 ef.get('radius', 'biger') ef.get('radius', 'biger') 0,
 
     'cellPadding': ef.get('size', 'smallest'),
-    'cellTextStyle': 'PrimaryText',
+    'cellTextStyle': 'ThirdTitle',
+    'cellTextStyleBold': ef.get('fontWeight', 'PrimaryTextBold'),
     'cellTextColor': ef.get('mainColors', 'baseMain'),
     'cellTextAlign': center,
     'cellBorder': none,
@@ -89,6 +90,8 @@ $themeTournaments: map-merge((
     'cellRadiusLastChild': 0 ef.get('radius', 'biger') ef.get('radius', 'biger') 0,
 
     'headBg': transparent,
-    'headTextStyle': 'PrimaryTextBold',
-    'headTextColor': ef.get('mainColors', 'baseMain'),
+    'headTextStyle': ef.get('fontWeight', 'PrimaryText'),
+    'headTextSize': ef.get('font', 'PrimaryText'),
+    'headCellPadding': 0 0 ef.get('size', 'small'),
+
 ), $customThemeTournaments);
