@@ -1,7 +1,10 @@
 'use strict';
 
 import {Ng2StateDeclaration} from '@uirouter/angular';
-import {GamesCatalogService} from 'wlc-engine/modules/games';
+import {
+    CategoryModel,
+    GamesCatalogService,
+} from 'wlc-engine/modules/games';
 
 export const catalogState: Ng2StateDeclaration = {
     url: '/catalog/:category',
@@ -10,7 +13,8 @@ export const catalogState: Ng2StateDeclaration = {
         const categorySlug = trans.params().category;
         await gamesCatalogService.ready;
 
-        if (!gamesCatalogService.getCategoryBySlug(categorySlug)) {
+        const category: CategoryModel = gamesCatalogService.getCategoryBySlug(categorySlug);
+        if (!category || !category.isParent) {
             trans.abort();
             const {locale} = trans.params();
             trans.router.stateService.go('app.error', {
