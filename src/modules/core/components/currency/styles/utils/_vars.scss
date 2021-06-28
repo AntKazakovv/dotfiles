@@ -4,4 +4,6 @@ $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'textColor': inherit,
     'iconIndent': 5px,
+    'currencyLessZero': ef.get('mainColors', 'error'),
+    'currencyAboveZero': ef.get('mainColors', 'success'),
 ), $customThemeDefault);

@@ -9,8 +9,9 @@ $themeDefault: map-merge((
     'iconFill': ef.get('mainColors', 'baseOpacity'),
     'iconColorOnHover': ef.get('mainColors', 'baseMain'),
     'contentPadding': ef.get('size', 'small') ef.get('size', 'smaller'),
-    'contentBg': ef.get('mainColors', 'main'),
+    'contentBg': ef.get('mainColors', 'buttonColor'),
     'contentBorderRadius': ef.get('radius', 'biger'),
     'textStyle': 'PrimaryText',
     'contentColor': ef.get('mainColors', 'baseMain'),
+    'contentBoxShadow': 0 4px 4px rgba(0, 0, 0, 0.25),
 ), $customThemeDefault);

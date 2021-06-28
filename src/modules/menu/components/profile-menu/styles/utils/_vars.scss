@@ -66,6 +66,8 @@ $submenuProfileDefault: map-merge((
     ),
     'submenuItemHoverUnderlineWidth': calc(100% + 30px),
     'linkBeforeHeight': 2px,
+    'submenuItemTextStyle': 'PrimaryText',
+    'submenuItemTextStyleActive': 'PrimaryTextBold',
 ), $customSubmenuProfileDefault);
 
 

@@ -95,6 +95,7 @@ $themeDefault: map-merge((
     'infoIconBg': ef.get('mainColors', 'baseOpacity'),
     'tooltipBg': ef.get('mainColors', 'main'),
     'tooltipOffset': ef.get('size', 'smally'),
+    'tooltipShadow': 0 4px 4px rgba(0, 0, 0, 0.25),
     'docsStatusAwaiting': ef.get('mainColors', 'warning'),
     'docsStatusValidated': ef.get('mainColors', 'success'),
     'docsStatusFailed': ef.get('mainColors', 'error'),

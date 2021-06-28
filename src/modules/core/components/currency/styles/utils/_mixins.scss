@@ -1,3 +1,4 @@
+@use 'engine-scss/functions' as ef;
 @import './vars';
 
 @mixin currencyBase {
@@ -37,6 +38,18 @@
 
         &--right {
             margin-left: map-get($themeDefault, iconIndent);
+        }
+    }
+
+    .wlc-bet-history &,
+    .wlc-transaction-history & {
+
+        &.wlc-currency--less-zero {
+            color: ef.get-value($themeDefault, 'currencyLessZero');
+        }
+
+        &.wlc-currency--above-zero {
+            color: ef.get-value($themeDefault, 'currencyAboveZero');
         }
     }
 }

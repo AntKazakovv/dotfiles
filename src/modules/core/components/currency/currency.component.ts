@@ -219,8 +219,14 @@ export class CurrencyComponent
         if (this.$params.showIconOnly) {
             currencyParts = _filter(currencyParts, (part) => part.type === 'currency');
         }
-
+        
         this.displayValue = _join(_map(currencyParts, (part) => part.value), '').trim();
+
+        if (this.$params.value > 0) {
+            this.addModifiers('above-zero');
+        } else if (this.$params.value < 0) {
+            this.addModifiers('less-zero');
+        }   
     }
 
     protected getInlineParams(): Params.ICurrencyCParams {
