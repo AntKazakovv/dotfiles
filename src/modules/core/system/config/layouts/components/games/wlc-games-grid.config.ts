@@ -1,9 +1,10 @@
 import {ILayoutComponent} from 'wlc-engine/modules/core';
+import {IGamesGridCParams} from 'wlc-engine/modules/games';
 
 export namespace wlcGamesGrid {
     export const allGames2rows: ILayoutComponent = {
         name: 'games.wlc-games-grid',
-        params: {
+        params: <IGamesGridCParams>{
             gamesRows: 2,
             title: gettext('Popular games'),
             usePlaceholders: true,
@@ -12,7 +13,7 @@ export namespace wlcGamesGrid {
             },
             showAllLink: {
                 use: true,
-                link: 'app.catalog',
+                sref: 'app.catalog',
                 params: {
                     category: 'popular',
                 },
@@ -21,16 +22,20 @@ export namespace wlcGamesGrid {
                 hide: true,
                 lazy: false,
             },
-            mobileSettings: {
-                gamesRows: 3,
-                showLoadButton: true,
+            breakpoints: {
+                'mobile': {
+                    gamesRows: 3,
+                    moreBtn: {
+                        hide: false,
+                    },
+                },
             },
         },
     };
 
     export const roullete1row: ILayoutComponent = {
         name: 'games.wlc-games-grid',
-        params: {
+        params: <IGamesGridCParams>{
             gamesRows: 2,
             title: gettext('New games'),
             filter: {
@@ -39,7 +44,7 @@ export namespace wlcGamesGrid {
             usePlaceholders: true,
             showAllLink: {
                 use: true,
-                link: 'app.catalog',
+                sref: 'app.catalog',
                 params: {
                     category: 'new',
                 },
@@ -48,16 +53,20 @@ export namespace wlcGamesGrid {
                 hide: true,
                 lazy: false,
             },
-            mobileSettings: {
-                gamesRows: 3,
-                showLoadButton: true,
+            breakpoints: {
+                'mobile': {
+                    gamesRows: 3,
+                    moreBtn: {
+                        hide: false,
+                    },
+                },
             },
         },
     };
 
     export const allGames3rows: ILayoutComponent = {
         name: 'games.wlc-games-grid',
-        params: {
+        params: <IGamesGridCParams>{
             gamesRows: 3,
             title: gettext('All games'),
             filter: null,
@@ -70,16 +79,12 @@ export namespace wlcGamesGrid {
             },
             usePlaceholders: true,
             byState: true,
-            mobileSettings: {
-                gamesRows: 3,
-                showLoadButton: true,
-            },
         },
     };
 
     export const catalogGamesWithLoadMoreBtn: ILayoutComponent = {
         name: 'games.wlc-games-grid',
-        params: {
+        params: <IGamesGridCParams>{
             title: gettext('All games'),
             filter: null,
             showAllLink: {
@@ -89,18 +94,18 @@ export namespace wlcGamesGrid {
                 hide: false,
                 lazy: false,
             },
-            usePlaceholders: true,
             byState: true,
-            mobileSettings: {
-                gamesRows: 3,
-                showLoadButton: true,
+            breakpoints: {
+                'mobile': {
+                    gamesRows: 3,
+                },
             },
         },
     };
 
     export const catalogGamesWithLazyLoad: ILayoutComponent = {
         name: 'games.wlc-games-grid',
-        params: {
+        params: <IGamesGridCParams>{
             title: gettext('All games'),
             filter: null,
             showAllLink: {
@@ -110,23 +115,23 @@ export namespace wlcGamesGrid {
                 hide: false,
                 lazy: true,
             },
-            usePlaceholders: true,
             byState: true,
-            mobileSettings: {
-                gamesRows: 3,
-                showLoadButton: true,
+            breakpoints: {
+                'mobile': {
+                    gamesRows: 3,
+                },
             },
         },
     };
 
     export const vertical: ILayoutComponent = {
         name: 'games.wlc-games-grid',
-        params: {
+        params: <IGamesGridCParams>{
             gamesRows: 1,
             title: gettext('Vertical games'),
             usePlaceholders: true,
             filter: {
-                category: 'vertical',
+                categories: ['vertical'],
             },
             thumbParams: {
                 theme: 'vertical',
@@ -134,7 +139,7 @@ export namespace wlcGamesGrid {
             },
             showAllLink: {
                 use: true,
-                link: 'app.catalog',
+                sref: 'app.catalog',
                 params: {
                     category: 'vertical',
                 },
