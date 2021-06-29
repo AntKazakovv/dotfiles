@@ -53,6 +53,7 @@ $themeDefault: map-merge((
     'panchBtnRight': 0,
     'panchBtnBack': ef.get('mainColors', 'main'),
     'panchBtnIcon': ef.get('mainColors', 'baseMain'),
+    'panchBtnIconActive': null,
 
     'headerBackground': ef.get('mainColors', 'bg500'),
     'headerPadding': 10px 0,

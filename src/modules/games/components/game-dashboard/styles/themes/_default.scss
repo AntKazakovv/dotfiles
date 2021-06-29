@@ -252,6 +252,14 @@
             &:hover,
             &.active {
                 background: ef.get-value($themeDefault, 'backgroundTabsActive');
+
+                .wlc-game-dashboard__tab-icon::ng-deep {
+
+                    svg,
+                    path {
+                        fill: ef.get-value($themeDefault, 'panchBtnIconActive');
+                    }
+                }
             }
         }
 
