@@ -24,6 +24,7 @@ import {
     UIRouterGlobals,
 } from '@uirouter/core';
 import {BehaviorSubject} from 'rxjs';
+import {takeWhile} from 'rxjs/operators';
 
 import {
     EventService,
@@ -185,6 +186,12 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
                     this.elRef.nativeElement.querySelector(`#${controlName}`)?.focus();
                     errorFound = true;
                 }
+            }
+
+            if (this.form.pending) {
+                await this.form.statusChanges
+                    .pipe(takeWhile((status) => status === 'PENDING'))
+                    .toPromise();
             }
 
             if (this.hasRequiredError) {
