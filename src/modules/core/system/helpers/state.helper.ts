@@ -3,15 +3,15 @@ import {
     StateDeclaration,
     ResolveTypes,
     StateService,
-    TransitionStateHookFn,
 } from '@uirouter/core';
+import {LazyLoadResult} from '@uirouter/core/lib/state/interface';
 
+// If you try to import everything from 'wlc-engine/modules/core' then the project failed loading
 import {
     ConfigService,
     LayoutService,
     ModalService,
 } from 'wlc-engine/modules/core/system/services';
-import {LazyLoadResult} from '@uirouter/core/lib/state/interface';
 import {Deferred} from 'wlc-engine/modules/core/system/classes';
 import {IRedirect, IIndexing} from 'wlc-engine/modules/core';
 
@@ -33,12 +33,15 @@ export class StateHelper {
         const redirect = redirects[trans.to().name];
 
         if (redirect) {
-            trans.abort();
             const redirectParams = _merge(locale, redirect.params);
-            trans.router.stateService.go(
-                redirect.state,
-                redirectParams,
-            );
+
+            if (config.get('$base.profile.type') === redirect.profile || !redirect.profile) {
+                trans.abort();
+                trans.router.stateService.go(
+                    redirect.state,
+                    redirectParams,
+                );
+            }
         } else if (!params.locale) {
             trans.abort();
             trans.router.stateService.go(

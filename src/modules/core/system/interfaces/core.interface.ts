@@ -24,6 +24,7 @@ export interface IRedirectConfig {
 export interface IRedirect {
     state: string;
     params?: IIndexing<any>;
+    profile?: profileRedirectType;
 }
 
 export interface ISocketsData {
