@@ -46,7 +46,7 @@ module.exports = function inlineTask() {
     });
 
     task('build:inline', (cb) => {
-        return src(`${this.params.paths.inline}/*.ts`)
+        return src(`${this.params.paths.inline}/index.ts`)
             .pipe(webpack(config))
             .pipe(dest(this.params.paths.dist));
     });
