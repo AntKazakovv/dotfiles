@@ -1,3 +1,4 @@
+import {TranslateService} from '@ngx-translate/core';
 import {
     IIndexing,
     AbstractModel,
@@ -44,6 +45,7 @@ export class Bonus extends AbstractModel<IBonus> {
         data: IBonus,
         protected ConfigService: ConfigService,
         protected cachingService: CachingService,
+        protected translate: TranslateService,
         protected bonusesService: BonusesService,
     ) {
         super();
@@ -129,7 +131,7 @@ export class Bonus extends AbstractModel<IBonus> {
     }
 
     public get description(): string {
-        return this.data.Description || gettext('No bonus description');
+        return this.data.Description || this.translate.instant(gettext('No bonus description'));
     }
 
     public get disableCancel(): boolean {
