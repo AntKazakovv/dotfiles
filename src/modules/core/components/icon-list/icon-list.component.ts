@@ -24,6 +24,7 @@ import {
     LogService,
     ActionService,
     LayoutService,
+    TValueOf,
 } from 'wlc-engine/modules/core';
 import {GamesCatalogService} from 'wlc-engine/modules/games';
 import {
@@ -40,7 +41,7 @@ import _includes from 'lodash-es/includes';
 import _filter from 'lodash-es/filter';
 import _find from 'lodash-es/find';
 import _sortedUniqBy from 'lodash-es/sortedUniqBy';
-import _uniqBy from  'lodash-es/uniqBy';
+import _uniqBy from 'lodash-es/uniqBy';
 
 /**
  *  Component to display an icon list.
@@ -134,7 +135,7 @@ export class IconListComponent extends IconListAbstract<Params.IIconListCParams>
                 this.setPaymentsLst();
                 break;
             default:
-                this.setCustomLst();
+                this.setCustomList();
                 break;
         }
 
@@ -154,8 +155,10 @@ export class IconListComponent extends IconListAbstract<Params.IIconListCParams>
         this.gamesCatalogService = this.injector.get(GamesCatalogService);
 
         this.gamesCatalogService.ready.then(() => {
-            const merchants: MerchantModel[] = _sortedUniqBy(this.gamesCatalogService.getAvailableMerchants(),
-                (item: MerchantModel) => item.alias);
+            let merchants: MerchantModel[] = _sortedUniqBy(this.gamesCatalogService.getAvailableMerchants(),
+                (item: MerchantModel) => item.name);
+
+            merchants = this.updateList('merchant', merchants) as MerchantModel[];
 
             this.setItemsList<MerchantModel>(merchants, (item) => this.merchantsPaymentsIterator(theme, {
                 showAs: showIconAs,
@@ -181,30 +184,9 @@ export class IconListComponent extends IconListAbstract<Params.IIconListCParams>
         let payments: IPaysystem[] = _uniqBy(this.configService.get('appConfig.siteconfig.payment_systems') || [],
             (item) => item.Name.toLowerCase());
 
-        if (this.$params.common?.payment?.exclude?.length) {
+        payments = this.updateList('payment', payments) as IPaysystem[];
 
-            if (this.$params.common.payment.exclude[0] === 'all') {
-                payments = [];
-            } else {
-                payments = _filter(payments, (item) => {
-                    return !_includes(this.$params.common.payment.exclude, item.Name.toLocaleLowerCase());
-                });
-            }
-        }
-
-        if (this.$params.common?.payment?.include?.length) {
-            this.$params.common.payment.include.forEach((item) => {
-                if (!_find(payments, (i) => i.Name.toLocaleLowerCase() === item)) {
-                    payments.push({
-                        Name: item,
-                        Alias: {},
-                        Init: '',
-                    });
-                }
-            });
-        }
-
-        this.setItemsList<IPaysystem>(payments, (item) =>this.merchantsPaymentsIterator(theme, {
+        this.setItemsList<IPaysystem>(payments, (item) => this.merchantsPaymentsIterator(theme, {
             showAs: showIconAs,
             wlcElement: 'block_payment-' + this.wlcElementTail(item.Name),
             nameForPath: item.Name,
@@ -217,7 +199,7 @@ export class IconListComponent extends IconListAbstract<Params.IIconListCParams>
      * Calls if `theme` is `custom`.
      * Based on `icons` param.
      **/
-    protected setCustomLst(): void {
+    protected setCustomList(): void {
         if (this.$params.items?.length) {
             this.setItemsList<IIconParams>(this.$params.items, (item) => item);
         } else {
@@ -225,4 +207,45 @@ export class IconListComponent extends IconListAbstract<Params.IIconListCParams>
         }
     }
 
+    /**
+     * Update icon list array by $params component
+     * @param type {'merchant' | 'payment'} 'merchant' | 'payment'
+     * @param source {MerchantModel[] | IPaysystem[]} MerchantModel[] | IPaysystem[]
+     * @returns {MerchantModel[] | IPaysystem[]} MerchantModel[] | IPaysystem[]
+     **/
+    protected updateList(
+        type: keyof Params.ListTypes,
+        source: TValueOf<Params.ListTypes>,
+    ): TValueOf<Params.ListTypes> {
+        const isMerchant = type === 'merchant';
+        const nameKey = isMerchant ? 'name' : 'Name';
+
+        if (this.$params.common?.[type]) {
+            if (this.$params.common[type].exclude?.includes('all')) {
+                source = [];
+            } else {
+                _filter(source, (item) =>
+                    !_includes(this.$params.common[type]?.exclude, item[nameKey].toLocaleLowerCase()));
+            }
+
+            this.$params.common[type].include?.forEach((name) => {
+                if (!_find(source, (item) => item[nameKey].toLocaleLowerCase() === name)) {
+                    if (isMerchant) {
+                        const merchantByName = this.gamesCatalogService.getMerchantByName(name);
+
+                        if (merchantByName) {
+                            (source as MerchantModel[]).push(merchantByName);
+                        }
+                    } else {
+                        (source as IPaysystem[]).push({
+                            Name: name,
+                            Alias: {},
+                            Init: '',
+                        });
+                    }
+                }
+            });
+        }
+        return source;
+    }
 }
