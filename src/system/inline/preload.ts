@@ -24,11 +24,11 @@ const config: IPreloadConfig[] = [
         flag: 'bootstrap',
         system: 'config',
     },
-    // {
-    //     url: '/api/v1/games',
-    //     flag: 'games'
-    //     system: 'games',
-    // },
+    {
+        url: '/api/v1/games',
+        flag: 'games',
+        system: 'games',
+    },
 ];
 
 const wlcPreload: IPreloadResult = {};

@@ -116,38 +116,13 @@ export class GamesCatalogService {
 
     public async init(): Promise<void> {
         await this.configService.ready;
-        // TODO: remove this after refactor component in other modules to use load & injector
-        await this.layoutService.importModules(['games']);
         this.registerMethods();
-        // TODO cache
-        // this.gamesCatalogCache = this.CacheFactory.get('gamesCatalogCache');
-        // if (!this.gamesCatalogCache) {
-        //     this.gamesCatalogCache = this.CacheFactory.createCache('gamesCatalogCache', {
-        //         deleteOnExpire: 'aggressive',
-        //         // recycleFreq: 60000,
-        //         maxAge: 60000,
-        //         // recycleFreq: 60000,
-        //         storageMode: 'sessionStorage',
-        //         storageImpl: safeSessionStorage,
-        //     });
-        //
-        //     if (!this.gamesCatalogCache) {
-        //         this.gamesCatalogCache = this.CacheFactory.get('gamesCatalogCache');
-        //     }
-        // } else {
-        //     _each(this.gamesCatalogCache.keys(), (item) => {
-        //         const lang = /lang\=([^&]*)/gi.exec(item);
-        //         if (lang?.length >= 2 && lang[1] !== this.appConfig.language) {
-        //             this.gamesCatalogCache.remove(item);
-        //         }
-        //     });
-        // }
 
         this.loadGames();
 
         this.eventService.subscribe({
             name: gamesEvents.FETCH_GAME_CATALOG_SUCCEEDED,
-        }, (data: IData) => {
+        }, ({data}: IData) => {
             this.gamesCatalog = new GamesCatalog(
                 data.data,
                 this,
@@ -686,6 +661,7 @@ export class GamesCatalogService {
             cache: 120 * 60 * 1000,
             type: 'GET',
             params: queryGamesParams,
+            preload: 'games',
             system: 'games',
             events: {
                 success: gamesEvents.FETCH_GAME_CATALOG_SUCCEEDED,
