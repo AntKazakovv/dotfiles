@@ -3,6 +3,8 @@ Component to display an icon list. It can be used in the following ways:
 
 - **Merchants list.** It displays a list of merchants with icons from gstatic.
 
+    This list can be customized by `params.common.merchant` param.
+
     Example:
     ```js
     {
@@ -10,6 +12,12 @@ Component to display an icon list. It can be used in the following ways:
         params: {
             theme: 'merchants',
             type: 'svg',
+            common: {
+                merchant: {
+                    exclude: ['all'],
+                    include: ['tomhorn', 'orientalgame'],
+                },
+            },
         },
     },
     ```

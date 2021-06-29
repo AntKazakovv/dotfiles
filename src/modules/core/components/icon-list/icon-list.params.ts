@@ -1,9 +1,11 @@
 import {
     IComponentParams,
     CustomType,
+    IPaysystem,
 } from 'wlc-engine/modules/core';
 import {ColorIconBgType} from 'wlc-engine/modules/core/system/classes/icon-list-abstract.class';
 import {IIconParams} from 'wlc-engine/modules/core/system/models/icon-list-item.model';
+import {MerchantModel} from 'wlc-engine/modules/games';
 
 /** Available component themes */
 export type ComponentTheme = 'merchants' | 'payments' | CustomType;
@@ -16,7 +18,11 @@ export type ComponentTheme = 'merchants' | 'payments' | CustomType;
 export type ComponentType = 'default' | 'svg';
 /** Available component theme modifiers */
 export type ComponentThemeMod = 'default' | CustomType;
-
+/** Available default types list icon */
+export type ListTypes = {
+    payment: IPaysystem[],
+    merchant: MerchantModel[],
+}
 /**
  * Component params
  */
@@ -35,6 +41,10 @@ export interface IIconListCParams extends IComponentParams<ComponentTheme, Compo
     watchForScroll?: boolean;
     /** Common component parametrs */
     common?: {
+        merchant?: {
+            include?: string[],
+            exclude?: string[],
+        }
         /**
          * Payments list customization by paysystem names.
          *
