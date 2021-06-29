@@ -116,6 +116,7 @@ export class GamesCatalogService {
 
     public async init(): Promise<void> {
         await this.configService.ready;
+        await this.layoutService.importModules(['games']);
         this.registerMethods();
 
         this.loadGames();
