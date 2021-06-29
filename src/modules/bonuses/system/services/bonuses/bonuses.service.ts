@@ -218,7 +218,7 @@ export class BonusesService {
                 type: 'GET',
             });
             if (_isObject(data.data)) {
-                return new Bonus(data.data, this.configService, this.cachingService, this);
+                return new Bonus(data.data, this.configService, this.cachingService,this.translate, this);
             } else {
                 this.logService.sendLog({code: '10.0.1', data: data.data});
             }
@@ -420,7 +420,7 @@ export class BonusesService {
 
         if (data?.length) {
             for (const bonusData of data) {
-                const bonus: Bonus = new Bonus(bonusData, this.configService, this.cachingService, this);
+                const bonus: Bonus = new Bonus(bonusData, this.configService, this.cachingService, this.translate, this);
                 queryBonuses.push(bonus);
             }
         }
