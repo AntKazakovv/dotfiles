@@ -1,22 +1,26 @@
 @use 'engine-scss/mixins/text' as lib;
 @use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/base.mixins' as bm;
 
 .wlc-random-game--theme-default:host {
     background: ef.get-value($themeDefault, 'background');
     border-radius: ef.get-value($themeDefault, 'borderRadius');
-    height: 100%;
 
     .wlc-random-game__wrapper {
+        display: grid;
+        @include bm.get-mq-map('grid-template-rows', $themeDefault, 'gridRows');
+        @include bm.get-mq-map('grid-template-columns', $themeDefault, 'gridColumns');
+        gap: ef.get-value($themeDefault, 'gap');
+        align-items: ef.get-value($themeDefault, 'alignItems');
+        justify-items: ef.get-value($themeDefault, 'justifyItems');
+        height: ef.get-value($themeDefault, 'height');
         padding: ef.get-value($themeDefault, 'padding');
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-between;
-        height: 100%;
     }
 
     .wlc-random-game__title {
         @include lib.get-text-style('ThirdTitle', ef.get-value($themeDefault, 'titleColor'));
+        font-weight: ef.get-value($themeDefault, 'titleFontWeight');
+        text-transform: ef.get-value($themeDefault, 'titleTextTransform');
     }
 
     ::ng-deep {
@@ -24,8 +28,8 @@
         .wlc-random-game__icon {
 
             svg {
-                fill: ef.get-value($themeDefault, 'iconFill');
                 margin: ef.get-value($themeDefault, 'iconMargin');
+                fill: ef.get-value($themeDefault, 'iconFill');
             }
         }
     }

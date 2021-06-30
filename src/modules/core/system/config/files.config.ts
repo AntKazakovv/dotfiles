@@ -39,7 +39,7 @@ export const localFiles: IIndexing<string> = {
     'enter-arrow': 'icons/enter-arrow.svg',
     'promo-success': 'decors/promo-success.svg',
     'copy': 'icons/copy.svg',
-    'question-mark': 'icons/question-mark.svg',
+    'random-game': 'icons/random-game.svg',
     'defCategoryIcon': 'icons/plug.svg',
     'pool': 'icons/pool.svg',
     'cup': 'icons/cup.svg',

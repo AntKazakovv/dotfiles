@@ -4,8 +4,20 @@ $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'background': ef.get('mainColors', 'bg700'),
     'borderRadius': ef.get('size', 'small'),
+    'gridRows': (
+        375: auto 1fr auto,
+    ),
+    'gridColumns': (
+        375: 1fr,
+    ),
+    'gap': ef.get('size', 'smally'),
+    'alignItems': center,
+    'justifyItems': center,
+    'height': 100%,
     'padding': ef.get('size', 'smaller'),
+    'titleColor': ef.get('mainColors', 'baseMain'),
+    'titleFontWeight': bold,
+    'titleTextTransform': none,
     'iconMargin': ef.get('size', 'small') 0,
     'iconFill': ef.get('mainColors', 'baseOpacity'),
-    'titleColor': ef.get('mainColors', 'baseMain'),
 ), $customThemeDefault);
