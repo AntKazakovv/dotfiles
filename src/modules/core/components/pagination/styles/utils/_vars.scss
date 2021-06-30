@@ -6,7 +6,7 @@ $themeDefault: map-merge((
     'hostMargin': 20px auto,
     'paginationPadding': 0,
     'activePaginationArrowColor': ef.get('mainColors', 'main'),
-    'activePaginationArrowColorHover': darken(ef.get('mainColors', 'main'), 10%),
+    'activePaginationArrowColorHover': lighten(ef.get('mainColors', 'main'), 5%),
     'pageItemMargin': 0 ef.get('size', 'smaller') 0 0,
     'pageItemHeight': ef.get('size', 'main'),
     'pageItemWidth': ef.get('size', 'main'),

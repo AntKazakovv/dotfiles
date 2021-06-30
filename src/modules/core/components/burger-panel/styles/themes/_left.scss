@@ -181,18 +181,6 @@
             &.wlc-language-selector--theme-mod-long {
                 max-width: ef.get-value($themeLeft, 'langMaxWidthModLong');
                 margin: ef.get-value($themeLeft, 'langCurrentMarginModLong');
-
-                .wlc-language-selector__current {
-                    background: ef.get-value($themeLeft, 'langCurrentBgModLong');
-
-                    @include bm.hover {
-                        background: ef.get-value($themeLeft, 'langCurrentBgModLongHover');
-
-                        &.single-lang {
-                            background: ef.get-value($themeLeft, 'langCurrentBgModLong');
-                        }
-                    }
-                }
             }
         }
     }

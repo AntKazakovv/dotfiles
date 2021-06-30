@@ -26,9 +26,9 @@
             height: ef.get-value($themeDefault, 'formHeight');
 
             > .wlc-btn {
-                grid-area: btn;
-
                 @include em.get-mq-map('margin', $themeDefault, 'btnMargin');
+
+                grid-area: btn;
             }
         }
 
@@ -119,15 +119,12 @@
 
             .wlc-checkbox__link {
                 color: ef.get-value($themeDefault, 'checkboxLinkColor');
-
-                border-bottom: ef.get-value($themeDefault, 'checkboxLinkBorder');
-
+                text-decoration: underline;
                 transition: ef.get-value($themeDefault, 'checkboxLinkTransition');
+
 
                 &:hover {
                     color: ef.get-value($themeDefault, 'checkboxLinkColorHover');
-
-                    border-bottom-color: ef.get-value($themeDefault, 'checkboxLinkColorHover');
                 }
             }
         }

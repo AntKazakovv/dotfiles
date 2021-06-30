@@ -49,10 +49,51 @@
                 }
 
                 .arrow::ng-deep {
+                    @include bm.transition(transform);
                     margin: ef.get-value($themeDefault, 'userInfoDropdownArrowMargin');
 
                     svg {
                         fill: ef.get-value($themeDefault, 'userInfoDropdownArrowFill');
+                    }
+                }
+
+                &.active {
+                    border: ef.get-value($themeDefault, 'userInfoDropdownBtnBorderActive');
+
+                    .arrow::ng-deep {
+                        transform: rotate(180deg);
+
+                        svg {
+                            fill: ef.get-value($themeDefault, 'userInfoDropdownArrowFillActive');
+                        }
+                    }
+
+
+                    @include bm.hover {
+                        @include bm.transition(all);
+
+                        border: ef.get-value($themeDefault, 'userInfoDropdownBtnBorderActive');
+
+                        .arrow::ng-deep {
+                            transform: rotate(180deg);
+
+                            svg {
+                                fill: ef.get-value($themeDefault, 'userInfoDropdownArrowFillActive');
+                            }
+                        }
+                    }
+                }
+
+                @include bm.hover {
+                    @include bm.transition(border-color);
+                    border: ef.get-value($themeDefault, 'userInfoDropdownBtnBorderHover');
+
+                    .arrow::ng-deep {
+
+                        svg {
+                            @include bm.transition(fill);
+                            fill: ef.get-value($themeDefault, 'userInfoDropdownArrowFillHover');
+                        }
                     }
                 }
             }

@@ -2,6 +2,7 @@
 @use 'engine-scss/mixins/base.mixins' as em;
 @use 'engine-scss/mixins/text' as text;
 @use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/base.mixins' as bm;
 
 $selector: '.wlc-table';
 
@@ -50,6 +51,23 @@ $selector: '.wlc-table';
 
                     .wlc-table__cell {
                         background: ef.get-value($themeDefault, 'rowEvenBackgroundDesktop');
+                    }
+                }
+
+                &:first-of-type {
+
+                    @include bm.hover {
+
+                        .wlc-table__cell {
+                            background: transparent;
+                        }
+                    }
+                }
+
+                @include bm.hover {
+
+                    .wlc-table__cell {
+                        background: ef.get-value($themeDefault, 'rowBackgroundDesktopHover');
                     }
                 }
             }
@@ -181,7 +199,6 @@ $selector: '.wlc-table';
                 font-weight: bold;
                 font-size: ef.get-value($themeDefault, 'fontSizeTitleMobile');
                 background: ef.get-value($themeDefault, 'rowTitleBackgroundMobile');
-                transition: all ef.get-value($themeDefault, 'animationTime');
                 border-radius: ef.get-value($themeDefault, 'rowBorderRadiusSizeMobile') ef.get-value($themeDefault, 'rowBorderRadiusSizeMobile') 0 0;
             }
 

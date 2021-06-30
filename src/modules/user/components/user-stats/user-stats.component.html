@@ -20,7 +20,9 @@
     </ng-template>
 
     <ng-template [ngSwitchCase]="'store'">
-        <div class="{{$class}}-balance {{$class}}-balance--store" data-wlc-element="block_info">
+        <div class="{{$class}}-balance {{$class}}-balance--store"
+             data-wlc-element="block_info"
+             (click)="descriptionCasinosCurrency()">
             <div class="{{$class}}-balance__item {{$class}}-balance__item--points" [attr.data-wlc-element]="shownUserStats?.points?.wlcElement">
                 <span class="value" wlc-currency currency="LP" [value]="shownUserStats?.points?.value" digitsInfo="1-0-2"></span>
             </div>
@@ -64,8 +66,3 @@
         ></button>
     </ng-template>
 </div>
-
-<span *ngIf="$params.showTooltipDescriptionModal"
-       wlc-tooltip
-       class="{{$class}}-description-currency"
-       [inlineParams]="{modal: 'descriptionCasinosCurrency'}"></span>

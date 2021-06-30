@@ -381,6 +381,20 @@
                             }
                         }
                     }
+
+                    @include em.hover {
+
+                        ::ng-deep .wlc-icon-content {
+
+                            svg {
+
+                                path {
+                                    @include em.transition(fill);
+                                    fill: ef.get-value($themeDefault, 'infoIconBgHover');
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -388,6 +402,10 @@
 }
 
 ::ng-deep body {
+
+    .tooltip.show {
+        opacity: 1;
+    }
 
     .wlc-verification-group__tooltip {
 

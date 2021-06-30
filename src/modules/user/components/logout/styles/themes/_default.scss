@@ -10,7 +10,7 @@
         ::ng-deep {
 
             .wlc-btn__text {
-                @include text.get-text-style('PlaceholderTextBold', ef.get-value($themeDefault, 'textColor'));
+                @include text.get-text-style(ef.get-value($themeDefault, 'textFont'), ef.get-value($themeDefault, 'textColor'));
                 display: flex;
                 align-items: center;
             }
@@ -36,7 +36,8 @@
                 ::ng-deep {
 
                     path {
-                        @include em.transition(stroke);
+                        @include em.transition(all);
+                        fill: ef.get-value($themeDefault, 'textColorHover');
                         stroke: ef.get-value($themeDefault, 'textColorHover');
                     }
                 }

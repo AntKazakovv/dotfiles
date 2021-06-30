@@ -31,9 +31,9 @@
             align-items: center;
 
             padding: ef.get-value($themeDefault, 'checkboxPadding');
+            cursor: pointer;
 
             user-select: none;
-            cursor: pointer;
         }
 
         &__elem {
@@ -41,17 +41,17 @@
             left: map-get($themeDefault, 'checkboxElemLeft');
 
             display: flex;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
 
             width: ef.get-value($themeDefault, 'checkboxElemSize');
             height: ef.get-value($themeDefault, 'checkboxElemSize');
 
             background: ef.get-value($themeDefault, 'checkboxElemBackground');
+            transition: transform 0.2s ease-out;
 
             border: ef.get-value($themeDefault, 'checkboxElemBorder');
             border-radius: ef.get-value($themeDefault, 'checkboxElemBorderRadius');
-            transition: transform 0.2s ease-out;
 
             ::ng-deep {
 
@@ -63,10 +63,10 @@
                 svg {
                     width: ef.get-value($themeDefault, 'iconSvgWidth');
                     height: ef.get-value($themeDefault, 'iconSvgHeight');
+                    fill: ef.get-value($themeDefault, 'iconSvgFill');
 
                     stroke: ef.get-value($themeDefault, 'iconSvgStroke');
                     stroke-width: ef.get-value($themeDefault, 'iconSvgStrokeWidth');
-                    fill: ef.get-value($themeDefault, 'iconSvgFill');
                 }
             }
 
@@ -77,26 +77,23 @@
     }
 
     .wlc-checkbox__text {
-        font-size: ef.get-value($themeDefault, 'textFontSize');
-        color: ef.get-value($themeDefault, 'textColor');
-        margin-bottom: 0;
+        @include text.get-text-style(ef.get-value($themeDefault, 'checkboxTextFont'), ef.get-value($themeDefault, 'checkboxTextFontColor'));
+        @include bm.get-mq-map('margin', $themeDefault, 'checkboxTextMargin');
     }
 
     .wlc-checkbox__link {
+        @include bm.transition(color);
+
         color: ef.get-value($themeDefault, 'linkColor');
 
         &:hover {
             color: ef.get-value($themeDefault, 'linkHoverColor');
-            text-decoration: none;
+            text-decoration: underline;
         }
     }
 
     .wlc-checkbox__checkbox {
         display: none;
-
-        &.ng-touched.ng-invalid + .wlc-checkbox__elem {
-            box-shadow: 0 0 0 2px map-get($themeDefault, 'errorColor');
-        }
     }
 
     &.wlc-checkbox--text-left {
@@ -105,8 +102,8 @@
             padding: ef.get-value($themeDefault, 'leftTextPadding');
 
             &__elem {
-                left: unset;
                 right: 0;
+                left: unset;
             }
         }
     }
@@ -116,31 +113,32 @@
         .wlc-checkbox {
 
             &__label {
+                display: flex;
+                flex-direction: row-reverse;
+                align-items: center;
                 width: ef.get-value($themeDefault, 'toggleWidth');
                 height: ef.get-value($themeDefault, 'toggleHeight');
-                display: flex;
-                align-items: center;
-                flex-direction: row-reverse;
                 padding: ef.get-value($themeDefault, 'togglePadding');
             }
 
             &__elem {
+                @include bm.transition(background);
+
                 position: relative;
-                z-index: 3;
-                cursor: pointer;
                 top: auto;
-                margin: 0;
-                background: ef.get-value($themeDefault, 'toggleBackground');
-                border-radius: ef.get-value($themeDefault, 'toggleRadius');
-                border: ef.get-value($themeDefault, 'toggleElemBorder');
+                z-index: 3;
                 width: ef.get-value($themeDefault, 'toggleElemWidth');
                 height: ef.get-value($themeDefault, 'toggleHeight');
-                @include bm.transition(background);
+                margin: 0;
+                background: ef.get-value($themeDefault, 'toggleBackground');
+                cursor: pointer;
+                border-radius: ef.get-value($themeDefault, 'toggleRadius');
+                border: ef.get-value($themeDefault, 'toggleElemBorder');
 
                 &.checked {
                     background: ef.get-value($themeDefault, 'toggleBackgroundActive');
-                    border: ef.get-value($themeDefault, 'toggleElemBorderActive');
                     opacity: 1;
+                    border: ef.get-value($themeDefault, 'toggleElemBorderActive');
                 }
 
                 &.checked::ng-deep {
@@ -158,27 +156,29 @@
                 }
 
                 &:before {
-                    z-index: 2;
+                    @include bm.transition();
+
                     content: '';
                     position: absolute;
                     top: 50%;
                     left: ef.get-value($themeDefault, 'toggleCircleOffset');
-                    transform: translateY(-50%);
-                    height: ef.get-value($themeDefault, 'toggleCircleSize');
+                    z-index: 2;
                     width: ef.get-value($themeDefault, 'toggleCircleSize');
+                    height: ef.get-value($themeDefault, 'toggleCircleSize');
                     background: ef.get-value($themeDefault, 'toggleCircleBg');
+                    transform: translateY(-50%);
                     border: ef.get-value($themeDefault, 'toggleCircleBorder');
                     border-radius: 50%;
-                    @include bm.transition();
                 }
             }
 
             &__text {
-                position: relative;
-                padding-left: ef.get-value($themeDefault, 'togglePaddingLeftText');
-                padding-right: ef.get-value($themeDefault, 'togglePaddingRightText');
                 @include text.get-text-style(ef.get-value($themeDefault, 'toggleFontStyle'));
                 @include bm.transition(padding);
+
+                position: relative;
+                padding-right: ef.get-value($themeDefault, 'togglePaddingRightText');
+                padding-left: ef.get-value($themeDefault, 'togglePaddingLeftText');
             }
         }
     }

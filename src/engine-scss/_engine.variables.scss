@@ -480,9 +480,10 @@ $buttonSettings: map-merge((
     'textTransform': initial,
     // Background
     'background': map-get($mainColors, 'buttonColor'),
-    'backgroundHover': darken(map-get($mainColors, 'buttonColor'), 20%),
+    //'backgroundHover': darken(map-get($mainColors, 'buttonColor'), 20%),
+    'backgroundHover': lighten(map-get($mainColors, 'buttonColor'), 5%),
     'backgroundSecondary': transparent,
-    'backgroundSecondaryHover': map-get($mainColors, 'secondary'),
+    'backgroundSecondaryHover': rgba(map-get($mainColors, 'secondary'), 0.3),
     'backgroundResolve': map-get($mainColors, 'success'),
     'backgroundResolveHover': darken(map-get($mainColors, 'success'), 20%),
     'backgroundReject': map-get($mainColors, 'error'),
@@ -497,9 +498,9 @@ $buttonSettings: map-merge((
     //Border
     'borderDefault': 2px solid transparent,
     'borderRadiusDefault': map-get($radius, 'biger'),
-    'borderDefaultHover': 2px solid darken(map-get($mainColors, 'buttonColor'), 20%),
+    'borderDefaultHover': 2px solid lighten(map-get($mainColors, 'buttonColor'), 5%),
     'borderSecondary': 2px solid map-get($mainColors, 'secondary'),
-    'borderSecondaryHover': 2px solid darken(map-get($mainColors, 'secondary'), 20%),
+    'borderSecondaryHover': 2px solid map-get($mainColors, 'secondary'),
     'borderColorRead': map-get($mainColors, 'baseOpacity'),
     //Padding
     'padding': map-get($size, 'smallest') map-get($size, 'smaller'),
@@ -575,7 +576,7 @@ $headings-margin-bottom: 0 !default;
 $paragraph-margin-bottom: 0 !default;
 $link-color: map-get($mainColors, 'main') !default;
 $link-decoration: underline !default;
-$link-hover-color: darken($link-color, 15%) !default;
-$link-hover-decoration: none !default;
+$link-hover-color: map-get($mainColors, 'baseMain') !default;
+$link-hover-decoration: underline !default;
 $enable-rfs: false;
 $tooltip-opacity: 1;

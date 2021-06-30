@@ -13,7 +13,7 @@ $themeDefault: map-merge((
     'linkActiveWeight': bold,
     'linkFont': PrimaryText,
     'linkColor': ef.get('mainColors', 'baseMain'),
-    'linkColorHovered': darken(ef.get('mainColors', 'baseMain'), 20%),
+    'linkColorHovered': ef.get('mainColors', 'baseMain'),
     'linkDecoration': none,
     'underlineOffset': 0,
     'underlineColor': ef.get('mainColors', 'main'),

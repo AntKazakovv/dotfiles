@@ -17,7 +17,7 @@ $themeDefault: map-merge((
 
     'allLinkTextStyle': 'ButtonText',
     'allLinkColor': ef.get('mainColors', 'main'),
-    'allLinkColorHover': ef.get('mainColors', 'main'),
+    'allLinkColorHover': ef.get('mainColors', 'baseMain'),
 
     'userGridColumns': 1fr auto,
     'userGridAlignItems': center,

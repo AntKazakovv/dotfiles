@@ -47,7 +47,6 @@ export class UserStatsComponent extends AbstractComponent implements OnInit, OnD
         protected UserService: UserService,
         protected cdr: ChangeDetectorRef,
         protected modalService: ModalService,
-        private translate: TranslateService,
         private stateService: StateService,
     ) {
         super(
@@ -165,6 +164,10 @@ export class UserStatsComponent extends AbstractComponent implements OnInit, OnD
 
     public depositAction(): void {
         this.stateService.go('app.profile.cash.deposit');
+    }
+
+    public descriptionCasinosCurrency(): void {
+        this.modalService.showModal('descriptionCasinosCurrency');
     }
 
     protected prepareParams(): Params.IUserStatsCParams {
