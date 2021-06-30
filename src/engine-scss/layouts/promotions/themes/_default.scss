@@ -15,10 +15,6 @@
             div.wlc-title__main {
                 font-size: ef.get-value($promotionsThemeDefault, 'titleFontSize');
             }
-
-            @include mq.min(900) {
-                margin: ef.get-value($promotionsThemeDefault, 'sectionMargin');
-            }
         }
 
         .wlc-bonuses-list {
@@ -45,10 +41,6 @@
 
             div.wlc-title__main {
                 font-size: ef.get-value($promotionsThemeDefault, 'titleFontSize');
-            }
-
-            @include mq.min(900) {
-                margin: ef.get-value($promotionsThemeDefault, 'sectionMargin');
             }
         }
     }

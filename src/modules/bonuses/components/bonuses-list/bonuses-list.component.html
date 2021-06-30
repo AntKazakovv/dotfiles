@@ -43,7 +43,13 @@
         <a class="{{$class}}__nocontent-link" [uiSref]="'app.profile.loyalty-bonuses.main'">{{'Offers' | translate}}</a>.
     </div>
     <div *ngIf="isReady && !$params.common.useNoDataText"
-         class="{{$class}}__nocontent">{{ 'No bonuses available' | translate}}</div>
+         class="{{$class}}__nocontent">{{ 'No bonuses available' | translate}}
+         <button *ngIf="$params.useBtnNoBonuses"
+                 wlc-button
+                 class="{{$class}}__nocontent-btn"
+                 [inlineParams]="$params.btnNoBonuses">
+         </button>
+    </div>
     <div *ngIf="!isReady" class="{{$class}}__nocontent">
         <div wlc-loader></div>
     </div>
@@ -114,9 +120,54 @@
     </div>
 </ng-template>
 
+<!-- TODO Change to ng-template and *ngIf ... else -->
+<ng-template #promo>
+    <div class="{{$class}}__content" data-wlc-element="block_bonuses-main">
+        <div *ngIf="$params.type !== 'swiper'" class="{{$class}}__list-wrapper">
+            <div *ngIf="bonuses?.length && isReady; else: noBonuses"
+                 class="{{$class}}__list"
+                 data-wlc-element="block_bonus">
+                <div *ngFor="let bonus of bonuses"
+                     wlc-bonus-item
+                     [bonus]="bonus"
+                     [chosen]="bonus.isChoose"
+                     [type]="$params.common.filter"
+                     [theme]="$params.theme"
+                     [inlineParams]="$params.itemsParams"
+                     [themeMod]="$params.themeMod"></div>
+            </div>
+        </div>
+        <div *ngIf="$params.type === 'swiper'" class="{{$class}}__list-wrapper">
+            <ng-container *ngIf="bonuses?.length && isReady; else: noBonuses">
+                <div wlc-slider
+                     class="{{$class}}__slider"
+                     type="dashboard"
+                     [slides]="slides"
+                     [inlineParams]="sliderParams">
+                </div>
+
+                <div *ngIf="bonuses.length && !isSingleBonus" slot-container-end>
+                    <button wlc-icon
+                            class="wlc-swiper-button-prev swiper-button-prev"
+                            iconName="arrow"></button>
+                    <button wlc-icon
+                            class="wlc-swiper-button-next swiper-button-next"
+                            iconName="arrow"></button>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+    <button *ngIf="isAuthAndBonusesLength && $params.useRedirectBtnToProfile"
+        wlc-button
+        class="{{$class}}__to-profile"
+        [inlineParams]="$params.redirectBtnToProfile">
+    </button>
+</ng-template>
+
 <ng-container [ngSwitch]="$params.theme">
     <ng-container *ngSwitchCase="'partial'" [ngTemplateOutlet]="partial"></ng-container>
     <ng-container *ngSwitchCase="'reg-first'" [ngTemplateOutlet]="partial"></ng-container>
     <ng-container *ngSwitchCase="'promo-home'" [ngTemplateOutlet]="promoHome"></ng-container>
+    <ng-container *ngSwitchCase="'promo'" [ngTemplateOutlet]="promo"></ng-container>
     <ng-container *ngSwitchDefault [ngTemplateOutlet]="default"></ng-container>
 </ng-container>

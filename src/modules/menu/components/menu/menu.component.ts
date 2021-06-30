@@ -276,6 +276,8 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
         if (this.isAffiliate) {
             this.items = this.changeLinkForAffiliate(this.items);
         }
+
+        this.cdr.markForCheck();
     }
 
     protected changeLinkForAffiliate(items: Params.MenuItemObjectType[]): Params.MenuItemObjectType[] {

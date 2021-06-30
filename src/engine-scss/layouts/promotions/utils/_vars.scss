@@ -2,7 +2,7 @@
 
 $customPromotionsThemeDefault: () !default;
 $promotionsThemeDefault: map-merge((
-    'titleFontSize': ef.get('font', 'base'),
+    'titleFontSize': ef.get('font', 'QoteTextBold'),
     'titleAlign': center,
     'sectionMargin': 0 0 ef.get('size', 'main') 0,
     'listMargin': 0 0 ef.get('size', 'smaller') 0,

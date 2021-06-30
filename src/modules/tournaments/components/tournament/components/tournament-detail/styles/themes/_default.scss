@@ -67,6 +67,7 @@ $selector: '.wlc-tournament-detail';
                 @include em.get-mq-map('border-radius', $themeDefault, 'headerStatusRadius');
                 @include text.get-text-style(ef.get-value($themeDefault, 'headerStatusTextStyle'), ef.get-value($themeDefault, 'headerStatusTextColor'));
                 justify-self: center;
+                background: ef.get-value($themeDefault, 'headerStatusTextBackground');
 
                 &.status-avaliable {
                     @include em.get-mq-map('background', $themeDefault, 'headerStatusBgAvaliable');

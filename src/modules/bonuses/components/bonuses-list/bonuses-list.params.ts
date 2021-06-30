@@ -3,6 +3,7 @@ import {SwiperOptions} from 'swiper';
 import {
     IComponentParams,
     CustomType,
+    IButtonCParams,
 } from 'wlc-engine/modules/core';
 import {
     IBonusItemCParams,
@@ -35,6 +36,10 @@ export interface IBonusesListCParams extends IComponentParams<Theme, Type, Theme
         useQuery?: boolean;
     };
     itemsParams?: IBonusItemCParams,
+    useRedirectBtnToProfile?: boolean,
+    redirectBtnToProfile?: IButtonCParams,
+    useBtnNoBonuses?: boolean,
+    btnNoBonuses?: IButtonCParams,
 }
 
 
@@ -52,5 +57,20 @@ export const defaultParams: IBonusesListCParams = {
         useRecommendedBonuses: false,
         useQuery: false,
         useNoDataText: false,
+    },
+    useBtnNoBonuses: true,
+    btnNoBonuses: {
+        common: {
+            text: gettext('Go home'),
+            sref: 'app',
+        },
+    },
+    useRedirectBtnToProfile: false,
+    redirectBtnToProfile: {
+        wlcElement: 'button_go-to-profile',
+        common: {
+            text: gettext('Go to Profile'),
+            sref: 'app.profile.loyalty-bonuses.main',
+        }
     },
 };

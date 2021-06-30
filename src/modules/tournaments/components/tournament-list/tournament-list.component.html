@@ -133,7 +133,14 @@
 </ng-template>
 
 <ng-template #noData>
-    <div class="{{$class}}__nocontent" *ngIf="isReady">{{'No tournaments available' | translate}}</div>
+    <div *ngIf="isReady"
+         class="{{$class}}__nocontent">{{ 'No tournaments available' | translate}}
+         <button *ngIf="$params.useNoTournamentsBtn"
+                 wlc-button
+                 class="{{$class}}__nocontent-btn"
+                 [inlineParams]="$params.noTournamentsBtn">
+         </button>
+    </div>
     <div class="{{$class}}__nocontent" *ngIf="!isReady">
         <div wlc-loader></div>
     </div>

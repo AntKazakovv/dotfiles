@@ -1,5 +1,6 @@
 import {
     CustomType,
+    IButtonCParams,
     IComponentParams,
 } from 'wlc-engine/modules/core';
 import {RestType, ThumbType} from 'wlc-engine/modules/tournaments';
@@ -20,11 +21,20 @@ export interface ITournamentListCParams extends IComponentParams<ComponentTheme,
         restType?: RestType;
         thumbType?: ThumbType;
         swiper?: SwiperOptions;
-    };
+    },
+    useNoTournamentsBtn?: boolean;
+    noTournamentsBtn?: IButtonCParams,
 }
 
 export const defaultParams: ITournamentListCParams = {
     moduleName: 'tournaments',
     class: 'wlc-tournament-list',
     componentName: 'wlc-tournament-list',
+    useNoTournamentsBtn: true,
+    noTournamentsBtn: {
+        common: {
+            text: gettext('Go home'),
+            sref: 'app',
+        },
+    },
 };
