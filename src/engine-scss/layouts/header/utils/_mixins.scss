@@ -22,12 +22,12 @@
     }
 
     .wlc-logo {
-        max-width: ef.get-value($theme, 'headerLogoMaxWidth');
+        @include bm.get-mq-map('max-width', $theme, 'headerLogoMaxWidth');
         margin: ef.get-value($theme, 'headerLogoMargin');
 
         img,
         svg {
-            width: ef.get-value($theme, 'headerSvgLogoWidth');
+            @include bm.get-mq-map('width', $theme, 'headerSvgLogoWidth');
             height: ef.get-value($theme, 'headerSvgLogoHeight');
             max-height: ef.get-value($theme, 'headerSvgLogoMaxHeight');
 

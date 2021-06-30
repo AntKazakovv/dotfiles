@@ -43,8 +43,12 @@ $theme1Header: map-merge((
     'headerBackground': transparent,
     'headerGlobalPadding': ef.get('size', 'smally'),
     'headerLogoMargin': 0 auto,
-    'headerLogoMaxWidth': 144px,
-    'headerSvgLogoWidth': auto,
+    'headerLogoMaxWidth': (
+        375: 144px,
+    ),
+    'headerSvgLogoWidth': (
+        375: auto,
+    ),
     'headerSvgLogoHeight': 100%,
     'headerSvgLogoMaxHeight': 50%,
     'headerSvgLogoMargin': 0 auto,
@@ -103,9 +107,13 @@ $theme2Header: map-merge((
         1200: ef.get('size', 'smaller'),
         1630: ef.get('size', 'main')
     ),
-    'headerLogoMaxWidth': 144px,
+    'headerLogoMaxWidth': (
+        375: 144px,
+    ),
     'headerLogoMargin': 0 auto,
-    'headerSvgLogoWidth': auto,
+    'headerSvgLogoWidth': (
+        375: auto,
+    ),
     'headerSvgLogoHeight': 100%,
     'headerSvgLogoMaxHeight': 50%,
     'headerSvgLogoMargin': 0 auto,
