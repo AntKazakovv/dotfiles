@@ -28,6 +28,7 @@ import _filter from 'lodash-es/filter';
 export class RandomGameComponent extends AbstractComponent implements OnInit {
 
     public $params: Params.IRandomGameCParams;
+    public imageName: boolean = true;
     protected games: Game[];
     protected gamesForAuthorized: boolean = false;
 
@@ -48,6 +49,8 @@ export class RandomGameComponent extends AbstractComponent implements OnInit {
 
     public async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
+
+        this.$params.image =  this.inlineParams?.image || this.injectParams?.image || Params.defaultParams.image;
     }
 
     public toRandomGame(): void {

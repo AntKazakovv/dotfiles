@@ -6,9 +6,15 @@ export type ThemeMod = 'default' | CustomType;
 
 export interface IRandomGameCParams extends IComponentParams<Theme, Type, ThemeMod> {
     title?: string;
+    image?: {
+        url?: string;
+    }
 }
 
 export const defaultParams: IRandomGameCParams = {
     class: 'wlc-random-game',
     title: gettext('Random game'),
+    image: {
+        url: '/random-game/random-game.svg',
+    },
 };
