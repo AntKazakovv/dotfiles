@@ -384,8 +384,6 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
             let elementHeight: number = width / this.aspectRatioCoefficient,
                 elementNewWidth: number = 0;
 
-            elementHeight = elementHeight > maxHeight ? maxHeight : minHeight;
-
             if (elementHeight > maxHeight) {
                 elementHeight = maxHeight;
             }

@@ -21,7 +21,11 @@
         }
 
         .wlc-bonuses-list__nocontent {
-            text-align: center;
+            text-align: ef.get-value($themePromo, 'noContentTextAlign');
+        }
+
+        .wlc-bonuses-list__to-profile {
+            margin: ef.get-value($themePromo, 'marginBtnGoToProfile');
         }
     }
 }

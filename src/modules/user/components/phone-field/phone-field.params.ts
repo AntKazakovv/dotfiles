@@ -22,7 +22,7 @@ export let defaultParams: Partial<IPhoneFieldCParams> = {
         labelText: gettext('Phone'),
         wlcElement: 'block_phoneCode',
         common: {
-            placeholder: gettext('Phone Code'),
+            placeholder: gettext('Code'),
         },
         locked: true,
         name: 'phoneCode',

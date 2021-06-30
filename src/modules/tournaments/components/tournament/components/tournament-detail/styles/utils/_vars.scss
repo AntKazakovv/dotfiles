@@ -37,8 +37,8 @@ $themeDefault: map-merge((
     'headerBorderBottom': 2px solid ef.get('mainColors', 'baseOpacity'),
 
     'headerBackLinkTop': (
-        320: 4px,
-        768: 9px,
+        320: 0,
+        768: 4px,
     ),
     'headerBackLinkLeft': (
         320: 0,
@@ -49,19 +49,21 @@ $themeDefault: map-merge((
     'headerBackLinkDecoration': none,
     'headerBackLinkIconTransform': rotate(90deg),
     'headerBackLinkIconColor': ef.get('mainColors', 'main'),
-    'headerBackLinkMaxWidth': 60px,
+    'headerBackLinkMaxWidth': ef.get('size', 'big'),
 
     'headerStatusRadius': ef.get('radius', 'large'),
-    'headerStatusBgAvaliable': transparent,
-    'headerStatusBgActive': transparent,
-    'headerStatusColorAvaliable': ef.get('mainColors', 'secondary'),
-    'headerStatusColorActive': ef.get('mainColors', 'main'),
+    'headerStatusBgAvaliable': ef.get('mainColors', 'secondary'),
+    'headerStatusBgActive': ef.get('mainColors', 'main'),
+    'headerStatusColorAvaliable': ef.get('mainColors', 'baseMain'),
+    'headerStatusColorActive': ef.get('mainColors', 'baseMain'),
     'headerStatusPadding': (
-        320: 0 60px,
+        320: 0 ef.get('size', 'big'),
         768: ef.get('size', 'smallest') ef.get('size', 'smaller'),
     ),
-    'headerStatusTextStyle':'ThirdTitleBold',
+    'headerStatusTextStyle':'SignText',
+    'headerStatusTextBackground': ef.get('mainColors', 'secondary'),
     'headerStatusTextColor':ef.get('mainColors', 'baseMain'),
+    'headerStatusFontSize': ef.get('font', 'main'),
 
     'headerTitleJustifySelf': center,
     'headerTitleTextAlign': center,

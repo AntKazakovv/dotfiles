@@ -9,6 +9,7 @@ export namespace wlcPromotionsBonusesList {
                 filter: 'all',
                 filterByGroup: 'Promo',
             },
+            useRedirectBtnToProfile: true,
         },
     };
 }

@@ -245,6 +245,10 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
         }
     }
 
+    public get isAuthAndBonusesLength(): boolean {
+        return this.configService.get<boolean>('$user.isAuthenticated') && !!this.bonuses.length;
+    }
+
     protected setSubscription(): void {
         this.eventService.subscribe([
             {name: BonusItemComponentEvents.reg},

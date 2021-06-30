@@ -106,8 +106,11 @@
                     @include text.get-text-style(ef.get-value($themeDefault, 'tagFontStyleDesk'), ef.get-value($themeDefault, 'tagColor'));
                 }
 
+                border-radius: ef.get-value($themeDefault, 'tagTextBorderRadius');
+                background: ef.get-value($themeDefault, 'tagTextBackground');
+
                 &.active {
-                    color: ef.get-value($themeDefault, 'tagActiveColor');
+                    background: ef.get-value($themeDefault, 'tagActiveBackground');
                 }
             }
         }
@@ -231,19 +234,20 @@
 
             @include em.get-mq-map('justify-content', $themeDefault, 'btnsWrapAlign');
             @include em.get-mq-map('padding', $themeDefault, 'btnsWrapPadding');
+            @include em.get-mq-map('flex-direction', $themeDefault, 'btnsWrapperFlexDirection');
 
             margin: ef.get-value($themeDefault, 'btnsWrapMargin');
+            align-items: center;
 
             & > .wlc-btn {
+                @include em.get-mq-map('min-width', $themeDefault, 'btnsMinWidthColumn');
+                @include em.get-mq-map('margin', $themeDefault, 'firstBtnColumnMargin');
+
                 grid-column-gap: ef.get-value($themeDefault, 'btnsGridColumnGap');
-
-                min-width: ef.get-value($themeDefault, 'btnsMinWidth');
-
-                margin: ef.get-value($themeDefault, 'btnsMargin');
                 padding: ef.get-value($themeDefault, 'btnsPadding');
 
                 &:last-child {
-                    margin-right: 0;
+                    margin: 0;
                 }
             }
         }

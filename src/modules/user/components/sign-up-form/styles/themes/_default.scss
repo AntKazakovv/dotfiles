@@ -110,8 +110,6 @@
             .wlc-select__field,
             .wlc-select__dropdown-item {
                 padding: ef.get-value($themeDefault, 'selectPadding');
-
-                font-size: ef.get-value($themeDefault, 'selectFontSize');
             }
         }
 

@@ -39,3 +39,12 @@ $customThemeActive: () !default;
 $themeActive: map-merge((
 
 ), $customThemeActive);
+
+$customNoContent: () !default;
+$noContent: map-merge((
+    'noContentMargin':  80px 0 140px 0,
+    'noContentMarginBtn': ef.get('size', 'main') 0 0 0,
+    'noContentDisplay': flex,
+    'noContentFDirection': column,
+    'noContentAlignItems': center,
+), $customNoContent);

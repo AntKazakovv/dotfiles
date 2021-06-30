@@ -97,3 +97,14 @@
         }
     }
 }
+
+.wlc-bonuses-list__nocontent {
+    margin: ef.get-value($noContent, 'noContentMargin');
+    display: ef.get-value($noContent, 'noContentDisplay');
+    flex-direction: ef.get-value($noContent, 'noContentFDirection');
+    align-items: ef.get-value($noContent, 'noContentAlignItems');
+
+    &-btn {
+        margin: ef.get-value($noContent, 'noContentMarginBtn');
+    }
+}

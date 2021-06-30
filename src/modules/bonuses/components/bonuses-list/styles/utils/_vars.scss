@@ -54,6 +54,8 @@ $themePromo: map-merge((
     'minItemWidth900': 600px,
     'minItemWidth1200': 400px,
     'minItemWidthDesktop': 600px,
+    'noContentTextAlign': center,
+    'marginBtnGoToProfile': ef.get('size', 'main') auto,
 ), $customThemePromo);
 
 $customThemePartial: () !default;
@@ -98,3 +100,12 @@ $themeActive: map-merge((
     'gridColumns': 1fr,
     'gridGap': ef.get('size', 'smaller') 0,
 ), $customThemeActive);
+
+$customNoContent: () !default;
+$noContent: map-merge((
+    'noContentMargin':  80px 0 140px 0,
+    'noContentMarginBtn': ef.get('size', 'main') 0 0 0,
+    'noContentDisplay': flex,
+    'noContentFDirection': column,
+    'noContentAlignItems': center,
+), $customNoContent);

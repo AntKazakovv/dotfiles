@@ -66,6 +66,12 @@ $theme1Header: map-merge((
     ),
     'headerLoginJustifyContent': flex-end,
     'headerUserInfoJustifyContent': flex-end,
+    'searchBtnDisplay': flex,
+    'searchBtnJustifyContent': center,
+    'searchBtnAlignItems': center,
+    'searchIconDisplay': flex,
+    'searchIconJustifyContent': center,
+    'searchIconAlignItems': center,
 ), $customTheme1Header);
 
 $customTheme2Header: () !default;
@@ -131,6 +137,13 @@ $theme2Header: map-merge((
     ),
     'headerLoginJustifyContent': flex-end,
     'headerUserInfoJustifyContent': flex-end,
+    'searchBtnTransformOnHover': rotate(30deg),
+    'searchBtnDisplay': flex,
+    'searchBtnJustifyContent': center,
+    'searchBtnAlignItems': center,
+    'searchIconDisplay': flex,
+    'searchIconJustifyContent': center,
+    'searchIconAlignItems': center,
 ), $customTheme2Header);
 
 // Header

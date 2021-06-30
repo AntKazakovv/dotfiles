@@ -21,7 +21,6 @@ export namespace content {
         components: [
             componentLib.wlcTitle.promotions,
             componentLib.wlcPromotionsBonusesList.def,
-            componentLib.wlcButton.toProfile,
         ],
     };
 
