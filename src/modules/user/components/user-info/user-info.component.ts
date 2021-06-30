@@ -44,6 +44,7 @@ export class UserInfoComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams: Params.IUserInfoCParams;
     public $params: any;
     public isOpened: boolean;
+    public dropdownBtnActive: boolean;
 
     constructor(
         @Inject('injectParams') protected injectParams: any,
@@ -59,11 +60,13 @@ export class UserInfoComponent extends AbstractComponent implements OnInit {
         super.ngOnInit(this.inlineParams);
         this.transitionService.onEnter({}, () => {
             this.isOpened = false;
+            this.dropdownBtnActive = false;
         });
     }
 
     public toggle(): void {
         this.isOpened = !this.isOpened;
+        this.dropdownBtnActive = !this.dropdownBtnActive;
     }
 
     public depositAction(): void {

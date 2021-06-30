@@ -24,13 +24,6 @@
 
         transform: ef.get-value($themeDefault, 'cancelTransform');
 
-        @include em.hover {
-            color: ef.get-value($themeButton, 'colorDefault');
-            background: ef.get-value($themeButton, 'background');
-            box-shadow: ef.get-value($themeButton, 'shadow');
-            border: ef.get-value($themeButton, 'borderDefault');
-        }
-
         @include em.hover(false) {
             display: block;
         }

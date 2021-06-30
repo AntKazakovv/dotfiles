@@ -150,12 +150,13 @@
                     height: 100%;
                 }
 
-                svg,
-                path {
-                    @include bm.transition;
+                svg {
                     width: ef.get-value($themeDefault, 'favoriteSize');
                     height: ef.get-value($themeDefault, 'favoriteSize');
+                }
 
+                svg path {
+                    @include bm.transition(fill, 0.25s);
                     fill: ef.get-value($themeDefault, 'favoriteBg');
                 }
             }

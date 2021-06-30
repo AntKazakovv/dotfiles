@@ -3,13 +3,13 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'checkboxPadding': 5px 5px 5px 35px,
-    'checkboxElemSize': 25px,
+    'checkboxElemSize': 24px,
     'checkboxElemTop': 50%,
     'checkboxElemLeft': 0,
     'checkboxElemBackground': ef.get('fieldColors', 'inputBg'),
     'checkboxElemBorder': 2px solid ef.get('fieldColors', 'borderColor'),
     'checkboxElemMarginTop': -12px,
-    'checkboxElemBorderRadius': 4px,
+    'checkboxElemBorderRadius': 5px,
     'checkboxElemBorderColor': ef.get('fieldColors', 'borderColor'),
 
     'iconLineHieght': 0,
@@ -19,12 +19,15 @@ $themeDefault: map-merge((
     'iconSvgStrokeWidth': 3px,
     'iconSvgFill': transparent,
 
-    'textFontSize': 14px,
-    'textColor': ef.get('mainColors', 'baseMain'),
+    'checkboxTextFont': 'PrimaryText',
+    'checkboxTextFontColor': ef.get('mainColors', 'baseMain'),
     'leftTextPadding': 3.5px 35px 5px 3.5px,
+    'checkboxTextMargin': (
+        320: 0,
+    ),
 
     'linkColor': ef.get('mainColors', 'main'),
-    'linkHoverColor': darken(ef.get('mainColors', 'main'), 20),
+    'linkHoverColor': ef.get('mainColors', 'baseMain'),
     'errorColor': ef.get('form', 'errorsColor'),
 
     'toggleBackground': ef.get('mainColors', 'baseOpacity'),

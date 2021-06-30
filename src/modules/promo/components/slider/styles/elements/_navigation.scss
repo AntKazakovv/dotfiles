@@ -103,8 +103,8 @@
     }
 
     &.swiper-button-disabled {
+        background: ef.get-value($themeDefaultBanner, 'buttonBgDisabled');
         cursor: default;
-        opacity: 0.5;
     }
 
     @include em.hover {

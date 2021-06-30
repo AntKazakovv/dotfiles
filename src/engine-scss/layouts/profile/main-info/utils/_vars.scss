@@ -101,6 +101,7 @@ $mainInfoThemeDefault: map-merge((
         375: ef.get('mainColors', 'baseMain'),
         1024: ef.get('mainColors', 'main')
     ),
+    'addItemLinkColorHover': ef.get('mainColors', 'baseMain'),
     'addItemTitleMainMargin': (
         375: 0 0 5px 0,
     ),

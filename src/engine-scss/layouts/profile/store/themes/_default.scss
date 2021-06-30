@@ -34,6 +34,7 @@
             @include bm.get-mq-map('top', $storeThemeDefault, 'statTop');
             @include bm.get-mq-map('right', $storeThemeDefault, 'statRight');
             position: absolute;
+            z-index: 5;
         }
 
         .wlc-title {

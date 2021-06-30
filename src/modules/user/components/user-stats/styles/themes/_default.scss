@@ -2,6 +2,7 @@
 @use 'engine-scss/mixins/text' as lib;
 @use 'engine-scss/mixins/mediaqueries' as mq;
 @use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/mixins/text' as text;
 
 .wlc-user-stats--theme-default:host {
 
@@ -11,9 +12,9 @@
 
         &-description-currency {
             position: ef.get-value($themeDefault, 'iconDescriptionCurrencyPosition');
-            z-index: ef.get-value($themeDefault, 'zIndex');
             top: ef.get-value($themeDefault, 'iconTop');
             right: ef.get-value($themeDefault, 'iconRigth');
+            z-index: ef.get-value($themeDefault, 'zIndex');
             transform: ef.get-value($themeDefault, 'translateY');
 
             ::ng-deep {
@@ -29,16 +30,16 @@
         }
 
         &-balance {
+            @include bm.get-mq-map('background', $themeDefault, 'balanceBg');
+
             width: 100%;
             padding: ef.get-value($themeDefault, 'balancePadding');
             border-radius: ef.get-value($themeDefault, 'balanceBorderRadius');
 
-            @include bm.get-mq-map('background', $themeDefault, 'balanceBg');
-
             &--short {
                 @include bm.get-mq-map('background', $themeDefault, 'balanceShortBg');
-                padding: ef.get-value($themeDefault, 'balanceShortPadding');
                 min-width: ef.get-value($themeDefault, 'balanceShortMinWidth');
+                padding: ef.get-value($themeDefault, 'balanceShortPadding');
 
                 > div {
                     border-bottom-color: ef.get-value($themeDefault, 'balanceShortBorderColor');
@@ -46,12 +47,12 @@
             }
 
             &__item {
+                @include bm.get-mq-map('border-bottom', $themeDefault, 'balanceItemBorder');
+
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
                 padding: ef.get-value($themeDefault, 'balanceItemPadding');
-
-                @include bm.get-mq-map('border-bottom', $themeDefault, 'balanceItemBorder');
 
                 &:last-child {
                     border-bottom: none;
@@ -64,16 +65,16 @@
             }
 
             .value {
-                padding-left: 5px;
                 @include lib.get-text-style('PlaceholderTextBold');
+                padding-left: 5px;
                 color: ef.get-value($themeDefault, 'colorValue');
 
                 ::ng-deep {
 
                     .wlc-icon {
-                        display: inline-block;
                         position: relative;
                         bottom: 1px;
+                        display: inline-block;
 
                         svg {
                             width: ef.get-value($themeDefault, 'loyaltyIconSize');
@@ -92,10 +93,10 @@
             }
 
             &--store {
-                padding: ef.get-value($themeDefault, 'storePadding');
                 display: ef.get-value($themeDefault, 'storeDisplay');
                 flex-direction: column;
                 align-items: flex-end;
+                padding: ef.get-value($themeDefault, 'storePadding');
                 background: none;
 
                 .wlc-user-stats-balance__item {
@@ -104,9 +105,10 @@
                 }
 
                 .value {
+                    @include bm.transition(color);
+                    @include text.get-text-style(ef.get-value($themeDefault, 'storeValueFont'), ef.get-value($themeDefault, 'storeValueFontColor'));
                     display: ef.get-value($themeDefault, 'storeValueDisplay');
                     padding-left: 0;
-                    @include lib.get-text-style('ThirdTitleBold');
 
                     ::ng-deep {
 
@@ -118,6 +120,13 @@
                                 height: ef.get-value($themeDefault, 'loyaltyIconStoreSize');
                             }
                         }
+                    }
+                }
+
+                @include bm.hover {
+
+                    .value {
+                        color: ef.get-value($themeDefault, 'storeValueFontColorHover');
                     }
                 }
             }

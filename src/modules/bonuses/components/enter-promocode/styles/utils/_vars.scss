@@ -6,8 +6,8 @@ $themePromocodeBtn: map-merge((
     'btnRightPosition': 4px,
     'btnSize': 32px,
     'btnBackground': ef.get('mainColors', 'main'),
-    'btnBackgroundHover': lighten(ef.get('mainColors', 'main'), 10%),
-    'btnBackgroundPending': lighten(ef.get('mainColors', 'main'), 10%),
+    'btnBackgroundHover': lighten(ef.get('mainColors', 'main'), 5%),
+    'btnBackgroundPending': lighten(ef.get('mainColors', 'main'), 5%),
     'btnRadius': ef.get('radius', 'main'),
 
     'btnIconSize': 13px,

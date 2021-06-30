@@ -86,7 +86,6 @@
                 }
 
                 .wlc-btn[wlc-button] {
-                    @include bm.arrowIconAnimation;
                     grid-area: link;
                     width: ef.get-value($mainInfoThemeDefault, 'addItemWidth');
                     overflow: initial;
@@ -110,6 +109,19 @@
                         svg {
                             transform: rotate(-90deg);
                             fill: ef.get-value($mainInfoThemeDefault, 'addItemLinkColor', 1024);
+                        }
+                    }
+
+                    @include bm.hover {
+
+                        .wlc-btn__text {
+                            @include bm.transition(color);
+                            color: ef.get-value($mainInfoThemeDefault, 'addItemLinkColorHover');
+                        }
+
+                        svg {
+                            @include bm.transition(fill);
+                            fill: ef.get-value($mainInfoThemeDefault, 'addItemLinkColorHover');
                         }
                     }
 

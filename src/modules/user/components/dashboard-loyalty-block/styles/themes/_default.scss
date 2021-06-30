@@ -39,8 +39,16 @@
             }
 
             @include bm.hover {
+                @include bm.transition(color);
                 color: ef.get-value($themeDefault, 'allLinkColorHover');
-                text-decoration: underline;
+
+                .wlc-icon::ng-deep {
+
+                    svg {
+                        @include bm.transition(fill);
+                        fill: ef.get-value($themeDefault, 'allLinkColorHover');
+                    }
+                }
             }
         }
 

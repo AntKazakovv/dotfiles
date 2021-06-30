@@ -11,7 +11,7 @@ $themeDefault: map-merge((
     'linksGap': ef.get('size', 'small'),
 
     'linkColor': ef.get('mainColors', 'baseMain'),
-    'linkColorHover': darken(ef.get('mainColors', 'baseMain'), 30%),
+    'linkColorHover': ef.get('mainColors', 'main'),
     'linkSize': 100%,
     'linkDecoration': none,
 
