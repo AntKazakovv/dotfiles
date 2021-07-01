@@ -1,4 +1,4 @@
-<div *ngIf="showMobileInstruction" class="{{$class}}__tutorial">
+<div *ngIf="showMobileInstruction && !landscapeOrientation" class="{{$class}}__tutorial">
     <div class="{{$class}}__tutorial-left-decor" [@leftShift]="decorAnimationState"></div>
     <div class="{{$class}}__tutorial-item" [@fadeIn]="decorAnimationState">
         <div class="{{$class}}__tutorial-arrow">
@@ -23,7 +23,8 @@
     <div class="{{$class}}__tutorial-right-decor" [@rightShift]="decorAnimationState"></div>
 </div>
 
-<div class="{{$class}}__backdrop"
+<div *ngIf="!landscapeOrientation"
+     class="{{$class}}__backdrop"
      #backdrop
      (click)="close()">
     <div class="{{$class}}__backdrop-label"
@@ -33,7 +34,9 @@
     </div>
 </div>
 
-<div class="{{$class}}__wrp" #container>
+<div *ngIf="!landscapeOrientation"
+     class="{{$class}}__wrp"
+     #container>
     <div class="{{$class}}__panch"
          #dragBtn
          [hidden]="!isMobile">
