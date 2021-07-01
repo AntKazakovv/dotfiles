@@ -153,22 +153,24 @@
                 svg {
                     width: ef.get-value($themeDefault, 'favoriteSize');
                     height: ef.get-value($themeDefault, 'favoriteSize');
-                }
 
-                svg path {
-                    @include bm.transition(fill, 0.25s);
-                    fill: ef.get-value($themeDefault, 'favoriteBg');
+                    path {
+                        @include bm.transition();
+                        transform-origin: center;
+                        fill: ef.get-value($themeDefault, 'favoriteBg');
+                    }
                 }
             }
 
             &.active::ng-deep {
                 background: ef.get-value($themeDefault, 'favoriteBackBgActive');
 
-                svg,
-                path {
-                    transform: rotateX(180deg);
-                    transform-origin: center;
-                    fill: ef.get-value($themeDefault, 'favoriteActiveBg');
+                svg {
+
+                    path {
+                        transform: scaleX(-1);
+                        fill: ef.get-value($themeDefault, 'favoriteActiveBg');
+                    }
                 }
             }
 
