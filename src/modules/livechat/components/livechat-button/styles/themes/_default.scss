@@ -1,0 +1,33 @@
+.wlc-livechat-button--theme-default:host {
+
+    .wlc-livechat-button__button {
+        @include text.get-text-style('PrimaryText', ef.get-value($themeDefault, 'color'));
+        display: ef.get-value($themeDefault, 'display');
+        align-items: ef.get-value($themeDefault, 'alignItems');
+        justify-content: ef.get-value($themeDefault, 'justifyContent');
+        width: 100%;
+        max-width: ef.get-value($themeDefault, 'maxWidth');
+        margin: ef.get-value($themeDefault, 'margin');
+        padding: ef.get-value($themeDefault, 'padding');
+        background: ef.get-value($themeDefault, 'background');
+        border: ef.get-value($themeDefault, 'border');
+        border-radius: ef.get-value($themeDefault, 'borderRadius');
+
+        @include bm.hover {
+            color: ef.get-value($themeDefault, 'colorHover');
+            background: ef.get-value($themeDefault, 'backgroundHover');
+
+            .wlc-livechat-button__icon {
+                color: ef.get-value($themeDefault, 'iconColorHover');
+            }
+        }
+    }
+
+    .wlc-livechat-button__icon {
+        display: block;
+        width: ef.get-value($themeDefault, 'iconWidth');
+        height: ef.get-value($themeDefault, 'iconHeight');
+        margin: ef.get-value($themeDefault, 'iconMargin');
+        color: ef.get-value($themeDefault, 'iconColor');
+    }
+}

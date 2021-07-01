@@ -11,4 +11,8 @@ export namespace wlcMobileMenu {
             },
         },
     };
+
+    export const liveChatButton: ILayoutComponent = {
+        name: 'livechat.wlc-livechat-button',
+    };
 }

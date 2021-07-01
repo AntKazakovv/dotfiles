@@ -3,16 +3,20 @@ import {
     Inject,
 } from '@angular/core';
 import {DOCUMENT} from '@angular/common';
-import {LivechatAbstract} from '../../classes/livechatAbstract.class';
+import {skipWhile} from 'rxjs/operators';
+import {BehaviorSubject} from 'rxjs';
+
 import {
     ConfigService,
     EventService,
     LogService,
 } from 'wlc-engine/modules/core';
 import {UserProfile} from 'wlc-engine/modules/user';
-import {ILivechatConfig} from '../../interfaces/livechat.interface';
-import {BehaviorSubject} from 'rxjs';
-import {skipWhile} from 'rxjs/operators';
+import {
+    LivechatAbstract,
+    ChatState,
+    ILivechatConfig,
+} from 'wlc-engine/modules/livechat';
 
 import _get from 'lodash-es/get';
 
@@ -21,6 +25,7 @@ import _get from 'lodash-es/get';
 })
 export class LivechatincService extends LivechatAbstract {
     public chatId = 'chat-widget-container';
+
     protected options: ILivechatConfig = this.configService.get<ILivechatConfig>('$base.livechat');
     protected isAuth: boolean;
     protected profile: UserProfile;
@@ -35,9 +40,74 @@ export class LivechatincService extends LivechatAbstract {
     }
 
     /**
-     * Main init livechatinc chat code method
+     * Check chat is loaded
+     *
+     * @returns {boolean} true or false
      */
-    public init(): void {
+    public chatIsLoaded(): boolean {
+        const chatEl = this.document.getElementById(this.chatId);
+        return chatEl
+            && window.LC_API
+            && window.LC_API.is_loaded
+            && window.LC_API.is_loaded();
+    }
+
+    /**
+     * Open chat window method
+     */
+    public openChat(): void {
+        try {
+            window.LC_API.open_chat_window();
+        } catch (error) {
+            this.logService.sendLog({code: '14.0.0', data: error});
+        }
+    }
+
+    /**
+     * Check chat window is closed
+     *
+     * @returns {boolean} true or false
+     */
+    public chatIsMinimized(): boolean {
+        try {
+            return window.LC_API.chat_window_minimized();
+        } catch {
+            return false;
+        }
+    }
+
+    /**
+     * Close chat window method
+     */
+    public hideChat(): void {
+        try {
+            window.LC_API.minimize_chat_window();
+        } catch (error) {
+            this.logService.sendLog({code: '14.0.0', data: error});
+        }
+    }
+
+    /**
+     * Hides chat widget button
+     */
+    public hideWidget(): void {
+        try {
+            window.LC_API.hide_chat_window();
+        } catch (error) {
+            this.logService.sendLog({code: '14.0.0', data: error});
+        }
+    }
+
+    /**
+     * Shows hidden chats widget button
+     */
+    public showWidget(): void {
+        this.hideChat();
+    }
+
+    protected initChat(): void {
+        this.chatState$ = new BehaviorSubject(null);
+
         if (this.options.type !== 'livechatinc' || !this.options.code) {
             this.logService.sendLog({code: '14.0.1'});
             return;
@@ -66,71 +136,34 @@ export class LivechatincService extends LivechatAbstract {
         window.LC_API = {};
 
         window.LC_API.on_after_load = () => {
+            this.chatState$.next(ChatState.loaded);
             if (this.options.setUserDetails) {
                 this.setHandlers();
             }
         };
 
+        window.LC_API.on_chat_window_opened = () => {
+            this.chatState$.next(ChatState.opened);
+        };
+
+        window.LC_API.on_chat_window_minimized = () => {
+            this.chatState$.next(ChatState.minimized);
+        };
+
+        window.LC_API.on_chat_window_hidden = () => {
+            this.chatState$.next(ChatState.hidden);
+        };
+
+        window.LC_API.on_chat_started = () => {
+            this.chatState$.next(ChatState.started);
+        };
+
+        window.LC_API.on_chat_ended = () => {
+            this.chatState$.next(ChatState.ended);
+        };
+
         if (this.options.hidden) {
             this.hiddenChatStart();
-        }
-    }
-
-    /**
-     * Check chat is loaded
-     *
-     * @returns {boolean} true or false
-     */
-    public chatIsLoaded(): boolean {
-        const chatEl = this.document.getElementById(this.chatId);
-        return chatEl
-            && window.LC_API
-            && window.LC_API.is_loaded
-            && window.LC_API.is_loaded();
-    }
-
-    /**
-     * Open chat window method
-     */
-    public openChat(): void {
-        if (this.chatIsLoaded()) {
-            window.LC_API.open_chat_window();
-        } else {
-            this.logService.sendLog({code: '14.0.0'});
-        }
-    }
-
-    /**
-     * Check chat window is closed
-     *
-     * @returns {boolean} true or false
-     */
-    public chatIsMinimized(): boolean {
-        if (this.chatIsLoaded()) {
-            return window.LC_API.chat_window_minimized() ? true : false;
-        }
-        return false;
-    }
-
-    /**
-     * Close chat window method
-     */
-    public minimizeChat(): void {
-        if (this.chatIsLoaded()) {
-            window.LC_API.minimize_chat_window();
-        } else {
-            this.logService.sendLog({code: '14.0.0'});
-        }
-    }
-
-    /**
-     * Hiding chat method
-     */
-    public hideChat(): void {
-        if (this.chatIsLoaded()) {
-            window.LC_API.hide_chat_window();
-        } else {
-            this.logService.sendLog({code: '14.0.0'});
         }
     }
 

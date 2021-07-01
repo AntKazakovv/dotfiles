@@ -6,12 +6,18 @@ import {
     LivechatincService,
     VerboxService,
     TawkChatService,
+    TLiveChat,
 } from 'wlc-engine/modules/livechat';
+
+export type TChatService = LivechatincService | VerboxService | ChatraService | TawkChatService;
 
 @Injectable({
     providedIn: 'root',
 })
 export class CommonChatService {
+
+    public chatType: TLiveChat;
+    public activeChatService: TChatService;
 
     constructor(
         protected configService: ConfigService,
@@ -25,19 +31,30 @@ export class CommonChatService {
 
     protected init(): void {
         const config = this.configService.get<ILivechatConfig>('$base.livechat');
-        switch (config?.type) {
-            case 'chatra':
-                this.chatraService.init();
-                break;
-            case 'livechatinc':
-                this.livechatincService.init();
-                break;
-            case 'verbox':
-                this.verboxService.init();
-                break;
-            case 'tawkChat':
-                this.tawkChatService.init();
-                break;
+
+        if (config?.type) {
+            this.chatType = config.type;
+
+            switch (config.type) {
+                case 'chatra':
+                    this.activeChatService = this.chatraService;
+                    break;
+                case 'livechatinc':
+                    this.activeChatService = this.livechatincService;
+                    break;
+                case 'verbox':
+                    this.activeChatService = this.verboxService;
+                    break;
+                case 'tawkChat':
+                    this.activeChatService = this.tawkChatService;
+                    break;
+            }
+
+            if (this.activeChatService) {
+                this.activeChatService.init();
+            } else {
+                console.error(`Unavailable chat type: ${config.type}`);
+            }
         }
     }
 }

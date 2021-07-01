@@ -3,7 +3,10 @@ import {
     Inject,
 } from '@angular/core';
 import {DOCUMENT} from '@angular/common';
-import {TranslateService} from '@ngx-translate/core';
+import {
+    LangChangeEvent,
+    TranslateService,
+} from '@ngx-translate/core';
 import {filter} from 'rxjs/operators';
 
 import {
@@ -12,13 +15,17 @@ import {
     LogService,
 } from 'wlc-engine/modules/core';
 import {UserService} from 'wlc-engine/modules/user';
-import {LivechatAbstract, ILivechatConfig} from 'wlc-engine/modules/livechat';
+import {
+    LivechatAbstract,
+    ILivechatConfig,
+} from 'wlc-engine/modules/livechat';
 
 @Injectable({
     providedIn: 'root',
 })
 export class VerboxService extends LivechatAbstract {
     public chatId = 'verbox';
+    public forceHideStyles = '#supportTrigger {display: none !important;}';
     protected options: ILivechatConfig = this.configService.get<ILivechatConfig>('$base.livechat');
 
     constructor(
@@ -36,10 +43,14 @@ export class VerboxService extends LivechatAbstract {
      * Main init verbox chat code method
      */
     public init(): void {
-        this.initChat();
+        super.init();
 
-        this.translateService.onLangChange.subscribe(() => {
-            this.reloadChat();
+        let current = this.translateService.currentLang;
+        this.translateService.onLangChange.subscribe(({lang}: LangChangeEvent) => {
+            if (lang !== current) {
+                this.reloadChat();
+                current = lang;
+            }
         });
 
         if (this.options.autocomplete) {
@@ -56,13 +67,13 @@ export class VerboxService extends LivechatAbstract {
     }
 
     /**
-       * Open chat window method
-       */
+     * Open chat window method
+     */
     public openChat(): void {
-        if (this.chatIsLoaded()) {
+        try {
             window.Verbox('openSupport');
-        } else {
-            this.logService.sendLog({code: '14.0.0'});
+        } catch (error) {
+            this.logService.sendLog({code: '14.0.0', data: error});
         }
     }
 
@@ -70,10 +81,10 @@ export class VerboxService extends LivechatAbstract {
      * Close chat window method
      */
     public hideChat(): void {
-        if (this.chatIsLoaded()) {
+        try {
             window.Verbox('closeSupport');
-        } else {
-            this.logService.sendLog({code: '14.0.0'});
+        } catch (error) {
+            this.logService.sendLog({code: '14.0.0', data: error});
         }
     }
 
@@ -138,4 +149,3 @@ export class VerboxService extends LivechatAbstract {
         });
     }
 }
-

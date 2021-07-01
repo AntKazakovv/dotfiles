@@ -4,13 +4,16 @@ import {
 } from '@angular/core';
 import {DOCUMENT} from '@angular/common';
 import {TranslateService} from '@ngx-translate/core';
-import {LivechatAbstract} from '../../classes/livechatAbstract.class';
+
 import {
     ConfigService,
     EventService,
     LogService,
 } from 'wlc-engine/modules/core';
-import {ILivechatConfig} from '../../interfaces/livechat.interface';
+import {
+    LivechatAbstract,
+    ILivechatConfig,
+} from 'wlc-engine/modules/livechat';
 
 import _get from 'lodash-es/get';
 
@@ -19,6 +22,7 @@ import _get from 'lodash-es/get';
 })
 export class ChatraService extends LivechatAbstract {
     public chatId = 'chatra';
+    public forceHideStyles = '#chatra:not(.chatra--expanded) {display: none !important;}';
     protected options: ILivechatConfig = this.configService.get<ILivechatConfig>('$base.livechat');
 
     constructor(
@@ -35,7 +39,8 @@ export class ChatraService extends LivechatAbstract {
      * Main init chatra chat code method
      */
     public init(): void {
-        this.initChat();
+        super.init();
+
         if (this.options?.group) {
             this.translateService.onLangChange.subscribe(() => {
                 this.reloadChat();
@@ -56,10 +61,10 @@ export class ChatraService extends LivechatAbstract {
      * Open chat window method
      */
     public openChat(): void {
-        if (this.chatIsLoaded()) {
+        try {
             window.Chatra('openChat', true);
-        } else {
-            this.logService.sendLog({code: '14.0.0'});
+        } catch (error) {
+            this.logService.sendLog({code: '14.0.0', data: error});
         }
     }
 
@@ -67,11 +72,11 @@ export class ChatraService extends LivechatAbstract {
      * Close chat window method
      */
     public hideChat(): void {
-        if (this.chatIsLoaded()) {
+        try {
             window.Chatra('minimizeWidget');
             window.Chatra('hide');
-        } else {
-            this.logService.sendLog({code: '14.0.0'});
+        } catch (error) {
+            this.logService.sendLog({code: '14.0.0', data: error});
         }
     }
 

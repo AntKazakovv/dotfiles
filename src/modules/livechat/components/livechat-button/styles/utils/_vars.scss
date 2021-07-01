@@ -1,0 +1,22 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'color': ef.get('mainColors', 'baseMain'),
+    'margin': ef.get('size', 'smallest') 0,
+    'maxWidth': 275px,
+    'padding': ef.get('size', 'small') 12px,
+    'background': ef.get('mainColors', 'bg700'),
+    'border': none,
+    'display': flex,
+    'alignItems': center,
+    'justifyContent': flex-start,
+    'borderRadius': ef.get('radius', 'biger'),
+
+    'colorHover': ef.get('mainColors', 'baseMain'),
+    'backgroundHover': ef.get('mainColors', 'bg500'),
+
+    'iconColor': ef.get('mainColors', 'baseMain'),
+    'iconColorHover': ef.get('mainColors', 'baseMain'),
+    'iconMargin': 0 ef.get('size', 'smallest') 0 0,
+    'iconWidth': 27px,
+    'iconHeight': 19px,
+), $customThemeDefault);
