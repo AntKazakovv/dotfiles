@@ -225,8 +225,10 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
         });
         this.initEventHandlers();
 
-        this.showMobileInstruction = !await this.cachingService.get<boolean>(this.dontShowInstructionKey) &&
-            !this.configService.get(`$games.${this.dontShowInstructionKey}`);
+        if (!this.landscapeOrientation) {
+            this.showMobileInstruction = !await this.cachingService.get<boolean>(this.dontShowInstructionKey) &&
+                !this.configService.get(`$games.${this.dontShowInstructionKey}`);
+        }
 
         if (this.showMobileInstruction) {
             this.configService.set({
@@ -587,11 +589,11 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
         this.actionService.windowResize()
             .pipe(takeUntil(this.$destroy))
             .subscribe((event: IResizeEvent) => {
-                const currentOrientation = !event.device.isDesktop && event.device.orientation == DeviceOrientation.Landscape;
-                if (currentOrientation !== this.landscapeOrientation) {
-                    this.landscapeOrientation = currentOrientation;
+
+                const usedLandscapeMode: boolean = this.isMobile && event.device.orientation === DeviceOrientation.Landscape;
+                if (usedLandscapeMode !== this.landscapeOrientation) {
+                    this.landscapeOrientation = usedLandscapeMode;
                     this.close();
-                    return;
                 }
 
                 this.backdropLabelVisibility();
@@ -664,10 +666,6 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
      * @param {boolean} open
      */
     protected changeView(open: boolean): void {
-        if (!this.container) {
-            return;
-        }
-        this.cdr.detectChanges();
         this.opened = open;
 
         if (open) {
@@ -676,16 +674,21 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
             this.removeModifiers('backdrop');
         }
 
-        const translateForClosed: number = this.side == 'right' ? this.dashboardWidth : -this.dashboardWidth;
-        const translate: number = open ? 0 : translateForClosed;
-        this.renderer.setStyle(
-            this.container.nativeElement,
-            'transform',
-            `translateX(${translate}px)`,
-        );
+        if (this.container) {
+            const translateForClosed: number = this.side == 'right' ? this.dashboardWidth : -this.dashboardWidth;
+            const translate: number = open ? 0 : translateForClosed;
+
+            this.renderer.setStyle(
+                this.container.nativeElement,
+                'transform',
+                `translateX(${translate}px)`,
+            );
+        }
+
         this.eventService.emit({
             name: open ? Params.GameDashboardEvents.OPENED : Params.GameDashboardEvents.CLOSED,
         });
+        this.cdr.detectChanges();
     }
 
     /**
