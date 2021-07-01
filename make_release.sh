@@ -50,6 +50,12 @@ echo "Source: remotes/$git_remote/$stable_branch"
 echo "Tag: $tag"
 echo
 
+npm run gulp change-logs -- --tag=$tag
+
+if [ $? -eq 1 ]; then
+    exit 1;
+fi
+
 read -p "Create new release tag (yes/no): " CONT
 
 if test "$CONT" != "yes"; then
@@ -58,6 +64,7 @@ fi
 
 sed -i -e "s/\"version\": \"${prevver}\"/\"version\": \"${ver}\"/g" ./package.json
 
+git add src/docs/content/*
 git add package.json
 
 git commit -m "Updated for release ${PROJECT_NAME} $ver" && \

@@ -26,6 +26,8 @@ module.exports = function config(root, bundleType) {
             indexFile: `${root}/roots/template/angular.html`,
             srcIndexFile: `${root}/src/index.html`,
             polyfillsFile: `${root}/src/polyfills.ts`,
+            changeLogs: `${root}/src/docs/content/900.change-logs/releases`,
+            changeLogsDocDist: `${root}/src/docs/content/900.change-logs`,
         },
         tmpFileOptions: {
             tmpdir: root + '/temp',

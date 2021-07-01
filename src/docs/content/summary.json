@@ -182,5 +182,9 @@
                 "file": "./800.misc/840.favicon.md"
             }
         ]
+    },
+    {
+        "title": "9. Change logs",
+        "file": "./900.change-logs/900.change-logs.md"
     }
 ]

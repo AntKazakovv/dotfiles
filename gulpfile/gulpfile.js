@@ -3,6 +3,7 @@
 const
     fs = require('fs'),
     _ = require('lodash'),
+    execSync = require('child_process').execSync,
     concurrently = require('concurrently'),
     stream = require('stream'),
     glob = require('glob'),
@@ -68,6 +69,11 @@ class gulpTask {
         return Promise.all(messages.map((command) => {
             this.execShell(command, hideOutput);
         }));
+    }
+
+    execNativeShellSync(command) {
+        var response = execSync(command);
+        return response.toString('UTF8');
     }
 
     addToGitIgnore(block, type, path) {
