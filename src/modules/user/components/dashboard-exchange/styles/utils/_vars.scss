@@ -34,27 +34,22 @@ $themeDefault: map-merge((
     ),
 
     'separatorPosLeft': (
-        375: 50%,
         640: 100%,
     ),
     'separatorPosTop': (
-        375: 100%,
         640: 50%,
     ),
     'separatorTransform': (
-        375: translate(-50%, 0),
         640: translate(0, -50%),
     ),
     'separatorWidth': (
-        375: 100%,
         640: 1px,
     ),
     'separatorHeight': (
-        375: 1px,
         640: 100%,
     ),
     'separatorBg': (
-        375: ef.get('mainColors', 'baseOpacity'),
+        640: ef.get('mainColors', 'baseOpacity'),
     ),
     'separatorMaxWidth': 215px,
 

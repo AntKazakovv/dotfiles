@@ -1,4 +1,4 @@
-import { IBonusesListCParams } from 'wlc-engine/modules/bonuses';
+import {IBonusesListCParams} from 'wlc-engine/modules/bonuses';
 import {ILayoutComponent} from 'wlc-engine/modules/core';
 
 export namespace wlcBonusesList {
@@ -84,14 +84,15 @@ export namespace wlcBonusesList {
                         },
                         720: {
                             slidesPerView: 2,
-                            spaceBetween: 20,
+                            spaceBetween: 10,
                         },
                         1024: {
-                            slidesPerView: 1,
-                            spaceBetween: 20,
+                            spaceBetween: 10,
                         },
                         1200: {
-                            slidesPerView: 2,
+                            spaceBetween: 15,
+                        },
+                        1630: {
                             spaceBetween: 20,
                         },
                     },
