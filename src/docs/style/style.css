@@ -68,3 +68,12 @@ body .content-data h3 a:visited {
     font-size: 90%;
     font-style: italic;
 }
+
+.content {
+    left: 380px;
+    width: calc(100% - 380px);
+}
+
+.menu {
+    width: 380px;
+}
