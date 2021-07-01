@@ -1,13 +1,42 @@
+import {BehaviorSubject} from 'rxjs';
+
 import {EventService} from 'wlc-engine/modules/core';
+
+export enum ChatState {
+    loaded,
+    opened,
+    minimized,
+    hidden,
+    started,
+    ended,
+}
 
 export abstract class LivechatAbstract {
     public chatId: string;
     public chatIsOpen: boolean = false;
+    /**
+     * Must be used if chat supports events.
+     *
+     * Left it undefined if chat doesn't support events.
+     */
+    public chatState$: BehaviorSubject<ChatState>;
+    /**
+     * If chat doesn't support events, this styles are be used to hide widget button.
+     *
+     * Left it undefined if chat supports events
+     */
+    public forceHideStyles: string;
 
     constructor(
         protected document: HTMLDocument,
         protected eventService: EventService,
-    ) {
+    ) {}
+
+    /**
+     * Main method to init chat service
+     */
+    public init(): void {
+        this.initChat();
         this.initEvents();
     }
 
@@ -20,6 +49,16 @@ export abstract class LivechatAbstract {
      * Close chat abstract method
      */
     public abstract hideChat(): void;
+
+    /**
+     * Hides chat widget button
+     */
+    public hideWidget(): void {};
+
+    /**
+     * Shows hidden chats widget button
+     */
+    public showWidget(): void {};
 
     /**
      * Toggle chat method
@@ -39,9 +78,14 @@ export abstract class LivechatAbstract {
     }
 
     /**
-     * Chat open, close, toggle events subscribtions
+     * Must contains code to init chat.
      */
-    public initEvents(): void {
+    protected initChat(): void {}
+
+    /**
+     * Chat open, close, toggle events subscriptions
+     */
+    protected initEvents(): void {
         this.eventService.filter({name: 'LIVECHAT_TOGGLE'}).subscribe(() => this.toggleChat());
         this.eventService.filter({name: 'LIVECHAT_OPEN'}).subscribe(() => this.openChat());
         this.eventService.filter({name: 'LIVECHAT_CLOSE'}).subscribe(() => this.hideChat());

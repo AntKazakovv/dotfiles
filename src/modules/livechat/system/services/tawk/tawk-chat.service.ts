@@ -3,13 +3,18 @@ import {
     Inject,
 } from '@angular/core';
 import {DOCUMENT} from '@angular/common';
-import {LivechatAbstract} from '../../classes/livechatAbstract.class';
+import {BehaviorSubject} from 'rxjs';
+
 import {
     ConfigService,
     EventService,
     LogService,
 } from 'wlc-engine/modules/core';
-import {ILivechatConfig} from '../../interfaces/livechat.interface';
+import {
+    LivechatAbstract,
+    ChatState,
+    ILivechatConfig,
+} from 'wlc-engine/modules/livechat';
 
 import _get from 'lodash-es/get';
 
@@ -30,13 +35,6 @@ export class TawkChatService extends LivechatAbstract {
     }
 
     /**
-     * Main init tawk chat code method
-     */
-    public init(): void {
-        this.initChat();
-    }
-
-    /**
      * Check chat is loaded
      *
      * @returns {boolean} true or false
@@ -49,13 +47,13 @@ export class TawkChatService extends LivechatAbstract {
      * Open chat window method
      */
     public openChat(): void {
-        if (this.chatIsLoaded()) {
+        try {
             if (window.Tawk_API.isChatHidden()) {
                 window.Tawk_API.showWidget();
             }
             window.Tawk_API.maximize();
-        } else {
-            this.logService.sendLog({code: '14.0.0'});
+        } catch (error) {
+            this.logService.sendLog({code: '14.0.0', data: error});
         }
     }
 
@@ -63,13 +61,35 @@ export class TawkChatService extends LivechatAbstract {
      * Close chat window method
      */
     public hideChat(): void {
-        if (this.chatIsLoaded()) {
+        try {
             if (window.Tawk_API.isChatMaximized()) {
                 window.Tawk_API.minimize();
             }
             window.Tawk_API.hideWidget();
-        } else {
-            this.logService.sendLog({code: '14.0.0'});
+        } catch (error) {
+            this.logService.sendLog({code: '14.0.0', data: error});
+        }
+    }
+
+    /**
+     * Hides chat widget button
+     */
+    public hideWidget(): void {
+        try {
+            window.Tawk_API.hideWidget();
+        } catch (error) {
+            this.logService.sendLog({code: '14.0.0', data: error});
+        }
+    }
+
+    /**
+     * Shows hidden chats widget button
+     */
+    public showWidget(): void {
+        try {
+            window.Tawk_API.showWidget();
+        } catch (error) {
+            this.logService.sendLog({code: '14.0.0', data: error});
         }
     }
 
@@ -93,6 +113,8 @@ export class TawkChatService extends LivechatAbstract {
     }
 
     protected initChat(): void {
+        this.chatState$ = new BehaviorSubject(null);
+
         if (this.options.type !== 'tawkChat' || !this.options.code) {
             this.logService.sendLog({code: '14.0.1'});
             return;
@@ -115,15 +137,33 @@ export class TawkChatService extends LivechatAbstract {
         s0.parentNode.insertBefore(s1, s0);
 
         window.Tawk_API.onLoad = () => {
+            this.chatState$.next(ChatState.loaded);
             this.chatIsLoad = true;
 
             if (this.options?.hidden) {
-                this.hiddenChatStart();
+                this.hideWidget();
             }
         };
-    }
 
-    protected hiddenChatStart(): void {
-        window.Tawk_API.hideWidget();
+        window.Tawk_API.onChatMaximized = () => {
+            this.chatState$.next(ChatState.opened);
+        };
+
+        window.Tawk_API.onChatMinimized = () => {
+            this.chatState$.next(ChatState.minimized);
+        };
+
+        window.Tawk_API.onChatHidden = () => {
+            this.chatState$.next(ChatState.hidden);
+        };
+
+        window.Tawk_API.onChatStarted = () => {
+            this.chatState$.next(ChatState.started);
+        };
+
+        window.Tawk_API.onChatEnded = () => {
+            this.chatState$.next(ChatState.ended);
+        };
+
     }
 }

@@ -1,0 +1,10 @@
+<button *ngIf="!unavailable"
+    class="{{$class}}__button"
+    (click)="handleClick()">
+    <span *ngIf="$params.iconPath"
+        wlc-icon
+        class="{{$class}}__icon"
+        [iconPath]="$params.iconPath">
+    </span>
+    {{$params.buttonText | translate}}
+</button>
