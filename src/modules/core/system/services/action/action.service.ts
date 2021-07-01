@@ -426,7 +426,7 @@ export class ActionService {
         this.eventService.subscribe({
             name: 'AFFILIATE_SIGNIN',
         }, () => {
-            this.document.defaultView.open(affAddress + this.lang + '/register', '_self');
+            this.document.defaultView.open(affAddress + this.lang + '/Register', '_self');
         });
     }
 }
