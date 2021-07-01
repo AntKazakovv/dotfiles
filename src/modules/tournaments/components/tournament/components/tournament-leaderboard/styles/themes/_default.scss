@@ -61,6 +61,7 @@
             }
 
             &.user {
+                color: ef.get-value($themeDefault, 'rowUserColor');
                 font-weight: ef.get-value($themeDefault, 'rowUserFontWeight');
                 background-color: ef.get-value($themeDefault, 'rowUserBg');
 
