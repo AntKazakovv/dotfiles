@@ -1,7 +1,7 @@
 @use 'engine-scss/functions' as ef;
 
-$customThemeDefault: () !default;
-$themeDefault: map-merge((
+$customThemeHomeWins: () !default;
+$themeHomeWins: map-merge((
     'homeWinsGridTemplateColumns': (
         320: 1fr,
         720: repeat(2, 1fr),
@@ -37,4 +37,4 @@ $themeDefault: map-merge((
         320: auto,
         1630: 380px,
     ),
-), $customThemeDefault);
+), $customThemeHomeWins);
