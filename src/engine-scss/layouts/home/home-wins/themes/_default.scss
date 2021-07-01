@@ -4,44 +4,44 @@
 .wlc-sections__content-wins--theme-default {
 
     .wlc-home-wins {
-        @include em.get-mq-map('grid-template-columns', $themeDefault, 'homeWinsGridTemplateColumns');
-        @include em.get-mq-map('gap', $themeDefault, 'homeWinsGap');
+        @include em.get-mq-map('grid-template-columns', $themeHomeWins, 'homeWinsGridTemplateColumns');
+        @include em.get-mq-map('gap', $themeHomeWins, 'homeWinsGap');
         display: grid;
 
         .wlc-winners-slider.wlc-winners-slider--theme-vertical {
 
             .wlc-winners-slider__wrapper {
-                max-width: ef.get-value($themeDefault, 'homeWinsSliderWrapMaxWidth');
+                max-width: ef.get-value($themeHomeWins, 'homeWinsSliderWrapMaxWidth');
             }
         }
     }
 
     .wlc-home-wins.wlc-home-wins--tournament {
-        @include em.get-mq-map('grid-template-columns', $themeDefault, 'tournamentGridTemplateColumns');
-        @include em.get-mq-map('gap', $themeDefault, 'tournamentGap');
+        @include em.get-mq-map('grid-template-columns', $themeHomeWins, 'tournamentGridTemplateColumns');
+        @include em.get-mq-map('gap', $themeHomeWins, 'tournamentGap');
         display: grid;
 
         .wlc-winners-slider.wlc-winners-slider--theme-vertical {
 
             .wlc-winners-slider__wrapper {
-                max-width: ef.get-value($themeDefault, 'tournamentSliderWrapMaxWidth');
+                max-width: ef.get-value($themeHomeWins, 'tournamentSliderWrapMaxWidth');
             }
         }
 
         .wlc-tournament-list.wlc-tournament-list--theme-banner {
 
             .swiper-button-container {
-                @include em.get-mq-map('display', $themeDefault, 'tournamentSliderButtonDisplay');
+                @include em.get-mq-map('display', $themeHomeWins, 'tournamentSliderButtonDisplay');
             }
         }
 
         .wlc-tournament-smart-info--theme-default .wlc-tournament-smart-info__content {
-            @include em.get-mq-map('justify-content', $themeDefault, 'tournamentSmartJustifyContent');
+            @include em.get-mq-map('justify-content', $themeHomeWins, 'tournamentSmartJustifyContent');
         }
 
         .wlc-tournament-banner {
-            @include em.get-mq-map('height', $themeDefault, 'tournamentBannerHeight');
-            @include em.get-mq-map('min-height', $themeDefault, 'tournamentBannerMinHeight');
+            @include em.get-mq-map('height', $themeHomeWins, 'tournamentBannerHeight');
+            @include em.get-mq-map('min-height', $themeHomeWins, 'tournamentBannerMinHeight');
         }
     }
 }
