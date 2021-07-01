@@ -25,6 +25,7 @@ $themeDefault: map-merge((
     'btnFontSize': ef.get('font', 'PlaceholderText'),
     'rowBg': ef.get('mainColors', 'bg'),
     'rowUserBg': ef.get('mainColors', 'main'),
+    'rowUserColor': null,
     'rowUserFontWeight': 700,
     'iconColor': ef.get('mainColors', 'main'),
     'iconUserColor': ef.get('mainColors', 'bg'),
