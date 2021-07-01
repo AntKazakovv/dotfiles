@@ -71,6 +71,6 @@ export const defaultParams: IBonusesListCParams = {
         common: {
             text: gettext('Go to Profile'),
             sref: 'app.profile.loyalty-bonuses.main',
-        }
+        },
     },
 };
