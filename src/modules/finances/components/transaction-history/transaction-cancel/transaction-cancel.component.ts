@@ -12,6 +12,7 @@ import {
     EventService,
     IPushMessageParams,
     NotificationEvents,
+    ConfigService,
 } from 'wlc-engine/modules/core';
 
 import {
@@ -28,6 +29,7 @@ import * as Params from './transaction-cancel.params';
 })
 export class TransactionCancelComponent extends AbstractComponent implements OnInit {
     @HostBinding('class.allow-cancelation') protected allowCancelation: boolean;
+    @HostBinding('class.profile-first') protected profileFirst: boolean;
     public $params: Params.ITransactionCancelParams;
     protected inProgress: boolean = false;
 
@@ -36,6 +38,7 @@ export class TransactionCancelComponent extends AbstractComponent implements OnI
         protected cdr: ChangeDetectorRef,
         protected financesService: FinancesService,
         protected eventService: EventService,
+        protected configService: ConfigService,
     ) {
         super(
             <IMixedParams<Params.ITransactionCancelParams>>{
@@ -46,7 +49,7 @@ export class TransactionCancelComponent extends AbstractComponent implements OnI
 
     public async ngOnInit(): Promise<void> {
         super.ngOnInit();
-
+        this.profileFirst = this.configService.get('$base.profile.type') === 'first';
         this.allowCancelation = this.$params.transaction.allowCancelation;
     }
 

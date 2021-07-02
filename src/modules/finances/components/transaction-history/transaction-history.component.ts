@@ -86,6 +86,7 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
     protected endDate: DateTime;
 
     public tableData: ITableCParams = {
+        themeMod: this.configService.get('$base.profile.type') || 'default',
         noItemsText: gettext('No transactions history'),
         head: Params.transactionTableHeadConfig,
         rows: this.transaction,

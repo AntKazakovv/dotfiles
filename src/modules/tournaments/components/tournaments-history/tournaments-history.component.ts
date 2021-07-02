@@ -18,12 +18,16 @@ import {
     EventService,
     ITableCParams,
     ISelectCParams,
+    ConfigService,
 } from 'wlc-engine/modules/core';
 import {
     FinancesService,
     HistoryFilterService,
-} from 'wlc-engine/modules/finances/system/services';
-import {Tournament, TournamentsService} from 'wlc-engine/modules/tournaments';
+} from 'wlc-engine/modules/finances';
+import {
+    Tournament,
+    TournamentsService,
+} from 'wlc-engine/modules/tournaments';
 
 import * as Params from './tournaments-history.params';
 
@@ -36,7 +40,6 @@ import _sortBy from 'lodash-es/sortBy';
     styleUrls: ['./styles/tournaments-history.component.scss'],
 })
 export class TournamentsHistoryComponent extends AbstractComponent implements OnInit {
-
     public ready = false;
 
     public $params: Params.ITournamentsHistoryCParams;
@@ -80,11 +83,14 @@ export class TournamentsHistoryComponent extends AbstractComponent implements On
 
     protected tournaments: any = new BehaviorSubject([]);
     protected filterType: 'all' | '-99' | '99' | '100' | '0' | '1' = 'all';
+    protected profileType: 'default' | 'first' = this.configService.get('$base.profile.type');
 
     public tableData: ITableCParams = {
+        themeMod: this.profileType || 'default',
         noItemsText: gettext('No tournaments history'),
         head: Params.tournamentsHistoryTableHeadConfig,
         rows: this.tournaments,
+        switchWidth: this.profileType ? 1200 : 1024,
     };
 
     protected allTournaments: Tournament[] = [];
@@ -96,6 +102,7 @@ export class TournamentsHistoryComponent extends AbstractComponent implements On
         protected eventService: EventService,
         protected historyFilterService: HistoryFilterService,
         protected tournamentsService: TournamentsService,
+        protected configService: ConfigService,
     ) {
         super(
             <IMixedParams<Params.ITournamentsHistoryCParams>>{

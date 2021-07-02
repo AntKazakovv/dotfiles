@@ -76,10 +76,13 @@ export class TournamentLeaderboardComponent
             ['tournament', 'type', 'theme', 'themeMod', 'customMod', 'limit', 'showAllBtn', 'useListHead']));
         this.prepareModifiers();
         this.isAuth = this.ConfigService.get<boolean>('$user.isAuthenticated');
+        if (this.$params.common?.limit) {
+            this.limit = this.$params.common.limit;
+        }
         this.restLimit = this.limit - 3 || 0;
 
-        if (this.$params?.common?.tournament && !this.tournament) {
-            this.tournament = this.$params?.common?.tournament;
+        if (this.$params.common?.tournament && !this.tournament) {
+            this.tournament = this.$params.common.tournament;
         }
         this.isReady = false;
         this.tournament?.getWinnersSubscribe({

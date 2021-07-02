@@ -9,17 +9,14 @@ import {
 
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = ThumbType | CustomType;
-export type ThemeMod = 'default' | CustomMod;
+export type ThemeMod = 'default' | 'history' | 'tournament-detail' | CustomMod;
 export type AutoModifiers = ComponentTheme | ThemeMod;
 export type CustomMod = string;
 export type Modifiers = AutoModifiers | CustomMod | null;
 
 export interface ITournamentLeaderboardCParams extends IComponentParams<ComponentTheme, ComponentType, ThemeMod> {
     modifiers?: Modifiers[];
-    theme?: ComponentTheme;
-    type?: ComponentType;
     common?: {
-        themeMod?: ThemeMod;
         customMod?: CustomMod;
         tournament?: Tournament;
         type?: ComponentType;

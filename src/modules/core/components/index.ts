@@ -21,7 +21,7 @@ export {ILoaderCParams} from './loader/loader.params';
 export {ILogoCParams} from './logo/logo.params';
 export {IScrollbarCParams} from './scrollbar/scrollbar.params';
 export {ISelectCParams} from './select/select.params';
-export {ITableCParams} from './table/table.params';
+export {ITableCParams, ITableCol} from './table/table.params';
 export {ITooltipCParams} from './tooltip/tooltip.params';
 export {
     NotificationThreadComponent,

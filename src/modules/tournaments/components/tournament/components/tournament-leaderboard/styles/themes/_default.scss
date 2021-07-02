@@ -251,7 +251,7 @@
                     }
                 }
 
-                &.head {
+                &.wlc-tournament-leaderboard__item--head {
                     @include em.get-mq-map('padding', $themeDefaultModTournamentDetail, 'headPadding');
                     @include em.get-mq-map('background', $themeDefaultModTournamentDetail, 'headBg');
                 }
@@ -300,6 +300,74 @@
                                 }
                             }
                         }
+                    }
+                }
+            }
+        }
+    }
+
+    &.wlc-tournament-leaderboard--theme-mod-history {
+
+        .wlc-tournament-leaderboard {
+
+            &__nocontent {
+                background-color: ef.get-value($themeDefaultModHistory, 'rowPrimaryBg');
+            }
+
+            &__container {
+                max-width: ef.get-value($themeDefaultModHistory, 'tableMaxWidth');
+                margin: ef.get-value($themeDefaultModHistory, 'tableMargin');
+            }
+
+            &__list {
+                grid-gap: ef.get-value($themeDefaultModHistory, 'gridGap');
+            }
+
+            &__cell {
+                justify-content: ef.get-value($themeDefaultModHistory, 'cellAlign');
+                height: ef.get-value($themeDefaultModHistory, 'rowHeight');
+
+                &:first-child {
+                    padding: ef.get-value($themeDefaultModHistory, 'firstCellPadding');
+                }
+
+                &:last-child {
+                    padding: ef.get-value($themeDefaultModHistory, 'lastCellPadding');
+                }
+
+                .win-text {
+                    margin: ef.get-value($themeDefaultModHistory, 'textMargin');
+                }
+            }
+
+            &__cell-place {
+                display: flex;
+                justify-content: ef.get-value($themeDefaultModHistory, 'cellAlign');
+            }
+
+            &__item {
+                @include em.get-mq-map('grid-template-columns', $themeDefaultModHistory, 'rowGrid');
+                background-color: ef.get-value($themeDefaultModHistory, 'rowPrimaryBg');
+
+                &:nth-child(even) {
+                    background-color: ef.get-value($themeDefaultModHistory, 'rowSecondaryBg');
+                }
+
+                &--head {
+                    margin: ef.get-value($themeDefaultModHistory, 'headMargin');
+                    background-color: ef.get-value($themeDefaultModHistory, 'headBg');
+                }
+
+                &--top {
+                    margin: ef.get-value($themeDefaultModHistory, 'topMargin');
+                    background-color: ef.get-value($themeDefaultModHistory, 'rowPrimaryBg');
+
+                    .wlc-tournament-leaderboard__cell {
+                        height: ef.get-value($themeDefaultModHistory, 'rowHeight');
+                    }
+
+                    &:nth-child(even) {
+                        background-color: ef.get-value($themeDefaultModHistory, 'rowPrimaryBg');
                     }
                 }
             }
