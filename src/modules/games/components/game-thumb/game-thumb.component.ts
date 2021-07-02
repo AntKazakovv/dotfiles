@@ -43,6 +43,7 @@ export interface IMediaContent {
 export class GameThumbComponent extends AbstractComponent implements OnInit, AfterViewInit {
 
     @Input() public game: Game;
+    @Input() public dumpy: boolean = false;
     @Input() protected inlineParams: Params.IGameThumbCParams;
     @HostBinding('attr.data-wlc-element') protected wlcElement;
     @HostBinding('class.no-demo') protected noDemoClass;
@@ -81,7 +82,7 @@ export class GameThumbComponent extends AbstractComponent implements OnInit, Aft
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
 
-        if (_isEmpty(this.game)) {
+        if (this.dumpy) {
             this.inited = true;
             return;
         }

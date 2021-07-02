@@ -1,4 +1,4 @@
-<ng-container *ngIf="inited && game; else preloader">
+<ng-container *ngIf="inited && !dumpy; else preloader">
     <ng-container [ngSwitch]="$params.type">
         <ng-container [ngTemplateOutlet]="typeVertical" *ngSwitchCase="'vertical'"></ng-container>
         <ng-container [ngTemplateOutlet]="typeModal" *ngSwitchCase="'modal'"></ng-container>
