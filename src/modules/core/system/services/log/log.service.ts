@@ -201,50 +201,22 @@ export class LogService {
             const codeData = _get(logTypes, code, null);
 
             if (_get(codeData, 'method') === 'Flog' || _get(codeData, 'method') === 'Both') {
-                const data = {
-                    data: _get(logObj, 'data', {}),
-                    logger: logObj.logger,
-                    tags: logObj.tags,
-                    name: logObj.name || 'unknown error',
-                };
 
-                switch (_get(codeData, 'level', 'log')) {
-                    case 'duration':
-                        this.Flog.logDuration(code, data).finally();
-                        break;
-                    case 'info':
-                        this.Flog.info(code, data).finally();
-                        break;
-                    case 'error':
-                        this.Flog.error(code, data).finally();
-                        break;
-                    case 'fatal':
-                        this.Flog.fatal(code, data).finally();
+                switch (_get(codeData, 'duration')) {
+                    case 'fromStart':
+                        logObj.data.duration = (new Date().getTime() - this.Flog.startTime.getTime()) / 1000;
                         break;
                     default:
-                        this.Flog.log(code, data).finally();
+                        break;
                 }
+
+                this.Flog.send({
+                    code,
+                    level: _get(codeData, 'level', 'log'),
+                    ..._get(logObj, 'data', {}),
+                }).finally();
             }
         }
-        // if (this.sentryService.isInstall) {
-        //     const tags: IIndexing<string> = _extend(logObj.tags || {},
-        //         (logObj.code) ? {code: logObj.code} : {},
-        //         (logObj.logger) ? {logger: logObj.logger} : {});
-        //     const extData: IIndexing<any> = _extend(_isObject(logObj.data) ? logObj.data : {data: logObj.data});
-        //
-        //     this.sentryService.sendMessage({
-        //         tags: tags,
-        //         level: logObj.level,
-        //         message: logObj.name,
-        //         data: extData,
-        //         userInfo: {
-        //             // @TODO After creating of UserService
-        //             id: '-1',
-        //             //id: this.UserService.isAuthenticated() ? this.UserService.userProfile.idUser || 0 : '-1',
-        //             country: this.configService.get<string>('appConfig.siteconfig.country'),
-        //         },
-        //     });
-        // }
     }
 
 }

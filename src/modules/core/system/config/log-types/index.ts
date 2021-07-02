@@ -22,6 +22,7 @@ import {errorTypes as livechatLogs} from './14.livechat';
 
 type LogGroupType = 'Common' | 'Sign Up' | 'Bonus' | '404 not found' | 'AutoTest' | 'Load' | 'Livechat' | 'Hellosoda';
 type LogMethodsType = 'Flog' | 'Sentry' | 'Both';
+type durationType = 'fromStart';
 
 export interface ILogType {
     description: string;
@@ -33,6 +34,7 @@ export interface ILogType {
     project?: string;
     group?: LogGroupType;
     threshold?: number;
+    duration?: durationType;
 }
 
 export interface ILogTypes extends IIndexing<ILogType> {
