@@ -38,10 +38,12 @@
             window.WLC_ENV = 'dev';
         {% endif %}
     </script>
+    {% if 'static/dist/inline.js' is ondisk %}
+    <script src="/static/dist/inline.js"></script>
+    {% endif %}
 </head>
 <body>
 <div ui-view class="wlc-app">
-
     {% if 'template/preloader.html' is ondisk %}
         {% include 'preloader.html' %}
     {% else %}
@@ -54,11 +56,6 @@
     {% endif %}
 </div>
 <noscript>Please enable JavaScript to continue using this application.</noscript>
-
-{% if 'static/dist/inline.js' is ondisk %}
-    <script src="/static/dist/inline.js"></script>
-{% endif %}
 {% include 'additional-footer.html' ignore missing %}
-
 </body>
 </html>

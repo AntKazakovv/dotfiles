@@ -68,8 +68,9 @@ export const errorTypes: ILogTypes = {
         description: 'Site compilation time',
         name: 'Site compile',
         type: 'site_compile',
-        level: 'duration',
+        level: 'log',
         method: 'Flog',
+        duration: 'fromStart',
     },
     '0.0.10': {
         description: 'User left the site before compilation',

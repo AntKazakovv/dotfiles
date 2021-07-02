@@ -27,6 +27,9 @@ const config = {
             '.js',
         ],
     },
+    optimization: {
+        minimize: true,
+    },
 };
 
 module.exports = function inlineTask() {

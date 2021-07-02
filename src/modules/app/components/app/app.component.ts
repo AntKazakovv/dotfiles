@@ -138,7 +138,7 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
                 this.setHostClass();
                 this.addLivechat();
                 this.logService.sendLog({code: '0.0.9'});
-                window.WlcFlog.setCompileSuccess(true);
+                (window as any).WlcFlog?.setCompileSuccess();
             }
         });
 
