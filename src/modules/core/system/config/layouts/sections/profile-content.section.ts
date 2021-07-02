@@ -147,7 +147,7 @@ export namespace profileContent {
                         {
                             name: 'core.wlc-wrapper',
                             params: {
-                                class: 'wlc-profile-content__header',
+                                class: 'wlc-profile-content__header underlined',
                                 components: [
                                     componentLib.wlcTitle.offers,
                                     componentLib.wlcEnterPromocode.hideTitle,
@@ -219,7 +219,7 @@ export namespace profileContent {
                         {
                             name: 'core.wlc-wrapper',
                             params: {
-                                class: 'wlc-profile-content__header',
+                                class: 'wlc-profile-content__header underlined',
                                 components: [
                                     componentLib.wlcTitle.activeBonuses,
                                 ],
@@ -288,7 +288,7 @@ export namespace profileContent {
     export const profileDeposit: ILayoutSectionConfig = {
         container: true,
         components: [
-            componentLib.wlcTitle.profileCash,
+            componentLib.wlcTitle.profileCashDeposit,
             componentLib.wlcDepositWithdraw.balance,
             componentLib.wlcDepositWithdraw.submenu,
             componentLib.wlcDepositWithdraw.deposit,
@@ -321,6 +321,18 @@ export namespace profileContent {
                         {
                             name: 'core.wlc-wrapper',
                             params: {
+                                class: 'wlc-profile-content__header underlined',
+                                components: [
+                                    componentLib.wlcTitle.profileCashDeposit,
+                                ],
+                            },
+                            display: {
+                                after: 1024,
+                            },
+                        },
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
                                 class: 'wlc-profile-content__body',
                                 components: [
                                     componentLib.wlcDepositWithdraw.balanceV1,
@@ -337,7 +349,7 @@ export namespace profileContent {
     export const profileWithdraw: ILayoutSectionConfig = {
         container: true,
         components: [
-            componentLib.wlcTitle.profileCash,
+            componentLib.wlcTitle.profileCashWithdrawal,
             componentLib.wlcDepositWithdraw.balance,
             componentLib.wlcDepositWithdraw.submenu,
             componentLib.wlcDepositWithdraw.withdraw,
@@ -367,8 +379,28 @@ export namespace profileContent {
                 params: {
                     class: 'wlc-profile-content',
                     components: [
-                        componentLib.wlcDepositWithdraw.balanceV1,
-                        componentLib.wlcDepositWithdraw.withdraw,
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-profile-content__header underlined',
+                                components: [
+                                    componentLib.wlcTitle.profileCashWithdrawal,
+                                ],
+                            },
+                            display: {
+                                after: 1024,
+                            },
+                        },
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'wlc-profile-content__body',
+                                components: [
+                                    componentLib.wlcDepositWithdraw.balanceV1,
+                                    componentLib.wlcDepositWithdraw.withdraw,
+                                ],
+                            },
+                        },
                     ],
                 },
             },
@@ -629,14 +661,14 @@ export namespace profileContent {
                         {
                             name: 'core.wlc-wrapper',
                             params: {
-                                class: 'wlc-profile-content__header',
+                                class: 'wlc-profile-content__header underlined',
                                 components: [
                                     componentLib.wlcTitle.profileStoreV1,
                                     componentLib.wlcUserStats.store,
                                 ],
                             },
                             display: {
-                                after: 1023,
+                                after: 1024,
                             },
                         },
                         {
@@ -870,7 +902,7 @@ export namespace profileContent {
                         {
                             name: 'core.wlc-wrapper',
                             params: {
-                                class: 'wlc-profile-content__header',
+                                class: 'wlc-profile-content__header underlined',
                                 components: [
                                     componentLib.wlcTitle.profileActiveTournaments,
                                 ],
@@ -927,7 +959,7 @@ export namespace profileContent {
                         {
                             name: 'core.wlc-wrapper',
                             params: {
-                                class: 'wlc-profile-content__header',
+                                class: 'wlc-profile-content__header underlined',
                                 components: [
                                     componentLib.wlcTitle.profileAvailableTournaments,
                                 ],

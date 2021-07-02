@@ -1,8 +1,5 @@
 $customLoyaltyThemeV1: () !default;
 $loyaltyThemeV1: map-merge((
-    'headerPadding': (
-        1024: 0 0 ef.get('size', 'small') 0,
-    ),
     'headerDisplay': (
         1024: flex,
     ),

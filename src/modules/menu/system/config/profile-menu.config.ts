@@ -370,6 +370,7 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         class: 'tournaments-current',
         params: {
             state: {
+                parent: ['app.profile.loyalty-tournaments.main', 'app.profile.loyalty-tournaments.detail'],
                 name: 'app.profile.loyalty-tournaments.main',
                 params: {},
             },

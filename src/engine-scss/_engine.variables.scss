@@ -129,6 +129,10 @@ $size: map-merge((
         900: 20px,
         1630: 40px,
     ),
+    'sectionProfileGap': (
+        375: 30px,
+        900: 20px,
+    )
 ), $customSize);
 
 /// Размеры скругления элементов на сайте.
@@ -428,21 +432,26 @@ $profileSettings: map-merge((
     ),
     'contentPaddingV1': (
         375: map-get($size, 'smaller') 0 0,
-        1024: map-get($size, 'smally') map-get($size, 'less') map-get($size, 'less'),
-        1630: map-get($size, 'smaller') map-get($size, 'main') map-get($size, 'main'),
+        1024: map-get($size, 'smally') map-get($size, 'less') map-get($size, 'smaller'),
+        1630: map-get($size, 'smaller') map-get($size, 'main') map-get($size, 'less'),
     ),
     'contentHeaderInsideMarginTopV1': (
         375: -#{map-get($size, 'smaller')},
         1024: 0,
     ),
     'contentHeaderDisplayV1': flex,
+    'contentHeaderAlignV1': center,
     'contentHeaderJustifyV1': space-between,
     'contentHeaderBorderBottomV1': (
         1024: 2px solid map-get($mainColors, 'baseOpacity'),
     ),
-    'contentHeaderMarginV1': 0 0 map-get($size, 'small') 0,
-    'contentHeaderUnderlinedMarginV1':  0 0 map-get($size, 'smaller') 0,
-    'contentHeaderPaddingV1': 0 0 map-get($size, 'small') 0,
+    'contentHeaderMarginV1': 0 0 map-get($size, 'smaller') 0,
+    'contentHeaderUnderlinedMarginV1': 0 0 map-get($size, 'smaller') 0,
+    'contentHeaderPaddingV1': 0 0 map-get($size, 'smaller') 0,
+    'contentHeaderHeightV1': (
+        320: 70px,
+        1024: 80px,
+    ),
 ), $customProfileSettings);
 
 /// Глобальные настройки профиля (первая тема):
@@ -540,14 +549,13 @@ $layoutGap: map-merge((
         '.wlc-sections__loyalty-program',
         '.wlc-sections__game-widgets',
         '.wlc-sections__providers',
-        '.wlc-sections__content-games-vertical',
+        '.wlc-sections__content-games-vertical'
     ),
     '.app-contacts-state': (
         '.wlc-sections__info-page'
     ),
     '[class*=\'app-profile-\']': (
-        '.wlc-sections__header',
-        '.wlc-sections__profile-content'
+        '.wlc-sections__profile-content',
     ),
 ), $customLayoutGap);
 

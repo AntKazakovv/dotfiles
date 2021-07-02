@@ -1,21 +1,3 @@
-<div class="{{$class}}__title"
-     [ngSwitch]="$params.mode">
-
-    <ng-container *ngSwitchCase="'deposit'">
-        <div wlc-title
-             class="wlc-title--profile"
-             [mainText]="'Deposit'"
-             [inlineParams]="{wlcElement: 'header_deposit'}"></div>
-    </ng-container>
-
-    <ng-container *ngSwitchCase="'withdraw'">
-        <div wlc-title
-             class="wlc-title--profile"
-             [mainText]="'Withdrawal'"
-             [inlineParams]="{wlcElement: 'header_withdraw'}"></div>
-    </ng-container>
-</div>
-
 <div class="{{$class}}__step {{$class}}__step--1">
     <div class="{{$class}}__subtitle">
         <div class="{{$class}}__subtitle-step">{{'Step' | translate}} 1</div>

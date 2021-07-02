@@ -7,7 +7,6 @@
         .wlc-profile-content__header {
             @include bm.get-mq-map('display', $loyaltyThemeV1, 'headerDisplay');
             @include bm.get-mq-map('justify-content', $loyaltyThemeV1, 'headerJustifyContent');
-            @include bm.get-mq-map('padding', $loyaltyThemeV1, 'headerPadding');
 
             .wlc-loyalty-progress {
                 @include bm.get-mq-map('width', $loyaltyThemeV1, 'progressHeaderWidth');

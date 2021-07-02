@@ -1,9 +1,13 @@
 @use 'engine-scss/functions' as ef;
+@use 'engine-scss/engine.variables' as ev;
 
 $customThemeDefault: () !default;
 
 $themeDefault: map-merge((
-    'hostMargin': 20px auto,
+    'hostMargin': (
+        375: ef.get('size', 'smaller') auto,
+        1366: ef.get('size', 'main') auto ef.get('size', 'smaller'),
+    ),
     'paginationPadding': 0,
     'activePaginationArrowColor': ef.get('mainColors', 'main'),
     'activePaginationArrowColorHover': darken(ef.get('mainColors', 'main'), 10%),

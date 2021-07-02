@@ -14,7 +14,7 @@ $themeDefault: map-merge((
     imageMaxWidth:          80px,
 
     typeColors: (
-        info:    ef.get('mainColors', 'buttonColor'),
+        info:    ef.get('mainColors', 'success'),
         success: ef.get('mainColors', 'success'),
         warning: ef.get('mainColors', 'warning'),
         error:   ef.get('mainColors', 'error'),

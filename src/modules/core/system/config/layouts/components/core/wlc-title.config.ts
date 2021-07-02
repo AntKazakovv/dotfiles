@@ -291,14 +291,20 @@ export namespace wlcTitle {
         },
     };
 
-    export const profileCash: ILayoutComponent = {
+    export const profileCashDeposit: ILayoutComponent = {
         name: 'core.wlc-title',
-        display: {
-            before: 899,
-        },
         params: {
-            customMod: ['profile', 'mb'],
-            mainText: gettext('Cash'),
+            customMod: ['profile'],
+            mainText: gettext('Deposit'),
+            wlcElement: 'header_cash',
+        },
+    };
+
+    export const profileCashWithdrawal: ILayoutComponent = {
+        name: 'core.wlc-title',
+        params: {
+            customMod: ['profile'],
+            mainText: gettext('Withdrawal'),
             wlcElement: 'header_cash',
         },
     };

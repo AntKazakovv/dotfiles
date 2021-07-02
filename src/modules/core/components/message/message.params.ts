@@ -20,6 +20,7 @@ export const defaultParams: IMessageParams = {
     showCloseButton: true,
     imageFit: 'cover',
     typeIcons: {
+        info: 'status/ok',
         success: 'status/ok',
         warning: 'status/alert',
         error: 'status/alert',
