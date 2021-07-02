@@ -51,49 +51,67 @@
         "children": [
             {
                 "title": "3.1. Backend config",
-                "file": "./300.config/310.backend-config.md"
+                "file": "./300.config/310.backend/310.backend-config.md"
             },
             {
                 "title": "3.2. Frontend config",
-                "file": "./300.config/320.frontend-config.md",
+                "file": "./300.config/320.frontend/320.frontend-config.md",
                 "children": [
                     {
                         "title": "3.2.1. Base config",
-                        "file": "./300.config/321.base-config.md"
+                        "file": "./300.config/320.frontend/321.base/321.base-config.md"
                     },
                     {
                         "title": "3.2.2. Layouts config",
-                        "file": "./300.config/322.layouts-config.md"
-                    }
-                ]
-            },
-            {
-                "title": "3.3. Menu",
-                "file": "./300.config/330.menu-config.md",
-                "children": [
-                    {
-                        "title": "3.3.1. Main Menu",
-                        "file": "./300.config/331.main-menu.md"
+                        "file": "./300.config/320.frontend/322.layouts/322.layouts-config.md"
                     },
                     {
-                        "title": "3.3.2. Categories Menu",
-                        "file": "./300.config/332.menu-category.md"
+                        "title": "3.2.3. Modules config",
+                        "file": "./300.config/320.frontend/323.modules/323.modules-config.md"
                     },
                     {
-                        "title": "3.3.3. Mobile Menu",
-                        "file": "./300.config/333.mobile-menu.md"
+                        "title": "3.2.4. Files config",
+                        "file": "./300.config/320.frontend/324.files/324.files-config.md"
                     },
                     {
-                        "title": "3.3.4. Customizing Menu Icons",
-                        "file": "./300.config/334.menu-icons-setup.md"
+                        "title": "3.2.5. Menu",
+                        "file": "./300.config/320.frontend/325.menu/325.menu-config.md",
+                        "children": [
+                            {
+                                "title": "3.2.5.1. Main Menu",
+                                "file": "./300.config/320.frontend/325.menu/3251.main-menu.md"
+                            },
+                            {
+                                "title": "3.2.5.2. Categories Menu",
+                                "file": "./300.config/320.frontend/325.menu/3252.menu-category.md"
+                            },
+                            {
+                                "title": "3.2.5.3. Mobile Menu",
+                                "file": "./300.config/320.frontend/325.menu/3253.mobile-menu.md"
+                            },
+                            {
+                                "title": "3.2.5.4. Customizing Menu Icons",
+                                "file": "./300.config/320.frontend/325.menu/3254.menu-icons-setup.md"
+                            },
+                            {
+                                "title": "3.2.5.5. Post Menu",
+                                "file": "./300.config/320.frontend/325.menu/3255.post-menu.md"
+                            },
+                            {
+                                "title": "3.2.5.6. Profile Menu",
+                                "file": "./300.config/320.frontend/325.menu/3256.profile-menu.md"
+                            }
+                        ]
                     },
                     {
-                        "title": "3.3.5. Post Menu",
-                        "file": "./300.config/335.post-menu.md"
-                    },
-                    {
-                        "title": "3.3.6. Profile Menu",
-                        "file": "./300.config/336.profile-menu.md"
+                        "title": "3.2.6. Fundist menu and category settings control",
+                        "file": "./300.config/320.frontend/326.fundist-menu-and-categories/326.fundist-menu-and-categories.md",
+                        "children": [
+                            {
+                                "title": "3.2.6.1. By project config",
+                                "file": "./300.config/320.frontend/326.fundist-menu-and-categories/3261.by-project-config.md"
+                            }
+                        ]
                     }
                 ]
             }
