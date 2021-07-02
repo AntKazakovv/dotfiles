@@ -3,7 +3,7 @@ import {BehaviorSubject} from 'rxjs';
 
 export type Theme = 'default' | 'tournaments' | CustomType;
 export type Type = 'default' | CustomType;
-export type ThemeMod = 'default' | CustomType;
+export type ThemeMod = 'default' | 'first' | CustomType;
 export type TableColType = 'text' | 'date' | 'index' | 'amount' | 'component';
 
 export interface ITableCommonParams {

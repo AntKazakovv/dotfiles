@@ -1,11 +1,8 @@
 @use 'engine-scss/mixins/mediaqueries' as mq;
 @use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/base.mixins' as bm;
 
 .wlc-tournaments-history--theme-default {
-
-    @include mq.min(1024) {
-        margin: ef.get-value($themeDefault, 'sectionMargin');
-    }
 
     &:host {
 
@@ -16,32 +13,118 @@
         .wlc-tournaments-history-filter {
             display: none;
 
-            @include mq.min(1024) {
-                display: grid;
-                align-items: flex-end;
-                grid: {
-                    auto-flow: column;
-                    auto-columns: max-content;
-                    gap: ef.get-value($themeDefault, 'filterGap');
-                };
-                margin: ef.get-value($themeDefault, 'filterMargin');
-            }
-
             .wlc-select[wlc-select] {
                 min-width: ef.get-value($themeDefault, 'filterMinWidth');
+            }
+
+            @include mq.min(1024) {
+                display: grid;
+                align-items: ef.get-value($themeDefault, 'filterAlignItems');
+                margin: ef.get-value($themeDefault, 'filterMargin');
+                grid: {
+                    auto-flow: ef.get-value($themeDefault, 'filterGridAutoFlow');
+                    auto-columns: ef.get-value($themeDefault, 'filterGrodAutoCols');
+                    gap: ef.get-value($themeDefault, 'filterGap');
+                };
             }
         }
 
         .wlc-table::ng-deep {
 
-            .wlc-table__cell--first {
-                grid-template-columns: ef.get-value($themeDefault, 'firstCellColumns');
-                word-break: break-word;
+            .wlc-table__content {
 
-                .wlc-table__cell-label {
-                    display: none;
+                .wlc-table__row:not(.wlc-table__row--head) {
+
+                    .wlc-table__cell {
+
+                        @include mq.min(1024) {
+                            @include bm.transition(all, 0s);
+                        }
+                    }
+
+                    @include bm.hover {
+
+                        .wlc-table__cell {
+                            background: ef.get-value($themeDefault, 'rowHoverBgColor');
+                        }
+
+                        .action-btn {
+                            display: block;
+                        }
+
+                        .action-text {
+                            opacity: 0;
+                        }
+                    }
+
+                    @include bm.hover(false) {
+
+                        @include mq.min(1024) {
+
+                            .action-text {
+                                opacity: 0;
+                            }
+                        }
+                    }
                 }
             }
+
+            .wlc-table__cell {
+
+                &.wlc-table__cell--first {
+                    grid-template-columns: ef.get-value($themeDefault, 'firstCellColumns');
+                    word-break: break-word;
+
+                    .wlc-table__cell-label {
+                        display: none;
+                    }
+                }
+
+                @include mq.min(1024) {
+                    vertical-align: ef.get-value($themeDefault, 'cellVerticalAlign');
+                }
+            }
+
+            .wlc-table__cell--statusName {
+                @include bm.get-mq-map('min-width', $themeDefault, 'statusCellMinWidth');
+                position: relative;
+            }
         }
+
+        .wlc-table--theme-mod-first::ng-deep {
+
+            margin: ef.get-value($themeDefault, 'sectionMargin');
+
+            .wlc-table__content {
+
+                .wlc-table__row:not(.wlc-table__row--head) {
+
+                    @include bm.hover(false) {
+
+                        @include mq.min(1024) {
+
+                            .action-text {
+                                opacity: 1;
+                            }
+                        }
+
+                        @include mq.min(1200) {
+
+                            .action-text {
+                                opacity: 0;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .wlc-table__cell--statusName {
+                @include bm.get-mq-map('min-width', $themeDefault, 'statusCellMinWidthFirst');
+            }
+        }
+    }
+
+    @include mq.min(1024) {
+        margin: ef.get-value($themeDefault, 'sectionMargin');
     }
 }

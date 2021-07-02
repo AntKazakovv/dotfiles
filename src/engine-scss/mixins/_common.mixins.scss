@@ -1,0 +1,31 @@
+@use 'engine-scss/engine.variables' as ev;
+@use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/functions' as ef;
+
+@mixin tableBtnBlockStyles() {
+    @include bm.get-mq-map('align-items', ev.$tableBtnBlock, 'btnAlign');
+    @include bm.get-mq-map('min-width', ev.$tableBtnBlock, 'btnBlockMinWidth');
+    display: inline-flex;
+    justify-content: ef.get-value(ev.$tableBtnBlock, 'btnJustify');
+
+    .action-btn {
+        @include bm.get-mq-map('bottom', ev.$tableBtnBlock, 'btnBottom');
+        position: absolute;
+        left: ef.get-value(ev.$tableBtnBlock, 'btnLeft');
+        z-index: ef.get-value(ev.$tableBtnBlock, 'btnZIndex');
+        display: none;
+        white-space: nowrap;
+        transform: ef.get-value(ev.$tableBtnBlock, 'btnTransform');
+
+        @include bm.hover(false) {
+            display: block;
+        }
+    }
+
+    &.profile-first {
+
+        .action-btn {
+            @include bm.get-mq-map('bottom', ev.$tableBtnBlock, 'btnBottomFirst');
+        }
+    }
+}

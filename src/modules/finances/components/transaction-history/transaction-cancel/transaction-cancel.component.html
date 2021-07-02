@@ -1,8 +1,10 @@
-<span class="type">{{$params.transaction.type | translate}}</span>
+<span class="action-text">{{$params.transaction.type | translate}}</span>
 <button
     *ngIf="$params.transaction.allowCancelation && $params.transaction.statusCode == 0"
+    class="action-btn"
     wlc-button
-    class="cancel-btn"
+    typeAttr="button"
+    themeMod="secondary"
     text="Cancel"
     (click)="cancel()">
 </button>

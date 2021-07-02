@@ -567,6 +567,39 @@ $appLoader: map-merge((
     'loaderBorder': 2px solid map-get($mainColors, 'baseMain'),
 ), $customAppLoader);
 
+$customTableBtnBlock: () !default;
+$tableBtnBlock: map-merge((
+    'btnLeft': 50%,
+    'btnZIndex': 10,
+    'btnTransform': translateX(-50%),
+    'btnJustify': center,
+    'btnAlign': (
+        375: flex-start,
+        1024: center,
+    ),
+    'btnBlockMinWidth': (
+        1024: 110px,
+    ),
+    'btnBlockPadding': (
+        375: 0 0 45px,
+        1024: 0,
+    ),
+    'btnBlockPaddingFirst': (
+        375: 0 0 45px,
+        1024: 0 0 45px,
+        1200: 0,
+    ),
+    'btnBottom': (
+        375: map-get($size, 'small'),
+        1024: auto,
+    ),
+    'btnBottomFirst': (
+        375: map-get($size, 'small'),
+        1024: map-get($size, 'small'),
+        1200: auto,
+    ),
+), $customTableBtnBlock);
+
 $body-bg: map-get($mainColors, 'bg') !default;
 $body-color: map-get($mainColors, 'baseMain') !default;
 $font-size-root: 10px !default;

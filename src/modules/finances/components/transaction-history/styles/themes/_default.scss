@@ -30,12 +30,55 @@
 
         ::ng-deep {
 
-            .wlc-table__row {
+            .wlc-table__row:not(.wlc-table__row--head) {
 
                 @include bm.hover {
 
-                    .cancel-btn {
+                    .allow-cancelation {
+
+                        .action-text {
+                            opacity: 0;
+                        }
+                    }
+
+                    .action-btn {
                         display: block;
+                    }
+                }
+
+                @include bm.hover(false) {
+
+                    @include mq.min(1024) {
+
+                        .allow-cancelation {
+
+                            .action-text {
+                                opacity: 0;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .wlc-table--theme-mod-first {
+
+                .wlc-table__row:not(.wlc-table__row--head) {
+
+                    @include bm.hover(false) {
+
+                        .allow-cancelation {
+
+                            .action-text {
+
+                                @include mq.min(1024) {
+                                    opacity: 1;
+                                }
+
+                                @include mq.min(1200) {
+                                    opacity: 0;
+                                }
+                            }
+                        }
                     }
                 }
             }

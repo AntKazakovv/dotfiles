@@ -1,31 +1,15 @@
-@use 'engine-scss/mixins/mediaqueries' as mq;
-@use 'engine-scss/mixins/base.mixins' as em;
-@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/mixins/common.mixins' as cm;
+@use 'engine-scss/engine.variables' as ev;
 
 .wlc-transaction-cancel--theme-default:host {
-    @include em.get-mq-map('align-items', $themeDefault, 'cancelAlign');
-    @include em.get-mq-map('min-width', $themeDefault, 'cancelBlockMinWidth');
-
-    display: inline-flex;
-    justify-content: ef.get-value($themeDefault, 'cancelJustify');
+    @include cm.tableBtnBlockStyles;
 
     &.allow-cancelation {
-        @include em.get-mq-map('padding', $themeDefault, 'cancelPadding');
-    }
+        @include bm.get-mq-map('padding', ev.$tableBtnBlock, 'btnBlockPadding');
 
-    .cancel-btn {
-        @include em.get-mq-map('bottom', $themeDefault, 'cancelBottom');
-
-        position: absolute;
-        left: ef.get-value($themeDefault, 'cancelLeft');
-        z-index: ef.get-value($themeDefault, 'cancelZIndex');
-
-        display: none;
-
-        transform: ef.get-value($themeDefault, 'cancelTransform');
-
-        @include em.hover(false) {
-            display: block;
+        &.profile-first {
+            @include bm.get-mq-map('padding', ev.$tableBtnBlock, 'btnBlockPaddingFirst');
         }
     }
 }

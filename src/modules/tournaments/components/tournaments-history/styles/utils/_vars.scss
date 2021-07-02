@@ -6,6 +6,19 @@ $themeDefault: map-merge((
     'sectionLoaderMinHeight': 400px,
     'filterMargin': ef.get('size', 'smaller') 0 0,
     'filterGap': ef.get('size', 'smally'),
+    'filterAlignItems': flex-end,
+    'filterGridAutoFlow': column,
+    'filterGrodAutoCols': max-content,
     'filterMinWidth': 140px,
-    'firstCellColumns': 1fr auto
+    'firstCellColumns': 1fr auto,
+    'rowHoverBgColor': ef.get('mainColors', 'bg100'),
+    'cellVerticalAlign': middle,
+    'statusCellMinWidth': (
+        1024: 160px,
+        1200: auto,
+    ),
+    'statusCellMinWidthFirst': (
+        1024: auto,
+        1200: 160px,
+    ),
 ), $customThemeDefault);

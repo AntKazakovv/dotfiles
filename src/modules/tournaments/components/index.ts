@@ -7,3 +7,5 @@ export {ITournamentCParams} from './tournament/tournament.params';
 export {ITournamentPrizesCParams, PRIMARY_ROW_LIMIT} from './tournament/components/tournament-prizes/tournament-prizes.params';
 export {ITournamentPromoCParams} from './tournament/components/tournament-promo/tournament-promo.params';
 export {TournamentComponent} from './tournament/tournament.component';
+export {TournamentLeaderboardComponent} from './tournament/components/tournament-leaderboard/tournament-leaderboard.component';
+export {TournamentTopwinsBtnComponent} from './tournaments-history/components/tournament-topwins-btn/tournament-topwins-btn.component';

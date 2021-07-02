@@ -25,6 +25,7 @@ import _cloneDeep from 'lodash-es/cloneDeep';
 import _split from 'lodash-es/split';
 import _has from 'lodash-es/has';
 import _mergeWith from 'lodash-es/mergeWith';
+import _includes from 'lodash-es/includes';
 
 export {IComponentParams, CustomType} from 'wlc-engine/modules/core';
 
@@ -110,6 +111,22 @@ export class AbstractComponent implements OnDestroy, OnInit, OnChanges {
 
     public getParam<T>(path: string): T {
         return _get(this.$params, path) as T;
+    }
+
+    public paramInclude(paramName: string, classes: string | string[]): boolean {
+        if (_isArray(classes)) {
+            return _includes(classes, this.$params[paramName]);
+        } else {
+            return this.$params[paramName] === classes;
+        }
+    }
+
+    public paramExclude(paramName: string, classes: string | string[]): boolean {
+        if (_isArray(classes)) {
+            return !_includes(classes, this.$params[paramName]);
+        } else {
+            return this.$params[paramName] !== classes;
+        }
     }
 
     protected prepareHostClass(): void {

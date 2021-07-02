@@ -1,0 +1,12 @@
+@use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/mixins/common.mixins' as cm;
+@use 'engine-scss/engine.variables' as ev;
+
+.wlc-tournament-topwins-btn--theme-default:host {
+    @include bm.get-mq-map('padding', ev.$tableBtnBlock, 'btnBlockPadding');
+    @include cm.tableBtnBlockStyles;
+
+    &.profile-first {
+        @include bm.get-mq-map('padding', ev.$tableBtnBlock, 'btnBlockPaddingFirst');
+    }
+}

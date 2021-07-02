@@ -69,3 +69,24 @@ $themeDefaultModTournamentDetail: map-merge((
     'topIconColor': ef.get('mainColors', 'main'),
     'topIconUserColor': ef.get('mainColors', 'bg'),
 ), $customThemeDefaultModTournamentDetail);
+
+$customThemeDefaultModHistory: () !default;
+$themeDefaultModHistory: map-merge((
+    'rowPrimaryBg': ef.get('mainColors', 'bg500'),
+    'rowSecondaryBg': transparent,
+    'headBg': transparent,
+    'tableMaxWidth': 375px,
+    'tableMargin': -1*ef.get('size', 'less') auto -1*ef.get('size', 'smaller') auto,
+    'gridGap': 0,
+    'rowHeight': ef.get('size', 'less'),
+    'firstCellPadding': 0 0 0 ef.get('size', 'smally'),
+    'lastCellPadding': 0 ef.get('size', 'smally') 0 ef.get('size', 'small'),
+    'rowGrid':(
+        375: 50px 100px 1fr 100px,
+        480: 50px 150px 1fr 100px,
+    ),
+    'headMargin': 0 0 2px 0,
+    'topMargin': 0,
+    'textMargin': 0 3px 0 0,
+    'cellAlign': center,
+), $customThemeDefaultModHistory);

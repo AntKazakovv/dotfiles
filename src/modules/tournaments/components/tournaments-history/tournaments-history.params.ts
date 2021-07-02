@@ -1,13 +1,15 @@
-import {IComponentParams, CustomType} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ITableCol} from 'wlc-engine/modules/core/components/table/table.params';
+import {
+    IComponentParams,
+    CustomType,
+    ITableCol,
+} from 'wlc-engine/modules/core';
+import {Tournament, TournamentTopwinsBtnComponent} from 'wlc-engine/modules/tournaments';
 
 export type Theme = 'default' | CustomType;
 export type Type = 'default' | CustomType;
 export type ThemeMod = 'default' | CustomType;
 
-export interface ITournamentsHistoryCParams extends IComponentParams<Theme, Type, ThemeMod> {
-
-}
+export interface ITournamentsHistoryCParams extends IComponentParams<Theme, Type, ThemeMod> {}
 
 export const defaultParams: ITournamentsHistoryCParams = {
     class: 'wlc-tournaments-history',
@@ -59,7 +61,9 @@ export const tournamentsHistoryTableHeadConfig: ITableCol[] = [
     {
         key: 'statusName',
         title: gettext('Status'),
-        type: 'text',
+        type: 'component',
+        mapValue: (item: Tournament) => {return {tournament: item};},
+        componentClass: TournamentTopwinsBtnComponent,
         order: 50,
         wlcElement: 'wlc-profile-table__cell_status',
     },

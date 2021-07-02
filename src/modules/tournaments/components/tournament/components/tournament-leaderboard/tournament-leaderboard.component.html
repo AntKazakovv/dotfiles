@@ -1,10 +1,14 @@
 <div *ngIf="wins?.length && isReady; else: noData" class="{{$class}}__container">
-    <div *ngIf="$params.common?.useListHead" class="{{$class}}__item head">
+    <div *ngIf="$params.common?.useListHead" class="{{$class}}__item {{$class}}__item--head">
         <div class="{{$class}}__cell item-place">{{'Place' | translate}}</div>
         <div class="{{$class}}__cell item-user">
             <span class="user-login">{{'Player' | translate}}</span>
         </div>
         <div class="{{$class}}__cell item-points">{{'Points' | translate}}</div>
+        <div *ngIf="paramInclude('themeMod', 'history')" class="{{$class}}__cell item-win">
+            <span class="win-text">{{'Win' | translate}}</span>
+            <span>(&euro;)</span>
+        </div>
     </div>
 
     <div class="{{$class}}__list">
@@ -16,25 +20,27 @@
              [class.last]="$index === (winsTop.length - 1)">
             <div class="{{$class}}__cell item-place">
                 <span class="{{$class}}__cell-place">{{win.IDUserPlace}}</span>
-                <span *ngIf="$params.common?.themeMod === 'tournament-detail'"
+                <span *ngIf="paramInclude('themeMod', 'tournament-detail')"
                       wlc-icon
                       iconName="cup"></span>
             </div>
             <div class="{{$class}}__cell item-user">
-                <span *ngIf="$params.common?.themeMod !== 'tournament-detail'"
+                <span *ngIf="paramExclude('themeMod', ['tournament-detail', 'history'])"
                       wlc-icon
                       iconName="cup"></span>
                 <span *ngIf="win.IDUser !== userId; else: userThee" class="user-login">{{win.UserLogin}}</span>
             </div>
             <div class="{{$class}}__cell item-points">{{win.points | number: '.0-2'}}</div>
+            <div *ngIf="paramInclude('themeMod', 'history')" class="{{$class}}__cell item-win">{{win.WinEUR || '-'}}</div>
         </div>
-        <div *ngIf="winsRest.length && $params.common?.themeMod === 'tournament-detail'" class="delimetr"></div>
+        <div *ngIf="winsRest.length && paramInclude('themeMod', 'tournament-detail')" class="delimetr"></div>
         <div *ngFor="let win of winsRest" class="{{$class}}__item" [class.user]="userId === win.IDUser">
             <div class="{{$class}}__cell item-place">{{win.IDUserPlace}}</div>
             <div class="{{$class}}__cell item-user">
                 <span *ngIf="win.IDUser !== userId; else: userThee" class="user-login">{{win.UserLogin}}</span>
             </div>
             <div class="{{$class}}__cell item-points">{{win.points | number: '.0-2'}}</div>
+            <div *ngIf="paramInclude('themeMod', 'history')" class="{{$class}}__cell item-win">{{win.WinEUR || '-'}}</div>
         </div>
     </div>
 
