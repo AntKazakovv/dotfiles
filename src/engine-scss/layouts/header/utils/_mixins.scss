@@ -3,7 +3,7 @@
 @use 'engine-scss/mixins/mediaqueries' as mq;
 
 @mixin headerBase($theme) {
-    margin: ef.get-value($theme, 'headerMargin');
+    @include bm.get-mq-map('margin', $theme, 'headerMargin');
     background: ef.get-value($theme, 'headerBackground');
 
     .container {

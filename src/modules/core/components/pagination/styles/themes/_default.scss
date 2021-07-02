@@ -1,14 +1,15 @@
-@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/mixins/mediaqueries' as mq;
 @use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/mixins/text' as text;
 @use 'engine-scss/functions' as ef;
 
 .wlc-pagination--theme-default {
 
     &:host {
+        @include bm.get-mq-map('margin', $themeDefault, 'hostMargin');
         display: flex;
         align-items: center;
         justify-content: center;
-        margin: ef.get-value($themeDefault, 'hostMargin');
 
         ::ng-deep {
 

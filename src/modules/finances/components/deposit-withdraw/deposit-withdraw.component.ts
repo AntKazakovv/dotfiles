@@ -234,7 +234,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
                 title: gettext('Withdraw'),
                 message: [
                     gettext('Withdraw request has been successfully sent!'),
-                    gettext('Withdraw sum') + ' ' + new CurrencyModel(form.value.amount, {
+                    this.translateService.instant(gettext('Withdraw sum')) + ' ' + new CurrencyModel(form.value.amount, {
                         currency: this.userService.userProfile.currency,
                         language: this.translateService.currentLang,
                     }),
@@ -261,7 +261,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
         const extProfile: IExtProfile = this.userService.userProfile.extProfile,
             alias: string = this.currentSystem?.alias,
             additionalParams: IExtPaymentSystem = {additionalParams: this.checkSkipSaving()};
-        extProfile.paymentSystems =  _assign({}, extProfile.paymentSystems, {[alias]: additionalParams});
+        extProfile.paymentSystems = _assign({}, extProfile.paymentSystems, {[alias]: additionalParams});
 
         try {
             return await this.userService.updateProfile({extProfile}, true);
@@ -413,7 +413,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
 
         if (savedAdditional?.[this.currentSystem.alias]) {
             delete savedAdditional[this.currentSystem.alias].additionalParams.bonusId;
-            for(const key in savedAdditional[this.currentSystem.alias].additionalParams) {
+            for (const key in savedAdditional[this.currentSystem.alias].additionalParams) {
                 if (_has(this.additionalParams, key)) {
                     this.additionalParams[key].value = savedAdditional[this.currentSystem.alias].additionalParams[key];
                 }
@@ -480,8 +480,8 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
         }
 
         if (type === 'message') {
-            if ((typeof(params) !== 'string')
-            && (!this.showModalCryptoPayment && params.translate === 'pay_to_address' && params.address)) {
+            if ((typeof (params) !== 'string')
+                && (!this.showModalCryptoPayment && params.translate === 'pay_to_address' && params.address)) {
                 this.currentSystem.additionalParams = undefined;
                 this.cdr.markForCheck();
             } else {
@@ -621,7 +621,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
             this.cdr.markForCheck();
         };
 
-        this.httpClient.get('/static/css/hosted.fields.css', {responseType: 'text'}).subscribe((data:any) => {
+        this.httpClient.get('/static/css/hosted.fields.css', {responseType: 'text'}).subscribe((data: any) => {
             const params: IHostedFieldsParams = {
                 merchantId: this.currentSystem.hostedFields?.merchantId,
                 hostedfieldsurl: this.currentSystem.hostedFields?.url,

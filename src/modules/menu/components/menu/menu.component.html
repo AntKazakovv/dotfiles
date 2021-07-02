@@ -70,6 +70,10 @@
                [attr.data-wlc-element]="item.wlcElement"
                [class.active]="isActive(item.params?.state?.parent)">
                 {{item.name | translate}}
+                <span *ngIf="$params.theme === 'first'"
+                      wlc-icon
+                      class="{{$class}}__icon-active"
+                      [iconUrl]="'/wlc/icons/menu-active.svg'"></span>
                 <span *ngIf="item?.counter" wlc-counter [counterType]="item?.counter"></span>
             </a>
         </div>

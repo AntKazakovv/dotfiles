@@ -32,7 +32,9 @@
 
     .wlc-profile-content__header {
         @include bm.get-mq-map('padding', $profileSettings, 'contentHeaderPaddingV1');
+        @include bm.get-mq-map('height', $profileSettings, 'contentHeaderHeightV1');
         display: ef.get-value($profileSettings, 'contentHeaderDisplayV1');
+        align-items: ef.get-value($profileSettings, 'contentHeaderAlignV1');
         justify-content: ef.get-value($profileSettings, 'contentHeaderJustifyV1');
         min-width: 0;
 

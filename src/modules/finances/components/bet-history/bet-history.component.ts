@@ -20,7 +20,7 @@ import {
     ITableCParams,
     IDatepickerCParams,
     DatepickerComponent,
-    ISelectCParams,
+    ISelectCParams, ConfigService,
 } from 'wlc-engine/modules/core';
 import {
     FinancesService,
@@ -74,6 +74,7 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
         noItemsText: gettext('No bets history'),
         head: Params.betHistoryTableHeadConfig,
         rows: this.bets,
+        switchWidth: (this.configService.get('$base.profile.type') === 'first') ? 1200 : 1024,
     };
 
     protected allBets: IBet[] = [];
@@ -85,12 +86,13 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
         protected eventService: EventService,
         protected historyFilterService: HistoryFilterService,
         protected gamesCatalogService: GamesCatalogService,
+        protected configService: ConfigService,
     ) {
         super(
             <IMixedParams<Params.IBetHistoryCParams>>{
                 injectParams: params,
                 defaultParams: Params.defaultParams,
-            });
+            }, configService);
     }
 
     public async ngOnInit(): Promise<void> {

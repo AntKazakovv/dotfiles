@@ -1,11 +1,8 @@
 @use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/base.mixins' as bm;
 @use 'engine-scss/functions' as ef;
 
 .wlc-bet-history--theme-default {
-
-    @include mq.min(1024) {
-        margin: ef.get-value($themeDefault, 'sectionMargin');
-    }
 
     &:host {
 
@@ -16,20 +13,28 @@
         .wlc-bet-history-filter {
             display: none;
 
+            .wlc-select[wlc-select] {
+                min-width: ef.get-value($themeDefault, 'filterMinWidth');
+            }
+
+            .wlc-sections__profile-content--theme-first & {
+                @include bm.get-mq-map('display', $themeDefault, 'sectionDisplayTypeFirst');
+            }
+
             @include mq.min(1024) {
                 display: grid;
                 align-items: flex-end;
+                margin: ef.get-value($themeDefault, 'filterMargin');
                 grid: {
                     auto-flow: column;
                     auto-columns: max-content;
                     gap: ef.get-value($themeDefault, 'filterGap');
                 };
-                margin: ef.get-value($themeDefault, 'filterMargin');
-            }
-
-            .wlc-select[wlc-select] {
-                min-width: ef.get-value($themeDefault, 'filterMinWidth');
             }
         }
+    }
+
+    @include mq.min(1024) {
+        margin: ef.get-value($themeDefault, 'sectionMargin');
     }
 }
