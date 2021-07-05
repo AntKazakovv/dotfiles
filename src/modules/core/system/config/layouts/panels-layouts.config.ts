@@ -4,7 +4,7 @@ import * as sectionsLib from 'wlc-engine/modules/core/system/config/layouts/sect
 export const $panelsLayouts: IPanelsConfig = {
     'app': {
         sections: {
-            'left-def': sectionsLib.leftPanel.def,
+            // 'left-def': sectionsLib.leftPanel.def,
             'left-v2': sectionsLib.leftPanel.left,
             'left-mobile': sectionsLib.leftPanel.mobile,
             right: sectionsLib.rightPanel.def,
