@@ -138,7 +138,11 @@
                     [ngClass]="{'active': game.isFavourite}"
                     (click)="toggleFavourites(game)">
             </span>
-            <span class="{{$class}}__name" data-wlc-element="block_game-thumb-name">{{game.name.en | truncate: 25}}</span>
+            <span class="{{$class}}__name"
+                  data-wlc-element="block_game-thumb-name"
+                  title="{{game.name.en}}">
+                {{game.name.en | truncate: 25}}
+            </span>
             <span *ngIf="$params?.common?.useMerchantName" class="{{$class}}__merchant" data-wlc-element="block_game-thumb-alias">
                 {{game.merchantAlias}}
             </span>
