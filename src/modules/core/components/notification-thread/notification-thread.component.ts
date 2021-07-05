@@ -13,6 +13,7 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
 import {Observable} from 'rxjs';
 
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {ConfigService} from 'wlc-engine/modules/core/system/services';
 import {INotification, NotificationService} from 'wlc-engine/modules/core/system/services/notification/notification.service';
 import * as Params from 'wlc-engine/modules/core/system/services/notification/notification.params';
 
@@ -71,10 +72,11 @@ export class NotificationThreadComponent extends AbstractComponent {
 
     constructor (
         protected notificationService: NotificationService,
+        protected configService: ConfigService,
         @Inject('injectParams')
         @Optional() @Self()
         params: Params.INotificationParams,
     ) {
-        super({injectParams: params, defaultParams: Params.defaultParams});
+        super({injectParams: params, defaultParams: Params.defaultParams}, configService);
     }
 }
