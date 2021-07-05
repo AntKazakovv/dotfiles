@@ -44,8 +44,8 @@ export class ExchangeComponent extends AbstractComponent implements OnInit, OnDe
         this.cdr.markForCheck();
         this.UserService.userInfo$
             .pipe(
-                skipWhile(v => !v),
                 takeUntil(this.$destroy),
+                skipWhile(v => !v),
             )
             .subscribe((userInfo) => {
                 this.points = userInfo.loyalty.Balance;
