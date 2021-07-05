@@ -5,14 +5,13 @@ import {
     Input,
     ChangeDetectorRef, ChangeDetectionStrategy, OnDestroy,
 } from '@angular/core';
-import {first, skipWhile} from 'rxjs/operators';
+import {skipWhile, takeUntil} from 'rxjs/operators';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ConfigService} from 'wlc-engine/modules/core';
 import {UserService} from 'wlc-engine/modules/user/system/services';
 import {ModalService} from 'wlc-engine/modules/core/system/services';
-import {IUserInfo} from 'wlc-engine/modules/core/system/interfaces';
-import * as Params from './dashboard-loyalty-block.params';
 
+import * as Params from './dashboard-loyalty-block.params';
 
 @Component({
     selector: '[wlc-dashboard-loyalty-block]',
@@ -35,7 +34,10 @@ export class DashboardLoyaltyBlockComponent extends AbstractComponent implements
 
     ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
-        this.UserService.userInfo$.pipe(skipWhile(v => !v))
+        this.UserService.userInfo$.pipe(
+            takeUntil(this.$destroy),
+            skipWhile(v => !v),
+        )
             .subscribe((userInfo) => {
                 this.cdr.markForCheck();
             });

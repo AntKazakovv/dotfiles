@@ -5,7 +5,7 @@ import {
     Input,
     ChangeDetectorRef, ChangeDetectionStrategy, OnDestroy,
 } from '@angular/core';
-import {first, skipWhile} from 'rxjs/operators';
+import {first, skipWhile, takeUntil} from 'rxjs/operators';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ConfigService} from 'wlc-engine/modules/core';
 import {UserService} from 'wlc-engine/modules/user/system/services';
@@ -41,7 +41,10 @@ export class UserNameComponent extends AbstractComponent implements OnInit, OnDe
 
     ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
-        this.UserService.userProfile$.pipe(skipWhile(v => !v))
+        this.UserService.userProfile$.pipe(
+            takeUntil(this.$destroy),
+            skipWhile(v => !v),
+        )
             .subscribe((userInfo) => {
                 this.email = userInfo.email;
                 this.firstName = userInfo.firstName;
