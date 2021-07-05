@@ -14,6 +14,7 @@ $storeThemeDefault: map-merge((
         375: ef.get('size', 'smally'),
         1024: ef.get('size', 'main'),
     ),
+    'statZIndex': 5,
 
     'loyaltyProgressPosition': (
         375: static,

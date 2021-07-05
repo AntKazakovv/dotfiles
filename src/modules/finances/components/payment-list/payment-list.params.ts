@@ -29,6 +29,7 @@ export interface IPaymentListCParams extends IComponentParams<Theme, Type, Theme
     modalSize?: string;
     modalTitle?: string;
     hideModalOnSelect?: boolean;
+    chosenMethodText?: string;
     /** Apply one of two types of colored icons (works only with colored) */
     colorIconBg?: ColorIconBgType;
 }
@@ -40,12 +41,13 @@ export const defaultParams: IPaymentListCParams = {
     paymentType: 'deposit',
     iconsType: 'color',
     colorIconBg: 'dark',
-    buttonText: 'Show all methods',
+    buttonText: gettext('Show all methods'),
     arrowIcon: 'arrow',
     asModal: '(max-width: 479px)',
-    showTable: '(max-width: 479px)',
+    showTable: undefined,
     modalSize: 'md',
-    modalTitle: 'Choose payment option',
+    modalTitle: gettext('Choose payment option'),
     hideModalOnSelect: true,
     showSelectedInButton: true,
+    chosenMethodText: gettext('The chosen payment method:'),
 };

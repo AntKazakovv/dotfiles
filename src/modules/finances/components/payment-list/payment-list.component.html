@@ -25,6 +25,10 @@
         </span>
     </button>
     <div *ngIf="paymentDescription" class="payments-description">{{paymentDescription}}</div>
+    <div *ngIf="currentSystem && $params.showSelectedInButton"  class="payments-chosen-method">
+        <span class="payments-chosen-method__text">{{$params.chosenMethodText | translate}}</span>
+        <span class="payments-chosen-method__name">{{activeName}}</span>
+    </div>
 
 </ng-template>
 

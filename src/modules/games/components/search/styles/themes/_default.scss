@@ -143,18 +143,8 @@
             }
 
             .counter {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                width: ef.get-value($themeDefault, 'btnCounterSize');
-                min-width: ef.get-value($themeDefault, 'btnCounterSize');
-                height: ef.get-value($themeDefault, 'btnCounterSize');
                 margin-left: ef.get-value($themeDefault, 'btnCounterMarginLeft');
-                color: ef.get-value($themeDefault, 'btnCounterColor');
-                font-size: ef.get-value($themeDefault, 'btnCounterFontSize');
-                line-height: ef.get-value($themeDefault, 'btnCounterLineHeight');
-                background: ef.get-value($themeDefault, 'btnCounterBackground');
-                border-radius: ef.get-value($themeDefault, 'btnCounterBorderRadius');
+                font-size: ef.get-value($themeDefault, 'searchColSize');
             }
 
             &.active {
