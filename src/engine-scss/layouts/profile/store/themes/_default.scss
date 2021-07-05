@@ -33,8 +33,8 @@
         .wlc-user-stats {
             @include bm.get-mq-map('top', $storeThemeDefault, 'statTop');
             @include bm.get-mq-map('right', $storeThemeDefault, 'statRight');
+            @include bm.get-mq-map('z-index', $storeThemeDefault, 'statZIndex');
             position: absolute;
-            z-index: 5;
         }
 
         .wlc-title {

@@ -55,6 +55,10 @@ interface IPaymentsIterator extends IMerchantsPaymentsIterator {
 export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCParams>
     implements OnInit, AfterViewInit, OnChanges {
 
+    @Input() public currentSystem: PaymentSystem;
+    @Input() protected inlineParams: Params.IPaymentListCParams;
+    @ViewChild('list') protected list: TemplateRef<any>;
+    
     public systems: PaymentSystem[] = [];
     public items: IconModel[] = [];
     public $params: Params.IPaymentListCParams;
@@ -63,12 +67,8 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
     public showTable: boolean;
     public classList: string = '';
     public activeIcon: IconModel;
+    public activeName: string = '';
     public paymentDescription: string = '';
-
-    @Input() public currentSystem: PaymentSystem;
-    @Input() protected inlineParams: Params.IPaymentListCParams;
-
-    @ViewChild('list') protected list: TemplateRef<any>;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IPaymentListCParams,
@@ -89,7 +89,7 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
         this.followBreakpoints();
 
         if (this.currentSystem) {
-            this.setActiveIcon();
+            this.setActivePayment();
         }
     }
 
@@ -99,7 +99,7 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
 
     public ngOnChanges(changes: SimpleChanges): void {
         if (changes['currentSystem']) {
-            this.setActiveIcon();
+            this.setActivePayment();
         }
     }
 
@@ -129,9 +129,13 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
         });
     }
 
-    protected setActiveIcon(): void {
+    protected setActivePayment(): void {
         const index = _findIndex(this.systems, (item) => item.id === this.currentSystem.id);
-        this.activeIcon = this.items[index];
+
+        if (index !== -1) {
+            this.activeIcon = this.items[index];
+            this.activeName = this.systems[index].name;
+        }
     }
 
     protected getPaymentSystems(): void {
@@ -157,7 +161,6 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
             this.cdr.markForCheck();
         });
     }
-
 
     protected setPaymentsIconsList(): void {
         const {iconsType, colorIconBg} = this.$params;

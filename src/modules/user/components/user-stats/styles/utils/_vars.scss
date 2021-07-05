@@ -32,6 +32,7 @@ $themeDefault: map-merge((
     'storeValueFontColor': ef.get('mainColors', 'baseMain'),
     'storeValueFontColorHover': ef.get('mainColors', 'main'),
     'storeValueDisplay': flex,
+    'storeValueColorHover': ef.get('mainColors', 'main'),
     'translateY': translateY(-50%),
     'zIndex': 1,
     'iconTop': 50%,

@@ -89,6 +89,10 @@ $themeDefault: map-merge((
 
     // Description
     'descriptionFont': 'PrimaryText',
+    'descriptionTextAlign': (
+        320: center,
+        900: left,
+    ),
     'descriptionColor': ef.get('mainColors', 'baseMain'),
     'descriptionPadding': ef.get('size', 'smaller') 0 0,
     'descriptionWhiteSpace': pre-line,
@@ -96,4 +100,11 @@ $themeDefault: map-merge((
         320: none,
         480: block,
     ),
+
+    // ChosenMethod
+    'сhosenMethodFont': 'PrimaryText',
+    'сhosenMethodColor': ef.get('mainColors', 'baseMain'),
+    'сhosenMethodPadding': ef.get('size', 'smaller') 0 0,
+    'сhosenMethodTextAlign': center,
+    'сhosenMethodNameMarginLeft': ef.get('size', 'smallest'),
 ), $customThemeDefault);

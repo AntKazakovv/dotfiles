@@ -121,6 +121,10 @@
                             }
                         }
                     }
+
+                    @include bm.hover {
+                        color: ef.get-value($themeDefault, 'storeValueColorHover');
+                    }
                 }
 
                 @include bm.hover {

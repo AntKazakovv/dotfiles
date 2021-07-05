@@ -215,12 +215,24 @@
 
         .payments-description {
             @include text.get-text-style(ef.get-value($themeDefault, 'descriptionFont'), ef.get-value($themeDefault, 'descriptionColor'));
+            @include em.get-mq-map('text-align', $themeDefault, 'descriptionTextAlign');
 
             padding: ef.get-value($themeDefault, 'descriptionPadding');
             white-space: ef.get-value($themeDefault, 'descriptionWhiteSpace');
 
             &--desktop {
                 @include em.get-mq-map('display', $themeDefault, 'descriptionDesktopDisplay');
+            }
+        }
+
+        .payments-chosen-method {
+            @include text.get-text-style(ef.get-value($themeDefault, 'сhosenMethodFont'), ef.get-value($themeDefault, 'сhosenMethodColor'));
+            padding: ef.get-value($themeDefault, 'сhosenMethodPadding');
+
+            text-align: ef.get-value($themeDefault, 'сhosenMethodTextAlign');
+
+            &__name {
+                margin-left: ef.get-value($themeDefault, 'сhosenMethodNameMarginLeft');
             }
         }
     }
