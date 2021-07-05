@@ -21,6 +21,7 @@ export interface ISignInFormCParams extends IComponentParams<ComponentTheme, Com
     };
     wrapperConfig?: IWrapperCParams;
     modifiers?: Modifiers[];
+    formConfig?: IFormWrapperCParams;
 }
 
 export const defaultParams: ISignInFormCParams = {

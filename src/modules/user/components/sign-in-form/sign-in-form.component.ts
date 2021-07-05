@@ -13,6 +13,7 @@ import {
 } from 'wlc-engine/modules/core/system/services';
 import {
     ConfigService,
+    IFormWrapperCParams,
     IPushMessageParams,
     NotificationEvents,
 } from 'wlc-engine/modules/core';
@@ -39,7 +40,7 @@ import * as Params from './sign-in-form.params';
 export class SignInFormComponent extends AbstractComponent implements OnInit {
 
     public $params: Params.ISignInFormCParams;
-    public config = Params.signInFormConfig;
+    public config: IFormWrapperCParams;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ISignInFormCParams,
@@ -57,6 +58,7 @@ export class SignInFormComponent extends AbstractComponent implements OnInit {
 
     public ngOnInit(): void {
         super.ngOnInit();
+        this.config = this.$params.formConfig || Params.signInFormConfig;
     }
 
     public async ngSubmit(form: FormGroup): Promise<void> {
