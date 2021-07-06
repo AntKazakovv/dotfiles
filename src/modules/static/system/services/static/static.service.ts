@@ -2,20 +2,20 @@ import {HttpClient, HttpParams, HttpRequest, HttpResponse} from '@angular/common
 import {Injectable} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {DomSanitizer} from '@angular/platform-browser';
-import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
-import {ConfigService, CachingService} from 'wlc-engine/modules/core';
+import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
+import {CachingService} from 'wlc-engine/modules/core/system/services/caching/caching.service';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {
     ICategoryStaticText,
     IStaticParams,
     IPostResponse,
     IRequestUrlStaticText,
     StaticTextType,
-    TextDataModel,
-    WlcTextData,
-    WpTextData,
-    WpPluginsType,
-    ICacheExpiry,
-} from 'wlc-engine/modules/static';
+} from 'wlc-engine/modules/static/system/interfaces/static.interface';
+import {TextDataModel} from 'wlc-engine/modules/static/system/models/textdata.model';
+import {WlcTextData} from 'wlc-engine/modules/static/system/models/textdata.wlc.model';
+import {WpTextData} from 'wlc-engine/modules/static/system/models/textdata.wp.model';
+import {WpPluginsType,ICacheExpiry} from 'wlc-engine/modules/static/system/interfaces/static.interface';
 
 import _filter from 'lodash-es/filter';
 import _union from 'lodash-es/union';

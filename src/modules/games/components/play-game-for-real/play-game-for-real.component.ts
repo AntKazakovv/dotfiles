@@ -10,15 +10,14 @@ import {FormGroup} from '@angular/forms';
 import {TranslateService} from '@ngx-translate/core';
 import {StateService} from '@uirouter/core';
 
-import {
-    AbstractComponent,
-    IMixedParams,
-    ConfigService,
-    EventService,
-    LogService,
-    ModalService,
-    IFormWrapperCParams,
-} from 'wlc-engine/modules/core';
+import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
+import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
+import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {IMixedParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {IFormWrapperCParams} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
+
 import {UserService} from 'wlc-engine/modules/user/system/services';
 
 import * as Params from './play-game-for-real.params';

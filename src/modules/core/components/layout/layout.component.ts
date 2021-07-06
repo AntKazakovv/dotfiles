@@ -12,17 +12,17 @@ import {
     TransitionService,
     UIRouterGlobals,
 } from '@uirouter/core';
+import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
+import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {LayoutService} from 'wlc-engine/modules/core/system/services/layout/layout.service';
+import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
+import {LayoutsType} from 'wlc-engine/modules/core/system/services/layout/layout.service';
 import {
     ILayoutComponent,
     ILayoutStateConfig,
     ILayoutSectionConfig,
-    ConfigService,
-    EventService,
-    LayoutService,
-    GlobalHelper,
-    IIndexing,
-    LayoutsType,
-} from 'wlc-engine/modules/core';
+} from 'wlc-engine/modules/core/system/interfaces/layouts.interface';
 import {
     fromEvent,
     Subject,

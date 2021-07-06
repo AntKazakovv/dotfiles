@@ -3,8 +3,8 @@ import {localFiles} from '../../config/files.config';
 import {getFileBody} from 'wlc-src/svg';
 import imagesList from 'wlc-src/staticImagesList.json';
 import {getEngineFileBody} from 'wlc-engine/svg';
-import {ConfigService} from 'wlc-engine/modules/core/system/services';
-import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
 import {HttpClient, HttpResponse} from '@angular/common/http';
 
 import _find from 'lodash-es/find';

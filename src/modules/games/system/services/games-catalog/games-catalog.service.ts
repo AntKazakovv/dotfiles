@@ -14,20 +14,17 @@ import {
     first,
     map,
 } from 'rxjs/operators';
-
-import {
-    ActionService,
-    ConfigService,
-    DataService,
-    DeviceType,
-    EventService,
-    IData,
-    IPushMessageParams,
-    LayoutService,
-    LogService,
-    ModalService,
-    NotificationEvents,
-} from 'wlc-engine/modules/core';
+import {DataService} from 'wlc-engine/modules/core/system/services/data/data.service';
+import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
+import {IData} from 'wlc-engine/modules/core/system/services/data/data.service';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
+import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
+import {IPushMessageParams} from 'wlc-engine/modules/core/system/services/notification/notification.interface';
+import {NotificationEvents} from 'wlc-engine/modules/core/system/services/notification/notification.service';
+import {DeviceType} from 'wlc-engine/modules/core/system/models/device.model';
+import {LayoutService} from 'wlc-engine/modules/core/system/services/layout/layout.service';
+import {ActionService} from 'wlc-engine/modules/core/system/services/action/action.service';
 import {
     CategoryModel,
     Game,

@@ -14,7 +14,7 @@ import {
 } from '@angular/core';
 import {DOCUMENT} from '@angular/common';
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
-import {GlobalHelper} from 'wlc-engine/modules/core';
+import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
 
 import _each from 'lodash-es/each';
 

@@ -13,12 +13,10 @@ import {
     ViewEncapsulation,
     SimpleChanges,
 } from '@angular/core';
-import {
-    ILayoutComponent,
-    ConfigService,
-    EventService,
-    LayoutService,
-} from 'wlc-engine/modules/core';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {LayoutService} from 'wlc-engine/modules/core/system/services/layout/layout.service';
+import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
+import {ILayoutComponent} from 'wlc-engine/modules/core/system/interfaces/layouts.interface';
 
 import _merge from 'lodash-es/merge';
 

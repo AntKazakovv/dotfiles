@@ -7,13 +7,10 @@ import {
     Optional,
     ChangeDetectionStrategy,
 } from '@angular/core';
-
-import {
-    AbstractComponent,
-    EventService,
-} from 'wlc-engine/modules/core';
-import {ConfigService} from 'wlc-engine/modules/core/system/services';
-import {PIQCashierServiceEvents} from 'wlc-engine/modules/finances/system/services';
+import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
+import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {PIQCashierServiceEvents} from 'wlc-engine/modules/finances/system/services/piq-cashier/piq-cashier.service';
 
 import * as Params from './piq-cashier.params';
 

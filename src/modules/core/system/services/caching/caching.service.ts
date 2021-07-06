@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {LocalStorageService} from 'ngx-webstorage';
-import {LogService} from 'wlc-engine/modules/core';
+import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
 import {AbstractCache} from './classes/abstract.cache';
 import {WorkerStorageCache} from './classes/workerstorage.class';
 import {LocalStorageCache} from './classes/localstorage.class';

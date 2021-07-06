@@ -137,8 +137,6 @@ export class PIQCashierService {
             showFooter: !currentSystem.customParams?.provider,
             theme: cashierTheme,
             blockBrowserNavigation: true,
-            enableTermsTemplateFor: false,
-            fixedProviderType: false,
         };
 
         this.subscribeToIFrameMessages();

@@ -5,13 +5,9 @@ import {
     Input,
     ChangeDetectorRef,
 } from '@angular/core';
-import {
-    AbstractComponent,
-    ModalService,
-} from 'wlc-engine/modules/core';
-import {
-    UserService,
-} from 'wlc-engine/modules/user';
+import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
+import {UserService} from 'wlc-engine/modules/user/system/services/user/user.service';
 import * as Params from './logout.params';
 
 @Component({

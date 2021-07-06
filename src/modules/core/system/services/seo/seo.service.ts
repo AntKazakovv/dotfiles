@@ -8,13 +8,12 @@ import {
     TransitionService,
     UIRouterGlobals,
 } from '@uirouter/core';
-import {GamesCatalogService, GamesHelper} from 'wlc-engine/modules/games';
-import {
-    CachingService,
-    ConfigService,
-    DataService,
-    IIndexing,
-} from 'wlc-engine/modules/core';
+import {GamesHelper} from 'wlc-engine/modules/games/system/helpers/games.helpers';
+import {GamesCatalogService} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
+import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
+import {DataService} from 'wlc-engine/modules/core/system/services/data/data.service';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {CachingService} from 'wlc-engine/modules/core/system/services/caching/caching.service';
 
 import _get from 'lodash-es/get';
 

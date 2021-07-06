@@ -10,15 +10,13 @@ import {
     ViewChild,
 } from '@angular/core';
 import {takeUntil} from 'rxjs/operators';
-import {
-    AbstractComponent,
-    ActionService,
-    ConfigService,
-    DeviceType,
-    EventService,
-    IIndexing,
-    ModalService,
-} from 'wlc-engine/modules/core';
+import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
+import {DeviceType} from 'wlc-engine/modules/core/system/models/device.model';
+import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
+import {ActionService} from 'wlc-engine/modules/core/system/services/action/action.service';
 import {GamesCatalogService, Game} from 'wlc-engine/modules/games';
 import {UserService} from 'wlc-engine/modules/user';
 import * as Params from './game-thumb.params';

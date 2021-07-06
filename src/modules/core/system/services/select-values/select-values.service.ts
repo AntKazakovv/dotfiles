@@ -8,10 +8,12 @@ import {
     DateTime,
     Info,
 } from 'luxon';
-import {ConfigService, LayoutService} from 'wlc-engine/modules/core/system/services';
-import {ICountry, IIndexing} from 'wlc-engine/modules/core';
-import {ICurrency} from 'wlc-engine/modules/finances/system/interfaces';
-import {GamesCatalogService} from 'wlc-engine/modules/games';
+import {LayoutService} from 'wlc-engine/modules/core/system/services/layout/layout.service';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {ICountry} from 'wlc-engine/modules/core/system/interfaces/fundist.interface';
+import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
+import {ICurrency} from 'wlc-engine/modules/finances/system/interfaces/currencies.interface';
+import {GamesCatalogService} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
 
 import * as Params from 'wlc-engine/modules/core/components/select/select.params';
 

@@ -7,15 +7,17 @@ import {
     pipe,
 } from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
+
+import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus';
 import {
     ActionType,
-    Bonus,
     BonusesFilterType,
     IBonus,
     IGetSubscribeParams,
     IQueryParams,
     RestType,
-} from 'wlc-engine/modules/bonuses';
+} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses.interface';
+
 import {UserService} from 'wlc-engine/modules/user';
 import {
     CachingService,

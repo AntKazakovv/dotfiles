@@ -1,4 +1,9 @@
 import {Injectable} from '@angular/core';
+
+import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
+import {IGlobalConfig} from 'wlc-engine/modules/core/system/services/config/config.interface';
 import {
     ILayoutComponent,
     ILayoutsConfig,
@@ -6,12 +11,9 @@ import {
     ILayoutStateConfig,
     ILayoutModifyItem,
     IPanelsConfig,
-    ConfigService,
     IDisplayConfig,
-    IIndexing,
-    GlobalHelper,
-    IGlobalConfig,
-} from 'wlc-engine/modules/core';
+} from 'wlc-engine/modules/core/system/interfaces/layouts.interface';
+
 import {SectionModel, ISectionData} from 'wlc-engine/modules/core/system/models/section.model';
 
 import _cloneDeep from 'lodash-es/cloneDeep';

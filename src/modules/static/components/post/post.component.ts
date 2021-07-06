@@ -15,16 +15,13 @@ import {
     UIRouterGlobals,
 } from '@uirouter/core';
 
-import {
-    StaticService,
-    TextDataModel,
-} from 'wlc-engine/modules/static';
-import {
-    AbstractComponent,
-    ConfigService,
-    LogService,
-    ActionService,
-} from 'wlc-engine/modules/core';
+import {StaticService} from 'wlc-engine/modules/static/system/services/static/static.service';
+import {TextDataModel} from 'wlc-engine/modules/static/system/models/textdata.model';
+
+import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {ActionService} from 'wlc-engine/modules/core/system/services/action/action.service';
 
 import * as Params from './post.params';
 

@@ -16,22 +16,19 @@ import {
     ModalDirective,
 } from 'ngx-bootstrap/modal';
 
-import {
-    EventService,
-    ModalService,
-} from 'wlc-engine/modules/core/system/services';
+import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
+import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
 import {
     AbstractComponent,
     IMixedParams,
 } from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ConfigService, DeviceModel} from 'wlc-engine/modules/core';
-
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {DeviceModel} from 'wlc-engine/modules/core/system/models/device.model';
 import {
-    IModalOptions,
+    IModalOptions, 
     IModalBsOptions,
-    defaultParams,
-} from './index';
-
+} from 'wlc-engine/modules/core/components/modal/modal.interface';
+import {defaultParams} from 'wlc-engine/modules/core/components/modal/modal.params';
 import _isString from 'lodash-es/isString';
 import _assign from 'lodash-es/assign';
 

@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
-import {
-    ConfigService, EventService, GlobalHelper,
-    IInteractiveText,
-} from 'wlc-engine/modules/core';
+import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
+import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {IInteractiveText} from 'wlc-engine/modules/core/system/interfaces/base-config/interactiveText.interface';
 
 import _filter from 'lodash-es/filter';
 import {UIRouter} from '@uirouter/core';
