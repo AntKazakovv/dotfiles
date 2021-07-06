@@ -14,6 +14,7 @@ export interface ITextareaCParams extends IComponentParams<ComponentTheme, Compo
     value?: string;
     common: {
         placeholder?: string;
+        maxlength?: number;
     }
     exampleValue?: string;
     validators?: ValidatorType[];
