@@ -99,9 +99,11 @@ export namespace FormElements {
             common: {
                 placeholder: gettext('First name'),
             },
-            prohibitedPattern: /[\d!"#$%&()*+,./:;<=>?@[\\\]^_{|}~¡¿÷ˆ№]/,
+            prohibitedPattern: /[\d!"#$%&()*+,./:;<=>?@[\\\]^_{|}~¡¿÷ˆ№]/g,
             name: 'firstName',
-            validators: ['required',
+            validators: [
+                'required',
+                'allowLettersOnly',
                 {
                     name: 'minLength',
                     options: 2,
@@ -109,10 +111,6 @@ export namespace FormElements {
                 {
                     name: 'maxLength',
                     options: 25,
-                },
-                {
-                    name: 'pattern',
-                    options: /[^\d!"#$%&()*+,./:;<=>?@[\\\]^_{|}~¡¿÷ˆ№]/,
                 },
             ],
             wlcElement: 'block_Name',
@@ -128,9 +126,11 @@ export namespace FormElements {
             common: {
                 placeholder: gettext('Last name'),
             },
-            prohibitedPattern: /[\d!"#$%&()*+,./:;<=>?@[\\\]^_{|}~¡¿÷ˆ№]/,
+            prohibitedPattern: /[\d!"#$%&()*+,./:;<=>?@[\\\]^_{|}~¡¿÷ˆ№]/g,
             name: 'lastName',
-            validators: ['required',
+            validators: [
+                'required',
+                'allowLettersOnly',
                 {
                     name: 'minLength',
                     options: 2,
@@ -138,10 +138,6 @@ export namespace FormElements {
                 {
                     name: 'maxLength',
                     options: 25,
-                },
-                {
-                    name: 'pattern',
-                    options: /[^\d!"#$%&()*+,./:;<=>?@[\\\]^_{|}~¡¿÷ˆ№]/,
                 },
             ],
             wlcElement: 'block_last-name',

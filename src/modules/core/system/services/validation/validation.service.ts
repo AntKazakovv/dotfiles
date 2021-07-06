@@ -94,6 +94,9 @@ export class ValidationService {
         pattern: {
             validator: Validators.pattern,
         },
+        allowLettersOnly: {
+            validator: Validators.pattern(/[^\d!"#$%&()*+,./:;<=>?@[\\\]^_{|}~¡¿÷ˆ№]/g),
+        },
     };
 
     private delay: number = 500;
