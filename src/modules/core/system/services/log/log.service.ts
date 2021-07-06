@@ -7,25 +7,22 @@ import {
 import {DOCUMENT} from '@angular/common';
 import {TranslateService} from '@ngx-translate/core';
 import {StateService, UIRouter} from '@uirouter/core';
-import {ConfigService, logTypes} from 'wlc-engine/modules/core';
+import {
+    ConfigService,
+    logTypes,
+    TLogMethods,
+    ILogType,
+} from 'wlc-engine/modules/core';
+import {WlcFlog} from 'wlc-engine/system/inline/_flog';
 
 import _get from 'lodash-es/get';
 import _set from 'lodash-es/set';
+import _cloneDeep from 'lodash-es/cloneDeep';
+import _merge from 'lodash-es/merge';
 
-interface ILogTags {
-    type: string;
-    group?: string;
-    project?: string;
-    createTicket?: boolean;
-}
-
-export interface ILogObj {
+export interface ILogObj<T = any> extends ILogType {
     code: string;
-    name?: string;
-    data?: any;
-    tags?: ILogTags;
-    level?: string;
-    logger?: string;
+    data?: T;
 }
 
 interface IWaitElementParams {
@@ -42,7 +39,7 @@ interface IDurationWaiter {
 
 @Injectable()
 export class LogService {
-    private Flog = _get(window, 'WlcFlog', {});
+    private Flog: WlcFlog = _get(window, 'WlcFlog', {}) as WlcFlog;
 
     constructor(
         private configService: ConfigService,
@@ -115,7 +112,8 @@ export class LogService {
      */
     public waiter(log: ILogObj, timeout: number = 3000): (v?: unknown) => void {
         const start = () => {
-            let res = (v: unknown) => {};
+            let res = (v: unknown) => {
+            };
             new Promise((resolve, reject) => {
                 res = resolve;
                 setTimeout(() => {
@@ -167,56 +165,47 @@ export class LogService {
      * @param {ILogObj} logObj Log info
      */
     public sendLog(logObj: ILogObj): void {
-        logObj.level = logObj.level || 'error';
-        logObj.logger = 'javascript';
-
-        if (logTypes[logObj.code]) {
-            logObj.name = logTypes[logObj.code].name;
-            logObj.level = logTypes[logObj.code].level || logObj.level;
-            logObj.tags = {
-                type: logTypes[logObj.code].type,
-                group: logTypes[logObj.code].group || 'default',
-            };
-            if (logTypes[logObj.code].createTicket) {
-                logObj.tags.createTicket = true;
+        const defaultLog = _get(logTypes, logObj.code),
+            isMethod = (item: TLogMethods) => defaultLog.method?.includes(item);
+        if (!defaultLog) {
+            // TODO Warning about empty code
+            return;
+        }
+        _merge(logObj, defaultLog);
+        logObj.level = logObj.level || 'log';
+        // Using Flog as default log method
+        // eslint-disable-next-line sonarjs/no-collapsible-if
+        if (!defaultLog.method || isMethod('flog') || isMethod('all')) {
+            if (this.Flog.enabled) {
+                this.sendFlog(logObj);
             }
         }
-
-        if (!logObj.data) {
-            logObj.data = {};
-        }
-        this.log(logObj);
-    }
-
-    /**
-     * Prepare log info and send
-     *
-     * @param {ILogObj} logObj Log info
-     */
-    protected log(logObj: ILogObj): void {
-        _set(logObj, 'data.mobile', this.configService.get<boolean>('appConfig.mobile'));
-
-        if (this.Flog.enabled) {
-            const code = _get(logObj, 'code', '0');
-            const codeData = _get(logTypes, code, null);
-
-            if (_get(codeData, 'method') === 'Flog' || _get(codeData, 'method') === 'Both') {
-
-                switch (_get(codeData, 'duration')) {
-                    case 'fromStart':
-                        logObj.data.duration = (new Date().getTime() - this.Flog.startTime.getTime()) / 1000;
-                        break;
-                    default:
-                        break;
-                }
-
-                this.Flog.send({
-                    code,
-                    level: _get(codeData, 'level', 'log'),
-                    ..._get(logObj, 'data', {}),
-                }).finally();
-            }
+        if (isMethod('console') || isMethod('all')) {
+            this.consoleLog(logObj);
         }
     }
 
+    protected sendFlog(logObj: ILogObj): void {
+        const _logObj: ILogObj = _cloneDeep(logObj);
+        _set(_logObj, 'data.mobile', this.configService.get<boolean>('appConfig.mobile'));
+
+        switch (_get(_logObj, 'durationType')) {
+            case 'fromStart':
+                _logObj.data.duration = (new Date().getTime() - this.Flog.startTime.getTime()) / 1000;
+                break;
+            default:
+                break;
+        }
+
+        this.Flog.send({
+            code: _logObj.code,
+            level: _logObj.level,
+            ..._get(_logObj, 'data', {}),
+        }).finally();
+    }
+
+    protected consoleLog(logObj: ILogObj): void {
+        // eslint-disable-next-line no-console
+        console.log(`Log ${logObj.code}:`, logObj);
+    }
 }
