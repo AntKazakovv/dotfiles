@@ -28,6 +28,8 @@ import {
     ConfigService,
     LogService,
     GlobalHelper,
+    NotificationEvents,
+    IPushMessageParams,
 } from 'wlc-engine/modules/core';
 
 import _assignIn from 'lodash-es/assignIn';
@@ -93,6 +95,18 @@ export class ModalService {
         let modalConfig: IModalConfig;
 
         if (_isString(config)) {
+            if (config === 'signup' && this.configService.get<boolean>('$base.site.restrictRegistration')) {
+                this.eventService.emit({
+                    name: NotificationEvents.PushMessage,
+                    data: <IPushMessageParams>{
+                        type: 'error',
+                        message: gettext('Sorry, registration is disabled.'),
+                        wlcElement: 'registration-is-disabled',
+                    },
+                });
+                return;
+            }
+
             if (this.modalList[config]) {
                 modalConfig = _assignIn(
                     {},
