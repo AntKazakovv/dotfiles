@@ -17,7 +17,7 @@ export interface ISelectCParams extends IComponentParams<ComponentTheme, Compone
     name: string;
     value?: string;
     common?: {
-        placeholder?: string;
+        placeholder?: string | number;
         customModifiers?: CustomMod;
         tooltipText?: string;
         tooltipModal?: string;
