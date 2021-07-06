@@ -57,16 +57,13 @@ export const defaultParams: IProfileFormCParams = {
                     wlcElement: 'block_Name',
                     name: 'firstName',
                     locked: true,
-                    prohibitedPattern: /[\d!"#$%&()*+,./:;<=>?@[\\\]^_{|}~¡¿÷ˆ№]/,
+                    prohibitedPattern: /[\d!"#$%&()*+,./:;<=>?@[\\\]^_{|}~¡¿÷ˆ№]/g,
                     validators: [
                         'required',
+                        'allowLettersOnly',
                         {
                             name: 'minLength',
                             options: 2,
-                        },
-                        {
-                            name: 'pattern',
-                            options: /[^\d!"#$%&()*+,./:;<=>?@[\\\]^_{|}~¡¿÷ˆ№]/,
                         },
                     ],
                     exampleValue: gettext('Enter your name'),
@@ -81,16 +78,13 @@ export const defaultParams: IProfileFormCParams = {
                     wlcElement: 'block_last-name',
                     name: 'lastName',
                     locked: true,
-                    prohibitedPattern: /[\d!"#$%&()*+,./:;<=>?@[\\\]^_{|}~¡¿÷ˆ№]/,
+                    prohibitedPattern: /[\d!"#$%&()*+,./:;<=>?@[\\\]^_{|}~¡¿÷ˆ№]/g,
                     validators: [
                         'required',
+                        'allowLettersOnly',
                         {
                             name: 'minLength',
                             options: 2,
-                        },
-                        {
-                            name: 'pattern',
-                            options: /[^\d!"#$%&()*+,./:;<=>?@[\\\]^_{|}~¡¿÷ˆ№]/,
                         },
                     ],
                     exampleValue: gettext('Enter your last name'),

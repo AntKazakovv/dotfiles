@@ -104,7 +104,7 @@ export class InputComponent extends AbstractComponent implements OnInit, OnChang
         }
 
         let value = this.control.value;
-        if (this.$params.prohibitedPattern.test((event as InputEvent).data)) {
+        if (this.$params.prohibitedPattern.test((event.target as HTMLInputElement).value)) {
             value = value.replace(this.$params.prohibitedPattern, '');
             this.control.patchValue(value, {emitEvent: false, emitModelToViewChange: true});
         }
