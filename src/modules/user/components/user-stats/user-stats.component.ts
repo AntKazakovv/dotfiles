@@ -3,11 +3,12 @@ import {
     Inject,
     OnInit,
     Input,
-    ChangeDetectorRef, ChangeDetectionStrategy, OnDestroy,
+    ChangeDetectorRef,
+    ChangeDetectionStrategy,
+    OnDestroy,
 } from '@angular/core';
-import {Subscription} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 import {StateService} from '@uirouter/core';
-import {TranslateService} from '@ngx-translate/core';
 import {AbstractComponent, IMixedParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ConfigService} from 'wlc-engine/modules/core';
 import {UserService} from 'wlc-engine/modules/user/system/services';
@@ -17,15 +18,23 @@ import {UserInfo} from 'wlc-engine/modules/user/system/models/info.model';
 import * as Params from './user-stats.params';
 
 import _isUndefined from 'lodash-es/isUndefined';
+import _each from 'lodash-es/each';
+import _get from 'lodash-es/get';
 
-export interface IUserStatsItem {
-    name: string;
+export interface IUserStatsItem extends Params.IUserStatsItemConfig {
     value: string | number;
-    modification?: string;
-    currency?: string;
-    wlcElement?: string;
 }
 
+/**
+ * Show user info component.
+ *
+ * @example
+ *
+ * {
+ *     name: 'user.wlc-user-stats',
+ * }
+ *
+ */
 @Component({
     selector: '[wlc-user-stats]',
     templateUrl: './user-stats.component.html',
@@ -37,9 +46,9 @@ export class UserStatsComponent extends AbstractComponent implements OnInit, OnD
     @Input() public useDepositBtn: boolean = true;
     @Input() public inlineParams: Params.IUserStatsCParams;
     public $params: Params.IUserStatsCParams;
-    public userStats: UserInfo;
     public shownUserStats: IIndexing<IUserStatsItem> = {};
-    private userInfoHandler: Subscription;
+
+    private userStats: UserInfo;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IUserStatsCParams,
@@ -53,14 +62,32 @@ export class UserStatsComponent extends AbstractComponent implements OnInit, OnD
             <IMixedParams<Params.IUserStatsCParams>>{injectParams: injectParams, defaultParams: Params.defaultParams}, configService);
     }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         super.ngOnInit(this.prepareParams());
+
+        switch (this.type) {
+            case 'short':
+                this.$params.fields = [
+                    'balance',
+                    'bonusBalance',
+                ];
+                break;
+            case 'store':
+                this.$params.fields = [
+                    'points',
+                    'expPoints',
+                ];
+                break;
+        }
+
         this.userStats = this.UserService.userInfo;
-        this.userInfoHandler = this.UserService.userInfo$.subscribe((userInfo) => {
-            this.userStats = userInfo;
-            this.fillUserStatsFields();
-            this.cdr.detectChanges();
-        });
+        this.UserService.userInfo$
+            .pipe(takeUntil(this.$destroy))
+            .subscribe((userInfo) => {
+                this.userStats = userInfo;
+                this.fillUserStatsFields();
+                this.cdr.detectChanges();
+            });
 
         if (!_isUndefined(this.$params.useDepositBtn)) {
             this.useDepositBtn = this.$params.useDepositBtn;
@@ -68,104 +95,16 @@ export class UserStatsComponent extends AbstractComponent implements OnInit, OnD
         }
     }
 
-    ngOnDestroy() {
-        this.userInfoHandler?.unsubscribe();
-    }
-
-    private fillUserStatsFields(): void {
-
-        this.shownUserStats = {
-            balance: {
-                name: gettext('Real balance'),
-                value: this.userStats?.realBalance,
-                modification: 'amount',
-                wlcElement: 'block_user-stat-balance-real',
-            },
-            bonusBalance: {
-                name: gettext('Bonus balance'),
-                value: this.userStats?.bonusBalance,
-                modification: 'amount',
-                wlcElement: 'block_user-stat-balance-bonus',
-            },
-            points: {
-                name: gettext('LP'),
-                modification: 'customCurrency',
-                currency: 'LP',
-                value: this.userStats?.loyalty?.Balance,
-                wlcElement: 'block_user-stat-points',
-            },
-            level: {
-                name: gettext('Level'),
-                value: this.userStats?.loyalty?.Level,
-                wlcElement: 'block_user-stat-level',
-            },
-            email: {
-                name: gettext('Email'),
-                value: this.userStats?.email,
-                wlcElement: 'block_user-stat_email',
-            },
-            firstName: {
-                name: gettext('First name'),
-                value: this.userStats?.firstName,
-                wlcElement: 'block_user-stat_firstname',
-            },
-            lastName: {
-                name: gettext('Last name'),
-                value: this.userStats?.lastName,
-                wlcElement: 'block_user-stat_lastname',
-            },
-            levelName: {
-                name: gettext('Level name'),
-                value: this.userStats?.levelName,
-                modification: 'string',
-                wlcElement: 'block_user-stat_level-name',
-            },
-            login: {
-                name: gettext('Login'),
-                value: this.userStats?.loyalty?.Login,
-                modification: 'string',
-                wlcElement: 'block_user-stat_login',
-            },
-            nextLvlPoints: {
-                name: gettext('Next Level Points'),
-                value: this.userStats?.loyalty?.NextLevelPoints,
-                wlcElement: 'block_user-stat_next-level-points',
-            },
-            expPoints: {
-                name: gettext('EXP'),
-                modification: 'customCurrency',
-                currency: 'EXP',
-                value: this.userStats?.loyalty?.Points,
-                wlcElement: 'block_user-stat_expirience-points',
-            },
-            expPointsTotal: {
-                name: gettext('Experience points all time'),
-                value: this.userStats?.loyalty?.TotalPoints,
-                wlcElement: 'block_user-stat_expirience-points-total',
-            },
-            levelCoef: {
-                name: gettext('Level coefficient'),
-                value: this.userStats?.loyalty?.LevelCoef,
-                wlcElement: 'block_user-stat_level-coef',
-            },
-            depositCount: {
-                name: gettext('Deposit count'),
-                value: this.userStats?.loyalty?.DepositsCount,
-                wlcElement: 'block_user-stat_deposit-count',
-            },
-            freespins: {
-                name: gettext('Freespins'),
-                value: this.userStats?.freespins,
-                wlcElement: 'block_user-stat_freespins-count',
-            },
-        };
-        this.cdr.detectChanges();
-    }
-
+    /**
+     * Go to deposit state
+     */
     public depositAction(): void {
         this.stateService.go('app.profile.cash.deposit');
     }
 
+    /**
+     * Show modal with description internal casino currencies
+     */
     public descriptionCasinosCurrency(): void {
         this.modalService.showModal('descriptionCasinosCurrency');
     }
@@ -175,5 +114,17 @@ export class UserStatsComponent extends AbstractComponent implements OnInit, OnD
             this.type = this.injectParams.type;
         }
         return this.inlineParams;
+    }
+
+    private fillUserStatsFields(): void {
+        const shownUserStats = {};
+        _each(this.$params.fields, (field) => {
+            shownUserStats[field] = {
+                ...Params.shownUserStatsConfig[field],
+                value: _get(this.userStats, Params.shownUserStatsConfig[field].path),
+            };
+        });
+        this.shownUserStats = shownUserStats;
+        this.cdr.detectChanges();
     }
 }
