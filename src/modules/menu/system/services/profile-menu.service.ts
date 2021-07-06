@@ -86,7 +86,10 @@ export class ProfileMenuService {
         return this.tabsMenu;
     }
 
-    public resetMenu() {
+    /**
+     * reinit menu
+     */
+    public resetMenu(): void {
         this.tabsMenu = null;
         this.subMenu = {};
         this.initConfig();
