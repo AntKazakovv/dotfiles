@@ -41,3 +41,4 @@ export {
 export {IModalList} from './modal/modal.interface';
 export {DatepickerComponent} from './datepicker/datepicker.component';
 export {IconComponent} from './icon/icon.component';
+export {ISocialIconsCParams} from './social-icons/social-icons.params';

@@ -64,6 +64,7 @@ export namespace footer {
             },
         ],
     };
+
     export const themeSecond: ILayoutSectionConfig = {
         replaceConfig: true,
         order: 1000,
@@ -80,7 +81,6 @@ export namespace footer {
                     wlcElement: 'block_footer-info',
                     components: [
                         componentLib.wlcPostMenu.footerInfo,
-                        componentLib.wlcPostMenu.footerAbout,
                         componentLib.wlcLanguageSelector.topLeftTheme2,
                     ],
                 },
@@ -91,9 +91,27 @@ export namespace footer {
                     class: 'footer-bottom',
                     id: 1,
                     components: [
-                        componentLib.wlcDisclaimer.def,
-                        componentLib.wlcCopyright.def,
-                        componentLib.wlcLicense.def,
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'footer-bottom__left',
+                                components: [
+                                    componentLib.wlcSocialIcons.def,
+                                    componentLib.wlcLicense.onlyDesktop,
+                                ],
+                            },
+                        },
+                        {
+                            name: 'core.wlc-wrapper',
+                            params: {
+                                class: 'footer-bottom__right',
+                                components: [
+                                    componentLib.wlcDisclaimer.def,
+                                    componentLib.wlcCopyright.def,
+                                ],
+                            },
+                        },
+                        componentLib.wlcLicense.onlyMobile,
                     ],
                 },
             },

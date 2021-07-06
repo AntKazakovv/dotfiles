@@ -157,20 +157,24 @@ $customTheme2Footer: () !default;
 $theme2Footer: map-merge((
     //base
     'basePaddingBottom': (
-        375: 15px,
+        375: ef.get('size', 'smally'),
         900: 0,
     ),
     'baseBackground': map-get($footerCommon, 'baseBackground'),
+
     // footer-menu
     'footerMenuFlexDirection': (
+        375: column,
         1024: row,
     ),
+    'footerMenuJustifyContent': center,
+    'footerMenuAlignItems': center,
     'footerMenuOrder': (
         1024: -1,
     ),
     'footerMenuPadding': (
-        375: 45px 25px,
-        1024: 15px 25px,
+        375: ef.get('size', 'smally'),
+        1024: ef.get('size', 'smally') 25px,
     ),
     'footerMenuMargin': (
         375: map-get($footerCommon, 'gapTablet') auto,
@@ -178,10 +182,14 @@ $theme2Footer: map-merge((
     ),
     'footerMenuMaxWidth': map-get($footerCommon, 'elementMaxWidth'),
     'footerMenuBg': ef.get('mainColors', 'bg700'),
-    'footerMenuRadius': 10px,
+    'footerMenuRadius': ef.get('radius', 'biger'),
+
     // footer post menu
+    'footerPostMenuDirection': column,
+    'footerPostMenuJustify': center,
+    'footerPostMenuAlignItems': center,
     'footerPostMenuMargin': (
-        900: 0 ef.get('size', 'smally') 0 0,
+        1024: 0 ef.get('size', 'smally') 0 0,
         1200: 0 ef.get('size', 'big') 0 0,
     ),
     'footerPostMenuWidth': (
@@ -189,9 +197,10 @@ $theme2Footer: map-merge((
         1024: auto,
     ),
     'footerPostMenuFirstChildMarginBottom': (
-        375: 20px,
+        375: ef.get('size', 'smaller'),
         1024: 0,
     ),
+
     //footer post menu title
     'footerPostMenuTitleDisplay': (
         1024: none,
@@ -199,6 +208,7 @@ $theme2Footer: map-merge((
     'footerPostMenuTitleTextTransform': initial,
     'footerPostMenuTitleColor': ef.get('mainColors', 'main'),
     'footerPostMenuAlignment': center,
+
     //footer post menu grid
     'footerPostMenuGridGap': (
         375: ef.get('size', 'small'),
@@ -206,9 +216,15 @@ $theme2Footer: map-merge((
         1200: ef.get('size', 'less'),
         1630: ef.get('size', 'big'),
     ),
+    'footerPostMenuGridColumns': (
+        375: 1fr,
+        640: 1fr 1fr,
+        1024: 1fr,
+    ),
     'footerPostMenuGridAutoFlow': (
         1024: column,
     ),
+
     //footer post menu item
     'footerPostMenuItemAlignment': (
         375: center,
@@ -217,57 +233,75 @@ $theme2Footer: map-merge((
         900: nowrap,
     ),
     'footerPostMenuItemFontSize': ef.get('font', 'main'),
+
     //footer post menu link
     'footerPostMenuLinkColor': ef.get('mainColors', 'baseMain'),
     'footerPostMenuLinkFontSize': (
         900: 80%,
         1200: 100%,
     ),
+
     // footer bottom
     'footerBottomDisplay': (
         375: flex,
-        900: grid,
-    ),
-    'footerBottomGridArea': (
-        900: 'license disclaimer' 'license copyright',
+        1024: grid,
     ),
     'footerBottomGridColumn': (
-        900: auto auto,
+        1024: auto auto,
     ),
     'footerBottomGap': (
-        900: ef.get('size', 'smaller'),
+        1024: ef.get('size', 'smaller'),
     ),
+    'footerBottomFlexDirection': column,
+    'footerBottomAlignItems': (
+        375: center,
+        1024: flex-start,
+    ),
+    'footerBottomJustifyContent': center,
     'footerBottomMargin': (
-        900: ef.get('size', 'smaller') 0,
+        375: ef.get('size', 'smaller') 0 ef.get('size', 'main'),
+        1024: ef.get('size', 'smaller') 0,
         1200: map-get($footerCommon, 'gapDesktop') auto,
     ),
     'footerBottomOrder': (
-        900: 2,
+        1024: 2,
     ),
     'footerBottomMaxWidth': (
         375: 100%,
         1420: 1420px
     ),
+
     // license
     'licenseMaxWidth': map-get($footerCommon, 'elementMaxWidth'),
+    'licenseMargin': (
+        375: ef.get('size', 'smaller') 0 0,
+        1024: 0,
+    ),
+
     // disclamer
     'disclamerMargin': (
         375: map-get($footerCommon, 'gapMobile') auto,
-        900: map-get($footerCommon, 'gapTablet') auto,
+        1024: map-get($footerCommon, 'gapTablet') auto,
     ),
-    'disclamerMaxWidth': map-get($footerCommon, 'elementMaxWidth'),
+    'disclaimerTextAlign': (
+        375: center,
+        1024: left,
+    ),
+
     // copyright
     'copyrightTextAlignment': (
-        900: left,
+        375: center,
+        1024: left,
     ),
     'copyrightMargin': (
         375: map-get($footerCommon, 'gapTablet') auto,
-        900: 0,
+        1024: map-get($footerCommon, 'gapTablet') auto 0,
     ),
     'copyrightTextSpanDisplay': (
         375: block,
-        900: inline-block,
+        1024: inline-block,
     ),
+
     // icon list merchants
     'iconListMerchantsOrder': (
         1024: 1,
@@ -276,6 +310,7 @@ $theme2Footer: map-merge((
         375: map-get($footerCommon, 'gapTablet') auto,
         1200: 0 auto,
     ),
+
     // icon list payments
     'iconListPaymentsOrder': (
         375: -1,
@@ -290,7 +325,7 @@ $theme2Footer: map-merge((
 
     // language selector
     'languageMarginTop': (
-        375: 20px,
+        375: ef.get('size', 'smally'),
         900: 0,
     ),
 ), $customTheme2Footer);

@@ -60,7 +60,7 @@ export class PIQCashierService {
      * @param {TPIQCashierMethod} method - payment method type
      * @param {PaymentSystem} currentSystem Current payment system
      * @param {number} amount deposit/withdraw amount
-     * 
+     *
      * @returns {Promise<void>} Promise<void>
      */
     public async openPIQCashier(
@@ -137,6 +137,8 @@ export class PIQCashierService {
             showFooter: !currentSystem.customParams?.provider,
             theme: cashierTheme,
             blockBrowserNavigation: true,
+            enableTermsTemplateFor: false,
+            fixedProviderType: false,
         };
 
         this.subscribeToIFrameMessages();

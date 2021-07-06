@@ -67,6 +67,7 @@ import {NotificationThreadComponent} from 'wlc-engine/modules/core/components';
 import {RadioButtonsComponent} from './components/radio-buttons/radio-buttons.component';
 import {ScrollbarComponent} from './components/scrollbar/scrollbar.component';
 import {SelectComponent} from './components/select/select.component';
+import {SocialIconsComponent} from './components/social-icons/social-icons.component';
 import {StepsComponent} from './components/steps/steps.component';
 import {TabSwitcherComponent} from './components/tab-switcher/tab-switcher.component';
 import {TableComponent} from './components/table/table.component';
@@ -140,6 +141,7 @@ export const components = {
     'wlc-plug': PlugComponent,
     'wlc-radio-buttons': RadioButtonsComponent,
     'wlc-select': SelectComponent,
+    'wlc-social-icons': SocialIconsComponent,
     'wlc-steps': StepsComponent,
     'wlc-tab-switcher': TabSwitcherComponent,
     'wlc-table': TableComponent,
@@ -229,6 +231,7 @@ export const components = {
         RadioButtonsComponent,
         ScrollbarComponent,
         SelectComponent,
+        SocialIconsComponent,
         StepsComponent,
         TabSwitcherComponent,
         TableComponent,
@@ -283,6 +286,7 @@ export const components = {
         RadioButtonsComponent,
         ScrollbarComponent,
         SelectComponent,
+        SocialIconsComponent,
         StepsComponent,
         TabSwitcherComponent,
         TableComponent,

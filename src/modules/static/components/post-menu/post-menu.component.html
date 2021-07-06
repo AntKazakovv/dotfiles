@@ -1,8 +1,31 @@
+<div *ngIf="isReady; else preloader" class="{{$class}}__wrp">
+    <div *ngIf="title" class="{{$class}}__title">{{title | translate}}</div>
+
+    <div *ngIf="!useSlider; else slider"
+         class="{{$class}}__items">
+        <ng-container *ngIf="!groupedMenuItems">
+            <ng-container *ngFor="let item of menuItems"
+                          [ngTemplateOutlet]="menuItemRef"
+                          [ngTemplateOutletContext]="{item: item}">
+            </ng-container>
+        </ng-container>
+
+        <ng-container *ngIf="groupedMenuItems">
+            <div *ngFor="let menuSubItems of groupedMenuItems" class="{{$class}}__items-group">
+                <ng-container *ngFor="let item of menuSubItems"
+                              [ngTemplateOutlet]="menuItemRef"
+                              [ngTemplateOutletContext]="{item: item}">
+                </ng-container>
+            </div>
+        </ng-container>
+    </div>
+</div>
+
 <ng-template #sref let-item="item">
     <a uiSref="app.contacts"
        uiSrefActive="active"
-       [uiParams]="{slug: item.slug}"
        class="{{$class}}__link"
+       [uiParams]="{slug: item.slug}"
        [attr.data-wlc-element]="'left_link_' + item.slug">
         <span>{{item.title | translate}}</span>
     </a>
@@ -17,24 +40,33 @@
     </a>
 </ng-template>
 
-<div *ngIf="isReady; else preloader" class="{{$class}}__wrp">
-    <div class="{{$class}}__title" *ngIf="title">{{title | translate}}</div>
-    <div class="{{$class}}__items">
-        <div class="{{$class}}__item" *ngFor="let menuItem of menuItems">
-            <ng-container *ngIf="menuItem.outerLink" [ngTemplateOutlet]="href" [ngTemplateOutletContext]="{item: menuItem}">
-            </ng-container>
-
-            <ng-container *ngIf="!menuItem.outerLink" [ngSwitch]="type">
-                <ng-container *ngSwitchCase="'sref'" [ngTemplateOutlet]="sref" [ngTemplateOutletContext]="{item: menuItem}">
-                </ng-container>
-
-                <ng-container *ngSwitchCase="'href'" [ngTemplateOutlet]="href" [ngTemplateOutletContext]="{item: menuItem}">
-                </ng-container>
-            </ng-container>
-
-        </div>
+<ng-template #slider>
+    <div wlc-wrapper
+         [inlineParams]="swiperConfig">
     </div>
-</div>
+</ng-template>
+
+<ng-template let-item="item" #menuItemRef>
+    <div class="{{$class}}__item">
+        <ng-container *ngIf="item.outerLink"
+                      [ngTemplateOutlet]="href"
+                      [ngTemplateOutletContext]="{item: item}">
+        </ng-container>
+
+        <ng-container *ngIf="!item.outerLink" [ngSwitch]="type">
+            <ng-container *ngSwitchCase="'sref'"
+                          [ngTemplateOutlet]="sref"
+                          [ngTemplateOutletContext]="{item: item}">
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'href'"
+                          [ngTemplateOutlet]="href"
+                          [ngTemplateOutletContext]="{item: item}">
+            </ng-container>
+        </ng-container>
+    </div>
+</ng-template>
+
 <ng-template #preloader>
     <div wlc-loader></div>
 </ng-template>

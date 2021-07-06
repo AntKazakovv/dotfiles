@@ -1,3 +1,4 @@
+import {SwiperOptions} from 'swiper';
 import {IComponentParams} from 'wlc-engine/modules/core';
 
 export type ModifiersType = string;
@@ -14,14 +15,31 @@ export interface IBasePath {
 export interface IPostMenuCParams extends IComponentParams<Theme, Type, ThemeMod> {
     modifiers?: ModifiersType[];
     common?: {
-        categorySlug?: string;
-        title?: string;
+        categorySlug?: string | string[];
+        groupBySlag?: boolean;
+        title?: string | string[];
         basePath?: IBasePath;
+        useSlider?: boolean;
     };
+    asListBp: string;
+    swiperParams: SwiperOptions;
 }
 
 export const defaultParams: IPostMenuCParams = {
     class: 'wlc-post-menu',
     common: {
+        useSlider: false,
+        groupBySlag: false,
+    },
+    asListBp: '(max-width: 1023px)',
+    swiperParams: {
+        direction: 'horizontal',
+        slidesPerView: 'auto',
+        spaceBetween: 20,
+        breakpoints: {
+            1630: {
+                spaceBetween: 60,
+            },
+        },
     },
 };
