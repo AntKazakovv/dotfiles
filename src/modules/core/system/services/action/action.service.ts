@@ -49,6 +49,7 @@ import {
 import _isString from 'lodash-es/isString';
 import _toNumber from 'lodash-es/toNumber';
 import _forEach from 'lodash-es/forEach';
+import _includes from 'lodash-es/includes';
 
 export type ScrollPositionType = 'start' | 'end';
 

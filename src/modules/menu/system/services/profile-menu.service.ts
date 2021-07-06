@@ -55,7 +55,7 @@ export class ProfileMenuService {
 
     constructor(
         protected configService: ConfigService,
-        protected stateSerivce: StateService,
+        protected stateService: StateService,
     ) {
         this.initConfig();
     }
@@ -86,13 +86,18 @@ export class ProfileMenuService {
         return this.tabsMenu;
     }
 
+    public resetMenu() {
+        this.tabsMenu = null;
+        this.subMenu = {};
+        this.initConfig();
+    }
     /**
      * Get menu for type 'submenu'
      *
      * @returns {IMenuItem[]}
      */
     public getSubMenu(options?: IMenuOptions): IMenuItem[] {
-        const state = this.stateSerivce.current.name;
+        const state = this.stateService.current.name;
         if (this.subMenu[state]) {
             return this.subMenu[state];
         }
@@ -111,12 +116,12 @@ export class ProfileMenuService {
 
         let items: MenuParams.IMenuItem[] = [];
         if (parentInMenuConfig) {
-            const disbaleIcons: boolean = options?.icons?.disable;
+            const disableIcons: boolean = options?.icons?.disable;
             const iconsFolder: string = options?.icons?.folder;
 
             items = _map(parentInMenuConfig.items, (itemAlias: string) => {
                 const menuItem: MenuParams.IMenuItem = _cloneDeep(Config.wlcProfileMenuItemsGlobal[itemAlias]);
-                MenuHelper.setIcon(menuItem, iconsFolder, disbaleIcons);
+                MenuHelper.setIcon(menuItem, iconsFolder, disableIcons);
                 return menuItem;
             });
             this.subMenu[state] = items;
@@ -144,7 +149,6 @@ export class ProfileMenuService {
             ? this.configService.get<MenuParams.MenuConfigItem[]>('$menu.profileFirstMenu.items')
             : this.configService.get<MenuParams.MenuConfigItem[]>('$menu.profileMenu.items');
         this.filterConfig();
-        GlobalHelper.deepFreeze(this.profileMenuConfig);
     }
 
     /**
