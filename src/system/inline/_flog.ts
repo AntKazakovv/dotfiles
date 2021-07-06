@@ -8,7 +8,7 @@ export interface IFlogData {
     [key: string]: any;
 }
 
-class WlcFlog {
+export class WlcFlog {
     public readonly enabled: boolean = false;
     public readonly startTime: Date = new Date();
 
@@ -22,7 +22,7 @@ class WlcFlog {
     };
 
     constructor() {
-        this.enabled = !window.WLC_ENV || document.cookie.indexOf('flog=') !== -1;
+        this.enabled = !window['WLC_ENV'] || document.cookie.indexOf('flog=') !== -1;
         if (!this.enabled) {
             return;
         }
@@ -105,7 +105,7 @@ class WlcFlog {
      */
     private async sendInitLog(): Promise<void> {
         await this.send({
-            code: !window.WLC_FORBIDDEN ? '0.0.0' : '0.0.11',
+            code: !window['WLC_FORBIDDEN'] ? '0.0.0' : '0.0.11',
             referrer: document.referrer,
         });
     }

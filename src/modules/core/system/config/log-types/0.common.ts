@@ -1,257 +1,144 @@
-import {ILogTypes} from 'wlc-engine/modules/core/system/config/log-types/index';
+import {ILogTypes} from 'wlc-engine/modules/core/system/config/log-types';
 
 export const errorTypes: ILogTypes = {
     '0.0.0': {
-        description: 'Index file successfully downloaded',
-        name: 'Site started',
-        type: 'start_time',
-        level: 'log',
-        method: 'Flog',
+        // Index file successfully downloaded
     },
     '0.0.1': {
-        description: 'Site loading time exceeded',
-        name: 'Site loading time exceeded',
-        type: 'time_exceeded',
+        // Site loading time exceeded
         level: 'error',
-        group: 'Common',
     },
     '0.0.2': {
-        description: 'Autotest Start',
-        name: 'Autotest Start',
-        type: 'auto_test',
+        // Autotest Start
         level: 'info',
-        group: 'AutoTest',
     },
     '0.0.3': {
-        description: 'Autotest api log',
-        name: 'Api log',
-        type: 'api_response',
+        // Autotest api log
         level: 'info',
-        group: 'AutoTest',
     },
     '0.0.4': {
-        description: 'Autotest api error log',
-        name: 'Api error log',
-        type: 'api_response_error',
+        // Autotest api error log
         level: 'warning',
-        group: 'AutoTest',
     },
     '0.0.5': {
-        description: 'Require load error',
-        name: 'Require load error',
-        type: 'require_load_error',
+        // Require load error (Deprecated)
         level: 'fatal',
-        group: 'Load',
     },
     '0.0.6': {
-        description: 'Bootstrap load error',
-        name: 'Bootstrap load error',
-        type: 'bootstrap_load_error',
+        // Bootstrap load error
         level: 'fatal',
-        group: 'Load',
     },
     '0.0.7': {
-        description: 'AppDeclarator run error',
-        name: 'AppDeclarator run error',
-        type: 'app_declarator_run_error',
+        // AppDeclarator run error (Deprecated)
         level: 'fatal',
-        group: 'Load',
     },
     '0.0.8': {
-        description: 'Site compile time exceeded',
-        name: 'Site compile time exceeded',
-        type: 'time_exceeded',
+        // Site compile time exceeded
         level: 'error',
-        group: 'Common',
     },
     '0.0.9': {
-        description: 'Site compilation time',
-        name: 'Site compile',
-        type: 'site_compile',
-        level: 'log',
-        method: 'Flog',
-        duration: 'fromStart',
+        // Site compilation time
+        durationType: 'fromStart',
     },
     '0.0.10': {
-        description: 'User left the site before compilation',
-        name: 'User left the site',
-        type: 'site_compile',
-        level: 'log',
-        method: 'Flog',
+        // User left the site before compilation
+        durationType: 'fromStart',
     },
     '0.0.11': {
-        description: 'Forbidden file successfully downloaded',
-        name: 'Forbidden started',
-        type: 'start_time',
-        level: 'log',
-        method: 'Flog',
+        // Forbidden file successfully downloaded
     },
     '0.0.12': {
-        description: 'Request errors',
-        name: 'Request errors',
-        type: 'request_errors',
-        level: 'log',
-        method: 'Both',
-        group: 'Common',
+        // Request errors
     },
 
     '0.1.1': {
-        description: 'No bonuses from fundist',
-        name: 'No bonuses',
-        type: 'No_bonuses',
+        // No bonuses from fundist
         level: 'warning',
     },
     '0.1.2': {
-        description: 'Bonuses request error',
-        name: 'Bonuses request error',
-        type: 'Bonuses_request_error',
+        // Bonuses request error
     },
     '0.1.3': {
-        description: 'Bonuses response error',
-        name: 'Bonuses response error',
-        type: 'Bonuses_response_error',
+        // Bonuses response error
     },
     '0.1.4': {
-        description: 'Registration request error',
-        name: 'Registration request error',
-        type: 'Registration_request_error',
+        // Registration request error
     },
     '0.1.5': {
-        description: 'Registration response error',
-        name: 'Registration response error',
-        type: 'Registration_response_error',
+        // Registration response error
     },
     '0.1.6': {
-        description: 'Bonuses request error in getBonuses',
-        name: 'Bonuses request error',
-        type: 'Bonuses_request_error',
+        // Bonuses request error in getBonuses
     },
     '0.1.7': {
-        description: 'Bonuses request error in getBonusesByCode',
-        name: 'Bonuses request error',
-        type: 'Bonuses_request_error',
+        // Bonuses request error in getBonusesByCode
     },
 
     // Affiliate logs
     '0.2.0': {
-        description: 'Affiliate unique send successfully',
-        name: 'Affiliate unique success',
-        type: 'Affiliate',
-        level: 'log',
-        method: 'Flog',
+        // Affiliate unique send successfully
     },
     '0.2.1': {
-        description: 'Affiliate unique send error',
-        name: 'Affiliate unique error',
-        type: 'Affiliate',
-        level: 'log',
-        method: 'Flog',
+        // Affiliate unique send error
     },
     '0.2.2': {
-        description: 'Affiliate unique send request',
-        name: 'Affiliate unique request',
-        type: 'Affiliate',
-        level: 'log',
-        method: 'Flog',
+        // Affiliate unique send request
     },
     '0.2.3': {
-        description: 'Affiliate cookies exists',
-        name: 'Affiliate cookies exists',
-        type: 'Affiliate',
-        level: 'log',
-        method: 'Flog',
+        // Affiliate cookies exists
     },
 
     '0.3.0': {
-        description: 'Modal window doesn\'t exist.',
-        name: 'Modal window does\'t exist',
-        type: 'modal_window',
+        // Modal window doesn't exist
         level: 'error',
-        group: 'Common',
     },
     '0.3.1': {
-        description: 'Modal config must have "id" parameter',
-        name: 'Modal id is not found',
-        type: 'modal_window',
+        // Modal config must have "id" parameter
         level: 'error',
-        group: 'Common',
     },
 
     '0.4.0': {
-        description: 'Panel doesn\'t exist',
-        name: 'Panel doesn\'t exist',
-        type: 'burger_panel',
+        // Panel doesn't exist
         level: 'error',
-        group: 'Common',
     },
     '0.4.1': {
-        description: 'Panel type is invalid',
-        name: 'Panel type is invalid',
-        type: 'burger_panel',
+        // Panel type is invalid
         level: 'error',
-        group: 'Common',
     },
     '0.5.0': {
-        description: 'IndexedDb not supported on device',
-        name: 'IndexedDb not supported on device',
-        type: 'caching',
+        // IndexedDb not supported on device
         level: 'error',
-        group: 'Common',
     },
     '0.5.1': {
-        description: 'Error during to save data in IndexedDb',
-        name: 'Error during to save data in IndexedDb',
-        type: 'caching',
+        // Error during to save data in IndexedDb
         level: 'error',
-        group: 'Common',
     },
     '0.5.2': {
-        description: 'Error during to read data in IndexedDb',
-        name: 'Error during to read data in IndexedDb',
-        type: 'caching',
+        // Error during to read data in IndexedDb
         level: 'error',
-        group: 'Common',
     },
     '0.5.3': {
-        description: 'Error during to clear data in IndexedDb',
-        name: 'Error during to clear data in IndexedDb',
-        type: 'caching',
+        // Error during to clear data in IndexedDb
         level: 'error',
-        group: 'Common',
     },
     '0.5.4': {
-        description: 'Error during to save data in LocalStorage',
-        name: 'Error during to save data in LocalStorage',
-        type: 'caching',
+        // Error during to save data in LocalStorage
         level: 'error',
-        group: 'Common',
     },
     '0.5.5': {
-        description: 'Error during to read data in LocalStorage',
-        name: 'Error during to read data in LocalStorage',
-        type: 'caching',
+        // Error during to read data in LocalStorage
         level: 'error',
-        group: 'Common',
     },
     '0.5.6': {
-        description: 'Error during to clear data in LocalStorage',
-        name: 'Error during to clear data in LocalStorage',
-        type: 'caching',
+        // Error during to clear data in LocalStorage
         level: 'error',
-        group: 'Common',
     },
     '0.6.0': {
-        description: 'Notification doesn\'t exist',
-        name: 'Notification doesn\'t exist',
-        type: 'notification_thread',
+        // Notification doesn't exist
         level: 'error',
-        group: 'Common',
     },
     '0.7.0': {
-        description: 'Error loading flag image',
-        name: 'Error loading flag image',
-        type: 'image',
+        // Error loading flag image
         level: 'log',
-        group: 'Common',
     },
 };

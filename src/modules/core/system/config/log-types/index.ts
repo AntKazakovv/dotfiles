@@ -20,21 +20,15 @@ import {errorTypes as postsLogs} from './12.posts';
 import {errorTypes as tournamentsLogs} from './13.tournaments';
 import {errorTypes as livechatLogs} from './14.livechat';
 
-type LogGroupType = 'Common' | 'Sign Up' | 'Bonus' | '404 not found' | 'AutoTest' | 'Load' | 'Livechat' | 'Hellosoda';
-type LogMethodsType = 'Flog' | 'Sentry' | 'Both';
-type durationType = 'fromStart';
+export type TLogMethods = 'flog' | 'console' | 'all'; // flog - as default
+type TLogDuration = 'fromStart';
+type TLogLevel = 'log' | 'error' | 'warning' | 'fatal' | 'info';
 
 export interface ILogType {
-    description: string;
-    name: string;
-    type: string;
-    method?: LogMethodsType;
-    createTicket?: boolean;
-    level?: string;
-    project?: string;
-    group?: LogGroupType;
+    method?: TLogMethods[];
+    level?: TLogLevel;
     threshold?: number;
-    duration?: durationType;
+    durationType?: TLogDuration;
 }
 
 export interface ILogTypes extends IIndexing<ILogType> {
