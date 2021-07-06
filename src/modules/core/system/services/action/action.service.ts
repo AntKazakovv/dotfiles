@@ -25,22 +25,21 @@ import {
     takeWhile,
 } from 'rxjs/operators';
 
-import {
-    ConfigService,
-    DeviceType,
-    EventService,
-    IDeviceConfig,
-    IIndexing,
-    ModalService,
-    LayoutService,
-    DeviceModel,
-    DeviceOrientation,
-    IPushMessageParams,
-    NotificationEvents,
-    GlobalHelper,
-    AppType,
-    IRedirect,
-} from 'wlc-engine/modules/core';
+import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {DeviceType} from 'wlc-engine/modules/core/system/models/device.model';
+import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
+import {IDeviceConfig} from 'wlc-engine/modules/core/system/models/device.model';
+import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
+import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
+import {LayoutService} from 'wlc-engine/modules/core/system/services/layout/layout.service';
+import {DeviceModel} from 'wlc-engine/modules/core/system/models/device.model';
+import {DeviceOrientation} from 'wlc-engine/modules/core/system/models/device.model';
+import {IPushMessageParams} from 'wlc-engine/modules/core/system/services/notification/notification.interface';
+import {NotificationEvents} from 'wlc-engine/modules/core/system/services/notification/notification.service';
+import {AppType} from 'wlc-engine/modules/core/system/interfaces/base-config/app.interface';
+import {IRedirect} from 'wlc-engine/modules/core/system/interfaces/core.interface';
+
 import {
     UserService,
     UserProfile,
@@ -91,7 +90,6 @@ export class ActionService {
     private breakpoints: IDeviceBreakpoints;
     private renderer: Renderer2;
     private scrollTop: number;
-
     constructor(
         private injector: Injector,
         private configService: ConfigService,

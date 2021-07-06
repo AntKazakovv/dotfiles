@@ -25,22 +25,21 @@ import {
     map,
     scan,
 } from 'rxjs/operators';
-import {
-    ConfigService,
-    DISMISS_ANIMATION_DURATION,
-    EventService,
-    GlobalHelper,
-    IEvent,
-    INotificationMetadata,
-    INotificationsConfig,
-    IPushComponentParams,
-    IPushMessageParams,
-    LogService,
-    MessageComponent,
-    ModalService,
-    NotificationThreadComponent,
-    SHIFT_ANIMATION_DURATION,
-} from 'wlc-engine/modules/core';
+
+import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
+import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
+import {IPushMessageParams} from 'wlc-engine/modules/core/system/services/notification/notification.interface';
+import {IPushComponentParams} from 'wlc-engine/modules/core/system/services/notification/notification.interface';
+import {DISMISS_ANIMATION_DURATION} from 'wlc-engine/modules/core/components/notification-thread/notification-thread.component';
+import {IEvent} from 'wlc-engine/modules/core/system/services/event/event.service';
+import {INotificationMetadata} from 'wlc-engine/modules/core/system/services/notification/notification.interface';
+import {INotificationsConfig} from 'wlc-engine/modules/core/system/interfaces/base-config/notifications.interface';
+import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
+import {MessageComponent} from 'wlc-engine/modules/core/components/message/message.component';
+import {NotificationThreadComponent} from 'wlc-engine/modules/core/components/notification-thread/notification-thread.component';
+import {SHIFT_ANIMATION_DURATION} from 'wlc-engine/modules/core/components/notification-thread/notification-thread.component';
 
 import * as Params from './notification.params';
 

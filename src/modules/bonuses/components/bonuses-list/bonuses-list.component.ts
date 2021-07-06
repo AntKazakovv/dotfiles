@@ -30,11 +30,12 @@ import {
     Bonus,
     BonusesService,
     BonusItemComponentEvents,
-    BonusItemComponent,
     ChosenBonusSetParams,
     ChosenBonusType,
     RecommendedListEvents,
 } from 'wlc-engine/modules/bonuses';
+
+import {BonusItemComponent} from '../bonus-item/bonus-item.component';
 
 import * as Params from './bonuses-list.params';
 

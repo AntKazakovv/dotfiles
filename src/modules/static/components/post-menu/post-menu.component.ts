@@ -10,11 +10,12 @@ import {
 } from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {takeUntil} from 'rxjs/operators';
+
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {ActionService} from 'wlc-engine/modules/core/system/services/action/action.service';
 import {ISlide} from 'wlc-engine/modules/promo';
 import {
-    AbstractComponent,
-    ActionService,
-    ConfigService,
     GlobalHelper,
     IWrapperCParams,
 } from 'wlc-engine/modules/core';

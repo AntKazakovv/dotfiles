@@ -2,16 +2,14 @@ import {Injectable} from '@angular/core';
 import {DateTime} from 'luxon';
 import {BehaviorSubject, timer, Subscription} from 'rxjs';
 import {filter} from 'rxjs/operators';
-import {
-    DataService,
-    EventService,
-    IIndexing,
-    IData,
-    IPushMessageParams,
-    NotificationEvents,
-    ConfigService,
-    ModalService,
-} from 'wlc-engine/modules/core';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
+import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
+import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
+import {IPushMessageParams} from 'wlc-engine/modules/core/system/services/notification/notification.interface';
+import {NotificationEvents} from 'wlc-engine/modules/core/system/services/notification/notification.service';
+import {DataService} from 'wlc-engine/modules/core/system/services/data/data.service';
+import {IData} from 'wlc-engine/modules/core/system/services/data/data.service';
 import {RealityCheckInfoComponent} from 'wlc-engine/modules/user/components/reality-check-info/reality-check-info.component';
 import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
 

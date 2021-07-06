@@ -1,13 +1,10 @@
 import {UIRouter} from '@uirouter/core';
 import {TranslateService} from '@ngx-translate/core';
-
-import {
-    AbstractModel,
-    ConfigService,
-    EventService,
-    IIndexing,
-    GlobalHelper,
-} from 'wlc-engine/modules/core';
+import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
+import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
+import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {
     CategoryModel,
     Game,

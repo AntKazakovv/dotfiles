@@ -15,7 +15,7 @@ import {SwiperModule} from 'swiper/angular';
 import {TooltipModule} from 'ngx-bootstrap/tooltip';
 import {TranslateModule} from '@ngx-translate/core';
 import {UIRouterModule} from '@uirouter/angular';
-import {CompilerModule} from 'wlc-engine/modules/compiler';
+import {CompilerModule} from 'wlc-engine/modules/compiler/compiler.module';
 // -- MODULES IMPORTS END --;
 
 // -- SERVICES IMPORTS START --;

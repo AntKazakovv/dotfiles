@@ -7,12 +7,10 @@ import {
     Input,
     OnInit,
 } from '@angular/core';
-import {
-    AbstractComponent,
-    LayoutService,
-    ModalService,
-    ConfigService,
-} from 'wlc-engine/modules/core';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {LayoutService} from 'wlc-engine/modules/core/system/services/layout/layout.service';
+import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
+import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ITab} from 'wlc-engine/modules/core/components/tab-switcher/tab-switcher.params';
 
 import * as Params from 'wlc-engine/modules/core/components/tab-switcher/tab-switcher.params';

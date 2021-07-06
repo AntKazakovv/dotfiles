@@ -8,16 +8,14 @@ import {UIRouterModule} from '@uirouter/angular';
 import {CoreModule} from '../core/core.module';
 import {PromoModule} from '../promo/promo.module';
 
-import {
-    BonusItemComponent,
-    BonusesHistoryComponent,
-    BonusesListComponent,
-    EnterPromocodeComponent,
-    GameDashboardBonusesComponent,
-    PromoSuccessComponent,
-    RecommendedBonusesComponent,
-    BonusesService,
-} from 'wlc-engine/modules/bonuses';
+import {BonusItemComponent} from './components/bonus-item/bonus-item.component';
+import {BonusesListComponent} from './components/bonuses-list/bonuses-list.component';
+import {BonusesHistoryComponent} from './components/bonuses-history/bonuses-history.component';
+import {EnterPromocodeComponent} from './components/enter-promocode/enter-promocode.component';
+import {GameDashboardBonusesComponent} from './components/game-dashboard-bonuses/game-dashboard-bonuses.component';
+import {PromoSuccessComponent} from './components/promo-success/promo-success.component';
+import {RecommendedBonusesComponent} from './components/recommended-bonuses/recommended-bonuses.component';
+import {BonusesService} from './system/services/bonuses/bonuses.service';
 
 export const components = {
     'wlc-bonus-item': BonusItemComponent,

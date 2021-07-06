@@ -12,23 +12,19 @@ import {
     filter,
 } from 'rxjs/operators';
 
-import {
-    DataService,
-    EventService,
-    LogService,
-    ModalService,
-    IIndexing,
-    IUserProfile,
-    IData,
-    IPushMessageParams,
-    NotificationEvents,
-    ConfigService,
-} from 'wlc-engine/modules/core';
-import {
-    UserInfo,
-    UserProfile,
-    LimitationService,
-} from 'wlc-engine/modules/user';
+import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
+import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
+import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
+import {IPushMessageParams} from 'wlc-engine/modules/core/system/services/notification/notification.interface';
+import {NotificationEvents} from 'wlc-engine/modules/core/system/services/notification/notification.service';
+import {DataService} from 'wlc-engine/modules/core/system/services/data/data.service';
+import {IUserProfile} from 'wlc-engine/modules/core/system/interfaces/user.interface';
+
+import {IData} from 'wlc-engine/modules/core/system/services/data/data.service';
+import {UserInfo, UserProfile} from 'wlc-engine/modules/user/system/models';
+import {LimitationService} from 'wlc-engine/modules/user/system/services/limitation/limitation.service';
 
 import _assign from 'lodash-es/assign';
 import _each from 'lodash-es/each';

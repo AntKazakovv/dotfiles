@@ -1,9 +1,7 @@
 import {UIRouter} from '@uirouter/core';
-import {
-    AbstractModel,
-    ConfigService,
-    IIndexing,
-} from 'wlc-engine/modules/core';
+import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
+import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {
     IGame,
     IRestrictions,

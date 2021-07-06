@@ -20,8 +20,8 @@ import {
 } from 'angular-mydatepicker';
 import {DateTime} from 'luxon';
 
-import {ConfigService} from 'wlc-engine/modules/core';
-import {AbstractComponent} from 'wlc-engine/modules/core/system/classes';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 
 import * as Params from './datepicker.params';
 

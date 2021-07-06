@@ -20,8 +20,8 @@ import {
     defaultParams,
     defaultGamesGridParams,
 } from './search.params';
-import {ConfigService} from 'wlc-engine/modules/core/system/services';
-import {GamesCatalogService} from 'wlc-engine/modules/games/system/services';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {GamesCatalogService} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {TranslateService} from '@ngx-translate/core';
 import {IGamesGridCParams} from 'wlc-engine/modules/games/components/games-grid/games-grid.params';

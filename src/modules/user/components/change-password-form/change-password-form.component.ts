@@ -7,9 +7,11 @@ import {
 import {FormGroup} from '@angular/forms';
 
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {EventService, ModalService} from 'wlc-engine/modules/core/system/services';
-import {UserService} from 'wlc-engine/modules/user/system/services';
-import {IPushMessageParams, NotificationEvents} from 'wlc-engine/modules/core/system/services/notification';
+import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
+import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
+import {UserService} from 'wlc-engine/modules/user/system/services/user/user.service';
+import {IPushMessageParams} from 'wlc-engine/modules/core/system/services/notification/notification.interface';
+import {NotificationEvents} from 'wlc-engine/modules/core/system/services/notification/notification.service';
 
 import * as Params from './change-password-form.params';
 

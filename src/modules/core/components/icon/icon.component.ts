@@ -14,11 +14,9 @@ import {
     SafeHtml,
 } from '@angular/platform-browser';
 
-import {
-    FilesService,
-    IFile,
-    IIndexing,
-} from 'wlc-engine/modules/core';
+import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
+import {FilesService} from 'wlc-engine/modules/core/system/services/files/files.service';
+import {IFile} from 'wlc-engine/modules/core/system/services/files/files.service';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes';
 
 import * as Params from './icon.params';

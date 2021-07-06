@@ -4,10 +4,9 @@ import {
     Inject,
     Input,
 } from '@angular/core';
-import {
-    AbstractComponent,
-    GlobalHelper, ModalService,
-} from 'wlc-engine/modules/core';
+import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
+import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
+import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 
 import * as Params from './promo-success.params';
 import {UIRouter} from '@uirouter/core';

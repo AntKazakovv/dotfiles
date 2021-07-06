@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
-import {EventService} from 'wlc-engine/modules/core/system/services';
+import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 
 import {
     IGamesFilterData,

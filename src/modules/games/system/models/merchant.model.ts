@@ -1,8 +1,5 @@
-import {
-    AbstractModel,
-} from 'wlc-engine/modules/core';
+import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
 import {IMerchant} from 'wlc-engine/modules/games';
-
 import _toNumber from 'lodash-es/toNumber';
 
 export class MerchantModel extends AbstractModel<IMerchant> {

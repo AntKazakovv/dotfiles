@@ -10,11 +10,11 @@ import {
     $profileFirstLayouts,
     $layouts,
 } from 'wlc-engine/modules/core/system/config/layouts';
-import {
-    ILayoutsConfig,
-    IParamsLayoutConfig,
-    GlobalHelper,
-} from 'wlc-engine/modules/core';
+
+import {ILayoutsConfig} from 'wlc-engine/modules/core/system/interfaces/layouts.interface';
+import {IParamsLayoutConfig} from 'wlc-engine/modules/core/system/interfaces/layouts.interface';
+import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
+
 import {
     LocalStorageService,
     SessionStorageService,

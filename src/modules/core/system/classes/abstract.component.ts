@@ -8,12 +8,11 @@ import {
     Directive,
 } from '@angular/core';
 import {Subject} from 'rxjs';
-import {
-    ActionService,
-    ConfigService,
-    IComponentParams,
-    IIndexing,
-} from 'wlc-engine/modules/core';
+
+import {ActionService} from 'wlc-engine/modules/core/system/services/action/action.service';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {IComponentParams} from 'wlc-engine/modules/core/system/interfaces/config.interface';
+import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
 
 import _filter from 'lodash-es/filter';
 import _get from 'lodash-es/get';

@@ -19,11 +19,10 @@ import {
     catchError,
 } from 'rxjs/operators';
 import {TranslateService} from '@ngx-translate/core';
-import {
-    CachingService,
-    EventService,
-    LogService,
-} from 'wlc-engine/modules/core/system/services';
+
+import {CachingService} from 'wlc-engine/modules/core/system/services/caching/caching.service';
+import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
+import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
 
 import _assign from 'lodash-es/assign';
 import _isString from 'lodash-es/isString';

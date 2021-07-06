@@ -3,12 +3,8 @@ import {
     Inject,
     ChangeDetectionStrategy,
 } from '@angular/core';
-
-import {
-    AbstractComponent,
-    ConfigService,
-} from 'wlc-engine/modules/core';
-
+import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import * as Params from './loyalty-info.params';
 
 @Component({
