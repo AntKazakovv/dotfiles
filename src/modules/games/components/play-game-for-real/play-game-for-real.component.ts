@@ -138,7 +138,9 @@ export class PlayGameForRealComponent extends AbstractComponent implements OnIni
         this.eventService.subscribe({
             name: Params.Events.SIGN_UP,
         }, () => {
-            this.modalService.hideModal('play-game-for-real');
+            if (!this.configService.get<boolean>('$base.site.restrictRegistration')) {
+                this.modalService.hideModal('play-game-for-real');
+            }
             setTimeout(() => {
                 this.modalService.showModal('signup');
             }, 1000);

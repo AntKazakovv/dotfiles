@@ -211,7 +211,8 @@ class StartGameHandler {
 
         this.authenticated = this.configService.get<boolean>('$user.isAuthenticated');
         this.isDemo = this.transition.params().demo === 'true';
-        this.realPlayDisabled = this.configService.get<boolean>('$games.realPlay.disable');
+        this.realPlayDisabled = !!(this.configService.get<boolean>('$games.realPlay.disable')
+            || this.configService.get<boolean>('appConfig.siteconfig.RestrictMoneyGames'));
         this.checkProfileRequiredFields = this.configService.get<boolean>('$games.run.checkProfileRequiredFields');
         this.merchantId = _toNumber(this.transition.params().merchantId);
 

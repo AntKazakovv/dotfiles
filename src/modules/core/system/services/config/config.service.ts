@@ -171,8 +171,14 @@ export class ConfigService {
             appType: wlcConfig.$base.app.type,
             profileType: wlcConfig.$base.profile.type,
         });
+
+        appConfig.$base.site.restrictRegistration = !!(appConfig.$base.site.restrictRegistration
+            ?? this.global.appConfig.siteconfig.RestrictRegistration
+            ?? false);
+
         _mergeWith(this.global, wlcConfig, layoutConfig, (target, source) => (source?.replaceConfig) ? _cloneDeep(source) : undefined);
         _mergeWith(this.global, appConfig, (target, source) => (source?.replaceConfig) ? _cloneDeep(source) : undefined);
+
         GlobalHelper.deepFreeze(this.global.appConfig);
     }
 
