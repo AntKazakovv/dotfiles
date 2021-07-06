@@ -1,5 +1,7 @@
-import {ILayoutComponent} from 'wlc-engine/modules/core';
-import {IIconListCParams} from 'wlc-engine/modules/core/components';
+import {
+    ILayoutComponent,
+    IIconListCParams,
+} from 'wlc-engine/modules/core';
 
 export namespace wlcIconList {
     export const merchants: ILayoutComponent = {
@@ -22,5 +24,4 @@ export namespace wlcIconList {
             hideImgOnError: true,
         },
     };
-
 }

@@ -1,0 +1,80 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/mixins/text' as text;
+
+$selector: '.wlc-social-icons';
+
+.wlc-social-icons--theme-default:host {
+
+    #{$selector}__list {
+        @include bm.get-mq-map('display', $themeDefault, 'iconsListDisplay');
+        @include bm.get-mq-map('grid-template-columns', $themeDefault, 'iconsListTemplateColumns');
+        @include bm.get-mq-map('gap', $themeDefault, 'iconsListGap');
+        @include bm.get-mq-map('justify-content', $themeDefault, 'iconsListJustifyContent');
+        @include bm.get-mq-map('display', $themeDefault, 'iconsListDisplay');
+        @include bm.get-mq-map('margin', $themeDefault, 'iconsListMargin');
+
+        flex-wrap: wrap;
+    }
+
+    #{$selector}__item {
+        @include bm.get-mq-map('margin', $themeDefault, 'iconsListItemMargin');
+    }
+
+    #{$selector}__link {
+        @include bm.transition();
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: ef.get-value($themeDefault, 'iconsListLinkSize');
+        height: ef.get-value($themeDefault, 'iconsListLinkSize');
+        background: ef.get-value($themeDefault, 'iconsListLinkBg');
+        border-radius: ef.get-value($themeDefault, 'iconsListLinkBorderRadius');
+
+        ::ng-deep {
+
+            svg {
+                display: block;
+                max-width: ef.get-value($themeDefault, 'iconsListLinkSvgSize');
+                max-height: ef.get-value($themeDefault, 'iconsListLinkSvgSize');
+                fill: ef.get-value($themeDefault, 'iconsListLinkSvgColor');
+            }
+        }
+
+        @include bm.hover {
+            background: ef.get-value($themeDefault, 'iconsListLinkBgHover');
+        }
+    }
+
+    &.wlc-social-icons--theme-mod-colored {
+
+        @each $value, $color in $socialColors {
+
+            #{$selector}__item--#{$value} {
+
+                #{$selector}__link {
+                    background: $color;
+
+                    @if ($value != 'instagram') {
+
+                        @include bm.hover {
+                            background: lighten(adjust-hue($color, 10), 20%);
+                        }
+                    }
+                }
+            }
+        }
+
+        #{$selector}__link {
+            border-radius: ef.get-value($themeColored, 'iconsListLinkBorderRadius');
+
+            ::ng-deep {
+
+                svg {
+                    fill: ef.get-value($themeColored, 'iconsListLinkSvgColor');
+                }
+            }
+        }
+    }
+}

@@ -1,11 +1,43 @@
 @use 'engine-scss/mixins/text' as text;
 @use 'engine-scss/mixins/mediaqueries' as mq;
 @use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/functions' as ef;
 @import '../utils/vars';
 
 .wlc-post-menu--theme-default:host {
+    min-width: 0;
+
+    ::ng-deep {
+
+        .wlc-slider {
+
+            &--on-start {
+                box-shadow: ef.get-value($themeDefault, 'swiperBoxShadowStart');
+            }
+
+            &--on-end {
+                box-shadow: ef.get-value($themeDefault, 'swiperBoxShadowEnd');
+            }
+
+            &--on-progress {
+                box-shadow: ef.get-value($themeDefault, 'swiperBoxShadowStart'), ef.get-value($themeDefault, 'swiperBoxShadowEnd');
+            }
+        }
+
+        .swiper-wrapper {
+            width: auto;
+        }
+
+        .swiper-slide {
+            width: auto;
+        }
+    }
 
     .wlc-post-menu {
+
+        &__wrp {
+            max-width: 100%;
+        }
 
         &__title {
             @include text.get-text-style('ThirdTitleBold', map-get($themeDefault, 'titleColor'));

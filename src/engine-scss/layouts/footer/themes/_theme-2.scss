@@ -5,8 +5,9 @@
 @import '../utils/vars';
 
 .wlc-sections__footer--theme-2 {
-    background: ef.get-value($theme2Footer, 'baseBackground');
     @include em.get-mq-map('padding-bottom', $theme2Footer, 'basePaddingBottom');
+
+    background: ef.get-value($theme2Footer, 'baseBackground');
 
     .container {
         display: flex;
@@ -14,44 +15,42 @@
     }
 
     .footer-menu {
+        @include em.get-mq-map('flex-direction', $theme2Footer, 'footerMenuFlexDirection');
+        @include em.get-mq-map('justify-content', $theme2Footer, 'footerMenuJustifyContent');
+        @include em.get-mq-map('align-items', $theme2Footer, 'footerMenuAlignItems');
+        @include em.get-mq-map('padding', $theme2Footer, 'footerMenuPadding');
+        @include em.get-mq-map('margin', $theme2Footer, 'footerMenuMargin');
+        @include em.get-mq-map('order', $theme2Footer, 'footerMenuOrder');
+
         display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
         width: 100%;
 
         background: ef.get-value($theme2Footer, 'footerMenuBg');
         border-radius: ef.get-value($theme2Footer, 'footerMenuRadius');
-        @include em.get-mq-map('padding', $theme2Footer, 'footerMenuPadding');
-        @include em.get-mq-map('margin', $theme2Footer, 'footerMenuMargin');
-        @include em.get-mq-map('max-width', $theme2Footer, 'footerMenuMaxWidth');
-
-        @include em.get-mq-map('flex-direction', $theme2Footer, 'footerMenuFlexDirection');
-        @include em.get-mq-map('order', $theme2Footer, 'footerMenuOrder');
 
         .wlc-post-menu[wlc-post-menu] {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            @include em.get-mq-map('margin', $theme2Footer, 'footerPostMenuMargin');
+            @include em.get-mq-map('flex-direction', $theme2Footer, 'footerPostMenuDirection');
+            @include em.get-mq-map('justify-content', $theme2Footer, 'footerPostMenuJustify');
+            @include em.get-mq-map('align-items', $theme2Footer, 'footerPostMenuAlignItems');
             @include em.get-mq-map('width', $theme2Footer, 'footerPostMenuWidth');
+            @include em.get-mq-map('margin', $theme2Footer, 'footerPostMenuMargin');
 
-            &:first-child {
-                @include em.get-mq-map('margin-bottom', $theme2Footer, 'footerPostMenuFirstChildMarginBottom');
-            }
+            display: flex;
 
             .wlc-post-menu {
 
                 &__title {
+                    @include em.get-mq-map('display', $theme2Footer, 'footerPostMenuTitleDisplay');
+
                     color: ef.get-value($theme2Footer, 'footerPostMenuTitleColor');
                     text-align: ef.get-value($theme2Footer, 'footerPostMenuAlignment');
                     text-transform: ef.get-value($theme2Footer, 'footerPostMenuTitleTextTransform');
-                    @include em.get-mq-map('display', $theme2Footer, 'footerPostMenuTitleDisplay');
                 }
 
                 &__items {
-                    @include em.get-mq-map('gap', $theme2Footer, 'footerPostMenuGridGap');
+                    @include em.get-mq-map('grid-template-columns', $theme2Footer, 'footerPostMenuGridColumns');
                     @include em.get-mq-map('grid-auto-flow', $theme2Footer, 'footerPostMenuGridAutoFlow');
+                    @include em.get-mq-map('gap', $theme2Footer, 'footerPostMenuGridGap');
                 }
 
                 &__item {
@@ -67,39 +66,32 @@
     }
 
     .footer-bottom {
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-
         @include em.get-mq-map('display', $theme2Footer, 'footerBottomDisplay');
-        @include em.get-mq-map('grid-template-areas', $theme2Footer, 'footerBottomGridArea');
         @include em.get-mq-map('grid-template-columns', $theme2Footer, 'footerBottomGridColumn');
         @include em.get-mq-map('grid-gap', $theme2Footer, 'footerBottomGap');
+        @include em.get-mq-map('flex-direction', $theme2Footer, 'footerBottomFlexDirection');
+        @include em.get-mq-map('align-items', $theme2Footer, 'footerBottomAlignItems');
+        @include em.get-mq-map('justify-content', $theme2Footer, 'footerBottomJustifyContent');
         @include em.get-mq-map('margin', $theme2Footer, 'footerBottomMargin');
         @include em.get-mq-map('order', $theme2Footer, 'footerBottomOrder');
         @include em.get-mq-map('max-width', $theme2Footer, 'footerBottomMaxWidth');
 
-        .wlc-logo {
-            grid-area: logo;
-        }
-
         .wlc-license[wlc-license] {
-            grid-area: license;
-            @include em.get-mq-map('max-width', $theme2Footer, 'licenseMaxWidth');
-
-            @include mq.min(900) {
-                align-self: flex-start;
-            }
+            @include em.get-mq-map('margin', $theme2Footer, 'licenseMargin');
         }
 
         .wlc-disclaimer[wlc-disclaimer] {
             grid-area: disclaimer;
-            @include em.get-mq-map('max-width', $theme2Footer, 'disclamerMaxWidth');
+
+            > .wlc-disclaimer__text {
+                @include em.get-mq-map('text-align', $theme2Footer, 'disclaimerTextAlign');
+            }
         }
 
         .wlc-copyright[wlc-copyright] {
-            grid-area: copyright;
             @include em.get-mq-map('margin', $theme2Footer, 'copyrightMargin');
+
+            grid-area: copyright;
 
             > .wlc-copyright__text {
                 @include em.get-mq-map('text-align', $theme2Footer, 'copyrightTextAlignment');

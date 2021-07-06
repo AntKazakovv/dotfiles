@@ -6,6 +6,7 @@ import {IAppConfig} from './app.interface';
 import {INotificationsConfig} from './notifications.interface';
 import {IInteractiveText} from './interactiveText.interface';
 import {ILivechatConfig} from 'wlc-engine/modules/livechat';
+import {ISocialItem} from 'wlc-engine/modules/core/components/social-icons/social-icons.params';
 import {
     IRedirectConfig,
 } from 'wlc-engine/modules/core';
@@ -32,6 +33,7 @@ export interface IBaseConfig {
     contacts?: {
         phone?: string;
         email?: string;
+        socials?: ISocialItem[]
     };
     interactiveText?: IInteractiveText[];
     livechat?: ILivechatConfig;

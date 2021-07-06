@@ -20,6 +20,8 @@ $themeDefault: map-merge((
     'fontWeight': 700,
     'fontSize': ef.get('font', 'main'),
     'padding': 20px 25px,
+    'swiperBoxShadowStart': 5px 0 5px -5px #867f7f63,
+    'swiperBoxShadowEnd': -5px 0 5px -5px #867f7f63,
 ), $customThemeDefault);
 
 $customMenuThemeContacts: () !default;

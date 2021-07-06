@@ -1,0 +1,62 @@
+@use 'engine-scss/functions'as ef;
+
+$customSocialColors: () !default;
+$socialColors: map-merge((
+    'twitter': #55acee,
+    'facebook': #3b5999,
+    'instagram': linear-gradient(49.12deg, #ffdd55 6.62%, #ff543e 50.06%, #c837ab 93.5%),
+    'bebo': #ff0000,
+    'foursquare': #f94877,
+    'groupme': #00aff0,
+    'myspace': #00339b,
+    'skype': #03a9f4,
+    'slack': #4b154b,
+    'telegram': #039be5,
+    'tumblr': #34475e,
+    'viber': #7d51a0,
+    'vk': #4b729f,
+    'whatsapp': #4caf50,
+    'youtube': #fe021e,
+), $customSocialColors);
+
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'iconsListDisplay': (
+        375: flex,
+        1024: grid,
+    ),
+    'iconsListTemplateColumns': (
+        1024: repeat(3, ef.get('size', 'main'))
+    ),
+    'iconsListGap': (
+        1024: ef.get('size', 'smaller')
+    ),
+    'iconsListJustifyContent': (
+        375: center,
+        1024: null,
+    ),
+    'iconsListMargin': (
+        375: 0 -#{ef.get('size', 'small')},
+        1024: 0 0 ef.get('size', 'smaller'),
+    ),
+
+    'iconsListItemMargin': (
+        375: 0 ef.get('size', 'small') ef.get('size', 'smaller'),
+        1024: 0,
+    ),
+
+    'iconsListLinkSize': ef.get('size', 'main'),
+    'iconsListLinkBg': ef.get('mainColors', 'bg100'),
+    'iconsListLinkBgHover': ef.get('mainColors', 'main'),
+    'iconsListLinkBorderRadius': 100%,
+
+    'iconsListLinkSvgSize': ef.get('size', 'less'),
+    'iconsListLinkSvgColor': ef.get('mainColors', 'bg'),
+), $customThemeDefault);
+
+$customThemeColored: () !default;
+$themeColored: map-merge((
+    'iconsListLinkBorderRadius': 5px,
+
+    'iconsListLinkSvgColor': ef.get('mainColors', 'baseMain'),
+), $customThemeColored);

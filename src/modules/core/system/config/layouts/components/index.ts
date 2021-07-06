@@ -10,6 +10,7 @@ export * from './core/wlc-info-page.config';
 export * from './core/wlc-title.config';
 export * from './core/wlc-error-page.config';
 export * from './core/wlc-plug.config';
+export * from './core/wlc-social-icons.config';
 
 export * from './user/wlc-login-signup.config';
 export * from './user/wlc-user-info.config';

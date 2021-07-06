@@ -7,8 +7,9 @@ export namespace wlcPostMenu {
             themeMod: 'footer-info',
             wlcElement: 'wlc-footer-info__block_legal',
             common: {
-                categorySlug: 'legal',
-                title: gettext('Information'),
+                categorySlug: ['legal', 'about-us'],
+                useSlider: true,
+                groupBySlag: true,
                 basePath: {
                     page: 'contacts',
                     addLanguage: true,
