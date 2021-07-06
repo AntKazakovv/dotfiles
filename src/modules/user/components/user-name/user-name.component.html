@@ -8,9 +8,6 @@
 
     <div class="{{$class}}__email-value"
         data-wlc-element="input_email">
-        <ng-container *ngIf="firstName || lastName; else emailContent">
-            {{firstName + ' ' + lastName | truncate: $params.userNameLength}}
-        </ng-container>
-        <ng-template #emailContent>{{email | truncate: $params.userNameLength}}</ng-template>
+        {{displayedName | truncate: $params.userNameLength}}
     </div>
 </div>

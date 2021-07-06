@@ -42,12 +42,12 @@ import * as Params from './user-info.params';
 })
 export class UserInfoComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams: Params.IUserInfoCParams;
-    public $params: any;
+    public $params: Params.IUserInfoCParams;
     public isOpened: boolean;
     public dropdownBtnActive: boolean;
 
     constructor(
-        @Inject('injectParams') protected injectParams: any,
+        @Inject('injectParams') protected injectParams: Params.IUserInfoCParams,
         protected configService: ConfigService,
         protected elementRef: ElementRef,
         protected transitionService: TransitionService,
@@ -56,7 +56,7 @@ export class UserInfoComponent extends AbstractComponent implements OnInit {
         super({injectParams, defaultParams: Params.defaultParams}, configService);
     }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.transitionService.onEnter({}, () => {
             this.isOpened = false;

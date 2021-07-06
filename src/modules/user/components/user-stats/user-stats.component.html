@@ -5,14 +5,14 @@
             <div class="{{$class}}-balance__item {{$class}}-balance__real" data-wlc-element="user-stat-balance_real">
                 <span class="name">{{'Real balance' | translate}}</span>
                 <span class="value">
-                    <span wlc-currency [value]="shownUserStats?.balance?.value"></span>
+                    <span wlc-currency [value]="shownUserStats.balance?.value"></span>
                 </span>
             </div>
 
             <div class="{{$class}}-balance__item {{$class}}-balance__bonus" data-wlc-element="user-stat-balance_bonus">
                 <span class="name">{{'Bonus balance' | translate}}</span>
                 <span class="value">
-                    <span wlc-currency [value]="shownUserStats?.bonusBalance?.value">
+                    <span wlc-currency [value]="shownUserStats.bonusBalance?.value">
                     </span>
                 </span>
             </div>
@@ -23,11 +23,11 @@
         <div class="{{$class}}-balance {{$class}}-balance--store"
              data-wlc-element="block_info"
              (click)="descriptionCasinosCurrency()">
-            <div class="{{$class}}-balance__item {{$class}}-balance__item--points" [attr.data-wlc-element]="shownUserStats?.points?.wlcElement">
-                <span class="value" wlc-currency currency="LP" [value]="shownUserStats?.points?.value" digitsInfo="1-0-2"></span>
+            <div class="{{$class}}-balance__item {{$class}}-balance__item--points" [attr.data-wlc-element]="shownUserStats.points?.wlcElement">
+                <span class="value" wlc-currency currency="LP" [value]="shownUserStats.points?.value" digitsInfo="1-0-2"></span>
             </div>
-            <div class="{{$class}}-balance__item {{$class}}-balance__item--exppoints" [attr.data-wlc-element]="shownUserStats?.expPoints?.wlcElement">
-                <span class="value" wlc-currency currency="EXP" [value]="shownUserStats?.expPoints?.value" digitsInfo="1-0-2"></span>
+            <div class="{{$class}}-balance__item {{$class}}-balance__item--exppoints" [attr.data-wlc-element]="shownUserStats.expPoints?.wlcElement">
+                <span class="value" wlc-currency currency="EXP" [value]="shownUserStats.expPoints?.value" digitsInfo="1-0-2"></span>
             </div>
         </div>
     </ng-template>
@@ -44,7 +44,7 @@
                         {{(shownUserStats[item]?.value | number: '.0-2') || 'Unknown' | translate}}
                     </span>
                     <span class="value" *ngSwitchCase="'string'">
-                        {{this.shownUserStats[item]?.value?.toString() || 'Unknown' | translate}}
+                        {{shownUserStats[item]?.value?.toString() || 'Unknown' | translate}}
                     </span>
                     <span class="value" *ngSwitchCase="'amount'">
                         <span wlc-currency [value]="shownUserStats[item]?.value"></span>
