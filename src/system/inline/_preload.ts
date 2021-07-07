@@ -25,7 +25,7 @@ const config: IPreloadConfig[] = [
         system: 'config',
     },
     // {
-    //     url: '/api/v1/games',
+    //     url: '/api/v1/games?slim=true',
     //     flag: 'games',
     //     system: 'games',
     // },

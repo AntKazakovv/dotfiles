@@ -120,7 +120,7 @@ export class GamesCatalogService {
 
         this.eventService.subscribe({
             name: gamesEvents.FETCH_GAME_CATALOG_SUCCEEDED,
-        }, ({data}: IData) => {
+        }, (data: IData) => {
             this.gamesCatalog = new GamesCatalog(
                 data.data,
                 this,
