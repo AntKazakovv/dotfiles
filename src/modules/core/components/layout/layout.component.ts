@@ -72,9 +72,11 @@ export class LayoutComponent implements OnInit, OnDestroy {
         if (!this.uiRouter?.transition?.isActive()) {
             await this.setComponents(this.uiRouter.current.name, this.uiRouter.params);
         }
-        this.transition.onEnter({}, async (transition) => {
-            await this.setComponents(this.uiRouter.transition?.targetState().name(), this.uiRouter.transition?.targetState().params());
-        });
+
+        this.eventService.subscribe({name: 'TRANSITION_ENTER'}, (data) => {
+            this.setComponents(this.uiRouter.transition?.targetState().name(), this.uiRouter.transition?.targetState().params());
+        }, this.$destroy);
+
     }
 
     public getInjector(component: ILayoutComponent): Injector {
@@ -92,7 +94,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
         return component.injector;
     }
 
-    public ngOnDestroy() {
+    public ngOnDestroy(): void {
         this.$destroy.next();
         this.$destroy.complete();
     }

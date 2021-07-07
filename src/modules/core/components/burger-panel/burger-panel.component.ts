@@ -89,9 +89,9 @@ export class BurgerPanelComponent extends AbstractComponent
                 this.configService.get<boolean>('appConfig.mobile') : true;
         }
 
-        this.transitionService.onEnter({}, () => {
+        this.eventService.subscribe({name: 'TRANSITION_ENTER'}, (data) => {
             this.closePanel();
-        });
+        }, this.$destroy);
 
         this.eventService.filter(
             [{name: 'LOGIN'}, {name: 'LOGOUT'}],

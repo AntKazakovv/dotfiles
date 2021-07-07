@@ -2,7 +2,9 @@ import {
     Component,
     Inject,
     OnInit,
-    Input, ChangeDetectionStrategy, ElementRef,
+    Input,
+    ChangeDetectionStrategy,
+    ElementRef,
 } from '@angular/core';
 import {
     animate,
@@ -11,9 +13,9 @@ import {
     transition,
     trigger,
 } from '@angular/animations';
-import {StateService, TransitionService} from '@uirouter/core';
+import {StateService} from '@uirouter/core';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ConfigService} from 'wlc-engine/modules/core/system/services';
+import {ConfigService, EventService} from 'wlc-engine/modules/core/system/services';
 import * as Params from './user-info.params';
 
 @Component({
@@ -50,18 +52,18 @@ export class UserInfoComponent extends AbstractComponent implements OnInit {
         @Inject('injectParams') protected injectParams: Params.IUserInfoCParams,
         protected configService: ConfigService,
         protected elementRef: ElementRef,
-        protected transitionService: TransitionService,
         protected stateService: StateService,
+        protected eventService: EventService,
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService);
     }
 
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
-        this.transitionService.onEnter({}, () => {
+        this.eventService.subscribe({name: 'TRANSITION_ENTER'}, (data) => {
             this.isOpened = false;
             this.dropdownBtnActive = false;
-        });
+        }, this.$destroy);
     }
 
     public toggle(): void {
