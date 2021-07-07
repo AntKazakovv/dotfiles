@@ -69,6 +69,11 @@ $theme1Header: map-merge((
     ),
     'headerLoginJustifyContent': flex-end,
     'headerUserInfoJustifyContent': flex-end,
+
+    'logoImgHeight': null,
+    'logoImgAlignItems': center,
+    'logoImgJustifyContent': center,
+    'logoObjPosition': center,
     'searchBtnDisplay': flex,
     'searchBtnJustifyContent': center,
     'searchBtnAlignItems': center,
@@ -119,6 +124,11 @@ $theme2Header: map-merge((
         1200: ef.get('size', 'smaller'),
         1630: ef.get('size', 'main')
     ),
+
+    'logoImgHeight': null,
+    'logoImgAlignItems': center,
+    'logoImgJustifyContent': center,
+    'logoObjPosition': center,
     'headerLogoMaxWidth': (
         375: 144px,
     ),
@@ -127,7 +137,7 @@ $theme2Header: map-merge((
         375: auto,
     ),
     'headerSvgLogoHeight': 100%,
-    'headerSvgLogoMaxHeight': 50%,
+    'headerSvgLogoMaxHeight': 100%,
     'headerSvgLogoMargin': 0 auto,
     'headerSvgBtn': ef.get('mainColors', 'baseOpacity'),
     'headerSvgBtnSize': ef.get('size', 'main'),
@@ -143,6 +153,7 @@ $theme2Header: map-merge((
     ),
     'headerLoginJustifyContent': flex-end,
     'headerUserInfoJustifyContent': flex-end,
+
     'searchBtnTransformOnHover': rotate(30deg),
     'searchBtnDisplay': flex,
     'searchBtnJustifyContent': center,
@@ -150,6 +161,12 @@ $theme2Header: map-merge((
     'searchIconDisplay': flex,
     'searchIconJustifyContent': center,
     'searchIconAlignItems': center,
+
+    // Without burger mode
+    'withoutBurgerGridColumns': (
+        375: 0.5fr 1fr 0.5fr,
+        1200: auto auto minmax(0, 1fr) auto auto,
+    ),
 ), $customTheme2Header);
 
 // Header

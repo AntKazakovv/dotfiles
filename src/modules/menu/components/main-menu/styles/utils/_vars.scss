@@ -4,11 +4,11 @@ $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'width': max-content,
     'gapSize': (
-        375: ef.get('size', 'small'),
-        1420: ef.get('size', 'less'),
-        1630: ef.get('size', 'main'),
+        375: ef.size(2),
+        1420: ef.size(4),
+        1630: ef.size(8),
     ),
-    'paddingSize': ef.get('size', 'smaller'),
+    'paddingSize': ef.size(4),
     'textTransform': uppercase,
     'textColor': ef.get('mainColors', 'baseMain'),
     'textColorHover': ef.get('mainColors', 'main'),
@@ -21,11 +21,11 @@ $themeDefault: map-merge((
     'fontWeightActive': 700,
     'letterSpacing': 1px,
     'underlineHeight': 4px,
-    'underlinePadding': 0 0 ef.get('size', 'small'),
+    'underlinePadding': 0 0 ef.size(2),
     'underlineColor': ef.get('mainColors', 'baseMain'),
     'underlineOffset': 0,
     'underlineRadius': ef.get('radius', 'big'),
     'iconMargin': 0 7px 0 0,
-    'iconWidth': ef.get('size', 'main'),
-    'iconHeight': ef.get('size', 'main')
+    'iconWidth': ef.size(8),
+    'iconHeight': ef.size(8),
 ), $customThemeDefault);

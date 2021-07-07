@@ -7,4 +7,11 @@
     .container {
         @include bm.get-mq-map('grid-template-columns', $theme2Header, 'headerGridColumns');
     }
+
+    &.wlc-sections__header--without-burger {
+
+        .container {
+            @include bm.get-mq-map('grid-template-columns', $theme2Header, 'withoutBurgerGridColumns');
+        }
+    }
 }

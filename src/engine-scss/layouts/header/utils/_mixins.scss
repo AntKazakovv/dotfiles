@@ -25,13 +25,23 @@
         @include bm.get-mq-map('max-width', $theme, 'headerLogoMaxWidth');
         margin: ef.get-value($theme, 'headerLogoMargin');
 
+        &__image {
+            @include bm.get-mq-map('height', $theme, 'logoImgHeight');
+
+            display: flex;
+            align-items: ef.get-value($theme, 'logoImgAlignItems');
+            justify-content: ef.get-value($theme, 'logoImgJustifyContent');
+        }
+
         img,
         svg {
             @include bm.get-mq-map('width', $theme, 'headerSvgLogoWidth');
             height: ef.get-value($theme, 'headerSvgLogoHeight');
             max-height: ef.get-value($theme, 'headerSvgLogoMaxHeight');
-
             margin: ef.get-value($theme, 'headerSvgLogoMargin');
+
+            object-fit: contain;
+            object-position: ef.get-value($theme, 'logoObjPosition');
         }
     }
 
