@@ -66,8 +66,10 @@ export class SignUpFormComponent extends AbstractComponent implements OnInit {
     public async ngSubmit(form: FormGroup): Promise<void> {
         try {
             form.disable();
-            await this.userService.registration(this.formDataPreparation(form));
-            this.userService.setProfileData(form.value);
+
+            const regData = this.formDataPreparation(form);
+            await this.userService.registration(regData);
+            this.userService.setProfileData(regData.data);
 
             if (!this.checkConfirmation(form)) {
                 return;
@@ -94,7 +96,7 @@ export class SignUpFormComponent extends AbstractComponent implements OnInit {
         }
     }
 
-    protected formDataPreparation(form: FormGroup): object {
+    protected formDataPreparation(form: FormGroup): Params.IValidateData {
         const formData = {
             'TYPE': 'user-register',
             data: {...form.value},
