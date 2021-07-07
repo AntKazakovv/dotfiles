@@ -2,6 +2,7 @@ import {
     CustomType,
     IComponentParams,
     IFormWrapperCParams,
+    IUserProfile,
 } from 'wlc-engine/modules/core';
 
 export type ComponentTheme = 'default' | CustomType;
@@ -24,6 +25,12 @@ export const defaultParams: ISignUpFormCParams = {
     wlcElement: 'modal_signup',
     componentName: 'wlc-sign-up-form',
     moduleName: 'user',
+};
+
+export interface IValidateData {
+    'TYPE': string,
+    data: Partial<IUserProfile>,
+    fields: string[],
 };
 
 export const signUpFormConfig: IFormWrapperCParams = {
