@@ -7,7 +7,11 @@ import {
 } from '@angular/core';
 import {Validators} from '@angular/forms';
 import {BehaviorSubject} from 'rxjs';
-import {distinctUntilChanged} from 'rxjs/operators';
+import {
+    distinctUntilChanged,
+    first,
+    takeUntil,
+} from 'rxjs/operators';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ConfigService, ICountry, IInputCParams, ISelectCParams, SelectValuesService} from 'wlc-engine/modules/core';
 import {ISelectOptions} from 'wlc-engine/modules/core/components/select/select.params';
@@ -35,7 +39,7 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
         protected configService: ConfigService,
         protected selectValues: SelectValuesService,
         protected cdr: ChangeDetectorRef,
-        protected user: UserService,
+        protected userService: UserService,
     ) {
         super({injectParams, defaultParams: Params.defaultParams});
     }
@@ -44,34 +48,45 @@ export class PhoneFieldComponent extends AbstractComponent implements OnInit {
         super.ngOnInit(this.inlineParams);
         this.provideParams();
 
-        this.user.userProfile$.subscribe((profile => {
-            if (!profile?.countryCode && !this.$params.phoneCode.control.value) {
-                this.configService.get<BehaviorSubject<ICountry[]>>('countries').subscribe(data => {
-                    const country = _find(data, (item) => {
-                        return this.configService.get<string>('appConfig.country') === item?.value;
-                    });
-                    if (country) {
-                        this.$params.phoneCode.control.setValue(`+${+(country.phoneCode)}`);
-                        this.$params.phoneCode.control.updateValueAndValidity({onlySelf: true});
+        this.userService.userProfile$
+            .pipe(takeUntil(this.$destroy))
+            .subscribe((profile => {
+                if (!profile?.countryCode && !this.$params.phoneCode.control.value) {
+                    this.configService.get<BehaviorSubject<ICountry[]>>('countries')
+                        .pipe(first((v) => !!v.length))
+                        .subscribe(data => {
+                            const country = _find(data, (item) => {
+                                return this.configService.get<string>('appConfig.country') === item?.value;
+                            });
+                            if (country) {
+                                this.$params.phoneCode.control.setValue(`+${+(country.phoneCode)}`);
+                                this.$params.phoneCode.control.updateValueAndValidity({onlySelf: true});
 
-                        setTimeout(() => {
-                            this.setValidators(`+${+(country.phoneCode)}`);
-                            this.cdr.detectChanges();
+                                setTimeout(() => {
+                                    this.setValidators(`+${+(country.phoneCode)}`);
+                                    this.cdr.detectChanges();
+                                });
+                            }
                         });
-                    }
-                });
-            }
-        }));
+                }
+            }));
 
-        this.$params.phoneCode?.control?.valueChanges.subscribe(val => {
-            if (val) {
-                this.setValidators(val);
-            }
-        });
+        this.$params.phoneCode?.control?.valueChanges
+            .pipe(takeUntil(this.$destroy))
+            .subscribe(val => {
+                if (val) {
+                    this.setValidators(val);
+                }
+            });
 
-        this.$params.phoneNumber?.control?.valueChanges.pipe(distinctUntilChanged()).subscribe(() => {
-            this.$params.phoneNumber.control.updateValueAndValidity({onlySelf: true});
-        });
+        this.$params.phoneNumber?.control?.valueChanges
+            .pipe(
+                takeUntil(this.$destroy),
+                distinctUntilChanged(),
+            )
+            .subscribe(() => {
+                this.$params.phoneNumber.control.updateValueAndValidity({onlySelf: true});
+            });
     }
 
     protected setValidators(value: string): void {

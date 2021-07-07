@@ -45,7 +45,6 @@ export class RealityCheckInfoComponent extends AbstractComponent implements OnIn
 
     public async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
-        const t = DateTime.fromFormat(this.$params.FromTime, 'yyyy-LL-dd HH:mm:ss');
         this.playTime = DateTime.fromFormat(this.$params.FromTime, 'yyyy-LL-dd HH:mm:ss').diffNow().toFormat('hh:mm:ss');
     }
 
@@ -53,9 +52,9 @@ export class RealityCheckInfoComponent extends AbstractComponent implements OnIn
         this.modalService.hideModal('reality-check-info');
     }
 
-    public async logout(): Promise<void> {
+    public logout(): void {
         try {
-            await this.userService.logout();
+            this.userService.logout();
         } catch (error) {
             //
         }

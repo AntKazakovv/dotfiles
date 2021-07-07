@@ -146,7 +146,7 @@ export class ConfigService {
 
         this.set<any>({
             name: 'countries',
-            value: new BehaviorSubject({}),
+            value: new BehaviorSubject([]),
         });
 
         this.set<DeviceModel>({

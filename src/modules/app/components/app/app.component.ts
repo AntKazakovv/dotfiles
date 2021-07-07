@@ -9,6 +9,7 @@ import {
 import {TranslateService} from '@ngx-translate/core';
 import {
     StateService,
+    Transition,
     TransitionService,
     UIRouter,
     UIRouterGlobals,
@@ -301,6 +302,15 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
             if (!this.configService.get<boolean>('$base.app.demoMode')) {
                 this.actionService.scrollTo();
             }
+        });
+
+        this.transition.onEnter({}, (transition: Transition) => {
+            this.eventService.emit({
+                name: 'TRANSITION_ENTER',
+                data: {
+                    transition,
+                },
+            });
         });
 
         this.transition.onStart({}, () => {

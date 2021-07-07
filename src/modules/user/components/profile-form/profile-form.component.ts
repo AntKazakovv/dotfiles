@@ -22,6 +22,7 @@ import {
     AddProfileInfoComponent,
     IAddProfileInfoCParams,
 } from 'wlc-engine/modules/user/components/add-profile-info/';
+import {takeUntil} from 'rxjs/operators';
 
 import * as Params from './profile-form.params';
 
@@ -74,11 +75,11 @@ export class ProfileFormComponent extends AbstractComponent implements OnInit {
     public async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
         await this.configService.ready;
-        this.toggleBtn.control.valueChanges.subscribe((value) => {
+        this.toggleBtn.control.valueChanges.pipe(takeUntil(this.$destroy)).subscribe((value) => {
             this.userToggleChoice = this.toggleBtn.control.value;
         });
 
-        this.userProfile.subscribe((profile) => {
+        this.userProfile.pipe(takeUntil(this.$destroy)).subscribe((profile) => {
 
             if (profile) {
                 if (!this.toggleBtn.control.untouched) {
@@ -91,6 +92,12 @@ export class ProfileFormComponent extends AbstractComponent implements OnInit {
         });
     }
 
+    /**
+     * Save profile form
+     *
+     * @param form {FormGroup}
+     * @returns save status
+     */
     public async ngSubmit(form: FormGroup): Promise<boolean> {
         const result = await this.user.updateProfile(form.value, false);
 
@@ -128,10 +135,16 @@ export class ProfileFormComponent extends AbstractComponent implements OnInit {
         }
     }
 
+    /**
+     * Show change password modal
+     */
     public changePasswordModal(): void {
         this.modalService.showModal('changePassword');
     }
 
+    /**
+     * Show modal with additional banking info fields
+     */
     public addBankingInformation(): void {
         this.modalService.showModal({
             id: 'add-profile-info',
@@ -159,6 +172,11 @@ export class ProfileFormComponent extends AbstractComponent implements OnInit {
 
     }
 
+    /**
+     * Change notification via email state
+     *
+     * @param checked {boolean}
+     */
     public async notificationToggle(checked: boolean): Promise<void> {
 
         try {
