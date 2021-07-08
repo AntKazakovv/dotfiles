@@ -5,26 +5,21 @@ $themeDefault: map-merge((
     'panelHeight': 250px,
     'panelBackground': ef.get('mainColors', 'bg700'),
     'panelContentPadding': (
-        900: ef.get('size', 'less'),
-        1366: 55px
-    ),
-    'panelLinksMargin': (
-        900: 6px 0 0 ef.get('size', 'smally'),
-        1366: 6px 0 0 ef.get('size', 'less'),
-        1630: 6px ef.get('size', 'main') 0 0
+        900: ef.size(6),
+        1366: ef.size(11)
     ),
     'panelLinksPadding': (
-        900: 0 ef.get('size', 'smally') 0 0,
-        1366: 0 ef.get('size', 'less') 0 0,
-        1630: 0 80px 0 35px,
+        900: 0 ef.size(3) 0 0,
+        1366: 0 ef.size(6) 0 0,
+        1630: 0 ef.size(16) 0 ef.size(7),
     ),
     'panelLinksGridGap': (
-        900: ef.get('size', 'smallest') ef.get('size', 'smaller'),
-        1366: ef.get('size', 'small') ef.get('size', 'less'),
-        1630: ef.get('size', 'less') ef.get('size', 'big')
+        900: ef.size(1) ef.size(3),
+        1366: ef.size(2) ef.size(4),
+        1630: ef.size(4) ef.size(12),
     ),
     'panelLinksBorder': 2px solid ef.get('mainColors', 'baseOpacity'),
-    'panelLinksItemPadding': 0 ef.get('size', 'smallest') ef.get('size', 'smallest'),
+    'panelLinksItemPadding': 0 ef.size(1) ef.size(1),
     'panelLinksColor': ef.get('mainColors', 'baseMain'),
     'panelLinkDecoration': none,
     'panelFontSize': (
@@ -34,30 +29,18 @@ $themeDefault: map-merge((
     ),
     'panelUnderlineHeight': 4px,
     'panelUnderlineColor': ef.get('mainColors', 'main'),
-    'panelUnderlineOffset': -#{ef.get('size', 'smallest')},
+    'panelUnderlineOffset': ef.size(-1),
     'panelUnderlineRadius': 100px,
     'panelSearchColor': ef.get('mainColors', 'baseOpacity'),
     'panelSearchPositionTop': (
-        900: 25px,
-        1366: 35px
+        900: ef.size(5),
+        1366: ef.size(7)
     ),
     'panelSearchPositionRight': (
-        900: ef.get('size', 'smally'),
-        1366: ef.get('size', 'main')
+        900: ef.size(3),
+        1366: ef.size(8),
     ),
-    'userDepositMargin': (
-        900: -30px 0 -30px 30px,
-        1024:  -30px -20px -30px auto,
-        1200:  -30px 55px -30px auto,
-        1366: -55px 0 -55px 105px
-    ),
-    'userDepositPadding': (
-        320: 0 25px,
-        1024: 0 80px,
-        1200: 0 90px,
-        1366: 0 80px,
-        1630: 0 40px,
-    ),
+
     'userDepositBg': ef.get('mainColors', 'baseOpacity'),
 
     'userDepositSize': (
@@ -70,8 +53,8 @@ $themeDefault: map-merge((
     'userDepositPositionText': center,
 
     'userDepositSizeAfter': (
-        320: 330px,
-        1366: 390px,
+        320: 270px,
+        1366: 330px,
         1630: 430px
     ),
 
@@ -79,7 +62,6 @@ $themeDefault: map-merge((
     'userDepositRadiusAfter': 100%,
     'userDepositTransformAfter': translate(0, -50%),
 
-    'userDepositHeight': 465px,
     'userDepositTitleSize': (
         900: ef.get('font', 'ThirdTitle'),
         1630: ef.get('font', 'QoteTextBold'),
@@ -90,17 +72,14 @@ $themeDefault: map-merge((
     'panelTextSize': ef.get('font', 'size'),
     'transition': ef.get('time', 'main') linear,
     'panelHeaderBackground': transparent,
-    'panelHeaderPadding': ef.get('size', 'smaller'),
+    'panelHeaderPadding': ef.size(4),
     'panelHeaderFontSize': ef.get('font', 'PrimaryText'),
     'panelHeaderFontWeight': 700,
     'panelHeaderColor':ef.get('mainColors', 'baseMain'),
     'panelContentBackground': transparent,
     'closeIconColor': ef.get('mainColors', 'baseMain'),
-    'componentGap': ef.get('size', 'smaller'),
-    'langMargin': (
-        375: 12px 0 0 ef.get('size', 'less'),
-    ),
-    'langDropdownRight': -#{ef.get('size', 'smallest')},
+    'componentGap': ef.size(4),
+    'langDropdownRight': ef.size(-1),
     'langFlagBoxShadow': 0 0 0 6px ef.get('mainColors', 'baseOpacity'),
     'langFlagBoxShadowHover': (0 0 0 6px ef.get('mainColors', 'main') , 0 0 7px 7px rgba(#000, 0.67)),
     'langListBg': ef.get('mainColors', 'bg'),
@@ -108,6 +87,13 @@ $themeDefault: map-merge((
     'containerWidth': 100%,
     'containerMaxWidth': 1920px,
     'containerMargin': 0 auto,
+    'containerColumns': repeat(4, auto),
+    'containerGap': (
+        375: ef.size(4),
+        1366: ef.size(6),
+        1420: ef.size(8),
+        1630: ef.size(12),
+    ),
 ), $customThemeDefault);
 
 $customThemeLeft: () !default;

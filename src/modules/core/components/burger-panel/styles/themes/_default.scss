@@ -10,7 +10,7 @@
     max-width: 100%;
     overflow: hidden;
 
-    background-color: map-get($themeDefault, 'panelBackground');
+    background: ef.get-value($themeDefault, 'panelBackground');
 
     transform: translateY(-100%);
 
@@ -22,17 +22,19 @@
     ::ng-deep {
 
         .container {
+            @include bm.get-mq-map('grid-gap', $themeDefault, 'containerGap');
+            @include bm.get-mq-map('padding', $themeDefault, 'panelContentPadding');
+
             position: relative;
 
-            display: flex;
-            width: map-get($themeDefault, 'containerWidth');
-            max-width: map-get($themeDefault, 'containerMaxWidth');
-            margin: map-get($themeDefault, 'containerMargin');
-            @include bm.get-mq-map('padding', $themeDefault, 'panelContentPadding');
+            display: grid;
+            grid-template-columns: ef.get-value($themeDefault, 'containerColumns');
+            width: ef.get-value($themeDefault, 'containerWidth');
+            max-width: ef.get-value($themeDefault, 'containerMaxWidth');
+            margin: ef.get-value($themeDefault, 'containerMargin');
         }
 
         .wlc-language-selector[wlc-language-selector] {
-            @include bm.get-mq-map('margin', $themeDefault, 'langMargin');
 
             .wlc-language-selector__current {
 
@@ -84,27 +86,27 @@
 
         .wlc-main-menu,
         .wlc-post-menu {
-            @include bm.get-mq-map('margin', $themeDefault, 'panelLinksMargin');
-            @include bm.get-mq-map('padding', $themeDefault, 'panelLinksPadding');
+            @include bm.get-mq-map('padding-right', $themeDefault, 'containerGap');
 
             border-right: ef.get-value($themeDefault, 'panelLinksBorder');
         }
 
         .wlc-menu,
         .wlc-post-menu__items {
+            @include bm.get-mq-map('gap', $themeDefault, 'panelLinksGridGap');
+
             display: grid;
             grid-template-columns: repeat(2, auto);
-            @include bm.get-mq-map('gap', $themeDefault, 'panelLinksGridGap');
         }
 
         .wlc-post-menu__link,
         .wlc-menu__link {
+            @include bm.get-mq-map('padding', $themeDefault, 'panelLinksItemPadding');
+            @include bm.get-mq-map('font-size', $themeDefault, 'panelFontSize');
+
             position: relative;
 
-            @include bm.get-mq-map('padding', $themeDefault, 'panelLinksItemPadding');
-
             color: ef.get-value($themeDefault, 'panelLinksColor');
-            @include bm.get-mq-map('font-size', $themeDefault, 'panelFontSize');
             white-space: nowrap;
             text-decoration: ef.get-value($themeDefault, 'panelLinkDecoration');
 
@@ -148,10 +150,11 @@
             align-items: center;
             justify-content: center;
             margin-bottom: ef.get-value($themeDefault, 'componentGap');
-            @include bm.get-mq-map('margin', $themeDefault, 'userDepositMargin');
-            @include bm.get-mq-map('padding', $themeDefault, 'userDepositPadding');
 
             &:after {
+                @include bm.get-mq-map('width', $themeDefault, 'userDepositSizeAfter');
+                @include bm.get-mq-map('height', $themeDefault, 'userDepositSizeAfter');
+
                 content: '';
 
                 position: absolute;
@@ -161,9 +164,6 @@
                 border-radius: ef.get-value($themeDefault, 'userDepositRadiusAfter');
 
                 transform: ef.get-value($themeDefault, 'userDepositTransformAfter');
-
-                @include bm.get-mq-map('width', $themeDefault, 'userDepositSizeAfter');
-                @include bm.get-mq-map('height', $themeDefault, 'userDepositSizeAfter');
             }
 
             .wlc-title,
