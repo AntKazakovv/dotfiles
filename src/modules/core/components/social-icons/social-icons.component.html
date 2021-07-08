@@ -1,4 +1,5 @@
-<div class="{{$class}}__list">
+<div *ngIf="$params.socials.length"
+     class="{{$class}}__list">
     <div *ngFor="let item of $params.socials"
          class="{{$class}}__item">
         <a [href]="item.link" class="{{$class}}__link" target="_blank">
