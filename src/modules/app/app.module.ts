@@ -1,7 +1,7 @@
 import {CommonModule} from '@angular/common';
 
 import {HttpClient, HttpClientModule} from '@angular/common/http';
-import {APP_INITIALIZER, NgModule, ErrorHandler} from '@angular/core';
+import {APP_INITIALIZER, NgModule, ErrorHandler, Injector} from '@angular/core';
 import {BrowserModule, BrowserTransferStateModule} from '@angular/platform-browser';
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {AngularResizedEventModule} from 'angular-resize-event';
@@ -28,6 +28,8 @@ import {ModalModule} from 'ngx-bootstrap/modal';
 export function loadConfig(config: ConfigService) {
     return config.load();
 }
+
+export let appInjector: Injector;
 
 @NgModule({
     declarations: [
@@ -94,9 +96,10 @@ export class AppModule {
         location: Location,
         protected actionService: ActionService,
         private eventService: EventService,
+        private injector: Injector,
     ) {
         this.parseInitPath(location.path());
-
+        appInjector = this.injector;
         this.eventService.subscribe({
             name: 'ERROR_PAGE_ENTER',
         }, (data: number) => {
