@@ -38,7 +38,7 @@
 </ng-template>
 
 <ng-template #noBonuses>
-    <div *ngIf="isReady && $params.common.useNoDataText" class="{{$class}}__nocontent">
+    <div *ngIf="isReady && $params.common.useNoDataText" class="{{$class}}__nocontent-text">
         {{ 'You don\'t have an active bonus. Choose from the recommended bonuses or go to the' | translate}}
         <a class="{{$class}}__nocontent-link" [uiSref]="'app.profile.loyalty-bonuses.main'">{{'Offers' | translate}}</a>.
     </div>

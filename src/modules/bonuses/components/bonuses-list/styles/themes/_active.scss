@@ -8,7 +8,7 @@
 
     &:host {
 
-        .wlc-bonuses-list__nocontent {
+        .wlc-bonuses-list__nocontent-text {
             padding: ef.get-value($themeActive, 'noContentPadding');
 
             background: ef.get-value($themeActive, 'noContentBg');
