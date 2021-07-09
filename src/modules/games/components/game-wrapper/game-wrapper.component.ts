@@ -88,7 +88,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
     @ViewChild('wrp', {read: ViewContainerRef, static: false}) wrp: ViewContainerRef;
     @ViewChild('header') header: ElementRef;
     @ViewChild('footer') footer: ElementRef;
-    @ViewChild('gameContainer') gameContainer: ElementRef;
+    @ViewChild('gameContainer') gameContainer: ElementRef<HTMLElement>;
 
     @Input() public inlineParams: IGameWrapperCParams;
 
@@ -103,6 +103,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
     public isAuth: boolean;
     public openDashboard: boolean = true;
     public showDashboardBtn: boolean = false;
+    public mobileGame: boolean = this.configService.get<boolean>('appConfig.mobile');
     public dashboardBtn: ICheckboxCParams = {
         name: 'game-dashboard',
         type: 'toggle',

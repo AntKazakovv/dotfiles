@@ -248,7 +248,7 @@ export class GameDashboardComponent extends AbstractComponent implements OnInit,
 
     public ngOnChanges(changes: SimpleChanges): void {
         super.ngOnChanges(changes);
-        if (changes.opened) {
+        if (changes.opened && this.$params) {
             if (changes.opened.currentValue) {
                 this.open();
             } else {
