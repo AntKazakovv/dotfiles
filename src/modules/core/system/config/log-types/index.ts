@@ -11,7 +11,7 @@ import {errorTypes as gamesLogs} from './3.games';
 import {errorTypes as licenseLogs} from './4.license';
 import {errorTypes as wordpressLogs} from './5.wordpress';
 import {errorTypes as pageNotFoundLogs} from './6.page-not-found';
-import {errorTypes as chatLogs} from './7.chat';
+import {errorTypes as dataLogs} from './7.data';
 import {errorTypes as verifyIdentityLogs} from './8.verify-identity';
 import {errorTypes as verificationLogs} from './9.verification';
 import {errorTypes as bonusesLogs} from './10.bonuses';
@@ -43,7 +43,7 @@ export const logTypes: ILogTypes = _assign(
     licenseLogs,
     wordpressLogs,
     pageNotFoundLogs,
-    chatLogs,
+    dataLogs,
     verifyIdentityLogs,
     verificationLogs,
     bonusesLogs,
