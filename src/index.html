@@ -39,7 +39,7 @@
         {% endif %}
     </script>
     {% if 'static/dist/inline.js' is ondisk %}
-    <script src="/static/dist/inline.js"></script>
+    <script src="/static/dist/inline.js?v={{projectVersion}}"></script>
     {% endif %}
 </head>
 <body>
