@@ -7,3 +7,4 @@ export {IPlayGameForRealCParams} from './play-game-for-real/play-game-for-real.p
 export {ISearchCParams} from './search/search.params';
 export {ISearchFieldCParams} from './search-field/search-field.params';
 export {ITotalJackpotCParams} from './total-jackpot/total-jackpot.params';
+export {IProgressBarCParams} from './progress-bar/progress-bar.params';

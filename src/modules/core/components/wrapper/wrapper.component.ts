@@ -12,6 +12,7 @@ import {
     OnInit,
     ViewEncapsulation,
     SimpleChanges,
+    Optional,
 } from '@angular/core';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {LayoutService} from 'wlc-engine/modules/core/system/services/layout/layout.service';
@@ -42,6 +43,7 @@ export class WrapperComponent extends LayoutComponent implements OnInit, OnChang
     private initReady: boolean = false;
 
     constructor(
+        @Optional() @Inject('injectParams') protected params: IWrapperCParams,
         ConfigService: ConfigService,
         layoutService: LayoutService,
         protected cdr: ChangeDetectorRef,
@@ -49,7 +51,6 @@ export class WrapperComponent extends LayoutComponent implements OnInit, OnChang
         injector: Injector,
         uiRouter: UIRouterGlobals,
         eventService: EventService,
-        @Inject('injectParams') protected params: IWrapperCParams,
     ) {
         super(
             ConfigService,

@@ -22,6 +22,7 @@ import {CategoryPreviewComponent} from 'wlc-engine/modules/games/components/cate
 import {ProviderLinksComponent} from './components/provider-links/provider-links.component';
 import {ProviderGamesComponent} from './components/provider-games/provider-games.component';
 import {ProgressBarComponent} from './components/progress-bar/progress-bar.component';
+import {GamesCatalogComponent} from './components/games-catalog/games-catalog.component';
 import {CompilerModule} from 'wlc-engine/modules/compiler';
 
 import {GlobalHelper} from 'wlc-engine/modules/core';
@@ -39,6 +40,7 @@ export const components = {
     'wlc-game-dashboard': GameDashboardComponent,
     'wlc-game-thumb': GameThumbComponent,
     'wlc-game-wrapper': GameWrapperComponent,
+    'wlc-games-catalog': GamesCatalogComponent,
     'wlc-games-grid': GamesGridComponent,
     'wlc-play-game-for-real': PlayGameForRealComponent,
     'wlc-random-game': RandomGameComponent,
@@ -50,16 +52,17 @@ export const components = {
 
 @NgModule({
     declarations: [
-        GamesGridComponent,
+        CategoryPreviewComponent,
+        GameDashboardComponent,
         GameThumbComponent,
         GameWrapperComponent,
+        GamesCatalogComponent,
+        GamesGridComponent,
+        PlayGameForRealComponent,
+        RandomGameComponent,
         SearchFieldComponent,
         SearchComponent,
         TotalJackpotComponent,
-        PlayGameForRealComponent,
-        GameDashboardComponent,
-        RandomGameComponent,
-        CategoryPreviewComponent,
         ProviderLinksComponent,
         ProviderGamesComponent,
         ProgressBarComponent,

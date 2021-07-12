@@ -1,4 +1,12 @@
-import {ICategory} from 'wlc-engine/modules/games';
+import {
+    ICategory,
+    IGameBlock,
+} from 'wlc-engine/modules/games';
+import {
+    ICategorySettings,
+    CategoryViewType,
+    ICategoryBlock,
+} from 'wlc-engine/modules/core';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
 import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
 import {Deferred} from 'wlc-engine/modules/core/system/classes/deferred.class';
@@ -27,9 +35,11 @@ export class CategoryModel extends AbstractModel<ICategory> {
     private updateMerchants: boolean = false;
     private defaultSort: number = 0;
     private _slug: string;
+    private _gameBlocks: IGameBlock[] = [];
 
     constructor(
         data: ICategory,
+        private settings: ICategorySettings,
     ) {
         super();
         this.init(data);
@@ -88,6 +98,10 @@ export class CategoryModel extends AbstractModel<ICategory> {
         return this.data.Trans;
     }
 
+    public get view(): CategoryViewType {
+        return this.settings?.view;
+    }
+
     /**
      * @deprecated
      */
@@ -131,9 +145,21 @@ export class CategoryModel extends AbstractModel<ICategory> {
         return this.gamesList;
     }
 
+    public get gameBlocks(): IGameBlock[] {
+        return this._gameBlocks;
+    }
+
     public get merchants(): MerchantModel[] {
         this.checkMerchants();
         return this.merchantsList;
+    }
+
+    public getBlockSettings(slug: string): ICategoryBlock {
+        return this.settings?.[slug];
+    }
+
+    public setGameBlocks(gameBlocks: IGameBlock[]): void {
+        this._gameBlocks = gameBlocks;
     }
 
     public setGames(games: Game[]): void {

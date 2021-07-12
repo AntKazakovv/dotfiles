@@ -14,6 +14,7 @@ import {TranslateService} from '@ngx-translate/core';
 import {
     AbstractComponent,
     IMixedParams,
+    IMenuOptions,
     EventService,
     ConfigService,
 } from 'wlc-engine/modules/core';
@@ -26,6 +27,7 @@ import {
     MenuParams,
     TIconExtension,
 } from 'wlc-engine/modules/menu';
+import * as Config from 'wlc-engine/modules/menu/system/config/category-menu.config';
 import * as Params from './category-menu.params';
 
 import _set from 'lodash-es/set';
@@ -58,6 +60,7 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
     protected useIcons: boolean;
     protected useLobbyBtn: boolean;
     protected fallBackIcon: string = 'plug';
+    protected menuSettings: IMenuOptions;
 
     constructor(
         @Inject('injectParams') protected params: Params.ICategoryMenuCParams,
@@ -78,13 +81,14 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
         );
     }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         _assign(this.$params.menuParams, {
             theme: this.$params.theme,
             themeMod: this.$params.themeMod,
         });
 
+        this.menuSettings = this.configService.get('appConfig.menuSettings.categoryMenu');
         this.useLobbyBtn = this.configService.get<boolean>('$menu.categoryMenu.lobbyBtn.use');
         this.useIcons = _has(this.$params, 'common.icons.use')
             ? this.$params.common.icons.use
@@ -98,7 +102,9 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
             _set(this.$params, 'menuParams.common.icons.extension', extension);
         }
 
-        this.iconsFolder = this.$params.common?.icons?.folder || this.configService.get<string>('$menu.categoryMenu.icons.folder');
+        this.iconsFolder = this.menuSettings?.iconsPack ||
+            this.$params.common?.icons?.folder ||
+            this.configService.get<string>('$menu.categoryMenu.icons.folder');
         this.$params.menuParams.common.icons.fallback = this.iconPath(this.fallBackIcon);
 
         this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
@@ -124,9 +130,13 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
                 this.$params.menuParams.items = [];
                 this.$params.menuParams.common.swiper.scrollToStart = true;
 
-                const currentParent = this.gamesCatalogService.getParentCategoryByState();
-                if (this.parentCategory && currentParent && this.parentCategory.slug === currentParent.slug) {
+                if (this.menuSettings) {
                     this.$params.menuParams.common.swiper.scrollToStart = false;
+                } else {
+                    const currentParent = this.gamesCatalogService.getParentCategoryByState();
+                    if (this.parentCategory && currentParent && this.parentCategory.slug === currentParent.slug) {
+                        this.$params.menuParams.common.swiper.scrollToStart = false;
+                    }
                 }
                 this.initMenu();
             });
@@ -137,7 +147,7 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
             this.isAuth = false;
             this.$params.menuParams.items = [];
             this.initMenu();
-        });
+        }, this.$destroy);
 
         this.eventService.subscribe({
             name: 'LOGIN',
@@ -145,7 +155,7 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
             this.isAuth = true;
             this.$params.menuParams.items = [];
             this.initMenu();
-        });
+        }, this.$destroy);
     }
 
     /**
@@ -170,6 +180,7 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
             this.initAsDropdown();
             this.$params.menuParams.common.useSwiper = false;
         } else {
+
             if (this.gamesCatalogService.catalogOpened()) {
                 this.categories = this.gamesCatalogService.getCategoriesByState();
             } else {
@@ -181,26 +192,45 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
                     this.categories = this.gamesCatalogService.sortCategories(categories);
                 }
             }
-            const menuItems = MenuHelper.getItemsForCategories({
-                categories: this.categories,
-                openChildCatalog: true,
-                lang: this.translate.currentLang,
-                icons: {
-                    folder: this.iconsFolder,
-                    disable: !this.useIcons,
-                },
-            });
-            this.$params.menuParams.items = menuItems.concat(this.$params.menuParams.items as MenuParams.IMenuItem[]);
-            if (this.gamesCatalogService.catalogOpened()) {
-                const parentInMenu: boolean = !!_find(this.categories, (category) => {
-                    return this.parentCategory.slug === category.slug;
+
+            let menuItems;
+            if (this.menuSettings) {
+                const itemsConfig = MenuHelper.parseMenuSettings(this.menuSettings, 'category-menu', this.translate.currentLang, {
+                    isAuth: this.isAuth,
+                    wlcElementPrefix: 'link_game-categories-',
                 });
-                if (!parentInMenu) {
-                    this.$params.menuParams.items.unshift(this.getAllGamesBtn());
-                }
+
+                menuItems = MenuHelper.parseMenuConfig(itemsConfig, Config.wlcCategoryMenuItemsGlobal, {
+                    icons: {
+                        folder: this.iconsFolder,
+                        disable: !this.useIcons,
+                    },
+                });
+            } else {
+                menuItems = MenuHelper.getItemsForCategories({
+                    categories: this.categories,
+                    openChildCatalog: true,
+                    lang: this.translate.currentLang,
+                    icons: {
+                        folder: this.iconsFolder,
+                        disable: !this.useIcons,
+                    },
+                });
             }
-            if (this.useLobbyBtn) {
-                this.$params.menuParams.items.unshift(this.getLobbyBtn());
+
+            this.$params.menuParams.items = _concat(menuItems, this.$params.menuParams.items as MenuParams.IMenuItem[]);
+            if (!this.menuSettings) {
+                if (this.gamesCatalogService.catalogOpened()) {
+                    const parentInMenu: boolean = !!_find(this.categories, (category) => {
+                        return this.parentCategory.slug === category.slug;
+                    });
+                    if (!parentInMenu) {
+                        this.$params.menuParams.items.unshift(this.getAllGamesBtn());
+                    }
+                }
+                if (this.useLobbyBtn) {
+                    this.$params.menuParams.items.unshift(this.getLobbyBtn());
+                }
             }
         }
         this.$params.menuParams = _clone(this.$params.menuParams);

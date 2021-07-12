@@ -1,0 +1,7 @@
+@use 'engine-scss/functions' as ef;
+
+.wlc-games-catalog--theme-default:host {
+    display: grid;
+    grid-row-gap: ef.get-value($themeDefault, 'gridRow');
+    grid-template-columns: ef.get-value($themeDefault, 'gridTemplates');
+}

@@ -1,6 +1,7 @@
 @use 'engine-scss/functions' as ef;
 @use 'engine-scss/mixins/text' as text;
 @import './utils/vars';
+@import './utils/mixins';
 
 @import './themes/default';
 @import './themes/left';
@@ -8,45 +9,49 @@
 @import './themes/mobile';
 
 .wlc-burger-panel:host {
-    visibility: hidden;
     position: absolute;
     top: 0;
     display: flex;
     flex-direction: column;
     color: map-get($themeDefault, 'panelTextColor');
     font-size: map-get($themeDefault, 'panelTextSize');
-    transition: map-get($themeDefault, 'transition');
     outline-style: none;
+    visibility: hidden;
+    transition: map-get($themeDefault, 'transition');
 
     ::ng-deep {
 
         .wlc-burger-panel__header {
-            flex: 0 0 auto;
-            display: flex;
-            justify-content: space-between;
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
             align-items: center;
-            background: map-get($themeDefault, 'panelHeaderBackground');
             padding: map-get($themeDefault, 'panelHeaderPadding');
+            color: map-get($themeDefault, 'panelHeaderColor');
+            background: map-get($themeDefault, 'panelHeaderBackground');
             font: {
                 size: map-get($themeDefault, 'panelHeaderFontSize');
                 weight: map-get($themeDefault, 'panelHeaderFontWeight');
             }
-            color: map-get($themeDefault, 'panelHeaderColor');
+
+            &.no-menu {
+                grid-template-columns: 1fr 1fr;
+            }
         }
 
         .wlc-burger-panel__title {
-            flex: 1 1 auto;
+            flex: 0 0 auto;
         }
 
         .wlc-burger-panel__close {
-            padding: 0;
             flex: 0 0 auto;
-            appearance: none;
-            background: transparent;
-            border: none;
-            opacity: 0.5;
+            margin: 0 0 0 auto;
+            padding: 0;
             color: ef.get-value($themeDefault, 'closeIconColor');
+            background: transparent;
+            opacity: 0.5;
             transition: ef.get-value($themeDefault, 'transition');
+            appearance: none;
+            border: none;
 
             &:focus {
                 outline: none;
@@ -60,8 +65,8 @@
         .wlc-burger-panel__content {
             position: relative;
             flex: 1 1 auto;
-            min-height: 1px;
             height: 100%;
+            min-height: 1px;
             background: ef.get-value($themeDefault, 'panelContentBackground');
             overflow: hidden;
         }

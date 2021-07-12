@@ -117,6 +117,7 @@ export const components = {
     'wlc-amount-limit': AmountLimitComponent,
     'wlc-birth-field': BirthdayFieldComponent,
     'wlc-button': ButtonComponent,
+    'wlc-burger-panel': BurgerPanelComponent,
     'wlc-checkbox': CheckboxComponent,
     'wlc-copyright': CopyrightComponent,
     'wlc-counter': CounterComponent,

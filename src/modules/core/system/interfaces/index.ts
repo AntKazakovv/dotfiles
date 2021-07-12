@@ -4,6 +4,8 @@ export * from './user.interface';
 export * from './promo.interface';
 export * from './layouts.interface';
 export * from './fundist.interface';
+export * from './menu.interface';
+export * from './categories.interface';
 export * from './base-config';
 export * from './loyalty-config.interface';
 export * from './base-config/notifications.interface';

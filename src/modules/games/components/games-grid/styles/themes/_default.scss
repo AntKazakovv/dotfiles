@@ -12,12 +12,27 @@
 
             ::ng-deep {
 
-                .wlc-icon {
-                    margin: ef.get-value($themeDefault, 'titleIconMargin');
-                }
-
                 .wlc-title {
                     margin: ef.get-value($themeDefault, 'titleWithIconMargin');
+                }
+            }
+        }
+
+        .wlc-games-grid__title-icon {
+            margin: ef.get-value($themeDefault, 'titleIconMargin');
+
+            ::ng-deep {
+
+                .wlc-icon-content {
+                    display: inline-block;
+                    width: ef.get-value($themeDefault, 'titleIconSize');
+                    height: ef.get-value($themeDefault, 'titleIconSize');
+
+                    svg {
+                        width: ef.get-value($themeDefault, 'titleIconSizeStretch');
+                        height: ef.get-value($themeDefault, 'titleIconSizeStretch');
+                        fill: ef.get-value($themeDefault, 'titleIconFill');
+                    }
                 }
             }
         }
@@ -42,6 +57,11 @@
                     }
                 }
             }
+        }
+
+        &__swiper-buttons {
+            display: grid;
+            grid-template-columns: ef.get-value($themeDefault, 'swiperButtonsColumns');
         }
 
         &__banner {
@@ -75,6 +95,18 @@
                         object-fit: cover;
                     }
                 }
+            }
+        }
+
+        &__item {
+
+            &--load-more {
+                display: flex;
+                flex-direction: ef.get-value($themeDefault, 'loadMoreDirecrion');
+                align-items: ef.get-value($themeDefault, 'loadMoreAlign');
+                justify-content: ef.get-value($themeDefault, 'loadMoreJustify');
+                border-radius: ef.get-value($themeDefault, 'loadMoreBorderRadius');
+                background: ef.get-value($themeDefault, 'loadMoreBG');
             }
         }
 
@@ -136,6 +168,10 @@
             display: flex;
             align-items: ef.get-value($themeDefault, 'moreButtonAlignItems');
             justify-content: ef.get-value($themeDefault, 'moreButtonJustifyContent');
+        }
+
+        &__card-progressbar {
+            @include bm.get-mq-map('margin', $themeDefault, 'cardProgressBarMargin');
         }
 
         &__placeholder {

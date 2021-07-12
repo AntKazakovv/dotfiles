@@ -124,7 +124,6 @@ export class GameThumbComponent extends AbstractComponent implements OnInit, Aft
         if (this.$params.type === 'vertical') {
             this.idVerticalVideos = this.configService.get<number[]>('$games.idVerticalVideos');
             this.mediaFormatTypes = this.configService.get<IIndexing<string>>('$games.mediaFormatTypes');
-
         }
 
         this.wlcElement = `block_game-thumb-id-${this.game.ID}`;
@@ -139,10 +138,10 @@ export class GameThumbComponent extends AbstractComponent implements OnInit, Aft
         this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
         this.initEventHandlers();
         this.inited = true;
+        this.cdr.detectChanges();
     }
 
     public ngAfterViewInit(): void {
-
         if (this.video) {
             this.video.nativeElement.muted = true;
             this.video.nativeElement.play();
@@ -183,7 +182,6 @@ export class GameThumbComponent extends AbstractComponent implements OnInit, Aft
 
 
     public getVerticalContent(type: MediaType, format: string[] | string): IMediaContent[] | string {
-
         const verticalImagesPath = this.$params.verticalImagesPath;
         const gameName = this.game.name?.en;
 

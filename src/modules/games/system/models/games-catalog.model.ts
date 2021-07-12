@@ -1,5 +1,9 @@
 import {UIRouter} from '@uirouter/core';
 import {TranslateService} from '@ngx-translate/core';
+import {
+    ICategorySettings,
+    IMenu,
+} from 'wlc-engine/modules/core';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
 import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
@@ -19,6 +23,7 @@ import {
     IJackpot,
     IRestrictions,
     ISearchFilter,
+    IGameBlock,
     ISortCategories,
     ISupportedItem,
     MerchantModel,
@@ -55,6 +60,8 @@ export class GamesCatalog extends AbstractModel<IGames> {
     protected supportedCategories: ISupportedItem[];
     protected supportedMerchants: ISupportedItem[];
     protected overrideJackpots: boolean;
+    protected categorySettings: IIndexing<ICategorySettings>;
+    protected menuSettings: IMenu;
     protected specialCategories: ICategory[] = [
         {
             ID: '-1',
@@ -110,6 +117,8 @@ export class GamesCatalog extends AbstractModel<IGames> {
     ) {
         super();
         this.overrideJackpots = !this.configService.get<boolean>('$games.categories.useFundistJackpots');
+        this.categorySettings = this.configService.get('appConfig.categories');
+        this.menuSettings = this.configService.get('appConfig.menuSettings');
         this.processFetchedGamesCatalog(data);
     }
 
@@ -394,7 +403,6 @@ export class GamesCatalog extends AbstractModel<IGames> {
         if (!this.overrideJackpots) {
             return;
         }
-
         const categoryId = GamesHelper.getCategoryIdByName('jackpots');
 
         _forEach(jackpots, jackpot => {
@@ -411,8 +419,20 @@ export class GamesCatalog extends AbstractModel<IGames> {
         const category: CategoryModel = _find(this.projectCategories, (category) => {
             return category.slug === 'jackpots';
         });
+
         if (category) {
-            category.setGames(games);
+            if (this.categorySettings) {
+                const gameBlocks: IGameBlock[] = category.gameBlocks;
+
+                _forEach(gameBlocks, (gameBlock: IGameBlock) => {
+                    const gamesList: Game[] = this.filterGames([category, gameBlock.category], games);
+                    if (gamesList.length) {
+                        gameBlock.games = gamesList;
+                    }
+                });
+            } else {
+                category.setGames(games);
+            }
             category.setReady();
         }
     }
@@ -445,6 +465,30 @@ export class GamesCatalog extends AbstractModel<IGames> {
 
         return list.map((merchantName: string): ISupportedItem => {
             return {value: merchantName, title: merchantName};
+        });
+    }
+
+    /**
+     * Filter games
+     *
+     * @param {CategoryModel} categories Game categories
+     * @returns {Game[]} Filtered games list
+     */
+    protected filterGames(includeCategories: CategoryModel[], gameList?: Game[]): Game[] {
+        const categoryIds = _reduce(includeCategories, (ids: number[], category) => {
+            if (category.slug !== 'casino') {
+                ids.push(category.id);
+            }
+            return ids;
+        }, []);
+
+        return _filter(gameList || this.getGameList(), (game: Game) => {
+            for (const categoryId of categoryIds) {
+                if (!_includes(game.categoryID, categoryId)) {
+                    return false;
+                }
+            }
+            return true;
         });
     }
 
@@ -494,8 +538,8 @@ export class GamesCatalog extends AbstractModel<IGames> {
          **********************************************************************************************************/
         response.categories = _concat(this.specialCategories, response.categories);
 
-        const mapCategories = GamesHelper.mapCategories(response.categories);
-        this.categories = this.sortCategories(mapCategories.categoriesArray);
+        const categories = GamesHelper.mapCategories(response.categories, this.categorySettings);
+        this.categories = this.sortCategories(categories);
 
         /***********************************************************************************************************
          * COUNTRIES RESTRICTIONS
@@ -584,59 +628,109 @@ export class GamesCatalog extends AbstractModel<IGames> {
             });
         }
 
-        const parentCategories: CategoryModel[] = _filter(this.categories, (category: CategoryModel) => {
-            return category.isParent;
-        });
+        if (this.categorySettings && this.menuSettings) {
 
-        const mainParentCategory: CategoryModel = this.getCategoryBySlug(['casino', 'livecasino', 'tablegames'], true);
-
-        const otherCategories: CategoryModel[] = _filter(parentCategories, (category) => {
-            return category.slug !== mainParentCategory?.slug && !category.isSpecial;
-        });
-
-        _forEach(otherCategories, (category) => {
-            const gamesList: Game[] = _filter(this.games, (game: Game) => {
-                return game.hasCategory(category);
-            });
-            category.setGames(gamesList);
-            category.sortGames();
-        });
-
-        let gamesList: Game[] = this.games;
-        if (mainParentCategory && mainParentCategory.slug !== 'casino') {
-            gamesList = this.getGamesByCategories([mainParentCategory]);
-        }
-        mainParentCategory.setGames(gamesList);
-
-        const childCategories: CategoryModel[] = _filter(this.categories, (category: CategoryModel) => {
-            return !category.isParent;
-        });
-
-        const availableChildCategories: CategoryModel[] = [];
-
-        _forEach(childCategories, (category: CategoryModel) => {
-
-            const games: Game[] = _filter(this.games, (game: Game) => {
-                return _includes(game.categoryID, category.id);
+            const categories: CategoryModel[] = _filter(this.categories, (category: CategoryModel) => {
+                return !!this.categorySettings[category.slug] || category.isSpecial;
             });
 
-            if (games.length) {
-                const newChildCategory: CategoryModel = _cloneDeep(category);
-                newChildCategory.setParentCategory(mainParentCategory);
-                newChildCategory.setGames(_orderBy(games, (game: Game) => game[category.name + 'Sorted'] || 0, 'desc'));
-                availableChildCategories.push(newChildCategory);
+            this.projectCategories = categories;
+            this.configureCategoriesView(this.projectCategories);
+
+        } else {
+
+            const parentCategories: CategoryModel[] = _filter(this.categories, (category: CategoryModel) => {
+                return category.isParent;
+            });
+
+            const mainParentCategory: CategoryModel = this.getCategoryBySlug(['casino', 'livecasino', 'tablegames'], true);
+
+            const otherCategories: CategoryModel[] = _filter(parentCategories, (category) => {
+                return category.slug !== mainParentCategory?.slug && !category.isSpecial;
+            });
+
+            _forEach(otherCategories, (category) => {
+                const gamesList: Game[] = _filter(this.games, (game: Game) => {
+                    return game.hasCategory(category);
+                });
+                category.setGames(gamesList);
+                category.sortGames();
+            });
+
+            let gamesList: Game[] = this.games;
+            if (mainParentCategory && mainParentCategory.slug !== 'casino') {
+                gamesList = this.getGamesByCategories([mainParentCategory]);
             }
-        });
+            mainParentCategory.setGames(gamesList);
 
-        mainParentCategory.setChildCategories(availableChildCategories);
+            const childCategories: CategoryModel[] = _filter(this.categories, (category: CategoryModel) => {
+                return !category.isParent;
+            });
 
-        this.projectCategories = this.sortCategories(_union(parentCategories, availableChildCategories));
+            const availableChildCategories: CategoryModel[] = [];
+
+            _forEach(childCategories, (category: CategoryModel) => {
+
+                const games: Game[] = _filter(this.games, (game: Game) => {
+                    return _includes(game.categoryID, category.id);
+                });
+
+                if (games.length) {
+                    const newChildCategory: CategoryModel = _cloneDeep(category);
+                    newChildCategory.setParentCategory(mainParentCategory);
+                    newChildCategory.setGames(_orderBy(games, (game: Game) => game[category.name + 'Sorted'] || 0, 'desc'));
+                    availableChildCategories.push(newChildCategory);
+                }
+            });
+
+            mainParentCategory.setChildCategories(availableChildCategories);
+            this.projectCategories = this.sortCategories(_union(parentCategories, availableChildCategories));
+            this.configureCategoriesView(this.projectCategories);
+        }
 
         _forEach(this.projectCategories, (category) => {
             if (category.isJackpots && this.overrideJackpots) {
                 return;
+            } else {
+                category.setReady();
             }
-            category.setReady();
+        });
+    }
+
+    protected configureCategoriesView(categories: CategoryModel[]): void {
+        _forEach(categories, (mainCategory) => {
+            const settings = _get(this.categorySettings, mainCategory.slug);
+            if (settings) {
+                const games: Game[] = this.filterGames([mainCategory]);
+                mainCategory.setGames(games);
+
+                if (settings.view === 'blocks' || settings.view === 'restricted-blocks') {
+                    const gameBlocks: IGameBlock[] = _reduce(categories, (blocks: IGameBlock[], category: CategoryModel) => {
+                        if (category.slug !== mainCategory.slug) {
+                            const filterByCategries: CategoryModel[] = [category];
+                            if (mainCategory.slug !== 'casino') {
+                                filterByCategries.push(mainCategory);
+                            }
+
+                            const games: Game[] = this.filterGames(filterByCategries);
+                            if (games.length) {
+                                blocks.push({
+                                    category: category,
+                                    games: games,
+                                    settings: settings?.blocks?.[category.slug],
+                                });
+                            }
+                        }
+                        return blocks;
+                    }, []);
+                    mainCategory.setGameBlocks(gameBlocks);
+                }
+            } else {
+                const games: Game[] = this.filterGames([mainCategory]);
+                if (games.length) {
+                    mainCategory.setGames(games);
+                }
+            }
         });
     }
 

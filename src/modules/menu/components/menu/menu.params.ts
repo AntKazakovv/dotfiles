@@ -2,19 +2,25 @@ import {IComponentParams, ICounterType} from 'wlc-engine/modules/core/system/int
 import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.model';
 import {ISliderCParams} from 'wlc-engine/modules/promo';
 import {TIconExtension} from 'wlc-engine/modules/menu';
+import {
+    IMenuOptions,
+} from 'wlc-engine/modules/core';
 
 export interface MenuConfigItemsGroup {
-    parent: string;
+    parent: MenuItemsGroupParent;
     type: string;
-    items: string[];
+    items: MenuItemsGroupItem[];
 }
+export type MenuItemsGroupItem = string | IMenuItem | MenuConfigItemsGroup;
+export type MenuItemsGroupParent = string | IMenuItem;
 export type MenuConfigItem = MenuConfigItemsGroup | IMenuItem | string;
 export type MenuItemObjectType = IMenuItem | IMenuItemsGroup;
 export type MenuItemType = string | IMenuItem | IMenuItemsGroup;
-export type MenuType = 'main-menu' | 'category-menu' | 'profile-menu' | 'profile-first-menu' | 'mobile-menu' | 'footer:tc' | 'footer:about' | 'affiliates-menu';
+export type MenuType = 'main-menu' | 'category-menu' | 'profile-menu' | 'profile-first-menu' | 'mobile-menu' | 'footer:tc' | 'footer:about' | 'affiliates-menu' | 'burger-panel-header';
 export type ItemType = 'sref' | 'anchor' | 'modal' | 'href' | 'scroll' | 'title' | 'dropdown' | 'group';
 export type IMenuTarget = '_blank' | '_self' | '_parent' | '_top';
 export type MenuTheme = string;
+export type TMenuItemDevice = 'mobile' | 'desktop' | 'all';
 
 export interface IMenuItemParamsState {
     parent?: string | string[];
@@ -54,18 +60,21 @@ export interface IMenuItemParams {
 
 export interface IMenuItem {
     name: string;
-    counter?: ICounterType;
     type: ItemType;
+    counter?: ICounterType;
     icon?: string;
+    iconUrl?: string;
     class?: string;
     wlcElement?: string;
     params?: IMenuItemParams;
+    device?: TMenuItemDevice;
+    auth?: boolean;
     sort?: number,
 }
 
 export interface IMenuItemsGroup {
     parent: IMenuItem,
-    items: IMenuItem[],
+    items: MenuItemObjectType[],
     type?: ItemType,
     counter?: ICounterType;
     expand?: boolean;
@@ -92,17 +101,24 @@ export interface IMenuItemsGlobal {
     [key: string]: IMenuItem;
 }
 
+export interface IMenuItemGroupsGlobal {
+    [key: string]: MenuConfigItemsGroup;
+}
+
 export interface IHelperGetItemsParams {
+    isMobile: boolean;
+    isAuth: boolean;
     items?: MenuItemType[];
     type?: MenuType;
-    theme?: string,
+    theme?: string;
 }
 
 export interface IHelperGetItemsForCategories {
-    openChildCatalog?: boolean;
     categories: CategoryModel[];
-    wlcElementPrefix?: string;
     lang: string;
+    openChildCatalog?: boolean;
+    menuSettings?: IMenuOptions;
+    wlcElementPrefix?: string;
     icons?: {
         folder?: string;
         disable?: boolean;

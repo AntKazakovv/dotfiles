@@ -42,6 +42,7 @@ export * from './menu/wlc-profile-menu.config';
 export * from './menu/wlc-mobile-menu.config';
 
 export * from './games/wlc-game-wrapper.config';
+export * from './games/wlc-games-catalog.config';
 export * from './games/wlc-games-grid.config';
 export * from './games/wlc-total-jackpot.config';
 export * from './games/wlc-random-game.config';

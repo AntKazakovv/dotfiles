@@ -1,0 +1,16 @@
+<ng-container *ngIf="isReady; else preloader">
+    <ng-container *ngIf="gameGrids.length; else default">
+        <ng-container *ngFor="let gridParams of gameGrids;">
+            <div wlc-games-grid [inlineParams]="gridParams"></div>
+        </ng-container>
+    </ng-container>
+</ng-container>
+
+<ng-template #default>
+    <div wlc-games-grid [inlineParams]="$params.gamesGridParams"></div>
+</ng-template>
+
+<ng-template #preloader>
+    <div wlc-loader class="{{$class}}__preloader">
+    </div>
+</ng-template>

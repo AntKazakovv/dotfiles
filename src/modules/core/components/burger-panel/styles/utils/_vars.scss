@@ -113,6 +113,7 @@ $themeLeft: map-merge((
     'menuLinksHoverBg': ef.get('mainColors', 'baseOpacity'),
     'menuLinksActiveWeight': 700,
     'menuLinksDecoration': none,
+    'menuLinksIconMargin': 0 20px 0 0,
     'menuLinksIconWidth': 25px,
     'menuLinksIconHeight': auto,
     'menuLinksIconFill': ef.get('mainColors', 'main'),
@@ -123,7 +124,14 @@ $themeLeft: map-merge((
     'langCurrentBgModLong': ef.get('mainColors', 'baseOpacity'),
     'langCurrentBgModLongHover': rgba(ef.get('mainColors', 'baseMain'), 0.1),
     'userDepositBtnHeight': auto,
-    'userDepositBtnMinHeight': 40px,
+    'userDepositBtnMinHeight': ef.size(8),
+    'headerMenuJustifyContent': center,
+    'headerMenuItemActiveBg': ef.get('mainColors', 'main'),
+    'headerMenuItemIconColor': #fff,
+    'headerMenuItemWidth': ef.size(8),
+    'headerMenuItemHeight': ef.size(8),
+    'headerMenuItemMargin': 0 5px,
+    'headerMenuItemBackground': ef.get('mainColors', 'bg500'),
 ), $customThemeLeft);
 
 $customThemeOption3: () !default;
@@ -222,4 +230,11 @@ $themeMobile: map-merge((
     'panelContentPadding': ef.get('size', 'smaller') ef.get('size', 'smaller') ef.get('size', 'main'),
     'loginBtnPadding': ef.get('size', 'smaller') 0,
     'gap': ef.get('size', 'smallest'),
+    'headerMenuJustifyContent': center,
+    'headerMenuItemActiveBg': ef.get('mainColors', 'main'),
+    'headerMenuItemIconColor': ef.get('mainColors', 'baseMain'),
+    'headerMenuItemWidth': ef.size(8),
+    'headerMenuItemHeight': ef.size(8),
+    'headerMenuItemMargin': 0 ef.size(2),
+    'headerMenuItemBackground': ef.get('mainColors', 'bg700'),
 ), $customThemeMobile);

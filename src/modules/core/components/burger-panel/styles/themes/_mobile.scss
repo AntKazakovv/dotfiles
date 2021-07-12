@@ -1,3 +1,6 @@
+@use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/functions' as ef;
+
 @import '../utils/vars';
 
 .wlc-burger-panel--theme-mobile:host {
@@ -18,11 +21,13 @@
     }
 
     &.wlc-burger-panel--open {
-        visibility: visible;
         transform: none;
+        visibility: visible;
     }
 
     ::ng-deep {
+
+        @include headerNavBase;
 
         .wlc-burger-panel__header {
             border-bottom: map-get($themeMobile, 'panelHeaderBorderBottom');
@@ -33,8 +38,8 @@
         }
 
         .wlc-login-signup {
-            justify-content: center;
             grid-auto-flow: initial;
+            justify-content: center;
             padding: map-get($themeMobile, 'loginBtnPadding');
 
             .wlc-btn {
@@ -52,8 +57,8 @@
 
         .wlc-user-info__wrp {
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            justify-content: space-between;
             margin: 0 0 ef.get-value($themeDefault, 'componentGap') 0;
         }
     }

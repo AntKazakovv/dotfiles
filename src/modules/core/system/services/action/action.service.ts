@@ -238,11 +238,6 @@ export class ActionService {
     }
 
     public deviceType(): Observable<DeviceType> {
-        _forEach(this.breakpoints, (item: IBreakpoint) => {
-            item.observer
-                .pipe(takeWhile(() => !!this.deviceTypeSubject.observers.length))
-                .subscribe(() => this.deviceTypeSubject.next(this.getDeviceType()));
-        });
         return this.deviceTypeSubject.asObservable();
     }
 
@@ -285,13 +280,19 @@ export class ActionService {
         this.runAffiliatesListener();
 
         await this.createBreakpoints();
+        _forEach(this.breakpoints, (item: IBreakpoint) => {
+            item.observer
+                .pipe(takeWhile(() => !!this.deviceTypeSubject.observers.length))
+                .subscribe(() => {
+                    this.deviceTypeSubject.next(this.getDeviceType());
+                });
+        });
         this.deviceTypeSubject.next(this.getDeviceType());
     }
 
     private async createBreakpoints(): Promise<void> {
         await this.configService.ready;
         const breakpoints = this.configService.get<IDeviceConfig>('$base.device')?.breakpoints;
-
         const createMq = (mq: number): IBreakpoint => {
             const mediaQuery = window.matchMedia(`(min-width: ${mq}px)`);
             return {

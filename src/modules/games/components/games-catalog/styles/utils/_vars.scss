@@ -1,0 +1,8 @@
+@use 'engine-scss/functions' as ef;
+
+$customThemeDefault: () !default;
+
+$themeDefault: map-merge((
+    'gridRow': ef.get('size', 'main'),
+    'gridTemplates': minmax(0, 1fr),
+), $customThemeDefault);

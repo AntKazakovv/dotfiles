@@ -26,7 +26,11 @@
 //     apiBaseUrl: string;
 // }
 
-import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
+import {
+    IIndexing,
+    ICategorySettings,
+    IMenu,
+} from 'wlc-engine/modules/core';
 
 export interface ILanguage {
     code: string;
@@ -54,6 +58,8 @@ export class AppConfigModel {
     languages: ILanguage[];
     loggedIn: string;
     menu: any[];
+    menuSettings: IMenu;
+    categories: IIndexing<ICategorySettings>;
     mobile: boolean;
     seo: any[];
     sessionName: string;
