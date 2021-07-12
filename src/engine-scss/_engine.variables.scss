@@ -621,3 +621,8 @@ $link-hover-color: map-get($mainColors, 'baseMain') !default;
 $link-hover-decoration: underline !default;
 $enable-rfs: false;
 $tooltip-opacity: 1;
+$tooltip-border-radius: 10px;
+$tooltip-padding-y: 10px;
+$tooltip-padding-x: 10px;
+$tooltip-arrow-width: 0.8rem;
+$tooltip-arrow-height: 0.8rem;

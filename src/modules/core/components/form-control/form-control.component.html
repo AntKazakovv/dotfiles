@@ -1,8 +1,14 @@
-<div class="{{className}}__icon form-control__icon">
+<div class="{{className}}__icon form-control__icon"
+     [isDisabled]="!errors.length"
+     containerClass="form-control-tooltip"
+     placement="bottom"
+     [tooltip]="errorsRef">
     <div class="icon"></div>
 </div>
-<ul class="{{className}}__errors form-control__errors">
-    <li *ngFor="let error of errors">
-        {{error | translate}}
-    </li>
-</ul>
+<ng-template #errorsRef>
+    <ul class="form-control__errors">
+        <li *ngFor="let error of errors">
+            {{error | translate}}
+        </li>
+    </ul>
+</ng-template>
