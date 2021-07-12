@@ -135,6 +135,8 @@ export class GamesCatalogComponent extends AbstractComponent implements OnInit {
 
             this.isReady = true;
             this.cdr.detectChanges();
+        } else {
+            this.isReady = true;
         }
     }
 
