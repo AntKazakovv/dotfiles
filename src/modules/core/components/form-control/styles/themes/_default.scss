@@ -78,15 +78,6 @@
                 }
             }
         }
-
-        &:hover {
-
-            #{$selector}__errors {
-                opacity: 1;
-                visibility: visible;
-                @include bm.transition();
-            }
-        }
     }
 
     &__icon {
@@ -129,57 +120,35 @@
     }
 
     &__errors {
-        position: absolute;
-        background: ef.get-value($themeDefault, 'errorsBgColor');
-        top: calc(100% - 5px);
-        right: 0;
-        width: fit-content;
-        padding: ef.get-value($themeDefault, 'errorsPadding');
-        min-width: ef.get-value($themeDefault, 'errorsMinWidth');
-        max-width: ef.get-value($themeDefault, 'errorsMaxWidth');
-        opacity: 0;
-        visibility: hidden;
-        border-radius: ef.get-value($themeDefault, 'errorsBorderRadius');
-        z-index: 20;
-        margin-left: 20px;
         list-style: none;
-        @include bm.transition();
+        padding: 0;
+        margin: 0;
 
-        @include text.get-text-style('PrimaryText', ef.get-value($themeDefault, 'errorsColor'));
+        li {
+            margin: ef.get-value($themeDefault, 'marginBetweenErrorsItem');
 
-        .wlc-textarea & {
-            position: absolute;
-            background: ef.get-value($themeDefault, 'errorsBgColor');
-            top: 35px;
-            right: 0;
-            width: fit-content;
-            min-width: ef.get-value($themeDefault, 'errorsMinWidth');
-            max-width: ef.get-value($themeDefault, 'errorsMaxWidth');
-            opacity: 0;
-            visibility: hidden;
-            border-radius: ef.get-value($themeDefault, 'errorsBorderRadius');
-            padding: ef.get-value($themeDefault, 'errorsPadding');
-            z-index: 10;
-
-            @include text.get-text-style('PrimaryText', ef.get-value($themeDefault, 'errorsColor'));
-
-            &:before {
-                content: '';
-                border: 8px solid transparent;
-                border-bottom-color: ef.get-value($themeDefault, 'errorsBgColor');
-                position: absolute;
-                top: -15px;
-                right: 12px;
+            &:first-child {
+                margin: 0;
             }
         }
+    }
 
-        &:before {
-            content: '';
-            border: 8px solid transparent;
-            border-bottom-color: ef.get-value($themeDefault, 'errorsBgColor');
-            position: absolute;
-            top: -15px;
-            right: 13px;
+    &-tooltip {
+        min-width: ef.get-value($themeDefault, 'errorsMinWidth');
+
+        .tooltip-inner {
+            background: ef.get-value($themeDefault, 'errorsBgColor');
+            @include text.get-text-style('PrimaryText', ef.get-value($themeDefault, 'errorsColor'));
+        }
+
+        &.bottom {
+
+            .tooltip-arrow {
+
+                &:before {
+                    border-bottom-color: ef.get-value($themeDefault, 'errorsBgColor');
+                }
+            }
         }
     }
 }
