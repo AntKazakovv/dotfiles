@@ -8,4 +8,11 @@ export namespace wlcSocialIcons {
         name: 'core.wlc-social-icons',
         params: <ISocialIconsCParams>{},
     };
+
+    export const compact: ILayoutComponent = {
+        name: 'core.wlc-social-icons',
+        params: {
+            themeMod: 'compact',
+        },
+    };
 }

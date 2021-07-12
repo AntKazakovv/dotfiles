@@ -91,9 +91,9 @@ $themePayments: map-merge((
         900: ef.get('size', 'less') * 1.2,
     ),
     'iconMargin': (
-        375: 0 ef.get('size', 'smally'),
-        900: 0 ef.get('size', 'smaller') ef.get('size', 'smaller'),
-        1630: 0 ef.get('size', 'smaller') ef.get('size', 'main'),
+        375: 0 ef.size(3),
+        900: ef.size(2) ef.size(4),
+        1630: ef.size(4),
     ),
     'iconFill': ef.get('mainColors', 'bg100'),
     // scrollable

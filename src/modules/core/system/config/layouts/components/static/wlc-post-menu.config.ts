@@ -18,6 +18,23 @@ export namespace wlcPostMenu {
         },
     };
 
+    export const footerFirst: ILayoutComponent = {
+        name: 'static.wlc-post-menu',
+        params: {
+            themeMod: 'footer-first',
+            wlcElement: 'wlc-footer-info__block_legal',
+            common: {
+                categorySlug: ['legal', 'about-us'],
+                useSlider: false,
+                groupBySlag: true,
+                basePath: {
+                    page: 'contacts',
+                    addLanguage: true,
+                },
+            },
+        },
+    };
+
     export const footerAbout: ILayoutComponent = {
         name: 'static.wlc-post-menu',
         params: {

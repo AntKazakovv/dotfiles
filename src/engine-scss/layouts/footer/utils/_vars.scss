@@ -9,9 +9,9 @@ $footerCommon: map-merge((
         560: 76.5%,
         1024: initial,
     ),
-    'gapMobile': ef.get('size', 'smally'),
-    'gapTablet': ef.get('size', 'smaller'),
-    'gapDesktop': ef.get('size', 'main'),
+    'gapMobile': ef.size(3),
+    'gapTablet': ef.size(4),
+    'gapDesktop': ef.size(8),
 ), $customFooterCommon);
 
 $customTheme1Footer: () !default;
@@ -28,60 +28,46 @@ $theme1Footer: map-merge((
         560: map-get($footerCommon, 'gapTablet'),
         1024: auto,
     ),
+    'footerMobileOffset': (
+        375: ef.size(4) 0,
+        1024: 0,
+    ),
 
     // footer container
     'footerContainerDisplay': (
-        375: flex,
-        1200: grid
+        375: grid,
     ),
     'footerContainerGridColumns': (
-        1200: 130px 200px 120px 1fr 130px,
+        375: 1fr,
+        768: auto 1fr auto,
+        1200: auto 1fr auto 2fr auto,
     ),
     'footerContainerGridAreas': (
-        1200: 'merchants merchants merchants merchants merchants' 'payments payments payments payments payments' 'logo info about-us disclaimer language',
+        375: 'merchants' 'payments' 'menu' 'language' 'social' 'disclaimer' 'license',
+        768: 'merchants merchants merchants' 'payments payments payments' 'logo menu language' 'social social social' 'disclaimer disclaimer disclaimer' 'license license license',
+        1024: 'merchants merchants merchants' 'payments payments payments' 'logo menu social' 'license disclaimer language',
+        1200: 'merchants merchants merchants merchants merchants' 'payments payments payments payments payments' 'logo menu license disclaimer language' 'social menu license disclaimer language',
     ),
-    'footerContainerGridGap': (
-        1024: null,
-        1200: map-get($footerCommon, 'gapDesktop'),
+    'footerContainerColumnGap': (
+        1024: ef.size(6),
+        1630: map-get($footerCommon, 'gapDesktop'),
     ),
-    'footerContainerFlexDirection': (
-        375: column,
-        560: row,
+    'footerContainerRowGap': (
+        375: 0,
+        1024: ef.size(6),
+        1200: ef.size(8),
     ),
-    'footerContainerAlineItems': (
+    'footerContainerJustifyItems': (
         375: center,
-        560: stretch,
-    ),
-    'footerContainerFlexWrap': (
-        375: wrap,
-    ),
-    'footerContainerJustifyContent': (
-        375: center,
-    ),
-
-    // logo
-    'footerLogoDisplay': (
-        375: none,
-        640: block,
-    ),
-    'footerLogoSvgWidth': (
-        375: 100%
+        1024: start,
     ),
 
     // icon list merchants
     'iconListMerchantsMaxWidth': (
         375: calc(100vw - 30px),
     ),
-    'iconListMerchantsMargin': (
-        375: 0 0 ef.get('size', 'smaller'),
-        1200: 0,
-    ),
 
     // list icon payments
-    'iconListPaymentsMargin': (
-        375: 0 0 ef.get('size', 'smaller'),
-        1200: 0,
-    ),
     'iconListPaymentsMaxWidth': (
         375: calc(100vw - 30px),
     ),
@@ -92,65 +78,17 @@ $theme1Footer: map-merge((
         375: 0
     ),
 
-    // post menu
-    'postMenuJustify': (
-        375: center,
-        560: flex-start,
-    ),
-    'postMenuTextAlign': (
-        375: center,
-        560: left,
-    ),
-    'postMenuTitleFontSize': (
-        375: ef.get('font', 'biger'),
-        560: ef.get('font', 'biger'),
-    ),
-    'postMenuInfoMargin': (
-        375: null,
-        560: 0 ef.get('size', 'small') 0 ef.get('size', 'smaller'),
-        720: 0 ef.get('size', 'smaller') 0 ef.get('size', 'main'),
-        1200: 0
-    ),
-    'postMenuAboutMargin': (
-        375: ef.get('size', 'smaller') 0,
-        560: 0 ef.get('size', 'smaller') 0 ef.get('size', 'small'),
-        720: 0 ef.get('size', 'main') 0 ef.get('size', 'smaller'),
-        1200: 0
-    ),
-
-    // disclamer
-    'disclaimerMargin': (
-        375: ef.get('size', 'smaller') 0 0,
-    ),
-    'disclamerFontSize': (
-        375: ef.get('font', 'small'),
-        560: ef.get('font', 'smaller'),
-    ),
-    'disclamerTextAlign': (
-        375: center,
-        1200: left,
-    ),
-    'disclamerMargin': (
-        375: 0 0 ef.get('size', 'smaller'),
-    ),
+    // disclamer and copyright
     'copyrightMargin': (
-        375: ef.get('size', 'smaller') 0 0,
+        375: ef.size(4) 0 0,
     ),
 
-    // language selector
-    'languageJustifySelf': (
-        375: center,
-        560: end,
-    ),
     // license
-    'licenseAboutUsMargin': map-get($footerCommon, 'gapDesktop') / 2 0 0,
-    'licenseMargin': (
-        375: map-get($footerCommon, 'gapDesktop') / 2 auto 0,
-        560: map-get($footerCommon, 'gapDesktop') / 2 0 0
+    'licenseColumns': (
+        375: repeat(2, auto),
+        1200: 1fr,
     ),
-    'licenseFlexDirection': (
-        375: row-reverse,
-    )
+    'licenceAlignSelf': self-start,
 ), $customTheme1Footer);
 
 $customTheme2Footer: () !default;

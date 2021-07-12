@@ -4,10 +4,15 @@ $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'color': ef.get('mainColors', 'baseMain'),
 
+    'titleTextStyle': 'ThirdTitleBold',
     'titleColor': ef.get('mainColors', 'main'),
     'titleWeight': bold,
     'titlePadding': 0 0 ef.get('size', 'smaller') 0,
 
+    'linkTextStyle': (
+        375: 'PrimaryText',
+        1024: 'ButtonText',
+    ),
     'linksGap': ef.get('size', 'small'),
 
     'linkColor': ef.get('mainColors', 'baseMain'),
@@ -22,6 +27,37 @@ $themeDefault: map-merge((
     'padding': 20px 25px,
     'swiperBoxShadowStart': 5px 0 5px -5px #867f7f63,
     'swiperBoxShadowEnd': -5px 0 5px -5px #867f7f63,
+
+    // theme mod footer-first
+    'ffTextAlign': (
+        375: center,
+        768: start,
+    ),
+    'ffColumns': (
+        375: 1,
+        560: 2,
+        1024: 3,
+        1200: 2,
+    ),
+    'ffPadding': (
+        375: 0,
+    ),
+    'ffJustify': (
+        375: center,
+        560: flex-start,
+    ),
+
+    'ffColumnsGap': ef.size(4),
+    'ffLinkPadding': ef.size(1) 0,
+    'ffItemsMaxWidth': (
+        375: 440px,
+        1024: 100%,
+    ),
+    'ffItemsMargin': (
+        375: ef.size(-1) auto,
+        1024: ef.size(-1) 0,
+    ),
+    'ffItemsLineHeight': 1,
 ), $customThemeDefault);
 
 $customMenuThemeContacts: () !default;
