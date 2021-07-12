@@ -4,113 +4,100 @@
 @use 'engine-scss/mixins/text' as lib;
 
 .wlc-bonus-item--theme-promo-home {
-    overflow: hidden;
-    position: relative;
-    background: ef.get-value($themePromoHome, 'background');
-    border-radius: ef.get-value($themePromoHome, 'borderRadius');
-    height: 100%;
-
     @include em.get-mq-map('min-height', $themePromoHome, 'minHeight');
+
+    position: relative;
+
+    display: grid;
+    height: 100%;
     padding: 0;
 
-    .wlc-bonus-item__content {
-        height: 100%;
-    }
+    overflow: hidden;
+    background: ef.get-value($themePromoHome, 'background');
 
-    .wlc-bonus-item__wrapper {
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        @include em.get-mq-map('padding', $themePromoHome, 'padding');
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: center center;
-    }
+    .wlc-bonus-item {
 
-    .wlc-bonus-item__tag {
-        @include lib.get-text-style('ThirdTitleBold', ef.get-value($themePromoHome, 'tagColor'));
-        @include em.get-mq-map('padding', $themePromoHome, 'tagPadding');
+        &__content {
+            height: 100%;
+            background-repeat: ef.get-value($themePromoHome, 'contentBgRepeat');
+            background-position: ef.get-value($themePromoHome, 'contentBgPos');
+            background-size: ef.get-value($themePromoHome, 'contentBgSize');
 
-        min-width: ef.get-value($themePromoHome, 'tagMinWidth');
-        text-align: ef.get-value($themePromoHome, 'tagTextAlign');
-        position: absolute;
-        top: ef.get-value($themePromoHome, 'tagTopPosition');
-        left: ef.get-value($themePromoHome, 'tagLeftPosition');
-        background: ef.get-value($themePromoHome, 'tagBg');
-        border-radius: ef.get-value($themePromoHome, 'tagBorderRadius');
-    }
+            &:before {
+                @include em.absoluteCentering();
+                @include em.get-mq-map('background', $themePromoHome, 'contentBackdrop');
 
-    .wlc-bonus-item__more-icon {
-        position: absolute;
-        right: ef.get-value($themePromoHome, 'moreIconRightPosition');
-        top: ef.get-value($themePromoHome, 'moreIconTopPosition');
-        cursor: pointer;
-
-        svg {
-            display: block;
-            fill: ef.get-value($themePromoHome, 'moreIconFill');
-        }
-    }
-
-
-    .wlc-bonus-item__bonus-icon {
-        position: relative;
-        display: none;
-        justify-content: flex-end;
-        width: ef.get-value($themePromoHome, 'bonusIconWidth');
-        height: ef.get-value($themePromoHome, 'bonusIconHeight');
-
-        @include mq.min(1024) {
-            display: flex;
-        }
-
-        .icon-text {
-            @include lib.get-text-style('ThirdTitleBold', ef.get-value($themePromoHome, 'bonusIconTextColor'));
-            width: ef.get-value($themePromoHome, 'bonusIconTextWidth');
-            text-overflow: ellipsis;
-            text-align: center;
-            display: block;
-            overflow: hidden;
-            position: absolute;
-            bottom: ef.get-value($themePromoHome, 'bonusIconTextBottom');
-            right: ef.get-value($themePromoHome, 'bonusIconTextRight');
-            background: ef.get-value($themePromoHome, 'bonusIconTextBg');
-            user-select: none;
-            padding: ef.get-value($themePromoHome, 'bonusIconTextPadding');
-            border-radius: ef.get-value($themePromoHome, 'bonusIconTextBorderRadius');
-        }
-    }
-
-    .wlc-bonus-item__info-wrapper {
-        display: flex;
-        height: 100%;
-        justify-content: space-between;
-        align-items: self-end;
-    }
-
-    .wlc-bonus-item__info-block {
-        @include em.get-mq-map('max-width', $themePromoHome, 'infoBlockMaxWidth');
-
-        h4 {
-            @include lib.get-text-style('QoteTextBold', ef.get-value($themePromoHome, 'color'));
-
-            @include mq.min(640) {
-                @include lib.get-text-style('PromoTitle', ef.get-value($themePromoHome, 'color'));
+                content: '';
+                z-index: 0;
+                display: block;
+                width: calc(100% + 10px);
+                height: calc(100% + 10px);
             }
         }
-    }
 
-    .wlc-bonus-item__image-block {
-        align-self: flex-end;
-        margin-bottom: 40px;
-    }
+        &__wrapper {
+            @include em.get-mq-map('padding', $themePromoHome, 'padding');
+            @include em.get-mq-map('gap', $themePromoHome, 'wrapperGap');
 
-    .wlc-bonus-item__description {
-        margin-top: ef.get-value($themePromoHome, 'descriptionMarginTop');
-        @include lib.get-text-style('PrimaryText', ef.get-value($themePromoHome, 'color'));
-    }
+            display: grid;
+            grid-template-areas: ef.get-value($themePromoHome, 'wrapperGridAreas');
+            grid-template-rows: ef.get-value($themePromoHome, 'wrapperRows');
+            height: 100%;
+        }
 
-    .wlc-bonus-item__btns {
-        margin-top: auto;
+        &__icon {
+            width: ef.get-value($themePromoHome, 'bonusIconWidth');
+            height: ef.get-value($themePromoHome, 'bonusIconHeight');
+        }
+
+        &__info-wrapper,
+        &__btns {
+            position: relative;
+            z-index: 10;
+        }
+
+        &__info-wrapper {
+            @include em.get-mq-map('flex-direction', $themePromoHome, 'infoWrapperFlexDir');
+            @include em.get-mq-map('justify-content', $themePromoHome, 'infoWrapperJustifyContent');
+            @include em.get-mq-map('align-items', $themePromoHome, 'infoWrapperAlignItems');
+
+            display: flex;
+            grid-area: content;
+            min-width: 0;
+            max-width: 100%;
+            height: 100%;
+        }
+
+        &__info-block {
+            @include em.get-mq-map('padding', $themePromoHome, 'infoBlockPadding');
+
+            width: 100%;
+            min-width: 0;
+            max-width: 100%;
+
+            h4 {
+                @include lib.get-text-style('QoteTextBold', ef.get-value($themePromoHome, 'color'));
+
+                @include mq.min(640) {
+                    @include lib.get-text-style('PromoTitle', ef.get-value($themePromoHome, 'color'));
+                }
+            }
+        }
+
+        &__image-block {
+            padding: ef.get-value($themePromoHome, 'imagePadding');
+        }
+
+        &__description {
+            @include lib.get-text-style('PrimaryText', ef.get-value($themePromoHome, 'color'));
+            @include em.get-mq-map('margin', $themePromoHome, 'descriptionMargin');
+        }
+
+        &__btns {
+            @include em.get-mq-map('min-height', $themePromoHome, 'btnsMinHeight');
+
+            grid-area: buttons;
+            justify-content: ef.get-value($themePromoHome, 'btnsJustifyContent');
+        }
     }
 }

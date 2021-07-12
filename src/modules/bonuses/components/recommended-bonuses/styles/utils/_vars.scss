@@ -2,15 +2,15 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'itemMargin': (
-        320: 0 ef.get('size', 'smally') 0,
+    'sliderMargin': (
+        320: 0 ef.size(3) 0,
         1024: 0,
     ),
 
     'titleFontStyle': 'ThirdTitleBold',
     'titleColor': ef.get('mainColors', 'baseMain'),
     'titleMargin': (
-        320: ef.get('size', 'main') 0 ef.get('size', 'smaller'),
+        320: ef.size(8) 0 ef.size(4),
     ),
     'titleTextAlign': (
         320: left,
@@ -21,13 +21,13 @@ $themeDefault: map-merge((
     'swiperContainerPadding': 0,
     'swiperContainerMargin': (
         320: 0,
-        1024: 0 ef.get('size', 'smaller'),
+        1024: 0 ef.size(4),
         1366: 0,
     ),
     'swiperContainerJustifyContent': left,
     'swiperBtnsPos': (
-        320: -20px,
+        320: ef.size(-4),
         1024: 0,
-        1366: -20px,
+        1366: ef.size(-4),
     ),
 ), $customThemeDefault);

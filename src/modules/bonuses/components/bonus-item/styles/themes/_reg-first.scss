@@ -1,33 +1,51 @@
 @use 'engine-scss/mixins/mediaqueries' as mq;
 @use 'engine-scss/mixins/text' as text;
-@use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/mixins/base.mixins' as em;
 @use 'engine-scss/functions' as ef;
 
 .wlc-bonus-item--theme-reg-first {
+    @include viewsBackgrounds;
+    @include em.get-mq-map('max-width', $themeRegFirst, 'maxWidth');
 
-    @include backgrounds;
+    min-width: ef.get-value($themeRegFirst, 'minWidth');
+    margin: ef.get-value($themeRegFirst, 'itemMargin');
+    background: ef.get-value($themeRegFirst, 'background');
 
     .wlc-bonus-item {
 
+        &__tag {
+            position: absolute;
+            top: ef.get-value($themeRegFirst, 'tagPosTop');
+            left: ef.get-value($themeRegFirst, 'tagPosLeft');
+            z-index: 10;
+            transform: ef.get-value($themeRegFirst, 'tagTransform');
+            opacity: 0;
+        }
+
         &__content {
             @include contentCommonStyles;
-            @include bm.get-mq-map('max-width', $themeRegFirst, 'maxWidth');
-            min-width: ef.get-value($themeRegFirst, 'minWidth');
-            border: ef.get-value($themeRegFirst, 'chosenNoBorder');
+
             cursor: pointer;
+            border-radius: ef.get-value($themeRegFirst, 'contentRadius');
+            border: ef.get-value($themeRegFirst, 'chosenNoBorder');
+
+            &.chosen {
+                border: ef.get-value($themeRegFirst, 'chosenBorder');
+
+                .wlc-bonus-item__tag {
+                    opacity: 1;
+                }
+            }
         }
 
         &__wrapper {
             @include wrapperCommonStyles;
-            @include bm.get-mq-map('grid-template-rows', $themeRegFirst, 'infoHeight');
-        }
-
-        &__image-block {
-            position: relative;
+            @include em.get-mq-map('grid-template-rows', $themeRegFirst, 'infoHeight');
         }
 
         &__image {
             @include imageCommonStyles;
+
             height: ef.get-value($themeRegFirst, 'imageHeight');
             padding: ef.get-value($themeRegFirst, 'imagePadding');
 
@@ -40,12 +58,8 @@
             }
         }
 
-        &__tag {
-            @include tagCommonStyles;
-        }
-
         &__bottom {
-            @include bm.get-mq-map('padding', $themeDefault, 'infoBtmPaddingWithImg');
+            @include em.get-mq-map('padding', $themeDefault, 'infoBtmPaddingWithImg');
         }
 
         &__info-block {
@@ -54,20 +68,16 @@
 
         &__name {
             @include nameCommonStyles;
-            @include bm.get-mq-map('width', $themeRegFirst, 'infoWidth');
+            @include em.get-mq-map('width', $themeRegFirst, 'infoWidth');
         }
 
         &__description {
             @include descriptionCommonStyles;
-            @include bm.get-mq-map('width', $themeRegFirst, 'infoWidth');
-        }
-
-        &__more-icon {
-            @include moreIconCommonStyles;
+            @include em.get-mq-map('width', $themeRegFirst, 'infoWidth');
         }
     }
 
-    .wlc-bonus-item__content.chosen {
-        border: ef.get-value($themeRegFirst, 'chosenBorder');
+    @include em.hover() {
+        background: ef.get-value($themeRegFirst, 'backgroundHover');
     }
 }

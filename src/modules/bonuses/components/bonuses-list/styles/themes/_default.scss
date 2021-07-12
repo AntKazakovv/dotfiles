@@ -8,9 +8,10 @@
     &:host {
 
         .wlc-bonuses-list__list {
+            @include bm.get-mq-map('grid-template-columns', $themeDefault, 'gridColumn');
             display: grid;
             grid-gap: ef.get-value($themeDefault, 'gridGap');
-            @include bm.get-mq-map('grid-template-columns', $themeDefault, 'gridColumn');
+            justify-items: center;
 
             .wlc-sections__profile-content--theme-first & {
                 @include bm.get-mq-map('grid-template-columns', $themeDefault, 'gridColumnProfileThemeFirst');

@@ -85,6 +85,17 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
         }
     }
 
+    public get bonusBg(): string {
+        const {bonus, imageByType, type} = this.$params.common;
+
+        if (imageByType) {
+            return bonus.getImageByType(type);
+        }
+        else {
+            return bonus.image;
+        }
+    }
+
     public ngOnInit(): void {
 
         const inlineParams = _merge(

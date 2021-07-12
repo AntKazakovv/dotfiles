@@ -60,9 +60,10 @@
         &.wlc-bonuses-list--type-swiper {
 
             .wlc-bonuses-list__list-wrapper {
+                @include em.get-mq-map('padding', $dashboardThemeDefault, 'swiperContainerPadding');
 
                 .swiper-container[class] {
-                    @include em.get-mq-map('padding', $dashboardThemeDefault, 'swiperContainerPadding');
+                    padding: 0;
                 }
 
                 .swiper-button-prev[class] {

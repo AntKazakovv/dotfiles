@@ -2,7 +2,8 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    // // Size
+    // Base settings
+    'radius': ef.get('radius', 'biger'),
     'minWidth': (
         320: 250px,
         1630: 320px,
@@ -19,32 +20,68 @@ $themeDefault: map-merge((
         320: 330px,
         1630: 430px,
     ),
+    'wrapperWidth': 100%,
+    'wrapperHeight': 100%,
 
-    'infoWidth': (
-        320: 280px - 30px,
-        1630: 320px - 30px,
+    // Bonus icon
+    'bonusIconValueFontColor': ef.get('fieldColors', 'textColor'),
+    'bonusIconShadow': 2px 5px 1px rgba(ef.get('fieldColors', 'textColor'), 0.4),
+    'bonusIconValueBg': ef.get('mainColors', 'baseMain'),
+    'bonusIconValRadius': 12px,
+    'bonusIconValPosL': 50%,
+    'bonusIconValPosB': 7%,
+    'bonusIconValTransform': translateX(-50%),
+    'bonusIconValPadding': 0 ef.size(1),
+    'bonusIconTextStyle': 'ThirdTitleBold',
+    'bonusIconTextStyleSmall': 'PrimaryTextBold',
+    'bonusIconTextStyleSmaller': 'PlaceholderText',
+    'bonusIconRadius': 50%,
+    'bonusIconSize': (
+        320: 120px,
+        1630: 144px,
     ),
 
-    'infoWidthProfileThemeFirst': (
-        320: 200px,
-        1630: 290px,
+    // Active block
+    'activeBlockMaxWidth': 250px,
+    'activeBlockFontColor': ef.get('mainColors', 'baseMain'),
+    'activeBlockFontSize': ef.get('font', 'less'),
+    'activeBlockFontSecondaryColor': ef.get('mainColors', 'baseMain'),
+    'activeBlockFontSecondarySize': ef.get('font', 'less'),
+    'activeBlockMargin': 0 auto,
+    'activeBlockTimerMargin': 0,
+    'activeBlockProgressPadding': 0,
+    'activeBlockRadius': 0,
+    'activeBlockProgressRadius': ef.get('radius', 'biger'),
+    'activeBlockTimerRadius': ef.get('radius', 'biger'),
+    'activeBlockProgressBg': transparent,
+    'activeBlockTimerBg': transparent,
+    'activeBlockTextAlign': center,
+    'activeBlockPadding': (
+        320: 0,
+        900: ef.size(3) 0 0,
+        1630: ef.size(6) 0 0,
+    ),
+    'activeBlockGap': (
+        375: ef.size(3),
+        1630: ef.size(8),
     ),
 
+    // // Info block
+    'infoPadding': 0 ef.size(3),
+    'infoDirection': column,
+    'infoAlignItems': center,
+    'infoTextAlign': center,
     'infoHeight': (
         320: auto 100px,
         1630: auto 132px,
     ),
-
     'infoHeightActive': (
-        320: 41px auto,
-        1630: 41px auto,
+        320: ef.size(8) auto,
     ),
-
     'infoHeightMobile': (
         320: auto 145px,
         1630: auto 180px,
     ),
-
     'infoHeightWithImg': (
         320: (minmax(auto, 150px) 130px),
         1630: (minmax(auto, 225px) 145px),
@@ -55,975 +92,124 @@ $themeDefault: map-merge((
     'infoBtmPaddingWithImg': (
         320: 25px 0 0,
     ),
-    'btnBottomPositionWithImg': (
-        320: 30px,
-        1630: 35px,
+    'infoBlockPadding': (
+        375: ef.size(2) ef.size(3) 0,
+        1630: ef.size(6) ef.size(4) 0,
     ),
+
+    // Images
+    'imageBg': rgba(0, 0, 0, 0.3) center/cover no-repeat,
     'imageWidth': 100%,
     'relativeImageHeight': 70%,
-    'bonusIconSize': (
-        320: 120px,
-        900: 100px,
-        1630: 144px,
+    'imageBlockPadding': (
+        375: 0 0 ef.size(2),
+        1630: 0 0 ef.size(4),
     ),
-    'bonusIconValueBlockWidth': 60px,
-    'bonusIconValueBlockHeight': (
-        320: 20px,
-        1630: 25px,
-    ),
-    'bonusIconValueBlockBorderRds': 12px,
-    'bonusIconValueBlockPosL': 50%,
-    'bonusIconValueBlockPosB': 10px,
-    'bonusIconValueBlockMagin': 0 0 0 -30px,
-    'activeBlockMaxWidth': 250px,
-    'progressBarSize': 7px,
-    'moreIconSize': 24px,
-    'wrapperWidth': 100%,
-    'wrapperHeight': 100%,
+    // otherImage
+    'otherImgWidth': 100%,
+    'otherImgHeight': 100%,
+    'otherImgFit': cover,
+    'otherImgPos': center,
+
     // // Font
-    'positionText': center,
-    'descriptionFontColor': ef.get('mainColors', 'PrimaryText'),
-    'bonusIconValueFontSize': (
-        320: 1.6rem,
-        1630: 2rem,
+    'nameTextStyle': (
+        375: 'QoteTextBoldSmaller',
+        1630: 'QoteTextBold',
     ),
-    'bonusIconValueFontSizeSmall': 1.4rem,
-    'bonusIconValueFontSizeSmaller': 1rem,
-    'bonusIconValueFontW': 700,
-    'bonusIconValueFontColor': ef.get('fieldColors', 'textColor'),
-    'tagFontColor': ef.get('mainColors', 'baseMain'),
     'nameFontColor': ef.get('mainColors', 'baseMain'),
+    'descriptionTextStyle': 'PrimaryText',
+    'descriptionFontColor': ef.get('mainColors', 'PrimaryText'),
     'descriptionFontSize': ef.get('font', 'less'),
-    'activeBlockFontColor': ef.get('mainColors', 'baseMain'),
-    'activeBlockFontSize': ef.get('font', 'less'),
-    'activeBlockFontSecondaryColor': ef.get('mainColors', 'baseMain'),
-    'activeBlockFontSecondarySize': ef.get('font', 'less'),
-    'moreIconColor': ef.get('mainColors', 'baseOpacity'),
-    'moreIconColorHover': ef.get('mainColors', 'baseMain'),
-    // // Backgrounds
-    'backgroundDefault': null,
-    'backgroundDefaultSize': cover,
-    'backgroundDefaultRepeat': no-repeat,
-    'backgroundExperience': ef.get('mainColors', 'bg300'),
-    'backgroundExperienceHover': ef.get('mainColors', 'bg500'),
-    'backgroundLoyalty': ef.get('mainColors', 'bg300'),
-    'backgroundLoyaltyHover': ef.get('mainColors', 'bg500'),
-    'backgroundBalance': ef.get('mainColors', 'bg300'),
-    'backgroundBalanceHover': ef.get('mainColors', 'bg500'),
-    'backgroundFreerounds': ef.get('mainColors', 'bg300'),
-    'backgroundFreeroundsHover': ef.get('mainColors', 'bg500'),
-    'backgroundRelative': ef.get('mainColors', 'bg300'),
-    'backgroundRelativeHover': ef.get('mainColors', 'bg500'),
-    'imageBg': rgba(0, 0, 0, 0.3),
-    'imageBgRepeat': no-repeat,
-    'imageBgPos': center center,
-    'imageBgSize': cover,
-    'bonusIconValueBg': ef.get('mainColors', 'baseMain'),
-    'tagBg': ef.get('mainColors', 'secondary'),
-    'activeBlockProgressBg': transparent,
+
+    // // Progress bar
+    'progressBarSize': 7px,
     'progressBarBg': ef.get('fieldColors', 'inputBg'),
     'progressBarColor': ef.get('mainColors', 'main'),
-    // // Radius
-    'radius': ef.get('radius', 'biger'),
-    'tagRadius': ef.get('radius', 'biger'),
-    'activeBlockRadius': 0,
-    'activeBlockProgressRadius': ef.get('radius', 'biger'),
-    'progressBarRadius': 10px,
-    //Padding
-    'bonusIconMargin': (
-        320: 55px auto 0 auto,
-        900: 50px auto 0 auto,
-        1630: 77px auto 0 auto,
-    ),
-    'tagPadding': (
-        320: 2px 10px,
-        1630: 4px 10px,
-    ),
-    'infoPadding': 0 ef.get('size', 'small'),
-    'infoDirection': column,
-    'infoAlignItems': center,
-    'activeBlockPadding': (
-        320: 0,
-        900: ef.get('size', 'smally') 0 0,
-        1630: ef.get('size', 'less') 0 0,
-    ),
-    'activeBlockMargin': 0 auto,
-    'activeBlockTimerMargin': 0,
-    'activeBlockProgressPadding': 0,
-    'activeBlockProgressMargin': (
-        320: 15px 0 0 0,
-        1200: 15px 0 0 0,
-        1630: 37px 0 0 0
-    ),
-
-    'progressBarMargin': ef.get('size', 'smallest') 0,
-    'btnMargin': 0 ef.get('size', 'smallest'),
-    //Position
-    'tagPositionTop': ef.get('size', 'smaller'),
-    'tagPositionLeft': 50%,
-    'tagZIndex': 2,
-    'tagTransform': translateX(-50%),
-    'moreIconPosLeft': auto,
-    'moreIconPosRight': ef.get('size', 'smaller'),
-    'moreIconPosTop': ef.get('size', 'smally'),
-    'moreIconPosBottom': auto,
-    // chosen icon
-    'chosenIconBg': ef.get('fieldColors', 'inputBg'),
-    'chosenIconBdRds': 50%,
-    'chosenIconWidth': 22px,
-    'chosenIconHeight': 22px,
-    'chosenIconSvgSize': 12px,
-    'chosenIconSvgColor': ef.get('fieldColors', 'textColor'),
-    'chosenIconPosL': ef.get('size', 'small'),
-    'chosenIconPosT': ef.get('size', 'small'),
-    // Animation
-    'time': ef.get('time', 'main'),
-
-    'infoBlockPadding': (
-        320: ef.get('size', 'small') 0 0,
-        1630: ef.get('size', 'less') 0 0,
-    ),
-
-    'btnBottomPosition': (
-        320: 6%,
-        1200: 20px,
-        1630: 40px,
-    ),
-    'btnBottomPositionMobile': (
-        320: 6%,
-    ),
-    'btnsOpacity': (
-        320: 0,
-    ),
-    'btnsOpacityMobile': (
-        320: 1,
-    ),
-    'btnsTranslateY': (
-        320: translateY(400%),
-    ),
-    'btnsTranslateYMobile': (
-        320: translateY(0),
-    ),
-
+    'progressBarText': 'PrimaryText',
+    'progressBarSecondaryColor': ef.get('mainColors', 'baseMain'),
+    'progressBarMargin': ef.size(1) 0,
+    'progressBarBoxShadow': inset 0 0 4px rgba(#000, 0.25),
+    'progressBarRadius': ef.get('radius', 'biger'),
     'remaningText': 'ButtonText',
     'remaningTextColor': ef.get('mainColors', 'baseMain'),
 
-    'progressbarText': 'PrimaryText',
-    'progressbarTextColor': ef.get('mainColors', 'baseMain'),
+    // // Tag
+    'tagTextStyle': 'SignText',
+    'tagBg': ef.get('mainColors', 'secondary'),
+    'tagFontColor': ef.get('mainColors', 'baseMain'),
+    'tagBgActive': ef.get('mainColors', 'main'),
+    'tagFontColorActive': ef.get('mainColors', 'baseMain'),
+    'tagPositionTop': ef.size(4),
+    'tagPositionLeft': 50%,
+    'tagZIndex': 2,
+    'tagTransform': translateX(-50%),
+    'tagRadius': ef.get('radius', 'biger'),
+    'tagPadding': 4px 10px,
+
+    // Btns
+    'btnsInnerOffset': 0 ef.size(1),
+    'btnsOuterOffset': 0 ef.size(-1),
+    'btnsJustifyContent': center,
+    'btnsOpacity': (
+        320: 0,
+    ),
+    'btnsTransform': (
+        320: translateY(400%),
+    ),
+    'btnsTransformMobile': (
+        375: none,
+    ),
+    'btnsPaddingMobile': ef.get('size', 'small') 0 0,
+    'btnBottomPosition': (
+        375: ef.size(4),
+        1630: ef.size(8),
+    ),
+    'btnBottomPositionWithImg': (
+        320: ef.size(6),
+        1630: ef.size(7),
+    ),
+
+    // Bottom
+    'btmFlexDir': column,
+    'btmPadding': 0 0 ef.size(4),
+
+    // More icon
+    'moreIconSize': 24px,
+    'moreIconColor': ef.get('mainColors', 'baseOpacity'),
+    'moreIconColorHover': ef.get('mainColors', 'baseMain'),
+    'moreIconPosTop': (
+        375: ef.size(4),
+    ),
+    'moreIconPosRight': (
+        375: ef.size(4),
+    ),
+
+    // // Backgrounds
+    'backgroundDefault': ef.get('mainColors', 'bg300'),
+    'backgroundDefaultHover': ef.get('mainColors', 'bg100'),
+    'backgroundDefaultSize': cover,
+    'backgroundDefaultRepeat': no-repeat,
+    'overlayOpacity': 0,
+    'overlayOpacityHover': 0.5,
+
+    // View-mode backgrounds
+    'backgroundExperience': linear-gradient(0deg, ef.get('mainColors', 'bgModal') 0%, rgba(ef.get('mainColors', 'bgModal'), 0) 74.07%),
+    'backgroundExperienceHover': ef.get('mainColors', 'bg100'),
+    'backgroundLoyalty': linear-gradient(0deg, ef.get('mainColors', 'bgModal') 0%, rgba(ef.get('mainColors', 'bgModal'), 0) 74.07%),
+    'backgroundLoyaltyHover': ef.get('mainColors', 'bg100'),
+    'backgroundBalance': linear-gradient(0deg, ef.get('mainColors', 'bgModal') 0%, rgba(ef.get('mainColors', 'bgModal'), 0) 74.07%),
+    'backgroundBalanceHover': ef.get('mainColors', 'bg100'),
+    'backgroundFreerounds': linear-gradient(0deg, ef.get('mainColors', 'bgModal') 0%, rgba(ef.get('mainColors', 'bgModal'), 0) 74.07%),
+    'backgroundFreeroundsHover': ef.get('mainColors', 'bg100'),
+    'backgroundRelative': linear-gradient(0deg, ef.get('mainColors', 'bgModal') 0%, rgba(ef.get('mainColors', 'bgModal'), 0) 74.07%),
+    'backgroundRelativeHover': ef.get('mainColors', 'bg100'),
 ), $customThemeDefault);
 
-$customThemePromo: () !default;
-$themePromo: map-merge((
-    // Common
-    'height': (
-        320: 270px,
-        560: 350px,
-        900: 450px,
-        1200: 350px,
-        1630: 450px,
-    ),
-    'minWidth': (
-        320: 250px,
-        560: 400px,
-        900: 600px,
-        1200: 400px,
-        1630: 600px,
-    ),
-    'maxWidth': (
-        320: 400px,
-        560: 575px,
-        900: 790px,
-        1200: 790px,
-        1630: 790px,
-    ),
-    'radius': ef.get('radius', 'biger'),
-    //Info
-    'infoPadding': (
-        320: ef.get('size', 'smaller') ef.get('size', 'smaller') ef.get('size', 'less') ef.get('size', 'smaller'),
-        560: ef.get('size', 'less') ef.get('size', 'main') ef.get('size', 'main') ef.get('size', 'main'),
-    ),
-    'nameFontColor': ef.get('mainColors', 'baseMain'),
-    'nameFontSize': (
-        320: ef.get('font', 'QoteTextBold'),
-        560: 2.4rem,
-        900: ef.get('font', 'PromoTitle'),
-        1200: 2.4rem,
-        1630: ef.get('font', 'PromoTitle'),
-    ),
-    'nameMaxWidth': (
-        320: 200px,
-        560: 100%,
-        1024: 350px,
-        1200: 100%,
-    ),
-    'nameHeight': (
-        320: 72px,
-        560: 73px,
-        900: 108px,
-        1200: 73px,
-        1630: 108px,
-    ),
-    'nameMargin': (
-        320: 0 0 ef.get('size', 'small') 0,
-        560: 0 0 ef.get('size', 'smaller') 0,
-    ),
-    'descriptionFontColor': ef.get('mainColors', 'PrimaryText'),
-    'btnMargin': 0,
-    //Tag
-    'tagFontColor': ef.get('mainColors', 'secondary'),
-    'tagFontColor2': ef.get('mainColors', 'main'),
-    'tagMaxWidth': (
-        320: 100%,
-    ),
-    //Image
-    'imageBg': rgba(0, 0, 0, 0.3),
-    'imgHeight': (
-        320: 100px,
-        560: 350px,
-        900: 450px,
-        1200: 350px,
-        1630: 450px,
-    ),
-    'imgWidth': (
-        320: 100px,
-        560: 250px,
-        900: 340px,
-        1200: 250px,
-        1630: 340px,
-    ),
-    'gridTemplateCols': (
-        320: 1fr,
-        560: minmax(0, 1fr) 250px,
-        900: minmax(0, 1fr) 340px,
-        1200: minmax(0, 1fr) 250px,
-        1630: minmax(0, 1fr) 340px,
-    ),
-    'imgTop': (
-        320: ef.get('size', 'smaller'),
-        560: auto,
-    ),
-    'imgRight': (
-        320: ef.get('size', 'smaller'),
-        560: auto,
-    ),
-    //MoreIcon
-    'moreIconSize': 24px,
-    'moreIconColor': ef.get('mainColors', 'baseOpacity'),
-    'moreIconColorHover': ef.get('mainColors', 'baseMain'),
-    'moreIconPosRight': (
-        320: ef.get('size', 'small'),
-        560: ef.get('size', 'smaller'),
-    ),
-    'moreIconPosTop': (
-        320: ef.get('size', 'smallest'),
-        560: ef.get('size', 'smally'),
-    ),
-    //Bonus icon
-    'bonusIconShadow': 0 4px 9px rgba(0, 0, 0, 0.3),
-    'bonusIconRadius': 50%,
-    'bonusIconSize': (
-        320: 100px,
-        560: 120px,
-        900: 144px,
-        1200: 120px,
-        1630: 144px,
-    ),
-    'bonusIconLeft': (
-        320: 0,
-        560: 25px,
-        900: 35px,
-        1200: 25px,
-        1630: 35px,
-    ),
-    'bonusIconTop': (
-        320: 0,
-        560: 25px,
-        900: 35px,
-        1200: 25px,
-        1630: 35px,
-    ),
-    'bonusIconValueBlockWidth': (
-        320: 42px,
-        560: 60px,
-    ),
-    'bonusIconValueBlockHeight': (
-        320: 18px,
-        560: 20px,
-        900: 25px,
-        1200: 20px,
-        1630: 25px,
-    ),
-    'bonusIconValueBlockPosB': (
-        320: 5px,
-        560: 10px,
-    ),
-    'bonusIconValueBlockPosL': (
-        320: 50%,
-    ),
-    'bonusIconValueBlockMagin': (
-        320: 0 0 0 -21px,
-        560: 0 0 0 -30px,
-    ),
-    'bonusIconValueBlockBorderRds': 12px,
-    // // Font
-    'bonusIconValueFontSize': (
-        320: 1.2rem,
-        560: 1.6rem,
-        900: 2rem,
-        1200: 1.6rem,
-        1630: 2rem,
-    ),
-    'bonusIconValueFontSizeSmall': (
-        320: 1rem,
-        560: 1.4rem,
-    ),
-    'bonusIconValueFontSizeSmaller': (
-        320: 0.6rem,
-        560: 1rem,
-    ),
-    'bonusIconValueFontW': 700,
-    'bonusIconValueFontColor': ef.get('fieldColors', 'textColor'),
-    // // Backgrounds
-    'backgroundExperience': ef.get('mainColors', 'bg300'),
-    'backgroundExperienceHover': ef.get('mainColors', 'bg500'),
-    'backgroundLoyalty': ef.get('mainColors', 'bg300'),
-    'backgroundLoyaltyHover': ef.get('mainColors', 'bg500'),
-    'backgroundBalance': ef.get('mainColors', 'bg300'),
-    'backgroundBalanceHover': ef.get('mainColors', 'bg500'),
-    'backgroundFreerounds': ef.get('mainColors', 'bg300'),
-    'backgroundFreeroundsHover': ef.get('mainColors', 'bg500'),
-    'backgroundRelative': ef.get('mainColors', 'bg300'),
-    'backgroundRelativeHover': ef.get('mainColors', 'bg500'),
-    'bonusIconValueBg': ef.get('mainColors', 'baseMain'),
-    // Animation
-    'time': ef.get('time', 'main'),
-), $customThemePromo);
-
-$customThemePartial: () !default;
-$themePartial: map-merge((
-    'blankIconSignBorderColor': ef.get('mainColors', 'success'),
-    'blankIconSignPadding': (
-        320: ef.get('size', 'smallest'),
-        900: ef.get('size', 'smally'),
-    ),
-    'blankIconSignBackground': (
-        320: ef.get('mainColors', 'bg700'),
-        900: ef.get('mainColors', 'bg300'),
-    ),
-    'blankIconSignChosenBorderColor': ef.get('mainColors', 'success'),
-    'blankCheckIconBackground': ef.get('mainColors', 'success'),
-    'blankCheckNameColor': ef.get('fieldColors', 'inputBg'),
-
-    'bodySize': (
-        320: 235px,
-        900: auto,
-    ),
-    'bodyMarign': auto,
-    'bodyPadding': (
-        320: ef.get('size', 'less'),
-        900: 0,
-    ),
-    'bodyRadius': ef.get('radius', 'biger'),
-    'bodyBackground': (
-        320: ef.get('mainColors', 'bg300'),
-        900: transparent,
-    ),
-
-    'footerDisplay': (
-        320: block,
-        900: none,
-    ),
-    'footerBackground': ef.get('mainColors', 'bg'),
-    'footerPadding': ef.get('size', 'smally') ef.get('size', 'smaller'),
-    'footerRadius': ef.get('radius', 'biger'),
-    'footerMaxWidth': 235px,
-    'footerMargin': ef.get('size', 'main') auto 0,
-
-    'checkIconRightPos': 12px,
-    'checkIconTopPos': (
-        320: 0,
-        900: 5px,
-        1630: 8px,
-    ),
-    'checkIconSize': 25px,
-    'checkIconBackground': ef.get('mainColors', 'success'),
-    'checkIconRadius': 50%,
-    'checkIconSvgSize': 13px,
-    'checkIconStrokeColor': ef.get('mainColors', 'baseMain'),
-
-    'bonusIconMargin': (
-        320: 0 auto ef.get('size', 'smally'),
-        900: 0 auto,
-    ),
-    'bonusIconMaxWidth': (
-        320: 120px,
-        900: 145px,
-    ),
-
-    'iconSignBorder': 3px solid transparent,
-    'iconSignRadius': 50%,
-    'iconSignBackground': ef.get('mainColors', 'baseMain'),
-    'iconSignSize': (
-        320: 120px,
-        900: 130px,
-        1630: 145px,
-    ),
-
-    'iconTextBottomPos': (
-        320: 9px,
-        900: 11px
-    ),
-    'iconTextLeftPos': 0,
-    'iconTextRightPos': 0,
-    'iconTextHeight': (
-        320: 20px,
-        900: 25px,
-    ),
-    'iconTextMaxWidth': (
-        320: 50px,
-        900: 70px,
-    ),
-    'iconTextMargin': auto,
-    'iconTextStyle': 'ThirdTitleBold',
-    'iconTextColor': ef.get('fieldColors', 'textColor'),
-    'iconTextBackground': ef.get('mainColors', 'baseMain'),
-    'iconTextRadius': (
-        320: ef.get('radius', 'main'),
-        900: ef.get('radius', 'biger'),
-    ),
-
-    'moreIconDisplay': (
-        320: inline-block,
-        900: none,
-    ),
-    'moreIconTopPos': 20px,
-    'moreIconRightPos': 20px,
-    'moreIconSvgSize': 22px,
-    'moreIconSvgFill': ef.get('mainColors', 'baseOpacity'),
-
-    'bonusNameDisplay': (
-        320: block,
-        900: none,
-    ),
-    'bonusNameStyle': 'ThirdTitleBold',
-    'bonusNameColor': ef.get('mainColors', 'baseMain'),
-
-    'bonusDescriptionStyle': 'PlaceholderText',
-    'bonusDescriptionColor': ef.get('mainColors', 'baseMain'),
-
-    'bonusIconValueFontSizeSmall': 1.4rem,
-    'bonusIconValueFontSizeSmaller': 1rem,
-), $customThemePartial);
-
-$customThemePreview: () !default;
-$themePreview: map-merge((
-    'hostHeight': 100%,
-
-    'contentHeigh': 100%,
-
-    'tagStyle': 'SignText',
-    'tagFontColor': ef.get('mainColors', 'baseMain'),
-
-    'bonusIconMaxWidht': 205px,
-    'bonusIconMargin': (
-        900: ef.get('size', 'less') auto,
-        1630: 70px auto,
-    ),
-
-    'iconSignBoreder': 3px solid transparent,
-    'iconSignRadius': 50%,
-    'iconSignBackground': ef.get('mainColors', 'baseMain'),
-    'iconSignSize': (
-        900: 180px,
-        1630: 205px,
-    ),
-    'iconSignShadow': 0 1px 14px 0 rgba(ef.get('fieldColors', 'textColor'), 0.15),
-
-    'moreIconTopPos': 0,
-    'moreIconRightPos': 0,
-    'moreIconSvgSize': 22px,
-    'moreIconSvgFill': ef.get('mainColors', 'baseOpacity'),
-    'moreIconSvgFillHover': ef.get('mainColors', 'baseMain'),
-
-    'iconTextBottomPos': 13px,
-    'iconTextLeftPos': 0,
-    'iconTextRightPos': 0,
-    'iconTextWidth': 85px,
-    'iconTextHeight': 36px,
-    'iconTextMargin': auto,
-    'iconTextStyle': 'QoteTextBold',
-    'iconTextColor': ef.get('fieldColors', 'textColor'),
-    'iconTextBackground': ef.get('mainColors', 'baseMain'),
-    'iconTextRadius': 15px,
-
-    'bonusNameMargin': 0 0 ef.get('size', 'small') 0,
-    'bonusNameStyle': 'PromoTitle',
-    'bonusNameColor': ef.get('mainColors', 'baseMain'),
-
-    'bonusDescriptionStyle': 'ThirdTitle',
-    'bonusDescriptionColor': ef.get('mainColors', 'baseMain'),
-
-    'bonusHeight': 100%,
-    'bonusBackround': rgba(ef.get('fieldColors', 'textColor'), 0.4),
-    'bonusTitleStyle': 'PromoTitle',
-    'bonusTitleMargin': auto auto ef.get('size', 'less'),
-    'bonusSubtitleStyle': 'PrimaryText',
-    'bonusSubtitleMargin': 0 auto auto,
-    'bonusTextStyle': 'ThirdTitle',
-    'bonusPadding': 28px ef.get('size', 'big') 75px ef.get('size', 'big'),
-    'bonusBackground': ef.get('mainColors', 'bg300'),
-
-    'bonusIconValueFontSizeSmaller': 1.4rem,
-), $customThemePreview);
-
-$customThemePromoHome: () !default;
-$themePromoHome: map-merge((
-    'background': ef.get('mainColors', 'bg700'),
-    'color': ef.get('mainColors', 'baseMain'),
-    'borderRadius': ef.get('size', 'small'),
-    'padding': (
-        375: ef.get('size', 'big') ef.get('size', 'small') ef.get('size', 'small') ef.get('size', 'small'),
-        640: ef.get('size', 'big') ef.get('size', 'main') ef.get('size', 'main') 35px,
-    ),
-    'minHeight': (
-        375: 300px,
-        640: 380px,
-    ),
-    'tagTopPosition': 0,
-    'tagLeftPosition': 0,
-    'tagPadding': (
-        375: ef.get('size', 'small'),
-    ),
-    'tagBg': ef.get('mainColors', 'main'),
-    'tagMinWidth': 140px,
-    'tagTextAlign': center,
-    'tagBorderRadius': 0 0 ef.get('size', 'small') 0,
-    'tagColor': ef.get('mainColors', 'baseMain'),
-    'moreIconTopPosition': ef.get('size', 'smaller'),
-    'moreIconRightPosition': ef.get('size', 'smaller'),
-    'moreIconFill': ef.get('mainColors', 'baseOpacity'),
-    'bonusIconWidth': 120px,
-    'bonusIconHeight': 120px,
-    'bonusIconTextBg': ef.get('fieldColors', 'inputBg'),
-    'bonusIconTextColor': ef.get('fieldColors', 'textColor'),
-    'bonusIconTextBottom': ef.get('size', 'small'),
-    'bonusIconTextRight': ef.get('size', 'main'),
-    'bonusIconTextWidth': ef.get('size', 'main'),
-    'bonusIconTextPadding': 2px,
-    'bonusIconTextBorderRadius': 50%,
-    'infoBlockMaxWidth': (
-        375: 100%,
-        1024: 278px,
-    ),
-    'descriptionMarginTop': ef.get('size', 'smaller'),
-), $customThemePromoHome);
-
-$customThemeGrid: () !default;
-$themeGrid: map-merge((
-    'heightContent': 340px,
-    'marginContent': 0 auto,
-    'wrapperWidth': 100%,
-    'wrapperHeight': 100%,
-    'wrapperGap': ef.get('size', 'smaller'),
-    'borderColorRead':  ef.get('mainColors', 'baseOpacity'),
-    'bottomHeight': 100%,
-    'bottomRows': 1fr auto,
-    'marginBtns': ef.get('size', 'smaller') 0 0,
-    'gapBtns': 5%,
-    'colunsBtns': 1fr 1fr,
-
-    'marginBtn': 0 ef.get('size', 'smaller') 0 0,
-    'widthBtn': 100%,
-
-    'infoBg': ef.get('mainColors', 'bg'),
-    'infoPadding':  ef.get('size', 'smally'),
-    'infoRadius': 10px,
-    'infoMargin': 0 0 ef.get('size', 'smally'),
-
-    'tagMargin': 0 0 ef.get('size', 'smally') 0,
-    'tagPadding': 4px 10px 3px,
-    'tagBg': ef.get('mainColors', 'secondary'),
-    'tagRadius': ef.get('radius', 'biger'),
-
-    'moreIconPosLeft': auto,
-    'moreIconPosRight': ef.get('size', 'smaller'),
-    'moreIconPosTop': ef.get('size', 'smally'),
-    'moreIconPosBottom': auto,
-    'moreIconSize': 24px,
-    'moreIconColor': ef.get('mainColors', 'baseOpacity'),
-
-    'bonusIconSize': 144px,
-    'bonusIconMargin': ef.get('size', 'smally'),
-    'bonusIconValueBlockWidth': 60px,
-    'bonusIconValueBlockHeight': 25px,
-    'bonusIconValueBlockBorderRds': 12px,
-    'bonusIconValueBg': ef.get('mainColors', 'baseMain'),
-    'bonusIconValueFontColor': ef.get('fieldColors', 'textColor'),
-    'bonusIconValueFontSize': 2rem,
-    'bonusIconValueFontW': 700,
-    'bonusIconValueBlockPosL': 50%,
-    'bonusIconValueBlockPosB': 10px,
-    'bonusIconValueBlockMagin': 0 0 0 -30px,
-
-    'bonusIconValueFontSizeSmall': 1.4rem,
-    'bonusIconValueFontSizeSmaller': 1rem,
-
-    'radius': ef.get('radius', 'biger'),
-
-    'imageBlockBg': ef.get('mainColors', 'bg300'),
-    'imageBlockPadding': ef.get('size', 'smally'),
-    'imageBlockWidth': 270px,
-    'imageBlockHeight': 100%,
-
-    'nameWidth': 100%,
-    'nameFontColor': ef.get('mainColors', 'baseMain'),
-
-    'descriptionWidth': 150px,
-    'descriptionFontColor': ef.get('mainColors', 'PrimaryText'),
-
-    'activeBlockTimerMargin': 0,
-    'activeBlockProgressBg': transparent,
-    'activeBlockProgressRadius': ef.get('radius', 'biger'),
-    'activeBlockProgressPadding': 0,
-    'activeBlockProgressMargin': (
-        320: ef.get('size', 'smaller') 0 0 0,
-        1200: 37px 0 0 0
-    ),
-
-    'progressBarSize': 7px,
-    'progressBarRadius': 10px,
-    'progressBarBg': ef.get('fieldColors', 'inputBg'),
-    'progressBarMargin': ef.get('size', 'smallest') 0,
-    'progressBarColor': ef.get('mainColors', 'main'),
-
-    'btnItem': 110px,
-
-    'btnsItemMargin': 0,
-    'btnsItemWidth': 150px,
-    'btnsBtnItemWidth': 0 auto,
-
-), $customThemeGrid);
-
-$customThemeLong: () !default;
-$themeLong: map-merge((
-    'timerMargin': ef.get('size', 'smaller') 0 ef.get('size', 'main') 0,
-    'radius': ef.get('radius', 'biger'),
-    'btnsMargin': ef.get('size', 'smaller'),
-    'btnsBtnMargin': 0 ef.get('size', 'small') 0 0,
-    'tagPadding': 4px 10px 3px,
-    'tagBg': ef.get('mainColors', 'secondary'),
-    'tagRadius': ef.get('radius', 'biger'),
-    'tagMargin': 0 0 ef.get('size', 'smally') 0,
-
-    'moreIconPosLeft': auto,
-    'moreIconPosRight': ef.get('size', 'smaller'),
-    'moreIconPosTop': ef.get('size', 'smally'),
-    'moreIconPosBottom': auto,
-    'moreIconSize': 24px,
-    'moreIconColor': ef.get('mainColors', 'baseOpacity'),
-
-    'bonusIconMargin': 0 auto,
-    'bonusIconValueBlockWidth': 60px,
-    'bonusIconValueBlockHeight': 25px,
-    'bonusIconValueBlockBorderRds': 12px,
-    'bonusIconValueBg': ef.get('mainColors', 'baseMain'),
-    'bonusIconValueFontColor': ef.get('fieldColors', 'textColor'),
-    'bonusIconValueFontSize': 2rem,
-    'bonusIconValueFontW': 700,
-    'bonusIconValueBlockPosL': 50%,
-    'bonusIconValueBlockPosB': 10px,
-    'bonusIconValueBlockMagin': 0 0 0 -30px,
-    'bonusIconValueFontSizeSmall': 1.4rem,
-    'bonusIconValueFontSizeSmaller': 1rem,
-
-    'imageBlockBg': ef.get('mainColors', 'bg300'),
-    'imageBlockPadding': ef.get('size', 'smally') 0,
-    'imageBlockMargin': 0 0 ef.get('size', 'smally'),
-
-    'nameFontColor': ef.get('mainColors', 'baseMain'),
-    'descriptionFontColor': ef.get('mainColors', 'PrimaryText'),
-
-), $customThemeLong);
-
-$customThemeActive: () !default;
-$themeActive: map-merge((
-    'background': ef.get('mainColors', 'bg500'),
-    'backgroundHover': ef.get('mainColors', 'bg100'),
-    'radius': ef.get('size', 'small'),
-
-    'wrapperDisplay': grid,
-    'wrapperGridColumns': (
-        560: 250px minmax(0, 1fr),
-        640: 300px minmax(0, 1fr),
-        720: 350px minmax(0, 1fr),
-        1200: 300px minmax(0, 1fr),
-        1630: 350px minmax(0, 1fr),
-    ),
-    'wrapperHeight': (
-        560: 260px,
-    ),
-
-    'imgBlockBg': ef.get('mainColors', 'bg300'),
-    'imgBlockHeight': (
-        375: 200px,
-        560: auto
-    ),
-    'imgAfterDisplay': (
-        375: block,
-        1200: none,
-    ),
-    'imgBlockFlexDirection': column,
-    'imgAfterPosTop': 0,
-    'imgAfterPosLeft': 0,
-    'imgAfterBg': rgba(#000, 0.6),
-    'imgSize': 100%,
-    'imgObjectFit': cover,
-    'imgObjectPosition': center,
-
-    'tagPositionTop': ef.get('size', 'smaller'),
-    'tagPositionLeft': 50%,
-    'tagPositionTransform': translateX(-50%),
-    'tagFontSize': ef.get('font', 'small'),
-    'tagFontColor': ef.get('mainColors', 'baseMain'),
-    'tagPadding': (
-        320: 2px ef.get('size', 'small') 1px,
-        1630: 4px ef.get('size', 'small') 3px,
-    ),
-    'tagBg': ef.get('mainColors', 'secondary'),
-    'tagRadius': ef.get('radius', 'biger'),
-
-    'moreIconPosTop': ef.get('size', 'smally'),
-    'moreIconPosLeft': (
-        375: calc(100% - 40px),
-        560: 205px,
-        640: 255px,
-        720: 305px,
-        1200: 255px,
-        1630: 305px
-    ),
-    'moreIconSize': 24px,
-    'moreIconColor': ef.get('mainColors', 'baseOpacity'),
-    'moreIconColorHover': ef.get('mainColors', 'baseMain'),
-    'moreIconSvgSize': 100%,
-
-    'infoPadding': ef.get('size', 'smally'),
-    'infoDisplay': grid,
-    'infoGridArea': (
-        375: ('active-block' 'btns'),
-        560: ('info-block' 'btns'),
-        1200: ('info-block active-block' 'btns active-block')
-    ),
-    'infoGridRows': 1fr min-content,
-    'infoGridColumns': (
-        480: 1fr,
-        1200: 1fr 250px
-    ),
-    'infoGridGap': (
-        375: ef.get('size', 'smally') 0,
-        560: 0
-    ),
-
-    'nameColor': ef.get('mainColors', 'baseMain'),
-    'nameTextAlign': (
-        375: center,
-        560: left
-    ),
-    'nameWidth': (
-        375: 280px,
-        560: 205px,
-        720: 275px,
-        900: 350px,
-        1024: 205px,
-        1200: 230px,
-        1630: calc(100% - 15px)
-    ),
-
-    'descriptionColor': ef.get('mainColors', 'baseMain'),
-    'descriptionTextAlign': (
-        375: center,
-        560: left
-    ),
-    'descriptionWidth': (
-        375: 280px,
-        560: 205px,
-        720: 275px,
-        900: 350px,
-        1024: 205px,
-        1200: 230px,
-        1630: 300px
-    ),
-
-    'infoBlockDisplay': (
-        375: flex,
-        560: block,
-    ),
-    'infoBlockFlexDirection': column,
-    'infoBlockJustifyContent': center,
-    'infoBlockMinWidth': 0,
-    'infoBlockPos': (
-        375: absolute,
-        560: relative
-    ),
-    'infoBlockPosTop': (
-        375: 50px,
-        560: auto
-    ),
-    'infoBlockPosLeft': (
-        375: 50%,
-        560: auto,
-    ),
-    'infoBlockTransform': (
-        375: translateX(-50%),
-        560: none
-    ),
-
-    'activeBlockPos': (
-        560: absolute,
-        1200: relative
-    ),
-    'activeBlockPosTop': (
-        560: 50%,
-        1200: 0
-    ),
-    'activeBlockPosLeft': (
-        560: 15px,
-        640: 25px,
-        720: 50px,
-        1200: 0
-    ),
-    'activeBlockWidth': (
-        560: 220px,
-        640: 250px,
-        1200: auto
-    ),
-    'activeBlockTemplateColumns': 1fr,
-    'activeBlockTemplateRows': min-content 1fr,
-    'activeBlockGap': 10px 0,
-    'activeBlockTransform': (
-        560: translateY(-50%),
-        1200: none
-    ),
-
-    'btnsBlockMargin': (
-        375: 0 auto,
-        560: 0,
-    ),
-
-    'progressPadding': ef.get('size', 'small'),
-    'progressBg': (
-        320: ef.get('mainColors', 'bg'),
-    ),
-    'progressFlexDirection': column,
-    'progressJustifyContent': center,
-    'progressBorderRadius': ef.get('radius', 'biger'),
-    'progressBarHeight': 7px,
-    'progressBarMargin': ef.get('size', 'small') 0,
-    'progressBarBg': ef.get('mainColors', 'baseMain'),
-    'progressBarBorderRadius': ef.get('radius', 'large'),
-    'progressBarBoxShadow': inset 0 0 4px rgba(#000, 0.25),
-    'progressBarInnerBg': ef.get('mainColors', 'bg'),
-    'progressBarInnerPosTop': 0,
-    'progressBarInnerPosLeft': 0,
-    'progressBarInnerHeight': 100%,
-    'progressFontColor': ef.get('mainColors', 'baseMain'),
-    'progressFontSecondaryColor': ef.get('mainColors', 'baseMain'),
-    'progressFontAlign': center,
-
-    'timerBg': ef.get('mainColors', 'bg'),
-), $customThemeActive);
-
-$customChipV2: () !default;
-$chipV2: map-merge((
-    'bonusIconValWidth': unset,
-    'bonusIconValMaxWidth': unset,
-    'bonusIconValMinWidth': (
-        375: 35px,
-        900: 30px,
-        1630: 39px,
-    ),
-    'longBonusIconValMinWidth': 32px,
-    'promoBonusIconValMinWidth': (
-        375: 30px,
-        560: 35px,
-        900: 39px,
-        1200: 35px,
-        1630: 39px,
-    ),
-    'partialBonusIconValMinWidth': (
-        375: 35px,
-        1630: 39px,
-    ),
-    'previewBonusIconValMinWidth': (
-        900: 50px,
-        1630: 56px,
-    ),
-    'bonusIconValHeight': (
-        375: 35px,
-        900: 30px,
-        1630: 39px,
-    ),
-    'longBonusIconValHeight': 32px,
-    'promoBonusIconValHeight': (
-        375: 29px,
-        560: 34px,
-        900: 38px,
-        1200: 34px,
-        1630: 38px,
-    ),
-    'partialBonusIconValHeight': (
-        375: 34px,
-        1630: 38px,
-    ),
-    'previewBonusIconValHeight': (
-        900: 49px,
-        1630: 56px,
-    ),
-    'bonusIconValRadius': 19px,
-    'previewBonusIconValRadius': 28px,
-    'bonusIconValTextStyle': 'ThirdTitleBold',
-    'previewBonusIconValTextStyle': 'QoteTextBoldTight',
-    'bonusIconValTextColor': ef.get('mainColors', 'dark'),
-    'bonusIconValMargin': 0,
-    'bonusIconValPosB': (
-        375: 18px,
-        900: 16px,
-        1630: 22px,
-    ),
-    'longBonusIconValPosB': 16px,
-    'promoBonusIconValPosB': (
-        375: 16px,
-        560: 18px,
-        900: 22px,
-        1200: 16px,
-        1630: 22px,
-    ),
-    'partialBonusIconValPosB': (
-        375: 18px,
-        900: 22px,
-    ),
-    'previewBonusIconValPosB': (
-        375: 18px,
-        900: 29px,
-        1630: 34px,
-    ),
-    'bonusIconValPosL': (
-        375: 50%,
-        1630: 53%,
-    ),
-    'longBonusIconValPosL': 65%,
-    'promoBonusIconValPosL': (
-        375: 50%,
-        900: 53%,
-        1200: 51%,
-        1630: 53%,
-    ),
-    'partialBonusIconValPosL': (
-        375: 50%,
-        900: 53%,
-    ),
-    'previewBonusIconValPosL': (
-        375: 50%,
-        900: 53%,
-    ),
-    'bonusIconValPosR': unset,
-), $customChipV2);
+// Other themes vars
+@import './vars-theme-active';
+@import './vars-theme-long';
+@import './vars-theme-partial';
+@import './vars-theme-preview';
+@import './vars-theme-promo';
+@import './vars-theme-promo-home';
+@import './vars-theme-mod-chip-v2';

@@ -10,6 +10,8 @@
             display: grid;
             grid-gap: ef.get-value($themePromo, 'gridGap');
             grid-template-columns: 1fr;
+            justify-items: center;
+
 
             @include mq.min(1200) {
                 grid-template-columns: repeat(auto-fill, minmax(ef.get-value($themePromo, 'minItemWidth1200'), 1fr));

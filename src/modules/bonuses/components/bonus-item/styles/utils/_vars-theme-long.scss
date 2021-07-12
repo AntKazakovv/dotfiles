@@ -1,0 +1,41 @@
+@use 'engine-scss/functions' as ef;
+
+$customThemeLong: () !default;
+$themeLong: map-merge((
+    'globalGap': (
+        375: ef.size(2),
+        1630: ef.size(4),
+    ),
+
+    'activeBlockPadding': 0,
+    'activeBlockMaxWidth': 100%,
+    'radius': ef.get('radius', 'biger'),
+    'btnsPadding': (
+        1630: ef.size(4) 0 0,
+    ),
+
+    'bonusIconSize': (
+        375: 110px,
+        1630: 120px,
+    ),
+
+    'contentPadding': 0 0 ef.size(6),
+
+    'imageBlockAreas': 'tag' 'icon' 'title',
+    'imageBlockMargin': 0 ef.size(1),
+    'imageBlockRows': auto 1fr auto,
+    'imageBlockGap': ef.size(2),
+    'imageBlockPadding': (
+        375: ef.size(4),
+        1024: ef.size(4) ef.size(4) ef.size(2),
+        1630: ef.size(4),
+    ),
+    'imageBlockSize': 235px,
+    'imageBlockBg': ef.get('mainColors', 'bg300'),
+
+    'nameFontColor': ef.get('mainColors', 'baseMain'),
+    'descrTextStyle': 'PlaceholderText',
+    'descrColor': ef.get('mainColors', 'baseMain'),
+    'descrBg': ef.get('mainColors', 'bg'),
+    'descrPadding': ef.size(3) ef.size(2),
+), $customThemeLong);

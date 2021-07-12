@@ -5,80 +5,56 @@
 
 .wlc-bonus-item--theme-preview {
     height: ef.get-value($themePreview, 'hostHeight');
+    border-radius: ef.get-value($themePreview, 'hostRadius');
 
     .wlc-bonus-item {
 
         &__content {
+            @include em.get-mq-map('grid-row-gap', $themePreview, 'hostRowOffset');
+            @include em.get-mq-map('grid-column-gap', $themePreview, 'hostColOffset');
+
+            display: grid;
+            align-content: ef.get-value($themePreview, 'hostAlignContent');
+            justify-items: ef.get-value($themePreview, 'hostJustifyItems');
+
             height: ef.get-value($themePreview, 'contentHeigh');
             padding: ef.get-value($themePreview, 'bonusPadding');
-            text-align: center;
+            text-align: ef.get-value($themePreview, 'hostTextAlign');
             background: ef.get-value($themePreview, 'bonusBackground');
         }
 
         &__tag {
             @include text.get-text-style(ef.get-value($themePreview, 'bonusSubtitleStyle'), ef.get-value($themePreview, 'tagFontColor'));
+            padding: ef.get-value($themePreview, 'tagPadding');
+            background: ef.get-value($themePreview, 'tagBg');
         }
 
-        &__bonus-icon {
-            @include em.get-mq-map('margin', $themePreview, 'bonusIconMargin');
+        &__icon-wrapper {
             position: relative;
-            max-width: ef.get-value($themePreview, 'bonusIconMaxWidht');
         }
 
-        &__icon-sign {
+        &__icon {
             @include em.get-mq-map('width', $themePreview, 'iconSignSize');
             @include em.get-mq-map('height', $themePreview, 'iconSignSize');
-            border: ef.get-value($themePreview, 'iconSignBoreder');
-            border-radius: ef.get-value($themePreview, 'iconSignRadius');
-            background: ef.get-value($themePreview, 'iconSignBackground');
-            box-shadow: ef.get-value($themePreview, 'iconSignShadow');
-        }
 
-        &__more-icon {
-            position: absolute;
-            top: ef.get-value($themePreview, 'moreIconTopPos');
-            right: ef.get-value($themePreview, 'moreIconRightPos');
-            cursor: pointer;
+            &-text {
+                @include text.get-text-style(ef.get-value($themePreview, 'iconTextStyle'), ef.get-value($themePreview, 'iconTextColor'));
 
-            svg {
-                @include em.transition(fill);
-                width: ef.get-value($themePreview, 'moreIconSvgWidth');
-                fill: ef.get-value($themePreview, 'moreIconSvgFill');
-            }
+                border-radius: ef.get-value($themePreview, 'iconTextRadius');
 
-            @include em.hover {
+                &.wlc-small {
+                    @include text.get-text-style(ef.get-value($themePreview, 'iconTextStyle'), ef.get-value($themePreview, 'iconTextColor'));
+                }
 
-                svg {
-                    fill: ef.get-value($themePreview, 'moreIconSvgFillHover');
+                &.wlc-smaller {
+                    @include em.get-mq-map('font-size', $themePreview, 'bonusIconValueFontSizeSmaller');
                 }
             }
         }
 
-        &__icon-text {
-            @include text.get-text-style(ef.get-value($themePreview, 'iconTextStyle'), ef.get-value($themePreview, 'iconTextColor'));
-
-            position: absolute;
-            right: ef.get-value($themePreview, 'iconTextRightPos');
-            bottom: ef.get-value($themePreview, 'iconTextBottomPos');
-            left: ef.get-value($themePreview, 'iconTextLeftPos');
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            width: ef.get-value($themePreview, 'iconTextWidth');
-            height: ef.get-value($themePreview, 'iconTextHeight');
-            margin: ef.get-value($themePreview, 'iconTextMargin');
-
-            background: ef.get-value($themePreview, 'iconTextBackground');
-            border-radius: ef.get-value($themePreview, 'iconTextRadius');
-
-            &.wlc-small {
-                @include text.get-text-style(ef.get-value($themePreview, 'iconTextStyle'), ef.get-value($themePreview, 'iconTextColor'));
-            }
-
-            &.wlc-smaller {
-                @include em.get-mq-map('font-size', $themePreview, 'bonusIconValueFontSizeSmaller');
-            }
+        &__more-icon {
+            @include em.get-mq-map('top', $themePreview, 'moreIconPosTop');
+            @include em.get-mq-map('right', $themePreview, 'moreIconPosRight');
         }
 
         &__name {
@@ -120,26 +96,6 @@
             &-text {
                 @include text.get-text-style(ef.get-value($themePreview, 'bonusTextStyle'));
             }
-        }
-    }
-
-    &.wlc-bonus-item--theme-mod-chip-v2 {
-
-        .wlc-bonus-item__icon-text {
-            @include text.get-text-style(ef.get-value($chipV2, 'previewBonusIconValTextStyle'), ef.get-value($chipV2, 'bonusIconValTextColor'));
-            @include em.get-mq-map('min-width', $chipV2, 'previewBonusIconValMinWidth');
-            @include em.get-mq-map('height', $chipV2, 'previewBonusIconValHeight');
-            @include em.get-mq-map('bottom', $chipV2, 'previewBonusIconValPosB');
-            @include em.get-mq-map('left', $chipV2, 'previewBonusIconValPosL');
-
-            right: ef.get-value($chipV2, 'bonusIconValPosR');
-
-            width: ef.get-value($chipV2, 'bonusIconValWidth');
-            max-width: ef.get-value($chipV2, 'bonusIconValMaxWidth');
-
-            margin: ef.get-value($chipV2, 'bonusIconValMargin');
-
-            border-radius: ef.get-value($chipV2, 'previewBonusIconValRadius');
         }
     }
 }

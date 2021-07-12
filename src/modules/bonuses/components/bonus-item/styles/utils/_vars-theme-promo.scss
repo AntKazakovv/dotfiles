@@ -1,0 +1,109 @@
+@use 'engine-scss/functions' as ef;
+
+$customThemePromo: () !default;
+$themePromo: map-merge((
+    'background': ef.get('mainColors', 'bg700'),
+    'backgroundHover': ef.get('mainColors', 'bg700'),
+    'radius': ef.get('radius', 'biger'),
+    'height': (
+        320: auto,
+        560: 350px,
+        900: 450px,
+        1200: 350px,
+        1630: 450px,
+    ),
+    'maxWidth': (
+        320: 400px,
+        560: 575px,
+        900: 790px,
+    ),
+    'wrapperColumns': (
+        375: 1fr,
+        560: 4fr 3fr,
+    ),
+    'wrapperAreas': (
+        375: 'common',
+        560: 'info visual'
+    ),
+
+    //Info
+    'infoAreas': 'tag' 'info' 'buttons',
+    'infoRows':  ef.size(5) 1fr auto,
+    'infoPadding': (
+        320: ef.size(3) ef.size(4) ef.size(6),
+        560: ef.size(6) ef.size(8) ef.size(8),
+    ),
+    'infoGap': (
+        375: ef.size(4),
+        560: ef.size(6),
+        1630: ef.size(12),
+    ),
+    'infoAreaName': (
+        375: common,
+        560: info,
+    ),
+    'infoJustifyItems': (
+        375: center,
+        560: start,
+    ),
+
+    'nameFontColor': ef.get('mainColors', 'baseMain'),
+    'nameTextStyle': (
+        375: 'QoteTextBold',
+        900: 'PromoTitle',
+        1200: 'QoteTextBold',
+        1630: 'PromoTitle',
+    ),
+    'nameMargin': (
+        375: ef.size(24) 0 ef.size(2),
+        560: 0 0 ef.size(2),
+        900: 0 0 ef.size(4),
+        1200: 0 0 ef.size(2),
+        1630: 0 0 ef.size(4),
+    ),
+    'descrTextStyle': 'ThirdTitle',
+    'descriptionFontColor': ef.get('mainColors', 'PrimaryText'),
+
+    //Tag
+    'tagFontColor': ef.get('mainColors', 'secondary'),
+    'tagFontColor2': ef.get('mainColors', 'main'),
+    'tagBg': none,
+    'tagBg2': none,
+    'tagPadding': 0,
+    'tagJusfify': start,
+    'tagMaxWidth': (
+        320: 100%,
+    ),
+
+    //Image
+    'imgBlockAreaName': (
+        375: common,
+        560: visual,
+    ),
+    'imageBg': ef.get-value($themeDefault, 'imageBg'),
+    'imgOverlay': (
+        375: linear-gradient(0deg, ef.get('mainColors', 'bg700') 50%, rgba(ef.get('mainColors', 'bg700'), 0) 85%),
+        560: none,
+    ),
+    // 'imgWidth': (
+    //     560: 250px,
+    //     900: 340px,
+    //     1200: 250px,
+    //     1630: 340px,
+    // ),
+    'imgPadding': (
+        375: ef.size(8) 0 0 0,
+        560: ef.size(8) 0 0 ef.size(8)
+    ),
+
+    //Bonus icon
+    'iconMargin': (
+        375: ef.size(2) auto 0,
+        560: 0,
+    ),
+
+    'baseBg': ef.get('mainColors', 'bg300'),
+    'baseBgHover': ef.get('mainColors', 'bg500'),
+
+    'btnsJustifyContent': start,
+), $customThemePromo);

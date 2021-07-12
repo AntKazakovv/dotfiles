@@ -1,0 +1,136 @@
+@use 'engine-scss/functions' as ef;
+
+$customThemeActive: () !default;
+$themeActive: map-merge((
+    'background': ef.get-value($themeDefault, 'backgroundDefault'),
+    'backgroundHover': ef.get-value($themeDefault, 'backgroundDefaultHover'),
+    'radius': ef.size(2),
+    'wrapperPadding': (
+        375: 0 0 ef.size(4),
+        560: 0 ef.size(4) 0 0,
+        1200: 0,
+    ),
+    'wrapperGap': (
+        375: ef.size(4) 0,
+        560: 0,
+    ),
+
+    'wrapperGridColumns': (
+        375: 1fr,
+        560: 250px minmax(0, 1fr),
+        640: 300px minmax(0, 1fr),
+        720: 350px minmax(0, 1fr),
+        1200: 300px minmax(0, 1fr) 250px,
+        1630: 350px minmax(0, 1fr) 250px,
+    ),
+    'wrapperHeight': (
+        560: 260px,
+    ),
+    'wrapperTplAreas': (
+        375: 'image' 'active' 'btns',
+        560: 'image info' 'image btns',
+        1200: 'image info active' 'image info active' 'image btns active',
+    ),
+
+    'imgBlockBg': ef.get('mainColors', 'bg300'),
+    'imgSize': 100%,
+    'imgBlockHeight': (
+        375: 200px,
+        560: auto
+    ),
+    'imgAfterDisplay': (
+        375: block,
+        1200: none,
+    ),
+
+    'imgAfterBg': rgba(#000, 0.6),
+
+    'tagPositionTop': ef.size(4),
+    'tagPositionLeft': 50%,
+    'tagPositionTransform': translateX(-50%),
+
+    'nameColor': ef.get('mainColors', 'baseMain'),
+    'nameTextStyle': (
+        375: 'ThirdTitleBold',
+        560: 'QoteTextBold',
+    ),
+
+    'descriptionColor': ef.get('mainColors', 'baseMain'),
+    'descrMaxWidth': (
+        1630: 34ch
+    ),
+
+    'infoBlockPadding': (
+        375: ef.size(3),
+        720: ef.size(3) ef.size(6),
+        1200: ef.size(3),
+    ),
+    'infoBlockArea': (
+        375: image,
+        560: info,
+    ),
+    'infoBlockAlignSelf': (
+        375: center,
+        560: start,
+    ),
+    'infoBlockTextAlign': (
+        375: center,
+        560: left,
+    ),
+
+    'activeBlockTemplateRows': min-content 1fr,
+    'activeBlockGap': 10px 0,
+    'activeBlockAlign': (
+        375: center,
+        1200: initial,
+    ),
+    'activeBlockJustify': (
+        375: center,
+        1200: initial,
+    ),
+    'activeBlockPadding': (
+        560: 0 ef.size(3),
+        640: 0,
+        1200: ef.size(3),
+    ),
+    'activeBlockArea': (
+        375: active,
+        560: image,
+        1200: active,
+    ),
+
+    'btnsBlockMargin': (
+        560: auto ef.size(-1) 0,
+    ),
+    'btnsBlockJustifyContent': (
+        560: start,
+    ),
+    'btnsBlockPadding': (
+        375: 0 ef.size(3) ef.size(4),
+        560: 0 ef.size(3) ef.size(3),
+        720: 0 ef.size(6) ef.size(3),
+        1200: 0 ef.size(3) ef.size(3),
+    ),
+
+    'progressPadding': ef.size(2),
+    'progressBg': (
+        320: ef.get('mainColors', 'bg'),
+    ),
+
+    'timerBg': ef.get('mainColors', 'bg'),
+
+    'headlineBg': ef.get('mainColors', 'baseOpacity'),
+    'headlineDisplay': (
+        375: none,
+        560: block,
+    ),
+    'headlineWidth': (
+        375: 95px,
+    ),
+    'headlineHeight': (
+        375: 1px,
+    ),
+    'headlineMargin': (
+        375: 0 0 ef.size(3),
+    ),
+), $customThemeActive);
