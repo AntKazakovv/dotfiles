@@ -6,17 +6,15 @@ import {DOCUMENT} from '@angular/common';
 import {skipWhile} from 'rxjs/operators';
 import {BehaviorSubject} from 'rxjs';
 
-import {
-    ConfigService,
-    EventService,
-    LogService,
-} from 'wlc-engine/modules/core';
-import {UserProfile} from 'wlc-engine/modules/user';
+import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
+import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
+import {ILivechatConfig} from 'wlc-engine/modules/livechat/system/interfaces/livechat.interface';
 import {
     LivechatAbstract,
     ChatState,
-    ILivechatConfig,
-} from 'wlc-engine/modules/livechat';
+} from 'wlc-engine/modules/livechat/system/classes/livechatAbstract.class';
 
 import _get from 'lodash-es/get';
 

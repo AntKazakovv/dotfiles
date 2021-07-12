@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 
-import {UserService} from 'wlc-engine/modules/user/system/services';
-import {ConfigService} from 'wlc-engine/modules/core/system/services';
+import {UserService} from 'wlc-engine/modules/user/system/services/user/user.service';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
 
 import _get from 'lodash-es/get';

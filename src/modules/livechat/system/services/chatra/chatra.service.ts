@@ -5,15 +5,12 @@ import {
 import {DOCUMENT} from '@angular/common';
 import {TranslateService} from '@ngx-translate/core';
 
-import {
-    ConfigService,
-    EventService,
-    LogService,
-} from 'wlc-engine/modules/core';
-import {
-    LivechatAbstract,
-    ILivechatConfig,
-} from 'wlc-engine/modules/livechat';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
+import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
+
+import {LivechatAbstract} from 'wlc-engine/modules/livechat/system/classes/livechatAbstract.class';
+import {ILivechatConfig} from 'wlc-engine/modules/livechat/system/interfaces/livechat.interface';
 
 import _get from 'lodash-es/get';
 

@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 
 import {AbstractComponent, IMixedParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {ConfigService} from 'wlc-engine/modules/core/system/services';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {NOTIFICATION_METADATA} from 'wlc-engine/modules/core/system/services/notification/notification.service';
 import {INotificationMetadata} from 'wlc-engine/modules/core/system/services/notification/notification.interface';
 import {IImage, IMessageData} from './message.interface';

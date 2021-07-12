@@ -14,6 +14,7 @@ import {
     first,
     map,
 } from 'rxjs/operators';
+
 import {DataService} from 'wlc-engine/modules/core/system/services/data/data.service';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {IData} from 'wlc-engine/modules/core/system/services/data/data.service';
@@ -25,27 +26,27 @@ import {NotificationEvents} from 'wlc-engine/modules/core/system/services/notifi
 import {DeviceType} from 'wlc-engine/modules/core/system/models/device.model';
 import {LayoutService} from 'wlc-engine/modules/core/system/services/layout/layout.service';
 import {ActionService} from 'wlc-engine/modules/core/system/services/action/action.service';
+
+import {Game} from 'wlc-engine/modules/games/system/models/game.model';
+import {MerchantModel} from 'wlc-engine/modules/games/system/models/merchant.model';
+import {GamesHelper} from 'wlc-engine/modules/games/system/helpers/games.helpers';
+import {SpecialCategoriesGamesSlug} from 'wlc-engine/modules/games/system/config/games.config';
+import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.model';
+import {GamesCatalog} from 'wlc-engine/modules/games/system/models/games-catalog.model';
+import {IGamesFilterData} from 'wlc-engine/modules/games/system/interfaces/filters.interfaces';
+import {IPlayGameForRealCParams} from 'wlc-engine/modules/games/components/play-game-for-real/play-game-for-real.params';
+import {JackpotModel} from 'wlc-engine/modules/games/system/models/jackpot.model';
 import {
-    CategoryModel,
-    Game,
-    GamesCatalog,
     IFavourite,
     IGameParams,
-    IGamesFilterData,
     ILastPlayedGame,
     ILaunchInfo,
-    IPlayGameForRealCParams,
     IStartGameOptions,
-    JackpotModel,
-    MerchantModel,
     gamesEvents,
-} from 'wlc-engine/modules/games';
-import {UserService} from 'wlc-engine/modules/user';
-import {ITournamentGames} from 'wlc-engine/modules/tournaments';
-import {
-    GamesHelper,
-    SpecialCategoriesGamesSlug,
-} from 'wlc-engine/modules/games';
+} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
+
+import {UserService} from 'wlc-engine/modules/user/system/services/user/user.service';
+import {ITournamentGames} from 'wlc-engine/modules/tournaments/system/interfaces/tournaments.interface';
 
 import _startsWith from 'lodash-es/startsWith';
 import _isString from 'lodash-es/isString';

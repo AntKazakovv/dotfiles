@@ -40,10 +40,8 @@ import {NotificationEvents} from 'wlc-engine/modules/core/system/services/notifi
 import {AppType} from 'wlc-engine/modules/core/system/interfaces/base-config/app.interface';
 import {IRedirect} from 'wlc-engine/modules/core/system/interfaces/core.interface';
 
-import {
-    UserService,
-    UserProfile,
-} from 'wlc-engine/modules/user';
+import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
+import {UserService} from 'wlc-engine/modules/user/system/services/user/user.service';
 
 import _isString from 'lodash-es/isString';
 import _toNumber from 'lodash-es/toNumber';

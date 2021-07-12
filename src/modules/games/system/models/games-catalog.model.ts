@@ -5,24 +5,25 @@ import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.mode
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
+
+import {Game} from 'wlc-engine/modules/games/system/models/game.model';
+import {MerchantModel} from 'wlc-engine/modules/games/system/models/merchant.model';
+import {GamesHelper} from 'wlc-engine/modules/games/system/helpers/games.helpers';
+import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.model';
+import {GamesCatalogService} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
 import {
-    CategoryModel,
-    Game,
-    GamesCatalogService,
-    GamesHelper,
     ICatalogTreeItem,
     ICategory,
     IExcludeCategories,
     IFavourite,
     IGames,
-    IGamesFilterData,
     IJackpot,
     IRestrictions,
     ISearchFilter,
     ISortCategories,
     ISupportedItem,
-    MerchantModel,
-} from 'wlc-engine/modules/games';
+} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
+import {IGamesFilterData} from 'wlc-engine/modules/games/system/interfaces/filters.interfaces';
 
 import _cloneDeep from 'lodash-es/cloneDeep';
 import _concat from 'lodash-es/concat';

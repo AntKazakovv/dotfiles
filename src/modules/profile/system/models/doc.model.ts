@@ -2,7 +2,8 @@ import {
     IDoc,
     IDocResponse,
     ValidationStatus,
-} from 'wlc-engine/modules/profile';
+} from 'wlc-engine/modules/profile/system/interfaces/verification.interface';
+
 import {AbstractDocModel} from './abstract.doc.model';
 
 import _kebabCase from 'lodash-es/kebabCase';
