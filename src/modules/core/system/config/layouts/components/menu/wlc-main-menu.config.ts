@@ -7,7 +7,6 @@ export namespace wlcMainMenu {
             after: 1366,
         },
         params: {
-            type: 'main-menu',
             wlcElement: 'block_main-nav',
         },
     };
@@ -17,7 +16,7 @@ export namespace wlcMainMenu {
         params: {
             theme: 'burger-panel',
             themeMod: 'underline',
-            type: 'main-menu',
+            type: 'burger-menu',
             wlcElement: 'block_main-nav-panel',
         },
     };
@@ -27,7 +26,7 @@ export namespace wlcMainMenu {
         params: {
             theme: 'burger-panel',
             themeMod: 'underline',
-            type: 'main-menu',
+            type: 'burger-menu',
             wlcElement: 'block_main-nav-panel',
             common: {
                 icons: {

@@ -1,4 +1,7 @@
-import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
+import {
+    IIndexing,
+    ICategorySettings,
+} from 'wlc-engine/modules/core';
 import {Game} from 'wlc-engine/modules/games/system/models/game.model';
 import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.model';
 import {MerchantModel} from 'wlc-engine/modules/games/system/models/merchant.model';
@@ -70,13 +73,15 @@ export class GamesHelper {
      * @param categories
      * @returns {{mapping: IMapping, categoriesArray: CategoryModel[]}}
      */
-    public static mapCategories(categories: ICategory[]): { categoriesArray: CategoryModel[] } {
+    public static mapCategories(categories: ICategory[], settings?: IIndexing<ICategorySettings>): CategoryModel[] {
         if (!categories) {
             return;
         }
+
         const categoriesArray: CategoryModel[] = [];
         _each(categories, (item: ICategory) => {
-            const category = new CategoryModel(item);
+            const categorySettings: ICategorySettings = _get(settings, item.Slug);
+            const category = new CategoryModel(item, categorySettings);
             categoriesArray.push(category);
             _set(this.mapping, `categoryById.${category.id}`, category);
             _set(this.mapping, `categoryByName.${category.name}`, category);
@@ -85,7 +90,7 @@ export class GamesHelper {
             _set(this.mapping, `categoryIdToNameMapping.${category.id}`, category.name);
             _set(this.mapping, `categoryIdToTitleMapping.${category.id}`, category.title);
         });
-        return {categoriesArray};
+        return categoriesArray;
     }
 
     /**

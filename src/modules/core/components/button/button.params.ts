@@ -29,6 +29,7 @@ export interface IButtonCParams extends IComponentParams<Theme, Type, ThemeMod> 
         sref?: string;
         srefParams?: RawParams;
         typeAttr?: string;
+        wlcElement?: string;
     };
 }
 

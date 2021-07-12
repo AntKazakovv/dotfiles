@@ -2,6 +2,8 @@ import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 import {Game} from 'wlc-engine/modules/games/system/models/game.model';
 import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.model';
 import {MerchantModel} from 'wlc-engine/modules/games/system/models/merchant.model';
+import {ICategorySettings} from 'wlc-engine/modules/core';
+import {ICategoryBlock} from 'wlc-engine/modules/core/system/interfaces/categories.interface';
 
 export interface IGamesConfig {
     sportsbookMerchants?: number[];
@@ -151,6 +153,12 @@ export type ICategory = {
     CSubSort: string;
     MappingName?: string;
     visibility?: boolean;
+}
+
+export interface IGameBlock {
+    category: CategoryModel;
+    games: Game[];
+    settings: ICategoryBlock;
 }
 
 export type IGames = {

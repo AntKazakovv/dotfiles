@@ -1,16 +1,24 @@
 import {RawParams} from '@uirouter/core';
-
 import {
     IIndexing,
     IComponentParams,
+    IButtonCParams,
     CustomType,
 } from 'wlc-engine/modules/core';
 import {
+    CategoryModel,
+    Game,
     IGamesFilterData,
     IGameThumbCParams,
+    IProgressBarCParams,
 } from 'wlc-engine/modules/games';
-import {ITournamentGames} from 'wlc-engine/modules/tournaments';
-import {IBannersSliderCParams} from 'wlc-engine/modules/promo';
+import {
+    ITournamentGames,
+} from 'wlc-engine/modules/tournaments';
+import {
+    IBannersSliderCParams,
+    ISliderCParams,
+} from 'wlc-engine/modules/promo';
 
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | 'search';
@@ -27,6 +35,7 @@ export interface IGamesGridTitleIcon {
     name?: string,
     byCategory?: boolean;
     folder?: string;
+    fallback?: string;
 }
 
 export interface IGamesGridShowAllLink {
@@ -40,6 +49,7 @@ export interface IGamesGridShowAllLink {
 }
 
 export interface IGamesGridMoreBtn {
+    cardView?: boolean;
     hide?: boolean;
     lazy?: boolean;
     lazyTimeout?: number;
@@ -66,11 +76,23 @@ export interface IGamesGridBreakpoints {
     showProgressBar?: boolean;
 }
 
+export interface IShowAsSwiper {
+    sliderParams: ISliderCParams;
+}
+
 export interface IGamesGridCParams extends IComponentParams<ComponentTheme, ComponentType, string> {
     /**
      * Amount of rows in a grid. `4` by default.
      */
     gamesRows?: number;
+    /**
+     * List of games, wich will be showed in games grid (filtering logic not needed)
+     */
+    gamesList?: Game[];
+    /**
+     * Subcategory (usually will be need for game blocks)
+     */
+    category?: CategoryModel;
     /**
      * Sets the filter which returns games list for tournaments games grid.
      *
@@ -121,6 +143,7 @@ export interface IGamesGridCParams extends IComponentParams<ComponentTheme, Comp
      * icon name will be set based on category name. The same algorithm as in category menu
      * @param {string} name name of icon which be used if `byCategory` is `undefined` or `false`.
      * @param {string} folder base folder for icon. By default uses param `$menu.categoryMenu.icons.folder`.
+     * @param {string} fallback fallback icon, if icon not be founded and loaded
      */
     titleIcon?: IGamesGridTitleIcon;
     /**
@@ -138,12 +161,18 @@ export interface IGamesGridCParams extends IComponentParams<ComponentTheme, Comp
     showAllLink?: IGamesGridShowAllLink;
     /**
      * Set of parameters for `Load more` functionality.
+     * @param cardView if `true` show as card (not as button). Usually will need for show game blocks
      * @param hide if `true` hides the button. `false` by default.
      * @param lazy if `true` loads games on scroll to bottom of component element. `false` by default.
      * @param lazyTimeout debounce timeout. `1000` by default.
      * @param scrollToEnd if `true` auto scroll to the end of root component element. `true` by default.
      */
     moreBtn?: IGamesGridMoreBtn;
+    /**
+     * Set of parameters for show games grid as swiper
+     * @param sliderParams params of slider
+     */
+    showAsSwiper?: IShowAsSwiper;
     /**
      * Value for parameter `from` on event listeners queries.
      *
@@ -180,6 +209,14 @@ export interface IGamesGridCParams extends IComponentParams<ComponentTheme, Comp
      * If keys are mixed, only numbers will be applied.
      */
     breakpoints?: IIndexing<IGamesGridBreakpoints>;
+    /**
+     * Parameters for change progress bar
+     */
+    progressBar?: IProgressBarCParams;
+    /**
+     * Parameters for change load more btn
+     */
+    btnLoadMore?: IButtonCParams;
 }
 
 export const defaultParams: IGamesGridCParams = {
@@ -196,5 +233,11 @@ export const defaultParams: IGamesGridCParams = {
         lazy: false,
         lazyTimeout: 1000,
         scrollToEnd: true,
+    },
+    btnLoadMore: {
+        common: {
+            wlcElement: 'button_load-more-games',
+            text: gettext('Load more games'),
+        },
     },
 };

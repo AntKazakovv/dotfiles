@@ -15,6 +15,8 @@ import {
     ConfigService,
     LayoutService,
     EventService,
+    IMenuItem,
+    IMenuOptions,
 } from 'wlc-engine/modules/core';
 import {
     gamesEvents,
@@ -36,6 +38,7 @@ import _has from 'lodash-es/has';
 import _sortBy from 'lodash-es/sortBy';
 import _merge from 'lodash-es/merge';
 import _pull from 'lodash-es/pull';
+import _reduce from 'lodash-es/reduce';
 
 @Component({
     selector: '[wlc-main-menu]',
@@ -51,6 +54,8 @@ export class MainMenuComponent extends AbstractComponent implements OnInit {
     protected menuConfig: MenuParams.MenuConfigItem[];
     protected useIcons: boolean;
     protected iconsFolder: string;
+    protected menuSettings: IMenuOptions;
+    protected isAuth: boolean;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IMainMenuCParams,
@@ -72,14 +77,27 @@ export class MainMenuComponent extends AbstractComponent implements OnInit {
     }
 
     public ngOnInit(): void {
-
         super.ngOnInit();
+
+        this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
+        this.initEventHandlers();
         this.initConfig();
         this.initMenu();
     }
 
     protected initConfig(): void {
-        this.menuConfig = this.configService.get<MenuParams.MenuConfigItem[]>('$menu.mainMenu.items');
+        this.menuSettings = this.$params.type === 'burger-menu'
+            ? this.configService.get('appConfig.menuSettings.burgerMenu')
+            : this.configService.get('appConfig.menuSettings.mainMenu');
+
+        if (this.menuSettings) {
+            this.menuConfig = MenuHelper.parseMenuSettings(this.menuSettings, 'main-menu', this.translate.currentLang, {
+                isAuth: this.isAuth,
+                wlcElementPrefix: 'link_main-nav-',
+            });
+        } else {
+            this.menuConfig = this.configService.get<MenuParams.MenuConfigItem[]>('$menu.mainMenu.items');
+        }
 
         const useTournaments = this.configService.get<boolean>('$base.tournaments.use');
         if (!useTournaments) {
@@ -92,7 +110,7 @@ export class MainMenuComponent extends AbstractComponent implements OnInit {
             ? this.$params.common.icons.use
             : this.configService.get<boolean>('$menu.mainMenu.icons.use');
 
-        this.iconsFolder = this.$params.common?.icons?.folder || this.configService.get<string>('$menu.mainMenu.icons.folder');
+        this.iconsFolder = this.menuSettings?.iconsPack || this.$params.common?.icons?.folder || this.configService.get<string>('$menu.mainMenu.icons.folder');
 
         const extension: TIconExtension = this.configService.get<TIconExtension>('$menu.mainMenu.icons.extension');
         if (extension) {
@@ -113,15 +131,18 @@ export class MainMenuComponent extends AbstractComponent implements OnInit {
         this.$params.menuParams.items = this.commonMenuItems;
         this.$params.menuParams = _clone(this.$params.menuParams);
 
-        if (this.gamesCatalogService.getGameList()) {
-            this.addCategoryBtns();
+        if (!this.menuSettings) {
+            if (this.gamesCatalogService.getGameList()) {
+                this.addCategoryBtns();
+            }
+
+            this.eventService.subscribe({
+                name: gamesEvents.FETCH_GAME_CATALOG_SUCCEEDED,
+            }, () => {
+                this.addCategoryBtns();
+            }, this.$destroy);
         }
 
-        this.eventService.subscribe({
-            name: gamesEvents.FETCH_GAME_CATALOG_SUCCEEDED,
-        }, () => {
-            this.addCategoryBtns();
-        }, this.$destroy);
         this.cdr.markForCheck();
     }
 
@@ -146,5 +167,22 @@ export class MainMenuComponent extends AbstractComponent implements OnInit {
 
         this.$params.menuParams = _clone(this.$params.menuParams);
         this.cdr.markForCheck();
+    }
+
+    /**
+     * Init event handlers
+     */
+    protected initEventHandlers(): void {
+        this.eventService.subscribe({
+            name: 'LOGOUT',
+        }, () => {
+            this.isAuth = false;
+        }, this.$destroy);
+
+        this.eventService.subscribe({
+            name: 'LOGIN',
+        }, () => {
+            this.isAuth = true;
+        }, this.$destroy);
     }
 }

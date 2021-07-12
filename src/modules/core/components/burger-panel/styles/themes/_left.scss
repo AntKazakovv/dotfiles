@@ -21,6 +21,40 @@
 
     ::ng-deep {
 
+        @include headerNavBase;
+
+        .wlc-burger-panel__header-menu {
+
+            .wlc-menu {
+                justify-content: ef.get-value($themeLeft, 'headerMenuJustifyContent');
+
+                &__item {
+
+                    .wlc-icon {
+
+                        svg {
+                            fill: ef.get-value($themeLeft, 'headerMenuItemIconColor');
+                        }
+                    }
+                }
+
+                &__link {
+                    width: ef.get-value($themeLeft, 'headerMenuItemWidth');
+                    height: ef.get-value($themeLeft, 'headerMenuItemHeight');
+                    margin: ef.get-value($themeLeft, 'headerMenuItemMargin');
+                    background: ef.get-value($themeLeft, 'headerMenuItemBackground');
+
+                    &.active {
+                        background: ef.get-value($themeLeft, 'headerMenuItemActiveBg');
+                    }
+
+                    @include bm.hover {
+                        background: ef.get-value($themeLeft, 'headerMenuItemActiveBg');
+                    }
+                }
+            }
+        }
+
         .wlc-logo {
             display: block;
             max-width: ef.get-value($themeLeft, 'logoMaxWidth');
@@ -92,56 +126,59 @@
             }
         }
 
-        .wlc-main-menu,
-        .wlc-post-menu {
+        .wlc-burger-panel__content {
 
-            &:after {
-                content: '';
+            .wlc-main-menu,
+            .wlc-post-menu {
 
-                display: block;
-                height: ef.get-value($themeLeft, 'separatorHeight');
-                margin: ef.get-value($themeLeft, 'separatorMargin');
+                &:after {
+                    content: '';
 
-                background: ef.get-value($themeLeft, 'separatorColor');
-            }
-        }
-
-        .wlc-menu,
-        .wlc-post-menu {
-
-            &__link {
-                @include text.get-text-style('ThirdTitle', ef.get-value($themeLeft, 'menuLinksColor'));
-
-                display: flex;
-                align-items: center;
-                padding: ef.get-value($themeLeft, 'menuLinksPadding');
-
-                text-decoration: ef.get-value($themeLeft, 'menuLinksDecoration');
-
-                &.active,
-                &:hover {
-                    color: ef.get-value($themeLeft, 'menuLinksHoverColor');
-
-                    background: ef.get-value($themeLeft, 'menuLinksHoverBg');
-                }
-
-                &.active {
-                    font-weight: ef.get-value($themeLeft, 'menuLinksActiveWeight');
-                }
-            }
-
-            &__icon {
-                margin-right: 10px;
-
-                svg {
                     display: block;
-                    width: ef.get-value($themeLeft, 'menuLinksIconWidth');
-                    height: ef.get-value($themeLeft, 'menuLinksIconHeight');
+                    height: ef.get-value($themeLeft, 'separatorHeight');
+                    margin: ef.get-value($themeLeft, 'separatorMargin');
 
-                    fill: ef.get-value($themeLeft, 'menuLinksIconFill');
+                    background: ef.get-value($themeLeft, 'separatorColor');
+                }
+            }
 
-                    path {
+            .wlc-menu,
+            .wlc-post-menu {
+
+                &__link {
+                    @include text.get-text-style('ThirdTitle', ef.get-value($themeLeft, 'menuLinksColor'));
+
+                    display: flex;
+                    align-items: center;
+                    padding: ef.get-value($themeLeft, 'menuLinksPadding');
+
+                    text-decoration: ef.get-value($themeLeft, 'menuLinksDecoration');
+
+                    &.active,
+                    &:hover {
+                        color: ef.get-value($themeLeft, 'menuLinksHoverColor');
+
+                        background: ef.get-value($themeLeft, 'menuLinksHoverBg');
+                    }
+
+                    &.active {
+                        font-weight: ef.get-value($themeLeft, 'menuLinksActiveWeight');
+                    }
+                }
+
+                &__icon {
+                    margin: ef.get-value($themeLeft, 'menuLinksIconMargin');
+
+                    svg {
+                        display: block;
+                        width: ef.get-value($themeLeft, 'menuLinksIconWidth');
+                        height: ef.get-value($themeLeft, 'menuLinksIconHeight');
+
                         fill: ef.get-value($themeLeft, 'menuLinksIconFill');
+
+                        path {
+                            fill: ef.get-value($themeLeft, 'menuLinksIconFill');
+                        }
                     }
                 }
             }

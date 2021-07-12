@@ -48,6 +48,16 @@ export const menuConfig: IMenuConfig = {
             folder: 'wlc/icons/european/v1',
             use: true,
         },
+        fundistMenuSettings: {
+            itemsAfter: [
+                {
+                    type: 'page',
+                    id: 'info',
+                    order: 99999999,
+                    device: 'all',
+                },
+            ],
+        },
     },
     profileMenu: {
         items: [
@@ -172,5 +182,65 @@ export const menuConfig: IMenuConfig = {
             'affiliates-menu:faq',
             'affiliates-menu:tc',
         ],
+    },
+    burgerPanel: {
+        left: {
+            headerMenu: {
+                enableByFundistMenuSettings: true,
+                menuParams: {
+                    type: 'burger-panel-header',
+                    items: [],
+                    common: {
+                        useSwiper: false,
+                    },
+                },
+                icons: {
+                    folder: 'wlc/icons/categories/v2',
+                },
+                items: [
+                    {
+                        name: '',
+                        type: 'sref',
+                        icon: 'lobby',
+                        class: 'lobby',
+                        params: {
+                            state: {
+                                name: 'app.home',
+                            },
+                        },
+                    },
+                    {
+                        name: '',
+                        type: 'sref',
+                        icon: 'favourites',
+                        class: 'favourites',
+                        params: {
+                            state: {
+                                name: 'app.catalog',
+                                params: {
+                                    category: 'favourites',
+                                },
+                            },
+                        },
+                        auth: true,
+                    },
+                    {
+                        name: '',
+                        type: 'sref',
+                        icon: 'last-played',
+                        class: 'last-played',
+                        params: {
+                            state: {
+                                name: 'app.catalog',
+                                params: {
+                                    category: 'lastplayed',
+                                },
+                            },
+                        },
+                        auth: true,
+                    },
+                ],
+            },
+        },
     },
 };

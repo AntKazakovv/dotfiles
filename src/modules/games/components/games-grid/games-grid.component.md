@@ -2,7 +2,7 @@
 
 Games grid component uses to display games of different categories specified in the component parameters.
 
-# Banner inside games grid:
+# Banner inside games grid
 
 If you want a banner inside the game grid, then you should specify the bannerSettings key in the parameters and specify
 parameters according to the interface. If you need to place a banner on the right side, then you need to specify a modifier for the games grid - `banner-right`

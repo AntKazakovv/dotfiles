@@ -282,7 +282,9 @@ export class GamesCatalogService {
         const childCategory = this.getChildCategoryByState();
 
         let games = [];
-        if (parentCategory?.slug == 'lastplayed') {
+        if (!this.catalogOpened()) {
+            games = this.getGameList();
+        } else if (parentCategory?.slug == 'lastplayed') {
             games = await this.getLastGames();
         } else if (parentCategory?.slug == 'favourites') {
             games = await this.getFavouriteGames();
@@ -293,8 +295,6 @@ export class GamesCatalogService {
             } else if (parentCategory) {
                 await parentCategory.isReady;
                 games = parentCategory.games;
-            } else {
-                games = this.getGameList();
             }
         }
         return games;

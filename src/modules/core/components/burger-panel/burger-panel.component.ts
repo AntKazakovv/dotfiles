@@ -6,11 +6,14 @@ import {
     OnChanges,
     SimpleChanges,
     ChangeDetectionStrategy,
+    ChangeDetectorRef,
     HostBinding,
     SimpleChange,
     ElementRef,
     Renderer2,
     AfterViewInit,
+    Inject,
+    Optional,
 } from '@angular/core';
 import {TransitionService} from '@uirouter/core';
 import {Observable} from 'rxjs';
@@ -27,8 +30,14 @@ import {
 } from 'wlc-engine/modules/core/system/services';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {HammerConfig} from 'wlc-engine/modules/core/system/config/hammer.config';
-import * as Params from './burger-panel.params';
 import {panelsEvents} from './../float-panels/float-panels.params';
+import {MenuHelper, MenuParams} from 'wlc-engine/modules/menu';
+import {IWrapperCParams, LayoutService} from 'wlc-engine/modules/core';
+
+import * as Config from 'wlc-engine/modules/menu/system/config/main-menu.items.config';
+import * as Params from './burger-panel.params';
+
+import _cloneDeep from 'lodash-es/cloneDeep';
 
 enum Directions {
     left = 2,
@@ -49,27 +58,29 @@ export class BurgerPanelComponent extends AbstractComponent
     };
 
     @Input() public isOpened: boolean;
-
     @Input() protected id: string;
     @Input() protected inlineParams: Params.IBurgerPanelCParams;
 
     public $params: Params.IBurgerPanelCParams;
     public title: string;
+    public headerMenuConfig: IWrapperCParams;
 
     protected isUseTouchEvents: boolean;
     protected hammer$: any; // HammerInstance
     protected panstart$: Observable<HammerInput>;
     protected panmove$: Observable<HammerInput>;
     protected panend$: Observable<HammerInput>;
-
     protected $width: number;
 
     constructor(
+        @Optional() @Inject('injectParams') protected injectParams: Params.IBurgerPanelCParams,
         protected configService: ConfigService,
         protected eventService: EventService,
         protected renderer: Renderer2,
         protected logService: LogService,
         protected transitionService: TransitionService,
+        protected layoutService: LayoutService,
+        protected cdr: ChangeDetectorRef,
         private hostElement: ElementRef,
     ) {
         super({
@@ -80,7 +91,49 @@ export class BurgerPanelComponent extends AbstractComponent
 
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
+        this.init();
+    }
+
+    public ngOnChanges(changes: SimpleChanges): void {
+        const {isOpened} = changes;
+        this.onToggleHandler(isOpened);
+    }
+
+    public ngAfterViewInit(): void {
+        if (this.isUseTouchEvents) {
+            const element = (this.hostElement.nativeElement as HTMLElement);
+            this.$width = element.clientWidth;
+
+            this.hammer$ = new HammerConfig().buildHammer(element);
+            this.panstart$ = fromEvent(this.hammer$, 'panstart');
+            this.panmove$ = fromEvent(this.hammer$, 'panmove');
+            this.panend$ = fromEvent(this.hammer$, 'panend');
+
+            this.initPanListeners();
+        }
+    }
+
+    public closePanel(): void {
+        this.eventService.emit({
+            name: panelsEvents.PANEL_CLOSE,
+            from: this.id,
+            data: this.id,
+        });
+    }
+
+    protected async init(): Promise<void> {
         this.addModifiers(this.id);
+        await this.configService.ready;
+        await this.layoutService.importModules(['menu']);
+
+        const enableByFundist: boolean = this.configService.get<boolean>(`$menu.burgerPanel.${this.$params.type}.headerMenu.enableByFundistMenuSettings`);
+        if (enableByFundist) {
+            if (this.configService.get('appConfig.menuSettings')) {
+                this.initHeaderMenu();
+            }
+        } else {
+            this.initHeaderMenu();
+        }
 
         this.title = this.$params.title || gettext('Menu');
 
@@ -101,33 +154,12 @@ export class BurgerPanelComponent extends AbstractComponent
                     setTimeout(() => {
                         this.closePanel();
                     }, 0);
+                    if (this.headerMenuConfig) {
+                        this.initHeaderMenu();
+                    }
+                    this.cdr.detectChanges();
                 },
             });
-    }
-
-    public ngOnChanges(changes: SimpleChanges): void {
-        const {isOpened} = changes;
-        this.onToggleHandler(isOpened);
-    }
-
-    public ngAfterViewInit(): void {
-        if (this.isUseTouchEvents) {
-            const element = (this.hostElement.nativeElement as HTMLElement);
-            this.$width = element.clientWidth;
-
-            this.hammer$ = new HammerConfig().buildHammer(element);
-            this.panstart$ = fromEvent(this.hammer$, 'panstart');
-            this.panmove$ = fromEvent(this.hammer$, 'panmove');
-            this.panend$ = fromEvent(this.hammer$, 'panend');
-        }
-    }
-
-    public closePanel(): void {
-        this.eventService.emit({
-            name: panelsEvents.PANEL_CLOSE,
-            from: this.id,
-            data: this.id,
-        });
     }
 
     protected panstartHandler(event: HammerInput): void {
@@ -162,7 +194,7 @@ export class BurgerPanelComponent extends AbstractComponent
         }
     }
 
-    protected initListeners(): void {
+    protected initPanListeners(): void {
         this.panstart$.pipe(
             takeUntil(this.$destroy),
             takeWhile(() => this.isOpened),
@@ -183,9 +215,6 @@ export class BurgerPanelComponent extends AbstractComponent
         if (!isOpened.isFirstChange()) {
             if (isOpened.currentValue) {
                 this.addModifiers('open');
-                if (this.isUseTouchEvents) {
-                    this.initListeners();
-                }
             } else {
                 this.removeModifiers('open');
             }
@@ -202,6 +231,30 @@ export class BurgerPanelComponent extends AbstractComponent
                 const error = `No such type of panel - ${type}`;
                 this.logService.sendLog({code: '0.4.1', data: error});
                 return;
+        }
+    }
+
+    protected initHeaderMenu(): void {
+        const headerMenu = this.configService.get<any>(`$menu.burgerPanel.${this.$params.type}.headerMenu`);
+        const items: MenuParams.MenuConfigItem[] = headerMenu?.items;
+        if (items) {
+            const headerMenuParams = _cloneDeep(headerMenu.menuParams);
+            const iconsFolder: string =  headerMenu.icons?.folder;
+            headerMenuParams.items = MenuHelper.parseMenuConfig(items, Config.wlcMainMenuItemsGlobal, {
+                icons: {
+                    folder: iconsFolder,
+                    disable: false,
+                },
+            });
+
+            this.headerMenuConfig = {
+                components: [
+                    {
+                        name: 'menu.wlc-menu',
+                        params: headerMenuParams,
+                    },
+                ],
+            };
         }
     }
 }

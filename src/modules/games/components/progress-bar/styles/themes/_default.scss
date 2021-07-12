@@ -1,4 +1,4 @@
-.wlc-progress-bar:host {
+.wlc-progress-bar--theme-default:host {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -11,18 +11,18 @@
         }
 
         &__progress {
+            @include bm.get-mq-map('width', $themeDefault, 'progressWidth');
             position: relative;
             height: ef.get-value($themeDefault, 'progressHeight');
             background: ef.get-value($themeDefault, 'progressBackground');
             border-radius: ef.get-value($themeDefault, 'progressBorderRadius');
-            @include bm.get-mq-map('width', $themeDefault, 'progressWidth');
         }
 
         &__bar {
             position: absolute;
             top: 0;
-            left: 0;
             bottom: 0;
+            left: 0;
             height: 100%;
             background: ef.get-value($themeDefault, 'barBackground');
             border-radius: ef.get-value($themeDefault, 'barBorderRadius');

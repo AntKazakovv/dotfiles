@@ -193,4 +193,52 @@ export const wlcMobileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
             },
         },
     },
+    'mobile-menu:lobby': {
+        name: gettext('Lobby'),
+        type: 'sref',
+        icon: 'lobby',
+        class: 'lobby',
+        params: {
+            state: {
+                name: 'app.home',
+            },
+        },
+    },
+    'mobile-menu:favourites': {
+        name: gettext('Favourites'),
+        type: 'sref',
+        icon: 'favourites',
+        class: 'favourites',
+        params: {
+            state: {
+                name: 'app.catalog',
+            },
+        },
+    },
+    'mobile-menu:last-played': {
+        name: gettext('Last played'),
+        type: 'sref',
+        icon: 'lastplayed',
+        class: 'last-played',
+        params: {
+            state: {
+                name: 'app.catalog',
+            },
+        },
+    },
+};
+
+export const wlcMobileMenuItemGroupsGlobal: MenuParams.IMenuItemGroupsGlobal = {
+    'mobile-menu:info': {
+        type: 'group',
+        parent: 'mobile-menu:info',
+        items: [
+            'mobile-menu:privacy-policy',
+            'mobile-menu:responsible-game',
+            'mobile-menu:fair-play',
+            'mobile-menu:games-rules',
+            'mobile-menu:terms-and-conditions',
+            'mobile-menu:contact-us',
+        ],
+    },
 };

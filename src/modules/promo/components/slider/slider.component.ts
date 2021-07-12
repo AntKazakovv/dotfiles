@@ -7,6 +7,7 @@ import {
     Injector,
     Input,
     OnChanges,
+    OnDestroy,
     OnInit,
     Output,
     Renderer2,
@@ -72,7 +73,7 @@ SwiperCore.use([
     encapsulation: ViewEncapsulation.None,
 })
 export class SliderComponent extends AbstractComponent
-    implements OnInit, AfterViewInit, OnChanges {
+    implements OnInit, AfterViewInit, OnChanges, OnDestroy {
 
     @ViewChild(SwiperComponent) public swiper: SwiperComponent;
 
@@ -89,6 +90,8 @@ export class SliderComponent extends AbstractComponent
     public slidesSequence: number[] = [];
     public emptySlidesCount: number = 0;
     public slideMaxWidth: number = 0;
+
+    protected observer: MutationObserver;
 
     private frozenSwiperParams: SwiperOptions;
 
@@ -136,6 +139,7 @@ export class SliderComponent extends AbstractComponent
         this.initEventHandlers();
         setTimeout(() => {
             this.updateView();
+            this.initObserver();
         }, 0);
 
         this.ready = true;
@@ -203,8 +207,25 @@ export class SliderComponent extends AbstractComponent
         this.updateView();
     }
 
-    public onBeforeResize(swiper): void {
+    public onBeforeResize(swiper: SwiperComponent): void {
         this.handleBeforeResize.emit(this.swiper.swiperRef);
+    }
+
+    public ngOnDestroy(): void {
+        super.ngOnDestroy();
+        if (this.observer) {
+            this.observer.disconnect();
+        }
+    }
+
+    protected initObserver(): void {
+        this.observer = new MutationObserver(() => {
+            this.updateView();
+        });
+        this.observer.observe(this.sliderWrap, {
+            childList: true,
+            subtree: true,
+        });
     }
 
     protected setSliderWrapper(): void {

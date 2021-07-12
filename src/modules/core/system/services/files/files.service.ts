@@ -65,18 +65,26 @@ export class FilesService {
     }
 
     public async getFileByUrl(url: string): Promise<IFile> {
-        const fileUrl = this.normalizeFileUrl(url);
+        let file: IFile;
+        let fileUrl: string;
+        let fullUrl: string;
+        let location: LocationFileType;
 
-        let file: IFile = _find(this.stashedFiles, (item) => item.key === fileUrl);
+        if (url.indexOf('http') >= 0) {
+            fullUrl = fileUrl = url;
+        } else {
+            fileUrl = this.normalizeFileUrl(url);
 
-        if (file) {
-            return file;
+            file = _find(this.stashedFiles, (item) => item.key === fileUrl);
+            if (file) {
+                return file;
+            }
+
+            location = _includes(imagesList, fileUrl)
+                ? 'static'
+                : 'gstatic';
+            fullUrl = this.getStaticFileUrl(location, fileUrl);
         }
-
-        const location: LocationFileType = _includes(imagesList, fileUrl)
-            ? 'static'
-            : 'gstatic';
-        const fullUrl = this.getStaticFileUrl(location, fileUrl);
 
         file = this.getFileType(fileUrl) === 'bin'
             ? {
@@ -126,7 +134,7 @@ export class FilesService {
             return file;
         }
 
-        const path: string = filePath.split('.')[0];
+        const path: string = filePath.replace(/\.[^/]+$/, '');
         file = this.getSvgByName(path);
         if (!file.location) {
             file = await this.getFileByUrl(filePath);

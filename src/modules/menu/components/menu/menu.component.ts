@@ -25,12 +25,17 @@ import {
     trigger,
 } from '@angular/animations';
 import {
+    takeUntil,
+} from 'rxjs/operators';
+import {
     AbstractComponent,
     IMixedParams,
     LayoutService,
     ActionService,
     ModalService,
     ConfigService,
+    DeviceType,
+    EventService,
 } from 'wlc-engine/modules/core';
 import {
     ISlide,
@@ -46,6 +51,7 @@ import _isString from 'lodash-es/isString';
 import _has from 'lodash-es/has';
 import _reduce from 'lodash-es/reduce';
 import _find from 'lodash-es/find';
+import _filter from 'lodash-es/filter';
 import _forEach from 'lodash-es/forEach';
 import _map from 'lodash-es/map';
 
@@ -101,6 +107,8 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
     protected baseUrl: string = '';
     protected lang: string = '';
     protected isAffiliate: boolean = false;
+    protected isMobile: boolean = false;
+    protected isAuth: boolean;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IMenuCParams,
@@ -112,6 +120,7 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
         protected stateService: StateService,
         protected transitionService: TransitionService,
         protected configService: ConfigService,
+        protected eventService: EventService,
     ) {
         super(
             <IMixedParams<Params.IMenuCParams>>{
@@ -156,6 +165,8 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
 
+        this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
+        this.isMobile = this.configService.get<boolean>('appConfig.mobile');
         this.iconsExtension = this.$params.common.icons.extension;
         this.iconsFallback = this.setExtension(this.$params.common.icons.fallback);
 
@@ -172,7 +183,7 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
         }
 
         this.lang = this.configService.get<string>('currentLanguage') || 'en';
-
+        this.initEventHandlers();
     }
 
     public scrollTo(selector: string): void {
@@ -180,6 +191,9 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
     }
 
     public getIcon(item: Params.IMenuItem): string {
+        if (item.iconUrl) {
+            return item.iconUrl;
+        }
         if (item.icon) {
             return this.setExtension(item.icon);
         }
@@ -210,6 +224,8 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
     protected initItems(): void {
         this.items = MenuHelper.getItems(
             {
+                isMobile: this.isMobile,
+                isAuth: this.isAuth,
                 items: this.$params.items,
                 type: this.$params.type,
             },
@@ -268,7 +284,10 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
         _forEach(this.items, (item: Params.IMenuItemsGroup) => {
             if (item.parent) {
                 item.expand = !!_find(item.items, (subItem) => {
-                    return this.isActive(subItem.params?.state?.name);
+                    if (_has(subItem, 'parent')) {
+                        return false;
+                    }
+                    return this.isActive((subItem as Params.IMenuItem).params?.state?.name);
                 });
             }
         });
@@ -294,6 +313,34 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
                 }
 
                 return item;
+            });
+    }
+
+    /**
+     * Init event handlers
+     */
+    protected initEventHandlers(): void {
+        this.eventService.subscribe({
+            name: 'LOGOUT',
+        }, () => {
+            this.isAuth = false;
+        });
+
+        this.eventService.subscribe({
+            name: 'LOGIN',
+        }, () => {
+            this.isAuth = true;
+        });
+
+        this.actionService.deviceType()
+            .pipe(takeUntil(this.$destroy))
+            .subscribe((type: DeviceType) => {
+                if (!type) {
+                    return;
+                }
+
+                this.isMobile = type !== DeviceType.Desktop;
+                this.cdr.markForCheck();
             });
     }
 }

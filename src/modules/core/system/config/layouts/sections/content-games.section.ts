@@ -52,7 +52,7 @@ export namespace contentGames {
     export const catalog: ILayoutSectionConfig = {
         container: true,
         components: [
-            componentLib.wlcGamesGrid.catalogGamesWithLoadMoreBtn,
+            componentLib.wlcGamesCatalog.def,
         ],
     };
 

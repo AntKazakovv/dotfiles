@@ -21,7 +21,6 @@ import {
     throttleTime,
 } from 'rxjs/operators';
 import {ResizedEvent} from 'angular-resize-event';
-
 import {
     AbstractComponent,
     ConfigService,
@@ -37,7 +36,11 @@ import {
     gamesEvents,
     GamesCatalogService,
     GamesFilterServiceEvents,
+    GameThumbComponent,
 } from 'wlc-engine/modules/games';
+import {
+    ISlide,
+} from 'wlc-engine/modules/promo';
 
 import * as Params from './games-grid.params';
 
@@ -87,6 +90,8 @@ export class GamesGridComponent extends AbstractComponent implements OnInit {
     public hideEmptyComponent: boolean = false;
     public useLazy: boolean = false;
     public lazyLoading: boolean = false;
+    public moreBtnCardView: boolean;
+    public gameSlides: ISlide[] = [];
 
     protected gamesRows: number = 1;
     protected gamesRowsLoaded: number = 0;
@@ -125,6 +130,7 @@ export class GamesGridComponent extends AbstractComponent implements OnInit {
             this.useLazy = this.$params.moreBtn.lazy;
             this.lazyTimeout ??= this.$params.moreBtn?.lazyTimeout;
         }
+        this.moreBtnCardView = this.$params.moreBtn?.cardView || false;
 
         this.filterName = this.$params.searchFilterName || 'page';
 
@@ -181,7 +187,19 @@ export class GamesGridComponent extends AbstractComponent implements OnInit {
         this.isReady = false;
         this.gamesRowsLoaded = 0;
         this.games = await this.getGames();
-        this.title = this.gamesCatalogService.getGamesTitleByState() || this.$params.title || this.categoryTitle;
+        this.title = this.$params.title || this.gamesCatalogService.getGamesTitleByState() || this.categoryTitle;
+        if (this.$params.showAsSwiper) {
+            this.gameSlides = this.games.map((game: Game) => {
+                return {
+                    component: GameThumbComponent,
+                    componentParams: {
+                        common: {
+                            game: game,
+                        },
+                    },
+                };
+            });
+        }
         this.isReady = true;
 
         if (!this.games.length && this.$params.hideEmpty) {
@@ -280,6 +298,10 @@ export class GamesGridComponent extends AbstractComponent implements OnInit {
 
         this.gamesCount = this.paginate;
 
+        if (this.moreBtnCardView && this.games.length > this.gamesCount) {
+            this.gamesCount--;
+        }
+
         if (this.$params.themeMod === 'header-inline') {
             this.gamesCount--;
         }
@@ -306,14 +328,13 @@ export class GamesGridComponent extends AbstractComponent implements OnInit {
         }
     }
 
-    /**\
+    /**
      * Get games
      *
      * @returns {Promise<Game[]>}
      */
     protected async getGames(): Promise<Game[]> {
         await this.gamesCatalogService.ready;
-
         return await this.getFilteredGames();
     }
 
@@ -323,8 +344,9 @@ export class GamesGridComponent extends AbstractComponent implements OnInit {
      * @returns {Game[]}
      */
     protected async getFilteredGames(): Promise<Game[]> {
-
-        if (this.gamesList) {
+        if (this.$params.gamesList) {
+            return this.$params.gamesList;
+        } else if (this.gamesList) {
             return this.games;
         } else if (this.$params.tournamentGamesFilter) {
             return this.getTournamentGames();
@@ -359,12 +381,10 @@ export class GamesGridComponent extends AbstractComponent implements OnInit {
         await this.preloadSpecialGames(filter);
 
         const category = this.gamesCatalogService.getCategoryBySlug(cat);
-
         if (category) {
             const currentLang = this.router.stateService.params?.locale || 'en';
             this.categoryTitle = category.title[currentLang] || category.title['en'];
         }
-
         return this.gamesCatalogService.getGameList(filter);
     }
 
@@ -478,16 +498,26 @@ export class GamesGridComponent extends AbstractComponent implements OnInit {
     }
 
     protected initTitleIcon(): void {
-        const category: string = this.$params.filter?.['categories']?.[0] || this.$params.filter?.['category'];
-        if (this.$params.titleIcon?.byCategory && category) {
-            const folder = this.$params.titleIcon.folder ||
-                        this.configService.get<string>('$menu.categoryMenu.icons.folder');
-            const icon = folder ? `${folder}/${category}` : category;
-            this.$params.titleIcon.name = icon.split('.').length > 1 ? icon : `${icon}.svg`;
+        if (this.$params.titleIcon?.byCategory) {
+            const category: string =
+                this.$params.category?.slug ||
+                this.$params.filter?.['categories']?.[0] ||
+                this.$params.filter?.['category'] ||
+                this.gamesCatalogService.getChildCategoryByState()?.slug ||
+                this.gamesCatalogService.getParentCategoryByState()?.slug;
+
+            if (category) {
+                const folder = this.$params.titleIcon.folder || this.configService.get<string>('$menu.categoryMenu.icons.folder');
+                const icon = folder ? `${folder}/${category}` : category;
+                this.$params.titleIcon.name = icon.split('.').length > 1 ? icon : `${icon}.svg`;
+                this.$params.titleIcon.fallback = `${folder}/plug.svg`;
+            }
         }
 
         if (this.$params.titleIcon?.name) {
             this.addModifiers('title-icon');
+        } else {
+            this.removeModifiers('title-icon');
         }
     }
 

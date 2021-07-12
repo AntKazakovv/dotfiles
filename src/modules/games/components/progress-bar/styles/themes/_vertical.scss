@@ -1,0 +1,10 @@
+.wlc-games-grid__card-progressbar:host {
+
+    .wlc-progress-bar {
+
+        &__text {
+            @include text.get-text-style(ef.get-value($themeVertical, 'textFontStyle'), ef.get-value($themeVertical, 'textFontColor'));
+            @include bm.get-mq-map('margin', $themeVertical, 'textMargin');
+        }
+    }
+}

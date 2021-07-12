@@ -102,6 +102,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
     private locked: string[] = [];
 
     constructor(
+        @Inject('injectParams') protected params: IFormWrapperCParams,
         ConfigService: ConfigService,
         layoutService: LayoutService,
         protected cdr: ChangeDetectorRef,
@@ -109,11 +110,11 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
         injector: Injector,
         uiRouter: UIRouterGlobals,
         eventService: EventService,
-        @Inject('injectParams') protected params: IFormWrapperCParams,
         protected validationService: ValidationService,
         protected elRef: ElementRef,
     ) {
         super(
+            params,
             ConfigService,
             layoutService,
             cdr,
@@ -121,7 +122,6 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
             injector,
             uiRouter,
             eventService,
-            params,
         );
     }
 

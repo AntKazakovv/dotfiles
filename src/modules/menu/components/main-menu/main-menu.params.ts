@@ -5,7 +5,7 @@ import {
 } from 'wlc-engine/modules/core';
 import * as MenuParams from 'wlc-engine/modules/menu/components/menu/menu.params';
 
-export type Type = 'default' | CustomType;
+export type Type = 'default' | 'burger-menu' | CustomType;
 export type Theme = 'default' | CustomType;
 export type ThemeMod = 'default' | CustomType;
 export type AutoModifiers = Theme | ThemeMod;
