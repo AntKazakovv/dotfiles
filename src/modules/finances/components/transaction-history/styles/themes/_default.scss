@@ -1,6 +1,7 @@
 @use 'engine-scss/mixins/mediaqueries' as mq;
 @use 'engine-scss/functions' as ef;
 @use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/mixins/text' as text;
 @use 'modules/core/components/button/styles/utils/mixins' as button;
 
 .wlc-transaction-history--theme-default {
@@ -25,6 +26,24 @@
 
             .wlc-sections__profile-content--theme-first & {
                 @include bm.get-mq-map('display', $themeDefault, 'sectionDisplayTypeFirst');
+            }
+        }
+
+        .wlc-transaction-history-filter__buttons {
+            @include bm.get-mq-map('display', $themeDefault, 'sectionDisplay');
+            @include bm.get-mq-map('gap', $themeDefault, 'filterBtnGap');
+            grid-template-areas: ef.get-value($themeDefault, 'labelAreas');
+
+            .wlc-label {
+                @include text.get-text-style(ef.get-value($themeDefault, 'labelFont'), ef.get-value($themeDefault, 'labelColor'));
+                grid-area: label;
+                min-height: ef.get-value($themeDefault, 'labelMinHeight');
+                padding: ef.get-value($themeDefault, 'labelPadding');
+                cursor: pointer;
+
+                @include mq.min(1630) {
+                    @include text.get-text-style(ef.get-value($themeDefault, 'labelFontBig'), ef.get-value($themeDefault, 'labelColor'));
+                }
             }
         }
 

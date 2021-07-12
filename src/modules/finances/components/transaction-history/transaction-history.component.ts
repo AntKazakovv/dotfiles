@@ -46,6 +46,7 @@ export class TransactionHistoryComponent extends AbstractComponent implements On
     public filterSelect: ISelectCParams = {
         name: 'type',
         value: 'all',
+        labelText: 'Sort by',
         common: {
             placeholder: 'Type',
         },
