@@ -9,16 +9,12 @@ import {
 } from '@ngx-translate/core';
 import {filter} from 'rxjs/operators';
 
-import {
-    ConfigService,
-    EventService,
-    LogService,
-} from 'wlc-engine/modules/core';
-import {UserService} from 'wlc-engine/modules/user';
-import {
-    LivechatAbstract,
-    ILivechatConfig,
-} from 'wlc-engine/modules/livechat';
+import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
+import {UserService} from 'wlc-engine/modules/user/system/services/user/user.service';
+import {LivechatAbstract} from 'wlc-engine/modules/livechat/system/classes/livechatAbstract.class';
+import {ILivechatConfig} from 'wlc-engine/modules/livechat/system/interfaces/livechat.interface';
 
 @Injectable({
     providedIn: 'root',

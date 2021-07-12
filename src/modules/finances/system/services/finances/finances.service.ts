@@ -7,30 +7,33 @@ import {TranslateService} from '@ngx-translate/core';
 import {BehaviorSubject} from 'rxjs';
 
 import {
-    IData,
     IRequestMethod,
     RestMethodType,
 } from 'wlc-engine/modules/core';
-import {
-    DataService,
-    EventService,
-} from 'wlc-engine/modules/core';
+import {IData} from 'wlc-engine/modules/core/system/services/data/data.service';
+import {DataService} from 'wlc-engine/modules/core/system/services/data/data.service';
+import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
+
+import {IBet} from 'wlc-engine/modules/finances/system/interfaces/finances.interface';
+import {PIQCashierService} from 'wlc-engine/modules/finances/system/services/piq-cashier/piq-cashier.service';
 import {
     PaymentSystem,
     IPaymentSystem,
     FilterType,
-    IBet,
+} from 'wlc-engine/modules/finances/system/models/payment-system.model';
+import {
     Transaction,
     ITransaction,
     ITransactionRequestParams,
+} from 'wlc-engine/modules/finances/system/models/transaction-history.model';
+import {
     PIQCashierConvertedMethod,
     PIQCashierResponse,
-    PIQCashierService,
-} from 'wlc-engine/modules/finances';
+} from 'wlc-engine/modules/finances/system/interfaces/piq-cashier.interface';
 import {
     LanguageChangeEvents,
     UserService,
-} from 'wlc-engine/modules/user';
+} from 'wlc-engine/modules/user/system/services/user/user.service';
 
 import {FinancesHelper} from '../../helpers/finances.helper';
 

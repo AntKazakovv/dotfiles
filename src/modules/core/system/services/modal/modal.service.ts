@@ -14,23 +14,22 @@ import {
     BsModalService,
 } from 'ngx-bootstrap/modal';
 
+import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
+import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
+import {MODALS_LIST, DEFAULT_MODAL_CONFIG} from 'wlc-engine/modules/core/components/modal/modal.params';
+import {WlcModalComponent} from 'wlc-engine/modules/core/components/modal/modal.component';
+import {IModalList} from 'wlc-engine/modules/core/components/modal/modal.interface';
+import {NotificationEvents} from 'wlc-engine/modules/core/system/services/notification/notification.service';
+import {IPushMessageParams} from 'wlc-engine/modules/core/system/services/notification/notification.interface';
 import {
     IModalConfig,
     IModalOptions,
     IModalEvents,
     IActiveModal,
     IModalName,
-    MODALS_LIST,
-    DEFAULT_MODAL_CONFIG,
-    WlcModalComponent,
-    IModalList,
-    EventService,
-    ConfigService,
-    LogService,
-    GlobalHelper,
-    NotificationEvents,
-    IPushMessageParams,
-} from 'wlc-engine/modules/core';
+} from 'wlc-engine/modules/core/components/modal/modal.interface';
 
 import _assignIn from 'lodash-es/assignIn';
 import _isString from 'lodash-es/isString';

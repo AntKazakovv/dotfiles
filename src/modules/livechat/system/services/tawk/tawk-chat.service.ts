@@ -5,16 +5,14 @@ import {
 import {DOCUMENT} from '@angular/common';
 import {BehaviorSubject} from 'rxjs';
 
-import {
-    ConfigService,
-    EventService,
-    LogService,
-} from 'wlc-engine/modules/core';
+import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
 import {
     LivechatAbstract,
     ChatState,
-    ILivechatConfig,
-} from 'wlc-engine/modules/livechat';
+} from 'wlc-engine/modules/livechat/system/classes/livechatAbstract.class';
+import {ILivechatConfig} from 'wlc-engine/modules/livechat/system/interfaces/livechat.interface';
 
 import _get from 'lodash-es/get';
 

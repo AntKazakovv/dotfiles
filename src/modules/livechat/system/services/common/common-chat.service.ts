@@ -1,13 +1,11 @@
 import {Injectable} from '@angular/core';
-import {ConfigService} from 'wlc-engine/modules/core';
-import {
-    ChatraService,
-    ILivechatConfig,
-    LivechatincService,
-    VerboxService,
-    TawkChatService,
-    TLiveChat,
-} from 'wlc-engine/modules/livechat';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {ILivechatConfig} from 'wlc-engine/modules/livechat/system/interfaces/livechat.interface';
+import {ChatraService} from 'wlc-engine/modules/livechat/system/services/chatra/chatra.service';
+import {LivechatincService} from 'wlc-engine/modules/livechat/system/services/livechatinc/livechatinc.service';
+import {VerboxService} from 'wlc-engine/modules/livechat/system/services/verbox/verbox.service';
+import {TawkChatService} from 'wlc-engine/modules/livechat/system/services/tawk/tawk-chat.service';
+import {TLiveChat} from 'wlc-engine/modules/livechat/system/interfaces/livechat.interface';
 
 export type TChatService = LivechatincService | VerboxService | ChatraService | TawkChatService;
 

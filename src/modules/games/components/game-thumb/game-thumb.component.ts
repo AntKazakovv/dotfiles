@@ -17,8 +17,9 @@ import {DeviceType} from 'wlc-engine/modules/core/system/models/device.model';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
 import {ActionService} from 'wlc-engine/modules/core/system/services/action/action.service';
-import {GamesCatalogService, Game} from 'wlc-engine/modules/games';
-import {UserService} from 'wlc-engine/modules/user';
+import {Game} from 'wlc-engine/modules/games/system/models/game.model';
+import {GamesCatalogService} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
+import {UserService} from 'wlc-engine/modules/user/system/services/user/user.service';
 import * as Params from './game-thumb.params';
 
 import _assign from 'lodash-es/assign';

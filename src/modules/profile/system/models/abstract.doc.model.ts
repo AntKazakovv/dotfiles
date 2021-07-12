@@ -1,4 +1,4 @@
-import {LoaderStatus} from 'wlc-engine/modules/profile';
+import {LoaderStatus} from 'wlc-engine/modules/profile/system/interfaces/verification.interface';
 
 export abstract class AbstractDocModel {
     private _loadingStatus: LoaderStatus = LoaderStatus.Ready;

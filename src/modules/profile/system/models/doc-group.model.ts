@@ -1,10 +1,14 @@
 import {
-    DocModel,
-    IDocGroup,
+    IDoc,
     IDocTypeResponse,
+    IDroppedFiles,
     LoaderStatus,
+    ISelectOptions,
+    IDocResponse,
     ValidationStatus,
-} from 'wlc-engine/modules/profile';
+    IDocGroup,
+} from 'wlc-engine/modules/profile/system/interfaces/verification.interface';
+import {DocModel} from 'wlc-engine/modules/profile/system/models/doc.model';
 import {AbstractDocModel} from './abstract.doc.model';
 
 import _every from 'lodash-es/every';

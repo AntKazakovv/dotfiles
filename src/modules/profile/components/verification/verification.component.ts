@@ -10,26 +10,24 @@ import {
 import {FormControl} from '@angular/forms';
 
 import {takeUntil} from 'rxjs/operators';
-
-import {
-    AbstractComponent,
-    ConfigService,
-    EventService,
-    IMixedParams,
-    ISelectCParams,
-    IEvent,
-} from 'wlc-engine/modules/core';
+import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {IEvent} from 'wlc-engine/modules/core/system/services/event/event.service';
+import {IMixedParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {ISelectCParams} from 'wlc-engine/modules/core/components/select/select.params';
 
 import {
     IDoc,
     IDocTypeResponse,
-    DocGroupModel,
-    DocModel,
-    VerificationService,
     IDroppedFiles,
     LoaderStatus,
     ISelectOptions,
-} from 'wlc-engine/modules/profile';
+} from 'wlc-engine/modules/profile/system/interfaces/verification.interface';
+
+import {VerificationService} from 'wlc-engine/modules/profile/system/services/verification/verification.service';
+import {DocModel} from 'wlc-engine/modules/profile/system/models/doc.model';
+import {DocGroupModel} from 'wlc-engine/modules/profile/system/models/doc-group.model';
 
 import * as Params from './verification.params';
 
