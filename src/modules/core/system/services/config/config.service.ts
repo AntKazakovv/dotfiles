@@ -1,3 +1,4 @@
+import {TranslateService} from '@ngx-translate/core';
 import {Injectable, Injector} from '@angular/core';
 import {DataService, IData} from '../data/data.service';
 import {AppConfigModel} from './app-config.model';
@@ -64,14 +65,16 @@ export class ConfigService {
 
     constructor(
         private injector: Injector,
+        private translateService: TranslateService,
         private localStorageService: LocalStorageService,
         private sessionStorageService: SessionStorageService,
     ) {
         this.setGlobals();
 
-        setTimeout(() => {
-            this.getCountries();
-        }, 0);
+        this.translateService.onLangChange
+            .subscribe(() => {
+                this.getCountries();
+            });
     }
 
     /**
