@@ -30,7 +30,18 @@ $themeDefault: map-merge((
     'filterGap': (
         1024: ef.get('size', 'smally')
     ),
+    'filterBtnGap': (
+        1024: 0 ef.get('size', 'smally')
+    ),
     'filterMinWidth': 140px,
 
     'btnMinHeight': 40px,
+    'labelAreas': 'label label label' '. . .',
+    'labelFont': 'SignText',
+    'labelFontBig': 'PlaceholderText',
+    'labelAlignItems': center,
+    'labelColor':  ef.get('fieldColors', 'labelColor'),
+    'labelPadding': 0 0 ef.get('radius', 'small') ef.get('radius', 'biger'),
+    'labelLineHeight': 1.9,
+    'labelMinHeight': ef.get('size', 'smaller'),
 ), $customThemeDefault);

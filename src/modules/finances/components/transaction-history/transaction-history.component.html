@@ -12,27 +12,30 @@
 </div>
 
 <ng-template #buttons>
-    <button wlc-button
-            [wlcElement]="'button_all'"
-            [class.active]="filterSelect.control.value === 'all'"
-            themeMod="secondary"
-            text="All"
-            (click)="setFilter('all')"
-    ></button>
-    <button wlc-button
-            [wlcElement]="'button_deposit'"
-            [class.active]="filterSelect.control.value === 'deposit'"
-            themeMod="secondary"
-            text="Deposit"
-            (click)="setFilter('deposit')"
-    ></button>
-    <button wlc-button
-            [wlcElement]="'button_withdraw'"
-            [class.active]="filterSelect.control.value === 'withdraw'"
-            themeMod="secondary"
-            text="Withdraw"
-            (click)="setFilter('withdraw')"
-    ></button>
+    <div class="{{$class}}-filter__buttons">
+        <label class="wlc-label">{{filterSelect.labelText | translate}}</label>
+        <button wlc-button
+                [class.active]="filterSelect.control.value === 'all'"
+                wlcElement="button_all"
+                themeMod="secondary"
+                text="All"
+                (click)="setFilter('all')"
+        ></button>
+        <button wlc-button
+                [class.active]="filterSelect.control.value === 'deposit'"
+                wlcElement="button_deposit"
+                themeMod="secondary"
+                text="Deposit"
+                (click)="setFilter('deposit')"
+        ></button>
+        <button wlc-button
+                [class.active]="filterSelect.control.value === 'withdraw'"
+                wlcElement="button_withdraw"
+                themeMod="secondary"
+                text="Withdraw"
+                (click)="setFilter('withdraw')"
+        ></button>
+    </div>
 </ng-template>
 
 <ng-template #preloader>
