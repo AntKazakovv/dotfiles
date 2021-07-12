@@ -317,6 +317,7 @@ export class DataService {
         const requestBody = method.type !== 'GET' ? this.checkFormData(params) || '' : undefined;
 
         const url = method.fullUrl || this.urlPrefix + method.url;
+        const cacheUrl = requestParams.lang ? `${url}|${requestParams.lang}` : url;
 
         const preloadData$: Observable<unknown> =
             (method.type === 'GET' && _has(globalThis.wlcPreload, method.preload))
@@ -329,7 +330,7 @@ export class DataService {
                 if (result) {
                     return of(result);
                 }
-                return method.cache > 0 ? from(this.cachingService.get<T>(url)) : of(undefined);
+                return method.cache > 0 ? from(this.cachingService.get<T>(cacheUrl)) : of(undefined);
             }),
             switchMap((result: IData) => {
                 return result
@@ -404,7 +405,7 @@ export class DataService {
                 method.subject?.next(data);
 
                 if (method.type === 'GET' && method.cache > 0 && data.status === 'success' && data.source !== 'cache') {
-                    this.cachingService.set<T>(url, data.data, false, method.cache);
+                    this.cachingService.set<T>(cacheUrl, data.data, false, method.cache);
                 }
             }),
             switchMap((data: IData) => {
