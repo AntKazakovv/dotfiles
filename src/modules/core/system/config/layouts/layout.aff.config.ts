@@ -8,7 +8,7 @@ export const $layoutsAff: ILayoutsConfig = {
         replaceConfig: true,
         sections: {
             header: sectionsLib.header.aff,
-            footer: sectionsLib.footer.themeSecondAff,
+            footer: sectionsLib.footer.themeSecond,
         },
     },
     'app.home': {
