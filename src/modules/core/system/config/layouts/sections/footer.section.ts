@@ -81,40 +81,4 @@ export namespace footer {
             },
         ],
     };
-
-    export const themeSecondAff: ILayoutSectionConfig = {
-        replaceConfig: true,
-        order: 1000,
-        container: true,
-        theme: '2',
-        wlcElement: 'section_footer',
-        components: [
-            componentLib.wlcIconList.merchants,
-            componentLib.wlcIconList.payments,
-            {
-                name: 'core.wlc-wrapper',
-                params: {
-                    class: 'footer-menu',
-                    wlcElement: 'block_footer-info',
-                    components: [
-                        componentLib.wlcPostMenu.footerInfo,
-                        componentLib.wlcPostMenu.footerAbout,
-                        componentLib.wlcLanguageSelector.topLeftTheme2,
-                    ],
-                },
-            },
-            {
-                name: 'core.wlc-wrapper',
-                params: {
-                    class: 'footer-bottom',
-                    id: 1,
-                    components: [
-                        componentLib.wlcDisclaimer.def,
-                        componentLib.wlcCopyright.def,
-                        componentLib.wlcLicense.def,
-                    ],
-                },
-            },
-        ],
-    };
 }
