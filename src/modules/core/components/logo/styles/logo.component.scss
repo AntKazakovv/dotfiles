@@ -3,6 +3,10 @@
 
 :host {
     display: inline-block;
+
+    &.wlc-logo--theme-mod-footer-first {
+        width: ef.get-value($themeDefault, 'ffLogoWidth');
+    }
 }
 
 .wlc-logo__image::ng-deep {
@@ -11,5 +15,6 @@
     svg {
         display: block;
         width: ef.get-value($themeDefault, 'logoWidth');
+        height: auto;
     }
 }

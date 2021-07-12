@@ -12,7 +12,6 @@ $selector: '.wlc-social-icons';
         @include bm.get-mq-map('grid-template-columns', $themeDefault, 'iconsListTemplateColumns');
         @include bm.get-mq-map('gap', $themeDefault, 'iconsListGap');
         @include bm.get-mq-map('justify-content', $themeDefault, 'iconsListJustifyContent');
-        @include bm.get-mq-map('display', $themeDefault, 'iconsListDisplay');
         @include bm.get-mq-map('margin', $themeDefault, 'iconsListMargin');
 
         flex-wrap: wrap;
@@ -73,6 +72,33 @@ $selector: '.wlc-social-icons';
 
                 svg {
                     fill: ef.get-value($themeColored, 'iconsListLinkSvgColor');
+                }
+            }
+        }
+    }
+
+    &.wlc-social-icons--theme-mod-compact {
+
+        #{$selector} {
+
+            &__list {
+                @include bm.get-mq-map('grid-gap', $themeDefault, 'compactListGap');
+                @include bm.get-mq-map('margin', $themeDefault, 'compactListMargin');
+
+                &:empty {
+                    margin: 0;
+                }
+            }
+
+            &__link {
+                @include bm.get-mq-map('width', $themeDefault, 'compactIconSize');
+                @include bm.get-mq-map('height', $themeDefault, 'compactIconSize');
+
+                ::ng-deep {
+
+                    svg {
+                        @include bm.get-mq-map('transform', $themeDefault, 'compactSvgTransform');
+                    }
                 }
             }
         }

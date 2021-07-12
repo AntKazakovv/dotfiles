@@ -1,8 +1,6 @@
-@use '../../../functions' as ef;
-@use '../../../mixins/mediaqueries' as mq;
-@use '../../../mixins/base.mixins' as em;
-
-@import '../utils/vars';
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/base.mixins' as em;
 
 .wlc-sections__footer--theme-2 {
     @include em.get-mq-map('padding-bottom', $theme2Footer, 'basePaddingBottom');

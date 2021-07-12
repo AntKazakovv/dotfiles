@@ -4,11 +4,11 @@ $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'textAlign': (
         375: center,
-        900: left,
+        900: start,
     ),
     'footerFirstTextAlign': (
         375: center,
-        1200: left,
+        1024: start,
     ),
     'textColor': ef.get('mainColors', 'baseMain'),
 ), $customThemeDefault);
