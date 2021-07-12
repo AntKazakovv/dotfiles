@@ -2,15 +2,12 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'gridGap': ef.get('size', 'smaller'),
+    'gridGap': ef.size(4),
     'minItemWidth': 280px,
     'minItemWidthDesktop': 320px,
-    'swiperPadding': 0 ef.get('size', 'smaller') - 1px 0 ef.get('size', 'smaller') - 1px,
+    'swiperPadding': 0 ef.size(4) - 1px 0 ef.size(4) - 1px,
     'swiperWidth': 300px,
-    //'swiperButtonDisplay': (
-    //    375: none,
-    //    720: flex,
-    //),
+
     'gridColumn': (
         375: 1fr,
         720: 1fr 1fr,
@@ -49,13 +46,13 @@ $themeDefault: map-merge((
 
 $customThemePromo: () !default;
 $themePromo: map-merge((
-    'gridGap': ef.get('size', 'smaller'),
+    'gridGap': ef.size(4),
     'minItemWidth': 280px,
     'minItemWidth900': 600px,
     'minItemWidth1200': 400px,
     'minItemWidthDesktop': 600px,
     'noContentTextAlign': center,
-    'marginBtnGoToProfile': ef.get('size', 'main') auto,
+    'marginBtnGoToProfile': ef.size(8) auto,
 ), $customThemePromo);
 
 $customThemePartial: () !default;
@@ -81,30 +78,44 @@ $themePartial: map-merge((
 
 $customThemePromoHome: () !default;
 $themePromoHome: map-merge((
+    'listRadius': ef.get('radius', 'biger'),
     'paginationBottom': (
-        375: ef.get('size', 'smaller'),
-        640: ef.get('size', 'main'),
+        768: ef.size(8),
     ),
     'paginationRight': (
-        375: ef.get('size', 'smaller'),
-        640: ef.get('size', 'main'),
+        768: ef.size(8),
     ),
+    'paginationDisplay': (
+        375: none,
+        768: flex,
+    ),
+
+    'tagTopPosition': 0,
+    'tagLeftPosition': 0,
+    'tagPadding': (
+        375: ef.size(2),
+    ),
+    'tagBg': ef.get('mainColors', 'main'),
+    'tagMinWidth': 140px,
+    'tagTextAlign': center,
+    'tagBorderRadius': 0 0 ef.size(2) 0,
+    'tagColor': ef.get('mainColors', 'baseMain'),
 ), $customThemePromoHome);
 
 $customThemeActive: () !default;
 $themeActive: map-merge((
-    'noContentPadding': ef.get('size', 'less') ef.get('size', 'smaller'),
+    'noContentPadding': ef.size(6) ef.size(4),
     'noContentBg': ef.get('mainColors', 'bg500'),
-    'noContentRadius': ef.get('size', 'small'),
+    'noContentRadius': ef.size(2),
     'display': grid,
     'gridColumns': 1fr,
-    'gridGap': ef.get('size', 'smaller') 0,
+    'gridGap': ef.size(4) 0,
 ), $customThemeActive);
 
 $customNoContent: () !default;
 $noContent: map-merge((
     'noContentMargin':  80px 0 140px 0,
-    'noContentMarginBtn': ef.get('size', 'main') 0 0 0,
+    'noContentMarginBtn': ef.size(8) 0 0 0,
     'noContentDisplay': flex,
     'noContentFDirection': column,
     'noContentAlignItems': center,

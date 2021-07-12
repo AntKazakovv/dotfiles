@@ -1,0 +1,18 @@
+@use 'engine-scss/functions' as ef;
+
+$customChipV2: () !default;
+$chipV2: map-merge((
+    'bonusIconValSize': 27%,
+    'bonusIconValRadius': ef.get('radius', 'large'),
+    'bonusIconValTextStyle': 'ThirdTitleBold',
+    'previewBonusIconValTextStyle': 'QoteTextBoldTight',
+    'bonusIconValTextColor': ef.get('mainColors', 'dark'),
+    'bonusIconValMargin': 0,
+    'bonusIconValPosR': 20%,
+    'bonusIconValPosB': 17%,
+    'bonusIconValPadding': 3px,
+    'bonusIconValShadow': 0 4px 12px rgba(0, 0, 0, 0.4),
+
+    'longValPosR': 15%,
+    'longValTextStyle': 'PrimaryTextBold',
+), $customChipV2);

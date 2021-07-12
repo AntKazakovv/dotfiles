@@ -1,0 +1,95 @@
+@use 'engine-scss/functions' as ef;
+
+$customThemePartial: () !default;
+$themePartial: map-merge((
+    'blankIconSignBorderColor': ef.get('mainColors', 'success'),
+    'blankIconSignPadding': (
+        320: ef.size(1),
+        900: ef.size(3),
+    ),
+    'blankIconSignBackground': (
+        320: ef.get('mainColors', 'bg700'),
+        900: ef.get('mainColors', 'bg300'),
+    ),
+    'blankIconSignChosenBorderColor': ef.get('mainColors', 'success'),
+    'blankCheckIconBackground': ef.get('mainColors', 'success'),
+    'blankCheckNameColor': ef.get('fieldColors', 'inputBg'),
+
+    'bodySize': (
+        320: 235px,
+        900: auto,
+    ),
+    'bodyRowOffset': ef.size(3),
+    'bodyColOffset': 0,
+    'bodyAlignContent': baseline,
+    'bodyJustifyItems': center,
+    'bodyTextAlign': center,
+    'bodyMarign': auto,
+    'bodyPadding': (
+        320: ef.size(6) ef.size(6) ef.size(4),
+        900: 0,
+    ),
+    'bodyRadius': ef.get('radius', 'biger'),
+    'bodyBackground': (
+        320: ef.get('mainColors', 'bg300'),
+        900: transparent,
+    ),
+
+    'footerDisplay': (
+        320: block,
+        900: none,
+    ),
+    'footerBackground': ef.get('mainColors', 'bg'),
+    'footerPadding': ef.size(3) ef.size(4),
+    'footerRadius': ef.get('radius', 'biger'),
+    'footerMaxWidth': 235px,
+    'footerMargin': ef.size(4) auto 0,
+
+    'checkIconRightPos': 12px,
+    'checkIconTopPos': (
+        320: 0,
+        900: 5px,
+        1630: 8px,
+    ),
+    'checkIconSize': 25px,
+    'checkIconBackground': ef.get('mainColors', 'success'),
+    'checkIconRadius': 50%,
+    'checkIconSvgSize': 13px,
+    'checkIconStrokeColor': ef.get('mainColors', 'baseMain'),
+
+    'bonusIconMargin': (
+        320: 0 auto ef.size(3),
+        900: 0 auto,
+    ),
+    'bonusIconMaxWidth': (
+        320: 120px,
+        900: 145px,
+    ),
+
+    'iconSignBorder': 3px solid transparent,
+    'iconSignRadius': 50%,
+    'iconSignBackground': ef.get('mainColors', 'baseMain'),
+    'iconSignSize': (
+        320: 120px,
+        900: 130px,
+        1630: 145px,
+    ),
+
+    'moreIconDisplay': (
+        375: inline-block,
+        900: none,
+    ),
+
+    'bonusNameDisplay': (
+        375: block,
+        900: none,
+    ),
+    'bonusNameStyle': 'ThirdTitleBold',
+    'bonusNameColor': ef.get('mainColors', 'baseMain'),
+
+    'bonusDescriptionStyle': 'PlaceholderText',
+    'bonusDescriptionColor': ef.get('mainColors', 'baseMain'),
+
+    'bonusIconValueFontSizeSmall': 1.4rem,
+    'bonusIconValueFontSizeSmaller': 1rem,
+), $customThemePartial);

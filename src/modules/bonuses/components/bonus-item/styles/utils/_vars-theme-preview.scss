@@ -1,0 +1,59 @@
+@use 'engine-scss/functions' as ef;
+
+
+$customThemePreview: () !default;
+$themePreview: map-merge((
+    'hostHeight': 100%,
+    'hostAlignContent': baseline,
+    'hostJustifyItems': center,
+    'hostTextAlign': center,
+    'hostRadius': 0,
+    'hostRowOffset': (
+        375: ef.size(6),
+        1630: ef.size(12),
+    ),
+    'hostColOffset': (
+        375: 0,
+    ),
+
+    'contentHeigh': 100%,
+
+    'tagFontColor': ef.get('mainColors', 'baseMain'),
+    'tagBg': none,
+    'tagPadding': 0,
+
+    'iconSignBoreder': 3px solid transparent,
+    'iconSignRadius': 50%,
+    'iconSignBackground': ef.get('mainColors', 'baseMain'),
+    'iconSignSize': (
+        900: 180px,
+        1630: 205px,
+    ),
+    'iconSignShadow': 0 1px 14px 0 rgba(ef.get('fieldColors', 'textColor'), 0.15),
+
+    'moreIconPosRight': 0,
+    'moreIconPosTop': 0,
+
+    'iconTextStyle': 'QoteTextBold',
+    'iconTextColor': ef.get-value($themeDefault, 'bonusIconValueFontColor'),
+    'iconTextRadius': ef.get('radius', 'big'),
+
+    'bonusNameMargin': 0 0 ef.size(2) 0,
+    'bonusNameStyle': 'PromoTitle',
+    'bonusNameColor': ef.get('mainColors', 'baseMain'),
+
+    'bonusDescriptionStyle': 'ThirdTitle',
+    'bonusDescriptionColor': ef.get('mainColors', 'baseMain'),
+
+    'bonusHeight': 100%,
+    'bonusBackround': rgba(ef.get('fieldColors', 'textColor'), 0.4),
+    'bonusTitleStyle': 'PromoTitle',
+    'bonusTitleMargin': auto auto ef.size(6),
+    'bonusSubtitleStyle': 'PrimaryText',
+    'bonusSubtitleMargin': 0 auto auto,
+    'bonusTextStyle': 'ThirdTitle',
+    'bonusPadding': ef.size(6) ef.size(12) ef.size(15),
+    'bonusBackground': ef.get('mainColors', 'bg300'),
+
+    'bonusIconValueFontSizeSmaller': 1.4rem,
+), $customThemePreview);

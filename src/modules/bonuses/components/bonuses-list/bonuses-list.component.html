@@ -57,6 +57,7 @@
 
 <ng-template #promoHome>
     <ng-container *ngIf="bonuses?.length && isReady; else: noBonuses">
+        <div class="{{$class}}__tag">{{'Bonuses' | translate}}</div>
         <div wlc-slider
              class="{{$class}}__slider"
              type="dashboard"

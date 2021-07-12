@@ -1,12 +1,13 @@
 @import './utils/vars';
-@import './utils/vars-reg-first';
 @import './utils/mixins';
+
+@import './utils/vars-reg-first';
 @import './themes/default';
 @import './themes/promo';
 @import './themes/long';
-@import './themes/grid';
 @import './themes/partial';
 @import './themes/preview';
 @import './themes/promo-home';
 @import './themes/reg-first';
 @import './themes/active';
+@import './themes/theme-mod-chip-v2';

@@ -2,45 +2,6 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
-    'fontHeightDescription': (
-        375: 100%
-    ),
-    'imgHeightLandscape': 100%,
-    'titlePadding': 0 ef.get('size', 'smally'),
-    'fontStyleDescription': 'SignText',
-    'fontColorDescription': ef.get('mainColors', 'baseMain'),
-
-    'fontBonus': 'ThirdTitleBold',
-    'fontBonusColor': ef.get('mainColors', 'baseMain'),
-
-    'fontStyleQuantity':  'ThirdTitleBold',
-    'fontColorQuantity': ef.get('fieldColors', 'textColor'),
-
-    'iconTextWidth': 50px,
-    'iconTextBottom': ef.get('size', 'small'),
-    'iconTextTransform': translate(-50%, 0%),
-
     'buttonTop': 120px,
-    'fillColor': ef.get('mainColors', 'baseMain'),
-
-    'bonusItem': 0 0 ef.get('size', 'smaller'),
-
-    'imageBlockAreas': 36px 1fr 70px,
-    'imageBlockAreasLandskape': minmax(min-content, 36px) 1fr minmax(min-content, 70px),
-    'imageBlockHeight': 200px,
-
-    'iconTextMargin': 0,
-
-    'wrapperColumns': minmax(0, 1fr),
-    'bonusNameMargin': 0 0 ef.get('size', 'small'),
-    'bonusContentPadding': 0 0 ef.get('size', 'less'),
-
-    'bonusProgressMargin': 0 0 ef.get('size', 'smaller') !important,
-
-    'swiperSlidePadding': 0 ef.get('size', 'smaller'),
     'swiperSlideHeight': 90%,
-
-    'bonusWrpHeight': 350px,
-    'bonusBtnPadding':   ef.get('size', 'smaller') 0 0,
 ), $customThemeDefault);
-

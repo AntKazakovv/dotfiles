@@ -1,0 +1,45 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/text' as text;
+
+.wlc-bonus-item {
+
+    &.wlc-bonus-item--theme-mod-chip-v2 {
+
+        .wlc-bonus-item {
+
+            &__icon {
+
+                &-text {
+                    @include text.get-text-style(ef.get-value($chipV2, 'bonusIconValTextStyle'), ef.get-value($chipV2, 'bonusIconValTextColor'));
+
+                    right: ef.get-value($chipV2, 'bonusIconValPosR');
+                    bottom: ef.get-value($chipV2, 'bonusIconValPosB');
+                    left: initial;
+
+                    width: initial;
+                    min-width: ef.get-value($chipV2, 'bonusIconValSize');
+                    height: ef.get-value($chipV2, 'bonusIconValSize');
+                    margin: ef.get-value($chipV2, 'bonusIconValMargin');
+                    padding: ef.get-value($chipV2, 'bonusIconValPadding');
+                    line-height: 1;
+                    border-radius: ef.get-value($chipV2, 'bonusIconValRadius');
+                    box-shadow: ef.get-value($chipV2, 'bonusIconValShadow');
+                    transform: none;
+
+                    &.wlc-small {
+                        @include text.get-text-style(ef.get-value($chipV2, 'longValTextStyle'), ef.get-value($chipV2, 'bonusIconValTextColor'));
+
+                        right: ef.get-value($chipV2, 'longValPosR');
+                    }
+                }
+            }
+        }
+
+        &.wlc-bonus-item--theme-preview {
+
+            .wlc-bonus-item__icon-text {
+                @include text.get-text-style(ef.get-value($chipV2, 'previewBonusIconValTextStyle'), ef.get-value($chipV2, 'bonusIconValTextColor'));
+            }
+        }
+    }
+}

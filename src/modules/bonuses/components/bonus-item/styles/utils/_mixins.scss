@@ -9,7 +9,6 @@
     position: relative;
     margin-right: auto;
     margin-left: auto;
-    border-radius: ef.get-value($themeDefault, 'radius');
     overflow: hidden;
 }
 
@@ -23,26 +22,6 @@
 @mixin imageCommonStyles {
     position: relative;
     width: ef.get-value($themeDefault, 'imageWidth');
-    background-color: ef.get-value($themeDefault, 'imageBg');
-    background-repeat: ef.get-value($themeDefault, 'imageBgRepeat');
-    background-position: ef.get-value($themeDefault, 'imageBgPos');
-    background-size: ef.get-value($themeDefault, 'imageBgSize');
-}
-
-@mixin tagCommonStyles {
-    @include em.get-mq-map('padding', $themeDefault, 'tagPadding');
-    @include text.get-text-style('SignText', ef.get-value($themeDefault, 'tagFontColor'));
-
-    position: absolute;
-    top: ef.get-value($themeDefault, 'tagPositionTop');
-    left: ef.get-value($themeDefault, 'tagPositionLeft');
-    z-index: ef.get-value($themeDefault, 'tagZIndex');
-
-    border-radius: ef.get-value($themeDefault, 'tagRadius');
-    white-space: nowrap;
-    background-color: ef.get-value($themeDefault, 'tagBg');
-
-    transform: ef.get-value($themeDefault, 'tagTransform');
 }
 
 @mixin infoBlockCommonStyles {
@@ -50,170 +29,79 @@
     flex-direction: ef.get-value($themeDefault, 'infoDirection');
     align-items: ef.get-value($themeDefault, 'infoAlignItems');
     padding: ef.get-value($themeDefault, 'infoPadding');
-    overflow: hidden;
+    text-align: ef.get-value($themeDefault, 'infoTextAlign');
 }
 
 @mixin nameCommonStyles {
-    @include text.get-text-style('QoteTextBoldSmaller', ef.get-value($themeDefault, 'nameFontColor'));
-    text-align: ef.get-value($themeDefault, 'positionText');
+    @include text.get-text-style(ef.get-value($themeDefault, 'nameTextStyle', 375), ef.get-value($themeDefault, 'nameFontColor'));
+
+    max-width: 100%;
 
     @include mq.min(1630) {
-        @include text.get-text-style('QoteTextBold', ef.get-value($themeDefault, 'nameFontColor'));
+        @include text.get-text-style(ef.get-value($themeDefault, 'nameTextStyle', 1630), ef.get-value($themeDefault, 'nameFontColor'));
     }
 }
 
 @mixin descriptionCommonStyles {
-    @include text.get-text-style('PrimaryText', ef.get-value($themeDefault, 'descriptionFontColor'));
+    @include text.get-text-style(ef.get-value($themeDefault, 'descriptionTextStyle', 375), ef.get-value($themeDefault, 'descriptionFontColor'));
     @include em.transition(opacity);
-    text-align: ef.get-value($themeDefault, 'positionText');
+
+    max-width: 100%;
 }
 
-@mixin moreIconCommonStyles {
-    position: absolute;
-    top: ef.get-value($themeDefault, 'moreIconPosTop');
-    right: ef.get-value($themeDefault, 'moreIconPosRight');
-    bottom: ef.get-value($themeDefault, 'moreIconPosBottom');
-    left: ef.get-value($themeDefault, 'moreIconPosLeft');
-
-    .icon-btn {
-        width: ef.get-value($themeDefault, 'moreIconSize');
-        height: ef.get-value($themeDefault, 'moreIconSize');
-        cursor: pointer;
-
-        svg {
-            @include em.transition(fill);
-            width: ef.get-value($themeDefault, 'moreIconSize');
-            fill: ef.get-value($themeDefault, 'moreIconColor');
-        }
-    }
-
-    @include em.hover {
-
-        .icon-btn {
-
-            svg {
-                fill: ef.get-value($themeDefault, 'moreIconColorHover');
-            }
-        }
-    }
-}
-
-@mixin bonusProgress {
-
-    &__timer {
-        margin: ef.get-value($themeDefault, 'activeBlockTimerMargin');
-    }
-
-    &__progress {
-        @include em.get-mq-map('margin', $themeDefault, 'activeBlockProgressMargin');
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding: ef.get-value($themeDefault, 'activeBlockProgressPadding');
-        background-color: ef.get-value($themeDefault, 'activeBlockProgressBg');
-        border-radius: ef.get-value($themeDefault, 'activeBlockProgressRadius');
-        transition: all ef.get-value($themeDefault, 'time') ease-in-out;
-    }
-
-    &__remaning {
-        @include text.get-text-style(ef.get-value($themeDefault, 'remaningText'), ef.get-value($themeDefault, 'remaningTextColor'));
-        text-align: center;
-    }
-
-    &__progressbar {
-        width: 100%;
-        height: ef.get-value($themeDefault, 'progressBarSize');
-        margin: ef.get-value($themeDefault, 'progressBarMargin');
-        border-radius: ef.get-value($themeDefault, 'progressBarRadius');
-        background: ef.get-value($themeDefault, 'progressBarBg');
-        overflow: hidden;
-    }
-
-    &__secondary {
-        @include text.get-text-style(ef.get-value($themeDefault, 'progressbarText'), ef.get-value($themeDefault, 'progressbarTextColor'));
-    }
-
-    &__progress-inner {
-        width: 100%;
-        height: 100%;
-        background: ef.get-value($themeDefault, 'progressBarColor');
-    }
-}
-
-@mixin backgrounds {
+@mixin viewsBackgrounds {
 
     &.wlc-bonus-item--view-experience {
 
-        .wlc-bonus-item__content {
+        .wlc-bonus-item__wrapper {
             background: ef.get-value($themeDefault, 'backgroundExperience');
-            background-size: ef.get-value($themeDefault, 'imageBgSize');
 
-            .wlc-bonus-item__wrapper {
-
-                @include em.hover {
-                    background: ef.get-value($themeDefault, 'backgroundExperienceHover');
-                }
+            &:before {
+                background: ef.get-value($themeDefault, 'backgroundExperienceHover');
             }
         }
     }
 
     &.wlc-bonus-item--view-loyalty {
 
-        .wlc-bonus-item__content {
+        .wlc-bonus-item__wrapper {
             background: ef.get-value($themeDefault, 'backgroundLoyalty');
-            background-size: ef.get-value($themeDefault, 'imageBgSize');
 
-            .wlc-bonus-item__wrapper {
-
-                @include em.hover {
-                    background: ef.get-value($themeDefault, 'backgroundLoyaltyHover');
-                }
+            &:before {
+                background: ef.get-value($themeDefault, 'backgroundLoyaltyHover');
             }
         }
     }
 
     &.wlc-bonus-item--view-balance {
 
-        .wlc-bonus-item__content {
+        .wlc-bonus-item__wrapper {
             background: ef.get-value($themeDefault, 'backgroundBalance');
-            background-size: ef.get-value($themeDefault, 'imageBgSize');
 
-            .wlc-bonus-item__wrapper {
-
-                @include em.hover {
-                    background: ef.get-value($themeDefault, 'backgroundBalanceHover');
-                }
+            &:before {
+                background: ef.get-value($themeDefault, 'backgroundBalanceHover');
             }
         }
     }
 
     &.wlc-bonus-item--view-freerounds {
 
-        .wlc-bonus-item__content {
+        .wlc-bonus-item__wrapper {
             background: ef.get-value($themeDefault, 'backgroundFreerounds');
-            background-size: ef.get-value($themeDefault, 'imageBgSize');
 
-            .wlc-bonus-item__wrapper {
-
-                @include em.hover {
-                    background: ef.get-value($themeDefault, 'backgroundFreeroundsHover');
-                }
+            &:before {
+                background: ef.get-value($themeDefault, 'backgroundFreeroundsHover');
             }
         }
     }
 
     &.wlc-bonus-item--view-relative {
 
-        .wlc-bonus-item__content {
+        .wlc-bonus-item__wrapper {
             background: ef.get-value($themeDefault, 'backgroundRelative');
-            background-size: ef.get-value($themeDefault, 'imageBgSize');
 
-            .wlc-bonus-item__wrapper {
-
-                @include em.hover {
-                    background: ef.get-value($themeDefault, 'backgroundRelativeHover');
-                }
+            &:before {
+                background: ef.get-value($themeDefault, 'backgroundRelativeHover');
             }
         }
     }

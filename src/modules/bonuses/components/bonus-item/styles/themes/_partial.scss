@@ -4,52 +4,12 @@
 @use 'engine-scss/mixins/mediaqueries' as mq;
 
 .wlc-bonus-item--theme-partial {
+    overflow: initial;
 
     .wlc-bonus-item {
 
         &__content {
-
-            &.chosen {
-
-                .wlc-bonus-item__icon-sign {
-                    border-color: ef.get-value($themePartial, 'blankIconSignBorderColor');
-                }
-            }
-
-            &.blank-bonus {
-
-                .wlc-bonus-item {
-
-                    &__icon-sign {
-
-                        @include em.get-mq-map('padding', $themePartial, 'blankIconSignPadding');
-                        @include em.get-mq-map('background', $themePartial, 'blankIconSignBackground');
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-
-                        &.chosen {
-                            border-color: ef.get-value($themePartial, 'blankIconSignChosenBorderColor');
-                        }
-
-                        .wlc-bonus-item__name {
-                            @include em.lineClamp(2);
-                            display: block;
-                            color: ef.get-value($themePartial, 'blankCheckNameColor');
-                        }
-                    }
-
-                    &__check-icon {
-                        @include em.get-mq-map('background', $themePartial, 'blankCheckIconBackground');
-                    }
-
-                    &__icon-text,
-                    &__more-icon,
-                    &__name {
-                        display: none;
-                    }
-                }
-            }
+            border-radius: ef.get-value($themePartial, 'contentRadius');
         }
 
         &__body {
@@ -58,9 +18,16 @@
             @include em.get-mq-map('padding', $themePartial, 'bodyPadding');
             @include em.get-mq-map('background', $themePartial, 'bodyBackground');
             position: relative;
+
+            display: grid;
+            grid-row-gap: ef.get-value($themePartial, 'bodyRowOffset');
+            grid-column-gap: ef.get-value($themePartial, 'bodyColOffset');
+            align-content: ef.get-value($themePartial, 'bodyAlignContent');
+            justify-items: ef.get-value($themePartial, 'bodyJustifyItems');
             margin: ef.get-value($themePartial, 'bodyMarign');
+
             border-radius: ef.get-value($themePartial, 'bodyRadius');
-            text-align: center;
+            text-align: ef.get-value($themePartial, 'bodyTextAlign');
         }
 
         &__footer {
@@ -77,6 +44,8 @@
 
             position: absolute;
             right: ef.get-value($themePartial, 'checkIconRightPos');
+            z-index: 10;
+
             display: flex;
             align-items: center;
             justify-content: center;
@@ -103,126 +72,71 @@
             }
         }
 
-        &__bonus-icon {
-            @include em.get-mq-map('max-width', $themePartial, 'bonusIconMaxWidth');
-            @include em.get-mq-map('margin', $themePartial, 'bonusIconMargin');
-            position: relative;
-
-            display: flex;
-            justify-content: center;
-        }
-
-        &__icon-sign {
+        &__icon {
             @include em.get-mq-map('width', $themePartial, 'iconSignSize');
             @include em.get-mq-map('height', $themePartial, 'iconSignSize');
-            @include em.transition(border-color);
-            border: ef.get-value($themePartial, 'iconSignBorder');
-            border-radius: ef.get-value($themePartial, 'iconSignRadius');
-            background: ef.get-value($themePartial, 'iconSignBackground');
+
             cursor: pointer;
+
+            &-sign {
+                @include em.transition(border-color);
+
+                background: ef.get-value($themePartial, 'iconSignBackground');
+                border: ef.get-value($themePartial, 'iconSignBorder');
+
+                &--empty {
+                    @include em.get-mq-map('background', $themePartial, 'blankIconSignBackground');
+                    @include em.get-mq-map('padding', $themePartial, 'blankIconSignPadding');
+
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    .wlc-bonus-item__name {
+                        @include em.lineClamp(2);
+                        color: ef.get-value($themePartial, 'blankCheckNameColor');
+                    }
+                }
+            }
 
             @include em.hover {
-                border-color: ef.get-value($themePartial, 'blankIconSignBorderColor');
-            }
-        }
 
-        &__icon-text {
-            @include em.get-mq-map('bottom', $themePartial, 'iconTextBottomPos');
-
-            @include em.get-mq-map('height', $themePartial, 'iconTextHeight');
-            @include em.get-mq-map('max-width', $themePartial, 'iconTextMaxWidth');
-
-            @include text.get-text-style(ef.get-value($themePartial, 'iconTextStyle'), ef.get-value($themePartial, 'iconTextColor'));
-            @include em.get-mq-map('border-radius', $themePartial, 'iconTextRadius');
-
-            position: absolute;
-            right: ef.get-value($themePartial, 'iconTextRightPos');
-            left: ef.get-value($themePartial, 'iconTextLeftPos');
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: ef.get-value($themePartial, 'iconTextMargin');
-            white-space: nowrap;
-            text-overflow: ellipsis;
-
-            background: ef.get-value($themePartial, 'iconTextBackground');
-            cursor: pointer;
-
-            overflow: hidden;
-
-            &.wlc-small {
-                @include text.get-text-style(ef.get-value($themePartial, 'iconTextStyle'), ef.get-value($themePartial, 'iconTextColor'));
-            }
-
-            &.wlc-smaller {
-                @include em.get-mq-map('font-size', $themePartial, 'bonusIconValueFontSizeSmaller');
+                &-sign {
+                    border-color: ef.get-value($themePartial, 'blankIconSignBorderColor');
+                }
             }
         }
 
         &__more-icon {
             @include em.get-mq-map('display', $themePartial, 'moreIconDisplay');
-            position: absolute;
-            top: ef.get-value($themePartial, 'moreIconTopPos');
-            right: ef.get-value($themePartial, 'moreIconRightPos');
-            left: auto;
-
-            line-height: 0;
-
-            .wlc-icon,
-            span {
-                display: inline-block;
-            }
-
-            svg {
-                width: ef.get-value($themePartial, 'moreIconSvgSize');
-                height: ef.get-value($themePartial, 'moreIconSvgSize');
-                fill: ef.get-value($themePartial, 'moreIconSvgFill');
-            }
         }
 
         &__name {
             @include em.get-mq-map('display', $themePartial, 'bonusNameDisplay');
             @include text.get-text-style(ef.get-value($themePartial, 'bonusNameStyle'), ef.get-value($themePartial, 'bonusNameColor'));
-
             @include em.lineClamp(2);
         }
 
         &__description {
             @include text.get-text-style(ef.get-value($themePartial, 'bonusDescriptionStyle'), ef.get-value($themePartial, 'bonusDescriptionColor'));
-
             @include em.lineClamp(4);
+
             text-align: justify;
         }
     }
 
-    @include em.hover {
+    .chosen {
 
-        .wlc-bonus-item {
-
-            &__content {
-
-                .wlc-bonus-item__icon-sign {
-                    border-color: ef.get-value($themePartial, 'blankIconSignBorderColor');
-                }
-            }
+        .wlc-bonus-item__icon-sign {
+            border-color: ef.get-value($themePartial, 'blankIconSignBorderColor');
         }
     }
 
-    &.wlc-bonus-item--theme-mod-chip-v2 {
 
-        .wlc-bonus-item__icon-text {
-            @include text.get-text-style(ef.get-value($chipV2, 'bonusIconValTextStyle'), ef.get-value($chipV2, 'bonusIconValTextColor'));
-            @include em.get-mq-map('min-width', $chipV2, 'partialBonusIconValMinWidth');
-            @include em.get-mq-map('height', $chipV2, 'partialBonusIconValHeight');
-            @include em.get-mq-map('bottom', $chipV2, 'partialBonusIconValPosB');
-            @include em.get-mq-map('left', $chipV2, 'partialBonusIconValPosL');
+    @include em.hover {
 
-            right: ef.get-value($chipV2, 'bonusIconValPosR');
-            width: ef.get-value($chipV2, 'bonusIconValWidth');
-            max-width: ef.get-value($chipV2, 'bonusIconValMaxWidth');
-
-            margin: ef.get-value($chipV2, 'bonusIconValMargin');
-            border-radius: ef.get-value($chipV2, 'bonusIconValRadius');
+        .wlc-bonus-item__icon-sign {
+            border-color: ef.get-value($themePartial, 'blankIconSignBorderColor');
         }
     }
 }

@@ -2,282 +2,152 @@
 @use 'engine-scss/mixins/text' as text;
 @use 'engine-scss/mixins/base.mixins' as em;
 @use 'engine-scss/functions' as ef;
-@import '../utils/vars';
 
 .wlc-bonus-item--theme-promo {
+    @include em.get-mq-map('max-width', $themePromo, 'maxWidth');
+    @include em.transition(background);
+
+    width: 100%;
+    max-width: 790px;
+    background: ef.get-value($themePromo, 'background');
+    border-radius: ef.get-value($themePromo, 'radius');
+    overflow: hidden;
 
     .wlc-bonus-item {
 
         &__content {
-            position: relative;
-            background: ef.get-value($themePromo, 'background');
             @include em.get-mq-map('height', $themePromo, 'height');
-            @include em.get-mq-map('min-width', $themePromo, 'minWidth');
-            @include em.get-mq-map('max-width', $themePromo, 'maxWidth');
-            border-radius: ef.get-value($themePromo, 'radius');
-            overflow: hidden;
-            margin-left: auto;
-            margin-right: auto;
 
-
-            @include em.hover {
-                background: ef.get-value($themePromo, 'backgroundHover');
-            }
+            position: relative;
 
             &.subscribed,
             &.active,
             &.inventoried {
 
                 .wlc-bonus-item__tag {
-                    @include text.get-text-style('ThirdTitleBold', ef.get-value($themePromo, 'tagFontColor2'));
+                    color: ef.get-value($themePromo, 'tagFontColor2');
                 }
             }
         }
 
         &__wrapper {
+            @include em.get-mq-map('grid-template-areas', $themePromo, 'wrapperAreas');
+            @include em.get-mq-map('grid-template-columns', $themePromo, 'wrapperColumns');
+
             position: relative;
             display: grid;
-            @include em.get-mq-map('grid-template-columns', $themePromo, 'gridTemplateCols');
-        }
-
-        &__image-block {
-            @include em.get-mq-map('height', $themePromo, 'imgHeight');
-            @include em.get-mq-map('width', $themePromo, 'imgWidth');
-            @include em.get-mq-map('top', $themePromo, 'imgTop');
-            @include em.get-mq-map('right', $themePromo, 'imgRight');
-            position: absolute;
-
-            @include mq.min(560) {
-                position: relative;
-            }
-        }
-
-        &__info-block {
-            @include em.get-mq-map('height', $themePromo, 'height');
-            overflow: hidden;
-            @include em.get-mq-map('padding', $themePromo, 'infoPadding');
-            position: relative;
-            display: flex;
-            flex-direction: column;
             justify-content: space-between;
         }
 
+        &__image-block {
+            @include em.get-mq-map('grid-area', $themePromo, 'imgBlockAreaName');
+            @include em.get-mq-map('padding', $themePromo, 'imgPadding');
+
+            position: relative;
+            z-index: 0;
+            width: 100%;
+        }
+
         &__image {
+            position: absolute;
+            top: 0;
+            left: 0;
+
             width: 100%;
             height: 100%;
-            background-size: cover;
-            background-position: center center;
-            background-repeat: no-repeat;
-            background-color: ef.get-value($themePromo, 'imageBg');
-            display: none;
 
-            @include mq.min(560) {
+            background: ef.get-value($themePromo, 'imageBg');
+
+            &:before {
+                @include em.get-mq-map('background', $themePromo, 'imgOverlay');
+
+                content: '';
+                position: absolute;
                 display: block;
+                width: 100%;
+                height: 100%;
             }
         }
 
-        &__bonus-icon {
-            @include em.get-mq-map('width', $themePromo, 'bonusIconSize');
-            @include em.get-mq-map('height', $themePromo, 'bonusIconSize');
-            @include em.get-mq-map('left', $themePromo, 'bonusIconLeft');
-            @include em.get-mq-map('top', $themePromo, 'bonusIconTop');
-            background-repeat: no-repeat;
-            background-size: cover;
-            background-position: center center;
-            border-radius: ef.get-value($themePromo, 'bonusIconRadius');
-            box-shadow: ef.get-value($themePromo, 'bonusIconShadow');
-            position: absolute;
+        &__icon {
+            @include em.get-mq-map('margin', $themePromo, 'iconMargin');
+        }
 
-            .icon-sign {
-                position: absolute;
-                width: 100%;
-                left: 0;
-                top: 0;
-            }
+        &__info-block {
+            @include em.get-mq-map('grid-area', $themePromo, 'infoAreaName');
+            @include em.get-mq-map('height', $themePromo, 'height');
+            @include em.get-mq-map('padding', $themePromo, 'infoPadding');
+            @include em.get-mq-map('grid-gap', $themePromo, 'infoGap');
+            @include em.get-mq-map('justify-items', $themePromo, 'infoJustifyItems');
 
-            .icon-text {
-                @include em.get-mq-map('width', $themePromo, 'bonusIconValueBlockWidth');
-                @include em.get-mq-map('height', $themePromo, 'bonusIconValueBlockHeight');
-                @include em.get-mq-map('font-size', $themePromo, 'bonusIconValueFontSize');
-                @include em.get-mq-map('bottom', $themePromo, 'bonusIconValueBlockPosB');
-                @include em.get-mq-map('margin', $themePromo, 'bonusIconValueBlockMagin');
-                @include em.get-mq-map('left', $themePromo, 'bonusIconValueBlockPosL');
+            position: relative;
+            z-index: 1;
 
-                border-radius: ef.get-value($themePromo, 'bonusIconValueBlockBorderRds');
-                background-color: ef.get-value($themePromo, 'bonusIconValueBg');
-                color: ef.get-value($themePromo, 'bonusIconValueFontColor');
-                font-weight: ef.get-value($themePromo, 'bonusIconValueFontW');
-                position: absolute;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                line-height: 1;
+            display: grid;
+            grid-template-areas: ef.get-value($themePromo, 'infoAreas');
+            grid-template-rows: ef.get-value($themePromo, 'infoRows');
+            min-width: 0;
+            max-width: 100%;
 
-                &.wlc-small {
-                    @include em.get-mq-map('font-size', $themePromo, 'bonusIconValueFontSizeSmall');
-                }
-
-                &.wlc-smaller {
-                    @include em.get-mq-map('font-size', $themePromo, 'bonusIconValueFontSizeSmaller');
-                }
-            }
+            overflow: hidden;
         }
 
         &__tag {
             @include text.get-text-style('ThirdTitleBold', ef.get-value($themePromo, 'tagFontColor'));
             @include em.get-mq-map('max-width', $themePromo, 'tagMaxWidth');
-            /* stylelint-disable */
-            display: -webkit-box;
-            -webkit-line-clamp: 1;
-            -webkit-box-orient: vertical;
-            /* stylelint-enable */
-            overflow: hidden;
-            word-break: break-word;
+            @include em.lineClamp(1);
+
+            grid-area: tag;
+            justify-self: ef.get-value($themePromo, 'tagJusfity');
+            padding: ef.get-value($themePromo, 'tagPadding');
+            background: ef.get-value($themePromo, 'tagBg');
         }
 
-        &__name {
-            color: ef.get-value($themePromo, 'nameFontColor');
-            @include em.get-mq-map('font-size', $themePromo, 'nameFontSize');
-            font-weight: bold;
-            line-height: 1.5;
-            @include em.get-mq-map('max-width', $themePromo, 'nameMaxWidth');
-            @include em.get-mq-map('min-height', $themePromo, 'nameHeight');
-            @include em.get-mq-map('margin', $themePromo, 'nameMargin');
+        &__info {
+            @include em.get-mq-map('text-align', $themePromo, 'infoJustifyItems');
 
-            /* stylelint-disable */
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            /* stylelint-enable */
-            overflow: hidden;
-            word-break: break-word;
-        }
-
-        &__description {
-            @include text.get-text-style('ThirdTitle', ef.get-value($themePromo, 'descriptionFontColor'));
-            /* stylelint-disable */
-            display: -webkit-box;
-            -webkit-line-clamp: 1;
-            -webkit-box-orient: vertical;
-            /* stylelint-enable */
-            overflow: hidden;
-
-            @include mq.min(560) {
-                /* stylelint-disable */
-                -webkit-line-clamp: 3;
-                /* stylelint-enable */
-            }
-        }
-
-        &__more-icon {
-            position: absolute;
-            @include em.get-mq-map('top', $themePromo, 'moreIconPosTop');
-            @include em.get-mq-map('right', $themePromo, 'moreIconPosRight');
-
-            .icon-btn {
-                cursor: pointer;
-                width: ef.get-value($themePromo, 'moreIconSize');
-                height: ef.get-value($themePromo, 'moreIconSize');
-
-                svg {
-                    width: 100%;
-                    fill: ef.get-value($themePromo, 'moreIconColor');
-                    @include em.transition(fill);
-                }
-            }
-
-            @include em.hover {
-
-                .icon-btn {
-
-                    svg {
-                        fill: ef.get-value($themePromo, 'moreIconColorHover');
-                    }
-                }
-            }
+            grid-area: info;
         }
 
         &__btns {
+            grid-area: buttons;
+            justify-content: ef.get-value($themePromo, 'btnsJustifyContent');
+        }
 
-            button {
-                margin: ef.get-value($themePromo, 'btnMargin');
+        &__name {
+            @include em.get-mq-map('margin', $themePromo, 'nameMargin');
+            @include em.lineClamp(2);
+            @include text.get-text-style(ef.get-value($themePromo, 'nameTextStyle', 375), ef.get-value($themePromo, 'nameFontColor'));
+
+            @include mq.min(900) {
+                @include text.get-text-style(ef.get-value($themePromo, 'nameTextStyle', 900), ef.get-value($themePromo, 'nameFontColor'));
             }
+
+            @include mq.min(1200) {
+                @include text.get-text-style(ef.get-value($themePromo, 'nameTextStyle', 1200), ef.get-value($themePromo, 'nameFontColor'));
+            }
+
+            @include mq.min(1630) {
+                @include text.get-text-style(ef.get-value($themePromo, 'nameTextStyle', 1630), ef.get-value($themePromo, 'nameFontColor'));
+            }
+        }
+
+        &__description {
+            @include text.get-text-style(ef.get-value($themePromo, 'descrTextStyle'), ef.get-value($themePromo, 'descriptionFontColor'));
+            @include em.lineClamp(3);
         }
     }
 
-    &.wlc-bonus-item--view-experience {
+    &.wlc-bonus-item--type-active,
+    .active {
 
-        .wlc-bonus-item__content {
-            background: ef.get-value($themePromo, 'backgroundExperience');
-
-            @include em.hover {
-                background: ef.get-value($themePromo, 'backgroundExperienceHover');
-            }
+        .wlc-bonus-item__tag {
+            color: ef.get-value($themePromo, 'tagFontColor2');
+            background: ef.get-value($themePromo, 'tagBg2');
         }
     }
 
-    &.wlc-bonus-item--view-loyalty {
-
-        .wlc-bonus-item__content {
-            background: ef.get-value($themePromo, 'backgroundLoyalty');
-
-            @include em.hover {
-                background: ef.get-value($themePromo, 'backgroundLoyaltyHover');
-            }
-        }
-    }
-
-    &.wlc-bonus-item--view-balance {
-
-        .wlc-bonus-item__content {
-            background: ef.get-value($themePromo, 'backgroundBalance');
-
-            @include em.hover {
-                background: ef.get-value($themePromo, 'backgroundBalanceHover');
-            }
-        }
-    }
-
-    &.wlc-bonus-item--view-freerounds {
-
-        .wlc-bonus-item__content {
-            background: ef.get-value($themePromo, 'backgroundFreerounds');
-
-            @include em.hover {
-                background: ef.get-value($themePromo, 'backgroundFreeroundsHover');
-            }
-        }
-    }
-
-    &.wlc-bonus-item--view-relative {
-
-        .wlc-bonus-item__content {
-            background: ef.get-value($themePromo, 'backgroundRelative');
-
-            @include em.hover {
-                background: ef.get-value($themePromo, 'backgroundRelativeHover');
-            }
-        }
-    }
-
-    &.wlc-bonus-item--theme-mod-chip-v2 {
-
-        .wlc-bonus-item {
-
-            &__bonus-icon {
-
-                .icon-text {
-                    @include text.get-text-style(ef.get-value($chipV2, 'bonusIconValTextStyle'), ef.get-value($chipV2, 'bonusIconValTextColor'));
-                    @include em.get-mq-map('min-width', $chipV2, 'promoBonusIconValMinWidth');
-                    @include em.get-mq-map('height', $chipV2, 'promoBonusIconValHeight');
-                    @include em.get-mq-map('bottom', $chipV2, 'promoBonusIconValPosB');
-                    @include em.get-mq-map('left', $chipV2, 'promoBonusIconValPosL');
-
-                    width: ef.get-value($chipV2, 'bonusIconValWidth');
-                    margin: ef.get-value($chipV2, 'bonusIconValMargin');
-                    border-radius: ef.get-value($chipV2, 'bonusIconValRadius');
-                }
-            }
-        }
+    @include em.hover() {
+        background: ef.get-value($themePromo, 'backgroundHover');
     }
 }

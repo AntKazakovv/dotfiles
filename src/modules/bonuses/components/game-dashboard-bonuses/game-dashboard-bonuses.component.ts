@@ -112,9 +112,8 @@ export class GameDashboardBonusesComponent extends AbstractComponent implements 
      */
     protected bonusesToSlides(): void {
         this.slides = this.bonuses?.map((bonus: Bonus) => {
-            const bonusTheme: string = this.landscapeOrientation && this.isMobile ? 'grid' : 'long';
             const bonusItemParams = {
-                theme: bonusTheme,
+                theme: 'long',
                 type: 'all',
                 common: {
                     bonus: bonus,

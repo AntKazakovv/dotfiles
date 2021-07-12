@@ -2,12 +2,15 @@
 
 $customThemeRegFirst: () !default;
 $themeRegFirst: map-merge((
-    // // Size
+    'background': ef.get-value($themeDefault, 'backgroundDefault'),
+    'backgroundHover': ef.get-value($themeDefault, 'backgroundDefaultHover'),
+
     'minWidth': 250px,
     'maxWidth': (
         320: 260px,
         1630: 320px,
     ),
+    'itemMargin': 0 auto,
     'infoWidth': (
         320: 230px,
         1630: 290px,
@@ -16,6 +19,7 @@ $themeRegFirst: map-merge((
         320: (minmax(auto, 150px) 130px),
         1630: (minmax(auto, 225px) 145px),
     ),
+    'contentRadius': ef.get-value($themeDefault, 'radius'),
     'chosenNoBorder': 2px solid transparent,
     'chosenBorder': 2px solid ef.get('mainColors', 'success'),
     'imageHeight': 100%,
@@ -24,4 +28,8 @@ $themeRegFirst: map-merge((
     'imageOtherObjectFit': cover,
     'imageOtherObjectPos': center,
     'imagePadding': 0,
+
+    'tagPosLeft': 50%,
+    'tagPosTop': ef.size(4),
+    'tagTransform': translateX(-50%),
 ), $customThemeRegFirst);

@@ -8,10 +8,6 @@
 
     .wlc-recommended-bonuses {
 
-        &__item {
-            @include bm.get-mq-map('margin', $themeDefault, 'itemMargin');
-        }
-
         &__title {
             @include text.get-text-style(ef.get-value($themeDefault, 'titleFontStyle'), ef.get-value($themeDefault, 'titleColor'));
             @include bm.get-mq-map('margin', $themeDefault, 'titleMargin');
@@ -40,6 +36,10 @@
                 .swiper-wrapper[class] {
                     justify-content: ef.get-value($themeDefault, 'swiperContainerJustifyContent');
                 }
+            }
+
+            &:not(.single-bonus-swiper) {
+                @include bm.get-mq-map('margin', $themeDefault, 'sliderMargin');
             }
         }
 

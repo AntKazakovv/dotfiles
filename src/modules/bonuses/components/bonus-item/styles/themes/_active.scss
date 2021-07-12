@@ -4,235 +4,127 @@
 @use 'engine-scss/functions' as ef;
 
 .wlc-bonus-item--theme-active {
+    background: ef.get-value($themeActive, 'background');
 
-    .wlc-bonus-item__content {
-        @include em.transition(background, 0.3s);
+    .wlc-bonus-item {
 
-        position: relative;
-
-        overflow: hidden;
-
-        background: ef.get-value($themeActive, 'background');
-        border-radius: ef.get-value($themeActive, 'radius');
-
-        @include em.hover {
-            background: ef.get-value($themeActive, 'backgroundHover');
-        }
-    }
-
-    .wlc-bonus-item__wrapper {
-
-        @include em.get-mq-map('height', $themeActive, 'wrapperHeight');
-        display: ef.get-value($themeActive, 'wrapperDisplay');
-
-        @if (ef.get-value($themeActive, 'wrapperDisplay') == 'grid') {
+        &__wrapper {
+            @include em.get-mq-map('grid-template-areas', $themeActive, 'wrapperTplAreas');
             @include em.get-mq-map('grid-template-columns', $themeActive, 'wrapperGridColumns');
-        }
-    }
+            @include em.get-mq-map('gap', $themeActive, 'wrapperGap');
+            @include em.get-mq-map('height', $themeActive, 'wrapperHeight');
 
-    .wlc-bonus-item__image-block {
-        @include em.get-mq-map('height', $themeActive, 'imgBlockHeight');
-        position: relative;
-
-        display: flex;
-        flex-direction: ef.get-value($themeActive, 'imgBlockFlexDirection');
-
-        overflow: hidden;
-
-        background: ef.get-value($themeActive, 'imgBlockBg');
-    }
-
-    .wlc-bonus-item__image {
-        position: relative;
-
-        width: ef.get-value($themeActive, 'imgSize');
-        height: ef.get-value($themeActive, 'imgSize');
-
-        img {
-            @include em.get-mq-map('width', $themeActive, 'imgSize');
-            @include em.get-mq-map('height', $themeActive, 'imgSize');
-            @include em.get-mq-map('object-fit', $themeActive, 'imgObjectFit');
-            @include em.get-mq-map('object-position', $themeActive, 'imgObjectPosition');
-
-            display: block;
+            position: relative;
+            display: grid;
         }
 
-        &:after {
-            @include em.get-mq-map('display', $themeActive, 'imgAfterDisplay');
-            content: '';
+        &__image-block {
+            @include em.get-mq-map('height', $themeActive, 'imgBlockHeight');
 
+            position: relative;
+            grid-area: image;
+            overflow: hidden;
+            background: ef.get-value($themeActive, 'imgBlockBg');
+        }
+
+        &__image {
             position: absolute;
-            top: ef.get-value($themeActive, 'imgAfterPosTop');
-            left: ef.get-value($themeActive, 'imgAfterPosLeft');
 
             width: ef.get-value($themeActive, 'imgSize');
             height: ef.get-value($themeActive, 'imgSize');
 
-            background: ef.get-value($themeActive, 'imgAfterBg');
-        }
-    }
+            &:after {
+                @include em.absoluteCentering();
+                @include em.get-mq-map('display', $themeActive, 'imgAfterDisplay');
 
-    .wlc-bonus-item__tag {
-        @include em.get-mq-map('padding', $themeActive, 'tagPadding');
-        @include text.get-text-style('SignText', ef.get-value($themeActive, 'tagFontColor'));
-        @include em.get-mq-map('top', $themeActive, 'tagPositionTop');
-        @include em.get-mq-map('left', $themeActive, 'tagPositionLeft');
-        @include em.get-mq-map('transform', $themeActive, 'tagPositionTransform');
+                content: '';
 
-        position: absolute;
-        z-index: 2;
+                width: ef.get-value($themeActive, 'imgSize');
+                height: ef.get-value($themeActive, 'imgSize');
 
-        background: ef.get-value($themeActive, 'tagBg');
-        border-radius: ef.get-value($themeActive, 'tagRadius');
-
-        will-change: transform;
-    }
-
-    .wlc-bonus-item__bottom {
-        display: ef.get-value($themeActive, 'infoDisplay');
-        padding: ef.get-value($themeActive, 'infoPadding');
-
-        @if (ef.get-value($themeActive, 'infoDisplay') == 'grid') {
-            @include em.get-mq-map('grid-template-areas', $themeActive, 'infoGridArea');
-            @include em.get-mq-map('grid-template-rows', $themeActive, 'infoGridRows');
-            @include em.get-mq-map('grid-template-columns', $themeActive, 'infoGridColumns');
-            @include em.get-mq-map('gap', $themeActive, 'infoGridGap');
-
-            .wlc-bonus-item__info-block {
-                @include em.get-mq-map('min-width', $themeActive, 'infoBlockMinWidth');
-                grid-area: info-block;
-            }
-
-            .wlc-bonus-item__active-block {
-                grid-area: active-block;
-            }
-
-            .wlc-bonus-item__btns {
-                grid-area: btns;
-            }
-        }
-    }
-
-    .wlc-bonus-item__info-block {
-        @include em.get-mq-map('position', $themeActive, 'infoBlockPos');
-        @include em.get-mq-map('top', $themeActive, 'infoBlockPosTop');
-        @include em.get-mq-map('left', $themeActive, 'infoBlockPosLeft');
-        @include em.get-mq-map('display', $themeActive, 'infoBlockDisplay');
-        @include em.get-mq-map('flex-direction', $themeActive, 'infoBlockFlexDirection');
-        @include em.get-mq-map('justify-content', $themeActive, 'infoBlockJustifyContent');
-        @include em.get-mq-map('transform', $themeActive, 'infoBlockTransform');
-    }
-
-    .wlc-bonus-item__active-block {
-        @include em.get-mq-map('position', $themeActive, 'activeBlockPos');
-        @include em.get-mq-map('top', $themeActive, 'activeBlockPosTop');
-        @include em.get-mq-map('left', $themeActive, 'activeBlockPosLeft');
-        @include em.get-mq-map('width', $themeActive, 'activeBlockWidth');
-        @include em.get-mq-map('grid-template-columns', $themeActive, 'activeBlockTemplateColumns');
-        @include em.get-mq-map('grid-template-rows', $themeActive, 'activeBlockTemplateRows');
-        @include em.get-mq-map('gap', $themeActive, 'activeBlockGap');
-        @include em.get-mq-map('transform', $themeActive, 'activeBlockTransform');
-
-        display: grid;
-    }
-
-    .wlc-bonus-item__btns {
-        @include em.get-mq-map('margin', $themeActive, 'btnsBlockMargin');
-    }
-
-    .wlc-bonus-item__name {
-        @include em.get-mq-map('width', $themeActive, 'nameWidth');
-        @include text.get-text-style('QoteTextBold', ef.get-value($themeActive, 'nameColor'));
-        @include em.get-mq-map('text-align', $themeActive, 'nameTextAlign');
-    }
-
-    .wlc-bonus-item__description {
-        @include em.get-mq-map('width', $themeActive, 'descriptionWidth');
-        @include text.get-text-style('PrimaryText', ef.get-value($themeActive, 'descriptionColor'));
-        @include em.get-mq-map('text-align', $themeActive, 'descriptionTextAlign');
-    }
-
-    .wlc-bonus-item__more-icon {
-        @include em.get-mq-map('top', $themeActive, 'moreIconPosTop');
-        @include em.get-mq-map('left', $themeActive, 'moreIconPosLeft');
-
-        position: absolute;
-
-        .icon-btn {
-            width: ef.get-value($themeActive, 'moreIconSize');
-            height: ef.get-value($themeActive, 'moreIconSize');
-
-            cursor: pointer;
-
-            svg {
-                @include em.transition(fill);
-
-                display: block;
-                width: ef.get-value($themeActive, 'moreIconSvgSize');
-
-                fill: ef.get-value($themeActive, 'moreIconColor');
+                background: ef.get-value($themeActive, 'imgAfterBg');
             }
         }
 
-        @include em.hover {
+        &__tag {
+            @include em.get-mq-map('top', $themeActive, 'tagPositionTop');
+            @include em.get-mq-map('left', $themeActive, 'tagPositionLeft');
+            @include em.get-mq-map('transform', $themeActive, 'tagPositionTransform');
 
-            .icon-btn {
+            position: absolute;
+        }
 
-                svg {
-                    fill: ef.get-value($themeActive, 'moreIconColorHover');
-                }
+        &__info-block,
+        &__active-block {
+            z-index: 10;
+            min-width: 0;
+        }
+
+        &__info-block {
+            @include em.get-mq-map('grid-area', $themeActive, 'infoBlockArea');
+            @include em.get-mq-map('align-self', $themeActive, 'infoBlockAlignSelf');
+            @include em.get-mq-map('text-align', $themeActive, 'infoBlockTextAlign');
+            @include em.get-mq-map('padding', $themeActive, 'infoBlockPadding');
+
+            width: 100%;
+        }
+
+        &__active-block {
+            @include em.get-mq-map('grid-area', $themeActive, 'activeBlockArea');
+            @include em.get-mq-map('padding', $themeActive, 'activeBlockPadding');
+            @include em.get-mq-map('grid-template-rows', $themeActive, 'activeBlockTemplateRows');
+            @include em.get-mq-map('gap', $themeActive, 'activeBlockGap');
+            @include em.get-mq-map('align-self', $themeActive, 'activeBlockAlign');
+            @include em.get-mq-map('justify-self', $themeActive, 'activeBlockJustify');
+        }
+
+        &__btns {
+            @include em.get-mq-map('justify-content', $themeActive, 'btnsBlockJustifyContent');
+            @include em.get-mq-map('margin', $themeActive, 'btnsBlockMargin');
+            @include em.get-mq-map('padding', $themeActive, 'btnsBlockPadding');
+
+            grid-area: btns;
+        }
+
+        &__name {
+            @include text.get-text-style(ef.get-value($themeActive, 'nameTextStyle', 375), ef.get-value($themeActive, 'nameColor'));
+
+            &:after {
+                @include em.get-mq-map('display', $themeActive, 'headlineDisplay');
+                @include em.get-mq-map('width', $themeActive, 'headlineWidth');
+                @include em.get-mq-map('height', $themeActive, 'headlineHeight');
+                @include em.get-mq-map('margin', $themeActive, 'headlineMargin');
+
+                content: '';
+                background: ef.get-value($themeActive, 'headlineBg');
+            }
+
+            @include mq.min(560) {
+                @include text.get-text-style(ef.get-value($themeActive, 'nameTextStyle', 560), ef.get-value($themeActive, 'nameColor'));
             }
         }
-    }
 
-    .wlc-bonus-item__progress {
-        @include em.get-mq-map('background', $themeActive, 'progressBg');
+        &__description {
+            @include text.get-text-style('PrimaryText', ef.get-value($themeActive, 'descriptionColor'));
+            @include em.get-mq-map('max-width', $themeActive, 'descrMaxWidth');
+            @include em.lineClamp(3);
 
-        display: flex;
-        flex-direction: ef.get-value($themeActive, 'progressFlexDirection');
-        justify-content: ef.get-value($themeActive, 'progressJustifyContent');
-        padding: ef.get-value($themeActive, 'progressPadding');
-        border-radius: ef.get-value($themeActive, 'progressBorderRadius');
-    }
+            @include mq.min(560) {
+                -webkit-line-clamp: 5;
+            }
+        }
 
-    .wlc-bonus-item__progressbar {
-        position: relative;
+        &__progress {
+            @include em.get-mq-map('background', $themeActive, 'progressBg');
+            padding: ef.get-value($themeActive, 'progressPadding');
+        }
 
-        height: ef.get-value($themeActive, 'progressBarHeight');
-        margin: ef.get-value($themeActive, 'progressBarMargin');
-
-        background: ef.get-value($themeActive, 'progressBarBg');
-        border-radius: ef.get-value($themeActive, 'progressBarBorderRadius');
-        box-shadow: ef.get-value($themeActive, 'progressBarBoxShadow');
-    }
-
-    .wlc-bonus-item__progress-inner {
-        position: absolute;
-        top: ef.get-value($themeActive, 'progressBarInnerPosTop');
-        left: ef.get-value($themeActive, 'progressBarInnerPosLeft');
-
-        height: ef.get-value($themeActive, 'progressBarInnerHeight');
-
-        background: ef.get-value($themeActive, 'progressBarInnerBg');
-        border-radius: ef.get-value($themeActive, 'progressBarBorderRadius');
-    }
-
-    .wlc-bonus-item__remaning {
-        @include text.get-text-style('PrimaryTextBold', ef.get-value($themeActive, 'progressFontColor'));
-
-        text-align: ef.get-value($themeActive, 'progressFontAlign');
-    }
-
-    .wlc-bonus-item__secondary {
-        @include text.get-text-style('PrimaryText', ef.get-value($themeActive, 'progressFontSecondaryColor'));
-
-        text-align: ef.get-value($themeActive, 'progressFontAlign');
-    }
-
-    &.wlc-bonus-item .wlc-timer--theme-default {
-
-        & div.wlc-timer__content {
+        &__timer {
             background: ef.get-value($themeActive, 'timerBg');
         }
+    }
+
+    @include em.hover() {
+        background: ef.get-value($themeActive, 'backgroundHover');
     }
 }
