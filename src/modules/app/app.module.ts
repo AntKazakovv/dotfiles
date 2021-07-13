@@ -1,7 +1,7 @@
 import {CommonModule} from '@angular/common';
 
 import {HttpClient, HttpClientModule} from '@angular/common/http';
-import {APP_INITIALIZER, NgModule, ErrorHandler, Injector} from '@angular/core';
+import {APP_INITIALIZER, NgModule} from '@angular/core';
 import {BrowserModule, BrowserTransferStateModule} from '@angular/platform-browser';
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {AngularResizedEventModule} from 'angular-resize-event';
@@ -19,6 +19,7 @@ import {
     ConfigService,
     EventService,
     ActionService,
+    LogService,
 } from 'wlc-engine/modules/core/system/services';
 import {Location} from '@angular/common';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
@@ -29,7 +30,7 @@ export function loadConfig(config: ConfigService) {
     return config.load();
 }
 
-export let appInjector: Injector;
+export let logService: LogService;
 
 @NgModule({
     declarations: [
@@ -96,10 +97,10 @@ export class AppModule {
         location: Location,
         protected actionService: ActionService,
         private eventService: EventService,
-        private injector: Injector,
+        private logService: LogService,
     ) {
         this.parseInitPath(location.path());
-        appInjector = this.injector;
+        logService = this.logService;
         this.eventService.subscribe({
             name: 'ERROR_PAGE_ENTER',
         }, (data: number) => {
