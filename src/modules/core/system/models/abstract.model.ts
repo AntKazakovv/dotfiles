@@ -1,16 +1,13 @@
-import {LogService} from 'wlc-engine/modules/core';
-import {appInjector} from 'wlc-engine/modules/app/app.module';
+import {logService} from 'wlc-engine/modules/app/app.module';
 
+import _keys from 'lodash-es/keys';
 export abstract class AbstractModel<T> {
 
     public dataReady: boolean = false;
 
     protected objectData: T;
 
-    private logService: LogService;
-
     constructor() {
-        this.logService = appInjector.get(LogService);
     }
 
     public get data(): T {
@@ -29,17 +26,17 @@ export abstract class AbstractModel<T> {
             this.dataReady = true;
         } else {
             this.dataReady = false;
-            this.logService.sendLog({code: '7.0.0'});
+            logService.sendLog({code: '7.0.0'});
         }
     }
 
     protected checkData(): void {
-        const keys = Object.keys(this.objectData).length;
+        const keys = _keys(this.objectData).length;
 
         if (!keys) {
-            this.logService.sendLog({code: '7.0.1'});
+            logService.sendLog({code: '7.0.1'});
         } else if (keys === 1 && this.objectData['data']) {
-            this.logService.sendLog({code: '7.0.2'});
+            logService.sendLog({code: '7.0.2'});
         }
     };
 }
