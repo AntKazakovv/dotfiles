@@ -56,4 +56,6 @@ $themePreview: map-merge((
     'bonusBackground': ef.get('mainColors', 'bg300'),
 
     'bonusIconValueFontSizeSmaller': 1.4rem,
+
+    'blankBg': #{url('/gstatic/wlc/bonuses/blank-bonus-decor.png') no-repeat center top/contain, linear-gradient(180deg, #8dacc9 0%, #003d5f 100%)}
 ), $customThemePreview);
