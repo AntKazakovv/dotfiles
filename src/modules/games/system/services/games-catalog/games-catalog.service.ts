@@ -138,7 +138,7 @@ export class GamesCatalogService {
         this.eventService.subscribe({
             name: gamesEvents.FETCH_JACKPOTS_SUCCEEDED,
         }, (data: IData) => {
-            this.gamesCatalog.loadJackpots(data.data);
+            this.gamesCatalog?.loadJackpots(data.data);
         });
 
         this.eventService.subscribe({
