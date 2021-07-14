@@ -36,7 +36,9 @@
 
             .wlc-label {
                 @include text.get-text-style(ef.get-value($themeDefault, 'labelFont'), ef.get-value($themeDefault, 'labelColor'));
+                display: flex;
                 grid-area: label;
+                align-items: center;
                 min-height: ef.get-value($themeDefault, 'labelMinHeight');
                 padding: ef.get-value($themeDefault, 'labelPadding');
                 cursor: pointer;
