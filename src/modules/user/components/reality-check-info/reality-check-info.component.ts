@@ -8,7 +8,7 @@ import {FormControl} from '@angular/forms';
 import {DateTime} from 'luxon';
 import {ICheckboxCParams} from 'wlc-engine/modules/core/components/checkbox/checkbox.params';
 import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
-import {UserService} from 'wlc-engine/modules/user';
+import {UserService} from 'wlc-engine/modules/user/system/services/user/user.service';
 import {
     AbstractComponent,
 } from 'wlc-engine/modules/core/system/classes/abstract.component';

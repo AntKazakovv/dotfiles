@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {Compiler, COMPILER_OPTIONS, CompilerFactory} from '@angular/core';
 import {JitCompilerFactory} from '@angular/platform-browser-dynamic';
-import {DynamicHtmlComponent} from './components/dynamic-html/dynamic-html.component';
+import {DynamicHtmlComponent} from 'wlc-engine/modules/compiler/components/dynamic-html/dynamic-html.component';
 
 export function createCompiler(compilerFactory: CompilerFactory) {
     return compilerFactory.createCompiler();

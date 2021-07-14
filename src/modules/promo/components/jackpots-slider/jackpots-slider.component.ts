@@ -13,21 +13,16 @@ import {takeUntil} from 'rxjs/operators';
 import {SwiperOptions} from 'swiper';
 import SwiperCore from 'swiper/core';
 
+import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {JackpotComponent} from 'wlc-engine/modules/promo/components/jackpot/jackpot.component';
+import {ISlide} from 'wlc-engine/modules/promo/components/slider/slider.params';
 import {
-    AbstractComponent,
-    ConfigService,
-} from 'wlc-engine/modules/core';
-import {
-    ISlide,
-    JackpotComponent,
     SliderHelper,
     ISliderCssProps,
-} from 'wlc-engine/modules/promo';
-import {
-    GamesCatalogService,
-    JackpotModel,
-} from 'wlc-engine/modules/games';
-
+} from 'wlc-engine/modules/promo/system/helpers/slider.helper';
+import {JackpotModel} from 'wlc-engine/modules/games/system/models/jackpot.model';
+import {GamesCatalogService} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
 import * as Params from './jackpots-slider.params';
 
 import _map from 'lodash-es/map';

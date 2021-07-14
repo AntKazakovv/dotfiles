@@ -13,11 +13,8 @@ import {
     IMixedParams,
     ITableCParams,
 } from 'wlc-engine/modules/core';
-
-import {
-    LoyaltyLevelModel,
-    LoyaltyLevelsService,
-} from 'wlc-engine/modules/promo/';
+import {LoyaltyLevelsService} from 'wlc-engine/modules/promo/system/services/loyalty-levels/loyalty-levels.service';
+import {LoyaltyLevelModel} from 'wlc-engine/modules/promo/system/models/loyalty-level.model';
 
 import * as Params from './loyalty-levels.params';
 

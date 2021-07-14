@@ -15,12 +15,10 @@ import {
     IBetradarGame,
     IPopularEventsData,
     IDailyMatchData,
-} from 'wlc-engine/modules/sportsbook/system/interfaces';
-import {
-    SportsbookService,
-    BetradarGameModel,
     IMessageDataLocationChange,
-} from 'wlc-engine/modules/sportsbook';
+} from 'wlc-engine/modules/sportsbook/system/interfaces/sportsbook.interface';
+import {BetradarGameModel} from 'wlc-engine/modules/sportsbook/system/models/betradar-game.model';
+import {SportsbookService} from 'wlc-engine/modules/sportsbook/system/services/sportsbook/sportsbook.service';
 
 import _get from 'lodash-es/get';
 import _forEach from 'lodash-es/forEach';

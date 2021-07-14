@@ -14,20 +14,19 @@ import {
 import {SwiperOptions} from 'swiper';
 import SwiperCore from 'swiper/core';
 import {takeUntil} from 'rxjs/operators';
-
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {
-    AbstractComponent,
-    ConfigService,
-} from 'wlc-engine/modules/core';
+    SliderHelper,
+    ISliderCssProps,
+} from 'wlc-engine/modules/promo/system/helpers/slider.helper';
 import {
     ISlide,
     ISliderCParams,
-    WinnersService,
-    WinnerComponent,
-    WinnerModel,
-    SliderHelper,
-    ISliderCssProps,
-} from 'wlc-engine/modules/promo';
+} from 'wlc-engine/modules/promo/components/slider/slider.params';
+import {WinnersService} from 'wlc-engine/modules/promo/system/services/winners/winners.service';
+import {WinnerModel} from 'wlc-engine/modules/promo/system/models/winner.model';
+import {WinnerComponent} from 'wlc-engine/modules/promo/components/winner/winner.component';
 
 import * as Params from './winners-slider.params';
 

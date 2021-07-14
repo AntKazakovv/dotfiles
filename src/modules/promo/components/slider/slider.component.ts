@@ -29,16 +29,11 @@ import SwiperCore, {
 } from 'swiper/core';
 import {SwiperComponent} from 'swiper/angular';
 import {ResizedEvent} from 'angular-resize-event';
-
-import {
-    AbstractComponent,
-    ActionService,
-    ConfigService,
-} from 'wlc-engine/modules/core';
-import {
-    BannersService,
-    WinnersService,
-} from 'wlc-engine/modules/promo/system/services';
+import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {ActionService} from 'wlc-engine/modules/core/system/services/action/action.service';
+import {WinnersService} from 'wlc-engine/modules/promo/system/services/winners/winners.service';
+import {BannersService} from 'wlc-engine/modules/promo/system/services/banners/banners.service';
 import {IResizeEvent} from 'wlc-engine/modules/core/system/services/action/action.service';
 
 import * as Params from './slider.params';

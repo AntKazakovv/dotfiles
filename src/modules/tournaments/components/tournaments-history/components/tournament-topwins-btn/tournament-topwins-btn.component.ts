@@ -10,10 +10,8 @@ import {
     IMixedParams,
     ModalService,
 } from 'wlc-engine/modules/core';
-import {
-    ITournamentLeaderboardCParams,
-    TournamentLeaderboardComponent,
-} from 'wlc-engine/modules/tournaments';
+import {TournamentLeaderboardComponent} from 'wlc-engine/modules/tournaments/components/tournament/components/tournament-leaderboard/tournament-leaderboard.component';
+import {ITournamentLeaderboardCParams} from 'wlc-engine/modules/tournaments/components/tournament/components/tournament-leaderboard/tournament-leaderboard.params';
 
 import * as Params from './tournament-topwins-btn.params';
 

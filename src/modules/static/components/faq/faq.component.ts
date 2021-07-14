@@ -9,7 +9,8 @@ import {
 
 
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
-import {StaticService, TextDataModel} from 'wlc-engine/modules/static';
+import {StaticService} from 'wlc-engine/modules/static/system/services/static/static.service';
+import {TextDataModel} from 'wlc-engine/modules/static/system/models/textdata.model';
 import {HeightToggleAnimation} from 'wlc-engine/modules/core/system/animations/height-toggle.animation';
 
 import * as Params from './faq.params';
