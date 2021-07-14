@@ -13,10 +13,11 @@
         <div class="{{$class}}__block {{$class}}__block--right">
             <div class="{{$class}}__user">
                 <img *ngIf="countryIso2 && !$params.hideCountry"
+                     wlc-fallback
                      class="{{$class}}__country"
                      loading="lazy"
-                     [attr.src]="[countryUrl]"
-                     [attr.alt]="[countryIso3]">
+                     [attr.alt]="[countryIso3]"
+                     [src]="countryUrl">
                 <div class="{{$class}}__name" [attr.data-wlc-element]="'name_user_item-' + $params.winnerType + '-wins'">{{name}}</div>
             </div>
 
@@ -58,10 +59,11 @@
         <div class="{{$class}}__block {{$class}}__block--right">
             <div class="{{$class}}__user">
                 <img *ngIf="countryIso2 && !$params.hideCountry"
+                     wlc-fallback
                      loading="lazy"
                      class="{{$class}}__country"
-                     [attr.src]="[countryUrl]"
-                     [attr.alt]="[countryIso3]">
+                     [attr.alt]="[countryIso3]"
+                     [src]="countryUrl">
                 <div class="{{$class}}__name" [attr.data-wlc-element]="'name_user_item-' + $params.winnerType + '-wins'">{{name}}</div>
             </div>
 
