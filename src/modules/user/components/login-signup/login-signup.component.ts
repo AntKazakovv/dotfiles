@@ -8,6 +8,7 @@ import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract
 import {
     ConfigService,
     ModalService,
+    LogService,
 } from 'wlc-engine/modules/core/system/services';
 
 import * as Params from './login-signup.params';
@@ -31,6 +32,7 @@ export class LoginSignupComponent extends AbstractComponent implements OnInit {
         @Inject(DOCUMENT) protected document: Document,
         protected ModalService: ModalService,
         protected configService: ConfigService,
+        protected logService: LogService,
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService);
     }
@@ -81,7 +83,16 @@ export class LoginSignupComponent extends AbstractComponent implements OnInit {
             const url = this.affiliateUrl + lang + (action === 'signup' ? '/Register' : '');
             this.document.defaultView.open(url, '_self');
         } else {
-            this.ModalService.showModal(action);
+            const logWaiter = this.logService.waitForElement({
+                selector: (action === 'login') ? '.wlc-modal--login' : '.wlc-modal--signup',
+                logObj: {
+                    code: (action === 'login') ? '1.2.1' : '1.1.1',
+                    data: {
+                        target: 'wlc-login-signup',
+                    },
+                },
+            });
+            this.ModalService.showModal(action).closed.then(logWaiter);
         }
     }
 }

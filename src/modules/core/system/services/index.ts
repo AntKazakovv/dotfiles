@@ -7,7 +7,7 @@ export {
 } from './config/config.service';
 export {LayoutService, LayoutsType} from './layout/layout.service';
 export {FilesService, IFile} from './files/files.service';
-export {LogService} from './log/log.service';
+export * from './log/log.service';
 export {ActionService} from './action/action.service';
 export {NotificationService} from './notification/notification.service';
 export {ModalService} from './modal/modal.service';
