@@ -12,6 +12,8 @@ export {IRestoreLinkCParams} from './restore-link/restore-link.params';
 export {IRestorePasswordFormCParams} from './restore-password-form/restore-password-form.params';
 export {ISignInFormCParams} from './sign-in-form/sign-in-form.params';
 export {ISignUpFormCParams} from './sign-up-form/sign-up-form.params';
+export {IValidateData} from './sign-up-form/sign-up-form.params';
+export {IRegFormDataForConfig} from './sign-up-form/sign-up-form.component';
 export {IUserInfoCParams} from './user-info/user-info.params';
 export {IUserNameCParams} from './user-name/user-name.params';
 export {IUserStatsCParams} from './user-stats/user-stats.params';

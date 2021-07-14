@@ -1,0 +1,28 @@
+<div *ngIf="!codeSended"
+    wlc-form-wrapper
+    [config]="config"
+    [ngSubmit]="sendCode.bind(this)"></div>
+<div *ngIf="codeSended" class="{{$class}}__code">
+    <div
+        wlc-form-wrapper
+        [config]="configCode"
+        [ngSubmit]="submitCode.bind(this)"></div>
+    <div class="{{$class}}__text">{{'Didn\'t receive a code?' | translate}}</div>
+    <button
+        wlc-button
+        class="{{$class}}__btn"
+        text="Sent again"
+        typeAttr="button"
+        [disabled]="lockResend"
+        (click)="resendCode()"
+        [wlcElement]="'buttom_resend-sms'"
+    ></button>
+    <div class="{{$class}}__timer">
+        <div class="{{$class}}__timer-text">{{'Will be available in' | translate}}</div>
+        <div wlc-timer
+            [value]="timeValue"
+            [noDays]="true"
+            [noHours]="true"
+            [themeMod]="'light'"></div>
+    </div>
+</div>

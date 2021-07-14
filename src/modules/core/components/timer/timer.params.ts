@@ -6,7 +6,7 @@ export type ComponentTheme = 'default';
 export type ComponentType = 'default';
 export type AutoModifiersType = ComponentTheme | ModeType;
 export type ManualModifiersType = '';
-export type ThemeMod = 'default' | 'count-up' | string;
+export type ThemeMod = 'default' | 'count-up' | 'light' | string;
 export type ModifiersType = AutoModifiersType & ManualModifiersType & string;
 
 export interface ITimerCParams extends IComponentParams<ComponentTheme, ComponentType, ThemeMod> {
@@ -16,6 +16,7 @@ export interface ITimerCParams extends IComponentParams<ComponentTheme, Componen
         text?: string;
         countUp?: boolean;
         noDays?: boolean;
+        noHours?: boolean;
     };
 }
 

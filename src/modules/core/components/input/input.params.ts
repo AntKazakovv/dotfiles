@@ -19,6 +19,7 @@ export interface IInputCParams extends IComponentParams<ComponentTheme, Componen
     value?: string;
     common: {
         placeholder?: string;
+        separateLabel?: string;
         type?: string;
         customModifiers?: CustomMod;
         usePasswordVisibilityBtn?: boolean;

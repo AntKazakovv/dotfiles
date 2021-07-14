@@ -19,6 +19,7 @@ import {errorTypes as storeLogs} from './11.store';
 import {errorTypes as postsLogs} from './12.posts';
 import {errorTypes as tournamentsLogs} from './13.tournaments';
 import {errorTypes as livechatLogs} from './14.livechat';
+import {errorTypes as smsLogs} from './15.sms';
 
 export type TLogMethods = 'flog' | 'console' | 'all'; // flog - as default
 type TLogDuration = 'fromStart';
@@ -51,4 +52,5 @@ export const logTypes: ILogTypes = _assign(
     postsLogs,
     tournamentsLogs,
     livechatLogs,
+    smsLogs,
 );

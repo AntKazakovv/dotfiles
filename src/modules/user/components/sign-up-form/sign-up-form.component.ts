@@ -13,8 +13,10 @@ import {
     IFormWrapperCParams,
     IPushMessageParams,
     NotificationEvents,
+    StepsEvents,
 } from 'wlc-engine/modules/core';
 import {UserService} from 'wlc-engine/modules/user';
+import {UserActionsAbstract} from '../../system/classes/user-actions-abstract.class';
 import {
     ChosenBonusSetParams,
     ChosenBonusType,
@@ -23,6 +25,11 @@ import {
 import * as Params from './sign-up-form.params';
 
 import _keys from 'lodash-es/keys';
+import _each from 'lodash-es/each';
+
+export interface IRegFormDataForConfig {
+    form: Params.IValidateData;
+}
 
 /**
  * Sign-up form component.
@@ -40,7 +47,7 @@ import _keys from 'lodash-es/keys';
     templateUrl: './sign-up-form.component.html',
     styleUrls: ['./styles/sign-up-form.component.scss'],
 })
-export class SignUpFormComponent extends AbstractComponent implements OnInit {
+export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormCParams> implements OnInit {
 
     public config: IFormWrapperCParams;
     public $params: Params.ISignUpFormCParams;
@@ -55,45 +62,58 @@ export class SignUpFormComponent extends AbstractComponent implements OnInit {
         super({
             injectParams,
             defaultParams: Params.defaultParams,
-        }, configService);
+        }, configService, userService, eventService, logService);
     }
 
     public ngOnInit(): void {
         super.ngOnInit({});
         this.config = this.$params.formConfig || Params.signUpFormConfig;
+        if (this.configService.get<boolean>('$base.profile.smsVerification.use')) {
+            const formValues = this.configService.get<IRegFormDataForConfig>('regFormData');
+            _each(this.config.components, (item) => {
+                if (item.name === 'core.wlc-button' && item.params?.common?.text) {
+                    item.params.common.text = gettext('Next');
+                }
+                _each(formValues?.form?.data, (value, key) => {
+                    if (item.params.name === key) {
+                        item.params.value = value;
+                    }
+                });
+            });
+        }
     }
 
     public async ngSubmit(form: FormGroup): Promise<void> {
+        if (this.configService.get<boolean>('$base.profile.smsVerification.use')) {
+            this.nextStepSubmit(form);
+            return;
+        }
         try {
             form.disable();
-
-            const regData = this.formDataPreparation(form);
-            await this.userService.registration(regData);
-            this.userService.setProfileData(regData.data);
-
             if (!this.checkConfirmation(form)) {
                 return;
             }
-
-            await this.userService.createUserProfile(this.userService.userProfile.data);
-
-            this.userService.finishRegistration();
-
+            const regData = this.formDataPreparation(form);
+            await this.userService.registration(regData);
+            await this.finishUserReg(regData.data);
         } catch (error) {
-            this.eventService.emit({
-                name: NotificationEvents.PushMessage,
-                data: <IPushMessageParams>{
-                    type: 'error',
-                    title: gettext('Registration error'),
-                    message: error.errors,
-                    wlcElement: 'notification_registration-error',
-                },
-            });
-
-            this.logService.sendLog({code: '2.1.0', data: error});
+            this.showRegError(error);
         } finally {
             form.enable();
         }
+    }
+
+    protected nextStepSubmit(form: FormGroup) {
+        if (!this.checkConfirmation(form)) {
+            return;
+        }
+        const formData = this.formDataPreparation(form);
+
+        this.configService.set<object>({
+            name: 'regFormData',
+            value: {form: formData},
+        });
+        this.eventService.emit({name: StepsEvents.Next});
     }
 
     protected formDataPreparation(form: FormGroup): Params.IValidateData {

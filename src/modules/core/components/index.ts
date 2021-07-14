@@ -23,6 +23,7 @@ export {IScrollbarCParams} from './scrollbar/scrollbar.params';
 export {ISelectCParams} from './select/select.params';
 export {ITableCParams, ITableCol} from './table/table.params';
 export {ITooltipCParams} from './tooltip/tooltip.params';
+export {StepsEvents} from './steps/steps.params';
 export {
     NotificationThreadComponent,
     HIDE_ANIMATION_DURATION,
@@ -41,4 +42,5 @@ export {
 export {IModalList} from './modal/modal.interface';
 export {DatepickerComponent} from './datepicker/datepicker.component';
 export {IconComponent} from './icon/icon.component';
+export {TimerComponent} from './timer/timer.component';
 export {ISocialIconsCParams} from './social-icons/social-icons.params';

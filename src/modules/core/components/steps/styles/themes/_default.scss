@@ -125,6 +125,16 @@
                         }
                     }
                 }
+
+                &.noback {
+
+                    .wlc-steps__head {
+
+                        .wlc-link-block {
+                            display: none;
+                        }
+                    }
+                }
             }
 
             &__main {

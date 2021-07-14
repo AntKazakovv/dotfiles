@@ -50,7 +50,7 @@ export interface IUserProfile {
     phoneAltNumber?: string;
     phoneCode?: string;
     phoneNumber?: number | string;
-    phoneVerified?: string;
+    phoneVerified?: string | boolean;
     postalCode?: string;
     registrationBonus?: string;
     swift?: string;

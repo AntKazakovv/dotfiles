@@ -127,6 +127,10 @@ export class SelectComponent extends AbstractComponent implements OnInit,
         if (!this.$params.common?.placeholder) {
             this.control.setValue(this.$params?.items[0]?.value || '');
         }
+
+        if (this.$params.value) {
+            this.control.setValue(this.$params.value);
+        }
     }
 
     public ngOnChanges(changes: SimpleChanges): void {

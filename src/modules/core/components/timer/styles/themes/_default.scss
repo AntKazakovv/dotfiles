@@ -22,10 +22,43 @@
             }
 
             &__timer-text {
-                width: 100%;
                 display: flex;
-                justify-content: space-between;
-                flex-direction: row-reverse;
+                flex-direction: ef.get-value($themeDefault, 'timerTextFlexDirection');
+                justify-content: ef.get-value($themeDefault, 'timerTextJustifyContent');
+                width: ef.get-value($themeDefault, 'timerTextWidth');
+            }
+        }
+    }
+
+    &.wlc-timer--theme-mod-light {
+
+        .wlc-timer {
+
+            &__content {
+                padding: ef.get-value($themeDefault, 'timerPaddingPlayTimeLight');
+                background-color: ef.get-value($themeDefault, 'timerBgLight');
+
+                .time-text {
+                    @include text.get-text-style(ef.get-value($themeDefault, 'timerFontStyleLight'), ef.get-value($themeDefault, 'timerColor'));
+
+                    &__divider {
+                        margin: ef.get-value($themeDefault, 'timerNumbersOffsetLight');
+                    }
+                }
+            }
+
+            &__clock-icon {
+                margin: ef.get-value($themeDefault, 'timeIconMarginLight');
+                font-size: 0;
+
+                ::ng-deep {
+
+                    svg {
+                        width: ef.get-value($themeDefault, 'timeIconSizeLight');
+                        height: ef.get-value($themeDefault, 'timeIconSizeLight');
+                        fill: ef.get-value($themeDefault, 'timeIconFillLight');
+                    }
+                }
             }
         }
     }
@@ -34,10 +67,10 @@
 
         &__content {
             display: flex;
-            align-items: center;
+            align-items: ef.get-value($themeDefault, 'timerAlignItems');
+            padding: ef.get-value($themeDefault, 'timerPadding');
             background-color: ef.get-value($themeDefault, 'timerBg');
             border-radius: ef.get-value($themeDefault, 'timerRadius');
-            padding: ef.get-value($themeDefault, 'timerPadding');
 
             .time-text {
                 @include text.get-text-style(ef.get-value($themeDefault, 'timerFontStyle'), ef.get-value($themeDefault, 'timerColor'));
@@ -58,16 +91,16 @@
             ::ng-deep {
 
                 svg {
-                    fill: ef.get-value($themeDefault, 'timeIconFill');
                     width: ef.get-value($themeDefault, 'timeIconSize');
                     height: ef.get-value($themeDefault, 'timeIconSize');
+                    fill: ef.get-value($themeDefault, 'timeIconFill');
                 }
             }
         }
 
         &__timer-text {
-            text-align: left;
-            line-height: 1.3;
+            line-height: ef.get-value($themeDefault, 'timerTextLineHeight');
+            text-align: ef.get-value($themeDefault, 'timerTextAlign');
 
             .secondary-text {
                 @include text.get-text-style(ef.get-value($themeDefault, 'secondaryTextFontStyle'), ef.get-value($themeDefault, 'secondaryTextColor'));

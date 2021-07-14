@@ -79,6 +79,10 @@ export class InputComponent extends AbstractComponent implements OnInit, OnChang
         return `${this.$params.class}__input--${this.$params.common.customModifiers}`;
     }
 
+    public get inputLabel(): string {
+        return this.$params.common.separateLabel || this.$params.common.placeholder;
+    }
+
     public toggleType(type: string): void {
         this.$params.common.type = type;
     }

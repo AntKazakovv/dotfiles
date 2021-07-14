@@ -34,17 +34,46 @@ export enum StepsEvents {
 export interface IStepsParams extends IComponentParams<Theme, Type, ThemeMod> {
     theme?: Theme,
     themeMod?: ThemeMod,
+    stepsNames: string[],
     stepsConfig?: IIndexing<IStepConfig>,
     startStepName: string,
     stepsConfigFirst?: IIndexing<IStepConfig>,
 }
 
-const textBlockHeader = {
+const textBlockHeaderParams = {
+    textBlockTitle: gettext('Register'),
+    titleDynamicText: {
+        textDefault: '',
+        param: 'regStepsCounter',
+    },
+};
+
+const textBlockHeaderBonus = {
     name: 'core.wlc-text-block',
     params: {
         common: {
-            textBlockTitle: gettext('Register 1/2'),
+            ...textBlockHeaderParams,
             textBlockSubtitle: gettext('Choose your Welcome Bonus'),
+        },
+    },
+};
+
+const textBlockHeaderReg = {
+    name: 'core.wlc-text-block',
+    params: {
+        common: {
+            ...textBlockHeaderParams,
+            textBlockSubtitle: gettext('Your adventure begins'),
+        },
+    },
+};
+
+const textBlockHeaderSms = {
+    name: 'core.wlc-text-block',
+    params: {
+        common: {
+            ...textBlockHeaderParams,
+            textBlockSubtitle: gettext('Verify your account'),
         },
     },
 };
@@ -90,34 +119,28 @@ const linkBlock = {
     },
 };
 
+const backLinkBlock = {
+    name: 'core.wlc-link-block',
+    params: {
+        wlcElement: 'back',
+        common: {
+            link: gettext('Back'),
+            actionParams: {
+                event: {
+                    name: StepsEvents.Prev,
+                },
+            },
+        },
+    },
+};
+
 const regFormStepTopComponents = {
     name: 'core.wlc-wrapper',
     params: {
         class: 'wlc-steps__head',
         components: [
-            {
-                name: 'core.wlc-link-block',
-                params: {
-                    wlcElement: 'back',
-                    common: {
-                        link: gettext('Back'),
-                        actionParams: {
-                            event: {
-                                name: StepsEvents.Prev,
-                            },
-                        },
-                    },
-                },
-            },
-            {
-                name: 'core.wlc-text-block',
-                params: {
-                    common: {
-                        textBlockTitle: gettext('Register 2/2'),
-                        textBlockSubtitle: gettext('Your adventure begins'),
-                    },
-                },
-            },
+            backLinkBlock,
+            textBlockHeaderReg,
             {
                 name: 'core.wlc-text-block',
                 params: {
@@ -138,11 +161,54 @@ const regFormComponent = {
     name: 'user.wlc-sign-up-form',
 };
 
+const bonusPrewiew = {
+    name: 'core.wlc-wrapper',
+    params: {
+        class: 'wlc-steps__aside',
+        components: [
+            {
+                name: 'bonuses.wlc-bonus-item',
+                params: {
+                    theme: 'preview',
+                    common: {},
+                },
+                display: {
+                    after: 899,
+                },
+            },
+        ],
+    },
+};
+
+const smsVerification = {
+    name: 'core.wlc-wrapper',
+    params: {
+        class: 'wlc-steps__main',
+        components: [
+            {
+                name: 'core.wlc-wrapper',
+                params: {
+                    class: 'wlc-steps__head',
+                    components: [
+                        backLinkBlock,
+                        textBlockHeaderSms,
+                    ],
+                },
+            },
+            {
+                name:'user.wlc-sms-verification',
+            },
+            linkBlock,
+        ],
+    },
+};
+
 export const defaultParams: IStepsParams = {
     moduleName: 'core',
     componentName: 'wlc-steps',
     class: 'wlc-steps',
     theme: 'signInUp',
+    stepsNames: ['signUpBonuses', 'signUpForm'],
     startStepName: 'signUpBonuses',
     stepsConfig: {
         'signUpBonuses': {
@@ -154,7 +220,7 @@ export const defaultParams: IStepsParams = {
                     params: {
                         class: 'wlc-steps__main',
                         components: [
-                            textBlockHeader,
+                            textBlockHeaderBonus,
                             {
                                 name: 'bonuses.wlc-bonuses-list',
                                 display: {
@@ -194,24 +260,7 @@ export const defaultParams: IStepsParams = {
                         ],
                     },
                 },
-                {
-                    name: 'core.wlc-wrapper',
-                    params: {
-                        class: 'wlc-steps__aside',
-                        components: [
-                            {
-                                params: {
-                                    theme: 'preview',
-                                    common: {},
-                                },
-                                name: 'bonuses.wlc-bonus-item',
-                                display: {
-                                    after: 899,
-                                },
-                            },
-                        ],
-                    },
-                },
+                bonusPrewiew,
             ],
         },
         'signUpForm': {
@@ -228,24 +277,15 @@ export const defaultParams: IStepsParams = {
                         ],
                     },
                 },
-                {
-                    name: 'core.wlc-wrapper',
-                    params: {
-                        class: 'wlc-steps__aside',
-                        components: [
-                            {
-                                name: 'bonuses.wlc-bonus-item',
-                                params: {
-                                    theme: 'preview',
-                                    common: {},
-                                },
-                                display: {
-                                    after: 899,
-                                },
-                            },
-                        ],
-                    },
-                },
+                bonusPrewiew,
+            ],
+        },
+        'signUpSmsVerify': {
+            name: 'core.wlc-wrapper',
+            class: 'wlc-steps__container wlc-steps__container--sign-up',
+            components: [
+                smsVerification,
+                bonusPrewiew,
             ],
         },
     },
@@ -259,7 +299,7 @@ export const defaultParams: IStepsParams = {
                     params: {
                         class: 'wlc-steps__main',
                         components: [
-                            textBlockHeader,
+                            textBlockHeaderBonus,
                             {
                                 name: 'bonuses.wlc-bonuses-list',
                                 params: {
@@ -296,6 +336,13 @@ export const defaultParams: IStepsParams = {
                         ],
                     },
                 },
+            ],
+        },
+        'signUpSmsVerify': {
+            name: 'core.wlc-wrapper',
+            class: 'wlc-steps__container wlc-steps__container--sign-up',
+            components: [
+                smsVerification,
             ],
         },
     },

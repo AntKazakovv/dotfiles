@@ -9,10 +9,12 @@
                 </div>
                 <div class="time-text__divider">:</div>
             </ng-container>
-            <div class="time-text__item time-text__item--hours">
-                <span class="value">{{hours}}</span><span class="text">{{'h' | translate}}</span>
-            </div>
-            <div class="time-text__divider">:</div>
+            <ng-container *ngIf="!noHours">
+                <div class="time-text__item time-text__item--hours">
+                    <span class="value">{{hours}}</span><span class="text">{{'h' | translate}}</span>
+                </div>
+                <div class="time-text__divider">:</div>
+            </ng-container>
             <div class="time-text__item time-text__item--minutes">
                 <span class="value">{{minutes}}</span><span class="text">{{'m' | translate}}</span>
             </div>

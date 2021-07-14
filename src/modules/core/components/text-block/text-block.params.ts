@@ -11,6 +11,10 @@ export interface ITextBlockCParams extends IComponentParams<ComponentTheme, Comp
         textBlockTitle?: string,
         textBlockSubtitle?: string | string[],
         textBlockText?: string,
+        titleDynamicText?: {
+            param?: string,
+            textDefault?: string,
+        },
         dynamicText?: {
             text?: string,
             textDefault?: string,

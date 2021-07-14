@@ -2,6 +2,9 @@ export interface IProfileConfig {
     messages?: {
         use: boolean;
     },
+    smsVerification?: {
+        use: boolean,
+    },
     verification?: {
         use: boolean;
     },

@@ -83,10 +83,10 @@
 </ng-container>
 
 <ng-template #label>
-    <label *ngIf="$params.common?.useLabel && $params.common.placeholder"
+    <label *ngIf="$params.common?.useLabel"
            for="{{$params.name}}"
-           class="{{$class}}__label"
-    >{{$params.common.placeholder | translate}}
+           class="{{$class}}__label">
+        {{inputLabel | translate}}
         <ng-container *ngIf="isFieldRequired()">*</ng-container>
     </label>
     <div *ngIf="$params.common?.tooltipText || $params.common?.tooltipModal"
