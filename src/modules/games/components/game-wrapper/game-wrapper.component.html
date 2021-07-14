@@ -28,21 +28,7 @@
 
         <div wlc-game-dashboard [opened]="openDashboard"></div>
 
-        <ng-container *ngIf="isReady">
-            <ng-container *ngIf="!useMobileIframe">
-                <div *ngIf="isReady;"
-                     wlc-dynamic-html
-                     #gameContainer
-                     class="{{$class}}__game-container"
-                     [html]="gameHtml"
-                     [canUseScriptTag]="true">
-                </div>
-            </ng-container>
-
-            <ng-container *ngIf="useMobileIframe">
-                <div #gameContainer class="{{$class}}__game-container"></div>
-            </ng-container>
-        </ng-container>
+        <ng-container [ngTemplateOutlet]="gameWrapper"></ng-container>
     </div>
     <div class="{{$class}}__footer" #footer></div>
 </div>
@@ -51,18 +37,29 @@
     <div class="{{$class}}__game-area" #wrp>
         <div wlc-loader class="{{$class}}__preloader" *ngIf="!isReady">
         </div>
-        <ng-container *ngIf="isReady">
-            <ng-container *ngIf="!useMobileIframe">
-                <div *ngIf="isReady;"
-                     wlc-dynamic-html
-                     #gameContainer
-                     class="{{$class}}__game-container"
-                     [html]="gameHtml"></div>
-            </ng-container>
-
-            <ng-container *ngIf="useMobileIframe">
-                <div #gameContainer class="{{$class}}__game-container" id="egamings_container"></div>
-            </ng-container>
-        </ng-container>
+        <ng-container [ngTemplateOutlet]="gameWrapper"></ng-container>
     </div>
 </div>
+
+<ng-template #gameWrapper>
+    <ng-container *ngIf="isReady">
+        <ng-container *ngIf="useMobileIframe; else gameWithHtml">
+            <div #gameContainer
+                 id="egamings_container"
+                 class="{{$class}}__game-container {{$class}}__game-container-{{game.merchantName}}"
+                 [class.mobile]="mobileGame">
+            </div>
+        </ng-container>
+    </ng-container>
+</ng-template>
+
+<ng-template #gameWithHtml>
+    <div *ngIf="isReady;"
+         wlc-dynamic-html
+         #gameContainer
+         class="{{$class}}__game-container {{$class}}__game-container-{{game.merchantName}}"
+         [class.mobile]="mobileGame"
+         [html]="gameHtml"
+         [canUseScriptTag]="true">
+    </div>
+</ng-template>

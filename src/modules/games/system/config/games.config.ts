@@ -26,6 +26,7 @@ export const gamesConfig: IGamesConfig = {
             '945': {},
             '942': {},
             '912': {},
+            '917': {},
             '987': {},
         },
     },
