@@ -16,6 +16,7 @@ import {
     ModalDirective,
 } from 'ngx-bootstrap/modal';
 
+import {Deferred} from 'wlc-engine/modules/core';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
 import {
@@ -25,13 +26,30 @@ import {
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {DeviceModel} from 'wlc-engine/modules/core/system/models/device.model';
 import {
-    IModalOptions, 
+    IModalOptions,
     IModalBsOptions,
 } from 'wlc-engine/modules/core/components/modal/modal.interface';
 import {defaultParams} from 'wlc-engine/modules/core/components/modal/modal.params';
 import _isString from 'lodash-es/isString';
 import _assign from 'lodash-es/assign';
 
+/**
+ * A wrapper component for displaying the component in a modal window.
+ * It is a wrapper with basic elements, such as:
+ * - backdrop
+ * - modal body
+ * - modal header
+ * - modal content
+ * - modal buttons
+ * It includes all the necessary functionality for managing a modal window: displaying, hiding, etc.
+ *
+ * It is called automatically from the ModalService during the calling of a modal window. No manual call required.
+ *
+ * @param {ModalDirective} modalRef Modal component from ngx bootstrap package
+ * @param {IModalOptions} $params Component parameters
+ * @param {Injector} inject Angular Injector class.
+ * @param {IModalBsOptions} bsOptions Bootstrap modal config.
+ */
 @Component({
     selector: '[wlc-modal-window]',
     templateUrl: './modal.component.html',
@@ -47,6 +65,8 @@ export class WlcModalComponent extends AbstractComponent
     public dialogClasses: string[] = [];
     public inject: Injector;
     public bsOptions: IModalBsOptions = {};
+
+    protected $closed: Deferred<string> = new Deferred();
 
     @Input() protected inlineParams: IModalOptions;
 
@@ -65,6 +85,22 @@ export class WlcModalComponent extends AbstractComponent
         }, ConfigService);
     }
 
+    /**
+     * @param {Promise<string>} closed Promise object that resolves when the modal is closed.
+     */
+    public get closed(): Promise<string> {
+        return this.$closed.promise;
+    }
+
+    /**
+     * A method that sets the closed state of the modal. Does not close the window itself, it is only used to put
+     * the Promise object $closed in the Resolve state.
+     * @param {string} str Closed modal state.
+     */
+    public setClosed(str: string): void {
+        this.$closed.resolve(str);
+    }
+
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.applyConfig();
@@ -77,6 +113,10 @@ export class WlcModalComponent extends AbstractComponent
         this.initEventHandlers();
     }
 
+    /**
+     * Closes the modal window
+     * @param {string} modal Modal ID
+     */
     public confirm(modal: string): void {
         const {config} = this.$params;
 
@@ -86,14 +126,25 @@ export class WlcModalComponent extends AbstractComponent
         this.closeModal(modal);
     }
 
+    /**
+     * Closes the modal window
+     * @param {string} modal Modal ID
+     */
     public closeModal(modal: string): void {
         this.modalService.hideModal(modal);
     }
 
+    /**
+     * Sets the title of a modal window
+     * @param {string} title Modal title
+     */
     public setTitle(title: string): void {
         this.$params.config.modalTitle = title;
     }
 
+    /**
+     * Getting the type of a modal window
+     */
     public getType(): string {
         if (this.$params.config.modalMessage && this.$params.config.component) {
             return 'message-and-component';
@@ -108,6 +159,10 @@ export class WlcModalComponent extends AbstractComponent
         }
     }
 
+    /**
+     * The method of returning (opening) the previous modal window, if several of them were subsequently opened
+     * @param name
+     */
     public goBack(name): void {
         this.modalService.showModal(name);
     }
@@ -181,19 +236,20 @@ export class WlcModalComponent extends AbstractComponent
 
     protected initEventHandlers(): void {
         this.modalRef.onShow.subscribe(() => {
-            this.eventHandler('show.bs.modal', this.$params.config.onModalShow);
+            this.eventHandler(this.modalService.events.MODAL_SHOW, this.$params.config.onModalShow);
         });
 
         this.modalRef.onShown.subscribe(() => {
-            this.eventHandler('shown.bs.modal', this.$params.config.onModalShown);
+            this.eventHandler(this.modalService.events.MODAL_SHOWN, this.$params.config.onModalShown);
         });
 
         this.modalRef.onHidden.subscribe(() => {
-            this.eventHandler('hidden.bs.modal', this.$params.config.onModalHidden);
+            this.$closed.resolve();
+            this.eventHandler(this.modalService.events.MODAL_HIDDEN, this.$params.config.onModalHidden);
         });
 
         this.modalRef.onHide.subscribe(() => {
-            this.eventHandler('hide.bs.modal', this.$params.config.onModalHide);
+            this.eventHandler(this.modalService.events.MODAL_HIDE, this.$params.config.onModalHide);
         });
     }
 

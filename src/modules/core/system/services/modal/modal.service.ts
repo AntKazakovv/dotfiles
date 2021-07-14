@@ -90,7 +90,7 @@ export class ModalService {
      * @param componentParams
      * @returns Reference on component
      */
-    public showModal<T>(config: IModalParams, componentParams?: T): void {
+    public showModal<T>(config: IModalParams, componentParams?: T): WlcModalComponent {
         let modalConfig: IModalConfig;
 
         if (_isString(config)) {
@@ -153,7 +153,7 @@ export class ModalService {
             return;
         }
 
-        this.openModal(modalConfig);
+        return this.openModal(modalConfig);
     }
 
     /**
@@ -279,7 +279,7 @@ export class ModalService {
         this.$closeObserver.next(this.closeQueue.length);
     }
 
-    private openModal(config: IModalConfig): void {
+    private openModal(config: IModalConfig): WlcModalComponent {
         if (_find(this.activeModals, ({id}) => id === config.id)) {
             return;
         }
@@ -298,7 +298,7 @@ export class ModalService {
             ],
         });
 
-        const windowCmptRef: ComponentRef<any> = windowFactory.create(injector);
+        const windowCmptRef: ComponentRef<WlcModalComponent> = windowFactory.create(injector);
         const modalElement = windowCmptRef.location.nativeElement;
 
         this.appRef.attachView(windowCmptRef.hostView);
@@ -317,6 +317,7 @@ export class ModalService {
                 backDropElement.style.zIndex = +modalElement.style.zIndex - 1;
             }
         });
+        return windowCmptRef.instance;
     }
 
     /**

@@ -6,6 +6,7 @@ export const errorTypes: ILogTypes = {
     },
     '1.1.1': {
         // User registration error: modal opened timeout
+        level: 'fatal',
     },
     '1.1.2': {
         // No bonuses from fundist on registration
@@ -82,6 +83,7 @@ export const errorTypes: ILogTypes = {
     },
     '1.2.1': {
         // User login error: modal opened timeout
+        level: 'fatal',
     },
     '1.2.2': {
         // User login timeout
