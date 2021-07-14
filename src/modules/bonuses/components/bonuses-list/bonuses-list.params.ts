@@ -3,6 +3,7 @@ import {SwiperOptions} from 'swiper';
 import {
     IComponentParams,
     CustomType,
+    IPagination,
     IButtonCParams,
 } from 'wlc-engine/modules/core';
 import {
@@ -12,7 +13,7 @@ import {
 } from 'wlc-engine/modules/bonuses';
 
 export type Type = 'default' | 'swiper' | CustomType;
-export type Theme = 'active'| 'default' | 'partial' | 'promo' | 'promo-home' | 'reg-first' | CustomType;
+export type Theme = 'active' | 'default' | 'partial' | 'promo' | 'promo-home' | 'reg-first' | CustomType;
 export type ThemeMod = 'default' | CustomType;
 export type AutoModifiers = Theme | ThemeMod;
 export type CustomMod = string;
@@ -31,6 +32,7 @@ export interface IBonusesListCParams extends IComponentParams<Theme, Type, Theme
         swiperManualTransitionDuration?: number;
         useBlankBonus?: boolean;
         selectFirstBonus?: boolean;
+        pagination?: IPagination;
         useRecommendedBonuses?: boolean;
         useNoDataText?: boolean;
         useQuery?: boolean;

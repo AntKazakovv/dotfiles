@@ -15,6 +15,7 @@ import {
     AbstractComponent,
     IMixedParams,
     ConfigService,
+    IPaginateOutput,
 } from 'wlc-engine/modules/core';
 import {SliderComponent} from 'wlc-engine/modules/promo/components/slider/slider.component';
 import {
@@ -55,6 +56,7 @@ export class TournamentListComponent
     public isTournamentSelected: boolean;
     public activeTournament: Tournament;
     public tournaments: Tournament[] = [];
+    public paginatedTournaments: Tournament[] = [];
     public isReady: boolean = false;
     public sliderParams: ISliderCParams = {
         swiper: {},
@@ -63,6 +65,7 @@ export class TournamentListComponent
     public isAuth: boolean;
 
     protected indexOfSelectedTournament: number;
+    protected itemsPerPage: number = 0;
 
     constructor(
         @Inject('injectParams') protected params: Params.ITournamentListCParams,
@@ -96,6 +99,18 @@ export class TournamentListComponent
         return !!(this.tournaments?.length && this.isReady && this.slides?.length);
     }
 
+    /**
+     * Method updates the data when there was a change in `wlc-pagination` component
+     *
+     * @method paginationOnChange
+     * @param {IPaginateOutput} value - $event output from `wlc-pagination` component
+     */
+    public paginationOnChange(value: IPaginateOutput): void {
+        this.paginatedTournaments = value.paginatedItems as Tournament[];
+        this.itemsPerPage = value.itemsPerPage;
+        this.cdr.markForCheck();
+    }
+
     protected getTournaments(): void {
         this.tournamentsService.getSubscribe({
             // TODO Fix it. This is not working correctly.
@@ -114,7 +129,7 @@ export class TournamentListComponent
                         tournaments = _filter(tournaments, tournament => tournament.id === +this.uiRouter.params.tournamentId);
                     }
 
-                    this.tournaments = tournaments;
+                    this.paginatedTournaments = this.tournaments = tournaments;
 
                     if (this.$params.type === 'swiper' && this.tournaments.length) {
                         this.tournamentsToSlides(true);

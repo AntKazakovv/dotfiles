@@ -1,15 +1,25 @@
 <div class="{{$class}}__content" data-wlc-element="wlc-store">
-    <div
-        *ngIf="storeItems?.length && isReady; else: noItems"
-        class="{{$class}}__list"
-        [class.first]="isProfileFirst">
-        <div *ngFor="let item of storeItems" wlc-store-item [storeItem]="item" [theme]="itemTheme"></div>
+    <div *ngIf="paginatedStoreItems?.length && isReady; else: noItems"
+         class="{{$class}}__list"
+         [class.first]="isProfileFirst">
+        <div *ngFor="let item of paginatedStoreItems"
+             wlc-store-item
+             [storeItem]="item"
+             [theme]="itemTheme"></div>
     </div>
-    <!-- TODO: add pagination -->
+    <div wlc-pagination
+         [items]="storeItems"
+         [settings]="$params.common?.pagination"
+         (paginationOnChange)="paginationOnChange($event)">
+    </div>
     <ng-template #noItems>
-        <div class="{{$class}}__nocontent" *ngIf="isReady">{{'No store items available' | translate}}</div>
-        <div class="{{$class}}__nocontent" *ngIf="!isReady">
-            <div wlc-loader></div>
-        </div>
+        <div *ngIf="isReady; else loading"
+             class="{{$class}}__nocontent">{{'No store items available' | translate}}</div>
     </ng-template>
 </div>
+
+<ng-template #loading>
+    <div class="{{$class}}__nocontent">
+        <div wlc-loader></div>
+    </div>
+</ng-template>

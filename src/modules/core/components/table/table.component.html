@@ -49,10 +49,11 @@
                  [iconPath]="$params.iconPath"></div>
         </div>
     </div>
-    <div *ngIf="rows.length > itemPerPage"
+    <div
          wlc-pagination
-         [totalItems]="rows.length"
+         [items]="rows"
          [itemPerPage]="itemPerPage"
+         [settings]="$params.pagination"
          [pageChanged]="pageChanged.bind(this)">
     </div>
 </ng-template>

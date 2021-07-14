@@ -11,16 +11,17 @@ import {
     AbstractComponent,
     IMixedParams,
     ConfigService,
+    IPaginateOutput,
 } from 'wlc-engine/modules/core';
-import {StoreService} from '../../system/services';
-import {StoreItem} from '../../system/models/store-item';
-import {IStore} from '../../system/interfaces/store.interface';
-import * as Params from './store-list.params';
+import {
+    StoreService,
+    StoreItem,
+    IStore,
+} from 'wlc-engine/modules/store';
+
+import * as Params from 'wlc-engine/modules/store/components/store-list/store-list.params';
 
 import _union from 'lodash-es/union';
-
-
-export {IStoreListCParams} from './store-list.params';
 
 @Component({
     selector: '[wlc-store-list]',
@@ -39,11 +40,14 @@ export class StoreListComponent extends AbstractComponent implements OnInit, OnD
 
     public $params: Params.IStoreListCParams;
     public storeItems: StoreItem[] = [];
+    public paginatedStoreItems: StoreItem[] = [];
     public isReady: boolean = false;
     public isProfileFirst: boolean;
     public userPoints: number = 0;
     public userExpPoints: number = 0;
     public itemTheme: Params.Theme = 'default';
+
+    protected itemsPerPage: number = 0;
 
     constructor(
         @Inject('injectParams') protected params: Params.IStoreListCParams,
@@ -52,7 +56,10 @@ export class StoreListComponent extends AbstractComponent implements OnInit, OnD
         protected storeService: StoreService,
     ) {
         super(
-            <IMixedParams<Params.IStoreListCParams>>{injectParams: params, defaultParams: Params.defaultParams}, ConfigService);
+            <IMixedParams<Params.IStoreListCParams>>{
+                injectParams: params,
+                defaultParams: Params.defaultParams,
+            }, ConfigService);
     }
 
     public ngOnInit(): void {
@@ -67,7 +74,7 @@ export class StoreListComponent extends AbstractComponent implements OnInit, OnD
             observer: {
                 next: (store: IStore) => {
                     if (store) {
-                        this.storeItems = store.items;
+                        this.paginatedStoreItems = this.storeItems = store.items;
                         this.isReady = true;
                     }
                     this.cdr.markForCheck();
@@ -76,6 +83,18 @@ export class StoreListComponent extends AbstractComponent implements OnInit, OnD
             type: 'all',
             until: this.$destroy,
         });
+    }
+
+    /**
+     * Method updates the data when there was a change in `wlc-pagination` component
+     *
+     * @method paginationOnChange
+     * @param {IPaginateOutput} value - $event output from `wlc-pagination` component
+     */
+    public paginationOnChange(value: IPaginateOutput): void {
+        this.paginatedStoreItems = value.paginatedItems as StoreItem[];
+        this.itemsPerPage = value.itemsPerPage;
+        this.cdr.markForCheck();
     }
 
     protected prepareModifiers(): void {

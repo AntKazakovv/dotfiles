@@ -12,7 +12,6 @@
                 [theme]="$params.theme">
             </div>
         </div>
-        <!-- TODO: add pagination -->
     </div>
 </ng-template>
 
@@ -73,12 +72,11 @@
 </ng-template>
 
 <ng-template #available>
-    <div
-        *ngIf="tournaments?.length && isReady; else: noData"
-        class="{{$class}}__container"
-        data-wlc-element="block_tournament">
+    <div *ngIf="paginatedTournaments?.length && isReady; else: noData"
+         class="{{$class}}__container"
+         data-wlc-element="block_tournament">
         <div
-            *ngFor="let tournament of tournaments"
+            *ngFor="let tournament of paginatedTournaments"
             class="{{$class}}__item">
             <div
                 wlc-tournament
@@ -89,6 +87,12 @@
             >
             </div>
         </div>
+    </div>
+    <div wlc-pagination
+         theme="default"
+         [items]="tournaments"
+         [settings]="$params.common?.pagination"
+         (paginationOnChange)="paginationOnChange($event)">
     </div>
 </ng-template>
 
@@ -135,11 +139,11 @@
 <ng-template #noData>
     <div *ngIf="isReady"
          class="{{$class}}__nocontent">{{ 'No tournaments available' | translate}}
-         <button *ngIf="$params.useNoTournamentsBtn"
-                 wlc-button
-                 class="{{$class}}__nocontent-btn"
-                 [inlineParams]="$params.noTournamentsBtn">
-         </button>
+        <button *ngIf="$params.useNoTournamentsBtn"
+                wlc-button
+                class="{{$class}}__nocontent-btn"
+                [inlineParams]="$params.noTournamentsBtn">
+        </button>
     </div>
     <div class="{{$class}}__nocontent" *ngIf="!isReady">
         <div wlc-loader></div>

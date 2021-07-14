@@ -27,6 +27,7 @@ import {
     ConfigService,
     DeviceType,
     HeightToggleAnimation,
+    IPaginateOutput,
 } from 'wlc-engine/modules/core';
 import {TableRowModel} from './table-row.model';
 

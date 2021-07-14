@@ -676,7 +676,7 @@ export namespace profileContent {
                             params: {
                                 class: 'wlc-profile-content__body',
                                 components: [
-                                    componentLib.wlcStoreList.def,
+                                    componentLib.wlcStoreList.first,
                                 ],
                             },
                         },
@@ -973,7 +973,7 @@ export namespace profileContent {
                             params: {
                                 class: 'wlc-profile-content__body',
                                 components: [
-                                    componentLib.wlcTournamentList.available,
+                                    componentLib.wlcTournamentList.availableFirst,
                                 ],
                             },
                         },

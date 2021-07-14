@@ -1,4 +1,4 @@
-import {IComponentParams, CustomType} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {IComponentParams, CustomType, IPagination} from 'wlc-engine/modules/core';
 import {BehaviorSubject} from 'rxjs';
 
 export type Theme = 'default' | 'tournaments' | CustomType;
@@ -15,6 +15,7 @@ export interface ITableCParams extends IComponentParams<Theme, Type, ThemeMod>, 
     head?: ITableCol[],
     rows?: unknown[] | BehaviorSubject<unknown[]>,
     pageCount?: number,
+    pagination?: IPagination,
     iconPath?: string,
     switchWidth?: number;
 }
@@ -23,6 +24,14 @@ export const defaultParams: ITableCParams = {
     class: 'wlc-table',
     noItemsText: gettext('No items available'),
     pageCount: 10,
+    pagination: {
+        use: true,
+        breakpoints: {
+            375: {
+                itemPerPage: 10,
+            },
+        },
+    },
     switchWidth: 1024,
     iconPath: '/wlc/icons/empty-table-bg.svg',
 };

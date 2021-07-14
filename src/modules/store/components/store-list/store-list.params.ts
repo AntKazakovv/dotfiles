@@ -1,7 +1,8 @@
 import {
     IComponentParams,
     CustomType,
-} from 'wlc-engine/modules/core/system/classes/abstract.component';
+    IPagination,
+} from 'wlc-engine/modules/core';
 
 export type Type = 'default' | CustomType;
 export type Theme = 'default' | 'first' | CustomType;
@@ -16,6 +17,7 @@ export interface IStoreListCParams extends IComponentParams<Theme, Type, ThemeMo
         themeMod?: ThemeMod;
         customModifiers?: CustomMod;
         byCategories?: boolean;
+        pagination?: IPagination;
     };
 }
 

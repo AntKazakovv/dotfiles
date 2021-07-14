@@ -6,7 +6,6 @@
 .wlc-pagination--theme-default {
 
     &:host {
-        @include bm.get-mq-map('margin', $themeDefault, 'hostMargin');
         display: flex;
         align-items: center;
         justify-content: center;
@@ -14,9 +13,9 @@
         ::ng-deep {
 
             .pagination {
+                @include bm.get-mq-map('margin', $themeDefault, 'paginationMargin');
                 display: flex;
                 align-items: center;
-                margin: 0;
                 padding: ef.get-value($themeDefault, 'paginationPadding');
                 list-style-type: none;
 
