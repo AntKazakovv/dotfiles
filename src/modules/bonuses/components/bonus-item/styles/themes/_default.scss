@@ -219,11 +219,6 @@
         &__content {
             @include contentCommonStyles;
 
-            background-image: ef.get-value($themeDefault, 'backgroundDefault');
-            background-repeat: ef.get-value($themeDefault, 'backgroundDefaultRepeat');
-            background-size: ef.get-value($themeDefault, 'backgroundDefaultSize');
-            transform: translate3d(0, 0, 0);
-
             &.disabled {
                 cursor: not-allowed;
                 opacity: 0.5;

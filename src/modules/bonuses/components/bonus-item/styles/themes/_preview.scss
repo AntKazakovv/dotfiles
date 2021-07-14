@@ -76,8 +76,7 @@
             height: ef.get-value($themePreview, 'bonusHeight');
             padding: ef.get-value($themePreview, 'bonusPadding');
             text-align: center;
-            background: url('/gstatic/wlc/bonuses/blank-bonus-decor.png') no-repeat center top, linear-gradient(180deg, #8dacc9 0%, #003d5f 100%);
-            background-size: contain;
+            background: ef.get-value($themePreview, 'blankBg');
 
             &-title {
                 @include text.get-text-style(ef.get-value($themePreview, 'bonusTitleStyle'));
