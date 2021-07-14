@@ -5,7 +5,7 @@ import {
     IBetradarGame,
     IMarketItem,
     MarketType,
-} from 'wlc-engine/modules/sportsbook';
+} from 'wlc-engine/modules/sportsbook/system/interfaces/sportsbook.interface';
 
 import _get from 'lodash-es/get';
 import _forEach from 'lodash-es/forEach';

@@ -1,12 +1,10 @@
 import {Injectable} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 
-import {
-    ConfigService,
-    IBanner,
-} from 'wlc-engine/modules/core';
-import {EventService} from 'wlc-engine/modules/core';
-import {BannerModel} from 'wlc-engine/modules/promo';
+import {IBanner} from 'wlc-engine/modules/core/system/interfaces/promo.interface';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
+import {BannerModel} from 'wlc-engine/modules/promo/system/models/banner.model';
 
 import _every from 'lodash-es/every';
 import _filter from 'lodash-es/filter';

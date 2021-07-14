@@ -1,6 +1,7 @@
 import {Component, Inject, Input, OnInit} from '@angular/core';
-import {AbstractComponent, ConfigService} from 'wlc-engine/modules/core';
-import {BannersService, IBannersFilter} from 'wlc-engine/modules/promo';
+import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
+import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
+import {BannersService, IBannersFilter} from 'wlc-engine/modules/promo/system/services/banners/banners.service';
 import * as Params from './banner.params';
 
 /**

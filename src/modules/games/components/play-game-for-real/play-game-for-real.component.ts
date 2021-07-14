@@ -18,7 +18,7 @@ import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract
 import {IMixedParams} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {IFormWrapperCParams} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
 
-import {UserService} from 'wlc-engine/modules/user/system/services';
+import {UserService} from 'wlc-engine/modules/user/system/services/user/user.service';
 
 import * as Params from './play-game-for-real.params';
 

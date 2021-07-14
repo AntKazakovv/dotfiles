@@ -15,7 +15,8 @@ import {
     DeviceType,
     ModalService,
 } from 'wlc-engine/modules/core';
-import {StaticService, TextDataModel} from 'wlc-engine/modules/static';
+import {TextDataModel} from 'wlc-engine/modules/static/system/models/textdata.model';
+import {StaticService} from 'wlc-engine/modules/static/system/services/static/static.service';
 
 import * as Params from './promo-steps.params';
 
