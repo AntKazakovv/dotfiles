@@ -39,6 +39,7 @@ import _extend from 'lodash-es/extend';
 import _isObject from 'lodash-es/isObject';
 import _get from 'lodash-es/get';
 import _some from 'lodash-es/some';
+import _isNil from 'lodash-es/isNil';
 
 interface ITournamentData extends IData {
     data?: ITournament;
@@ -139,25 +140,25 @@ export class TournamentsService {
         intervalValue: number = 15000,
     ): BehaviorSubject<ITopTournamentUsers> {
 
-        if (limit !== undefined) {
+        if (!_isNil(limit)) {
             if (limit === 0) {
-                this.winnersLimit['' + tournamentID] = 0;
-            } else if (this.winnersLimit['' + tournamentID] !== 0 && limit > this.winnersLimit['' + tournamentID]) {
-                this.winnersLimit['' + tournamentID] = limit;
+                this.winnersLimit[tournamentID] = 0;
+            } else if (!!this.winnersLimit[tournamentID] && limit > this.winnersLimit[tournamentID]) {
+                this.winnersLimit[tournamentID] = limit;
             }
         }
 
         if (!this.winnersSubjects[tournamentID]) {
             this.winnersSubjects[tournamentID] = new BehaviorSubject(null);
-
-            const winnersInterval = interval(intervalValue)
-                .pipe(filter(() => this.winnersSubjects[tournamentID].observers.length > 0))
-                .pipe(tap(() => this.getTournamentTop(tournamentID, this.winnersLimit['' + tournamentID])));
-
-            winnersInterval.pipe(
-                (until) ? takeUntil(until) : pipe(),
-            ).subscribe({next: () => { }});
         }
+        
+        const winnersInterval = interval(intervalValue)
+            .pipe((until) ? takeUntil(until) : pipe())
+            .pipe(filter(() => !!this.winnersSubjects[tournamentID].observers.length))
+            .pipe(tap(() => this.getTournamentTop(tournamentID, this.winnersLimit[tournamentID])));
+
+        winnersInterval.subscribe();
+
         return this.winnersSubjects[tournamentID];
     }
 
