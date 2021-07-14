@@ -4,7 +4,7 @@ $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'stepsHeight': 100%,
     'stepsAlignSelf': stretch,
-    'stepsTitleMargin': 0 0 ef.get('size', 'small') 0,
+    'stepsTitleMargin': 0 0 ef.size(2) 0,
 
     'containerMinHeight': (
         320: auto,
@@ -12,8 +12,8 @@ $themeDefault: map-merge((
         1630: 665px,
     ),
     'containerFirstMinHeight': (
-        320: 685px,
-        900: 685px,
+        320: 710px,
+        900: 720px,
         1630: 765px,
     ),
     'containerTemplateCol': (
@@ -22,12 +22,12 @@ $themeDefault: map-merge((
     ),
 
     'mainPadding': (
-        320: ef.get('size', 'smaller') 0 ef.get('size', 'main'),
-        900: ef.get('size', 'smaller') ef.get('size', 'less') ef.get('size', 'main'),
+        320: ef.size(4) 0 ef.size(8),
+        900: ef.size(4) ef.size(6) ef.size(8),
     ),
     'mainPaddingFirst': (
-        320: ef.get('size', 'smaller') 0 ef.get('size', 'main'),
-        900: ef.get('size', 'less'),
+        320: ef.size(4) 0 ef.size(8),
+        900: ef.size(6),
     ),
     'mainMaxWidth': (
         320: 280px,
@@ -40,12 +40,10 @@ $themeDefault: map-merge((
 
     'mainJustifyContent': (
         320: flex-start,
-        900: space-between,
     ),
 
     'mainFirstJustifyContent': (
         320: flex-start,
-        900: flex-start,
     ),
 
     'mainDirection': column,
@@ -54,8 +52,8 @@ $themeDefault: map-merge((
     'headTextAlign': center,
 
     'nextStepBtnMargin': (
-        320: auto auto ef.get('size', 'smaller'),
-        900: auto auto ef.get('size', 'less'),
+        320: auto auto ef.size(4),
+        900: auto auto ef.size(6),
     ),
 
     'bonusListWidth': (
@@ -69,9 +67,9 @@ $themeDefault: map-merge((
     ),
 
     'bonusListMargin': (
-        320: 0 auto ef.get('size', 'less'),
-        900: ef.get('size', 'small') auto ef.get('size', 'main') auto,
-        1630: ef.get('size', 'smaller') auto ef.get('size', 'main') auto,
+        320: 0 auto ef.size(6),
+        900: ef.size(2) auto ef.size(8) auto,
+        1630: ef.size(4) auto ef.size(8) auto,
     ),
 
     'swiperControlsTopPos': 117px,
@@ -79,7 +77,7 @@ $themeDefault: map-merge((
 
     'singupHeadMaxWidth': 285px,
     'singupHeadWidth': 100%,
-    'singupHeadPadding': 0 ef.get('size', 'smally'),
+    'singupHeadPadding': 0 ef.size(3),
 
     'singupLinkBlockDisplay': (
         320: flex,
@@ -87,8 +85,8 @@ $themeDefault: map-merge((
     ),
     'singupLinkBlockRightPos': 100%,
     'singupLinkBlockBottomPos': (
-        320: 50px,
-        900: 30px,
+        320: ef.size(10),
+        900: ef.size(6),
     ),
     'singupLinkBlockLeftPos': 0,
     'singupLinkBlockLeftPosTop': auto,
@@ -98,11 +96,11 @@ $themeDefault: map-merge((
     'singupLinkBlockJustify': center,
     'singupLinkBlockTopPos': (
         320: 4px,
-        560: 10px,
+        560: ef.size(2),
     ),
     'singupLinkBlockMarign': (
-        320: 0 -20px 0 0,
-        560: 0 15px 0 0,
+        320: 0 ef.size(-4) 0 0,
+        560: 0 ef.size(3) 0 0,
     ),
     'singupLinkBlockSize': (
         320: 30px,
@@ -119,10 +117,10 @@ $themeDefault: map-merge((
     'singupBtnTextColorHover': lighten(ef.get('mainColors', 'main'), 20%),
     'singupBtnTextAlign': center,
     'singupIconOrder': -1,
-    'singupIconMargin': 0 5px 0 0,
+    'singupIconMargin': 0 ef.size(1) 0 0,
     'singupIconSvgWidth': (
         320: 14px,
-        560: 10px,
+        560: ef.size(2),
     ),
     'singupIconSvgHeight': (
         320: 19px,
@@ -133,7 +131,7 @@ $themeDefault: map-merge((
     'singupTextBlockAlign': center,
 
     'titleStyle': 'QoteTextBold',
-    'titleMargin': 0 0 ef.get('size', 'small') 0,
+    'titleMargin': 0 0 ef.size(2) 0,
 
     'subtitleStyle': 'PrimaryText',
 
@@ -142,24 +140,24 @@ $themeDefault: map-merge((
         900: block
     ),
 
-    'asideBonusPadding': 28px ef.get('size', 'big') 100px ef.get('size', 'big'),
+    'asideBonusPadding': 28px ef.size(12) 100px ef.size(12),
     'asideBonusHeight': 100%,
     'asideBonusBackround': rgba(#000, 0.4),
     'asideBonusTitleStyle': 'PromoTitle',
-    'asideBonusTitleMargin':  auto auto ef.get('size', 'less'),
+    'asideBonusTitleMargin':  auto auto ef.size(6),
     'asideBonusSubtitleStyle': 'PrimaryText',
     'asideBonusSubtitleMargin': 0  auto auto,
     'asideBonusTextStyle': 'ThirdTitle',
 
-    'stepsSubtitleMarign': 0 auto ef.get('size', 'big'),
-    'btnMargin': 0 auto ef.get('size', 'main'),
+    'stepsSubtitleMarign': 0 auto ef.size(12),
+    'btnMargin': 0 auto ef.size(8),
 
-    'backBtnPositionTop': 30px,
-    'backBtnPositionLeft': 40px,
+    'backBtnPositionTop': ef.size(6),
+    'backBtnPositionLeft': ef.size(8),
     'backBtnMaxWidth': 100%,
     'backBtnColorHover': ef.get('mainColors', 'main'),
 
-    'backBtnIconMargin': 0 ef.get('size', 'smallest') 0 0,
+    'backBtnIconMargin': 0 ef.size(1) 0 0,
     'backBtnIconFill': ef.get('mainColors', 'baseMain'),
     'backBtnIconFillHover': ef.get('mainColors', 'main'),
 

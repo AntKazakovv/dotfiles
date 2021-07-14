@@ -11,19 +11,19 @@ $themeDefault: map-merge((
 
     'gridColumns': 100px 1fr,
     'gridAlignContent': start,
-    'gridGap': 20px 15px,
+    'gridGap': ef.size(4) ef.size(3),
     'templateAreas': 'email email' 'password password' 'currency promocode' 'terms terms' 'age age' 'btn btn' 'account account',
 
     'selectFontSize': 12px,
-    'selectPadding': 7px 35px 7px 13px,
+    'selectPadding': 7px ef.size(7) 7px 13px,
 
-    'fieldMargin': 0 0 ef.get('size', 'smaller'),
+    'fieldMargin': 0 0 ef.size(4),
     'inputBackground': ef.get('fieldColors', 'inputBg'),
     'inputColor': ef.get('fieldColors', 'textColor'),
     'inputOpacity': 1,
 
     'btnMargin': (
-        375: 0 auto ef.get('size', 'smallest'),
+        375: 0 auto ef.size(1),
     ),
 
     'checkboxLinkTransition': color 0.3s linear#{','} border-bottom-color 0.3s linear,
@@ -32,7 +32,7 @@ $themeDefault: map-merge((
     'checkboxLinkColorHover': lighten(ef.get('mainColors', 'main'), 20%),
     'checkboxLinkBorderColorHover': lighten(ef.get('mainColors', 'main'), 20%),
 
-    'checkboxPadding': 25px ef.get('size', 'small') 0 ef.get('size', 'small'),
+    'checkboxPadding': ef.size(4) ef.size(2) 0 ef.size(2),
     'checkboxAgeMargin': -17px 0 0,
-    'checkboxAgePadding': 0 ef.get('size', 'small') ef.get('size', 'main') ef.get('size', 'small'),
+    'checkboxAgePadding': 0 ef.size(2) ef.size(4) ef.size(2),
 ), $customThemeDefault);

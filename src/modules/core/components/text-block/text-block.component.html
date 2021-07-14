@@ -4,7 +4,7 @@
     <h2
         *ngIf="$params.common.textBlockTitle"
         class="wlc-text-block__title">
-        {{$params.common.textBlockTitle | translate}}
+        {{$params.common.textBlockTitle | translate}} {{getDynamicText('titleDynamicText') | translate}}
     </h2>
     <h3
         *ngIf="checkType($params.common.textBlockSubtitle) && $params.common.textBlockSubtitle; else textBlockSubtitle"
@@ -14,7 +14,7 @@
     <h3
         *ngIf="$params.common.dynamicText"
         class="wlc-text-block__dynamic">
-        {{$params.common.dynamicText.text | translate}} {{getDynamicText() | translate}}
+        {{$params.common.dynamicText.text | translate}} {{getDynamicText('dynamicText') | translate}}
     </h3>
 </div>
 <p

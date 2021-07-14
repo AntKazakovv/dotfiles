@@ -17,6 +17,8 @@ import _entries from 'lodash-es/entries';
 import _findIndex from 'lodash-es/findIndex';
 import _map from 'lodash-es/map';
 import _find from 'lodash-es/find';
+import _filter from 'lodash-es/filter';
+import _includes from 'lodash-es/includes';
 
 @Component({
     selector: '[wlc-steps]',
@@ -31,6 +33,7 @@ export class StepsComponent extends AbstractComponent implements OnInit {
     public $params: Params.IStepsParams;
     public currentStep: Params.IStep;
     public stepList: Params.IStep[];
+    public noBackLink: boolean;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IStepsParams,
@@ -47,9 +50,14 @@ export class StepsComponent extends AbstractComponent implements OnInit {
     public ngOnInit(): void {
         this.themeMod = this.configService.get<string>('$base.profile.type') === 'first' ? 'first' : this.themeMod;
         super.ngOnInit();
+        if (this.configService.get<boolean>('$base.profile.smsVerification.use')) {
+            this.$params.stepsNames.push('signUpSmsVerify');
+        }
         this.stepList = this.prepareSteps();
 
-        this.currentStep = this.getStepParamByName(this.$params.startStepName);
+        this.currentStep = this.getStepParamByName(this.$params.startStepName) || this.getStepParamByName(this.$params.stepsNames[0]);
+
+        this.setStepsCounters();
         this.setSubscription();
     }
 
@@ -73,6 +81,7 @@ export class StepsComponent extends AbstractComponent implements OnInit {
 
         if (this.stepList[index + 1]) {
             this.currentStep = this.stepList[index + 1];
+            this.setStepsCounters();
             this.cdr.markForCheck();
         }
     }
@@ -82,6 +91,7 @@ export class StepsComponent extends AbstractComponent implements OnInit {
 
         if (this.stepList[index - 1]) {
             this.currentStep = this.stepList[index - 1];
+            this.setStepsCounters();
             this.cdr.markForCheck();
         }
     }
@@ -93,11 +103,22 @@ export class StepsComponent extends AbstractComponent implements OnInit {
     protected prepareSteps(): Params.IStep[] {
         const stepsConfig = this.configService.get<string>('$base.profile.type') === 'first' ?
             this.$params.stepsConfigFirst : this.$params.stepsConfig;
-        return _map(_entries(stepsConfig), ([key, value]) => {
+        const filteredEntriesConfig = _filter(_entries(stepsConfig), (value) => {
+            return _includes(this.$params.stepsNames, value[0]);
+        });
+        return _map(filteredEntriesConfig, ([key, value]) => {
             return {
                 name: key,
                 config: value,
             };
         });
+    }
+
+    protected setStepsCounters(): void {
+        this.configService.set<string>({
+            name: 'regStepsCounter',
+            value: (this.currentStepIndex() + 1) + '/' + this.stepList.length,
+        });
+        this.noBackLink = !this.currentStepIndex();
     }
 }

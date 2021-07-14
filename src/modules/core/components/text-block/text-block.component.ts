@@ -52,9 +52,9 @@ export class TextBlockComponent extends AbstractComponent implements OnInit {
         return typeof text === 'string';
     };
 
-    public getDynamicText(): string {
-        const text = this.configService.get<string>(this.$params.common.dynamicText.param);
+    public getDynamicText(param: string): string {
+        const text = this.configService.get<string>(this.$params.common[param]?.param);
 
-        return text || this.$params.common.dynamicText.textDefault;
+        return text || this.$params.common[param]?.textDefault || '';
     }
 }

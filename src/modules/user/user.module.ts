@@ -9,6 +9,7 @@ import {CoreModule} from 'wlc-engine/modules/core/core.module';
 import {
     UserService,
     LimitationService,
+    SmsService,
 } from './system/services';
 
 // Components
@@ -16,6 +17,7 @@ import {AddProfileInfoComponent} from './components/add-profile-info/add-profile
 import {ChangePasswordFormComponent} from './components/change-password-form/change-password-form.component';
 import {DashboardLoyaltyBlockComponent} from 'wlc-engine/modules/user/components/dashboard-loyalty-block/dashboard-loyalty-block.component';
 import {ExchangeComponent} from './components/dashboard-exchange/exchange.component';
+import {IconExpLpDescriptionComponent} from './components/icon-exp-lp-description/icon-exp-lp-description.component';
 import {LimitationsComponent} from './components/limitations/limitations.component';
 import {LimitCancelComponent} from './components/limitations/limit-cancel/limit-cancel.component';
 import {LimitValueComponent} from './components/limitations/limit-value/limit-value.component';
@@ -30,11 +32,10 @@ import {RestoreLinkComponent} from './components/restore-link/restore-link.compo
 import {RestorePasswordFormComponent} from './components/restore-password-form/restore-password-form.component';
 import {SignInFormComponent} from './components/sign-in-form/sign-in-form.component';
 import {SignUpFormComponent} from './components/sign-up-form/sign-up-form.component';
+import {SmsVerificationComponent} from './components/sms-verification/sms-verification.component';
 import {UserInfoComponent} from './components/user-info/user-info.component';
 import {UserStatsComponent} from './components/user-stats/user-stats.component';
 import {UserNameComponent} from './components/user-name/user-name.component';
-import {IconExpLpDescriptionComponent} from './components/icon-exp-lp-description/icon-exp-lp-description.component';
-
 
 export const components = {
     'wlc-add-profile-info': AddProfileInfoComponent,
@@ -54,6 +55,7 @@ export const components = {
     'wlc-restore-password-form': RestorePasswordFormComponent,
     'wlc-sign-in-form': SignInFormComponent,
     'wlc-sign-up-form': SignUpFormComponent,
+    'wlc-sms-verification': SmsVerificationComponent,
     'wlc-user-info': UserInfoComponent,
     'wlc-user-stats': UserStatsComponent,
     'wlc-user-name': UserNameComponent,
@@ -80,6 +82,7 @@ export const components = {
         RestorePasswordFormComponent,
         SignInFormComponent,
         SignUpFormComponent,
+        SmsVerificationComponent,
         UserInfoComponent,
         UserStatsComponent,
         UserNameComponent,
@@ -94,6 +97,7 @@ export const components = {
         DataService,
         UserService,
         LimitationService,
+        SmsService,
     ],
     exports: [
         AddProfileInfoComponent,
@@ -111,6 +115,7 @@ export const components = {
         RestorePasswordFormComponent,
         SignInFormComponent,
         SignUpFormComponent,
+        SmsVerificationComponent,
         UserInfoComponent,
         UserStatsComponent,
         UserNameComponent,

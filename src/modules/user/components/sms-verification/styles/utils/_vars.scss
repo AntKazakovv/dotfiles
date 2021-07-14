@@ -1,0 +1,43 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/engine.variables' as ev;
+
+$customThemeButton: () !default;
+$themeButton: map-merge(map-merge(ev.$buttonSettings, (
+)), $customThemeButton);
+
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'formMaxWidth': 290px,
+    'formWidth': 100%,
+    'formMargin': 0 auto,
+    'formMinHeight': (
+        320: 400px,
+        1630: 470px,
+    ),
+    'textMargin': ef.size(8) 0 0 0,
+    'textAlign': center,
+    'textFontSize': ef.get('font', 'PrimaryText'),
+
+    'timerMargin': ef.size(4) 0 0 0,
+    'timerAlign': center,
+    'timerJustify': center,
+
+    'timerTextMargin': 0 0 ef.size(1) 0,
+    'timerTextColor':ef.get('mainColors', 'baseOpacity'),
+
+    'labelsMargin': 0 0 0 ef.size(2),
+    'labelsFontSize': ef.get('font', 'SignText'),
+
+    'fieldMargin': 0 0 ef.size(4),
+    'lastFieldMargin': 0,
+    'fieldsGridGap': ef.size(4),
+    'inputBackground': ef.get('fieldColors', 'inputBg'),
+    'inputColor': ef.get('fieldColors', 'textColor'),
+    'inputOpacity': 1,
+
+    'btnMargin': (
+        320: ef.size(8) auto ef.size(2),
+    ),
+    'btnDisabledCursor': not-allowed,
+    'btnDisabledOpacity': 0.5,
+), $customThemeDefault);

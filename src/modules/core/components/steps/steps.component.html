@@ -3,7 +3,7 @@
 </ng-template>
 
 <ng-template #signInUp>
-    <div wlc-wrapper [inlineParams]="currentStep.config"></div>
+    <div wlc-wrapper [class.noback]="noBackLink" [inlineParams]="currentStep.config"></div>
 </ng-template>
 
 <ng-container [ngSwitch]="$params.theme">

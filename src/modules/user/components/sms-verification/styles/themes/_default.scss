@@ -1,0 +1,82 @@
+@use 'engine-scss/functions' as ef;
+@use 'engine-scss/mixins/base.mixins' as em;
+@use 'engine-scss/mixins/text' as text;
+
+.wlc-sms-verification--theme-default:host {
+    @include em.get-mq-map('min-height', $themeDefault, 'formMinHeight');
+    width: ef.get-value($themeDefault, 'formWidth');
+    max-width: ef.get-value($themeDefault, 'formMaxWidth');
+    margin: ef.get-value($themeDefault, 'formMargin');
+
+    .wlc-sms-verification {
+
+        &__text {
+            margin: ef.get-value($themeDefault, 'textMargin');
+            font-size: ef.get-value($themeDefault, 'textFontSize');
+            text-align: ef.get-value($themeDefault, 'textAlign');
+        }
+
+        &__timer {
+            display: flex;
+            flex-direction: column;
+            align-items: ef.get-value($themeDefault, 'timerAlign');
+            justify-content: ef.get-value($themeDefault, 'timerJustify');
+            margin: ef.get-value($themeDefault, 'timerMargin');
+        }
+
+        &__timer-text {
+            @include text.get-text-style('SignText', ef.get-value($themeDefault, 'timerTextColor'));
+            margin: ef.get-value($themeDefault, 'timerTextMargin');
+        }
+    }
+
+    &::ng-deep {
+
+        .wlc-input {
+            margin: ef.get-value($themeDefault, 'fieldMargin');
+
+            &:last-child {
+                margin: ef.get-value($themeDefault, 'lastFieldMargin');
+            }
+
+            .wlc-input__container {
+
+                .wlc-input__input:disabled {
+                    color: ef.get-value($themeDefault, 'inputColor');
+                    -webkit-text-fill-color: ef.get-value($themeDefault, 'inputColor');
+
+                    background: ef.get-value($themeDefault, 'inputBackground');
+
+                    opacity: ef.get-value($themeDefault, 'inputOpacity');
+                }
+            }
+        }
+
+        .wlc-phone-field {
+            grid-gap: ef.get-value($themeDefault, 'fieldsGridGap');
+
+            .wlc-select__label,
+            .wlc-input__label {
+                margin: ef.get-value($themeDefault, 'labelsMargin');
+                font-size: ef.get-value($themeDefault, 'labelsFontSize');
+            }
+        }
+
+
+        .wlc-btn {
+            @include em.get-mq-map('margin', $themeDefault, 'btnMargin');
+
+            &[disabled] {
+                cursor: ef.get-value($themeDefault, 'btnDisabledCursor');
+                opacity: ef.get-value($themeDefault, 'btnDisabledOpacity');
+
+                @include em.hover {
+                    color: ef.get-value($themeButton, 'colorDefault');
+                    background: ef.get-value($themeButton, 'background');
+                    box-shadow: ef.get-value($themeButton, 'shadow');
+                    border: ef.get-value($themeButton, 'borderDefault');
+                }
+            }
+        }
+    }
+}

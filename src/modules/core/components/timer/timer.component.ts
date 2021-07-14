@@ -6,16 +6,15 @@ import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
 } from '@angular/core';
+import {DateTime} from 'luxon';
+import {interval, Subscription} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 import {
-    AbstractComponent,
     GlobalHelper,
     ConfigService,
 } from 'wlc-engine/modules/core';
+import {AbstractComponent} from 'wlc-engine/modules/core/system/classes';
 import * as Params from './timer.params';
-
-import {DateTime} from 'luxon';
-import {interval} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
 
 import _isString from 'lodash-es/isString';
 
@@ -39,6 +38,7 @@ export class TimerComponent extends AbstractComponent implements OnInit {
     @Input() public noCountDown: boolean;
     @Input() public countUp: boolean;
     @Input() public noDays: boolean;
+    @Input() public noHours: boolean;
     @Input() public themeMod: Params.ThemeMod;
     @Input() protected inlineParams: Params.ITimerCParams;
     public $params: Params.ITimerCParams;
@@ -58,6 +58,7 @@ export class TimerComponent extends AbstractComponent implements OnInit {
     private hoursToDday: number;
     private daysToDday: number;
     private reg: RegExp = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/;
+    private intervalSub: Subscription;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ITimerCParams,
@@ -68,12 +69,12 @@ export class TimerComponent extends AbstractComponent implements OnInit {
     }
 
     public ngOnInit(): void {
-        const inputProperties: string[] = ['value', 'text', 'noCountDown', 'countUp', 'noDays'];
+        const inputProperties: string[] = ['value', 'text', 'noCountDown', 'countUp', 'noDays', 'noHours'];
         super.ngOnInit(GlobalHelper.prepareParams(this, inputProperties));
 
         if (this.checkValueFormat()) {
             this.getTimeDifference();
-            interval(this.milliSecondsInASecond).pipe(takeUntil(this.$destroy))
+            this.intervalSub = interval(this.milliSecondsInASecond).pipe(takeUntil(this.$destroy))
                 .subscribe(() => {
                     this.getTimeDifference();
                     this.cdr.detectChanges();
@@ -105,6 +106,10 @@ export class TimerComponent extends AbstractComponent implements OnInit {
 
         if (timeDifference > 0) {
             this.allocateTimeUnits(timeDifference);
+        }
+
+        if (timeDifference <= 0 && !this.countUp) {
+            this.intervalSub.unsubscribe();
         }
     }
 

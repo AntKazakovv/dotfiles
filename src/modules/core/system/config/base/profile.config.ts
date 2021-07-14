@@ -4,6 +4,9 @@ export const profileConfig: IProfileConfig = {
     messages: {
         use: false,
     },
+    smsVerification: {
+        use: false,
+    },
     verification: {
         use: true,
     },
