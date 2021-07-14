@@ -8,6 +8,26 @@ export namespace wlcBonusesList {
             common: {
                 filter: 'main',
                 sortOrder: ['active', 'subscribe', 'inventory'],
+                pagination: {
+                    use: true,
+                    breakpoints: {
+                        375: {
+                            itemPerPage: 3,
+                        },
+                        720: {
+                            itemPerPage: 4,
+                        },
+                        1024: {
+                            itemPerPage: 6,
+                        },
+                        1366: {
+                            itemPerPage: 8,
+                        },
+                        1630: {
+                            itemPerPage: 6,
+                        },
+                    },
+                },
             },
         },
     };
@@ -18,6 +38,20 @@ export namespace wlcBonusesList {
             common: {
                 filter: 'main',
                 sortOrder: ['active', 'subscribe', 'inventory'],
+                pagination: {
+                    use: true,
+                    breakpoints: {
+                        375: {
+                            itemPerPage: 3,
+                        },
+                        640: {
+                            itemPerPage: 4,
+                        },
+                        1200: {
+                            itemPerPage: 6,
+                        },
+                    },
+                },
             },
             itemsParams: {
                 common: {

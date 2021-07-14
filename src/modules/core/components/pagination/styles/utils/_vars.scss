@@ -4,7 +4,7 @@
 $customThemeDefault: () !default;
 
 $themeDefault: map-merge((
-    'hostMargin': (
+    'paginationMargin': (
         375: ef.get('size', 'smaller') auto,
         1366: ef.get('size', 'main') auto ef.get('size', 'smaller'),
     ),

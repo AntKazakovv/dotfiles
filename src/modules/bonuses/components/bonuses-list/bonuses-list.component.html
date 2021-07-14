@@ -1,10 +1,10 @@
 <ng-template #default>
     <div class="{{$class}}__content" data-wlc-element="block_bonuses-main">
         <div *ngIf="$params.type !== 'swiper'" class="{{$class}}__list-wrapper">
-            <div *ngIf="bonuses?.length && isReady; else: noBonuses"
+            <div *ngIf="paginatedBonuses?.length && isReady; else: noBonuses"
                  class="{{$class}}__list"
                  data-wlc-element="block_bonus">
-                <div *ngFor="let bonus of bonuses"
+                <div *ngFor="let bonus of paginatedBonuses"
                      wlc-bonus-item
                      [bonus]="bonus"
                      [chosen]="bonus.isChoose"
@@ -13,7 +13,11 @@
                      [inlineParams]="$params.itemsParams"
                      [themeMod]="$params.themeMod"></div>
             </div>
-            <!-- TODO: add pagination -->
+            <div wlc-pagination
+                 [items]="bonuses"
+                 [settings]="$params.common?.pagination"
+                 (paginationOnChange)="paginationOnChange($event)">
+            </div>
         </div>
         <div *ngIf="$params.type === 'swiper'" class="{{$class}}__list-wrapper">
             <ng-container *ngIf="bonuses?.length && isReady; else: noBonuses">
@@ -44,11 +48,11 @@
     </div>
     <div *ngIf="isReady && !$params.common.useNoDataText"
          class="{{$class}}__nocontent">{{ 'No bonuses available' | translate}}
-         <button *ngIf="$params.useBtnNoBonuses"
-                 wlc-button
-                 class="{{$class}}__nocontent-btn"
-                 [inlineParams]="$params.btnNoBonuses">
-         </button>
+        <button *ngIf="$params.useBtnNoBonuses"
+                wlc-button
+                class="{{$class}}__nocontent-btn"
+                [inlineParams]="$params.btnNoBonuses">
+        </button>
     </div>
     <div *ngIf="!isReady" class="{{$class}}__nocontent">
         <div wlc-loader></div>
@@ -115,8 +119,8 @@
         </div>
         <div *ngIf="$params.theme === 'reg-first' && bonuses?.length" class="{{$class}}__checkbox-wrapper">
             <div wlc-checkbox
-                class="{{$class}}__checkbox"
-                [inlineParams]="checkBoxParams"></div>
+                 class="{{$class}}__checkbox"
+                 [inlineParams]="checkBoxParams"></div>
         </div>
     </div>
 </ng-template>
@@ -159,9 +163,9 @@
         </div>
     </div>
     <button *ngIf="isAuthAndBonusesLength && $params.useRedirectBtnToProfile"
-        wlc-button
-        class="{{$class}}__to-profile"
-        [inlineParams]="$params.redirectBtnToProfile">
+            wlc-button
+            class="{{$class}}__to-profile"
+            [inlineParams]="$params.redirectBtnToProfile">
     </button>
 </ng-template>
 

@@ -2,6 +2,7 @@ import {
     CustomType,
     IButtonCParams,
     IComponentParams,
+    IPagination,
 } from 'wlc-engine/modules/core';
 import {RestType, ThumbType} from 'wlc-engine/modules/tournaments';
 import {SwiperOptions} from 'swiper';
@@ -21,6 +22,7 @@ export interface ITournamentListCParams extends IComponentParams<ComponentTheme,
         restType?: RestType;
         thumbType?: ThumbType;
         swiper?: SwiperOptions;
+        pagination?: IPagination;
     },
     useNoTournamentsBtn?: boolean;
     noTournamentsBtn?: IButtonCParams,

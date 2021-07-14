@@ -20,6 +20,7 @@ import {
     EventService,
     IData,
     ICheckboxCParams,
+    IPaginateOutput,
 } from 'wlc-engine/modules/core';
 import {
     ISliderCParams,
@@ -71,6 +72,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
 
     public $params: Params.IBonusesListCParams;
     public bonuses: Bonus[] = [];
+    public paginatedBonuses: Bonus[] = [];
     public isReady: boolean = false;
     public sliderParams: ISliderCParams = {
         swiper: {},
@@ -87,6 +89,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
     };
 
     protected promocode: string = '';
+    protected itemsPerPage: number = 0;
 
     constructor(
         @Inject('injectParams') protected params: Params.IBonusesListCParams,
@@ -125,7 +128,7 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
             observer: {
                 next: (bonuses: Bonus[]) => {
                     if (bonuses) {
-                        this.bonuses = this.bonusesService.filterBonuses(bonuses, this.$params.common?.filter);
+                        this.paginatedBonuses = this.bonuses = this.bonusesService.filterBonuses(bonuses, this.$params.common?.filter);
                         this.isReady = true;
 
                         const chosenBonus = this.configService.get<ChosenBonusType>(ChosenBonusSetParams.ChosenBonus);
@@ -244,6 +247,18 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
         if (swiper.params.slidesPerView === 1) {
             this.chooseBonusByPosition(swiper.activeIndex);
         }
+    }
+
+    /**
+     * Method updates the data when there was a change in `wlc-pagination` component
+     *
+     * @method paginationOnChange
+     * @param {IPaginateOutput} value - $event output from `wlc-pagination` component
+     */
+    public paginationOnChange(value: IPaginateOutput): void {
+        this.paginatedBonuses = value.paginatedItems as Bonus[];
+        this.itemsPerPage = value.itemsPerPage;
+        this.cdr.markForCheck();
     }
 
     public get isAuthAndBonusesLength(): boolean {

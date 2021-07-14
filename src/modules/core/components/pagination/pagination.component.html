@@ -1,10 +1,11 @@
-<pagination [totalItems]="totalItems"
+<pagination [hidden]="hiddenPagination"
+            [totalItems]="totalItems"
+            [(ngModel)]="currentPage"
             [customNextTemplate]="firstTemplate"
             [customPreviousTemplate]="lastTemplate"
             [itemsPerPage]="itemPerPage"
             [maxSize]="3"
             (pageChanged)="pageChanged($event)"></pagination>
-
 
 <ng-template #lastTemplate>
     <button wlc-button theme="cleared" icon="arrow"></button>
