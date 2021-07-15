@@ -100,4 +100,8 @@ export const errorTypes: ILogTypes = {
         // User try run game
         level: 'log',
     },
+    '3.0.30': {
+        // Error getting the config of vertical games
+        level: 'log',
+    },
 };

@@ -70,6 +70,10 @@ export interface ILaunchGameParams {
     modal?: ILaunchGameModal;
 }
 
+export interface IVerticalThumbsConfig {
+    haveVideo: number[];
+}
+
 @Injectable({
     providedIn: 'root',
 })
@@ -90,6 +94,7 @@ export class GamesCatalogService {
         'category-menu',
     ];
     private deviceType: DeviceType;
+    private verticalThumbsConfig: IVerticalThumbsConfig;
     private lastPlayed: Game[] = [];
 
     constructor(
@@ -647,6 +652,41 @@ export class GamesCatalogService {
                 disableDemo: disableDemo,
             },
         });
+    }
+
+    /**
+     * Getting id of games that have video
+     *
+     * @returns {Promise<number[]>}
+     */
+    public async getIdVerticalVideos(): Promise<number[]> {
+        await this.getVerticalThumbsConfig();
+        return this.verticalThumbsConfig.haveVideo;
+    }
+
+    protected async getVerticalThumbsConfig(): Promise<IVerticalThumbsConfig> {
+
+        if (!this.verticalThumbsConfig) {
+
+            this.dataService.registerMethod({
+                name: 'verticalThumbsConfig',
+                system: 'games',
+                cache: 480 * 60 * 1000,
+                fullUrl: this.configService.get<string>('$games.verticalThumbsConfigUrl'),
+                type: 'GET',
+                noUseLang: true,
+            });
+
+            await this.dataService.request('games/verticalThumbsConfig').then(({data}) => {
+                this.verticalThumbsConfig = data || {
+                    haveVideo: [],
+                };
+            }).catch((error) => {
+                this.logService.sendLog({code: '3.0.30', data: error});
+            });
+        }
+
+        return this.verticalThumbsConfig;
     }
 
     protected registerMethods(): void {

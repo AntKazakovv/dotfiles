@@ -65,8 +65,7 @@ export const gamesConfig: IGamesConfig = {
         'avif': 'image/avif',
         'webp': 'image/webp',
     },
-    idVerticalVideos: [
-        1558042,
-    ],
+    verticalThumbsConfigUrl: '/gstatic/vertical-thumbs/vertical-thumb.json',
+    verticalImagesPath: '/gstatic/vertical-thumbs/',
     sportsbookMerchants: [958, 972, 993, 962, 937, 903, 922, 908],
 };

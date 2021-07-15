@@ -13,6 +13,8 @@ export interface IGamesConfig {
     categories?: ICategories;
     mediaFormatTypes?: IIndexing<string>;
     idVerticalVideos?: number[];
+    verticalThumbsConfigUrl?: string;
+    verticalImagesPath?: string;
     /**
      * exclude required fields
      *

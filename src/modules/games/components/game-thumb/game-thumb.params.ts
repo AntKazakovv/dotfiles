@@ -23,7 +23,6 @@ export interface IGameThumbButtonsSettings {
 
 export interface IGameThumbCParams extends IComponentParams<Theme, Type, ThemeMod> {
     modifiers?: Modifiers[];
-    verticalImagesPath?: string;
     common?: {
         themeMod?: ThemeMod;
         game?: Game,
@@ -44,5 +43,4 @@ export const defaultParams: IGameThumbCParams = {
             gameCategory: 'new',
         },
     },
-    verticalImagesPath: '/static/images/vertical-thumb/',
 };
