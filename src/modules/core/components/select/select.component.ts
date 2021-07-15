@@ -6,6 +6,9 @@ import {
     OnInit,
     SimpleChanges,
     OnChanges,
+    HostListener,
+    ElementRef,
+    ViewChild,
 } from '@angular/core';
 import {
     animate,
@@ -28,9 +31,9 @@ import {
 import * as Params from './select.params';
 
 import _union from 'lodash-es/union';
-import _find from 'lodash-es/find';
 import _kebabCase from 'lodash-es/kebabCase';
 import _get from 'lodash-es/get';
+import _findIndex from 'lodash-es/findIndex';
 
 /**
  * Component select
@@ -65,16 +68,23 @@ import _get from 'lodash-es/get';
 export class SelectComponent extends AbstractComponent implements OnInit,
     OnChanges {
     @Input() protected inlineParams: Params.ISelectCParams;
+    @ViewChild('selectList') protected selectList: ElementRef<HTMLElement>;
     public $params: Params.ISelectCParams;
     public control: FormControl;
     public isOpened: boolean;
     public fieldWlcElement: string;
+    public activeItemIndex: number;
+    public clickedOutside: boolean = false;
+    public searchText: string = '';
 
-    public get selectedItem() {
-        const selected = _find(this.$params.items, (item) => {
+    /**
+     * get index of active option in select list
+     */
+    public get selectedItemIndex(): number {
+        this.activeItemIndex = _findIndex(this.$params.items, (item) => {
             return item.value == this.control.value;
         });
-        return selected?.title;
+        return this.activeItemIndex;
     };
 
     /**
@@ -82,7 +92,7 @@ export class SelectComponent extends AbstractComponent implements OnInit,
      */
     public get buttonText(): string {
         return (
-            this.selectedItem
+            this.$params.items[this.selectedItemIndex]?.title
             || this.$params.common?.placeholder
             || _get(this.$params, 'items[0].title')
         ).toString();
@@ -140,22 +150,100 @@ export class SelectComponent extends AbstractComponent implements OnInit,
         }
     }
 
+    /**
+     * scroll select list on chosen option
+     */
+    public scrollSelectList(): void {
+        if (this.activeItemIndex < 0) {
+            return;
+        };
+        this.selectList?.nativeElement?.children[this.activeItemIndex].scrollIntoView({block: 'nearest'});
+    }
+
+    /**
+     * toggle open close select list
+     */
     public toggleDropdown(): void {
         if (this.control.status === 'DISABLED') {
             return;
         }
         this.isOpened = !this.isOpened;
+
+        if (this.isOpened) {
+            this.clickedOutside = false;
+        }
+
         this.cdr.markForCheck();
     }
 
+    /**
+     * close select list
+     */
     public closeDropdown(): void {
         this.isOpened = false;
     }
 
-    public selectOption(item: Params.ISelectOptions): void {
-        this.control.setValue(item.value);
+    /**
+     * chose option in select list and close list
+     */
+    public choseSelectByClick(item: Params.ISelectOptions, index: number): void {
+        this.activeItemIndex = index;
+        this.selectOption(item);
         this.toggleDropdown();
         this.cdr.markForCheck();
+    }
+
+    public isFieldRequired(): boolean {
+        return this.$params.validators?.includes('required');
+    }
+
+    /**
+     * listen event keydown and navigate on select list by this event
+     */
+    @HostListener('keydown', ['$event'])
+    public onKeyDown(event: KeyboardEvent): void {
+        if ('Tab' === event.code) {
+            this.closeDropdown();
+            return;
+        }
+        event.preventDefault();
+
+        switch (event.code) {
+            case 'Escape':
+                if (this.isOpened) {
+                    this.closeDropdown();
+                }
+                break;
+            case 'ArrowUp':
+                if (this.activeItemIndex < 1 || this.clickedOutside) {
+                    break;
+                }
+                this.selectOption(this.$params.items[--this.activeItemIndex]);
+                this.scrollSelectList();
+                break;
+            case 'ArrowDown':
+                if (this.activeItemIndex === this.$params.items.length - 1 || this.clickedOutside) {
+                    break;
+                }
+                this.selectOption(this.$params.items[++this.activeItemIndex]);
+                this.scrollSelectList();
+                break;
+            case 'Enter':
+                this.toggleDropdown();
+                break;
+            case 'Space':
+                if (!this.isOpened) {
+                    this.toggleDropdown();
+                }
+                break;
+        }
+    }
+
+    /**
+     * select option in select list
+     */
+    protected selectOption(item: Params.ISelectOptions): void {
+        this.control.setValue(item.value);
 
         this.EventService.emit({
             name: `SELECT_CHOSEN_${this.$params?.name?.toUpperCase()}`,
@@ -163,10 +251,9 @@ export class SelectComponent extends AbstractComponent implements OnInit,
         });
     }
 
-    public isFieldRequired(): boolean {
-        return this.$params.validators?.includes('required');
-    }
-
+    /**
+     * get constant values from configService and selectValues by select fields names
+     */
     private prepareConstantValues(): void {
         this.constantValues = {
             currencies: this.selectValues.prepareCurrency(),
@@ -194,6 +281,9 @@ export class SelectComponent extends AbstractComponent implements OnInit,
         };
     }
 
+    /**
+     * set constant values
+     */
     private setOptions(): void {
         this.constantValues[this.$params.options]
             .pipe(takeUntil(this.$destroy))

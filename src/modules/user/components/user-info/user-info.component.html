@@ -16,6 +16,7 @@
     <div class="{{$class}}-dropdown"
          data-wlc-element="block_user-stat-dropdown"
          wlc-click-outside
+         [isOpened]="isOpened"
          (clickOutside)="this.isOpened = false; this.dropdownBtnActive = false;"
     >
         <div class="{{$class}}-dropdown__btn"
