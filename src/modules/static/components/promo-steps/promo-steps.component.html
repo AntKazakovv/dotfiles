@@ -1,6 +1,6 @@
 <div *ngIf="steps.length && ready" class="container {{$class}}--{{deviceType}}">
     <div *ngIf="deviceType !== 'desktop'" class="{{$class}}__tabs-head">
-        <div *ngFor="let step of steps; index as $index"
+        <div *ngFor="let step of availableSteps; index as $index"
             class="{{$class}}__tab"
             [class.active]="isActiveStep($index)"
             (click)="selectTab($index)">
@@ -8,7 +8,7 @@
         </div>
     </div>
     <div class="{{$class}}__content">
-        <ng-container *ngFor="let step of steps; index as $index" [ngSwitch]="getStepType(step)">
+        <ng-container *ngFor="let step of availableSteps; index as $index" [ngSwitch]="getStepType(step)">
             <ng-container *ngSwitchCase="'sref'"
                             [ngTemplateOutlet]="sref"
                             [ngTemplateOutletContext]="{step: step, index: $index}">
@@ -46,8 +46,8 @@
 
         <ng-template #modal let-step="step" let-index="index">
             <button class="{{$class}}__step {{$class}}__step--modal"
-                    (click)="showModal(step.modal)"
-                    [class.active]="isActiveStep(index)">
+                    [class.active]="isActiveStep(index)"
+                    (click)="showModal(step.modal)">
                     <ng-container [ngTemplateOutlet]="stepContent" [ngTemplateOutletContext]="{step: step}"></ng-container>
             </button>
         </ng-template>
