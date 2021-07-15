@@ -27,6 +27,7 @@ export class ScrollbarComponent extends AbstractComponent implements OnInit, Aft
     @Input() protected inlineParams: Params.IScrollbarCParams;
 
     public swiperOptions: SwiperOptions = Params.defaultSwiperOptions;
+    protected wasInitedAgain: boolean = false;
 
     constructor(
         protected configService: ConfigService,
@@ -61,6 +62,10 @@ export class ScrollbarComponent extends AbstractComponent implements OnInit, Aft
         if (elem) {
             elem.onwheel = (event) => {
                 event.preventDefault();
+                if (!this.wasInitedAgain) {
+                    this.wasInitedAgain = true;
+                    this.swiper.initSwiper();
+                }
             };
         }
 
