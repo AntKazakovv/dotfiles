@@ -27,7 +27,7 @@ export const defaultParams: ITableCParams = {
     pagination: {
         use: true,
         breakpoints: {
-            375: {
+            0: {
                 itemPerPage: 10,
             },
         },
