@@ -11,9 +11,10 @@
 </label>
 
 <div wlc-click-outside
+     [isOpened]="isOpened"
      class="{{$class}}__group"
      [ngClass] = "{'field-disabled': control.disabled}"
-     (clickOutside)="closeDropdown()">
+     (clickOutside)="closeDropdown(); clickedOutside = true">
     <button ngDefaultControl
             id="{{$params.name}}"
             [attr.data-wlc-element]="fieldWlcElement"
@@ -42,14 +43,17 @@
         </span>
     </div>
 
-    <ul class="{{$class}}__dropdown" *ngIf="isOpened" @openClose>
-        <li *ngFor="let item of $params.items"
+    <ul *ngIf="isOpened"
+        #selectList
+        class="{{$class}}__dropdown"
+        @openClose
+        (@openClose.done)="scrollSelectList()">
+        <li *ngFor="let item of $params.items; index as i;"
             class="{{$class}}__dropdown-item"
+            [ngClass]="{'active': activeItemIndex === i}"
             [attr.data-wlc-element]="fieldWlcElement + '_' + (item.value || 'null')"
-            (click)="selectOption(item)">
+            (click)="choseSelectByClick(item, i)">
             {{item.title.toString() | translate}}
         </li>
     </ul>
 </div>
-
-
