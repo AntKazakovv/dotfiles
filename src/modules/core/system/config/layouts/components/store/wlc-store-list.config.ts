@@ -8,7 +8,7 @@ export namespace wlcStoreList {
                 pagination: {
                     use: true,
                     breakpoints: {
-                        375: {
+                        0: {
                             itemPerPage: 3,
                         },
                         720: {
@@ -36,7 +36,7 @@ export namespace wlcStoreList {
                 pagination: {
                     use: true,
                     breakpoints: {
-                        375: {
+                        0: {
                             itemPerPage: 3,
                         },
                         640: {

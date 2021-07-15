@@ -29,7 +29,7 @@ export namespace wlcTournamentList {
                 pagination: {
                     use: true,
                     breakpoints: {
-                        375: {
+                        0: {
                             itemPerPage: 2,
                         },
                     },
