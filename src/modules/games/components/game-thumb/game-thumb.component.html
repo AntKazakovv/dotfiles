@@ -61,7 +61,7 @@
             <picture class="{{$class}}-media__bg"
                      data-wlc-element="block_game-thumb-media">
 
-                <ng-container *ngFor="let image of $any(getVerticalContent('background', ['avif', 'webp']))">
+                <ng-container *ngFor="let image of $any(getVerticalContent('background', ['webp']))">
                     <source [srcset]="image.src" [type]="image.type">
                 </ng-container>
 
@@ -71,7 +71,7 @@
             <picture class="{{$class}}-media__fg"
                      data-wlc-element="block_game-thumb-media">
 
-                <ng-container *ngFor="let image of $any(getVerticalContent('foreground', ['avif', 'webp']))">
+                <ng-container *ngFor="let image of $any(getVerticalContent('foreground', ['webp']))">
                     <source [srcset]="image.src" [type]="image.type">
                 </ng-container>
 
@@ -81,7 +81,7 @@
             <picture class="{{$class}}-media__logo"
                      data-wlc-element="block_game-thumb-media">
 
-                <ng-container *ngFor="let image of $any(getVerticalContent('logo', ['avif', 'webp']))">
+                <ng-container *ngFor="let image of $any(getVerticalContent('logo', ['webp']))">
                     <source [srcset]="image.src" [type]="image.type">
                 </ng-container>
 

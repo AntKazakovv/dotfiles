@@ -123,7 +123,7 @@ export class GameThumbComponent extends AbstractComponent implements OnInit, Aft
         }
 
         if (this.$params.type === 'vertical') {
-            this.idVerticalVideos = this.configService.get<number[]>('$games.idVerticalVideos');
+            this.idVerticalVideos = await this.gamesCatalogService.getIdVerticalVideos();
             this.mediaFormatTypes = this.configService.get<IIndexing<string>>('$games.mediaFormatTypes');
         }
 
@@ -183,12 +183,14 @@ export class GameThumbComponent extends AbstractComponent implements OnInit, Aft
 
 
     public getVerticalContent(type: MediaType, format: string[] | string): IMediaContent[] | string {
-        const verticalImagesPath = this.$params.verticalImagesPath;
         const gameName = this.game.name?.en;
 
         if (!gameName) return;
 
-        const path = verticalImagesPath + gameName.toLowerCase().replace(/\s/g, '-');
+        const path = this.configService.get<string>('$games.verticalImagesPath') + gameName
+            .toLowerCase()
+            .replace(/[&\/:\\|]/g, '')
+            .replace(/\s/g, '-');
 
         if (_isArray(format)) {
             return _map(format, el => ({
