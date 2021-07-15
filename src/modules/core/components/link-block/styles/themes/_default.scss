@@ -87,6 +87,9 @@
         width: ef.get-value($themeDefault, 'baseWidth');
         height: ef.get-value($themeDefault, 'baseHeight');
 
+        border-radius: ef.get-value($themeDefault, 'secondaryWrapperRadius');
+        overflow: hidden;
+
         .wlc-link-block {
 
             &__container {
@@ -102,8 +105,6 @@
 
                 background: ef.get-value($themeDefault, 'containerBackground');
                 box-shadow: ef.get-value($themeDefault, 'containerShadow');
-
-                border-radius: ef.get-value($themeDefault, 'containerRadius');
             }
         }
     }
