@@ -113,10 +113,9 @@ export class ModalService {
                     this.modalList[config].config);
             } else {
                 this.logService.sendLog({
-                    code: '0.3.0',
-                    data: {
-                        modalConfig: config,
-                    },
+                    code: '0.3.2',
+                    data: {id: config},
+                    flog: {id: config},
                 });
                 return;
             }
@@ -127,9 +126,7 @@ export class ModalService {
         if (!modalConfig.id) {
             this.logService.sendLog({
                 code: '0.3.1',
-                data: {
-                    modalConfig: modalConfig,
-                },
+                data: {config: modalConfig},
             });
             return;
         }
@@ -181,10 +178,9 @@ export class ModalService {
 
         if (!modals.length) {
             this.logService.sendLog({
-                code: '0.3.0',
-                data: {
-                    modalId: id,
-                },
+                code: '0.3.3',
+                data: {id},
+                flog: {id, method: 'hide'},
             });
             return;
         }
@@ -257,10 +253,9 @@ export class ModalService {
 
         if (!modal) {
             this.logService.sendLog({
-                code: '0.3.0',
-                data: {
-                    modalId: id,
-                },
+                code: '0.3.3',
+                data: {id},
+                flog: {id, method: 'close'},
             });
             return;
         }
