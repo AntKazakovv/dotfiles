@@ -48,13 +48,17 @@ module.exports = function inlineTask() {
             .pipe(dest(`${this.params.paths.static}/css/`));
     });
 
-    task('build:inline', (cb) => {
-        return src(`${this.params.paths.inline}/index.ts`)
+    task('build:inline', async (cb) => {
+        this.addToGitIgnore('/roots', 'template', 'inline.js');
+        await src(`${this.params.paths.inline}/index.ts`)
             .pipe(webpack(config))
             .pipe(dest(this.params.paths.dist));
+        createInlineSymLink();
+        cb();
     });
 
     task('watch:inline', async (cb) => {
+        this.addToGitIgnore('/roots', 'template', 'inline.js');
         process.on('SIGINT', () => {
             cb && cb();
             process.exit();
@@ -62,6 +66,20 @@ module.exports = function inlineTask() {
         await src(`${this.params.paths.inline}/*.ts`)
             .pipe(webpack(Object.assign({}, config, {mode: 'development', watch: true})))
             .pipe(dest(this.params.paths.dist));
+        createInlineSymLink();
         cb();
     });
+
+    const createInlineSymLink = () => {
+        try {
+            fs.lstatSync(`${this.params.paths.root}/roots/template/inline.js`);
+        } catch {
+            if (!fs.existsSync(`${this.params.paths.dist}/inline.js`)) {
+                fs.symlinkSync(
+                    '../static/dist/inline.js',
+                    `${this.params.paths.root}/roots/template/inline.js`
+                );
+            }
+        }
+    }
 };

@@ -38,8 +38,8 @@
             window.WLC_ENV = 'dev';
         {% endif %}
     </script>
-    {% if 'static/dist/inline.js' is ondisk %}
-    <script src="/static/dist/inline.js?v={{projectVersion}}"></script>
+    {% if 'template/inline.js' is ondisk %}
+    <script type="text/javascript">{% include 'inline.js' %}</script>
     {% endif %}
 </head>
 <body>
