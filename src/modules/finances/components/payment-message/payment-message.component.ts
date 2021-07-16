@@ -56,7 +56,7 @@ export class PaymentMessageComponent extends AbstractComponent implements OnInit
     }
 
     public get imgUrl(): string {
-        return 'https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl=' + 'bitcoin:' + this.message.address;
+        return 'https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl=' + this.message.qrlink;
     }
 
     public get details(): string {
