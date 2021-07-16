@@ -195,9 +195,8 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
     }
 
     public deposit(saveProfile: boolean = true): void {
-
         this.inProgress = true;
-        this.modalService.showModal('dataIsProcessing');
+        this.modalService.showModal('data-is-processing');
 
         if (this.currentSystem.isHosted) {
             this.currentSystem.hostedFieldService.get();
@@ -207,8 +206,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
     }
 
     public async withdraw(form: FormGroup, saveProfile: boolean = false): Promise<void> {
-
-        this.modalService.showModal('dataIsProcessing');
+        this.modalService.showModal('data-is-processing');
         this.inProgress = true;
 
         try {
@@ -264,7 +262,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
         extProfile.paymentSystems = _assign({}, extProfile.paymentSystems, {[alias]: additionalParams});
 
         try {
-            return await this.userService.updateProfile({extProfile}, true);
+            return await this.userService.updateProfile({extProfile}, true, true);
         } catch (error) {
             this.eventService.emit({
                 name: NotificationEvents.PushMessage,

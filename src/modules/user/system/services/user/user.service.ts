@@ -222,7 +222,10 @@ export class UserService {
         return this.dataService.request('user/registrationComplete', {code});
     }
 
-    public async updateProfile(profile: IUserProfile, updatePartial: boolean = false): Promise<true | IIndexing<any>> {
+    public async updateProfile(profile: IUserProfile, updatePartial: boolean = false, isAfterDepositWithdraw?: boolean): Promise<true | IIndexing<any>> {
+        const params = updatePartial
+            ? _assign({}, profile, isAfterDepositWithdraw ? {isAfterDepositWithdraw} : {})
+            : _assign({}, this.profile.data, profile);
 
         try {
             const response: IData = await this.dataService.request({
@@ -234,7 +237,7 @@ export class UserService {
                     success: 'PROFILE_UPDATE',
                     fail: 'PROFILE_UPDATE_ERROR',
                 },
-            }, updatePartial ? profile : _assign({}, this.profile.data, profile));
+            }, params);
 
             if (response.data?.result) {
                 _assign(this.profile.data, profile);
