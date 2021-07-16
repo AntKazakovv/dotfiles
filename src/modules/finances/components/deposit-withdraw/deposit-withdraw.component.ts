@@ -715,6 +715,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
                 if (field.type === 'input') {
                     return {
                         name: 'core.wlc-input',
+                        alwaysNew: {saveValue: true},
                         params: <IInputCParams>{
                             name: key,
                             value: field.value || '',
@@ -723,7 +724,10 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
                                 placeholder: field.name,
                             },
                             control: new FormControl(''),
-                            validators: ['required'],
+                            validators: [
+                                'required',
+                                ...FinancesHelper.getSpecialValidators(key, this.currentSystem.alias),
+                            ],
                             customMod: ['additional'],
                         },
                     };

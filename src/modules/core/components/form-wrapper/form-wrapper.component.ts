@@ -264,8 +264,8 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
             };
             const maxLength = {
                 name: 'maxLength',
-                text: 'The field must be no more than 50 characters long',
-                options: 50,
+                text: gettext('The field must be no more than 55 characters long'),
+                options: 55,
             };
             const emojiReg = {
                 name: 'regexpEmoji',
@@ -327,7 +327,6 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
                     }
                 });
             } else {
-
                 if (!this.allControls[component.params.name] || component.alwaysNew) {
                     this.allControls[component.params.name] = new FormControl(
                         {

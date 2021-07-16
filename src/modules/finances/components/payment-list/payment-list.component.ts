@@ -58,7 +58,7 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
     @Input() public currentSystem: PaymentSystem;
     @Input() protected inlineParams: Params.IPaymentListCParams;
     @ViewChild('list') protected list: TemplateRef<any>;
-    
+
     public systems: PaymentSystem[] = [];
     public items: IconModel[] = [];
     public $params: Params.IPaymentListCParams;
@@ -110,7 +110,7 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
             data: system,
         });
 
-        if (this.$params.hideModalOnSelect) {
+        if (this.$params.hideModalOnSelect && this.modalService.getActiveModal('payment-list')) {
             this.modalService.hideModal('payment-list');
         }
 
