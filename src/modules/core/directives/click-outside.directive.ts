@@ -32,9 +32,9 @@ export class ClickOutsideDirective implements OnChanges {
     public ngOnChanges(changes: SimpleChanges): void {
         if (changes.isOpened.currentValue && (!this.$allEvents || this.$allEvents.closed)) {
             this.$allEvents = merge(
-                    fromEvent(this.document, 'click'),
-                    fromEvent(this.document, 'touchstart')
-                )
+                fromEvent(this.document, 'click'),
+                fromEvent(this.document, 'touchstart'),
+            )
                 .pipe(
                     first((event) => {
                         const clickedInside = this.elementRef.nativeElement.contains(event.target as HTMLElement);

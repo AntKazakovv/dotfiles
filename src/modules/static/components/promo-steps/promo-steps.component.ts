@@ -71,7 +71,7 @@ export class PromoStepsComponent extends AbstractComponent implements OnInit {
         super.ngOnInit(this.inlineParams);
         this.deviceType = this.actionService.getDeviceType();
         this.isAuth = this.configService.get('$user.isAuthenticated');
-       
+
         this.eventService.subscribe([
             {name: 'LOGIN'},
             {name: 'LOGOUT'},
@@ -79,7 +79,7 @@ export class PromoStepsComponent extends AbstractComponent implements OnInit {
             this.isAuth = this.configService.get('$user.isAuthenticated');
             this.cdr.detectChanges();
         }, this.$destroy);
-        
+
         try {
             const data: TextDataModel = await this.staticService.getPost('promo-steps');
 
@@ -88,8 +88,8 @@ export class PromoStepsComponent extends AbstractComponent implements OnInit {
             }
 
             this.steps = _sortBy(
-                _filter(data.extFields.acf.steps, (step: IStep) => step.title && step.desc), 
-                (step: IStep) => _toNumber(step.order)
+                _filter(data.extFields.acf.steps, (step: IStep) => step.title && step.desc),
+                (step: IStep) => _toNumber(step.order),
             );
 
             this.subscribeDeviceChange();
@@ -103,7 +103,7 @@ export class PromoStepsComponent extends AbstractComponent implements OnInit {
     /**
      * Return available promo steps
      */
-     public get availableSteps(): IStep[] {
+    public get availableSteps(): IStep[] {
         return _filter(this.steps, step => {
             switch (step.visibility) {
                 case 'all':
@@ -115,7 +115,7 @@ export class PromoStepsComponent extends AbstractComponent implements OnInit {
                 default:
                     return true;
             }
-        })
+        });
     }
 
     /**
@@ -136,7 +136,7 @@ export class PromoStepsComponent extends AbstractComponent implements OnInit {
     }
 
     /**
-     * Getting ui-params from step 
+     * Getting ui-params from step
      * From JSON ui-params to object
      * @param srefParams {string} - ui-router params from WP
      * @returns {RawParams} - ui-router params
