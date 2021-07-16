@@ -71,7 +71,7 @@
 
 <ng-template #merchantsList>
     <ul class="{{$class}}__list" @openClose>
-        <li class="{{$class}}__list-item">
+        <li class="{{$class}}__list-item" data-wlc-element="button_filter-all">
             <button class="{{$class}}__list-btn"
                     (click)="chooseMerchant()"
                     [class.active]="!filters.merchants.length">
