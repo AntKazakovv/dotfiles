@@ -193,15 +193,15 @@ $themeDefault: map-merge((
     'overlayOpacityHover': 0.5,
 
     // View-mode backgrounds
-    'backgroundExperience': linear-gradient(0deg, ef.get('mainColors', 'bgModal') 0%, rgba(ef.get('mainColors', 'bgModal'), 0) 74.07%),
+    'backgroundExperience': linear-gradient(0deg, ef.get('mainColors', 'bgModal') 0%, rgba(ef.get('mainColors', 'bgModal'), 0) 75%),
     'backgroundExperienceHover': ef.get('mainColors', 'bg100'),
-    'backgroundLoyalty': linear-gradient(0deg, ef.get('mainColors', 'bgModal') 0%, rgba(ef.get('mainColors', 'bgModal'), 0) 74.07%),
+    'backgroundLoyalty': linear-gradient(0deg, ef.get('mainColors', 'bgModal') 0%, rgba(ef.get('mainColors', 'bgModal'), 0) 75%),
     'backgroundLoyaltyHover': ef.get('mainColors', 'bg100'),
-    'backgroundBalance': linear-gradient(0deg, ef.get('mainColors', 'bgModal') 0%, rgba(ef.get('mainColors', 'bgModal'), 0) 74.07%),
+    'backgroundBalance': linear-gradient(0deg, ef.get('mainColors', 'bgModal') 0%, rgba(ef.get('mainColors', 'bgModal'), 0) 75%),
     'backgroundBalanceHover': ef.get('mainColors', 'bg100'),
-    'backgroundFreerounds': linear-gradient(0deg, ef.get('mainColors', 'bgModal') 0%, rgba(ef.get('mainColors', 'bgModal'), 0) 74.07%),
+    'backgroundFreerounds': linear-gradient(0deg, ef.get('mainColors', 'bgModal') 0%, rgba(ef.get('mainColors', 'bgModal'), 0) 75%),
     'backgroundFreeroundsHover': ef.get('mainColors', 'bg100'),
-    'backgroundRelative': linear-gradient(0deg, ef.get('mainColors', 'bgModal') 0%, rgba(ef.get('mainColors', 'bgModal'), 0) 74.07%),
+    'backgroundRelative': linear-gradient(0deg, ef.get('mainColors', 'bgModal') 0%, rgba(ef.get('mainColors', 'bgModal'), 0) 75%),
     'backgroundRelativeHover': ef.get('mainColors', 'bg100'),
 ), $customThemeDefault);
 
