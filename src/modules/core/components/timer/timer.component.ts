@@ -108,7 +108,7 @@ export class TimerComponent extends AbstractComponent implements OnInit {
             this.allocateTimeUnits(timeDifference);
         }
 
-        if (timeDifference <= 0 && !this.countUp) {
+        if (this.intervalSub && timeDifference <= 0 && !this.countUp) {
             this.intervalSub.unsubscribe();
         }
     }
