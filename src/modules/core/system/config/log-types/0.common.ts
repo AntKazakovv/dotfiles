@@ -96,6 +96,14 @@ export const errorTypes: ILogTypes = {
         // Modal config must have "id" parameter
         level: 'error',
     },
+    '0.3.2': {
+        // Can't show modal, wrong params
+        level: 'error',
+    },
+    '0.3.3': {
+        // Can't hide or close modal, wrong params
+        level: 'error',
+    },
 
     '0.4.0': {
         // Panel doesn't exist
