@@ -15,8 +15,7 @@
         "update-locale": "ngx-translate-extract -i ./src/**/*.{ts,tsx,html} -o src/system/languages/messages.pot --sort --format pot && node ./utils/pot2po.js",
         "gulp": "gulp",
         "update": "ng update @angular/cli @angular/core --force",
-        "fullup": "git submodule update --init && rm -rf node_modules package-lock.json && npm install",
-        "postinstall": "gulp update:configs"
+        "fullup": "git submodule update --init && rm -rf node_modules package-lock.json && npm install"
     },
     "private": true,
     "dependencies": {
