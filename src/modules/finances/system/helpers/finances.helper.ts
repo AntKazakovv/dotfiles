@@ -28,7 +28,7 @@ export class FinancesHelper {
      * `default` - if aliasBase is used, default must contains fallback validators for non included aliases
      */
     private static validators: IIndexing<ISpecialValidators> = {
-        withdraw_account: window.WLC_ENV !== 'prod' ? null : {
+        withdraw_account: window.WLC_ENV ? null : {
             validators: [
                 { // BCH
                     aliasBase: 'paycryptos_bitcoincash',
