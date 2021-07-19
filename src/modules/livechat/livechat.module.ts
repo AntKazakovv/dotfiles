@@ -15,6 +15,10 @@ export const components = {
     'wlc-livechat-button': LivechatButtonComponent,
 };
 
+export const services = {
+    'common-chat-service': CommonChatService,
+};
+
 @NgModule({
     declarations: [
         LivechatButtonComponent,

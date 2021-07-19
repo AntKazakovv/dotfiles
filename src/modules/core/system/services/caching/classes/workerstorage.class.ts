@@ -42,7 +42,8 @@ export class WorkerStorageCache extends AbstractCache {
 
     private async init(): Promise<void> {
         if (globalThis.indexedDB && typeof (Worker) !== 'undefined') {
-            this.worker = new Worker('./cache.worker', {type: 'module'});
+
+            this.worker = new Worker(new URL('./cache.worker', import.meta.url), {type: 'module'});
             this.worker.onmessage = ({data}) => {
                 try {
                     this.worker$.next(JSON.parse(data));

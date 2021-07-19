@@ -8,8 +8,8 @@ import {
     first,
     pairwise,
     takeWhile,
+    filter,
 } from 'rxjs/operators';
-import {filter} from 'rxjs/internal/operators/filter';
 
 import {
     ConfigService,

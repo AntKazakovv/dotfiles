@@ -6,7 +6,7 @@ import {
     OnInit,
 } from '@angular/core';
 
-import {takeUntil} from 'rxjs/internal/operators';
+import {takeUntil} from 'rxjs/operators';
 
 import {
     AbstractComponent,

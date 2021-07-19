@@ -16,8 +16,7 @@ import {
     Optional,
 } from '@angular/core';
 import {TransitionService} from '@uirouter/core';
-import {Observable} from 'rxjs';
-import {fromEvent} from 'rxjs/internal/observable/fromEvent';
+import {Observable, fromEvent} from 'rxjs';
 import {
     takeUntil,
     takeWhile,
@@ -27,12 +26,13 @@ import {
     EventService,
     ConfigService,
     LogService,
+    InjectionService,
 } from 'wlc-engine/modules/core/system/services';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {HammerConfig} from 'wlc-engine/modules/core/system/config/hammer.config';
 import {panelsEvents} from './../float-panels/float-panels.params';
 import {MenuHelper, MenuParams} from 'wlc-engine/modules/menu';
-import {IWrapperCParams, LayoutService} from 'wlc-engine/modules/core';
+import {IWrapperCParams} from 'wlc-engine/modules/core';
 
 import * as Config from 'wlc-engine/modules/menu/system/config/main-menu.items.config';
 import * as Params from './burger-panel.params';
@@ -79,9 +79,9 @@ export class BurgerPanelComponent extends AbstractComponent
         protected renderer: Renderer2,
         protected logService: LogService,
         protected transitionService: TransitionService,
-        protected layoutService: LayoutService,
         protected cdr: ChangeDetectorRef,
         private hostElement: ElementRef,
+        private injectionService: InjectionService,
     ) {
         super({
             injectParams: {},
@@ -124,7 +124,7 @@ export class BurgerPanelComponent extends AbstractComponent
     protected async init(): Promise<void> {
         this.addModifiers(this.id);
         await this.configService.ready;
-        await this.layoutService.importModules(['menu']);
+        await this.injectionService.importModules(['menu']);
 
         const enableByFundist: boolean = this.configService.get<boolean>(`$menu.burgerPanel.${this.$params.type}.headerMenu.enableByFundistMenuSettings`);
         if (enableByFundist) {

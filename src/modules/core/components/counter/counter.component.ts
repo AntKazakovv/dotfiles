@@ -5,13 +5,12 @@ import {
     ViewEncapsulation,
     ChangeDetectorRef,
     Inject,
-    Injector,
 } from '@angular/core';
 import {
     AbstractComponent,
     IMixedParams,
     EventService,
-    LayoutService,
+    InjectionService,
     ConfigService,
 } from 'wlc-engine/modules/core';
 import {
@@ -39,9 +38,8 @@ export class CounterComponent extends AbstractComponent implements OnInit {
         @Inject('injectParams') protected params: Params.ICounterCParams,
         protected eventService: EventService,
         protected configService: ConfigService,
-        protected layoutService: LayoutService,
+        protected injectionService: InjectionService,
         protected cdr: ChangeDetectorRef,
-        protected injector: Injector,
     ) {
         super(
             <IMixedParams<Params.ICounterCParams>>{
@@ -58,8 +56,8 @@ export class CounterComponent extends AbstractComponent implements OnInit {
         switch (this.counterType) {
             case ('bonuses-main' || 'bonuses-all'):
                 await this.configService.ready;
-                await this.layoutService.importModules(['bonuses']);
-                const bonusesService: BonusesService = this.injector.get(BonusesService);
+
+                const bonusesService = await this.injectionService.getService<BonusesService>('bonuses.bonuses-service');
 
                 bonusesService.getSubscribe({
                     useQuery: !bonusesService.bonuses?.length,

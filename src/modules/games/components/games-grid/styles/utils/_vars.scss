@@ -41,8 +41,8 @@ $themeDefault: map-merge((
     'moreButtonAlignItems': center,
     'moreButtonJustifyContent': center,
     'progressBarMargin': (
-        375: ef.get('size', 'less') 0 #{-( ef.get('size', 'less') / 2)},
-        1024: ef.get('size', 'main') 0 #{-( ef.get('size', 'main') / 2)},
+        375: ef.get('size', 'less') 0 #{-( ef.get('size', 'less') * 0.5)},
+        1024: ef.get('size', 'main') 0 #{-( ef.get('size', 'main') * 0.5)},
     ),
 
     'titleIconMargin': 0 ef.get('size', 'small') 0 0,

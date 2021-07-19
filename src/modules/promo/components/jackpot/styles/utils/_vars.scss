@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 @use 'engine-scss/functions' as ef;
 @use 'engine-scss/engine.variables' as ev;
 
@@ -10,7 +12,7 @@ $theme1: map-merge((
     'wrapperMargin': 0 auto,
     'slideHeight': var(--wlc-jackpot-slider-slide-height, 70px),
     'iconWidth': var(--wlc-jackpot-slider-slide-height, 70px),
-    'iconAspectRatio': 1 / 1,
+    'iconAspectRatio': '1/1',
     'iconBorderRadius': ef.get('size', 'small'),
     'userColor': ef.get('mainColors', 'baseMain'),
     'gameColor': ef.get('mainColors', 'baseMain'),

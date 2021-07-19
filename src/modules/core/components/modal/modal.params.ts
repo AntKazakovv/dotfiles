@@ -1,20 +1,11 @@
-import {ChangePasswordFormComponent} from 'wlc-engine/modules/user/components/change-password-form/change-password-form.component';
 import {LoaderComponent} from 'wlc-engine/modules/core/components/loader/loader.component';
-import {LogoutComponent} from 'wlc-engine/modules/user/components/logout/logout.component';
-import {NewPasswordFormComponent} from 'wlc-engine/modules/user/components/new-password-form/new-password-form.component';
-import {PlayGameForRealComponent} from 'wlc-engine/modules/games/components/play-game-for-real/play-game-for-real.component';
-import {PostComponent} from 'wlc-engine/modules/static/components/post/post.component';
-import {PromoSuccessComponent} from 'wlc-engine/modules/bonuses/components/promo-success/promo-success.component';
-import {RestorePasswordFormComponent} from 'wlc-engine/modules/user/components/restore-password-form/restore-password-form.component';
-import {SearchComponent} from 'wlc-engine/modules/games/components/search/search.component';
+import {TabSwitcherComponent} from 'wlc-engine/modules/core/components/tab-switcher/tab-switcher.component';
 import {
     IModalConfig,
     IModalList,
     IModalOptions,
-} from 'wlc-engine/modules/core/components/modal/modal.interface';
-import {TabSwitcherComponent} from 'wlc-engine/modules/core/components/tab-switcher/tab-switcher.component';
-import {LoyaltyInfoComponent} from 'wlc-engine/modules/promo/components/loyalty-info/loyalty-info.component';
-import {IconExpLpDescriptionComponent} from 'wlc-engine/modules/user/components/icon-exp-lp-description/icon-exp-lp-description.component';
+} from './index';
+
 
 export const defaultParams: IModalOptions = {
     moduleName: 'core',
@@ -44,7 +35,7 @@ export const MODALS_LIST: IModalList = {
         config: {
             id: 'search',
             modifier: 'search',
-            component: SearchComponent,
+            componentName: 'games.wlc-search',
             showFooter: false,
         },
     },
@@ -52,7 +43,7 @@ export const MODALS_LIST: IModalList = {
         config: {
             id: 'search',
             modifier: 'search',
-            component: SearchComponent,
+            componentName: 'games.wlc-search',
             componentParams: {
                 common: {
                     openProvidersList: true,
@@ -123,7 +114,7 @@ export const MODALS_LIST: IModalList = {
         config: {
             id: 'change-password',
             modifier: 'change-password',
-            component: ChangePasswordFormComponent,
+            componentName: 'user.wlc-change-password-form',
             componentParams: {
                 wlcElement: 'wlc-profile-edit__password',
             },
@@ -136,7 +127,7 @@ export const MODALS_LIST: IModalList = {
         config: {
             id: 'new-password',
             modifier: 'new-password',
-            component: NewPasswordFormComponent,
+            componentName: 'user.wlc-new-password-form',
             componentParams: {
                 wlcElement: 'form_forgot-password',
             },
@@ -150,7 +141,7 @@ export const MODALS_LIST: IModalList = {
         config: {
             id: 'restore-password',
             modifier: 'restore',
-            component: RestorePasswordFormComponent,
+            componentName: 'user.wlc-restore-password-form',
             componentParams: {
                 wlcElement: 'form_password-recovery',
             },
@@ -167,7 +158,7 @@ export const MODALS_LIST: IModalList = {
             id: 'logout',
             modalTitle: 'Log out',
             modifier: 'logout',
-            component: LogoutComponent,
+            componentName: 'user.wlc-logout',
             size: 'md',
             dismissAll: true,
         },
@@ -177,7 +168,7 @@ export const MODALS_LIST: IModalList = {
             id: 'play-game-for-real',
             modalTitle: gettext('Lets\'s play!'),
             modifier: 'play-game-for-real',
-            component: PlayGameForRealComponent,
+            componentName: 'games.wlc-play-game-for-real',
             componentParams: {
                 common: {
                     game: null,
@@ -192,7 +183,7 @@ export const MODALS_LIST: IModalList = {
         config: {
             id: 'static-text',
             modifier: 'static-text',
-            component: PostComponent,
+            componentName: 'static.wlc-post',
             size: 'lg',
             scrollable: true,
         },
@@ -214,7 +205,7 @@ export const MODALS_LIST: IModalList = {
         config: {
             id: 'promo-success',
             modifier: 'restore-password',
-            component: PromoSuccessComponent,
+            componentName: 'bonuses.wlc-promo-success',
             size: 'md',
             backdrop: 'static',
             showFooter: false,
@@ -239,14 +230,14 @@ export const MODALS_LIST: IModalList = {
             id: 'descriptionCasinosCurrency',
             modalTitle: gettext('Loyalty Program'),
             closeBtnVisibility: true,
-            component: IconExpLpDescriptionComponent,
+            componentName: 'user.wlc-icon-exp-lp',
         },
     },
     loyaltyInfo: {
         config: {
             id: 'loyalty-info',
             modifier: 'loyalty-info-modal',
-            component: LoyaltyInfoComponent,
+            componentName: 'promo.wlc-loyalty-info',
             size: 'lg',
             backdrop: true,
             dismissAll: true,

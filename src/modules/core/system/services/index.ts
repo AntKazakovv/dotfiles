@@ -21,6 +21,7 @@ export {
 } from './validation/validation.service';
 export {CachingService} from './caching/caching.service';
 export {SelectValuesService} from './select-values/select-values.service';
+export {InjectionService} from './injection/injection.service';
 export {
     HooksService,
     HookHandler,

@@ -45,7 +45,7 @@ import {GameThumbComponent} from 'wlc-engine/modules/games/components/game-thumb
 import {IResizeEvent} from 'wlc-engine/modules/core/system/services/action/action.service';
 import * as componentLib from 'wlc-engine/modules/core/system/config/layouts/components';
 
-import {fromEvent} from 'rxjs/internal/observable/fromEvent';
+import {fromEvent} from 'rxjs';
 import {
     takeUntil,
 } from 'rxjs/operators';

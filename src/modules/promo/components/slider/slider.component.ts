@@ -33,7 +33,6 @@ import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {ActionService} from 'wlc-engine/modules/core/system/services/action/action.service';
 import {WinnersService} from 'wlc-engine/modules/promo/system/services/winners/winners.service';
-import {BannersService} from 'wlc-engine/modules/promo/system/services/banners/banners.service';
 import {IResizeEvent} from 'wlc-engine/modules/core/system/services/action/action.service';
 
 import * as Params from './slider.params';
@@ -45,7 +44,6 @@ import _cloneDeep from 'lodash-es/cloneDeep';
 import _floor from 'lodash-es/floor';
 import _forEach from 'lodash-es/forEach';
 import _get from 'lodash-es/get';
-import _includes from 'lodash-es/includes';
 import _isNumber from 'lodash-es/isNumber';
 import _times from 'lodash-es/times';
 import _toNumber from 'lodash-es/toNumber';
@@ -93,7 +91,6 @@ export class SliderComponent extends AbstractComponent
     constructor(
         @Inject('injectParams') protected injectParams: Params.ISliderCParams,
         protected configService: ConfigService,
-        protected bannersService: BannersService,
         protected winnersService: WinnersService,
         protected cdr: ChangeDetectorRef,
         protected renderer: Renderer2,
@@ -336,7 +333,7 @@ export class SliderComponent extends AbstractComponent
                 this.updateView();
             });
 
-        this.swiper.s_progress.subscribe((swiper) => {
+        this.swiper.s_progress.subscribe((swiper: Swiper) => {
             this.removeModifiers('on-start');
             this.removeModifiers('on-end');
             this.removeModifiers('on-progress');

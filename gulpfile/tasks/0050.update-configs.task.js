@@ -5,10 +5,10 @@ const {task, src, dest} = require('gulp'),
     path = require('path');
 
 const beautifyConfig = {
-    "end_with_newline": true,
-    "preserve_newlines": true,
-    "wrap_line_length": 10,
-}
+    'end_with_newline': true,
+    'preserve_newlines': true,
+    'wrap_line_length': 10,
+};
 
 /**
  * @example
@@ -31,16 +31,18 @@ module.exports = function updateConfigs() {
         for (const config of configs) {
             const {file, data} = require(path.resolve(config));
 
-            if (_.isEmpty(data)) continue;
+            if (_.isEmpty(data)) {
+                continue;
+            }
 
             src(root + file)
                 .pipe(jeditor(json => {
                     for (const key in data) {
-                        _.set(json, key, data[key])
+                        _.set(json, key, data[key]);
                     }
                     return json;
                 }, beautifyConfig))
                 .pipe(dest(path.dirname(root + file)));
         }
     });
-}
+};

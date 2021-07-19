@@ -18,10 +18,9 @@ import {ConfigService} from 'wlc-engine/modules/core/system/services/config/conf
 import {LayoutService} from 'wlc-engine/modules/core/system/services/layout/layout.service';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {ILayoutComponent} from 'wlc-engine/modules/core/system/interfaces/layouts.interface';
+import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
 
 import _merge from 'lodash-es/merge';
-
-
 
 export interface IWrapperCParams {
     components?: ILayoutComponent[];
@@ -51,6 +50,7 @@ export class WrapperComponent extends LayoutComponent implements OnInit, OnChang
         injector: Injector,
         uiRouter: UIRouterGlobals,
         eventService: EventService,
+        protected injectionService: InjectionService,
     ) {
         super(
             ConfigService,
@@ -88,7 +88,7 @@ export class WrapperComponent extends LayoutComponent implements OnInit, OnChang
         for (const el of this.$params?.components) {
             this.allComponents$.push({
                 ...el,
-                componentClass: await this.layoutService.loadComponent(el.name),
+                componentClass: await this.injectionService.loadComponent(el.name),
             });
         }
         this.setWatcher();

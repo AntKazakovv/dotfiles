@@ -15,8 +15,7 @@ import {
     UIRouterGlobals,
 } from '@uirouter/core';
 import {Title, Meta} from '@angular/platform-browser';
-import {Subscription} from 'rxjs';
-import {fromEvent} from 'rxjs/internal/observable/fromEvent';
+import {Subscription, fromEvent} from 'rxjs';
 import {takeUntil, filter} from 'rxjs/operators';
 
 import {
@@ -33,6 +32,7 @@ import {
     SectionModel,
     SeoService,
     LogService,
+    InjectionService,
 } from 'wlc-engine/modules/core';
 import {
     ILivechatConfig,
@@ -77,6 +77,7 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
         protected translate: TranslateService,
         protected stateService: StateService,
         protected layoutService: LayoutService,
+        protected injectionService: InjectionService,
         protected eventService: EventService,
         protected uiRouter: UIRouterGlobals,
         protected cdr: ChangeDetectorRef,
@@ -295,9 +296,8 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
         await this.configService.ready;
         if (!this.configService.get<ILivechatConfig>('$base.livechat')) {
             return;
-        };
-        await this.layoutService.importModules(['livechat']);
-        this.injector.get(CommonChatService);
+        }
+        await this.injectionService.getService<CommonChatService>('livechat.common-chat-service');
     }
 
     private setTransitionHooks() {

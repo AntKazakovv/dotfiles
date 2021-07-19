@@ -9,14 +9,13 @@ import {LazyLoadResult} from '@uirouter/core/lib/state/interface';
 // If you try to import everything from 'wlc-engine/modules/core' then the project failed loading
 import {
     ConfigService,
-    LayoutService,
     ModalService,
+    InjectionService,
 } from 'wlc-engine/modules/core/system/services';
 import {Deferred} from 'wlc-engine/modules/core/system/classes';
 import {IRedirect, IIndexing} from 'wlc-engine/modules/core';
 
 import _merge from 'lodash-es/merge';
-import _includes from 'lodash-es/includes';
 
 export class StateHelper {
     public static async onStateEnter(trans: Transition) {
@@ -55,8 +54,8 @@ export class StateHelper {
         return async ($transition) => {
             const configService: ConfigService = $transition.injector().get(ConfigService);
             await configService.ready;
-            const layoutService: LayoutService = $transition.injector().get(LayoutService);
-            await layoutService.importModules(modules);
+            const injectionService: InjectionService = $transition.injector().get(InjectionService);
+            await injectionService.importModules(modules);
             return {};
         };
     }
@@ -68,20 +67,19 @@ export class StateHelper {
                 ConfigService,
                 StateService,
                 Transition,
-                LayoutService,
+                InjectionService,
                 ModalService,
             ],
             resolveFn: async (
                 configService: ConfigService,
                 stateService: StateService,
                 transition: Transition,
-                layoutService: LayoutService,
+                injectionService: InjectionService,
                 modalService: ModalService,
             ) => {
                 const result = new Deferred();
 
                 await configService.ready;
-                await layoutService.importModules(['user']);
 
                 if (configService.get('$user.isAuthenticated')) {
                     result.resolve();

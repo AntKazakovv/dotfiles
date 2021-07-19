@@ -28,7 +28,7 @@
             }
 
             &:after {
-                animation: loader ef.get-value($themeRingDefault, 'duration') ef.get-value($themeRingDefault, 'duration') / 2 infinite;
+                animation: loader ef.get-value($themeRingDefault, 'duration') ef.get-value($themeRingDefault, 'duration') * 0.5 infinite;
             }
         }
     }

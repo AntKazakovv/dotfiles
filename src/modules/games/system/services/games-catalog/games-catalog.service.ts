@@ -24,7 +24,6 @@ import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.
 import {IPushMessageParams} from 'wlc-engine/modules/core/system/services/notification/notification.interface';
 import {NotificationEvents} from 'wlc-engine/modules/core/system/services/notification/notification.service';
 import {DeviceType} from 'wlc-engine/modules/core/system/models/device.model';
-import {LayoutService} from 'wlc-engine/modules/core/system/services/layout/layout.service';
 import {ActionService} from 'wlc-engine/modules/core/system/services/action/action.service';
 
 import {Game} from 'wlc-engine/modules/games/system/models/game.model';
@@ -44,7 +43,6 @@ import {
     IStartGameOptions,
     gamesEvents,
 } from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
-
 import {UserService} from 'wlc-engine/modules/user/system/services/user/user.service';
 import {ITournamentGames} from 'wlc-engine/modules/tournaments/system/interfaces/tournaments.interface';
 
@@ -105,7 +103,6 @@ export class GamesCatalogService {
         protected dataService: DataService,
         protected userService: UserService,
         protected uiRouter: UIRouterGlobals,
-        protected layoutService: LayoutService,
         protected actionService: ActionService,
         protected modalService: ModalService,
         protected logService: LogService,
@@ -117,9 +114,7 @@ export class GamesCatalogService {
 
     private isMobile: boolean = false;
 
-    public async init(): Promise<void> {
-        await this.configService.ready;
-        await this.layoutService.importModules(['games']);
+    public init(): void {
         this.registerMethods();
 
         this.loadGames();

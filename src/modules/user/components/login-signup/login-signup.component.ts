@@ -92,7 +92,9 @@ export class LoginSignupComponent extends AbstractComponent implements OnInit {
                     },
                 },
             });
-            this.ModalService.showModal(action).closed.then(logWaiter);
+            this.ModalService.showModal(action).then((comp) => {
+                comp.closed.then(logWaiter);
+            });
         }
     }
 }

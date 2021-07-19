@@ -1,3 +1,7 @@
+@use 'engine-scss/mixins/mediaqueries' as mq;
+@use 'engine-scss/mixins/base.mixins' as bm;
+@use 'engine-scss/mixins/text' as text;
+@use 'engine-scss/functions' as ef;
 
 .wlc-provider-links--theme-default:host {
     @include bm.get-mq-map('grid-template-columns', $themeDefault, 'gridTemplateColumns');

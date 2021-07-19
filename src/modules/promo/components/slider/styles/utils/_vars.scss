@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 @use 'engine-scss/functions' as ef;
 
 $customThemeDefaultNavigation: () !default;
@@ -12,7 +14,7 @@ $themeDefaultNavigation: map-merge((
     'swiperNaviButtonBgHover': ef.get('mainColors', 'main'),
     'swiperNaviButtonDisabledOpacity': 0.25,
     'swiperNaviButtonTransition': all 0.3s linear,
-    'swiperNaviArrowSize': 40px / 3,
+    'swiperNaviArrowSize': math.div(40px, 3),
     'swiperNaviArrowColor': ef.get('mainColors', 'baseMain'),
     'swiperNaviArrowColorHover': ef.get('mainColors', 'bg'),
 ), $customThemeDefaultNavigation);

@@ -30,6 +30,7 @@ import {
     IModalBsOptions,
 } from 'wlc-engine/modules/core/components/modal/modal.interface';
 import {defaultParams} from 'wlc-engine/modules/core/components/modal/modal.params';
+
 import _isString from 'lodash-es/isString';
 import _assign from 'lodash-es/assign';
 

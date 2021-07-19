@@ -1,5 +1,6 @@
 const {task, src, dest} = require('gulp');
 const webpack = require('webpack-stream');
+const wp = require('webpack');
 const sass = require('gulp-dart-sass');
 const fs = require('fs');
 
@@ -51,7 +52,7 @@ module.exports = function inlineTask() {
     task('build:inline', async (cb) => {
         this.addToGitIgnore('/roots', 'template', 'inline.js');
         await src(`${this.params.paths.inline}/index.ts`)
-            .pipe(webpack(config))
+            .pipe(webpack(config, wp))
             .pipe(dest(this.params.paths.dist));
         createInlineSymLink();
         cb();
@@ -64,7 +65,7 @@ module.exports = function inlineTask() {
             process.exit();
         });
         await src(`${this.params.paths.inline}/*.ts`)
-            .pipe(webpack(Object.assign({}, config, {mode: 'development', watch: true})))
+            .pipe(webpack(Object.assign({}, config, {mode: 'development', watch: true}), wp))
             .pipe(dest(this.params.paths.dist));
         createInlineSymLink();
         cb();

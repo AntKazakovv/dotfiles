@@ -78,6 +78,12 @@ export interface IModalConfig extends IModalBsOptions {
      * Allow to insert Component
      */
     component?: Type<unknown>;
+    /**
+     * Allow to insert Component in LayoutService`s format:
+     *      module name - dot - component`s selector,
+     *      e.g. 'games.wlc-search'
+     */
+    componentName?: string;
     componentParams?: unknown;
     /**
      * Set provided injector to given Component

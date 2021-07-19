@@ -35,8 +35,8 @@
                 &:before {
                     top: 50%;
                     left: 50%;
-                    margin-top: -#{ef.get-value($themeDefault, 'iconHeight') / 2};
-                    margin-left: -#{ef.get-value($themeDefault, 'iconWidth') / 2};
+                    margin-top: -#{ef.get-value($themeDefault, 'iconHeight') * 0.5};
+                    margin-left: -#{ef.get-value($themeDefault, 'iconWidth') * 0.5};
                     width: ef.get-value($themeDefault, 'iconWidth');
                     height: ef.get-value($themeDefault, 'iconHeight');
                     animation: spin 1s infinite linear;

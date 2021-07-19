@@ -44,10 +44,15 @@ export const components = {
     'wlc-games-grid': GamesGridComponent,
     'wlc-play-game-for-real': PlayGameForRealComponent,
     'wlc-random-game': RandomGameComponent,
+    'wlc-search': SearchComponent,
     'wlc-search-field': SearchFieldComponent,
     'wlc-total-jackpot': TotalJackpotComponent,
     'wlc-provider-links': ProviderLinksComponent,
     'wlc-provider-games': ProviderGamesComponent,
+};
+
+export const services = {
+    'games-catalog-service': GamesCatalogService,
 };
 
 @NgModule({

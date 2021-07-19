@@ -33,6 +33,7 @@ import {IDeviceConfig} from 'wlc-engine/modules/core/system/models/device.model'
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
 import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
 import {LayoutService} from 'wlc-engine/modules/core/system/services/layout/layout.service';
+import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
 import {DeviceModel} from 'wlc-engine/modules/core/system/models/device.model';
 import {DeviceOrientation} from 'wlc-engine/modules/core/system/models/device.model';
 import {IPushMessageParams} from 'wlc-engine/modules/core/system/services/notification/notification.interface';
@@ -97,6 +98,7 @@ export class ActionService {
         private rendererFactory: RendererFactory2,
         private router: UIRouter,
         private stateService: StateService,
+        private injectionService: InjectionService,
         @Inject(DOCUMENT) protected document: HTMLDocument,
     ) {
         this.init();
@@ -313,10 +315,9 @@ export class ActionService {
         }
 
         await this.configService.ready;
-        await this.layoutService.importModules(['user']);
 
         try {
-            const userService: UserService = this.injector.get(UserService);
+            const userService = await this.injectionService.getService<UserService>('user.user-service');
             await userService.validateRestoreCode(initialPath.code);
         } catch (error) {
             this.showErrorNotification(error.errors, gettext('Error occurred during password recovery'), 'password-recovery');
@@ -343,8 +344,7 @@ export class ActionService {
         }
 
         await this.configService.ready;
-        await this.layoutService.importModules(['user']);
-        const userService: UserService = this.injector.get(UserService);
+        const userService = await this.injectionService.getService<UserService>('user.user-service');
 
         try {
             this.modalService.showModal('registration-success');

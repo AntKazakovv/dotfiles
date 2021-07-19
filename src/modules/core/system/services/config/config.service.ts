@@ -1,5 +1,9 @@
 import {TranslateService} from '@ngx-translate/core';
 import {Injectable, Injector} from '@angular/core';
+import {
+    LocalStorageService,
+    SessionStorageService,
+} from 'ngx-webstorage';
 import {DataService, IData} from '../data/data.service';
 import {AppConfigModel} from './app-config.model';
 import * as appConfig from 'wlc-config/index';
@@ -16,10 +20,6 @@ import {ILayoutsConfig} from 'wlc-engine/modules/core/system/interfaces/layouts.
 import {IParamsLayoutConfig} from 'wlc-engine/modules/core/system/interfaces/layouts.interface';
 import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
 
-import {
-    LocalStorageService,
-    SessionStorageService,
-} from 'ngx-webstorage';
 import {
     BehaviorSubject,
 } from 'rxjs';
@@ -45,6 +45,7 @@ import _set from 'lodash-es/set';
 import _isObject from 'lodash-es/isObject';
 import _cloneDeep from 'lodash-es/cloneDeep';
 
+
 /**
  * Examples of getter and setter:
  * SET: this.config.set({name: 'url', value: 'google.com'}
@@ -68,6 +69,7 @@ export class ConfigService {
         private translateService: TranslateService,
         private localStorageService: LocalStorageService,
         private sessionStorageService: SessionStorageService,
+
     ) {
         this.setGlobals();
 

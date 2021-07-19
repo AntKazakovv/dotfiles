@@ -15,13 +15,13 @@ import {
 import {
     ConfigService,
     EventService,
-    LayoutService,
     LogService,
     ModalService,
     IPushMessageParams,
     NotificationEvents,
     IRedirect,
     Deferred,
+    InjectionService,
 } from 'wlc-engine/modules/core';
 import {
     Bonus,
@@ -69,7 +69,7 @@ export const startGameResolver: ResolveTypes = {
         Transition,
         MerchantFieldsService,
         EventService,
-        LayoutService,
+        InjectionService,
     ],
     resolveFn: (
         injector: Injector,
@@ -81,7 +81,7 @@ export const startGameResolver: ResolveTypes = {
         transition: Transition,
         merchantFieldsService: MerchantFieldsService,
         eventService: EventService,
-        layoutService: LayoutService,
+        injectionService: InjectionService,
     ) => {
         return new StartGameHandler(
             injector,
@@ -93,7 +93,7 @@ export const startGameResolver: ResolveTypes = {
             transition,
             merchantFieldsService,
             eventService,
-            layoutService,
+            injectionService,
         ).result.promise;
     },
 };
@@ -121,7 +121,7 @@ class StartGameHandler {
         private transition: Transition,
         private merchantFieldsService: MerchantFieldsService,
         private eventService: EventService,
-        private layoutService: LayoutService,
+        private injectionService: InjectionService,
     ) {
         this.init();
     }
@@ -130,8 +130,7 @@ class StartGameHandler {
         const waiter = this.logService.waiter({code: '3.0.11'}, 7000);
 
         await this.configService.ready;
-        await this.layoutService.importModules(['games']);
-        this.gamesCatalogService = this.injector.get(GamesCatalogService);
+        this.gamesCatalogService = await this.injectionService.getService('games.games-catalog-service');
 
         try {
             await this.gamesCatalogService.ready;
@@ -313,8 +312,8 @@ class StartGameHandler {
         }
 
         await this.configService.ready;
-        await this.layoutService.importModules(['bonuses']);
-        const bonusesService: BonusesService = this.injector.get(BonusesService);
+
+        const bonusesService = await this.injectionService.getService<BonusesService>('bonuses.bonuses-service');
 
         const activeBonuses: Bonus[] = await bonusesService.queryBonuses(true, 'active');
 
@@ -369,8 +368,8 @@ class StartGameHandler {
         }
 
         await this.configService.ready;
-        await this.layoutService.importModules(['user']);
-        const userService: UserService = this.injector.get(UserService);
+
+        const userService = await this.injectionService.getService<UserService>('user.user-service');
 
         await userService.userInfo$.pipe(first((v: UserInfo) => v?.dataReady)).toPromise();
 
