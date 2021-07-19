@@ -12,7 +12,7 @@
             content: '';
             position: absolute;
             right: 0;
-            bottom: -1 * ef.get-value($theme1, 'wrapperPseudoBorderHeight') / 2;
+            bottom: -1 * ef.get-value($theme1, 'wrapperPseudoBorderHeight') * 0.5;
             left: 0;
             width: ef.get-value($theme1, 'wrapperPseudoBorderWidth');
             height: ef.get-value($theme1, 'wrapperPseudoBorderHeight');

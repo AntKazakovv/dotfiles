@@ -54,7 +54,7 @@
         .swiper-container-horizontal > .swiper-scrollbar {
             position: absolute;
             bottom: ef.get-value($themeDefault, 'scrollbarPadding');
-            left: (100% - ef.get-value($themeDefault, 'scrollbarStretchSize')) / 2;
+            left: (100% - ef.get-value($themeDefault, 'scrollbarStretchSize')) * 0.5;
             z-index: ef.get-value($themeDefault, 'zIndex');
 
             width: ef.get-value($themeDefault, 'scrollbarStretchSize');
@@ -63,7 +63,7 @@
 
         .swiper-container-vertical > .swiper-scrollbar {
             position: absolute;
-            top: (100% - ef.get-value($themeDefault, 'scrollbarStretchSize')) / 2;
+            top: (100% - ef.get-value($themeDefault, 'scrollbarStretchSize')) * 0.5;
             right: ef.get-value($themeDefault, 'scrollbarPadding');
             z-index: ef.get-value($themeDefault, 'zIndex');
 

@@ -7,7 +7,7 @@ import {
     Inject,
 } from '@angular/core';
 import {DOCUMENT} from '@angular/common';
-import {fromEvent} from 'rxjs/internal/observable/fromEvent';
+import {fromEvent} from 'rxjs';
 
 import _each from 'lodash-es/each';
 

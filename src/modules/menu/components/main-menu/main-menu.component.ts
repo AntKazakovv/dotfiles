@@ -3,7 +3,6 @@ import {
     ChangeDetectorRef,
     Component,
     Inject,
-    Injector,
     OnInit,
 } from '@angular/core';
 import {
@@ -15,7 +14,6 @@ import {
     ConfigService,
     LayoutService,
     EventService,
-    IMenuItem,
     IMenuOptions,
 } from 'wlc-engine/modules/core';
 import {
@@ -38,7 +36,6 @@ import _has from 'lodash-es/has';
 import _sortBy from 'lodash-es/sortBy';
 import _merge from 'lodash-es/merge';
 import _pull from 'lodash-es/pull';
-import _reduce from 'lodash-es/reduce';
 
 @Component({
     selector: '[wlc-main-menu]',
@@ -60,7 +57,6 @@ export class MainMenuComponent extends AbstractComponent implements OnInit {
     constructor(
         @Inject('injectParams') protected injectParams: Params.IMainMenuCParams,
         protected cdr: ChangeDetectorRef,
-        protected injector: Injector,
         protected layoutService: LayoutService,
         protected gamesCatalogService: GamesCatalogService,
         protected translate: TranslateService,

@@ -8,7 +8,7 @@ import {
     OnInit,
 } from '@angular/core';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
-import {LayoutService} from 'wlc-engine/modules/core/system/services/layout/layout.service';
+import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
 import {ModalService} from 'wlc-engine/modules/core/system/services/modal/modal.service';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import {ITab} from 'wlc-engine/modules/core/components/tab-switcher/tab-switcher.params';
@@ -17,6 +17,7 @@ import * as Params from 'wlc-engine/modules/core/components/tab-switcher/tab-swi
 
 import _values from 'lodash-es/values';
 import _each from 'lodash-es/each';
+
 @Component({
     selector: '[wlc-tab-switcher]',
     templateUrl: './tab-switcher.component.html',
@@ -37,7 +38,7 @@ export class TabSwitcherComponent
     constructor(
         @Inject('injectParams') protected injectParams: Params.ITabSwitcherParams,
         protected injector: Injector,
-        protected layoutService: LayoutService,
+        protected injectionService: InjectionService,
         protected cdr: ChangeDetectorRef,
         protected modalService: ModalService,
         protected configService: ConfigService,
@@ -74,7 +75,7 @@ export class TabSwitcherComponent
     protected applyConfig(): void {
         _each(this.tabs, async tab => {
             if (tab.component) {
-                tab.componentClass = await this.layoutService.loadComponent(tab.component);
+                tab.componentClass = await this.injectionService.loadComponent(tab.component);
                 this.cdr.markForCheck();
             }
 

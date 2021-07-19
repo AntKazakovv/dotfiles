@@ -1,4 +1,9 @@
 {
     "file": "/tsconfig.app.json",
-    "data": {}
+    "data": {
+        "exclude": [
+            "custom/**/~*.ts",
+            "wlc-engine/src/system/inline/**/*.ts"
+        ]
+    }
 }

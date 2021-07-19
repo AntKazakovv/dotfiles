@@ -1,4 +1,88 @@
 {
     "file": "/angular.json",
-    "data": {}
+    "data": {
+        "projects.wlc-site.architect.build.options": {
+            "customWebpackConfig": {
+                "path": "./wlc-engine/system/webpack-config/webpack.app.js",
+                "mergeStrategies": {
+                    "externals": "append"
+                }
+            },
+            "allowedCommonJsDependencies": [
+                "@formatjs/intl-locale/polyfill",
+                "@formatjs/intl-numberformat/polyfill",
+                "@formatjs/intl-pluralrules/polyfill",
+                "css-element-queries",
+                "text-overflow-clamp",
+                "hosted-fields-sdk"
+            ],
+            "outputPath": "roots/static/dist",
+            "deployUrl": "/static/dist/",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.app.json",
+            "preserveSymlinks": true,
+            "aot": false,
+            "verbose": false,
+            "assets": [
+                "src/favicon.ico",
+                "src/assets",
+                "src/manifest.webmanifest"
+            ],
+            "styles": [
+                "wlc-engine/engine-scss/engine.styles.scss"
+            ],
+            "stylePreprocessorOptions": {
+                "includePaths": [
+                    "./src/app-styles",
+                    "./wlc-engine"
+                ]
+            },
+            "scripts": [
+                "wlc-engine/gettext.js"
+            ],
+            "webWorkerTsConfig": "./tsconfig.worker.json"
+        },
+        "projects.wlc-site.architect.build.configurations.dev": {
+            "watch": true,
+            "buildOptimizer": false,
+            "optimization": false,
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "sourceMap": true,
+            "namedChunks": true
+        },
+        "projects.wlc-site.architect.build.configurations.production": {
+            "fileReplacements": [
+                {
+                    "replace": "wlc-engine/system/environments/environment.ts",
+                    "with": "wlc-engine/system/environments/environment.prod.ts"
+                }
+            ],
+            "optimization": true,
+            "buildOptimizer": false,
+            "outputHashing": "all",
+            "sourceMap": false,
+            "namedChunks": false,
+            "extractLicenses": true,
+            "vendorChunk": false,
+            "aot": false,
+            "budgets": [
+                {
+                    "type": "initial",
+                    "maximumWarning": "2mb",
+                    "maximumError": "5mb"
+                },
+                {
+                    "type": "anyComponentStyle",
+                    "maximumWarning": "30kb",
+                    "maximumError": "100kb"
+                }
+            ],
+            "serviceWorker": true,
+            "ngswConfigPath": "./ngsw-config.json",
+            "watch": false
+        }
+    }
 }

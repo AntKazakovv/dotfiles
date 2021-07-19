@@ -22,7 +22,7 @@ import {
     AbstractComponent,
     IMixedParams,
     IResizeEvent,
-    LayoutService,
+    InjectionService,
     ActionService,
     ConfigService,
     DeviceType,
@@ -77,7 +77,7 @@ export class TableComponent extends AbstractComponent implements OnInit {
 
     constructor(
         @Inject('injectParams') protected params: Params.ITableCParams,
-        protected layoutService: LayoutService,
+        protected injectionService: InjectionService,
         protected cdr: ChangeDetectorRef,
         protected injector: Injector,
         protected configService: ConfigService,
@@ -131,7 +131,7 @@ export class TableComponent extends AbstractComponent implements OnInit {
             _uniq(columnWithComponent.map((item) => item.component)).forEach(async (component) => {
                 componentsLoadPromises.push(
                     (async () => {
-                        const componentClass = await this.layoutService.loadComponent(component);
+                        const componentClass = await this.injectionService.loadComponent(component);
                         _each(columnWithComponent, (item) => {
                             if (item.component === component) {
                                 item.componentClass = componentClass;

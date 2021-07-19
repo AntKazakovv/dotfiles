@@ -150,7 +150,7 @@ $theme1: map-merge((
 
     'slideHeight': var(--wlc-winner-slider-slide-height, 60px),
     'iconWidth': var(--wlc-winner-slider-slide-height, 60px),
-    'iconAspectRatio': 1 / 1,
+    'iconAspectRatio': '1/1',
     'iconBorderRadius': ef.get('size', 'small'),
 
     'userColor': ef.get('mainColors', 'baseMain'),

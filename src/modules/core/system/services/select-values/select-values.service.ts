@@ -1,14 +1,11 @@
-import {
-    Injectable,
-    Injector,
-} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {map} from 'rxjs/operators';
 import {BehaviorSubject} from 'rxjs';
 import {
     DateTime,
     Info,
 } from 'luxon';
-import {LayoutService} from 'wlc-engine/modules/core/system/services/layout/layout.service';
+import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {ICountry} from 'wlc-engine/modules/core/system/interfaces/fundist.interface';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
@@ -37,12 +34,11 @@ export class SelectValuesService {
     public daysInMonth: BehaviorSubject<number> = new BehaviorSubject(31);
     public dayList: BehaviorSubject<Params.ISelectOptions[]> = this.getDateList('days');
 
-    protected GamesCatalogService: GamesCatalogService;
+    protected gamesCatalogService: GamesCatalogService;
 
     constructor(
         protected configService: ConfigService,
-        protected layoutService: LayoutService,
-        protected injector: Injector,
+        protected injectionService: InjectionService,
     ) {
         this.daysInMonth.subscribe(() => {
             this.dayList.next(this.getDateList('days').value);
@@ -185,16 +181,15 @@ export class SelectValuesService {
 
         (async () => {
             await this.configService.ready;
-            await this.layoutService.importModules(['games']);
-            this.GamesCatalogService = this.injector.get(GamesCatalogService);
-            await this.GamesCatalogService.ready;
+            this.gamesCatalogService = await this.injectionService.getService('games.games-catalog-service');
+            await this.gamesCatalogService.ready;
 
             merchants$.next([
                 {
                     title: gettext('All'),
                     value: '',
                 },
-            ].concat(_sortBy(this.GamesCatalogService?.getAvailableMerchants(), 'name')?.map(el => {
+            ].concat(_sortBy(this.gamesCatalogService?.getAvailableMerchants(), 'name')?.map(el => {
                 return {
                     title: el.name,
                     value: el.name,

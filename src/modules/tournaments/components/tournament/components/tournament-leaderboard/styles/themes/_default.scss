@@ -97,20 +97,20 @@
 
                 &.first {
                     border-radius: ef.get-value($themeDefault, 'borderRadius') ef.get-value($themeDefault, 'borderRadius') 0 0;
-                    padding-top: ef.get-value($themeDefault, 'gridGap') / 2;
+                    padding-top: ef.get-value($themeDefault, 'gridGap') * 0.5;
                 }
 
                 &.last {
                     margin-bottom: 0;
-                    padding-bottom: ef.get-value($themeDefault, 'gridGap') / 2;
+                    padding-bottom: ef.get-value($themeDefault, 'gridGap') * 0.5;
 
                     border-radius: 0 0 ef.get-value($themeDefault, 'borderRadius') ef.get-value($themeDefault, 'borderRadius');
                 }
 
                 &.single {
                     margin-bottom: 0;
-                    padding-top: ef.get-value($themeDefault, 'gridGap') / 2;
-                    padding-bottom: ef.get-value($themeDefault, 'gridGap') / 2;
+                    padding-top: ef.get-value($themeDefault, 'gridGap') * 0.5;
+                    padding-bottom: ef.get-value($themeDefault, 'gridGap') * 0.5;
 
                     border-radius: ef.get-value($themeDefault, 'borderRadius');
                 }

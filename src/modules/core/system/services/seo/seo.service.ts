@@ -14,6 +14,7 @@ import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interf
 import {DataService} from 'wlc-engine/modules/core/system/services/data/data.service';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {CachingService} from 'wlc-engine/modules/core/system/services/caching/caching.service';
+import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
 
 import _get from 'lodash-es/get';
 
@@ -22,7 +23,7 @@ export class SeoService {
     public seo: IIndexing<any> = {};
     public seoGames: IIndexing<any>[] = [];
     protected siteName: string = '';
-    protected GamesCatalogService: GamesCatalogService;
+    protected gamesCatalogService: GamesCatalogService;
 
     constructor(
         private configService: ConfigService,
@@ -36,6 +37,7 @@ export class SeoService {
         private cachingService: CachingService,
         private injector: Injector,
         private dataService: DataService,
+        private injectionService: InjectionService,
     ) {
         if (this.configService.get<boolean>('$base.useSeo')) {
             this.init();
@@ -162,12 +164,12 @@ export class SeoService {
     /**
      * Method uses only on app.gameplay state and takes information for SeoGames request;
      */
-    protected setGamesMetaTag(): void {
+    protected async setGamesMetaTag(): Promise<void> {
         if (this.router.current.name === 'app.gameplay') {
             if (!this.seoGames) {
                 return;
             }
-            this.GamesCatalogService = this.injector.get(GamesCatalogService);
+            this.gamesCatalogService = await this.injectionService.getService('games.games-catalog-service');
             const currentLang = this.translate.currentLang;
             const params = this.router.params;
             const gameSeo = this.seoGames.find(el => {
@@ -178,7 +180,7 @@ export class SeoService {
                 return;
             }
             const merchantName = GamesHelper.getMerchantAliasById(+gameSeo['merchantID']);
-            const game = this.GamesCatalogService.getGame(+gameSeo['merchantID'], gameSeo['launchCode']);
+            const game = this.gamesCatalogService.getGame(+gameSeo['merchantID'], gameSeo['launchCode']);
 
             for (const key in gameSeo) {
                 if (gameSeo[key][currentLang]) {

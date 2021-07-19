@@ -3,7 +3,6 @@ import {
     ChangeDetectorRef,
     Component,
     Inject,
-    Injector,
     Input, OnChanges,
     OnInit,
     SimpleChanges,
@@ -113,7 +112,6 @@ export class MenuComponent extends AbstractComponent implements OnInit, OnChange
     constructor(
         @Inject('injectParams') protected injectParams: Params.IMenuCParams,
         protected cdr: ChangeDetectorRef,
-        protected injector: Injector,
         protected layoutService: LayoutService,
         protected actionService: ActionService,
         protected modalService: ModalService,

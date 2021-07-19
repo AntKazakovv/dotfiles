@@ -27,6 +27,10 @@ export const components = {
     'wlc-recommended-bonuses': RecommendedBonusesComponent,
 };
 
+export const services = {
+    'bonuses-service': BonusesService,
+};
+
 @NgModule({
     declarations: [
         BonusItemComponent,

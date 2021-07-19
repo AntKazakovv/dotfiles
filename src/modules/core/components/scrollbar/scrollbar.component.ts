@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import {SwiperOptions} from 'swiper';
 import {SwiperComponent} from 'swiper/angular';
-import SwiperCore, {Scrollbar} from 'swiper/core';
+import SwiperCore, {Scrollbar, Swiper} from 'swiper/core';
 import {ConfigService} from 'wlc-engine/modules/core/system/services';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract.component';
 import * as Params from './scrollbar.params';
@@ -69,7 +69,7 @@ export class ScrollbarComponent extends AbstractComponent implements OnInit, Aft
             };
         }
 
-        this.swiper.s_progress.subscribe((swiper) => {
+        this.swiper.s_progress.subscribe((swiper: Swiper) => {
             this.removeModifiers(['on-start', 'on-end', 'on-progress']);
             if (swiper.isBeginning) {
                 this.addModifiers('on-start');

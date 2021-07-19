@@ -100,12 +100,12 @@
                     display: flex;
                     flex-direction: ef.get-value($themeModOverflow, 'formFlexDirection');
                     flex-wrap: ef.get-value($themeModOverflow, 'formFlexWrap');
-                    margin: 0 -#{ef.get-value($themeModOverflow, 'columnGap') / 2};
+                    margin: 0 -#{ef.get-value($themeModOverflow, 'columnGap') * 0.5};
 
                     & > *[class] {
                         flex-basis: calc(#{ef.get-value($themeModOverflow, 'fieldFlexBasis')} - #{ef.get-value($themeModOverflow, 'columnGap')});
                         flex-grow: ef.get-value($themeModOverflow, 'fieldFlexGrow');
-                        margin: 0 ef.get-value($themeModOverflow, 'columnGap') / 2 ef.get-value($themeModOverflow, 'rowGap');
+                        margin: 0 ef.get-value($themeModOverflow, 'columnGap') * 0.5 ef.get-value($themeModOverflow, 'rowGap');
                     }
 
                     #{zip($wideFields)} {

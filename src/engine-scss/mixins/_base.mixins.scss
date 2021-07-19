@@ -203,20 +203,21 @@
 }
 
 @mixin aspect-ratio-padding($value) {
-    @if ($value == 1 / 1) {
+    @if ($value == '1/1') {
         padding-top: 100%;
-    } @else if ($value == 4 / 3) {
+    } @else if ($value == '4/3') {
         padding-top: 75%;
-    } @else if ($value == 16 / 9) {
+    } @else if ($value == '16/9') {
         padding-top: 56.25%;
-    } @else if ($value == 3 / 2) {
+    } @else if ($value == '3/2') {
         padding-top: 66.66%;
-    } @else if ($value == 8 / 5) {
+    } @else if ($value == '8/5') {
         padding-top: 62.5%;
-    } @else if ($value == 10 / 16) {
+    } @else if ($value == '10/16') {
         padding-top: 162.5%;
     }
 }
+
 
 ///Absolute centering
 

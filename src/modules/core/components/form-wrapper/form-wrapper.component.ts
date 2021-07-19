@@ -43,6 +43,7 @@ import {
     IIndexing,
     IPushMessageParams,
     NotificationEvents,
+    InjectionService,
 } from 'wlc-engine/modules/core';
 
 import _assign from 'lodash-es/assign';
@@ -105,13 +106,14 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
         @Inject('injectParams') protected params: IFormWrapperCParams,
         ConfigService: ConfigService,
         layoutService: LayoutService,
-        protected cdr: ChangeDetectorRef,
         transition: TransitionService,
         injector: Injector,
         uiRouter: UIRouterGlobals,
         eventService: EventService,
         protected validationService: ValidationService,
         protected elRef: ElementRef,
+        protected cdr: ChangeDetectorRef,
+        protected injectionService: InjectionService,
     ) {
         super(
             params,
@@ -122,6 +124,7 @@ export class FormWrapperComponent extends WrapperComponent implements OnInit, On
             injector,
             uiRouter,
             eventService,
+            injectionService,
         );
     }
 

@@ -28,7 +28,7 @@ import * as Params from './play-game-for-real.params';
  * @example
  *
  * {
- *     name: 'games.wlc-play-for-real',
+ *     name: 'games.wlc-play-game-for-real',
  * }
  *
  */

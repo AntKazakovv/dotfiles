@@ -1,5 +1,7 @@
-// const ESLintPlugin = require('eslint-webpack-plugin');
+const {resolve} = require('path');
+const CSSMQPackerPlugin = require('css-mqpacker-webpack-plugin');
 const StylelintPlugin = require('stylelint-webpack-plugin');
+
 const WlcTemplateReplacePlugins = require('./wlcTemplateReplacePlugins');
 const WlcStructureInfoPlugin = require('./wlcStructureInfoPlugin');
 const WlcStaticImagePlugin = require('./wlcStaticImagePlugin');
@@ -8,25 +10,6 @@ const sortMqList = require('./wlcMqSortingPlugin');
 
 module.exports = (config, schema, env) => {
     const isDev = env.configuration === 'dev';
-
-    const dedupeModuleResolvePlugin = config.plugins.find(plugin => plugin.constructor.name === 'DedupeModuleResolvePlugin');
-
-    dedupeModuleResolvePlugin && Object.assign(dedupeModuleResolvePlugin.options, {
-        verbose: false,
-    });
-
-    // config.plugins.push(new ESLintPlugin({
-    //     files: [
-    //         'src/**/*.{ts,js}',
-    //         'config/frontend/**/*.{ts,js}',
-    //         'wlc-engine/**/*.{ts,js}',
-    //     ],
-    //     baseConfig: require('../../../.eslintrc.js'),
-    //     lintDirtyModulesOnly: true,
-    //     threads: true,
-    //     cache: true,
-    //     failOnError: false,
-    // }));
 
     config.plugins.push(new StylelintPlugin({
         lintDirtyModulesOnly: true,
@@ -42,31 +25,17 @@ module.exports = (config, schema, env) => {
 
     config.plugins.push(WlcTemplateReplacePlugins.templates);
 
+    config.plugins.push(new CSSMQPackerPlugin({
+        sort: sortMqList,
+    }));
+
     if (isDev) {
         config.plugins.push(new WlcStructureInfoPlugin());
         config.plugins.push(new WlcWatchExtFilesPlugin([
-            'roots/static/images',
-            'src/custom',
+            resolve('roots/static/images'),
+            resolve('src/custom'),
         ]));
     }
-
-    const scssRules = config.module.rules.filter((item) => item.test.exec('.scss'));
-
-    scssRules.forEach(rule => {
-        const postcss = rule.use.find((item) => item.loader && item.loader.includes('postcss'));
-        postcss.options = {
-            postcssOptions: {
-                ident: 'embedded',
-                map: isDev && {
-                    inline: true,
-                    annotation: true,
-                },
-                plugins: [
-                    require('css-mqpacker')({sort: sortMqList}),
-                ],
-            },
-        };
-    });
 
     return config;
 };

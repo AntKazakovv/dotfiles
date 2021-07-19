@@ -4,8 +4,8 @@ import {
     Injectable,
     Injector,
     Inject,
-    RendererFactory2,
     ComponentRef,
+    Type,
 } from '@angular/core';
 import {DOCUMENT} from '@angular/common';
 import {BehaviorSubject, Subject} from 'rxjs';
@@ -17,6 +17,7 @@ import {
 import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
+import {InjectionService} from 'wlc-engine/modules/core/system/services/injection/injection.service';
 import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
 import {MODALS_LIST, DEFAULT_MODAL_CONFIG} from 'wlc-engine/modules/core/components/modal/modal.params';
 import {WlcModalComponent} from 'wlc-engine/modules/core/components/modal/modal.component';
@@ -62,12 +63,12 @@ export class ModalService {
     constructor(
         protected appRef: ApplicationRef,
         protected cfr: ComponentFactoryResolver,
-        protected renderer: RendererFactory2,
         protected eventService: EventService,
         @Inject(DOCUMENT) protected document: HTMLDocument,
         protected configService: ConfigService,
         protected logService: LogService,
         protected BsModalService: BsModalService,
+        private injectionService: InjectionService,
     ) {
         this.initListeners();
         this.mergeModalConfig();
@@ -90,7 +91,7 @@ export class ModalService {
      * @param componentParams
      * @returns Reference on component
      */
-    public showModal<T>(config: IModalParams, componentParams?: T): WlcModalComponent {
+    public async showModal<T>(config: IModalParams, componentParams?: T): Promise<WlcModalComponent> {
         let modalConfig: IModalConfig;
 
         if (_isString(config)) {
@@ -129,6 +130,13 @@ export class ModalService {
                 data: {config: modalConfig},
             });
             return;
+        }
+
+        if (modalConfig.componentName) {
+            const component = await this.injectionService.loadComponent(modalConfig.componentName);
+            if (component) {
+                modalConfig.component = component as Type<unknown>;
+            }
         }
 
         if (componentParams) {
