@@ -150,5 +150,15 @@
                 }
             }
         }
+
+        &.top {
+
+            .tooltip-arrow {
+
+                &:before {
+                    border-top-color: ef.get-value($themeDefault, 'errorsBgColor');
+                }
+            }
+        }
     }
 }
