@@ -136,6 +136,10 @@
                 }
             }
 
+            .counter {
+                margin-left: ef.size(1);
+            }
+
             @include bm.hover {
                 color: ef.get-value($themeDefault, 'allLinkColorHover');
 

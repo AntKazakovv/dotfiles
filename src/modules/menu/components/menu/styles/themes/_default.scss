@@ -17,3 +17,10 @@
         }
     }
 }
+
+.wlc-menu__link-text {
+
+    .wlc-counter {
+        margin-left: ef.get-value($menuThemeItems, 'btnCounterMarginLeft');
+    }
+}

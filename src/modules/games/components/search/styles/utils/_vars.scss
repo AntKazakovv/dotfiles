@@ -40,7 +40,7 @@ $themeDefault: map-merge((
     'btnIconSizeActive': 18px,
     'btnIconColorActive': ef.get('mainColors', 'baseMain'),
 
-    'btnCounterMarginLeft': 6px,
+    'btnCounterMarginLeft': ef.size(1),
 
     'alignItemsBtn': center,
     'justifyBtn': flex-start,
