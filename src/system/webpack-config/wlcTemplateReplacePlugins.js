@@ -30,7 +30,8 @@ class WlcTemplateReplacePlugins {
     });
 
     static templates = new webpack.NormalModuleReplacementPlugin(/\.html$/i, (resource) => {
-        const originTplPath = path.resolve(resource.context, resource.request.replace('!raw-loader!', ''));
+        const rawLoaderStr = '!raw-loader!';
+        const originTplPath = path.resolve(resource.context, resource.request.replace(rawLoaderStr, ''));
 
         if (!originTplPath || !_includes(originTplPath, '/wlc-engine/modules/')) {
             return;
@@ -43,7 +44,7 @@ class WlcTemplateReplacePlugins {
         const originTsPath = originTplPath.replace('.html', '.ts');
 
         if (fs.existsSync(customTplPath)) {
-            resource.request = customTplPath;
+            resource.request = rawLoaderStr + customTplPath;
         } else {
             createDir.sync(customComponentDir);
             fs.copyFileSync(originTplPath, customComponentDir + '/~' + tplName);
