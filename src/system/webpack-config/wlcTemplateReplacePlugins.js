@@ -30,7 +30,7 @@ class WlcTemplateReplacePlugins {
     });
 
     static templates = new webpack.NormalModuleReplacementPlugin(/\.html$/i, (resource) => {
-        const originTplPath = path.resolve(resource.context, resource.request);
+        const originTplPath = path.resolve(resource.context, resource.request.replace('!raw-loader!', ''));
 
         if (!originTplPath || !_includes(originTplPath, '/wlc-engine/modules/')) {
             return;
