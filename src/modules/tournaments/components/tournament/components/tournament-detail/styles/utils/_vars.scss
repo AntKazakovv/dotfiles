@@ -35,6 +35,7 @@ $themeDefault: map-merge((
         768: 490px,
     ),
     'headerBorderBottom': 2px solid ef.get('mainColors', 'baseOpacity'),
+    'headerOverlayBg': linear-gradient(0deg, rgba(ef.get('fieldColors', 'textColor'), 0) 0%, ef.get('fieldColors', 'textColor') 90%),
 
     'headerBackLinkTop': (
         320: 0,

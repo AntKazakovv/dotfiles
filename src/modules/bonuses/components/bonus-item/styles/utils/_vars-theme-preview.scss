@@ -53,9 +53,11 @@ $themePreview: map-merge((
     'bonusSubtitleMargin': 0 auto auto,
     'bonusTextStyle': 'ThirdTitle',
     'bonusPadding': ef.size(6) ef.size(12) ef.size(15),
-    'bonusBackground': ef.get('mainColors', 'bg300'),
+    'bonusBackground': ef.get('mainColors', 'bg300') no-repeat center top/cover,
 
     'bonusIconValueFontSizeSmaller': 1.4rem,
 
-    'blankBg': #{url('/gstatic/wlc/bonuses/blank-bonus-decor.png') no-repeat center top/contain, linear-gradient(180deg, #8dacc9 0%, #003d5f 100%)}
+    'blankBg': #{url('/gstatic/wlc/bonuses/blank-bonus-decor.png') no-repeat center top/contain, linear-gradient(180deg, #8dacc9 0%, #003d5f 100%)},
+    'contentOverlayOpacity': 0.9,
+    'contentOverlayBg': linear-gradient(0deg, ef.get('mainColors', 'bgModal') 0%, rgba(ef.get('mainColors', 'bgModal'), 0) 85%),
 ), $customThemePreview);

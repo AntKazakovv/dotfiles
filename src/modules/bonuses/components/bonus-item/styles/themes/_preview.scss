@@ -21,6 +21,21 @@
             padding: ef.get-value($themePreview, 'bonusPadding');
             text-align: ef.get-value($themePreview, 'hostTextAlign');
             background: ef.get-value($themePreview, 'bonusBackground');
+
+            &:before {
+                @include em.absoluteCentering();
+
+                content: '';
+                z-index: 0;
+                width: 100%;
+                height: 100%;
+                background: ef.get-value($themePreview, 'contentOverlayBg');
+                opacity: ef.get-value($themePreview, 'contentOverlayOpacity');
+            }
+        }
+
+        &__details {
+            position: relative;
         }
 
         &__tag {
