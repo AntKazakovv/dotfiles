@@ -50,6 +50,7 @@ export const defaultParams: IInfoPageCParams = {
                         theme: 'contacts',
                         common: {
                             categorySlug: 'legal',
+                            exclude: ['feedback'],
                             state: 'app.contacts',
                             parseAsPlainHTML: true,
                         },
