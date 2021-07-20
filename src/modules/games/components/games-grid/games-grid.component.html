@@ -20,9 +20,9 @@
                class="{{$class}}__link"
                [uiSref]="$params.showAllLink.sref || $params.showAllLink.link"
                [uiParams]="$params.showAllLink?.params || {}">
-                {{$params.showAllLink?.text | translate}}
+                    <span>{{$params.showAllLink?.text | translate}}</span>
                 <ng-container *ngIf="$params.showAllLink.useCounter && games.length">
-                    ({{games.length}})
+                    <span class="counter">({{games.length}})</span>
                 </ng-container>
                 <span wlc-icon iconName="arrow"></span>
             </a>

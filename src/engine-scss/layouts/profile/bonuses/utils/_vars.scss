@@ -6,7 +6,7 @@ $bonusesThemeDefault: map-merge((
     'gridRows': auto,
     'gridArea': 'title counter' 'bonuses-list bonuses-list',
     'gridGap': (
-        375: ef.get('size', 'smaller') 3px,
+        375: ef.size(1),
     ),
 ), $customBonusesThemeDefault);
 

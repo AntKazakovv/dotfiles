@@ -18,3 +18,6 @@ $menuThemeContacts: map-merge((
 ), $customMenuThemeContacts);
 
 $customMenuThemeDefault: () !default;
+$menuThemeItems: map-merge((
+    'btnCounterMarginLeft': ef.size(1),
+), $customMenuThemeDefault);

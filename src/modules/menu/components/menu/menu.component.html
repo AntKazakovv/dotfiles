@@ -45,7 +45,7 @@
                       [iconPath]="getIcon(item)"
                       [fallback]="iconsFallback"></span>
                 <span class="{{$class}}__link-text">
-                    {{item.name | translate}}
+                    <span>{{item.name | translate}}</span>
                     <span *ngIf="item?.counter"
                           wlc-counter
                           [counterType]="item?.counter">
