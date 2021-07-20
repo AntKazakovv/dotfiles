@@ -128,12 +128,11 @@ export class SliderComponent extends AbstractComponent
     }
 
     public ngAfterViewInit(): void {
-        this.initEventHandlers();
         setTimeout(() => {
             this.updateView();
             this.initObserver();
         }, 0);
-
+        this.initEventHandlers();
         this.ready = true;
     }
 
@@ -189,6 +188,7 @@ export class SliderComponent extends AbstractComponent
 
     public update(): void {
         this.swiper.updateSwiper({});
+        this.updateProgressModifiers(this.swiper?.swiperRef);
     }
 
     public scrollToStart(): void {
@@ -279,6 +279,17 @@ export class SliderComponent extends AbstractComponent
             }
             this.fixSlidesSequence();
         }
+
+        if (this.swiper) {
+            setTimeout(() => {
+                if (_get(this.swiper.swiperRef, 'virtualSize', 0) > _get(this.swiper.swiperRef, 'size', 0)) {
+                    this.addModifiers('overflow');
+                } else if (this.hasModifier('overflow')) {
+                    this.removeModifiers('overflow');
+                }
+            });
+        }
+
         this.cdr.detectChanges();
         this.update();
     }
@@ -333,23 +344,29 @@ export class SliderComponent extends AbstractComponent
                 this.updateView();
             });
 
-        this.swiper.s_progress.subscribe((swiper: Swiper) => {
-            this.removeModifiers('on-start');
-            this.removeModifiers('on-end');
-            this.removeModifiers('on-progress');
-
-            if (swiper.isBeginning) {
-                this.addModifiers('on-start');
-            } else if (swiper.isEnd) {
-                this.addModifiers('on-end');
-            } else {
-                this.addModifiers('on-progress');
-            }
+        this.swiper.s_progress.subscribe((swiper) => {
+            this.updateProgressModifiers(swiper);
         });
 
         this.swiper.s_slideChangeTransitionEnd.pipe(takeUntil(this.$destroy))
             .subscribe(() => {
                 this.slideChangeTransitionEnd$.emit(this.swiper.swiperRef);
             });
+    }
+
+    protected updateProgressModifiers(swiper): void {
+        if (!swiper) {
+            return;
+        }
+
+        this.removeModifiers(['on-start', 'on-end', 'on-progress']);
+
+        if (swiper.isBeginning) {
+            this.addModifiers('on-start');
+        } else if (swiper.isEnd) {
+            this.addModifiers('on-end');
+        } else {
+            this.addModifiers('on-progress');
+        }
     }
 }

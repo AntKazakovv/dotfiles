@@ -102,6 +102,10 @@ export class MainMenuComponent extends AbstractComponent implements OnInit {
     }
 
     protected initMenu(): void {
+        if (this.$params.menuParams.common.useSwiper) {
+            this.addModifiers('swiper');
+        }
+
         this.useIcons = _has(this.$params, 'common.icons.use')
             ? this.$params.common.icons.use
             : this.configService.get<boolean>('$menu.mainMenu.icons.use');

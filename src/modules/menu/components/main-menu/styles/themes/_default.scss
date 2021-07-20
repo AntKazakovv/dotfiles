@@ -8,13 +8,28 @@
 
     ::ng-deep {
 
+        .wlc-slider {
+            padding: ef.get-value($themeDefault, 'swiperPadding');
+
+            &--on-start.wlc-slider--overflow {
+                box-shadow: ef.get-value($themeDefault, 'swiperShadowOnStart');
+            }
+
+            &--on-end {
+                box-shadow: ef.get-value($themeDefault, 'swiperShadowOnEnd');
+            }
+
+            &--on-progress {
+                box-shadow: ef.get-value($themeDefault, 'swiperShadowOnProgress');
+            }
+        }
+
         .wlc-menu {
             @include bm.get-mq-map('grid-gap', $themeDefault, 'gapSize');
             display: grid;
-            grid-auto-columns: auto;
-            grid-auto-flow: column;
-            align-items: center;
-
+            grid-auto-columns: ef.get-value($themeDefault, 'autoColumns');
+            grid-auto-flow: ef.get-value($themeDefault, 'autoFlow');
+            align-items: ef.get-value($themeDefault, 'alignItems');
             width: ef.get-value($themeDefault, 'width');
 
             &__icon {
@@ -32,26 +47,33 @@
                 }
             }
 
-            .wlc-menu {
+            &__link {
+                @include text.get-text-style(ef.get-value($themeDefault, 'textStyle'), ef.get-value($themeDefault, 'textColor'));
+                @include bm.get-mq-map('font-size', $themeDefault, 'fontSize');
+                display: flex;
+                align-items: ef.get-value($themeDefault, 'linkAlignItems');
+                text-decoration: ef.get-value($themeDefault, 'textDecoration');
+                cursor: pointer;
 
-                &__link {
-                    @include text.get-text-style('ThirdTitle', ef.get-value($themeDefault, 'textColor'));
-                    @include bm.get-mq-map('font-size', $themeDefault, 'fontSize');
-
-                    display: flex;
-                    align-items: center;
-                    text-decoration: ef.get-value($themeDefault, 'textDecoration');
-                    cursor: pointer;
-
-                    &.active {
-                        color: ef.get-value($themeDefault, 'textColorHover');
-                        font-weight: ef.get-value($themeDefault, 'fontWeightActive');
-                    }
-
-                    @include bm.hover {
-                        color: ef.get-value($themeDefault, 'textColorHover');
-                    }
+                &.active {
+                    color: ef.get-value($themeDefault, 'textColorHover');
+                    font-weight: ef.get-value($themeDefault, 'fontWeightActive');
                 }
+
+                @include bm.hover {
+                    color: ef.get-value($themeDefault, 'textColorHover');
+                }
+            }
+        }
+    }
+
+    &.wlc-main-menu--swiper {
+
+        ::ng-deep {
+
+            .wlc-menu {
+                display: block;
+                width: 100%;
             }
         }
     }
