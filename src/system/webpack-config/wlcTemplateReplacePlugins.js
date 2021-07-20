@@ -8,8 +8,7 @@ const customPath = '/src/custom/';
 
 class WlcTemplateReplacePlugins {
     static styles = new webpack.NormalModuleReplacementPlugin(/\.scss$/i, (resource) => {
-        const originStylePath = resource.resource;
-
+        const originStylePath = path.resolve(resource.context, resource.request);
         if (!originStylePath || !_includes(originStylePath, '/wlc-engine/modules/') || /^_/.test(originStylePath)) {
             return;
         }
@@ -19,7 +18,7 @@ class WlcTemplateReplacePlugins {
         const styleName = path.basename(customStylePath);
 
         if (fs.existsSync(customStylePath)) {
-            resource.resource = customStylePath;
+            resource.request = customStylePath;
         } else {
             createDir.sync(customStyleDir);
             const fileData =
@@ -31,7 +30,7 @@ class WlcTemplateReplacePlugins {
     });
 
     static templates = new webpack.NormalModuleReplacementPlugin(/\.html$/i, (resource) => {
-        const originTplPath = resource.resource;
+        const originTplPath = path.resolve(resource.context, resource.request);
 
         if (!originTplPath || !_includes(originTplPath, '/wlc-engine/modules/')) {
             return;
@@ -44,7 +43,7 @@ class WlcTemplateReplacePlugins {
         const originTsPath = originTplPath.replace('.html', '.ts');
 
         if (fs.existsSync(customTplPath)) {
-            resource.resource = customTplPath;
+            resource.request = customTplPath;
         } else {
             createDir.sync(customComponentDir);
             fs.copyFileSync(originTplPath, customComponentDir + '/~' + tplName);
