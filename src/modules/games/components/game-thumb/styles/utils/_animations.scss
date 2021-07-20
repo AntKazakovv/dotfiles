@@ -1,0 +1,51 @@
+@mixin animeSmoothWave() {
+
+    .wlc-game-thumb {
+
+        &__desc:before {
+            transform: none;
+            opacity: 0;
+        }
+
+        &__img img {
+
+            @media (pointer: fine) {
+                @include bm.transition(transform);
+
+                will-change: transform;
+            }
+        }
+
+        &__name {
+            @include bm.transition();
+
+            transform: translate3d(0, ef.size(3), 0);
+            opacity: 0;
+        }
+
+        &__buttons {
+            @include bm.transition(all, ef.get('time', 'less'));
+
+            transform: translate3d(0, ef.size(2), 0);
+            opacity: 0;
+            transition-delay: ef.get('time', 'main');
+        }
+    }
+
+    @include bm.hover {
+
+        .wlc-game-thumb {
+
+            &__desc:before,
+            &__name,
+            &__buttons {
+                transform: translate3d(0, 0, 0);
+                opacity: 1;
+            }
+
+            &__img img {
+                transform: scale(1.02);
+            }
+        }
+    }
+}

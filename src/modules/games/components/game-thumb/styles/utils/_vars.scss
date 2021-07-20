@@ -28,6 +28,7 @@ $themeDefault: map-merge((
     'favoriteBackSize': ef.get('size', 'main'),
     'favoriteBackRadius': ef.get('radius', 'biger'),
     'favoriteBoxShadow': none,
+    'useAnimeSmoothWave': false,
 ), $customThemeDefault);
 
 $customThemePromoWidget: () !default;

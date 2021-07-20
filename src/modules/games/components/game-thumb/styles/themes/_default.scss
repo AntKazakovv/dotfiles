@@ -357,6 +357,14 @@
             }
         }
     }
+
+    // Custom hover animations
+    @if (ef.get-value($themeDefault, 'useAnimeSmoothWave')) {
+
+        &.wlc-game-thumb--type-anime-smooth-wave {
+            @include animeSmoothWave();
+        }
+    }
 }
 
 // TODO: Refactor on preloaders ticket
