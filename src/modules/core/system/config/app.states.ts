@@ -71,6 +71,8 @@ let states = {
     'app.error': States.errorPageState,
     'app.tournaments': States.tournamentsState,
     'app.providers': States.providersState,
+    'app.signup': States.signUpState,
+    'app.login': States.loginState,
 };
 
 const appState: Ng2StateDeclaration = {

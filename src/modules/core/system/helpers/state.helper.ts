@@ -12,8 +12,12 @@ import {
     ModalService,
     InjectionService,
 } from 'wlc-engine/modules/core/system/services';
+import {UserService} from 'wlc-engine/modules/user/system/services/user/user.service';
 import {Deferred} from 'wlc-engine/modules/core/system/classes';
-import {IRedirect, IIndexing} from 'wlc-engine/modules/core';
+import {
+    IRedirect,
+    IIndexing,
+} from 'wlc-engine/modules/core';
 
 import _merge from 'lodash-es/merge';
 
@@ -80,15 +84,54 @@ export class StateHelper {
                 const result = new Deferred();
 
                 await configService.ready;
+                const userService: UserService = await injectionService.getService<UserService>('user.user-service');
 
-                if (configService.get('$user.isAuthenticated')) {
+                if (userService.isAuthenticated) {
                     result.resolve();
                 } else {
                     result.reject();
-                    stateService.go('app.home', transition.params());
+                    await stateService.go('app.home', transition.params());
                     modalService.showModal('login');
                 }
                 return result.promise;
+            },
+        };
+    }
+
+    /**
+     * Return open modal resolver
+     *
+     * @param modalId {string} - id of modal
+     * @returns {ResolveTypes}
+     */
+    public static openModalResolver(modalId: string): ResolveTypes {
+        return {
+            token: `openModal_${modalId}`,
+            deps: [
+                Transition,
+                StateService,
+                ModalService,
+                InjectionService,
+            ],
+            async resolveFn(
+                transition: Transition,
+                stateService: StateService,
+                modalService: ModalService,
+                injectionService: InjectionService,
+            ) {
+                const userService: UserService = await injectionService.getService<UserService>('user.user-service');
+
+                if (userService.isAuthenticated) {
+                    setTimeout(() => {
+                        stateService.go('app.error');
+                    });
+                    return;
+                }
+
+                setTimeout(async () => {
+                    await stateService.go('app.home', transition.params());
+                    modalService.showModal(modalId);
+                });
             },
         };
     }
