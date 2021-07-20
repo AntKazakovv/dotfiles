@@ -1,9 +1,10 @@
-import {IMenuItem} from 'wlc-engine/modules/menu/components/menu/menu.params';
 import {
     IComponentParams,
     CustomType,
 } from 'wlc-engine/modules/core';
-import * as MenuParams from 'wlc-engine/modules/menu/components/menu/menu.params';
+import {
+    MenuParams,
+} from 'wlc-engine/modules/menu';
 
 export type Type = 'default' | 'burger-menu' | CustomType;
 export type Theme = 'default' | CustomType;
@@ -15,13 +16,14 @@ export type Modifiers = AutoModifiers | CustomMod | null;
 export interface IMainMenuCParams extends IComponentParams<Theme, Type, ThemeMod> {
     modifiers?: Modifiers[];
     common?: {
+        useSwiper?: boolean;
         themeMod?: ThemeMod;
         icons?: {
             folder?: string,
             use?: boolean,
         }
     };
-    items?: IMenuItem[];
+    items?: MenuParams.IMenuItem[];
     menuParams?: MenuParams.IMenuCParams,
 }
 

@@ -12,6 +12,11 @@ export namespace wlcMainMenu {
                 common: {
                     useSwiper: true,
                 },
+                sliderParams: {
+                    swiper: {
+                        spaceBetween: 40,
+                    },
+                },
             },
         },
     };
