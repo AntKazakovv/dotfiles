@@ -13,6 +13,7 @@ import _reduce from 'lodash-es/reduce';
 import _map from 'lodash-es/map';
 import _findIndex from 'lodash-es/findIndex';
 import _uniq from 'lodash-es/uniq';
+import _isString from 'lodash-es/isString';
 
 export type FilterType = 'deposit' | 'Deposits' | 'withdraw' | 'Withdraws' | 'all' | 'All';
 
@@ -175,25 +176,17 @@ const fieldTemplatesNames = {
 export class PaymentSystem extends AbstractModel<IPaymentSystem> {
 
     public cardFields: boolean;
-    public isPayCryptosV2: boolean;
+    public isPayCryptosV2: boolean = false;
     public isHosted: boolean = false;
-    public hostedFieldService: IHostedFieldService;
-    public hostedField: any;
+    public cryptoCheck: boolean;
+    public isCashier: boolean = false;
+
+    private hostedFieldService: IHostedFieldService;
+    private hostedField: any;
 
     constructor(data: IPaymentSystem, protected UserService: UserService) {
         super();
         this.init(data);
-
-        if (this.data.hostedFields.fields?.length) {
-            this.isHosted = true;
-            this.importPackage();
-        }
-
-        // TODO: remove when finished tiket #181785
-        if (this.alias.includes('paycryptos') && this.alias.includes('v2')) {
-            this.data.lastAccounts = [];
-            this.isPayCryptosV2 = true;
-        }
     }
 
     public get appearance(): string {
@@ -228,12 +221,8 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
         return this.data.alias;
     }
 
-    public get cryptoCheck(): boolean {
-        if ((typeof(this.message) !== 'string')
-            && (this.message.translate === 'pay_to_address' && this.message.address)) {
-            return true;
-        }
-        return false;
+    public get allowIframe(): boolean {
+        return !!this.data.allowiframe;
     }
 
     public get customParams(): IPaymentSystemCustomParams {
@@ -337,6 +326,14 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
         });
     }
 
+    public resetHostedFields(): void {
+        this.hostedFieldService.reset();
+    }
+
+    public getHostedValue(): void {
+        this.hostedFieldService.get();
+    }
+
     public dropHostedFields(): void {
         this.hostedFields.errors = null;
         this.hostedFields.loaded = false;
@@ -352,6 +349,61 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
         this.hostedFields.errors = true;
     }
 
+    public loadedHostedFields(): void {
+        this.hostedFields.invalid = true;
+        this.hostedFields.loaded = true;
+    }
+
+    public setupHostedFields(formLoadedCallback: () => void, formCallback: (formData: IHostedFormData) => void, styles: any): void {
+        const params: IHostedFieldsParams = {
+            merchantId: this.hostedFields.merchantId,
+            hostedfieldsurl: this.hostedFields.url,
+            fields: this.hostedFields.fields,
+            onLoadCallback: () => formLoadedCallback,
+            styles: styles,
+            callback: () => formCallback,
+            el: '#wlc-hosted-fields',
+        };
+
+        params.fields = params.fields.map((conf: IHostedField) => {
+            return new this.hostedField(
+                conf.type,
+                conf.name,
+                conf.name,
+                conf.label,
+                conf.error,
+                conf.helpKey,
+                conf.visible,
+                conf.required,
+            );
+        });
+        this.hostedFieldService.setup(params);
+    }
+
+    private init(data: IPaymentSystem): void {
+        this.data = data;
+
+        if (this.data.hostedFields.fields?.length) {
+            this.isHosted = true;
+            this.importPackage();
+        }
+
+        // TODO: remove when finished tiket #181785
+        if (this.alias.includes('paycryptos') && this.alias.includes('v2')) {
+            this.data.lastAccounts = [];
+            this.isPayCryptosV2 = true;
+        } else if (this.alias.includes('paymentiq_cashier')) {
+            this.isCashier = true;
+        }
+
+
+        this.cryptoCheck = !_isString(this.message)
+            && (this.message.translate === 'pay_to_address' && this.message.address) ? true : false;
+
+        this.prepareAdditionalFields();
+        this.cardFields = this.isWithCardFields();
+    }
+
     private async importPackage(): Promise<void> {
         await import('hosted-fields-sdk').then((m: any) => {
             this.hostedFieldService = m['HostedFields'];
@@ -359,7 +411,7 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
         });
     }
 
-    protected prepareAdditionalFields(): void {
+    private prepareAdditionalFields(): void {
         const hostedFields: IHostedField[] = _get(this, 'hostedFields.fields', {});
 
         for (const key in this.data.additionalParams) {
@@ -382,7 +434,7 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
         */
     }
 
-    protected getAdditionalParams(filterType: FilterType): IIndexing<IPaymentAdditionalParam> {
+    private getAdditionalParams(filterType: FilterType): IIndexing<IPaymentAdditionalParam> {
         let fields: IIndexing<IPaymentAdditionalParam> = {};
 
         fields = _pickBy(this.additionalParams, (field: IPaymentAdditionalParam, key: string) => {
@@ -394,7 +446,7 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
         return fields;
     }
 
-    protected getField(param: string | any): IPaymentAdditionalParam {
+    private getField(param: string | any): IPaymentAdditionalParam {
         let field: IPaymentAdditionalParam,
             parsParam: any;
         try {
@@ -431,7 +483,7 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
         return field;
     }
 
-    protected setFieldValue(key: string, field: IPaymentAdditionalParam) {
+    private setFieldValue(key: string, field: IPaymentAdditionalParam) {
         if (!field.skipsaving) {
             if (['firstName', 'lastName'].includes(key)) {
                 field.value = _get(this.UserService, `userProfile.${key}`, '');
@@ -442,18 +494,7 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
         }
     }
 
-    protected init(data: IPaymentSystem): void {
-        this.data = data;
-        this.prepareAdditionalFields();
-        this.cardFields = this.isWithCardFields();
-
-        gettext('Withdraw Address');
-        gettext('Card number');
-        gettext('Card Expire (09/21)');
-        gettext('Card code (cvv)');
-    }
-
-    protected isWithCardFields(): boolean {
+    private isWithCardFields(): boolean {
         const params = []; //TODO siteconfig.paymentsWithCardFields
         let aliases = [];
         if (params.length) {

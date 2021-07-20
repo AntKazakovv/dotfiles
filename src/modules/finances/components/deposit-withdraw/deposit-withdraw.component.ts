@@ -105,8 +105,8 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
 
     public formConfig: IFormWrapperCParams;
     public isShowHostedBlock: boolean = false;
-    protected formObject: FormGroup;
 
+    protected formObject: FormGroup;
     protected profileForm: IFormWrapperCParams;
     protected inProgress: boolean = false;
     private isLoadingHostedFields: boolean = false;
@@ -199,7 +199,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
         this.modalService.showModal('data-is-processing');
 
         if (this.currentSystem.isHosted) {
-            this.currentSystem.hostedFieldService.get();
+            this.currentSystem.getHostedValue();
         } else {
             this.depositAction(this.formObject.value.amount, this.getAdditionalParams(), saveProfile);
         }
@@ -574,7 +574,7 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
         }
 
         if (this.currentSystem?.isHosted) {
-            this.currentSystem.hostedFieldService.reset();
+            this.currentSystem.resetHostedFields();
             this.currentSystem.dropHostedFields();
             this.isLoadingHostedFields = false;
             this.cdr.detectChanges();
@@ -591,19 +591,18 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
         this.updateFormConfig();
 
         if (this.currentSystem.isHosted && (!this.isLoadingHostedFields || !this.currentSystem.hostedFields.loaded)) {
-            this.isLoadingHostedFields = true;
-            this.isShowHostedBlock = true;
             this.loadHostedFields();
         }
     }
 
     protected loadHostedFields(): void {
+        this.isLoadingHostedFields = true;
+        this.isShowHostedBlock = true;
+        this.currentSystem.resetHostedFields();
 
-        this.currentSystem.hostedFieldService.reset();
         const formCallbackHandler = (formData: IHostedFormData) => {
             if (!formData.errors || _isEmpty(formData.errors)) {
                 this.currentSystem.validateHostedFields();
-                this.currentSystem.hostedFields.errors = null;
                 this.depositAction(this.formObject.value.amount, formData as IIndexing<string>);
             } else {
                 this.currentSystem.invalidateHostedFields();
@@ -613,36 +612,17 @@ export class DepositWithdrawComponent extends AbstractComponent implements OnIni
         };
 
         const formHasLoadedCallbackHandler = () => {
-            this.currentSystem.hostedFields.invalid = true;
+            this.currentSystem.loadedHostedFields();
             this.isLoadingHostedFields = false;
-            this.currentSystem.hostedFields.loaded = true;
             this.cdr.markForCheck();
         };
 
-        this.httpClient.get('/static/css/hosted.fields.css', {responseType: 'text'}).subscribe((data: any) => {
-            const params: IHostedFieldsParams = {
-                merchantId: this.currentSystem.hostedFields?.merchantId,
-                hostedfieldsurl: this.currentSystem.hostedFields?.url,
-                fields: this.currentSystem.hostedFields.fields,
-                onLoadCallback: () => formHasLoadedCallbackHandler,
-                styles: data,
-                callback: () => formCallbackHandler,
-                el: '#wlc-hosted-fields',
-            };
-
-            params.fields = params.fields.map((conf: IHostedField) => {
-                return new this.currentSystem.hostedField(
-                    conf.type,
-                    conf.name,
-                    conf.name,
-                    conf.label,
-                    conf.error,
-                    conf.helpKey,
-                    conf.visible,
-                    conf.required,
-                );
-            });
-            this.currentSystem.hostedFieldService.setup(params);
+        this.httpClient.get('/static/css/hosted.fields.css', {responseType: 'text'}).subscribe((styles: any) => {
+            this.currentSystem.setupHostedFields(
+                formHasLoadedCallbackHandler,
+                formCallbackHandler,
+                styles,
+            );
         });
     }
 
