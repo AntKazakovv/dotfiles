@@ -10,8 +10,8 @@
 
         .wlc-slider {
 
-            &--on-start {
-                box-shadow:  ef.get-value($themeDefault, 'swiperBoxShadowStart');
+            &--on-start.wlc-slider--overflow {
+                box-shadow: ef.get-value($themeDefault, 'swiperBoxShadowStart');
             }
 
             &--on-end {

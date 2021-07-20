@@ -8,6 +8,11 @@ export namespace wlcMainMenu {
         },
         params: {
             wlcElement: 'block_main-nav',
+            menuParams: {
+                common: {
+                    useSwiper: true,
+                },
+            },
         },
     };
 
