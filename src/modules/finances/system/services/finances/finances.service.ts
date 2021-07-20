@@ -40,10 +40,6 @@ import {FinancesHelper} from '../../helpers/finances.helper';
 import _find from 'lodash-es/find';
 import _startsWith from 'lodash-es/startsWith';
 
-interface ICancelWithdrawParams {
-    id: number;
-}
-
 interface IQueries {
     amount: number;
     queries: number;
@@ -54,7 +50,7 @@ export class FinancesService {
 
     public paymentSystems$: BehaviorSubject<PaymentSystem[]> = new BehaviorSubject(undefined);
 
-    protected systems: PaymentSystem[] = [];
+    private systems: PaymentSystem[] = [];
 
     constructor(
         protected dataService: DataService,
@@ -90,35 +86,23 @@ export class FinancesService {
     }
 
     public async deposit(systemId: number, amount: number, additionalFields: object): Promise<any> {
-        try {
-            if (await this.checkPIQCashier(systemId, amount, PIQCashierConvertedMethod.deposit)) {
-                return [PIQCashierResponse];
-            }
-            const res = await this.dataService.request<IData>('finances/deposits', {
-                systemId,
-                amount,
-                additional: additionalFields,
-            });
-            return res.data;
-        } catch (error) {
-            return Promise.reject(error);
-        }
+        return await this.balanceAction(
+            systemId,
+            amount,
+            additionalFields,
+            PIQCashierConvertedMethod.deposit,
+            'finances/deposits',
+        );
     }
 
     public async withdraw(systemId: number, amount: number, additionalFields: object): Promise<any> {
-        try {
-            if (await this.checkPIQCashier(systemId, amount, PIQCashierConvertedMethod.withdraw)) {
-                return [PIQCashierResponse];
-            }
-            const res = await this.dataService.request<IData>('finances/postWithdrawal', {
-                systemId,
-                amount,
-                additional: additionalFields,
-            });
-            return res.data;
-        } catch (error) {
-            return Promise.reject(error);
-        }
+        return await this.balanceAction(
+            systemId,
+            amount,
+            additionalFields,
+            PIQCashierConvertedMethod.withdraw,
+            'finances/postWithdrawal',
+        );
     }
 
     public async getWithdrawQueries(): Promise<IQueries> {
@@ -197,31 +181,33 @@ export class FinancesService {
         return FinancesHelper.checkSystemType(system, filterType);
     }
 
-    /**
-     * Check payment system if it is PaymentIQ Cashier and init
-     * deposit/withdraw via cashier if yes
-     *
-     * @param {number} systemId - payment system object
-     * @param {number} amount - deposit/withdraw amount
-     * @param {PIQCashierConvertedMethod} method - type of payment method
-     *
-     * @return {Promise<boolean>} true if paysystem is PIQCashier system
-     */
-
-    public async checkPIQCashier(
+    private async balanceAction(
         systemId: number,
         amount: number,
+        additionalFields: object,
         method: PIQCashierConvertedMethod,
-    ): Promise<boolean> {
-        const currentSystem = this.getSystemById(systemId);
-        if (_startsWith(currentSystem.alias, 'paymentiq_cashier')) {
-            await this.injector.get(PIQCashierService).openPIQCashier(method, currentSystem, amount);
-            return true;
+        requestName: string,
+    ): Promise<any> {
+        try {
+            const currentSystem = this.getSystemById(systemId);
+
+            if (currentSystem.isCashier) {
+                await this.injector.get(PIQCashierService).openPIQCashier(method, currentSystem, amount);
+                return [PIQCashierResponse];
+            }
+
+            const res = await this.dataService.request<IData>(requestName, {
+                systemId,
+                amount,
+                additional: additionalFields,
+            });
+            return res.data;
+        } catch (error) {
+            return Promise.reject(error);
         }
-        return false;
     }
 
-    protected createPaymentSystems(data: IPaymentSystem[]): PaymentSystem[] {
+    private createPaymentSystems(data: IPaymentSystem[]): PaymentSystem[] {
         const paymentSystems: PaymentSystem[] = [];
 
         if (data.length) {
@@ -235,11 +221,11 @@ export class FinancesService {
     }
 
 
-    protected createTransaction(data: ITransaction[]): Transaction[] {
+    private createTransaction(data: ITransaction[]): Transaction[] {
         return data.map((item) => new Transaction(item));
     }
 
-    protected registerMethods(): void {
+    private registerMethods(): void {
         this.dataService.registerMethod({
             name: 'paymentSystems',
             system: 'finances',
