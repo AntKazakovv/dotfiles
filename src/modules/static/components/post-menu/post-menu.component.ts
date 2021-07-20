@@ -74,7 +74,7 @@ export class PostMenuComponent extends AbstractComponent implements OnInit {
             _merge(this.$params.common, {basePath});
         }
 
-        const {categorySlug, useSlider} = this.$params.common;
+        const {categorySlug, useSlider, exclude} = this.$params.common;
         let lists: TextDataModel[][] = [];
 
         if (_isArray(categorySlug)) {
@@ -85,6 +85,12 @@ export class PostMenuComponent extends AbstractComponent implements OnInit {
             lists = _filter(await Promise.all(requests), ({length}) => !!length);
         } else {
             lists = [await this.staticService.getPostsListByCategorySlug(categorySlug)];
+        }
+
+        if (exclude) {
+            lists = _map(lists, (list: TextDataModel[])  => {
+                return _filter(list, (listItem) =>  !_includes(exclude, listItem.slug));
+            });
         }
 
         this.setMenuItems(lists);

@@ -59,6 +59,7 @@ export namespace wlcPostMenu {
             wlcElement: 'wlc-burger-panel__block_legal',
             common: {
                 categorySlug: 'legal',
+                exclude: ['feedback'],
                 basePath: {
                     page: 'contacts',
                     addLanguage: true,
