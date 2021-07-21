@@ -16,6 +16,7 @@ export interface IPostMenuCParams extends IComponentParams<Theme, Type, ThemeMod
     modifiers?: ModifiersType[];
     common?: {
         categorySlug?: string | string[];
+        /** excluded slugs from categories */
         exclude?: string[];
         groupBySlag?: boolean;
         title?: string | string[];
