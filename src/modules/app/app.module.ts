@@ -30,7 +30,9 @@ export function loadConfig(config: ConfigService) {
     return config.load();
 }
 
-export let logService: LogService;
+export class GlobalDeps {
+    public static logService: LogService;
+}
 
 @NgModule({
     declarations: [
@@ -100,7 +102,7 @@ export class AppModule {
         private logService: LogService,
     ) {
         this.parseInitPath(location.path());
-        logService = this.logService;
+        GlobalDeps.logService = this.logService;
         this.eventService.subscribe({
             name: 'ERROR_PAGE_ENTER',
         }, (data: number) => {
