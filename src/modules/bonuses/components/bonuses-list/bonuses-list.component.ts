@@ -84,12 +84,13 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
         textSide: 'right',
         control: new FormControl(),
         onChange: (checked: boolean) => {
-            checked ? this.chooseBlankBonus(true) : this.chooseBonusByPosition(0);
+            checked ? this.chooseBlankBonus(true) : this.chooseBonusByPosition(this.chosenBonusIndex);
         },
     };
 
     protected promocode: string = '';
     protected itemsPerPage: number = 0;
+    protected chosenBonusIndex: number = 0;
 
     constructor(
         @Inject('injectParams') protected params: Params.IBonusesListCParams,
@@ -279,6 +280,10 @@ export class BonusesListComponent extends AbstractComponent implements OnInit, O
             if (this.slider) {
                 this.bonusesToSlides(this.bonuses, false);
             }
+
+            this.chosenBonusIndex = _findIndex(this.bonuses,
+                (item: Bonus) => item.id === bonus.id,
+            );
 
             if (this.checkBoxParams.control.touched) {
                 this.checkBoxParams.control.setValue(false);
