@@ -169,7 +169,7 @@ export class BonusItemComponent extends AbstractComponent implements OnInit, OnD
     }
 
     public chooseBonusNoBtn(bonus: Bonus, type: IBonusType): void {
-        if (!this.isChooseBtn) {
+        if (!this.isChooseBtn || this.$params.theme === 'reg-first') {
             this.chooseBonus(bonus, type);
         }
     }
