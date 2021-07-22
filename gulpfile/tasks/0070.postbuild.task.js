@@ -16,6 +16,7 @@ module.exports = function postBuildTask() {
     });
 
     task('build:symlinkHeadFile', (cb) => {
+        this.addToGitIgnore('/roots', 'template', 'head.tpl');
         try {
             fs.lstatSync(this.params.paths.indexHeadFile);
             fs.unlinkSync(this.params.paths.indexHeadFile);
