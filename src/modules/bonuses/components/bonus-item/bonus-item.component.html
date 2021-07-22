@@ -178,7 +178,7 @@
 <ng-template #regFirst>
     <div class="{{$class}}__content"
          [class.chosen]="chosen || $params.common.bonus.isChoose">
-         <div class="{{$class}}__wrapper" (click)="chooseBonusNoBtn($params.common.bonus, $params.type)">
+         <div class="{{$class}}__wrapper" (click)="chooseBonusNoBtn($params.common.bonus, $params.common?.type)">
                 <div class="{{$class}}__image-block" data-wlc-element="bonus_image">
                     <div *ngIf="$params.common?.showBonusTag && !!$params.common.bonus.tag"
                     class="{{$class}}__tag"
