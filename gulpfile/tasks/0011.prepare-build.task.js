@@ -66,7 +66,7 @@ module.exports = function preBuildTask() {
         fs.access(`${this.params.paths.src}/app-styles/app.loader.scss`, (err) => {
             if (err) {
                 fs.writeFileSync(`${this.params.paths.src}/app-styles/app.loader.scss`,
-                    `@import 'wlc-engine/engine-scss/_engine.loader.scss';\n`);
+                    '@import \'wlc-engine/engine-scss/_engine.loader.scss\';\n');
             }
         });
     };
@@ -76,7 +76,7 @@ module.exports = function preBuildTask() {
         fs.access(`${this.params.paths.src}/app-styles/hosted.fields.scss`, (err) => {
             if (err) {
                 fs.writeFileSync(`${this.params.paths.src}/app-styles/hosted.fields.scss`,
-                    `@import 'wlc-engine/engine-scss/_hosted.fields.scss';\n`);
+                    '@import \'wlc-engine/engine-scss/_hosted.fields.scss\';\n');
             }
         });
     };
