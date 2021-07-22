@@ -60,6 +60,7 @@ module.exports = function buildTask() {
     task('dev', series(
         'build:prepare',
         'prepare:dev',
+        'build:symlinkHeadFile',
         'messages',
         parallel(
             'watch',
@@ -74,6 +75,8 @@ module.exports = function buildTask() {
         parallel(
             'build:inline',
             'build:sw-fix',
+            'build:copyHeadFile',
+            'build:modifyIndexFile',
             'build:loader-css',
             'build:hosted-fields-css',
         ),

@@ -27,7 +27,7 @@ module.exports = function watchTask() {
             {
                 delay: 200,
             },
-            series('liveReload:reload'),
+            series('build:modifyIndexFile', 'liveReload:reload'),
         );
 
         cb();
