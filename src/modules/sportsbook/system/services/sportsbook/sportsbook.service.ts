@@ -210,6 +210,7 @@ export class SportsbookService {
 
     private async init(): Promise<void> {
         this.ready = this.$readyStatus.promise;
+        await this.configService.ready;
         await this.gamesCatalogService.ready;
         this.$readyStatus.resolve();
         this.enableMessageEventListener();

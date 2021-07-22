@@ -60,19 +60,19 @@ interface IError {
     stateParams?: RawParams;
 }
 
-export const hooks = {
+export const gameWrapperHooks = {
     launchInfo: 'launchInfo@GameWrapperComponent',
     evalScript: 'evalScript@GameWtapperComponent',
 };
 
-export interface IHookLaunchInfo {
+export interface IGameWrapperHookLaunchInfo {
     game: Game;
     launchInfo: ILaunchInfo;
     customGameParams: ICustomGameParams;
     demo: boolean;
 }
 
-export interface IHookEvalScript {
+export interface IGameWrapperHookEvalScript {
     game: Game;
     customGameParams: ICustomGameParams;
     disable: boolean;
@@ -499,7 +499,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
                             return;
                         }
 
-                        const result = await this.hooksService.run<IHookEvalScript>(hooks.evalScript, {
+                        const result = await this.hooksService.run<IGameWrapperHookEvalScript>(gameWrapperHooks.evalScript, {
                             game: this.game,
                             customGameParams: this.$params?.gameParams,
                             disable: false,
@@ -531,7 +531,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         try {
             const launchInfo: ILaunchInfo = await this.gamesCatalogService.getLaunchParams(this.gameParams);
 
-            const result = await this.hooksService.run<IHookLaunchInfo>(hooks.launchInfo, {
+            const result = await this.hooksService.run<IGameWrapperHookLaunchInfo>(gameWrapperHooks.launchInfo, {
                 game: this.game,
                 launchInfo: launchInfo,
                 customGameParams: this.$params.gameParams,

@@ -13,23 +13,19 @@ import {
     IMixedParams,
     ConfigService,
     HooksService,
-    IHookHandlerDescriptor,
     IWrapperCParams,
+    IIndexing,
 } from 'wlc-engine/modules/core';
 import {
     SportsbookService,
     BetradarService,
     ISportsbookSettings,
     ISportsbookSettingsFilter,
+    DigitainHooks,
+    PinnacleHooks,
 } from 'wlc-engine/modules/sportsbook';
 import {IGameWrapperCParams} from 'wlc-engine/modules/games';
-import {
-    hooks as gameWrapperHooks,
-    IHookLaunchInfo,
-} from 'wlc-engine/modules/games/components/game-wrapper/game-wrapper.component';
 import * as Params from './sportsbook.params';
-
-import _includes from 'lodash-es/includes';
 
 @Component({
     selector: '[wlc-sportsbook]',
@@ -43,7 +39,21 @@ export class SportsbookComponent extends AbstractComponent implements OnInit, On
     public gameConfig: IWrapperCParams;
 
     protected settings: ISportsbookSettings;
-    protected hookDescriptors: IHookHandlerDescriptor[] = [];
+    protected hooks: IIndexing<Function> = {
+        'digitain': () => {
+            new DigitainHooks({
+                hooksService: this.hooksService,
+                disableHooks: this.$destroy,
+                router: this.router,
+            });
+        },
+        'pinnacleSW': () => {
+            new PinnacleHooks({
+                hooksService: this.hooksService,
+                disableHooks: this.$destroy,
+            });
+        },
+    }
 
     constructor(
         @Inject('injectParams') protected params: Params.ISportsbookCParams,
@@ -79,7 +89,7 @@ export class SportsbookComponent extends AbstractComponent implements OnInit, On
         this.settings = this.sportsbookService.getSportsbookSettings(filter);
 
         if (this.settings) {
-            this.hookDescriptors.push(this.hooksService.set<IHookLaunchInfo>(gameWrapperHooks.launchInfo, this.launchInfoHook, this));
+            this.initHooks();
 
             const gameWrapperParams: IGameWrapperCParams = {
                 gameParams: {
@@ -112,36 +122,11 @@ export class SportsbookComponent extends AbstractComponent implements OnInit, On
         this.cdr.detectChanges();
     }
 
-    protected launchInfoHook(data: IHookLaunchInfo): IHookLaunchInfo {
-        if (this.settings.id === 'digitain') {
-            const pages = {
-                home: 'Home',
-                upcoming: 'Upcoming',
-                eventView: 'EventView',
-                results: 'Results',
-                betsHistory: 'BetsHistory',
-                upcomingDetails: 'UpcomingDetails',
-                calendar: 'Calendar',
-                multiView: 'MultiView',
-                overview: 'Overview',
-                schedule: 'Shedule',
-            };
-            const pageCode: string = pages[this.router.stateService.params.page] || pages.home;
-
-            let eventId = '';
-            if (_includes(['EventView', 'Upcoming', 'MultiView'], pageCode) && this.router.stateService.params.page2) {
-                eventId = `_sp.push(['eventId', ${this.router.stateService.params.page2}])`;
-            }
-
-            data.launchInfo.gameScript = data.launchInfo.gameScript.replace('SportFrame.frame',
-                `_sp.push(["currentPage", "${pageCode}"]); ${eventId} SportFrame.frame`);
+    protected initHooks(): void {
+        const hooks: Function = this.hooks[this.settings.id];
+        if (hooks) {
+            hooks();
         }
-        return data;
-    }
-
-    public ngOnDestroy(): void {
-        super.ngOnDestroy();
-        this.hooksService.clear(this.hookDescriptors);
     }
 
 }

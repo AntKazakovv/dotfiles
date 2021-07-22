@@ -15,6 +15,9 @@ import {
     map,
 } from 'rxjs/operators';
 
+import {
+    InjectionService,
+} from 'wlc-engine/modules/core';
 import {DataService} from 'wlc-engine/modules/core/system/services/data/data.service';
 import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {IData} from 'wlc-engine/modules/core/system/services/data/data.service';
@@ -106,6 +109,7 @@ export class GamesCatalogService {
         protected actionService: ActionService,
         protected modalService: ModalService,
         protected logService: LogService,
+        protected injectionService: InjectionService,
     ) {
         this.init();
     }
@@ -114,7 +118,8 @@ export class GamesCatalogService {
 
     private isMobile: boolean = false;
 
-    public init(): void {
+    public async init(): Promise<void> {
+        await this.configService.ready;
         this.registerMethods();
 
         this.loadGames();

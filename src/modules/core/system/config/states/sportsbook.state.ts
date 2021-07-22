@@ -2,7 +2,7 @@
 
 import {Ng2StateDeclaration} from '@uirouter/angular';
 import {
-    IIndexing,
+    IIndexing, InjectionService,
 } from 'wlc-engine/modules/core';
 import {
     SportsbookService,
@@ -58,7 +58,11 @@ export const sportsbookState: Ng2StateDeclaration = {
         },
     },
     onEnter: async (trans) => {
-        const sportsbookService = trans.injector().get(SportsbookService);
+        const injectionService = trans.injector().get(InjectionService);
+        const gamesCatalogService = await injectionService.getService('games.games-catalog-service');
+        const sportsbookService = await injectionService.getService('sportsbook.sportsbook-service');
+
+        await gamesCatalogService.ready;
         await sportsbookService.ready;
 
         const sportsbookId: string = sportsbookIdByState[trans.to().name];
