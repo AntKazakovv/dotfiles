@@ -6,7 +6,10 @@ import {AngularResizedEventModule} from 'angular-resize-event';
 import {SportsbookComponent} from './components/sportsbook/sportsbook.component';
 import {BetradarDailyMatchComponent} from './components/betradar-daily-match/betradar-daily-match.component';
 import {BetradarPopularEventsComponent} from './components/betradar-popular-events/betradar-popular-events.component';
-import {SportsbookService} from './system/services/sportsbook/sportsbook.service';
+import {
+    SportsbookService,
+    BetradarService,
+} from './system/services';
 
 import {GlobalHelper} from 'wlc-engine/modules/core';
 import {sportsbookConfig} from './system/config/sportsbook.config';
@@ -23,6 +26,11 @@ export const components = {
     'wlc-sportsbook': SportsbookComponent,
     'wlc-betradar-daily-match': BetradarDailyMatchComponent,
     'wlc-betradar-popular-events': BetradarPopularEventsComponent,
+};
+
+export const services = {
+    'sportsbook-service': SportsbookService,
+    'betradar-service': BetradarService,
 };
 
 @NgModule({

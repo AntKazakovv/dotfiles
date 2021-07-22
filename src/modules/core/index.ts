@@ -16,6 +16,11 @@ export {
     IMixedParams,
 } from './system/classes/abstract.component';
 export {
+    Deferred,
+    AbstractHook,
+    IAbstractHookParams,
+} from './system/classes';
+export {
     IData,
     IRequestMethod,
     RestMethodType,
@@ -27,6 +32,5 @@ export {
     IPushMessageParams,
     NotificationEvents,
 } from 'wlc-engine/modules/core/system/services/notification';
-export {Deferred} from './system/classes/deferred.class';
 export * from './components/modal';
 export * from './system/config/log-types';
