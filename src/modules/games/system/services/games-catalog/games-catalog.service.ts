@@ -130,6 +130,11 @@ export class GamesCatalogService {
                 this.router,
                 this.eventService,
             );
+            if (!this.gamesCatalog.getGameList().length) {
+                this.logService.sendLog({
+                    code: '3.0.25',
+                });
+            }
             this.$resolve();
             this.loadJackpots();
             this.getFavouriteGames();
@@ -189,7 +194,16 @@ export class GamesCatalogService {
      */
     public async loadGames(): Promise<void> {
         const request = 'games/games';
-        await this.dataService.request(request);
+        try {
+            await this.dataService.request(request);
+        } catch (error) {
+            this.logService.sendLog({
+                code: '3.0.0',
+                flog: {
+                    from: 'loadGames',
+                },
+            });
+        }
     }
 
     /**
@@ -766,9 +780,13 @@ export class GamesCatalogService {
                 category?.setGames(games);
                 return games;
             } catch (error) {
+                // TODO Change error code
                 this.logService.sendLog({
                     code: '3.0.0',
                     data: error,
+                    flog: {
+                        from: 'loadSpecialCategoryGames',
+                    },
                 });
             }
         }

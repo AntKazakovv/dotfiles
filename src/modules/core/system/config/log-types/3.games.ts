@@ -3,6 +3,7 @@ import {ILogTypes} from 'wlc-engine/modules/core/system/config/log-types';
 export const errorTypes: ILogTypes = {
     '3.0.0': {
         // Error when get games catalog
+        level: 'fatal',
     },
     '3.0.1': {
         // Game not found

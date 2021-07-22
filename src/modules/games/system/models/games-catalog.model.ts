@@ -109,18 +109,19 @@ export class GamesCatalog extends AbstractModel<IGames> {
     ];
 
     constructor(
-        data: IGames,
+        _data: IGames,
         protected gamesCatalogService: GamesCatalogService,
         protected translateService: TranslateService,
         protected configService: ConfigService,
         protected router: UIRouter,
         protected eventService: EventService,
     ) {
-        super();
+        super({from: 'GamesCatalogModel'});
+        this.data = _data;
         this.overrideJackpots = !this.configService.get<boolean>('$games.categories.useFundistJackpots');
         this.categorySettings = this.configService.get('appConfig.categories');
         this.menuSettings = this.configService.get('appConfig.menuSettings');
-        this.processFetchedGamesCatalog(data);
+        this.processFetchedGamesCatalog(this.data);
     }
 
     public isSpecialCategory(category: CategoryModel): boolean {

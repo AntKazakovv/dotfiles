@@ -135,7 +135,14 @@ class StartGameHandler {
         try {
             await this.gamesCatalogService.ready;
         } catch (err) {
-            this.logService.sendLog({code: '3.0.0', data: err});
+            // TODO Change error code
+            this.logService.sendLog({
+                code: '3.0.0',
+                data: err,
+                flog: {
+                    from: 'StartGameHandler',
+                },
+            });
             this.result.reject(RejectReason.GamesCatalogNotReady);
             return;
         } finally {
