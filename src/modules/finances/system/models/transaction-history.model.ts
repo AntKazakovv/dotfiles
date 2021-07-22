@@ -43,6 +43,7 @@ export const transactionsStatuses: ITransactionStatus[] = [
     {value: -50, code: 'rejected', title: gettext('Rejected')},
     {value: -90, code: 'rejected', title: gettext('Rejected')},
     {value: -91, code: 'rejected', title: gettext('Rejected')},
+    {value: -10, code: 'canceled', title: gettext('Canceled')},
     {value: -5, code: 'error', title: gettext('Error')},
     {value: 0, code: 'new', title: gettext('New')},
     {value: 1, code: 'updated', title: gettext('Updated')},
