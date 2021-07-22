@@ -341,6 +341,7 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
                 dropdownMenu.push({
                     parent: menuItems[0],
                     items: childItems,
+                    type: 'group',
                 });
             } else if (menuItems[0]) {
                 dropdownMenu.push(menuItems[0]);
