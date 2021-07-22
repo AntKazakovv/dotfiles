@@ -45,6 +45,12 @@ fi
 ver=${2:-$nextver}
 tag="$ver"
 
+npm run dist
+
+if [ $? -eq 1 ]; then
+    exit 1;
+fi
+
 echo
 echo "Source: remotes/$git_remote/$stable_branch"
 echo "Tag: $tag"
