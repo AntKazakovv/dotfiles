@@ -145,6 +145,10 @@ export class AppComponent extends AbstractComponent implements OnInit, OnDestroy
                         downlink: _get(window, 'navigator.connection.downlink', 0),
                         effectiveType: _get(window, 'navigator.connection.effectiveType', ''),
                     },
+                    from: {
+                        component: 'AppComponent',
+                        method: 'ngOnInit',
+                    },
                 });
                 (window as any).WlcFlog?.setCompileSuccess();
             }

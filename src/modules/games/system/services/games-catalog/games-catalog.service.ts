@@ -138,6 +138,10 @@ export class GamesCatalogService {
             if (!this.gamesCatalog.getGameList().length) {
                 this.logService.sendLog({
                     code: '3.0.25',
+                    from: {
+                        service: 'GamesCatalogService',
+                        method: 'init',
+                    },
                 });
             }
             this.$resolve();
@@ -204,8 +208,9 @@ export class GamesCatalogService {
         } catch (error) {
             this.logService.sendLog({
                 code: '3.0.0',
-                flog: {
-                    from: 'loadGames',
+                from: {
+                    service: 'GamesCatalogService',
+                    method: 'loadGames',
                 },
             });
         }
@@ -696,7 +701,14 @@ export class GamesCatalogService {
                     haveVideo: [],
                 };
             }).catch((error) => {
-                this.logService.sendLog({code: '3.0.30', data: error});
+                this.logService.sendLog({
+                    code: '3.0.30',
+                    data: error,
+                    from: {
+                        service: 'GamesCatalogService',
+                        method: 'getVerticalThumbsConfig',
+                    },
+                });
             });
         }
 
@@ -789,8 +801,9 @@ export class GamesCatalogService {
                 this.logService.sendLog({
                     code: '3.0.0',
                     data: error,
-                    flog: {
-                        from: 'loadSpecialCategoryGames',
+                    from: {
+                        service: 'GamesCatalogService',
+                        method: 'loadSpecialCategoryGames',
                     },
                 });
             }

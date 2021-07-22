@@ -116,7 +116,13 @@ export class GamesCatalog extends AbstractModel<IGames> {
         protected router: UIRouter,
         protected eventService: EventService,
     ) {
-        super({from: 'GamesCatalogModel'});
+        super({
+            from: {
+                model: 'GamesCatalog',
+                service: 'GamesCatalogService',
+                method: 'init',
+            },
+        });
         this.data = _data;
         this.overrideJackpots = !this.configService.get<boolean>('$games.categories.useFundistJackpots');
         this.categorySettings = this.configService.get('appConfig.categories');

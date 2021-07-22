@@ -14,18 +14,27 @@ import {
     ILogType,
     IIndexing,
 } from 'wlc-engine/modules/core';
-import {WlcFlog} from 'wlc-engine/system/inline/_flog';
+import {IFlogData, WlcFlog} from 'wlc-engine/system/inline/_flog';
 
 import _get from 'lodash-es/get';
-import _set from 'lodash-es/set';
 import _cloneDeep from 'lodash-es/cloneDeep';
 import _merge from 'lodash-es/merge';
 import _intersection from 'lodash-es/intersection';
+
+export interface IFromLog {
+    service?: string;
+    method?: string;
+    model?: string;
+    component?: string;
+    pipe?: string;
+    directive?: string;
+}
 
 export interface ILogObj<T = any> extends ILogType {
     code: string;
     data?: T;
     flog?: IIndexing<string | number | boolean>;
+    from?: IFromLog;
 }
 
 interface IWaitElementParams {
@@ -216,11 +225,14 @@ export class LogService {
             default:
                 break;
         }
-
-        this.Flog.send({
+        const flogData: IFlogData = {
             code: _logObj.code,
             level: _logObj.level,
             ..._get(_logObj, 'flog'),
-        }).finally();
+        };
+        if (logObj.from) {
+            flogData.from = logObj.from;
+        }
+        this.Flog.send(flogData).finally();
     }
 }

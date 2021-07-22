@@ -1,9 +1,11 @@
 import {GlobalDeps} from 'wlc-engine/modules/app/app.module';
+import {IFromLog, ILogObj} from 'wlc-engine/modules/core';
 
 import _keys from 'lodash-es/keys';
+import _merge from 'lodash-es/merge';
 
 export interface IAbstractModelParams {
-    from: string;
+    from: IFromLog;
 }
 export abstract class AbstractModel<T> {
 
@@ -29,7 +31,7 @@ export abstract class AbstractModel<T> {
             this.dataReady = true;
         } else {
             this.dataReady = false;
-            GlobalDeps.logService.sendLog({code: '7.0.0', flog: {from: this.$params?.from}});
+            this.sendLog({code: '7.0.0'});
         }
     }
 
@@ -37,9 +39,13 @@ export abstract class AbstractModel<T> {
         const keys = _keys(this.objectData).length;
 
         if (!keys) {
-            GlobalDeps.logService.sendLog({code: '7.0.1', flog: {from: this.$params?.from}});
+            this.sendLog({code: '7.0.1'});
         } else if (keys === 1 && this.objectData['data']) {
-            GlobalDeps.logService.sendLog({code: '7.0.2', flog: {from: this.$params?.from}});
+            this.sendLog({code: '7.0.2'});
         }
     };
+
+    protected sendLog(logObj: ILogObj): void {
+        GlobalDeps.logService.sendLog(_merge({}, logObj, {from: this.$params?.from}));
+    }
 }
