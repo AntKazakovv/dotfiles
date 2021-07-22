@@ -42,7 +42,10 @@ module.exports = function postBuildTask() {
     task('build:modifyIndexFile', (cb) => {
         const path = `${this.params.paths.dist}/index.html`;
         fs.readFile(path, 'utf8', (err, data) => {
-            if (err) cb();
+            if (err) {
+                cb();
+                return;
+            }
             if (data.indexOf('{% include "head.tpl" %}') === -1) {
                 data = data.replace('</head>', '{% include "head.tpl" %} </head>');
                 fs.writeFile(path, data, (err, data) => {
