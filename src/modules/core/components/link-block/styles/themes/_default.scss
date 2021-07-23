@@ -90,6 +90,7 @@
         .wlc-link-block {
 
             &__container {
+                @include em.get-mq-map('min-height', $themeDefault, 'containerMinHeight');
                 @include em.get-mq-map('padding', $themeDefault, 'containerPadding');
 
                 display: flex;

@@ -10,6 +10,7 @@ $themeDefault: map-merge((
     'bg': ef.get('mainColors', 'bg300'),
     'boxShadow': null,
     'borderRadius': ef.get('radius', 'biger'),
+    'gap': ef.size(2),
     'loyaltyMargin': (
         375: 12px 0 0,
         1630: ef.get('size', 'smally') 0 0,
@@ -18,9 +19,19 @@ $themeDefault: map-merge((
     'allLinkTextStyle': 'ButtonText',
     'allLinkColor': ef.get('mainColors', 'main'),
     'allLinkColorHover': ef.get('mainColors', 'baseMain'),
+    'allLinkAlign': (
+        375: center,
+        900: left,
+    ),
 
     'userGridColumns': 1fr auto,
     'userGridAlignItems': center,
-    'userIconWidth': 12px,
+    'userIconWidth': 17px,
     'userIconMargin': 0 0 0 ef.get('size', 'smallest'),
+    'userIconVertAlign': sub,
+
+    'logoutDisplay': (
+        375: none,
+        640: block,
+    ),
 ), $customThemeDefault);

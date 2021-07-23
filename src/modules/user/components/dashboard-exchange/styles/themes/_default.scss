@@ -5,6 +5,7 @@
 
 .wlc-exchange:host {
     @include bm.get-mq-map('padding', $themeDefault, 'outerPadding');
+    @include bm.get-mq-map('min-height', $themeDefault, 'minHeight');
     display: grid;
 
     width: 100%;
@@ -138,7 +139,8 @@
         .wlc-user-stats {
 
             &-balance[class] {
-                background: none;
+                padding: ef.get-value($themeDefault, 'userStatsPadding');
+                background: ef.get-value($themeDefault, 'userStatsBg');
             }
         }
     }

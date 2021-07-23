@@ -12,6 +12,7 @@
 
         &__container {
             @include em.get-mq-map('padding', $themeDefault, 'containerPadding');
+            @include em.get-mq-map('min-height', $themeDefault, 'containerMinHeight');
 
             display: flex;
             flex-direction: ef.get-value($themeDefault, 'containerFlexDirection');
@@ -31,10 +32,10 @@
         }
 
         &__control {
-            position: relative;
-
-            width: ef.get-value($themeDefault, 'controlWidth');
             @include em.get-mq-map('max-width', $themeDefault, 'controlMaxWidth');
+
+            position: relative;
+            width: ef.get-value($themeDefault, 'controlWidth');
         }
 
         &__btn {

@@ -7,7 +7,8 @@
     .wlc-loyalty-progress {
 
         &__content {
-            display: block;
+            display: grid;
+            gap: ef.get-value($themeDefault, 'contentGap');
             margin: ef.get-value($themeDefault, 'contentMargin');
         }
 
@@ -17,8 +18,6 @@
             width: 100%;
             height: ef.get-value($themeDefault, 'lineHeight');
 
-            margin: 5px 0;
-
             background: ef.get-value($themeDefault, 'lineEmptyBg');
             border-radius: ef.get-value($themeDefault, 'lineBorderRadius');
 
@@ -26,8 +25,8 @@
 
             &-current {
                 position: absolute;
-                left: 0;
                 top: 0;
+                left: 0;
 
                 height: 100%;
 
@@ -38,19 +37,24 @@
 
         &__title {
             @include lib.get-text-style(ef.get-value($themeDefault, 'levelProgressFontSize'));
-            color: ef.get-value($themeDefault, 'levelNameColor');
             @include bm.inlineLayoutShiftFix();
+            color: ef.get-value($themeDefault, 'levelNameColor');
         }
 
         &__points {
+            @include lib.get-text-style(ef.get-value($themeDefault, 'levelProgressFontSize'), ef.get-value($themeDefault, 'levelPointsColor'));
             display: flex;
             justify-content: space-between;
-            @include lib.get-text-style(ef.get-value($themeDefault, 'levelProgressFontSize'), ef.get-value($themeDefault, 'levelPointsColor'));
 
             &-start,
             &-end {
                 @include bm.inlineLayoutShiftFix();
             }
+        }
+
+        &__title,
+        &__points {
+            line-height: ef.get-value($themeDefault, 'textLineHeight');
         }
     }
 }

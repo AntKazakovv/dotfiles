@@ -116,15 +116,21 @@ export namespace wlcBonusesList {
                             slidesPerView: 'auto',
                             spaceBetween: 10,
                         },
-                        720: {
+                        640: {
                             slidesPerView: 2,
                             spaceBetween: 10,
                         },
                         1024: {
                             spaceBetween: 10,
+                            slidesPerView: 3,
                         },
                         1200: {
                             spaceBetween: 15,
+                            slidesPerView: 3,
+                        },
+                        1366: {
+                            spaceBetween: 15,
+                            slidesPerView: 2,
                         },
                         1630: {
                             spaceBetween: 20,

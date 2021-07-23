@@ -7,7 +7,7 @@ export namespace wlcLogout {
             useText: true,
         },
         display: {
-            before: 900,
+            before: 639,
         },
     };
 

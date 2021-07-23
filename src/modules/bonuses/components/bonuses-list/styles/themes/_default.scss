@@ -9,6 +9,7 @@
 
         .wlc-bonuses-list__list {
             @include bm.get-mq-map('grid-template-columns', $themeDefault, 'gridColumn');
+
             display: grid;
             grid-gap: ef.get-value($themeDefault, 'gridGap');
             justify-items: center;
@@ -38,13 +39,12 @@
                         @include bm.get-mq-map('padding', $themeDefault, 'sliderPadding');
 
                         .swiper-wrapper {
-                            justify-content: center;
-
                             @include bm.get-mq-map('display', $themeDefault, 'sliderDispley');
+
+                            justify-content: center;
                         }
 
                         .swiper-slide {
-
                             @include bm.get-mq-map('width', $themeDefault, 'bonusWidth');
 
                             .wlc-bonus-item {
@@ -62,13 +62,6 @@
 
             ::ng-deep {
 
-                .swiper-container {
-
-                    @include mq.min(720) {
-                        padding: ef.get-value($themeDefault, 'swiperPadding');
-                    }
-                }
-
                 .swiper-slide {
                     width: ef.get-value($themeDefault, 'swiperWidth');
                 }
@@ -78,8 +71,9 @@
                 }
 
                 .swiper-button-next {
-                    right: 0;
                     @include bm.get-mq-map('display', $themeDefault, 'swiperButtonDisplay');
+
+                    right: 0;
 
                     &:after {
                         display: none;
@@ -87,8 +81,9 @@
                 }
 
                 .swiper-button-prev {
-                    left: 0;
                     @include bm.get-mq-map('display', $themeDefault, 'swiperButtonDisplay');
+
+                    left: 0;
 
                     &:after {
                         display: none;
@@ -100,10 +95,10 @@
 }
 
 .wlc-bonuses-list__nocontent {
-    margin: ef.get-value($noContent, 'noContentMargin');
     display: ef.get-value($noContent, 'noContentDisplay');
     flex-direction: ef.get-value($noContent, 'noContentFDirection');
     align-items: ef.get-value($noContent, 'noContentAlignItems');
+    margin: ef.get-value($noContent, 'noContentMargin');
 
     &-btn {
         margin: ef.get-value($noContent, 'noContentMarginBtn');
