@@ -233,6 +233,9 @@ export class LogService {
         if (logObj.from) {
             flogData.from = logObj.from;
         }
+        if (logObj.data?.duration && !logObj.flog?.duration) {
+            flogData.duration = logObj.data.duration;
+        }
         this.Flog.send(flogData).finally();
     }
 }

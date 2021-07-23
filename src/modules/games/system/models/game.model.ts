@@ -166,7 +166,7 @@ export class Game extends AbstractModel<IGame> {
             demo: options.demo,
             locale,
         }, {
-            reload: true,
+            reload: false,
         });
     }
 
