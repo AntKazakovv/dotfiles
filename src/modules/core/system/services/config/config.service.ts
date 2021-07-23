@@ -4,6 +4,11 @@ import {
     LocalStorageService,
     SessionStorageService,
 } from 'ngx-webstorage';
+import {
+    BehaviorSubject,
+} from 'rxjs';
+import {first} from 'rxjs/operators';
+
 import {DataService, IData} from '../data/data.service';
 import {AppConfigModel} from './app-config.model';
 import * as appConfig from 'wlc-config/index';
@@ -15,14 +20,12 @@ import {
     $profileFirstLayouts,
     $layouts,
 } from 'wlc-engine/modules/core/system/config/layouts';
+import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
 
 import {ILayoutsConfig} from 'wlc-engine/modules/core/system/interfaces/layouts.interface';
 import {IParamsLayoutConfig} from 'wlc-engine/modules/core/system/interfaces/layouts.interface';
 import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
-
-import {
-    BehaviorSubject,
-} from 'rxjs';
+import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {
     IGlobalConfig,
     IGetParams,
@@ -69,6 +72,7 @@ export class ConfigService {
         private translateService: TranslateService,
         private localStorageService: LocalStorageService,
         private sessionStorageService: SessionStorageService,
+        private eventService: EventService,
 
     ) {
         this.setGlobals();
@@ -77,6 +81,21 @@ export class ConfigService {
             .subscribe(() => {
                 this.getCountries();
             });
+
+        this.eventService.filter([
+            {name: 'LOAD_BOOTSTRAP_FAIL'},
+            {name: 'LOAD_BOOTSTRAP_SUCCESS'},
+        ]).pipe(first()).subscribe((e) => {
+            if (e.name === 'LOAD_BOOTSTRAP_FAIL') {
+                this.injector.get<LogService>(LogService).sendLog({
+                    code: '0.0.6',
+                    from: {
+                        service: 'ConfigService',
+                        method: 'load',
+                    },
+                });
+            }
+        });
     }
 
     /**
@@ -217,6 +236,14 @@ export class ConfigService {
         }).then(async (data: IData) => {
             await this.ready;
             this.get<BehaviorSubject<any>>('countries').next(data.data.countries);
+        }).catch(() => {
+            this.injector.get(LogService).sendLog({
+                code: '0.0.61',
+                from: {
+                    service: 'ConfigService',
+                    method: 'getCountries',
+                },
+            });
         });
     }
 }

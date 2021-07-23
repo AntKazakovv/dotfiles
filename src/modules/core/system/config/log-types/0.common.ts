@@ -28,6 +28,10 @@ export const errorTypes: ILogTypes = {
         // Bootstrap load error
         level: 'fatal',
     },
+    '0.0.61': {
+        // Countries load error
+        level: 'error',
+    },
     '0.0.7': {
         // AppDeclarator run error (Deprecated)
         level: 'fatal',
