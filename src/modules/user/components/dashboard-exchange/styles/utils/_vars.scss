@@ -2,6 +2,9 @@
 
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
+    'minHeight': (
+        375: 150px,
+    ),
     'bg': ef.get('mainColors', 'bg300'),
     'boxShadow': null,
 
@@ -94,4 +97,7 @@ $themeDefault: map-merge((
     'iconExpLpDescriptionRigth': 0,
     'iconExpLpDescriptionTransform': none,
     'iconExpLpDescriptionPosition': absolute,
+
+    'userStatsPadding': ef.size(1) ef.size(3),
+    'userStatsBg': none,
 ), $customThemeDefault);

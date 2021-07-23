@@ -3,6 +3,7 @@
 $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'contentMargin': 0,
+    'contentGap': ef.size(1),
     'lineHeight': 7px,
     'lineEmptyBg': ef.get('fieldColors', 'inputBg'),
     'lineFillBg': ef.get('mainColors', 'main'),
@@ -11,4 +12,5 @@ $themeDefault: map-merge((
     'levelPointsColor': ef.get('mainColors', 'baseMain'),
 
     'levelProgressFontSize': 'ButtonText',
+    'textLineHeight': 1,
 ), $customThemeDefault);

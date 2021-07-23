@@ -8,18 +8,17 @@
     &:host {
         @include bm.get-mq-map('padding', $themeDefault, 'padding');
 
+        display: grid;
+        gap: ef.get-value($themeDefault, 'gap');
+
         background: ef.get-value($themeDefault, 'bg');
         box-shadow: ef.get-value($themeDefault, 'boxShadow');
         border-radius: ef.get-value($themeDefault, 'borderRadius');
     }
 
-    &__loyalty,
     &__all {
-        @include bm.get-mq-map('margin', $themeDefault, 'loyaltyMargin');
-    }
-
-    &__all {
-        text-align: center;
+        @include bm.get-mq-map('text-align', $themeDefault, 'allLinkAlign');
+        line-height: 1;
 
         a {
             @include text.get-text-style(ef.get-value($themeDefault, 'allLinkTextStyle'), ef.get-value($themeDefault, 'allLinkColor'));
@@ -51,10 +50,6 @@
                 }
             }
         }
-
-        @include mq.min(900) {
-            text-align: left;
-        }
     }
 
     &__user-name {
@@ -63,18 +58,15 @@
         align-items: ef.get-value($themeDefault, 'userGridAlignItems');
 
         .wlc-logout {
-            display: none;
+            @include bm.get-mq-map('display', $themeDefault, 'logoutDisplay');
 
             ::ng-deep {
 
                 svg {
                     width: ef.get-value($themeDefault, 'userIconWidth');
                     margin: ef.get-value($themeDefault, 'userIconMargin');
+                    vertical-align: ef.get-value($themeDefault, 'userIconVertAlign');
                 }
-            }
-
-            @include mq.min(900) {
-                display: block;
             }
         }
     }

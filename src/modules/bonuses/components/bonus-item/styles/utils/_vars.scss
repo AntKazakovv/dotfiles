@@ -159,7 +159,7 @@ $themeDefault: map-merge((
     'btnsTransformMobile': (
         375: none,
     ),
-    'btnsPaddingMobile': ef.get('size', 'small') 0 0,
+    'btnsPaddingMobile': 0,
     'btnBottomPosition': (
         375: ef.size(4),
         1630: ef.size(8),

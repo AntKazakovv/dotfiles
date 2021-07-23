@@ -5,7 +5,6 @@ $themeDefault: map-merge((
     'gridGap': ef.size(4),
     'minItemWidth': 280px,
     'minItemWidthDesktop': 320px,
-    'swiperPadding': 0 ef.size(4) - 1px 0 ef.size(4) - 1px,
     'swiperWidth': 300px,
 
     'gridColumn': (
@@ -27,9 +26,10 @@ $themeDefault: map-merge((
     ),
     'bonusMinWidth': (
         375: 100%,
-        1024: 278px,
-        1200: 347px,
-        1366: 372px,
+        1024: 298px,
+        1200: 353px,
+        1366: 388px,
+        1630: 371px,
     ),
     'bonusWidth': (
         375: 100%,
@@ -41,7 +41,11 @@ $themeDefault: map-merge((
     'sliderDispley': (
         375: flex,
         1024: block,
-    )
+    ),
+    'swiperButtonDisplay': (
+        375: none,
+        640: flex,
+    ),
 ), $customThemeDefault);
 
 $customThemePromo: () !default;

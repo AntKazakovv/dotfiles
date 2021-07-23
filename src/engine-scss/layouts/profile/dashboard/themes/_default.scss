@@ -9,12 +9,13 @@
     .wlc-sections__profile-content {
 
         > .container {
-            position: relative;
-            display: grid;
             @include em.get-mq-map('grid-template-columns', $dashboardThemeDefault, 'gridTemplateColumns');
             @include em.get-mq-map('grid-template-rows', $dashboardThemeDefault, 'gridTemplateRows');
             @include em.get-mq-map('grid-template-areas', $dashboardThemeDefault, 'gridTemplateAreas');
             @include em.get-mq-map('grid-gap', $dashboardThemeDefault, 'gridGap');
+
+            position: relative;
+            display: grid;
 
             > .wlc-logout {
                 position: ef.get-value($dashboardThemeDefault, 'logoutPosition');
@@ -29,8 +30,9 @@
     }
 
     .wlc-title {
-        grid-area: title;
         @include em.get-mq-map('margin', $dashboardThemeDefault, 'titleMargin');
+
+        grid-area: title;
 
         &.wlc-title--profile-bonuses {
             grid-area: bonuses-title;
@@ -76,6 +78,10 @@
             }
 
             &.single-bonus-swiper {
+
+                .wlc-bonuses-list__list-wrapper {
+                    padding: ef.get-value($dashboardThemeDefault, 'singleBonusWrapperPadding');
+                }
 
                 @include mq.min(1024) {
                     grid-area: ef.get-value($dashboardThemeDefault, 'singleBonusGridArea');
