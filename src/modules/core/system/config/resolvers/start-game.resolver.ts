@@ -261,7 +261,7 @@ class StartGameHandler {
             if (this.stateService.current.abstract || this.stateService.current.name === 'app.gameplay') {
                 this.stateService.go('app.home', this.transition.params());
             } else {
-                this.stateService.go(this.stateService.current.name, this.transition.params(), {reload: true});
+                this.stateService.go(this.stateService.current.name, this.transition.params(), {reload: false});
             }
             return false;
         }
@@ -328,7 +328,7 @@ class StartGameHandler {
             this.showErrorNotification(gettext('Sorry, this game is disabled with an active bonus'));
 
             this.result.reject(RejectReason.RestrictedByActiveBonuses);
-            this.stateService.go('app.home', this.transition.params(), {reload: true});
+            this.stateService.go('app.home', this.transition.params(), {reload: false});
             return;
         }
 

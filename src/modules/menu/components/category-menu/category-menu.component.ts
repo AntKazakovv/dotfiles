@@ -274,7 +274,7 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
                         category: this.parentCategory ? this.parentCategory.slug : '',
                     },
                     options: {
-                        reload: true,
+                        reload: false,
                     },
                 },
             },
