@@ -2,10 +2,12 @@
 
 import {Ng2StateDeclaration} from '@uirouter/angular';
 import {
-    IIndexing, InjectionService,
+    IIndexing,
+    InjectionService,
 } from 'wlc-engine/modules/core';
 import {
     SportsbookService,
+    ISportsbookSettings,
 } from 'wlc-engine/modules/sportsbook';
 
 import _assign from 'lodash-es/assign';
@@ -58,16 +60,13 @@ export const sportsbookState: Ng2StateDeclaration = {
         },
     },
     onEnter: async (trans) => {
-        const injectionService = trans.injector().get(InjectionService);
-        const gamesCatalogService = await injectionService.getService('games.games-catalog-service');
-        const sportsbookService = await injectionService.getService('sportsbook.sportsbook-service');
-
-        await gamesCatalogService.ready;
+        const injectionService: InjectionService = trans.injector().get(InjectionService);
+        const sportsbookService: SportsbookService = await injectionService.getService('sportsbook.sportsbook-service');
         await sportsbookService.ready;
 
         const sportsbookId: string = sportsbookIdByState[trans.to().name];
         if (sportsbookId) {
-            const settings = sportsbookService.getSportsbookSettings({
+            const settings: ISportsbookSettings = sportsbookService.getSportsbookSettings({
                 id: sportsbookId,
             });
 

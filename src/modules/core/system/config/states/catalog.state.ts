@@ -3,6 +3,7 @@
 import {Ng2StateDeclaration} from '@uirouter/angular';
 import {
     CategoryModel,
+    GamesCatalogService,
 } from 'wlc-engine/modules/games';
 import {
     InjectionService,
@@ -11,9 +12,9 @@ import {
 export const catalogState: Ng2StateDeclaration = {
     url: '/catalog/:category',
     onEnter: async (trans) => {
-        const injectionService = trans.injector().get(InjectionService);
-        const gamesCatalogService = await injectionService.getService('games.games-catalog-service');
-        const categorySlug = trans.params().category;
+        const injectionService: InjectionService = trans.injector().get(InjectionService);
+        const gamesCatalogService: GamesCatalogService = await injectionService.getService('games.games-catalog-service');
+        const categorySlug: string = trans.params().category;
 
         await gamesCatalogService.ready;
 

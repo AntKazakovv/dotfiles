@@ -17,6 +17,7 @@ import {
     IIndexing,
     ConfigService,
     Deferred,
+    InjectionService,
 } from 'wlc-engine/modules/core';
 import {GamesCatalogService} from 'wlc-engine/modules/games';
 import {
@@ -52,6 +53,8 @@ export class SportsbookService {
     public urlQueryParams: string[] = [
         'action',
     ];
+
+    protected gamesCatalogService: GamesCatalogService;
 
     private $readyStatus = new Deferred<void>();
     private eventSubject: Subject<IMessage> = new Subject<IMessage>();
@@ -90,7 +93,7 @@ export class SportsbookService {
 
     constructor(
         protected configService: ConfigService,
-        protected gamesCatalogService: GamesCatalogService,
+        protected injectionService: InjectionService,
         protected router: UIRouter,
         @Inject(DOCUMENT) protected document: HTMLDocument,
     ) {
@@ -210,7 +213,7 @@ export class SportsbookService {
 
     private async init(): Promise<void> {
         this.ready = this.$readyStatus.promise;
-        await this.configService.ready;
+        this.gamesCatalogService = await this.injectionService.getService('games.games-catalog-service');
         await this.gamesCatalogService.ready;
         this.$readyStatus.resolve();
         this.enableMessageEventListener();
