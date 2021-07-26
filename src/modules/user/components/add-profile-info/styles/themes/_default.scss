@@ -32,6 +32,7 @@
 
                     & > .wlc-input,
                     & > .wlc-select,
+                    & > .wlc-birth-field,
                     & > .wlc-phone-field {
                         margin-bottom: ef.get-value($themeDefault, 'formFieldMarginBottom');
                     }

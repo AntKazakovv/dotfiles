@@ -73,9 +73,9 @@
                 padding: ef.get-value($themeDefault, 'paddingItem');
 
                 background-color: ef.get-value($themeDefault, 'dropzoneBg');
-                background-repeat: no-repeat;
-                background-position: center;
-                background-size: cover;
+                background-repeat: ef.get-value($themeDefault, 'dropzoneBgRepeat');
+                background-position: ef.get-value($themeDefault, 'dropzoneBgPosition');
+                background-size: ef.get-value($themeDefault, 'dropzoneBgSize');
 
                 border: ef.get-value($themeDefault, 'borderDropdown');
                 border-radius: ef.get-value($themeDefault, 'borderRadius');
