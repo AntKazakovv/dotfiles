@@ -8,7 +8,10 @@
             <div class="{{$class}}__title"
                 (click)="expandToggle(item)">
                 <div class="{{$class}}__title-text">{{item.title}}</div>
-                <div class="{{$class}}__title-icon" wlc-icon [iconName]="'thin-arrow'"></div>
+                <div wlc-icon 
+                     class="{{$class}}__title-icon"
+                     iconPath="/wlc/icons/thin-arrow.svg">
+                </div>
             </div>
             <div class="{{$class}}__content"
                 [@toggle]="item.expand ? 'opened' : 'closed'">

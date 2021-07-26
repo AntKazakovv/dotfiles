@@ -68,7 +68,7 @@
         <div *ngIf="isTypeRegDeposit" class="{{$class}}__check-icon">
             <div wlc-icon
                  class="icon-btn"
-                 iconName="check">
+                 iconPath="/wlc/icons/check.svg">
             </div>
         </div>
     </div>
@@ -147,7 +147,7 @@
         <div *ngIf="isTypeRegDeposit" class="{{$class}}__check-icon">
             <div wlc-icon
                  class="icon-btn"
-                 iconName="check">
+                 iconPath="/wlc/icons/check.svg">
             </div>
         </div>
     </div>
@@ -351,7 +351,7 @@
         <div *ngIf="isTypeRegDeposit" class="{{$class}}__check-icon">
             <div wlc-icon
                  class="icon-btn"
-                 iconName="check">
+                 iconPath="/wlc/icons/check.svg">
             </div>
         </div>
     </div>
@@ -397,13 +397,13 @@
 
             <div class="{{$class}}__btns">
                 <ng-container [ngTemplateOutlet]="userIsAuth"></ng-container>
-                <button wlc-button
-                        *ngIf="isChooseBtn"
+                <button *ngIf="isChooseBtn"
+                        wlc-button                        
                         typeAttr="button"
                         text="Choose"
                         [disabled]="$params.common.bonus?.isChoose"
-                        (click)="chooseBonus($params.common.bonus, $params.common?.type)"
-                        [wlcElement]="'button_choose'">
+                        wlcElement="button_choose"
+                        (click)="chooseBonus($params.common.bonus, $params.common?.type)">
                 </button>
             </div>
         </div>
@@ -411,7 +411,7 @@
         <div *ngIf="isTypeRegDeposit" class="{{$class}}__check-icon">
             <div wlc-icon
                  class="icon-btn"
-                 iconName="check">
+                 iconPath="/wlc/icons/check.svg">
             </div>
         </div>
     </div>
@@ -421,8 +421,8 @@
     <div *ngIf="$params.common?.iconMoreBtn" class="{{$class}}__more-icon" >
         <div wlc-icon
              class="icon-btn"
-             iconName="info"
-             [wlcElement]="'button_terms'"
+             iconPath="/wlc/icons/info.svg"
+             wlcElement="button_terms"
              (click)="openDescription($params.common.bonus)">
         </div>
     </div>
@@ -433,8 +433,8 @@
             wlc-button
             typeAttr="button"
             text="Subscribe"
-            (click)="join()"
-            [wlcElement]="'button_subscribe'">
+            wlcElement="button_subscribe"
+            (click)="join()">
     </button>
     <button *ngIf="$params.common.bonus.inventoried"
             wlc-button
@@ -446,16 +446,16 @@
             wlc-button
             typeAttr="button"
             text="Unsubscribe"
-            (click)="unsubscribe()"
-            [wlcElement]="'button_unsubscribe'">
+            wlcElement="button_unsubscribe"
+            (click)="unsubscribe()">
     </button>
     <button *ngIf="$params.common.bonus.isActive"
             wlc-button
             typeAttr="button"
             themeMod="secondary"
             text="Cancel"
-            (click)="leave()"
-            [wlcElement]="'button_cancel'">
+            wlcElement="button_cancel"
+            (click)="leave()">
     </button>
 </ng-template>
 
@@ -464,8 +464,8 @@
         wlc-button
         typeAttr="button"
         text="Unsubscribe"
-        (click)="unsubscribe()"
-        [wlcElement]="'button_unsubscribe'">
+        wlcElement="button_unsubscribe"
+        (click)="unsubscribe()">
     </button>
 </ng-template>
 

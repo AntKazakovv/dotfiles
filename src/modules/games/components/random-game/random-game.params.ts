@@ -15,6 +15,6 @@ export const defaultParams: IRandomGameCParams = {
     class: 'wlc-random-game',
     title: gettext('Random game'),
     image: {
-        url: '/random-game/random-game.svg',
+        url: '/wlc/icons/random-game/random-game.svg',
     },
 };

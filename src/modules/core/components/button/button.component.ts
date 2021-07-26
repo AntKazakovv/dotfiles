@@ -73,6 +73,7 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
     @Input() protected customMod: Params.CustomMod;
     @Input() protected size: Params.Size;
     @Input() protected icon: string;
+    @Input() protected iconPath: string;
     @Input() protected index: Params.Index;
     @Input() protected wlcElement: string;
     @Input() protected inlineParams: Params.IButtonCParams;
@@ -137,6 +138,7 @@ export class ButtonComponent extends AbstractComponent implements OnInit,
             'text',
             'size',
             'icon',
+            'iconPath',
             'index',
             'event',
             'type',

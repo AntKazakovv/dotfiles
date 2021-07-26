@@ -8,9 +8,11 @@
             [formControl]="control"
             class="{{$class}}__checkbox"/>
         <span
+            wlc-icon
             class="{{$class}}__elem"
-            wlc-icon [iconName]="'tick'"
-            [ngClass]="{checked: control?.value}">
+            [ngClass]="{checked: control?.value}"
+            iconPath="/wlc/icons/tick.svg"
+            >
         </span>
         <div class="{{$class}}__text">
             {{'I agree with' | translate}}
@@ -32,9 +34,11 @@
             [formControl]="control"
             class="{{$class}}__checkbox"/>
         <span
+            wlc-icon
             class="{{$class}}__elem"
-            wlc-icon [iconName]="'tick'"
-            [ngClass]="{checked: control?.value}">
+            [ngClass]="{checked: control?.value}"
+            iconPath="/wlc/icons/tick.svg"
+        >
         </span>
         <div class="{{$class}}__text">
             {{"I confirm that I'm 18 years or older" | translate}}
@@ -46,15 +50,15 @@
             type="checkbox"
             name="{{$params.name}}"
             ngDefaultControl
-            (change)="onChange($event)"
+            class="{{$class}}__checkbox"
             [formControl]="control"
             data-wlc-element="input_payment-checkbox"
-            class="{{$class}}__checkbox"/>
-        <span
-            class="{{$class}}__elem"
-            wlc-icon
-            [iconName]="'tick'"
-            [ngClass]="{checked: control?.value}">
+            (change)="onChange($event)"
+            />
+        <span wlc-icon
+              class="{{$class}}__elem"            
+              [ngClass]="{checked: control?.value}"
+              iconPath="/wlc/icons/tick.svg">
         </span>
         <div class="{{$class}}__text">
             {{"I have read and agree to the payment" | translate}}
@@ -72,10 +76,10 @@
                 (change)="onChange($event)"
                 class="{{$class}}__checkbox"/>
         <span
-                class="{{$class}}__elem"
                 wlc-icon
-                [iconName]="'tick'"
-                [ngClass]="{checked: control?.value}">
+                class="{{$class}}__elem"
+                [ngClass]="{checked: control?.value}"
+                iconPath="/wlc/icons/tick.svg">
         </span>
         <div class="{{$class}}__text" *ngIf="$params.text">
             {{$params.text | translate}}

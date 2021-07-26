@@ -1,6 +1,8 @@
 <span class="{{$class}}__text">
     {{$params.common.text | translate}}
-    <span *ngIf="$params.common.icon"
-          wlc-icon [iconName]="$params.common.icon"
+    <span *ngIf="$params.common.icon || $params.common.iconPath"
+          wlc-icon
+          [iconName]="$params.common.icon"
+          [iconPath]="$params.common.iconPath"
     ></span>
 </span>

@@ -1,7 +1,9 @@
 <div class="{{$class}}__content" *ngIf="tournament; else: noData">
 
     <div class="{{$class}}__prize-block">
-        <div class="{{$class}}__prize-block--icon" wlc-icon iconName="pool">
+        <div wlc-icon
+             class="{{$class}}__prize-block--icon"
+             iconPath="/wlc/icons/pool.svg">
         </div>
         <div class="{{$class}}__prize-block__text">
             <div class="{{$class}}__prize-block__text--subtitle">

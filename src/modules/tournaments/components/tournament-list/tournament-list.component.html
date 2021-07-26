@@ -29,8 +29,14 @@
                 </div>
                 <div slot-container-end *ngIf="slides.length > 1" class="{{$class}}__nav">
                     <div class="container swiper-button-container">
-                        <button class="wlc-swiper-button-prev" wlc-icon iconName="arrow"></button>
-                        <button class="wlc-swiper-button-next" wlc-icon iconName="arrow"></button>
+                        <button wlc-icon
+                                class="wlc-swiper-button-prev"
+                                iconPath="/wlc/icons/arrow.svg">
+                        </button>
+                        <button wlc-icon
+                                class="wlc-swiper-button-next"
+                                iconPath="/wlc/icons/arrow.svg">
+                        </button>
                     </div>
                 </div>
             </ng-container>
@@ -64,8 +70,14 @@
 
         <div slot-container-end *ngIf="slides.length > 1">
             <div class="container swiper-button-container">
-                <button class="wlc-swiper-button-prev" wlc-icon iconName="arrow"></button>
-                <button class="wlc-swiper-button-next" wlc-icon iconName="arrow"></button>
+                <button wlc-icon
+                        class="wlc-swiper-button-prev"
+                        iconPath="/wlc/icons/arrow.svg">
+                </button>
+                <button wlc-icon
+                        class="wlc-swiper-button-next"
+                        iconPath="/wlc/icons/arrow.svg">
+                </button>
             </div>
         </div>
     </ng-container>

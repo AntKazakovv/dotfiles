@@ -27,13 +27,13 @@
 </ng-template>
 
 <ng-template #close>
-    <button class="{{$class}}__close"
-        [attr.title]="'Close' | translate"
-        [attr.aria-label]="'Close' | translate"
-        type="button"
-        (click)="closePanel()"
-        wlc-icon
-        [iconName]="'close'"
-        *ngIf="$params.showClose;"
+    <button *ngIf="$params.showClose;"
+            wlc-icon
+            class="{{$class}}__close"
+            type="button"        
+            [attr.title]="'Close' | translate"
+            [attr.aria-label]="'Close' | translate"
+            iconPath="/wlc/icons/close.svg"
+            (click)="closePanel()"
     ></button>
 </ng-template>

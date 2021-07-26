@@ -8,9 +8,15 @@
     </ng-container>
 </div>
 
-<div slot-container-end *ngIf="slides.length && !$params.hideNavigation">
-    <div class="container swiper-button-container" *ngIf="$params.theme == 'default-banner'">
-        <button class="wlc-swiper-button-prev" wlc-icon iconName="arrow"></button>
-        <button class="wlc-swiper-button-next" wlc-icon iconName="arrow"></button>
+<div *ngIf="slides.length && !$params.hideNavigation" slot-container-end >
+    <div *ngIf="$params.theme == 'default-banner'" class="container swiper-button-container" >
+        <button wlc-icon
+                class="wlc-swiper-button-prev"
+                iconPath="/wlc/icons/arrow.svg">
+        </button>
+        <button wlc-icon
+                class="wlc-swiper-button-next"
+                iconPath="/wlc/icons/arrow.svg">
+        </button>
     </div>
 </div>

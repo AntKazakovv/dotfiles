@@ -14,16 +14,32 @@
                      [inlineParams]="dashboardBtn">
                 </div>
             </div>
-            <div *ngIf="isAuth" class="icon-btn wlc-icon--favourite"
+            <div *ngIf="isAuth"
+                 wlc-icon
+                 class="icon-btn wlc-icon--favourite"
                  [class.active]="game?.isFavourite"
-                 wlc-icon iconName="favourite" (click)="toggleFavouriteBtn($event)" [wlcElement]="'button_favourite'">
+                 iconPath="/wlc/icons/favourite.svg"
+                 wlcElement="button_favourite"
+                 (click)="toggleFavouriteBtn($event)">
             </div>
-            <div class="icon-btn" wlc-icon iconName="fullscreen" (click)="openOnFullscreen($event)" [wlcElement]="'button_fullscreen'" ></div>
-            <div class="icon-btn" wlc-icon iconName="close" (click)="onClose($event)" [wlcElement]="'button_close'"></div>
+            <div wlc-icon
+                 class="icon-btn"
+                 iconPath="/wlc/icons/fullscreen.svg"
+                 wlcElement="button_fullscreen"
+                 (click)="openOnFullscreen($event)">
+            </div>
+            <div wlc-icon
+                 class="icon-btn"
+                 iconPath="/wlc/icons/close.svg"
+                 wlcElement="button_close"
+                 (click)="onClose($event)">
+                </div>
         </div>
     </div>
     <div class="{{$class}}__game-area" #wrp>
-        <div wlc-loader class="{{$class}}__preloader" *ngIf="!isReady">
+        <div *ngIf="!isReady"
+             wlc-loader
+             class="{{$class}}__preloader">
         </div>
 
         <div wlc-game-dashboard [opened]="openDashboard"></div>
@@ -35,7 +51,7 @@
 
 <div *ngIf="$params.theme == 'fullscreen-game-frame'" class="{{$class}}__content" (resized)="onResize($event)">
     <div class="{{$class}}__game-area" #wrp>
-        <div wlc-loader class="{{$class}}__preloader" *ngIf="!isReady">
+        <div *ngIf="!isReady" wlc-loader class="{{$class}}__preloader" >
         </div>
         <ng-container [ngTemplateOutlet]="gameWrapper"></ng-container>
     </div>

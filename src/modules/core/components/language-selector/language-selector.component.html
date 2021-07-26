@@ -12,7 +12,11 @@
     <div *ngIf="!$params.currentLang?.hideLang" class="{{$class}}__current-lang">
         {{$params.themeMod !== 'long' ? this.currentLanguage.code : this.currentLanguage.label | translate}}
     </div>
-    <div *ngIf="!$params.currentLang?.hideArrow" class="{{$class}}__current-arrow" wlc-icon [iconName]="'arrow'"></div>
+    <div *ngIf="!$params.currentLang?.hideArrow"
+         wlc-icon
+         class="{{$class}}__current-arrow"
+         iconPath="/wlc/icons/arrow.svg">
+    </div>
 </div>
 <div class="{{$class}}__dropdown"
      [@toggle]="$params.themeMod !== 'long' ? (isOpened ? 'opened' : 'closed') : (isOpened ? 'openedHeight' : 'closedHeight')"

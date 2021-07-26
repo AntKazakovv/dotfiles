@@ -21,7 +21,7 @@
                 <span *ngIf="doc.canDelete && !doc.pending"
                       wlc-icon
                       class="{{$class}}-docs-list__remove"
-                      iconName="close"
+                      iconPath="/wlc/icons/close.svg"
                       (click)="deleteDoc(doc)"
                 ></span>
                 <span *ngIf="doc.pending" class="{{$class}}-docs-list__preload"></span>
@@ -33,7 +33,7 @@
                       class="{{$class}}-docs-list__info info-icon"
                       containerClass="{{$class}}__tooltip"
                       placement="bottom"
-                      iconName="info"
+                      iconPath="/wlc/icons/info.svg"
                       container="body"
                       [tooltip]="doc.StatusDescription"
                 ></span>

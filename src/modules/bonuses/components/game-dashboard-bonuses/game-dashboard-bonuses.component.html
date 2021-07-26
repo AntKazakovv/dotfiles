@@ -9,21 +9,30 @@
          [slides]="slides"
          [inlineParams]="$params.common?.landscapeSliderParams">
     </div>
-    <div slot-container-end *ngIf="isDesktopAndSlidesLength">
-        <div class="swiper-button-prev" wlc-icon iconName="arrow"></div>
-        <div class="swiper-button-next" wlc-icon iconName="arrow"></div>
+    <div *ngIf="isDesktopAndSlidesLength" slot-container-end>
+        <div wlc-icon
+             class="swiper-button-prev"
+             iconPath="/wlc/icons/arrow.svg">
+    </div>
+        <div wlc-icon
+             class="swiper-button-next"
+             iconPath="/wlc/icons/arrow.svg">
+    </div>
     </div>
 </ng-container>
 
 <ng-template #noBonuses>
-    <div class="{{$class}}__not-found" *ngIf="isReady">{{'No bonuses available' | translate}}</div>
-    <div class="{{$class}}__not-found" *ngIf="!isReady">
+    <div *ngIf="isReady" class="{{$class}}__not-found" >{{'No bonuses available' | translate}}</div>
+    <div *ngIf="!isReady" class="{{$class}}__not-found">
         <div wlc-loader></div>
     </div>
 </ng-template>
 
 <ng-template #bonus let-item="item">
     <div class="{{$class}}__bonus-wrp" [ngClass]="{'active-bonus': item.bonus.isActive}">
-        <div class="{{$class}}__bonus" wlc-bonus-item [inlineParams]="item.bonusItemParams"></div>
+        <div wlc-bonus-item
+             class="{{$class}}__bonus"
+             [inlineParams]="item.bonusItemParams">
+            </div>
     </div>
 </ng-template>

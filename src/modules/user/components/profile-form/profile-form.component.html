@@ -38,10 +38,11 @@
                 </div>
             </div>
             <button wlc-button
-                    [wlcElement]="'button_change-password'"
-                    [icon]="'arrow'"
-                    (click)="changePasswordModal()"
-                    text="Change"></button>
+                    text="Change"
+                    wlcElement="button_change-password"
+                    iconPath="/wlc/icons/arrow.svg"
+                    (click)="changePasswordModal()">
+            </button>
         </div>
     </div>
 
@@ -56,9 +57,9 @@
                 </div>
             </div>
             <button wlc-button
-                    [text]="'Add info'"
-                    [wlcElement]="'button_add-banking-info'"
-                    [icon]="'arrow'"
+                    text="Add info"
+                    wlcElement="button_add-banking-info"
+                    iconPath="/wlc/icons/arrow.svg"
                     (click)="addBankingInformation()">
             </button>
         </div>

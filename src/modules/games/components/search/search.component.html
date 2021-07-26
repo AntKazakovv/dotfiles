@@ -16,9 +16,12 @@
                 [class.active]="openPanel === 'merchants'"
                 (click)="togglePanel('merchants')"
         >
-            <span class="icon" wlc-icon [iconName]="'filter-merchants'"></span>
+            <span wlc-icon
+                  class="icon"
+                  iconPath="/wlc/icons/filter-merchants.svg">
+            </span>
 
-            <span class="title-wrap" *ngIf="!!filters.merchants.length; else allProvider">
+            <span *ngIf="!!filters.merchants.length; else allProvider" class="title-wrap" >
                 <span class="title">{{'Providers' | translate}}</span>
                 <span class="counter">({{filters.merchants.length}})</span>
             </span>
@@ -36,7 +39,10 @@
                 [class.active]="openPanel === 'categories'"
                 (click)="togglePanel('categories')"
         >
-            <span class="icon" wlc-icon [iconName]="'filter-categories'"></span>
+            <span wlc-icon
+                  class="icon"
+                  iconPath="/wlc/icons/filter-categories.svg">
+            </span>
 
             <span *ngIf="!!filters.categories.length; else allCategories" class="title-wrap">
                 <span class="title">{{'Categories' | translate}}</span>
@@ -57,13 +63,14 @@
 
 <div class="{{$class}}__content">
 
-    <div class="{{$class}}__result"
-         *ngIf="searchQuery?.length">
+    <div *ngIf="searchQuery?.length"
+         class="{{$class}}__result"
+         >
         {{'Search query:' | translate}} {{searchQuery}}
     </div>
 
-    <div class="${{$class}}__games"
-         wlc-games-grid
+    <div wlc-games-grid
+         class="${{$class}}__games"         
          [inlineParams]="gamesGridParams"
     ></div>
 </div>
@@ -76,7 +83,9 @@
                     (click)="chooseMerchant()"
                     [class.active]="!filters.merchants.length">
                 <span class="{{$class}}__list-text">{{'All providers' | translate}}</span>
-                <span class="{{$class}}__list-icon" wlc-icon iconName="tick">
+                <span wlc-icon
+                      class="{{$class}}__list-icon"
+                      iconPath="/wlc/icons/tick.svg">
                 </span>
             </button>
         </li>
@@ -88,7 +97,9 @@
                     [class.active]="isActive('merchants', merchant.id)"
                     (click)="chooseMerchant(merchant)">
                 <span class="{{$class}}__list-text">{{merchant.name | translate}}</span>
-                <span class="{{$class}}__list-icon" wlc-icon iconName="tick">
+                <span wlc-icon
+                      class="{{$class}}__list-icon"
+                      iconPath="/wlc/icons/tick.svg">
                 </span>
             </button>
         </li>
@@ -102,7 +113,9 @@
                     (click)="chooseCategory()"
                     [class.active]="!filters.categories.length">
                 <span class="{{$class}}__list-text">{{'All categories' | translate}}</span>
-                <span class="{{$class}}__list-icon" wlc-icon iconName="tick">
+                <span wlc-icon
+                      class="{{$class}}__list-icon"
+                      iconPath="/wlc/icons/tick.svg">
                 </span>
             </button>
         </li>
@@ -116,7 +129,9 @@
                     <span class="{{$class}}__list-text">
                         {{category.title[currentLanguage] || category.title['en'] | translate}}
                     </span>
-                <span class="{{$class}}__list-icon" wlc-icon iconName="tick">
+                <span wlc-icon
+                      class="{{$class}}__list-icon"
+                      iconPath="/wlc/icons/tick.svg">
                 </span>
             </button>
         </li>

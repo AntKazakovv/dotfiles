@@ -22,18 +22,16 @@
         <div class="{{$class}}-dropdown__btn"
              (click)="toggle()"
              [ngClass]="{active: this.dropdownBtnActive}">
-            <span
-                wlc-icon
-                class="user"
-                iconName="user-icon"
-                [wlcElement]="'icon_user'"
-            ></span>
-            <span
-                class="arrow"
-                wlc-icon
-                iconName="arrow"
-                [wlcElement]="'icon_arrow'"
-            ></span>
+            <span wlc-icon
+                  class="user"
+                  iconPath="/wlc/icons/user-icon.svg"
+                  wlcElement="icon_user">
+            </span>
+            <span wlc-icon
+                  class="arrow"                
+                  iconPath="/wlc/icons/arrow.svg"
+                  wlcElement="icon_arrow">
+            </span>
         </div>
 
         <div class="{{$class}}-dropdown__content"

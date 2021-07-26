@@ -46,9 +46,9 @@
     <div *ngIf="isAuth"
          wlc-icon
          class="{{$class}}__icon"
-         iconName="favourite"
-         [wlcElement]="'button_favourite'"
          [ngClass]="{'active': game.isFavourite}"
+         wlcElement="button_favourite"
+         iconPath="/wlc/icons/favourite.svg"
          (click)="toggleFavourites(game)">
     </div>
 </ng-template>
@@ -131,12 +131,12 @@
     <div class="{{$class}}__desc">
         <div class="{{$class}}__title">
             <span *ngIf="isAuth"
-                    wlc-icon
-                    class="{{$class}}__icon"
-                    [wlcElement]="'button_favourite'"
-                    iconName="favourite"
-                    [ngClass]="{'active': game.isFavourite}"
-                    (click)="toggleFavourites(game)">
+                  wlc-icon
+                  class="{{$class}}__icon"
+                  [ngClass]="{'active': game.isFavourite}"
+                  wlcElement="button_favourite"
+                  iconPath="/wlc/icons/favourite.svg"
+                  (click)="toggleFavourites(game)">
             </span>
             <span class="{{$class}}__name"
                   data-wlc-element="block_game-thumb-name"

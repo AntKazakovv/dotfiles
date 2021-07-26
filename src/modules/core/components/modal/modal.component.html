@@ -15,9 +15,10 @@
                  (click)="goBack('login')"
                  data-wlc-element="button_back"
             >
-                <span class="icon-arrow"
-                      wlc-icon [iconName]="'arrow'"
-                ></span>
+                <span wlc-icon
+                      class="icon-arrow"
+                      iconPath="/wlc/icons/arrow.svg">
+                </span>
                 <span class="wlc-modal__back-btn-text">
                     {{$params.config.backButtonText | translate}}
                 </span>
@@ -31,12 +32,12 @@
             <button *ngIf="$params.config.closeBtnVisibility"
                     wlc-button
                     class="wlc-modal__close"
-                    theme="cleared"
-                    icon="close"
-                    wlcElement="button_close"
-                    (click)="closeModal($params.config.id)"
                     [attr.aria-label]="'Close' | translate"
-                    [title]="'Close' | translate">
+                    [title]="'Close' | translate"
+                    wlcElement="button_close"
+                    theme="cleared"
+                    iconPath="/wlc/icons/close.svg"
+                    (click)="closeModal($params.config.id)">
             </button>
         </div>
         <div
@@ -100,7 +101,7 @@
     <div *ngIf="$params.config?.modifier === 'confirmation' && !$params.config.hideIcon"
          wlc-icon
          class="modal-icon modal-icon--confirm"
-         iconName="status/confirm"
+         iconPath="/wlc/icons/status/confirm.svg"
     ></div>
     <div
         *ngFor="let msg of $params.config.modalMessage"
