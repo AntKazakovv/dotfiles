@@ -9,7 +9,7 @@ export namespace wlcButton {
         params: {
             class: 'wlc-btn wlc-btn-merch',
             common: {
-                icon: 'filter-merchants',
+                iconPath: '/wlc/icons/filter-merchants.svg',
                 text: 'All providers',
                 event: {
                     name: 'SHOW_MODAL',
@@ -24,7 +24,7 @@ export namespace wlcButton {
         params: {
             class: 'wlc-btn wlc-btn-search',
             common: {
-                icon: 'search',
+                iconPath: '/wlc/icons/search.svg',
                 text: 'Search for games',
                 event: {
                     name: 'SHOW_MODAL',
@@ -43,7 +43,7 @@ export namespace wlcButton {
             class: 'wlc-btn wlc-btn-search',
             wlcElement: 'wlc-btn-search',
             common: {
-                icon: 'search',
+                iconPath: '/wlc/icons/search.svg',
                 event: [
                     {
                         name: 'PANEL_CLOSE',
@@ -66,7 +66,7 @@ export namespace wlcButton {
             class: 'wlc-btn wlc-btn-search',
             wlcElement: 'wlc-btn-search',
             common: {
-                icon: 'search',
+                iconPath: '/wlc/icons/search.svg',
                 event: [
                     {
                         name: 'PANEL_CLOSE',
@@ -88,7 +88,7 @@ export namespace wlcButton {
         params: {
             class: 'wlc-btn wlc-btn-search',
             common: {
-                icon: 'search',
+                iconPath: '/wlc/icons/search.svg',
                 text: 'Search for games',
                 event: {
                     name: 'SHOW_MODAL',
@@ -104,7 +104,7 @@ export namespace wlcButton {
             class: 'wlc-btn wlc-btn-burger',
             wlcElement: 'wlc-btn-burger',
             common: {
-                icon: 'burger',
+                iconPath: '/wlc/icons/burger.svg',
                 event: {
                     name: 'PANEL_OPEN',
                     data: 'left',
@@ -140,7 +140,7 @@ export namespace wlcButton {
         params: {
             class: 'wlc-btn wlc-btn-user',
             common: {
-                icon: 'user-icon',
+                iconPath: '/wlc/icons/user-icon.svg',
                 sref: 'app.profile.cash.deposit',
                 event: {
                     name: 'PANEL_OPEN',
@@ -165,7 +165,7 @@ export namespace wlcButton {
                         class: 'wlc-btn wlc-btn--deposit',
                         theme: 'cleared',
                         common: {
-                            icon: 'deposit-icon',
+                            iconPath: '/wlc/icons/deposit-icon.svg',
                             sref: 'app.profile.cash.deposit',
                         },
                     },
@@ -177,7 +177,7 @@ export namespace wlcButton {
                         class: 'wlc-btn wlc-btn--user',
                         theme: 'cleared',
                         common: {
-                            icon: 'user-icon',
+                            iconPath: '/wlc/icons/user-icon.svg',
                             event: {
                                 name: 'PANEL_OPEN',
                                 data: 'right',
@@ -198,7 +198,7 @@ export namespace wlcButton {
         params: {
             class: 'wlc-btn wlc-btn-login',
             common: {
-                icon: 'login',
+                iconPath: '/wlc/icons/login.svg',
                 event: {
                     name: 'SHOW_MODAL',
                     data: 'login',
@@ -215,7 +215,7 @@ export namespace wlcButton {
         params: {
             class: 'wlc-btn wlc-btn-login',
             common: {
-                icon: 'login',
+                iconPath: '/wlc/icons/login.svg',
                 event: {
                     name: 'AFFILIATE_LOGIN',
                 },

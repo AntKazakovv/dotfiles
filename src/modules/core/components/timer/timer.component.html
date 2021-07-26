@@ -1,8 +1,11 @@
 <div class="{{$class}}__content" data-wlc-element="block_timer">
-    <div class="{{$class}}__clock-icon" wlc-icon iconName="clock"></div>
+    <div wlc-icon
+         class="{{$class}}__clock-icon"
+         iconPath="/wlc/icons/clock.svg">
+    </div>
     <div class="{{$class}}__timer-text">
-        <div class="time-text" *ngIf="$params.common?.noCountDown">{{$params.common.value}}</div>
-        <div class="time-text time-text--countdown" *ngIf="!$params.common?.noCountDown">
+        <div *ngIf="$params.common?.noCountDown" class="time-text">{{$params.common.value}}</div>
+        <div *ngIf="!$params.common?.noCountDown" class="time-text time-text--countdown">
             <ng-container *ngIf="showDays()">
                 <div class="time-text__item time-text__item--days">
                     <span class="value">{{days}}</span><span class="text text-days">{{'d' | translate}}</span>

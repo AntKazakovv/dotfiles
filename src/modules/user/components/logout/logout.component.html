@@ -2,8 +2,8 @@
     wlc-button
     class="{{$class}}-logout"
     [text]="$params.useText && 'Sign out'"
+    wlcElement="link-logout"
     theme="icon"
-    icon="logout"
+    iconPath="/wlc/icons/logout.svg"
     (click)="logout()"
-    [wlcElement]="'link-logout'"
 ></button>

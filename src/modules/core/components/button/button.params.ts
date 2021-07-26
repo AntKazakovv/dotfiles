@@ -22,6 +22,7 @@ export interface IButtonCParams extends IComponentParams<Theme, Type, ThemeMod> 
     common?: {
         size?: Size;
         icon?: string;
+        iconPath?: string;
         index?: Index;
         text?: string;
         customModifiers?: CustomMod;

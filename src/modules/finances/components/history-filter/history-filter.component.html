@@ -1,9 +1,22 @@
-<button wlc-button
-        [ngClass]="{'filtered': isFiltered}"
+<button *ngIf="!$params.icon; else withParamsIcon"
+        wlc-button
+        class="{{$class}}__button"
         attr.aria-label="{{'History settings' | translate}}"
         [attr.type]="'button'"
+        [ngClass]="{'filtered': isFiltered}"
         theme="custom"
-        class="{{$class}}__button"
-        [icon]="$params.icon || 'settings'"
+        iconPath="/wlc/icons/settings.svg"
         (click)="openFilter()">
 </button>
+
+<ng-template #withParamsIcon>
+    <button wlc-button
+            class="{{$class}}__button"
+            attr.aria-label="{{'History settings' | translate}}"
+            [attr.type]="'button'"
+            [ngClass]="{'filtered': isFiltered}"
+            theme="custom"
+            [icon]="$params.icon"
+            (click)="openFilter()">
+    </button>
+</ng-template>

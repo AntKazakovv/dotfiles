@@ -22,12 +22,12 @@
                 <span class="{{$class}}__cell-place">{{win.IDUserPlace}}</span>
                 <span *ngIf="paramInclude('themeMod', 'tournament-detail')"
                       wlc-icon
-                      iconName="cup"></span>
+                      iconPath="/wlc/icons/cup.svg"></span>
             </div>
             <div class="{{$class}}__cell item-user">
                 <span *ngIf="paramExclude('themeMod', ['tournament-detail', 'history'])"
                       wlc-icon
-                      iconName="cup"></span>
+                      iconPath="/wlc/icons/cup.svg"></span>
                 <span *ngIf="win.IDUser !== userId; else: userThee" class="user-login">{{win.UserLogin}}</span>
             </div>
             <div class="{{$class}}__cell item-points">{{win.points | number: '.0-2'}}</div>

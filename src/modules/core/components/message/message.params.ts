@@ -20,10 +20,9 @@ export const defaultParams: IMessageParams = {
     showCloseButton: true,
     imageFit: 'cover',
     typeIcons: {
-        info: 'status/ok',
-        success: 'status/ok',
-        warning: 'status/alert',
-        error: 'status/alert',
+        success: '/wlc/icons/status/ok.svg',
+        warning: '/wlc/icons/status/alert.svg',
+        error: '/wlc/icons/status/alert.svg',
     },
     defaultTitles: {
         info: gettext('Message'),

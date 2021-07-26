@@ -1,14 +1,18 @@
 <ng-container *ngIf="$params.modal; else tooltip">
-    <div class="{{$class}}__icon" wlc-icon iconName="info" (click)="openModal($event)"></div>
+    <div wlc-icon
+          class="{{$class}}__icon"
+          iconPath="/wlc/icons/info.svg"
+          (click)="openModal($event)">
+    </div>
 </ng-container>
 
 <ng-template #tooltip>
-    <div class="{{$class}}__icon"
-        wlc-icon
-        iconName="info"
-        containerClass="{{$class}}__bs-tooltip"
-        placement="bottom"
-        container="body"
-        [tooltip]="$params.inlineText | translate">
+    <div wlc-icon
+         class="{{$class}}__icon"
+         iconPath="/wlc/icons/info.svg"
+         containerClass="{{$class}}__bs-tooltip"
+         placement="bottom"
+         container="body"
+         [tooltip]="$params.inlineText | translate">
     </div>
 </ng-template>

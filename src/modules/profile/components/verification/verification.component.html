@@ -38,7 +38,7 @@
                 <span *ngIf="currentDocGroup.previewString && !currentDocGroup.pending"
                       wlc-icon
                       class="{{$class}}__dropzone-clear"
-                      iconName="close"
+                      iconPath="/wlc/icons/close.svg"
                       (click)="clearPreview(); $event.stopPropagation()"></span>
                 <p *ngIf="!currentDocGroup.previewString" class="{{$class}}__text">
                     <span class="{{$class}}__text-inner">
@@ -69,7 +69,7 @@
                                 <span *ngIf="doc.canDelete && !doc.pending"
                                       wlc-icon
                                       class="{{$class}}-docs__remove"
-                                      iconName="close"
+                                      iconPath="/wlc/icons/close.svg"
                                       (click)="deleteDoc(doc); $event.stopPropagation()"
                                 ></span>
                                 <span *ngIf="doc.pending" class="{{$class}}-docs__preload"></span>
@@ -82,7 +82,7 @@
                                   class="{{$class}}-docs__info info-icon"
                                   containerClass="{{$class}}__tooltip"
                                   placement="bottom"
-                                  iconName="info"
+                                  iconPath="/wlc/icons/info.svg"
                                   container="body"
                                   [tooltip]="doc.StatusDescription"
                             ></span>

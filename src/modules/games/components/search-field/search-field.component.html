@@ -2,20 +2,20 @@
     <input class="{{$class}}__input"
            placeholder="{{$params.placeholder || 'Search' | translate}}"
            #searchField
+           data-wlc-element="input_search"
            (input)="changeSearch()"
            [(ngModel)]="searchQuery"
-           data-wlc-element="input_search"
     >
-    <button class="{{$class}}__clear"
-            *ngIf="searchQuery?.length"
+    <button *ngIf="searchQuery?.length"
             wlc-icon
-            [iconName]="'close'"
+            class="{{$class}}__clear"
             [attr.aria-label]="'Clear search' | translate"
             [attr.title]="'Clear search' | translate"
+            iconPath="/wlc/icons/close.svg"
             (click)="clearSearch()"
     ></button>
-    <span class="{{$class}}__icon"
-          wlc-icon
-          [iconName]="'search'"
+    <span wlc-icon
+          class="{{$class}}__icon"          
+          iconPath="/wlc/icons/search.svg"
     ></span>
 </label>

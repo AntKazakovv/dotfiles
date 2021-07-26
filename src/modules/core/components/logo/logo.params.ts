@@ -27,7 +27,7 @@ export const defaultParams: ILogoCParams = {
     },
     disableLink: false,
     image: {
-        name: 'defaultLogo',
+        url: 'logo.svg',
     },
     moduleName: 'core',
     componentName: 'wlc-logo',

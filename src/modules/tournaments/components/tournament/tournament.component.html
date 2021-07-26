@@ -36,12 +36,11 @@
 <ng-template #dashboard>
     <div class="{{$class}}__container" [class.selected]="isTournamentSelected">
         <div class="{{$class}}__more-icon">
-            <div
-                class="icon-btn"
-                wlc-icon
-                iconName="info"
-                (click)="readMore({selector: ''})"
-                [wlcElement]="'button_terms'">
+            <div wlc-icon
+                 class="icon-btn"
+                 wlcElement="button_terms"                
+                 iconPath="/wlc/icons/info.svg"
+                 (click)="readMore({selector: ''})">
             </div>
         </div>
         <div class="{{$class}}__img-container" *ngIf="!isTournamentSelected">

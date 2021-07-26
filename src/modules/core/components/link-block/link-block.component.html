@@ -9,15 +9,27 @@
     </h4>
     <div *ngIf="$params.common.link"
          class="{{$class}}__text">
-        <button
-            wlc-button
-            [icon]="$params.common.useLinkButton ? 'arrow' : 'default'"
-            [theme]="$params.common.useLinkButton ? 'cleared' : 'default'"
-            [attr.type]="'button'"
-            [wlcElement]="$params.wlcElement + '-button'"
-            text="{{$params.common.link}}"
-            (click)="goTo($params.common.actionParams); $event.preventDefault();"
+        <button *ngIf="$params.common.useLinkButton; else withoutParamsUseLinkButton"
+                wlc-button
+                [attr.type]="'button'"
+                text="{{$params.common.link}}"
+                iconPath="/wlc/icons/arrow.svg"
+                [theme]="$params.common.useLinkButton ? 'cleared' : 'default'"
+                [wlcElement]="$params.wlcElement + '-button'"
+                (click)="goTo($params.common.actionParams); $event.preventDefault();"
         >
         </button>
     </div>
 </div>
+
+<ng-template #withoutParamsUseLinkButton>
+    <button wlc-button
+            [attr.type]="'button'"
+            text="{{$params.common.link}}"
+            [wlcElement]="$params.wlcElement + '-button'"
+            icon="default"
+            [theme]="$params.common.useLinkButton ? 'cleared' : 'default'"
+            (click)="goTo($params.common.actionParams); $event.preventDefault();"
+    >
+</button>
+</ng-template>
