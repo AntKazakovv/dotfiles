@@ -795,7 +795,7 @@ export class GamesCatalogService {
             } catch (error) {
                 // TODO Change error code
                 this.logService.sendLog({
-                    code: '3.0.0',
+                    code: (requestUrl === 'favorites') ? '3.0.13' : '3.0.16',
                     data: error,
                     from: {
                         service: 'GamesCatalogService',
