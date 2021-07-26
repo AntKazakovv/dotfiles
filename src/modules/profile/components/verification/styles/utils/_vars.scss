@@ -33,6 +33,9 @@ $themeDefault: map-merge((
 
     'dragGap': ef.get('size', 'less'),
     'dropzoneBg': ef.get('mainColors', 'baseOpacity'),
+    'dropzoneBgRepeat': no-repeat,
+    'dropzoneBgPosition': center,
+    'dropzoneBgSize': cover,
     'reqListStyleColor': ef.get('mainColors', 'main'),
     'borderTopUploadDocs': ef.get('mainColors', 'bg'),
     'titleFontUploadDocs': 'ThirdTitle',
