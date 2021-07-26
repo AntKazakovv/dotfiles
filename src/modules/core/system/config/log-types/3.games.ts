@@ -43,6 +43,7 @@ export const errorTypes: ILogTypes = {
     },
     '3.0.13': {
         // Error when get favorites games
+        level: 'error',
     },
     '3.0.14': {
         // Timeout when add/remove favorites games
@@ -52,6 +53,7 @@ export const errorTypes: ILogTypes = {
     },
     '3.0.16': {
         // Error when get last played games
+        level: 'error',
     },
     '3.0.17': {
         // Timeout when get last played games
