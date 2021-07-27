@@ -122,7 +122,7 @@ export namespace wlcButton {
             class: 'wlc-btn wlc-btn-burger',
             wlcElement: 'wlc-btn-burger',
             common: {
-                icon: 'burger',
+                iconPath: '/wlc/icons/burger.svg',
                 event: {
                     name: 'PANEL_OPEN',
                     data: 'left',
