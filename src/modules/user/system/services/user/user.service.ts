@@ -1,7 +1,6 @@
 import {Injectable, Injector} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {StateService} from '@uirouter/core';
-import {DateTime} from 'luxon';
 
 import {
     Subscription,
@@ -30,6 +29,7 @@ import _assign from 'lodash-es/assign';
 import _each from 'lodash-es/each';
 import _keys from 'lodash-es/keys';
 import _set from 'lodash-es/set';
+import _get from 'lodash-es/get';
 
 export enum LanguageChangeEvents {
     ChangeLanguage = 'CHANGE_LANGUAGE'
@@ -209,7 +209,20 @@ export class UserService {
 
     public login(login: string, password: string): Promise<IIndexing<any>> {
         const params = {login, password};
-        return this.dataService.request('user/userLogin', params);
+        const result = this.dataService.request<IIndexing<any>>('user/userLogin', params);
+        this.logService.sendLog({code: '1.2.5'});
+        result.catch((error: unknown) => {
+            const coreError = _get(error, 'status') === 'error';
+            this.logService.sendLog({
+                code: coreError ? '1.2.3' : '1.2.4',
+                from: {
+                    service: 'UserService',
+                    method: 'login',
+                },
+                flog: coreError ? {message: (_get(error, 'errors', [])).join(', ')} : {},
+            });
+        });
+        return result;
     }
 
     public logout(): void {
@@ -348,8 +361,6 @@ export class UserService {
                     wlcElement: 'notification_login-error',
                 },
             });
-
-            this.logService.sendLog({code: '1.2.0', data: error});
         }
     }
 
