@@ -42,7 +42,7 @@ export const defaultParams: IPaymentListCParams = {
     iconsType: 'color',
     colorIconBg: 'dark',
     buttonText: gettext('Show all methods'),
-    arrowIcon: 'arrow',
+    arrowIcon: 'wlc/icons/arrow.svg',
     asModal: '(max-width: 479px)',
     showTable: undefined,
     modalSize: 'md',

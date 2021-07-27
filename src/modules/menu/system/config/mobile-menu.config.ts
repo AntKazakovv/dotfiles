@@ -72,7 +72,7 @@ export const wlcMobileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     'mobile-menu:info': {
         name: gettext('Info'),
         type: 'sref',
-        icon: 'info',
+        iconPath: 'wlc/icons/info.svg',
         class: 'info',
         params: {
             state: {
