@@ -19,7 +19,7 @@ export namespace leftPanel {
                     class: 'wlc-burger-panel__close',
                     wlcElement: 'wlc-btn-close',
                     common: {
-                        icon: 'close',
+                        iconPath: 'wlc/icons/close.svg',
                         event: {
                             name: 'PANEL_CLOSE',
                             data: 'left-def',

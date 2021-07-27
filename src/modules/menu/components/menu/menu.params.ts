@@ -63,6 +63,7 @@ export interface IMenuItem {
     type: ItemType;
     counter?: ICounterType;
     icon?: string;
+    iconPath?: string;
     iconUrl?: string;
     class?: string;
     wlcElement?: string;

@@ -10,6 +10,7 @@ export type ComponentType = 'default' | CustomType;
 export interface IDatepickerCParams extends IComponentParams<ComponentTheme, ComponentType, string> {
     name: string;
     icon?: string;
+    iconPath?: string;
     datepickerOptions?: IAngularMyDpOptions;
     maskOptions?: IMaskOptions;
     label?: string;
@@ -21,7 +22,7 @@ const tomorrow = DateTime.local().plus({ days: 1 });
 
 export const defaultParams: Partial<IDatepickerCParams> = {
     class: 'wlc-datepicker',
-    icon: 'calendar',
+    iconPath: 'wlc/icons/calendar.svg',
     datepickerOptions: {
         dateFormat: 'dd.mm.yyyy',
         disableSince: {
