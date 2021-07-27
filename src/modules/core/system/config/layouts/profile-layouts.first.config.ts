@@ -20,7 +20,7 @@ export const $profileFirstLayouts: ILayoutsConfig = {
     'app.profile.social': {
         extends: 'app.profile',
         sections: {
-            'profile-content': sectionsLib.profileContent.empty,
+            'profile-content': sectionsLib.profileContent.profileSocialsFirst,
         },
     },
     'app.profile.loyalty-bonuses.main': {

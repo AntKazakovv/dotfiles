@@ -31,6 +31,10 @@ export interface IProfileConfig {
     wallet?: {
         use: boolean;
     },
+    socials?: {
+        use: boolean;
+        usePage?: boolean;
+    },
     type?: ProfileType,
 }
 

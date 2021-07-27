@@ -91,6 +91,7 @@ export const menuConfig: IMenuConfig = {
                     'profile-menu:verification',
                     'profile-menu:limitations',
                     'profile-menu:messages',
+                    'profile-menu:socials',
                 ],
             },
         ],
@@ -115,6 +116,7 @@ export const menuConfig: IMenuConfig = {
                 items: [
                     'profile-first-menu:edit-profile',
                     'profile-first-menu:verification',
+                    'profile-first-menu:socials',
                     'profile-first-menu:limitations',
                     'profile-first-menu:messages',
                 ],

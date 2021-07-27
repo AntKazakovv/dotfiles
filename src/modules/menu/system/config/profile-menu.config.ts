@@ -37,7 +37,12 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         wlcElement: 'link_cc-profile-menu_account-settings',
         params: {
             state: {
-                parent: ['app.profile.main', 'app.profile.verification', 'app.profile.limitations'],
+                parent: [
+                    'app.profile.main',
+                    'app.profile.verification',
+                    'app.profile.limitations',
+                    'app.profile.social',
+                ],
                 name: 'app.profile.main.info',
                 params: {},
             },
@@ -52,7 +57,12 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         params: {
             blockExpand: true,
             state: {
-                parent: ['app.profile.main', 'app.profile.verification', 'app.profile.limitations'],
+                parent: [
+                    'app.profile.main',
+                    'app.profile.verification',
+                    'app.profile.limitations',
+                    'app.profile.social',
+                ],
                 name: 'app.profile.main.info',
                 params: {},
             },
@@ -93,7 +103,6 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         class: 'socials',
         params: {
             state: {
-                parent: 'app.profile',
                 name: 'app.profile.social',
                 params: {},
             },
@@ -106,7 +115,6 @@ export const wlcProfileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         class: 'socials',
         params: {
             state: {
-                parent: 'app.profile',
                 name: 'app.profile.social',
                 params: {},
             },
@@ -1171,5 +1179,13 @@ export const profileMenuFilter: ProfileMenuParams.IProfileMenuFilter[] = [
     {
         config: '$base.profile.wallet.use',
         item: 'profile-first-menu:cash-wallet',
+    },
+    {
+        config: '$base.profile.socials.use',
+        item: 'profile-menu:socials',
+    },
+    {
+        config: '$base.profile.socials.use',
+        item: 'profile-menu-first:socials',
     },
 ];

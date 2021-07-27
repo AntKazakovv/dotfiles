@@ -426,4 +426,69 @@ export namespace FormElements {
         },
     };
 
+    export const currency = {
+        name: 'core.wlc-select',
+        params: {
+            labelText: gettext('Currency'),
+            options: 'currencies',
+            theme: 'vertical',
+            wlcElement: 'block_currency',
+            common: {
+                customModifiers: 'currency',
+            },
+            validators: ['required'],
+            name: 'currency',
+        },
+    };
+
+    export const promocode = {
+        name: 'core.wlc-input',
+        params: {
+            theme: 'vertical',
+            wlcElement: 'block_promocode',
+            common: {
+                placeholder: gettext('Promocode'),
+                customModifiers: 'promocode',
+            },
+            name: 'registrationPromoCode',
+        },
+    };
+
+    export const terms = {
+        name: 'core.wlc-checkbox',
+        params: {
+            checkboxType: 'terms',
+            name: 'agreedWithTermsAndConditions',
+            wlcElement: 'block_rules',
+            common: {
+                customModifiers: 'terms',
+            },
+            validators: ['requiredTrue'],
+        },
+    };
+
+    export const age = {
+        name: 'core.wlc-checkbox',
+        params: {
+            checkboxType: 'age',
+            name: 'ageConfirmed',
+            wlcElement: 'block_age-confirm',
+            common: {
+                customModifiers: 'age',
+            },
+            validators: ['requiredTrue'],
+        },
+    };
+
+    export const signUp = {
+        name: 'core.wlc-button',
+        params: {
+            wlcElement: 'button_register-submit',
+            common: {
+                text: gettext('Sign up'),
+                type: 'submit',
+            },
+        },
+    };
+
 }

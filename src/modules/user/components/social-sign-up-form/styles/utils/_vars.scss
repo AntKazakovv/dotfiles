@@ -1,0 +1,4 @@
+$customThemeDefault: () !default;
+$themeDefault: map-merge(map-merge(inherit.$themeDefault, (
+    'templateAreas': 'firstName firstName' 'lastName lastName' 'email email' 'password password' 'currency promocode' 'terms terms' 'age age' 'btn btn',
+)), $customThemeDefault);

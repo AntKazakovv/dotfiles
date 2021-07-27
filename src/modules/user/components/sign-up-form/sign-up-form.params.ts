@@ -2,7 +2,7 @@ import {
     CustomType,
     IComponentParams,
     IFormWrapperCParams,
-    IUserProfile,
+    IIndexing,
 } from 'wlc-engine/modules/core';
 
 export type ComponentTheme = 'default' | CustomType;
@@ -18,6 +18,7 @@ export interface ISignUpFormCParams extends IComponentParams<ComponentTheme, Com
     };
     modifiers?: Modifiers[];
     formConfig?: IFormWrapperCParams;
+    formData?: IIndexing<unknown>;
 }
 
 export const defaultParams: ISignUpFormCParams = {
@@ -25,12 +26,6 @@ export const defaultParams: ISignUpFormCParams = {
     wlcElement: 'modal_signup',
     componentName: 'wlc-sign-up-form',
     moduleName: 'user',
-};
-
-export interface IValidateData {
-    'TYPE': string,
-    data: Partial<IUserProfile>,
-    fields: string[],
 };
 
 export const signUpFormConfig: IFormWrapperCParams = {
@@ -109,6 +104,7 @@ export const signUpFormConfig: IFormWrapperCParams = {
                 common: {
                     customModifiers: 'terms',
                 },
+                validators: ['requiredTrue'],
             },
         },
         {
@@ -120,6 +116,7 @@ export const signUpFormConfig: IFormWrapperCParams = {
                 common: {
                     customModifiers: 'age',
                 },
+                validators: ['requiredTrue'],
             },
         },
         {

@@ -24,11 +24,13 @@ import {
 import {
     SmsService,
     UserService,
-    IValidateData,
     IRegFormDataForConfig,
 } from 'wlc-engine/modules/user';
 import {ISmsSendResponse} from '../../system/services/sms/sms.service';
-import {UserActionsAbstract} from '../../system/classes/user-actions-abstract.class';
+import {
+    UserActionsAbstract,
+    IValidateData,
+} from '../../system/classes/user-actions-abstract.class';
 
 import * as Params from './sms-verification.params';
 

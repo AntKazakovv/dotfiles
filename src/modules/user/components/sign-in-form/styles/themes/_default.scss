@@ -61,7 +61,7 @@
             }
         }
     }
-    
+
     &.wlc-sign-in-form--theme-mod-with-banner {
         max-width: 100%;
 
@@ -82,6 +82,20 @@
             @include em.get-mq-map('max-width', $themeDefaultModWithBanner, 'formMaxWidth');
             @include em.get-mq-map('margin', $themeDefaultModWithBanner, 'formMargin');
             @include em.get-mq-map('height', $themeDefaultModWithBanner, 'formHeight');
+        }
+    }
+
+    &.wlc-sign-in-form--socials {
+
+        ::ng-deep {
+
+            .wlc-text-block {
+                order: ef.get-value($modSocials, 'textBlockOrder');
+            }
+
+            .wlc-social-networks {
+                margin: ef.get-value($modSocials, 'socialsMargin');
+            }
         }
     }
 }

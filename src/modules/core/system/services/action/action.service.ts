@@ -130,7 +130,7 @@ export class ActionService {
     }
 
     public async processMessages(initialPath: IIndexing<string>): Promise<void> {
-        switch (initialPath?.message) {
+        switch (initialPath.message) {
             case 'GET_CONFIG':
                 if (initialPath.token === 'kjdnfhjgernghiwnin39u548dfkjnvk') {
                     const a = this.document.createElement('a');
@@ -193,11 +193,14 @@ export class ActionService {
                 //TODO
                 break;
             case 'FINALIZE_SOCIAL_CONNECT':
-                //TODO
+                this.onSocialConnect();
                 break;
-            // case 'FINALIZE_SOCIAL_REGISTRATION':
-            //     UserSocialRegisterService.init();
-            //     break;
+        }
+
+        switch (initialPath.error) {
+            case 'SOCIAL_LOGIN_FAILED':
+                this.onSocialConnect(true);
+                break;
         }
     }
 
@@ -424,6 +427,35 @@ export class ActionService {
             name: 'AFFILIATE_SIGNIN',
         }, () => {
             this.document.defaultView.open(affAddress + this.lang + '/Register', '_self');
+        });
+    }
+
+    private async onSocialConnect(error?: boolean): Promise<void> {
+        if (error) {
+            this.eventService.emit({
+                name: NotificationEvents.PushMessage,
+                data: <IPushMessageParams>{
+                    type: 'error',
+                    title: gettext('Social connect failed'),
+                    message: [
+                        gettext('Error connect social network, try later.'),
+                    ],
+                },
+            });
+        }
+
+        await this.configService.ready;
+        const state = this.configService.get<string>({
+            name: 'socialState',
+            storageType: 'localStorage',
+        });
+        setTimeout(() => {
+            this.stateService.go(state || 'app.home');
+            this.configService.set({
+                name: 'socialState',
+                value: null,
+                storageClear: 'localStorage',
+            });
         });
     }
 }

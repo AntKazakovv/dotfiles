@@ -99,6 +99,39 @@ export class StateHelper {
     }
 
     /**
+     * Reject opening profile state if it's disabled
+     * @param configPath path to config which contains boolean value if current state is available
+     * @returns ResolveTypes
+     */
+    public static profileStateResolver(configPath: string): ResolveTypes {
+        return {
+            token: 'stateAllowed',
+            deps: [
+                ConfigService,
+                StateService,
+                Transition,
+            ],
+            resolveFn: async (
+                configService: ConfigService,
+                stateService: StateService,
+                transition: Transition,
+            ) => {
+                const result = new Deferred();
+
+                await configService.ready;
+
+                if (configService.get<boolean>(configPath)) {
+                    result.resolve();
+                } else {
+                    result.reject();
+                    stateService.go('app.error', transition.params());
+                }
+                return result.promise;
+            },
+        };
+    }
+
+    /**
      * Return open modal resolver
      *
      * @param modalId {string} - id of modal

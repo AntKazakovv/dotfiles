@@ -32,3 +32,9 @@ $themeDefaultModWithBanner: map-merge((
     'bannerImgWidth': 100%,
 
 ), $customThemeDefaultModWithBanner);
+
+$customModSocials: () !default;
+$modSocials: map-merge((
+    'socialsMargin': 0 0 ef.size(4),
+    'textBlockOrder': -1,
+), $customModSocials);

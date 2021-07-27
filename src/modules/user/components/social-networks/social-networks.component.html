@@ -1,0 +1,21 @@
+<div class="{{$class}}__list">
+    <ng-container *ngFor="let network of networks">
+        <button class="{{$class}}__button {{$class}}__button--{{network.id}}"
+            [ngClass]="{'active': isProviderConnected(network.id)}"
+            type="button"
+            title="{{$params.titlePrefix | translate}} {{network.name}}"
+            (click)="handleClick(network.id)">
+            <span wlc-icon
+                class="{{$class}}__icon"
+                (imageError)="onImageError(network)"
+                iconPath="{{network.iconPath}}">
+            </span>
+            <span *ngIf="network.imgError" class="{{$class}}__icon">
+                <span class="wlc-icon-content">{{network.id}}</span>
+            </span>
+            <span *ngIf="$params.theme === 'profile'" class="{{$class}}__text">
+                {{getConnectButtonText(network.id) | translate}}
+            </span>
+        </button>
+    </ng-container>
+</div>

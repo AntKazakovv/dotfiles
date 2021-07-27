@@ -18,8 +18,11 @@ import {
     NotificationEvents,
 } from 'wlc-engine/modules/core';
 import {UserService} from 'wlc-engine/modules/user/system/services';
+import {IFormComponent} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
 
 import * as Params from './sign-in-form.params';
+
+import _some from 'lodash-es/some';
 
 /**
  * Sign-in form component.
@@ -59,6 +62,17 @@ export class SignInFormComponent extends AbstractComponent implements OnInit {
     public ngOnInit(): void {
         super.ngOnInit();
         this.config = this.$params.formConfig || Params.signInFormConfig;
+
+        if (this.configService.get<boolean>('$base.profile.socials.use')) {
+            this.addModifiers('socials');
+
+            if (!_some(this.config.components, (el: IFormComponent) => el.name === 'user.wlc-social-networks')) {
+                this.config.components.unshift({
+                    name: 'user.wlc-social-networks',
+                    params: {},
+                });
+            }
+        }
     }
 
     public async ngSubmit(form: FormGroup): Promise<void> {

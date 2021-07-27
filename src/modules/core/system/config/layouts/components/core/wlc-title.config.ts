@@ -92,6 +92,15 @@ export namespace wlcTitle {
         },
     };
 
+    export const socials: ILayoutComponent = {
+        name: 'core.wlc-title',
+        params: <ITitleCParams>{
+            customMod: ['profile'],
+            mainText: gettext('Social Networks'),
+            wlcElement: 'header_socials',
+        },
+    };
+
     export const profileLimitations: ILayoutComponent = {
         name: 'core.wlc-title',
         params: {
