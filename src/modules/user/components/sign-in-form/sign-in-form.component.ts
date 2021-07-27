@@ -80,7 +80,6 @@ export class SignInFormComponent extends AbstractComponent implements OnInit {
                 },
             });
 
-            this.logService.sendLog({code: '1.2.0', data: error});
         } finally {
             form.enable();
         }
