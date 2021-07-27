@@ -8,10 +8,12 @@ import {DOCUMENT} from '@angular/common';
 import {TranslateService} from '@ngx-translate/core';
 import {StateService, UIRouter} from '@uirouter/core';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
-import {logTypes} from 'wlc-engine/modules/core/system/config/log-types';
 import {
+    logTypes,
     TLogMethods,
     ILogType,
+} from 'wlc-engine/shared-lib/log-types';
+import {
     IIndexing,
 } from 'wlc-engine/modules/core';
 import {IFlogData, WlcFlog} from 'wlc-engine/system/inline/_flog';
