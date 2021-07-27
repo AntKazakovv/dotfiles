@@ -7,7 +7,6 @@ import {
 import {
     BehaviorSubject,
 } from 'rxjs';
-import {first} from 'rxjs/operators';
 
 import {DataService, IData} from '../data/data.service';
 import {AppConfigModel} from './app-config.model';
@@ -25,7 +24,6 @@ import {LogService} from 'wlc-engine/modules/core/system/services/log/log.servic
 import {ILayoutsConfig} from 'wlc-engine/modules/core/system/interfaces/layouts.interface';
 import {IParamsLayoutConfig} from 'wlc-engine/modules/core/system/interfaces/layouts.interface';
 import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
-import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {
     IGlobalConfig,
     IGetParams,
@@ -72,8 +70,6 @@ export class ConfigService {
         private translateService: TranslateService,
         private localStorageService: LocalStorageService,
         private sessionStorageService: SessionStorageService,
-        private eventService: EventService,
-
     ) {
         this.setGlobals();
 
@@ -81,27 +77,12 @@ export class ConfigService {
             .subscribe(() => {
                 this.getCountries();
             });
-
-        this.eventService.filter([
-            {name: 'LOAD_BOOTSTRAP_FAIL'},
-            {name: 'LOAD_BOOTSTRAP_SUCCESS'},
-        ]).pipe(first()).subscribe((e) => {
-            if (e.name === 'LOAD_BOOTSTRAP_FAIL') {
-                this.injector.get<LogService>(LogService).sendLog({
-                    code: '0.0.6',
-                    from: {
-                        service: 'ConfigService',
-                        method: 'load',
-                    },
-                });
-            }
-        });
     }
 
     /**
      * Load main appConfig on start app in AppModule;
      */
-    public load(): Promise<IData> {
+    public load(): Promise<IData> | Promise<unknown> {
         return this.injector.get<DataService>(DataService).request({
             name: 'bootstrap',
             system: 'config',
@@ -114,6 +95,14 @@ export class ConfigService {
                 success: 'LOAD_BOOTSTRAP_SUCCESS',
                 fail: 'LOAD_BOOTSTRAP_FAIL',
             },
+        }).catch(() => {
+            this.injector.get<LogService>(LogService).sendLog({
+                code: '0.0.6',
+                from: {
+                    service: 'ConfigService',
+                    method: 'load',
+                },
+            });
         });
     }
 
