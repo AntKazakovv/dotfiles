@@ -43,6 +43,11 @@ export interface IPaysystem {
     Name: string;
 }
 
+export interface ISocialNetwork {
+    id: string;
+    name: string;
+}
+
 export class AppConfigModel {
     banners: any;
     contacts: any;
@@ -69,7 +74,7 @@ export class AppConfigModel {
         payment_systems: IPaysystem[];
         [key: string]: any;
     };
-    socialNetworks: any[];
+    socialNetworks: ISocialNetwork[];
     sportsbook: any;
     user: any;
     version: string;

@@ -24,7 +24,7 @@ export const $profileLayouts: IPanelsConfig = {
     'app.profile.social': {
         extends: 'app.profile',
         sections: {
-            'profile-content': sectionsLib.profileContent.empty,
+            'profile-content': sectionsLib.profileContent.profileSocials,
         },
     },
     'app.profile.loyalty-bonuses.main': {

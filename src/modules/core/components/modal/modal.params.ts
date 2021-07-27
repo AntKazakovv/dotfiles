@@ -249,4 +249,13 @@ export const MODALS_LIST: IModalList = {
             },
         },
     },
+    'social-register': {
+        config: {
+            id: 'social-register',
+            modifier: 'social-register',
+            modalTitle: gettext('Registration'),
+            componentName: 'user.wlc-social-sign-up-form',
+            showFooter: false,
+        },
+    },
 };

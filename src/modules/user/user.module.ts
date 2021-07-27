@@ -10,6 +10,7 @@ import {
     UserService,
     LimitationService,
     SmsService,
+    SocialService,
 } from './system/services';
 
 // Components
@@ -36,6 +37,8 @@ import {SmsVerificationComponent} from './components/sms-verification/sms-verifi
 import {UserInfoComponent} from './components/user-info/user-info.component';
 import {UserStatsComponent} from './components/user-stats/user-stats.component';
 import {UserNameComponent} from './components/user-name/user-name.component';
+import {SocialNetworksComponent} from './components/social-networks/social-networks.component';
+import {SocialSignUpFormComponent} from './components/social-sign-up-form/social-sign-up-form.component';
 
 export const services = {
     'user-service': UserService,
@@ -59,6 +62,8 @@ export const components = {
     'wlc-restore-password-form': RestorePasswordFormComponent,
     'wlc-sign-in-form': SignInFormComponent,
     'wlc-sign-up-form': SignUpFormComponent,
+    'wlc-social-networks': SocialNetworksComponent,
+    'wlc-social-sign-up-form': SocialSignUpFormComponent,
     'wlc-sms-verification': SmsVerificationComponent,
     'wlc-user-info': UserInfoComponent,
     'wlc-user-stats': UserStatsComponent,
@@ -87,6 +92,8 @@ export const components = {
         SignInFormComponent,
         SignUpFormComponent,
         SmsVerificationComponent,
+        SocialNetworksComponent,
+        SocialSignUpFormComponent,
         UserInfoComponent,
         UserStatsComponent,
         UserNameComponent,
@@ -101,6 +108,7 @@ export const components = {
         DataService,
         UserService,
         LimitationService,
+        SocialService,
         SmsService,
     ],
     exports: [
@@ -120,6 +128,8 @@ export const components = {
         SignInFormComponent,
         SignUpFormComponent,
         SmsVerificationComponent,
+        SocialNetworksComponent,
+        SocialSignUpFormComponent,
         UserInfoComponent,
         UserStatsComponent,
         UserNameComponent,

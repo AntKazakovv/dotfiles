@@ -99,6 +99,7 @@ export class IconComponent extends AbstractComponent implements OnInit, OnChange
             this.imagePath = file.url;
             this.addModifiers(['loaded', 'img']);
         } else {
+            this.imageErrorHolder();
             this.elRef.nativeElement.remove();
         }
         this.cdr.markForCheck();

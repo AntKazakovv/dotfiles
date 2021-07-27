@@ -1,0 +1,72 @@
+@mixin applyBg($map, $child) {
+    @each $key, $value in $map {
+        &--#{$key} #{$child} {
+            background: $value;
+        }
+    }
+}
+
+@mixin buttonStyle($map) {
+    @include bm.transition(all, 0.2s);
+    @include applyBg(ef.get-value($map, 'iconBg'), '.wlc-social-networks__icon');
+    display: ef.get-value($map, 'buttonDisplay');
+    align-items: ef.get-value($map, 'buttonAlign');
+    justify-content: ef.get-value($map, 'buttonJustify');
+    padding: ef.get-value($map, 'buttonPadding');
+    border: ef.get-value($map, 'buttonBorder');
+    color: ef.get-value($map, 'buttonColor');
+    background: ef.get-value($map, 'buttonBg');
+
+    @include bm.hover {
+
+        .wlc-social-networks__icon {
+            box-shadow: ef.get-value($map, 'iconHoverBoxShadow');
+        }
+    }
+}
+
+@mixin iconStyles($map) {
+    @include bm.transition(all, 0.2s);
+    width: ef.get-value($map, 'iconWidth');
+    height: ef.get-value($map, 'iconHeight');
+    color: ef.get-value($map, 'iconColor');
+    background: ef.get-value($map, 'iconBgBase');
+    border-radius: ef.get-value($map, 'iconBorderRadius');
+    box-shadow: ef.get-value($map, 'iconBoxShadow');
+
+    ::ng-deep {
+
+        .wlc-icon-content {
+            width: ef.get-value($map, 'iconContentWidth');
+            height: ef.get-value($map, 'iconContentHeight');
+        }
+
+        img.wlc-icon-content {
+            display: block;
+            border-radius: ef.get-value($map, 'iconImageBorderRadius');
+            object-fit: ef.get-value($map, 'iconImageObjectFit');
+            object-position: ef.get-value($map, 'iconImageObjectPositions');
+        }
+
+        span.wlc-icon-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            svg {
+                max-width: 100%;
+                max-height: 100%;
+                fill: currentColor;
+            }
+        }
+    }
+}
+
+@mixin listStyles($map) {
+    display: ef.get-value($map, 'listDisplay');
+    flex-direction: ef.get-value($map, 'listDirection');
+    align-items: ef.get-value($map, 'listAlign');
+    justify-content: ef.get-value($map, 'listJustify');
+    margin: ef.get-value($map, 'listMargin');
+    padding: ef.get-value($map, 'listPadding');
+}

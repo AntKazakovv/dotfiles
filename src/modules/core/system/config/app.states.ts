@@ -34,7 +34,7 @@ let states = {
     'app.profile': States.profileState,
     'app.profile.main': States.profileMainState,
     'app.profile.main.info': States.profileMainInfoState,
-    'app.profile.social': States.profileState,
+    'app.profile.social': States.profileSocialState,
     'app.profile.history': States.profileHistoryState,
     'app.profile.loyalty-bonuses': States.profileBonusesState,
     'app.profile.loyalty-bonuses.main': States.profileBonusesMainState,
@@ -71,6 +71,7 @@ let states = {
     'app.error': States.errorPageState,
     'app.tournaments': States.tournamentsState,
     'app.providers': States.providersState,
+    'app.user-social-register': States.userSocialRegister,
     'app.signup': States.signUpState,
     'app.login': States.loginState,
 };

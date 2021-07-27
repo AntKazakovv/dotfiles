@@ -4,31 +4,31 @@ import {
     OnInit,
 } from '@angular/core';
 import {FormGroup} from '@angular/forms';
+import {BehaviorSubject} from 'rxjs';
 
 import {
-    AbstractComponent,
     ConfigService,
     EventService,
     LogService,
     IFormWrapperCParams,
-    IPushMessageParams,
-    NotificationEvents,
     StepsEvents,
+    IIndexing,
 } from 'wlc-engine/modules/core';
 import {UserService} from 'wlc-engine/modules/user';
-import {UserActionsAbstract} from '../../system/classes/user-actions-abstract.class';
 import {
-    ChosenBonusSetParams,
-    ChosenBonusType,
-} from 'wlc-engine/modules/bonuses';
+    UserActionsAbstract,
+    IValidateData,
+} from '../../system/classes/user-actions-abstract.class';
+import {SocialService} from 'wlc-engine/modules/user/system/services/social/social.service';
+import {IFormComponent} from 'wlc-engine/modules/core/components/form-wrapper/form-wrapper.component';
 
 import * as Params from './sign-up-form.params';
 
-import _keys from 'lodash-es/keys';
 import _each from 'lodash-es/each';
+import _some from 'lodash-es/some';
 
 export interface IRegFormDataForConfig {
-    form: Params.IValidateData;
+    form: IValidateData;
 }
 
 /**
@@ -51,6 +51,7 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
 
     public config: IFormWrapperCParams;
     public $params: Params.ISignUpFormCParams;
+    public formData: BehaviorSubject<IIndexing<unknown>>;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.ISignUpFormCParams,
@@ -58,6 +59,7 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
         protected logService: LogService,
         protected configService: ConfigService,
         protected eventService: EventService,
+        protected socialService: SocialService,
     ) {
         super({
             injectParams,
@@ -66,8 +68,9 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
     }
 
     public ngOnInit(): void {
-        super.ngOnInit({});
+        super.ngOnInit();
         this.config = this.$params.formConfig || Params.signUpFormConfig;
+
         if (this.configService.get<boolean>('$base.profile.smsVerification.use')) {
             const formValues = this.configService.get<IRegFormDataForConfig>('regFormData');
             _each(this.config.components, (item) => {
@@ -80,6 +83,21 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
                     }
                 });
             });
+        }
+
+        if (this.configService.get<boolean>('$base.profile.socials.use')) {
+            this.addModifiers('socials');
+
+            if (!_some(this.config.components, (el: IFormComponent) => el.name === 'user.wlc-social-networks')) {
+                this.config.components.unshift({
+                    name: 'user.wlc-social-networks',
+                    params: {},
+                });
+            }
+        }
+
+        if (this.$params.formData) {
+            this.formData = new BehaviorSubject(this.$params.formData);
         }
     }
 
@@ -114,41 +132,5 @@ export class SignUpFormComponent extends UserActionsAbstract<Params.ISignUpFormC
             value: {form: formData},
         });
         this.eventService.emit({name: StepsEvents.Next});
-    }
-
-    protected formDataPreparation(form: FormGroup): Params.IValidateData {
-        const formData = {
-            'TYPE': 'user-register',
-            data: {...form.value},
-            fields: _keys(form.value),
-        };
-
-        const chosenBonus = this.configService.get<ChosenBonusType>(ChosenBonusSetParams.ChosenBonus);
-
-        if (chosenBonus?.id) {
-            formData.data.registrationBonus = chosenBonus.id;
-            formData.fields.push('registrationBonus');
-        }
-        return formData;
-    }
-
-    protected checkConfirmation(form: FormGroup): boolean {
-        const {ageConfirmed, agreedWithTermsAndConditions} = form.value;
-
-        if (ageConfirmed && agreedWithTermsAndConditions) {
-            return true;
-        }
-
-        this.eventService.emit({
-            name: NotificationEvents.PushMessage,
-            data: <IPushMessageParams>{
-                type: 'error',
-                title: gettext('Registration error'),
-                message: gettext('You must agree with Terms and Conditions as well as confirm that you are at least 18 years old'),
-                wlcElement: 'notification_registration-terms-error',
-            },
-        });
-
-        return false;
     }
 }

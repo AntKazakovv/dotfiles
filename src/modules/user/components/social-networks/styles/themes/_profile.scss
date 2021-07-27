@@ -1,0 +1,41 @@
+.wlc-social-networks--theme-profile:host {
+
+    .wlc-social-networks {
+
+        &__list {
+            @include listStyles($themeProfile);
+        }
+
+        &__button {
+            @if (ef.get-value($themeProfile, 'commonStyles') == true) {
+                @include buttonStyle($commonStyles);
+            } @else {
+                @include buttonStyle($themeProfile);
+            }
+            margin: ef.get-value($themeProfile, 'buttonMargin');
+
+            &:last-child {
+                margin: ef.get-value($themeProfile, 'buttonMarginLast');
+            }
+
+            @include bm.hover {
+
+                .wlc-social-networks__icon {
+                    box-shadow: ef.get-value($themeProfile, 'iconHoverBoxShadow');
+                }
+            }
+        }
+
+        &__text {
+            margin: ef.get-value($themeProfile, 'textMargin');
+        }
+
+        &__icon {
+            @if (ef.get-value($themeProfile, 'commonStyles') == true) {
+                @include iconStyles($commonStyles);
+            } @else {
+                @include iconStyles($themeProfile);
+            }
+        }
+    }
+}

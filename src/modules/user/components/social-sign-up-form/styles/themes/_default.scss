@@ -1,0 +1,95 @@
+.wlc-social-sign-up-form--theme-default:host {
+    @include inherit.hostStyles($themeDefault);
+
+    &::ng-deep {
+
+        .wlc-form-wrapper {
+            @include inherit.formWrapperStyles($themeDefault);
+        }
+
+        .wlc-form {
+            @include inherit.formStyles($themeDefault);
+
+            > .wlc-btn {
+                @include em.get-mq-map('margin', $themeDefault, 'btnMargin');
+                grid-area: btn;
+            }
+        }
+
+        ::ng-deep {
+
+            .wlc-input {
+
+                .wlc-input__container {
+
+                    .wlc-input__input:disabled {
+                        @include inherit.inputDisabledStyles($themeDefault);
+                    }
+                }
+            }
+
+            .wlc-select {
+
+                .wlc-select__group {
+
+                    .wlc-select__field:disabled {
+                        @include inherit.selectDisabledStyles($themeDefault);
+                    }
+                }
+            }
+        }
+
+        .wlc-text-block {
+            grid-area: head;
+        }
+
+        .wlc-input--email {
+            grid-area: email;
+        }
+
+        .wlc-input--password {
+            grid-area: password;
+        }
+
+        .wlc-input--promocode {
+            grid-area: promocode;
+        }
+
+        .wlc-checkbox--terms {
+            @include inherit.checkboxTermsStyles($themeDefault);
+            grid-area: terms;
+        }
+
+        .wlc-checkbox--age {
+            @include inherit.checkboxAgeStyles($themeDefault);
+            grid-area: age;
+        }
+
+        .wlc-link-block {
+            grid-area: account;
+        }
+
+        .wlc-select[wlc-select] {
+            @include inherit.selectStyles($themeDefault);
+
+            .wlc-select--currency {
+                grid-area: currency;
+            }
+        }
+
+        .wlc-checkbox[wlc-checkbox] {
+
+            .wlc-checkbox__link {
+                @include inherit.checkboxLinkStyles($themeDefault);
+            }
+        }
+
+        .wlc-input--first-name[wlc-input] {
+            grid-area: firstName;
+        }
+
+        .wlc-input--last-name[wlc-input] {
+            grid-area: lastName;
+        }
+    }
+}

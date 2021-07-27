@@ -30,7 +30,7 @@ export class LoginSignupComponent extends AbstractComponent implements OnInit {
     constructor(
         @Inject('injectParams') protected injectParams: Params.ILoginSignupCParams,
         @Inject(DOCUMENT) protected document: Document,
-        protected ModalService: ModalService,
+        protected modalService: ModalService,
         protected configService: ConfigService,
         protected logService: LogService,
     ) {
@@ -92,11 +92,9 @@ export class LoginSignupComponent extends AbstractComponent implements OnInit {
                     },
                 },
             });
-            this.ModalService.showModal(action).then((comp) => {
+            this.modalService.showModal(action).then((comp) => {
                 comp.closed.then(logWaiter);
             });
         }
     }
 }
-
-

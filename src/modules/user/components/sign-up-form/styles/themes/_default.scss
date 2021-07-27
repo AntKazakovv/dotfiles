@@ -1,33 +1,17 @@
-@use 'engine-scss/functions' as ef;
-@use 'engine-scss/mixins/base.mixins' as em;
-
 .wlc-sign-up-form--theme-default:host {
-    display: flex;
-    flex-direction: ef.get-value($themeDefault, 'formFlexDirection');
-
-    max-width: ef.get-value($themeDefault, 'formMaxWidth');
-    height: ef.get-value($themeDefault, 'formHeight');
-
-    margin: ef.get-value($themeDefault, 'formMargin');
+    @include hostStyles($themeDefault);
 
     &::ng-deep {
 
         .wlc-form-wrapper {
-            height: ef.get-value($themeDefault, 'formWraperHeight');
+            @include formWrapperStyles($themeDefault);
         }
 
         .wlc-form {
-            display: grid;
-            grid-gap: ef.get-value($themeDefault, 'gridGap');
-            grid-template-areas: ef.get-value($themeDefault, 'templateAreas');
-            grid-template-columns: ef.get-value($themeDefault, 'gridColumns');
-            align-content: ef.get-value($themeDefault, 'gridAlignContent');
-
-            height: ef.get-value($themeDefault, 'formHeight');
+            @include formStyles($themeDefault);
 
             > .wlc-btn {
                 @include em.get-mq-map('margin', $themeDefault, 'btnMargin');
-
                 grid-area: btn;
             }
         }
@@ -39,11 +23,7 @@
                 .wlc-input__container {
 
                     .wlc-input__input:disabled {
-                        color: ef.get-value($themeDefault, 'inputColor');
-
-                        background: ef.get-value($themeDefault, 'inputBackground');
-
-                        opacity: ef.get-value($themeDefault, 'inputOpacity'); // for ios
+                        @include inputDisabledStyles($themeDefault);
                     }
                 }
             }
@@ -53,9 +33,7 @@
                 .wlc-select__group {
 
                     .wlc-select__field:disabled {
-                        color: ef.get-value($themeDefault, 'inputColor');
-
-                        background: ef.get-value($themeDefault, 'inputBackground');
+                        @include selectDisabledStyles($themeDefault);
                     }
                 }
             }
@@ -78,23 +56,13 @@
         }
 
         .wlc-checkbox--terms {
+            @include checkboxTermsStyles($themeDefault);
             grid-area: terms;
-            padding: ef.get-value($themeDefault, 'checkboxPadding');
-
-            .wlc-checkbox__label {
-                position: relative;
-            }
         }
 
         .wlc-checkbox--age {
+            @include checkboxAgeStyles($themeDefault);
             grid-area: age;
-
-            margin: ef.get-value($themeDefault, 'checkboxAgeMargin');
-            padding: ef.get-value($themeDefault, 'checkboxAgePadding');
-
-            .wlc-checkbox__label {
-                position: relative;
-            }
         }
 
         .wlc-link-block {
@@ -102,28 +70,31 @@
         }
 
         .wlc-select[wlc-select] {
+            @include selectStyles($themeDefault);
 
             .wlc-select--currency {
                 grid-area: currency;
-            }
-
-            .wlc-select__field,
-            .wlc-select__dropdown-item {
-                padding: ef.get-value($themeDefault, 'selectPadding');
             }
         }
 
         .wlc-checkbox[wlc-checkbox] {
 
             .wlc-checkbox__link {
-                color: ef.get-value($themeDefault, 'checkboxLinkColor');
-                text-decoration: underline;
-                transition: ef.get-value($themeDefault, 'checkboxLinkTransition');
+                @include checkboxLinkStyles($themeDefault);
+            }
+        }
+    }
 
+    &.wlc-sign-up-form--socials {
 
-                &:hover {
-                    color: ef.get-value($themeDefault, 'checkboxLinkColorHover');
-                }
+        ::ng-deep {
+
+            .wlc-form {
+                grid-template-areas: ef.get-value($modSocials, 'formTemplateAreas');
+            }
+
+            .wlc-social-networks {
+                grid-area: networks;
             }
         }
     }

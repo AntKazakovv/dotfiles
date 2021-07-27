@@ -1,0 +1,67 @@
+$customCommonStyles: () !default;
+$commonStyles: map-merge((
+    'buttonDisplay': flex,
+    'buttonAlign': center,
+    'buttonJustify': center,
+    'buttonBg': none,
+    'buttonPadding': 0,
+    'buttonBorder': none,
+    'buttonColor': ef.get('mainColors', 'baseMain'),
+
+    'iconWidth': ef.size(8),
+    'iconHeight': ef.size(8),
+    'iconBorderRadius': 50%,
+    'iconColor': currentColor,
+    'iconBgBase': ef.get('mainColors', 'bg700'),
+    'iconBg': (
+        'gp': #dc4e41,
+        'ok': #f98d2e,
+        'ya': #ffcc00,
+        'vk': #4b729f,
+        'ml': #277ebc,
+        'fb': #3b5999,
+        'in': linear-gradient(49.12deg, #ffdd55 6.62%, #ff543e 50.06%, #c837ab 93.5%),
+    ),
+    'iconBoxShadow': none,
+
+    'iconHoverBoxShadow': 0 0 0 3px ef.get('mainColors', 'main'),
+
+    'iconContentWidth': 100%,
+    'iconContentHeight': 100%,
+
+    'iconImageBorderRadius': 50%,
+    'iconImageObjectFit': cover,
+    'iconImageObjectPosition': center,
+), $customCommonStyles);
+
+$customThemeDefault: () !default;
+$themeDefault: map-merge((
+    'commonStyles': true,
+
+    'listDisplay': flex,
+    'listDirection': row,
+    'listJustify': center,
+    'listAlign': center,
+    'listMargin': 0,
+    'listPadding': 0,
+
+    'buttonMargin': 0 ef.size(4) 0 0,
+    'buttonMarginLast': 0,
+), $customThemeDefault);
+
+$customThemeProfile: () !default;
+$themeProfile: map-merge((
+    'commonStyles': true,
+
+    'listDisplay': flex,
+    'listDirection': column,
+    'listJustify': flex-start,
+    'listAlign': flex-start,
+    'listMargin': 0,
+    'listPadding': 0,
+
+    'textMargin': 0 0 0 ef.size(1),
+
+    'buttonMargin': 0 0 ef.size(4) 0,
+    'buttonMarginLast': 0,
+), $customThemeProfile);

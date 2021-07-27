@@ -36,3 +36,8 @@ $themeDefault: map-merge((
     'checkboxAgeMargin': -17px 0 0,
     'checkboxAgePadding': 0 ef.size(2) ef.size(4) ef.size(2),
 ), $customThemeDefault);
+
+$customModSocials: () !default;
+$modSocials: map-merge((
+    'formTemplateAreas': 'networks networks' 'email email' 'password password' 'currency promocode' 'terms terms' 'age age' 'btn btn' 'account account',
+), $customModSocials);

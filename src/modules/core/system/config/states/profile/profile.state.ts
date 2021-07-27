@@ -9,4 +9,3 @@ export const profileState: Ng2StateDeclaration = {
         StateHelper.forAuthenticatedResolver(),
     ],
 };
-
