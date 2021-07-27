@@ -62,7 +62,7 @@ const countriesRestrictions: ICountriesRestrictions = {
 describe('Game', () => {
     const data: IGame = gameData;
     let router = new UIRouter();
-    let config = new ConfigService(null, null, null);
+    let config = new ConfigService(null, null, null, null);
 
     it('should create an instance', () => {
         expect(new Game(data, router, config)).toBeTruthy();

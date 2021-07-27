@@ -76,7 +76,7 @@ export const wlcMainMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
         name: gettext('Contact Us'),
         type: 'sref',
         class: 'contacts',
-        iconPath: 'wlc/icons/info.svg',
+        icon: 'info',
         params: {
             state: {
                 name: 'app.contacts',
