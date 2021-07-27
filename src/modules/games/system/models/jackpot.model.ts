@@ -1,12 +1,16 @@
+import {IFromLog} from 'wlc-engine/modules/core';
 import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
 import {IJackpot} from 'wlc-engine/modules/games';
+
+import _assign from 'lodash-es/assign';
 
 export class JackpotModel extends AbstractModel<IJackpot> {
 
     constructor(
+        from: IFromLog,
         data: IJackpot,
     ) {
-        super();
+        super({from: _assign({model: 'JackpotModel'}, from)});
         this.data = data;
     }
 

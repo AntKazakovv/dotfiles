@@ -2,6 +2,7 @@ import {UIRouter} from '@uirouter/core';
 import {TranslateService} from '@ngx-translate/core';
 import {
     ICategorySettings,
+    IFromLog,
     IMenu,
 } from 'wlc-engine/modules/core';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
@@ -30,6 +31,7 @@ import {
 } from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
 import {IGamesFilterData} from 'wlc-engine/modules/games/system/interfaces/filters.interfaces';
 
+import _assign from 'lodash-es/assign';
 import _cloneDeep from 'lodash-es/cloneDeep';
 import _concat from 'lodash-es/concat';
 import _filter from 'lodash-es/filter';
@@ -109,6 +111,7 @@ export class GamesCatalog extends AbstractModel<IGames> {
     ];
 
     constructor(
+        from: IFromLog,
         _data: IGames,
         protected gamesCatalogService: GamesCatalogService,
         protected translateService: TranslateService,
@@ -116,13 +119,7 @@ export class GamesCatalog extends AbstractModel<IGames> {
         protected router: UIRouter,
         protected eventService: EventService,
     ) {
-        super({
-            from: {
-                model: 'GamesCatalog',
-                service: 'GamesCatalogService',
-                method: 'init',
-            },
-        });
+        super({from: _assign({model: 'GamesCatalog'}, from)});
         this.data = _data;
         this.overrideJackpots = !this.configService.get<boolean>('$games.categories.useFundistJackpots');
         this.categorySettings = this.configService.get('appConfig.categories');
@@ -575,7 +572,12 @@ export class GamesCatalog extends AbstractModel<IGames> {
         const sportsbookMerchants: number[] = this.configService.get<number[]>('$games.sportsbookMerchants');
 
         for (const item of response.games) {
-            const game = new Game(item, this.router, this.configService);
+            const game = new Game(
+                {parentModel: 'GamesCatalog', method: 'processFetchedGamesCatalog'},
+                item,
+                this.router,
+                this.configService,
+            );
 
             if (!_isArray(game.categoryID)) {
                 continue;

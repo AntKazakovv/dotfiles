@@ -48,7 +48,7 @@ export class IconModel {
     readonly wlcElement: string;
     public isError: boolean = false;
 
-    constructor (
+    constructor(
         protected icon: IIconParams,
     ) {
         this.modifier = icon.modifier;
@@ -72,25 +72,25 @@ export class IconModel {
         }
     }
 
-    public get image():string {
+    public get image(): string {
         if (this.icon.iconUrl) {
             return this.icon.iconUrl;
         }
     }
 
-    public get imageHover():string {
+    public get imageHover(): string {
         if (this.icon.iconHoverUrl) {
             return this.icon.iconHoverUrl;
         }
     }
 
-    public get image2x():string {
+    public get image2x(): string {
         if (this.icon.postfix?.main && this.icon.iconUrl) {
             return this.addPostfix(this.icon.iconUrl, this.icon.postfix.main);
         }
     }
 
-    public get imageHover2x():string {
+    public get imageHover2x(): string {
         if (this.icon.postfix?.hover && this.icon.iconHoverUrl) {
             return this.addPostfix(this.icon.iconHoverUrl, this.icon.postfix.hover);
         }

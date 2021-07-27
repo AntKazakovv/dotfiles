@@ -1,14 +1,17 @@
 import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
 import {ILevel} from 'wlc-engine/modules/promo/';
+import {IFromLog} from 'wlc-engine/modules/core';
 
+import _assign from 'lodash-es/assign';
 import _toNumber from 'lodash-es/toNumber';
 
 export class LoyaltyLevelModel extends AbstractModel<ILevel> {
 
     constructor(
+        from: IFromLog,
         data: ILevel,
     ) {
-        super();
+        super({from: _assign({model: 'LoyaltyLevelModel'}, from)});
         this.data = data;
     }
 

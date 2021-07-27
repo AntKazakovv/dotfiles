@@ -1,5 +1,6 @@
 import {
     AbstractModel,
+    IFromLog,
 } from 'wlc-engine/modules/core';
 import {
     IBetradarGame,
@@ -7,6 +8,7 @@ import {
     MarketType,
 } from 'wlc-engine/modules/sportsbook/system/interfaces/sportsbook.interface';
 
+import _assign from 'lodash-es/assign';
 import _get from 'lodash-es/get';
 import _forEach from 'lodash-es/forEach';
 
@@ -15,9 +17,10 @@ export class MarketModel extends AbstractModel<IBetradarGame> {
     public items: IMarketItem[] = [];
 
     constructor(
+        from: IFromLog,
         data: IBetradarGame,
     ) {
-        super();
+        super({from: _assign({model: 'MarketModel'}, from)});
         this.data = data;
         this.init();
     }

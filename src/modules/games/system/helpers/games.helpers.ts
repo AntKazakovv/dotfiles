@@ -47,7 +47,7 @@ export class GamesHelper {
      * @param {IIndexing<string>} merchantMap
      * @returns {{merchantsArray: MerchantModel[]}}
      */
-    public static mapMerchants(merchants: IIndexingMerchants, merchantMap: IIndexing<string>): { merchantsArray: MerchantModel[] } {
+    public static mapMerchants(merchants: IIndexingMerchants, merchantMap: IIndexing<string>): {merchantsArray: MerchantModel[]} {
         if (!merchants) {
             return;
         }
@@ -57,7 +57,10 @@ export class GamesHelper {
                 merchantItem.Alias = merchantMap[merchantItem.menuId];
             }
 
-            const merchant: MerchantModel = new MerchantModel(merchantItem);
+            const merchant: MerchantModel = new MerchantModel(
+                {helper: 'GamesHelper', method: 'mapMerchants'},
+                merchantItem,
+            );
             _set(this.mapping, `merchantIdToNameMapping.${merchant.id}`, merchant.menuId);
             _set(this.mapping, `merchantIdToAliasMapping.${merchant.id}`, merchant.alias || merchant.name);
             _set(this.mapping, `merchantNameToObjectMapping.${merchant.menuId}`, merchant);
@@ -81,7 +84,11 @@ export class GamesHelper {
         const categoriesArray: CategoryModel[] = [];
         _each(categories, (item: ICategory) => {
             const categorySettings: ICategorySettings = _get(settings, item.Slug);
-            const category = new CategoryModel(item, categorySettings);
+            const category = new CategoryModel(
+                {helper: 'GamesHelper', method: 'mapCategories'},
+                item,
+                categorySettings,
+            );
             categoriesArray.push(category);
             _set(this.mapping, `categoryById.${category.id}`, category);
             _set(this.mapping, `categoryByName.${category.name}`, category);
@@ -101,8 +108,7 @@ export class GamesHelper {
      */
     public static fillGamesByCategoriesMerchants(
         game: Game,
-        availableCategories: CategoryModel[]): void
-    {
+        availableCategories: CategoryModel[]): void {
         const merchantName: string = game.getMerchantName();
         const merchants: string[] = [merchantName];
 
@@ -192,7 +198,7 @@ export class GamesHelper {
      *
      * @returns {{[p: string]: IIndexing<string>}}
      */
-    public static getGameCategoryList(): { [key: string]: IIndexing<string>; } {
+    public static getGameCategoryList(): {[key: string]: IIndexing<string>;} {
         return _get(this.mapping, 'categoryNameToTitleMapping', {});
     }
 

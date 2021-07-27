@@ -1,6 +1,7 @@
 import {
     AbstractModel,
     ConfigService,
+    IFromLog,
 } from 'wlc-engine/modules/core';
 import {
     IStoreItem,
@@ -8,6 +9,7 @@ import {
 import {StoreService} from '../services';
 import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus';
 
+import _assign from 'lodash-es/assign';
 import _toNumber from 'lodash-es/toNumber';
 import _map from 'lodash-es/map';
 import _has from 'lodash-es/has';
@@ -18,11 +20,12 @@ export class StoreItem extends AbstractModel<IStoreItem> {
     private $availableForLevels: number[] = [];
 
     constructor(
+        from: IFromLog,
         data: IStoreItem,
         protected ConfigService: ConfigService,
         protected StoreService: StoreService,
     ) {
-        super();
+        super({from: _assign({model: 'StoreItem'}, from)});
         this.userCurrency = this.ConfigService.get<string>('appConfig.user.currency') || 'EUR';
         this.data = data;
     }

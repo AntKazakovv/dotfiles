@@ -1,13 +1,17 @@
 import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
 import {IMerchant} from 'wlc-engine/modules/games';
+import {IFromLog} from 'wlc-engine/modules/core';
+
+import _assign from 'lodash-es/assign';
 import _toNumber from 'lodash-es/toNumber';
 
 export class MerchantModel extends AbstractModel<IMerchant> {
 
     constructor(
+        from: IFromLog,
         data: IMerchant,
     ) {
-        super();
+        super({from: _assign({model: 'MerchantModel'}, from)});
         this.init(data);
     }
 

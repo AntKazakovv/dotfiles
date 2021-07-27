@@ -11,7 +11,9 @@ import {
 import {GamesHelper} from 'wlc-engine/modules/games/system/helpers/games.helpers';
 import {Bonus} from 'wlc-engine/modules/bonuses/system/models/bonus';
 import {CategoryModel} from 'wlc-engine/modules/games/system/models/category.model';
+import {IFromLog} from 'wlc-engine/modules/core';
 
+import _assign from 'lodash-es/assign';
 import _isObject from 'lodash-es/isObject';
 import _each from 'lodash-es/each';
 import _intersection from 'lodash-es/intersection';
@@ -33,12 +35,17 @@ export class Game extends AbstractModel<IGame> {
     public image: string;
     public merchantName: string;
     public merchantAlias?: string;
+    public jackpot?: number;
+    public isFavourite?: boolean;
 
     protected url: string;
     protected sortPerCategory: IIndexing<number>;
     protected isRestricted: boolean;
     protected IDCountryRestriction: string;
     protected freeround?: string;
+    protected toggleFavourite?: any;
+    protected isCurrencyDisabled?: boolean;
+    protected CategoryTitle?: IIndexing<string>[];
 
     // что-то не нужное
     // protected MobileUrl: string;
@@ -57,18 +64,14 @@ export class Game extends AbstractModel<IGame> {
     // protected IsVirtual: string;
     // protected TableID: string;
 
-    public jackpot?: number;
-    public isFavourite?: boolean;
-    protected toggleFavourite?: any;
-    protected isCurrencyDisabled?: boolean;
-    protected CategoryTitle?: IIndexing<string>[];
 
     constructor(
+        from: IFromLog,
         data: IGame,
         protected router: UIRouter,
         protected configService: ConfigService,
     ) {
-        super();
+        super({from: _assign({model: 'Game'}, from)});
 
         // Object.assign(this, data);
         this.ID = _toNumber(data.ID);

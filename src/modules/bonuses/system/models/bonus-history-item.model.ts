@@ -1,19 +1,20 @@
 import {
-    IIndexing,
     AbstractModel,
-    ConfigService,
-    CachingService,
+    IFromLog,
 } from 'wlc-engine/modules/core';
 import {
     IBonus,
 } from '../interfaces/bonuses.interface';
 
+import _assign from 'lodash-es/assign';
+
 export class HistoryItemModel extends AbstractModel<IBonus> {
 
     constructor(
+        from: IFromLog,
         data: any,
     ) {
-        super();
+        super({from: _assign({model: 'HistoryItemModel'}, from)});
         this.data = this.modifyData(data);
     }
 
@@ -63,15 +64,15 @@ export class HistoryItemModel extends AbstractModel<IBonus> {
 
     protected modifyData(historyItem: any): any {
         switch (historyItem.Status) {
-            case '-100' : {
+            case '-100': {
                 historyItem.StatusName = 'Expired';
                 break;
             }
-            case '-99' : {
+            case '-99': {
                 historyItem.StatusName = 'Canceled';
                 break;
             }
-            case '100' : {
+            case '100': {
                 historyItem.StatusName = 'Wagered';
                 break;
             }

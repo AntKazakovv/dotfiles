@@ -54,6 +54,9 @@ export class LoyaltyLevelsService {
             return;
         }
 
-        return _map(data, level => new LoyaltyLevelModel(level));
+        return _map(data, level => new LoyaltyLevelModel(
+            {service: 'LoyaltyLevelsService', method: 'modifyLevels'},
+            level,
+        ));
     }
 }

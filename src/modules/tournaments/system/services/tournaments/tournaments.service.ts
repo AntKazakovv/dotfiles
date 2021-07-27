@@ -53,7 +53,7 @@ export class TournamentsService {
     public isProcessed$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     public updateData: boolean = true;
 
-    private subjects: { [key: string]: BehaviorSubject<Tournament[]> } = {
+    private subjects: {[key: string]: BehaviorSubject<Tournament[]>} = {
         tournaments$: new BehaviorSubject(null),
         active$: new BehaviorSubject(null),
         history$: new BehaviorSubject(null),
@@ -135,7 +135,7 @@ export class TournamentsService {
      * @param {number} interval get top interval
      * @returns {BehaviorSubject<ITopTournamentUsers>} tournament winners subjects
      */
-    public getWinnersSubjects(tournamentID: number, until?:Observable<unknown>, limit?: number, interval: number = 15000): BehaviorSubject<ITopTournamentUsers> {
+    public getWinnersSubjects(tournamentID: number, until?: Observable<unknown>, limit?: number, interval: number = 15000): BehaviorSubject<ITopTournamentUsers> {
 
         if (limit !== undefined) {
             if (limit === 0) {
@@ -150,11 +150,11 @@ export class TournamentsService {
 
             const winnersInterval = rxInterval(interval).pipe(
                 rxFilter(() => this.winnersSubjects[tournamentID].observers.length > 0),
-            ).pipe(rxTap(() => this.getTournamentTop(tournamentID, this.winnersLimit['' + tournamentID]) ));
+            ).pipe(rxTap(() => this.getTournamentTop(tournamentID, this.winnersLimit['' + tournamentID])));
 
             winnersInterval.pipe(
                 (until) ? takeUntil(until) : pipe(),
-            ).subscribe({next: () => {}});
+            ).subscribe({next: () => { }});
         }
         return this.winnersSubjects[tournamentID];
     }
@@ -220,6 +220,7 @@ export class TournamentsService {
             });
             if (_isObject(data.data)) {
                 return new Tournament(
+                    {service: 'TournamentsService', method: 'getTournament'},
                     data.data,
                     this.configService,
                     this,
@@ -405,6 +406,7 @@ export class TournamentsService {
         if (data?.length) {
             for (const tournamentData of data) {
                 const tournament: Tournament = new Tournament(
+                    {service: 'TournamentsService', method: 'modifyTournaments'},
                     tournamentData,
                     this.configService,
                     this,
@@ -412,7 +414,7 @@ export class TournamentsService {
                 queryTournaments.push(tournament);
             }
         }
-        return  _filter(queryTournaments, (item: Tournament) => item.status !== -1);
+        return _filter(queryTournaments, (item: Tournament) => item.status !== -1);
     }
 
     private setSubscribers() {

@@ -13,7 +13,7 @@ export abstract class AbstractModel<T> {
 
     protected objectData: T;
 
-    constructor(private $params?: IAbstractModelParams) {
+    constructor(private $params: IAbstractModelParams) {
     }
 
     public get data(): T {

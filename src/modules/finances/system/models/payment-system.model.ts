@@ -4,7 +4,9 @@ import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
 import {FinancesHelper} from '../helpers/finances.helper';
 import {IPaymentMessage} from 'wlc-engine/modules/finances/system/interfaces/finances.interface';
+import {IFromLog} from 'wlc-engine/modules/core';
 
+import _assign from 'lodash-es/assign';
 import _get from 'lodash-es/get';
 import _includes from 'lodash-es/includes';
 import _isArray from 'lodash-es/isArray';
@@ -184,8 +186,12 @@ export class PaymentSystem extends AbstractModel<IPaymentSystem> {
     private hostedFieldService: IHostedFieldService;
     private hostedField: any;
 
-    constructor(data: IPaymentSystem, protected UserService: UserService) {
-        super();
+    constructor(
+        from: IFromLog,
+        data: IPaymentSystem,
+        protected UserService: UserService,
+    ) {
+        super({from: _assign({model: 'PaymentSystem'}, from)});
         this.init(data);
     }
 

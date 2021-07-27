@@ -140,7 +140,7 @@ export class StoreService {
         try {
             const res: IData = await this.dataService.request('store/store', params);
             const result = res.data;
-            publicSubject ? this.orders$.next(result): null;
+            publicSubject ? this.orders$.next(result) : null;
             this.storeOrders = result;
             return result;
         } catch (error) {
@@ -184,7 +184,12 @@ export class StoreService {
                 await this.bonusesService.queryBonuses(false, 'store');
 
             for (const itemData of data.Items) {
-                const item: StoreItem = new StoreItem(itemData, this.configService, this);
+                const item: StoreItem = new StoreItem(
+                    {service: 'StoresService', method: 'modifyStoreResponse'},
+                    itemData,
+                    this.configService,
+                    this,
+                );
                 if (item.isBonus) {
                     item.bonus = _find(storeBonuses, (bonus: Bonus) => bonus.id === item.idBonus);
                 }
@@ -274,7 +279,7 @@ export class StoreService {
                 type: 'error',
                 title,
                 message: errors,
-                wlcElement: id ?  'notification-store-' + id + '-error' : undefined,
+                wlcElement: id ? 'notification-store-' + id + '-error' : undefined,
             },
         });
     }
@@ -286,7 +291,7 @@ export class StoreService {
                 type: 'success',
                 title,
                 message: msg,
-                wlcElement: id ?  'notification-store-' + id + '-success' : undefined,
+                wlcElement: id ? 'notification-store-' + id + '-success' : undefined,
             },
         });
     }
