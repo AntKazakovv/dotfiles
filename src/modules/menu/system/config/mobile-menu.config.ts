@@ -72,18 +72,8 @@ export const wlcMobileMenuItemsGlobal: MenuParams.IMenuItemsGlobal = {
     'mobile-menu:info': {
         name: gettext('Info'),
         type: 'sref',
-        iconPath: 'wlc/icons/info.svg',
+        icon: 'info',
         class: 'info',
-        params: {
-            state: {
-                name: 'app.promotions',
-                params: {},
-            },
-            href: {
-                url: '/promotions/',
-                baseSiteUrl: true,
-            },
-        },
     },
     'mobile-menu:privacy-policy': {
         name: gettext('Privacy policy'),
