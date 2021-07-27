@@ -27,6 +27,8 @@ export interface IFromLog {
     service?: string;
     method?: string;
     model?: string;
+    parentModel?: string;
+    helper?: string;
     component?: string;
     pipe?: string;
     directive?: string;

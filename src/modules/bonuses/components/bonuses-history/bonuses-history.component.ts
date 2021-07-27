@@ -103,7 +103,7 @@ export class BonusesHistoryComponent extends AbstractComponent implements OnInit
         await this.bonusesService.queryBonuses(true, 'history');
         this.bonusesService.getObserver('history').subscribe((value) => {
             this.allBets = _map(value, (item) => {
-                return new HistoryItemModel(item);
+                return new HistoryItemModel({component: 'BonusesHistoryComponent', method: 'ngOnInit'}, item);
             });
         });
 

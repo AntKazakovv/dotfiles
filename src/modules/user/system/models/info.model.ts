@@ -6,7 +6,7 @@ import {
 } from 'wlc-engine/modules/core/system/interfaces';
 import {TranslateService} from '@ngx-translate/core';
 import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
-import {EventService} from 'wlc-engine/modules/core/system/services';
+import {EventService, IFromLog} from 'wlc-engine/modules/core/system/services';
 
 import _reduce from 'lodash-es/reduce';
 import _get from 'lodash-es/get';
@@ -20,10 +20,11 @@ export class UserInfo extends AbstractModel<IUserInfo> {
     protected $loyaltyData: ILoyalty = {} as ILoyalty;
 
     constructor(
+        from: IFromLog,
         protected translate: TranslateService,
         protected eventService: EventService,
     ) {
-        super();
+        super({from: _assign({model: 'UserInfo'}, from)});
     }
 
     public get lockExpiresAt(): string {
@@ -62,7 +63,7 @@ export class UserInfo extends AbstractModel<IUserInfo> {
         return this.data?.freerounds;
     }
 
-    public get freespins(): number{
+    public get freespins(): number {
         return _reduce(this.freeRounds, (accumulator: number, freeround: IFreeRound) => {
             return accumulator + Number(_get(freeround, 'Count', 0));
         }, 0);

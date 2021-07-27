@@ -4,15 +4,18 @@ import {GamesCatalogService} from 'wlc-engine/modules/games';
 import {IWinnerData} from 'wlc-engine/modules/promo/system/services';
 import {Game} from 'wlc-engine/modules/games/system/models/game.model';
 import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
+import {IFromLog} from 'wlc-engine/modules/core';
 
+import _assign from 'lodash-es/assign';
 import _toString from 'lodash-es/toString';
 
 export class WinnerModel extends AbstractModel<IWinnerData> {
 
     constructor(
+        from: IFromLog,
         protected gamesCatalogService: GamesCatalogService,
     ) {
-        super();
+        super({from: _assign({model: 'WinnerModel'}, from)});
     }
 
     public get id(): string {

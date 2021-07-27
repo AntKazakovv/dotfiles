@@ -1,5 +1,5 @@
 import {DateTime} from 'luxon';
-import {AbstractModel} from 'wlc-engine/modules/core';
+import {AbstractModel, IFromLog} from 'wlc-engine/modules/core';
 import {
     ConfigService,
     EventService,
@@ -9,6 +9,7 @@ import {
 } from 'wlc-engine/modules/sportsbook/system/interfaces';
 import {MarketModel} from './market.model';
 
+import _assign from 'lodash-es/assign';
 import _toUpper from 'lodash-es/toUpper';
 
 export class BetradarGameModel extends AbstractModel<IBetradarGame> {
@@ -18,11 +19,12 @@ export class BetradarGameModel extends AbstractModel<IBetradarGame> {
     public issetTeamAwayLogo: boolean = true;
 
     constructor(
+        from: IFromLog,
         data: IBetradarGame,
         protected configService: ConfigService,
         protected eventService: EventService,
     ) {
-        super();
+        super({from: _assign({model: 'BetradarGameModel'}, from)});
         this.data = data;
         this.init();
     }
@@ -178,7 +180,7 @@ export class BetradarGameModel extends AbstractModel<IBetradarGame> {
         return new Promise((resolve, reject) => {
             const img = new Image();
             img.onload = () => {
-                const isset: boolean = !!(img.width > 10  && img.height > 10);
+                const isset: boolean = !!(img.width > 10 && img.height > 10);
                 resolve(isset);
             };
             img.onerror = () => {
@@ -189,6 +191,9 @@ export class BetradarGameModel extends AbstractModel<IBetradarGame> {
     }
 
     protected async init() {
-        this.market = new MarketModel(this.data);
+        this.market = new MarketModel(
+            {parentModel: 'BetradarGameModel', method: 'init'},
+            this.data,
+        );
     }
 }

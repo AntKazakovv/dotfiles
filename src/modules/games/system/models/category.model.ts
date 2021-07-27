@@ -6,6 +6,7 @@ import {
     ICategorySettings,
     CategoryViewType,
     ICategoryBlock,
+    IFromLog,
 } from 'wlc-engine/modules/core';
 import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
 import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
@@ -14,6 +15,7 @@ import {Game} from 'wlc-engine/modules/games/system/models/game.model';
 import {MerchantModel} from 'wlc-engine/modules/games/system/models/merchant.model';
 import {GamesHelper} from 'wlc-engine/modules/games/system/helpers/games.helpers';
 
+import _assign from 'lodash-es/assign';
 import _includes from 'lodash-es/includes';
 import _toNumber from 'lodash-es/toNumber';
 import _has from 'lodash-es/has';
@@ -38,10 +40,11 @@ export class CategoryModel extends AbstractModel<ICategory> {
     private _gameBlocks: IGameBlock[] = [];
 
     constructor(
+        from: IFromLog,
         data: ICategory,
         private settings: ICategorySettings,
     ) {
-        super();
+        super({from: _assign({model: 'CategoryModel'}, from)});
         this.init(data);
     }
 

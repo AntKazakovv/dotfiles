@@ -60,7 +60,7 @@ export class BonusesService {
     protected activeBonuses: Bonus[] = [];
     protected historyBonuses: Bonus[] = [];
 
-    private subjects: { [key: string]: BehaviorSubject<Bonus[]> } = {
+    private subjects: {[key: string]: BehaviorSubject<Bonus[]>} = {
         bonuses$: new BehaviorSubject(null),
         active$: new BehaviorSubject(null),
         history$: new BehaviorSubject(null),
@@ -220,7 +220,14 @@ export class BonusesService {
                 type: 'GET',
             });
             if (_isObject(data.data)) {
-                return new Bonus(data.data, this.configService, this.cachingService,this.translate, this);
+                return new Bonus(
+                    {service: 'BonusesService', method: 'getBonus'},
+                    data.data,
+                    this.configService,
+                    this.cachingService,
+                    this.translate,
+                    this,
+                );
             } else {
                 this.logService.sendLog({code: '10.0.1', data: data.data});
             }
@@ -422,7 +429,14 @@ export class BonusesService {
 
         if (data?.length) {
             for (const bonusData of data) {
-                const bonus: Bonus = new Bonus(bonusData, this.configService, this.cachingService, this.translate, this);
+                const bonus: Bonus = new Bonus(
+                    {service: 'BonusesService', method: 'modifyBonuses'},
+                    bonusData,
+                    this.configService,
+                    this.cachingService,
+                    this.translate,
+                    this,
+                );
                 queryBonuses.push(bonus);
             }
         }

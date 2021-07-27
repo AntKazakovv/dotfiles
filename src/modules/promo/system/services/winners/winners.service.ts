@@ -241,7 +241,10 @@ export class WinnersService {
      */
     protected getData(data: IWinnerData[]): WinnerModel[] {
         return _map(data, (item: IWinnerData) => {
-            const winner = new WinnerModel(this.gameCatalogService);
+            const winner = new WinnerModel(
+                {service: 'WinnersService', method: 'getData'},
+                this.gameCatalogService,
+            );
             winner.data = item;
             return winner;
         }).filter((item: WinnerModel) => item.game);

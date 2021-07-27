@@ -109,7 +109,7 @@ export class BetradarService {
                     const stateParams = this.sportsbookService.generateStateParams(locationPath);
                     _merge(this.router.stateService.params, stateParams);
 
-                    let stateName: string = _get(this.router.stateService , '$current.self.name');
+                    let stateName: string = _get(this.router.stateService, '$current.self.name');
                     const urlEvent: string = this.router.stateService.href(stateName, stateParams);
                     history.replaceState(null, null, urlEvent);
                     cdr.detectChanges();
@@ -128,6 +128,7 @@ export class BetradarService {
 
         if (data.id) {
             return new BetradarGameModel(
+                {service: 'BetradarService', method: 'getDailyMatch'},
                 data,
                 this.configService,
                 this.eventService,
@@ -142,11 +143,12 @@ export class BetradarService {
      */
     public async getPopularEvents(): Promise<BetradarGameModel[]> {
         const response: IData = await this.dataService.request('betradarWidgets/popularEvents');
-        const data: IPopularEventsData  = response.data;
+        const data: IPopularEventsData = response.data;
         const games: BetradarGameModel[] = [];
 
         _forEach(data.games, (game: IBetradarGame) => {
             games.push(new BetradarGameModel(
+                {service: 'BetradarService', method: 'getPopularEvents'},
                 game,
                 this.configService,
                 this.eventService,

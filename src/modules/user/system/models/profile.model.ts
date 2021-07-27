@@ -1,12 +1,16 @@
 import {IExtProfile, ISocketsData, IUserProfile} from 'wlc-engine/modules/core/system/interfaces';
 import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
+import {IFromLog} from 'wlc-engine/modules/core';
 
+import _assign from 'lodash-es/assign';
 import _get from 'lodash-es/get';
 
 export class UserProfile extends AbstractModel<IUserProfile> {
 
-    constructor() {
-        super();
+    constructor(
+        from: IFromLog,
+    ) {
+        super({from: _assign({model: 'UserProfile'}, from)});
         this.init();
     }
 

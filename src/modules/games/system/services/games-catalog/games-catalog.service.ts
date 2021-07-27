@@ -124,6 +124,7 @@ export class GamesCatalogService {
             name: gamesEvents.FETCH_GAME_CATALOG_SUCCEEDED,
         }, (data: IData) => {
             this.gamesCatalog = new GamesCatalog(
+                {service: 'GamesCatalogService', method: 'init'},
                 data.data,
                 this,
                 this.translateService,
@@ -188,7 +189,10 @@ export class GamesCatalogService {
             .pipe(
                 filter(data => !!data),
                 distinctUntilChanged((prev, curr) => _isEqual(prev?.data, curr?.data)),
-                map(el => _map(el?.data, (data) => new JackpotModel(data))),
+                map(el => _map(el?.data, (data) => new JackpotModel(
+                    {service: 'GamesCatalogService', method: 'subscribeJackpots'},
+                    data,
+                ))),
             );
     }
 

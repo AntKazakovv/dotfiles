@@ -1,6 +1,8 @@
 import {AbstractModel} from 'wlc-engine/modules/core/system/models/abstract.model';
 import {DateTime} from 'luxon';
+import {IFromLog} from 'wlc-engine/modules/core';
 
+import _assign from 'lodash-es/assign';
 import _toNumber from 'lodash-es/toNumber';
 import _isString from 'lodash-es/isString';
 import _isUndefined from 'lodash-es/isUndefined';
@@ -61,8 +63,11 @@ export class Transaction extends AbstractModel<ITransactionEx> {
 
     private cancelProgress$: boolean = false;
 
-    constructor(data: ITransaction) {
-        super();
+    constructor(
+        from: IFromLog,
+        data: ITransaction,
+    ) {
+        super({from: _assign({model: 'Transaction'}, from)});
         this.data = data;
         this.setStatus(this.data.Status);
         this.data.type = this.amount < 0 ? 'Debit' : 'Credit';

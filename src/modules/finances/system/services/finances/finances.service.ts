@@ -212,7 +212,11 @@ export class FinancesService {
 
         if (data.length) {
             for (const paymentData of data) {
-                const system: PaymentSystem = new PaymentSystem(paymentData, this.userService);
+                const system: PaymentSystem = new PaymentSystem(
+                    {service: 'FinancesService', method: 'createPaymentSystems'},
+                    paymentData,
+                    this.userService,
+                );
                 paymentSystems.push(system);
             }
         }
@@ -222,7 +226,10 @@ export class FinancesService {
 
 
     private createTransaction(data: ITransaction[]): Transaction[] {
-        return data.map((item) => new Transaction(item));
+        return data.map((item) => new Transaction(
+            {service: 'FinancesService', method: 'createTransaction'},
+            item,
+        ));
     }
 
     private registerMethods(): void {

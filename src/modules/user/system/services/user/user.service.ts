@@ -89,8 +89,12 @@ export class UserService {
         });
 
         this.registerMethods();
-        this.info = new UserInfo(translate, eventService);
-        this.profile = new UserProfile();
+        this.info = new UserInfo(
+            {service: 'UserService', method: 'constructor'},
+            translate,
+            eventService,
+        );
+        this.profile = new UserProfile({service: 'UserService', method: 'constructor'});
 
         this.eventService.subscribe({
             name: 'USER_INFO',
@@ -162,9 +166,13 @@ export class UserService {
             this.dataService.closeSocket();
             this.stopUserInfoFetcher();
 
-            this.info = new UserInfo(this.translate, this.eventService);
+            this.info = new UserInfo(
+                {service: 'UserService', method: 'constructor'},
+                this.translate,
+                this.eventService,
+            );
             this.userInfo$.next(this.info);
-            this.profile = new UserProfile();
+            this.profile = new UserProfile({service: 'UserService', method: 'constructor'});
             this.userProfile$.next(this.profile);
         });
 

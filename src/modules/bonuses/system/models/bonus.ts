@@ -4,6 +4,7 @@ import {
     AbstractModel,
     ConfigService,
     CachingService,
+    IFromLog,
 } from 'wlc-engine/modules/core';
 import {
     IBonus,
@@ -14,6 +15,7 @@ import {
 import {BonusesService} from '../../system/services';
 import {DateTime} from 'luxon';
 
+import _assign from 'lodash-es/assign';
 import _map from 'lodash-es/map';
 import _keys from 'lodash-es/keys';
 import _size from 'lodash-es/size';
@@ -42,13 +44,14 @@ export class Bonus extends AbstractModel<IBonus> {
     private readonly _imageUrl: string;
 
     constructor(
+        from: IFromLog,
         data: IBonus,
         protected ConfigService: ConfigService,
         protected cachingService: CachingService,
         protected translate: TranslateService,
         protected bonusesService: BonusesService,
     ) {
-        super();
+        super({from: _assign({model: 'Bonus'}, from)});
         this.data = this.modifyData(data);
         this.userCurrency = this.ConfigService.get<string>('appConfig.user.currency') || 'EUR';
         this._imageUrl = this.image.length ? `url(${this.image})` : '';

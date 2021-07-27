@@ -1,6 +1,7 @@
 import {
     AbstractModel,
     ConfigService,
+    IFromLog,
 } from 'wlc-engine/modules/core';
 import {
     ITournament,
@@ -18,6 +19,7 @@ import {
 import {takeUntil} from 'rxjs/operators';
 import {DateTime} from 'luxon';
 
+import _assign from 'lodash-es/assign';
 import _toNumber from 'lodash-es/toNumber';
 import _toString from 'lodash-es/toString';
 import _map from 'lodash-es/map';
@@ -30,11 +32,12 @@ export class Tournament extends AbstractModel<ITournament> {
     protected userCurrency: string;
 
     constructor(
+        from: IFromLog,
         data: ITournament,
         protected configService: ConfigService,
         protected tournamentsService: TournamentsService,
     ) {
-        super();
+        super({from: _assign({model: 'Tournament'}, from)});
         this.data = data;
         this.userCurrency = this.configService.get<string>('appConfig.user.currency') || 'EUR';
     }
