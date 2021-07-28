@@ -208,21 +208,20 @@ export class UserService {
     }
 
     public login(login: string, password: string): Promise<IIndexing<any>> {
-        const params = {login, password};
-        const result = this.dataService.request<IIndexing<any>>('user/userLogin', params);
+        const response = this.dataService.request<IIndexing<any>>('user/userLogin', {login, password});
         this.logService.sendLog({code: '1.2.5'});
-        result.catch((error: unknown) => {
-            const coreError = _get(error, 'status') === 'error';
-            this.logService.sendLog({
-                code: coreError ? '1.2.3' : '1.2.4',
+        response.catch((error: unknown) => {
+            this.logService.sendRequestLog({
+                coreLog: {code: '1.2.3'},
+                networkLog: {code: '1.2.4'},
                 from: {
                     service: 'UserService',
                     method: 'login',
                 },
-                flog: coreError ? {message: (_get(error, 'errors', [])).join(', ')} : {},
+                responseData: error,
             });
         });
-        return result;
+        return response;
     }
 
     public logout(): void {
@@ -236,7 +235,20 @@ export class UserService {
             _set(userProfile, 'extProfile.realityCheckTime', 30);
         }
 
-        return this.dataService.request('user/createProfile', userProfile as any);
+        const response = this.dataService.request('user/createProfile', userProfile as any);
+        this.logService.sendLog({code: '1.1.25'});
+        response.catch((error: unknown) => {
+            this.logService.sendRequestLog({
+                coreLog: {code: '1.1.23'},
+                networkLog: {code: '1.1.24'},
+                from: {
+                    service: 'UserService',
+                    method: 'createUserProfile',
+                },
+                responseData: error,
+            });
+        });
+        return response;
     }
 
     public registrationComplete(code: string): Promise<IIndexing<any>> {
