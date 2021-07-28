@@ -17,6 +17,7 @@ import {
     IIndexing,
 } from 'wlc-engine/modules/core';
 import {IFlogData, WlcFlog} from 'wlc-engine/system/inline/_flog';
+import {IData} from 'wlc-engine/modules/core/system/services/data/data.service';
 
 import _get from 'lodash-es/get';
 import _cloneDeep from 'lodash-es/cloneDeep';
@@ -51,6 +52,13 @@ interface IWaitElementParams {
 interface IDurationWaiter {
     cancel: () => void;
     resolve: () => void;
+}
+
+interface IRequestLog {
+    coreLog: ILogObj;
+    networkLog: ILogObj;
+    from: IFromLog;
+    responseData: IData | unknown;
 }
 
 @Injectable()
@@ -215,6 +223,22 @@ export class LogService {
             // eslint-disable-next-line no-console
             console.error(`${logObj.code} ${logObj.level}:`, logObj);
         }
+    }
+
+    public sendRequestLog(params: IRequestLog): void {
+        let logObj: ILogObj;
+        if (_get(params.responseData, 'status') === 'error') {
+            logObj = _merge<ILogObj, Partial<ILogObj>>(
+                params.coreLog,
+                {
+                    from: params.from,
+                    flog: {message: (_get(params.responseData, 'errors', ''))},
+                },
+            );
+        } else {
+            logObj = _merge<ILogObj, Partial<ILogObj>>(params.networkLog, {from: params.from});
+        }
+        this.sendLog(logObj);
     }
 
     protected sendFlog(logObj: ILogObj): void {
