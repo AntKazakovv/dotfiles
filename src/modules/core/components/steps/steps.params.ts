@@ -8,6 +8,7 @@ import {
 } from 'wlc-engine/modules/core';
 import {Type} from 'wlc-engine/modules/bonuses/components/bonus-item/bonus-item.params';
 import {ChosenBonusSetParams} from 'wlc-engine/modules/bonuses/system/interfaces/bonuses.interface';
+import {IBonusesListCParams} from 'wlc-engine/modules/bonuses/components';
 
 export type ComponentTheme = 'default' | CustomType;
 export type ComponentType = 'default' | CustomType;
@@ -302,7 +303,7 @@ export const defaultParams: IStepsParams = {
                             textBlockHeaderBonus,
                             {
                                 name: 'bonuses.wlc-bonuses-list',
-                                params: {
+                                params: <IBonusesListCParams>{
                                     wlcElement: 'block_bonuses',
                                     type: 'swiper',
                                     theme: 'reg-first',
@@ -312,6 +313,11 @@ export const defaultParams: IStepsParams = {
                                         selectFirstBonus: true,
                                         useBlankBonus: false,
                                         swiper: bonusesSwiperParams,
+                                    },
+                                    itemsParams: {
+                                        common: {
+                                            type: 'reg',
+                                        },
                                     },
                                 },
                             },
