@@ -412,7 +412,6 @@ export namespace FormElements {
             },
             name: 'confirmPassword',
             validators: [
-                'password',
                 {
                     name: 'minLength',
                     options: 6,
