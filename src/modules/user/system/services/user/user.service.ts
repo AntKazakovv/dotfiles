@@ -235,7 +235,20 @@ export class UserService {
             _set(userProfile, 'extProfile.realityCheckTime', 30);
         }
 
-        return this.dataService.request('user/createProfile', userProfile as any);
+        const response = this.dataService.request('user/createProfile', userProfile as any);
+        this.logService.sendLog({code: '1.1.25'});
+        response.catch((error: unknown) => {
+            this.logService.sendRequestLog({
+                coreLog: {code: '1.1.23'},
+                networkLog: {code: '1.1.24'},
+                from: {
+                    service: 'UserService',
+                    method: 'createUserProfile',
+                },
+                responseData: error,
+            });
+        });
+        return response;
     }
 
     public registrationComplete(code: string): Promise<IIndexing<any>> {
