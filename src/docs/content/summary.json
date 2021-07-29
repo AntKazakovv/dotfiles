@@ -198,6 +198,14 @@
             {
                 "title": "8.4. Favicon",
                 "file": "./800.misc/840.favicon.md"
+            },
+            {
+                "title": "8.5. Bonus images",
+                "file": "./800.misc/850.bonus-images.md"
+            },
+            {
+                "title": "8.6. Tournament images",
+                "file": "./800.misc/860.tournaments-images.md"
             }
         ]
     },
