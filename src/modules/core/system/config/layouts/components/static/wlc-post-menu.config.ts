@@ -6,6 +6,7 @@ export namespace wlcPostMenu {
         params: {
             themeMod: 'footer-info',
             wlcElement: 'wlc-footer-info__block_legal',
+            asListBp: '(max-width: 899px)',
             common: {
                 categorySlug: ['legal', 'about-us'],
                 useSlider: true,

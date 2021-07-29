@@ -101,6 +101,10 @@
         }
     }
 
+    .footer-language-selector {
+        @include em.get-mq-map('margin', $theme2Footer, 'languageMargin');
+    }
+
     .wlc-icon-list--theme-merchants {
         @include em.get-mq-map('order', $theme2Footer, 'iconListMerchantsOrder');
         @include em.get-mq-map('margin', $theme2Footer, 'iconListMerchantsMargin');
@@ -109,9 +113,5 @@
     .wlc-icon-list--theme-payments {
         @include em.get-mq-map('order', $theme2Footer, 'iconListPaymentsOrder');
         @include em.get-mq-map('margin', $theme2Footer, 'iconListPaymentsMargin');
-    }
-
-    .wlc-language-selector {
-        @include em.get-mq-map('margin-top', $theme2Footer, 'languageMarginTop');
     }
 }
