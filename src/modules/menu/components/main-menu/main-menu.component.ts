@@ -15,6 +15,7 @@ import {
     LayoutService,
     EventService,
     IMenuOptions,
+    InjectionService,
 } from 'wlc-engine/modules/core';
 import {
     gamesEvents,
@@ -53,15 +54,16 @@ export class MainMenuComponent extends AbstractComponent implements OnInit {
     protected iconsFolder: string;
     protected menuSettings: IMenuOptions;
     protected isAuth: boolean;
+    protected gamesCatalogService: GamesCatalogService;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IMainMenuCParams,
         protected cdr: ChangeDetectorRef,
         protected layoutService: LayoutService,
-        protected gamesCatalogService: GamesCatalogService,
         protected translate: TranslateService,
         protected eventService: EventService,
         protected configService: ConfigService,
+        protected injectionService: InjectionService,
     ) {
         super(
             <IMixedParams<Params.IMainMenuCParams>>{
@@ -72,8 +74,9 @@ export class MainMenuComponent extends AbstractComponent implements OnInit {
         );
     }
 
-    public ngOnInit(): void {
+    public async ngOnInit(): Promise<void> {
         super.ngOnInit();
+        this.gamesCatalogService = await this.injectionService.getService('games.games-catalog-service');
 
         this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
         this.initEventHandlers();

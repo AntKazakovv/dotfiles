@@ -57,7 +57,9 @@ export class TotalJackpotComponent extends AbstractComponent implements OnInit {
     public ngOnInit(): void {
         super.ngOnInit(this.inlineParams);
         this.getCache();
-        this.getLastJackpots();
+        this.gamesCatalogService.ready.then(() => {
+            this.getLastJackpots();
+        });
     }
 
     private async getCache(): Promise<void> {

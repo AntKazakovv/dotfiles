@@ -65,19 +65,19 @@ describe('Game', () => {
     let config = new ConfigService(null, null, null, null);
 
     it('should create an instance', () => {
-        expect(new Game(data, router, config)).toBeTruthy();
+        expect(new Game({}, data, router, config)).toBeTruthy();
     });
 
     it('should get restriction', () => {
         const data: IGame = gameData;
-        const game = new Game(data, router, config);
+        const game = new Game({}, data, router, config);
         const restrictions = GamesHelper.createRestrictions(countriesRestrictions);
         expect(game.gameRestricted(restrictions, ['rus'])).toEqual(false);
     });
 
     it('should get merchant name', () => {
         const data: IGame = gameData;
-        const game = new Game(data, router, config);
+        const game = new Game({}, data, router, config);
         expect(game.getMerchantName()).toEqual('AmaticDirect');
     });
 });
