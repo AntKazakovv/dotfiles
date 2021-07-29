@@ -10,12 +10,10 @@ import {AbstractComponent} from 'wlc-engine/modules/core/system/classes/abstract
 import {
     ConfigService,
     EventService,
-    IPushMessageParams,
+    InjectionService,
     ModalService,
-    NotificationEvents,
 } from 'wlc-engine/modules/core';
-import {GamesCatalogService, IPlayGameForRealCParams} from 'wlc-engine/modules/games';
-import {Game} from 'wlc-engine/modules/games/system/models/game.model';
+import {GamesCatalogService} from 'wlc-engine/modules/games';
 import * as Params from './jackpot.params';
 
 @Component({
@@ -29,11 +27,13 @@ export class JackpotComponent extends AbstractComponent implements OnInit {
 
     @Input() protected inlineParams: Params.IJackpotCParams;
 
+    protected gamesCatalogService: GamesCatalogService;
+
     constructor(
         @Inject('injectParams') protected injectParams: Params.IJackpotCParams,
         protected configService: ConfigService,
         protected translate: TranslateService,
-        protected gamesCatalogService: GamesCatalogService,
+        protected injectionService: InjectionService,
         protected modalService: ModalService,
         protected eventService: EventService,
     ) {
@@ -43,8 +43,9 @@ export class JackpotComponent extends AbstractComponent implements OnInit {
         );
     }
 
-    public ngOnInit(): void {
+    public async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
+        this.gamesCatalogService = await this.injectionService.getService('games.games-catalog-service');
     }
 
     public startGame($event: Event): void {

@@ -19,11 +19,10 @@ import {
     AbstractComponent,
     ConfigService,
     EventService,
-    IPushMessageParams,
+    InjectionService,
     ModalService,
-    NotificationEvents,
 } from 'wlc-engine/modules/core';
-import {GamesCatalogService, IPlayGameForRealCParams} from 'wlc-engine/modules/games';
+import {GamesCatalogService} from 'wlc-engine/modules/games/system/services';
 import * as Params from './winner.params';
 
 @Component({
@@ -46,11 +45,13 @@ export class WinnerComponent extends AbstractComponent implements OnInit {
 
     @Input() protected inlineParams: Params.IWinnerCParams;
 
+    protected gamesCatalogService: GamesCatalogService;
+
     constructor(
         @Inject('injectParams') protected injectParams: Params.IWinnerCParams,
         protected configService: ConfigService,
         protected translate: TranslateService,
-        protected gamesCatalogService: GamesCatalogService,
+        protected injectionService: InjectionService,
         protected modalService: ModalService,
         protected eventService: EventService,
     ) {
@@ -108,8 +109,12 @@ export class WinnerComponent extends AbstractComponent implements OnInit {
      * @param {boolean} demo
      * @param {boolean} modal
      */
-    public startGame($event: Event, demo: boolean = false, modal: boolean = false): void {
+    public async startGame($event: Event, demo: boolean = false, modal: boolean = false): Promise<void> {
         $event.stopPropagation();
+
+        if (!this.gamesCatalogService) {
+            this.gamesCatalogService = await this.injectionService.getService('games.games-catalog-service');
+        }
 
         this.gamesCatalogService.launchGame(this.$params.winner.game, {
             demo,

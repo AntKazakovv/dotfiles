@@ -27,7 +27,6 @@ import {
     HistoryFilterService,
     IBet,
 } from 'wlc-engine/modules/finances';
-import {GamesCatalogService} from 'wlc-engine/modules/games';
 
 import * as Params from './bet-history.params';
 
@@ -85,7 +84,6 @@ export class BetHistoryComponent extends AbstractComponent implements OnInit {
         protected financesService: FinancesService,
         protected eventService: EventService,
         protected historyFilterService: HistoryFilterService,
-        protected gamesCatalogService: GamesCatalogService,
         protected configService: ConfigService,
     ) {
         super(

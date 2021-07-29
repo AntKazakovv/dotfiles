@@ -16,6 +16,7 @@ import {
     IMenuOptions,
     EventService,
     ConfigService,
+    InjectionService,
 } from 'wlc-engine/modules/core';
 import {
     GamesCatalogService,
@@ -60,15 +61,16 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
     protected useLobbyBtn: boolean;
     protected fallBackIcon: string = 'plug';
     protected menuSettings: IMenuOptions;
+    protected gamesCatalogService: GamesCatalogService;
 
     constructor(
         @Inject('injectParams') protected params: Params.ICategoryMenuCParams,
         protected cdr: ChangeDetectorRef,
-        protected gamesCatalogService: GamesCatalogService,
         protected configService: ConfigService,
         protected eventService: EventService,
         protected translate: TranslateService,
         protected router: UIRouter,
+        protected injectionService: InjectionService,
     ) {
         super(
             <IMixedParams<Params.ICategoryMenuCParams>>{
@@ -79,8 +81,9 @@ export class CategoryMenuComponent extends AbstractComponent implements OnInit, 
         );
     }
 
-    public ngOnInit(): void {
+    public async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
+        this.gamesCatalogService = await this.injectionService.getService('games.games-catalog-service');
         _assign(this.$params.menuParams, {
             theme: this.$params.theme,
             themeMod: this.$params.themeMod,

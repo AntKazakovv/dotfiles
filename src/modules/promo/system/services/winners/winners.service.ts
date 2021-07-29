@@ -15,6 +15,7 @@ import {
     ConfigService,
     DataService,
     EventService,
+    InjectionService,
 } from 'wlc-engine/modules/core/system/services';
 import {
     IData,
@@ -84,18 +85,31 @@ const defaultParams: {[key: string]: IWinnersParams} = {
 })
 export class WinnersService {
 
+    public ready: Promise<void> = new Promise((resolve: () => void): void => {
+        this.$resolve = resolve;
+    });
+
     protected latestWins$: BehaviorSubject<WinnerModel[]> = new BehaviorSubject(undefined);
     protected biggestWins$: BehaviorSubject<WinnerModel[]> = new BehaviorSubject(undefined);
 
     protected latestStream$: Observable<WinnerModel[]>;
     protected biggestStream$: Observable<WinnerModel[]>;
 
+    private gameCatalogService: GamesCatalogService;
+    private $resolve: () => void;
+
     constructor(
         private dataService: DataService,
         private configService: ConfigService,
         private eventService: EventService,
-        private gameCatalogService: GamesCatalogService,
+        injectionService: InjectionService,
     ) {
+        injectionService.getService<GamesCatalogService>('games.games-catalog-service').then(
+            (gameCatalogService) => {
+                this.gameCatalogService = gameCatalogService;
+                this.$resolve();
+            },
+        );
         this.init();
     }
 
@@ -251,6 +265,7 @@ export class WinnersService {
     }
 
     protected async fetchWinners(request: string): Promise<void> {
+        await this.ready;
         await this.gameCatalogService.ready;
         await this.dataService.request('winners/' + request);
     }

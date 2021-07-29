@@ -23,6 +23,7 @@ import {
 } from 'wlc-engine/modules/promo/system/helpers/slider.helper';
 import {JackpotModel} from 'wlc-engine/modules/games/system/models/jackpot.model';
 import {GamesCatalogService} from 'wlc-engine/modules/games/system/services/games-catalog/games-catalog.service';
+import {InjectionService} from 'wlc-engine/modules/core/system/services';
 import * as Params from './jackpots-slider.params';
 
 import _map from 'lodash-es/map';
@@ -47,20 +48,22 @@ export class JackpotsSliderComponent extends AbstractComponent implements OnInit
         slidesPerView: '--wlc-jackpot-slider-slides-per-view',
         spaceBetween: '--wlc-jackpot-slider-slide-gap',
     };
+    protected gamesCatalogService: GamesCatalogService;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IJackpotsSliderCParams,
         protected cdr: ChangeDetectorRef,
         protected configService: ConfigService,
-        protected gamesCatalogService: GamesCatalogService,
+        protected injectionService: InjectionService,
         protected renderer: Renderer2,
         private element: ElementRef,
     ) {
         super({injectParams, defaultParams: Params.defaultParams}, configService);
     }
 
-    public ngOnInit(): void {
+    public async ngOnInit(): Promise<void> {
         super.ngOnInit(this.inlineParams);
+        this.gamesCatalogService = await this.injectionService.getService('games.games-catalog-service');
 
         this.initListener();
     }
