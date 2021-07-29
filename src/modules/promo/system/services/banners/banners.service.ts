@@ -3,10 +3,8 @@ import {TranslateService} from '@ngx-translate/core';
 
 import {IBanner} from 'wlc-engine/modules/core/system/interfaces/promo.interface';
 import {ConfigService} from 'wlc-engine/modules/core/system/services/config/config.service';
-import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {BannerModel} from 'wlc-engine/modules/promo/system/models/banner.model';
 
-import _every from 'lodash-es/every';
 import _filter from 'lodash-es/filter';
 import _intersection from 'lodash-es/intersection';
 import _map from 'lodash-es/map';
@@ -26,72 +24,51 @@ export interface IBannersFilter {
 })
 export class BannersService {
     protected banners: BannerModel[] = [];
+    protected defaultBanners: BannerModel[] = [];
 
     constructor(
-        protected eventService: EventService,
         protected configService: ConfigService,
         protected translate: TranslateService,
     ) {
-        this.prepareBanners();
+        this.defaultBanners = this.prepareBanners();
+        this.banners = this.prepareBanners(this.translate.currentLang);
 
         this.translate.onLangChange.subscribe(() => {
-            this.prepareBanners();
+            this.banners = this.prepareBanners(this.translate.currentLang);
         });
     }
 
+    /**
+     * Get banners. If not in the current language, takes from the English version.
+     *
+     * @method getBanners
+     * @param {IBannersFilter} filter - filter for banners
+     * @returns {BannerModel}
+     *
+     */
     public getBanners(filter?: IBannersFilter): BannerModel[] {
-        let banners = this.banners;
+        if (!filter) {
+            return this.banners || this.defaultBanners;
+        }
 
-        if (filter) {
+        let banners = this.filterBanners(this.banners, filter);
 
-            let {position, platform, visibility} = filter;
-
-            if (!platform?.length) {
-                platform = ['any', this.configService.get<boolean>('appConfig.mobile') ? 'mobile' : 'desktop'];
-            }
-
-            if (!visibility?.length) {
-                visibility = [
-                    'anyone',
-                    this.configService.get<boolean>('$user.isAuthenticated')
-                        ? 'authenticated'
-                        : 'anonymous',
-                ];
-            }
-
-            banners = _filter(banners, (banner): boolean => {
-                let result = true;
-
-                if (position?.length) {
-                    result = !!_intersection(banner.tags, position).length;
-                }
-
-                result = result
-                    && !!_intersection(banner.platform, platform).length
-                    && !!_intersection(banner.visibility, visibility).length;
-
-                return result;
-            });
+        if (!banners.length) {
+            banners = this.filterBanners(this.defaultBanners, filter);
         }
 
         return banners;
     }
 
-    protected prepareBanners(): void {
-        const banners = this.configService.get<IBanner[]>(`appConfig.banners[${this.translate.currentLang}]`);
-        const defaultBanners = this.configService.get<IBanner[]>('appConfig.banners[en]');
-
-        this.banners = _map(banners, (banner: IBanner): BannerModel => new BannerModel(banner));
-
-        _every(this.banners, banner => banner.html === '')
-            ? this.banners = _map(defaultBanners,
-                (banner: IBanner): BannerModel => banner.html !== '' && new BannerModel(banner))
-            : this.banners;
-
-        this.banners = this.filterByGeo(this.banners, '-');
-        this.banners = this.filterByGeo(this.banners, '+');
-    }
-
+    /**
+     * Filter banners by geo
+     *
+     * @method filterByGeo
+     * @param {BannerModel[]} banners - banners
+     * @param {string} prefix - geo prefix
+     * @returns {BannerModel}
+     *
+     */
     protected filterByGeo(banners: BannerModel[], prefix: string): BannerModel[] {
         return _filter(banners, (banner: BannerModel) => {
             const bannerGeo = _filter(banner.geo, (item) => _startsWith(item, prefix));
@@ -102,6 +79,69 @@ export class BannersService {
             return !bannerGeo.length
                 || bannerGeo.length
                 && lastFlag;
+        });
+    }
+
+    /**
+     * Get banners from bootstrap
+     *
+     * @method setBanners
+     * @param {string} lang - language - default `en`
+     * @returns {BannerModel}
+     *
+     */
+    protected prepareBanners(lang: string = 'en'): BannerModel[] {
+        let banners = _map(
+            _filter(
+                this.configService.get<IBanner[]>(`appConfig.banners[${lang}]`),
+                banner => banner.html,
+            ),
+            (banner: IBanner): BannerModel => new BannerModel(banner),
+        );
+
+        banners = this.filterByGeo(banners, '-');
+        banners = this.filterByGeo(banners, '+');
+
+        return banners;
+    }
+
+    /**
+     * Selects banners by filters
+     *
+     * @method filterBanners
+     * @param {BannerModel[]} banners - banners
+     * @param {IBannersFilter} filter - filter
+     * @returns {BannerModel}
+     *
+     */
+    protected filterBanners(banners: BannerModel[], filter: IBannersFilter): BannerModel[] {
+        let {position, platform, visibility} = filter;
+
+        if (!platform?.length) {
+            platform = ['any', this.configService.get<boolean>('appConfig.mobile') ? 'mobile' : 'desktop'];
+        }
+
+        if (!visibility?.length) {
+            visibility = [
+                'anyone',
+                this.configService.get<boolean>('$user.isAuthenticated')
+                    ? 'authenticated'
+                    : 'anonymous',
+            ];
+        }
+
+        return _filter(banners, (banner): boolean => {
+            let result = true;
+
+            if (position?.length) {
+                result = !!_intersection(banner.tags, position).length;
+            }
+
+            result = result
+                && !!_intersection(banner.platform, platform).length
+                && !!_intersection(banner.visibility, visibility).length;
+
+            return result;
         });
     }
 }

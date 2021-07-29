@@ -32,6 +32,7 @@ export class BannersSliderComponent extends AbstractComponent implements OnInit 
     public $params: Params.IBannersSliderCParams;
     public ready: boolean = false;
     public slides: ISlide[] = [];
+    public useNavigation: boolean = false;
 
     constructor(
         @Inject('injectParams') protected injectParams: Params.IBannersSliderCParams,
@@ -63,6 +64,12 @@ export class BannersSliderComponent extends AbstractComponent implements OnInit 
                 ),
             };
         });
+        this.useNavigation =
+            this.$params.theme === 'default-banner' && this.slides.length > 1 && !this.$params.hideNavigation;
+
+        if (this.slides.length <= 1) {
+            this.$params.sliderParams.swiper.loop = false;
+        }
     }
 
     protected getBanners(): BannerModel[] {
