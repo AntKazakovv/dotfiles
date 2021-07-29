@@ -76,6 +76,7 @@
          class="{{$class}}__game-container {{$class}}__game-container-{{game.merchantName}}"
          [class.mobile]="mobileGame"
          [html]="gameHtml"
-         [canUseScriptTag]="true">
+         [canUseScriptTag]="true"
+         (htmlRendered)="onGameHtmlRendered()">
     </div>
 </ng-template>

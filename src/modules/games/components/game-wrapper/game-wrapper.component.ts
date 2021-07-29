@@ -55,7 +55,7 @@ import _toNumber from 'lodash-es/toNumber';
 import _find from 'lodash-es/find';
 
 interface IError {
-    msg: string;
+    msg?: string;
     state?: string;
     stateParams?: RawParams;
 }
@@ -344,6 +344,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
                 const iframeAttrHeight = this.iframe.getAttribute('height');
                 if (iframeAttrHeight && iframeAttrHeight !== '100%') {
                     this.isIframeHeight = true;
+                    this.setGameWindowSize();
                     this.setIframeObserver();
                 }
                 this.containerObserver.disconnect();
@@ -361,7 +362,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
             this.setGameWindowSize();
         });
 
-        this.iframeObserver.observe(this.iframe[0], {
+        this.iframeObserver.observe(this.iframe, {
             childList: true,
             subtree: true,
             attributes: true,
@@ -374,7 +375,16 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
             return;
         }
 
-        const el = this.wrp?.element?.nativeElement;
+        const gameWrapper: HTMLElement = this.wrp?.element?.nativeElement;
+        if (!gameWrapper) {
+            return;
+        }
+
+        if (this.iframe?.getAttribute('height') !== '100%') {
+            this.renderer.setStyle(gameWrapper, 'height', this.iframe.getAttribute('height'));
+            return;
+        }
+
         const maxHeight: number = this.getMaxHeight();
         const minHeight: number = this.$params.gameParams?.minGameWindowHeight || 0;
         if (!width) {
@@ -394,17 +404,17 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
 
             elementNewWidth = elementHeight * this.aspectRatioCoefficient;
 
-            this.renderer.setStyle(el, 'height', elementHeight + 'px');
-            this.renderer.setStyle(el, 'maxWidth', elementNewWidth + 'px');
+            this.renderer.setStyle(gameWrapper, 'height', elementHeight + 'px');
+            this.renderer.setStyle(gameWrapper, 'maxWidth', elementNewWidth + 'px');
             this.renderer.setStyle(this.footer.nativeElement, 'maxWidth', elementNewWidth + 'px');
         } else {
-            this.renderer.setStyle(el, 'height', '100%');
-            this.renderer.setStyle(el, 'maxWidth', '100%');
+            this.renderer.setStyle(gameWrapper, 'height', '100%');
+            this.renderer.setStyle(gameWrapper, 'maxWidth', '100%');
             this.renderer.setStyle(this.footer.nativeElement, 'maxWidth', '100%');
         }
 
         if (this.isIframeHeight) {
-            this.renderer.setStyle(el, 'height', _toNumber(this.iframe.getAttribute('height')));
+            this.renderer.setStyle(gameWrapper, 'height', _toNumber(this.iframe.getAttribute('height')));
         }
     }
 
@@ -487,37 +497,45 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
 
             if (this.useMobileIframe) {
                 return this.runInMobileIframe();
-            } else if (this.launchInfo.gameScript) {
-                try {
-                    if (this.configService.get<boolean>('appConfig.mobile')) {
-                        // this.LocalCacheService.set('redirectAfterGame',
-                        //     _get(this.$rootScope, 'previousState.state.name') || 'app.home');
-                    }
+            }
+            return true;
+        } catch {
+            return false;
+        }
+    }
 
-                    this.gameScriptTimeout = setTimeout(async () => {
-                        if (this.destroyed) {
-                            return;
-                        }
+    /**
+     * On game html rendered
+     *
+     * @returns {Promise<void>}
+     */
+    protected async onGameHtmlRendered(): Promise<void> {
+        if(!this.launchInfo.gameScript) {
+            return;
+        }
 
-                        const result = await this.hooksService.run<IGameWrapperHookEvalScript>(gameWrapperHooks.evalScript, {
-                            game: this.game,
-                            customGameParams: this.$params?.gameParams,
-                            disable: false,
-                        });
-                        if (!result.disable) {
-                            eval(this.launchInfo.gameScript);
-                        }
-                    });
-                    return true;
-                } catch (ex) {
-                    // setError()
-                    return false;
-                }
-            } else {
-                return false;
+        try {
+            const result = await this.hooksService.run<IGameWrapperHookEvalScript>(gameWrapperHooks.evalScript, {
+                game: this.game,
+                customGameParams: this.$params?.gameParams,
+                disable: false,
+            });
+            if (!result.disable) {
+                eval(this.launchInfo.gameScript);
             }
         } catch (error) {
-            return false;
+            this.logService.sendLog({
+                code: '3.0.8',
+                data: {
+                    error: error,
+                    gameId: this.game.ID,
+                },
+                from: {
+                    component: 'GameWrapperComponent',
+                    method: 'onGameHtmlRendered',
+                },
+            });
+            this.setError();
         }
     }
 
@@ -553,9 +571,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
             }
         } catch (err) {
             this.logService.sendLog({code: '3.0.2', data: {error: err, gameparam: this.gameParams}});
-            this.setError({
-                msg: err.errors,
-            });
+            this.setError();
         } finally {
             waiter();
         }
@@ -695,7 +711,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
      * @param {string} title
      * @returns {ComponentRef<WlcModalComponent>}
      */
-    protected setError(error: IError): void {
+    protected setError(error: IError = {}): void {
         this.modalService.showError({
             modalMessage: error.msg || gettext('Something wrong. Please try later.'),
             onModalHide: () => {
