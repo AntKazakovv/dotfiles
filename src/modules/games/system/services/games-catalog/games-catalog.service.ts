@@ -25,7 +25,7 @@ import {IPushMessageParams} from 'wlc-engine/modules/core/system/services/notifi
 import {NotificationEvents} from 'wlc-engine/modules/core/system/services/notification/notification.service';
 import {DeviceType} from 'wlc-engine/modules/core/system/models/device.model';
 import {ActionService} from 'wlc-engine/modules/core/system/services/action/action.service';
-
+import {IJackpot} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
 import {Game} from 'wlc-engine/modules/games/system/models/game.model';
 import {MerchantModel} from 'wlc-engine/modules/games/system/models/merchant.model';
 import {GamesHelper} from 'wlc-engine/modules/games/system/helpers/games.helpers';
@@ -43,8 +43,9 @@ import {
     IStartGameOptions,
     gamesEvents,
 } from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
-import {UserService} from 'wlc-engine/modules/user/system/services/user/user.service';
 import {ITournamentGames} from 'wlc-engine/modules/tournaments/system/interfaces/tournaments.interface';
+import {IIndexing} from 'wlc-engine/modules/core/system/interfaces/global.interface';
+import {ICurrency} from 'wlc-engine/modules/finances/system/interfaces/currencies.interface';
 
 import _startsWith from 'lodash-es/startsWith';
 import _isString from 'lodash-es/isString';
@@ -94,6 +95,11 @@ export class GamesCatalogService {
     private deviceType: DeviceType;
     private verticalThumbsConfig: IVerticalThumbsConfig;
     private lastPlayed: Game[] = [];
+    // TODO Delete after #246227
+    private jackpotParams: {currency?: string} = {};
+    private jackpotCurrency: string;
+    private jackpotRestart$: Subject<void> = new Subject();
+    // END Delete after #246227
 
     constructor(
         public configService: ConfigService,
@@ -101,7 +107,6 @@ export class GamesCatalogService {
         public eventService: EventService,
         public translateService: TranslateService,
         protected dataService: DataService,
-        protected userService: UserService,
         protected uiRouter: UIRouterGlobals,
         protected actionService: ActionService,
         protected modalService: ModalService,
@@ -166,7 +171,18 @@ export class GamesCatalogService {
             {name: 'LOGOUT'},
         ], () => {
             this.loadGames();
+            // TODO Delete after #246227
+            delete this.jackpotParams.currency;
+            this.jackpotCurrency = null;
+            this.jackpotRestart$.next();
+            // END Delete after #246227
         });
+
+        // TODO Delete after #246227
+        this.jackpotRestart$.subscribe(() => {
+            this.loadJackpots();
+        });
+        // END Delete after #246227
 
         this.actionService.deviceType()
             .subscribe((type: DeviceType) => {
@@ -188,11 +204,42 @@ export class GamesCatalogService {
             .getMethodSubscribe('games/jackpots')
             .pipe(
                 filter(data => !!data),
-                distinctUntilChanged((prev, curr) => _isEqual(prev?.data, curr?.data)),
-                map(el => _map(el?.data, (data) => new JackpotModel(
-                    {service: 'GamesCatalogService', method: 'subscribeJackpots'},
-                    data,
-                ))),
+                // TODO Delete after #246227
+                map<IData, IJackpot[]>((response) => {
+                    const filtered = _filter(response.data, (data: IJackpot) => data.amount > 0);
+                    if (response.data.length
+                        && !filtered.length
+                        && !this.jackpotCurrency
+                        && response.data[0].currency !== 'EUR'
+                    ) {
+                        this.jackpotParams['currency'] = 'EUR';
+                        this.jackpotCurrency = response.data[0].currency;
+                        this.jackpotRestart$.next();
+                    }
+
+                    return filtered;
+                }),
+                // END Delete after #246227
+                distinctUntilChanged((prev, curr) => _isEqual(prev, curr)),
+                map((data: IJackpot[]) => {
+                    // TODO Delete after #246227
+                    const exRate = this.jackpotCurrency
+                        ? _find(
+                            this.configService.get<IIndexing<ICurrency>>('appConfig.siteconfig.currencies'),
+                            (el) => el.Alias === this.jackpotCurrency,
+                        ).ExRate
+                        : null;
+                    // END Delete after #246227
+                    return _map(data, (data: IJackpot) => {
+                        // TODO Delete after #246227
+                        if (exRate && data.currency === 'EUR') {
+                            data.currency = this.jackpotCurrency;
+                            data.amount *= +exRate;
+                        }
+                        // END Delete after #246227
+                        return new JackpotModel({service: 'GamesCatalogService', method: 'subscribeJackpots'}, data);
+                    });
+                }),
             );
     }
 
@@ -759,6 +806,7 @@ export class GamesCatalogService {
             url: '/jackpots',
             type: 'GET',
             period: 10000,
+            params: this.jackpotParams,
             events: {
                 success: gamesEvents.FETCH_JACKPOTS_SUCCEEDED,
                 fail: gamesEvents.FETCH_JACKPOTS_FAILED,
