@@ -4,15 +4,15 @@ import {
     OnInit,
     Input,
     ChangeDetectorRef,
-    OnDestroy,
 } from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
-import {Subscription} from 'rxjs';
+import {filter, takeUntil} from 'rxjs/operators';
+
+import {JackpotModel} from 'wlc-engine/modules/games/system/models/jackpot.model';
 import {AbstractComponent} from 'wlc-engine/modules/core/system/classes';
-import {CachingService, DataService} from 'wlc-engine/modules/core/system/services';
-import {IData} from 'wlc-engine/modules/core/system/services/data/data.service';
+import {CachingService} from 'wlc-engine/modules/core/system/services';
 import {GamesCatalogService} from 'wlc-engine/modules/games';
-import {IJackpot} from 'wlc-engine/modules/games/system/interfaces/games.interfaces';
+
 import * as Params from './total-jackpot.params';
 
 export interface ITotalJackpotCurrency {
@@ -37,17 +37,15 @@ export interface ITotalJackpotCurrency {
     templateUrl: './total-jackpot.component.html',
     styleUrls: ['./styles/total-jackpot.component.scss'],
 })
-export class TotalJackpotComponent extends AbstractComponent implements OnInit, OnDestroy {
+export class TotalJackpotComponent extends AbstractComponent implements OnInit {
     @Input() protected inlineParams: Params.ITotalJackpotCParams;
 
     public $params: Params.ITotalJackpotCParams;
     public amount: number;
     public currency: ITotalJackpotCurrency;
-    private jackpotsSubscriber$: Subscription;
 
     constructor(
         @Inject('injectParams') protected params: Params.ITotalJackpotCParams,
-        protected dataService: DataService,
         protected cdr: ChangeDetectorRef,
         protected translateService: TranslateService,
         protected cachingService: CachingService,
@@ -60,10 +58,6 @@ export class TotalJackpotComponent extends AbstractComponent implements OnInit, 
         super.ngOnInit(this.inlineParams);
         this.getCache();
         this.getLastJackpots();
-    }
-
-    public ngOnDestroy(): void {
-        this.jackpotsSubscriber$?.unsubscribe();
     }
 
     private async getCache(): Promise<void> {
@@ -104,17 +98,19 @@ export class TotalJackpotComponent extends AbstractComponent implements OnInit, 
     }
 
     private getLastJackpots(): void {
-
-        this.jackpotsSubscriber$ = this.dataService.subscribe('games/jackpots', (req: IData): void => {
-            if (req?.data?.length) {
-                this.calcAmount(req.data);
-                this.getCurrency(req.data[0].currency);
-            }
-        });
+        this.gamesCatalogService.subscribeJackpots
+            .pipe(
+                takeUntil(this.$destroy),
+                filter((data) => !!data.length), //TODO Delete after #246227
+            )
+            .subscribe((data: JackpotModel[]) => {
+                this.calcAmount(data);
+                this.getCurrency(data[0].currency);
+            });
     }
 
-    private calcAmount(data: IJackpot[]): void {
-        this.amount = data.reduce((accumulator: number, currentValue: IJackpot) => (
+    private calcAmount(data: JackpotModel[]): void {
+        this.amount = data.reduce((accumulator: number, currentValue: JackpotModel) => (
             accumulator + currentValue.amount
         ), 0);
         this.cdr.markForCheck();
