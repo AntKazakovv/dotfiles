@@ -7,10 +7,12 @@ import {
     Inject,
     Injector,
     Input,
+    Output,
     NgModule,
     NgModuleRef,
     OnDestroy,
     ViewContainerRef,
+    EventEmitter,
 } from '@angular/core';
 import {DOCUMENT} from '@angular/common';
 import {CoreModule} from 'wlc-engine/modules/core/core.module';
@@ -39,6 +41,8 @@ export class DynamicHtmlComponent implements AfterViewInit, OnDestroy {
      * html to compile
      */
     @Input() protected html: string;
+
+    @Output() protected htmlRendered = new EventEmitter<void>();
 
     private componentReference: ComponentRef<any>;
 
@@ -92,6 +96,7 @@ export class DynamicHtmlComponent implements AfterViewInit, OnDestroy {
                 this.viewRef.insert(this.componentReference.hostView);
                 this.componentReference.changeDetectorRef.markForCheck();
             }).then(() => {
+                this.htmlRendered.emit();
                 if (this.canUseScriptTag) {
                     this.createScriptElements();
                 }
