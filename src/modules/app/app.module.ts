@@ -123,12 +123,16 @@ export class AppModule {
     protected parseInitPath(path: string): void {
         if (path.includes('message') || path.includes('error')) {
             this.initialPath = {};
-            const values: string[] = path.split('?')[1].split('&');
-            for (const value of values) {
-                const parts: string[] = value.split('=');
-                this.initialPath[parts[0]] = parts[1];
+            const values: string[] = path.split('?')?.[1]?.split('&') || [];
+
+            if (values.length) {
+                for (const value of values) {
+                    const parts: string[] = value.split('=');
+                    this.initialPath[parts[0]] = parts[1];
+                }
+
+                this.actionService.processMessages(this.initialPath);
             }
-            this.actionService.processMessages(this.initialPath);
         }
     }
 }
