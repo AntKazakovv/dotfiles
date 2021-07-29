@@ -256,6 +256,41 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         }
     }
 
+    /**
+     * On game html rendered
+     *
+     * @returns {Promise<void>}
+     */
+    public async onGameHtmlRendered(): Promise<void> {
+        if(!this.launchInfo.gameScript) {
+            return;
+        }
+
+        try {
+            const result = await this.hooksService.run<IGameWrapperHookEvalScript>(gameWrapperHooks.evalScript, {
+                game: this.game,
+                customGameParams: this.$params?.gameParams,
+                disable: false,
+            });
+            if (!result.disable) {
+                eval(this.launchInfo.gameScript);
+            }
+        } catch (error) {
+            this.logService.sendLog({
+                code: '3.0.8',
+                data: {
+                    error: error,
+                    gameId: this.game.ID,
+                },
+                from: {
+                    component: 'GameWrapperComponent',
+                    method: 'onGameHtmlRendered',
+                },
+            });
+            this.setError();
+        }
+    }
+
     protected getGame(): Game {
         return this.gamesCatalogService.getGame(_toNumber(this.gameParams.merchantId), this.gameParams.launchCode,
             !!this.$params.gameParams?.isSportsbook);
@@ -501,41 +536,6 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
             return true;
         } catch {
             return false;
-        }
-    }
-
-    /**
-     * On game html rendered
-     *
-     * @returns {Promise<void>}
-     */
-    protected async onGameHtmlRendered(): Promise<void> {
-        if(!this.launchInfo.gameScript) {
-            return;
-        }
-
-        try {
-            const result = await this.hooksService.run<IGameWrapperHookEvalScript>(gameWrapperHooks.evalScript, {
-                game: this.game,
-                customGameParams: this.$params?.gameParams,
-                disable: false,
-            });
-            if (!result.disable) {
-                eval(this.launchInfo.gameScript);
-            }
-        } catch (error) {
-            this.logService.sendLog({
-                code: '3.0.8',
-                data: {
-                    error: error,
-                    gameId: this.game.ID,
-                },
-                from: {
-                    component: 'GameWrapperComponent',
-                    method: 'onGameHtmlRendered',
-                },
-            });
-            this.setError();
         }
     }
 
