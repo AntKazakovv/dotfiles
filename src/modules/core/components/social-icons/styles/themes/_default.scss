@@ -82,6 +82,7 @@ $selector: '.wlc-social-icons';
         #{$selector} {
 
             &__list {
+                @include bm.get-mq-map('display', $themeDefault, 'compactListDisplay');
                 @include bm.get-mq-map('grid-gap', $themeDefault, 'compactListGap');
                 @include bm.get-mq-map('margin', $themeDefault, 'compactListMargin');
 

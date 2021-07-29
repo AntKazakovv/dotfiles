@@ -51,6 +51,18 @@ export namespace footer {
             },
             {
                 name: 'core.wlc-wrapper',
+                display: {
+                    before: 899,
+                },
+                params: {
+                    class: 'footer-language-selector',
+                    components: [
+                        componentLib.wlcLanguageSelector.footerThemeFirst,
+                    ],
+                },
+            },
+            {
+                name: 'core.wlc-wrapper',
                 params: {
                     class: 'footer-bottom',
                     id: 1,

@@ -23,26 +23,26 @@ $customThemeDefault: () !default;
 $themeDefault: map-merge((
     'iconsListDisplay': (
         375: flex,
-        1024: grid,
+        900: grid,
     ),
     'iconsListTemplateColumns': (
-        1024: repeat(3, 1fr)
+        900: repeat(3, 1fr)
     ),
     'iconsListGap': (
-        1024: ef.get('size', 'smaller')
+        900: ef.get('size', 'smaller')
     ),
     'iconsListJustifyContent': (
         375: center,
-        1024: null,
+        900: null,
     ),
     'iconsListMargin': (
         375: 0 -#{ef.get('size', 'small')},
-        1024: 0 0 ef.get('size', 'smaller'),
+        900: 0 0 ef.get('size', 'smaller'),
     ),
 
     'iconsListItemMargin': (
         375: 0 ef.get('size', 'small') ef.get('size', 'smaller'),
-        1024: 0,
+        900: 0,
     ),
 
     'iconsListLinkSize': ef.get('size', 'main'),
@@ -54,14 +54,18 @@ $themeDefault: map-merge((
     'iconsListLinkSvgColor': ef.get('mainColors', 'bg'),
 
     // theme mod compact
+    'compactListDisplay': (
+        375: flex,
+        1024: grid,
+    ),
     'compactListMargin': (
         375: ef.size(4) 0 0,
-        1024: 0,
+        900: 0,
         1200: ef.size(-4) 0 0,
     ),
     'compactListGap': (
         375: 0,
-        1024: ef.size(2),
+        900: ef.size(2),
     ),
     'compactIconSize': (
         375: ef.size(8),

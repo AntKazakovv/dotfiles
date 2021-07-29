@@ -25,7 +25,7 @@ export namespace wlcLanguageSelector {
             toggleOnScroll: 'bottom-left',
         },
         display: {
-            after: 1024,
+            after: 900,
         },
     };
     export const bottomLeft: ILayoutComponent = {
