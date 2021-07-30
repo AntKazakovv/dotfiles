@@ -219,6 +219,8 @@
         &__content {
             @include contentCommonStyles;
 
+            background: ef.get-value($themeDefault, 'contentBgPos');
+
             &.disabled {
                 cursor: not-allowed;
                 opacity: 0.5;

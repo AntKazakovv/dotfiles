@@ -18,6 +18,16 @@
 
             ::ng-deep {
 
+                .wlc-icon {
+                    @include bm.transition();
+                    transform: rotate(-90deg);
+                    color: ef.get-value($themeDropdownDefault, 'linkFill');
+
+                    svg {
+                        fill: currentColor;
+                    }
+                }
+
                 .wlc-menu__item {
                     overflow: hidden;
 
@@ -31,10 +41,7 @@
                             .wlc-icon {
                                 @include bm.transition();
                                 transform: rotate(180deg);
-
-                                svg {
-                                    fill: ef.get-value($themeDropdownDefault, 'activeTabLinkColor');
-                                }
+                                color: ef.get-value($themeDropdownDefault, 'activeTabLinkColor');
                             }
                         }
                     }
@@ -68,25 +75,14 @@
                         color: ef.get-value($themeDropdownDefault, 'activeLinkColor');
                     }
 
-                    .wlc-icon {
-                        @include bm.transition();
-                        transform: rotate(-90deg);
-
-                        svg {
-                            fill: ef.get-value($themeDropdownDefault, 'linkFill');
-                        }
-                    }
-
                     @include bm.hover {
                         @include bm.transition(background);
-                        color: ef.get-value($themeDropdownDefault, 'activeLinkColor');
-                        background: ef.get-value($themeDropdownDefault, 'activeLinkBg');
+
+                        color: ef.get-value($themeDropdownDefault, 'hoverLinkColor');
+                        background: ef.get-value($themeDropdownDefault, 'hoverLinkBg');
 
                         .wlc-icon {
-
-                            svg {
-                                fill: ef.get-value($themeDropdownDefault, 'activeTabLinkColor');
-                            }
+                            color: inherit;
                         }
                     }
                 }

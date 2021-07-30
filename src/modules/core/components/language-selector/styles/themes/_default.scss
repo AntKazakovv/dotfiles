@@ -193,49 +193,41 @@
                     }
                 }
 
-                @include bm.hover {
+                &-arrow::ng-deep {
+                    color: ef.get-value($themeDefault, 'currentFillModLong');
 
-                    @include mq.min(1024) {
-                        background: ef.get-value($themeDefaultModLog, 'currentBgModLongHover');
-
-                        &.single-lang {
-                            background: ef.get-value($themeDefaultModLog, 'currentBgModLong');
-                        }
-                    }
-
-                    .wlc-language-selector__current-arrow::ng-deep {
-
-                        svg {
-
-                            path {
-                                fill: ef.get-value($themeDefaultModLog, 'currentFillModLongActive');
-                            }
-                        }
+                    svg path {
+                        fill: currentColor;
                     }
                 }
 
                 &--opened {
                     background: ef.get-value($themeDefaultModLog, 'currentBgModLongActive');
 
-                    @include bm.hover {
-
-                        @include mq.min(1024) {
-                            background: ef.get-value($themeDefaultModLog, 'currentBgModLongActive');
-                        }
-                    }
-
                     .wlc-language-selector__current-arrow::ng-deep {
-
-                        svg {
-
-                            path {
-                                fill: ef.get-value($themeDefaultModLog, 'currentFillModLongActive');
-                            }
-                        }
+                        color: ef.get-value($themeDefaultModLog, 'currentFillModLongActive');
                     }
 
                     .wlc-language-selector__current-lang {
                         @include text.get-text-style(ef.get-value($themeDefaultModLog, 'langFontStyleActive'), ef.get-value($themeDefaultModLog, 'currentColorModLangOpened'));
+                    }
+                }
+
+                &:not(.wlc-language-selector__current--opened) {
+
+                    @include bm.hover() {
+
+                        .wlc-language-selector__current-arrow::ng-deep {
+                            color: ef.get-value($themeDefaultModLog, 'currentFillModLongHover');
+                        }
+
+                        @include mq.min(1024) {
+                            background: ef.get-value($themeDefaultModLog, 'currentBgModLongHover');
+
+                            &.single-lang {
+                                background: ef.get-value($themeDefaultModLog, 'currentBgModLong');
+                            }
+                        }
                     }
                 }
             }

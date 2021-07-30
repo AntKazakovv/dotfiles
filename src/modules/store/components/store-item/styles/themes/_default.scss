@@ -195,14 +195,14 @@
         }
 
         &__tag {
-
-            @include em.get-mq-map('padding', $themeDefault, 'tagPadding');
-
             @include text.get-text-style('SignText', ef.get-value($themeDefault, 'tagFontColor'));
+
             position: absolute;
             top: ef.get-value($themeDefault, 'tagPositionTop');
             left: 50%;
             z-index: 2;
+
+            padding: ef.get-value($themeDefault, 'tagPadding');
 
             background-color: ef.get-value($themeDefault, 'tagBg');
 
@@ -263,6 +263,7 @@
             right: ef.get-value($themeDefault, 'moreIconPosRight');
             bottom: ef.get-value($themeDefault, 'moreIconPosBottom');
             left: ef.get-value($themeDefault, 'moreIconPosLeft');
+            line-height: 1;
 
             .icon-btn {
                 width: ef.get-value($themeDefault, 'moreIconSize');
