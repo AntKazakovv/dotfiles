@@ -151,7 +151,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
 
             _each(allComponents, (component, key) => {
                 const index = _findIndex(oldList, (item: ILayoutComponent) => {
-                    return component.name === item.name && _isEqual(component.params, item.params);
+                    return component.name === item.name && !component.reloadOnStateChange && _isEqual(component.params, item.params);
                 });
                 if (index !== -1) {
                     allComponents[key] = oldList[index];

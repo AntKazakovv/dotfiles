@@ -76,6 +76,7 @@ export interface ILayoutComponent {
     display?: IDisplayConfig;
     exclude?: string[];
     include?: string[];
+    reloadOnStateChange?: boolean;
 }
 
 export interface IDisplayConfig {
