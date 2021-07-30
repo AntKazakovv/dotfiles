@@ -415,7 +415,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
             return;
         }
 
-        if (this.iframe?.getAttribute('height') !== '100%') {
+        if (this.iframe && this.iframe.getAttribute('height') !== '100%') {
             this.renderer.setStyle(gameWrapper, 'height', this.iframe.getAttribute('height'));
             return;
         }
@@ -448,7 +448,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
             this.renderer.setStyle(this.footer.nativeElement, 'maxWidth', '100%');
         }
 
-        if (this.isIframeHeight) {
+        if (this.iframe && this.isIframeHeight) {
             this.renderer.setStyle(gameWrapper, 'height', _toNumber(this.iframe.getAttribute('height')));
         }
     }
