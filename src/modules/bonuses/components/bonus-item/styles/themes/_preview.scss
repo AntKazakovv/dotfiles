@@ -6,6 +6,7 @@
 .wlc-bonus-item--theme-preview {
     height: ef.get-value($themePreview, 'hostHeight');
     border-radius: ef.get-value($themePreview, 'hostRadius');
+    background: ef.get-value($themePreview, 'bonusBackground');
 
     .wlc-bonus-item {
 
@@ -20,7 +21,7 @@
             height: ef.get-value($themePreview, 'contentHeigh');
             padding: ef.get-value($themePreview, 'bonusPadding');
             text-align: ef.get-value($themePreview, 'hostTextAlign');
-            background: ef.get-value($themePreview, 'bonusBackground');
+            background: ef.get-value($themePreview, 'contentBg');
 
             &:before {
                 @include em.absoluteCentering();

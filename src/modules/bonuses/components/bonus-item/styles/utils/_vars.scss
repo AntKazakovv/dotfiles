@@ -22,6 +22,7 @@ $themeDefault: map-merge((
     ),
     'wrapperWidth': 100%,
     'wrapperHeight': 100%,
+    'contentBgPos': center/cover,
 
     // Bonus icon
     'bonusIconValueFontColor': ef.get('fieldColors', 'textColor'),

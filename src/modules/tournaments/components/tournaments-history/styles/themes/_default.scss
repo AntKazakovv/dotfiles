@@ -38,15 +38,11 @@
                     .wlc-table__cell {
 
                         @include mq.min(1024) {
-                            @include bm.transition(all, 0s);
+                            transition: none;
                         }
                     }
 
                     @include bm.hover {
-
-                        .wlc-table__cell {
-                            background: ef.get-value($themeDefault, 'rowHoverBgColor');
-                        }
 
                         .action-btn {
                             display: block;

@@ -64,7 +64,7 @@ $themeDefault: map-merge((
     'bonusIconValueBlockMagin': 0 0 0 -30px,
     'moreIconSize': 24px,
     'topImgMargin': 65px,
-    'bottomImgMargin': ef.get('size', 'smaller'),
+    'bottomImgMargin': ef.size(4),
     // // Font
     'bonusIconValueFontSize': (
         320: 1.6rem,
@@ -96,22 +96,19 @@ $themeDefault: map-merge((
         320: 55px auto 0 auto,
         1630: 65px auto 0 auto,
     ),
-    'tagPadding': (
-        320: 2px 10px 1px,
-        1630: 4px 10px 3px,
-    ),
-    'infoPadding': 0 ef.get('size', 'small'),
-    'btnMargin': 0 ef.get('size', 'smallest'),
+    'tagPadding': 4px 10px 3px,
+    'infoPadding': 0 ef.size(2),
+    'btnMargin': 0 ef.size(1),
     'imagePadding': (
         320: 40px 0 0 0,
-        1630: 65px 0 ef.get('size', 'smaller') 0,
+        1630: 65px 0 ef.size(4) 0,
     ),
-    'priceSpanMargin': 0 ef.get('size', 'smallest'),
+    'priceSpanMargin': 0 ef.size(1),
     //Position
-    'tagPositionTop': ef.get('size', 'smaller'),
+    'tagPositionTop': ef.size(4),
     'moreIconPosLeft': auto,
-    'moreIconPosRight': ef.get('size', 'small'),
-    'moreIconPosTop': ef.get('size', 'small'),
+    'moreIconPosRight': ef.size(4),
+    'moreIconPosTop': ef.size(4),
     'moreIconPosBottom': auto,
     'imageAlign': center,
     // Animation

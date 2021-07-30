@@ -7,20 +7,24 @@
     position: absolute;
     top: ef.get-value($themeDefaultNavigation, 'swiperNaviTop');
     z-index: ef.get-value($themeDefaultNavigation, 'swiperNaviZindex');
+
     display: flex;
     align-items: center;
     justify-content: center;
     width: ef.get-value($themeDefaultNavigation, 'swiperNaviButtonSize');
     height: ef.get-value($themeDefaultNavigation, 'swiperNaviButtonSize');
     margin-top: calc(-1 * #{ef.get-value($themeDefaultNavigation, 'swiperNaviButtonSize')} / 2);
+
     color: ef.get-value($themeDefaultNavigation, 'swiperNaviArrowColor');
     background: ef.get-value($themeDefaultNavigation, 'swiperNaviButtonBg');
+    border: ef.get-value($themeDefaultBanner, 'buttonBorder');
+    border-radius: ef.get-value($themeDefaultNavigation, 'swiperNaviButtonBorderRadius');
+    box-shadow: ef.get-value($themeDefaultBanner, 'buttonShadow');
     cursor: pointer;
     transition: ef.get-value($themeDefaultNavigation, 'swiperNaviButtonTransition');
-    border-radius: ef.get-value($themeDefaultNavigation, 'swiperNaviButtonBorderRadius');
 
     svg {
-        fill: ef.get-value($themeDefaultNavigation, 'swiperNaviArrowColor');
+        fill: currentColor;
     }
 
     &.swiper-button-disabled {
@@ -42,10 +46,8 @@
         &:not(.swiper-button-disabled) {
             color: ef.get-value($themeDefaultNavigation, 'swiperNaviArrowColorHover');
             background: ef.get-value($themeDefaultNavigation, 'swiperNaviButtonBgHover');
-
-            svg {
-                fill: ef.get-value($themeDefaultNavigation, 'swiperNaviArrowColorHover');
-            }
+            border: ef.get-value($themeDefaultBanner, 'buttonBorderHover');
+            box-shadow: ef.get-value($themeDefaultBanner, 'buttonShadowHover');
         }
     }
 }
@@ -53,7 +55,6 @@
 .swiper-button-prev,
 .swiper-container-rtl .swiper-button-next {
     right: auto;
-
     left: ef.get-value($themeDefaultNavigation, 'swiperNaviAside');
 
     &:after {
@@ -67,7 +68,6 @@
 
 .swiper-button-next,
 .swiper-container-rtl .swiper-button-prev {
-
     right: ef.get-value($themeDefaultNavigation, 'swiperNaviAside');
     left: auto;
 
@@ -86,20 +86,23 @@
 
 .wlc-swiper-button-prev,
 .wlc-swiper-button-next {
-    @include em.transition(background);
+    @include em.transition(all);
+
     display: flex;
     align-items: center;
     justify-content: center;
     width: ef.get-value($themeDefaultBanner, 'buttonSize');
     height: ef.get-value($themeDefaultBanner, 'buttonSize');
+
+    color: ef.get-value($themeDefaultBanner, 'iconFill');
     background: ef.get-value($themeDefaultBanner, 'buttonBg');
     outline: none;
     border-radius: ef.get-value($themeDefaultBanner, 'buttonBorderRadius');
-    border: none;
+    border: ef.get-value($themeDefaultBanner, 'buttonBorder');
+    box-shadow: ef.get-value($themeDefaultBanner, 'buttonShadow');
 
     svg {
-        @include em.transition(fill);
-        fill: ef.get-value($themeDefaultBanner, 'iconFill');
+        fill: currentColor;
     }
 
     &.swiper-button-disabled {
@@ -110,11 +113,10 @@
     @include em.hover {
 
         &:not(.swiper-button-disabled) {
+            color: ef.get-value($themeDefaultBanner, 'iconFillHover');
             background: ef.get-value($themeDefaultBanner, 'buttonBgHover');
-
-            svg {
-                fill: ef.get-value($themeDefaultBanner, 'iconFillHover');
-            }
+            border: ef.get-value($themeDefaultBanner, 'buttonBorderHover');
+            box-shadow: ef.get-value($themeDefaultBanner, 'buttonShadowHover');
         }
     }
 }

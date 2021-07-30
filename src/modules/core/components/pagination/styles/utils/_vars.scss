@@ -16,8 +16,11 @@ $themeDefault: map-merge((
     'pageItemWidth': ef.get('size', 'main'),
     'pageItemRadius': ef.get('radius', 'biger'),
     'pageItemInnerFill': ef.get('mainColors', 'baseMain'),
-    'pageItemDisabled': ef.get('mainColors', 'baseOpacity'),
+    'pageItemInnerFillHover': null,
     'pageItemInnerFillDisabled': ef.get('mainColors', 'baseMain'),
+    'pageItemDisabled': ef.get('mainColors', 'baseOpacity'),
     'pageItemColor': ef.get('fieldColors', 'labelColor'),
     'pageItemActiveColor': ef.get('mainColors', 'baseMain'),
+    'pageItemShadow': none,
+    'pageItemShadowHover': none,
 ), $customThemeDefault);

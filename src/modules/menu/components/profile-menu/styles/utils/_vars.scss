@@ -31,6 +31,8 @@ $themeDropdownDefault: map-merge((
     'activeTabLinkBg': ef.get('mainColors', 'main'),
     'linkPadding': 8px 12px,
     'linkColor': ef.get('mainColors', 'baseMain'),
+    'hoverLinkColor': null,
+    'hoverLinkBg': ef.get('mainColors', 'bg500'),
     'linkBg': (
         375: ef.get('mainColors', 'bg700'),
         1200: ef.get('mainColors', 'bg'),

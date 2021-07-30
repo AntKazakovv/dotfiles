@@ -370,6 +370,10 @@
                         background-color: ef.get-value($themeDefaultModHistory, 'rowPrimaryBg');
                     }
                 }
+
+                &.user {
+                    background-color: ef.get-value($themeDefault, 'rowUserBg');
+                }
             }
         }
     }

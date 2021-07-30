@@ -26,13 +26,14 @@ $themeDefault: map-merge((
     'prizeNumColor': ef.get('mainColors', 'baseMain'),
 
     'delimiterColor': ef.get('mainColors', 'baseOpacity'),
+    'delimiterAlignSelf': stretch,
     'delimiterWidth': (
         320: 100%,
         480: 2px,
     ),
     'delimiterHeight': (
         320: 2px,
-        480: 100%,
+        480: initial,
     ),
     'delimiterMargin': (
         320: ef.get('size', 'small') 0,

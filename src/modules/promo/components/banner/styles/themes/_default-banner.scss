@@ -252,7 +252,7 @@
                     width: 100%;
                     height: 100%;
                     object-fit: cover;
-                    object-position: right;
+                    object-position: ef.get-value($themeDefaultBanner, 'bgObjectPos');
 
                     @include mq.min(1630) {
                         object-position: bottom;

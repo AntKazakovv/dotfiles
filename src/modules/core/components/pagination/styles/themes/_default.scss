@@ -29,56 +29,55 @@
 
                 &-prev,
                 &-next {
+                    @include bm.transition(all);
 
-                    .wlc-icon {
+                    color: ef.get-value($themeDefault, 'pageItemInnerFill');
+                    background: ef.get-value($themeDefault, 'activePaginationArrowColor');
+                    border-radius: ef.get-value($themeDefault, 'pageItemRadius');
+                    box-shadow: ef.get-value($themeDefault, 'pageItemShadow');
+
+                    .wlc-btn,
+                    .page-link {
+                        color: inherit;
+                    }
+
+                    .wlc-btn {
                         display: flex;
                         align-items: center;
                         justify-content: center;
                         width: ef.get-value($themeDefault, 'pageItemWidth');
                         height: ef.get-value($themeDefault, 'pageItemHeight');
-                        background: ef.get-value($themeDefault, 'activePaginationArrowColor');
-                        border-radius: ef.get-value($themeDefault, 'pageItemRadius');
+                        line-height: 0;
+                    }
 
-                        &-content {
-                            display: flex;
-                            align-items: center;
-                        }
-
-                        svg {
-                            transform: rotate(-90deg);
-                            fill: ef.get-value($themeDefault, 'pageItemInnerFill');
-                        }
-
-                        @include bm.hover {
-                            @include bm.transition(background);
-                            background: ef.get-value($themeDefault, 'activePaginationArrowColorHover');
-                        }
+                    svg {
+                        transform: rotate(-90deg);
+                        fill: currentColor;
                     }
 
                     &.disabled {
+                        color: ef.get-value($themeDefault, 'pageItemInnerFillDisabled');
+                        background: ef.get-value($themeDefault, 'pageItemDisabled');
 
-                        .wlc-icon {
-                            background: ef.get-value($themeDefault, 'pageItemDisabled');
+                        .wlc-btn {
                             cursor: auto;
+                        }
+                    }
 
-                            svg {
-                                fill: ef.get-value($themeDefault, 'pageItemInnerFillDisabled');
-                            }
+                    &:not(.disabled) {
 
-                            @include bm.hover {
-                                background: ef.get-value($themeDefault, 'pageItemDisabled');
-                            }
+                        @include bm.hover {
+                            color: ef.get-value($themeDefault, 'pageItemInnerFillHover');
+                            background: ef.get-value($themeDefault, 'activePaginationArrowColorHover');
+                            box-shadow: ef.get-value($themeDefault, 'pageItemShadowHover');
                         }
                     }
                 }
 
                 &-prev {
 
-                    .wlc-icon {
-
-                        svg {
-                            transform: rotate(90deg);
-                        }
+                    svg {
+                        transform: rotate(90deg);
                     }
                 }
 
