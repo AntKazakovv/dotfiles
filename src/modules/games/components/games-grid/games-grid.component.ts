@@ -222,6 +222,8 @@ export class GamesGridComponent extends AbstractComponent implements OnInit {
 
         if (this.$params.byState) {
             const successTransitionListener = this.router.transitionService.onSuccess({}, () => {
+                this.$params.wlcElement = `wlc-games-grid-${this.getWlcSuffix()}`;
+                this.setWlcElementOnHost();
                 this.prepareGrid();
             });
 
@@ -472,6 +474,11 @@ export class GamesGridComponent extends AbstractComponent implements OnInit {
                 res.push(item + '-' + this.$params.filter[item]);
                 return res;
             }, []).join('-');
+
+        } else if (this.$params.byState) {
+            const suffixByState: string = this.gamesCatalogService.getChildCategoryByState()?.slug
+                || this.gamesCatalogService.getParentCategoryByState()?.slug;
+            return suffixByState === 'casino' ? 'all-games' : suffixByState;
 
         } else {
             return 'all-games';
