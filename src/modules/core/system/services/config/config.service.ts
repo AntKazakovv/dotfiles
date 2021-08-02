@@ -31,6 +31,7 @@ import {
 } from './config.interface';
 import {DeviceModel, IDeviceConfig} from 'wlc-engine/modules/core/system/models/device.model';
 import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
+import {UserInfo} from 'wlc-engine/modules/user/system/models/info.model';
 
 export * from './app-config.model';
 export * from './config.interface';
@@ -45,7 +46,6 @@ import _get from 'lodash-es/get';
 import _set from 'lodash-es/set';
 import _isObject from 'lodash-es/isObject';
 import _cloneDeep from 'lodash-es/cloneDeep';
-
 
 /**
  * Examples of getter and setter:
@@ -150,6 +150,7 @@ export class ConfigService {
 
     private setGlobals(): void {
         this.set<BehaviorSubject<UserProfile>>({name: '$user.userProfile$', value: new BehaviorSubject(null)});
+        this.set<BehaviorSubject<UserInfo>>({name: '$user.userInfo$', value: new BehaviorSubject(null)});
     }
 
     private prepareData(response: unknown): AppConfigModel {

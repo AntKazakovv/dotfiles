@@ -14,7 +14,9 @@ import {
     ConfigService,
     EventService,
 } from 'wlc-engine/modules/core';
-import {HistoryFilterService} from 'wlc-engine/modules/finances/system/services';
+import {
+    HistoryFilterService,
+} from 'wlc-engine/modules/finances/system/services/history-filter/history-filter.service';
 
 import * as Params from './history-range.params';
 

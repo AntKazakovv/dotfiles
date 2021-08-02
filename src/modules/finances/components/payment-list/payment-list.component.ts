@@ -27,7 +27,7 @@ import {
     HeightToggleAnimation,
     ConfigService,
 } from 'wlc-engine/modules/core';
-import {FinancesService} from 'wlc-engine/modules/finances/system/services';
+import {FinancesService} from 'wlc-engine/modules/finances/system/services/finances/finances.service';
 import {PaymentSystem} from 'wlc-engine/modules/finances/system/models/payment-system.model';
 import {IconListAbstract, IMerchantsPaymentsIterator} from 'wlc-engine/modules/core/system/classes/icon-list-abstract.class';
 import {IconModel, IIconParams} from 'wlc-engine/modules/core/system/models/icon-list-item.model';
