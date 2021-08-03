@@ -43,4 +43,7 @@ declare interface Window {
     affCookie: any;
     _PaymentIQCashier?: IPaymentIQCashier;
     _PaymentIQCashierReset?: any;
+    zESettings?: any;
+    zE?: any;
+    zEACLoaded?: boolean;
 }
