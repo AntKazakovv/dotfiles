@@ -1,14 +1,16 @@
+import {EventService} from 'wlc-engine/modules/core/system/services/event/event.service';
 import {TranslateService} from '@ngx-translate/core';
 import {Injectable, Injector} from '@angular/core';
 import {
     LocalStorageService,
     SessionStorageService,
 } from 'ngx-webstorage';
-import {
-    BehaviorSubject,
-} from 'rxjs';
+import {BehaviorSubject} from 'rxjs';
 
-import {DataService, IData} from '../data/data.service';
+import {
+    DataService,
+    IData,
+} from '../data/data.service';
 import {AppConfigModel} from './app-config.model';
 import * as appConfig from 'wlc-config/index';
 import * as wlcConfig from 'wlc-engine/modules/core/system/config/default.config';
@@ -20,16 +22,21 @@ import {
     $layouts,
 } from 'wlc-engine/modules/core/system/config/layouts';
 import {LogService} from 'wlc-engine/modules/core/system/services/log/log.service';
-
-import {ILayoutsConfig} from 'wlc-engine/modules/core/system/interfaces/layouts.interface';
-import {IParamsLayoutConfig} from 'wlc-engine/modules/core/system/interfaces/layouts.interface';
+import {
+    IParamsLayoutConfig,
+    ILayoutsConfig,
+    IBootstrap,
+} from 'wlc-engine/modules/core/system/interfaces';
 import {GlobalHelper} from 'wlc-engine/modules/core/system/helpers/global.helper';
 import {
     IGlobalConfig,
     IGetParams,
     ISetParams,
 } from './config.interface';
-import {DeviceModel, IDeviceConfig} from 'wlc-engine/modules/core/system/models/device.model';
+import {
+    DeviceModel,
+    IDeviceConfig,
+} from 'wlc-engine/modules/core/system/models/device.model';
 import {UserProfile} from 'wlc-engine/modules/user/system/models/profile.model';
 
 export * from './app-config.model';
@@ -61,13 +68,14 @@ export class ConfigService {
         this.$resolve = resolve;
     });
 
-    private appConfig: AppConfigModel;
     private $resolve: () => void;
     private global: Partial<IGlobalConfig> = {};
 
     constructor(
         private injector: Injector,
         private translateService: TranslateService,
+        // Be patient, take a breath, take a look at code again, do everything you can
+        // to not delete next two lines. You will be thanked.
         private localStorageService: LocalStorageService,
         private sessionStorageService: SessionStorageService,
     ) {
@@ -90,20 +98,23 @@ export class ConfigService {
             type: 'GET',
             preload: 'bootstrap',
             noUseLang: true,
-            mapFunc: (res) => this.prepareData(res),
             events: {
-                success: 'LOAD_BOOTSTRAP_SUCCESS',
                 fail: 'LOAD_BOOTSTRAP_FAIL',
             },
-        }).catch(() => {
-            this.injector.get<LogService>(LogService).sendLog({
-                code: '0.0.6',
-                from: {
-                    service: 'ConfigService',
-                    method: 'load',
-                },
+        })
+            .then((data: IData) => {
+                this.prepareData(data.data);
+                this.injector.get(EventService).emit({name: 'LOAD_BOOTSTRAP_SUCCESS'});
+            })
+            .catch(() => {
+                this.injector.get<LogService>(LogService).sendLog({
+                    code: '0.0.6',
+                    from: {
+                        service: 'ConfigService',
+                        method: 'load',
+                    },
+                });
             });
-        });
     }
 
     /**
@@ -152,9 +163,11 @@ export class ConfigService {
         this.set<BehaviorSubject<UserProfile>>({name: '$user.userProfile$', value: new BehaviorSubject(null)});
     }
 
-    private prepareData(response: unknown): AppConfigModel {
-        this.global.appConfig = new AppConfigModel(response);
-        this.set<boolean>({name: '$user.isAuthenticated', value: this.global.appConfig.loggedIn === '1'});
+    private prepareData(data: IBootstrap): void {
+        this.global.appConfig = new AppConfigModel({service: 'ConfigService'});
+        this.global.appConfig.data = data;
+
+        this.set<boolean>({name: '$user.isAuthenticated', value: this.global.appConfig.loggedIn});
         this.addSiteConfig();
 
         this.set<any>({
@@ -168,7 +181,6 @@ export class ConfigService {
         });
 
         this.$resolve();
-        return this.appConfig;
     }
 
     private addSiteConfig(): void {

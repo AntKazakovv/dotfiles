@@ -2,7 +2,6 @@ export {DataService, IData} from './data/data.service';
 export {EventService, IEvent} from './event/event.service';
 export {
     ConfigService,
-    ILanguage,
     AppConfigModel,
 } from './config/config.service';
 export {LayoutService, LayoutsType} from './layout/layout.service';
