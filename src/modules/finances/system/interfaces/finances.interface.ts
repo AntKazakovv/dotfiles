@@ -1,6 +1,7 @@
 
 export interface IFinancesConfig {
     fastDeposit: IFastDeposit;
+    payment?: IAutoSelect;
 }
 
 export interface IFastDeposit {
@@ -24,4 +25,9 @@ export interface IBet {
     GameID: string;
     GameName: string;
     Merchant: string;
+}
+
+export interface IAutoSelect {
+    autoSelect: boolean;
+    alias?: string;
 }
