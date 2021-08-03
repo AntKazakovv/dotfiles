@@ -156,7 +156,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
             this.addModifiers('real-mobile');
         }
         this.isAuth = this.configService.get<boolean>('$user.isAuthenticated');
-        this.locale = this.$params.gameParams?.lang || this.router.stateService.params?.locale || 'en';
+        this.locale = this.router.stateService.params?.locale || 'en';
         this.gameParams = this.getGameParams();
         this.initEventHandlers();
 
@@ -244,7 +244,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
         }
     }
 
-    public onClose(event: Event): void {
+    public closeGame(): void {
         // TODO: this.LocalCacheService.remove('lastGameParams');
         this.returnToPrevState();
     }
@@ -521,6 +521,7 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
             lang: this.locale,
             demo: this.$params.gameParams?.demo || this.router.stateService.params?.demo === 'true',
             gameId: this.$params.gameParams?.gameId || this.router.stateService.params?.gameId || '',
+            returnUrl: `${location.origin}/${this.locale}`,
         };
     }
 
@@ -782,5 +783,11 @@ export class GameWrapperComponent extends AbstractComponent implements OnInit, O
             this.isAuth = true;
             this.cdr.markForCheck();
         }, this.$destroy);
+
+        fromEvent(window, 'closeGame')
+            .pipe(takeUntil(this.$destroy))
+            .subscribe(() => {
+                this.closeGame();
+            });
     }
 }
