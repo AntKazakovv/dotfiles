@@ -10,21 +10,6 @@
 
     .wlc-bonuses-list {
 
-        &__tag {
-            @include lib.get-text-style('ThirdTitleBold', ef.get-value($themePromoHome, 'tagColor'));
-            @include bm.get-mq-map('padding', $themePromoHome, 'tagPadding');
-
-            position: absolute;
-            top: ef.get-value($themePromoHome, 'tagTopPosition');
-            left: ef.get-value($themePromoHome, 'tagLeftPosition');
-            z-index: 10;
-
-            min-width: ef.get-value($themePromoHome, 'tagMinWidth');
-            text-align: ef.get-value($themePromoHome, 'tagTextAlign');
-            background: ef.get-value($themePromoHome, 'tagBg');
-            border-radius: ef.get-value($themePromoHome, 'tagBorderRadius');
-        }
-
         &__slider {
             z-index: 1;
             height: 100%;
