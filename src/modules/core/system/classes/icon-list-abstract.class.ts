@@ -5,6 +5,7 @@ import {
     ConfigService,
     GlobalHelper,
     IMixedParams,
+    IFromLog,
 } from 'wlc-engine/modules/core';
 import {
     IconModel,
@@ -47,9 +48,10 @@ export abstract class IconListAbstract<T> extends AbstractComponent {
      * @param items - collection of items
      * @param iterator - handler which returns IIconParams
      */
-    protected setItemsList<I>(items: I[], iterator: (item: I) => IIconParams): void {
+    protected setItemsList<I>(items: I[], iterator: (item: I) => {from: IFromLog, icon: IIconParams}): void {
         this.items = _map<I, IconModel>(items, (item: I): IconModel => {
-            return new IconModel(iterator(item));
+            const {from, icon} = iterator(item);
+            return new IconModel(from, icon);
         });
     }
 

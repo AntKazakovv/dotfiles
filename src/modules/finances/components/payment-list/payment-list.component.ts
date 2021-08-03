@@ -172,13 +172,24 @@ export class PaymentListComponent extends IconListAbstract<Params.IPaymentListCP
         const {iconsType, colorIconBg} = this.$params;
         const showAs = iconsType === 'black' ? 'svg' : 'img';
 
-        this.setItemsList<PaymentSystem>(this.systems, (item) => this.merchantsPaymentsIterator('payments', {
-            showAs: showAs,
-            wlcElement: 'block_payment-' + this.wlcElementTail(item.name),
-            nameForPath: item.name,
-            colorIconBg: colorIconBg,
-            imgPath: this.$params.paymentType === 'deposit' ? item.image : (item.imageWithdraw || item.image),
-        }));
+        this.setItemsList<PaymentSystem>(
+            this.systems,
+            (item) => {
+                return {
+                    from: {
+                        component: 'PaymentListComponent',
+                        method: 'setPaymentsIconsList',
+                    },
+                    icon: this.merchantsPaymentsIterator('payments', {
+                        showAs: showAs,
+                        wlcElement: 'block_payment-' + this.wlcElementTail(item.name),
+                        nameForPath: item.name,
+                        colorIconBg: colorIconBg,
+                        imgPath: this.$params.paymentType === 'deposit' ? item.image : (item.imageWithdraw || item.image),
+                    }),
+                };
+            },
+        );
     }
 
     protected merchantsPaymentsIterator(pathDirectory: string, params: IPaymentsIterator): IIconParams {

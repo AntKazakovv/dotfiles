@@ -1,4 +1,8 @@
 import {CurrenciesInfo} from 'wlc-engine/modules/core/constants/currencies-info.constants';
+import {
+    AbstractModel,
+    IFromLog,
+} from 'wlc-engine/modules/core';
 
 import _findIndex from 'lodash-es/findIndex';
 import _toInteger from 'lodash-es/toInteger';
@@ -11,6 +15,7 @@ import _map from 'lodash-es/map';
 import _concat from 'lodash-es/concat';
 import _find from 'lodash-es/find';
 import _toNumber from 'lodash-es/toNumber';
+import _assign from 'lodash-es/assign';
 
 interface IParsedDigitsInfo {
     minimumIntegerDigits: number;
@@ -34,25 +39,28 @@ export interface ICurrencyOptions {
     svgPosition?: 'left' | 'right';
 }
 
-export class CurrencyModel {
+export class CurrencyModel extends AbstractModel<ICurrencyOptions>{
     public readonly numericValue = _toNumber(this.value) || 0;
     public currencyParts: Intl.NumberFormatPart[];
     public icon: ICurrencyIcon;
     public isCryptocurrency: boolean;
-    protected formatOptions: ICurrencyOptions;
 
     constructor(
+        from: IFromLog,
         public readonly value: string | number,
-        options: ICurrencyOptions = null,
+        data: ICurrencyOptions,
     ) {
-        this.formatOptions = {
+        super({from: _assign({model: 'CurrencyModel'}, from)});
+
+        this.data = {
             currency: 'EUR',
             digitsInfo: '1-2-2',
             language: 'en',
-            ...options,
+            ...data,
         };
+
         this.isCryptocurrency = CurrenciesInfo.cryptocurrencies.has(
-            _toUpper(this.formatOptions.currency).trim(),
+            _toUpper(this.currency).trim(),
         );
 
         this.formatValue();
@@ -65,6 +73,34 @@ export class CurrencyModel {
         }
     }
 
+    /**
+     * @returns {string} return currency model
+     */
+    public get currency(): string {
+        return this.data.currency;
+    }
+
+    /**
+     * @returns {string} return digitsInfo
+     */
+    public get digitsInfo(): string {
+        return this.data.digitsInfo;
+    }
+
+    /**
+     * @returns {string} return used language
+     */
+    public get language(): string {
+        return this.data.language;
+    }
+
+    /**
+     * @returns {string} return used svgPosition
+     */
+    public get svgPosition(): 'left' | 'right' {
+        return this.data.svgPosition;
+    }
+
     public toString(): string {
         return _join(_map(this.currencyParts, (part) => part.value), '');
     }
@@ -73,16 +109,16 @@ export class CurrencyModel {
      * @returns {Object} format options for current currency or empty object
      */
     protected get currencyFormat(): CurrenciesInfo.ICurrencyFormat {
-        return CurrenciesInfo.formats[_toUpper(this.formatOptions.currency).trim()]
+        return CurrenciesInfo.formats[_toUpper(this.currency).trim()]
             || {};
     }
 
     protected formatValue(): void {
-        const parts = Intl.NumberFormat(this.formatOptions.language, {
+        const parts = Intl.NumberFormat(this.language, {
             style: 'currency',
             // pass USD if this is cryptocurrency, otherwise Intl inserts literal
-            currency: (this.isCryptocurrency || this.currencyFormat?.svg) ? 'USD' : _toUpper(this.formatOptions.currency).trim(),
-            currencyDisplay: CurrenciesInfo.containingCountrySymbol.has(this.formatOptions.currency)
+            currency: (this.isCryptocurrency || this.currencyFormat?.svg) ? 'USD' : _toUpper(this.currency).trim(),
+            currencyDisplay: CurrenciesInfo.containingCountrySymbol.has(this.currency)
                 ? 'symbol'
                 : 'narrowSymbol',
             useGrouping: true,
@@ -125,7 +161,7 @@ export class CurrencyModel {
         const chars: readonly number[] = this.currencyFormat[indicatorFormat];
 
         if (!chars) {
-            return _toUpper(this.formatOptions.currency).trim();
+            return _toUpper(this.currency).trim();
         }
 
         return String.fromCharCode(...chars);
@@ -171,7 +207,7 @@ export class CurrencyModel {
         this.icon = {
             svg: this.currencyFormat.svg,
             minusBeforeCurrency: true,
-            placement: this.formatOptions.svgPosition,
+            placement: this.svgPosition,
             name: this.currencyFormat?.name || '',
         };
     }
@@ -188,7 +224,7 @@ export class CurrencyModel {
             minimumFractionDigits,
             maximumFractionDigits,
         ] = _map(
-            _split(this.formatOptions.digitsInfo, '-'),
+            _split(this.digitsInfo, '-'),
             _toInteger,
         );
 

@@ -91,16 +91,27 @@ export class ProviderLinksComponent extends IconListAbstract<Params.IProviderLin
         const merchants: MerchantModel[] = _sortedUniqBy(this.gamesCatalogService.getFilteredMerchants(),
             (item: MerchantModel) => item.alias);
 
-        this.setItemsList<MerchantModel>(merchants, (item) => this.merchantsPaymentsIterator('merchants', {
-            showAs: showIconAs,
-            wlcElement: item.wlcElement,
-            nameForPath: item.alias,
-            alt: item.name,
-            title: gettext('See all games of') + ' ' + item.name,
-            sref: 'app.providers',
-            srefParams: {provider: item.menuId},
-            colorIconBg: colorIconBg,
-        }));
+        this.setItemsList<MerchantModel>(
+            merchants,
+            (item) => {
+                return {
+                    from: {
+                        component: 'ProviderLinksComponent',
+                        method: 'setMerchantsList',
+                    },
+                    icon: this.merchantsPaymentsIterator('merchants', {
+                        showAs: showIconAs,
+                        wlcElement: item.wlcElement,
+                        nameForPath: item.alias,
+                        alt: item.name,
+                        title: gettext('See all games of') + ' ' + item.name,
+                        sref: 'app.providers',
+                        srefParams: {provider: item.menuId},
+                        colorIconBg: colorIconBg,
+                    }),
+                };
+            },
+        );
 
         this.cdr.markForCheck();
     }

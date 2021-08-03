@@ -159,13 +159,24 @@ export class IconListComponent extends IconListAbstract<Params.IIconListCParams>
 
             merchants = this.updateList('merchant', merchants) as MerchantModel[];
 
-            this.setItemsList<MerchantModel>(merchants, (item) => this.merchantsPaymentsIterator(theme, {
-                showAs: showIconAs,
-                wlcElement: item.wlcElement,
-                nameForPath: item.alias,
-                alt: item.name,
-                colorIconBg: colorIconBg,
-            }));
+            this.setItemsList<MerchantModel>(
+                merchants,
+                (item) => {
+                    return {
+                        from: {
+                            component: 'IconListComponent',
+                            method: 'setMerchantsList',
+                        },
+                        icon: this.merchantsPaymentsIterator(theme, {
+                            showAs: showIconAs,
+                            wlcElement: item.wlcElement,
+                            nameForPath: item.alias,
+                            alt: item.name,
+                            colorIconBg: colorIconBg,
+                        }),
+                    };
+                },
+            );
 
             this.cdr.markForCheck();
         });
@@ -185,12 +196,23 @@ export class IconListComponent extends IconListAbstract<Params.IIconListCParams>
 
         payments = this.updateList('payment', payments) as IPaysystem[];
 
-        this.setItemsList<IPaysystem>(payments, (item) => this.merchantsPaymentsIterator(theme, {
-            showAs: showIconAs,
-            wlcElement: 'block_payment-' + this.wlcElementTail(item.Name),
-            nameForPath: item.Name,
-            colorIconBg: colorIconBg,
-        }));
+        this.setItemsList<IPaysystem>(
+            payments,
+            (item) => {
+                return {
+                    from: {
+                        component: 'IconListComponent',
+                        method: 'setPaymentsLst',
+                    },
+                    icon: this.merchantsPaymentsIterator(theme, {
+                        showAs: showIconAs,
+                        wlcElement: 'block_payment-' + this.wlcElementTail(item.Name),
+                        nameForPath: item.Name,
+                        colorIconBg: colorIconBg,
+                    }),
+                };
+            },
+        );
     }
 
     /**
@@ -200,7 +222,18 @@ export class IconListComponent extends IconListAbstract<Params.IIconListCParams>
      **/
     protected setCustomList(): void {
         if (this.$params.items?.length) {
-            this.setItemsList<IIconParams>(this.$params.items, (item) => item);
+            this.setItemsList<IIconParams>(
+                this.$params.items,
+                (item) => {
+                    return {
+                        icon: item,
+                        from: {
+                            component: 'IconListComponent',
+                            method: 'setCustomList',
+                        },
+                    };
+                },
+            );
         } else {
             console.error('[wlc-icon-list] component requires "items" param on the custom theme');
         }
