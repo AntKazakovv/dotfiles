@@ -236,6 +236,7 @@ export interface IGameParams {
     demo: boolean;
     gameId: string;
     lang?: string;
+    returnUrl?: string;
 }
 
 export interface ICustomGameParams {
@@ -250,7 +251,6 @@ export interface ICustomGameParams {
     disableIframeDefaultResize?: boolean;
     disableIframeSelfResize?: boolean;
     minGameWindowHeight?: number;
-    lang?: string;
 }
 
 export interface ILaunchInfo {
