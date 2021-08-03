@@ -1,4 +1,4 @@
-<label for="{{$params.name}}"
+<label for="{{$params.id || $params.name}}"
        *ngIf="$params.labelText"
        class="{{$class}}__label"
        [class.tooltipped]="$params.common?.tooltipText">
@@ -16,7 +16,7 @@
      [ngClass] = "{'field-disabled': control.disabled}"
      (clickOutside)="closeDropdown(); clickedOutside = true">
     <button ngDefaultControl
-            id="{{$params.name}}"
+            id="{{$params.id || $params.name}}"
             [attr.data-wlc-element]="fieldWlcElement"
             class="{{$class}}__field"
             name="{{$params.name}}"

@@ -17,6 +17,7 @@ export type Modifiers = AutoModifiers | CustomMod | null;
 export interface IInputCParams extends IComponentParams<ComponentTheme, ComponentType, string> {
     name: string;
     value?: string;
+    id?: string;
     common: {
         placeholder?: string;
         separateLabel?: string;

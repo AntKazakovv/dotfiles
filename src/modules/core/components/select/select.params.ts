@@ -16,6 +16,7 @@ export type Modifiers = AutoModifiers | CustomMod | null;
 export interface ISelectCParams extends IComponentParams<ComponentTheme, ComponentType, string> {
     name: string;
     value?: string;
+    id?: string;
     common?: {
         placeholder?: string | number;
         customModifiers?: CustomMod;
