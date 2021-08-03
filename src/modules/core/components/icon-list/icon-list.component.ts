@@ -32,7 +32,7 @@ import {
     IIconParams,
 } from 'wlc-engine/modules/core/system/models/icon-list-item.model';
 import {MerchantModel} from 'wlc-engine/modules/games/system/models/merchant.model';
-import {IPaysystem} from 'wlc-engine/modules/core/system/services/config/app-config.model';
+import {IPaysystem} from 'wlc-engine/modules/core/system/interfaces';
 import {IconListAbstract} from 'wlc-engine/modules/core/system/classes/icon-list-abstract.class';
 
 import * as Params from './icon-list.params';
