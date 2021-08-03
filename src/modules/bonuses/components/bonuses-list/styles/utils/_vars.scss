@@ -93,17 +93,6 @@ $themePromoHome: map-merge((
         375: none,
         768: flex,
     ),
-
-    'tagTopPosition': 0,
-    'tagLeftPosition': 0,
-    'tagPadding': (
-        375: ef.size(2),
-    ),
-    'tagBg': ef.get('mainColors', 'main'),
-    'tagMinWidth': 140px,
-    'tagTextAlign': center,
-    'tagBorderRadius': 0 0 ef.size(2) 0,
-    'tagColor': ef.get('mainColors', 'baseMain'),
 ), $customThemePromoHome);
 
 $customThemeActive: () !default;

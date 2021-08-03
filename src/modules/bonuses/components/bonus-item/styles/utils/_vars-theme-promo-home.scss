@@ -51,6 +51,18 @@ $themePromoHome: map-merge((
         1024: ef.size(2) 0 0,
     ),
 
+    'tagTopPosition': 0,
+    'tagLeftPosition': 0,
+    'tagPadding': (
+        375: ef.size(2),
+    ),
+    'tagBg': ef.get('mainColors', 'main'),
+    'tagMinWidth': 140px,
+    'tagTextAlign': center,
+    'tagBorderRadius': 0 0 ef.size(2) 0,
+    'tagTextStyle': 'ThirdTitleBold',
+    'tagColor': ef.get('mainColors', 'baseMain'),
+
     'wrapperGap': (
         375: ef.size(4),
         1024: ef.size(8),
