@@ -17,6 +17,7 @@ import {
     EventService,
     InjectionService,
 } from 'wlc-engine/modules/core/system/services';
+import {IIndexing} from 'wlc-engine/modules/core/system/interfaces';
 import {
     IData,
     RequestParamsType,
@@ -61,7 +62,7 @@ export interface IWinnerData {
 };
 
 
-const defaultParams: {[key: string]: IWinnersParams} = {
+const defaultParams: IIndexing<IWinnersParams> = {
     latestWins: {
         period: 30000,
         params: {
@@ -306,7 +307,7 @@ export class WinnersService {
      */
     protected prepareParams(name: string): IWinnersParams {
         const configParams: IWinnersParams = this.configService
-            .get<IWinnersParams>(`appConfig.$promo.winners.${name}`) || {};
+            .get<IWinnersParams>(`$promo.winners.${name}`) || {};
 
         return _merge({}, defaultParams[name], configParams);
     }

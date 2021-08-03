@@ -22,8 +22,17 @@ import {
     JackpotComponent,
     BannersSliderComponent,
     BannerComponent,
+    IPromoConfig,
 } from 'wlc-engine/modules/promo';
 import {CompilerModule} from 'wlc-engine/modules/compiler';
+import {GlobalHelper} from '../core/system/helpers';
+import {promoConfig} from './system/config/promo.config';
+import * as $config from 'wlc-config/index';
+
+import _get from 'lodash-es/get';
+
+export const moduleConfig =
+    GlobalHelper.mergeConfig<IPromoConfig>(promoConfig, _get($config, '$promo', {}));
 
 export const components = {
     'wlc-banner': BannerComponent,
