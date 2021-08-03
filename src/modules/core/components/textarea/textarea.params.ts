@@ -12,6 +12,7 @@ export type ComponentThemeMod = 'default' | 'feedback-form' | CustomType;
 export interface ITextareaCParams extends IComponentParams<ComponentTheme, ComponentType, ComponentThemeMod> {
     name: string;
     value?: string;
+    id?: string;
     common: {
         placeholder?: string;
         maxlength?: number;

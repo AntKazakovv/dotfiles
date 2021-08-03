@@ -2,7 +2,7 @@
     <ng-container [ngTemplateOutlet]="label"></ng-container>
     <div class="{{$class}}__input">
         <input type="{{$params.common?.type}}"
-               id="{{$params.name}}"
+               id="{{$params.id || $params.name}}"
                [wlc-input-mask]="$any($params.maskOptions)"
                [attr.data-wlc-element]='fieldWlcElement'
                [attr.autocomplete]="$params.common?.autocomplete"
@@ -28,7 +28,7 @@
 
 <ng-template #placeholderShown>
     <input type="{{$params.common?.type}}"
-           id="{{$params.name}}"
+           id="{{$params.id || $params.name}}"
            [wlc-input-mask]="$any($params.maskOptions)"
            placeholder="{{$params.exampleValue || $params.common?.placeholder | translate}}"
            [formControl]="control"
@@ -48,7 +48,7 @@
     >
         <input
             type="{{$params.common?.type}}"
-            id="{{$params.name}}"
+            id="{{$params.id || $params.name}}"
             [value]="$params.value"
             [wlc-input-mask]="$any($params.maskOptions)"
             [readOnly]="$params.common?.readonly"
@@ -84,7 +84,7 @@
 
 <ng-template #label>
     <label *ngIf="$params.common?.useLabel"
-           for="{{$params.name}}"
+           for="{{$params.id || $params.name}}"
            class="{{$class}}__label">
         {{inputLabel | translate}}
         <ng-container *ngIf="isFieldRequired()">*</ng-container>
